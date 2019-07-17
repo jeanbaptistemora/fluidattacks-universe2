@@ -13,7 +13,7 @@ from graphene.types.generic import GenericScalar
 from django.conf import settings
 
 from app import util
-from app.decorators import require_role, require_login, require_project_access_gql
+from app.decorators import require_role, require_login, require_project_access
 from app.domain.project import (
     add_comment, validate_tags, validate_project, get_vulnerabilities,
     get_pending_closing_check, get_max_severity, get_drafts, list_comments
@@ -301,7 +301,7 @@ class AddProjectComment(Mutation):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     def mutate(self, info, **parameters):
         project_name = parameters.get('project_name').lower()
         email = util.get_jwt_content(info.context)["user_email"]
@@ -340,7 +340,7 @@ class RemoveTag(Mutation):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     def mutate(self, info, project_name, tag):
         success = False
         project_name = project_name.lower()
@@ -376,7 +376,7 @@ class AddTags(Mutation):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     def mutate(self, info, project_name, tags):
         success = False
         project_name = project_name.lower()

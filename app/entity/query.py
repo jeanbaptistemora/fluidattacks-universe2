@@ -18,8 +18,8 @@ from app.entity.project import Project
 # pylint: disable=F0401
 from app.decorators import (
     require_login, require_role,
-    require_project_access_gql,
-    require_finding_access_gql, get_cached,
+    require_project_access,
+    require_finding_access, get_cached,
     require_event_access_gql
 )
 from ..dao import integrates_dao
@@ -52,7 +52,7 @@ class Query(ObjectType):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     @get_cached
     def resolve_alert(self, info, project_name=None, organization=None):
         """ Resolve for alert """
@@ -71,7 +71,7 @@ class Query(ObjectType):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     def resolve_events(self, info, project_name=""):
         """ Resolve for eventualities """
         del info
@@ -88,7 +88,7 @@ class Query(ObjectType):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_finding_access_gql
+    @require_finding_access
     @get_cached
     def resolve_finding(self, info, identifier=None):
         """Resolve for finding."""
@@ -103,7 +103,7 @@ class Query(ObjectType):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     def resolve_resources(self, info, project_name):
         """ Resolve for project resources """
         util.cloudwatch_log(info.context, 'Security: Access to \
@@ -112,7 +112,7 @@ class Query(ObjectType):
 
     @require_login
     @require_role(['analyst', 'customeradmin', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     @get_cached
     def resolve_user_data(self, info, project_name, user_email):
         """ Resolve for user data """
@@ -121,7 +121,7 @@ class Query(ObjectType):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     def resolve_project(self, info, project_name):
         """Resolve for projects."""
         util.cloudwatch_log(info.context, 'Security: Access to \

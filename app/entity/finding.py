@@ -12,7 +12,7 @@ from graphene.types.generic import GenericScalar
 from app import util
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
-from app.decorators import require_login, require_role, require_finding_access_gql
+from app.decorators import require_login, require_role, require_finding_access
 from app.dto.finding import (
     FindingDTO, finding_vulnerabilities, has_migrated_evidence, get_project_name,
     format_finding_date
@@ -547,7 +547,7 @@ class UpdateEvidence(Mutation):
 
     @require_login
     @require_role(['analyst', 'admin'])
-    @require_finding_access_gql
+    @require_finding_access
     def mutate(self, info, **parameters):
         success = False
         uploaded_file = info.context.FILES.get('document', '')
@@ -612,7 +612,7 @@ class UpdateEvidenceDescription(Mutation):
 
     @require_login
     @require_role(['analyst', 'admin'])
-    @require_finding_access_gql
+    @require_finding_access
     def mutate(self, info, finding_id, field, description):
         success = False
         try:
@@ -688,7 +688,7 @@ class UpdateSeverity(Mutation):
 
     @require_login
     @require_role(['analyst', 'admin'])
-    @require_finding_access_gql
+    @require_finding_access
     def mutate(self, info, **parameters):
         finding_id = parameters.get('finding_id')
         project = integrates_dao.get_finding_project(finding_id)
@@ -719,7 +719,7 @@ class AddFindingComment(Mutation):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_finding_access_gql
+    @require_finding_access
     def mutate(self, info, **parameters):
         if parameters.get('type') in ['comment', 'observation']:
             user_data = util.get_jwt_content(info.context)
@@ -763,7 +763,7 @@ class VerifyFinding(Mutation):
 
     @require_login
     @require_role(['analyst', 'admin'])
-    @require_finding_access_gql
+    @require_finding_access
     def mutate(self, info, **parameters):
         user_email = util.get_jwt_content(info.context)['user_email']
         success = verify_finding(
@@ -786,7 +786,7 @@ class RequestVerification(Mutation):
 
     @require_login
     @require_role(['customer', 'admin'])
-    @require_finding_access_gql
+    @require_finding_access
     def mutate(self, info, finding_id, justification):
         user_email = util.get_jwt_content(info.context)['user_email']
         success = request_verification(
@@ -835,7 +835,7 @@ class UpdateDescription(Mutation):
 
     @require_login
     @require_role(['analyst', 'admin'])
-    @require_finding_access_gql
+    @require_finding_access
     def mutate(self, info, finding_id, **parameters):
         success = update_description(finding_id, parameters)
         if success:
@@ -866,7 +866,7 @@ class UpdateTreatment(Mutation):
 
     @require_login
     @require_role(['customer', 'admin'])
-    @require_finding_access_gql
+    @require_finding_access
     def mutate(self, info, finding_id, **parameters):
         user_email = util.get_jwt_content(info.context)['user_email']
         project_name = get_project_name(finding_id)
@@ -906,7 +906,7 @@ class DeleteDraft(Mutation):
 
     @require_login
     @require_role(['admin', 'analyst'])
-    @require_finding_access_gql
+    @require_finding_access
     def mutate(self, info, finding_id):
         reviewer_email = util.get_jwt_content(info.context)['user_email']
         try:
@@ -933,7 +933,7 @@ class DeleteFinding(Mutation):
 
     @require_login
     @require_role(['admin', 'analyst'])
-    @require_finding_access_gql
+    @require_finding_access
     def mutate(self, info, finding_id, justification):
         try:
             project_name = get_project_name(finding_id)

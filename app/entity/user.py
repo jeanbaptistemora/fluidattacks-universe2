@@ -12,7 +12,7 @@ from graphql.error import GraphQLError
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
-from ..decorators import require_login, require_role, require_project_access_gql
+from app.decorators import require_login, require_role, require_project_access
 from .. import util
 from ..dao import integrates_dao
 from ..services import is_customeradmin, has_responsibility, has_phone_number
@@ -115,7 +115,7 @@ class GrantUserAccess(Mutation):
 
     @require_login
     @require_role(['customeradmin', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')
         success = False
@@ -230,7 +230,7 @@ class RemoveUserAccess(Mutation):
 
     @require_login
     @require_role(['customeradmin', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     def mutate(self, info, project_name, user_email):
         success = False
 
@@ -270,7 +270,7 @@ class EditUser(Mutation):
 
     @require_login
     @require_role(['customeradmin', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')
         success = False

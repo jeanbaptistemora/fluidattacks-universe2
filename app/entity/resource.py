@@ -13,7 +13,7 @@ from graphene import ObjectType, JSONString, Mutation, String, Boolean, Field
 from __init__ import FI_CLOUDFRONT_RESOURCES_DOMAIN
 from django.conf import settings
 from ..decorators import (
-    require_login, require_role, require_project_access_gql, get_entity_cache
+    require_login, require_role, require_project_access, get_entity_cache
 )
 from .. import util
 from ..dao import integrates_dao
@@ -85,7 +85,7 @@ class AddRepositories(Mutation):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     def mutate(self, info, resources_data, project_name):
         success = False
         json_data = []
@@ -144,7 +144,7 @@ class RemoveRepositories(Mutation):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     def mutate(self, info, repository_data, project_name):
         success = False
         repository = repository_data.get('urlRepo')
@@ -204,7 +204,7 @@ class AddEnvironments(Mutation):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     def mutate(self, info, resources_data, project_name):
         success = False
         json_data = []
@@ -259,7 +259,7 @@ class RemoveEnvironments(Mutation):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     def mutate(self, info, repository_data, project_name):
         success = False
         environment_url = repository_data.get('urlEnv')
@@ -318,7 +318,7 @@ class AddFiles(Mutation):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     def mutate(self, info, **parameters):
         success = False
         json_data = []
@@ -396,7 +396,7 @@ class RemoveFiles(Mutation):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     def mutate(self, info, files_data, project_name):
         success = False
         file_name = files_data.get('fileName')
@@ -449,7 +449,7 @@ class DownloadFile(Mutation):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_project_access_gql
+    @require_project_access
     def mutate(self, info, **parameters):
         success = False
         file_info = parameters['files_data']
