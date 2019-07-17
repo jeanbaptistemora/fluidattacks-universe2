@@ -43,7 +43,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         resp = finding_vulnerabilities(finding_id)
 
         if resp:
-            list_where = set()
             self.id = finding_id  # noqa pylint: disable=invalid-name
             self.project_name = resp.get('projectName')
             self.release_date = resp.get('releaseDate', '')

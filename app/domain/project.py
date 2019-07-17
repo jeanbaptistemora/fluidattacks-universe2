@@ -100,7 +100,6 @@ def get_pending_closing_check(project):
 
 def get_last_closing_vuln(findings):
     """Get day since last vulnerability closing."""
-    last_closing = Decimal(0)
     closing_dates = []
     for fin in findings:
         vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(
