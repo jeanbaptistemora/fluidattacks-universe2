@@ -33,7 +33,8 @@ def _any_to_list(input):
 @notify
 @level('high')
 @track
-def has_mfa_disabled(key_id: str, secret: str) -> bool:
+def has_mfa_disabled(
+        key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Search users with password enabled and without MFA.
 
@@ -45,7 +46,7 @@ def has_mfa_disabled(key_id: str, secret: str) -> bool:
     """
     result = False
     try:
-        users = aws.get_credentials_report(key_id, secret)
+        users = aws.get_credentials_report(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -72,7 +73,8 @@ def has_mfa_disabled(key_id: str, secret: str) -> bool:
 @notify
 @level('medium')
 @track
-def have_old_creds_enabled(key_id: str, secret: str) -> bool:
+def have_old_creds_enabled(
+        key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Find password not used in the last 90 days.
 
@@ -84,7 +86,7 @@ def have_old_creds_enabled(key_id: str, secret: str) -> bool:
     """
     result = False
     try:
-        users = aws.get_credentials_report(key_id, secret)
+        users = aws.get_credentials_report(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -115,7 +117,7 @@ def have_old_creds_enabled(key_id: str, secret: str) -> bool:
 @notify
 @level('medium')
 @track
-def have_old_access_keys(key_id: str, secret: str) -> bool:
+def have_old_access_keys(key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Find access keys not rotated in the last 90 days.
 
@@ -126,7 +128,7 @@ def have_old_access_keys(key_id: str, secret: str) -> bool:
     """
     result = False
     try:
-        users = aws.get_credentials_report(key_id, secret)
+        users = aws.get_credentials_report(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -160,7 +162,7 @@ the last 90 days',
 @notify
 @level('high')
 @track
-def root_has_access_keys(key_id: str, secret: str) -> bool:
+def root_has_access_keys(key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if root account has access keys.
 
@@ -171,7 +173,7 @@ def root_has_access_keys(key_id: str, secret: str) -> bool:
     """
     result = False
     try:
-        users = aws.get_credentials_report(key_id, secret)
+        users = aws.get_credentials_report(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -194,7 +196,8 @@ def root_has_access_keys(key_id: str, secret: str) -> bool:
 @notify
 @level('high')
 @track
-def not_requires_uppercase(key_id: str, secret: str) -> bool:
+def not_requires_uppercase(
+        key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if password policy requires uppercase letters.
 
@@ -206,7 +209,7 @@ def not_requires_uppercase(key_id: str, secret: str) -> bool:
     """
     result = False
     try:
-        policy = aws.get_account_password_policy(key_id, secret)
+        policy = aws.get_account_password_policy(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -229,7 +232,8 @@ def not_requires_uppercase(key_id: str, secret: str) -> bool:
 @notify
 @level('high')
 @track
-def not_requires_lowercase(key_id: str, secret: str) -> bool:
+def not_requires_lowercase(
+        key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if password policy requires lowercase letters.
 
@@ -241,7 +245,7 @@ def not_requires_lowercase(key_id: str, secret: str) -> bool:
     """
     result = False
     try:
-        policy = aws.get_account_password_policy(key_id, secret)
+        policy = aws.get_account_password_policy(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -264,7 +268,7 @@ def not_requires_lowercase(key_id: str, secret: str) -> bool:
 @notify
 @level('high')
 @track
-def not_requires_symbols(key_id: str, secret: str) -> bool:
+def not_requires_symbols(key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if password policy requires symbols.
 
@@ -275,7 +279,7 @@ def not_requires_symbols(key_id: str, secret: str) -> bool:
     """
     result = False
     try:
-        policy = aws.get_account_password_policy(key_id, secret)
+        policy = aws.get_account_password_policy(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -298,7 +302,7 @@ def not_requires_symbols(key_id: str, secret: str) -> bool:
 @notify
 @level('high')
 @track
-def not_requires_numbers(key_id: str, secret: str) -> bool:
+def not_requires_numbers(key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if password policy requires numbers.
 
@@ -309,7 +313,7 @@ def not_requires_numbers(key_id: str, secret: str) -> bool:
     """
     result = False
     try:
-        policy = aws.get_account_password_policy(key_id, secret)
+        policy = aws.get_account_password_policy(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -332,7 +336,8 @@ def not_requires_numbers(key_id: str, secret: str) -> bool:
 @notify
 @level('high')
 @track
-def min_password_len_unsafe(key_id: str, secret: str, min_len=14) -> bool:
+def min_password_len_unsafe(
+        key_id: str, secret: str, min_len=14, retry: bool = True) -> bool:
     """
     Check if password policy requires passwords greater than 14 chars.
 
@@ -345,7 +350,7 @@ def min_password_len_unsafe(key_id: str, secret: str, min_len=14) -> bool:
     """
     result = False
     try:
-        policy = aws.get_account_password_policy(key_id, secret)
+        policy = aws.get_account_password_policy(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -368,7 +373,8 @@ def min_password_len_unsafe(key_id: str, secret: str, min_len=14) -> bool:
 @notify
 @level('medium')
 @track
-def password_reuse_unsafe(key_id: str, secret: str, min_reuse=24) -> bool:
+def password_reuse_unsafe(
+        key_id: str, secret: str, min_reuse=24, retry: bool = True) -> bool:
     """
     Check if password policy avoids reuse of the last 24 passwords.
 
@@ -381,7 +387,7 @@ def password_reuse_unsafe(key_id: str, secret: str, min_reuse=24) -> bool:
     """
     result = False
     try:
-        policy = aws.get_account_password_policy(key_id, secret)
+        policy = aws.get_account_password_policy(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -409,7 +415,8 @@ def password_reuse_unsafe(key_id: str, secret: str, min_reuse=24) -> bool:
 @notify
 @level('medium')
 @track
-def password_expiration_unsafe(key_id: str, secret: str, max_days=90) -> bool:
+def password_expiration_unsafe(
+        key_id: str, secret: str, max_days=90, retry: bool = True) -> bool:
     """
     Check if password policy expires the passwords within 90 days or less.
 
@@ -422,7 +429,7 @@ def password_expiration_unsafe(key_id: str, secret: str, max_days=90) -> bool:
     """
     result = False
     try:
-        policy = aws.get_account_password_policy(key_id, secret)
+        policy = aws.get_account_password_policy(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -450,7 +457,7 @@ def password_expiration_unsafe(key_id: str, secret: str, max_days=90) -> bool:
 @notify
 @level('high')
 @track
-def root_without_mfa(key_id: str, secret: str) -> bool:
+def root_without_mfa(key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if root account does not have MFA.
 
@@ -461,7 +468,7 @@ def root_without_mfa(key_id: str, secret: str) -> bool:
     """
     result = False
     try:
-        summary = aws.get_account_summary(key_id, secret)
+        summary = aws.get_account_summary(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -484,7 +491,8 @@ def root_without_mfa(key_id: str, secret: str) -> bool:
 @notify
 @level('low')
 @track
-def policies_attached_to_users(key_id: str, secret: str) -> bool:
+def policies_attached_to_users(
+        key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if there are policies attached to users.
 
@@ -496,7 +504,7 @@ def policies_attached_to_users(key_id: str, secret: str) -> bool:
     """
     result = False
     try:
-        users = aws.list_users(key_id, secret)
+        users = aws.list_users(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -522,7 +530,8 @@ def policies_attached_to_users(key_id: str, secret: str) -> bool:
 @notify
 @level('medium')
 @track
-def have_full_access_policies(key_id: str, secret: str) -> bool:
+def have_full_access_policies(
+        key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if there are policies that allow full administrative privileges.
 
@@ -534,7 +543,7 @@ def have_full_access_policies(key_id: str, secret: str) -> bool:
     """
     result = False
     try:
-        policies = aws.list_policies(key_id, secret)
+        policies = aws.list_policies(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -566,7 +575,7 @@ def have_full_access_policies(key_id: str, secret: str) -> bool:
 @notify
 @level('low')
 @track
-def has_not_support_role(key_id: str, secret: str) -> bool:
+def has_not_support_role(key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if there are a support role.
 
@@ -578,7 +587,7 @@ def has_not_support_role(key_id: str, secret: str) -> bool:
     """
     result = False
     try:
-        res_policies = aws.list_policies(key_id, secret)
+        res_policies = aws.list_policies(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))

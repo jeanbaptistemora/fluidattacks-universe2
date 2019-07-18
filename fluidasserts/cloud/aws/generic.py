@@ -19,7 +19,8 @@ from fluidasserts.helper import aws
 @notify
 @level('medium')
 @track
-def are_valid_credentials(key_id: str, secret: str) -> bool:
+def are_valid_credentials(
+        key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if given AWS credentials are working.
 
@@ -27,7 +28,7 @@ def are_valid_credentials(key_id: str, secret: str) -> bool:
     :param secret: AWS Key Secret
     """
     try:
-        identity = aws.get_caller_identity(key_id, secret)
+        identity = aws.get_caller_identity(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))

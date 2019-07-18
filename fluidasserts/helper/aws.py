@@ -3,7 +3,9 @@
 """AWS cloud helper."""
 
 # standard imports
-# None
+import time
+import functools
+from typing import Callable, Any
 
 # 3rd party imports
 import boto3
@@ -29,7 +31,25 @@ class ClientErr(botocore.exceptions.BotoCoreError):
     """
 
 
-def get_aws_client(service: str, key_id: str, secret: str) -> object:
+def retry(func: Callable) -> Callable:
+    """Decorator to retry the function if a ConnError/ClientErr is raised."""
+    @functools.wraps(func)
+    def decorated(*args, **kwargs) -> Any:  # noqa
+        """Retry the function if a ConnError/ClientErr is raised."""
+        if kwargs.get('retry'):
+            for _ in range(12):
+                try:
+                    return func(*args, **kwargs)
+                except (ConnError, ClientErr):
+                    # Wait some seconds and retry
+                    time.sleep(5.0)
+        return func(*args, **kwargs)
+    return decorated
+
+
+@retry
+def get_aws_client(
+        service: str, key_id: str, secret: str, retry: bool = True) -> object:
     """
     Get AWS client object.
 
@@ -42,7 +62,8 @@ def get_aws_client(service: str, key_id: str, secret: str) -> object:
                         region_name='us-east-1')
 
 
-def get_caller_identity(key_id: str, secret: str) -> dict:
+@retry
+def get_caller_identity(key_id: str, secret: str, retry: bool = True) -> dict:
     """
     Get caller identity.
 
@@ -61,7 +82,9 @@ def get_caller_identity(key_id: str, secret: str) -> dict:
         raise ClientErr
 
 
-def get_credentials_report(key_id: str, secret: str) -> dict:
+@retry
+def get_credentials_report(
+        key_id: str, secret: str, retry: bool = True) -> dict:
     """
     Get IAM credentials report.
 
@@ -82,7 +105,9 @@ def get_credentials_report(key_id: str, secret: str) -> dict:
         raise ClientErr
 
 
-def get_account_password_policy(key_id: str, secret: str) -> dict:
+@retry
+def get_account_password_policy(
+        key_id: str, secret: str, retry: bool = True) -> dict:
     """
     Get IAM account password policy.
 
@@ -101,7 +126,8 @@ def get_account_password_policy(key_id: str, secret: str) -> dict:
         raise ClientErr
 
 
-def get_account_summary(key_id: str, secret: str) -> dict:
+@retry
+def get_account_summary(key_id: str, secret: str, retry: bool = True) -> dict:
     """
     Get IAM account summary.
 
@@ -120,7 +146,8 @@ def get_account_summary(key_id: str, secret: str) -> dict:
         raise ClientErr
 
 
-def list_users(key_id: str, secret: str) -> dict:
+@retry
+def list_users(key_id: str, secret: str, retry: bool = True) -> dict:
     """
     List IAM users.
 
@@ -139,7 +166,8 @@ def list_users(key_id: str, secret: str) -> dict:
         raise ClientErr
 
 
-def list_policies(key_id: str, secret: str) -> dict:
+@retry
+def list_policies(key_id: str, secret: str, retry: bool = True) -> dict:
     """
     List IAM policies.
 
@@ -158,8 +186,9 @@ def list_policies(key_id: str, secret: str) -> dict:
         raise ClientErr
 
 
+@retry
 def get_policy_version(key_id: str, secret: str,
-                       policy: str, version: str) -> dict:
+                       policy: str, version: str, retry: bool = True) -> dict:
     """
     Get IAM policy versions.
 
@@ -181,7 +210,9 @@ def get_policy_version(key_id: str, secret: str,
         raise ClientErr
 
 
-def list_attached_user_policies(key_id: str, secret: str, user: str) -> dict:
+@retry
+def list_attached_user_policies(
+        key_id: str, secret: str, user: str, retry: bool = True) -> dict:
     """
     List attached user policies.
 
@@ -201,7 +232,9 @@ def list_attached_user_policies(key_id: str, secret: str, user: str) -> dict:
         raise ClientErr
 
 
-def list_entities_for_policy(key_id: str, secret: str, policy: str) -> dict:
+@retry
+def list_entities_for_policy(
+        key_id: str, secret: str, policy: str, retry: bool = True) -> dict:
     """
     List entities attached to policy.
 
@@ -221,7 +254,8 @@ def list_entities_for_policy(key_id: str, secret: str, policy: str) -> dict:
         raise ClientErr
 
 
-def list_trails(key_id: str, secret: str) -> dict:
+@retry
+def list_trails(key_id: str, secret: str, retry: bool = True) -> dict:
     """
     List CLOUDTRAIL trails.
 
@@ -240,7 +274,8 @@ def list_trails(key_id: str, secret: str) -> dict:
         raise ClientErr
 
 
-def list_security_groups(key_id: str, secret: str) -> dict:
+@retry
+def list_security_groups(key_id: str, secret: str, retry: bool = True) -> dict:
     """
     List EC2 security groups.
 
@@ -259,7 +294,8 @@ def list_security_groups(key_id: str, secret: str) -> dict:
         raise ClientErr
 
 
-def list_volumes(key_id: str, secret: str) -> dict:
+@retry
+def list_volumes(key_id: str, secret: str, retry: bool = True) -> dict:
     """
     List EC2 EBS volumes.
 
@@ -278,7 +314,8 @@ def list_volumes(key_id: str, secret: str) -> dict:
         raise ClientErr
 
 
-def list_buckets(key_id: str, secret: str) -> dict:
+@retry
+def list_buckets(key_id: str, secret: str, retry: bool = True) -> dict:
     """
     List S3 buckets.
 
@@ -297,7 +334,9 @@ def list_buckets(key_id: str, secret: str) -> dict:
         raise ClientErr
 
 
-def get_bucket_logging(key_id: str, secret: str, bucket: str) -> dict:
+@retry
+def get_bucket_logging(
+        key_id: str, secret: str, bucket: str, retry: bool = True) -> dict:
     """
     List S3 bucket logging config.
 
@@ -316,7 +355,8 @@ def get_bucket_logging(key_id: str, secret: str, bucket: str) -> dict:
         raise ClientErr
 
 
-def list_db_instances(key_id: str, secret: str) -> dict:
+@retry
+def list_db_instances(key_id: str, secret: str, retry: bool = True) -> dict:
     """
     List RDS DB instances.
 
@@ -335,7 +375,8 @@ def list_db_instances(key_id: str, secret: str) -> dict:
         raise ClientErr
 
 
-def list_clusters(key_id: str, secret: str) -> dict:
+@retry
+def list_clusters(key_id: str, secret: str, retry: bool = True) -> dict:
     """
     List Redshift clusters.
 

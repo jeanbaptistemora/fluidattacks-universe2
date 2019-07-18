@@ -23,7 +23,7 @@ from fluidasserts.helper import aws
 @notify
 @level('high')
 @track
-def has_public_instances(key_id: str, secret: str) -> bool:
+def has_public_instances(key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if RDS DB instances are publicly accessible.
 
@@ -31,7 +31,7 @@ def has_public_instances(key_id: str, secret: str) -> bool:
     :param secret: AWS Key Secret
     """
     try:
-        instances = aws.list_db_instances(key_id, secret)
+        instances = aws.list_db_instances(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))

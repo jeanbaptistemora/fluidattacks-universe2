@@ -23,7 +23,8 @@ from fluidasserts.helper import aws
 @notify
 @level('low')
 @track
-def trails_not_multiregion(key_id: str, secret: str) -> bool:
+def trails_not_multiregion(
+        key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if trails are multiregion.
 
@@ -34,7 +35,7 @@ def trails_not_multiregion(key_id: str, secret: str) -> bool:
     """
     result = False
     try:
-        trails = aws.list_trails(key_id, secret)
+        trails = aws.list_trails(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -61,7 +62,7 @@ def trails_not_multiregion(key_id: str, secret: str) -> bool:
 @notify
 @level('low')
 @track
-def files_not_validated(key_id: str, secret: str) -> bool:
+def files_not_validated(key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if trails are multiregion.
 
@@ -72,7 +73,7 @@ def files_not_validated(key_id: str, secret: str) -> bool:
     """
     result = False
     try:
-        trails = aws.list_trails(key_id, secret)
+        trails = aws.list_trails(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))

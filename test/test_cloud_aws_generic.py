@@ -35,12 +35,14 @@ def test_credencials_valid_open():
 def test_credencials_valid_close():
     """Check credentials valid."""
     assert not generic.are_valid_credentials(AWS_ACCESS_KEY_ID,
-                                             AWS_SECRET_ACCESS_KEY_BAD)
+                                             AWS_SECRET_ACCESS_KEY_BAD,
+                                             retry=False)
 
     os.environ['http_proxy'] = 'https://0.0.0.0:8080'
     os.environ['https_proxy'] = 'https://0.0.0.0:8080'
 
     assert not generic.are_valid_credentials(AWS_ACCESS_KEY_ID,
-                                             AWS_SECRET_ACCESS_KEY)
+                                             AWS_SECRET_ACCESS_KEY,
+                                             retry=False)
     os.environ.pop('http_proxy', None)
     os.environ.pop('https_proxy', None)

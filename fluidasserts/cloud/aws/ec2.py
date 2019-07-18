@@ -23,7 +23,8 @@ from fluidasserts.helper import aws
 @notify
 @level('medium')
 @track
-def seggroup_allows_anyone_to_ssh(key_id: str, secret: str) -> bool:
+def seggroup_allows_anyone_to_ssh(
+        key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if security groups allows connection from anyone to SSH service.
 
@@ -31,7 +32,7 @@ def seggroup_allows_anyone_to_ssh(key_id: str, secret: str) -> bool:
     :param secret: AWS Key Secret
     """
     try:
-        sec_groups = aws.list_security_groups(key_id, secret)
+        sec_groups = aws.list_security_groups(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -69,7 +70,8 @@ from anyone to port 22',
 @notify
 @level('medium')
 @track
-def seggroup_allows_anyone_to_rdp(key_id: str, secret: str) -> bool:
+def seggroup_allows_anyone_to_rdp(
+        key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if security groups allows connection from anyone to RDP service.
 
@@ -77,7 +79,7 @@ def seggroup_allows_anyone_to_rdp(key_id: str, secret: str) -> bool:
     :param secret: AWS Key Secret
     """
     try:
-        sec_groups = aws.list_security_groups(key_id, secret)
+        sec_groups = aws.list_security_groups(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -115,7 +117,8 @@ from anyone to port 3389',
 @notify
 @level('medium')
 @track
-def default_seggroup_allows_all_traffic(key_id: str, secret: str) -> bool:
+def default_seggroup_allows_all_traffic(
+        key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if default security groups allows connection to or from anyone.
 
@@ -123,7 +126,7 @@ def default_seggroup_allows_all_traffic(key_id: str, secret: str) -> bool:
     :param secret: AWS Key Secret
     """
     try:
-        sec_groups = aws.list_security_groups(key_id, secret)
+        sec_groups = aws.list_security_groups(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -161,7 +164,8 @@ to or from anyone',
 @notify
 @level('medium')
 @track
-def has_unencrypted_volumes(key_id: str, secret: str) -> bool:
+def has_unencrypted_volumes(
+        key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if there are unencrypted volumes.
 
@@ -169,7 +173,7 @@ def has_unencrypted_volumes(key_id: str, secret: str) -> bool:
     :param secret: AWS Key Secret
     """
     try:
-        volumes = aws.list_volumes(key_id, secret)
+        volumes = aws.list_volumes(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))

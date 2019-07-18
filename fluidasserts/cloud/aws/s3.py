@@ -23,7 +23,8 @@ from fluidasserts.helper import aws
 @notify
 @level('low')
 @track
-def has_server_access_logging_disabled(key_id: str, secret: str) -> bool:
+def has_server_access_logging_disabled(
+        key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if S3 buckets have server access logging enabled.
 
@@ -31,7 +32,7 @@ def has_server_access_logging_disabled(key_id: str, secret: str) -> bool:
     :param secret: AWS Key Secret
     """
     try:
-        buckets = aws.list_buckets(key_id, secret)
+        buckets = aws.list_buckets(key_id, secret, retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
