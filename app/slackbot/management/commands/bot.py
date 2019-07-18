@@ -80,7 +80,6 @@ def do_list_projects(data):
     try:
         user = data.split(CMD_SEP)[1:][0]
         user = user[user.index('|'):user.index('>')][1:]
-        output = 'None'
         if user.find('\'') >= 0:
             output = SQL_ERROR
         else:
@@ -101,7 +100,6 @@ def do_remove_all_project_access(data):
     """Function remove_all_project_access."""
     try:
         project = data.split(CMD_SEP)[1:][0]
-        output = 'None'
         if project.find('\'') >= 0:
             output = SQL_ERROR
         else:
@@ -124,7 +122,6 @@ def do_add_all_project_access(data):
     """Function add_all_project_acess."""
     try:
         project = data.split(CMD_SEP)[1:][0]
-        output = 'None'
         if project.find('\'') >= 0:
             output = SQL_ERROR
         else:
@@ -182,7 +179,6 @@ def do_invalidate_cache(data):
     """Function invalidate_cache."""
     try:
         pattern = data.split(CMD_SEP)[1:][0]
-        output = 'None'
         regex = r'^\w+$'
         if re.match(regex, pattern):
             util.invalidate_cache(pattern)
@@ -239,7 +235,6 @@ class Command(BaseCommand):
         """Handle given command."""
         command_parsed = ' '.join(command.split()).split(' ')
         if command_parsed[0] in self.COMMANDS_FUNCTIONS:
-            response = 'Running {}'.format(command_parsed)
             LOGGER.info('User %s executed %s', self.get_user_by_id(user),
                         command_parsed)
             response = self.COMMANDS_FUNCTIONS[command_parsed[0]](command)

@@ -85,9 +85,7 @@ def send_unsolved_events_email(project):
                              for x in unsolved_events]
     context = {'project': project.capitalize(),
                'events': events_info_for_email}
-    if not context['events'] or not mail_to:
-        context = []
-    else:
+    if context['events'] and mail_to:
         send_mail_unsolved_events(mail_to, context)
 
 

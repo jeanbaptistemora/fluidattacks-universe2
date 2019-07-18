@@ -64,7 +64,6 @@ def create_project_dao(project=None, description=None):
 VALUES (%s, %s)'
             try:
                 cursor.execute(query, (project, description,))
-                row = cursor.fetchone()
             except OperationalError:
                 rollbar.report_exc_info()
                 return False
@@ -736,7 +735,7 @@ def delete_user(user_id=None):
             except OperationalError:
                 rollbar.report_exc_info()
                 return False
-        return False
+    return False
 
 
 def delete_project(project=None):
@@ -751,7 +750,7 @@ def delete_project(project=None):
             except OperationalError:
                 rollbar.report_exc_info()
                 return False
-        return False
+    return False
 
 
 def get_admins():
