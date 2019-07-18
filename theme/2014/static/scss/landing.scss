@@ -469,6 +469,7 @@ p {
   }
 
   .benefit {
+    min-height: 359px;
     width: 50%;
   }
 
@@ -580,18 +581,6 @@ p {
   .benefits {
     padding: 20px auto;
   }
-
-  .benefit {
-    width: 100%;
-
-    p {
-      margin: 0;
-    }
-
-    h1 {
-      margin: 0;
-    }
-  }
 }
 
 
@@ -611,6 +600,32 @@ p {
     }
   }
 
+}
+
+@media screen and (max-width: 655px) {
+
+  .benefit {
+    min-height: 280px;
+
+    img {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 585px) {
+  .benefit {
+    min-height: 150px;
+    width: 100%;
+
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      margin: 0;
+    }
+  }
 }
 
 @media screen and (max-width: 704px) {
