@@ -5,7 +5,7 @@
 # standard imports
 import os
 import re
-from typing import Callable, Dict, List
+from typing import Callable, Dict, List, Tuple
 from functools import lru_cache
 from itertools import accumulate
 
@@ -13,7 +13,7 @@ from itertools import accumulate
 from pyparsing import ParserElement, ParseException, ParseResults
 
 # local imports
-from fluidasserts import Vuln
+from fluidasserts import Unit
 from fluidasserts.utils.generic import get_sha256
 from fluidasserts.utils.generic import full_paths_in_dir
 
@@ -323,8 +323,7 @@ def _check_grammar_in_file(grammar: ParserElement, code_dest: str,
 
 
 def _check_grammar_in_file2(grammar: ParserElement, code_dest: str,
-                            lang_spec: dict,
-                            positive_search: bool = True) -> List[Vuln]:
+                            lang_spec: dict) -> Tuple[List[Unit], List[Unit]]:
     """
     Check grammar in file.
 
@@ -335,21 +334,21 @@ def _check_grammar_in_file2(grammar: ParserElement, code_dest: str,
     :param exclude: Exclude files or directories with given strings
     :return: Maps files to their found vulnerabilites.
     """
-    result, lines = [], []
     lang_extensions = lang_spec.get('extensions')
 
+    lines = []
     if lang_extensions:
         if _path_match_extension(code_dest, lang_extensions):
             lines = _get_match_lines(grammar, code_dest, lang_spec)
     else:
         lines = _get_match_lines(grammar, code_dest, lang_spec)
-    if (positive_search and lines) or \
-            (not positive_search and not lines):
-        result = [Vuln(where=code_dest,
-                       attribute='lines',
-                       specific=lines,
-                       fingerprint=get_sha256(code_dest))]
-    return result
+
+    results: List[Unit] = [Unit(where=code_dest,
+                                attribute='lines',
+                                specific=lines,
+                                fingerprint=get_sha256(code_dest))]
+
+    return (results, []) if lines else ([], results)
 
 
 def _check_grammar_in_dir(grammar: ParserElement, code_dest: str,
@@ -374,9 +373,11 @@ def _check_grammar_in_dir(grammar: ParserElement, code_dest: str,
     return vulns
 
 
-def _check_grammar_in_dir2(grammar: ParserElement, code_dest: str,
-                           lang_spec: dict, exclude: list = None,
-                           positive_search: bool = True) -> List[Vuln]:
+def _check_grammar_in_dir2(
+        grammar: ParserElement,
+        code_dest: str,
+        lang_spec: dict,
+        exclude: list = None) -> Tuple[List[Unit], List[Unit]]:
     """
     Check grammar in directory.
 
@@ -387,13 +388,17 @@ def _check_grammar_in_dir2(grammar: ParserElement, code_dest: str,
     :param exclude: Exclude files or directories with given strings
     :return: Maps files to their found vulnerabilites.
     """
-    result = []
+    matched, not_matched = [], []
+
     exclude = [] if not exclude else exclude
     for full_path in full_paths_in_dir(code_dest):
         if not any(x in full_path for x in exclude):
-            result.extend(_check_grammar_in_file2(
-                grammar, full_path, lang_spec, positive_search))
-    return result
+            _matched, _not_matched = \
+                _check_grammar_in_file2(grammar, full_path, lang_spec)
+            matched.extend(_matched)
+            not_matched.extend(_not_matched)
+
+    return matched, not_matched
 
 
 def check_grammar(grammar: ParserElement, code_dest: str,
@@ -419,9 +424,10 @@ def check_grammar(grammar: ParserElement, code_dest: str,
     return vulns
 
 
-def check_grammar2(grammar: ParserElement, code_dest: str,
-                   lang_spec: dict, exclude: list = None,
-                   positive_search: bool = True) -> List[Vuln]:
+def check_grammar2(grammar: ParserElement,
+                   code_dest: str,
+                   lang_spec: dict,
+                   exclude: list = None) -> Tuple[List[Unit], List[Unit]]:
     """
     Check grammar in location.
 
@@ -434,7 +440,5 @@ def check_grammar2(grammar: ParserElement, code_dest: str,
     """
     exclude = [] if not exclude else exclude
     if os.path.isdir(code_dest):
-        return _check_grammar_in_dir2(
-            grammar, code_dest, lang_spec, exclude, positive_search)
-    return _check_grammar_in_file2(
-        grammar, code_dest, lang_spec, positive_search)
+        return _check_grammar_in_dir2(grammar, code_dest, lang_spec, exclude)
+    return _check_grammar_in_file2(grammar, code_dest, lang_spec)

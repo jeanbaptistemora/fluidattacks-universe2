@@ -49,11 +49,14 @@ def has_text(code_dest: str, expected_text: str, use_regex: bool = False,
     lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
 
     grammar = Regex(expected_text) if use_regex else Literal(expected_text)
-    vulns = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
+    vulns, safes = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
 
     if vulns:
-        return OPEN, 'Bad text present in code', vulns
-    return CLOSED, 'Bad text not present in code'
+        return OPEN, 'Text is present in code', vulns, safes
+    if safes:
+        return CLOSED, 'Bad text not present in code', vulns, safes
+
+    return CLOSED, 'No files were tested', vulns, safes
 
 
 @track
@@ -80,24 +83,14 @@ def has_not_text(code_dest: str, expected_text: str, use_regex: bool = False,
 
     grammar = Regex(expected_text) if use_regex else Literal(expected_text)
 
-    open_vulns = lang.check_grammar2(
-        grammar, code_dest, lang_specs, exclude, positive_search=False)
+    safes, vulns = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
 
-    if open_vulns:
-        return OPEN, 'Expected text not present in code', open_vulns
+    if vulns:
+        return OPEN, 'Expected text not present in code', vulns, safes
+    if safes:
+        return CLOSED, 'Expected text present in code', vulns, safes
 
-    closed_vulns = lang.check_grammar2(
-        grammar, code_dest, lang_specs, exclude)
-
-    if closed_vulns:
-        closed_vulns = [Safe(where=x.where,
-                             attribute=x.attribute,
-                             specific=x.specific,
-                             fingerprint=x.fingerprint) for x in closed_vulns]
-        return \
-            CLOSED, 'Expected text present in code', open_vulns, closed_vulns
-
-    return OPEN, 'No files has been processed, therefore there is no text'
+    return OPEN, 'No files were tested', vulns, safes
 
 
 @notify
@@ -120,19 +113,23 @@ def has_all_text(code_dest: str, expected_list: list, use_regex: bool = False,
     if not os.path.exists(code_dest):
         return UNKNOWN, 'File does not exist'
 
-    vulns = []
+    vulns, safes = [], []
     lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
 
     for expected in set(expected_list):
         grammar = Regex(expected) if use_regex else Literal(expected)
 
-        __vulns = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
+        _vulns, _safes = \
+            lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
 
-        if not __vulns:
+        if not _vulns:
             return CLOSED, 'Not all expected text was found in code'
-        vulns.extend(__vulns)
+        vulns.extend(_vulns)
+        safes.extend(_safes)
 
-    return OPEN, 'A bad text from list was found in code', vulns
+    if vulns:
+        return OPEN, 'All text from list was found in code', vulns, safes
+    return CLOSED, 'No files were tested', vulns, safes
 
 
 @notify
@@ -162,11 +159,11 @@ def has_any_text(code_dest: str, expected_list: list, use_regex: bool = False,
     else:
         grammar = MatchFirst([Literal(x) for x in set(expected_list)])
 
-    vulns = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
+    vulns, safes = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
 
     if vulns:
-        return OPEN, 'Any of the expected bad text is present in code', vulns
-    return CLOSED, 'None of the expected strings were found in code'
+        return OPEN, 'An expected text is present in code', vulns, safes
+    return CLOSED, 'No expected text was found in code', vulns, safes
 
 
 @notify
@@ -197,11 +194,11 @@ def has_not_any_text(code_dest: str,
     else:
         grammar = MatchFirst([Literal(x) for x in set(expected_list)])
 
-    vulns = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
+    vulns, safes = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
 
     if vulns:
-        return CLOSED, 'Any of the expected texts are present in code'
-    return OPEN, 'None of the expected texts were found in code', vulns
+        return CLOSED, 'Expected text is present in code', vulns, safes
+    return OPEN, 'No expected text was found in code', vulns, safes
 
 
 @notify
@@ -214,8 +211,6 @@ def file_exists(code_file: str) -> Result:
     """
     if os.path.exists(code_file):
         vulns = [Vuln(where=code_file,
-                      attribute='lines',
-                      specific=[0],
                       fingerprint=get_sha256(code_file))]
         return OPEN, 'File exists', vulns
     return CLOSED, 'File does not exist'
@@ -231,8 +226,6 @@ def file_does_not_exist(code_file: str) -> Result:
     """
     if not os.path.exists(code_file):
         vulns = [Vuln(where=code_file,
-                      attribute='lines',
-                      specific=[0],
                       fingerprint=get_sha256(code_file))]
         return OPEN, 'File does not exists', vulns
     return CLOSED, 'File exist'
@@ -249,15 +242,21 @@ def is_file_hash_in_list(path: str, hash_list: List[str]) -> Result:
     """
     if not os.path.exists(path):
         return UNKNOWN, 'File does not exists'
-    vulns: List[Result] = []
+    vulns, safes = [], []
     for full_path in full_paths_in_dir(path):
         fingerprint: str = get_sha256(full_path)
         if fingerprint in hash_list:
             vulns.append(Vuln(where=full_path,
                               fingerprint=fingerprint))
+        else:
+            safes.append(Safe(where=full_path,
+                              fingerprint=fingerprint))
+
     if vulns:
-        return OPEN, 'Path contain files whose hash is in given list', vulns
-    return CLOSED, 'Path does not contain files whose hash is in given list'
+        msg = 'Path contain files whose hash is in given list'
+        return OPEN, msg, vulns, safes
+    msg = 'Path does not contain files whose hash is in given list'
+    return CLOSED, msg, vulns, safes
 
 
 @notify
@@ -281,11 +280,15 @@ def has_weak_cipher(code_dest: str, expected_text: str,
     lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
 
     grammar = Literal(b64encode(expected_text.encode()).decode())
-    vulns = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
+    vulns, safes = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
 
     if vulns:
-        return OPEN, 'Code has confidential data encoded in base64', vulns
-    return CLOSED, 'Code does not have confidential data encoded in base64'
+        msg = 'Code has confidential data encoded in base64'
+        return OPEN, msg, vulns, safes
+    msg = 'No files were tested'
+    if safes:
+        msg = 'Code does not have confidential data encoded in base64'
+    return CLOSED, msg, vulns, safes
 
 
 @notify
@@ -312,10 +315,12 @@ def has_secret(code_dest: str, secret: str, use_regex: bool = False,
 
     grammar = Regex(secret) if use_regex else Literal(secret)
 
-    vulns = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
+    vulns, safes = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
     if vulns:
-        return OPEN, 'Secret found in code', vulns
-    return CLOSED, 'Secret not found in code'
+        return OPEN, 'Secret found in code', vulns, safes
+    if safes:
+        return CLOSED, 'Secret not found in code', vulns, safes
+    return CLOSED, 'No files were tested'
 
 
 @notify
@@ -345,11 +350,15 @@ def has_any_secret(code_dest: str, secrets_list: list, use_regex: bool = False,
     else:
         grammar = MatchFirst([Literal(x) for x in set(secrets_list)])
 
-    vulns = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
+    vulns, safes = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
 
     if vulns:
-        return OPEN, 'Some of the expected secrets are present in code', vulns
-    return CLOSED, 'None of the expected secrets were found in code'
+        msg = 'Some of the expected secrets are present in code'
+        return OPEN, msg, vulns
+    msg = 'No files were tested'
+    if safes:
+        msg = 'None of the expected secrets were found in code'
+    return CLOSED, msg, vulns, safes
 
 
 @notify

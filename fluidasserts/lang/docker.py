@@ -3,30 +3,47 @@
 """This module allows to check vulnerabilities in Dockerfiles."""
 
 # standard imports
-# None
+import os
+from typing import Dict, Any
 
 # 3rd party imports
-from pyparsing import Word, Literal, alphas
+from pyparsing import Regex, Keyword, Optional, Combine, ZeroOrMore
 
 # local imports
+from fluidasserts import Result
+from fluidasserts import OPEN, CLOSED, UNKNOWN
+from fluidasserts import LOW
 from fluidasserts.helper import lang
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts.utils.decorators import api, track
 
-LANGUAGE_SPECS = {
+
+LANGUAGE_SPECS: Dict[str, Any] = {
     'extensions': None,
     'block_comment_start': None,
     'block_comment_end': None,
     'line_comment': ('#',),
-}  # type: dict
+}
 
 
-@notify
-@level('low')
+# Following regex were taken from Docker source code:
+#   https://github.com/docker/distribution/blob/master/reference/regexp.go
+
+D_TAG = Regex(r'[\w][\w.-]{0,127}')
+
+ALPHANUM = Regex(r'[a-zA-Z0-9]+')
+SEPARATOR = Regex(r'(?:[._]|__|[-]*)')
+
+_DOMAIN = Regex(r'(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*))')
+D_DOMAIN = \
+    _DOMAIN + ZeroOrMore('.' + _DOMAIN) + Optional(':' + Regex(r'[0-9]+'))
+
+_NAME = ALPHANUM + ZeroOrMore(SEPARATOR + ALPHANUM)
+D_NAME = Combine(Optional(D_DOMAIN + '/') + _NAME + ZeroOrMore('/' + _NAME))
+
+
+@api(risk=LOW)
 @track
-def not_pinned(file_dest: str, exclude: list = None) -> bool:
+def not_pinned(file_dest: str, exclude: list = None) -> Result:
     """
     Check if the Dockerfile uses a ``FROM:...latest`` (unpinned) base image.
 
@@ -34,26 +51,21 @@ def not_pinned(file_dest: str, exclude: list = None) -> bool:
     :param exclude: Paths that contains any string from this list are ignored.
     :returns: True if unpinned (bad), False if pinned (good).
     """
-    tk_from = Literal('FROM')
-    tk_image = Word(alphas)
-    tk_version = Literal('latest')
+    if not os.path.exists(file_dest):
+        return UNKNOWN, 'File does not exist'
 
-    pinned = tk_from + tk_image + Literal(':') + tk_version
+    pinned = Keyword('FROM') + D_NAME + Optional(':' + D_TAG)
+    pinned.setDefaultWhitespaceChars(' \t\r')
+    pinned.addCondition(
+        # x = ['FROM', 'D_NAME', ':', 'D_TAG']
+        lambda x: len(x) == 2 or (len(x) == 4 and x[3] == 'latest'))
 
-    result = False
-    try:
-        matches = lang.check_grammar(pinned, file_dest,
-                                     LANGUAGE_SPECS, exclude)
-        if not matches:
-            show_close('Dockerfile has pinned base image(s)',
-                       details=dict(code_dest=file_dest))
-            return False
-    except FileNotFoundError:
-        show_unknown('File does not exist', details=dict(code_dest=file_dest))
-        return False
-    else:
-        result = True
-        show_open('Dockerfile uses unpinned base image(s)',
-                  details=dict(file=matches,
-                               total_vulns=len(matches)))
-    return result
+    vulns, safes = \
+        lang.check_grammar2(pinned, file_dest, LANGUAGE_SPECS, exclude)
+
+    if vulns:
+        return OPEN, 'Dockerfile uses unpinned base image(s)', vulns
+    if safes:
+        return CLOSED, 'Dockerfile has pinned base image(s)', vulns, safes
+
+    return CLOSED, 'No files were tested'
