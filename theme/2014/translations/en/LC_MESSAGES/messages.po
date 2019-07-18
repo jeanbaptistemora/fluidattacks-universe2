@@ -805,7 +805,13 @@ msgstr "Vulnerability automation framework"
 
 #: templates/landing.html:84
 msgid "Index-bnft-header"
-msgstr "Why <span>Fluid Attacks</span> is your best choice"
+msgstr "Why <span>Fluid Attacks</span> ?"
+
+#: templates/landing.html:84
+msgid "Index-bnft-text"
+msgstr ""
+"Attacking Web, APIs, mobile apps, Servers, Networks, IoT Devices <br>"
+"SAST - DAST - IAST - SCA - DevSecOps"
 
 #: templates/landing.html:87
 msgid "Index-img-alt-2"
@@ -814,8 +820,9 @@ msgstr "Magnifying glass analysing code"
 #: templates/landing.html:89
 msgid "Index-bnft-1"
 msgstr ""
-"<strong>Maximum strictness:</strong> We attack a system integrally "
-"evaluating its components one by one."
+"<strong>Expert Intelligence + Effective Automation:</strong> "
+" Systems attacked integrally,  with technical rigor, "
+"during the complete development lifecycle, at DevOps speed."
 
 #: templates/landing.html:92
 msgid "Index-img-alt-3"
@@ -824,8 +831,8 @@ msgstr "Closing admiration sign"
 #: templates/landing.html:94
 msgid "Index-bnft-2"
 msgstr ""
-"<strong>Security in the SDLC:</strong> We follow good security practices "
-"from the earliest stages in the development lifecycle."
+"<strong>Specialists in zero days vulnerabilities:</strong> "
+" Zero False Positives.Zero Scapes."
 
 #: templates/landing.html:97
 msgid "Index-img-alt-4"
@@ -833,7 +840,9 @@ msgstr "Graph showing the increase of earnings"
 
 #: templates/landing.html:99
 msgid "Index-bnft-3"
-msgstr "We specialize in finding <strong>zero-day vulnerabilities.</strong>"
+msgstr "<strong>62k+ confirmed vulnerabilities found in 2019: </strong>"
+" Since January 2019, we have found more than 62,000 confirmed vulnerabilities "
+"in our clients' repositories."
 
 #: templates/landing.html:102
 msgid "Index-img-alt-5"
@@ -842,8 +851,9 @@ msgstr "Hand holding a lock sign"
 #: templates/landing.html:104
 msgid "Index-bnft-4"
 msgstr ""
-"We seek a <strong>higher business impact</strong> not only in terms of "
-"technology."
+"<strong>Price based on scope</strong>: "
+" Pricing is based on lines of code analyzed, inputs(entry fields) "
+"and open ports. Forget about charges per hour or staff augmentation!"
 
 #: templates/landing.html:107
 msgid "Index-img-alt-6"
@@ -851,7 +861,9 @@ msgstr "Hand with the thumb up"
 
 #: templates/landing.html:109
 msgid "Index-bnft-5"
-msgstr "We do <strong>security risk hacking only</strong>. All day, all the time."
+msgstr "<strong>Independence: </strong>."
+" We don’t install, maintain, operate or sell other security products. "
+"No hidden agendas, no conflict of interests!"
 
 #: templates/landing.html:113
 msgid "Bnft-footmsg"
