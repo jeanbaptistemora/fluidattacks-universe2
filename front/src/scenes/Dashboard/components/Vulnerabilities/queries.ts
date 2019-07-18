@@ -32,6 +32,18 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
   }
   `;
 
+export const UPDATE_TREATMENT_VULN_MUTATION: DocumentNode = gql`
+  mutation UpdateTreatmentVulnMutation($treatmentsInfo: GenericScalar!,
+                                       $vulnerability: GenericScalar!, ) {
+    updateTreatmentVulnerability(
+      treatmentsInfo: $treatmentsInfo,
+      vulnerability: $vulnerability
+    ){
+      success
+    }
+  }
+  `;
+
 export const DELETE_VULN_MUTATION: DocumentNode = gql`
   mutation DeleteVulnMutation($id: String!, $findingId: String!, ) {
     deleteVulnerability (

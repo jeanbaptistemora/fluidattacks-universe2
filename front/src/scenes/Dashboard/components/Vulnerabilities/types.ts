@@ -4,15 +4,15 @@ export interface IVulnsAttr {
   finding: {
     id: string;
     inputsVulns: Array<{
-      currentState: string; specific: string; treatment: string;
+      currentState: string; id: string; specific: string; treatment: string;
       vulnType: string; where: string;
     }>;
     linesVulns: Array<{
-      currentState: string; specific: string; treatment: string;
+      currentState: string; id: string; specific: string; treatment: string;
       vulnType: string; where: string;
     }>;
     portsVulns: Array<{
-      currentState: string; specific: string; treatment: string;
+      currentState: string; id: string; specific: string; treatment: string;
       vulnType: string; where: string;
     }>;
     releaseDate: string;
@@ -22,6 +22,12 @@ export interface IVulnsAttr {
 
 export interface IDeleteVulnAttr {
   deleteVulnerability: {
+    success: boolean;
+  };
+}
+
+export interface IUpdateVulnTreatment {
+  updateTreatmentVulnerability: {
     success: boolean;
   };
 }
