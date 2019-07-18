@@ -5,7 +5,6 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
   query GetVulnerabilitiesQuery($identifier: String!) {
     finding(identifier: $identifier) {
       id
-      success
       releaseDate
       portsVulns: vulnerabilities(
         vulnType: "ports") {

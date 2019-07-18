@@ -42,7 +42,6 @@ export interface IDescriptionViewProps {
     cweUrl: string;
     description: string;
     detailedSeverity: number;
-    kbUrl: string;
     probability: number;
     recommendation: string;
     releaseDate: string;

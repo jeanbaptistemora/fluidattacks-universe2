@@ -153,8 +153,6 @@ class GraphQLTests(TestCase):
         query = '''{
           finding(identifier: "422286126"){
             id
-            success
-            errorMessage
             vulnerabilities {
                 findingId
                 id

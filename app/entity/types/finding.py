@@ -2,10 +2,9 @@ from graphene import String, ObjectType, Boolean, List, Int, JSONString, Float
 from graphene.types.generic import GenericScalar
 from app.entity.vulnerability import Vulnerability
 
-class FindingType(ObjectType): # noqa pylint: disable=too-many-instance-attributes
-    id = String() # noqa pylint: disable=invalid-name
-    success = Boolean()
-    error_message = String()
+
+class FindingType(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
+    id = String()  # noqa pylint: disable=invalid-name
     state = String()
     vulnerabilities = List(
         Vulnerability,
@@ -36,7 +35,6 @@ class FindingType(ObjectType): # noqa pylint: disable=too-many-instance-attribut
     compromised_records = Int()
     cwe_url = String()
     bts_url = String()
-    kb_url = String()
     treatment = String()
     treatment_manager = String()
     treatment_justification = String()
@@ -63,10 +61,8 @@ class FindingType(ObjectType): # noqa pylint: disable=too-many-instance-attribut
     def __init__(self):
         super(FindingType, self).__init__()
 
-        self.id = '' # noqa pylint: disable=invalid-name
+        self.id = ''  # noqa pylint: disable=invalid-name
         self.vulnerabilities = []
-        self.success = False
-        self.error_message = ''
         self.open_vulnerabilities = 0
         self.closed_vulnerabilities = 0
         self.project_name = ''

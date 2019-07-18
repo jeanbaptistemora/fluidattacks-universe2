@@ -101,7 +101,6 @@ const initialState: IDashboardState = {
       cweUrl: "",
       description: "",
       detailedSeverity: 0,
-      kbUrl: "",
       probability: 0,
       recommendation: "",
       releaseDate: "",

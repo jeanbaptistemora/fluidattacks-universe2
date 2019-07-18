@@ -31,7 +31,6 @@ describe("DescriptionView", () => {
       cweUrl: "http://test.html",
       description: "This is a test description",
       detailedSeverity: 0,
-      kbUrl: "http://test.html",
       probability: 0,
       recommendation: "This is a test recommendation",
       releaseDate: "2018-10-17 00:00:00",

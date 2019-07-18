@@ -29,7 +29,6 @@ export const loadTracking: ThunkActionStructure =
     let gQry: string;
     gQry = `{
       finding(identifier: "${findingId}") {
-        success
         tracking
       }
     }`;
@@ -37,16 +36,12 @@ export const loadTracking: ThunkActionStructure =
     .then((response: AxiosResponse) => {
       const { data } = response.data;
 
-      if (data.finding.success) {
-        dispatch({
-          payload: {
-            closings: data.finding.tracking,
-          },
-          type: actionTypes.LOAD_TRACKING,
-        });
-      } else {
-        msgError(translate.t("proj_alerts.error_textsad"));
-      }
+      dispatch({
+        payload: {
+          closings: data.finding.tracking,
+        },
+        type: actionTypes.LOAD_TRACKING,
+      });
     })
     .catch((error: AxiosError) => {
       if (error.response !== undefined) {

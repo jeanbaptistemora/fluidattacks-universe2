@@ -55,7 +55,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
                 closed_vulnerabilities = \
                     [vuln for vuln in self.vulnerabilities if vuln.current_state == 'closed']
                 self.closed_vulnerabilities = len(closed_vulnerabilities)
-                self.success = True
                 list_where = {vuln.where for vuln in open_vulnerabilities}
                 self.where = u', '.join(list_where).encode('utf-8')
             else:
@@ -63,7 +62,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
                     {'finding_id': self.id, 'vuln_type': 'old',
                      'where': resp.get('where')}
                 self.vulnerabilities = [Vulnerability(vuln_info)]
-                self.success = True
                 self.where = ''
 
             if 'fileRecords' in resp.keys():
@@ -130,7 +128,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.compromised_records = int(resp.get('recordsNumber', '0'))
             self.cwe_url = resp.get('cwe', '')
             self.bts_url = resp.get('externalBts', '')
-            self.kb_url = resp.get('kb', '')
             self.treatment = resp.get('treatment', '')
             self.treatment_manager = resp.get('treatmentManager', '')
             self.treatment_justification = resp.get('treatmentJustification', '')
@@ -149,9 +146,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.is_exploitable = resp.get('exploitable', '') == 'Si'
             self.severity_score = resp.get('severityCvss', '')
             self.report_date = resp.get('reportDate', '')
-        else:
-            self.success = False
-            self.error_message = 'Finding does not exist'
 
     def resolve_id(self, info):
         """Resolve id attribute."""
@@ -162,16 +156,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         """Resolve project_name attribute."""
         del info
         return self.project_name
-
-    def resolve_success(self, info):
-        """Resolve success attribute."""
-        del info
-        return self.success
-
-    def resolve_error_message(self, info):
-        """Resolve error_message attribute."""
-        del info
-        return self.error_message
 
     def resolve_vulnerabilities(self, info, vuln_type='', state=''):
         """Resolve vulnerabilities attribute."""
@@ -410,12 +394,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         """ Resolve bts_url attribute """
         del info
         return self.bts_url
-
-    @require_role(['analyst', 'customer', 'admin'])
-    def resolve_kb_url(self, info):
-        """ Resolve kb_url attribute """
-        del info
-        return self.kb_url
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_treatment(self, info):
@@ -814,7 +792,6 @@ class UpdateDescription(Mutation):
         client_code = String()
         client_project = String()
         cwe = String(required=True)
-        kb_url = String()
         description = String(required=True)
         finding_id = String(required=True)
         probability = Int()

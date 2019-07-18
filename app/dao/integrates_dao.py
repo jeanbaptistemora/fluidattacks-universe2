@@ -1432,18 +1432,14 @@ def add_vulnerability_dynamo(table_name, data):
 def get_vulnerabilities_dynamo(finding_id):
     """Get vulnerabilities of a finding."""
     table = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
-    filter_key = 'finding_id'
-    filtering_exp = Key(filter_key).eq(finding_id)
+    filtering_exp = Key('finding_id').eq(finding_id)
     response = table.query(KeyConditionExpression=filtering_exp)
     items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = table.query(
-                KeyConditionExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
+    while response.get('LastEvaluatedKey'):
+        response = table.query(
+            KeyConditionExpression=filtering_exp,
+            ExclusiveStartKey=response['LastEvaluatedKey'])
+        items += response['Items']
     return items
 
 

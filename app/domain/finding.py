@@ -9,23 +9,22 @@ from time import time
 from decimal import Decimal
 
 import boto3
-import rollbar
 import pytz
+import rollbar
 from backports import csv
 from botocore.exceptions import ClientError
+from django.conf import settings
 from graphql import GraphQLError
 from i18n import t
-from fluidintegrates import settings
 
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET,
     FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
 )
 from app import util
-from app.utils import cvss, forms as forms_utils, notifications
 from app.api.drive import DriveAPI
 from app.api.formstack import FormstackAPI
-from app.dao import integrates_dao
+from app.dao import integrates_dao, finding as finding_dao
 from app.domain.vulnerability import update_vulnerabilities_date
 from app.dto.finding import (
     FindingDTO, get_project_name, migrate_description, migrate_treatment,
@@ -36,6 +35,7 @@ from app.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
     send_mail_accepted_finding, send_mail_delete_draft, send_mail_delete_finding
 )
+from app.utils import cvss, forms as forms_utils, notifications
 
 CLIENT_S3 = boto3.client('s3',
                          aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
@@ -512,13 +512,11 @@ def update_description(finding_id, updated_values):
     updated_values['finding'] = updated_values.get('title')
     updated_values['vulnerability'] = updated_values.get('description')
     updated_values['effect_solution'] = updated_values.get('recommendation')
-    updated_values['kb'] = updated_values.get('kb_url')
     updated_values['records_number'] = str(updated_values.get('records_number'))
     updated_values['id'] = finding_id
     del updated_values['title']
     del updated_values['description']
     del updated_values['recommendation']
-    del updated_values['kb_url']
 
     if updated_values.get('probability') and updated_values.get('severity'):
         if updated_values['severity'] < 0 or updated_values['severity'] > 5:
@@ -934,3 +932,48 @@ def migrate_finding(draft_id, project_name, file_url, release_date, finding_data
     migrate_report_date(finding_data)
     migrate_evidence_description(finding_data)
     return True
+
+
+def get_finding_by_id(finding_id):
+    finding = finding_dao.get_finding_by_id(finding_id)
+    finding = {
+        util.snakecase_to_camelcase(attribute): finding.get(attribute)
+        for attribute in finding
+    }
+
+    if finding:
+        vulns = integrates_dao.get_vulnerabilities_dynamo(finding_id)
+        open_vulns = [vuln for vuln in vulns
+                      if vuln['historic_state'][-1]['state'] == 'open']
+        closed_vulns = [vuln for vuln in vulns
+                        if vuln['historic_state'][-1]['state'] == 'closed']
+        finding['vulnerabilities'] = vulns
+        finding['openVulnerabilities'] = len(open_vulns)
+        finding['closedVulnerabilities'] = len(closed_vulns)
+        finding['state'] = 'open' if open_vulns else 'closed'
+
+        finding['detailedSeverity'] = finding.get('severity', 0)
+        cvss_fields = {
+            '2': ['accessComplexity', 'accessVector', 'authentication',
+                  'availabilityImpact', 'availabilityRequirement',
+                  'collateralDamagePotential', 'confidenceLevel',
+                  'confidentialityImpact', 'confidentialityRequirement',
+                  'exploitability', 'findingDistribution', 'integrityImpact',
+                  'integrityRequirement', 'resolutionLevel'],
+            '3': ['attackComplexity', 'attackVector', 'availabilityImpact',
+                  'availabilityRequirement', 'confidentialityImpact',
+                  'confidentialityRequirement', 'exploitability',
+                  'integrityImpact', 'integrityRequirement',
+                  'modifiedAttackComplexity', 'modifiedAttackVector',
+                  'modifiedAvailabilityImpact', 'modifiedConfidentialityImpact',
+                  'modifiedIntegrityImpact', 'modifiedPrivilegesRequired',
+                  'modifiedUserInteraction', 'modifiedSeverityScope',
+                  'privilegesRequired', 'remediationLevel', 'reportConfidence',
+                  'severityScope', 'userInteraction']
+        }
+
+        finding['severity'] = {
+            item: float(finding[item])
+            for item in cvss_fields[finding['cvssVersion']]
+        }
+    return finding
