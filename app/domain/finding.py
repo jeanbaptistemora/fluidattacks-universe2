@@ -594,9 +594,9 @@ def update_treatment_in_vuln(finding_id, updated_values):
                                                     {'finding_id': finding_id,
                                                      'UUID': vuln['UUID']},
                                                     updated_values)
-        if result_update_treatment:
-            return True
-    return False
+        if not result_update_treatment:
+            return False
+    return True
 
 
 def update_treatment(finding_id, updated_values, user_email):
