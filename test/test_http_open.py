@@ -235,7 +235,7 @@ def test_access_control_allow_origin_open():
 def test_cache_control_open():
     """Header Cache-Control no establecido?."""
     assert http.is_header_cache_control_missing(
-        '%s/cache_control/fail' % (BASE_URL))
+        '%s/cache_control/fail' % (BASE_URL)).is_open()
 
 
 def test_hsts_open():
@@ -397,13 +397,13 @@ def test_http_response_open():
 def test_is_header_x_asp_net_version_present_open():
     """Header X-AspNet-Version establecido?."""
     assert http.is_header_x_asp_net_version_present(
-        '%s/x_aspnet_version/fail' % (BASE_URL))
+        '%s/x_aspnet_version/fail' % (BASE_URL)).is_open()
 
 
 def test_is_header_x_powered_by_present_open():
     """Header X-Powered-By establecido?."""
     assert http.is_header_x_powered_by_present(
-        '%s/x_powered_by/fail' % (BASE_URL))
+        '%s/x_powered_by/fail' % (BASE_URL)).is_open()
 
 
 def test_is_not_https_required_open():

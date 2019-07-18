@@ -19,10 +19,13 @@ import requests
 # local imports
 from fluidasserts.helper import banner
 from fluidasserts.helper import http
+from fluidasserts import Result
+from fluidasserts import OPEN, CLOSED, UNKNOWN
+from fluidasserts import LOW
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts.utils.decorators import track, level, notify, api
 
 # pylint: disable=too-many-lines
 
@@ -244,6 +247,34 @@ def _has_method(url: str, method: str, *args, **kwargs) -> bool:
                    details=dict(url=url))
         result = False
     return result
+
+
+def _is_header_present(url: str, header: str, *args, **kwargs) -> Result:
+    """
+    Check if header is present in URL.
+
+    :param url: URL to test.
+    :param header: Header to test if present.
+    """
+    http_session = http.HTTPSession(url, *args, **kwargs)
+    headers_info = http_session.response.headers
+    return header in headers_info
+
+
+def _has_insecure_value(url: str, header: str, *args, **kwargs) -> bool:
+    """
+    Check if header value is the.
+
+    :param url: URL to test.
+    :param header: Header to test if present.
+    """
+    expected = HDR_RGX[header.lower()]
+    http_session = http.HTTPSession(url, *args, **kwargs)
+    headers_info = http_session.response.headers
+    if header in headers_info:
+        value = headers_info[header]
+        return not re.match(expected, value, re.IGNORECASE)
+    return None
 
 
 # pylint: disable=too-many-branches
@@ -525,10 +556,9 @@ def has_not_text(url: str, expected_text: str, *args, **kwargs) -> bool:
         return False
 
 
-@notify
-@level('low')
 @track
-def is_header_x_asp_net_version_present(url: str, *args, **kwargs) -> bool:
+@api(risk=LOW)
+def is_header_x_asp_net_version_present(url: str, *args, **kwargs) -> Result:
     r"""
     Check if X-AspNet-Version header is missing.
 
@@ -536,13 +566,20 @@ def is_header_x_asp_net_version_present(url: str, *args, **kwargs) -> bool:
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'X-AspNet-Version', *args, **kwargs)
+    header = 'X-AspNet-Version'
+    try:
+        if _is_header_present(url, header, *args, **kwargs):
+            return OPEN, f'Insecure header {header} is present'
+        return CLOSED, f'Insecure header {header} is not present'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@notify
-@level('low')
 @track
-def is_header_x_powered_by_present(url: str, *args, **kwargs) -> bool:
+@api(risk=LOW)
+def is_header_x_powered_by_present(url: str, *args, **kwargs) -> Result:
     r"""
     Check if X-Powered-By header is missing.
 
@@ -550,7 +587,15 @@ def is_header_x_powered_by_present(url: str, *args, **kwargs) -> bool:
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'X-Powered-By', *args, **kwargs)
+    header = 'X-Powered-By'
+    try:
+        if _is_header_present(url, header, *args, **kwargs):
+            return OPEN, f'Insecure header {header} is present'
+        return CLOSED, f'Insecure header {header} is not present'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
 @notify
@@ -569,10 +614,9 @@ def is_header_access_control_allow_origin_missing(url: str,
                                 *args, **kwargs)
 
 
-@notify
-@level('low')
 @track
-def is_header_cache_control_missing(url: str, *args, **kwargs) -> bool:
+@api(risk=LOW)
+def is_header_cache_control_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if Cache-Control HTTP header is properly set.
 
@@ -580,7 +624,17 @@ def is_header_cache_control_missing(url: str, *args, **kwargs) -> bool:
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'Cache-Control', *args, **kwargs)
+    header = 'Cache-Control'
+    try:
+        ret = _has_insecure_value(url, header, *args, **kwargs)
+        print(ret)
+        if ret:
+            return OPEN, f'Header {header} has insecure value'
+        return CLOSED, f'Header {header} has a secure value'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
 @notify

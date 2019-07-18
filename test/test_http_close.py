@@ -309,12 +309,12 @@ def test_access_control_allow_origin_close():
 
 def test_cache_control_close():
     """Header Cache-Control establecido?."""
-    assert not http.is_header_cache_control_missing(
-        '%s/cache_control/ok' % (BASE_URL))
-    assert not http.is_header_cache_control_missing(
-        '%s/cache_control/ok' % (NONEXISTANT_SERVICE))
-    assert not http.is_header_cache_control_missing(
-        '%s/cache_control/ok' % (BAD_FORMAT_SERVICE))
+    assert http.is_header_cache_control_missing(
+        '%s/cache_control/ok' % (BASE_URL)).is_closed()
+    assert http.is_header_cache_control_missing(
+        '%s/cache_control/ok' % (NONEXISTANT_SERVICE)).is_unknown()
+    assert http.is_header_cache_control_missing(
+        '%s/cache_control/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
 
 
 def test_hsts_close():
@@ -520,22 +520,22 @@ def test_http_response_close():
 
 def test_is_header_x_asp_net_version_present_close():
     """Header X-AspNet-Version establecido?."""
-    assert not http.is_header_x_asp_net_version_present(
-        '%s/x_aspnet_version/ok' % (BASE_URL))
-    assert not http.is_header_x_asp_net_version_present(
-        '%s/x_aspnet_version/ok' % (NONEXISTANT_SERVICE))
-    assert not http.is_header_x_asp_net_version_present(
-        '%s/x_aspnet_version/ok' % (BAD_FORMAT_SERVICE))
+    assert http.is_header_x_asp_net_version_present(
+        '%s/x_aspnet_version/ok' % (BASE_URL)).is_closed()
+    assert http.is_header_x_asp_net_version_present(
+        '%s/x_aspnet_version/ok' % (NONEXISTANT_SERVICE)).is_unknown()
+    assert http.is_header_x_asp_net_version_present(
+        '%s/x_aspnet_version/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
 
 
 def test_is_header_x_powered_by_present_close():
     """Header X-Powered-By establecido?."""
-    assert not http.is_header_x_powered_by_present(
-        '%s/x_powered_by/ok' % (BASE_URL))
-    assert not http.is_header_x_powered_by_present(
-        '%s/x_powered_by/ok' % (NONEXISTANT_SERVICE))
-    assert not http.is_header_x_powered_by_present(
-        '%s/x_powered_by/ok' % (BAD_FORMAT_SERVICE))
+    assert http.is_header_x_powered_by_present(
+        '%s/x_powered_by/ok' % (BASE_URL)).is_closed()
+    assert http.is_header_x_powered_by_present(
+        '%s/x_powered_by/ok' % (NONEXISTANT_SERVICE)).is_unknown()
+    assert http.is_header_x_powered_by_present(
+        '%s/x_powered_by/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
 
 
 def test_is_version_visible_close():
