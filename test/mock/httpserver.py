@@ -215,6 +215,14 @@ def pragma_fail():
     return resp
 
 
+@APP.route('/http/headers/pragma/ok')
+def pragma_ok():
+    """Header para Control de Cache bien establecido."""
+    resp = Response('Pragma OK')
+    resp.headers['Pragma'] = ('no-cache')
+    return resp
+
+
 @APP.route('/http/headers/cache_control/fail')
 def cache_control_fail():
     """Header para Control de Cache mal establecido."""
@@ -228,12 +236,11 @@ def content_security_policy_ok():
     """Header para politica de contenido bien establecida."""
     resp = Response('content-security-policy OK')
     resp.headers[
-        'content-security-policy'] = ('private, no-cache, no-store, '
-                                      'max-age=0, no-transform')
+        'Content-Security-Policy'] = "default-src 'self' *.trusted.com"
     return resp
 
 
-@APP.route('/http/headers/content_security_policy/ok')
+@APP.route('/http/headers/content_security_policy/fail')
 def content_security_policy_fail():
     """Header para politica de contenido mal establecida."""
     resp = Response('Content-Security-Policy FAIL')
@@ -245,7 +252,7 @@ def content_security_policy_fail():
 def content_type_ok():
     """Header que define bien el tipo de contenido."""
     resp = Response('Content-Type OK')
-    resp.headers['Content-Type'] = 'APPlication/json'
+    resp.headers['Content-Type'] = 'application/json; charset=utf-8'
     return resp
 
 
@@ -253,7 +260,7 @@ def content_type_ok():
 def content_type_fail():
     """Header que define mal el tipo de contenido."""
     resp = Response('Content-Type FAIL')
-    resp.headers['Content-Type'] = 'Fail'
+    resp.headers['Content-Type'] = 'application/json'
     return resp
 
 

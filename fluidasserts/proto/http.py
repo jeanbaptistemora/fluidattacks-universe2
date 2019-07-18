@@ -21,7 +21,7 @@ from fluidasserts.helper import banner
 from fluidasserts.helper import http
 from fluidasserts import Result
 from fluidasserts import OPEN, CLOSED, UNKNOWN
-from fluidasserts import LOW
+from fluidasserts import LOW, MEDIUM
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
@@ -332,22 +332,6 @@ def _has_insecure_header(url: str, header: str,     # noqa
 
     result = True
 
-    if header in ('X-AspNet-Version', 'Server', 'X-Powered-By'):
-        if header in headers_info:
-            value = headers_info[header]
-            show_open('{} HTTP insecure header present'.
-                      format(header),
-                      details=dict(url=url, header=header, value=value,
-                                   fingerprint=fingerprint))
-            result = True
-        else:
-            show_close('{} HTTP insecure header not present'.
-                       format(header),
-                       details=dict(url=url, header=header,
-                                    fingerprint=fingerprint))
-            result = False
-        return result
-
     if header == 'Strict-Transport-Security':
         value = headers_info.get(header)
         if value:
@@ -376,27 +360,6 @@ def _has_insecure_header(url: str, header: str,     # noqa
                       details=dict(url=url, header=header,
                                    fingerprint=fingerprint))
             result = True
-        return result
-
-    if header in headers_info:
-        value = headers_info[header]
-        if re.match(HDR_RGX[header.lower()], value, re.IGNORECASE):
-            show_close('HTTP header {} is secure'.format(header),
-                       details=dict(url=url, header=header, value=value,
-                                    fingerprint=fingerprint))
-            result = False
-        else:
-            show_open('{} HTTP header is insecure'.
-                      format(header),
-                      details=dict(url=url, header=header, value=value,
-                                   fingerprint=fingerprint))
-            result = True
-    else:
-        show_open(f'{header} HTTP header not present',
-                  details=dict(url=url, header=header,
-                               fingerprint=fingerprint))
-        result = True
-
     return result
 
 
@@ -626,9 +589,7 @@ def is_header_cache_control_missing(url: str, *args, **kwargs) -> Result:
     """
     header = 'Cache-Control'
     try:
-        ret = _has_insecure_value(url, header, *args, **kwargs)
-        print(ret)
-        if ret:
+        if _has_insecure_value(url, header, *args, **kwargs):
             return OPEN, f'Header {header} has insecure value'
         return CLOSED, f'Header {header} has a secure value'
     except http.ConnError as exc:
@@ -637,11 +598,10 @@ def is_header_cache_control_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@notify
-@level('medium')
 @track
+@api(risk=MEDIUM)
 def is_header_content_security_policy_missing(url: str,
-                                              *args, **kwargs) -> bool:
+                                              *args, **kwargs) -> Result:
     r"""
     Check if Content-Security-Policy HTTP header is properly set.
 
@@ -649,14 +609,20 @@ def is_header_content_security_policy_missing(url: str,
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'Content-Security-Policy',
-                                *args, **kwargs)
+    header = 'Content-Security-Policy'
+    try:
+        if _has_insecure_value(url, header, *args, **kwargs):
+            return OPEN, f'Header {header} has insecure value'
+        return CLOSED, f'Header {header} has a secure value'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@notify
-@level('low')
 @track
-def is_header_content_type_missing(url: str, *args, **kwargs) -> bool:
+@api(risk=LOW)
+def is_header_content_type_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if Content-Type HTTP header is properly set.
 
@@ -664,13 +630,20 @@ def is_header_content_type_missing(url: str, *args, **kwargs) -> bool:
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'Content-Type', *args, **kwargs)
+    header = 'Content-Type'
+    try:
+        if _has_insecure_value(url, header, *args, **kwargs):
+            return OPEN, f'Header {header} has insecure value'
+        return CLOSED, f'Header {header} has a secure value'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@notify
-@level('low')
 @track
-def is_header_expires_missing(url: str, *args, **kwargs) -> bool:
+@api(risk=LOW)
+def is_header_expires_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if Expires HTTP header is properly set.
 
@@ -678,13 +651,20 @@ def is_header_expires_missing(url: str, *args, **kwargs) -> bool:
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'Expires', *args, **kwargs)
+    header = 'Expires'
+    try:
+        if _has_insecure_value(url, header, *args, **kwargs):
+            return OPEN, f'Header {header} has insecure value'
+        return CLOSED, f'Header {header} has a secure value'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@notify
-@level('low')
 @track
-def is_header_pragma_missing(url: str, *args, **kwargs) -> bool:
+@api(risk=LOW)
+def is_header_pragma_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if Pragma HTTP header is properly set.
 
@@ -692,13 +672,22 @@ def is_header_pragma_missing(url: str, *args, **kwargs) -> bool:
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'Pragma', *args, **kwargs)
+    header = 'Pragma'
+    try:
+        if not _is_header_present(url, header, *args, **kwargs):
+            return OPEN, f'Header {header} not present'
+        if _has_insecure_value(url, header, *args, **kwargs):
+            return OPEN, f'Header {header} has insecure value'
+        return CLOSED, f'Header {header} has a secure value'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@notify
-@level('low')
 @track
-def is_header_server_present(url: str, *args, **kwargs) -> bool:
+@api(risk=LOW)
+def is_header_server_present(url: str, *args, **kwargs) -> Result:
     r"""
     Check if Server HTTP header is properly set.
 
@@ -706,14 +695,21 @@ def is_header_server_present(url: str, *args, **kwargs) -> bool:
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'Server', *args, **kwargs)
+    header = 'Server'
+    try:
+        if _is_header_present(url, header, *args, **kwargs):
+            return OPEN, f'Insecure header {header} is present'
+        return CLOSED, f'Insecure header {header} is not present'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@notify
-@level('low')
 @track
+@api(risk=LOW)
 def is_header_x_content_type_options_missing(url: str, *args,
-                                             **kwargs) -> bool:
+                                             **kwargs) -> Result:
     r"""
     Check if X-Content-Type-Options HTTP header is properly set.
 
@@ -721,14 +717,20 @@ def is_header_x_content_type_options_missing(url: str, *args,
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'X-Content-Type-Options',
-                                *args, **kwargs)
+    header = 'X-Content-Type-Options'
+    try:
+        if _has_insecure_value(url, header, *args, **kwargs):
+            return OPEN, f'Header {header} has insecure value'
+        return CLOSED, f'Header {header} has a secure value'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@notify
-@level('medium')
 @track
-def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> bool:
+@api(risk=MEDIUM)
+def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if X-Frame-Options HTTP header is properly set.
 
@@ -736,28 +738,41 @@ def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> bool:
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'X-Frame-Options', *args, **kwargs)
+    header = 'X-Frame-Options'
+    try:
+        if _has_insecure_value(url, header, *args, **kwargs):
+            return OPEN, f'Header {header} has insecure value'
+        return CLOSED, f'Header {header} has a secure value'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@notify
-@level('medium')
 @track
-def is_header_perm_cross_dom_pol_missing(url: str, *args, **kwargs) -> bool:
+@api(risk=MEDIUM)
+def is_header_perm_cross_dom_pol_missing(url: str, *args, **kwargs) -> Result:
     r"""
-    Check if Permitted-Cross-Domain-Policies HTTP header is properly set.
+    Check if X-Permitted-Cross-Domain-Policies HTTP header is properly set.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'X-Permitted-Cross-Domain-Policies',
-                                *args, **kwargs)
+    header = 'X-Permitted-Cross-Domain-Policies'
+    try:
+        if _has_insecure_value(url, header, *args, **kwargs):
+            return OPEN, f'Header {header} has insecure value'
+        return CLOSED, f'Header {header} has a secure value'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@notify
-@level('medium')
 @track
-def is_header_x_xxs_protection_missing(url: str, *args, **kwargs) -> bool:
+@api(risk=MEDIUM)
+def is_header_x_xxs_protection_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if X-XSS-Protection HTTP header is properly set.
 
@@ -765,7 +780,15 @@ def is_header_x_xxs_protection_missing(url: str, *args, **kwargs) -> bool:
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'X-XSS-Protection', *args, **kwargs)
+    header = 'X-XSS-Protection'
+    try:
+        if _has_insecure_value(url, header, *args, **kwargs):
+            return OPEN, f'Header {header} has insecure value'
+        return CLOSED, f'Header {header} has a secure value'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
 @notify
@@ -783,10 +806,9 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> bool:
                                 *args, **kwargs)
 
 
-@notify
-@level('medium')
 @track
-def is_basic_auth_enabled(url: str, *args, **kwargs) -> bool:
+@api(risk=MEDIUM)
+def is_basic_auth_enabled(url: str, *args, **kwargs) -> Result:
     r"""
     Check if BASIC authentication is enabled.
 
@@ -795,9 +817,16 @@ def is_basic_auth_enabled(url: str, *args, **kwargs) -> bool:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
     if url.startswith('https'):
-        show_close('URL uses HTTPS', details=dict(url=url))
-        return False
-    return _has_insecure_header(url, 'WWW-Authenticate', *args, **kwargs)
+        return CLOSED, f'URL uses HTTPS: {url}'
+    header = 'WWW-Authenticate'
+    try:
+        if _has_insecure_value(url, header, *args, **kwargs):
+            return OPEN, f'Header {header} has insecure value'
+        return CLOSED, f'Header {header} has a secure value'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
 @notify

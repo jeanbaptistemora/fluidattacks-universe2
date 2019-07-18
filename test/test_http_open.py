@@ -245,9 +245,9 @@ def test_hsts_open():
     assert http.is_header_hsts_missing(f'{BASE_URL}/hsts/fail/3')
 
 
-def test_is_header_pragma_missing_open():
-    """Header Strict-Transport-Security no establecido?."""
-    assert http.is_header_pragma_missing(f'{BASE_URL}/pragma/fail')
+def test_pragma_open():
+    """Check Pragma header."""
+    assert http.is_header_pragma_missing(f'{BASE_URL}/pragma/fail').is_open()
 
 
 def test_has_multiple_text_open():
@@ -261,7 +261,7 @@ def test_has_multiple_text_open():
 def test_basic_open():
     """Auth BASIC habilitado?."""
     assert http.is_basic_auth_enabled(
-        '%s/basic/fail' % (BASE_URL))
+        '%s/basic/fail' % (BASE_URL)).is_open()
 
 
 def test_notfound_string_open():
@@ -421,13 +421,31 @@ def test_is_header_server_present_open():
 def test_is_header_x_xxs_protection_missing_open():
     """Header x-xss-protection establecido?."""
     assert http.is_header_x_xxs_protection_missing(
-        '%s/xxs_protection/fail' % (BASE_URL))
+        '%s/xxs_protection/fail' % (BASE_URL)).is_open()
+
+
+def test_expires_open():
+    """Check Expires header."""
+    assert http.is_header_expires_missing(
+        '%s/expires/fail' % (BASE_URL)).is_open()
+
+
+def test_content_security_policy_missing_open():
+    """Check Content-Security-Policy header."""
+    assert http.is_header_content_security_policy_missing(
+        '%s/content_security_policy/fail' % (BASE_URL)).is_open()
+
+
+def test_content_type_open():
+    """Check Content-Type header."""
+    assert http.is_header_content_type_missing(
+        '%s/content_type/fail' % (BASE_URL)).is_open()
 
 
 def test_is_header_perm_cross_dom_pol_missing_open():
     """Header cross-domain-policy establecido?."""
     assert http.is_header_perm_cross_dom_pol_missing(
-        '%s/perm_cross_dom_pol/fail' % (BASE_URL))
+        '%s/perm_cross_dom_pol/fail' % (BASE_URL)).is_open()
 
 
 def test_has_clear_viewstate_open():

@@ -317,6 +317,16 @@ def test_cache_control_close():
         '%s/cache_control/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
 
 
+def test_pragma_close():
+    """Check Pragma header."""
+    assert http.is_header_pragma_missing(
+        '%s/pragma/ok' % (BASE_URL)).is_closed()
+    assert http.is_header_pragma_missing(
+        '%s/pragma/ok' % (NONEXISTANT_SERVICE)).is_unknown()
+    assert http.is_header_pragma_missing(
+        '%s/pragma/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
+
+
 def test_hsts_close():
     """Header Strict-Transport-Security establecido?."""
     assert not http.is_header_hsts_missing(f'{BASE_URL}/hsts/ok/1')
@@ -329,9 +339,11 @@ def test_hsts_close():
 
 def test_basic_close():
     """Auth BASIC no habilitado?."""
-    assert not http.is_basic_auth_enabled(f'{BASE_URL}/basic/ok')
-    assert not http.is_basic_auth_enabled(f'{NONEXISTANT_SERVICE}/basic/ok')
-    assert not http.is_basic_auth_enabled(f'{BAD_FORMAT_SERVICE}/basic/ok')
+    assert http.is_basic_auth_enabled(f'{BASE_URL}/basic/ok').is_closed()
+    assert http.is_basic_auth_enabled(
+        f'{NONEXISTANT_SERVICE}/basic/ok').is_unknown()
+    assert http.is_basic_auth_enabled(
+        f'{BAD_FORMAT_SERVICE}/basic/ok').is_unknown()
 
     # this URL does not exist, but HTTPS is not vulnerable
     # it's just for testing purposes
@@ -529,13 +541,43 @@ def test_is_header_x_asp_net_version_present_close():
 
 
 def test_is_header_x_powered_by_present_close():
-    """Header X-Powered-By establecido?."""
+    """Check X-Powered-By header."""
     assert http.is_header_x_powered_by_present(
         '%s/x_powered_by/ok' % (BASE_URL)).is_closed()
     assert http.is_header_x_powered_by_present(
         '%s/x_powered_by/ok' % (NONEXISTANT_SERVICE)).is_unknown()
     assert http.is_header_x_powered_by_present(
         '%s/x_powered_by/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
+
+
+def test_expires_close():
+    """Check Expires header."""
+    assert http.is_header_expires_missing(
+        '%s/expires/ok' % (BASE_URL)).is_closed()
+    assert http.is_header_expires_missing(
+        '%s/expires/ok' % (NONEXISTANT_SERVICE)).is_unknown()
+    assert http.is_header_expires_missing(
+        '%s/expires/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
+
+
+def test_content_type_close():
+    """Check Content-Type header."""
+    assert http.is_header_content_type_missing(
+        '%s/content_type/ok' % (BASE_URL)).is_closed()
+    assert http.is_header_content_type_missing(
+        '%s/content_type/ok' % (NONEXISTANT_SERVICE)).is_unknown()
+    assert http.is_header_content_type_missing(
+        '%s/content_type/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
+
+
+def test_content_security_policy_missing_close():
+    """Check Content-Security-Policy header."""
+    assert http.is_header_content_security_policy_missing(
+        '%s/content_security_policy/ok' % (BASE_URL)).is_closed()
+    assert http.is_header_content_security_policy_missing(
+        '%s/content_security_policy/ok' % (NONEXISTANT_SERVICE)).is_unknown()
+    assert http.is_header_content_security_policy_missing(
+        '%s/content_security_policy/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
 
 
 def test_is_version_visible_close():
@@ -547,22 +589,22 @@ def test_is_version_visible_close():
 
 def test_is_header_x_xxs_protection_missing_close():
     """Header x-xss-protection establecido?."""
-    assert not http.is_header_x_xxs_protection_missing(
-        '%s/xxs_protection/ok' % (BASE_URL))
-    assert not http.is_header_x_xxs_protection_missing(
-        '%s/xxs_protection/ok' % (NONEXISTANT_SERVICE))
-    assert not http.is_header_x_xxs_protection_missing(
-        '%s/xxs_protection/ok' % (BAD_FORMAT_SERVICE))
+    assert http.is_header_x_xxs_protection_missing(
+        '%s/xxs_protection/ok' % (BASE_URL)).is_closed()
+    assert http.is_header_x_xxs_protection_missing(
+        '%s/xxs_protection/ok' % (NONEXISTANT_SERVICE)).is_unknown()
+    assert http.is_header_x_xxs_protection_missing(
+        '%s/xxs_protection/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
 
 
 def test_is_header_perm_cross_dom_pol_missing_close():
     """Header cross-domain-policy establecido?."""
-    assert not http.is_header_perm_cross_dom_pol_missing(
-        '%s/perm_cross_dom_pol/ok' % (BASE_URL))
-    assert not http.is_header_perm_cross_dom_pol_missing(
-        '%s/perm_cross_dom_pol/ok' % (NONEXISTANT_SERVICE))
-    assert not http.is_header_perm_cross_dom_pol_missing(
-        '%s/perm_cross_dom_pol/ok' % (BAD_FORMAT_SERVICE))
+    assert http.is_header_perm_cross_dom_pol_missing(
+        '%s/perm_cross_dom_pol/ok' % (BASE_URL)).is_closed()
+    assert http.is_header_perm_cross_dom_pol_missing(
+        '%s/perm_cross_dom_pol/ok' % (NONEXISTANT_SERVICE)).is_unknown()
+    assert http.is_header_perm_cross_dom_pol_missing(
+        '%s/perm_cross_dom_pol/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
 
 
 def test_has_clear_viewstate_close():
