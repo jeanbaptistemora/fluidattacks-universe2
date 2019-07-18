@@ -201,8 +201,10 @@ test-front:
       - front/coverage.lcov
     expire_in: 1 week
   only:
-    - /^.*$/
+    - branches
     - merge_requests
+  except:
+    - master
 
 test-mobile:
   stage: pre-test
@@ -246,26 +248,17 @@ test-unit:
       - coverage.xml
     expire_in: 1 week
   only:
-    - /^.*$/
+    - branches
     - merge_requests
+  except:
+    - master
 
 build-terraform:
   stage: build
   image: registry.gitlab.com/fluidsignal/serves:builder
   <<: *vault_login
   script:
-    - export AWS_ACCESS_KEY_ID="$(
-        vault read -field=aws_terraform_access_key secret/integrates/production
-      )"
-    - export AWS_SECRET_ACCESS_KEY="$(
-        vault read -field=aws_terraform_secret_key secret/integrates/production
-      )"
-    - export TF_VAR_aws_s3_resources_bucket="$(
-        vault read -field=aws_s3_resources_bucket secret/integrates/production
-      )"
-    - cd deploy/terraform
-    - terraform init --backend-config="bucket=${FS_S3_BUCKET}"
-    - terraform apply -auto-approve -refresh=true
+    - ./ci-scripts/build-terraform.sh
   only:
     - master
 
@@ -412,6 +405,8 @@ asserts-dynamic:
     USER: "${INTEGRATES_JFROG_USER}"
   script:
     - ./ci-scripts/asserts-dynamic.sh
+  only:
+    - master
 
 mr-test:
   stage: mr-check
@@ -480,12 +475,11 @@ deploy-k8s:
 
 deploy-mobile:
   stage: deploy
-  image: registry.gitlab.com/fluidattacks/integrates:mobile
   <<: *vault_login
   script:
     - *ci_utils
     - cd mobile/
-    - cp -a /usr/src/app/node_modules .
+    - cp -a /root/mobile/node_modules ./
     - skip_if_unchanged mobile/
     - if [ $SKIP_JOB -eq 0 ]; then npm install; npm run publish; fi;
   environment:
