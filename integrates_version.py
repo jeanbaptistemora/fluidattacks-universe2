@@ -3,8 +3,7 @@
 
 from git import Repo
 from app import mailer
-import os, git
-import fileinput
+import os
 from __init__ import FI_MAIL_ENGINEERING
 
 def send_mail_version(commit_sha, commit_before_sha, project, project_url):

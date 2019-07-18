@@ -1,5 +1,4 @@
 import boto3
-import os
 import sys
 
 newkey = sys.argv[1]

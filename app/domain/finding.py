@@ -406,12 +406,6 @@ def get_tracking_vulnerabilities(act_finding, vulnerabilities):
     release_date = act_finding['releaseDate']
     if vulnerabilities:
         vulnerabilities = [Vulnerability(i) for i in vulnerabilities]
-        open_vulnerabilities = \
-            [i for i in vulnerabilities if i.current_state == 'open']
-        open_vulnerabilities = len(open_vulnerabilities)
-        closed_vulnerabilities = \
-            [i for i in vulnerabilities if i.current_state == 'closed']
-        closed_vulnerabilities = len(closed_vulnerabilities)
     if release_date:
         vuln_casted = remove_repeated(vulnerabilities)
         unique_dict = get_unique_dict(vuln_casted)
