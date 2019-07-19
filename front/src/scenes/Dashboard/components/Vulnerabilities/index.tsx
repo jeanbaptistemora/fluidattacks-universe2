@@ -175,7 +175,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
       setModalHidden(false);
     };
 
-    const renderButtonUpdateVuln: ((prop: IVulnerabilitiesViewProps) => JSX.Element) =
+    const renderButtonUpdateVuln: (() => JSX.Element) =
       (): JSX.Element =>
 
         (
@@ -553,7 +553,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                         }}
                       </Mutation>
                       {props.editMode && _.includes(["admin", "analyst"], props.userRole)
-                        ? renderButtonUpdateVuln(props)
+                        ? renderButtonUpdateVuln()
                         : undefined
                       }
                       {props.editMode && _.includes(["admin", "analyst"], props.userRole)

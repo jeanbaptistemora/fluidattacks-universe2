@@ -39,10 +39,10 @@ newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 from boto3.session import Session  # noqa: E402
 import rollbar  # noqa: E402
 
-FIELDS_FINDING = FIELDS_FINDING
-FIELDS_EVENT = FIELDS_EVENT
-FN_URL = FN_URL
-EV_URL = EV_URL
+FIELDS_FINDING = FIELDS_FINDING  # lgtm [py/redundant-assignment]
+FIELDS_EVENT = FIELDS_EVENT  # lgtm [py/redundant-assignment]
+FN_URL = FN_URL  # lgtm [py/redundant-assignment]
+EV_URL = EV_URL  # lgtm [py/redundant-assignment]
 SECRET_KEY = FI_DJANGO_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!

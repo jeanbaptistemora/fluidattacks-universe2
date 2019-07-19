@@ -47,7 +47,6 @@ def create_dict(remission_submission):
 def get_impact(severity, version):
     severity = float(severity)
     if version == '3':
-        impact = 'Crítico'
         if severity == 0:
             impact = 'Ninguno'
         elif severity <= 3.9:
@@ -59,7 +58,6 @@ def get_impact(severity, version):
         else:
             impact = 'Crítico'
     else:
-        impact = 'Alto'
         if severity <= 3.9:
             impact = 'Bajo'
         elif severity <= 6.9:

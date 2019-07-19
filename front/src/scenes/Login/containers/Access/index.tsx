@@ -55,7 +55,8 @@ class Access extends React.Component<{}, ILoginState, {}> {
   // tslint:disable-next-line: no-any
   public constructor(props: any) {
     super(props);
-    this.handleLang();
+    localStorage.setItem("lang", "en");
+    this.state = {...this.state, ...this.enTranslations};
     mixpanel.init("7a7ceb75ff1eed29f976310933d1cc3e");
     this.isProduction = window
       .location
