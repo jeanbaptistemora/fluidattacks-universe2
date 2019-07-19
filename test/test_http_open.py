@@ -293,12 +293,6 @@ def test_trace_open():
     assert http.has_trace_method('%s/trace_open' % (BASE_URL))
 
 
-def test_version_open():
-    """Header Server inseguro?."""
-    assert http.is_header_server_present(
-        '%s/version/fail' % (BASE_URL))
-
-
 def test_userenum_post_open():
     """Enumeracion de usuarios posible?."""
     data = 'username=pepe&password=grillo'
@@ -412,12 +406,6 @@ def test_is_not_https_required_open():
         '%s/' % (MOCK_SERVICE))
 
 
-def test_is_header_server_present_open():
-    """Header Server esta presente?."""
-    assert http.is_header_server_present(
-        '%s/version/fail' % (BASE_URL))
-
-
 def test_is_header_x_xxs_protection_missing_open():
     """Header x-xss-protection establecido?."""
     assert http.is_header_x_xxs_protection_missing(
@@ -440,6 +428,18 @@ def test_content_type_open():
     """Check Content-Type header."""
     assert http.is_header_content_type_missing(
         '%s/content_type/fail' % (BASE_URL)).is_open()
+
+
+def test_content_options_open():
+    """Check X-Content-Type-Options header."""
+    assert http.is_header_x_content_type_options_missing(
+        '%s/content_options/fail' % (BASE_URL)).is_open()
+
+
+def test_frame_options_open():
+    """Check X-Frame-Options header."""
+    assert http.is_header_x_frame_options_missing(
+        '%s/frame_options/fail' % (BASE_URL)).is_open()
 
 
 def test_is_header_perm_cross_dom_pol_missing_open():

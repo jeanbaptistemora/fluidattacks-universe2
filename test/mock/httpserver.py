@@ -231,6 +231,40 @@ def cache_control_fail():
     return resp
 
 
+@APP.route('/http/headers/content_options/ok')
+def content_options_ok():
+    """Run X-Content-Type-Options mock."""
+    resp = Response('content-security-policy OK')
+    resp.headers[
+        'X-Content-Type-Options'] = "nosniff"
+    return resp
+
+
+@APP.route('/http/headers/content_options/fail')
+def content_options_fail():
+    """Run X-Content-Type-Options mock."""
+    resp = Response('Content-Security-Policy FAIL')
+    resp.headers['X-Content-Type-Options'] = 'Fail'
+    return resp
+
+
+@APP.route('/http/headers/frame_options/ok')
+def frame_options_ok():
+    """Run X-Frame-Options mock."""
+    resp = Response('content-security-policy OK')
+    resp.headers[
+        'X-Frame-Options'] = "sameorigin"
+    return resp
+
+
+@APP.route('/http/headers/frame_options/fail')
+def frame_options_fail():
+    """Run X-Frame-Options mock."""
+    resp = Response('Content-Security-Policy FAIL')
+    resp.headers['X-Frame-Options'] = 'Fail'
+    return resp
+
+
 @APP.route('/http/headers/content_security_policy/ok')
 def content_security_policy_ok():
     """Header para politica de contenido bien establecida."""
@@ -320,6 +354,16 @@ def hsts_fail_3():
     resp = Response('Expires FAIL')
     resp.headers['Strict-Transport-Security'] = 'max-age=86400; \
         includeSubDomains; preload'
+    return resp
+
+
+@APP.route('/http/headers/server/fail')
+def server_fail():
+    """Header Server inseguro."""
+    resp = Response('Server header FAIL')
+    resp.headers['Strict-Transport-Security'] = 'Fail'
+    resp.headers['Cosa'] = 'Cosa'
+    resp.headers['Server'] = 'Apache'
     return resp
 
 

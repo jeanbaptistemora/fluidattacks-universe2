@@ -10,6 +10,7 @@ EnsureSConsVersion(2, 3)
 env = Environment()
 
 # Variables que se propagan del entorno exterior a todos los entornos
+env['ENV']['FA_NOTRACK'] = 'true'
 env['ENV']['PATH'] = os.environ['PATH']
 env['ENV']['HOME'] = os.environ['HOME']
 try:

@@ -550,6 +550,34 @@ def test_is_header_x_powered_by_present_close():
         '%s/x_powered_by/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
 
 
+def test_content_options_close():
+    """Check X-Content-Type-Options header."""
+    assert http.is_header_x_content_type_options_missing(
+        '%s/content_type/ok' % (BASE_URL)).is_closed()
+    assert http.is_header_x_content_type_options_missing(
+        '%s/content_type/ok' % (NONEXISTANT_SERVICE)).is_unknown()
+    assert http.is_header_x_content_type_options_missing(
+        '%s/content_type/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
+
+
+def test_frame_options_close():
+    """Check X-Frame-Options header."""
+    assert http.is_header_x_frame_options_missing(
+        '%s/frame_options/ok' % (BASE_URL)).is_closed()
+    assert http.is_header_x_frame_options_missing(
+        '%s/frame_options/ok' % (NONEXISTANT_SERVICE)).is_unknown()
+    assert http.is_header_x_frame_options_missing(
+        '%s/frame_options/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
+
+
+def test_server_close():
+    """Check Server header."""
+    assert http.is_header_server_present(
+        '%s/server/ok' % (NONEXISTANT_SERVICE)).is_unknown()
+    assert http.is_header_server_present(
+        '%s/server/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
+
+
 def test_expires_close():
     """Check Expires header."""
     assert http.is_header_expires_missing(
