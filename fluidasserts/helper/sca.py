@@ -6,6 +6,7 @@
 import json
 import aiohttp
 import urllib.parse
+from typing import Callable
 
 # 3rd party imports
 from bs4 import BeautifulSoup
@@ -170,6 +171,25 @@ async def get_vulns_snyk_async(
     return path, package, version, _parse_snyk_vulns(html) if html else None
 
 
+def _get_vulns_from(func: Callable, pkg_mgr: str,
+                    package: str, version: str = None) -> bool:
+    """Search vulnerabilities in given provider, package, and version."""
+    try:
+        vulns = func(pkg_mgr, package, version)
+    except ConnError as exc:
+        show_unknown('Could not connect to SCA provider',
+                     details=dict(error=str(exc).replace(':', ',')))
+        return False
+    if vulns:
+        show_open('Software has vulnerabilities',
+                  details=dict(package=package, version=version,
+                               vuln_num=len(vulns), vulns=vulns))
+        return True
+    show_close('Software does not have vulnerabilities',
+               details=dict(package=package, version=version))
+    return False
+
+
 def get_vulns_from_snyk(pkg_mgr: str, package: str,
                         version: str = None) -> bool:
     """
@@ -178,20 +198,7 @@ def get_vulns_from_snyk(pkg_mgr: str, package: str,
     :param package: Package name.
     :param version: Package version.
     """
-    try:
-        vulns = get_vulns_snyk(pkg_mgr, package, version)
-        if vulns:
-            show_open('Software has vulnerabilities',
-                      details=dict(package=package, version=version,
-                                   vuln_num=len(vulns), vulns=vulns))
-            return True
-        show_close('Software doesn\'t have vulnerabilities',
-                   details=dict(package=package, version=version))
-        return False
-    except ConnError as exc:
-        show_unknown('Could not connect to SCA provider',
-                     details=dict(error=str(exc).replace(':', ',')))
-        return False
+    return _get_vulns_from(get_vulns_snyk, pkg_mgr, package, version)
 
 
 def get_vulns_from_ossindex(pkg_mgr: str, package: str,
@@ -202,17 +209,4 @@ def get_vulns_from_ossindex(pkg_mgr: str, package: str,
     :param package: Package name.
     :param version: Package version.
     """
-    try:
-        vulns = get_vulns_ossindex(pkg_mgr, package, version)
-        if vulns:
-            show_open('Software has vulnerabilities',
-                      details=dict(package=package, version=version,
-                                   vuln_num=len(vulns), vulns=vulns))
-            return True
-        show_close('Software doesn\'t have vulnerabilities',
-                   details=dict(package=package, version=version))
-        return False
-    except ConnError as exc:
-        show_unknown('Could not connect to SCA provider',
-                     details=dict(error=str(exc).replace(':', ',')))
-        return False
+    return _get_vulns_from(get_vulns_ossindex, pkg_mgr, package, version)
