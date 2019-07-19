@@ -99,6 +99,7 @@ class AddRepositories(Mutation):
                     'urlRepo': repository,
                     'branch': branch,
                     'protocol': protocol,
+                    'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3],
                 })
             else:
                 rollbar.report_message('Error: \
@@ -213,7 +214,8 @@ class AddEnvironments(Mutation):
             if 'urlEnv' in env_info:
                 environment_url = env_info.get('urlEnv')
                 json_data.append({
-                    'urlEnv': environment_url
+                    'urlEnv': environment_url,
+                    'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3],
                 })
             else:
                 rollbar.report_message('Error: \
@@ -329,7 +331,7 @@ class AddFiles(Mutation):
                 'fileName': file_info.get('fileName'),
                 'description': file_info.get('description'),
                 'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3],
-                'uploader': info.context.session['username']
+                'uploader': info.context.session['username'],
             })
         uploaded_file = info.context.FILES.get('document', '')
         file_id = '{project}/{file_name}'.format(
