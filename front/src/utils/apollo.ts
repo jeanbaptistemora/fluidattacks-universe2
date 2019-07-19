@@ -31,7 +31,7 @@ const getGrapQLBackend: (() => string) = (): string => {
       url = "https://localhost/integrates/api";
     } else if (currentUrl.indexOf(REVIEW_URL_PATTERN) !== -1) {
       url = "/integrates/api";
-    } else if (currentUrl.indexOf(PRODUCTION_URL) !== -1) {
+    } else if (currentUrl.indexOf(PRODUCTION_URL) === 0) {
       url = "https://fluidattacks.com/integrates/api";
     } else {
       throw new TypeError(`Couldn't identify environment for url: ${currentUrl}`);

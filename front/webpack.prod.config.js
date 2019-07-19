@@ -1,5 +1,4 @@
 /* Webpack plugins */
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 let CommonConfig = require('./webpack.common.config');

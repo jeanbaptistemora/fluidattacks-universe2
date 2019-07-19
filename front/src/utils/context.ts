@@ -27,7 +27,7 @@ export const getEnvironment: (() => string) = (): string => {
       environment = "development";
     } else if (currentUrl.indexOf(REVIEW_URL_PATTERN) !== -1) {
       environment = "review";
-    } else if (currentUrl.indexOf(PRODUCTION_URL) !== -1) {
+    } else if (currentUrl.indexOf(PRODUCTION_URL) === 0) {
       environment = "production";
     } else {
       throw new TypeError(`Couldn't identify environment for url: ${currentUrl}`);
