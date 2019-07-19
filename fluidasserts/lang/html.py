@@ -2,15 +2,24 @@
 
 """This module allows to check HTML vulnerabilities."""
 
+# standard imports
+import os
+import re
+
 # 3rd party imports
+from bs4 import BeautifulSoup
 from pyparsing import (makeHTMLTags, CaselessKeyword, ParseException,
                        Literal, SkipTo, stringEnd)
 
 # local imports
+from fluidasserts import Result, Unit
+from fluidasserts import OPEN, CLOSED, UNKNOWN
+from fluidasserts import LOW
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts.utils.decorators import track, level, notify, api
+from fluidasserts.utils.generic import full_paths_in_dir, get_sha256
 
 
 def _has_attributes(filename: str, tag: str, attrs: dict) -> bool:
@@ -174,3 +183,61 @@ def is_header_content_type_missing(filename: str) -> bool:
         show_close('Attributes in {}'.format(filename),
                    details=dict(attributes=str(attrs)))
     return result
+
+
+@notify
+@api(risk=LOW)
+def has_reverse_tabnabbing(path: str) -> Result:
+    r"""
+    Check if an HTML file has links vulnerable to a reverse tabnabbing.
+
+    :param path: Path to the ``HTML`` source.
+    """
+    if not os.path.exists(path):
+        return UNKNOWN, 'File does not exist'
+
+    vulns, safes = [], []
+    http_re = re.compile("^http(s)?://")
+
+    for file_path in full_paths_in_dir(path):
+        if not file_path.endswith('.html'):
+            continue
+
+        with open(file_path, 'r', encoding='latin-1') as file_desc:
+            html_obj = BeautifulSoup(file_desc.read(), features="html.parser")
+
+        _vulns = Unit(where=file_path,
+                      attribute='<a> tag',
+                      specific=[],
+                      fingerprint=get_sha256(file_path))
+        _safes = Unit(where=file_path,
+                      attribute='<a> tag',
+                      specific=[],
+                      fingerprint=get_sha256(file_path))
+
+        for ahref in html_obj.findAll('a', attrs={'href': http_re}):
+            parsed: dict = {
+                'href': ahref.get('href'),
+                'target': ahref.get('target'),
+                'rel': ahref.get('rel'),
+            }
+
+            specific = ' '.join(f'{k}: {v}' for k, v in parsed.items() if v)
+            if parsed['href'] and parsed['target'] == '_blank' \
+                    and (not parsed['rel'] or 'noopener' not in parsed['rel']):
+                _vulns.specific.append(specific)
+            else:
+                _safes.specific.append(specific)
+
+        if _vulns.specific:
+            vulns.append(_vulns)
+        if _safes.specific:
+            safes.append(_safes)
+
+    if vulns:
+        msg = 'There are a href tags succeptible to reverse tabnabbing'
+        return OPEN, msg, vulns, safes
+    msg = 'No a href tags were found'
+    if safes:
+        msg = 'There are no a href tags succeptible to reverse tabnabbing'
+    return CLOSED, msg, vulns, safes

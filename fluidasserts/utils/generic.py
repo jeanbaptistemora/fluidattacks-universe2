@@ -101,19 +101,20 @@ def full_paths_in_dir(path: str):
 
 
 @lru_cache(maxsize=None, typed=True)
-def get_sha256(filename: str) -> dict:
+def get_sha256(path: str) -> str:
     """
-    Get SHA256 hash from file as a dict.
+    Get SHA256 digest of a file or a directory.
 
-    :param filename: Path to the file to digest.
+    :param path: Path to the file to digest.
     """
     sha256 = hashlib.sha256()
     try:
-        with open(filename, 'rb', buffering=0) as code_fd:
-            for code_byte in iter(lambda: code_fd.read(128 * 1024), b''):
-                sha256.update(code_byte)
-    except (FileNotFoundError, IsADirectoryError):
-        return None
+        for path in full_paths_in_dir(path):
+            with open(path, 'rb', buffering=0) as handle:
+                for block in iter(lambda: handle.read(128 * 1024), b''):
+                    sha256.update(block)
+    except FileNotFoundError:
+        sha256.update(b'')
     return sha256.hexdigest()
 
 

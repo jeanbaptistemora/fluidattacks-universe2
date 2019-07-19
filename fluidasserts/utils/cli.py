@@ -571,6 +571,7 @@ def exec_lang_package(codes):
             dotnetconfig.has_ssl_disabled('__code__')
             dotnetconfig.has_debug_enabled('__code__')
             dotnetconfig.not_custom_errors('__code__')
+            html.has_reverse_tabnabbing('__code__')
             java.has_generic_exceptions('__code__')
             java.uses_catch_for_null_pointer_exception('__code__')
             java.uses_catch_for_runtime_exception('__code__')
