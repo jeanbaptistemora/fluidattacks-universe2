@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function build_mobile() {
+build_mobile() {
 
   # Builds mobile container if mobile/package.json OR
   # mobile/Gemfile OR deploy/containers/mobile/Dockerfile

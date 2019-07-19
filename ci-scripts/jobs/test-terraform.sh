@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function test_terraform() {
+test_terraform() {
 
   # Validates terraform plan
 
