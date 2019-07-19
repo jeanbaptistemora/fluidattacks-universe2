@@ -27,6 +27,8 @@ SECURE_HASH = CODE_DIR + 'GenericExceptionsClose.java'
 INSECURE_HASH = CODE_DIR + 'GenericExceptionsOpen.java'
 SECURE_NULL_POINTER_EXCEPTION = CODE_DIR + 'GenericExceptionsClose.java'
 INSECURE_NULL_POINTER_EXCEPTION = CODE_DIR + 'GenericExceptionsOpen.java'
+SECURE_RUNTIME_EXCEPTION = CODE_DIR + 'GenericExceptionsClose.java'
+INSECURE_RUNTIME_EXCEPTION = CODE_DIR + 'GenericExceptionsOpen.java'
 SECURE_CIPHER = CODE_DIR + 'GenericExceptionsClose.java'
 INSECURE_CIPHER = CODE_DIR + 'GenericExceptionsOpen.java'
 NON_EXISTANT_CODE = CODE_DIR + 'NotExists.java'
@@ -101,6 +103,11 @@ def test_uses_catch_for_null_pointer_exception_open():
     """Search for the use of NullPointerException "catch" in a path."""
     assert java.uses_catch_for_null_pointer_exception(
         INSECURE_NULL_POINTER_EXCEPTION)
+
+
+def test_uses_catch_for_runtime_exception_open():
+    """Search for the use of NullPointerException "catch" in a path."""
+    assert java.uses_catch_for_runtime_exception(INSECURE_RUNTIME_EXCEPTION)
 
 
 def test_uses_md5_hash_open():
@@ -206,6 +213,17 @@ def test_uses_catch_for_null_pointer_exception_close():
     assert not java.uses_catch_for_null_pointer_exception(
         CODE_DIR, exclude=['test'])
     assert not java.uses_catch_for_null_pointer_exception(
+        NON_EXISTANT_CODE)
+
+
+
+def test_uses_catch_for_runtime_exception_close():
+    """Search for the use of NullPointerException "catch" in a path."""
+    assert not java.uses_catch_for_runtime_exception(
+        SECURE_RUNTIME_EXCEPTION)
+    assert not java.uses_catch_for_runtime_exception(
+        CODE_DIR, exclude=['test'])
+    assert not java.uses_catch_for_runtime_exception(
         NON_EXISTANT_CODE)
 
 

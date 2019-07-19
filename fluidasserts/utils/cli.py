@@ -573,6 +573,7 @@ def exec_lang_package(codes):
             dotnetconfig.not_custom_errors('__code__')
             java.has_generic_exceptions('__code__')
             java.uses_catch_for_null_pointer_exception('__code__')
+            java.uses_catch_for_runtime_exception('__code__')
             java.uses_print_stack_trace('__code__')
             java.swallows_exceptions('__code__')
             java.has_switch_without_default('__code__')

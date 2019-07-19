@@ -71,7 +71,7 @@ class GenericExceptionsOpen{
       catch   (java.io.IOException|Exception|ArithmeticException e)   {
          log.info("The error was" + e);
       }
-      catch   (Exception|java.lang.ArithmeticException)   {
+      catch   (Exception|java.lang.ArithmeticException|RuntimeException)   {
          log.info("There was an error");
       }
       catch   (

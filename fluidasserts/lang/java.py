@@ -136,6 +136,32 @@ def uses_catch_for_null_pointer_exception(
 @notify
 @level('low')
 @track
+def uses_catch_for_runtime_exception(
+        java_dest: str, exclude: list = None) -> bool:
+    """
+    Search for the use of RuntimeException "catch" in a path.
+
+    See `CWE-544 <https://cwe.mitre.org/data/definitions/544.html>`_.
+
+    :param java_dest: Path to a Java source file or package.
+    :param exclude: Paths that contains any string from this list are ignored.
+    """
+    return _declares_catch_for_exceptions(
+        java_dest=java_dest,
+        exceptions_list=[
+            'RuntimeException',
+            'lang.RuntimeException',
+            'java.lang.RuntimeException'],
+        open_msg=('Code declares a catch for RuntimeException '
+                  'to handle programming mistakes '
+                  'instead of prevent them by coding defensively'),
+        closed_msg='Code does not declare a catch for RuntimeException',
+        exclude=exclude)
+
+
+@notify
+@level('low')
+@track
 def uses_print_stack_trace(java_dest: str, exclude: list = None) -> bool:
     """
     Search for ``printStackTrace`` calls in a path.
