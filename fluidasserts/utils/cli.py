@@ -431,14 +431,14 @@ def lint_exploit(exploit):
                   sys.stderr)
 
 
-def exec_wrapper(exploit_name: str, exploit_content: str) -> str:
+def exec_wrapper(exploit_name: str, exploit_content: str) -> str:  # noqa
     """Execute an exploit and handle its errors, propagate it's stdout."""
     lint_exploit(exploit_content)
     try:
         with stdout_redir() as stdout_result, stderr_redir() as stderr_result:
             code = compile(exploit_content, exploit_name, 'exec', optimize=0)
             exec(code, dict(), dict())
-    except BaseException as exc:  # pylint: disable=broad-except
+    except BaseException as exc:  # lgtm [py/catch-base-exception]
         print(stderr_result.getvalue(), end='', file=sys.stderr)
         print(stdout_result.getvalue(), end='', file=sys.stdout)
         return yaml.safe_dump(dict(status='ERROR',
