@@ -30,12 +30,6 @@ def test_has_access_open():
     assert rest.has_access(BASE_URL + '/access/fail')
 
 
-def test_content_type_open():
-    """Resource is available?."""
-    assert rest.accepts_empty_content_type(
-        BASE_URL + '/content_type/fail')
-
-
 def test_insecure_accept_open():
     """Resource is available?."""
     assert rest.accepts_insecure_accept_header(
@@ -47,6 +41,31 @@ def test_hsts_open():
     assert rest.is_header_hsts_missing(
         '%s/hsts/fail' % (BASE_URL))
 
+
+def test_frame_options_open():
+    """Check X-Frame-Options header."""
+    assert rest.is_header_x_frame_options_missing(
+        '%s/frame_options/fail' % (BASE_URL)).is_open()
+
+
+def test_content_options_open():
+    """Check X-Content-Type-Options header."""
+    assert rest.is_header_x_content_type_options_missing(
+        '%s/content_options/fail' % (BASE_URL)).is_open()
+
+
+def test_content_type_open():
+    """Check Content-Type header."""
+    assert rest.is_header_content_type_missing(
+        '%s/content_type/fail' % (BASE_URL)).is_open()
+
+
+def test_empty_content_type_open():
+    """Check empty Content-Type."""
+    assert rest.accepts_empty_content_type(
+        '%s/empty_content_type/fail' % (BASE_URL))
+
+
 #
 # Closing tests
 #
@@ -55,14 +74,6 @@ def test_hsts_open():
 def test_has_access_close():
     """Resource is available?."""
     assert not rest.has_access(BASE_URL + '/access/ok')
-
-
-def test_content_type_close():
-    """Resource is available?."""
-    assert not rest.accepts_empty_content_type(
-        BASE_URL + '/content_type/ok')
-    assert not rest.accepts_empty_content_type(
-        NONEXISTANT_SERVICE + '/content_type/ok')
 
 
 def test_insecure_accept_close():
@@ -81,3 +92,43 @@ def test_hsts_close():
         '%s/hsts/ok' % (NONEXISTANT_SERVICE))
     assert not rest.is_header_hsts_missing(
         '%s/hsts/ok' % (BAD_FORMAT_SERVICE))
+
+
+def test_content_options_close():
+    """Check X-Content-Type-Options header."""
+    assert rest.is_header_x_content_type_options_missing(
+        '%s/content_type/ok' % (BASE_URL)).is_closed()
+    assert rest.is_header_x_content_type_options_missing(
+        '%s/content_type/ok' % (NONEXISTANT_SERVICE)).is_unknown()
+    assert rest.is_header_x_content_type_options_missing(
+        '%s/content_type/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
+
+
+def test_empty_content_type_close():
+    """Check empty Content-Type."""
+    assert not rest.accepts_empty_content_type(
+        '%s/empty_content_type/ok' % (BASE_URL))
+    assert not rest.accepts_empty_content_type(
+        '%s/empty_content_type/ok' % (NONEXISTANT_SERVICE))
+    assert not rest.accepts_empty_content_type(
+        '%s/empty_content_type/ok' % (BAD_FORMAT_SERVICE))
+
+
+def test_content_type_close():
+    """Check Content-Type header."""
+    assert rest.is_header_content_type_missing(
+        '%s/content_type/ok' % (BASE_URL)).is_closed()
+    assert rest.is_header_content_type_missing(
+        '%s/content_type/ok' % (NONEXISTANT_SERVICE)).is_unknown()
+    assert rest.is_header_content_type_missing(
+        '%s/content_type/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
+
+
+def test_frame_options_close():
+    """Check X-Frame-Options header."""
+    assert rest.is_header_x_frame_options_missing(
+        '%s/frame_options/ok' % (BASE_URL)).is_closed()
+    assert rest.is_header_x_frame_options_missing(
+        '%s/frame_options/ok' % (NONEXISTANT_SERVICE)).is_unknown()
+    assert rest.is_header_x_frame_options_missing(
+        '%s/frame_options/ok' % (BAD_FORMAT_SERVICE)).is_unknown()

@@ -248,6 +248,23 @@ def content_options_fail():
     return resp
 
 
+@APP.route('/rest/content_options/ok')
+def rest_content_options_ok():
+    """Run X-Content-Type-Options mock."""
+    resp = Response('content-security-policy OK')
+    resp.headers[
+        'X-Content-Type-Options'] = "nosniff"
+    return resp
+
+
+@APP.route('/rest/content_options/fail')
+def rest_content_options_fail():
+    """Run X-Content-Type-Options mock."""
+    resp = Response('Content-Security-Policy FAIL')
+    resp.headers['X-Content-Type-Options'] = 'Fail'
+    return resp
+
+
 @APP.route('/http/headers/frame_options/ok')
 def frame_options_ok():
     """Run X-Frame-Options mock."""
@@ -262,6 +279,23 @@ def frame_options_fail():
     """Run X-Frame-Options mock."""
     resp = Response('Content-Security-Policy FAIL')
     resp.headers['X-Frame-Options'] = 'Fail'
+    return resp
+
+
+@APP.route('/rest/frame_options/ok')
+def rest_frame_options_ok():
+    """Run X-Frame-Options mock."""
+    resp = Response('content-security-policy OK')
+    resp.headers[
+        'X-Frame-Options'] = "deny"
+    return resp
+
+
+@APP.route('/rest/frame_options/fail')
+def rest_frame_options_fail():
+    """Run X-Frame-Options mock."""
+    resp = Response('Content-Security-Policy FAIL')
+    resp.headers['X-Frame-Options'] = 'fail'
     return resp
 
 
@@ -292,6 +326,22 @@ def content_type_ok():
 
 @APP.route('/http/headers/content_type/fail')
 def content_type_fail():
+    """Header que define mal el tipo de contenido."""
+    resp = Response('Content-Type FAIL')
+    resp.headers['Content-Type'] = 'application/json'
+    return resp
+
+
+@APP.route('/rest/content_type/ok')
+def rest_content_type_ok():
+    """Header que define bien el tipo de contenido."""
+    resp = Response('Content-Type OK')
+    resp.headers['Content-Type'] = 'application/json; charset=utf-8'
+    return resp
+
+
+@APP.route('/rest/content_type/fail')
+def rest_content_type_fail():
     """Header que define mal el tipo de contenido."""
     resp = Response('Content-Type FAIL')
     resp.headers['Content-Type'] = 'application/json'
@@ -731,22 +781,6 @@ def rest_access_ok():
     return resp
 
 
-@APP.route('/rest/content_type/fail')
-def rest_content_type_fail():
-    """Recurso rest accesible."""
-    resp = Response()
-    resp.status_code = 404
-    return resp
-
-
-@APP.route('/rest/content_type/ok')
-def rest_content_type_ok():
-    """Recurso rest no accesible."""
-    resp = Response()
-    resp.status_code = 406
-    return resp
-
-
 @APP.route('/rest/insecure_accept/fail')
 def rest_insecure_accept_fail():
     """Recurso rest accesible."""
@@ -760,6 +794,22 @@ def rest_insecure_accept_ok():
     """Recurso rest no accesible."""
     resp = Response()
     resp.status_code = 406
+    return resp
+
+
+@APP.route('/rest/empty_content_type/fail')
+def rest_empty_content_type_fail():
+    """Check empty Content-Type."""
+    resp = Response()
+    resp.status_code = 400
+    return resp
+
+
+@APP.route('/rest/empty_content_type/ok')
+def rest_empty_content_type_ok():
+    """Check empty Content-Type."""
+    resp = Response()
+    resp.status_code = 415
     return resp
 
 

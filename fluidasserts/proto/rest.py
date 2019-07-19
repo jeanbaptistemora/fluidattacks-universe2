@@ -9,11 +9,14 @@ import re
 # None
 
 # local imports
+from fluidasserts import Result
+from fluidasserts import OPEN, CLOSED, UNKNOWN
+from fluidasserts import LOW, MEDIUM
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
-from fluidasserts.proto.http import _has_insecure_header
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts.proto.http import _has_insecure_value
+from fluidasserts.utils.decorators import track, level, notify, api
 from fluidasserts.helper import http
 
 HDR_RGX = {
@@ -65,7 +68,11 @@ def accepts_empty_content_type(url: str, *args, **kwargs) -> bool:
         show_unknown('URL {} returned error'.format(url),
                      details=dict(error=str(exc).replace(':', ',')))
         return False
-
+    except http.ParameterError as exc:
+        show_unknown('An invalid parameter was passed',
+                     details=dict(url=url,
+                                  error=str(exc).replace(':', ',')))
+        return False
     if session.response.status_code not in expected_codes:
         show_open('URL {} accepts empty Content-Type requests'.
                   format(url))
@@ -109,10 +116,9 @@ def accepts_insecure_accept_header(url: str, *args, **kwargs) -> bool:
     return False
 
 
-@notify
-@level('medium')
 @track
-def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> bool:
+@api(risk=MEDIUM)
+def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if X-Frame-Options HTTP header is properly set.
 
@@ -120,14 +126,21 @@ def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> bool:
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'X-Frame-Options', *args, **kwargs)
+    header = 'X-Frame-Options'
+    try:
+        if _has_insecure_value(url, header, *args, **kwargs):
+            return OPEN, f'Header {header} has insecure value'
+        return CLOSED, f'Header {header} has a secure value'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@notify
-@level('low')
 @track
+@api(risk=LOW)
 def is_header_x_content_type_options_missing(url: str, *args,
-                                             **kwargs) -> bool:
+                                             **kwargs) -> Result:
     r"""
     Check if X-Content-Type-Options HTTP header is properly set.
 
@@ -135,8 +148,15 @@ def is_header_x_content_type_options_missing(url: str, *args,
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'X-Content-Type-Options',
-                                *args, **kwargs)
+    header = 'X-Content-Type-Options'
+    try:
+        if _has_insecure_value(url, header, *args, **kwargs):
+            return OPEN, f'Header {header} has insecure value'
+        return CLOSED, f'Header {header} has a secure value'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
 @notify
@@ -196,10 +216,9 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> bool:
     return result
 
 
-@notify
-@level('low')
 @track
-def is_header_content_type_missing(url: str, *args, **kwargs) -> bool:
+@api(risk=LOW)
+def is_header_content_type_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if Content-Type HTTP header is properly set.
 
@@ -207,4 +226,12 @@ def is_header_content_type_missing(url: str, *args, **kwargs) -> bool:
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'Content-Type', *args, **kwargs)
+    header = 'Content-Type'
+    try:
+        if _has_insecure_value(url, header, *args, **kwargs):
+            return OPEN, f'Header {header} has insecure value'
+        return CLOSED, f'Header {header} has a secure value'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
