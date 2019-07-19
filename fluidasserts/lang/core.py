@@ -12,7 +12,7 @@ from typing import List
 from pyparsing import MatchFirst, QuotedString, Regex, Literal
 
 # local imports
-from fluidasserts import Result, Vuln, Safe
+from fluidasserts import Result, Unit
 from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts import LOW, MEDIUM, HIGH
 from fluidasserts import show_close
@@ -210,7 +210,7 @@ def file_exists(code_file: str) -> Result:
     :param code_file: Path to the file to be tested.
     """
     if os.path.exists(code_file):
-        vulns = [Vuln(where=code_file,
+        vulns = [Unit(where=code_file,
                       fingerprint=get_sha256(code_file))]
         return OPEN, 'File exists', vulns
     return CLOSED, 'File does not exist'
@@ -225,7 +225,7 @@ def file_does_not_exist(code_file: str) -> Result:
     :param code_file: Path to the file to be tested.
     """
     if not os.path.exists(code_file):
-        vulns = [Vuln(where=code_file,
+        vulns = [Unit(where=code_file,
                       fingerprint=get_sha256(code_file))]
         return OPEN, 'File does not exists', vulns
     return CLOSED, 'File exist'
@@ -246,10 +246,10 @@ def is_file_hash_in_list(path: str, hash_list: List[str]) -> Result:
     for full_path in full_paths_in_dir(path):
         fingerprint: str = get_sha256(full_path)
         if fingerprint in hash_list:
-            vulns.append(Vuln(where=full_path,
+            vulns.append(Unit(where=full_path,
                               fingerprint=fingerprint))
         else:
-            safes.append(Safe(where=full_path,
+            safes.append(Unit(where=full_path,
                               fingerprint=fingerprint))
 
     if vulns:

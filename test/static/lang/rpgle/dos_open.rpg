@@ -39,7 +39,10 @@ D wa_PosVec       S              6S	0
     monitor ;
        eval(h) Result = Nbr1 / Nbr2 ;
     on-error ;
-      // comment
+      // swallow this exception in an on-error -> on-error block
+    on-error 09998 : *ALL : 00100;
+      // handle this on-error -> endmon block
+      eval(h) Result = Nbr1 / Nbr2 ;
     endmon ;
 
  /End-Free

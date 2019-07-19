@@ -294,14 +294,6 @@ class Unit():
         return result
 
 
-class Safe(Unit):
-    """API class for a safe testing unit."""
-
-
-class Vuln(Unit):
-    """API class for a vulnerable testing unit."""
-
-
 class Result():
     """API response class."""
 
@@ -343,14 +335,14 @@ class Result():
         self.message: str = message
         return True
 
-    def set_vulns(self, vulns: List[Vuln]) -> bool:
+    def set_vulns(self, vulns: List[Unit]) -> bool:
         """Set the vulns."""
-        self.vulns: List[Vuln] = vulns
+        self.vulns: List[Unit] = vulns
         return True
 
-    def set_safes(self, safes: List[Safe]) -> bool:
+    def set_safes(self, safes: List[Unit]) -> bool:
         """Set the safes."""
-        self.safes: List[Safe] = safes
+        self.safes: List[Unit] = safes
         return True
 
     def register_stats(self) -> bool:

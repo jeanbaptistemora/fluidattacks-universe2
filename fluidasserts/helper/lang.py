@@ -198,6 +198,44 @@ def _path_contains_grammar(grammar: ParserElement, path: str) -> dict:
     return {}
 
 
+def _path_contains_grammar2(
+        grammar: ParserElement, path: str) -> Tuple[List[Unit], List[Unit]]:
+    """
+    Return a tuple with the results of parsing path with grammar.
+
+    the left element contains the matched results,
+    the right element contains the results that didn't match.
+
+    :param grammar: Grammar to be searched for in path.
+    :param path: Path to the destination file.
+    """
+    with open(path, encoding='latin-1') as file_d:
+        lines = file_d.read().splitlines()
+
+    lines_length = tuple(map(lambda x: len(x) + 1, lines))
+    file_as_string = '\n'.join(lines)
+
+    # Given scanString expands tabs to 'n' number of spaces
+    # And we count tabs as '1' char width
+    # And scanString reports the match column relative to the expanded version
+    # When a file contains tabs
+    # Then the line numbers will get an offset
+    # Given we force to parse without expanding tabs
+    grammar.parseWithTabs()
+    # Then the line numbers are reported correctly
+
+    lines = [
+        _get_line_number(start, lines_length)
+        for _, start, _ in grammar.scanString(file_as_string)]
+
+    results: List[Unit] = [Unit(where=path,
+                                attribute='lines',
+                                specific=lines,
+                                fingerprint=get_sha256(path))]
+
+    return (results, []) if lines else ([], results)
+
+
 def path_contains_grammar(
         grammar: ParserElement, path: str,
         lang_spec: dict, exclude: list = None) -> List[str]:
@@ -217,6 +255,35 @@ def path_contains_grammar(
                 not any(x in full_path for x in exclude):
             vulns.update(_path_contains_grammar(grammar, full_path))
     return vulns
+
+
+def path_contains_grammar2(
+        grammar: ParserElement,
+        path: str,
+        lang_spec: dict,
+        exclude: list = None) -> Tuple[List[Unit], List[Unit]]:
+    """
+    Return a tuple with the results of parsing path with grammar.
+
+    the left element contains the matched results,
+    the right element contains the results that didn't match.
+
+    :param grammar: Grammar to be searched for in path.
+    :param path: Path to the destination file.
+    :param lang_spec: Contains language-specific syntax elements, such as
+                      acceptable file extensions and comment delimiters.
+    """
+    matched, not_matched = [], []
+    exclude = exclude if exclude else tuple()
+    for full_path in full_paths_in_dir(path):
+        if _path_match_extension(full_path, lang_spec.get('extensions')) and \
+                not any(x in full_path for x in exclude):
+            _matched, _not_matched = \
+                _path_contains_grammar2(grammar, full_path)
+            matched.extend(_matched)
+            not_matched.extend(_not_matched)
+
+    return matched, not_matched
 
 
 def block_contains_grammar(grammar: ParserElement, code_dest: str,
