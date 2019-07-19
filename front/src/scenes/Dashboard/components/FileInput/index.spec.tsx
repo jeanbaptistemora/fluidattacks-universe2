@@ -16,7 +16,7 @@ describe("File input", () => {
       <FileInput
         icon="search"
         id="test"
-        type=".py"
+        type=".exp"
         visible={true}
       />,
     );

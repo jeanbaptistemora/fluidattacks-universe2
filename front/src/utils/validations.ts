@@ -49,7 +49,7 @@ const evidenceHasValidType: ((arg1: File, arg2: number) => boolean) =
       msgError(translate.t("proj_alerts.file_type_png"));
     }
   } else if (evidenceType === EXPLOIT) {
-    valid = fileType === ".py";
+    valid = fileType === ".py" || fileType === ".exp";
     if (!valid) {
       msgError(translate.t("proj_alerts.file_type_py"));
     }
@@ -85,11 +85,7 @@ const evidenceHasValidSize: ((arg1: File) => boolean) = (file: File): boolean =>
       }
       break;
     case ".py":
-      valid = file.size < MIB * 1;
-      if (!valid) {
-        msgError(translate.t("proj_alerts.file_size_py"));
-      }
-      break;
+    case ".exp":
     case ".csv":
       valid = file.size < MIB * 1;
       if (!valid) {
