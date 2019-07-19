@@ -4,6 +4,7 @@
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
 import threading
+import re
 from datetime import datetime
 
 import rollbar
@@ -159,17 +160,45 @@ class GrantUserAccess(Mutation):
 def validate_email_address(email):
     try:
         validate_email(email)
+        return True
     except ValidationError:
         raise GraphQLError('Exception - Email is not valid')
 
 
+def validate_field(field):
+    success = False
+    if field.isalnum():
+        success = True
+    else:
+        success = False
+        raise GraphQLError('Exception - Parameter is not valid')
+    return success
+
+
+def validate_phone_field(phone_field):
+    success = False
+    if re.match((r'^\+\d+$'), phone_field):
+        success = True
+    else:
+        success = False
+        raise GraphQLError('Exception - Parameter is not valid')
+    return success
+
+
 def create_new_user(context, new_user_data, project_name):
-    validate_email_address(new_user_data['email'])
-    email = new_user_data['email']
-    organization = new_user_data['organization']
-    responsibility = new_user_data['responsibility']
-    role = new_user_data['role']
-    phone_number = new_user_data['phone_number']
+    analizable_list = new_user_data.values()[1:-1]
+    if (
+        all(validate_field(field) for field in analizable_list) and
+        validate_phone_field(new_user_data['phone_number']) and
+        validate_email_address(new_user_data['email'])
+    ):
+        email = new_user_data['email']
+        organization = new_user_data['organization']
+        responsibility = new_user_data['responsibility']
+        role = new_user_data['role']
+        phone_number = new_user_data['phone_number']
+    else:
+        return False
 
     success = False
 

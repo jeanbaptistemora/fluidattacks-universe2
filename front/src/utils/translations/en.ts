@@ -53,7 +53,7 @@ const enTranslations: dict = {
     file_type_csv: "The file must be .csv type",
     file_type_gif: "The image must be .gif type",
     file_type_png: "The image must be .png type",
-    file_type_py: "The file must be .py type",
+    file_type_py: "The file must be .py or .exp type",
     file_type_wrong: "The file has an unknown or non-allowed format",
     file_type_yaml: "The file must be .yaml or .yml type",
     file_updated: "File Updated ;)",

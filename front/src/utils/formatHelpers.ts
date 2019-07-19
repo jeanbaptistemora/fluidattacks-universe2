@@ -421,7 +421,9 @@ export const handleErrors: ((errorText: string, errors: readonly GraphQLError[])
         msgError(translate.t("search_findings.tab_description.errorFileVuln"));
       } else if (_.includes("Exception - Email is not valid", err.message)) {
         msgError(translate.t("validations.email"));
-      }  else {
+      } else if (_.includes("Exception - Parameter is not valid", err.message)) {
+        msgError(translate.t("validations.invalidValueInField"));
+      } else {
         msgError(translate.t("proj_alerts.error_textsad"));
         rollbar.error(errorText, err);
       }
