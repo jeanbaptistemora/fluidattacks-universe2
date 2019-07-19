@@ -258,7 +258,7 @@ def _is_header_present(url: str, header: str, *args, **kwargs) -> Result:
     """
     http_session = http.HTTPSession(url, *args, **kwargs)
     headers_info = http_session.response.headers
-    return header in headers_info
+    return headers_info[header] if header in headers_info else None
 
 
 def _has_insecure_value(url: str, header: str, *args, **kwargs) -> bool:
@@ -275,92 +275,6 @@ def _has_insecure_value(url: str, header: str, *args, **kwargs) -> bool:
         value = headers_info[header]
         return not re.match(expected, value, re.IGNORECASE)
     return None
-
-
-# pylint: disable=too-many-branches
-def _has_insecure_header(url: str, header: str,     # noqa
-                         *args, **kwargs) -> bool:  # noqa
-    r"""
-    Check if an insecure header is present.
-
-    :param url: URL to test.
-    :param header: Header to test if present.
-    :param \*args: Optional arguments for :class:`.HTTPSession`.
-    :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
-    """
-    if header == 'Access-Control-Allow-Origin':
-        if 'headers' in kwargs:
-            kwargs['headers'].update({'Origin':
-                                      'https://www.malicious.com'})
-        else:
-            kwargs = {'headers': {'Origin': 'https://www.malicious.com'}}
-
-    try:
-        http_session = http.HTTPSession(url, *args, **kwargs)
-        headers_info = http_session.response.headers
-        fingerprint = http_session.get_fingerprint()
-    except http.ConnError as exc:
-        show_unknown('Could not connnect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-
-    if header == 'Access-Control-Allow-Origin':
-        if header in headers_info:
-            value = headers_info[header]
-            if not re.match(HDR_RGX[header.lower()], value, re.IGNORECASE):
-                show_open('{} HTTP header is insecure'.
-                          format(header),
-                          details=dict(url=url, header=header, value=value,
-                                       fingerprint=fingerprint))
-                return True
-            show_close('HTTP header {} value is secure'.
-                       format(header),
-                       details=dict(url=url, header=header, value=value,
-                                    fingerprint=fingerprint))
-            return False
-        show_close((f'HTTP header {header} not present which is secure '
-                    'by default'),
-                   details=dict(url=url, header=header,
-                                fingerprint=fingerprint))
-        return False
-
-    result = True
-
-    if header == 'Strict-Transport-Security':
-        value = headers_info.get(header)
-        if value:
-            re_match = re.search(HDR_RGX[header.lower()], value)
-            if re_match:
-                max_age_val = re_match.groups()[0]
-                if int(max_age_val) >= 31536000:
-                    show_close(f'HTTP header {header} is secure',
-                               details=dict(url=url,
-                                            header=header,
-                                            value=value,
-                                            fingerprint=fingerprint))
-                    result = False
-                else:
-                    show_open(f'{header} HTTP header is insecure',
-                              details=dict(url=url, header=header, value=value,
-                                           fingerprint=fingerprint))
-                    result = True
-            else:
-                show_open(f'{header} HTTP header is insecure',
-                          details=dict(url=url, header=header, value=value,
-                                       fingerprint=fingerprint))
-                result = True
-        else:
-            show_open(f'{header} HTTP header it not present',
-                      details=dict(url=url, header=header,
-                                   fingerprint=fingerprint))
-            result = True
-    return result
 
 
 def _generic_has_multiple_text(url: str, regex_list: List[str],
@@ -561,11 +475,10 @@ def is_header_x_powered_by_present(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@notify
-@level('low')
 @track
+@api(risk=LOW)
 def is_header_access_control_allow_origin_missing(url: str,
-                                                  *args, **kwargs) -> bool:
+                                                  *args, **kwargs) -> Result:
     r"""
     Check if Access-Control-Allow-Origin HTTP header is properly set.
 
@@ -573,8 +486,24 @@ def is_header_access_control_allow_origin_missing(url: str,
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'Access-Control-Allow-Origin',
-                                *args, **kwargs)
+    header = 'Access-Control-Allow-Origin'
+    if 'headers' in kwargs:
+        kwargs['headers'].update({'Origin':
+                                  'https://www.malicious.com'})
+    else:
+        kwargs = {'headers': {'Origin': 'https://www.malicious.com'}}
+
+    try:
+        if not _is_header_present(url, header, *args, **kwargs):
+            return CLOSED, (f'HTTP header {header} not present which is secure'
+                            'by default')
+        if _has_insecure_value(url, header, *args, **kwargs):
+            return OPEN, f'{header} HTTP header is insecure'
+        return CLOSED, f'{header} HTTP header is insecure'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
 @track
@@ -791,10 +720,9 @@ def is_header_x_xxs_protection_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@notify
-@level('medium')
 @track
-def is_header_hsts_missing(url: str, *args, **kwargs) -> bool:
+@api(risk=MEDIUM)
+def is_header_hsts_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if Strict-Transport-Security HTTP header is properly set.
 
@@ -802,8 +730,22 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> bool:
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    return _has_insecure_header(url, 'Strict-Transport-Security',
-                                *args, **kwargs)
+    header = 'Strict-Transport-Security'
+    try:
+        value = _is_header_present(url, header, *args, **kwargs)
+        if not value:
+            return OPEN, f'Header {header} not present'
+
+        re_match = re.search(HDR_RGX[header.lower()], value)
+        if re_match:
+            max_age_val = re_match.groups()[0]
+            if int(max_age_val) >= 31536000:
+                return CLOSED, f'HTTP header {header} is secure'
+        return OPEN, f'{header} HTTP header is insecure'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
 @track

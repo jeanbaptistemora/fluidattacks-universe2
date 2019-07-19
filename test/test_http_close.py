@@ -293,18 +293,18 @@ def test_a8_csrf_close(get_mock_ip):
 
 def test_access_control_allow_origin_close():
     """Header Access-Control-Allow-Origin establecido?."""
-    assert not http.is_header_access_control_allow_origin_missing(
-        f'{BASE_URL}/access_control_allow_origin/ok/1', headers={})
-    assert not http.is_header_access_control_allow_origin_missing(
-        f'{NONEXISTANT_SERVICE}/access_control_allow_origin/ok/1')
-    assert not http.is_header_access_control_allow_origin_missing(
-        f'{BAD_FORMAT_SERVICE}/access_control_allow_origin/ok/1')
-    assert not http.is_header_access_control_allow_origin_missing(
-        f'{BASE_URL}/access_control_allow_origin/ok/2', headers={})
-    assert not http.is_header_access_control_allow_origin_missing(
-        f'{NONEXISTANT_SERVICE}/access_control_allow_origin/ok/2')
-    assert not http.is_header_access_control_allow_origin_missing(
-        f'{BAD_FORMAT_SERVICE}/access_control_allow_origin/ok/2')
+    assert http.is_header_access_control_allow_origin_missing(
+        f'{BASE_URL}/access_control_allow_origin/ok/1', headers={}).is_closed()
+    assert http.is_header_access_control_allow_origin_missing(
+        f'{NONEXISTANT_SERVICE}/access_control_allow_origin/ok/1').is_unknown()
+    assert http.is_header_access_control_allow_origin_missing(
+        f'{BAD_FORMAT_SERVICE}/access_control_allow_origin/ok/1').is_unknown()
+    assert http.is_header_access_control_allow_origin_missing(
+        f'{BASE_URL}/access_control_allow_origin/ok/2', headers={}).is_closed()
+    assert http.is_header_access_control_allow_origin_missing(
+        f'{NONEXISTANT_SERVICE}/access_control_allow_origin/ok/2').is_unknown()
+    assert http.is_header_access_control_allow_origin_missing(
+        f'{BAD_FORMAT_SERVICE}/access_control_allow_origin/ok/2').is_unknown()
 
 
 def test_cache_control_close():
@@ -329,12 +329,16 @@ def test_pragma_close():
 
 def test_hsts_close():
     """Header Strict-Transport-Security establecido?."""
-    assert not http.is_header_hsts_missing(f'{BASE_URL}/hsts/ok/1')
-    assert not http.is_header_hsts_missing(f'{BASE_URL}/hsts/ok/2')
-    assert not http.is_header_hsts_missing(f'{NONEXISTANT_SERVICE}/hsts/ok/1')
-    assert not http.is_header_hsts_missing(f'{NONEXISTANT_SERVICE}/hsts/ok/2')
-    assert not http.is_header_hsts_missing(f'{BAD_FORMAT_SERVICE}/hsts/ok/1')
-    assert not http.is_header_hsts_missing(f'{BAD_FORMAT_SERVICE}/hsts/ok/2')
+    assert http.is_header_hsts_missing(f'{BASE_URL}/hsts/ok/1').is_closed()
+    assert http.is_header_hsts_missing(f'{BASE_URL}/hsts/ok/2').is_closed()
+    assert http.is_header_hsts_missing(
+        f'{NONEXISTANT_SERVICE}/hsts/ok/1').is_unknown()
+    assert http.is_header_hsts_missing(
+        f'{NONEXISTANT_SERVICE}/hsts/ok/2').is_unknown()
+    assert http.is_header_hsts_missing(
+        f'{BAD_FORMAT_SERVICE}/hsts/ok/1').is_unknown()
+    assert http.is_header_hsts_missing(
+        f'{BAD_FORMAT_SERVICE}/hsts/ok/2').is_unknown()
 
 
 def test_basic_close():

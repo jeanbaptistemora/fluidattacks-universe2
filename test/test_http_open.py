@@ -229,7 +229,7 @@ def test_a8_csrf_open(get_mock_ip):
 def test_access_control_allow_origin_open():
     """Header Access-Control-Allow-Origin no establecido?."""
     assert http.is_header_access_control_allow_origin_missing(
-        '%s/access_control_allow_origin/fail' % (BASE_URL))
+        '%s/access_control_allow_origin/fail' % (BASE_URL)).is_open()
 
 
 def test_cache_control_open():
@@ -240,9 +240,9 @@ def test_cache_control_open():
 
 def test_hsts_open():
     """Header Strict-Transport-Security no establecido?."""
-    assert http.is_header_hsts_missing(f'{BASE_URL}/hsts/fail/1')
-    assert http.is_header_hsts_missing(f'{BASE_URL}/hsts/fail/2')
-    assert http.is_header_hsts_missing(f'{BASE_URL}/hsts/fail/3')
+    assert http.is_header_hsts_missing(f'{BASE_URL}/hsts/fail/1').is_open()
+    assert http.is_header_hsts_missing(f'{BASE_URL}/hsts/fail/2').is_open()
+    assert http.is_header_hsts_missing(f'{BASE_URL}/hsts/fail/3').is_open()
 
 
 def test_pragma_open():
@@ -398,6 +398,12 @@ def test_is_header_x_powered_by_present_open():
     """Header X-Powered-By establecido?."""
     assert http.is_header_x_powered_by_present(
         '%s/x_powered_by/fail' % (BASE_URL)).is_open()
+
+
+def test_is_header_serever_present_open():
+    """Check Server header existence."""
+    assert http.is_header_server_present(
+        '%s/server/fail' % (BASE_URL)).is_open()
 
 
 def test_is_not_https_required_open():
