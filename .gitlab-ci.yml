@@ -137,22 +137,7 @@ test-terraform:
   image: registry.gitlab.com/fluidsignal/serves:builder
   <<: *vault_login
   script:
-    - export AWS_ACCESS_KEY_ID="$(
-        vault read -field=aws_terraform_access_key secret/integrates/development
-      )"
-    - export AWS_SECRET_ACCESS_KEY="$(
-        vault read -field=aws_terraform_secret_key secret/integrates/development
-      )"
-    - export TF_VAR_aws_s3_resources_bucket="$(
-        vault read -field=aws_s3_resources_bucket secret/integrates/development
-      )"
-    - cd deploy/terraform
-    - terraform init --backend-config="bucket=${FS_S3_BUCKET}"
-    - terraform validate
-    - terraform plan -refresh=true -out=plan
-    - terraform show -no-color plan > plan.txt
-    - mv plan.txt "${CI_PROJECT_DIR}"
-    - rm plan
+    - ./ci-scripts/jobs/test-terraform.sh
   artifacts:
     paths:
       - plan.txt
@@ -258,7 +243,7 @@ build-terraform:
   image: registry.gitlab.com/fluidsignal/serves:builder
   <<: *vault_login
   script:
-    - ./ci-scripts/build-terraform.sh
+    - ./ci-scripts/jobs/build-terraform.sh
   only:
     - master
 
@@ -422,18 +407,8 @@ danger:
   image: starefossen/ruby-node:2-10
   dependencies:
     - test-terraform
-  variables:
-    DANGER_GITLAB_API_TOKEN: ${DANGER_TOKEN}
-    DANGER_GITLAB_HOST: "gitlab.com"
-    DANGER_GITLAB_API_BASE_URL: "https://gitlab.com/api/v4"
-  before_script:
-    - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
-      | grep ${CI_COMMIT_SHA}
-      | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
-    - npm install --unsafe-perm
-    - bundle install
   script:
-    - bundle exec danger --verbose --fail-on-errors=true
+    - ./ci-scripts/jobs/danger.sh
   only:
     - merge_requests
 

@@ -4,10 +4,10 @@ danger() {
 
   # Runs danger on a Gitlab Merge Request
 
-  local DANGER_GITLAB_API_TOKEN
-  local DANGER_GITLAB_HOST
-  local DANGER_GITLAB_API_BASE_URL
-  local CI_MERGE_REQUEST_ID
+  export DANGER_GITLAB_API_TOKEN
+  export DANGER_GITLAB_HOST
+  export DANGER_GITLAB_API_BASE_URL
+  export CI_MERGE_REQUEST_ID
 
   DANGER_GITLAB_API_TOKEN=$DANGER_TOKEN
   DANGER_GITLAB_HOST='gitlab.com'

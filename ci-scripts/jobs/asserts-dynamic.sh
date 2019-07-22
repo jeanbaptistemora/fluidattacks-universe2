@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
 asserts_dynamic() {
+
   # Runs Asserts dynamic checks on repo
 
   # Do not run asserts mock checks on dev
