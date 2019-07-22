@@ -166,23 +166,17 @@ def validate_email_address(email):
 
 
 def validate_field(field):
-    success = False
     if field.isalnum():
-        success = True
+        return True
     else:
-        success = False
         raise GraphQLError('Exception - Parameter is not valid')
-    return success
 
 
 def validate_phone_field(phone_field):
-    success = False
     if re.match((r'^\+\d+$'), phone_field):
-        success = True
+        return True
     else:
-        success = False
         raise GraphQLError('Exception - Parameter is not valid')
-    return success
 
 
 def create_new_user(context, new_user_data, project_name):

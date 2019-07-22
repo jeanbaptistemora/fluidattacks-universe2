@@ -2,8 +2,8 @@ import { default as ApolloClient } from "apollo-boost";
 import _ from "lodash";
 import unfetch from "unfetch";
 
-let PRODUCTION_URL: string;
-PRODUCTION_URL = "https://fluidattacks.com";
+let PRODUCTION_URL: string[];
+PRODUCTION_URL = ["fluidattacks.com", "www.fluidattacks.com"];
 
 let REVIEW_URL_PATTERN: string;
 REVIEW_URL_PATTERN = ".integrates.env";
@@ -26,12 +26,13 @@ const getGrapQLBackend: (() => string) = (): string => {
     url = "https://localhost/integrates/api";
   } else {
     const currentUrl: string = window.location.href;
+    const currentHostname: URL = new URL(currentUrl);
     if (currentUrl.indexOf(DEVELOPMENT_URL) !== -1 || currentUrl === "about:blank" ||
     currentUrl.indexOf(TESTS_URL) !== -1) {
       url = "https://localhost/integrates/api";
     } else if (currentUrl.indexOf(REVIEW_URL_PATTERN) !== -1) {
       url = "/integrates/api";
-    } else if (currentUrl.indexOf(PRODUCTION_URL) === 0) {
+    } else if (PRODUCTION_URL.includes(currentHostname.hostname)) {
       url = "https://fluidattacks.com/integrates/api";
     } else {
       throw new TypeError(`Couldn't identify environment for url: ${currentUrl}`);

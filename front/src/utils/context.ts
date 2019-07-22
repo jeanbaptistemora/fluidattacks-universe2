@@ -22,12 +22,13 @@ export const getEnvironment: (() => string) = (): string => {
     environment = "development";
   } else {
     const currentUrl: string = window.location.href;
+    const currentOrigin: URL = new URL(currentUrl);
     if (currentUrl.indexOf(DEVELOPMENT_URL) !== -1 || currentUrl === "about:blank" ||
     currentUrl.indexOf(TESTS_URL) !== -1) {
       environment = "development";
     } else if (currentUrl.indexOf(REVIEW_URL_PATTERN) !== -1) {
       environment = "review";
-    } else if (currentUrl.indexOf(PRODUCTION_URL) === 0) {
+    } else if (PRODUCTION_URL === currentOrigin.origin) {
       environment = "production";
     } else {
       throw new TypeError(`Couldn't identify environment for url: ${currentUrl}`);
