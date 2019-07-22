@@ -4,7 +4,7 @@
   "description": "Platform for vulnerability centralization and management",
   "main": "index.js",
   "scripts": {
-    "postinstall": "./ci-scripts/commitlint-conf.sh"
+    "postinstall": ". ci-scripts/helpers/others.sh && commitlint_conf"
   },
   "repository": {
     "type": "git",

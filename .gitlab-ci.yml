@@ -182,7 +182,7 @@ commitlint:
   image: starefossen/ruby-node:2-10
   script:
     - npm install --unsafe-perm
-    - ./ci-scripts/check-commitlint.sh
+    - ./ci-scripts/jobs/commitlint.sh
   except:
     - master
 
@@ -404,7 +404,7 @@ asserts-dynamic:
     PASS: "${INTEGRATES_JFROG_PASS}"
     USER: "${INTEGRATES_JFROG_USER}"
   script:
-    - ./ci-scripts/asserts-dynamic.sh
+    - ./ci-scripts/jobs/asserts-dynamic.sh
   only:
     - master
 
