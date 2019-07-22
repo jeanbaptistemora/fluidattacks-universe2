@@ -245,17 +245,20 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         return self.tags
 
     @require_role(['admin', 'customer'])
-    @get_entity_cache
     def resolve_users(self, info):
         """ Resolve project users """
-
-        init_emails = integrates_dao.get_project_users(self.name)
-        init_email_list = [user[0] for user in init_emails if user[1] == 1]
+        init_email_list = self.resolve_users_db()
         user_email_list = util.user_email_filter(init_email_list,
                                                  util.get_jwt_content(info.context)['user_email'])
         self.users = [User(self.name, user_email) for user_email in user_email_list]
-
         return self.users
+
+    @get_entity_cache
+    def resolve_users_db(self):
+        """resolve a full list of users from database"""
+        init_emails = integrates_dao.get_project_users(self.name)
+        users_list = [user[0] for user in init_emails if user[1] == 1]
+        return users_list
 
     def resolve_drafts(self, info):
         """ Resolve drafts attribute """
