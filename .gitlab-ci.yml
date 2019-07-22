@@ -88,7 +88,7 @@ build-mobile:
   image: fluidattacks/alpine-kaniko:latest
   retry: 2
   script:
-    - ./ci-scripts/check-mobile-build.sh
+    - ./ci-scripts/jobs/build-mobile.sh
 
 deps-app:
   stage: deps

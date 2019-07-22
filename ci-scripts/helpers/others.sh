@@ -52,3 +52,26 @@ mobile_get_version() {
   fi
 }
 
+commitlint_conf () {
+
+  #This scripts download commitlint's configuration files
+
+  local RULES_NAME
+  local PARSER_NAME
+  local BRANCH
+  local BASE_URL
+  local RULES_URL
+  local PARSER_URL
+
+  RULES_NAME='commitlint.config.js'
+  PARSER_NAME='parser-preset.js'
+  BRANCH='master'
+  BASE_URL="https://gitlab.com/fluidattacks/default/raw/$BRANCH/commitlint-configs/others"
+
+  RULES_URL="$BASE_URL/$RULES_NAME"
+  PARSER_URL="$BASE_URL/$PARSER_NAME"
+
+  curl $RULES_URL > $RULES_NAME 2> /dev/null
+  curl $PARSER_URL > $PARSER_NAME 2> /dev/null
+
+}
