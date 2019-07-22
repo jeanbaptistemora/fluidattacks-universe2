@@ -43,7 +43,6 @@ const addFilesModal: React.FC<IAddFilesModalProps> = (props: IAddFilesModalProps
       >
         <GenericForm
           name="addFiles"
-          initialValues={{ resources: [{ fileName: "", description: "" }] }}
           onSubmit={handleSubmit}
         >
           {({ pristine, submitting }: InjectedFormProps): React.ReactNode => (

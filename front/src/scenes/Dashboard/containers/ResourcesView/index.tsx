@@ -780,10 +780,10 @@ const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
     };
     const handleFileRowClick: ((row: string) => void) = (row: string): void => { props.onOpenOptionsModal(row); };
 
-    const handleAddFile: ((values: { resources: IResourcesViewProps["files"] }) => void) =
-      (values: { resources: IResourcesViewProps["files"] }): void => {
-        handleSaveFiles(values.resources, props);
-      };
+    const handleAddFile: ((values: IResourcesViewProps["files"][0]) => void) = (
+      values: IResourcesViewProps["files"][0]): void => {
+      handleSaveFiles([{ description: values.description, fileName: "", uploadDate: "" }], props);
+    };
 
     return (
       <React.Fragment>
