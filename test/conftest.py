@@ -67,12 +67,12 @@ def run_mocks(request):
         'ssl:weak': {'443/tcp': 443},
         'ssl:hard': {'443/tcp': 443},
         'ssl:hard_tlsv13': {'443/tcp': 443},
-        'tcp:weak': {'21/tcp': 21},
+        'tcp:weak': {'80/tcp': 80},
         'tcp:hard': {'443/tcp': 443},
         'dns:weak': {'53/tcp': 53, '53/udp': 53},
         'dns:hard': {'53/tcp': 53, '53/udp': 53},
-        'ftp:weak': {'20/tcp': 20, '21/tcp': 21, '60000/tcp': 60000},
-        'ftp:hard': {'20/tcp': 20, '21/tcp': 21, '60000/tcp': 60000},
+        'ftp:weak': {'21/tcp': 21},
+        'ftp:hard': {'21/tcp': 21},
         'ldap:weak': {'389/tcp': 389},
         'ldap:hard': {'389/tcp': 389},
         'mysql_os:hard': {'22/tcp': 22},
@@ -102,6 +102,7 @@ def run_mocks(request):
 
         try:
             cont = client.containers.get(mock_name)
+            cont.start()
         except docker.errors.NotFound:
             print('Building {} ... '.format(image))
             client.images.build(path=mock_dir, tag=image)

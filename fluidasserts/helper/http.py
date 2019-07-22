@@ -107,99 +107,142 @@ class HTTPSession():
         """Context manager clean up function."""
         pass
 
-    def do_request(self) -> Optional[requests.Response]:  # noqa
+    def __do_put(self) -> Optional[requests.Response]:
+        try:
+            return requests.put(self.url, verify=False,
+                                auth=self.auth,
+                                params=self.params,
+                                cookies=self.cookies,
+                                data=self.data,
+                                json=self.json,
+                                headers=self.headers,
+                                allow_redirects=self.redirect,
+                                timeout=self.timeout)
+        except (requests.exceptions.ConnectionError,
+                requests.exceptions.TooManyRedirects) as exc:
+            raise ConnError(exc)
+        except requests.exceptions.MissingSchema as exc:
+            raise ParameterError(exc)
+
+    def __do_delete(self) -> Optional[requests.Response]:
+        try:
+            return requests.delete(self.url, verify=False,
+                                   auth=self.auth,
+                                   params=self.params,
+                                   cookies=self.cookies,
+                                   data=self.data,
+                                   json=self.json,
+                                   headers=self.headers,
+                                   allow_redirects=self.redirect,
+                                   timeout=self.timeout)
+        except (requests.exceptions.ConnectionError,
+                requests.exceptions.TooManyRedirects) as exc:
+            raise ConnError(exc)
+        except requests.exceptions.MissingSchema as exc:
+            raise ParameterError(exc)
+
+    def __do_post_json(self) -> Optional[requests.Response]:
+        try:
+            return requests.post(self.url, verify=False,
+                                 auth=self.auth,
+                                 json=self.json,
+                                 cookies=self.cookies,
+                                 headers=self.headers,
+                                 stream=self.stream,
+                                 allow_redirects=self.redirect,
+                                 timeout=self.timeout)
+        except (requests.exceptions.ConnectionError,
+                requests.exceptions.TooManyRedirects,
+                requests.exceptions.ReadTimeout,
+                requests.exceptions.ChunkedEncodingError) as exc:
+            raise ConnError(exc)
+        except requests.exceptions.MissingSchema as exc:
+            raise ParameterError(exc)
+
+    def __do_post_files(self) -> Optional[requests.Response]:
+        try:
+            return requests.post(self.url, verify=False,
+                                 auth=self.auth,
+                                 files=self.files,
+                                 cookies=self.cookies,
+                                 headers=self.headers,
+                                 stream=self.stream,
+                                 allow_redirects=self.redirect,
+                                 timeout=self.timeout)
+        except (requests.exceptions.ConnectionError,
+                requests.exceptions.TooManyRedirects,
+                requests.exceptions.ReadTimeout,
+                requests.exceptions.ChunkedEncodingError) as exc:
+            raise ConnError(exc)
+        except requests.exceptions.MissingSchema as exc:
+            raise ParameterError(exc)
+
+    def __do_get(self) -> Optional[requests.Response]:
+        try:
+            return requests.get(self.url, verify=False,
+                                auth=self.auth,
+                                params=self.params,
+                                cookies=self.cookies,
+                                headers=self.headers,
+                                stream=self.stream,
+                                allow_redirects=self.redirect,
+                                timeout=self.timeout)
+        except (requests.exceptions.ConnectionError,
+                requests.exceptions.TooManyRedirects,
+                requests.exceptions.ReadTimeout,
+                requests.exceptions.ChunkedEncodingError) as exc:
+            raise ConnError(exc)
+        except requests.exceptions.MissingSchema as exc:
+            raise ParameterError(exc)
+
+    def __do_post(self) -> Optional[requests.Response]:
+        try:
+            return requests.post(self.url, verify=False,
+                                 data=self.data,
+                                 auth=self.auth,
+                                 params=self.params,
+                                 cookies=self.cookies,
+                                 headers=self.headers,
+                                 files=self.files,
+                                 stream=self.stream,
+                                 allow_redirects=self.redirect,
+                                 timeout=self.timeout)
+        except (requests.exceptions.ConnectionError,
+                requests.exceptions.TooManyRedirects,
+                requests.exceptions.ReadTimeout,
+                requests.exceptions.ChunkedEncodingError) as exc:
+            raise ConnError(exc)
+        except requests.exceptions.MissingSchema as exc:
+            raise ParameterError(exc)
+
+    def do_request(self) -> Optional[requests.Response]:
         """Do HTTP request."""
-        ret = None  # type: ignore
-        if self.method in ['PUT', 'DELETE']:
-            try:
-                if self.method == 'PUT':
-                    ret = requests.put(self.url, verify=False,
-                                       auth=self.auth,
-                                       params=self.params,
-                                       cookies=self.cookies,
-                                       data=self.data,
-                                       json=self.json,
-                                       headers=self.headers,
-                                       allow_redirects=self.redirect,
-                                       timeout=self.timeout)
-                if self.method == 'DELETE':
-                    ret = requests.delete(self.url, verify=False,
-                                          auth=self.auth,
-                                          params=self.params,
-                                          cookies=self.cookies,
-                                          data=self.data,
-                                          json=self.json,
-                                          headers=self.headers,
-                                          allow_redirects=self.redirect,
-                                          timeout=self.timeout)
-                self.response = ret
-            except (requests.exceptions.ConnectionError,
-                    requests.exceptions.TooManyRedirects) as exc:
-                raise ConnError(exc)
-            except requests.exceptions.MissingSchema as exc:
-                raise ParameterError(exc)
+        if self.method == 'PUT':
+            self.response = self.__do_put()
+        elif self.method == 'DELETE':
+            self.response = self.__do_delete()
+        elif self.data == '':
+            if self.json:
+                self.response = self.__do_post_json()
+            elif self.files:
+                self.response = self.__do_post_files()
+            else:
+                self.response = self.__do_get()
         else:
-            try:
-                if self.data == '':
-                    if self.json:
-                        ret = requests.post(self.url, verify=False,
-                                            auth=self.auth,
-                                            json=self.json,
-                                            cookies=self.cookies,
-                                            headers=self.headers,
-                                            stream=self.stream,
-                                            allow_redirects=self.redirect,
-                                            timeout=self.timeout)
-                    elif self.files:
-                        ret = requests.post(self.url, verify=False,
-                                            auth=self.auth,
-                                            files=self.files,
-                                            cookies=self.cookies,
-                                            headers=self.headers,
-                                            stream=self.stream,
-                                            allow_redirects=self.redirect,
-                                            timeout=self.timeout)
-                    else:
-                        ret = requests.get(self.url, verify=False,
-                                           auth=self.auth,
-                                           params=self.params,
-                                           cookies=self.cookies,
-                                           headers=self.headers,
-                                           stream=self.stream,
-                                           allow_redirects=self.redirect,
-                                           timeout=self.timeout)
-                else:
-                    ret = requests.post(self.url, verify=False,
-                                        data=self.data,
-                                        auth=self.auth,
-                                        params=self.params,
-                                        cookies=self.cookies,
-                                        headers=self.headers,
-                                        files=self.files,
-                                        stream=self.stream,
-                                        allow_redirects=self.redirect,
-                                        timeout=self.timeout)
-                self.response = ret
-                if 'Location' in self.response.headers:
-                    self.headers['Referer'] = self.response.headers['Location']
+            self.response = self.__do_post()
+        if 'Location' in self.response.headers:
+            self.headers['Referer'] = self.response.headers['Location']
 
-                if self.response.url != self.url:
-                    self.url = self.response.url
+        if self.response.url != self.url:
+            self.url = self.response.url
 
-                if ret.cookies == {}:
-                    if (ret.request._cookies != {} and
-                            self.cookies != ret.request._cookies):
-                        self.cookies = ret.request._cookies
-                else:
-                    self.cookies = ret.cookies
-            except (requests.exceptions.ConnectionError,
-                    requests.exceptions.TooManyRedirects,
-                    requests.exceptions.ReadTimeout,
-                    requests.exceptions.ChunkedEncodingError) as exc:
-                raise ConnError(exc)
-            except requests.exceptions.MissingSchema as exc:
-                raise ParameterError(exc)
-        return ret
+        if self.response.cookies == {}:
+            if (self.response.request._cookies != {} and
+                    self.cookies != self.response.request._cookies):
+                self.cookies = self.response.request._cookies
+        else:
+            self.cookies = self.response.cookies
+        return self.response
 
     def formauth_by_response(self, text: str) -> requests.Response:
         """
