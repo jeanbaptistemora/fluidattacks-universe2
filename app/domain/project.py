@@ -10,6 +10,7 @@ from django.conf import settings
 
 from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
+from app.decorators import get_entity_cache
 from app.dto.finding import (
     total_vulnerabilities
 )
@@ -252,6 +253,14 @@ def get_project_info(project_name):
         submission = FormstackAPI().get_submission(submission_id)
         return project_dto.parse(submission)
     return []
+
+
+@get_entity_cache
+def get_users_from_db(name):
+    """resolve a full list of users from database"""
+    init_emails = integrates_dao.get_project_users(name)
+    users_list = [user[0] for user in init_emails if user[1] == 1]
+    return users_list
 
 
 def is_finding_in_drafts(finding_id):

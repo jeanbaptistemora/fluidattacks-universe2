@@ -20,6 +20,7 @@ from app.domain.project import (
 )
 from app.dao import integrates_dao, project as redshift_dao
 from app.decorators import get_entity_cache
+from app.domain import project
 from app.entity.finding import Finding
 from app.entity.user import User
 from app.exceptions import InvalidProject
@@ -247,7 +248,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @require_role(['admin', 'customer'])
     def resolve_users(self, info):
         """ Resolve project users """
-        init_email_list = self.resolve_users_db()
+        init_email_list = project.get_users_from_db(self.name)
         user_email_list = util.user_email_filter(init_email_list,
                                                  util.get_jwt_content(info.context)['user_email'])
         self.users = [User(self.name, user_email) for user_email in user_email_list]
