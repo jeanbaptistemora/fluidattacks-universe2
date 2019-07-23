@@ -111,9 +111,8 @@ def get_status_vulns_by_time_range(vulns, first_day, last_day,
     for vuln in vulns:
         historic_states = vuln['historic_state']
         last_state = historic_states[-1]
-        if first_day <= last_state['date'] <= last_day:
-            if last_state['state'] == 'closed':
-                resp['closed'] += 1
+        if first_day <= last_state['date'] <= last_day and last_state['state'] == 'closed':
+            resp['closed'] += 1
         if first_day <= historic_states[0]['date'] <= last_day:
             count += 1
     resp['found'] = count

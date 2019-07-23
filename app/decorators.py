@@ -97,11 +97,13 @@ def require_role(allowed_roles):
                     if not is_customeradmin(project_name, email):
                         raise PermissionDenied()
                     else:
+                        # user is a customeradmin
                         pass
                 else:
                     if role not in allowed_roles:
                         raise PermissionDenied()
                     else:
+                        # user role is allowed
                         pass
             except PermissionDenied:
                 util.cloudwatch_log(context,

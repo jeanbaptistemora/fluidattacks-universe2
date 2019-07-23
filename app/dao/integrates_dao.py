@@ -265,9 +265,8 @@ WHERE user_id = %s and project_id = %s'
             has_access = cursor.fetchone()
         else:
             return False
-    if has_access is not None:
-        if has_access[0] == 1:
-            return True
+    if has_access and has_access[0] == 1:
+        return True
     return False
 
 

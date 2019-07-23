@@ -48,6 +48,7 @@ def check_registered(strategy, details, backend, *args, **kwargs):
     if role == 'customeradmin':
         role = 'customer'
     else:
+        # different role
         pass
     strategy.session_set('role', role)
     strategy.session_set('company', company)

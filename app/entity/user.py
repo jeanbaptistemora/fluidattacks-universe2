@@ -214,9 +214,8 @@ def create_new_user(context, new_user_data, project_name):
             'Security: ' + context.session['username'] + 'Attempted to add ' +
             'responsibility to project ' + project_name + ' without validation'
         )
-    if phone_number:
-        if phone_number[1:].isdigit():
-            integrates_dao.add_phone_to_user_dynamo(email, phone_number)
+    if phone_number and phone_number[1:].isdigit():
+        integrates_dao.add_phone_to_user_dynamo(email, phone_number)
     if role == 'customeradmin':
         integrates_dao.add_user_to_project_dynamo(project_name.lower(),
                                                   email.lower(), role)

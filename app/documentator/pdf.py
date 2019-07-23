@@ -277,11 +277,7 @@ class CreatorPDF(object):
             + '[width=300, align="center"]'
         main_tables = make_vuln_table(findings, words)
         fluid_tpl_content = self.make_content(words)
-        access_vector = ''
-        if findings[0].get('cvssVersion') == '3':
-            access_vector = get_severity('attackVector', findings[0]['attackVector'])
-        else:
-            access_vector = get_severity('accessVector', findings[0]['accessVector'])
+        access_vector = get_access_vector(findings[0])
         self.context = {
             'full_project': full_project.upper(),
             'team': team,
@@ -334,6 +330,15 @@ class CreatorPDF(object):
             'ports': words['ports'],
 
         }
+
+
+def get_access_vector(finding):
+    """ Get metrics based on cvss version. """
+    if finding.get('cvssVersion') == '3':
+        severity = get_severity('attackVector', finding['attackVector'])
+    else:
+        severity = get_severity('accessVector', finding['accessVector'])
+    return severity
 
 
 def get_severity(metric, metric_value):
@@ -434,9 +439,6 @@ def make_vuln_table(findings, words):
             vuln_table[2][1] += 1
             vuln_table[2][3] += vuln_amount
             crit_as_text = words['crit_m']
-        elif severity >= 0.0 and severity <= 3.9:  # Abierto por defecto
-            vuln_table[3][1] += 1
-            vuln_table[3][3] += vuln_amount
         else:
             vuln_table[3][1] += 1
             vuln_table[3][3] += vuln_amount

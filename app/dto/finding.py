@@ -655,6 +655,15 @@ def format_finding_date(format_attr):
     return final_date
 
 
+def vulnerabilities_status(finding_new):
+    if (finding_new.get('closedVulnerabilities') > 0 and
+            finding_new.get('openVulnerabilities') == 0):
+        status = 'Cerrado'
+    else:
+        status = 'Abierto'
+    return status
+
+
 def finding_vulnerabilities(submission_id):
     finding = []
     if str(submission_id).isdigit() is True:
@@ -672,11 +681,7 @@ def finding_vulnerabilities(submission_id):
             total_cardinality = finding_new.get('openVulnerabilities') + \
                 finding_new.get('closedVulnerabilities')
             finding['cardinalidad_total'] = str(total_cardinality)
-            if (finding_new.get('closedVulnerabilities') > 0 and
-                    finding_new.get('openVulnerabilities') == 0):
-                finding['estado'] = 'Cerrado'
-            else:
-                finding['estado'] = 'Abierto'
+            finding['estado'] = vulnerabilities_status(finding_new)
             if finding_new.get('openVulnerabilities') >= 0:
                 finding['openVulnerabilities'] = \
                     str(finding_new.get('openVulnerabilities'))

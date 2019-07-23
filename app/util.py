@@ -40,12 +40,8 @@ def is_name(name):
     """ Verify that a parameter has the appropriate name format. """
     valid = True
     try:
-        if not name:
-            raise ValueError("")
-        elif name.strip() == "":
-            raise ValueError("")
-        elif not re.search("^[a-zA-Z0-9]+$", name):
-            raise ValueError("")
+        if not name or not name.isalnum():
+            raise ValueError('')
     except ValueError:
         valid = False
     return valid
@@ -55,12 +51,8 @@ def is_numeric(name):
     """ Verify that a parameter has the appropriate number format. """
     valid = True
     try:
-        if not name:
-            raise ValueError("")
-        elif name.strip() == "":
-            raise ValueError("")
-        elif not re.search("^[0-9]+$", name):
-            raise ValueError("")
+        if not name or not name.isdigit():
+            raise ValueError('')
     except ValueError:
         valid = False
     return valid
