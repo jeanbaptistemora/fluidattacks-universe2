@@ -369,7 +369,7 @@ class Result():
         })
         if self.vulns:
             result['vulnerabilities'] = [v.as_dict() for v in self.vulns]
-        if self.safes:
+        if self.safes and len(self.safes) <= 10:
             result['secure-units'] = [v.as_dict() for v in self.safes]
         result.update({
             'parameters': self.func_params,
