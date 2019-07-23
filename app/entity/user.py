@@ -51,7 +51,7 @@ class User(ObjectType):
             self.last_login = diff_last_login
 
         self.first_login = integrates_dao.get_user_first_login_dao(user_email).split('.', 1)[0]
-        organization = integrates_dao.get_organization_dao(user_email)
+        organization = integrates_dao.get_organization_dynamo(user_email)
         self.organization = organization.title() if organization else ''
         self.responsibility = has_responsibility(project_name, user_email)
         self.phone_number = has_phone_number(user_email)
