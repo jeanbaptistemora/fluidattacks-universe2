@@ -5,7 +5,7 @@ test_front() {
   # Runs linters and unit tests on front
 
   cp -a /root/front/node_modules front/
-  cd front/ || exit 1
+  cd front/ || return 1
   npm install --unsafe-perm
 
   npm set audit-level high
@@ -13,18 +13,18 @@ test_front() {
   npm audit
 
   # Linters
-  tslint -p tsconfig.json -t codeFrame
+  npx tslint -p tsconfig.json -t codeFrame
 
   # Unit tests
-  tsc -p tsconfig.json --noEmit
-  npm run css
+  npx tsc -p tsconfig.json --noEmit
+  npx tcm src/ --silent
   set -e
   set -o pipefail
-  jest --detectOpenHandles
+  npx jest --detectOpenHandles
   mv coverage/lcov.info coverage.lcov
   rm -r coverage
 
-  cd $CI_PROJECT_DIR || exit1
+  cd "$CI_PROJECT_DIR" || return 1
 }
 
 test_front

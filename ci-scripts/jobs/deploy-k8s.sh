@@ -1,15 +1,14 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 undo_rollout() {
-  if [ "$1" = 'app' ]; then
+  if [[ "$1" == 'app' ]]; then
     kubectl rollout undo deploy/integrates
-    exit 1
-  elif ["$1" = 'bot' ]; then
+  elif [[ "$1" == 'bot' ]]; then
     kubectl rollout undo deploy/integrates-bot
-    exit 1
   else
     echo 'Only app and bot params accepted'
   fi
+  exit 1
 }
 
 deploy_newrelic() {
@@ -28,7 +27,7 @@ deploy_newrelic() {
     git log "$CI_COMMIT_BEFORE_SHA"..HEAD --pretty=format:'%s'
   )
   CHANGELOG=$(
-    printf "$LAST_COMMITS_MASTER" | sed -ze 's/\n/\\n/g' -e 's/\"/\\"/g'
+    echo "$LAST_COMMITS_MASTER" | sed -ze 's/\n/\\n/g' -e 's/\"/\\"/g'
   )
 
   curl -X POST "$NEW_RELIC_URL/$NEW_RELIC_APP_ID/deployments.json" \
@@ -52,10 +51,12 @@ deploy_k8s() {
   local K8S_CONTEXT
   local B64_VAULT_HOST
   local B64_VAULT_TOKEN
+  local CONFIG
 
   K8S_CONTEXT=$(kubectl config current-context)
-  B64_VAULT_HOST=$(echo -n $VAULT_HOST | base64)
-  B64_VAULT_TOKEN=$(echo -n $VAULT_TOKEN | base64)
+  B64_VAULT_HOST=$(echo -n "$VAULT_HOST" | base64)
+  B64_VAULT_TOKEN=$(echo -n "$VAULT_TOKEN" | base64)
+  CONFIG='deploy/integrates-k8s.yaml'
 
   kubectl config set-context "$K8S_CONTEXT" --namespace serves
 
@@ -68,20 +69,19 @@ deploy_k8s() {
       --docker-email="${GITLAB_EMAIL}"
   fi
 
-  sed -i 's/$VAULT_HOST/'"$B64_VAULT_HOST"'/;
-    s/$VAULT_TOKEN/'"$B64_VAULT_TOKEN"'/;
-    s/$DATE/'"$(date)"'/g'
-    integrates-k8s.yaml
+  sed -i "s/\$VAULT_HOST/$B64_VAULT_HOST/g" "$CONFIG"
+  sed -i "s/\$VAULT_TOKEN/$B64_VAULT_TOKEN/g" "$CONFIG"
+  sed -i "s/\$DATE/$(date)/g" "$CONFIG"
 
-  kubectl apply -f integrates-k8s.yaml
+  kubectl apply -f "$CONFIG"
 
   kubectl rollout status deploy/integrates --timeout=5m || undo_rollout app
   kubectl rollout status deploy/integrates-bot --timeout=5m || undo_rollout bot
 
-  curl https://api.rollbar.com/api/1/deploy/
-    -F access_token=$ROLLBAR_ACCESS_TOKEN
-    -F environment=$FI_ROLLBAR_ENVIRONMENT
-    -F revision=$CI_COMMIT_SHA
+  curl https://api.rollbar.com/api/1/deploy/ \
+    -F access_token="$ROLLBAR_ACCESS_TOKEN" \
+    -F environment="$FI_ROLLBAR_ENVIRONMENT" \
+    -F revision="$CI_COMMIT_SHA" \
     -F local_username="$CI_COMMIT_REF_NAME"
 
   deploy_newrelic

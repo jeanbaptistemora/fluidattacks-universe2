@@ -13,8 +13,8 @@ danger() {
   DANGER_GITLAB_HOST='gitlab.com'
   DANGER_GITLAB_API_BASE_URL='https://gitlab.com/api/v4'
   CI_MERGE_REQUEST_ID=$(
-    git ls-remote -q origin merge-requests\*\head | \
-    grep ${CI_COMMIT_SHA} | \
+    git ls-remote -q origin merge-requests\*head | \
+    grep "${CI_COMMIT_SHA}" | \
     sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g'
   )
 

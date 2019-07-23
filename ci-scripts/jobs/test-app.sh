@@ -10,8 +10,8 @@ test_app() {
   prospector -F -s veryhigh -u django fluidintegrates/
 
   # Unit tests
-  cp -a $PWD /usr/src/app_src
-  cd /usr/src/app_src || exit 1
+  cp -a "$PWD" /usr/src/app_src
+  cd /usr/src/app_src || return 1
   service redis-server start
   vaultenv -- pytest --ds=fluidintegrates.settings --verbose --exitfirst \
     --cov=fluidintegrates --cov=app --cov-report term \
@@ -23,7 +23,7 @@ test_app() {
     app/tests.py \
   cp -a build/coverage/results.xml "$CI_PROJECT_DIR/coverage.xml"
 
-  cd $CI_PROJECT_DIR || exit1
+  cd "$CI_PROJECT_DIR" || return 1
 }
 
 test_app

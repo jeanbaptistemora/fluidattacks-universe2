@@ -15,7 +15,7 @@ test_mobile() {
   tsc -p tsconfig.json
   jest
 
-  cd $CI_PROJECT_DIR || exit1
+  cd "$CI_PROJECT_DIR" || return 1
 }
 
 test_mobile
