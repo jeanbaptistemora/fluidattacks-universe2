@@ -73,6 +73,7 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
             renderAsEditable={props.isEditing}
             type="text"
             validate={[required]}
+            visible={!props.isEditing && hasBts || (props.isEditing && props.formValues.treatment !== "NEW")}
           />
         </Col>
       </Row>

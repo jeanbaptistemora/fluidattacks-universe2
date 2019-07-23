@@ -18,6 +18,7 @@ import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { DataAlignType } from "react-bootstrap-table";
 import { AnyAction } from "redux";
+import { submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { Button } from "../../../../components/Button/index";
 import { IHeader } from "../../../../components/DataTable/index";
@@ -36,12 +37,11 @@ import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
 import { GenericForm } from "../GenericForm";
 import { default as SimpleTable } from "../SimpleTable/index";
 import style from "./index.css";
-import { DELETE_VULN_MUTATION, GET_VULNERABILITIES, UPDATE_TREATMENT_VULN_MUTATION } from "./queries";
+import { DELETE_VULN_MUTATION, GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
 import { IDeleteVulnAttr, IUpdateVulnTreatment, IVulnerabilitiesViewProps,
          IVulnsAttr, IVulnType } from "./types";
 
 type ISelectRowType = (Array<{[value: string]: string | undefined | null}>);
-type IArrayType = Array<{[value: string]: string}>;
 type ICategoryVulnType = Array<{
   currentState: string;
   id: string;
@@ -190,6 +190,10 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
         </React.Fragment>
       );
 
+    if (!_.isUndefined(props.descriptParam)) {
+      props.descriptParam.formValues.treatment = props.descriptParam.formValues.treatmentVuln;
+    }
+
     return(
     <Query query={GET_VULNERABILITIES} variables={{ identifier: props.findingId }} notifyOnNetworkStatusChange={true}>
       {
@@ -209,11 +213,10 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
           if (!_.isUndefined(data)) {
             hidePreloader();
 
-            const getVulnByRow: (vulnInfo: IVulnsAttr, selectedRow: ISelectRowType,
-                                 categoryVuln: ICategoryVulnType) => IArrayType =
-              (vulnInfo: IVulnsAttr, selectedRow: ISelectRowType,
-               categoryVuln: ICategoryVulnType): IArrayType => {
-                const vulnData: IArrayType = [];
+            const getVulnByRow: (selectedRow: ISelectRowType,
+                                 categoryVuln: ICategoryVulnType, vulnData: string[]) => string[] =
+              (selectedRow: ISelectRowType,
+               categoryVuln: ICategoryVulnType, vulnData: string[]): string[] => {
                 selectedRow.forEach((row: {[value: string]: string | null | undefined }) => {
                   categoryVuln.forEach((vuln: {
                                                 currentState: string;
@@ -224,8 +227,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                                                 where: string;
                                               }) => {
                     if (row.where === vuln.where) {
-                      vulnData.push ({UUID: vuln.id,
-                                      findingId: vulnInfo.finding.id});
+                      vulnData.push(vuln.id);
                     }
                   });
                 });
@@ -233,14 +235,14 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 return vulnData;
             };
 
-            const getVulnInfo: (selectedRowArray: ISelectRowType [], vulnInfo: IVulnsAttr) => IArrayType [] =
-                                (selectedRowArray: ISelectRowType [], vulnInfo: IVulnsAttr): IArrayType [] => {
-              const arrayVulnInfo: IArrayType[] = [];
+            const getVulnInfo: (selectedRowArray: ISelectRowType [], vulnInfo: IVulnsAttr) => string[] =
+                                (selectedRowArray: ISelectRowType [], vulnInfo: IVulnsAttr): string[] => {
+              let arrayVulnInfo: string[] = [];
               const arrayVulnCategory: ICategoryVulnType[] = [vulnInfo.finding.inputsVulns,
                                                               vulnInfo.finding.linesVulns, vulnInfo.finding.portsVulns];
               selectedRowArray.map((selectedRow: ISelectRowType, index: number) => {
                 if (!_.isUndefined(selectedRow)) {
-                  arrayVulnInfo.push(getVulnByRow(vulnInfo, selectedRow, arrayVulnCategory[index]));
+                  arrayVulnInfo = getVulnByRow(selectedRow, arrayVulnCategory[index], arrayVulnInfo);
                 }
               });
 
@@ -250,6 +252,27 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             const dataInputs: IVulnsAttr["finding"]["inputsVulns"] = filterState(data.finding.inputsVulns, props.state);
             const dataLines: IVulnsAttr["finding"]["linesVulns"] = filterState(data.finding.linesVulns, props.state);
             const dataPorts: IVulnsAttr["finding"]["portsVulns"] = filterState(data.finding.portsVulns, props.state);
+
+            const handleMtUpdateTreatmentVulnRes: ((mtResult: IUpdateVulnTreatment) => void) =
+              (mtResult: IUpdateVulnTreatment): void => {
+              if (!_.isUndefined(mtResult)) {
+                if (mtResult.updateTreatmentVuln.success) {
+                  refetch()
+                    .catch();
+                  hidePreloader();
+                  mixpanel.track(
+                    "UpdatedTreatmentVulnerabilities",
+                    {
+                      Organization: (window as Window & { userOrganization: string }).userOrganization,
+                      User: (window as Window & { userName: string }).userName,
+                    });
+                  msgSuccess(
+                    translate.t("search_findings.tab_description.update_vulnerabilities"),
+                    translate.t("proj_alerts.title_success"));
+                  handleCloseTableSetClick();
+                }
+              }
+            };
 
             const handleMtDeleteVulnRes: ((mtResult: IDeleteVulnAttr) => void) = (mtResult: IDeleteVulnAttr): void => {
               if (!_.isUndefined(mtResult)) {
@@ -430,7 +453,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               pageSize={10}
                               search={false}
                               enableRowSelection={
-                                isEditable ? true : false
+                                ((isEditable ? true : false) && _.includes(["customer"], props.userRole))
                               }
                               title=""
                               selectionMode="checkbox"
@@ -453,7 +476,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               pageSize={10}
                               search={false}
                               enableRowSelection={
-                                isEditable ? true : false
+                                ((isEditable ? true : false) && _.includes(["customer"], props.userRole))
                               }
                               title=""
                               selectionMode="checkbox"
@@ -476,7 +499,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               pageSize={10}
                               search={false}
                               enableRowSelection={
-                                isEditable ? true : false
+                                ((isEditable ? true : false) && _.includes(["customer"], props.userRole))
                               }
                               title=""
                               selectionMode="checkbox"
@@ -486,15 +509,18 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                         : undefined
                       }
 
-                      <Mutation mutation={UPDATE_TREATMENT_VULN_MUTATION} onCompleted={handleMtDeleteVulnRes}>
-                        { (updateTreatmentVuln: MutationFn<IUpdateVulnTreatment,
-                          {treatmentsInfo: IDescriptionViewProps["dataset"]; vulnerability: IArrayType []}>,
+                      <Mutation mutation={UPDATE_TREATMENT_MUTATION} onCompleted={handleMtUpdateTreatmentVulnRes}>
+                        { (updateTreatmentVuln: MutationFn<IUpdateVulnTreatment, {
+                         data: {btsUrl: string; findingId: string; treatment: string; treatmentJustification: string;
+                                treatmentManager: string; vulnerabilities: string[]; };
+                         findingId: string; }>,
                            mutationResVuln: MutationResult): React.ReactNode => {
                             if (mutationResVuln.loading) {showPreloader(); }
                             if (!_.isUndefined(mutationResVuln.error)) {
                               hidePreloader();
                               handleGraphQLErrors("An error occurred updating vulnerabilities",
                                                   mutationResVuln.error);
+                              location.reload();
 
                               return <React.Fragment/>;
                             }
@@ -508,7 +534,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                                 const qryTable: NodeListOf<Element> = document.querySelectorAll(`${table}
                                                                                               tr input:checked`);
                                 if (!_.isEmpty(qryTable)) {selectedQryArray.push(qryTable); }});
-                              let vulnData: IArrayType [] = [];
+                              let vulnData: string[] = [];
                               if (selectedQryArray.length === 0) {
                                   msgError(translate.t("search_findings.tab_resources.no_selection"));
                                 } else {
@@ -516,22 +542,18 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                                       selectedRowArray.push(getAttrVulnUpdate(selectQry));
                                     });
                                     vulnData = getVulnInfo(selectedRowArray, data);
+                                    updateTreatmentVuln({variables: { data: {btsUrl: dataTreatment.btsUrl,
+                                                                             findingId: data.finding.id,
+                                                                             treatment: dataTreatment.treatment,
+                                                                             treatmentJustification:
+                                                                             dataTreatment.treatmentJustification,
+                                                                             treatmentManager:
+                                                                             dataTreatment.treatmentManager,
+                                                                             vulnerabilities: vulnData },
+                                                                      findingId: data.finding.id}})
+                                    .catch();
                                   }
-                              updateTreatmentVuln({variables: {treatmentsInfo: dataTreatment,
-                                                               vulnerability: vulnData}})
-                              .catch();
                             };
-
-                            const vulnSetModalFooter: JSX.Element = (
-                              <ButtonToolbar className="pull-right">
-                                <Button bsStyle="primary" type="submit">
-                                  {translate.t("confirmmodal.proceed")}
-                                </Button>
-                                <Button onClick={handleCloseTableSetClick}>
-                                  {translate.t("project.findings.report.modal_close")}
-                                </Button>
-                              </ButtonToolbar>
-                            );
 
                             return (
                               <Modal
@@ -542,17 +564,28 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               <GenericForm
                                 name="editTreatmentVulnerability"
                                 onSubmit={handleUpdateTreatmentVuln}
-                                initialValues={!_.isUndefined(props.descriptParam) ?
-                                props.descriptParam.dataset : undefined}
-                              >{!_.isUndefined(props.descriptParam) ? TreatmentFieldsView(props.descriptParam)
+                                initialValues={undefined}
+                              >{!_.isUndefined(props.descriptParam) ?
+                                TreatmentFieldsView(props.descriptParam)
                                 : undefined}
-                                {vulnSetModalFooter}
+                                  <ButtonToolbar className="pull-right">
+                                    <Button
+                                      bsStyle="primary"
+                                      onClick={(): void => {
+                                      store.dispatch(submit("editTreatmentVulnerability")); }}
+                                    >
+                                      {translate.t("confirmmodal.proceed")}
+                                    </Button>
+                                    <Button onClick={handleCloseTableSetClick}>
+                                      {translate.t("project.findings.report.modal_close")}
+                                    </Button>
+                                  </ButtonToolbar>
                               </GenericForm>
                               </Modal>
                             );
                         }}
                       </Mutation>
-                      {props.editMode && _.includes(["admin", "analyst"], props.userRole)
+                      {props.editMode && _.includes(["customer"], props.userRole)
                         ? renderButtonUpdateVuln()
                         : undefined
                       }

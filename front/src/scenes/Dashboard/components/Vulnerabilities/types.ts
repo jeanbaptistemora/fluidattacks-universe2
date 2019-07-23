@@ -27,7 +27,7 @@ export interface IDeleteVulnAttr {
 }
 
 export interface IUpdateVulnTreatment {
-  updateTreatmentVulnerability: {
+  updateTreatmentVuln: {
     success: boolean;
   };
 }

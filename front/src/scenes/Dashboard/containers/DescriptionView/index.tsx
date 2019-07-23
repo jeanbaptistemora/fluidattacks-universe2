@@ -67,6 +67,7 @@ export interface IDescriptionViewProps {
     probability: number;
     reportLevel: string;
     treatment: string;
+    treatmentVuln: string;
   };
   isEditing: boolean;
   isRemediationOpen: boolean;
@@ -212,6 +213,7 @@ export const component: React.FC<IDescriptionViewProps> =
   );
 
 const fieldSelector: ((state: {}, ...fields: string[]) => string) = formValueSelector("editDescription");
+const fieldSelectorVuln: ((state: {}, ...fields: string[]) => string) = formValueSelector("editTreatmentVulnerability");
 
 export const descriptionView: React.ComponentType<IDescriptionViewProps> = reduxWrapper(
   enhance(component) as React.FC<IDescriptionViewProps>,
@@ -222,6 +224,7 @@ export const descriptionView: React.ComponentType<IDescriptionViewProps> = redux
       probability: fieldSelector(state, "probability"),
       reportLevel: fieldSelector(state, "reportLevel"),
       treatment: fieldSelector(state, "treatment"),
+      treatmentVuln: fieldSelectorVuln(state, "treatment"),
     },
     isMdlConfirmOpen: state.dashboard.isMdlConfirmOpen,
   }),

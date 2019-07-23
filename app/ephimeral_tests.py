@@ -126,7 +126,7 @@ class ViewTestCase(unittest.TestCase):
                                 (By.XPATH,
                                 "//*[contains(text(), 'http://localhost/bWAPP/htmli_post.php')]")))
 
-        time.sleep(3)
+        time.sleep(5)
         selenium.save_screenshot(SCR_PATH + '05-finding.png')
         assert 'The forms in the application allow the injection of code' in selenium.page_source
         assert 'REQ.0173. The system must discard all' in selenium.page_source

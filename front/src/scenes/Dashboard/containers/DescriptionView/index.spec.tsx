@@ -56,6 +56,7 @@ describe("DescriptionView", () => {
       probability: 0,
       reportLevel: "",
       treatment: "",
+      treatmentVuln: "",
     },
     isEditing: false,
     isRemediationOpen: false,

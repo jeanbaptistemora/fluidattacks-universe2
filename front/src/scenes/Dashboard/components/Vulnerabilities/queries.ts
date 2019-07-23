@@ -31,12 +31,11 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
   }
   `;
 
-export const UPDATE_TREATMENT_VULN_MUTATION: DocumentNode = gql`
-  mutation UpdateTreatmentVulnMutation($treatmentsInfo: GenericScalar!,
-                                       $vulnerability: GenericScalar!, ) {
-    updateTreatmentVulnerability(
-      treatmentsInfo: $treatmentsInfo,
-      vulnerability: $vulnerability
+export const UPDATE_TREATMENT_MUTATION: DocumentNode = gql`
+  mutation UpdateTreatmentMutation( $data: GenericScalar!, $findingId: String! ) {
+    updateTreatmentVuln (
+      data: $data,
+      findingId: $findingId
     ){
       success
     }
