@@ -736,7 +736,7 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> Result:
         if not value:
             return OPEN, f'Header {header} not present'
 
-        re_match = re.search(HDR_RGX[header.lower()], value)
+        re_match = re.search(HDR_RGX[header.lower()], value, flags=re.I)
         if re_match:
             max_age_val = re_match.groups()[0]
             if int(max_age_val) >= 31536000:
