@@ -82,6 +82,7 @@ class HTTPSession():
         self.auth = auth
         self.files = files
         self.method = method
+        self.verb_used = None
         self.response = None  # type: requests.Response
         self.is_auth = False
         self.stream = stream
@@ -108,6 +109,7 @@ class HTTPSession():
         pass
 
     def __do_put(self) -> Optional[requests.Response]:
+        self.verb_used = 'PUT'
         try:
             return requests.put(self.url, verify=False,
                                 auth=self.auth,
@@ -121,10 +123,12 @@ class HTTPSession():
         except (requests.exceptions.ConnectionError,
                 requests.exceptions.TooManyRedirects) as exc:
             raise ConnError(exc)
-        except requests.exceptions.MissingSchema as exc:
+        except (requests.exceptions.MissingSchema,
+                requests.exceptions.InvalidSchema) as exc:
             raise ParameterError(exc)
 
     def __do_delete(self) -> Optional[requests.Response]:
+        self.verb_used = 'DELETE'
         try:
             return requests.delete(self.url, verify=False,
                                    auth=self.auth,
@@ -138,10 +142,12 @@ class HTTPSession():
         except (requests.exceptions.ConnectionError,
                 requests.exceptions.TooManyRedirects) as exc:
             raise ConnError(exc)
-        except requests.exceptions.MissingSchema as exc:
+        except (requests.exceptions.MissingSchema,
+                requests.exceptions.InvalidSchema) as exc:
             raise ParameterError(exc)
 
     def __do_post_json(self) -> Optional[requests.Response]:
+        self.verb_used = 'POST'
         try:
             return requests.post(self.url, verify=False,
                                  auth=self.auth,
@@ -156,10 +162,12 @@ class HTTPSession():
                 requests.exceptions.ReadTimeout,
                 requests.exceptions.ChunkedEncodingError) as exc:
             raise ConnError(exc)
-        except requests.exceptions.MissingSchema as exc:
+        except (requests.exceptions.MissingSchema,
+                requests.exceptions.InvalidSchema) as exc:
             raise ParameterError(exc)
 
     def __do_post_files(self) -> Optional[requests.Response]:
+        self.verb_used = 'POST'
         try:
             return requests.post(self.url, verify=False,
                                  auth=self.auth,
@@ -174,10 +182,12 @@ class HTTPSession():
                 requests.exceptions.ReadTimeout,
                 requests.exceptions.ChunkedEncodingError) as exc:
             raise ConnError(exc)
-        except requests.exceptions.MissingSchema as exc:
+        except (requests.exceptions.MissingSchema,
+                requests.exceptions.InvalidSchema) as exc:
             raise ParameterError(exc)
 
     def __do_get(self) -> Optional[requests.Response]:
+        self.verb_used = 'GET'
         try:
             return requests.get(self.url, verify=False,
                                 auth=self.auth,
@@ -192,10 +202,12 @@ class HTTPSession():
                 requests.exceptions.ReadTimeout,
                 requests.exceptions.ChunkedEncodingError) as exc:
             raise ConnError(exc)
-        except requests.exceptions.MissingSchema as exc:
+        except (requests.exceptions.MissingSchema,
+                requests.exceptions.InvalidSchema) as exc:
             raise ParameterError(exc)
 
     def __do_post(self) -> Optional[requests.Response]:
+        self.verb_used = 'POST'
         try:
             return requests.post(self.url, verify=False,
                                  data=self.data,
@@ -212,7 +224,8 @@ class HTTPSession():
                 requests.exceptions.ReadTimeout,
                 requests.exceptions.ChunkedEncodingError) as exc:
             raise ConnError(exc)
-        except requests.exceptions.MissingSchema as exc:
+        except (requests.exceptions.MissingSchema,
+                requests.exceptions.InvalidSchema) as exc:
             raise ParameterError(exc)
 
     def do_request(self) -> Optional[requests.Response]:
@@ -305,4 +318,8 @@ class HTTPSession():
         banner = '\r\n'.join(('{key}: {key}'.format(key=x)
                               for x in fp_headers))
         sha256.update(banner.encode('utf-8'))
-        return dict(sha256=sha256.hexdigest(), banner=fp_headers)
+
+        return dict(verb=self.verb_used,
+                    status=self.response.status_code,
+                    banner=fp_headers,
+                    sha256=sha256.hexdigest())

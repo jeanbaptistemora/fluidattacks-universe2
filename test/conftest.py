@@ -15,6 +15,7 @@ import pytest
 import wait
 
 # local imports
+from test.mock import graphqlserver
 from test.mock import httpserver
 from test.mock import sip
 
@@ -57,6 +58,15 @@ def mock_http(request):
     time.sleep(1)
 
 
+@pytest.fixture(scope='session', autouse=True)
+def mock_graphql(request):
+    """Start and stop the Graphql server."""
+    prcs = Process(target=graphqlserver.start, name='GraphQL Mock Server')
+    prcs.daemon = True
+    prcs.start()
+    time.sleep(1.0)
+
+
 @pytest.fixture()
 def run_mocks(request):
     """Run mock with given parameters."""
@@ -92,11 +102,8 @@ def run_mocks(request):
                  password=os.environ['DOCKER_PASS'])
 
     for mock, port_mapping in mocks.items():
-        image = 'registry.gitlab.com/fluidattacks/asserts/mocks/' + mock
-        if ':' in mock:
-            mock_dir = 'test/provision/' + mock.replace(':', '/')
-        else:
-            mock_dir = 'test/provision/' + mock
+        image = f'registry.gitlab.com/fluidattacks/asserts/mocks/{mock}'
+        mock_dir = f'test/provision/{mock.replace(":", "/")}'
 
         mock_name = get_mock_name(mock)
 
