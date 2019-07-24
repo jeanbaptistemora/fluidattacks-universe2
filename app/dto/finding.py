@@ -746,7 +746,7 @@ Vulnerability of finding {finding_id} does not have the right state'.format(find
     return finding
 
 
-def migrate_description(finding):
+def migrate_description(finding, info):
     primary_keys = ['finding_id', str(finding['id'])]
     if finding.get('projectName'):
         finding['projectName'] = finding['projectName'].lower()
@@ -768,23 +768,45 @@ def migrate_description(finding):
     response = \
         integrates_dao.add_multiple_attributes_dynamo('FI_findings',
                                                       primary_keys, description)
-    return response
+    if not response:
+        util.cloudwatch_log(info.context, 'Security: Attempted to update Description\
+        in finding:{finding}'.format(finding=finding['id']))
+        return False
+    util.cloudwatch_log(info.context, 'Security: Updated Description\
+    in finding:{finding} succesfully'.format(finding=finding['id']))
+    return True
 
 
-def migrate_treatment(finding):
-    primary_keys = ['finding_id', str(finding['id'])]
+def migrate_treatment(finding, info):
+    finding_id = ['finding_id', str(finding['id'])]
     description_fields = ['treatment', 'treatmentJustification',
                           'treatmentManager', 'externalBts']
     description = {util.camelcase_to_snakecase(k): finding.get(k)
                    for k in description_fields if finding.get(k)}
+    vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(str(finding['id']))
     if description:
         response = \
             integrates_dao.add_multiple_attributes_dynamo('FI_findings',
-                                                          primary_keys,
+                                                          finding_id,
                                                           description)
+        if not response:
+            util.cloudwatch_log(info.context, 'Security: Attempted to migrate treatment\
+        in finding:{finding}'.format(finding=str(finding['id'])))
+        for vuln in vulnerabilities:
+            response_update_vuln = \
+                integrates_dao.update_mult_attrs_dynamo('FI_vulnerabilities',
+                                                        {'finding_id': str(finding['id']),
+                                                         'UUID': vuln['UUID']},
+                                                        description)
+            if not response_update_vuln:
+                util.cloudwatch_log(info.context, 'Security: Attempted to update vulnerability\
+            :{id} from finding:{finding}'.format(id=vuln['UUID'], finding=finding['id']))
+                return False
+        util.cloudwatch_log(info.context, 'Security: Updated vulnerabilities\
+            in finding:{finding} succesfully'.format(finding=finding['id']))
+        return True
     else:
-        response = True
-    return response
+        return True
 
 
 def has_migrated_evidence(finding_id):
@@ -804,7 +826,7 @@ def has_migrated_evidence(finding_id):
     return response
 
 
-def migrate_report_date(finding):
+def migrate_report_date(finding, info):
     primary_keys = ['finding_id', str(finding['id'])]
     description_fields = ['reportDate']
     description = {util.camelcase_to_snakecase(k): finding.get(k)
@@ -813,7 +835,11 @@ def migrate_report_date(finding):
         integrates_dao.add_multiple_attributes_dynamo('FI_findings',
                                                       primary_keys,
                                                       description)
-    return response
+    if not response:
+        util.cloudwatch_log(info.context, 'Security: Attempted to update reportDate\
+            in finding:{finding}'.format(finding=finding['id']))
+        return False
+    return True
 
 
 def parse_finding(finding):

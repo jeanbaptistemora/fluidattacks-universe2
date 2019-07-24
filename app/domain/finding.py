@@ -263,7 +263,7 @@ def filter_evidence_filename(evidence_files, name):
     return evidence_info[0].get('file_url', '') if evidence_info else ''
 
 
-def migrate_evidence_description(finding):
+def migrate_evidence_description(finding, info):
     """Migrate evidence description to dynamo."""
     finding_id = finding['id']
     description_fields = {
@@ -278,7 +278,13 @@ def migrate_evidence_description(finding):
     response = [add_file_attribute(finding_id, description_fields[k],
                                    'description', v)
                 for (k, v) in description.items()]
-    return all(response)
+    if not all(response):
+        util.cloudwatch_log(info.context, 'Security: Attempted to update Evidence\
+        Description in finding:{finding}'.format(finding=finding_id))
+        return False
+    util.cloudwatch_log(info.context, 'Security: Update Evidence\
+    Description in finding:{finding}'.format(finding=finding_id))
+    return True
 
 
 def list_comments(user_email, comment_type, finding_id):
@@ -874,7 +880,7 @@ def delete_finding(finding_id, project_name, justification):
     return result
 
 
-def approve_draft(draft_id, project_name):
+def approve_draft(draft_id, project_name, info):
     fin_dto = FindingDTO()
     api = FormstackAPI()
     is_draft = ('releaseDate' not in
@@ -891,7 +897,7 @@ def approve_draft(draft_id, project_name):
                 file_url = '{project!s}/{findingid}/{project!s}-{findingid}'\
                     .format(project=project_name, findingid=draft_id)
                 success = migrate_finding(draft_id, project_name, file_url,
-                                          release_date, finding_data)
+                                          release_date, finding_data, info)
             else:
                 rollbar.report_message('Error: An error occurred accepting the draft', 'error')
         else:
@@ -924,14 +930,21 @@ def update_release(project_name, finding_data, draft_id):
     return release_date, has_release, has_last_vuln
 
 
-def migrate_finding(draft_id, project_name, file_url, release_date, finding_data):
+def migrate_finding(draft_id, project_name, file_url, release_date, finding_data, info):
     migrate_all_files({'finding_id': draft_id, 'project': project_name}, file_url, {})
     integrates_dao.add_release_to_project_dynamo(project_name, release_date)
     save_severity(finding_data)
-    migrate_description(finding_data)
-    migrate_treatment(finding_data)
-    migrate_report_date(finding_data)
-    migrate_evidence_description(finding_data)
+    migrate_description(finding_data, info)
+    migrate_treatment(finding_data, info)
+    migrate_report_date(finding_data, info)
+    migrate_evidence_description(finding_data, info)
+    if not (save_severity or migrate_description or migrate_treatment or migrate_report_date or
+            migrate_evidence_description):
+        util.cloudwatch_log(info.context, 'Security: Attempted to migrate finding\
+        :{finding}'.format(finding=str(finding_data['id'])))
+        return False
+    util.cloudwatch_log(info.context, 'Security: Migrated finding\
+    :{finding} succesfully'.format(finding=str(finding_data['id'])))
     return True
 
 

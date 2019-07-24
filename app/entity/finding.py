@@ -610,7 +610,7 @@ class UpdateEvidenceDescription(Mutation):
                 else:
                     finding = generic_dto.parse_evidence_info(submission_data, finding_id)
                     finding['id'] = finding_id
-                    migrate_evidence_description(finding)
+                    migrate_evidence_description(finding, info)
             success = add_file_attribute(
                 finding_id,
                 description_parse[field],
@@ -938,7 +938,7 @@ class ApproveDraft(Mutation):
     def mutate(self, info, draft_id):
         try:
             project_name = get_project_name(draft_id)
-            success, release_date = approve_draft(draft_id, project_name)
+            success, release_date = approve_draft(draft_id, project_name, info)
             util.invalidate_cache(draft_id)
             util.invalidate_cache(project_name)
         except KeyError:
