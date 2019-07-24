@@ -84,6 +84,7 @@ stages:
       - $FLAG_SYNC_RINGCENTRAL
       - $FLAG_SYNC_SALESFORCE
       - $FLAG_SYNC_INTERCOM
+      - $FLAG_SYNC_GITLAB
 
 build_builder:
   stage: deps
@@ -564,6 +565,32 @@ sync_intercom:
     variables:
       - $FLAG_SYNC_INTERCOM
 
+sync_gitlab:
+  stage: analytics
+  <<: *vault_login
+  script:
+    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
+    - export GITLAB_PASS="$(vault read -field=analytics_gitlab_token secret/serves)"
+    - GITLAB_PROJECTS=(
+        "autonomicmind/default" "autonomicmind/training"
+        "fluidsignal/bwapp" "fluidsignal/continuous" "fluidsignal/default"
+        "fluidsignal/serves" "fluidattacks/asserts" "fluidattacks/default"
+        "fluidattacks/integrates" "fluidattacks/web" "fluidattacks/writeups")
+    - for project in ${GITLAB_PROJECTS[*]}; do
+        ./analytics/singer/streamer_gitlab.py "${project}" >> .jsonstream;
+      done
+    - pip3 install
+        analytics/singer/tap_json
+        analytics/singer/target_redshift
+    - cat .jsonstream | tap-json > .singer
+    - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "gitlab-ci"
+  after_script:
+    - unset GITLAB_PASS
+    - rm -rf /target_secret.json
+  <<: *only_schedules
+  only:
+    variables:
+      - $FLAG_SYNC_GITLAB
 
 refresh_tokens:
   stage: analytics
