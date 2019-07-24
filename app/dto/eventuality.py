@@ -259,26 +259,31 @@ def migrate_event_files(event):
                 event_id=event_id,
                 file_id=curr_file['id'])
             folder = util.list_s3_objects(CLIENT_S3, BUCKET_S3, file_name)
-            if folder:
-                # File exist in s3
-                pass
-            else:
-                fileroute = '/tmp/:id.tmp'.replace(':id', curr_file['id'])
-                if os.path.exists(fileroute):
-                    send_file_to_s3(file_name, curr_file, event_id)
-                else:
-                    drive_api = DriveAPI()
-                    file_download_route = drive_api.download(
-                        curr_file['id'])
-                    if file_download_route:
-                        send_file_to_s3(file_name, curr_file, event_id)
-                    else:
-                        rollbar.report_message(
-                            'Error: An error occurred downloading \
-                            file from Drive', 'error')
+            migrate_event_files_aux(curr_file, file_name, event_id, folder)
         else:
             # Event does not have evidences
             pass
+
+
+def migrate_event_files_aux(curr_file, file_name, event_id, folder):
+    """Migrate event files auxiliar."""
+    if folder:
+        # File exist in s3
+        pass
+    else:
+        fileroute = '/tmp/:id.tmp'.replace(':id', curr_file['id'])
+        if os.path.exists(fileroute):
+            send_file_to_s3(file_name, curr_file, event_id)
+        else:
+            drive_api = DriveAPI()
+            file_download_route = drive_api.download(
+                curr_file['id'])
+            if file_download_route:
+                send_file_to_s3(file_name, curr_file, event_id)
+            else:
+                rollbar.report_message(
+                    'Error: An error occurred downloading \
+                    file from Drive', 'error')
 
 
 def send_file_to_s3(file_name, evidence, event_id):
