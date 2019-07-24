@@ -140,11 +140,24 @@ def get_accepted_vulns(findings_released, vulns, first_day, last_day):
     for finding in findings_released:
         if finding['treatment'] == 'ACCEPTED':
             for vuln in vulns:
-                if finding['finding_id'] == vuln['finding_id']:
-                    history = vuln['historic_state'][-1]
-                    if first_day <= history['date'] <= last_day and history['state'] == 'open':
-                        accepted += 1
+                accepted += get_by_time_range(finding, vuln, first_day, last_day)
     return accepted
+
+
+def get_by_time_range(finding, vuln, first_day, last_day):
+    """Accepted vulnerability of finding."""
+    count = 0
+    if finding['finding_id'] == vuln['finding_id']:
+        history = vuln['historic_state'][-1]
+        if first_day <= history['date'] <= last_day and history['state'] == 'open':
+            count += 1
+        else:
+            # date of vulnerabilities outside of time_range or state not open
+            pass
+    else:
+        # vulnerabilities is from finding
+        pass
+    return count
 
 
 def create_register_by_week(project):

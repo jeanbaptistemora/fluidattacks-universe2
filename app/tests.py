@@ -224,11 +224,11 @@ class GraphQLTests(TestCase):
 
     def test_add_resources(self):
         """ Check for add project resources"""
-        reposToAdd = [
+        repos_to_add = [
             {'branch': 'master',
              'urlRepo': 'https://gitlab.com/fluidsignal/unittest'}
         ]
-        envsToAdd = [
+        envs_to_add = [
             {'urlEnv': 'https://unittesting.fluidattacks.com/'},
         ]
         query = '''mutation {
@@ -241,9 +241,9 @@ class GraphQLTests(TestCase):
           }
         }'''
         query = query.replace(
-            '$repos', json.dumps(reposToAdd).replace('"', '\\"'))
+            '$repos', json.dumps(repos_to_add).replace('"', '\\"'))
         query = query.replace(
-            '$envs', json.dumps(envsToAdd).replace('"', '\\"'))
+            '$envs', json.dumps(envs_to_add).replace('"', '\\"'))
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
         middleware.process_request(request)
@@ -266,10 +266,10 @@ class GraphQLTests(TestCase):
 
     def test_remove_resources(self):
         """ Check for remove project resources """
-        repoToRemove = {
+        repo_to_remove = {
             'branch': 'master',
             'urlRepo': 'https://gitlab.com/fluidsignal/unittest'}
-        envToRemove = {'urlEnv': 'https://unittesting.fluidattacks.com/'}
+        env_to_remove = {'urlEnv': 'https://unittesting.fluidattacks.com/'}
         query = '''mutation{
           removeRepositories(
             projectName: "unittesting", repositoryData: "$repo"){
@@ -281,9 +281,9 @@ class GraphQLTests(TestCase):
           }
         }'''
         query = query.replace(
-            '$repo', json.dumps(repoToRemove).replace('"', '\\"'))
+            '$repo', json.dumps(repo_to_remove).replace('"', '\\"'))
         query = query.replace(
-            '$env', json.dumps(envToRemove).replace('"', '\\"'))
+            '$env', json.dumps(env_to_remove).replace('"', '\\"'))
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
         middleware.process_request(request)

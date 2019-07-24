@@ -7,7 +7,6 @@
 
 :local .tableHeader > thead > tr > th {
   padding: 2px 3px;
-  padding: 2px 3px;
   border-left-width: 0 !important;
   border-right-width: 0 !important;
   white-space: unset !important;
