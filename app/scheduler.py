@@ -459,24 +459,10 @@ def deletion(project, days_to_send, days_to_delete):
                project_info[0].get('type') == 'oneshot':
                 days_until_now = \
                     remission.days_until_now(lastest_remission['TIMESTAMP'])
-                if days_until_now in days_to_send:
-                    context = {'project': project.capitalize()}
-                    mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
-                    send_mail_project_deletion(mail_to, context)
-                    was_deleted = False
-                    was_email_sended = True
-                elif days_until_now >= days_to_delete:
-                    views.delete_project(project)
-                    integrates_dao.add_attribute_dynamo(
-                        'FI_projects',
-                        ['project_name', project.lower()],
-                        'deletion_date',
-                        datetime.today().isoformat(' '))
-                    was_deleted = True
-                    was_email_sended = False
-                else:
-                    was_email_sended = False
-                    was_deleted = False
+                is_sended = is_deleted(
+                    project, days_until_now, days_to_send, days_to_delete)
+                was_deleted = is_sended[0]
+                was_email_sended = is_sended[1]
             else:
                 was_email_sended = False
                 was_deleted = False
@@ -487,6 +473,29 @@ def deletion(project, days_to_send, days_to_delete):
         was_email_sended = False
         was_deleted = False
     return [was_email_sended, was_deleted]
+
+
+def is_deleted(project, days_until_now, days_to_send, days_to_delete):
+    """Project was deleted """
+    if days_until_now in days_to_send:
+        context = {'project': project.capitalize()}
+        mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
+        send_mail_project_deletion(mail_to, context)
+        was_deleted = False
+        was_email_sended = True
+    elif days_until_now >= days_to_delete:
+        views.delete_project(project)
+        integrates_dao.add_attribute_dynamo(
+            'FI_projects',
+            ['project_name', project.lower()],
+            'deletion_date',
+            datetime.today().isoformat(' '))
+        was_deleted = True
+        was_email_sended = False
+    else:
+        was_email_sended = False
+        was_deleted = False
+    return [was_deleted, was_email_sended]
 
 
 def deletion_of_finished_project():

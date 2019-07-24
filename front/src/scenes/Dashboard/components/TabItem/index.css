@@ -1,6 +1,6 @@
 :local .container {
   cursor: pointer;
-  font-family: "Montserrat";
+  font-family: "Montserrat", sans-serif;
   font-size: 20px;
 }
 
