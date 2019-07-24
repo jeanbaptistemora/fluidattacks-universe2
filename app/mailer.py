@@ -1,5 +1,6 @@
 # pylint: disable=relative-beyond-top-level
 from __future__ import absolute_import
+import cgi
 import mandrill
 from __init__ import FI_MANDRILL_API_KEY, FI_TEST_PROJECTS
 from .dao import integrates_dao
@@ -83,6 +84,7 @@ def send_mail_remediate_finding(email_to, context):
 
 
 def send_mail_comment(email_to, context):
+    context['comment'] = cgi.escape(context['comment'])
     _send_mail('new-comment',
                email_to,
                context=context,
