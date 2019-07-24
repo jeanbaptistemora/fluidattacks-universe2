@@ -185,32 +185,11 @@ test-mobile:
     - npm run lint
     - npm test
 
-test-prospector:
+test-app:
   stage: pre-test
   <<: *vault_login
   script:
-    - vaultenv -- prospector -F -s veryhigh -u django -p app/ -i node_modules || true
-    - vaultenv -- prospector -F -s high -u django -p app/ -i node_modules
-    - vaultenv -- prospector -F -s veryhigh -u django fluidintegrates/
-  except:
-    - master
-
-test-unit:
-  stage: pre-test
-  <<: *vault_login
-  script:
-    - cp -a $PWD /usr/src/app_src
-    - cd /usr/src/app_src
-    - service redis-server start
-    - vaultenv -- pytest --ds=fluidintegrates.settings --verbose --exitfirst
-        --cov=fluidintegrates --cov=app --cov-report term
-        --cov-report html:build/coverage/html
-        --cov-report xml:build/coverage/results.xml
-        --cov-report annotate:build/coverage/annotate
-        --basetemp=build/test
-        --junitxml=build/test/results.xml
-        app/tests.py
-    - cp -a build/coverage/results.xml "${CI_PROJECT_DIR}/coverage.xml"
+    - ./ci-scripts/jobs/test-app.sh
   artifacts:
     name: "coverage_xml_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
@@ -473,7 +452,7 @@ new-version-mail:
 coverage-report:
   stage: coverage
   dependencies:
-    - test-unit
+    - test-app
     - test-front
   <<: *vault_login
   script:
