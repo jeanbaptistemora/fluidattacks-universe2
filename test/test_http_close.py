@@ -693,3 +693,27 @@ def test_has_reverse_tabnabbing_close():
     assert not http.has_reverse_tabnabbing(BAD_FORMAT_SERVICE)
     assert not http.has_reverse_tabnabbing(
         f'{MOCK_SERVICE}/http/reverse_tabnabbing/ok/1')
+
+
+def test_insecure_upload_close():
+    """Check insecure upload."""
+    assert not http.has_insecure_upload(
+        f'{MOCK_SERVICE}/upload_secure',
+        'uploaded_file OK',
+        'file',
+        'test/static/example/test_open.py')
+    assert not http.has_insecure_upload(
+        f'{BASE_URL}/host_not_found',
+        'uploaded_file OK',
+        'file',
+        'test/static/example/test_open.py')
+    assert not http.has_insecure_upload(
+        f'{NONEXISTANT_SERVICE}/upload_secure',
+        'uploaded_file OK',
+        'file',
+        'test/static/example/test_open.py')
+    assert not http.has_insecure_upload(
+        f'{BAD_FORMAT_SERVICE}/upload_secure',
+        'uploaded_file OK',
+        'file',
+        'test/static/example/test_open.py')

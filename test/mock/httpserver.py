@@ -25,6 +25,7 @@ nuevos headers y funcione para más casos de prueba.
 """
 
 # standard imports
+import os
 import time
 import datetime
 
@@ -39,8 +40,47 @@ from flask import url_for
 # local imports
 # none
 
-
+UPLOAD_FOLDER = '/tmp'
+ALLOWED_EXTENSIONS = {'txt', 'pdf'}
 APP = Flask(__name__, static_folder='static', static_url_path='/static')
+
+APP.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+def allowed_file(filename):
+    """Filter allowed files."""
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@APP.route('/upload_secure', methods=['POST'])
+def upload_file_secure():
+    """Create upload mock."""
+    if 'file' not in request.files:
+        return 'No file part'
+    my_file = request.files['file']
+    if my_file.filename == '':
+        return 'No selected file'
+    if my_file and allowed_file(my_file.filename):
+        my_file.save(os.path.join(APP.config['UPLOAD_FOLDER'],
+                                  my_file.filename))
+        return 'uploaded_file OK'
+    return 'upload_file failed'
+
+
+@APP.route('/upload_insecure', methods=['POST'])
+def upload_file_insecure():
+    """Create upload mock."""
+    if 'file' not in request.files:
+        return 'No file part'
+    my_file = request.files['file']
+    if my_file.filename == '':
+        return 'No selected file'
+    if my_file:
+        my_file.save(os.path.join(APP.config['UPLOAD_FOLDER'],
+                                  my_file.filename))
+        return 'uploaded_file OK'
+    return 'upload_file failed'
 
 
 @APP.route('/')

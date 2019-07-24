@@ -488,3 +488,12 @@ def test_has_reverse_tabnabbing_open():
         f'{MOCK_SERVICE}/http/reverse_tabnabbing/fail/1')
     assert http.has_reverse_tabnabbing(
         f'{MOCK_SERVICE}/http/reverse_tabnabbing/fail/2')
+
+
+def test_insecure_upload_open():
+    """Check insecure upload."""
+    assert http.has_insecure_upload(
+        f'{MOCK_SERVICE}/upload_insecure',
+        'uploaded_file OK',
+        'file',
+        'test/static/example/test_open.py')
