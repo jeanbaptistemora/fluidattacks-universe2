@@ -89,7 +89,7 @@ setup(
         'mixpanel==4.4.0',           # fluidasserts.utils.decorators
         'pytesseract==0.2.7',        # fluidasserts.format.captcha
         'pillow==6.1.0',             # fluidasserts.format.captcha
-        'pyparsing==2.4.1',          # fluidasserts.lang
+        'pyparsing==2.4.0',          # fluidasserts.lang
         'bandit==1.6.2',             # fluidasserts.lang.python
         'oyaml==0.9',                # fluidasserts
         'pygments==2.4.2',           # fluidasserts
