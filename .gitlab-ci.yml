@@ -179,11 +179,7 @@ test-mobile:
   stage: pre-test
   image: registry.gitlab.com/fluidattacks/integrates:mobile
   script:
-    - cd mobile
-    - cp -a /usr/src/app/node_modules .
-    - npm install
-    - npm run lint
-    - npm test
+    - ./ci-scripts/jobs/test-mobile.sh
 
 test-app:
   stage: pre-test

@@ -1,18 +1,15 @@
 #!/usr/bin/env bash
 
-test_lint() {
+test_app() {
 
-  # Runs linting tests on app
+  # Runs linters and unit tests on app
 
+  # Linters
   prospector -F -s veryhigh -u django -p app/ -i node_modules || true
   prospector -F -s high -u django -p app/ -i node_modules
   prospector -F -s veryhigh -u django fluidintegrates/
-}
 
-test_unit() {
-
-  # Runs unit tests on app
-
+  # Unit tests
   cp -a "$PWD" /usr/src/app_src
   cd /usr/src/app_src || return 1
   service redis-server start
@@ -27,16 +24,6 @@ test_unit() {
   cp -a build/coverage/results.xml "$CI_PROJECT_DIR/coverage.xml"
 
   cd "$CI_PROJECT_DIR" || return 1
-}
-
-test_app() {
-
-  # Runs linters and unit tests on app
-
-  test_lint
-
-  test_unit
-
 }
 
 test_app
