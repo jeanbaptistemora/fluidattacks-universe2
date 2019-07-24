@@ -1,5 +1,5 @@
 # pylint: disable=E0402
-from ..dao import integrates_dao
+from ..dao import user as users_dao
 
 
 # pylint: disable=no-self-use
@@ -20,7 +20,7 @@ class IntercomCustomData(object):
     def custom_data(self, user):
         """ Send extra data to Intercom. """
         email = user.get_username()
-        company = integrates_dao.get_organization_dynamo(email)
+        company = users_dao.get_organization(email)
         return {
             'Company': company,
         }

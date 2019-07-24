@@ -1867,20 +1867,3 @@ def update_set_element_dynamo(table_name, primary_keys, set_name, set_values):
         rollbar.report_exc_info()
         resp = False
     return resp
-
-
-def get_organization_dynamo(email):
-    """ Get the company of a user. """
-    table = DYNAMODB_RESOURCE.Table('FI_users')
-    try:
-        response = table.get_item(
-            Key={
-                'email': email
-            },
-            ProjectionExpression='company'
-        )
-        items = response.get('Item').get('company')
-    except ClientError:
-        rollbar.report_exc_info()
-        items = {}
-    return items
