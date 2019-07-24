@@ -29,6 +29,11 @@ def test_bucket_logging_open():
                                               AWS_SECRET_ACCESS_KEY)
 
 
+def test_public_buckets_open():
+    """Check if account has public buckets."""
+    assert \
+        s3.has_public_buckets(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+
 #
 # Closing tests
 #
@@ -48,5 +53,21 @@ def test_bucket_logging_close():
         s3.has_server_access_logging_disabled(AWS_ACCESS_KEY_ID,
                                               AWS_SECRET_ACCESS_KEY,
                                               retry=False)
+    os.environ.pop('http_proxy', None)
+    os.environ.pop('https_proxy', None)
+
+
+def test_public_buckets_close():
+    """Check if account has public buckets."""
+    assert not \
+        s3.has_public_buckets(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_BAD,
+                              retry=False)
+
+    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
+    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
+
+    assert not \
+        s3.has_public_buckets(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY,
+                              retry=False)
     os.environ.pop('http_proxy', None)
     os.environ.pop('https_proxy', None)

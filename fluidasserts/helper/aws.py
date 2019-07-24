@@ -356,6 +356,27 @@ def get_bucket_logging(
 
 
 @retry
+def get_bucket_acl(
+        key_id: str, secret: str, bucket: str, retry: bool = True) -> dict:
+    """
+    List S3 bucket logging config.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    try:
+        client = get_aws_client('s3',
+                                key_id=key_id,
+                                secret=secret)
+        response = client.get_bucket_acl(Bucket=bucket)
+        return response['Grants']
+    except botocore.vendored.requests.exceptions.ConnectionError:
+        raise ConnError
+    except botocore.exceptions.ClientError:
+        raise ClientErr
+
+
+@retry
 def list_db_instances(key_id: str, secret: str, retry: bool = True) -> dict:
     """
     List RDS DB instances.
