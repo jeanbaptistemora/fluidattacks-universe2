@@ -94,17 +94,9 @@ def require_role(allowed_roles):
             try:
                 if 'customeradmin' in allowed_roles and role == 'customer':
                     project_name = kwargs.get('project_name', args[0].name if args[0] else '')
-                    if not is_customeradmin(project_name, email):
-                        raise PermissionDenied()
-                    else:
-                        # user is a customeradmin
-                        pass
+                    role_customer_admin(project_name, email)
                 else:
-                    if role not in allowed_roles:
-                        raise PermissionDenied()
-                    else:
-                        # user role is allowed
-                        pass
+                    role_allowed(role, allowed_roles)
             except PermissionDenied:
                 util.cloudwatch_log(context,
                                     'Security: \
@@ -113,6 +105,23 @@ Unauthorized role attempted to perform operation')
             return func(*args, **kwargs)
         return verify_and_call
     return wrapper
+
+
+def role_allowed(role, allowed_roles):
+    """Is role in allowed_roles."""
+    if role not in allowed_roles:
+        raise PermissionDenied()
+    else:
+        # user role is allowed
+        pass
+
+
+def role_customer_admin(project_name, email):
+    if not is_customeradmin(project_name, email):
+        raise PermissionDenied()
+    else:
+        # user is a customeradmin
+        pass
 
 
 def require_project_access(func):

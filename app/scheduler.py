@@ -285,12 +285,12 @@ def calculate_vulnerabilities(act_finding):
             delta_open = abs(all_tracking[-1]['open'] - all_tracking[-2]['open'])
             delta_closed = abs(all_tracking[-1]['closed'] - all_tracking[-2]['closed'])
             delta_total = delta_open - delta_closed
-    elif len(all_tracking) == 1:
-        if (datetime.strptime(all_tracking[-1]['date'], "%Y-%m-%d")) > \
-                (datetime.now() - timedelta(days=8)):
-            delta_open = all_tracking[-1]['open']
-            delta_closed = all_tracking[-1]['closed']
-            delta_total = delta_open - delta_closed
+    elif len(all_tracking) == 1 and \
+        (datetime.strptime(all_tracking[-1]['date'], "%Y-%m-%d")) > \
+            (datetime.now() - timedelta(days=8)):
+        delta_open = all_tracking[-1]['open']
+        delta_closed = all_tracking[-1]['closed']
+        delta_total = delta_open - delta_closed
     return delta_total
 
 
