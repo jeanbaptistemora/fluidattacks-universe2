@@ -103,7 +103,7 @@ def files_not_validated(key_id: str, secret: str, retry: bool = True) -> bool:
 def is_trail_bucket_public(key_id: str, secret: str,
                            retry: bool = True) -> bool:
     """
-    Check if trails are multiregion.
+    Check if trails buckets are public.
 
     CIS 2.3 Ensure the S3 bucket CloudTrail logs to is not publicly
     accessible (Scored)
@@ -138,4 +138,46 @@ def is_trail_bucket_public(key_id: str, secret: str,
             show_close('CloudTrail bucket is not public',
                        details=dict(trail_arn=trail['TrailARN'],
                                     bucket=bucket))
+    return result
+
+
+@notify
+@level('low')
+@track
+def is_trail_bucket_logging_disabled(key_id: str, secret: str,
+                                     retry: bool = True) -> bool:
+    """
+    Check if trails bucket logging is enabled.
+
+    CIS 2.6 Ensure S3 bucket access logging is enabled on the
+    CloudTrail S3 bucket (Scored)
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    result = False
+    try:
+        trails = aws.list_trails(key_id, secret, retry=retry)
+    except aws.ConnError as exc:
+        show_unknown('Could not connect',
+                     details=dict(error=str(exc).replace(':', '')))
+        return False
+    except aws.ClientErr as exc:
+        show_unknown('Error retrieving info. Check credentials.',
+                     details=dict(error=str(exc).replace(':', '')))
+        return False
+    if not trails:
+        show_close('Not trails were found')
+        return False
+
+    for trail in trails:
+        bucket = trail['S3BucketName']
+        logging = aws.get_bucket_logging(key_id, secret, bucket)
+        if 'LoggingEnabled' not in logging:
+            show_open('Logging not enabled on CloudTrail bucket',
+                      details=dict(bucket=bucket))
+            result = True
+        else:
+            show_close('Logging enabled on CloudTrail bucket',
+                       details=dict(bucket=bucket))
     return result
