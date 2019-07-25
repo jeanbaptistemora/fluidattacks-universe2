@@ -28,6 +28,13 @@ def test_trail_bucket_logging_open():
                                                        AWS_SECRET_ACCESS_KEY,
                                                        retry=False)
 
+
+def test_unencrypted_logs_open():
+    """Search if trails buckets logging are not encrypted."""
+    assert cloudtrail.has_unencrypted_logs(AWS_ACCESS_KEY_ID,
+                                           AWS_SECRET_ACCESS_KEY,
+                                           retry=False)
+
 #
 # Closing tests
 #
@@ -103,5 +110,23 @@ def test_trail_bucket_logging_close():
         cloudtrail.is_trail_bucket_logging_disabled(AWS_ACCESS_KEY_ID,
                                                     AWS_SECRET_ACCESS_KEY,
                                                     retry=False)
+    os.environ.pop('http_proxy', None)
+    os.environ.pop('https_proxy', None)
+
+
+def test_unencrypted_logs_close():
+    """Search if trails buckets logging are not encrypted."""
+    assert not \
+        cloudtrail.has_unencrypted_logs(AWS_ACCESS_KEY_ID,
+                                        AWS_SECRET_ACCESS_KEY_BAD,
+                                        retry=False)
+
+    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
+    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
+
+    assert not \
+        cloudtrail.has_unencrypted_logs(AWS_ACCESS_KEY_ID,
+                                        AWS_SECRET_ACCESS_KEY,
+                                        retry=False)
     os.environ.pop('http_proxy', None)
     os.environ.pop('https_proxy', None)

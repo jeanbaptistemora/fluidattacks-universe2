@@ -181,3 +181,42 @@ def is_trail_bucket_logging_disabled(key_id: str, secret: str,
             show_close('Logging enabled on CloudTrail bucket',
                        details=dict(bucket=bucket))
     return result
+
+
+@notify
+@level('low')
+@track
+def has_unencrypted_logs(key_id: str, secret: str, retry: bool = True) -> bool:
+    """
+    Check if trail logs are encrypted.
+
+    CIS 2.7 Ensure CloudTrail logs are encrypted at rest using
+    KMS CMKs (Scored)
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    try:
+        trails = aws.list_trails(key_id, secret, retry=retry)
+    except aws.ConnError as exc:
+        show_unknown('Could not connect',
+                     details=dict(error=str(exc).replace(':', '')))
+        return False
+    except aws.ClientErr as exc:
+        show_unknown('Error retrieving info. Check credentials.',
+                     details=dict(error=str(exc).replace(':', '')))
+        return False
+    if not trails:
+        show_close('Not trails were found')
+        return False
+
+    result = False
+    for trail in trails:
+        if 'KmsKeyId' in trail and trail['KmsKeyId']:
+            show_close('KMS key found in trail',
+                       details=dict(trail_arn=trail['TrailARN']))
+        else:
+            show_open('Trail logs are not encrypted',
+                      details=dict(trail_arn=trail['TrailARN']))
+            result = True
+    return result
