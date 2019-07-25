@@ -5,54 +5,51 @@
 """ Views and services for FluidIntegrates """
 
 from __future__ import absolute_import
-from datetime import datetime, timedelta
 import os
 import re
 import sys
 import time
+from datetime import datetime, timedelta
 
 import boto3
+import rollbar
+import yaml
 from botocore.exceptions import ClientError
 from django.conf import settings
-from django.shortcuts import render, redirect
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache, cache_control
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods, condition
-from django.http import HttpResponse
 from jose import jwt
 from magic import Magic
 from openpyxl import load_workbook
-import rollbar
-import yaml
 
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 )
-from app.utils import reports
-# pylint: disable=E0402
-from . import util
-from .decorators import (
-    authenticate, authorize, cache_content)
-from .techdoc.IT import ITReport
-from .dto.finding import (
-    FindingDTO, format_finding_date, parse_finding, get_project_name
-)
-from .domain.vulnerability import (
+from app import util
+from app.api.drive import DriveAPI
+from app.api.formstack import FormstackAPI
+from app.dao import integrates_dao
+from app.decorators import authenticate, authorize, cache_content
+from app.domain.vulnerability import (
     group_specific, get_open_vuln_by_type, get_vulnerabilities_by_type
 )
-from .dto import closing
-from .dto import project as project_dto
-from .dto.finding import mask_finding_fields_dynamo
-from .documentator.pdf import CreatorPDF
-from .documentator.secure_pdf import SecurePDF
-from .services import (
+from app.documentator.pdf import CreatorPDF
+from app.documentator.secure_pdf import SecurePDF
+from app.dto import closing, project as project_dto
+from app.dto.finding import (
+    FindingDTO, format_finding_date, parse_finding, get_project_name,
+    mask_finding_fields_dynamo
+)
+from app.services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
 )
-from .dao import integrates_dao
-from .api.drive import DriveAPI
-from .api.formstack import FormstackAPI
-
+from app.techdoc.IT import ITReport
+from app.utils import reports
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 

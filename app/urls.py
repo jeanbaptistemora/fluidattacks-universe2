@@ -1,15 +1,16 @@
 """ File for linking routes between http queries and django views. """
 
-# pylint: disable=E0402
 from __future__ import absolute_import
 
-from django.conf.urls import url, include, handler400, handler403, handler404, handler500
 from django.conf import settings
+from django.conf.urls import (
+    url, include, handler400, handler403, handler404, handler500
+)
 from django.views.decorators.csrf import csrf_exempt
 from graphene_django.views import GraphQLView
-from .entity import schema
-from . import views
-from . import services
+
+from app import services, views
+from app.entity import schema
 
 # pylint: disable=W0104
 handler400, handler403, handler404, handler500
