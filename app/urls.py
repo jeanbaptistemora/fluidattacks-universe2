@@ -12,6 +12,7 @@ from graphene_django.views import GraphQLView
 from app import services, views
 from app.decorators import verify_csrf
 from app.entity import schema
+from app.middleware import graphql_blacklist_middleware
 
 # pylint: disable=W0104
 handler400, handler403, handler404, handler500
@@ -35,7 +36,9 @@ urlpatterns = [
     url(r'^registration/?$', views.app, name='registration'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^api/?\.*$', csrf_exempt(verify_csrf(
-        GraphQLView.as_view(graphiql=settings.DEBUG, schema=schema.SCHEMA)))),
+        GraphQLView.as_view(middleware=[graphql_blacklist_middleware],
+                            graphiql=settings.DEBUG,
+                            schema=schema.SCHEMA)))),
     # Use of Formstack services.
     url(r'^project/(?P<project>[A-Za-z0-9]+)/([A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$',  # noqa
         views.get_evidence),

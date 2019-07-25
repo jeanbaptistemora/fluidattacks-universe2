@@ -1,7 +1,10 @@
-from social_django.middleware import SocialAuthExceptionMiddleware
-from social_core import exceptions as social_exceptions
+from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from social_core import exceptions as social_exceptions
+from social_django.middleware import SocialAuthExceptionMiddleware
+
+from app.exceptions import ForbiddenField
 
 
 class SocialAuthException(SocialAuthExceptionMiddleware):
@@ -24,3 +27,11 @@ class SocialAuthException(SocialAuthExceptionMiddleware):
         else:
             return super(SocialAuthException, self).process_exception(request,
                                                                       exception)
+
+
+def graphql_blacklist_middleware(next_middleware, root, info, **kwargs):
+    blacklisted_fields = ['__schema', '__type']
+    if info.field_name.lower() in blacklisted_fields \
+            and not settings.DEBUG:
+        raise ForbiddenField()
+    return next_middleware(root, info, **kwargs)

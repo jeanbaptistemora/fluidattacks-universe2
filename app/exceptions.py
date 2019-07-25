@@ -108,3 +108,12 @@ class InvalidProject(Exception):
         """ Constructor """
         msg = 'Exception - Project does not exist'
         super(InvalidProject, self).__init__(msg)
+
+
+class ForbiddenField(Exception):
+    """Exception to control graphql api fields."""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Requested field not allowed'
+        super(ForbiddenField, self).__init__(msg)
