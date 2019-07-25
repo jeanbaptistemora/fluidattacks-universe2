@@ -30,11 +30,10 @@ echo "$TILLER_CERT" | base64 -d > tiller-cert.pem
 # Initialize Tiller server with secure configuration
 helm init \
   --tiller-tls \
-  --tiller-tls-verify \
   --tiller-tls-cert=tiller-cert.pem \
   --tiller-tls-key=tiller-key.pem \
   --tls-ca-cert=ca-cert.pem \
-  --service-account="$SERVICE_ACCOUNT" \
+  --service-account="$SERVICE_ACCOUNT"
 
 # Wait until the Tiller Pod is ready
 kubectl rollout status -n kube-system deploy tiller-deploy -w
