@@ -20,6 +20,7 @@ from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
 from fluidasserts import method_stats_set_owner
+from fluidasserts.helper import asynchronous
 from fluidasserts.utils.decorators import track, level, notify
 
 # pylint: disable=broad-except
@@ -36,18 +37,6 @@ def _scantree(path: str):
                 yield from _scantree(full_path)
             else:
                 yield full_path
-
-
-def _run_async_func(
-        func: Callable, args: list, return_exceptions: bool = True) -> list:
-    """Run a function asynchronously over the list of arguments."""
-    loop = asyncio.new_event_loop()
-    future = asyncio.gather(*(func(*a, **k) for a, k in args),
-                            return_exceptions=return_exceptions,
-                            loop=loop)
-    result = loop.run_until_complete(future)
-    loop.close()
-    return result
 
 
 @notify
@@ -67,7 +56,7 @@ def check_function(func: Callable, *args, **kwargs) -> bool:
     metadata = kwargs.pop('metadata', None)
     try:
         if asyncio.iscoroutinefunction(func):
-            ret = _run_async_func(
+            ret = asynchronous.run_func(
                 func, ((args, kwargs),), return_exceptions=False)[0]
         else:
             ret = func(*args, **kwargs)

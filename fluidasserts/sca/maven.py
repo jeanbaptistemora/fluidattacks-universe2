@@ -10,11 +10,11 @@ from pyparsing import Suppress, Keyword, MatchFirst, quotedString, Optional
 from defusedxml.ElementTree import parse
 
 # local imports
-from fluidasserts.helper import sca
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
-from fluidasserts.utils.generic import _run_async_func
+from fluidasserts.helper import sca
+from fluidasserts.helper import asynchronous
 from fluidasserts.utils.generic import full_paths_in_dir
 from fluidasserts.utils.decorators import track, level, notify
 
@@ -119,10 +119,10 @@ def _get_requirements(path: str) -> list:
 def _parse_requirements(reqs: set) -> tuple:
     """Return a dict mapping path to dependencies, versions and vulns."""
     has_vulns, proj_vulns = None, {}
-    results_ossindex = _run_async_func(
+    results_ossindex = asynchronous.run_func(
         sca.get_vulns_ossindex_async,
         [((PKG_MNGR, path, dep, ver), {}) for path, dep, ver in reqs])
-    results_snyk = _run_async_func(
+    results_snyk = asynchronous.run_func(
         sca.get_vulns_snyk_async,
         [((PKG_MNGR, path, dep, ver), {}) for path, dep, ver in reqs])
     results = filter(
