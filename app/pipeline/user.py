@@ -2,7 +2,6 @@
 from __future__ import absolute_import
 from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS
 from ..dao import integrates_dao
-from ..dao import user as users_dao
 from ..mailer import send_mail_new_user
 
 
@@ -43,7 +42,7 @@ def check_registered(strategy, details, backend, *args, **kwargs):
     is_registered = integrates_dao.is_registered_dao(email)
     last_login = integrates_dao.get_user_last_login_dao(email)
     role = integrates_dao.get_role_dao(email)
-    company = users_dao.get_organization(email)
+    company = integrates_dao.get_organization_dao(email)
     strategy.session_set('username', email)
     strategy.session_set('registered', is_registered)
     if role == 'customeradmin':

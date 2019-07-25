@@ -21,11 +21,9 @@ def get_organization(email):
         response = table.get_item(
             Key={
                 'email': email
-            },
-            ProjectionExpression='company'
+            }
         )
-        items = response.get('Item').get('company')
+        item = response['Item']['company']
     except ClientError:
         rollbar.report_exc_info()
-        items = {}
-    return items
+    return item
