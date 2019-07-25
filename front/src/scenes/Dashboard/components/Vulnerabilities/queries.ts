@@ -28,6 +28,9 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
     id
     findingId
     treatment
+    treatmentManager
+    treatmentJustification
+    externalBts
   }
   `;
 
