@@ -319,7 +319,8 @@ def get_email_recipients(project_name, comment_type):
     return recipients
 
 
-def send_comment_mail(user_email, content, parent, comment_type, finding_id):
+def send_comment_mail(user_email, comment_data, finding_id):
+    comment_type = comment_data['comment_type']
     project_name = get_project_name(finding_id).lower()
     recipients = get_email_recipients(project_name, comment_type)
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
@@ -339,9 +340,9 @@ def send_comment_mail(user_email, content, parent, comment_type, finding_id):
         'finding_name': finding_title,
         'user_email': user_email,
         'finding_id': finding_id,
-        'comment': content.replace('\n', ' '),
+        'comment': comment_data['content'].replace('\n', ' '),
         'comment_type': comment_type,
-        'parent': parent,
+        'parent': comment_data['parent'],
         'comment_url':
             base_url + '/project/{project!s}/{finding!s}/{comment_type!s}s'
         .format(project=project_name, finding=finding_id,
@@ -357,22 +358,13 @@ def send_comment_mail(user_email, content, parent, comment_type, finding_id):
     email_send_thread.start()
 
 
-def add_comment(user_email, user_fullname, parent, content,
-                comment_type, comment_id, finding_id, is_remediation_comment):
+def add_comment(user_email, comment_data, finding_id, is_remediation_comment):
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    comment_data = {
-        'user_id': comment_id,
-        'comment_type': comment_type,
-        'content': content,
-        'created': current_time,
-        'fullname': user_fullname,
-        'modified': current_time,
-        'parent': int(parent)
-    }
+    comment_data['created'] = current_time
+    comment_data['modified'] = current_time
 
     if not is_remediation_comment:
-        send_comment_mail(user_email, content, parent,
-                          comment_type, finding_id)
+        send_comment_mail(user_email, comment_data, finding_id)
 
     return integrates_dao.add_finding_comment_dynamo(int(finding_id),
                                                      user_email, comment_data)
@@ -482,14 +474,17 @@ def request_verification(finding_id, user_email, user_fullname, justification):
     success = integrates_dao.add_remediated_dynamo(int(finding_id), True,
                                                    project_name, finding_name)
     if success:
+        comment_data = {
+            'user_id': int(round(time() * 1000)),
+            'comment_type': 'verification',
+            'content': justification,
+            'fullname': user_fullname,
+            'parent': 0
+        }
         add_comment(
             user_email=user_email,
-            parent='0',
-            content=justification,
-            comment_type='verification',
-            comment_id=int(round(time() * 1000)),
+            comment_data=comment_data,
             finding_id=finding_id,
-            user_fullname=user_fullname,
             is_remediation_comment=True
         )
         send_remediation_email(user_email, finding_id, finding_name,

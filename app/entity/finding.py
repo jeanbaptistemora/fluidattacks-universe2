@@ -708,14 +708,17 @@ class AddFindingComment(Mutation):
 
             user_email = user_data['user_email']
             comment_id = int(round(time() * 1000))
+            comment_data = {
+                'user_id': comment_id,
+                'comment_type': parameters.get('type'),
+                'content': parameters.get('content'),
+                'fullname': str.join(' ', [info.context.session['first_name'],
+                                     info.context.session['last_name']]),
+                'parent': int(parameters.get('parent')),
+            }
             success = add_comment(
                 user_email=user_email,
-                user_fullname=str.join(' ', [info.context.session['first_name'],
-                                       info.context.session['last_name']]),
-                parent=parameters.get('parent'),
-                content=parameters.get('content'),
-                comment_type=parameters.get('type'),
-                comment_id=comment_id,
+                comment_data=comment_data,
                 finding_id=parameters.get('finding_id'),
                 is_remediation_comment=False
             )
