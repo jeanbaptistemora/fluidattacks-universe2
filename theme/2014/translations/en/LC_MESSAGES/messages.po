@@ -749,8 +749,26 @@ msgid "Index-serv-1"
 msgstr "continuous-hacking"
 
 #: templates/landing.html:51
+msgid "Index-text-1"
+msgstr ""
+"We detect  <b> security issues continuously </b> "
+"as the software evolves during your development cycle. "
+"Our team runs comprehensive testing, detecting all security issues "
+"with no false positives, and checks if issues were properly repaired "
+"before going into the production phase. "
+"We automate the verification of vulnerabilities' closure with Asserts, "
+"our automated closing engine."
+
+#: templates/landing.html:51
 msgid "Index-header-2"
-msgstr "Continuous<br/>Hacking"
+msgstr "Continuous Hacking"
+
+#: templates/landing.html:51
+msgid "Index-text-2"
+msgstr ""
+"We detect and report all vulnerabilities and security issues "
+"within <b> one specific version </b> of your application. "
+"Our team detects all existing security issues with no false positives."
 
 #: templates/landing.html:55
 msgid "Index-serv-2"
@@ -758,7 +776,7 @@ msgstr "one-shot-hacking"
 
 #: templates/landing.html:55
 msgid "Index-header-3"
-msgstr "One-Shot<br/>Hacking"
+msgstr "One-Shot Hacking"
 
 #: templates/landing.html:60
 msgid "Serv-txt"
@@ -772,7 +790,7 @@ msgstr "comparative"
 
 #: templates/landing.html:60
 msgid "Index-header-3.1"
-msgstr "comparative page."
+msgstr "comparative"
 
 #: templates/landing.html:66 templates/navigationbar.html:10
 msgid "Navb-opt-3"

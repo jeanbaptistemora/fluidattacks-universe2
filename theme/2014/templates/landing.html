@@ -33,22 +33,21 @@
   </div>
   <div class="services">
     <h1>{{ gettext('Index-header-1') }}</h1>
-    <p>{{ gettext('Index-msg-1') }} </p>
     <div class="serv-offer">
-      <div class="filler-serv">
-      </div>
       <div class="serv">
-        <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/service-1.svg" alt="{{ gettext('Index-img-alt') }}">
+        <!-- <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/service-1.svg" alt="{{ gettext('Index-img-alt') }}"> -->
         <h3><a href="{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}/"><strong>{{ gettext('Index-header-2') }}</strong></a></h3>
+        <p>{{ gettext('Index-text-1') }} <br>
+        <button class="fluid-button" onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}'">Learn More</button></p>
       </div>
       <div class="serv">
-        <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/service-2.svg" alt="{{ gettext('Index-img-alt') }}">
+        <!-- <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/service-2.svg" alt="{{ gettext('Index-img-alt') }}"> -->
         <h3><a href="{{SITEURL}}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}/"><strong>{{ gettext('Index-header-3') }}</strong></a></h3>
-      </div>
-      <div class="filler-serv">
+        <p>{{ gettext('Index-text-2') }} <br>
+        <button class="fluid-button" onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}'">Learn More</button> </p>
       </div>
     </div>
-    <p>{{ gettext('Serv-txt') }} <a href="{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-3') }}/"><strong>{{ gettext('Index-header-3.1') }}</strong></a></p>
+    <p>{{ gettext('Serv-txt') }} <button class="fluid-button" onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-3') }}'">{{ gettext('Index-header-3.1') }}</button> page.</p>
     <div class="serv">
     </div>
   </div>
