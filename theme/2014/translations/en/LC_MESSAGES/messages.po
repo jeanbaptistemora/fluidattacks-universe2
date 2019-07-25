@@ -883,9 +883,7 @@ msgstr ""
 #: templates/landing.html:155
 msgid "Contact-txt"
 msgstr ""
-"Please do not hesitate to contact us to share your comments, opinions and"
-" needs, or to receive an in-depth consultation concerning a product or "
-"the service of your choice."
+"Talk to our experts and start solving your vulnerabilities now!"
 
 #: templates/landing.html:159
 msgid "Contact-img-alt"

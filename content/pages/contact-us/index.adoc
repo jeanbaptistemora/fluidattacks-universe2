@@ -4,3 +4,6 @@
 :template: salesforce
 
 = Contact Us
+
+[role="halign-center"]
+Talk to our experts and start solving your vulnerabilities now!
