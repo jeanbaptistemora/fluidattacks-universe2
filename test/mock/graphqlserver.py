@@ -2,10 +2,12 @@
 
 """Simple Flask/GraphQL server."""
 
+from time import sleep
 from flask import Flask
 from flask_graphql import GraphQLView
 from graphene import (Int, String, Boolean, Field, List,
                       Mutation, ObjectType, Schema)
+
 
 #
 # Database
@@ -49,18 +51,30 @@ DATA = {
     }
 }
 
+
 #
 # Middleware
 #
 
-class MiddlewareDisableIntrospection(object):
-    """Middleware to disable introspection."""
 
-    def resolve(self, next, root, info, **kwargs):
-        """Resolve."""
-        if info.field_name.lower() in ('__schema',):
-            raise Exception('Introspection is disabled')
-        return next(root, info, **kwargs)
+def middleware_disable_introspection(next, root, info, **kwargs):
+    """Middleware to disable introspection."""
+    if info.field_name.lower() in ('__schema',
+                                   '__field',
+                                   '__type',
+                                   '__typekind',
+                                   '__inputvalue',
+                                   '__enumvalue',
+                                   '__directive',):
+        raise Exception('Introspection is disabled')
+    return next(root, info, **kwargs)
+
+
+def middleware_slow_server(next, root, info, **kwargs):
+    """Middleware to sleep between nodes simulating a loaded server."""
+    sleep(1.0)
+    return next(root, info, **kwargs)
+
 
 #
 # Queries
@@ -116,7 +130,7 @@ class User(ObjectType):
         return self.distros
 
 
-class SecQuery(ObjectType):
+class Query(ObjectType):
     """Query class."""
 
     users = List(User)
@@ -182,7 +196,7 @@ class EditUser(Mutation):
         return EditUser(success, User(name))
 
 
-class SecMutations(ObjectType):
+class Mutations(ObjectType):
     """Mutations class."""
 
     edit_user = EditUser.Field()
@@ -205,21 +219,34 @@ APP.add_url_rule('/errors/invalid-json',
 APP.add_url_rule('/secure-graphql',
     view_func=GraphQLView.as_view('secure-graphql',
         schema=Schema(
-            query=SecQuery,
-            mutation=SecMutations,
+            query=Query,
+            mutation=Mutations,
             types=[]),
         graphiql=True,
         middleware=[
-            MiddlewareDisableIntrospection(),
+            middleware_disable_introspection,
         ]))
 
 APP.add_url_rule('/insecure-graphql',
     view_func=GraphQLView.as_view('insecure-graphql',
         schema=Schema(
-            query=SecQuery,
-            mutation=SecMutations,
+            query=Query,
+            mutation=Mutations,
             types=[]),
-        graphiql=True))
+        graphiql=True,
+        middleware=[
+        ]))
+
+APP.add_url_rule('/lazy-graphql',
+    view_func=GraphQLView.as_view('lazy-graphql',
+        schema=Schema(
+            query=Query,
+            mutation=Mutations,
+            types=[]),
+        graphiql=True,
+        middleware=[
+            middleware_slow_server,
+        ]))
 
 
 def start():

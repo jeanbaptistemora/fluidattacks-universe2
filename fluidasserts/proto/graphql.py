@@ -2,15 +2,29 @@
 
 # standard imports
 import json
+import asyncio
 import textwrap
+from typing import List
 
 # 3rd party imports
+import aiohttp
 
 # local imports
-from fluidasserts import Unit, Result, MEDIUM, OPEN, CLOSED, UNKNOWN
+from fluidasserts import Unit, Result
+from fluidasserts import MEDIUM, HIGH
+from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts.helper import http
+from fluidasserts.helper import asynchronous
+from fluidasserts.utils.generic import get_sha256
 from fluidasserts.utils.decorators import api, track
 
+
+#
+# Constants
+#
+
+
+PROXY = None
 INTROSPECTION_QUERY: str = textwrap.dedent("""
     query {
         __schema {
@@ -149,11 +163,40 @@ INTROSPECTION_QUERY: str = textwrap.dedent("""
     }""")
 
 
+#
+# Helpers
+#
+
+
+def query(url: str, query: str, *args, **kwargs) -> None:
+    """Make a generic query to a GraphQL instance."""
+    kwargs['files'] = {'query': (None, query)}
+    return http.HTTPSession(url, *args, **kwargs)
+
+
+async def query_async(url: str, query: str, *args, **kwargs) -> None:
+    """Make a generic query to a GraphQL instance."""
+    with aiohttp.MultipartWriter('form-data') as writer_query:
+        writer_query.append(
+            query, headers={'Content-Disposition': 'form-data; name="query"'})
+
+    kwargs['data'] = writer_query
+    kwargs['proxy'] = PROXY
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, *args, **kwargs) as response:
+            return await response.read()
+
+
+#
+# Methods
+#
+
+
 @track
 @api(risk=MEDIUM)
 def accepts_introspection(url: str, *args, **kwargs) -> Result:
     r"""
-    Check if GraphQL is inplemented in a way that allows for introspection.
+    Check if GraphQL is implemented in a way that allows for introspection.
 
     Do pass cookies or special headers if needed using kwargs.
     Do not use json, data, or files parameter, they'll be added accordingly.
@@ -162,10 +205,8 @@ def accepts_introspection(url: str, *args, **kwargs) -> Result:
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    kwargs['files'] = {'query': (None, INTROSPECTION_QUERY)}
-
     try:
-        obj = http.HTTPSession(url, *args, **kwargs)
+        obj = query(url, INTROSPECTION_QUERY, *args, **kwargs)
     except http.ConnError as exc:
         return UNKNOWN, f'Connection Error: {exc}'
     except http.ParameterError as exc:
@@ -173,10 +214,10 @@ def accepts_introspection(url: str, *args, **kwargs) -> Result:
     else:
         fingerprint = obj.get_fingerprint()
 
-    units: Unit = [Unit(where=url,
-                        attribute='GraphQL/Implementation',
-                        specific=['GraphQL/Query/Introspection'],
-                        fingerprint=fingerprint)]
+    units: List[Unit] = [Unit(where=url,
+                              attribute='GraphQL',
+                              specific=['GraphQL/Query/Introspection'],
+                              fingerprint=fingerprint)]
 
     try:
         obj_json = json.loads(obj.response.text)
@@ -185,11 +226,72 @@ def accepts_introspection(url: str, *args, **kwargs) -> Result:
 
     if obj_json.get('errors'):
         res = CLOSED
-        msg = 'GraphQL implementation does not accept introspection queries'
+        msg = 'GraphQL does not accept introspection queries'
         vulns, safes = [], units
     else:
         res = OPEN
-        msg = 'GraphQL implementation accepts introspection queries'
+        msg = 'GraphQL accepts introspection queries'
         vulns, safes = units, []
 
     return res, msg, vulns, safes
+
+
+@track
+@api(risk=HIGH)
+def has_dos(url: str, query: str,
+            num: int, timeout: float, *args, **kwargs) -> Result:
+    r"""
+    Check if GraphQL is implemented in a way that allows for a DoS.
+
+    The method will perform `num` asynchronous requests and consider a DoS
+    if any of the requests exceed the timeout.
+
+    Consider using an expensive query, (one that takes the server some
+    processing time to respond).
+
+    Consider going from one request, to two, then three and so on until you
+    find the server starts taking time to respond. Avoid launching one million
+    requests at once or you could really be damaging the server.
+
+    Do pass cookies or special headers if needed using kwargs.
+    Do not use json, data, or files param, the request body
+    will be added accordingly from your `query`.
+
+    :param url: GraphQL endpoint to test.
+    :param num: Number of simultaneous requests to made.
+    :param timeout: Max number of seconds to wait for a response.
+    :param \*args: Optional arguments for :class:`.HTTPSession`.
+    :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    """
+    kwargs['timeout'] = aiohttp.ClientTimeout(total=timeout)
+
+    async def run_dos(url: str, query: str, num: int, args, kwargs):
+        """Function to run multiple queries and return the errors."""
+        tasks = (
+            asyncio.ensure_future(
+                query_async(url, query, *args, **kwargs)) for _ in range(num))
+
+        responses = await asyncio.gather(*tasks, return_exceptions=True)
+
+        return \
+            tuple(filter(asynchronous.is_timeout_error, responses)), \
+            tuple(filter(asynchronous.is_parameter_error, responses)), \
+            tuple(filter(asynchronous.is_connection_error, responses))
+
+    timeouts, param_errors, conn_errors = asynchronous.run_func(
+        func=run_dos, args=(((url, query, num, args, kwargs), {}),))[0]
+
+    if param_errors:
+        return UNKNOWN, f'Some parameter errors ocurred: {param_errors}'
+    if conn_errors:
+        return UNKNOWN, f'Some connection errors ocurred: {conn_errors}'
+
+    units: List[Unit] = [Unit(where=url,
+                              attribute='GraphQL',
+                              specific=['GraphQL/Response/Time'],
+                              fingerprint=get_sha256(query))]
+
+    if timeouts:
+        return OPEN, 'GraphQL is vulnerable to a DoS', units
+    else:
+        return CLOSED, 'GraphQL is vulnerable to a DoS', units
