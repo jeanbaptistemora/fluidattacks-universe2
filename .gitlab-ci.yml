@@ -373,31 +373,7 @@ deploy-k8s:
     url: "https://fluidattacks.com/integrates"
   <<: *vault_login
   script:
-    - kubectl config set-context "$(kubectl config current-context)"
-        --namespace serves
-    - if ! kubectl get secret gitlab-reg; then
-        echo "Creating secret to access Gitlab Registry...";
-        kubectl create secret docker-registry gitlab-reg
-          --docker-server="${CI_REGISTRY}" --docker-username="${GITLAB_USER}"
-          --docker-password="${GITLAB_PASS}" --docker-email="${GITLAB_EMAIL}";
-      fi
-    - sed -i 's/$VAULT_HOST/'"$(echo -n $VAULT_HOST | base64)"'/;
-        s/$VAULT_TOKEN/'"$(echo -n $VAULT_TOKEN | base64)"'/;
-        s/$DATE/'"$(date)"'/g'
-        integrates-k8s.yaml
-    - kubectl apply -f integrates-k8s.yaml
-    - kubectl rollout status deploy/integrates --timeout=5m ||
-        { kubectl rollout undo deploy/integrates && exit 1; }
-    - kubectl rollout status deploy/integrates-bot --timeout=5m ||
-        { kubectl rollout undo deploy/integrates-bot && exit 1; }
-    - curl https://api.rollbar.com/api/1/deploy/
-        -F access_token=$ROLLBAR_ACCESS_TOKEN
-        -F environment=$FI_ROLLBAR_ENVIRONMENT
-        -F revision=$CI_COMMIT_SHA
-        -F local_username="$CI_COMMIT_REF_NAME"
-    - vaultenv ./new_relic_deployment.sh
-  after_script:
-    - rm integrates-k8s.yaml
+    - vaultenv ci-scripts/jobs/deploy-k8s.sh
   only:
     - master
 

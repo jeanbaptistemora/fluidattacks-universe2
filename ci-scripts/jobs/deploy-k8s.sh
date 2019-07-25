@@ -94,6 +94,8 @@ deploy_k8s() {
     -F local_username="$CI_COMMIT_REF_NAME"
 
   deploy_newrelic
+
+  rm deploy/integrates-k8s.yaml
 }
 
 deploy_k8s
