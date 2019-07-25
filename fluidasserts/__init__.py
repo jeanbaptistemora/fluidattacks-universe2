@@ -330,6 +330,11 @@ class Result():
         self.status: str = status
         return True
 
+    def set_duration(self, duration: int) -> bool:
+        """Set the duration."""
+        self.duration: int = duration
+        return True
+
     def set_message(self, message: str) -> bool:
         """Set the message."""
         self.message: str = message
@@ -374,6 +379,7 @@ class Result():
         result.update({
             'parameters': self.func_params,
             'when': self.when,
+            'elapsed_seconds': self.duration,
             'risk': self.risk,
         })
         return result

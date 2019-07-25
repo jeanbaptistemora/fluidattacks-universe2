@@ -5,6 +5,7 @@
 # standard imports
 import sys
 import functools
+from timeit import default_timer as timer
 from typing import Callable, Any
 from .tracking import mp_track
 
@@ -35,11 +36,15 @@ def api(risk: str) -> Callable:
 
             # Notify that the check is running
             print(f'  check: {result.func_id}', file=sys.stderr, flush=True)
+            start_time = timer()
             status, message, *extra = func(*args, **kwargs)
+            end_time = timer()
+            duration = end_time - start_time
 
             # Append the results
             result.set_status(status)
             result.set_message(message)
+            result.set_duration(duration)
             result.set_vulns(extra.pop(0) if extra else [])
             result.set_safes(extra.pop(0) if extra else [])
 
