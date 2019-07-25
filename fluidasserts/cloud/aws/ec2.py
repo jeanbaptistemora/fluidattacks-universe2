@@ -20,10 +20,23 @@ from fluidasserts.utils.decorators import track, level, notify
 from fluidasserts.helper import aws
 
 
+def _check_port_in_seggroup(port: int, group: dict) -> list:
+    """Check if port is open according to security group."""
+    vuln = []
+    for perm in group['IpPermissions']:
+        try:
+            vuln += [perm for x in perm['IpRanges']
+                     if x['CidrIp'] == '0.0.0.0/0' and
+                     perm['FromPort'] <= port <= perm['ToPort']]
+        except KeyError:
+            pass
+    return vuln
+
+
 @notify
 @level('medium')
 @track
-def seggroup_allows_anyone_to_ssh(
+def seggroup_allows_anyone_to_admin_ports(
         key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if security groups allows connection from anyone to SSH service.
@@ -31,6 +44,21 @@ def seggroup_allows_anyone_to_ssh(
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
+    admin_ports = {
+        22,  # SSH
+        1521,  # Oracle
+        2438,  # Oracle
+        3306,  # MySQL
+        3389,  # RDP
+        5432,  # Postgres
+        6379,  # Redis
+        7199,  # Cassandra
+        8111,  # DAX
+        8888,  # Cassandra
+        9160,  # Cassandra
+        11211,  # Memcached
+        27017,  # MongoDB
+    }
     try:
         sec_groups = aws.list_security_groups(key_id, secret, retry=retry)
     except aws.ConnError as exc:
@@ -46,71 +74,20 @@ def seggroup_allows_anyone_to_ssh(
         return False
 
     result = False
+
     for group in sec_groups:
-        for ip_perm in group['IpPermissions']:
-            try:
-                vuln = [ip_perm for x in ip_perm['IpRanges']
-                        if x['CidrIp'] == '0.0.0.0/0'and
-                        ip_perm['FromPort'] <= 22 <= ip_perm['ToPort']]
-            except KeyError:
-                pass
-        if vuln:
-            show_open('Security group allows connections \
-from anyone to port 22',
-                      details=dict(group=group['Description'],
-                                   ip_ranges=vuln))
-            result = True
-        else:
-            show_close('Security group not allows connections \
-from anyone to port 22',
-                       details=dict(group=group['Description']))
-    return result
-
-
-@notify
-@level('medium')
-@track
-def seggroup_allows_anyone_to_rdp(
-        key_id: str, secret: str, retry: bool = True) -> bool:
-    """
-    Check if security groups allows connection from anyone to RDP service.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    try:
-        sec_groups = aws.list_security_groups(key_id, secret, retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    if not sec_groups:
-        show_close('Not security groups were found')
-        return False
-
-    result = False
-    for group in sec_groups:
-        for ip_perm in group['IpPermissions']:
-            try:
-                vuln = [ip_perm for x in ip_perm['IpRanges']
-                        if x['CidrIp'] == '0.0.0.0/0'and
-                        ip_perm['FromPort'] <= 3389 <= ip_perm['ToPort']]
-            except KeyError:
-                pass
-        if vuln:
-            show_open('Security group allows connections \
-from anyone to port 3389',
-                      details=dict(group=group['Description'],
-                                   ip_ranges=vuln))
-            result = True
-        else:
-            show_close('Security group not allows connections \
-from anyone to port 3389',
-                       details=dict(group=group['Description']))
+        for admin_port in admin_ports:
+            vuln = _check_port_in_seggroup(admin_port, group)
+            if vuln:
+                show_open(f'Security group allows connections \
+from anyone to {admin_port}',
+                          details=dict(group=group['Description'],
+                                       ip_ranges=vuln))
+                result = True
+            else:
+                show_close(f'Security group not allows connections \
+from anyone to port {admin_port}',
+                           details=dict(group=group['Description']))
     return result
 
 
