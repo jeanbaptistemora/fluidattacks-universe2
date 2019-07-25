@@ -5,7 +5,7 @@
 # standard imports
 import os
 import re
-from typing import Callable, Dict, List, Tuple
+from typing import Any, Callable, Dict, List, Tuple
 from functools import lru_cache
 from itertools import accumulate
 
@@ -14,6 +14,7 @@ from pyparsing import ParserElement, ParseException, ParseResults
 
 # local imports
 from fluidasserts import Unit
+from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts.utils.generic import get_sha256
 from fluidasserts.utils.generic import full_paths_in_dir
 
@@ -509,3 +510,25 @@ def check_grammar2(grammar: ParserElement,
     if os.path.isdir(code_dest):
         return _check_grammar_in_dir2(grammar, code_dest, lang_spec, exclude)
     return _check_grammar_in_file2(grammar, code_dest, lang_spec)
+
+
+def generic_method(path: str,
+                   gmmr: Any,
+                   func: Callable,
+                   msgs: Dict[str, str],
+                   excl: list = None,
+                   spec: dict = None) -> tuple:
+    """Check grammar in a destination and propagate results upwards."""
+    if not os.path.exists(path):
+        return UNKNOWN, 'File does not exist'
+
+    excl = excl if excl else []
+    spec = spec if spec else {}
+
+    vulns, safes = func(gmmr, path, spec, excl)
+
+    if vulns:
+        return OPEN, msgs[OPEN], vulns, safes
+    if safes:
+        return CLOSED, msgs[CLOSED], vulns, safes
+    return CLOSED, 'No files were tested'

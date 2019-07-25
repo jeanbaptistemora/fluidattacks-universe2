@@ -3,7 +3,7 @@
 """This module allows to check Java code vulnerabilities."""
 
 # standard imports
-# none
+from typing import Dict
 
 # 3rd party imports
 from pyparsing import (CaselessKeyword, Word, Literal, Optional, alphas,
@@ -12,12 +12,15 @@ from pyparsing import (CaselessKeyword, Word, Literal, Optional, alphas,
                        ZeroOrMore, Empty)
 
 # local imports
-from fluidasserts.helper import lang
+from fluidasserts import Result
+from fluidasserts import LOW
+from fluidasserts import OPEN, CLOSED
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
+from fluidasserts.helper import lang
 from fluidasserts.utils.generic import get_sha256
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts.utils.decorators import track, level, notify, api
 
 
 LANGUAGE_SPECS = {
@@ -51,9 +54,8 @@ def _get_block(file_lines: list, line: int) -> str:
 def _declares_catch_for_exceptions(
         java_dest: str,
         exceptions_list: list,
-        open_msg: str,
-        closed_msg: str,
-        exclude: list = None) -> bool:
+        msgs: Dict[str, str],
+        exclude: list = None) -> tuple:
     """Search for the declaration of catch for the given exceptions."""
     any_exception = L_VAR_CHAIN_NAME
     provided_exception = MatchFirst(
@@ -71,23 +73,18 @@ def _declares_catch_for_exceptions(
     grammar.ignore(L_STRING)
     grammar.ignore(L_CHAR)
 
-    try:
-        matches = lang.path_contains_grammar(grammar, java_dest,
-                                             LANGUAGE_SPECS, exclude)
-    except FileNotFoundError:
-        show_unknown('File does not exist', details=dict(code_dest=java_dest))
-    else:
-        if matches:
-            show_open(open_msg, details=dict(matched=matches))
-            return True
-        show_close(closed_msg, details=dict(code_dest=java_dest))
-    return False
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.path_contains_grammar2,
+        msgs=msgs,
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
-@notify
-@level('low')
 @track
-def has_generic_exceptions(java_dest: str, exclude: list = None) -> bool:
+@api(risk=LOW)
+def has_generic_exceptions(java_dest: str, exclude: list = None) -> Result:
     """
     Search for generic exceptions in a Java source file or package.
 
@@ -102,16 +99,17 @@ def has_generic_exceptions(java_dest: str, exclude: list = None) -> bool:
             'Exception',
             'lang.Exception',
             'java.lang.Exception'],
-        open_msg='Code declares a "catch" for generic exceptions',
-        closed_msg='Code does not declare "catch" for generic exceptions',
+        msgs={
+            OPEN: 'Code declares a "catch" for generic exceptions',
+            CLOSED: 'Code does not declare "catch" for generic exceptions',
+        },
         exclude=exclude)
 
 
-@notify
-@level('low')
 @track
+@api(risk=LOW)
 def uses_catch_for_null_pointer_exception(
-        java_dest: str, exclude: list = None) -> bool:
+        java_dest: str, exclude: list = None) -> Result:
     """
     Search for the use of NullPointerException "catch" in a path.
 
@@ -126,18 +124,19 @@ def uses_catch_for_null_pointer_exception(
             'NullPointerException',
             'lang.NullPointerException',
             'java.lang.NullPointerException'],
-        open_msg=('Code uses NullPointerException '
-                  'Catch to Detect NULL Pointer Dereference'),
-        closed_msg=('Code does not use NullPointerException '
-                    'Catch to Detect NULL Pointer Dereference'),
+        msgs={
+            OPEN: ('Code uses NullPointerException '
+                   'Catch to Detect NULL Pointer Dereference'),
+            CLOSED: ('Code does not use NullPointerException '
+                     'Catch to Detect NULL Pointer Dereference'),
+        },
         exclude=exclude)
 
 
-@notify
-@level('low')
 @track
+@api(risk=LOW)
 def uses_catch_for_runtime_exception(
-        java_dest: str, exclude: list = None) -> bool:
+        java_dest: str, exclude: list = None) -> Result:
     """
     Search for the use of RuntimeException "catch" in a path.
 
@@ -152,17 +151,18 @@ def uses_catch_for_runtime_exception(
             'RuntimeException',
             'lang.RuntimeException',
             'java.lang.RuntimeException'],
-        open_msg=('Code declares a catch for RuntimeException '
-                  'to handle programming mistakes '
-                  'instead of prevent them by coding defensively'),
-        closed_msg='Code does not declare a catch for RuntimeException',
+        msgs={
+            OPEN: ('Code declares a catch for RuntimeException '
+                   'to handle programming mistakes '
+                   'instead of prevent them by coding defensively'),
+            CLOSED: 'Code does not declare a catch for RuntimeException',
+        },
         exclude=exclude)
 
 
-@notify
-@level('low')
 @track
-def uses_print_stack_trace(java_dest: str, exclude: list = None) -> bool:
+@api(risk=LOW)
+def uses_print_stack_trace(java_dest: str, exclude: list = None) -> Result:
     """
     Search for ``printStackTrace`` calls in a path.
 
@@ -171,31 +171,26 @@ def uses_print_stack_trace(java_dest: str, exclude: list = None) -> bool:
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
     """
-    grammar = L_VAR_NAME + '.' + Keyword('printStackTrace')
+    grammar = '.' + Keyword('printStackTrace')
     grammar.ignore(javaStyleComment)
     grammar.ignore(L_STRING)
     grammar.ignore(L_CHAR)
 
-    try:
-        matches = lang.path_contains_grammar(grammar, java_dest,
-                                             LANGUAGE_SPECS, exclude)
-    except FileNotFoundError:
-        show_unknown('File does not exist', details=dict(code_dest=java_dest))
-    else:
-        if matches:
-            show_open('Code uses Throwable.printStackTrace() method',
-                      details=dict(matched=matches,
-                                   total_vulns=len(matches)))
-            return True
-        show_close('Code does not use Throwable.printStackTrace() method',
-                   details=dict(code_dest=java_dest))
-    return False
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.path_contains_grammar2,
+        msgs={
+            OPEN: 'Code uses Throwable.printStackTrace() method',
+            CLOSED: 'Code does not use Throwable.printStackTrace() method'
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
-@notify
-@level('low')
 @track
-def swallows_exceptions(java_dest: str, exclude: list = None) -> bool:
+@api(risk=LOW)
+def swallows_exceptions(java_dest: str, exclude: list = None) -> Result:
     """
     Search for ``catch`` blocks that are empty or only have comments.
 
@@ -212,19 +207,16 @@ def swallows_exceptions(java_dest: str, exclude: list = None) -> bool:
         + nestedExpr(opener='{', closer='}', content=~Empty())
     grammar.ignore(javaStyleComment)
 
-    try:
-        matches = lang.path_contains_grammar(grammar, java_dest,
-                                             LANGUAGE_SPECS, exclude)
-    except FileNotFoundError:
-        show_unknown('File does not exist', details=dict(code_dest=java_dest))
-    else:
-        if matches:
-            show_open('Code has empty "catch" blocks',
-                      details=dict(matched=matches))
-            return True
-        show_close('Code does not have empty "catch" blocks',
-                   details=dict(code_dest=java_dest))
-    return False
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.path_contains_grammar2,
+        msgs={
+            OPEN: 'Code has empty "catch" blocks',
+            CLOSED: 'Code does not have empty "catch" blocks',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
 @notify
