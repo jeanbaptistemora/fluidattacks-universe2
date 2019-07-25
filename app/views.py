@@ -19,7 +19,6 @@ from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache, cache_control
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods, condition

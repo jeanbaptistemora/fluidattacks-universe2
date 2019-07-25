@@ -11,6 +11,7 @@ from django.core.cache import cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest, HttpResponse
+from django.views.decorators.csrf import csrf_protect
 from graphql import GraphQLError
 from rediscluster.nodemanager import RedisClusterException
 
@@ -59,6 +60,21 @@ def authorize(roles):
 
 
 # Access control decorators for GraphQL
+def verify_csrf(func):
+    """
+    Conditional CSRF decorator
+
+    Enables django CSRF protection if using cookie-based authentication
+    """
+    @functools.wraps(func)
+    def verify_and_call(*args, **kwargs):
+        request = args[0]
+        if request.COOKIES.get('integrates_session'):
+            return csrf_protect(func)(*args, **kwargs)
+        return func(*args, **kwargs)
+    return verify_and_call
+
+
 def require_login(func):
     """
     Require_login decorator
