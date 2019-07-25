@@ -414,3 +414,18 @@ def list_clusters(key_id: str, secret: str, retry: bool = True) -> dict:
         raise ConnError
     except botocore.exceptions.ClientError:
         raise ClientErr
+
+
+def get_bucket_public_grants(bucket, grants):
+    """Check if there are public grants in dict."""
+    public_acl = 'http://acs.amazonaws.com/groups/global/AllUsers'
+    perms = ['READ', 'WRITE']
+    public_buckets = {}
+    for grant in grants:
+        for (key, val) in grant.items():
+            if key == 'Permission' and any(perm in val for perm in perms):
+                for (grantee_k, _) in grant['Grantee'].items():
+                    if 'URI' in grantee_k and \
+                            grant['Grantee']['URI'] == public_acl:
+                        public_buckets[val] = bucket
+    return public_buckets

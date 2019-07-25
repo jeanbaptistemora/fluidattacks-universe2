@@ -20,21 +20,6 @@ from fluidasserts.utils.decorators import track, level, notify
 from fluidasserts.helper import aws
 
 
-def _get_public_grants(bucket, grants):
-    """Check if there are public grants in dict."""
-    public_acl = 'http://acs.amazonaws.com/groups/global/AllUsers'
-    perms = ['READ', 'WRITE']
-    public_buckets = {}
-    for grant in grants:
-        for (key, val) in grant.items():
-            if key == 'Permission' and any(perm in val for perm in perms):
-                for (grantee_k, _) in grant['Grantee'].items():
-                    if 'URI' in grantee_k and \
-                            grant['Grantee']['URI'] == public_acl:
-                        public_buckets[val] = bucket
-    return public_buckets
-
-
 @notify
 @level('low')
 @track
@@ -102,7 +87,7 @@ def has_public_buckets(
 
     for bucket in buckets:
         grants = aws.get_bucket_acl(key_id, secret, bucket['Name'])
-        result = _get_public_grants(bucket['Name'], grants)
+        result = aws.get_bucket_public_grants(bucket['Name'], grants)
         if result:
             public_buckets.append(result)
 

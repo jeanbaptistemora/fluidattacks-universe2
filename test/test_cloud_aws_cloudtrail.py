@@ -61,3 +61,22 @@ def test_file_validation_close():
                                               retry=False)
     os.environ.pop('http_proxy', None)
     os.environ.pop('https_proxy', None)
+
+
+def test_trail_bucket_public_close():
+    """Search if trails buckets are public."""
+    assert not cloudtrail.is_trail_bucket_public(AWS_ACCESS_KEY_ID,
+                                                 AWS_SECRET_ACCESS_KEY,
+                                                 retry=False)
+    assert not cloudtrail.is_trail_bucket_public(AWS_ACCESS_KEY_ID,
+                                                 AWS_SECRET_ACCESS_KEY_BAD,
+                                                 retry=False)
+
+    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
+    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
+
+    assert not cloudtrail.is_trail_bucket_public(AWS_ACCESS_KEY_ID,
+                                                 AWS_SECRET_ACCESS_KEY,
+                                                 retry=False)
+    os.environ.pop('http_proxy', None)
+    os.environ.pop('https_proxy', None)

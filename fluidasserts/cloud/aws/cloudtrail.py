@@ -95,3 +95,47 @@ def files_not_validated(key_id: str, secret: str, retry: bool = True) -> bool:
             show_close('File validation enabled',
                        details=dict(trail_arn=trail['TrailARN']))
     return result
+
+
+@notify
+@level('high')
+@track
+def is_trail_bucket_public(key_id: str, secret: str,
+                           retry: bool = True) -> bool:
+    """
+    Check if trails are multiregion.
+
+    CIS 2.3 Ensure the S3 bucket CloudTrail logs to is not publicly
+    accessible (Scored)
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    result = False
+    try:
+        trails = aws.list_trails(key_id, secret, retry=retry)
+    except aws.ConnError as exc:
+        show_unknown('Could not connect',
+                     details=dict(error=str(exc).replace(':', '')))
+        return False
+    except aws.ClientErr as exc:
+        show_unknown('Error retrieving info. Check credentials.',
+                     details=dict(error=str(exc).replace(':', '')))
+        return False
+    if not trails:
+        show_close('Not trails were found')
+        return False
+
+    for trail in trails:
+        bucket = trail['S3BucketName']
+        grants = aws.get_bucket_acl(key_id, secret, bucket)
+        if aws.get_bucket_public_grants(bucket, grants):
+            show_open('CloudTrail bucket is public',
+                      details=dict(trail_arn=trail['TrailARN'],
+                                   bucket=bucket))
+            result = True
+        else:
+            show_close('CloudTrail bucket is not public',
+                       details=dict(trail_arn=trail['TrailARN'],
+                                    bucket=bucket))
+    return result
