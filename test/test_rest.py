@@ -15,6 +15,7 @@ from fluidasserts.proto import rest
 # Constants
 
 MOCK_SERVICE = 'http://localhost:5000'
+NO_HEADERS = 'http://localhost:5000/noheaders'
 BASE_URL = MOCK_SERVICE + '/rest'
 BWAPP_PORT = 80
 NONEXISTANT_SERVICE = 'http://nonexistant.fluidattacks.com'
@@ -44,18 +45,21 @@ def test_hsts_open():
 
 def test_frame_options_open():
     """Check X-Frame-Options header."""
+    assert rest.is_header_x_frame_options_missing(NO_HEADERS).is_open()
     assert rest.is_header_x_frame_options_missing(
         '%s/frame_options/fail' % (BASE_URL)).is_open()
 
 
 def test_content_options_open():
     """Check X-Content-Type-Options header."""
+    assert rest.is_header_x_content_type_options_missing(NO_HEADERS).is_open()
     assert rest.is_header_x_content_type_options_missing(
         '%s/content_options/fail' % (BASE_URL)).is_open()
 
 
 def test_content_type_open():
     """Check Content-Type header."""
+    assert rest.is_header_content_type_missing(NO_HEADERS).is_open()
     assert rest.is_header_content_type_missing(
         '%s/content_type/fail' % (BASE_URL)).is_open()
 

@@ -22,6 +22,7 @@ from fluidasserts.proto import http
 #
 
 MOCK_SERVICE = 'http://localhost:5000'
+NO_HEADERS = 'http://localhost:5000/noheaders'
 BASE_URL = MOCK_SERVICE + '/http/headers'
 BWAPP_PORT = 80
 
@@ -234,6 +235,7 @@ def test_access_control_allow_origin_open():
 
 def test_cache_control_open():
     """Header Cache-Control no establecido?."""
+    assert http.is_header_cache_control_missing(NO_HEADERS).is_open()
     assert http.is_header_cache_control_missing(
         '%s/cache_control/fail' % (BASE_URL)).is_open()
 
@@ -247,6 +249,7 @@ def test_hsts_open():
 
 def test_pragma_open():
     """Check Pragma header."""
+    assert http.is_header_pragma_missing(NO_HEADERS).is_open()
     assert http.is_header_pragma_missing(f'{BASE_URL}/pragma/fail').is_open()
 
 
@@ -414,6 +417,7 @@ def test_is_not_https_required_open():
 
 def test_is_header_x_xxs_protection_missing_open():
     """Header x-xss-protection establecido?."""
+    assert http.is_header_x_xxs_protection_missing(NO_HEADERS).is_open()
     assert http.is_header_x_xxs_protection_missing(
         '%s/xxs_protection/fail' % (BASE_URL)).is_open()
 
@@ -426,30 +430,35 @@ def test_expires_open():
 
 def test_content_security_policy_missing_open():
     """Check Content-Security-Policy header."""
+    assert http.is_header_content_security_policy_missing(NO_HEADERS).is_open()
     assert http.is_header_content_security_policy_missing(
         '%s/content_security_policy/fail' % (BASE_URL)).is_open()
 
 
 def test_content_type_open():
     """Check Content-Type header."""
+    assert http.is_header_content_type_missing(NO_HEADERS).is_open()
     assert http.is_header_content_type_missing(
         '%s/content_type/fail' % (BASE_URL)).is_open()
 
 
 def test_content_options_open():
     """Check X-Content-Type-Options header."""
+    assert http.is_header_x_content_type_options_missing(NO_HEADERS).is_open()
     assert http.is_header_x_content_type_options_missing(
         '%s/content_options/fail' % (BASE_URL)).is_open()
 
 
 def test_frame_options_open():
     """Check X-Frame-Options header."""
+    assert http.is_header_x_frame_options_missing(NO_HEADERS).is_open()
     assert http.is_header_x_frame_options_missing(
         '%s/frame_options/fail' % (BASE_URL)).is_open()
 
 
 def test_is_header_perm_cross_dom_pol_missing_open():
     """Header cross-domain-policy establecido?."""
+    assert http.is_header_perm_cross_dom_pol_missing(NO_HEADERS).is_open()
     assert http.is_header_perm_cross_dom_pol_missing(
         '%s/perm_cross_dom_pol/fail' % (BASE_URL)).is_open()
 

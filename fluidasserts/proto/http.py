@@ -29,6 +29,7 @@ from fluidasserts.utils.decorators import track, level, notify, api
 
 # pylint: disable=too-many-lines
 
+# This dictionary maps the header to a regex in which the value is secure
 HDR_RGX = {
     'access-control-allow-origin': '^https?:\\/\\/.*$',
     'cache-control': '(?=.*must-revalidate)(?=.*no-cache)(?=.*no-store)',
@@ -494,11 +495,12 @@ def is_header_access_control_allow_origin_missing(url: str,
         kwargs = {'headers': {'Origin': 'https://www.malicious.com'}}
 
     try:
-        if not _is_header_present(url, header, *args, **kwargs):
+        result = _has_insecure_value(url, header, *args, **kwargs)
+        if result:
+            return OPEN, f'{header} HTTP header is insecure'
+        if result is None:
             return CLOSED, (f'HTTP header {header} not present which is secure'
                             'by default')
-        if _has_insecure_value(url, header, *args, **kwargs):
-            return OPEN, f'{header} HTTP header is insecure'
         return CLOSED, f'{header} HTTP header is insecure'
     except http.ConnError as exc:
         return UNKNOWN, f'There was an error: {exc}'
@@ -518,7 +520,13 @@ def is_header_cache_control_missing(url: str, *args, **kwargs) -> Result:
     """
     header = 'Cache-Control'
     try:
-        if _has_insecure_value(url, header, *args, **kwargs):
+        result = _has_insecure_value(url, header, *args, **kwargs)
+        if result is None:
+            return OPEN, (f'Header {header} is not set, which is insecure on '
+                          f'resources with sensible data as it could get '
+                          f'cached and an attacker with local access '
+                          f'could retrieve it')
+        if result:
             return OPEN, f'Header {header} has insecure value'
         return CLOSED, f'Header {header} has a secure value'
     except http.ConnError as exc:
@@ -540,7 +548,12 @@ def is_header_content_security_policy_missing(url: str,
     """
     header = 'Content-Security-Policy'
     try:
-        if _has_insecure_value(url, header, *args, **kwargs):
+        result = _has_insecure_value(url, header, *args, **kwargs)
+        if result is None:
+            return OPEN, (f'Header {header} is not set, which is insecure '
+                          f'as it increases the probability of an XSS Attack '
+                          f'to succeed')
+        if result:
             return OPEN, f'Header {header} has insecure value'
         return CLOSED, f'Header {header} has a secure value'
     except http.ConnError as exc:
@@ -561,7 +574,15 @@ def is_header_content_type_missing(url: str, *args, **kwargs) -> Result:
     """
     header = 'Content-Type'
     try:
-        if _has_insecure_value(url, header, *args, **kwargs):
+        result = _has_insecure_value(url, header, *args, **kwargs)
+        if result is None:
+            return OPEN, (f'Header {header} is not set, which is insecure '
+                          f'as it leaves the type of the response open '
+                          f'to interpretation (which may introduce '
+                          f'vulnerabilities by an improper synchronization '
+                          f'between the client and the server, or sniffing '
+                          f'of the payload')
+        if result:
             return OPEN, f'Header {header} has insecure value'
         return CLOSED, f'Header {header} has a secure value'
     except http.ConnError as exc:
@@ -582,8 +603,11 @@ def is_header_expires_missing(url: str, *args, **kwargs) -> Result:
     """
     header = 'Expires'
     try:
-        if _has_insecure_value(url, header, *args, **kwargs):
+        result = _has_insecure_value(url, header, *args, **kwargs)
+        if result:
             return OPEN, f'Header {header} has insecure value'
+        if result is None:
+            return CLOSED, f'Header {header} is not set'
         return CLOSED, f'Header {header} has a secure value'
     except http.ConnError as exc:
         return UNKNOWN, f'There was an error: {exc}'
@@ -603,9 +627,11 @@ def is_header_pragma_missing(url: str, *args, **kwargs) -> Result:
     """
     header = 'Pragma'
     try:
-        if not _is_header_present(url, header, *args, **kwargs):
-            return OPEN, f'Header {header} not present'
-        if _has_insecure_value(url, header, *args, **kwargs):
+        result = _has_insecure_value(url, header, *args, **kwargs)
+        if result is None:
+            return OPEN, (f'Header {header} is not set, which is insecure on '
+                          f'resources with sensible data')
+        if result:
             return OPEN, f'Header {header} has insecure value'
         return CLOSED, f'Header {header} has a secure value'
     except http.ConnError as exc:
@@ -648,7 +674,11 @@ def is_header_x_content_type_options_missing(url: str, *args,
     """
     header = 'X-Content-Type-Options'
     try:
-        if _has_insecure_value(url, header, *args, **kwargs):
+        result = _has_insecure_value(url, header, *args, **kwargs)
+        if result is None:
+            return OPEN, (f'Header {header} is not set, which is insecure '
+                          f'as it does not dissable MIME Sniffing')
+        if result:
             return OPEN, f'Header {header} has insecure value'
         return CLOSED, f'Header {header} has a secure value'
     except http.ConnError as exc:
@@ -669,7 +699,11 @@ def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> Result:
     """
     header = 'X-Frame-Options'
     try:
-        if _has_insecure_value(url, header, *args, **kwargs):
+        result = _has_insecure_value(url, header, *args, **kwargs)
+        if result is None:
+            return OPEN, (f'Header {header} is not set, which is insecure '
+                          f'as it allows for a Click Jacking attack')
+        if result:
             return OPEN, f'Header {header} has insecure value'
         return CLOSED, f'Header {header} has a secure value'
     except http.ConnError as exc:
@@ -690,7 +724,11 @@ def is_header_perm_cross_dom_pol_missing(url: str, *args, **kwargs) -> Result:
     """
     header = 'X-Permitted-Cross-Domain-Policies'
     try:
-        if _has_insecure_value(url, header, *args, **kwargs):
+        result = _has_insecure_value(url, header, *args, **kwargs)
+        if result is None:
+            return OPEN, (f'Header {header} is not set, which is insecure '
+                          f'on applications that use Flash or PDF')
+        if result:
             return OPEN, f'Header {header} has insecure value'
         return CLOSED, f'Header {header} has a secure value'
     except http.ConnError as exc:
@@ -711,7 +749,11 @@ def is_header_x_xxs_protection_missing(url: str, *args, **kwargs) -> Result:
     """
     header = 'X-XSS-Protection'
     try:
-        if _has_insecure_value(url, header, *args, **kwargs):
+        result = _has_insecure_value(url, header, *args, **kwargs)
+        if result is None:
+            return OPEN, (f'Header {header} is not set, which is insecure as '
+                          f'it aids an XSS attack to succeed')
+        if result:
             return OPEN, f'Header {header} has insecure value'
         return CLOSED, f'Header {header} has a secure value'
     except http.ConnError as exc:
@@ -1221,7 +1263,8 @@ def is_response_delayed(url: str, *args, **kwargs) -> bool:
 
 # pylint: disable=too-many-locals
 # pylint: disable=keyword-arg-before-vararg
-@level('medium')  # noqa
+@notify  # noqa
+@level('medium')
 @track
 def has_user_enumeration(url: str, user_field: str,
                          user_list: Optional[List] = None,
@@ -1610,12 +1653,12 @@ def has_reverse_tabnabbing(url: str, *args, **kwargs) -> bool:
             checks.append(parsed)
 
     if vulns:
-        show_open('There are a href tags succeptible to reverse tabnabbing.',
+        show_open('There are a href tags succeptible to reverse tabnabbing',
                   details=dict(url=url,
                                vulns=vulns,
                                fingerprint=fingerprint))
         return True
-    show_close('There are no a href tags succeptible to reverse tabnabbing.',
+    show_close('There are no a href tags succeptible to reverse tabnabbing',
                details=dict(url=url,
                             checks=checks,
                             fingerprint=fingerprint))

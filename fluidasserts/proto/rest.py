@@ -128,7 +128,11 @@ def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> Result:
     """
     header = 'X-Frame-Options'
     try:
-        if _has_insecure_value(url, header, *args, **kwargs):
+        result = _has_insecure_value(url, header, *args, **kwargs)
+        if result is None:
+            return OPEN, (f'Header {header} is not set, which is insecure '
+                          f'as it allows for a Click Jacking attack')
+        if result:
             return OPEN, f'Header {header} has insecure value'
         return CLOSED, f'Header {header} has a secure value'
     except http.ConnError as exc:
@@ -150,7 +154,11 @@ def is_header_x_content_type_options_missing(url: str, *args,
     """
     header = 'X-Content-Type-Options'
     try:
-        if _has_insecure_value(url, header, *args, **kwargs):
+        result = _has_insecure_value(url, header, *args, **kwargs)
+        if result is None:
+            return OPEN, (f'Header {header} is not set, which is insecure '
+                          f'as it does not dissable MIME Sniffing.')
+        if result:
             return OPEN, f'Header {header} has insecure value'
         return CLOSED, f'Header {header} has a secure value'
     except http.ConnError as exc:
@@ -176,7 +184,7 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> bool:
         headers_info = http_session.response.headers
         fingerprint = http_session.get_fingerprint()
     except http.ConnError as exc:
-        show_unknown('Could not connnect',
+        show_unknown('Could not connect',
                      details=dict(url=url,
                                   error=str(exc).replace(':', ',')))
         return False
@@ -228,7 +236,15 @@ def is_header_content_type_missing(url: str, *args, **kwargs) -> Result:
     """
     header = 'Content-Type'
     try:
-        if _has_insecure_value(url, header, *args, **kwargs):
+        result = _has_insecure_value(url, header, *args, **kwargs)
+        if result is None:
+            return OPEN, (f'Header {header} is not set, which is insecure '
+                          f'as it leaves the type of the response open '
+                          f'to interpretation (which may introduce '
+                          f'vulnerabilities by an improper synchronization '
+                          f'between the client and the server, or sniffing '
+                          f'of the payload.')
+        if result:
             return OPEN, f'Header {header} has insecure value'
         return CLOSED, f'Header {header} has a secure value'
     except http.ConnError as exc:

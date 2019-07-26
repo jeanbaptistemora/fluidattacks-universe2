@@ -22,6 +22,7 @@ from fluidasserts.proto import http
 #
 
 MOCK_SERVICE = 'http://localhost:5000'
+NO_HEADERS = 'http://localhost:5000/noheaders'
 BASE_URL = MOCK_SERVICE + '/http/headers'
 BWAPP_PORT = 80
 NONEXISTANT_SERVICE = 'http://nonexistant.fluidattacks.com'
@@ -584,6 +585,7 @@ def test_server_close():
 
 def test_expires_close():
     """Check Expires header."""
+    assert http.is_header_expires_missing(NO_HEADERS).is_closed()
     assert http.is_header_expires_missing(
         '%s/expires/ok' % (BASE_URL)).is_closed()
     assert http.is_header_expires_missing(

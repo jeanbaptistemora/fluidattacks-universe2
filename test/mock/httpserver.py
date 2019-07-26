@@ -89,6 +89,14 @@ def home():
     return 'Mock HTTP Server'
 
 
+@APP.route('/noheaders')
+def noheaders():
+    """Response with no headers."""
+    resp = Response(response='Headers? who needs them?')
+    resp.headers = {}
+    return resp
+
+
 @APP.route('/responsetime/ok')
 def responsetime_ok():
     """Tiempo de respuesta OK."""
@@ -361,6 +369,7 @@ def content_type_ok():
     """Header que define bien el tipo de contenido."""
     resp = Response('Content-Type OK')
     resp.headers['Content-Type'] = 'application/json; charset=utf-8'
+    resp.headers['X-Content-Type-Options'] = 'nosniff'
     return resp
 
 
@@ -377,6 +386,7 @@ def rest_content_type_ok():
     """Header que define bien el tipo de contenido."""
     resp = Response('Content-Type OK')
     resp.headers['Content-Type'] = 'application/json; charset=utf-8'
+    resp.headers['X-Content-Type-Options'] = 'nosniff'
     return resp
 
 
