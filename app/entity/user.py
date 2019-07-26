@@ -167,14 +167,14 @@ def validate_email_address(email):
 
 
 def validate_field(field):
-    if field[0].isalnum():
+    if field[0].isalnum() or (field[0] == "-" or field[0] is None):
         return True
     else:
         raise GraphQLError('Exception - Parameter is not valid')
 
 
 def validate_phone_field(phone_field):
-    if re.match((r'(^\+\d+$)|(^\d+$)'), phone_field) or phone_field == "":
+    if re.match((r'(^\+\d+$)|(^\d+$)|(^$)|(^-$)'), phone_field):
         return True
     else:
         raise GraphQLError('Exception - Parameter is not valid')
