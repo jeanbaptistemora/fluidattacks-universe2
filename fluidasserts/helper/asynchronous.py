@@ -57,9 +57,11 @@ def run_func(func: Callable,
              return_exceptions: bool = True) -> List[Any]:
     """Run a function asynchronously over the list of arguments."""
     loop = asyncio.new_event_loop()
-    future = asyncio.gather(*(func(*a, **k) for a, k in args),
-                            return_exceptions=return_exceptions,
-                            loop=loop)
+    future = asyncio.gather(
+        *(asyncio.ensure_future(func(*a, **k), loop=loop)
+          for a, k in args),
+        return_exceptions=return_exceptions,
+        loop=loop)
     result = loop.run_until_complete(future)
     loop.close()
     return result
