@@ -459,7 +459,7 @@ def make_vuln_table(findings, words):
     vuln_table[1][2] = '{0:.2f}%'.format(vuln_table[1][2])
     vuln_table[2][2] = '{0:.2f}%'.format(vuln_table[2][2])
     vuln_table[3][2] = '{0:.2f}%'.format(vuln_table[3][2])
-    vuln_table[3][3] = ttl_vulns
+    vuln_table[4][3] = ttl_vulns
     return {
         'resume': vuln_table,
         'top': top_table,
