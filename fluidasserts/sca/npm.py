@@ -86,7 +86,7 @@ def _parse_requirements(reqs: set) -> tuple:
     """Return a dict mapping path to dependencies, versions and vulns."""
     has_vulns, proj_vulns = None, {}
     results = asynchronous.run_func(
-        sca.get_vulns_snyk_async,
+        sca.get_vulns_ossindex_async,
         [((PKG_MNGR, path, dep, ver), {}) for path, dep, ver in reqs])
     results = filter(lambda x: isinstance(x, tuple), results)
     for path, dep, ver, vulns in results:
@@ -109,7 +109,7 @@ def package_has_vulnerabilities(package: str, version: str = None) -> bool:
     :param package: Package name.
     :param version: Package version.
     """
-    return sca.get_vulns_from_snyk(PKG_MNGR, package, version)
+    return sca.get_vulns_from_ossindex(PKG_MNGR, package, version)
 
 
 @notify

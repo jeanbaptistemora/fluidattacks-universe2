@@ -48,14 +48,12 @@ def test_package_has_vulnerabilities_open():
     assert chocolatey.package_has_vulnerabilities('python')
     assert maven.package_has_vulnerabilities('maven')
     assert maven.project_has_vulnerabilities(MAVEN_PROJECT_OPEN)
-    assert npm.package_has_vulnerabilities('extend')
+    assert npm.package_has_vulnerabilities('jquery')
     assert npm.project_has_vulnerabilities(NPM_PROJECT_OPEN)
     assert nuget.package_has_vulnerabilities('jquery')
     assert nuget.project_has_vulnerabilities(NUGET_PROJECT_OPEN)
-    assert pypi.package_has_vulnerabilities('pip')
+    assert pypi.package_has_vulnerabilities('django')
     assert pypi.project_has_vulnerabilities(PYPI_PROJECT_OPEN)
-    assert linux.package_has_vulnerabilities('jquery')
-    assert rubygems.package_has_vulnerabilities('jquery-rails')
 
 #
 # Closing tests
@@ -88,7 +86,7 @@ def test_package_has_vulnerabilities_close():
     assert not pypi.project_has_vulnerabilities(PYPI_PROJECT_CLOSE)
     assert not pypi.project_has_vulnerabilities(PYPI_PROJECT_NOT_FOUND)
     assert not pypi.project_has_vulnerabilities(PYPI_PROJECT_EMPTY)
-    assert not linux.package_has_vulnerabilities('jquery', '3.0.0')
+    assert not linux.package_has_vulnerabilities('jquery')
     assert not rubygems.package_has_vulnerabilities('jquery-rails', '5.0.0')
 
     os.environ['http_proxy'] = 'https://0.0.0.0:8080'

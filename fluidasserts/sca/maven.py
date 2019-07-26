@@ -122,11 +122,8 @@ def _parse_requirements(reqs: set) -> tuple:
     results_ossindex = asynchronous.run_func(
         sca.get_vulns_ossindex_async,
         [((PKG_MNGR, path, dep, ver), {}) for path, dep, ver in reqs])
-    results_snyk = asynchronous.run_func(
-        sca.get_vulns_snyk_async,
-        [((PKG_MNGR, path, dep, ver), {}) for path, dep, ver in reqs])
     results = filter(
-        lambda x: isinstance(x, tuple), results_ossindex + results_snyk)
+        lambda x: isinstance(x, tuple), results_ossindex)
     for path, dep, ver, vulns in results:
         if vulns:
             has_vulns = True

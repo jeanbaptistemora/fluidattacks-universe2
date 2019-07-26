@@ -47,7 +47,7 @@ def package_has_vulnerabilities(package: str, version: str = None) -> bool:
     :param package: Package name.
     :param version: Package version.
     """
-    return sca.get_vulns_from_snyk(PACKAGE_MANAGER, package, version)
+    return sca.get_vulns_from_ossindex(PACKAGE_MANAGER, package, version)
 
 
 @notify
@@ -74,7 +74,7 @@ def project_has_vulnerabilities(path: str) -> bool:
     result = True
     try:
         unfiltered = {f'{x[0]} {x[1]}':
-                      sca.get_vulns_snyk(PACKAGE_MANAGER, x[0], x[1])
+                      sca.get_vulns_ossindex(PACKAGE_MANAGER, x[0], x[1])
                       for x in reqs}
         proj_vulns = {k: v for k, v in unfiltered.items() if v}
     except sca.ConnError as exc:

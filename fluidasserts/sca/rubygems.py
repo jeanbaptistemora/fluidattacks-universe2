@@ -12,7 +12,7 @@
 from fluidasserts.helper import sca
 from fluidasserts.utils.decorators import track, level, notify
 
-PACKAGE_MANAGER = 'rubygems'
+PACKAGE_MANAGER = 'gem'
 
 
 @notify
@@ -25,4 +25,4 @@ def package_has_vulnerabilities(package: str, version: str = None) -> bool:
     :param package: Package name.
     :param version: Package version.
     """
-    return sca.get_vulns_from_snyk(PACKAGE_MANAGER, package, version)
+    return sca.get_vulns_from_ossindex(PACKAGE_MANAGER, package, version)
