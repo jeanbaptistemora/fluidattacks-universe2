@@ -315,6 +315,27 @@ def list_volumes(key_id: str, secret: str, retry: bool = True) -> dict:
 
 
 @retry
+def list_snapshots(key_id: str, secret: str, retry: bool = True) -> dict:
+    """
+    List EC2 EBS snapshots.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    try:
+        client = get_aws_client('ec2',
+                                key_id=key_id,
+                                secret=secret)
+        owner_id = get_caller_identity(key_id, secret)
+        response = client.describe_snapshots(OwnerIds=[owner_id['Account']])
+        return response['Snapshots']
+    except botocore.vendored.requests.exceptions.ConnectionError:
+        raise ConnError
+    except botocore.exceptions.ClientError:
+        raise ClientErr
+
+
+@retry
 def list_buckets(key_id: str, secret: str, retry: bool = True) -> dict:
     """
     List S3 buckets.

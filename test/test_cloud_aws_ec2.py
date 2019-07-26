@@ -43,6 +43,12 @@ def test_unencrypted_volumes_open():
                                     AWS_SECRET_ACCESS_KEY)
 
 
+def test_unencrypted_snapshot_open():
+    """Are there unencrypted snapshot?."""
+    assert \
+        ec2.has_unencrypted_snapshots(AWS_ACCESS_KEY_ID,
+                                      AWS_SECRET_ACCESS_KEY)
+
 #
 # Closing tests
 #
@@ -99,5 +105,23 @@ def test_unencrypted_volumes_close():
         ec2.has_unencrypted_volumes(AWS_ACCESS_KEY_ID,
                                     AWS_SECRET_ACCESS_KEY,
                                     retry=False)
+    os.environ.pop('http_proxy', None)
+    os.environ.pop('https_proxy', None)
+
+
+def test_unencrypted_snapshots_close():
+    """Are there unencrypted snapshots?."""
+    assert not \
+        ec2.has_unencrypted_snapshots(AWS_ACCESS_KEY_ID,
+                                      AWS_SECRET_ACCESS_KEY_BAD,
+                                      retry=False)
+
+    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
+    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
+
+    assert not \
+        ec2.has_unencrypted_snapshots(AWS_ACCESS_KEY_ID,
+                                      AWS_SECRET_ACCESS_KEY,
+                                      retry=False)
     os.environ.pop('http_proxy', None)
     os.environ.pop('https_proxy', None)

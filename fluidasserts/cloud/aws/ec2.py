@@ -172,3 +172,41 @@ def has_unencrypted_volumes(
         else:
             show_close('Volume is encrypted', details=dict(volume=volume))
     return result
+
+
+@notify
+@level('medium')
+@track
+def has_unencrypted_snapshots(
+        key_id: str, secret: str, retry: bool = True) -> bool:
+    """
+    Check if there are unencrypted snapshots.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    try:
+        snapshots = aws.list_snapshots(key_id, secret, retry=retry)
+    except aws.ConnError as exc:
+        show_unknown('Could not connect',
+                     details=dict(error=str(exc).replace(':', '')))
+        return False
+    except aws.ClientErr as exc:
+        show_unknown('Error retrieving info. Check credentials.',
+                     details=dict(error=str(exc).replace(':', '')))
+        return False
+    if not snapshots:
+        show_close('Not snapshots found')
+        return False
+
+    result = False
+
+    for snapshot in snapshots:
+        if not snapshot['Encrypted']:
+            show_open('Snapshot is not encrypted',
+                      details=dict(snapshot=snapshot))
+            result = True
+        else:
+            show_close('Snapshot is encrypted',
+                       details=dict(snapshot=snapshot))
+    return result
