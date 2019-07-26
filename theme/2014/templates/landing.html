@@ -12,36 +12,15 @@
 
 {% block content %}
 <div class="home">
-  <div class="purpose-sec">
-    <div class="purpose-txt">
-      <h1>{{ gettext('Index-header-0') }}</h1>
-      <p>{{ gettext('Index-msg-0') }}</p>
-    </div>
-    <div class="purpose-img">
-      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/purpose-1.svg" alt="{{ gettext('Purpose-img-alt-1') }}">
-      <p>{{ gettext('Purpose-msg-1') }}</p>
-    </div>
-    <div class="purpose-img">
-      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/purpose-2.svg" alt="{{ gettext('Purpose-img-alt-2') }}">
-      <p>{{ gettext('Purpose-msg-2') }}</p>
-    </div>
-    <div class="purpose-img">
-      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/purpose-3.svg" alt="{{ gettext('Purpose-img-alt-3') }}">
-      <p>{{ gettext('Purpose-msg-3') }}</p>
-    </div>
-
-  </div>
   <div class="services">
     <h1>{{ gettext('Index-header-1') }}</h1>
     <div class="serv-offer">
       <div class="serv">
-        <!-- <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/service-1.svg" alt="{{ gettext('Index-img-alt') }}"> -->
         <h3><a href="{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}/"><strong>{{ gettext('Index-header-2') }}</strong></a></h3>
         <p>{{ gettext('Index-text-1') }} <br>
         <button class="fluid-button" onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}'">Learn More</button></p>
       </div>
       <div class="serv">
-        <!-- <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/service-2.svg" alt="{{ gettext('Index-img-alt') }}"> -->
         <h3><a href="{{SITEURL}}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}/"><strong>{{ gettext('Index-header-3') }}</strong></a></h3>
         <p>{{ gettext('Index-text-2') }} <br>
         <button class="fluid-button" onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}'">Learn More</button> </p>
