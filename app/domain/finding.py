@@ -126,7 +126,7 @@ def migrate_all_files(parameters, file_url, request):
             {'id': '4', 'name': 'evidence_route_3', 'field': fin_dto.DOC_ACHV3, 'ext': '.png'},
             {'id': '5', 'name': 'evidence_route_4', 'field': fin_dto.DOC_ACHV4, 'ext': '.png'},
             {'id': '6', 'name': 'evidence_route_5', 'field': fin_dto.DOC_ACHV5, 'ext': '.png'},
-            {'id': '7', 'name': 'exploit', 'field': fin_dto.EXPLOIT, 'ext': {'.py', '.exp'}},
+            {'id': '7', 'name': 'exploit', 'field': fin_dto.EXPLOIT, 'ext': '.exp'},
             {'id': '8', 'name': 'fileRecords', 'field': fin_dto.REG_FILE, 'ext': '.csv'}
         ]
         for file_obj in files:
