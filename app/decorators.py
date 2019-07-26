@@ -69,7 +69,7 @@ def verify_csrf(func):
     @functools.wraps(func)
     def verify_and_call(*args, **kwargs):
         request = args[0]
-        if request.COOKIES.get('integrates_session'):
+        if request.COOKIES.get(settings.JWT_COOKIE_NAME):
             return csrf_protect(func)(*args, **kwargs)
         return func(*args, **kwargs)
     return verify_and_call

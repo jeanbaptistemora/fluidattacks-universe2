@@ -321,6 +321,9 @@ SESSION_REDIS = {
 JWT_COOKIE_NAME = "integrates_session"
 JWT_SECRET = FI_JWT_SECRET
 
+# GraphQL API
+GRAPHQL_MAX_QUERY_DEPTH = 3
+
 # Social
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',

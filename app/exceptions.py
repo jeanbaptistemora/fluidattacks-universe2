@@ -117,3 +117,12 @@ class ForbiddenField(Exception):
         """ Constructor """
         msg = 'Exception - Requested field not allowed'
         super(ForbiddenField, self).__init__(msg)
+
+
+class QueryDepthExceeded(Exception):
+    """Exception to control graphql max query depth"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Max query depth exceeded'
+        super(QueryDepthExceeded, self).__init__(msg)
