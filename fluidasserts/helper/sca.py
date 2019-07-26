@@ -133,7 +133,7 @@ async def get_vulns_ossindex_async(
             _url_encode(package_manager),
             _url_encode(package))
 
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(trust_env=True) as session:
         text = await _fetch_url(session, url)
 
     vuln_titles = tuple()
@@ -166,7 +166,7 @@ async def get_vulns_snyk_async(
         url = 'https://snyk.io/vuln/{}:{}'.format(
             _url_encode(package_manager),
             _url_encode(package))
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(trust_env=True) as session:
         html = await _fetch_url(session, url)
     return path, package, version, _parse_snyk_vulns(html) if html else None
 

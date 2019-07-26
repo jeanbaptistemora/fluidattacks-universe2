@@ -24,7 +24,6 @@ from fluidasserts.utils.decorators import api, track
 #
 
 
-PROXY = None
 INTROSPECTION_QUERY: str = textwrap.dedent("""
     query {
         __schema {
@@ -181,8 +180,7 @@ async def query_async(url: str, query: str, *args, **kwargs) -> None:
             query, headers={'Content-Disposition': 'form-data; name="query"'})
 
     kwargs['data'] = writer_query
-    kwargs['proxy'] = PROXY
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(trust_env=True) as session:
         async with session.post(url, *args, **kwargs) as response:
             return await response.read()
 
@@ -258,6 +256,7 @@ def has_dos(url: str, query: str,
     will be added accordingly from your `query`.
 
     :param url: GraphQL endpoint to test.
+    :param query: A GraphQL query (see the tests for examples).
     :param num: Number of simultaneous requests to made.
     :param timeout: Max number of seconds to wait for a response.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
@@ -294,4 +293,4 @@ def has_dos(url: str, query: str,
     if timeouts:
         return OPEN, 'GraphQL is vulnerable to a DoS', units
     else:
-        return CLOSED, 'GraphQL is vulnerable to a DoS', units
+        return CLOSED, 'GraphQL is vulnerable to a DoS', [], units
