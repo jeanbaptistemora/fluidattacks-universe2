@@ -116,6 +116,7 @@ p {
 
   p {
     padding: 0 20%;
+    text-align: justify;
   }
 
   b {
@@ -341,6 +342,13 @@ p {
 }
 
 @media screen and (max-width: 850px) {
+
+  .serv {
+    p {
+      padding: 0 5%;
+    }
+  }
+
 
   .product {
     width: 100%;
