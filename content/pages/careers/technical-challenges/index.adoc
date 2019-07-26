@@ -120,8 +120,9 @@ This time around, the +Repo Access Message+ field should have the following:
 +
 [quote]
 ____________________________________________________________________
-I have completed three (3) +programming+ and three (3) +ctf-hacking+ challenges
-in the training repo
+I have completed three (3) +programming+ and three (3) +ctf-hacking+
+unique challenges
+in the training repo and
 therefore request access to the +git+ +writeups+ repository
 with my +GitLab+ username.
 ____________________________________________________________________
