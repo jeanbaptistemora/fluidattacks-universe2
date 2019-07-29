@@ -28,7 +28,9 @@ def are_valid_credentials(
     :param secret: AWS Key Secret
     """
     try:
-        identity = aws.get_caller_identity(key_id, secret, retry=retry)
+        identity = aws.run_boto3_func(key_id, secret, 'sts',
+                                      'get_caller_identity',
+                                      retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))

@@ -28,7 +28,10 @@ def has_server_access_logging_disabled(
     :param secret: AWS Key Secret
     """
     try:
-        buckets = aws.list_buckets(key_id, secret, retry=retry)
+        buckets = aws.run_boto3_func(key_id, secret, 's3',
+                                     'list_buckets',
+                                     param='Buckets',
+                                     retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -66,7 +69,10 @@ def has_public_buckets(
     :param secret: AWS Key Secret
     """
     try:
-        buckets = aws.list_buckets(key_id, secret, retry=retry)
+        buckets = aws.run_boto3_func(key_id, secret, 's3',
+                                     'list_buckets',
+                                     param='Buckets',
+                                     retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))

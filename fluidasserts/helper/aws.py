@@ -87,26 +87,6 @@ def run_boto3_func(key_id: str, secret: str, service: str,
 
 
 @retry
-def get_caller_identity(key_id: str, secret: str, retry: bool = True) -> dict:
-    """
-    Get caller identity.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    try:
-        client = get_aws_client('sts',
-                                key_id=key_id,
-                                secret=secret)
-        identity = client.get_caller_identity()
-        return identity
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
-
-
-@retry
 def get_credentials_report(
         key_id: str, secret: str, retry: bool = True) -> dict:
     """
@@ -221,17 +201,12 @@ def get_policy_version(key_id: str, secret: str,
     :param policy: AWS Policy
     :param version: AWS Policy version
     """
-    try:
-        client = get_aws_client('iam',
-                                key_id=key_id,
-                                secret=secret)
-        response = client.get_policy_version(PolicyArn=policy,
-                                             VersionId=version)
-        return response['PolicyVersion']['Document']['Statement']
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
+    client = get_aws_client('iam',
+                            key_id=key_id,
+                            secret=secret)
+    response = client.get_policy_version(PolicyArn=policy,
+                                         VersionId=version)
+    return response['PolicyVersion']['Document']['Statement']
 
 
 @retry
@@ -244,16 +219,11 @@ def list_attached_user_policies(
     :param secret: AWS Key Secret
     :param user: IAM user
     """
-    try:
-        client = get_aws_client('iam',
-                                key_id=key_id,
-                                secret=secret)
-        response = client.list_attached_user_policies(UserName=user)
-        return response['AttachedPolicies']
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
+    client = get_aws_client('iam',
+                            key_id=key_id,
+                            secret=secret)
+    response = client.list_attached_user_policies(UserName=user)
+    return response['AttachedPolicies']
 
 
 @retry
@@ -266,36 +236,10 @@ def list_entities_for_policy(
     :param secret: AWS Key Secret
     :param policy: AWS Policy
     """
-    try:
-        client = get_aws_client('iam',
-                                key_id=key_id,
-                                secret=secret)
-        response = client.list_entities_for_policy(PolicyArn=policy)
-        return response
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
-
-
-@retry
-def list_trails(key_id: str, secret: str, retry: bool = True) -> dict:
-    """
-    List CLOUDTRAIL trails.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    try:
-        client = get_aws_client('cloudtrail',
-                                key_id=key_id,
-                                secret=secret)
-        response = client.describe_trails()
-        return response['trailList']
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
+    client = get_aws_client('iam',
+                            key_id=key_id,
+                            secret=secret)
+    return client.list_entities_for_policy(PolicyArn=policy)
 
 
 @retry
@@ -310,29 +254,11 @@ def list_snapshots(key_id: str, secret: str, retry: bool = True) -> dict:
         client = get_aws_client('ec2',
                                 key_id=key_id,
                                 secret=secret)
-        owner_id = get_caller_identity(key_id, secret)
+        owner_id = run_boto3_func(key_id, secret, 'sts',
+                                  'get_caller_identity',
+                                  retry=retry)
         response = client.describe_snapshots(OwnerIds=[owner_id['Account']])
         return response['Snapshots']
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
-
-
-@retry
-def list_buckets(key_id: str, secret: str, retry: bool = True) -> dict:
-    """
-    List S3 buckets.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    try:
-        client = get_aws_client('s3',
-                                key_id=key_id,
-                                secret=secret)
-        response = client.list_buckets()
-        return response['Buckets']
     except botocore.vendored.requests.exceptions.ConnectionError:
         raise ConnError
     except botocore.exceptions.ClientError:
@@ -348,37 +274,10 @@ def get_bucket_logging(
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    try:
-        client = get_aws_client('s3',
-                                key_id=key_id,
-                                secret=secret)
-        response = client.get_bucket_logging(Bucket=bucket)
-        return response
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
-
-
-@retry
-def get_bucket_acl(
-        key_id: str, secret: str, bucket: str, retry: bool = True) -> dict:
-    """
-    List S3 bucket logging config.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    try:
-        client = get_aws_client('s3',
-                                key_id=key_id,
-                                secret=secret)
-        response = client.get_bucket_acl(Bucket=bucket)
-        return response['Grants']
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
+    client = get_aws_client('s3',
+                            key_id=key_id,
+                            secret=secret)
+    return client.get_bucket_logging(Bucket=bucket)
 
 
 @retry
@@ -415,6 +314,27 @@ def list_clusters(key_id: str, secret: str, retry: bool = True) -> dict:
                                 secret=secret)
         response = client.describe_clusters()
         return response['Clusters']
+    except botocore.vendored.requests.exceptions.ConnectionError:
+        raise ConnError
+    except botocore.exceptions.ClientError:
+        raise ClientErr
+
+
+@retry
+def get_bucket_acl(
+        key_id: str, secret: str, bucket: str, retry: bool = True) -> dict:
+    """
+    List S3 bucket logging config.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    try:
+        client = get_aws_client('s3',
+                                key_id=key_id,
+                                secret=secret)
+        response = client.get_bucket_acl(Bucket=bucket)
+        return response['Grants']
     except botocore.vendored.requests.exceptions.ConnectionError:
         raise ConnError
     except botocore.exceptions.ClientError:

@@ -29,7 +29,10 @@ def trails_not_multiregion(
     """
     result = False
     try:
-        trails = aws.list_trails(key_id, secret, retry=retry)
+        trails = aws.run_boto3_func(key_id, secret, 'cloudtrail',
+                                    'describe_trails',
+                                    param='trailList',
+                                    retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -65,7 +68,10 @@ def files_not_validated(key_id: str, secret: str, retry: bool = True) -> bool:
     """
     result = False
     try:
-        trails = aws.list_trails(key_id, secret, retry=retry)
+        trails = aws.run_boto3_func(key_id, secret, 'cloudtrail',
+                                    'describe_trails',
+                                    param='trailList',
+                                    retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -102,7 +108,10 @@ def is_trail_bucket_public(key_id: str, secret: str,
     """
     result = False
     try:
-        trails = aws.list_trails(key_id, secret, retry=retry)
+        trails = aws.run_boto3_func(key_id, secret, 'cloudtrail',
+                                    'describe_trails',
+                                    param='trailList',
+                                    retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -143,7 +152,10 @@ def is_trail_bucket_logging_disabled(key_id: str, secret: str,
     """
     result = False
     try:
-        trails = aws.list_trails(key_id, secret, retry=retry)
+        trails = aws.run_boto3_func(key_id, secret, 'cloudtrail',
+                                    'describe_trails',
+                                    param='trailList',
+                                    retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -180,7 +192,10 @@ def has_unencrypted_logs(key_id: str, secret: str, retry: bool = True) -> bool:
     :param secret: AWS Key Secret
     """
     try:
-        trails = aws.list_trails(key_id, secret, retry=retry)
+        trails = aws.run_boto3_func(key_id, secret, 'cloudtrail',
+                                    'describe_trails',
+                                    param='trailList',
+                                    retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
