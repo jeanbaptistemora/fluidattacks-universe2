@@ -13,16 +13,19 @@ env = Environment()
 env['ENV']['FA_NOTRACK'] = 'true'
 env['ENV']['PATH'] = os.environ['PATH']
 env['ENV']['HOME'] = os.environ['HOME']
-try:
-    env['ENV']['DOCKER_USER'] = os.environ['DOCKER_USER']
-    env['ENV']['DOCKER_PASS'] = os.environ['DOCKER_PASS']
-    env['ENV']['CI_COMMIT_REF_NAME'] = os.environ['CI_COMMIT_REF_NAME']
-    env['ENV']['AWS_ACCESS_KEY_ID'] = os.environ['AWS_ACCESS_KEY_ID']
-    env['ENV']['AWS_SECRET_ACCESS_KEY'] = os.environ['AWS_SECRET_ACCESS_KEY']
-    env['ENV']['CODECOV_TOKEN'] = os.environ['CODECOV_TOKEN']
-except:
-    print('DOCKER_USER, DOCKER_PASS and CI_COMMIT_REF_NAME envs variable must be set')
-    sys.exit(1)
+
+for var in (
+        'DOCKER_USER',
+        'DOCKER_PASS',
+        'CI_COMMIT_REF_NAME',
+        'AWS_ACCESS_KEY_ID',
+        'AWS_SECRET_ACCESS_KEY',
+        'CODECOV_TOKEN',):
+    try:
+        env['ENV'][var] = os.environ[var]
+    except KeyError:
+        print(var, 'env variable must be set')
+        sys.exit(1)
 
 # Variables que se propagan del entorno exterior en caso de existir
 if 'VERBOSE' in os.environ:
