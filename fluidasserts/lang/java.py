@@ -13,7 +13,7 @@ from pyparsing import (CaselessKeyword, Word, Literal, Optional, alphas,
 
 # local imports
 from fluidasserts import Result
-from fluidasserts import LOW
+from fluidasserts import LOW, MEDIUM
 from fluidasserts import OPEN, CLOSED
 from fluidasserts import show_close
 from fluidasserts import show_open
@@ -272,10 +272,9 @@ def has_switch_without_default(java_dest: str, exclude: list = None) -> bool:
     return True
 
 
-@notify
-@level('low')
 @track
-def has_insecure_randoms(java_dest: str, exclude: list = None) -> bool:
+@api(risk=LOW)
+def has_insecure_randoms(java_dest: str, exclude: list = None) -> Result:
     r"""
     Check if code uses insecure random generators.
 
@@ -310,19 +309,16 @@ def has_insecure_randoms(java_dest: str, exclude: list = None) -> bool:
     insecure_randoms.ignore(L_CHAR)
     insecure_randoms.ignore(L_STRING)
 
-    try:
-        matches = lang.path_contains_grammar(insecure_randoms, java_dest,
-                                             LANGUAGE_SPECS, exclude)
-    except FileNotFoundError:
-        show_unknown('File does not exist', details=dict(location=java_dest))
-        return False
-    if not matches:
-        show_close('Code does not use insecure random generators',
-                   details=dict(location=java_dest))
-        return False
-    show_open('Code uses insecure random generators',
-              details=dict(matches=matches))
-    return True
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=insecure_randoms,
+        func=lang.path_contains_grammar2,
+        msgs={
+            OPEN: 'Code uses insecure random generators',
+            CLOSED: 'Code does not use insecure random generators',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
 @notify
@@ -382,21 +378,9 @@ def has_if_without_else(java_dest: str, exclude: list = None) -> bool:
     return False
 
 
-@notify
-@level('medium')
-@track
-def uses_insecure_cipher(java_dest: str, algorithm: str,
-                         exclude: list = None) -> bool:
-    """
-    Check if code uses an insecure cipher algorithm.
-
-    See `REQ.148 <https://fluidattacks.com/web/rules/148/>`_.
-    See `REQ.149 <https://fluidattacks.com/web/rules/149/>`_.
-
-    :param java_dest: Path to a Java source file or package.
-    :param algorithm: Insecure algorithm.
-    :param exclude: Paths that contains any string from this list are ignored.
-    """
+def _uses_insecure_cipher(java_dest: str, algorithm: tuple,
+                          exclude: list = None) -> bool:
+    """Check if code uses an insecure cipher algorithm."""
     method = 'Cipher.getInstance("{}")'.format(algorithm.upper())
     op_mode = '/' + oneOf('CBC ECB', caseless=True)
     padding = '/' + oneOf('NoPadding PKCS5Padding', caseless=True)
@@ -410,25 +394,61 @@ def uses_insecure_cipher(java_dest: str, algorithm: str,
         # Ensure that at least one token is the provided algorithm
         lambda tokens: tokens.asList() and any(
             algorithm.matches(tok) for tok in tokens[0]))
-    try:
-        matches = lang.path_contains_grammar(grammar, java_dest,
-                                             LANGUAGE_SPECS, exclude)
-    except FileNotFoundError:
-        show_unknown('File does not exist', details=dict(location=java_dest))
-        return False
-    if not matches:
-        show_close('Code does not use {} method'.format(method),
-                   details=dict(location=java_dest))
-        return False
-    show_open('Code uses {} method'.format(method),
-              details=dict(matches=matches))
-    return True
+
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.path_contains_grammar2,
+        msgs={
+            OPEN: f'Code uses {method} method',
+            CLOSED: f'Code does not use {method} method',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
-@notify
-@level('medium')
+def _uses_insecure_hash(java_dest: str, algorithm: tuple,
+                        exclude: list = None) -> bool:
+    """Check if code uses an insecure hashing algorithm."""
+    method = f'MessageDigest.getInstance("{algorithm.upper()}")'
+    tk_mess_dig = CaselessKeyword('messagedigest')
+    tk_get_inst = CaselessKeyword('getinstance')
+    tk_alg = Literal('"') + CaselessKeyword(algorithm.lower()) + Literal('"')
+    tk_params = Literal('(') + tk_alg + Literal(')')
+    instance = tk_mess_dig + Literal('.') + tk_get_inst + tk_params
+
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=instance,
+        func=lang.path_contains_grammar2,
+        msgs={
+            OPEN: f'Code uses {method} method',
+            CLOSED: f'Code does not use {method} method',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
+
+
 @track
-def uses_insecure_hash(java_dest: str, algorithm: str,
+@api(risk=MEDIUM)
+def uses_insecure_cipher(java_dest: str, algorithm: Result,
+                         exclude: list = None) -> bool:
+    """
+    Check if code uses an insecure cipher algorithm.
+
+    See `REQ.148 <https://fluidattacks.com/web/rules/148/>`_.
+    See `REQ.149 <https://fluidattacks.com/web/rules/149/>`_.
+
+    :param java_dest: Path to a Java source file or package.
+    :param algorithm: Insecure algorithm.
+    :param exclude: Paths that contains any string from this list are ignored.
+    """
+    return _uses_insecure_cipher(java_dest, algorithm, exclude)
+
+
+@track
+@api(risk=MEDIUM)
+def uses_insecure_hash(java_dest: str, algorithm: Result,
                        exclude: list = None) -> bool:
     """
     Check if code uses an insecure hashing algorithm.
@@ -439,36 +459,12 @@ def uses_insecure_hash(java_dest: str, algorithm: str,
     :param algorithm: Insecure algorithm.
     :param exclude: Paths that contains any string from this list are ignored.
     """
-    method = 'MessageDigest.getInstance("{}")'.format(algorithm.upper())
-    tk_mess_dig = CaselessKeyword('messagedigest')
-    tk_get_inst = CaselessKeyword('getinstance')
-    tk_alg = Literal('"') + CaselessKeyword(algorithm.lower()) + Literal('"')
-    tk_params = Literal('(') + tk_alg + Literal(')')
-    instance = tk_mess_dig + Literal('.') + tk_get_inst + tk_params
-
-    result = False
-    try:
-        matches = lang.check_grammar(instance, java_dest, LANGUAGE_SPECS,
-                                     exclude)
-        if not matches:
-            show_close('Code does not use {} method'.format(method),
-                       details=dict(code_dest=java_dest))
-            return False
-    except FileNotFoundError:
-        show_unknown('File does not exist', details=dict(code_dest=java_dest))
-        return False
-    else:
-        result = True
-        show_open('Code uses {} method'.format(method),
-                  details=dict(matched=matches,
-                               total_vulns=len(matches)))
-    return result
+    return _uses_insecure_hash(java_dest, algorithm, exclude)
 
 
-@notify
-@level('medium')
 @track
-def uses_md5_hash(java_dest: str, exclude: list = None) -> bool:
+@api(risk=MEDIUM)
+def uses_md5_hash(java_dest: str, exclude: list = None) -> Result:
     """
     Check if code uses MD5 as hashing algorithm.
 
@@ -477,14 +473,12 @@ def uses_md5_hash(java_dest: str, exclude: list = None) -> bool:
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
     """
-    result = uses_insecure_hash(java_dest, 'md5', exclude)
-    return result
+    return _uses_insecure_hash(java_dest, 'md5', exclude)
 
 
-@notify
-@level('medium')
 @track
-def uses_sha1_hash(java_dest: str, exclude: list = None) -> bool:
+@api(risk=MEDIUM)
+def uses_sha1_hash(java_dest: str, exclude: list = None) -> Result:
     """
     Check if code uses MD5 as hashing algorithm.
 
@@ -493,14 +487,12 @@ def uses_sha1_hash(java_dest: str, exclude: list = None) -> bool:
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
     """
-    result = uses_insecure_hash(java_dest, 'sha-1', exclude)
-    return result
+    return _uses_insecure_hash(java_dest, 'sha-1', exclude)
 
 
-@notify
-@level('medium')
 @track
-def uses_des_algorithm(java_dest: str, exclude: list = None) -> bool:
+@api(risk=MEDIUM)
+def uses_des_algorithm(java_dest: str, exclude: list = None) -> Result:
     """
     Check if code uses DES as encryption algorithm.
 
@@ -509,14 +501,12 @@ def uses_des_algorithm(java_dest: str, exclude: list = None) -> bool:
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
     """
-    result: bool = uses_insecure_cipher(java_dest, 'DES', exclude)
-    return result
+    return _uses_insecure_cipher(java_dest, 'DES', exclude)
 
 
-@notify
-@level('low')
 @track
-def has_log_injection(java_dest: str, exclude: list = None) -> bool:
+@api(risk=LOW)
+def has_log_injection(java_dest: str, exclude: list = None) -> Result:
     """
     Search code injection.
 
@@ -536,29 +526,23 @@ def has_log_injection(java_dest: str, exclude: list = None) -> bool:
     tk_string = QuotedString('"')
     tk_var = Word(alphanums)
 
-    pst = log_object + Literal('(') + tk_string + Literal('+') + tk_var
-    result = False
-    try:
-        matches = lang.check_grammar(pst, java_dest, LANGUAGE_SPECS, exclude)
-        if not matches:
-            show_close('Code does not allow logs injection',
-                       details=dict(code_dest=java_dest))
-            return False
-    except FileNotFoundError:
-        show_unknown('File does not exist', details=dict(code_dest=java_dest))
-        return False
-    else:
-        result = True
-        show_open('Code allows logs injection',
-                  details=dict(matched=matches,
-                               total_vulns=len(matches)))
-    return result
+    grammar = log_object + Literal('(') + tk_string + Literal('+') + tk_var
+
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.path_contains_grammar2,
+        msgs={
+            OPEN: 'Code allows logs injection',
+            CLOSED: 'Code does not allow logs injection',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
-@notify
-@level('low')
 @track
-def uses_system_exit(java_dest: str, exclude: list = None) -> bool:
+@api(risk=LOW)
+def uses_system_exit(java_dest: str, exclude: list = None) -> Result:
     """
     Search for ``System.exit`` calls in a  or package.
 
@@ -566,22 +550,15 @@ def uses_system_exit(java_dest: str, exclude: list = None) -> bool:
     :param exclude: Paths that contains any string from this list are ignored.
     """
     method = 'System.exit'
-    sys_exit = Literal(method)
+    grammar = Literal(method)
 
-    result = False
-    try:
-        matches = lang.check_grammar(sys_exit, java_dest, LANGUAGE_SPECS,
-                                     exclude)
-        if not matches:
-            show_close('Code does not use {} method'.format(method),
-                       details=dict(code_dest=java_dest))
-            return False
-    except FileNotFoundError:
-        show_unknown('File does not exist', details=dict(code_dest=java_dest))
-        return False
-    else:
-        result = True
-        show_open('Code uses {} method'.format(method),
-                  details=dict(matched=matches,
-                               total_vulns=len(matches)))
-    return result
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.path_contains_grammar2,
+        msgs={
+            OPEN: f'Code uses {method} method',
+            CLOSED: f'Code does not use {method} method',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
