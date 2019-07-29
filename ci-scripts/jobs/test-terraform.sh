@@ -4,6 +4,12 @@ test_terraform() {
 
   # Validates terraform plan
 
+  # import functions
+  . ci-scripts/helpers/others.sh
+
+  # Logs in to vault in order to read variables
+  vault_login
+
   export AWS_ACCESS_KEY_ID
   export AWS_SECRET_ACCESS_KEY
   export TF_VAR_aws_s3_resources_bucket
@@ -27,5 +33,7 @@ test_terraform() {
   rm plan
   cd "${CI_PROJECT_DIR}" || return 1
 }
+
+set -e
 
 test_terraform

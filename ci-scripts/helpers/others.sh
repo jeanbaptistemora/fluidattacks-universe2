@@ -29,6 +29,49 @@ kaniko_build() {
   fi
 }
 
+vault_login() {
+
+  # Logs in to vault.
+  # Uses prod credentials if branch is master
+  # Uses dev credentials in any other scenario
+
+  export VAULT_ADDR
+  export VAULT_HOST
+  export VAULT_PORT
+  export VAULTENV_SECRETS_FILE
+  export ENV
+  export ENV_NAME
+  export ROLE_ID
+  export SECRET_ID
+
+  VAULT_ADDR="https://$VAULT_S3_BUCKET.com"
+  VAULT_HOST="$VAULT_S3_BUCKET.com"
+  VAULT_PORT='443'
+  VAULTENV_SECRETS_FILE="$CI_PROJECT_DIR/env.vars"
+
+  if [[ "$CI_COMMIT_REF_NAME" == "master" ]]; then
+    ENV='PROD'
+    ENV_NAME='production'
+    ROLE_ID="$INTEGRATES_PROD_ROLE_ID"
+    SECRET_ID="$INTEGRATES_PROD_SECRET_ID"
+  else
+    ENV='DEV'
+    ENV_NAME='development'
+    ROLE_ID="$INTEGRATES_DEV_ROLE_ID"
+    SECRET_ID="$INTEGRATES_DEV_SECRET_ID"
+  fi
+
+  sed -i "s/env#/$ENV_NAME#/g" "$VAULTENV_SECRETS_FILE"
+
+  export VAULT_TOKEN=$(
+    vault write \
+    -field=token auth/approle/login \
+    role_id="${ROLE_ID}" \
+    secret_id="${SECRET_ID}"
+  )
+
+}
+
 mobile_get_version() {
 
   # Gets the current version for a mobile deployment

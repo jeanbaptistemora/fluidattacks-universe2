@@ -124,7 +124,6 @@ deps-ci:
 test-terraform:
   stage: pre-test
   image: registry.gitlab.com/fluidsignal/serves:builder
-  <<: *vault_login
   script:
     - ./ci-scripts/jobs/test-terraform.sh
   artifacts:
@@ -185,7 +184,6 @@ test-mobile:
 
 test-app:
   stage: pre-test
-  <<: *vault_login
   script:
     - ./ci-scripts/jobs/test-app.sh
   artifacts:
@@ -202,7 +200,6 @@ test-app:
 build-terraform:
   stage: build
   image: registry.gitlab.com/fluidsignal/serves:builder
-  <<: *vault_login
   script:
     - ./ci-scripts/jobs/build-terraform.sh
   only:
@@ -268,9 +265,8 @@ build-bot:
 
 test-driver:
   stage: post-deploy
-  <<: *vault_login
   script:
-    - vaultenv ci-scripts/jobs/test-driver.sh
+    - ./ci-scripts/jobs/test-driver.sh
   parallel: 3
   retry: 1
   artifacts:
@@ -361,7 +357,6 @@ deploy-k8s:
 
 deploy-mobile:
   stage: deploy
-  <<: *vault_login
   script:
     - ./ci-scripts/jobs/deploy-mobile.sh
   environment:

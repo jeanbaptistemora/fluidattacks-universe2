@@ -4,11 +4,17 @@ test_driver() {
 
   # Run selenium tests on ephemeral or prod
 
+  # import functions
+  . ci-scripts/helpers/others.sh
+
+  # Logs in to vault in order to run vaultenv
+  vault_login
+
   cp -a "$PWD" /usr/src/app_src
   cd /usr/src/app_src || return 1
   mkdir -p screenshots
 
-  pytest \
+  vaultenv -- pytest \
     --ds=fluidintegrates.settings \
     --verbose \
     --exitfirst \
@@ -19,5 +25,7 @@ test_driver() {
 
   cp -a screenshots "${CI_PROJECT_DIR}"
 }
+
+set -e
 
 test_driver
