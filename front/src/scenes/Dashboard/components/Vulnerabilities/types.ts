@@ -4,15 +4,18 @@ export interface IVulnsAttr {
   finding: {
     id: string;
     inputsVulns: Array<{
-      currentState: string; id: string; specific: string; treatment: string;
+      currentState: string; externalBts: string; id: string; specific: string;
+      treatment: string; treatmentJustification: string; treatmentManager: string;
       vulnType: string; where: string;
     }>;
     linesVulns: Array<{
-      currentState: string; id: string; specific: string; treatment: string;
+      currentState: string; externalBts: string; id: string; specific: string;
+      treatment: string; treatmentJustification: string; treatmentManager: string;
       vulnType: string; where: string;
     }>;
     portsVulns: Array<{
-      currentState: string; id: string; specific: string; treatment: string;
+      currentState: string; externalBts: string; id: string; specific: string;
+      treatment: string; treatmentJustification: string; treatmentManager: string;
       vulnType: string; where: string;
     }>;
     releaseDate: string;
@@ -37,6 +40,7 @@ export interface IVulnerabilitiesViewProps {
   editMode: boolean;
   findingId: string;
   renderAsEditable?: boolean;
+  separatedRow?: boolean;
   state: string;
   userRole: string;
 }

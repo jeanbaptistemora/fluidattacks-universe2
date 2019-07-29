@@ -327,6 +327,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
               userRole={props.userRole}
               renderAsEditable={props.isEditing}
               descriptParam={props}
+              separatedRow={true}
             />
           </FormGroup>
         </Col>
