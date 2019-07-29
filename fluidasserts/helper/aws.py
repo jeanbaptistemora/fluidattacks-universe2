@@ -65,7 +65,7 @@ def get_aws_client(
 @retry
 def run_boto3_func(key_id: str, secret: str, service: str,
                    func: str, param: str = None,
-                   retry: bool = True) -> dict:
+                   retry: bool = True, **kwargs) -> dict:
     """
     Get caller identity.
 
@@ -78,7 +78,7 @@ def run_boto3_func(key_id: str, secret: str, service: str,
                                 key_id=key_id,
                                 secret=secret)
         method_to_call = getattr(client, func)
-        result = method_to_call()
+        result = method_to_call(**kwargs)
         return result if not param else result[param]
     except botocore.vendored.requests.exceptions.ConnectionError:
         raise ConnError

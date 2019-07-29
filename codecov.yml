@@ -8,7 +8,11 @@ coverage:
   range: "70...100"
 
   status:
-    project: yes
+    project:
+      default:
+        # The build fails if total project coverage drops by more than 6%
+        target: auto
+        threshold: "6%"
     patch: no
     changes: no
 
