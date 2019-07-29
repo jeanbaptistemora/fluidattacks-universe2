@@ -5,7 +5,7 @@ runnerRegistrationToken: $FA_RUNNER_TOKEN
 unregisterRunners: true
 rbac:
   create: true
-concurrent: 6
+concurrent: 30
 checkInterval: 10
 metrics:
   enabled: false
@@ -17,12 +17,10 @@ runners:
     - jfrog-reg
   privileged: false
   builds:
-    cpuLimit: 700m
-    memoryLimit: 3Gi
-    cpuRequests: 600m
+    cpuLimit: 900m
+    memoryLimit: 5Gi
+    cpuRequests: 500m
     memoryRequests: 1Gi
-  helpers:
-    image: gitlab/gitlab-runner-helper:x86_64-latest
 resources:
   limits:
     memory: 256Mi
