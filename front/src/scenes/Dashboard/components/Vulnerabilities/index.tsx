@@ -51,6 +51,16 @@ interface ICategoryVulnType {
   treatmentManager: string;
   where: string;
 }
+interface IVunlDataType {
+  id: string;
+  treatments: {
+    btsUrl: string;
+    treatment: string;
+    treatmentJustification: string;
+    treatmentManager: string;
+
+  };
+}
 
 const getAttrVulnUpdate: (selectedQery: NodeListOf<Element>) => ISelectRowType =
 (selectedQery: NodeListOf<Element>): ISelectRowType =>  {
@@ -195,9 +205,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             hidePreloader();
 
             const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnType[],
-                                 vulnData: string[]) => string[] =
-                                 (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnType[], vulnData: string[])
-                                                                    : string[] => {
+                                 vulnData: IVunlDataType[]) => IVunlDataType[] =
+                (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnType[], vulnData: IVunlDataType[])
+                                                                    : IVunlDataType[] => {
                 selectedRow.forEach((row: {[value: string]: string | null | undefined }) => {
                   categoryVuln.forEach((vuln: {
                                                 externalBts: string;
@@ -209,7 +219,15 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                                                 where: string;
                                               }) => {
                     if (row.where === vuln.where && row.specific === vuln.specific) {
-                      vulnData.push(vuln.id);
+                      vulnData.push({
+                        id: vuln.id,
+                        treatments: {
+                          btsUrl: vuln.externalBts,
+                          treatment: vuln.treatment,
+                          treatmentJustification: vuln.treatmentJustification,
+                          treatmentManager: vuln.treatmentManager,
+                        },
+                      });
                     }
                   });
                 });
@@ -217,12 +235,10 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 return vulnData;
             };
 
-            const getVulnInfo: (selectedRowArray: ISelectRowType [], vulnInfo: IVulnsAttr) => string[] =
-                                (selectedRowArray: ISelectRowType [], vulnInfo: IVulnsAttr): string[] => {
-              let arrayVulnInfo: string[] = [];
-              const arrayVulnCategory: ICategoryVulnType[][] = [vulnInfo.finding.inputsVulns,
-                                                                vulnInfo.finding.linesVulns,
-                                                                vulnInfo.finding.portsVulns];
+            const getVulnInfo: (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICategoryVulnType[][]) =>
+            IVunlDataType[] = (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICategoryVulnType[][]):
+            IVunlDataType[] => {
+              let arrayVulnInfo: IVunlDataType[] = [];
               selectedRowArray.map((selectedRow: ISelectRowType) => {
                 if (!_.isUndefined(selectedRow)) {
                   arrayVulnCategory.map((category: ICategoryVulnType[]) => {
@@ -257,9 +273,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               }
             };
 
-            const getSelectQryTable: () => {numberSelectedRow: number;
-                                            selectedQeryArray: Array<NodeListOf<Element>>; } = ():
-                { numberSelectedRow: number; selectedQeryArray: Array<NodeListOf<Element>> } => {
+            const getSelectQryTable: () => {selectedQeryArray: Array<NodeListOf<Element>> } = ():
+                { selectedQeryArray: Array<NodeListOf<Element>> } => {
                 const selectedQryArray: Array<NodeListOf<Element>> = [];
                 const vulnsTable: string[] = ["#inputsVulns", "#linesVulns", "#portsVulns"];
                 let count: number;
@@ -272,8 +287,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     selectedQryArray.push(qryTable);
                   }
                 });
-                const result: { numberSelectedRow: number; selectedQeryArray: Array<NodeListOf<Element>> } = {
-                  numberSelectedRow: count,
+                const result: { selectedQeryArray: Array<NodeListOf<Element>> } = {
                   selectedQeryArray: selectedQryArray,
                 };
 
@@ -470,6 +484,45 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       }
                     };
 
+                  const calculateRowsSelected: () => {oneRowSelected: boolean; vulnerabilities: string []} =
+                  (): {oneRowSelected: boolean; vulnerabilities: string []}  => {
+                    const selectedRows: Array<NodeListOf<Element>> = getSelectQryTable().selectedQeryArray;
+                    const selectedRowArray: ISelectRowType[] = [];
+                    const arrayVulnCategory: ICategoryVulnType[][] = [data.finding.inputsVulns,
+                                                                      data.finding.linesVulns,
+                                                                      data.finding.portsVulns];
+                    let result: {oneRowSelected: boolean; vulnerabilities: string []};
+                    const vulnsId: string[] = [];
+                    selectedRows.map((selectQry: NodeListOf<Element>) => {
+                      selectedRowArray.push(getAttrVulnUpdate(selectQry));
+                    });
+                    const vulns: any = getVulnInfo(selectedRowArray, arrayVulnCategory);
+                    vulns.map((vuln: any) => {
+                      vulnsId.push(vuln.id);
+                    });
+                    result = {
+                      oneRowSelected: false,
+                      vulnerabilities: vulnsId,
+                    };
+                    if (vulns.length === 1) {
+                      result = {
+                        oneRowSelected: true,
+                        vulnerabilities: vulnsId,
+                      };
+                      if (!_.isUndefined(props.descriptParam)) {
+                        props.descriptParam.dataset.treatment = vulns[0].treatments.treatment.toUpperCase();
+                        props.descriptParam.dataset.treatmentJustification = vulns[0].treatments.treatmentJustification;
+                        props.descriptParam.dataset.treatmentManager = vulns[0].treatments.treatmentManager;
+                        props.descriptParam.dataset.btsUrl = vulns[0].treatments.btsUrl;
+                      }
+                    }
+
+                    return result;
+                  };
+
+                  const numberRowSelected: boolean = calculateRowsSelected().oneRowSelected;
+                  const vulnsSelected: string [] = calculateRowsSelected().vulnerabilities;
+
                   return (
                     <React.StrictMode>
                       { dataInputs.length > 0
@@ -560,17 +613,11 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
 
                             const handleUpdateTreatmentVuln: ((dataTreatment: IDescriptionViewProps["dataset"])
                               => void) = (dataTreatment: IDescriptionViewProps["dataset"]): void => {
-                              const selectedRowArray: ISelectRowType[] = [];
                               const selectedQry: Array<NodeListOf<Element>> = getSelectQryTable().selectedQeryArray;
-                              let vulnData: string[] = [];
                               if (selectedQry.length === 0) {
                                   msgError(translate.t("search_findings.tab_resources.no_selection"));
                                 } else {
 
-                                    selectedQry.map((selectQry: NodeListOf<Element>) => {
-                                      selectedRowArray.push(getAttrVulnUpdate(selectQry));
-                                    });
-                                    vulnData = getVulnInfo(selectedRowArray, data);
                                     updateTreatmentVuln({variables: { data: {btsUrl: dataTreatment.btsUrl,
                                                                              findingId: data.finding.id,
                                                                              treatment: dataTreatment.treatment,
@@ -578,7 +625,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                                                                              dataTreatment.treatmentJustification,
                                                                              treatmentManager:
                                                                              dataTreatment.treatmentManager,
-                                                                             vulnerabilities: vulnData },
+                                                                             vulnerabilities: vulnsSelected },
                                                                       findingId: data.finding.id}})
                                     .catch();
                                   }
@@ -592,9 +639,15 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               >
                               <GenericForm
                                 name="editTreatmentVulnerability"
-                                onSubmit={handleUpdateTreatmentVuln}
-                                initialValues={undefined}
-                              >{!_.isUndefined(props.descriptParam) ?
+                                onSubmit={(values: IDescriptionViewProps["dataset"]): void => {
+                                  handleUpdateTreatmentVuln(values);
+                                }}
+                                initialValues={
+                                  numberRowSelected ? (!_.isUndefined(props.descriptParam) ?
+                                  props.descriptParam.dataset : undefined) : undefined
+                                }
+                              >
+                                {!_.isUndefined(props.descriptParam) ?
                                 TreatmentFieldsView(props.descriptParam)
                                 : undefined}
                                   <ButtonToolbar className="pull-right">
