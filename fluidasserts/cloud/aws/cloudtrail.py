@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""
-AWS cloud checks (CLOUDTRAIL).
-
-The checks are based on CIS AWS Foundations Benchmark.
-"""
+"""AWS cloud checks (CLOUDTRAIL)."""
 
 # standard imports
 # None
@@ -27,8 +23,6 @@ def trails_not_multiregion(
         key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if trails are multiregion.
-
-    CIS 2.1 Ensure CloudTrail is enabled in all regions (Scored)
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
@@ -66,8 +60,6 @@ def files_not_validated(key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if trails are multiregion.
 
-    CIS 2.2 Ensure CloudTrail log file validation is enabled (Scored)
-
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
@@ -104,9 +96,6 @@ def is_trail_bucket_public(key_id: str, secret: str,
                            retry: bool = True) -> bool:
     """
     Check if trails buckets are public.
-
-    CIS 2.3 Ensure the S3 bucket CloudTrail logs to is not publicly
-    accessible (Scored)
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
@@ -149,9 +138,6 @@ def is_trail_bucket_logging_disabled(key_id: str, secret: str,
     """
     Check if trails bucket logging is enabled.
 
-    CIS 2.6 Ensure S3 bucket access logging is enabled on the
-    CloudTrail S3 bucket (Scored)
-
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
@@ -189,9 +175,6 @@ def is_trail_bucket_logging_disabled(key_id: str, secret: str,
 def has_unencrypted_logs(key_id: str, secret: str, retry: bool = True) -> bool:
     """
     Check if trail logs are encrypted.
-
-    CIS 2.7 Ensure CloudTrail logs are encrypted at rest using
-    KMS CMKs (Scored)
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret

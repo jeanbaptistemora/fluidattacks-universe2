@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""
-AWS cloud checks (S3).
-
-The checks are based on CIS AWS Foundations Benchmark.
-"""
+"""AWS cloud checks (S3)."""
 
 # standard imports
 # None

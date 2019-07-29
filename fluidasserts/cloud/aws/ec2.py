@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""
-AWS cloud checks (EC2).
-
-The checks are based on CIS AWS Foundations Benchmark.
-"""
+"""AWS cloud checks (EC2)."""
 
 # standard imports
 # None

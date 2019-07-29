@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""
-AWS cloud checks (Redshift).
-
-The checks are based on CIS AWS Foundations Benchmark.
-"""
+"""AWS cloud checks (Redshift)."""
 
 # standard imports
 # None
