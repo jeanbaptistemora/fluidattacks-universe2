@@ -22,6 +22,40 @@ from test.mock import sip
 # Constants
 NETWORK_NAME = 'bridge'
 
+MOCKS = {
+    'bwapp': {'80/tcp': 80},
+    'mysql_db:weak': {'3306/tcp': 3306},
+    'mysql_db:hard': {'3306/tcp': 3306},
+    'ssl:weak': {'443/tcp': 443},
+    'ssl:hard': {'443/tcp': 443},
+    'ssl:hard_tlsv13': {'443/tcp': 443},
+    'tcp:weak': {'80/tcp': 80},
+    'tcp:hard': {'443/tcp': 443},
+    'dns:weak': {'53/tcp': 53, '53/udp': 53},
+    'dns:hard': {'53/tcp': 53, '53/udp': 53},
+    'ftp:weak': {'21/tcp': 21},
+    'ftp:hard': {'21/tcp': 21},
+    'ldap:weak': {'389/tcp': 389},
+    'ldap:hard': {'389/tcp': 389},
+    'mysql_os:hard': {'22/tcp': 22},
+    'mysql_os:weak': {'22/tcp': 22},
+    'os:weak': {'22/tcp': 22},
+    'os:hard': {'22/tcp': 22},
+    'smb:weak': {'139/tcp': 139},
+    'smb:hard': {'139/tcp': 139},
+    'smtp:weak': {'25/tcp': 25},
+    'smtp:hard': {'25/tcp': 25},
+}
+
+
+def get_docker_client():
+    """Get docker client."""
+    client = docker.from_env()
+    client.login(registry='registry.gitlab.com',
+                 username=os.environ['DOCKER_USER'],
+                 password=os.environ['DOCKER_PASS'])
+    return client
+
 
 def get_mock_name(mock):
     """Get mock IP."""
@@ -70,38 +104,9 @@ def mock_graphql(request):
 @pytest.fixture()
 def run_mocks(request):
     """Run mock with given parameters."""
-    mocks = {
-        'bwapp': {'80/tcp': 80},
-        'mysql_db:weak': {'3306/tcp': 3306},
-        'mysql_db:hard': {'3306/tcp': 3306},
-        'ssl:weak': {'443/tcp': 443},
-        'ssl:hard': {'443/tcp': 443},
-        'ssl:hard_tlsv13': {'443/tcp': 443},
-        'tcp:weak': {'80/tcp': 80},
-        'tcp:hard': {'443/tcp': 443},
-        'dns:weak': {'53/tcp': 53, '53/udp': 53},
-        'dns:hard': {'53/tcp': 53, '53/udp': 53},
-        'ftp:weak': {'21/tcp': 21},
-        'ftp:hard': {'21/tcp': 21},
-        'ldap:weak': {'389/tcp': 389},
-        'ldap:hard': {'389/tcp': 389},
-        'mysql_os:hard': {'22/tcp': 22},
-        'mysql_os:weak': {'22/tcp': 22},
-        'os:weak': {'22/tcp': 22},
-        'os:hard': {'22/tcp': 22},
-        'smb:weak': {'139/tcp': 139},
-        'smb:hard': {'139/tcp': 139},
-        'smtp:weak': {'25/tcp': 25},
-        'smtp:hard': {'25/tcp': 25},
-    }
+    client = get_docker_client()
 
-    client = docker.from_env()
-
-    client.login(registry='registry.gitlab.com',
-                 username=os.environ['DOCKER_USER'],
-                 password=os.environ['DOCKER_PASS'])
-
-    for mock, port_mapping in mocks.items():
+    for mock, port_mapping in MOCKS.items():
         image = f'registry.gitlab.com/fluidattacks/asserts/mocks/{mock}'
         mock_dir = f'test/provision/{mock.replace(":", "/")}'
 
@@ -122,10 +127,25 @@ def run_mocks(request):
                 cont = client.containers.get(mock_name)
                 cont.start()
 
-    for mock, port_mapping in mocks.items():
+    for mock, port_mapping in MOCKS.items():
         ip = get_ip(client.containers.get(get_mock_name(mock)))
         for value in port_mapping.values():
             wait.tcp.open(value, ip, timeout=30)
+
+
+@pytest.fixture()
+def stop_mocks(request):
+    """Stop mocks mock with given parameters."""
+    client = get_docker_client()
+
+    for mock, port_mapping in MOCKS.items():
+        image = f'registry.gitlab.com/fluidattacks/asserts/mocks/{mock}'
+        mock_dir = f'test/provision/{mock.replace(":", "/")}'
+
+        mock_name = get_mock_name(mock)
+
+        cont = client.containers.get(mock_name)
+        cont.stop(timeout=0)
 
 
 @pytest.fixture(scope='function')
