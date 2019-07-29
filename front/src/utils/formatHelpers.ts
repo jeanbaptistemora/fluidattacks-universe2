@@ -389,7 +389,12 @@ export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
     const remediated: string = translate.t(Boolean(finding.remediated)
     ? "project.findings.boolean.True" : "project.findings.boolean.False");
 
-    return { ...finding, state, treatment, type, isExploitable, remediated };
+    const where: string = _.uniqBy(finding.vulnerabilities, "where")
+      .map((vuln: { where: string }): string => vuln.where)
+      .sort()
+      .join(", ");
+
+    return { ...finding, state, treatment, type, isExploitable, remediated, where };
   });
 
 type IDraftsDataset = IProjectDraftsAttr["project"]["drafts"];

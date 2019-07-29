@@ -25,10 +25,10 @@ export interface IProjectFindingsAttr {
       title: string;
       treatment: string;
       type: string;
-      where: string;
+      vulnerabilities: Array<{ where: string }>;
     }>;
   };
 }
 
 export type IProjectFindingsProps = (IProjectFindingsBaseProps &
-    (IProjectFindingsStateProps & IProjectFindingsDispatchProps));
+  (IProjectFindingsStateProps & IProjectFindingsDispatchProps));

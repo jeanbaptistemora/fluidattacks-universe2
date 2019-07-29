@@ -46,7 +46,6 @@ class FindingType(ObjectType):  # noqa pylint: disable=too-many-instance-attribu
     severity_score = Float()
     is_exploitable = Boolean()
     report_date = String()
-    where = String()
 
     # Additional attributes of detailed findings
     client_code = String()
@@ -98,4 +97,3 @@ class FindingType(ObjectType):  # noqa pylint: disable=too-many-instance-attribu
         self.is_exploitable = False
         self.remediated = ''
         self.report_date = ''
-        self.where = ''

@@ -19,7 +19,7 @@ const functionMock: (() => void) = (): void => undefined;
 
 describe("ProjectFindingsView", () => {
 
-  const mockProps: IProjectFindingsProps = {
+  const propsMock: IProjectFindingsProps = {
     match: {
       isExact: true,
       params: {projectName: "TEST"},
@@ -33,7 +33,7 @@ describe("ProjectFindingsView", () => {
     },
   };
 
-  const mocks: ReadonlyArray<MockedResponse> = [
+  const apolloDataMock: ReadonlyArray<MockedResponse> = [
     {
       request: {
         query: GET_FINDINGS,
@@ -59,7 +59,7 @@ describe("ProjectFindingsView", () => {
               title: "FIN.S.0038. Fuga de informaci\u00f3n de negocio",
               treatment: "IN PROGRESS",
               type: "SECURITY",
-              where: "This is a test where",
+              vulnerabilities: [{ __typename: "Vulnerability", where: "This is a test where" }],
             }],
           },
         },
@@ -88,8 +88,8 @@ describe("ProjectFindingsView", () => {
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={true}>
-          <ProjectFindingsView {...mockProps} />
+        <MockedProvider mocks={apolloDataMock} addTypename={true}>
+          <ProjectFindingsView {...propsMock} />
         </MockedProvider>
       </Provider>,
     );
@@ -102,7 +102,7 @@ describe("ProjectFindingsView", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mockError} addTypename={true}>
-          <ProjectFindingsView {...mockProps} />
+          <ProjectFindingsView {...propsMock} />
         </MockedProvider>
       </Provider>,
     );
