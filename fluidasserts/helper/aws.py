@@ -63,6 +63,30 @@ def get_aws_client(
 
 
 @retry
+def run_boto3_func(key_id: str, secret: str, service: str,
+                   func: str, param: str = None,
+                   retry: bool = True) -> dict:
+    """
+    Get caller identity.
+
+    :param service: AWS client
+    :param func: AWS client's method to call
+    :param param: Param to return from response
+    """
+    try:
+        client = get_aws_client(service,
+                                key_id=key_id,
+                                secret=secret)
+        method_to_call = getattr(client, func)
+        result = method_to_call()
+        return result if not param else result[param]
+    except botocore.vendored.requests.exceptions.ConnectionError:
+        raise ConnError
+    except botocore.exceptions.ClientError:
+        raise ClientErr
+
+
+@retry
 def get_caller_identity(key_id: str, secret: str, retry: bool = True) -> dict:
     """
     Get caller identity.
@@ -268,46 +292,6 @@ def list_trails(key_id: str, secret: str, retry: bool = True) -> dict:
                                 secret=secret)
         response = client.describe_trails()
         return response['trailList']
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
-
-
-@retry
-def list_security_groups(key_id: str, secret: str, retry: bool = True) -> dict:
-    """
-    List EC2 security groups.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    try:
-        client = get_aws_client('ec2',
-                                key_id=key_id,
-                                secret=secret)
-        response = client.describe_security_groups()
-        return response['SecurityGroups']
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
-
-
-@retry
-def list_volumes(key_id: str, secret: str, retry: bool = True) -> dict:
-    """
-    List EC2 EBS volumes.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    try:
-        client = get_aws_client('ec2',
-                                key_id=key_id,
-                                secret=secret)
-        response = client.describe_volumes()
-        return response['Volumes']
     except botocore.vendored.requests.exceptions.ConnectionError:
         raise ConnError
     except botocore.exceptions.ClientError:

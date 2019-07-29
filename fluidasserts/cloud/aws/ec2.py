@@ -56,7 +56,10 @@ def seggroup_allows_anyone_to_admin_ports(
         27017,  # MongoDB
     }
     try:
-        sec_groups = aws.list_security_groups(key_id, secret, retry=retry)
+        sec_groups = aws.run_boto3_func(key_id, secret, 'ec2',
+                                        'describe_security_groups',
+                                        param='SecurityGroups',
+                                        retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -99,7 +102,10 @@ def default_seggroup_allows_all_traffic(
     :param secret: AWS Key Secret
     """
     try:
-        sec_groups = aws.list_security_groups(key_id, secret, retry=retry)
+        sec_groups = aws.run_boto3_func(key_id, secret, 'ec2',
+                                        'describe_security_groups',
+                                        param='SecurityGroups',
+                                        retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -146,7 +152,10 @@ def has_unencrypted_volumes(
     :param secret: AWS Key Secret
     """
     try:
-        volumes = aws.list_volumes(key_id, secret, retry=retry)
+        volumes = aws.run_boto3_func(key_id, secret, 'ec2',
+                                     'describe_volumes',
+                                     param='Volumes',
+                                     retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
