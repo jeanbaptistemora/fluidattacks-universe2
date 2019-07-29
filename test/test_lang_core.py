@@ -168,6 +168,7 @@ def test_close_has_secret():
     ]
     assert core.has_secret(GOOD_CODE, params[0]).is_closed()
     assert core.has_secret(GOOD_CODE, params[1], use_regex=True).is_closed()
+    assert core.has_secret(CODE_DIR, params[0], exclude=['test']).is_closed()
 
 
 def test_close_has_all_text():
@@ -178,6 +179,7 @@ def test_close_has_all_text():
     ]
     assert core.has_all_text(BAD_CODE, params[0]).is_closed()
     assert core.has_all_text(BAD_CODE, params[1], use_regex=True).is_closed()
+    assert core.has_all_text(CODE_DIR, []).is_closed()
 
 
 def test_close_has_any_text():
@@ -215,6 +217,7 @@ def test_close_has_any_secret():
 def test_close_uses_unencrypted_sockets():
     """Test if code uses unencrypted sockets."""
     assert not core.uses_unencrypted_sockets(SECURE_SOCKETS)
+    assert not core.uses_unencrypted_sockets(CODE_DIR, exclude=['test'])
 
 
 def test_close_is_file_hash_in_list():
