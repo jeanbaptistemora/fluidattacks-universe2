@@ -58,6 +58,7 @@ def test_is_header_content_type_missing_open():
 
 def test_open_has_reverse_tab_nabbing():
     """Test html.has_reverse_tabnabbing."""
+    assert html.has_reverse_tabnabbing(CODE_DIR).is_open()
     assert html.has_reverse_tabnabbing(INSECURE_CODE).is_open()
 
 

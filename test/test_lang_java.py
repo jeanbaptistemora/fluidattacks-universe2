@@ -113,6 +113,7 @@ def test_uses_catch_for_runtime_exception_open():
 def test_uses_md5_hash_open():
     """Search MD5 hash algorithm."""
     assert java.uses_md5_hash(INSECURE_HASH)
+    assert java.uses_insecure_hash(INSECURE_HASH, 'md5')
 
 
 def test_uses_md5_hash_open_in_dir():
