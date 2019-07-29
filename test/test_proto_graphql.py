@@ -80,6 +80,6 @@ def test_accepts_introspection_unknown():
 
 def test_has_dos_unknown():
     """Test has_dos."""
-    for url in (BAD_URL, BAD_JSON_URL, BAD_PARAM_URL):
+    for url in (BAD_URL, BAD_PARAM_URL):
         assert graphql.has_dos(
-            url=BAD_URL, query=QUERY, num=1, timeout=10.0).is_unknown()
+            url=url, query=QUERY, num=1, timeout=10.0).is_unknown()
