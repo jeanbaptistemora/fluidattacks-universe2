@@ -180,6 +180,8 @@ test-mobile:
   image: registry.gitlab.com/fluidattacks/integrates:mobile
   script:
     - ./ci-scripts/jobs/test-mobile.sh
+  except:
+    - master
 
 test-app:
   stage: pre-test
@@ -268,18 +270,7 @@ test-driver:
   stage: post-deploy
   <<: *vault_login
   script:
-    - cp -a $PWD /usr/src/app_src
-    - cd /usr/src/app_src
-    - mkdir -p screenshots
-    - vaultenv -- pytest
-        --ds=fluidintegrates.settings
-        --verbose
-        --exitfirst
-        --basetemp=build/test
-        --test-group-count "${CI_NODE_TOTAL}"
-        --test-group "${CI_NODE_INDEX}"
-        app/ephimeral_tests.py
-    - cp -a screenshots "${CI_PROJECT_DIR}"
+    - vaultenv ci-scripts/jobs/test-driver.sh
   parallel: 3
   retry: 1
   artifacts:
@@ -345,15 +336,6 @@ asserts-dynamic:
     - ./ci-scripts/jobs/asserts-dynamic.sh
   only:
     - master
-
-mr-test:
-  stage: mr-check
-  variables:
-    GIT_STRATEGY: clone
-  script:
-    ./ci-scripts/check-branch.sh
-  only:
-    - merge_request3.86.193.211s
 
 danger:
   stage: mr-check
