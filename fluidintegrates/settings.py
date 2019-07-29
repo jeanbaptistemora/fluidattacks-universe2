@@ -73,6 +73,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django_cookies_samesite.middleware.CookiesSameSite',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -300,8 +301,11 @@ SESSION_ENGINE = 'redis_sessions.session'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_NAME = "Integratesv3"
+SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE_KEYS = {SESSION_COOKIE_NAME}
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_AGE = 40 * 60
+CSRF_COOKIE_SECURE = True
 CLUSTER_SESSION = True
 
 if FI_ENVIRONMENT == 'development':
