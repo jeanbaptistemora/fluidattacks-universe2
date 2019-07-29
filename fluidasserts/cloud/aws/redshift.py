@@ -27,7 +27,10 @@ def has_public_clusters(key_id: str, secret: str, retry: bool = True) -> bool:
     :param secret: AWS Key Secret
     """
     try:
-        clusters = aws.list_clusters(key_id, secret, retry=retry)
+        clusters = aws.run_boto3_func(key_id, secret, 'redshift',
+                                      'describe_clusters',
+                                      param='Clusters',
+                                      retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))

@@ -192,7 +192,10 @@ def not_requires_uppercase(
     """
     result = False
     try:
-        policy = aws.get_account_password_policy(key_id, secret, retry=retry)
+        policy = aws.run_boto3_func(key_id, secret, 'iam',
+                                    'get_account_password_policy',
+                                    param='PasswordPolicy',
+                                    retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -225,7 +228,10 @@ def not_requires_lowercase(
     """
     result = False
     try:
-        policy = aws.get_account_password_policy(key_id, secret, retry=retry)
+        policy = aws.run_boto3_func(key_id, secret, 'iam',
+                                    'get_account_password_policy',
+                                    param='PasswordPolicy',
+                                    retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -257,7 +263,10 @@ def not_requires_symbols(key_id: str, secret: str, retry: bool = True) -> bool:
     """
     result = False
     try:
-        policy = aws.get_account_password_policy(key_id, secret, retry=retry)
+        policy = aws.run_boto3_func(key_id, secret, 'iam',
+                                    'get_account_password_policy',
+                                    param='PasswordPolicy',
+                                    retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -289,7 +298,10 @@ def not_requires_numbers(key_id: str, secret: str, retry: bool = True) -> bool:
     """
     result = False
     try:
-        policy = aws.get_account_password_policy(key_id, secret, retry=retry)
+        policy = aws.run_boto3_func(key_id, secret, 'iam',
+                                    'get_account_password_policy',
+                                    param='PasswordPolicy',
+                                    retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -323,7 +335,10 @@ def min_password_len_unsafe(
     """
     result = False
     try:
-        policy = aws.get_account_password_policy(key_id, secret, retry=retry)
+        policy = aws.run_boto3_func(key_id, secret, 'iam',
+                                    'get_account_password_policy',
+                                    param='PasswordPolicy',
+                                    retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -357,7 +372,10 @@ def password_reuse_unsafe(
     """
     result = False
     try:
-        policy = aws.get_account_password_policy(key_id, secret, retry=retry)
+        policy = aws.run_boto3_func(key_id, secret, 'iam',
+                                    'get_account_password_policy',
+                                    param='PasswordPolicy',
+                                    retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -396,7 +414,10 @@ def password_expiration_unsafe(
     """
     result = False
     try:
-        policy = aws.get_account_password_policy(key_id, secret, retry=retry)
+        policy = aws.run_boto3_func(key_id, secret, 'iam',
+                                    'get_account_password_policy',
+                                    param='PasswordPolicy',
+                                    retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -433,7 +454,10 @@ def root_without_mfa(key_id: str, secret: str, retry: bool = True) -> bool:
     """
     result = False
     try:
-        summary = aws.get_account_summary(key_id, secret, retry=retry)
+        summary = aws.run_boto3_func(key_id, secret, 'iam',
+                                     'get_account_summary',
+                                     param='SummaryMap',
+                                     retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -466,7 +490,10 @@ def policies_attached_to_users(
     """
     result = False
     try:
-        users = aws.list_users(key_id, secret, retry=retry)
+        users = aws.run_boto3_func(key_id, secret, 'iam',
+                                   'list_users',
+                                   param='Users',
+                                   retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -502,7 +529,10 @@ def have_full_access_policies(
     """
     result = False
     try:
-        policies = aws.list_policies(key_id, secret, retry=retry)
+        policies = aws.run_boto3_func(key_id, secret, 'iam',
+                                      'list_policies',
+                                      param='Policies',
+                                      retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -543,7 +573,10 @@ def has_not_support_role(key_id: str, secret: str, retry: bool = True) -> bool:
     """
     result = False
     try:
-        res_policies = aws.list_policies(key_id, secret, retry=retry)
+        policies = aws.run_boto3_func(key_id, secret, 'iam',
+                                      'list_policies',
+                                      param='Policies',
+                                      retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -553,7 +586,7 @@ def has_not_support_role(key_id: str, secret: str, retry: bool = True) -> bool:
                      details=dict(error=str(exc).replace(':', '')))
         return False
     policies = list(filter(lambda x: x['PolicyName'] == 'AWSSupportAccess',
-                    res_policies))
+                    policies))
     if not policies:
         show_open('There is not a AWSSupportAccess policy')
         return True

@@ -27,7 +27,10 @@ def has_public_instances(key_id: str, secret: str, retry: bool = True) -> bool:
     :param secret: AWS Key Secret
     """
     try:
-        instances = aws.list_db_instances(key_id, secret, retry=retry)
+        instances = aws.run_boto3_func(key_id, secret, 'rds',
+                                       'describe_db_instances',
+                                       param='DBInstances',
+                                       retry=retry)
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))

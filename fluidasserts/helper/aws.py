@@ -110,87 +110,6 @@ def get_credentials_report(
 
 
 @retry
-def get_account_password_policy(
-        key_id: str, secret: str, retry: bool = True) -> dict:
-    """
-    Get IAM account password policy.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    try:
-        client = get_aws_client('iam',
-                                key_id=key_id,
-                                secret=secret)
-        response = client.get_account_password_policy()
-        return response['PasswordPolicy']
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
-
-
-@retry
-def get_account_summary(key_id: str, secret: str, retry: bool = True) -> dict:
-    """
-    Get IAM account summary.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    try:
-        client = get_aws_client('iam',
-                                key_id=key_id,
-                                secret=secret)
-        response = client.get_account_summary()
-        return response['SummaryMap']
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
-
-
-@retry
-def list_users(key_id: str, secret: str, retry: bool = True) -> dict:
-    """
-    List IAM users.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    try:
-        client = get_aws_client('iam',
-                                key_id=key_id,
-                                secret=secret)
-        response = client.list_users()
-        return response['Users']
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
-
-
-@retry
-def list_policies(key_id: str, secret: str, retry: bool = True) -> dict:
-    """
-    List IAM policies.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    try:
-        client = get_aws_client('iam',
-                                key_id=key_id,
-                                secret=secret)
-        response = client.list_policies()
-        return response['Policies']
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
-
-
-@retry
 def get_policy_version(key_id: str, secret: str,
                        policy: str, version: str, retry: bool = True) -> dict:
     """
@@ -281,46 +200,6 @@ def get_bucket_logging(
 
 
 @retry
-def list_db_instances(key_id: str, secret: str, retry: bool = True) -> dict:
-    """
-    List RDS DB instances.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    try:
-        client = get_aws_client('rds',
-                                key_id=key_id,
-                                secret=secret)
-        response = client.describe_db_instances()
-        return response['DBInstances']
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
-
-
-@retry
-def list_clusters(key_id: str, secret: str, retry: bool = True) -> dict:
-    """
-    List Redshift clusters.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    try:
-        client = get_aws_client('redshift',
-                                key_id=key_id,
-                                secret=secret)
-        response = client.describe_clusters()
-        return response['Clusters']
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
-
-
-@retry
 def get_bucket_acl(
         key_id: str, secret: str, bucket: str, retry: bool = True) -> dict:
     """
@@ -329,16 +208,11 @@ def get_bucket_acl(
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    try:
-        client = get_aws_client('s3',
-                                key_id=key_id,
-                                secret=secret)
-        response = client.get_bucket_acl(Bucket=bucket)
-        return response['Grants']
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
+    client = get_aws_client('s3',
+                            key_id=key_id,
+                            secret=secret)
+    response = client.get_bucket_acl(Bucket=bucket)
+    return response['Grants']
 
 
 def get_bucket_public_grants(bucket, grants):
