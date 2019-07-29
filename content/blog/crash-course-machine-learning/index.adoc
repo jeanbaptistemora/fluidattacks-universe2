@@ -57,7 +57,7 @@ The difference is that the groups are not known beforehand,
 so this is an unsupervised problem.
 
 .Classification.
-image::https://ml.berkeley.edu/blog/assets/tutorials/1/image_3.svg[Classification]
+image::classification.png[Classification]
 
 Both of these problems are _discrete_, in the sense
 that categories are separate and there are no in-between

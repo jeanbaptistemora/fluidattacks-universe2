@@ -145,7 +145,8 @@ which can be thought of a particular case of their third model, the
 link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[multilayer perceptron]
 The dataset was divided into three disjoint sets
 for training, validation and testing,
-preprocessed with a combination of `n-grams` and `word2vec` encoding,
+preprocessed with a combination of link:../natural-code[n-grams]
+and `word2vec` encoding,
 and adjusted the training to compensate for
 _class imbalance_ (an issue with data where
 the interesting cases are too scarce amongst regular ones).

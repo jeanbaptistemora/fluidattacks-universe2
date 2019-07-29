@@ -250,7 +250,7 @@ is that using parser combinators in +Asserts+
 allows us not only to have readable, maintainable code
 for our own use and of others,
 but also for this code to be easily _extensible_ and _reusable_.
-`PyParsing`, due to its object-oriented interface,
++PyParsing+, due to its object-oriented interface,
 its clear naming conventions,
 and the fact that coding parsers in it
 is just _pythonic_,

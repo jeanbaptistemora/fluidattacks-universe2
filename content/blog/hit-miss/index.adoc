@@ -50,7 +50,7 @@ the rolling average will tend to the true value,
 if you observe it for long enough:
 
 .Rolling average tends to the true mean. Via link:https://www.bradford-delong.com/2005/07/the_law_of_larg.html[Brad DeLong].
-image::law-large-numbers.png[Law of large numbers. Rolling average tend to true mean.]
+image::law-large-numbers.png[Law of large numbers. Rolling average tends to true mean.]
 
 The only problem is, we don't have long enough.
 Baseball seasons are finite,

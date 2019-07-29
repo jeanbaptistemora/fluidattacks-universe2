@@ -190,7 +190,7 @@ you know that the probability of two events happening together can be
 computed with the probability of one of them,
 and the probability of one given the other.
 If we have a chain of events, each depending on the last,
-that rule would imply a succesion of multiplied conditional probabilities:
+that rule would imply a succession of multiplied conditional probabilities:
 
 ["latex","expected-utility.png",align="center"]
 ----
