@@ -316,3 +316,11 @@ def format_comment_date(date_string):
     date = date.strftime('%Y/%m/%d %H:%M:%S')
 
     return date
+
+
+def calculate_datediff_since(start_date):
+    tzn = pytz.timezone(settings.TIME_ZONE)
+    start_date = datetime.strptime(start_date.split(' ')[0], '%Y-%m-%d')
+    start_date = start_date.replace(tzinfo=tzn).date()
+    final_date = (datetime.now(tz=tzn).date() - start_date)
+    return final_date

@@ -87,7 +87,7 @@ def _calc_cvss3_basescore(severity, parameters):
 
 def _calc_cvss3_temporal(severity, basescore):
     """Calculate cvss v3 temporal attribute."""
-    temporal = Decimal(math.ceil(basescore * severity['exploitability'] *
+    temporal = Decimal(math.ceil(float(basescore) * severity['exploitability'] *
                                  severity['remediationLevel'] *
                                  severity['reportConfidence'] * 10) / 10)
     resp = temporal.quantize(Decimal("0.1"))

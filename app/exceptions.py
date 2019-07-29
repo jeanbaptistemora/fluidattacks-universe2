@@ -126,3 +126,12 @@ class QueryDepthExceeded(Exception):
         """ Constructor """
         msg = 'Exception - Max query depth exceeded'
         super(QueryDepthExceeded, self).__init__(msg)
+
+
+class FindingNotFound(Exception):
+    """Exception to control finding data availability"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Finding not found'
+        super(FindingNotFound, self).__init__(msg)

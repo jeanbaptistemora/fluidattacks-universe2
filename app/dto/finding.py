@@ -644,17 +644,6 @@ def mask_evidence_dynamo(finding_id):
     return response
 
 
-def format_finding_date(format_attr):
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    finding_date = datetime.strptime(
-        format_attr.split(' ')[0],
-        '%Y-%m-%d'
-    )
-    finding_date = finding_date.replace(tzinfo=tzn).date()
-    final_date = (datetime.now(tz=tzn).date() - finding_date)
-    return final_date
-
-
 def vulnerabilities_status(finding_new):
     if (finding_new.get('closedVulnerabilities') > 0 and
             finding_new.get('openVulnerabilities') == 0):
@@ -722,7 +711,7 @@ def format_release(finding):
         )
         finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
         if finding_last_vuln <= today_day:
-            final_date = format_finding_date(finding['releaseDate'])
+            final_date = util.calculate_datediff_since(finding['releaseDate'])
             finding['edad'] = ':n'.replace(':n', str(final_date.days))
     return finding
 

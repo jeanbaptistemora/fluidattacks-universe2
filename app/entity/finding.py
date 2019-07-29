@@ -15,7 +15,6 @@ from app.dao import integrates_dao
 from app.decorators import require_login, require_role, require_finding_access
 from app.dto.finding import (
     FindingDTO, finding_vulnerabilities, has_migrated_evidence, get_project_name,
-    format_finding_date
 )
 from app.domain.finding import (
     migrate_all_files, update_file_to_s3, remove_repeated,
@@ -489,7 +488,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_last_vulnerability(self, info):
         """ Resolve days since last report """
         del info
-        last_vuln_date = format_finding_date(self.last_vulnerability)
+        last_vuln_date = util.calculate_datediff_since(self.last_vulnerability)
         self.last_vulnerability = last_vuln_date.days
         return self.last_vulnerability
 

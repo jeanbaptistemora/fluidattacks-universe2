@@ -41,7 +41,7 @@ from app.documentator.pdf import CreatorPDF
 from app.documentator.secure_pdf import SecurePDF
 from app.dto import closing, project as project_dto
 from app.dto.finding import (
-    FindingDTO, format_finding_date, parse_finding, get_project_name,
+    FindingDTO, parse_finding, get_project_name,
     mask_finding_fields_dynamo
 )
 from app.services import (
@@ -401,9 +401,9 @@ def format_release_date(finding):
             finding["lastVulnerability"] = \
                 finding_dynamo[0].get("lastVulnerability")
     if finding.get("releaseDate"):
-        final_date = format_finding_date(finding["releaseDate"])
+        final_date = util.calculate_datediff_since(finding["releaseDate"])
         finding['edad'] = final_date.days
-        final_vuln_date = format_finding_date(finding["lastVulnerability"])
+        final_vuln_date = util.calculate_datediff_since(finding["lastVulnerability"])
         finding['lastVulnerability'] = final_vuln_date.days
     else:
         finding['lastVulnerability'] = '-'
