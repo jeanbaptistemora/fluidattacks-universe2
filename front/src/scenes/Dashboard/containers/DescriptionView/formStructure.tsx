@@ -173,10 +173,12 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
   const isDetailed: boolean = props.formValues.reportLevel === "DETAILED";
 
   const canEditDescription: boolean =
-  !props.isEditing || (props.isEditing && _.includes(["admin", "analyst"], props.userRole));
+  (props.isEditing && _.includes(["admin", "analyst"], props.userRole));
 
   const canRenderDetailedField: boolean =
   isDetailed && props.isEditing && !_.includes(["customer"], props.userRole);
+
+  const validateEmptyField: boolean = !props.isEditing || canEditDescription;
 
   return (
     <React.Fragment>
@@ -189,7 +191,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             name="type"
             renderAsEditable={props.isEditing}
             validate={[required]}
-            visible={canEditDescription}
+            visible={validateEmptyField}
           >
             <option value="" selected={true} />
             <option value="SECURITY">{translate.t("search_findings.tab_description.type.security")}</option>
@@ -236,7 +238,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             name="scenario"
             renderAsEditable={props.isEditing}
             validate={[required]}
-            visible={canEditDescription}
+            visible={validateEmptyField}
           >
             <option value="" selected={true} />
             <option value="ANONYMOUS_INTERNET">
@@ -273,7 +275,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             name="actor"
             renderAsEditable={props.isEditing}
             validate={[required]}
-            visible={canEditDescription}
+            visible={validateEmptyField}
           >
             <option value="" selected={true} />
             <option value="ANYONE_INTERNET">{translate.t("search_findings.tab_description.actor.any_internet")}</option>
@@ -299,7 +301,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             renderAsEditable={props.isEditing}
             type="text"
             validate={[required]}
-            visible={canEditDescription}
+            visible={validateEmptyField}
           />
         </Col>
         <Col md={12} sm={12} xs={12}>
@@ -312,7 +314,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             renderAsEditable={props.isEditing}
             type="text"
             validate={[required]}
-            visible={canEditDescription}
+            visible={validateEmptyField}
           />
         </Col>
       </Row>
@@ -342,7 +344,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             name="attackVectorDesc"
             renderAsEditable={props.isEditing}
             type="text"
-            visible={canEditDescription}
+            visible={validateEmptyField}
             validate={[required]}
           />
         </Col>
@@ -356,7 +358,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             renderAsEditable={props.isEditing}
             type="text"
             validate={[required]}
-            visible={canEditDescription}
+            visible={validateEmptyField}
           />
         </Col>
       </Row>
@@ -371,7 +373,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             renderAsEditable={props.isEditing}
             type="text"
             validate={[required]}
-            visible={canEditDescription}
+            visible={validateEmptyField}
           />
         </Col>
         <Col md={6} sm={12} xs={12}>
@@ -398,11 +400,13 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             renderAsEditable={props.isEditing}
             type="text"
             validate={[required]}
-            visible={canEditDescription}
+            visible={validateEmptyField}
           />
         </Col>
       </Row>
       <Row>
+         {/* tslint:disable-next-line jsx-no-multiline-js Necessary for validate conditional */}
+        {(!_.isEmpty(props.dataset.compromisedAttributes) && !props.isEditing) || canEditDescription ?
         <Col md={6} sm={12} xs={12}>
           <EditableField
             className={globalStyle.noResize}
@@ -412,9 +416,9 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             name="compromisedAttributes"
             renderAsEditable={props.isEditing}
             type="text"
-            visible={canEditDescription}
           />
         </Col>
+        : undefined}
         <Col md={6} sm={12} xs={12}>
           <EditableField
             className={globalStyle.noResize}
@@ -425,7 +429,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             renderAsEditable={props.isEditing}
             type="number"
             validate={[required, numeric]}
-            visible={canEditDescription}
+            visible={validateEmptyField}
           />
         </Col>
       </Row>
@@ -439,7 +443,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             renderAsEditable={props.isEditing}
             type="number"
             validate={[required, numeric]}
-            visible={canEditDescription}
+            visible={validateEmptyField}
           />
         </Col>
       </Row>

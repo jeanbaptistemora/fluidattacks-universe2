@@ -33,23 +33,25 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
             <option value="IN PROGRESS">{translate.t("search_findings.tab_description.treatment.in_progress")}</option>
           </EditableField>
         </Col>
-        <Col md={6} sm={12} xs={12}>
-          <EditableField
-            component={dropdownField}
-            currentValue={props.dataset.treatmentManager}
-            label={translate.t("search_findings.tab_description.treatment_mgr")}
-            name="treatmentManager"
-            renderAsEditable={props.isEditing}
-            type="text"
-            validate={[...props.formValues.treatment === "IN PROGRESS" ? [required] : []]}
-            visible={!props.isEditing || (props.isEditing && props.formValues.treatment === "IN PROGRESS")}
-          >
-            <option value="" selected={true} />
-            {/* tslint:disable-next-line jsx-no-multiline-js Necessary for mapping users into JSX Elements */}
-            {props.dataset.userEmails.map(({ email }: { email: string }, index: number): JSX.Element =>
-              <option key={index} value={email}>{email}</option>)}
-          </EditableField>
-        </Col>
+        {!props.isEditing && !_.isEmpty(props.dataset.treatmentManager) ||
+        (props.isEditing && props.formValues.treatment === "IN PROGRESS") ?
+          <Col md={6} sm={12} xs={12}>
+            <EditableField
+              component={dropdownField}
+              currentValue={props.dataset.treatmentManager}
+              label={translate.t("search_findings.tab_description.treatment_mgr")}
+              name="treatmentManager"
+              renderAsEditable={props.isEditing}
+              type="text"
+              validate={[...props.formValues.treatment === "IN PROGRESS" ? [required] : []]}
+            >
+              <option value="" selected={true} />
+              {/* tslint:disable-next-line jsx-no-multiline-js Necessary for mapping users into JSX Elements */}
+              {props.dataset.userEmails.map(({ email }: { email: string }, index: number): JSX.Element =>
+                <option key={index} value={email}>{email}</option>)}
+            </EditableField>
+          </Col>
+        : undefined}
         <Col md={12} sm={12} xs={12}>
           <EditableField
             component={textField}
@@ -62,21 +64,24 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
           />
         </Col>
       </Row>
-      <Row>
-        <Col md={12} sm={12} xs={12}>
-          <EditableField
-            className={globalStyle.noResize}
-            component={textAreaField}
-            currentValue={props.dataset.treatmentJustification}
-            label={translate.t("search_findings.tab_description.treatment_just")}
-            name="treatmentJustification"
-            renderAsEditable={props.isEditing}
-            type="text"
-            validate={[required]}
-            visible={!props.isEditing && hasBts || (props.isEditing && props.formValues.treatment !== "NEW")}
-          />
-        </Col>
-      </Row>
+      {/* tslint:disable-next-line jsx-no-multiline-js Necessary for validate conditional */}
+      {!props.isEditing && !_.isEmpty(props.dataset.treatmentJustification) ||
+      (props.isEditing && props.formValues.treatment !== "NEW") ?
+        <Row>
+          <Col md={12} sm={12} xs={12}>
+            <EditableField
+              className={globalStyle.noResize}
+              component={textAreaField}
+              currentValue={props.dataset.treatmentJustification}
+              label={translate.t("search_findings.tab_description.treatment_just")}
+              name="treatmentJustification"
+              renderAsEditable={props.isEditing}
+              type="text"
+              validate={[required]}
+            />
+          </Col>
+        </Row>
+      : undefined}
     </React.Fragment>
     );
   };
