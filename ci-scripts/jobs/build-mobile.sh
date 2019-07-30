@@ -6,6 +6,8 @@ build_mobile() {
   # mobile/Gemfile OR deploy/containers/mobile/Dockerfile
   # were modified.
 
+  set -e
+
   # import functions
   . ci-scripts/helpers/check-changed.sh
   . ci-scripts/helpers/others.sh

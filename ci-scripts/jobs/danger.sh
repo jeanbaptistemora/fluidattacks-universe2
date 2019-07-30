@@ -4,6 +4,8 @@ danger() {
 
   # Runs danger on a Gitlab Merge Request
 
+  set -e
+
   export DANGER_GITLAB_API_TOKEN
   export DANGER_GITLAB_HOST
   export DANGER_GITLAB_API_BASE_URL

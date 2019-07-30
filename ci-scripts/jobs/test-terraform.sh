@@ -4,6 +4,8 @@ test_terraform() {
 
   # Validates terraform plan
 
+  set -e
+
   # import functions
   . ci-scripts/helpers/others.sh
 
@@ -33,7 +35,5 @@ test_terraform() {
   rm plan
   cd "${CI_PROJECT_DIR}" || return 1
 }
-
-set -e
 
 test_terraform

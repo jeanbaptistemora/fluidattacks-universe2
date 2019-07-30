@@ -6,6 +6,8 @@ commitlint() {
 
   # Run commitlints in every commit from a MR
 
+  set -e
+
   git fetch --prune &> /dev/null
 
   local N_COMMITS

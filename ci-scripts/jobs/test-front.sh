@@ -4,6 +4,8 @@ test_front() {
 
   # Runs linters and unit tests on front
 
+  set -e
+
   cp -a /root/front/node_modules front/
   cd front/ || return 1
   npm install --unsafe-perm
@@ -18,7 +20,6 @@ test_front() {
   # Unit tests
   npx tsc -p tsconfig.json --noEmit
   npx tcm src/ --silent
-  set -e
   set -o pipefail
   npx jest --detectOpenHandles
   mv coverage/lcov.info coverage.lcov

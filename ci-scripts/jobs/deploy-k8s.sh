@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
 undo_rollout() {
+
+  # Undo an Integrates rollout
+
+  set -e
+
   if [[ "$1" == 'app' ]]; then
     kubectl rollout undo deploy/integrates
     return 0
@@ -17,6 +22,8 @@ deploy_newrelic() {
 
   #Script to save a deployment record in New Relic
   #Reference: https://rpm.newrelic.com/api/explore/application_deployments/create
+
+  set -e
 
   local NEW_RELIC_URL
   local COMMITTER_EMAIL
@@ -49,6 +56,8 @@ deploy_newrelic() {
 deploy_k8s() {
 
   # Deploys new Integrates version to production
+
+  set -e
 
   local K8S_CONTEXT
   local B64_VAULT_HOST

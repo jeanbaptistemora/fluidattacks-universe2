@@ -5,10 +5,12 @@ kaniko_build() {
   # This scripts builds a Dockerfile using kaniko with cache
   # and pushes to the registry if the branch is master
 
+  set -e
+
   echo "{\"auths\":{\"${CI_REGISTRY}\":{\"username\":\"${CI_REGISTRY_USER}\",\
     \"password\":\"${CI_REGISTRY_PASSWORD}\"}}}" > /kaniko/.docker/config.json
 
-  if [[ "$CI_COMMIT_REF_NAME" == "master" ]]; then
+  if [ "$CI_COMMIT_REF_NAME" == "master" ]; then
     /kaniko/executor \
       --cleanup \
       --context "${CI_PROJECT_DIR}" \
@@ -34,6 +36,8 @@ vault_login() {
   # Logs in to vault.
   # Uses prod credentials if branch is master
   # Uses dev credentials in any other scenario
+
+  set -e
 
   export VAULT_ADDR
   export VAULT_HOST
@@ -76,6 +80,8 @@ mobile_get_version() {
 
   # Gets the current version for a mobile deployment
 
+  set -e
+
   MINUTES=$(
     printf "%05d" $((
     ($(date +%d | sed 's/^0//') -1) * 1440 +
@@ -98,6 +104,8 @@ mobile_get_version() {
 commitlint_conf () {
 
   #This scripts download commitlint's configuration files
+
+  set -e
 
   local RULES_NAME
   local PARSER_NAME

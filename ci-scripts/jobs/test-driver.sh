@@ -4,6 +4,8 @@ test_driver() {
 
   # Run selenium tests on ephemeral or prod
 
+  set -e
+
   # import functions
   . ci-scripts/helpers/others.sh
 
@@ -25,7 +27,5 @@ test_driver() {
 
   cp -a screenshots "${CI_PROJECT_DIR}"
 }
-
-set -e
 
 test_driver

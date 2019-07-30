@@ -4,6 +4,8 @@ test_mobile() {
 
   # Runs linters and unit tests on mobile
 
+  set -e
+
   cp -a /usr/src/app/node_modules mobile/
   cd mobile/ || return 1
   npm install

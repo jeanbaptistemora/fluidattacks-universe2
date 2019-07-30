@@ -4,6 +4,8 @@ publish_ota() {
 
   # Publishes an OTA update for mobile app
 
+  set -e
+
   # Import functions
   . ci-scripts/helpers/others.sh
 
@@ -41,6 +43,8 @@ deploy_mobile() {
 
   # This runs a deploy if mobile/ folder was modified
 
+  set -e
+
   # Import functions
   . ci-scripts/helpers/check-changed.sh
   . ci-scripts/helpers/others.sh
@@ -59,7 +63,5 @@ deploy_mobile() {
   fi
   echo 'No relevant files for mobile build were modified. Skipping build.'
 }
-
-set -e
 
 deploy_mobile

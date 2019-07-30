@@ -4,6 +4,8 @@ test_app() {
 
   # Runs linters and unit tests on app
 
+  set -e
+
   # import functions
   . ci-scripts/helpers/others.sh
 
@@ -36,7 +38,5 @@ test_app() {
 
   cd "$CI_PROJECT_DIR" || return 1
 }
-
-set -e
 
 test_app

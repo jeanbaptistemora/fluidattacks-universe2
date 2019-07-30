@@ -4,6 +4,8 @@ asserts_dynamic() {
 
   # Runs Asserts dynamic checks on repo
 
+  set -e
+
   export BRANCH
   export FA_STRICT
   export ORG

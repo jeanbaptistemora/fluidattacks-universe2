@@ -4,6 +4,8 @@ build_terraform() {
 
   # Builds terraform plan
 
+  set -e
+
   # import functions
   . ci-scripts/helpers/others.sh
 
@@ -27,7 +29,5 @@ build_terraform() {
   terraform init --backend-config="bucket=${FS_S3_BUCKET}"
   terraform apply -auto-approve -refresh=true
 }
-
-set -e
 
 build_terraform
