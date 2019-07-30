@@ -109,48 +109,6 @@ def get_credentials_report(
         raise ClientErr
 
 
-@retry
-def get_policy_version(key_id: str, secret: str,
-                       policy: str, version: str, retry: bool = True) -> dict:
-    """
-    Get IAM policy versions.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    :param policy: AWS Policy
-    :param version: AWS Policy version
-    """
-    client = get_aws_client('iam',
-                            key_id=key_id,
-                            secret=secret)
-    response = client.get_policy_version(PolicyArn=policy,
-                                         VersionId=version)
-    return response['PolicyVersion']['Document']['Statement']
-
-
-@retry
-def list_snapshots(key_id: str, secret: str, retry: bool = True) -> dict:
-    """
-    List EC2 EBS snapshots.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    try:
-        client = get_aws_client('ec2',
-                                key_id=key_id,
-                                secret=secret)
-        owner_id = run_boto3_func(key_id, secret, 'sts',
-                                  'get_caller_identity',
-                                  retry=retry)
-        response = client.describe_snapshots(OwnerIds=[owner_id['Account']])
-        return response['Snapshots']
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
-
-
 def get_bucket_public_grants(bucket, grants):
     """Check if there are public grants in dict."""
     public_acl = 'http://acs.amazonaws.com/groups/global/AllUsers'

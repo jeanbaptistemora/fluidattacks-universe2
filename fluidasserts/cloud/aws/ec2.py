@@ -191,7 +191,14 @@ def has_unencrypted_snapshots(
     :param secret: AWS Key Secret
     """
     try:
-        snapshots = aws.list_snapshots(key_id, secret, retry=retry)
+        identity = aws.run_boto3_func(key_id, secret, 'sts',
+                                      'get_caller_identity',
+                                      retry=retry)
+        snapshots = aws.run_boto3_func(key_id, secret, 'ec2',
+                                       'describe_snapshots',
+                                       param='Snapshots',
+                                       retry=retry,
+                                       OwnerIds=[identity['Account']])
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))

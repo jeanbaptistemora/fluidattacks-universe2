@@ -545,8 +545,13 @@ def have_full_access_policies(
                      details=dict(error=str(exc).replace(':', '')))
         return False
     for policy in policies:
-        pol_ver = list(aws.get_policy_version(key_id, secret, policy['Arn'],
-                                              policy['DefaultVersionId']))
+        pol_ver = aws.run_boto3_func(key_id, secret, 'iam',
+                                     'get_policy_version',
+                                     param='PolicyVersion',
+                                     retry=retry,
+                                     PolicyArn=policy['Arn'],
+                                     VersionId=policy['DefaultVersionId'])
+        pol_ver = list(pol_ver['Document']['Statement'])
         try:
             count = sum(x['Effect'] == 'Allow' and
                         '*' in _any_to_list(x['Action']) and
