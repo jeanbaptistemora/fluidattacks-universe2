@@ -255,12 +255,14 @@ a {
   }
 }
 
+//scss-lint:disable VendorPrefix
 .defcon {
   background-color: $fluid-dark-red;
   height: 50px;
   margin: 0 auto;
   padding-bottom: 10px;
   position: sticky;
+  position: -webkit-sticky;
   top: 0;
   width: 100%;
   z-index: 15;
@@ -271,7 +273,7 @@ a {
     text-align: center;
   }
 }
-
+//scss-lint:enable VendorPrefix
 
 .defconbtn {
   align-content: center;
