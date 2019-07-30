@@ -28,6 +28,12 @@ def test_geo_restriction_open():
                                                AWS_SECRET_ACCESS_KEY,
                                                retry=False)
 
+
+def test_logging_open():
+    """Check distribution logging."""
+    assert cloudfront.has_logging_disabled(AWS_ACCESS_KEY_ID,
+                                           AWS_SECRET_ACCESS_KEY,
+                                           retry=False)
 #
 # Closing tests
 #
@@ -48,3 +54,19 @@ def test_geo_restriction_close():
 
     os.environ.pop('http_proxy', None)
     os.environ.pop('https_proxy', None)
+
+
+def test_logging_close():
+    """Check distribution logging."""
+    assert not cloudfront.has_logging_disabled(AWS_ACCESS_KEY_ID,
+                                               AWS_SECRET_ACCESS_KEY_BAD,
+                                               retry=False)
+
+    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
+    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
+
+    assert not cloudfront.has_logging_disabled(AWS_ACCESS_KEY_ID,
+                                               AWS_SECRET_ACCESS_KEY,
+                                               retry=False)
+
+    os.environ.pop('http_proxy', None)
