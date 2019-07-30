@@ -20,16 +20,40 @@ CVSS_PARAMETERS = {
 }
 
 
+def _get_evidence(name, items):
+    evidence = [
+        {'url': item['file_url'], 'description': item.get('description', '')}
+        for item in items
+        if item['name'] == name]
+
+    return evidence[0] if evidence else {'url': '', 'description': ''}
+
+
 def format_data(finding):
     finding = {
         util.snakecase_to_camelcase(attribute): finding.get(attribute)
         for attribute in finding
     }
 
-    finding['age'] = util.calculate_datediff_since(finding['releaseDate']).days
+    is_draft = 'releaseDate' not in finding
+    if is_draft:
+        finding['age'] = 0
+        finding['cvssVersion'] = finding.get('cvssVersion', '2')
+    else:
+        finding['age'] = util.calculate_datediff_since(
+            finding['releaseDate']).days
     finding['detailedSeverity'] = finding.get('severity', 0)
     finding['exploitable'] = forms_utils.is_exploitable(
         float(finding['exploitability']), finding['cvssVersion'])
+    finding['evidence'] = {
+        'animation': _get_evidence('animation', finding['files']),
+        'evidence1': _get_evidence('evidence_route_1', finding['files']),
+        'evidence2': _get_evidence('evidence_route_2', finding['files']),
+        'evidence3': _get_evidence('evidence_route_3', finding['files']),
+        'evidence4': _get_evidence('evidence_route_4', finding['files']),
+        'evidence5': _get_evidence('evidence_route_5', finding['files']),
+        'exploitation': _get_evidence('exploitation', finding['files'])
+    }
 
     vulns = integrates_dao.get_vulnerabilities_dynamo(finding['findingId'])
     open_vulns = [vuln for vuln in vulns

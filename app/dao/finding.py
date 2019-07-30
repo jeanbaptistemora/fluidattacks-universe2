@@ -17,7 +17,7 @@ DYNAMODB_RESOURCE = resource('dynamodb',
 TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 
 
-def get_finding_by_id(finding_id):
+def get_finding(finding_id):
     """ Retrieve all attributes from a finding """
 
     filtering_exp = Key('finding_id').eq(finding_id)

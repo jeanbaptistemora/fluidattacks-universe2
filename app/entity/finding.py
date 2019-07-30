@@ -166,11 +166,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             vuln_filtered = [i for i in vuln_filtered if i.current_state == state]
         return vuln_filtered
 
-    def resolve_where(self, info):
-        """resolve Where attribute."""
-        del info
-        return self.where
-
     def resolve_open_vulnerabilities(self, info):
         """Resolve open vulnerabilities attribute."""
         del info
@@ -559,7 +554,7 @@ class UpdateEvidence(Mutation):
                     project=project_name,
                     finding_id=parameters.get('finding_id')
                 )
-                migrate_all_files(parameters, file_id, info.context)
+                migrate_all_files(parameters, file_id)
                 success = update_file_to_s3(parameters,
                                             fieldname[int(parameters.get('id'))][1],
                                             fieldname[int(parameters.get('id'))][0],
@@ -609,7 +604,7 @@ class UpdateEvidenceDescription(Mutation):
                 else:
                     finding = generic_dto.parse_evidence_info(submission_data, finding_id)
                     finding['id'] = finding_id
-                    migrate_evidence_description(finding, info)
+                    migrate_evidence_description(finding)
             success = add_file_attribute(
                 finding_id,
                 description_parse[field],
@@ -953,7 +948,7 @@ class ApproveDraft(Mutation):
     def mutate(self, info, draft_id):
         try:
             project_name = get_project_name(draft_id)
-            success, release_date = approve_draft(draft_id, project_name, info)
+            success, release_date = approve_draft(draft_id, project_name)
             util.invalidate_cache(draft_id)
             util.invalidate_cache(project_name)
         except KeyError:
