@@ -9,12 +9,13 @@ apt-get update
 pip3 install \
     pyyaml \
     urllib3 \
+    termcolor \
     slackclient \
     analytics/singer/tap_git \
     analytics/singer/target_redshift
 
 # set VPNs
-mkdir ~/.ssh
+mkdir -p ~/.ssh
 apt-get install -y openfortivpn
 
 # set AWS CLI

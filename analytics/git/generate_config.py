@@ -3,91 +3,99 @@
 
 import os
 import json
+import glob
 import shutil
+from urllib.parse import unquote
 
-from typing import List, Any
+from typing import Dict
 
 import yaml
 
 
-# Type aliases that improve clarity
-JSON = Any
-
-SOURCE = "/git/fluidsignal/continuous"
-TARGET = "/git"
-
-
-def get_organization(yml_path):
-    """ returns the -customer- tag in the config.yml """
-    with open(yml_path, "r") as config_file:
-        return yaml.safe_load(config_file).get("customer", "__")
-
-
-BRANCHES: JSON = {}
-with open(f"{TARGET}/../branches.json", "r") as file:
-    BRANCHES = json.load(file)
-
-FLUID_PROJ = (
-    "autonomicmind",
-    "fluidattacks",
-    "fluidsignal"
+# Constants
+FLUID_SUBS = (
+    'autonomicmind',
+    'fluidattacks',
+    'fluidsignal',
 )
 
-# subscriptions with sub-subscriptions
-NESTED: List[str] = []
 
-CONFIG = []
-for proj in os.listdir(TARGET):
-    if proj not in FLUID_PROJ and proj not in BRANCHES:
-        print(f"ERROR|no {proj} in BRANCHES|")
-        continue
+def get_config_path(subs_name: str) -> str:
+    """Return the config path from the subscription name."""
+    return (f'/git/fluidsignal/continuous/'
+            f'subscriptions/{subs_name}/config/config.yml')
 
-    project_path = f"{SOURCE}/subscriptions/{proj}"
 
-    subscription = proj.split("-")[0]
-    organization = "__"
+def get_customer_name(subs_name: str) -> str:
+    """Return the customer name for a subscription."""
+    with open(get_config_path(subs_name), 'r') as config_file:
+        return yaml.safe_load(config_file).get('customer', '__')
 
-    if any(subs in proj for subs in NESTED):
-        subscription = proj.split("-")[1]
-        nested_proj = proj.replace("-", "/")
-        project_path = f"{SOURCE}/subscriptions/{nested_proj}"
 
-    ymlconf_path = f"{project_path}/config/config.yml"
-    mailmap_path = f"{project_path}/.mailmap"
-
-    if not os.path.exists(ymlconf_path):
-        ymlconf_path = ""
-
-    if proj in FLUID_PROJ:
-        organization = "fluidattacks"
-    elif ymlconf_path:
-        organization = get_organization(ymlconf_path)
-
-    proj_path = f"{TARGET}/{proj}"
-    for repo in os.listdir(proj_path):
-        if proj not in FLUID_PROJ and repo not in BRANCHES[proj]:
-            print(f"ERROR|no {repo} in BRANCHES[{proj}]|")
+def get_repos_and_branches(
+        all_subs: bool = False) -> Dict[str, Dict[str, str]]:
+    """Get the repo names and the branches from the config.yml."""
+    branches: Dict[str, Dict[str, str]] = {}
+    for subs_path in glob.glob('/git/fluidsignal/continuous/subscriptions/*'
+                               if all_subs else '/git/*'):
+        subs_name = os.path.basename(subs_path)
+        if subs_name in FLUID_SUBS:
             continue
 
-        repo_path = f"{proj_path}/{repo}"
-        repo_name = f"{proj}/{repo}"
+        branches[subs_name] = {}
 
-        if os.path.exists(mailmap_path):
-            shutil.copyfile(mailmap_path, f"{repo_path}/.mailmap")
+        with open(get_config_path(subs_name), 'r') as config_file:
+            yml_file = yaml.safe_load(config_file)
 
-        CONFIG.append(
-            {
-                "organization": organization,
-                "subscription": subscription,
-                "repository": repo,
-                "location": repo_path,
-                "branches": [
-                    "master" if proj in FLUID_PROJ else BRANCHES[proj][repo]
-                ],
-            }
-        )
+        for block in yml_file.get('code', []):
+            branches[subs_name] = {
+                pb.rsplit('/', 1)[0]: unquote(pb.rsplit('/', 1)[1])
+                for pb in block.get('branches', [])}
 
-with open(f"{TARGET}/../config.json", "w") as file:
-    json.dump(CONFIG, file, indent=2)
+    return branches
 
-print(json.dumps(CONFIG, indent=2))
+
+def main():
+    """Usual entry point."""
+    config = []
+    branches: Dict[str, Dict[str, str]] = get_repos_and_branches()
+
+    for subs_path in glob.glob('/git/*'):
+        subs_name = os.path.basename(subs_path)
+
+        if subs_name in FLUID_SUBS:
+            organization = 'fluidattacks'
+        else:
+            organization = get_customer_name(subs_name)
+
+        for repo_path in glob.glob(f'{subs_path}/*'):
+            repo_name = os.path.basename(repo_path)
+
+            mailmap_path = f'/git/fluidsignal/continuous/{subs_name}/.mailmap'
+            if os.path.exists(mailmap_path):
+                shutil.copyfile(mailmap_path, f'{repo_path}/.mailmap')
+
+            if subs_name in FLUID_SUBS or repo_name in branches[subs_name]:
+                config.append(
+                    {
+                        'organization': organization,
+                        'subscription': subs_name,
+                        'repository': repo_name,
+                        'location': repo_path,
+                        'branches': [
+                            'master' if subs_name in FLUID_SUBS
+                            else branches[subs_name][repo_name]
+                        ],
+                    }
+                )
+            else:
+                print(f'ERROR: {repo_name} not in branches[{subs_name}]')
+
+    with open(f'/config.json', 'w') as file:
+        json.dump(config, file, indent=2)
+
+    print(json.dumps(config, indent=2))
+
+
+if __name__ == '__main__':
+    main()
