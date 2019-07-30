@@ -86,6 +86,14 @@ class InvalidAuthorization(Exception):
         super(InvalidAuthorization, self).__init__(msg)
 
 
+class InvalidPath(Exception):
+    """Exception to control valid path value in vulnerabilities."""
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Error in path value'
+        super(InvalidPath, self).__init__(msg)
+
+
 class InvalidPort(Exception):
     """Exception to control valid port value in vulnerabilities."""
     def __init__(self):
