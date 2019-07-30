@@ -29,6 +29,7 @@ NO_EXP = 'non-existing-exploit'
 def test_cli():
     """Run CLI."""
     os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_NOTRACK'] = 'true'
     testargs = ["asserts", OPEN_EXP]
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit):
@@ -38,6 +39,7 @@ def test_cli():
 def test_cli_strict():
     """Run CLI in strict mode."""
     os.environ['FA_STRICT'] = 'true'
+    os.environ['FA_NOTRACK'] = 'true'
     testargs = ["asserts", OPEN_EXP]
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit):
@@ -47,6 +49,7 @@ def test_cli_strict():
 def test_cli_strict_with_rich_exit_codes():
     """Run CLI in strict mode."""
     os.environ['FA_STRICT'] = 'true'
+    os.environ['FA_NOTRACK'] = 'true'
     testargs = ["asserts", "--enrich-exit-codes", OPEN_EXP]
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit):
@@ -56,6 +59,7 @@ def test_cli_strict_with_rich_exit_codes():
 def test_cli_strict_bad():
     """Run CLI with a bad FA_STRICT value."""
     os.environ['FA_STRICT'] = 'badvalue'
+    os.environ['FA_NOTRACK'] = 'true'
     testargs = ["asserts", OPEN_EXP]
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit):
@@ -65,6 +69,7 @@ def test_cli_strict_bad():
 def test_cli_noargs():
     """Run CLI with no args."""
     os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_NOTRACK'] = 'true'
     testargs = ["asserts"]
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit):
@@ -74,6 +79,7 @@ def test_cli_noargs():
 def test_cli_quiet():
     """Run CLI in quiet mode."""
     os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_NOTRACK'] = 'true'
     testargs = ["asserts", "-q", OPEN_EXP]
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit):
@@ -84,6 +90,7 @@ def test_cli_output():
     """Run CLI output option."""
     log_file = "log.asserts"
     os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_NOTRACK'] = 'true'
     testargs = ["asserts", "-q", "-O", log_file, OPEN_EXP]
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit):
@@ -95,6 +102,7 @@ def test_cli_output():
 def test_cli_color():
     """Run CLI in without colors."""
     os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_NOTRACK'] = 'true'
     testargs = ["asserts", "-n", OPEN_EXP]
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit):
@@ -104,6 +112,7 @@ def test_cli_color():
 def test_cli_http():
     """Run CLI http option."""
     os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_NOTRACK'] = 'true'
     testargs = ["asserts", "-H", 'https://127.0.0.1']
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit):
@@ -113,7 +122,20 @@ def test_cli_http():
 def test_cli_ssl():
     """Run CLI ssl option."""
     os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_NOTRACK'] = 'true'
     testargs = ["asserts", "-S", '127.0.0.1']
+    with patch.object(sys, 'argv', testargs):
+        with pytest.raises(SystemExit):
+            assert not cli.main()
+
+
+def test_cli_aws():
+    """Run CLI aws option."""
+    os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_NOTRACK'] = 'true'
+    key = os.environ['AWS_ACCESS_KEY_ID']
+    secret = os.environ['AWS_SECRET_ACCESS_KEY']
+    testargs = ["asserts", "-A", f'{key}:{secret}']
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit):
             assert not cli.main()
@@ -122,6 +144,7 @@ def test_cli_ssl():
 def test_cli_dns():
     """Run CLI dns option."""
     os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_NOTRACK'] = 'true'
     testargs = ["asserts", "-D", '127.0.0.1']
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit):
@@ -131,6 +154,7 @@ def test_cli_dns():
 def test_cli_lang():
     """Run CLI lang option."""
     os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_NOTRACK'] = 'true'
     testargs = ["asserts", "-L", 'test/static/lang/csharp/']
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit):
@@ -140,6 +164,7 @@ def test_cli_lang():
 def test_cli_filtered():
     """Run CLI with filtered results."""
     os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_NOTRACK'] = 'true'
     testargs = ["asserts", "-cou", OPEN_EXP]
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit):
@@ -149,6 +174,7 @@ def test_cli_filtered():
 def test_cli_method_stats():
     """Run CLI with method stats flag."""
     os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_NOTRACK'] = 'true'
     testargs = ["asserts", "-ms", OPEN_EXP]
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit):

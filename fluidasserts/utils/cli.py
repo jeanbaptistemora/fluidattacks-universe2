@@ -523,6 +523,55 @@ def exec_ssl_package(ip_addresses):
     return exec_wrapper('built-in SSL package', template)
 
 
+def exec_aws_package(params):
+    """Execute generic checks of SSL package."""
+    template = textwrap.dedent("""\
+        from fluidasserts.cloud.aws import ec2
+        from fluidasserts.cloud.aws import rds
+        from fluidasserts.cloud.aws import cloudtrail
+        from fluidasserts.cloud.aws import cloudfront
+        from fluidasserts.cloud.aws import redshift
+        from fluidasserts.cloud.aws import iam
+        from fluidasserts.cloud.aws import s3
+        """)
+    for param in params:
+        key, secret = param.split(':')
+        template += textwrap.dedent(f"""
+            ec2.seggroup_allows_anyone_to_admin_ports('{key}', '{secret}')
+            ec2.default_seggroup_allows_all_traffic('{key}', '{secret}')
+            ec2.has_unencrypted_volumes('{key}', '{secret}')
+            ec2.has_unencrypted_snapshots('{key}', '{secret}')
+            ec2.has_unused_seggroups('{key}', '{secret}')
+            rds.has_public_instances('{key}', '{secret}')
+            cloudtrail.trails_not_multiregion('{key}', '{secret}')
+            cloudtrail.files_not_validated('{key}', '{secret}')
+            cloudtrail.is_trail_bucket_public('{key}', '{secret}')
+            cloudtrail.is_trail_bucket_logging_disabled('{key}', '{secret}')
+            cloudtrail.has_unencrypted_logs('{key}', '{secret}')
+            cloudfront.has_not_geo_restrictions('{key}', '{secret}')
+            cloudfront.has_logging_disabled('{key}', '{secret}')
+            redshift.has_public_clusters('{key}', '{secret}')
+            iam.has_mfa_disabled('{key}', '{secret}')
+            iam.have_old_creds_enabled('{key}', '{secret}')
+            iam.have_old_access_keys('{key}', '{secret}')
+            iam.root_has_access_keys('{key}', '{secret}')
+            iam.not_requires_uppercase('{key}', '{secret}')
+            iam.not_requires_lowercase('{key}', '{secret}')
+            iam.not_requires_symbols('{key}', '{secret}')
+            iam.not_requires_numbers('{key}', '{secret}')
+            iam.min_password_len_unsafe('{key}', '{secret}')
+            iam.password_reuse_unsafe('{key}', '{secret}')
+            iam.password_expiration_unsafe('{key}', '{secret}')
+            iam.root_without_mfa('{key}', '{secret}')
+            iam.policies_attached_to_users('{key}', '{secret}')
+            iam.have_full_access_policies('{key}', '{secret}')
+            iam.has_not_support_role('{key}', '{secret}')
+            s3.has_server_access_logging_disabled('{key}', '{secret}')
+            s3.has_public_buckets('{key}', '{secret}')
+            """)
+    return exec_wrapper('built-in AWS package', template)
+
+
 def exec_dns_package(nameservers):
     """Execute generic checks of DNS package."""
     template = textwrap.dedent("""\
@@ -640,6 +689,8 @@ def get_content(args):
         content += exec_dns_package(args.dns)
     if args.lang:
         content += exec_lang_package(args.lang)
+    if args.aws:
+        content += exec_aws_package(args.aws)
     elif args.exploits:
         content += exec_exploits(args.exploits, args.multiprocessing)
     return get_parsed_output(content)
@@ -695,13 +746,18 @@ def main():
     argparser.add_argument('-L', '--lang', nargs='+', metavar='FILE/DIR',
                            help=('perform static security checks '
                                  'over given files or directories'))
+    argparser.add_argument('-A', '--aws', nargs=1,
+                           metavar='AWS_KEY_ID:AWS_KEY',
+                           help=('perform AWS checks using the given '
+                                 'credentials'))
     argparser.add_argument('exploits', nargs='*', help='exploits to execute')
 
     args = argparser.parse_args()
     show_banner(args)
 
     if not args.exploits and not args.http \
-       and not args.ssl and not args.dns and not args.lang:
+       and not args.ssl and not args.dns \
+       and not args.lang and not args.aws:
         argparser.print_help()
         exit_asserts('config-error')
 
