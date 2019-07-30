@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 kaniko_build() {
 
@@ -10,7 +10,7 @@ kaniko_build() {
   echo "{\"auths\":{\"${CI_REGISTRY}\":{\"username\":\"${CI_REGISTRY_USER}\",\
     \"password\":\"${CI_REGISTRY_PASSWORD}\"}}}" > /kaniko/.docker/config.json
 
-  if [ "$CI_COMMIT_REF_NAME" == "master" ]; then
+  if [ "$CI_COMMIT_REF_NAME" = "master" ]; then
     /kaniko/executor \
       --cleanup \
       --context "${CI_PROJECT_DIR}" \
@@ -47,13 +47,14 @@ vault_login() {
   export ENV_NAME
   export ROLE_ID
   export SECRET_ID
+  export VAULT_TOKEN
 
   VAULT_ADDR="https://$VAULT_S3_BUCKET.com"
   VAULT_HOST="$VAULT_S3_BUCKET.com"
   VAULT_PORT='443'
   VAULTENV_SECRETS_FILE="$CI_PROJECT_DIR/env.vars"
 
-  if [[ "$CI_COMMIT_REF_NAME" == "master" ]]; then
+  if [ "$CI_COMMIT_REF_NAME" = "master" ]; then
     ENV='PROD'
     ENV_NAME='production'
     ROLE_ID="$INTEGRATES_PROD_ROLE_ID"
@@ -67,7 +68,7 @@ vault_login() {
 
   sed -i "s/env#/$ENV_NAME#/g" "$VAULTENV_SECRETS_FILE"
 
-  export VAULT_TOKEN=$(
+  VAULT_TOKEN=$(
     vault write \
     -field=token auth/approle/login \
     role_id="${ROLE_ID}" \
@@ -89,10 +90,10 @@ mobile_get_version() {
     $(date +%M | sed 's/^0//')
     ))
   )
-  if [[ "$1" == "basic" ]]; then
+  if [ "$1" = "basic" ]; then
     FI_VERSION="$(date +%y.%m.)${MINUTES}"
     echo "$FI_VERSION"
-  elif [[ "$1" == "code" ]]; then
+  elif [ "$1" = "code" ]; then
     FI_VERSION="$(date +%y%m)${MINUTES}"
     echo "$FI_VERSION"
   else
@@ -106,13 +107,6 @@ commitlint_conf () {
   #This scripts download commitlint's configuration files
 
   set -e
-
-  local RULES_NAME
-  local PARSER_NAME
-  local BRANCH
-  local BASE_URL
-  local RULES_URL
-  local PARSER_URL
 
   RULES_NAME='commitlint.config.js'
   PARSER_NAME='parser-preset.js'
