@@ -18,24 +18,6 @@ image: registry.gitlab.com/fluidsignal/default/integrates/deps:ci
     CI_REGISTRY_EMAIL: "${GITLAB_EMAIL}"
     CI_REGISTRY_IMAGE: "${CI_REGISTRY}/fluidsignal/default/integrates"
 
-.vault_setup: &vault_setup |-
-  if [ "${CI_COMMIT_REF_NAME}" == "master" ]; then
-    export ENV=PROD
-    export ENV_NAME=production
-    export ROLE_ID="${INTEGRATES_PROD_ROLE_ID}"
-    export SECRET_ID="${INTEGRATES_PROD_SECRET_ID}"
-  fi
-  sed -i 's#/env#/'"${ENV_NAME}"'#g' "${VAULTENV_SECRETS_FILE}"
-  export VAULT_TOKEN=$(vault write \
-    -field=token auth/approle/login \
-    role_id="${ROLE_ID}" \
-    secret_id="${SECRET_ID}")
-
-.vault_login: &vault_login
-  extends: .vault_vars
-  before_script:
-    - *vault_setup
-
 .kaniko_config: &kaniko_config
   <<: *registry_vars
   image:
@@ -52,7 +34,7 @@ image: registry.gitlab.com/fluidsignal/default/integrates/deps:ci
     - wget -O vault.zip https://releases.hashicorp.com/vault/0.11.6/vault_0.11.6_linux_amd64.zip;
         unzip vault.zip;
         mv vault /busybox/
-    - *vault_setup
+    - . ci-scripts/helpers/others.sh && vault_login
     - export FI_DRIVE_AUTHORIZATION=$(vault read -field=drive_authorization secret/integrates/${ENV_NAME})
     - export FI_DRIVE_AUTHORIZATION_CLIENT=$(vault read -field=drive_authorization_client secret/integrates/${ENV_NAME})
     - export FI_DOCUMENTROOT=$(vault read -field=documentroot secret/integrates/${ENV_NAME})
@@ -277,8 +259,8 @@ test-driver:
 ephemeral-app:
   stage: deploy
   image: registry.gitlab.com/fluidsignal/serves:builder
-  <<: *vault_login
   script:
+    - . ci-scripts/helpers/others.sh && vault_login
     - vaultenv review-apps/cluster-config.sh
   retry: 1
   environment:
@@ -349,9 +331,8 @@ deploy-k8s:
   environment:
     name: "production"
     url: "https://fluidattacks.com/integrates"
-  <<: *vault_login
   script:
-    - vaultenv ci-scripts/jobs/deploy-k8s.sh
+    - ./ci-scripts/jobs/deploy-k8s.sh
   only:
     - master
 
@@ -367,20 +348,8 @@ deploy-mobile:
   stage: deploy
   dependencies:
     - build-mobile
-  <<: *vault_login
   script:
-    - cd mobile/
-    - echo "$(
-        vault read -field=playstore_credentials secret/integrates/production
-      )" > playstore-credentials.json
-    - bundle install
-    - bundle exec fastlane supply
-      --aab ./output/integrates.aab
-      --json_key ./playstore-credentials.json
-      --package_name "com.fluidattacks.integrates"
-      --track "$MOBILE_RELEASE_CHANNEL"
-  after_script:
-    - rm mobile/playstore-credentials.json
+    - ./ci-scripts/jobs/deploy-playstore.sh
   allow_failure: true
   only:
     - master
@@ -389,8 +358,8 @@ new-version-mail:
   stage: post-deploy
   dependencies:
     - build-app
-  <<: *vault_login
   script:
+    - . ci-scripts/helpers/others.sh && vault_login
     - export DJANGO_SETTINGS_MODULE=fluidintegrates.settings
     - vaultenv -- python integrates_version.py
   only:
@@ -403,8 +372,8 @@ coverage-report:
   dependencies:
     - test-app
     - test-front
-  <<: *vault_login
   script:
+    - . ci-scripts/helpers/others.sh && vault_login
     - vaultenv ./run_codecov.sh
   retry: 1
   only:
