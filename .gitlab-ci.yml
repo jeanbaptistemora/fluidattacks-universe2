@@ -61,6 +61,13 @@ build-mobile:
   script:
     - ./ci-scripts/jobs/build-mobile.sh
 
+build-production:
+  stage: deps
+  image: fluidattacks/alpine-kaniko:latest
+  retry: 2
+  script:
+    - ./ci-scripts/jobs/build-production.sh
+
 deps-app:
   stage: deps
   <<: *kaniko_config

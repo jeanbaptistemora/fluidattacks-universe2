@@ -2,33 +2,33 @@
 
 kaniko_build() {
 
-  # This scripts builds a Dockerfile using kaniko with cache
-  # and pushes to the registry if the branch is master
+  # This script builds a Dockerfile using kaniko with cache
+  # and pushes to the registry if the branch is master.
+  # kaniko parameters can be added if needed.
+  # Example: kaniko_build mobile --build-arg VERSION='1.2'
 
   set -e
+
+  TARGET="$1"
+  shift 1
 
   echo "{\"auths\":{\"${CI_REGISTRY}\":{\"username\":\"${CI_REGISTRY_USER}\",\
     \"password\":\"${CI_REGISTRY_PASSWORD}\"}}}" > /kaniko/.docker/config.json
 
   if [ "$CI_COMMIT_REF_NAME" = "master" ]; then
-    /kaniko/executor \
-      --cleanup \
-      --context "${CI_PROJECT_DIR}" \
-      --dockerfile "deploy/containers/$1/Dockerfile" \
-      --destination "${CI_REGISTRY_IMAGE}:$1" \
-      --cache=true \
-      --cache-repo "${CI_REGISTRY_IMAGE}/cache/$1" \
-      --snapshotMode time
+    PUSH_POLICY="--destination ${CI_REGISTRY_IMAGE}:$TARGET"
   else
-    /kaniko/executor \
-      --cleanup \
-      --context "${CI_PROJECT_DIR}" \
-      --dockerfile "deploy/containers/$1/Dockerfile" \
-      --no-push \
-      --cache=true \
-      --cache-repo "${CI_REGISTRY_IMAGE}/cache/$1" \
-      --snapshotMode time
+    PUSH_POLICY='--no-push'
   fi
+
+  /kaniko/executor \
+    --cleanup \
+    --context "${CI_PROJECT_DIR}" \
+    --dockerfile "deploy/containers/$TARGET/Dockerfile" \
+    "$PUSH_POLICY" \
+    --cache=true \
+    --cache-repo "${CI_REGISTRY_IMAGE}/cache/$TARGET" \
+    --snapshotMode time "$@"
 }
 
 vault_login() {

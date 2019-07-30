@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-build_mobile() {
+build_production() {
 
   # Builds mobile container if mobile/package.json OR
   # mobile/Gemfile OR deploy/containers/mobile/Dockerfile
@@ -13,16 +13,16 @@ build_mobile() {
   . ci-scripts/helpers/others.sh
 
   local FILES=(
-    'mobile/package.json'
-    'mobile/Gemfile'
-    'deploy/containers/mobile/Dockerfile'
+    'deploy/containers/production/requirements.txt'
+    'front/package.json'
+    'deploy/containers/production/Dockerfile'
   )
 
   if check_file_changed "${FILES[@]}"; then
-    kaniko_build mobile
+    kaniko_build production
   else
     echo 'No relevant files for mobile build were modified. Skipping build.'
   fi
 }
 
-build_mobile
+build_production
