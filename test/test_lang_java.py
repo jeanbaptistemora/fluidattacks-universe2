@@ -64,6 +64,16 @@ def test_swallows_exceptions_open():
     assert java.swallows_exceptions(INSECURE_EMPTY_CATCH)
 
 
+def test_does_not_handle_exceptions_open():
+    """Search empty catches."""
+    assert java.does_not_handle_exceptions(INSECURE_EMPTY_CATCH, [
+        # Let's assume that logging the error is the only handling needed
+        r'logger\.log\(',
+        r'logger\.info\(',
+        r'logger\.error\(',
+    ], use_regex=True).is_open()
+
+
 def test_has_empty_catches_in_dir_open():
     """Search empty catches."""
     assert java.swallows_exceptions(CODE_DIR)
@@ -186,6 +196,23 @@ def test_has_empty_catches_close():
     assert not java.swallows_exceptions(NON_EXISTANT_CODE)
 
 
+def test_does_not_handle_exceptions_close():
+    """Search catches without handlers."""
+    should_have = [
+        # Let's assume that this statements are handling the exception
+        'log.info(',
+        'System.exit(',
+        'System.out.println(',
+        'e.printStackTrace(',
+    ]
+    assert java.does_not_handle_exceptions(
+        SECURE_EMPTY_CATCH, should_have).is_closed()
+    assert java.does_not_handle_exceptions(
+        CODE_DIR, should_have, exclude=['test']).is_closed()
+    assert java.does_not_handle_exceptions(
+        NON_EXISTANT_CODE, should_have).is_unknown()
+
+
 def test_has_switch_without_default_close():
     """Search switch without default clause."""
     assert not java.has_switch_without_default(SECURE_SWITCH)
@@ -215,7 +242,6 @@ def test_uses_catch_for_null_pointer_exception_close():
         CODE_DIR, exclude=['test'])
     assert not java.uses_catch_for_null_pointer_exception(
         NON_EXISTANT_CODE)
-
 
 
 def test_uses_catch_for_runtime_exception_close():

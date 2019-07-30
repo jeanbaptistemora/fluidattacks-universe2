@@ -3,7 +3,8 @@
 """This module allows to check Java code vulnerabilities."""
 
 # standard imports
-from typing import Dict
+import re
+from typing import Dict, List
 
 # 3rd party imports
 from pyparsing import (CaselessKeyword, Word, Literal, Optional, alphas,
@@ -214,6 +215,48 @@ def swallows_exceptions(java_dest: str, exclude: list = None) -> Result:
         msgs={
             OPEN: 'Code has empty "catch" blocks',
             CLOSED: 'Code does not have empty "catch" blocks',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
+
+
+@track
+@api(risk=LOW)
+def does_not_handle_exceptions(java_dest: str,
+                               should_have: List[str],
+                               use_regex: bool = False,
+                               exclude: List[str] = None) -> Result:
+    """
+    Search for ``catch`` blocks that do not handle the exception.
+
+    See `REQ.161 <https://fluidattacks.com/web/rules/161/>`_.
+
+    See `CWE-755 <https://cwe.mitre.org/data/definitions/755.html>`_.
+
+    :param java_dest: Path to a Java source file or package.
+    :param should_have: List of expected exception handlers.
+    :param use_regex: Use regular expressions instead of literals to search.
+    :param exclude: Paths that contains any string from this list are ignored.
+    """
+    if not use_regex:
+        should_have = list(map(re.escape, should_have))
+    should_have_regexps = tuple(re.compile(sh) for sh in should_have)
+
+    grammar = Suppress(Keyword('catch') + nestedExpr(opener='(', closer=')')) \
+        + nestedExpr(opener='{', closer='}')
+    grammar.ignore(javaStyleComment)
+    grammar.ignore(L_CHAR)
+    grammar.ignore(L_STRING)
+    grammar.addCondition(
+        lambda x: not any(shr.search(str(x)) for shr in should_have_regexps))
+
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.path_contains_grammar2,
+        msgs={
+            OPEN: 'Code has "catch" blocks that do not handle its exceptions',
+            CLOSED: 'All "catch" blocks in code handles its exceptions',
         },
         spec=LANGUAGE_SPECS,
         excl=exclude)
