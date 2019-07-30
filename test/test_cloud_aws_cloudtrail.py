@@ -25,15 +25,13 @@ AWS_SECRET_ACCESS_KEY_BAD = "bad"
 def test_trail_bucket_logging_open():
     """Search if trails buckets logging is enabled."""
     assert cloudtrail.is_trail_bucket_logging_disabled(AWS_ACCESS_KEY_ID,
-                                                       AWS_SECRET_ACCESS_KEY,
-                                                       retry=False)
+                                                       AWS_SECRET_ACCESS_KEY)
 
 
 def test_unencrypted_logs_open():
     """Search if trails buckets logging are not encrypted."""
     assert cloudtrail.has_unencrypted_logs(AWS_ACCESS_KEY_ID,
-                                           AWS_SECRET_ACCESS_KEY,
-                                           retry=False)
+                                           AWS_SECRET_ACCESS_KEY)
 
 #
 # Closing tests
@@ -43,7 +41,8 @@ def test_unencrypted_logs_open():
 def test_trails_not_multiregion_close():
     """Search if trails are multiregion."""
     assert not cloudtrail.trails_not_multiregion(AWS_ACCESS_KEY_ID,
-                                                 AWS_SECRET_ACCESS_KEY)
+                                                 AWS_SECRET_ACCESS_KEY,
+                                                 retry=False)
     assert not cloudtrail.trails_not_multiregion(AWS_ACCESS_KEY_ID,
                                                  AWS_SECRET_ACCESS_KEY_BAD,
                                                  retry=False)

@@ -68,3 +68,4 @@ def test_logging_close():
                                                retry=False)
 
     os.environ.pop('http_proxy', None)
+    os.environ.pop('https_proxy', None)

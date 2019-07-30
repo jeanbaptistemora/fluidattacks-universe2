@@ -63,7 +63,8 @@ def test_policies_attached_open():
 def test_has_mfa_disabled_close():
     """Search MFA on IAM users."""
     assert not iam.has_mfa_disabled(AWS_ACCESS_KEY_ID,
-                                    AWS_SECRET_ACCESS_KEY)
+                                    AWS_SECRET_ACCESS_KEY,
+                                    retry=False)
     assert not iam.has_mfa_disabled(AWS_ACCESS_KEY_ID,
                                     AWS_SECRET_ACCESS_KEY_BAD,
                                     retry=False)
@@ -82,7 +83,8 @@ def test_has_mfa_disabled_close():
 def test_have_old_creds_enabled_close():
     """Search old unused passwords."""
     assert not iam.have_old_creds_enabled(AWS_ACCESS_KEY_ID,
-                                          AWS_SECRET_ACCESS_KEY)
+                                          AWS_SECRET_ACCESS_KEY,
+                                          retry=False)
     assert not iam.have_old_creds_enabled(AWS_ACCESS_KEY_ID,
                                           AWS_SECRET_ACCESS_KEY_BAD,
                                           retry=False)
@@ -118,7 +120,8 @@ def test_have_old_access_keys_close():
 def test_root_has_access_keys_close():
     """Search root access keys."""
     assert not iam.root_has_access_keys(AWS_ACCESS_KEY_ID,
-                                        AWS_SECRET_ACCESS_KEY)
+                                        AWS_SECRET_ACCESS_KEY,
+                                        retry=False)
     assert not iam.root_has_access_keys(AWS_ACCESS_KEY_ID,
                                         AWS_SECRET_ACCESS_KEY_BAD,
                                         retry=False)
@@ -137,7 +140,8 @@ def test_root_has_access_keys_close():
 def test_not_requires_uppercase_close():
     """Search IAM policy: Uppercase letter requirement."""
     assert not iam.not_requires_uppercase(AWS_ACCESS_KEY_ID,
-                                          AWS_SECRET_ACCESS_KEY)
+                                          AWS_SECRET_ACCESS_KEY,
+                                          retry=False)
     assert not iam.not_requires_uppercase(AWS_ACCESS_KEY_ID,
                                           AWS_SECRET_ACCESS_KEY_BAD,
                                           retry=False)
@@ -155,7 +159,8 @@ def test_not_requires_uppercase_close():
 def test_not_requires_lowercase_close():
     """Search IAM policy: Lowercase letter requirement."""
     assert not iam.not_requires_lowercase(AWS_ACCESS_KEY_ID,
-                                          AWS_SECRET_ACCESS_KEY)
+                                          AWS_SECRET_ACCESS_KEY,
+                                          retry=False)
     assert not iam.not_requires_lowercase(AWS_ACCESS_KEY_ID,
                                           AWS_SECRET_ACCESS_KEY_BAD,
                                           retry=False)
@@ -296,7 +301,8 @@ def test_policies_attached_close():
 def test_full_access_policies_close():
     """Search IAM policies: Full access policies."""
     assert not iam.have_full_access_policies(AWS_ACCESS_KEY_ID,
-                                             AWS_SECRET_ACCESS_KEY)
+                                             AWS_SECRET_ACCESS_KEY,
+                                             retry=False)
     assert not iam.have_full_access_policies(AWS_ACCESS_KEY_ID,
                                              AWS_SECRET_ACCESS_KEY_BAD,
                                              retry=False)
