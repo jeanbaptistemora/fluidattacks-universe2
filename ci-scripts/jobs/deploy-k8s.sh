@@ -65,6 +65,12 @@ deploy_k8s() {
 
   set -e
 
+  # import functions
+  . ci-scripts/helpers/others.sh
+
+  # Logs in to vault in order to read vault vars
+  vault_login
+
   local K8S_CONTEXT
   local B64_VAULT_HOST
   local B64_VAULT_TOKEN
