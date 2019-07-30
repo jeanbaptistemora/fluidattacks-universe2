@@ -277,12 +277,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 { selectedQeryArray: Array<NodeListOf<Element>> } => {
                 const selectedQryArray: Array<NodeListOf<Element>> = [];
                 const vulnsTable: string[] = ["#inputsVulns", "#linesVulns", "#portsVulns"];
-                let count: number;
-                count = 0;
                 vulnsTable.map((table: string) => {
-                  const qryTable: NodeListOf<Element> = document.querySelectorAll(`${table}
-                                                                                  tr input:checked`);
-                  count += qryTable.length;
+                  const qryTable: NodeListOf<Element> = document.querySelectorAll(`${table} tr input:checked`);
                   if (!_.isEmpty(qryTable)) {
                     selectedQryArray.push(qryTable);
                   }
@@ -496,8 +492,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     selectedRows.map((selectQry: NodeListOf<Element>) => {
                       selectedRowArray.push(getAttrVulnUpdate(selectQry));
                     });
-                    const vulns: any = getVulnInfo(selectedRowArray, arrayVulnCategory);
-                    vulns.map((vuln: any) => {
+                    const vulns: IVunlDataType[] = getVulnInfo(selectedRowArray, arrayVulnCategory);
+                    vulns.map((vuln: IVunlDataType) => {
                       vulnsId.push(vuln.id);
                     });
                     result = {
