@@ -503,8 +503,11 @@ def policies_attached_to_users(
                      details=dict(error=str(exc).replace(':', '')))
         return False
     for user in users:
-        user_pol = aws.list_attached_user_policies(key_id, secret,
-                                                   user['UserName'])
+        user_pol = aws.run_boto3_func(key_id, secret, 'iam',
+                                      'list_attached_user_policies',
+                                      param='AttachedPolicies',
+                                      retry=retry,
+                                      UserName=user['UserName'])
         if user_pol:
             show_open('User has policies directly attached',
                       details=(dict(user=user['UserName'],
@@ -592,7 +595,10 @@ def has_not_support_role(key_id: str, secret: str, retry: bool = True) -> bool:
         return True
 
     for policy in policies:
-        entities = aws.list_entities_for_policy(key_id, secret, policy['Arn'])
+        entities = aws.run_boto3_func(key_id, secret, 'iam',
+                                      'list_entities_for_policy',
+                                      retry=retry,
+                                      PolicyArn=policy['Arn'])
         attached_users = len(list(filter(None, entities['PolicyUsers'])))
         attached_groups = len(list(filter(None, entities['PolicyGroups'])))
         attached_roles = len(list(filter(None, entities['PolicyRoles'])))

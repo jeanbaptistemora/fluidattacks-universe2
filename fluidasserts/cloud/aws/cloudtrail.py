@@ -126,7 +126,11 @@ def is_trail_bucket_public(key_id: str, secret: str,
 
     for trail in trails:
         bucket = trail['S3BucketName']
-        grants = aws.get_bucket_acl(key_id, secret, bucket)
+        grants = aws.run_boto3_func(key_id, secret, 's3',
+                                    'get_bucket_acl',
+                                    param='Grants',
+                                    retry=retry,
+                                    Bucket=bucket)
         if aws.get_bucket_public_grants(bucket, grants):
             show_open('CloudTrail bucket is public',
                       details=dict(trail_arn=trail['TrailARN'],
@@ -170,7 +174,10 @@ def is_trail_bucket_logging_disabled(key_id: str, secret: str,
 
     for trail in trails:
         bucket = trail['S3BucketName']
-        logging = aws.get_bucket_logging(key_id, secret, bucket)
+        logging = aws.run_boto3_func(key_id, secret, 's3',
+                                     'get_bucket_logging',
+                                     retry=retry,
+                                     Bucket=bucket)
         if 'LoggingEnabled' not in logging:
             show_open('Logging not enabled on CloudTrail bucket',
                       details=dict(bucket=bucket))

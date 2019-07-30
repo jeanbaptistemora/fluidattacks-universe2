@@ -46,7 +46,10 @@ def has_server_access_logging_disabled(
 
     result = False
     for bucket in buckets:
-        logging = aws.get_bucket_logging(key_id, secret, bucket['Name'])
+        logging = aws.run_boto3_func(key_id, secret, 's3',
+                                     'get_bucket_logging',
+                                     retry=retry,
+                                     Bucket=bucket['Name'])
         if 'LoggingEnabled' not in logging:
             show_open('Logging not enabled on bucket',
                       details=dict(bucket=bucket))
@@ -88,7 +91,11 @@ def has_public_buckets(
     public_buckets = []
 
     for bucket in buckets:
-        grants = aws.get_bucket_acl(key_id, secret, bucket['Name'])
+        grants = aws.run_boto3_func(key_id, secret, 's3',
+                                    'get_bucket_acl',
+                                    param='Grants',
+                                    retry=retry,
+                                    Bucket=bucket['Name'])
         result = aws.get_bucket_public_grants(bucket['Name'], grants)
         if result:
             public_buckets.append(result)

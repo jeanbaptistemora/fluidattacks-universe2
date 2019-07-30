@@ -67,7 +67,7 @@ def run_boto3_func(key_id: str, secret: str, service: str,
                    func: str, param: str = None,
                    retry: bool = True, **kwargs) -> dict:
     """
-    Get caller identity.
+    Run arbitrary boto3 function.
 
     :param service: AWS client
     :param func: AWS client's method to call
@@ -129,39 +129,6 @@ def get_policy_version(key_id: str, secret: str,
 
 
 @retry
-def list_attached_user_policies(
-        key_id: str, secret: str, user: str, retry: bool = True) -> dict:
-    """
-    List attached user policies.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    :param user: IAM user
-    """
-    client = get_aws_client('iam',
-                            key_id=key_id,
-                            secret=secret)
-    response = client.list_attached_user_policies(UserName=user)
-    return response['AttachedPolicies']
-
-
-@retry
-def list_entities_for_policy(
-        key_id: str, secret: str, policy: str, retry: bool = True) -> dict:
-    """
-    List entities attached to policy.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    :param policy: AWS Policy
-    """
-    client = get_aws_client('iam',
-                            key_id=key_id,
-                            secret=secret)
-    return client.list_entities_for_policy(PolicyArn=policy)
-
-
-@retry
 def list_snapshots(key_id: str, secret: str, retry: bool = True) -> dict:
     """
     List EC2 EBS snapshots.
@@ -182,37 +149,6 @@ def list_snapshots(key_id: str, secret: str, retry: bool = True) -> dict:
         raise ConnError
     except botocore.exceptions.ClientError:
         raise ClientErr
-
-
-@retry
-def get_bucket_logging(
-        key_id: str, secret: str, bucket: str, retry: bool = True) -> dict:
-    """
-    List S3 bucket logging config.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    client = get_aws_client('s3',
-                            key_id=key_id,
-                            secret=secret)
-    return client.get_bucket_logging(Bucket=bucket)
-
-
-@retry
-def get_bucket_acl(
-        key_id: str, secret: str, bucket: str, retry: bool = True) -> dict:
-    """
-    List S3 bucket logging config.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    client = get_aws_client('s3',
-                            key_id=key_id,
-                            secret=secret)
-    response = client.get_bucket_acl(Bucket=bucket)
-    return response['Grants']
 
 
 def get_bucket_public_grants(bucket, grants):
