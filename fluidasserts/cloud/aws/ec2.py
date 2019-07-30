@@ -222,3 +222,52 @@ def has_unencrypted_snapshots(
             show_close('Snapshot is encrypted',
                        details=dict(snapshot=snapshot))
     return result
+
+
+@notify
+@level('low')
+@track
+def has_unused_seggroups(
+        key_id: str, secret: str, retry: bool = True) -> bool:
+    """
+    Check if there are unused security groups.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    try:
+        seggroups = aws.run_boto3_func(key_id, secret, 'ec2',
+                                       'describe_security_groups',
+                                       param='SecurityGroups',
+                                       retry=retry)
+    except aws.ConnError as exc:
+        show_unknown('Could not connect',
+                     details=dict(error=str(exc).replace(':', '')))
+        return False
+    except aws.ClientErr as exc:
+        show_unknown('Error retrieving info. Check credentials.',
+                     details=dict(error=str(exc).replace(':', '')))
+        return False
+    if not seggroups:
+        show_close('Not security groups found')
+        return False
+
+    result = False
+
+    for group in seggroups:
+        net_ifaces = aws.run_boto3_func(key_id, secret, 'ec2',
+                                        'describe_network_interfaces',
+                                        param='NetworkInterfaces',
+                                        retry=retry,
+                                        Filters=[{'Name': 'group-id',
+                                                  'Values':
+                                                  [group['GroupId']]}])
+        if not net_ifaces:
+            show_open('Security group is not used',
+                      details=dict(security_group=group['GroupId']))
+            result = True
+        else:
+            show_close('Security group is being used',
+                       details=dict(security_group=group['GroupId'],
+                                    net_interfaces=net_ifaces))
+    return result

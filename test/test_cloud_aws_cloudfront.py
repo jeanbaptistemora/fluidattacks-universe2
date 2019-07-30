@@ -25,15 +25,13 @@ AWS_SECRET_ACCESS_KEY_BAD = "bad"
 def test_geo_restriction_open():
     """Check distribution geo restriction."""
     assert cloudfront.has_not_geo_restrictions(AWS_ACCESS_KEY_ID,
-                                               AWS_SECRET_ACCESS_KEY,
-                                               retry=False)
+                                               AWS_SECRET_ACCESS_KEY)
 
 
 def test_logging_open():
     """Check distribution logging."""
     assert cloudfront.has_logging_disabled(AWS_ACCESS_KEY_ID,
-                                           AWS_SECRET_ACCESS_KEY,
-                                           retry=False)
+                                           AWS_SECRET_ACCESS_KEY)
 #
 # Closing tests
 #

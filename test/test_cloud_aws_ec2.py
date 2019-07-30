@@ -49,6 +49,13 @@ def test_unencrypted_snapshot_open():
         ec2.has_unencrypted_snapshots(AWS_ACCESS_KEY_ID,
                                       AWS_SECRET_ACCESS_KEY)
 
+
+def test_unused_seggroups_open():
+    """Check unused security groups."""
+    assert \
+        ec2.has_unused_seggroups(AWS_ACCESS_KEY_ID,
+                                 AWS_SECRET_ACCESS_KEY)
+
 #
 # Closing tests
 #
@@ -123,5 +130,23 @@ def test_unencrypted_snapshots_close():
         ec2.has_unencrypted_snapshots(AWS_ACCESS_KEY_ID,
                                       AWS_SECRET_ACCESS_KEY,
                                       retry=False)
+    os.environ.pop('http_proxy', None)
+    os.environ.pop('https_proxy', None)
+
+
+def test_unused_seggroups_close():
+    """Check unused security groups."""
+    assert not \
+        ec2.has_unused_seggroups(AWS_ACCESS_KEY_ID,
+                                 AWS_SECRET_ACCESS_KEY_BAD,
+                                 retry=False)
+
+    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
+    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
+
+    assert not \
+        ec2.has_unused_seggroups(AWS_ACCESS_KEY_ID,
+                                 AWS_SECRET_ACCESS_KEY,
+                                 retry=False)
     os.environ.pop('http_proxy', None)
     os.environ.pop('https_proxy', None)
