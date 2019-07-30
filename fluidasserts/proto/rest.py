@@ -116,7 +116,6 @@ def accepts_insecure_accept_header(url: str, *args, **kwargs) -> bool:
     return False
 
 
-@track
 @api(risk=MEDIUM)
 def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> Result:
     r"""
@@ -141,7 +140,6 @@ def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@track
 @api(risk=LOW)
 def is_header_x_content_type_options_missing(url: str, *args,
                                              **kwargs) -> Result:
@@ -224,7 +222,6 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> bool:
     return result
 
 
-@track
 @api(risk=LOW)
 def is_header_content_type_missing(url: str, *args, **kwargs) -> Result:
     r"""

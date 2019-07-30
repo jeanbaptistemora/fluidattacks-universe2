@@ -26,7 +26,6 @@ from fluidasserts.utils.decorators import track, level, notify, api
 LANGUAGE_SPECS = {}  # type: dict
 
 
-@track
 @api(risk=LOW)
 def has_text(code_dest: str, expected_text: str, use_regex: bool = False,
              exclude: list = None, lang_specs: dict = None) -> Result:
@@ -59,7 +58,6 @@ def has_text(code_dest: str, expected_text: str, use_regex: bool = False,
     return CLOSED, 'No files were tested', vulns, safes
 
 
-@track
 @api(risk=LOW)
 def has_not_text(code_dest: str, expected_text: str, use_regex: bool = False,
                  exclude: list = None, lang_specs: dict = None) -> Result:
@@ -93,7 +91,6 @@ def has_not_text(code_dest: str, expected_text: str, use_regex: bool = False,
     return OPEN, 'No files were tested', vulns, safes
 
 
-@notify
 @api(risk=LOW)
 def has_all_text(code_dest: str, expected_list: list, use_regex: bool = False,
                  exclude: list = None, lang_specs: dict = None) -> Result:
@@ -132,7 +129,6 @@ def has_all_text(code_dest: str, expected_list: list, use_regex: bool = False,
     return CLOSED, 'No files were tested', vulns, safes
 
 
-@notify
 @api(risk=LOW)
 def has_any_text(code_dest: str, expected_list: list, use_regex: bool = False,
                  exclude: list = None, lang_specs: dict = None) -> Result:
@@ -166,7 +162,6 @@ def has_any_text(code_dest: str, expected_list: list, use_regex: bool = False,
     return CLOSED, 'No expected text was found in code', vulns, safes
 
 
-@notify
 @api(risk=LOW)
 def has_not_any_text(code_dest: str,
                      expected_list: list, use_regex: bool = False,
@@ -201,7 +196,6 @@ def has_not_any_text(code_dest: str,
     return OPEN, 'No expected text was found in code', vulns, safes
 
 
-@notify
 @api(risk=LOW)
 def file_exists(code_file: str) -> Result:
     """
@@ -216,7 +210,6 @@ def file_exists(code_file: str) -> Result:
     return CLOSED, 'File does not exist'
 
 
-@notify
 @api(risk=LOW)
 def file_does_not_exist(code_file: str) -> Result:
     """
@@ -231,7 +224,6 @@ def file_does_not_exist(code_file: str) -> Result:
     return CLOSED, 'File exist'
 
 
-@notify
 @api(risk=MEDIUM)
 def is_file_hash_in_list(path: str, hash_list: List[str]) -> Result:
     """
@@ -259,7 +251,6 @@ def is_file_hash_in_list(path: str, hash_list: List[str]) -> Result:
     return CLOSED, msg, vulns, safes
 
 
-@notify
 @api(risk=MEDIUM)
 def has_weak_cipher(code_dest: str, expected_text: str,
                     exclude: list = None, lang_specs: dict = None) -> Result:
@@ -291,7 +282,6 @@ def has_weak_cipher(code_dest: str, expected_text: str,
     return CLOSED, msg, vulns, safes
 
 
-@notify
 @api(risk=HIGH)
 def has_secret(code_dest: str, secret: str, use_regex: bool = False,
                exclude: list = None, lang_specs: dict = None) -> Result:
@@ -323,7 +313,6 @@ def has_secret(code_dest: str, secret: str, use_regex: bool = False,
     return CLOSED, 'No files were tested'
 
 
-@notify
 @api(risk=HIGH)
 def has_any_secret(code_dest: str, secrets_list: list, use_regex: bool = False,
                    exclude: list = None, lang_specs: dict = None) -> Result:

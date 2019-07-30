@@ -16,7 +16,7 @@ from fluidasserts import Result
 from fluidasserts import LOW, MEDIUM
 from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts.helper import lang
-from fluidasserts.utils.decorators import track, api
+from fluidasserts.utils.decorators import api
 
 LANGUAGE_SPECS: Dict[str, Any] = {
     'extensions': ('rpg', 'rpgle',),
@@ -36,7 +36,6 @@ ERROR_CODE = MatchFirst([
 ERROR_CODES = delimitedList(ERROR_CODE, delim=':')
 
 
-@track
 @api(risk=MEDIUM)
 def has_dos_dow_sqlcod(rpg_dest: str, exclude: list = None) -> Result:
     r"""
@@ -66,7 +65,6 @@ def has_dos_dow_sqlcod(rpg_dest: str, exclude: list = None) -> Result:
     return CLOSED, 'No files were tested'
 
 
-@track
 @api(risk=LOW)
 def has_unitialized_vars(rpg_dest: str, exclude: list = None) -> Result:
     """
@@ -96,7 +94,6 @@ def has_unitialized_vars(rpg_dest: str, exclude: list = None) -> Result:
     return CLOSED, 'No files were tested'
 
 
-@track
 @api(risk=LOW)
 def has_generic_exceptions(rpg_dest: str, exclude: list = None) -> Result:
     """
@@ -130,7 +127,6 @@ def has_generic_exceptions(rpg_dest: str, exclude: list = None) -> Result:
     return CLOSED, 'No files were tested'
 
 
-@track
 @api(risk=LOW)
 def swallows_exceptions(rpg_dest: str, exclude: list = None) -> Result:
     """

@@ -434,7 +434,6 @@ def has_not_text(url: str, expected_text: str, *args, **kwargs) -> bool:
         return False
 
 
-@track
 @api(risk=LOW)
 def is_header_x_asp_net_version_present(url: str, *args, **kwargs) -> Result:
     r"""
@@ -455,7 +454,6 @@ def is_header_x_asp_net_version_present(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@track
 @api(risk=LOW)
 def is_header_x_powered_by_present(url: str, *args, **kwargs) -> Result:
     r"""
@@ -476,7 +474,6 @@ def is_header_x_powered_by_present(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@track
 @api(risk=LOW)
 def is_header_access_control_allow_origin_missing(url: str,
                                                   *args, **kwargs) -> Result:
@@ -508,7 +505,6 @@ def is_header_access_control_allow_origin_missing(url: str,
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@track
 @api(risk=LOW)
 def is_header_cache_control_missing(url: str, *args, **kwargs) -> Result:
     r"""
@@ -535,7 +531,6 @@ def is_header_cache_control_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@track
 @api(risk=MEDIUM)
 def is_header_content_security_policy_missing(url: str,
                                               *args, **kwargs) -> Result:
@@ -562,7 +557,6 @@ def is_header_content_security_policy_missing(url: str,
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@track
 @api(risk=LOW)
 def is_header_content_type_missing(url: str, *args, **kwargs) -> Result:
     r"""
@@ -591,7 +585,6 @@ def is_header_content_type_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@track
 @api(risk=LOW)
 def is_header_expires_missing(url: str, *args, **kwargs) -> Result:
     r"""
@@ -615,7 +608,6 @@ def is_header_expires_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@track
 @api(risk=LOW)
 def is_header_pragma_missing(url: str, *args, **kwargs) -> Result:
     r"""
@@ -640,7 +632,6 @@ def is_header_pragma_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@track
 @api(risk=LOW)
 def is_header_server_present(url: str, *args, **kwargs) -> Result:
     r"""
@@ -661,7 +652,6 @@ def is_header_server_present(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@track
 @api(risk=LOW)
 def is_header_x_content_type_options_missing(url: str, *args,
                                              **kwargs) -> Result:
@@ -687,7 +677,6 @@ def is_header_x_content_type_options_missing(url: str, *args,
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@track
 @api(risk=MEDIUM)
 def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> Result:
     r"""
@@ -712,7 +701,6 @@ def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@track
 @api(risk=MEDIUM)
 def is_header_perm_cross_dom_pol_missing(url: str, *args, **kwargs) -> Result:
     r"""
@@ -737,7 +725,6 @@ def is_header_perm_cross_dom_pol_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@track
 @api(risk=MEDIUM)
 def is_header_x_xxs_protection_missing(url: str, *args, **kwargs) -> Result:
     r"""
@@ -762,7 +749,6 @@ def is_header_x_xxs_protection_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@track
 @api(risk=MEDIUM)
 def is_header_hsts_missing(url: str, *args, **kwargs) -> Result:
     r"""
@@ -790,7 +776,6 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@track
 @api(risk=MEDIUM)
 def is_basic_auth_enabled(url: str, *args, **kwargs) -> Result:
     r"""

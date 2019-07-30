@@ -16,7 +16,7 @@ from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts.helper import http
 from fluidasserts.helper import asynchronous
 from fluidasserts.utils.generic import get_sha256
-from fluidasserts.utils.decorators import api, track
+from fluidasserts.utils.decorators import api
 
 
 #
@@ -190,7 +190,6 @@ async def query_async(url: str, query: str, *args, **kwargs) -> None:
 #
 
 
-@track
 @api(risk=MEDIUM)
 def accepts_introspection(url: str, *args, **kwargs) -> Result:
     r"""
@@ -234,7 +233,6 @@ def accepts_introspection(url: str, *args, **kwargs) -> Result:
     return res, msg, vulns, safes
 
 
-@track
 @api(risk=HIGH)
 def has_dos(url: str, query: str,
             num: int, timeout: float, *args, **kwargs) -> Result:

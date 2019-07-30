@@ -14,7 +14,7 @@ from fluidasserts import Result
 from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts import LOW
 from fluidasserts.helper import lang
-from fluidasserts.utils.decorators import api, track
+from fluidasserts.utils.decorators import api
 
 
 LANGUAGE_SPECS: Dict[str, Any] = {
@@ -42,7 +42,6 @@ D_NAME = Combine(Optional(D_DOMAIN + '/') + _NAME + ZeroOrMore('/' + _NAME))
 
 
 @api(risk=LOW)
-@track
 def not_pinned(file_dest: str, exclude: list = None) -> Result:
     """
     Check if the Dockerfile uses a ``FROM:...latest`` (unpinned) base image.

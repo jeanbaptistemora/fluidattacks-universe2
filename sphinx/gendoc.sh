@@ -18,7 +18,7 @@ sphinx-apidoc -efM fluidasserts -o sphinx/source
 # Get version from build/dist zip
 VER=$(find /builds/fluidsignal/asserts/build/dist/ -type f -printf '%f' | \
       sed 's_fluidasserts-\|.zip__g')
-CHECKS=$(grep -rI fluidasserts -e '@track' | wc -l)
+CHECKS=$(grep -rIE '@(track|api)' fluidasserts/ | wc -l)
 sed -i "s/<CHECKS>/$CHECKS/" sphinx/source/index.rst
 sphinx-build -D version="v.$VER" -D release="v.$VER" \
              -b dirhtml -a sphinx/source/ public/

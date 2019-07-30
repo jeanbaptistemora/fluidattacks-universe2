@@ -36,12 +36,17 @@ def api(risk: str) -> Callable:
 
             # Notify that the check is running
             print(f'  check: {result.func_id}', file=sys.stderr, flush=True)
+
+            # Track the function
+            mp_track(result.func_id)
+
+            # Run the function
             start_time = timer()
             status, message, *extra = func(*args, **kwargs)
             end_time = timer()
             duration = end_time - start_time
 
-            # Append the results
+            # Append the results to the Result object
             result.set_status(status)
             result.set_message(message)
             result.set_duration(duration)

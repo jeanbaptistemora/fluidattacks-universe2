@@ -83,7 +83,6 @@ def _declares_catch_for_exceptions(
         excl=exclude)
 
 
-@track
 @api(risk=LOW)
 def has_generic_exceptions(java_dest: str, exclude: list = None) -> Result:
     """
@@ -107,7 +106,6 @@ def has_generic_exceptions(java_dest: str, exclude: list = None) -> Result:
         exclude=exclude)
 
 
-@track
 @api(risk=LOW)
 def uses_catch_for_null_pointer_exception(
         java_dest: str, exclude: list = None) -> Result:
@@ -134,7 +132,6 @@ def uses_catch_for_null_pointer_exception(
         exclude=exclude)
 
 
-@track
 @api(risk=LOW)
 def uses_catch_for_runtime_exception(
         java_dest: str, exclude: list = None) -> Result:
@@ -161,7 +158,6 @@ def uses_catch_for_runtime_exception(
         exclude=exclude)
 
 
-@track
 @api(risk=LOW)
 def uses_print_stack_trace(java_dest: str, exclude: list = None) -> Result:
     """
@@ -189,7 +185,6 @@ def uses_print_stack_trace(java_dest: str, exclude: list = None) -> Result:
         excl=exclude)
 
 
-@track
 @api(risk=LOW)
 def swallows_exceptions(java_dest: str, exclude: list = None) -> Result:
     """
@@ -220,7 +215,6 @@ def swallows_exceptions(java_dest: str, exclude: list = None) -> Result:
         excl=exclude)
 
 
-@track
 @api(risk=LOW)
 def does_not_handle_exceptions(java_dest: str,
                                should_have: List[str],
@@ -315,7 +309,6 @@ def has_switch_without_default(java_dest: str, exclude: list = None) -> bool:
     return True
 
 
-@track
 @api(risk=LOW)
 def has_insecure_randoms(java_dest: str, exclude: list = None) -> Result:
     r"""
@@ -472,7 +465,6 @@ def _uses_insecure_hash(java_dest: str, algorithm: tuple,
         excl=exclude)
 
 
-@track
 @api(risk=MEDIUM)
 def uses_insecure_cipher(java_dest: str, algorithm: Result,
                          exclude: list = None) -> bool:
@@ -489,7 +481,6 @@ def uses_insecure_cipher(java_dest: str, algorithm: Result,
     return _uses_insecure_cipher(java_dest, algorithm, exclude)
 
 
-@track
 @api(risk=MEDIUM)
 def uses_insecure_hash(java_dest: str, algorithm: Result,
                        exclude: list = None) -> bool:
@@ -505,7 +496,6 @@ def uses_insecure_hash(java_dest: str, algorithm: Result,
     return _uses_insecure_hash(java_dest, algorithm, exclude)
 
 
-@track
 @api(risk=MEDIUM)
 def uses_md5_hash(java_dest: str, exclude: list = None) -> Result:
     """
@@ -519,7 +509,6 @@ def uses_md5_hash(java_dest: str, exclude: list = None) -> Result:
     return _uses_insecure_hash(java_dest, 'md5', exclude)
 
 
-@track
 @api(risk=MEDIUM)
 def uses_sha1_hash(java_dest: str, exclude: list = None) -> Result:
     """
@@ -533,7 +522,6 @@ def uses_sha1_hash(java_dest: str, exclude: list = None) -> Result:
     return _uses_insecure_hash(java_dest, 'sha-1', exclude)
 
 
-@track
 @api(risk=MEDIUM)
 def uses_des_algorithm(java_dest: str, exclude: list = None) -> Result:
     """
@@ -547,7 +535,6 @@ def uses_des_algorithm(java_dest: str, exclude: list = None) -> Result:
     return _uses_insecure_cipher(java_dest, 'DES', exclude)
 
 
-@track
 @api(risk=LOW)
 def has_log_injection(java_dest: str, exclude: list = None) -> Result:
     """
@@ -583,7 +570,6 @@ def has_log_injection(java_dest: str, exclude: list = None) -> Result:
         excl=exclude)
 
 
-@track
 @api(risk=LOW)
 def uses_system_exit(java_dest: str, exclude: list = None) -> Result:
     """

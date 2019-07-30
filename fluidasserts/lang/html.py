@@ -185,7 +185,6 @@ def is_header_content_type_missing(filename: str) -> bool:
     return result
 
 
-@notify
 @api(risk=LOW)
 def has_reverse_tabnabbing(path: str) -> Result:
     r"""
