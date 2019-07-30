@@ -848,6 +848,19 @@ class UpdateTreatment(Mutation):
     def mutate(self, info, finding_id, **parameters):
         user_email = util.get_jwt_content(info.context)['user_email']
         project_name = get_project_name(finding_id)
+        treatment_state = \
+            integrates_dao.get_finding_attributes_dynamo(finding_id, ['treatment'])
+        if treatment_state and \
+                parameters['treatment'] != treatment_state.get('treatment'):
+            remediations = integrates_dao.get_remediated_dynamo(int(finding_id))
+            if remediations and remediations[-1]['remediated']:
+                raise GraphQLError('Verification process')
+            else:
+                # request verified or there isn't a request verification
+                pass
+        else:
+            # finding treatment isn't changed
+            pass
         if parameters['treatment'] == 'IN PROGRESS':
             if parameters.get('treatment_manager'):
                 project_users = [user[0]
