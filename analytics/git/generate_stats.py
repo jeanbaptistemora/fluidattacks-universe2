@@ -10,12 +10,16 @@ import slack
 from generate_config import FLUID_SUBS, get_repos_and_branches
 
 
-def slack__send_message(header: str, message: List[str]) -> None:
+def slack__send_message(
+        header: str, message: List[str], quote: bool = True) -> None:
     """Send a message to the Analytics channel."""
     slack_token = os.popen(
         'vault read -field=analytics_slack_token secret/serves').read()
     body: str = '\n'.join(message)
-    text: str = f'*{header}*\n\n```\n{body}\n```'
+    if quote:
+        text: str = f'*{header}*\n\n```\n{body}\n```'
+    else:
+        text = f'*{header}*\n\n\n{body}\n'
     slack.WebClient(token=slack_token).chat_postMessage(
         text=text, channel='#analytics', mrkdwn=True)
 
@@ -45,7 +49,7 @@ def main():  # noqa
     message_errors: List[str] = []
 
     send_errors: bool = False
-    for subs in stats:
+    for subs in sorted(stats):
         subs_cloned_repos = stats[subs].get('CLONED', [])
         subs_error_repos = stats[subs].get('ERROR', [])
         subs_cloned_repos_count = len(subs_cloned_repos)
@@ -59,16 +63,14 @@ def main():  # noqa
 
         if subs_error_repos:
             send_errors = True
-            message_errors.append(f'  {subs}:')
             if subs_cloned_repos:
+                message_errors.append(f'  `{subs}`')
                 for repo in subs_error_repos:
-                    message_errors.append(f'    {repo}')
-            else:
-                message_errors.append(f'    all')
+                    message_errors.append(f'> {repo}')
 
-    slack__send_message('Git pipeline summary', message)
     if send_errors:
-        slack__send_message('Git pipeline errors', message_errors)
+        slack__send_message('Git pipeline errors', message_errors, quote=False)
+    slack__send_message('Git pipeline summary', message)
 
 
 if __name__ == '__main__':
