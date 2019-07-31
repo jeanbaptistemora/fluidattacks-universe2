@@ -209,7 +209,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.evidence
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_comments(self, info):
         """ Resolve comments attribute """
 
@@ -230,164 +229,137 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         )
         return self.observations
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_report_level(self, info):
         """ Resolve report_level attribute """
         del info
         return self.report_level
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_title(self, info):
         """ Resolve title attribute """
         del info
         return self.title
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_scenario(self, info):
         """ Resolve scenario attribute """
         del info
         return self.scenario
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_actor(self, info):
         """ Resolve actor attribute """
         del info
         return self.actor
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_description(self, info):
         """ Resolve description attribute """
         del info
         return self.description
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_requirements(self, info):
         """ Resolve requirements attribute """
         del info
         return self.requirements
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_attack_vector_desc(self, info):
         """ Resolve attack vector description attribute """
         del info
         return self.attack_vector_desc
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_threat(self, info):
         """ Resolve threat attribute """
         del info
         return self.threat
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_recommendation(self, info):
         """ Resolve recommendation attribute """
         del info
         return self.recommendation
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_affected_systems(self, info):
         """ Resolve affected_systems attribute """
         del info
         return self.affected_systems
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_compromised_attributes(self, info):
         """ Resolve compromised_attributes attribute """
         del info
         return self.compromised_attributes
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_compromised_records(self, info):
         """ Resolve compromised_records attribute """
         del info
         return self.compromised_records
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_cwe_url(self, info):
         """ Resolve cwe_url attribute """
         del info
 
         return self.cwe_url
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_bts_url(self, info):
         """ Resolve bts_url attribute """
         del info
         return self.bts_url
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_treatment(self, info):
         """ Resolve treatment attribute """
         del info
         return self.treatment
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_treatment_manager(self, info):
         """ Resolve treatment_manager attribute """
         del info
         return self.treatment_manager
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_treatment_justification(self, info):
         """ Resolve treatment_justification attribute """
         del info
         return self.treatment_justification
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_client_code(self, info):
         """ Resolve client_code attribute """
         del info
         return self.client_code
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_client_project(self, info):
         """ Resolve client_project attribute """
         del info
         return self.client_project
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_probability(self, info):
         """ Resolve probability attribute """
         del info
         return self.probability
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_detailed_severity(self, info):
         """ Resolve detailed_severity attribute """
         del info
         return self.detailed_severity
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_risk(self, info):
         """ Resolve risk attribute """
         del info
         return self.risk
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_risk_level(self, info):
         """ Resolve risk_level attribute """
         del info
         return self.risk_level
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_ambit(self, info):
         """ Resolve ambit attribute """
         del info
         return self.ambit
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_category(self, info):
         """ Resolve category attribute """
         del info
         return self.category
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_state(self, info):
         """ Resolve state attribute """
         del info
         return self.state
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_remediated(self, info):
         """ Resolve remediated attribute """
         del info
@@ -395,7 +367,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         self.remediated = remediations[-1]['remediated'] if remediations else False
         return self.remediated
 
-    @require_role(['analyst', 'customer', 'admin'])
     def resolve_type(self, info):
         """ Resolve type attribute """
         del info
