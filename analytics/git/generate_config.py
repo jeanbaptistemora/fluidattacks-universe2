@@ -5,6 +5,7 @@ import os
 import json
 import glob
 import shutil
+import textwrap
 from urllib.parse import unquote
 
 from typing import Dict
@@ -48,9 +49,9 @@ def get_repos_and_branches(
             yml_file = yaml.safe_load(config_file)
 
         for block in yml_file.get('code', []):
-            branches[subs_name] = {
-                pb.rsplit('/', 1)[0]: unquote(pb.rsplit('/', 1)[1])
-                for pb in block.get('branches', [])}
+            branches[subs_name].update({
+                unquote(pb.rsplit('/')[-2]): unquote(pb.rsplit('/')[-1])
+                for pb in block.get('branches', [])})
 
     return branches
 
@@ -90,6 +91,8 @@ def main():
                 )
             else:
                 print(f'ERROR: {repo_name} not in branches[{subs_name}]')
+                print(textwrap.indent(
+                    json.dumps(branches[subs_name], indent=2), ' ' * 8))
 
     with open(f'/config.json', 'w') as file:
         json.dump(config, file, indent=2)
