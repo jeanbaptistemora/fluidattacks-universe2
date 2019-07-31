@@ -3,7 +3,10 @@ build/
 builds/
 
 # Coverage files
-.coverage*
+*coverage*
+
+# Log files
+log.asserts
 
 # Python bytecode
 *.py[cod]
@@ -12,14 +15,14 @@ __pycache__/
 # Vim cache
 *.swp
 
-# Compatibilidad hacia atras
+# Backwards compatibility
 Exploiting/
 
-# Desconocido
+# Others
 .cache/
 .pytest_cache/
 
-# Temporal local
+# Temporal
 tmp/
 
 # Failed ansible playbook runs
