@@ -52,7 +52,7 @@ def save_file_url(finding_id, field_name, file_url):
 
 
 # pylint: disable=too-many-arguments
-def send_file_to_s3(filename, parameters, field, fieldname, ext, fileurl):
+def send_file_to_s3(filename, finding_id, field, fieldname, ext, fileurl):
     fileroute = '/tmp/:id.tmp'.replace(':id', filename)
     namecomplete = fileurl + '-' + field + '-' + filename + ext
     with open(fileroute, 'r') as file_obj:
@@ -62,7 +62,7 @@ def send_file_to_s3(filename, parameters, field, fieldname, ext, fileurl):
             rollbar.report_exc_info()
             return False
     file_name = namecomplete.split('/')[2]
-    is_file_saved = save_file_url(parameters['finding_id'], fieldname, file_name)
+    is_file_saved = save_file_url(finding_id, fieldname, file_name)
     os.unlink(fileroute)
     return is_file_saved
 
@@ -115,14 +115,13 @@ def add_file_attribute(finding_id, file_name, file_attr, file_attr_value):
     return is_url_saved
 
 
-def migrate_all_files(parameters, request):
+def migrate_all_files(finding_id, project_name):
     fin_dto = FindingDTO()
+    api = FormstackAPI()
     try:
         file_url = '{project!s}/{findingid}/{project!s}-{findingid}'.format(
-            project=parameters['project'], findingid=parameters['finding_id'])
-        api = FormstackAPI()
-        frmreq = api.get_submission(parameters['finding_id'])
-        finding = fin_dto.parse(parameters['finding_id'], frmreq)
+            project=project_name, findingid=finding_id)
+        finding = fin_dto.parse(finding_id, api.get_submission(finding_id))
         files = [
             {'id': '0', 'name': 'animation', 'field': fin_dto.ANIMATION, 'ext': '.gif'},
             {'id': '1', 'name': 'exploitation', 'field': fin_dto.EXPLOTATION, 'ext': '.png'},
@@ -135,30 +134,25 @@ def migrate_all_files(parameters, request):
             {'id': '8', 'name': 'fileRecords', 'field': fin_dto.REG_FILE, 'ext': '.csv'}
         ]
         for file_obj in files:
-            filename = '{file_url}-{field}'.format(file_url=file_url, field=file_obj['field'])
-            folder = util.list_s3_objects(CLIENT_S3, BUCKET_S3, filename)
-            if finding.get(file_obj['name']) and \
-                    parameters.get('id') != file_obj['id'] and not folder:
-                file_id = finding[file_obj['name']]
-                fileroute = '/tmp/:id.tmp'.replace(':id', file_id)
-                if os.path.exists(fileroute):
-                    send_file_to_s3(finding[file_obj['name']], parameters,
-                                    file_obj['field'], file_obj['name'],
-                                    file_obj['ext'], file_url)
+            s3_name = '{file_url}-{field}'.format(
+                file_url=file_url, field=file_obj['field'])
+            already_in_s3 = util.list_s3_objects(CLIENT_S3, BUCKET_S3, s3_name)
+            has_file = file_obj['name'] in finding
+            if has_file and not already_in_s3:
+                drive_api = DriveAPI()
+
+                file_name = finding[file_obj['name']]
+                file_download_route = drive_api.download(file_name)
+                if file_download_route:
+                    send_file_to_s3(
+                        file_name, finding_id, file_obj['field'],
+                        file_obj['name'], file_obj['ext'], file_url)
                 else:
-                    drive_api = DriveAPI()
-                    file_download_route = drive_api.download(file_id)
-                    if file_download_route:
-                        send_file_to_s3(finding[file_obj['name']], parameters,
-                                        file_obj['field'], file_obj['name'],
-                                        file_obj['ext'], file_url)
-                    else:
-                        rollbar.report_message(
-                            'Error: An error occurred downloading file from Drive',
-                            'error',
-                            request)
+                    rollbar.report_message(
+                        'Error: An error occurred downloading file from Drive',
+                        'error')
     except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
+        rollbar.report_exc_info(sys.exc_info())
 
 
 def remove_repeated(vulnerabilities):
@@ -933,7 +927,7 @@ def update_release(project_name, finding_data, draft_id):
 
 
 def migrate_finding(draft_id, project_name, finding_data):
-    migrate_all_files({'finding_id': draft_id, 'project': project_name}, {})
+    migrate_all_files(draft_id, project_name)
     save_severity(finding_data)
     migrate_description(finding_data)
     migrate_treatment(finding_data)
