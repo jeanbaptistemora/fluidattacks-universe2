@@ -12,22 +12,22 @@ kaniko_build() {
   TARGET="$1"
   shift 1
 
-  echo "{\"auths\":{\"${CI_REGISTRY}\":{\"username\":\"${CI_REGISTRY_USER}\",\
-    \"password\":\"${CI_REGISTRY_PASSWORD}\"}}}" > /kaniko/.docker/config.json
+  echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\
+    \"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
 
   if [ "$CI_COMMIT_REF_NAME" = "master" ]; then
-    PUSH_POLICY="--destination ${CI_REGISTRY_IMAGE}:$TARGET"
+    PUSH_POLICY="--destination $CI_REGISTRY_IMAGE:$TARGET"
   else
     PUSH_POLICY='--no-push'
   fi
 
   /kaniko/executor \
     --cleanup \
-    --context "${CI_PROJECT_DIR}" \
+    --context "$CI_PROJECT_DIR" \
     --dockerfile "deploy/containers/$TARGET/Dockerfile" \
-    "$PUSH_POLICY" \
+    $PUSH_POLICY \
     --cache=true \
-    --cache-repo "${CI_REGISTRY_IMAGE}/cache/$TARGET" \
+    --cache-repo "$CI_REGISTRY_IMAGE/cache/$TARGET" \
     --snapshotMode time "$@"
 }
 
@@ -71,8 +71,8 @@ vault_login() {
   VAULT_TOKEN=$(
     vault write \
     -field=token auth/approle/login \
-    role_id="${ROLE_ID}" \
-    secret_id="${SECRET_ID}"
+    role_id="$ROLE_ID" \
+    secret_id="$SECRET_ID"
   )
 
 }
@@ -91,10 +91,10 @@ mobile_get_version() {
     ))
   )
   if [ "$1" = "basic" ]; then
-    FI_VERSION="$(date +%y.%m.)${MINUTES}"
+    FI_VERSION="$(date +%y.%m.)$MINUTES"
     echo "$FI_VERSION"
   elif [ "$1" = "code" ]; then
-    FI_VERSION="$(date +%y%m)${MINUTES}"
+    FI_VERSION="$(date +%y%m)$MINUTES"
     echo "$FI_VERSION"
   else
     echo "Error. Only basic or code allowed as params"

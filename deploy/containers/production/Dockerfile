@@ -65,7 +65,7 @@ RUN npm install --global secure-spreadsheet@0.1.0 \
   && npm cache clean --force
 
 # patches and cleans
-COPY "${PATCHES}/enable_redis_cluster_sessions.diff" .
+COPY "$PATCHES/enable_redis_cluster_sessions.diff" .
 RUN cat enable_redis_cluster_sessions.diff \
     | patch -d /usr/local/lib/python2.7/dist-packages/redis_sessions -p1 \
   && apt -y autoremove \

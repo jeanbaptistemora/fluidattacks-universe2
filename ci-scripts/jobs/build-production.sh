@@ -2,8 +2,8 @@
 
 build_production() {
 
-  # Builds mobile container if mobile/package.json OR
-  # mobile/Gemfile OR deploy/containers/mobile/Dockerfile
+  # Builds production container if deploy/containers/production/requirements.txt
+  # OR front/package.json OR deploy/containers/production/Dockerfile
   # were modified.
 
   set -e
