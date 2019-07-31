@@ -3,6 +3,7 @@
 """This module allows to check Java code vulnerabilities."""
 
 # standard imports
+import os
 import re
 from typing import Dict, List
 
@@ -15,13 +16,9 @@ from pyparsing import (CaselessKeyword, Word, Literal, Optional, alphas,
 # local imports
 from fluidasserts import Result
 from fluidasserts import LOW, MEDIUM
-from fluidasserts import OPEN, CLOSED
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
+from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts.helper import lang
-from fluidasserts.utils.generic import get_sha256
-from fluidasserts.utils.decorators import track, level, notify, api
+from fluidasserts.utils.decorators import api
 
 
 LANGUAGE_SPECS = {
@@ -40,6 +37,9 @@ L_STRING = QuotedString('"')
 L_VAR_NAME = Word(alphas + '$_', alphanums + '$_')
 # Class$_123.property1.property1.value
 L_VAR_CHAIN_NAME = delimitedList(L_VAR_NAME, delim='.', combine=True)
+
+# Compiled regular expressions
+RE_HAVES_DEFAULT = re.compile(r'(?:default\s*:)', flags=re.M)
 
 
 def _get_block(file_lines: list, line: int) -> str:
@@ -256,10 +256,8 @@ def does_not_handle_exceptions(java_dest: str,
         excl=exclude)
 
 
-@notify
-@level('low')
-@track
-def has_switch_without_default(java_dest: str, exclude: list = None) -> bool:
+@api(risk=LOW)
+def has_switch_without_default(java_dest: str, exclude: list = None) -> Result:
     r"""
     Check if all ``switch``\ es have a ``default`` clause.
 
@@ -271,42 +269,22 @@ def has_switch_without_default(java_dest: str, exclude: list = None) -> bool:
     :param exclude: Paths that contains any string from this list are ignored.
     """
     switch = Keyword('switch') + nestedExpr(opener='(', closer=')')
-    switch_line = Optional(Literal('}')) + switch + Optional(Literal('{'))
+    grammar = Suppress(switch) + nestedExpr(opener='{', closer='}')
+    grammar.ignore(javaStyleComment)
+    grammar.ignore(L_CHAR)
+    grammar.ignore(L_STRING)
+    grammar.addCondition(lambda x: not RE_HAVES_DEFAULT.search(str(x)))
 
-    try:
-        switches = lang.check_grammar(switch_line, java_dest, LANGUAGE_SPECS,
-                                      exclude)
-    except FileNotFoundError:
-        show_unknown('File does not exist',
-                     details=dict(code_dest=java_dest))
-        return False
-    if not switches:
-        show_close('Code does not have switches',
-                   details=dict(code_dest=java_dest))
-        return False
-
-    switch_block = Suppress(switch) + nestedExpr(opener='{', closer='}')
-    switch_block.ignore(javaStyleComment)
-    switch_block.ignore(L_CHAR)
-    switch_block.ignore(L_STRING)
-
-    vulns = {}
-    for code_file, val in switches.items():
-        vulns.update(lang.block_contains_grammar(
-            switch_block,
-            code_file, val['lines'],
-            _get_block,
-            should_not_have=r'(?:default\s*:)'))
-    if not vulns:
-        show_close('Code has "switch" with "default" clause',
-                   details=dict(file=java_dest,
-                                fingerprint=get_sha256(java_dest)))
-        return False
-
-    show_open('Code does not have "switch" with "default" clause',
-              details=dict(matched=vulns,
-                           total_vulns=len(vulns)))
-    return True
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.path_contains_grammar2,
+        msgs={
+            OPEN: 'Code does not have "switch" with "default" clause',
+            CLOSED: 'Code has "switch" with "default" clause',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
 @api(risk=LOW)
@@ -357,10 +335,8 @@ def has_insecure_randoms(java_dest: str, exclude: list = None) -> Result:
         excl=exclude)
 
 
-@notify
-@level('low')
-@track
-def has_if_without_else(java_dest: str, exclude: list = None) -> bool:
+@api(risk=LOW)
+def has_if_without_else(java_dest: str, exclude: list = None) -> Result:
     r"""
     Check if all ``if``\ s have an ``else`` clause.
 
@@ -369,49 +345,34 @@ def has_if_without_else(java_dest: str, exclude: list = None) -> bool:
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
     """
+    if not os.path.exists(java_dest):
+        return UNKNOWN, 'File does not exist'
+
+    no_else_found = '__no_else_found__'
     args = nestedExpr(opener='(', closer=')')
-
-    if_ = Keyword('if') + args
-    if_line = Optional('}') + if_ + Optional('{')
-
-    try:
-        conds = lang.check_grammar(if_line, java_dest, LANGUAGE_SPECS, exclude)
-    except FileNotFoundError:
-        show_unknown('File does not exist', details=dict(code_dest=java_dest))
-        return False
-    else:
-        if not conds:
-            show_close('Code does not use "if" statements',
-                       details=dict(code_dest=java_dest))
-            return False
-
     block = nestedExpr(opener='{', closer='}')
 
-    if_block = if_ + block
+    if_block = Keyword('if') + args + block
     else_if_block = Keyword('else') + Keyword('if') + args + block
-    else_block = Keyword('else') + block
+    else_block = Optional(Keyword('else') + block, default=no_else_found)
 
-    cond_block = \
-        Suppress(if_block + ZeroOrMore(else_if_block)) + Optional(else_block)
-    cond_block.ignore(javaStyleComment)
-    cond_block.ignore(L_CHAR)
-    cond_block.ignore(L_STRING)
+    else_block.addCondition(lambda x: no_else_found in str(x))
 
-    vulns = {}
-    for code_file, val in conds.items():
-        vulns.update(lang.block_contains_empty_grammar(cond_block,
-                                                       code_file, val['lines'],
-                                                       _get_block))
-    if not vulns:
-        show_close('Code has "if" with "else" clause',
-                   details=dict(file=java_dest,
-                                fingerprint=get_sha256(java_dest)))
-    else:
-        show_open('Code has "if" without "else" clause',
-                  details=dict(matched=vulns,
-                               total_vulns=len(vulns)))
-        return True
-    return False
+    grammar = if_block + ZeroOrMore(else_if_block) + else_block
+    grammar.ignore(javaStyleComment)
+    grammar.ignore(L_CHAR)
+    grammar.ignore(L_STRING)
+
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.path_contains_grammar2,
+        msgs={
+            OPEN: 'Code has "if" without "else" clause',
+            CLOSED: 'Code has "if" with "else" clause',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
 def _uses_insecure_cipher(java_dest: str, algorithm: tuple,
