@@ -87,6 +87,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.is_exploitable = resp.get('exploitable', '') == 'Si'
             self.severity_score = resp.get('severityCvss', '')
             self.report_date = resp.get('reportDate', '')
+            self.analyst = resp.get('analyst', '')
 
     def resolve_id(self, info):
         """Resolve id attribute."""
@@ -402,6 +403,12 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         """ Resolve report date """
         del info
         return self.report_date
+
+    @require_role(['analyst', 'admin'])
+    def resolve_analyst(self, info):
+        """ Resolve analyst attribute """
+        del info
+        return self.analyst
 
 
 class UpdateEvidence(Mutation):
