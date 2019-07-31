@@ -67,6 +67,14 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
+@media (max-width: 705px) {
+  .divlogo {
+    img {
+      padding-top: 50px;
+    }
+  }
+}
+
 @media (min-width: 780px) {
   .footer {
     display: flex;
