@@ -42,16 +42,6 @@ L_VAR_CHAIN_NAME = delimitedList(L_VAR_NAME, delim='.', combine=True)
 RE_HAVES_DEFAULT = re.compile(r'(?:default\s*:)', flags=re.M)
 
 
-def _get_block(file_lines: list, line: int) -> str:
-    """
-    Return a Java block of code beginning in line.
-
-    :param file_lines: Lines of code
-    :param line: First line of block
-    """
-    return '\n'.join(file_lines[line - 1:])
-
-
 def _declares_catch_for_exceptions(
         java_dest: str,
         exceptions_list: list,
