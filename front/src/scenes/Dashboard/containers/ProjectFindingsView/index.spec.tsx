@@ -55,7 +55,7 @@ describe("ProjectFindingsView", () => {
               openVulnerabilities: 6,
               remediated: false,
               severityScore: 2.9,
-              state: "Abierto",
+              state: "open",
               title: "FIN.S.0038. Fuga de informaci\u00f3n de negocio",
               treatment: "IN PROGRESS",
               type: "SECURITY",
