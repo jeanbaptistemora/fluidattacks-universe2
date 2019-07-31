@@ -14,7 +14,7 @@ describe("FindingHeader", () => {
 
   it("should render finding header", () => {
     const wrapper: ShallowWrapper = shallow(
-      <FindingHeader openVulns={9} reportDate="" severity={2} status="Abierto"/>,
+      <FindingHeader openVulns={9} reportDate="" severity={2} status="open" />,
     );
     expect(wrapper)
       .toHaveLength(1);

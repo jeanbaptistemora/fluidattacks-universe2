@@ -26,11 +26,11 @@ describe("FindingContent", () => {
       openVulns: 1,
       reportDate: "2018-10-17 00:00:00",
       severity: 3,
-      status: "Abierto",
+      status: "open",
     },
     match: {
       isExact: true,
-      params: {findingId: "438679960", projectName: "TEST"},
+      params: { findingId: "438679960", projectName: "TEST" },
       path: "/",
       url: "",
     },

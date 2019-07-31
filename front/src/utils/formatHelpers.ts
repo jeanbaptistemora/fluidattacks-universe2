@@ -368,8 +368,8 @@ type IFindingsDataset = IProjectFindingsAttr["project"]["findings"];
 export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
   (dataset: IFindingsDataset): IFindingsDataset => dataset.map((finding: IFindingsDataset[0]) => {
     const stateParameters: { [value: string]: string } = {
-      Abierto: "search_findings.status.open",
-      Cerrado: "search_findings.status.closed",
+      closed: "search_findings.status.closed",
+      open: "search_findings.status.open",
     };
     const treatmentParameters: { [value: string]: string } = {
       "-": "-",
@@ -419,8 +419,9 @@ export const handleErrors: ((errorText: string, errors: readonly GraphQLError[])
     errors.map((err: GraphQLError) => {
       if (_.includes(["Login required", "Exception - Invalid Authorization"], err.message)) {
         location.assign("/integrates/logout");
-      } else if (_.includes("Access denied", err.message) ||
-      _.includes("Exception - Project does not exist", err.message)) {
+      } else if (_.includes(
+        ["Access denied", "Exception - Project does not exist", "Exception - Finding not found"],
+        err.message)) {
         msgError(translate.t("proj_alerts.access_denied"));
       } else if (_.includes("Error in file", err.message)) {
         msgError(translate.t("search_findings.tab_description.errorFileVuln"));

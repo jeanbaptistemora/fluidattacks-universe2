@@ -9,7 +9,7 @@ export interface IFindingContentStateProps {
     openVulns: number;
     reportDate: string;
     severity: number;
-    status: "Abierto" | "Cerrado" | "Default";
+    status: "open" | "closed" | "default";
   };
   title: string;
 }

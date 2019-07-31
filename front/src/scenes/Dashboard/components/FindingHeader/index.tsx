@@ -13,7 +13,7 @@ interface IFindingHeaderProps {
   openVulns: number;
   reportDate: string;
   severity: number;
-  status: "Abierto" | "Cerrado" | "Default";
+  status: "open" | "closed" | "default";
 }
 
 const severityConfigs: { [level: string]: { color: string; text: string } } = {
@@ -24,9 +24,9 @@ const severityConfigs: { [level: string]: { color: string; text: string } } = {
 };
 
 const statusConfigs: { [level: string]: { icon: string; text: string } } = {
-  Abierto: { icon: failIcon, text: translate.t("search_findings.status.open") },
-  Cerrado: { icon: okIcon, text: translate.t("search_findings.status.closed") },
-  Default: { icon: defaultIcon, text: "" },
+  closed: { icon: okIcon, text: translate.t("search_findings.status.closed") },
+  default: { icon: defaultIcon, text: "" },
+  open: { icon: failIcon, text: translate.t("search_findings.status.open") },
 };
 
 const findingHeader: React.FC<IFindingHeaderProps> = (props: IFindingHeaderProps): JSX.Element => {

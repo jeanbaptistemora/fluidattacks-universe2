@@ -10,21 +10,18 @@ from graphene import String, Boolean, Int, Mutation, Field
 from graphene.types.generic import GenericScalar
 
 from app import util
-from app.api.formstack import FormstackAPI
 from app.dao import integrates_dao
 from app.decorators import require_login, require_role, require_finding_access
-from app.dto.finding import (
-    FindingDTO, finding_vulnerabilities, has_migrated_evidence, get_project_name,
-)
+from app.dto.finding import FindingDTO, get_project_name
 from app.domain.finding import (
-    migrate_all_files, update_file_to_s3, remove_repeated,
-    group_by_state, cast_tracking, get_dynamo_evidence,
-    add_file_attribute, migrate_evidence_description,
+    update_file_to_s3, remove_repeated,
+    group_by_state, cast_tracking,
+    add_file_attribute,
     list_comments, add_comment, verify_finding,
     get_unique_dict, get_tracking_dict, request_verification,
     update_description, update_treatment, save_severity,
     get_exploit_from_file, get_records_from_file, reject_draft, delete_finding,
-    approve_draft
+    approve_draft, get_finding
 )
 from app.entity.types.finding import FindingType
 from app.entity.vulnerability import Vulnerability
@@ -34,34 +31,20 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     """Formstack Finding Class."""
 
     # pylint: disable=too-many-statements
-    def __init__(self, identifier):
+    def __init__(self, finding_id):
         """Class constructor."""
         super(Finding, self).__init__()
 
-        finding_id = str(identifier)
-        resp = finding_vulnerabilities(finding_id)
+        resp = get_finding(finding_id)
 
         if resp:
             self.id = finding_id  # noqa pylint: disable=invalid-name
             self.project_name = resp.get('projectName')
             self.release_date = resp.get('releaseDate', '')
-            vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
-            if vulnerabilities:
-                self.vulnerabilities = [Vulnerability(vuln) for vuln in vulnerabilities]
-                open_vulnerabilities = \
-                    [vuln for vuln in self.vulnerabilities if vuln.current_state == 'open']
-                self.open_vulnerabilities = len(open_vulnerabilities)
-                closed_vulnerabilities = \
-                    [vuln for vuln in self.vulnerabilities if vuln.current_state == 'closed']
-                self.closed_vulnerabilities = len(closed_vulnerabilities)
-                list_where = {vuln.where for vuln in open_vulnerabilities}
-                self.where = u', '.join(list_where).encode('utf-8')
-            else:
-                vuln_info = \
-                    {'finding_id': self.id, 'vuln_type': 'old',
-                     'where': resp.get('where')}
-                self.vulnerabilities = [Vulnerability(vuln_info)]
-                self.where = ''
+            self.vulnerabilities = [
+                Vulnerability(vuln) for vuln in resp.get('vulnerabilities')]
+            self.open_vulnerabilities = resp.get('openVulnerabilities')
+            self.closed_vulnerabilities = resp.get('closedVulnerabilities')
 
             if 'fileRecords' in resp.keys():
                 self.records = get_records_from_file(self, resp['fileRecords'])
@@ -70,49 +53,8 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
 
             self.exploit = resp.get('exploit', '')
             self.cvss_version = resp.get('cvssVersion', '')
-            if self.cvss_version == '3':
-                severity_fields = \
-                    ['attackVector', 'attackComplexity',
-                     'privilegesRequired', 'userInteraction',
-                     'severityScope', 'confidentialityImpact',
-                     'integrityImpact', 'availabilityImpact',
-                     'exploitability', 'remediationLevel',
-                     'reportConfidence', 'confidentialityRequirement',
-                     'integrityRequirement', 'availabilityRequirement',
-                     'modifiedAttackVector', 'modifiedAttackComplexity',
-                     'modifiedPrivilegesRequired', 'modifiedUserInteraction',
-                     'modifiedSeverityScope', 'modifiedConfidentialityImpact',
-                     'modifiedIntegrityImpact', 'modifiedAvailabilityImpact']
-            else:
-                severity_fields = ['accessVector', 'accessComplexity',
-                                   'authentication', 'exploitability',
-                                   'confidentialityImpact', 'integrityImpact',
-                                   'availabilityImpact', 'resolutionLevel',
-                                   'confidenceLevel', 'collateralDamagePotential',
-                                   'findingDistribution', 'confidentialityRequirement',
-                                   'integrityRequirement', 'availabilityRequirement']
-            self.severity = {k: resp.get(k) for k in severity_fields}
-
-            self.evidence = {
-                'animation': {'url': resp.get('animation', ''), 'description': ''},
-                'evidence1':
-                    {'url': resp.get('evidence_route_1', ''),
-                     'description': resp.get('evidence_description_1', '')},
-                'evidence2':
-                    {'url': resp.get('evidence_route_2', ''),
-                     'description': resp.get('evidence_description_2', '')},
-                'evidence3':
-                    {'url': resp.get('evidence_route_3', ''),
-                     'description': resp.get('evidence_description_3', '')},
-                'evidence4':
-                    {'url': resp.get('evidence_route_4', ''),
-                     'description': resp.get('evidence_description_4', '')},
-                'evidence5':
-                    {'url': resp.get('evidence_route_5', ''),
-                     'description': resp.get('evidence_description_5', '')},
-                'exploitation':
-                    {'url': resp.get('exploitation', ''), 'description': ''},
-            }
+            self.severity = resp.get('severity')
+            self.evidence = resp.get('evidence')
             self.report_level = resp.get('reportLevel', '')
             self.title = resp.get('finding', '')
             self.scenario = resp.get('scenario', '')
@@ -133,14 +75,14 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.client_code = resp.get('clientCode', '')
             self.client_project = resp.get('clientProject', '')
             self.probability = int(resp.get('probability', '0'))
-            self.detailed_severity = int(resp.get('severity', '0'))
+            self.detailed_severity = int(resp.get('detailedSeverity'))
             self.risk = resp.get('risk', '')
             self.risk_level = resp.get('riskValue', '')
             self.ambit = resp.get('ambit', '')
             self.category = resp.get('category', '')
-            self.state = resp.get('estado', '')
+            self.state = resp.get('state', '')
             self.type = resp.get('findingType', '')
-            self.age = resp.get('edad', 0)
+            self.age = resp.get('age', 0)
             self.last_vulnerability = resp.get('lastVulnerability', 0)
             self.is_exploitable = resp.get('exploitable', '') == 'Si'
             self.severity_score = resp.get('severityCvss', '')
@@ -184,16 +126,13 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_tracking(self, info):
         """Resolve tracking attribute."""
         del info
-        if (self.release_date and
-            (self.open_vulnerabilities or
-                self.closed_vulnerabilities)):
+        if self.release_date:
             vuln_casted = remove_repeated(self.vulnerabilities)
             unique_dict = get_unique_dict(vuln_casted)
             tracking = get_tracking_dict(unique_dict)
             tracking_grouped = group_by_state(tracking)
             order_tracking = sorted(tracking_grouped.items())
-            tracking_casted = cast_tracking(order_tracking)
-            self.tracking = tracking_casted
+            self.tracking = cast_tracking(order_tracking)
         else:
             self.tracking = []
         return self.tracking
@@ -266,21 +205,8 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         return self.exploit
 
     def resolve_evidence(self, info):
-        """
-        Resolve evidence attribute
-
-        Verifies if the evidence is in dynamo. if not, it gets the filenames from formstack
-        """
+        """ Resolve evidence attribute """
         del info
-
-        formstack_evidence = self.evidence
-        dynamo_evidence = get_dynamo_evidence(self.id)
-        evidence_names = ['animation', 'evidence1', 'evidence2', 'evidence3',
-                          'evidence4', 'evidence5', 'exploitation']
-        for evidence_name in evidence_names:
-            dyn_url = dynamo_evidence[evidence_name]['url']
-            fs_url = formstack_evidence[evidence_name]['url']
-            self.evidence[evidence_name]['url'] = dyn_url if dyn_url else fs_url
         return self.evidence
 
     @require_role(['analyst', 'customer', 'admin'])
@@ -554,7 +480,6 @@ class UpdateEvidence(Mutation):
                     project=project_name,
                     finding_id=parameters.get('finding_id')
                 )
-                migrate_all_files(parameters, file_id)
                 success = update_file_to_s3(parameters,
                                             fieldname[int(parameters.get('id'))][1],
                                             fieldname[int(parameters.get('id'))][0],
@@ -594,17 +519,6 @@ class UpdateEvidenceDescription(Mutation):
                 'evidence5_description': 'evidence_route_4',
                 'evidence6_description': 'evidence_route_5',
             }
-            has_migrated_description = has_migrated_evidence(finding_id)
-            if not has_migrated_description:
-                generic_dto = FindingDTO()
-                api = FormstackAPI()
-                submission_data = api.get_submission(finding_id)
-                if submission_data is None or 'error' in submission_data:
-                    return util.response([], 'error', True)
-                else:
-                    finding = generic_dto.parse_evidence_info(submission_data, finding_id)
-                    finding['id'] = finding_id
-                    migrate_evidence_description(finding)
             success = add_file_attribute(
                 finding_id,
                 description_parse[field],
