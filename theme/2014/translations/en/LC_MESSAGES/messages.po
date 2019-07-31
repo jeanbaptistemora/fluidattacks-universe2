@@ -795,13 +795,13 @@ msgstr "comparative"
 msgid "Navb-opt-3"
 msgstr "Products"
 
-#: templates/landing.html:67
-msgid "Product-msg"
-msgstr "Check out our products:"
-
 #: templates/landing.html:70
 msgid "Product-img-alt-3"
 msgstr "Console window showing Integrates text"
+
+#: templates/landing.html:95
+msgid "btn-text-1"
+msgstr "Learn More"
 
 #: templates/landing.html:72
 msgid "product-desc-1"
