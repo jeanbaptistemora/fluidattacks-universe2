@@ -751,13 +751,12 @@ msgstr "continuous-hacking"
 #: templates/landing.html:51
 msgid "Index-text-1"
 msgstr ""
-"We detect  <b> security issues continuously </b> "
-"as the software evolves during your development cycle. "
-"Our team runs comprehensive testing, detecting all security issues "
-"with no false positives, and checks if issues were properly repaired "
-"before going into the production phase. "
-"We automate the verification of vulnerabilities' closure with Asserts, "
-"our automated closing engine."
+"We <b> detect vulnerabilities continuously </b> as the software evolves "
+"during your development cycle. "
+"Our team runs comprehensive testing, "
+"detecting all vulnerabilities with no false positives. "
+"We automate the verification of vulnerabilities' closure "
+" with our automated closing engine."
 
 #: templates/landing.html:51
 msgid "Index-header-2"
@@ -766,9 +765,9 @@ msgstr "Continuous Hacking"
 #: templates/landing.html:51
 msgid "Index-text-2"
 msgstr ""
-"We detect and report all vulnerabilities and security issues "
+"We detect and report all vulnerabilities "
 "within <b> one specific version </b> of your application. "
-"Our team detects all existing security issues with no false positives."
+"Our team detects all existing vulnerabilities with no false positives."
 
 #: templates/landing.html:55
 msgid "Index-serv-2"
