@@ -110,7 +110,7 @@ def test_open_has_any_secret():
 
 def test_open_uses_unencrypted_sockets():
     """Test if code uses unencrypted sockets."""
-    assert core.uses_unencrypted_sockets(INSECURE_SOCKETS)
+    assert core.uses_unencrypted_sockets(INSECURE_SOCKETS).is_open()
 
 
 def test_open_is_file_hash_in_list():
@@ -216,8 +216,9 @@ def test_close_has_any_secret():
 
 def test_close_uses_unencrypted_sockets():
     """Test if code uses unencrypted sockets."""
-    assert not core.uses_unencrypted_sockets(SECURE_SOCKETS)
-    assert not core.uses_unencrypted_sockets(CODE_DIR, exclude=['test'])
+    assert core.uses_unencrypted_sockets(SECURE_SOCKETS).is_closed()
+    assert core.uses_unencrypted_sockets(
+        CODE_DIR, exclude=['test']).is_closed()
 
 
 def test_close_is_file_hash_in_list():
@@ -298,7 +299,7 @@ def test_unknown_has_any_secret():
 
 def test_unknown_uses_unencrypted_sockets():
     """Test if code uses unencrypted sockets."""
-    assert not core.uses_unencrypted_sockets(NO_CODE)
+    assert core.uses_unencrypted_sockets(NO_CODE).is_unknown()
 
 
 def test_unknown_is_file_hash_in_list():

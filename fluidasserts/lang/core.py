@@ -13,14 +13,11 @@ from pyparsing import MatchFirst, QuotedString, Regex, Literal
 
 # local imports
 from fluidasserts import Result, Unit
-from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts import LOW, MEDIUM, HIGH
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
+from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts.helper import lang
 from fluidasserts.utils.generic import get_sha256, full_paths_in_dir
-from fluidasserts.utils.decorators import track, level, notify, api
+from fluidasserts.utils.decorators import api
 
 
 LANGUAGE_SPECS = {}  # type: dict
@@ -350,11 +347,10 @@ def has_any_secret(code_dest: str, secrets_list: list, use_regex: bool = False,
     return CLOSED, msg, vulns, safes
 
 
-@notify
-@level('medium')
-@track
-def uses_unencrypted_sockets(
-        code_dest: str, exclude: list = None, lang_specs: dict = None) -> bool:
+@api(risk=MEDIUM)
+def uses_unencrypted_sockets(code_dest: str,
+                             exclude: list = None,
+                             lang_specs: dict = None) -> Result:
     """
     Check if there are unencrypted web sockets URI schemes in code (`ws://`).
 
@@ -363,33 +359,20 @@ def uses_unencrypted_sockets(
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     """
-    encrypted_re = re.compile(r'^wss://.*$', flags=re.I)
+    if not os.path.exists(code_dest):
+        return UNKNOWN, 'File does not exist'
+
     unencrypted_re = re.compile(r'^ws://.*$', flags=re.I)
-
-    encrypted_grammar = MatchFirst([QuotedString('"'), QuotedString("'")])
     unencrypted_grammar = MatchFirst([QuotedString('"'), QuotedString("'")])
-
-    encrypted_grammar.addCondition(lambda x: encrypted_re.search(x[0]))
     unencrypted_grammar.addCondition(lambda x: unencrypted_re.search(x[0]))
 
-    try:
-        unencrypted = lang.path_contains_grammar(
-            unencrypted_grammar, code_dest, LANGUAGE_SPECS, exclude)
-    except FileNotFoundError:
-        show_unknown('File does not exist', details=dict(code_dest=code_dest))
-        return False
-
-    if unencrypted:
-        show_open('Code uses web sockets over an unencrypted channel',
-                  details=dict(vulnerable_uris=unencrypted))
-        return True
-
-    encrypted = lang.path_contains_grammar(
-        encrypted_grammar, code_dest, LANGUAGE_SPECS, exclude)
-
-    if encrypted:
-        msg = 'Code uses web sockets over an encrypted channel'
-    else:
-        msg = 'Cose does not use web sockets'
-    show_close(msg, details=dict(code_dest=code_dest, checked_uris=encrypted))
-    return False
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=unencrypted_grammar,
+        func=lang.path_contains_grammar2,
+        msgs={
+            OPEN: 'Code uses web sockets over an encrypted channel',
+            CLOSED: 'Code does not use web sockets over an encrypted channel',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
