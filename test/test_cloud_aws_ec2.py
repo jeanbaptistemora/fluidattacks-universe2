@@ -56,6 +56,13 @@ def test_unused_seggroups_open():
         ec2.has_unused_seggroups(AWS_ACCESS_KEY_ID,
                                  AWS_SECRET_ACCESS_KEY)
 
+
+def test_vpcs_flowlogs_close():
+    """Check VPCs without flow logs."""
+    assert \
+        ec2.vpcs_without_flowlog(AWS_ACCESS_KEY_ID,
+                                 AWS_SECRET_ACCESS_KEY)
+
 #
 # Closing tests
 #
@@ -146,6 +153,24 @@ def test_unused_seggroups_close():
 
     assert not \
         ec2.has_unused_seggroups(AWS_ACCESS_KEY_ID,
+                                 AWS_SECRET_ACCESS_KEY,
+                                 retry=False)
+    os.environ.pop('http_proxy', None)
+    os.environ.pop('https_proxy', None)
+
+
+def test_vpcs_flowlogs_close():
+    """Check VPCs without flow logs."""
+    assert not \
+        ec2.vpcs_without_flowlog(AWS_ACCESS_KEY_ID,
+                                 AWS_SECRET_ACCESS_KEY_BAD,
+                                 retry=False)
+
+    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
+    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
+
+    assert not \
+        ec2.vpcs_without_flowlog(AWS_ACCESS_KEY_ID,
                                  AWS_SECRET_ACCESS_KEY,
                                  retry=False)
     os.environ.pop('http_proxy', None)

@@ -542,6 +542,7 @@ def exec_aws_package(params):
             ec2.has_unencrypted_volumes('{key}', '{secret}')
             ec2.has_unencrypted_snapshots('{key}', '{secret}')
             ec2.has_unused_seggroups('{key}', '{secret}')
+            ec2.vpcs_without_flowlog('{key}', '{secret}')
             rds.has_public_instances('{key}', '{secret}')
             cloudtrail.trails_not_multiregion('{key}', '{secret}')
             cloudtrail.files_not_validated('{key}', '{secret}')

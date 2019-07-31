@@ -271,3 +271,55 @@ def has_unused_seggroups(
                        details=dict(security_group=group['GroupId'],
                                     net_interfaces=net_ifaces))
     return result
+
+
+@notify
+@level('low')
+@track
+def vpcs_without_flowlog(
+        key_id: str, secret: str, retry: bool = True) -> bool:
+    """
+    Check if VPCs have flow logs.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    try:
+        vpcs = aws.run_boto3_func(key_id, secret, 'ec2',
+                                  'describe_vpcs',
+                                  param='Vpcs',
+                                  retry=retry,
+                                  Filters=[{'Name': 'state',
+                                            'Values':
+                                            ['available']}])
+    except aws.ConnError as exc:
+        show_unknown('Could not connect',
+                     details=dict(error=str(exc).replace(':', '')))
+        return False
+    except aws.ClientErr as exc:
+        show_unknown('Error retrieving info. Check credentials.',
+                     details=dict(error=str(exc).replace(':', '')))
+        return False
+    if not vpcs:
+        show_close('Not VPCs found')
+        return False
+
+    result = False
+
+    for vpc in vpcs:
+        flow_logs = aws.run_boto3_func(key_id, secret, 'ec2',
+                                       'describe_flow_logs',
+                                       param='FlowLogs',
+                                       retry=retry,
+                                       Filters=[{'Name': 'resource-id',
+                                                 'Values':
+                                                 [vpc['VpcId']]}])
+        if not flow_logs:
+            show_open('No Flow Logs found for VPC',
+                      details=dict(vpc=vpc['VpcId']))
+            result = True
+        else:
+            show_close('Flow Logs found for VPC',
+                       details=dict(vpc=vpc['VpcId'],
+                                    flow_logs=flow_logs))
+    return result
