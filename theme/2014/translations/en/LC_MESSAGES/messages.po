@@ -810,6 +810,26 @@ msgstr  ""
 "for prompt, efficient and effective remediation. "
 "Decision-makers know the status of their projects."
 
+#: templates/landing.html:93
+msgid "product-desc-extra-1"
+msgstr  "Integrates allows you to:"
+
+#: templates/landing.html:95
+msgid "product-desc-item-1"
+msgstr  "Follow-up your project's indicators"
+
+#: templates/landing.html:95
+msgid "product-desc-item-2"
+msgstr  "Manage vulnerabilities"
+
+#: templates/landing.html:95
+msgid "product-desc-item-3"
+msgstr  "Prioritize Remediation of vulnerabilities"
+
+#: templates/landing.html:95
+msgid "product-desc-item-4"
+msgstr  "Analyze detailed evidence of the findings"
+
 #: templates/landing.html:76
 msgid "Product-img-alt-1"
 msgstr "Integrates Dashborad"
