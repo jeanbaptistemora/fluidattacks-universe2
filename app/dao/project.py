@@ -4,7 +4,7 @@ from __future__ import absolute_import
 from datetime import datetime
 
 from boto3.dynamodb.conditions import Attr
-from app.db.analytics_db_helper import query
+from app.dao.helpers.analytics import query
 from . import integrates_dao
 
 
