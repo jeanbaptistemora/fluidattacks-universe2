@@ -44,7 +44,7 @@ def has_not_geo_restrictions(key_id: str, secret: str,
         show_close('Not distributions were found')
         return False
 
-    result = False
+    result = []
 
     for distro in distros['Items']:
         config = aws.run_boto3_func(key_id, secret, 'cloudfront',
@@ -54,13 +54,13 @@ def has_not_geo_restrictions(key_id: str, secret: str,
                                     Id=distro['Id'])
         if config['Restrictions']['GeoRestriction']['RestrictionType'] == \
                 'none':
-            show_open('Distribution has not geo restrictions',
-                      details=dict(distribution=distro['Id']))
-            result = True
-        else:
-            show_close('Distribution has geo restrictions',
-                       details=dict(distribution=distro['Id']))
-    return result
+            result.append(distro['Id'])
+    if result:
+        show_open('Distributions has not geo restrictions',
+                  details=dict(distribution=result))
+        return True
+    show_close('All distributions has geo restrictions')
+    return False
 
 
 @notify
@@ -91,7 +91,7 @@ def has_logging_disabled(key_id: str, secret: str,
         show_close('Not distributions were found')
         return False
 
-    result = False
+    result = []
 
     for distro in distros['Items']:
         config = aws.run_boto3_func(key_id, secret, 'cloudfront',
@@ -100,10 +100,10 @@ def has_logging_disabled(key_id: str, secret: str,
                                     retry=retry,
                                     Id=distro['Id'])
         if not config['DistributionConfig']['Logging']['Enabled']:
-            show_open('Distribution has not logging enabled',
-                      details=dict(distribution=distro['Id']))
-            result = True
-        else:
-            show_close('Distribution has logging enabled',
-                       details=dict(distribution=distro['Id']))
-    return result
+            result.append(distro['Id'])
+    if result:
+        show_open('Distributions has not logging enabled',
+                  details=dict(distributions=result))
+        return True
+    show_close('All distributions has logging enabled')
+    return False
