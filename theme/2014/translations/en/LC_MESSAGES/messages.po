@@ -795,30 +795,38 @@ msgstr "comparative"
 msgid "Navb-opt-3"
 msgstr "Products"
 
-#: templates/landing.html:70
-msgid "Product-img-alt-3"
-msgstr "Console window showing Integrates text"
-
 #: templates/landing.html:95
 msgid "btn-text-1"
 msgstr "Learn More"
 
+#: templates/landing.html:93
+msgid "service-title-1"
+msgstr "Integrates: our platform "
+" for vulnerability centralization and management"
+
 #: templates/landing.html:72
 msgid "product-desc-1"
-msgstr "Platform for vulnerability centralization and management"
-
-#: templates/landing.html:73 templates/landing.html:79
-#: templates/landing.html:113
-msgid "Product-img-alt-6"
-msgstr "Fluid Attacks red arrow"
+msgstr  ""
+"Through <b>Integrates</b>, Fluid Attacks communicates "
+"all identified security risks to a client’s systems "
+"for prompt, efficient and effective remediation. "
+"Decision-makers know the status of their projects."
 
 #: templates/landing.html:76
-msgid "Product-img-alt-4"
-msgstr "Magnifying glass over a console window"
+msgid "Product-img-alt-1"
+msgstr "Integrates Dashborad"
+
+#: templates/landing.html:99
+msgid "service-title-2"
+msgstr "Asserts: vulnerability automation framework"
 
 #: templates/landing.html:78
 msgid "product-desc-2"
-msgstr "Vulnerability automation framework"
+msgstr ""
+"<b>Asserts</b> is an automated closing engine "
+"which closes security findings over execution environments (DAST and SAST). "
+"Asserts breaks the build if finds out that the vulnerability is open, "
+"either because it reopened or has not been closed. "
 
 #: templates/landing.html:84
 msgid "Index-bnft-header"

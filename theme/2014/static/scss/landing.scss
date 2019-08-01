@@ -98,15 +98,16 @@ p {
   }
 }
 
-.product-header {
+.product-footer {
   margin: 40px auto;
   width: 100%;
 
   h1 {
-    color: $fluid-red;
+    color: $fluid-black;
   }
 
   p {
+    margin: 0 7px;
     text-align: center;
   }
 }
@@ -132,7 +133,13 @@ p {
   padding: 5px;
   width: 50%;
 
+  p {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+}
 
+.big-span {
   span {
     color: $fluid-black;
     display: block;
@@ -140,11 +147,12 @@ p {
     font-size: 30px;
     font-weight: bold;
   }
+}
 
-  p {
-    margin-bottom: 10px;
-    text-align: center;
-  }
+.red-margin {
+  border: 3px solid;
+  border-color: $fluid-red;
+  margin: 20px;
 }
 
 .itmntxt {
