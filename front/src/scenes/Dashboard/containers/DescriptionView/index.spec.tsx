@@ -80,10 +80,13 @@ describe("DescriptionView", () => {
             inputsVulns: [{
               __typename: "Vulnerability",
               currentState: "open",
+              externalBts: "bts.test.com",
               findingId: "438679960",
               id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
               specific: "email",
               treatment: "New",
+              treatmentJustification: "Test",
+              treatmentManager: "test@test.com",
               vulnType: "inputs",
               where: "https://example.com/contact",
             }],
