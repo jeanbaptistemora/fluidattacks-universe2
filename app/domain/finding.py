@@ -22,7 +22,7 @@ from __init__ import (
     FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
 )
 from app import util
-from app.api.drive import DriveAPI
+from app.dao.helpers.drive import DriveAPI
 from app.dao.helpers.formstack import FormstackAPI
 from app.dao import integrates_dao, finding as finding_dao
 from app.domain.vulnerability import update_vulnerabilities_date

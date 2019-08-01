@@ -12,7 +12,7 @@ from django.conf import settings
 from magic import Magic
 from botocore.exceptions import ClientError
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
-from app.api.drive import DriveAPI
+from app.dao.helpers.drive import DriveAPI
 from ..dao import integrates_dao
 from ..dao.helpers.formstack import FormstackAPI
 from ..utils import forms

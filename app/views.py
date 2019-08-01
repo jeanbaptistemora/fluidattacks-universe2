@@ -30,7 +30,7 @@ from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 )
 from app import util
-from app.api.drive import DriveAPI
+from app.dao.helpers.drive import DriveAPI
 from app.dao.helpers.formstack import FormstackAPI
 from app.dao import integrates_dao
 from app.decorators import authenticate, authorize, cache_content
