@@ -11,9 +11,8 @@ deploy_playstore() {
   vault_login
 
   cd mobile/
-  echo "$(
-    vault read -field=playstore_credentials secret/integrates/production
-  )" > playstore-credentials.json
+  vault read -field=playstore_credentials secret/integrates/production \
+    > playstore-credentials.json
   bundle install
   bundle exec fastlane supply \
     --aab ./output/integrates.aab \

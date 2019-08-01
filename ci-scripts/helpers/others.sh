@@ -15,7 +15,7 @@ kaniko_build() {
   echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\
     \"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
 
-  if [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+  if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
     PUSH_POLICY="--destination $CI_REGISTRY_IMAGE:$TARGET"
   else
     PUSH_POLICY='--no-push'
@@ -54,7 +54,7 @@ vault_login() {
   VAULT_PORT='443'
   VAULTENV_SECRETS_FILE="$CI_PROJECT_DIR/env.vars"
 
-  if [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+  if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
     ENV='PROD'
     ENV_NAME='production'
     ROLE_ID="$INTEGRATES_PROD_ROLE_ID"

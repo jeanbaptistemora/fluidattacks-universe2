@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-build_mobile() {
+build_development() {
 
   # Builds container if any of the specified files
   # was modified
@@ -14,11 +14,13 @@ build_mobile() {
   local NAME
   local FILES
 
-  NAME='mobile'
+  NAME='development'
   FILES=(
-    'mobile/package.json'
-    'mobile/Gemfile'
-    'deploy/containers/mobile/Dockerfile'
+    'deploy/containers/production/requirements.txt'
+    'deploy/containers/development/requirements.txt'
+    'deploy/containers/production/Dockerfile'
+    'deploy/containers/development/Dockerfile'
+    'front/package.json'
   )
 
   if check_file_changed "${FILES[@]}"; then
@@ -28,4 +30,4 @@ build_mobile() {
   fi
 }
 
-build_mobile
+build_development

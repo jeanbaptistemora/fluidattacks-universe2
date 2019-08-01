@@ -44,7 +44,8 @@ image: registry.gitlab.com/fluidsignal/default/integrates/deps:ci
         > /kaniko/.docker/config.json
 
 stages:
-  - deps
+  - deps-1
+  - deps-2
   - pre-test
   - build
   - mr-check
@@ -55,21 +56,30 @@ stages:
 build-mobile:
   tags:
   - mobile
-  stage: deps
+  stage: deps-1
   image: fluidattacks/alpine-kaniko:latest
   retry: 2
   script:
     - ./ci-scripts/jobs/build-mobile.sh
 
 build-production:
-  stage: deps
+  stage: deps-1
   image: fluidattacks/alpine-kaniko:latest
   retry: 2
   script:
     - ./ci-scripts/jobs/build-production.sh
 
+build-development:
+  stage: deps-2
+  image: fluidattacks/alpine-kaniko:latest
+  retry: 2
+  dependencies:
+    - build-production
+  script:
+    - ./ci-scripts/jobs/build-development.sh
+
 deps-app:
-  stage: deps
+  stage: deps-1
   <<: *kaniko_config
   script:
     - mkdir deploy/containers/deps/front
@@ -91,7 +101,7 @@ deps-app:
 deps-ci:
   tags:
     - mobile
-  stage: deps
+  stage: deps-1
   <<: *kaniko_config
   script:
     - mkdir deploy/containers/deps/front

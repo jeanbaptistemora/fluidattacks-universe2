@@ -44,12 +44,9 @@ RUN curl -sL "$NODE_URL" | bash - \
     && dpkg -i vaultenv.deb \
     && rm vaultenv.deb
 
-COPY . /usr/src/app
-
-WORKDIR /usr/src/app
-
 # python deps
-RUN pip install --no-cache-dir -r "$PIP_REQUIREMENTS"
+COPY "$PIP_REQUIREMENTS" /tmp
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
 # ruby deps
 RUN gem install -N asciidoctor:1.5.8 \
@@ -59,18 +56,20 @@ RUN gem install -N asciidoctor:1.5.8 \
     em-http-request \
     fluent-plugin-rewrite-tag-filter
 
-# npm deps
-RUN npm install --global secure-spreadsheet@0.1.0 \
-  && npm install --prefix front/ \
-  && npm cache clean --force
+# npm deps. node_modules folders are stored in /npm-deps
+# make sure to copy them to the required folder if needed.
+COPY front /tmp/front
+RUN npm install -g secure-spreadsheet@0.1.0 \
+  && mkdir -p /npm-deps/front \
+  && npm install --prefix /tmp/front \
+  && npm cache clean --force \
+  && cp -r /tmp/front/node_modules /npm-deps/front/node_modules
 
 # patches and cleans
-COPY "$PATCHES/enable_redis_cluster_sessions.diff" .
-RUN cat enable_redis_cluster_sessions.diff \
+COPY "$PATCHES/enable_redis_cluster_sessions.diff" /tmp
+RUN cat /tmp/enable_redis_cluster_sessions.diff \
     | patch -d /usr/local/lib/python2.7/dist-packages/redis_sessions -p1 \
   && apt -y autoremove \
   && rm -rf \
-    Dockerfile \
-    enable_redis_cluster_sessions.diff \
-    requirements.txt \
-    /var/lib/apt/lists/*
+    /var/lib/apt/lists/* \
+    /tmp/*

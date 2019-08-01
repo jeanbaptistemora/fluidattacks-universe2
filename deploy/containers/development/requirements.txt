@@ -1,0 +1,15 @@
+codecov==2.0.15
+gitpython==2.1.10
+flake8==3.5.0
+openpyxl==2.6.1
+prospector[with_vulture]==1.1.6.2
+pyflakes==1.6.0
+pylint==1.7.1
+pylint-django==0.7.2
+pyotp==2.2.7
+pytest==4.0.2
+pytest-cov==2.6.0
+pytest-django==3.4.4
+pytest-test-groups==1.0.3
+selenium==3.141.0
+awscli==1.16.156
