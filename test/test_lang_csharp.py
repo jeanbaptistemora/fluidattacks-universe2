@@ -35,7 +35,9 @@ LINES_FORMAT = 'lines: '
 
 def test_has_generic_exceptions_open():
     """Code uses generic exceptions."""
-    assert csharp.has_generic_exceptions(INSECURE_CODE).is_open()
+    result = csharp.has_generic_exceptions(INSECURE_CODE)
+    assert result.is_open()
+    assert len(result.vulns[0].specific) == 3
     assert csharp.has_generic_exceptions(CODE_DIR).is_open()
 
 

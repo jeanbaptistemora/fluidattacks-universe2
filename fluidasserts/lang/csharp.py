@@ -65,6 +65,7 @@ def _declares_catch_for_exceptions(
         csharp_dest: str,
         exceptions_list: List[str],
         msgs: Dict[str, str],
+        allow_empty: bool = False,
         exclude: list = None) -> tuple:
     """Search for the declaration of catch for the given exceptions."""
     provided_exception = MatchFirst(
@@ -73,6 +74,12 @@ def _declares_catch_for_exceptions(
     grammar = Keyword('catch') + nestedExpr(
         opener='(', closer=')', content=(
             provided_exception + Optional(L_VAR_NAME)))
+    if allow_empty:
+        grammar = MatchFirst([
+            Keyword('catch') + nestedExpr(opener='{', closer='}'),
+            grammar.copy(),
+        ])
+
     grammar.ignore(cppStyleComment)
     grammar.ignore(L_STRING)
     grammar.ignore(L_CHAR)
@@ -105,6 +112,7 @@ def has_generic_exceptions(csharp_dest: str, exclude: list = None) -> Result:
             'System.ApplicationException',
             'System.SystemException',
         ],
+        allow_empty=True,
         msgs={
             OPEN: 'Code declares a "catch" for generic exceptions',
             CLOSED: 'Code does not declare "catch" for generic exceptions',

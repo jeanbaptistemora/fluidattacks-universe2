@@ -50,7 +50,10 @@ public class GenericExceptionsOpen
     {
       Console.WriteLine("Out of try-catch block...");
     }
-
+    catch
+    {
+      Console.WriteLine(e);
+    }
     catch(Exception)
     {
       Console.WriteLine(e);
