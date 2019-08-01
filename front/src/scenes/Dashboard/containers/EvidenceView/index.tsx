@@ -23,6 +23,7 @@ import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
+import { msgError } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import { isFileSelected, isValidEvidenceFile } from "../../../../utils/validations";
@@ -73,13 +74,14 @@ const updateEvidence: ((values: {}, evidenceId: number, props: IEvidenceViewProp
       });
     if (isFileSelected(fileId)) {
       if (isValidEvidenceFile(fileId)) {
-        thunkDispatch(actions.updateEvidence(props.findingId, evidenceId));
-        if (evidenceId > 1) {
-          thunkDispatch(actions.updateEvidenceDescription(values[descriptionField], props.findingId, descriptionField));
-        }
+        thunkDispatch(actions.updateEvidence(props.findingId, evidenceId, values[descriptionField], descriptionField));
       }
+    } else if (_.isEmpty(props.images[evidenceId].url)) {
+      msgError(translate.t("proj_alerts.no_file_selected"));
     } else {
-      thunkDispatch(actions.updateEvidenceDescription(values[descriptionField], props.findingId, descriptionField));
+      if (evidenceId > 1) {
+        thunkDispatch(actions.updateEvidenceDescription(values[descriptionField], props.findingId, descriptionField));
+      }
     }
   };
 

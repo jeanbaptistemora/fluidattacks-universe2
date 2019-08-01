@@ -100,9 +100,65 @@ export const loadEvidence: ThunkActionStructure =
       });
   };
 
+export const updateEvidenceDescription: ThunkActionStructure =
+(
+  value: string, findingId: string, field: string,
+): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
+  let gQry: string;
+  gQry = `mutation {
+        updateDescription: updateEvidenceDescription (
+          description: ${JSON.stringify(value)},
+          findingId: "${findingId}",
+          field: "${field}") {
+          success
+          finding {
+            evidence
+          }
+        }
+      }`;
+  new Xhr().request(gQry, "An error occurred updating evidence")
+    .then((response: AxiosResponse) => {
+      const { data } = response.data;
+
+      if (data.updateDescription.success) {
+        dispatch({
+          payload: {
+            images: [
+              {
+                description: translate.t("search_findings.tab_evidence.animation_exploit"),
+                url: data.updateDescription.finding.evidence.animation.url,
+              },
+              {
+                description: translate.t("search_findings.tab_evidence.evidence_exploit"),
+                url: data.updateDescription.finding.evidence.exploitation.url,
+              },
+              data.updateDescription.finding.evidence.evidence1,
+              data.updateDescription.finding.evidence.evidence2,
+              data.updateDescription.finding.evidence.evidence3,
+              data.updateDescription.finding.evidence.evidence4,
+              data.updateDescription.finding.evidence.evidence5,
+            ],
+          },
+          type: actionTypes.LOAD_EVIDENCE,
+        });
+        dispatch(editEvidence(false));
+      } else {
+        msgError(translate.t("proj_alerts.error_textsad"));
+      }
+    })
+    .catch((error: AxiosError) => {
+      if (error.response !== undefined) {
+        const { errors } = error.response.data;
+
+        msgError(translate.t("proj_alerts.error_textsad"));
+        rollbar.error(error.message, errors);
+      }
+    });
+};
+
 export const updateEvidence: ThunkActionStructure =
   (
-    findingId: string, evidenceId: number,
+    findingId: string, evidenceId: number, value: string, field: string,
   ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
     let gQry: string;
     gQry = `mutation {
@@ -140,6 +196,9 @@ export const updateEvidence: ThunkActionStructure =
             },
             type: actionTypes.LOAD_EVIDENCE,
           });
+          if (evidenceId > 1) {
+            dispatch(updateEvidenceDescription(value, findingId, field));
+          }
           dispatch(editEvidence(false));
         } else {
           msgError(translate.t("proj_alerts.error_textsad"));
@@ -160,62 +219,6 @@ export const updateEvidence: ThunkActionStructure =
               msgError(translate.t("proj_alerts.no_file_update"));
               rollbar.error(error.message, errors);
           }
-        }
-      });
-  };
-
-export const updateEvidenceDescription: ThunkActionStructure =
-  (
-    value: string, findingId: string, field: string,
-  ): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
-    let gQry: string;
-    gQry = `mutation {
-          updateDescription: updateEvidenceDescription (
-            description: ${JSON.stringify(value)},
-            findingId: "${findingId}",
-            field: "${field}") {
-            success
-            finding {
-              evidence
-            }
-          }
-        }`;
-    new Xhr().request(gQry, "An error occurred updating evidence")
-      .then((response: AxiosResponse) => {
-        const { data } = response.data;
-
-        if (data.updateDescription.success) {
-          dispatch({
-            payload: {
-              images: [
-                {
-                  description: translate.t("search_findings.tab_evidence.animation_exploit"),
-                  url: data.updateDescription.finding.evidence.animation.url,
-                },
-                {
-                  description: translate.t("search_findings.tab_evidence.evidence_exploit"),
-                  url: data.updateDescription.finding.evidence.exploitation.url,
-                },
-                data.updateDescription.finding.evidence.evidence1,
-                data.updateDescription.finding.evidence.evidence2,
-                data.updateDescription.finding.evidence.evidence3,
-                data.updateDescription.finding.evidence.evidence4,
-                data.updateDescription.finding.evidence.evidence5,
-              ],
-            },
-            type: actionTypes.LOAD_EVIDENCE,
-          });
-          dispatch(editEvidence(false));
-        } else {
-          msgError(translate.t("proj_alerts.error_textsad"));
-        }
-      })
-      .catch((error: AxiosError) => {
-        if (error.response !== undefined) {
-          const { errors } = error.response.data;
-
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error(error.message, errors);
         }
       });
   };
