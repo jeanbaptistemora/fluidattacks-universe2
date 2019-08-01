@@ -7,7 +7,7 @@ from django.views.decorators.http import require_http_methods
 from . import util
 # pylint: disable=E0402
 from .dao import integrates_dao
-from .api.formstack import FormstackAPI
+from .dao.helpers.formstack import FormstackAPI
 from .dto.finding import FindingDTO
 from .dto.eventuality import EventDTO
 

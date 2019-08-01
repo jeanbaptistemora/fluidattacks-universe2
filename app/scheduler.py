@@ -21,7 +21,7 @@ from .domain.project import (
     get_last_closing_vuln, get_mean_remediate, get_max_open_severity,
     get_total_treatment
 )
-from .api.formstack import FormstackAPI
+from .dao.helpers.formstack import FormstackAPI
 from .dto import remission
 from .dto import eventuality
 from .dto.finding import finding_vulnerabilities

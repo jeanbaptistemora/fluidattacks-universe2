@@ -3,7 +3,7 @@
 import rollbar
 from app.dao import integrates_dao
 from app import util
-from app.api.formstack import FormstackAPI
+from app.dao.helpers.formstack import FormstackAPI
 from app.dto.eventuality import EventDTO
 
 

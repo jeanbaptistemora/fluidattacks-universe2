@@ -11,7 +11,7 @@ import pytz
 import rollbar
 
 from ..dao import integrates_dao
-from ..api.formstack import FormstackAPI
+from ..dao.helpers.formstack import FormstackAPI
 from ..utils import forms
 from ..utils import cvss
 from .. import util

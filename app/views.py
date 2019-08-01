@@ -31,7 +31,7 @@ from __init__ import (
 )
 from app import util
 from app.api.drive import DriveAPI
-from app.api.formstack import FormstackAPI
+from app.dao.helpers.formstack import FormstackAPI
 from app.dao import integrates_dao
 from app.decorators import authenticate, authorize, cache_content
 from app.domain.vulnerability import (

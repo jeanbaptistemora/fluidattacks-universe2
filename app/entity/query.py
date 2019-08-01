@@ -6,7 +6,7 @@ from __future__ import absolute_import
 from graphene import Field, String, ObjectType, List
 
 from app import util
-from app.api.formstack import FormstackAPI
+from app.dao.helpers.formstack import FormstackAPI
 from app.entity.me import Me
 from app.entity.alert import Alert
 from app.entity.login import Login

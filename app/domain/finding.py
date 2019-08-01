@@ -23,7 +23,7 @@ from __init__ import (
 )
 from app import util
 from app.api.drive import DriveAPI
-from app.api.formstack import FormstackAPI
+from app.dao.helpers.formstack import FormstackAPI
 from app.dao import integrates_dao, finding as finding_dao
 from app.domain.vulnerability import update_vulnerabilities_date
 from app.dto.finding import (

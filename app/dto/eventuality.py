@@ -14,7 +14,7 @@ from botocore.exceptions import ClientError
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 from app.api.drive import DriveAPI
 from ..dao import integrates_dao
-from ..api.formstack import FormstackAPI
+from ..dao.helpers.formstack import FormstackAPI
 from ..utils import forms
 from .. import util
 

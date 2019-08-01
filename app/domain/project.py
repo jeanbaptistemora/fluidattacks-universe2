@@ -8,7 +8,7 @@ import pytz
 
 from django.conf import settings
 
-from app.api.formstack import FormstackAPI
+from app.dao.helpers.formstack import FormstackAPI
 from app.dao import integrates_dao
 from app.decorators import get_entity_cache
 from app.dto.finding import (
