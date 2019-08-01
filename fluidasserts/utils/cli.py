@@ -12,7 +12,7 @@ import argparse
 import itertools
 import contextlib
 from io import StringIO
-from typing import Dict, Tuple
+from typing import Dict, Tuple, List
 from timeit import default_timer as timer
 from multiprocessing import Pool, cpu_count
 
@@ -404,7 +404,7 @@ def lint_exploit(exploit):
             'description':
             'Avoid using exit().',
             'regexes':
-                [r'exit[\s]*\(']
+                [r'(?<![^ ])exit[\s]*\(']
         },
         '005': {
             'description':
@@ -587,75 +587,114 @@ def exec_dns_package(nameservers):
     return exec_wrapper('built-in DNS package', template)
 
 
-def exec_lang_package(codes):
-    """Execute generic checks of LANG package."""
-    template = textwrap.dedent("""\
-        from fluidasserts.lang import csharp
-        from fluidasserts.lang import dotnetconfig
-        from fluidasserts.lang import html
-        from fluidasserts.lang import java
-        from fluidasserts.lang import javascript
-        from fluidasserts.lang import python
-        from fluidasserts.lang import rpgle
-        from fluidasserts.lang import php
-        from fluidasserts.proto import git
-        from fluidasserts.sca import maven
-        from fluidasserts.sca import nuget
-        from fluidasserts.sca import pypi
-        from fluidasserts.sca import npm
+def exec_lang_package(paths):
+    """Execute generic methods of lang package."""
+    template = textwrap.dedent("""
+        from fluidasserts.lang import {module}
+        from fluidasserts.utils import generic
+
+        generic.add_finding('Fluid Asserts - Lang - {title} Module')
+
+        {methods}
         """)
-    for code in codes:
-        template += textwrap.dedent("""
-            csharp.has_generic_exceptions('__code__')
-            csharp.swallows_exceptions('__code__')
-            csharp.has_switch_without_default('__code__')
-            csharp.has_insecure_randoms('__code__')
-            csharp.has_if_without_else('__code__')
-            csharp.uses_md5_hash('__code__')
-            csharp.uses_sha1_hash('__code__')
-            csharp.uses_ecb_encryption_mode('__code__')
-            csharp.uses_debug_writeline('__code__')
-            csharp.uses_console_writeline('__code__')
-            dotnetconfig.is_header_x_powered_by_present('__code__')
-            dotnetconfig.has_ssl_disabled('__code__')
-            dotnetconfig.has_debug_enabled('__code__')
-            dotnetconfig.not_custom_errors('__code__')
-            html.has_reverse_tabnabbing('__code__')
-            java.has_generic_exceptions('__code__')
-            java.uses_catch_for_null_pointer_exception('__code__')
-            java.uses_catch_for_runtime_exception('__code__')
-            java.uses_print_stack_trace('__code__')
-            java.swallows_exceptions('__code__')
-            java.has_switch_without_default('__code__')
-            java.has_insecure_randoms('__code__')
-            java.has_if_without_else('__code__')
-            java.uses_md5_hash('__code__')
-            java.uses_sha1_hash('__code__')
-            java.uses_des_algorithm('__code__')
-            java.has_log_injection('__code__')
-            java.uses_system_exit('__code__')
-            javascript.uses_console_log('__code__')
-            javascript.uses_eval('__code__')
-            javascript.uses_localstorage('__code__')
-            javascript.has_insecure_randoms('__code__')
-            javascript.swallows_exceptions('__code__')
-            javascript.has_switch_without_default('__code__')
-            javascript.has_if_without_else('__code__')
-            python.has_generic_exceptions('__code__')
-            python.swallows_exceptions('__code__')
-            python.uses_insecure_functions('__code__')
-            rpgle.has_dos_dow_sqlcod('__code__')
-            rpgle.has_unitialized_vars('__code__')
-            rpgle.has_generic_exceptions('__code__')
-            rpgle.swallows_exceptions('__code__')
-            php.has_preg_ce('__code__')
-            git.has_insecure_gitignore('__code__')
-            maven.project_has_vulnerabilities('__code__')
-            nuget.project_has_vulnerabilities('__code__')
-            pypi.project_has_vulnerabilities('__code__')
-            npm.project_has_vulnerabilities('__code__')
-            """).replace('__code__', code)
-    return exec_wrapper('built-in language package', template)
+
+    source: Dict[str, str] = {
+        # lang
+        ('core', 'Core'): """
+            # core.file_does_not_exist
+            # core.file_exists
+            # core.has_all_text
+            # core.has_any_secret
+            # core.has_any_text
+            # core.has_not_any_text
+            # core.has_not_text
+            # core.has_secret
+            # core.has_text
+            # core.has_weak_cipher
+            # core.is_file_hash_in_list
+            core.uses_unencrypted_sockets('__path__')
+            """,
+        ('csharp', 'C#'): """
+            csharp.has_generic_exceptions('__path__')
+            csharp.has_if_without_else('__path__')
+            csharp.has_insecure_randoms('__path__')
+            csharp.has_switch_without_default('__path__')
+            csharp.swallows_exceptions('__path__')
+            csharp.uses_catch_for_null_reference_exception('__path__')
+            csharp.uses_console_writeline('__path__')
+            csharp.uses_debug_writeline('__path__')
+            csharp.uses_ecb_encryption_mode('__path__')
+            csharp.uses_md5_hash('__path__')
+            csharp.uses_sha1_hash('__path__')
+            """,
+        ('docker', 'Docker'): """
+            docker.not_pinned('__path__')
+            """,
+        ('dotnetconfig', '.NET Config'): """
+            dotnetconfig.has_debug_enabled('__path__')
+            dotnetconfig.has_ssl_disabled('__path__')
+            dotnetconfig.is_header_x_powered_by_present('__path__')
+            dotnetconfig.not_custom_errors('__path__')
+            """,
+        ('html', 'HTML'): """
+            # html.has_not_autocomplete('__path__')
+            html.has_reverse_tabnabbing('__path__')
+            # html.is_cacheable('__path__')
+            # html.is_header_content_type_missing('__path__')
+            """,
+        ('java', 'Java'): """
+            # java.does_not_handle_exceptions
+            java.has_generic_exceptions('__path__')
+            java.has_if_without_else('__path__')
+            java.has_insecure_randoms('__path__')
+            java.has_log_injection('__path__')
+            java.has_switch_without_default('__path__')
+            java.swallows_exceptions('__path__')
+            java.uses_catch_for_null_pointer_exception('__path__')
+            java.uses_catch_for_runtime_exception('__path__')
+            java.uses_des_algorithm('__path__')
+            # java.uses_insecure_cipher
+            # java.uses_insecure_hash
+            java.uses_md5_hash('__path__')
+            java.uses_print_stack_trace('__path__')
+            java.uses_sha1_hash('__path__')
+            java.uses_system_exit('__path__')
+            """,
+        ('javascript', 'Javascript'): """
+            javascript.has_if_without_else('__path__')
+            javascript.has_insecure_randoms('__path__')
+            javascript.has_switch_without_default('__path__')
+            javascript.swallows_exceptions('__path__')
+            javascript.uses_console_log('__path__')
+            javascript.uses_eval('__path__')
+            javascript.uses_localstorage('__path__')
+            """,
+        ('php', 'PHP'): """
+            php.has_preg_ce('__path__')
+            """,
+        ('python', 'Python'): """
+            python.has_generic_exceptions('__path__')
+            python.swallows_exceptions('__path__')
+            python.uses_insecure_functions('__path__')
+            """,
+        ('rpgle', 'RPG'): """
+            rpgle.has_dos_dow_sqlcod('__path__')
+            rpgle.has_generic_exceptions('__path__')
+            rpgle.has_unitialized_vars('__path__')
+            rpgle.swallows_exceptions('__path__')
+            """,
+    }
+
+    exploits = [
+        (module[1], template.format(
+            title=module[1],
+            module=module[0],
+            methods=textwrap.dedent(methods.replace('__path__', path))))
+        for path in paths
+        for module, methods in source.items()]
+
+    return exec_exploits(
+        exploit_contents=exploits, enable_multiprocessing=True)
 
 
 def get_exploit_content(exploit_path: str) -> Tuple[str, str]:
@@ -664,10 +703,14 @@ def get_exploit_content(exploit_path: str) -> Tuple[str, str]:
         return exploit_path, exploit.read()
 
 
-def exec_exploits(exploit_paths: list, enable_multiprocessing: bool) -> str:
+def exec_exploits(
+        exploit_paths: List[str] = None,
+        exploit_contents: List[str] = None,
+        enable_multiprocessing: bool = False) -> str:
     """Execute the exploits list."""
     try:
-        exploit_contents = map(get_exploit_content, exploit_paths)
+        if not exploit_contents:
+            exploit_contents = map(get_exploit_content, exploit_paths)
         if enable_multiprocessing:
             with Pool(processes=cpu_count()) as agents:
                 results = agents.starmap(exec_wrapper, exploit_contents, 1)
@@ -692,8 +735,9 @@ def get_content(args):
         content += exec_lang_package(args.lang)
     if args.aws:
         content += exec_aws_package(args.aws)
-    elif args.exploits:
-        content += exec_exploits(args.exploits, args.multiprocessing)
+    if args.exploits:
+        content += exec_exploits(exploit_paths=args.exploits,
+                                 enable_multiprocessing=args.multiprocessing)
     return get_parsed_output(content)
 
 

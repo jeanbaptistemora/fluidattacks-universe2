@@ -153,12 +153,14 @@ def test_cli_dns():
 
 def test_cli_lang():
     """Run CLI lang option."""
-    os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_STRICT'] = 'true'
     os.environ['FA_NOTRACK'] = 'true'
-    testargs = ["asserts", "-L", 'test/static/lang/csharp/']
+    testargs = ["asserts", "-eec", "-L", 'test/static/lang']
     with patch.object(sys, 'argv', testargs):
-        with pytest.raises(SystemExit):
-            assert not cli.main()
+        with pytest.raises(SystemExit) as exc:
+            cli.main()
+        assert exc.value.code in (
+            cli.RICH_EXIT_CODES[x] for x in ('open', 'closed', 'unknown'))
 
 
 def test_cli_filtered():
