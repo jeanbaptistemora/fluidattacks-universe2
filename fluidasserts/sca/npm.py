@@ -15,7 +15,7 @@ from fluidasserts import show_open
 from fluidasserts import show_unknown
 from fluidasserts.helper import sca
 from fluidasserts.helper import asynchronous
-from fluidasserts.utils.generic import full_paths_in_dir
+from fluidasserts.utils.generic import get_paths
 from fluidasserts.utils.decorators import track, level, notify
 
 PKG_MNGR = 'npm'
@@ -70,15 +70,13 @@ def _get_requirements(path: str) -> set:
     if not os.path.exists(path):
         return reqs
     dictionary = {ord(c): None for c in '^~<=>'}
-    for path in full_paths_in_dir(path):
-        is_package = path.endswith('package.json')
-        is_package_lock = path.endswith('package-lock.json')
-        if is_package or is_package_lock:
-            with open(path) as file:
-                data = json.load(file)
-            reqs.update(
-                (path, dep, ver.translate(dictionary))
-                for dep, ver in _get_all_versions(data))
+    for path in get_paths(path, endswith=(
+            'package.json', 'package-lock.json')):
+        with open(path) as file:
+            data = json.load(file)
+        reqs.update(
+            (path, dep, ver.translate(dictionary))
+            for dep, ver in _get_all_versions(data))
     return reqs
 
 

@@ -16,7 +16,7 @@ from pyparsing import ParserElement, ParseException, ParseResults
 from fluidasserts import Unit
 from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts.utils.generic import get_sha256
-from fluidasserts.utils.generic import full_paths_in_dir
+from fluidasserts.utils.generic import get_paths
 
 
 def _re_compile(
@@ -249,12 +249,10 @@ def path_contains_grammar(
                       acceptable file extensions and comment delimiters.
     """
     vulns = {}
-    exclude = exclude if exclude else tuple()
+    exclude = tuple(exclude) if exclude else tuple()
     extensions = lang_spec.get('extensions')
-    for full_path in full_paths_in_dir(path):
-        if _path_match_extension(full_path, extensions) and \
-                not any(x in full_path for x in exclude):
-            vulns.update(_path_contains_grammar(grammar, full_path))
+    for path in get_paths(path, endswith=extensions, exclude=exclude):
+        vulns.update(_path_contains_grammar(grammar, path))
     return vulns
 
 
@@ -275,14 +273,13 @@ def path_contains_grammar2(
                       acceptable file extensions and comment delimiters.
     """
     matched, not_matched = [], []
-    exclude = exclude if exclude else tuple()
-    for full_path in full_paths_in_dir(path):
-        if _path_match_extension(full_path, lang_spec.get('extensions')) and \
-                not any(x in full_path for x in exclude):
-            _matched, _not_matched = \
-                _path_contains_grammar2(grammar, full_path)
-            matched.extend(_matched)
-            not_matched.extend(_not_matched)
+    exclude = tuple(exclude) if exclude else tuple()
+    extensions = lang_spec.get('extensions')
+    for full_path in get_paths(path, endswith=extensions, exclude=exclude):
+        _matched, _not_matched = \
+            _path_contains_grammar2(grammar, full_path)
+        matched.extend(_matched)
+        not_matched.extend(_not_matched)
 
     return matched, not_matched
 
@@ -390,35 +387,6 @@ def _check_grammar_in_file(grammar: ParserElement, code_dest: str,
     return vulns
 
 
-def _check_grammar_in_file2(grammar: ParserElement, code_dest: str,
-                            lang_spec: dict) -> Tuple[List[Unit], List[Unit]]:
-    """
-    Check grammar in file.
-
-    :param grammar: Pyparsing grammar against which file will be checked.
-    :param code_dest: File or directory to check.
-    :param lang_spec: Contains language-specific syntax elements, such as
-                       acceptable file extensions and comment delimiters.
-    :param exclude: Exclude files or directories with given strings
-    :return: Maps files to their found vulnerabilites.
-    """
-    lang_extensions = lang_spec.get('extensions')
-
-    lines = []
-    if lang_extensions:
-        if _path_match_extension(code_dest, lang_extensions):
-            lines = _get_match_lines(grammar, code_dest, lang_spec)
-    else:
-        lines = _get_match_lines(grammar, code_dest, lang_spec)
-
-    results: List[Unit] = [Unit(where=code_dest,
-                                attribute='lines',
-                                specific=lines,
-                                fingerprint=get_sha256(code_dest))]
-
-    return (results, []) if lines else ([], results)
-
-
 def _check_grammar_in_dir(grammar: ParserElement, code_dest: str,
                           lang_spec: dict,
                           exclude: list = None) -> Dict[str, List[str]]:
@@ -432,41 +400,11 @@ def _check_grammar_in_dir(grammar: ParserElement, code_dest: str,
     :param exclude: Exclude files or directories with given strings
     :return: Maps files to their found vulnerabilites.
     """
-    if not exclude:
-        exclude = []
+    exclude = tuple(exclude) if exclude else tuple()
     vulns = {}
-    for full_path in full_paths_in_dir(code_dest):
-        if not any(x in full_path for x in exclude):
-            vulns.update(_check_grammar_in_file(grammar, full_path, lang_spec))
+    for full_path in get_paths(code_dest, exclude=exclude):
+        vulns.update(_check_grammar_in_file(grammar, full_path, lang_spec))
     return vulns
-
-
-def _check_grammar_in_dir2(
-        grammar: ParserElement,
-        code_dest: str,
-        lang_spec: dict,
-        exclude: list = None) -> Tuple[List[Unit], List[Unit]]:
-    """
-    Check grammar in directory.
-
-    :param grammar: Pyparsing grammar against which file will be checked.
-    :param code_dest: File or directory to check.
-    :param lang_spec: Contains language-specific syntax elements, such as
-                       acceptable file extensions and comment delimiters.
-    :param exclude: Exclude files or directories with given strings
-    :return: Maps files to their found vulnerabilites.
-    """
-    matched, not_matched = [], []
-
-    exclude = [] if not exclude else exclude
-    for full_path in full_paths_in_dir(code_dest):
-        if not any(x in full_path for x in exclude):
-            _matched, _not_matched = \
-                _check_grammar_in_file2(grammar, full_path, lang_spec)
-            matched.extend(_matched)
-            not_matched.extend(_not_matched)
-
-    return matched, not_matched
 
 
 def check_grammar(grammar: ParserElement, code_dest: str,
@@ -506,10 +444,24 @@ def check_grammar2(grammar: ParserElement,
     :param exclude: Exclude files or directories with given strings
     :return: Maps files to their found vulnerabilites.
     """
-    exclude = [] if not exclude else exclude
-    if os.path.isdir(code_dest):
-        return _check_grammar_in_dir2(grammar, code_dest, lang_spec, exclude)
-    return _check_grammar_in_file2(grammar, code_dest, lang_spec)
+    matched, not_matched = [], []
+    exclude = tuple(exclude) if exclude else tuple()
+    extensions = lang_spec.get('extensions')
+    for full_path in get_paths(
+            code_dest, exclude=exclude, endswith=extensions):
+        lines = _get_match_lines(grammar, full_path, lang_spec)
+
+        results: List[Unit] = [Unit(where=full_path,
+                                    attribute='lines',
+                                    specific=lines,
+                                    fingerprint=get_sha256(full_path))]
+
+        _matched, _not_matched = (results, []) if lines else ([], results)
+
+        matched.extend(_matched)
+        not_matched.extend(_not_matched)
+
+    return matched, not_matched
 
 
 def generic_method(path: str,

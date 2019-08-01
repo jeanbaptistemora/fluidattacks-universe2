@@ -14,7 +14,7 @@ from fluidasserts import show_open
 from fluidasserts import show_close
 from fluidasserts import show_unknown
 from fluidasserts.utils.generic import get_sha256
-from fluidasserts.utils.generic import full_paths_in_dir
+from fluidasserts.utils.generic import get_paths
 from fluidasserts.utils.decorators import track, level, notify
 
 
@@ -33,9 +33,7 @@ def has_no_password_protection(path: str) -> bool:
         return False
     jks_with_password: list = []
     jks_without_password: list = []
-    for full_path in full_paths_in_dir(path):
-        if not full_path.endswith('.jks'):
-            continue
+    for full_path in get_paths(path, endswith=('.jks',)):
         try:
             jks.KeyStore.load(full_path, '')
         except jks.util.KeystoreSignatureException:
@@ -71,9 +69,7 @@ def _use_passwords(path: str, passwords: list) -> bool:
     closed_jks: list = []
     passwords = ['', *(p for p in set(passwords))]
 
-    for full_path in full_paths_in_dir(path):
-        if not full_path.endswith('.jks'):
-            continue
+    for full_path in get_paths(path, endswith=('.jks',)):
         success: bool = False
         for password in passwords:
             try:

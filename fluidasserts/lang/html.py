@@ -19,7 +19,7 @@ from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
 from fluidasserts.utils.decorators import track, level, notify, api
-from fluidasserts.utils.generic import full_paths_in_dir, get_sha256
+from fluidasserts.utils.generic import get_paths, get_sha256
 
 
 def _has_attributes(filename: str, tag: str, attrs: dict) -> bool:
@@ -198,10 +198,7 @@ def has_reverse_tabnabbing(path: str) -> Result:
     vulns, safes = [], []
     http_re = re.compile("^http(s)?://")
 
-    for file_path in full_paths_in_dir(path):
-        if not file_path.endswith('.html'):
-            continue
-
+    for file_path in get_paths(path, endswith=('.html',)):
         with open(file_path, 'r', encoding='latin-1') as file_desc:
             html_obj = BeautifulSoup(file_desc.read(), features="html.parser")
 

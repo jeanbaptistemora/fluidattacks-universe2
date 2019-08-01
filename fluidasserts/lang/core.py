@@ -16,7 +16,7 @@ from fluidasserts import Result, Unit
 from fluidasserts import LOW, MEDIUM, HIGH
 from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts.helper import lang
-from fluidasserts.utils.generic import get_sha256, full_paths_in_dir
+from fluidasserts.utils.generic import get_sha256, get_paths
 from fluidasserts.utils.decorators import api
 
 
@@ -232,7 +232,7 @@ def is_file_hash_in_list(path: str, hash_list: List[str]) -> Result:
     if not os.path.exists(path):
         return UNKNOWN, 'File does not exists'
     vulns, safes = [], []
-    for full_path in full_paths_in_dir(path):
+    for full_path in get_paths(path):
         fingerprint: str = get_sha256(full_path)
         if fingerprint in hash_list:
             vulns.append(Unit(where=full_path,

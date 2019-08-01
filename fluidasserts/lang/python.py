@@ -3,7 +3,7 @@
 """This module allows to check Python code vulnerabilities."""
 
 # standard imports
-# None
+import os
 
 # 3rd party imports
 from bandit import blacklists
@@ -16,8 +16,8 @@ from fluidasserts.helper import lang
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
+from fluidasserts.utils.generic import get_paths
 from fluidasserts.utils.generic import get_sha256
-from fluidasserts.utils.generic import full_paths_in_dir
 from fluidasserts.utils.decorators import track, level, notify
 
 
@@ -89,23 +89,6 @@ def _insecure_functions_in_file(py_dest: str) -> bool:
     results = calls + imports
 
     return {py_dest: results} if results else None
-
-
-def _insecure_functions_in_dir(py_dest: str, exclude: list = None) -> bool:
-    """
-    Search for insecure functions in dir.
-
-    :param py_dest: Path to a Python script or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    """
-    if not exclude:
-        exclude = []
-
-    res = [_insecure_functions_in_file(full_path)
-           for full_path in full_paths_in_dir(py_dest)
-           if full_path.endswith(LANGUAGE_SPECS['extensions']) and
-           not any(x in full_path for x in exclude)]
-    return list(filter(None, res))
 
 
 def _get_block(file_lines, line) -> str:
@@ -226,15 +209,16 @@ def uses_insecure_functions(py_dest: str, exclude: list = None) -> bool:
     :param py_dest: Path to a Python script or package.
     :param exclude: Paths that contains any string from this list are ignored.
     """
-    try:
-        open(py_dest)
-    except IsADirectoryError:
-        results = _insecure_functions_in_dir(py_dest, exclude)
-    except FileNotFoundError:
-        show_unknown('Code not found', details=dict(location=py_dest))
+    if not os.path.exists(py_dest):
+        show_unknown('File does not exist', details=dict(code_dest=py_dest))
         return False
-    else:
-        results = _insecure_functions_in_file(py_dest)
+
+    exclude = tuple(exclude) if exclude else tuple()
+    results = tuple(filter(None.__ne__,
+                           map(_insecure_functions_in_file,
+                               get_paths(py_dest,
+                                         endswith=LANGUAGE_SPECS['extensions'],
+                                         exclude=exclude))))
 
     if results:
         show_open('Insecure functions were found in code',

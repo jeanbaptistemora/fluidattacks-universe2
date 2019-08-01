@@ -39,6 +39,12 @@ def _scantree(path: str):
                 yield full_path
 
 
+@lru_cache(maxsize=None, typed=True)
+def _full_paths_in_path(path: str) -> tuple:
+    """Return a tuple of full paths to files recursively from path."""
+    return tuple(_scantree(path))
+
+
 @notify
 @level('low')
 @track
@@ -84,9 +90,16 @@ def check_function(func: Callable, *args, **kwargs) -> bool:
 
 
 @lru_cache(maxsize=None, typed=True)
-def full_paths_in_dir(path: str):
-    """Return a cacheable tuple of full_paths to files in a dir."""
-    return tuple(_scantree(path))
+def get_paths(path: str,
+              exclude: tuple = tuple(),
+              endswith: tuple = tuple()) -> tuple:
+    """Return a tuple of full paths to files recursively from path."""
+    paths = _full_paths_in_path(path)
+    if exclude:
+        paths = filter(lambda p: not any(e in p for e in exclude), paths)
+    if endswith:
+        paths = filter(lambda p: any(p.endswith(e) for e in endswith), paths)
+    return tuple(paths)
 
 
 @lru_cache(maxsize=None, typed=True)
@@ -98,7 +111,7 @@ def get_sha256(path: str) -> str:
     """
     sha256 = hashlib.sha256()
     try:
-        for path in full_paths_in_dir(path):
+        for path in get_paths(path):
             with open(path, 'rb', buffering=0) as handle:
                 for block in iter(lambda: handle.read(128 * 1024), b''):
                     sha256.update(block)

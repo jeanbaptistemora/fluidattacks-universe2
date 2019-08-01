@@ -15,7 +15,7 @@ from fluidasserts import show_open
 from fluidasserts import show_unknown
 from fluidasserts.helper import sca
 from fluidasserts.helper import asynchronous
-from fluidasserts.utils.generic import full_paths_in_dir
+from fluidasserts.utils.generic import get_paths
 from fluidasserts.utils.decorators import track, level, notify
 
 PKG_MNGR = 'maven'
@@ -31,9 +31,7 @@ def _get_requirements_pom_xml(path: str) -> list:
     """
     reqs = []
     namespaces = {'xmlns': 'http://maven.apache.org/POM/4.0.0'}
-    for full_path in full_paths_in_dir(path):
-        if not full_path.endswith('pom.xml'):
-            continue
+    for full_path in get_paths(path, endswith=('pom.xml',)):
         tree = parse(full_path)
         root = tree.getroot()
         deps = root.findall(".//xmlns:dependency",
@@ -61,10 +59,7 @@ def _get_requirements_build_gradle(path: str) -> list:
     :param path: Project path
     """
     reqs = []
-    for file_path in full_paths_in_dir(path):
-        if not file_path.endswith('build.gradle'):
-            continue
-
+    for file_path in get_paths(path, endswith=('build.gradle',)):
         with open(file_path, encoding='latin-1') as file_fd:
             file_content = file_fd.read()
 

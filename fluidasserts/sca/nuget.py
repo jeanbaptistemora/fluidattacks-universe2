@@ -13,7 +13,7 @@ from fluidasserts.helper import sca
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
-from fluidasserts.utils.generic import full_paths_in_dir
+from fluidasserts.utils.generic import get_paths
 from fluidasserts.utils.decorators import track, level, notify
 
 PACKAGE_MANAGER = 'nuget'
@@ -28,9 +28,7 @@ def _get_requirements(path: str) -> list:
     :param path: Project path
     """
     reqs = []
-    for full_path in full_paths_in_dir(path):
-        if not full_path.endswith('packages.config'):
-            continue
+    for full_path in get_paths(path, endswith=('packages.config',)):
         tree = parse(full_path)
         deps = tree.findall(".//package")
         reqs += [(dep.attrib['id'], dep.attrib['version']) for dep in deps]
