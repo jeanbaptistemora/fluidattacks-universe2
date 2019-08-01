@@ -131,14 +131,16 @@ def test_cli_ssl():
 
 def test_cli_aws():
     """Run CLI aws option."""
-    os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_STRICT'] = 'true'
     os.environ['FA_NOTRACK'] = 'true'
     key = os.environ['AWS_ACCESS_KEY_ID']
     secret = os.environ['AWS_SECRET_ACCESS_KEY']
-    testargs = ["asserts", "-A", f'{key}:{secret}']
+    testargs = ["asserts", "-eec", "-A", f'{key}:{secret}']
     with patch.object(sys, 'argv', testargs):
-        with pytest.raises(SystemExit):
-            assert not cli.main()
+        with pytest.raises(SystemExit) as exc:
+            cli.main()
+        assert exc.value.code in (
+            cli.RICH_EXIT_CODES[x] for x in ('open', 'closed', 'unknown'))
 
 
 def test_cli_dns():

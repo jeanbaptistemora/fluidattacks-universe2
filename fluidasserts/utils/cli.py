@@ -523,54 +523,81 @@ def exec_ssl_package(ip_addresses):
     return exec_wrapper('built-in SSL package', template)
 
 
-def exec_aws_package(params):
-    """Execute generic checks of SSL package."""
-    template = textwrap.dedent("""\
-        from fluidasserts.cloud.aws import ec2
-        from fluidasserts.cloud.aws import rds
-        from fluidasserts.cloud.aws import cloudtrail
-        from fluidasserts.cloud.aws import cloudfront
-        from fluidasserts.cloud.aws import redshift
-        from fluidasserts.cloud.aws import iam
-        from fluidasserts.cloud.aws import s3
+def exec_aws_package(credentials: List[str]):
+    """Execute generic methods from the AWS package."""
+    template = textwrap.dedent("""
+        from fluidasserts.cloud.aws import {module}
+        from fluidasserts.utils.generic import add_finding
+
+        add_finding('Fluid Asserts - Amazon Web Services - {title} Module')
+
+        {methods}
         """)
-    for param in params:
-        key, secret = param.split(':')
-        template += textwrap.dedent(f"""
-            ec2.seggroup_allows_anyone_to_admin_ports('{key}', '{secret}')
-            ec2.default_seggroup_allows_all_traffic('{key}', '{secret}')
-            ec2.has_unencrypted_volumes('{key}', '{secret}')
-            ec2.has_unencrypted_snapshots('{key}', '{secret}')
-            ec2.has_unused_seggroups('{key}', '{secret}')
-            ec2.vpcs_without_flowlog('{key}', '{secret}')
-            rds.has_public_instances('{key}', '{secret}')
-            cloudtrail.trails_not_multiregion('{key}', '{secret}')
-            cloudtrail.files_not_validated('{key}', '{secret}')
-            cloudtrail.is_trail_bucket_public('{key}', '{secret}')
-            cloudtrail.is_trail_bucket_logging_disabled('{key}', '{secret}')
-            cloudtrail.has_unencrypted_logs('{key}', '{secret}')
-            cloudfront.has_not_geo_restrictions('{key}', '{secret}')
+
+    source: Dict[str, str] = {
+        ('cloudfront', 'CloudFront'): """
             cloudfront.has_logging_disabled('{key}', '{secret}')
-            redshift.has_public_clusters('{key}', '{secret}')
+            cloudfront.has_not_geo_restrictions('{key}', '{secret}')
+            """,
+        ('cloudtrail', 'CloudTrail'): """
+            cloudtrail.files_not_validated('{key}', '{secret}')
+            cloudtrail.has_unencrypted_logs('{key}', '{secret}')
+            cloudtrail.is_trail_bucket_logging_disabled('{key}', '{secret}')
+            cloudtrail.is_trail_bucket_public('{key}', '{secret}')
+            cloudtrail.trails_not_multiregion('{key}', '{secret}')
+            """,
+        ('ec2', 'EC2'): """
+            ec2.default_seggroup_allows_all_traffic('{key}', '{secret}')
+            ec2.has_unencrypted_snapshots('{key}', '{secret}')
+            ec2.has_unencrypted_volumes('{key}', '{secret}')
+            ec2.has_unused_seggroups('{key}', '{secret}')
+            ec2.seggroup_allows_anyone_to_admin_ports('{key}', '{secret}')
+            ec2.vpcs_without_flowlog('{key}', '{secret}')
+            """,
+        ('generic', 'Generic'): """
+            generic.are_valid_credentials('{key}', '{secret}')
+            """,
+        ('iam', 'IAM'): """
             iam.has_mfa_disabled('{key}', '{secret}')
-            iam.have_old_creds_enabled('{key}', '{secret}')
-            iam.have_old_access_keys('{key}', '{secret}')
-            iam.root_has_access_keys('{key}', '{secret}')
-            iam.not_requires_uppercase('{key}', '{secret}')
-            iam.not_requires_lowercase('{key}', '{secret}')
-            iam.not_requires_symbols('{key}', '{secret}')
-            iam.not_requires_numbers('{key}', '{secret}')
-            iam.min_password_len_unsafe('{key}', '{secret}')
-            iam.password_reuse_unsafe('{key}', '{secret}')
-            iam.password_expiration_unsafe('{key}', '{secret}')
-            iam.root_without_mfa('{key}', '{secret}')
-            iam.policies_attached_to_users('{key}', '{secret}')
-            iam.have_full_access_policies('{key}', '{secret}')
             iam.has_not_support_role('{key}', '{secret}')
-            s3.has_server_access_logging_disabled('{key}', '{secret}')
+            iam.have_full_access_policies('{key}', '{secret}')
+            iam.have_old_access_keys('{key}', '{secret}')
+            iam.have_old_creds_enabled('{key}', '{secret}')
+            iam.min_password_len_unsafe('{key}', '{secret}')
+            iam.not_requires_lowercase('{key}', '{secret}')
+            iam.not_requires_numbers('{key}', '{secret}')
+            iam.not_requires_symbols('{key}', '{secret}')
+            iam.not_requires_uppercase('{key}', '{secret}')
+            iam.password_expiration_unsafe('{key}', '{secret}')
+            iam.password_reuse_unsafe('{key}', '{secret}')
+            iam.policies_attached_to_users('{key}', '{secret}')
+            iam.root_has_access_keys('{key}', '{secret}')
+            iam.root_without_mfa('{key}', '{secret}')
+            """,
+        ('rds', 'RDS'): """
+            rds.has_public_instances('{key}', '{secret}')
+            """,
+        ('redshift', 'RedShift'): """
+            redshift.has_public_clusters('{key}', '{secret}')
+            """,
+        ('s3', 'S3'): """
             s3.has_public_buckets('{key}', '{secret}')
-            """)
-    return exec_wrapper('built-in AWS package', template)
+            s3.has_server_access_logging_disabled('{key}', '{secret}')
+            """,
+    }
+
+    exploits = [
+        (module[1], template.format(
+            title=module[1],
+            module=module[0],
+            methods=textwrap.dedent(methods.format(
+                key=credential.split(':')[0],
+                secret=credential.split(':')[1]))))
+        for credential in credentials
+        for module, methods in source.items()]
+
+    return exec_exploits(
+        exploit_contents=exploits, enable_multiprocessing=True)
 
 
 def exec_dns_package(nameservers):
@@ -588,18 +615,17 @@ def exec_dns_package(nameservers):
 
 
 def exec_lang_package(paths):
-    """Execute generic methods of lang package."""
+    """Execute generic methods from the lang package."""
     template = textwrap.dedent("""
         from fluidasserts.lang import {module}
-        from fluidasserts.utils import generic
+        from fluidasserts.utils.generic import add_finding
 
-        generic.add_finding('Fluid Asserts - Lang - {title} Module')
+        add_finding('Fluid Asserts - Lang - {title} Module')
 
         {methods}
         """)
 
     source: Dict[str, str] = {
-        # lang
         ('core', 'Core'): """
             # core.file_does_not_exist
             # core.file_exists
@@ -791,8 +817,8 @@ def main():
     argparser.add_argument('-L', '--lang', nargs='+', metavar='FILE/DIR',
                            help=('perform static security checks '
                                  'over given files or directories'))
-    argparser.add_argument('-A', '--aws', nargs=1,
-                           metavar='AWS_KEY_ID:AWS_KEY',
+    argparser.add_argument('-A', '--aws', nargs='+',
+                           metavar='AWS_ACCESS_KEY_ID:AWS_SECRET_ACCESS_KEY',
                            help=('perform AWS checks using the given '
                                  'credentials'))
     argparser.add_argument('exploits', nargs='*', help='exploits to execute')
