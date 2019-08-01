@@ -755,8 +755,6 @@ msgstr ""
 "during your development cycle. "
 "Our team runs comprehensive testing, "
 "detecting all vulnerabilities with no false positives. "
-"We automate the verification of vulnerabilities' closure "
-" with our automated closing engine."
 
 #: templates/landing.html:51
 msgid "Index-header-2"
