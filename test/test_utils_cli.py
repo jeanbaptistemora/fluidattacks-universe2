@@ -121,12 +121,14 @@ def test_cli_http():
 
 def test_cli_ssl():
     """Run CLI ssl option."""
-    os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_STRICT'] = 'true'
     os.environ['FA_NOTRACK'] = 'true'
-    testargs = ["asserts", "-S", '127.0.0.1']
+    testargs = ["asserts", "-eec", "-S", '127.0.0.1:443']
     with patch.object(sys, 'argv', testargs):
-        with pytest.raises(SystemExit):
-            assert not cli.main()
+        with pytest.raises(SystemExit) as exc:
+            cli.main()
+        assert exc.value.code in (
+            cli.RICH_EXIT_CODES[x] for x in ('open', 'closed', 'unknown'))
 
 
 def test_cli_aws():

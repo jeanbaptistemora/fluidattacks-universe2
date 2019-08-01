@@ -398,7 +398,7 @@ def lint_exploit(exploit):
             'description':
             'Avoid printing aditional info in Asserts using print().',
             'regexes':
-                [r'print[\s]*\(']
+                [r'(?<![^ ])print[\s]*\(']
         },
         '004': {
             'description':
@@ -488,39 +488,57 @@ def exec_http_package(urls):
     return exec_wrapper('built-in HTTP package', template)
 
 
-def exec_ssl_package(ip_addresses):
-    """Execute generic checks of SSL package."""
-    template = textwrap.dedent("""\
-        from fluidasserts.proto import ssl
-        from fluidasserts.format import x509
+def exec_ssl_package(addresses: List[str]):
+    """Execute generic checks from the SSL package."""
+    template = textwrap.dedent("""
+        from fluidasserts.proto import {module}
+        from fluidasserts.utils.generic import add_finding
+
+        add_finding('Fluid Asserts - Protocols - {title} Module')
+
+        {methods}
         """)
-    for ip_addr in ip_addresses:
-        template += textwrap.dedent("""
-            ssl.is_pfs_disabled('__ip__')
-            ssl.is_sslv3_enabled('__ip__')
-            ssl.is_tlsv1_enabled('__ip__')
-            ssl.is_tlsv11_enabled('__ip__')
-            ssl.not_tls13_enabled('__ip__')
-            ssl.has_poodle_tls('__ip__')
-            ssl.has_poodle_sslv3('__ip__')
-            ssl.has_breach('__ip__')
-            ssl.allows_anon_ciphers('__ip__')
-            ssl.allows_weak_ciphers('__ip__')
-            ssl.has_beast('__ip__')
-            ssl.has_heartbleed('__ip__')
-            ssl.has_sweet32('__ip__')
-            ssl.allows_modified_mac('__ip__')
-            ssl.allows_insecure_downgrade('__ip__')
-            ssl.tls_uses_cbc('__ip__')
-            ssl.has_tls13_downgrade_vuln('__ip__')
-            x509.is_cert_cn_not_equal_to_site('__ip__')
-            x509.is_cert_inactive('__ip__')
-            x509.is_cert_validity_lifespan_unsafe('__ip__')
-            x509.is_sha1_used('__ip__')
-            x509.is_md5_used('__ip__')
-            x509.is_cert_untrusted('__ip__')
-            """).replace('__ip__', ip_addr)
-    return exec_wrapper('built-in SSL package', template)
+
+    source: Dict[str, str] = {
+        ('ssl', 'SSL.allows'): """
+            ssl.allows_anon_ciphers('{ip_address}', {port})
+            ssl.allows_insecure_downgrade('{ip_address}', {port})
+            ssl.allows_modified_mac('{ip_address}', {port})
+            ssl.allows_weak_ciphers('{ip_address}', {port})
+            """,
+        ('ssl', 'SSL.has'): """
+            ssl.has_beast('{ip_address}', {port})
+            ssl.has_breach('{ip_address}', {port})
+            ssl.has_heartbleed('{ip_address}', {port})
+            ssl.has_poodle_sslv3('{ip_address}', {port})
+            ssl.has_poodle_tls('{ip_address}', {port})
+            ssl.has_sweet32('{ip_address}', {port})
+            ssl.has_tls13_downgrade_vuln('{ip_address}', {port})
+            """,
+        ('ssl', 'SSL.is'): """
+            ssl.is_pfs_disabled('{ip_address}', {port})
+            ssl.is_sslv3_enabled('{ip_address}', {port})
+            ssl.is_tlsv11_enabled('{ip_address}', {port})
+            ssl.is_tlsv1_enabled('{ip_address}', {port})
+            ssl.not_tls13_enabled('{ip_address}', {port})
+            """,
+        ('ssl', 'SSL.uses'): """
+            ssl.tls_uses_cbc('{ip_address}', {port})
+            """,
+    }
+
+    exploits = [
+        (module[1], template.format(
+            title=module[1],
+            module=module[0],
+            methods=textwrap.dedent(methods.format(
+                ip_address=address.split(':')[0],
+                port=address.split(':')[1] if ':' in address else 443))))
+        for address in addresses
+        for module, methods in source.items()]
+
+    return exec_exploits(
+        exploit_contents=exploits, enable_multiprocessing=True)
 
 
 def exec_aws_package(credentials: List[str]):
@@ -607,10 +625,10 @@ def exec_dns_package(nameservers):
         """)
     for nameserver in nameservers:
         template += textwrap.dedent("""
-            dns.has_cache_snooping('__ip__')
-            dns.has_recursion('__ip__')
-            dns.can_amplify('__ip__')
-            """).replace('__ip__', nameserver)
+            dns.has_cache_snooping('{ip_address}')
+            dns.has_recursion('{ip_address}')
+            dns.can_amplify('{ip_address}')
+            """).replace('{ip_address}', nameserver)
     return exec_wrapper('built-in DNS package', template)
 
 
@@ -809,8 +827,11 @@ def main():
                            help='save output in FILE')
     argparser.add_argument('-H', '--http', nargs='+', metavar='URL',
                            help='perform generic HTTP checks over given URL')
-    argparser.add_argument('-S', '--ssl', nargs='+', metavar='IP',
-                           help='perform generic SSL checks over given IP')
+    argparser.add_argument('-S', '--ssl', nargs='+',
+                           metavar='IP_ADDRESS:PORT',
+                           help=('perform generic SSL checks over given IP '
+                                 'address and port, if port is not specified '
+                                 'it defaults to 443'))
     argparser.add_argument('-D', '--dns', nargs='+', metavar='NS',
                            help=('perform generic DNS checks '
                                  'over given nameserver'))
