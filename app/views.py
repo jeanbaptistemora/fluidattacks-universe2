@@ -83,16 +83,17 @@ def error401(request):
 @cache_control(private=True, max_age=3600)
 @authenticate
 def app(request):
-    "App view for authenticated users"
+    """ App view for authenticated users """
     try:
         parameters = {
-            'username': request.session["username"]
+            'username': request.session['username']
         }
-        response = render(request, "app.html", parameters)
+        response = render(request, 'app.html', parameters)
         token = jwt.encode(
             {
-                'user_email': request.session["username"],
-                'user_role': request.session["role"],
+                'user_email': request.session['username'],
+                'user_role': request.session['role'],
+                'company': request.session['company'],
                 'exp': datetime.utcnow() +
                 timedelta(seconds=settings.SESSION_COOKIE_AGE)
             },

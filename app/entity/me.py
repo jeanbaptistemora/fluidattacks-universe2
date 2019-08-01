@@ -91,6 +91,8 @@ class SignIn(Mutation):
                         {
                             'user_email': email,
                             'user_role': integrates_dao.get_role_dao(email),
+                            'company': integrates_dao.get_organization_dao(
+                                email),
                             'exp': datetime.utcnow() +
                             timedelta(seconds=settings.SESSION_COOKIE_AGE)
                         },

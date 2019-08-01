@@ -196,7 +196,8 @@ def validate_future_releases(finding):
 
 
 def cloudwatch_log(request, msg):
-    info = [request.session["username"], request.session["company"]]
+    user_data = get_jwt_content(request)
+    info = [user_data["user_email"], user_data["company"]]
     for parameter in ["project", "findingid"]:
         if parameter in request.POST.dict():
             info.append(request.POST.dict()[parameter])
