@@ -3,21 +3,24 @@
 """This module allows to check ``C#`` code vulnerabilities."""
 
 # standard imports
-# None
+from typing import Dict, List
 
 # 3rd party imports
 from pyparsing import (CaselessKeyword, Word, Literal, Optional, alphas,
                        alphanums, Suppress, nestedExpr, cppStyleComment,
                        SkipTo, Keyword, MatchFirst, QuotedString,
-                       delimitedList, javaStyleComment)
+                       delimitedList)
 
 # local imports
-from fluidasserts.helper import lang
+from fluidasserts import Result
+from fluidasserts import LOW
+from fluidasserts import OPEN, CLOSED
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
+from fluidasserts.helper import lang
 from fluidasserts.utils.generic import get_sha256
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts.utils.decorators import track, level, notify, api
 
 
 LANGUAGE_SPECS = {
@@ -58,43 +61,55 @@ def _get_block_as_one_liner(file_lines, line) -> str:
     return "".join(file_lines[line - 1:])
 
 
-@notify
-@level('low')
-@track
-def has_generic_exceptions(csharp_dest: str, exclude: list = None) -> bool:
+def _declares_catch_for_exceptions(
+        csharp_dest: str,
+        exceptions_list: List[str],
+        msgs: Dict[str, str],
+        exclude: list = None) -> tuple:
+    """Search for the declaration of catch for the given exceptions."""
+    provided_exception = MatchFirst(
+        [Keyword(exception) for exception in exceptions_list])
+
+    grammar = Keyword('catch') + nestedExpr(
+        opener='(', closer=')', content=(
+            provided_exception + Optional(L_VAR_NAME)))
+    grammar.ignore(cppStyleComment)
+    grammar.ignore(L_STRING)
+    grammar.ignore(L_CHAR)
+
+    return lang.generic_method(
+        path=csharp_dest,
+        gmmr=grammar,
+        func=lang.path_contains_grammar2,
+        msgs=msgs,
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
+
+
+@api(risk=LOW)
+def has_generic_exceptions(csharp_dest: str, exclude: list = None) -> Result:
     """
     Search for generic exceptions in a C# source file or package.
 
     :param csharp_dest: Path to a C# source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
     """
-    tk_catch = CaselessKeyword('catch')
-    tk_generic_exc = CaselessKeyword('exception')
-    tk_type = Word(alphas)
-    tk_object_name = Word(alphas)
-    tk_object = Word(alphas)
-    generic_exception = Optional(Literal('}')) + tk_catch + Literal('(') + \
-        tk_generic_exc + Optional(Literal('(') + tk_type + Literal(')')) + \
-        Optional(tk_object_name) + \
-        Optional(Literal('(') + tk_object + Literal(')'))
+    return _declares_catch_for_exceptions(
+        csharp_dest=csharp_dest,
+        exceptions_list=[
+            'Exception',
+            'ApplicationException',
+            'SystemException',
 
-    result = False
-    try:
-        matches = lang.check_grammar(generic_exception, csharp_dest,
-                                     LANGUAGE_SPECS, exclude)
-        if not matches:
-            show_close('Code does not use generic exceptions',
-                       details=dict(code_dest=csharp_dest))
-            return False
-    except FileNotFoundError:
-        show_unknown('File does not exist',
-                     details=dict(code_dest=csharp_dest))
-        result = False
-    else:
-        result = True
-        show_open('Code uses generic exceptions',
-                  details=dict(matched=matches, total_vulns=len(matches)))
-    return result
+            'System.Exception',
+            'System.ApplicationException',
+            'System.SystemException',
+        ],
+        msgs={
+            OPEN: 'Code declares a "catch" for generic exceptions',
+            CLOSED: 'Code does not declare "catch" for generic exceptions',
+        },
+        exclude=exclude)
 
 
 @notify
@@ -177,7 +192,7 @@ def has_switch_without_default(csharp_dest: str, exclude: list = None) -> bool:
             return False
 
     switch_block = Suppress(switch) + nestedExpr(opener='{', closer='}')
-    switch_block.ignore(javaStyleComment)
+    switch_block.ignore(cppStyleComment)
     switch_block.ignore(L_CHAR)
     switch_block.ignore(L_STRING)
 

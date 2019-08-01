@@ -35,12 +35,12 @@ LINES_FORMAT = 'lines: '
 
 def test_has_generic_exceptions_open():
     """Code uses generic exceptions."""
-    assert csharp.has_generic_exceptions(INSECURE_CODE)
+    assert csharp.has_generic_exceptions(INSECURE_CODE).is_open()
 
 
 def test_has_generic_exceptions_in_dir_open():
     """Code uses generic exceptions."""
-    assert csharp.has_generic_exceptions(CODE_DIR)
+    assert csharp.has_generic_exceptions(CODE_DIR).is_open()
 
 
 def test_swallows_exceptions_open():
@@ -139,9 +139,10 @@ def test_uses_console_writeline_in_dir_open():
 
 def test_has_generic_exceptions_close():
     """Code uses generic exceptions."""
-    assert not csharp.has_generic_exceptions(SECURE_CODE)
-    assert not csharp.has_generic_exceptions(CODE_DIR, exclude=['test'])
-    assert not csharp.has_generic_exceptions(NON_EXISTANT_CODE)
+    assert csharp.has_generic_exceptions(SECURE_CODE).is_closed()
+    assert csharp.has_generic_exceptions(
+        CODE_DIR, exclude=['test']).is_closed()
+    assert csharp.has_generic_exceptions(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_swallows_exceptions_close():
