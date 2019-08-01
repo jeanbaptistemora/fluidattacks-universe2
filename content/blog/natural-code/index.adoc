@@ -5,7 +5,7 @@
 :tags: machine learning, vulnerability, code
 :image: cover.png
 :alt: Photo by Andres Urena on Unsplash. Credits: https://unsplash.com/photos/k1osF_h2fzA
-:description: Natural Language Processing has transcended the scope of natural language. Nowadays it has several applications in other realms such as static code analysis. In particular here we show applications to bug finding and coding conventions linting both based upon the n-gram model.
+:description: Natural Language Processing has transcended the scope of natural language. Nowadays it has several applications in other realms such as static code analysis. In particular, we show applications to bug finding and coding conventions linting both based upon the n-gram model.
 :keywords: Machine learning, Vulnerability, Natural Language Processing, N-gram, Predict, Bug
 :author: Rafael Ballestas
 :writer: raballestasr
@@ -18,7 +18,7 @@
 
 Our return to the
 link:../tags/machine-learning[Machine Learning (+ML+) for secure code series]
-is, link:../binary-learning[a bit of a digression],
+is link:../binary-learning[a bit of a digression],
 but one too interesting to resist.
 At the same time, it is not,
 since the
@@ -28,7 +28,7 @@ link:https://en.wikipedia.org/wiki/AI_effect[at least today],
 is considered to be
 link:https://en.wikipedia.org/wiki/Artificial_intelligence[Artificial Intelligence].
 And, as we will claim in this article,
-it has great potential and applications
+it has great potential for applications
 to information security.
 
 Nowadays basically every cell phone uses a predictive keyboard.
@@ -36,7 +36,7 @@ Besides completing words for you based on the first few letters,
 they are also able to suggest entire words after you have written some.
 And some of these combinations just make sense
 because they are used more frequently in common parlance.
-Certainly "peanut" is more likely to be followed by "butter" than "wrench".
+Certainly, "peanut" is more likely to be followed by "butter" than "wrench".
 Extending that idea to more words,
 "peanut butter and jelly" is definitely more likely
 to be followed by "sandwich" than "salad".
@@ -49,12 +49,12 @@ image::ngram-keyboard.gif[Android Predictive Keyboard demo animation]
 This is the basic idea behind _n_-gram analysis,
 a technique we have mentioned before in passing.
 It has been applied to a couple of
-the +ML+ powered vulnerability detectors we have discussed,
+the +ML+-powered vulnerability detectors we have discussed,
 most notably by the binary static analysis tool
 link:../binary-learning/[VDiscover].
 
 An _n_-gram is simply a sequence of _n_ consecutive words
-occuring in a piece of real text, which we take as basis for training.
+occurring in a piece of real text, which we take as basis for training.
 This text is called a _corpus_ in the Natural Language Processing context.
 This training essentially consists of
 
@@ -62,7 +62,7 @@ This training essentially consists of
 taking punctuation into account so that
 "now. But before" will not be considered a valid 3-gram.
 
-* Counting the occurrence of each _n_ gram vs the total,
+* Counting the occurrence of each _n_-gram vs the total,
 i.e., finding the relative frequency of each.
 
 That's it! Now if you see "peanut butter and jelly",
@@ -79,13 +79,13 @@ then the suggestions should be just as good.
 The quality of results and hence the accuracy of
 our classifier is highly dependent on the training corpus' quality.
 Cell phone predictive keyboards exploit this fact
-by learning from your own typing habits.
+by learning from your typing habits.
 Depending on who you are, "machine" might be more likely
 followed by "shop", "head" or "learning".
 
 Now if all this can be done on _natural_ language,
 which has all sorts of ambiguities,
-mistakes in training corpus, irregularities, etc,
+mistakes in the training corpus, irregularities, etc,
 image what can be done if we applied this same idea to code,
 which is highly regular, ordered and syntactically strict?
 The possible applications are very promising:
@@ -96,14 +96,14 @@ The possible applications are very promising:
 a special kind of linting.
 * Generate pseudo-code or documentation automatically.
 
-Of course all of these applications require,
+Of course, all of these applications require,
 as do the ones we have previously presented,
 a useful representation of code in a way that
 can be used by machine learning algorithms.
 This comes as no surprise by now if you have been
 following our series.
 The methods chosen for this particular application are
-Abstract Syntax Trees, and an adaptation of `word2vec` for code,
+Abstract Syntax Trees, and an adaptation of `word2vec` for code
 aptly named `code2vec`.
 
 With representation out of the way,
@@ -112,7 +112,7 @@ The main idea behind bug finding via n-gram analysis
 is to decompose every function into n-grams that represent their
 elements, such as `API` calls, variable names, etc.
 Then, compare them to one another for similarity.
-If we find rare (i.e. with low ocurrence frequency) n-grams
+If we find rare (i.e. with low occurrence frequency) n-grams
 which are highly similar to common (high frequency) code,
 then the rare ones are probably buggy and
 worthy of further analysis.
@@ -124,16 +124,30 @@ image::bugram-pig.png[Snippets found by Bugram]
 
 The above snippet is buggy
 due to the lack of `toString`.
-In fact it is exactly the same as the other snippet,
+In fact, it is exactly the same as the other snippet,
 only without `toString`.
 +Bugram+ suggested it as a possible bug because
-it was so similar to a commonly ocurring snippet.
+it was so similar to a commonly occurring snippet.
 The bug was reported to the +Pig+ team and confirmed.
 In the test proposed by the paper,
 +Bugram+ was able to find 42 confirmed bugs
 plus 17 false positives across 16 well-known
 open source +Java+ projects such as +Pig+.
 
+This approach, while simple and effective,
+is not without drawbacks, namely,
+that the weapon cannot be focused toward
+security-related bugs or any specific kind of bug.
+The same authors later proposed
+an approach based on link:../deep-hacking[deep learning]
+rather than _n_-grams, but again with the same aim:
+predicting sofware _defects_ in general.
+
+''''
+
+Another possible application of _n_-gram analysis
+that might indirectly contribute to writing more secure code
+follows the idea that "cleaner code leads to secure code".
 If a person's writing style can be learned by _n_-gram analysis,
 the same can be true of a particular coder's style,
 or even a whole software project.
@@ -162,10 +176,10 @@ link:https://www.se.rit.edu/~tabeec/RIT_441/Resources_files/How%20To%20Write%20U
 
 Behind the scenes, `Naturalize` uses
 natural language processing techniques such as _n_-gram analysis
-as disussed above to suggest more, well _natural_,
+as discussed above to suggest more, well _natural_,
 names to identifiers, which is the one place
 where developers can get creative,
-perhaps affecting the overall readibility or fitting into project conventions.
+perhaps affecting the overall readability or fitting into project conventions.
 The package can be integrated in the development pipeline
 such as a +pre-commit+ hook or during developing as an +Eclipse+ plugin:
 
@@ -183,7 +197,7 @@ the "natural language" line and increasingly into the
 "machine learning" or "artificial intelligence" for
 a wider scope of purposes, such as static code analysis,
 bug finding, and potentially, vulnerability finding.
-In the future we are more likely to encounter more
+In the future, we are more likely to encounter more
 applications of +NLP+ in the least expected places.
 
 
