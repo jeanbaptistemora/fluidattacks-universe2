@@ -40,7 +40,9 @@ RUN apt-get update -qq && \
         make \
         docker-ce \
         git \
-        unzip && \
+        unzip \
+        libxml2-dev \
+        libxslt1-dev && \
     python3 -m pip install -U  setuptools \
         wheel \
         pip && \
