@@ -261,6 +261,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         users_list = [user[0] for user in init_emails if user[1] == 1]
         return users_list
 
+    @require_role(['admin', 'analyst'])
     def resolve_drafts(self, info):
         """ Resolve drafts attribute """
         del info
