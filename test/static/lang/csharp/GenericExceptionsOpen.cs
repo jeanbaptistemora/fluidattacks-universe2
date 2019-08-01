@@ -55,5 +55,9 @@ public class GenericExceptionsOpen
     {
       Console.WriteLine(e);
     }
+    catch(NullReferenceException e)
+    {
+      Console.WriteLine(e);
+    }
   }
 }

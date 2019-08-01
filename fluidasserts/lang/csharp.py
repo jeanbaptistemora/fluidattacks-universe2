@@ -112,6 +112,32 @@ def has_generic_exceptions(csharp_dest: str, exclude: list = None) -> Result:
         exclude=exclude)
 
 
+@api(risk=LOW)
+def uses_catch_for_null_reference_exception(
+        csharp_dest: str, exclude: list = None) -> Result:
+    """
+    Search for the use of NullReferenceException "catch" in a path.
+
+    See `CWE-395 <https://cwe.mitre.org/data/definitions/395.html>`_.
+
+    :param csharp_dest: Path to a C# source file or package.
+    :param exclude: Paths that contains any string from this list are ignored.
+    """
+    return _declares_catch_for_exceptions(
+        csharp_dest=csharp_dest,
+        exceptions_list=[
+            'NullReferenceException',
+            'system.NullReferenceException',
+        ],
+        msgs={
+            OPEN: ('Code uses NullReferenceException '
+                   'Catch to handle NULL Pointer Dereferences'),
+            CLOSED: ('Code does not use NullPointerException '
+                     'Catch to handle NULL Pointer Dereferences'),
+        },
+        exclude=exclude)
+
+
 @notify
 @level('low')
 @track
