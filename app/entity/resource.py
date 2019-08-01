@@ -415,7 +415,10 @@ class RemoveFiles(Mutation):
                 index = -1
             cont += 1
         if index >= 0:
-            file_url = project_name + '/' + file_name
+            file_url = '{project}/{file_name}'.format(
+                project=project_name.lower(),
+                file_name=file_name
+            )
             success = resources.delete_file_from_s3(file_url)
             integrates_dao.remove_list_resource_dynamo(
                 'FI_projects',
