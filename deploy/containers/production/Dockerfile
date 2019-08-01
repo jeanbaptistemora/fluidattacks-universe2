@@ -61,9 +61,9 @@ RUN gem install -N asciidoctor:1.5.8 \
 COPY front /tmp/front
 RUN npm install -g secure-spreadsheet@0.1.0 \
   && mkdir -p /npm-deps/front \
-  && npm install --prefix /tmp/front \
+  && npm install --prefix /tmp/front --only=production \
   && npm cache clean --force \
-  && cp -r /tmp/front/node_modules /npm-deps/front/node_modules
+  && mv /tmp/front/node_modules /npm-deps/front/
 
 # patches and cleans
 COPY "$PATCHES/enable_redis_cluster_sessions.diff" /tmp
