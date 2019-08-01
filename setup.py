@@ -106,6 +106,7 @@ setup(
         'pyjks==19.0.0',             # fluidasserts.format.jks
         'gitpython==2.1.12',         # fluidasserts.proto.git
         'aiohttp==3.5.4',            # fluidasserts
+        'androguard==3.3.5',         # fluidasserts.format.apk
     ],
     include_package_data=True,      # archivos a incluir en MANIFEST.in
     entry_points={
