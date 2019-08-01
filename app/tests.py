@@ -10,7 +10,7 @@ from django.conf import settings
 from graphene.test import Client
 from jose import jwt
 
-from .dao.helpers.formstack import FormstackAPI
+from .dal.helpers.formstack import FormstackAPI
 from .entity import schema
 from .utils import cvss
 from .dto.finding import FindingDTO

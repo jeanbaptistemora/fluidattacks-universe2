@@ -1,9 +1,9 @@
 """Domain functions for events."""
 
 import rollbar
-from app.dao import integrates_dao
+from app.dal import integrates_dal
 from app import util
-from app.dao.helpers.formstack import FormstackAPI
+from app.dal.helpers.formstack import FormstackAPI
 from app.dto.eventuality import EventDTO
 
 
@@ -34,7 +34,7 @@ def update_event(event_id, affectation, info):
         table_name = 'fi_events'
         closer = util.get_jwt_content(info.context)['user_email']
         event_data['closer'] = closer
-        event_migrated = integrates_dao.add_multiple_attributes_dynamo(
+        event_migrated = integrates_dal.add_multiple_attributes_dynamo(
             table_name, primary_keys, event_data)
         if event_migrated:
             updated = True
@@ -51,7 +51,7 @@ def update_event(event_id, affectation, info):
 
 def get_event_project_name(event_id):
     """Get the name of the project of a finding."""
-    project = integrates_dao.get_event_project(event_id)
+    project = integrates_dal.get_event_project(event_id)
     if not project:
         api = FormstackAPI()
         evt_dto = EventDTO()

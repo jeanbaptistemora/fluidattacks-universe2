@@ -30,9 +30,9 @@ from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 )
 from app import util
-from app.dao.helpers.drive import DriveAPI
-from app.dao.helpers.formstack import FormstackAPI
-from app.dao import integrates_dao
+from app.dal.helpers.drive import DriveAPI
+from app.dal.helpers.formstack import FormstackAPI
+from app.dal import integrates_dal
 from app.decorators import authenticate, authorize, cache_content
 from app.domain.vulnerability import (
     group_specific, get_open_vuln_by_type, get_vulnerabilities_by_type
@@ -124,7 +124,7 @@ def dashboard(request):
             'company': request.session["company"],
             'last_login': request.session["last_login"]
         }
-        integrates_dao.update_user_login_dao(request.session["username"])
+        integrates_dal.update_user_login(request.session["username"])
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
         return redirect('/error500')
@@ -175,7 +175,7 @@ Attempted to export project xls without permission')
     if lang not in ["es", "en"]:
         rollbar.report_message('Error: Unsupported language', 'error', request)
         return util.response([], 'Unsupported language', True)
-    findings = integrates_dao.get_findings_dynamo(project)
+    findings = integrates_dal.get_findings_dynamo(project)
     if findings:
         for fin in findings:
             if util.validate_release_date(fin):
@@ -235,7 +235,7 @@ Attempted to export project pdf without permission')
         validator = validation_project_to_pdf(request, lang, doctype)
         if validator is not None:
             return validator
-        findings = integrates_dao.get_findings_dynamo(project)
+        findings = integrates_dal.get_findings_dynamo(project)
         for fin in findings:
             if util.validate_release_date(fin):
                 finding_parsed = parse_finding(fin)
@@ -393,7 +393,7 @@ def format_where(where, vulnerabilities):
 def format_release_date(finding):
     primary_keys = ["finding_id", finding["id"]]
     table_name = "FI_findings"
-    finding_dynamo = integrates_dao.get_data_dynamo(
+    finding_dynamo = integrates_dal.get_data_dynamo(
         table_name, primary_keys[0], primary_keys[1])
     if finding_dynamo:
         if finding_dynamo[0].get("releaseDate"):
@@ -474,7 +474,7 @@ def key_existing_list(key):
 
 def delete_all_coments(finding_id):
     """Delete all comments of a finding."""
-    all_comments = integrates_dao.get_comments_dynamo(int(finding_id), "comment")
+    all_comments = integrates_dal.get_comments_dynamo(int(finding_id), "comment")
     comments_deleted = [delete_comment(i) for i in all_comments]
     util.invalidate_cache(finding_id)
     return all(comments_deleted)
@@ -485,7 +485,7 @@ def delete_comment(comment):
     if comment:
         finding_id = comment["finding_id"]
         user_id = comment["user_id"]
-        response = integrates_dao.delete_comment_dynamo(finding_id, user_id)
+        response = integrates_dal.delete_comment_dynamo(finding_id, user_id)
         util.invalidate_cache(finding_id)
     else:
         response = True
@@ -501,7 +501,7 @@ def delete_project(project):
     is_project_masked_in_dynamo = mask_project_findings_dynamo(project)
     are_closings_masked = mask_project_closings(project)
     project_deleted = remove_project_from_db(project)
-    update_project_state_db = integrates_dao.update_attribute_dynamo('FI_projects',
+    update_project_state_db = integrates_dal.update_attribute_dynamo('FI_projects',
                                                                      ['project_name', project],
                                                                      'project_status', 'FINISHED')
     is_project_deleted = \
@@ -513,7 +513,7 @@ def delete_project(project):
 
 def remove_all_users_access(project):
     """Remove user access to project."""
-    all_users = integrates_dao.get_project_users(project)
+    all_users = integrates_dal.get_project_users(project)
     are_users_removed = True
     for user in all_users:
         is_user_removed = remove_user_access(project, user[0])
@@ -527,11 +527,11 @@ def remove_all_users_access(project):
 
 def remove_user_access(project, user_email):
     """Remove user access to project."""
-    integrates_dao.remove_role_to_project_dynamo(project, user_email, "customeradmin")
-    is_user_removed_dao = integrates_dao.remove_access_project_dao(user_email,
-                                                                   project)
-    is_user_removed_dynamo = integrates_dao.remove_project_access_dynamo(user_email, project)
-    is_user_removed = is_user_removed_dao and is_user_removed_dynamo
+    integrates_dal.remove_role_to_project_dynamo(project, user_email, "customeradmin")
+    is_user_removed_dal = integrates_dal.remove_access_project(user_email,
+                                                               project)
+    is_user_removed_dynamo = integrates_dal.remove_project_access_dynamo(user_email, project)
+    is_user_removed = is_user_removed_dal and is_user_removed_dynamo
     return is_user_removed
 
 
@@ -553,7 +553,7 @@ def mask_project_findings(project):
         finding_deleted.append(
             {"name": "comments_dynamoDB", "was_deleted": all(are_comments_deleted)})
         are_vuln_deleted = list(map(lambda x: delete_vulnerabilities(x["id"], project), finreqset))
-        integrates_dao.add_list_resource_dynamo(
+        integrates_dal.add_list_resource_dynamo(
             "FI_projects", "project_name", project, finding_deleted, "findings_deleted")
         is_project_deleted = all(is_project_masked) and all(are_evidences_deleted) \
             and all(are_comments_deleted) and all(are_vuln_deleted)
@@ -581,7 +581,7 @@ def mask_project_findings_dynamo(project):
         deletion_track = [{"name": "description_dynamoDB", "was_deleted": is_project_deleted},
                           {"name": "vulns_dynamoDB", "was_deleted": is_project_deleted},
                           {"name": "evidence_dynamoDB", "was_deleted": is_project_deleted}]
-        integrates_dao.add_list_resource_dynamo(
+        integrates_dal.add_list_resource_dynamo(
             "FI_projects", "project_name", project, deletion_track, "findings_deleted")
         return is_project_deleted
     except KeyError:
@@ -650,13 +650,13 @@ def delete_s3_evidence(evidence):
 
 def remove_project_from_db(project):
     """Delete records of projects in db."""
-    deleted_mysql = integrates_dao.delete_project(project)
+    deleted_mysql = integrates_dal.delete_project(project)
     return deleted_mysql
 
 
 def delete_vulnerabilities(finding_id, project):
     """Delete vulnerabilities from dynamo."""
-    are_vulns_deleted = integrates_dao.delete_vulns_email_dynamo(project, finding_id)
+    are_vulns_deleted = integrates_dal.delete_vulns_email_dynamo(project, finding_id)
     return are_vulns_deleted
 
 
@@ -708,7 +708,7 @@ Attempted to retrieve vulnerabilities without permission')
 @require_http_methods(["GET"])
 def generate_complete_report(request):
     user_data = util.get_jwt_content(request)
-    projects = [project[0] for project in integrates_dao.get_projects_by_user(
+    projects = [project[0] for project in integrates_dal.get_projects_by_user(
         user_data['user_email'])]
     book = load_workbook('/usr/src/app/app/techdoc/templates/COMPLETE.xlsx')
     sheet = book.active
@@ -723,10 +723,10 @@ def generate_complete_report(request):
 
     row_index = row_offset
     for project in projects:
-        findings = integrates_dao.get_findings_released_dynamo(
+        findings = integrates_dal.get_findings_released_dynamo(
             project, 'finding_id, finding, treatment, treatment_manager')
         for finding in findings:
-            vulns = integrates_dao.get_vulnerabilities_dynamo(
+            vulns = integrates_dal.get_vulnerabilities_dynamo(
                 finding['finding_id'])
             for vuln in vulns:
                 sheet.cell(row_index, vuln_where_col, vuln['where'])

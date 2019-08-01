@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import cgi
 import mandrill
 from __init__ import FI_MANDRILL_API_KEY, FI_TEST_PROJECTS
-from .dao import integrates_dao
+from .dal import integrates_dal
 
 API_KEY = FI_MANDRILL_API_KEY
 VERIFY_TAG = ['verify']
@@ -26,7 +26,7 @@ def _remove_test_projects(context, test_proj_list):
 
 
 def _get_recipient_first_name(email):
-    first_name = integrates_dao.get_user_first_name(email)
+    first_name = integrates_dal.get_user_first_name(email)
     if not first_name:
         first_name = email.split('@')[0]
     else:

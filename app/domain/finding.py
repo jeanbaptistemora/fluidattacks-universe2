@@ -22,9 +22,9 @@ from __init__ import (
     FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
 )
 from app import util
-from app.dao.helpers.drive import DriveAPI
-from app.dao.helpers.formstack import FormstackAPI
-from app.dao import integrates_dao, finding as finding_dao
+from app.dal.helpers.drive import DriveAPI
+from app.dal.helpers.formstack import FormstackAPI
+from app.dal import integrates_dal, finding as finding_dal
 from app.domain.vulnerability import update_vulnerabilities_date
 from app.dto.finding import (
     FindingDTO, get_project_name, migrate_description, migrate_treatment,
@@ -86,14 +86,14 @@ def update_file_to_s3(parameters, field, fieldname, upload, fileurl):
 
 def add_file_attribute(finding_id, file_name, file_attr, file_attr_value):
     attr_name = 'files'
-    files = integrates_dao.get_finding_attributes_dynamo(finding_id, [attr_name])
+    files = integrates_dal.get_finding_attributes_dynamo(finding_id, [attr_name])
     index = 0
     response = False
     primary_keys = ['finding_id', finding_id]
     if files and files.get(attr_name):
         for file_obj in files.get(attr_name):
             if file_obj.get('name') == file_name:
-                response = integrates_dao.update_item_list_dynamo(
+                response = integrates_dal.update_item_list_dynamo(
                     primary_keys, attr_name, index, file_attr, file_attr_value)
                 break
             else:
@@ -106,7 +106,7 @@ def add_file_attribute(finding_id, file_name, file_attr, file_attr_value):
     else:
         file_data = []
         file_data.append({'name': file_name, file_attr: file_attr_value})
-        is_url_saved = integrates_dao.add_list_resource_dynamo(
+        is_url_saved = integrates_dal.add_list_resource_dynamo(
             'FI_findings',
             'finding_id',
             finding_id,
@@ -226,7 +226,7 @@ def cast_tracking(tracking):
 
 
 def get_dynamo_evidence(finding_id):
-    finding_data = integrates_dao.get_finding_attributes_dynamo(
+    finding_data = integrates_dal.get_finding_attributes_dynamo(
         finding_id, ['files'])
     evidence_files = finding_data.get('files', [])
     parsed_evidence = {
@@ -296,19 +296,19 @@ def list_comments(user_email, comment_type, finding_id):
         'id': int(comment['user_id']),
         'modified': util.format_comment_date(comment['modified']),
         'parent': int(comment['parent'])
-    } for comment in integrates_dao.get_comments_dynamo(int(finding_id), comment_type)]
+    } for comment in integrates_dal.get_comments_dynamo(int(finding_id), comment_type)]
 
     return comments
 
 
 def get_email_recipients(project_name, comment_type):
-    project_users = integrates_dao.get_project_users(project_name)
+    project_users = integrates_dal.get_project_users(project_name)
     recipients = []
 
     if comment_type == 'observation':
         approvers = FI_MAIL_REVIEWERS.split(',')
         analysts = [user[0] for user in project_users
-                    if integrates_dao.get_role_dao(user[0]) == 'analyst']
+                    if integrates_dal.get_role(user[0]) == 'analyst']
 
         recipients += approvers
         recipients += analysts
@@ -323,7 +323,7 @@ def send_comment_mail(user_email, comment_data, finding_id):
     project_name = get_project_name(finding_id).lower()
     recipients = get_email_recipients(project_name, comment_type)
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
-    dynamo_value = integrates_dao.get_finding_attributes_dynamo(
+    dynamo_value = integrates_dal.get_finding_attributes_dynamo(
         finding_id, ['finding'])
     if dynamo_value:
         finding_title = dynamo_value.get('finding')
@@ -365,12 +365,12 @@ def add_comment(user_email, comment_data, finding_id, is_remediation_comment):
     if not is_remediation_comment:
         send_comment_mail(user_email, comment_data, finding_id)
 
-    return integrates_dao.add_finding_comment_dynamo(int(finding_id),
+    return integrates_dal.add_finding_comment_dynamo(int(finding_id),
                                                      user_email, comment_data)
 
 
 def send_finding_verified_email(finding_id, finding_name, project_name):
-    project_users = integrates_dao.get_project_users(project_name)
+    project_users = integrates_dal.get_project_users(project_name)
     recipients = [user[0] for user in project_users if user[1] == 1]
 
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
@@ -417,10 +417,10 @@ def get_tracking_vulnerabilities(act_finding, vulnerabilities):
 def verify_finding(finding_id, user_email):
     project_name = get_project_name(finding_id).lower()
     finding_name = \
-        integrates_dao.get_finding_attributes_dynamo(finding_id,
+        integrates_dal.get_finding_attributes_dynamo(finding_id,
                                                      ['finding']).get('finding')
     success = \
-        integrates_dao.add_remediated_dynamo(int(finding_id), False,
+        integrates_dal.add_remediated_dynamo(int(finding_id), False,
                                              project_name, finding_name)
     if success:
         update_vulnerabilities_date(user_email, finding_id)
@@ -428,7 +428,7 @@ def verify_finding(finding_id, user_email):
                                     finding_name, project_name)
         project_users = [user[0]
                          for user
-                         in integrates_dao.get_project_users(project_name)
+                         in integrates_dal.get_project_users(project_name)
                          if user[1] == 1]
         notifications.notify_mobile(
             project_users,
@@ -444,7 +444,7 @@ def verify_finding(finding_id, user_email):
 
 def send_remediation_email(user_email, finding_id, finding_name,
                            project_name, justification):
-    project_users = integrates_dao.get_project_users(project_name)
+    project_users = integrates_dal.get_project_users(project_name)
     recipients = [user[0] for user in project_users if user[1] == 1]
 
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
@@ -468,9 +468,9 @@ def send_remediation_email(user_email, finding_id, finding_name,
 def request_verification(finding_id, user_email, user_fullname, justification):
     project_name = get_project_name(finding_id).lower()
     finding_name = \
-        integrates_dao.get_finding_attributes_dynamo(finding_id,
+        integrates_dal.get_finding_attributes_dynamo(finding_id,
                                                      ['finding']).get('finding')
-    success = integrates_dao.add_remediated_dynamo(int(finding_id), True,
+    success = integrates_dal.add_remediated_dynamo(int(finding_id), True,
                                                    project_name, finding_name)
     if success:
         comment_data = {
@@ -490,7 +490,7 @@ def request_verification(finding_id, user_email, user_fullname, justification):
                                project_name, justification)
         project_users = [user[0]
                          for user
-                         in integrates_dao.get_project_users(project_name)
+                         in integrates_dal.get_project_users(project_name)
                          if user[1] == 1]
         notifications.notify_mobile(
             project_users,
@@ -526,7 +526,7 @@ def update_description(finding_id, updated_values):
                 updated_values['probability'],
                 updated_values['severity'])
 
-    description = integrates_dao.get_finding_attributes_dynamo(
+    description = integrates_dal.get_finding_attributes_dynamo(
         finding_id,
         ['vulnerability'])
 
@@ -549,7 +549,7 @@ def update_description(finding_id, updated_values):
 
     updated_values = {util.camelcase_to_snakecase(k): updated_values.get(k)
                       for k in updated_values}
-    return integrates_dao.update_mult_attrs_dynamo(
+    return integrates_dal.update_mult_attrs_dynamo(
         'FI_findings',
         {'finding_id': finding_id},
         updated_values
@@ -558,10 +558,10 @@ def update_description(finding_id, updated_values):
 
 def send_accepted_email(finding_id, user_email, justification):
     project_name = get_project_name(finding_id).lower()
-    project_users = integrates_dao.get_project_users(project_name)
+    project_users = integrates_dal.get_project_users(project_name)
     recipients = [user[0] for user in project_users if user[1] == 1]
     finding_name = \
-        integrates_dao.get_finding_attributes_dynamo(finding_id,
+        integrates_dal.get_finding_attributes_dynamo(finding_id,
                                                      ['finding']).get('finding')
 
     email_send_thread = threading.Thread(
@@ -579,10 +579,10 @@ def send_accepted_email(finding_id, user_email, justification):
 
 
 def update_treatment_in_vuln(finding_id, updated_values):
-    vulns = integrates_dao.get_vulnerabilities_dynamo(finding_id)
+    vulns = integrates_dal.get_vulnerabilities_dynamo(finding_id)
     for vuln in vulns:
         result_update_treatment = \
-            integrates_dao.update_mult_attrs_dynamo('FI_vulnerabilities',
+            integrates_dal.update_mult_attrs_dynamo('FI_vulnerabilities',
                                                     {'finding_id': finding_id,
                                                      'UUID': vuln['UUID']},
                                                     updated_values)
@@ -602,7 +602,7 @@ def update_treatment(finding_id, updated_values, user_email):
         send_accepted_email(finding_id, user_email,
                             updated_values.get('treatment_justification'))
 
-    result_update_finding = integrates_dao.update_mult_attrs_dynamo(
+    result_update_finding = integrates_dal.update_mult_attrs_dynamo(
         'FI_findings',
         {'finding_id': finding_id},
         updated_values
@@ -666,7 +666,7 @@ def save_severity(finding):
         unformatted_severity, cvss_parameters, cvss_version)
     severity['cvss_version'] = cvss_version
     response = \
-        integrates_dao.add_multiple_attributes_dynamo('FI_findings',
+        integrates_dal.add_multiple_attributes_dynamo('FI_findings',
                                                       primary_keys, severity)
     return response
 
@@ -736,7 +736,7 @@ def delete_comment(comment):
     if comment:
         finding_id = comment['finding_id']
         user_id = comment['user_id']
-        response = integrates_dao.delete_comment_dynamo(finding_id, user_id)
+        response = integrates_dal.delete_comment_dynamo(finding_id, user_id)
     else:
         response = True
     return response
@@ -744,7 +744,7 @@ def delete_comment(comment):
 
 def delete_all_comments(finding_id):
     """Delete all comments of a finding."""
-    all_comments = integrates_dao.get_comments_dynamo(int(finding_id), 'comment')
+    all_comments = integrates_dal.get_comments_dynamo(int(finding_id), 'comment')
     comments_deleted = [delete_comment(i) for i in all_comments]
     util.invalidate_cache(finding_id)
     return all(comments_deleted)
@@ -802,7 +802,7 @@ def reject_draft(draft_id, reviewer_email, project_name):
     fin_dto = FindingDTO()
     api = FormstackAPI()
     is_draft = ('releaseDate' not in
-                integrates_dao.get_finding_attributes_dynamo(draft_id, ['releaseDate']))
+                integrates_dal.get_finding_attributes_dynamo(draft_id, ['releaseDate']))
     result = False
 
     if is_draft:
@@ -810,10 +810,10 @@ def reject_draft(draft_id, reviewer_email, project_name):
 
         delete_all_comments(draft_id)
         delete_all_evidences_s3(draft_id, project_name)
-        integrates_dao.delete_finding_dynamo(draft_id)
+        integrates_dal.delete_finding_dynamo(draft_id)
 
-        for vuln in integrates_dao.get_vulnerabilities_dynamo(draft_id):
-            integrates_dao.delete_vulnerability_dynamo(vuln['UUID'], draft_id)
+        for vuln in integrates_dal.get_vulnerabilities_dynamo(draft_id):
+            integrates_dal.delete_vulnerability_dynamo(vuln['UUID'], draft_id)
 
         api.delete_submission(draft_id)
         send_draft_reject_mail(
@@ -850,7 +850,7 @@ def delete_finding(finding_id, project_name, justification):
     fin_dto = FindingDTO()
     api = FormstackAPI()
     is_finding = ('releaseDate' in
-                  integrates_dao.get_finding_attributes_dynamo(finding_id, ['releaseDate']))
+                  integrates_dal.get_finding_attributes_dynamo(finding_id, ['releaseDate']))
     result = False
 
     if is_finding:
@@ -858,10 +858,10 @@ def delete_finding(finding_id, project_name, justification):
 
         delete_all_comments(finding_id)
         delete_all_evidences_s3(finding_id, project_name)
-        integrates_dao.delete_finding_dynamo(finding_id)
+        integrates_dal.delete_finding_dynamo(finding_id)
 
-        for vuln in integrates_dao.get_vulnerabilities_dynamo(finding_id):
-            integrates_dao.delete_vulnerability_dynamo(vuln['UUID'], finding_id)
+        for vuln in integrates_dal.get_vulnerabilities_dynamo(finding_id):
+            integrates_dal.delete_vulnerability_dynamo(vuln['UUID'], finding_id)
 
         api.delete_submission(finding_id)
         send_finding_delete_mail(
@@ -878,9 +878,9 @@ def approve_draft(draft_id, project_name):
     fin_dto = FindingDTO()
     api = FormstackAPI()
     is_draft = ('releaseDate' not in
-                integrates_dao.get_finding_attributes_dynamo(draft_id, ['releaseDate']))
+                integrates_dal.get_finding_attributes_dynamo(draft_id, ['releaseDate']))
     success = False
-    has_vulns = integrates_dao.get_vulnerabilities_dynamo(draft_id)
+    has_vulns = integrates_dal.get_vulnerabilities_dynamo(draft_id)
 
     if is_draft:
         if has_vulns:
@@ -890,7 +890,7 @@ def approve_draft(draft_id, project_name):
             if has_release and has_last_vuln:
                 success = migrate_finding(draft_id, project_name, finding_data)
                 if success:
-                    integrates_dao.add_release_to_project_dynamo(
+                    integrates_dal.add_release_to_project_dynamo(
                         project_name, release_date)
                 else:
                     rollbar.report_message('Error: An error occurred migrating the draft', 'error')
@@ -909,7 +909,7 @@ def update_release(project_name, finding_data, draft_id):
     release_date = datetime.now(tz=local_timezone).date()
     if ('subscription' in finding_data and
             finding_data['subscription'] in ['CONTINUOUS', 'Concurrente', 'Si']):
-        releases = integrates_dao.get_project_dynamo(project_name)
+        releases = integrates_dal.get_project_dynamo(project_name)
 
         for release in releases:
             if 'lastRelease' in release:
@@ -919,9 +919,9 @@ def update_release(project_name, finding_data, draft_id):
                 if last_release >= release_date:
                     release_date = last_release + timedelta(days=2)
     release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
-    has_release = integrates_dao.add_attribute_dynamo('FI_findings', ['finding_id', draft_id],
+    has_release = integrates_dal.add_attribute_dynamo('FI_findings', ['finding_id', draft_id],
                                                       'releaseDate', release_date)
-    has_last_vuln = integrates_dao.add_attribute_dynamo('FI_findings', ['finding_id', draft_id],
+    has_last_vuln = integrates_dal.add_attribute_dynamo('FI_findings', ['finding_id', draft_id],
                                                         'lastVulnerability', release_date)
     return release_date, has_release, has_last_vuln
 
@@ -944,13 +944,13 @@ def migrate_finding(draft_id, project_name, finding_data):
 
 
 def get_finding(finding_id):
-    finding = finding_dao.get_finding(finding_id)
+    finding = finding_dal.get_finding(finding_id)
     if not finding:
         fs_finding = finding_vulnerabilities(finding_id)
         if fs_finding:
             migrate_finding(
                 finding_id, fs_finding['projectName'], fs_finding)
-            finding = finding_dao.get_finding(finding_id)
+            finding = finding_dal.get_finding(finding_id)
         else:
             raise FindingNotFound()
 

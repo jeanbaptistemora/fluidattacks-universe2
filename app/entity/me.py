@@ -10,7 +10,7 @@ from jose import jwt
 import rollbar
 
 from app import util
-from app.dao import integrates_dao
+from app.dal import integrates_dal
 from app.entity.project import Project
 from app.services import is_customeradmin
 
@@ -40,7 +40,7 @@ class Me(ObjectType):
     def resolve_projects(self, info):
         jwt_content = util.get_jwt_content(info.context)
         user_email = jwt_content.get('user_email')
-        for project in integrates_dao.get_projects_by_user(user_email):
+        for project in integrates_dal.get_projects_by_user(user_email):
             self.projects.append(
                 Project(project_name=project[0], description=project[1])
             )
@@ -82,16 +82,16 @@ class SignIn(Mutation):
                     raise GraphQLError('INVALID_AUTH_TOKEN')
                 else:
                     email = user_info['email']
-                    authorized = integrates_dao.is_registered_dao(email) == '1'
+                    authorized = integrates_dal.is_registered(email) == '1'
                     if push_token:
-                        integrates_dao.add_set_element_dynamo(
+                        integrates_dal.add_set_element_dynamo(
                             'FI_users', ['email', email],
                             'devices_to_notify', [push_token])
                     session_jwt = jwt.encode(
                         {
                             'user_email': email,
-                            'user_role': integrates_dao.get_role_dao(email),
-                            'company': integrates_dao.get_organization_dao(
+                            'user_role': integrates_dal.get_role(email),
+                            'company': integrates_dal.get_organization(
                                 email),
                             'exp': datetime.utcnow() +
                             timedelta(seconds=settings.SESSION_COOKIE_AGE)

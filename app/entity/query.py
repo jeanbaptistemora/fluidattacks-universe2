@@ -6,7 +6,7 @@ from __future__ import absolute_import
 from graphene import Field, String, ObjectType, List
 
 from app import util
-from app.dao.helpers.formstack import FormstackAPI
+from app.dal.helpers.formstack import FormstackAPI
 from app.entity.me import Me
 from app.entity.alert import Alert
 from app.entity.login import Login
@@ -22,7 +22,7 @@ from app.decorators import (
     require_finding_access, get_cached,
     require_event_access_gql
 )
-from ..dao import integrates_dao
+from ..dal import integrates_dal
 from ..exceptions import InvalidProject
 
 
@@ -76,7 +76,7 @@ class Query(ObjectType):
         """ Resolve for eventualities """
         del info
         resp = FormstackAPI().get_eventualities(str(project_name))
-        project_exist = integrates_dao.get_project_attributes_dynamo(
+        project_exist = integrates_dal.get_project_attributes_dynamo(
             project_name.lower(), ['project_name'])
         data = []
         if project_exist:

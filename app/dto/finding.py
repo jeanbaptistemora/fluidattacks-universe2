@@ -10,8 +10,8 @@ from django.conf import settings
 import pytz
 import rollbar
 
-from ..dao import integrates_dao
-from ..dao.helpers.formstack import FormstackAPI
+from ..dal import integrates_dal
+from ..dal.helpers.formstack import FormstackAPI
 from ..utils import forms
 from ..utils import cvss
 from .. import util
@@ -161,7 +161,7 @@ class FindingDTO(object):
         self.data = dict()
         self.data['id'] = submission_id
         report_title = ['report_date']
-        report_date = integrates_dao.get_finding_attributes_dynamo(
+        report_date = integrates_dal.get_finding_attributes_dynamo(
             str(submission_id),
             report_title)
         if report_date:
@@ -201,7 +201,7 @@ class FindingDTO(object):
                              'finding', 'probability', 'severity',
                              'risk_value', 'ambit', 'category', 'test_type',
                              'related_findings', 'actor', 'scenario']
-        description = integrates_dao.get_finding_attributes_dynamo(
+        description = integrates_dal.get_finding_attributes_dynamo(
             str(submission_id),
             description_title)
         if description:
@@ -239,7 +239,7 @@ class FindingDTO(object):
                                 'affected_systems', 'threat', 'risk',
                                 'requirements', 'cwe', 'effect_solution',
                                 'kb', 'finding_type']
-        aditional_info = integrates_dao.get_finding_attributes_dynamo(
+        aditional_info = integrates_dal.get_finding_attributes_dynamo(
             str(submission_id),
             aditional_info_title)
         if aditional_info:
@@ -271,7 +271,7 @@ class FindingDTO(object):
             migrated_aditional_info_dict)
         treatment_title = ['treatment', 'treatment_justification',
                            'treatment_manager', 'external_bts']
-        treatment_info = integrates_dao.get_finding_attributes_dynamo(
+        treatment_info = integrates_dal.get_finding_attributes_dynamo(
             str(submission_id),
             treatment_title)
         if treatment_info:
@@ -295,7 +295,7 @@ class FindingDTO(object):
         migrated_data = forms.dict_concatenation(
             migrated_data,
             treatment_dict)
-        cvss_version_info = integrates_dao.get_finding_attributes_dynamo(
+        cvss_version_info = integrates_dal.get_finding_attributes_dynamo(
             str(submission_id),
             ['cvss_version'])
         if cvss_version_info:
@@ -345,7 +345,7 @@ class FindingDTO(object):
                           'confidence_level', 'collateral_damage_potential',
                           'finding_distribution', 'confidentiality_requirement',
                           'integrity_requirement', 'availability_requirement']
-        severity = integrates_dao.get_finding_attributes_dynamo(
+        severity = integrates_dal.get_finding_attributes_dynamo(
             str(submission_id),
             severity_title)
         if severity and len(severity.keys()) > 1:
@@ -400,7 +400,7 @@ class FindingDTO(object):
                           'modified_privileges_required', 'modified_user_interaction',
                           'modified_severity_scope', 'modified_confidentiality_impact',
                           'modified_integrity_impact', 'modified_availability_impact']
-        severity = integrates_dao.get_finding_attributes_dynamo(
+        severity = integrates_dal.get_finding_attributes_dynamo(
             str(submission_id),
             severity_title)
         if severity and len(severity.keys()) > 1:
@@ -469,7 +469,7 @@ class FindingDTO(object):
         "Convert project info in formstack format"
         project_title = ['analyst', 'leader', 'interested', 'project_name',
                          'client_project', 'context']
-        project_info = integrates_dao.get_finding_attributes_dynamo(
+        project_info = integrates_dal.get_finding_attributes_dynamo(
             str(submission_id),
             project_title)
         if project_info and project_info.get('analyst'):
@@ -497,7 +497,7 @@ class FindingDTO(object):
         """Convert the score of a finding into a formstack format."""
         initial_dict = forms.create_dict(request_arr)
         evidence_title = ['records_number', 'records']
-        evidence_info = integrates_dao.get_finding_attributes_dynamo(
+        evidence_info = integrates_dal.get_finding_attributes_dynamo(
             str(submission_id),
             evidence_title)
         if evidence_info:
@@ -523,7 +523,7 @@ class FindingDTO(object):
             'evidence_route_5': 'evidence_description_5'
         }
         if has_migrated_evidence(submission_id):
-            files_info = integrates_dao.get_finding_attributes_dynamo(
+            files_info = integrates_dal.get_finding_attributes_dynamo(
                 str(submission_id),
                 files_field)
             evidence_tab_info = {description_fields[file_obj['name']]: file_obj.get('description')
@@ -600,9 +600,9 @@ class FindingDTO(object):
 def mask_finding_fields_dynamo(finding_id, fields, mask_value):
     primary_keys = ['finding_id', str(finding_id)]
     description = {k: mask_value for k in fields}
-    is_description_masked = integrates_dao.\
+    is_description_masked = integrates_dal.\
         add_multiple_attributes_dynamo('FI_findings', primary_keys, description)
-    vulns = integrates_dao.get_vulnerabilities_dynamo(finding_id)
+    vulns = integrates_dal.get_vulnerabilities_dynamo(finding_id)
     vuln_fields = ['specific', 'where']
     are_vulns_masked = list(map(lambda x:
                                 mask_vulns_fields_dynamo(x, vuln_fields,
@@ -617,7 +617,7 @@ def mask_vulns_fields_dynamo(vulnerability, fields, mask_value):
     keys = {'finding_id': str(vulnerability.get('finding_id')),
             'UUID': str(vulnerability.get('UUID'))}
     for field in fields:
-        is_masked = integrates_dao.\
+        is_masked = integrates_dal.\
             update_in_multikey_table_dynamo('FI_vulnerabilities', keys, field,
                                             mask_value)
         are_masked.append(is_masked)
@@ -627,13 +627,13 @@ def mask_vulns_fields_dynamo(vulnerability, fields, mask_value):
 
 def mask_evidence_dynamo(finding_id):
     attr_name = 'files'
-    files = integrates_dao.get_finding_attributes_dynamo(finding_id, [attr_name])
+    files = integrates_dal.get_finding_attributes_dynamo(finding_id, [attr_name])
     primary_keys = ['finding_id', finding_id]
     index = 0
     if files and files.get(attr_name):
         for file_obj in files.get(attr_name):
             are_evidences_masked = \
-                list(map(lambda x: integrates_dao.
+                list(map(lambda x: integrates_dal.
                          update_item_list_dynamo(primary_keys, attr_name, index,
                                                  x, 'Masked'),
                          file_obj.keys()))
@@ -694,7 +694,7 @@ def finding_vulnerabilities(submission_id):
 def format_release(finding):
     """Format formstack information to show release date."""
     primary_keys = ['finding_id', finding['id']]
-    finding_dynamo = integrates_dao.get_data_dynamo(
+    finding_dynamo = integrates_dal.get_data_dynamo(
         'FI_findings', primary_keys[0], primary_keys[1])
     if finding_dynamo:
         finding_data = finding_dynamo[0]
@@ -718,7 +718,7 @@ def format_release(finding):
 
 def total_vulnerabilities(finding_id):
     """Get total vulnerabilities in new format."""
-    vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(finding_id)
+    vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(finding_id)
     finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
     for vuln in vulnerabilities:
         all_states = vuln.get('historic_state')
@@ -755,7 +755,7 @@ def migrate_description(finding):
     description = {util.camelcase_to_snakecase(k): finding.get(k)
                    for k in description_fields if finding.get(k)}
     response = \
-        integrates_dao.add_multiple_attributes_dynamo('FI_findings',
+        integrates_dal.add_multiple_attributes_dynamo('FI_findings',
                                                       primary_keys, description)
     if not response:
         util.cloudwatch_log_plain('Security: Attempted to update Description\
@@ -772,10 +772,10 @@ def migrate_treatment(finding):
                           'treatmentManager', 'externalBts']
     description = {util.camelcase_to_snakecase(k): finding.get(k)
                    for k in description_fields if finding.get(k)}
-    vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(str(finding['id']))
+    vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(str(finding['id']))
     if description:
         response = \
-            integrates_dao.add_multiple_attributes_dynamo('FI_findings',
+            integrates_dal.add_multiple_attributes_dynamo('FI_findings',
                                                           finding_id,
                                                           description)
         if not response:
@@ -783,7 +783,7 @@ def migrate_treatment(finding):
         in finding:{finding}'.format(finding=str(finding['id'])))
         for vuln in vulnerabilities:
             response_update_vuln = \
-                integrates_dao.update_mult_attrs_dynamo('FI_vulnerabilities',
+                integrates_dal.update_mult_attrs_dynamo('FI_vulnerabilities',
                                                         {'finding_id': str(finding['id']),
                                                          'UUID': vuln['UUID']},
                                                         description)
@@ -801,7 +801,7 @@ def migrate_treatment(finding):
 def has_migrated_evidence(finding_id):
     """Validate if a finding has evidence description in dynamo."""
     attr_name = 'files'
-    files = integrates_dao.get_finding_attributes_dynamo(finding_id, [attr_name])
+    files = integrates_dal.get_finding_attributes_dynamo(finding_id, [attr_name])
     if files and files.get(attr_name):
         for file_obj in files.get(attr_name):
             if (file_obj.get('name') == 'evidence_route_1' and
@@ -821,7 +821,7 @@ def migrate_report_date(finding):
     description = {util.camelcase_to_snakecase(k): finding.get(k)
                    for k in description_fields if finding.get(k)}
     response = \
-        integrates_dao.add_multiple_attributes_dynamo('FI_findings',
+        integrates_dal.add_multiple_attributes_dynamo('FI_findings',
                                                       primary_keys,
                                                       description)
     if not response:
@@ -930,7 +930,7 @@ def parse_evidence_description(finding):
 
 def get_project_name(finding_id):
     """Get the name of the project of a finding."""
-    project = integrates_dao.get_finding_project(finding_id)
+    project = integrates_dal.get_finding_project(finding_id)
     if not project:
         api = FormstackAPI()
         fin_dto = FindingDTO()

@@ -12,9 +12,9 @@ from django.conf import settings
 from magic import Magic
 from botocore.exceptions import ClientError
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
-from app.dao.helpers.drive import DriveAPI
-from ..dao import integrates_dao
-from ..dao.helpers.formstack import FormstackAPI
+from app.dal.helpers.drive import DriveAPI
+from ..dal import integrates_dal
+from ..dal.helpers.formstack import FormstackAPI
 from ..utils import forms
 from .. import util
 
@@ -60,7 +60,7 @@ class EventDTO(object):
         self.data = dict()
         self.data['id'] = submission_id
         report_title = 'report_date'
-        report_date = integrates_dao.get_event_attributes_dynamo(
+        report_date = integrates_dal.get_event_attributes_dynamo(
             str(submission_id),
             report_title)
         if report_date:
@@ -167,7 +167,7 @@ def parse_event_dynamo(submission_id):
         'action_before_blocking', 'action_after_blocking', 'closer',
         'evidence_file']
     event_title = ','.join(event_headers)
-    event = integrates_dao.get_event_attributes_dynamo(
+    event = integrates_dal.get_event_attributes_dynamo(
         submission_id,
         event_title)
     parsed_dict = {}
@@ -190,7 +190,7 @@ def event_data(submission_id):
     """Get event data."""
     event = []
     event_title = 'event_date'
-    event = integrates_dao.get_event_attributes_dynamo(
+    event = integrates_dal.get_event_attributes_dynamo(
         submission_id,
         event_title)
     if event:
@@ -229,7 +229,7 @@ def migrate_event(event):
     event_attributes = {k: event.get(util.snakecase_to_camelcase(k))
                         for k in event_fields
                         if event.get(util.snakecase_to_camelcase(k))}
-    response = integrates_dao.add_multiple_attributes_dynamo(
+    response = integrates_dal.add_multiple_attributes_dynamo(
         'fi_events', primary_keys, event_attributes)
     return response
 

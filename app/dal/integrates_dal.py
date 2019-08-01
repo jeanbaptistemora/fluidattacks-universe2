@@ -21,7 +21,7 @@ DYNAMODB_RESOURCE = resource('dynamodb',
                              region_name='us-east-1')
 
 
-def create_user_dao(email, username='-', first_name='-', last_name='-', first_time='-'):
+def create_user(email, username='-', first_name='-', last_name='-', first_time='-'):
     """ Add a new user. """
     role = 'None'
     if first_time == "1":
@@ -46,7 +46,7 @@ VALUES (%s, %s, %s, %s, %s, %s, %s)'
     return row
 
 
-def create_project_dao(project=None, description=None):
+def create_project(project=None, description=None):
     """ Add a new project. """
     if project and description:
         project = project.lower()
@@ -71,7 +71,7 @@ VALUES (%s, %s)'
     return False
 
 
-def update_user_login_dao(email):
+def update_user_login(email):
     """Update the user's last login date. """
     last_login = datetime.now()
 
@@ -93,7 +93,7 @@ def update_user_data(email, username, first_name, last_name):
     return row
 
 
-def get_user_last_login_dao(email):
+def get_user_last_login(email):
     """ Get the user's last login date. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT last_login FROM users WHERE email = %s'
@@ -104,7 +104,7 @@ def get_user_last_login_dao(email):
     return unicode(row[0])
 
 
-def get_user_first_login_dao(email):
+def get_user_first_login(email):
     """ Get the user's first login date. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT date_joined FROM users WHERE email = %s'
@@ -115,7 +115,7 @@ def get_user_first_login_dao(email):
     return unicode(row[0])
 
 
-def get_organization_dao(email):
+def get_organization(email):
     """ Get the company of a user. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT company FROM users WHERE email = %s'
@@ -126,7 +126,7 @@ def get_organization_dao(email):
     return row[0]
 
 
-def get_role_dao(email):
+def get_role(email):
     """ Get the role of a user. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT role FROM users WHERE email = %s'
@@ -172,7 +172,7 @@ def get_registered_projects():
     return rows
 
 
-def is_registered_dao(email):
+def is_registered(email):
     """ Check if the user is registered. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT registered FROM users WHERE email = %s'
@@ -207,9 +207,9 @@ def has_complete_data(email):
     return True
 
 
-def add_access_to_project_dao(email, project_name):
+def add_access_to_project(email, project_name):
     """ Give access of a project to a user. """
-    if has_access_to_project_dao(email, project_name):
+    if has_access_to_project(email, project_name):
         return True
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT id FROM users WHERE email = %s'
@@ -239,7 +239,7 @@ has_access) VALUES(%s, %s, %s)'
     return False
 
 
-def has_access_to_project_dao(email, project_name):
+def has_access_to_project(email, project_name):
     """ Verify that a user has access to a specific project. """
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT id FROM users WHERE email = %s'
@@ -270,7 +270,7 @@ WHERE user_id = %s and project_id = %s'
     return False
 
 
-def remove_all_project_access_dao(project_name=None):
+def remove_all_project_access(project_name=None):
     """ Remove access permission to all users in a project. """
     if project_name:
         project_name = project_name.lower()
@@ -299,7 +299,7 @@ WHERE project_id = %s'
     return False
 
 
-def add_all_access_to_project_dao(project_name=None):
+def add_all_access_to_project(project_name=None):
     """ Add access permission to all users of a project. """
     if project_name:
         project_name = project_name.lower()
@@ -617,7 +617,7 @@ def change_status_comalert_dynamo(message, company_name, project_name):
             return False
 
 
-def remove_access_project_dao(email=None, project_name=None):
+def remove_access_project(email=None, project_name=None):
     """ Remove a user's access to a project. """
     if email and project_name:
         project_name = project_name.lower()

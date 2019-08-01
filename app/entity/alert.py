@@ -1,7 +1,7 @@
 """ GraphQL Entity for Dynamo Alerts """
 # pylint: disable=F0401
 # pylint: disable=super-init-not-called
-from app.dao import integrates_dao
+from app.dal import integrates_dal
 from graphene import Int, String, ObjectType
 
 
@@ -18,7 +18,7 @@ class Alert(ObjectType):
         self.organization, self.status = "", 0
         project = str(project_name)
         organization = str(organization)
-        resp = integrates_dao.get_company_alert_dynamo(organization, project)
+        resp = integrates_dal.get_company_alert_dynamo(organization, project)
         if resp:
             self.message = resp[0]['message']
             self.project = resp[0]['project_name']

@@ -15,7 +15,7 @@ from django.core.validators import validate_email
 
 from app.decorators import require_login, require_role, require_project_access
 from .. import util
-from ..dao import integrates_dao
+from ..dal import integrates_dal
 from ..services import is_customeradmin, has_responsibility, has_phone_number
 from ..mailer import send_mail_access_granted
 
@@ -39,7 +39,7 @@ class User(ObjectType):
         self.first_login = '-'
         self.last_login = [-1, -1]
 
-        last_login = integrates_dao.get_user_last_login_dao(user_email)
+        last_login = integrates_dal.get_user_last_login(user_email)
         last_login = last_login.split('.', 1)[0]
 
         if last_login == '1111-01-01 11:11:11' or last_login == '-':
@@ -50,12 +50,12 @@ class User(ObjectType):
             diff_last_login = [dates_difference.days, dates_difference.seconds]
             self.last_login = diff_last_login
 
-        self.first_login = integrates_dao.get_user_first_login_dao(user_email).split('.', 1)[0]
-        organization = integrates_dao.get_organization_dao(user_email)
+        self.first_login = integrates_dal.get_user_first_login(user_email).split('.', 1)[0]
+        organization = integrates_dal.get_organization(user_email)
         self.organization = organization.title() if organization else ''
         self.responsibility = has_responsibility(project_name, user_email)
         self.phone_number = has_phone_number(user_email)
-        user_role = integrates_dao.get_role_dao(user_email)
+        user_role = integrates_dal.get_role(user_email)
 
         if is_customeradmin(project_name, user_email):
             self.role = 'customer_admin'
@@ -196,16 +196,16 @@ def create_new_user(context, new_user_data, project_name):
 
     success = False
 
-    if not integrates_dao.is_in_database(email):
-        integrates_dao.create_user_dao(email)
-    if integrates_dao.is_registered_dao(email) == '0':
-        integrates_dao.register(email)
-        integrates_dao.assign_role(email, role)
-        integrates_dao.assign_company(email, organization)
-    elif integrates_dao.is_registered_dao(email) == '1':
-        integrates_dao.assign_role(email, role)
+    if not integrates_dal.is_in_database(email):
+        integrates_dal.create_user(email)
+    if integrates_dal.is_registered(email) == '0':
+        integrates_dal.register(email)
+        integrates_dal.assign_role(email, role)
+        integrates_dal.assign_company(email, organization)
+    elif integrates_dal.is_registered(email) == '1':
+        integrates_dal.assign_role(email, role)
     if responsibility and len(responsibility) <= 50:
-        integrates_dao.add_project_access_dynamo(email, project_name,
+        integrates_dal.add_project_access_dynamo(email, project_name,
                                                  'responsibility',
                                                  responsibility)
     else:
@@ -215,12 +215,12 @@ def create_new_user(context, new_user_data, project_name):
             'responsibility to project ' + project_name + ' without validation'
         )
     if phone_number and phone_number[1:].isdigit():
-        integrates_dao.add_phone_to_user_dynamo(email, phone_number)
+        integrates_dal.add_phone_to_user_dynamo(email, phone_number)
     if role == 'customeradmin':
-        integrates_dao.add_user_to_project_dynamo(project_name.lower(),
+        integrates_dal.add_user_to_project_dynamo(project_name.lower(),
                                                   email.lower(), role)
-    if integrates_dao.add_access_to_project_dao(email, project_name):
-        description = integrates_dao.get_project_description(project_name)
+    if integrates_dal.add_access_to_project(email, project_name):
+        description = integrates_dal.get_project_description(project_name)
         project_url = \
             'https://fluidattacks.com/integrates/dashboard#!/project/' \
             + project_name.lower() + '/indicators'
@@ -256,13 +256,13 @@ class RemoveUserAccess(Mutation):
     def mutate(self, info, project_name, user_email):
         success = False
 
-        integrates_dao.remove_role_to_project_dynamo(project_name, user_email,
+        integrates_dal.remove_role_to_project_dynamo(project_name, user_email,
                                                      'customeradmin')
-        is_user_removed_dao = \
-            integrates_dao.remove_access_project_dao(user_email, project_name)
+        is_user_removed_dal = \
+            integrates_dal.remove_access_project(user_email, project_name)
         is_user_removed_dynamo = \
-            integrates_dao.remove_project_access_dynamo(user_email, project_name)
-        success = is_user_removed_dao and is_user_removed_dynamo
+            integrates_dal.remove_project_access_dynamo(user_email, project_name)
+        success = is_user_removed_dal and is_user_removed_dynamo
         removed_email = user_email if success else None
         if success:
             util.cloudwatch_log(info.context, 'Security: Removed user: {user} from {project} \
@@ -310,7 +310,7 @@ class EditUser(Mutation):
                                                    'customer', 'customeradmin']) \
             or (is_customeradmin(project_name, info.context.session['username'])
                 and modified_user_data['role'] in ['customer', 'customeradmin']):
-            if integrates_dao.assign_role(modified_user_data['email'],
+            if integrates_dal.assign_role(modified_user_data['email'],
                                           modified_user_data['role']) is None:
                 modify_user_information(info.context, modified_user_data,
                                         project_name)
@@ -345,9 +345,9 @@ def modify_user_information(context, modified_user_data, project_name):
     responsibility = modified_user_data['responsibility']
     phone = modified_user_data['phone_number']
     organization = modified_user_data['organization']
-    integrates_dao.assign_company(email, organization.lower())
+    integrates_dal.assign_company(email, organization.lower())
     if responsibility and len(responsibility) <= 50:
-        integrates_dao.add_project_access_dynamo(email, project_name,
+        integrates_dal.add_project_access_dynamo(email, project_name,
                                                  'responsibility',
                                                  responsibility)
     else:
@@ -357,7 +357,7 @@ def modify_user_information(context, modified_user_data, project_name):
             'responsibility to project ' + project_name + ' bypassing validation'
         )
     if phone and phone[1:].isdigit():
-        integrates_dao.add_phone_to_user_dynamo(email, phone)
+        integrates_dal.add_phone_to_user_dynamo(email, phone)
     else:
         util.cloudwatch_log(
             context,
@@ -366,7 +366,7 @@ def modify_user_information(context, modified_user_data, project_name):
         )
 
     if role == 'customeradmin':
-        integrates_dao.add_user_to_project_dynamo(project_name.lower(),
+        integrates_dal.add_user_to_project_dynamo(project_name.lower(),
                                                   email.lower(), role)
     elif is_customeradmin(project_name, email):
-        integrates_dao.remove_role_to_project_dynamo(project_name, email, 'customeradmin')
+        integrates_dal.remove_role_to_project_dynamo(project_name, email, 'customeradmin')

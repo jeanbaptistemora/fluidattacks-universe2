@@ -6,7 +6,7 @@
 import time
 import os
 from PyPDF2 import PdfFileWriter, PdfFileReader
-from ..dao import integrates_dao
+from ..dal import integrates_dal
 
 
 class SecurePDF(object):
@@ -28,7 +28,7 @@ class SecurePDF(object):
     def create_full(self, username, basic_pdf_name, project):
         """ Execute the security process in a PDF. """
         self.secure_pdf_username = username
-        project_info = integrates_dao.get_project_dynamo(project.lower())
+        project_info = integrates_dal.get_project_dynamo(project.lower())
         if project_info and project_info[0].get('type') == 'continuous':
             self.secure_pdf_filename = self.lock(basic_pdf_name)
         else:

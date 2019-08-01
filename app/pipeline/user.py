@@ -1,7 +1,7 @@
 # pylint: disable=E0402
 from __future__ import absolute_import
 from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS
-from ..dao import integrates_dao
+from ..dal import integrates_dal
 from ..mailer import send_mail_new_user
 
 
@@ -17,12 +17,12 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
     strategy.session_set('last_name', last_name)
 
     if user:
-        if integrates_dao.has_complete_data(user):
-            integrates_dao.update_user_login_dao(user)
+        if integrates_dal.has_complete_data(user):
+            integrates_dal.update_user_login(user)
         else:
-            integrates_dao.update_user_data(email, username, first_name,
+            integrates_dal.update_user_data(email, username, first_name,
                                             last_name)
-            integrates_dao.update_user_login_dao(user)
+            integrates_dal.update_user_login(user)
     else:
         mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
         name = first_name + ' ' + last_name
@@ -31,18 +31,18 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
             'mail_user': email,
         }
         send_mail_new_user(mail_to, context)
-        integrates_dao.create_user_dao(email, username=username,
-                                       first_name=first_name,
-                                       last_name=last_name,
-                                       first_time="1")
+        integrates_dal.create_user(email, username=username,
+                                   first_name=first_name,
+                                   last_name=last_name,
+                                   first_time="1")
 
 
 def check_registered(strategy, details, backend, *args, **kwargs):
     email = details['email']
-    is_registered = integrates_dao.is_registered_dao(email)
-    last_login = integrates_dao.get_user_last_login_dao(email)
-    role = integrates_dao.get_role_dao(email)
-    company = integrates_dao.get_organization_dao(email)
+    is_registered = integrates_dal.is_registered(email)
+    last_login = integrates_dal.get_user_last_login(email)
+    role = integrates_dal.get_role(email)
+    company = integrates_dal.get_organization(email)
     strategy.session_set('username', email)
     strategy.session_set('registered', is_registered)
     if role == 'customeradmin':

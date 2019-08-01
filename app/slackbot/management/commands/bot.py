@@ -7,7 +7,7 @@ import re
 import slackclient
 from django.core.management.base import BaseCommand
 from django.conf import settings
-from app.dao import integrates_dao
+from app.dal import integrates_dal
 from app import util
 from mixpanel import Mixpanel
 
@@ -57,8 +57,8 @@ def do_add_project(data):
         elif description.strip() == '':
             output = 'You must enter a project description.'
         else:
-            if integrates_dao.create_project_dao(project, description):
-                integrates_dao.add_project_dynamo(project,
+            if integrates_dal.create_project(project, description):
+                integrates_dal.add_project_dynamo(project,
                                                   description,
                                                   companies,
                                                   project_type,
@@ -83,7 +83,7 @@ def do_list_projects(data):
         if user.find('\'') >= 0:
             output = SQL_ERROR
         else:
-            output = integrates_dao.get_projects_by_user(user)
+            output = integrates_dal.get_projects_by_user(user)
             aux = []
             for out in output:
                 if out[2] == 1:
@@ -103,7 +103,7 @@ def do_remove_all_project_access(data):
         if project.find('\'') >= 0:
             output = SQL_ERROR
         else:
-            if integrates_dao.remove_all_project_access_dao(project):
+            if integrates_dal.remove_all_project_access(project):
                 output = '*[OK]* Removed access to all users to project *%s*.'\
                     % (project)
                 mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
@@ -125,7 +125,7 @@ def do_add_all_project_access(data):
         if project.find('\'') >= 0:
             output = SQL_ERROR
         else:
-            if integrates_dao.add_all_access_to_project_dao(project):
+            if integrates_dal.add_all_access_to_project(project):
                 output = '*[OK]* Added access to all users to project *%s*.' \
                     % (project)
                 mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
@@ -150,7 +150,7 @@ def do_set_alert(data):
             output = SQL_ERROR
         else:
             if message in ('ACTIVATE', 'DEACTIVATE'):
-                integrates_dao.change_status_comalert_dynamo(message,
+                integrates_dal.change_status_comalert_dynamo(message,
                                                              company,
                                                              project)
                 output = \
@@ -159,7 +159,7 @@ def do_set_alert(data):
                 mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
                 mp_obj.track(project, 'BOT_ActivateAlert')
             else:
-                if integrates_dao.set_company_alert_dynamo(message,
+                if integrates_dal.set_company_alert_dynamo(message,
                                                            company,
                                                            project):
                     output = \

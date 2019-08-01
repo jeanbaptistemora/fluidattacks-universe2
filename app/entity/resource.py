@@ -16,7 +16,7 @@ from ..decorators import (
     require_login, require_role, require_project_access, get_entity_cache
 )
 from .. import util
-from ..dao import integrates_dao
+from ..dal import integrates_dal
 from ..domain import resources
 from ..exceptions import ErrorUploadingFileS3, InvalidFileSize, InvalidProject
 
@@ -37,10 +37,10 @@ class Resource(ObjectType):
         self.repositories = []
         self.environments = []
         self.files = []
-        project_exist = integrates_dao.get_project_attributes_dynamo(
+        project_exist = integrates_dal.get_project_attributes_dynamo(
             project_name.lower(), ['project_name'])
         if project_exist:
-            project_info = integrates_dao.get_project_attributes_dynamo(
+            project_info = integrates_dal.get_project_attributes_dynamo(
                 project_name.lower(), ['repositories', 'environments', 'files'])
             if project_info:
                 self.repositories = project_info.get('repositories', [])
@@ -104,7 +104,7 @@ class AddRepositories(Mutation):
             else:
                 rollbar.report_message('Error: \
 An error occurred adding repository', 'error', info.context)
-        add_repo = integrates_dao.add_list_resource_dynamo(
+        add_repo = integrates_dal.add_list_resource_dynamo(
             'FI_projects',
             'project_name',
             project_name,
@@ -151,7 +151,7 @@ class RemoveRepositories(Mutation):
         repository = repository_data.get('urlRepo')
         branch = repository_data.get('branch')
         repo_list = \
-            integrates_dao.get_project_dynamo(project_name)[0]['repositories']
+            integrates_dal.get_project_dynamo(project_name)[0]['repositories']
         index = -1
         cont = 0
         json_data = []
@@ -165,7 +165,7 @@ class RemoveRepositories(Mutation):
                 index = -1
             cont += 1
         if index >= 0:
-            remove_repo = integrates_dao.remove_list_resource_dynamo(
+            remove_repo = integrates_dal.remove_list_resource_dynamo(
                 'FI_projects',
                 'project_name',
                 project_name,
@@ -220,7 +220,7 @@ class AddEnvironments(Mutation):
             else:
                 rollbar.report_message('Error: \
 An error occurred adding environments', 'error', info.context)
-        add_env = integrates_dao.add_list_resource_dynamo(
+        add_env = integrates_dal.add_list_resource_dynamo(
             'FI_projects',
             'project_name',
             project_name,
@@ -266,7 +266,7 @@ class RemoveEnvironments(Mutation):
         success = False
         environment_url = repository_data.get('urlEnv')
         env_list = \
-            integrates_dao.get_project_dynamo(project_name)[0]['environments']
+            integrates_dal.get_project_dynamo(project_name)[0]['environments']
         index = -1
         cont = 0
 
@@ -278,7 +278,7 @@ class RemoveEnvironments(Mutation):
                 index = -1
             cont += 1
         if index >= 0:
-            remove_env = integrates_dao.remove_list_resource_dynamo(
+            remove_env = integrates_dal.remove_list_resource_dynamo(
                 'FI_projects',
                 'project_name',
                 project_name,
@@ -343,7 +343,7 @@ class AddFiles(Mutation):
             resources.validate_file_size(uploaded_file, file_size)
         except InvalidFileSize:
             raise GraphQLError('File exceeds the size limits')
-        files = integrates_dao.get_project_attributes_dynamo(project_name, ['files'])
+        files = integrates_dal.get_project_attributes_dynamo(project_name, ['files'])
         project_files = files.get('files')
         if project_files:
             contains_repeated = [f.get('fileName')
@@ -360,7 +360,7 @@ class AddFiles(Mutation):
         if util.is_valid_file_name(uploaded_file):
             try:
                 resources.upload_file_to_s3(uploaded_file, file_id)
-                integrates_dao.add_list_resource_dynamo(
+                integrates_dal.add_list_resource_dynamo(
                     'FI_projects',
                     'project_name',
                     project_name,
@@ -403,7 +403,7 @@ class RemoveFiles(Mutation):
         success = False
         file_name = files_data.get('fileName')
         file_list = \
-            integrates_dao.get_project_dynamo(project_name)[0]['files']
+            integrates_dal.get_project_dynamo(project_name)[0]['files']
         index = -1
         cont = 0
 
@@ -420,7 +420,7 @@ class RemoveFiles(Mutation):
                 file_name=file_name
             )
             success = resources.delete_file_from_s3(file_url)
-            integrates_dao.remove_list_resource_dynamo(
+            integrates_dal.remove_list_resource_dynamo(
                 'FI_projects',
                 'project_name',
                 project_name,

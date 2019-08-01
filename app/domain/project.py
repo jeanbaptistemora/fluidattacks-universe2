@@ -8,8 +8,8 @@ import pytz
 
 from django.conf import settings
 
-from app.dao.helpers.formstack import FormstackAPI
-from app.dao import integrates_dao
+from app.dal.helpers.formstack import FormstackAPI
+from app.dal import integrates_dal
 from app.decorators import get_entity_cache
 from app.dto.finding import (
     total_vulnerabilities
@@ -21,7 +21,7 @@ from app.util import format_comment_date
 
 def get_email_recipients(project_name):
     """Get the recipients of the comment email."""
-    project_users = integrates_dao.get_project_users(project_name)
+    project_users = integrates_dal.get_project_users(project_name)
     recipients = [user[0] for user in project_users if user[1] == 1]
     return recipients
 
@@ -52,7 +52,7 @@ def send_comment_mail(project_name, email, comment_data):
 def add_comment(project_name, email, comment_data):
     """Add comment in a project."""
     send_comment_mail(project_name, email, comment_data)
-    return integrates_dao.add_project_comment_dynamo(project_name,
+    return integrates_dal.add_project_comment_dynamo(project_name,
                                                      email,
                                                      comment_data)
 
@@ -72,7 +72,7 @@ def validate_tags(tags):
 
 def validate_project(project):
     """Validate if a project exist and is not deleted."""
-    project_info = integrates_dao.get_project_attributes_dynamo(
+    project_info = integrates_dal.get_project_attributes_dynamo(
         project, ['project_name', 'deletion_date'])
     is_valid_project = False
     if project_info:
@@ -95,7 +95,7 @@ def get_vulnerabilities(findings, vuln_type):
 
 def get_pending_closing_check(project):
     """Check for pending closing checks."""
-    pending_closing = len(integrates_dao.get_remediated_project_dynamo(project))
+    pending_closing = len(integrates_dal.get_remediated_project_dynamo(project))
     return pending_closing
 
 
@@ -103,7 +103,7 @@ def get_last_closing_vuln(findings):
     """Get day since last vulnerability closing."""
     closing_dates = []
     for fin in findings:
-        vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(
+        vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(
             fin['finding_id'])
         closing_vuln_date = [get_last_closing_date(vuln)
                              for vuln in vulnerabilities
@@ -197,7 +197,7 @@ def get_mean_remediate(findings):
     total_days = 0
     tzn = pytz.timezone('America/Bogota')
     for finding in findings:
-        vulnerabilities = integrates_dao.get_vulnerabilities_dynamo(
+        vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(
             finding['finding_id'])
         for vuln in vulnerabilities:
             open_vuln_date = get_open_vulnerability_date(vuln)
@@ -258,13 +258,13 @@ def get_project_info(project_name):
 @get_entity_cache
 def get_users_from_db(name):
     """resolve a full list of users from database"""
-    init_emails = integrates_dao.get_project_users(name)
+    init_emails = integrates_dal.get_project_users(name)
     users_list = [user[0] for user in init_emails if user[1] == 1]
     return users_list
 
 
 def is_finding_in_drafts(finding_id):
-    release_date = integrates_dao.get_finding_attributes_dynamo(finding_id,
+    release_date = integrates_dal.get_finding_attributes_dynamo(finding_id,
                                                                 ['releaseDate']
                                                                 )
     retval = False
@@ -309,6 +309,6 @@ def list_comments(user_email, project_name):
         'id': int(comment['user_id']),
         'modified': format_comment_date(comment['modified']),
         'parent': int(comment['parent'])
-    } for comment in integrates_dao.get_project_comments_dynamo(project_name)]
+    } for comment in integrates_dal.get_project_comments_dynamo(project_name)]
 
     return comments

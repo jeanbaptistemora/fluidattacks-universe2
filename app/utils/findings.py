@@ -1,5 +1,5 @@
 from app import util
-from app.dao import integrates_dao
+from app.dal import integrates_dal
 from app.utils import cvss, forms as forms_utils
 
 CVSS_PARAMETERS = {
@@ -55,7 +55,7 @@ def format_data(finding):
         'exploitation': _get_evidence('exploitation', finding['files'])
     }
 
-    vulns = integrates_dao.get_vulnerabilities_dynamo(finding['findingId'])
+    vulns = integrates_dal.get_vulnerabilities_dynamo(finding['findingId'])
     open_vulns = [vuln for vuln in vulns
                   if vuln['historic_state'][-1]['state'] == 'open']
     closed_vulns = [vuln for vuln in vulns

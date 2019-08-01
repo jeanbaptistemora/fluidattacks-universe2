@@ -1,11 +1,11 @@
-"""DAO functions for projects."""
+"""DAL functions for projects."""
 
 from __future__ import absolute_import
 from datetime import datetime
 
 from boto3.dynamodb.conditions import Attr
-from app.dao.helpers.analytics import query
-from . import integrates_dao
+from app.dal.helpers.analytics import query
+from . import integrates_dal
 
 
 def get_current_month_information(project_name, query_db):
@@ -49,5 +49,5 @@ def get_current_month_commits(project_name):
 def get_active_projects():
     """Get active project in DynamoDB"""
     filtering_exp = Attr('project_status').eq('ACTIVE') & Attr('project_status').exists()
-    projects = integrates_dao.get_projects_data_dynamo(filtering_exp, 'project_name')
+    projects = integrates_dal.get_projects_data_dynamo(filtering_exp, 'project_name')
     return [prj['project_name'] for prj in projects]

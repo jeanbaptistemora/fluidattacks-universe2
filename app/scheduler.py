@@ -15,13 +15,13 @@ from __init__ import (
 )
 from django.conf import settings
 from . import views
-from .dao import integrates_dao, project as project_dao
+from .dal import integrates_dal, project as project_dal
 from .domain.finding import (get_age_finding, get_tracking_vulnerabilities)
 from .domain.project import (
     get_last_closing_vuln, get_mean_remediate, get_max_open_severity,
     get_total_treatment
 )
-from .dao.helpers.formstack import FormstackAPI
+from .dal.helpers.formstack import FormstackAPI
 from .dto import remission
 from .dto import eventuality
 from .dto.finding import finding_vulnerabilities
@@ -76,7 +76,7 @@ def extract_info_from_event_dict(event_dict):
 def send_unsolved_events_email(project):
     unsolved_events = get_unsolved_events(project)
     mail_to = get_external_recipients(project)
-    project_info = integrates_dao.get_project_dynamo(project)
+    project_info = integrates_dal.get_project_dynamo(project)
     if project_info and \
             project_info[0].get('type') == 'continuous':
         mail_to.append(FI_MAIL_CONTINUOUS)
@@ -90,7 +90,7 @@ def send_unsolved_events_email(project):
 
 
 def get_external_recipients(project):
-    recipients = integrates_dao.get_project_users(project)
+    recipients = integrates_dal.get_project_users(project)
     recipients_list = [x[0] for x in recipients if x[1] == 1]
     return remove_fluid_from_recipients(recipients_list)
 
@@ -166,7 +166,7 @@ def create_register_by_week(project):
     closed = 0
     found = 0
     all_registers = OrderedDict()
-    findings_released = integrates_dao.get_findings_released_dynamo(project)
+    findings_released = integrates_dal.get_findings_released_dynamo(project)
     vulns = get_all_vulns_by_project(findings_released)
     if vulns:
         first_day, last_day = get_first_week_dates(vulns)
@@ -212,7 +212,7 @@ def get_all_vulns_by_project(findings_released):
     """Get all vulnerabilities by project"""
     vulns = []
     for finding in findings_released:
-        vulns += integrates_dao.get_vulnerabilities_dynamo(finding['finding_id'])
+        vulns += integrates_dal.get_vulnerabilities_dynamo(finding['finding_id'])
     return vulns
 
 
@@ -237,12 +237,12 @@ def get_date_last_vulns(vulns):
 
 def get_new_vulnerabilities():
     """Summary mail send with the findings of a project."""
-    projects = project_dao.get_active_projects()
+    projects = project_dal.get_active_projects()
     for project in projects:
         project = project.lower()
         context = {'updated_findings': list(), 'no_treatment_findings': list()}
         try:
-            finding_requests = integrates_dao.get_findings_released_dynamo(project)
+            finding_requests = integrates_dal.get_findings_released_dynamo(project)
             for act_finding in finding_requests:
                 finding_url = get_finding_url(act_finding)
                 msj_finding_pending = create_msj_finding_pending(act_finding)
@@ -269,14 +269,14 @@ def get_new_vulnerabilities():
 
 
 def prepare_mail_recipients(project):
-    recipients = integrates_dao.get_project_users(project)
+    recipients = integrates_dal.get_project_users(project)
     mail_to = [x[0] for x in recipients if x[1] == 1]
     mail_to.append(FI_MAIL_CONTINUOUS)
     return mail_to
 
 
 def calculate_vulnerabilities(act_finding):
-    vulns = integrates_dao.get_vulnerabilities_dynamo(act_finding['finding_id'])
+    vulns = integrates_dal.get_vulnerabilities_dynamo(act_finding['finding_id'])
     all_tracking = get_tracking_vulnerabilities(act_finding, vulns)
     delta_total = 0
     if len(all_tracking) > 1:
@@ -334,7 +334,7 @@ def create_msj_finding_pending(act_finding):
 
 def get_remediated_findings():
     """Summary mail send with findings that have not been verified yet."""
-    findings = integrates_dao.get_remediated_allfin_dynamo(True)
+    findings = integrates_dal.get_remediated_allfin_dynamo(True)
     if findings != []:
         try:
             mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
@@ -364,14 +364,14 @@ def weekly_report():
     """Save weekly report in dynamo."""
     init_date = (datetime.today() - timedelta(days=7)).date()
     final_date = (datetime.today() - timedelta(days=1)).date()
-    all_companies = integrates_dao.get_all_companies()
+    all_companies = integrates_dal.get_all_companies()
     all_users = [all_users_formatted(x) for x in all_companies]
-    registered_users = integrates_dao.all_users_report('FLUID',
+    registered_users = integrates_dal.all_users_report('FLUID',
                                                        final_date)
-    logged_users = integrates_dao.logging_users_report('FLUID',
+    logged_users = integrates_dal.logging_users_report('FLUID',
                                                        init_date,
                                                        final_date)
-    integrates_dao.weekly_report_dynamo(
+    integrates_dal.weekly_report_dynamo(
         str(init_date),
         str(final_date),
         registered_users[0][0],
@@ -382,22 +382,22 @@ def weekly_report():
 
 def all_users_formatted(company):
     """Format total users by company."""
-    total_users = integrates_dao.get_all_users(company)
+    total_users = integrates_dal.get_all_users(company)
     all_users_by_company = {company[0]: int(total_users[0][0])}
     return all_users_by_company
 
 
 def inactive_users():
     final_date = (datetime.today() - timedelta(days=7))
-    inac_users = integrates_dao.all_inactive_users()
+    inac_users = integrates_dal.all_inactive_users()
     for user in inac_users:
         if user[1] <= final_date:
-            integrates_dao.delete_user(user[0])
+            integrates_dal.delete_user(user[0])
 
 
 def get_new_releases():
     """Summary mail send with findings that have not been released yet."""
-    projects = integrates_dao.get_registered_projects()
+    projects = integrates_dal.get_registered_projects()
     api = FormstackAPI()
     context = {'findings': list()}
     cont = 0
@@ -437,7 +437,7 @@ def get_new_releases():
 
 def send_unsolved_to_all():
     """Send email with unsolved events to all projects """
-    projects = integrates_dao.get_registered_projects()
+    projects = integrates_dal.get_registered_projects()
     list(map(lambda x: send_unsolved_events_email(x[0]), projects))
 
 
@@ -451,7 +451,7 @@ def deletion(project, days_to_send, days_to_delete):
             ) for x in remission_submissions]
         filtered_remissions = list(filter(lambda x: x['FLUID_PROJECT'].lower()
                                           == project.lower(), remissions_list))
-        project_info = integrates_dao.get_project_dynamo(project)
+        project_info = integrates_dal.get_project_dynamo(project)
         if filtered_remissions and project_info:
             lastest_remission = remission.get_lastest(filtered_remissions)
             if lastest_remission['LAST_REMISSION'] == 'Si' and \
@@ -485,7 +485,7 @@ def is_deleted(project, days_until_now, days_to_send, days_to_delete):
         was_email_sended = True
     elif days_until_now >= days_to_delete:
         views.delete_project(project)
-        integrates_dao.add_attribute_dynamo(
+        integrates_dal.add_attribute_dynamo(
             'FI_projects',
             ['project_name', project.lower()],
             'deletion_date',
@@ -522,13 +522,13 @@ def deletion_of_finished_project():
     else:
         days_to_send = [6]
         days_to_delete = 7
-    projects = integrates_dao.get_registered_projects()
+    projects = integrates_dal.get_registered_projects()
     list(map(lambda x: deletion(x[0], days_to_send, days_to_delete), projects))
 
 
 def update_indicators():
     """Update in dynamo indicators."""
-    projects = integrates_dao.get_registered_projects()
+    projects = integrates_dal.get_registered_projects()
     table_name = 'FI_projects'
     indicators = {
         'last_closing_date': 0,
@@ -540,7 +540,7 @@ def update_indicators():
     for project in projects:
         try:
             project = str.lower(str(project[0]))
-            findings = integrates_dao.get_findings_released_dynamo(
+            findings = integrates_dal.get_findings_released_dynamo(
                 project, 'finding_id, treatment, cvss_temporal')
             indicators['last_closing_date'] = get_last_closing_vuln(findings)
             indicators['mean_remediate'] = get_mean_remediate(findings)
@@ -548,7 +548,7 @@ def update_indicators():
             indicators['total_treatment'] = get_total_treatment(findings)
             indicators['remediated_over_time'] = create_register_by_week(project)
             primary_keys = ['project_name', project]
-            response = integrates_dao.add_multiple_attributes_dynamo(
+            response = integrates_dal.add_multiple_attributes_dynamo(
                 table_name, primary_keys, indicators)
             if response:
                 util.invalidate_cache(project)

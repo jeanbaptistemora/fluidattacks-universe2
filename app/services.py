@@ -6,8 +6,8 @@ from django.views.decorators.http import require_http_methods
 # pylint: disable=E0402
 from . import util
 # pylint: disable=E0402
-from .dao import integrates_dao
-from .dao.helpers.formstack import FormstackAPI
+from .dal import integrates_dal
+from .dal.helpers.formstack import FormstackAPI
 from .dto.finding import FindingDTO
 from .dto.eventuality import EventDTO
 
@@ -22,14 +22,14 @@ def login(request):
 
 def is_registered(user):
     """ Verify if the user is registered. """
-    return integrates_dao.is_registered_dao(user)
+    return integrates_dal.is_registered(user)
 
 
 def has_access_to_project(user, project_name, rol):
     """ Verify if the user has access to a project. """
     if rol == 'admin':
         return True
-    return integrates_dao.has_access_to_project_dao(user, project_name)
+    return integrates_dal.has_access_to_project(user, project_name)
 
 
 def has_access_to_finding(user, findingid, role):
@@ -39,7 +39,7 @@ def has_access_to_finding(user, findingid, role):
     if role == 'admin':
         has_access = True
     else:
-        project = integrates_dao.get_finding_project(findingid)
+        project = integrates_dal.get_finding_project(findingid)
 
         if project:
             has_access = has_access_to_project(user, project, role)
@@ -64,7 +64,7 @@ def has_access_to_event(user, event_id, role):
     if role == 'admin':
         has_access = True
     else:
-        project = integrates_dao.get_event_project(event_id)
+        project = integrates_dal.get_event_project(event_id)
 
         if project:
             has_access = has_access_to_project(user, project, role)
@@ -85,7 +85,7 @@ def has_access_to_event(user, event_id, role):
 
 def is_customeradmin(project, email):
     """Verify if a user is a customeradmin."""
-    project_data = integrates_dao.get_project_dynamo(project)
+    project_data = integrates_dal.get_project_dynamo(project)
     for data in project_data:
         if data.get('customeradmin') and email.lower() in data['customeradmin']:
             return True
@@ -94,7 +94,7 @@ def is_customeradmin(project, email):
 
 def has_responsibility(project, email):
     """Verify if a user has responsibility."""
-    project_data = integrates_dao.get_project_access_dynamo(email, project)
+    project_data = integrates_dal.get_project_access_dynamo(email, project)
     user_resp = "-"
     for data in project_data:
         if 'responsibility' in data:
@@ -106,7 +106,7 @@ def has_responsibility(project, email):
 
 
 def has_phone_number(email):
-    user_info = integrates_dao.get_user_dynamo(email)
+    user_info = integrates_dal.get_user_dynamo(email)
     for user in user_info:
         if 'phone' in user:
             return user["phone"]

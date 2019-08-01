@@ -10,7 +10,7 @@ from graphene import String, Boolean, Int, Mutation, Field
 from graphene.types.generic import GenericScalar
 
 from app import util
-from app.dao import integrates_dao
+from app.dal import integrates_dal
 from app.decorators import require_login, require_role, require_finding_access
 from app.dto.finding import FindingDTO, get_project_name
 from app.domain.finding import (
@@ -147,7 +147,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         del info
 
         formstack_records = self.records
-        dynamo_evidence = integrates_dao.get_finding_attributes_dynamo(
+        dynamo_evidence = integrates_dal.get_finding_attributes_dynamo(
             self.id, ['files'])
         if dynamo_evidence:
             file_info = [evidence for evidence in dynamo_evidence.get('files')
@@ -182,7 +182,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         """
         del info
 
-        dynamo_evidence = integrates_dao.get_finding_attributes_dynamo(self.id, ['files'])
+        dynamo_evidence = integrates_dal.get_finding_attributes_dynamo(self.id, ['files'])
         has_exploit_formstack = False
         if dynamo_evidence:
             file_info = [evidence for evidence in dynamo_evidence.get('files')
@@ -368,7 +368,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_remediated(self, info):
         """ Resolve remediated attribute """
         del info
-        remediations = integrates_dao.get_remediated_dynamo(int(self.id))
+        remediations = integrates_dal.get_remediated_dynamo(int(self.id))
         self.remediated = remediations[-1]['remediated'] if remediations else False
         return self.remediated
 
@@ -397,7 +397,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_severity_score(self, info):
         """ Resolve precalculated severity score """
         del info
-        dyn_score = integrates_dao.get_finding_attributes_dynamo(
+        dyn_score = integrates_dal.get_finding_attributes_dynamo(
             self.id, ['cvss_temporal']).get('cvss_temporal')
         fs_score = self.severity_score
         self.severity_score = dyn_score if dyn_score else fs_score
@@ -558,7 +558,7 @@ class UpdateSeverity(Mutation):
     @require_finding_access
     def mutate(self, info, **parameters):
         finding_id = parameters.get('finding_id')
-        project = integrates_dao.get_finding_project(finding_id)
+        project = integrates_dal.get_finding_project(finding_id)
         success = False
         success = save_severity(parameters.get('data'))
         ret = UpdateSeverity(success=success,
@@ -740,10 +740,10 @@ class UpdateTreatment(Mutation):
         user_email = util.get_jwt_content(info.context)['user_email']
         project_name = get_project_name(finding_id)
         treatment_state = \
-            integrates_dao.get_finding_attributes_dynamo(finding_id, ['treatment'])
+            integrates_dal.get_finding_attributes_dynamo(finding_id, ['treatment'])
         if treatment_state and \
                 parameters['treatment'] != treatment_state.get('treatment'):
-            remediations = integrates_dao.get_remediated_dynamo(int(finding_id))
+            remediations = integrates_dal.get_remediated_dynamo(int(finding_id))
             if remediations and remediations[-1]['remediated']:
                 raise GraphQLError('Verification process')
             else:
@@ -755,12 +755,12 @@ class UpdateTreatment(Mutation):
         if parameters['treatment'] == 'IN PROGRESS':
             if parameters.get('treatment_manager'):
                 project_users = [user[0]
-                                 for user in integrates_dao.get_project_users(project_name)
+                                 for user in integrates_dal.get_project_users(project_name)
                                  if user[1] == 1]
                 customer_roles = ["customer", "customeradmin"]
                 customer_users = [user
                                   for user in project_users
-                                  if integrates_dao.get_role_dao(user) in customer_roles]
+                                  if integrates_dal.get_role(user) in customer_roles]
                 if parameters.get('treatment_manager') not in customer_users:
                     raise GraphQLError('Invalid treatment manager')
             else:
