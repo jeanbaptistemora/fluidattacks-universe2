@@ -337,6 +337,19 @@ p {
   }
 }
 
+@media screen and (max-width: 1000px) {
+
+  .hide-on-small {
+    display: none;
+  }
+
+  .product {
+    width: 100%;
+  }
+
+}
+
+
 @media (min-width: 860px) {
   .cstmr-msg {
     margin: 10px auto;
@@ -350,10 +363,6 @@ p {
     p {
       padding: 0 5%;
     }
-  }
-
-  .product {
-    width: 100%;
   }
 
   .benefit {
