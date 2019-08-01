@@ -410,6 +410,48 @@ class GraphQLTests(TestCase):
         assert result.data.get('removeRepositories')['success']
         assert result.data.get('removeEnvironments')['success']
 
+    def test_update_treatment_vuln(self):
+        """test update_treatment_vuln """
+        testing_client = Client(schema.SCHEMA)
+        query = '''
+            mutation {
+                updateTreatmentVuln (
+                data: {
+                        btsUrl: "https://www.google.com/",
+                        findingId: "463462578",
+                        treatment: "accepted",
+                        treatmentJustification:
+                            "Will be solved the next sprint."
+                        treatmentManager: "test.test@test.test"
+                        vulnerabilities:
+                            ["ea9c6026-c98d-4b5f-ba0c-54caf8a586a8"]
+                        }
+                findingId: "463462578"
+                ){
+                success
+                }
+            }
+        '''
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        result = testing_client.execute(query, context_value=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['updateTreatmentVuln']
+
 
 class cvssTests(TestCase):
 
