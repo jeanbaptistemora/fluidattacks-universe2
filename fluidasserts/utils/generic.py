@@ -26,7 +26,7 @@ from fluidasserts.utils.decorators import track, level, notify
 # pylint: disable=broad-except
 
 
-def _scantree(path: str):
+def _scan_for_files(path: str):
     """Recursively yield full paths to files for a given directory."""
     if os.path.isfile(path):
         yield path
@@ -34,15 +34,27 @@ def _scantree(path: str):
         for entry in os.scandir(path):
             full_path = entry.path
             if entry.is_dir(follow_symlinks=False):
-                yield from _scantree(full_path)
+                yield from _scan_for_files(full_path)
             else:
                 yield full_path
+
+
+def _scan_for_dirs(path: str):
+    """Recursively yield full paths to dirs for a given directory."""
+    if os.path.isdir(path):
+        yield path
+        for entry in os.scandir(path):
+            full_path = entry.path
+            if entry.is_dir(follow_symlinks=False):
+                yield full_path
+                yield from _scan_for_dirs(full_path)
+    return
 
 
 @lru_cache(maxsize=None, typed=True)
 def _full_paths_in_path(path: str) -> tuple:
     """Return a tuple of full paths to files recursively from path."""
-    return tuple(_scantree(path))
+    return tuple(_scan_for_files(path))
 
 
 @notify
@@ -99,6 +111,16 @@ def get_paths(path: str,
         paths = filter(lambda p: not any(e in p for e in exclude), paths)
     if endswith:
         paths = filter(lambda p: any(p.endswith(e) for e in endswith), paths)
+    return tuple(paths)
+
+
+@lru_cache(maxsize=None, typed=True)
+def get_dir_paths(path: str,
+                  exclude: tuple = tuple()) -> tuple:
+    """Return a tuple of full paths to files recursively from path."""
+    paths = _scan_for_dirs(path)
+    if exclude:
+        paths = filter(lambda p: not any(e in p for e in exclude), paths)
     return tuple(paths)
 
 

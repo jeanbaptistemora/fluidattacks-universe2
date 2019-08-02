@@ -6,7 +6,6 @@
 import json
 import aiohttp
 import urllib.parse
-from typing import Callable
 
 # 3rd party imports
 from functools import reduce
@@ -17,14 +16,7 @@ from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
 from fluidasserts.helper import http
-
-
-class ConnError(http.ConnError):
-    """
-    A connection error occurred.
-
-    :py:exc:`http.ConnError` wrapper exception.
-    """
+from fluidasserts.helper import asynchronous
 
 
 def _url_encode(string: str) -> str:
@@ -32,14 +24,9 @@ def _url_encode(string: str) -> str:
     return urllib.parse.quote(string, safe='')
 
 
-async def _fetch_url(session, url) -> str:
-    """Return the result of a GET request to the URL."""
-    async with session.get(url) as response:
-        return await response.text()
-
-
+@http.retry
 def get_vulns_ossindex(package_manager: str, package: str,
-                       version: str) -> tuple:
+                       version: str, retry: bool) -> tuple:
     """
     Search vulnerabilities on given package_manager/package/version.
 
@@ -56,26 +43,26 @@ def get_vulns_ossindex(package_manager: str, package: str,
         url = 'https://ossindex.net/v2.0/package/{}/{}'.format(
             _url_encode(package_manager),
             _url_encode(package))
-    try:
-        sess = http.HTTPSession(url)
-        resp = json.loads(sess.response.text)[0]
-        vuln_titles = tuple()
-        if resp['id'] == 0:
-            return vuln_titles
-        if int(resp['vulnerability-matches']) > 0:
-            vulns = resp['vulnerabilities']
-            vuln_titles = tuple([x['title'], ", ".join(x['versions'])]
-                                for x in vulns)
-            vuln_titles = tuple(reduce(
-                lambda l, x: l.append(x) or l if x not in l else l,
-                vuln_titles, []))
+
+    sess = http.HTTPSession(url)
+    resp = json.loads(sess.response.text)[0]
+    vuln_titles = tuple()
+    if resp['id'] == 0:
         return vuln_titles
-    except http.ConnError:
-        raise ConnError
+    if int(resp['vulnerability-matches']) > 0:
+        vulns = resp['vulnerabilities']
+        vuln_titles = tuple([x['title'], ", ".join(x['versions'])]
+                            for x in vulns)
+        vuln_titles = tuple(reduce(
+            lambda l, x: l.append(x) or l if x not in l else l,
+            vuln_titles, []))
+    return vuln_titles
 
 
-async def get_vulns_ossindex_async(
-        package_manager: str, path: str, package: str, version: str) -> tuple:
+@asynchronous.http_retry
+async def get_vulns_ossindex_async(package_manager: str, path: str,
+                                   package: str, version: str,
+                                   retry: bool) -> tuple:
     """
     Search vulnerabilities on given package_manager/package/version.
 
@@ -94,7 +81,8 @@ async def get_vulns_ossindex_async(
             _url_encode(package))
 
     async with aiohttp.ClientSession(trust_env=True) as session:
-        text = await _fetch_url(session, url)
+        async with session.get(url) as response:
+            text = await response.text()
 
     vuln_titles = tuple()
     resp = json.loads(text)[0]
@@ -108,12 +96,17 @@ async def get_vulns_ossindex_async(
     return path, package, version, vuln_titles
 
 
-def _get_vulns_from(func: Callable, pkg_mgr: str,
-                    package: str, version: str = None) -> bool:
-    """Search vulnerabilities in given provider, package, and version."""
+def process_requirement(pkg_mgr: str, package: str, version: str = None,
+                        retry: bool = True) -> bool:
+    """
+    Search vulnerabilities on given package/version.
+
+    :param package: Package name.
+    :param version: Package version.
+    """
     try:
-        vulns = func(pkg_mgr, package, version)
-    except ConnError as exc:
+        vulns = get_vulns_ossindex(pkg_mgr, package, version, retry)
+    except http.ConnError as exc:
         show_unknown('Could not connect to SCA provider',
                      details=dict(error=str(exc).replace(':', ',')))
         return False
@@ -127,12 +120,34 @@ def _get_vulns_from(func: Callable, pkg_mgr: str,
     return False
 
 
-def get_vulns_from_ossindex(pkg_mgr: str, package: str,
-                            version: str = None) -> bool:
-    """
-    Search vulnerabilities on given package/version.
+def process_requirements(pkg_mgr: str, path: str,
+                         reqs: set, retry: bool = True) -> tuple:
+    """Return a dict mapping path to dependencies, versions and vulns."""
+    if not reqs:
+        show_unknown('Not packages found in project',
+                     details=dict(path=path))
+        return False
 
-    :param package: Package name.
-    :param version: Package version.
-    """
-    return _get_vulns_from(get_vulns_ossindex, pkg_mgr, package, version)
+    results = asynchronous.run_func(
+        get_vulns_ossindex_async,
+        [((pkg_mgr, path, dep, ver, retry), {}) for path, dep, ver in reqs])
+    results = filter(lambda x: isinstance(x, tuple), results)
+
+    has_vulns, proj_vulns = None, {}
+    for path, dep, ver, vulns in results:
+        if vulns:
+            has_vulns = True
+            try:
+                proj_vulns[path][f'{dep} {ver}'] = vulns
+            except KeyError:
+                proj_vulns[path] = {f'{dep} {ver}': vulns}
+
+    if has_vulns:
+        show_open('Project has dependencies with vulnerabilities',
+                  details=dict(project_path=path,
+                               vulnerabilities=proj_vulns))
+        return True
+
+    show_close('Project has not dependencies with vulnerabilities',
+               details=dict(project_path=path))
+    return False

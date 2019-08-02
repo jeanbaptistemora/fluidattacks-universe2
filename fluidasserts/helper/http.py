@@ -3,9 +3,11 @@
 """This module provide support for HTTP connections."""
 
 # standard imports
+import time
 import hashlib
+import functools
 from collections import OrderedDict
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Any, Callable
 
 # 3rd party imports
 from urllib.parse import quote
@@ -323,3 +325,19 @@ class HTTPSession():
                     status=self.response.status_code,
                     banner=fp_headers,
                     sha256=sha256.hexdigest())
+
+
+def retry(func: Callable) -> Callable:
+    """Decorator to retry the if a ConnError/ParameterError is raised."""
+    @functools.wraps(func)
+    def decorated(*args, **kwargs) -> Any:  # noqa
+        """Retry the function if a ConnError/ParameterError is raised."""
+        if kwargs.get('retry'):
+            for _ in range(12):
+                try:
+                    return func(*args, **kwargs)
+                except (ConnError, ParameterError):
+                    # Wait some seconds and retry
+                    time.sleep(5.0)
+        return func(*args, **kwargs)
+    return decorated

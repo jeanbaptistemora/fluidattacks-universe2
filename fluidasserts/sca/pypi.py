@@ -3,7 +3,7 @@
 """Software Composition Analysis for Python packages."""
 
 # standard imports
-# None
+import os
 
 # 3rd party imports
 from requirements_detector import find_requirements
@@ -11,79 +11,61 @@ from requirements_detector.detect import RequirementsNotFound
 
 # local imports
 from fluidasserts.helper import sca
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
+from fluidasserts.utils.generic import get_dir_paths
 from fluidasserts.utils.decorators import track, level, notify
 
-PACKAGE_MANAGER = 'pypi'
+PKG_MNGR = 'pypi'
 
 
-def _get_requirements(path: str) -> list:
+def _get_requirements(path: str, exclude: tuple) -> set:
     """
     Get list of requirements from Python project.
 
-    Files supported are setup.py and requirements.txt
+    Files supported are package.json and package-lock.json
 
     :param path: Project path
+    :param exclude: Paths that contains any string from this tuple are ignored.
     """
-    _reqs = ((x.name, x.version_specs) for x in find_requirements(path))
-    reqs = []
-    for req in _reqs:
-        if req[1]:
-            reqs.append((req[0], req[1][0][1]))
-        else:
-            reqs.append((req[0], None))
+    reqs = set()
+    if not os.path.exists(path):
+        return reqs
+    for full_path in get_dir_paths(path, exclude=exclude):
+        try:
+            reqs.update(
+                (req.location_defined,
+                 req.name,
+                 req.version_specs[0][1] if req.version_specs else None)
+                for req in find_requirements(full_path))
+        except RequirementsNotFound:
+            pass
     return reqs
 
 
 @notify
 @level('high')
 @track
-def package_has_vulnerabilities(package: str, version: str = None) -> bool:
+def package_has_vulnerabilities(
+        package: str, version: str = None, retry: bool = True) -> bool:
     """
     Search vulnerabilities on given package/version.
 
     :param package: Package name.
     :param version: Package version.
     """
-    return sca.get_vulns_from_ossindex(PACKAGE_MANAGER, package, version)
+    return sca.process_requirement(PKG_MNGR, package, version, retry)
 
 
 @notify
 @level('high')
 @track
-def project_has_vulnerabilities(path: str) -> bool:
+def project_has_vulnerabilities(
+        path: str, exclude: list = None, retry: bool = True) -> bool:
     """
     Search vulnerabilities on given project directory.
 
     :param path: Project path.
+    :param exclude: Paths that contains any string from this list are ignored.
     """
-    try:
-        reqs = _get_requirements(path)
-    except (FileNotFoundError, RequirementsNotFound):
-        show_unknown('Project dir not found',
-                     details=dict(path=path))
-        return False
-
-    result = True
-    try:
-        unfiltered = {f'{x[0]} {x[1]}':
-                      sca.get_vulns_ossindex(PACKAGE_MANAGER, x[0], x[1])
-                      for x in reqs}
-        proj_vulns = {k: v for k, v in unfiltered.items() if v}
-    except sca.ConnError as exc:
-        show_unknown('Could not connect to SCA provider',
-                     details=dict(error=str(exc).replace(':', ',')))
-        result = False
-    else:
-        if proj_vulns:
-            show_open('Project has dependencies with vulnerabilities',
-                      details=dict(project_path=path,
-                                   vulnerabilities=proj_vulns))
-            result = True
-        else:
-            show_close('Project has not dependencies with vulnerabilities',
-                       details=dict(project_path=path))
-            result = False
-    return result
+    exclude = tuple(exclude) if exclude else tuple()
+    reqs = _get_requirements(path, exclude)
+    return sca.process_requirements(PKG_MNGR, path, reqs, retry)
