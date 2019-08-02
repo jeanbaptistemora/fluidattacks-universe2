@@ -875,7 +875,7 @@ msgstr "Closing admiration sign"
 msgid "Index-bnft-2"
 msgstr ""
 "<strong>Specialists in zero days vulnerabilities:</strong> "
-" Zero False Positives.Zero Escapes."
+" Zero False Positives. Zero Escapes."
 
 #: templates/landing.html:97
 msgid "Index-img-alt-4"
@@ -895,8 +895,11 @@ msgstr "Hand holding a lock sign"
 msgid "Index-bnft-4"
 msgstr ""
 "<strong>Price based on scope</strong>: "
-" Pricing is based on lines of code analyzed, inputs(entry fields) "
-"and open ports. Forget about charges per hour or staff augmentation!"
+"Pricing based on active authors for continuous hacking subscriptions, "
+"or effective lines of codes, inputs "
+"(entry fields, headers or <i>REST</i> parameters),
+"and open <i>TCP/UDP</i> ports for one-shot hacking projects. "
+"Forget about charges per hour!"
 
 #: templates/landing.html:107
 msgid "Index-img-alt-6"
