@@ -27,7 +27,6 @@ def trails_not_multiregion(
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    result = False
     try:
         trails = aws.run_boto3_func(key_id, secret, 'cloudtrail',
                                     'describe_trails',
@@ -45,15 +44,13 @@ def trails_not_multiregion(
         show_close('Not trails were found')
         return False
 
-    for trail in trails:
-        if not trail['IsMultiRegionTrail']:
-            show_open('Trail is not multiregion',
-                      details=dict(trail_arn=trail['TrailARN']))
-            result = True
-        else:
-            show_close('Trail is multiregion',
-                       details=dict(trail_arn=trail['TrailARN']))
-    return result
+    result = [x['TrailARN'] for x in trails if not x['IsMultiRegionTrail']]
+
+    if result:
+        show_open('Trails are not multiregion', details=dict(trails=result))
+        return True
+    show_close('All trails are multiregion')
+    return False
 
 
 @notify
@@ -66,7 +63,6 @@ def files_not_validated(key_id: str, secret: str, retry: bool = True) -> bool:
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    result = False
     try:
         trails = aws.run_boto3_func(key_id, secret, 'cloudtrail',
                                     'describe_trails',
@@ -84,15 +80,14 @@ def files_not_validated(key_id: str, secret: str, retry: bool = True) -> bool:
         show_close('Not trails were found')
         return False
 
-    for trail in trails:
-        if not trail['LogFileValidationEnabled']:
-            show_open('File validation not enabled',
-                      details=dict(trail_arn=trail['TrailARN']))
-            result = True
-        else:
-            show_close('File validation enabled',
-                       details=dict(trail_arn=trail['TrailARN']))
-    return result
+    result = [x['TrailARN']
+              for x in trails if not x['LogFileValidationEnabled']]
+    if result:
+        show_open('File validation not enabled on trails',
+                  details=dict(trails=result))
+        return True
+    show_close('File validation enabled on trails')
+    return False
 
 
 @notify
@@ -124,6 +119,7 @@ def is_trail_bucket_public(key_id: str, secret: str,
         show_close('Not trails were found')
         return False
 
+    result = {}
     for trail in trails:
         bucket = trail['S3BucketName']
         grants = aws.run_boto3_func(key_id, secret, 's3',
@@ -132,15 +128,12 @@ def is_trail_bucket_public(key_id: str, secret: str,
                                     retry=retry,
                                     Bucket=bucket)
         if aws.get_bucket_public_grants(bucket, grants):
-            show_open('CloudTrail bucket is public',
-                      details=dict(trail_arn=trail['TrailARN'],
-                                   bucket=bucket))
-            result = True
-        else:
-            show_close('CloudTrail bucket is not public',
-                       details=dict(trail_arn=trail['TrailARN'],
-                                    bucket=bucket))
-    return result
+            result[trail['TrailARN']] = bucket
+    if result:
+        show_open('CloudTrail buckets are public', details=dict(trais=result))
+        return True
+    show_close('CloudTrail buckets are not public')
+    return False
 
 
 @notify
@@ -154,7 +147,6 @@ def is_trail_bucket_logging_disabled(key_id: str, secret: str,
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    result = False
     try:
         trails = aws.run_boto3_func(key_id, secret, 'cloudtrail',
                                     'describe_trails',
@@ -172,6 +164,7 @@ def is_trail_bucket_logging_disabled(key_id: str, secret: str,
         show_close('Not trails were found')
         return False
 
+    result = {}
     for trail in trails:
         bucket = trail['S3BucketName']
         logging = aws.run_boto3_func(key_id, secret, 's3',
@@ -179,13 +172,14 @@ def is_trail_bucket_logging_disabled(key_id: str, secret: str,
                                      retry=retry,
                                      Bucket=bucket)
         if 'LoggingEnabled' not in logging:
-            show_open('Logging not enabled on CloudTrail bucket',
-                      details=dict(bucket=bucket))
-            result = True
-        else:
-            show_close('Logging enabled on CloudTrail bucket',
-                       details=dict(bucket=bucket))
-    return result
+            result[trail['TrailARN']] = bucket
+
+    if result:
+        show_open('Logging not enabled on trails buckets',
+                  details=dict(trails=result))
+        return True
+    show_close('Logging enabled on CloudTrail bucket')
+    return False
 
 
 @notify
@@ -215,13 +209,11 @@ def has_unencrypted_logs(key_id: str, secret: str, retry: bool = True) -> bool:
         show_close('Not trails were found')
         return False
 
-    result = False
-    for trail in trails:
-        if 'KmsKeyId' in trail and trail['KmsKeyId']:
-            show_close('KMS key found in trail',
-                       details=dict(trail_arn=trail['TrailARN']))
-        else:
-            show_open('Trail logs are not encrypted',
-                      details=dict(trail_arn=trail['TrailARN']))
-            result = True
-    return result
+    result = [x['TrailARN']
+              for x in trails if 'KmsKeyId' not in x or not x['KmsKeyId']]
+    if result:
+        show_open('Trails logs are not encrypted',
+                  details=dict(trails=result))
+        return True
+    show_close('KMS key found in trails')
+    return False

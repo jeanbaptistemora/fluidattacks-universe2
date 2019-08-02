@@ -57,7 +57,7 @@ def has_not_geo_restrictions(key_id: str, secret: str,
             result.append(distro['Id'])
     if result:
         show_open('Distributions has not geo restrictions',
-                  details=dict(distribution=result))
+                  details=dict(distributions=result))
         return True
     show_close('All distributions has geo restrictions')
     return False
