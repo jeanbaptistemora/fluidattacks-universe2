@@ -57,3 +57,10 @@ export TF_VAR_elbZone="$(aws elb --region us-east-1 \
 terraform init --backend-config="bucket=${FS_S3_BUCKET_NAME}"
 tflint
 terraform plan -refresh=true
+cd ../
+
+# Run Terraform Plan for ECR repositories
+cd ecr/
+terraform init --backend-config="bucket=${FS_S3_BUCKET_NAME}"
+terraform plan -refresh=true
+cd ../
