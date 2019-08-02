@@ -1,17 +1,16 @@
-/* tslint:disable jsx-no-lambda
- * Disabling this rule is necessary for the sake of simplicity and
- * readability of the code that binds click events
+/* tslint:disable jsx-no-multiline-js
+ * JSX-NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
+ * readability of the code that renders the form
  */
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { Provider } from "react-redux";
-import { ConfigProps, DecoratedComponentClass, Field, InjectedFormProps, reduxForm } from "redux-form";
+import { Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import store from "../../../../store/index";
 import { fileInputField, textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
+import { GenericForm } from "../GenericForm";
 import style from "./index.css";
 
 interface IEvidenceImageProps {
@@ -24,69 +23,53 @@ interface IEvidenceImageProps {
   onUpdate(values: {}): void;
 }
 
-type formProps = IEvidenceImageProps & InjectedFormProps<{}, IEvidenceImageProps>;
-
-const renderDescriptionField: ((props: formProps) => JSX.Element) = (props: formProps): JSX.Element => (
-  <Field
-    name={`${props.name}_description`}
-    component={textAreaField}
-    validate={[required]}
-  />
+const renderDescriptionField: ((name: string) => JSX.Element) = (name: string): JSX.Element => (
+  <Field name={`${name}_description`} component={textAreaField} validate={[required]} />
 );
 
-const renderEditBox: ((props: formProps) => JSX.Element) =
-  (props: formProps): JSX.Element => (
-    <form onSubmit={props.handleSubmit}>
-      <Field name={`${props.name}_filename`} id={props.name} component={fileInputField} />
-      {props.isDescriptionEditable ? renderDescriptionField(props) : undefined}
-      <Button bsStyle="success" block={true} type="submit" disabled={props.pristine || props.submitting}>
-        <FluidIcon icon="loading" />
-        &nbsp;{translate.t("search_findings.tab_evidence.update")}
-      </Button>
-    </form>
-  );
-
-type evidenceForm = DecoratedComponentClass<{}, IEvidenceImageProps & Partial<ConfigProps<{}, IEvidenceImageProps>>,
-  string>;
-
 const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvidenceImageProps): JSX.Element => {
-  /* tslint:disable-next-line:variable-name
-   * Disabling here is necessary due a conflict
-   * between lowerCamelCase var naming rule from tslint
-   * and PascalCase rule for naming JSX elements
-   */
-  const Form: evidenceForm = reduxForm<{}, IEvidenceImageProps>({
-    enableReinitialize: true,
-    form: props.name,
-  })(renderEditBox);
+  const handleSubmit: ((values: {}) => void) = (values: {}): void => { props.onUpdate(values); };
 
   return (
-    <Provider store={store}>
-      <Form
-        {...props}
-        onSubmit={(values: {}): void => { props.onUpdate(values); }}
-        initialValues={{ [`${props.name}_description`]: props.description }}
-      />
-    </Provider>
+    <GenericForm
+      name={props.name}
+      onSubmit={handleSubmit}
+      initialValues={{ [`${props.name}_description`]: props.description }}
+    >
+      {({ pristine, submitting }: InjectedFormProps): JSX.Element => (
+        <React.Fragment>
+          <Field name={`${props.name}_filename`} id={props.name} component={fileInputField} />
+          {props.isDescriptionEditable ? renderDescriptionField(props.name) : undefined}
+          <Button bsStyle="success" block={true} type="submit" disabled={pristine || submitting}>
+            <FluidIcon icon="loading" />
+            &nbsp;{translate.t("search_findings.tab_evidence.update")}
+          </Button>
+        </React.Fragment>
+      )}
+    </GenericForm>
   );
 };
 
-export const evidenceImage: React.FC<IEvidenceImageProps> = (props: IEvidenceImageProps): JSX.Element => (
-  <React.StrictMode>
-    <Col md={4} sm={6} xs={12}>
-      <div>
-        <div className={style.imgContainer}>
-          <img src={props.url} className={style.img} onClick={(): void => { props.onClick(); }} />
+export const evidenceImage: React.FC<IEvidenceImageProps> = (props: IEvidenceImageProps): JSX.Element => {
+  const handleClick: (() => void) = (): void => { props.onClick(); };
+
+  return (
+    <React.StrictMode>
+      <Col md={4} sm={6} xs={12}>
+        <div>
+          <div className={style.imgContainer}>
+            <img src={props.url} className={style.img} onClick={handleClick} />
+          </div>
+          <div className={style.description}>
+            <Row>
+              <label><b>{translate.t("search_findings.tab_evidence.detail")}</b></label>
+            </Row>
+            <Row>
+              {props.isEditing ? renderForm(props) : <p>{props.description}</p>}
+            </Row>
+          </div>
         </div>
-        <div className={style.description}>
-          <Row>
-            <label><b>{translate.t("search_findings.tab_evidence.detail")}</b></label>
-          </Row>
-          <Row>
-            {props.isEditing ? renderForm(props) : <p>{props.description}</p>}
-          </Row>
-        </div>
-      </div>
-    </Col>
-  </React.StrictMode>
-);
+      </Col>
+    </React.StrictMode>
+  );
+};
