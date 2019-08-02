@@ -18,6 +18,7 @@ module "bucket" {
   fiBucket = "${var.fiBucket}"
   fsBucket = "${var.fsBucket}"
   fwBucket = "${var.fwBucket}"
+  asserts-clients = "${var.asserts-clients}"
 }
 
 # Create from scratch
