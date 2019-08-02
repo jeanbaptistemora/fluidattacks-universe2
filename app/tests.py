@@ -7,11 +7,15 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
+from graphql.error import GraphQLError
 from graphene.test import Client
 from jose import jwt
 
 from .dal.helpers.formstack import FormstackAPI
 from .entity import schema
+from .entity.user import (validate_email_address,
+                          validate_field,
+                          validate_phone_field)
 from .utils import cvss
 from .dto.finding import FindingDTO
 
@@ -452,7 +456,6 @@ class GraphQLTests(TestCase):
         assert 'errors' not in result
         assert 'success' in result['data']['updateTreatmentVuln']
 
-
     def test_grant_user_access(self):
         testing_client = Client(schema.SCHEMA)
         query = '''
@@ -635,3 +638,29 @@ class cvssTests(TestCase):
             severity, fin_dto.CVSS3_PARAMETERS, cvss_version)
         cvss_environment_test = Decimal(4.6).quantize(Decimal('0.1'))
         assert cvss_environment == cvss_environment_test
+
+
+class ValidationTests(TestCase):
+
+    def test_validate_email_address(self):
+        """makes sure that the email is being validated properly"""
+        assert validate_email_address('test@test.test')
+        assert validate_email_address('test.test@test.test')
+        assert validate_email_address('test.test@test.test.test')
+        with pytest.raises(GraphQLError):
+            assert validate_email_address('test@test')
+        with pytest.raises(GraphQLError):
+            assert validate_email_address('test')
+
+    def test_validate_field(self):
+        """makes sure that the  field is filtering only = sign at start"""
+        assert validate_field('t35t 7 test @ test')
+        with pytest.raises(GraphQLError):
+            assert validate_field('=test')
+
+    def test_validate_phone_number(self):
+        assert validate_phone_field("123123123")
+        with pytest.raises(GraphQLError):
+            assert validate_phone_field("asdasdasd")
+        with pytest.raises(GraphQLError):
+            assert validate_phone_field("=12123123123")
