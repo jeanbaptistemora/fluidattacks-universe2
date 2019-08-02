@@ -15,13 +15,16 @@ from fluidasserts import LOW, MEDIUM
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
+from fluidasserts.proto.http import _is_header_present
 from fluidasserts.proto.http import _has_insecure_value
 from fluidasserts.utils.decorators import track, level, notify, api
 from fluidasserts.helper import http
 
 HDR_RGX = {
     'content-type': '^(\\s)*.+(\\/|-).+(\\s)*;(\\s)*charset.*$',
-    'strict-transport-security': '^\\s*max-age=\\s*\\d+',
+    'strict-transport-security': (r'^\s*max-age\s*=\s*'
+                                  # 123 or "123" as a capture group
+                                  r'"?((?<!")\d+(?!")|(?<=")\d+(?="))"?'),
     'x-content-type-options': '^\\s*nosniff\\s*$',
     'x-frame-options': '^\\s*deny.*$',
 }  # type: dict
@@ -165,10 +168,8 @@ def is_header_x_content_type_options_missing(url: str, *args,
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@notify
-@level('medium')
-@track
-def is_header_hsts_missing(url: str, *args, **kwargs) -> bool:
+@api(risk=MEDIUM)
+def is_header_hsts_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if Strict-Transport-Security HTTP header is properly set.
 
@@ -176,50 +177,22 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> bool:
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    result = True
-    try:
-        http_session = http.HTTPSession(url, *args, **kwargs)
-        headers_info = http_session.response.headers
-        fingerprint = http_session.get_fingerprint()
-    except http.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-
     header = 'Strict-Transport-Security'
-    if header in headers_info:
-        value = headers_info[header]
-        if re.match(HDR_RGX[header.lower()], value, re.IGNORECASE):
-            hdr_attrs = value.split(';')
-            max_age = list(filter(lambda x: x.startswith('max-age'),
-                                  hdr_attrs))[0]
-            max_age_val = max_age.split('=')[1]
+    try:
+        value = _is_header_present(url, header, *args, **kwargs)
+        if not value:
+            return OPEN, f'Header {header} not present'
+
+        re_match = re.search(HDR_RGX[header.lower()], value, flags=re.I)
+        if re_match:
+            max_age_val = re_match.groups()[0]
             if int(max_age_val) >= 31536000:
-                show_close('HTTP header {} is secure'.format(header),
-                           details=dict(url=url,
-                                        header=header,
-                                        value=value,
-                                        fingerprint=fingerprint))
-                result = False
-            else:
-                show_open('{} HTTP header is insecure'.
-                          format(header),
-                          details=dict(url=url, header=header, value=value,
-                                       fingerprint=fingerprint))
-                result = True
-        else:
-            show_open('{} HTTP header is insecure'.
-                      format(header),
-                      details=dict(url=url, header=header, value=value,
-                                   fingerprint=fingerprint))
-            result = True
-    return result
+                return CLOSED, f'HTTP header {header} is secure'
+        return OPEN, f'{header} HTTP header is insecure'
+    except http.ConnError as exc:
+        return UNKNOWN, f'There was an error: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
 @api(risk=LOW)

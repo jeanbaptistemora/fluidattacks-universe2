@@ -23,7 +23,7 @@ def _get_requirements(path: str) -> list:
     """
     Get list of requirements from Python project.
 
-    Files supported are setup.py and requierements.txt
+    Files supported are setup.py and requirements.txt
 
     :param path: Project path
     """
