@@ -896,8 +896,8 @@ msgid "Index-bnft-4"
 msgstr ""
 "<strong>Price based on scope</strong>: "
 "Pricing based on active authors for continuous hacking subscriptions, "
-"or effective lines of codes, inputs "
-"(entry fields, headers or <i>REST</i> parameters),
+"or effective lines of code, inputs "
+"(entry fields, headers or <i>REST</i> parameters), "
 "and open <i>TCP/UDP</i> ports for one-shot hacking projects. "
 "Forget about charges per hour!"
 
