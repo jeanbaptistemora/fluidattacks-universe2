@@ -27,32 +27,33 @@ COPY --from=deps /home/asserts/build/dist/* /home/
 RUN apk update \
     && apk upgrade \
     && apk add -u --no-cache \
-        curl \
-        gcc \
         jpeg-dev \
-        libc-dev \
-        libffi-dev \
-        make \
-        openssl-dev \
         zlib-dev \
+        alpine-sdk \
+        xmlsec-dev \
+        libffi-dev \
+        libssl1.1 \
+        libxml2-dev \
+        libxslt-dev \
+        openssl-dev \
+        freetype-dev \
+        libcrypto1.1 \
     && pip3 install --no-cache-dir -U ./*.zip \
     && apk del -r --purge \
         gcc \
+        g++ \
         jpeg-dev \
         libc-dev \
         libffi-dev \
         libressl2.7-libtls \
         make \
-        musl-utils libc-utils \
+        musl-utils \
+        libc-utils \
         openssl-dev \
         python3-dev \
         scanelf \
         ssl_client \
         zlib-dev \
-    && apk add -u --no-cache \
-        libssl1.1 \
-        libcrypto1.1 \
     && rm -rf \
         /var/cache/apk/* \
         /home/*
-

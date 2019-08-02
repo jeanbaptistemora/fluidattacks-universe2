@@ -20,6 +20,10 @@ RUN apt-get update -qq && \
         python3 \
         python3-dev \
         python3-pip \
+        python3-lxml \
+        python3-wheel \
+        apt-utils \
+        build-essential \
         libssl-dev \
         libffi-dev \
         scons \
@@ -35,20 +39,17 @@ RUN apt-get update -qq && \
         ruby2.5-dev \
         libffi-dev \
         pkg-config \
-        gcc \
-        libc6-dev \
-        make \
         docker-ce \
         git \
         unzip \
         libxml2-dev \
-        libxslt1-dev && \
+        libxslt1-dev \
+        libxmlsec1-dev \
+        libfreetype6-dev && \
     python3 -m pip install -U  setuptools \
         wheel \
         pip && \
     python3 -m pip install -U \
-        wheel \
-        setuptools \
         tox \
         tox-pyenv \
         pylint \
@@ -66,6 +67,6 @@ RUN apt-get update -qq && \
         pyflakes \
         requirements-detector \
         mypy && \
-    gem install overcommit && \
+    gem install rake overcommit && \
     dpkg --clear-avail && \
     apt-get clean
