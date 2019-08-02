@@ -875,7 +875,7 @@ msgstr "Closing admiration sign"
 msgid "Index-bnft-2"
 msgstr ""
 "<strong>Specialists in zero days vulnerabilities:</strong> "
-" Zero False Positives.Zero Scapes."
+" Zero False Positives.Zero Escapes."
 
 #: templates/landing.html:97
 msgid "Index-img-alt-4"
