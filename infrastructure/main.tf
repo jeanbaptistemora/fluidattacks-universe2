@@ -25,6 +25,12 @@ module "iam" {
   source = "./iam"
   fwBucket = "${var.fwBucket}"
   fsBucket = "${var.fsBucket}"
+  asserts-clients = "${var.asserts-clients}"
+}
+
+module "ecr" {
+  source = "./ecr"
+  asserts-clients = "${var.asserts-clients}"
 }
 
 # #Create from scratch

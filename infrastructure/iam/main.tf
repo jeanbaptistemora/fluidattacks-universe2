@@ -1,5 +1,8 @@
 variable "fsBucket" {}
 variable "fwBucket" {}
+variable "asserts-clients" {
+  type = "map"
+}
 
 resource "aws_iam_account_password_policy" "strict" {
   allow_users_to_change_password = true
@@ -28,4 +31,9 @@ module "policies" {
   fsBucket     = "${var.fsBucket}"
   fwBucket     = "${var.fwBucket}"
   ssofinance   = "${module.roles.ssofinance}"
+}
+
+module "users" {
+  source = "./users"
+  asserts-clients = "${var.asserts-clients}"
 }

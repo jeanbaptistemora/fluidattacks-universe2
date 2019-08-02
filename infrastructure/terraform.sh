@@ -3,7 +3,7 @@ set -e
 
 stage="${1:-test}"
 
-# Run Terraform Plan for AWS EKS, RDS and VPC infrastructure
+# Run Terraform Plan for IAM, AWS EKS, RDS and VPC infrastructure
 cd infrastructure/
 export TF_VAR_aws_access_key="$AWS_ACCESS_KEY_ID"
 export TF_VAR_aws_secret_key="$AWS_SECRET_KEY_ID"
@@ -56,11 +56,5 @@ export TF_VAR_elbZone="$(aws elb --region us-east-1 \
   jq -r '.LoadBalancerDescriptions[].CanonicalHostedZoneNameID')"
 terraform init --backend-config="bucket=${FS_S3_BUCKET_NAME}"
 tflint
-terraform plan -refresh=true
-cd ../
-
-# Run Terraform Plan for ECR repositories
-cd ecr/
-terraform init --backend-config="bucket=${FS_S3_BUCKET_NAME}"
 terraform plan -refresh=true
 cd ../

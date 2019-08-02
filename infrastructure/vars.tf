@@ -46,3 +46,13 @@ variable "cacheGroupId" {}
 variable "cacheGroupDescription" {}
 variable "cacheNodeType" {}
 variable "cacheParamGroupName" {}
+
+# Asserts IAM, ACR and S3 vars
+variable "asserts-clients" {
+  type = "map"
+  default {
+    "0" = "client-1"
+    "1" = "client-2"
+    "2" = "client-3"
+  }
+}
