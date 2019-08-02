@@ -256,9 +256,9 @@ class GraphQLTests(TestCase):
             ('currentState', u'open'),
             ('id', u'80d6a69f-a376-46be-98cd-2fdedcffdcc0'),
             ('findingId', u'422286126'),
-            ('treatment', u''),
-            ('treatmentManager', u''),
-            ('treatmentJustification', u''),
+            ('treatment', u'In progress'),
+            ('treatmentManager', u'continuoushacking@gmail.com'),
+            ('treatmentJustification', u'Test 123'),
             ('externalBts', u'')])
         assert test_data in result.data.get('finding')['inputsVulns']
 
