@@ -453,6 +453,51 @@ class GraphQLTests(TestCase):
         assert 'success' in result['data']['updateTreatmentVuln']
 
 
+    def test_grant_user_access(self):
+        testing_client = Client(schema.SCHEMA)
+        query = '''
+            mutation {
+                grantUserAccess (
+                email: "test@test.test",
+                organization: "test",
+                phoneNumber: "3453453453"
+                projectName: "unittesting",
+                responsibility: "test",
+                role: "customer") {
+                success
+                grantedUser {
+                    email
+                    role
+                    responsibility
+                    phoneNumber
+                    organization
+                    firstLogin
+                    lastLogin
+                }
+                }
+            }
+        '''
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        result = testing_client.execute(query, context_value=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['grantUserAccess']
+
+
 class cvssTests(TestCase):
 
     def test_calculate_cvss2_basescore(self):
