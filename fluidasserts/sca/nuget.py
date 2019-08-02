@@ -19,16 +19,18 @@ from fluidasserts.utils.decorators import track, level, notify
 PACKAGE_MANAGER = 'nuget'
 
 
-def _get_requirements(path: str) -> list:
+def _get_requirements(path: str, exclude: tuple) -> list:
     """
     Get list of requirements from NuGet project.
 
     Files supported are packages.config
 
     :param path: Project path
+    :param exclude: Paths that contains any string from this tuple are ignored.
     """
     reqs = []
-    for full_path in get_paths(path, endswith=('packages.config',)):
+    endswith = ('packages.config',)
+    for full_path in get_paths(path, endswith=endswith, exclude=exclude):
         tree = parse(full_path)
         deps = tree.findall(".//package")
         reqs += [(dep.attrib['id'], dep.attrib['version']) for dep in deps]
@@ -51,14 +53,16 @@ def package_has_vulnerabilities(package: str, version: str = None) -> bool:
 @notify
 @level('high')
 @track
-def project_has_vulnerabilities(path: str) -> bool:
+def project_has_vulnerabilities(path: str, exclude: list = None) -> bool:
     """
     Search vulnerabilities on given project directory.
 
     :param path: Project path.
+    :param exclude: Paths that contains any string from this list are ignored.
     """
+    exclude = tuple(exclude) if exclude else tuple()
     try:
-        reqs = _get_requirements(path)
+        reqs = _get_requirements(path, exclude)
     except FileNotFoundError:
         show_unknown('Project dir not found',
                      details=dict(path=path))

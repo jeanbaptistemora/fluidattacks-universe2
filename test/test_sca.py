@@ -20,6 +20,7 @@ from fluidasserts.sca import rubygems
 
 
 # Constants
+PROJECT = 'test/static/sca'
 MAVEN_PROJECT_OPEN = 'test/static/sca/maven/open'
 MAVEN_PROJECT_CLOSE = 'test/static/sca/maven/close'
 MAVEN_PROJECT_NOT_FOUND = 'test/static/sca/maven/not_found'
@@ -68,16 +69,19 @@ def test_package_has_vulnerabilities_close():
     assert not chocolatey.package_has_vulnerabilities('jqueryasudhai', '3.7')
     assert not maven.package_has_vulnerabilities('maven', '5.0.0')
     assert not maven.package_has_vulnerabilities('mavenasdasda', '5.0.0')
+    assert not maven.project_has_vulnerabilities(PROJECT, exclude=['test'])
     assert not maven.project_has_vulnerabilities(MAVEN_PROJECT_CLOSE)
     assert not maven.project_has_vulnerabilities(MAVEN_PROJECT_NOT_FOUND)
     assert not maven.project_has_vulnerabilities(MAVEN_PROJECT_EMPTY)
     assert not npm.package_has_vulnerabilities('extend', '10.0.0')
     assert not npm.package_has_vulnerabilities('npasdasdasm', '10.0.0')
+    assert not npm.project_has_vulnerabilities(PROJECT, exclude=['test'])
     assert not npm.project_has_vulnerabilities(NPM_PROJECT_CLOSE)
     assert not npm.project_has_vulnerabilities(NPM_PROJECT_NOT_FOUND)
     assert not npm.project_has_vulnerabilities(NPM_PROJECT_EMPTY)
     assert not nuget.package_has_vulnerabilities('jquery', '10.0.0')
     assert not nuget.package_has_vulnerabilities('jqueryasdasd', '10.0.0')
+    assert not nuget.project_has_vulnerabilities(PROJECT, exclude=['test'])
     assert not nuget.project_has_vulnerabilities(NUGET_PROJECT_CLOSE)
     assert not nuget.project_has_vulnerabilities(NUGET_PROJECT_NOT_FOUND)
     assert not nuget.project_has_vulnerabilities(NUGET_PROJECT_EMPTY)

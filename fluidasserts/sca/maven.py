@@ -21,17 +21,19 @@ from fluidasserts.utils.decorators import track, level, notify
 PKG_MNGR = 'maven'
 
 
-def _get_requirements_pom_xml(path: str) -> list:
+def _get_requirements_pom_xml(path: str, exclude: tuple) -> list:
     """
     Get list of requirements from Maven project.
 
     Files supported are pom.xml
 
     :param path: Project path
+    :param exclude: Paths that contains any string from this tuple are ignored.
     """
     reqs = []
+    endswith = ('pom.xml',)
     namespaces = {'xmlns': 'http://maven.apache.org/POM/4.0.0'}
-    for full_path in get_paths(path, endswith=('pom.xml',)):
+    for full_path in get_paths(path, endswith=endswith, exclude=exclude):
         tree = parse(full_path)
         root = tree.getroot()
         deps = root.findall(".//xmlns:dependency",
@@ -50,16 +52,18 @@ def _get_requirements_pom_xml(path: str) -> list:
     return reqs
 
 
-def _get_requirements_build_gradle(path: str) -> list:
+def _get_requirements_build_gradle(path: str, exclude: tuple) -> list:
     """
     Get list of requirements from Maven project.
 
     Files supported are build.gradle
 
     :param path: Project path
+    :param exclude: Paths that contains any string from this tuple are ignored.
     """
     reqs = []
-    for file_path in get_paths(path, endswith=('build.gradle',)):
+    endswith = ('build.gradle',)
+    for file_path in get_paths(path, endswith=endswith, exclude=exclude):
         with open(file_path, encoding='latin-1') as file_fd:
             file_content = file_fd.read()
 
@@ -96,19 +100,20 @@ def _get_requirements_build_gradle(path: str) -> list:
     return reqs
 
 
-def _get_requirements(path: str) -> list:
+def _get_requirements(path: str, exclude: tuple) -> list:
     """
     Return a list of requirements from a Maven project.
 
     Files supported are pom.xml and build.graddle.
 
     :param path: Project path
+    :param exclude: Paths that contains any string from this tuple are ignored.
     """
     reqs = list()
     if not os.path.exists(path):
         return reqs
-    return _get_requirements_pom_xml(path) + \
-        _get_requirements_build_gradle(path)
+    return _get_requirements_pom_xml(path, exclude) + \
+        _get_requirements_build_gradle(path, exclude)
 
 
 def _parse_requirements(reqs: set) -> tuple:
@@ -145,13 +150,15 @@ def package_has_vulnerabilities(package: str, version: str = None) -> bool:
 @notify
 @level('high')
 @track
-def project_has_vulnerabilities(path: str) -> bool:
+def project_has_vulnerabilities(path: str, exclude: list = None) -> bool:
     """
     Search vulnerabilities on given project directory.
 
     :param path: Project path.
+    :param exclude: Paths that contains any string from this list are ignored.
     """
-    reqs = _get_requirements(path)
+    exclude = tuple(exclude) if exclude else tuple()
+    reqs = _get_requirements(path, exclude)
     if not reqs:
         show_unknown('Not packages found in project',
                      details=dict(path=path))

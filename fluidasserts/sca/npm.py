@@ -58,20 +58,21 @@ def _get_all_versions(json_obj: dict) -> None:
     return deps
 
 
-def _get_requirements(path: str) -> set:
+def _get_requirements(path: str, exclude: tuple) -> set:
     """
     Get a list of requirements from NPM project.
 
     Files supported are package.json and package-lock.json
 
     :param path: Project path
+    :param exclude: Paths that contains any string from this tuple are ignored.
     """
     reqs = set()
     if not os.path.exists(path):
         return reqs
+    endswith = ('package.json', 'package-lock.json')
     dictionary = {ord(c): None for c in '^~<=>'}
-    for path in get_paths(path, endswith=(
-            'package.json', 'package-lock.json')):
+    for path in get_paths(path, endswith=endswith, exclude=exclude):
         with open(path) as file:
             data = json.load(file)
         reqs.update(
@@ -113,13 +114,15 @@ def package_has_vulnerabilities(package: str, version: str = None) -> bool:
 @notify
 @level('high')
 @track
-def project_has_vulnerabilities(path: str) -> bool:
+def project_has_vulnerabilities(path: str, exclude: list = None) -> bool:
     """
     Search vulnerabilities on given project directory.
 
     :param path: Project path.
+    :param exclude: Paths that contains any string from this list are ignored.
     """
-    reqs = _get_requirements(path)
+    exclude = tuple(exclude) if exclude else tuple()
+    reqs = _get_requirements(path, exclude)
     if not reqs:
         show_unknown('Not packages found in project',
                      details=dict(path=path))
