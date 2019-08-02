@@ -79,7 +79,7 @@
         <div class="item"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/trusted/quipux-logo.png" alt="Quipux logo"></div>
         <div class="item"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/trusted/soe360-logo.png" alt="SOE 360 logo"></div>
         <div class="item"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/trusted/suam-logo.png" alt="SUAM logo"></div>
-        {% assets filters="uglifyjs" , output="static/js/theme.min" , "js/carousel.js"  %}
+        {% assets filters="uglifyjs" , output="static/js/carousel.min.js" , "js/carousel.js"  %}
         <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
         {% endassets %}
     </div>
@@ -153,34 +153,13 @@
     </div>
     <div class="paragraph">
       <p>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/bancolombia-logo.png" alt="Bancolombia"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/aval-logo.png" alt="Aval"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/bbva-logo.png" alt="BBVA"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/colpatria-logo.png" alt="Colpatria"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/banistmo-logo.png" alt="Banistmo"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/pacifico-logo.png" alt="Banco del Pacífico"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/banesco-logo.png" alt="Banesco"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/agromercantil-logo.png" alt="Banco Agromercantil"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/agricola-logo.png" alt="Banco Agrícola"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/sura-logo.png" alt="Sura"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/proteccion-logo.png" alt="Protección"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/une-tigo-logo.png" alt="Tigo Une"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/claro-logo.png" alt="Claro"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/internexa-logo.png" alt="Internexa"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/xm-logo.png" alt="XM"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/grupo-argos-logo.png" alt="Grupo Argos"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/corona-logo.png" alt="Corona"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/manuelita-logo.png" alt="Manuelita"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/grupo-exito-logo.png" alt="Grupo Exito"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/avianca-logo.png" alt="Avianca"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/abbott-logo.png" alt="Abbott"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/rsa-logo.png" alt="RSA"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/themissinglink-logo.png" alt="The Missing Link"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/komet-logo.png" alt="Kometsales"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/koombea-logo.png" alt="Koombea"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/creative-logo.png" alt="Cre8tive"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/teraport-logo.png" alt="Teraport"></span>
-        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/s4n-logo.png" alt="S4N"></span>
+        {% set customers = ["Bancolombia" , "Grupo AVAL", "BBVA" ,  "Colpatria", "Banistmo", "Banco del Pacifico", "Banesco",
+        "Banco Agromercantil", "Banco Agricola" , "Sura", "Proteccion", "Tigo UNE", "Claro", "Internexa", "XM", "Grupo ARGOS",
+        "Corona", "Manuelita", "Grupo EXITO", "Avianca", "Abbott", "RSA", "The Missing Link", "Kometsales", "Koombea",
+        "Creative Software","Teraport", "S4N"]  %}
+        {% for customer in customers %}
+        <span><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/{{ customer|lower|replace (' ','-') }}-logo.png" alt="{{ customer}} Logo"></span>
+        {% endfor %}
       </p>
     </div>
   </div>
