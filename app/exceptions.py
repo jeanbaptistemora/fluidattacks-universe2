@@ -48,9 +48,9 @@ class InvalidRange(Exception):
 
 class InvalidSchema(Exception):
     """Exception to control schema validation."""
-    def __init__(self):
+    def __init__(self, expr=''):
         """ Constructor """
-        msg = 'Exception - Invalid Schema'
+        msg = 'Exception - Invalid Schema' + expr
         super(InvalidSchema, self).__init__(msg)
 
 
