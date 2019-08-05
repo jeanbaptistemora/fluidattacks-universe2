@@ -18,7 +18,7 @@ module "bucket" {
   fiBucket = "${var.fiBucket}"
   fsBucket = "${var.fsBucket}"
   fwBucket = "${var.fwBucket}"
-  asserts-clients = "${var.asserts-clients}"
+  asserts-bucket = "${var.asserts-bucket}"
 }
 
 # Create from scratch
@@ -26,6 +26,8 @@ module "iam" {
   source = "./iam"
   fwBucket = "${var.fwBucket}"
   fsBucket = "${var.fsBucket}"
+  region = "${var.region}"
+  asserts-bucket = "${var.asserts-bucket}"
   asserts-clients = "${var.asserts-clients}"
 }
 

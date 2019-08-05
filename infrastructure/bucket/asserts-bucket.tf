@@ -1,10 +1,7 @@
-variable "asserts-clients" {
-  type = "map"
-}
+variable "asserts-bucket" {}
 
-resource "aws_s3_bucket" "asserts-buckets" {
-  count = "${length(var.asserts-clients)}"
-  bucket = "asserts-logs-${var.asserts-clients[count.index]}"
+resource "aws_s3_bucket" "asserts-bucket" {
+  bucket = "${var.asserts-bucket}"
   acl    = "private"
 
   # Enable server-side encryption by default
@@ -16,3 +13,4 @@ resource "aws_s3_bucket" "asserts-buckets" {
     }
   }
 }
+

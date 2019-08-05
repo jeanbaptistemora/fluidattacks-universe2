@@ -1,5 +1,7 @@
 variable "fsBucket" {}
 variable "fwBucket" {}
+variable "region" {}
+variable "asserts-bucket" {}
 variable "asserts-clients" {
   type = "map"
 }
@@ -20,6 +22,13 @@ module "providers" {
   source = "./providers"
 }
 
+module "users" {
+  source = "./users"
+  asserts-bucket = "${var.asserts-bucket}"
+  asserts-clients = "${var.asserts-clients}"
+  region = "${var.region}"
+}
+
 module "roles" {
   source = "./roles"
   sso = "${module.providers.sso}"
@@ -31,9 +40,4 @@ module "policies" {
   fsBucket     = "${var.fsBucket}"
   fwBucket     = "${var.fwBucket}"
   ssofinance   = "${module.roles.ssofinance}"
-}
-
-module "users" {
-  source = "./users"
-  asserts-clients = "${var.asserts-clients}"
 }
