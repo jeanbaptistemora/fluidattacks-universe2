@@ -957,3 +957,17 @@ def get_finding(finding_id):
     finding = finding_utils.format_data(finding)
 
     return finding
+
+
+def save_evidence(evidence_field, finding_id, project_name, uploaded_file):
+    full_name = '{proj}/{fin}/{proj}-{fin}-{field}-{name}'.format(
+        field=evidence_field[1],
+        fin=finding_id,
+        name=uploaded_file.name,
+        proj=project_name)
+    success = finding_dal.save_evidence(uploaded_file, full_name)
+    if success:
+        file_name = full_name.split('/')[2]
+        save_file_url(finding_id, evidence_field[0], file_name)
+
+    return success

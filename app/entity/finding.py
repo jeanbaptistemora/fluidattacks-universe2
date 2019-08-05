@@ -14,7 +14,7 @@ from app.dal import integrates_dal
 from app.decorators import require_login, require_role, require_finding_access
 from app.dto.finding import FindingDTO, get_project_name
 from app.domain.finding import (
-    update_file_to_s3, remove_repeated,
+    save_evidence, remove_repeated,
     group_by_state, cast_tracking,
     add_file_attribute,
     list_comments, add_comment, verify_finding,
@@ -420,17 +420,17 @@ class UpdateEvidence(Mutation):
 
     class Arguments(object):
         finding_id = String(required=True)
-        id = String(required=True)  # noqa pylint: disable=invalid-name
+        evidence_id = String(required=True)
     success = Boolean()
     finding = Field(Finding)
 
     @require_login
     @require_role(['analyst', 'admin'])
     @require_finding_access
-    def mutate(self, info, **parameters):
+    def mutate(self, info, evidence_id, finding_id):
         success = False
         uploaded_file = info.context.FILES.get('document', '')
-        project_name = get_project_name(parameters.get('finding_id')).lower()
+        project_name = get_project_name(finding_id).lower()
         if util.assert_uploaded_file_mime(uploaded_file,
                                           ['image/gif',
                                            'image/png',
@@ -439,7 +439,7 @@ class UpdateEvidence(Mutation):
                                            'text/x-c',
                                            'text/plain',
                                            'text/html']):
-            if evidence_exceeds_size(uploaded_file, int(parameters.get('id'))):
+            if evidence_exceeds_size(uploaded_file, int(evidence_id)):
                 util.cloudwatch_log(info.context,
                                     'Security: Attempted to upload evidence file \
                                         heavier than allowed in {project} project'
@@ -458,14 +458,8 @@ class UpdateEvidence(Mutation):
                     ['exploit', field_num.EXPLOIT],
                     ['fileRecords', field_num.REG_FILE]
                 ]
-                file_id = '{project}/{finding_id}/{project}-{finding_id}'.format(
-                    project=project_name,
-                    finding_id=parameters.get('finding_id')
-                )
-                success = update_file_to_s3(parameters,
-                                            fieldname[int(parameters.get('id'))][1],
-                                            fieldname[int(parameters.get('id'))][0],
-                                            uploaded_file, file_id)
+                success = save_evidence(fieldname[int(evidence_id)],
+                                        finding_id, project_name, uploaded_file)
         else:
             util.cloudwatch_log(info.context,
                                 'Security: Attempted to upload evidence file with a \
@@ -473,8 +467,8 @@ class UpdateEvidence(Mutation):
                                     .format(project=project_name))
             raise GraphQLError('Extension not allowed')
         ret = UpdateEvidence(success=success,
-                             finding=Finding(parameters.get('finding_id')))
-        util.invalidate_cache(parameters.get('finding_id'))
+                             finding=Finding(finding_id))
+        util.invalidate_cache(finding_id)
         return ret
 
 
