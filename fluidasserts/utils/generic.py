@@ -132,13 +132,11 @@ def get_sha256(path: str) -> str:
     :param path: Path to the file to digest.
     """
     sha256 = hashlib.sha256()
-    try:
+    if path is not None and os.path.exists(path):
         for path in get_paths(path):
             with open(path, 'rb', buffering=0) as handle:
                 for block in iter(lambda: handle.read(128 * 1024), b''):
                     sha256.update(block)
-    except FileNotFoundError:
-        sha256.update(b'')
     return sha256.hexdigest()
 
 

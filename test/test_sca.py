@@ -19,7 +19,6 @@ from fluidasserts.sca import pypi
 from fluidasserts.sca import linux
 from fluidasserts.sca import rubygems
 
-
 # Constants
 PROJECT = 'test/static/sca'
 MAVEN_PROJECT_OPEN = 'test/static/sca/maven/open'
@@ -43,13 +42,13 @@ NPM_PROJECT_EMPTY = 'test/static/sca/npm/empty'
 @contextlib.contextmanager
 def no_connection():
     """Proxy something temporarily."""
-    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
-    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
+    os.environ['HTTP_PROXY'] = '127.0.0.1:8080'
+    os.environ['HTTPS_PROXY'] = '127.0.0.1:8080'
     try:
         yield
     finally:
-        os.environ.pop('http_proxy', None)
-        os.environ.pop('https_proxy', None)
+        os.environ.pop('HTTP_PROXY', None)
+        os.environ.pop('HTTPS_PROXY', None)
 
 
 #

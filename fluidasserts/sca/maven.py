@@ -10,9 +10,11 @@ from pyparsing import Suppress, Keyword, MatchFirst, quotedString, Optional
 from defusedxml.ElementTree import parse
 
 # local imports
+from fluidasserts import Result
+from fluidasserts import HIGH
 from fluidasserts.helper import sca
 from fluidasserts.utils.generic import get_paths
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts.utils.decorators import api
 
 PKG_MNGR = 'maven'
 
@@ -112,25 +114,22 @@ def _get_requirements(path: str, exclude: tuple) -> list:
         _get_requirements_build_gradle(path, exclude)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH)
 def package_has_vulnerabilities(
-        package: str, version: str = None, retry: bool = True) -> bool:
+        package: str, version: str = None, retry: bool = True) -> Result:
     """
     Search vulnerabilities on given package/version.
 
     :param package: Package name.
     :param version: Package version.
     """
-    return sca.process_requirement(PKG_MNGR, package, version, retry)
+    reqs = set([(None, package, version)])
+    return sca.process_requirements(PKG_MNGR, None, reqs, retry)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH)
 def project_has_vulnerabilities(
-        path: str, exclude: list = None, retry: bool = True) -> bool:
+        path: str, exclude: list = None, retry: bool = True) -> Result:
     """
     Search vulnerabilities on given project directory.
 
