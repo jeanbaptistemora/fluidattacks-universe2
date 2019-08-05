@@ -29,3 +29,20 @@ try:
     print('Hello world')
 except IndexError:
     print('a')
+try:
+    print('Hello world')
+except BaseException:
+    print('a')
+for _ in range(10):
+    try:
+        print('Hello world')
+    except (BaseException, Exception):
+        print('a')
+    try:
+        print('Hello world')
+    except (Exception, IndexError) as exc:
+        print(exc)
+    try:
+        print('Hello world')
+    except (IndexError, AttributeError):
+        pass

@@ -24,34 +24,40 @@ LINES_FORMAT = 'lines: '
 # Open tests
 #
 
+
 def test_has_generic_exceptions_open():
     """Code uses generic exceptions."""
-    assert python.has_generic_exceptions(INSECURE_CODE)
+    results = python.has_generic_exceptions(INSECURE_CODE)
+    assert results.is_open()
+    assert len(results.vulns[0].specific) == 5
 
 
 def test_has_generic_exceptions_in_dir_open():
     """Code uses generic exceptions."""
-    assert python.has_generic_exceptions(CODE_DIR)
+    assert python.has_generic_exceptions(CODE_DIR).is_open()
 
 
 def test_swallows_exceptions_open():
     """Code swallows exceptions."""
-    assert python.swallows_exceptions(INSECURE_CODE)
+    results = python.swallows_exceptions(INSECURE_CODE)
+    assert results.is_open()
+    assert len(results.vulns[0].specific) == 4
 
 
 def test_swallows_exceptions_in_dir_open():
     """Search switch without default clause."""
-    assert python.swallows_exceptions(CODE_DIR)
+    assert python.swallows_exceptions(CODE_DIR).is_open()
 
 
 def test_insecure_functions_open():
     """Search for insecure functions."""
-    assert python.uses_insecure_functions(INSECURE_CODE)
+    assert python.uses_insecure_functions(INSECURE_CODE).is_open()
 
 
 def test_insecure_functions_in_dir_open():
     """Search for insecure functions."""
-    assert python.uses_insecure_functions(CODE_DIR)
+    assert python.uses_insecure_functions(CODE_DIR).is_open()
+
 
 #
 # Closing tests
@@ -60,21 +66,39 @@ def test_insecure_functions_in_dir_open():
 
 def test_has_generic_exceptions_close():
     """Code uses generic exceptions."""
-    assert not python.has_generic_exceptions(SECURE_CODE)
-    assert not python.has_generic_exceptions(NON_EXISTANT_CODE)
-    assert not python.has_generic_exceptions(CODE_DIR, exclude=['test'])
+    assert python.has_generic_exceptions(SECURE_CODE).is_closed()
+    assert python.has_generic_exceptions(
+        CODE_DIR, exclude=['test']).is_closed()
 
 
 def test_swallows_exceptions_close():
     """Code swallows exceptions."""
-    assert not python.swallows_exceptions(SECURE_CODE)
-    assert not python.swallows_exceptions(NON_EXISTANT_CODE)
-    assert not python.swallows_exceptions(CODE_DIR, exclude=['test'])
+    assert python.swallows_exceptions(SECURE_CODE).is_closed()
+    assert python.swallows_exceptions(CODE_DIR, exclude=['test']).is_closed()
 
 
 def test_insecure_functions_close():
     """Search for insecure functions."""
-    assert not python.uses_insecure_functions(SECURE_CODE)
-    assert not python.uses_insecure_functions(NON_EXISTANT_CODE)
-    assert not python.uses_insecure_functions(CODE_DIR,
-                                              exclude=['exceptions_open'])
+    assert python.uses_insecure_functions(SECURE_CODE).is_closed()
+    assert python.uses_insecure_functions(
+        CODE_DIR, exclude=['exceptions_open']).is_closed()
+
+
+#
+# Unknown tests
+#
+
+
+def test_has_generic_exceptions_unknown():
+    """Code uses generic exceptions."""
+    assert python.has_generic_exceptions(NON_EXISTANT_CODE).is_unknown()
+
+
+def test_swallows_exceptions_unknown():
+    """Code swallows exceptions."""
+    assert python.swallows_exceptions(NON_EXISTANT_CODE).is_unknown()
+
+
+def test_insecure_functions_unknown():
+    """Search for insecure functions."""
+    assert python.uses_insecure_functions(NON_EXISTANT_CODE).is_unknown()
