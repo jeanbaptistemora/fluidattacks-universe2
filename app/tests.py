@@ -501,6 +501,38 @@ class GraphQLTests(TestCase):
         assert 'errors' not in result
         assert 'success' in result['data']['grantUserAccess']
 
+    def test_get_user(self):
+        query = '''
+            query {
+                userData(projectName: "unittesting",
+                         userEmail: "continuoushacking@gmail.com") {
+                    organization
+                    responsibility
+                    phoneNumber
+                }
+            }
+        '''
+        testing_client = Client(schema.SCHEMA)
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        result = testing_client.execute(query, context_value=request)
+        print result
+        assert 'errors' not in result
+        assert 'userData' in result['data']
 
 class cvssTests(TestCase):
 
