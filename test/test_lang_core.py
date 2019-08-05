@@ -116,7 +116,7 @@ def test_open_uses_unencrypted_sockets():
 def test_open_is_file_hash_in_list():
     """Test if code uses unencrypted sockets."""
     assert core.is_file_hash_in_list(INSECURE_SOCKETS, [
-        'bfc3bc74826b9a89abd3ce2d0992ec7371c51c8eec41d1c80b28136ae75e14cf',
+        '97c2d2c74fb1e30c69f728988b493a5f0f73de5257ea9e2e1c375a97505d7176',
     ]).is_open()
 
 

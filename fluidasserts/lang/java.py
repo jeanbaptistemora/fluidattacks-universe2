@@ -3,7 +3,6 @@
 """This module allows to check Java code vulnerabilities."""
 
 # standard imports
-import os
 import re
 from typing import Dict, List
 
@@ -16,7 +15,7 @@ from pyparsing import (CaselessKeyword, Word, Literal, Optional, alphas,
 # local imports
 from fluidasserts import Result
 from fluidasserts import LOW, MEDIUM
-from fluidasserts import OPEN, CLOSED, UNKNOWN
+from fluidasserts import OPEN, CLOSED
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
 
@@ -335,9 +334,6 @@ def has_if_without_else(java_dest: str, exclude: list = None) -> Result:
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
     """
-    if not os.path.exists(java_dest):
-        return UNKNOWN, 'File does not exist'
-
     no_else_found = '__no_else_found__'
     args = nestedExpr(opener='(', closer=')')
     block = nestedExpr(opener='{', closer='}')

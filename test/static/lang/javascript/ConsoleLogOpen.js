@@ -83,6 +83,8 @@ function functionBWithConsoleLog() {
         c = Number(b);
         if(c < 5) throw "too low";
         if(c > 10) throw "too high";
+
+        if(c > 10) {if(c > 15) {throw "too high";} else {throw "else not too high";}}
     }
 
     catch(err) {
