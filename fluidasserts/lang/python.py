@@ -159,6 +159,28 @@ def has_generic_exceptions(py_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=LOW)
+def uses_catch_for_memory_error(py_dest: str, exclude: list = None) -> Result:
+    """
+    Search for the use of MemoryError "catch" in a path.
+
+    See `CWE-544 <https://cwe.mitre.org/data/definitions/544.html>`_.
+
+    :param py_dest: Path to a Python script or package.
+    :param exclude: Paths that contains any string from this list are ignored.
+    """
+    return _declares_catch_for_exceptions(
+        py_dest=py_dest,
+        exceptions_list=[
+            'MemoryError',
+        ],
+        msgs={
+            OPEN: 'Code declares a "catch" for MemoryError exceptions',
+            CLOSED: 'Code does not declare "catch" for MemoryError exceptions',
+        },
+        exclude=exclude)
+
+
+@api(risk=LOW)
 def swallows_exceptions(py_dest: str, exclude: list = None) -> Result:
     """
     Search for swallowed exceptions.

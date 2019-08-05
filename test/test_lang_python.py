@@ -27,36 +27,30 @@ LINES_FORMAT = 'lines: '
 
 def test_has_generic_exceptions_open():
     """Code uses generic exceptions."""
+    assert python.has_generic_exceptions(CODE_DIR).is_open()
     results = python.has_generic_exceptions(INSECURE_CODE)
     assert results.is_open()
     assert len(results.vulns[0].specific) == 5
 
 
-def test_has_generic_exceptions_in_dir_open():
-    """Code uses generic exceptions."""
-    assert python.has_generic_exceptions(CODE_DIR).is_open()
-
-
 def test_swallows_exceptions_open():
     """Code swallows exceptions."""
+    assert python.swallows_exceptions(CODE_DIR).is_open()
     results = python.swallows_exceptions(INSECURE_CODE)
     assert results.is_open()
     assert len(results.vulns[0].specific) == 4
 
 
-def test_swallows_exceptions_in_dir_open():
-    """Search switch without default clause."""
-    assert python.swallows_exceptions(CODE_DIR).is_open()
-
-
 def test_insecure_functions_open():
     """Search for insecure functions."""
+    assert python.uses_insecure_functions(CODE_DIR).is_open()
     assert python.uses_insecure_functions(INSECURE_CODE).is_open()
 
 
-def test_insecure_functions_in_dir_open():
-    """Search for insecure functions."""
-    assert python.uses_insecure_functions(CODE_DIR).is_open()
+def test_uses_catch_for_memory_error_open():
+    """Search for MemoryError catches."""
+    assert python.uses_catch_for_memory_error(CODE_DIR).is_open()
+    assert python.uses_catch_for_memory_error(INSECURE_CODE).is_open()
 
 
 #
@@ -84,6 +78,13 @@ def test_insecure_functions_close():
         CODE_DIR, exclude=['exceptions_open']).is_closed()
 
 
+def test_uses_catch_for_memory_error_closed():
+    """Search for MemoryError catches."""
+    assert python.uses_catch_for_memory_error(SECURE_CODE).is_closed()
+    assert python.uses_catch_for_memory_error(
+        CODE_DIR, exclude=['exceptions_open']).is_closed()
+
+
 #
 # Unknown tests
 #
@@ -102,3 +103,8 @@ def test_swallows_exceptions_unknown():
 def test_insecure_functions_unknown():
     """Search for insecure functions."""
     assert python.uses_insecure_functions(NON_EXISTANT_CODE).is_unknown()
+
+
+def test_uses_catch_for_memory_error_unknown():
+    """Search for MemoryError catches."""
+    assert python.uses_catch_for_memory_error(NON_EXISTANT_CODE).is_unknown()

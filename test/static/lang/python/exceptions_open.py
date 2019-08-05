@@ -33,6 +33,10 @@ try:
     print('Hello world')
 except BaseException:
     print('a')
+try:
+    list(range(10**10))
+except (IOError, MemoryError) as exc:
+    print(exc)
 for _ in range(10):
     try:
         print('Hello world')
