@@ -62,7 +62,7 @@ interface IVunlDataType {
   };
 }
 
-const getAttrVulnUpdate: (selectedQery: NodeListOf<Element>) => ISelectRowType =
+export const getAttrVulnUpdate: (selectedQery: NodeListOf<Element>) => ISelectRowType =
 (selectedQery: NodeListOf<Element>): ISelectRowType =>  {
   const attrVuln: ISelectRowType = [];
   selectedQery.forEach((element: Element) => {
@@ -93,7 +93,7 @@ const getSpecific: ((line: { [key: string]: string }) => string) =
   (line: { [key: string]: string }): string =>
     line.specific;
 
-const compareNumbers: ((a: number, b: number) => number) =
+export const compareNumbers: ((a: number, b: number) => number) =
   (a: number, b: number): number =>
     a - b;
 

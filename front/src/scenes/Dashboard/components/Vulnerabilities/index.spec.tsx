@@ -7,7 +7,7 @@ import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 import wait from "waait";
-import { VulnerabilitiesView } from "./index";
+import { compareNumbers, VulnerabilitiesView } from "./index";
 import { GET_VULNERABILITIES } from "./queries";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -123,5 +123,11 @@ describe("Vulnerabilities view", () => {
     await wait(0);
     expect(wrapper.find("Query"))
       .toBeTruthy();
+  });
+
+  it("should subtract 10 - 5", async () => {
+    const subtract: number = compareNumbers(10, 5);
+    expect(subtract)
+    .toEqual(5);
   });
 });

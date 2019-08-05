@@ -66,7 +66,7 @@ const evidenceHasValidType: ((arg1: File, arg2: number) => boolean) =
   return valid;
 };
 
-const evidenceHasValidSize: ((arg1: File) => boolean) = (file: File): boolean => {
+export const evidenceHasValidSize: ((arg1: File) => boolean) = (file: File): boolean => {
   let valid: boolean;
   let MIB: number; MIB = 1048576;
   const fileType: string = `.${_.last(file.name.split("."))}`.toLowerCase();

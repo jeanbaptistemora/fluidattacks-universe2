@@ -1,6 +1,8 @@
 import { configure } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
-import { isValidFileName, isValidFileSize, numberBetween, validEmail, validTag } from "./validations";
+import { ConfigurableValidator } from "revalidate";
+import { evidenceHasValidSize, isValidFileName,
+         isValidFileSize, minLength, numberBetween, validEmail, validTag } from "./validations";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
@@ -16,6 +18,103 @@ describe("Validations", () => {
     const severityBetween: ((value: number) => string | undefined) = numberBetween(0, 5);
     expect(severityBetween(6))
       .toEqual("This value must be between 0 and 5");
+  });
+
+  it("should required 4 minimum characters", () => {
+    const length: ConfigurableValidator = minLength(4);
+    expect(length("4"))
+      .toEqual("This field requires at least 4 characters");
+  });
+
+  it("should be a valid size .gif file", () => {
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: ".gif",
+      size: 20000,
+      slice: jest.fn(),
+      type: ".gif",
+    };
+    const validFile: boolean = evidenceHasValidSize(file);
+    expect(validFile)
+    .toEqual(true);
+  });
+
+  it("shouldn't be a valid size .gif file", () => {
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: ".gif",
+      size: 20000000,
+      slice: jest.fn(),
+      type: ".gif",
+    };
+    const validFile: boolean = evidenceHasValidSize(file);
+    expect(validFile)
+    .toEqual(false);
+  });
+
+  it("should be a valid size .png file", () => {
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: ".png",
+      size: 100000,
+      slice: jest.fn(),
+      type: ".png",
+    };
+    const validFile: boolean = evidenceHasValidSize(file);
+    expect(validFile)
+    .toEqual(true);
+  });
+
+  it("shouldn't be a valid size .png file", () => {
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: ".png",
+      size: 20000000,
+      slice: jest.fn(),
+      type: ".png",
+    };
+    const validFile: boolean = evidenceHasValidSize(file);
+    expect(validFile)
+    .toEqual(false);
+  });
+
+  it("should be a valid size .py file", () => {
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: ".py",
+      size: 100000,
+      slice: jest.fn(),
+      type: ".py",
+    };
+    const validFile: boolean = evidenceHasValidSize(file);
+    expect(validFile)
+    .toEqual(true);
+  });
+
+  it("shouldn't be a valid size .py file", () => {
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: ".py",
+      size: 20000000,
+      slice: jest.fn(),
+      type: ".py",
+    };
+    const validFile: boolean = evidenceHasValidSize(file);
+    expect(validFile)
+    .toEqual(false);
+  });
+
+  it("shouldn't be a valid type file", () => {
+    const file: File = {
+      lastModified: 8 - 5 - 2019,
+      name: ".test",
+      size: 2000,
+      slice: jest.fn(),
+      type: ".test",
+    };
+    const validFile: boolean = evidenceHasValidSize(file);
+    expect(validFile)
+    .toEqual(false);
   });
 
   it("should be a valid email", () => {
