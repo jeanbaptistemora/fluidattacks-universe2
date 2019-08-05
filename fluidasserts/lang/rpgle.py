@@ -15,6 +15,7 @@ from pyparsing import (CaselessKeyword, Keyword, Word, Optional,
 from fluidasserts import Result
 from fluidasserts import LOW, MEDIUM
 from fluidasserts import OPEN, CLOSED, UNKNOWN
+from fluidasserts import SAST
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
 
@@ -36,7 +37,7 @@ ERROR_CODE = MatchFirst([
 ERROR_CODES = delimitedList(ERROR_CODE, delim=':')
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=SAST)
 def has_dos_dow_sqlcod(rpg_dest: str, exclude: list = None) -> Result:
     r"""
     Search for DoS for using ``DoW SQLCOD = <ZERO>``\ .
@@ -65,7 +66,7 @@ def has_dos_dow_sqlcod(rpg_dest: str, exclude: list = None) -> Result:
     return CLOSED, 'No files were tested'
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_unitialized_vars(rpg_dest: str, exclude: list = None) -> Result:
     """
     Search for unitialized variables.
@@ -94,7 +95,7 @@ def has_unitialized_vars(rpg_dest: str, exclude: list = None) -> Result:
     return CLOSED, 'No files were tested'
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_generic_exceptions(rpg_dest: str, exclude: list = None) -> Result:
     """
     Search for on-error empty or *PROGRAM, *FILE, or *ALL codes.
@@ -127,7 +128,7 @@ def has_generic_exceptions(rpg_dest: str, exclude: list = None) -> Result:
     return CLOSED, 'No files were tested'
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def swallows_exceptions(rpg_dest: str, exclude: list = None) -> Result:
     """
     Search for on-error without code.

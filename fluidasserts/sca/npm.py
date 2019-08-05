@@ -12,6 +12,7 @@ import os
 # local imports
 from fluidasserts import Result
 from fluidasserts import HIGH
+from fluidasserts import SAST
 from fluidasserts.helper import sca
 from fluidasserts.utils.generic import get_paths
 from fluidasserts.utils.decorators import api
@@ -79,7 +80,7 @@ def _get_requirements(path: str, exclude: tuple) -> set:
     return reqs
 
 
-@api(risk=HIGH)
+@api(risk=HIGH, kind=SAST)
 def package_has_vulnerabilities(
         package: str, version: str = None, retry: bool = True) -> Result:
     """
@@ -92,7 +93,7 @@ def package_has_vulnerabilities(
     return sca.process_requirements(PKG_MNGR, None, reqs, retry)
 
 
-@api(risk=HIGH)
+@api(risk=HIGH, kind=SAST)
 def project_has_vulnerabilities(
         path: str, exclude: list = None, retry: bool = True) -> Result:
     """

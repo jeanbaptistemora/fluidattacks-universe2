@@ -16,6 +16,7 @@ from pyparsing import (Word, alphas, pythonStyleComment, delimitedList,
 from fluidasserts import Unit, Result
 from fluidasserts import LOW, HIGH
 from fluidasserts import OPEN, CLOSED, UNKNOWN
+from fluidasserts import SAST
 from fluidasserts.helper import lang
 from fluidasserts.utils.generic import get_paths
 from fluidasserts.utils.generic import get_sha256
@@ -137,7 +138,7 @@ def _declares_catch_for_exceptions(
         excl=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_generic_exceptions(py_dest: str, exclude: list = None) -> Result:
     """
     Search for generic exceptions in a Python script or package.
@@ -158,7 +159,7 @@ def has_generic_exceptions(py_dest: str, exclude: list = None) -> Result:
         exclude=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def uses_catch_for_memory_error(py_dest: str, exclude: list = None) -> Result:
     """
     Search for the use of MemoryError "catch" in a path.
@@ -180,7 +181,7 @@ def uses_catch_for_memory_error(py_dest: str, exclude: list = None) -> Result:
         exclude=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def uses_catch_for_syntax_errors(py_dest: str, exclude: list = None) -> Result:
     """
     Search for the use of SyntaxError catch and its derived classes in a path.
@@ -204,7 +205,7 @@ def uses_catch_for_syntax_errors(py_dest: str, exclude: list = None) -> Result:
         exclude=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def swallows_exceptions(py_dest: str, exclude: list = None) -> Result:
     """
     Search for swallowed exceptions.
@@ -233,7 +234,7 @@ def swallows_exceptions(py_dest: str, exclude: list = None) -> Result:
         excl=exclude)
 
 
-@api(risk=HIGH)
+@api(risk=HIGH, kind=SAST)
 def uses_insecure_functions(py_dest: str, exclude: list = None) -> Result:
     """
     Search for insecure functions in code.

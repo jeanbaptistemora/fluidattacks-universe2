@@ -11,13 +11,14 @@
 # local imports
 from fluidasserts import Result
 from fluidasserts import HIGH
+from fluidasserts import SAST
 from fluidasserts.helper import sca
 from fluidasserts.utils.decorators import api
 
 PKG_MNGR = 'gem'
 
 
-@api(risk=HIGH)
+@api(risk=HIGH, kind=SAST)
 def package_has_vulnerabilities(
         package: str, version: str = None, retry: bool = True) -> Result:
     """

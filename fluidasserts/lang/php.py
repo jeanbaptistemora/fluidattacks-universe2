@@ -12,6 +12,7 @@ from pyparsing import Keyword, oneOf, Regex
 from fluidasserts import Result
 from fluidasserts import HIGH
 from fluidasserts import OPEN, CLOSED
+from fluidasserts import SAST
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
 
@@ -24,7 +25,7 @@ LANGUAGE_SPECS = {
 }  # type: dict
 
 
-@api(risk=HIGH)
+@api(risk=HIGH, kind=SAST)
 def has_preg_ce(php_dest: str, exclude: list = None) -> Result:
     """
     Search for preg_replace calls with '/e'.

@@ -15,6 +15,7 @@ from pyparsing import MatchFirst, QuotedString, Regex, Literal
 from fluidasserts import Result, Unit
 from fluidasserts import LOW, MEDIUM, HIGH
 from fluidasserts import OPEN, CLOSED, UNKNOWN
+from fluidasserts import SAST
 from fluidasserts.helper import lang
 from fluidasserts.utils.generic import get_sha256, get_paths
 from fluidasserts.utils.decorators import api
@@ -23,7 +24,7 @@ from fluidasserts.utils.decorators import api
 LANGUAGE_SPECS = {}  # type: dict
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_text(code_dest: str, expected_text: str, use_regex: bool = False,
              exclude: list = None, lang_specs: dict = None) -> Result:
     """
@@ -55,7 +56,7 @@ def has_text(code_dest: str, expected_text: str, use_regex: bool = False,
     return CLOSED, 'No files were tested', vulns, safes
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_not_text(code_dest: str, expected_text: str, use_regex: bool = False,
                  exclude: list = None, lang_specs: dict = None) -> Result:
     """
@@ -88,7 +89,7 @@ def has_not_text(code_dest: str, expected_text: str, use_regex: bool = False,
     return OPEN, 'No files were tested', vulns, safes
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_all_text(code_dest: str, expected_list: list, use_regex: bool = False,
                  exclude: list = None, lang_specs: dict = None) -> Result:
     """
@@ -126,7 +127,7 @@ def has_all_text(code_dest: str, expected_list: list, use_regex: bool = False,
     return CLOSED, 'No files were tested', vulns, safes
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_any_text(code_dest: str, expected_list: list, use_regex: bool = False,
                  exclude: list = None, lang_specs: dict = None) -> Result:
     """
@@ -159,7 +160,7 @@ def has_any_text(code_dest: str, expected_list: list, use_regex: bool = False,
     return CLOSED, 'No expected text was found in code', vulns, safes
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_not_any_text(code_dest: str,
                      expected_list: list, use_regex: bool = False,
                      exclude: list = None, lang_specs: dict = None) -> Result:
@@ -193,7 +194,7 @@ def has_not_any_text(code_dest: str,
     return OPEN, 'No expected text was found in code', vulns, safes
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def file_exists(code_file: str) -> Result:
     """
     Check if the given file exists.
@@ -207,7 +208,7 @@ def file_exists(code_file: str) -> Result:
     return CLOSED, 'File does not exist'
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def file_does_not_exist(code_file: str) -> Result:
     """
     Check if the given file does'nt exist.
@@ -221,7 +222,7 @@ def file_does_not_exist(code_file: str) -> Result:
     return CLOSED, 'File exist'
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=SAST)
 def is_file_hash_in_list(path: str, hash_list: List[str]) -> Result:
     """
     Check if the given file hash is in a list of given hashes.
@@ -248,7 +249,7 @@ def is_file_hash_in_list(path: str, hash_list: List[str]) -> Result:
     return CLOSED, msg, vulns, safes
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=SAST)
 def has_weak_cipher(code_dest: str, expected_text: str,
                     exclude: list = None, lang_specs: dict = None) -> Result:
     """
@@ -279,7 +280,7 @@ def has_weak_cipher(code_dest: str, expected_text: str,
     return CLOSED, msg, vulns, safes
 
 
-@api(risk=HIGH)
+@api(risk=HIGH, kind=SAST)
 def has_secret(code_dest: str, secret: str, use_regex: bool = False,
                exclude: list = None, lang_specs: dict = None) -> Result:
     """
@@ -310,7 +311,7 @@ def has_secret(code_dest: str, secret: str, use_regex: bool = False,
     return CLOSED, 'No files were tested'
 
 
-@api(risk=HIGH)
+@api(risk=HIGH, kind=SAST)
 def has_any_secret(code_dest: str, secrets_list: list, use_regex: bool = False,
                    exclude: list = None, lang_specs: dict = None) -> Result:
     """
@@ -347,7 +348,7 @@ def has_any_secret(code_dest: str, secrets_list: list, use_regex: bool = False,
     return CLOSED, msg, vulns, safes
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=SAST)
 def uses_unencrypted_sockets(code_dest: str,
                              exclude: list = None,
                              lang_specs: dict = None) -> Result:

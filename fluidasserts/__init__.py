@@ -37,6 +37,9 @@ LOW: str = 'low'
 MEDIUM: str = 'medium'
 HIGH: str = 'high'
 
+SAST: str = 'SAST'
+DAST: str = 'DAST'
+
 PARAM_OR_RETURNS_REGEX = re.compile(r":(?:param|returns)")
 RETURNS_REGEX = re.compile(r":returns: (?P<doc>.*)", re.S)
 PARAM_REGEX = re.compile(r":param (?P<name>[\*\w]+): (?P<doc>.*?)"
@@ -299,17 +302,19 @@ class Result():
 
     def __init__(self,
                  risk: str,
+                 kind: str,
                  func: Callable,
                  func_args: List[Any],
                  func_kwargs: Dict[str, Any]):
         """Default constructor."""
         self.risk: str = risk
+        self.kind: str = kind
         self.when: str = datetime.now(tz=LOCAL_TZ).strftime(DATE_FORMAT)
         self.func_id: str = func.__module__ + ' -> ' + func.__name__
         self.func_desc: str = get_module_description(func.__module__,
                                                      func.__name__)
 
-        func_params: dict[str, Any] = {}
+        func_params: Dict[str, Any] = {}
 
         func_vars = func.__code__.co_varnames
         func_nargs = len(func_args)
@@ -322,7 +327,7 @@ class Result():
                             for i in range(func_nargs, func_nkwargs)})
 
         # Filter not supplied values
-        self.func_params: dict[str, Any] = \
+        self.func_params: Dict[str, Any] = \
             {k: v for k, v in func_params.items() if v is not None}
 
     def set_status(self, status: str) -> bool:
@@ -380,6 +385,7 @@ class Result():
             'parameters': self.func_params,
             'when': self.when,
             'elapsed_seconds': self.duration,
+            'test_kind': self.kind,
             'risk': self.risk,
         })
         return result

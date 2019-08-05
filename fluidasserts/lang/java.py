@@ -16,6 +16,7 @@ from pyparsing import (CaselessKeyword, Word, Literal, Optional, alphas,
 from fluidasserts import Result
 from fluidasserts import LOW, MEDIUM
 from fluidasserts import OPEN, CLOSED
+from fluidasserts import SAST
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
 
@@ -72,7 +73,7 @@ def _declares_catch_for_exceptions(
         excl=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_generic_exceptions(java_dest: str, exclude: list = None) -> Result:
     """
     Search for generic exceptions in a Java source file or package.
@@ -95,7 +96,7 @@ def has_generic_exceptions(java_dest: str, exclude: list = None) -> Result:
         exclude=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def uses_catch_for_null_pointer_exception(
         java_dest: str, exclude: list = None) -> Result:
     """
@@ -121,7 +122,7 @@ def uses_catch_for_null_pointer_exception(
         exclude=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def uses_catch_for_runtime_exception(
         java_dest: str, exclude: list = None) -> Result:
     """
@@ -147,7 +148,7 @@ def uses_catch_for_runtime_exception(
         exclude=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def uses_print_stack_trace(java_dest: str, exclude: list = None) -> Result:
     """
     Search for ``printStackTrace`` calls in a path.
@@ -174,7 +175,7 @@ def uses_print_stack_trace(java_dest: str, exclude: list = None) -> Result:
         excl=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def swallows_exceptions(java_dest: str, exclude: list = None) -> Result:
     """
     Search for ``catch`` blocks that are empty or only have comments.
@@ -204,7 +205,7 @@ def swallows_exceptions(java_dest: str, exclude: list = None) -> Result:
         excl=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def does_not_handle_exceptions(java_dest: str,
                                should_have: List[str],
                                use_regex: bool = False,
@@ -245,7 +246,7 @@ def does_not_handle_exceptions(java_dest: str,
         excl=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_switch_without_default(java_dest: str, exclude: list = None) -> Result:
     r"""
     Check if all ``switch``\ es have a ``default`` clause.
@@ -276,7 +277,7 @@ def has_switch_without_default(java_dest: str, exclude: list = None) -> Result:
         excl=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_insecure_randoms(java_dest: str, exclude: list = None) -> Result:
     r"""
     Check if code uses insecure random generators.
@@ -324,7 +325,7 @@ def has_insecure_randoms(java_dest: str, exclude: list = None) -> Result:
         excl=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_if_without_else(java_dest: str, exclude: list = None) -> Result:
     r"""
     Check if all ``if``\ s have an ``else`` clause.
@@ -412,7 +413,7 @@ def _uses_insecure_hash(java_dest: str, algorithm: tuple,
         excl=exclude)
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=SAST)
 def uses_insecure_cipher(java_dest: str, algorithm: Result,
                          exclude: list = None) -> bool:
     """
@@ -428,7 +429,7 @@ def uses_insecure_cipher(java_dest: str, algorithm: Result,
     return _uses_insecure_cipher(java_dest, algorithm, exclude)
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=SAST)
 def uses_insecure_hash(java_dest: str, algorithm: Result,
                        exclude: list = None) -> bool:
     """
@@ -443,7 +444,7 @@ def uses_insecure_hash(java_dest: str, algorithm: Result,
     return _uses_insecure_hash(java_dest, algorithm, exclude)
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=SAST)
 def uses_md5_hash(java_dest: str, exclude: list = None) -> Result:
     """
     Check if code uses MD5 as hashing algorithm.
@@ -456,7 +457,7 @@ def uses_md5_hash(java_dest: str, exclude: list = None) -> Result:
     return _uses_insecure_hash(java_dest, 'md5', exclude)
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=SAST)
 def uses_sha1_hash(java_dest: str, exclude: list = None) -> Result:
     """
     Check if code uses MD5 as hashing algorithm.
@@ -469,7 +470,7 @@ def uses_sha1_hash(java_dest: str, exclude: list = None) -> Result:
     return _uses_insecure_hash(java_dest, 'sha-1', exclude)
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=SAST)
 def uses_des_algorithm(java_dest: str, exclude: list = None) -> Result:
     """
     Check if code uses DES as encryption algorithm.
@@ -482,7 +483,7 @@ def uses_des_algorithm(java_dest: str, exclude: list = None) -> Result:
     return _uses_insecure_cipher(java_dest, 'DES', exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_log_injection(java_dest: str, exclude: list = None) -> Result:
     """
     Search code injection.
@@ -517,7 +518,7 @@ def has_log_injection(java_dest: str, exclude: list = None) -> Result:
         excl=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def uses_system_exit(java_dest: str, exclude: list = None) -> Result:
     """
     Search for ``System.exit`` calls in a  or package.

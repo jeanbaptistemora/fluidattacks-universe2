@@ -12,6 +12,7 @@ import re
 from fluidasserts import Result
 from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts import LOW, MEDIUM
+from fluidasserts import DAST
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
@@ -119,7 +120,7 @@ def accepts_insecure_accept_header(url: str, *args, **kwargs) -> bool:
     return False
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=DAST)
 def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if X-Frame-Options HTTP header is properly set.
@@ -143,7 +144,7 @@ def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=DAST)
 def is_header_x_content_type_options_missing(url: str, *args,
                                              **kwargs) -> Result:
     r"""
@@ -168,7 +169,7 @@ def is_header_x_content_type_options_missing(url: str, *args,
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=DAST)
 def is_header_hsts_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if Strict-Transport-Security HTTP header is properly set.
@@ -195,7 +196,7 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=DAST)
 def is_header_content_type_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if Content-Type HTTP header is properly set.

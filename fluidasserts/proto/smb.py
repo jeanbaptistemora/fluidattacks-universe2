@@ -17,7 +17,6 @@ from fluidasserts import show_unknown
 from fluidasserts.utils.decorators import track, level, notify
 
 
-Typconn = SMBConnection.SMBConnection
 CLIENT_MACHINE_NAME = 'assertspc'
 
 

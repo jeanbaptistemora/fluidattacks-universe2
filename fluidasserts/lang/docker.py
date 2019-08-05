@@ -13,6 +13,7 @@ from pyparsing import Regex, Keyword, Optional, Combine, ZeroOrMore
 from fluidasserts import Result
 from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts import LOW
+from fluidasserts import SAST
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
 
@@ -41,7 +42,7 @@ _NAME = ALPHANUM + ZeroOrMore(SEPARATOR + ALPHANUM)
 D_NAME = Combine(Optional(D_DOMAIN + '/') + _NAME + ZeroOrMore('/' + _NAME))
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def not_pinned(file_dest: str, exclude: list = None) -> Result:
     """
     Check if the Dockerfile uses a ``FROM:...latest`` (unpinned) base image.

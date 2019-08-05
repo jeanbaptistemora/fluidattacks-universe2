@@ -15,6 +15,7 @@ from pyparsing import (makeHTMLTags, CaselessKeyword, ParseException,
 from fluidasserts import Result, Unit
 from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts import LOW
+from fluidasserts import SAST
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
@@ -185,7 +186,7 @@ def is_header_content_type_missing(filename: str) -> bool:
     return result
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_reverse_tabnabbing(path: str) -> Result:
     r"""
     Check if an HTML file has links vulnerable to a reverse tabnabbing.

@@ -13,6 +13,7 @@ import aiohttp
 from fluidasserts import Unit, Result
 from fluidasserts import MEDIUM, HIGH
 from fluidasserts import OPEN, CLOSED, UNKNOWN
+from fluidasserts import DAST
 from fluidasserts.helper import http
 from fluidasserts.helper import asynchronous
 from fluidasserts.utils.generic import get_sha256
@@ -190,7 +191,7 @@ async def query_async(url: str, query: str, *args, **kwargs) -> None:
 #
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=DAST)
 def accepts_introspection(url: str, *args, **kwargs) -> Result:
     r"""
     Check if GraphQL is implemented in a way that allows for introspection.
@@ -233,7 +234,7 @@ def accepts_introspection(url: str, *args, **kwargs) -> Result:
     return res, msg, vulns, safes
 
 
-@api(risk=HIGH)
+@api(risk=HIGH, kind=DAST)
 def has_dos(url: str, query: str,
             num: int, timeout: float, *args, **kwargs) -> Result:
     r"""

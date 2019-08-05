@@ -15,6 +15,7 @@ from pyparsing import (CaselessKeyword, Word, Literal, Optional, alphas,
 from fluidasserts import Result
 from fluidasserts import LOW
 from fluidasserts import OPEN, CLOSED
+from fluidasserts import SAST
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
@@ -93,7 +94,7 @@ def _declares_catch_for_exceptions(
         excl=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_generic_exceptions(csharp_dest: str, exclude: list = None) -> Result:
     """
     Search for generic exceptions in a C# source file or package.
@@ -120,7 +121,7 @@ def has_generic_exceptions(csharp_dest: str, exclude: list = None) -> Result:
         exclude=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def uses_catch_for_null_reference_exception(
         csharp_dest: str, exclude: list = None) -> Result:
     """

@@ -13,6 +13,7 @@ from pyparsing import (Suppress, nestedExpr, cppStyleComment, Optional,
 from fluidasserts import Result
 from fluidasserts import LOW, MEDIUM
 from fluidasserts import OPEN, CLOSED
+from fluidasserts import SAST
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
 
@@ -32,7 +33,7 @@ L_STRING = QuotedString('"')
 RE_HAVES_DEFAULT = re.compile(r'(?:default\s*:)', flags=re.M)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def uses_console_log(js_dest: str, exclude: list = None) -> Result:
     """
     Search for ``console.log()`` calls in a JavaScript file or directory.
@@ -56,7 +57,7 @@ def uses_console_log(js_dest: str, exclude: list = None) -> Result:
         excl=exclude)
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=SAST)
 def uses_eval(js_dest: str, exclude: list = None) -> Result:
     """
     Search for ``eval()`` calls in a JavaScript file or directory.
@@ -80,7 +81,7 @@ def uses_eval(js_dest: str, exclude: list = None) -> Result:
         excl=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def uses_localstorage(js_dest: str, exclude: list = None) -> Result:
     """
     Search for ``localStorage`` calls in a JavaScript source file or directory.
@@ -104,7 +105,7 @@ def uses_localstorage(js_dest: str, exclude: list = None) -> Result:
         excl=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_insecure_randoms(js_dest: str, exclude: list = None) -> Result:
     r"""
     Check if code uses ``Math.Random()``\ .
@@ -130,7 +131,7 @@ def has_insecure_randoms(js_dest: str, exclude: list = None) -> Result:
         excl=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def swallows_exceptions(js_dest: str, exclude: list = None) -> Result:
     """
     Search for ``catch`` blocks that are empty or only have comments.
@@ -166,7 +167,7 @@ def swallows_exceptions(js_dest: str, exclude: list = None) -> Result:
         excl=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_switch_without_default(js_dest: str, exclude: list = None) -> Result:
     r"""
     Check if all ``switch``\ es have a ``default`` clause.
@@ -197,7 +198,7 @@ def has_switch_without_default(js_dest: str, exclude: list = None) -> Result:
         excl=exclude)
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=SAST)
 def has_if_without_else(js_dest: str, exclude: list = None) -> Result:
     r"""
     Check if all ``if``\ s have an ``else`` clause.

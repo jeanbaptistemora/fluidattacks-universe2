@@ -22,6 +22,7 @@ from fluidasserts.helper import http
 from fluidasserts import Result
 from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts import LOW, MEDIUM
+from fluidasserts import DAST
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
@@ -434,7 +435,7 @@ def has_not_text(url: str, expected_text: str, *args, **kwargs) -> bool:
         return False
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=DAST)
 def is_header_x_asp_net_version_present(url: str, *args, **kwargs) -> Result:
     r"""
     Check if X-AspNet-Version header is missing.
@@ -454,7 +455,7 @@ def is_header_x_asp_net_version_present(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=DAST)
 def is_header_x_powered_by_present(url: str, *args, **kwargs) -> Result:
     r"""
     Check if X-Powered-By header is missing.
@@ -474,7 +475,7 @@ def is_header_x_powered_by_present(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=DAST)
 def is_header_access_control_allow_origin_missing(url: str,
                                                   *args, **kwargs) -> Result:
     r"""
@@ -505,7 +506,7 @@ def is_header_access_control_allow_origin_missing(url: str,
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=DAST)
 def is_header_cache_control_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if Cache-Control HTTP header is properly set.
@@ -531,7 +532,7 @@ def is_header_cache_control_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=DAST)
 def is_header_content_security_policy_missing(url: str,
                                               *args, **kwargs) -> Result:
     r"""
@@ -557,7 +558,7 @@ def is_header_content_security_policy_missing(url: str,
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=DAST)
 def is_header_content_type_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if Content-Type HTTP header is properly set.
@@ -585,7 +586,7 @@ def is_header_content_type_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=DAST)
 def is_header_expires_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if Expires HTTP header is properly set.
@@ -608,7 +609,7 @@ def is_header_expires_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=DAST)
 def is_header_pragma_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if Pragma HTTP header is properly set.
@@ -632,7 +633,7 @@ def is_header_pragma_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=DAST)
 def is_header_server_present(url: str, *args, **kwargs) -> Result:
     r"""
     Check if Server HTTP header is properly set.
@@ -652,7 +653,7 @@ def is_header_server_present(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=LOW)
+@api(risk=LOW, kind=DAST)
 def is_header_x_content_type_options_missing(url: str, *args,
                                              **kwargs) -> Result:
     r"""
@@ -677,7 +678,7 @@ def is_header_x_content_type_options_missing(url: str, *args,
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=DAST)
 def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if X-Frame-Options HTTP header is properly set.
@@ -701,7 +702,7 @@ def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=DAST)
 def is_header_perm_cross_dom_pol_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if X-Permitted-Cross-Domain-Policies HTTP header is properly set.
@@ -725,7 +726,7 @@ def is_header_perm_cross_dom_pol_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=DAST)
 def is_header_x_xxs_protection_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if X-XSS-Protection HTTP header is properly set.
@@ -749,7 +750,7 @@ def is_header_x_xxs_protection_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=DAST)
 def is_header_hsts_missing(url: str, *args, **kwargs) -> Result:
     r"""
     Check if Strict-Transport-Security HTTP header is properly set.
@@ -776,7 +777,7 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> Result:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=MEDIUM)
+@api(risk=MEDIUM, kind=DAST)
 def is_basic_auth_enabled(url: str, *args, **kwargs) -> Result:
     r"""
     Check if BASIC authentication is enabled.

@@ -23,7 +23,7 @@ def _get_func_id(func: Callable) -> str:
     return f"{func.__module__} -> {func.__name__}"
 
 
-def api(risk: str) -> Callable:
+def api(risk: str, kind: str) -> Callable:
     """Pre-processing and post-processing of the function results."""
     def wrapper(func: Callable) -> Callable:
         """Return a wrapper to the decorated function."""
@@ -31,7 +31,7 @@ def api(risk: str) -> Callable:
         def decorated(*args, **kwargs) -> Any:  # noqa
             """Pre-process and post-process the function results."""
             # Instantiate the result object
-            result = Result(risk=risk,
+            result = Result(risk=risk, kind=kind,
                             func=func, func_args=args, func_kwargs=kwargs)
 
             # Notify that the check is running
