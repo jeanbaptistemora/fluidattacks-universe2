@@ -488,7 +488,7 @@ def exec_http_package(urls):
     return exec_wrapper('built-in HTTP package', template)
 
 
-def exec_ssl_package(addresses: List[str]):
+def exec_ssl_package(addresses: List[str], enable_multiprocessing: bool):
     """Execute generic checks from the SSL package."""
     template = textwrap.dedent("""
         from fluidasserts.proto import {module}
@@ -537,11 +537,11 @@ def exec_ssl_package(addresses: List[str]):
         for address in addresses
         for module, methods in source.items()]
 
-    return exec_exploits(
-        exploit_contents=exploits, enable_multiprocessing=True)
+    return exec_exploits(exploit_contents=exploits,
+                         enable_multiprocessing=enable_multiprocessing)
 
 
-def exec_aws_package(credentials: List[str]):
+def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
     """Execute generic methods from the AWS package."""
     template = textwrap.dedent("""
         from fluidasserts.cloud.aws import {module}
@@ -614,8 +614,8 @@ def exec_aws_package(credentials: List[str]):
         for credential in credentials
         for module, methods in source.items()]
 
-    return exec_exploits(
-        exploit_contents=exploits, enable_multiprocessing=True)
+    return exec_exploits(exploit_contents=exploits,
+                         enable_multiprocessing=enable_multiprocessing)
 
 
 def exec_dns_package(nameservers):
@@ -632,7 +632,7 @@ def exec_dns_package(nameservers):
     return exec_wrapper('built-in DNS package', template)
 
 
-def exec_lang_package(paths):
+def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
     """Execute generic methods from the lang package."""
     template = textwrap.dedent("""
         from fluidasserts.lang import {module}
@@ -739,8 +739,8 @@ def exec_lang_package(paths):
         for path in paths
         for module, methods in source.items()]
 
-    return exec_exploits(
-        exploit_contents=exploits, enable_multiprocessing=True)
+    return exec_exploits(exploit_contents=exploits,
+                         enable_multiprocessing=enable_multiprocessing)
 
 
 def get_exploit_content(exploit_path: str) -> Tuple[str, str]:
@@ -774,13 +774,13 @@ def get_content(args):
     if args.http:
         content += exec_http_package(args.http)
     if args.ssl:
-        content += exec_ssl_package(args.ssl)
+        content += exec_ssl_package(args.ssl, args.multiprocessing)
     if args.dns:
         content += exec_dns_package(args.dns)
     if args.lang:
-        content += exec_lang_package(args.lang)
+        content += exec_lang_package(args.lang, args.multiprocessing)
     if args.aws:
-        content += exec_aws_package(args.aws)
+        content += exec_aws_package(args.aws, args.multiprocessing)
     if args.exploits:
         content += exec_exploits(exploit_paths=args.exploits,
                                  enable_multiprocessing=args.multiprocessing)
