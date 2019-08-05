@@ -1,4 +1,5 @@
 from decimal import Decimal
+from tempfile import NamedTemporaryFile
 import json
 import pytest
 from collections import OrderedDict
@@ -7,6 +8,7 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
+from django.core.files import File
 from graphql.error import GraphQLError
 from graphene.test import Client
 from jose import jwt
@@ -533,6 +535,53 @@ class GraphQLTests(TestCase):
         print result
         assert 'errors' not in result
         assert 'userData' in result['data']
+
+    def test_upload_files(self):
+        file_to_upload = NamedTemporaryFile()
+        with file_to_upload.file as test_file:
+            file_data = [
+                {'description': 'test',
+                 'fileName': file_to_upload.name.split('/')[2],
+                 'uploadDate': ''}
+            ]
+            query = '''
+            mutation {
+            addFiles (
+                filesData: "$fileData",
+                projectName: "UNITTESTING") {
+                success
+                resources {
+                environments
+                files
+                repositories
+                }
+            }
+            }
+            '''
+            query = query.replace(
+                '$fileData', json.dumps(file_data).replace('"', '\\"'))
+            testing_client = Client(schema.SCHEMA)
+            request = RequestFactory().get('/')
+            middleware = SessionMiddleware()
+            middleware.process_request(request)
+            request.session.save()
+            request.session['username'] = 'unittest'
+            request.session['company'] = 'unittest'
+            request.session['role'] = 'admin'
+            request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+                {
+                    'user_email': 'unittest',
+                    'user_role': 'admin',
+                    'company': 'unittest'
+                },
+                algorithm='HS512',
+                key=settings.JWT_SECRET,
+            )
+            request.FILES['document'] = File(test_file)
+            result = testing_client.execute(query, context_value=request)
+            assert 'errors' not in result
+            assert 'success' in result['data']['addFiles']
+
 
 class cvssTests(TestCase):
 
