@@ -535,7 +535,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               pageSize={10}
                               search={false}
                               enableRowSelection={
-                                ((isEditable ? true : false) && _.includes(["customer"], props.userRole))
+                                ((isEditable ? true : false) && _.includes([], props.userRole))
                               }
                               title=""
                               selectionMode="checkbox"
@@ -558,7 +558,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               pageSize={10}
                               search={false}
                               enableRowSelection={
-                                ((isEditable ? true : false) && _.includes(["customer"], props.userRole))
+                                ((isEditable ? true : false) && _.includes([], props.userRole))
                               }
                               title=""
                               selectionMode="checkbox"
@@ -581,7 +581,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               pageSize={10}
                               search={false}
                               enableRowSelection={
-                                ((isEditable ? true : false) && _.includes(["customer"], props.userRole))
+                                ((isEditable ? true : false) && _.includes([], props.userRole))
                               }
                               title=""
                               selectionMode="checkbox"
