@@ -149,33 +149,6 @@ p {
   }
 }
 
-.red-margin {
-  border: 3px solid;
-  border-color: $fluid-red;
-  margin: 20px;
-}
-
-
-.fluid-bullet {
-  text-align: left;
-
-  ul {
-    font-size: 23px;
-    list-style: inside;
-    list-style-image: url('../../images/bullet2.png');
-    margin-left: 38%;
-  }
-
-  li {
-    padding-bottom: 15px;
-  }
-}
-
-
-.high-res-text {
-  display: none;
-}
-
 .itmntxt {
   float: left;
   padding-top: 12px;
@@ -526,12 +499,5 @@ p {
   .contact-img {
     max-height: 0%;
     max-width: 0%;
-  }
-}
-
-//Extra information for Integrates
-@media screen and (min-width: 1900px) {
-  .high-res-text {
-    display: block;
   }
 }
