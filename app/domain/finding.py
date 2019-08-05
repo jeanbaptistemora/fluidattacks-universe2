@@ -917,7 +917,7 @@ def update_release(project_name, finding_data, draft_id):
                     release['lastRelease'].split(' ')[0], '%Y-%m-%d')
                 last_release = last_release.replace(tzinfo=local_timezone).date()
                 if last_release >= release_date:
-                    release_date = last_release + timedelta(days=2)
+                    release_date = last_release + timedelta(days=1)
     release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
     has_release = integrates_dal.add_attribute_dynamo('FI_findings', ['finding_id', draft_id],
                                                       'releaseDate', release_date)
