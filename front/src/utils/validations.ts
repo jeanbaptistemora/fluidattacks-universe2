@@ -29,7 +29,7 @@ export const validEmail: ((arg1: string) => string | undefined) =
   }
 };
 
-const evidenceHasValidType: ((arg1: File, arg2: number) => boolean) =
+export const evidenceHasValidType: ((arg1: File, arg2: number) => boolean) =
   (file: File, evidenceType: number): boolean => {
   let valid: boolean;
   let ANIMATION: number; ANIMATION = 0;

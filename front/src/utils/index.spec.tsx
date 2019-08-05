@@ -1,7 +1,7 @@
 import { configure } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { ConfigurableValidator } from "revalidate";
-import { evidenceHasValidSize, isValidFileName,
+import { evidenceHasValidSize, evidenceHasValidType, isValidFileName,
          isValidFileSize, minLength, numberBetween, validEmail, validTag } from "./validations";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -115,6 +115,87 @@ describe("Validations", () => {
     const validFile: boolean = evidenceHasValidSize(file);
     expect(validFile)
     .toEqual(false);
+  });
+
+  it("should be a valid .gif evidence", () => {
+    const file: File = new File(["foo"], "foo.gif", {
+      type: "image/gif",
+    });
+    const evidenceValidType: boolean = evidenceHasValidType(file, 0);
+    expect(evidenceValidType)
+      .toEqual(true);
+  });
+
+  it("shouldn't be a valid .gif evidence", () => {
+    const file: File = new File(["foo"], "foo.py", {
+      type: "image/py",
+    });
+    const evidenceValidType: boolean = evidenceHasValidType(file, 0);
+    expect(evidenceValidType)
+      .toEqual(false);
+  });
+
+  it("should be a valid .png evidence", () => {
+    const file: File = new File(["foo"], "foo.png", {
+      type: "image/png",
+    });
+    const evidenceValidType: boolean = evidenceHasValidType(file, 4);
+    expect(evidenceValidType)
+      .toEqual(true);
+  });
+
+  it("shouldn't be a valid .png evidence", () => {
+    const file: File = new File(["foo"], "foo.py", {
+      type: "image/py",
+    });
+    const evidenceValidType: boolean = evidenceHasValidType(file, 4);
+    expect(evidenceValidType)
+      .toEqual(false);
+  });
+
+  it("should be a valid .py evidence", () => {
+    const file: File = new File(["foo"], "foo.py", {
+      type: "file/py",
+    });
+    const evidenceValidType: boolean = evidenceHasValidType(file, 7);
+    expect(evidenceValidType)
+      .toEqual(true);
+  });
+
+  it("shouldn't be a valid .py evidence", () => {
+    const file: File = new File(["foo"], "foo.gif", {
+      type: "file/gif",
+    });
+    const evidenceValidType: boolean = evidenceHasValidType(file, 7);
+    expect(evidenceValidType)
+      .toEqual(false);
+  });
+
+  it("should be a valid .csv evidence", () => {
+    const file: File = new File(["foo"], "foo.csv", {
+      type: "file/csv",
+    });
+    const evidenceValidType: boolean = evidenceHasValidType(file, 8);
+    expect(evidenceValidType)
+      .toEqual(true);
+  });
+
+  it("shouldn't be a valid .csv evidence", () => {
+    const file: File = new File(["foo"], "foo.exp", {
+      type: "file/exp",
+    });
+    const evidenceValidType: boolean = evidenceHasValidType(file, 8);
+    expect(evidenceValidType)
+      .toEqual(false);
+  });
+
+  it("shouldn't be a valid evidence type", () => {
+    const file: File = new File(["foo"], "foo.doc", {
+      type: "file/doc",
+    });
+    const evidenceValidType: boolean = evidenceHasValidType(file, 10);
+    expect(evidenceValidType)
+      .toEqual(false);
   });
 
   it("should be a valid email", () => {
