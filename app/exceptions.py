@@ -91,9 +91,11 @@ class InvalidAuthorization(Exception):
 
 class InvalidPath(Exception):
     """Exception to control valid path value in vulnerabilities."""
-    def __init__(self):
+    def __init__(self, expr):
         """ Constructor """
-        msg = 'Exception - Error in path value'
+        msg = '{{"msg": "Exception - Error in path value", {expr}}}'.format(
+            expr=expr
+        )
         super(InvalidPath, self).__init__(msg)
 
 

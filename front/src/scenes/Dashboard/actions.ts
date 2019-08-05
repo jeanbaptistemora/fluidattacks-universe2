@@ -69,7 +69,9 @@ export const updateVulnerabilities: ThunkActionStructure =
           } else if (errors[0].message === "Exception - Invalid File Type") {
             msgError(translate.t("proj_alerts.file_type_yaml"));
           } else if (errors[0].message.includes("Exception - Error in path value")) {
-            msgError(translate.t("proj_alerts.path_value"));
+            const errorObject: any = JSON.parse(errors[0].message);
+            msgErrorStick(`${translate.t("proj_alerts.path_value")}
+              ${formatError("proj_alerts.value", errorObject.values)}`);
           } else if (errors[0].message.includes("Exception - Error in port value")) {
             const errorObject: any = JSON.parse(errors[0].message);
             msgErrorStick(`${translate.t("proj_alerts.port_value")}
