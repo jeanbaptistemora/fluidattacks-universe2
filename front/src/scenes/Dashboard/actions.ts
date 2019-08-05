@@ -21,7 +21,7 @@ type ThunkActionStructure = ((...args: any[]) => ThunkAction<void, {}, {}, AnyAc
 
 const formatError: (errorName: string, errorValue: string) => string =
   (errorName: string, errorValue: string): string =>
-    (` ${translate.t(errorName)} ${errorValue} ${translate.t("proj_alerts.invalid")}. `);
+    (` ${translate.t(errorName)} "${errorValue}" ${translate.t("proj_alerts.invalid")}. `);
 
 export const updateVulnerabilities: ThunkActionStructure =
   (findingId: string): ThunkAction<void, {}, {}, Action> => (_: ThunkDispatcher): void => {
@@ -49,33 +49,33 @@ export const updateVulnerabilities: ThunkActionStructure =
           const { errors } = error.response.data;
 
           if (errors[0].message.includes("Exception - Error in range limit numbers")) {
-            msgError(translate.t("proj_alerts.range_error"));
+            const errorObject: any = JSON.parse(errors[0].message);
+            msgError(`${translate.t("proj_alerts.range_error")} ${errorObject.values}`);
           } else if (errors[0].message.includes("Exception - Invalid Schema")) {
-            const errorMessage: string = errors[0].message.replace("Exception - Invalid Schema", "");
-            if (errorMessage !== "") {
-              const listErrors: string[] = errorMessage.split("|||");
-              const listKeysErrors: string[] = listErrors[0].split("||");
-              const listValuesErrors: string[] = listErrors[1].split("||");
-              const listValuesFormated: string[] = listValuesErrors.map(
-                (x: string) => x !== "" ? formatError("proj_alerts.value", x) : "");
-              const listKeysFormated: string[] = listKeysErrors.map(
-                (x: string) => x !== "" ? formatError("proj_alerts.key", x) : "");
+            const errorObject: any = JSON.parse(errors[0].message);
+            if (errorObject.values.length > 0 || errorObject.keys.length > 0) {
+              const listValuesFormated: string[] = errorObject.values.map(
+                (x: string) => formatError("proj_alerts.value", x));
+              const listKeysFormated: string[] = errorObject.keys.map(
+                (x: string) => formatError("proj_alerts.key", x));
               msgErrorStick(
                 listKeysFormated.join("") + listValuesFormated.join(""),
                 translate.t("proj_alerts.invalid_schema"));
             } else {
               msgError(translate.t("proj_alerts.invalid_schema"));
             }
-          } else if (errors[0].message.includes("Exception - Invalid File Size")) {
+          } else if (errors[0].message === "Exception - Invalid File Size") {
             msgError(translate.t("proj_alerts.file_size_py"));
           } else if (errors[0].message === "Exception - Invalid File Type") {
             msgError(translate.t("proj_alerts.file_type_yaml"));
           } else if (errors[0].message.includes("Exception - Error in path value")) {
             msgError(translate.t("proj_alerts.path_value"));
           } else if (errors[0].message.includes("Exception - Error in port value")) {
-            msgError(translate.t("proj_alerts.port_value"));
-          } else if (errors[0].message.includes("Exception - Error in specific value")) {
-            msgError(translate.t("proj_alerts.port_value"));
+            const errorObject: any = JSON.parse(errors[0].message);
+            msgErrorStick(`${translate.t("proj_alerts.port_value")}
+              ${formatError("proj_alerts.value", errorObject.values)}`);
+          } else if (errors[0].message === "Exception - Error in specific value") {
+            msgError(translate.t("proj_alerts.invalid_specific"));
           } else {
             msgError(translate.t("proj_alerts.invalid_specific"));
             rollbar.error(error.message, errors);

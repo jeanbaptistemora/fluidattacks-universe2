@@ -40,9 +40,10 @@ class LogicException(Exception):
 
 class InvalidRange(Exception):
     """Exception to control valid range in vulnerabilities."""
-    def __init__(self):
+    def __init__(self, expr=''):
         """ Constructor """
-        msg = 'Exception - Error in range limit numbers'
+        msg = '{{"msg": "Exception - \
+            Error in range limit numbers", {expr}}}'.format(expr=expr)
         super(InvalidRange, self).__init__(msg)
 
 
@@ -50,7 +51,9 @@ class InvalidSchema(Exception):
     """Exception to control schema validation."""
     def __init__(self, expr=''):
         """ Constructor """
-        msg = 'Exception - Invalid Schema' + expr
+        msg = '{{"msg": "Exception - Invalid Schema", {expr}}}'.format(
+            expr=expr
+        )
         super(InvalidSchema, self).__init__(msg)
 
 
@@ -96,9 +99,11 @@ class InvalidPath(Exception):
 
 class InvalidPort(Exception):
     """Exception to control valid port value in vulnerabilities."""
-    def __init__(self):
+    def __init__(self, expr=''):
         """ Constructor """
-        msg = 'Exception - Error in port value'
+        msg = '{{"msg": "Exception - Error in port value", {expr}}}'.format(
+            expr=expr
+        )
         super(InvalidPort, self).__init__(msg)
 
 
