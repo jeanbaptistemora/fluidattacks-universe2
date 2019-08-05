@@ -37,6 +37,12 @@ try:
     list(range(10**10))
 except (IOError, MemoryError) as exc:
     print(exc)
+try:
+    # We cannot replicate syntax errors
+    # because we parse it with AST in another check
+    pass
+except (StopAsyncIteration, SyntaxError) as exc:
+    print(exc)
 for _ in range(10):
     try:
         print('Hello world')

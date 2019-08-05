@@ -719,6 +719,7 @@ def exec_lang_package(paths):
         ('python', 'Python'): """
             python.has_generic_exceptions('__path__')
             python.uses_catch_for_memory_error('__path__')
+            python.uses_catch_for_syntax_errors('__path__')
             python.swallows_exceptions('__path__')
             python.uses_insecure_functions('__path__')
             """,

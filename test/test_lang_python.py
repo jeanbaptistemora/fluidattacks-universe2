@@ -53,6 +53,13 @@ def test_uses_catch_for_memory_error_open():
     assert python.uses_catch_for_memory_error(INSECURE_CODE).is_open()
 
 
+
+def test_uses_catch_for_syntax_errors_open():
+    """Search for MemoryError catches."""
+    assert python.uses_catch_for_syntax_errors(CODE_DIR).is_open()
+    assert python.uses_catch_for_syntax_errors(INSECURE_CODE).is_open()
+
+
 #
 # Closing tests
 #
@@ -85,6 +92,14 @@ def test_uses_catch_for_memory_error_closed():
         CODE_DIR, exclude=['exceptions_open']).is_closed()
 
 
+
+def test_uses_catch_for_syntax_errors_closed():
+    """Search for MemoryError catches."""
+    assert python.uses_catch_for_syntax_errors(SECURE_CODE).is_closed()
+    assert python.uses_catch_for_syntax_errors(
+        CODE_DIR, exclude=['exceptions_open']).is_closed()
+
+
 #
 # Unknown tests
 #
@@ -108,3 +123,8 @@ def test_insecure_functions_unknown():
 def test_uses_catch_for_memory_error_unknown():
     """Search for MemoryError catches."""
     assert python.uses_catch_for_memory_error(NON_EXISTANT_CODE).is_unknown()
+
+
+def test_uses_catch_for_syntax_errors_unknown():
+    """Search for MemoryError catches."""
+    assert python.uses_catch_for_syntax_errors(NON_EXISTANT_CODE).is_unknown()
