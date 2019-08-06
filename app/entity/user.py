@@ -120,6 +120,7 @@ class GrantUserAccess(Mutation):
     def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')
         success = False
+        user_data = util.get_jwt_content(info.context)
 
         new_user_data = {
             'email': query_args.get('email'),
@@ -131,7 +132,7 @@ class GrantUserAccess(Mutation):
 
         if (info.context.session['role'] == 'admin'
                 and new_user_data['role'] in ['admin', 'analyst', 'customer', 'customeradmin']) \
-            or (is_customeradmin(project_name, info.context.session['username'])
+            or (is_customeradmin(project_name, user_data['user_email'])
                 and new_user_data['role'] in ['customer', 'customeradmin']):
             if create_new_user(info.context, new_user_data, project_name):
                 success = True
@@ -296,6 +297,7 @@ class EditUser(Mutation):
     def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')
         success = False
+        user_data = util.get_jwt_content(info.context)
 
         modified_user_data = {
             'email': query_args.get('email'),
@@ -308,7 +310,7 @@ class EditUser(Mutation):
         if (info.context.session['role'] == 'admin'
                 and modified_user_data['role'] in ['admin', 'analyst',
                                                    'customer', 'customeradmin']) \
-            or (is_customeradmin(project_name, info.context.session['username'])
+            or (is_customeradmin(project_name, user_data['user_email'])
                 and modified_user_data['role'] in ['customer', 'customeradmin']):
             if integrates_dal.assign_role(modified_user_data['email'],
                                           modified_user_data['role']) is None:

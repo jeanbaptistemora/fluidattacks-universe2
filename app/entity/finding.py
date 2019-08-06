@@ -734,7 +734,7 @@ class DeleteDraft(Mutation):
         reviewer_email = util.get_jwt_content(info.context)['user_email']
         try:
             project_name = get_project_name(finding_id)
-            success = reject_draft(finding_id, reviewer_email, project_name)
+            success = reject_draft(finding_id, reviewer_email, project_name, info.context)
             util.invalidate_cache(finding_id)
             util.invalidate_cache(project_name)
         except KeyError:
@@ -760,7 +760,7 @@ class DeleteFinding(Mutation):
     def mutate(self, info, finding_id, justification):
         try:
             project_name = get_project_name(finding_id)
-            success = delete_finding(finding_id, project_name, justification)
+            success = delete_finding(finding_id, project_name, justification, info.context)
             util.invalidate_cache(finding_id)
             util.invalidate_cache(project_name)
         except KeyError:

@@ -617,7 +617,7 @@ def delete_all_comments(finding_id):
     return all(comments_deleted)
 
 
-def delete_all_evidences_s3(finding_id, project):
+def delete_all_evidences_s3(finding_id, project, context):
     """Delete s3 evidences files."""
     evidences_list = finding_dal.search_evidence(project + '/' + finding_id)
     is_evidence_deleted = False
@@ -625,7 +625,8 @@ def delete_all_evidences_s3(finding_id, project):
         is_evidence_deleted_s3 = list(map(finding_dal.remove_evidence, evidences_list))
         is_evidence_deleted = any(is_evidence_deleted_s3)
     else:
-        util.cloudwatch_log_plain(
+        util.cloudwatch_log(
+            context,
             'Info: Finding ' + finding_id + ' does not have evidences in s3')
         is_evidence_deleted = True
     return is_evidence_deleted
@@ -648,7 +649,7 @@ def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_nam
     email_send_thread.start()
 
 
-def reject_draft(draft_id, reviewer_email, project_name):
+def reject_draft(draft_id, reviewer_email, project_name, context):
     fin_dto = FindingDTO()
     api = FormstackAPI()
     is_draft = ('releaseDate' not in
@@ -659,7 +660,7 @@ def reject_draft(draft_id, reviewer_email, project_name):
         finding_data = fin_dto.parse(draft_id, api.get_submission(draft_id))
 
         delete_all_comments(draft_id)
-        delete_all_evidences_s3(draft_id, project_name)
+        delete_all_evidences_s3(draft_id, project_name, context)
         integrates_dal.delete_finding_dynamo(draft_id)
 
         for vuln in integrates_dal.get_vulnerabilities_dynamo(draft_id):
@@ -696,7 +697,7 @@ def send_finding_delete_mail(
     email_send_thread.start()
 
 
-def delete_finding(finding_id, project_name, justification):
+def delete_finding(finding_id, project_name, justification, context):
     fin_dto = FindingDTO()
     api = FormstackAPI()
     is_finding = ('releaseDate' in
@@ -707,7 +708,7 @@ def delete_finding(finding_id, project_name, justification):
         finding_data = fin_dto.parse(finding_id, api.get_submission(finding_id))
 
         delete_all_comments(finding_id)
-        delete_all_evidences_s3(finding_id, project_name)
+        delete_all_evidences_s3(finding_id, project_name, context)
         integrates_dal.delete_finding_dynamo(finding_id)
 
         for vuln in integrates_dal.get_vulnerabilities_dynamo(finding_id):

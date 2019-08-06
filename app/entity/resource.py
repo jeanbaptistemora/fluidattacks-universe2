@@ -89,6 +89,7 @@ class AddRepositories(Mutation):
     def mutate(self, info, resources_data, project_name):
         success = False
         json_data = []
+        user_email = util.get_jwt_content(info.context)['user_email']
 
         for repo in resources_data:
             if 'urlRepo' in repo and 'branch' in repo:
@@ -112,7 +113,6 @@ An error occurred adding repository', 'error', info.context)
             'repositories'
         )
         if add_repo:
-            user_email = info.context.session['username']
             resources.send_mail(project_name,
                                 user_email,
                                 json_data,
@@ -155,6 +155,7 @@ class RemoveRepositories(Mutation):
         index = -1
         cont = 0
         json_data = []
+        user_email = util.get_jwt_content(info.context)['user_email']
 
         while index < 0 and len(repo_list) > cont:
             if repo_list[cont]['urlRepo'] == repository and \
@@ -172,7 +173,6 @@ class RemoveRepositories(Mutation):
                 'repositories',
                 index)
             if remove_repo:
-                user_email = info.context.session['username']
                 resources.send_mail(project_name,
                                     user_email,
                                     json_data,
@@ -209,6 +209,7 @@ class AddEnvironments(Mutation):
     def mutate(self, info, resources_data, project_name):
         success = False
         json_data = []
+        user_email = util.get_jwt_content(info.context)['user_email']
 
         for env_info in resources_data:
             if 'urlEnv' in env_info:
@@ -228,7 +229,6 @@ An error occurred adding environments', 'error', info.context)
             'environments'
         )
         if add_env:
-            user_email = info.context.session['username']
             resources.send_mail(project_name,
                                 user_email,
                                 json_data,
@@ -269,6 +269,7 @@ class RemoveEnvironments(Mutation):
             integrates_dal.get_project_dynamo(project_name)[0]['environments']
         index = -1
         cont = 0
+        user_email = util.get_jwt_content(info.context)['user_email']
 
         while index < 0 and len(env_list) > cont:
             if env_list[cont]['urlEnv'] == environment_url:
@@ -285,7 +286,6 @@ class RemoveEnvironments(Mutation):
                 'environments',
                 index)
             if remove_env:
-                user_email = info.context.session['username']
                 resources.send_mail(project_name,
                                     user_email,
                                     json_data,
@@ -326,12 +326,13 @@ class AddFiles(Mutation):
         json_data = []
         files_data = parameters['files_data']
         project_name = parameters['project_name'].lower()
+        user_email = util.get_jwt_content(info.context)['user_email']
         for file_info in files_data:
             json_data.append({
                 'fileName': file_info.get('fileName'),
                 'description': file_info.get('description'),
                 'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3],
-                'uploader': info.context.session['username'],
+                'uploader': user_email,
             })
         uploaded_file = info.context.FILES.get('document', '')
         file_id = '{project}/{file_name}'.format(
@@ -367,7 +368,6 @@ class AddFiles(Mutation):
                     json_data,
                     'files'
                 )
-                user_email = info.context.session['username']
                 resources.send_mail(project_name,
                                     user_email,
                                     json_data,
@@ -406,6 +406,7 @@ class RemoveFiles(Mutation):
             integrates_dal.get_project_dynamo(project_name)[0]['files']
         index = -1
         cont = 0
+        user_email = util.get_jwt_content(info.context)['user_email']
 
         while index < 0 and len(file_list) > cont:
             if file_list[cont]['fileName'] == file_name:
@@ -426,7 +427,6 @@ class RemoveFiles(Mutation):
                 project_name,
                 'files',
                 index)
-            user_email = info.context.session['username']
             resources.send_mail(project_name,
                                 user_email,
                                 json_data,
@@ -459,12 +459,12 @@ class DownloadFile(Mutation):
         success = False
         file_info = parameters['files_data']
         project_name = parameters['project_name'].lower()
+        user_email = util.get_jwt_content(info.context)['user_email']
         file_url = project_name + "/" + file_info
         minutes_until_expire = 1.0 / 6
         signed_url = resources.sign_url(FI_CLOUDFRONT_RESOURCES_DOMAIN,
                                         file_url, minutes_until_expire)
         if signed_url:
-            user_email = info.context.session['username']
             msg = 'Security: Downloaded file {file_name} in project {project} succesfully'\
                 .format(project=project_name, file_name=parameters['files_data'])
             util.cloudwatch_log(info.context, msg)
