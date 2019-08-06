@@ -7,7 +7,7 @@ variable "asserts-clients" {
 
 resource "aws_iam_policy" "asserts-policies" {
   count = "${length(var.asserts-clients)}"
-  name = "${var.asserts-clients[count.index]}"
+  name = "asserts-logs-policy-${var.asserts-clients[count.index]}"
   path = "/asserts/"
   description = "Asserts policy for ${var.asserts-clients[count.index]}"
 
@@ -52,12 +52,12 @@ EOF
 
 resource "aws_iam_user" "asserts-users" {
   count = "${length(var.asserts-clients)}"
-  name = "${var.asserts-clients[count.index]}"
+  name = "asserts-${var.asserts-clients[count.index]}"
   path = "/asserts/"
 }
 
 resource "aws_iam_user_policy_attachment" "attach-policies" {
   count = "${length(var.asserts-clients)}"
-  policy_arn = "${aws_iam_policy.asserts-policies.*.name[count.index]}"
-  user = "${aws_iam_user.asserts-users.*.name[count.index]}"
+  policy_arn = "asserts-logs-policy-${aws_iam_policy.asserts-policies.*.name[count.index]}"
+  user = "asserts-${aws_iam_user.asserts-users.*.name[count.index]}"
 }
