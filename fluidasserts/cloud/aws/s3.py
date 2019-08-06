@@ -44,20 +44,21 @@ def has_server_access_logging_disabled(
         show_close('Not S3 buckets were found')
         return False
 
-    result = False
+    result = []
     for bucket in buckets:
         logging = aws.run_boto3_func(key_id, secret, 's3',
                                      'get_bucket_logging',
                                      retry=retry,
                                      Bucket=bucket['Name'])
         if 'LoggingEnabled' not in logging:
-            show_open('Logging not enabled on bucket',
-                      details=dict(bucket=bucket))
-            result = True
-        else:
-            show_close('Logging enabled on bucket',
-                       details=dict(bucket=bucket))
-    return result
+            result.append(bucket['Name'])
+
+    if result:
+        show_open('Logging not enabled on buckets',
+                  details=dict(bucket=result))
+        return True
+    show_close('Logging enabled on buckets')
+    return False
 
 
 @notify

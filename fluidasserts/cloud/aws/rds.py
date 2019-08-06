@@ -43,13 +43,10 @@ def has_public_instances(key_id: str, secret: str, retry: bool = True) -> bool:
         show_close('Not RDS instances were found')
         return False
 
-    result = False
-    for instance in instances:
-        if instance['PubliclyAccessible']:
-            show_open('RDS instance is publicly accessible',
-                      details=dict(instance=instance))
-            result = True
-        else:
-            show_close('RDS instance is not publicly accessible',
-                       details=dict(instance=instance))
-    return result
+    result = [x for x in instances if x['PubliclyAccessible']]
+    if result:
+        show_open('RDS instances are publicly accessible',
+                  details=dict(instances=result))
+        return True
+    show_close('RDS instances are not publicly accessible')
+    return False

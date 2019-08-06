@@ -43,13 +43,10 @@ def has_public_clusters(key_id: str, secret: str, retry: bool = True) -> bool:
         show_close('Not clusters were found')
         return False
 
-    result = False
-    for cluster in clusters:
-        if cluster['PubliclyAccessible']:
-            show_open('Cluster is publicly accessible',
-                      details=dict(cluster=cluster))
-            result = True
-        else:
-            show_close('Cluster is not publicly accessible',
-                       details=dict(cluster=cluster))
-    return result
+    result = [x for x in clusters if x['PubliclyAccessible']]
+    if result:
+        show_open('Clusters are publicly accessible',
+                  details=dict(clusters=result))
+        return True
+    show_close('Clusters are not publicly accessible')
+    return False
