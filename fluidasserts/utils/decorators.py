@@ -10,7 +10,7 @@ from typing import Callable, Any
 from .tracking import mp_track
 
 # 3rd party imports
-import yaml
+import oyaml as yaml
 
 # local imports
 from fluidasserts import Result

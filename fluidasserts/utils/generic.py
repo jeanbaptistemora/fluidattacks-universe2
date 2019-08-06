@@ -92,12 +92,11 @@ def check_function(func: Callable, *args, **kwargs) -> bool:
                                                       kwargs=kwargs,
                                                       return_value=ret)))
             return True
-        else:
-            show_close('Function check was found closed',
-                       details=dict(metadata=metadata,
-                                    function_call=dict(args=args,
-                                                       kwargs=kwargs,
-                                                       return_value=ret)))
+        show_close('Function check was found closed',
+                   details=dict(metadata=metadata,
+                                function_call=dict(args=args,
+                                                   kwargs=kwargs,
+                                                   return_value=ret)))
     return False
 
 
