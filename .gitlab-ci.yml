@@ -122,9 +122,6 @@ test_terraform:
     - vaultenv infrastructure/terraform.sh
   after_script:
     - rm infrastructure/*.xml
-  only:
-    changes:
-      - infrastructure/**
   except:
     refs:
       - master
@@ -133,18 +130,12 @@ build_exams:
   stage: build
   <<: *kaniko_vault_config
   <<: *kaniko_build_template
-  only:
-    changes:
-      - containers/exams/**/*
   <<: *except_analytics
 
 build_vpn:
   stage: build
   <<: *kaniko_vault_config
   <<: *kaniko_build_template
-  only:
-    changes:
-      - containers/vpn/**/*
   <<: *except_analytics
 
 mr-test:

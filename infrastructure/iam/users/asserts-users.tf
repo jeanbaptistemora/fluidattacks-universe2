@@ -16,35 +16,34 @@ resource "aws_iam_policy" "asserts-policies" {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "ECR Rules",
+      "Sid": "ecrRules",
       "Effect": "Allow",
       "Action": [
-        "ecr:GetLifecyclePolicyPreview",
         "ecr:GetDownloadUrlForLayer",
-        "ecr:ListTagsForResource",
-        "ecr:ListImages",
         "ecr:BatchGetImage",
         "ecr:DescribeImages",
-        "ecr:DescribeRepositories",
-        "ecr:BatchCheckLayerAvailability",
-        "ecr:GetLifecyclePolicy",
-        "ecr:GetRepositoryPolicy"
+        "ecr:ListTagsForResource",
+        "ecr:BatchCheckLayerAvailability"
       ],
       "Resource": [
         "arn:aws:ecr:${var.region}::repository/asserts-${var.asserts-clients[count.index]}"
       ]
     },
     {
-      "Sid": "S3 Rules",
+      "Sid": "s3Rules",
       "Effect": "Allow",
       "Action": [
-        "s3:ListBucket",
-        "s3:PutObject",
-        "s3:GetObject"
+        "s3:PutObject"
       ],
       "Resource": [
         "arn:aws:s3:::${var.asserts-bucket}/${var.asserts-clients[count.index]}/*"
       ]
+    },
+    {
+      "Sid": "ecrAuthToken",
+      "Effect": "Allow",
+      "Action": "ecr:GetAuthorizationToken",
+      "Resource": "*"
     }
   ]
 }
