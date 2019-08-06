@@ -32,6 +32,7 @@ export interface IDescriptionViewProps {
     actor: string;
     affectedSystems: string;
     ambit: string;
+    analyst: string;
     attackVectorDesc: string;
     btsUrl: string;
     category: string;

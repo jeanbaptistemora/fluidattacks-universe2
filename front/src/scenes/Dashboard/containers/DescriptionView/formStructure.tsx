@@ -200,6 +200,17 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
         </Col>
         <Col md={6} sm={12} xs={12}>
           <EditableField
+            component={textField}
+            currentValue={props.dataset.analyst}
+            label={translate.t("search_findings.tab_description.analyst")}
+            name="analyst"
+            renderAsEditable={false}
+            validate={[required]}
+            visible={!props.isEditing && _.includes(["analyst", "admin"], props.userRole)}
+          />
+        </Col>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
             component={dropdownField}
             currentValue={props.dataset.reportLevel}
             label={translate.t("search_findings.tab_description.reportLevel.title")}

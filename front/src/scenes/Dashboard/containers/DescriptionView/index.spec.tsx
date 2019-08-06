@@ -21,6 +21,7 @@ describe("DescriptionView", () => {
       actor: "ANYONE_INTERNET",
       affectedSystems: "",
       ambit: "",
+      analyst: "",
       attackVectorDesc: "test",
       btsUrl: "http://test.html",
       category: "",

@@ -180,6 +180,7 @@ const enTranslations: dict = {
         sourcecode: "Source code",
         title: "Ambit",
       },
+      analyst: "Analyst",
       attack_vectors: "Attack vectors",
       bts: "External BTS",
       category: {

@@ -91,6 +91,7 @@ const initialState: IDashboardState = {
       actor: "",
       affectedSystems: "",
       ambit: "",
+      analyst: "",
       attackVectorDesc: "",
       btsUrl: "",
       category: "",
