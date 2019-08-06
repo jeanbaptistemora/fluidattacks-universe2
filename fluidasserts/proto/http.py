@@ -334,24 +334,6 @@ def _generic_has_text(url: str, expected_text: str, *args, **kwargs) -> bool:
         http_session = http.HTTPSession(url, *args, **kwargs)
         response = http_session.response
         fingerprint = http_session.get_fingerprint()
-        the_page = response.text
-        if response.status_code >= 500:
-            show_unknown('There was an error',
-                         details=dict(url=url,
-                                      status=response.status_code,
-                                      fingerprint=fingerprint))
-            return False
-        if re.search(str(expected_text), the_page, re.IGNORECASE):
-            show_open('Bad text present',
-                      details=dict(url=url,
-                                   bad_text=expected_text,
-                                   fingerprint=fingerprint))
-            return True
-        show_close('Bad text not present',
-                   details=dict(url=url,
-                                bad_text=expected_text,
-                                fingerprint=fingerprint))
-        return False
     except http.ConnError as exc:
         show_unknown('Could not connnect',
                      details=dict(url=url,
@@ -361,6 +343,21 @@ def _generic_has_text(url: str, expected_text: str, *args, **kwargs) -> bool:
         show_unknown('An invalid parameter was passed',
                      details=dict(url=url,
                                   error=str(exc).replace(':', ',')))
+        return False
+    else:
+        the_page = response.text
+        if re.search(str(expected_text), the_page, re.IGNORECASE):
+            show_open('Bad text present',
+                      details=dict(url=url,
+                                   bad_text=expected_text,
+                                   fingerprint=fingerprint,
+                                   status_code=response.status_code))
+            return True
+        show_close('Bad text not present',
+                   details=dict(url=url,
+                                bad_text=expected_text,
+                                fingerprint=fingerprint,
+                                status_code=response.status_code))
         return False
 
 
