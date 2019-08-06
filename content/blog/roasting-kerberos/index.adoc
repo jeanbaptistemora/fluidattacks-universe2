@@ -67,7 +67,51 @@ that uses an enterprise login with the +AD+, among others.
 == Kerberoast lab
 
 To set up our lab we are going to use +Hashicorp's+ link:https://www.vagrantup.com/[Vagrant],
-you can download the source files [button]#link:kerberoast.zip[here]#
+here are the source files.
+Create a folder with the name +kerberoast+
+then save the +Vagrantfile+ there,
+also create another folder inside +kerberoast+ named +provision+
+and save the file +ad.ps1+ there:
+
+.setting up the lab
+[source, bash, linenums]
+----
+$ mkdir kerberoast
+$ cd kerberoast
+kerberoast$ nano Vagrantfile #Add here the content
+kerberoast$ mkdir provision
+kerberoast$ nano provision/ad.ps1 #Add here the content
+----
+
+.Vagrantfile
+[source, ruby]
+----
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "cdaf/WindowsServerDC"
+  config.vm.hostname = "winserver"
+  config.vm.network "private_network", ip: "192.168.56.2"
+  config.vm.provision "shell", path: "provision/ad.ps1"
+
+end
+----
+
+.provision/ad.ps1
+[source, powershell]
+----
+Import-Module ServerManager
+Add-WindowsFeature RSAT-AD-PowerShell
+import-module activedirectory
+New-ADuser -Name "kertest" -SamAccountName kertest -Enabled $true -AccountPassword (ConvertTo-SecureString -AsPlainText "SuperSecure@123!!!" -Force)
+New-ADuser -Name "svctest" -SamAccountName svctest -Enabled $true -AccountPassword (ConvertTo-SecureString -AsPlainText "Monkey.123" -Force)
+setspn -A sky.net/kertest kertest
+setspn -A sky.net/svctest svctest
+Add-ADGroupMember -Identity "Administrators" -Members svctest
+Add-ADGroupMember -Identity "Users" -Members kertest
+----
 
 Then run the environment using:
 
