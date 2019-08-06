@@ -2,7 +2,7 @@ import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import * as React from "react";
 import { DataAlignType } from "react-bootstrap-table";
-import { dataTable as DataTable, IHeader } from "./index";
+import { dataTable as DataTable, dateFormatter, IHeader } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
@@ -242,4 +242,17 @@ describe("Data table", () => {
     expect(wrapper)
       .toHaveLength(1);
   });
+
+  it("should return date", () => {
+    const formatter: string = dateFormatter("25-05-19");
+    expect(dateFormatter(formatter))
+      .toEqual("25-05-19");
+  });
+
+  it("should return date without time", () => {
+    const formatter: string = dateFormatter("25-05-19 12:00:00");
+    expect(dateFormatter(formatter))
+      .toEqual("25-05-19");
+  });
+
 });

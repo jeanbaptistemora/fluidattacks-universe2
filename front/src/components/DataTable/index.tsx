@@ -103,7 +103,7 @@ const statusFormatter: ((value: string) => ReactElement<Label>) =
     );
 };
 
-const dateFormatter: ((value: string) => string) =
+export const dateFormatter: ((value: string) => string) =
   (value: string): string => {
   if (value.indexOf(":") !== -1) {
 
