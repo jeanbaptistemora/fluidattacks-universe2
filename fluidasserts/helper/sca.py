@@ -45,7 +45,9 @@ async def get_vulns_ossindex_async(package_manager: str, path: str,
             _url_encode(package_manager),
             _url_encode(package))
 
-    async with aiohttp.ClientSession(trust_env=True) as session:
+    timeout = aiohttp.ClientTimeout(total=60)
+    async with aiohttp.ClientSession(trust_env=True,
+                                     timeout=timeout) as session:
         async with session.get(url) as response:
             text = await response.text()
 
