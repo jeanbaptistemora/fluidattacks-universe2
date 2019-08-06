@@ -1,24 +1,20 @@
 from __future__ import absolute_import, division
 import io
 import re
-import os
 import sys
 import threading
 from datetime import datetime, timedelta
 from time import time
 from decimal import Decimal
 
-import boto3
 import pytz
 import rollbar
 from backports import csv
-from botocore.exceptions import ClientError
 from django.conf import settings
 from graphql import GraphQLError
 from i18n import t
 
 from __init__ import (
-    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET,
     FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
 )
 from app import util
@@ -40,48 +36,9 @@ from app.utils import (
     cvss, forms as forms_utils, notifications, findings as finding_utils
 )
 
-CLIENT_S3 = boto3.client('s3',
-                         aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
-                         aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
-
-BUCKET_S3 = FI_AWS_S3_BUCKET
-
 
 def save_file_url(finding_id, field_name, file_url):
     return add_file_attribute(finding_id, field_name, 'file_url', file_url)
-
-
-# pylint: disable=too-many-arguments
-def send_file_to_s3(filename, finding_id, field, fieldname, ext, fileurl):
-    fileroute = '/tmp/:id.tmp'.replace(':id', filename)
-    namecomplete = fileurl + '-' + field + '-' + filename + ext
-    with open(fileroute, 'r') as file_obj:
-        try:
-            CLIENT_S3.upload_fileobj(file_obj, BUCKET_S3, namecomplete)
-        except ClientError:
-            rollbar.report_exc_info()
-            return False
-    file_name = namecomplete.split('/')[2]
-    is_file_saved = save_file_url(finding_id, fieldname, file_name)
-    os.unlink(fileroute)
-    return is_file_saved
-
-
-def update_file_to_s3(parameters, field, fieldname, upload, fileurl):
-    key_val = fileurl + '-' + field
-    key_list = util.list_s3_objects(CLIENT_S3, BUCKET_S3, key_val)
-    if key_list:
-        for k in key_list:
-            CLIENT_S3.delete_object(Bucket=BUCKET_S3, Key=k)
-    file_name_complete = fileurl + '-' + field + '-' + upload.name
-    try:
-        CLIENT_S3.upload_fileobj(upload.file, BUCKET_S3, file_name_complete)
-        file_name = file_name_complete.split('/')[2]
-        save_file_url(parameters['finding_id'], fieldname, file_name)
-        return True
-    except ClientError:
-        rollbar.report_exc_info()
-        return False
 
 
 def add_file_attribute(finding_id, file_name, file_attr, file_attr_value):
@@ -119,8 +76,6 @@ def migrate_all_files(finding_id, project_name):
     fin_dto = FindingDTO()
     api = FormstackAPI()
     try:
-        file_url = '{project!s}/{findingid}/{project!s}-{findingid}'.format(
-            project=project_name, findingid=finding_id)
         finding = fin_dto.parse(finding_id, api.get_submission(finding_id))
         files = [
             {'id': '0', 'name': 'animation', 'field': fin_dto.ANIMATION, 'ext': '.gif'},
@@ -134,19 +89,25 @@ def migrate_all_files(finding_id, project_name):
             {'id': '8', 'name': 'fileRecords', 'field': fin_dto.REG_FILE, 'ext': '.csv'}
         ]
         for file_obj in files:
-            s3_name = '{file_url}-{field}'.format(
-                file_url=file_url, field=file_obj['field'])
-            already_in_s3 = util.list_s3_objects(CLIENT_S3, BUCKET_S3, s3_name)
+            base_name = '{proj}/{fin}/{proj}-{fin}-{field}'.format(
+                field=file_obj['field'],
+                fin=finding_id,
+                proj=project_name)
+            already_migrated = finding_dal.search_evidence(base_name)
             has_file = file_obj['name'] in finding
-            if has_file and not already_in_s3:
+            if has_file and not already_migrated:
                 drive_api = DriveAPI()
 
                 file_name = finding[file_obj['name']]
-                file_download_route = drive_api.download(file_name)
-                if file_download_route:
-                    send_file_to_s3(
-                        file_name, finding_id, file_obj['field'],
-                        file_obj['name'], file_obj['ext'], file_url)
+                download_path = drive_api.download(file_name)
+                if download_path:
+                    full_name = '{base}-{name}{ext}'.format(
+                        base=base_name,
+                        ext=file_obj['ext'],
+                        name=file_name)
+                    if finding_dal.migrate_evidence(download_path, full_name):
+                        file_name = full_name.split('/')[2]
+                        save_file_url(finding_id, file_obj['name'], file_name)
                 else:
                     rollbar.report_message(
                         'Error: An error occurred downloading file from Drive',
@@ -223,37 +184,6 @@ def cast_tracking(tracking):
         cycle += 1
         tracking_casted.append(closing_cicle)
     return tracking_casted
-
-
-def get_dynamo_evidence(finding_id):
-    finding_data = integrates_dal.get_finding_attributes_dynamo(
-        finding_id, ['files'])
-    evidence_files = finding_data.get('files', [])
-    parsed_evidence = {
-        'animation': {'url':
-                      filter_evidence_filename(evidence_files,
-                                               'animation')},
-        'evidence1': {'url':
-                      filter_evidence_filename(evidence_files,
-                                               'evidence_route_1')},
-        'evidence2': {'url':
-                      filter_evidence_filename(evidence_files,
-                                               'evidence_route_2')},
-        'evidence3': {'url':
-                      filter_evidence_filename(evidence_files,
-                                               'evidence_route_3')},
-        'evidence4': {'url':
-                      filter_evidence_filename(evidence_files,
-                                               'evidence_route_4')},
-        'evidence5': {'url':
-                      filter_evidence_filename(evidence_files,
-                                               'evidence_route_5')},
-        'exploitation': {'url':
-                         filter_evidence_filename(evidence_files,
-                                                  'exploitation')},
-    }
-
-    return parsed_evidence
 
 
 def filter_evidence_filename(evidence_files, name):
@@ -681,7 +611,7 @@ def get_records_from_file(self, file_name):
 
 def download_evidence_file(self, file_name):
     file_id = '/'.join([self.project_name.lower(), self.id, file_name])
-    is_s3_file = util.list_s3_objects(CLIENT_S3, BUCKET_S3, file_id)
+    is_s3_file = finding_dal.search_evidence(file_id)
 
     if is_s3_file:
         start = file_id.find(self.id) + len(self.id)
@@ -689,7 +619,7 @@ def download_evidence_file(self, file_name):
         ext = {'.py': '.tmp'}
         tmp_filepath = util.replace_all(localfile, ext)
 
-        CLIENT_S3.download_file(BUCKET_S3, file_id, tmp_filepath)
+        finding_dal.download_evidence(file_id, tmp_filepath)
         return tmp_filepath
     else:
         if not re.match('[a-zA-Z0-9_-]{20,}', file_name):
@@ -750,29 +680,12 @@ def delete_all_comments(finding_id):
     return all(comments_deleted)
 
 
-def key_existing_list(key):
-    """return the key's list if it exist, else list empty"""
-    return util.list_s3_objects(CLIENT_S3, BUCKET_S3, key)
-
-
-def delete_evidence_s3(evidence):
-    """Delete s3 evidence file."""
-    try:
-        response = CLIENT_S3.delete_object(Bucket=BUCKET_S3, Key=evidence)
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200 or \
-            response['ResponseMetadata']['HTTPStatusCode'] == 204
-        return resp
-    except ClientError:
-        rollbar.report_exc_info()
-        return False
-
-
 def delete_all_evidences_s3(finding_id, project):
     """Delete s3 evidences files."""
-    evidences_list = key_existing_list(project + '/' + finding_id)
+    evidences_list = finding_dal.search_evidence(project + '/' + finding_id)
     is_evidence_deleted = False
     if evidences_list:
-        is_evidence_deleted_s3 = list(map(delete_evidence_s3, evidences_list))
+        is_evidence_deleted_s3 = list(map(finding_dal.remove_evidence, evidences_list))
         is_evidence_deleted = any(is_evidence_deleted_s3)
     else:
         util.cloudwatch_log_plain(

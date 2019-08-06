@@ -19,6 +19,10 @@ CLIENT = boto3.client(
 BUCKET = FI_AWS_S3_BUCKET
 
 
+def download_file(file_name, file_path):
+    CLIENT.download_file(BUCKET, file_name, file_path)
+
+
 def list_files(name=None):
     resp = CLIENT.list_objects_v2(Bucket=BUCKET, Prefix=name)
     key_list = [item['Key'] for item in resp.get('Contents', [])]
@@ -29,8 +33,9 @@ def list_files(name=None):
 def remove_file(name):
     success = False
     try:
-        CLIENT.delete_object(Bucket=BUCKET, Key=name)
-        success = True
+        response = CLIENT.delete_object(Bucket=BUCKET, Key=name)
+        resp_code = response['ResponseMetadata']['HTTPStatusCode']
+        success = resp_code in [200, 204]
     except ClientError as ex:
         rollbar.report_message('Error: Remove from s3 failed',
                                'error', extra_data=ex, payload_data=locals())
@@ -64,13 +69,11 @@ def upload_memory_file(file_object, file_name):
     return success
 
 
-def upload_stored_file(file_path, name):
+def upload_stored_file(file_path, file_name):
     success = False
     try:
-        file_path = '/tmp/{name}.tmp'.format(name=name)
-
         with open(file_path, 'r') as file_object:
-            _send_to_s3(file_object, name)
+            _send_to_s3(file_object, file_name)
         os.unlink(file_path)
         success = True
     except IOError as ex:
