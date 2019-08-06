@@ -6,9 +6,9 @@
         "project_name"
       ],
       "schema": {
+        "company_name": "string",
         "message": "string",
         "project_name": "string",
-        "company_name": "string",
         "status_act": "string"
       }
     },
@@ -18,15 +18,15 @@
         "user_id"
       ],
       "schema": {
-        "content": "string",
-        "user_id": "string",
         "comment_type": "string",
-        "finding_id": "string",
+        "content": "string",
         "created": "date-time",
-        "parent": "string",
         "email": "string",
+        "finding_id": "string",
         "fullname": "string",
-        "modified": "date-time"
+        "modified": "date-time",
+        "parent": "string",
+        "user_id": "string"
       }
     },
     "FI_findings": {
@@ -40,7 +40,9 @@
         "affected_systems": "string",
         "ambit": "string",
         "analyst": "string",
+        "attack_complexity": "number",
         "attack_vector": "string",
+        "attack_vector_desc": "string",
         "authentication": "number",
         "availability_impact": "number",
         "availability_requirement": "number",
@@ -73,12 +75,23 @@
         "kb": "string",
         "lastVulnerability": "date-time",
         "leader": "string",
+        "modified_attack_complexity": "number",
+        "modified_attack_vector": "number",
+        "modified_availability_impact": "number",
+        "modified_confidentiality_impact": "number",
+        "modified_integrity_impact": "number",
+        "modified_privileges_required": "number",
+        "modified_severity_scope": "number",
+        "modified_user_interaction": "number",
+        "privileges_required": "number",
         "probability": "string",
         "project_name": "string",
         "records": "string",
         "records_number": "number",
         "related_findings": "string",
         "releaseDate": "date-time",
+        "remediation_level": "number",
+        "report_confidence": "number",
         "report_date": "date-time",
         "report_level": "string",
         "requirements": "string",
@@ -87,6 +100,7 @@
         "risk_value": "number",
         "scenario": "string",
         "severity": "number",
+        "severity_scope": "number",
         "subscription": "string",
         "test_type": "string",
         "threat": "string",
@@ -94,6 +108,7 @@
         "treatmentManager": "string",
         "treatment_justification": "string",
         "treatment_manager": "string",
+        "user_interaction": "number",
         "vulnerability": "string"
       }
     },
@@ -104,19 +119,19 @@
       ],
       "schema": {
         "project_name": "string",
-        "vuln_hoy": "number",
-        "unique_id": "string"
+        "unique_id": "string",
+        "vuln_hoy": "number"
       }
     },
     "FI_project_access": {
       "primary-keys": [
-        "user_email",
-        "project_name"
+        "project_name",
+        "user_email"
       ],
       "schema": {
+        "project_name": "string",
         "responsibility": "string",
-        "user_email": "string",
-        "project_name": "string"
+        "user_email": "string"
       }
     },
     "FI_projects": {
@@ -124,25 +139,29 @@
         "project_name"
       ],
       "schema": {
-        "project_name": "string",
-        "findings_deleted": "list<dict>",
-        "lastRelease": "date-time",
-        "hasRelease": "string",
         "companies": "list",
+        "customeradmin": "set",
         "deletion_date": "date-time",
         "description": "string",
-        "type": "string",
-        "portfolio": "string",
-        "project_status": "string",
-        "customeradmin": "set",
-        "status": "string",
-        "repositories": "list<dict>",
         "environments": "list<dict>",
+        "files": "list<dict>",
+        "findings_deleted": "list<dict>",
+        "hasRelease": "string",
+        "lastRelease": "date-time",
+        "last_closing_date": "number",
+        "max_open_severity": "number",
+        "mean_remediate": "number",
+        "portfolio": "string",
+        "project_name": "string",
+        "project_status": "string",
+        "repositories": "list<dict>",
         "resp_developer": "string",
+        "resp_product_owner": "string",
         "resp_project_manager": "string",
         "resp_tester": "string",
-        "resp_product_owner": "string",
-        "tag": "set"
+        "status": "string",
+        "tag": "set",
+        "type": "string"
       }
     },
     "FI_remediated": {
@@ -150,11 +169,13 @@
         "finding_id"
       ],
       "schema": {
-        "project": "string",
-        "remediated": "string",
         "finding_id": "string",
         "finding_name": "string",
-        "hasRelease": "string"
+        "hasRelease": "string",
+        "project": "string",
+        "remediated": "string",
+        "request_date": "date-time",
+        "verification_date": "date-time"
       }
     },
     "FI_toe": {
@@ -162,12 +183,12 @@
         "project"
       ],
       "schema": {
-        "project": "string",
         "fields": "number",
         "fields_tested": "number",
-        "lines_tested": "number",
+        "last_update": "date-time",
         "lines": "number",
-        "last_update": "date-time"
+        "lines_tested": "number",
+        "project": "string"
       }
     },
     "FI_users": {
@@ -175,25 +196,39 @@
         "email"
       ],
       "schema": {
+        "company": "string",
+        "devices_to_notify": "set",
         "email": "string",
-        "phone": "string",
+        "first_name": "string",
+        "last_name": "string",
         "legal_remember": "string",
-        "remember": "string"
+        "phone": "string",
+        "remember": "string",
+        "role": "string",
+        "username": "string"
       }
     },
     "FI_vulnerabilities": {
       "primary-keys": [
-        "finding_id",
-        "UUID"
+        "UUID",
+        "finding_id"
       ],
       "schema": {
-        "specific": "number",
-        "vuln_type": "string",
-        "where": "string",
-        "finding_id": "string",
         "UUID": "string",
+        "analyst": "string",
+        "btsUrl": "string",
+        "external_bts": "string",
+        "finding_id": "string",
         "historic_state": "list<dict>",
-        "analyst": "string"
+        "last_update": "date-time",
+        "specific": "number",
+        "treatment": "string",
+        "treatmentManager": "string",
+        "treatment_justification": "string",
+        "treatment_manager": "string",
+        "vuln_type": "string",
+        "vulnerabilities": "list",
+        "where": "string"
       }
     },
     "FI_weekly_report": {
@@ -201,10 +236,10 @@
         "init_date"
       ],
       "schema": {
-        "logged_users": "number",
-        "finish_date": "date-time",
         "companies": "list<dict>",
+        "finish_date": "date-time",
         "init_date": "date-time",
+        "logged_users": "number",
         "registered_users": "number"
       }
     },
