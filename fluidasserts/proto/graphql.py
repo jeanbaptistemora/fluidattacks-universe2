@@ -213,8 +213,8 @@ def accepts_introspection(url: str, *args, **kwargs) -> Result:
         fingerprint = obj.get_fingerprint()
 
     units: List[Unit] = [Unit(where=url,
-                              attribute='GraphQL',
-                              specific=['GraphQL/Query/Introspection'],
+                              source='GraphQL/Configuration',
+                              specific=['Introspection query'],
                               fingerprint=fingerprint)]
 
     try:
@@ -285,8 +285,8 @@ def has_dos(url: str, query: str,
         return UNKNOWN, f'Some connection errors ocurred: {conn_errors}'
 
     units: List[Unit] = [Unit(where=url,
-                              attribute='GraphQL',
-                              specific=['GraphQL/Response/Time'],
+                              source='GraphQL/Architecture',
+                              specific=['Response time'],
                               fingerprint=get_sha256(query))]
 
     if timeouts:

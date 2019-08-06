@@ -101,7 +101,7 @@ def _insecure_functions_in_file(py_dest: str) -> Unit:
     results = calls + imports
 
     return Unit(where=py_dest,
-                attribute='imports',
+                source='Python/Imports',
                 specific=results,
                 fingerprint=get_sha256(py_dest)) if results else None
 

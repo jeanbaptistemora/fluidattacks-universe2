@@ -204,11 +204,11 @@ def has_reverse_tabnabbing(path: str) -> Result:
             html_obj = BeautifulSoup(file_desc.read(), features="html.parser")
 
         _vulns = Unit(where=file_path,
-                      attribute='<a> tag',
+                      source='HTML/Tag/a',
                       specific=[],
                       fingerprint=get_sha256(file_path))
         _safes = Unit(where=file_path,
-                      attribute='<a> tag',
+                      source='HTML/Tag/a',
                       specific=[],
                       fingerprint=get_sha256(file_path))
 
@@ -232,9 +232,9 @@ def has_reverse_tabnabbing(path: str) -> Result:
             safes.append(_safes)
 
     if vulns:
-        msg = 'There are a href tags succeptible to reverse tabnabbing'
+        msg = 'There are a href tags susceptible to reverse tabnabbing'
         return OPEN, msg, vulns, safes
     msg = 'No a href tags were found'
     if safes:
-        msg = 'There are no a href tags succeptible to reverse tabnabbing'
+        msg = 'There are no a href tags susceptible to reverse tabnabbing'
     return CLOSED, msg, vulns, safes

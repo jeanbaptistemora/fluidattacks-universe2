@@ -266,12 +266,12 @@ class Unit():
     def __init__(self,
                  *,
                  where: str,
-                 attribute: str = None,
-                 specific: List[Any] = None,
+                 source: str,
+                 specific: List[Any],
                  fingerprint: str = None):
         """Default constructor."""
         self.where: str = where
-        self.attribute: str = attribute
+        self.source: str = source
         self.specific: List[Any] = specific
         self.fingerprint: str = fingerprint
 
@@ -280,19 +280,18 @@ class Unit():
         result: Dict[str, Any] = {}
 
         result.update({'where': self.where})
+        result.update({'source': self.source})
 
-        if self.attribute:
-            result['attribute'] = self.attribute
-        if self.specific:
-            # Stringify
-            specific = map(str, self.specific)
-            # Escape commas:
-            specific = map(lambda x: x.replace(r'\\', r'\\\\'), specific)
-            specific = map(lambda x: x.replace(r',', r'\\,'), specific)
-            # Join to make it less verbose
-            specific = ', '.join(specific)
-            result['specific'] = specific
+        # Stringify
+        specific = self.specific if self.specific else [None]
+        specific = map(str, specific)
+        # Escape commas:
+        specific = map(lambda x: x.replace(r'\\', r'\\\\'), specific)
+        specific = map(lambda x: x.replace(r',', r'\\,'), specific)
+        # Join to make it less verbose
+        specific = ', '.join(specific)
 
+        result.update({'specific': specific})
         result.update({'fingerprint': self.fingerprint})
         return result
 

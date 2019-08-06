@@ -203,6 +203,8 @@ def file_exists(code_file: str) -> Result:
     """
     if os.path.exists(code_file):
         vulns = [Unit(where=code_file,
+                      source='File',
+                      specific=['Exists'],
                       fingerprint=get_sha256(code_file))]
         return OPEN, 'File exists', vulns
     return CLOSED, 'File does not exist'
@@ -217,6 +219,8 @@ def file_does_not_exist(code_file: str) -> Result:
     """
     if not os.path.exists(code_file):
         vulns = [Unit(where=code_file,
+                      source='File',
+                      specific=['Does not exist'],
                       fingerprint=get_sha256(code_file))]
         return OPEN, 'File does not exists', vulns
     return CLOSED, 'File exist'
@@ -237,9 +241,13 @@ def is_file_hash_in_list(path: str, hash_list: List[str]) -> Result:
         fingerprint: str = get_sha256(full_path)
         if fingerprint in hash_list:
             vulns.append(Unit(where=full_path,
+                              source='File',
+                              specific=['Matches hash'],
                               fingerprint=fingerprint))
         else:
             safes.append(Unit(where=full_path,
+                              source='File',
+                              specific=['Does not match hash'],
                               fingerprint=fingerprint))
 
     if vulns:

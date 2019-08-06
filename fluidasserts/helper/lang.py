@@ -230,7 +230,7 @@ def _path_contains_grammar2(
         for _, start, _ in grammar.scanString(file_as_string)]
 
     results: List[Unit] = [Unit(where=path,
-                                attribute='lines',
+                                source='Lines',
                                 specific=lines,
                                 fingerprint=get_sha256(path))]
 
@@ -452,7 +452,7 @@ def check_grammar2(grammar: ParserElement,
         lines = _get_match_lines(grammar, full_path, lang_spec)
 
         results: List[Unit] = [Unit(where=full_path,
-                                    attribute='lines',
+                                    source='Lines',
                                     specific=lines,
                                     fingerprint=get_sha256(full_path))]
 

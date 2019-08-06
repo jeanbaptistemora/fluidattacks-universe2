@@ -85,7 +85,7 @@ def process_requirements(pkg_mgr: str, path: str,
                 proj_vulns[_path] = {component: vulns}
 
     vulns = [Unit(where=_path,
-                  attribute='dependencies',
+                  source='Dependencies',
                   specific=list(deps),
                   fingerprint={
                       'sha256': get_sha256(_path),
