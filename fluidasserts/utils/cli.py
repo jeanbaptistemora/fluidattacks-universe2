@@ -452,40 +452,84 @@ def exec_wrapper(exploit_name: str, exploit_content: str) -> str:  # noqa
     return stdout_result.getvalue()
 
 
-def exec_http_package(urls):
-    """Execute generic checks of HTTP package."""
-    template = textwrap.dedent("""\
-        from fluidasserts.proto import http
+def exec_http_package(urls: List[str], enable_multiprocessing: bool):
+    """Execute generic checks from the HTTP package."""
+    template = textwrap.dedent("""
+        from fluidasserts.proto import {module}
+        from fluidasserts.utils.generic import add_finding
+
+        add_finding('Fluid Asserts - Protocols - {title} Module')
+
+        {methods}
         """)
-    for url in urls:
-        template += textwrap.dedent("""
-            http.is_header_x_asp_net_version_present('__url__')
-            http.is_header_x_powered_by_present('__url__')
-            http.is_header_access_control_allow_origin_missing('__url__')
-            http.is_header_content_security_policy_missing('__url__')
-            http.is_header_content_type_missing('__url__')
-            http.is_header_expires_missing('__url__')
-            http.is_header_server_present('__url__')
-            http.is_header_x_content_type_options_missing('__url__')
-            http.is_header_x_frame_options_missing('__url__')
-            http.is_header_x_xxs_protection_missing('__url__')
-            http.is_header_hsts_missing('__url__')
-            http.is_basic_auth_enabled('__url__')
-            http.has_trace_method('__url__')
-            http.has_delete_method('__url__')
-            http.has_put_method('__url__')
-            http.is_sessionid_exposed('__url__')
-            http.is_version_visible('__url__')
-            http.has_dirlisting('__url__')
-            http.has_clear_viewstate('__url__')
-            http.is_response_delayed('__url__')
-            http.has_clear_viewstate('__url__')
-            http.is_date_unsyncd('__url__')
-            http.has_host_header_injection('__url__')
-            http.has_mixed_content('__url__')
-            http.has_reverse_tabnabbing('__url__')
-            """).replace('__url__', url)
-    return exec_wrapper('built-in HTTP package', template)
+
+    source: Dict[str, str] = {
+        ('http', 'HTTP part 1'): """
+            # http.can_brute_force('{url}')
+            http.has_clear_viewstate('{url}')
+            # http.has_command_injection('{url}')
+            # http.has_csrf('{url}')
+            http.has_delete_method('{url}')
+            http.has_dirlisting('{url}')
+            # http.has_dirtraversal('{url}')
+            http.has_host_header_injection('{url}')
+            # http.has_hpp('{url}')
+            # http.has_insecure_dor('{url}')
+            # http.has_insecure_upload('{url}')
+            """,
+        ('http', 'HTTP part 2'): """
+            # http.has_lfi('{url}')
+            http.has_mixed_content('{url}')
+            # http.has_multiple_text('{url}')
+            # http.has_not_text('{url}')
+            # http.has_php_command_injection('{url}')
+            http.has_put_method('{url}')
+            http.has_reverse_tabnabbing('{url}')
+            # http.has_session_fixation('{url}')
+            http.has_sqli('{url}')
+            # http.has_text('{url}')
+            http.has_trace_method('{url}')
+            # http.has_user_enumeration('{url}')
+            # http.has_xss('{url}')
+            """,
+        ('http', 'HTTP part 3'): """
+            http.is_basic_auth_enabled('{url}')
+            http.is_date_unsyncd('{url}')
+            http.is_header_access_control_allow_origin_missing('{url}')
+            http.is_header_cache_control_missing('{url}')
+            http.is_header_content_security_policy_missing('{url}')
+            http.is_header_content_type_missing('{url}')
+            http.is_header_expires_missing('{url}')
+            http.is_header_hsts_missing('{url}')
+            http.is_header_perm_cross_dom_pol_missing('{url}')
+            http.is_header_pragma_missing('{url}')
+            """,
+        ('http', 'HTTP part 4'): """
+            http.is_header_server_present('{url}')
+            http.is_header_x_asp_net_version_present('{url}')
+            http.is_header_x_content_type_options_missing('{url}')
+            http.is_header_x_frame_options_missing('{url}')
+            http.is_header_x_powered_by_present('{url}')
+            http.is_header_x_xxs_protection_missing('{url}')
+            http.is_not_https_required('{url}')
+            http.is_resource_accessible('{url}')
+            http.is_response_delayed('{url}')
+            http.is_sessionid_exposed('{url}')
+            http.is_version_visible('{url}')
+            """,
+    }
+
+    exploits = [
+        (module[1], template.format(
+            title=module[1],
+            module=module[0],
+            methods=textwrap.dedent(methods.format(
+                url=url))))
+        for url in urls
+        for module, methods in source.items()]
+
+    return exec_exploits(exploit_contents=exploits,
+                         enable_multiprocessing=enable_multiprocessing)
 
 
 def exec_ssl_package(addresses: List[str], enable_multiprocessing: bool):
@@ -500,13 +544,13 @@ def exec_ssl_package(addresses: List[str], enable_multiprocessing: bool):
         """)
 
     source: Dict[str, str] = {
-        ('ssl', 'SSL.allows'): """
+        ('ssl', 'SSL part 1'): """
             ssl.allows_anon_ciphers('{ip_address}', {port})
             ssl.allows_insecure_downgrade('{ip_address}', {port})
             ssl.allows_modified_mac('{ip_address}', {port})
             ssl.allows_weak_ciphers('{ip_address}', {port})
             """,
-        ('ssl', 'SSL.has'): """
+        ('ssl', 'SSL part 2'): """
             ssl.has_beast('{ip_address}', {port})
             ssl.has_breach('{ip_address}', {port})
             ssl.has_heartbleed('{ip_address}', {port})
@@ -515,14 +559,14 @@ def exec_ssl_package(addresses: List[str], enable_multiprocessing: bool):
             ssl.has_sweet32('{ip_address}', {port})
             ssl.has_tls13_downgrade_vuln('{ip_address}', {port})
             """,
-        ('ssl', 'SSL.is'): """
+        ('ssl', 'SSL part 3'): """
             ssl.is_pfs_disabled('{ip_address}', {port})
             ssl.is_sslv3_enabled('{ip_address}', {port})
             ssl.is_tlsv11_enabled('{ip_address}', {port})
             ssl.is_tlsv1_enabled('{ip_address}', {port})
             ssl.not_tls13_enabled('{ip_address}', {port})
             """,
-        ('ssl', 'SSL.uses'): """
+        ('ssl', 'SSL part 4'): """
             ssl.tls_uses_cbc('{ip_address}', {port})
             """,
     }
@@ -772,7 +816,7 @@ def get_content(args):
     """Get raw content according to args parameter."""
     content = ''
     if args.http:
-        content += exec_http_package(args.http)
+        content += exec_http_package(args.http, args.multiprocessing)
     if args.ssl:
         content += exec_ssl_package(args.ssl, args.multiprocessing)
     if args.dns:
@@ -827,20 +871,20 @@ def main():
                            action='store_true')
     argparser.add_argument('-O', '--output', nargs=1, metavar='FILE',
                            help='save output in FILE')
-    argparser.add_argument('-H', '--http', nargs='+', metavar='URL',
+    argparser.add_argument('--http', nargs='+', metavar='URL',
                            help='perform generic HTTP checks over given URL')
-    argparser.add_argument('-S', '--ssl', nargs='+',
+    argparser.add_argument('--ssl', nargs='+',
                            metavar='IP_ADDRESS:PORT',
                            help=('perform generic SSL checks over given IP '
                                  'address and port, if port is not specified '
                                  'it defaults to 443'))
-    argparser.add_argument('-D', '--dns', nargs='+', metavar='NS',
+    argparser.add_argument('--dns', nargs='+', metavar='NS',
                            help=('perform generic DNS checks '
                                  'over given nameserver'))
-    argparser.add_argument('-L', '--lang', nargs='+', metavar='FILE/DIR',
+    argparser.add_argument('--lang', nargs='+', metavar='FILE/DIR',
                            help=('perform static security checks '
                                  'over given files or directories'))
-    argparser.add_argument('-A', '--aws', nargs='+',
+    argparser.add_argument('--aws', nargs='+',
                            metavar='AWS_ACCESS_KEY_ID:AWS_SECRET_ACCESS_KEY',
                            help=('perform AWS checks using the given '
                                  'credentials'))

@@ -44,7 +44,7 @@ def api(risk: str, kind: str) -> Callable:
             start_time = timer()
             status, message, *extra = func(*args, **kwargs)
             end_time = timer()
-            duration = end_time - start_time
+            duration = round(end_time - start_time, 2)
 
             # Append the results to the Result object
             result.set_status(status)

@@ -29,8 +29,8 @@ test_script:
   # Note that you must use the environment variable %PYTHON% to refer to
   # the interpreter you're using - Appveyor does not do anything special
   # to put the Python evrsion you want to use on PATH.
-  - "%PYTHON%\\scripts\\asserts.exe -S fluidattacks.com
-    -H https://fluidattacks.com"
+  - "%PYTHON%\\scripts\\asserts.exe --ssl fluidattacks.com
+    --http https://fluidattacks.com"
 
 #  after_test:
 # This step builds your wheels.

@@ -1059,7 +1059,7 @@ def is_sessionid_exposed(url: str, argument: str = 'sessionid',
 @notify
 @level('low')
 @track
-def is_version_visible(url) -> bool:
+def is_version_visible(url, *args, **kwargs) -> bool:
     """
     Check if product version is visible on HTTP response headers.
 
@@ -1068,7 +1068,7 @@ def is_version_visible(url) -> bool:
     :param port: If necessary, specify port to connect to.
     """
     try:
-        service = banner.HTTPService(url)
+        service = banner.HTTPService(url, *args, **kwargs)
     except http.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(url=url, error=str(exc).replace(':', ',')))
@@ -1098,7 +1098,7 @@ def is_version_visible(url) -> bool:
 @notify
 @level('medium')
 @track
-def is_not_https_required(url: str) -> bool:
+def is_not_https_required(url: str, *args, **kwargs) -> bool:
     r"""
     Check if HTTPS is always forced on a given URL.
 
@@ -1109,7 +1109,7 @@ def is_not_https_required(url: str) -> bool:
                      details=dict(url=url))
         return False
     try:
-        http_session = http.HTTPSession(url)
+        http_session = http.HTTPSession(url, *args, **kwargs)
         fingerprint = http_session.get_fingerprint()
         if http_session.url.startswith('https'):
             show_close('HTTPS is forced on URL',

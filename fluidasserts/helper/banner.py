@@ -118,10 +118,10 @@ class SMTPService(Service):
 class HTTPService():
     """HTTP Service definition."""
 
-    def __init__(self, url) -> None:
+    def __init__(self, url, *args, **kwargs) -> None:
         """Build a new Service object."""
         self.url = url
-        self.sess = http.HTTPSession(self.url)
+        self.sess = http.HTTPSession(self.url, *args, **kwargs)
 
     def get_banner(self) -> str:
         """Get HTTP Server banner."""

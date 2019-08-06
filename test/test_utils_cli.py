@@ -111,19 +111,21 @@ def test_cli_color():
 
 def test_cli_http():
     """Run CLI http option."""
-    os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_STRICT'] = 'true'
     os.environ['FA_NOTRACK'] = 'true'
-    testargs = ["asserts", "-H", 'https://127.0.0.1']
+    testargs = ["asserts", "-eec", "-mp", "--http", 'https://127.0.0.1']
     with patch.object(sys, 'argv', testargs):
-        with pytest.raises(SystemExit):
-            assert not cli.main()
+        with pytest.raises(SystemExit) as exc:
+            cli.main()
+        assert exc.value.code in (
+            cli.RICH_EXIT_CODES[x] for x in ('open', 'closed', 'unknown'))
 
 
 def test_cli_ssl():
     """Run CLI ssl option."""
     os.environ['FA_STRICT'] = 'true'
     os.environ['FA_NOTRACK'] = 'true'
-    testargs = ["asserts", "-eec", "-mp", "-S", '127.0.0.1:443']
+    testargs = ["asserts", "-eec", "-mp", "--ssl", '127.0.0.1:443']
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit) as exc:
             cli.main()
@@ -137,7 +139,7 @@ def test_cli_aws():
     os.environ['FA_NOTRACK'] = 'true'
     key = os.environ['AWS_ACCESS_KEY_ID']
     secret = os.environ['AWS_SECRET_ACCESS_KEY']
-    testargs = ["asserts", "-eec", "-mp", "-A", f'{key}:{secret}']
+    testargs = ["asserts", "-eec", "-mp", "--aws", f'{key}:{secret}']
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit) as exc:
             cli.main()
@@ -159,7 +161,7 @@ def test_cli_lang():
     """Run CLI lang option."""
     os.environ['FA_STRICT'] = 'true'
     os.environ['FA_NOTRACK'] = 'true'
-    testargs = ["asserts", "-eec", "-mp", "-L", 'test/static/lang']
+    testargs = ["asserts", "-eec", "-mp", "--lang", 'test/static/lang']
     with patch.object(sys, 'argv', testargs):
         with pytest.raises(SystemExit) as exc:
             cli.main()
