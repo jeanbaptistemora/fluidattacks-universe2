@@ -359,7 +359,7 @@ class AddFiles(Mutation):
             pass
         if util.is_valid_file_name(uploaded_file):
             try:
-                resources.upload_file_to_s3(uploaded_file, file_id)
+                resources.save_file(uploaded_file, file_id)
                 integrates_dal.add_list_resource_dynamo(
                     'FI_projects',
                     'project_name',
@@ -419,7 +419,7 @@ class RemoveFiles(Mutation):
                 project=project_name.lower(),
                 file_name=file_name
             )
-            success = resources.delete_file_from_s3(file_url)
+            success = resources.remove_file(file_url)
             integrates_dal.remove_list_resource_dynamo(
                 'FI_projects',
                 'project_name',

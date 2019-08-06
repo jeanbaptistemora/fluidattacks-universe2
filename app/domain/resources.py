@@ -1,34 +1,18 @@
 """Domain functions for resources."""
-# pylint: disable=F0401
-# pylint: disable=relative-beyond-top-level
-# Disabling this rule is necessary for importing modules beyond the top level
-# directory.
-
 from __future__ import absolute_import
-import datetime
 import base64
-import urllib
+import datetime
 import threading
-import boto3
-from botocore import exceptions, signers
-from cryptography.hazmat.primitives import (hashes, serialization, asymmetric)
-from cryptography.hazmat.backends import default_backend
-import rollbar
+import urllib
 
-from app import util
+# pylint:disable=relative-import
+from __init__ import FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY
 from app.exceptions import ErrorUploadingFileS3, InvalidFileSize
-from __init__ import (FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY,
-                      FI_AWS_S3_RESOURCES_BUCKET, FI_AWS_S3_ACCESS_KEY,
-                      FI_AWS_S3_SECRET_KEY)
-
-from ..dal import integrates_dal
-from ..mailer import send_mail_resources
-
-CLIENT_S3 = boto3.client('s3',
-                         aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
-                         aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
-
-BUCKET_S3 = FI_AWS_S3_RESOURCES_BUCKET
+from app.dal import integrates_dal, resources as resources_dal
+from app.mailer import send_mail_resources
+from botocore import signers
+from cryptography.hazmat.primitives import hashes, serialization, asymmetric
+from cryptography.hazmat.backends import default_backend
 
 
 def rsa_signer(message):
@@ -52,26 +36,18 @@ def sign_url(domain, file_name, expire_mins):
     return signed_url
 
 
-def upload_file_to_s3(upload, fileurl):
-    repeated_files = util.list_s3_objects(CLIENT_S3, BUCKET_S3, fileurl)
-    if repeated_files:
-        for k in repeated_files:
-            delete_file_from_s3(k)
-    try:
-        CLIENT_S3.upload_fileobj(upload.file, BUCKET_S3, fileurl)
-        return True
-    except exceptions.ClientError:
-        rollbar.report_exc_info()
+def save_file(upload, fileurl):
+    success = resources_dal.save_file(upload, fileurl)
+    if not success:
         raise ErrorUploadingFileS3()
 
+    return success
 
-def delete_file_from_s3(file_url):
-    try:
-        CLIENT_S3.delete_object(Bucket=BUCKET_S3, Key=file_url)
-        return True
-    except exceptions.ClientError:
-        rollbar.report_exc_info()
-        return False
+
+def remove_file(file_name):
+    success = resources_dal.remove_file(file_name)
+
+    return success
 
 
 def format_resource(resource_list, resource_type):

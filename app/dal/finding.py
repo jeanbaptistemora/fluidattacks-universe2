@@ -7,7 +7,7 @@ from boto3.dynamodb.conditions import Key
 
 # pylint:disable=relative-import
 from __init__ import (
-    FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY
+    FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY, FI_AWS_S3_BUCKET
 )
 from app.dal.helpers import s3
 
@@ -35,24 +35,24 @@ def get_finding(finding_id):
 
 
 def save_evidence(file_object, file_name):
-    success = s3.upload_memory_file(file_object, file_name)
+    success = s3.upload_memory_file(FI_AWS_S3_BUCKET, file_object, file_name)
 
     return success
 
 
 def migrate_evidence(file_path, file_name):
-    success = s3.upload_stored_file(file_path, file_name)
+    success = s3.upload_stored_file(FI_AWS_S3_BUCKET, file_path, file_name)
 
     return success
 
 
 def search_evidence(file_name):
-    return s3.list_files(file_name)
+    return s3.list_files(FI_AWS_S3_BUCKET, file_name)
 
 
 def remove_evidence(file_name):
-    return s3.remove_file(file_name)
+    return s3.remove_file(FI_AWS_S3_BUCKET, file_name)
 
 
 def download_evidence(file_name, file_path):
-    s3.download_file(file_name, file_path)
+    s3.download_file(FI_AWS_S3_BUCKET, file_name, file_path)
