@@ -13,6 +13,7 @@ resource "aws_iam_policy" "asserts-policies" {
 
   policy = <<EOF
 {
+  "Version": "2012-10-17",
   "Statement": [
     {
       "Sid": "ECR Rules",
