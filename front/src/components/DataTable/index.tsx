@@ -57,9 +57,9 @@ export interface IHeader {
   align?: DataAlignType;
   dataField: string;
   header: string;
-  hidden?: boolean;
   isDate: boolean;
   isStatus: boolean;
+  visible?: boolean;
   width?: string;
   wrapped?: boolean;
 
@@ -137,7 +137,7 @@ const renderGivenHeaders: ((arg1: IHeader[]) => JSX.Element[]) =
       formatExtraData={key}
       dataSort={true}
       hidden={
-        (key.hidden) === undefined ? key.hidden : !key.hidden}
+        (key.visible) === undefined ? key.visible : !key.visible}
       key={index}
       tdStyle={{
        textAlign: key.align,

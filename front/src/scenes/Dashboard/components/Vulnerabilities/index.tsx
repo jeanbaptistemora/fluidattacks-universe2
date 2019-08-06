@@ -349,6 +349,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       header: translate.t("search_findings.tab_description.treatment.title"),
                       isDate: false,
                       isStatus: false,
+                      visible: false,
                       width: "20%",
                     }];
                   const linesHeader: IHeader[] = [
@@ -376,6 +377,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       header: translate.t("search_findings.tab_description.treatment.title"),
                       isDate: false,
                       isStatus: false,
+                      visible: false,
                       width: "20%",
                     }];
                   const portsHeader: IHeader[] = [
@@ -403,6 +405,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       header: translate.t("search_findings.tab_description.treatment.title"),
                       isDate: false,
                       isStatus: false,
+                      visible: false,
                       width: "20%",
                     }];
 

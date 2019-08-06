@@ -105,49 +105,49 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
 
   const tableHeaders: IHeader[] = [
     {
-      align: "center", dataField: "age", header: "Age (days)", hidden: checkedItems.age,
-      isDate: false, isStatus: false, width: "5%",
+      align: "center", dataField: "age", header: "Age (days)",
+      isDate: false, isStatus: false, visible: checkedItems.age, width: "5%",
     },
     {
       align: "center", dataField: "lastVulnerability", header: "Last report (days)",
-      hidden: checkedItems.lastVulnerability, isDate: false, isStatus: false,
+      isDate: false, isStatus: false, visible: checkedItems.lastVulnerability,
       width: "5%",
     },
     {
-      align: "center", dataField: "title", header: "Title", hidden: checkedItems.title,
-      isDate: false, isStatus: false, width: "11%", wrapped: true,
+      align: "center", dataField: "title", header: "Title",
+      isDate: false, isStatus: false, visible: checkedItems.title, width: "11%", wrapped: true,
     },
     {
-      align: "center", dataField: "description", header: "Description", hidden: checkedItems.description,
-      isDate: false, isStatus: false, width: "16%", wrapped: true,
+      align: "center", dataField: "description", header: "Description",
+      isDate: false, isStatus: false, visible: checkedItems.description, width: "16%", wrapped: true,
     },
     {
-      align: "center", dataField: "severityScore", header: "Severity", hidden: checkedItems.severityScore,
-      isDate: false, isStatus: false, width: "6%",
+      align: "center", dataField: "severityScore", header: "Severity",
+      isDate: false, isStatus: false, visible: checkedItems.severityScore, width: "6%",
     },
     {
       align: "center", dataField: "openVulnerabilities", header: "Open Vulns.",
-      hidden: checkedItems.openVulnerabilities, isDate: false, isStatus: false, width: "6%",
+      isDate: false, isStatus: false, visible: checkedItems.openVulnerabilities, width: "6%",
     },
     {
-      align: "center", dataField: "state", header: "Status", hidden: checkedItems.state, isDate: false,
-      isStatus: true, width: "7%",
+      align: "center", dataField: "state", header: "Status", isDate: false,
+      isStatus: true, visible: checkedItems.state, width: "7%",
     },
     {
-      align: "center", dataField: "treatment", header: "Treatment", hidden: checkedItems.treatment,
-      isDate: false, isStatus: false, width: "8%",
+      align: "center", dataField: "treatment", header: "Treatment",
+      isDate: false, isStatus: false, visible: checkedItems.treatment, width: "8%",
     },
     {
-      align: "center", dataField: "remediated", header: "Remediated", hidden: checkedItems.remediated,
-      isDate: false, isStatus: false, width: "8%",
+      align: "center", dataField: "remediated", header: "Remediated",
+      isDate: false, isStatus: false, visible: checkedItems.remediated, width: "8%",
     },
     {
-      align: "center", dataField: "isExploitable", header: "Exploitable", hidden: checkedItems.isExploitable,
-      isDate: false, isStatus: false, width: "8%",
+      align: "center", dataField: "isExploitable", header: "Exploitable",
+      isDate: false, isStatus: false, visible: checkedItems.isExploitable, width: "8%",
     },
     {
-      align: "center", dataField: "where", header: "Where", hidden: checkedItems.where,
-      isDate: false, isStatus: false, width: "8%", wrapped: true,
+      align: "center", dataField: "where", header: "Where",
+      isDate: false, isStatus: false, visible: checkedItems.where, width: "8%", wrapped: true,
     },
   ];
 
@@ -209,7 +209,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                       <div>
                         <Checkbox
                           name={item.dataField}
-                          checked={item.hidden}
+                          checked={item.visible}
                           onChange={handleChange}
                         >{item.header}
                         </Checkbox>
