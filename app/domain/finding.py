@@ -1,15 +1,12 @@
 from __future__ import absolute_import, division
-import io
-import re
 import sys
 import threading
 from datetime import datetime, timedelta
-from time import time
 from decimal import Decimal
+from time import time
 
 import pytz
 import rollbar
-from backports import csv
 from django.conf import settings
 from graphql import GraphQLError
 from i18n import t
@@ -599,66 +596,6 @@ def save_severity(finding):
         integrates_dal.add_multiple_attributes_dynamo('FI_findings',
                                                       primary_keys, severity)
     return response
-
-
-def get_exploit_from_file(self, file_name):
-    return read_script(download_evidence_file(self, file_name))
-
-
-def get_records_from_file(self, file_name):
-    return read_csv(download_evidence_file(self, file_name))
-
-
-def download_evidence_file(self, file_name):
-    file_id = '/'.join([self.project_name.lower(), self.id, file_name])
-    is_s3_file = finding_dal.search_evidence(file_id)
-
-    if is_s3_file:
-        start = file_id.find(self.id) + len(self.id)
-        localfile = '/tmp' + file_id[start:]
-        ext = {'.py': '.tmp'}
-        tmp_filepath = util.replace_all(localfile, ext)
-
-        finding_dal.download_evidence(file_id, tmp_filepath)
-        return tmp_filepath
-    else:
-        if not re.match('[a-zA-Z0-9_-]{20,}', file_name):
-            raise Exception('Wrong file id format')
-        else:
-            drive_api = DriveAPI()
-            tmp_filepath = drive_api.download(file_name)
-
-            return tmp_filepath
-
-
-def read_script(script_file):
-    if util.assert_file_mime(script_file, ['text/x-python', 'text/x-c',
-                                           'text/plain', 'text/html',
-                                           'text/x-objective-c',
-                                           'text/x-exp']):
-        with open(script_file, 'r') as file_obj:
-            return file_obj.read()
-    else:
-        raise GraphQLError('Invalid exploit file format')
-
-
-def read_csv(csv_file):
-    file_content = []
-
-    with io.open(csv_file, 'r', encoding='utf-8', errors='ignore') as file_obj:
-        try:
-            csv_reader = csv.reader(x.replace('\0', '') for x in file_obj)
-            cont = 0
-            header = csv_reader.next()
-            for row in csv_reader:
-                if cont <= 1000:
-                    file_content.append(util.list_to_dict(header, row))
-                    cont += 1
-                else:
-                    break
-            return file_content
-        except csv.Error:
-            raise GraphQLError('Invalid record file format')
 
 
 def delete_comment(comment):

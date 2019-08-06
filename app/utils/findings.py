@@ -32,7 +32,7 @@ def _get_evidence(name, items):
     return evidence[0] if evidence else {'url': '', 'description': ''}
 
 
-def download_evidence_file(project_name, finding_id, file_name):
+def _download_evidence_file(project_name, finding_id, file_name):
     file_id = '/'.join([project_name.lower(), finding_id, file_name])
     file_exists = finding_dal.search_evidence(file_id)
 
@@ -47,8 +47,8 @@ def download_evidence_file(project_name, finding_id, file_name):
         raise Exception('Evidence not found')
 
 
-def get_records_from_file(project_name, finding_id, file_name):
-    csv_file = download_evidence_file(project_name, finding_id, file_name)
+def _get_records_from_file(project_name, finding_id, file_name):
+    csv_file = _download_evidence_file(project_name, finding_id, file_name)
     file_content = []
 
     with open(csv_file, 'r') as records_file:
@@ -60,6 +60,16 @@ def get_records_from_file(project_name, finding_id, file_name):
             return file_content
         except csv.Error:
             raise Exception('Invalid record file format')
+
+
+def _get_exploit_from_file(project_name, finding_id, file_name):
+    exp_file = _download_evidence_file(project_name, finding_id, file_name)
+    file_content = ''
+
+    with open(exp_file, 'r') as exploit_file:
+        file_content = exploit_file.read()
+
+    return file_content
 
 
 def format_data(finding):
@@ -90,10 +100,16 @@ def format_data(finding):
     }
     records = _get_evidence('fileRecords', finding['files'])
     if records['url']:
-        finding['records'] = get_records_from_file(
+        finding['records'] = _get_records_from_file(
             finding['projectName'], finding['findingId'], records['url'])
     else:
         finding['records'] = []
+    exploit = _get_evidence('exploit', finding['files'])
+    if exploit['url']:
+        finding['exploit'] = _get_exploit_from_file(
+            finding['projectName'], finding['findingId'], exploit['url'])
+    else:
+        finding['exploit'] = ''
 
     vulns = integrates_dal.get_vulnerabilities_dynamo(finding['findingId'])
     open_vulns = [vuln for vuln in vulns

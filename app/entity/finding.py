@@ -12,17 +12,14 @@ from graphene.types.generic import GenericScalar
 from app import util
 from app.dal import integrates_dal
 from app.decorators import require_login, require_role, require_finding_access
-from app.dto.finding import FindingDTO, get_project_name
 from app.domain.finding import (
-    save_evidence, remove_repeated,
-    group_by_state, cast_tracking,
-    add_file_attribute,
-    list_comments, add_comment, verify_finding,
-    get_unique_dict, get_tracking_dict, request_verification,
-    update_description, update_treatment, save_severity,
-    get_exploit_from_file, reject_draft, delete_finding,
-    approve_draft, get_finding
+    add_comment, add_file_attribute, approve_draft, cast_tracking,
+    delete_finding, get_finding, get_tracking_dict, get_unique_dict,
+    group_by_state, list_comments, reject_draft, remove_repeated,
+    request_verification, save_evidence, save_severity, update_description,
+    update_treatment, verify_finding
 )
+from app.dto.finding import FindingDTO, get_project_name
 from app.entity.types.finding import FindingType
 from app.entity.vulnerability import Vulnerability
 
@@ -46,7 +43,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.open_vulnerabilities = resp.get('openVulnerabilities')
             self.closed_vulnerabilities = resp.get('closedVulnerabilities')
             self.records = resp.get('records')
-            self.exploit = resp.get('exploit', '')
+            self.exploit = resp.get('exploit')
             self.cvss_version = resp.get('cvssVersion', '')
             self.severity = resp.get('severity')
             self.evidence = resp.get('evidence')
@@ -151,32 +148,8 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         return self.cvss_version
 
     def resolve_exploit(self, info):
-        """
-        Resolve exploit attribute
-
-        Verifies if the exploit is in dynamo. if not, it gets the filename from formstack
-        """
+        """ Resolve exploit attribute """
         del info
-
-        dynamo_evidence = integrates_dal.get_finding_attributes_dynamo(self.id, ['files'])
-        has_exploit_formstack = False
-        if dynamo_evidence:
-            file_info = [evidence for evidence in dynamo_evidence.get('files')
-                         if evidence['name'] == 'exploit']
-            if file_info:
-                file_name = file_info[0].get('file_url')
-                self.exploit = get_exploit_from_file(self, file_name)
-            else:
-                has_exploit_formstack = True
-        else:
-            has_exploit_formstack = True
-        if has_exploit_formstack:
-            formstack_exploit = \
-                '' if self.exploit == '' else get_exploit_from_file(self, self.exploit)
-            self.exploit = formstack_exploit
-        else:
-            # Finding does not have exploit in formstack
-            pass
 
         return self.exploit
 
