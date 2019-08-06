@@ -32,6 +32,9 @@ public class Example
         catch (Exception)
         {
         }
+
+        try {var a = 1 / 0;} catch () { /* Seen in real life */ }
+
     }
 /*
     try
