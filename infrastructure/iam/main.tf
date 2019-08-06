@@ -26,7 +26,6 @@ module "users" {
   source = "./users"
   asserts-bucket = "${var.asserts-bucket}"
   asserts-clients = "${var.asserts-clients}"
-  region = "${var.region}"
 }
 
 module "roles" {
@@ -40,4 +39,5 @@ module "policies" {
   fsBucket     = "${var.fsBucket}"
   fwBucket     = "${var.fwBucket}"
   ssofinance   = "${module.roles.ssofinance}"
+  asserts-bucket = "${var.asserts-bucket}"
 }

@@ -1,5 +1,3 @@
-variable "ssofinance" {}
-
 data "aws_iam_policy_document" "ssofinance-policy" {
   statement {
     sid = "Stmt1450111320000"

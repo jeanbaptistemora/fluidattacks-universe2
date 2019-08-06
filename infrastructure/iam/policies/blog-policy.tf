@@ -1,5 +1,3 @@
-variable "fwBucket" {}
-
 data "aws_iam_policy_document" "blog-policy" {
   statement {
     sid = "VisualEditor0"

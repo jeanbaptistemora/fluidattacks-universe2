@@ -1,9 +1,9 @@
-variable "region" {}
 variable "asserts-bucket" {}
 variable "asserts-clients" {
   type = "map"
 }
-
+data "aws_region" "current" {}
+data "aws_caller_identity" "current" {}
 
 resource "aws_iam_policy" "asserts-policies" {
   count = "${length(var.asserts-clients)}"
@@ -16,21 +16,17 @@ resource "aws_iam_policy" "asserts-policies" {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "ecrRules",
+      "Sid": "ecrPullContainer",
       "Effect": "Allow",
       "Action": [
-        "ecr:GetDownloadUrlForLayer",
-        "ecr:BatchGetImage",
-        "ecr:DescribeImages",
-        "ecr:ListTagsForResource",
-        "ecr:BatchCheckLayerAvailability"
+        "ecr:BatchGetImage"
       ],
       "Resource": [
-        "arn:aws:ecr:${var.region}::repository/asserts-${var.asserts-clients[count.index]}"
+        "arn:aws:ecr:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:repository/asserts-${var.asserts-clients[count.index]}"
       ]
     },
     {
-      "Sid": "s3Rules",
+      "Sid": "s3WriteLogs",
       "Effect": "Allow",
       "Action": [
         "s3:PutObject"

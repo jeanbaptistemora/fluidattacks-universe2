@@ -3,6 +3,9 @@ variable "asserts-bucket" {}
 resource "aws_s3_bucket" "asserts-bucket" {
   bucket = "${var.asserts-bucket}"
   acl    = "private"
+  versioning {
+    enabled = true
+  }
 
   # Enable server-side encryption by default
   server_side_encryption_configuration {
