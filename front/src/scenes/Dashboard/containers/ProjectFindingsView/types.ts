@@ -23,7 +23,7 @@ export interface IProjectFindingsAttr {
       severityScore: number;
       state: string;
       title: string;
-      treatment: string[];
+      treatment: string;
       type: string;
       vulnerabilities: Array<{ where: string }>;
     }>;

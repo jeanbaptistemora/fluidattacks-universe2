@@ -382,15 +382,7 @@ export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
       SECURITY: "search_findings.tab_description.type.security",
     };
     const state: string = translate.t(stateParameters[finding.state]);
-    const treatments: () => string[] = (): string[] => {
-      const arrayTreatments: string[] = [];
-      finding.treatment.map((treatmentValue: string) => {
-        arrayTreatments.push(` ${translate.t(treatmentParameters[treatmentValue])}`);
-      });
-
-      return arrayTreatments;
-    };
-    const treatment: string[] = treatments();
+    const treatment: string = translate.t(treatmentParameters[finding.treatment]);
     const type: string = translate.t(typeParameters[finding.type]);
     const isExploitable: string = translate.t(Boolean(finding.isExploitable)
       ? "project.findings.boolean.True" : "project.findings.boolean.False");

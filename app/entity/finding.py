@@ -79,6 +79,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.severity_score = resp.get('severityCvss', '')
             self.report_date = resp.get('reportDate', '')
             self.analyst = resp.get('analyst', '')
+            self.treatment = resp.get('treatment', '')
 
     def resolve_id(self, info):
         """Resolve id attribute."""
@@ -253,10 +254,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         """ Resolve treatment attribute """
         del info
         if self.state == 'closed':
-            self.treatment = ['-']
-        else:
-            self.treatment = list(set([str(vuln.treatment).upper() for vuln in self.vulnerabilities
-                                      if vuln.current_state == 'open']))
+            self.treatment = '-'
         return self.treatment
 
     def resolve_treatment_manager(self, info):
