@@ -1,5 +1,8 @@
+import csv
+import itertools
+
 from app import util
-from app.dal import integrates_dal
+from app.dal import integrates_dal, finding as finding_dal
 from app.utils import cvss, forms as forms_utils
 
 CVSS_PARAMETERS = {
@@ -29,6 +32,36 @@ def _get_evidence(name, items):
     return evidence[0] if evidence else {'url': '', 'description': ''}
 
 
+def download_evidence_file(project_name, finding_id, file_name):
+    file_id = '/'.join([project_name.lower(), finding_id, file_name])
+    file_exists = finding_dal.search_evidence(file_id)
+
+    if file_exists:
+        start = file_id.find(finding_id) + len(finding_id)
+        localfile = '/tmp' + file_id[start:]
+        ext = {'.py': '.tmp'}
+        tmp_filepath = util.replace_all(localfile, ext)
+        finding_dal.download_evidence(file_id, tmp_filepath)
+        return tmp_filepath
+    else:
+        raise Exception('Evidence not found')
+
+
+def get_records_from_file(project_name, finding_id, file_name):
+    csv_file = download_evidence_file(project_name, finding_id, file_name)
+    file_content = []
+
+    with open(csv_file, 'r') as records_file:
+        try:
+            csv_reader = csv.DictReader(records_file, delimiter=',')
+            max_rows = 1000
+            for row in itertools.islice(csv_reader, max_rows):
+                file_content.append(row)
+            return file_content
+        except csv.Error:
+            raise Exception('Invalid record file format')
+
+
 def format_data(finding):
     finding = {
         util.snakecase_to_camelcase(attribute): finding.get(attribute)
@@ -45,6 +78,7 @@ def format_data(finding):
     finding['detailedSeverity'] = finding.get('severity', 0)
     finding['exploitable'] = forms_utils.is_exploitable(
         float(finding['exploitability']), finding['cvssVersion'])
+
     finding['evidence'] = {
         'animation': _get_evidence('animation', finding['files']),
         'evidence1': _get_evidence('evidence_route_1', finding['files']),
@@ -54,6 +88,12 @@ def format_data(finding):
         'evidence5': _get_evidence('evidence_route_5', finding['files']),
         'exploitation': _get_evidence('exploitation', finding['files'])
     }
+    records = _get_evidence('fileRecords', finding['files'])
+    if records['url']:
+        finding['records'] = get_records_from_file(
+            finding['projectName'], finding['findingId'], records['url'])
+    else:
+        finding['records'] = []
 
     vulns = integrates_dal.get_vulnerabilities_dynamo(finding['findingId'])
     open_vulns = [vuln for vuln in vulns

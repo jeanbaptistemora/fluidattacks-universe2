@@ -20,7 +20,7 @@ from app.domain.finding import (
     list_comments, add_comment, verify_finding,
     get_unique_dict, get_tracking_dict, request_verification,
     update_description, update_treatment, save_severity,
-    get_exploit_from_file, get_records_from_file, reject_draft, delete_finding,
+    get_exploit_from_file, reject_draft, delete_finding,
     approve_draft, get_finding
 )
 from app.entity.types.finding import FindingType
@@ -45,12 +45,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
                 Vulnerability(vuln) for vuln in resp.get('vulnerabilities')]
             self.open_vulnerabilities = resp.get('openVulnerabilities')
             self.closed_vulnerabilities = resp.get('closedVulnerabilities')
-
-            if 'fileRecords' in resp.keys():
-                self.records = get_records_from_file(self, resp['fileRecords'])
-            else:
-                self.records = {}
-
+            self.records = resp.get('records')
             self.exploit = resp.get('exploit', '')
             self.cvss_version = resp.get('cvssVersion', '')
             self.severity = resp.get('severity')
@@ -138,27 +133,8 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         return self.tracking
 
     def resolve_records(self, info):
-        """
-        Resolve compromised records attribute
-
-        Verifies if there are records in dynamo. if not, it gets them from
-        formstack
-        """
+        """ Resolve compromised records attribute """
         del info
-
-        formstack_records = self.records
-        dynamo_evidence = integrates_dal.get_finding_attributes_dynamo(
-            self.id, ['files'])
-        if dynamo_evidence:
-            file_info = [evidence for evidence in dynamo_evidence.get('files')
-                         if evidence['name'] == 'fileRecords']
-            if file_info:
-                file_name = file_info[0]['file_url']
-                self.records = get_records_from_file(self, file_name)
-            else:
-                self.records = formstack_records
-        else:
-            self.records = formstack_records
 
         return self.records
 
