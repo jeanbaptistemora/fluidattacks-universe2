@@ -32,12 +32,14 @@
   </div>
   <div class="trusted">
     <p>Trusted by: </p>
-    <div class="owl-carousel" >
-      {% set trusted = [ "Mazda", "Manpower", "RSA", "Avianca", "Exito", "Coordinadora", "Banco del Pacifico", "VM2020", "Koombea",
-                         "LaFrancol", "Sura", "Banesco", "Gana", "Tigo UNE", "Ficohsa", "Cadena", "Coninsa", "Berkeley", "BCP",
-                         "Proteccion", "Corona", "Banco Industrial", "Intergrupo", "ARUS", "Seti", "BIVA", "ACH", "Banco Multiple",
-                         "S4N", "Coopcentral", "Ceiba", "Guarumo", "CFA", "Velez", "Internexa", "Practi Sistemas", "Servinteg",
-                         "Deceval", "UCCORP", "Serempre", "Enterdev", "Ingeneo", "ITS", "Quipux", "SOE360", "SUAM" ] %}
+    <div class="owl-carousel owl-theme" >
+      {% set trusted = [ "Mazda", "Manpower", "RSA", "Avianca", "Bancolombia", "Exito", "Coordinadora", "Banco del Pacifico", "VM2020", "Koombea",
+                         "LaFrancol", "Manuelita", "Sura", "Banesco", "Semana", "Gana", "Tigo UNE", "Ficohsa", "Banistmo", "Decameron",
+                         "Cadena", "Helpharma", "Coninsa", "Berkeley", "BCP", "Proteccion", "Corona", "Banco Industrial", "Intergrupo",
+                         "Ubidots", "Bancamia", "ARUS", "Seti", "Kometsales" , "BIVA", "ACH", "Banco Multiple", "Sodimac", "Credibanco",
+                         "S4N", "Coopcentral", "Ceiba", "Interpagos", "Guarumo", "CFA", "Inteligo", "Validda", "Velez", "GreenSQA", "Grupo Uribe",
+                         "Internexa", "Simplexity", "Corredor Empresarial", "Practi Sistemas", "Servinteg",
+                         "Deceval", "UCCORP", "Serempre", "Enterdev", "Ingeneo", "Libera", "ITS", "Quipux", "SOE360", "SUAM" ] %}
       {% for company in trusted %}
         <div class="item"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/trusted/{{ company|lower|replace(' ', '-') }}-logo.png" alt="{{company }} Logo"></div>
       {% endfor %}

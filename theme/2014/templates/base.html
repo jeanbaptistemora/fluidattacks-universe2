@@ -63,7 +63,7 @@
         {% endif %}
       {% endfor %}
       <!-- Compress and Minify CSS files and bundle from SASS files -->
-        {% assets filters="scss, cssmin", output="static/css/theme.min.css", "scss/base.scss", "scss/landing.scss", "scss/pages.scss", "scss/article.scss", "scss/index.scss", "scss/monokai.scss", "scss/menu.scss", "scss/tipuesearch.scss", "scss/footer.scss", "/app/node_modules/intl-tel-input/src/css/intlTelInput.scss" , "/app/node_modules/owl.carousel2/src/scss/owl.carousel.scss", "/app/node_modules/owl.carousel2/src/scss/owl.theme.default.scss" %}
+        {% assets filters="scss, cssmin", output="static/css/theme.min.css", "scss/base.scss", "scss/landing.scss", "scss/pages.scss", "scss/article.scss", "scss/index.scss", "scss/monokai.scss", "scss/menu.scss", "scss/tipuesearch.scss", "scss/footer.scss", "/app/node_modules/intl-tel-input/src/css/intlTelInput.scss" , "/app/node_modules/owl.carousel2/src/scss/owl.carousel.scss" , "/app/node_modules/owl.carousel2/src/scss/owl.theme.default.scss" %}
           <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ ASSET_URL }}">
         {% endassets %}
       <!-- Custom Fonts -->
@@ -106,7 +106,7 @@
       </script>
     <!-- End Mixpanel Event -->
     <!-- jQuery, Menu, Line Numbers in Source Code, Responsive Tables, Anchors and Owl Carousel -->
-      {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "/app/node_modules/iframe-resizer/js/iframeResizer.js", "/app/js/assets/tipuesearch/tipuesearch.min.js", "/app/js/assets/tipuesearch/tipuesearch_set.js", "js/menu.js", "js/linenum.js", "js/table-responsive.js", "js/id.js", "/app/node_modules/owl.carousel2/src/js/owl.carousel.js" %}
+      {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "/app/node_modules/iframe-resizer/js/iframeResizer.js", "/app/js/assets/tipuesearch/tipuesearch.min.js", "/app/js/assets/tipuesearch/tipuesearch_set.js", "js/menu.js", "js/linenum.js", "js/table-responsive.js", "js/id.js", "/app/node_modules/owl.carousel2/src/js/owl.carousel.js", "/app/node_modules/owl.carousel2/src/js/owl.autoplay.js", "/app/node_modules/owl.carousel2/src/js/owl.navigation.js" %}
         <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
       {% endassets %}
     <!-- Navigation -->
