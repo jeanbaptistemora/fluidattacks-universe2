@@ -58,6 +58,6 @@ resource "aws_iam_user" "asserts-users" {
 
 resource "aws_iam_user_policy_attachment" "attach-policies" {
   count = "${length(var.asserts-clients)}"
-  policy_arn = "asserts-logs-policy-${aws_iam_policy.asserts-policies.*.name[count.index]}"
-  user = "asserts-${aws_iam_user.asserts-users.*.name[count.index]}"
+  policy_arn = "${aws_iam_policy.asserts-policies.*.name[count.index]}"
+  user = "${aws_iam_user.asserts-users.*.name[count.index]}"
 }
