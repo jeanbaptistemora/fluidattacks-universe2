@@ -138,15 +138,6 @@ build_vpn:
   <<: *kaniko_build_template
   <<: *except_analytics
 
-mr-test:
-  stage: mr-check
-  only:
-    - merge_requests
-  variables:
-    GIT_STRATEGY: clone
-  script:
-    ./ci-scripts/check-branch.sh
-
 danger:
   stage: mr-check
   image: starefossen/ruby-node:2-10
