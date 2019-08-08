@@ -5,107 +5,113 @@
 
 = Frequently Asked Questions (FAQ)
 
-{description}
+If you have a question about the selection process,
+please read through the FAQ list before you contact us.
+You might find the answer to your question is already here.
 
 == Before Entering
 
 [qanda]
 
-*I already applied in a job portal, why I am not invited to the process?*::
-  Once you apply to one of our vacancies
-  on any of the job portals we are registered in,
-  it takes from +1+ to +2+ days identifying potential candidates,
-  classifying and sending invitations via email.
-  If for any reason you have not been invited
-  after +2+ days of your application (excluding weekends)
-  and you consider that your profile fits
-  the vacancy, you can write us to careers@autonomicmind.com.
+*I already applied in a job portal.*::
+*Why haven't I been invited to the process?*::
+  After you apply to a vacancy
+  listed on any of the portals we are registered in,
+  it takes from +1+ to +2+ days for us to identify potential candidates,
+  classify them, and send invitations via email.
+  If you apply and have not received an invitation
+  or other notification after 2 consecutive business days,
+  and you believe your profile fits the vacancy,
+  send us an email query at careers@autonomicmind.com.
 
-*The test application doesn't allow me to exit Moodle, what can I do?*::
+*The test application won't allow me to exit Moodle. What should I do?*::
   If you already finished the exam,
   click the button located on the lower right side of the screen to exit.
-  If this doesn't work,
-  try restarting your machine,
-  don't worry, you have already sent the test
-  and there won't be any data loss.
+  If this doesn’t work, try restarting your machine.
+  Don’t worry, you have already sent the test
+  and there won’t be any data loss.
 
-*I don't have a RUT, how can I complete the third party form?*::
-  In the link:http://www.dian.gov.co/contenidos/servicios/rut.html[+DIAN+ webpage]
-  you can find out how to obtain your +RUT+ for the first time,
-  or how to update it in case you already have one.
+*I don't have a RUT. How can I complete the third party form?*::
+  On the link:http://www.dian.gov.co/contenidos/servicios/rut.html[+DIAN+ webpage]
+  you can find out how to get your +RUT+, or how to update it,
+  if you already have one.
 
-*I don't know what vacancy I applied for, how can I find out?*::
-  You can write any doubt or observation
-  regarding the selection process to careers@autonomicmind.com
+*I don’t know what vacancy I applied for. How can I find out?*::
+  Ask us via email at careers@autonomicmind.com.
 
-*If I already applied for a vacancy, can I do it again for other profiles*::
-*or the same profile?*::
-  Yes, you can do it.
-  If it has been more than six months
-  since your last application
-  you must do the process again from the beginning.
-  Otherwise, you can write us to career@autonomicmind.com
-  informing us you want to apply to a different profile.
+*If I already applied for a specific vacancy, can I apply again*::
+*using the same application but for different vacancies?*::
+  Yes. If it has not been more than six months,
+  you can send us an email at career@autonomicmind.com
+  telling us you want to apply for a different vacancy
+  using your original application.
+  If it has been more than six months since your last application
+  you cannot use your original application;
+  you must apply again starting at the beginning.
 
-*Can I apply for two different vacancies?*::
-  Yes, you follow the selection process once
-  and tell us the vacancies you want to apply
-  writing an email to careers@autonomicmind.com
+*Can I apply for two different vacancies at the same time?*::
+  Yes. You can apply for as many vacancies as you believe you qualify for;
+  just send us an email via careers@autonomicmind.com
+  telling us which vacancies you want to apply for.
 
-*What experience do I need to apply to the vacancies?*::
-  You don't need any experience.
-  What is essential is the ability to research,
-  solve issues, and self-learning.
+*What experience should I already have in order to apply for vacancies?*::
+  You don’t need to have any experience.
+  What is essential is the ability to do research,
+  solve issues, and be capable of teaching yourself.
 
-*What previous knowledge do I need to apply to the vacancies*::
-  We look for talented people with high learning abilities.
-  It doesn't matter your career or if you haven't graduated yet,
-  what matters is to adapt to our philosophy and values.
-  It is desirable to have experience with programming languages,
+*What do I need to know to apply for vacancies?*::
+  We look for talented people with great potential and flexibility.
+  It doesn’t matter what your career currently is
+  or if you haven’t graduated yet.
+  What matters is your ability to adapt and follow our philosophy and values.
+  It is preferable if you have experience with programming languages,
   but it is not mandatory.
-  We value the ability to address a problem more than your professional degrees.
-  Our selection process is designed to encourage the candidate
-  to self-acquire the knowledge necessary
-  to fulfill the charge.
+  We value your ability to successfully address a problem,
+  more than your professional degrees.
+  Our selection process is designed to encourage you
+  to acquire knowledge yourself and then use it to problem-solve.
 
-*Does the company train me to fulfill my charge?*::
-  In +Fluid Attacks+ we do not demand any laboral experience,
-  nor certify your knowledge with degrees;
-  however, we do not train our candidates at any moment.
+*Does the company offer on-the-job training??*::
+  At +Fluid Attacks+ we do not require work experience,
+  nor do we certify the knowledge you acquire while working with us.
+  We do not offer on-the-job training.
   It is up to you to acquire the knowledge you may need
-  and have the correct attitude to overcome
-  the technical challenges and immersion stages.
-  We value your abilities and attitude during the selection process
-  since both are necessary for any role in the organization.
+  and have the ability and the capability to overcome technical challenges
+  and successfully complete the immersion stages.
+  We evaluate all your abilities, including the attitude,
+  perseverance, and productivity you exhibit during the selection process
+  since all of these are necessary for any role in our organization.
 
-*The application test doesn't work, what can I do?*::
-  Try executing the test as administrator.
-  If the problem persists, you can try from a different computer.
+*The application test doesn’t work. What should I do?*::
+  Try executing the test as an administrator.
+  If the problem persists,
+  you should try accessing the test from a different computer.
+  If you still have problems send us an email via careers@autonomicmind.com.
 
-*I didn't receive the attached file for data analysis, how do I get it?*::
-  Try downloading the file from [button]#link:../non-technical-challenges/hallazgos-open-data.tar.bz2[here]#
+*I didn’t receive the attached file for data analysis. How do I get it?*::
+  Try downloading the file from [button]#link:../non-technical-challenges/hallazgos-open-data.tar.bz2[here]#.
 
-*I ran out of time for the test, what can I do?*::
-  If you have a valid reason
-  (application lockouts, unexpected restarts, connection issues),
-  you can write an email to careers@autonomicmind.com
-  explaining to us what happened
-  and we will indicate you how to proceed.
+*I ran out of time for the test. Can I get more time?*::
+   If you have a valid reason
+   (application lockouts, unexpected restarts, connection issues),
+   send us an email at careers@autonomicmind.com
+   explaining what happened
+   and we will tell you how to proceed.
 
-*I couldn't send my data analysis, what can I do?*::
-  If you have a valid reason,
-  write an email to careers@autonomicmind.com
-  explaining why you did not send the data
-  in the established deadline
-  and asking for a new delivery date.
+*I couldn’t send my data analysis. What should I do?*::
+  If you believe you have a valid reason
+  for not meeting the data analysis deadline,
+  send us an email at careers@autonomicmind.com
+  telling us why you didn't meet it,
+  and ask for a new delivery date.
 
-*What should I put on my portfolio?*::
-  You can find the instructions and bits of advice
-  for the portfolio creation [button]#link:../portfolio/[here]#
+*What should I put in my portfolio?*::
+  You can find instructions and
+  advice for creating your portfolio [button]#link:../portfolio/[here]#.
 
-*I do not have a +VISA+, What should I put on that field?*::
-  This field is not mandatory,
-  do not fill if you don't have a +VISA+.
+*I do not have a VISA. What should I put in that field?*::
+  This field is not mandatory.
+  Do not fill it in if you don’t have a +VISA+.
 
 *What should I do after finishing the character test?*::
   When you finish this test,
