@@ -6,7 +6,7 @@ test_front() {
 
   set -e
 
-  cp -a /root/front/node_modules front/
+  cp -a /npm-deps/front/node_modules front/
   cd front/ || return 1
   npm install --unsafe-perm
 

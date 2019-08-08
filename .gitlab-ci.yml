@@ -138,8 +138,9 @@ test-terraform:
 
 front-compiler:
   stage: pre-test
+  image: registry.gitlab.com/fluidattacks/integrates:development
   script:
-    - cp -a /root/front/node_modules front/
+    - cp -a /npm-deps/front/node_modules front/
     - cd front
     - npm install --unsafe-perm
     - npm run build:prod
@@ -149,17 +150,9 @@ front-compiler:
     expire_in: 1h
   retry: 1
 
-commitlint:
-  stage: pre-test
-  image: starefossen/ruby-node:2-10
-  script:
-    - npm install --unsafe-perm
-    - ./ci-scripts/jobs/commitlint.sh
-  except:
-    - master
-
 test-front:
   stage: pre-test
+  image: registry.gitlab.com/fluidattacks/integrates:development
   script:
     - ./ci-scripts/jobs/test-front.sh
   artifacts:
@@ -183,6 +176,7 @@ test-mobile:
 
 test-app:
   stage: pre-test
+  image: registry.gitlab.com/fluidattacks/integrates:development
   script:
     - ./ci-scripts/jobs/test-app.sh
   artifacts:
@@ -193,6 +187,31 @@ test-app:
   only:
     - branches
     - merge_requests
+  except:
+    - master
+
+asserts-static:
+  stage: pre-test
+  image: fluid-docker.jfrog.io/fluid:integrates_static
+  retry: 1
+  variables:
+    BRANCH: "${CI_COMMIT_REF_NAME}"
+    FA_STRICT: "true"
+    ORG: "fluid"
+    PASS: "${INTEGRATES_JFROG_PASS}"
+    USER: "${INTEGRATES_JFROG_USER}"
+  script:
+    - cp -a ./* /code/
+    - /entrypoint.sh
+  except:
+    - master
+
+commitlint:
+  stage: pre-test
+  image: starefossen/ruby-node:2-10
+  script:
+    - npm install --unsafe-perm
+    - ./ci-scripts/jobs/commitlint.sh
   except:
     - master
 
@@ -304,22 +323,6 @@ stop-ephemeral-app:
     - kubectl delete ingress "review-${CI_COMMIT_REF_SLUG}"
   retry: 1
   when: manual
-  except:
-    - master
-
-asserts-static:
-  stage: pre-test
-  image: fluid-docker.jfrog.io/fluid:integrates_static
-  retry: 1
-  variables:
-    BRANCH: "${CI_COMMIT_REF_NAME}"
-    FA_STRICT: "true"
-    ORG: "fluid"
-    PASS: "${INTEGRATES_JFROG_PASS}"
-    USER: "${INTEGRATES_JFROG_USER}"
-  script:
-    - cp -a ./* /code/
-    - /entrypoint.sh
   except:
     - master
 
