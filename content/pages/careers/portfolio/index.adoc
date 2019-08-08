@@ -1,63 +1,56 @@
 :slug: careers/portfolio/
 :category: careers
-:description: The following page is meant to inform everyone interested in being part of the +Fluid Attacks+ team about the selection process. The portfolio is a document that describes your biggest personal, professional and academic achievements, examples and results of your best projects.
+:description: The following page is meant to inform everyone interested in being part of the Fluid Attacks team about the selection process. The portfolio is a document that describes your biggest personal, professional and academic achievements, examples and results of your best projects.
 :keywords: Fluid Attacks, Career, Process, Selection, Portfolio, Candidate.
 
 = Portfolio
 
-Regarding the portfolio,
-we are in the process of creating a document that
-best fits with what is described here.
-This deliverable is imperative for our selection process.
+The items we expect to see in your portfolio are described below.
+Through these, you can present your best academic
+and/or your professional achievements.
+We also use your portfolio to assess your ability to express yourself,
+synthesize ideas, and capture our attention.
+Your portfolio is of utmost importance in the selection process.
 
-We pretend that the candidate can present
-their best academic and/or professional achievements
-in this document.
+The objectives of the portfolio are:
 
-We remind you that
-the objectives of the portfolio are:
-
-* Evidence the candidates capacity
+* To present examples of a candidate's ability
 to achieve concrete and outstanding results.
-* Demonstrate the candidates interest in joining the company.
-* See the alignment between the results expected by the company and
-the results the candidate can achieve.
+* To demonstrate a candidate's interest in joining the company.
+*  To see if the results expected by the company
+align with the demonstrated results of what a candidate can achieve.
 
-Here are the requirements for the document:
+Requirements for the portfolio:
 
 . The portfolio must be delivered in a PDF format
 through the application form.
 However, in this case you can build it and
 send it in an email at careers@autonomicmind.com
-. This document is different from your CV.
-. The portfolio must have at least 5 achievements
-Between personal, professional and academic.
-Each one must be explained in at most 1 page.
+. The portfolio is not a CV.
+Do not substitute your CV for the portfolio.
+. The portfolio must have at least +5+ achievements
+and must include personal, professional and academic achievements.
+Each one must be explained in at most +1+ page.
 * Designs/Diagrams (network, data, class, circuits, etc).
 * Code examples.
 * Documentation.
 
-. The portfolio can present achievements in different categories
+. The portfolio may include achievements in different categories
 (source code, designs, documentation, etc).
 . The portfolio must respect copyrights:
-* Quoting relevant sources.
-* Hiding the relation between the result and
-the organization it was created for.
-* Reproducing only part of the achievement
-in order to prevent it’s inadequate use.
+* Quote relevant sources.
+* For business confidentiality, do not link a specific result
+to the organization it was created for.
+* Reproduce only part of the achievement
+in order to prevent its misuse.
 . The portfolio may follow the guidelines for design portfolios
 that apply to simple engineering assignments:
-* Simple
-* Interesting
-* Easy to read
-* Only your best results
+* Simple.
+* Interesting.
+* Easy to read.
+* Only your best results.
 
-The purpose of this document
-is to assess your ability to express yourself,
-synthesize ideas and
-capture our attention.
-
-Failure to complete these instructions
-would evidence difficulty to follow instructions or
-little interest in the +Fluid Attacks+ process and
-for this reason the process will be terminated immediately.
+Failure to submit a portfolio
+or to follow these instructions in completing your portfolio
+will result in immediate termination of your participation
+in the selection process.
