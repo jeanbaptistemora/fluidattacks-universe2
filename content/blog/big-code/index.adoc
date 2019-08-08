@@ -192,16 +192,16 @@ and pretty serious ones at that:
   link:https://gitlab.com/fluidattacks/writeups/tree/master/vbd/dvna/[Writeups]
   This should be researched further.
 
-* +SQL+ injection. As detailed in the
+* +SQL+ injection. As per
   link:https://appsecco.com/books/dvna-developers-security-guide/solution/a1-injection.html[security guide]
   and link:https://gitlab.com/fluidattacks/writeups/blob/master/vbd/dvna/0564-sql-injection/jicardona.feature[Writeups].
 
-* Open Redirect. Also in the
-  link:https://appsecco.com/books/dvna-developers-security-guide/solution/ax-unvalidated-redirects-and-forwards.html[security guide]
+* Open Redirect. Also in
+  link:https://appsecco.com/books/dvna-developers-security-guide/solution/ax-unvalidated-redirects-and-forwards.html[the security guide]
   and
   link:https://gitlab.com/fluidattacks/writeups/blob/master/vbd/dvna/0601-unvalidated-redirects/simongomez95.feature[Writeups].
 
-* A minor technical information leak via
+* Technical information leakage via
   the +X-Powered-By+ header, as in +Che+.
 
 So, altogether, 3 noteworthy security vulnerabilities,
@@ -213,6 +213,59 @@ link:https://gitlab.com/fluidattacks/writeups/blob/master/vbd/dvna/results-toe.m
 on manual testing vs the +LGTM+
 link:../oracle-code[code-as-data] tool in there, too,
 where it is quite clear that tool misses most of the vulnerabilities as well.
+
+OK, now for a more realistic test,
+let's try running +DeepCode+ on some of our own repos, namely,
+link:../../products/integrates[Integrates],
+our platform for vulnerability centralization and management and
+link:../../products/asserts[Asserts],
+our vulnerability automation framework.
+Both are
+link:https://gitlab.com/fluidattacks[open-source],
+written in +Python+, and actively developed.
+As before, the vast majority of issues found by +DeepCode+
+are of the +lint+ and +API+ usage kind.
+
+.Integrates Dashboard
+image::integrates.png[Integrates Dashboard]
+
+In +Integrates+ we see a possible
+command injection in the spreadsheet report generation function.
+However, this input is not controllable by the user,
+so this does not pose a real threat at the moment:
+
+.Command Injection in Integrates?
+image:reports.py.png[Command Injection in Integrates?]
+
+However, the suggestion to sanitize the input
+via +subprocess.call()+ is not bad.
+Who knows if +Integrates+
+will later have user configurable passwords for reports?
+Or what if a _different_ vulnerability enables an attacker
+to change this parameter?
+
+The other security issue
+is in the +PDF+ report generation,
+this time identified as +Path traversal+.
+Again, probably difficult to exploit,
+but should be sanitized anyway.
+
+.Asserts Dashboard
+image::asserts.png[Asserts Dashboard]
+
+In +Asserts+, however, the 15 issues
+found by +DeepCode+ are less worrisome, for two reasons:
+
+* +Asserts+ is not a client-server application,
+but an +API+ that runs locally.
+
+* Most of the 15 issues are several instances of +SSRF+,
+when +Asserts+ makes +HTTP+ requests via
+link:https://2.python-requests.org/en/master/[Requests],
+generally to client's +ToEs+ as one would in a browser.
+
+Of course, all the issues detected by +DeepCode+
+will be taken care of.
 
 ''''
 
