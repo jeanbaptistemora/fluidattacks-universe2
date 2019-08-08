@@ -85,10 +85,11 @@ def validate_project(project):
     return is_valid_project
 
 
-def get_vulnerabilities(findings, vuln_type):
+def get_vulnerabilities(findings, vuln_type, context):
     """Get total vulnerabilities by type."""
     vulnerabilities = \
-        [total_vulnerabilities(i['finding_id']).get(vuln_type) for i in findings]
+        [total_vulnerabilities(i['finding_id'], context).get(vuln_type)
+         for i in findings]
     vulnerabilities = sum(vulnerabilities)
     return vulnerabilities
 
@@ -160,12 +161,12 @@ def get_max_severity(findings):
     return max_severity
 
 
-def get_max_open_severity(findings):
+def get_max_open_severity(findings, context):
     """Get maximum severity of project with open vulnerabilities."""
     total_severity = \
         [fin.get('cvss_temporal') for fin in findings
-         if total_vulnerabilities(
-            fin['finding_id']).get('openVulnerabilities') > 0]
+         if total_vulnerabilities(fin['finding_id'],
+                                  context).get('openVulnerabilities') > 0]
     if total_severity:
         max_severity = Decimal(max(total_severity)).quantize(Decimal('0.1'))
     else:
@@ -220,7 +221,7 @@ def get_mean_remediate(findings):
     return mean_vulnerabilities
 
 
-def get_total_treatment(findings):
+def get_total_treatment(findings, context):
     """Get the total treatment of all the vulnerabilities"""
     accepted_vuln = 0
     in_progress_vuln = 0
@@ -228,15 +229,15 @@ def get_total_treatment(findings):
     for finding in findings:
         if finding.get('treatment') == 'ACCEPTED':
             open_vuln = total_vulnerabilities(
-                finding['finding_id']).get('openVulnerabilities')
+                finding['finding_id'], context).get('openVulnerabilities')
             accepted_vuln += open_vuln
         elif finding.get('treatment') == 'IN PROGRESS':
             open_vuln = total_vulnerabilities(
-                finding['finding_id']).get('openVulnerabilities')
+                finding['finding_id'], context).get('openVulnerabilities')
             in_progress_vuln += open_vuln
         else:
             open_vuln = total_vulnerabilities(
-                finding['finding_id']).get('openVulnerabilities')
+                finding['finding_id'], context).get('openVulnerabilities')
             undefined_treatment += open_vuln
     treatment = {
         'accepted': accepted_vuln,

@@ -492,18 +492,19 @@ def delete_comment(comment):
     return response
 
 
-def delete_project(project):
+def delete_project(project, context):
     """Delete project information."""
     project = project.lower()
     util.invalidate_cache(project)
     are_users_removed = remove_all_users_access(project)
-    is_project_masked = mask_project_findings(project)
+    is_project_masked = mask_project_findings(project, context)
     is_project_masked_in_dynamo = mask_project_findings_dynamo(project)
     are_closings_masked = mask_project_closings(project)
     project_deleted = remove_project_from_db(project)
-    update_project_state_db = integrates_dal.update_attribute_dynamo('FI_projects',
-                                                                     ['project_name', project],
-                                                                     'project_status', 'FINISHED')
+    update_project_state_db = integrates_dal.update_attribute_dynamo(
+        'FI_projects',
+        ['project_name', project],
+        'project_status', 'FINISHED')
     is_project_deleted = \
         are_users_removed and is_project_masked and \
         are_closings_masked and project_deleted and \
@@ -535,15 +536,15 @@ def remove_user_access(project, user_email):
     return is_user_removed
 
 
-def mask_project_findings(project):
+def mask_project_findings(project, context):
     """Mask project findings information."""
     api = FormstackAPI()
     try:
         finding_deleted = []
-        finreqset = api.get_findings(project)["submissions"]
+        finreqset = api.get_findings(project)['submissions']
         are_evidences_deleted = \
-            list(map(lambda x: delete_s3_all_evidences(x["id"], project),
-                     finreqset))
+            [delete_s3_all_evidences(x['id'], project, context)
+             for x in finreqset]
         finding_deleted.append(
             {"name": "S3", "was_deleted": all(are_evidences_deleted)})
         is_project_masked = list(map(mask_finding, finreqset))
@@ -622,7 +623,7 @@ def mask_closing(submission_id):
     return request
 
 
-def delete_s3_all_evidences(finding_id, project):
+def delete_s3_all_evidences(finding_id, project, context):
     """Delete s3 evidences files."""
     evidences_list = key_existing_list(project + "/" + finding_id)
     is_evidence_deleted = False
@@ -630,7 +631,8 @@ def delete_s3_all_evidences(finding_id, project):
         is_evidence_deleted_s3 = list(map(delete_s3_evidence, evidences_list))
         is_evidence_deleted = any(is_evidence_deleted_s3)
     else:
-        util.cloudwatch_log_plain(
+        util.cloudwatch_log(
+            context,
             'Info: Finding ' + finding_id + ' does not have evidences in s3')
         is_evidence_deleted = True
     return is_evidence_deleted

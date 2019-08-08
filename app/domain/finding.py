@@ -783,9 +783,9 @@ def update_release(project_name, finding_data, draft_id):
 def migrate_finding(draft_id, project_name, finding_data, context):
     migrate_all_files(draft_id, project_name)
     save_severity(finding_data)
-    migrate_description(finding_data)
-    migrate_treatment(finding_data)
-    migrate_report_date(finding_data)
+    migrate_description(finding_data, context)
+    migrate_treatment(finding_data, context)
+    migrate_report_date(finding_data, context)
     migrate_evidence_description(finding_data, context)
     if not (save_severity or migrate_description or migrate_treatment or migrate_report_date or
             migrate_evidence_description):
@@ -800,7 +800,7 @@ def migrate_finding(draft_id, project_name, finding_data, context):
 def get_finding(finding_id, context):
     finding = finding_dal.get_finding(finding_id)
     if not finding:
-        fs_finding = finding_vulnerabilities(finding_id)
+        fs_finding = finding_vulnerabilities(finding_id, context)
         if fs_finding:
             migrate_finding(
                 finding_id, fs_finding['projectName'], fs_finding, context)

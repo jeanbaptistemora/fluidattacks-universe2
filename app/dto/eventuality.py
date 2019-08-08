@@ -205,7 +205,7 @@ def event_data(submission_id, context):
                 api.get_submission(submission_id)
             )
             migrate_event(event_parsed)
-            migrate_event_files(event_parsed)
+            migrate_event_files(event_parsed, context)
         else:
             rollbar.report_message(
                 'Error: An error occurred catching event', 'error')
@@ -235,7 +235,7 @@ def migrate_event(event):
     return response
 
 
-def migrate_event_files(event):
+def migrate_event_files(event, context):
     """Migrate event files to s3."""
     project_name = event.get('projectName').lower()
     event_id = event.get('id')
@@ -260,13 +260,14 @@ def migrate_event_files(event):
                 event_id=event_id,
                 file_id=curr_file['id'])
             folder = util.list_s3_objects(CLIENT_S3, BUCKET_S3, file_name)
-            migrate_event_files_aux(curr_file, file_name, event_id, folder)
+            migrate_event_files_aux(curr_file,
+                                    file_name, event_id, folder, context)
         else:
             # Event does not have evidences
             pass
 
 
-def migrate_event_files_aux(curr_file, file_name, event_id, folder):
+def migrate_event_files_aux(curr_file, file_name, event_id, folder, context):
     """Migrate event files auxiliar."""
     if folder:
         # File exist in s3
@@ -274,20 +275,20 @@ def migrate_event_files_aux(curr_file, file_name, event_id, folder):
     else:
         fileroute = '/tmp/:id.tmp'.replace(':id', curr_file['id'])
         if os.path.exists(fileroute):
-            send_file_to_s3(file_name, curr_file, event_id)
+            send_file_to_s3(file_name, curr_file, event_id, context)
         else:
             drive_api = DriveAPI()
             file_download_route = drive_api.download(
                 curr_file['id'])
             if file_download_route:
-                send_file_to_s3(file_name, curr_file, event_id)
+                send_file_to_s3(file_name, curr_file, event_id, context)
             else:
                 rollbar.report_message(
                     'Error: An error occurred downloading \
                     file from Drive', 'error')
 
 
-def send_file_to_s3(file_name, evidence, event_id):
+def send_file_to_s3(file_name, evidence, event_id, context):
     """Save evidence files in s2."""
     evidence_id = evidence['id']
     fileroute = '/tmp/:id.tmp'.replace(':id', evidence_id)
@@ -302,7 +303,8 @@ def send_file_to_s3(file_name, evidence, event_id):
                 CLIENT_S3.upload_fileobj(file_obj, BUCKET_S3, file_name_s3)
                 is_file_saved = True
             else:
-                util.cloudwatch_log_plain(
+                util.cloudwatch_log(
+                    context,
                     'File of event {event_id} does not have the right type'
                     .format(event_id=event_id)
                 )

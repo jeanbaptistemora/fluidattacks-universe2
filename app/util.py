@@ -208,10 +208,6 @@ def cloudwatch_log(request, msg):
     LOGGER.info(":".join(info))
 
 
-def cloudwatch_log_plain(msg):
-    LOGGER.info(msg)
-
-
 def get_jwt_content(context):
     try:
         cookie_token = context.COOKIES.get(settings.JWT_COOKIE_NAME)
@@ -227,7 +223,7 @@ def get_jwt_content(context):
             'Error: Malformed auth header', 'error', context)
         raise InvalidAuthorization()
     except JWTError:
-        cloudwatch_log_plain('Security: Invalid token signature')
+        LOGGER.info('Security: Invalid token signature')
         raise InvalidAuthorization()
 
 

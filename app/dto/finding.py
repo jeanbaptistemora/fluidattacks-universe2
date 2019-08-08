@@ -653,7 +653,7 @@ def vulnerabilities_status(finding_new):
     return status
 
 
-def finding_vulnerabilities(submission_id):
+def finding_vulnerabilities(submission_id, context):
     finding = []
     if str(submission_id).isdigit() is True:
         fin_dto = FindingDTO()
@@ -662,7 +662,7 @@ def finding_vulnerabilities(submission_id):
             submission_id,
             api.get_submission(submission_id)
         )
-        finding_new = total_vulnerabilities(submission_id)
+        finding_new = total_vulnerabilities(submission_id, context)
         finding['cardinalidad_total'] = finding.get('openVulnerabilities')
         if (finding_new and
                 (finding_new.get('openVulnerabilities') or
@@ -716,7 +716,7 @@ def format_release(finding):
     return finding
 
 
-def total_vulnerabilities(finding_id):
+def total_vulnerabilities(finding_id, context):
     """Get total vulnerabilities in new format."""
     vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(finding_id)
     finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
@@ -728,14 +728,13 @@ def total_vulnerabilities(finding_id):
         elif current_state == 'closed':
             finding['closedVulnerabilities'] += 1
         else:
-            util.cloudwatch_log_plain(
-                'Error: \
-Vulnerability of finding {finding_id} does not have the right state'.format(finding_id=finding_id)
-            )
+            util.cloudwatch_log(context, 'Error: Vulnerability of \
+                finding {finding_id} does not have the right state'.format(
+                finding_id=finding_id))
     return finding
 
 
-def migrate_description(finding):
+def migrate_description(finding, context):
     primary_keys = ['finding_id', str(finding['id'])]
     if finding.get('projectName'):
         finding['projectName'] = finding['projectName'].lower()
@@ -758,15 +757,15 @@ def migrate_description(finding):
         integrates_dal.add_multiple_attributes_dynamo('FI_findings',
                                                       primary_keys, description)
     if not response:
-        util.cloudwatch_log_plain('Security: Attempted to update Description\
-        in finding:{finding}'.format(finding=finding['id']))
+        util.cloudwatch_log(context, 'Security: Attempted to update \
+        Description in finding:{finding}'.format(finding=finding['id']))
         return False
-    util.cloudwatch_log_plain('Security: Updated Description\
+    util.cloudwatch_log(context, 'Security: Updated Description \
     in finding:{finding} succesfully'.format(finding=finding['id']))
     return True
 
 
-def migrate_treatment(finding):
+def migrate_treatment(finding, context):
     finding_id = ['finding_id', str(finding['id'])]
     description_fields = ['treatment', 'treatmentJustification',
                           'treatmentManager', 'externalBts']
@@ -779,8 +778,9 @@ def migrate_treatment(finding):
                                                           finding_id,
                                                           description)
         if not response:
-            util.cloudwatch_log_plain('Security: Attempted to migrate treatment\
-        in finding:{finding}'.format(finding=str(finding['id'])))
+            util.cloudwatch_log(context, 'Security: Attempted to migrate \
+                treatment in finding:{finding}'.format(
+                finding=str(finding['id'])))
         for vuln in vulnerabilities:
             response_update_vuln = \
                 integrates_dal.update_mult_attrs_dynamo('FI_vulnerabilities',
@@ -788,10 +788,11 @@ def migrate_treatment(finding):
                                                          'UUID': vuln['UUID']},
                                                         description)
             if not response_update_vuln:
-                util.cloudwatch_log_plain('Security: Attempted to update vulnerability\
-            :{id} from finding:{finding}'.format(id=vuln['UUID'], finding=finding['id']))
+                util.cloudwatch_log(context, 'Security: Attempted to update \
+                vulnerability:{id} from finding:{finding}'.format(
+                    id=vuln['UUID'], finding=finding['id']))
                 return False
-        util.cloudwatch_log_plain('Security: Updated vulnerabilities\
+        util.cloudwatch_log(context, 'Security: Updated vulnerabilities \
             in finding:{finding} succesfully'.format(finding=finding['id']))
         return True
     else:
@@ -815,7 +816,7 @@ def has_migrated_evidence(finding_id):
     return response
 
 
-def migrate_report_date(finding):
+def migrate_report_date(finding, context):
     primary_keys = ['finding_id', str(finding['id'])]
     description_fields = ['reportDate']
     description = {util.camelcase_to_snakecase(k): finding.get(k)
@@ -825,7 +826,8 @@ def migrate_report_date(finding):
                                                       primary_keys,
                                                       description)
     if not response:
-        util.cloudwatch_log_plain('Security: Attempted to update reportDate\
+        util.cloudwatch_log(
+            context, 'Security: Attempted to update reportDate \
             in finding:{finding}'.format(finding=finding['id']))
         return False
     return True

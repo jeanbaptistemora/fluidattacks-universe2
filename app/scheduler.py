@@ -235,7 +235,7 @@ def get_date_last_vulns(vulns):
     return first_day
 
 
-def get_new_vulnerabilities():
+def get_new_vulnerabilities(context):
     """Summary mail send with the findings of a project."""
     projects = project_dal.get_active_projects()
     for project in projects:
@@ -245,7 +245,8 @@ def get_new_vulnerabilities():
             finding_requests = integrates_dal.get_findings_released_dynamo(project)
             for act_finding in finding_requests:
                 finding_url = get_finding_url(act_finding)
-                msj_finding_pending = create_msj_finding_pending(act_finding)
+                msj_finding_pending = \
+                    create_msj_finding_pending(act_finding, context)
                 delta = calculate_vulnerabilities(act_finding)
                 finding_text = format_vulnerabilities(delta, act_finding)
                 if msj_finding_pending:
@@ -314,9 +315,10 @@ def format_vulnerabilities(delta, act_finding):
     return finding_text
 
 
-def create_msj_finding_pending(act_finding):
+def create_msj_finding_pending(act_finding, context):
     """Validate if a finding has treatment."""
-    state = str.lower(finding_vulnerabilities(act_finding['finding_id'])['estado'])
+    state = str.lower(finding_vulnerabilities(act_finding['finding_id'],
+                                              context)['estado'])
     if act_finding['treatment'] == 'NEW' and state == 'abierto':
         days = get_age_finding(act_finding)
         finding_name = act_finding['finding'] + ' -' + \
@@ -327,7 +329,7 @@ def create_msj_finding_pending(act_finding):
             'has defined treatment' \
             .format(finding=act_finding['finding_id'],
                     project=act_finding['project_name'])
-        LOGGER.info(message)
+        util.cloudwatch_log(context, message)
         result = ''
     return result
 
@@ -395,22 +397,23 @@ def inactive_users():
             integrates_dal.delete_user(user[0])
 
 
-def get_new_releases():
+def get_new_releases(context):
     """Summary mail send with findings that have not been released yet."""
     projects = integrates_dal.get_registered_projects()
     api = FormstackAPI()
-    context = {'findings': list()}
+    context_finding = {'findings': list()}
     cont = 0
     for project in projects:
         try:
             finding_requests = api.get_findings(project)['submissions']
             project = str.lower(str(project[0]))
             for finding in finding_requests:
-                finding_parsed = finding_vulnerabilities(finding['id'])
+                finding_parsed = finding_vulnerabilities(finding['id'],
+                                                         context)
                 project_fin = str.lower(str(finding_parsed['projectName']))
                 if ('releaseDate' not in finding_parsed and
                         project_fin == project):
-                    context['findings'].append({
+                    context_finding['findings'].append({
                         'finding_name': finding_parsed['finding'],
                         'finding_url':
                         '{url!s}/dashboard#!/project/{project!s}/{finding!s}'
@@ -426,13 +429,13 @@ def get_new_releases():
                 'Warning: An error ocurred getting data for new drafts email',
                 'warning')
     if cont > 0:
-        context['total'] = cont
+        context_finding['total'] = cont
         approvers = FI_MAIL_REVIEWERS.split(',')
         mail_to = [FI_MAIL_PROJECTS]
         mail_to.extend(approvers)
-        send_mail_new_releases(mail_to, context)
+        send_mail_new_releases(mail_to, context_finding)
     else:
-        LOGGER.info('There are no new drafts')
+        util.cloudwatch_log(context, 'There are no new drafts')
 
 
 def send_unsolved_to_all(context):
@@ -441,7 +444,7 @@ def send_unsolved_to_all(context):
     return [send_unsolved_events_email(x[0], context) for x in projects]
 
 
-def deletion(project, days_to_send, days_to_delete):
+def deletion(project, days_to_send, days_to_delete, context):
     formstack_api = FormstackAPI()
     remission_submissions = formstack_api.get_remmisions(project)['submissions']
     if remission_submissions:
@@ -460,7 +463,8 @@ def deletion(project, days_to_send, days_to_delete):
                 days_until_now = \
                     remission.days_until_now(lastest_remission['TIMESTAMP'])
                 is_sended = is_deleted(
-                    project, days_until_now, days_to_send, days_to_delete)
+                    project,
+                    days_until_now, days_to_send, days_to_delete, context)
                 was_deleted = is_sended[0]
                 was_email_sended = is_sended[1]
             else:
@@ -475,16 +479,17 @@ def deletion(project, days_to_send, days_to_delete):
     return [was_email_sended, was_deleted]
 
 
-def is_deleted(project, days_until_now, days_to_send, days_to_delete):
+def is_deleted(project,
+               days_until_now, days_to_send, days_to_delete, context):
     """Project was deleted """
     if days_until_now in days_to_send:
-        context = {'project': project.capitalize()}
+        context_project = {'project': project.capitalize()}
         mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
-        send_mail_project_deletion(mail_to, context)
+        send_mail_project_deletion(mail_to, context_project)
         was_deleted = False
         was_email_sended = True
     elif days_until_now >= days_to_delete:
-        views.delete_project(project)
+        views.delete_project(project, context)
         integrates_dal.add_attribute_dynamo(
             'FI_projects',
             ['project_name', project.lower()],
@@ -498,7 +503,7 @@ def is_deleted(project, days_until_now, days_to_send, days_to_delete):
     return [was_deleted, was_email_sended]
 
 
-def deletion_of_finished_project():
+def deletion_of_finished_project(context):
     rollbar.report_message(
         'Warning: Function to delete finished project is running '
         'deletion finished project',
@@ -523,10 +528,11 @@ def deletion_of_finished_project():
         days_to_send = [6]
         days_to_delete = 7
     projects = integrates_dal.get_registered_projects()
-    list(map(lambda x: deletion(x[0], days_to_send, days_to_delete), projects))
+    return [deletion(x[0], days_to_send, days_to_delete, context)
+            for x in projects]
 
 
-def update_indicators():
+def update_indicators(context):
     """Update in dynamo indicators."""
     projects = integrates_dal.get_registered_projects()
     table_name = 'FI_projects'
@@ -544,8 +550,10 @@ def update_indicators():
                 project, 'finding_id, treatment, cvss_temporal')
             indicators['last_closing_date'] = get_last_closing_vuln(findings)
             indicators['mean_remediate'] = get_mean_remediate(findings)
-            indicators['max_open_severity'] = get_max_open_severity(findings)
-            indicators['total_treatment'] = get_total_treatment(findings)
+            indicators['max_open_severity'] = get_max_open_severity(findings,
+                                                                    context)
+            indicators['total_treatment'] = get_total_treatment(findings,
+                                                                context)
             indicators['remediated_over_time'] = create_register_by_week(project)
             primary_keys = ['project_name', project]
             response = integrates_dal.add_multiple_attributes_dynamo(

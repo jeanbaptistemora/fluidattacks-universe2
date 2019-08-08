@@ -113,17 +113,15 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @get_entity_cache
     def resolve_open_vulnerabilities(self, info):
         """Resolve open vulnerabilities attribute."""
-        del info
         self.open_vulnerabilities = get_vulnerabilities(
-            self.findings_aux, 'openVulnerabilities')
+            self.findings_aux, 'openVulnerabilities', info.context)
         return self.open_vulnerabilities
 
     @get_entity_cache
     def resolve_closed_vulnerabilities(self, info):
         """Resolve closed vulnerabilities attribute."""
-        del info
         self.closed_vulnerabilities = get_vulnerabilities(
-            self.findings_aux, 'closedVulnerabilities')
+            self.findings_aux, 'closedVulnerabilities', info.context)
         return self.closed_vulnerabilities
 
     @get_entity_cache

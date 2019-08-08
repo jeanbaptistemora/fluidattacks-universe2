@@ -386,7 +386,8 @@ class UpdateEvidence(Mutation):
                                            'text/x-c',
                                            'text/plain',
                                            'text/html']):
-            if evidence_exceeds_size(uploaded_file, int(evidence_id)):
+            if evidence_exceeds_size(uploaded_file,
+                                     int(evidence_id), info.context):
                 util.cloudwatch_log(info.context,
                                     'Security: Attempted to upload evidence file \
                                         heavier than allowed in {project} project'
@@ -465,7 +466,7 @@ An error occurred updating evidence description', 'error', info.context)
         return ret
 
 
-def evidence_exceeds_size(uploaded_file, evidence_type):
+def evidence_exceeds_size(uploaded_file, evidence_type, context):
     animation = 0
     exploitation = 1
     evidence = [2, 3, 4, 5, 6]
@@ -483,7 +484,7 @@ def evidence_exceeds_size(uploaded_file, evidence_type):
     elif evidence_type == records:
         return uploaded_file.size > 1 * mib
     else:
-        util.cloudwatch_log_plain('Security: \
+        util.cloudwatch_log(context, 'Security: \
 Attempted to upload an unknown type of evidence')
         raise Exception('Invalid evidence id')
 
