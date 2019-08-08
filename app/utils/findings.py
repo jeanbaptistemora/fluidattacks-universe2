@@ -67,8 +67,6 @@ def _get_records_from_file(project_name, finding_id, file_name):
     except (csv.Error, UnicodeDecodeError) as ex:
         rollbar.report_message('Error: Couldnt read records file', 'error',
                                extra_data=ex, payload_data=locals())
-    finally:
-        os.unlink(file_path)
 
     return file_content
 
@@ -111,6 +109,7 @@ def format_data(finding):
         'evidence5': _get_evidence('evidence_route_5', finding['files']),
         'exploitation': _get_evidence('exploitation', finding['files'])
     }
+    finding['compromisedAttrs'] = finding.get('records')
     records = _get_evidence('fileRecords', finding['files'])
     if records['url']:
         finding['records'] = _get_records_from_file(
