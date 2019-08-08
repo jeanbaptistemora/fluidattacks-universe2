@@ -34,9 +34,3 @@ cacheParamGroupName = "default.redis5.0.cluster.on"
 
 # Asserts vars
 asserts-bucket = "asserts-logs"
-asserts-clients = {
-  "0" = "client-1"
-  "1" = "client-2"
-  "2" = "client-3"
-}
-

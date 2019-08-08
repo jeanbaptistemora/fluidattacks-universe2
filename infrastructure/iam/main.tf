@@ -2,7 +2,7 @@ variable "fsBucket" {}
 variable "fwBucket" {}
 variable "region" {}
 variable "asserts-bucket" {}
-variable "asserts-clients" {
+variable "asserts_projects" {
   type = "map"
 }
 
@@ -25,7 +25,7 @@ module "providers" {
 module "users" {
   source = "./users"
   asserts-bucket = "${var.asserts-bucket}"
-  asserts-clients = "${var.asserts-clients}"
+  asserts_projects = "${var.asserts_projects}"
 }
 
 module "roles" {

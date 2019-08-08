@@ -31,21 +31,21 @@ set_subscriptions_terraform_variable(){
 
   local SUBSCRIPTIONS
   local COUNT
-  export TF_VAR_asserts_clients
+  export TF_VAR_asserts_projects
 
   SUBSCRIPTIONS=$(get_asserts_subscriptions)
   COUNT=0
-  TF_VAR_asserts_clients='{ '
+  TF_VAR_asserts_projects='{ '
 
   #Prepare map syntax
   for SUB in $SUBSCRIPTIONS; do
-    TF_VAR_asserts_clients="$TF_VAR_asserts_clients \"$COUNT\" = \"$SUB\", "
+    TF_VAR_asserts_projects="$TF_VAR_asserts_projects \"$COUNT\" = \"$SUB\", "
     COUNT=$(($COUNT + 1))
   done
 
   # Removes last comma (,) and adds closing bracket (}) to map
-  TF_VAR_asserts_clients=$(echo $TF_VAR_asserts_clients | sed 's/\(.*\),/\1/')
-  TF_VAR_asserts_clients="$TF_VAR_asserts_clients}"
+  TF_VAR_asserts_projects=$(echo $TF_VAR_asserts_projects | sed 's/\(.*\),/\1/')
+  TF_VAR_asserts_projects="$TF_VAR_asserts_projects}"
 
-  echo $TF_VAR_asserts_clients
+  echo $TF_VAR_asserts_projects
 }

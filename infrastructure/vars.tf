@@ -49,7 +49,6 @@ variable "cacheParamGroupName" {}
 
 # Asserts IAM, ACR and S3 vars
 variable "asserts-bucket" {}
-variable "asserts-clients" {
+variable "asserts_projects" {
   type = "map"
 }
-

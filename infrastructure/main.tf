@@ -28,12 +28,12 @@ module "iam" {
   fsBucket = "${var.fsBucket}"
   region = "${var.region}"
   asserts-bucket = "${var.asserts-bucket}"
-  asserts-clients = "${var.asserts-clients}"
+  asserts_projects = "${var.asserts_projects}"
 }
 
 module "ecr" {
   source = "./ecr"
-  asserts-clients = "${var.asserts-clients}"
+  asserts_projects = "${var.asserts_projects}"
 }
 
 # #Create from scratch

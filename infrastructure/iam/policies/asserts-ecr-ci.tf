@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "asserts-admin-policy-data" {
+data "aws_iam_policy_document" "asserts-ecr-ci-data" {
 
   statement {
     sid = "ecrPushToAssertsRegistries"
@@ -24,10 +24,10 @@ data "aws_iam_policy_document" "asserts-admin-policy-data" {
 
 }
 
-resource "aws_iam_policy" "asserts-admin-policy" {
-  name        = "asserts-admin-policy"
+resource "aws_iam_policy" "asserts-ecr-ci-policy" {
+  name        = "asserts-ecr-ci-policy"
   path        = "/asserts/"
-  description = "Policy for asserts admin"
+  description = "Policy for asserts ECR container image deployment"
 
-  policy = "${data.aws_iam_policy_document.asserts-admin-policy-data.json}"
+  policy = "${data.aws_iam_policy_document.asserts-ecr-ci-data.json}"
 }
