@@ -1,9 +1,15 @@
-import csv
+import io
 import itertools
+import os
+
+import rollbar
+from backports import csv
+from magic import Magic
 
 from app import util
 from app.dal import integrates_dal, finding as finding_dal
 from app.utils import cvss, forms as forms_utils
+
 
 CVSS_PARAMETERS = {
     '2': {
@@ -48,26 +54,33 @@ def _download_evidence_file(project_name, finding_id, file_name):
 
 
 def _get_records_from_file(project_name, finding_id, file_name):
-    csv_file = _download_evidence_file(project_name, finding_id, file_name)
+    file_path = _download_evidence_file(project_name, finding_id, file_name)
     file_content = []
+    encoding = Magic(mime_encoding=True).from_file(file_path)
 
-    with open(csv_file, 'r') as records_file:
-        try:
-            csv_reader = csv.DictReader(records_file, delimiter=',')
+    try:
+        with io.open(file_path, mode='r', encoding=encoding) as records_file:
+            csv_reader = csv.DictReader(records_file)
             max_rows = 1000
-            for row in itertools.islice(csv_reader, max_rows):
-                file_content.append(row)
-            return file_content
-        except csv.Error:
-            raise Exception('Invalid record file format')
+            file_content = [row
+                            for row in itertools.islice(csv_reader, max_rows)]
+    except (csv.Error, UnicodeDecodeError) as ex:
+        rollbar.report_message('Error: Couldnt read records file', 'error',
+                               extra_data=ex, payload_data=locals())
+    finally:
+        os.unlink(file_path)
+
+    return file_content
 
 
 def _get_exploit_from_file(project_name, finding_id, file_name):
-    exp_file = _download_evidence_file(project_name, finding_id, file_name)
+    file_path = _download_evidence_file(project_name, finding_id, file_name)
     file_content = ''
 
-    with open(exp_file, 'r') as exploit_file:
+    with open(file_path, 'r') as exploit_file:
         file_content = exploit_file.read()
+
+    os.unlink(file_path)
 
     return file_content
 
