@@ -158,7 +158,7 @@ link:../../products/rules/[Rules],
 it's FREE).
 
 *Identify conflicts of interest and design environments to avoid them.*
-[role="qanda"]
+[role="fluid-qanda"]
   . “...ethical systems designers should be ruthless in identifying
   conflicts of interest and finding ways to create or restructure rules,
   procedures, other controls, and incentives to minimize them.”
@@ -176,7 +176,7 @@ In short, putting yourself in the exact opposite perspective
 of what you believe, could change your judgment,
 eventually affecting your decisions.
 
-[role="qanda"]
+[role="fluid-qanda"]
   . “Ask yourself what you want to be true
   (i.e., what is in your personal interest)
   or what you are inclined to believe.

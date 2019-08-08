@@ -30,7 +30,7 @@ Furthermore, fitting cybersecurity risks with those of business is challenging.
 We wanted to discuss a bit about this topic with Nicolás.
 
 *Is it difficult to quantify the risks you manage in monetary terms?*
-[role="qanda"]
+[role="fluid-qanda"]
   . "Remarkably difficult, as is usual in other fields.
   We have a traditional approach,
   and we face the same common issue: prioritization.
@@ -77,7 +77,7 @@ How companies and cybersecurity teams face struggles are diverse.
 Nicolás shared with us some of his setbacks as CISO.
 
 *What setback was particularly relevant for you as CISO?*
-[role="qanda"]
+[role="fluid-qanda"]
   . "I think of technical and managerial examples:
   . In one occasion, we should have waited to deploy a protection.
   We proceeded, and in doing so, we also hindered major operations
@@ -115,7 +115,7 @@ We wondered what a CISO like Nicolás could tell us.
 *What do you think is a ‘lie’ in cybersecurity,*
 *but most people seem to believe in?*
 
-[role="qanda"]
+[role="fluid-qanda"]
 . "I sometimes see cybersecurity as a cult.
 For me, cybersecurity is not as severe as the market tries to show;
 people usually overestimate what happens.
@@ -157,7 +157,7 @@ Many professionals should discard the *go-until-the-end* idea".
 
 *And, what is ‘a truth,’ but most people don’t seem to believe in?*
 
-[role= "qanda"]
+[role= "fluid-qanda"]
 . "People and organizations usually think
 that nothing will ever happen to them.
 You hear from time to time “It will never happen.”

@@ -34,7 +34,7 @@ and artificial intelligence (+AI+) in cybersecurity, a hot topic right now.
 *What is your opinion on the potential applications of +ML+ and +AI+*
 *in cybersecurity? Do you believe this potential is real,*
 *or it is just a hype?*
-[role="qanda"]
+[role="fluid-qanda"]
   . "My stand is halfway. A hype might be in one end,
   and a solve-it-all approach in the other.
 
@@ -70,7 +70,7 @@ and artificial intelligence (+AI+) in cybersecurity, a hot topic right now.
 
 *Are you deploying +ML+ or +AI+ for your operations?*
 
-[role="qanda"]
+[role="fluid-qanda"]
   . "Not yet. Two reasons for that:
   first, we have made a strategic decision not to be early adopters
   of new technology.
@@ -112,7 +112,7 @@ Nicolás mentioned about innovation at Corona, and we were curious to know more.
 *You mentioned you are convinced about the organization approach*
 *to innovation.*
 
-[role="qanda"]
+[role="fluid-qanda"]
   . "I am a critic of the traditional concept of innovation.
   Innovation is not an end for us; it is an attribute.
   For Corona, to innovate is to make things we already do, but differently;
@@ -172,7 +172,7 @@ Nicolás mentioned about innovation at Corona, and we were curious to know more.
   And we won Corona’s innovation prize, the Prisma award."
 
 *What does this software provides that you previously did not have?*
-[role="qanda"]
+[role="fluid-qanda"]
   . "Timely detections, quicker reaction.
   We now identify some cybersecurity anomalies in 1.5 hours or 2.
   Before, we knew about breaches two days after incidents.
