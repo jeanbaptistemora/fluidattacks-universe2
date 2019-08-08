@@ -2,7 +2,6 @@
 :category: careers
 :description: The main goal of the following page is to inform potential talents and people interested in working with us about our selection process. The immersion stage is a paid training period focused on acquiring the necessary knowledge and skills to solve everyday tasks.
 :keywords: Fluid Attacks, Careers, Immersion, Selection, Process, Training
-//:toc: yes
 
 = Immersion
 
@@ -148,55 +147,64 @@ makes it hard for you to advance:
 
 .. If you reach a point where you definitely cannot advance:
 
-... Remember that the process is more important than the goal.
+... Remember that in the challenge,
+the process is just as important as the goal.
 
-... Start again solving a different challenge, the new difficulty is up to you.
+... Pick a different challenge,
+the new difficulty is up to you, and try to solve it.
 
 == 7. Payment
 
-. The time reported to training will be paid at *$9,468 COP* an hour.
-. We expect a minimum dedication of *80%*
-(based on the reference time).
-. If the total dedication is greater or lower than what is expected,
-that time will be paid accordingly.
-. The first *96 hours* of training time reported will not be compensated and
-If you continue in the training stage,
-we will guarantee the payment of the next *96 hours*.
-. The contract is a contract for services with monthly payments.
-. You must pay your social security corresponding to these services
-as an independent worker.
-. You must present, in the *1st business day* of the following month,
-the documents that allow us to make payments to your account:
-.. A bill for the hours worked in the previous month.
+. The time you spend that is reported as training
+will be paid at *$9,468 COP* (Colombian pesos) an hour.
+. Based on the previously stated reference time of *48 hours/week*
+(see link:#terms[item 3], sentence *8* above),
+we expect an *80%* minimum level of work time.
+. Regardless of expectation,
+you will be paid only for the actual time worked.
+. The first *96 hours* of reported training time will not be compensated.
+However, if you continue in the training stage,
+we will guarantee your payment for the next *96 hours*.
+. Your contract is for services with monthly payments.
+. During your training stage, you are considered an independent contractor.
+As such, you are responsible for paying any withholding
+and social security taxes.
+. On the *first business day* of the following month,
+we must have, in addition to your direct deposit account information:
+.. An invoice for the hours you worked in the previous month.
 .. Payment stub of your social security for the previous period.
 
-If you live in the outskirts of Bogotá or Medellín,
-you can initially perform the immersion process remotely
-with all the other unalterable terms, *if and only if*:
+If you live on the outskirts of Bogotá or Medellín,
+you can begin the immersion process remotely; no other terms can be changed.
+If you choose to begin remotely, you may do so *if and only if*:
 
-. When we ask you to continue the immersion process in person
-you accept to come to our facilities in maximum +7+
-calendar days after the request.
+. When we ask you to come into the office to continue the immersion process,
+you comply within *7 calendar days* of the request.
 
-. When you start the immersion process in person,
-the hourly pay rate will be twice as much as indicated
-(so you can cover transportation and accommodation costs).
+. When you continue the immersion process in person,
+the hourly pay rate will be increased.
+It will be twice as much as previously indicated
+(see link:#payment[item 7], number 1) in order to compensate you
+for any transportation and accommodation costs you may incur.
 
-. We guarantee minimum +4+ immersion cycles in this stage.
+. At this stage of the selection process
+we guarantee you a minimum of +4+ immersion cycles.
 
-. We clarify that, in case of hiring, the job will be performed in person
-in our facilities located in Medellín or Bogotá.
-The immersion is still a stage of the selection process,
-where we seek to improve the interaction with our team
-and deepen other training topics.
+. To be clear; if you are hired,
+you are required to work in person at our facilities
+located in Medellín or Bogotá.
+Immersion is one stage of the selection process.
+In this stage, we improve your interaction with our team
+and expand your training into other topics.
 
-If you are currently working somewhere else,
-you can perform the immersion under the following conditions:
+If you are currently employed,
+you can participate in the immersion process
+under the following conditions:
 
-. Indicate the weekly dedication that you are willing to train
-(minimum +8+ hours).
+. Indicate how many hours per week you are willing to train.
+Your training minimum is +8+ hours per week.
 
-. Perform it remotely without moving to our facilities.
+. Work remotely without coming to our facilities.
 
 == 8. Get Started
 
@@ -213,28 +221,28 @@ I accept the offer and confirm that I can start on AAAA/MM/DD.
 
 Attached:
 
-* ProfessionalCard.pdf (If it applies in your country and are an undergraduate)
-* PaymentReceiptProfessionalCard.pdf
-(If it applies in your country and are an undergraduate but don’t yet have it)
-* Neither (If you have not graduated yet).
+* ProfessionalCard.pdf if it applies in your country
+and you are an undergraduate.
+*  PaymentReceiptProfessionalCard.pdf if it applies in your country
+and you are an undergraduate, but don’t yet have it.
+* Neither, if you have not yet graduated from secondary school.
 ____________________________________________________________________
 
 [IMPORTANT]
-Other procedural details of how the every day training will be carried out,
-the programming languages,
-the documentation format and
-the required tools, among others,
-will be revealed on the first day of Immersion and
-when you have finished all the items mentioned in this section.
+When you have finished all the items mentioned in this section
+and you begin the immersion stage, other procedural details such as,
+how you do the everyday training, the programming languages used,
+documentation format, and the required tools,
+among others, will be disclosed.
 
 == 9. End
 
-The immersion stage ends under any of the following circumstances:
+The immersion stage ends if:
 
-. You have successfully completed link:#objectives[the objectives]
+. You have successfully completed link:#objectives[the objectives].
 
 . You are not meeting all link:#terms[terms] and
 link:#criteria[criteria] defined in this stage.
 
-If you have any doubts,
-don’t hesitate to contact us at careers@autonomicmind.com
+If you have any questions,
+don’t hesitate to contact us at careers@autonomicmind.com.
