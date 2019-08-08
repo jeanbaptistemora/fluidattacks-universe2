@@ -189,7 +189,7 @@ def filter_evidence_filename(evidence_files, name):
     return evidence_info[0].get('file_url', '') if evidence_info else ''
 
 
-def migrate_evidence_description(finding):
+def migrate_evidence_description(finding, context):
     """Migrate evidence description to dynamo."""
     finding_id = finding['id']
     description_fields = {
@@ -205,10 +205,10 @@ def migrate_evidence_description(finding):
                                    'description', v)
                 for (k, v) in description.items()]
     if not all(response):
-        util.cloudwatch_log_plain('Security: Attempted to update Evidence\
+        util.cloudwatch_log(context, 'Security: Attempted to update Evidence\
         Description in finding:{finding}'.format(finding=finding_id))
         return False
-    util.cloudwatch_log_plain('Security: Update Evidence\
+    util.cloudwatch_log(context, 'Security: Update Evidence\
     Description in finding:{finding}'.format(finding=finding_id))
     return True
 
@@ -725,7 +725,7 @@ def delete_finding(finding_id, project_name, justification, context):
     return result
 
 
-def approve_draft(draft_id, project_name):
+def approve_draft(draft_id, project_name, context):
     fin_dto = FindingDTO()
     api = FormstackAPI()
     is_draft = ('releaseDate' not in
@@ -739,7 +739,8 @@ def approve_draft(draft_id, project_name):
             release_date, has_release, has_last_vuln = update_release(project_name,
                                                                       finding_data, draft_id)
             if has_release and has_last_vuln:
-                success = migrate_finding(draft_id, project_name, finding_data)
+                success = migrate_finding(draft_id,
+                                          project_name, finding_data, context)
                 if success:
                     integrates_dal.add_release_to_project_dynamo(
                         project_name, release_date)
@@ -750,7 +751,9 @@ def approve_draft(draft_id, project_name):
         else:
             raise GraphQLError('CANT_APPROVE_FINDING_WITHOUT_VULNS')
     else:
-        util.cloudwatch_log_plain('Security: Attempted to accept an already released finding')
+        util.cloudwatch_log(context,
+                            'Security: Attempted to accept an already \
+                            released finding')
         raise GraphQLError('CANT_APPROVE_FINDING')
     return success, release_date
 
@@ -777,30 +780,30 @@ def update_release(project_name, finding_data, draft_id):
     return release_date, has_release, has_last_vuln
 
 
-def migrate_finding(draft_id, project_name, finding_data):
+def migrate_finding(draft_id, project_name, finding_data, context):
     migrate_all_files(draft_id, project_name)
     save_severity(finding_data)
     migrate_description(finding_data)
     migrate_treatment(finding_data)
     migrate_report_date(finding_data)
-    migrate_evidence_description(finding_data)
+    migrate_evidence_description(finding_data, context)
     if not (save_severity or migrate_description or migrate_treatment or migrate_report_date or
             migrate_evidence_description):
-        util.cloudwatch_log_plain('Security: Attempted to migrate finding\
+        util.cloudwatch_log(context, 'Security: Attempted to migrate finding\
         :{finding}'.format(finding=str(finding_data['id'])))
         return False
-    util.cloudwatch_log_plain('Security: Migrated finding\
+    util.cloudwatch_log(context, 'Security: Migrated finding\
     :{finding} succesfully'.format(finding=str(finding_data['id'])))
     return True
 
 
-def get_finding(finding_id):
+def get_finding(finding_id, context):
     finding = finding_dal.get_finding(finding_id)
     if not finding:
         fs_finding = finding_vulnerabilities(finding_id)
         if fs_finding:
             migrate_finding(
-                finding_id, fs_finding['projectName'], fs_finding)
+                finding_id, fs_finding['projectName'], fs_finding, context)
             finding = finding_dal.get_finding(finding_id)
         else:
             raise FindingNotFound()

@@ -311,7 +311,7 @@ def get_project_info(project):
 def format_finding(finding, request):
     """Format some attributes in a finding."""
     finding_id = finding.get('id')
-    finding_new = get_open_vuln_by_type(finding_id)
+    finding_new = get_open_vuln_by_type(finding_id, request)
     finding['cardinalidad_total'] = finding.get('openVulnerabilities')
     finding['cierres'] = []
     if (finding_new and

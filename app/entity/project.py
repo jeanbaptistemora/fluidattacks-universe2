@@ -106,8 +106,8 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @get_entity_cache
     def resolve_findings(self, info):
         """Resolve findings attribute."""
-        del info
-        self.findings = [Finding(i['finding_id']) for i in self.findings_aux]
+        self.findings = [Finding(i['finding_id'], info.context)
+                         for i in self.findings_aux]
         return self.findings
 
     @get_entity_cache
@@ -264,11 +264,8 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @require_role(['admin', 'analyst'])
     def resolve_drafts(self, info):
         """ Resolve drafts attribute """
-        del info
-
-        self.drafts = [Finding(draft_id)
+        self.drafts = [Finding(draft_id, info.context)
                        for draft_id in get_drafts(self.name)]
-
         return self.drafts
 
     def resolve_description(self, info):

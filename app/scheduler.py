@@ -47,8 +47,8 @@ def remove_fluid_from_recipients(emails):
     return new_email_list
 
 
-def get_event(event_id):
-    event = eventuality.event_data(event_id)
+def get_event(event_id, context):
+    event = eventuality.event_data(event_id, context)
     return event
 
 
@@ -61,10 +61,10 @@ def get_events_submissions(project):
     return formstack_api.get_eventualities(project)['submissions']
 
 
-def get_unsolved_events(project):
+def get_unsolved_events(project, context):
     events_submissions = get_events_submissions(project)
 
-    events = [get_event(x['id']) for x in events_submissions]
+    events = [get_event(x['id'], context) for x in events_submissions]
     unsolved_events = list(filter(is_a_unsolved_event, events))
     return unsolved_events
 
@@ -73,8 +73,8 @@ def extract_info_from_event_dict(event_dict):
     return {'type': event_dict['eventType'], 'details': event_dict['detail']}
 
 
-def send_unsolved_events_email(project):
-    unsolved_events = get_unsolved_events(project)
+def send_unsolved_events_email(project, context):
+    unsolved_events = get_unsolved_events(project, context)
     mail_to = get_external_recipients(project)
     project_info = integrates_dal.get_project_dynamo(project)
     if project_info and \
@@ -83,10 +83,10 @@ def send_unsolved_events_email(project):
         mail_to.append(FI_MAIL_PROJECTS)
     events_info_for_email = [extract_info_from_event_dict(x)
                              for x in unsolved_events]
-    context = {'project': project.capitalize(),
-               'events': events_info_for_email}
-    if context['events'] and mail_to:
-        send_mail_unsolved_events(mail_to, context)
+    context_event = {'project': project.capitalize(),
+                     'events': events_info_for_email}
+    if context_event['events'] and mail_to:
+        send_mail_unsolved_events(mail_to, context_event)
 
 
 def get_external_recipients(project):
@@ -435,10 +435,10 @@ def get_new_releases():
         LOGGER.info('There are no new drafts')
 
 
-def send_unsolved_to_all():
+def send_unsolved_to_all(context):
     """Send email with unsolved events to all projects """
     projects = integrates_dal.get_registered_projects()
-    list(map(lambda x: send_unsolved_events_email(x[0]), projects))
+    return [send_unsolved_events_email(x[0], context) for x in projects]
 
 
 def deletion(project, days_to_send, days_to_delete):

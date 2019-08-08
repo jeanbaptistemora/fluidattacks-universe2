@@ -101,7 +101,8 @@ class SignIn(Mutation):
                     )
                     success = True
             except ValueError:
-                util.cloudwatch_log_plain(
+                util.cloudwatch_log(
+                    info.context,
                     'Security: Sign in attempt using invalid Google token')
                 raise GraphQLError('INVALID_AUTH_TOKEN')
         else:

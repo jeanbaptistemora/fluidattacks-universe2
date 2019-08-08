@@ -37,7 +37,7 @@ class Events(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     subscription = String()
     evidence_file = String()
 
-    def __init__(self, identifier):
+    def __init__(self, identifier, context):
         """ Class constructor """
         self.id = ''  # noqa pylint: disable=invalid-name
         self.analyst = ''
@@ -57,7 +57,7 @@ class Events(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         self.evidence_file = ''
 
         event_id = str(identifier)
-        resp = event_data(event_id)
+        resp = event_data(event_id, context)
 
         if resp:
             self.id = event_id
@@ -182,7 +182,9 @@ class UpdateEvent(Mutation):
     @require_event_access_gql
     def mutate(self, info, event_id, affectation):
         success = update_event(event_id, affectation, info)
-        ret = UpdateEvent(success=success, event=Events(identifier=event_id))
+        ret = UpdateEvent(
+            success=success,
+            event=Events(identifier=event_id, context=info.context))
         project_name = get_event_project_name(event_id)
         util.invalidate_cache(event_id)
         util.invalidate_cache(project_name)

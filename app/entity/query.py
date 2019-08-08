@@ -67,21 +67,21 @@ class Query(ObjectType):
         """ Resolve for event """
         util.cloudwatch_log(info.context, 'Security: Access to \
             Event: {event_id} succesfully'.format(event_id=identifier))
-        return Events(identifier)
+        return Events(identifier, info.context)
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access
     def resolve_events(self, info, project_name=""):
         """ Resolve for eventualities """
-        del info
         resp = FormstackAPI().get_eventualities(str(project_name))
         project_exist = integrates_dal.get_project_attributes_dynamo(
             project_name.lower(), ['project_name'])
         data = []
         if project_exist:
             if "submissions" in resp:
-                data = [Events(i["id"]) for i in resp["submissions"]]
+                data = [Events(i["id"], info.context)
+                        for i in resp["submissions"]]
         else:
             raise InvalidProject
         return data
@@ -94,11 +94,11 @@ class Query(ObjectType):
         """Resolve for finding."""
         util.cloudwatch_log(info.context, 'Security: Access to \
             finding: {finding_id} succesfully'.format(finding_id=identifier))
-        return Finding(identifier)
+        return Finding(identifier, info.context)
 
     def resolve_login(self, info):
         """ Resolve for login info """
-        user_email = info.context.session["username"]
+        user_email = util.get_jwt_content(info.context)['user_email']
         return Login(user_email, info.context.session)
 
     @require_login
