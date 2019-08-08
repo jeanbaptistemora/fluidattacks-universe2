@@ -1,6 +1,5 @@
 import io
 import itertools
-import os
 
 import rollbar
 from backports import csv
@@ -77,8 +76,6 @@ def _get_exploit_from_file(project_name, finding_id, file_name):
 
     with open(file_path, 'r') as exploit_file:
         file_content = exploit_file.read()
-
-    os.unlink(file_path)
 
     return file_content
 
