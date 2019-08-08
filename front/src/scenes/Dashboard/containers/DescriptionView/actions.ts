@@ -54,7 +54,7 @@ export const loadDescription: ThunkActionStructure<void> =
     (dispatch: ThunkDispatcher): void => {
       const canEditTreatmentMgr: boolean = _.includes(["customer", "customeradmin"], userRole);
       let gQry: string;
-      const analystField: string = _.includes(["analyst", "admin"], userRole) ? "analyst" : "";
+      const analystField: boolean = _.includes(["analyst", "admin"], userRole);
       gQry = `{
         project(projectName: "${projectName}") {
           subscription
@@ -67,7 +67,7 @@ export const loadDescription: ThunkActionStructure<void> =
           title
           scenario
           actor
-          ${analystField}
+          analyst @include(if: ${analystField})
           description
           requirements
           attackVectorDesc
