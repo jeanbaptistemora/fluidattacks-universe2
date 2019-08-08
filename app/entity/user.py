@@ -192,6 +192,7 @@ def create_new_user(context, new_user_data, project_name):
         responsibility = new_user_data['responsibility']
         role = new_user_data['role']
         phone_number = new_user_data['phone_number']
+        primary_keys_dynamo = ['email', email]
     else:
         return False
 
@@ -199,6 +200,9 @@ def create_new_user(context, new_user_data, project_name):
 
     if not integrates_dal.is_in_database(email):
         integrates_dal.create_user(email)
+        integrates_dal.add_multiple_attributes_dynamo('FI_users', primary_keys_dynamo,
+                                                      {'company': organization,
+                                                       'phone': phone_number})
     if integrates_dal.is_registered(email) == '0':
         integrates_dal.register(email)
         integrates_dal.assign_role(email, role)
