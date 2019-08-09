@@ -384,3 +384,58 @@ and is part of our work team:
 
 *Can I adjust my schedule if I'm currently studying?*::
   In the framework of the previous answer, yes.
+
+*How is it made the time report?*::
+  We use a time report system called +TimeDoctor+
+  which allows to track activities in real time,
+  without additional efforts from the talent
+  aside of the efforts dedicated to the customer and the project.
+  This system logs all the activities performed by the talent
+  while he/she is working,
+  but it also can be disabled when the talent is not working
+  and to perform personal activities.
+  This allows us to keep a healthy balance between control and autonomy.
+  There is no expected total working time share,
+  we leave this value to the talent criteria.
+  However in exceptional cases that a talent
+  exceeds +48+ hours per week systematically,
+  the organization unilaterally adjusts its assignments,
+  in addition to granting compensatory days as soon as possible.
+
+*Why is the reporting fee not 48h if the schedule is 48h?*::
+  Because the reference schedule
+  defines the availability expectation for the talent
+  based on a focused dedication.
+  We understand that each person has different work paces
+  which may vary over weeks,
+  for this reason,
+  expecting a rigid dedication of +48+ hours per week is unrealistic.
+  Additionally, our method for measuring the effort
+  is very accurate and strict
+  and hence we focus on reporting the reality.
+
+*Is there a dress code in Fluid Attacks?*::
+  We can execute projects on +Fluid Attacks+ facilities
+  or in the customer facilities:
+  +
+  * When we attend to +Fluid Attacks+ facilities
+  there is no dressing code.
+  You may dress as comfortable as you want.
+  +
+  +
+  * When we execute projects on the clients facilities
+  we must know and comply with their dress code.
+
+*Do I have to work on weekends or at night?*::
+  It is not usual for the company to request for this situation.
+  If it happens to occur is something exceptional.
+  In order to assume the worst scenario,
+  in a year we may ask you to work on +4+ weekends and +10+ nights.
+  These values correspond to the company request
+  and do not include the instances on which the talent
+  have to work on weekends or nights in order to fulfill
+  the schedule or the working fee.
+
+*Where do I have to work?*::
+  We can execute projects on +Fluid Attacks+ facilities
+  or in the customer facilities.
