@@ -113,62 +113,60 @@ You might find the answer to your question is already here.
   This field is not mandatory.
   Do not fill it in if you don’t have a +VISA+.
 
-*What should I do after finishing the character test?*::
-  When you finish this test,
-  you can proceed with the next stage (knowledge test).
-  We will send your result via email moments after.
+*What should I do after I've finished the character test?*::
+ Once the character test is completed,
+ you will receive your test results within minutes.
+ While you wait, we suggest you go to the next stage
+ and begin the knowledge test.
 
-*Do I have to present the polygraph test?*::
-  In most cases, this test is not mandatory
-  during the selection process.
-  However, since our main business is the information security,
-  it may be necessary to complete this test
-  depending on your selection process.
+*Do I have to take the polygraph test?*::
+  In most cases, this test is not mandatory during the selection process.
+  However, since our business is information security,
+  it may be necessary for you to take this test
+  depending on the position you are applying for.
 
-*Do I have to present the Gallup test?*::
-  This test only is required in some cases,
-  therefore, please notify us via email
-  when you reach this stage,
-  and we will indicate you how to proceed.
+*Do I have to take the Gallup test?*::
+  This test is only required in certain cases.
+  Please notify us via email when you reach this stage,
+  and we will tell you whether or not you need to take it.
 
-*Does this process perform any risk analysis with my data?*::
-  Yes, in the stage previous to the hiring,
-  a confirmation is made on the risk central
-  about the candidate data, among other references.
+*Does this process perform a risk analysis with my data?*::
+  Yes, in the stage before hiring,
+  confirmation is made on the central risk
+  concerning any of your candidate data.
 
-*I haven't notified my company about my current selection process,*::
-*is the reverse references stage mandatory?*::
-  Yes, it is mandatory and since it's an advanced stage
-  in the selection process
-  it is necessary for all the parties
-  to have clear expectations.
+*I haven’t notified my current employer that I am applying for a job*::
+*with another company. Is the reverse references stage mandatory?*::
+  Because this is an advanced stage in the selection process,
+  yes, it is mandatory.
 
-*I'm very shy to present in public,*::
-*is it mandatory to perform the audition?*::
-  This stage is optional during the selection process.
-  However, you must consider that in +Fluid Attacks+
-  keeping good communication is essential,
-  no matter the role to fulfill.
+*I’m very shy when presenting in public. *::
+*Is it mandatory to do the audition?::
+  During the selection process this stage is optional.
+  However, if you work at +Fluid Attacks+,
+  we expect you to have excellent communication skills,
+  regardless of the position you are hired for.
 
-*Is it mandatory to complete all the stages of the process?*::
-  Depending on the vacancy you applied for,
-  and your selection process,
-  we will indicate you how to proceed.
+*Is it mandatory to complete all of the stages in the process?*::
+  Not necessarily.
+  It depends on the vacancy you applied for and your selection process.
+  We will tell you how to proceed,
+  and as always, if you have any questions, contact us.
 
-*What does offer validity time mean?*::
-  It is the time during which +Fluid Attacks+ can hold up the offer.
-  If during this time, we don't receive
-  the explicit and written acceptance of the talent,
+*What does "offer validity time" mean?*::
+  It is the length of time +Fluid Attacks+
+  will hold open a job offer made to a specific candidate.
+  If during this time the candidate does not respond
+  with explicit and written acceptance of the job offer,
   the offer will become invalid.
-  The purpose of this measure is to give other candidates
-  in the selection process the possibility to be hired
-  as soon as possible.
+  Another candidate will then be offered the job.
+  This allows us to fill vacancies as soon as possible.
 
-*If I do not accept the offer, what happens with my immersion process?*::
-  The immersion ends immediately.
-  +Fluid Attacks+ will remove the access to the training systems
-  and will send you the time report of the hours
-  pending to be charged in your billing statement.
+*If I do not accept the offer, what happens to my immersion process?*::
+  Your immersion process ends immediately.
+  +Fluid Attacks+ will remove access to all training systems
+  and notify you of the total work hours
+  to be put on your monthly time-worked invoice.
 
 == After Entering
 
