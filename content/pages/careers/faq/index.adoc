@@ -437,3 +437,61 @@ and is part of our work team:
 *Where do I have to work?*::
   We can execute projects on +Fluid Attacks+ facilities
   or in the customer facilities.
+
+*Does exist teleworking in Fluid Attacks?*::
+  Teleworking doesn't exist as an alternative of on-site working.
+  However, is it possible as an exception
+  made to manage events of force majeure.
+
+*Can I anticipate my vacations?*::
+  In +Fluid Attacks+ you can anticipate your vacations
+  even if you haven't finished your period.
+  Vacations must be requested with minimum +30+ calendar days of anticipation,
+  and will be assessed regarding other vacation applications
+  requested before by other employees (+FIFO+).
+  You have to consider that the minimum vacation term
+  must be of +5+ days including weekends.
+  If you have an exceptional event that you have to attend,
+  you don't need to request vacations for that,
+  it suffices to notify the corresponding exception.
+
+*When do I get a salary revision?*::
+  The salary can be reviewed under +3+ possible circumstances.
+  The first, named yearly review, is mandatory
+  and it occurs after +12+ months with the same salary.
+  The second, named extemporaneous review, is optional
+  and it occurs before +12+ months with the same salary.
+  The third, named requested review,
+  can be asked anytime by the talent.
+  It is named requested review because the first two reviews
+  are always made by +Fluid Attacks+
+  without any request of the talent.
+
+*What are the possible outcomes of a salary review?*::
+  In any kind of review either yearly, extemporaneous or requested,
+  there are only two possible outcomes:
+  first, an inflation adjustment which results by determining
+  that the current salary is appropriated
+  and hence, the salary is not modified
+  or it is slightly adjusted regarding the legal minimum wage
+  of the previous year.
+  The second, named re-staggering,
+  results when the current salary must be adjusted to a higher stage.
+
+*What factors determine my salary?*::
+  The salary is determined by +3+ aspects:
+  historical performance, long term alignment, and group payment capacity.
+  +
+  * Historical performance corresponds to a constant value generation,
+  in the framework of the company values and processes.
+  +
+  +
+  * The long term alignment represents that your vision
+  and +Fluid Attacks'+ vision are completely aligned,
+  and hence your career scheme can be fully developed
+  in long term inside the company
+  +
+  +
+  * The group payment capacity is an external factor
+  which defines the capacity of +Fluid Attacks+
+  to fulfill all the commitments on a long term.
