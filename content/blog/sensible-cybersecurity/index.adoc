@@ -11,7 +11,7 @@
 :writer: jarango
 :name: Julian Arango
 :about1: Behavioral strategist
-:about2: Data scientist in training.!
+:about2: Data scientist in training.
 
 
 = Sensible about cybersecurity
