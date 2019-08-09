@@ -1,9 +1,9 @@
+import json
+from collections import OrderedDict
 from decimal import Decimal
 from tempfile import NamedTemporaryFile
-import json
-import pytest
-from collections import OrderedDict
 
+import pytest
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -13,14 +13,14 @@ from graphql.error import GraphQLError
 from graphene.test import Client
 from jose import jwt
 
-from .dal.helpers.formstack import FormstackAPI
-from .dal.project import get_current_month_information
-from .entity import schema
-from .entity.user import (validate_email_address,
-                          validate_field,
-                          validate_phone_field)
-from .utils import cvss
-from .dto.finding import FindingDTO
+from app.api.schema import SCHEMA
+from app.dal.helpers.formstack import FormstackAPI
+from app.dal.project import get_current_month_information
+from app.dto.finding import FindingDTO
+from app.entity.user import (validate_email_address,
+                             validate_field,
+                             validate_phone_field)
+from app.utils import cvss
 
 
 @pytest.mark.usefixtures(
@@ -95,7 +95,7 @@ class GraphQLTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = schema.SCHEMA.execute(query, context_value=request)
+        result = SCHEMA.execute(query, context_value=request)
         if 'alert' in result.data:
             message = result.data['alert']['message']
             assert message == 'unittest'
@@ -124,7 +124,7 @@ class GraphQLTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = dict(schema.SCHEMA.execute(query, context_value=request).data)
+        result = dict(SCHEMA.execute(query, context_value=request).data)
         if 'event' in result.keys():
             detail = dict(result['event'])['detail']
             assert detail == 'Integrates unit test'
@@ -153,7 +153,7 @@ class GraphQLTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = dict(schema.SCHEMA.execute(query, context_value=request).data)
+        result = dict(SCHEMA.execute(query, context_value=request).data)
         if 'events' in result:
             detail = dict(result['events'][0])['detail']
             assert len(detail) >= 1
@@ -190,7 +190,7 @@ class GraphQLTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = schema.SCHEMA.execute(query, context_value=request)
+        result = SCHEMA.execute(query, context_value=request)
         assert not result.errors
         assert result.data.get('finding')['id'] == '422286126'
         test_data = OrderedDict([
@@ -253,7 +253,7 @@ class GraphQLTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = schema.SCHEMA.execute(query, context_value=request)
+        result = SCHEMA.execute(query, context_value=request)
         assert not result.errors
         assert result.data.get('finding')['id'] == '422286126'
         test_data = OrderedDict([
@@ -293,7 +293,7 @@ class GraphQLTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = schema.SCHEMA.execute(query, context_value=request)
+        result = SCHEMA.execute(query, context_value=request)
         assert not result.errors
         assert 'https://gitlab.com/fluidsignal/engineering/' in \
                result.data.get('resources')['repositories']
@@ -338,14 +338,14 @@ class GraphQLTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = schema.SCHEMA.execute(query, context_value=request)
+        result = SCHEMA.execute(query, context_value=request)
         assert not result.errors
         assert result.data.get('addRepositories')['success']
         assert result.data.get('addEnvironments')['success']
 
     def test_remove_vulnerability(self):
         """check for remove_vulnerability"""
-        test_client = Client(schema.SCHEMA)
+        test_client = Client(SCHEMA)
         query = '''
             mutation{
                 deleteVulnerability (
@@ -412,14 +412,14 @@ class GraphQLTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = schema.SCHEMA.execute(query, context_value=request)
+        result = SCHEMA.execute(query, context_value=request)
         assert not result.errors
         assert result.data.get('removeRepositories')['success']
         assert result.data.get('removeEnvironments')['success']
 
     def test_update_treatment_vuln(self):
         """test update_treatment_vuln """
-        testing_client = Client(schema.SCHEMA)
+        testing_client = Client(SCHEMA)
         query = '''
             mutation {
                 updateTreatmentVuln (
@@ -460,7 +460,7 @@ class GraphQLTests(TestCase):
         assert 'success' in result['data']['updateTreatmentVuln']
 
     def test_grant_user_access(self):
-        testing_client = Client(schema.SCHEMA)
+        testing_client = Client(SCHEMA)
         query = '''
             mutation {
                 grantUserAccess (
@@ -514,7 +514,7 @@ class GraphQLTests(TestCase):
                 }
             }
         '''
-        testing_client = Client(schema.SCHEMA)
+        testing_client = Client(SCHEMA)
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
         middleware.process_request(request)
@@ -560,7 +560,7 @@ class GraphQLTests(TestCase):
             '''
             query = query.replace(
                 '$fileData', json.dumps(file_data).replace('"', '\\"'))
-            testing_client = Client(schema.SCHEMA)
+            testing_client = Client(SCHEMA)
             request = RequestFactory().get('/')
             middleware = SessionMiddleware()
             middleware.process_request(request)
@@ -605,7 +605,7 @@ class GraphQLTests(TestCase):
                 }
             }
         '''
-        testing_client = Client(schema.SCHEMA)
+        testing_client = Client(SCHEMA)
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
         middleware.process_request(request)
@@ -807,5 +807,7 @@ class bdAccessTests(TestCase):
             WHERE (Commits.subscription = %s AND
                 (Commits.authored_at BETWEEN %s AND %s))
             LIMIT 100000;'''
-        assert get_current_month_information(project_name, query_authors) is not None
-        assert get_current_month_information(project_name, query_commits) is not None
+        assert get_current_month_information(
+            project_name, query_authors) is not None
+        assert get_current_month_information(
+            project_name, query_commits) is not None

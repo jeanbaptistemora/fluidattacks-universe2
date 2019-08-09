@@ -65,7 +65,6 @@ class GraphQLExecutorBackend(GraphQLCoreBackend):
 
 def graphql_blacklist_middleware(next_middleware, root, info, **kwargs):
     blacklisted_fields = ['__schema', '__type']
-    if info.field_name.lower() in blacklisted_fields \
-            and not settings.DEBUG:
+    if info.field_name.lower() in blacklisted_fields and not settings.DEBUG:
         raise ForbiddenField()
     return next_middleware(root, info, **kwargs)

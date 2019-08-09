@@ -11,7 +11,7 @@ from graphene_django.views import GraphQLView
 
 from app import services, views
 from app.decorators import verify_csrf
-from app.entity import schema
+from app.api.schema import SCHEMA
 from app.middleware import graphql_blacklist_middleware, GraphQLExecutorBackend
 
 # pylint: disable=W0104
@@ -39,7 +39,7 @@ urlpatterns = [
         GraphQLView.as_view(backend=GraphQLExecutorBackend(),
                             graphiql=settings.DEBUG,
                             middleware=[graphql_blacklist_middleware],
-                            schema=schema.SCHEMA)))),
+                            schema=SCHEMA)))),
     # Use of Formstack services.
     url(r'^project/(?P<project>[A-Za-z0-9]+)/([A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$',  # noqa
         views.get_evidence),
