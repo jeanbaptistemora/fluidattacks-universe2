@@ -34,7 +34,7 @@ def _get_requirements(path: str, exclude: tuple) -> set:
     endswith = ('packages.config',)
     for full_path in get_paths(path, endswith=endswith, exclude=exclude):
         reqs.update(
-            (path, dep.attrib['id'], dep.attrib['version'])
+            (full_path, dep.attrib['id'], dep.attrib['version'])
             for dep in parse(full_path).findall(".//package"))
     return reqs
 

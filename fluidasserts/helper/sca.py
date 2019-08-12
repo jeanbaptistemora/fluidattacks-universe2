@@ -4,24 +4,50 @@
 
 # standard imports
 import os
+import re
 import json
 import aiohttp
 import urllib.parse
 
 # 3rd party imports
+from pyparsing import Regex
 from functools import reduce
 
 
 # local imports
 from fluidasserts import Unit
 from fluidasserts import OPEN, CLOSED, UNKNOWN
-from fluidasserts.helper import asynchronous
+from fluidasserts.helper import lang, asynchronous
 from fluidasserts.utils.generic import get_sha256
 
 
 def _url_encode(string: str) -> str:
     """Return a url encoded string."""
     return urllib.parse.quote(string, safe='')
+
+
+def _get_vuln_line(path: str, pkg: str, ver: str) -> int:
+    """Return the line of first occurrence of pkg and version in path or 0."""
+    if path is None:
+        # There is no file to test
+        return 0
+
+    pkg = re.escape(pkg)
+    if ver is None:
+        regex = pkg
+    else:
+        ver = re.escape(ver)
+        regex = rf'{pkg}.*?{ver}|{ver}.*?{pkg}'
+
+    grammar = Regex(regex, flags=re.MULTILINE | re.DOTALL)
+
+    matches, not_matches = lang._path_contains_grammar2(grammar, path)
+
+    if not_matches:
+        # We were unable to find the package (and version) on that file
+        return 0
+
+    return matches[0].specific[0]
 
 
 @asynchronous.http_retry
@@ -80,20 +106,21 @@ def process_requirements(pkg_mgr: str, path: str,
     for _path, dep, ver, vulns in results:
         if vulns:
             has_vulns = True
-            component = f'{dep}@{ver}' if ver else f'{dep}@unpinned'
+            component = (dep, ver)
             try:
                 proj_vulns[_path].update({component: vulns})
             except KeyError:
                 proj_vulns[_path] = {component: vulns}
 
-    vulns = [Unit(where=_path,
-                  source='Dependencies',
-                  specific=list(deps),
+    vulns = [Unit(where=f'{_path} [{pkg}@{ver if ver else "unpinned"}]',
+                  source='Lines',
+                  specific=[_get_vuln_line(_path, pkg, ver)],
                   fingerprint={
                       'sha256': get_sha256(_path),
                       'vulnerabilities': deps,
                   })
-             for _path, deps in proj_vulns.items()]
+             for _path, deps in proj_vulns.items()
+             for pkg, ver in deps]
 
     if has_vulns:
         return OPEN, 'Project has dependencies with vulnerabilities', vulns

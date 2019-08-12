@@ -272,7 +272,8 @@ class Unit():
         """Default constructor."""
         self.where: str = where
         self.source: str = source
-        self.specific: List[Any] = specific
+        self.specific: List[Any] = \
+            specific if isinstance(specific, list) else [None]
         self.fingerprint: str = fingerprint
 
     def as_dict(self) -> dict:
@@ -283,8 +284,7 @@ class Unit():
         result.update({'source': self.source})
 
         # Stringify
-        specific = self.specific if self.specific else [None]
-        specific = map(str, specific)
+        specific = map(str, self.specific)
         # Escape commas:
         specific = map(lambda x: x.replace(r'\\', r'\\\\'), specific)
         specific = map(lambda x: x.replace(r',', r'\\,'), specific)
