@@ -553,11 +553,10 @@ def mask_project_findings(project, context):
         are_comments_deleted = list(map(lambda x: delete_all_coments(x["id"]), finreqset))
         finding_deleted.append(
             {"name": "comments_dynamoDB", "was_deleted": all(are_comments_deleted)})
-        are_vuln_deleted = list(map(lambda x: delete_vulnerabilities(x["id"], project), finreqset))
         integrates_dal.add_list_resource_dynamo(
             "FI_projects", "project_name", project, finding_deleted, "findings_deleted")
         is_project_deleted = all(is_project_masked) and all(are_evidences_deleted) \
-            and all(are_comments_deleted) and all(are_vuln_deleted)
+            and all(are_comments_deleted)
         return is_project_deleted
     except KeyError:
         rollbar.report_message('Error: An error occurred masking project', 'error')
@@ -654,12 +653,6 @@ def remove_project_from_db(project):
     """Delete records of projects in db."""
     deleted_mysql = integrates_dal.delete_project(project)
     return deleted_mysql
-
-
-def delete_vulnerabilities(finding_id, project):
-    """Delete vulnerabilities from dynamo."""
-    are_vulns_deleted = integrates_dal.delete_vulns_email_dynamo(project, finding_id)
-    return are_vulns_deleted
 
 
 @cache_content

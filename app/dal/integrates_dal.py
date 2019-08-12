@@ -476,43 +476,6 @@ def add_phone_to_user_dynamo(email, phone):
             return False
 
 
-def get_vulns_by_id_dynamo(project_name, unique_id):
-    """ Gets findings info by finding ID. """
-    table = DYNAMODB_RESOURCE.Table('FI_findings_email')
-    filter_key = 'project_name'
-    filter_sort = 'unique_id'
-    filtering_exp = Key(filter_key).eq(project_name) & \
-        Key(filter_sort).eq(unique_id)
-    response = table.query(KeyConditionExpression=filtering_exp)
-    items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = table.query(
-                KeyConditionExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
-    return items
-
-
-def delete_vulns_email_dynamo(project_name, unique_id):
-    """Delete project in DynamoDb."""
-    table = DYNAMODB_RESOURCE.Table('FI_findings_email')
-    try:
-        response = table.delete_item(
-            Key={
-                'project_name': project_name,
-                'unique_id': int(unique_id),
-            }
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
-    except ClientError:
-        rollbar.report_exc_info()
-        return False
-
-
 def get_company_alert_dynamo(company_name, project_name):
     """ Get alerts of a company. """
     company_name = company_name.lower()
