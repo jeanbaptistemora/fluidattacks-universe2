@@ -137,7 +137,8 @@ const renderActionButtons: ((props: IDescriptionViewProps) => JSX.Element) =
       <ButtonToolbar className="pull-right">
         {_.includes(["admin", "analyst"], props.userRole) && props.dataset.remediated
           ? renderMarkVerifiedBtn() : undefined}
-        {_.includes(["admin", "customer"], props.userRole) ? renderRequestVerifiyBtn(props) : undefined}
+        {_.includes(["admin", "customer", "customeradmin"], props.userRole)
+          ? renderRequestVerifiyBtn(props) : undefined}
         {props.isEditing ? renderUpdateBtn() : undefined}
         <Button bsStyle="primary" onClick={(): void => { store.dispatch(actions.editDescription()); }}>
           <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editable")}
