@@ -117,7 +117,7 @@ def process_requirements(pkg_mgr: str, path: str,
                   specific=[_get_vuln_line(_path, pkg, ver)],
                   fingerprint={
                       'sha256': get_sha256(_path),
-                      'vulnerabilities': deps,
+                      'vulnerabilities': deps[(pkg, ver)],
                   })
              for _path, deps in proj_vulns.items()
              for pkg, ver in deps]

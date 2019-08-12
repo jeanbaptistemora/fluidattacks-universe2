@@ -92,6 +92,7 @@ fluidasserts:
   variables:
     FA_STRICT: "false"
   script:
+    - pip3 install .
     - asserts -o deploy/container/exploit.py
   except:
     - master
