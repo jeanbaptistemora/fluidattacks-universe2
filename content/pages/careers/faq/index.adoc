@@ -475,8 +475,8 @@ and is part of our work team:
   and hence, the salary is not modified
   or it is slightly adjusted regarding the legal minimum wage
   of the previous year.
-  The second, named re-staggering,
-  results when the current salary must be adjusted to a higher stage.
+  The second, named re-scaling,
+  results when the current salary must be adjusted to a higher scale.
 
 *What factors determine my salary?*::
   The salary is determined by +3+ factors:
@@ -532,7 +532,7 @@ and is part of our work team:
   for higher salaries there are less people.
   That means these values follow an exponential distribution.
 
-*What does Fluid Attacks expects from a new talent?*::
+*What does Fluid Attacks expect from a new talent?*::
   In +Fluid Attacks+ we have three immovable and non-negotiable link:../../values[values]:
   +
   * *HONESTY:* We expect the talent to stick strictly to our ethics code,
@@ -564,3 +564,140 @@ and is part of our work team:
   +
   Finally, we expect these expectations to be fully fulfilled always,
   and to increase the rigor on its application over time.
+
+*What does Fluid Attacks expect technically from a new talent?*::
+  As our motto says:
+  *"Find all vulnerabilities and report them as soon as possible"*
+  for that, we expect the talent to:
+  +
+  +
+  * Program in a fancy, functional way.
+  +
+  +
+  * Generate daily value in production deployments.
+  +
+  +
+  * Search ways to make things work instead of making excuses
+  to avoid doing them.
+  +
+  +
+  * Hack the customer systems without being detected.
+  +
+  +
+  * Extract as much information as possible from the customer systems
+  to increase the awareness of the real impact of a vulnerability.
+  +
+  +
+  * Document all vulnerabilities immediately after finding them.
+  +
+  +
+  * Report all existing vulnerabilities.
+  +
+  +
+  * Notify about the installed +backdoors+ and uninstall them
+  after finished the project.
+  +
+  +
+  * Hack as much systems as possible in the assigned time.
+  +
+  +
+  * Find not evident and critical vulnerabilities.
+  +
+  +
+  * Teach his/her coworkers the new hacking techniques
+  without jealousy.
+  +
+  +
+  * Make contributions to the company products.
+  +
+  +
+  * Dedicate to his/her default activity when a lockout comes out
+  (migration, product, blog articles, etc).
+  +
+  +
+  * Search solutions on his/her own in a investigative manner.
+  +
+  +
+  * Be willing to learn when a solution can't be found
+  instead of expecting someone else to solve it.
+  +
+  +
+  In general, we look for dedicated persons
+  who are willing to share their knowledge
+  and fulfill their roles with no excuses.
+
+*Can I grow professionally in Fluid Attacks?*::
+  In order to answer this question we classify
+  growth in 3 aspects:
+  power, knowledge, and money.
+  +
+  +
+  * The power growth is usually low,
+  since we do not aim to grow in workforce,
+  but to have highly competitive products,
+  and hence the managerial positions are opened
+  only when there are personnel retirements.
+  However, our current +CEO+ started as Support Engineer +10+ years ago.
+  +
+  +
+  * We consider the knowledge growth is high,
+  since we control the technologies we use (not the customer),
+  we constantly update our tools
+  because we audit many customers
+  and hence we must learn the current and emergent technologies
+  in a very short time.
+  The projects are short and the learning is constant.
+  In the security and hacking area
+  we have the experience and the track record
+  to consider us the biggest Hacking company in Latin America.
+  +
+  +
+  * The money growth tends to be medium,
+  first because the salary in +Fluid Attacks+
+  is not only attached to the power (non-tecnical scale)
+  but also to the knowledge (technical scale)
+  and hence, is common to find engineers with higher salaries
+  than their bosses (see <<q23, Question 23>>).
+
+*Can my role evolve over time and according to*::
+*the acquired knowledge and certifications?*::
+  The seniority, certifications and knowledge
+  don't guarantee the evolution of the role.
+  One employee can play the same role for a long time,
+  have many certifications,
+  learn about many new technologies
+  and nevertheless do not improve his/her performance,
+  or use these factors to improve the company with dedication.
+  For this reason, none of the previously mentioned variables
+  can guarantee the evolution of the role.
+  As an employee, you can evolve
+  if your performance keeps improving every trimester,
+  if you follow the defined process and deliver the best results consistently.
+
+*How does Fluid Attacks recognize a performance that exceeds the expected?*::
+  +Fluid Attacks+ has a simple philosophy regarding this aspect,
+  the constant performance over the expected is rewarded
+  through a salary re-scaling.
+  The reward is more significant if it's made in a extemporaneous way
+  (before +12+ months).
+  This implies that the reward is always made in private
+  and results in a higher standard for the future performance of te talent,
+  and hence a new re-scaling will be more difficult to reach.
+
+*If my salary is not re-scaled, am I doing something wrong?*::
+  No. If in a yearly salary review there is no a re-scaling
+  means that the assigned salary
+  corresponds to the historical performance and long term alignment
+  and is equivalent to the coworkers in the same variable range.
+  The more time a talent spend with +Fluid Attacks+
+  the more the salary converges to the possible salary ranges
+  by all the salary re-scalings,
+  and these in turn become less often.
+  When a talent presents a higher salary range than his/her performance
+  or the long term alignment is different from the company,
+  we have a private conversation with the talent
+  to implement an improvement plan
+  which of not implementing in short term
+  will result in the retirement of the talent from +Fluid Attacks+.
+  If such conversation doesn't occur,
+  means everything is going according to the planned.
