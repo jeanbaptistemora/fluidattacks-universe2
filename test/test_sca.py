@@ -29,7 +29,7 @@ NUGET_PROJECT_OPEN = 'test/static/sca/nuget/open'
 NUGET_PROJECT_CLOSE = 'test/static/sca/nuget/close'
 NUGET_PROJECT_NOT_FOUND = 'test/static/sca/nuget/not_found'
 NUGET_PROJECT_EMPTY = 'test/static/sca/nuget/empty'
-PYPI_PROJECT_OPEN = 'test/static/sca/pypi/open'
+PYPI_PROJECT = 'test/static/sca/pypi'
 PYPI_PROJECT_CLOSE = 'test/static/sca/pypi/close'
 PYPI_PROJECT_NOT_FOUND = 'test/static/sca/pypi/not_found'
 PYPI_PROJECT_EMPTY = 'test/static/sca/pypi/empty'
@@ -87,7 +87,7 @@ def test_nuget_package_has_vulnerabilities_open():
 def test_pypi_package_has_vulnerabilities_open():
     """Search vulnerabilities."""
     assert pypi.package_has_vulnerabilities('django')
-    assert pypi.project_has_vulnerabilities(PYPI_PROJECT_OPEN)
+    assert pypi.project_has_vulnerabilities(PYPI_PROJECT)
 
 
 #

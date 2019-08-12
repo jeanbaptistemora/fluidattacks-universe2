@@ -180,7 +180,7 @@ SUMMARY_COLORS = {
 def enable_win_colors():
     """Enable windows colors."""
     global OUTFILE
-    if sys.platform in ('win32', 'cygwin'):  # pragma: no cover
+    if sys.platform in ('win32', 'cygwin'):
         try:
             OUTFILE = UnclosingTextIOWrapper(sys.stdout.buffer)
         except AttributeError:
@@ -242,7 +242,7 @@ def get_parsed_output(content):
     """Get parsed YAML output."""
     try:
         ret = [x for x in yaml.safe_load_all(content) if x]
-    except yaml.scanner.ScannerError:  # pragma: no cover
+    except yaml.scanner.ScannerError:
         print(content, flush=True)
         exit_asserts('exploit-error')
     else:

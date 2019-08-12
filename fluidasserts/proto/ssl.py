@@ -32,7 +32,7 @@ TYPRECEIVE = Tuple[Optional[str], Optional[int], Optional[int]]
 
 
 def _my_send_finished(self, master_secret, cipher_suite=None, next_proto=None,
-                      settings=None):  # pragma: no cover
+                      settings=None):
     """Duck-tapped TLSConnection._sendFinished function."""
     self.sock.buffer_writes = True
     # Send ChangeCipherSpec

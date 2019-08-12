@@ -5,12 +5,12 @@
 # standard imports
 
 # 3rd party imports
-from androguard.misc import AnalyzeAPK
 
 # local imports
 from fluidasserts import show_open
 from fluidasserts import show_close
 from fluidasserts import show_unknown
+from fluidasserts.helper.lang import analyze_apk
 from fluidasserts.utils.decorators import track, level, notify
 
 
@@ -24,7 +24,7 @@ def is_unsigned(apk_file: str) -> bool:
     :param apk_file: Path to the image to be tested.
     """
     try:
-        apk, _, _ = AnalyzeAPK(apk_file)
+        apk, _, _ = analyze_apk(apk_file)
     except FileNotFoundError as exc:
         show_unknown('Error reading file',
                      details=dict(apk=apk_file, error=str(exc)))
@@ -47,7 +47,7 @@ def not_checks_for_root(apk_file: str) -> bool:
     :param apk_file: Path to the image to be tested.
     """
     try:
-        _, _, dex = AnalyzeAPK(apk_file)
+        _, _, dex = analyze_apk(apk_file)
     except FileNotFoundError as exc:
         show_unknown('Error reading file',
                      details=dict(apk=apk_file, error=str(exc)))

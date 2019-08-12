@@ -83,9 +83,11 @@ def test_has_access_close():
 def test_insecure_accept_close():
     """Resource is available?."""
     assert not rest.accepts_insecure_accept_header(
-        BASE_URL + '/insecure_accept/ok')
+        BASE_URL + '/insecure_accept/ok',
+        timeout=10)
     assert not rest.accepts_insecure_accept_header(
-        NONEXISTANT_SERVICE + '/insecure_accept/ok')
+        NONEXISTANT_SERVICE + '/insecure_accept/ok',
+        headers={'Accept': 'text/html'})
 
 
 def test_hsts_close():
@@ -111,7 +113,8 @@ def test_content_options_close():
 def test_empty_content_type_close():
     """Check empty Content-Type."""
     assert not rest.accepts_empty_content_type(
-        '%s/empty_content_type/ok' % (BASE_URL))
+        '%s/empty_content_type/ok' % (BASE_URL),
+        headers={'Content-Type': 'text/html'})
     assert not rest.accepts_empty_content_type(
         '%s/empty_content_type/ok' % (NONEXISTANT_SERVICE))
     assert not rest.accepts_empty_content_type(

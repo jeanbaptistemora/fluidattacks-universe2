@@ -14,7 +14,7 @@ from mixpanel import Mixpanel, MixpanelException
 FA_EMAIL = 'engineering@fluidattacks.com'
 
 
-def get_os_fingerprint():
+def get_os_fingerprint() -> str:
     """Get fingerprint of running OS."""
     sha256 = hashlib.sha256()
     data = sys.platform + sys.version + platform.node()
@@ -22,8 +22,9 @@ def get_os_fingerprint():
     return sha256.hexdigest()
 
 
-def mp_track(func_to_track):
+def mp_track(func_to_track) -> bool:
     """Track a function."""
+    success: bool = True
     if os.environ.get('FA_NOTRACK') != 'true':
         project_token = '4ddf91a8a2c9f309f6a967d3462a496c'
         user_id = get_os_fingerprint()
@@ -33,5 +34,6 @@ def mp_track(func_to_track):
             mix_pan.track(user_id, func_to_track, {
                 'python_version': platform.python_version(),
                 'platform': platform.system()})
-        except MixpanelException:  # pragma: no cover
-            pass
+        except MixpanelException:
+            success = False
+    return success

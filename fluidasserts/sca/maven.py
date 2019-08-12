@@ -85,7 +85,8 @@ def _get_requirements_build_gradle(path: str, exclude: tuple) -> list:
             for tokens, _, _ in grammar.scanString(file_content):
                 matches = tokens.asDict()
                 if 'package' in matches:
-                    if ':' in matches['package']:
+                    # The convention is Group:Name:Version
+                    if matches['package'].count(':') >= 2:
                         name, version = matches['package'].rsplit(':', 1)
                     else:
                         name, version = matches['package'], None
