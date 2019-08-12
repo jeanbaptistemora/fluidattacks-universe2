@@ -51,4 +51,7 @@ variable "cacheParamGroupName" {}
 variable "asserts-bucket" {}
 variable "asserts_projects" {
   type = "map"
+  default {
+    "0" = "temp"
+  }
 }
