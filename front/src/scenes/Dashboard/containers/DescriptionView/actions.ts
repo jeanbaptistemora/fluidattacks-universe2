@@ -52,7 +52,7 @@ export const clearDescription: (() => IActionStructure) =
 export const loadDescription: ThunkActionStructure<void> =
   (findingId: string, projectName: string, userRole: string): ThunkAction<void, {}, {}, IActionStructure> =>
     (dispatch: ThunkDispatcher): void => {
-      const canEditTreatmentMgr: boolean = _.includes(["customer", "customeradmin"], userRole);
+      const canEditTreatmentMgr: boolean = _.includes(["customeradmin"], userRole);
       let gQry: string;
       const analystField: boolean = _.includes(["analyst", "admin"], userRole);
       gQry = `{

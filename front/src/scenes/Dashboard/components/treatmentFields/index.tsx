@@ -13,6 +13,12 @@ type renderFormFieldsFn = ((props: IDescriptionViewProps) => JSX.Element);
 
 const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps): JSX.Element => {
     const hasBts: boolean = !_.isEmpty(props.dataset.btsUrl);
+    const isNotEditable: boolean = props.isEditing &&
+    (props.userRole === "customer" && props.formValues.treatment === "IN PROGRESS");
+    const changeRender: boolean = props.isEditing && (props.formValues.treatment === "IN PROGRESS" ||
+    props.formValues.treatment === "ACCEPTED");
+    const shouldRender: boolean = !props.isEditing && (props.dataset.treatment === "IN PROGRESS" ||
+    props.dataset.treatment === "ACCEPTED");
 
     return(
     <React.Fragment>
@@ -33,15 +39,16 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
             <option value="IN PROGRESS">{translate.t("search_findings.tab_description.treatment.in_progress")}</option>
           </EditableField>
         </Col>
-        {!props.isEditing && !_.isEmpty(props.dataset.treatmentManager) ||
-        (props.isEditing && props.formValues.treatment === "IN PROGRESS") ?
+        {shouldRender || changeRender ?
           <Col md={6} sm={12} xs={12}>
             <EditableField
-              component={dropdownField}
-              currentValue={props.dataset.treatmentManager}
+              component={dropdownField/* tslint:disable-next-line jsx-no-multiline-js */}
+              currentValue={props.formValues.treatment === "ACCEPTED" || isNotEditable ? !props.isEditing ?
+                props.dataset.treatmentManager : props.currentUserEmail : props.dataset.treatmentManager}
               label={translate.t("search_findings.tab_description.treatment_mgr")}
-              name="treatmentManager"
-              renderAsEditable={props.isEditing}
+              name={"treatmentManager"/* tslint:disable-next-line jsx-no-multiline-js */}
+              renderAsEditable={props.userRole === "customeradmin" && props.formValues.treatment !== "ACCEPTED" ?
+                props.isEditing : false}
               type="text"
               validate={[...props.formValues.treatment === "IN PROGRESS" ? [required] : []]}
             >
@@ -65,8 +72,7 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
         </Col>
       </Row>
       {/* tslint:disable-next-line jsx-no-multiline-js Necessary for validate conditional */}
-      {!props.isEditing && !_.isEmpty(props.dataset.treatmentJustification) ||
-      (props.isEditing && props.formValues.treatment !== "NEW") ?
+      {shouldRender || changeRender ?
         <Row>
           <Col md={12} sm={12} xs={12}>
             <EditableField

@@ -20,6 +20,7 @@ import { CommentsView } from "../CommentsView/index";
 import { descriptionView as DescriptionView } from "../DescriptionView/index";
 import { evidenceView as EvidenceView } from "../EvidenceView/index";
 import { ExploitView } from "../ExploitView/index";
+import { loadProjectData } from "../ProjectContent/actions";
 import { RecordsView } from "../RecordsView/index";
 import { severityView as SeverityView } from "../SeverityView/index";
 import { trackingView as TrackingView } from "../TrackingView/index";
@@ -41,14 +42,22 @@ const enhance: InferableComponentEnhancer<{}> = lifecycle<IFindingContentProps, 
 
 const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
-  const userRole: string = (window as Window & { userRole: string }).userRole;
+  const userRole: string =
+  _.isEmpty(props.userRole) ? (window as Window & { userRole: string }).userRole : props.userRole;
+  const currentUserEmail: string = (window as Window & { userEmail: string }).userEmail;
   const isDraft: boolean = _.isEmpty(props.header.reportDate);
   const hasVulns: number = props.header.openVulns + props.header.closedVulns;
 
   const findingStatus: string = isDraft ? "drafts" : "findings";
 
   const renderDescription: (() => JSX.Element) = (): JSX.Element => (
-    <DescriptionView findingId={findingId} projectName={projectName} userRole={userRole} {...reduxProps} />
+    <DescriptionView
+      findingId={findingId}
+      projectName={projectName}
+      userRole={userRole}
+      currentUserEmail={currentUserEmail}
+      {...reduxProps}
+    />
   );
 
   const renderSeverity: (() => JSX.Element) = (): JSX.Element => (
@@ -271,6 +280,7 @@ const mapStateToProps: MapStateToProps<IFindingContentStateProps, IFindingConten
       status: state.dashboard.finding.status,
     },
     title: state.dashboard.finding.title,
+    userRole: state.dashboard.user.role,
   });
 
 const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFindingContentBaseProps> =
@@ -282,7 +292,9 @@ const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFind
       onApprove: (): void => { dispatch(approveDraft(findingId)); },
       onConfirmDelete: (): void => { dispatch(submit("deleteFinding")); },
       onDelete: (justification: string): void => { dispatch(deleteFinding(findingId, projectName, justification)); },
-      onLoad: (): void => { dispatch(loadFindingData(findingId, projectName, organization)); },
+      onLoad: (): void => {
+        dispatch(loadProjectData(projectName));
+        dispatch(loadFindingData(findingId, projectName, organization)); },
       onReject: (): void => { dispatch(rejectDraft(findingId, projectName)); },
       onUnmount: (): void => { dispatch(clearFindingState()); },
       openDeleteConfirm: (): void => { dispatch(openConfirmDialog("confirmDeleteFinding")); },

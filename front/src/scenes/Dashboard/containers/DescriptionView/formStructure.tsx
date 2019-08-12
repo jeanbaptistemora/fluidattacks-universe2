@@ -176,7 +176,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
   (props.isEditing && _.includes(["admin", "analyst"], props.userRole));
 
   const canRenderDetailedField: boolean =
-  isDetailed && props.isEditing && !_.includes(["customer"], props.userRole);
+  isDetailed && props.isEditing && !_.includes(["customer", "customeradmin"], props.userRole);
 
   const validateEmptyField: boolean = !props.isEditing || canEditDescription;
 

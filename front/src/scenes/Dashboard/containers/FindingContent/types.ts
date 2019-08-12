@@ -12,6 +12,7 @@ export interface IFindingContentStateProps {
     status: "open" | "closed" | "default";
   };
   title: string;
+  userRole: string;
 }
 
 export interface IFindingContentDispatchProps {

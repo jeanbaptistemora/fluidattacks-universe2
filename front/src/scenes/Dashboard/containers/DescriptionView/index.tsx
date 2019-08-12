@@ -28,6 +28,7 @@ import * as actions from "./actions";
 import { renderFormFields } from "./formStructure";
 
 export interface IDescriptionViewProps {
+  currentUserEmail: string;
   dataset: {
     actor: string;
     affectedSystems: string;

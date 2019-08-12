@@ -43,6 +43,7 @@ describe("FindingContent", () => {
     openDeleteConfirm: functionMock,
     openRejectConfirm: functionMock,
     title: "FIN.S.0001. Finding test",
+    userRole: "customer",
   };
 
   const mocks: ReadonlyArray<MockedResponse> = [

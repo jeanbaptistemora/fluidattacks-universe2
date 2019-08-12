@@ -22,6 +22,7 @@ from app.domain.finding import (
 from app.dto.finding import FindingDTO, get_project_name
 from app.entity.types.finding import FindingType
 from app.entity.vulnerability import Vulnerability
+from app.services import is_customeradmin
 
 
 class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
@@ -680,7 +681,7 @@ class UpdateTreatment(Mutation):
     @require_role(['customer', 'admin'])
     @require_finding_access
     def mutate(self, info, finding_id, **parameters):
-        user_email = util.get_jwt_content(info.context)['user_email']
+        user_data = util.get_jwt_content(info.context)
         project_name = get_project_name(finding_id)
         treatment_state = \
             integrates_dal.get_finding_attributes_dynamo(finding_id, ['treatment'])
@@ -696,11 +697,13 @@ class UpdateTreatment(Mutation):
             # finding treatment isn't changed
             pass
         if parameters['treatment'] == 'IN PROGRESS':
+            if not is_customeradmin(project_name, user_data['user_email']):
+                parameters['treatment_manager'] = user_data['user_email']
             if parameters.get('treatment_manager'):
                 project_users = [user[0]
                                  for user in integrates_dal.get_project_users(project_name)
                                  if user[1] == 1]
-                customer_roles = ["customer", "customeradmin"]
+                customer_roles = ['customer', 'customeradmin']
                 customer_users = [user
                                   for user in project_users
                                   if integrates_dal.get_role(user) in customer_roles]
@@ -709,8 +712,9 @@ class UpdateTreatment(Mutation):
             else:
                 raise GraphQLError('Invalid treatment manager')
         elif parameters['treatment'] == 'ACCEPTED':
-            parameters['treatment_manager'] = user_email
-        success = update_treatment(finding_id, parameters, user_email)
+            parameters['treatment_manager'] = user_data['user_email']
+        success = update_treatment(finding_id, parameters,
+                                   user_data['user_email'])
         if success:
             util.cloudwatch_log(info.context, 'Security: Updated treatment in\
                 finding {id} succesfully'.format(id=finding_id))
