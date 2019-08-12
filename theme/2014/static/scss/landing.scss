@@ -34,50 +34,16 @@ p {
 }
 
 .services {
-  background-color: $fluid-gray;
   padding: 20px 0;
-
-  h1,
-  h2,
-  h3 {
-    color: $fluid-red;
-    text-align: center;
-    }
 
   p {
     padding: 0 3%;
-    text-align: center;
-
-    strong {
-      color: $fluid-red;
-    }
   }
-}
-
-.serv-offer {
-  display: flex;
-  flex-wrap: wrap;
 }
 
 .serv {
-  float: left;
-  width: 50%;
-
-  a {
-    color: $fluid-red;
-
-    &:hover {
-      color: $fluid-red;
-    }
-  }
-
   p {
     padding: 0 20%;
-    text-align: justify;
-  }
-
-  b {
-    color: $fluid-red;
   }
 }
 

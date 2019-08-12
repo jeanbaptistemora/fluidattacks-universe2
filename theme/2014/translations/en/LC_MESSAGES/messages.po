@@ -751,8 +751,8 @@ msgstr "continuous-hacking"
 #: templates/landing.html:51
 msgid "Index-text-1"
 msgstr ""
-"We <b> detect vulnerabilities continuously </b> as the software evolves "
-"during your development cycle. "
+"We <b class="c-fluid-red"> detect vulnerabilities continuously </b> "
+"as the software evolves during your development cycle. "
 "Our team runs comprehensive testing, "
 "detecting all vulnerabilities with no false positives. "
 
@@ -764,7 +764,7 @@ msgstr "Continuous Hacking"
 msgid "Index-text-2"
 msgstr ""
 "We detect and report all vulnerabilities "
-"within <b> one specific version </b> of your application. "
+"within <b class="c-fluid-red"> one specific version </b> of your application. "
 "Our team detects all existing vulnerabilities with no false positives."
 
 #: templates/landing.html:55

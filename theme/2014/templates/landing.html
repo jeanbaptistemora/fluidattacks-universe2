@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
+<!-- Tachyons stylesheet -->
+<link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+
 {% block meta %}
   <meta name="description" content="{{ gettext('Landing-metadescription') }}.">
   <meta name="keywords" content="{{ gettext('Landing-keywords')}}.">
@@ -12,21 +15,21 @@
 {% block content %}
 
 <div class="home">
-  <div class="services">
-    <h1>{{ gettext('Index-header-1') }}</h1>
-    <div class="serv-offer">
-      <div class="serv">
-        <h3><a href="{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}/"><strong>{{ gettext('Index-header-2') }}</strong></a></h3>
-        <p>{{ gettext('Index-text-1') }} <br>  </p>
+  <div class="services bg-fluid-lightgray ">
+    <h1 class="c-fluid-red">{{ gettext('Index-header-1') }}</h1>
+    <div class="serv-offer flex flex-wrap">
+      <div class="serv fl w-50">
+        <h3 class="c-fluid-red tc"><a class="c-fluid-red" href="{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}/"><strong>{{ gettext('Index-header-2') }}</strong></a></h3>
+        <p class="tj" >{{ gettext('Index-text-1') }} <br>  </p>
         <button class="fluid-button" onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}'">{{ gettext('btn-text-1') }}</button>
       </div>
-      <div class="serv">
-        <h3><a href="{{SITEURL}}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}/"><strong>{{ gettext('Index-header-3') }}</strong></a></h3>
-        <p>{{ gettext('Index-text-2') }} <br> </p>
+      <div class="serv fl w-50">
+        <h3 class="c-fluid-red tc"><a class="c-fluid-red" href="{{SITEURL}}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}/"><strong>{{ gettext('Index-header-3') }}</strong></a></h3>
+        <p class="tj">{{ gettext('Index-text-2') }} <br> </p>
         <button class="fluid-button" onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}'">{{ gettext('btn-text-1') }}</button>
       </div>
     </div>
-    <p>{{ gettext('Serv-txt') }} <button class="fluid-button" onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-3') }}'">{{ gettext('Index-header-3.1') }}</button> page.</p>
+    <p class="tc" >{{ gettext('Serv-txt') }} <button class="fluid-button" onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-3') }}'">{{ gettext('Index-header-3.1') }}</button> page.</p>
     <div class="serv">
     </div>
   </div>
