@@ -4,7 +4,11 @@ data "aws_iam_policy_document" "asserts-ecr-ci-data" {
     sid = "ecrPushToAssertsRegistries"
     effect = "Allow"
     actions = [
-      "ecr:PutImage"
+      "ecr:PutImage",
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:InitiateLayerUpload",
+      "ecr:UploadLayerPart",
+      "ecr:CompleteLayerUpload"
     ]
     resources = [
       "arn:aws:ecr:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:repository/asserts-*"
