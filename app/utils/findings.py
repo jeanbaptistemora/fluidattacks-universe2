@@ -106,7 +106,7 @@ def format_data(finding):
         'evidence5': _get_evidence('evidence_route_5', finding['files']),
         'exploitation': _get_evidence('exploitation', finding['files'])
     }
-    finding['compromisedAttrs'] = finding.get('records')
+    finding['compromisedAttrs'] = finding.get('records', '')
     records = _get_evidence('fileRecords', finding['files'])
     if records['url']:
         finding['records'] = _get_records_from_file(
