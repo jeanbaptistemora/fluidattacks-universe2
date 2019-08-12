@@ -163,6 +163,7 @@ def test_pypi_package_has_vulnerabilities_close():
     """Search vulnerabilities."""
     assert not pypi.package_has_vulnerabilities('pips')
     assert not pypi.package_has_vulnerabilities('pipasdiahsds')
+    assert not pypi.project_has_vulnerabilities(PROJECT, exclude=['test'])
     assert not pypi.project_has_vulnerabilities(PYPI_PROJECT_CLOSE)
     assert not pypi.project_has_vulnerabilities(PYPI_PROJECT_NOT_FOUND)
     assert not pypi.project_has_vulnerabilities(PYPI_PROJECT_EMPTY)

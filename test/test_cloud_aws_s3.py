@@ -4,6 +4,7 @@
 
 # standard imports
 import os
+from contextlib import contextmanager
 
 # 3rd party imports
 # None
@@ -16,6 +17,24 @@ from fluidasserts.cloud.aws import s3
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_SECRET_ACCESS_KEY_BAD = "bad"
+
+
+#
+# Helpers
+#
+
+
+@contextmanager
+def no_connection():
+    """Proxy something temporarily."""
+    os.environ['HTTP_PROXY'] = '127.0.0.1:8080'
+    os.environ['HTTPS_PROXY'] = '127.0.0.1:8080'
+    try:
+        yield
+    finally:
+        os.environ.pop('HTTP_PROXY', None)
+        os.environ.pop('HTTPS_PROXY', None)
+
 
 #
 # Open tests
@@ -45,29 +64,16 @@ def test_bucket_logging_close():
         s3.has_server_access_logging_disabled(AWS_ACCESS_KEY_ID,
                                               AWS_SECRET_ACCESS_KEY_BAD,
                                               retry=False)
-
-    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
-    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
-
-    assert not \
-        s3.has_server_access_logging_disabled(AWS_ACCESS_KEY_ID,
-                                              AWS_SECRET_ACCESS_KEY,
-                                              retry=False)
-    os.environ.pop('http_proxy', None)
-    os.environ.pop('https_proxy', None)
+    with no_connection():
+        assert not s3.has_server_access_logging_disabled(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
 
 
 def test_public_buckets_close():
     """Check if account has public buckets."""
-    assert not \
-        s3.has_public_buckets(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_BAD,
-                              retry=False)
+    assert not s3.has_public_buckets(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_BAD, retry=False)
 
-    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
-    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
-
-    assert not \
-        s3.has_public_buckets(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY,
-                              retry=False)
-    os.environ.pop('http_proxy', None)
-    os.environ.pop('https_proxy', None)
+    with no_connection():
+        assert not s3.has_public_buckets(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)

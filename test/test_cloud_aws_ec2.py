@@ -4,6 +4,7 @@
 
 # standard imports
 import os
+from contextlib import contextmanager
 
 # 3rd party imports
 # None
@@ -16,6 +17,24 @@ from fluidasserts.cloud.aws import ec2
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_SECRET_ACCESS_KEY_BAD = "bad"
+
+
+#
+# Helpers
+#
+
+
+@contextmanager
+def no_connection():
+    """Proxy something temporarily."""
+    os.environ['HTTP_PROXY'] = '127.0.0.1:8080'
+    os.environ['HTTPS_PROXY'] = '127.0.0.1:8080'
+    try:
+        yield
+    finally:
+        os.environ.pop('HTTP_PROXY', None)
+        os.environ.pop('HTTPS_PROXY', None)
+
 
 #
 # Open tests
@@ -75,15 +94,9 @@ def test_admin_ports_close():
                                                   AWS_SECRET_ACCESS_KEY_BAD,
                                                   retry=False)
 
-    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
-    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
-
-    assert not \
-        ec2.seggroup_allows_anyone_to_admin_ports(AWS_ACCESS_KEY_ID,
-                                                  AWS_SECRET_ACCESS_KEY,
-                                                  retry=False)
-    os.environ.pop('http_proxy', None)
-    os.environ.pop('https_proxy', None)
+    with no_connection():
+        assert not ec2.seggroup_allows_anyone_to_admin_ports(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
 
 
 def test_defgroup_anyone_close():
@@ -93,16 +106,9 @@ def test_defgroup_anyone_close():
                                                 AWS_SECRET_ACCESS_KEY_BAD,
                                                 retry=False)
 
-    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
-    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
-
-    assert not \
-        ec2.default_seggroup_allows_all_traffic(AWS_ACCESS_KEY_ID,
-                                                AWS_SECRET_ACCESS_KEY,
-                                                retry=False)
-
-    os.environ.pop('http_proxy', None)
-    os.environ.pop('https_proxy', None)
+    with no_connection():
+        assert not ec2.default_seggroup_allows_all_traffic(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
 
 
 def test_unencrypted_volumes_close():
@@ -112,15 +118,9 @@ def test_unencrypted_volumes_close():
                                     AWS_SECRET_ACCESS_KEY_BAD,
                                     retry=False)
 
-    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
-    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
-
-    assert not \
-        ec2.has_unencrypted_volumes(AWS_ACCESS_KEY_ID,
-                                    AWS_SECRET_ACCESS_KEY,
-                                    retry=False)
-    os.environ.pop('http_proxy', None)
-    os.environ.pop('https_proxy', None)
+    with no_connection():
+        assert not ec2.has_unencrypted_volumes(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
 
 
 def test_unencrypted_snapshots_close():
@@ -130,15 +130,9 @@ def test_unencrypted_snapshots_close():
                                       AWS_SECRET_ACCESS_KEY_BAD,
                                       retry=False)
 
-    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
-    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
-
-    assert not \
-        ec2.has_unencrypted_snapshots(AWS_ACCESS_KEY_ID,
-                                      AWS_SECRET_ACCESS_KEY,
-                                      retry=False)
-    os.environ.pop('http_proxy', None)
-    os.environ.pop('https_proxy', None)
+    with no_connection():
+        assert not ec2.has_unencrypted_snapshots(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
 
 
 def test_unused_seggroups_close():
@@ -148,15 +142,9 @@ def test_unused_seggroups_close():
                                  AWS_SECRET_ACCESS_KEY_BAD,
                                  retry=False)
 
-    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
-    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
-
-    assert not \
-        ec2.has_unused_seggroups(AWS_ACCESS_KEY_ID,
-                                 AWS_SECRET_ACCESS_KEY,
-                                 retry=False)
-    os.environ.pop('http_proxy', None)
-    os.environ.pop('https_proxy', None)
+    with no_connection():
+        assert not ec2.has_unused_seggroups(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
 
 
 def test_vpcs_flowlogs_close():
@@ -166,12 +154,6 @@ def test_vpcs_flowlogs_close():
                                  AWS_SECRET_ACCESS_KEY_BAD,
                                  retry=False)
 
-    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
-    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
-
-    assert not \
-        ec2.vpcs_without_flowlog(AWS_ACCESS_KEY_ID,
-                                 AWS_SECRET_ACCESS_KEY,
-                                 retry=False)
-    os.environ.pop('http_proxy', None)
-    os.environ.pop('https_proxy', None)
+    with no_connection():
+        assert not ec2.vpcs_without_flowlog(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)

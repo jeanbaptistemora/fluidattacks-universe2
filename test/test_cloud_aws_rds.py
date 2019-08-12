@@ -4,6 +4,7 @@
 
 # standard imports
 import os
+from contextlib import contextmanager
 
 # 3rd party imports
 # None
@@ -17,9 +18,32 @@ AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_SECRET_ACCESS_KEY_BAD = "bad"
 
+
+#
+# Helpers
+#
+
+
+@contextmanager
+def no_connection():
+    """Proxy something temporarily."""
+    os.environ['HTTP_PROXY'] = '127.0.0.1:8080'
+    os.environ['HTTPS_PROXY'] = '127.0.0.1:8080'
+    try:
+        yield
+    finally:
+        os.environ.pop('HTTP_PROXY', None)
+        os.environ.pop('HTTPS_PROXY', None)
+
+
 #
 # Open tests
 #
+
+
+def test_instance_public_open():
+    """RDS instances are public?."""
+    assert rds.has_public_instances(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
 
 
 #
@@ -28,17 +52,11 @@ AWS_SECRET_ACCESS_KEY_BAD = "bad"
 
 
 def test_instance_public_close():
-    """RDS instance public?."""
+    """RDS instance are public?."""
     assert not rds.has_public_instances(AWS_ACCESS_KEY_ID,
                                         AWS_SECRET_ACCESS_KEY_BAD,
                                         retry=False)
 
-    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
-    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
-
-    assert not rds.has_public_instances(AWS_ACCESS_KEY_ID,
-                                        AWS_SECRET_ACCESS_KEY,
-                                        retry=False)
-
-    os.environ.pop('http_proxy', None)
-    os.environ.pop('https_proxy', None)
+    with no_connection():
+        assert not rds.has_public_instances(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)

@@ -4,6 +4,7 @@
 
 # standard imports
 import os
+from contextlib import contextmanager
 
 # 3rd party imports
 # None
@@ -16,6 +17,24 @@ from fluidasserts.cloud.aws import cloudtrail
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_SECRET_ACCESS_KEY_BAD = "bad"
+
+
+#
+# Helpers
+#
+
+
+@contextmanager
+def no_connection():
+    """Proxy something temporarily."""
+    os.environ['HTTP_PROXY'] = '127.0.0.1:8080'
+    os.environ['HTTPS_PROXY'] = '127.0.0.1:8080'
+    try:
+        yield
+    finally:
+        os.environ.pop('HTTP_PROXY', None)
+        os.environ.pop('HTTPS_PROXY', None)
+
 
 #
 # Open tests
@@ -41,58 +60,40 @@ def test_unencrypted_logs_open():
 def test_trails_not_multiregion_close():
     """Search if trails are multiregion."""
     assert not cloudtrail.trails_not_multiregion(AWS_ACCESS_KEY_ID,
-                                                 AWS_SECRET_ACCESS_KEY,
-                                                 retry=False)
+                                                 AWS_SECRET_ACCESS_KEY)
     assert not cloudtrail.trails_not_multiregion(AWS_ACCESS_KEY_ID,
                                                  AWS_SECRET_ACCESS_KEY_BAD,
                                                  retry=False)
 
-    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
-    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
-
-    assert not cloudtrail.trails_not_multiregion(AWS_ACCESS_KEY_ID,
-                                                 AWS_SECRET_ACCESS_KEY,
-                                                 retry=False)
-    os.environ.pop('http_proxy', None)
-    os.environ.pop('https_proxy', None)
+    with no_connection():
+        assert not cloudtrail.trails_not_multiregion(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
 
 
 def test_file_validation_close():
     """Search if trails files are validated."""
     assert not cloudtrail.files_not_validated(AWS_ACCESS_KEY_ID,
-                                              AWS_SECRET_ACCESS_KEY,
-                                              retry=False)
+                                              AWS_SECRET_ACCESS_KEY)
     assert not cloudtrail.files_not_validated(AWS_ACCESS_KEY_ID,
                                               AWS_SECRET_ACCESS_KEY_BAD,
                                               retry=False)
 
-    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
-    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
-
-    assert not cloudtrail.files_not_validated(AWS_ACCESS_KEY_ID,
-                                              AWS_SECRET_ACCESS_KEY,
-                                              retry=False)
-    os.environ.pop('http_proxy', None)
-    os.environ.pop('https_proxy', None)
+    with no_connection():
+        assert not cloudtrail.files_not_validated(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
 
 
 def test_trail_bucket_public_close():
     """Search if trails buckets are public."""
     assert not cloudtrail.is_trail_bucket_public(AWS_ACCESS_KEY_ID,
-                                                 AWS_SECRET_ACCESS_KEY,
-                                                 retry=False)
+                                                 AWS_SECRET_ACCESS_KEY)
     assert not cloudtrail.is_trail_bucket_public(AWS_ACCESS_KEY_ID,
                                                  AWS_SECRET_ACCESS_KEY_BAD,
                                                  retry=False)
 
-    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
-    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
-
-    assert not cloudtrail.is_trail_bucket_public(AWS_ACCESS_KEY_ID,
-                                                 AWS_SECRET_ACCESS_KEY,
-                                                 retry=False)
-    os.environ.pop('http_proxy', None)
-    os.environ.pop('https_proxy', None)
+    with no_connection():
+        assert not cloudtrail.is_trail_bucket_public(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
 
 
 def test_trail_bucket_logging_close():
@@ -102,15 +103,9 @@ def test_trail_bucket_logging_close():
                                                     AWS_SECRET_ACCESS_KEY_BAD,
                                                     retry=False)
 
-    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
-    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
-
-    assert not \
-        cloudtrail.is_trail_bucket_logging_disabled(AWS_ACCESS_KEY_ID,
-                                                    AWS_SECRET_ACCESS_KEY,
-                                                    retry=False)
-    os.environ.pop('http_proxy', None)
-    os.environ.pop('https_proxy', None)
+    with no_connection():
+        assert not cloudtrail.is_trail_bucket_logging_disabled(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
 
 
 def test_unencrypted_logs_close():
@@ -120,12 +115,6 @@ def test_unencrypted_logs_close():
                                         AWS_SECRET_ACCESS_KEY_BAD,
                                         retry=False)
 
-    os.environ['http_proxy'] = 'https://0.0.0.0:8080'
-    os.environ['https_proxy'] = 'https://0.0.0.0:8080'
-
-    assert not \
-        cloudtrail.has_unencrypted_logs(AWS_ACCESS_KEY_ID,
-                                        AWS_SECRET_ACCESS_KEY,
-                                        retry=False)
-    os.environ.pop('http_proxy', None)
-    os.environ.pop('https_proxy', None)
+    with no_connection():
+        assert not cloudtrail.has_unencrypted_logs(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)

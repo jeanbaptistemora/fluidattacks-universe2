@@ -56,10 +56,10 @@ def has_not_geo_restrictions(key_id: str, secret: str,
                 'none':
             result.append(distro['Id'])
     if result:
-        show_open('Distributions has not geo restrictions',
+        show_open('Distributions have not geo restrictions',
                   details=dict(distributions=result))
         return True
-    show_close('All distributions has geo restrictions')
+    show_close('All distributions have geo restrictions')
     return False
 
 
@@ -102,8 +102,8 @@ def has_logging_disabled(key_id: str, secret: str,
         if not config['DistributionConfig']['Logging']['Enabled']:
             result.append(distro['Id'])
     if result:
-        show_open('Distributions has not logging enabled',
+        show_open('Distributions have not logging enabled',
                   details=dict(distributions=result))
         return True
-    show_close('All distributions has logging enabled')
+    show_close('All distributions have logging enabled')
     return False
