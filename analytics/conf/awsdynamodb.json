@@ -109,18 +109,9 @@
         "treatment_justification": "string",
         "treatment_manager": "string",
         "user_interaction": "number",
+        "verification_date": "date-time",
+        "verification_request_date": "date-time",
         "vulnerability": "string"
-      }
-    },
-    "FI_findings_email": {
-      "primary-keys": [
-        "project_name",
-        "unique_id"
-      ],
-      "schema": {
-        "project_name": "string",
-        "unique_id": "string",
-        "vuln_hoy": "number"
       }
     },
     "FI_project_access": {
@@ -164,20 +155,6 @@
         "type": "string"
       }
     },
-    "FI_remediated": {
-      "primary-keys": [
-        "finding_id"
-      ],
-      "schema": {
-        "finding_id": "string",
-        "finding_name": "string",
-        "hasRelease": "string",
-        "project": "string",
-        "remediated": "string",
-        "request_date": "date-time",
-        "verification_date": "date-time"
-      }
-    },
     "FI_toe": {
       "primary-keys": [
         "project"
@@ -196,6 +173,7 @@
         "email"
       ],
       "schema": {
+        "access_token": "string",
         "company": "string",
         "devices_to_notify": "set",
         "email": "string",

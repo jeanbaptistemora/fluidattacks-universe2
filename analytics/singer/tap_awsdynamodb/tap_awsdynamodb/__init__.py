@@ -17,6 +17,7 @@ Linters:
         $ python3 -m mypy --ignore-missing-imports [path]
 """
 
+import os
 import re
 import ast
 import json
@@ -222,25 +223,83 @@ def discover_schema(db_client: DB_CLNT, table_list: List[str]) -> None:
     }
 
     for table_name in table_list:
-        try:
-            file = open(f"{logs.DOMAIN}{table_name}.jsonstream", "r")
-        except FileNotFoundError:
+        stream_file: str = f"{logs.DOMAIN}{table_name}.jsonstream"
+        if not os.path.exists(stream_file):
             # Given empty tables are not downloaded
             # Then there is no file
             continue
+        with open(f"{logs.DOMAIN}{table_name}.jsonstream", "r") as file:
+            # ask dynamo for a description of the table
+            description: JSON = db_client.describe_table(TableName=table_name)
+            pkey_schema: List[JSON] = description["Table"]["KeySchema"]
 
-        # ask dynamo for a description of the table
-        description: JSON = db_client.describe_table(TableName=table_name)
-        pkey_schema: List[JSON] = description["Table"]["KeySchema"]
+            schema["tables"][table_name] = {
+                "schema": {
+                },
+                "primary-keys": [
+                    att["AttributeName"] for att in pkey_schema
+                ],
+            }
 
-        schema["tables"][table_name] = {
-            "primary-keys": [att["AttributeName"] for att in pkey_schema]
-        }
+            for line in file:
+                json_obj = json.loads(line)
+                for field in json_obj:
+                    schema["tables"][table_name]["schema"][field] = "string"
 
-        for line in file:
-            json_obj = json.loads(line)
-            for field in json_obj:
-                schema["tables"][table_name]["schema"][field] = "string"
+    print(json.dumps(schema, indent=2))
+
+
+def diff_schema(schema: dict, new_schema: dict) -> None:  # noqa
+    """Print the diff between the old schema and the new schema."""
+    tables = schema.get('tables', {})
+    new_tables = new_schema.get('tables', {})
+    for table_name, table_props in tables.items():
+        if table_name in new_tables:
+            # Get primary keys lists
+            table_prim_keys = table_props['primary-keys']
+            new_table_prim_keys = new_tables[table_name]['primary-keys']
+
+            # Get columns lists
+            table_cols = list(table_props['schema'].keys())
+            new_table_cols = list(new_tables[table_name]['schema'].keys())
+
+            # Sort them
+            table_cols.sort()
+            table_prim_keys.sort()
+            new_table_cols.sort()
+            new_table_prim_keys.sort()
+
+            if not table_prim_keys == new_table_prim_keys:
+                for key in table_prim_keys:
+                    if key not in new_table_prim_keys:
+                        schema['tables'][table_name]['primary-keys'].append(
+                            f'{key} has been DELETED')
+                for key in new_table_prim_keys:
+                    if key not in table_prim_keys:
+                        schema['tables'][table_name]['primary-keys'].append(
+                            f'{key} has been ADDED')
+            if table_cols != new_table_cols:
+                for col in table_cols:
+                    if col not in new_table_cols:
+                        schema['tables'][table_name]['schema'][col] = \
+                            f'{col} has been DELETED'
+                for col in new_table_cols:
+                    if col not in table_cols:
+                        schema['tables'][table_name]['schema'][col] = \
+                            f'{col} has been ADDED'
+        else:
+            schema['tables'][table_name] = {
+                'primary-keys': [],
+                'schema': {},
+            }
+
+    schema['tables'] = dict(sorted(schema['tables'].items()))
+    for table_name in schema['tables']:
+        schema['tables'][table_name] = dict(sorted(
+            schema['tables'][table_name].items()))
+        schema['tables'][table_name]['primary-keys'].sort()
+        schema['tables'][table_name]['schema'] = dict(sorted(
+            schema['tables'][table_name]['schema'].items()))
 
     print(json.dumps(schema, indent=2))
 
@@ -596,9 +655,8 @@ def std_number(number: Any) -> float:
     return number
 
 
-def main():
-    """Usual entry point.
-    """
+def main():  # noqa
+    """Usual entry point."""
 
     # user interface
     parser = argparse.ArgumentParser()
@@ -608,22 +666,31 @@ def main():
         dest='auth',
         type=argparse.FileType('r'),
         required=True)
-    parser.add_argument(
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument(
         '-c', '--conf',
         help='JSON config file',
         dest='conf',
-        type=argparse.FileType('r'),
-        required=True)
-    parser.add_argument(
+        type=argparse.FileType('r'))
+    group.add_argument(
         '-d', '--disc',
         help='Runs the script in discovery mode',
         dest='discovery_mode',
         action='store_true',
         default=False)
+    parser.add_argument(
+        '-u', '--update-config',
+        help='Detect changes between the current config and the new config',
+        dest='new_conf',
+        type=argparse.FileType('r'),
+        required=False)
     args = parser.parse_args()
 
     credentials = json.load(args.auth)
-    configuration = json.load(args.conf)
+    if args.conf:
+        conf = json.load(args.conf)
+    if args.new_conf:
+        new_conf = json.load(args.new_conf)
 
     (db_client, db_resource) = get_connection(credentials)
 
@@ -634,8 +701,10 @@ def main():
             write_queries(db_resource, table_name)
 
         discover_schema(db_client, table_list)
-    else:
-        for table_name, properties in configuration["tables"].items():
+    elif args.conf and args.new_conf:
+        diff_schema(conf, new_conf)
+    elif args.conf:
+        for table_name, properties in conf["tables"].items():
             write_queries(db_resource, table_name)
             try:
                 write_schema(table_name, properties)
@@ -645,6 +714,8 @@ def main():
             # empty tables are not downloaded
             except FileNotFoundError:
                 pass
+    else:
+        parser.print_help()
 
 
 if __name__ == "__main__":
