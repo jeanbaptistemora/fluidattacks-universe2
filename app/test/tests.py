@@ -72,39 +72,6 @@ class FormstackAPITests(TestCase):
 
 class GraphQLTests(TestCase):
 
-    def test_remove_vulnerability(self):
-        """check for remove_vulnerability"""
-        test_client = Client(SCHEMA)
-        query = '''
-            mutation{
-                deleteVulnerability (
-                id: "39db67dd-dec8-4957-b9c0-fc5a6f2aee03"
-                findingId: "475041513"
-                ) {
-                success
-                }
-            }
-        '''
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        result = test_client.execute(query, context_value=request)
-        assert 'errors' not in result
-        assert 'success' in result['data']['deleteVulnerability']
-
     def test_remove_resources(self):
         """ Check for remove project resources """
         repo_to_remove = {
