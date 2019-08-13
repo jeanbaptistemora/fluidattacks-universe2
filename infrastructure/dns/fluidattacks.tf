@@ -19,7 +19,7 @@ resource "aws_route53_record" "mail" {
   records = ["ghs.googlehosted.com"]
 }
 
-resource "aws_route53_record" "6002333" {
+resource "aws_route53_record" "sendgrid" {
   zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
   name    = "6002333.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
