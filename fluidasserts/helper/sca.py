@@ -99,7 +99,8 @@ def process_requirements(pkg_mgr: str, path: str,
 
     results = asynchronous.run_func(
         get_vulns_ossindex_async,
-        [((pkg_mgr, _path, dep, ver, retry), {}) for _path, dep, ver in reqs])
+        [((pkg_mgr, _path, dep, ver), {'retry': retry})
+         for _path, dep, ver in reqs])
     results = filter(lambda x: isinstance(x, tuple), results)
 
     has_vulns, proj_vulns = None, {}

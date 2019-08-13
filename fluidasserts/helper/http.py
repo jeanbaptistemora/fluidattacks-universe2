@@ -9,11 +9,9 @@
 # pylint: disable=too-many-instance-attributes
 
 # standard imports
-import time
 import hashlib
-import functools
 from collections import OrderedDict
-from typing import Optional, Tuple, Any, Callable
+from typing import Optional, Tuple
 
 # 3rd party imports
 import requests
@@ -311,19 +309,3 @@ class HTTPSession():
                     status=self.response.status_code,
                     banner=fp_headers,
                     sha256=sha256.hexdigest())
-
-
-def retry(func: Callable) -> Callable:
-    """Decorator to retry the if a ConnError is raised."""
-    @functools.wraps(func)
-    def decorated(*args, **kwargs) -> Any:  # noqa
-        """Retry the function if a ConnError is raised."""
-        if kwargs.get('retry'):
-            for _ in range(12):
-                try:
-                    return func(*args, **kwargs)
-                except ConnError:
-                    # Wait some seconds and retry
-                    time.sleep(5.0)
-        return func(*args, **kwargs)
-    return decorated
