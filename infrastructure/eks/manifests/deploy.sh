@@ -204,9 +204,11 @@ install_helm_chart gitlab/gitlab-runner serves-runner serves runner.yaml 12.1.0
 install_helm_chart banzaicloud/vault-operator vault serves vault-operator.yaml 0.4.15
 install_helm_chart stable/kube-state-metrics kube-metrics operations metrics.yaml 1.4.0
 
-kubectl apply \
-    -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.9/deploy/manifests/00-crds.yaml
-kubectl label namespace operations certmanager.k8s.io/disable-validation="true"
+# Install helm chart for cert-manager, CRDs and labeling is required
+kubectl apply -f \
+  https://raw.githubusercontent.com/jetstack/cert-manager/release-0.9/deploy/manifests/00-crds.yaml
+kubectl label namespace \
+  operations certmanager.k8s.io/disable-validation="true" --overwrite
 install_helm_chart jetstack/cert-manager cert-manager operations cert-manager.yaml v0.9.1
 
 if find_resource pods '^vault-[0-9].*3/3' -q; then
