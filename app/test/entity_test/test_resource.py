@@ -89,3 +89,44 @@ class ResourceTests(TestCase):
         assert not result.errors
         assert result.data.get('addRepositories')['success']
         assert result.data.get('addEnvironments')['success']
+
+    def test_remove_resources(self):
+        """ Check for remove project resources """
+        repo_to_remove = {
+            'branch': 'master',
+            'urlRepo': 'https://gitlab.com/fluidsignal/unittest'}
+        env_to_remove = {'urlEnv': 'https://unittesting.fluidattacks.com/'}
+        query = '''mutation{
+          removeRepositories(
+            projectName: "unittesting", repositoryData: "$repo"){
+            success
+          }
+          removeEnvironments(
+            projectName: "unittesting", repositoryData: "$env"){
+            success
+          }
+        }'''
+        query = query.replace(
+            '$repo', json.dumps(repo_to_remove).replace('"', '\\"'))
+        query = query.replace(
+            '$env', json.dumps(env_to_remove).replace('"', '\\"'))
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = "unittest"
+        request.session['company'] = "unittest"
+        request.session['role'] = "admin"
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        result = SCHEMA.execute(query, context_value=request)
+        assert not result.errors
+        assert result.data.get('removeRepositories')['success']
+        assert result.data.get('removeEnvironments')['success']
