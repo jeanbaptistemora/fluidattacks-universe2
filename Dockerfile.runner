@@ -51,10 +51,10 @@ RUN apk update \
         python3-dev \
         scanelf \
         ssl_client \
-        zlib-dev \
     && apk add -u --no-cache \
         libssl1.1 \
         libcrypto1.1 \
+        libxslt-dev \
         curl \
     && rm -rf \
         /var/cache/apk/* \
