@@ -6,41 +6,44 @@ Script that checks strict spelling of certain words
 defined in strict-words.lst
 Replaces check-spelling.sh
 Author: Oscar Eduardo Prado oprado@fluidattacks.com
-Version 1.1:
-Patch note 1.1:
-- Using Python3
+Version 1.2:
+Patch note 1.2:
+- Comply with pylint
 """
 
 import os
-import print_helper
 import re
+import print_helper
 
-def spellchecker(PATH, EXIT_CODE):
-  CORRECTWDS = os.popen("cat strict-words.lst").read()
-  CORRECTWDS = CORRECTWDS.split('\n')
-  CORRECTWDS = filter(None, CORRECTWDS)
-  for CORRECT in CORRECTWDS:
-    if " " in CORRECT:
-        SRCH = CORRECT.replace(' ', '(\s)?')
-    else:
-        SRCH = CORRECT
-    #Temporary file to run checks
-    os.system("./exttxt.sh "+PATH+" >> temp.txt")
-    OUT = os.popen("pcregrep -ioM '"+SRCH+"' temp.txt").read()
-    if len(OUT) > 0:
-      RGX = '(\s|^)[\*|\+|\(]?'+SRCH+'[\*\+\)]?[\.\:\;\,]?(\s|\\n|\])'
-      RAW = os.popen("pcregrep -ioM '"+RGX+"' temp.txt").read()
-      RAW = RAW.split('\n')
-      RAW = filter(None, RAW)
-      for WD in RAW:
-        WORD = re.sub('^\s|\*|\+|\(|\)|\.|\:|\;|\,|\[|\]|\s$' , '', WD)
-        if len(WORD) > 0:
-          if WORD != CORRECT:
-            print_helper.print_failure("Issue found in "+PATH+"\n")
-            print_helper.print_warning("The spelling "+WORD+" is incorrect. "\
-                                       "The only spelling admitted is "+CORRECT+"\n\n")
-            EXIT_CODE = 1
-    #Remove temporary file
-    os.system("rm -r temp.txt")
+def spellchecker(path, exit_code):
+    """
+    Define strict spelling convention
+    """
+    correctwds = os.popen("cat strict-words.lst").read()
+    correctwds = correctwds.split('\n')
+    correctwds = filter(None, correctwds)
+    for correct in correctwds:
+        if " " in correct:
+            srch = correct.replace(' ', r'(\s)?')
+        else:
+            srch = correct
+        #Temporary file to run checks
+        os.system("./exttxt.sh "+path+" >> temp.txt")
+        out = os.popen("pcregrep -ioM '"+srch+"' temp.txt").read()
+        if out:
+            rgx = r'(\s|^)[\*|\+|\(]?'+srch+r'[\*\+\)]?[\.\:\;\,]?(\s|\\n|\])'
+            raw = os.popen("pcregrep -ioM '"+rgx+"' temp.txt").read()
+            raw = raw.split('\n')
+            raw = filter(None, raw)
+            for w_d in raw:
+                word = re.sub(r'^\s|\*|\+|\(|\)|\.|\:|\;|\,|\[|\]|\s$', '', w_d)
+                if word:
+                    if word != correct:
+                        print_helper.print_failure("Issue found in "+path+"\n")
+                        print_helper.print_warning("The spelling "+word+" is incorrect. "\
+                                                   "The only spelling admitted is "+correct+"\n\n")
+                        exit_code = 1
+        #Remove temporary file
+        os.system("rm -r temp.txt")
 
-  return EXIT_CODE
+    return exit_code
