@@ -5,7 +5,7 @@
 :tags: machine learning, vulnerability, code
 :image: cover.png
 :alt: Git. Photo by Yancy Min on Unsplash: https://unsplash.com/photos/842ofHC6MaI/
-:description: Deepcode is a new player in the machine learning for vulnerability discovery field, with a lot of potential to find bugs in your code by learning from the abundant sources of high quality code available in Github. Let us see how it works and if it delivers.
+:description: Deepcode is a new player in machine learning for the vulnerability discovery field. It has a lot of potentials to find bugs in your code by learning from the abundant sources of high-quality code available in Github. Let's see how it works and if it delivers.
 :keywords: Machine learning, Vulnerability, Open Source, Deep learning, Lint, Bug
 :author: Rafael Ballestas
 :writer: raballestasr
