@@ -1,9 +1,14 @@
 """ DAL functions for findings """
 
 from __future__ import absolute_import
+from datetime import datetime
 
+import pytz
+import rollbar
 import boto3
 from boto3.dynamodb.conditions import Key
+from botocore.exceptions import ClientError
+from django.conf import settings
 
 # pylint:disable=relative-import
 from __init__ import (
@@ -56,3 +61,35 @@ def remove_evidence(file_name):
 
 def download_evidence(file_name, file_path):
     s3.download_file(FI_AWS_S3_BUCKET, file_name, file_path)
+
+
+def request_verification(finding_id):
+    success = False
+    try:
+        tzn = pytz.timezone(settings.TIME_ZONE)
+        today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+        response = TABLE.update_item(
+            Key={'finding_id': finding_id},
+            UpdateExpression='SET verification_request_date = :req_date',
+            ExpressionAttributeValues={':req_date': today})
+        success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError as ex:
+        rollbar.report_message('Error: Verification request failed',
+                               'error', extra_data=ex, payload_data=locals())
+    return success
+
+
+def verify(finding_id):
+    success = False
+    try:
+        tzn = pytz.timezone(settings.TIME_ZONE)
+        today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+        response = TABLE.update_item(
+            Key={'finding_id': finding_id},
+            UpdateExpression='SET verification_date = :verif_date',
+            ExpressionAttributeValues={':verif_date': today})
+        success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError as ex:
+        rollbar.report_message('Error: Finding verification failed',
+                               'error', extra_data=ex, payload_data=locals())
+    return success

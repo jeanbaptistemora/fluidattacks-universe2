@@ -84,21 +84,6 @@ resource "aws_dynamodb_table" "events" {
   }
 }
 
-resource "aws_dynamodb_table" "remediated" {
-  name           = "FI_remediated"
-  billing_mode   = "PAY_PER_REQUEST"
-  hash_key       = "finding_id"
-
-  attribute {
-    name = "finding_id"
-    type = "N"
-  }
-
-  point_in_time_recovery {
-    enabled = true
-  }
-}
-
 resource "aws_dynamodb_table" "toe" {
   name           = "FI_toe"
   billing_mode   = "PAY_PER_REQUEST"

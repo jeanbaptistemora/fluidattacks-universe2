@@ -96,6 +96,12 @@ def format_data(finding):
     finding['detailedSeverity'] = finding.get('severity', 0)
     finding['exploitable'] = forms_utils.is_exploitable(
         float(finding['exploitability']), finding['cvssVersion'])
+    finding['remediated'] = (
+        True if finding.get('verificationRequestDate')
+        and not finding.get('verificationDate')
+        or finding.get('verificationDate')
+        < finding.get('verificationRequestDate')
+        else False)
 
     finding['evidence'] = {
         'animation': _get_evidence('animation', finding['files']),

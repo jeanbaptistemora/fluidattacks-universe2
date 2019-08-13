@@ -336,30 +336,30 @@ def create_msj_finding_pending(act_finding, context):
 
 def get_remediated_findings():
     """Summary mail send with findings that have not been verified yet."""
-    findings = integrates_dal.get_remediated_allfin_dynamo(True)
-    if findings != []:
-        try:
-            mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
-            context = {'findings': list()}
-            cont = 0
-            for finding in findings:
-                context['findings'].append({
-                    'finding_name': finding['finding_name'],
-                    'finding_url':
-                    '{url!s}/dashboard#!/project/{project!s}/{finding!s}/description'
-                        .format(url=BASE_URL,
-                                project=str.lower(str(finding['project'])),
-                                finding=finding['finding_id']),
-                    'project': str.upper(str(finding['project']))})
-                cont += 1
-            context['total'] = cont
-            send_mail_new_remediated(mail_to, context)
-        except (TypeError, KeyError):
-            rollbar.report_message(
-                'Warning: An error ocurred getting data for remediated email',
-                'warning')
-    else:
-        LOGGER.info('There are no findings to verificate')
+    projects = project_dal.get_active_projects()
+    for project in projects:
+        findings = integrates_dal.get_remediated_project_dynamo(project)
+        if findings:
+            try:
+                mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
+                context = {'findings': list()}
+                for finding in findings:
+                    context['findings'].append({
+                        'finding_name': finding['finding'],
+                        'finding_url':
+                        '{url!s}/dashboard#!/project/{project!s}/{finding!s}/description'
+                            .format(url=BASE_URL,
+                                    project=str.lower(str(finding['project_name'])),
+                                    finding=finding['finding_id']),
+                        'project': str.upper(str(finding['project_name']))})
+                context['total'] = len(findings)
+                send_mail_new_remediated(mail_to, context)
+            except (TypeError, KeyError) as ex:
+                rollbar.report_message(
+                    'Warning: An error ocurred getting data for remediated email',
+                    'warning', extra_data=ex, payload_data=locals())
+        else:
+            LOGGER.info('There are no findings to verificate')
 
 
 def weekly_report():

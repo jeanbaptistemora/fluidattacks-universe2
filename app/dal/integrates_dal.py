@@ -912,18 +912,24 @@ def get_remediated_allfin_dynamo(filter_value):
 
 
 def get_remediated_project_dynamo(project_name):
-    """Gets the treatment by project."""
-    table = DYNAMODB_RESOURCE.Table('FI_remediated')
-    filter_key = 'project'
-    filtering_exp = Key(filter_key).eq(project_name) & Key('remediated').eq(True)
+    """Gets findings pending for verification"""
+    table = DYNAMODB_RESOURCE.Table('FI_findings')
+    filtering_exp = Attr('project_name').eq(project_name.lower()) \
+        & Attr('verification_request_date').exists() \
+        & Attr('verification_request_date').ne(None)
     response = table.scan(FilterExpression=filtering_exp)
-    items = response['Items']
+    findings = response['Items']
     while response.get('LastEvaluatedKey'):
         response = table.scan(
             FilterExpression=filtering_exp,
             ExclusiveStartKey=response['LastEvaluatedKey'])
-        items += response['Items']
-    return items
+        findings += response['Items']
+
+    pending_to_verify = [finding for finding in findings
+                         if not finding.get('verification_date')
+                         or finding.get('verification_date')
+                         < finding.get('verification_request_date')]
+    return pending_to_verify
 
 
 def get_project_dynamo(project):

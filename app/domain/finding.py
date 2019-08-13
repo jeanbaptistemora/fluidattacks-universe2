@@ -346,9 +346,7 @@ def verify_finding(finding_id, user_email):
     finding_name = \
         integrates_dal.get_finding_attributes_dynamo(finding_id,
                                                      ['finding']).get('finding')
-    success = \
-        integrates_dal.add_remediated_dynamo(int(finding_id), False,
-                                             project_name, finding_name)
+    success = finding_dal.verify(finding_id)
     if success:
         update_vulnerabilities_date(user_email, finding_id)
         send_finding_verified_email(finding_id,
@@ -397,8 +395,7 @@ def request_verification(finding_id, user_email, user_fullname, justification):
     finding_name = \
         integrates_dal.get_finding_attributes_dynamo(finding_id,
                                                      ['finding']).get('finding')
-    success = integrates_dal.add_remediated_dynamo(int(finding_id), True,
-                                                   project_name, finding_name)
+    success = finding_dal.request_verification(finding_id)
     if success:
         comment_data = {
             'user_id': int(round(time() * 1000)),

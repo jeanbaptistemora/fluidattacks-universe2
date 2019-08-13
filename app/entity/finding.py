@@ -81,6 +81,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.report_date = resp.get('reportDate', '')
             self.analyst = resp.get('analyst', '')
             self.treatment = resp.get('treatment', '')
+            self.remediated = resp.get('remediated')
 
     def resolve_id(self, info):
         """Resolve id attribute."""
@@ -316,8 +317,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_remediated(self, info):
         """ Resolve remediated attribute """
         del info
-        remediations = integrates_dal.get_remediated_dynamo(int(self.id))
-        self.remediated = remediations[-1]['remediated'] if remediations else False
         return self.remediated
 
     def resolve_type(self, info):
@@ -683,12 +682,18 @@ class UpdateTreatment(Mutation):
     def mutate(self, info, finding_id, **parameters):
         user_data = util.get_jwt_content(info.context)
         project_name = get_project_name(finding_id)
-        treatment_state = \
-            integrates_dal.get_finding_attributes_dynamo(finding_id, ['treatment'])
-        if treatment_state and \
-                parameters['treatment'] != treatment_state.get('treatment'):
-            remediations = integrates_dal.get_remediated_dynamo(int(finding_id))
-            if remediations and remediations[-1]['remediated']:
+        finding_attrs = integrates_dal.get_finding_attributes_dynamo(
+            finding_id,
+            ['treatment', 'verification_request_date', 'verification_date'])
+        if finding_attrs and \
+                parameters['treatment'] != finding_attrs.get('treatment'):
+            has_pending_verification = (
+                True if finding_attrs.get('verification_request_date')
+                and not finding_attrs.get('verification_date')
+                or finding_attrs.get('verification_date')
+                < finding_attrs.get('verification_request_date')
+                else False)
+            if has_pending_verification:
                 raise GraphQLError('Verification process')
             else:
                 # request verified or there isn't a request verification
