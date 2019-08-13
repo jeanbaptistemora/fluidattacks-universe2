@@ -59,11 +59,12 @@ def _get_records_from_file(project_name, finding_id, file_name):
 
     try:
         with io.open(file_path, mode='r', encoding=encoding) as records_file:
-            csv_reader = csv.DictReader(records_file)
+            csv_reader = csv.reader(records_file)
             max_rows = 1000
-            file_content = [row
+            headers = csv_reader.next()
+            file_content = [util.list_to_dict(headers, row)
                             for row in itertools.islice(csv_reader, max_rows)]
-    except (csv.Error, UnicodeDecodeError) as ex:
+    except (csv.Error, LookupError, UnicodeDecodeError) as ex:
         rollbar.report_message('Error: Couldnt read records file', 'error',
                                extra_data=ex, payload_data=locals())
 
