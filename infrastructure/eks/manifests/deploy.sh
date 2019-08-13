@@ -77,22 +77,23 @@ function get_vault_approle_token() {
 
 function install_helm_chart() {
   local chart="${1}"
-  local name="${2}"
-  local namespace="${3}"
-  local values="helm/${4}"
+  local name="--name ${2}"
+  local namespace="--namespace ${3}"
+  local values="--values helm/${4}"
+  local version="--version ${5}"
   replace_env_variables "${values}"
-  if helm list --tls | grep -q "${name}"; then
+  if helm list --tls | grep -q "${$2}"; then
     mapfile -t changed_files < <(get_changed_files)
-    if echo "${changed_files[@]}" | grep -o "${values}"; then
+    if echo "${changed_files[@]}" | grep -o "helm/${4}"; then
       echo-blue "Upgrading chart ${chart}..."
-      helm upgrade "${name}" "${chart}" --values "${values}" --wait --tls
+      helm upgrade "${name}" "${chart}" "${values}" "${version}" --wait --tls
     else
       echo-blue "Chart ${chart} is up to date!"
     fi
   else
     echo-blue "Installing chart ${chart}..."
-    helm install "${chart}" --name "${name}" --namespace "${namespace}" \
-      --values "${values}" --wait --tls
+    helm install "${chart}" "${name}" "${namespace}" \
+      "${version}" "${values}" --wait --tls
   fi
 }
 
@@ -185,14 +186,19 @@ kubectl config set-context $(kubectl config current-context) \
 
 helm init --client-only
 helm repo add gitlab https://charts.gitlab.io
+helm repo add jetstack https://charts.jetstack.io
 helm repo add banzaicloud http://kubernetes-charts.banzaicloud.com/branch/master
 helm repo update
 
-install_helm_chart stable/nginx-ingress controller serves nginx.yaml
-install_helm_chart gitlab/gitlab-runner serves-runner serves runner.yaml
-install_helm_chart stable/cert-manager cert-manager operations cert-manager.yaml
-install_helm_chart banzaicloud/vault-operator vault serves vault-operator.yaml
-install_helm_chart stable/kube-state-metrics kube-metrics operations metrics.yaml
+install_helm_chart stable/nginx-ingress controller serves nginx.yaml 0.24.1
+install_helm_chart gitlab/gitlab-runner serves-runner serves runner.yaml 12.1.0
+install_helm_chart banzaicloud/vault-operator vault serves vault-operator.yaml 0.4.15
+install_helm_chart stable/kube-state-metrics kube-metrics operations metrics.yaml 1.4.0
+
+kubectl apply \
+    -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.9/deploy/manifests/00-crds.yaml
+kubectl label namespace operations certmanager.k8s.io/disable-validation="true"
+install_helm_chart jetstack/cert-manager cert-manager operations cert-manager.yaml v0.9.1
 
 if find_resource pods '^vault-[0-9].*3/3' -q; then
   echo-blue "Vault already deployed and initialized."
