@@ -63,45 +63,6 @@ p {
   }
 }
 
-.products {
-  padding-bottom: 30px;
-
-}
-
-.product {
-  padding: 5px;
-
-  p {
-    margin-bottom: 10px;
-  }
-
-  span {
-    font-size: 30px;
-  }
-
-}
-
-
-.itmntxt {
-  float: left;
-  padding-top: 12px;
-  width: 100px;
-
-  .item-drk-gray {
-    margin: 0;
-  }
-
-  .item-gray {
-    margin: 0;
-  }
-}
-
-.imgntxt {
-  float: left;
-  margin: 0;
-  width: 130px;
-}
-
 .benefits {
   background-color: $fluid-black;
   clear: both;
