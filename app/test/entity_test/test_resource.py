@@ -1,10 +1,13 @@
 import json
+from tempfile import NamedTemporaryFile
 
 import pytest
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
+from django.core.files import File
+from graphene.test import Client
 from jose import jwt
 
 from app.api.schema import SCHEMA
@@ -130,3 +133,49 @@ class ResourceTests(TestCase):
         assert not result.errors
         assert result.data.get('removeRepositories')['success']
         assert result.data.get('removeEnvironments')['success']
+
+    def test_upload_files(self):
+        file_to_upload = NamedTemporaryFile()
+        with file_to_upload.file as test_file:
+            file_data = [
+                {'description': 'test',
+                 'fileName': file_to_upload.name.split('/')[2],
+                 'uploadDate': ''}
+            ]
+            query = '''
+            mutation {
+            addFiles (
+                filesData: "$fileData",
+                projectName: "UNITTESTING") {
+                success
+                resources {
+                environments
+                files
+                repositories
+                }
+            }
+            }
+            '''
+            query = query.replace(
+                '$fileData', json.dumps(file_data).replace('"', '\\"'))
+            testing_client = Client(SCHEMA)
+            request = RequestFactory().get('/')
+            middleware = SessionMiddleware()
+            middleware.process_request(request)
+            request.session.save()
+            request.session['username'] = 'unittest'
+            request.session['company'] = 'unittest'
+            request.session['role'] = 'admin'
+            request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+                {
+                    'user_email': 'unittest',
+                    'user_role': 'admin',
+                    'company': 'unittest'
+                },
+                algorithm='HS512',
+                key=settings.JWT_SECRET,
+            )
+            request.FILES['document'] = File(test_file)
+            result = testing_client.execute(query, context_value=request)
+            assert 'errors' not in result
+            assert 'success' in result['data']['addFiles']

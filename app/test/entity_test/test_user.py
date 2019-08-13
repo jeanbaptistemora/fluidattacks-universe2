@@ -86,3 +86,47 @@ class UserTests(TestCase):
         print result
         assert 'errors' not in result
         assert 'userData' in result['data']
+
+    def test_add_user(self):
+        query = '''
+            mutation {
+              grantUserAccess (
+                email: "test@test.test",
+                organization: "test",
+                phoneNumber: "7357",
+                projectName: "test",
+                responsibility: "test",
+                  role: "customer") {
+                    success
+                      grantedUser {
+                        email
+                        role
+                        responsibility
+                        phoneNumber
+                        organization
+                        firstLogin
+                        lastLogin
+                    }
+                }
+            }
+        '''
+        testing_client = Client(SCHEMA)
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        result = testing_client.execute(query, context_value=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['grantUserAccess']
