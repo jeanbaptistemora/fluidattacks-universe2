@@ -77,23 +77,32 @@ function get_vault_approle_token() {
 
 function install_helm_chart() {
   local chart="${1}"
-  local name="--name ${2}"
-  local namespace="--namespace ${3}"
-  local values="--values helm/${4}"
-  local version="--version ${5}"
+  local name="${2}"
+  local namespace="${3}"
+  local values="helm/${4}"
+  local version="${5}"
   replace_env_variables "${values}"
-  if helm list --tls | grep -q "${$2}"; then
+  if helm list --tls | grep -q "${name}"; then
     mapfile -t changed_files < <(get_changed_files)
-    if echo "${changed_files[@]}" | grep -o "helm/${4}"; then
+    if echo "${changed_files[@]}" | grep -o "${values}"; then
       echo-blue "Upgrading chart ${chart}..."
-      helm upgrade "${name}" "${chart}" "${values}" "${version}" --wait --tls
+      helm upgrade "${name}" "${chart}" \
+        --values "${values}" \
+        --version "${version}" \
+        --wait \
+        --tls
     else
       echo-blue "Chart ${chart} is up to date!"
     fi
   else
     echo-blue "Installing chart ${chart}..."
-    helm install "${chart}" "${name}" "${namespace}" \
-      "${version}" "${values}" --wait --tls
+    helm install "${chart}" \
+      --name "${name}" \
+      --namespace "${namespace}" \
+      --values "${values}" \
+      --version "${version}" \
+      --wait \
+      --tls
   fi
 }
 
