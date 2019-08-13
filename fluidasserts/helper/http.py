@@ -2,6 +2,12 @@
 
 """This module provide support for HTTP connections."""
 
+# pylint: disable=no-member
+# pylint: disable=import-error
+# pylint: disable=protected-access
+# pylint: disable=too-many-arguments
+# pylint: disable=too-many-instance-attributes
+
 # standard imports
 import time
 import hashlib
@@ -10,68 +16,86 @@ from collections import OrderedDict
 from typing import Optional, Tuple, Any, Callable
 
 # 3rd party imports
-from urllib.parse import quote
-
-from bs4 import BeautifulSoup
 import requests
-# pylint: disable=import-error
+from bs4 import BeautifulSoup
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 # local imports
-# None
 
-# pylint: disable=protected-access
-# pylint: disable=too-many-instance-attributes
-# pylint: disable=too-many-arguments
 
-# pylint: disable=no-member
+# On call
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
 class ConnError(Exception):
-    """
-    A connection error occurred.
+    """A connection error occurred."""
 
-    :py:exc:`requests.ConnectionError` wrapper exception.
-    """
+    errors: tuple = (
+        requests.exceptions.ChunkedEncodingError,
+        requests.exceptions.ConnectTimeout,
+        requests.exceptions.ConnectionError,
+        requests.exceptions.ContentDecodingError,
+        requests.exceptions.HTTPError,
+        requests.exceptions.ProxyError,
+        requests.exceptions.ReadTimeout,
+        requests.exceptions.RetryError,
+        requests.exceptions.SSLError,
+        requests.exceptions.StreamConsumedError,
+        requests.exceptions.Timeout,
+        requests.exceptions.TooManyRedirects,
+        requests.exceptions.UnrewindableBodyError,
+    )
 
 
 class ParameterError(Exception):
-    """
-    A parameter (user input) error occurred.
+    """A parameter (user input) error occurred."""
 
-    :py:exc:`requests.ConnectionError` wrapper exception.
-    """
+    errors: tuple = (
+        requests.exceptions.URLRequired,
+        requests.exceptions.InvalidHeader,
+        requests.exceptions.InvalidProxyURL,
+        requests.exceptions.InvalidSchema,
+        requests.exceptions.InvalidURL,
+        requests.exceptions.MissingSchema,
+    )
 
 
 class HTTPSession():
     """Class of HTTP request objects."""
 
-    def __init__(self, url: str, params: Optional[str] = None,
-                 headers: Optional[dict] = None, method: Optional[str] = None,
+    def __init__(self,
+                 url: str,
+                 params: Optional[str] = None,
+                 headers: Optional[dict] = None,
+                 method: Optional[str] = None,
                  cookies: requests.cookies.RequestsCookieJar = None,
                  data: Optional[str] = '',
                  json: Optional[dict] = None,
                  files: Optional[dict] = None,
                  auth: Optional[Tuple[str, str]] = None,
                  redirect: Optional[bool] = True,
-                 timeout: Optional[int] = 10,
+                 timeout: Optional[float] = 10.0,
                  stream: Optional[bool] = False) -> None:
         """
         Construct method.
 
-        :param method: Must be either ``PUT`` or ``DELETE``.
         :param url: URL for the new :class:`.HTTPSession` object.
         :param params: Parameters to send with the :class:`requests.Request`.
+                       the :class:`~requests.Request` body.
+        :param headers: Dict of HTTP headers to send with the Request.
+        :param method: Must be either ``OPTIONS``, ``HEAD``, ``PUT``,
+                       ``PATCH``, or ``DELETE``.
+        :param cookies: Dict or CookieJar object to send with the Request.
         :param data: Payload to be sent in
                      the :class:`~requests.Request` body.
         :param json: Dictionary to be sent in
                      the :class:`~requests.Request` body.
-        :param headers: Dict of HTTP headers to send with the Request.
-        :param cookies: Dict or CookieJar object to send with the Request.
         :param files: Dictionary of ``'name': file-like-objects``
                       for multipart encoding upload.
         :param auth: Auth tuple to enable Basic/Digest/Custom HTTP Auth.
+        :param redirect: Indicates if redirects should be followed.
+        :param timeout: Time to wait for the response before raising a
+                        timeout error.
         :param stream: If ``False``, the response content
                        will be immediately downloaded.
         """
@@ -110,44 +134,6 @@ class HTTPSession():
         """Context manager clean up function."""
         pass
 
-    def __do_put(self) -> Optional[requests.Response]:
-        self.verb_used = 'PUT'
-        try:
-            return requests.put(self.url, verify=False,
-                                auth=self.auth,
-                                params=self.params,
-                                cookies=self.cookies,
-                                data=self.data,
-                                json=self.json,
-                                headers=self.headers,
-                                allow_redirects=self.redirect,
-                                timeout=self.timeout)
-        except (requests.exceptions.ConnectionError,
-                requests.exceptions.TooManyRedirects) as exc:
-            raise ConnError(exc)
-        except (requests.exceptions.MissingSchema,
-                requests.exceptions.InvalidSchema) as exc:
-            raise ParameterError(exc)
-
-    def __do_delete(self) -> Optional[requests.Response]:
-        self.verb_used = 'DELETE'
-        try:
-            return requests.delete(self.url, verify=False,
-                                   auth=self.auth,
-                                   params=self.params,
-                                   cookies=self.cookies,
-                                   data=self.data,
-                                   json=self.json,
-                                   headers=self.headers,
-                                   allow_redirects=self.redirect,
-                                   timeout=self.timeout)
-        except (requests.exceptions.ConnectionError,
-                requests.exceptions.TooManyRedirects) as exc:
-            raise ConnError(exc)
-        except (requests.exceptions.MissingSchema,
-                requests.exceptions.InvalidSchema) as exc:
-            raise ParameterError(exc)
-
     def __do_post_json(self) -> Optional[requests.Response]:
         self.verb_used = 'POST'
         try:
@@ -159,13 +145,9 @@ class HTTPSession():
                                  stream=self.stream,
                                  allow_redirects=self.redirect,
                                  timeout=self.timeout)
-        except (requests.exceptions.ConnectionError,
-                requests.exceptions.TooManyRedirects,
-                requests.exceptions.ReadTimeout,
-                requests.exceptions.ChunkedEncodingError) as exc:
+        except ConnError.errors as exc:
             raise ConnError(exc)
-        except (requests.exceptions.MissingSchema,
-                requests.exceptions.InvalidSchema) as exc:
+        except ParameterError.errors as exc:
             raise ParameterError(exc)
 
     def __do_post_files(self) -> Optional[requests.Response]:
@@ -179,13 +161,9 @@ class HTTPSession():
                                  stream=self.stream,
                                  allow_redirects=self.redirect,
                                  timeout=self.timeout)
-        except (requests.exceptions.ConnectionError,
-                requests.exceptions.TooManyRedirects,
-                requests.exceptions.ReadTimeout,
-                requests.exceptions.ChunkedEncodingError) as exc:
+        except ConnError.errors as exc:
             raise ConnError(exc)
-        except (requests.exceptions.MissingSchema,
-                requests.exceptions.InvalidSchema) as exc:
+        except ParameterError.errors as exc:
             raise ParameterError(exc)
 
     def __do_get(self) -> Optional[requests.Response]:
@@ -199,13 +177,9 @@ class HTTPSession():
                                 stream=self.stream,
                                 allow_redirects=self.redirect,
                                 timeout=self.timeout)
-        except (requests.exceptions.ConnectionError,
-                requests.exceptions.TooManyRedirects,
-                requests.exceptions.ReadTimeout,
-                requests.exceptions.ChunkedEncodingError) as exc:
+        except ConnError.errors as exc:
             raise ConnError(exc)
-        except (requests.exceptions.MissingSchema,
-                requests.exceptions.InvalidSchema) as exc:
+        except ParameterError.errors as exc:
             raise ParameterError(exc)
 
     def __do_post(self) -> Optional[requests.Response]:
@@ -221,21 +195,36 @@ class HTTPSession():
                                  stream=self.stream,
                                  allow_redirects=self.redirect,
                                  timeout=self.timeout)
-        except (requests.exceptions.ConnectionError,
-                requests.exceptions.TooManyRedirects,
-                requests.exceptions.ReadTimeout,
-                requests.exceptions.ChunkedEncodingError) as exc:
+        except ConnError.errors as exc:
             raise ConnError(exc)
-        except (requests.exceptions.MissingSchema,
-                requests.exceptions.InvalidSchema) as exc:
+        except ParameterError.errors as exc:
+            raise ParameterError(exc)
+
+    def __do_generic(self) -> Optional[requests.Response]:
+        self.verb_used = self.method.upper()
+        try:
+            return requests.request(method=self.method,
+                                    url=self.url,
+                                    params=self.params,
+                                    data=self.data,
+                                    json=self.json,
+                                    headers=self.headers,
+                                    cookies=self.cookies,
+                                    files=self.files,
+                                    auth=self.auth,
+                                    timeout=self.timeout,
+                                    allow_redirects=self.redirect,
+                                    stream=self.stream,
+                                    verify=False)
+        except ConnError.errors as exc:
+            raise ConnError(exc)
+        except ParameterError.errors as exc:
             raise ParameterError(exc)
 
     def do_request(self) -> Optional[requests.Response]:
         """Do HTTP request."""
-        if self.method == 'PUT':
-            self.response = self.__do_put()
-        elif self.method == 'DELETE':
-            self.response = self.__do_delete()
+        if self.method:
+            self.response = self.__do_generic()
         elif self.data == '':
             if self.json:
                 self.response = self.__do_post_json()
@@ -273,7 +262,7 @@ class HTTPSession():
 
         if http_req.cookies == {}:
             if http_req.request._cookies != {} and \
-               self.cookies != http_req.request._cookies:
+                    self.cookies != http_req.request._cookies:
                 self.cookies = http_req.request._cookies
         else:
             self.cookies = http_req.cookies
@@ -284,8 +273,7 @@ class HTTPSession():
 
     def get_html_value(self, field_type: str, field_name: str,
                        field_id: str = 'name',
-                       field: Optional[str] = 'value',
-                       enc: Optional[bool] = False) -> str:
+                       field: Optional[str] = 'value') -> str:
         """
         Get a value from an HTML field.
 
@@ -299,8 +287,6 @@ class HTTPSession():
         text_to_get = None
         if result_tag:
             text_to_get = result_tag[field]
-        if enc and text_to_get:
-            return quote(text_to_get)
         return text_to_get
 
     def get_fingerprint(self) -> dict:
@@ -328,15 +314,15 @@ class HTTPSession():
 
 
 def retry(func: Callable) -> Callable:
-    """Decorator to retry the if a ConnError/ParameterError is raised."""
+    """Decorator to retry the if a ConnError is raised."""
     @functools.wraps(func)
     def decorated(*args, **kwargs) -> Any:  # noqa
-        """Retry the function if a ConnError/ParameterError is raised."""
+        """Retry the function if a ConnError is raised."""
         if kwargs.get('retry'):
             for _ in range(12):
                 try:
                     return func(*args, **kwargs)
-                except (ConnError, ParameterError):
+                except ConnError:
                     # Wait some seconds and retry
                     time.sleep(5.0)
         return func(*args, **kwargs)

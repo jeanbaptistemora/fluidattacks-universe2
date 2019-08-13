@@ -260,6 +260,7 @@ def cache_control_ok():
 def pragma_fail():
     """Header para Control de Cache bien establecido."""
     resp = Response('Pragma FAIL')
+    resp.headers['Pragma'] = ('cache')
     return resp
 
 
@@ -736,7 +737,7 @@ def date_ok():
     """Date actualizada."""
     resp = Response()
     resp.headers['Date'] = \
-        datetime.datetime.now().strftime('%a, %d %b %Y %H:%M:%S GMT')
+        datetime.datetime.utcnow().strftime('%a, %d %b %Y %H:%M:%S GMT')
     return resp
 
 
@@ -745,6 +746,14 @@ def date_fail():
     """Date desactualizada."""
     resp = Response()
     resp.headers['Date'] = 'Wed, 23 May 1970 00:00:00 GMT'
+    return resp
+
+
+@APP.route('/http/error/500')
+def error_500():
+    """Error 500."""
+    resp = Response('Error')
+    resp.status_code = 500
     return resp
 
 

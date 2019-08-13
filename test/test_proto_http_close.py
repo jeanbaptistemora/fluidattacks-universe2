@@ -292,6 +292,20 @@ def test_a8_csrf_close(get_mock_ip):
                              cookies=bwapp_cookie)
 
 
+def test_has_multiple_text_close():
+    """Test has_multiple_text."""
+    assert not http.has_multiple_text(f'{BASE_URL}/pragma/fail', regex_list=[
+            'asdf',
+            'qwer',
+        ])
+    assert not http.has_multiple_text(
+        f'{MOCK_SERVICE}/http/error/500',
+        regex_list=[
+            'asdf',
+            'qwer',
+        ])
+
+
 def test_access_control_allow_origin_close():
     """Header Access-Control-Allow-Origin establecido?."""
     assert http.is_header_access_control_allow_origin_missing(
@@ -467,6 +481,10 @@ def test_userenum_get_close():
     assert not http.has_user_enumeration(
         '%s/userenum_get/ok' % (BAD_FORMAT_SERVICE),
         'username', params=data)
+    assert not http.has_user_enumeration(
+        NONEXISTANT_SERVICE, 'username', params=data)
+    assert not http.has_user_enumeration(
+        BAD_FORMAT_SERVICE, 'username', params=data)
 
 
 def test_bruteforce_close():
@@ -577,10 +595,8 @@ def test_frame_options_close():
 
 def test_server_close():
     """Check Server header."""
-    assert http.is_header_server_present(
-        '%s/server/ok' % (NONEXISTANT_SERVICE)).is_unknown()
-    assert http.is_header_server_present(
-        '%s/server/ok' % (BAD_FORMAT_SERVICE)).is_unknown()
+    assert http.is_header_server_present(BAD_FORMAT_SERVICE).is_unknown()
+    assert http.is_header_server_present(NONEXISTANT_SERVICE).is_unknown()
 
 
 def test_expires_close():
@@ -655,10 +671,9 @@ def test_has_clear_viewstate_close():
 
 def test_is_date_unsyncd_close():
     """Hora desincronizada?."""
-    assert not http.is_date_unsyncd(
-        '%s/date/fail' % (NONEXISTANT_SERVICE))
-    assert not http.is_date_unsyncd(
-        '%s/date/fail' % (BAD_FORMAT_SERVICE))
+    assert not http.is_date_unsyncd(f'{BASE_URL}/date/ok')
+    assert not http.is_date_unsyncd(BAD_FORMAT_SERVICE)
+    assert not http.is_date_unsyncd(NONEXISTANT_SERVICE)
 
 
 def test_is_not_https_required_close():
@@ -672,6 +687,9 @@ def test_host_injection_close():
     """Server vulnerable to Host header injection?."""
     assert not http.has_host_header_injection(
         '%s/host_injection_ok' % (BASE_URL))
+    assert not http.has_host_header_injection(
+        '%s/host_injection_ok' % (BASE_URL),
+        headers={'Host': 'fluidattacks.com'})
     assert not http.has_host_header_injection(
         '%s/host_not_found' % (BASE_URL))
     assert not http.has_host_header_injection(

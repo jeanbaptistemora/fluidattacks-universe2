@@ -22,8 +22,10 @@ from fluidasserts.proto import http
 #
 
 MOCK_SERVICE = 'http://localhost:5000'
+BASE_URL = 'http://localhost:5000/http/headers'
 NO_HEADERS = 'http://localhost:5000/noheaders'
-BASE_URL = MOCK_SERVICE + '/http/headers'
+BAD_FORMAT_SERVICE = 'fluidattacks'
+NONEXISTANT_SERVICE = 'http://nonexistant.fluidattacks.com'
 BWAPP_PORT = 80
 
 
@@ -254,7 +256,7 @@ def test_pragma_open():
 
 
 def test_has_multiple_text_open():
-    """Header Strict-Transport-Security no establecido?."""
+    """Test has_multiple_text."""
     assert http.has_multiple_text(f'{BASE_URL}/pragma/fail', regex_list=[
         'Pragma',
         'FAIL',
