@@ -35,11 +35,11 @@ variable "dbSnapId" {}
 # EKS Vars
 variable "clusterName" {}
 variable "eksAmiId" {}
-variable "eksSnetReg" {
-  type = "list"
-}
 variable "nodeStorageSize" {}
 variable "rtbId" {}
+variable "eksSnetReg" {
+  type = list(string)
+}
 
 # ElastiCache Vars
 variable "cacheGroupId" {}
@@ -50,8 +50,8 @@ variable "cacheParamGroupName" {}
 # Asserts IAM, ACR and S3 vars
 variable "asserts-bucket" {}
 variable "asserts_projects" {
-  type = "map"
-  default {
+  type = map(string)
+  default = {
     "0" = "temp"
   }
 }

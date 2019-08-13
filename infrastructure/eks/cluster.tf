@@ -4,12 +4,12 @@ variable "nodeStorageSize" {}
 variable "region" {}
 
 resource "aws_eks_cluster" "k8s_cluster" {
-  name            = "${var.clusterName}"
-  role_arn        = "${aws_iam_role.k8s_master_role.arn}"
+  name            = var.clusterName
+  role_arn        = aws_iam_role.k8s_master_role.arn
 
   vpc_config {
-    security_group_ids = ["${aws_security_group.k8s_master_sec_group.id}"]
-    subnet_ids         = ["${aws_subnet.k8s_subnets.*.id}"]
+    security_group_ids = [aws_security_group.k8s_master_sec_group.id]
+    subnet_ids         = aws_subnet.k8s_subnets.*.id
   }
 
   depends_on = [
@@ -31,8 +31,8 @@ USERDATA
 
 resource "aws_ami_copy" "eks_ami_encrypted" {
   name  = "Fluid-EKS-Encrypted"
-  source_ami_id     = "${var.eksAmiId}"
-  source_ami_region = "${var.region}"
+  source_ami_id     = var.eksAmiId
+  source_ami_region = var.region
   description = "EKS Kubernetes Worker AMI with AmazonLinux2 image"
   encrypted   = true
 }
@@ -40,16 +40,16 @@ resource "aws_ami_copy" "eks_ami_encrypted" {
 resource "aws_launch_configuration" "k8s_nodes_launch_config" {
   associate_public_ip_address = true
   ebs_optimized               = true
-  iam_instance_profile        = "${aws_iam_instance_profile.k8s_nodes_profile.name}"
-  image_id                    = "${aws_ami_copy.eks_ami_encrypted.id}"
-  instance_type               = "${var.clusterInstanceType}"
+  iam_instance_profile        = aws_iam_instance_profile.k8s_nodes_profile.name
+  image_id                    = aws_ami_copy.eks_ami_encrypted.id
+  instance_type               = var.clusterInstanceType
   name_prefix                 = "EKSWorkerNodes"
-  security_groups             = ["${aws_security_group.k8s_nodes_sec_group.id}"]
-  user_data_base64            = "${base64encode(local.k8s_nodes_userdata)}"
+  security_groups             = [aws_security_group.k8s_nodes_sec_group.id]
+  user_data_base64            = base64encode(local.k8s_nodes_userdata)
 
   root_block_device {
     volume_type = "gp2"
-    volume_size = "${var.nodeStorageSize}"
+    volume_size = var.nodeStorageSize
     delete_on_termination = true
   }
 
@@ -60,11 +60,11 @@ resource "aws_launch_configuration" "k8s_nodes_launch_config" {
 
 resource "aws_autoscaling_group" "k8s_nodes_autoscaling" {
   desired_capacity     = 3
-  launch_configuration = "${aws_launch_configuration.k8s_nodes_launch_config.id}"
+  launch_configuration = aws_launch_configuration.k8s_nodes_launch_config.id
   max_size             = 5
   min_size             = 3
   name                 = "EKSWorkerNodes"
-  vpc_zone_identifier  = ["${aws_subnet.k8s_subnets.*.id}"]
+  vpc_zone_identifier  = aws_subnet.k8s_subnets.*.id
 
   tag {
     key                 = "Name"

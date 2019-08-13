@@ -1,18 +1,18 @@
 # A Records
 resource "aws_route53_record" "web" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "web.${aws_route53_zone.fs_maindomain.name}"
   type    = "A"
   alias {
-    name     = "s3-website-us-east-1.amazonaws.com."
-    zone_id  = "Z3AQBSTGFYJSTF"
+    name                   = "s3-website-us-east-1.amazonaws.com."
+    zone_id                = "Z3AQBSTGFYJSTF"
     evaluate_target_health = false
   }
 }
 
 # CNAME records
 resource "aws_route53_record" "mail" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "mail.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
@@ -20,7 +20,7 @@ resource "aws_route53_record" "mail" {
 }
 
 resource "aws_route53_record" "sendgrid" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "6002333.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
@@ -28,7 +28,7 @@ resource "aws_route53_record" "sendgrid" {
 }
 
 resource "aws_route53_record" "env_cname" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "*.env.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
@@ -36,24 +36,23 @@ resource "aws_route53_record" "env_cname" {
 }
 
 resource "aws_route53_record" "database" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "database.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
-  records = ["${var.dbInstance}"]
+  records = [var.dbInstance]
 }
 
 resource "aws_route53_record" "emailmkt" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "emailmkt.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "3600"
   records = ["u6002333.wl084.sendgrid.net"]
 }
 
-
 resource "aws_route53_record" "go_fluid" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "go.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
@@ -61,7 +60,7 @@ resource "aws_route53_record" "go_fluid" {
 }
 
 resource "aws_route53_record" "k1_domainkey" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "k1._domainkey.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
@@ -69,7 +68,7 @@ resource "aws_route53_record" "k1_domainkey" {
 }
 
 resource "aws_route53_record" "kb_fluid" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "kb.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
@@ -77,7 +76,7 @@ resource "aws_route53_record" "kb_fluid" {
 }
 
 resource "aws_route53_record" "landing" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "landing.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "3600"
@@ -85,7 +84,7 @@ resource "aws_route53_record" "landing" {
 }
 
 resource "aws_route53_record" "mailguntracking" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "mailguntracking.mailgun.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
@@ -93,7 +92,7 @@ resource "aws_route53_record" "mailguntracking" {
 }
 
 resource "aws_route53_record" "marketing_fluid" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "marketing.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
@@ -101,7 +100,7 @@ resource "aws_route53_record" "marketing_fluid" {
 }
 
 resource "aws_route53_record" "s1_domainkey" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "s1._domainkey.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "3600"
@@ -109,7 +108,7 @@ resource "aws_route53_record" "s1_domainkey" {
 }
 
 resource "aws_route53_record" "s2_domainkey" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "s2._domainkey.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "3600"
@@ -117,7 +116,7 @@ resource "aws_route53_record" "s2_domainkey" {
 }
 
 resource "aws_route53_record" "servicios_fluid" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "servicios.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "3600"
@@ -125,7 +124,7 @@ resource "aws_route53_record" "servicios_fluid" {
 }
 
 resource "aws_route53_record" "status_fluid" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "status.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
@@ -133,7 +132,7 @@ resource "aws_route53_record" "status_fluid" {
 }
 
 resource "aws_route53_record" "t_emailmkt" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "t.emailmkt.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "3600"
@@ -141,7 +140,7 @@ resource "aws_route53_record" "t_emailmkt" {
 }
 
 resource "aws_route53_record" "t_marketing" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "t.marketing.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
@@ -149,7 +148,7 @@ resource "aws_route53_record" "t_marketing" {
 }
 
 resource "aws_route53_record" "track" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "track.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
@@ -157,7 +156,7 @@ resource "aws_route53_record" "track" {
 }
 
 resource "aws_route53_record" "vault" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "vault.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
@@ -165,7 +164,7 @@ resource "aws_route53_record" "vault" {
 }
 
 resource "aws_route53_record" "www" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "www.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
@@ -173,7 +172,7 @@ resource "aws_route53_record" "www" {
 }
 
 resource "aws_route53_record" "customerio" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "customerio.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
@@ -181,7 +180,7 @@ resource "aws_route53_record" "customerio" {
 }
 
 resource "aws_route53_record" "discourse" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "community.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
@@ -190,36 +189,42 @@ resource "aws_route53_record" "discourse" {
 
 # MX Records
 resource "aws_route53_record" "mainMX" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
-  name    = "${aws_route53_zone.fs_maindomain.name}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = aws_route53_zone.fs_maindomain.name
   type    = "MX"
   ttl     = "300"
-  records = ["5 ALT1.ASPMX.L.GOOGLE.COM.","1 ASPMX.L.GOOGLE.COM.",
-             "5 ALT2.ASPMX.L.GOOGLE.COM.","10 ASPMX2.GOOGLEMAIL.COM.",
-             "10 ASPMX3.GOOGLEMAIL.COM."]
+  records = [
+    "5 ALT1.ASPMX.L.GOOGLE.COM.",
+    "1 ASPMX.L.GOOGLE.COM.",
+    "5 ALT2.ASPMX.L.GOOGLE.COM.",
+    "10 ASPMX2.GOOGLEMAIL.COM.",
+    "10 ASPMX3.GOOGLEMAIL.COM.",
+  ]
 }
 
 resource "aws_route53_record" "mailgunMX" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "mailgun.${aws_route53_zone.fs_maindomain.name}"
   type    = "MX"
   ttl     = "300"
-  records = ["10 mxb.mailgun.org","10 mxa.mailgun.org"]
+  records = ["10 mxb.mailgun.org", "10 mxa.mailgun.org"]
 }
 
 # TXT Records
 resource "aws_route53_record" "mainTXT" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
-  name    = "${aws_route53_zone.fs_maindomain.name}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = aws_route53_zone.fs_maindomain.name
   type    = "TXT"
   ttl     = "300"
-  records = ["v=spf1 include:_spf.google.com include:spf.mandrillapp.com include:servers.mcsv.net include:customeriomail.com include:_spf.salesforce.com -all",
-             "google-site-verification=SK6CMgAtuuw7tR6eCev6XY8D6rjn9BW8AGd5KWS1b5g",
-             "MS=ms97836067"]
+  records = [
+    "v=spf1 include:_spf.google.com include:spf.mandrillapp.com include:servers.mcsv.net include:customeriomail.com include:_spf.salesforce.com -all",
+    "google-site-verification=SK6CMgAtuuw7tR6eCev6XY8D6rjn9BW8AGd5KWS1b5g",
+    "MS=ms97836067",
+  ]
 }
 
 resource "aws_route53_record" "email_dmarc" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "_dmarc.${aws_route53_zone.fs_maindomain.name}"
   type    = "TXT"
   ttl     = "300"
@@ -227,7 +232,7 @@ resource "aws_route53_record" "email_dmarc" {
 }
 
 resource "aws_route53_record" "googleTXT" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "google._domainkey.${aws_route53_zone.fs_maindomain.name}"
   type    = "TXT"
   ttl     = "300"
@@ -235,7 +240,7 @@ resource "aws_route53_record" "googleTXT" {
 }
 
 resource "aws_route53_record" "salesforceDKIM" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "salesforce.${aws_route53_zone.fs_maindomain.name}"
   type    = "TXT"
   ttl     = "300"
@@ -243,7 +248,7 @@ resource "aws_route53_record" "salesforceDKIM" {
 }
 
 resource "aws_route53_record" "mandrill_domainkey" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "mandrill._domainkey.${aws_route53_zone.fs_maindomain.name}"
   type    = "TXT"
   ttl     = "300"
@@ -251,7 +256,7 @@ resource "aws_route53_record" "mandrill_domainkey" {
 }
 
 resource "aws_route53_record" "smtp_domainkey" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "smtp._domainkey.mailgun.${aws_route53_zone.fs_maindomain.name}"
   type    = "TXT"
   ttl     = "300"
@@ -259,7 +264,7 @@ resource "aws_route53_record" "smtp_domainkey" {
 }
 
 resource "aws_route53_record" "customerio_ownership" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "46393._cio.${aws_route53_zone.fs_maindomain.name}"
   type    = "TXT"
   ttl     = "300"
@@ -267,9 +272,10 @@ resource "aws_route53_record" "customerio_ownership" {
 }
 
 resource "aws_route53_record" "customerio_dkim" {
-  zone_id = "${aws_route53_zone.fs_maindomain.zone_id}"
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "smtpapi._domainkey.${aws_route53_zone.fs_maindomain.name}"
   type    = "TXT"
   ttl     = "300"
   records = ["k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDPtW5iwpXVPiH5FzJ7Nrl8USzuY9zqqzjE0D1r04xDN6qwziDnmgcFNNfMewVKN2D1O+2J9N14hRprzByFwfQW76yojh54Xu3uSbQ3JP0A7k8o8GutRF8zbFUA8n0ZH2y0cIEjMliXY4W4LwPA7m4q0ObmvSjhd63O9d8z1XkUBwIDAQAB"]
 }
+
