@@ -1,10 +1,8 @@
 # pylint: disable=too-many-lines
 from __future__ import absolute_import
 from datetime import datetime
-import pytz
 from django.db import connections
 from django.db.utils import OperationalError
-from django.conf import settings
 from boto3 import resource
 from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
@@ -826,89 +824,6 @@ def delete_comment_dynamo(finding_id, user_id):
     except ClientError:
         rollbar.report_exc_info()
         return False
-
-
-def get_remediated_dynamo(finding_id):
-    """ Gets the remediated status of a finding. """
-    table = DYNAMODB_RESOURCE.Table('FI_remediated')
-    filter_key = 'finding_id'
-    filtering_exp = Key(filter_key).eq(finding_id)
-    response = table.query(KeyConditionExpression=filtering_exp)
-    items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = table.query(
-                KeyConditionExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
-    return items
-
-
-def add_remediated_dynamo(finding_id, remediated, project, finding_name):
-    """Create or update a remediate status."""
-    table = DYNAMODB_RESOURCE.Table('FI_remediated')
-    item = get_remediated_dynamo(finding_id)
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    current_time = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
-    key_date = ''
-    if remediated:
-        key_date = 'request_date'
-    else:
-        key_date = 'verification_date'
-    if not item:
-        try:
-            response = table.put_item(
-                Item={
-                    'finding_id': finding_id,
-                    'remediated': remediated,
-                    'project': project.lower(),
-                    'finding_name': finding_name,
-                    key_date: current_time
-                }
-            )
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            return resp
-        except ClientError:
-            rollbar.report_exc_info()
-            return False
-    else:
-        try:
-            response = table.update_item(
-                Key={
-                    'finding_id': finding_id,
-                },
-                UpdateExpression='SET remediated = :remediated_value,\
-                    {} = :date_value'.format(key_date),
-                ExpressionAttributeValues={
-                    ':remediated_value': remediated,
-                    ':date_value': current_time
-                }
-            )
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            return resp
-        except ClientError:
-            rollbar.report_exc_info()
-            return False
-
-
-def get_remediated_allfin_dynamo(filter_value):
-    """ Gets the treatment of all the findings. """
-    table = DYNAMODB_RESOURCE.Table('FI_remediated')
-    filter_key = 'remediated'
-    filtering_exp = Key(filter_key).eq(filter_value)
-    response = table.scan(FilterExpression=filtering_exp)
-    items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = table.scan(
-                FilterExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
-    return items
 
 
 def get_remediated_project_dynamo(project_name):
