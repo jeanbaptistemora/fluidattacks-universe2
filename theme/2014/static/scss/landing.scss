@@ -63,56 +63,24 @@ p {
   }
 }
 
-.product-footer {
-  margin: 40px auto;
-  width: 100%;
-
-  h1 {
-    color: $fluid-black;
-  }
-
-  p {
-    margin: 0 7px;
-    text-align: center;
-  }
-}
-
-.image-prod {
-  height: auto;
-  width: 212px;
-}
-
 .products {
-  align-items: center;
-  background-color: $white;
-  clear: both;
-  content: '';
-  display: table;
   padding-bottom: 30px;
-  width: 100%;
 
 }
 
 .product {
-  float: left;
   padding: 5px;
-  width: 50%;
 
   p {
     margin-bottom: 10px;
-    text-align: center;
   }
+
+  span {
+    font-size: 30px;
+  }
+
 }
 
-.big-span {
-  span {
-    color: $fluid-black;
-    display: block;
-    font-family: 'Montserrat';
-    font-size: 30px;
-    font-weight: bold;
-  }
-}
 
 .itmntxt {
   float: left;
@@ -274,19 +242,6 @@ p {
     width: 230px;
   }
 }
-
-@media screen and (max-width: 1000px) {
-
-  .hide-on-small {
-    display: none;
-  }
-
-  .product {
-    width: 100%;
-  }
-
-}
-
 
 @media (min-width: 860px) {
   .cstmr-msg {
