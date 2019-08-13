@@ -157,7 +157,7 @@ def cast_event_attributes(event):
     return event
 
 
-def parse_event_dynamo(submission_id, context):
+def parse_event_dynamo(submission_id):
     """Parse event data."""
     event_headers = [
         'analyst', 'client', 'project_name', 'client_project', 'report_date',
@@ -179,11 +179,10 @@ def parse_event_dynamo(submission_id, context):
                        if k in event.keys()}
         parsed_dict['id'] = event.get('event_id')
     else:
-        util.cloudwatch_log(
-            context,
-            'Event {submission_id} does not have data in dynamo'.format(
-                submission_id=submission_id)
-        )
+        rollbar.report_message(
+            'Error: Event {submission_id} does not have '
+            'data in dynamo'.format(submission_id=submission_id),
+            'error')
     return parsed_dict
 
 
@@ -195,7 +194,7 @@ def event_data(submission_id, context):
         submission_id,
         event_title)
     if event:
-        event_parsed = parse_event_dynamo(submission_id, context)
+        event_parsed = parse_event_dynamo(submission_id)
     else:
         ev_dto = EventDTO()
         api = FormstackAPI()

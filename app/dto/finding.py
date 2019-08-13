@@ -653,7 +653,7 @@ def vulnerabilities_status(finding_new):
     return status
 
 
-def finding_vulnerabilities(submission_id, context):
+def finding_vulnerabilities(submission_id):
     finding = []
     if str(submission_id).isdigit() is True:
         fin_dto = FindingDTO()
@@ -662,7 +662,7 @@ def finding_vulnerabilities(submission_id, context):
             submission_id,
             api.get_submission(submission_id)
         )
-        finding_new = total_vulnerabilities(submission_id, context)
+        finding_new = total_vulnerabilities(submission_id)
         finding['cardinalidad_total'] = finding.get('openVulnerabilities')
         if (finding_new and
                 (finding_new.get('openVulnerabilities') or
@@ -716,7 +716,7 @@ def format_release(finding):
     return finding
 
 
-def total_vulnerabilities(finding_id, context):
+def total_vulnerabilities(finding_id):
     """Get total vulnerabilities in new format."""
     vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(finding_id)
     finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
@@ -728,9 +728,8 @@ def total_vulnerabilities(finding_id, context):
         elif current_state == 'closed':
             finding['closedVulnerabilities'] += 1
         else:
-            util.cloudwatch_log(context, 'Error: Vulnerability of \
-                finding {finding_id} does not have the right state'.format(
-                finding_id=finding_id))
+            # Vulnerability does not have a valid state
+            pass
     return finding
 
 

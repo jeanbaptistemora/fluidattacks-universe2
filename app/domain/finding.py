@@ -797,7 +797,7 @@ def migrate_finding(draft_id, project_name, finding_data, context):
 def get_finding(finding_id, context):
     finding = finding_dal.get_finding(finding_id)
     if not finding:
-        fs_finding = finding_vulnerabilities(finding_id, context)
+        fs_finding = finding_vulnerabilities(finding_id)
         if fs_finding:
             migrate_finding(
                 finding_id, fs_finding['projectName'], fs_finding, context)

@@ -253,7 +253,6 @@ CRONJOBS = [
     ('30 5,15 * * 1-5', 'app.scheduler.get_new_releases'),
     ('0 5 * * 1', 'app.scheduler.weekly_report'),
     ('0 4 * * *', 'app.scheduler.inactive_users'),
-    ('0 18 * * 1-5', 'app.scheduler.continuous_report'),
     ('0 9 * * 1-5',
         'app.scheduler.send_unsolved_events_email_to_all_projects'),
     ('0 8 * * 1-6', 'app.scheduler.deletion_of_finished_project'),

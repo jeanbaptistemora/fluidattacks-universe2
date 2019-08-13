@@ -235,7 +235,7 @@ def get_date_last_vulns(vulns):
     return first_day
 
 
-def get_new_vulnerabilities(context):
+def get_new_vulnerabilities():
     """Summary mail send with the findings of a project."""
     projects = project_dal.get_active_projects()
     for project in projects:
@@ -317,8 +317,8 @@ def format_vulnerabilities(delta, act_finding):
 
 def create_msj_finding_pending(act_finding, context):
     """Validate if a finding has treatment."""
-    state = str.lower(finding_vulnerabilities(act_finding['finding_id'],
-                                              context)['estado'])
+    finding_vulns = finding_vulnerabilities(act_finding['finding_id'])
+    state = finding_vulns['estado'].lower()
     if act_finding['treatment'] == 'NEW' and state == 'abierto':
         days = get_age_finding(act_finding)
         finding_name = act_finding['finding'] + ' -' + \
@@ -397,7 +397,7 @@ def inactive_users():
             integrates_dal.delete_user(user[0])
 
 
-def get_new_releases(context):
+def get_new_releases():
     """Summary mail send with findings that have not been released yet."""
     projects = integrates_dal.get_registered_projects()
     api = FormstackAPI()
@@ -408,8 +408,7 @@ def get_new_releases(context):
             finding_requests = api.get_findings(project)['submissions']
             project = str.lower(str(project[0]))
             for finding in finding_requests:
-                finding_parsed = finding_vulnerabilities(finding['id'],
-                                                         context)
+                finding_parsed = finding_vulnerabilities(finding['id'])
                 project_fin = str.lower(str(finding_parsed['projectName']))
                 if ('releaseDate' not in finding_parsed and
                         project_fin == project):
@@ -435,16 +434,17 @@ def get_new_releases(context):
         mail_to.extend(approvers)
         send_mail_new_releases(mail_to, context_finding)
     else:
-        util.cloudwatch_log(context, 'There are no new drafts')
+        rollbar.report_message('Warning: There are no new drafts',
+                               'warning')
 
 
 def send_unsolved_to_all(context):
     """Send email with unsolved events to all projects """
-    projects = integrates_dal.get_registered_projects()
+    projects = project_dal.get_active_projects()
     return [send_unsolved_events_email(x[0], context) for x in projects]
 
 
-def deletion(project, days_to_send, days_to_delete, context):
+def deletion(project, days_to_send, days_to_delete):
     formstack_api = FormstackAPI()
     remission_submissions = formstack_api.get_remmisions(project)['submissions']
     if remission_submissions:
@@ -464,7 +464,7 @@ def deletion(project, days_to_send, days_to_delete, context):
                     remission.days_until_now(lastest_remission['TIMESTAMP'])
                 is_sended = is_deleted(
                     project,
-                    days_until_now, days_to_send, days_to_delete, context)
+                    days_until_now, days_to_send, days_to_delete)
                 was_deleted = is_sended[0]
                 was_email_sended = is_sended[1]
             else:
@@ -480,7 +480,7 @@ def deletion(project, days_to_send, days_to_delete, context):
 
 
 def is_deleted(project,
-               days_until_now, days_to_send, days_to_delete, context):
+               days_until_now, days_to_send, days_to_delete):
     """Project was deleted """
     if days_until_now in days_to_send:
         context_project = {'project': project.capitalize()}
@@ -489,7 +489,7 @@ def is_deleted(project,
         was_deleted = False
         was_email_sended = True
     elif days_until_now >= days_to_delete:
-        views.delete_project(project, context)
+        views.delete_project(project)
         integrates_dal.add_attribute_dynamo(
             'FI_projects',
             ['project_name', project.lower()],
@@ -503,7 +503,7 @@ def is_deleted(project,
     return [was_deleted, was_email_sended]
 
 
-def deletion_of_finished_project(context):
+def deletion_of_finished_project():
     rollbar.report_message(
         'Warning: Function to delete finished project is running '
         'deletion finished project',
@@ -528,11 +528,11 @@ def deletion_of_finished_project(context):
         days_to_send = [6]
         days_to_delete = 7
     projects = integrates_dal.get_registered_projects()
-    return [deletion(x[0], days_to_send, days_to_delete, context)
+    return [deletion(x[0], days_to_send, days_to_delete)
             for x in projects]
 
 
-def update_indicators(context):
+def update_indicators():
     """Update in dynamo indicators."""
     projects = integrates_dal.get_registered_projects()
     table_name = 'FI_projects'
@@ -550,10 +550,8 @@ def update_indicators(context):
                 project, 'finding_id, treatment, cvss_temporal')
             indicators['last_closing_date'] = get_last_closing_vuln(findings)
             indicators['mean_remediate'] = get_mean_remediate(findings)
-            indicators['max_open_severity'] = get_max_open_severity(findings,
-                                                                    context)
-            indicators['total_treatment'] = get_total_treatment(findings,
-                                                                context)
+            indicators['max_open_severity'] = get_max_open_severity(findings)
+            indicators['total_treatment'] = get_total_treatment(findings)
             indicators['remediated_over_time'] = create_register_by_week(project)
             primary_keys = ['project_name', project]
             response = integrates_dal.add_multiple_attributes_dynamo(

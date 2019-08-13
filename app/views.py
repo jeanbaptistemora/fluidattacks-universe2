@@ -492,12 +492,12 @@ def delete_comment(comment):
     return response
 
 
-def delete_project(project, context):
+def delete_project(project):
     """Delete project information."""
     project = project.lower()
     util.invalidate_cache(project)
     are_users_removed = remove_all_users_access(project)
-    is_project_masked = mask_project_findings(project, context)
+    is_project_masked = mask_project_findings(project)
     is_project_masked_in_dynamo = mask_project_findings_dynamo(project)
     are_closings_masked = mask_project_closings(project)
     project_deleted = remove_project_from_db(project)
@@ -536,14 +536,14 @@ def remove_user_access(project, user_email):
     return is_user_removed
 
 
-def mask_project_findings(project, context):
+def mask_project_findings(project):
     """Mask project findings information."""
     api = FormstackAPI()
     try:
         finding_deleted = []
         finreqset = api.get_findings(project)['submissions']
         are_evidences_deleted = \
-            [delete_s3_all_evidences(x['id'], project, context)
+            [delete_s3_all_evidences(x['id'], project)
              for x in finreqset]
         finding_deleted.append(
             {"name": "S3", "was_deleted": all(are_evidences_deleted)})
@@ -622,7 +622,7 @@ def mask_closing(submission_id):
     return request
 
 
-def delete_s3_all_evidences(finding_id, project, context):
+def delete_s3_all_evidences(finding_id, project):
     """Delete s3 evidences files."""
     evidences_list = key_existing_list(project + "/" + finding_id)
     is_evidence_deleted = False
@@ -630,9 +630,9 @@ def delete_s3_all_evidences(finding_id, project, context):
         is_evidence_deleted_s3 = list(map(delete_s3_evidence, evidences_list))
         is_evidence_deleted = any(is_evidence_deleted_s3)
     else:
-        util.cloudwatch_log(
-            context,
-            'Info: Finding ' + finding_id + ' does not have evidences in s3')
+        rollbar.report_message(
+            'Warning: Finding {} does not have evidences in s3'.format(finding_id),
+            'warning')
         is_evidence_deleted = True
     return is_evidence_deleted
 
