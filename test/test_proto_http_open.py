@@ -508,3 +508,11 @@ def test_insecure_upload_open():
         'uploaded_file OK',
         'file',
         'test/static/example/test_open.py')
+
+
+def test_has_xsleak_by_frames_discrepancy_open():
+    """Check has_xsleak_by_frames_discrepancy."""
+    assert http.has_xsleak_by_frames_discrepancy(
+        url_a=f'{MOCK_SERVICE}/http/xsl/frames/1',
+        url_b=f'{MOCK_SERVICE}/http/xsl/frames/3',
+        need_samesite_strict_cookies=False).is_open()

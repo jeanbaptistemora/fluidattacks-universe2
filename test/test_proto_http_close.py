@@ -737,3 +737,24 @@ def test_insecure_upload_close():
         'uploaded_file OK',
         'file',
         'test/static/example/test_open.py')
+
+
+def test_has_xsleak_by_frames_discrepancy_closed():
+    """Check has_xsleak_by_frames_discrepancy."""
+    assert http.has_xsleak_by_frames_discrepancy(
+        url_a=f'{MOCK_SERVICE}/http/xsl/frames/3',
+        url_b=f'{MOCK_SERVICE}/http/xsl/frames/3',
+        need_samesite_strict_cookies=False).is_closed()
+    assert http.has_xsleak_by_frames_discrepancy(
+        url_a=f'{MOCK_SERVICE}/http/xsl/frames/1',
+        url_b=f'{MOCK_SERVICE}/http/xsl/frames/3',
+        need_samesite_strict_cookies=True).is_closed()
+
+    assert http.has_xsleak_by_frames_discrepancy(
+        url_a=f'{BAD_FORMAT_SERVICE}/http/xsl/frames/1',
+        url_b=f'{BAD_FORMAT_SERVICE}/http/xsl/frames/3',
+        need_samesite_strict_cookies=False).is_unknown()
+    assert http.has_xsleak_by_frames_discrepancy(
+        url_a=f'{NONEXISTANT_SERVICE}/http/xsl/frames/1',
+        url_b=f'{NONEXISTANT_SERVICE}/http/xsl/frames/3',
+        need_samesite_strict_cookies=False).is_unknown()

@@ -19,7 +19,7 @@ import requests
 # local imports
 from fluidasserts.helper import banner
 from fluidasserts.helper import http
-from fluidasserts import Result
+from fluidasserts import Result, Unit
 from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts import LOW, MEDIUM
 from fluidasserts import DAST
@@ -1005,6 +1005,77 @@ def has_insecure_upload(url: str, expect: str, file_param: str,
     """
     exploit_file = {file_param: open(file_path)}
     return _generic_has_text(url, expect, files=exploit_file, *args, **kwargs)
+
+
+@api(risk=MEDIUM, kind=DAST)
+def has_xsleak_by_frames_discrepancy(url_a: str,
+                                     url_b: str,
+                                     need_samesite_strict_cookies: bool,
+                                     *request_args,
+                                     **request_kwargs) -> Result:
+    r"""
+    Check if a view is vulnerable to a XSLeak by counting the number of frames.
+
+    See: `CWE-204 <https://cwe.mitre.org/data/definitions/204.html`_.
+    See: `Browser Side Channels research <{research_url}>`_.
+    See: `Real life exploitation <{exploit_url}>`_.
+
+    If the same view of a website renders a different number of frames and is
+    using cookie-based authentication and is not using cookies with the
+    `SameSite` attribute set to `Strict`, then an attacker can exploit the
+    cross-origin access to the window.frames.length object to ask binary
+    questions about the contents displayed to the user in order to violate
+    his/her privacy.
+
+    :param url_a: URL for a view.
+    :param url_b: URL for another view.
+    :param need_samesite_strict_cookies: True if at least one of the cookies
+                                         needed to load either `url_a` or
+                                         `url_b` have set the `SameSite`
+                                         attribute to Strict.
+    :param \*args: Optional arguments for :class:`.HTTPSession`.
+    :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    """.format(research_url=('https://github.com/xsleaks/xsleaks/wiki/'
+                             'Browser-Side-Channels#frame-count'),
+               exploit_url=('https://www.imperva.com/blog/'
+                            'mapping-communication-between-facebook-accounts'
+                            '-using-a-browser-based-side-channel-attack/'))
+    if need_samesite_strict_cookies:
+        return CLOSED, ('Site is not vulnerable to XSLeaks by abusing '
+                        'cross-origin window.frames.length property')
+
+    try:
+        session_a = http.HTTPSession(url_a, *request_args, **request_kwargs)
+        session_b = http.HTTPSession(url_b, *request_args, **request_kwargs)
+
+        content_a, content_b = \
+            session_a.response.text, session_b.response.text
+    except http.ConnError as exc:
+        return UNKNOWN, f'Could not connnect: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+
+    fingerprint_a, fingerprint_b = \
+        session_a.get_fingerprint(), session_b.get_fingerprint()
+
+    html_obj_a = BeautifulSoup(content_a, "html.parser")
+    html_obj_b = BeautifulSoup(content_b, "html.parser")
+
+    frames_a = len(html_obj_a('frame') + html_obj_a('iframe'))
+    frames_b = len(html_obj_b('frame') + html_obj_b('iframe'))
+
+    if frames_a != frames_b:
+        vulns = [
+            Unit(where=url,
+                 source='HTTP/Cookies/SameSite',
+                 specific=[f'window.frames.length is leaking information'],
+                 fingerprint=fp)
+            for url, fp in ((url_a, fingerprint_a), (url_b, fingerprint_b))]
+        return OPEN, ('Site is vulnerable to XSLeak due to discrepancies '
+                      'in the frame count for different resources and the use '
+                      'of cookies with the SameSite attribute not set to '
+                      '"Strict"'), vulns
+    return CLOSED, 'Site is not vulnerable to XSLeak by frame counting'
 
 
 # pylint: disable=keyword-arg-before-vararg

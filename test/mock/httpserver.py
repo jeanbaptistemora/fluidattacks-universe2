@@ -27,6 +27,7 @@ nuevos headers y funcione para más casos de prueba.
 # standard imports
 import os
 import time
+import random
 import datetime
 
 # 3rd party imports
@@ -819,6 +820,33 @@ def http_reverse_tabnabbing_fail_2():
                         Click me for a reverse tabnabbing
                     </a>
                 </li>
+            </body>
+        </html>
+        """)
+
+
+@APP.route('/http/xsl/frame', methods=['GET'])
+def http_xsl_frames():
+    """Return an HTML with three frames."""
+    return Response(f"""
+        <html>
+            <body>
+                Account ID: {os.urandom(8).hex()} <br />
+                Balance   : {random.randint(0, 1e6)}
+            </body>
+        </html>
+        """)
+
+
+@APP.route('/http/xsl/frames/<int:num>', methods=['GET'])
+def http_xsl_frames_id(num: int):
+    """Return an HTML with three frames."""
+    new_line: str = '\n'
+    iframe: str = '<iframe src="/http/xsl/frame"></iframe>'
+    return Response(f"""
+        <html>
+            <body>
+                {new_line.join(iframe for _ in range(num))}
             </body>
         </html>
         """)
