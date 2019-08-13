@@ -167,10 +167,6 @@ msgstr "Comprehensive security testing at DevOps speed"
 msgid "Header-item-3"
 msgstr "Attacking Web, APIs, mobile apps, Servers, Networks, IoT Devices"
 
-#: templates/base.html:113
-msgid "defcon-msg"
-msgstr "Are you attending Black Hat or Def Con? Book a meeting"
-
 #: templates/categories.html:4
 msgid "Categories-metadescription"
 msgstr ""

@@ -259,38 +259,6 @@ a {
   }
 }
 
-//scss-lint:disable VendorPrefix
-.defcon {
-  background-color: $fluid-dark-red;
-  height: 50px;
-  margin: 0 auto;
-  padding-bottom: 10px;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
-  width: 100%;
-  z-index: 15;
-
-  p {
-    color: $white;
-    font-style: bold;
-    text-align: center;
-  }
-}
-//scss-lint:enable VendorPrefix
-
-.defconbtn {
-  align-content: center;
-  background-color: $fluid-black;
-  border-color: $fluid-black;
-  border-radius: 13px;
-  color: $white;
-  cursor: pointer;
-  margin-left: 10px;
-  margin-top: 8px;
-  padding: 2px 17px;
-}
-
 ol {
   font-size: 18px;
   padding-left: 28px;
@@ -1168,13 +1136,6 @@ article {
   .tb-location-branch {
     left: 0;
     right: 0%;
-  }
-}
-
-// Responsive for defcon section
-@media screen and (max-width: 616px) {
-  .defcon {
-    height: 80px;
   }
 }
 
