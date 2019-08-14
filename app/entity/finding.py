@@ -23,6 +23,7 @@ from app.dto.finding import FindingDTO, get_project_name
 from app.entity.types.finding import FindingType
 from app.entity.vulnerability import Vulnerability
 from app.services import is_customeradmin
+from app.utils import findings as finding_utils
 
 
 class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
@@ -135,7 +136,11 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_records(self, info):
         """ Resolve compromised records attribute """
         del info
-
+        if self.records['url']:
+            self.records = finding_utils.get_records_from_file(
+                self.project_name, self.id, self.records['url'])
+        else:
+            self.records = []
         return self.records
 
     def resolve_severity(self, info):
@@ -153,7 +158,11 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_exploit(self, info):
         """ Resolve exploit attribute """
         del info
-
+        if self.exploit['url']:
+            self.exploit = finding_utils.get_exploit_from_file(
+                self.project_name, self.id, self.exploit['url'])
+        else:
+            self.exploit = ''
         return self.exploit
 
     def resolve_evidence(self, info):
@@ -344,10 +353,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_severity_score(self, info):
         """ Resolve precalculated severity score """
         del info
-        dyn_score = integrates_dal.get_finding_attributes_dynamo(
-            self.id, ['cvss_temporal']).get('cvss_temporal')
-        fs_score = self.severity_score
-        self.severity_score = dyn_score if dyn_score else fs_score
         return self.severity_score
 
     def resolve_report_date(self, info):

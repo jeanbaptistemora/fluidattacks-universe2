@@ -52,7 +52,7 @@ def _download_evidence_file(project_name, finding_id, file_name):
         raise Exception('Evidence not found')
 
 
-def _get_records_from_file(project_name, finding_id, file_name):
+def get_records_from_file(project_name, finding_id, file_name):
     file_path = _download_evidence_file(project_name, finding_id, file_name)
     file_content = []
     encoding = Magic(mime_encoding=True).from_file(file_path)
@@ -71,7 +71,7 @@ def _get_records_from_file(project_name, finding_id, file_name):
     return file_content
 
 
-def _get_exploit_from_file(project_name, finding_id, file_name):
+def get_exploit_from_file(project_name, finding_id, file_name):
     file_path = _download_evidence_file(project_name, finding_id, file_name)
     file_content = ''
 
@@ -114,18 +114,8 @@ def format_data(finding):
         'exploitation': _get_evidence('exploitation', finding['files'])
     }
     finding['compromisedAttrs'] = finding.get('records', '')
-    records = _get_evidence('fileRecords', finding['files'])
-    if records['url']:
-        finding['records'] = _get_records_from_file(
-            finding['projectName'], finding['findingId'], records['url'])
-    else:
-        finding['records'] = []
-    exploit = _get_evidence('exploit', finding['files'])
-    if exploit['url']:
-        finding['exploit'] = _get_exploit_from_file(
-            finding['projectName'], finding['findingId'], exploit['url'])
-    else:
-        finding['exploit'] = ''
+    finding['records'] = _get_evidence('fileRecords', finding['files'])
+    finding['exploit'] = _get_evidence('exploit', finding['files'])
 
     vulns = integrates_dal.get_vulnerabilities_dynamo(finding['findingId'])
     open_vulns = [vuln for vuln in vulns
