@@ -5,7 +5,7 @@
 :tags: machine learning, vulnerability, code
 :image: cover.png
 :alt: Photo by KP Bodenstein on Unsplash: https://unsplash.com/photos/ElQI4kGSbiw
-:description: While neural networks are great at artificial intelligence tasks, they are not without flaws. In this article we show how to create images that fool classifiers into believing they are seeing the wrong thing, while maintaining visual similarity with a correctly classified image.
+:description: While neural networks are great at artificial intelligence tasks, they are not without flaws. In this article, we show how to create images that fool classifiers into believing they are seeing the wrong thing while maintaining visual similarity with a correctly classified image.
 :keywords: Machine learning, Vulnerability, Classification, Adversarial Example, Image, Artificial Intelligence
 :author: Rafael Ballestas
 :writer: raballestasr
@@ -20,30 +20,34 @@
 Artificial Neural Networks (+ANNs+) are certainly a wondrous achievement,
 if not very intelligible.
 They solve classification and other learning tasks with great accuracy.
-However, they are not flawless and might misclassify and input.
-No problem, error is expected.
+However, they are not flawless and might misclassify certain inputs.
+No problem, some error is expected.
 But what if you could give it two inputs
 that are virtually the same,
 and get different outputs?
 Worse, what if one is correctly classified
 and the other manipulated into being classified as _anything_ you want?
-These are called _adversarial examples_ in this context.
+Could these _adversarial examples_ be the bane of neural networks?
 
-The applications are endless.
-You could fool image recognition systems, actual cameras,
+The applications are potentially endless.
+You could fool image recognition systems,
+physical security cameras,
 make an autonomous car crash,
 bypass spam filters, etc.
 
 That is just the content of one
 link:https://picoctf.com/[PicoCTF]
 challenge we came across recently.
-There is a server whose sole purpose is for you to upload an image,
-and it will do the classification and let you know the results.
+There is an application
+whose sole purpose is for the user
+to upload an image,
+and it will do the classification
+and let you know the results.
 Our task is to take the image of the dog,
 which is correctly classified as a _Malinois_, which it is,
 and manipulate it so that it is classified as a tree frog.
 However, for your image to be a proper _adversarial example_,
-it must be basically indistinguishable from the original,
+it must be perceptually indistinguishable from the original,
 i.e., it must still look like the same dog to a human:
 
 .link:http://2018shell.picoctf.com:11889/[Challenge] description.
@@ -76,13 +80,16 @@ the best way to do this is by using the gradient of the cost function:
 image:adding-noise.png[Adding noise to fool the classifier]
 
 This is called the _fast gradient sign_ method.
-This gradient can be computed _backpropagation_ again,
-but in reverse, i.e.,
-since the model is already trained,
-and we can't modify it, let us modify the picture
-little by little and see if it gets us any closer to the target.
+This gradient can be computed
+using _backpropagation_ again,
+but in reverse.
+Since the model is already trained,
+and we can't modify it,
+let us modify the picture
+little by little and
+see if it gets us any closer to the target.
 I will again borrow from
-link[@ageitgey]
+link:https://medium.com/@ageitgey[+@ageitgey+]
 since the analogy is much clearer this way:
 
 .Tweaking the image, by <<r2, [2]>>.
@@ -90,7 +97,10 @@ image::tweaking.png[Tweaking the image]
 
 The pseudo-code that would generate
 an adversarial example via this method would be as follows.
-Assume that the model is save in a +Keras+ +h5+ file, as in the challenge.
+Assume that the model is saved in a +Keras+ +h5+ file,
+as in the challenge.
+link:https://keras.io/[+Keras+] is a popular high-level
+neural networks +API+ for +Python+.
 We can load the model,
 get the input and output layers (first and last),
 get the cost and gradient functions and
@@ -103,11 +113,11 @@ returns both for a particular input, like this:
 from keras.models import load_model
 from keras import backend as K
 
-model = load_model('model.h5')
-input_layer = model.layers[0].input
-output_layer = model.layers[-1].output
-cost_function = output_layer[0, object_type_to_fake]
-gradient_function = K.gradients(cost_function, input_layer)[0]
+model                  = load_model('model.h5')
+input_layer            = model.layers[0].input
+output_layer           = model.layers[-1].output
+cost_function          = output_layer[0, object_type_to_fake]
+gradient_function      = K.gradients(cost_function, input_layer)[0]
 get_cost_and_gradients = K.function([input_layer, K.learning_phase()], [cost_function, gradient_function])
 ----
 
@@ -127,7 +137,7 @@ while confidence < 0.95:
 
 However, this procedure takes way too long
 without a +GPU+. A few hours according to <<r2, [2]>>.
-For the +CTF+er and the more practical-minded reader,
+For the +CTFer+ and the more practical-minded reader,
 there is a library which does this and other attacks
 on machine learning systems to determine their
 vulnerability to adversarial examples:
@@ -155,30 +165,36 @@ Just kidding.
 Upload it to the challenge site and,
 instead of getting the predictions, we get the flag.
 
-Not just that, the model, which is based on +MobileNet+,
-predicts is 99.99974% sure this is a tree frog,
-while the difference, according to the widely used
-perceptual hash algorithm, is less than two bits,
-although the second clearly has artifacts,
-from a human point of view.
+Not just that, the model, which is based on
+link:https://ai.googleblog.com/2017/06/mobilenets-open-source-models-for.html[+MobileNet+],
+is 99.99974% sure this is a tree frog.
+However, the difference to the original,
+according to the widely used
+perceptual hash algorithm,
+is less than two bits.
+Still, the adversarial example has artifacts,
+at least to a human observer.
 
-What's worst is that these issues persist
-_across_ different models as long as the training data is similar.
-That means that we could probably use the same image
-on a different image classifier with animal images
+The worst is that these issues persist
+_across_ different models
+as long as the training data is similar.
+That means that we could probably pass the same image
+to a different animal image classifier
 and still get the same results.
 
-So we, should think twice before deploying
+So we should think twice before deploying
 +ML+-powered security measures.
-This is of course a toy example,
+This is, of course, a toy example,
 but in more critical scenarios,
 models that are not resistant to
 adversarial examples could be catastrophic.
-Apparently, the reason behind this is the
+Apparently<<r1, ^[1]^>>,
+the reason behind this is the
 linearity in the functions hidden in these networks,
-so switching to a more non-linear model such as RBF networks
+so switching to a more non-linear model such as
+link:https://en.wikipedia.org/wiki/Radial_basis_function_network[RBF networks]
 could solve the problem.
-Another work-around could be to train the
+Another workaround could be to train the
 +ANNs+ _including_ adversarial examples.
 
 Whatever the solution, it should be clear
@@ -188,9 +204,9 @@ adapting the old woodworker's adage.
 == References
 
 . [[r1]] I. Goodfellow, J. Shlens, C. Szegedy.
-_Explaining and harnessing adversarial examples_
+_Explaining and harnessing adversarial examples_.
 link:https://arxiv.org/pdf/1412.6572.pdf[arXiv].
 
 . [[r2]] A. Geigtey.
-_Machine Learning is Fun Part 8: How to Intentionally Trick Neural Networks_
+_Machine Learning is Fun Part 8: How to Intentionally Trick Neural Networks_.
 link:https://medium.com/@ageitgey/machine-learning-is-fun-part-8-how-to-intentionally-trick-neural-networks-b55da32b7196[Medium]
