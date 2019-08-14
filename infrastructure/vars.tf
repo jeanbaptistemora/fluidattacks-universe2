@@ -50,8 +50,10 @@ variable "cacheParamGroupName" {}
 # Asserts IAM, ACR and S3 vars
 variable "asserts-bucket" {}
 variable "asserts_projects" {
-  type = map(string)
-  default = {
-    "0" = "temp"
-  }
+  type = list(string)
+  default = [
+    "temp1",
+    "temp2",
+    "temp3",
+  ]
 }

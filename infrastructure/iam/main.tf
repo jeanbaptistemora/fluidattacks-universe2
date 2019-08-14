@@ -3,7 +3,7 @@ variable "fwBucket" {}
 variable "region" {}
 variable "asserts-bucket" {}
 variable "asserts_projects" {
-  type = "map"
+  type = list(string)
 }
 
 resource "aws_iam_account_password_policy" "strict" {

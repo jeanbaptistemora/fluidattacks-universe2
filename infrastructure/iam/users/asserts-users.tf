@@ -1,15 +1,16 @@
 variable "asserts-bucket" {}
 variable "asserts_projects" {
-  type = "map"
+  type = list(string)
 }
+
 data "aws_region" "current" {}
 data "aws_caller_identity" "current" {}
 
-resource "aws_iam_policy" "asserts-policies" {
-  count = "${length(var.asserts_projects)}"
-  name = "asserts-logs-policy-${var.asserts_projects[count.index]}"
-  path = "/asserts/"
-  description = "Asserts policy for ${var.asserts_projects[count.index]}"
+resource "aws_iam_policy" "asserts-policies-1" {
+  for_each    = {for name in var.asserts_projects: name => name}
+  name        = "asserts-logs-policy-${each.value}"
+  path        = "/asserts/"
+  description = "Asserts policy for ${each.value}"
 
   policy = <<EOF
 {
@@ -22,7 +23,7 @@ resource "aws_iam_policy" "asserts-policies" {
         "ecr:BatchGetImage"
       ],
       "Resource": [
-        "arn:aws:ecr:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:repository/asserts-${var.asserts_projects[count.index]}"
+        "arn:aws:ecr:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:repository/asserts-${each.value}"
       ]
     },
     {
@@ -32,7 +33,7 @@ resource "aws_iam_policy" "asserts-policies" {
         "s3:PutObject"
       ],
       "Resource": [
-        "arn:aws:s3:::${var.asserts-bucket}/${var.asserts_projects[count.index]}/*"
+        "arn:aws:s3:::${var.asserts-bucket}/${each.value}/*"
       ]
     },
     {
@@ -46,14 +47,14 @@ resource "aws_iam_policy" "asserts-policies" {
 EOF
 }
 
-resource "aws_iam_user" "asserts-users" {
-  count = "${length(var.asserts_projects)}"
-  name = "asserts-${var.asserts_projects[count.index]}"
-  path = "/asserts/"
+resource "aws_iam_user" "asserts-users-1" {
+  for_each = {for name in var.asserts_projects: name => name}
+  name     = "asserts-${each.value}"
+  path     = "/asserts/"
 }
 
-resource "aws_iam_user_policy_attachment" "attach-policies" {
-  count = "${length(var.asserts_projects)}"
-  policy_arn = "${aws_iam_policy.asserts-policies.*.arn[count.index]}"
-  user = "${aws_iam_user.asserts-users.*.name[count.index]}"
+resource "aws_iam_user_policy_attachment" "attach-asserts-policies" {
+  for_each   = {for name in var.asserts_projects: name => name}
+  policy_arn = aws_iam_policy.asserts-policies-1[each.key].arn
+  user       = aws_iam_user.asserts-users-1[each.key].name
 }
