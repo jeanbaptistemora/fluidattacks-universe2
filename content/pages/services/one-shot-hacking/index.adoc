@@ -5,20 +5,20 @@
 
 = One-Shot Hacking
 
-The One Shot Hacking service aims to detect and report all vulnerabilities
-and security issues within one specific version of your application.
-The rigorous inspection carried out by our team allows us to detect
-all existing security issues with no false positives.
+We detect and report all vulnerabilities and security issues
+within one specific version of your application.
+The rigorous inspection carried out by our team
+allows us to detect all existing security issues with no false positives.
 
 [role="tb-alt"]
 [cols=3, frame="topbot"]
 |====
 
 2+a|== Hacking techniques
-It's possible to perform source code,
+It’s possible to perform source code,
 application or infrastructure Ethical Hacking.
-Customers are able to choose which hacking technique best suits their needs
-to fulfill each system's required security assessment.
+You can choose which hacking technique best suits your business'
+needs to fulfill each system’s required security assessment.
 
 a|image::hacking-techniques.svg[alt="Source code symbol"]
 
@@ -29,10 +29,9 @@ a|image::coverage.svg[alt="Source code symbol with successful checks"]
 Ethical Hacking can be done to achieve specific coverage,
 variable coverage or full coverage.
 
-Specific coverage refers to a system
-where its overall size can be assessed
+Specific coverage refers to a system where its overall size can be assessed
 (application fields, lines of code, open ports)
-and the customer chooses to cover only a specific percentage of the system.
+and you choose to cover only a specific percentage of the system.
 
 Variable coverage refers to a system where its overall size cannot be assessed
 and specific scope is predefined
@@ -42,24 +41,30 @@ regardless of the total size the system has.
 
 Full coverage refers to a system where its overall size can be assessed
 (application fields, lines of code, open ports)
-and the customer chooses to cover the entire system.
+and you choose to cover the entire system.
 
-2+a|== Severity
+2+a|== You decide the Severity
 
-Customers are able to decide which security requirements will be tested
-on each Ethical Hacking (Profiling)
+You can decide which security requirements
+will be tested on each Ethical Hacking (Profiling)
 through our [button]#link:../../products/rules/[Rules]# product.
-
-Customers will know the exact Ethical Hacking severity for each attack
+You will know the exact Ethical Hacking severity for each attack
 (For inspected and non-inspected profiled requirements).
+You are also able to choose one hacking environment
+from the available software environments
+(production, development, integration, etc.)
+You are able to decide which solutions
+best suit your organization's needs.
 
 a|image::strictness.svg[alt="Checklist"]
 
 a|image::duration.svg[alt="Clock"]
 
-2+a|== Duration
+2+a|== Duration and Schedule of Ethical Hacking
 
-Depending on the size of the +ToE+ attack surface.
+The duration depends on the size of the +ToE+ attack surface.
+After all requirements to start the project have been met,
+each attack will have a defined start and end date.
 
 2+a|==  Inspection Cycles
 
@@ -70,46 +75,24 @@ a|image::inspection-cycles.svg[alt="Metal Gear"]
 
 a|image::follow-up.svg[alt="Person working in a computer"]
 
-2+a|== Follow up
+2+a|==  Findings follow up using Integrates, communication and reports
 
+Customers can check out finding status during project execution
+using our [button]#link:../../products/integrates/[Integrates]# product.
 Each project will have a project manager,
-so customers can express their needs before, during and after execution.
+so you can express your company's needs before, during and after execution.
+Daily progress reports are sent via e-mail.
+Reports include coverage, strictness, partial result and overall progress.
 
-2+a|== Scheduled ethical hacking
-
-After all requirements to start an Ethical hacking have been met,
-each attack will have a defined start and end date.
-
-a|image::scheduled-hacking.svg[alt="Calendar"]
-
-a|image::hacking-envs.svg[alt="Environment in a server"]
-
-2+a|== Hacking environments
-
-Customers are able to choose one hacking environment
-from their available software environments
-(production, development, integration, etc.)
-
-2+a|== Highly trained hacking team
-
-Our hackers are certified in practical hacking in real scenarios,
-and have academic backgrounds related to security testing.
-They are able to perform manual hacking and also use tools
-to guarantee the reporting of several types of findings
-including those with specific business impacts,
-those regarding insecure programming practices,
-and those regarding standard alignment and security regulation compliance.
-This enables us to detect +Zero Day+ findings,
-all with no false positive reports.
-
-a|image::trained-team.svg[alt="Team"]
-
-a|image::exploitation.svg[alt="Computer with an open lock symbol"]
 
 2+a|== Exploitation
 
 As long as we have access to deployed applications and customer authorization,
 using our own exploitation engine [button]#link:../../products/asserts/[Asserts]#.
+
+a|image::exploitation.svg[alt="Computer with an open lock symbol"]
+
+a|image::critical-info.svg[alt="Arrows flowing out of a lock"]
 
 2+a|== Critical information extraction
 
@@ -117,10 +100,6 @@ Whenever findings indicate the need to obtain information,
 information extraction is done to maximize finding impacts
 without compromising sensitive information.
 [button]#link:../../products/integrates/#compromised-records[Example]#.
-
-a|image::critical-info.svg[alt="Arrows flowing out of a lock"]
-
-a|image::infection.svg[alt="Skull symbol in front of a computer"]
 
 2+a|== Infection
 
@@ -131,27 +110,9 @@ We use +Shells+ and  our customized cyberweapon
 [button]#link:../../products/commands/[Commands]#
 with previous customer authorization.
 
-2+a|== Daily progress reports
-
-Daily progress reports are sent via e-mail.
-Reports include coverage, strictness, partial result and overall progress.
-
-a|image::progress-report.svg[alt="Letter in an envelope"]
+a|image::infection.svg[alt="Skull symbol in front of a computer"]
 
 a|image::finding-follow-up.svg[alt="Bar graph with a continuous line on top"]
-
-2+a|== Finding follow up using Integrates
-
-Customers can check out finding status during project execution
-using our [button]#link:../../products/integrates/[Integrates]# product.
-
-2+a|== Remediation
-
-Customers can decide which solutions best suit their needs.
-
-a|image::remediation.svg[alt="Question and answer symbols"]
-
-a|image::reports-delivery.svg[alt="Computer protected by password"]
 
 2+a|== Reports delivered by secure vault
 
@@ -184,6 +145,22 @@ all information gathered during Ethical Hacking
 is deleted securely from all our systems.
 
 a|image::secure-deletion.svg[alt="Trash can with a cloud behind"]
+
+a|image::trained-team.svg[alt="Team"]
+
+2+a|== Highly trained hacking team
+
+Our hackers are certified in practical hacking in real scenarios
+and have academic backgrounds related to security testing.
+They are able to perform manual hacking and also use tools
+to guarantee the reporting of several types of findings
+including those with specific business impacts,
+those regarding insecure programming practices,
+and those regarding standard alignment and security regulation compliance.
+This enables us to detect +Zero-Day+ findings,
+all with no false-positive reports.
+
+
 
 |====
 
