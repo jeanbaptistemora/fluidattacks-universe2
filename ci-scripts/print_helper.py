@@ -1,26 +1,43 @@
+#!/usr/bin/env python3
+# coding: utf8
+
+"""
+Script to allow printing using different colors
+Author: Jonathan Armas - jarmas@fluidattacks.com
+"""
+
 import sys
 from termcolor import colored
 
-def print_info(msg, color='', *args, **kwargs):
+def print_info(msg, color=''):
+    """
+    Main function
+    """
     if color == '':
         sys.stdout.write(msg)
     else:
-        sys.stdout.write(colored(msg, color, *args, **kwargs))
+        sys.stdout.write(colored(msg, color))
 
-def print_error(msg, color='', *args, **kwargs):
-    if color == '':
-        sys.stderr.write(msg)
-    else:
-        sys.stderr.write(colored(msg, color, *args, **kwargs))
+def print_success(msg, color='green'):
+    """
+    Sucess (green) messages
+    """
+    print_info(msg, color)
 
-def print_success(msg, color='green', *args, **kwargs):
-    print_info(msg, color, *args, **kwargs)
+def print_failure(msg, color='red'):
+    """
+    Failure (red) messages
+    """
+    print_info(msg, color)
 
-def print_failure(msg, color='red', *args, **kwargs):
-    print_info(msg, color, *args, **kwargs)
+def print_warning(msg, color='yellow'):
+    """
+    Warning (yellow) messages
+    """
+    print_info(msg, color)
 
-def print_warning(msg, color='yellow', *args, **kwargs):
-    print_info(msg, color, *args, **kwargs)
-
-def print_unknown(msg, color='', *args, **kwargs):
-    print_info(msg, color, *args, **kwargs)
+def print_unknown(msg, color=''):
+    """
+    Default (white) messages
+    """
+    print_info(msg, color)
