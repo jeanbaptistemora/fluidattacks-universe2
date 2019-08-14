@@ -61,14 +61,23 @@ def run_func(func: Callable,
              return_exceptions: bool = True) -> List[Any]:
     """Run a function asynchronously over the list of arguments."""
     loop = asyncio.new_event_loop()
-    future = asyncio.gather(
-        *(asyncio.ensure_future(func(*a, **k), loop=loop)
-          for a, k in args),
-        return_exceptions=return_exceptions,
-        loop=loop)
-    result = loop.run_until_complete(future)
+    results: list = []
+    # Warning before raising this number up:
+    #   too many DNS lookups made asynchronously break the OS with
+    #   impossible-to-catch errors, the logic below buffers the number of
+    #   futures that are collected to a number that is reasonably low
+    #   compared to the maximum number of file descriptors provided by the OS
+    results_per_loop: int = 64
+    for index in range(0, len(args), results_per_loop):
+        future = asyncio.gather(
+            *(asyncio.ensure_future(func(*a, **k), loop=loop)
+              for a, k in args[index:index + results_per_loop]),
+            return_exceptions=return_exceptions,
+            loop=loop)
+        result = loop.run_until_complete(future)
+        results.extend(result)
     loop.close()
-    return result
+    return results
 
 
 def http_retry(func: Callable) -> Callable:
