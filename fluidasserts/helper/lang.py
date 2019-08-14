@@ -10,7 +10,6 @@ from functools import lru_cache
 from itertools import accumulate
 
 # 3rd party imports
-from androguard.misc import AnalyzeAPK
 from pyparsing import ParserElement, ParseException, ParseResults
 
 # local imports
@@ -384,9 +383,3 @@ def generic_method(path: str,
     if safes:
         return CLOSED, msgs[CLOSED], vulns, safes
     return CLOSED, 'No files were tested'
-
-
-@lru_cache(maxsize=None, typed=True)
-def analyze_apk(path: str) -> tuple:
-    """Return the resultant objects after analyzing the apk."""
-    return AnalyzeAPK(path)

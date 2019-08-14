@@ -3,15 +3,23 @@
 """This module allows to check ``APK`` vulnerabilities."""
 
 # standard imports
+from functools import lru_cache
 
 # 3rd party imports
+from androguard.misc import AnalyzeAPK
+from androguard.core.bytecodes.apk import APK
 
 # local imports
 from fluidasserts import show_open
 from fluidasserts import show_close
 from fluidasserts import show_unknown
-from fluidasserts.helper.lang import analyze_apk
 from fluidasserts.utils.decorators import track, level, notify
+
+
+@lru_cache(maxsize=None, typed=True)
+def analyze_apk(path: str) -> tuple:
+    """Return the resultant objects after analyzing the apk."""
+    return AnalyzeAPK(path)
 
 
 @notify
@@ -24,7 +32,7 @@ def is_unsigned(apk_file: str) -> bool:
     :param apk_file: Path to the image to be tested.
     """
     try:
-        apk, _, _ = analyze_apk(apk_file)
+        apk = APK(apk_file)
     except FileNotFoundError as exc:
         show_unknown('Error reading file',
                      details=dict(apk=apk_file, error=str(exc)))
@@ -66,3 +74,58 @@ def not_checks_for_root(apk_file: str) -> bool:
         return False
     show_open('App doesn\'t verify for root', details=dict(apk=apk_file))
     return True
+
+
+@notify
+@level('medium')
+@track
+def uses_dangerous_perms(apk_file: str) -> bool:
+    """
+    Check if the given APK uses dangerous permissions.
+
+    :param apk_file: Path to the image to be tested.
+    """
+    insecure_perms = {
+        'android.permission.READ_CALENDAR',
+        'android.permission.WRITE_CALENDAR',
+        'android.permission.CAMERA',
+        'android.permission.READ_CONTACTS',
+        'android.permission.WRITE_CONTACTS',
+        'android.permission.GET_ACCOUNTS',
+        'android.permission.ACCESS_FINE_LOCATION',
+        'android.permission.ACCESS_COARSE_LOCATION',
+        'android.permission.RECORD_AUDIO',
+        'android.permission.READ_PHONE_STATE',
+        'android.permission.READ_PHONE_NUMBERS ',
+        'android.permission.CALL_PHONE',
+        'android.permission.ANSWER_PHONE_CALLS ',
+        'android.permission.READ_CALL_LOG',
+        'android.permission.WRITE_CALL_LOG',
+        'android.permission.ADD_VOICEMAIL',
+        'android.permission.USE_SIP',
+        'android.permission.PROCESS_OUTGOING_CALLS',
+        'android.permission.BODY_SENSORS',
+        'android.permission.SEND_SMS',
+        'android.permission.RECEIVE_SMS',
+        'android.permission.READ_SMS',
+        'android.permission.RECEIVE_WAP_PUSH',
+        'android.permission.RECEIVE_MMS',
+        'android.permission.READ_EXTERNAL_STORAGE',
+        'android.permission.WRITE_EXTERNAL_STORAGE',
+    }
+    try:
+        apk = APK(apk_file)
+    except FileNotFoundError as exc:
+        show_unknown('Error reading file',
+                     details=dict(apk=apk_file, error=str(exc)))
+        return False
+
+    effective_dangerous = [x for x in apk.get_permissions()
+                           if x in insecure_perms]
+    if effective_dangerous:
+        show_open('APK uses dangerous permissions',
+                  details=dict(apk=apk_file, permissions=effective_dangerous))
+        return True
+    show_close('APK doesn\'t use dangerous permissions',
+               details=dict(apk=apk_file))
+    return False
