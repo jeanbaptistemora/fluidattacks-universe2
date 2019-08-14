@@ -56,6 +56,7 @@ module "eks" {
   rtbId               = var.rtbId
   vaultBucket         = var.vaultBucket
   vpcCidr             = var.cidr
+  vpcSecondaryCidr    = var.vpcSecondaryCidr
   vpcId               = var.vpcId
 }
 

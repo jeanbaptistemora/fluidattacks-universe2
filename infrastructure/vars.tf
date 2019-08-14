@@ -19,6 +19,7 @@ variable "clusterInstanceType" {}
 
 # Net Vars
 variable "cidr" {}
+variable "vpcSecondaryCidr" {}
 variable "vpcId" {}
 
 # DB Vars
