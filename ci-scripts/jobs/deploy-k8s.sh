@@ -25,12 +25,6 @@ deploy_newrelic() {
 
   set -e
 
-  # import functions
-  . ci-scripts/helpers/others.sh
-
-  # Logs in to vault in order to run vaultenv
-  vault_login
-
   local NEW_RELIC_URL
   local COMMITTER_EMAIL
   local LAST_COMMITS_MASTER
@@ -45,7 +39,7 @@ deploy_newrelic() {
     echo "$LAST_COMMITS_MASTER" | sed -ze 's/\n/\\n/g' -e 's/\"/\\"/g'
   )
 
-  vaultenv -- curl -X POST "$NEW_RELIC_URL/$NEW_RELIC_APP_ID/deployments.json" \
+  curl -X POST "$NEW_RELIC_URL/$NEW_RELIC_APP_ID/deployments.json" \
   -H 'X-Api-Key:'"$NEW_RELIC_API_KEY" -i \
   -H 'Content-Type:application/json' \
   -d \

@@ -178,7 +178,8 @@ test-app:
   stage: pre-test
   image: registry.gitlab.com/fluidattacks/integrates:development
   script:
-    - ./ci-scripts/jobs/test-app.sh
+    - . ci-scripts/helpers/others.sh && vault_login
+    - vaultenv ./ci-scripts/jobs/test-app.sh
   artifacts:
     name: "coverage_xml_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
@@ -284,7 +285,8 @@ build-bot:
 test-driver:
   stage: post-deploy
   script:
-    - ./ci-scripts/jobs/test-driver.sh
+    - . ci-scripts/helpers/others.sh && vault_login
+    - vaultenv ./ci-scripts/jobs/test-driver.sh
   parallel: 3
   retry: 1
   artifacts:
@@ -352,14 +354,16 @@ deploy-k8s:
     name: "production"
     url: "https://fluidattacks.com/integrates"
   script:
-    - ./ci-scripts/jobs/deploy-k8s.sh
+    - . ci-scripts/helpers/others.sh && vault_login
+    - vaultenv ./ci-scripts/jobs/deploy-k8s.sh
   only:
     - master
 
 deploy-mobile:
   stage: deploy
   script:
-    - ./ci-scripts/jobs/deploy-mobile.sh
+    - . ci-scripts/helpers/others.sh && vault_login
+    - vaultenv ./ci-scripts/jobs/deploy-mobile.sh
   environment:
     name: "mobile-review/$CI_COMMIT_REF_NAME"
     url: "https://expo.io/@developmentatfluid/integrates?release-channel=$CI_COMMIT_REF_NAME"
@@ -381,7 +385,7 @@ new-version-mail:
   script:
     - . ci-scripts/helpers/others.sh && vault_login
     - export DJANGO_SETTINGS_MODULE=fluidintegrates.settings
-    - vaultenv -- python integrates_version.py
+    - vaultenv python integrates_version.py
   only:
     - master
   except:

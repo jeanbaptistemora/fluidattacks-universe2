@@ -6,12 +6,6 @@ test_app() {
 
   set -e
 
-  # import functions
-  . ci-scripts/helpers/others.sh
-
-  # Logs in to vault in order to run vaultenv
-  vault_login
-
   # Linters
   prospector -F -s veryhigh -u django -p app/ -i node_modules || true
   prospector -F -s high -u django -p app/ -i node_modules
@@ -21,7 +15,7 @@ test_app() {
   cp -a "$PWD" /usr/src/app_src
   cd /usr/src/app_src || return 1
   service redis-server start
-  vaultenv -- pytest \
+  pytest \
     --ds=fluidintegrates.settings \
     --verbose \
     --exitfirst \

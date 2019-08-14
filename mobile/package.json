@@ -4,9 +4,9 @@
   "description": "",
   "main": "./AppEntry.js",
   "scripts": {
-    "build": "npm run publish && vaultenv -- ./buildApp.sh",
+    "build": "npm run publish && vaultenv ./buildApp.sh",
     "lint": "tslint -p tsconfig.json -t codeFrame",
-    "publish": "vaultenv -- ./publishOta.sh",
+    "publish": "vaultenv ./publishOta.sh",
     "start": "expo start",
     "test": "tsc -p tsconfig.json && jest"
   },

@@ -6,17 +6,11 @@ test_driver() {
 
   set -e
 
-  # import functions
-  . ci-scripts/helpers/others.sh
-
-  # Logs in to vault in order to run vaultenv
-  vault_login
-
   cp -a "$PWD" /usr/src/app_src
   cd /usr/src/app_src || return 1
   mkdir -p screenshots
 
-  vaultenv -- pytest \
+  pytest \
     --ds=fluidintegrates.settings \
     --verbose \
     --exitfirst \

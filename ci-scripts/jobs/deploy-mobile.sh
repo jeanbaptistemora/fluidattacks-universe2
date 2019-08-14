@@ -45,13 +45,6 @@ deploy_mobile() {
 
   set -e
 
-  # Import functions
-  . ci-scripts/helpers/check-changed.sh
-  . ci-scripts/helpers/others.sh
-
-  # Logs in to vault in order to run vaultenv
-  vault_login
-
   FOLDERS=(
     'mobile/'
   )
@@ -59,7 +52,7 @@ deploy_mobile() {
   if check_folder_changed "${FOLDERS[@]}"; then
     cp -a /usr/src/app/node_modules mobile/
     npm install --prefix mobile/
-    vaultenv publish_ota
+    publish_ota
   fi
   echo 'No relevant files for mobile build were modified. Skipping build.'
 }
