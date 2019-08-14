@@ -34,18 +34,13 @@ set_subscriptions_terraform_variable(){
   export TF_VAR_asserts_projects
 
   SUBSCRIPTIONS=$(get_asserts_subscriptions)
-  COUNT=0
-  TF_VAR_asserts_projects='{ '
 
-  #Prepare map syntax
+  # Prepare list
+  TF_VAR_asserts_projects='['
   for SUB in $SUBSCRIPTIONS; do
-    TF_VAR_asserts_projects="$TF_VAR_asserts_projects \"$COUNT\" = \"$SUB\", "
-    COUNT=$(($COUNT + 1))
+    TF_VAR_asserts_projects="$TF_VAR_asserts_projects\"$SUB\","
   done
-
-  # Removes last comma (,) and adds closing bracket (}) to map
-  TF_VAR_asserts_projects=$(echo $TF_VAR_asserts_projects | sed 's/\(.*\),/\1/')
-  TF_VAR_asserts_projects="$TF_VAR_asserts_projects}"
+  TF_VAR_asserts_projects="$TF_VAR_asserts_projects]"
 
   echo $TF_VAR_asserts_projects
 }

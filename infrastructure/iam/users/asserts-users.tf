@@ -6,7 +6,7 @@ variable "asserts_projects" {
 data "aws_region" "current" {}
 data "aws_caller_identity" "current" {}
 
-resource "aws_iam_policy" "asserts-policies-1" {
+resource "aws_iam_policy" "asserts-policies" {
   for_each    = {for name in var.asserts_projects: name => name}
   name        = "asserts-logs-policy-${each.value}"
   path        = "/asserts/"
@@ -47,7 +47,7 @@ resource "aws_iam_policy" "asserts-policies-1" {
 EOF
 }
 
-resource "aws_iam_user" "asserts-users-1" {
+resource "aws_iam_user" "asserts-users" {
   for_each = {for name in var.asserts_projects: name => name}
   name     = "asserts-${each.value}"
   path     = "/asserts/"
@@ -55,6 +55,6 @@ resource "aws_iam_user" "asserts-users-1" {
 
 resource "aws_iam_user_policy_attachment" "attach-asserts-policies" {
   for_each   = {for name in var.asserts_projects: name => name}
-  policy_arn = aws_iam_policy.asserts-policies-1[each.key].arn
-  user       = aws_iam_user.asserts-users-1[each.key].name
+  policy_arn = aws_iam_policy.asserts-policies[each.key].arn
+  user       = aws_iam_user.asserts-users[each.key].name
 }

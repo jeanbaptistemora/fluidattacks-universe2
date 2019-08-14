@@ -51,9 +51,4 @@ variable "cacheParamGroupName" {}
 variable "asserts-bucket" {}
 variable "asserts_projects" {
   type = list(string)
-  default = [
-    "temp1",
-    "temp2",
-    "temp3",
-  ]
 }

@@ -14,6 +14,10 @@ install tflint /usr/local/bin/
 
 stage="${1:-test}"
 
+# Set up asserts projects variable
+. infrastructure/helpers.sh
+set_subscriptions_terraform_variable
+
 # Run Terraform Plan for IAM, AWS EKS, RDS and VPC infrastructure
 cd infrastructure/
 export TF_VAR_aws_access_key="$AWS_ACCESS_KEY_ID"
