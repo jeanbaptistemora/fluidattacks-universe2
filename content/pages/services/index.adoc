@@ -18,10 +18,16 @@ With this method, we detect security issues continuously as software evolves.
 The inspection is done without false positives and ensures previous issues
 were resolved before going to production.
 
+[button]#link:continuous-hacking/[Learn More]#
+
 2+a|== link:one-shot-hacking/[One-Shot Hacking]
 We detect and report all vulnerabilities and security issues
 within one specific version of your application, with no false positives.
+
+[button]#link:one-shot-hacking/[Learn More]#
+
 a|image::one-shot.svg[Computer being attacked]
+
 
 a|image::differentiators.svg[Metal gear]
 2+a|== link:differentiators/[Differentiators]
@@ -30,12 +36,18 @@ using automated tools? +
 Pentesting allows us to find and report all security vulnerabilities
 in your application.
 
+[button]#link:differentiators/[Learn More]#
+
 2+a|== link:comparative/[Comparative]
 What is the difference between +Continuous Hacking+
 and +One-Shot Hacking+ services?
 Have a look at what you get for each of the services
 and decide which suits your business needs better.
+
+[button]#link:comparative/[Learn More]#
+
 a|image::comparative.svg[Two plate scale]
+
 
 a|image::certifications.svg[Certification diploma]
 2+a|== link:certifications/[Certifications]
@@ -47,11 +59,16 @@ Certified Ethical Hacker (+CEH+),
 Certified Information Systems Security Professional (+CISSP+), among others.
 When you hire us, you are getting a team of highly capable professionals.
 
+[button]#link:certifications/[Learn More]#
+
 2+a|== link:faq/[FAQ]
 Do you have any questions
 about +Continuous Hacking+ or +One-Shot Hacking+ services?
 Check our +FAQ+ section and get the answers
 to the most common questions about our services.
+
+[button]#link:faq/[Learn More]#
+
 a|image::faq.svg[Question being answered in a conversation]
 |====
 
