@@ -129,3 +129,35 @@ def uses_dangerous_perms(apk_file: str) -> bool:
     show_close('APK doesn\'t use dangerous permissions',
                details=dict(apk=apk_file))
     return False
+
+
+@notify
+@level('medium')
+@track
+def has_fragment_injection(apk_file: str) -> bool:
+    """
+    Check if the given APK is vulnerable to fragment injection.
+
+    :param apk_file: Path to the image to be tested.
+    """
+    try:
+        apk = APK(apk_file)
+    except FileNotFoundError as exc:
+        show_unknown('Error reading file',
+                     details=dict(apk=apk_file, error=str(exc)))
+        return False
+
+    sdk_version = apk.get_target_sdk_version()
+    target_sdk_version = int(sdk_version) if sdk_version else 0
+
+    if target_sdk_version == 0:
+        show_unknown('Could not determine target SDK version',
+                     details=dict(apk=apk_file))
+        return False
+    if target_sdk_version < 19:
+        show_open('APK vulnerable to fragment injection',
+                  details=dict(apk=apk_file))
+        return True
+    show_close('APK not vulnerable to fragment injection',
+               details=dict(apk=apk_file))
+    return False

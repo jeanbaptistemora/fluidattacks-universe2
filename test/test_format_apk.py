@@ -14,6 +14,7 @@ from fluidasserts.format import apk
 
 # Constants
 UNSIGNED_APK = 'test/static/format/apk/open/unsigned.apk'
+OLD_APK = 'test/static/format/apk/open/old_sdk.apk'
 SIGNED_APK = 'test/static/format/apk/close/signed.apk'
 NO_ROOT_APK = 'test/static/format/apk/close/noroot.apk'
 NOT_EXISTS_APK = 'test/static/format/apk/close/notexists.apk'
@@ -38,6 +39,11 @@ def test_permissions_open():
     assert apk.uses_dangerous_perms(UNSIGNED_APK)
 
 
+def test_fragment_injection_open():
+    """Test if APK vulnerable to fragment injection."""
+    assert apk.has_fragment_injection(OLD_APK)
+
+
 #
 # Close tests
 #
@@ -57,6 +63,11 @@ def test_permissions_close():
     """Test if APK uses dangerous permissions."""
     assert not apk.uses_dangerous_perms(NO_ROOT_APK)
 
+
+def test_fragment_injection_close():
+    """Test if APK vulnerable to fragment injection."""
+    assert not apk.has_fragment_injection(NO_ROOT_APK)
+
 #
 # Unknown tests
 #
@@ -75,3 +86,13 @@ def test_root_unknown():
 def test_permissions_unknown():
     """Test if APK uses dangerous permissions."""
     assert not apk.uses_dangerous_perms(NOT_EXISTS_APK)
+
+
+def test_fragment_injection_unknown1():
+    """Test if APK vulnerable to fragment injection."""
+    assert not apk.has_fragment_injection(SIGNED_APK)
+
+
+def test_fragment_injection_unknown2():
+    """Test if APK vulnerable to fragment injection."""
+    assert not apk.has_fragment_injection(NOT_EXISTS_APK)
