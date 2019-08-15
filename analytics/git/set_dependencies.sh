@@ -9,6 +9,7 @@ apt-get update
 pip3 install \
     pyyaml \
     urllib3 \
+    progress \
     termcolor \
     slackclient \
     analytics/singer/tap_git \

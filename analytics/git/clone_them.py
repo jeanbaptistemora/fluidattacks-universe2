@@ -42,9 +42,10 @@ def clone(subs_path) -> None:
 def main() -> None:
     """Usual entry point."""
     subs_paths = glob.glob(f'/git/fluidsignal/continuous/subscriptions/*')
-    # Let's spam a little the context switching
+    # The continuous's script already uses multiprocessing
+    # But let's spam a little the context switching
     # The clone is an IOBound operation
-    with Pool(processes=cpu_count() * 8) as workers:
+    with Pool(processes=cpu_count()) as workers:
         workers.map(clone, subs_paths)
 
 
