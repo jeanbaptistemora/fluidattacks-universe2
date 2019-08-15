@@ -14,6 +14,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
 from app.decorators import require_login, require_role, require_project_access
+from app.domain.user import add_phone_to_user
 from .. import util
 from ..dal import integrates_dal
 from ..services import is_customeradmin, has_responsibility, has_phone_number
@@ -220,7 +221,7 @@ def create_new_user(context, new_user_data, project_name):
             'responsibility to project ' + project_name + ' without validation'
         )
     if phone_number and phone_number[1:].isdigit():
-        integrates_dal.add_phone_to_user_dynamo(email, phone_number)
+        add_phone_to_user(email, phone_number)
     if role == 'customeradmin':
         integrates_dal.add_user_to_project_dynamo(project_name.lower(),
                                                   email.lower(), role)
@@ -363,7 +364,7 @@ def modify_user_information(context, modified_user_data, project_name):
             'responsibility to project ' + project_name + ' bypassing validation'
         )
     if phone and phone[1:].isdigit():
-        integrates_dal.add_phone_to_user_dynamo(email, phone)
+        add_phone_to_user(email, phone)
     else:
         util.cloudwatch_log(
             context,

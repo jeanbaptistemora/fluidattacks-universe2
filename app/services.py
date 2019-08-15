@@ -8,6 +8,7 @@ from . import util
 # pylint: disable=E0402
 from .dal import integrates_dal
 from .dal.helpers.formstack import FormstackAPI
+from .domain.user import get_user_attributes
 from .dto.finding import FindingDTO
 from .dto.eventuality import EventDTO
 
@@ -106,9 +107,6 @@ def has_responsibility(project, email):
 
 
 def has_phone_number(email):
-    user_info = integrates_dal.get_user_dynamo(email)
-    for user in user_info:
-        if 'phone' in user:
-            return user["phone"]
-    user_phone = "-"
+    user_info = get_user_attributes(email, ['phone'])
+    user_phone = user_info['phone'] if user_info else '-'
     return user_phone

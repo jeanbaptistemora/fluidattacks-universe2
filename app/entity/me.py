@@ -11,6 +11,7 @@ import rollbar
 
 from app import util
 from app.dal import integrates_dal
+from app.domain.user import get_user_attributes
 from app.entity.project import Project
 from app.services import is_customeradmin
 
@@ -91,8 +92,7 @@ class SignIn(Mutation):
                         {
                             'user_email': email,
                             'user_role': integrates_dal.get_role(email),
-                            'company': integrates_dal.get_organization(
-                                email),
+                            'company': get_user_attributes(email, ['company']),
                             'exp': datetime.utcnow() +
                             timedelta(seconds=settings.SESSION_COOKIE_AGE)
                         },
