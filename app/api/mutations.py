@@ -24,11 +24,13 @@ from app.entity.project import (
     AddProjectComment, RemoveTag, AddTags
 )
 from app.entity.events import UpdateEvent
-from app.entity.me import SignIn
+from app.entity.me import SignIn, UpdateAccessToken
 
 
 class Mutations(ObjectType):
     acceptLegal = AcceptLegal.Field()
+
+    updateAccessToken = UpdateAccessToken.Field()
 
     addRepositories = AddRepositories.Field()
     removeRepositories = RemoveRepositories.Field()

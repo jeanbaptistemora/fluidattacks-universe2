@@ -11,7 +11,8 @@ import rollbar
 
 from app import util
 from app.dal import integrates_dal
-from app.domain.user import get_user_attributes
+from app.decorators import require_login
+from app.domain.user import get_user_attributes, update_access_token
 from app.entity.project import Project
 from app.services import is_customeradmin
 
@@ -111,3 +112,25 @@ class SignIn(Mutation):
             raise GraphQLError('UNKNOWN_AUTH_PROVIDER')
 
         return SignIn(authorized, session_jwt, success)
+
+
+class UpdateAccessToken(Mutation):
+    class Arguments(object):
+        token = Boolean()
+    success = Boolean()
+    session_jwt = String()
+
+    @staticmethod
+    @require_login
+    def mutate(_, info, token):
+        email = util.get_jwt_content(info.context)['user_email']
+        if token:
+            session_jwt = jwt.encode(
+                {'user_email': email, 'api_token': True},
+                algorithm='HS512',
+                key=settings.JWT_SECRET
+            )
+            success = update_access_token(email, session_jwt)
+        else:
+            success = update_access_token(email, token)
+        return UpdateAccessToken(session_jwt, success)
