@@ -68,6 +68,11 @@ def test_fragment_injection_close():
     """Test if APK vulnerable to fragment injection."""
     assert not apk.has_fragment_injection(NO_ROOT_APK)
 
+
+def test_webview_cache_close():
+    """Test if APK webviews clear JS cache."""
+    assert not apk.webview_caches_javascript(NO_ROOT_APK)
+
 #
 # Unknown tests
 #
@@ -96,3 +101,8 @@ def test_fragment_injection_unknown1():
 def test_fragment_injection_unknown2():
     """Test if APK vulnerable to fragment injection."""
     assert not apk.has_fragment_injection(NOT_EXISTS_APK)
+
+
+def test_webview_cache_unknown():
+    """Test if APK webviews clear JS cache."""
+    assert not apk.webview_caches_javascript(NOT_EXISTS_APK)

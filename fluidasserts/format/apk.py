@@ -4,10 +4,12 @@
 
 # standard imports
 from functools import lru_cache
+import logging
 
 # 3rd party imports
 from androguard.misc import AnalyzeAPK
 from androguard.core.bytecodes.apk import APK
+import androguard
 
 # local imports
 from fluidasserts import show_open
@@ -15,11 +17,20 @@ from fluidasserts import show_close
 from fluidasserts import show_unknown
 from fluidasserts.utils.decorators import track, level, notify
 
+androguard.core.androconf.show_logging(level=logging.CRITICAL)
+
 
 @lru_cache(maxsize=None, typed=True)
 def analyze_apk(path: str) -> tuple:
     """Return the resultant objects after analyzing the apk."""
     return AnalyzeAPK(path)
+
+
+def get_activities_source(dvms: list) -> str:
+    """Decompile given Dalvik VM images."""
+    source = [x.get_source() for dvm in dvms for x in dvm.get_classes()
+              if 'Activity' in x.name]
+    return "".join(source)
 
 
 @notify
@@ -141,7 +152,7 @@ def has_fragment_injection(apk_file: str) -> bool:
     :param apk_file: Path to the image to be tested.
     """
     try:
-        apk = APK(apk_file)
+        apk, dvms, _ = analyze_apk(apk_file)
     except FileNotFoundError as exc:
         show_unknown('Error reading file',
                      details=dict(apk=apk_file, error=str(exc)))
@@ -155,9 +166,40 @@ def has_fragment_injection(apk_file: str) -> bool:
                      details=dict(apk=apk_file))
         return False
     if target_sdk_version < 19:
-        show_open('APK vulnerable to fragment injection',
-                  details=dict(apk=apk_file))
-        return True
+        act_source = get_activities_source(dvms)
+        if 'PreferenceActivity' in act_source:
+            show_open('APK vulnerable to fragment injection',
+                      details=dict(apk=apk_file))
+            return True
     show_close('APK not vulnerable to fragment injection',
+               details=dict(apk=apk_file))
+    return False
+
+
+@notify
+@level('low')
+@track
+def webview_caches_javascript(apk_file: str) -> bool:
+    """
+    Check if the given APK has WebView that caches JavaScript data and code.
+
+    :param apk_file: Path to the image to be tested.
+    """
+    try:
+        apk, dvms, _ = analyze_apk(apk_file)
+    except FileNotFoundError as exc:
+        show_unknown('Error reading file',
+                     details=dict(apk=apk_file, error=str(exc)))
+        return False
+
+    act_source = get_activities_source(dvms)
+
+    if 'setJavaScriptEnabled' in act_source:
+        if 'clearCache' not in act_source:
+            show_open('WebView has JavaScript enabled \
+but doesn\'t clear cache',
+                      details=dict(apk=apk_file))
+            return True
+    show_close('WebView has JavaScript not enabled or clears cache',
                details=dict(apk=apk_file))
     return False
