@@ -19,7 +19,12 @@ email varchar(254) COLLATE utf8_general_ci NOT NULL, company varchar(254), \
 role varchar(32) NOT NULL, last_login datetime(6) DEFAULT NULL, \
 date_joined datetime(6) DEFAULT NULL, PRIMARY KEY (id, email)) ENGINE=INNODB \
 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;'
+        add_user_query = 'INSERT INTO users(username, registered, \
+last_name, first_name, email, role, last_login, date_joined) \
+VALUES ("testing", 1, "testing", "testing", "unittest", "admin", \
+        "1111-1-1 11:11:11", "1111-1-1 11:11:11")'
         cursor.execute(query)
+        cursor.execute(add_user_query)
 
 
 @pytest.fixture(scope='function')
