@@ -11,6 +11,7 @@ credential
 csv
 dependency
 detect
+devops
 discovery
 documentation
 encryption
@@ -65,6 +66,7 @@ stateless
 test
 testing
 tls
+training
 vector
 vulnerability
 web
