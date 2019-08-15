@@ -701,3 +701,97 @@ and is part of our work team:
   will result in the retirement of the talent from +Fluid Attacks+.
   If such conversation doesn't occur,
   means everything is going according to the planned.
+
+*What's our technology stack?*::
+  All our technology is on link:https://aws.amazon.com/es/[+AWS+],
+  using link:https://kubernetes.io/[+Kubernetes+] for ephemeral and production environments,
+  as well as for +CI/CD+ agents.
+  Our infrastructure as code is made through link:https://www.terraform.io/[+Terraform+],
+  link:https://www.ansible.com/[+Ansible+] and link:https://www.docker.com/[+Dockerfile+].
+  We use link:https://about.gitlab.com/[+Gitlab as a Service+] for these processes orchestration
+  (+git+, +docker registry+, +issues+, etc).
+  The service +backends+ and attack weapons
+  are developed in link:https://www.python.org/[+Python+],
+  our +frontend+ is currently in migration to link:https://reactjs.org/[+React+] under link:https://www.typescriptlang.org/[+Typescript+]
+  only with +stateless+ components.
+  The +backend+ is in migration to link:https://graphql.org/[+GraphQL+].
+  All the documentation and the web page is built on link:http://asciidoc.org/[+AsciiDoc+]
+  using a static generation strategy via link:https://blog.getpelican.com/[+Pelican+].
+  The operative systems on each workstation
+  depend on the talent preferences,
+  but we have a lot of link:https://www.debian.org/index.es.html[+Debian+] and security derivated such as link:https://www.kali.org/[+Kali+].
+  Some renegades use link:https://www.archlinux.org/[+Arch+] or link:https://nixos.org/[+NixOS+].
+  Inside link:https://aws.amazon.com/es/[+AWS+] we use +serverless+ services
+  like link:https://aws.amazon.com/es/dynamodb/[+Dynamo+] for databases,
+  link:https://aws.amazon.com/es/s3/[+S3+] for high speed storage
+  and link:https://aws.amazon.com/es/rds/[+RDS+] for relational databases
+  For +clusters+ we use link:https://aws.amazon.com/es/eks/[+EKS+]
+  to avoid the maintenance of complex +cluster+ components.
+  We use external services such as link:https://www.onelogin.com/[+OneLogin+]
+  for identity federation, link:https://rollbar.com/[+Rollbar+] for telemetry,
+  link:https://slack.com/intl/es/[+Slack+] for chatops, link:https://www.gitprime.com/[+GitPrime+] for productivity analytic,
+  link:https://www.vaultproject.io/[+Vault+] for ephemeral secrets management,
+  link:https://helm.sh/[+Helm+] for +cluster+ management,
+  link:https://launchdarkly.com/[+Launch Darkly+] for +feature flags+,
+  link:https://portswigger.net/burp[+Burp+] for web attacks,
+  link:https://www.immunityinc.com/products/canvas/[+Canvas+] for infrastructure attacks,
+  link:https://www.tenable.com/products/nessus/nessus-professional[+Nessus+] for preliminary vulnerability analysis, among others.
+
+*What's our development methodology?*::
+  +Fluid Attacks+ documents, programs and configures
+  infrastructure through source code.
+  This allows an extensive use of +Git+,
+  a rigorous control of the changes and all +rollback+ advantages.
+  We follow a +trunk-based development+ as baseline,
+  having a unique long-term environment (production)
+  associated to a unique branch (+master+).
+  There are no other environments or feature branches.
+  We work under a +mono-repo+ philosophy,
+  and therefore, we have relatively few repos.
+  Each developer has only one branch (zero inventory)
+  and developer branches must integrate to the +master+ branch
+  after a +Merge Request+,
+  this means +Merge Commits+ are not allowed.
+  Our history is lineal and hence, a constant +rebasing+ is imperative.
+  There are no test analysts or quality assurance,
+  therefore the manual tests are performed by the developer
+  following the established evidence protocol
+  that must contain every +Merge Request+.
+  The developer is responsible for the automation tests,
+  either unit or integration.
+  Some products already have a test suite
+  with over +90%+ coverage on their effective lines of code.
+  Every developer is responsible of his/her changes (real +Devops+),
+  of monitoring  the technologies through telemetry tools (+chatops+)
+  and perform +rollback+ if necessary.
+  We use extensively +CI/CD+ tools on each production deployment,
+  reaching the sum of +5.7+ daily deployments.
+  Every deployment can be made anytime,
+  so there are not system maintenance periods,
+  nor late night actions associated.
+  We expect every developer to deploy at least +1+ change per day,
+  being desirable more than +1+.
+  To this end, we use the +micro-changes+ philosophy
+  (production deployments with less than +100+ deltas)
+  in addition to +Feature Flags+ activation if necessary.
+  The +CI+ runs the +linters+ on **strict** mode
+  (breaking the build in presence of the least anomaly),
+  this allows the applications to be easy to maintain and evolve
+  because the code is so homogeneous
+  that it is not known who programmed it.
+  All the changes must pass through a +Peer Review+ process
+  before the integration to the +master+ branch.
+  This process is made by a coworker
+  with deep knowledge of the repository (merger)
+  and rejects approximately +30%+ of the +Merge Requests+,
+  forcing the developer to review and resend the changes
+  in a new +Merge Request+
+  (transactions over conversations).
+  Infrastructure is immutable,
+  therefore the containers don't have
+  +SSH+ or +RDP+ management interfaces for modifications.
+  This make +root+ users obsoletes,
+  as well as the associated key management.
+  All of the above makes us to not use +Scrum+
+  nor any derivation
+  since we consider it obsolete for this ultra-fast development approach.
