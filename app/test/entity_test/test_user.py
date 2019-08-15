@@ -1,10 +1,16 @@
+import pytest
+
 from django.test import TestCase
+from graphql.error import GraphQLError
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from graphene.test import Client
 from jose import jwt
 
+from app.entity.user import (validate_email_address,
+                             validate_field,
+                             validate_phone_field)
 from app.api.schema import SCHEMA
 
 
@@ -130,3 +136,26 @@ class UserTests(TestCase):
         result = testing_client.execute(query, context_value=request)
         assert 'errors' not in result
         assert 'success' in result['data']['grantUserAccess']
+
+    def test_validate_email_address(self):
+        """makes sure that the email is being validated properly"""
+        assert validate_email_address('test@test.test')
+        assert validate_email_address('test.test@test.test')
+        assert validate_email_address('test.test@test.test.test')
+        with pytest.raises(GraphQLError):
+            assert validate_email_address('test@test')
+        with pytest.raises(GraphQLError):
+            assert validate_email_address('test')
+
+    def test_validate_field(self):
+        """makes sure that the  field is filtering only = sign at start"""
+        assert validate_field('t35t 7 test @ test')
+        with pytest.raises(GraphQLError):
+            assert validate_field('=test')
+
+    def test_validate_phone_number(self):
+        assert validate_phone_field("123123123")
+        with pytest.raises(GraphQLError):
+            assert validate_phone_field("asdasdasd")
+        with pytest.raises(GraphQLError):
+            assert validate_phone_field("=12123123123")

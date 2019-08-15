@@ -1,14 +1,9 @@
 from decimal import Decimal
 
-import pytest
 from django.test import TestCase
-from graphql.error import GraphQLError
 
 from app.dal.project import get_current_month_information
 from app.dto.finding import FindingDTO
-from app.entity.user import (validate_email_address,
-                             validate_field,
-                             validate_phone_field)
 from app.utils import cvss
 
 
@@ -149,32 +144,6 @@ class cvssTests(TestCase):
             severity, fin_dto.CVSS3_PARAMETERS, cvss_version)
         cvss_environment_test = Decimal(4.6).quantize(Decimal('0.1'))
         assert cvss_environment == cvss_environment_test
-
-
-class ValidationTests(TestCase):
-
-    def test_validate_email_address(self):
-        """makes sure that the email is being validated properly"""
-        assert validate_email_address('test@test.test')
-        assert validate_email_address('test.test@test.test')
-        assert validate_email_address('test.test@test.test.test')
-        with pytest.raises(GraphQLError):
-            assert validate_email_address('test@test')
-        with pytest.raises(GraphQLError):
-            assert validate_email_address('test')
-
-    def test_validate_field(self):
-        """makes sure that the  field is filtering only = sign at start"""
-        assert validate_field('t35t 7 test @ test')
-        with pytest.raises(GraphQLError):
-            assert validate_field('=test')
-
-    def test_validate_phone_number(self):
-        assert validate_phone_field("123123123")
-        with pytest.raises(GraphQLError):
-            assert validate_phone_field("asdasdasd")
-        with pytest.raises(GraphQLError):
-            assert validate_phone_field("=12123123123")
 
 
 class bdAccessTests(TestCase):
