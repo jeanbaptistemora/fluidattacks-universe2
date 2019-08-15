@@ -64,7 +64,7 @@ resource "aws_autoscaling_group" "k8s_nodes_autoscaling" {
   max_size             = 5
   min_size             = 3
   name                 = "EKSWorkerNodes"
-  vpc_zone_identifier  = concat(aws_subnet.k8s_subnets.*.id, aws_subnet.k8s_subnets_secondary.*.id)
+  vpc_zone_identifier  = aws_subnet.k8s_subnets.*.id
 
   tag {
     key                 = "Name"
