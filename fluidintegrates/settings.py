@@ -287,11 +287,11 @@ else:
     }
 
 CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://" + FI_REDIS_SERVER + ":6379",
-        "OPTIONS": CACHE_OPTIONS,
-        "KEY_PREFIX": "fi"
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://{}:6379'.format(FI_REDIS_SERVER),
+        'OPTIONS': CACHE_OPTIONS,
+        'KEY_PREFIX': 'fi'
     }
 }
 
