@@ -2,17 +2,14 @@
 
 from __future__ import absolute_import
 
-from django.conf import settings
 from django.conf.urls import (
     url, include, handler400, handler403, handler404, handler500
 )
 from django.views.decorators.csrf import csrf_exempt
-from graphene_django.views import GraphQLView
 
 from app import services, views
+from app.api.view import APIView
 from app.decorators import verify_csrf
-from app.api.schema import SCHEMA
-from app.middleware import graphql_blacklist_middleware, GraphQLExecutorBackend
 
 # pylint: disable=W0104
 handler400, handler403, handler404, handler500
@@ -35,11 +32,7 @@ urlpatterns = [
     url(r'^dashboard/?$', views.app, name='dashboard'),
     url(r'^registration/?$', views.app, name='registration'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
-    url(r'^api/?\.*$', csrf_exempt(verify_csrf(
-        GraphQLView.as_view(backend=GraphQLExecutorBackend(),
-                            graphiql=settings.DEBUG,
-                            middleware=[graphql_blacklist_middleware],
-                            schema=SCHEMA)))),
+    url(r'^api/?\.*$', csrf_exempt(verify_csrf(APIView.as_view()))),
     # Use of Formstack services.
     url(r'^project/(?P<project>[A-Za-z0-9]+)/([A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$',  # noqa
         views.get_evidence),
