@@ -17,8 +17,7 @@
 
 = Fool the machine
 
-Artificial Neural Networks (+ANNs+) are certainly a wondrous achievement,
-if not very intelligible.
+Artificial Neural Networks (+ANNs+) are certainly a wondrous achievement.
 They solve classification and other learning tasks with great accuracy.
 However, they are not flawless and might misclassify certain inputs.
 No problem, some error is expected.
@@ -26,14 +25,9 @@ But what if you could give it two inputs
 that are virtually the same,
 and get different outputs?
 Worse, what if one is correctly classified
-and the other manipulated into being classified as _anything_ you want?
+and the other manipulated so that
+it is classified as _anything_ you want?
 Could these _adversarial examples_ be the bane of neural networks?
-
-The applications are potentially endless.
-You could fool image recognition systems,
-physical security cameras,
-make an autonomous car crash,
-bypass spam filters, etc.
 
 That is just the content of one
 link:https://picoctf.com/[PicoCTF]
@@ -51,7 +45,26 @@ it must be perceptually indistinguishable from the original,
 i.e., it must still look like the same dog to a human:
 
 .link:http://2018shell.picoctf.com:11889/[Challenge] description.
-image:challenge.png[Challenge description]
+image::challenge.png[Challenge description]
+
+The applications are potentially endless.
+You could:
+
+- fool image recognition systems like physical security cameras,
+as does this
+link:https://github.com/advboxes/AdvBox/blob/master/applications/StealthTshirt/README.md[Stealth T-shirt]:
+
+image::https://raw.githubusercontent.com/advboxes/AdvBox/master/applications/StealthTshirt/output1.gif[Stealth T-shirt]
+
+- make an autonomous car crash:
+
+image::stop-signs.png[Manipulated stop signs]
+
+- confuse virtual assistants:
+
+image::speech-recogn.png[Trick speech recognition]
+
+- bypass spam filters, etc.
 
 So, how does one go about creating such an adversarial example?
 Recall that in our brief survey of machine learning techniques, we discussed
@@ -77,7 +90,7 @@ Some clever folks from Google found out that
 the best way to do this is by using the gradient of the cost function:
 
 .Adding noise to fool the classifier. From <<r1, [1]>>
-image:adding-noise.png[Adding noise to fool the classifier]
+image::adding-noise.png[Adding noise to fool the classifier]
 
 This is called the _fast gradient sign_ method.
 This gradient can be computed
@@ -118,12 +131,13 @@ input_layer            = model.layers[0].input
 output_layer           = model.layers[-1].output
 cost_function          = output_layer[0, object_type_to_fake]
 gradient_function      = K.gradients(cost_function, input_layer)[0]
-get_cost_and_gradients = K.function([input_layer, K.learning_phase()], [cost_function, gradient_function])
+get_cost_and_gradients = K.function([input_layer, K.learning_phase()],
+                                    [cost_function, gradient_function])
 ----
 
 Where +object_type_to_fake+ is the class number of
 what we want to fake.
-Now, as per the formula in figure 2 above,
+Now, as per the formula in figure 3 above,
 we should add a small fraction of the
 sign of the gradient, until we achieve the result,
 which is that the confidence in the prediction be at least 95%:
@@ -145,16 +159,23 @@ link:https://github.com/tensorflow/cleverhans/[CleverHans].
 Using this library,
 we change the expensive +while+ cycle above
 to two +API+ calls:
-make a instace of the attack method,
+make an instance of the attack method,
 and then ask it to generate the adversarial example:
 
 [source,python]
 ----
-method = cleverhans.attacks.MomentumIterativeMethod(model, sess=K.get_session())
-test   = method.generate_np(adversarial_image, eps=0.3, eps_iter=0.06, nb_iter=10, y_target=target)
+from cleverhans.attacks import MomentumIterativeMethod
+
+method = MomentumIterativeMethod(model, sess=K.get_session())
+test   = method.generate_np(adversarial_image, eps=0.3, eps_iter=0.06,
+                            nb_iter=10, y_target=target)
 ----
 
-And so we obtain this image:
+In this case we used a different attack, namely
+the `MomentumIterativeMethod` which for this case gives better results
+than the `FastGradientMethod`,
+obviously also a part of `CleverHans`.
+And so we obtain our adversarial example:
 
 .Adversarial image for the challenge
 image::adversarial-dog.png[Adversarial image for the challenge]
