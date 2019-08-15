@@ -6,7 +6,7 @@ from app.dto.finding import FindingDTO
 from app.utils import cvss
 
 
-class cvssTests(TestCase):
+class CvssTests(TestCase):
 
     def test_calculate_cvss2_basescore(self):
         severity = {'confidentialityImpact': 0, 'integrityImpact': 0.275,

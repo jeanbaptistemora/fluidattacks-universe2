@@ -7,7 +7,7 @@ from jose import jwt
 from app.api.schema import SCHEMA
 
 
-class TestGetAlert(TestCase):
+class AlertTests(TestCase):
 
     def test_get_alert(self):
         """Check for project alert"""

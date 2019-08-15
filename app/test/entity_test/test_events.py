@@ -7,7 +7,7 @@ from jose import jwt
 from app.api.schema import SCHEMA
 
 
-class TestGetEvent(TestCase):
+class EventTests(TestCase):
 
     def test_get_event(self):
         """Check for eventuality"""
