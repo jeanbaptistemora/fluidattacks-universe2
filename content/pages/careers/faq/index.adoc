@@ -795,3 +795,26 @@ and is part of our work team:
   All of the above makes us to not use +Scrum+
   nor any derivation
   since we consider it obsolete for this ultra-fast development approach.
+
+*What's our long-term technological vision?*::
+  To publish on internet all our application
+  and infrastructure repositories.
+  We believe that transparency in source code
+  forces us to comply with the highest security and quality standards.
+  This helps us to announce to the public
+  that they can audit and review the code by themselves,
+  shows confidence in the work done,
+  and forces to remove any key or sensitive information stored in the code,
+  allowing to disclosure the work of our engineers.
+  We believe in simple architectures, even monoliths.
+  The micro-services based on the size of our organization
+  represent an architectural over-sizing
+  instead of a real need.
+  We believe in functional programming
+  even on languages that don't require it.
+  For us, this is translated more in a conviction about how to code
+  rather than a philosophical debate about tools.
+  On this sense, we rather static typing over dynamic,
+  even if it's achieved using additional linters.
+  The goal is to stick to the existing tools
+  instead of reinventing the wheel
