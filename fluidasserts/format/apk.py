@@ -203,3 +203,40 @@ but doesn\'t clear cache',
     show_close('WebView has JavaScript not enabled or clears cache',
                details=dict(apk=apk_file))
     return False
+
+
+@notify
+@level('low')
+@track
+def webview_allows_resource_access(apk_file: str) -> bool:
+    """
+    Check if the given APK has WebView that allows resource access.
+
+    :param apk_file: Path to the image to be tested.
+    """
+    dangerous_allows = {
+        'setAllowContentAccess',
+        'setAllowFileAccess',
+        'setAllowFileAccessFromFileURLs',
+        'setAllowUniversalAccessFromFileURLs',
+    }
+    try:
+        apk, dvms, _ = analyze_apk(apk_file)
+    except FileNotFoundError as exc:
+        show_unknown('Error reading file',
+                     details=dict(apk=apk_file, error=str(exc)))
+        return False
+
+    act_source = get_activities_source(dvms)
+
+    if 'setJavaScriptEnabled' in act_source:
+        effective_dangerous = [x for x in dangerous_allows
+                               if x in act_source]
+        if effective_dangerous:
+            show_open('WebView allows resource access',
+                      details=dict(apk=apk_file,
+                                   dangerous_allows=effective_dangerous))
+            return True
+    show_close('WebView does not allow resource access',
+               details=dict(apk=apk_file))
+    return False
