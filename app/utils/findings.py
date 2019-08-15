@@ -6,7 +6,7 @@ from backports import csv
 from magic import Magic
 
 from app import util
-from app.dal import integrates_dal, finding as finding_dal
+from app.dal import finding as finding_dal, vulnerability as vuln_dal
 from app.utils import cvss, forms as forms_utils
 
 
@@ -117,14 +117,9 @@ def format_data(finding):
     finding['records'] = _get_evidence('fileRecords', finding['files'])
     finding['exploit'] = _get_evidence('exploit', finding['files'])
 
-    vulns = integrates_dal.get_vulnerabilities_dynamo(finding['findingId'])
-    open_vulns = [vuln for vuln in vulns
-                  if vuln['historic_state'][-1]['state'] == 'open']
-    closed_vulns = [vuln for vuln in vulns
-                    if vuln['historic_state'][-1]['state'] == 'closed']
-    finding['vulnerabilities'] = vulns
-    finding['openVulnerabilities'] = len(open_vulns)
-    finding['closedVulnerabilities'] = len(closed_vulns)
+    open_vulns, closed_vulns = vuln_dal.get_vulns_state(finding['findingId'])
+    finding['openVulnerabilities'] = open_vulns
+    finding['closedVulnerabilities'] = closed_vulns
     finding['state'] = 'open' if open_vulns else 'closed'
 
     cvss_fields = {

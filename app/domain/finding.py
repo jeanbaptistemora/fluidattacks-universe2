@@ -23,7 +23,6 @@ from app.dto.finding import (
     FindingDTO, get_project_name, migrate_description, migrate_treatment,
     migrate_report_date, finding_vulnerabilities
 )
-from app.entity.vulnerability import Vulnerability
 from app.exceptions import FindingNotFound
 from app.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
@@ -328,8 +327,6 @@ def get_tracking_vulnerabilities(act_finding, vulnerabilities):
     """get tracking vulnerabilities dictionary"""
     tracking = []
     release_date = act_finding['releaseDate']
-    if vulnerabilities:
-        vulnerabilities = [Vulnerability(i) for i in vulnerabilities]
     if release_date:
         vuln_casted = remove_repeated(vulnerabilities)
         unique_dict = get_unique_dict(vuln_casted)

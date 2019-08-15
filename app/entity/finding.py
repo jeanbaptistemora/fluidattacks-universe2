@@ -21,7 +21,6 @@ from app.domain.finding import (
 )
 from app.dto.finding import FindingDTO, get_project_name
 from app.entity.types.finding import FindingType
-from app.entity.vulnerability import Vulnerability
 from app.services import is_customeradmin
 from app.utils import findings as finding_utils
 
@@ -40,8 +39,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.id = finding_id  # noqa pylint: disable=invalid-name
             self.project_name = resp.get('projectName')
             self.release_date = resp.get('releaseDate', '')
-            self.vulnerabilities = [
-                Vulnerability(vuln) for vuln in resp.get('vulnerabilities')]
             self.open_vulnerabilities = resp.get('openVulnerabilities')
             self.closed_vulnerabilities = resp.get('closedVulnerabilities')
             self.records = resp.get('records')
@@ -96,12 +93,16 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
 
     def resolve_vulnerabilities(self, info, vuln_type='', state=''):
         """Resolve vulnerabilities attribute."""
-        del info
-        vuln_filtered = self.vulnerabilities
+        vulns_loader = info.context.vulnerabilities_loader
+        vuln_filtered = vulns_loader.load(self.id)
+
         if vuln_type:
-            vuln_filtered = [i for i in vuln_filtered if i.vuln_type == vuln_type]
+            vuln_filtered = vuln_filtered.then(lambda vulns: [
+                vuln for vuln in vulns if vuln.vuln_type == vuln_type])
         if state:
-            vuln_filtered = [i for i in vuln_filtered if i.current_state == state]
+            vuln_filtered = vuln_filtered.then(lambda vulns: [
+                vuln for vuln in vulns if vuln.current_state == state])
+
         return vuln_filtered
 
     def resolve_open_vulnerabilities(self, info):
@@ -121,9 +122,10 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
 
     def resolve_tracking(self, info):
         """Resolve tracking attribute."""
-        del info
         if self.release_date:
-            vuln_casted = remove_repeated(self.vulnerabilities)
+            vulns_loader = info.context.vulnerabilities_loader
+            vulns = vulns_loader.load(self.id).then(lambda vulns: vulns).get()
+            vuln_casted = remove_repeated(vulns)
             unique_dict = get_unique_dict(vuln_casted)
             tracking = get_tracking_dict(unique_dict)
             tracking_grouped = group_by_state(tracking)

@@ -7,6 +7,7 @@ from django.conf import settings
 from jose import jwt
 
 from app.api.schema import SCHEMA
+from app.api.dataloaders.vulnerability import VulnerabilityLoader
 
 
 class FindingTests(TestCase):
@@ -42,6 +43,7 @@ class FindingTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.vulnerabilities_loader = VulnerabilityLoader()
         result = SCHEMA.execute(query, context_value=request)
         assert not result.errors
         assert result.data.get('finding')['id'] == '422286126'

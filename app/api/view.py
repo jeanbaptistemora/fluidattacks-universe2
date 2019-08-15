@@ -1,6 +1,7 @@
 from django.conf import settings
 from graphene_django.views import GraphQLView
 
+from app.api.dataloaders.vulnerability import VulnerabilityLoader
 from app.api.middleware import blacklist_middleware, ExecutorBackend
 from app.api.schema import SCHEMA
 
@@ -9,7 +10,7 @@ class APIView(GraphQLView):
     def get_context(self, request):
         """Appends dataloader instances to context"""
         context = super(APIView, self).get_context(request)
-        context.vulnerabilities_loader = {}
+        context.vulnerabilities_loader = VulnerabilityLoader()
 
         return context
 
