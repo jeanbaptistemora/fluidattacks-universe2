@@ -4,7 +4,7 @@ sNetRegion = "us-east-1b"
 dbRegion   = "us-east-1"
 
 #EC2 Vars
-clusterInstanceType = "m5.4xlarge"
+clusterInstanceType = "m5.xlarge"
 
 # Network vars
 cidr             = "192.168.100.0/24"
@@ -27,7 +27,7 @@ eksSnetReg      = [
   "us-east-1e",
   "us-east-1a",
   "us-east-1b",
-  "us-east-1c",
+  "us-east-1d",
 ]
 
 # ElastiCache Vars
