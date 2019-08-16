@@ -125,13 +125,21 @@ class UpdateAccessToken(Mutation):
     @require_login
     def mutate(_, info, token):
         email = util.get_jwt_content(info.context)['user_email']
+        session_jwt = ''
+        success = False
         if token:
             session_jwt = jwt.encode(
-                {'user_email': email, 'api_token': True},
+                {
+                    'user_email': email,
+                    'user_role': get_role(email),
+                    'company': get_user_attributes(
+                        email, ['company'])['company'],
+                    'api_token': True
+                },
                 algorithm='HS512',
                 key=settings.JWT_SECRET
             )
             success = update_access_token(email, session_jwt)
         else:
             success = update_access_token(email, token)
-        return UpdateAccessToken(session_jwt, success)
+        return UpdateAccessToken(success, session_jwt)
