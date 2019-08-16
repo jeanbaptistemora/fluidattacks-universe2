@@ -76,7 +76,7 @@ access to +Google Drive+.
 . Video beam with aspect ratio +16:9+.
 
 . An +HDMI+ cable connected directly to the video beam
-}from the presenter's laptop (without +VGA+ adapters).
+from the presenter's laptop (without +VGA+ adapters).
 
 . Many presentations are dynamic and interactive,
 relying on face-to-face interaction with the audience.
