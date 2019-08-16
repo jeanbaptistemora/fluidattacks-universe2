@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
+<!-- Tachyons stylesheet -->
+<link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+
 {% block meta %}
   <meta name="description" content="{{ page.description }}">
   <meta name="keywords" content="{{ page.keywords }}">
@@ -67,33 +70,39 @@
             value='{"keyname":"Fluidattacks","fallback":"true","orgId":"00D1I000001dGP6","ts":""}'>
           <input type=hidden name="oid" value="00D1I000001dGP6"/>
           <input type=hidden name="retURL" value="{{ SITEURL }}/{{ gettext('Footer-link-1.6') }}/{{ gettext('Ack-page') }}/"/>
-          <label for="first_name" class="form-label">First Name:</label>
-          <input  id="first_name" maxlength="40" name="first_name" size="20" type="text" class="form-input" required /><br>
-          <label for="last_name" class=form-label> Last Name:</label>
-          <input  id="last_name" maxlength="40" name="last_name" size="20" type="text" class="form-input" required /><br>
-          <label for="email" class="form-label">
-            {{ gettext('Form-field-2') }}</label>
-          <input  id="email" maxlength="80" name="email" size="20" type="text"
-            class="form-input" required />
-          <br>
-          <input id="country" maxlength="40" name="country" size="20"
+          <div class="w-100 w-50-l fl pr2">
+            <label for="first_name" class="form-label">First Name:</label>
+            <input  id="first_name" maxlength="40" name="first_name" size="20" type="text" class="form-input" required /><br>
+          </div>
+          <div class="w-100 w-50-l fl">
+            <label for="last_name" class=form-label> Last Name:</label>
+            <input  id="last_name" maxlength="40" name="last_name" size="20" type="text" class="form-input" required /><br>
+          </div>
+          <div class="w-100 w-50-l fl pr2 pb3">
+            <label for="email" class="form-label">
+              {{ gettext('Form-field-2') }}</label>
+              <input  id="email" maxlength="80" name="email" size="20" type="text"
+              class="form-input" required />
+          </div>
+          <div class="w-100 w-50-l fl pb3">
+            <input id="country" maxlength="40" name="country" size="20"
             type="hidden" value="">
-          <label for="mobile" class="form-label">
-            {{ gettext('Form-field-3')}}</label>
-          <input  id="mobile" maxlength="40" name="local_mobile" size="20"
-            type="text" class="form-input" required />
-          <span id="valid-msg" class="intl-valid hide">
-            {{ gettext('Form-number-valid') }}</span>
-          <span id="error-msg" class="intl-error  hide">
-            {{ gettext('Form-number-not-valid') }}</span>
+            <label for="mobile" class="form-label">
+              {{ gettext('Form-field-3')}}</label>
+              <input  id="mobile" maxlength="40" name="local_mobile" size="20"
+              type="text" class="form-input" required />
+              <span id="valid-msg" class="intl-valid hide">
+              {{ gettext('Form-number-valid') }}</span>
+              <span id="error-msg" class="intl-error  hide">
+              {{ gettext('Form-number-not-valid') }}</span>
+          </div>
           {% assets filters="uglifyjs", output="static/js/intlTelInput.min.js", "/app/node_modules/intl-tel-input/build/js/intlTelInput.js" %}
             <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
           {% endassets %}
           {% assets filters="uglifyjs", output="static/js/form.min.js", "js/form.js" %}
               <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
           {% endassets %}
-          <br>
-          <label for="Subject" class="form-label">
+          <label for="Subject" class="form-label tc">
             {{ gettext('Form-field-4') }}</label>
           <select  id="00N1I00000NEIK7" name="00N1I00000NEIK7" title="Necesidad"
             class="form-input" onchange="selectedValue()" required>
