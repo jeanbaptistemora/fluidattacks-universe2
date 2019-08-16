@@ -71,7 +71,7 @@ You might find the answer to your question is already here.
   Our selection process is designed to encourage you
   to acquire knowledge yourself and then use it to problem-solve.
 
-*Does the company offer on-the-job training??*::
+*Does the company offer on-the-job training?*::
   At +Fluid Attacks+ we do not require work experience,
   nor do we certify the knowledge you acquire while working with us.
   We do not offer on-the-job training.
@@ -170,115 +170,100 @@ You might find the answer to your question is already here.
 
 == After Entering
 
-+Fluid Attacks+ is a company focused and specialized in +Red Team+ testing.
-We aim information security concepts towards an offensive approach,
-looking for all the vulnerabilities and reporting them
-as soon as possible.
-Below we list some Frequently Asked Questions (+FAQ+)
-presented when the talent is hired
-and is part of our work team:
++Fluid Attacks+ focuses on and specializes in +Red Team+ testing.
+In regard to information security concepts,
+we take an offensive approach.
+We look for all the vulnerabilities and report them as soon as possible.
+Below are some Frequently Asked Questions (+FAQ+)
+new employees ask when they become part of our work team:
 
 [qanda]
 
-*What are the responsibilities of my role?*::
-  +Fluid Attacks+ seeks to be agile and flexible,
+*What are the responsibilities of my job?*::
+  +Fluid Attacks+ strives to be agile and flexible,
   capable of adapting to changes at high speed.
-  To accomplish this goal, we have decided to keep
-  a work team below +50+ persons.
-  In addition to that,
-  we require generic roles and a lot of team work,
-  which allows co-workers to complement each other's weaknesses.
-  Because of this, each profile is grouped
-  in any of these +2+ kind of roles: technical and non-technical.
+  To accomplish this goal,
+  we keep each work team under +50+ team members.
+  In addition, we require generic roles and a lot of teamwork,
+  which allows co-workers to augment each other's strengths
+  and overcome weaknesses.
+  Because of this, each profile is grouped in one of these roles:
+  technical and non-technical.
   +
-  * In technical roles, the responsibilities typically are:
-  hacking systems, audit source code, develop attack exploits,
+  *  In technical roles the responsibilities are typically:
+  hack systems, audit source code, develop attack exploits,
   develop tools for hackers, document found vulnerabilities,
   configure infrastructure as code, perform peer review,
-  present reports to the customers,
-  spread knowledge among customers and co-workers,
-  migration of obsolete information and creation of new information,
-  among others.
+  present reports to customers, share knowledge with customers and co-workers,
+  migrate obsolete information, and create new information, among others.
   +
   +
-  * Non-technical roles comprise responsibilities of:
+  * In non-technical roles the responsibilities are typically:
   customer management, technical pre-sales, marketing,
-  +Fluid Attacks+ representation in other companies,
-  speakers for conferences or seminars,
-  crisis management, among others.
+  representing +Fluid Attacks+ to other companies,
+  conference or seminar speakers, and crisis management, among others.
   +
-  In short, the responsibilities defined for each role
-  are unknown, and we expect you to contribute
-  to any aspect of the previous kind of roles,
+  In short, the responsibilities defined for each role can be flexible,
+  and we expect you to contribute ideas and adapt,
   depending on the needs of the company.
-  We truly appreciate high technical talents that,
+  We truly appreciate high technical skilled employees who,
   after fulfilling technical roles,
-  gradually migrate to non-technical roles.
+  can gradually migrate to non-technical roles.
 
 *What kind of contract does Fluid Attacks offer?*::
-  In +Fluid Attacks+ we offer just one type of contract:
-  Labour contract for an indefinite period,
-  with all the benefits required by law
-  and parafiscal contributions
-  (healthcare, retirement fund, allowances, layoffs)
-  all paid on the +100%+ of the salary.
-  All the talents have the same type of contract no matter their role,
-  the only change is the salary amount.
+  At +Fluid Attacks+ we offer one type of contract:
+  A labor contract for an indefinite period
+  with all the benefits required by law,
+  as well as other financial contributions to healthcare,
+  retirement fund, allowances, layoffs,
+  all paid on 100% of the salary amount.
+  All employees have the same type of contract regardless of their role.
 
 *Does the salary offer correspond to the amount deposited into my account?*::
   No, the salary offer corresponds to the gross salary.
-  The net salary will depend on personal variables
-  that the employer cannot define
-  (such as contribution to retirement funds, housing interests,
-  number of dependents, among others ).
+  The net salary will depend on your personal variables,
+  such as the amount you want to contribute to retirement funds,
+  and the number of dependents you declare for tax purposes, among others.
   However, in the following [button]#link:http://www.elempleo.com/co/calculadora-salarial/[link]#
   you can simulate an approximated value for your net salary.
   Enter the proposed salary in the first field (+Salario+).
-  And then press +Calcular+.
+  Then press +Calcular+.
   In the monthly net compensation field,
-  you will find an approximated value of the the money
-  that you will receive monthly in your payroll account.
+  you will find an approximated amount of money
+  which will be your monthly take-home pay.
+  This is your approximate net salary
+  which will be deposited into your account.
 
 *Why is there a difference between the gross salary and the net salary?*::
-  There are law deductions that the government makes to the employees.
-  These values are fixed and neither the talent
-  nor +Fluid Attacks+ may modify them.
-  The only value to agree is the amount of the gross salary.
+  See the answer to <<q3,question 3>> above.
+  In addition to the personal variables that you control
+  which impact your net salary, there are also salary deductions
+  required by law which support governmental programs.
+  These deductions are determined by the government,
+  and cannot be modified by the employer or the employee.
 
-*Must the talent pay his/her own social security?*::
-  No, the talent must not pay anything on his/her own.
-  It is +Fluid Attacks+ who directly performs the deductions
-  and makes the payment to the corresponding entities.
-  (+EPS+, retirement funds, compensation funds, among others).
-  +Fluid Attacks+ includes all benefits demanded by law
-  in the 100% of the salary,
-  ensuring that the talent must not perform additional payments
-  to the deductions previously indicated.
+*As an employee, do I have to pay my own social security deduction?*::
+  No. +Fluid Attacks+ withholds from your paycheck
+  all deductions and forwards them to the appropriate agencies
+  (+EPS+, retirement funds, compensation funds, etc.).
+  Your net salary is, therefore,
+  the money that is directly deposited into your bank account.
 
-*The offered salary may change?*::
-  No. +Fluid Attacks+ respects the talent salary expectation,
-  and do not question nor comment it.
-  Any salary expectation is reasonable
-  and may be based on salaries from other enterprises,
-  on different sectors, business or funding models.
-  Each salary offer made by +Fluid Attacks+
-  is carefully assessed by a committee of +3+ and +5+ persons,
-  seeking to guarantee the inner equality
-  (employees with same performance and long term alignment
-  have the same salary and the group salary can be maintained over time).
+*Do you ever change the salary offer?*::
+  No. Each salary offer is carefully assessed
+  by a hiring committee of +3+ to +5+ +Fluid Attacks+ upper-level managers.
+  Each offer is based on salaries for comparable positions
+  within +Fluid Attacks+ and is aligned
+  with +Fluid Attacks+ employees
+  at the same performance and productivity level.
+  +Fluid Attacks+ also takes into consideration
+  the compensation offered by other companies,
+  including those in different business sectors, for comparable positions.
   For this reason, the salary offer you receive
-  was evaluated taken those factors into account
-  and a higher salary value implies to generate
-  a promotion without fuhrer information.
-  Thus, the value of each offer that +Fluid Attacks+
-  sends is definitive and always express our best offer.
-  We understand that sometimes those values
-  may not compete with other enterprises,
-  but we prefer to keep the inner equality
-  instead of generating exceptional cases
-  for external factors out of our control.
-  We recommend you to keep reading to understand
-  when and how +Fluid Attacks+ can increase your salary.
+  represents our best and only offer.
+  As an employee's productivity, performance, knowledge,
+  and responsibilities increase opportunities exist
+  to increase their salary as well.
 
 *Does the variable salary exist in Fluid Attacks?*::
   No, we don't use a variable salary schema for any person.
