@@ -100,7 +100,7 @@ def migrate_all_files(finding_id, project_name):
                     full_name = '{base}-{name}{ext}'.format(
                         base=base_name,
                         ext=file_obj['ext'],
-                        name=file_name)
+                        name=file_name.replace(' ', '-'))
                     if finding_dal.migrate_evidence(download_path, full_name):
                         file_name = full_name.split('/')[2]
                         save_file_url(finding_id, file_obj['name'], file_name)
@@ -811,7 +811,7 @@ def save_evidence(evidence_field, finding_id, project_name, uploaded_file):
     full_name = '{proj}/{fin}/{proj}-{fin}-{field}-{name}'.format(
         field=evidence_field[1],
         fin=finding_id,
-        name=uploaded_file.name,
+        name=uploaded_file.name.replace(' ', '-'),
         proj=project_name)
     success = finding_dal.save_evidence(uploaded_file, full_name)
     if success:
