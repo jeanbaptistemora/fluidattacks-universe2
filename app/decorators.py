@@ -19,7 +19,7 @@ from app import util
 from app.exceptions import InvalidAuthorization
 from app.services import (
     has_access_to_project, has_access_to_finding, is_customeradmin,
-    has_access_to_event
+    has_access_to_event, has_access_token
 )
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
@@ -85,7 +85,10 @@ def require_login(func):
     def verify_and_call(*args, **kwargs):
         context = args[1].context
         try:
-            util.get_jwt_content(context)
+            user_data = util.get_jwt_content(context)
+            if user_data.get('api_token'):
+                check_api_token(user_data['user_email'],
+                                context.META.get('HTTP_AUTHORIZATION'))
         except InvalidAuthorization:
             raise GraphQLError('Login required')
         return func(*args, **kwargs)
@@ -120,6 +123,14 @@ Unauthorized role attempted to perform operation')
             return func(*args, **kwargs)
         return verify_and_call
     return wrapper
+
+
+def check_api_token(email, context):
+    if not has_access_token(email, context):
+        raise InvalidAuthorization()
+    else:
+        # access_token matched
+        pass
 
 
 def role_allowed(role, allowed_roles):

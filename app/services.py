@@ -6,7 +6,7 @@ from django.views.decorators.http import require_http_methods
 # pylint: disable=E0402
 from . import util
 # pylint: disable=E0402
-from .dal import integrates_dal
+from .dal import integrates_dal, user as user_dal
 from .dal.helpers.formstack import FormstackAPI
 from .domain.user import get_user_attributes
 from .dto.finding import FindingDTO
@@ -91,6 +91,22 @@ def is_customeradmin(project, email):
         if data.get('customeradmin') and email.lower() in data['customeradmin']:
             return True
     return False
+
+
+def has_access_token(email, context):
+    """ Verify if has active access token and match. """
+    access_token = user_dal.get_user_attributes(email, ['access_token'])
+    resp = False
+    if context and access_token:
+        if access_token['access_token'] == context.split()[1]:
+            resp = True
+        else:
+            # access_token doesn't match
+            pass
+    else:
+        # authorization header not present or user without access_token
+        pass
+    return resp
 
 
 def has_responsibility(project, email):
