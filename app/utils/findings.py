@@ -6,7 +6,7 @@ from backports import csv
 from magic import Magic
 
 from app import util
-from app.dal import finding as finding_dal, vulnerability as vuln_dal
+from app.dal import finding as finding_dal
 from app.utils import cvss, forms as forms_utils
 
 
@@ -116,11 +116,6 @@ def format_data(finding):
     finding['compromisedAttrs'] = finding.get('records', '')
     finding['records'] = _get_evidence('fileRecords', finding['files'])
     finding['exploit'] = _get_evidence('exploit', finding['files'])
-
-    open_vulns, closed_vulns = vuln_dal.get_vulns_state(finding['findingId'])
-    finding['openVulnerabilities'] = open_vulns
-    finding['closedVulnerabilities'] = closed_vulns
-    finding['state'] = 'open' if open_vulns else 'closed'
 
     cvss_fields = {
         '2': ['accessComplexity', 'accessVector', 'authentication',

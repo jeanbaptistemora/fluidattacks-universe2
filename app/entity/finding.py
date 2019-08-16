@@ -39,8 +39,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.id = finding_id  # noqa pylint: disable=invalid-name
             self.project_name = resp.get('projectName')
             self.release_date = resp.get('releaseDate', '')
-            self.open_vulnerabilities = resp.get('openVulnerabilities')
-            self.closed_vulnerabilities = resp.get('closedVulnerabilities')
             self.records = resp.get('records')
             self.exploit = resp.get('exploit')
             self.cvss_version = resp.get('cvssVersion', '')
@@ -70,7 +68,6 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.risk_level = resp.get('riskValue', '')
             self.ambit = resp.get('ambit', '')
             self.category = resp.get('category', '')
-            self.state = resp.get('state', '')
             self.type = resp.get('findingType', '')
             self.age = resp.get('age', 0)
             self.last_vulnerability = resp.get('lastVulnerability', 0)
@@ -107,7 +104,12 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
 
     def resolve_open_vulnerabilities(self, info):
         """Resolve open vulnerabilities attribute."""
-        del info
+        vulns_loader = info.context.vulnerabilities_loader
+        vulns = vulns_loader.load(self.id)
+
+        self.open_vulnerabilities = vulns.then(lambda vulns: len([
+            vuln for vuln in vulns if vuln.current_state == 'open']))
+
         return self.open_vulnerabilities
 
     def resolve_release_date(self, info):
@@ -117,7 +119,12 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
 
     def resolve_closed_vulnerabilities(self, info):
         """Resolve closed vulnerabilities attribute."""
-        del info
+        vulns_loader = info.context.vulnerabilities_loader
+        vulns = vulns_loader.load(self.id)
+
+        self.closed_vulnerabilities = vulns.then(lambda vulns: len([
+            vuln for vuln in vulns if vuln.current_state == 'closed']))
+
         return self.closed_vulnerabilities
 
     def resolve_tracking(self, info):
@@ -322,7 +329,13 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
 
     def resolve_state(self, info):
         """ Resolve state attribute """
-        del info
+        vulns_loader = info.context.vulnerabilities_loader
+        vulns = vulns_loader.load(self.id)
+
+        self.state = vulns.then(lambda vulns: 'open' if [
+            vuln for vuln in vulns
+            if vuln.current_state == 'open'] else 'closed')
+
         return self.state
 
     def resolve_remediated(self, info):
