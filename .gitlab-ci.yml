@@ -11,10 +11,9 @@ services:
 stages:
   - build
   - test
-  - mr-check
+  - before-mr
+  - at-mr
   - deploy
-  - postdeploy
-  - remove-branches
 
 .kaniko_config: &kaniko_config
   image:
@@ -38,7 +37,10 @@ build:
         --cache-repo "${CI_REGISTRY_IMAGE}"/builder-cache
         --cleanup
         --verbosity warn
-  retry: 2
+  retry:
+    max: 2
+    when:
+      - runner_system_failure
   only:
     - schedules
 
@@ -83,7 +85,7 @@ test:
       - coverage.html
   except:
     - master
-  retry: 2
+    - schedules
 
 fluidasserts:
   stage: test
@@ -99,35 +101,23 @@ fluidasserts:
     - schedules
 
 coverage-report:
-  stage: mr-check
+  stage: before-mr
   variables:
     GITLAB_API: "${CI_API_V4_URL}"
     PROJECT_ID: "${CI_PROJECT_ID}"
     BRANCH: "${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
     TOKEN: "${CI_JOB_TOKEN}"
   script:
-    - curl -Lo artifacts.zip
-        "${GITLAB_API}/projects/${PROJECT_ID}/jobs/artifacts/${BRANCH}/download?job=test&job_token=${TOKEN}"
-    - unzip artifacts.zip
     - scons codecov
-    - cat coverage.html |
-        grep -Po '(?<=pc_cov">)\d+%' |
-        xargs echo 'Coverage:'
-  only:
-    - merge_requests
-
-mr-test:
-  stage: mr-check
-  variables:
-    GIT_STRATEGY: clone
-  script:
-    - ./ci-scripts/check-branch.sh
-  only:
-    - merge_requests
+    - cat coverage.html | grep -Po '(?<=pc_cov">)\d+%' | xargs echo 'Coverage:'
+  needs: [test]
+  except:
+    - master
+    - schedules
 
 danger:
   image: starefossen/ruby-node:2-10
-  stage: mr-check
+  stage: at-mr
   variables:
     DANGER_GITLAB_API_TOKEN: ${DANGER_TOKEN}
     DANGER_GITLAB_HOST: "gitlab.com"
@@ -149,26 +139,14 @@ deploy:
     - scons dist
     - scons deploy
     - mkdir -p dist && cp -a build/dist/*.zip dist/
-  retry: 2
   only:
     - master
   except:
     - schedules
-
-.create_installer:
-  stage: deploy
-  script:
-    - scons dist
-    - python3 deploy/download.py 2> /dev/null
-  retry: 2
-  artifacts:
-    name: "fluidasserts_${CI_COMMIT_SHA:0:8}"
-    paths:
-      - deploy/installer/
-  only:
-    - master
-  except:
-    - schedules
+  retry:
+    max: 2
+    when:
+      - runner_system_failure
 
 pages:
   stage: deploy
@@ -180,9 +158,13 @@ pages:
     - master
   except:
     - schedules
+  retry:
+    max: 2
+    when:
+      - runner_system_failure
 
-push_container:
-  stage: postdeploy
+push-container:
+  stage: deploy
   <<: *kaniko_config
   services: []
   dependencies: []
@@ -197,20 +179,11 @@ push_container:
         --destination "fluidattacks/asserts"
         --cleanup
         --verbosity warn
-  retry: 2
   only:
     - master
   except:
     - schedules
-
-remove-branches:
-  stage: remove-branches
-  variables:
-    GIT_STRATEGY: fetch
-  script:
-    - url_host=$(git remote get-url origin
-      | sed -e "s/https:\/\/gitlab-ci-token:.*@//g")
-    - git remote set-url origin "https://gitlab-ci-token:${API_TKN}@${url_host}"
-    - ./ci-scripts/remove-branches.sh
-  only:
-    - schedules
+  retry:
+    max: 2
+    when:
+      - runner_system_failure
