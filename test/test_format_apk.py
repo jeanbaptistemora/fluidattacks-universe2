@@ -14,6 +14,7 @@ from fluidasserts.format import apk
 
 # Constants
 UNSIGNED_APK = 'test/static/format/apk/open/unsigned.apk'
+JS_APK = 'test/static/format/apk/open/js-open.apk'
 OLD_APK = 'test/static/format/apk/open/old_sdk.apk'
 SIGNED_APK = 'test/static/format/apk/close/signed.apk'
 NO_ROOT_APK = 'test/static/format/apk/close/noroot.apk'
@@ -43,6 +44,15 @@ def test_fragment_injection_open():
     """Test if APK vulnerable to fragment injection."""
     assert apk.has_fragment_injection(OLD_APK)
 
+
+def test_webview_cache_open():
+    """Test if APK webviews clear JS cache."""
+    assert apk.webview_caches_javascript(JS_APK)
+
+
+def test_webview_resources_open():
+    """Test if APK webviews allows resource access."""
+    assert apk.webview_allows_resource_access(JS_APK)
 
 #
 # Close tests
