@@ -6,6 +6,11 @@ def add_phone_to_user(email, phone):
     return user_dal.update_user_attribute(email, phone, 'phone')
 
 
+def get_role(email):
+    """ Get the role of a user. """
+    return user_dal.get_role(email)
+
+
 def get_user_attributes(email, data):
     """ Get attributes of a user. """
     return user_dal.get_user_attributes(email, data)

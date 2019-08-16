@@ -19,6 +19,7 @@ from app.domain.finding import (
     request_verification, save_evidence, save_severity, update_description,
     update_treatment, verify_finding
 )
+from app.domain.user import get_role
 from app.dto.finding import FindingDTO, get_project_name
 from app.entity.types.finding import FindingType
 from app.services import is_customeradmin
@@ -731,7 +732,7 @@ class UpdateTreatment(Mutation):
                 customer_roles = ['customer', 'customeradmin']
                 customer_users = [user
                                   for user in project_users
-                                  if integrates_dal.get_role(user) in customer_roles]
+                                  if get_role(user) in customer_roles]
                 if parameters.get('treatment_manager') not in customer_users:
                     raise GraphQLError('Invalid treatment manager')
             else:

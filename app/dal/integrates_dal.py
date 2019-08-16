@@ -126,17 +126,6 @@ def get_organization(email):
     return row[0]
 
 
-def get_role(email):
-    """ Get the role of a user. """
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT role FROM users WHERE email = %s'
-        cursor.execute(query, (email,))
-        row = cursor.fetchone()
-    if row is None:
-        return "None"
-    return row[0]
-
-
 def get_user_first_name(email):
     """ Get the first name of a user. """
     with connections['integrates'].cursor() as cursor:

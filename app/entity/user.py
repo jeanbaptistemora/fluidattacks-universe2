@@ -14,7 +14,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
 from app.decorators import require_login, require_role, require_project_access
-from app.domain.user import add_phone_to_user
+from app.domain.user import add_phone_to_user, get_role
 from .. import util
 from ..dal import integrates_dal
 from ..services import is_customeradmin, has_responsibility, has_phone_number
@@ -56,7 +56,7 @@ class User(ObjectType):
         self.organization = organization.title() if organization else ''
         self.responsibility = has_responsibility(project_name, user_email)
         self.phone_number = has_phone_number(user_email)
-        user_role = integrates_dal.get_role(user_email)
+        user_role = get_role(user_email)
 
         if is_customeradmin(project_name, user_email):
             self.role = 'customer_admin'

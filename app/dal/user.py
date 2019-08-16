@@ -1,8 +1,20 @@
 from __future__ import absolute_import
+from django.db import connections
 from app.dal import integrates_dal
 
 
 TABLE = 'FI_users'
+
+
+def get_role(email):
+    """ Get the role of a user. """
+    with connections['integrates'].cursor() as cursor:
+        query = 'SELECT role FROM users WHERE email = %s'
+        cursor.execute(query, (email,))
+        row = cursor.fetchone()
+    if row is None:
+        return "None"
+    return row[0]
 
 
 def get_user_attributes(email, data):

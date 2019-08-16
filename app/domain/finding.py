@@ -17,7 +17,7 @@ from __init__ import (
 from app import util
 from app.dal.helpers.drive import DriveAPI
 from app.dal.helpers.formstack import FormstackAPI
-from app.dal import integrates_dal, finding as finding_dal
+from app.dal import integrates_dal, finding as finding_dal, user as user_dal
 from app.domain.vulnerability import update_vulnerabilities_date
 from app.dto.finding import (
     FindingDTO, get_project_name, migrate_description, migrate_treatment,
@@ -234,7 +234,7 @@ def get_email_recipients(project_name, comment_type):
     if comment_type == 'observation':
         approvers = FI_MAIL_REVIEWERS.split(',')
         analysts = [user[0] for user in project_users
-                    if integrates_dal.get_role(user[0]) == 'analyst']
+                    if user_dal.get_role(user[0]) == 'analyst']
 
         recipients += approvers
         recipients += analysts

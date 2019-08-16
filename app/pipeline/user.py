@@ -1,7 +1,7 @@
 # pylint: disable=E0402
 from __future__ import absolute_import
 from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS
-from ..dal import integrates_dal
+from ..dal import integrates_dal, user as user_dal
 from ..mailer import send_mail_new_user
 
 
@@ -41,7 +41,7 @@ def check_registered(strategy, details, backend, *args, **kwargs):
     email = details['email']
     is_registered = integrates_dal.is_registered(email)
     last_login = integrates_dal.get_user_last_login(email)
-    role = integrates_dal.get_role(email)
+    role = user_dal.get_role(email)
     company = integrates_dal.get_organization(email)
     strategy.session_set('username', email)
     strategy.session_set('registered', is_registered)
