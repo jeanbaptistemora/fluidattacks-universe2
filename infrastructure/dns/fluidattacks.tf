@@ -75,14 +75,6 @@ resource "aws_route53_record" "kb_fluid" {
   records = ["fluid.knowledgeowl.com"]
 }
 
-resource "aws_route53_record" "landing" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "landing.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "3600"
-  records = ["pages.rdstation.com.br"]
-}
-
 resource "aws_route53_record" "mailguntracking" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "mailguntracking.mailgun.${aws_route53_zone.fs_maindomain.name}"
@@ -113,14 +105,6 @@ resource "aws_route53_record" "s2_domainkey" {
   type    = "CNAME"
   ttl     = "3600"
   records = ["s2.domainkey.u6002333.wl084.sendgrid.net"]
-}
-
-resource "aws_route53_record" "servicios_fluid" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "servicios.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "3600"
-  records = ["pages.rdstation.com.br"]
 }
 
 resource "aws_route53_record" "status_fluid" {
@@ -278,4 +262,3 @@ resource "aws_route53_record" "customerio_dkim" {
   ttl     = "300"
   records = ["k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDPtW5iwpXVPiH5FzJ7Nrl8USzuY9zqqzjE0D1r04xDN6qwziDnmgcFNNfMewVKN2D1O+2J9N14hRprzByFwfQW76yojh54Xu3uSbQ3JP0A7k8o8GutRF8zbFUA8n0ZH2y0cIEjMliXY4W4LwPA7m4q0ObmvSjhd63O9d8z1XkUBwIDAQAB"]
 }
-
