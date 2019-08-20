@@ -8,7 +8,7 @@ class GenericExceptionsOpen{
           a[4]=30/0;
           System.out.println("First print statement in try block");
 
-          if (a[0] > (200)) {
+          if (a[0] > 200) {
               // this comment should not comment the else if clause
               System.out.println("Big num");
           } else if (a[0] < (100)){

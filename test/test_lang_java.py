@@ -101,12 +101,14 @@ def test_has_insecure_randoms_in_dir_open():
 
 def test_has_if_without_else_open():
     """Search conditionals without an else option."""
-    assert java.has_if_without_else(INSECURE_CODE).is_open()
-
-
-def test_has_if_without_else_in_dir_open():
-    """Search conditionals without an else option."""
-    assert java.has_if_without_else(CODE_DIR).is_open()
+    assert java.has_if_without_else(
+        CODE_DIR, conditions=['a[0] > 200']).is_open()
+    assert java.has_if_without_else(
+        CODE_DIR, conditions=[r'.*? > \d+'], use_regex=True).is_open()
+    assert java.has_if_without_else(
+        INSECURE_CODE, conditions=['a[0] > 200']).is_open()
+    assert java.has_if_without_else(
+        INSECURE_CODE, conditions=[r'.*? > \d+'], use_regex=True).is_open()
 
 
 def test_uses_catch_for_null_pointer_exception_open():
@@ -232,9 +234,16 @@ def test_has_insecure_randoms_close():
 
 def test_has_if_without_else_close():
     """Search conditionals without an else option."""
-    assert java.has_if_without_else(SECURE_CODE).is_closed()
-    assert java.has_if_without_else(CODE_DIR, exclude=['test']).is_closed()
-    assert java.has_if_without_else(NON_EXISTANT_CODE).is_unknown()
+    assert java.has_if_without_else(
+        SECURE_CODE, conditions=['a[0] > 200']).is_closed()
+    assert java.has_if_without_else(
+        SECURE_CODE, conditions=[r'.*? > \d+'], use_regex=True).is_closed()
+    assert java.has_if_without_else(
+        INSECURE_CODE, conditions=['this is not happenning']).is_closed()
+    assert java.has_if_without_else(
+        CODE_DIR, conditions=[], exclude=['test']).is_closed()
+    assert java.has_if_without_else(
+        NON_EXISTANT_CODE, conditions=[]).is_unknown()
 
 
 def test_uses_catch_for_null_pointer_exception_close():

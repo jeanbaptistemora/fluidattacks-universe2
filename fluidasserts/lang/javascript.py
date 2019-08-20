@@ -6,14 +6,14 @@
 import re
 
 # 3rd party imports
-from pyparsing import (Suppress, nestedExpr, cppStyleComment, Optional,
-                       MatchFirst, Keyword, Empty, QuotedString, ZeroOrMore)
+from pyparsing import (Suppress, nestedExpr, cppStyleComment,
+                       MatchFirst, Keyword, Empty, QuotedString)
 
 # local imports
-from fluidasserts import Result
 from fluidasserts import LOW, MEDIUM
 from fluidasserts import OPEN, CLOSED
 from fluidasserts import SAST
+from fluidasserts.lang import core
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
 
@@ -34,7 +34,7 @@ RE_HAVES_DEFAULT = re.compile(r'(?:default\s*:)', flags=re.M)
 
 
 @api(risk=LOW, kind=SAST)
-def uses_console_log(js_dest: str, exclude: list = None) -> Result:
+def uses_console_log(js_dest: str, exclude: list = None) -> tuple:
     """
     Search for ``console.log()`` calls in a JavaScript file or directory.
 
@@ -58,7 +58,7 @@ def uses_console_log(js_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=MEDIUM, kind=SAST)
-def uses_eval(js_dest: str, exclude: list = None) -> Result:
+def uses_eval(js_dest: str, exclude: list = None) -> tuple:
     """
     Search for ``eval()`` calls in a JavaScript file or directory.
 
@@ -82,7 +82,7 @@ def uses_eval(js_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=LOW, kind=SAST)
-def uses_localstorage(js_dest: str, exclude: list = None) -> Result:
+def uses_localstorage(js_dest: str, exclude: list = None) -> tuple:
     """
     Search for ``localStorage`` calls in a JavaScript source file or directory.
 
@@ -106,7 +106,7 @@ def uses_localstorage(js_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=LOW, kind=SAST)
-def has_insecure_randoms(js_dest: str, exclude: list = None) -> Result:
+def has_insecure_randoms(js_dest: str, exclude: list = None) -> tuple:
     r"""
     Check if code uses ``Math.Random()``\ .
 
@@ -132,7 +132,7 @@ def has_insecure_randoms(js_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=LOW, kind=SAST)
-def swallows_exceptions(js_dest: str, exclude: list = None) -> Result:
+def swallows_exceptions(js_dest: str, exclude: list = None) -> tuple:
     """
     Search for ``catch`` blocks that are empty or only have comments.
 
@@ -168,7 +168,7 @@ def swallows_exceptions(js_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=LOW, kind=SAST)
-def has_switch_without_default(js_dest: str, exclude: list = None) -> Result:
+def has_switch_without_default(js_dest: str, exclude: list = None) -> tuple:
     r"""
     Check if all ``switch``\ es have a ``default`` clause.
 
@@ -199,35 +199,21 @@ def has_switch_without_default(js_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=LOW, kind=SAST)
-def has_if_without_else(js_dest: str, exclude: list = None) -> Result:
+def has_if_without_else(
+        js_dest: str,
+        conditions: list,
+        use_regex: bool = False,
+        exclude: list = None) -> tuple:
     r"""
     Check if all ``if``\ s have an ``else`` clause.
 
     See `REQ.161 <https://fluidattacks.com/web/rules/161/>`_.
 
     :param js_dest: Path to a JavaScript source file or package.
+    :param conditions: List of texts between parentheses of the
+                      `if (condition)` statement.
+    :param use_regex: Use regular expressions instead of literals to search.
     :param exclude: Paths that contains any string from this list are ignored.
     """
-    no_else_found = '__no_else_found__'
-    args = nestedExpr(opener='(', closer=')')
-    block = nestedExpr(opener='{', closer='}')
-
-    if_block = Keyword('if') + args + block
-    else_if_block = Keyword('else') + Keyword('if') + args + block
-    else_block = Optional(Keyword('else') + block, default=no_else_found)
-
-    else_block.addCondition(lambda x: no_else_found in str(x))
-
-    grammar = if_block + ZeroOrMore(else_if_block) + else_block
-    grammar.ignore(cppStyleComment)
-
-    return lang.generic_method(
-        path=js_dest,
-        gmmr=grammar,
-        func=lang.path_contains_grammar2,
-        msgs={
-            OPEN: 'Code has "if" without "else" clause',
-            CLOSED: 'Code has "if" with "else" clause',
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude)
+    return core._generic_c_has_if_without_else(
+        js_dest, conditions, use_regex, exclude)

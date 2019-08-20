@@ -81,12 +81,14 @@ def test_has_insecure_randoms_in_dir_open():
 
 def test_has_if_without_else_open():
     """Search conditionals without an else option."""
-    assert csharp.has_if_without_else(INSECURE_CODE)
-
-
-def test_has_if_without_else_in_dir_open():
-    """Search conditionals without an else option."""
-    assert csharp.has_if_without_else(CODE_DIR)
+    assert csharp.has_if_without_else(
+        CODE_DIR, conditions=['a > 5']).is_open()
+    assert csharp.has_if_without_else(
+        CODE_DIR, conditions=[r'.*? > \d+'], use_regex=True).is_open()
+    assert csharp.has_if_without_else(
+        INSECURE_CODE, conditions=['a > 5']).is_open()
+    assert csharp.has_if_without_else(
+        INSECURE_CODE, conditions=[r'.*? > \d+'], use_regex=True).is_open()
 
 
 def test_uses_md5_hash_open():
@@ -184,9 +186,16 @@ def test_has_insecure_randoms_close():
 
 def test_has_if_without_else_close():
     """Search conditionals without an else option."""
-    assert not csharp.has_if_without_else(SECURE_CODE)
-    assert not csharp.has_if_without_else(CODE_DIR, exclude=['test'])
-    assert not csharp.has_if_without_else(NON_EXISTANT_CODE)
+    assert csharp.has_if_without_else(
+        SECURE_CODE, conditions=['a > 5']).is_closed()
+    assert csharp.has_if_without_else(
+        SECURE_CODE, conditions=[r'.*? > \d+'], use_regex=True).is_closed()
+    assert csharp.has_if_without_else(
+        INSECURE_CODE, conditions=['this is not happenning']).is_closed()
+    assert csharp.has_if_without_else(
+        CODE_DIR, conditions=[], exclude=['test']).is_closed()
+    assert csharp.has_if_without_else(
+        NON_EXISTANT_CODE, conditions=[]).is_unknown()
 
 
 def test_uses_md5_hash_close():

@@ -9,7 +9,8 @@ from base64 import b64encode
 from typing import List
 
 # 3rd party imports
-from pyparsing import MatchFirst, QuotedString, Regex, Literal
+from pyparsing import (cppStyleComment, Keyword, Literal, MatchFirst,
+                       nestedExpr, Optional, QuotedString, Regex, ZeroOrMore)
 
 # local imports
 from fluidasserts import Result, Unit
@@ -20,8 +21,51 @@ from fluidasserts.helper import lang
 from fluidasserts.utils.generic import get_sha256, get_paths
 from fluidasserts.utils.decorators import api
 
+# 'anything'
+L_CHAR = QuotedString("'")
+# "anything"
+L_STRING = QuotedString('"')
 
 LANGUAGE_SPECS = {}  # type: dict
+
+
+def _generic_c_has_if_without_else(
+        location: str,
+        conditions: list,
+        use_regex: bool = False,
+        exclude: list = None) -> tuple:
+    """Perform a generic has_if_without_else that can be reused."""
+    no_else_found = '__no_else_found__'
+
+    content = MatchFirst([
+        Regex(condition) if use_regex else Literal(condition)
+        for condition in conditions])
+
+    args_if = nestedExpr(opener='(', closer=')', content=content)
+    args_else_if = nestedExpr(opener='(', closer=')')
+    block = nestedExpr(opener='{', closer='}')
+
+    if_block = Keyword('if') + args_if + block
+    else_if_block = Keyword('else') + Keyword('if') + args_else_if + block
+    else_block = Optional(Keyword('else') + block, default=no_else_found)
+
+    else_block.addCondition(lambda x: no_else_found in str(x))
+
+    grammar = if_block + ZeroOrMore(else_if_block) + else_block
+    grammar.ignore(cppStyleComment)
+    grammar.ignore(L_CHAR)
+    grammar.ignore(L_STRING)
+
+    return lang.generic_method(
+        path=location,
+        gmmr=grammar,
+        func=lang.path_contains_grammar2,
+        msgs={
+            OPEN: 'Code has "if" without "else" clause',
+            CLOSED: 'Code has "if" with "else" clause',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
 @api(risk=LOW, kind=SAST)

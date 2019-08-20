@@ -76,12 +76,14 @@ def test_has_switch_without_default_in_dir_open():
 
 def test_has_if_without_else_open():
     """Search conditionals without an else option."""
-    assert javascript.has_if_without_else(INSECURE_CODE)
-
-
-def test_has_if_without_else_in_dir_open():
-    """Search conditionals without an else option."""
-    assert javascript.has_if_without_else(CODE_DIR)
+    assert javascript.has_if_without_else(
+        CODE_DIR, conditions=['c > 10']).is_open()
+    assert javascript.has_if_without_else(
+        CODE_DIR, conditions=[r'\w+? > \d+'], use_regex=True).is_open()
+    assert javascript.has_if_without_else(
+        INSECURE_CODE, conditions=['c > 10']).is_open()
+    assert javascript.has_if_without_else(
+        INSECURE_CODE, conditions=[r'\w+? > \d+'], use_regex=True).is_open()
 
 
 def test_uses_eval_open():
@@ -136,9 +138,16 @@ def test_has_switch_without_default_close():
 
 def test_has_if_without_else_close():
     """Search conditionals without an else option."""
-    assert not javascript.has_if_without_else(SECURE_CODE)
-    assert not javascript.has_if_without_else(CODE_DIR, exclude=['test'])
-    assert not javascript.has_if_without_else(NOT_EXISTANT_CODE)
+    assert javascript.has_if_without_else(
+        SECURE_CODE, conditions=['c > 15']).is_closed()
+    assert javascript.has_if_without_else(
+        SECURE_CODE, conditions=[r'.*? > \d+'], use_regex=True).is_closed()
+    assert javascript.has_if_without_else(
+        INSECURE_CODE, conditions=['this is not happenning']).is_closed()
+    assert javascript.has_if_without_else(
+        CODE_DIR, conditions=[], exclude=['test']).is_closed()
+    assert javascript.has_if_without_else(
+        NOT_EXISTANT_CODE, conditions=[]).is_unknown()
 
 
 def test_uses_eval_close():

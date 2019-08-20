@@ -465,32 +465,17 @@ def exec_http_package(urls: List[str], enable_multiprocessing: bool):
 
     source: Dict[str, str] = {
         ('http', 'HTTP part 1'): """
-            # http.can_brute_force('{url}')
             http.has_clear_viewstate('{url}')
-            # http.has_command_injection('{url}')
-            # http.has_csrf('{url}')
             http.has_delete_method('{url}')
             http.has_dirlisting('{url}')
-            # http.has_dirtraversal('{url}')
             http.has_host_header_injection('{url}')
-            # http.has_hpp('{url}')
-            # http.has_insecure_dor('{url}')
-            # http.has_insecure_upload('{url}')
             """,
         ('http', 'HTTP part 2'): """
-            # http.has_lfi('{url}')
             http.has_mixed_content('{url}')
-            # http.has_multiple_text('{url}')
-            # http.has_not_text('{url}')
-            # http.has_php_command_injection('{url}')
             http.has_put_method('{url}')
             http.has_reverse_tabnabbing('{url}')
-            # http.has_session_fixation('{url}')
             http.has_sqli('{url}')
-            # http.has_text('{url}')
             http.has_trace_method('{url}')
-            # http.has_user_enumeration('{url}')
-            # http.has_xss('{url}')
             """,
         ('http', 'HTTP part 3'): """
             http.is_basic_auth_enabled('{url}')
@@ -689,22 +674,10 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
 
     source: Dict[str, str] = {
         ('core', 'Core'): """
-            # core.file_does_not_exist
-            # core.file_exists
-            # core.has_all_text
-            # core.has_any_secret
-            # core.has_any_text
-            # core.has_not_any_text
-            # core.has_not_text
-            # core.has_secret
-            # core.has_text
-            # core.has_weak_cipher
-            # core.is_file_hash_in_list
             core.uses_unencrypted_sockets('__path__')
             """,
         ('csharp', 'C#'): """
             csharp.has_generic_exceptions('__path__')
-            csharp.has_if_without_else('__path__')
             csharp.has_insecure_randoms('__path__')
             csharp.has_switch_without_default('__path__')
             csharp.swallows_exceptions('__path__')
@@ -725,15 +698,10 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             dotnetconfig.not_custom_errors('__path__')
             """,
         ('html', 'HTML'): """
-            # html.has_not_autocomplete('__path__')
             html.has_reverse_tabnabbing('__path__')
-            # html.is_cacheable('__path__')
-            # html.is_header_content_type_missing('__path__')
             """,
         ('java', 'Java'): """
-            # java.does_not_handle_exceptions
             java.has_generic_exceptions('__path__')
-            java.has_if_without_else('__path__')
             java.has_insecure_randoms('__path__')
             java.has_log_injection('__path__')
             java.has_switch_without_default('__path__')
@@ -741,15 +709,12 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             java.uses_catch_for_null_pointer_exception('__path__')
             java.uses_catch_for_runtime_exception('__path__')
             java.uses_des_algorithm('__path__')
-            # java.uses_insecure_cipher
-            # java.uses_insecure_hash
             java.uses_md5_hash('__path__')
             java.uses_print_stack_trace('__path__')
             java.uses_sha1_hash('__path__')
             java.uses_system_exit('__path__')
             """,
         ('javascript', 'Javascript'): """
-            javascript.has_if_without_else('__path__')
             javascript.has_insecure_randoms('__path__')
             javascript.has_switch_without_default('__path__')
             javascript.swallows_exceptions('__path__')

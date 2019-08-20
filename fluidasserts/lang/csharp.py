@@ -10,13 +10,13 @@ from typing import Dict, List
 from pyparsing import (Word, Optional, alphas,
                        alphanums, Suppress, nestedExpr, cppStyleComment,
                        Keyword, MatchFirst, QuotedString,
-                       delimitedList, Empty, ZeroOrMore)
+                       delimitedList, Empty)
 
 # local imports
-from fluidasserts import Result
 from fluidasserts import LOW, MEDIUM
 from fluidasserts import OPEN, CLOSED
 from fluidasserts import SAST
+from fluidasserts.lang import core
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
 
@@ -75,7 +75,7 @@ def _declares_catch_for_exceptions(
 
 
 @api(risk=LOW, kind=SAST)
-def has_generic_exceptions(csharp_dest: str, exclude: list = None) -> Result:
+def has_generic_exceptions(csharp_dest: str, exclude: list = None) -> tuple:
     """
     Search for generic exceptions in a C# source file or package.
 
@@ -103,7 +103,7 @@ def has_generic_exceptions(csharp_dest: str, exclude: list = None) -> Result:
 
 @api(risk=LOW, kind=SAST)
 def uses_catch_for_null_reference_exception(
-        csharp_dest: str, exclude: list = None) -> Result:
+        csharp_dest: str, exclude: list = None) -> tuple:
     """
     Search for the use of NullReferenceException "catch" in a path.
 
@@ -128,7 +128,7 @@ def uses_catch_for_null_reference_exception(
 
 
 @api(risk=LOW, kind=SAST)
-def swallows_exceptions(csharp_dest: str, exclude: list = None) -> Result:
+def swallows_exceptions(csharp_dest: str, exclude: list = None) -> tuple:
     """
     Search for ``catch`` blocks that are empty or only have comments.
 
@@ -160,7 +160,7 @@ def swallows_exceptions(csharp_dest: str, exclude: list = None) -> Result:
 
 @api(risk=LOW, kind=SAST)
 def has_switch_without_default(
-        csharp_dest: str, exclude: list = None) -> Result:
+        csharp_dest: str, exclude: list = None) -> tuple:
     r"""
     Check if all ``switch``\ es have a ``default`` clause.
 
@@ -191,7 +191,7 @@ def has_switch_without_default(
 
 
 @api(risk=LOW, kind=SAST)
-def has_insecure_randoms(csharp_dest: str, exclude: list = None) -> Result:
+def has_insecure_randoms(csharp_dest: str, exclude: list = None) -> tuple:
     """
     Check if code instantiates ``Random`` class.
 
@@ -222,44 +222,28 @@ def has_insecure_randoms(csharp_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=LOW, kind=SAST)
-def has_if_without_else(csharp_dest: str, exclude: list = None) -> Result:
+def has_if_without_else(
+        csharp_dest: str,
+        conditions: list,
+        use_regex: bool = False,
+        exclude: list = None) -> tuple:
     r"""
     Check if all ``if``\ s have an ``else`` clause.
 
     See `REQ.161 <https://fluidattacks.com/web/rules/161/>`_.
 
     :param csharp_dest: Path to a C# source file or package.
+    :param conditions: List of texts between parentheses of the
+                      `if (condition)` statement.
+    :param use_regex: Use regular expressions instead of literals to search.
     :param exclude: Paths that contains any string from this list are ignored.
     """
-    no_else_found = '__no_else_found__'
-    args = nestedExpr(opener='(', closer=')')
-    block = nestedExpr(opener='{', closer='}')
-
-    if_block = Keyword('if') + args + block
-    else_if_block = Keyword('else') + Keyword('if') + args + block
-    else_block = Optional(Keyword('else') + block, default=no_else_found)
-
-    else_block.addCondition(lambda x: no_else_found in str(x))
-
-    grammar = if_block + ZeroOrMore(else_if_block) + else_block
-    grammar.ignore(cppStyleComment)
-    grammar.ignore(L_CHAR)
-    grammar.ignore(L_STRING)
-
-    return lang.generic_method(
-        path=csharp_dest,
-        gmmr=grammar,
-        func=lang.path_contains_grammar2,
-        msgs={
-            OPEN: 'Code has "if" without "else" clause',
-            CLOSED: 'Code has "if" with "else" clause',
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude)
+    return core._generic_c_has_if_without_else(
+        csharp_dest, conditions, use_regex, exclude)
 
 
 @api(risk=MEDIUM, kind=SAST)
-def uses_md5_hash(csharp_dest: str, exclude: list = None) -> Result:
+def uses_md5_hash(csharp_dest: str, exclude: list = None) -> tuple:
     """
     Check if code uses MD5 as hashing algorithm.
 
@@ -289,7 +273,7 @@ def uses_md5_hash(csharp_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=MEDIUM, kind=SAST)
-def uses_sha1_hash(csharp_dest: str, exclude: list = None) -> Result:
+def uses_sha1_hash(csharp_dest: str, exclude: list = None) -> tuple:
     """
     Check if code uses SHA1 as hashing algorithm.
 
@@ -317,7 +301,7 @@ def uses_sha1_hash(csharp_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=MEDIUM, kind=SAST)
-def uses_ecb_encryption_mode(csharp_dest: str, exclude: list = None) -> Result:
+def uses_ecb_encryption_mode(csharp_dest: str, exclude: list = None) -> tuple:
     """
     Check if code uses ECB as encryption mode.
 
@@ -342,7 +326,7 @@ def uses_ecb_encryption_mode(csharp_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=LOW, kind=SAST)
-def uses_debug_writeline(csharp_dest: str, exclude: list = None) -> Result:
+def uses_debug_writeline(csharp_dest: str, exclude: list = None) -> tuple:
     """
     Check if code uses Debug.WriteLine method.
 
@@ -370,7 +354,7 @@ def uses_debug_writeline(csharp_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=LOW, kind=SAST)
-def uses_console_writeline(csharp_dest: str, exclude: list = None) -> Result:
+def uses_console_writeline(csharp_dest: str, exclude: list = None) -> tuple:
     """
     Check if code uses Console.WriteLine method.
 
