@@ -3,13 +3,14 @@
 Script to check if images inside the repo are properly optimized
 in size, extension and dimensions
 Author: Oscar Eduardo Prado oprado@fluidattacks.com
-Version 1.3
-Patch notes 1.3:
-- Comply with pylint
+Version 1.4
+Patch notes 1.4:
+- Externalized repo changes in a different function
 """
 import os
 import sys
 import print_helper
+import getchanges
 
 EXIT_CODE = 0
 
@@ -62,15 +63,7 @@ for ART in ARTS:
 #Check that new images are optimized
 print_helper.print_warning("Checking image optimization ...\n")
 #get changes in the repo:
-BRANCH = os.popen('git rev-parse --abbrev-ref HEAD').read()
-BRANCH = BRANCH.split()
-REMOTE = os.popen('git rev-list --count --no-merges origin/master').read()
-LOCAL = os.popen('git rev-list --count --no-merges '+BRANCH[0]).read()
-NCOMMITS = str(int(LOCAL) - int(REMOTE))
-#get only Added or Modified Files
-CHANGES = os.popen('git diff HEAD~'+NCOMMITS+' --name-status \
-                   | pcregrep "^(M|A)" | sed "s/^[A-Z][[:blank:]]//" ').read()
-CHANGES = CHANGES.split()
+CHANGES, EXIT_CODE = getchanges.repochanges(EXIT_CODE)
 
 for FILE in CHANGES:
     if ".png" in FILE:

@@ -5,9 +5,9 @@
 Script to check if defined rules are strictly applied
 Replaces check-all.sh
 Author: Oscar Eduardo Prado oprado@fluidattacks.com
-Version 1.6
-Patch notes 1.6:
-- Comply with pylint
+Version 1.7
+Patch notes 1.7:
+- Externalized repo changes in a different function
 """
 import os
 import sys
@@ -16,6 +16,7 @@ import genchecker
 import contentrules
 import articlerules
 import spelling
+import getchanges
 
 EXIT_CODE = 0
 
@@ -27,23 +28,7 @@ else:
 
 if len(sys.argv) == 2 and sys.argv[1] == 'changes':
     #get changes in the repo:
-    BRANCH = os.popen('git rev-parse --abbrev-ref HEAD').read()
-    BRANCH = BRANCH.split()
-    REMOTE = os.popen('git rev-list --count --no-merges origin/master').read()
-    LOCAL = os.popen('git rev-list --count --no-merges '+BRANCH[0]).read()
-    NCOMMITS = str(int(LOCAL) - int(REMOTE))
-    #Check if branch is updated:
-    if int(NCOMMITS) < 1:
-        print_helper.print_warning("Your current branch is behind master. ")
-        print_helper.print_warning("Update your local repo and try again.\n")
-        CHANGES = ''
-        EXIT_CODE = 1
-    else:
-        print_helper.print_warning('Number of commits: '+NCOMMITS+'\n')
-        #get only Added or Modified Files:
-        CHANGES = os.popen('git diff HEAD~'+NCOMMITS+' --name-status  \
-                     | pcregrep "^(M|A)" | sed "s/^[A-Z][[:blank:]]//" ').read()
-        CHANGES = CHANGES.split()
+    CHANGES, EXIT_CODE = getchanges.repochanges(EXIT_CODE)
 
     for FILE in CHANGES:
         print_helper.print_unknown(FILE+"\n")
