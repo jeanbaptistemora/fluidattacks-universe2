@@ -54,6 +54,11 @@ def test_webview_resources_open():
     """Test if APK webviews allows resource access."""
     assert apk.webview_allows_resource_access(JS_APK)
 
+
+def test_forces_update_open():
+    """Test if APK forces update."""
+    assert apk.not_forces_updates(NO_ROOT_APK)
+
 #
 # Close tests
 #
@@ -87,6 +92,12 @@ def test_webview_cache_close():
 def test_webview_resources_close():
     """Test if APK webviews allows resource access."""
     assert not apk.webview_allows_resource_access(NO_ROOT_APK)
+
+
+def test_forces_update_close():
+    """Test if APK forces update."""
+    assert not apk.not_forces_updates(JS_APK)
+
 
 #
 # Unknown tests
@@ -126,3 +137,8 @@ def test_webview_cache_unknown():
 def test_webview_resources_unknown():
     """Test if APK webviews allows resource access."""
     assert not apk.webview_allows_resource_access(NOT_EXISTS_APK)
+
+
+def test_forces_update_unknown():
+    """Test if APK forces update."""
+    assert not apk.not_forces_updates(NOT_EXISTS_APK)
