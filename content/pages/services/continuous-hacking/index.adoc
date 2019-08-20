@@ -5,45 +5,37 @@
 
 = Continuous Hacking
 
-The Continuous Hacking service aims to detect and report all vulnerabilities
+We detect and report all vulnerabilities
 and security issues during the entire software development cycle.
 Our participation during the entire development period
-allows us to detect security issues continuously
-as the software evolves during development.
+allows us to detect security issues continuously as the software evolves.
+There's no need to have a working environment
+to start hacking since we are able to analyze source code
+published on a project’s +GIT+ repository.
 The rigorous inspection carried out by our team
-allows us to detect all security issues with no false positives
-and to check if issues were properly repaired
+allows us to detect all security issues
+with no false positives and to check if issues were properly repaired
 before the system goes into the production phase.
 
 [role="tb-alt"]
 [cols=3, frame="topbot"]
 |====
 
-2+a|== Ethical hacking can start before there is a working environment
-
-Ethical Hacking can start along with code development,
-even before a first application version is released.
-There's no need to have a working environment to start hacking,
-since we are able to analyze source code
-published on project's +GIT+ repository.
-
-
-a|image::hacking-before-env.svg[alt="Application blueprint"]
-
 a|image::hacking-techniques.svg[alt="Source code symbol"]
 
 2+a|== Hacking techniques
 
-* Integral continuous hacking is achieved through application
-and infrastructure ethical hacking as well as source code analysis.
-In order to perform integral continuous hacking,
-access to both +GIT+ repository and integration environment are required.
+* Integral continuous hacking
+is achieved through application and infrastructure ethical hacking,
+as well as source code analysis.
+We require access to both, the +GIT+ repository and integration environment,
+in order to perform integral continuous hacking.
 
-* In limited continuous ethical hacking
-the customer can choose between application ethical hacking
+* In limited continuous ethical hacking,
+you can choose between application ethical hacking
 or source code analysis.
-In order to perform limited continuous hacking,
-access to the +GIT+ repository or the integration environment is required.
+Access to the +GIT+ repository or the integration environment
+is required to perform limited continuous hacking.
 
 2+a|== Healthcheck
 
@@ -61,65 +53,70 @@ a|image::healthchecks.svg[alt="Source code with successful checks"]
 
 a|image::severity.svg[alt="Checklist"]
 
-2+a|== Severity
+2+a|== You decide the Severity and Hacking Environments
 
-Customers are able to decide which security requirements will be tested
+You are able to decide which security requirements will be tested
 on each Ethical Hacking (Profiling) through our
 [button]#link:../../products/rules/[Rules]# product.
-
-Customers will know the exact severity for each hacking
+You will know the exact severity for each hacking
 (for inspected and non-inspected profiled requirements).
-
-2+a|== Duration
-
-Minimum subscription time for continuous ethical hacking is one year.
-
-a|image::duration.svg[alt="Calendar"]
-
-a|image::attack-cycles.svg[alt="Metal Gear"]
-
-2+a|== Attack Cycles
-
-During the subscription period the selected system
-will be attacked multiple times
-to test all versions generated during the development phase.
-The hacking team will constantly attack the system
-even though its functionalities
-may have already been attacked in a previous version.
-
-2+a|== Direct and agile communication
-
-All project communication is done through
-[button]#link:../../products/integrates/[Integrates]#,
-customers can use chat and comments for any project or finding question.
-
-a|image::agile-communication.svg[alt="Two persons having a conversation"]
-
-a|image::hacking-envs.svg[alt="Source code inside a scope target"]
-
-2+a|== Hacking environments
-
 Basic service allows customers to choose a single environment
 from production, testing or integration.
 Customers can also add additional testing environments
-for validation with an additional charge.
+for validation at an additional charge.
 
-2+a|== Highly trained hacking team
+2+a|==  Duration of Service and Attack Cycles
 
-Our hackers have practical certifications and academic backgrounds
-related to security testing.
-They perform manual testing and use tools
-to guarantee that our reporting includes insecure programming practices,
-standard alignment and security regulation compliance,
-and findings with specific business impacts.
-This enables us to detect Zero Day findings
-with no false positive reports.
+The minimum subscription time for continuous ethical hacking is one year.
+The selected system will be attacked multiple times
+to test all versions generated during the development phase.
 
-a|image::trained-team.svg[alt="Team"]
+a|image::duration.svg[alt="Calendar"]
+
+a|image::agile-communication.svg[alt="Two persons having a conversation"]
+
+2+a|== Integrates
+
+Our platform for communication,
+follow up and reporting of your project.
+You can use [button]#link:../../products/integrates/[Integrates]#
+to access general information about each finding,
+check its remediation status,
+classify it according to age,
+visualize real-time project statistics and progress,
+as well as other functionalities.
+
+You can also use chat and comments for any project or finding question.
+Integrates provides a Technical Report,
+which contains detailed information on all security vulnerabilities.
+It gives technical personnel
+a road map for a technical remediation plan.
+Also, you can find an Executive Report for use of all  project’s stakeholders.
+It includes an in-depth findings analysis
+and a projected business impact statement,
+as well as a summary of the project scope,
+methodology used, conclusions and recommendations.
+
+2+a|== Remediation validation and support
+
+Multiple finding validation cycles
+are performed during the subscription period
+to ensure findings have been properly repaired.
+We can check if any finding has been successfully closed
+as many times as a customer wants us to.
+In order to perform this remediation validation,
+a customer must first define the treatment
+used to remediate the vulnerability
+and then request, through Integrates,
+a finding validation.
+You can request clarification on any issue
+by directly contacting our hackers through our platform [button]#link:../../products/integrates/[Integrates]#.
+
+a|image::validate-remediation.svg[alt="Checklist"]
 
 a|image::exploitation.svg[alt="Computer with an open lock symbol"]
 
-2+a|== Exploitation
+2+a|== Reproduce mock attacks with Asserts, our exploitation engine
 
 As long as we have access to your deployed applications
 and we authorize your use of our exploitation engine [button]#link:../../products/asserts/[Asserts]#,
@@ -135,52 +132,6 @@ without compromising sensitive information.
 
 a|image::critical-info.svg[alt="Arrows flowing out of a lock"]
 
-a|image::follow-up.svg[alt="Bar graph with a continuous line on top"]
-
-2+a|== Follow up using Integrates
-
-During project execution customers can use [button]#link:../../products/integrates/[Integrates]#
-to access general information about each finding,
-check its remediation status, classify it according to age,
-visualize real-time project statistics and progress,
-as well as other functionalities.
-
-2+a|== Remediation validation
-
-Multiple finding validation cycles
-are performed during the subscription period
-to ensure findings have been properly repaired.
-We can check if any finding has been successfully closed
-as many times as a customer wants us to.
-In order to perform this remediation validation
-a customer must first define the treatment
-used to remediate the vulnerability and then request,
-through [button]#link:../../products/integrates/[Integrates]#, a finding validation.
-
-a|image::validate-remediation.svg[alt="Checklist"]
-
-a|image::remediation-support.svg[alt="Question and answer symbol"]
-
-2+a|== Remediation support
-
-During the project, customers can request clarification
-on any issue by directly contacting our hackers
-through [button]#link:../../products/integrates/[Integrates]#.
-
-2+a|== Generate technical and executive reports from Integrates
-
-The Technical Report provides detailed information
-on all security vulnerabilities.
-It gives technical personnel a road map for a technical remediation plan.
-The Executive Report is an information tool
-for use by all a project's stakeholders.
-It includes an in-depth findings analysis
-and a projected business impact statement,
-as well as a summary of the project scope,
-methodology used, conclusions and recommendations.
-
-a|image::reports.svg[alt="Bar graph in a presentation"]
-
 a|image::secure-deletion.svg[alt="Trash can with a cloud behind"]
 
 2+a|== Information gets deleted securely
@@ -188,6 +139,19 @@ a|image::secure-deletion.svg[alt="Trash can with a cloud behind"]
 +7+ days after a customer approves their final report
 all information gathered during Ethical Hacking
 is deleted securely from all of our systems.
+
+2+a|== Highly trained hacking team
+
+Our hackers have practical certifications and academic backgrounds
+related to security testing.
+They perform manual testing and use tools
+to guarantee that our reporting includes insecure programming practices,
+standard alignment and security regulation compliance,
+and findings with specific business impacts.
+This enables us to detect Zero Day findings
+with no false positive reports.
+
+a|image::trained-team.svg[alt="Team"]
 
 |====
 
@@ -198,7 +162,6 @@ and other providers take a look at our differentiators
 * To check on differences between our One-shot hacking
 and Continuous hacking take a look at our comparative
 [button]#link:../comparative/[here]#.
-
 
 Want further information about our services?
 Do not hesitate to
