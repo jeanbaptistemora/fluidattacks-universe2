@@ -41,7 +41,7 @@ def _generic_c_has_if_without_else(
         Regex(condition) if use_regex else Literal(condition)
         for condition in conditions])
 
-    args_if = nestedExpr(opener='(', closer=')', content=content)
+    args_if = '(' + content + ')'
     args_else_if = nestedExpr(opener='(', closer=')')
     block = nestedExpr(opener='{', closer='}')
 
