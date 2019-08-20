@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-build_production() {
+build_deps_dev() {
 
   # Builds container if any of the specified files
   # was modified
@@ -14,11 +14,13 @@ build_production() {
   local NAME
   local FILES
 
-  NAME='production'
+  NAME='deps-dev'
   FILES=(
     'deploy/containers/production/requirements.txt'
-    'front/package.json'
+    'deploy/containers/development/requirements.txt'
     'deploy/containers/production/Dockerfile'
+    'deploy/containers/development/Dockerfile'
+    'front/package.json'
   )
 
   if check_file_changed "${FILES[@]}"; then
@@ -28,4 +30,4 @@ build_production() {
   fi
 }
 
-build_production
+build_deps_dev

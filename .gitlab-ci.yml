@@ -46,7 +46,7 @@ image: registry.gitlab.com/fluidsignal/default/integrates/deps:ci
 stages:
   - deps-base
   - deps-dev
-  - pre-test
+  - test
   - build
   - mr-check
   - deploy
@@ -62,21 +62,21 @@ build-mobile:
   script:
     - ./ci-scripts/jobs/build-mobile.sh
 
-build-production:
+build-deps-prod:
   stage: deps-base
   image: fluidattacks/alpine-kaniko:latest
   retry: 2
   script:
-    - ./ci-scripts/jobs/build-production.sh
+    - ./ci-scripts/jobs/build-deps-prod.sh
 
-build-development:
+build-deps-dev:
   stage: deps-dev
   image: fluidattacks/alpine-kaniko:latest
   retry: 2
   dependencies:
-    - build-production
+    - build-deps-prod
   script:
-    - ./ci-scripts/jobs/build-development.sh
+    - ./ci-scripts/jobs/build-deps-dev.sh
 
 deps-app:
   stage: deps-base
@@ -93,7 +93,6 @@ deps-app:
         --destination "${CI_REGISTRY_IMAGE}/deps:app"
         --single-snapshot
         --snapshotMode time
-        --verbosity warn
   retry: 1
   only:
     - schedules
@@ -115,13 +114,12 @@ deps-ci:
         --destination "${CI_REGISTRY_IMAGE}/deps:ci"
         --single-snapshot
         --snapshotMode time
-        --verbosity warn
   retry: 1
   only:
     - schedules
 
 test-terraform:
-  stage: pre-test
+  stage: test
   image: registry.gitlab.com/fluidsignal/serves:builder
   script:
     - ./ci-scripts/jobs/test-terraform.sh
@@ -137,8 +135,8 @@ test-terraform:
     - master
 
 front-compiler:
-  stage: pre-test
-  image: registry.gitlab.com/fluidattacks/integrates:development
+  stage: test
+  image: registry.gitlab.com/fluidattacks/integrates:deps-dev
   script:
     - cp -a /npm-deps/front/node_modules front/
     - cd front
@@ -151,8 +149,8 @@ front-compiler:
   retry: 1
 
 test-front:
-  stage: pre-test
-  image: registry.gitlab.com/fluidattacks/integrates:development
+  stage: test
+  image: registry.gitlab.com/fluidattacks/integrates:deps-dev
   script:
     - ./ci-scripts/jobs/test-front.sh
   artifacts:
@@ -167,7 +165,7 @@ test-front:
     - master
 
 test-mobile:
-  stage: pre-test
+  stage: test
   image: registry.gitlab.com/fluidattacks/integrates:mobile
   script:
     - ./ci-scripts/jobs/test-mobile.sh
@@ -175,8 +173,8 @@ test-mobile:
     - master
 
 test-app:
-  stage: pre-test
-  image: registry.gitlab.com/fluidattacks/integrates:development
+  stage: test
+  image: registry.gitlab.com/fluidattacks/integrates:deps-dev
   script:
     - . ci-scripts/helpers/others.sh && vault_login
     - vaultenv ./ci-scripts/jobs/test-app.sh
@@ -192,7 +190,7 @@ test-app:
     - master
 
 asserts-static:
-  stage: pre-test
+  stage: test
   image: fluid-docker.jfrog.io/fluid:integrates_static
   retry: 1
   variables:
@@ -208,7 +206,7 @@ asserts-static:
     - master
 
 commitlint:
-  stage: pre-test
+  stage: test
   image: starefossen/ruby-node:2-10
   script:
     - npm install --unsafe-perm
@@ -256,7 +254,6 @@ build-app:
         --destination "${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
         --single-snapshot
         --snapshotMode time
-        --verbosity warn
   retry: 1
   artifacts:
     expire_in: 30m
@@ -279,7 +276,6 @@ build-bot:
         --destination "${CI_REGISTRY_IMAGE}/bot:${CI_COMMIT_REF_NAME}"
         --single-snapshot
         --snapshotMode time
-        --verbosity warn
   retry: 1
 
 test-driver:
