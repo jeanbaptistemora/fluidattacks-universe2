@@ -13,6 +13,8 @@ from fluidasserts.format import apk
 
 
 # Constants
+SSL_OPEN = 'test/static/format/apk/open/ssl_open.apk'
+SSL_CLOSE = 'test/static/format/apk/close/ssl_close.apk'
 UNSIGNED_APK = 'test/static/format/apk/open/unsigned.apk'
 JS_APK = 'test/static/format/apk/open/js-open.apk'
 OLD_APK = 'test/static/format/apk/open/old_sdk.apk'
@@ -59,6 +61,11 @@ def test_forces_update_open():
     """Test if APK forces update."""
     assert apk.not_forces_updates(NO_ROOT_APK)
 
+
+def test_ssl_hostname_verify_open():
+    """Test if APK SSLSocket verifies for hostname."""
+    assert apk.not_verifies_ssl_hostname(SSL_OPEN)
+
 #
 # Close tests
 #
@@ -97,6 +104,16 @@ def test_webview_resources_close():
 def test_forces_update_close():
     """Test if APK forces update."""
     assert not apk.not_forces_updates(JS_APK)
+
+
+def test_ssl_hostname_verify_close1():
+    """Test if APK SSLSocket verifies for hostname."""
+    assert not apk.not_verifies_ssl_hostname(SSL_CLOSE)
+
+
+def test_ssl_hostname_verify_close2():
+    """Test if APK SSLSocket verifies for hostname."""
+    assert not apk.not_verifies_ssl_hostname(JS_APK)
 
 
 #
@@ -142,3 +159,8 @@ def test_webview_resources_unknown():
 def test_forces_update_unknown():
     """Test if APK forces update."""
     assert not apk.not_forces_updates(NOT_EXISTS_APK)
+
+
+def test_ssl_hostname_verify_unknown():
+    """Test if APK SSLSocket verifies for hostname."""
+    assert not apk.not_verifies_ssl_hostname(NOT_EXISTS_APK)

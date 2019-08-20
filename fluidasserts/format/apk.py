@@ -266,3 +266,36 @@ def not_forces_updates(apk_file: str) -> bool:
     show_close('APK forces updating',
                details=dict(apk=apk_file))
     return False
+
+
+@notify
+@level('low')
+@track
+def not_verifies_ssl_hostname(apk_file: str) -> bool:
+    """
+    Check if the given APK don't verify the SSLSocket hostname.
+
+    :param apk_file: Path to the image to be tested.
+    """
+    try:
+        apk, dvms, _ = analyze_apk(apk_file)
+    except FileNotFoundError as exc:
+        show_unknown('Error reading file',
+                     details=dict(apk=apk_file, error=str(exc)))
+        return False
+
+    act_source = get_activities_source(dvms)
+
+    result = False
+    if 'SSLSocket' in act_source:
+        if 'getDefaultHostnameVerifier' not in act_source:
+            show_open('APK does not verify hostname in SSL cert',
+                      details=dict(apk=apk_file))
+            result = True
+        else:
+            show_close('APK verifies hostname in SSL cert',
+                       details=dict(apk=apk_file))
+    else:
+        show_close('APK does not use SSLSocket',
+                   details=dict(apk=apk_file))
+    return result
