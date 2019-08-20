@@ -76,10 +76,10 @@ A gap like this seems nonsensical.
   Computer science evolves so fast that academia is incapable of catching up.
   People might expect to be taught like putting a spoon in their mouths,
   but that's not how the world is doing these days.
-  Self-teaching and self-learning are more widespread these days,
+  Today, self-teaching and self-learning are more widespread,
   and people are becoming more aware that they should keep learning.
 
-*How do you study these days?*
+*How do you study?*
 *How do you learn what you need to do in your job?*
 [role="fluid-qanda"]
   . Right now, I wouldn't go to a university to learn what I do daily.
@@ -101,17 +101,22 @@ A gap like this seems nonsensical.
   They might say that they need to speak to an expert.
   And this experts many times just Google the things out.
   It is more of a mindset, rather than a real inability.
+  +
+  +
+  . My day to day is building secure infrastructure
+  using tools like +Terraform+ and +GCP+.
+  I like to apply software development practices
+  to the process of provisioning cloud resources,
+  also known as Infrastructure as Code (+IaC+).
+  You could say I am working in the defensive side of security,
+  but I have heard you are doing some cool stuff
+  on the offensive side as well, aren't you?
 
 Well, Infrastructure as Code (+IaC+) is a thing.
 +Fluid Attacks+ is proud to be working with this approach for several years now.
 Our [button]#link:../../services/continuous-hacking/[Continuous Hacking]#
 and [button]#link:../../services/one-shot-hacking/[One-shot Hacking]# services
 rely on this approach to support our customers consistently and faster.
-
-Now, we turn into cybersecurity specifics,
-and like with the other people we have spoken with,
-we asked Ricardo about his opinion on machine learning (+ML+)
-and artificial intelligence (+AI+).
 
 *What is your opinion on the contributions from ML and AI to cybersecurity?*
 *Do you find hype here? Or on the contrary, is it something real?*
@@ -180,11 +185,3 @@ image::emerging-tech-hc-2017.png[Hype cicle for Emerging technologies 2017]
   Thus avoiding potential setbacks
   (usually expenditures, outages and more) in the future.
   Doing that is an excellent investment.
-
-In an upcoming blog post,
-we will share the second part of this conversation.
-We hope you have enjoyed this interview so far
-and we look forward to discussing the current state of cybersecurity
-with customers, partners, and friends.
-Do you want to share your thoughts?
-[button]#link:../../contact-us/[Do get in touch with us!]#
