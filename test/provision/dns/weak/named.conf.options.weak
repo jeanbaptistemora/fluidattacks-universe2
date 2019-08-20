@@ -24,4 +24,3 @@ options {
 	dnssec-enable no;
 	dnssec-validation no;
 };
-

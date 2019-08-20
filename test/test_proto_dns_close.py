@@ -67,3 +67,19 @@ def test_can_amplify_close(get_mock_ip):
     """Server can perform DNS amplification attacks?."""
     assert not dns.can_amplify(get_mock_ip)
     assert not dns.can_amplify('0.0.0.0')
+
+
+@pytest.mark.parametrize('get_mock_ip', ['dns_hard'], indirect=True)
+def test_has_subdomain_takeover(get_mock_ip):
+    """Test has_subdomain_takeover."""
+    controlled_domains: list = [
+        # An attacker is not able to claim this site because it's already
+        # taken
+        'www.fluid.la',
+    ]
+    assert dns.has_subdomain_takeover(
+        'fluid.la', get_mock_ip, controlled_domains).is_closed()
+    assert dns.has_subdomain_takeover(
+        get_mock_ip, get_mock_ip, controlled_domains).is_unknown()
+    assert dns.has_subdomain_takeover(
+        '0.0.0.0', get_mock_ip, controlled_domains).is_unknown()

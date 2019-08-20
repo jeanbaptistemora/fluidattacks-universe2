@@ -13,4 +13,3 @@ zone "fluid.la" {
 	type master;
 	file "/var/bind/db.test";
 };
-

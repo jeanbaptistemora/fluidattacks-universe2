@@ -14,3 +14,7 @@ $TTL	86400
 @	IN	A	20.20.20.20
 @	IN	NS	fluid.la.
 test	IN	A	20.20.20.20
+
+engineering.fluid.la.	3600	IN	CNAME	subdomaintakeover.fluid.la.
+subdomaintakeover.fluid.la.   300	IN	A	20.20.20.20
+subdomaintakeover.fluid.la.   300	IN	AAAA	2400:cb00:2049:1::a29f:1804

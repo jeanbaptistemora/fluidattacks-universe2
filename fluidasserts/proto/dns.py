@@ -4,6 +4,8 @@
 
 # standard imports
 from __future__ import absolute_import
+from typing import Set, Tuple, List
+from contextlib import suppress
 
 # 3rd party imports
 import socket
@@ -19,10 +21,94 @@ from dns.zone import from_xfr
 
 
 # local imports
+from fluidasserts import Unit, Result
+from fluidasserts import DAST
+from fluidasserts import MEDIUM
+from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts.utils.decorators import track, level, notify, api
+
+
+DOMAIN = str
+NAMESERVER = str
+
+
+def _get_resolver(nameserver: NAMESERVER) -> dns.resolver.Resolver:
+    """Return a resolver configured to query the provided nameserver."""
+    resolver = dns.resolver.Resolver()
+    resolver.nameservers = [nameserver]
+    return resolver
+
+
+def _recursive_query_dns(
+        domain: DOMAIN,
+        nameserver: NAMESERVER,
+        results: Set[Tuple[DOMAIN, DOMAIN]]) -> None:
+    """Append tuples of (origin, target) to results."""
+    answers = []
+
+    # Canonicalize the original domain
+    domain = dns.name.from_text(domain).to_text()
+
+    # Instantiate a custom resolver set to query the provided nameserver
+    resolver = _get_resolver(nameserver)
+
+    # Query for the records
+    for rdtype in (dns.rdatatype.A, dns.rdatatype.AAAA, dns.rdatatype.CNAME):
+        with suppress(dns.resolver.NoAnswer):
+            _answers = resolver.query(domain, rdtype=rdtype)
+            answers.extend(_answers.rrset.items)
+
+    results.update((domain, str(target)) for target in answers)
+
+
+@api(risk=MEDIUM, kind=DAST)
+def has_subdomain_takeover(
+        domain: DOMAIN,
+        nameserver: NAMESERVER,
+        attacker_controlled_domains: List[DOMAIN]) -> Result:
+    """
+    Check if DNS records point to an attacker controlled site.
+
+    Check is done recursively starting from domain and all the A, AAAA, and
+    CNAME records found down the road.
+
+    See `Tutorial <https://www.hackerone.com/blog/Guide-Subdomain-Takeovers>`_.
+
+    :param domain: IPv4, IPv6, or domain to test.
+    :param attacker_controlled_domains: A list of domains to expect as
+                                        vulnerable.
+    """
+    origin_to_target: Set[Tuple[DOMAIN, DOMAIN]] = set()
+
+    try:
+        # Fill the results
+        _recursive_query_dns(domain, nameserver, origin_to_target)
+    except (socket.error,
+            dns.exception.Timeout,
+            dns.exception.FormError,
+            dns.resolver.NoNameservers,
+            dns.resolver.NXDOMAIN) as exc:
+        return UNKNOWN, f'An error occurred: {exc}'
+
+    vuln_records: List[DOMAIN] = list(
+        f'Record: {origin} -> {target}'
+        for origin, target in origin_to_target
+        for controlled_domain in attacker_controlled_domains
+        if controlled_domain in target)
+
+    units: List[Unit] = [Unit(where=domain,
+                              source='DNS/Records',
+                              specific=vuln_records,
+                              fingerprint=hex(hash(tuple(vuln_records))))]
+
+    if vuln_records:
+        return OPEN, (f'{domain} is vulnerable to a sub-domain takeover'
+                      'because one of the records point to a site that '
+                      'can be controlled by an attacker'), units
+    return CLOSED, f'{domain} is safe against a sub-domain takeover', [], units
 
 
 @notify
@@ -48,12 +134,13 @@ def is_xfr_enabled(domain: str, nameserver: str) -> bool:
         result = True
         show_open('Zone transfer enabled on server',
                   details=dict(domain=domain, nameserver=nameserver))
-    except (NoSOA, NoNS, BadZone, dns.query.BadResponse):
+    except (NoSOA, NoNS, BadZone,
+            dns.query.BadResponse, dns.query.TransferError):
         show_close('Zone transfer not enabled on server',
                    details=dict(domain=domain, nameserver=nameserver))
         result = False
-    except (socket.error, dns.exception.Timeout,
-            dns.exception.FormError) as exc:
+    except (socket.error,
+            dns.exception.Timeout, dns.exception.FormError) as exc:
         show_unknown('Could not connect',
                      details=dict(domain=domain, nameserver=nameserver,
                                   error=str(exc).replace(':', ',')))
@@ -113,8 +200,7 @@ def has_cache_poison(domain: str, nameserver: str) -> bool:
     :param domain: Name of the zone to transfer.
     :param nameserver: IPv4 or 6 to test.
     """
-    myresolver = dns.resolver.Resolver()
-    myresolver.nameservers = [nameserver]
+    myresolver = _get_resolver(nameserver)
 
     name = dns.name.from_text(domain)
 

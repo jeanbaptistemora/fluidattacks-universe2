@@ -58,6 +58,32 @@ def test_has_recursion_open(get_mock_ip):
 
 
 @pytest.mark.parametrize('get_mock_ip', ['dns_weak'], indirect=True)
+def test_has_subdomain_takeover(get_mock_ip):
+    """Test has_subdomain_takeover."""
+    controlled_domains_1: list = [
+        # An attacker is able to claim a subdomain here
+        # Let's assume this is GitHub Pages IP
+        '20.20.20.20',
+    ]
+    controlled_domains_2: list = [
+        # An attacker is able to claim a subdomain here
+        # because it points to 20.20.20.20 by CNAME
+        'subdomaintakeover.fluid.la',
+    ]
+    controlled_domains_3: list = [
+        # An attacker is able to claim a subdomain here
+        # Let's assume this is GitHub Pages IPv6
+        '2400:cb00:2049:1::a29f:1804',
+    ]
+    assert dns.has_subdomain_takeover(
+        'engineering.fluid.la', get_mock_ip, controlled_domains_1).is_open()
+    assert dns.has_subdomain_takeover(
+        'engineering.fluid.la', get_mock_ip, controlled_domains_2).is_open()
+    assert dns.has_subdomain_takeover(
+        'engineering.fluid.la', get_mock_ip, controlled_domains_3).is_open()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['dns_weak'], indirect=True)
 def test_can_amplify_open(get_mock_ip):
     """Server can perform DNS amplification attacks?."""
     assert dns.can_amplify(get_mock_ip)
