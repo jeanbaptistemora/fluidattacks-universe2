@@ -4,6 +4,8 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
+from django.core.files.uploadedfile import SimpleUploadedFile
+from graphene.test import Client
 from jose import jwt
 
 from app.api.schema import SCHEMA
@@ -31,9 +33,9 @@ class FindingTests(TestCase):
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.session['username'] = "unittest"
-        request.session['company'] = "unittest"
-        request.session['role'] = "admin"
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
                 'user_email': 'unittest',
@@ -57,3 +59,128 @@ class FindingTests(TestCase):
             ('vulnType', u'inputs'),
             ('where', u'https://example.com')])
         assert test_data in result.data.get('finding')['vulnerabilities']
+
+    def test_update_evidence(self):
+        query = '''
+                mutation {
+                  updateEvidence (
+                    evidenceId: "0",
+                    findingId: "422286126") {
+                  success
+                    finding {
+                      evidence
+                    }
+                  }
+                }
+        '''
+        testing_client = Client(SCHEMA)
+        uploaded_file = SimpleUploadedFile('testFile.gif',
+                                           'file_content',
+                                           content_type='animation/gif')
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        request.FILES['document'] = uploaded_file
+        result = testing_client.execute(query, context=request)
+        assert 'errors' not in result
+        assert result['data']['updateEvidence']['success']
+
+    def test_update_evidence_description(self):
+        query = '''
+                mutation {
+                  updateDescription: updateEvidenceDescription (
+                    description: "this is a test description",
+                    findingId: "422286126",
+                    field: "evidence2_description") {
+                  success
+                    finding {
+                      evidence
+                    }
+                  }
+                }
+        '''
+        testing_client = Client(SCHEMA)
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        result = testing_client.execute(query, context=request)
+        print result
+        assert 'errors' not in result
+        assert result['data']['updateDescription']['success']
+
+    def test_update_severity(self):
+        query = '''
+                mutation {
+                  updateSeverity (
+                    findingId: "422286126",
+                    data: {
+            attackComplexity: 0.77, attackVector: 0.62,
+            availabilityImpact: "0", availabilityRequirement: "1",
+            confidentialityImpact: "0", confidentialityRequirement: "1",
+            cvssVersion: "3", exploitability: 0.91, id: "422286126",
+            integrityImpact: "0.22", integrityRequirement: "1",
+            modifiedAttackComplexity: 0.77, modifiedAttackVector: 0.62,
+            modifiedAvailabilityImpact: "0",
+            modifiedConfidentialityImpact: "0",
+            modifiedIntegrityImpact: "0.22",
+            modifiedPrivilegesRequired: "0.62",
+            modifiedSeverityScope: 0, modifiedUserInteraction: 0.85,
+            privilegesRequired: "0.62", remediationLevel: "0.97",
+            reportConfidence: "0.92",
+            severity: "2.9", severityScope: 0, userInteraction: 0.85
+                    }
+                  ) {
+                    success
+                    finding {
+                      cvssVersion
+                      severity
+                    }
+                  }
+                }
+        '''
+        testing_client = Client(SCHEMA)
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        result = testing_client.execute(query, context=request)
+        assert 'errors' not in result
+        assert result['data']['updateSeverity']['success']
