@@ -1,5 +1,6 @@
 """Domain functions for projects."""
 
+from __future__ import absolute_import
 import threading
 import re
 from datetime import datetime
@@ -8,6 +9,7 @@ import pytz
 
 from django.conf import settings
 
+from __init__ import FI_MAIL_REPLYERS
 from app.dal.helpers.formstack import FormstackAPI
 from app.dal import integrates_dal
 from app.decorators import get_entity_cache
@@ -23,6 +25,9 @@ def get_email_recipients(project_name):
     """Get the recipients of the comment email."""
     project_users = integrates_dal.get_project_users(project_name)
     recipients = [user[0] for user in project_users if user[1] == 1]
+    replyers = FI_MAIL_REPLYERS.split(',')
+    recipients += replyers
+
     return recipients
 
 
@@ -96,7 +101,8 @@ def get_vulnerabilities(findings, vuln_type):
 
 def get_pending_closing_check(project):
     """Check for pending closing checks."""
-    pending_closing = len(integrates_dal.get_remediated_project_dynamo(project))
+    pending_closing = len(
+        integrates_dal.get_remediated_project_dynamo(project))
     return pending_closing
 
 

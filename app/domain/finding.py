@@ -12,7 +12,7 @@ from graphql import GraphQLError
 from i18n import t
 
 from __init__ import (
-    FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
+    FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS, FI_MAIL_REPLYERS
 )
 from app import util
 from app.dal.helpers.drive import DriveAPI
@@ -240,6 +240,8 @@ def get_email_recipients(project_name, comment_type):
         recipients += analysts
     else:
         recipients = [user[0] for user in project_users if user[1] == 1]
+        replyers = FI_MAIL_REPLYERS.split(',')
+        recipients += replyers
 
     return recipients
 
