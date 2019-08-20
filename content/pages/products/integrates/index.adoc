@@ -19,30 +19,12 @@ It also provides the client company’s decision-makers
 with real time information regarding their systems’ security
 and +Fluid Attacks+ project progress.
 
-a|You can access the product
-
-a|[button]#link:../../../../integrates[here]#
+a|[button]#link:../../contact-us/[Request a Demo]#
 |====
 
 [role="tb-alt"]
 [cols=3, frame="topbot"]
 |====
-2+a|== Easy and Fast Authentication
-
-A client company’s user credentials are not stored.
-Using Integrates, a client company can access information
-provided by +Fluid Attacks+ through their corporate email accounts
-from +Google+ or +Microsoft+.
-
-a|image::authentication.svg[Authentication]
-
-a|image::main-menu.svg[Main Menu]
-2+a|== Main Menu
-
-Dashboard allows a client company direct access
-to all their ongoing projects with +Fluid Attacks+.
-A client company can review an up-to-the-minute work history
-of each of their project's events.
 
 2+a|== Project Indicators
 
@@ -79,33 +61,8 @@ All events that inhibit the execution of the project
 can be viewed in real time.
 a|image::eventualities.svg[Events]
 
-a|image::user-tracking.svg[Ethical Hacking User Tracking]
-2+a|== User tracking
-
-Tracks and displays all users who have accessed a particular project.
-
-2+a|== User Administration
-
-A user can grant or revoke access to other users using this module.
-a|image::user-administration.svg[Ethical Hacking Administration Access]
-
-a|image::technical-report.svg[Ethical Hacking Technical Report]
-2+a|== Generate Technical Reports
-
-Executive Reports are a summary version of the technical report
-specifically written so that non-technical stakeholders
-and decision-makers can understand a client company’s vulnerabilities,
-the threats they pose, the steps taken to insure system security,
-and to track progress toward an endpoint.
-
-2+a|== Generate Executive Reports
-
-This document provides summarized and organized information.
-Thus, it may be useful for all the project's stakeholders.
-
-a|image::executive-report.svg[Ethical Hacking Executive Report]
-
 a|image::prioritize-remediation.svg[Ethical Hacking Remediation]
+
 2+a|== Prioritize Remediation
 
 Prioritizing remediation helps a client company
@@ -127,22 +84,32 @@ stemming from inaction), *PENDING* (client company has not yet decided
 on any further action), *REMEDIATE* (client company will resolve
 the security risk posed by the vulnerability).
 
-2+a|== View Vulnerabilities
+2+a|== View Vulnerabilities, their description, severity, evidence, and timeline
 
-View Vulnerabilities allows the client company to see vulnerabilities
-and information on their current status,
-including severity of the threat, type of threat posed,
-and identification/report date.
+* View Vulnerabilities allows the client company
+to see vulnerabilities and information on their current status,
+including severity of the threat,
+type of threat posed, and identification/report date.
 
-a|image::vulnerabilities.png[Ethical Hacking Vulnerabilities]
+* The Vulnerability Description
+contains technical information about each vulnerability.
+Information includes their location, security risks they pose,
+and recommendations on how to eliminate them.
 
-a|image::vulnerability-description.png[Ethical Hacking Vulnerability Description]
-2+a|== Vulnerability Description
+* Vulnerability Severity indicates the risk level
+an identified vulnerability poses to a client company’s systems
+using the international Common Vulnerability Scoring System (+CVSS+) standard.
 
-The Vulnerability Description contains technical information
-about each vulnerability.
-Information includes their location,
-security risks they pose, and recommendations on how to eliminate them.
+* In Vulnerability Evidence proof that a security vulnerability exists
+is shown graphically and includes a descriptive explanation.
+
+* The Vulnerability Timeline
+shows the evolution of a particular vulnerability over time.
+Using report dates and different closing cycles
+it illustrates the effectiveness of the closing cycles
+performed by the client company.
+
+a|image::vulnerability-evidence.png[Ethical Hacking Vulnerability Evidence]
 
 2+a|== Request Verification / Treatment
 
@@ -159,20 +126,6 @@ or to remediate the vulnerability.
 a|image::request-verification.png[Request Verification]
 
 image::treatment.png[Ethical Hacking Treatment]
-
-a|image::vulnerability-severity.png[Ethical Hacking Vulnerability Severity]
-2+a|== Vulnerability Severity
-
-Vulnerability Severity indicates the risk level
-an identified vulnerability poses to a client company’s systems
-using the international Common Vulnerability Scoring System (+CVSS+) standard.
-
-2+a|== Vulnerability Evidence
-
-In Vulnerability Evidence proof that a security vulnerability exists
-is shown graphically and includes a descriptive explanation.
-
-a|image::vulnerability-evidence.png[Ethical Hacking Vulnerability Evidence]
 
 a|image::exploitation-animation.gif[Ethical Hacking Exploitation Animation]
 2+a|== Exploitation Animation
@@ -194,15 +147,15 @@ if they have eliminated the vulnerability.
 
 a|image::vulnerability-exploitation.png[Ethical Hacking Exploitation]
 
-a|image::timeline.png[Ethical Hacking Timeline]
+a|image::technical-report.svg[Ethical Hacking Technical Report]
 
-2+a|== Vulnerability Timeline
+2+a|== Generate Technical and Executive Reports
 
-The Vulnerability Timeline shows the evolution
-of a particular vulnerability over time.
-Using report dates and different closing cycles
-it illustrates the effectiveness of the closing cycles
-performed by the client company.
+Executive Reports are a summary version of the technical report
+specifically written so that non-technical stakeholders
+and decision-makers can understand a client company’s vulnerabilities,
+the threats they pose, the steps taken to insure system security,
+and to track progress toward an endpoint.
 
 2+a|== Compromised Records
 
