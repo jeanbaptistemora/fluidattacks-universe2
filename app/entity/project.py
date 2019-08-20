@@ -73,9 +73,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         self.description = description
         self.remediated_over_time = []
 
-        project_exist = integrates_dal.get_project_attributes_dynamo(
-            self.name, ['project_name'])
-        if project_exist:
+        if validate_project(self.name):
             findings = integrates_dal.get_findings_released_dynamo(
                 self.name, 'finding_id, treatment, cvss_temporal')
             self.findings_aux = findings
