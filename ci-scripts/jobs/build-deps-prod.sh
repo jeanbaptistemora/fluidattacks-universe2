@@ -16,9 +16,9 @@ build_deps_prod() {
 
   NAME='deps-prod'
   FILES=(
-    'deploy/containers/production/requirements.txt'
+    'deploy/containers/deps-prod/requirements.txt'
     'front/package.json'
-    'deploy/containers/production/Dockerfile'
+    'deploy/containers/deps-prod/Dockerfile'
   )
 
   if check_file_changed "${FILES[@]}"; then

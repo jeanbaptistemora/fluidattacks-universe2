@@ -16,10 +16,10 @@ build_deps_dev() {
 
   NAME='deps-dev'
   FILES=(
-    'deploy/containers/production/requirements.txt'
-    'deploy/containers/development/requirements.txt'
-    'deploy/containers/production/Dockerfile'
-    'deploy/containers/development/Dockerfile'
+    'deploy/containers/deps-prod/requirements.txt'
+    'deploy/containers/deps-dev/requirements.txt'
+    'deploy/containers/deps-prod/Dockerfile'
+    'deploy/containers/deps-dev/Dockerfile'
     'front/package.json'
   )
 
