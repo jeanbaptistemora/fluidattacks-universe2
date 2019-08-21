@@ -31,6 +31,7 @@ import { EventHeader } from "../../components/EventHeader";
 import { GenericForm } from "../../components/GenericForm/index";
 import { default as ImageGallery } from "../../components/ImageGallery/index";
 import * as actions from "./actions";
+import style from "./index.css";
 
 export interface IEventDescriptionViewStateProps {
   eventData: {
@@ -106,15 +107,11 @@ const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
 
     return (
       <React.Fragment>
-      <div className="main-content" style={{backgroundColor: "white", paddingTop: "1px!important;"  }} >
       <Row>
-      <Col md={12} sm={12} xs={12} style={{marginTop: "40px"}}>
-      <div className="tab-container">
-      <div className="tab-content">
-      <div id="info" className="tab-pane cont active">
+      <Col md={12} sm={12} xs={12}>
       <EventHeader {...props} />
       {isManager ?
-      <Row style={{marginBottom: "15px"}}>
+      <Row className={style.rowSeparation} style={{marginBottom: "15px"}}>
         <Col md={3} mdOffset={8} sm={12} xs={12}>
           <Button
             bsStyle="primary"
@@ -242,12 +239,8 @@ const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
         </Col>
       </Row>
       : undefined }
-      </div>
-    </div>
-    </div>
   </Col>
-</Row>
-</div>
+  </Row>
     </React.Fragment>
   );
 };
@@ -258,26 +251,18 @@ const renderEventGallery: ((props: IEventDescriptionViewProps) => JSX.Element) =
 
     return (
       <React.Fragment>
-      <div className="main-content" style={{backgroundColor: "white", paddingTop: "1px!important;"  }} >
       <Row>
-      <Col md={12} sm={12} xs={12} style={{marginTop: "40px"}}>
-      <div className="tab-container">
-      <div className="tab-content">
-      <div id="evidence" className="tab-pane cont active">
+      <Col md={12} sm={12} xs={12} >
       <EventHeader {...props} />
         <Col md={12} sm={12} xs={12}>
-          <Row>
+          <Row className={style.rowSeparation}>
             <ImageGallery
               items={eventEvidences}
             />
           </Row>
         </Col>
-      </div>
-      </div>
-    </div>
   </Col>
 </Row>
-</div>
     </React.Fragment>
   );
 };
@@ -286,6 +271,7 @@ export const descriptionComponent: React.FC<IEventDescriptionViewProps> =
   (props: IEventDescriptionViewProps): JSX.Element =>
     (
     <React.StrictMode>
+      <div className={style.mainContainer} >
       <Row>
       <Col md={12} sm={12} xs={12}>
         <GenericForm
@@ -299,6 +285,7 @@ export const descriptionComponent: React.FC<IEventDescriptionViewProps> =
         </GenericForm>
         </Col>
       </Row>
+      </div>
     </React.StrictMode>
   );
 
@@ -306,11 +293,13 @@ export const evidenceComponent: React.FC<IEventDescriptionViewProps> =
   (props: IEventDescriptionViewProps): JSX.Element =>
     (
     <React.StrictMode>
+      <div className={style.mainContainer} >
       <Row>
       <Col md={12} sm={12} xs={12}>
           {renderEventGallery(props)}
         </Col>
       </Row>
+      </div>
     </React.StrictMode>
   );
 

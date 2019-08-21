@@ -64,6 +64,7 @@ const eventHeader: ((props: IEventHeaderProps) => JSX.Element) =
             </Row>
           </Col>
         </Row>
+        <div className={style.tabsContainer}>
         <Row style={{marginBottom: "15px"}}>
           <Col md={12} sm={12} xs={12}>
             <ul className="nav pills-tabs nav-justified">
@@ -90,6 +91,7 @@ const eventHeader: ((props: IEventHeaderProps) => JSX.Element) =
             </ul>
           </Col>
         </Row>
+      </div>
       </div>
     </React.Fragment>
   );

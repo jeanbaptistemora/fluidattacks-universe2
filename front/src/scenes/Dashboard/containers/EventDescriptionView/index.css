@@ -1,0 +1,8 @@
+:local .mainContainer {
+    padding: 10px 35px 0 35px;
+    background-color: white;
+}
+
+:local .rowSeparation {
+    padding-top: 20px;
+}
