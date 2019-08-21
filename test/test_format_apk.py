@@ -14,6 +14,7 @@ from fluidasserts.format import apk
 
 # Constants
 SSL_OPEN = 'test/static/format/apk/open/ssl_open.apk'
+SSL_UNPINNED_OPEN = 'test/static/format/apk/open/ssl_network_config_no_pin.apk'
 SSL_CLOSE = 'test/static/format/apk/close/ssl_close.apk'
 UNSIGNED_APK = 'test/static/format/apk/open/unsigned.apk'
 JS_APK = 'test/static/format/apk/open/js-open.apk'
@@ -66,6 +67,16 @@ def test_ssl_hostname_verify_open():
     """Test if APK SSLSocket verifies for hostname."""
     assert apk.not_verifies_ssl_hostname(SSL_OPEN)
 
+
+def test_cert_pinning_open1():
+    """Test if APK pin certificates."""
+    assert apk.not_pinned_certs(SSL_OPEN)
+
+
+def test_cert_pinning_open2():
+    """Test if APK pin certificates."""
+    assert apk.not_pinned_certs(SSL_UNPINNED_OPEN)
+
 #
 # Close tests
 #
@@ -116,6 +127,11 @@ def test_ssl_hostname_verify_close2():
     assert not apk.not_verifies_ssl_hostname(JS_APK)
 
 
+def test_cert_pinning_close():
+    """Test if APK pin certificates."""
+    assert not apk.not_pinned_certs(SSL_CLOSE)
+
+
 #
 # Unknown tests
 #
@@ -164,3 +180,8 @@ def test_forces_update_unknown():
 def test_ssl_hostname_verify_unknown():
     """Test if APK SSLSocket verifies for hostname."""
     assert not apk.not_verifies_ssl_hostname(NOT_EXISTS_APK)
+
+
+def test_cert_pinning_unknown():
+    """Test if APK pin certificates."""
+    assert not apk.not_pinned_certs(NOT_EXISTS_APK)

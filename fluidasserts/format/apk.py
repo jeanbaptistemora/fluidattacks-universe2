@@ -273,12 +273,12 @@ def not_forces_updates(apk_file: str) -> bool:
 @track
 def not_verifies_ssl_hostname(apk_file: str) -> bool:
     """
-    Check if the given APK don't verify the SSLSocket hostname.
+    Check if the given APK doesn't verify the SSLSocket hostname.
 
     :param apk_file: Path to the image to be tested.
     """
     try:
-        apk, dvms, _ = analyze_apk(apk_file)
+        _, dvms, _ = analyze_apk(apk_file)
     except FileNotFoundError as exc:
         show_unknown('Error reading file',
                      details=dict(apk=apk_file, error=str(exc)))
@@ -294,6 +294,45 @@ def not_verifies_ssl_hostname(apk_file: str) -> bool:
             result = True
         else:
             show_close('APK verifies hostname in SSL cert',
+                       details=dict(apk=apk_file))
+    else:
+        show_close('APK does not use SSLSocket',
+                   details=dict(apk=apk_file))
+    return result
+
+
+@notify
+@level('low')
+@track
+def not_pinned_certs(apk_file: str) -> bool:
+    """
+    Check if the given APK does not pin x509 certificates.
+
+    :param apk_file: Path to the image to be tested.
+    """
+    try:
+        apk_obj, dvms, _ = analyze_apk(apk_file)
+    except FileNotFoundError as exc:
+        show_unknown('Error reading file',
+                     details=dict(apk=apk_file, error=str(exc)))
+        return False
+
+    act_source = get_activities_source(dvms)
+    try:
+        net_conf = str(apk_obj.get_file('res/xml/network_security_config.xml'))
+    except androguard.core.bytecodes.apk.FileNotPresent:
+        show_open('No declarative pinning file was found',
+                  details=dict(apk=apk_file))
+        return True
+
+    result = False
+    if 'SSLSocket' in act_source:
+        if 'pin-set' not in net_conf:
+            show_open('APK does not pin certificates',
+                      details=dict(apk=apk_file))
+            result = True
+        else:
+            show_close('APK pinnes certificates',
                        details=dict(apk=apk_file))
     else:
         show_close('APK does not use SSLSocket',
