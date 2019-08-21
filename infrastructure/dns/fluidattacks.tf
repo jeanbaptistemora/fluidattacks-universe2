@@ -171,14 +171,6 @@ resource "aws_route53_record" "discourse" {
   records = ["fluidattacks.hosted-by-discourse.com"]
 }
 
-resource "aws_route53_record" "registry" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "registry.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["205810638802.dkr.ecr.us-east-1.amazonaws.com"]
-}
-
 # MX Records
 resource "aws_route53_record" "mainMX" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id

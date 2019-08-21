@@ -42,6 +42,14 @@ resource "aws_iam_policy" "asserts-policies" {
       "Effect": "Allow",
       "Action": "ecr:GetAuthorizationToken",
       "Resource": "*"
+    },
+    {
+      "Sid": "iamGetUser",
+      "Effect": "Allow",
+      "Action": "iam:GetUser",
+      "Resource": [
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/asserts/asserts-${each.value}"
+      ]
     }
   ]
 }
