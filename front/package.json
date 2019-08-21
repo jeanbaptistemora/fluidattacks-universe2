@@ -64,6 +64,7 @@
     "revalidate": "1.2.0",
     "rollbar": "2.4.7",
     "typesafe-actions": "2.0.4",
+    "typescript": "3.4.5",
     "uglifyjs-webpack-plugin": "1.2.7",
     "url-loader": "1.0.1",
     "webpack": "4.35.3",
@@ -110,7 +111,6 @@
     "tslint": "5.10.0",
     "tslint-react": "3.6.0",
     "typed-css-modules": "0.3.5",
-    "typescript": "3.4.5",
     "unfetch": "4.1.0",
     "waait": "1.0.5"
   },
