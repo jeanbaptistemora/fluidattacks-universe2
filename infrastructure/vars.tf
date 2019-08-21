@@ -41,6 +41,9 @@ variable "rtbId" {}
 variable "eksSnetReg" {
   type = list(string)
 }
+variable "eksSnetRegSecondary" {
+  type = list(string)
+}
 
 # ElastiCache Vars
 variable "cacheGroupId" {}

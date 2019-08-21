@@ -18,16 +18,17 @@ engine        = "mysql"
 instanceClass = "db.t2.micro"
 
 # EKS Vars
-rtbId           = "rtb-a74ad5c3"
-clusterName     = "FluidServes"
-eksAmiId        = "ami-0abcb9f9190e867ab"
-nodeStorageSize = "50"
-eksSnetReg      = [
+rtbId               = "rtb-a74ad5c3"
+clusterName         = "FluidServes"
+eksAmiId            = "ami-0abcb9f9190e867ab"
+nodeStorageSize     = "50"
+eksSnetReg          = [
   "us-east-1d",
   "us-east-1e",
+]
+eksSnetRegSecondary = [
   "us-east-1a",
   "us-east-1b",
-  "us-east-1d",
 ]
 
 # ElastiCache Vars

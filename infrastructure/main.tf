@@ -51,6 +51,7 @@ module "eks" {
   clusterName         = var.clusterName
   eksAmiId            = var.eksAmiId
   eksSnetReg          = var.eksSnetReg
+  eksSnetRegSecondary = var.eksSnetRegSecondary
   nodeStorageSize     = var.nodeStorageSize
   region              = var.region
   rtbId               = var.rtbId

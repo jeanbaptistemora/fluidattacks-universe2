@@ -6,6 +6,9 @@ variable "vpcId" {}
 variable "eksSnetReg" {
   type = list(string)
 }
+variable "eksSnetRegSecondary" {
+  type = list(string)
+}
 
 resource "aws_subnet" "k8s_subnets" {
   count             = 2
@@ -22,9 +25,9 @@ resource "aws_subnet" "k8s_subnets" {
 }
 
 resource "aws_subnet" "k8s_subnets_secondary" {
-  count             = 5
-  availability_zone = var.eksSnetReg[count.index]
-  cidr_block        = cidrsubnet(var.vpcSecondaryCidr, 3, count.index)
+  count             = 2
+  availability_zone = var.eksSnetRegSecondary[count.index]
+  cidr_block        = cidrsubnet(var.vpcSecondaryCidr, 1, count.index)
   vpc_id            = var.vpcId
 
   tags = "${
@@ -42,7 +45,7 @@ resource "aws_route_table_association" "k8s_routetb_association" {
 }
 
 resource "aws_route_table_association" "k8s_routetb_association_secondary" {
-  count          = 5
+  count          = 2
   subnet_id      = aws_subnet.k8s_subnets_secondary.*.id[count.index]
   route_table_id = var.rtbId
 }
@@ -51,6 +54,6 @@ output "k8sSubnet" {
   value = aws_subnet.k8s_subnets.*.id
 }
 
-output "k8sSubnetSeconday" {
+output "k8sSubnetSecondary" {
   value = aws_subnet.k8s_subnets_secondary.*.id
 }
