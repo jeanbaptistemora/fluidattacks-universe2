@@ -56,6 +56,7 @@
 == Logs
 
 * link:075/[REQ.075 Record exceptional events in logs].
+* link:077/[REQ.077 Avoid information disclosure].
 * link:079/[REQ.079 Record exact occurrence time of events].
 * link:080/[REQ.080 Prevent log modification].
 * link:081/[REQ.081 Store logs according to legislation].
