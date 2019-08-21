@@ -1,5 +1,3 @@
-image: registry.gitlab.com/fluidsignal/default/integrates/deps:ci
-
 .vault_vars:
   variables:
     VAULT_ADDR: "https://${VAULT_S3_BUCKET}.com"
@@ -263,6 +261,7 @@ build-bot:
 
 test-driver:
   stage: post-deploy
+  image: registry.gitlab.com/fluidattacks/integrates:deps-dev
   script:
     - . ci-scripts/helpers/others.sh && vault_login
     - vaultenv ./ci-scripts/jobs/test-driver.sh
@@ -340,6 +339,7 @@ deploy-k8s:
 
 deploy-mobile:
   stage: deploy
+  image: registry.gitlab.com/fluidattacks/integrates:deps-dev
   script:
     - . ci-scripts/helpers/others.sh && vault_login
     - vaultenv ./ci-scripts/jobs/deploy-mobile.sh
@@ -359,6 +359,7 @@ deploy-mobile:
 
 new-version-mail:
   stage: post-deploy
+  image: registry.gitlab.com/fluidattacks/integrates:deps-dev
   dependencies:
     - build-app
   script:
@@ -372,6 +373,7 @@ new-version-mail:
 
 coverage-report:
   stage: coverage
+  image: registry.gitlab.com/fluidattacks/integrates:deps-dev
   dependencies:
     - test-app
     - test-front

@@ -9,6 +9,8 @@ publish_ota() {
   # Import functions
   . ci-scripts/helpers/others.sh
 
+  cd mobile || return 1
+
   # Prepare Expo
   npx expo login -u "$FI_EXPO_USERNAME" -p "$FI_EXPO_PASSWORD"
   echo "$FI_GOOGLE_SERVICES_APP" > google-services.json
@@ -37,6 +39,9 @@ publish_ota() {
   echo "Published to Expo, cleaning up..."
   npx expo logout
   rm google-services.json
+
+  cd .. || return 1
+
 }
 
 deploy_mobile() {
@@ -50,8 +55,7 @@ deploy_mobile() {
   )
 
   if check_folder_changed "${FOLDERS[@]}"; then
-    cp -a /usr/src/app/node_modules mobile/
-    npm install --prefix mobile/
+    mv /usr/src/app/node_modules mobile/
     publish_ota
   fi
   echo 'No relevant files for mobile build were modified. Skipping build.'
