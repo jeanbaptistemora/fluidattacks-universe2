@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/fluidsignal/default/integrates/deps:app
+FROM registry.gitlab.com/fluidattacks/integrates:deps-prod
 
 ARG CI_API_V4_URL
 ARG CI_COMMIT_REF_NAME
@@ -10,59 +10,72 @@ ARG ENV_NAME
 ARG SSL_CERT
 ARG SSL_KEY
 ARG VERSION
+ARG INTEGRATES_URL="$CI_API_V4_URL/projects/$CI_PROJECT_ID/repository/archive.tar.gz?sha=$CI_COMMIT_REF_NAME"
 
-ENV CI_COMMIT_REF_NAME ${CI_COMMIT_REF_NAME}
-ENV FI_VERSION ${VERSION}
+ENV CI_COMMIT_REF_NAME $CI_COMMIT_REF_NAME
+ENV FI_VERSION $VERSION
 ENV VAULTENV_SECRETS_FILE /usr/src/app/env.vars
 
 LABEL mantainer="engineering@fluidattacks.com"
 
-RUN curl -Lo integrates.tar.gz "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/repository/archive.tar.gz?sha=${CI_COMMIT_REF_NAME}" \
-        && tar zxf integrates.tar.gz \
-        && rm integrates.tar.gz \
-        && mv integrates-* /usr/src/app \
-    && rm -r /var/www/html \
-    && rm -f /etc/td-agent/td-agent.conf \
-        && mv /usr/src/app/deploy/containers/common/vars/fluent.conf /etc/td-agent/td-agent.conf \
-        && rm -f /etc/init.d/td-agent \
-        && mv /usr/src/app/deploy/containers/common/vars/td-agent /etc/init.d/td-agent && chmod 0755 /etc/init.d/td-agent  \
-        && mv /usr/src/app/deploy/containers/common/vars/out_rollbar.rb /etc/td-agent/plugin/ \
-    && mkdir /usr/src/app/app/documentator/images  \
-        && mkdir /usr/src/app/app/documentator/tpls  \
-        && mkdir /usr/src/app/app/documentator/results  \
-        && mkdir /usr/src/app/app/techdoc/results  \
-        && chown -R www-data:www-data  /usr/src/app/app/documentator \
-        && chmod -R 0744 /usr/src/app/app/documentator \
-        && chown -R www-data:www-data  /usr/src/app/app/techdoc \
-        && chmod -R 0744 /usr/src/app/app/techdoc \
-    && export FI_DRIVE_AUTHORIZATION=$(echo "${DRIVE_AUTHORIZATION}" | base64 -d) \
-        && export FI_DRIVE_AUTHORIZATION_CLIENT=$(echo "${DRIVE_AUTHORIZATION_CLIENT}" | base64 -d) \
-        && export FI_DOCUMENTROOT="${DOCUMENTROOT}" \
-        && python /usr/src/app/deploy/containers/common/vars/render.py \
-    && chown -R www-data:www-data /usr/src/app/ \
-        && a2dismod -f deflate \
-        && a2enmod ssl \
-    && cp -a /root/front/node_modules /usr/src/app/front \
-        && cd /usr/src/app/front/ \
-        && npm install --production \
-        && npm cache clean --force \
-    && cp -a /usr/src/app/deploy/containers/common/vars/run.sh /root \
-    && echo "${SSL_CERT}" | base64 -di > "/etc/ssl/certs/fluidla.crt" \
-        && echo "${SSL_KEY}" | base64 -di > "/etc/ssl/private/fluidla.key" \
-        && echo "ServerTokens Prod" >> /etc/apache2/apache2.conf \
-        && echo "ServerSignature Off" >> /etc/apache2/apache2.conf \
-    && sed -i 's/env#/'"${ENV_NAME}"'#/g' /usr/src/app/env.vars \
-    && apt-get remove --purge -y \
-         cron \
-    && apt-get -y autoremove \
-    && rm -rf \
-        /root/front \
-        /root/assets
+WORKDIR /usr/src/app
 
-COPY dashboard /usr/src/app/app/assets/dashboard
+# Put integrates in container
+RUN curl -Lo /tmp/integrates.tar.gz "$INTEGRATES_URL" \
+  && tar zxf /tmp/integrates.tar.gz -C /tmp \
+  && mv /tmp/integrates-*/* .
 
-RUN sed -i 's/integrates_version/v.\ '"${FI_VERSION}"'/g' /usr/src/app/app/assets/dashboard/app-bundle.min.js
+# Replace td-agent configurations
+RUN rm -r /var/www/html \
+  && rm -f /etc/td-agent/td-agent.conf \
+  && rm -f /etc/init.d/td-agent \
+  && mv deploy/containers/common/vars/fluent.conf /etc/td-agent/td-agent.conf \
+  && mv deploy/containers/common/vars/td-agent /etc/init.d/td-agent \
+    && chmod 0755 /etc/init.d/td-agent \
+  && mv deploy/containers/common/vars/out_rollbar.rb /etc/td-agent/plugin/
+
+# Set up documentator
+RUN mkdir app/documentator/images \
+  && mkdir app/documentator/tpls \
+  && mkdir app/documentator/results \
+  && mkdir app/techdoc/results \
+  && chown -R www-data:www-data app/documentator \
+  && chmod -R 0744 app/documentator \
+  && chown -R www-data:www-data app/techdoc \
+  && chmod -R 0744 app/techdoc
+
+# Set up Drive authentication
+RUN export FI_DRIVE_AUTHORIZATION=$(echo "$DRIVE_AUTHORIZATION" | base64 -d) \
+  && export FI_DRIVE_AUTHORIZATION_CLIENT=$(echo "$DRIVE_AUTHORIZATION_CLIENT" | base64 -d) \
+  && export FI_DOCUMENTROOT="$DOCUMENTROOT" \
+  && python deploy/containers/common/vars/render.py
+
+# Set up apache
+RUN chown -R www-data:www-data . \
+  && a2dismod -f deflate \
+  && a2enmod ssl \
+  && echo "$SSL_CERT" | base64 -di > /etc/ssl/certs/fluidla.crt \
+  && mkdir /etc/ssl/private \
+  && echo "$SSL_KEY" | base64 -di > /etc/ssl/private/fluidla.key \
+  && echo "ServerTokens Prod" >> /etc/apache2/apache2.conf \
+  && echo "ServerSignature Off" >> /etc/apache2/apache2.conf
+
+# Compile front
+RUN cp -a /npm-deps/front/node_modules front/ \
+  && npm run --prefix front/ build:prod \
+  && sed -i "s/integrates_version/v. $FI_VERSION/g" app/assets/dashboard/app-bundle.min.js \
+  && rm -rf front/node_modules
+
+# Set prod or dev envars
+RUN sed -i "s/env#/${ENV_NAME}#/g" env.vars
+
+# Clean container
+RUN apt remove --purge -y \
+    cron \
+  && apt -y autoremove \
+  && rm -rf /tmp/*
 
 EXPOSE 443 24224
 
-CMD vaultenv ./run.sh
+# Start integrates
+CMD vaultenv ./deploy/containers/common/vars/run.sh app

@@ -1,19 +1,25 @@
 #!/usr/bin/env bash
 set -e
 
+# Initialize integrates app or bot.
+
 env | egrep 'VAULT.*'  >> /etc/environment
-/usr/src/app/manage.py makemigrations
-/usr/src/app/manage.py migrate
-if [ -z "${FI_VERSION}" ]; then
-  /usr/src/app/manage.py crontab add
-  if [ "$CI_COMMIT_REF_NAME" = "master" ]; then
-    /root/cron.sh
-  fi
-  /usr/src/app/manage.py bot
-else
+if [ "$1" = 'app' ]; then
   a2ensite integrates-ssl.conf
   a2ensite 000-default.conf
   /etc/init.d/td-agent restart
   service redis-server restart
   /usr/sbin/apache2ctl -D FOREGROUND
+elif [ "$1" = 'bot' ]; then
+  if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
+    ./manage.py crontab add
+    crontab -l >> /tmp/mycron
+    sed -i 's|/usr/bin|vaultenv /usr/bin|g' /tmp/mycron
+    crontab /tmp/mycron
+    service cron start
+  fi
+  ./manage.py bot
+else
+  echo 'Only app and bot args allowed for $1'
+  exit 1
 fi

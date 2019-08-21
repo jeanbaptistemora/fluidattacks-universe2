@@ -134,20 +134,6 @@ test-terraform:
   except:
     - master
 
-front-compiler:
-  stage: test
-  image: registry.gitlab.com/fluidattacks/integrates:deps-dev
-  script:
-    - cp -a /npm-deps/front/node_modules front/
-    - cd front
-    - npm install --unsafe-perm
-    - npm run build:prod
-  artifacts:
-    paths:
-      - app/assets/dashboard/*
-    expire_in: 1h
-  retry: 1
-
 test-front:
   stage: test
   image: registry.gitlab.com/fluidattacks/integrates:deps-dev
@@ -224,11 +210,8 @@ build-terraform:
 
 build-app:
   stage: build
-  dependencies:
-    - front-compiler
   <<: *kaniko_vault_config
   script:
-    - mv app/assets/dashboard deploy/containers/app
     - MINUTES=$((
         ($(date +%d | sed 's/^0//') -1) * 1440 +
         $(date +%H | sed 's/^0//') * 60 +
