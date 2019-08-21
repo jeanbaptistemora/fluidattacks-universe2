@@ -302,7 +302,7 @@ def not_verifies_ssl_hostname(apk_file: str) -> bool:
 
 
 @notify
-@level('low')
+@level('medium')
 @track
 def not_pinned_certs(apk_file: str) -> bool:
     """
@@ -311,13 +311,12 @@ def not_pinned_certs(apk_file: str) -> bool:
     :param apk_file: Path to the image to be tested.
     """
     try:
-        apk_obj, dvms, _ = analyze_apk(apk_file)
+        apk_obj = APK(apk_file)
     except FileNotFoundError as exc:
         show_unknown('Error reading file',
                      details=dict(apk=apk_file, error=str(exc)))
         return False
 
-    act_source = get_activities_source(dvms)
     try:
         net_conf = str(apk_obj.get_file('res/xml/network_security_config.xml'))
     except androguard.core.bytecodes.apk.FileNotPresent:
@@ -326,15 +325,56 @@ def not_pinned_certs(apk_file: str) -> bool:
         return True
 
     result = False
-    if 'SSLSocket' in act_source:
-        if 'pin-set' not in net_conf:
-            show_open('APK does not pin certificates',
-                      details=dict(apk=apk_file))
+    if 'pin-set' not in net_conf:
+        show_open('APK does not pin certificates',
+                  details=dict(apk=apk_file))
+        result = True
+    else:
+        show_close('APK pinnes certificates',
+                   details=dict(apk=apk_file))
+    return result
+
+
+@notify
+@level('low')
+@track
+def allows_user_ca(apk_file: str) -> bool:
+    """
+    Check if the given APK allows to trust on user-given CAs.
+
+    :param apk_file: Path to the image to be tested.
+    """
+    try:
+        apk_obj = APK(apk_file)
+    except FileNotFoundError as exc:
+        show_unknown('Error reading file',
+                     details=dict(apk=apk_file, error=str(exc)))
+        return False
+
+    result = False
+    try:
+        net_conf = str(apk_obj.get_file('res/xml/network_security_config.xml'))
+    except androguard.core.bytecodes.apk.FileNotPresent:
+        target_sdk = int(apk_obj.get_target_sdk_version())
+        if target_sdk < 24:
+            show_open('No network security config file found and SDK version \
+allows user-supplied CAs by default',
+                      details=dict(apk=apk_file, target_sdk=target_sdk))
             result = True
         else:
-            show_close('APK pinnes certificates',
-                       details=dict(apk=apk_file))
+            show_close('No network security config file found but SDK version \
+defaults to deny user-supplied CAs',
+                       details=dict(apk=apk_file, target_sdk=target_sdk))
+            result = False
+        return result
+
+    result = False
+
+    if 'trust-anchors' in net_conf and 'user' in net_conf:
+        show_open('APK allows to trust user-supplied CAs',
+                  details=dict(apk=apk_file))
+        result = True
     else:
-        show_close('APK does not use SSLSocket',
+        show_close('APK denies to trust user-supplied CAs',
                    details=dict(apk=apk_file))
     return result

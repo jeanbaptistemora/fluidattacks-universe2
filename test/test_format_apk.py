@@ -14,7 +14,8 @@ from fluidasserts.format import apk
 
 # Constants
 SSL_OPEN = 'test/static/format/apk/open/ssl_open.apk'
-SSL_UNPINNED_OPEN = 'test/static/format/apk/open/ssl_network_config_no_pin.apk'
+ALLOW_USER_CA = 'test/static/format/apk/open/allow_user_ca.apk'
+UNPINNED_OPEN = 'test/static/format/apk/open/ssl_network_config_no_pin.apk'
 SSL_CLOSE = 'test/static/format/apk/close/ssl_close.apk'
 UNSIGNED_APK = 'test/static/format/apk/open/unsigned.apk'
 JS_APK = 'test/static/format/apk/open/js-open.apk'
@@ -75,7 +76,12 @@ def test_cert_pinning_open1():
 
 def test_cert_pinning_open2():
     """Test if APK pin certificates."""
-    assert apk.not_pinned_certs(SSL_UNPINNED_OPEN)
+    assert apk.not_pinned_certs(UNPINNED_OPEN)
+
+
+def test_allows_user_ca_open():
+    """Test if APK trusts user CAs."""
+    assert apk.allows_user_ca(ALLOW_USER_CA)
 
 #
 # Close tests
@@ -132,6 +138,16 @@ def test_cert_pinning_close():
     assert not apk.not_pinned_certs(SSL_CLOSE)
 
 
+def test_allows_user_ca_close1():
+    """Test if APK trusts user CAs."""
+    assert not apk.allows_user_ca(SSL_CLOSE)
+
+
+def test_allows_user_ca_close2():
+    """Test if APK trusts user CAs."""
+    assert not apk.allows_user_ca(SSL_OPEN)
+
+
 #
 # Unknown tests
 #
@@ -185,3 +201,8 @@ def test_ssl_hostname_verify_unknown():
 def test_cert_pinning_unknown():
     """Test if APK pin certificates."""
     assert not apk.not_pinned_certs(NOT_EXISTS_APK)
+
+
+def test_allows_user_ca_unknown():
+    """Test if APK trusts user CAs."""
+    assert not apk.allows_user_ca(NOT_EXISTS_APK)
