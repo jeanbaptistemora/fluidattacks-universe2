@@ -33,7 +33,7 @@ module.exports = {
         }
       }]
     }, {
-      test: /\.tsx?$/,
+      test: /^(?!.+\.spec\.tsx?$).+\.tsx?$/,
       loader: "awesome-typescript-loader",
       options: { silent: true }
     }, {
