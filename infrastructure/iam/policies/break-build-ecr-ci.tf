@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "asserts-ecr-ci-data" {
+data "aws_iam_policy_document" "break-build-ecr-ci-data" {
 
   statement {
     sid = "ecrPushToAssertsRegistries"
@@ -11,7 +11,7 @@ data "aws_iam_policy_document" "asserts-ecr-ci-data" {
       "ecr:CompleteLayerUpload"
     ]
     resources = [
-      "arn:aws:ecr:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:repository/asserts-*"
+      "arn:aws:ecr:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:repository/break-build-*"
     ]
   }
 
@@ -28,10 +28,10 @@ data "aws_iam_policy_document" "asserts-ecr-ci-data" {
 
 }
 
-resource "aws_iam_policy" "asserts-ecr-ci-policy" {
-  name        = "asserts-ecr-ci-policy"
+resource "aws_iam_policy" "break-build-ecr-ci-policy" {
+  name        = "break-build-ecr-ci-policy"
   path        = "/asserts/"
-  description = "Policy for asserts ECR container image deployment"
+  description = "Policy for break build ECR container image deployment"
 
-  policy = "${data.aws_iam_policy_document.asserts-ecr-ci-data.json}"
+  policy = "${data.aws_iam_policy_document.break-build-ecr-ci-data.json}"
 }

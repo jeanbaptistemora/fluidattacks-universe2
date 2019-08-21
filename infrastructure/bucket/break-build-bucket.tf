@@ -1,7 +1,7 @@
-variable "asserts-bucket" {}
+variable "break-build-bucket" {}
 
-resource "aws_s3_bucket" "asserts-bucket" {
-  bucket = "${var.asserts-bucket}"
+resource "aws_s3_bucket" "break-build-bucket" {
+  bucket = "${var.break-build-bucket}"
   acl    = "private"
   versioning {
     enabled = true

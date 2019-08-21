@@ -14,26 +14,26 @@ provider "aws" {
 
 # Create from scratch
 module "bucket" {
-  source         = "./bucket"
-  fiBucket       = var.fiBucket
-  fsBucket       = var.fsBucket
-  fwBucket       = var.fwBucket
-  asserts-bucket = var.asserts-bucket
+  source             = "./bucket"
+  fiBucket           = var.fiBucket
+  fsBucket           = var.fsBucket
+  fwBucket           = var.fwBucket
+  break-build-bucket = var.break-build-bucket
 }
 
 # Create from scratch
 module "iam" {
-  source           = "./iam"
-  fwBucket         = var.fwBucket
-  fsBucket         = var.fsBucket
-  region           = var.region
-  asserts-bucket   = var.asserts-bucket
-  asserts_projects = var.asserts_projects
+  source               = "./iam"
+  fwBucket             = var.fwBucket
+  fsBucket             = var.fsBucket
+  region               = var.region
+  break-build-bucket   = var.break-build-bucket
+  break_build_projects = var.break_build_projects
 }
 
 module "ecr" {
   source           = "./ecr"
-  asserts_projects = var.asserts_projects
+  break_build_projects = var.break_build_projects
 }
 
 # #Create from scratch

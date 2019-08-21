@@ -37,4 +37,4 @@ cacheNodeType         = "cache.t2.medium"
 cacheParamGroupName   = "default.redis5.0.cluster.on"
 
 # Asserts vars
-asserts-bucket = "asserts-logs"
+break-build-bucket = "break-build-logs"

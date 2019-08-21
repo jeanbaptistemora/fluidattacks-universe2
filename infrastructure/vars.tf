@@ -49,7 +49,7 @@ variable "cacheNodeType" {}
 variable "cacheParamGroupName" {}
 
 # Asserts IAM, ACR and S3 vars
-variable "asserts-bucket" {}
-variable "asserts_projects" {
+variable "break-build-bucket" {}
+variable "break_build_projects" {
   type = list(string)
 }

@@ -31,16 +31,16 @@ set_subscriptions_terraform_variable(){
 
   local SUBSCRIPTIONS
   local COUNT
-  export TF_VAR_asserts_projects
+  export TF_VAR_break_build_projects
 
   SUBSCRIPTIONS=$(get_asserts_subscriptions)
 
   # Prepare list
-  TF_VAR_asserts_projects='['
+  TF_VAR_break_build_projects='['
   for SUB in $SUBSCRIPTIONS; do
-    TF_VAR_asserts_projects="$TF_VAR_asserts_projects\"$SUB\","
+    TF_VAR_break_build_projects="$TF_VAR_break_build_projects\"$SUB\","
   done
-  TF_VAR_asserts_projects="$TF_VAR_asserts_projects]"
+  TF_VAR_break_build_projects="$TF_VAR_break_build_projects]"
 
-  echo $TF_VAR_asserts_projects
+  echo $TF_VAR_break_build_projects
 }

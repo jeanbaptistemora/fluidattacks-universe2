@@ -1,8 +1,8 @@
 variable "fsBucket" {}
 variable "fwBucket" {}
 variable "region" {}
-variable "asserts-bucket" {}
-variable "asserts_projects" {
+variable "break-build-bucket" {}
+variable "break_build_projects" {
   type = list(string)
 }
 
@@ -24,20 +24,20 @@ module "providers" {
 
 module "users" {
   source = "./users"
-  asserts-bucket = "${var.asserts-bucket}"
-  asserts_projects = "${var.asserts_projects}"
+  break-build-bucket   = "${var.break-build-bucket}"
+  break_build_projects = "${var.break_build_projects}"
 }
 
 module "roles" {
-  source = "./roles"
-  sso = "${module.providers.sso}"
+  source     = "./roles"
+  sso        = "${module.providers.sso}"
   ssofinance = "${module.providers.ssofinance}"
 }
 
 module "policies" {
-  source       = "./policies"
-  fsBucket     = "${var.fsBucket}"
-  fwBucket     = "${var.fwBucket}"
-  ssofinance   = "${module.roles.ssofinance}"
-  asserts-bucket = "${var.asserts-bucket}"
+  source             = "./policies"
+  fsBucket           = "${var.fsBucket}"
+  fwBucket           = "${var.fwBucket}"
+  ssofinance         = "${module.roles.ssofinance}"
+  break-build-bucket = "${var.break-build-bucket}"
 }
