@@ -33,9 +33,11 @@ module.exports = {
         }
       }]
     }, {
-      test: /^(?!.+\.spec\.tsx?$).+\.tsx?$/,
+      test: /\.tsx?$/,
       loader: "awesome-typescript-loader",
-      options: { silent: true }
+      options: {
+        configFileName: "tsconfig.webpack.json"
+      }
     }, {
       test: /\.css$/,
       include: /node_modules/,
