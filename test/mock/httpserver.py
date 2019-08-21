@@ -851,6 +851,76 @@ def http_xsl_frames_id(num: int):
         </html>
         """)
 
+@APP.route('/http/sri/open/1', methods=['GET'])
+def http_sri_1_open():
+    """Return a vulnerable view against SRI."""
+    sha: str = ('sha384-oqVuAfXRKap7fdgcCY5uykM6+'
+                'R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx'
+                '4JwY8wC')
+    return Response(f"""
+        <html>
+            <body>
+                <script
+                    src="https://example.com/example-framework.js">
+                </script>
+            </body>
+        </html>
+        """)
+
+
+@APP.route('/http/sri/open/2', methods=['GET'])
+def http_sri_2_open():
+    """Return a vulnerable view against SRI."""
+    sha: str = ('sha384-oqVuAfXRKap7fdgcCY5uykM6+'
+                'R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx'
+                '4JwY8wC')
+    return Response(f"""
+        <html>
+            <body>
+                <link
+                    href="/media/examples/link-element-example.css"
+                    rel="stylesheet">
+                </link>
+            </body>
+        </html>
+        """)
+
+@APP.route('/http/sri/closed/1', methods=['GET'])
+def http_sri_1_closed():
+    """Return a safe view against SRI."""
+    sha: str = ('sha384-oqVuAfXRKap7fdgcCY5uykM6+'
+                'R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx'
+                '4JwY8wC')
+    return Response(f"""
+        <html>
+            <body>
+                <script
+                    src="https://example.com/example-framework.js"
+                    integrity="{sha}">
+                </script>
+            </body>
+        </html>
+        """)
+
+
+@APP.route('/http/sri/closed/2', methods=['GET'])
+def http_sri_2_closed():
+    """Return a safe view against SRI."""
+    sha: str = ('sha384-oqVuAfXRKap7fdgcCY5uykM6+'
+                'R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx'
+                '4JwY8wC')
+    return Response(f"""
+        <html>
+            <body>
+                <link
+                    href="/media/examples/link-element-example.css"
+                    rel="stylesheet"
+                    integrity="{sha}">
+                </link>
+            </body>
+        </html>
+        """)
+
 
 @APP.route('/rest/access/fail')
 def rest_access_fail():

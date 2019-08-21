@@ -516,3 +516,11 @@ def test_has_xsleak_by_frames_discrepancy_open():
         url_a=f'{MOCK_SERVICE}/http/xsl/frames/1',
         url_b=f'{MOCK_SERVICE}/http/xsl/frames/3',
         need_samesite_strict_cookies=False).is_open()
+
+
+def test_has_not_subresource_integrity_open():
+    """Check has_not_subresource_integrity."""
+    assert http.has_not_subresource_integrity(
+        f'{MOCK_SERVICE}/http/sri/open/1').is_open()
+    assert http.has_not_subresource_integrity(
+        f'{MOCK_SERVICE}/http/sri/open/2').is_open()

@@ -758,3 +758,15 @@ def test_has_xsleak_by_frames_discrepancy_closed():
         url_a=f'{NONEXISTANT_SERVICE}/http/xsl/frames/1',
         url_b=f'{NONEXISTANT_SERVICE}/http/xsl/frames/3',
         need_samesite_strict_cookies=False).is_unknown()
+
+
+def test_has_not_subresource_integrity_closed():
+    """Check has_not_subresource_integrity."""
+    assert http.has_not_subresource_integrity(
+        f'{MOCK_SERVICE}/http/sri/closed/1').is_closed()
+    assert http.has_not_subresource_integrity(
+        f'{MOCK_SERVICE}/http/sri/closed/2').is_closed()
+    assert http.has_not_subresource_integrity(
+        NONEXISTANT_SERVICE).is_unknown()
+    assert http.has_not_subresource_integrity(
+        BAD_FORMAT_SERVICE).is_unknown()

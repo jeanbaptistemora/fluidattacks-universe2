@@ -19,7 +19,7 @@ import requests
 # local imports
 from fluidasserts.helper import banner
 from fluidasserts.helper import http
-from fluidasserts import Result, Unit
+from fluidasserts import Unit
 from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts import LOW, MEDIUM
 from fluidasserts import DAST
@@ -251,7 +251,7 @@ def _has_method(url: str, method: str, *args, **kwargs) -> bool:
     return result
 
 
-def _is_header_present(url: str, header: str, *args, **kwargs) -> Result:
+def _is_header_present(url: str, header: str, *args, **kwargs) -> tuple:
     """
     Check if header is present in URL.
 
@@ -433,7 +433,7 @@ def has_not_text(url: str, expected_text: str, *args, **kwargs) -> bool:
 
 
 @api(risk=LOW, kind=DAST)
-def is_header_x_asp_net_version_present(url: str, *args, **kwargs) -> Result:
+def is_header_x_asp_net_version_present(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if X-AspNet-Version header is missing.
 
@@ -453,7 +453,7 @@ def is_header_x_asp_net_version_present(url: str, *args, **kwargs) -> Result:
 
 
 @api(risk=LOW, kind=DAST)
-def is_header_x_powered_by_present(url: str, *args, **kwargs) -> Result:
+def is_header_x_powered_by_present(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if X-Powered-By header is missing.
 
@@ -474,7 +474,7 @@ def is_header_x_powered_by_present(url: str, *args, **kwargs) -> Result:
 
 @api(risk=LOW, kind=DAST)
 def is_header_access_control_allow_origin_missing(url: str,
-                                                  *args, **kwargs) -> Result:
+                                                  *args, **kwargs) -> tuple:
     r"""
     Check if Access-Control-Allow-Origin HTTP header is properly set.
 
@@ -504,7 +504,7 @@ def is_header_access_control_allow_origin_missing(url: str,
 
 
 @api(risk=LOW, kind=DAST)
-def is_header_cache_control_missing(url: str, *args, **kwargs) -> Result:
+def is_header_cache_control_missing(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if Cache-Control HTTP header is properly set.
 
@@ -531,7 +531,7 @@ def is_header_cache_control_missing(url: str, *args, **kwargs) -> Result:
 
 @api(risk=MEDIUM, kind=DAST)
 def is_header_content_security_policy_missing(url: str,
-                                              *args, **kwargs) -> Result:
+                                              *args, **kwargs) -> tuple:
     r"""
     Check if Content-Security-Policy HTTP header is properly set.
 
@@ -556,7 +556,7 @@ def is_header_content_security_policy_missing(url: str,
 
 
 @api(risk=LOW, kind=DAST)
-def is_header_content_type_missing(url: str, *args, **kwargs) -> Result:
+def is_header_content_type_missing(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if Content-Type HTTP header is properly set.
 
@@ -584,7 +584,7 @@ def is_header_content_type_missing(url: str, *args, **kwargs) -> Result:
 
 
 @api(risk=LOW, kind=DAST)
-def is_header_expires_missing(url: str, *args, **kwargs) -> Result:
+def is_header_expires_missing(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if Expires HTTP header is properly set.
 
@@ -607,7 +607,7 @@ def is_header_expires_missing(url: str, *args, **kwargs) -> Result:
 
 
 @api(risk=LOW, kind=DAST)
-def is_header_pragma_missing(url: str, *args, **kwargs) -> Result:
+def is_header_pragma_missing(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if Pragma HTTP header is properly set.
 
@@ -631,7 +631,7 @@ def is_header_pragma_missing(url: str, *args, **kwargs) -> Result:
 
 
 @api(risk=LOW, kind=DAST)
-def is_header_server_present(url: str, *args, **kwargs) -> Result:
+def is_header_server_present(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if Server HTTP header is properly set.
 
@@ -652,7 +652,7 @@ def is_header_server_present(url: str, *args, **kwargs) -> Result:
 
 @api(risk=LOW, kind=DAST)
 def is_header_x_content_type_options_missing(url: str, *args,
-                                             **kwargs) -> Result:
+                                             **kwargs) -> tuple:
     r"""
     Check if X-Content-Type-Options HTTP header is properly set.
 
@@ -676,7 +676,7 @@ def is_header_x_content_type_options_missing(url: str, *args,
 
 
 @api(risk=MEDIUM, kind=DAST)
-def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> Result:
+def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if X-Frame-Options HTTP header is properly set.
 
@@ -700,7 +700,7 @@ def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> Result:
 
 
 @api(risk=MEDIUM, kind=DAST)
-def is_header_perm_cross_dom_pol_missing(url: str, *args, **kwargs) -> Result:
+def is_header_perm_cross_dom_pol_missing(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if X-Permitted-Cross-Domain-Policies HTTP header is properly set.
 
@@ -724,7 +724,7 @@ def is_header_perm_cross_dom_pol_missing(url: str, *args, **kwargs) -> Result:
 
 
 @api(risk=MEDIUM, kind=DAST)
-def is_header_x_xxs_protection_missing(url: str, *args, **kwargs) -> Result:
+def is_header_x_xxs_protection_missing(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if X-XSS-Protection HTTP header is properly set.
 
@@ -748,7 +748,7 @@ def is_header_x_xxs_protection_missing(url: str, *args, **kwargs) -> Result:
 
 
 @api(risk=MEDIUM, kind=DAST)
-def is_header_hsts_missing(url: str, *args, **kwargs) -> Result:
+def is_header_hsts_missing(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if Strict-Transport-Security HTTP header is properly set.
 
@@ -775,7 +775,7 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> Result:
 
 
 @api(risk=MEDIUM, kind=DAST)
-def is_basic_auth_enabled(url: str, *args, **kwargs) -> Result:
+def is_basic_auth_enabled(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if BASIC authentication is enabled.
 
@@ -1012,7 +1012,7 @@ def has_xsleak_by_frames_discrepancy(url_a: str,
                                      url_b: str,
                                      need_samesite_strict_cookies: bool,
                                      *request_args,
-                                     **request_kwargs) -> Result:
+                                     **request_kwargs) -> tuple:
     r"""
     Check if a view is vulnerable to a XSLeak by counting the number of frames.
 
@@ -1076,6 +1076,57 @@ def has_xsleak_by_frames_discrepancy(url_a: str,
                       'of cookies with the SameSite attribute not set to '
                       '"Strict"'), vulns
     return CLOSED, 'Site is not vulnerable to XSLeak by frame counting'
+
+
+@api(risk=MEDIUM, kind=DAST)
+def has_not_subresource_integrity(
+        url: str, *request_args, **request_kwargs) -> tuple:
+    r"""
+    Check if elements fetched by the provided url have `SRI`.
+
+    See: `Example <{research_url}>`_.
+
+    :param url: URL to test.
+    :param \*request_args: Optional arguments for :class:`.HTTPSession`.
+    :param \*\*request_kwargs: Optional arguments for :class:`.HTTPSession`.
+    """.format(research_url=('https://developer.mozilla.org/en-US/docs/Web/'
+                             'Security/Subresource_Integrity'))
+    try:
+        with http.HTTPSession(url, *request_args, **request_kwargs) as sess:
+            html = sess.response.text
+            fingerprint = sess.get_fingerprint()
+    except http.ConnError as exc:
+        return UNKNOWN, f'Could not connnect: {exc}'
+    except http.ParameterError as exc:
+        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+
+    soup = BeautifulSoup(html, features="html.parser")
+
+    vulns: List[Unit] = []
+    safes: List[Unit] = []
+
+    for elem_types in ('link', 'script'):
+        vulnerable: bool = any(
+            elem.get('integrity') is None for elem in soup(elem_types))
+        asserts: str = 'has not' if vulnerable else 'has'
+
+        unit: Unit = Unit(
+            where=url,
+            source=f'HTTP/Response/HTML/Tag/{elem_types}',
+            specific=[
+                f'{elem_types} HTML element {asserts} integrity attributes'],
+            fingerprint=fingerprint)
+
+        if vulnerable:
+            vulns.append(unit)
+        else:
+            safes.append(unit)
+
+    if vulns:
+        msg = 'Site does not implement Subresource Integrity Checks'
+        return OPEN, msg, vulns, safes
+    msg = 'Site does implement Subresource Integrity Checks'
+    return CLOSED, msg, vulns, safes
 
 
 # pylint: disable=keyword-arg-before-vararg
