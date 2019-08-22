@@ -36,6 +36,7 @@ RUN apk update \
         libxslt-dev \
         openssl-dev \
         freetype-dev \
+        postgresql-dev \
     && pip3 install --no-cache-dir -U ./*.zip \
     && apk del -r --purge \
         gcc \

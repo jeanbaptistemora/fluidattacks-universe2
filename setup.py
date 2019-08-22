@@ -90,6 +90,7 @@ setup(
         'oyaml==0.9',                  # fluidasserts
         'paramiko==2.6.0',             # fluidasserts.helper.ssh_helper
         'pillow==6.1.0',               # fluidasserts.format.captcha
+        'psycopg2==2.8.3',             # fluidasserts.db.postgresql
         'pyopenssl==19.0.0',           # fluidasserts.proto.ssl
         'pycrypto==2.6.1; platform_system == "Linux"',
         'pygments==2.4.2',             # fluidasserts

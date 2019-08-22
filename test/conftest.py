@@ -23,28 +23,33 @@ from test.mock import sip
 NETWORK_NAME = 'bridge'
 
 MOCKS = {
-    'bwapp': {'80/tcp': 80},
+    # This need to be built first
+    'dns:weak': {'53/tcp': 53, '53/udp': 53},
+    'ftp:weak': {'21/tcp': 21},
     'mysql_db:weak': {'3306/tcp': 3306},
+    'mysql_os:hard': {'22/tcp': 22},
+    'smb:weak': {'139/tcp': 139},
+    'smtp:weak': {'25/tcp': 25},
+
+    # Some of these are built in top of the previous ones
+    'bwapp': {'80/tcp': 80},
+    'dns:hard': {'53/tcp': 53, '53/udp': 53},
+    'ftp:hard': {'21/tcp': 21},
+    'ldap:hard': {'389/tcp': 389},
+    'ldap:weak': {'389/tcp': 389},
     'mysql_db:hard': {'3306/tcp': 3306},
-    'ssl:weak': {'443/tcp': 443},
+    'mysql_os:weak': {'22/tcp': 22},
+    'os:hard': {'22/tcp': 22},
+    'os:weak': {'22/tcp': 22},
+    'postgresql:hard': {'5432/tcp': 5432},
+    'postgresql:weak': {'5432/tcp': 5432},
+    'smb:hard': {'139/tcp': 139},
+    'smtp:hard': {'25/tcp': 25},
     'ssl:hard': {'443/tcp': 443},
     'ssl:hard_tlsv13': {'443/tcp': 443},
-    'tcp:weak': {'80/tcp': 80},
+    'ssl:weak': {'443/tcp': 443},
     'tcp:hard': {'443/tcp': 443},
-    'dns:weak': {'53/tcp': 53, '53/udp': 53},
-    'dns:hard': {'53/tcp': 53, '53/udp': 53},
-    'ftp:weak': {'21/tcp': 21},
-    'ftp:hard': {'21/tcp': 21},
-    'ldap:weak': {'389/tcp': 389},
-    'ldap:hard': {'389/tcp': 389},
-    'mysql_os:hard': {'22/tcp': 22},
-    'mysql_os:weak': {'22/tcp': 22},
-    'os:weak': {'22/tcp': 22},
-    'os:hard': {'22/tcp': 22},
-    'smb:weak': {'139/tcp': 139},
-    'smb:hard': {'139/tcp': 139},
-    'smtp:weak': {'25/tcp': 25},
-    'smtp:hard': {'25/tcp': 25},
+    'tcp:weak': {'80/tcp': 80},
 }
 
 

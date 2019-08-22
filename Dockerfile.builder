@@ -26,6 +26,7 @@ RUN apt-get update -qq && \
         build-essential \
         libssl-dev \
         libffi-dev \
+        libpq-dev \
         scons \
         python3-virtualenv \
         sed \
