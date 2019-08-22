@@ -8,6 +8,7 @@ import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
+import { alphaNumeric } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
 import style from "./index.css";
 
@@ -51,7 +52,12 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
         <Col md={3} sm={12} xs={12}>
           <GenericForm name="searchBar" onSubmit={handleSearchSubmit}>
             <InputGroup>
-              <Field name="projectName" component={textField} placeholder={translate.t("navbar.searchPlaceholder")} />
+              <Field
+                name="projectName"
+                component={textField}
+                placeholder={translate.t("navbar.searchPlaceholder")}
+                validate={[alphaNumeric]}
+              />
               <InputGroup.Button>
                 <Button type="submit"><FluidIcon icon="search" /></Button>
               </InputGroup.Button>

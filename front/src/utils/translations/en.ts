@@ -595,6 +595,7 @@ const enTranslations: dict = {
     reports: "Reports",
   },
   validations: {
+    alphanumeric: "This field can only contain alphanumeric characters",
     between: "This value must be between {{min}} and {{max}}",
     email: "The email format is not valid",
     file_size: "The file size must be less than {{count}}MB",

@@ -1,5 +1,6 @@
 import _ from "lodash";
-import { ConfigurableValidator, ConfiguredValidator, hasLengthGreaterThan, isNumeric, isRequired } from "revalidate";
+import { ConfigurableValidator, ConfiguredValidator, hasLengthGreaterThan, isAlphaNumeric, isNumeric,
+  isRequired } from "revalidate";
 import { msgError } from "./notifications";
 import translate from "./translations/translate";
 
@@ -17,6 +18,10 @@ export const minLength: ((min: number) => ConfigurableValidator) = (min: number)
 
 export const numeric: ConfiguredValidator = isNumeric({
   message: translate.t("validations.numeric"),
+});
+
+export const alphaNumeric: ConfiguredValidator = isAlphaNumeric({
+  message: translate.t("validations.alphanumeric"),
 });
 
 export const validEmail: ((arg1: string) => string | undefined) =
