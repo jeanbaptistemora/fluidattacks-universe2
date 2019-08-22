@@ -574,7 +574,7 @@ sync_gitlab:
     variables:
       - $FLAG_SYNC_GITLAB
 
-refresh_tokens:
+analytics_refresh_token_timedoctor:
   stage: analytics
   <<: *vault_login
   script:
