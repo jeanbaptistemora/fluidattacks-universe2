@@ -48,13 +48,6 @@ p {
 }
 
 .customers {
-  background-color: $white;
-  padding: 20px;
-
-  p {
-    text-align: center;
-  }
-
   img {
     height: auto;
     margin: 20px;
@@ -120,13 +113,6 @@ p {
     height: auto;
     margin-left: 30px;
     width: 230px;
-  }
-}
-
-@media (min-width: 860px) {
-  .cstmr-msg {
-    margin: 10px auto;
-    width: 65%;
   }
 }
 
