@@ -844,7 +844,7 @@ msgstr ""
 
 #: templates/landing.html:84
 msgid "Index-bnft-header"
-msgstr "Why <span>Fluid Attacks</span> ?"
+msgstr "Why Fluid Attacks?"
 
 #: templates/landing.html:84
 msgid "Index-bnft-text"
@@ -859,7 +859,7 @@ msgstr "Magnifying glass analysing code"
 #: templates/landing.html:89
 msgid "Index-bnft-1"
 msgstr ""
-"<strong>Expert Intelligence + Effective Automation:</strong> "
+"<strong class="white">Expert Intelligence + Effective Automation:</strong> "
 " Systems attacked integrally,  with technical rigor, "
 "during the complete development lifecycle, at DevOps speed."
 
@@ -870,7 +870,7 @@ msgstr "Closing admiration sign"
 #: templates/landing.html:94
 msgid "Index-bnft-2"
 msgstr ""
-"<strong>Specialists in zero days vulnerabilities:</strong> "
+"<strong class="white">Specialists in zero days vulnerabilities:</strong> "
 " Zero False Positives. Zero Escapes."
 
 #: templates/landing.html:97
@@ -879,7 +879,8 @@ msgstr "Graph showing the increase of earnings"
 
 #: templates/landing.html:99
 msgid "Index-bnft-3"
-msgstr "<strong>62k+ confirmed vulnerabilities found in 2019: </strong>"
+msgstr ""
+"<strong class="white">62k+ confirmed vulnerabilities found in 2019:</strong>"
 " Since January 2019, we have found more than 62,000 confirmed vulnerabilities "
 "in our clients' repositories."
 
@@ -890,7 +891,7 @@ msgstr "Hand holding a lock sign"
 #: templates/landing.html:104
 msgid "Index-bnft-4"
 msgstr ""
-"<strong>Price based on scope</strong>: "
+"<strong class="white">Price based on scope</strong>: "
 "Pricing based on active authors for continuous hacking subscriptions, "
 "or effective lines of code, inputs "
 "(entry fields, headers or <i>REST</i> parameters), "
@@ -903,7 +904,7 @@ msgstr "Hand with the thumb up"
 
 #: templates/landing.html:109
 msgid "Index-bnft-5"
-msgstr "<strong>Independence: </strong>."
+msgstr "<strong class="white">Independence: </strong>."
 " We don’t install, maintain, operate or sell other security products. "
 "No hidden agendas, no conflict of interests!"
 
