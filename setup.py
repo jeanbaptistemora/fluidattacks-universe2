@@ -1,28 +1,29 @@
 # -*- coding: utf-8 -*-
 
-"""Archivo estandar para generacion de instalador.
+"""Installation script.
 
-Este modulo define los parametros minimos requeridos para generar
-un instalador estandar de fluidasserts.
+This module defines the minimum requirements to generate an standard
+setup script of fluidasserts.
 """
-import time
+
 import io
+import time
 from setuptools import setup
 
 
 def _get_readme():
-    """Returns fluidasserts readme."""
+    """Return fluidasserts readme."""
     readme_path = 'conf/README.rst'
     with io.open(readme_path, 'rt', encoding='utf8') as readme_f:
         return readme_f.read()
 
 
 def _get_version():
-    """Returns fluidasserts version."""
-    cur_time = time.localtime()
+    """Return fluidasserts version."""
+    cur_time = time.gmtime()
     min_month = (cur_time.tm_mday - 1) * 1440 + cur_time.tm_hour * 60 + \
         cur_time.tm_min
-    return time.strftime('%y.%m.{}').format(min_month)
+    return time.strftime(f'%y.%m.{min_month}')
 
 
 setup(
@@ -37,20 +38,20 @@ setup(
     author_email='engineering@fluidattacks.com',
     packages=[
         'fluidasserts',
-        'fluidasserts.format',
-        'fluidasserts.helper',
-        'fluidasserts.syst',
-        'fluidasserts.proto',
-        'fluidasserts.lang',
-        'fluidasserts.utils',
-        'fluidasserts.sca',
         'fluidasserts.cloud',
         'fluidasserts.cloud.aws',
         'fluidasserts.db',
+        'fluidasserts.format',
+        'fluidasserts.helper',
+        'fluidasserts.lang',
+        'fluidasserts.proto',
+        'fluidasserts.sca',
+        'fluidasserts.syst',
+        'fluidasserts.utils',
     ],
     data_files=[
         ('', ['conf/conf.cfg', 'conf/conf.spec']),
-        ],
+    ],
     package_dir={
         'fluidasserts': 'fluidasserts',
     },
@@ -68,48 +69,50 @@ setup(
         'License :: Other/Proprietary License',
     ],
     install_requires=[
-        'configobj==5.0.6',          # fluidasserts
-        'typed-ast==1.4.0',          # fluidasserts
-        'PyPDF2==1.26.0',            # fluidasserts.format.pdf
-        'requests==2.22.0',          # fluidasserts.proto.http
-        'certifi==2019.6.16',         # fluidasserts.proto.ssl
-        'ldap3==2.6',                # fluidasserts.proto.ldap
-        'paramiko==2.6.0',           # fluidasserts.helper.ssh_helper
-        'pywinrm==0.3.0',            # fluidasserts.helper.winrm_helper
-        'beautifulsoup4==4.8.0',     # fluidasserts.helper.http_helper
-        'dnspython==1.16.0',         # fluidasserts.proto.dns
-        'tlslite-ng==0.8.0-alpha26',         # fluidasserts.proto.ssl
-        'pyOpenSSL==19.0.0',         # fluidasserts.proto.ssl
-        'cffi==1.12.3',              # fluidasserts.proto.ssl
-        'cryptography==2.7',         # fluidasserts.proto.ssl
-        'bcrypt==3.1.7',             # fluidasserts.proto.ssl
-        'pynacl==1.3.0',             # fluidasserts.proto.ssl
-        'colorama==0.4.1',           # logging
-        'pysmb==1.1.27',             # fluidasserts.proto.smb
-        'mixpanel==4.4.0',           # fluidasserts.utils.decorators
-        'pytesseract==0.2.9',        # fluidasserts.format.captcha
-        'pillow==6.1.0',             # fluidasserts.format.captcha
-        'pyparsing==2.4.2',          # fluidasserts.lang
-        'bandit==1.6.2',             # fluidasserts.lang.python
-        'oyaml==0.9',                # fluidasserts
-        'pygments==2.4.2',           # fluidasserts
-        'viewstate==0.4.3',          # fluidasserts.proto.http
-        'ntplib==0.3.3',             # fluidasserts.proto.http
-        'pytz==2019.2',              # fluidasserts.proto.http
-        'requirements-detector==0.6',  # fluidasserts.sca
-        'defusedxml==0.6.0',         # fluidasserts.sca
-        'boto3==1.9.213',            # fluidasserts.cloud.aws
-        'python-dateutil==2.8.0',    # fluidasserts.cloud.aws
-        'mysql-connector==2.2.9',    # fluidasserts.db.mysql_db
+        'aiohttp==3.5.4',              # fluidasserts
+        'androguard==3.3.5',           # fluidasserts.format.apk
+        'bandit==1.6.2',               # fluidasserts.lang.python
+        'bcrypt==3.1.7',               # fluidasserts.proto.ssl
+        'beautifulsoup4==4.8.0',       # fluidasserts.helper.http_helper
+        'boto3==1.9.213',              # fluidasserts.cloud.aws
+        'certifi==2019.6.16',          # fluidasserts.proto.ssl
+        'cffi==1.12.3',                # fluidasserts.proto.ssl
+        'colorama==0.4.1',             # logging
+        'configobj==5.0.6',            # fluidasserts
+        'cryptography==2.7',           # fluidasserts.proto.ssl
+        'defusedxml==0.6.0',           # fluidasserts.sca
+        'dnspython==1.16.0',           # fluidasserts.proto.dns
+        'gitpython==3.0.1',            # fluidasserts.proto.git
+        'ldap3==2.6',                  # fluidasserts.proto.ldap
+        'mixpanel==4.4.0',             # fluidasserts.utils.decorators
+        'mysql-connector==2.2.9',      # fluidasserts.db.mysql_db
+        'ntplib==0.3.3',               # fluidasserts.proto.http
+        'oyaml==0.9',                  # fluidasserts
+        'paramiko==2.6.0',             # fluidasserts.helper.ssh_helper
+        'pillow==6.1.0',               # fluidasserts.format.captcha
+        'pyopenssl==19.0.0',           # fluidasserts.proto.ssl
         'pycrypto==2.6.1; platform_system == "Linux"',
-        'pyjwt==1.7.1',              # fluidasserts.format.jwt
-        'pyjks==19.0.0',             # fluidasserts.format.jks
-        'gitpython==3.0.1',         # fluidasserts.proto.git
-        'aiohttp==3.5.4',            # fluidasserts
-        'androguard==3.3.5',         # fluidasserts.format.apk
+        'pygments==2.4.2',             # fluidasserts
+        'pyjks==19.0.0',               # fluidasserts.format.jks
+        'pyjwt==1.7.1',                # fluidasserts.format.jwt
+        'pynacl==1.3.0',               # fluidasserts.proto.ssl
+        'pyparsing==2.4.2',            # fluidasserts.lang
+        'pypdf2==1.26.0',              # fluidasserts.format.pdf
+        'pysmb==1.1.27',               # fluidasserts.proto.smb
+        'pytesseract==0.2.9',          # fluidasserts.format.captcha
+        'python-dateutil==2.8.0',      # fluidasserts.cloud.aws
+        'pytz==2019.2',                # fluidasserts.proto.http
+        'pywinrm==0.3.0',              # fluidasserts.helper.winrm_helper
+        'requests==2.22.0',            # fluidasserts.proto.http
+        'requirements-detector==0.6',  # fluidasserts.sca
+        'tlslite-ng==0.8.0-alpha26',   # fluidasserts.proto.ssl
+        'typed-ast==1.4.0',            # fluidasserts
+        'viewstate==0.4.3',            # fluidasserts.proto.http
     ],
-    include_package_data=True,      # archivos a incluir en MANIFEST.in
+    include_package_data=True,         # files to include in MANIFEST.in
     entry_points={
-            'console_scripts': ['asserts=fluidasserts.utils.cli:main'],
-        },
+        'console_scripts': [
+            'asserts=fluidasserts.utils.cli:main',
+        ],
+    },
 )
