@@ -15,17 +15,18 @@
 {% block content %}
 
 <div class="home">
-  <div class="services bg-fluid-lightgray ">
+  <!-- Services -->
+  <div class="pt3 bg-fluid-lightgray ">
     <h1 class="c-fluid-red">{{ gettext('Index-header-1') }}</h1>
-    <div class="serv-offer flex flex-wrap">
-      <div class="serv fl w-50">
+    <div class="flex flex-wrap">
+      <div class="fl w-50">
         <h3 class="c-fluid-red tc"><a class="c-fluid-red" href="{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}/"><strong>{{ gettext('Index-header-2') }}</strong></a></h3>
-        <p class="tj" >{{ gettext('Index-text-1') }} <br>  </p>
+        <p class="tj f4 ml2 mr2 ml4-m mr4-m mr6-ns ml6-ns" >{{ gettext('Index-text-1') }} <br>  </p>
         <button class="fluid-button" onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}'">{{ gettext('btn-text-1') }}</button>
       </div>
-      <div class="serv fl w-50">
+      <div class="fl w-50">
         <h3 class="c-fluid-red tc"><a class="c-fluid-red" href="{{SITEURL}}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}/"><strong>{{ gettext('Index-header-3') }}</strong></a></h3>
-        <p class="tj">{{ gettext('Index-text-2') }} <br> </p>
+        <p class="tj f4 ml2 mr2 ml4-m mr4-m mr6-ns ml6-ns">{{ gettext('Index-text-2') }} <br> </p>
         <button class="fluid-button" onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}'">{{ gettext('btn-text-1') }}</button>
       </div>
     </div>
@@ -33,6 +34,7 @@
     <div class="serv">
     </div>
   </div>
+  <!-- Trusted by-->
   <div class="trusted">
     <p>Trusted by: </p>
     <div class="owl-carousel owl-theme" >
@@ -51,6 +53,7 @@
         {% endassets %}
     </div>
   </div>
+  <!-- Products -->
   <div class="bg-white w-100 items-center">
     <h1 class="c-fluid-red">{{ gettext('Navb-opt-3') }}</h1>
     <div class="fl w-50-l w-100-ns">
@@ -66,6 +69,7 @@
       <img class="w-80-ns" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products.png" alt="{{ gettext('Product-img-alt-1') }}">
     </div>
   </div>
+  <!-- Benefits -->
   <div class="w-100 dt bg-fluid-black pt2">
     <div>
       <h1 class="c-fluid-red">{{ gettext('Index-bnft-header') }}</h1>
@@ -100,6 +104,7 @@
   <div class="benefit-ftr bg-fluid-black w-100 pt-2 pb-3">
       <p class="white f3 tc">{{ gettext('Bnft-footmsg') }} <button class="fluid-button" onclick="window.location.href='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Footer-link-2.3') }}/'" >{{ gettext ('Footer-link-2.3') }}</button> </p>
   </div>
+  <!-- Customers -->
   <div class="customers bg-white pa3 ">
     <h1 class="c-fluid-red">{{ gettext('Index-header-4') }}</h1>
     <div class="paragraph">
@@ -117,6 +122,7 @@
       </p>
     </div>
   </div>
+  <!-- Contact -->
   <div class="contact-sec">
     <div class="contact-txt">
       <p>{{ gettext('Contact-txt') }}</p>

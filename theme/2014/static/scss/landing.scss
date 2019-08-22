@@ -1,27 +1,6 @@
-$fluid-black: rgba(39, 39, 39, 1);
 $fluid-red: rgba(255, 52, 53, 1);
 $fluid-gray: rgba(239, 239, 239, 1);
-$fluid-gray-2: rgba(152, 152, 152, 1);
-$fluid-dark-gray: rgba(200, 200, 200, 1);
 $white: rgba(255, 255, 255, 1);
-
-p {
-  font-size: 23px;
-}
-
-.services {
-  padding: 20px 0;
-
-  p {
-    padding: 0 3%;
-  }
-}
-
-.serv {
-  p {
-    padding: 0 20%;
-  }
-}
 
 .trusted {
 
@@ -118,12 +97,6 @@ p {
 
 @media screen and (max-width: 850px) {
 
-  .serv {
-    p {
-      padding: 0 5%;
-    }
-  }
-
   .contact-sec {
     background-image: none;
     border-style: none;
@@ -152,72 +125,6 @@ p {
     padding: 40px auto 25px;
     width: 50%;
   }
-
-  .tst-ftr-1 {
-    display: inline-block;
-    float: none;
-    height: auto;
-    padding: 0;
-    text-align: center;
-    width: 100%;
-
-    p {
-      text-align: center;
-    }
-  }
-
-  .tst-ftr-2 {
-    display: inline-block;
-    float: none;
-    height: auto;
-    padding: 0;
-    width: 100%;
-
-    p {
-      text-align: center;
-    }
-  }
-}
-
-@media screen and (max-width: 430px) {
-
-  .services {
-    display: inline-block;
-
-    h1 {
-      margin-top: 30px;
-    }
-
-    p {
-      margin: auto 10px;
-    }
-  }
-}
-
-
-@media screen and (max-width: 575px) {
-
-  .itmntxt {
-
-    .item-drk-gray {
-      margin-left: 10px;
-    }
-
-    .item-gray {
-      margin-left: 10px;
-    }
-  }
-
-}
-
-@media screen and (max-width: 585px) {
-
-  .serv {
-    p {
-      text-align: center;
-    }
-  }
-
 }
 
 @media screen and (max-width: 704px) {
