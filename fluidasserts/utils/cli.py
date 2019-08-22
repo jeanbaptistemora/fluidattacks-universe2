@@ -469,6 +469,7 @@ def exec_http_package(urls: List[str], enable_multiprocessing: bool):
             http.has_delete_method('{url}')
             http.has_dirlisting('{url}')
             http.has_host_header_injection('{url}')
+            http.has_not_subresource_integrity('{url}')
             """,
         ('http', 'HTTP part 2'): """
             http.has_mixed_content('{url}')
@@ -699,6 +700,7 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             """,
         ('html', 'HTML'): """
             html.has_reverse_tabnabbing('__path__')
+            html.has_not_subresource_integrity('__path__')
             """,
         ('java', 'Java'): """
             java.has_generic_exceptions('__path__')

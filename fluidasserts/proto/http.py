@@ -1084,7 +1084,7 @@ def has_not_subresource_integrity(
     r"""
     Check if elements fetched by the provided url have `SRI`.
 
-    See: `Example <{research_url}>`_.
+    See: `Documentation <{research_url}>`_.
 
     :param url: URL to test.
     :param \*request_args: Optional arguments for :class:`.HTTPSession`.
@@ -1104,6 +1104,7 @@ def has_not_subresource_integrity(
 
     vulns: List[Unit] = []
     safes: List[Unit] = []
+    msg: str = '{elem_types} HTML element {asserts} integrity attributes'
 
     for elem_types in ('link', 'script'):
         vulnerable: bool = any(
@@ -1113,8 +1114,7 @@ def has_not_subresource_integrity(
         unit: Unit = Unit(
             where=url,
             source=f'HTTP/Response/HTML/Tag/{elem_types}',
-            specific=[
-                f'{elem_types} HTML element {asserts} integrity attributes'],
+            specific=[msg.format(**locals())],
             fingerprint=fingerprint)
 
         if vulnerable:

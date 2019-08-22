@@ -62,6 +62,12 @@ def test_open_has_reverse_tab_nabbing():
     assert html.has_reverse_tabnabbing(INSECURE_CODE).is_open()
 
 
+def test_open_has_not_subresource_integrity():
+    """Test html.has_not_subresource_integrity."""
+    assert html.has_not_subresource_integrity(CODE_DIR).is_open()
+    assert html.has_not_subresource_integrity(INSECURE_CODE).is_open()
+
+
 #
 # Closing tests
 #
@@ -102,3 +108,9 @@ def test_closed_has_reverse_tab_nabbing():
     """Test html.has_reverse_tabnabbing."""
     assert html.has_reverse_tabnabbing(SECURE_CODE).is_closed()
     assert html.has_reverse_tabnabbing(NOT_CODE).is_unknown()
+
+
+def test_closed_has_not_subresource_integrity():
+    """Test html.has_not_subresource_integrity."""
+    assert html.has_not_subresource_integrity(SECURE_CODE).is_closed()
+    assert html.has_not_subresource_integrity(NOT_CODE).is_unknown()

@@ -18,8 +18,18 @@
 	    </form>
 	</body>
 
-	<a href="https://mathiasbynens.github.io/rel-noopener/malicious.html" target="_blank" rel="noopener noreferrer">
+	<!-- has_reverse_tabnabbing -->
+	<a href="https://mathiasbynens.github.io/rel-noopener/malicious.html"
+	   rel="noopener noreferrer" target="_blank">
 		Click me for a reverse tabnabbing
 	</a>
+
+	<!-- has_not_subresource_integrity -->
+	<script src="https://example.com/example-framework.js"
+			integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
+	</script>
+	<link href="/media/examples/link-element-example.css" rel="stylesheet"
+		  integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
+	</link>
 
 </html>

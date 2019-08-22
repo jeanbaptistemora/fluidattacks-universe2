@@ -854,9 +854,6 @@ def http_xsl_frames_id(num: int):
 @APP.route('/http/sri/open/1', methods=['GET'])
 def http_sri_1_open():
     """Return a vulnerable view against SRI."""
-    sha: str = ('sha384-oqVuAfXRKap7fdgcCY5uykM6+'
-                'R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx'
-                '4JwY8wC')
     return Response(f"""
         <html>
             <body>
@@ -871,9 +868,6 @@ def http_sri_1_open():
 @APP.route('/http/sri/open/2', methods=['GET'])
 def http_sri_2_open():
     """Return a vulnerable view against SRI."""
-    sha: str = ('sha384-oqVuAfXRKap7fdgcCY5uykM6+'
-                'R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx'
-                '4JwY8wC')
     return Response(f"""
         <html>
             <body>

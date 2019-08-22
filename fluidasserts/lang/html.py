@@ -5,6 +5,7 @@
 # standard imports
 import os
 import re
+from typing import List
 
 # 3rd party imports
 from bs4 import BeautifulSoup
@@ -12,9 +13,9 @@ from pyparsing import (makeHTMLTags, CaselessKeyword, ParseException,
                        Literal, SkipTo, stringEnd)
 
 # local imports
-from fluidasserts import Result, Unit
+from fluidasserts import Unit
 from fluidasserts import OPEN, CLOSED, UNKNOWN
-from fluidasserts import LOW
+from fluidasserts import LOW, MEDIUM
 from fluidasserts import SAST
 from fluidasserts import show_close
 from fluidasserts import show_open
@@ -187,7 +188,7 @@ def is_header_content_type_missing(filename: str) -> bool:
 
 
 @api(risk=LOW, kind=SAST)
-def has_reverse_tabnabbing(path: str) -> Result:
+def has_reverse_tabnabbing(path: str) -> tuple:
     r"""
     Check if an HTML file has links vulnerable to a reverse tabnabbing.
 
@@ -237,4 +238,48 @@ def has_reverse_tabnabbing(path: str) -> Result:
     msg = 'No a href tags were found'
     if safes:
         msg = 'There are no a href tags susceptible to reverse tabnabbing'
+    return CLOSED, msg, vulns, safes
+
+
+@api(risk=MEDIUM, kind=SAST)
+def has_not_subresource_integrity(path: str) -> tuple:
+    r"""
+    Check if elements fetched by the provided HTML have `SRI`.
+
+    See: `Documentation <{research_url}>`_.
+
+    :param path: Path to the ``HTML`` source.
+    """.format(research_url=('https://developer.mozilla.org/en-US/docs/Web/'
+                             'Security/Subresource_Integrity'))
+    if not os.path.exists(path):
+        return UNKNOWN, 'File does not exist'
+
+    vulns: List[Unit] = []
+    safes: List[Unit] = []
+    msg: str = '{elem_types} HTML element {asserts} integrity attributes'
+
+    for file_path in get_paths(path, endswith=('.html',)):
+        with open(file_path, 'r', encoding='latin-1') as file_desc:
+            soup = BeautifulSoup(file_desc.read(), features="html.parser")
+
+        for elem_types in ('link', 'script'):
+            vulnerable: bool = any(
+                elem.get('integrity') is None for elem in soup(elem_types))
+            asserts: str = 'has not' if vulnerable else 'has'
+
+            unit: Unit = Unit(
+                where=path,
+                source=f'HTML/Tag/{elem_types}',
+                specific=[msg.format(**locals())],
+                fingerprint=get_sha256(file_path))
+
+            if vulnerable:
+                vulns.append(unit)
+            else:
+                safes.append(unit)
+
+    if vulns:
+        msg = 'HTML file does not implement Subresource Integrity Checks'
+        return OPEN, msg, vulns, safes
+    msg = 'HTML file does implement Subresource Integrity Checks'
     return CLOSED, msg, vulns, safes
