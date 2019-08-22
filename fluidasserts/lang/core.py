@@ -257,7 +257,7 @@ def file_exists(code_file: str) -> Result:
 @api(risk=LOW, kind=SAST)
 def file_does_not_exist(code_file: str) -> Result:
     """
-    Check if the given file does'nt exist.
+    Check if the given file doesn't exist.
 
     :param code_file: Path to the file to be tested.
     """
