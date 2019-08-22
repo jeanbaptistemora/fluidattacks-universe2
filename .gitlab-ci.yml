@@ -53,7 +53,7 @@ stages:
 
 build-mobile:
   tags:
-  - mobile
+    - mobile
   stage: deps-base
   image: fluidattacks/alpine-kaniko:latest
   retry: 2
@@ -338,8 +338,10 @@ deploy-k8s:
     - master
 
 deploy-mobile:
+  tags:
+    - mobile
   stage: deploy
-  image: registry.gitlab.com/fluidattacks/integrates:deps-dev
+  image: registry.gitlab.com/fluidattacks/integrates:mobile
   script:
     - . ci-scripts/helpers/others.sh && vault_login
     - vaultenv ./ci-scripts/jobs/deploy-mobile.sh

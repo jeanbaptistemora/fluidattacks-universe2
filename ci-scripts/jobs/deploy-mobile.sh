@@ -20,14 +20,14 @@ publish_ota() {
   echo "Publishing update ..."
   FI_VERSION=$(mobile_get_version basic)
   FI_VERSION_CODE=$(mobile_get_version code)
-  sed -i 's/integrates_version/'"${FI_VERSION}"'/g' ./app.json
-  sed -i "s/\"versionCode\": 0/\"versionCode\": ${FI_VERSION_CODE}/g" ./app.json
+  sed -i "s/integrates_version/$FI_VERSION/g" ./app.json
+  sed -i "s/\"versionCode\": 0/\"versionCode\": $FI_VERSION_CODE/g" ./app.json
 
   npx expo publish \
     --release-channel "$DEVELOPER_ENV" \
     --non-interactive
 
-  if [ "${FI_ROLLBAR_ENVIRONMENT}" = 'production' ]; then
+  if [ "$FI_ROLLBAR_ENVIRONMENT" = 'production' ]; then
     curl https://api.rollbar.com/api/1/deploy/ \
       -F access_token="$ROLLBAR_ACCESS_TOKEN" \
       -F environment='mobile-production' \
@@ -50,15 +50,23 @@ deploy_mobile() {
 
   set -e
 
+  # import functions
+  . ci-scripts/helpers/check-changed.sh
+
   FOLDERS=(
     'mobile/'
   )
+  FILES=(
+    'ci-scripts/jobs/deploy-mobile.sh'
+  )
 
-  if check_folder_changed "${FOLDERS[@]}"; then
-    mv /usr/src/app/node_modules mobile/
-    publish_ota
+  if check_folder_changed "${FOLDERS[@]}" \
+    || check_file_changed "${FILES[@]}"; then
+      mv /usr/src/app/node_modules mobile/
+      publish_ota
+  else
+    echo 'No relevant files for mobile build were modified. Skipping build.'
   fi
-  echo 'No relevant files for mobile build were modified. Skipping build.'
 }
 
 deploy_mobile
