@@ -87,24 +87,24 @@ setup(
         'colorama==0.4.1',           # logging
         'pysmb==1.1.27',             # fluidasserts.proto.smb
         'mixpanel==4.4.0',           # fluidasserts.utils.decorators
-        'pytesseract==0.2.7',        # fluidasserts.format.captcha
+        'pytesseract==0.2.9',        # fluidasserts.format.captcha
         'pillow==6.1.0',             # fluidasserts.format.captcha
-        'pyparsing==2.4.0',          # fluidasserts.lang
+        'pyparsing==2.4.2',          # fluidasserts.lang
         'bandit==1.6.2',             # fluidasserts.lang.python
         'oyaml==0.9',                # fluidasserts
         'pygments==2.4.2',           # fluidasserts
         'viewstate==0.4.3',          # fluidasserts.proto.http
         'ntplib==0.3.3',             # fluidasserts.proto.http
-        'pytz==2019.1',              # fluidasserts.proto.http
+        'pytz==2019.2',              # fluidasserts.proto.http
         'requirements-detector==0.6',  # fluidasserts.sca
         'defusedxml==0.6.0',         # fluidasserts.sca
-        'boto3==1.9.193',            # fluidasserts.cloud.aws
+        'boto3==1.9.213',            # fluidasserts.cloud.aws
         'python-dateutil==2.8.0',    # fluidasserts.cloud.aws
         'mysql-connector==2.2.9',    # fluidasserts.db.mysql_db
         'pycrypto==2.6.1; platform_system == "Linux"',
         'pyjwt==1.7.1',              # fluidasserts.format.jwt
         'pyjks==19.0.0',             # fluidasserts.format.jks
-        'gitpython==2.1.12',         # fluidasserts.proto.git
+        'gitpython==3.0.1',         # fluidasserts.proto.git
         'aiohttp==3.5.4',            # fluidasserts
         'androguard==3.3.5',         # fluidasserts.format.apk
     ],
