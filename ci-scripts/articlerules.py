@@ -77,4 +77,24 @@ def artchecker(path, exit_code):
                                    "Please correct the file and try again.\n\n")
         exit_code = 1
 
+    # Check that every article has a proper Word Count and LIX metrics:
+    os.system("sh exttxt.sh "+path+" >> temp.txt")
+    word_count = os.popen("style temp.txt | pcregrep -o '[0-9]+ words,'\
+                   | tr -d [[:alpha:]][[:punct:]][[:blank:]]").read()
+    lix = os.popen("style temp.txt | pcregrep -o 'Lix: [0-9]+'\
+                   | tr -d [[:alpha:]][[:punct:]][[:blank:]]").read()
+    os.system("rm -rf temp.txt")
+
+    if int(lix) >= 50:
+        print_helper.print_failure("Issue found in "+path+"\n")
+        print_helper.print_failure("Current LIX: "+lix)
+        print_helper.print_warning("LIX must be lower than 50\n\n")
+        exit_code = 1
+
+    if not 800 < int(word_count) < 1200:
+        print_helper.print_failure("Issue found in "+path+"\n")
+        print_helper.print_failure("Current Word Count: "+word_count)
+        print_helper.print_warning("Word count must be in range [800-1200]\n\n")
+        exit_code = 1
+
     return exit_code
