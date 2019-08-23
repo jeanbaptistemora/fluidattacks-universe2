@@ -51,7 +51,7 @@ $white: rgba(255, 255, 255, 1);
 
 .searchbar {
   position: absolute;
-  right: 10px;
+  right: 15px;
   top: 20px;
 
   .search-box {
@@ -75,6 +75,19 @@ $white: rgba(255, 255, 255, 1);
     &:hover {
       cursor: pointer;
     }
+  }
+}
+
+.contact {
+  cursor: pointer;
+  display: none;
+  padding-right: 8px;
+  position: absolute;
+  right: 10px;
+  top: 25px;
+
+  a {
+    color: $fluid-red;
   }
 }
 
@@ -361,7 +374,12 @@ $white: rgba(255, 255, 255, 1);
   }
 
   .searchbar {
+    right: 120px;
     top: 23px;
+  }
+
+  .contact {
+    display: block;
   }
 
   .search {
