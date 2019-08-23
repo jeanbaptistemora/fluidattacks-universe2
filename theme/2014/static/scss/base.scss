@@ -82,6 +82,9 @@ $yellow: rgba(255, 255, 0, 1);
   color: $fluid-red;
 }
 
+.grayscale {
+  filter: grayscale(100);
+}
 // End Tachyons
 
 @mixin hn {

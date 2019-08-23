@@ -1,25 +1,4 @@
-$fluid-red: rgba(255, 52, 53, 1);
-$fluid-gray: rgba(239, 239, 239, 1);
-$white: rgba(255, 255, 255, 1);
-
-.trusted {
-
-  display: none;
-
-  p {
-    padding: 0 5%;
-    text-align: center;
-
-  }
-
-  img {
-    filter: grayscale(100);
-    padding-top: 50px;
-  }
-}
-
 .benefit {
-
   img {
     height: 170px;
     width: 170px;
@@ -28,8 +7,6 @@ $white: rgba(255, 255, 255, 1);
 
 .customers {
   img {
-    height: auto;
-    margin: 20px;
     width: 200px;
   }
 }
@@ -38,22 +15,8 @@ $white: rgba(255, 255, 255, 1);
   height: 300px;
 }
 
-.fluid-button {
-  background-color: $fluid-red;
-  border-radius: 12px;
-  color: $white;
-  cursor: pointer;
-  font-family: 'Montserrat';
-  font-size: 25px;
-  font-weight: bold;
-  margin-bottom: 40px;
-  margin-top: 30px;
-  padding: 7px 18px;
-}
-
 .contact-img {
   img {
-    height: auto;
     width: 230px;
   }
 }
