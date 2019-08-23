@@ -7,6 +7,12 @@ const config: Rollbar.Configuration = {
     captureUnhandledRejections: true,
     enabled: true,
     environment: getEnvironment(),
+    payload: {
+        person: {
+            id: (window as Window & { userEmail: string }).userEmail,
+            username: (window as Window & { userName: string }).userName,
+        },
+    },
 };
 
 const rollbar: Rollbar = new Rollbar(config);
