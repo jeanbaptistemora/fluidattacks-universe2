@@ -1,5 +1,5 @@
 FROM postgres:12-alpine
 
-ENV POSTGRES_USER='user'
-ENV POSTGRES_PASSWORD='password'
-ENV POSTGRES_DB='dbname'
+ENV POSTGRES_DB='postgres'
+ENV POSTGRES_USER='postgres'
+ENV POSTGRES_PASSWORD='postgres'

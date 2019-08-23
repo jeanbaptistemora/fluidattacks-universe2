@@ -13,9 +13,9 @@ from fluidasserts.db import postgresql
 
 # Constants
 
-DBNAME: str = 'dbname'
-USER: str = 'user'
-PASSWORD: str = 'password'
+DBNAME: str = 'postgres'
+USER: str = 'postgres'
+PASSWORD: str = 'postgres'
 PORT = 5432
 
 
@@ -23,8 +23,16 @@ PORT = 5432
 # Tests
 #
 
+
 @pytest.mark.parametrize('get_mock_ip', ['postgresql_weak'], indirect=True)
 def test_have_access_open(get_mock_ip):
     """Test postgresql.have_access."""
     assert postgresql.have_access(
+        DBNAME, USER, PASSWORD, get_mock_ip, PORT).is_open()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['postgresql_weak'], indirect=True)
+def test_does_not_support_ssl_open(get_mock_ip):
+    """Test postgresql.does_not_support_ssl."""
+    assert postgresql.does_not_support_ssl(
         DBNAME, USER, PASSWORD, get_mock_ip, PORT).is_open()
