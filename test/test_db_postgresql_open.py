@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Test module for mysql_os."""
+"""Test module for fluidasserts.db.postgresql."""
 
 # standard imports
 
