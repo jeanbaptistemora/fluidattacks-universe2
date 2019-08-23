@@ -378,3 +378,26 @@ defaults to deny user-supplied CAs',
         show_close('APK denies to trust user-supplied CAs',
                    details=dict(apk=apk_file))
     return result
+
+
+@notify
+@level('low')
+@track
+def has_debug_enabled(apk_file: str) -> bool:
+    """
+    Check if the given APK has debug enabled.
+
+    :param apk_file: Path to the image to be tested.
+    """
+    try:
+        apk_obj = APK(apk_file)
+    except FileNotFoundError as exc:
+        show_unknown('Error reading file',
+                     details=dict(apk=apk_file, error=str(exc)))
+        return False
+
+    if apk_obj.get_element("application", "debuggable") == 'true':
+        show_open('APK has debug enabled', details=dict(apk=apk_file))
+        return True
+    show_close('APK has debug disabled', details=dict(apk=apk_file))
+    return False
