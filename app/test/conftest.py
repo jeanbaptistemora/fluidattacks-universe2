@@ -95,7 +95,6 @@ def mock_dynamodb_table_fi_findings(mock_dal_dynamodb):
         ]
     )
     table.put_item(
-        TableName='FI_findings',
         Item={
             'finding_id': '422286126',
             'actor': 'ANYONE_INTERNET',
@@ -105,115 +104,92 @@ def mock_dynamodb_table_fi_findings(mock_dal_dynamodb):
             'attack_vector': Decimal(0.62).quantize(Decimal('0.10')),
             'attack_vector_desc': 'this is an attack vector',
             'availability_impact': '0',
-            'availabilityRequirement': 1,
+            'availability_requirement': 1,
             'client_project': 'Fluid',
-            'confidentialityImpact': 0,
-            'confidentialityRequirement': 1,
+            'confidentiality_impact': 0,
+            'confidentiality_requirement': 1,
             'context': 'SEARCHING',
             'cvss_basescore': Decimal(3.5).quantize(Decimal('0.1')),
             'cvss_env': Decimal(2.9).quantize(Decimal('0.1')),
             'cvss_basescore': Decimal(3.5).quantize(Decimal('0.1')),
             'cvss_temporal': Decimal(2.9).quantize(Decimal('0.1')),
-            'cvssVersion': '3',
+            'cvss_version': '3',
             'cwe': '200',
             'effect_solution': 'Implement password politicies with the best \
                                 practicies for strong passwords.',
             'exploitability': Decimal(0.91).quantize(Decimal('0.10')),
             'files': [
-                {'M': {
-                    'description': {'S': 'aaaaa'},
-                    'file_url': {'S': 'unittesting-422286126-53713035-test.png'},
-                    'name': {'S': 'evidence_route_2'}
-                    }
-                 },
-                {'M': {
-                    'description': {'S': 'Im pretty sure it works'},
-                    'file_url': {'S':
-                                 'unittesting-422286126-53714414-evidencia.png'
-                                 },
-                    'name': {'S': 'evidence_route_4'}
-                    }
-                 },
-                {'M': {
-                    'file_url': {'S':
-                                 'unittesting-422286126-49412246-Untitled 1.csv'
-                                 },
-                    'name': {'S': 'fileRecords'}
-                    }
-                 },
-                {'M': {
-                    'file_url': {'S':
-                                 'unittesting-422286126-38307199-exploit.py'
-                                 },
-                    'name': {'S': 'exploit'}
-                    }
-                 },
-                {'M': {
-                    'description': {'S': 'yes, it does.'},
-                    'file_url': {'S':
-                                 'unittesting-422286126-53714452-l.png'
-                                 },
-                    'name': {'S': 'evidence_route_5'}
-                    }
-                 },
-                {'M': {
-                    'file_url': {'S':
-                                 'unittesting-422286126-38307272-testFile.gif'
-                                 },
-                    'name': {'S': 'animation'}
-                    }
-                 },
-                {'M': {
-                    'file_url': {'S':
-                                 'unittesting-422286126-38307222-a.png'
-                                 },
-                    'name': {'S': 'exploitation'}
-                    }
-                 },
-                {'M': {
-                    'description': {'S': 'this is a test description'},
-                    'file_url': {'S':
-                                 'unittesting-422286126-32202896-logo.png'
-                                 },
-                    'name': {'S': 'evidence_route_1'}
-                    }
-                 },
-                {'M': {
-                    'description': {'S': 'update test'},
-                    'file_url': {'S': 'unittesting-422286126-53713045-a.png'},
-                    'name': {'S': 'evidence_route_3'}
-                    }
-                 }
+                {
+                    'description': 'aaaaa',
+                    'file_url': 'unittesting-422286126-53713035-test.png',
+                    'name': 'evidence_route_2'
+                },
+                {
+                    'description': 'Im pretty sure it works',
+                    'file_url': 'unittesting-422286126-53714414-evidencia.png',
+                    'name':  'evidence_route_4'
+                },
+                {
+                    'file_url': 'unittesting-422286126-49412246-Untitled 1.csv',
+                    'name': 'fileRecords'
+                },
+                {
+                    'file_url': 'unittesting-422286126-38307199-exploit.py',
+                    'name':  'exploit'
+                },
+                {
+                    'description': 'yes, it does.',
+                    'file_url': 'unittesting-422286126-53714452-l.png',
+                    'name':  'evidence_route_5'
+                },
+                {
+                    'file_url': 'unittesting-422286126-38307272-testFile.gif',
+                    'name':  'animation'
+                },
+                {
+                    'file_url': 'unittesting-422286126-38307222-a.png',
+                    'name':  'exploitation'
+                },
+                {
+                    'description':  'this is a test description',
+                    'file_url': 'unittesting-422286126-32202896-logo.png',
+                    'name':  'evidence_route_1'
+                },
+                {
+                    'description':  'update test',
+                    'file_url':  'unittesting-422286126-53713045-a.png',
+                    'name': 'evidence_route_3'
+                }
                 ],
             'finding': 'FIN.S.0051. Weak passwords reversed',
             'finding_type': 'SECURITY',
             'id': '422286126',
-            'integrityImpact': Decimal(0.22).quantize(Decimal('0.10')),
-            'integrityRequirement': 1,
+            'integrity_impact': Decimal(0.22).quantize(Decimal('0.10')),
+            'integrity_requirement': 1,
             'interested': 'jrestrepo@fluidattacks.com',
             'last_vulnerability': '2018-11-20',
             'leader': 'jrestrepo@fluidattacks.com',
-            'modifiedAttackComplexity': Decimal(0.77).quantize(Decimal('0.10')),
-            'modifiedAttackVector': Decimal(0.62).quantize(Decimal('0.10')),
-            'modifiedAvailabilityImpact': 0,
-            'modifiedConfidentialityImpact': 0,
-            'modifiedIntegrityImpact': Decimal(0.22).quantize(Decimal('0.10')),
-            'modifiedPrivilegesRequired': Decimal(0.62).quantize(Decimal('0.10')),
-            'modifiedSeverityScope': 0,
-            'modifiedUserInteraction': Decimal(0.85).quantize(Decimal('0.10')),
-            'privilegesRequired': Decimal(0.62).quantize(Decimal('0.10')),
+            'modified_attack_complexity': Decimal(0.77).quantize(Decimal('0.10')),
+            'modified_attack_vector': Decimal(0.62).quantize(Decimal('0.10')),
+            'modified_availability_impact': 0,
+            'modified_confidentiality_impact': 0,
+            'modified_integrity_impact': Decimal(0.22).quantize(Decimal('0.10')),
+            'modified_privileges_required': Decimal(0.62).quantize(Decimal('0.10')),
+            'modified_severity_scope': 0,
+            'modified_user_interaction': Decimal(0.85).quantize(Decimal('0.10')),
+            'privileges_required': Decimal(0.62).quantize(Decimal('0.10')),
             'project_name': 'unittesting',
             'records': 'Clave plana\nLogin',
             'records_number': '12',
-            'remediationLevel': Decimal(0.97).quantize(Decimal('0.10')),
-            'reportConfidence': Decimal(0.92).quantize(Decimal('0.10')),
+            'remediation_level': Decimal(0.97).quantize(Decimal('0.10')),
+            'report_confidence': Decimal(0.92).quantize(Decimal('0.10')),
             'report_date': '2018-07-09 07:23:14',
             'report_level': 'GENERAL',
             'requirements': 'REQ.0132. Passwords (phrase type) \
                              must be at least 3 words long.',
             'scenario': 'UNAUTHORIZED_USER_EXTRANET',
             'severity': 0,
-            'severityScope': 0,
+            'severity_scope': 0,
             'subscription': 'CONTINUOUS',
             'test_type': 'SOURCE_CODE',
             'threat': 'A attack can get passwords  of users and He \
@@ -222,7 +198,7 @@ def mock_dynamodb_table_fi_findings(mock_dal_dynamodb):
             'treatment': 'IN PROGRESS',
             'treatment_justification': 'Test 123',
             'treatment_manager': 'continuoushacking@gmail.com',
-            'userInteraction': Decimal(0.85).quantize(Decimal('0.10')),
+            'user_interaction': Decimal(0.85).quantize(Decimal('0.10')),
             'verification_date': '2019-08-21 13:37:15',
             'verification_request_date': 'true',
             'vulnerability': 'It\'s possible reverse the users credentials due\
