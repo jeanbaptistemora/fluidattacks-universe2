@@ -35,38 +35,7 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .contact-sec {
-  background-color: $fluid-gray;
-  background-image: url('../../images/contact.png');
-  background-size: 85% 100%;
-  border-color: $white;
-  border-style: solid;
-  border-width: 0 0 10px;
   height: 300px;
-}
-
-.contact-txt {
-  float: left;
-  padding-right: 90px;
-  padding-top: 70px;
-  width: 70%;
-
-  .button {
-    background-color: $fluid-red;
-    border-radius: 12px;
-    float: right;
-    font-size: 18px;
-    margin-bottom: 40px;
-    margin-right: 60px;
-    margin-top: 30px;
-    padding: 15px 21px;
-  }
-
-  p {
-    margin-left: 110px;
-    margin-right: 60px;
-    text-align: right;
-  }
-
 }
 
 .fluid-button {
@@ -83,78 +52,8 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .contact-img {
-  float: left;
-  padding-top: 70px;
-  width: 30%;
-
   img {
-    display: block;
     height: auto;
-    margin-left: 30px;
     width: 230px;
-  }
-}
-
-@media screen and (max-width: 850px) {
-
-  .contact-sec {
-    background-image: none;
-    border-style: none;
-    max-width: 100%;
-  }
-
-  .contact-txt {
-    background-color: $fluid-gray;
-    padding: 10px 5px 25px;
-    width: 50%;
-
-    p {
-      margin: 15px 5px 20px;
-      padding: 0;
-      text-align: center;
-    }
-
-    .button {
-      float: none;
-      margin: 18px 10px 10px;
-    }
-  }
-
-  .contact-img {
-    background-color: $fluid-gray;
-    padding: 40px auto 25px;
-    width: 50%;
-  }
-}
-
-@media screen and (max-width: 704px) {
-
-  .contact-sec {
-    background-image: none;
-    border-style: none;
-    height: auto;
-  }
-
-  .contact-txt {
-    background-color: $fluid-gray;
-    padding: auto 5px 60px;
-    width: 100%;
-
-    p {
-      margin: 25px 5px 20px;
-      padding: auto 5px 20px;
-      text-align: center;
-    }
-
-    .button {
-      float: none;
-      margin: 5px 10px 20px;
-
-    }
-  }
-
-  .contact-img {
-    max-height: 0%;
-    max-width: 0%;
   }
 }
