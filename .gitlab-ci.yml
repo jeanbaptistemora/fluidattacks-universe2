@@ -52,8 +52,6 @@ stages:
   - coverage
 
 build-mobile:
-  tags:
-    - mobile
   stage: deps-base
   image: fluidattacks/alpine-kaniko:latest
   retry: 2
@@ -338,8 +336,6 @@ deploy-k8s:
     - master
 
 deploy-mobile:
-  tags:
-    - mobile
   stage: deploy
   image: registry.gitlab.com/fluidattacks/integrates:mobile
   script:
