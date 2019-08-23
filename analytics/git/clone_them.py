@@ -5,8 +5,6 @@ import os
 import glob
 import textwrap
 import subprocess
-from multiprocessing import cpu_count
-from multiprocessing.pool import Pool
 
 from typing import Tuple
 
@@ -42,11 +40,8 @@ def clone(subs_path) -> None:
 def main() -> None:
     """Usual entry point."""
     subs_paths = glob.glob(f'/git/fluidsignal/continuous/subscriptions/*')
-    # The continuous's script already uses multiprocessing
-    # But let's spam a little the context switching
-    # The clone is an IOBound operation
-    with Pool(processes=cpu_count()) as workers:
-        workers.map(clone, subs_paths)
+    for subs_path in subs_paths:
+        clone(subs_path)
 
 
 if __name__ == '__main__':
