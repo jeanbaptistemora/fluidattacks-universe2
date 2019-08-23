@@ -13,12 +13,11 @@ class Login(ObjectType):
     authorized = Boolean()
     remember = Boolean()
 
-    def __init__(self, user_email, session):
+    def __init__(self, user_email):
         """ Login information class """
         self.authorized = integrates_dal.is_registered(user_email) == '1'
         user_info = get_user_attributes(user_email, ['legal_remember'])
         self.remember = user_info['legal_remember'] if user_info else False
-        session['accept_legal'] = self.remember
 
     def resolve_authorized(self, info):
         """ Resolve user authorization """
@@ -46,5 +45,4 @@ class AcceptLegal(Mutation):
         else:
             success = False
 
-        info.context.session['accept_legal'] = success
         return AcceptLegal(success=success)

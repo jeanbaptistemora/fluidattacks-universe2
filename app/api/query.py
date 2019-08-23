@@ -99,7 +99,7 @@ class Query(ObjectType):
     def resolve_login(self, info):
         """ Resolve for login info """
         user_email = util.get_jwt_content(info.context)['user_email']
-        return Login(user_email, info.context.session)
+        return Login(user_email)
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])

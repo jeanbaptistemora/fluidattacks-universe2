@@ -95,6 +95,8 @@ class SignIn(Mutation):
                             'user_role': get_role(email),
                             'company': get_user_attributes(
                                 email, ['company'])['company'],
+                            'first_name': user_info['given_name'],
+                            'last_name': user_info['family_name'],
                             'exp': datetime.utcnow() +
                             timedelta(seconds=settings.SESSION_COOKIE_AGE)
                         },
@@ -124,7 +126,8 @@ class UpdateAccessToken(Mutation):
     @staticmethod
     @require_login
     def mutate(_, info, token):
-        email = util.get_jwt_content(info.context)['user_email']
+        user_info = util.get_jwt_content(info.context)
+        email = user_info['user_email']
         session_jwt = ''
         success = False
         if token:
@@ -134,6 +137,8 @@ class UpdateAccessToken(Mutation):
                     'user_role': get_role(email),
                     'company': get_user_attributes(
                         email, ['company'])['company'],
+                    'first_name': user_info['first_name'],
+                    'last_name': user_info['last_name'],
                     'api_token': True
                 },
                 algorithm='HS512',

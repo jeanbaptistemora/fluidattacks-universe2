@@ -304,7 +304,7 @@ class AddProjectComment(Mutation):
     @require_project_access
     def mutate(self, info, **parameters):
         project_name = parameters.get('project_name').lower()
-        email = util.get_jwt_content(info.context)["user_email"]
+        user_info = util.get_jwt_content(info.context)
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         comment_id = int(round(time.time() * 1000))
         comment_data = {
@@ -312,12 +312,13 @@ class AddProjectComment(Mutation):
             'content': parameters.get('content'),
             'created': current_time,
             'fullname':
-                str.join(' ', [info.context.session['first_name'],
-                               info.context.session['last_name']]),
+                str.join(' ', [user_info['first_name'],
+                               user_info['last_name']]),
             'modified': current_time,
             'parent': int(parameters.get('parent'))
         }
-        success = add_comment(project_name, email, comment_data)
+        success = add_comment(project_name, user_info['user_email'],
+                              comment_data)
         if success:
             util.cloudwatch_log(info.context, 'Security: Added comment to \
                 {project} project succesfully'.format(project=project_name))

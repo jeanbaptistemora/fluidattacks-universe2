@@ -566,8 +566,8 @@ class AddFindingComment(Mutation):
                 'user_id': comment_id,
                 'comment_type': parameters.get('type'),
                 'content': parameters.get('content'),
-                'fullname': str.join(' ', [info.context.session['first_name'],
-                                     info.context.session['last_name']]),
+                'fullname': str.join(' ', [user_data['first_name'],
+                                     user_data['last_name']]),
                 'parent': int(parameters.get('parent')),
             }
             success = add_comment(
@@ -622,13 +622,13 @@ class RequestVerification(Mutation):
     @require_role(['customer', 'admin'])
     @require_finding_access
     def mutate(self, info, finding_id, justification):
-        user_email = util.get_jwt_content(info.context)['user_email']
+        user_info = util.get_jwt_content(info.context)
         success = request_verification(
             finding_id=finding_id,
-            user_email=user_email,
+            user_email=user_info['user_email'],
             user_fullname=str.join(' ',
-                                   [info.context.session['first_name'],
-                                    info.context.session['last_name']]),
+                                   [user_info['first_name'],
+                                    user_info['last_name']]),
             justification=justification
         )
         util.cloudwatch_log(info.context, 'Security: Verified a request in finding_id:\

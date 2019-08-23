@@ -131,7 +131,7 @@ class GrantUserAccess(Mutation):
             'phone_number': query_args.get('phone_number')
         }
 
-        if (info.context.session['role'] == 'admin'
+        if (user_data['user_role'] == 'admin'
                 and new_user_data['role'] in ['admin', 'analyst', 'customer', 'customeradmin']) \
             or (is_customeradmin(project_name, user_data['user_email'])
                 and new_user_data['role'] in ['customer', 'customeradmin']):
@@ -312,7 +312,7 @@ class EditUser(Mutation):
             'phone_number': query_args.get('phone_number')
         }
 
-        if (info.context.session['role'] == 'admin'
+        if (user_data['user_role'] == 'admin'
                 and modified_user_data['role'] in ['admin', 'analyst',
                                                    'customer', 'customeradmin']) \
             or (is_customeradmin(project_name, user_data['user_email'])
