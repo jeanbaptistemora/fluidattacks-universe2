@@ -151,6 +151,8 @@ ROLLBAR = {
     'environment': FI_ENVIRONMENT,
     'enabled': False if DEBUG else True,
     'root': BASE_DIR,
+    'capture_email': True,
+    'capture_username': True,
 }
 rollbar.init(**ROLLBAR)
 
