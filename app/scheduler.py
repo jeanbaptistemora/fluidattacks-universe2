@@ -11,7 +11,7 @@ import rollbar
 from botocore.exceptions import ClientError
 from __init__ import (
     FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS,
-    FI_MAIL_REVIEWERS
+    FI_MAIL_REVIEWERS, FI_ENVIRONMENT
 )
 from django.conf import settings
 from . import views
@@ -267,6 +267,7 @@ def get_new_vulnerabilities():
         if context['updated_findings']:
             mail_to = prepare_mail_recipients(project)
             send_mail_new_vulnerabilities(mail_to, context)
+    LOGGER.info(FI_ENVIRONMENT, "Cron: cron executed, get new vulnerabilities")
 
 
 def prepare_mail_recipients(project):
@@ -362,6 +363,7 @@ def get_remediated_findings():
                 'warning', extra_data=ex, payload_data=locals())
     else:
         LOGGER.info('There are no findings to verificate')
+    LOGGER.info(FI_ENVIRONMENT, "Cron: cron executed, get remediated vulnerabilities")
 
 
 def weekly_report():
@@ -382,6 +384,7 @@ def weekly_report():
         logged_users[0][0],
         all_users
     )
+    LOGGER.info(FI_ENVIRONMENT, "Cron: cron executed, weekly report in dynamo")
 
 
 def all_users_formatted(company):
@@ -397,6 +400,7 @@ def inactive_users():
     for user in inac_users:
         if user[1] <= final_date:
             integrates_dal.delete_user(user[0])
+    LOGGER.info(FI_ENVIRONMENT, "Cron: cron executed, inactive users")
 
 
 def get_new_releases():
@@ -438,6 +442,7 @@ def get_new_releases():
     else:
         rollbar.report_message('Warning: There are no new drafts',
                                'warning')
+    LOGGER.info(FI_ENVIRONMENT, "Cron: cron executed, get new releases")
 
 
 def send_unsolved_to_all(context):
@@ -530,6 +535,7 @@ def deletion_of_finished_project():
         days_to_send = [6]
         days_to_delete = 7
     projects = integrates_dal.get_registered_projects()
+    LOGGER.info(FI_ENVIRONMENT, "Cron: cron executed, deletion of finished projects")
     return [deletion(x[0], days_to_send, days_to_delete)
             for x in projects]
 
@@ -570,3 +576,4 @@ def update_indicators():
                 'Error: An error ocurred updating '
                 'indicators of the project {project}'.format(project=project),
                 'error')
+    LOGGER.info(FI_ENVIRONMENT, "Cron: cron executed, update indicators in dynamo")
