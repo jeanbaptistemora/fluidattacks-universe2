@@ -30,61 +30,21 @@ $white: rgba(255, 255, 255, 1);
 $yellow: rgba(255, 255, 0, 1);
 
 // Tachyons special definitions:
-.bg-fluid-red {
-  background-color: $fluid-red;
-}
 
-.bg-fluid-gray {
-  background-color: $fluid-gray;
-}
+.bg-fluid-red { background-color: $fluid-red;}
+.bg-fluid-gray { background-color: $fluid-gray;}
+.bg-fluid-lightgray { background-color: $lightergray; }
+.bg-fluid-black { background-color: $fluid-black; }
+.minw-100 { min-width: 100%; }
+.ma-auto { margin: auto; }
+.w-32 { width: 32%; }
+.montsy { font-family: 'Montserrat'; }
+.c-fluid-bk { color: $fluid-black; }
+.c-fluid-red { color: $fluid-red; }
+.grayscale { filter: grayscale(100);}
+.hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
+.hv-fluid-bk { &:hover { color: $fluid-black;} }
 
-.bg-fluid-lightgray {
-  background-color: $lightergray;
-}
-
-.bg-fluid-black {
-  background-color: $fluid-black;
-}
-
-.minw-100 {
-  min-width: 100%;
-}
-
-.hv-fluid-dkred {
-  &:hover {
-    color: $fluid-dark-red;
-  }
-}
-
-.hv-fluid-bk {
-  &:hover {
-    color: $fluid-black;
-  }
-}
-
-.ma-auto {
-  margin: auto;
-}
-
-.w-32 {
-  width: 32%;
-}
-
-.montsy {
-  font-family: 'Montserrat';
-}
-
-.c-fluid-bk {
-  color: $fluid-black;
-}
-
-.c-fluid-red {
-  color: $fluid-red;
-}
-
-.grayscale {
-  filter: grayscale(100);
-}
 // End Tachyons
 
 @mixin hn {

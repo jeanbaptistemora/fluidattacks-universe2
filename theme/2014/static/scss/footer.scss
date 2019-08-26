@@ -1,10 +1,4 @@
-$fluid-black: rgba(39, 39, 39, 1);
-$fluid-red: rgba(255, 52, 53, 1);
-$fluid-dark-red: rgba(203, 50, 51, 1);
-$white: rgba(255, 255, 255, 1);
-
 .divsocial {
-
   img {
     width: 40px;
   }
@@ -12,22 +6,6 @@ $white: rgba(255, 255, 255, 1);
 
 .colfoot {
   width: 50%;
-
-  a {
-    color: $white;
-    font-size: 18px;
-  }
-}
-
-.colcontent {
-  margin-left: 10%;
-  width: max-content;
-}
-
-@media (min-width: 480px) {
-  .colcontent {
-    margin-left: 20%;
-  }
 }
 
 @media (min-width: 580px) {
@@ -48,9 +26,5 @@ $white: rgba(255, 255, 255, 1);
 @media (min-width: 1180px) {
   .colfoot {
     width: 16%;
-  }
-
-  .colcontent {
-    margin: auto;
   }
 }
