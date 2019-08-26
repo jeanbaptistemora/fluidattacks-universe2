@@ -35,6 +35,26 @@ def _is_ssl_error(exception: psycopg2.Error) -> bool:
     return 'SSL' in str(exception)
 
 
+def _get_var(
+        connection_string: ConnectionString,
+        variable_name: str) -> str:
+    """Return the result of `SHOW variable_name;` or an empty string."""
+    var_value: str = ''
+    with database(connection_string) as (_, cursor):
+        try:
+            cursor.execute(f'SHOW {variable_name}')
+        except psycopg2.errors.UndefinedObject:
+            # var is not defined
+            pass
+        else:
+            # var is defined
+            row = cursor.fetchone()
+            if len(row) == 1:
+                # var has a value
+                var_value, = row
+    return var_value
+
+
 @contextmanager
 def database(connection_string: ConnectionString):
     """Context manager to get a safe connection and a cursor."""
@@ -118,3 +138,66 @@ def does_not_support_ssl(dbname: str,
     if supports_ssl:
         return CLOSED, msg_closed, [], units
     return OPEN, msg_open, units, []
+
+
+@api(risk=MEDIUM, kind=DAST)
+def has_not_logging_enabled(dbname: str,
+                            user: str, password: str,
+                            host: str, port: int) -> tuple:
+    """Check if the PostgreSQL implementation logs all transactions."""
+    connection_string: ConnectionString = \
+        ConnectionString(dbname, user, password, host, port)
+
+    msg_open: str = 'PostgreSQL has not logging enabled'
+    msg_closed: str = 'PostgreSQL has logging enabled'
+
+    try:
+        # logging_collector must be 'on'
+        safe_logging_collector: bool = \
+            _get_var(connection_string, 'logging_collector') == 'on'
+
+        # log_statement must be 'all'
+        safe_log_statement: bool = \
+            _get_var(connection_string, 'log_statement') == 'all'
+
+        # log_directory must be set
+        safe_log_directory: bool = \
+            bool(_get_var(connection_string, 'log_directory'))
+
+        # log_filename must be set
+        safe_log_filename: bool = \
+            bool(_get_var(connection_string, 'log_filename'))
+
+    except psycopg2.OperationalError as exc:
+        return UNKNOWN, f'An error occurred: {exc}'
+
+    vulns: List[Unit] = []
+    safes: List[Unit] = []
+    vuln_specifics: List[str] = []
+    safe_specifics: List[str] = []
+
+    (safe_specifics if safe_logging_collector else vuln_specifics).append(
+        'logging_collector must be set to on')
+    (safe_specifics if safe_log_statement else vuln_specifics).append(
+        'log_statement must be set to all')
+    (safe_specifics if safe_log_directory else vuln_specifics).append(
+        'log_directory must be set')
+    (safe_specifics if safe_log_filename else vuln_specifics).append(
+        'log_filename must be set')
+
+    if vuln_specifics:
+        vulns.append(Unit(
+            where=f'{host}:{port}',
+            source='PostgreSQL/Configuration',
+            specific=vuln_specifics,
+            fingerprint=None))
+    if safe_specifics:
+        safes.append(Unit(
+            where=f'{host}:{port}',
+            source='PostgreSQL/Configuration',
+            specific=safe_specifics,
+            fingerprint=None))
+
+    if vulns:
+        return OPEN, msg_open, vulns, safes
+    return CLOSED, msg_closed, vulns, safes
