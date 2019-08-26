@@ -43,7 +43,7 @@
 
 stages:
   - deps-base
-  - deps-dev
+  - deps-development
   - test
   - build
   - mr-check
@@ -60,20 +60,20 @@ deps-mobile:
   script:
     - ./ci-scripts/jobs/deps-mobile.sh
 
-deps-prod:
+deps-production:
   stage: deps-base
   image: fluidattacks/alpine-kaniko:latest
   retry: 2
   script:
-    - ./ci-scripts/jobs/deps-prod.sh
+    - ./ci-scripts/jobs/deps-production.sh
 
-deps-dev:
-  stage: deps-dev
-  needs: [deps-prod]
+deps-development:
+  stage: deps-development
+  needs: [deps-production]
   image: fluidattacks/alpine-kaniko:latest
   retry: 2
   script:
-    - ./ci-scripts/jobs/deps-dev.sh
+    - ./ci-scripts/jobs/deps-development.sh
 
 deps-app:
   stage: deps-base
@@ -133,7 +133,7 @@ test-terraform:
 
 test-front:
   stage: test
-  image: registry.gitlab.com/fluidattacks/integrates:deps-dev
+  image: registry.gitlab.com/fluidattacks/integrates:deps-development
   script:
     - ./ci-scripts/jobs/test-front.sh
   artifacts:
@@ -158,7 +158,7 @@ test-mobile:
 
 test-app:
   stage: test
-  image: registry.gitlab.com/fluidattacks/integrates:deps-dev
+  image: registry.gitlab.com/fluidattacks/integrates:deps-development
   script:
     - . ci-scripts/helpers/others.sh && vault_login
     - vaultenv ./ci-scripts/jobs/test-app.sh
@@ -208,7 +208,7 @@ build-terraform:
 
 build-app:
   stage: build
-  needs: [deps-dev]
+  needs: [deps-development]
   <<: *kaniko_vault_config
   script:
     - MINUTES=$((
@@ -245,7 +245,7 @@ build-app:
 
 build-bot:
   stage: build
-  needs: [deps-dev]
+  needs: [deps-development]
   <<: *kaniko_vault_config
   script:
     - /kaniko/executor
@@ -263,7 +263,7 @@ build-bot:
 
 test-driver:
   stage: post-deploy
-  image: registry.gitlab.com/fluidattacks/integrates:deps-dev
+  image: registry.gitlab.com/fluidattacks/integrates:deps-development
   script:
     - . ci-scripts/helpers/others.sh && vault_login
     - vaultenv ./ci-scripts/jobs/test-driver.sh
@@ -365,7 +365,7 @@ deploy-mobile:
 
 new-version-mail:
   stage: post-deploy
-  image: registry.gitlab.com/fluidattacks/integrates:deps-dev
+  image: registry.gitlab.com/fluidattacks/integrates:deps-development
   dependencies:
     - build-app
   script:
@@ -379,7 +379,7 @@ new-version-mail:
 
 coverage-report:
   stage: coverage
-  image: registry.gitlab.com/fluidattacks/integrates:deps-dev
+  image: registry.gitlab.com/fluidattacks/integrates:deps-development
   dependencies:
     - test-app
     - test-front

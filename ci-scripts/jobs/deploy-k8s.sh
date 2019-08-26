@@ -32,9 +32,17 @@ deploy_newrelic() {
 
   NEW_RELIC_URL='https://api.newrelic.com/v2/applications'
   COMMITTER_EMAIL=$(git log -1 --pretty=format:'%ce')
-  LAST_COMMITS_MASTER=$(
-    git log "$CI_COMMIT_BEFORE_SHA"..HEAD --pretty=format:'%s'
-  )
+
+  if [ $SCHEDULE ]; then
+    LAST_COMMITS_MASTER=$(
+      git log HEAD~1..HEAD --pretty=format:'%s'
+    )
+  else
+    LAST_COMMITS_MASTER=$(
+      git log "$CI_COMMIT_BEFORE_SHA"..HEAD --pretty=format:'%s'
+    )
+  fi
+
   CHANGELOG=$(
     echo "$LAST_COMMITS_MASTER" | sed -ze 's/\n/\\n/g' -e 's/\"/\\"/g'
   )

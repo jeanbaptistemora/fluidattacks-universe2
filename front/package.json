@@ -115,8 +115,8 @@
   },
   "scripts": {
     "audit": "npm set audit-level high && npm config set audit-level high && npm audit",
-    "build": "npm run css && webpack --hide-modules --config webpack.dev.config.js",
-    "build:prod": "webpack --hide-modules --config webpack.prod.config.js",
+    "build:development": "npm run css && webpack --hide-modules --config webpack.dev.config.js",
+    "build:production": "webpack --hide-modules --config webpack.prod.config.js",
     "css": "tcm src/ --silent",
     "lint": "tslint -p tsconfig.json -t codeFrame",
     "test": "tsc -p tsconfig.json --noEmit && npm run css && ./runTests.sh"

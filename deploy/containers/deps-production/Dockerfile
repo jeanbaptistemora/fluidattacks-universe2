@@ -1,10 +1,10 @@
 FROM debian:buster-slim
 
-ARG PATCHES='deploy/containers/deps-prod'
+ARG PATCHES='deploy/containers/deps-production'
 ARG NODE_URL='https://deb.nodesource.com/setup_10.x'
 ARG VAULTENV_URL='https://github.com/channable/vaultenv/releases/download/v0.9.0/vaultenv-0-9-0.deb'
 ARG TREASUREDATA_URL='https://toolbelt.treasuredata.com/sh/install-debian-stretch-td-agent2.sh'
-ARG PIP_REQUIREMENTS='deploy/containers/deps-prod/requirements.txt'
+ARG PIP_REQUIREMENTS='deploy/containers/deps-production/requirements.txt'
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=America/Bogota

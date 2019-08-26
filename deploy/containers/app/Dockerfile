@@ -1,4 +1,6 @@
-FROM registry.gitlab.com/fluidattacks/integrates:deps-prod
+ARG ENV_NAME
+
+FROM registry.gitlab.com/fluidattacks/integrates:deps-$ENV_NAME
 
 ARG CI_API_V4_URL
 ARG CI_COMMIT_REF_NAME
@@ -62,7 +64,7 @@ RUN chown -R www-data:www-data . \
 
 # Compile front
 RUN cp -a /npm-deps/front/node_modules front/ \
-  && npm run --prefix front/ build:prod \
+  && npm run --prefix front/ build:$ENV_NAME \
   && sed -i "s/integrates_version/v. $FI_VERSION/g" app/assets/dashboard/app-bundle.min.js \
   && rm -rf front/node_modules
 
