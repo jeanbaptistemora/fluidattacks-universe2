@@ -13,9 +13,7 @@ from pyparsing import (Word, Optional, alphas,
                        delimitedList, Empty)
 
 # local imports
-from fluidasserts import LOW, MEDIUM
-from fluidasserts import OPEN, CLOSED
-from fluidasserts import SAST
+from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, SAST
 from fluidasserts.lang import core
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
@@ -81,6 +79,7 @@ def has_generic_exceptions(csharp_dest: str, exclude: list = None) -> tuple:
 
     :param csharp_dest: Path to a C# source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _declares_catch_for_exceptions(
         csharp_dest=csharp_dest,
@@ -111,6 +110,7 @@ def uses_catch_for_null_reference_exception(
 
     :param csharp_dest: Path to a C# source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _declares_catch_for_exceptions(
         csharp_dest=csharp_dest,
@@ -136,6 +136,7 @@ def swallows_exceptions(csharp_dest: str, exclude: list = None) -> tuple:
 
     :param csharp_dest: Path to a C# source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     # Empty() grammar matches 'anything'
     # ~Empty() grammar matches 'not anything' or 'nothing'
@@ -170,6 +171,7 @@ def has_switch_without_default(
 
     :param csharp_dest: Path to a C# source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     switch = Keyword('switch') + nestedExpr(opener='(', closer=')')
     grammar = Suppress(switch) + nestedExpr(opener='{', closer='}')
@@ -199,6 +201,7 @@ def has_insecure_randoms(csharp_dest: str, exclude: list = None) -> tuple:
 
     :param csharp_dest: Path to a C# source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     # module: System
     # secure versions: System.Security.Cryptography.RandomNumberGenerator
@@ -237,6 +240,7 @@ def has_if_without_else(
                       `if (condition)` statement.
     :param use_regex: Use regular expressions instead of literals to search.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     return core._generic_c_has_if_without_else(
         csharp_dest, conditions, use_regex, exclude)
@@ -251,6 +255,7 @@ def uses_md5_hash(csharp_dest: str, exclude: list = None) -> tuple:
 
     :param csharp_dest: Path to a C# source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     grammar = MatchFirst([
         Keyword('MD5CryptoServiceProvider'),
@@ -281,6 +286,7 @@ def uses_sha1_hash(csharp_dest: str, exclude: list = None) -> tuple:
 
     :param csharp_dest: Path to a C# source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     methods = ('SHA1CryptoServiceProvider', 'SHA1Managed')
     grammar = MatchFirst(map(Keyword, methods)) + nestedExpr()
@@ -307,6 +313,7 @@ def uses_ecb_encryption_mode(csharp_dest: str, exclude: list = None) -> tuple:
 
     :param csharp_dest: Path to a C# source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     grammar = Keyword('CipherMode') + '.' + Keyword('ECB')
     grammar.ignore(cppStyleComment)
@@ -332,6 +339,7 @@ def uses_debug_writeline(csharp_dest: str, exclude: list = None) -> tuple:
 
     :param csharp_dest: Path to a C# source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     methods = ('Write', 'WriteIf',
                'WriteLine', 'WriteLineIf',
@@ -360,6 +368,7 @@ def uses_console_writeline(csharp_dest: str, exclude: list = None) -> tuple:
 
     :param csharp_dest: Path to a C# source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     methods = ('WriteLine', 'Write')
     grammar = Keyword('Console') + '.' + MatchFirst(map(Keyword, methods))

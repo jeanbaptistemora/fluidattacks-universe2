@@ -12,10 +12,7 @@ from pyparsing import (CaselessKeyword, Keyword, Word, Optional,
                        MatchFirst, delimitedList)
 
 # local imports
-from fluidasserts import Result
-from fluidasserts import LOW, MEDIUM
-from fluidasserts import OPEN, CLOSED, UNKNOWN
-from fluidasserts import SAST
+from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, UNKNOWN, SAST
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
 
@@ -38,12 +35,13 @@ ERROR_CODES = delimitedList(ERROR_CODE, delim=':')
 
 
 @api(risk=MEDIUM, kind=SAST)
-def has_dos_dow_sqlcod(rpg_dest: str, exclude: list = None) -> Result:
+def has_dos_dow_sqlcod(rpg_dest: str, exclude: list = None) -> tuple:
     r"""
     Search for DoS for using ``DoW SQLCOD = <ZERO>``\ .
 
     :param rpg_dest: Path to a RPG source or directory.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(rpg_dest):
         return UNKNOWN, 'File does not exist'
@@ -67,12 +65,13 @@ def has_dos_dow_sqlcod(rpg_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=LOW, kind=SAST)
-def has_unitialized_vars(rpg_dest: str, exclude: list = None) -> Result:
+def has_unitialized_vars(rpg_dest: str, exclude: list = None) -> tuple:
     """
     Search for unitialized variables.
 
     :param rpg_dest: Path to a RPG source or directory.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(rpg_dest):
         return UNKNOWN, 'File does not exist'
@@ -96,7 +95,7 @@ def has_unitialized_vars(rpg_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=LOW, kind=SAST)
-def has_generic_exceptions(rpg_dest: str, exclude: list = None) -> Result:
+def has_generic_exceptions(rpg_dest: str, exclude: list = None) -> tuple:
     """
     Search for on-error empty or *PROGRAM, *FILE, or *ALL codes.
 
@@ -105,6 +104,7 @@ def has_generic_exceptions(rpg_dest: str, exclude: list = None) -> Result:
 
     :param rpg_dest: Path to a RPG source or directory.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(rpg_dest):
         return UNKNOWN, 'File does not exist'
@@ -129,7 +129,7 @@ def has_generic_exceptions(rpg_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=LOW, kind=SAST)
-def swallows_exceptions(rpg_dest: str, exclude: list = None) -> Result:
+def swallows_exceptions(rpg_dest: str, exclude: list = None) -> tuple:
     """
     Search for on-error without code.
 
@@ -137,6 +137,7 @@ def swallows_exceptions(rpg_dest: str, exclude: list = None) -> Result:
 
     :param rpg_dest: Path to a RPG source or directory.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(rpg_dest):
         return UNKNOWN, 'File does not exist'

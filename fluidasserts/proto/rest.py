@@ -9,10 +9,7 @@ import re
 # None
 
 # local imports
-from fluidasserts import Result
-from fluidasserts import OPEN, CLOSED, UNKNOWN
-from fluidasserts import LOW, MEDIUM
-from fluidasserts import DAST
+from fluidasserts import OPEN, CLOSED, UNKNOWN, LOW, MEDIUM, DAST
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
@@ -121,13 +118,14 @@ def accepts_insecure_accept_header(url: str, *args, **kwargs) -> bool:
 
 
 @api(risk=MEDIUM, kind=DAST)
-def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> Result:
+def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if X-Frame-Options HTTP header is properly set.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'X-Frame-Options'
     try:
@@ -146,13 +144,14 @@ def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> Result:
 
 @api(risk=LOW, kind=DAST)
 def is_header_x_content_type_options_missing(url: str, *args,
-                                             **kwargs) -> Result:
+                                             **kwargs) -> tuple:
     r"""
     Check if X-Content-Type-Options HTTP header is properly set.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'X-Content-Type-Options'
     try:
@@ -170,13 +169,14 @@ def is_header_x_content_type_options_missing(url: str, *args,
 
 
 @api(risk=MEDIUM, kind=DAST)
-def is_header_hsts_missing(url: str, *args, **kwargs) -> Result:
+def is_header_hsts_missing(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if Strict-Transport-Security HTTP header is properly set.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'Strict-Transport-Security'
     try:
@@ -197,13 +197,14 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> Result:
 
 
 @api(risk=LOW, kind=DAST)
-def is_header_content_type_missing(url: str, *args, **kwargs) -> Result:
+def is_header_content_type_missing(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if Content-Type HTTP header is properly set.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'Content-Type'
     try:

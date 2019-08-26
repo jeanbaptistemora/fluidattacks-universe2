@@ -45,6 +45,7 @@ def is_header_x_powered_by_present(webconf_dest: str,
 
     :param webconf_dest: Path to a Web.config source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     tk_tag_s, _ = makeXMLTags('customHeaders')
     tk_add_tag, _ = makeXMLTags('add')

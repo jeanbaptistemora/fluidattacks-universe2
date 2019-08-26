@@ -10,10 +10,7 @@ from typing import Dict, Any
 from pyparsing import Regex, Keyword, Optional, Combine, ZeroOrMore
 
 # local imports
-from fluidasserts import Result
-from fluidasserts import OPEN, CLOSED, UNKNOWN
-from fluidasserts import LOW
-from fluidasserts import SAST
+from fluidasserts import OPEN, CLOSED, UNKNOWN, LOW, SAST
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
 
@@ -43,13 +40,14 @@ D_NAME = Combine(Optional(D_DOMAIN + '/') + _NAME + ZeroOrMore('/' + _NAME))
 
 
 @api(risk=LOW, kind=SAST)
-def not_pinned(file_dest: str, exclude: list = None) -> Result:
+def not_pinned(file_dest: str, exclude: list = None) -> tuple:
     """
     Check if the Dockerfile uses a ``FROM:...latest`` (unpinned) base image.
 
     :param file_dest: Path to the Dockerfile to be tested.
     :param exclude: Paths that contains any string from this list are ignored.
     :returns: True if unpinned (bad), False if pinned (good).
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(file_dest):
         return UNKNOWN, 'File does not exist'

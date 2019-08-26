@@ -9,10 +9,7 @@
 from pyparsing import Keyword, oneOf, Regex
 
 # local imports
-from fluidasserts import Result
-from fluidasserts import HIGH
-from fluidasserts import OPEN, CLOSED
-from fluidasserts import SAST
+from fluidasserts import HIGH, OPEN, CLOSED, SAST
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
 
@@ -26,12 +23,13 @@ LANGUAGE_SPECS = {
 
 
 @api(risk=HIGH, kind=SAST)
-def has_preg_ce(php_dest: str, exclude: list = None) -> Result:
+def has_preg_ce(php_dest: str, exclude: list = None) -> tuple:
     """
     Search for preg_replace calls with '/e'.
 
     :param php_dest: Path to a PHP script or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     quote = oneOf(["'", '"'])
     grammar = Keyword('preg_replace') + '(' + quote + Regex(r'.*/e\b') + quote

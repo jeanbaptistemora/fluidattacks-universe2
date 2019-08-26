@@ -13,10 +13,7 @@ from pyparsing import (CaselessKeyword, Word, Literal, Optional, alphas,
                        Empty)
 
 # local imports
-from fluidasserts import Result
-from fluidasserts import LOW, MEDIUM
-from fluidasserts import OPEN, CLOSED
-from fluidasserts import SAST
+from fluidasserts import Result, LOW, MEDIUM, OPEN, CLOSED, SAST
 from fluidasserts.lang import core
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
@@ -83,6 +80,7 @@ def has_generic_exceptions(java_dest: str, exclude: list = None) -> tuple:
 
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _declares_catch_for_exceptions(
         java_dest=java_dest,
@@ -107,6 +105,7 @@ def uses_catch_for_null_pointer_exception(
 
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _declares_catch_for_exceptions(
         java_dest=java_dest,
@@ -133,6 +132,7 @@ def uses_catch_for_runtime_exception(
 
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _declares_catch_for_exceptions(
         java_dest=java_dest,
@@ -158,6 +158,7 @@ def uses_print_stack_trace(java_dest: str, exclude: list = None) -> tuple:
 
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     grammar = '.' + Keyword('printStackTrace')
     grammar.ignore(javaStyleComment)
@@ -187,6 +188,7 @@ def swallows_exceptions(java_dest: str, exclude: list = None) -> tuple:
 
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     # Empty() grammar matches 'anything'
     # ~Empty() grammar matches 'not anything' or 'nothing'
@@ -222,6 +224,7 @@ def does_not_handle_exceptions(java_dest: str,
     :param should_have: List of expected exception handlers.
     :param use_regex: Use regular expressions instead of literals to search.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not use_regex:
         should_have = list(map(re.escape, should_have))
@@ -258,6 +261,7 @@ def has_switch_without_default(java_dest: str, exclude: list = None) -> tuple:
 
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     switch = Keyword('switch') + nestedExpr(opener='(', closer=')')
     grammar = Suppress(switch) + nestedExpr(opener='{', closer='}')
@@ -290,6 +294,7 @@ def has_insecure_randoms(java_dest: str, exclude: list = None) -> tuple:
 
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     _java = Keyword('java')
     _util = Keyword('util')
@@ -342,6 +347,7 @@ def has_if_without_else(
                       `if (condition)` statement.
     :param use_regex: Use regular expressions instead of literals to search.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     return core._generic_c_has_if_without_else(
         java_dest, conditions, use_regex, exclude)
@@ -410,6 +416,7 @@ def uses_insecure_cipher(java_dest: str, algorithm: Result,
     :param java_dest: Path to a Java source file or package.
     :param algorithm: Insecure algorithm.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _uses_insecure_cipher(java_dest, algorithm, exclude)
 
@@ -425,6 +432,7 @@ def uses_insecure_hash(java_dest: str, algorithm: Result,
     :param java_dest: Path to a Java source file or package.
     :param algorithm: Insecure algorithm.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _uses_insecure_hash(java_dest, algorithm, exclude)
 
@@ -438,6 +446,7 @@ def uses_md5_hash(java_dest: str, exclude: list = None) -> tuple:
 
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _uses_insecure_hash(java_dest, 'md5', exclude)
 
@@ -451,6 +460,7 @@ def uses_sha1_hash(java_dest: str, exclude: list = None) -> tuple:
 
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _uses_insecure_hash(java_dest, 'sha-1', exclude)
 
@@ -464,6 +474,7 @@ def uses_des_algorithm(java_dest: str, exclude: list = None) -> tuple:
 
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _uses_insecure_cipher(java_dest, 'DES', exclude)
 
@@ -480,6 +491,7 @@ def has_log_injection(java_dest: str, exclude: list = None) -> tuple:
 
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     log_variable = CaselessKeyword('log')
     log_level = oneOf('trace debug info warn error fatal')
@@ -510,6 +522,7 @@ def uses_system_exit(java_dest: str, exclude: list = None) -> tuple:
 
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     method = 'System.exit'
     grammar = Literal(method)

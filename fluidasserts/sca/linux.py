@@ -9,9 +9,7 @@
 # None
 
 # local imports
-from fluidasserts import Result
-from fluidasserts import HIGH
-from fluidasserts import SAST
+from fluidasserts import HIGH, SAST
 from fluidasserts.helper import sca
 from fluidasserts.utils.decorators import api
 
@@ -20,12 +18,13 @@ PKG_MNGR = 'rpm'
 
 @api(risk=HIGH, kind=SAST)
 def package_has_vulnerabilities(
-        package: str, version: str = None, retry: bool = True) -> Result:
+        package: str, version: str = None, retry: bool = True) -> tuple:
     """
     Search vulnerabilities on given package/version.
 
     :param package: Package name.
     :param version: Package version.
+    :rtype: :class:`fluidasserts.Result`
     """
     reqs = set([(None, package, version)])
     return sca.process_requirements(PKG_MNGR, None, reqs, retry)

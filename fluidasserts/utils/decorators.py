@@ -15,6 +15,7 @@ import oyaml as yaml
 # local imports
 from fluidasserts import Result
 
+# Constants
 OUTFILE = sys.stderr
 
 

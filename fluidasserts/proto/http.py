@@ -19,10 +19,7 @@ import requests
 # local imports
 from fluidasserts.helper import banner
 from fluidasserts.helper import http
-from fluidasserts import Unit
-from fluidasserts import OPEN, CLOSED, UNKNOWN
-from fluidasserts import LOW, MEDIUM
-from fluidasserts import DAST
+from fluidasserts import Unit, OPEN, CLOSED, UNKNOWN, LOW, MEDIUM, DAST
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
@@ -440,6 +437,7 @@ def is_header_x_asp_net_version_present(url: str, *args, **kwargs) -> tuple:
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'X-AspNet-Version'
     try:
@@ -460,6 +458,7 @@ def is_header_x_powered_by_present(url: str, *args, **kwargs) -> tuple:
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'X-Powered-By'
     try:
@@ -481,6 +480,7 @@ def is_header_access_control_allow_origin_missing(url: str,
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'Access-Control-Allow-Origin'
     if 'headers' in kwargs:
@@ -511,6 +511,7 @@ def is_header_cache_control_missing(url: str, *args, **kwargs) -> tuple:
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'Cache-Control'
     try:
@@ -538,6 +539,7 @@ def is_header_content_security_policy_missing(url: str,
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'Content-Security-Policy'
     try:
@@ -563,6 +565,7 @@ def is_header_content_type_missing(url: str, *args, **kwargs) -> tuple:
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'Content-Type'
     try:
@@ -591,6 +594,7 @@ def is_header_expires_missing(url: str, *args, **kwargs) -> tuple:
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'Expires'
     try:
@@ -614,6 +618,7 @@ def is_header_pragma_missing(url: str, *args, **kwargs) -> tuple:
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'Pragma'
     try:
@@ -638,6 +643,7 @@ def is_header_server_present(url: str, *args, **kwargs) -> tuple:
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'Server'
     try:
@@ -659,6 +665,7 @@ def is_header_x_content_type_options_missing(url: str, *args,
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'X-Content-Type-Options'
     try:
@@ -683,6 +690,7 @@ def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> tuple:
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'X-Frame-Options'
     try:
@@ -707,6 +715,7 @@ def is_header_perm_cross_dom_pol_missing(url: str, *args, **kwargs) -> tuple:
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'X-Permitted-Cross-Domain-Policies'
     try:
@@ -731,6 +740,7 @@ def is_header_x_xxs_protection_missing(url: str, *args, **kwargs) -> tuple:
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'X-XSS-Protection'
     try:
@@ -755,6 +765,7 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> tuple:
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     header = 'Strict-Transport-Security'
     try:
@@ -782,6 +793,7 @@ def is_basic_auth_enabled(url: str, *args, **kwargs) -> tuple:
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     if url.startswith('https'):
         return CLOSED, f'URL uses HTTPS: {url}'
@@ -1035,6 +1047,7 @@ def has_xsleak_by_frames_discrepancy(url_a: str,
                                          attribute to Strict.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """.format(research_url=('https://github.com/xsleaks/xsleaks/wiki/'
                              'Browser-Side-Channels#frame-count'),
                exploit_url=('https://www.imperva.com/blog/'
@@ -1089,6 +1102,7 @@ def has_not_subresource_integrity(
     :param url: URL to test.
     :param \*request_args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*request_kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """.format(research_url=('https://developer.mozilla.org/en-US/docs/Web/'
                              'Security/Subresource_Integrity'))
     try:

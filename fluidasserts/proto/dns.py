@@ -21,10 +21,7 @@ from dns.zone import from_xfr
 
 
 # local imports
-from fluidasserts import Unit, Result
-from fluidasserts import DAST
-from fluidasserts import MEDIUM
-from fluidasserts import OPEN, CLOSED, UNKNOWN
+from fluidasserts import Unit, DAST, MEDIUM, OPEN, CLOSED, UNKNOWN
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
@@ -68,7 +65,7 @@ def _recursive_query_dns(
 def has_subdomain_takeover(
         domain: DOMAIN,
         nameserver: NAMESERVER,
-        attacker_controlled_domains: List[DOMAIN]) -> Result:
+        attacker_controlled_domains: List[DOMAIN]) -> tuple:
     """
     Check if DNS records point to an attacker controlled site.
 
@@ -80,6 +77,7 @@ def has_subdomain_takeover(
     :param domain: IPv4, IPv6, or domain to test.
     :param attacker_controlled_domains: A list of domains to expect as
                                         vulnerable.
+    :rtype: :class:`fluidasserts.Result`
     """
     origin_to_target: Set[Tuple[DOMAIN, DOMAIN]] = set()
 

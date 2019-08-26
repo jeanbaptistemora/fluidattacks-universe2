@@ -13,10 +13,7 @@ from pyparsing import (makeHTMLTags, CaselessKeyword, ParseException,
                        Literal, SkipTo, stringEnd)
 
 # local imports
-from fluidasserts import Unit
-from fluidasserts import OPEN, CLOSED, UNKNOWN
-from fluidasserts import LOW, MEDIUM
-from fluidasserts import SAST
+from fluidasserts import Unit, OPEN, CLOSED, UNKNOWN, LOW, MEDIUM, SAST
 from fluidasserts.utils.generic import get_paths, get_sha256
 from fluidasserts.utils.decorators import api
 
@@ -65,6 +62,7 @@ def has_not_autocomplete(filename: str) -> tuple:
     :param filename: Path to the ``HTML`` source.
     :returns: True if tags ``form`` and ``input`` have attribute
               ``autocomplete`` set as specified, False otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(filename):
         return UNKNOWN, 'File does not exist'
@@ -104,6 +102,7 @@ def is_cacheable(filename: str) -> tuple:
     :param filename: Path to the ``HTML`` source.
     :returns: True if tag ``meta`` have attributes ``http-equiv``
               and ``content`` set as specified, False otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(filename):
         return UNKNOWN, 'File does not exist'
@@ -148,6 +147,7 @@ def is_header_content_type_missing(filename: str) -> tuple:
     :param filename: Path to the ``HTML`` source.
     :returns: True if tag ``meta`` have attributes ``http-equiv``
               and ``content`` set as specified, False otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(filename):
         return UNKNOWN, 'File does not exist'
@@ -192,6 +192,7 @@ def has_reverse_tabnabbing(path: str) -> tuple:
     Check if an HTML file has links vulnerable to a reverse tabnabbing.
 
     :param path: Path to the ``HTML`` source.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(path):
         return UNKNOWN, 'File does not exist'
@@ -248,6 +249,7 @@ def has_not_subresource_integrity(path: str) -> tuple:
     See: `Documentation <{research_url}>`_.
 
     :param path: Path to the ``HTML`` source.
+    :rtype: :class:`fluidasserts.Result`
     """.format(research_url=('https://developer.mozilla.org/en-US/docs/Web/'
                              'Security/Subresource_Integrity'))
     if not os.path.exists(path):

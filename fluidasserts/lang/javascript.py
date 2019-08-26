@@ -10,9 +10,7 @@ from pyparsing import (Suppress, nestedExpr, cppStyleComment,
                        MatchFirst, Keyword, Empty, QuotedString)
 
 # local imports
-from fluidasserts import LOW, MEDIUM
-from fluidasserts import OPEN, CLOSED
-from fluidasserts import SAST
+from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, SAST
 from fluidasserts.lang import core
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
@@ -40,6 +38,7 @@ def uses_console_log(js_dest: str, exclude: list = None) -> tuple:
 
     :param js_dest: Path to a JavaScript source file or directory.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     grammar = Keyword('console') + '.' + Keyword('log') + nestedExpr()
     grammar.ignore(cppStyleComment)
@@ -64,6 +63,7 @@ def uses_eval(js_dest: str, exclude: list = None) -> tuple:
 
     :param js_dest: Path to a JavaScript source file or directory.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     grammar = Keyword('eval') + nestedExpr()
     grammar.ignore(cppStyleComment)
@@ -88,6 +88,7 @@ def uses_localstorage(js_dest: str, exclude: list = None) -> tuple:
 
     :param js_dest: Path to a JavaScript source file or directory.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     grammar = Keyword('localStorage') + '.'
     grammar.ignore(cppStyleComment)
@@ -114,6 +115,7 @@ def has_insecure_randoms(js_dest: str, exclude: list = None) -> tuple:
 
     :param js_dest: Path to a JavaScript source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     grammar = Keyword('Math') + '.' + Keyword('random') + nestedExpr()
     grammar.ignore(cppStyleComment)
@@ -142,6 +144,7 @@ def swallows_exceptions(js_dest: str, exclude: list = None) -> tuple:
 
     :param js_dest: Path to a JavaScript source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     # Empty() grammar matches 'anything'
     # ~Empty() grammar matches 'not anything' or 'nothing'
@@ -178,6 +181,7 @@ def has_switch_without_default(js_dest: str, exclude: list = None) -> tuple:
 
     :param js_dest: Path to a JavaScript source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     switch = Keyword('switch') + nestedExpr(opener='(', closer=')')
     grammar = Suppress(switch) + nestedExpr(opener='{', closer='}')
@@ -214,6 +218,7 @@ def has_if_without_else(
                       `if (condition)` statement.
     :param use_regex: Use regular expressions instead of literals to search.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     return core._generic_c_has_if_without_else(
         js_dest, conditions, use_regex, exclude)

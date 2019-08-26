@@ -13,10 +13,7 @@ from pyparsing import (Word, alphas, pythonStyleComment, delimitedList,
                        Keyword, QuotedString, MatchFirst, Optional)
 
 # local imports
-from fluidasserts import Unit, Result
-from fluidasserts import LOW, HIGH
-from fluidasserts import OPEN, CLOSED, UNKNOWN
-from fluidasserts import SAST
+from fluidasserts import Unit, LOW, HIGH, OPEN, CLOSED, UNKNOWN, SAST
 from fluidasserts.helper import lang
 from fluidasserts.utils.generic import get_paths
 from fluidasserts.utils.generic import get_sha256
@@ -139,12 +136,13 @@ def _declares_catch_for_exceptions(
 
 
 @api(risk=LOW, kind=SAST)
-def has_generic_exceptions(py_dest: str, exclude: list = None) -> Result:
+def has_generic_exceptions(py_dest: str, exclude: list = None) -> tuple:
     """
     Search for generic exceptions in a Python script or package.
 
     :param py_dest: Path to a Python script or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _declares_catch_for_exceptions(
         py_dest=py_dest,
@@ -160,7 +158,7 @@ def has_generic_exceptions(py_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=LOW, kind=SAST)
-def uses_catch_for_memory_error(py_dest: str, exclude: list = None) -> Result:
+def uses_catch_for_memory_error(py_dest: str, exclude: list = None) -> tuple:
     """
     Search for the use of MemoryError "catch" in a path.
 
@@ -168,6 +166,7 @@ def uses_catch_for_memory_error(py_dest: str, exclude: list = None) -> Result:
 
     :param py_dest: Path to a Python script or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _declares_catch_for_exceptions(
         py_dest=py_dest,
@@ -182,7 +181,7 @@ def uses_catch_for_memory_error(py_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=LOW, kind=SAST)
-def uses_catch_for_syntax_errors(py_dest: str, exclude: list = None) -> Result:
+def uses_catch_for_syntax_errors(py_dest: str, exclude: list = None) -> tuple:
     """
     Search for the use of SyntaxError catch and its derived classes in a path.
 
@@ -190,6 +189,7 @@ def uses_catch_for_syntax_errors(py_dest: str, exclude: list = None) -> Result:
 
     :param py_dest: Path to a Python script or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _declares_catch_for_exceptions(
         py_dest=py_dest,
@@ -206,7 +206,7 @@ def uses_catch_for_syntax_errors(py_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=LOW, kind=SAST)
-def swallows_exceptions(py_dest: str, exclude: list = None) -> Result:
+def swallows_exceptions(py_dest: str, exclude: list = None) -> tuple:
     """
     Search for swallowed exceptions.
 
@@ -215,6 +215,7 @@ def swallows_exceptions(py_dest: str, exclude: list = None) -> Result:
 
     :param py_dest: Path to a Python script or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     grammar = (Keyword('except') + SkipTo(LineEnd(), include=True) +
                indentedBlock(Keyword('pass'), indentStack=[1]))
@@ -235,7 +236,7 @@ def swallows_exceptions(py_dest: str, exclude: list = None) -> Result:
 
 
 @api(risk=HIGH, kind=SAST)
-def uses_insecure_functions(py_dest: str, exclude: list = None) -> Result:
+def uses_insecure_functions(py_dest: str, exclude: list = None) -> tuple:
     """
     Search for insecure functions in code.
 
@@ -243,6 +244,7 @@ def uses_insecure_functions(py_dest: str, exclude: list = None) -> Result:
 
     :param py_dest: Path to a Python script or package.
     :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(py_dest):
         return UNKNOWN, 'File does not exist'

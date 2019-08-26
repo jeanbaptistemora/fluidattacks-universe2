@@ -13,10 +13,7 @@ from pyparsing import (cppStyleComment, Keyword, Literal, MatchFirst,
                        nestedExpr, Optional, QuotedString, Regex, ZeroOrMore)
 
 # local imports
-from fluidasserts import Result, Unit
-from fluidasserts import LOW, MEDIUM, HIGH
-from fluidasserts import OPEN, CLOSED, UNKNOWN
-from fluidasserts import SAST
+from fluidasserts import Unit, LOW, MEDIUM, HIGH, OPEN, CLOSED, UNKNOWN, SAST
 from fluidasserts.helper import lang
 from fluidasserts.utils.generic import get_sha256, get_paths
 from fluidasserts.utils.decorators import api
@@ -70,7 +67,7 @@ def _generic_c_has_if_without_else(
 
 @api(risk=LOW, kind=SAST)
 def has_text(code_dest: str, expected_text: str, use_regex: bool = False,
-             exclude: list = None, lang_specs: dict = None) -> Result:
+             exclude: list = None, lang_specs: dict = None) -> tuple:
     """
     Check if a bad text is present in given source file.
 
@@ -83,6 +80,7 @@ def has_text(code_dest: str, expected_text: str, use_regex: bool = False,
     :param exclude: Paths that contains any string from this list are ignored.
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(code_dest):
         return UNKNOWN, 'File does not exist'
@@ -102,7 +100,7 @@ def has_text(code_dest: str, expected_text: str, use_regex: bool = False,
 
 @api(risk=LOW, kind=SAST)
 def has_not_text(code_dest: str, expected_text: str, use_regex: bool = False,
-                 exclude: list = None, lang_specs: dict = None) -> Result:
+                 exclude: list = None, lang_specs: dict = None) -> tuple:
     """
     Check if a required text is not present in given source file.
 
@@ -115,6 +113,7 @@ def has_not_text(code_dest: str, expected_text: str, use_regex: bool = False,
     :param exclude: Paths that contains any string from this list are ignored.
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(code_dest):
         return UNKNOWN, 'File does not exist'
@@ -135,7 +134,7 @@ def has_not_text(code_dest: str, expected_text: str, use_regex: bool = False,
 
 @api(risk=LOW, kind=SAST)
 def has_all_text(code_dest: str, expected_list: list, use_regex: bool = False,
-                 exclude: list = None, lang_specs: dict = None) -> Result:
+                 exclude: list = None, lang_specs: dict = None) -> tuple:
     """
     Check if a list of bad text is present in given source file.
 
@@ -148,6 +147,7 @@ def has_all_text(code_dest: str, expected_list: list, use_regex: bool = False,
     :param exclude: Paths that contains any string from this list are ignored.
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(code_dest):
         return UNKNOWN, 'File does not exist'
@@ -173,7 +173,7 @@ def has_all_text(code_dest: str, expected_list: list, use_regex: bool = False,
 
 @api(risk=LOW, kind=SAST)
 def has_any_text(code_dest: str, expected_list: list, use_regex: bool = False,
-                 exclude: list = None, lang_specs: dict = None) -> Result:
+                 exclude: list = None, lang_specs: dict = None) -> tuple:
     """
     Check if any on a list of bad text is present in given source file.
 
@@ -186,6 +186,7 @@ def has_any_text(code_dest: str, expected_list: list, use_regex: bool = False,
     :param exclude: Paths that contains any string from this list are ignored.
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(code_dest):
         return UNKNOWN, 'File does not exist'
@@ -207,7 +208,7 @@ def has_any_text(code_dest: str, expected_list: list, use_regex: bool = False,
 @api(risk=LOW, kind=SAST)
 def has_not_any_text(code_dest: str,
                      expected_list: list, use_regex: bool = False,
-                     exclude: list = None, lang_specs: dict = None) -> Result:
+                     exclude: list = None, lang_specs: dict = None) -> tuple:
     """
     Check if not any on a list of bad text is present in given source file.
 
@@ -220,6 +221,7 @@ def has_not_any_text(code_dest: str,
     :param exclude: Paths that contains any string from this list are ignored.
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(code_dest):
         return UNKNOWN, 'File does not exist'
@@ -239,11 +241,12 @@ def has_not_any_text(code_dest: str,
 
 
 @api(risk=LOW, kind=SAST)
-def file_exists(code_file: str) -> Result:
+def file_exists(code_file: str) -> tuple:
     """
     Check if the given file exists.
 
     :param code_file: Path to the file to be tested.
+    :rtype: :class:`fluidasserts.Result`
     """
     if os.path.exists(code_file):
         vulns = [Unit(where=code_file,
@@ -255,11 +258,12 @@ def file_exists(code_file: str) -> Result:
 
 
 @api(risk=LOW, kind=SAST)
-def file_does_not_exist(code_file: str) -> Result:
+def file_does_not_exist(code_file: str) -> tuple:
     """
     Check if the given file doesn't exist.
 
     :param code_file: Path to the file to be tested.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(code_file):
         vulns = [Unit(where=code_file,
@@ -271,12 +275,13 @@ def file_does_not_exist(code_file: str) -> Result:
 
 
 @api(risk=MEDIUM, kind=SAST)
-def is_file_hash_in_list(path: str, hash_list: List[str]) -> Result:
+def is_file_hash_in_list(path: str, hash_list: List[str]) -> tuple:
     """
     Check if the given file hash is in a list of given hashes.
 
     :param path: Path to the file to be tested.
     :param hash_list: List of expected hashes.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(path):
         return UNKNOWN, 'File does not exists'
@@ -303,7 +308,7 @@ def is_file_hash_in_list(path: str, hash_list: List[str]) -> Result:
 
 @api(risk=MEDIUM, kind=SAST)
 def has_weak_cipher(code_dest: str, expected_text: str,
-                    exclude: list = None, lang_specs: dict = None) -> Result:
+                    exclude: list = None, lang_specs: dict = None) -> tuple:
     """
     Check if code uses base 64 to cipher confidential data.
 
@@ -314,6 +319,7 @@ def has_weak_cipher(code_dest: str, expected_text: str,
     :param exclude: Paths that contains any string from this list are ignored.
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(code_dest):
         return UNKNOWN, 'File does not exist'
@@ -334,7 +340,7 @@ def has_weak_cipher(code_dest: str, expected_text: str,
 
 @api(risk=HIGH, kind=SAST)
 def has_secret(code_dest: str, secret: str, use_regex: bool = False,
-               exclude: list = None, lang_specs: dict = None) -> Result:
+               exclude: list = None, lang_specs: dict = None) -> tuple:
     """
     Check if a secret is present in given source file.
 
@@ -347,6 +353,7 @@ def has_secret(code_dest: str, secret: str, use_regex: bool = False,
     :param exclude: Paths that contains any string from this list are ignored.
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(code_dest):
         return UNKNOWN, 'File does not exist'
@@ -365,7 +372,7 @@ def has_secret(code_dest: str, secret: str, use_regex: bool = False,
 
 @api(risk=HIGH, kind=SAST)
 def has_any_secret(code_dest: str, secrets_list: list, use_regex: bool = False,
-                   exclude: list = None, lang_specs: dict = None) -> Result:
+                   exclude: list = None, lang_specs: dict = None) -> tuple:
     """
     Check if any on a list of secrets is present in given source file.
 
@@ -378,6 +385,7 @@ def has_any_secret(code_dest: str, secrets_list: list, use_regex: bool = False,
     :param exclude: Paths that contains any string from this list are ignored.
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(code_dest):
         return UNKNOWN, 'File does not exist'
@@ -403,7 +411,7 @@ def has_any_secret(code_dest: str, secrets_list: list, use_regex: bool = False,
 @api(risk=MEDIUM, kind=SAST)
 def uses_unencrypted_sockets(code_dest: str,
                              exclude: list = None,
-                             lang_specs: dict = None) -> Result:
+                             lang_specs: dict = None) -> tuple:
     """
     Check if there are unencrypted web sockets URI schemes in code (`ws://`).
 
@@ -411,6 +419,7 @@ def uses_unencrypted_sockets(code_dest: str,
     :param exclude: Paths that contains any string from this list are ignored.
     :param lang_specs: Specifications of the language, see
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(code_dest):
         return UNKNOWN, 'File does not exist'

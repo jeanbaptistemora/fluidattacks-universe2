@@ -10,10 +10,7 @@ from typing import List
 import aiohttp
 
 # local imports
-from fluidasserts import Unit, Result
-from fluidasserts import MEDIUM, HIGH
-from fluidasserts import OPEN, CLOSED, UNKNOWN
-from fluidasserts import DAST
+from fluidasserts import Unit, MEDIUM, HIGH, OPEN, CLOSED, UNKNOWN, DAST
 from fluidasserts.helper import http
 from fluidasserts.helper import asynchronous
 from fluidasserts.utils.generic import get_sha256
@@ -192,7 +189,7 @@ async def query_async(url: str, query: str, *args, **kwargs) -> None:
 
 
 @api(risk=MEDIUM, kind=DAST)
-def accepts_introspection(url: str, *args, **kwargs) -> Result:
+def accepts_introspection(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if GraphQL is implemented in a way that allows for introspection.
 
@@ -202,6 +199,7 @@ def accepts_introspection(url: str, *args, **kwargs) -> Result:
     :param url: GraphQL endpoint to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     try:
         obj = query(url, INTROSPECTION_QUERY, *args, **kwargs)
@@ -236,7 +234,7 @@ def accepts_introspection(url: str, *args, **kwargs) -> Result:
 
 @api(risk=HIGH, kind=DAST)
 def has_dos(url: str, query: str,
-            num: int, timeout: float, *args, **kwargs) -> Result:
+            num: int, timeout: float, *args, **kwargs) -> tuple:
     r"""
     Check if GraphQL is implemented in a way that allows for a DoS.
 
@@ -260,6 +258,7 @@ def has_dos(url: str, query: str,
     :param timeout: Max number of seconds to wait for a response.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     kwargs['timeout'] = aiohttp.ClientTimeout(total=timeout)
 
