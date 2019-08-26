@@ -1,21 +1,22 @@
 <!-- Tachyons stylesheet -->
 <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
-<div class="footer bg-fluid-red minw-100">
-  <div class="divcompany">
+<div class="bg-fluid-red minw-100 flex-l">
+  <div class="divcompany pt3 pt4-l pl4-l">
     <div class="divlogo tc">
       <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/logo.png" alt="{{ gettext('Footer-logo-1') }}">
     </div>
-    <div class="divsocial flex">
-      <a href="https://twitter.com/fluidattacks"><img src="{{ SITEURL }}/theme/images/social-media/twitter.png" alt="{{ gettext('Footer-logo-2') }}"></a>
-      <a href="https://www.facebook.com/Fluid-Attacks-267692397253577/"><img src="{{ SITEURL }}/theme/images/social-media/facebook.png" alt="{{ gettext('Footer-logo-3') }}"></a>
-      <a href="https://www.linkedin.com/company/fluidattacks/"><img src="{{ SITEURL }}/theme/images/social-media/linkedin.png" alt="{{ gettext('Footer-logo-5') }}"></a>
-      <a href="https://www.youtube.com/user/fluidsignal"><img src="{{ SITEURL }}/theme/images/social-media/youtube.png" alt="{{ gettext('Footer-logo-6') }}"></a>
+    <div class="divsocial flex justify-center pt4 pb3">
+      <a class="pr3" href="https://twitter.com/fluidattacks"><img src="{{ SITEURL }}/theme/images/social-media/twitter.png" alt="{{ gettext('Footer-logo-2') }}"></a>
+      <a class="pr3" href="https://www.facebook.com/Fluid-Attacks-267692397253577/"><img src="{{ SITEURL }}/theme/images/social-media/facebook.png" alt="{{ gettext('Footer-logo-3') }}"></a>
+      <a class="pr3" href="https://www.linkedin.com/company/fluidattacks/"><img src="{{ SITEURL }}/theme/images/social-media/linkedin.png" alt="{{ gettext('Footer-logo-5') }}"></a>
+      <a class="pr3" href="https://www.youtube.com/user/fluidsignal"><img src="{{ SITEURL }}/theme/images/social-media/youtube.png" alt="{{ gettext('Footer-logo-6') }}"></a>
     </div>
   </div>
-  <div class="navfoot flex flex-wrap">
-    <div class="colfoot b ">
+  <!-- footer menu -->
+  <div class="pb4 flex flex-wrap w-100-l">
+    <div class="colfoot pt4-l b ">
       <div class="colcontent">
-        <a href="{{ SITEURL }}/" class="hv-fluid-bk" ><h3>{{ gettext('Footer-header-1') }}</h3> </a>
+        <a href="{{ SITEURL }}/" class="hv-fluid-bk" ><h3 class="f3">{{ gettext('Footer-header-1') }}</h3> </a>
         <a href="{{ SITEURL }}/{{ gettext('Footer-link-1.1') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-1.1') }}</a><br>
         <a href="{{ SITEURL }}/{{ gettext('Footer-link-1.2') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-1.2') }}</a><br>
         <a href="{{ SITEURL }}/{{ gettext('Footer-link-1.3') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-1.3') }}</a><br>
@@ -24,9 +25,9 @@
         <a href="{{ SITEURL }}/{{ gettext('Footer-link-1.6') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-1.6') }}</a><br>
       </div>
     </div>
-    <div class="colfoot b ">
+    <div class="colfoot pt4-l b ">
       <div class="colcontent ">
-        <a href="{{ SITEURL }}/{{ gettext('Footer-cat-1') }}/" class="hv-fluid-bk"><h3>{{ gettext('Footer-header-2') }}</h3></a>
+        <a href="{{ SITEURL }}/{{ gettext('Footer-cat-1') }}/" class="hv-fluid-bk"><h3 class="f3">{{ gettext('Footer-header-2') }}</h3></a>
         <a href="{{ SITEURL }}/{{ gettext('Footer-cat-1') }}/{{ gettext('Footer-link-2.1') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-2.1') }}</a><br>
         <a href="{{ SITEURL }}/{{ gettext('Footer-cat-1') }}/{{ gettext('Footer-link-2.2') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-2.2') }}</a><br>
         <a href="{{ SITEURL }}/{{ gettext('Footer-cat-1') }}/{{ gettext('Footer-link-2.3') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-2.3') }}</a><br>
@@ -36,18 +37,18 @@
         <a href="{{ SITEURL }}/{{ gettext('Footer-cat-1.1') }}/{{ gettext('Footer-link-2.6') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-2.6') }}</a>
       </div>
     </div>
-    <div class="colfoot b ">
+    <div class="colfoot pt4-l b ">
       <div class="colcontent">
-        <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/" class="hv-fluid-bk"><h3>{{ gettext('Footer-header-3') }}</h3></a>
+        <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/" class="hv-fluid-bk"><h3 class="f3">{{ gettext('Footer-header-3') }}</h3></a>
         <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/integrates/" class="hv-fluid-bk">Integrates</a><br>
         <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/asserts/" class="hv-fluid-bk">Asserts</a><br>
         <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/rules/" class="hv-fluid-bk">Rules</a><br>
         <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/commands/" class="hv-fluid-bk">Commands</a>
       </div>
     </div>
-    <div class="colfoot b ">
+    <div class="colfoot pt4-l b ">
       <div class="colcontent ">
-        <a href="{{ SITEURL }}/{{ gettext('Footer-cat-3') }}/" class="hv-fluid-bk"><h3>{{ gettext('Footer-header-4') }}</h3></a>
+        <a href="{{ SITEURL }}/{{ gettext('Footer-cat-3') }}/" class="hv-fluid-bk"><h3 class="f3">{{ gettext('Footer-header-4') }}</h3></a>
         <a href="{{ SITEURL }}/{{ gettext('Footer-cat-3') }}/{{ gettext('Footer-link-4.1') }}/ " class="hv-fluid-bk">{{ gettext('Footer-subtitle-4.1') }}</a><br>
         <a href="{{ SITEURL }}/{{ gettext('Footer-cat-3') }}/{{ gettext('Footer-link-4.2') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-4.2') }}</a><br>
         <a href="{{ SITEURL }}/{{ gettext('Footer-cat-3') }}/{{ gettext('Footer-link-4.3') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-4.3') }}</a><br>
@@ -58,9 +59,9 @@
         <a href="{{ SITEURL }}/{{ gettext('Footer-cat-3') }}/{{ gettext('Footer-link-4.8') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-4.8') }}</a>
       </div>
     </div>
-    <div class="colfoot b ">
+    <div class="colfoot pt4-l b ">
       <div class="colcontent">
-        <a href="{{ SITEURL }}/blog/" class="hv-fluid-bk"><h3>Blog</h3></a>
+        <a href="{{ SITEURL }}/blog/" class="hv-fluid-bk"><h3 class="f3">Blog</h3></a>
         <a href="{{ SITEURL }}/{{ gettext('Footer-link-5.1') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-5.1') }}</a><br>
         <a href="{{ SITEURL }}/blog/{{ gettext('Footer-link-5.2') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-5.2') }}</a><br>
         <a href="{{ SITEURL }}/blog/{{ gettext('Footer-link-5.3') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-5.3') }}</a><br>
@@ -70,9 +71,9 @@
         <a href="{{ SITEURL }}/{{ gettext('Footer-link-5.7') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-5.7') }}</a>
       </div>
     </div>
-    <div class="colfoot b ">
+    <div class="colfoot pt4-l b ">
       <div class="colcontent">
-        <a href="{{ SITEURL }}/{{ gettext('Footer-cat-4') }}/" class="hv-fluid-bk"><h3>{{ gettext('Footer-header-6') }}</h3></a>
+        <a href="{{ SITEURL }}/{{ gettext('Footer-cat-4') }}/" class="hv-fluid-bk"><h3 class="f3">{{ gettext('Footer-header-6') }}</h3></a>
         <a href="https://community.fluidattacks.com/" class="hv-fluid-bk">Community</a><br>
         <a href="{{ SITEURL }}/{{ gettext('Footer-cat-4') }}/{{ gettext('Footer-link-6.1') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-6.1') }}</a><br>
         <a href="{{ SITEURL }}/{{ gettext('Footer-cat-4') }}/{{ gettext('Footer-link-6.2') }}/" class="hv-fluid-bk">{{ gettext('Footer-subtitle-6.2') }}</a><br>
@@ -85,12 +86,8 @@
     </div>
   </div>
 </div>
-<div class="status-div bg-white b hv-fluid-dkred">
-  <div class="status">
-    <a href="http://status.fluidattacks.com/" class="status-link">{{ gettext('Footer-stat-msg-1') }}</a>
-    <span>
-       -
-    </span>
-    <a href="{{ SITEURL }}/{{ gettext('Footer-status-link-1') }}/" class="status-link">{{ gettext('Footer-stat-msg-2') }}</a>
-  </div>
+<div class="h2 bg-white b hv-fluid-dkred">
+  <a class="c-fluid-bk f5 mt2 pl3" href="http://status.fluidattacks.com/">{{ gettext('Footer-stat-msg-1') }}</a>
+  <span> - </span>
+  <a class="c-fluid-bk f5 mt2" href="{{ SITEURL }}/{{ gettext('Footer-status-link-1') }}/">{{ gettext('Footer-stat-msg-2') }}</a>
 </div>

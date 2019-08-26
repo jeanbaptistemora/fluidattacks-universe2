@@ -3,29 +3,11 @@ $fluid-red: rgba(255, 52, 53, 1);
 $fluid-dark-red: rgba(203, 50, 51, 1);
 $white: rgba(255, 255, 255, 1);
 
-.divcompany {
-  margin: auto;
-  padding-top: 45px;
-  width: 300px;
-}
-
 .divsocial {
-  justify-content: space-evenly;
-  margin: 45px 0;
 
   img {
     width: 40px;
   }
-}
-
-.footer {
-  h3 {
-    font-size: 22px;
-  }
-}
-
-.navfoot {
-  padding-bottom: 45px;
 }
 
 .colfoot {
@@ -42,19 +24,6 @@ $white: rgba(255, 255, 255, 1);
   width: max-content;
 }
 
-.status-div {
-  height: 50px;
-
-  .status {
-    padding: 12px 0 12px 40px;
-  }
-}
-
-.status-link {
-  color: $fluid-black;
-  font-size: 18px;
-}
-
 @media (min-width: 480px) {
   .colcontent {
     margin-left: 20%;
@@ -67,47 +36,16 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-@media (max-width: 705px) {
-  .divlogo {
-    img {
-      padding-top: 50px;
-    }
-  }
-}
-
 @media (min-width: 780px) {
-  .footer {
-    display: flex;
-  }
-
-  .divcompany {
-    padding: unset;
-  }
-
   .divlogo {
-    margin-bottom: 100px;
 
     img {
       width: 250px;
     }
   }
-
-  .navfoot {
-    padding-top: 25px;
-  }
 }
 
 @media (min-width: 1180px) {
-  .divcompany {
-    flex: 1 0 300px;
-    margin: unset;
-    padding-top: 45px;
-  }
-
-  .navfoot {
-    width: 100%;
-  }
-
   .colfoot {
     width: 16%;
   }
