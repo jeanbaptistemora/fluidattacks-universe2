@@ -14,6 +14,7 @@ from fluidasserts.format import apk
 
 # Constants
 SSL_OPEN = 'test/static/format/apk/open/ssl_open.apk'
+HTTP_OPEN = 'test/static/format/apk/open/http_refs.apk'
 UNSAFE_DELETE_OPEN = 'test/static/format/apk/open/unsafe_delete.apk'
 ALLOW_USER_CA = 'test/static/format/apk/open/allow_user_ca.apk'
 UNPINNED_OPEN = 'test/static/format/apk/open/ssl_network_config_no_pin.apk'
@@ -100,6 +101,11 @@ def test_unsafe_delete_open():
     assert apk.uses_insecure_delete(UNSAFE_DELETE_OPEN)
 
 
+def test_unsafe_http_open():
+    """Test if APK uses HTTP references."""
+    assert apk.uses_http_resources(HTTP_OPEN)
+
+
 #
 # Close tests
 #
@@ -174,6 +180,11 @@ def test_unsafe_delete_close():
     """Test if APK does not securely erase files."""
     assert not apk.uses_insecure_delete(UNSIGNED_APK)
 
+
+def test_unsafe_http_close():
+    """Test if APK uses HTTP references."""
+    assert not apk.uses_http_resources(UNSIGNED_APK)
+
 #
 # Unknown tests
 #
@@ -247,3 +258,8 @@ def test_obfuscation_unknown():
 def test_unsafe_delete_unknown():
     """Test if APK does not securely erase files."""
     assert not apk.uses_insecure_delete(NOT_EXISTS_APK)
+
+
+def test_unsafe_http_unknown():
+    """Test if APK uses HTTP references."""
+    assert not apk.uses_http_resources(NOT_EXISTS_APK)

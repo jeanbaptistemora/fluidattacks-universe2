@@ -45,6 +45,24 @@ def is_method_present(dex, class_name, method, descriptor):
     return used_by
 
 
+def get_http_urls(dex):
+    """Get HTTP URLs used in APK file."""
+    import re
+
+    whitelist = {
+        'http://schemas.android.com/',
+        'http://www.w3.org/',
+        'http://apache.org/',
+        'http://xml.org/',
+        'http://localhost/',
+        'http://127.0.0.1/',
+        'http://java.sun.com/'
+    }
+    return [x.get_value() for x in dex.get_strings()
+            if re.match(r'^http?\:\/\/.+', x.get_value()) and
+            not any(re.match(whitel, x.get_value()) for whitel in whitelist)]
+
+
 @notify
 @level('low')
 @track
@@ -469,4 +487,32 @@ def uses_insecure_delete(apk_file: str) -> bool:
                                deletes_insecure=deletes_insecure))
         return True
     show_close('APK securely remove files', details=dict(apk=apk_file))
+    return False
+
+
+@notify
+@level('low')
+@track
+def uses_http_resources(apk_file: str) -> bool:
+    """
+    Check if the given APK references HTTP (not HTTPS) resources.
+
+    :param apk_file: Path to the image to be tested.
+    """
+    try:
+        _, _, dex = analyze_apk(apk_file)
+    except FileNotFoundError as exc:
+        show_unknown('Error reading file',
+                     details=dict(apk=apk_file, error=str(exc)))
+        return False
+
+    insecure_urls = get_http_urls(dex)
+
+    if insecure_urls:
+        show_open('APK references insecure URLs',
+                  details=dict(apk=apk_file,
+                               insecure_urls=insecure_urls))
+        return True
+    show_close('All HTTP references in APK use HTTPS.',
+               details=dict(apk=apk_file))
     return False
