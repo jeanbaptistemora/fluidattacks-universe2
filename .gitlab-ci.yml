@@ -69,10 +69,9 @@ deps-prod:
 
 deps-dev:
   stage: deps-dev
+  needs: [deps-prod]
   image: fluidattacks/alpine-kaniko:latest
   retry: 2
-  dependencies:
-    - deps-prod
   script:
     - ./ci-scripts/jobs/deps-dev.sh
 
@@ -150,6 +149,7 @@ test-front:
 
 test-mobile:
   stage: test
+  needs: [deps-mobile]
   image: registry.gitlab.com/fluidattacks/integrates:deps-mobile
   script:
     - ./ci-scripts/jobs/test-mobile.sh
@@ -208,6 +208,7 @@ build-terraform:
 
 build-app:
   stage: build
+  needs: [deps-dev]
   <<: *kaniko_vault_config
   script:
     - MINUTES=$((
@@ -244,6 +245,7 @@ build-app:
 
 build-bot:
   stage: build
+  needs: [deps-dev]
   <<: *kaniko_vault_config
   script:
     - /kaniko/executor
@@ -274,6 +276,7 @@ test-driver:
 
 ephemeral-app:
   stage: deploy
+  needs: [build-app]
   image: registry.gitlab.com/fluidsignal/serves:builder
   script:
     - . ci-scripts/helpers/others.sh && vault_login
@@ -341,6 +344,7 @@ deploy-mobile:
   tags:
     - mobile
   stage: deploy
+  needs: [test-mobile]
   image: registry.gitlab.com/fluidattacks/integrates:deps-mobile
   script:
     - . ci-scripts/helpers/others.sh && vault_login
