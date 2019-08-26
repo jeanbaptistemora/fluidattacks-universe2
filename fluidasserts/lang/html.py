@@ -17,11 +17,8 @@ from fluidasserts import Unit
 from fluidasserts import OPEN, CLOSED, UNKNOWN
 from fluidasserts import LOW, MEDIUM
 from fluidasserts import SAST
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify, api
 from fluidasserts.utils.generic import get_paths, get_sha256
+from fluidasserts.utils.decorators import api
 
 
 def _has_attributes(filename: str, tag: str, attrs: dict) -> bool:
@@ -57,10 +54,8 @@ def _has_attributes(filename: str, tag: str, attrs: dict) -> bool:
         return result
 
 
-@notify
-@level('low')
-@track
-def has_not_autocomplete(filename: str) -> bool:
+@api(risk=LOW, kind=SAST)
+def has_not_autocomplete(filename: str) -> tuple:
     """
     Check the autocomplete attribute.
 
@@ -71,33 +66,35 @@ def has_not_autocomplete(filename: str) -> bool:
     :returns: True if tags ``form`` and ``input`` have attribute
               ``autocomplete`` set as specified, False otherwise.
     """
+    if not os.path.exists(filename):
+        return UNKNOWN, 'File does not exist'
+
+    msg_open: str = 'HTML file has autocomplete enabled'
+    msg_closed: str = 'HTML file has autocomplete disabled'
+
     tk_off = CaselessKeyword('off')
     attr = {'autocomplete': tk_off}
     tag_i = 'input'
     tag_f = 'form'
-    try:
-        has_input = _has_attributes(filename, tag_i, attr)
-        has_form = _has_attributes(filename, tag_f, attr)
-    except FileNotFoundError as exc:
-        show_unknown('There was an error',
-                     details=dict(error=str(exc)))
-        return False
 
-    if not (has_input or has_form):
-        result = True
-        show_open('Attribute in {}'.format(filename),
-                  details=dict(atributes=str(attr)))
-    else:
-        result = False
-        show_close('Attribute in {}'.format(filename),
-                   details=dict(atributes=str(attr)))
-    return result
+    has_input = _has_attributes(filename, tag_i, attr)
+    has_form = _has_attributes(filename, tag_f, attr)
+
+    vulnerable: bool = not (has_input or has_form)
+
+    units: List[Unit] = [
+        Unit(where=filename,
+             source='HTML/Meta/Configuration',
+             specific=[msg_open if vulnerable else msg_closed],
+             fingerprint=get_sha256(filename))]
+
+    if vulnerable:
+        return OPEN, msg_open, units, []
+    return CLOSED, msg_closed, [], units
 
 
-@notify
-@level('low')
-@track
-def is_cacheable(filename: str) -> bool:
+@api(risk=LOW, kind=SAST)
+def is_cacheable(filename: str) -> tuple:
     """Check if cache is posible.
 
     Verifies if the file has the tags::
@@ -108,6 +105,12 @@ def is_cacheable(filename: str) -> bool:
     :returns: True if tag ``meta`` have attributes ``http-equiv``
               and ``content`` set as specified, False otherwise.
     """
+    if not os.path.exists(filename):
+        return UNKNOWN, 'File does not exist'
+
+    msg_open: str = 'HTML file has miss-configured Pragma/Expires meta tags'
+    msg_closed: str = 'HTML file has well configured Pragma/Expires meta tags'
+
     tag = 'meta'
     tk_pragma = CaselessKeyword('pragma')
     tk_nocache = CaselessKeyword('no-cache')
@@ -118,31 +121,25 @@ def is_cacheable(filename: str) -> bool:
     tk_minusone = CaselessKeyword('-1')
     expires_attrs = {'http-equiv': tk_expires,
                      'content': tk_minusone}
-    try:
-        has_pragma = _has_attributes(filename, tag, pragma_attrs)
-        has_expires = _has_attributes(filename, tag, expires_attrs)
-    except FileNotFoundError as exc:
-        show_unknown('There was an error',
-                     details=dict(error=str(exc)))
-        return False
 
-    if not has_pragma or not has_expires:
-        result = True
-        show_open('Attributes in {}'.format(filename),
-                  details=dict(pragma_attrs=str(pragma_attrs),
-                               expires_attrs=str(expires_attrs)))
-    else:
-        result = False
-        show_close('Attributes in {}'.format(filename),
-                   details=dict(pragma_attrs=str(pragma_attrs),
-                                expires_attrs=str(expires_attrs)))
-    return result
+    has_pragma = _has_attributes(filename, tag, pragma_attrs)
+    has_expires = _has_attributes(filename, tag, expires_attrs)
+
+    vulnerable: bool = not has_pragma or not has_expires
+
+    units: List[Unit] = [
+        Unit(where=filename,
+             source='HTML/Meta/Configuration',
+             specific=[msg_open if vulnerable else msg_closed],
+             fingerprint=get_sha256(filename))]
+
+    if vulnerable:
+        return OPEN, msg_open, units, []
+    return CLOSED, msg_closed, [], units
 
 
-@notify
-@level('low')
-@track
-def is_header_content_type_missing(filename: str) -> bool:
+@api(risk=LOW, kind=SAST)
+def is_header_content_type_missing(filename: str) -> tuple:
     """Check if Content-Type header is missing.
 
     Verifies if the file has the tags::
@@ -152,6 +149,12 @@ def is_header_content_type_missing(filename: str) -> bool:
     :returns: True if tag ``meta`` have attributes ``http-equiv``
               and ``content`` set as specified, False otherwise.
     """
+    if not os.path.exists(filename):
+        return UNKNOWN, 'File does not exist'
+
+    msg_open: str = 'HTML file has a bad configured Content-Type meta tag'
+    msg_closed: str = 'HTML file has a well configured Content-Type meta tag'
+
     tag = 'meta'
     tk_content = CaselessKeyword('content')
     tk_type = CaselessKeyword('type')
@@ -169,22 +172,18 @@ def is_header_content_type_missing(filename: str) -> bool:
 
     attrs = {'http-equiv': prs_cont_typ,
              'content': prs_content_val}
-    try:
-        has_content_type = _has_attributes(filename, tag, attrs)
-    except FileNotFoundError as exc:
-        show_unknown('There was an error',
-                     details=dict(error=str(exc)))
-        return False
+
+    has_content_type = _has_attributes(filename, tag, attrs)
+
+    units: List[Unit] = [
+        Unit(where=filename,
+             source='HTML/Meta/Content-Type',
+             specific=[msg_closed if has_content_type else msg_open],
+             fingerprint=get_sha256(filename))]
 
     if not has_content_type:
-        result = True
-        show_open('Attributes in {}'.format(filename),
-                  details=dict(attributes=str(attrs)))
-    else:
-        result = False
-        show_close('Attributes in {}'.format(filename),
-                   details=dict(attributes=str(attrs)))
-    return result
+        return OPEN, msg_open, units, []
+    return CLOSED, msg_closed, [], units
 
 
 @api(risk=LOW, kind=SAST)
