@@ -88,6 +88,11 @@ def test_debug_open():
     """Test if APK has debug enabled."""
     assert apk.has_debug_enabled(JS_APK)
 
+
+def test_obfuscation_open():
+    """Test if APK has not obfuscated bytecode."""
+    assert apk.not_obfuscated(JS_APK)
+
 #
 # Close tests
 #
@@ -220,3 +225,8 @@ def test_allows_user_ca_unknown():
 def test_debug_unknown():
     """Test if APK has debug enabled."""
     assert not apk.has_debug_enabled(NOT_EXISTS_APK)
+
+
+def test_obfuscation_unknown():
+    """Test if APK has not obfuscated bytecode."""
+    assert not apk.not_obfuscated(NOT_EXISTS_APK)

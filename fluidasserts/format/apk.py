@@ -401,3 +401,32 @@ def has_debug_enabled(apk_file: str) -> bool:
         return True
     show_close('APK has debug disabled', details=dict(apk=apk_file))
     return False
+
+
+@notify
+@level('low')
+@track
+def not_obfuscated(apk_file: str) -> bool:
+    """
+    Check if the given APK has debug enabled.
+
+    :param apk_file: Path to the image to be tested.
+    """
+    try:
+        _, dvms, _ = analyze_apk(apk_file)
+    except FileNotFoundError as exc:
+        show_unknown('Error reading file',
+                     details=dict(apk=apk_file, error=str(exc)))
+        return False
+
+    from androguard.core.analysis import analysis
+
+    not_obfuscated = [dvm.header.signature.hex() for dvm in dvms
+                      if not analysis.is_ascii_obfuscation(dvm)]
+
+    if not_obfuscated:
+        show_open('APK has DVMs not obfuscated',
+                  details=dict(apk=apk_file, not_obfuscated=not_obfuscated))
+        return True
+    show_close('All APK DVMs are obfuscated', details=dict(apk=apk_file))
+    return False
