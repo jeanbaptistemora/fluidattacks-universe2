@@ -1,7 +1,0 @@
-Host 172.30.216.100
-  StrictHostKeyChecking no
-  UserKnownHostsFile /dev/null
-  PasswordAuthentication no
-  IdentityFile /usr/src/asserts/build/facont_id_rsa
-  IdentitiesOnly yes
-  LogLevel ERROR
