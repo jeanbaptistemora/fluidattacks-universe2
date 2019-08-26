@@ -4,10 +4,11 @@
 
 # standard imports
 from __future__ import print_function
-from multiprocessing import Process
 import os
-import time
 import sys
+import time
+from multiprocessing import Process, cpu_count
+from multiprocessing.pool import Pool
 
 # 3rd party imports
 import docker
@@ -22,35 +23,38 @@ from test.mock import sip
 # Constants
 NETWORK_NAME = 'bridge'
 
-MOCKS = {
-    # This need to be built first
-    'dns:weak': {'53/tcp': 53, '53/udp': 53},
-    'ftp:weak': {'21/tcp': 21},
-    'mysql_db:weak': {'3306/tcp': 3306},
-    'mysql_os:hard': {'22/tcp': 22},
-    'smb:weak': {'139/tcp': 139},
-    'smtp:weak': {'25/tcp': 25},
-
+MOCKS = [
+    # These need to be built first
+    {
+        'dns:weak': {'53/tcp': 53, '53/udp': 53},
+        'ftp:weak': {'21/tcp': 21},
+        'mysql_db:weak': {'3306/tcp': 3306},
+        'mysql_os:hard': {'22/tcp': 22},
+        'smb:weak': {'139/tcp': 139},
+        'smtp:weak': {'25/tcp': 25},
+    },
     # Some of these are built in top of the previous ones
-    'bwapp': {'80/tcp': 80},
-    'dns:hard': {'53/tcp': 53, '53/udp': 53},
-    'ftp:hard': {'21/tcp': 21},
-    'ldap:hard': {'389/tcp': 389},
-    'ldap:weak': {'389/tcp': 389},
-    'mysql_db:hard': {'3306/tcp': 3306},
-    'mysql_os:weak': {'22/tcp': 22},
-    'os:hard': {'22/tcp': 22},
-    'os:weak': {'22/tcp': 22},
-    'postgresql:hard': {'5432/tcp': 5432},
-    'postgresql:weak': {'5432/tcp': 5432},
-    'smb:hard': {'139/tcp': 139},
-    'smtp:hard': {'25/tcp': 25},
-    'ssl:hard': {'443/tcp': 443},
-    'ssl:hard_tlsv13': {'443/tcp': 443},
-    'ssl:weak': {'443/tcp': 443},
-    'tcp:hard': {'443/tcp': 443},
-    'tcp:weak': {'80/tcp': 80},
-}
+    {
+        'bwapp': {'80/tcp': 80},
+        'dns:hard': {'53/tcp': 53, '53/udp': 53},
+        'ftp:hard': {'21/tcp': 21},
+        'ldap:hard': {'389/tcp': 389},
+        'ldap:weak': {'389/tcp': 389},
+        'mysql_db:hard': {'3306/tcp': 3306},
+        'mysql_os:weak': {'22/tcp': 22},
+        'os:hard': {'22/tcp': 22},
+        'os:weak': {'22/tcp': 22},
+        'postgresql:hard': {'5432/tcp': 5432},
+        'postgresql:weak': {'5432/tcp': 5432},
+        'smb:hard': {'139/tcp': 139},
+        'smtp:hard': {'25/tcp': 25},
+        'ssl:hard': {'443/tcp': 443},
+        'ssl:hard_tlsv13': {'443/tcp': 443},
+        'ssl:weak': {'443/tcp': 443},
+        'tcp:hard': {'443/tcp': 443},
+        'tcp:weak': {'80/tcp': 80},
+    }
+]
 
 
 def get_docker_client():
@@ -77,6 +81,41 @@ def get_ip(con):
     """Get mock IP."""
     return con.attrs['NetworkSettings']['Networks']\
         ['bridge']['IPAddress']
+
+
+def start_container(mock) -> None:
+    """Run a container and build if necessary."""
+    client = get_docker_client()
+    image = f'registry.gitlab.com/fluidattacks/asserts/mocks/{mock}'
+    mock_dir = f'test/provision/{mock.replace(":", "/")}'
+
+    mock_name = get_mock_name(mock)
+
+    try:
+        cont = client.containers.get(mock_name)
+        cont.start()
+    except docker.errors.NotFound:
+        client.images.build(path=mock_dir, tag=image)
+        try:
+            client.containers.run(image, name=mock_name, tty=True, detach=True)
+        except docker.errors.APIError:
+            cont = client.containers.get(mock_name)
+            cont.start()
+
+
+def open_ports(mock, port_mapping) -> None:
+    """Open the TCP ports needed for a container."""
+    client = get_docker_client()
+    ip = get_ip(client.containers.get(get_mock_name(mock)))
+    for value in port_mapping.values():
+        wait.tcp.open(value, ip, timeout=30)
+
+
+def stop_container(mock) -> None:
+    """Stop a container."""
+    client = get_docker_client()
+    cont = client.containers.get(get_mock_name(mock))
+    cont.stop(timeout=0)
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -109,48 +148,18 @@ def mock_graphql(request):
 @pytest.fixture()
 def run_mocks(request):
     """Run mock with given parameters."""
-    client = get_docker_client()
-
-    for mock, port_mapping in MOCKS.items():
-        image = f'registry.gitlab.com/fluidattacks/asserts/mocks/{mock}'
-        mock_dir = f'test/provision/{mock.replace(":", "/")}'
-
-        mock_name = get_mock_name(mock)
-
-        try:
-            cont = client.containers.get(mock_name)
-            cont.start()
-        except docker.errors.NotFound:
-            print('Building {} ... '.format(image))
-            client.images.build(path=mock_dir, tag=image)
-            try:
-                print('Running {} ... '.format(mock_name))
-                client.containers.run(image, name=mock_name,
-                                      tty=True, detach=True)
-            except docker.errors.APIError:
-                print('Starting {} ... '.format(mock_name))
-                cont = client.containers.get(mock_name)
-                cont.start()
-
-    for mock, port_mapping in MOCKS.items():
-        ip = get_ip(client.containers.get(get_mock_name(mock)))
-        for value in port_mapping.values():
-            wait.tcp.open(value, ip, timeout=30)
+    with Pool(processes=cpu_count()) as workers:
+        for mocks in MOCKS:
+            workers.map(start_container, mocks.keys())
+            workers.starmap(open_ports, mocks.items())
 
 
 @pytest.fixture()
 def stop_mocks(request):
     """Stop mocks mock with given parameters."""
-    client = get_docker_client()
-
-    for mock, port_mapping in MOCKS.items():
-        image = f'registry.gitlab.com/fluidattacks/asserts/mocks/{mock}'
-        mock_dir = f'test/provision/{mock.replace(":", "/")}'
-
-        mock_name = get_mock_name(mock)
-
-        cont = client.containers.get(mock_name)
-        cont.stop(timeout=0)
+    with Pool(processes=cpu_count()) as workers:
+        for mocks in MOCKS:
+            workers.map(stop_container, mocks.keys())
 
 
 @pytest.fixture(scope='function')
