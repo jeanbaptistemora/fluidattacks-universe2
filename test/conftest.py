@@ -150,8 +150,8 @@ def run_mocks(request):
     """Run mock with given parameters."""
     with Pool(processes=cpu_count()) as workers:
         for mocks in MOCKS:
-            workers.map(start_container, mocks.keys())
-            workers.starmap(open_ports, mocks.items())
+            workers.map(start_container, tuple(mocks.keys()), 1)
+            workers.starmap(open_ports, tuple(mocks.items()), 1)
 
 
 @pytest.fixture()
@@ -159,7 +159,7 @@ def stop_mocks(request):
     """Stop mocks mock with given parameters."""
     with Pool(processes=cpu_count()) as workers:
         for mocks in MOCKS:
-            workers.map(stop_container, mocks.keys())
+            workers.map(stop_container, tuple(mocks.keys()), 1)
 
 
 @pytest.fixture(scope='function')
