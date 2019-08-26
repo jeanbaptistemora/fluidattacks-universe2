@@ -33,6 +33,18 @@ def get_activities_source(dvms: list) -> str:
     return "".join(source)
 
 
+def is_method_present(dex, class_name, method, descriptor):
+    """Search if method is present in decompiled code."""
+    met_ana = dex.get_method_analysis_by_name(class_name=class_name,
+                                              method_name=method,
+                                              method_descriptor=descriptor)
+
+    used_by = [x.name for x, _, _ in met_ana.get_xref_from()
+               if 'Activity' in x.name]
+
+    return used_by
+
+
 @notify
 @level('low')
 @track
@@ -408,7 +420,7 @@ def has_debug_enabled(apk_file: str) -> bool:
 @track
 def not_obfuscated(apk_file: str) -> bool:
     """
-    Check if the given APK has debug enabled.
+    Check if the given APK is not obfuscated.
 
     :param apk_file: Path to the image to be tested.
     """
@@ -429,4 +441,32 @@ def not_obfuscated(apk_file: str) -> bool:
                   details=dict(apk=apk_file, not_obfuscated=not_obfuscated))
         return True
     show_close('All APK DVMs are obfuscated', details=dict(apk=apk_file))
+    return False
+
+
+@notify
+@level('low')
+@track
+def uses_insecure_delete(apk_file: str) -> bool:
+    """
+    Check if the given APK uses insecure delete of data.
+
+    :param apk_file: Path to the image to be tested.
+    """
+    try:
+        _, _, dex = analyze_apk(apk_file)
+    except FileNotFoundError as exc:
+        show_unknown('Error reading file',
+                     details=dict(apk=apk_file, error=str(exc)))
+        return False
+
+    deletes_insecure = is_method_present(dex, 'Ljava/io/File;', 'delete',
+                                         '()Z')
+
+    if deletes_insecure:
+        show_open('APK does not securely remove files',
+                  details=dict(apk=apk_file,
+                               deletes_insecure=deletes_insecure))
+        return True
+    show_close('APK securely remove files', details=dict(apk=apk_file))
     return False
