@@ -188,7 +188,7 @@ def filter_evidence_filename(evidence_files, name):
     return evidence_info[0].get('file_url', '') if evidence_info else ''
 
 
-def migrate_evidence_description(finding, context):
+def migrate_evidence_description(finding):
     """Migrate evidence description to dynamo."""
     finding_id = finding['id']
     description_fields = {
@@ -204,11 +204,7 @@ def migrate_evidence_description(finding, context):
                                    'description', v)
                 for (k, v) in description.items()]
     if not all(response):
-        util.cloudwatch_log(context, 'Security: Attempted to update Evidence\
-        Description in finding:{finding}'.format(finding=finding_id))
         return False
-    util.cloudwatch_log(context, 'Security: Update Evidence\
-    Description in finding:{finding}'.format(finding=finding_id))
     return True
 
 
@@ -771,30 +767,25 @@ def update_release(project_name, finding_data, draft_id):
     return release_date, has_release, has_last_vuln
 
 
-def migrate_finding(draft_id, project_name, finding_data, context):
-    migrate_all_files(draft_id, project_name)
+def migrate_finding(draft_id, finding_data):
+    migrate_all_files(draft_id, finding_data['projectName'])
     save_severity(finding_data)
-    migrate_description(finding_data, context)
-    migrate_treatment(finding_data, context)
-    migrate_report_date(finding_data, context)
-    migrate_evidence_description(finding_data, context)
+    migrate_description(finding_data)
+    migrate_treatment(finding_data)
+    migrate_report_date(finding_data)
+    migrate_evidence_description(finding_data)
     if not (save_severity or migrate_description or migrate_treatment or migrate_report_date or
             migrate_evidence_description):
-        util.cloudwatch_log(context, 'Security: Attempted to migrate finding\
-        :{finding}'.format(finding=str(finding_data['id'])))
         return False
-    util.cloudwatch_log(context, 'Security: Migrated finding\
-    :{finding} succesfully'.format(finding=str(finding_data['id'])))
     return True
 
 
-def get_finding(finding_id, context):
+def get_finding(finding_id):
     finding = finding_dal.get_finding(finding_id)
     if not finding:
         fs_finding = finding_vulnerabilities(finding_id)
         if fs_finding:
-            migrate_finding(
-                finding_id, fs_finding['projectName'], fs_finding, context)
+            migrate_finding(finding_id, fs_finding)
             finding = finding_dal.get_finding(finding_id)
         else:
             raise FindingNotFound()
@@ -802,6 +793,24 @@ def get_finding(finding_id, context):
     finding = finding_utils.format_data(finding)
 
     return finding
+
+
+def list_findings(finding_ids):
+    """Retrieves all attributes for the requested findings"""
+    findings = []
+    for finding_id in finding_ids:
+        finding = finding_dal.get_finding(finding_id)
+        if not finding:
+            fs_finding = finding_vulnerabilities(finding_id)
+            if fs_finding:
+                migrate_finding(finding_id, fs_finding)
+                finding = finding_dal.get_finding(finding_id)
+            else:
+                raise FindingNotFound()
+
+        findings += finding_utils.format_data(finding)
+
+    return findings
 
 
 def save_evidence(evidence_field, finding_id, project_name, uploaded_file):

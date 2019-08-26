@@ -30,11 +30,11 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     """Formstack Finding Class."""
 
     # pylint: disable=too-many-statements
-    def __init__(self, finding_id, context):
+    def __init__(self, finding_id):
         """Class constructor."""
         super(Finding, self).__init__()
 
-        resp = get_finding(finding_id, context)
+        resp = get_finding(finding_id)
 
         if resp:
             self.id = finding_id  # noqa pylint: disable=invalid-name
@@ -435,8 +435,7 @@ class UpdateEvidence(Mutation):
                                     non-allowed format in {project} project'
                                     .format(project=project_name))
             raise GraphQLError('Extension not allowed')
-        ret = UpdateEvidence(success=success,
-                             finding=Finding(finding_id, info.context))
+        ret = UpdateEvidence(success=success, finding=Finding(finding_id))
         util.invalidate_cache(finding_id)
         return ret
 
@@ -482,7 +481,7 @@ An error occurred updating evidence description', 'error', info.context)
         ret = \
             UpdateEvidenceDescription(
                 success=success,
-                finding=Finding(finding_id, info.context))
+                finding=Finding(finding_id))
         util.invalidate_cache(finding_id)
         return ret
 
@@ -525,8 +524,7 @@ class UpdateSeverity(Mutation):
         project = integrates_dal.get_finding_project(finding_id)
         success = False
         success = save_severity(parameters.get('data'))
-        ret = UpdateSeverity(success=success,
-                             finding=Finding(finding_id, info.context))
+        ret = UpdateSeverity(success=success, finding=Finding(finding_id))
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project)
         if success:
@@ -677,9 +675,7 @@ class UpdateDescription(Mutation):
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to update \
                 description in finding {id}'.format(id=finding_id))
-        ret = UpdateDescription(
-            success=success,
-            finding=Finding(finding_id, info.context))
+        ret = UpdateDescription(success=success, finding=Finding(finding_id))
         project_name = get_project_name(finding_id)
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
@@ -747,8 +743,7 @@ class UpdateTreatment(Mutation):
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to update \
                 treatment in finding {id}'.format(id=finding_id))
-        ret = UpdateTreatment(success=success,
-                              finding=Finding(finding_id, info.context))
+        ret = UpdateTreatment(success=success, finding=Finding(finding_id))
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
         return ret

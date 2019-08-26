@@ -1,26 +1,24 @@
 """ GraphQL Entity for Formstack Projects """
 # pylint: disable=super-init-not-called
 # pylint: disable=no-self-use
-from __future__ import absolute_import
 from datetime import datetime
 import time
-import pytz
-import rollbar
 
+import rollbar
 import simplejson as json
 from graphene import String, ObjectType, List, Int, Float, Boolean, Mutation, Field, JSONString
 from graphene.types.generic import GenericScalar
-from django.conf import settings
 
 from app import util
-from app.decorators import require_role, require_login, require_project_access
+from app.dal import integrates_dal, project as redshift_dal
+from app.decorators import (
+    get_entity_cache, require_login, require_project_access, require_role
+)
+from app.domain import project
 from app.domain.project import (
     add_comment, validate_tags, validate_project, get_vulnerabilities,
     get_pending_closing_check, get_max_severity, get_drafts, list_comments
 )
-from app.dal import integrates_dal, project as redshift_dal
-from app.decorators import get_entity_cache
-from app.domain import project
 from app.entity.finding import Finding
 from app.entity.user import User
 from app.exceptions import InvalidProject
@@ -104,8 +102,9 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @get_entity_cache
     def resolve_findings(self, info):
         """Resolve findings attribute."""
-        self.findings = [Finding(i['finding_id'], info.context)
-                         for i in self.findings_aux]
+        util.cloudwatch_log(info.context, 'Security: Access to {project} '
+                            'findings'.format(project=self.name))
+        self.findings = [Finding(i['finding_id']) for i in self.findings_aux]
         return self.findings
 
     @get_entity_cache
@@ -252,18 +251,12 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         self.users = [User(self.name, user_email) for user_email in user_email_list]
         return self.users
 
-    @get_entity_cache
-    def resolve_users_db(self):
-        """resolve a full list of users from database"""
-        init_emails = integrates_dal.get_project_users(self.name)
-        users_list = [user[0] for user in init_emails if user[1] == 1]
-        return users_list
-
     @require_role(['admin', 'analyst'])
     def resolve_drafts(self, info):
         """ Resolve drafts attribute """
-        self.drafts = [Finding(draft_id, info.context)
-                       for draft_id in get_drafts(self.name)]
+        util.cloudwatch_log(info.context, 'Security: Access to {project} '
+                            'drafts'.format(project=self.name))
+        self.drafts = [Finding(draft_id) for draft_id in get_drafts(self.name)]
         return self.drafts
 
     def resolve_description(self, info):
@@ -271,22 +264,6 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         del info
 
         return self.description
-
-
-def validate_release_date(release_date=''):
-    """Validate if a finding has a valid relese date."""
-    if release_date:
-        tzn = pytz.timezone(settings.TIME_ZONE)
-        finding_last_vuln = datetime.strptime(
-            release_date.split(' ')[0],
-            '%Y-%m-%d'
-        )
-        last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
-        today_day = datetime.now(tz=tzn).date()
-        result = last_vuln <= today_day
-    else:
-        result = False
-    return result
 
 
 class AddProjectComment(Mutation):
