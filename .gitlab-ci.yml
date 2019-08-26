@@ -344,7 +344,7 @@ deploy-mobile:
   tags:
     - mobile
   stage: deploy
-  needs: [test-mobile]
+  needs: [deps-mobile]
   image: registry.gitlab.com/fluidattacks/integrates:deps-mobile
   script:
     - . ci-scripts/helpers/others.sh && vault_login
