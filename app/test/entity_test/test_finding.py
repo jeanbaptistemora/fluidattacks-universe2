@@ -45,7 +45,7 @@ class FindingTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        request.vulnerabilities_loader = VulnerabilityLoader()
+        request.loaders = {'vulnerability': VulnerabilityLoader()}
         result = SCHEMA.execute(query, context_value=request)
         assert not result.errors
         assert result.data.get('finding')['id'] == '422286126'

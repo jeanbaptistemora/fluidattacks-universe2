@@ -96,7 +96,7 @@ def format_data(finding):
             finding['releaseDate']).days
     finding['detailedSeverity'] = finding.get('severity', 0)
     finding['exploitable'] = forms_utils.is_exploitable(
-        float(finding['exploitability']), finding['cvssVersion'])
+        float(finding['exploitability']), finding['cvssVersion']) == 'Si'
     finding['remediated'] = (
         True if finding.get('verificationRequestDate')
         and not finding.get('verificationDate')

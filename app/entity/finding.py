@@ -72,7 +72,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.type = resp.get('findingType', '')
             self.age = resp.get('age', 0)
             self.last_vulnerability = resp.get('lastVulnerability', 0)
-            self.is_exploitable = resp.get('exploitable', '') == 'Si'
+            self.is_exploitable = resp.get('exploitable', False)
             self.severity_score = resp.get('severityCvss', '')
             self.report_date = resp.get('reportDate', '')
             self.analyst = resp.get('analyst', '')
@@ -91,7 +91,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
 
     def resolve_vulnerabilities(self, info, vuln_type='', state=''):
         """Resolve vulnerabilities attribute."""
-        vulns_loader = info.context.vulnerabilities_loader
+        vulns_loader = info.context.loaders['vulnerability']
         vuln_filtered = vulns_loader.load(self.id)
 
         if vuln_type:
@@ -105,7 +105,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
 
     def resolve_open_vulnerabilities(self, info):
         """Resolve open vulnerabilities attribute."""
-        vulns_loader = info.context.vulnerabilities_loader
+        vulns_loader = info.context.loaders['vulnerability']
         vulns = vulns_loader.load(self.id)
 
         self.open_vulnerabilities = vulns.then(lambda vulns: len([
@@ -120,7 +120,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
 
     def resolve_closed_vulnerabilities(self, info):
         """Resolve closed vulnerabilities attribute."""
-        vulns_loader = info.context.vulnerabilities_loader
+        vulns_loader = info.context.loaders['vulnerability']
         vulns = vulns_loader.load(self.id)
 
         self.closed_vulnerabilities = vulns.then(lambda vulns: len([
@@ -131,7 +131,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     def resolve_tracking(self, info):
         """Resolve tracking attribute."""
         if self.release_date:
-            vulns_loader = info.context.vulnerabilities_loader
+            vulns_loader = info.context.loaders['vulnerability']
             vulns = vulns_loader.load(self.id).then(lambda vulns: vulns).get()
             vuln_casted = remove_repeated(vulns)
             unique_dict = get_unique_dict(vuln_casted)
@@ -330,7 +330,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
 
     def resolve_state(self, info):
         """ Resolve state attribute """
-        vulns_loader = info.context.vulnerabilities_loader
+        vulns_loader = info.context.loaders['vulnerability']
         vulns = vulns_loader.load(self.id)
 
         self.state = vulns.then(lambda vulns: 'open' if [

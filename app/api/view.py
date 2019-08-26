@@ -10,7 +10,10 @@ class APIView(GraphQLView):
     def get_context(self, request):
         """Appends dataloader instances to context"""
         context = super(APIView, self).get_context(request)
-        context.vulnerabilities_loader = VulnerabilityLoader()
+        context.loaders = {
+            'finding': {},
+            'vulnerability': VulnerabilityLoader()
+        }
 
         return context
 

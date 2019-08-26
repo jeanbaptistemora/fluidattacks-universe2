@@ -735,13 +735,8 @@ def approve_draft(draft_id, project_name, context):
             release_date, has_release, has_last_vuln = update_release(project_name,
                                                                       finding_data, draft_id)
             if has_release and has_last_vuln:
-                success = migrate_finding(draft_id,
-                                          project_name, finding_data, context)
-                if success:
-                    integrates_dal.add_release_to_project_dynamo(
-                        project_name, release_date)
-                else:
-                    rollbar.report_message('Error: An error occurred migrating the draft', 'error')
+                integrates_dal.add_release_to_project_dynamo(
+                    project_name, release_date)
             else:
                 rollbar.report_message('Error: An error occurred accepting the draft', 'error')
         else:
