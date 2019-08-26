@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-build_deps_dev() {
+deps_dev() {
 
   # Builds container if any of the specified files
   # was modified
@@ -30,4 +30,4 @@ build_deps_dev() {
   fi
 }
 
-build_deps_dev
+deps_dev

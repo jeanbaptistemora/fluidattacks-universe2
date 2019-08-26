@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-build_mobile() {
+deps_mobile() {
 
   # Builds container if any of the specified files
   # was modified
@@ -14,7 +14,7 @@ build_mobile() {
   local NAME
   local FILES
 
-  NAME='mobile'
+  NAME='deps-mobile'
   FILES=(
     'mobile/package.json'
     'mobile/Gemfile'
@@ -28,4 +28,4 @@ build_mobile() {
   fi
 }
 
-build_mobile
+deps_mobile

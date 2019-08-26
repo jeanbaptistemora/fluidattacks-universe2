@@ -51,28 +51,28 @@ stages:
   - post-deploy
   - coverage
 
-build-mobile:
+deps-mobile:
   stage: deps-base
   image: fluidattacks/alpine-kaniko:latest
   retry: 2
   script:
-    - ./ci-scripts/jobs/build-mobile.sh
+    - ./ci-scripts/jobs/deps-mobile.sh
 
-build-deps-prod:
+deps-prod:
   stage: deps-base
   image: fluidattacks/alpine-kaniko:latest
   retry: 2
   script:
-    - ./ci-scripts/jobs/build-deps-prod.sh
+    - ./ci-scripts/jobs/deps-prod.sh
 
-build-deps-dev:
+deps-dev:
   stage: deps-dev
   image: fluidattacks/alpine-kaniko:latest
   retry: 2
   dependencies:
-    - build-deps-prod
+    - deps-prod
   script:
-    - ./ci-scripts/jobs/build-deps-dev.sh
+    - ./ci-scripts/jobs/deps-dev.sh
 
 deps-app:
   stage: deps-base
@@ -348,7 +348,7 @@ deploy-mobile:
 .deploy-playstore:
   stage: deploy
   dependencies:
-    - build-mobile
+    - deps-mobile
   script:
     - ./ci-scripts/jobs/deploy-playstore.sh
   allow_failure: true

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-build_deps_prod() {
+deps_prod() {
 
   # Builds container if any of the specified files
   # was modified
@@ -28,4 +28,4 @@ build_deps_prod() {
   fi
 }
 
-build_deps_prod
+deps_prod
