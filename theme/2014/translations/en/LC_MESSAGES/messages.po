@@ -300,6 +300,10 @@ msgstr "YouTube logo"
 msgid "Footer-header-1"
 msgstr "About Us"
 
+#: templates/footer.html:16
+msgid "Footer-link-1"
+msgstr "about-us"
+
 #: templates/footer.html:17
 msgid "Footer-link-1.1"
 msgstr "values"
