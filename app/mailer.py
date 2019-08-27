@@ -2,6 +2,7 @@
 from __future__ import absolute_import
 import cgi
 import mandrill
+import rollbar
 from __init__ import FI_MANDRILL_API_KEY, FI_TEST_PROJECTS
 from .dal import integrates_dal
 
@@ -58,7 +59,10 @@ def _send_mail(template_name, email_to, context, tags):
                 {'name': key, 'content': value}
             )
         message['tags'] = tags
-        mandrill_client.messages.send_template(template_name, [], message)
+        try:
+            mandrill_client.messages.send_template(template_name, [], message)
+        except mandrill.Error(Exception):
+            rollbar.report_message(Exception.message)
     else:
         # Mail should not be sent if is a test project
         pass
