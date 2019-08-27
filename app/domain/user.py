@@ -16,6 +16,11 @@ def get_user_attributes(email, data):
     return user_dal.get_user_attributes(email, data)
 
 
+def remove_access_token(email):
+    """ Remove access token attribute """
+    return user_dal.remove_user_attribute(email, 'access_token')
+
+
 def update_legal_remember(email, remember):
     """ Remember legal notice acceptance """
     return user_dal.update_user_attribute(email, remember, 'legal_remember')

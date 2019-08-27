@@ -13,7 +13,8 @@ import rollbar
 from app import util
 from app.dal import integrates_dal
 from app.decorators import require_login
-from app.domain.user import get_user_attributes, update_access_token, get_role
+from app.domain.user import (
+    get_role, get_user_attributes, remove_access_token, update_access_token)
 from app.entity.project import Project
 from app.services import is_customeradmin
 
@@ -146,3 +147,15 @@ class UpdateAccessToken(Mutation):
         )
         success = update_access_token(email, api_token)
         return UpdateAccessToken(success, session_jwt)
+
+
+class InvalidateAccessToken(Mutation):
+    success = Boolean()
+
+    @staticmethod
+    @require_login
+    def mutate(_, info):
+        user_info = util.get_jwt_content(info.context)
+
+        success = remove_access_token(user_info['user_email'])
+        return InvalidateAccessToken(success)
