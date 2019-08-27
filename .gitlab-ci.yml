@@ -26,6 +26,8 @@ stages:
 
 build:
   stage: build
+  tags:
+    - private-cluster
   <<: *kaniko_config
   services: []
   script:
@@ -47,6 +49,8 @@ build:
 commitlint:
   image: starefossen/ruby-node:2-10
   stage: test
+  tags:
+    - private-cluster
   before_script:
     - npm install --unsafe-perm
   script:
@@ -57,6 +61,8 @@ commitlint:
 
 lint:
   stage: test
+  tags:
+    - private-cluster
   script:
     - scons lint
     - overcommit -s && overcommit -s pre-commit && overcommit -r
@@ -66,6 +72,8 @@ lint:
 
 bandit:
   stage: test
+  tags:
+    - private-cluster
   script:
     - scons bandit
   except:
@@ -74,6 +82,8 @@ bandit:
 
 test:
   stage: test
+  tags:
+    - private
   script:
     - scons test
     - cp build/coverage/results.xml coverage.xml
@@ -89,6 +99,8 @@ test:
 
 fluidasserts:
   stage: test
+  tags:
+    - private-cluster
   variables:
     FA_STRICT: "false"
   script:
@@ -100,6 +112,8 @@ fluidasserts:
 
 coverage-report:
   stage: before-mr
+  tags:
+    - private-cluster
   variables:
     GITLAB_API: "${CI_API_V4_URL}"
     PROJECT_ID: "${CI_PROJECT_ID}"
@@ -116,6 +130,8 @@ coverage-report:
 danger:
   image: starefossen/ruby-node:2-10
   stage: at-mr
+  tags:
+    - private-cluster
   variables:
     DANGER_GITLAB_API_TOKEN: ${DANGER_TOKEN}
     DANGER_GITLAB_HOST: "gitlab.com"
@@ -133,6 +149,8 @@ danger:
 
 deploy:
   stage: deploy
+  tags:
+    - private-cluster
   script:
     - scons dist
     - scons deploy
@@ -148,6 +166,8 @@ deploy:
 
 pages:
   stage: deploy
+  tags:
+    - private-cluster
   script:
     - scons sphinxdoc
   artifacts:
@@ -163,6 +183,8 @@ pages:
 
 push-container:
   stage: deploy
+  tags:
+    - private-cluster
   <<: *kaniko_config
   services: []
   dependencies: []
