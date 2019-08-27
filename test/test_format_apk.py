@@ -24,6 +24,7 @@ JS_APK = 'test/static/format/apk/open/js-open.apk'
 OLD_APK = 'test/static/format/apk/open/old_sdk.apk'
 SIGNED_APK = 'test/static/format/apk/close/signed.apk'
 NO_ROOT_APK = 'test/static/format/apk/close/noroot.apk'
+NOBACKUP = 'test/static/format/apk/close/nobackup.apk'
 NOT_EXISTS_APK = 'test/static/format/apk/close/notexists.apk'
 
 #
@@ -105,6 +106,10 @@ def test_unsafe_http_open():
     """Test if APK uses HTTP references."""
     assert apk.uses_http_resources(HTTP_OPEN)
 
+
+def test_allowbackup_open():
+    """Test if APK allows ADB backups."""
+    assert apk.allows_backup(UNSIGNED_APK)
 
 #
 # Close tests
@@ -190,6 +195,11 @@ def test_getinsecure_close():
     """Test if APK uses getInsecure socket factory."""
     assert not apk.socket_uses_getinsecure(UNSIGNED_APK)
 
+
+def test_allowbackup_close():
+    """Test if APK allows ADB backups."""
+    assert not apk.allows_backup(NOBACKUP)
+
 #
 # Unknown tests
 #
@@ -273,3 +283,8 @@ def test_unsafe_http_unknown():
 def test_getinsecure_unknown():
     """Test if APK uses getInsecure socket factory."""
     assert not apk.socket_uses_getinsecure(NOT_EXISTS_APK)
+
+
+def test_allowbackup_unknown():
+    """Test if APK allows ADB backups."""
+    assert not apk.allows_backup(NOT_EXISTS_APK)

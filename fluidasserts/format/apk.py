@@ -427,7 +427,7 @@ defaults to deny user-supplied CAs',
 
 
 @notify
-@level('low')
+@level('medium')
 @track
 def has_debug_enabled(apk_file: str) -> bool:
     """
@@ -562,5 +562,30 @@ def socket_uses_getinsecure(apk_file: str) -> bool:
                                get_insecure_uses=uses))
         return True
     show_close('APK doesn\'t use sockets created with getInsecure',
+               details=dict(apk=apk_file))
+    return False
+
+
+@notify
+@level('low')
+@track
+def allows_backup(apk_file: str) -> bool:
+    """
+    Check if the given APK allows ADB backups.
+
+    :param apk_file: Path to the image to be tested.
+    """
+    try:
+        apk_obj = APK(apk_file)
+    except FileNotFoundError as exc:
+        show_unknown('Error reading file',
+                     details=dict(apk=apk_file, error=str(exc)))
+        return False
+
+    if apk_obj.get_attribute_value('application', 'allowBackup') != 'false':
+        show_open('APK allows ADB backups',
+                  details=dict(apk=apk_file))
+        return True
+    show_close('APK disallows ADB backups',
                details=dict(apk=apk_file))
     return False
