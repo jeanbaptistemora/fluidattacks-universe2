@@ -1,6 +1,0 @@
-:slug: personas/jrestrepo/
-:category: personas
-:description: Fluid Attacks es una compañía dedicada al ethical hacking, las pruebas de intrusión y la detección de vulnerabilidades en aplicaciones con más de 18 años de experiencia. La siguiente página tiene como propósito presentar a los miembros que conforman el equipo de trabajo de Fluid Attacks.
-:keywords: Fluid Attacks, Equipo, Trabajo, Perfil, Juan Restrepo, Experiencia
-
-= Juan Carlos Restrepo

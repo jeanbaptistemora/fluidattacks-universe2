@@ -1,7 +1,0 @@
-:slug: hechos/
-:description: En esta página mostramos algunos hechos interesantes respecto a nuestra compañía. Fluid Attacks es una empresa conformada por personal altamente capacitado en seguridad informática. Si quieres conocernos mejor aquí presentamos algunos de nuestros logros y reconocimientos más destacados.
-:keywords: Fluid Attacks, Hechos, Reconocimientos, Logros, Acerca de, Certificación.
-
-= Hechos
-
-Esta página no se encuentra actualmente es este idioma.

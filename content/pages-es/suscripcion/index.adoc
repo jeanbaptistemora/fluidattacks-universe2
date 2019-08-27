@@ -1,7 +1,0 @@
-:slug: suscripcion/
-:description: En esta página presentamos el formulario de suscripción a nuestro blog, el cual trata diversos temas relacionados con la seguridad informática. Fluid Attacks es una compañía dedicada a la seguridad de la información, hacking ético y detección de vulnerabilidades en aplicaciones e infraestructura.
-:keywords: Fluid Attacks, Suscripción, Información, Compañía, Blog, Seguridad.
-:form: https://fluidattacks.com/forms/suscripcion
-:template: form
-
-= Suscríbete a nuestro Blog!

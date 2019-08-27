@@ -1,7 +1,0 @@
-:slug: terminos-uso/
-:description: En la siguiente página presentamos los términos y condiciones de uso de nuestra página web. Aquí se detallan las restricciones, los derechos de propiedad intelectual, las garantías, variaciones, acuerdos, legislación y todo lo relacionado al contenido del sitio.
-:keywords: Fluid Attacks, Términos, Uso, Página, Web, Restricciones.
-
-= Términos de Uso
-
-Esta página no se encuentra actualmente es este idioma.
