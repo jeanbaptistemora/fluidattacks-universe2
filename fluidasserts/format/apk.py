@@ -9,6 +9,8 @@ import logging
 # 3rd party imports
 from androguard.misc import AnalyzeAPK
 from androguard.core.bytecodes.apk import APK
+from androguard.core.bytecodes.dvm import DalvikVMFormat
+from androguard.core.analysis import analysis
 import androguard
 
 # local imports
@@ -24,6 +26,17 @@ androguard.core.androconf.show_logging(level=logging.CRITICAL)
 def analyze_apk(path: str) -> tuple:
     """Return the resultant objects after analyzing the apk."""
     return AnalyzeAPK(path)
+
+
+@lru_cache(maxsize=None, typed=True)
+def get_dex(path: str) -> tuple:
+    """Return DEX analysis from APK file."""
+    apk_obj = APK(path)
+    dx = DalvikVMFormat(apk_obj.get_dex())
+    dex = analysis.Analysis()
+    dex.add(dx)
+    dex.create_xref()
+    return dex
 
 
 def get_activities_source(dvms: list) -> str:
@@ -472,7 +485,7 @@ def uses_insecure_delete(apk_file: str) -> bool:
     :param apk_file: Path to the image to be tested.
     """
     try:
-        _, _, dex = analyze_apk(apk_file)
+        dex = get_dex(apk_file)
     except FileNotFoundError as exc:
         show_unknown('Error reading file',
                      details=dict(apk=apk_file, error=str(exc)))
@@ -500,7 +513,7 @@ def uses_http_resources(apk_file: str) -> bool:
     :param apk_file: Path to the image to be tested.
     """
     try:
-        _, _, dex = analyze_apk(apk_file)
+        dex = get_dex(apk_file)
     except FileNotFoundError as exc:
         show_unknown('Error reading file',
                      details=dict(apk=apk_file, error=str(exc)))
