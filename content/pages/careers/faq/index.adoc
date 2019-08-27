@@ -320,33 +320,33 @@ new employees ask when they become part of our work team:
   is a skill the employee takes with them
   when or if they leave the organization.
 
-*What happens if I lose the certification test?*::
-  Nothing happens if you lose the certification test
+*What happens if I do not pass the certification test?*::
+  Nothing happens if you do not pass the certification test
   unless you are not willing to keep trying.
-  +Fluid Attacks+ encourage the process over the results.
-  For this reason, as well as when the certification is obtained
-  there is no salary adjustment,
-  also there are no adverse effects when it's lost.
-  +Fluid Attacks+ may sponsor the retest if you wish,
-  and this cycle can be repeated indefinitely,
-  as long as there are evidence of effort and dedication to obtain it
-  (training time reports).
-  We have people who have presented the same test for over +4+ times
+  While +Fluid Attacks+ values the results of a test,
+  we also highly value the experience and knowledge
+  you gain by going through the process;
+  this is why there is no salary adjustment
+  when you obtain certification nor when you fail to obtain it.
+  +Fluid Attacks+ may sponsor your retests indefinitely,
+  as long as there is evidence,
+  as reflected in your training time reports,
+  of your continued effort to gain certification.
+  We have people who have taken the same certification test multiple times,
   always with the sponsorship of +Fluid Attacks+.
-  Finally if the talent doesn't approve the tests
-  and doesn't wish to keep trying
+  Finally, if you don't pass and don't want to keep trying to pass,
   there would be a monthly salary deduction
   during the following +24+ months
-  and in case of retreat this amount
-  will be subtracted from the settlement pending balance.
+  and in case of your resigning your position,
+  this amount will be subtracted from the settlement pending balance.
 
 *What is the exact amount of the certification funding?*::
-  The exact value is known only during the purchase,
+  The exact value is determined at the time of purchase
   because it varies depending on the certification,
   the components you want to cover (test or official material),
-  price variations on the vendor side, among others.
+  price variations on the vendor's side, etc.
   For reference purposes,
-  there are certification from +300 USD+ up to +1000 USD+.
+  certifications cost between +$300+ and +$1000 USD+.
 
 *How should I manage my time?*::
   Every talent should agree with their direct leader
@@ -366,56 +366,48 @@ new employees ask when they become part of our work team:
 *Can I adjust my schedule if I'm currently studying?*::
   In the framework of the previous answer, yes.
 
-*How is it made the time report?*::
-  We use a time report system called +TimeDoctor+
-  which allows to track activities in real time,
-  without additional efforts from the talent
-  aside of the efforts dedicated to the customer and the project.
-  This system logs all the activities performed by the talent
-  while he/she is working,
-  but it also can be disabled when the talent is not working
-  and to perform personal activities.
-  This allows us to keep a healthy balance between control and autonomy.
-  There is no expected total working time share,
-  we leave this value to the talent criteria.
-  However in exceptional cases that a talent
-  exceeds +48+ hours per week systematically,
-  the organization unilaterally adjusts its assignments,
-  in addition to granting compensatory days as soon as possible.
+*How does the time report record my work?*::
+  We use an automated time report system called +TimeDoctor+.
+  +TimeDoctor+ tracks activities in real-time,
+  without any additional input from the employee.
+  This system logs all the activities
+  performed by an employee while they are working.
+  It can also be disabled when an employee is not working
+  and needs to perform personal activities.
+  There is no expected total working timeshare.
+  In exceptional cases when an employee exceeds +48+ hours per week,
+  the organization adjusts assignments
+  and grants compensatory days as soon as possible.
 
-*Why is the reporting fee not 48h if the schedule is 48h?*::
-  Because the reference schedule
-  defines the availability expectation for the talent
-  based on a focused dedication.
-  We understand that each person has different work paces
-  which may vary over weeks,
-  for this reason,
-  expecting a rigid dedication of +48+ hours per week is unrealistic.
-  Additionally, our method for measuring the effort
-  is very accurate and strict
-  and hence we focus on reporting the reality.
+*If the work schedule is 48 hours/week*::
+*why doesn't the reported pay reflect 48 hours/week?*::
+  The reference schedule only defines
+  the work availability expectation for an employee.
+  We understand that each person has a different work pace
+  which may vary from week to week,
+  for this reason, expecting a rigid +48-hour+ workweek
+  every week is unrealistic.
 
-*Is there a dress code in Fluid Attacks?*::
-  We can execute projects on +Fluid Attacks+ facilities
-  or in the customer facilities:
+*Does Fluid Attacks have a dress code?*::
+  It depends on whether you are working at a +Fluid Attacks'+ facility
+  or onsite at the client's facility:
   +
-  * When we attend to +Fluid Attacks+ facilities
-  there is no dressing code.
-  You may dress as comfortable as you want.
+  * When working at a +Fluid Attacks+ facility there is no dress code.
+  We suggest you dress comfortably in business casual attire.
   +
   +
-  * When we execute projects on the clients facilities
-  we must know and comply with their dress code.
+  * When working at a client's facility
+  we expect you to comply with the client company's dress code.
 
 *Do I have to work on weekends or at night?*::
-  It is not usual for the company to request for this situation.
-  If it happens to occur is something exceptional.
-  In order to assume the worst scenario,
-  in a year we may ask you to work on +4+ weekends and +10+ nights.
-  These values correspond to the company request
-  and do not include the instances on which the talent
-  have to work on weekends or nights in order to fulfill
-  the schedule or the working fee.
+  Ordinarily +Fluid Attacks+ does not ask you to work nights or weekends,
+  however, it may happen from time to time.
+  In a worst-case scenario,
+  in a year we may ask you to work +4+ weekends and +10+ nights.
+  This does not include situations
+  where you may have to work weekends or nights
+  in order to meet a client company's project deadline
+  or meet your work commitment.
 
 *Where do I have to work?*::
   We can execute projects on +Fluid Attacks+ facilities
