@@ -44,3 +44,8 @@ package-lock.json
 # Commitlint
 commitlint.config.js
 parser-preset.js
+
+# sphinxdoc
+public/
+sphinx/source/*.rst
+sphinx/source/example/*.out

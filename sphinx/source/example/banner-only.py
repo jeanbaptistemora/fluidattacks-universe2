@@ -1,3 +1,6 @@
 from fluidasserts.utils import cli
 
-cli.main()
+class Args():
+    no_color = True
+
+cli.show_banner(Args())

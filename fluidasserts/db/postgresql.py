@@ -35,9 +35,7 @@ def _is_ssl_error(exception: psycopg2.Error) -> bool:
     return 'SSL' in str(exception)
 
 
-def _get_var(
-        connection_string: ConnectionString,
-        variable_name: str) -> str:
+def _get_var(connection_string: ConnectionString, variable_name: str) -> str:
     """Return the result of `SHOW variable_name;` or an empty string."""
     var_value: str = ''
     with database(connection_string) as (_, cursor):
@@ -80,7 +78,16 @@ def database(connection_string: ConnectionString):
 def have_access(dbname: str,
                 user: str, password: str,
                 host: str, port: int) -> tuple:
-    """Check if the given connection string allows to connect to the DB."""
+    """
+    Check if the given connection string allows to connect to the DB.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string: ConnectionString = \
         ConnectionString(dbname, user, password, host, port)
 
@@ -112,7 +119,16 @@ def have_access(dbname: str,
 def does_not_support_ssl(dbname: str,
                          user: str, password: str,
                          host: str, port: int) -> tuple:
-    """Check if the server supports SSL connections."""
+    """
+    Check if the server supports SSL connections.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string: ConnectionString = \
         ConnectionString(dbname, user, password, host, port, sslmode='require')
 
@@ -144,7 +160,16 @@ def does_not_support_ssl(dbname: str,
 def has_not_logging_enabled(dbname: str,
                             user: str, password: str,
                             host: str, port: int) -> tuple:
-    """Check if the PostgreSQL implementation logs all transactions."""
+    """
+    Check if the PostgreSQL implementation logs all transactions.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string: ConnectionString = \
         ConnectionString(dbname, user, password, host, port)
 
