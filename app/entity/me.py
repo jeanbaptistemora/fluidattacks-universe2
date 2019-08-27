@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 from datetime import datetime, timedelta
+import secrets
 
 from django.conf import settings
 from google.auth.transport import requests
@@ -17,6 +18,8 @@ from app.entity.project import Project
 from app.services import is_customeradmin
 
 from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
+
+NUMBER_OF_BYTES = 32
 
 
 class Me(ObjectType):
@@ -118,33 +121,28 @@ class SignIn(Mutation):
 
 
 class UpdateAccessToken(Mutation):
-    class Arguments(object):
-        token = Boolean()
     success = Boolean()
     session_jwt = String()
 
     @staticmethod
     @require_login
-    def mutate(_, info, token):
+    def mutate(_, info):
         user_info = util.get_jwt_content(info.context)
         email = user_info['user_email']
-        session_jwt = ''
-        success = False
-        if token:
-            session_jwt = jwt.encode(
-                {
-                    'user_email': email,
-                    'user_role': get_role(email),
-                    'company': get_user_attributes(
-                        email, ['company'])['company'],
-                    'first_name': user_info['first_name'],
-                    'last_name': user_info['last_name'],
-                    'api_token': True
-                },
-                algorithm='HS512',
-                key=settings.JWT_SECRET
-            )
-            success = update_access_token(email, session_jwt)
-        else:
-            success = update_access_token(email, token)
+        api_token = secrets.token_hex(NUMBER_OF_BYTES)
+
+        session_jwt = jwt.encode(
+            {
+                'user_email': email,
+                'user_role': get_role(email),
+                'company': get_user_attributes(
+                    email, ['company'])['company'],
+                'first_name': user_info['first_name'],
+                'last_name': user_info['last_name'],
+                'api_token': api_token
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET
+        )
+        success = update_access_token(email, api_token)
         return UpdateAccessToken(success, session_jwt)

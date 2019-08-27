@@ -1,5 +1,6 @@
 """ FluidIntegrates services definition """
 
+import secrets
 import rollbar
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -93,12 +94,12 @@ def is_customeradmin(project, email):
     return False
 
 
-def has_access_token(email, context):
+def has_valid_access_token(email, context, api_token):
     """ Verify if has active access token and match. """
     access_token = user_dal.get_user_attributes(email, ['access_token'])
     resp = False
     if context and access_token:
-        if access_token['access_token'] == context.split()[1]:
+        if secrets.compare_digest(access_token['access_token'], api_token):
             resp = True
         else:
             # access_token doesn't match
