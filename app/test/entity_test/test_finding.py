@@ -1,3 +1,5 @@
+import pytest
+
 from collections import OrderedDict
 
 from django.test import TestCase
@@ -130,7 +132,6 @@ class FindingTests(TestCase):
             key=settings.JWT_SECRET,
         )
         result = testing_client.execute(query, context=request)
-        print result
         assert 'errors' not in result
         assert result['data']['updateDescription']['success']
 
@@ -184,3 +185,46 @@ class FindingTests(TestCase):
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert result['data']['updateSeverity']['success']
+
+    @pytest.mark.usefixtures(
+        'create_users_table',
+        'create_projects_table',
+        'create_project_access_table')
+    def test_add_finding_comment(self):
+        query = '''
+          mutation {
+            addFindingComment(
+              content: "This is a comenting test",
+              findingId: "422286126",
+              type: "comment",
+              parent: "0"
+            ) {
+              success
+              commentId
+            }
+          }
+          '''
+        testing_client = Client(SCHEMA)
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.session['first_name'] = 'unit'
+        request.session['last_name'] = 'test'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest',
+                'first_name': 'unit',
+                'last_name': 'test'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        result = testing_client.execute(query, context=request)
+        assert 'errors' not in result
+        assert result['data']['addFindingComment']['success']
