@@ -75,46 +75,6 @@ deps-development:
   script:
     - ./ci-scripts/jobs/deps-development.sh
 
-deps-app:
-  stage: deps-base
-  <<: *kaniko_config
-  script:
-    - mkdir deploy/containers/deps/front
-    - mkdir deploy/containers/deps/mobile
-    - cp -a front/package.json deploy/containers/deps/front/
-    - cp -a mobile/package.json deploy/containers/deps/mobile/
-    - /kaniko/executor
-        --cleanup
-        --context "${CI_PROJECT_DIR}/deploy/containers/deps/"
-        --dockerfile "${CI_PROJECT_DIR}/deploy/containers/deps/Dockerfile.app"
-        --destination "${CI_REGISTRY_IMAGE}/deps:app"
-        --single-snapshot
-        --snapshotMode time
-  retry: 1
-  only:
-    - schedules
-
-deps-ci:
-  tags:
-    - mobile
-  stage: deps-base
-  <<: *kaniko_config
-  script:
-    - mkdir deploy/containers/deps/front
-    - mkdir deploy/containers/deps/mobile
-    - cp -a front/package.json deploy/containers/deps/front/
-    - cp -a mobile/package.json deploy/containers/deps/mobile/
-    - /kaniko/executor
-        --cleanup
-        --context "${CI_PROJECT_DIR}/deploy/containers/deps/"
-        --dockerfile "${CI_PROJECT_DIR}/deploy/containers/deps/Dockerfile.ci"
-        --destination "${CI_REGISTRY_IMAGE}/deps:ci"
-        --single-snapshot
-        --snapshotMode time
-  retry: 1
-  only:
-    - schedules
-
 test-terraform:
   stage: test
   image: registry.gitlab.com/fluidsignal/serves:builder
