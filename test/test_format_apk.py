@@ -185,6 +185,11 @@ def test_unsafe_http_close():
     """Test if APK uses HTTP references."""
     assert not apk.uses_http_resources(UNSIGNED_APK)
 
+
+def test_getinsecure_close():
+    """Test if APK uses getInsecure socket factory."""
+    assert not apk.socket_uses_getinsecure(UNSIGNED_APK)
+
 #
 # Unknown tests
 #
@@ -263,3 +268,8 @@ def test_unsafe_delete_unknown():
 def test_unsafe_http_unknown():
     """Test if APK uses HTTP references."""
     assert not apk.uses_http_resources(NOT_EXISTS_APK)
+
+
+def test_getinsecure_unknown():
+    """Test if APK uses getInsecure socket factory."""
+    assert not apk.socket_uses_getinsecure(NOT_EXISTS_APK)

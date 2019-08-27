@@ -52,6 +52,9 @@ def is_method_present(dex, class_name, method, descriptor):
                                               method_name=method,
                                               method_descriptor=descriptor)
 
+    if not met_ana:
+        return None
+
     used_by = [x.name for x, _, _ in met_ana.get_xref_from()
                if 'Activity' in x.name]
 
@@ -526,6 +529,38 @@ def uses_http_resources(apk_file: str) -> bool:
                   details=dict(apk=apk_file,
                                insecure_urls=insecure_urls))
         return True
-    show_close('All HTTP references in APK use HTTPS.',
+    show_close('All HTTP references in APK use HTTPS',
+               details=dict(apk=apk_file))
+    return False
+
+
+@notify
+@level('low')
+@track
+def socket_uses_getinsecure(apk_file: str) -> bool:
+    """
+    Check if the given APK uses sockets created with getInsecure.
+
+    :param apk_file: Path to the image to be tested.
+    """
+    try:
+        dex = get_dex(apk_file)
+    except FileNotFoundError as exc:
+        show_unknown('Error reading file',
+                     details=dict(apk=apk_file, error=str(exc)))
+        return False
+
+    class_name = 'Landroid/net/SSLCertificateSocketFactory;'
+    method_name = 'getInsecure'
+    desc = '(I Landroid/net/SSLSessionCache;)Ljavax/net/ssl/SSLSocketFactory;'
+
+    uses = is_method_present(dex, class_name, method_name, desc)
+
+    if uses:
+        show_open('APK uses sockets created with getInsecure',
+                  details=dict(apk=apk_file,
+                               get_insecure_uses=uses))
+        return True
+    show_close('APK doesn\'t use sockets created with getInsecure',
                details=dict(apk=apk_file))
     return False
