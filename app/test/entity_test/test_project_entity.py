@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -42,4 +44,5 @@ class ProjectEntityTests(TestCase):
         )
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
-        assert 'totalFindings' in result['data']['project']
+        assert result['data']['project']
+        assert result['data']['project']['totalFindings'] == 4

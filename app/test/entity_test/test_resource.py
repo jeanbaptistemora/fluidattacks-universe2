@@ -43,7 +43,7 @@ class ResourceTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = SCHEMA.execute(query, context_value=request)
+        result = SCHEMA.execute(query, context=request)
         assert not result.errors
         assert 'https://gitlab.com/fluidsignal/engineering/' in \
                result.data.get('resources')['repositories']
@@ -88,7 +88,7 @@ class ResourceTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = SCHEMA.execute(query, context_value=request)
+        result = SCHEMA.execute(query, context=request)
         assert not result.errors
         assert result.data.get('addRepositories')['success']
         assert result.data.get('addEnvironments')['success']
@@ -129,7 +129,7 @@ class ResourceTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = SCHEMA.execute(query, context_value=request)
+        result = SCHEMA.execute(query, context=request)
         assert not result.errors
         assert result.data.get('removeRepositories')['success']
         assert result.data.get('removeEnvironments')['success']
@@ -178,4 +178,36 @@ class ResourceTests(TestCase):
             request.FILES['document'] = File(test_file)
             result = testing_client.execute(query, context_value=request)
             assert 'errors' not in result
-            assert 'success' in result['data']['addFiles']
+
+    def test_download_files(self):
+        query = '''
+            mutation {
+              downloadFile (
+                filesData: \"\\\"unittesting-422286126.yaml\\\"\",
+                projectName: "unittesting") {
+                  success
+                  url
+                }
+            }
+        '''
+        testing_client = Client(SCHEMA)
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        result = testing_client.execute(query, context=request)
+        assert 'errors' not in result
+        assert result['data']['downloadFile']['success']
+        assert 'url' in result['data']['downloadFile']

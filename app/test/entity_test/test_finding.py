@@ -48,7 +48,7 @@ class FindingTests(TestCase):
             key=settings.JWT_SECRET,
         )
         request.loaders = {'vulnerability': VulnerabilityLoader()}
-        result = SCHEMA.execute(query, context_value=request)
+        result = SCHEMA.execute(query, context=request)
         assert not result.errors
         assert result.data.get('finding')['id'] == '422286126'
         test_data = OrderedDict([
