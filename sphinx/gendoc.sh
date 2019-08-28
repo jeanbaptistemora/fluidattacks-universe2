@@ -21,6 +21,8 @@ git-fame \
     --ignore-whitespace \
     --cost=cocomo \
   | grep -viE '^total [a-z]+: [0-9]+(\.[0-9]+)?$' \
+  | grep -vP '^\D+?\d+\D+?0' \
+  | grep -vP 'Jane Doe' \
   | tee -a sphinx/source/credits.rst
 
 cat << EOF >> sphinx/source/credits.rst
