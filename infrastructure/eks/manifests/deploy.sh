@@ -245,16 +245,22 @@ issue_secondary_domain_certificates ingress/secondary-domains.yaml \
 # Provide information to access Gitlab Container Registry and pull images
 if ! kubectl get secret gitlab-reg; then
   echo "Creating secret to access Gitlab Registry..."
+  # Create secret in serves namespace
   kubectl create secret docker-registry gitlab-reg \
     --docker-server="$CI_REGISTRY" --docker-username="$DOCKER_USER" \
-    --docker-password="$DOCKER_PASS" --docker-email="$DOCKER_EMAIL"
+    --docker-password="$DOCKER_PASS" --docker-email="$DOCKER_EMAIL" \
+  # Copy secret to runners namespace
+  kubectl get secret gitlab-reg --export -o yaml | kubectl apply --namespace=runners -f -
 fi
 
-if ! kubectl get secret jfrog-reg; then
+# Provide information to access Jfrog Container Registry and pull images
+if ! kubectl get secret jfrog-reg --namespace=runners; then
   echo "Creating secret to access JFrog Registry..."
+  # Create secret in runners namespace
   kubectl create secret docker-registry jfrog-reg \
     --docker-server="fluid-docker.jfrog.io" --docker-username="$JFROG_USER" \
     --docker-password="$JFROG_PASS" --docker-email="$JFROG_EMAIL"
+    --namespace runners
 fi
 
 # Prepare environments for Review Apps
