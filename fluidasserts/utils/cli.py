@@ -671,6 +671,7 @@ def exec_apk_package(apks):
             apk.uses_http_resources('{apk}')
             apk.socket_uses_getinsecure('{apk}')
             apk.allows_backup('{apk}')
+            apk.is_exported('{apk}')
             """).replace('{apk}', apk)
     return exec_wrapper('built-in APK package', template)
 

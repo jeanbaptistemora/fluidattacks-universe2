@@ -13,6 +13,7 @@ from fluidasserts.format import apk
 
 
 # Constants
+DIVA_APK = 'test/static/format/apk/open/diva.apk'
 SSL_OPEN = 'test/static/format/apk/open/ssl_open.apk'
 HTTP_OPEN = 'test/static/format/apk/open/http_refs.apk'
 UNSAFE_DELETE_OPEN = 'test/static/format/apk/open/unsafe_delete.apk'
@@ -111,6 +112,11 @@ def test_allowbackup_open():
     """Test if APK allows ADB backups."""
     assert apk.allows_backup(UNSIGNED_APK)
 
+
+def test_exported_open():
+    """Test if APK has exported data."""
+    assert apk.is_exported(DIVA_APK)
+
 #
 # Close tests
 #
@@ -178,27 +184,33 @@ def test_allows_user_ca_close2():
 
 def test_debug_close():
     """Test if APK has debug enabled."""
-    assert not apk.has_debug_enabled(UNSIGNED_APK)
+    assert not apk.has_debug_enabled(SIGNED_APK)
 
 
 def test_unsafe_delete_close():
     """Test if APK does not securely erase files."""
-    assert not apk.uses_insecure_delete(UNSIGNED_APK)
+    assert not apk.uses_insecure_delete(SIGNED_APK)
 
 
 def test_unsafe_http_close():
     """Test if APK uses HTTP references."""
-    assert not apk.uses_http_resources(UNSIGNED_APK)
+    assert not apk.uses_http_resources(SIGNED_APK)
 
 
 def test_getinsecure_close():
     """Test if APK uses getInsecure socket factory."""
-    assert not apk.socket_uses_getinsecure(UNSIGNED_APK)
+    assert not apk.socket_uses_getinsecure(SIGNED_APK)
 
 
 def test_allowbackup_close():
     """Test if APK allows ADB backups."""
     assert not apk.allows_backup(NOBACKUP)
+
+
+def test_exported_close():
+    """Test if APK has exported data."""
+    assert not apk.is_exported(SIGNED_APK)
+
 
 #
 # Unknown tests
@@ -288,3 +300,7 @@ def test_getinsecure_unknown():
 def test_allowbackup_unknown():
     """Test if APK allows ADB backups."""
     assert not apk.allows_backup(NOT_EXISTS_APK)
+
+def test_exported_unknown():
+    """Test if APK has exported data."""
+    assert not apk.is_exported(NOT_EXISTS_APK)

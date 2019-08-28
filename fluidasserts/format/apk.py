@@ -589,3 +589,30 @@ def allows_backup(apk_file: str) -> bool:
     show_close('APK disallows ADB backups',
                details=dict(apk=apk_file))
     return False
+
+
+@notify
+@level('medium')
+@track
+def is_exported(apk_file: str) -> bool:
+    """
+    Check if the given APK allows ADB backups.
+
+    :param apk_file: Path to the image to be tested.
+    """
+    try:
+        apk_obj = APK(apk_file)
+    except FileNotFoundError as exc:
+        show_unknown('Error reading file',
+                     details=dict(apk=apk_file, error=str(exc)))
+        return False
+
+    exported = apk_obj.get_attribute_value('provider', 'exported')
+
+    if exported == 'true':
+        show_open('App data is exported to other apps in device',
+                  details=dict(apk=apk_file))
+        return True
+    show_close('App data is not exported to other apps in device',
+               details=dict(apk=apk_file))
+    return False
