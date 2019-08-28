@@ -871,9 +871,9 @@ msgstr "Magnifying glass analysing code"
 #: templates/landing.html:89
 msgid "Index-bnft-1"
 msgstr ""
-"<strong class="white">Expert Intelligence + Effective Automation:</strong> "
-" Systems attacked integrally,  with technical rigor, "
-"during the complete development lifecycle, at DevOps speed."
+"<strong class="white">Tracing a vulnerability’s treatment: </strong>"
+"Forget about excel files and pdf reports! Stakeholders can manage, "
+"report and interact in Integrates, our GRC platform."
 
 #: templates/landing.html:92
 msgid "Index-img-alt-3"
@@ -882,8 +882,13 @@ msgstr "Closing admiration sign"
 #: templates/landing.html:94
 msgid "Index-bnft-2"
 msgstr ""
-"<strong class="white">Specialists in zero days vulnerabilities:</strong> "
-" Zero False Positives. Zero Escapes."
+"<strong class="white">Your security department </strong>"
+"<strong class="white"> will no longer delay your project's progress: </strong>"
+"With our continuous hacking service, we report your vulnerabilities "
+"in the early stages and during the development of your project. "
+"Your developers can close vulnerabilities at the pace "
+"the project develops instead of risking failure to close them "
+"right before going to the production phase."
 
 #: templates/landing.html:97
 msgid "Index-img-alt-4"
@@ -892,33 +897,10 @@ msgstr "Graph showing the increase of earnings"
 #: templates/landing.html:99
 msgid "Index-bnft-3"
 msgstr ""
-"<strong class="white">62k+ confirmed vulnerabilities found in 2019:</strong>"
-" Since January 2019, we have found more than 62,000 confirmed vulnerabilities "
-"in our clients' repositories."
-
-#: templates/landing.html:102
-msgid "Index-img-alt-5"
-msgstr "Hand holding a lock sign"
-
-#: templates/landing.html:104
-msgid "Index-bnft-4"
-msgstr ""
-"<strong class="white">Price based on scope</strong>: "
-"Pricing based on active authors for continuous hacking subscriptions, "
-"or effective lines of code, inputs "
-"(entry fields, headers or <i>REST</i> parameters), "
-"and open <i>TCP/UDP</i> ports for one-shot hacking projects. "
-"Forget about charges per hour!"
-
-#: templates/landing.html:107
-msgid "Index-img-alt-6"
-msgstr "Hand with the thumb up"
-
-#: templates/landing.html:109
-msgid "Index-bnft-5"
-msgstr "<strong class="white">Independence: </strong>."
-" We don’t install, maintain, operate or sell other security products. "
-"No hidden agendas, no conflict of interests!"
+"<strong class="white">Closing vulnerabilities is guaranteed: </strong>"
+"Asserts, our automated closing engine "
+"closes security findings over execution environments (SAST and DAST) "
+"and breaks the build if vulnerabilities reopen or were not closed."
 
 #: templates/landing.html:113
 msgid "Bnft-footmsg"
