@@ -127,7 +127,6 @@ metadata:
       more_set_headers "WWW-Authenticate: OAuth realm=\"Access to Fluid Attacks\" charset=\"UTF-8\"";
       more_set_headers "X-Frame-Options: deny";
       more_set_headers "Referrer-Policy: origin";
-      more_set_headers "Content-Security-Policy: default-src self";
       more_set_headers "Feature-Policy: webauthn none";
 
       gzip "off";

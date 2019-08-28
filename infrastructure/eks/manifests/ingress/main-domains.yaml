@@ -10,7 +10,8 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/configuration-snippet: |
       set $CSP '';
-      set $CSP "${CSP}script-src 'self' 'unsafe-inline' 'unsafe-eval'";
+      set $CSP "${CSP} script-src 'self' 'unsafe-inline' 'unsafe-eval'";
+      set $CSP '${CSP} web.fluidattacks.com';
       set $CSP '${CSP} *.cloudflare.com';    # Integrates libraries
       set $CSP '${CSP} *.cloudfront.net';    # RDS Station
       set $CSP '${CSP} *.jsdelivr.net';      # iFrame Resizer
@@ -21,7 +22,7 @@ metadata:
       set $CSP '${CSP} *.newrelic.com *.nr-data.net';       # APM
       set $CSP '${CSP} *.googletagmanager.com *.google-analytics.com';      # Analytics
       set $CSP '${CSP} *.formstack.com *.jquery.com *.bootstrapcdn.com';    # Forms functionalities
-      set $CSP '${CSP} *.d2yyd1h5u9mauk.cloudfront.net';	            # Delighted      
+      set $CSP '${CSP} *.d2yyd1h5u9mauk.cloudfront.net';	            # Delighted
 
       more_set_headers "Content-Security-Policy: ${CSP};";
       more_set_headers "Expires: 0";
