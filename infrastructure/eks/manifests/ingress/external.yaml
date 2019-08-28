@@ -19,8 +19,20 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-redirect-from: //fluidattacks.gitlab.io/asserts/
     nginx.ingress.kubernetes.io/proxy-redirect-to: /asserts/
     nginx.ingress.kubernetes.io/configuration-snippet: |
+      set $CSP '';
+      set $CSP "${CSP} script-src 'self'";
+      set $CSP '${CSP} web.fluidattacks.com';
+      set $CSP '${CSP} *.jsdelivr.net';      # iFrame Resizer
+      set $CSP '${CSP} *.mxpnl.com';         # Tracking
+      set $CSP '${CSP} *.pingdom.net';       # Availability Monitoring
+      set $CSP '${CSP} *.addthis.com *.addthisedge.com';    # Share functionalities
+      set $CSP '${CSP} *.intercomcdn.com *.intercom.io';    # Online Chat
+      set $CSP '${CSP} *.newrelic.com *.nr-data.net';       # APM
+      set $CSP '${CSP} *.googletagmanager.com *.google-analytics.com';      # Analytics
+      set $CSP '${CSP} *.formstack.com *.jquery.com *.bootstrapcdn.com';    # Forms functionalities
+      set $CSP '${CSP} *.d2yyd1h5u9mauk.cloudfront.net';	            # Delighted
 
-      more_set_headers "Content-Security-Policy: default-src 'self'";
+      more_set_headers "Content-Security-Policy: ${CSP};";
       more_set_headers "Expires: 0";
       more_set_headers "Pragma: no-cache";
       more_set_headers "X-XSS-Protection: 1; mode=block";
@@ -59,7 +71,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /default$1
     nginx.ingress.kubernetes.io/configuration-snippet: |
 
-      more_set_headers "Content-Security-Policy: default-src 'self'";
+      more_set_headers "Content-Security-Policy: ${CSP};";
       more_set_headers "Expires: 0";
       more_set_headers "Pragma: no-cache";
       more_set_headers "X-XSS-Protection: 1; mode=block";
@@ -144,21 +156,7 @@ metadata:
         return 308 https://fluidattacks.com/web/;
       }
 
-      set $CSP '';
-      set $CSP "${CSP} script-src 'self' ";
-      set $CSP "${CSP} img-scr *; media-src *;"
-      set $CSP '${CSP} web.fluidattacks.com';
-      set $CSP '${CSP} *.jsdelivr.net';      # iFrame Resizer
-      set $CSP '${CSP} *.mxpnl.com';         # Tracking
-      set $CSP '${CSP} *.pingdom.net';       # Availability Monitoring
-      set $CSP '${CSP} *.addthis.com *.addthisedge.com';    # Share functionalities
-      set $CSP '${CSP} *.intercomcdn.com *.intercom.io';    # Online Chat
-      set $CSP '${CSP} *.newrelic.com *.nr-data.net';       # APM
-      set $CSP '${CSP} *.googletagmanager.com *.google-analytics.com';      # Analytics
-      set $CSP '${CSP} *.formstack.com *.jquery.com *.bootstrapcdn.com';    # Forms functionalities
-      set $CSP '${CSP} *.d2yyd1h5u9mauk.cloudfront.net';	            # Delighted
-
-      more_set_headers "Content-Security-Policy: ${CSP}";
+      more_set_headers "Content-Security-Policy: ${CSP};";
       more_set_headers "Expires: 0";
       more_set_headers "Pragma: no-cache";
       more_set_headers "X-XSS-Protection: 1; mode=block";
@@ -167,7 +165,7 @@ metadata:
       more_set_headers "WWW-Authenticate: OAuth realm=\"Access to Fluid Attacks\" charset=\"UTF-8\"";
       more_set_headers "X-Frame-Options: deny";
       more_set_headers "Referrer-Policy: strict-origin";
-      more_set_headers "geolocation 'self' *.google.com/maps";
+      more_set_headers "Feature-Policy: webauthn 'none'";
 
       gzip "off";
 spec:
