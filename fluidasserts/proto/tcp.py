@@ -55,7 +55,7 @@ def is_port_insecure(ipaddress: str, port: int) -> bool:
         with ssl_helper.connect(ipaddress, port):
             show_close('Port is secure', details=dict(ip=ipaddress, port=port))
             return False
-    except (ConnectionRefusedError, socket.timeout):
+    except (ConnectionRefusedError, TimeoutError, socket.timeout):
         show_unknown('Could not connect',
                      details=dict(ip=ipaddress, port=port))
         return False
