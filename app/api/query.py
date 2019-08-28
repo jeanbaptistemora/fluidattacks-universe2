@@ -1,12 +1,14 @@
 # pylint: disable=no-self-use
-# pylint: disable=relative-beyond-top-level
-# Disabling this rule is necessary for importing modules beyond the top level
-# directory.
-from __future__ import absolute_import
-from graphene import Field, String, ObjectType, List
+from graphene import Field, List, ObjectType, String
 
 from app import util
+from app.dal import integrates_dal
 from app.dal.helpers.formstack import FormstackAPI
+from app.decorators import (
+    get_cached, require_event_access_gql, require_finding_access,
+    require_login, require_project_access, require_role
+)
+from app.domain import project as project_domain
 from app.entity.me import Me
 from app.entity.alert import Alert
 from app.entity.login import Login
@@ -15,15 +17,7 @@ from app.entity.resource import Resource
 from app.entity.user import User
 from app.entity.finding import Finding
 from app.entity.project import Project
-# pylint: disable=F0401
-from app.decorators import (
-    require_login, require_role,
-    require_project_access,
-    require_finding_access, get_cached,
-    require_event_access_gql
-)
-from ..dal import integrates_dal
-from ..exceptions import InvalidProject
+from app.exceptions import InvalidProject
 
 
 class Query(ObjectType):
@@ -124,9 +118,14 @@ class Query(ObjectType):
     @require_project_access
     def resolve_project(self, info, project_name):
         """Resolve for projects."""
-        util.cloudwatch_log(info.context, 'Security: Access to \
-            project: {project} succesfully'.format(project=project_name))
-        return Project(project_name)
+        project_name = project_name.lower()
+        if project_domain.validate_project(project_name):
+            util.cloudwatch_log(info.context,
+                                'Security: Access to project {project} '
+                                'succesfully'.format(project=project_name))
+            return Project(project_name)
+        else:
+            raise InvalidProject()
 
     @require_login
     def resolve_me(self, info):

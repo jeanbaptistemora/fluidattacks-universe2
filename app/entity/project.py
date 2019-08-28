@@ -6,7 +6,9 @@ import time
 
 import rollbar
 import simplejson as json
-from graphene import String, ObjectType, List, Int, Float, Boolean, Mutation, Field, JSONString
+from graphene import (
+    Boolean, Field, Float, Int, JSONString, List, Mutation, ObjectType, String
+)
 from graphene.types.generic import GenericScalar
 
 from app import util
@@ -21,7 +23,6 @@ from app.domain.project import (
 )
 from app.entity.finding import Finding
 from app.entity.user import User
-from app.exceptions import InvalidProject
 
 
 class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
@@ -52,7 +53,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
     def __init__(self, project_name, description=''):
         """Class constructor."""
-        self.name = project_name.lower()
+        self.name = project_name
         self.subscription = ''
         self.comments = []
         self.tags = []
@@ -71,12 +72,8 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         self.description = description
         self.remediated_over_time = []
 
-        if validate_project(self.name):
-            findings = integrates_dal.get_findings_released_dynamo(
-                self.name, 'finding_id, treatment, cvss_temporal')
-            self.findings_aux = findings
-        else:
-            raise InvalidProject
+        self.findings_aux = integrates_dal.get_findings_released_dynamo(
+            self.name, 'finding_id, treatment, cvss_temporal')
 
     def __str__(self):
         """String representation of entity."""
