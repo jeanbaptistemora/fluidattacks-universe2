@@ -11,6 +11,39 @@ for example in sphinx/source/example/*.py; do
   striprun "$example"
 done
 
+# Generate credits.rst
+echo >> sphinx/source/credits.rst
+
+git-fame \
+    -C \
+    --log=ERROR \
+    --silent-progress \
+    --ignore-whitespace \
+    --cost=cocomo \
+  | grep -viE '^total [a-z]+: [0-9]+(\.[0-9]+)?$' \
+  | tee -a sphinx/source/credits.rst
+
+cat << EOF >> sphinx/source/credits.rst
+
+Authors grant patrimonial and ownership rights
+to Fluidsignal Group S.A.
+as stated in their work contracts,
+but retain moral rights.
+
+
+---------
+Copyright
+---------
+
+© 2001-2019 FluidAttacks by Fluidsignal Group
+
+-------
+License
+-------
+
+TBA
+EOF
+
 # HTML must go to public/ for gitlab pages
 mkdir -p public/
 # Generate e: separate page per module f: overwrite M: module doc first
