@@ -142,34 +142,6 @@ def uses_dangerous_perms(apk_file: str) -> bool:
 
     :param apk_file: Path to the image to be tested.
     """
-    insecure_perms = {
-        'android.permission.READ_CALENDAR',
-        'android.permission.WRITE_CALENDAR',
-        'android.permission.CAMERA',
-        'android.permission.READ_CONTACTS',
-        'android.permission.WRITE_CONTACTS',
-        'android.permission.GET_ACCOUNTS',
-        'android.permission.ACCESS_FINE_LOCATION',
-        'android.permission.ACCESS_COARSE_LOCATION',
-        'android.permission.RECORD_AUDIO',
-        'android.permission.READ_PHONE_STATE',
-        'android.permission.READ_PHONE_NUMBERS ',
-        'android.permission.CALL_PHONE',
-        'android.permission.ANSWER_PHONE_CALLS ',
-        'android.permission.READ_CALL_LOG',
-        'android.permission.WRITE_CALL_LOG',
-        'android.permission.ADD_VOICEMAIL',
-        'android.permission.USE_SIP',
-        'android.permission.PROCESS_OUTGOING_CALLS',
-        'android.permission.BODY_SENSORS',
-        'android.permission.SEND_SMS',
-        'android.permission.RECEIVE_SMS',
-        'android.permission.READ_SMS',
-        'android.permission.RECEIVE_WAP_PUSH',
-        'android.permission.RECEIVE_MMS',
-        'android.permission.READ_EXTERNAL_STORAGE',
-        'android.permission.WRITE_EXTERNAL_STORAGE',
-    }
     try:
         apk = APK(apk_file)
     except FileNotFoundError as exc:
@@ -177,8 +149,13 @@ def uses_dangerous_perms(apk_file: str) -> bool:
                      details=dict(apk=apk_file, error=str(exc)))
         return False
 
-    effective_dangerous = [x for x in apk.get_permissions()
-                           if x in insecure_perms]
+    dangerous = {
+        'dangerous'
+    }
+
+    perms = apk.get_details_permissions()
+    effective_dangerous = [(x, perms[x][1]) for x in perms
+                           if perms[x][0] in dangerous]
     if effective_dangerous:
         show_open('APK uses dangerous permissions',
                   details=dict(apk=apk_file, permissions=effective_dangerous))
