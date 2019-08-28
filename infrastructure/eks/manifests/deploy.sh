@@ -200,8 +200,8 @@ helm repo add banzaicloud http://kubernetes-charts.banzaicloud.com/branch/master
 helm repo update
 
 install_helm_chart stable/nginx-ingress controller serves nginx.yaml 0.24.1
-install_helm_chart gitlab/gitlab-runner runner-fluidattacks runners runner-fluidattacks.yaml 12.2.0
-install_helm_chart gitlab/gitlab-runner runner-fluidsignal runners runner-fluidsignal.yaml 12.2.0
+install_helm_chart gitlab/gitlab-runner runner-fluidattacks runners runner-fluidattacks.yaml 0.8.0
+install_helm_chart gitlab/gitlab-runner runner-fluidsignal runners runner-fluidsignal.yaml 0.8.0
 install_helm_chart banzaicloud/vault-operator vault serves vault-operator.yaml 0.4.15
 install_helm_chart stable/kube-state-metrics kube-metrics operations metrics.yaml 1.4.0
 
