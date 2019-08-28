@@ -18,6 +18,19 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     nginx.ingress.kubernetes.io/proxy-redirect-from: //fluidattacks.gitlab.io/asserts/
     nginx.ingress.kubernetes.io/proxy-redirect-to: /asserts/
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+
+      more_set_headers "Content-Security-Policy: ${CSP};";
+      more_set_headers "Expires: 0";
+      more_set_headers "Pragma: no-cache";
+      more_set_headers "X-XSS-Protection: 1; mode=block";
+      more_set_headers "X-Permitted-Cross-Domain-Policies: master-only";
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "WWW-Authenticate: OAuth realm=\"Access to Fluid Attacks\" charset=\"UTF-8\"";
+      more_set_headers "X-Frame-Options: deny";
+      more_set_headers "Referrer-Policy: origin";
+      more_set_headers "Feature-Policy: webauthn none";
+
 spec:
   tls:
   - hosts:
@@ -44,6 +57,19 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-redirect-from: //fluidattacks.gitlab.io/default/
     nginx.ingress.kubernetes.io/proxy-redirect-to: /training/
     nginx.ingress.kubernetes.io/rewrite-target: /default$1
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+
+      more_set_headers "Content-Security-Policy: ${CSP};";
+      more_set_headers "Expires: 0";
+      more_set_headers "Pragma: no-cache";
+      more_set_headers "X-XSS-Protection: 1; mode=block";
+      more_set_headers "X-Permitted-Cross-Domain-Policies: master-only";
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "WWW-Authenticate: OAuth realm=\"Access to Fluid Attacks\" charset=\"UTF-8\"";
+      more_set_headers "X-Frame-Options: deny";
+      more_set_headers "Referrer-Policy: origin";
+      more_set_headers "Feature-Policy: webauthn none";
+
 spec:
   tls:
   - hosts:
