@@ -401,7 +401,8 @@ def allows_user_ca(apk_file: str) -> bool:
     try:
         net_conf = str(apk_obj.get_file('res/xml/network_security_config.xml'))
     except androguard.core.bytecodes.apk.FileNotPresent:
-        target_sdk = int(apk_obj.get_target_sdk_version())
+        sdk_version = apk_obj.get_target_sdk_version()
+        target_sdk = int(sdk_version) if sdk_version else 0
         if target_sdk < 24:
             show_open('No network security config file found and SDK version \
 allows user-supplied CAs by default',
@@ -596,7 +597,7 @@ def allows_backup(apk_file: str) -> bool:
 @track
 def is_exported(apk_file: str) -> bool:
     """
-    Check if the given APK allows ADB backups.
+    Check if the given APK exports data to other installed apps.
 
     :param apk_file: Path to the image to be tested.
     """

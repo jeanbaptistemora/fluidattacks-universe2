@@ -40,12 +40,12 @@ def test_is_unsigned_open():
 
 def test_root_open():
     """Test if APK file checks for root."""
-    assert apk.not_checks_for_root(UNSIGNED_APK)
+    assert apk.not_checks_for_root(SIGNED_APK)
 
 
 def test_permissions_open():
     """Test if APK uses dangerous permissions."""
-    assert apk.uses_dangerous_perms(UNSIGNED_APK)
+    assert apk.uses_dangerous_perms(SIGNED_APK)
 
 
 def test_fragment_injection_open():
@@ -65,7 +65,7 @@ def test_webview_resources_open():
 
 def test_forces_update_open():
     """Test if APK forces update."""
-    assert apk.not_forces_updates(NO_ROOT_APK)
+    assert apk.not_forces_updates(SIGNED_APK)
 
 
 def test_ssl_hostname_verify_open():
@@ -80,12 +80,12 @@ def test_cert_pinning_open1():
 
 def test_cert_pinning_open2():
     """Test if APK pin certificates."""
-    assert apk.not_pinned_certs(UNPINNED_OPEN)
+    assert apk.not_pinned_certs(SIGNED_APK)
 
 
 def test_allows_user_ca_open():
     """Test if APK trusts user CAs."""
-    assert apk.allows_user_ca(ALLOW_USER_CA)
+    assert apk.allows_user_ca(SIGNED_APK)
 
 
 def test_debug_open():
@@ -95,7 +95,7 @@ def test_debug_open():
 
 def test_obfuscation_open():
     """Test if APK has not obfuscated bytecode."""
-    assert apk.not_obfuscated(JS_APK)
+    assert apk.not_obfuscated(SIGNED_APK)
 
 
 def test_unsafe_delete_open():
@@ -110,7 +110,7 @@ def test_unsafe_http_open():
 
 def test_allowbackup_open():
     """Test if APK allows ADB backups."""
-    assert apk.allows_backup(UNSIGNED_APK)
+    assert apk.allows_backup(SIGNED_APK)
 
 
 def test_exported_open():
@@ -144,12 +144,12 @@ def test_fragment_injection_close():
 
 def test_webview_cache_close():
     """Test if APK webviews clear JS cache."""
-    assert not apk.webview_caches_javascript(NO_ROOT_APK)
+    assert not apk.webview_caches_javascript(SIGNED_APK)
 
 
 def test_webview_resources_close():
     """Test if APK webviews allows resource access."""
-    assert not apk.webview_allows_resource_access(NO_ROOT_APK)
+    assert not apk.webview_allows_resource_access(SIGNED_APK)
 
 
 def test_forces_update_close():
@@ -164,7 +164,7 @@ def test_ssl_hostname_verify_close1():
 
 def test_ssl_hostname_verify_close2():
     """Test if APK SSLSocket verifies for hostname."""
-    assert not apk.not_verifies_ssl_hostname(JS_APK)
+    assert not apk.not_verifies_ssl_hostname(SIGNED_APK)
 
 
 def test_cert_pinning_close():
