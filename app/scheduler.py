@@ -4,7 +4,7 @@
 
 from __future__ import absolute_import
 from datetime import datetime, timedelta
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 import logging
 import logging.config
 import rollbar
@@ -106,31 +106,29 @@ def get_finding_url(finding):
 def get_status_vulns_by_time_range(vulns, first_day, last_day,
                                    findings_released):
     """Get total closed and found vulnerabilities by time range"""
-    resp = {'found': 0, 'closed': 0, 'accepted': 0}
-    count = 0
+    resp = defaultdict(int)
     for vuln in vulns:
         historic_states = vuln['historic_state']
         last_state = historic_states[-1]
         if first_day <= last_state['date'] <= last_day and last_state['state'] == 'closed':
             resp['closed'] += 1
         if first_day <= historic_states[0]['date'] <= last_day:
-            count += 1
-    resp['found'] = count
+            resp['found'] += 1
     resp['accepted'] = get_accepted_vulns(findings_released, vulns, first_day, last_day)
     return resp
 
 
 def create_weekly_date(first_date):
     """Create format weekly date"""
-    first_date = datetime.strptime(first_date, "%Y-%m-%d")
+    first_date = datetime.strptime(first_date, '%Y-%m-%d %H:%M:%S')
     begin = first_date - timedelta(days=(first_date.isoweekday() - 1) % 7)
     end = begin + timedelta(days=6)
     if begin.year != end.year:
         date = '{0:%b} {0.day}, {0.year} - {1:%b} {1.day}, {1.year}'
     elif begin.month != end.month:
-        date = "{0:%b} {0.day} - {1:%b} {1.day}, {1.year}"
+        date = '{0:%b} {0.day} - {1:%b} {1.day}, {1.year}'
     else:
-        date = "{0:%b} {0.day} - {1.day}, {1.year}"
+        date = '{0:%b} {0.day} - {1.day}, {1.year}'
     return date.format(begin, end)
 
 
@@ -175,9 +173,9 @@ def create_register_by_week(project):
             result_vulns_by_week = get_status_vulns_by_time_range(vulns, first_day,
                                                                   last_day,
                                                                   findings_released)
-            accepted += result_vulns_by_week['accepted']
-            closed += result_vulns_by_week['closed']
-            found += result_vulns_by_week['found']
+            accepted += result_vulns_by_week.get('accepted', 0)
+            closed += result_vulns_by_week.get('closed', 0)
+            found += result_vulns_by_week.get('found', 0)
             if any(status_vuln for status_vuln in result_vulns_by_week.values()):
                 week_dates = create_weekly_date(first_day)
                 all_registers[week_dates] = {
@@ -186,10 +184,10 @@ def create_register_by_week(project):
                     'accepted': accepted,
                     'assumed_closed': accepted + closed
                 }
-            first_day = str(datetime.strptime(first_day, "%Y-%m-%d") +
-                            timedelta(days=7)).split(' ')[0]
-            last_day = str(datetime.strptime(last_day, "%Y-%m-%d") +
-                           timedelta(days=7)).split(' ')[0]
+            first_day = str(datetime.strptime(first_day, '%Y-%m-%d %H:%M:%S') +
+                            timedelta(days=7))
+            last_day = str(datetime.strptime(last_day, '%Y-%m-%d %H:%M:%S') +
+                           timedelta(days=7))
     return create_data_format_chart(all_registers)
 
 
@@ -219,19 +217,22 @@ def get_all_vulns_by_project(findings_released):
 def get_first_week_dates(vulns):
     """Get first week vulnerabilities"""
     first_date = min([datetime.strptime(vuln['historic_state'][0]['date'],
-                                        "%Y-%m-%d %H:%M:%S") for vuln in vulns])
+                                        '%Y-%m-%d %H:%M:%S') for vuln in vulns])
     day_week = first_date.weekday()
-    first_day = first_date - timedelta(days=day_week)
-    last_day = first_day + timedelta(days=6)
-    return str(first_day).split(' ')[0], str(last_day).split(' ')[0]
+    first_day_delta = first_date - timedelta(days=day_week)
+    first_day = datetime.combine(first_day_delta, datetime.min.time())
+    last_day_delta = first_day + timedelta(days=6)
+    last_day = datetime.combine(last_day_delta,
+                                datetime.max.time().replace(microsecond=0))
+    return str(first_day), str(last_day)
 
 
 def get_date_last_vulns(vulns):
     """Get date of the last vulnerabilities"""
     last_date = max([datetime.strptime(vuln['historic_state'][-1]['date'],
-                                       "%Y-%m-%d %H:%M:%S") for vuln in vulns])
+                                       '%Y-%m-%d %H:%M:%S') for vuln in vulns])
     day_week = last_date.weekday()
-    first_day = str(last_date - timedelta(days=day_week)).split(' ')[0]
+    first_day = str(last_date - timedelta(days=day_week))
     return first_day
 
 
@@ -540,28 +541,28 @@ def deletion_of_finished_project():
             for x in projects]
 
 
+def get_project_indicators(project):
+    findings = integrates_dal.get_findings_released_dynamo(
+        project, 'finding_id, treatment, cvss_temporal')
+    indicators = {
+        'last_closing_date': get_last_closing_vuln(findings),
+        'mean_remediate': get_mean_remediate(findings),
+        'max_open_severity': get_max_open_severity(findings),
+        'total_treatment': get_total_treatment(findings),
+        'remediated_over_time': create_register_by_week(project)
+    }
+    return indicators
+
+
 def update_indicators():
     """Update in dynamo indicators."""
     projects = integrates_dal.get_registered_projects()
     table_name = 'FI_projects'
-    indicators = {
-        'last_closing_date': 0,
-        'mean_remediate': 0,
-        'max_open_severity': 0,
-        'total_treatment': {},
-        'remediated_over_time': []
-    }
     for project in projects:
+        project = str.lower(str(project[0]))
+        indicators = get_project_indicators(project)
+        primary_keys = ['project_name', project]
         try:
-            project = str.lower(str(project[0]))
-            findings = integrates_dal.get_findings_released_dynamo(
-                project, 'finding_id, treatment, cvss_temporal')
-            indicators['last_closing_date'] = get_last_closing_vuln(findings)
-            indicators['mean_remediate'] = get_mean_remediate(findings)
-            indicators['max_open_severity'] = get_max_open_severity(findings)
-            indicators['total_treatment'] = get_total_treatment(findings)
-            indicators['remediated_over_time'] = create_register_by_week(project)
-            primary_keys = ['project_name', project]
             response = integrates_dal.add_multiple_attributes_dynamo(
                 table_name, primary_keys, indicators)
             if response:
@@ -571,7 +572,7 @@ def update_indicators():
                     'Error: An error ocurred updating indicators of '
                     'the project {project} in dynamo'.format(project=project),
                     'error')
-        except (KeyError, ClientError):
+        except ClientError:
             rollbar.report_message(
                 'Error: An error ocurred updating '
                 'indicators of the project {project}'.format(project=project),
