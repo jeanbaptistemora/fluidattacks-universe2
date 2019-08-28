@@ -45,6 +45,6 @@ def test_has_preg_rce_close():
 #
 
 
-def test_has_preg_rce_close():
+def test_has_preg_rce_unknown():
     """Code uses unsafe preg_replace."""
     assert php.has_preg_ce(NON_EXISTANT_CODE).is_unknown()

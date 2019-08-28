@@ -76,7 +76,7 @@ def test_unused_seggroups_open():
                                  AWS_SECRET_ACCESS_KEY)
 
 
-def test_vpcs_flowlogs_close():
+def test_vpcs_flowlogs_open():
     """Check VPCs without flow logs."""
     assert \
         ec2.vpcs_without_flowlog(AWS_ACCESS_KEY_ID,
