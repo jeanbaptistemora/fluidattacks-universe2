@@ -76,6 +76,7 @@ def files_not_validated(key_id: str, secret: str, retry: bool = True) -> bool:
         show_unknown('Error retrieving info. Check credentials.',
                      details=dict(error=str(exc).replace(':', '')))
         return False
+
     if not trails:
         show_close('Not trails were found')
         return False
@@ -101,12 +102,26 @@ def is_trail_bucket_public(key_id: str, secret: str,
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    result = False
+    result = {}
     try:
         trails = aws.run_boto3_func(key_id, secret, 'cloudtrail',
                                     'describe_trails',
                                     param='trailList',
                                     retry=retry)
+        if not trails:
+            show_close('Not trails were found')
+            return False
+
+        for trail in trails:
+            bucket = trail['S3BucketName']
+            grants = aws.run_boto3_func(key_id, secret, 's3',
+                                        'get_bucket_acl',
+                                        param='Grants',
+                                        retry=retry,
+                                        Bucket=bucket)
+            if aws.get_bucket_public_grants(bucket, grants):
+                result[trail['TrailARN']] = bucket
+
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -115,20 +130,7 @@ def is_trail_bucket_public(key_id: str, secret: str,
         show_unknown('Error retrieving info. Check credentials.',
                      details=dict(error=str(exc).replace(':', '')))
         return False
-    if not trails:
-        show_close('Not trails were found')
-        return False
 
-    result = {}
-    for trail in trails:
-        bucket = trail['S3BucketName']
-        grants = aws.run_boto3_func(key_id, secret, 's3',
-                                    'get_bucket_acl',
-                                    param='Grants',
-                                    retry=retry,
-                                    Bucket=bucket)
-        if aws.get_bucket_public_grants(bucket, grants):
-            result[trail['TrailARN']] = bucket
     if result:
         show_open('CloudTrail buckets are public', details=dict(trais=result))
         return True
@@ -147,11 +149,25 @@ def is_trail_bucket_logging_disabled(key_id: str, secret: str,
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
+    result = {}
     try:
         trails = aws.run_boto3_func(key_id, secret, 'cloudtrail',
                                     'describe_trails',
                                     param='trailList',
                                     retry=retry)
+        if not trails:
+            show_close('Not trails were found')
+            return False
+
+        for trail in trails:
+            bucket = trail['S3BucketName']
+            logging = aws.run_boto3_func(key_id, secret, 's3',
+                                         'get_bucket_logging',
+                                         retry=retry,
+                                         Bucket=bucket)
+            if 'LoggingEnabled' not in logging:
+                result[trail['TrailARN']] = bucket
+
     except aws.ConnError as exc:
         show_unknown('Could not connect',
                      details=dict(error=str(exc).replace(':', '')))
@@ -160,19 +176,6 @@ def is_trail_bucket_logging_disabled(key_id: str, secret: str,
         show_unknown('Error retrieving info. Check credentials.',
                      details=dict(error=str(exc).replace(':', '')))
         return False
-    if not trails:
-        show_close('Not trails were found')
-        return False
-
-    result = {}
-    for trail in trails:
-        bucket = trail['S3BucketName']
-        logging = aws.run_boto3_func(key_id, secret, 's3',
-                                     'get_bucket_logging',
-                                     retry=retry,
-                                     Bucket=bucket)
-        if 'LoggingEnabled' not in logging:
-            result[trail['TrailARN']] = bucket
 
     if result:
         show_open('Logging not enabled on trails buckets',
