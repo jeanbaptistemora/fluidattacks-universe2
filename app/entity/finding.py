@@ -11,7 +11,9 @@ from graphene.types.generic import GenericScalar
 
 from app import util
 from app.dal import integrates_dal
-from app.decorators import require_login, require_role, require_finding_access
+from app.decorators import (
+    get_entity_cache, require_finding_access, require_login, require_role
+)
 from app.domain.finding import (
     add_comment, add_file_attribute, approve_draft, cast_tracking,
     delete_finding, get_finding, get_tracking_dict, get_unique_dict,
@@ -79,6 +81,9 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.treatment = resp.get('treatment', '')
             self.remediated = resp.get('remediated')
 
+    def __str__(self):
+        return self.id + '_finding'
+
     def resolve_id(self, info):
         """Resolve id attribute."""
         del info
@@ -89,6 +94,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.project_name
 
+    @get_entity_cache
     def resolve_vulnerabilities(self, info, vuln_type='', state=''):
         """Resolve vulnerabilities attribute."""
         vulns_loader = info.context.loaders['vulnerability']
@@ -103,6 +109,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
 
         return vuln_filtered
 
+    @get_entity_cache
     def resolve_open_vulnerabilities(self, info):
         """Resolve open vulnerabilities attribute."""
         vulns_loader = info.context.loaders['vulnerability']
@@ -118,6 +125,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.release_date
 
+    @get_entity_cache
     def resolve_closed_vulnerabilities(self, info):
         """Resolve closed vulnerabilities attribute."""
         vulns_loader = info.context.loaders['vulnerability']
@@ -128,6 +136,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
 
         return self.closed_vulnerabilities
 
+    @get_entity_cache
     def resolve_tracking(self, info):
         """Resolve tracking attribute."""
         if self.release_date:
@@ -143,6 +152,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
             self.tracking = []
         return self.tracking
 
+    @get_entity_cache
     def resolve_records(self, info):
         """ Resolve compromised records attribute """
         del info
@@ -165,6 +175,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
 
         return self.cvss_version
 
+    @get_entity_cache
     def resolve_exploit(self, info):
         """ Resolve exploit attribute """
         del info
@@ -180,6 +191,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.evidence
 
+    @get_entity_cache
     def resolve_comments(self, info):
         """ Resolve comments attribute """
 
@@ -191,6 +203,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         return self.comments
 
     @require_role(['analyst', 'admin'])
+    @get_entity_cache
     def resolve_observations(self, info):
         """ Resolve observations attribute """
         self.observations = list_comments(
@@ -328,6 +341,7 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.category
 
+    @get_entity_cache
     def resolve_state(self, info):
         """ Resolve state attribute """
         vulns_loader = info.context.loaders['vulnerability']

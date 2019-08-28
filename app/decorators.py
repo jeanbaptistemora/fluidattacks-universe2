@@ -13,6 +13,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_protect
 from graphql import GraphQLError
+from promise import Promise
 from rediscluster.nodemanager import RedisClusterException
 
 from app import util
@@ -297,14 +298,16 @@ def get_entity_cache(func):
         """Get cached response from function if it exists."""
         gql_ent = args[0]
         uniq_id = str(gql_ent)
-        key_name = func.__name__ + '_' + uniq_id
+        params = '_'.join([kwargs[key] for key in kwargs]) + '_'
+        key_name = func.__name__ + '_' + (params if kwargs else '') + uniq_id
         key_name = key_name.lower()
         try:
             ret = cache.get(key_name)
-            if ret:
-                return ret
-            ret = func(*args, **kwargs)
-            cache.set(key_name, ret, timeout=CACHE_TTL)
+            if ret is None:
+                ret = func(*args, **kwargs)
+                if isinstance(ret, Promise):
+                    ret = ret.get()
+                cache.set(key_name, ret, timeout=CACHE_TTL)
             return ret
         except RedisClusterException:
             rollbar.report_exc_info()
