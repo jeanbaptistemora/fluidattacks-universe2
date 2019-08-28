@@ -28,12 +28,9 @@ NON_EXISTANT_CODE = CODE_DIR + 'notExists.config'
 
 def test_is_header_x_powered_by_present_open():
     """Config file has X-Powered present."""
-    assert dotnetconfig.is_header_x_powered_by_present(INSECURE_WEBCONF)
-
-
-def test_is_header_x_powered_by_present_in_dir_open():
-    """Config file has X-Powered present."""
-    assert dotnetconfig.is_header_x_powered_by_present(CODE_DIR)
+    assert dotnetconfig.is_header_x_powered_by_present(
+        INSECURE_WEBCONF).is_open()
+    assert dotnetconfig.is_header_x_powered_by_present(CODE_DIR).is_open()
 
 
 def test_has_ssl_disabled_open():
@@ -67,10 +64,12 @@ def test_not_custom_error_open():
 
 def test_is_header_x_powered_by_present_close():
     """Config file has X-Powered present."""
-    assert not dotnetconfig.is_header_x_powered_by_present(SECURE_WEBCONF)
-    assert not dotnetconfig.is_header_x_powered_by_present(CODE_DIR,
-                                                           exclude=['test'])
-    assert not dotnetconfig.is_header_x_powered_by_present(NON_EXISTANT_CODE)
+    assert dotnetconfig.is_header_x_powered_by_present(
+        SECURE_WEBCONF).is_closed()
+    assert dotnetconfig.is_header_x_powered_by_present(
+        CODE_DIR, exclude=['test']).is_closed()
+    assert dotnetconfig.is_header_x_powered_by_present(
+        NON_EXISTANT_CODE).is_unknown()
 
 
 def test_has_ssl_disabled_close():

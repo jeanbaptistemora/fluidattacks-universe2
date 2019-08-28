@@ -3,19 +3,23 @@
 """This module allows to check Web.config code vulnerabilities."""
 
 # standard imports
+import os
 from copy import copy
+from typing import List
 
 # 3rd party imports
-from pyparsing import (makeXMLTags, Suppress, MatchFirst, withAttribute,
-                       htmlComment, OneOrMore)
+from bs4 import BeautifulSoup
+from bs4.element import Tag
+from pyparsing import makeXMLTags, withAttribute, htmlComment
 
 # local imports
-from fluidasserts.helper import lang
+from fluidasserts import Unit, LOW, OPEN, CLOSED, UNKNOWN, SAST
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
-from fluidasserts.utils.generic import get_sha256
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts.helper import lang
+from fluidasserts.utils.generic import get_sha256, get_paths
+from fluidasserts.utils.decorators import notify, level, track, api
 
 
 LANGUAGE_SPECS = {
@@ -35,11 +39,9 @@ def _get_block(file_lines, line) -> str:
     return "".join(file_lines[line - 1:])
 
 
-@notify
-@level('low')
-@track
+@api(risk=LOW, kind=SAST)
 def is_header_x_powered_by_present(webconf_dest: str,
-                                   exclude: list = None) -> bool:
+                                   exclude: list = None) -> tuple:
     """
     Search for X-Powered-By headers in a Web.config source file or package.
 
@@ -47,43 +49,44 @@ def is_header_x_powered_by_present(webconf_dest: str,
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
     """
-    tk_tag_s, _ = makeXMLTags('customHeaders')
-    tk_add_tag, _ = makeXMLTags('add')
-    tk_clear_tag, _ = makeXMLTags('clear')
-    tk_remove_tag, _ = makeXMLTags('remove')
-    tk_remove_tag.setParseAction(withAttribute(name='X-Powered-By'))
-    tk_child_tag = MatchFirst(
-        [Suppress(tk_add_tag), Suppress(tk_clear_tag), tk_remove_tag])
-    result = False
-    try:
-        custom_headers = lang.check_grammar(tk_tag_s, webconf_dest,
-                                            LANGUAGE_SPECS, exclude)
-        if not custom_headers:
-            show_unknown('Not files matched',
-                         details=dict(code_dest=webconf_dest))
-            return False
-    except FileNotFoundError:
-        show_unknown('File does not exist',
-                     details=dict(code_dest=webconf_dest))
-        return False
+    if not os.path.exists(webconf_dest):
+        return UNKNOWN, 'Path does not exist'
 
-    tk_rem = Suppress(tk_tag_s) + OneOrMore(tk_child_tag)
+    msg_open: str = 'XML has not a tag to remove X-Powered-By'
+    msg_closed: str = 'XML has a tag to remove X-Powered-By'
 
-    vulns = {}
-    for code_file, val in custom_headers.items():
-        vulns.update(lang.block_contains_empty_grammar(tk_rem,
-                                                       code_file, val['lines'],
-                                                       _get_block))
+    vulns: List[Unit] = []
+    safes: List[Unit] = []
+
+    endswith = LANGUAGE_SPECS['extensions']
+    exclude = tuple(exclude) if exclude else tuple()
+    for path in get_paths(webconf_dest, endswith=endswith, exclude=exclude):
+        with open(path, 'r', encoding='latin-1') as file_desc:
+            soup = BeautifulSoup(file_desc.read(), features="xml")
+
+        has_remove_banner: bool = False
+
+        for custom_headers in soup('customHeaders'):
+            for tag in custom_headers.contents:
+                if isinstance(tag, Tag):
+                    tag_name = tag.name
+                    tag_value = tag.attrs.get('name')
+                    if tag_name == 'remove' and tag_value == 'X-Powered-By':
+                        has_remove_banner = True
+
+        vulnerable: bool = not has_remove_banner
+
+        unit: Unit = Unit(
+            where=path,
+            source=f'XML/Tag/customHeaders/remove/X-Powered-By',
+            specific=[msg_open if vulnerable else msg_closed],
+            fingerprint=get_sha256(path))
+
+        (vulns if vulnerable else safes).append(unit)
+
     if vulns:
-        show_open('Header "X-Powered-By" is present',
-                  details=dict(matched=vulns,
-                               total_lines=len(custom_headers)))
-        result = True
-    else:
-        show_close('Header "X-Powered-By" is not present',
-                   details=dict(file=webconf_dest,
-                                fingerprint=get_sha256(webconf_dest)))
-    return result
+        return OPEN, msg_open, vulns, safes
+    return CLOSED, msg_closed, vulns, safes
 
 
 @notify
