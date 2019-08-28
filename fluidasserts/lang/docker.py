@@ -3,14 +3,13 @@
 """This module allows to check vulnerabilities in Dockerfiles."""
 
 # standard imports
-import os
 from typing import Dict, Any
 
 # 3rd party imports
 from pyparsing import Regex, Keyword, Optional, Combine, ZeroOrMore
 
 # local imports
-from fluidasserts import OPEN, CLOSED, UNKNOWN, LOW, SAST
+from fluidasserts import OPEN, CLOSED, LOW, SAST
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
 
@@ -49,21 +48,19 @@ def not_pinned(file_dest: str, exclude: list = None) -> tuple:
     :returns: True if unpinned (bad), False if pinned (good).
     :rtype: :class:`fluidasserts.Result`
     """
-    if not os.path.exists(file_dest):
-        return UNKNOWN, 'File does not exist'
-
-    pinned = Keyword('FROM') + D_NAME + Optional(':' + D_TAG)
-    pinned.setDefaultWhitespaceChars(' \t\r')
-    pinned.addCondition(
+    grammar = Keyword('FROM') + D_NAME + Optional(':' + D_TAG)
+    grammar.setDefaultWhitespaceChars(' \t\r')
+    grammar.addCondition(
         # x = ['FROM', 'D_NAME', ':', 'D_TAG']
         lambda x: len(x) == 2 or (len(x) == 4 and x[3] == 'latest'))
 
-    vulns, safes = \
-        lang.check_grammar2(pinned, file_dest, LANGUAGE_SPECS, exclude)
-
-    if vulns:
-        return OPEN, 'Dockerfile uses unpinned base image(s)', vulns
-    if safes:
-        return CLOSED, 'Dockerfile has pinned base image(s)', vulns, safes
-
-    return CLOSED, 'No files were tested'
+    return lang.generic_method(
+        path=file_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Dockerfile uses unpinned base image(s)',
+            CLOSED: 'Dockerfile has pinned base image(s)',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)

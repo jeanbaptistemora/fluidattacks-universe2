@@ -6,7 +6,7 @@
 import os
 
 # 3rd party imports
-from defusedxml.ElementTree import parse
+import defusedxml.ElementTree
 
 # local imports
 from fluidasserts import HIGH, SAST
@@ -31,9 +31,10 @@ def _get_requirements(path: str, exclude: tuple) -> set:
         return reqs
     endswith = ('packages.config',)
     for full_path in get_paths(path, endswith=endswith, exclude=exclude):
+        parsed = defusedxml.ElementTree.parse(full_path)
         reqs.update(
             (full_path, dep.attrib['id'], dep.attrib['version'])
-            for dep in parse(full_path).findall(".//package"))
+            for dep in parsed.findall(".//package"))
     return reqs
 
 

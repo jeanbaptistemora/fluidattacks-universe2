@@ -47,7 +47,7 @@ def uses_console_log(js_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=js_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code uses Console.log() method',
             CLOSED: 'Code does not use Console.log() method',
@@ -72,7 +72,7 @@ def uses_eval(js_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=js_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code uses eval() method',
             CLOSED: 'Code does not use eval() method',
@@ -97,7 +97,7 @@ def uses_localstorage(js_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=js_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code uses window.localStorage method',
             CLOSED: 'Code does not use window.localStorage method',
@@ -124,7 +124,7 @@ def has_insecure_randoms(js_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=js_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code uses Math.random() method',
             CLOSED: 'Code does not use Math.random() method',
@@ -161,7 +161,7 @@ def swallows_exceptions(js_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=js_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code has empty "catch" blocks',
             CLOSED: 'Code does not have empty "catch" blocks',
@@ -193,7 +193,7 @@ def has_switch_without_default(js_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=js_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code does not have "switch" with "default" clause',
             CLOSED: 'Code has "switch" with "default" clause',

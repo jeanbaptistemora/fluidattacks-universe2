@@ -66,7 +66,7 @@ def _declares_catch_for_exceptions(
     return lang.generic_method(
         path=csharp_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs=msgs,
         spec=LANGUAGE_SPECS,
         excl=exclude)
@@ -150,7 +150,7 @@ def swallows_exceptions(csharp_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=csharp_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code has empty "catch" blocks',
             CLOSED: 'Code does not have empty "catch" blocks',
@@ -183,7 +183,7 @@ def has_switch_without_default(
     return lang.generic_method(
         path=csharp_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code does not have "switch" with "default" clause',
             CLOSED: 'Code has "switch" with "default" clause',
@@ -215,7 +215,7 @@ def has_insecure_randoms(csharp_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=csharp_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code generates insecure random numbers',
             CLOSED: 'Code does not generate insecure random numbers',
@@ -268,7 +268,7 @@ def uses_md5_hash(csharp_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=csharp_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code uses MD5 hash',
             CLOSED: 'Code does not use MD5 hash',
@@ -297,7 +297,7 @@ def uses_sha1_hash(csharp_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=csharp_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code uses SHA1 hash',
             CLOSED: 'Code does not use SHA1 hash',
@@ -323,7 +323,7 @@ def uses_ecb_encryption_mode(csharp_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=csharp_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code uses CipherMode.ECB mode of operation',
             CLOSED: 'Code does not use CipherMode.ECB mode of operation',
@@ -352,7 +352,7 @@ def uses_debug_writeline(csharp_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=csharp_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code uses Debug.WriteLine method',
             CLOSED: 'Code does not use Debug.WriteLine method',
@@ -379,7 +379,7 @@ def uses_console_writeline(csharp_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=csharp_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code uses Console.WriteLine method',
             CLOSED: 'Code does not use Console.WriteLine method',

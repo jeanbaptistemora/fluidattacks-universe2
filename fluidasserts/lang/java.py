@@ -65,7 +65,7 @@ def _declares_catch_for_exceptions(
     return lang.generic_method(
         path=java_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs=msgs,
         spec=LANGUAGE_SPECS,
         excl=exclude)
@@ -168,7 +168,7 @@ def uses_print_stack_trace(java_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=java_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code uses Throwable.printStackTrace() method',
             CLOSED: 'Code does not use Throwable.printStackTrace() method'
@@ -199,7 +199,7 @@ def swallows_exceptions(java_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=java_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code has empty "catch" blocks',
             CLOSED: 'Code does not have empty "catch" blocks',
@@ -241,7 +241,7 @@ def does_not_handle_exceptions(java_dest: str,
     return lang.generic_method(
         path=java_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code has "catch" blocks that do not handle its exceptions',
             CLOSED: 'All "catch" blocks in code handles its exceptions',
@@ -273,7 +273,7 @@ def has_switch_without_default(java_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=java_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code does not have "switch" with "default" clause',
             CLOSED: 'Code has "switch" with "default" clause',
@@ -305,7 +305,7 @@ def has_insecure_randoms(java_dest: str, exclude: list = None) -> tuple:
     _random_mayus = Keyword('Random')
     _args = nestedExpr()
 
-    insecure_randoms = MatchFirst([
+    grammar = MatchFirst([
         # util.Random()
         _util + '.' + _random_mayus + _args,
         # Math.random()
@@ -315,14 +315,14 @@ def has_insecure_randoms(java_dest: str, exclude: list = None) -> tuple:
         # import java.lang.Math.random
         _import + _java + '.' + _lang + '.' + _math + '.' + _random_minus,
     ])
-    insecure_randoms.ignore(javaStyleComment)
-    insecure_randoms.ignore(L_CHAR)
-    insecure_randoms.ignore(L_STRING)
+    grammar.ignore(javaStyleComment)
+    grammar.ignore(L_CHAR)
+    grammar.ignore(L_STRING)
 
     return lang.generic_method(
         path=java_dest,
-        gmmr=insecure_randoms,
-        func=lang.path_contains_grammar2,
+        gmmr=grammar,
+        func=lang.parse,
         msgs={
             OPEN: 'Code uses insecure random generators',
             CLOSED: 'Code does not use insecure random generators',
@@ -373,7 +373,7 @@ def _uses_insecure_cipher(java_dest: str, algorithm: tuple,
     return lang.generic_method(
         path=java_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: f'Code uses {method} method',
             CLOSED: f'Code does not use {method} method',
@@ -395,7 +395,7 @@ def _uses_insecure_hash(java_dest: str, algorithm: tuple,
     return lang.generic_method(
         path=java_dest,
         gmmr=instance,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: f'Code uses {method} method',
             CLOSED: f'Code does not use {method} method',
@@ -506,7 +506,7 @@ def has_log_injection(java_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=java_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code allows logs injection',
             CLOSED: 'Code does not allow logs injection',
@@ -530,7 +530,7 @@ def uses_system_exit(java_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=java_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: f'Code uses {method} method',
             CLOSED: f'Code does not use {method} method',

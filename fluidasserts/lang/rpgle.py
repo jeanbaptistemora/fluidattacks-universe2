@@ -3,7 +3,6 @@
 """This module allows to check RPGLE code vulnerabilities."""
 
 # standard imports
-import os
 from typing import Dict, Any
 
 # 3rd party imports
@@ -12,7 +11,7 @@ from pyparsing import (CaselessKeyword, Keyword, Word, Optional,
                        MatchFirst, delimitedList)
 
 # local imports
-from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, UNKNOWN, SAST
+from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, SAST
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
 
@@ -43,25 +42,22 @@ def has_dos_dow_sqlcod(rpg_dest: str, exclude: list = None) -> tuple:
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
     """
-    if not os.path.exists(rpg_dest):
-        return UNKNOWN, 'File does not exist'
-
     tk_dow = CaselessKeyword('dow')
     tk_sqlcod = CaselessKeyword('sqlcod')
     tk_literal_zero = CaselessKeyword('*zeros')
 
     grammar = tk_dow + tk_sqlcod + '=' + ('0' | tk_literal_zero)
 
-    vulns, safes = \
-        lang.check_grammar2(grammar, rpg_dest, LANGUAGE_SPECS, exclude)
-
-    if vulns:
-        msg = 'Code does have DoS for using "DoW SQLCOD = 0"'
-        return OPEN, msg, vulns, safes
-    if safes:
-        msg = 'Code does not have DoS for using "DoW SQLCOD = 0"'
-        return CLOSED, msg, vulns, safes
-    return CLOSED, 'No files were tested'
+    return lang.generic_method(
+        path=rpg_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Code does have DoS for using "DoW SQLCOD = 0"',
+            CLOSED: 'Code does not have DoS for using "DoW SQLCOD = 0"',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
 @api(risk=LOW, kind=SAST)
@@ -73,9 +69,6 @@ def has_unitialized_vars(rpg_dest: str, exclude: list = None) -> tuple:
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
     """
-    if not os.path.exists(rpg_dest):
-        return UNKNOWN, 'File does not exist'
-
     tk_data = Keyword('D')
     tk_vartype = Word(alphas, exact=1)
     tk_varlen = Word(nums) + Word(alphas, exact=1)
@@ -84,14 +77,16 @@ def has_unitialized_vars(rpg_dest: str, exclude: list = None) -> tuple:
     grammar = tk_data + VAR_NAME + Optional(tk_vartype) + \
         Optional(tk_varlen) + Optional(Word(nums)) + NotAny(tk_inz)
 
-    vulns, safes = \
-        lang.check_grammar2(grammar, rpg_dest, LANGUAGE_SPECS, exclude)
-
-    if vulns:
-        return OPEN, 'Code has unitialized variables', vulns, safes
-    if safes:
-        return CLOSED, 'Code does not have unitialized variables', vulns, safes
-    return CLOSED, 'No files were tested'
+    return lang.generic_method(
+        path=rpg_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Code has unitialized variables',
+            CLOSED: 'Code does not have unitialized variables',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
 @api(risk=LOW, kind=SAST)
@@ -106,9 +101,6 @@ def has_generic_exceptions(rpg_dest: str, exclude: list = None) -> tuple:
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
     """
-    if not os.path.exists(rpg_dest):
-        return UNKNOWN, 'File does not exist'
-
     generics_list = ('*PROGRAM', '*FILE', '*ALL')
 
     generics = ERROR_CODES.copy()
@@ -117,15 +109,16 @@ def has_generic_exceptions(rpg_dest: str, exclude: list = None) -> tuple:
 
     grammar = ON_ERROR + generics
 
-    vulns, safes = \
-        lang.path_contains_grammar2(grammar, rpg_dest, LANGUAGE_SPECS, exclude)
-
-    if vulns:
-        return OPEN, 'Code has generic/empty monitors', vulns, safes
-    if safes:
-        return CLOSED, \
-            'Code does not have generic/empty monitors', vulns, safes
-    return CLOSED, 'No files were tested'
+    return lang.generic_method(
+        path=rpg_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Code has generic/empty monitors',
+            CLOSED: 'Code does not have generic/empty monitors',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
 @api(risk=LOW, kind=SAST)
@@ -139,9 +132,6 @@ def swallows_exceptions(rpg_dest: str, exclude: list = None) -> tuple:
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
     """
-    if not os.path.exists(rpg_dest):
-        return UNKNOWN, 'File does not exist'
-
     monitor = ON_ERROR + Optional(ERROR_CODES) + Optional(';')
     end_monitor = CaselessKeyword('endmon') + Optional(';')
     grammar = MatchFirst([
@@ -149,12 +139,13 @@ def swallows_exceptions(rpg_dest: str, exclude: list = None) -> tuple:
         monitor + monitor])
     grammar.ignore(cppStyleComment)
 
-    vulns, safes = lang.path_contains_grammar2(grammar, rpg_dest,
-                                               LANGUAGE_SPECS, exclude)
-
-    if vulns:
-        return OPEN, 'Code swallows exceptions', vulns, safes
-    if safes:
-        return CLOSED, 'Code does not swallow exceptions', vulns, safes
-
-    return CLOSED, 'No files were tested'
+    return lang.generic_method(
+        path=rpg_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Code swallows exceptions',
+            CLOSED: 'Code does not swallow exceptions',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)

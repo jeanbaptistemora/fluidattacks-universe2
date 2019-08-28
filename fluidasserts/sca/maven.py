@@ -6,8 +6,8 @@
 import os
 
 # 3rd party imports
+import defusedxml.ElementTree
 from pyparsing import Suppress, Keyword, MatchFirst, quotedString, Optional
-from defusedxml.ElementTree import parse
 
 # local imports
 from fluidasserts import HIGH, SAST
@@ -31,7 +31,7 @@ def _get_requirements_pom_xml(path: str, exclude: tuple) -> list:
     endswith = ('pom.xml',)
     namespaces = {'xmlns': 'http://maven.apache.org/POM/4.0.0'}
     for full_path in get_paths(path, endswith=endswith, exclude=exclude):
-        tree = parse(full_path)
+        tree = defusedxml.ElementTree.parse(full_path)
         root = tree.getroot()
         deps = root.findall(".//xmlns:dependency",
                             namespaces=namespaces)

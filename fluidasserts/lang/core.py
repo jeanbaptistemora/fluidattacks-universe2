@@ -56,7 +56,7 @@ def _generic_c_has_if_without_else(
     return lang.generic_method(
         path=location,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code has "if" without "else" clause',
             CLOSED: 'Code has "if" with "else" clause',
@@ -82,20 +82,18 @@ def has_text(code_dest: str, expected_text: str, use_regex: bool = False,
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     :rtype: :class:`fluidasserts.Result`
     """
-    if not os.path.exists(code_dest):
-        return UNKNOWN, 'File does not exist'
-
-    lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
-
     grammar = Regex(expected_text) if use_regex else Literal(expected_text)
-    vulns, safes = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
 
-    if vulns:
-        return OPEN, 'Text is present in code', vulns, safes
-    if safes:
-        return CLOSED, 'Bad text not present in code', vulns, safes
-
-    return CLOSED, 'No files were tested', vulns, safes
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Text is present in code',
+            CLOSED: 'Bad text not present in code',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
 @api(risk=LOW, kind=SAST)
@@ -115,21 +113,19 @@ def has_not_text(code_dest: str, expected_text: str, use_regex: bool = False,
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     :rtype: :class:`fluidasserts.Result`
     """
-    if not os.path.exists(code_dest):
-        return UNKNOWN, 'File does not exist'
-
-    lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
-
     grammar = Regex(expected_text) if use_regex else Literal(expected_text)
 
-    safes, vulns = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
-
-    if vulns:
-        return OPEN, 'Expected text not present in code', vulns, safes
-    if safes:
-        return CLOSED, 'Expected text present in code', vulns, safes
-
-    return OPEN, 'No files were tested', vulns, safes
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Expected text not present in code',
+            CLOSED: 'Expected text present in code',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude,
+        reverse=True)
 
 
 @api(risk=LOW, kind=SAST)
@@ -158,8 +154,7 @@ def has_all_text(code_dest: str, expected_list: list, use_regex: bool = False,
     for expected in set(expected_list):
         grammar = Regex(expected) if use_regex else Literal(expected)
 
-        _vulns, _safes = \
-            lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
+        _vulns, _safes = lang.parse(grammar, code_dest, lang_specs, exclude)
 
         if not _vulns:
             return CLOSED, 'Not all expected text was found in code'
@@ -188,21 +183,21 @@ def has_any_text(code_dest: str, expected_list: list, use_regex: bool = False,
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     :rtype: :class:`fluidasserts.Result`
     """
-    if not os.path.exists(code_dest):
-        return UNKNOWN, 'File does not exist'
-
-    lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
-
     if use_regex:
         grammar = MatchFirst([Regex(x) for x in set(expected_list)])
     else:
         grammar = MatchFirst([Literal(x) for x in set(expected_list)])
 
-    vulns, safes = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
-
-    if vulns:
-        return OPEN, 'An expected text is present in code', vulns, safes
-    return CLOSED, 'No expected text was found in code', vulns, safes
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'An expected text is present in code',
+            CLOSED: 'No expected text was found in code',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
 @api(risk=LOW, kind=SAST)
@@ -223,21 +218,22 @@ def has_not_any_text(code_dest: str,
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     :rtype: :class:`fluidasserts.Result`
     """
-    if not os.path.exists(code_dest):
-        return UNKNOWN, 'File does not exist'
-
-    lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
-
     if use_regex:
         grammar = MatchFirst([Regex(x) for x in set(expected_list)])
     else:
         grammar = MatchFirst([Literal(x) for x in set(expected_list)])
 
-    vulns, safes = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
-
-    if vulns:
-        return CLOSED, 'Expected text is present in code', vulns, safes
-    return OPEN, 'No expected text was found in code', vulns, safes
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Text is present in code',
+            CLOSED: 'No expected text was found in code',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude,
+        reverse=True)
 
 
 @api(risk=LOW, kind=SAST)
@@ -321,21 +317,17 @@ def has_weak_cipher(code_dest: str, expected_text: str,
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     :rtype: :class:`fluidasserts.Result`
     """
-    if not os.path.exists(code_dest):
-        return UNKNOWN, 'File does not exist'
-
-    lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
-
     grammar = Literal(b64encode(expected_text.encode()).decode())
-    vulns, safes = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
-
-    if vulns:
-        msg = 'Code has confidential data encoded in base64'
-        return OPEN, msg, vulns, safes
-    msg = 'No files were tested'
-    if safes:
-        msg = 'Code does not have confidential data encoded in base64'
-    return CLOSED, msg, vulns, safes
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Code has confidential data encoded in base64',
+            CLOSED: 'Code does not have confidential data encoded in base64',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
 @api(risk=HIGH, kind=SAST)
@@ -355,19 +347,18 @@ def has_secret(code_dest: str, secret: str, use_regex: bool = False,
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     :rtype: :class:`fluidasserts.Result`
     """
-    if not os.path.exists(code_dest):
-        return UNKNOWN, 'File does not exist'
-
-    lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
-
     grammar = Regex(secret) if use_regex else Literal(secret)
 
-    vulns, safes = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
-    if vulns:
-        return OPEN, 'Secret found in code', vulns, safes
-    if safes:
-        return CLOSED, 'Secret not found in code', vulns, safes
-    return CLOSED, 'No files were tested'
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Secret found in code',
+            CLOSED: 'Secret not found in code',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
 @api(risk=HIGH, kind=SAST)
@@ -387,25 +378,21 @@ def has_any_secret(code_dest: str, secrets_list: list, use_regex: bool = False,
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     :rtype: :class:`fluidasserts.Result`
     """
-    if not os.path.exists(code_dest):
-        return UNKNOWN, 'File does not exist'
-
-    lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
-
     if use_regex:
         grammar = MatchFirst([Regex(x) for x in set(secrets_list)])
     else:
         grammar = MatchFirst([Literal(x) for x in set(secrets_list)])
 
-    vulns, safes = lang.check_grammar2(grammar, code_dest, lang_specs, exclude)
-
-    if vulns:
-        msg = 'Some of the expected secrets are present in code'
-        return OPEN, msg, vulns
-    msg = 'No files were tested'
-    if safes:
-        msg = 'None of the expected secrets were found in code'
-    return CLOSED, msg, vulns, safes
+    return lang.generic_method(
+        path=code_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Some of the expected secrets are present in code',
+            CLOSED: 'None of the expected secrets were found in code',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
 
 
 @api(risk=MEDIUM, kind=SAST)
@@ -421,17 +408,14 @@ def uses_unencrypted_sockets(code_dest: str,
                        fluidasserts.lang.java.LANGUAGE_SPECS for an example.
     :rtype: :class:`fluidasserts.Result`
     """
-    if not os.path.exists(code_dest):
-        return UNKNOWN, 'File does not exist'
-
     unencrypted_re = re.compile(r'^ws://.*$', flags=re.I)
-    unencrypted_grammar = MatchFirst([QuotedString('"'), QuotedString("'")])
-    unencrypted_grammar.addCondition(lambda x: unencrypted_re.search(x[0]))
+    grammar = MatchFirst([QuotedString('"'), QuotedString("'")])
+    grammar.addCondition(lambda x: unencrypted_re.search(x[0]))
 
     return lang.generic_method(
         path=code_dest,
-        gmmr=unencrypted_grammar,
-        func=lang.path_contains_grammar2,
+        gmmr=grammar,
+        func=lang.parse,
         msgs={
             OPEN: 'Code uses web sockets over an encrypted channel',
             CLOSED: 'Code does not use web sockets over an encrypted channel',

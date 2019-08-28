@@ -41,7 +41,7 @@ def _get_vuln_line(path: str, pkg: str, ver: str) -> int:
 
     grammar = Regex(regex, flags=re.MULTILINE | re.DOTALL)
 
-    matches, not_matches = lang._path_contains_grammar2(grammar, path)
+    matches, not_matches = lang._parse(grammar, path)
 
     if not_matches:
         # We were unable to find the package (and version) on that file

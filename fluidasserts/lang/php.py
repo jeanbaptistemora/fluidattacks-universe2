@@ -37,7 +37,7 @@ def has_preg_ce(php_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=php_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code may allow RCE using preg_replace()',
             CLOSED: 'Code does not allow RCE using preg_replace()',

@@ -38,7 +38,8 @@ def test_open_has_text():
 def test_open_has_not_text():
     """Test code does not have text."""
     assert core.has_not_text(BAD_CODE, 'strncpy').is_open()
-    assert core.has_not_text(CODE_DIR, 'strcpy', exclude=['test']).is_open()
+    # No files are tested in this test, so it's closed
+    assert core.has_not_text(CODE_DIR, 'strcpy', exclude=['test']).is_closed()
     assert core.has_not_text(CODE_DIR, 'strncpyasda').is_open()
 
 

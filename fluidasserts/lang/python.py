@@ -129,7 +129,7 @@ def _declares_catch_for_exceptions(
     return lang.generic_method(
         path=py_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs=msgs,
         spec=LANGUAGE_SPECS,
         excl=exclude)
@@ -226,7 +226,7 @@ def swallows_exceptions(py_dest: str, exclude: list = None) -> tuple:
     return lang.generic_method(
         path=py_dest,
         gmmr=grammar,
-        func=lang.path_contains_grammar2,
+        func=lang.parse,
         msgs={
             OPEN: 'Code has empty "catches"',
             CLOSED: 'Code does not have empty "catches"'
