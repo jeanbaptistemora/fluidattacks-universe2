@@ -1,7 +1,9 @@
+# Provides the runner orchestator for gitlab.com/fluidsignal
+
 image: gitlab/gitlab-runner:alpine
 imagePullPolicy: Always
 gitlabUrl: https://gitlab.com/
-runnerRegistrationToken: $FA_RUNNER_TOKEN
+runnerRegistrationToken: $FS_RUNNER_TOKEN
 unregisterRunners: true
 rbac:
   create: true

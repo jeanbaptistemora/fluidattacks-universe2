@@ -1,0 +1,35 @@
+# Provides the runner orchestator for gitlab.com/fluidattacks
+
+image: gitlab/gitlab-runner:alpine
+imagePullPolicy: Always
+gitlabUrl: https://gitlab.com/
+runnerRegistrationToken: $FA_RUNNER_TOKEN
+unregisterRunners: true
+rbac:
+  create: true
+concurrent: 30
+checkInterval: 10
+metrics:
+  enabled: false
+runners:
+  image: debian:stable-slim
+  imagePullPolicy: always
+  imagePullSecrets:
+    - gitlab-reg
+    - jfrog-reg
+  privileged: false
+  builds:
+    cpuLimit: 900m
+    memoryLimit: 5Gi
+    cpuRequests: 500m
+    memoryRequests: 1Gi
+resources:
+  limits:
+    memory: 256Mi
+    cpu: 200m
+  requests:
+    memory: 128Mi
+    cpu: 100m
+envVars:
+  - name: RUNNER_EXECUTOR
+    value: kubernetes
