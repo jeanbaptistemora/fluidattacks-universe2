@@ -157,6 +157,16 @@ def test_cli_dns():
             assert not cli.main()
 
 
+def test_cli_apk():
+    """Run CLI apk option."""
+    os.environ['FA_STRICT'] = 'false'
+    os.environ['FA_NOTRACK'] = 'true'
+    testargs = ["asserts", "--apk", 'test/static/format/apk/close/signed.apk']
+    with patch.object(sys, 'argv', testargs):
+        with pytest.raises(SystemExit):
+            assert not cli.main()
+
+
 def test_cli_lang():
     """Run CLI lang option."""
     os.environ['FA_STRICT'] = 'true'

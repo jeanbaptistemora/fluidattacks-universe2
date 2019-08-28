@@ -648,6 +648,33 @@ def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
                          enable_multiprocessing=enable_multiprocessing)
 
 
+def exec_apk_package(apks):
+    """Execute generic checks of APK module."""
+    template = textwrap.dedent("""\
+        from fluidasserts.format import apk
+        """)
+    for apk in apks:
+        template += textwrap.dedent("""
+            apk.is_unsigned('{apk}')
+            apk.not_checks_for_root('{apk}')
+            apk.uses_dangerous_perms('{apk}')
+            apk.has_fragment_injection('{apk}')
+            apk.webview_caches_javascript('{apk}')
+            apk.webview_allows_resource_access('{apk}')
+            apk.not_forces_updates('{apk}')
+            apk.not_verifies_ssl_hostname('{apk}')
+            apk.not_pinned_certs('{apk}')
+            apk.allows_user_ca('{apk}')
+            apk.has_debug_enabled('{apk}')
+            apk.not_obfuscated('{apk}')
+            apk.uses_insecure_delete('{apk}')
+            apk.uses_http_resources('{apk}')
+            apk.socket_uses_getinsecure('{apk}')
+            apk.allows_backup('{apk}')
+            """).replace('{apk}', apk)
+    return exec_wrapper('built-in APK package', template)
+
+
 def exec_dns_package(nameservers):
     """Execute generic checks of DNS package."""
     template = textwrap.dedent("""\
@@ -788,6 +815,8 @@ def get_content(args):
         content += exec_ssl_package(args.ssl, args.multiprocessing)
     if args.dns:
         content += exec_dns_package(args.dns)
+    if args.apk:
+        content += exec_apk_package(args.apk)
     if args.lang:
         content += exec_lang_package(args.lang, args.multiprocessing)
     if args.aws:
@@ -848,6 +877,9 @@ def main():
     argparser.add_argument('--dns', nargs='+', metavar='NS',
                            help=('perform generic DNS checks '
                                  'over given nameserver'))
+    argparser.add_argument('--apk', nargs='+', metavar='APK',
+                           help=('perform generic APK checks '
+                                 'over given APK file(s)'))
     argparser.add_argument('--lang', nargs='+', metavar='FILE/DIR',
                            help=('perform static security checks '
                                  'over given files or directories'))
@@ -862,7 +894,8 @@ def main():
 
     if not args.exploits and not args.http \
        and not args.ssl and not args.dns \
-       and not args.lang and not args.aws:
+       and not args.lang and not args.aws \
+       and not args.apk:
         argparser.print_help()
         exit_asserts('config-error')
 
