@@ -7,8 +7,10 @@
 
 == 1. Description
 
-+Asserts+ is an *automated closing engine* which closes security findings
-over execution environments (+DAST+).
++Asserts+ is an engine that automates attacks
+to verify the status (+open+ or +closed+)
+of vulnerabilities found by a security analyst.
++Asserts+ can be included in +CI/CD+ environments as security gate.
 
 .Use case
 image::asserts.svg[Asserts]
