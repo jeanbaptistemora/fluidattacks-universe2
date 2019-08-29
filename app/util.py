@@ -3,13 +3,18 @@
 from __future__ import absolute_import
 import collections
 from datetime import datetime
+import binascii
 import hashlib
 import logging
 import logging.config
 import re
+import secrets
 import pytz
 import rollbar
 
+from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
+from cryptography.hazmat.backends import default_backend
+from cryptography.exceptions import InvalidKey
 from magic import Magic
 from django.conf import settings
 from django.http import JsonResponse
@@ -25,6 +30,10 @@ from .exceptions import InvalidAuthorization
 
 logging.config.dictConfig(settings.LOGGING)
 LOGGER = logging.getLogger(__name__)
+NUMBER_OF_BYTES = 32  # length of the key
+SCRYPT_N = 2**14  # cpu/memory cost
+SCRYPT_R = 8  # block size
+SCRYPT_P = 1  # parallelization
 
 
 def response(data, message, error):
@@ -321,3 +330,45 @@ def calculate_datediff_since(start_date):
     start_date = start_date.replace(tzinfo=tzn).date()
     final_date = (datetime.now(tz=tzn).date() - start_date)
     return final_date
+
+
+def calculate_hash_token():
+    api_token = secrets.token_bytes(NUMBER_OF_BYTES)
+    salt = secrets.token_bytes(NUMBER_OF_BYTES)
+    backend = default_backend()
+    token_hashed = Scrypt(
+        salt=salt,
+        length=NUMBER_OF_BYTES,
+        n=SCRYPT_N,
+        r=SCRYPT_R,
+        p=SCRYPT_P,
+        backend=backend
+    ).derive(api_token)
+
+    return {
+        'token_hashed': binascii.hexlify(token_hashed),
+        'api_token': binascii.hexlify(api_token),
+        'salt': binascii.hexlify(salt)
+    }
+
+
+def verificate_hash_token(access_token, api_token):
+    resp = False
+    backend = default_backend()
+    token_hashed = Scrypt(
+        salt=binascii.unhexlify(access_token['access_token']['salt']),
+        length=NUMBER_OF_BYTES,
+        n=SCRYPT_N,
+        r=SCRYPT_R,
+        p=SCRYPT_P,
+        backend=backend
+    )
+    try:
+        token_hashed.verify(
+            binascii.unhexlify(api_token),
+            binascii.unhexlify(access_token['access_token']['api_token']))
+        resp = True
+    except InvalidKey:
+        rollbar.report_message('Error: Access token does not match', 'error')
+
+    return resp

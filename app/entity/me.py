@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 from datetime import datetime, timedelta
-import secrets
 
 from django.conf import settings
 from google.auth.transport import requests
@@ -19,8 +18,6 @@ from app.entity.project import Project
 from app.services import is_customeradmin
 
 from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
-
-NUMBER_OF_BYTES = 32
 
 
 class Me(ObjectType):
@@ -130,8 +127,7 @@ class UpdateAccessToken(Mutation):
     def mutate(_, info):
         user_info = util.get_jwt_content(info.context)
         email = user_info['user_email']
-        api_token = secrets.token_hex(NUMBER_OF_BYTES)
-
+        token_data = util.calculate_hash_token()
         session_jwt = jwt.encode(
             {
                 'user_email': email,
@@ -140,12 +136,13 @@ class UpdateAccessToken(Mutation):
                     email, ['company'])['company'],
                 'first_name': user_info['first_name'],
                 'last_name': user_info['last_name'],
-                'api_token': api_token
+                'api_token': token_data['api_token']
             },
             algorithm='HS512',
             key=settings.JWT_SECRET
         )
-        success = update_access_token(email, api_token)
+
+        success = update_access_token(email, token_data)
         return UpdateAccessToken(success, session_jwt)
 
 
