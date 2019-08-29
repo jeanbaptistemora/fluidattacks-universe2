@@ -194,9 +194,9 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     @get_entity_cache
     def resolve_comments(self, info):
         """ Resolve comments attribute """
+        del info
 
         self.comments = list_comments(
-            user_email=util.get_jwt_content(info.context)['user_email'],
             comment_type='comment,verification',
             finding_id=self.id
         )
@@ -206,8 +206,9 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     @get_entity_cache
     def resolve_observations(self, info):
         """ Resolve observations attribute """
+        del info
+
         self.observations = list_comments(
-            user_email=util.get_jwt_content(info.context)['user_email'],
             comment_type='observation',
             finding_id=self.id
         )

@@ -208,11 +208,10 @@ def migrate_evidence_description(finding):
     return True
 
 
-def list_comments(user_email, comment_type, finding_id):
+def list_comments(comment_type, finding_id):
     comments = [{
         'content': comment['content'],
         'created': util.format_comment_date(comment['created']),
-        'created_by_current_user': comment['email'] == user_email,
         'email': comment['email'],
         'fullname': comment['fullname'],
         'id': int(comment['user_id']),

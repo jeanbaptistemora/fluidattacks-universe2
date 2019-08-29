@@ -18,10 +18,15 @@ export const loadComments: ((findingId: string, type: string, callbackFn: loadCa
     new Xhr().request(gQry, `An error occurred getting finding ${type}s`)
       .then((response: AxiosResponse) => {
         const { data } = response.data;
-
-        callbackFn(type === "comments"
+        let comments: ICommentStructure[] = type === "comments"
           ? data.finding.comments
-          : data.finding.observations);
+          : data.finding.observations;
+        comments = comments.map((comment: ICommentStructure): ICommentStructure => ({
+          ...comment,
+          created_by_current_user: comment.email === (window as Window & { userEmail: string }).userEmail,
+        }));
+
+        callbackFn(comments);
       })
       .catch((error: AxiosError) => {
         if (error.response !== undefined) {
