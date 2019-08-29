@@ -74,19 +74,20 @@
       </div>
       <table class="meta-table">
         <tr>
-          <td class="meta-data">
+          <!-- Metadata: Author, Comment, Tags, Date -->
+          <td class="db dtc-ns">
             {% for author in article.authors %}
-              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/user.png" alt="{{ gettext('Articles-icon-alt-1') }}"><a href="../../{{ author.url }}">{{ author }}</a>
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/user.png" alt="{{ gettext('Articles-icon-alt-1') }}"><a class="c-fluid-bk f5 ml1 relative tc ttc hv-fluid-dkred" href="../../{{ author.url }}">{{ author }}</a>
             {% endfor %}<br/>
           </td>
-          <td class="meta-data">
-            <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/comment.png" alt="{{ gettext('Articles-icon-alt-2') }}"><a href="./#disqus_thread">{{ gettext('Articles-icon-msg-1') }}</a><br/>
+          <td class="db dtc-ns">
+            <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/comment.png" alt="{{ gettext('Articles-icon-alt-2') }}"><a class="c-fluid-bk f5 ml1 relative tc ttc hv-fluid-dkred" href="./#disqus_thread">{{ gettext('Articles-icon-msg-1') }}</a><br/>
           </td>
-          <td class="meta-data">
-            <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Articles-icon-alt-3') }}"><a href="../../{{ category.url }}">{{ article.category|replace("-", " ") }}</a><br/>
+          <td class="db dtc-ns">
+            <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Articles-icon-alt-3') }}"><a class="c-fluid-bk f5 ml1 relative tc ttc hv-fluid-dkred" href="../../{{ category.url }}">{{ article.category|replace("-", " ") }}</a><br/>
           </td>
-    <td class="meta-data">
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png" alt="{{ gettext('Articles-icon-alt-4') }}"><p>{{ article.locale_date }}</p><br/>
+          <td class="db dtc-ns">
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png" alt="{{ gettext('Articles-icon-alt-4') }}"><p class="di f5 ml2 relative">{{ article.locale_date }}</p><br/>
           </td>
         </tr>
       </table>
@@ -96,7 +97,7 @@
       <div class="authorimg">
         <img class="imgwriter fl" src="{{ SITEURL }}/images/authors/{{ article.writer }}.png" alt="{{ gettext('Articles-author-alt') }}">
       </div>
-      <table class="authorinfo relative w-80">
+      <table class="authorinfo relative w-80 left-1">
         <tr><td>
             <p class="writer"><a href="{{ SITEURL }}/{{ article.author.url }} " class ="c-fluid-bk hv-fluid-dkred">{{article.name}}</a></p>
         </td></tr>
@@ -132,14 +133,16 @@
        <hr>
        <br />
        <div class="article-nav montsy">
-         <div class="prev-article">
+         <!-- prev article -->
+         <div class="dib vtop w-40 fl">
            {% if article.prev_article %}
-             <a href="{{ SITEURL }}/{{ article.prev_article.url}}">&lt;&nbsp;{{ article.prev_article.title }}</a>
+             <a class="c-fluid-red hv-fluid-dkred" href="{{ SITEURL }}/{{ article.prev_article.url}}">&lt;&nbsp;{{ article.prev_article.title }}</a>
            {% endif %}
          </div>
-         <div class="next-article tr">
+         <!-- next article -->
+         <div class="dib vtop w-40 tr fr">
            {% if article.next_article %}
-             <a href="{{ SITEURL }}/{{ article.next_article.url}}">{{ article.next_article.title }}&nbsp;&gt;</a>
+             <a class="c-fluid-red hv-fluid-dkred" href="{{ SITEURL }}/{{ article.next_article.url}}">{{ article.next_article.title }}&nbsp;&gt;</a>
            {% endif %}
          </div>
        </div>

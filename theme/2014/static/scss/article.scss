@@ -9,25 +9,6 @@ $lightblue: rgba(0, 133, 161, 1);
 $lightgray: rgba(211, 211, 211, 1);
 $white: rgba(255, 255, 255, 1);
 
-@mixin next-prev {
-  display: inline-block;
-  vertical-align: top;
-  width: 40%;
-
-  a {
-    color: $fluid-red;
-
-    &:hover {
-      color: $fluid-dark-red;
-    }
-  }
-}
-
-@mixin blank-cell {
-  padding: 0;
-  width: 100%;
-}
-
 .divarticle {
   padding: 25px;
 
@@ -49,50 +30,11 @@ $white: rgba(255, 255, 255, 1);
   margin: 15px 0;
 }
 
-.meta-data {
-  @include blank-cell;
-  display: block;
-
-  a {
-    color: $fluid-black;
-    font-size: 17px;
-    margin-left: 5px;
-    position: relative;
-    text-align: center;
-    text-transform: capitalize;
-    top: 3px;
-
-    &:hover {
-      color: $fluid-dark-red;
-    }
-  }
-
-  p {
-    display: inline;
-    font-size: 17px;
-    margin-left: 5px;
-    position: relative;
-    top: 3px;
-  }
-}
-
 .imgwriter {
   border-bottom-right-radius: 15px;
   border-top-left-radius: 15px;
   height: 90px;
   width: 90px;
-}
-
-.authorinfo {
-  left: 10px;
-
-  td {
-    @include blank-cell;
-
-    p {
-      margin: 0;
-    }
-  }
 }
 
 .related {
@@ -126,27 +68,12 @@ hr {
   margin-bottom: 40px;
 }
 
-.prev-article {
-  @include next-prev;
-  margin-right: 19%;
-}
-
-.next-article {
-  @include next-prev;
-}
-
 @media (min-width: 640px) {
 
   .meta-table {
     background-color: $white;
     display: table;
     width: 100%;
-  }
-
-  .meta-data {
-    display: table-cell;
-    text-align: center;
-    width: 25%;
   }
 
   .article-header {
