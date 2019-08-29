@@ -350,7 +350,7 @@ def has_if_without_else(
     :rtype: :class:`fluidasserts.Result`
     """
     return core._generic_c_has_if_without_else(
-        java_dest, conditions, use_regex, exclude)
+        java_dest, conditions, use_regex, LANGUAGE_SPECS, exclude)
 
 
 def _uses_insecure_cipher(java_dest: str, algorithm: tuple,

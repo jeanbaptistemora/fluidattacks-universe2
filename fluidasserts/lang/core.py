@@ -23,13 +23,12 @@ L_CHAR = QuotedString("'")
 # "anything"
 L_STRING = QuotedString('"')
 
-LANGUAGE_SPECS = {}  # type: dict
-
 
 def _generic_c_has_if_without_else(
         location: str,
         conditions: list,
         use_regex: bool = False,
+        lang_specs: dict = None,
         exclude: list = None) -> tuple:
     """Perform a generic has_if_without_else that can be reused."""
     no_else_found = '__no_else_found__'
@@ -61,7 +60,7 @@ def _generic_c_has_if_without_else(
             OPEN: 'Code has "if" without "else" clause',
             CLOSED: 'Code has "if" with "else" clause',
         },
-        spec=LANGUAGE_SPECS,
+        spec=lang_specs,
         excl=exclude)
 
 
@@ -92,7 +91,7 @@ def has_text(code_dest: str, expected_text: str, use_regex: bool = False,
             OPEN: 'Text is present in code',
             CLOSED: 'Bad text not present in code',
         },
-        spec=LANGUAGE_SPECS,
+        spec=lang_specs,
         excl=exclude)
 
 
@@ -123,7 +122,7 @@ def has_not_text(code_dest: str, expected_text: str, use_regex: bool = False,
             OPEN: 'Expected text not present in code',
             CLOSED: 'Expected text present in code',
         },
-        spec=LANGUAGE_SPECS,
+        spec=lang_specs,
         excl=exclude,
         reverse=True)
 
@@ -149,7 +148,8 @@ def has_all_text(code_dest: str, expected_list: list, use_regex: bool = False,
         return UNKNOWN, 'File does not exist'
 
     vulns, safes = [], []
-    lang_specs = LANGUAGE_SPECS if not lang_specs else lang_specs
+
+    lang_specs = lang_specs if lang_specs else {}
 
     for expected in set(expected_list):
         grammar = Regex(expected) if use_regex else Literal(expected)
@@ -196,7 +196,7 @@ def has_any_text(code_dest: str, expected_list: list, use_regex: bool = False,
             OPEN: 'An expected text is present in code',
             CLOSED: 'No expected text was found in code',
         },
-        spec=LANGUAGE_SPECS,
+        spec=lang_specs,
         excl=exclude)
 
 
@@ -231,7 +231,7 @@ def has_not_any_text(code_dest: str,
             OPEN: 'Text is present in code',
             CLOSED: 'No expected text was found in code',
         },
-        spec=LANGUAGE_SPECS,
+        spec=lang_specs,
         excl=exclude,
         reverse=True)
 
@@ -326,7 +326,7 @@ def has_weak_cipher(code_dest: str, expected_text: str,
             OPEN: 'Code has confidential data encoded in base64',
             CLOSED: 'Code does not have confidential data encoded in base64',
         },
-        spec=LANGUAGE_SPECS,
+        spec=lang_specs,
         excl=exclude)
 
 
@@ -357,7 +357,7 @@ def has_secret(code_dest: str, secret: str, use_regex: bool = False,
             OPEN: 'Secret found in code',
             CLOSED: 'Secret not found in code',
         },
-        spec=LANGUAGE_SPECS,
+        spec=lang_specs,
         excl=exclude)
 
 
@@ -391,7 +391,7 @@ def has_any_secret(code_dest: str, secrets_list: list, use_regex: bool = False,
             OPEN: 'Some of the expected secrets are present in code',
             CLOSED: 'None of the expected secrets were found in code',
         },
-        spec=LANGUAGE_SPECS,
+        spec=lang_specs,
         excl=exclude)
 
 
@@ -420,5 +420,5 @@ def uses_unencrypted_sockets(code_dest: str,
             OPEN: 'Code uses web sockets over an encrypted channel',
             CLOSED: 'Code does not use web sockets over an encrypted channel',
         },
-        spec=LANGUAGE_SPECS,
+        spec=lang_specs,
         excl=exclude)

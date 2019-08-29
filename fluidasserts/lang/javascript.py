@@ -221,4 +221,4 @@ def has_if_without_else(
     :rtype: :class:`fluidasserts.Result`
     """
     return core._generic_c_has_if_without_else(
-        js_dest, conditions, use_regex, exclude)
+        js_dest, conditions, use_regex, LANGUAGE_SPECS, exclude)

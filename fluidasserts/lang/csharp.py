@@ -243,7 +243,7 @@ def has_if_without_else(
     :rtype: :class:`fluidasserts.Result`
     """
     return core._generic_c_has_if_without_else(
-        csharp_dest, conditions, use_regex, exclude)
+        csharp_dest, conditions, use_regex, LANGUAGE_SPECS, exclude)
 
 
 @api(risk=MEDIUM, kind=SAST)
