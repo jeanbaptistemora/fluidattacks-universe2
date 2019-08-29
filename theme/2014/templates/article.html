@@ -55,38 +55,42 @@
 {% endblock breadcrumb %}
 {% block content %}
   <!-- Post Content -->
-  <div class="divarticle">
+  <div class="pa3">
     <article>
-      <div class="article-header">
-        <div class="rep-img-container relative">
+      <div class="df-l">
+        <!-- Article Cover -->
+        <div class="relative w-50-l fl-l pt3">
           <img src="{{ SITEURL }}/{{ article.url}}{{ article.image }}" alt="{{ article.alt }}" class="rep-img ma-auto bottom-0 top-0">
         </div>
-        <div class="article-title">
-          <h1>{{ article.title }}</h1>
+        <!-- Article Title -->
+        <div class="w-50-l fl-l">
+          <h1 class="tc tl-l pb3 mb0">{{ article.title }}</h1>
           {% if article.subtitle %}
-            <span class="subtitle">{{ article.subtitle }}</span>
+          <!-- Article subtitle -->
+            <span class="db tc tl-l i b f5 mt0">{{ article.subtitle }}</span>
           {% endif %}
           <br>
-          <div class="description">
+          <!-- Article Description -->
+          <div class="tc tl-l i f5 pb4-l">
             {{ article.description }}
           </div>
         </div>
       </div>
-      <table class="meta-table">
+      <table class="meta-table collapse mt2 mb2 w-100-ns bg-white dt-ns ">
         <tr>
           <!-- Metadata: Author, Comment, Tags, Date -->
-          <td class="db dtc-ns">
+          <td class="db dtc-ns pl4-l">
             {% for author in article.authors %}
               <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/user.png" alt="{{ gettext('Articles-icon-alt-1') }}"><a class="c-fluid-bk f5 ml1 relative tc ttc hv-fluid-dkred" href="../../{{ author.url }}">{{ author }}</a>
             {% endfor %}<br/>
           </td>
-          <td class="db dtc-ns">
+          <td class="db dtc-ns pl4-l">
             <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/comment.png" alt="{{ gettext('Articles-icon-alt-2') }}"><a class="c-fluid-bk f5 ml1 relative tc ttc hv-fluid-dkred" href="./#disqus_thread">{{ gettext('Articles-icon-msg-1') }}</a><br/>
           </td>
-          <td class="db dtc-ns">
+          <td class="db dtc-ns pl4-l">
             <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Articles-icon-alt-3') }}"><a class="c-fluid-bk f5 ml1 relative tc ttc hv-fluid-dkred" href="../../{{ category.url }}">{{ article.category|replace("-", " ") }}</a><br/>
           </td>
-          <td class="db dtc-ns">
+          <td class="db dtc-ns pl4-l">
             <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png" alt="{{ gettext('Articles-icon-alt-4') }}"><p class="di f5 ml2 relative">{{ article.locale_date }}</p><br/>
           </td>
         </tr>
@@ -109,13 +113,13 @@
         </td></tr>
       </table>
       <br/>
-      <hr>
+      <hr class="c-fluid-gray">
       {% if article.related_posts %}
         <h4>{{ gettext('Articles-related-sect') }}</h4>
           <section class="sect-related">
             {% for related_post in article.related_posts %}
-              <div class="related dit w-32">
-          <img src="{{ SITEURL }}/{{ related_post.url }}{{ related_post.featured_image }}" alt="related_post.alt"><br>
+              <div class="dit w-32 w-33-l">
+          <img class="mt2 mb2" src="{{ SITEURL }}/{{ related_post.url }}{{ related_post.featured_image }}" alt="related_post.alt"><br>
           <a href="{{ SITEURL }}/{{ related_post.url }}" class= "c-fluid-bk montsy b hv-fluid-dkred">{{ related_post.title }}</a>
         </div>
             {% endfor %}
@@ -123,16 +127,18 @@
        {% endif %}
        {% if article.tags %}
          <section>
-           <div class="tags overflow-hidden">
+           <!-- Tags -->
+           <div class="tags mt3 overflow-hidden">
              <p>{% for tag in article.tags %}
-               <a href="{{ SITEURL }}/{{ tag.url }} " class="bg-fluid-red white fl montsy b ttc">{{ tag | escape }}</a>
+               <a class="bg-fluid-red white fl montsy b ttc f6 pt1 pb1 pr2 pl2 mb3 mr1 pointer hv-fluid-dkred" href="{{ SITEURL }}/{{ tag.url }} ">{{ tag | escape }}</a>
              {% endfor %}</p>
            </div>
          </section>
        {% endif %}
-       <hr>
+       <hr class="c-fluid-gray" >
        <br />
-       <div class="article-nav montsy">
+       <!-- Article Nav -->
+       <div class="mb5 montsy">
          <!-- prev article -->
          <div class="dib vtop w-40 fl">
            {% if article.prev_article %}

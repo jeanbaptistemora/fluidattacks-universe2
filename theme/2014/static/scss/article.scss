@@ -1,23 +1,4 @@
-$darkgray: rgba(102, 102, 102, 1);
-$darkblue: rgba(29, 79, 114, 1);
-$fluid-black: rgba(39, 39, 39, 1);
-$fluid-dark-red: rgba(203, 50, 51, 1);
-$fluid-gray: rgba(176, 176, 176, 1);
 $fluid-light-gray: rgba(241, 241, 241, 1);
-$fluid-red: rgba(255, 52, 53, 1);
-$lightblue: rgba(0, 133, 161, 1);
-$lightgray: rgba(211, 211, 211, 1);
-$white: rgba(255, 255, 255, 1);
-
-.divarticle {
-  padding: 25px;
-
-  article {
-    h1 {
-      margin: 20px 0 10px;
-    }
-  }
-}
 
 .rep-img {
   border: 1px solid $fluid-light-gray;
@@ -25,80 +6,9 @@ $white: rgba(255, 255, 255, 1);
   width: 95%;
 }
 
-.meta-table {
-  border-collapse: collapse;
-  margin: 15px 0;
-}
-
 .imgwriter {
   border-bottom-right-radius: 15px;
   border-top-left-radius: 15px;
   height: 90px;
   width: 90px;
-}
-
-.related {
-
-  img {
-    margin: 10px 0;
-  }
-}
-
-.tags {
-  margin-top: 30px;
-
-  a {
-    font-size: 16px;
-    margin: 0 5px 40px 0;
-    padding: 5px 10px;
-
-    &:hover {
-      background-color: $fluid-dark-red;
-      color: $white;
-      cursor: pointer;
-    }
-  }
-}
-
-hr {
-  color: $fluid-gray;
-}
-
-.article-nav {
-  margin-bottom: 40px;
-}
-
-@media (min-width: 640px) {
-
-  .meta-table {
-    background-color: $white;
-    display: table;
-    width: 100%;
-  }
-
-  .article-header {
-    display: flex;
-
-    .rep-img-container {
-      width: 55%;
-
-      .rep-img {
-        height: fit-content;
-        position: absolute;
-      }
-    }
-
-    .article-title {
-      width: 45%;
-
-      h1 {
-        text-align: left;
-      }
-
-      .description,
-      .subtitle {
-        text-align: left;
-       }
-    }
-  }
 }
