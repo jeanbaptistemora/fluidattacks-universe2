@@ -6,6 +6,7 @@
 from __future__ import print_function
 import os
 import time
+from git import Repo
 from typing import Optional
 from multiprocessing import Process, cpu_count
 from multiprocessing.pool import Pool
@@ -188,6 +189,17 @@ def mock_graphql(request):
     prcs.daemon = True
     prcs.start()
     time.sleep(1.0)
+
+
+@pytest.fixture(scope='session', autouse=True)
+def clone_test_repositories(request):
+    """Clone a test repository."""
+    repos = {
+        'test_times_rxjava': 'https://github.com/ReactiveX/RxJava.git',
+    }
+    for name, url in repos.items():
+        if not os.path.exists(name):
+            Repo.clone_from(url, name, multi_options=['--depth 1'])
 
 
 @pytest.fixture()
