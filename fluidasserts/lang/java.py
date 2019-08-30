@@ -13,7 +13,7 @@ from pyparsing import (CaselessKeyword, Word, Literal, Optional, alphas,
                        Empty)
 
 # local imports
-from fluidasserts import Result, LOW, MEDIUM, OPEN, CLOSED, SAST
+from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, SAST
 from fluidasserts.lang import core
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
@@ -405,7 +405,7 @@ def _uses_insecure_hash(java_dest: str, algorithm: tuple,
 
 
 @api(risk=MEDIUM, kind=SAST)
-def uses_insecure_cipher(java_dest: str, algorithm: Result,
+def uses_insecure_cipher(java_dest: str, algorithm: str,
                          exclude: list = None) -> bool:
     """
     Check if code uses an insecure cipher algorithm.
@@ -422,7 +422,7 @@ def uses_insecure_cipher(java_dest: str, algorithm: Result,
 
 
 @api(risk=MEDIUM, kind=SAST)
-def uses_insecure_hash(java_dest: str, algorithm: Result,
+def uses_insecure_hash(java_dest: str, algorithm: str,
                        exclude: list = None) -> bool:
     """
     Check if code uses an insecure hashing algorithm.

@@ -195,11 +195,15 @@ def mock_graphql(request):
 def clone_test_repositories(request):
     """Clone a test repository."""
     repos = {
-        'test_times_rxjava': 'https://github.com/ReactiveX/RxJava.git',
+        'build/test_times_rxjava': {
+            'url': 'https://github.com/ReactiveX/RxJava.git',
+            'rev': '9a36930bff81770c98b5babe58621fd8e49dba2d',
+        }
     }
-    for name, url in repos.items():
+    for name, params in repos.items():
         if not os.path.exists(name):
-            Repo.clone_from(url, name, multi_options=['--depth 1'])
+            repo = Repo.clone_from(params['url'], name)
+            repo.head.reference = repo.create_head('__testing', params['rev'])
 
 
 @pytest.fixture()
