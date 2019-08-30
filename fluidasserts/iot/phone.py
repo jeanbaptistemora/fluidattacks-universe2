@@ -109,10 +109,10 @@ Max-Forwards: 70
 @notify
 @level('high')
 @track
-def unify_phone_has_default_credentials(hostname: str,
-                                        proto: str = 'https',
-                                        port: int = '443',
-                                        password: str = '123456') -> bool:
+def unify_has_default_credentials(hostname: str,
+                                  proto: str = 'https',
+                                  port: int = '443',
+                                  password: str = '123456') -> bool:
     """
     Check if Unify OpenScape Desk Phone IP 55G has default credentials.
 
@@ -162,10 +162,10 @@ def unify_phone_has_default_credentials(hostname: str,
 @notify
 @level('high')
 @track
-def polycom_phone_has_default_credentials(hostname: str,
-                                          proto: str = 'https',
-                                          port: int = '443',
-                                          password: str = '456') -> bool:
+def polycom_has_default_credentials(hostname: str,
+                                    proto: str = 'https',
+                                    port: int = '443',
+                                    password: str = '456') -> bool:
     """
     Check if Polycom SoundStation IP 6000 has default credentials.
 
