@@ -36,6 +36,7 @@ from flask import redirect
 from flask import request
 from flask import Response
 from flask import url_for
+from flask_httpauth import HTTPBasicAuth
 
 
 # local imports
@@ -46,6 +47,8 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf'}
 APP = Flask(__name__, static_folder='static', static_url_path='/static')
 
 APP.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+PM800_AUTH_FAIL = HTTPBasicAuth()
+PM800_AUTH_OK = HTTPBasicAuth()
 
 
 def allowed_file(filename):
@@ -978,6 +981,46 @@ def rest_hsts_fail():
     """Header que define mal implementacion de HSTS."""
     resp = Response('Expires FAIL')
     resp.headers['Strict-Transport-Security'] = 'Fail'
+    return resp
+
+
+@PM800_AUTH_FAIL.verify_password
+def pm800_default_creds(username, password):
+    """Check PM800 creds."""
+    pm800_default_creds = {
+        'Administrator': 'Gateway',
+        'Guest': 'Guest'
+    }
+    if username in pm800_default_creds:
+        return password == pm800_default_creds[username]
+    return False
+
+
+@APP.route('/pm800_default_creds/fail')
+@PM800_AUTH_FAIL.login_required
+def pm800_creds_fail():
+    """PM800 with default credentials."""
+    resp = Response('Welcome to PM800')
+    return resp
+
+
+@PM800_AUTH_OK.verify_password
+def pm800_no_default_creds(username, password):
+    """Check PM800 creds."""
+    pm800_default_creds = {
+        'Administrator': 'VerySecurePass',
+        'Guest': 'VerySecurePass'
+    }
+    if username in pm800_default_creds:
+        return password == pm800_default_creds[username]
+    return False
+
+
+@APP.route('/pm800_default_creds/ok')
+@PM800_AUTH_OK.login_required
+def pm800_creds_ok():
+    """PM800 with default credentials."""
+    resp = Response('Welcome to PM800')
     return resp
 
 

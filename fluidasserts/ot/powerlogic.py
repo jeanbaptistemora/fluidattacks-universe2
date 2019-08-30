@@ -19,7 +19,7 @@ from fluidasserts.utils.decorators import track, level, notify
 @notify
 @level('high')
 @track
-def pm800_has_default_credentials(host: str) -> bool:
+def pm800_has_default_credentials(url: str) -> bool:
     """
     Check if PowerLogic PM800 has default credentials.
 
@@ -36,20 +36,19 @@ def pm800_has_default_credentials(host: str) -> bool:
     working_creds = []
     for creds in default_creds:
         try:
-            url = f'http://{host}'
             sess = http.HTTPSession(url, auth=creds)
         except http.ConnError as exc:
             show_unknown('Could not connect',
-                         details=dict(hostname=host, url=url,
+                         details=dict(url=url,
                                       reason=str(exc).replace(':', ',')))
             return False
 
-        if sess.response.status_code == 200:
+        if sess.response.status_code == 200 and 'PM800' in sess.response.text:
             working_creds.append(creds)
     if working_creds:
         show_open('PowerLogic PM800 device has default credentials',
-                  details=dict(host=host, credentials=working_creds))
+                  details=dict(url=url, credentials=working_creds))
         return True
     show_close('PowerLogic PM800 device does not have default credentials',
-               details=dict(host=host))
+               details=dict(url=url))
     return False
