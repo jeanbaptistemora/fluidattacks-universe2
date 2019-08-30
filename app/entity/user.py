@@ -135,7 +135,8 @@ class GrantUserAccess(Mutation):
                 and new_user_data['role'] in ['admin', 'analyst', 'customer', 'customeradmin']) \
             or (is_customeradmin(project_name, user_data['user_email'])
                 and new_user_data['role'] in ['customer', 'customeradmin']):
-            if create_new_user(info.context, new_user_data, project_name):
+            if create_new_user(info.context, new_user_data,
+                               project_name, user_data['user_email']):
                 success = True
             else:
                 rollbar.report_message('Error: Couldn\'t grant access to project',
@@ -181,7 +182,7 @@ def validate_phone_field(phone_field):
         raise GraphQLError('Exception - Parameter is not valid')
 
 
-def create_new_user(context, new_user_data, project_name):
+def create_new_user(context, new_user_data, project_name, email):
     analizable_list = new_user_data.values()[1:-1]
     if (
         all(validate_field(field) for field in analizable_list) and
@@ -217,8 +218,9 @@ def create_new_user(context, new_user_data, project_name):
     else:
         util.cloudwatch_log(
             context,
-            'Security: ' + context.session['username'] + 'Attempted to add ' +
-            'responsibility to project ' + project_name + ' without validation'
+            'Security: {email} Attempted to add responsibility to project \
+                {project} without validation'.format(email=email,
+                                                     project=project_name)
         )
     if phone_number and phone_number[1:].isdigit():
         add_phone_to_user(email, phone_number)
@@ -232,7 +234,7 @@ def create_new_user(context, new_user_data, project_name):
             + project_name.lower() + '/indicators'
         mail_to = [email]
         context = {
-            'admin': context.session['username'],
+            'admin': email,
             'project': project_name,
             'project_description': description,
             'project_url': project_url,
@@ -320,7 +322,7 @@ class EditUser(Mutation):
             if integrates_dal.assign_role(modified_user_data['email'],
                                           modified_user_data['role']) is None:
                 modify_user_information(info.context, modified_user_data,
-                                        project_name)
+                                        project_name, user_data['user_email'])
                 success = True
             else:
                 rollbar.report_message('Error: Couldn\'t update user role',
@@ -346,7 +348,7 @@ class EditUser(Mutation):
         return ret
 
 
-def modify_user_information(context, modified_user_data, project_name):
+def modify_user_information(context, modified_user_data, project_name, email):
     role = modified_user_data['role']
     email = modified_user_data['email']
     responsibility = modified_user_data['responsibility']
@@ -360,16 +362,16 @@ def modify_user_information(context, modified_user_data, project_name):
     else:
         util.cloudwatch_log(
             context,
-            'Security: ' + context.session['username'] + 'Attempted to add ' +
-            'responsibility to project ' + project_name + ' bypassing validation'
-        )
+            'Security: {email} Attempted to add responsibility to project \
+                {project} bypassing validation'.format(email=email,
+                                                       project=project_name))
     if phone and phone[1:].isdigit():
         add_phone_to_user(email, phone)
     else:
         util.cloudwatch_log(
             context,
-            'Security: ' + context.session['username'] + 'Attempted to ' +
-            'edit user phone bypassing validation'
+            'Security: {email} Attempted to edit user phone bypassing \
+                validation'.format(email=email)
         )
 
     if role == 'customeradmin':
