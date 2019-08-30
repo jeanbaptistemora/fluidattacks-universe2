@@ -176,7 +176,7 @@ class ResourceTests(TestCase):
                 key=settings.JWT_SECRET,
             )
             request.FILES['document'] = File(test_file)
-            result = testing_client.execute(query, context_value=request)
+            result = testing_client.execute(query, context=request)
             assert 'errors' not in result
 
     def test_download_files(self):

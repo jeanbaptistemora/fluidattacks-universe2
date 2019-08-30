@@ -14,6 +14,11 @@ from app.entity.user import (validate_email_address,
 from app.api.schema import SCHEMA
 
 
+@pytest.mark.usefixtures(
+    'create_users_table',
+    'create_projects_table',
+    'create_project_access_table'
+)
 class UserTests(TestCase):
 
     def test_grant_user_access(self):
@@ -56,7 +61,7 @@ class UserTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = testing_client.execute(query, context_value=request)
+        result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert 'success' in result['data']['grantUserAccess']
 
@@ -88,8 +93,7 @@ class UserTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = testing_client.execute(query, context_value=request)
-        print result
+        result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert 'userData' in result['data']
 
@@ -133,9 +137,78 @@ class UserTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        result = testing_client.execute(query, context_value=request)
+        result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert 'success' in result['data']['grantUserAccess']
+
+    def test_remove_user(self):
+        testing_client = Client(SCHEMA)
+        query = '''
+            mutation {
+              removeUserAccess (
+                projectName: "unittesting"
+                userEmail: "test@test.test"
+                )
+                {
+                  removedEmail
+                  success
+                }
+            }
+        '''
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        result = testing_client.execute(query, context=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['removeUserAccess']
+
+    def test_edit_user(self):
+        testing_client = Client(SCHEMA)
+        query = '''
+            mutation {
+              editUser (
+                email: "test@test.testedited",
+                organization: "edited",
+                phoneNumber: "17364735",
+                projectName: "unittesting",
+                responsibility: "edited",
+                role: "customer") {
+                  success
+                }
+            }
+        '''
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        result = testing_client.execute(query, context=request)
+        assert 'errors' not in result
+        assert 'success' in result['data']['editUser']
 
     def test_validate_email_address(self):
         """makes sure that the email is being validated properly"""
