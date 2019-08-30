@@ -180,6 +180,27 @@ resource "aws_dynamodb_table" "findings" {
   }
 }
 
+resource "aws_dynamodb_table" "findings_new" {
+  name           = "fi_findings"
+  billing_mode   = "PAY_PER_REQUEST"
+  hash_key       = "finding_id"
+  range_key      = "project_id"
+
+  attribute {
+    name = "finding_id"
+    type = "S"
+  }
+
+  attribute {
+    name = "project_id"
+    type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+}
+
 resource "aws_dynamodb_table" "vulnerabilities" {
   name           = "FI_vulnerabilities"
   billing_mode   = "PAY_PER_REQUEST"
