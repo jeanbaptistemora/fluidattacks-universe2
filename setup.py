@@ -48,6 +48,8 @@ setup(
         'fluidasserts.sca',
         'fluidasserts.syst',
         'fluidasserts.utils',
+        'fluidasserts.ot',
+        'fluidasserts.iot',
     ],
     data_files=[
         ('', ['conf/conf.cfg', 'conf/conf.spec']),
