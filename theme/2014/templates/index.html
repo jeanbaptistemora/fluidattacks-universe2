@@ -31,34 +31,42 @@
 {% endblock breadcrumb %}
 
 {% block content %}
-  <div class="divindex">
+ <!-- Div Index -->
+  <div class="flex-ns flex-wrap-ns justify-between-m pt3 pb3 pl2 pr0">
+    <!-- Blog Posts -->
     {% for article in articles_page.object_list %}
-      <div class="blog-post">
+      <div class="ba1 shadow-1 mb3 relative dt-ns mt0-ns w-100 w-50-m w-30-l pr3-ns pl3-ns pt3 ma-auto">
         {% if  article.featured_image %}
           <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ article.alt }}">
         {% endif %}
-        <div class="post-preview">
+        <!-- Article Preview: Title, Description, Author, Tags ... -->
+        <div class="h-32em">
           <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
-            <h1 class="post-title">
+            <!-- Title -->
+            <h1 class="post-title c-fluid-bk mb0 tc hv-fluid-dkred f4">
               {{ article.title }}
             </h1>
           </a>
           {% if article.subtitle %}
-            <span class="subtitle c-fluid-bk db i tc">{{ article.subtitle }}</span>
+            <!-- Subtitle -->
+            <span class="db f5 c-fluid-bk db i tc b pt3">{{ article.subtitle }}</span>
           {% endif %}<br/>
-          <div class='post-info'>
-            <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png" alt="{{ gettext('Index-icon-alt-1') }}">
+          <div class='post-info tl pl2'>
+            <!-- Author -->
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png" alt="{{ gettext('Index-icon-alt-1') }}">
             {% for author in article.authors %}
-              <a class="aautor c-fluid-bk ttc hv-fluid-dkred " href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a><br/>
+              <a class=" c-fluid-bk ttc hv-fluid-dkred " href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a><br/>
             {% endfor %}
-            <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Index-icon-alt-2') }}">
-            <a class="aautor c-fluid-bk ttc hv-fluid-dkred " href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category|replace("-", " ") }}</a><br/>
-            <img class="imgprev" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Index-icon-alt-3') }}">
+            <!-- Category -->
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Index-icon-alt-2') }}">
+            <a class=" c-fluid-bk ttc hv-fluid-dkred " href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category|replace("-", " ") }}</a><br/>
+            <!-- Tags -->
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Index-icon-alt-3') }}">
             {% for tag in article.tags %}
               {% if loop.last %}
-                <a class="aautor c-fluid-bk ttc hv-fluid-dkred " href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a><br/>
+                <a class=" c-fluid-bk ttc hv-fluid-dkred " href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a><br/>
               {% else %}
-                <a class="aautor c-fluid-bk ttc hv-fluid-dkred " href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
+                <a class=" c-fluid-bk ttc hv-fluid-dkred " href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
               {% endif %}
             {% endfor %}
           </div>
@@ -66,7 +74,7 @@
             {% if article.has_summary %}
               {{ article.summary }}
             {% elif article.summary %}
-              {{ article.summary|striptags|truncate(320) }}
+              {{ article.summary|striptags|truncate(200) }}
             {% endif %}
           </p>
           <br><br>

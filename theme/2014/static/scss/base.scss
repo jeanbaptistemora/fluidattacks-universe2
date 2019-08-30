@@ -29,7 +29,7 @@ $tooltipblack: rgba(68, 68, 68, 1);
 $white: rgba(255, 255, 255, 1);
 $yellow: rgba(255, 255, 0, 1);
 
-// Tachyons special definitions:
+// Tachyons custom classes:
 
 .bg-fluid-red { background-color: $fluid-red;}
 .bg-fluid-gray { background-color: $fluid-gray;}
@@ -45,6 +45,7 @@ $yellow: rgba(255, 255, 0, 1);
 .grayscale { filter: grayscale(100);}
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-fluid-bk { &:hover { color: $fluid-black;} }
+.h-32em { height: 32em; }
 
 // End Tachyons
 
