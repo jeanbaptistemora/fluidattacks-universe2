@@ -29,8 +29,8 @@ def pm800_has_default_credentials(url: str) -> bool:
         ('Administrator', 'Gateway'),
         ('admin', '0'),
         ('8000', '0'),
-        ('user1', 'user2'),
-        ('user2', 'user2'),
+        ('user1', 'pass1'),
+        ('user2', 'pass2'),
         ('Guest', 'Guest')
     }
     working_creds = []

@@ -594,3 +594,30 @@ def is_exported(apk_file: str) -> bool:
     show_close('App data is not exported to other apps in device',
                details=dict(apk=apk_file))
     return False
+
+
+@notify
+@level('high')
+@track
+def has_frida(apk_file: str) -> bool:
+    """
+    Check if the given APK has Frida gadget embedded.
+
+    :param apk_file: Path to the image to be tested.
+    """
+    try:
+        apk_obj = APK(apk_file)
+    except FileNotFoundError as exc:
+        show_unknown('Error reading file',
+                     details=dict(apk=apk_file, error=str(exc)))
+        return False
+
+    frida = [x for x in apk_obj.get_files() if 'frida' in x]
+
+    if frida:
+        show_open('APK has frida gadget embedded',
+                  details=dict(apk=apk_file))
+        return True
+    show_close('APK doesn\' have frida gadget embedded',
+               details=dict(apk=apk_file))
+    return False

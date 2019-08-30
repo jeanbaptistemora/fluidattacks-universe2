@@ -14,6 +14,7 @@ from fluidasserts.format import apk
 
 # Constants
 DIVA_APK = 'test/static/format/apk/open/diva.apk'
+FRIDA_APK = 'test/static/format/apk/open/with_frida.apk'
 SSL_OPEN = 'test/static/format/apk/open/ssl_open.apk'
 HTTP_OPEN = 'test/static/format/apk/open/http_refs.apk'
 UNSAFE_DELETE_OPEN = 'test/static/format/apk/open/unsafe_delete.apk'
@@ -115,6 +116,12 @@ def test_exported_open():
     """Test if APK has exported data."""
     assert apk.is_exported(DIVA_APK)
 
+
+def test_frida_open():
+    """Test if APK Frida embedded."""
+    assert apk.has_frida(FRIDA_APK)
+
+
 #
 # Close tests
 #
@@ -210,6 +217,10 @@ def test_exported_close():
     assert not apk.is_exported(SIGNED_APK)
 
 
+def test_frida_close():
+    """Test if APK Frida embedded."""
+    assert not apk.has_frida(SIGNED_APK)
+
 #
 # Unknown tests
 #
@@ -299,6 +310,12 @@ def test_allowbackup_unknown():
     """Test if APK allows ADB backups."""
     assert not apk.allows_backup(NOT_EXISTS_APK)
 
+
 def test_exported_unknown():
     """Test if APK has exported data."""
     assert not apk.is_exported(NOT_EXISTS_APK)
+
+
+def test_frida_unknown():
+    """Test if APK Frida embedded."""
+    assert not apk.has_frida(NOT_EXISTS_APK)
