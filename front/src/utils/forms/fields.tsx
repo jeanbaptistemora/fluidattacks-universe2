@@ -5,7 +5,7 @@
 
 import _ from "lodash";
 import React from "react";
-import { Badge, ControlLabel, FormControl, FormControlProps, FormGroup, Glyphicon } from "react-bootstrap";
+import { Badge, ControlLabel, FormControl, FormControlProps, FormGroup, Glyphicon, HelpBlock } from "react-bootstrap";
 /**
  * Disabling here is necessary because
  * there are currently no available type definitions for
@@ -19,7 +19,7 @@ import style from "./index.css";
 type CustomFieldProps = FormProps<{}, {}, {}> & FormControlProps & WrappedFieldProps;
 
 const renderError: ((arg1: string) => JSX.Element) = (msg: string): JSX.Element => (
-  <span id="validationError" className={style.validationError}>{msg}</span>
+  <HelpBlock id="validationError" className={style.validationError}>{msg}</HelpBlock>
 );
 
 const renderCharacterCount: ((text: string) => JSX.Element) = (text: string): JSX.Element => (

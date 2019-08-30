@@ -595,14 +595,14 @@ const enTranslations: dict = {
     reports: "Reports",
   },
   validations: {
-    alphanumeric: "This field can only contain alphanumeric characters",
+    alphanumeric: "Only alphanumeric characters",
     between: "This value must be between {{min}} and {{max}}",
     email: "The email format is not valid",
     file_size: "The file size must be less than {{count}}MB",
     invalidValueInField: "The value inserted in one of the fields is not valid",
     minLength: "This field requires at least {{count}} characters",
     numeric: "This field can only contain numbers",
-    required: "This field is required",
+    required: "Required field",
     tags: "This field can only contain alphanumeric characters and dashes",
   },
 };
