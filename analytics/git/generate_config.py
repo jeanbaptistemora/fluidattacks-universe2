@@ -75,8 +75,7 @@ def main():
             mailmap_target_path = f'{repo_path}/.mailmap'
             mailmap_path = (f'/git/fluidsignal/'
                             f'continuous/subscriptions/{subs_name}/.mailmap')
-            if os.path.exists(mailmap_path) and \
-                    os.path.exists(mailmap_target_path):
+            if os.path.exists(mailmap_path):
                 shutil.copyfile(mailmap_path, mailmap_target_path)
 
             if subs_name in FLUID_SUBS or repo_name in branches[subs_name]:
