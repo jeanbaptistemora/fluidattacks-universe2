@@ -11,7 +11,7 @@
 # standard imports
 import hashlib
 from collections import OrderedDict
-from typing import Optional, Tuple
+from typing import List, Optional, Tuple
 
 # 3rd party imports
 import requests
@@ -19,6 +19,7 @@ from bs4 import BeautifulSoup
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 # local imports
+from fluidasserts import Unit
 
 
 # On call
@@ -112,6 +113,8 @@ class HTTPSession():
         self.stream = stream
         self.redirect = redirect
         self.timeout = timeout
+        self.vulns: List[Unit] = []
+        self.safes: List[Unit] = []
         if self.headers is None:
             self.headers = dict()
         if 'User-Agent' not in self.headers:
@@ -309,3 +312,11 @@ class HTTPSession():
                     status=self.response.status_code,
                     banner=fp_headers,
                     sha256=sha256.hexdigest())
+
+    def add_unit(self, vulnerable: bool, source: str, specific: list) -> None:
+        """Append a new `fluidasserts.Unit` object to this session."""
+        (self.vulns if vulnerable else self.safes).append(
+            Unit(where=self.url,
+                 source=source,
+                 specific=specific,
+                 fingerprint=self.get_fingerprint()))

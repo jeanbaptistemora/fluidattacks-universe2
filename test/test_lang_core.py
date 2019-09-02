@@ -3,10 +3,8 @@
 """Test methods of fluidasserts.code.code."""
 
 # standard imports
-# None
 
 # 3rd party imports
-import pytest
 
 # local imports
 from fluidasserts.lang import core

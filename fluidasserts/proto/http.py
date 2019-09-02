@@ -23,7 +23,7 @@ from fluidasserts import Unit, OPEN, CLOSED, UNKNOWN, LOW, MEDIUM, DAST
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify, api
+from fluidasserts.utils.decorators import track, level, notify, api, unknown_if
 
 # pylint: disable=too-many-lines
 
@@ -1728,10 +1728,23 @@ def has_mixed_content(url: str, *args, **kwargs) -> bool:
     return False
 
 
-@notify
-@level('low')
-@track
-def has_reverse_tabnabbing(url: str, *args, **kwargs) -> bool:
+@api(risk=LOW,
+     kind=DAST,
+     references=[
+         'https://www.owasp.org/index.php/Reverse_Tabnabbing',
+         'https://mathiasbynens.github.io/rel-noopener/',
+     ],
+     standards={
+         'CWE': '1022',
+     },
+     examples=[
+         'https://dev.to/ben/the-targetblank-vulnerability-by-example',
+     ],
+     score={
+         'CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N': 6.5,
+     })
+@unknown_if(http.ParameterError, http.ConnError)
+def has_reverse_tabnabbing(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if resource has links vulnerable to a reverse tabnabbing.
 
@@ -1739,46 +1752,31 @@ def has_reverse_tabnabbing(url: str, *args, **kwargs) -> bool:
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    try:
-        with http.HTTPSession(url, *args, **kwargs) as sess:
-            html = sess.response.text
-            fingerprint = sess.get_fingerprint()
-    except http.ConnError as exc:
-        show_unknown('Could not connnect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
+    msg_open = 'There are a href tags susceptible to reverse tabnabbing'
+    msg_closed = 'There are no a href tags susceptible to reverse tabnabbing'
 
-    vulns, checks = [], []
+    with http.HTTPSession(url, *args, **kwargs) as session:
+        html = session.response.text
 
     http_re = re.compile("^http(s)?://")
     html_obj = BeautifulSoup(html, features="html.parser")
 
-    for ahref in html_obj.findAll('a', attrs={'href': http_re}):
+    for href in html_obj.findAll('a', attrs={'href': http_re}):
         parsed: dict = {
-            'href': ahref.get('href'),
-            'target': ahref.get('target'),
-            'rel': ahref.get('rel'),
+            'href': href.get('href'),
+            'target': href.get('target'),
+            'rel': href.get('rel'),
         }
-        if parsed['href'] and parsed['target'] == '_blank' \
-                and (not parsed['rel'] or 'noopener' not in parsed['rel']):
-            vulns.append(parsed)
-        else:
-            checks.append(parsed)
+        vulnerable: bool = parsed['href'] \
+            and parsed['target'] == '_blank' \
+            and (not parsed['rel'] or 'noopener' not in parsed['rel'])
 
-    if vulns:
-        show_open('There are a href tags succeptible to reverse tabnabbing',
-                  details=dict(url=url,
-                               vulns=vulns,
-                               fingerprint=fingerprint))
-        return True
-    show_close('There are no a href tags succeptible to reverse tabnabbing',
-               details=dict(url=url,
-                            checks=checks,
-                            fingerprint=fingerprint))
-    return False
+        specific: str = 'HTML/href/' + parsed['href']
+
+        session.add_unit(vulnerable=vulnerable,
+                         source='HTML/href/rel/noopener',
+                         specific=[specific])
+
+    if session.vulns:
+        return OPEN, msg_open, session.vulns, session.safes
+    return CLOSED, msg_closed, session.vulns, session.safes

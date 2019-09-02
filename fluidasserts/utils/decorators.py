@@ -5,18 +5,15 @@
 # standard imports
 import sys
 import functools
+from typing import Any, Callable
 from timeit import default_timer as timer
-from typing import Callable, Any
-from .tracking import mp_track
+from fluidasserts.utils.tracking import mp_track
 
 # 3rd party imports
 import oyaml as yaml
 
 # local imports
-from fluidasserts import Result
-
-# Constants
-OUTFILE = sys.stderr
+from fluidasserts import Result, UNKNOWN
 
 
 def _get_func_id(func: Callable) -> str:
@@ -24,7 +21,7 @@ def _get_func_id(func: Callable) -> str:
     return f"{func.__module__} -> {func.__name__}"
 
 
-def api(risk: str, kind: str) -> Callable:
+def api(risk: str, kind: str, **kwargs: Any) -> Callable:
     """Pre-processing and post-processing of the function results."""
     def wrapper(func: Callable) -> Callable:
         """Return a wrapper to the decorated function."""
@@ -61,6 +58,22 @@ def api(risk: str, kind: str) -> Callable:
             result.print()
 
             # Return a Result object with rich information
+            return result
+        return decorated
+    return wrapper
+
+
+def unknown_if(*errors) -> Callable:
+    """Return UNKNOWN if a function raise one of the provided errors."""
+    def wrapper(func: Callable) -> Callable:
+        """Return a wrapper to the decorated function."""
+        @functools.wraps(func)
+        def decorated(*args, **kwargs) -> Any:
+            """Wrap the function in a try except block."""
+            try:
+                result = func(*args, **kwargs)
+            except errors as exc:
+                return UNKNOWN, f'An error occurred: {exc}'
             return result
         return decorated
     return wrapper

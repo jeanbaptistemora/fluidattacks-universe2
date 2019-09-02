@@ -315,7 +315,16 @@ class Result():
 
         func_params: Dict[str, Any] = {}
 
-        func_vars = func.__code__.co_varnames
+        _func: Callable = func
+        # Adding decorators to a function modify its metadata, fortunately
+        # The wrapper function will keep a reference to the wrapped function
+        #   (if you use functools.update_wrapper)
+        # In order to extract the original metadata let's climb the stack
+        #   (see functools.update_wrapper's source code)
+        while hasattr(_func, '__wrapped__'):
+            _func = getattr(_func, '__wrapped__')
+
+        func_vars = _func.__code__.co_varnames
         func_nargs = len(func_args)
         func_nkwargs = len(func_vars) - func_nargs
 
