@@ -9,11 +9,11 @@ import logging
 import logging.config
 import rollbar
 from botocore.exceptions import ClientError
+from django.conf import settings
 from __init__ import (
     FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS,
-    FI_MAIL_REVIEWERS, FI_ENVIRONMENT
+    FI_MAIL_REVIEWERS
 )
-from django.conf import settings
 from . import views
 from .dal import integrates_dal, project as project_dal
 from .domain.finding import (get_age_finding, get_tracking_vulnerabilities)
@@ -238,6 +238,8 @@ def get_date_last_vulns(vulns):
 
 def get_new_vulnerabilities():
     """Summary mail send with the findings of a project."""
+    rollbar.report_message(
+        'Warning: Function to get new vulnerabilities is running ')
     projects = project_dal.get_active_projects()
     for project in projects:
         project = project.lower()
@@ -268,7 +270,6 @@ def get_new_vulnerabilities():
         if context['updated_findings']:
             mail_to = prepare_mail_recipients(project)
             send_mail_new_vulnerabilities(mail_to, context)
-    LOGGER.info(FI_ENVIRONMENT, "Cron: cron executed, get new vulnerabilities")
 
 
 def prepare_mail_recipients(project):
@@ -338,6 +339,8 @@ def create_msj_finding_pending(act_finding, context):
 
 def get_remediated_findings():
     """Summary mail send with findings that have not been verified yet."""
+    rollbar.report_message(
+        'Warning: Function to get remediated findings is running ')
     active_projects = project_dal.get_active_projects()
     findings = []
     for project in active_projects:
@@ -364,11 +367,12 @@ def get_remediated_findings():
                 'warning', extra_data=ex, payload_data=locals())
     else:
         LOGGER.info('There are no findings to verificate')
-    LOGGER.info(FI_ENVIRONMENT, "Cron: cron executed, get remediated vulnerabilities")
 
 
 def weekly_report():
     """Save weekly report in dynamo."""
+    rollbar.report_message(
+        'Warning: Function to do weekly report in DynamoDB is running ')
     init_date = (datetime.today() - timedelta(days=7)).date()
     final_date = (datetime.today() - timedelta(days=1)).date()
     all_companies = integrates_dal.get_all_companies()
@@ -385,7 +389,6 @@ def weekly_report():
         logged_users[0][0],
         all_users
     )
-    LOGGER.info(FI_ENVIRONMENT, "Cron: cron executed, weekly report in dynamo")
 
 
 def all_users_formatted(company):
@@ -396,16 +399,19 @@ def all_users_formatted(company):
 
 
 def inactive_users():
+    rollbar.report_message(
+        'Warning: Function to delete inactive users is running ')
     final_date = (datetime.today() - timedelta(days=7))
     inac_users = integrates_dal.all_inactive_users()
     for user in inac_users:
         if user[1] <= final_date:
             integrates_dal.delete_user(user[0])
-    LOGGER.info(FI_ENVIRONMENT, "Cron: cron executed, inactive users")
 
 
 def get_new_releases():
     """Summary mail send with findings that have not been released yet."""
+    rollbar.report_message(
+        'Warning: Function to get new releases is running ')
     projects = integrates_dal.get_registered_projects()
     api = FormstackAPI()
     context_finding = {'findings': list()}
@@ -443,7 +449,6 @@ def get_new_releases():
     else:
         rollbar.report_message('Warning: There are no new drafts',
                                'warning')
-    LOGGER.info(FI_ENVIRONMENT, "Cron: cron executed, get new releases")
 
 
 def send_unsolved_to_all(context):
@@ -536,7 +541,6 @@ def deletion_of_finished_project():
         days_to_send = [6]
         days_to_delete = 7
     projects = integrates_dal.get_registered_projects()
-    LOGGER.info(FI_ENVIRONMENT, "Cron: cron executed, deletion of finished projects")
     return [deletion(x[0], days_to_send, days_to_delete)
             for x in projects]
 
@@ -556,6 +560,8 @@ def get_project_indicators(project):
 
 def update_indicators():
     """Update in dynamo indicators."""
+    rollbar.report_message(
+        'Warning: Function to update indicators in DynamoDB is running ')
     projects = integrates_dal.get_registered_projects()
     table_name = 'FI_projects'
     for project in projects:
@@ -577,4 +583,3 @@ def update_indicators():
                 'Error: An error ocurred updating '
                 'indicators of the project {project}'.format(project=project),
                 'error')
-    LOGGER.info(FI_ENVIRONMENT, "Cron: cron executed, update indicators in dynamo")
