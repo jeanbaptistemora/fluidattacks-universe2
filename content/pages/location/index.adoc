@@ -41,14 +41,14 @@ Poblado, Medellín, Colombia +
 
 a|==== Bogotá
 *Address:* +
-Carrera 11 N 71 – 41 +
-Avenida Chile Building, 602 +
-Chapinero, Bogotá, Colombia +
+Carrera 19 N 84 - 17 +
+Almaru Country Building, 204 +
+Barrios Unidos, Bogotá, Colombia +
 110231 +
 *Phone:* +
-+57.(1).481.34.70 +
++57.(1).402.91.62 +
 +57.314.653.3428 +
 ++++
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.647548926837!2d-74.061627150199!3d4.656785343318136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9a5b5630f1f3%3A0xf439d72dd756c156!2sCra.+11+%2371-41%2C+Bogot%C3%A1!5e0!3m2!1sen!2sco!4v1519846591294" width="600" height="450" frameborder="0" style="border:0;display: block;margin: 0 auto;" allowfullscreen></iframe>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d994.1424792111003!2d-74.05850607077032!3d4.6704969364396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9af4133c15ef%3A0x6d80b0ba64a624e5!2sAk.%2019%20%2384-17%2C%20Bogot%C3%A1!5e0!3m2!1ses-419!2sco!4v1567438254662!5m2!1ses-419!2sco" width="600" height="450" frameborder="0" style="border:0;display: block;margin: 0 auto;" allowfullscreen></iframe>
 ++++
 |====
