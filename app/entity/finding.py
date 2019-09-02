@@ -24,7 +24,7 @@ from app.domain.finding import (
 from app.domain.user import get_role
 from app.dto.finding import FindingDTO, get_project_name
 from app.entity.types.finding import FindingType
-from app.services import is_customeradmin
+from app.services import get_user_role, is_customeradmin
 from app.utils import findings as finding_utils
 
 
@@ -567,8 +567,9 @@ class AddFindingComment(Mutation):
     def mutate(self, info, **parameters):
         if parameters.get('type') in ['comment', 'observation']:
             user_data = util.get_jwt_content(info.context)
-            if parameters.get('type') == 'observation' and user_data['user_role'] not in \
-                                                                    ['analyst', 'admin']:
+            role = get_user_role(user_data)
+            if parameters.get('type') == 'observation' and \
+               role not in ['analyst', 'admin']:
                 util.cloudwatch_log(info.context, 'Security: \
                     Unauthorized role attempted to add observation')
                 raise GraphQLError('Access denied')

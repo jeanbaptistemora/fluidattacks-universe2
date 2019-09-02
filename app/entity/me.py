@@ -15,7 +15,7 @@ from app.decorators import require_login
 from app.domain.user import (
     get_role, get_user_attributes, remove_access_token, update_access_token)
 from app.entity.project import Project
-from app.services import is_customeradmin
+from app.services import get_user_role, is_customeradmin
 
 from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 
@@ -31,7 +31,7 @@ class Me(ObjectType):
 
     def resolve_role(self, info, project_name=None):
         jwt_content = util.get_jwt_content(info.context)
-        role = jwt_content.get('user_role')
+        role = get_user_role(jwt_content)
         if project_name and role == 'customer':
             email = jwt_content.get('user_email')
             role = 'customeradmin' if is_customeradmin(

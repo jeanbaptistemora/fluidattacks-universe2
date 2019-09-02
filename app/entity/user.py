@@ -17,7 +17,8 @@ from app.decorators import require_login, require_role, require_project_access
 from app.domain.user import add_phone_to_user, get_role
 from .. import util
 from ..dal import integrates_dal
-from ..services import is_customeradmin, has_responsibility, has_phone_number
+from ..services import (
+    get_user_role, is_customeradmin, has_responsibility, has_phone_number)
 from ..mailer import send_mail_access_granted
 
 
@@ -122,7 +123,7 @@ class GrantUserAccess(Mutation):
         project_name = query_args.get('project_name')
         success = False
         user_data = util.get_jwt_content(info.context)
-
+        role = get_user_role(user_data)
         new_user_data = {
             'email': query_args.get('email'),
             'organization': query_args.get('organization'),
@@ -131,7 +132,7 @@ class GrantUserAccess(Mutation):
             'phone_number': query_args.get('phone_number')
         }
 
-        if (user_data['user_role'] == 'admin'
+        if (role == 'admin'
                 and new_user_data['role'] in ['admin', 'analyst', 'customer', 'customeradmin']) \
             or (is_customeradmin(project_name, user_data['user_email'])
                 and new_user_data['role'] in ['customer', 'customeradmin']):
@@ -305,6 +306,7 @@ class EditUser(Mutation):
         project_name = query_args.get('project_name')
         success = False
         user_data = util.get_jwt_content(info.context)
+        role = get_user_role(user_data)
 
         modified_user_data = {
             'email': query_args.get('email'),
@@ -314,7 +316,7 @@ class EditUser(Mutation):
             'phone_number': query_args.get('phone_number')
         }
 
-        if (user_data['user_role'] == 'admin'
+        if (role == 'admin'
                 and modified_user_data['role'] in ['admin', 'analyst',
                                                    'customer', 'customeradmin']) \
             or (is_customeradmin(project_name, user_data['user_email'])
