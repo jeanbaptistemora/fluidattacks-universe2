@@ -1,6 +1,7 @@
 # Fluid Asserts
 build/
 builds/
+test/times
 
 # Coverage files
 *coverage*

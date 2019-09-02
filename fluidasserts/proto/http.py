@@ -6,7 +6,7 @@
 import re
 from copy import deepcopy
 from datetime import datetime
-from typing import Optional, List, Union
+from typing import Any, Dict, List, Optional, Union
 
 # 3rd party imports
 from bs4 import BeautifulSoup
@@ -17,9 +17,8 @@ import ntplib
 import requests
 
 # local imports
-from fluidasserts.helper import banner
-from fluidasserts.helper import http
-from fluidasserts import Unit, OPEN, CLOSED, UNKNOWN, LOW, MEDIUM, DAST
+from fluidasserts.helper import http, banner
+from fluidasserts import Unit, OPEN, CLOSED, UNKNOWN, LOW, MEDIUM, HIGH, DAST
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
@@ -27,8 +26,11 @@ from fluidasserts.utils.decorators import track, level, notify, api, unknown_if
 
 # pylint: disable=too-many-lines
 
+# Constants
+DEFAULT_FIELD: str = 'HTTP/Implementation'
+
 # This dictionary maps the header to a regex in which the value is secure
-HDR_RGX = {
+HDR_RGX: Dict[str, str] = {
     'access-control-allow-origin': '^https?:\\/\\/.*$',
     'cache-control': '(?=.*must-revalidate)(?=.*no-cache)(?=.*no-store)',
     'content-security-policy': '^([a-zA-Z]+\\-[a-zA-Z]+|sandbox).*$',
@@ -46,7 +48,7 @@ HDR_RGX = {
     'x-xss-protection': '^1(\\s*;\\s*mode=block)?$',
     'www-authenticate': '^((?!Basic).)*$',
     'x-powered-by': '^ASP.NET'
-}  # type: dict
+}
 
 # Regex taken from SQLmap project
 SQLI_ERROR_MSG = {
@@ -130,6 +132,12 @@ def _get_links(html_page: str) -> List:
                                    attrs={'href':
                                           re.compile("^http(s)?://")})]
     return links
+
+
+def _get_field(kwargs: Any) -> str:
+    """Return the display field from kwargs or a default value."""
+    kwargs = kwargs if isinstance(kwargs, dict) else {}
+    return kwargs.pop('_field', DEFAULT_FIELD)
 
 
 def _replace_dict_value(adict: dict, key: str, value: str) -> None:
@@ -318,44 +326,27 @@ def _generic_has_multiple_text(url: str, regex_list: List[str],
         return False
 
 
-def _generic_has_text(url: str, expected_text: str, *args, **kwargs) -> bool:
+@unknown_if(http.ParameterError, http.ConnError)
+def _generic_has_text(url: str, text: str,
+                      *args: Any, **kwargs: Any) -> tuple:
     r"""
     Check if a bad text is present.
 
     :param url: URL to test.
-    :param expected_text: Text to search. Can be regex.
+    :param text: Text to search. Can be regex.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    try:
-        http_session = http.HTTPSession(url, *args, **kwargs)
-        response = http_session.response
-        fingerprint = http_session.get_fingerprint()
-    except http.ConnError as exc:
-        show_unknown('Could not connnect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    else:
-        the_page = response.text
-        if re.search(str(expected_text), the_page, re.IGNORECASE):
-            show_open('Bad text present',
-                      details=dict(url=url,
-                                   bad_text=expected_text,
-                                   fingerprint=fingerprint,
-                                   status_code=response.status_code))
-            return True
-        show_close('Bad text not present',
-                   details=dict(url=url,
-                                bad_text=expected_text,
-                                fingerprint=fingerprint,
-                                status_code=response.status_code))
-        return False
+    field: str = _get_field(kwargs)
+    session = http.HTTPSession(url, *args, **kwargs)
+    session._add_unit(
+        is_vulnerable=re.search(text, session.response.text, re.IGNORECASE),
+        source='HTTP/Implementation',
+        specific=[field])
+
+    return session._get_tuple_result(
+        msg_open='Bad text is present in response',
+        msg_closed='Bad text is not present in response')
 
 
 @notify
@@ -374,10 +365,8 @@ def has_multiple_text(url: str, regex_list: List[str],
     return _generic_has_multiple_text(url, regex_list, *args, **kwargs)
 
 
-@notify
-@level('low')
-@track
-def has_text(url: str, expected_text: str, *args, **kwargs) -> bool:
+@api(risk=LOW, kind=DAST)
+def has_text(url: str, expected_text: str, *args: Any, **kwargs: Any) -> tuple:
     r"""
     Check if a bad text is present in URL response.
 
@@ -385,6 +374,7 @@ def has_text(url: str, expected_text: str, *args, **kwargs) -> bool:
     :param expected_text: Text to search. Can be regex.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _generic_has_text(url, expected_text, *args, **kwargs)
 
@@ -429,7 +419,20 @@ def has_not_text(url: str, expected_text: str, *args, **kwargs) -> bool:
         return False
 
 
-@api(risk=LOW, kind=DAST)
+@api(risk=LOW,
+     kind=DAST,
+     references=[
+         ('https://blog.insiderattack.net/configuring-secure-iis'
+          '-response-headers-in-asp-net-mvc-b38369030728'),
+         'https://www.troyhunt.com/shhh-dont-let-your-response-headers/',
+     ],
+     standards={
+         'CWE': '200',
+     },
+     examples=[],
+     score={
+         'CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N': 5.3,
+     })
 def is_header_x_asp_net_version_present(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if X-AspNet-Version header is missing.
@@ -450,7 +453,18 @@ def is_header_x_asp_net_version_present(url: str, *args, **kwargs) -> tuple:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=LOW, kind=DAST)
+@api(risk=LOW,
+     kind=DAST,
+     references=[
+         'https://www.troyhunt.com/shhh-dont-let-your-response-headers/',
+     ],
+     standards={
+         'CWE': '200',
+     },
+     examples=[],
+     score={
+         'CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N': 5.3,
+     })
 def is_header_x_powered_by_present(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if X-Powered-By header is missing.
@@ -635,7 +649,18 @@ def is_header_pragma_missing(url: str, *args, **kwargs) -> tuple:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@api(risk=LOW, kind=DAST)
+@api(risk=LOW,
+     kind=DAST,
+     references=[
+         'https://www.troyhunt.com/shhh-dont-let-your-response-headers/',
+     ],
+     standards={
+         'CWE': '200',
+     },
+     examples=[],
+     score={
+         'CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N': 5.3,
+     })
 def is_header_server_present(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if Server HTTP header is properly set.
@@ -866,144 +891,207 @@ def has_sqli(url: str, *args, **kwargs) -> bool:
     return _generic_has_multiple_text(url, expect, *args, **kwargs)
 
 
-@notify
-@level('medium')
-@track
-def has_xss(url: str, expect: str, *args, **kwargs) -> bool:
+@api(risk=LOW,
+     kind=DAST,
+     references=[
+         'https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)',
+         'https://www.cgisecurity.com/xss-faq.html',
+         'https://cheatsheetseries.owasp.org/cheatsheets/' +
+         'Cross_Site_Scripting_Prevention_Cheat_Sheet.html',
+     ],
+     standards={
+         'CWE': '79',
+         'WASC': '8',
+         'CAPEC': '63',
+     },
+     examples=[
+         'https://excess-xss.com/',
+     ],
+     score={})
+def has_xss(url: str, expect: str, *args: Any, **kwargs: Any) -> tuple:
     r"""
     Check XSS vulnerability by checking injected string.
 
     :param url: URL to test.
-    :param expect: Text to search in potential vulnerabilty .
+    :param expect: Text to search in potential vulnerability .
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _generic_has_text(url, expect, *args, **kwargs)
 
 
-@notify
-@level('high')
-@track
-def has_command_injection(url: str, expect: str, *args, **kwargs) -> bool:
+@api(risk=HIGH,
+     kind=DAST,
+     references=[
+         'https://www.owasp.org/index.php/Command_Injection',
+         'https://www.netsparker.com/blog/web-security/' +
+         'command-injection-vulnerability/',
+     ],
+     standards={
+         'CWE': ['77', '78'],
+         'CAPEC': '152',
+         'WASC': '31',
+     },
+     examples=[
+         'https://portswigger.net/web-security/os-command-injection',
+     ],
+     score={})
+def has_command_injection(url: str, expect: str,
+                          *args: Any, **kwargs: Any) -> tuple:
     r"""
     Check command injection vulnerability by checking a expected string.
 
     :param url: URL to test.
-    :param expect: Text to search in potential vulnerabilty .
+    :param expect: Text to search in potential vulnerability .
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _generic_has_text(url, expect, *args, **kwargs)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH,
+     kind=DAST,
+     references=[
+         'https://www.owasp.org/index.php/Command_Injection',
+         'https://www.netsparker.com/blog/web-security/' +
+         'command-injection-vulnerability/',
+     ],
+     standards={
+         'CWE': ['77', '78'],
+         'CAPEC': '152',
+         'WASC': '31',
+     },
+     examples=[
+         'https://portswigger.net/web-security/os-command-injection',
+     ],
+     score={})
 def has_php_command_injection(url: str, expect: str, *args, **kwargs) -> bool:
     r"""
     Check PHP command injection vulnerability by checking a expected string.
 
     :param url: URL to test.
-    :param expect: Text to search in potential vulnerabilty .
+    :param expect: Text to search in potential vulnerability .
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _generic_has_text(url, expect, *args, **kwargs)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM,
+     kind=DAST,
+     references=[
+         'https://www.owasp.org/index.php/Session_fixation',
+         'https://en.wikipedia.org/wiki/Session_fixation',
+     ],
+     standards={
+         'CWE': '384',
+         'CAPEC': '61',
+     },
+     examples=[
+         'https://portswigger.net/web-security/os-command-injection',
+     ],
+     score={})
 def has_session_fixation(url: str, expect: str, *args, **kwargs) -> bool:
     r"""
     Check session fixation by not passing cookies and having authenticated.
 
     :param url: URL to test.
-    :param expect: Text to search in potential vulnerabilty .
+    :param expect: Text to search in potential vulnerability .
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _generic_has_text(url, expect, *args, **kwargs)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH,
+     kind=DAST,
+     references=[
+         'https://www.owasp.org/index.php/' +
+         'Top_10_2007-Insecure_Direct_Object_Reference',
+     ],
+     standards={
+         'CWE': '639',
+     },
+     examples=[
+         'https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-0329',
+         'https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2006-4369',
+         'https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2005-0229',
+     ],
+     score={})
 def has_insecure_dor(url: str, expect: str, *args, **kwargs) -> bool:
     r"""
     Check insecure direct object reference vulnerability.
 
     :param url: URL to test.
-    :param expect: Text to search in potential vulnerabilty .
+    :param expect: Text to search in potential vulnerability .
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _generic_has_text(url, expect, *args, **kwargs)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
 def has_dirtraversal(url: str, expect: str, *args, **kwargs) -> bool:
     r"""
     Check directory traversal vulnerability by checking a expected string.
 
     :param url: URL to test.
-    :param expect: Text to search in potential vulnerabilty .
+    :param expect: Text to search in potential vulnerability .
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _generic_has_text(url, expect, *args, **kwargs)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
 def has_csrf(url: str, expect: str, *args, **kwargs) -> bool:
     r"""
     Check Cross-Site Request Forgery vulnerability.
 
     :param url: URL to test.
-    :param expect: Text to search in potential vulnerabilty .
+    :param expect: Text to search in potential vulnerability .
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _generic_has_text(url, expect, *args, **kwargs)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
 def has_lfi(url: str, expect: str, *args, **kwargs) -> bool:
     r"""
     Check local file inclusion vulnerability by checking a expected string.
 
     :param url: URL to test.
-    :param expect: Text to search in potential vulnerabilty .
+    :param expect: Text to search in potential vulnerability .
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _generic_has_text(url, expect, *args, **kwargs)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
 def has_hpp(url: str, expect: str, *args, **kwargs) -> bool:
     r"""
     Check HTTP Parameter Pollution vulnerability.
 
     :param url: URL to test.
-    :param expect: Text to search in potential vulnerabilty .
+    :param expect: Text to search in potential vulnerability .
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _generic_has_text(url, expect, *args, **kwargs)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
 def has_insecure_upload(url: str, expect: str, file_param: str,
                         file_path: str, *args, **kwargs) -> bool:
     r"""
@@ -1014,6 +1102,7 @@ def has_insecure_upload(url: str, expect: str, file_param: str,
     :param file_path: Path to the actual file.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     exploit_file = {file_param: open(file_path)}
     return _generic_has_text(url, expect, files=exploit_file, *args, **kwargs)
@@ -1751,15 +1840,12 @@ def has_reverse_tabnabbing(url: str, *args, **kwargs) -> tuple:
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
-    msg_open = 'There are a href tags susceptible to reverse tabnabbing'
-    msg_closed = 'There are no a href tags susceptible to reverse tabnabbing'
-
-    with http.HTTPSession(url, *args, **kwargs) as session:
-        html = session.response.text
+    session = http.HTTPSession(url, *args, **kwargs)
 
     http_re = re.compile("^http(s)?://")
-    html_obj = BeautifulSoup(html, features="html.parser")
+    html_obj = BeautifulSoup(session.response.text, features="html.parser")
 
     for href in html_obj.findAll('a', attrs={'href': http_re}):
         parsed: dict = {
@@ -1767,16 +1853,15 @@ def has_reverse_tabnabbing(url: str, *args, **kwargs) -> tuple:
             'target': href.get('target'),
             'rel': href.get('rel'),
         }
-        vulnerable: bool = parsed['href'] \
+        is_vulnerable: bool = parsed['href'] \
             and parsed['target'] == '_blank' \
             and (not parsed['rel'] or 'noopener' not in parsed['rel'])
 
-        specific: str = 'HTML/href/' + parsed['href']
+        session._add_unit(is_vulnerable=is_vulnerable,
+                          source='HTML/href/rel/noopener',
+                          specific=[parsed['href']])
 
-        session.add_unit(vulnerable=vulnerable,
-                         source='HTML/href/rel/noopener',
-                         specific=[specific])
-
-    if session.vulns:
-        return OPEN, msg_open, session.vulns, session.safes
-    return CLOSED, msg_closed, session.vulns, session.safes
+    return session._get_tuple_result(
+        msg_open='There are a href tags susceptible to reverse tabnabbing',
+        msg_closed=('There are no a href tags susceptible to '
+                    'reverse tabnabbing'))

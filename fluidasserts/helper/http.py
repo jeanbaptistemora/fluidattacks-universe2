@@ -19,7 +19,7 @@ from bs4 import BeautifulSoup
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 # local imports
-from fluidasserts import Unit
+from fluidasserts import Unit, OPEN, CLOSED
 
 
 # On call
@@ -134,6 +134,22 @@ class HTTPSession():
     def __exit__(self, *kwargs) -> None:
         """Context manager clean up function."""
         pass
+
+    def _add_unit(self, *, is_vulnerable: bool,
+                  source: str, specific: list) -> None:
+        """Append a new :class:`fluidasserts.Unit` object to this session."""
+        (self.vulns if is_vulnerable else self.safes).append(
+            Unit(where=self.url,
+                 source=source,
+                 specific=specific,
+                 fingerprint=self.get_fingerprint()))
+
+    def _get_tuple_result(self, *, msg_open: str, msg_closed: str
+                          ) -> Tuple[str, str, List[Unit], List[Unit]]:
+        """Return a :class:`typing.Tuple` version of the results object."""
+        if self.vulns:
+            return OPEN, msg_open, self.vulns, self.safes
+        return CLOSED, msg_closed, self.vulns, self.safes
 
     def __do_post_json(self) -> Optional[requests.Response]:
         self.verb_used = 'POST'
@@ -312,11 +328,3 @@ class HTTPSession():
                     status=self.response.status_code,
                     banner=fp_headers,
                     sha256=sha256.hexdigest())
-
-    def add_unit(self, vulnerable: bool, source: str, specific: list) -> None:
-        """Append a new `fluidasserts.Unit` object to this session."""
-        (self.vulns if vulnerable else self.safes).append(
-            Unit(where=self.url,
-                 source=source,
-                 specific=specific,
-                 fingerprint=self.get_fingerprint()))
