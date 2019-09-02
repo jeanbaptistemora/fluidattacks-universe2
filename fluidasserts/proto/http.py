@@ -219,7 +219,7 @@ def _has_method(url: str, method: str, *args, **kwargs) -> tuple:
 
     session._add_unit(
         is_vulnerable=method in allow_header,
-        source='HTTP/Implementation',
+        source=f'HTTP/Request/{method}',
         specific=[field])
 
     return session._get_tuple_result(
@@ -276,7 +276,7 @@ def _generic_has_multiple_text(url: str, regex_list: List[str],
         session._add_unit(
             is_vulnerable=re.search(
                 regex, session.response.text, re.IGNORECASE),
-            source='HTTP/Implementation',
+            source='HTTP/Response/Body',
             specific=[field])
 
     return session._get_tuple_result(
@@ -299,12 +299,36 @@ def _generic_has_text(url: str, text: str,
     session = http.HTTPSession(url, *args, **kwargs)
     session._add_unit(
         is_vulnerable=re.search(text, session.response.text, re.IGNORECASE),
-        source='HTTP/Implementation',
+        source='HTTP/Response/Body',
         specific=[field])
 
     return session._get_tuple_result(
         msg_open='Bad text is present in response',
         msg_closed='Bad text is not present in response')
+
+
+@unknown_if(http.ParameterError, http.ConnError)
+def _generic_has_not_text(url: str, text: str,
+                          *args: Any, **kwargs: Any) -> tuple:
+    r"""
+    Check if a bad text is present.
+
+    :param url: URL to test.
+    :param text: Text to search. Can be regex.
+    :param \*args: Optional arguments for :class:`.HTTPSession`.
+    :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    """
+    field: str = _get_field(kwargs)
+    session = http.HTTPSession(url, *args, **kwargs)
+    session._add_unit(
+        is_vulnerable=not re.search(
+            text, session.response.text, re.IGNORECASE),
+        source='HTTP/Response/Body',
+        specific=[field])
+
+    return session._get_tuple_result(
+        msg_open='Bad text is not present in response',
+        msg_closed='Bad text is present in response')
 
 
 @api(risk=LOW, kind=DAST)
@@ -336,10 +360,8 @@ def has_text(url: str, expected_text: str, *args: Any, **kwargs: Any) -> tuple:
     return _generic_has_text(url, expected_text, *args, **kwargs)
 
 
-@notify
-@level('low')
-@track
-def has_not_text(url: str, expected_text: str, *args, **kwargs) -> bool:
+@api(risk=LOW, kind=DAST)
+def has_not_text(url: str, expected_text: str, *args, **kwargs) -> tuple:
     r"""
     Check if a required text is not present in URL response.
 
@@ -347,33 +369,9 @@ def has_not_text(url: str, expected_text: str, *args, **kwargs) -> bool:
     :param expected_text: Text to search. Can be regex.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        http_session = http.HTTPSession(url, *args, **kwargs)
-        response = http_session.response
-        fingerprint = http_session.get_fingerprint()
-        the_page = response.text
-        if not re.search(str(expected_text), the_page, re.IGNORECASE):
-            show_open('Expected text not present',
-                      details=dict(url=url,
-                                   expected_text=expected_text,
-                                   fingerprint=fingerprint))
-            return True
-        show_close('Expected text present',
-                   details=dict(url=url,
-                                expected_text=expected_text,
-                                fingerprint=fingerprint))
-        return False
-    except http.ConnError as exc:
-        show_unknown('Could not connnect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
+    return _generic_has_not_text(url, expected_text, *args, **kwargs)
 
 
 @api(risk=LOW,
@@ -1196,12 +1194,22 @@ def has_not_subresource_integrity(
     return CLOSED, msg, vulns, safes
 
 
-# pylint: disable=keyword-arg-before-vararg
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM,
+     kind=DAST,
+     references=[
+         'https://www.owasp.org/index.php/' +
+         'Information_exposure_through_query_strings_in_url',
+     ],
+     standards={
+         'CWE': '598',
+     },
+     examples=[],
+     score={
+         'CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N': 6.5,
+     })  # pylint: disable=keyword-arg-before-vararg
+@unknown_if(http.ParameterError, http.ConnError)
 def is_sessionid_exposed(url: str, argument: str = 'sessionid',
-                         *args, **kwargs) -> bool:
+                         *args, **kwargs) -> tuple:
     r"""
     Check if resulting URL has an exposed session ID.
 
@@ -1209,76 +1217,55 @@ def is_sessionid_exposed(url: str, argument: str = 'sessionid',
     :argument: Name of argument to search. Defaults to ``sessionid``.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        http_session = http.HTTPSession(url, *args, **kwargs)
-        response_url = http_session.response.url
-        fingerprint = http_session.get_fingerprint()
-    except http.ConnError as exc:
-        show_unknown('Could not connnect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
+    field: str = _get_field(kwargs)
+    regex: str = rf'\b({argument})\b=([a-zA-Z0-9_-]+)'
 
-    regex = r'\b(' + argument + r')\b=([a-zA-Z0-9_-]+)'
+    session = http.HTTPSession(url, *args, **kwargs)
+    session._add_unit(
+        is_vulnerable=re.search(regex, session.response.url, re.IGNORECASE),
+        source=f'HTTP/Request/GET/params/{argument}',
+        specific=[field])
 
-    result = True
-    match = re.search(regex, response_url)
-    if match:
-        result = True
-        show_open('Session ID is exposed',
-                  details=dict(url=response_url, session_id='{}: {}'.
-                               format(argument, match.group(2)),
-                               fingerprint=fingerprint))
-    else:
-        result = False
-        show_close('Session ID is hidden',
-                   details=dict(url=response_url, session_id=argument))
-    return result
+    return session._get_tuple_result(
+        msg_open='Session ID is exposed',
+        msg_closed='Session ID is not exposed')
 
 
-@notify
-@level('low')
-@track
-def is_version_visible(url, *args, **kwargs) -> bool:
-    """
+@api(risk=LOW,
+     kind=DAST,
+     references=[
+         'https://www.troyhunt.com/shhh-dont-let-your-response-headers/',
+     ],
+     standards={
+         'CWE': '200',
+     },
+     examples=[],
+     score={
+         'CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N': 5.3,
+     })
+@unknown_if(http.ParameterError, http.ConnError)
+def is_version_visible(url, *args, **kwargs) -> tuple:
+    r"""
     Check if product version is visible on HTTP response headers.
 
-    :param ip_address: IP address to test.
-    :param ssl: Whether to use HTTP or HTTPS.
-    :param port: If necessary, specify port to connect to.
+    :param url: IP address to test.
+    :param \*args: Optional arguments for :class:`.HTTPSession`.
+    :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        service = banner.HTTPService(url, *args, **kwargs)
-    except http.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(url=url, error=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    version = service.get_version()
-    fingerprint = service.get_fingerprint()
+    field: str = _get_field(kwargs)
 
-    result = True
-    if version:
-        result = True
-        show_open('HTTP version visible',
-                  details=dict(url=url,
-                               version=version, fingerprint=fingerprint))
-    else:
-        result = False
-        show_close('HTTP version not visible',
-                   details=dict(url=url,
-                                fingerprint=fingerprint))
-    return result
+    service = banner.HTTPService(url, *args, **kwargs)
+    service.sess._add_unit(
+        is_vulnerable=service.get_version(),
+        source=f'HTTP/Response/Header/Server',
+        specific=[field])
+
+    return service.sess._get_tuple_result(
+        msg_open='Session ID is exposed',
+        msg_closed='Session ID is not exposed')
 
 
 @notify
