@@ -239,7 +239,7 @@ def get_date_last_vulns(vulns):
 def get_new_vulnerabilities():
     """Summary mail send with the findings of a project."""
     rollbar.report_message(
-        'Warning: Function to get new vulnerabilities is running ')
+        'Warning: Function to get new vulnerabilities is running', 'warning')
     projects = project_dal.get_active_projects()
     for project in projects:
         project = project.lower()
@@ -340,7 +340,7 @@ def create_msj_finding_pending(act_finding, context):
 def get_remediated_findings():
     """Summary mail send with findings that have not been verified yet."""
     rollbar.report_message(
-        'Warning: Function to get remediated findings is running ')
+        'Warning: Function to get remediated findings is running', 'warning')
     active_projects = project_dal.get_active_projects()
     findings = []
     for project in active_projects:
@@ -372,7 +372,7 @@ def get_remediated_findings():
 def weekly_report():
     """Save weekly report in dynamo."""
     rollbar.report_message(
-        'Warning: Function to do weekly report in DynamoDB is running ')
+        'Warning: Function to do weekly report in DynamoDB is running', 'warning')
     init_date = (datetime.today() - timedelta(days=7)).date()
     final_date = (datetime.today() - timedelta(days=1)).date()
     all_companies = integrates_dal.get_all_companies()
@@ -400,7 +400,7 @@ def all_users_formatted(company):
 
 def inactive_users():
     rollbar.report_message(
-        'Warning: Function to delete inactive users is running ')
+        'Warning: Function to delete inactive users is running', 'warning')
     final_date = (datetime.today() - timedelta(days=7))
     inac_users = integrates_dal.all_inactive_users()
     for user in inac_users:
@@ -561,7 +561,7 @@ def get_project_indicators(project):
 def update_indicators():
     """Update in dynamo indicators."""
     rollbar.report_message(
-        'Warning: Function to update indicators in DynamoDB is running ')
+        'Warning: Function to update indicators in DynamoDB is running', 'warning')
     projects = integrates_dal.get_registered_projects()
     table_name = 'FI_projects'
     for project in projects:
