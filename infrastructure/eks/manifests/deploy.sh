@@ -129,7 +129,7 @@ function issue_secondary_domain_certificates() {
     echo-blue "Certificates for secondary domains are valid."
   elif [ "${secret_age}" -gt 80 ] || [[ $(get_changed_files) == *"${manifest}"*  ]]; then
     echo-blue "Issuing TLS certificates for secondary domains..."
-    kubectl delete "${manifest}"
+    kubectl delete $(echo "${manifest}" | cut -d. -f1)
     kubectl delete secret "${secret}"
     kubectl delete certificate "${certificate_name}"
     sleep 10
