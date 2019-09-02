@@ -33,6 +33,7 @@ try:
     FI_ENVIRONMENT = os.environ['FI_ENVIRONMENT']
     FI_MANDRILL_API_KEY = os.environ['FI_MANDRILL_API_KEY']
     FI_JWT_SECRET = os.environ['FI_JWT_SECRET']
+    FI_JWT_SECRET_API = os.environ['FI_JWT_SECRET_API']
     FI_REDIS_SERVER = os.environ['FI_REDIS_SERVER']
     FI_MAIL_CONTINUOUS = os.environ['FI_MAIL_CONTINUOUS']
     FI_MAIL_ENGINEERING = os.environ['FI_MAIL_ENGINEERING']

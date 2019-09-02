@@ -138,7 +138,7 @@ class UpdateAccessToken(Mutation):
                 'api_token': token_data['api_token']
             },
             algorithm='HS512',
-            key=settings.JWT_SECRET
+            key=settings.JWT_SECRET_API
         )
 
         success = update_access_token(email, token_data)

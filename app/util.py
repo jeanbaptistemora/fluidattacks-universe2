@@ -222,8 +222,15 @@ def get_jwt_content(context):
         cookie_token = context.COOKIES.get(settings.JWT_COOKIE_NAME)
         header_token = context.META.get('HTTP_AUTHORIZATION')
         token = header_token.split()[1] if header_token else cookie_token
+        payload = jwt.get_unverified_claims(token)
 
-        content = jwt.decode(token=token, key=settings.JWT_SECRET)
+        if payload.get('api_token'):
+            content = jwt.decode(
+                token=token, key=settings.JWT_SECRET_API, algorithms='HS512')
+        else:
+            content = jwt.decode(
+                token=token, key=settings.JWT_SECRET, algorithms='HS512')
+
         return content
     except AttributeError:
         raise InvalidAuthorization()
