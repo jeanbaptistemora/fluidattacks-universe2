@@ -7,7 +7,7 @@ from . import util
 # pylint: disable=E0402
 from .dal import integrates_dal, user as user_dal
 from .dal.helpers.formstack import FormstackAPI
-from .domain.user import get_user_attributes
+from .domain.user import get_role, get_user_attributes
 from .dto.finding import FindingDTO
 from .dto.eventuality import EventDTO
 
@@ -121,3 +121,11 @@ def has_phone_number(email):
     user_info = get_user_attributes(email, ['phone'])
     user_phone = user_info['phone'] if user_info else '-'
     return user_phone
+
+
+def get_user_role(user_data):
+    if user_data.get('api_token'):
+        role = get_role(user_data['user_email'])
+    else:
+        role = user_data['user_role']
+    return role

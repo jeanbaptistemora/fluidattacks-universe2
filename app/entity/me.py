@@ -131,7 +131,6 @@ class UpdateAccessToken(Mutation):
         session_jwt = jwt.encode(
             {
                 'user_email': email,
-                'user_role': get_role(email),
                 'company': get_user_attributes(
                     email, ['company'])['company'],
                 'first_name': user_info['first_name'],

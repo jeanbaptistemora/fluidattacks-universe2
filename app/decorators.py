@@ -19,8 +19,8 @@ from rediscluster.nodemanager import RedisClusterException
 from app import util
 from app.exceptions import InvalidAuthorization
 from app.services import (
-    has_access_to_project, has_access_to_finding, is_customeradmin,
-    has_access_to_event, has_valid_access_token
+    get_user_role, has_access_to_project, has_access_to_finding,
+    has_access_to_event, has_valid_access_token, is_customeradmin
 )
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
@@ -108,7 +108,7 @@ def require_role(allowed_roles):
         def verify_and_call(*args, **kwargs):
             context = args[1].context
             user_data = util.get_jwt_content(context)
-            role = user_data['user_role']
+            role = get_user_role(user_data)
             email = user_data['user_email']
 
             try:
@@ -163,11 +163,12 @@ def require_project_access(func):
         context = args[1].context
         project_name = kwargs.get('project_name')
         user_data = util.get_jwt_content(context)
+        role = get_user_role(user_data)
         if project_name:
             if not has_access_to_project(
                 user_data['user_email'],
                 project_name,
-                user_data['user_role']
+                role
             ):
                 util.cloudwatch_log(context,
                                     'Security: \
@@ -198,13 +199,14 @@ def require_finding_access(func):
         finding_id = kwargs.get('finding_id') \
             if kwargs.get('identifier') is None else kwargs.get('identifier')
         user_data = util.get_jwt_content(context)
+        role = get_user_role(user_data)
 
         if not re.match('^[0-9]*$', finding_id):
             rollbar.report_message('Error: Invalid finding id format',
                                    'error', context)
             raise GraphQLError('Invalid finding id format')
         if not has_access_to_finding(user_data['user_email'],
-                                     finding_id, user_data['user_role']):
+                                     finding_id, role):
             util.cloudwatch_log(context,
                                 'Security: \
 Attempted to retrieve finding-related info without permission')
@@ -225,13 +227,14 @@ def require_event_access_gql(func):
         event_id = kwargs.get('event_id') \
             if kwargs.get('identifier') is None else kwargs.get('identifier')
         user_data = util.get_jwt_content(context)
+        role = get_user_role(user_data)
 
         if not re.match('^[0-9]*$', event_id):
             rollbar.report_message('Error: Invalid event id format',
                                    'error', context)
             raise GraphQLError('Invalid event id format')
         if not has_access_to_event(
-                user_data['user_email'], event_id, user_data['user_role']):
+                user_data['user_email'], event_id, role):
             util.cloudwatch_log(context,
                                 'Security: \
 Attempted to retrieve event-related info without permission')
