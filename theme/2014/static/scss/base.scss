@@ -47,8 +47,14 @@ $yellow: rgba(255, 255, 0, 1);
 .hv-fluid-bk { &:hover { color: $fluid-black;} }
 
 // Tachyons custom responsive classes
+//Large screens
 @media screen and (min-width: 60em) {
   .h-28em-l { height: 28em; }
+}
+
+//Very large screens
+@media screen and (min-width: 150em) {
+  .h-auto-vl { height: auto; }
 }
 // End Tachyons
 
