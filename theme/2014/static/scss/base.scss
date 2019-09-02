@@ -45,8 +45,11 @@ $yellow: rgba(255, 255, 0, 1);
 .grayscale { filter: grayscale(100);}
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-fluid-bk { &:hover { color: $fluid-black;} }
-.h-32em { height: 32em; }
 
+// Tachyons custom responsive classes
+@media screen and (min-width: 60em) {
+  .h-28em-l { height: 28em; }
+}
 // End Tachyons
 
 @mixin hn {

@@ -35,12 +35,12 @@
   <div class="flex-ns flex-wrap-ns justify-between-m pt3 pb3 pl2 pr0">
     <!-- Blog Posts -->
     {% for article in articles_page.object_list %}
-      <div class="ba1 shadow-1 mb3 relative dt-ns mt0-ns w-100 w-50-m w-30-l pr3-ns pl3-ns pt3 ma-auto">
+      <div class="ba1 shadow-1 mb3 relative dt-ns mt0-ns w-100 w-75-m w-30-l pr3-ns pl3-ns pt3 ma-auto">
         {% if  article.featured_image %}
           <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ article.alt }}">
         {% endif %}
         <!-- Article Preview: Title, Description, Author, Tags ... -->
-        <div class="h-32em">
+        <div class="h-28em-l">
           <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
             <!-- Title -->
             <h1 class="post-title c-fluid-bk mb0 tc hv-fluid-dkred f4">
@@ -70,7 +70,8 @@
               {% endif %}
             {% endfor %}
           </div>
-          <p class="article-summary">
+          <!-- Summary -->
+          <p class="article-summary f5 pl2 mt0 pt1 mt2 mb4 overflow-hidden ">
             {% if article.has_summary %}
               {{ article.summary }}
             {% elif article.summary %}
@@ -78,8 +79,9 @@
             {% endif %}
           </p>
           <br><br>
-          <div class="divread absolute">
-            <span class="button">
+          <!-- Read More Button -->
+          <div class="divread absolute bottom-2">
+            <span class="button f4 pa2">
               <a href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Index-msg-btn') }}</a>
             </span>
           </div>
