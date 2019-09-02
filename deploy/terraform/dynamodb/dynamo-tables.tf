@@ -182,7 +182,8 @@ resource "aws_dynamodb_table" "findings" {
 
 resource "aws_dynamodb_table" "findings_new" {
   name           = "fi_findings"
-  billing_mode   = "PAY_PER_REQUEST"
+  read_capacity  = 5
+  write_capacity = 5
   hash_key       = "project_id"
   range_key      = "finding_id"
 
