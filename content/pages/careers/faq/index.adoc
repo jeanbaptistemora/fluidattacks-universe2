@@ -183,7 +183,7 @@ new employees ask when they become part of our work team:
   +Fluid Attacks+ strives to be agile and flexible,
   capable of adapting to changes at high speed.
   To accomplish this goal,
-  we keep each work team under +50+ team members.
+  we keep each work team around +50+ team members.
   In addition, we require generic roles and a lot of teamwork,
   which allows co-workers to augment each other's strengths
   and overcome weaknesses.

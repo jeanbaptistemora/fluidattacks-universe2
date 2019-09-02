@@ -8,7 +8,8 @@
 +Fluid Attacks+:
 
 * Was founded in Colombia in 2001
-* Is an IT Security company with clients worldwide
-* Has annual revenue of $1.5 million (USD)
-* Has headquarters in Medellin, Bogota (Colombia) and San Francisco (CA, U.S.A.)
-* Currently has over 70 employees.
+* Is an +IT+ Security company with clients worldwide
+* Has annual revenue of +$1.5+ million (+USD+)
+* Has headquarters in Medellin, Bogota (Colombia)
+and San Francisco (+CA+, +U.S.A.+)
+* Currently has around +50+ employees.
