@@ -6,7 +6,7 @@
 import re
 from copy import deepcopy
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Set, Union
 
 # 3rd party imports
 from bs4 import BeautifulSoup
@@ -14,7 +14,6 @@ from pytz import timezone
 from viewstate import ViewState, ViewStateException
 from urllib.parse import parse_qsl
 import ntplib
-import requests
 
 # local imports
 from fluidasserts.helper import http, banner
@@ -51,7 +50,7 @@ HDR_RGX: Dict[str, str] = {
 }
 
 # Regex taken from SQLmap project
-SQLI_ERROR_MSG = {
+SQLI_ERROR_MSG: Set[str] = {
     r'SQL syntax.*MySQL',  # MySQL
     r'Warning.*mysql_.*',  # MySQL
     r'MySqlException \(0x',  # MySQL
@@ -201,59 +200,31 @@ def _request_dataset(url: str, dataset_list: List, *args, **kwargs) -> List:
     return resp
 
 
-def _options_request(url: str, *args, **kwargs) -> Optional[requests.Response]:
-    r"""
-    Send an``HTTP OPTIONS`` request.
-
-    Tests what kind of ``HTTP`` methods are supported on the given ``url``.
-
-    :param url: URL to test.
-    :param \*args: Optional arguments for :py:func:`requests.options`.
-    :param \*\*kwargs: Optional arguments for :py:func:`requests.options`.
-    """
-    try:
-        return requests.options(url, verify=False, *args, **kwargs)
-    except requests.ConnectionError as exc:
-        raise http.ConnError(exc)
-    except requests.exceptions.MissingSchema as exc:
-        raise http.ParameterError(exc)
-
-
-def _has_method(url: str, method: str, *args, **kwargs) -> bool:
+@unknown_if(http.ParameterError, http.ConnError)
+def _has_method(url: str, method: str, *args, **kwargs) -> tuple:
     r"""
     Check if specific HTTP method is allowed in URL.
 
     :param url: URL to test.
     :param method: HTTP method to test.
-    :param \*args: Optional arguments for :py:func:`requests.options`.
-    :param \*\*kwargs: Optional arguments for :py:func:`requests.options`.
+    :param \*args: Optional arguments for :class:`.HTTPSession`.
+    :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    try:
-        is_method_present = _options_request(url, *args, **kwargs).headers
-    except http.ConnError as exc:
-        show_unknown('Could not connnect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    result = True
-    if 'allow' in is_method_present:
-        if method in is_method_present['allow']:
-            show_open(f'HTTP Method {method} enabled',
-                      details=dict(url=url))
-        else:
-            show_close(f'HTTP Method {method} disabled',
-                       details=dict(url=url))
-            result = False
-    else:
-        show_close(f'HTTP Method {method} disabled',
-                   details=dict(url=url))
-        result = False
-    return result
+    field: str = _get_field(kwargs)
+
+    kwargs.update({'method': 'OPTIONS'})
+
+    session = http.HTTPSession(url, *args, **kwargs)
+    allow_header = session.response.headers.get('allow', '')
+
+    session._add_unit(
+        is_vulnerable=method in allow_header,
+        source='HTTP/Implementation',
+        specific=[field])
+
+    return session._get_tuple_result(
+        msg_open=f'HTTP Method {method} enabled',
+        msg_closed=f'HTTP Method {method} disabled')
 
 
 def _is_header_present(url: str, header: str, *args, **kwargs) -> tuple:
@@ -284,8 +255,9 @@ def _has_insecure_value(url: str, header: str, *args, **kwargs) -> bool:
     return None
 
 
+@unknown_if(http.ParameterError, http.ConnError)
 def _generic_has_multiple_text(url: str, regex_list: List[str],
-                               *args, **kwargs) -> bool:
+                               *args, **kwargs) -> tuple:
     r"""
     Check if one of a list of bad texts is present.
 
@@ -294,36 +266,22 @@ def _generic_has_multiple_text(url: str, regex_list: List[str],
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    try:
-        http_session = http.HTTPSession(url, *args, **kwargs)
-        response = http_session.response
-        fingerprint = http_session.get_fingerprint()
-        if response.status_code >= 500:
-            show_unknown('There was an error',
-                         details=dict(url=url, status=response.status_code,
-                                      fingerprint=fingerprint))
-            return False
-        the_page = response.text
-        for regex in regex_list:
-            if re.search(regex, the_page, re.IGNORECASE):
-                show_open('A bad text was present',
-                          details=dict(url=url,
-                                       bad_text=regex,
-                                       fingerprint=fingerprint))
-                return True
-        show_close('No bad text was present',
-                   details=dict(url=url, fingerprint=fingerprint))
-        return False
-    except http.ConnError as exc:
-        show_unknown('Could not connnect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
+    field: str = _get_field(kwargs)
+    session = http.HTTPSession(url, *args, **kwargs)
+
+    if session.response.status_code >= 500:
+        return UNKNOWN, f'We got a {session.response.status_code} status code'
+
+    for regex in regex_list:
+        session._add_unit(
+            is_vulnerable=re.search(
+                regex, session.response.text, re.IGNORECASE),
+            source='HTTP/Implementation',
+            specific=[field])
+
+    return session._get_tuple_result(
+        msg_open='Bad text is present in response',
+        msg_closed='Bad text is not present in response')
 
 
 @unknown_if(http.ParameterError, http.ConnError)
@@ -349,11 +307,9 @@ def _generic_has_text(url: str, text: str,
         msg_closed='Bad text is not present in response')
 
 
-@notify
-@level('low')
-@track
+@api(risk=LOW, kind=DAST)
 def has_multiple_text(url: str, regex_list: List[str],
-                      *args, **kwargs) -> bool:
+                      *args, **kwargs) -> tuple:
     r"""
     Check if one of a list of bad texts is present in URL response.
 
@@ -361,6 +317,7 @@ def has_multiple_text(url: str, regex_list: List[str],
     :param regex_list: List of regexes to search.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _generic_has_multiple_text(url, regex_list, *args, **kwargs)
 
@@ -833,62 +790,69 @@ def is_basic_auth_enabled(url: str, *args, **kwargs) -> tuple:
         return UNKNOWN, f'An invalid parameter was passed: {exc}'
 
 
-@notify
-@level('low')
-@track
-def has_trace_method(url: str, *args, **kwargs) -> bool:
+@api(risk=LOW, kind=DAST)
+def has_trace_method(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if HTTP TRACE method is enabled.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _has_method(url, 'TRACE', *args, **kwargs)
 
 
-@notify
-@level('low')
-@track
-def has_delete_method(url: str, *args, **kwargs) -> bool:
+@api(risk=LOW, kind=DAST)
+def has_delete_method(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if HTTP DELETE method is enabled.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _has_method(url, 'DELETE', *args, **kwargs)
 
 
-@notify
-@level('low')
-@track
-def has_put_method(url: str, *args, **kwargs) -> bool:
+@api(risk=LOW, kind=DAST)
+def has_put_method(url: str, *args, **kwargs) -> tuple:
     r"""
     Check is HTTP PUT method is enabled.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _has_method(url, 'PUT', *args, **kwargs)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH,
+     kind=DAST,
+     references=[
+         'https://www.owasp.org/index.php/SQL_Injection',
+         'https://www.acunetix.com/websitesecurity/sql-injection/'
+     ],
+     standards={
+         'CWE': '89',
+         'WASC': '19',
+         'CAPEC': '66',
+     },
+     examples=[
+         'https://www.w3schools.com/sql/sql_injection.asp',
+     ],
+     score={})
 def has_sqli(url: str, *args, **kwargs) -> bool:
     r"""
-    Check SQLi vulnerability by checking common SQL strings.
+    Check SQLi vulnerability by checking common SQL strings in response.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    expect = SQLI_ERROR_MSG
-
-    return _generic_has_multiple_text(url, expect, *args, **kwargs)
+    return _generic_has_multiple_text(url, SQLI_ERROR_MSG, *args, **kwargs)
 
 
 @api(risk=LOW,
