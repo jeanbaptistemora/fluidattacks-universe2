@@ -183,16 +183,15 @@ resource "aws_dynamodb_table" "findings" {
 resource "aws_dynamodb_table" "findings_new" {
   name           = "fi_findings"
   billing_mode   = "PAY_PER_REQUEST"
-  hash_key       = "finding_id"
-  range_key      = "project_id"
-
-  attribute {
-    name = "finding_id"
-    type = "S"
-  }
+  hash_key       = "project_id"
+  range_key      = "finding_id"
 
   attribute {
     name = "project_id"
+    type = "S"
+  }
+  attribute {
+    name = "finding_id"
     type = "S"
   }
 
