@@ -1,0 +1,4 @@
+inputs:
+- field: phone
+  state: open
+  url: https://example.com

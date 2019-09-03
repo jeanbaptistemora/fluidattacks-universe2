@@ -178,6 +178,7 @@ class ResourceTests(TestCase):
             request.FILES['document'] = File(test_file)
             result = testing_client.execute(query, context=request)
             assert 'errors' not in result
+            assert 'success' in result['data']['addFiles']
 
     def test_download_files(self):
         query = '''
