@@ -409,16 +409,18 @@ new employees ask when they become part of our work team:
   in order to meet a client company's project deadline
   or meet your work commitment.
 
-*Where do I have to work?*::
-  We can execute projects on +Fluid Attacks+ facilities
-  or in the customer facilities.
+*Where will I be working?*::
+  Employees work either at +Fluid Attacks+ facilities
+  or at our client company's facilities.
 
-*Does exist teleworking in Fluid Attacks?*::
-  Teleworking doesn't exist as an alternative of on-site working.
-  However, is it possible as an exception
-  made to manage events of force majeure.
+*Does Fluid Attacks allow telecommuting?*::
+  See the answer to question 20 above.
+  +Fluid Attacks+ does not allow telecommuting.
+  Work must be done on-site.
+  However, exceptions can be made allowing telecommuting
+  in extreme and extraordinary cases.
 
-*Can I anticipate my vacations?*::
+*Can I schedule my vacations ahead of time?*::
   In +Fluid Attacks+ you can anticipate your vacations
   even if you haven't finished your period.
   Vacations must be requested with minimum +30+ calendar days of anticipation,
