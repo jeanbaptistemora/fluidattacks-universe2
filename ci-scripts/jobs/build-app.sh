@@ -25,8 +25,8 @@ build_app() {
   FI_SSL_CERT=$(vault read -field=ssl_cert secret/integrates/$ENV_NAME)
 
   # Get version
-  VERSION=$(app_version)
-  echo -n "$VERSION" > version.txt
+  FI_VERSION=$(app_version)
+  echo -n "$FI_VERSION" > version.txt
 
   kaniko_login
 

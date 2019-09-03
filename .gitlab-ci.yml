@@ -248,7 +248,7 @@ test-driver:
 
 ephemeral-app:
   stage: deploy
-  needs: [build-app]
+  needs: [build-app-experimental]
   image: registry.gitlab.com/fluidsignal/serves:builder
   script:
     - . ci-scripts/helpers/others.sh && vault_login

@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: integrates
-        image: registry.gitlab.com/fluidsignal/default/integrates/app:$CI_COMMIT_REF_SLUG
+        image: registry.gitlab.com/fluidattacks/integrates/ephemeral/app:$CI_COMMIT_REF_SLUG
         imagePullPolicy: Always
         env:
           - name: DEPLOYMENT_DATE

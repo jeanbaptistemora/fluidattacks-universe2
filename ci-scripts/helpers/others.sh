@@ -7,8 +7,8 @@ kaniko_login() {
 
 kaniko_build() {
 
-  # This script builds a Dockerfile using kaniko with cache
-  # and pushes to the registry if the branch is master.
+  # Build a Dockerfile using kaniko with cache
+  # and push to the registry if the branch is master.
   # kaniko parameters can be added if needed.
   # Example: kaniko_build mobile --build-arg VERSION='1.2'
 
@@ -39,7 +39,7 @@ kaniko_build() {
 
 vault_install() {
 
-  # Installs vault in $1
+  # Install vault in $1
 
   set -e
 
@@ -53,9 +53,9 @@ vault_install() {
 
 vault_login() {
 
-  # Logs in to vault.
-  # Uses prod credentials if branch is master
-  # Uses dev credentials in any other scenario
+  # Log in to vault.
+  # Use prod credentials if branch is master
+  # Use dev credentials in any other scenario
 
   set -e
 
@@ -99,7 +99,7 @@ vault_login() {
 
 mobile_get_version() {
 
-  # Gets the current version for a mobile deployment
+  # Get the current version for a mobile deployment
 
   set -e
 
@@ -124,7 +124,7 @@ mobile_get_version() {
 
 commitlint_conf () {
 
-  #This scripts download commitlint's configuration files
+  # download commitlint's configuration files
 
   set -e
 
@@ -142,6 +142,12 @@ commitlint_conf () {
 }
 
 minutes_of_month () {
+
+  # Returns minutes that have passed during the current month
+
+  set -e
+
+
   local MINUTES_OF_PASSED_DAYS
   local MINUTES_OF_PASSED_HOURS
   local MINUTES_OF_CURRENT_HOUR
@@ -172,6 +178,11 @@ minutes_of_month () {
 }
 
 app_version () {
+
+  # Return a version for integrates app
+
+  set -e
+
   MINUTES=$(minutes_of_month)
   echo "$(date +%y.%m.)${MINUTES}"
 }
