@@ -135,7 +135,8 @@ class UpdateAccessToken(Mutation):
                     email, ['company'])['company'],
                 'first_name': user_info['first_name'],
                 'last_name': user_info['last_name'],
-                'jti': token_data['jti']
+                'jti': token_data['jti'],
+                'iat': datetime.utcnow()
             },
             algorithm='HS512',
             key=settings.JWT_SECRET_API
