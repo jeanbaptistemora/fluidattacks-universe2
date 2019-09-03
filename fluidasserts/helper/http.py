@@ -113,8 +113,11 @@ class HTTPSession():
         self.stream = stream
         self.redirect = redirect
         self.timeout = timeout
-        self.vulns: List[Unit] = []
-        self.safes: List[Unit] = []
+        self._vulns: List[Unit] = []
+        self._safes: List[Unit] = []
+        self._source: str = None
+        self._msg_open: str = None
+        self._msg_closed: str = None
         if self.headers is None:
             self.headers = dict()
         if 'User-Agent' not in self.headers:
@@ -136,20 +139,26 @@ class HTTPSession():
         pass
 
     def _add_unit(self, *, is_vulnerable: bool,
-                  source: str, specific: list) -> None:
+                  source: str = None, specific: list = None) -> None:
         """Append a new :class:`fluidasserts.Unit` object to this session."""
-        (self.vulns if is_vulnerable else self.safes).append(
+        (self._vulns if is_vulnerable else self._safes).append(
             Unit(where=self.url,
-                 source=source,
-                 specific=specific,
+                 source=source or self._source,
+                 specific=specific or [
+                     self._msg_open if is_vulnerable else self._msg_closed],
                  fingerprint=self.get_fingerprint()))
 
-    def _get_tuple_result(self, *, msg_open: str, msg_closed: str
+    def _set_messages(self, *, source: str, msg_open: str, msg_closed: str):
+        """Set the open and closed msg attributes for this session."""
+        self._source, self._msg_open, self._msg_closed = \
+            source, msg_open, msg_closed
+
+    def _get_tuple_result(self, *, msg_open: str = None, msg_closed: str = None
                           ) -> Tuple[str, str, List[Unit], List[Unit]]:
         """Return a :class:`typing.Tuple` version of the results object."""
-        if self.vulns:
-            return OPEN, msg_open, self.vulns, self.safes
-        return CLOSED, msg_closed, self.vulns, self.safes
+        if self._vulns:
+            return OPEN, msg_open or self._msg_open, self._vulns, self._safes
+        return CLOSED, msg_closed or self._msg_closed, self._vulns, self._safes
 
     def __do_post_json(self) -> Optional[requests.Response]:
         self.verb_used = 'POST'
