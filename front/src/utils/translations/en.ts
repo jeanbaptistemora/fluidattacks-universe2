@@ -71,7 +71,6 @@ const enTranslations: dict = {
     updated: "Updated",
     updated_title: "Correct!",
     value: "Value",
-    verified_state: "This finding is in process of verification.",
     verified_success: "This finding was marked as verified.",
   },
   project: {

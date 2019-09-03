@@ -335,9 +335,6 @@ export const updateTreatment: ThunkActionStructure<void> =
               case "Invalid treatment manager":
                 msgError(translate.t("proj_alerts.invalid_treatment_mgr"));
                 break;
-              case "Verification process":
-                msgError(translate.t("proj_alerts.verified_state"));
-                break;
               default:
                 msgError(translate.t("proj_alerts.error_textsad"));
                 rollbar.error(error.message, errors);

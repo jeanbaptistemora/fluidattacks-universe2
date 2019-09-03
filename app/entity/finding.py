@@ -715,25 +715,7 @@ class UpdateTreatment(Mutation):
     def mutate(self, info, finding_id, **parameters):
         user_data = util.get_jwt_content(info.context)
         project_name = get_project_name(finding_id)
-        finding_attrs = integrates_dal.get_finding_attributes_dynamo(
-            finding_id,
-            ['treatment', 'verification_request_date', 'verification_date'])
-        if finding_attrs and \
-                parameters['treatment'] != finding_attrs.get('treatment'):
-            has_pending_verification = (
-                True if finding_attrs.get('verification_request_date')
-                and not finding_attrs.get('verification_date')
-                or finding_attrs.get('verification_date')
-                < finding_attrs.get('verification_request_date')
-                else False)
-            if has_pending_verification:
-                raise GraphQLError('Verification process')
-            else:
-                # request verified or there isn't a request verification
-                pass
-        else:
-            # finding treatment isn't changed
-            pass
+
         if parameters['treatment'] == 'IN PROGRESS':
             if not is_customeradmin(project_name, user_data['user_email']):
                 parameters['treatment_manager'] = user_data['user_email']
