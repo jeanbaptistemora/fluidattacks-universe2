@@ -29,7 +29,7 @@ def update_legal_remember(email, remember):
 def update_access_token(email, token_data):
     """ Update access token """
     access_token = {
-        'api_token': token_data['token_hashed'],
+        'jti': token_data['jti_hashed'],
         'salt': token_data['salt']
     }
     return user_dal.update_user_attribute(email, access_token, 'access_token')

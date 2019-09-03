@@ -87,10 +87,10 @@ def require_login(func):
         context = args[1].context
         try:
             user_data = util.get_jwt_content(context)
-            if user_data.get('api_token'):
-                check_api_token(user_data['user_email'],
-                                context.META.get('HTTP_AUTHORIZATION'),
-                                user_data['api_token'])
+            if user_data.get('jti'):
+                verify_jti(user_data['user_email'],
+                           context.META.get('HTTP_AUTHORIZATION'),
+                           user_data['jti'])
         except InvalidAuthorization:
             raise GraphQLError('Login required')
         return func(*args, **kwargs)
@@ -127,8 +127,8 @@ Unauthorized role attempted to perform operation')
     return wrapper
 
 
-def check_api_token(email, context, api_token):
-    if not has_valid_access_token(email, context, api_token):
+def verify_jti(email, context, jti):
+    if not has_valid_access_token(email, context, jti):
         raise InvalidAuthorization()
     else:
         # access_token matched

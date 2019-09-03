@@ -224,7 +224,7 @@ def get_jwt_content(context):
         token = header_token.split()[1] if header_token else cookie_token
         payload = jwt.get_unverified_claims(token)
 
-        if payload.get('api_token'):
+        if payload.get('jti'):
             content = jwt.decode(
                 token=token, key=settings.JWT_SECRET_API, algorithms='HS512')
         else:
@@ -340,26 +340,26 @@ def calculate_datediff_since(start_date):
 
 
 def calculate_hash_token():
-    api_token = secrets.token_bytes(NUMBER_OF_BYTES)
+    jti_token = secrets.token_bytes(NUMBER_OF_BYTES)
     salt = secrets.token_bytes(NUMBER_OF_BYTES)
     backend = default_backend()
-    token_hashed = Scrypt(
+    jti_hashed = Scrypt(
         salt=salt,
         length=NUMBER_OF_BYTES,
         n=SCRYPT_N,
         r=SCRYPT_R,
         p=SCRYPT_P,
         backend=backend
-    ).derive(api_token)
+    ).derive(jti_token)
 
     return {
-        'token_hashed': binascii.hexlify(token_hashed),
-        'api_token': binascii.hexlify(api_token),
+        'jti_hashed': binascii.hexlify(jti_hashed),
+        'jti': binascii.hexlify(jti_token),
         'salt': binascii.hexlify(salt)
     }
 
 
-def verificate_hash_token(access_token, api_token):
+def verificate_hash_token(access_token, jti_token):
     resp = False
     backend = default_backend()
     token_hashed = Scrypt(
@@ -372,8 +372,8 @@ def verificate_hash_token(access_token, api_token):
     )
     try:
         token_hashed.verify(
-            binascii.unhexlify(api_token),
-            binascii.unhexlify(access_token['access_token']['api_token']))
+            binascii.unhexlify(jti_token),
+            binascii.unhexlify(access_token['access_token']['jti']))
         resp = True
     except InvalidKey:
         rollbar.report_message('Error: Access token does not match', 'error')

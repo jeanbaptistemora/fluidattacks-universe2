@@ -92,12 +92,12 @@ def is_customeradmin(project, email):
     return False
 
 
-def has_valid_access_token(email, context, api_token):
+def has_valid_access_token(email, context, jti):
     """ Verify if has active access token and match. """
     access_token = user_dal.get_user_attributes(email, ['access_token'])
     resp = False
     if context and access_token:
-        resp = util.verificate_hash_token(access_token, api_token)
+        resp = util.verificate_hash_token(access_token, jti)
     else:
         # authorization header not present or user without access_token
         pass
@@ -124,7 +124,7 @@ def has_phone_number(email):
 
 
 def get_user_role(user_data):
-    if user_data.get('api_token'):
+    if user_data.get('jti'):
         role = get_role(user_data['user_email'])
     else:
         role = user_data['user_role']
