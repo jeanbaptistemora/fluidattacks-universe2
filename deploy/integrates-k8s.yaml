@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: container-integrates
-        image: registry.gitlab.com/fluidsignal/default/integrates/app:master
+        image: registry.gitlab.com/fluidattacks/integrates:app
         imagePullPolicy: Always
         envFrom:
           - secretRef:
