@@ -9,13 +9,12 @@ import re
 # None
 
 # local imports
-from fluidasserts import OPEN, CLOSED, UNKNOWN, LOW, MEDIUM, DAST
+from fluidasserts import LOW, MEDIUM, DAST
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
-from fluidasserts.proto.http import _is_header_present
 from fluidasserts.proto.http import _has_insecure_value
-from fluidasserts.utils.decorators import track, level, notify, api
+from fluidasserts.utils.decorators import track, level, notify, api, unknown_if
 from fluidasserts.helper import http
 
 HDR_RGX = {
@@ -127,19 +126,7 @@ def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'X-Frame-Options'
-    try:
-        result = _has_insecure_value(url, header, *args, **kwargs)
-        if result is None:
-            return OPEN, (f'Header {header} is not set, which is insecure '
-                          f'as it allows for a Click Jacking attack')
-        if result:
-            return OPEN, f'Header {header} has insecure value'
-        return CLOSED, f'Header {header} has a secure value'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _has_insecure_value(url, 'X-Frame-Options', True, *args, **kwargs)
 
 
 @api(risk=LOW, kind=DAST)
@@ -153,22 +140,12 @@ def is_header_x_content_type_options_missing(url: str, *args,
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'X-Content-Type-Options'
-    try:
-        result = _has_insecure_value(url, header, *args, **kwargs)
-        if result is None:
-            return OPEN, (f'Header {header} is not set, which is insecure '
-                          f'as it does not dissable MIME Sniffing.')
-        if result:
-            return OPEN, f'Header {header} has insecure value'
-        return CLOSED, f'Header {header} has a secure value'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _has_insecure_value(
+        url, 'X-Content-Type-Options', True, *args, **kwargs)
 
 
 @api(risk=MEDIUM, kind=DAST)
+@unknown_if(http.ParameterError, http.ConnError)
 def is_header_hsts_missing(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if Strict-Transport-Security HTTP header is properly set.
@@ -179,21 +156,28 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     header = 'Strict-Transport-Security'
-    try:
-        value = _is_header_present(url, header, *args, **kwargs)
-        if not value:
-            return OPEN, f'Header {header} not present'
+    session = http.HTTPSession(url, *args, **kwargs)
 
-        re_match = re.search(HDR_RGX[header.lower()], value, flags=re.I)
+    is_vulnerable: bool = True
+
+    if header in session.response.headers:
+        re_match = re.search(
+            pattern=HDR_RGX[header.lower()],
+            string=session.response.headers[header],
+            flags=re.IGNORECASE)
         if re_match:
             max_age_val = re_match.groups()[0]
             if int(max_age_val) >= 31536000:
-                return CLOSED, f'HTTP header {header} is secure'
-        return OPEN, f'{header} HTTP header is insecure'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+                is_vulnerable = False
+
+    session._add_unit(
+        is_vulnerable=is_vulnerable,
+        source=f'HTTP/Response/Headers/{header}',
+        specific=[header])
+
+    return session._get_tuple_result(
+        msg_open=f'Insecure header {header} is present',
+        msg_closed=f'Insecure header {header} is not present')
 
 
 @api(risk=LOW, kind=DAST)
@@ -206,20 +190,4 @@ def is_header_content_type_missing(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'Content-Type'
-    try:
-        result = _has_insecure_value(url, header, *args, **kwargs)
-        if result is None:
-            return OPEN, (f'Header {header} is not set, which is insecure '
-                          f'as it leaves the type of the response open '
-                          f'to interpretation (which may introduce '
-                          f'vulnerabilities by an improper synchronization '
-                          f'between the client and the server, or sniffing '
-                          f'of the payload.')
-        if result:
-            return OPEN, f'Header {header} has insecure value'
-        return CLOSED, f'Header {header} has a secure value'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _has_insecure_value(url, 'Content-Type', True, *args, **kwargs)

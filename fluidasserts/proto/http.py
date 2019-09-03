@@ -11,6 +11,7 @@ from typing import Any, Dict, List, Optional, Set, Union
 # 3rd party imports
 from bs4 import BeautifulSoup
 from pytz import timezone
+from difflib import SequenceMatcher
 from viewstate import ViewState, ViewStateException
 from urllib.parse import parse_qsl
 import ntplib
@@ -227,6 +228,7 @@ def _has_method(url: str, method: str, *args, **kwargs) -> tuple:
         msg_closed=f'HTTP Method {method} disabled')
 
 
+@unknown_if(http.ParameterError, http.ConnError)
 def _is_header_present(url: str, header: str, *args, **kwargs) -> tuple:
     """
     Check if header is present in URL.
@@ -234,25 +236,58 @@ def _is_header_present(url: str, header: str, *args, **kwargs) -> tuple:
     :param url: URL to test.
     :param header: Header to test if present.
     """
-    http_session = http.HTTPSession(url, *args, **kwargs)
-    headers_info = http_session.response.headers
-    return headers_info[header] if header in headers_info else None
+    session = http.HTTPSession(url, *args, **kwargs)
+    session._add_unit(
+        is_vulnerable=header in session.response.headers,
+        source=f'HTTP/Response/Headers/{header}',
+        specific=[header])
+
+    return session._get_tuple_result(
+        msg_open=f'Insecure header {header} is present',
+        msg_closed=f'Insecure header {header} is not present')
 
 
-def _has_insecure_value(url: str, header: str, *args, **kwargs) -> bool:
+@unknown_if(http.ParameterError, http.ConnError)
+def _has_insecure_value(url: str,
+                        header: str,
+                        vulnerable_if_missing: bool,
+                        *args, **kwargs) -> tuple:
     """
-    Check if header value is the.
+    Check if header value is insecure.
 
     :param url: URL to test.
     :param header: Header to test if present.
     """
-    expected = HDR_RGX[header.lower()]
-    http_session = http.HTTPSession(url, *args, **kwargs)
-    headers_info = http_session.response.headers
-    if header in headers_info:
-        value = headers_info[header]
-        return not re.match(expected, value, re.IGNORECASE)
-    return None
+    session = http.HTTPSession(url, *args, **kwargs)
+
+    missing: bool = True
+    insecure: bool = True
+
+    if header in session.response.headers:
+        missing = False
+        insecure = not re.match(
+            pattern=HDR_RGX[header.lower()],
+            string=session.response.headers[header],
+            flags=re.IGNORECASE)
+
+    if vulnerable_if_missing:
+        session._add_unit(
+            is_vulnerable=missing or insecure,
+            source=f'HTTP/Response/Headers/{header}',
+            specific=[header])
+
+        return session._get_tuple_result(
+            msg_open=f'{header} HTTP header is missing which is insecure',
+            msg_closed=f'{header} HTTP header is present which is secure')
+
+    session._add_unit(
+        is_vulnerable=not missing and insecure,
+        source=f'HTTP/Response/Headers/{header}',
+        specific=[header])
+
+    return session._get_tuple_result(
+        msg_open=f'{header} HTTP header is insecure',
+        msg_closed=f'{header} HTTP header is secure')
 
 
 @unknown_if(http.ParameterError, http.ConnError)
@@ -397,15 +432,7 @@ def is_header_x_asp_net_version_present(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'X-AspNet-Version'
-    try:
-        if _is_header_present(url, header, *args, **kwargs):
-            return OPEN, f'Insecure header {header} is present'
-        return CLOSED, f'Insecure header {header} is not present'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _is_header_present(url, 'X-AspNet-Version', *args, **kwargs)
 
 
 @api(risk=LOW,
@@ -429,15 +456,7 @@ def is_header_x_powered_by_present(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'X-Powered-By'
-    try:
-        if _is_header_present(url, header, *args, **kwargs):
-            return OPEN, f'Insecure header {header} is present'
-        return CLOSED, f'Insecure header {header} is not present'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _is_header_present(url, 'X-Powered-By', *args, **kwargs)
 
 
 @api(risk=LOW, kind=DAST)
@@ -451,25 +470,14 @@ def is_header_access_control_allow_origin_missing(url: str,
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'Access-Control-Allow-Origin'
     if 'headers' in kwargs:
         kwargs['headers'].update({'Origin':
                                   'https://www.malicious.com'})
     else:
         kwargs = {'headers': {'Origin': 'https://www.malicious.com'}}
 
-    try:
-        result = _has_insecure_value(url, header, *args, **kwargs)
-        if result:
-            return OPEN, f'{header} HTTP header is insecure'
-        if result is None:
-            return CLOSED, (f'HTTP header {header} not present which is secure'
-                            'by default')
-        return CLOSED, f'{header} HTTP header is insecure'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _has_insecure_value(
+        url, 'Access-Control-Allow-Origin', False, *args, **kwargs)
 
 
 @api(risk=LOW, kind=DAST)
@@ -482,21 +490,7 @@ def is_header_cache_control_missing(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'Cache-Control'
-    try:
-        result = _has_insecure_value(url, header, *args, **kwargs)
-        if result is None:
-            return OPEN, (f'Header {header} is not set, which is insecure on '
-                          f'resources with sensible data as it could get '
-                          f'cached and an attacker with local access '
-                          f'could retrieve it')
-        if result:
-            return OPEN, f'Header {header} has insecure value'
-        return CLOSED, f'Header {header} has a secure value'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _has_insecure_value(url, 'Cache-Control', True, *args, **kwargs)
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -510,20 +504,8 @@ def is_header_content_security_policy_missing(url: str,
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'Content-Security-Policy'
-    try:
-        result = _has_insecure_value(url, header, *args, **kwargs)
-        if result is None:
-            return OPEN, (f'Header {header} is not set, which is insecure '
-                          f'as it increases the probability of an XSS Attack '
-                          f'to succeed')
-        if result:
-            return OPEN, f'Header {header} has insecure value'
-        return CLOSED, f'Header {header} has a secure value'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _has_insecure_value(
+        url, 'Content-Security-Policy', True, *args, **kwargs)
 
 
 @api(risk=LOW, kind=DAST)
@@ -536,23 +518,7 @@ def is_header_content_type_missing(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'Content-Type'
-    try:
-        result = _has_insecure_value(url, header, *args, **kwargs)
-        if result is None:
-            return OPEN, (f'Header {header} is not set, which is insecure '
-                          f'as it leaves the type of the response open '
-                          f'to interpretation (which may introduce '
-                          f'vulnerabilities by an improper synchronization '
-                          f'between the client and the server, or sniffing '
-                          f'of the payload')
-        if result:
-            return OPEN, f'Header {header} has insecure value'
-        return CLOSED, f'Header {header} has a secure value'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _has_insecure_value(url, 'Content-Type', True, *args, **kwargs)
 
 
 @api(risk=LOW, kind=DAST)
@@ -565,18 +531,7 @@ def is_header_expires_missing(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'Expires'
-    try:
-        result = _has_insecure_value(url, header, *args, **kwargs)
-        if result:
-            return OPEN, f'Header {header} has insecure value'
-        if result is None:
-            return CLOSED, f'Header {header} is not set'
-        return CLOSED, f'Header {header} has a secure value'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _has_insecure_value(url, 'Expires', False, *args, **kwargs)
 
 
 @api(risk=LOW, kind=DAST)
@@ -589,19 +544,7 @@ def is_header_pragma_missing(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'Pragma'
-    try:
-        result = _has_insecure_value(url, header, *args, **kwargs)
-        if result is None:
-            return OPEN, (f'Header {header} is not set, which is insecure on '
-                          f'resources with sensible data')
-        if result:
-            return OPEN, f'Header {header} has insecure value'
-        return CLOSED, f'Header {header} has a secure value'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _has_insecure_value(url, 'Pragma', True, *args, **kwargs)
 
 
 @api(risk=LOW,
@@ -625,15 +568,7 @@ def is_header_server_present(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'Server'
-    try:
-        if _is_header_present(url, header, *args, **kwargs):
-            return OPEN, f'Insecure header {header} is present'
-        return CLOSED, f'Insecure header {header} is not present'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _is_header_present(url, 'Server', *args, **kwargs)
 
 
 @api(risk=LOW, kind=DAST)
@@ -647,19 +582,8 @@ def is_header_x_content_type_options_missing(url: str, *args,
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'X-Content-Type-Options'
-    try:
-        result = _has_insecure_value(url, header, *args, **kwargs)
-        if result is None:
-            return OPEN, (f'Header {header} is not set, which is insecure '
-                          f'as it does not dissable MIME Sniffing')
-        if result:
-            return OPEN, f'Header {header} has insecure value'
-        return CLOSED, f'Header {header} has a secure value'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _has_insecure_value(
+        url, 'X-Content-Type-Options', True, *args, **kwargs)
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -672,19 +596,7 @@ def is_header_x_frame_options_missing(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'X-Frame-Options'
-    try:
-        result = _has_insecure_value(url, header, *args, **kwargs)
-        if result is None:
-            return OPEN, (f'Header {header} is not set, which is insecure '
-                          f'as it allows for a Click Jacking attack')
-        if result:
-            return OPEN, f'Header {header} has insecure value'
-        return CLOSED, f'Header {header} has a secure value'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _has_insecure_value(url, 'X-Frame-Options', True, *args, **kwargs)
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -697,19 +609,8 @@ def is_header_perm_cross_dom_pol_missing(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'X-Permitted-Cross-Domain-Policies'
-    try:
-        result = _has_insecure_value(url, header, *args, **kwargs)
-        if result is None:
-            return OPEN, (f'Header {header} is not set, which is insecure '
-                          f'on applications that use Flash or PDF')
-        if result:
-            return OPEN, f'Header {header} has insecure value'
-        return CLOSED, f'Header {header} has a secure value'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _has_insecure_value(
+        url, 'X-Permitted-Cross-Domain-Policies', True, *args, **kwargs)
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -722,22 +623,11 @@ def is_header_x_xxs_protection_missing(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    header = 'X-XSS-Protection'
-    try:
-        result = _has_insecure_value(url, header, *args, **kwargs)
-        if result is None:
-            return OPEN, (f'Header {header} is not set, which is insecure as '
-                          f'it aids an XSS attack to succeed')
-        if result:
-            return OPEN, f'Header {header} has insecure value'
-        return CLOSED, f'Header {header} has a secure value'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _has_insecure_value(url, 'X-XSS-Protection', True, *args, **kwargs)
 
 
 @api(risk=MEDIUM, kind=DAST)
+@unknown_if(http.ParameterError, http.ConnError)
 def is_header_hsts_missing(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if Strict-Transport-Security HTTP header is properly set.
@@ -748,21 +638,28 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     header = 'Strict-Transport-Security'
-    try:
-        value = _is_header_present(url, header, *args, **kwargs)
-        if not value:
-            return OPEN, f'Header {header} not present'
+    session = http.HTTPSession(url, *args, **kwargs)
 
-        re_match = re.search(HDR_RGX[header.lower()], value, flags=re.I)
+    is_vulnerable: bool = True
+
+    if header in session.response.headers:
+        re_match = re.search(
+            pattern=HDR_RGX[header.lower()],
+            string=session.response.headers[header],
+            flags=re.IGNORECASE)
         if re_match:
             max_age_val = re_match.groups()[0]
             if int(max_age_val) >= 31536000:
-                return CLOSED, f'HTTP header {header} is secure'
-        return OPEN, f'{header} HTTP header is insecure'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+                is_vulnerable = False
+
+    session._add_unit(
+        is_vulnerable=is_vulnerable,
+        source=f'HTTP/Response/Headers/{header}',
+        specific=[header])
+
+    return session._get_tuple_result(
+        msg_open=f'Insecure header {header} is present',
+        msg_closed=f'Insecure header {header} is not present')
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -777,15 +674,7 @@ def is_basic_auth_enabled(url: str, *args, **kwargs) -> tuple:
     """
     if url.startswith('https'):
         return CLOSED, f'URL uses HTTPS: {url}'
-    header = 'WWW-Authenticate'
-    try:
-        if _has_insecure_value(url, header, *args, **kwargs):
-            return OPEN, f'Header {header} has insecure value'
-        return CLOSED, f'Header {header} has a secure value'
-    except http.ConnError as exc:
-        return UNKNOWN, f'There was an error: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    return _has_insecure_value(url, 'WWW-Authenticate', False, *args, **kwargs)
 
 
 @api(risk=LOW, kind=DAST)
@@ -1264,39 +1153,42 @@ def is_version_visible(url, *args, **kwargs) -> tuple:
         specific=[field])
 
     return service.sess._get_tuple_result(
-        msg_open='Session ID is exposed',
-        msg_closed='Session ID is not exposed')
+        msg_open='Version is visible',
+        msg_closed='Version is not visible')
 
 
-@notify
-@level('medium')
-@track
-def is_not_https_required(url: str, *args, **kwargs) -> bool:
+@api(risk=MEDIUM,
+     kind=DAST,
+     references=[
+         'https://www.owasp.org/index.php/Insecure_Transport',
+     ],
+     standards={
+         'CWE': '319',
+     },
+     examples=[],
+     score={
+         'CVSS:3.0/AV:A/AC:L/PR:N/UI:R/S:U/C:L/I:N/A:N': 3.5,
+     })
+@unknown_if(AssertionError, http.ParameterError, http.ConnError)
+def is_not_https_required(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if HTTPS is always forced on a given URL.
 
     :param url: URL to test.
+    :rtype: :class:`fluidasserts.Result`
     """
     if not url.startswith('http://'):
-        show_unknown('URL should start with "http://"',
-                     details=dict(url=url))
-        return False
-    try:
-        http_session = http.HTTPSession(url, *args, **kwargs)
-        fingerprint = http_session.get_fingerprint()
-        if http_session.url.startswith('https'):
-            show_close('HTTPS is forced on URL',
-                       details=dict(url=http_session.url,
-                                    fingerprint=fingerprint))
-            return False
-        show_open('HTTPS is not forced on URL',
-                  details=dict(url=http_session.url, fingerprint=fingerprint))
-        return True
-    except http.ConnError as exc:
-        show_unknown('Could not connnect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
+        raise AssertionError('URL should start with http://')
+
+    session = http.HTTPSession(url, *args, **kwargs)
+    session._add_unit(
+        is_vulnerable=not session.url.startswith('https'),
+        source=f'HTTP/SSL/Disabled',
+        specific=['HTTP/SSL'])
+
+    return session._get_tuple_result(
+        msg_open='HTTPS is not forced on URL',
+        msg_closed='HTTPS is forced on URL')
 
 
 @notify
@@ -1338,41 +1230,28 @@ def has_dirlisting(url: str, *args, **kwargs) -> bool:
         return False
 
 
-@notify
-@level('medium')
-@track
-def is_resource_accessible(url: str, *args, **kwargs) -> bool:
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(http.ParameterError, http.ConnError)
+def is_resource_accessible(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if URL is available by checking response code.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        http_session = http.HTTPSession(url, *args, **kwargs)
-        fingerprint = http_session.get_fingerprint()
-    except http.ConnError as exc:
-        show_close('Could not connnect to resource',
-                   details=dict(url=url,
-                                message=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    if re.search(r'[4-5]\d\d', str(http_session.response.status_code)):
-        show_close('Resource not available',
-                   details=dict(url=http_session.url,
-                                status=http_session.response.status_code,
-                                fingerprint=fingerprint))
-        return False
-    show_open('Resource available',
-              details=dict(url=http_session.url,
-                           status=http_session.response.status_code,
-                           fingerprint=fingerprint))
-    return True
+    field: str = _get_field(kwargs)
+    session = http.HTTPSession(url, *args, **kwargs)
+    session._add_unit(
+        is_vulnerable=re.search(
+            r'[2-3]\d\d', str(session.response.status_code)),
+        source='HTTP/Response/StatusCode',
+        specific=[field])
+
+    return session._get_tuple_result(
+        msg_open='Resource is available',
+        msg_closed='Resource is not available')
 
 
 @notify
@@ -1420,15 +1299,26 @@ def is_response_delayed(url: str, *args, **kwargs) -> bool:
     return True
 
 
-# pylint: disable=too-many-locals
-# pylint: disable=keyword-arg-before-vararg
-@notify  # noqa
-@level('medium')
-@track
+@api(risk=MEDIUM,
+     kind=DAST,
+     references=[
+         'https://blog.rapid7.com/2017/06/15/about-user-enumeration/',
+         'https://www.hacksplaining.com/prevention/user-enumeration',
+     ],
+     standards={
+         'CWE': '203',
+     },
+     examples=[
+         'https://www.cvedetails.com/cve/CVE-2018-15473/',
+     ],
+     score={
+         'CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N': 7.5,
+     })  # pylint: disable=keyword-arg-before-vararg
+@unknown_if(AssertionError, http.ParameterError, http.ConnError)
 def has_user_enumeration(url: str, user_field: str,
                          user_list: Optional[List] = None,
                          fake_users: Optional[List] = None,
-                         *args, **kwargs) -> bool:
+                         *args, **kwargs) -> tuple:
     r"""
     Check if URL has user enumeration.
 
@@ -1438,96 +1328,71 @@ def has_user_enumeration(url: str, user_field: str,
     :param fake_users: List of fake users.
     :param \*args: Optional arguments for :func:`~_request_dataset`.
     :param \*\*kwargs: Optional arguments for :func:`~_request_dataset`.
+    :rtype: :class:`fluidasserts.Result`
 
     Either ``params`` or ``data`` must be present in ``kwargs``,
     if the request is ``GET`` or ``POST``, respectively.
     They must be strings as they would appear in the request.
     """
-    qs_params = list(filter(kwargs.get,
-                            ['data', 'json', 'params']))
-    if not qs_params:
-        show_unknown('No params were given', details=dict(url=url))
-        return False
+    needed_params: tuple = ('data', 'json', 'params')
+    if not any(map(kwargs.get, needed_params)):
+        raise AssertionError('No params were given')
 
-    query_string = kwargs.get(qs_params[0])
+    query_string = kwargs[next(filter(kwargs.get, needed_params))]
 
     if 'json' not in kwargs and user_field not in query_string:
-        show_unknown('Given user_field not in query string',
-                     details=dict(url=url,
-                                  user_field=user_field,
-                                  query_string=query_string))
-        return False
+        raise AssertionError('Given user_field not in query string')
 
-    if not user_list:
-        user_list = ['admin', 'administrator', 'guest', 'test']
+    session = http.HTTPSession(url, *args, **kwargs)
 
-    if not fake_users:
-        fake_users = ['iuaksiuiadbuqywdaskj1234', 'ajahdsjahdjhbaj',
-                      'aksjdads@asd.com', 'osvtxodahidhiis@gmail.com',
-                      'something@example.com', '12312314511231']
+    user_list = user_list or ['admin', 'administrator', 'guest', 'test']
+    fake_users = fake_users or ['iuaksiuiadbuqywdaskj1234', 'ajahdsjahdjhbaj',
+                                'aksjdads@asd.com', 'osvtxodahihiis@gmail.com',
+                                'something@example.com', '12312314511231']
 
     # Evaluate the response with non-existant users
     fake_datasets = _create_dataset(user_field, fake_users, query_string)
-
-    try:
-        fake_res = _request_dataset(url, fake_datasets, *args, **kwargs)
-    except http.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
     true_datasets = _create_dataset(user_field, user_list, query_string)
 
-    result = False
-    try:
-        user_res = _request_dataset(url, true_datasets, *args, **kwargs)
-    except http.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        result = False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        result = False
-    else:
-        num_comp = len(fake_res) * len(user_res)
+    fake_responses = _request_dataset(url, fake_datasets, *args, **kwargs)
+    true_responses = _request_dataset(url, true_datasets, *args, **kwargs)
 
-        merged = ((x, y) for x in fake_res for y in user_res)
+    sum_ratios: float = sum(
+        SequenceMatcher(None, fake_response, true_response).ratio()
+        for fake_response in fake_responses
+        for true_response in true_responses)
 
-        from difflib import SequenceMatcher
-        res = 0.0
+    avg_ratio: float = sum_ratios / len(fake_responses) / len(true_responses)
 
-        for resp_text, resp_time in merged:
-            res += SequenceMatcher(None, resp_text, resp_time).ratio()
+    session._add_unit(
+        is_vulnerable=avg_ratio <= 0.95,
+        source='HTTP/Response/Discrepancy',
+        specific=[user_field])
 
-        rat = round(res / num_comp, 2)
-
-        if rat > 0.95:
-            show_close('User enumeration not possible',
-                       details=dict(url=url, similar_answers_ratio=rat))
-            result = False
-        else:
-            show_open('User enumeration possible',
-                      details=dict(url=url, similar_answers_ratio=rat))
-            result = True
-    return result
+    return session._get_tuple_result(
+        msg_open='User enumeration is possible',
+        msg_closed='User enumeration not possible')
 
 
-# pylint: disable=keyword-arg-before-vararg
-# pylint: disable=too-many-arguments
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM,
+     kind=DAST,
+     references=[
+         'https://www.owasp.org/index.php/Brute_force_attack',
+     ],
+     standards={
+         'CWE': ['307', '799'],
+         'CAPEC': ['49', '112'],
+     },
+     examples=[
+         'https://nvd.nist.gov/vuln/detail/CVE-2019-6524',
+     ],
+     score={
+         'CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N': 5.3,
+     })  # pylint: disable=keyword-arg-before-vararg
+@unknown_if(AssertionError, http.ParameterError, http.ConnError)
 def can_brute_force(url: str, ok_regex: str, user_field: str, pass_field: str,
                     user_list: List[str] = None, pass_list: List[str] = None,
-                    *args, **kwargs) -> bool:
+                    *args, **kwargs) -> tuple:
     r"""
     Check if URL allows brute forcing.
 
@@ -1539,20 +1404,18 @@ def can_brute_force(url: str, ok_regex: str, user_field: str, pass_field: str,
     :param pass_list: List of passwords.
     :param \*args: Optional arguments for :func:`~_request_dataset`.
     :param \*\*kwargs: Optional arguments for :func:`~_request_dataset`.
+    :rtype: :class:`fluidasserts.Result`
 
     Either ``params`` or ``data`` must be present in ``kwargs``,
     if the request is ``GET`` or ``POST``, respectively.
     They must be strings as they would appear in the request.
     """
-    if 'data' not in kwargs and 'params' not in kwargs and \
-            'json' not in kwargs:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url))
-        return False
+    needed_params: tuple = ('data', 'json', 'params')
+    if not any(map(kwargs.get, needed_params)):
+        raise AssertionError('No params were given')
 
-    qs_params = list(filter(kwargs.get,
-                            ['data', 'json', 'params']))[0]
-    query_string = kwargs.get(qs_params)
+    query_param = next(filter(kwargs.get, needed_params))
+    query_string = kwargs[query_param]
 
     users_dataset = _create_dataset(user_field, user_list, query_string)
 
@@ -1562,29 +1425,25 @@ def can_brute_force(url: str, ok_regex: str, user_field: str, pass_field: str,
             _datas = _create_dataset(pass_field, [password], user_ds)
             dataset.append(_datas[0])
 
+    session = http.HTTPSession(url, *args, **kwargs)
+
+    is_vulnerable: bool = False
     for _datas in dataset:
-        kwargs[qs_params] = _datas
-        try:
-            sess = http.HTTPSession(url, *args, **kwargs)
-            fingerprint = sess.get_fingerprint()
-        except http.ConnError as exc:
-            show_unknown('Could not connect',
-                         details=dict(url=url, data_used=_datas,
-                                      error=str(exc).replace(':', ',')))
-            return False
-        except http.ParameterError as exc:
-            show_unknown('An invalid parameter was passed',
-                         details=dict(url=url,
-                                      error=str(exc).replace(':', ',')))
-            return False
+        kwargs[query_param] = _datas
+
+        sess = http.HTTPSession(url, *args, **kwargs)
+
         if ok_regex in sess.response.text:
-            show_open('Brute forcing possible',
-                      details=dict(url=url, data_used=_datas,
-                                   fingerprint=fingerprint))
-            return True
-    show_close('Brute forcing not possible',
-               details=dict(url=url, fingerprint=fingerprint))
-    return False
+            is_vulnerable = True
+
+    session._add_unit(
+        is_vulnerable=is_vulnerable,
+        source='HTTP/Request/Limit',
+        specific=[user_field, pass_field])
+
+    return session._get_tuple_result(
+        msg_open='Brute forcing is possible',
+        msg_closed='Brute forcing is not possible')
 
 
 @notify
