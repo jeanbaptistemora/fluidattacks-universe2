@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 
+kaniko_login() {
+  echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\
+    \"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+}
+
 kaniko_build() {
 
   # This script builds a Dockerfile using kaniko with cache
@@ -12,11 +17,12 @@ kaniko_build() {
   TARGET="$1"
   shift 1
 
-  echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\
-    \"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+  kaniko_login
 
   if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
     PUSH_POLICY="--destination $CI_REGISTRY_IMAGE:$TARGET"
+    CACHE='--cache=true'
+    CACHE_REPO="--cache-repo $CI_REGISTRY_IMAGE/cache/$TARGET"
   else
     PUSH_POLICY='--no-push'
   fi
@@ -26,9 +32,23 @@ kaniko_build() {
     --context "$CI_PROJECT_DIR" \
     --dockerfile "deploy/containers/$TARGET/Dockerfile" \
     $PUSH_POLICY \
-    --cache=true \
-    --cache-repo "$CI_REGISTRY_IMAGE/cache/$TARGET" \
+    $CACHE \
+    $CACHE_REPO \
     --snapshotMode time "$@"
+}
+
+vault_install() {
+
+  # Installs vault in $1
+
+  set -e
+
+  URL='https://releases.hashicorp.com/vault/0.11.6/vault_0.11.6_linux_amd64.zip'
+
+  wget -O vault.zip "$URL"
+  unzip vault.zip
+  mv vault $1
+  rm -rf vault.zip
 }
 
 vault_login() {
@@ -119,4 +139,39 @@ commitlint_conf () {
   curl $RULES_URL > $RULES_NAME 2> /dev/null
   curl $PARSER_URL > $PARSER_NAME 2> /dev/null
 
+}
+
+minutes_of_month () {
+  local MINUTES_OF_PASSED_DAYS
+  local MINUTES_OF_PASSED_HOURS
+  local MINUTES_OF_CURRENT_HOUR
+
+  # Number of minutes from all days that have completely passed.
+  MINUTES_OF_PASSED_DAYS=$((
+    ($(date +%d | sed 's/^0//') -1) * 1440
+  ))
+
+  # Number of minutes from passed today's passed hours
+  MINUTES_OF_PASSED_HOURS=$((
+    $(date +%H | sed 's/^0//') * 60
+  ))
+
+  # Number of minutes that have passed during current hour
+  MINUTES_OF_CURRENT_HOUR=$((
+    $(date +%M | sed 's/^0//')
+  ))
+
+  # Total number of minutes that have passed since the beggining of the month
+  MINUTES_OF_MONTH=$((
+    $MINUTES_OF_PASSED_DAYS +
+    $MINUTES_OF_PASSED_HOURS +
+    $MINUTES_OF_CURRENT_HOUR
+  ))
+
+  echo "$MINUTES_OF_MONTH"
+}
+
+app_version () {
+  MINUTES=$(minutes_of_month)
+  echo "$(date +%y.%m.)${MINUTES}"
 }

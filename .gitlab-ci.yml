@@ -200,6 +200,21 @@ build-app:
       - version.txt
     when: on_success
 
+build-app-experimental:
+  stage: build
+  needs: [deps-development]
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - sh ci-scripts/jobs/build-app.sh
+  retry: 1
+  artifacts:
+    expire_in: 30m
+    paths:
+      - version.txt
+    when: on_success
+
 build-bot:
   stage: build
   needs: [deps-development]
