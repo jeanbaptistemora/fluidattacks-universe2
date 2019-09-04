@@ -113,7 +113,7 @@ function install_amazon_vpc_plugin() {
   if [ "${curr_version}" = "${AMZ_VPC_PLUGIN_VER}" ]; then
     echo-blue "Amazon VPC plugin is up to date"
   else
-    kubectl apply -f "https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/master/config/${minor_version}/aws-k8s-cni.yaml"
+    kubectl apply -f "vpc-cni-k8s/${minor_version}/aws-k8s-cni.yaml"
     kubectl apply -f "https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/master/config/${minor_version}/calico.yaml"
   fi
 }
