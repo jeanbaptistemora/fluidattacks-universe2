@@ -175,25 +175,10 @@ resource "aws_dynamodb_table" "findings" {
     type = "S"
   }
 
-  point_in_time_recovery {
-    enabled = true
-  }
-}
-
-resource "aws_dynamodb_table" "findings_new" {
-  name           = "fi_findings"
-  read_capacity  = 5
-  write_capacity = 5
-  hash_key       = "project_id"
-  range_key      = "finding_id"
-
-  attribute {
-    name = "project_id"
-    type = "S"
-  }
-  attribute {
-    name = "finding_id"
-    type = "S"
+  global_secondary_index {
+    name               = "project_findings"
+    hash_key           = "project_name"
+    projection_type    = "KEYS_ONLY"
   }
 
   point_in_time_recovery {
