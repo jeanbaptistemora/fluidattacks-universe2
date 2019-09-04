@@ -70,26 +70,11 @@ def has_uninitialized_vars(rpg_dest: str, exclude: list = None) -> tuple:
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
     """
-    var_type = \
-        Word(nums) + Optional(Word(alphas, exact=1)) + Optional(Word(nums))
     grammar = Keyword('D') + VAR_NAME + MatchFirst([
-        # D DateField S   D   INZ(D’1988-09-03’)
-        # D CharField S 10A   INZ(’abcdefghij’)
-        # D UCS2Field S  2C   INZ(U’00610062’)
-        # D YmdDate   S   D   INZ(D’2001-01-13’)
-        # D NumField  S  5P 1 INZ(5.2)
-        # D varfld1   S   5   INZ VARYING
-        # D varfld2   S   5   INZ(’’) VARYING
-        # D blanks    S  10   INZ
-        # D vblanks   S  10   INZ(’ ’) VARYING
-        # D fixfld1   S   5   INZ(’abcde’)
-        'S' + var_type + LineEnd(),
-        # D Upper     C ’ABCDEFGHIJKLMNOPQRSTUVWXYZ’
-        # D DateConst C CONST(D’1988-09-03’)
-        # D NumConst  C CONST(5.2)
-        # D CharConst C CONST(’abcdefghij’)
-        'C' + LineEnd(),
-    ])
+        'S' + Word(alphanums) + Word(nums),
+        'S' + Word(alphanums),
+        'C',
+    ]) + LineEnd()
     grammar.ignore(RPG_COMMENT)
 
     return lang.generic_method(

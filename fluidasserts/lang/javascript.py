@@ -42,8 +42,8 @@ def uses_console_log(js_dest: str, exclude: list = None) -> tuple:
     """
     grammar = Keyword('console') + '.' + Keyword('log') + nestedExpr()
     grammar.ignore(cppStyleComment)
-    grammar.ignore(L_CHAR)
     grammar.ignore(L_STRING)
+    grammar.ignore(L_CHAR)
     return lang.generic_method(
         path=js_dest,
         gmmr=grammar,
@@ -67,8 +67,8 @@ def uses_eval(js_dest: str, exclude: list = None) -> tuple:
     """
     grammar = Keyword('eval') + nestedExpr()
     grammar.ignore(cppStyleComment)
-    grammar.ignore(L_CHAR)
     grammar.ignore(L_STRING)
+    grammar.ignore(L_CHAR)
     return lang.generic_method(
         path=js_dest,
         gmmr=grammar,
@@ -92,8 +92,8 @@ def uses_localstorage(js_dest: str, exclude: list = None) -> tuple:
     """
     grammar = Keyword('localStorage') + '.'
     grammar.ignore(cppStyleComment)
-    grammar.ignore(L_CHAR)
     grammar.ignore(L_STRING)
+    grammar.ignore(L_CHAR)
     return lang.generic_method(
         path=js_dest,
         gmmr=grammar,
@@ -119,8 +119,8 @@ def has_insecure_randoms(js_dest: str, exclude: list = None) -> tuple:
     """
     grammar = Keyword('Math') + '.' + Keyword('random') + nestedExpr()
     grammar.ignore(cppStyleComment)
-    grammar.ignore(L_CHAR)
     grammar.ignore(L_STRING)
+    grammar.ignore(L_CHAR)
     return lang.generic_method(
         path=js_dest,
         gmmr=grammar,
@@ -156,8 +156,8 @@ def swallows_exceptions(js_dest: str, exclude: list = None) -> tuple:
 
     grammar = MatchFirst([classic, modern])
     grammar.ignore(cppStyleComment)
-    grammar.ignore(L_CHAR)
     grammar.ignore(L_STRING)
+    grammar.ignore(L_CHAR)
     return lang.generic_method(
         path=js_dest,
         gmmr=grammar,
@@ -186,8 +186,8 @@ def has_switch_without_default(js_dest: str, exclude: list = None) -> tuple:
     switch = Keyword('switch') + nestedExpr(opener='(', closer=')')
     grammar = Suppress(switch) + nestedExpr(opener='{', closer='}')
     grammar.ignore(cppStyleComment)
-    grammar.ignore(L_CHAR)
     grammar.ignore(L_STRING)
+    grammar.ignore(L_CHAR)
     grammar.addCondition(lambda x: not RE_HAVES_DEFAULT.search(str(x)))
 
     return lang.generic_method(

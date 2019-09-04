@@ -37,7 +37,9 @@ def test_has_dos_dow_sqlcod_in_dir_open():
 
 def test_has_uninitialized_open():
     """Code has uninitialized variables."""
-    assert rpgle.has_uninitialized_vars(INSECURE_CODE).is_open()
+    result = rpgle.has_uninitialized_vars(INSECURE_CODE)
+    assert len(result.vulns[0].specific) == 5
+    assert result.is_open()
 
 
 def test_has_uninitialized_in_dir_open():

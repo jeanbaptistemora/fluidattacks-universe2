@@ -176,8 +176,8 @@ def has_switch_without_default(
     switch = Keyword('switch') + nestedExpr(opener='(', closer=')')
     grammar = Suppress(switch) + nestedExpr(opener='{', closer='}')
     grammar.ignore(cppStyleComment)
-    grammar.ignore(L_CHAR)
     grammar.ignore(L_STRING)
+    grammar.ignore(L_CHAR)
     grammar.addCondition(lambda x: not RE_HAVES_DEFAULT.search(str(x)))
 
     return lang.generic_method(

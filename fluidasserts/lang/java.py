@@ -195,6 +195,8 @@ def swallows_exceptions(java_dest: str, exclude: list = None) -> tuple:
     grammar = Suppress(Keyword('catch')) + nestedExpr(opener='(', closer=')') \
         + nestedExpr(opener='{', closer='}', content=~Empty())
     grammar.ignore(javaStyleComment)
+    grammar.ignore(L_STRING)
+    grammar.ignore(L_CHAR)
 
     return lang.generic_method(
         path=java_dest,
@@ -316,8 +318,8 @@ def has_insecure_randoms(java_dest: str, exclude: list = None) -> tuple:
         _import + _java + '.' + _lang + '.' + _math + '.' + _random_minus,
     ])
     grammar.ignore(javaStyleComment)
-    grammar.ignore(L_CHAR)
     grammar.ignore(L_STRING)
+    grammar.ignore(L_CHAR)
 
     return lang.generic_method(
         path=java_dest,
@@ -390,11 +392,12 @@ def _uses_insecure_hash(java_dest: str, algorithm: tuple,
     tk_get_inst = CaselessKeyword('getinstance')
     tk_alg = Literal('"') + CaselessKeyword(algorithm.lower()) + Literal('"')
     tk_params = Literal('(') + tk_alg + Literal(')')
-    instance = tk_mess_dig + Literal('.') + tk_get_inst + tk_params
+    grammar = tk_mess_dig + Literal('.') + tk_get_inst + tk_params
+    grammar.ignore(javaStyleComment)
 
     return lang.generic_method(
         path=java_dest,
-        gmmr=instance,
+        gmmr=grammar,
         func=lang.parse,
         msgs={
             OPEN: f'Code uses {method} method',
@@ -502,6 +505,7 @@ def has_log_injection(java_dest: str, exclude: list = None) -> tuple:
     tk_var = Word(alphanums)
 
     grammar = log_object + Literal('(') + tk_string + Literal('+') + tk_var
+    grammar.ignore(javaStyleComment)
 
     return lang.generic_method(
         path=java_dest,
@@ -525,7 +529,10 @@ def uses_system_exit(java_dest: str, exclude: list = None) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     method = 'System.exit'
-    grammar = Literal(method)
+    grammar = Keyword('System') + '.' + Keyword('exit')
+    grammar.ignore(javaStyleComment)
+    grammar.ignore(L_STRING)
+    grammar.ignore(L_CHAR)
 
     return lang.generic_method(
         path=java_dest,

@@ -1,3 +1,4 @@
+# FROM docker
 FROM docker:17
 
 RUN apk update && apk upgrade && \

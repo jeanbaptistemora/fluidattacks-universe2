@@ -6,7 +6,8 @@
 from typing import Dict, Any
 
 # 3rd party imports
-from pyparsing import Regex, Keyword, Optional, Combine, ZeroOrMore
+from pyparsing import (Regex, Keyword, Optional, Combine, ZeroOrMore,
+                       pythonStyleComment)
 
 # local imports
 from fluidasserts import OPEN, CLOSED, LOW, SAST
@@ -53,6 +54,7 @@ def not_pinned(file_dest: str, exclude: list = None) -> tuple:
     grammar.addCondition(
         # x = ['FROM', 'D_NAME', ':', 'D_TAG']
         lambda x: len(x) == 2 or (len(x) == 4 and x[3] == 'latest'))
+    grammar.ignore(pythonStyleComment)
 
     return lang.generic_method(
         path=file_dest,

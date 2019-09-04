@@ -6,7 +6,8 @@
 # None
 
 # 3rd party imports
-from pyparsing import Keyword, oneOf, Regex
+from pyparsing import (Keyword, oneOf, Regex, cppStyleComment,
+                       pythonStyleComment)
 
 # local imports
 from fluidasserts import HIGH, OPEN, CLOSED, SAST
@@ -33,6 +34,8 @@ def has_preg_ce(php_dest: str, exclude: list = None) -> tuple:
     """
     quote = oneOf(["'", '"'])
     grammar = Keyword('preg_replace') + '(' + quote + Regex(r'.*/e\b') + quote
+    grammar.ignore(cppStyleComment)
+    grammar.ignore(pythonStyleComment)
 
     return lang.generic_method(
         path=php_dest,
