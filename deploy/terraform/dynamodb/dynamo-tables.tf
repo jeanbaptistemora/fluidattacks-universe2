@@ -175,6 +175,11 @@ resource "aws_dynamodb_table" "findings" {
     type = "S"
   }
 
+  attribute {
+    name = "project_name"
+    type = "S"
+  }
+
   global_secondary_index {
     name               = "project_findings"
     hash_key           = "project_name"
