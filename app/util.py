@@ -2,7 +2,7 @@
 """ FluidIntegrates auxiliar functions. """
 from __future__ import absolute_import
 import collections
-from datetime import datetime
+from datetime import datetime, timedelta
 import binascii
 import hashlib
 import logging
@@ -34,6 +34,7 @@ NUMBER_OF_BYTES = 32  # length of the key
 SCRYPT_N = 2**14  # cpu/memory cost
 SCRYPT_R = 8  # block size
 SCRYPT_P = 1  # parallelization
+MAX_API_AGE_WEEKS = 26  # max exp time of access token 6 months
 
 
 def response(data, message, error):
@@ -337,6 +338,13 @@ def calculate_datediff_since(start_date):
     start_date = start_date.replace(tzinfo=tzn).date()
     final_date = (datetime.now(tz=tzn).date() - start_date)
     return final_date
+
+
+def is_valid_expiration_time(expiration_time):
+    """Verify that expiration time is minor than six months"""
+    exp = datetime.utcfromtimestamp(expiration_time)
+    now = datetime.utcnow()
+    return exp < (now + timedelta(weeks=MAX_API_AGE_WEEKS)) and exp > now
 
 
 def calculate_hash_token():

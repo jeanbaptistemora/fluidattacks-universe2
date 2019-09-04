@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from django.conf import settings
 from google.auth.transport import requests
 from google.oauth2 import id_token
-from graphene import ObjectType, Mutation, List, String, Boolean
+from graphene import ObjectType, Mutation, List, String, Boolean, Int
 from graphql import GraphQLError
 from jose import jwt
 import rollbar
@@ -15,6 +15,7 @@ from app.decorators import require_login
 from app.domain.user import (
     get_role, get_user_attributes, remove_access_token, update_access_token)
 from app.entity.project import Project
+from app.exceptions import InvalidExpirationTime
 from app.services import get_user_role, is_customeradmin
 
 from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
@@ -119,30 +120,40 @@ class SignIn(Mutation):
 
 
 class UpdateAccessToken(Mutation):
+    class Arguments(object):
+        expiration_time = Int(required=True)
     success = Boolean()
     session_jwt = String()
 
     @staticmethod
     @require_login
-    def mutate(_, info):
+    def mutate(_, info, expiration_time):
         user_info = util.get_jwt_content(info.context)
         email = user_info['user_email']
         token_data = util.calculate_hash_token()
-        session_jwt = jwt.encode(
-            {
-                'user_email': email,
-                'company': get_user_attributes(
-                    email, ['company'])['company'],
-                'first_name': user_info['first_name'],
-                'last_name': user_info['last_name'],
-                'jti': token_data['jti'],
-                'iat': datetime.utcnow()
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET_API
-        )
+        session_jwt = ''
+        success = False
 
-        success = update_access_token(email, token_data)
+        if util.is_valid_expiration_time(expiration_time):
+            session_jwt = jwt.encode(
+                {
+                    'user_email': email,
+                    'company': get_user_attributes(
+                        email, ['company'])['company'],
+                    'first_name': user_info['first_name'],
+                    'last_name': user_info['last_name'],
+                    'jti': token_data['jti'],
+                    'iat': datetime.utcnow(),
+                    'exp': expiration_time
+                },
+                algorithm='HS512',
+                key=settings.JWT_SECRET_API
+            )
+
+            success = update_access_token(email, token_data)
+        else:
+            raise InvalidExpirationTime()
+
         return UpdateAccessToken(success, session_jwt)
 
 

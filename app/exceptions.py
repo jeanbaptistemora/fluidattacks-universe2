@@ -65,6 +65,14 @@ class InvalidFileSize(Exception):
         super(InvalidFileSize, self).__init__(msg)
 
 
+class InvalidExpirationTime(Exception):
+    """Exception to control valid expiration time."""
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Invalid Expiration Time'
+        super(InvalidExpirationTime, self).__init__(msg)
+
+
 class InvalidFileType(Exception):
     """Exception to control file type."""
     def __init__(self):
