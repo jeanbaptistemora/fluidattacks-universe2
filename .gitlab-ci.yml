@@ -166,43 +166,6 @@ build-terraform:
 build-app:
   stage: build
   needs: [deps-development]
-  <<: *kaniko_vault_config
-  script:
-    - MINUTES=$((
-        ($(date +%d | sed 's/^0//') -1) * 1440 +
-        $(date +%H | sed 's/^0//') * 60 +
-        $(date +%M | sed 's/^0//')
-      ))
-    - FI_VERSION="$(date +%y.%m.)${MINUTES}"
-    - echo -n "${FI_VERSION}" > version.txt
-    - /kaniko/executor
-        --build-arg CI_API_V4_URL="${CI_API_V4_URL}"
-        --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
-        --build-arg CI_PROJECT_ID="${CI_PROJECT_ID}"
-        --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
-        --build-arg DOCUMENTROOT="${FI_DOCUMENTROOT}"
-        --build-arg DRIVE_AUTHORIZATION="${FI_DRIVE_AUTHORIZATION}"
-        --build-arg DRIVE_AUTHORIZATION_CLIENT="${FI_DRIVE_AUTHORIZATION_CLIENT}"
-        --build-arg ENV_NAME="${ENV_NAME}"
-        --build-arg SSL_CERT="${FI_SSL_CERT}"
-        --build-arg SSL_KEY="${FI_SSL_KEY}"
-        --build-arg VERSION="${FI_VERSION}"
-        --cleanup
-        --context "${CI_PROJECT_DIR}/deploy/containers/app/"
-        --dockerfile "${CI_PROJECT_DIR}/deploy/containers/app/Dockerfile"
-        --destination "${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
-        --single-snapshot
-        --snapshotMode time
-  retry: 1
-  artifacts:
-    expire_in: 30m
-    paths:
-      - version.txt
-    when: on_success
-
-build-app-experimental:
-  stage: build
-  needs: [deps-development]
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
@@ -218,24 +181,16 @@ build-app-experimental:
 build-bot:
   stage: build
   needs: [deps-development]
-  <<: *kaniko_vault_config
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
   script:
-    - /kaniko/executor
-        --build-arg CI_API_V4_URL="${CI_API_V4_URL}"
-        --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
-        --build-arg CI_PROJECT_ID="${CI_PROJECT_ID}"
-        --build-arg ENV_NAME="${ENV_NAME}"
-        --cleanup
-        --context "${CI_PROJECT_DIR}/deploy/containers/bot/"
-        --dockerfile "${CI_PROJECT_DIR}/deploy/containers/bot/Dockerfile"
-        --destination "${CI_REGISTRY_IMAGE}/bot:${CI_COMMIT_REF_NAME}"
-        --single-snapshot
-        --snapshotMode time
+    - sh ci-scripts/jobs/build-bot.sh
   retry: 1
 
 ephemeral-app:
   stage: deploy
-  needs: [build-app-experimental]
+  needs: [build-app]
   image: registry.gitlab.com/fluidsignal/serves:builder
   script:
     - . ci-scripts/helpers/others.sh && vault_login

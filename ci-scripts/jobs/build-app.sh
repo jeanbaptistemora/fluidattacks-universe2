@@ -12,8 +12,6 @@ build_app() {
   vault_install /busybox
   vault_login
 
-
-
   # Set necessary envars
   export FI_DRIVE_AUTHORIZATION
   export FI_DRIVE_AUTHORIZATION_CLIENT
@@ -55,8 +53,8 @@ build_app() {
     --build-arg VERSION="$FI_VERSION" \
     --cache=false \
     --cleanup \
-    --context "${CI_PROJECT_DIR}/deploy/containers/app" \
-    --dockerfile "${CI_PROJECT_DIR}/deploy/containers/app/Dockerfile" \
+    --context "deploy/containers/app" \
+    --dockerfile "deploy/containers/app/Dockerfile" \
     $PUSH_POLICY \
     --single-snapshot \
     --snapshotMode time

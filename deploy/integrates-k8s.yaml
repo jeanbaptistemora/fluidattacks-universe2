@@ -89,7 +89,7 @@ spec:
     spec:
       containers:
       - name: container-integrates-bot
-        image: registry.gitlab.com/fluidsignal/default/integrates/bot:master
+        image: registry.gitlab.com/fluidattacks/integrates:bot
         imagePullPolicy: Always
         envFrom:
           - secretRef:
