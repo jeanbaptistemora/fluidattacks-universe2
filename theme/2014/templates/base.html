@@ -112,18 +112,21 @@
     <!-- Navigation -->
       {% include "navigationbar.html" %}
       {% block header %}
-        <div class="header">
-          <a href="{{ SITEURL }}/">
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/banner.png" alt="{{ gettext('Header-img-alt') }}">
-          </a>
-          <div class="header-title">
-            <div class="fluidicon"></div>
-            <h1 class="header-red">{{ gettext('Header-title-2') }}</h1>
-            <p>{{ gettext('Header-msg') }}</p>
-            <ul>
-            <li>{{ gettext('Header-item-1') }}</li>
-            <li>SAST - DAST - IAST - SCA - DevSecOps</li>
-            <li>{{ gettext('Header-item-3') }}</li>
+        <div class="pt4 pb4 bg-fluid-black h-banner h-banner-l">
+          <!-- Banner Image-->
+          <div class="w-50 pl6-l pl4-m bg-fluid-black fl">
+            <a href="{{ SITEURL }}/">
+              <img class="top-2 pt5 w-banner" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/banner.png" alt="{{ gettext('Header-img-alt') }}">
+            </a>
+          </div>
+          <!-- Banner title and text -->
+          <div class="right-0 top-1 ma-auto pt4 pr4-l w-50 fl bg-fluid-black">
+            <h1 class="c-fluid-red pt3 pt0-l f2-l f3-m f4">{{ gettext('Header-title-2') }}</h1>
+            <p class="white f4-l f4-m f6">{{ gettext('Header-msg') }}</p>
+            <ul class="tl fluid-bullet dn dib-l">
+            <li class="f5 white montsy mt1 mb1" >{{ gettext('Header-item-1') }}</li>
+            <li class="f5 white montsy mt1 mb1" >SAST - DAST - IAST - SCA - DevSecOps</li>
+            <li class="f5 white montsy mt1 mb1" >{{ gettext('Header-item-3') }}</li>
             </ul>
           </div>
         </div>

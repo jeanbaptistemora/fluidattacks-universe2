@@ -45,11 +45,15 @@ $yellow: rgba(255, 255, 0, 1);
 .grayscale { filter: grayscale(100);}
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-fluid-bk { &:hover { color: $fluid-black;} }
+.fluid-bullet { list-style-image: url('../../images/bullet2.png');}
+.h-banner { height: 15em; }
+.w-banner { width: 20em; }
 
 // Tachyons custom responsive classes
 //Large screens
 @media screen and (min-width: 60em) {
   .h-28em-l { height: 28em; }
+  .h-banner-l { height: 20em; }
 }
 
 //Very large screens

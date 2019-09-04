@@ -157,7 +157,7 @@ msgstr "Zero false positives"
 
 #: templates/base.html:122
 msgid "Header-msg"
-msgstr "<strong>Expert intelligence + effective automation</strong>"
+msgstr "Expert intelligence + effective automation"
 
 #: templates/base.html:124
 msgid "Header-item-1"
