@@ -352,14 +352,6 @@ msgstr "contact-us"
 msgid "Footer-subtitle-1.6"
 msgstr "Contact Us"
 
-#: templates/footer.html:22 templates/landing.html:156
-msgid "Footer-subtitle-1.7"
-msgstr "Facts"
-
-#: templates/footer.html:22 templates/landing.html:156
-msgid "Footer-link-1.7"
-msgstr "facts"
-
 #: templates/salesforce.html:56
 msgid "Ack-page"
 msgstr "thank-you"
