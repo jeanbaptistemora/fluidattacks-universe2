@@ -22,6 +22,7 @@ D wa_Id		  S              1A
 D wa_CodXTCOD     S              6A
 D wa_MsjXTCOD     S             45A
 D wa_PosVec       S              6S	0
+D CharConst       C
 
  /Free
     DoW SQLCOD = 0;

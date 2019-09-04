@@ -249,12 +249,12 @@ def has_not_subresource_integrity(path: str) -> tuple:
     r"""
     Check if elements fetched by the provided HTML have `SRI`.
 
-    See: `Documentation <{research_url}>`_.
+    See: `Documentation <https://developer.mozilla.org/en-US/
+    docs/Web/Security/Subresource_Integrity>`_.
 
     :param path: Path to the ``HTML`` source.
     :rtype: :class:`fluidasserts.Result`
-    """.format(research_url=('https://developer.mozilla.org/en-US/docs/Web/'
-                             'Security/Subresource_Integrity'))
+    """
     if not os.path.exists(path):
         return UNKNOWN, 'File does not exist'
 

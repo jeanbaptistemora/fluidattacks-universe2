@@ -21,6 +21,17 @@ D wa_Id		  S              1A Inz(*zero)
 D wa_CodXTCOD     S              6A Inz(*zero)
 D wa_MsjXTCOD     S             45A Inz(*zero)
 D wa_PosVec       S              6S	0 Inz(*zero)
+D DateField       S   D   INZ(D’1988-09-03’)
+D CharField       S 10A   INZ(’abcdefghij’)
+D UCS2Field       S  2C   INZ(U’00610062’)
+D YmdDate         S   D   INZ(D’2001-01-13’)
+D NumField        S  5P 1 INZ(5.2)
+D varfld1         S   5   INZ VARYING
+D varfld2         S   5   INZ(’’) VARYING
+D blanks          S  10   INZ
+D vblanks         S  10   INZ(’ ’) VARYING
+D fixfld1         S   5   INZ(’abcde’)
+D Parm_Trama              Like(fixfld1)
 
  /Free
     If SQLCOD = 0;

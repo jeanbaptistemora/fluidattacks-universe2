@@ -7,8 +7,8 @@ from typing import Dict, Any
 
 # 3rd party imports
 from pyparsing import (CaselessKeyword, Keyword, Word, Optional,
-                       NotAny, alphas, alphanums, nums, cppStyleComment,
-                       MatchFirst, delimitedList)
+                       alphas, alphanums, nums, cppStyleComment,
+                       MatchFirst, delimitedList, LineEnd, Regex)
 
 # local imports
 from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, SAST
@@ -31,6 +31,7 @@ ERROR_CODE = MatchFirst([
     CaselessKeyword('*ALL'),
 ])
 ERROR_CODES = delimitedList(ERROR_CODE, delim=':')
+RPG_COMMENT = Regex(r"(?://|\*).*").setName("RPG style comment")
 
 
 @api(risk=MEDIUM, kind=SAST)
@@ -61,29 +62,43 @@ def has_dos_dow_sqlcod(rpg_dest: str, exclude: list = None) -> tuple:
 
 
 @api(risk=LOW, kind=SAST)
-def has_unitialized_vars(rpg_dest: str, exclude: list = None) -> tuple:
+def has_uninitialized_vars(rpg_dest: str, exclude: list = None) -> tuple:
     """
-    Search for unitialized variables.
+    Search for uninitialized variables.
 
     :param rpg_dest: Path to a RPG source or directory.
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
     """
-    tk_data = Keyword('D')
-    tk_vartype = Word(alphas, exact=1)
-    tk_varlen = Word(nums) + Word(alphas, exact=1)
-    tk_inz = CaselessKeyword('inz')
-
-    grammar = tk_data + VAR_NAME + Optional(tk_vartype) + \
-        Optional(tk_varlen) + Optional(Word(nums)) + NotAny(tk_inz)
+    var_type = \
+        Word(nums) + Optional(Word(alphas, exact=1)) + Optional(Word(nums))
+    grammar = Keyword('D') + VAR_NAME + MatchFirst([
+        # D DateField S   D   INZ(D’1988-09-03’)
+        # D CharField S 10A   INZ(’abcdefghij’)
+        # D UCS2Field S  2C   INZ(U’00610062’)
+        # D YmdDate   S   D   INZ(D’2001-01-13’)
+        # D NumField  S  5P 1 INZ(5.2)
+        # D varfld1   S   5   INZ VARYING
+        # D varfld2   S   5   INZ(’’) VARYING
+        # D blanks    S  10   INZ
+        # D vblanks   S  10   INZ(’ ’) VARYING
+        # D fixfld1   S   5   INZ(’abcde’)
+        'S' + var_type + LineEnd(),
+        # D Upper     C ’ABCDEFGHIJKLMNOPQRSTUVWXYZ’
+        # D DateConst C CONST(D’1988-09-03’)
+        # D NumConst  C CONST(5.2)
+        # D CharConst C CONST(’abcdefghij’)
+        'C' + LineEnd(),
+    ])
+    grammar.ignore(RPG_COMMENT)
 
     return lang.generic_method(
         path=rpg_dest,
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: 'Code has unitialized variables',
-            CLOSED: 'Code does not have unitialized variables',
+            OPEN: 'Code has uninitialized variables',
+            CLOSED: 'Code does not have uninitialized variables',
         },
         spec=LANGUAGE_SPECS,
         excl=exclude)
