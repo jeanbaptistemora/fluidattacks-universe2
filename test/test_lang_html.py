@@ -20,6 +20,7 @@ from fluidasserts.lang import html
 CODE_DIR = 'test/static/lang/html/'
 SECURE_CODE = CODE_DIR + 'non-vulnerable.html'
 INSECURE_CODE = CODE_DIR + 'vulnerable.html'
+INSECURE_CODE2 = CODE_DIR + 'vulnerable2.html'
 NOT_CODE = CODE_DIR + 'notexists.html'
 
 #
@@ -33,7 +34,8 @@ def test_form_autocomplete_open():
     Verifica si el atributo autocomplete=off se encuentra en el
     codigo HTML de vulnerable.html
     """
-    assert html.has_not_autocomplete(INSECURE_CODE)
+    assert html.has_not_autocomplete(INSECURE_CODE).is_open()
+    assert html.has_not_autocomplete(INSECURE_CODE2).is_open()
 
 
 def test_is_cacheable_open():
@@ -53,7 +55,6 @@ def test_is_header_content_type_missing_open():
     estan definidas en el codigo HTML de vulnerable.html
     """
     assert html.is_header_content_type_missing(INSECURE_CODE)
-
 
 
 def test_open_has_reverse_tab_nabbing():

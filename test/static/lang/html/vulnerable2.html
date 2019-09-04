@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+	<body>
+		<form action="/help/readerlogin-auth" method="POST">
+			<input type="hidden" name="r" value="/help/" />
+			<div class="form-group">
+				<label class="control-label" for="password">Username:</label>
+				<input type="text" id="username" name="username" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="password">Password:</label>
+				<input type="password" id="password" name="password" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="password">Password:</label>
+				<input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off"/>
+			</div>
+			<div class="col-lg-4 pw-reset-link">
+	    	  	<a href="#" data-toggle="modal" id="pw-reset-link" data-target="#hg-password-reset">Reset Password</a>
+	    	</div>
+	    	<div class="text-right">
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</form>
+	</body>
+</html>

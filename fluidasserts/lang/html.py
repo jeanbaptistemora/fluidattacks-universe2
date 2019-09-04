@@ -54,14 +54,18 @@ def _has_attributes(filename: str, tag: str, attrs: dict) -> bool:
 @api(risk=LOW, kind=SAST)
 def has_not_autocomplete(filename: str) -> tuple:
     """
-    Check the autocomplete attribute.
+    Check if *input* or *form* tags have *autocomplete* attribute set to *off*.
 
-    Check if tags ``form`` and ``input`` have the ``autocomplete``
-    attribute set to ``off``.
+    It's known that *form* tags may have the *autocomplete* attribute set
+    to *on* and specific *input* tags have it set to *off*. However, this
+    check enforces a defensive and explicit approach,
+    forcing every *input* and *form* tag to have the *autocomplete* attribute
+    set to *off* in order to mark the result as CLOSED.
 
-    :param filename: Path to the ``HTML`` source.
-    :returns: True if tags ``form`` and ``input`` have attribute
-              ``autocomplete`` set as specified, False otherwise.
+    :param filename: Path to the *HTML* source.
+    :returns: True if ALL tags *form* and *input* have attribute
+              *autocomplete* set to *off* (*on* is de default value),
+              False otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
     if not os.path.exists(filename):
@@ -70,15 +74,14 @@ def has_not_autocomplete(filename: str) -> tuple:
     msg_open: str = 'HTML file has autocomplete enabled'
     msg_closed: str = 'HTML file has autocomplete disabled'
 
-    tk_off = CaselessKeyword('off')
-    attr = {'autocomplete': tk_off}
-    tag_i = 'input'
-    tag_f = 'form'
+    with open(filename, 'r', encoding='latin-1') as file_desc:
+        html_obj = BeautifulSoup(file_desc.read(), features="html.parser")
 
-    has_input = _has_attributes(filename, tag_i, attr)
-    has_form = _has_attributes(filename, tag_f, attr)
-
-    vulnerable: bool = not (has_input or has_form)
+    vulnerable: bool = False
+    for obj in html_obj.findAll(['input', 'form']):
+        if obj.attrs.get('autocomplete', 'on') != 'off':
+            vulnerable = True
+            break
 
     units: List[Unit] = [
         Unit(where=filename,
@@ -93,7 +96,7 @@ def has_not_autocomplete(filename: str) -> tuple:
 
 @api(risk=LOW, kind=SAST)
 def is_cacheable(filename: str) -> tuple:
-    """Check if cache is posible.
+    """Check if cache is possible.
 
     Verifies if the file has the tags::
        <META HTTP-EQUIV="Pragma" CONTENT="no-cache"> and
