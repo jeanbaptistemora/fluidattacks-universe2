@@ -11,7 +11,7 @@ from django.conf import settings
 
 from __init__ import FI_MAIL_REPLYERS
 from app.dal.helpers.formstack import FormstackAPI
-from app.dal import integrates_dal
+from app.dal import integrates_dal, project as project_dal
 from app.decorators import get_entity_cache
 from app.dto.finding import (
     total_vulnerabilities
@@ -314,3 +314,9 @@ def list_comments(user_email, project_name):
     } for comment in integrates_dal.get_project_comments_dynamo(project_name)]
 
     return comments
+
+
+def get_active_projects():
+    projects = project_dal.get_active_projects()
+
+    return projects

@@ -15,11 +15,11 @@ from __init__ import (
     FI_MAIL_REVIEWERS
 )
 from . import views
-from .dal import integrates_dal, project as project_dal
+from .dal import integrates_dal
 from .domain.finding import (get_age_finding, get_tracking_vulnerabilities)
 from .domain.project import (
     get_last_closing_vuln, get_mean_remediate, get_max_open_severity,
-    get_total_treatment
+    get_total_treatment, get_active_projects
 )
 from .dal.helpers.formstack import FormstackAPI
 from .dto import remission
@@ -240,7 +240,7 @@ def get_new_vulnerabilities():
     """Summary mail send with the findings of a project."""
     rollbar.report_message(
         'Warning: Function to get new vulnerabilities is running', 'warning')
-    projects = project_dal.get_active_projects()
+    projects = get_active_projects()
     for project in projects:
         project = project.lower()
         context = {'updated_findings': list(), 'no_treatment_findings': list()}
@@ -341,7 +341,7 @@ def get_remediated_findings():
     """Summary mail send with findings that have not been verified yet."""
     rollbar.report_message(
         'Warning: Function to get remediated findings is running', 'warning')
-    active_projects = project_dal.get_active_projects()
+    active_projects = get_active_projects()
     findings = []
     for project in active_projects:
         findings += integrates_dal.get_remediated_project_dynamo(project)
@@ -412,14 +412,13 @@ def get_new_releases():
     """Summary mail send with findings that have not been released yet."""
     rollbar.report_message(
         'Warning: Function to get new releases is running ')
-    projects = integrates_dal.get_registered_projects()
+    projects = get_active_projects()
     api = FormstackAPI()
     context_finding = {'findings': list()}
     cont = 0
     for project in projects:
         try:
             finding_requests = api.get_findings(project)['submissions']
-            project = str.lower(str(project[0]))
             for finding in finding_requests:
                 finding_parsed = finding_vulnerabilities(finding['id'])
                 project_fin = str.lower(str(finding_parsed['projectName']))
@@ -453,7 +452,7 @@ def get_new_releases():
 
 def send_unsolved_to_all(context):
     """Send email with unsolved events to all projects """
-    projects = project_dal.get_active_projects()
+    projects = get_active_projects()
     return [send_unsolved_events_email(x[0], context) for x in projects]
 
 
@@ -540,7 +539,7 @@ def deletion_of_finished_project():
     else:
         days_to_send = [6]
         days_to_delete = 7
-    projects = integrates_dal.get_registered_projects()
+    projects = get_active_projects()
     return [deletion(x[0], days_to_send, days_to_delete)
             for x in projects]
 
@@ -562,10 +561,9 @@ def update_indicators():
     """Update in dynamo indicators."""
     rollbar.report_message(
         'Warning: Function to update indicators in DynamoDB is running', 'warning')
-    projects = integrates_dal.get_registered_projects()
+    projects = get_active_projects()
     table_name = 'FI_projects'
     for project in projects:
-        project = str.lower(str(project[0]))
         indicators = get_project_indicators(project)
         primary_keys = ['project_name', project]
         try:

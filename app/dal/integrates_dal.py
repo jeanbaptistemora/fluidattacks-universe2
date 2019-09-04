@@ -150,17 +150,6 @@ def get_project_description(project):
     return row[0]
 
 
-def get_registered_projects():
-    """ Get all the active projects. """
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT DISTINCT(project) FROM projects'
-        cursor.execute(query)
-        rows = cursor.fetchall()
-    if rows is None:
-        return "None"
-    return rows
-
-
 def is_registered(email):
     """ Check if the user is registered. """
     with connections['integrates'].cursor() as cursor:
