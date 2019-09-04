@@ -138,12 +138,11 @@ class HTTPSession():
         """Context manager clean up function."""
         pass
 
-    def _add_unit(self, *, is_vulnerable: bool,
-                  source: str = None, specific: list = None) -> None:
+    def _add_unit(self, *, is_vulnerable: bool, specific: list = None) -> None:
         """Append a new :class:`fluidasserts.Unit` object to this session."""
         (self._vulns if is_vulnerable else self._safes).append(
             Unit(where=self.url,
-                 source=source or self._source,
+                 source=self._source,
                  specific=specific or [
                      self._msg_open if is_vulnerable else self._msg_closed],
                  fingerprint=self.get_fingerprint()))
@@ -153,12 +152,11 @@ class HTTPSession():
         self._source, self._msg_open, self._msg_closed = \
             source, msg_open, msg_closed
 
-    def _get_tuple_result(self, *, msg_open: str = None, msg_closed: str = None
-                          ) -> Tuple[str, str, List[Unit], List[Unit]]:
+    def _get_tuple_result(self) -> Tuple[str, str, List[Unit], List[Unit]]:
         """Return a :class:`typing.Tuple` version of the results object."""
         if self._vulns:
-            return OPEN, msg_open or self._msg_open, self._vulns, self._safes
-        return CLOSED, msg_closed or self._msg_closed, self._vulns, self._safes
+            return OPEN, self._msg_open, self._vulns, self._safes
+        return CLOSED, self._msg_closed, self._vulns, self._safes
 
     def __do_post_json(self) -> Optional[requests.Response]:
         self.verb_used = 'POST'
@@ -322,18 +320,19 @@ class HTTPSession():
         :return: A dict containing the SHA and banner of the host,
                  as per :meth:`Service.get_fingerprint()`.
         """
-        sha256 = hashlib.sha256()
-        fp_headers = OrderedDict(self.response.headers.copy())
-        fp_headers.pop('Date', None)
-        fp_headers.pop('Set-Cookie', None)
-        fp_headers.pop('x-amz-id-2', None)
-        fp_headers.pop('x-amz-request-id', None)
+        dynamic_headers = (
+            'Date', 'Set-Cookie', 'Last-Modified', 'ETag'
+            'x-amz-id-2', 'x-amz-request-id',
+            'CF-RAY', 'CF-Visitor')
 
-        banner = '\r\n'.join(('{key}: {key}'.format(key=x)
-                              for x in fp_headers))
-        sha256.update(banner.encode('utf-8'))
+        sha256 = hashlib.sha256()
+        sha256.update(
+            '\r\n'.join(
+                f'{header}: {value}'
+                for header, value in self.response.headers.items()
+                if header not in dynamic_headers).encode('utf-8'))
 
         return dict(verb=self.verb_used,
                     status=self.response.status_code,
-                    banner=fp_headers,
+                    headers=OrderedDict(self.response.headers.copy()),
                     sha256=sha256.hexdigest())

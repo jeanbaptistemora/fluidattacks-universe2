@@ -17,12 +17,9 @@ from urllib.parse import parse_qsl
 import ntplib
 
 # local imports
-from fluidasserts.helper import http, banner
 from fluidasserts import Unit, OPEN, CLOSED, UNKNOWN, LOW, MEDIUM, HIGH, DAST
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify, api, unknown_if
+from fluidasserts.helper import http, banner
+from fluidasserts.utils.decorators import api, unknown_if
 
 # pylint: disable=too-many-lines
 
@@ -211,21 +208,19 @@ def _has_method(url: str, method: str, *args, **kwargs) -> tuple:
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     """
-    field: str = _get_field(kwargs)
-
     kwargs.update({'method': 'OPTIONS'})
 
     session = http.HTTPSession(url, *args, **kwargs)
     allow_header = session.response.headers.get('allow', '')
 
-    session._add_unit(
-        is_vulnerable=method in allow_header,
+    method = method.upper()
+    session._set_messages(
         source=f'HTTP/Request/{method}',
-        specific=[field])
-
-    return session._get_tuple_result(
-        msg_open=f'HTTP Method {method} enabled',
-        msg_closed=f'HTTP Method {method} disabled')
+        msg_open=f'{method} method enabled',
+        msg_closed=f'{method} method disabled')
+    session._add_unit(
+        is_vulnerable=method in allow_header)
+    return session._get_tuple_result()
 
 
 @unknown_if(http.ParameterError, http.ConnError)
@@ -237,14 +232,13 @@ def _is_header_present(url: str, header: str, *args, **kwargs) -> tuple:
     :param header: Header to test if present.
     """
     session = http.HTTPSession(url, *args, **kwargs)
-    session._add_unit(
-        is_vulnerable=header in session.response.headers,
+    session._set_messages(
         source=f'HTTP/Response/Headers/{header}',
-        specific=[header])
-
-    return session._get_tuple_result(
-        msg_open=f'Insecure header {header} is present',
-        msg_closed=f'Insecure header {header} is not present')
+        msg_open=f'Header {header} is present',
+        msg_closed=f'Header {header} is not present')
+    session._add_unit(
+        is_vulnerable=header in session.response.headers)
+    return session._get_tuple_result()
 
 
 @unknown_if(http.ParameterError, http.ConnError)
@@ -256,10 +250,9 @@ def _has_insecure_value(url: str,
     Check if header value is insecure.
 
     :param url: URL to test.
-    :param header: Header to test if present.
+    :param header: Header to test if present and insecure.
     """
     session = http.HTTPSession(url, *args, **kwargs)
-
     missing: bool = True
     insecure: bool = True
 
@@ -271,23 +264,21 @@ def _has_insecure_value(url: str,
             flags=re.IGNORECASE)
 
     if vulnerable_if_missing:
-        session._add_unit(
-            is_vulnerable=missing or insecure,
+        session._set_messages(
             source=f'HTTP/Response/Headers/{header}',
-            specific=[header])
+            msg_open=f'{header} header is missing',
+            msg_closed=f'{header} header is present')
+        session._add_unit(
+            is_vulnerable=missing or insecure)
+        return session._get_tuple_result()
 
-        return session._get_tuple_result(
-            msg_open=f'{header} HTTP header is missing which is insecure',
-            msg_closed=f'{header} HTTP header is present which is secure')
-
-    session._add_unit(
-        is_vulnerable=not missing and insecure,
+    session._set_messages(
         source=f'HTTP/Response/Headers/{header}',
-        specific=[header])
-
-    return session._get_tuple_result(
-        msg_open=f'{header} HTTP header is insecure',
-        msg_closed=f'{header} HTTP header is secure')
+        msg_open=f'{header} header has an insecure value',
+        msg_closed=f'{header} header has a secure value')
+    session._add_unit(
+        is_vulnerable=not missing and insecure)
+    return session._get_tuple_result()
 
 
 @unknown_if(http.ParameterError, http.ConnError)
@@ -303,20 +294,22 @@ def _generic_has_multiple_text(url: str, regex_list: List[str],
     """
     field: str = _get_field(kwargs)
     session = http.HTTPSession(url, *args, **kwargs)
+    session._set_messages(
+        source='HTTP/Response/Body',
+        msg_open='Bad text is present in response',
+        msg_closed='Bad text is not present in response')
 
     if session.response.status_code >= 500:
         return UNKNOWN, f'We got a {session.response.status_code} status code'
 
-    for regex in regex_list:
-        session._add_unit(
-            is_vulnerable=re.search(
-                regex, session.response.text, re.IGNORECASE),
-            source='HTTP/Response/Body',
-            specific=[field])
+    is_vulnerable: bool = any(
+        re.search(regex, session.response.text, re.IGNORECASE)
+        for regex in regex_list)
 
-    return session._get_tuple_result(
-        msg_open='Bad text is present in response',
-        msg_closed='Bad text is not present in response')
+    session._add_unit(
+        is_vulnerable=is_vulnerable,
+        specific=[field])
+    return session._get_tuple_result()
 
 
 @unknown_if(http.ParameterError, http.ConnError)
@@ -332,14 +325,14 @@ def _generic_has_text(url: str, text: str,
     """
     field: str = _get_field(kwargs)
     session = http.HTTPSession(url, *args, **kwargs)
-    session._add_unit(
-        is_vulnerable=re.search(text, session.response.text, re.IGNORECASE),
+    session._set_messages(
         source='HTTP/Response/Body',
-        specific=[field])
-
-    return session._get_tuple_result(
         msg_open='Bad text is present in response',
         msg_closed='Bad text is not present in response')
+    session._add_unit(
+        is_vulnerable=re.search(text, session.response.text, re.IGNORECASE),
+        specific=[field])
+    return session._get_tuple_result()
 
 
 @unknown_if(http.ParameterError, http.ConnError)
@@ -355,15 +348,15 @@ def _generic_has_not_text(url: str, text: str,
     """
     field: str = _get_field(kwargs)
     session = http.HTTPSession(url, *args, **kwargs)
+    session._set_messages(
+        source='HTTP/Response/Body',
+        msg_open='Bad text is not present in response',
+        msg_closed='Bad text is present in response')
     session._add_unit(
         is_vulnerable=not re.search(
             text, session.response.text, re.IGNORECASE),
-        source='HTTP/Response/Body',
         specific=[field])
-
-    return session._get_tuple_result(
-        msg_open='Bad text is not present in response',
-        msg_closed='Bad text is present in response')
+    return session._get_tuple_result()
 
 
 @api(risk=LOW, kind=DAST)
@@ -641,7 +634,6 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> tuple:
     session = http.HTTPSession(url, *args, **kwargs)
 
     is_vulnerable: bool = True
-
     if header in session.response.headers:
         re_match = re.search(
             pattern=HDR_RGX[header.lower()],
@@ -652,14 +644,13 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> tuple:
             if int(max_age_val) >= 31536000:
                 is_vulnerable = False
 
-    session._add_unit(
-        is_vulnerable=is_vulnerable,
+    session._set_messages(
         source=f'HTTP/Response/Headers/{header}',
-        specific=[header])
-
-    return session._get_tuple_result(
-        msg_open=f'Insecure header {header} is present',
-        msg_closed=f'Insecure header {header} is not present')
+        msg_open=f'{header} is secure',
+        msg_closed=f'{header} is insecure')
+    session._add_unit(
+        is_vulnerable=is_vulnerable)
+    return session._get_tuple_result()
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -731,13 +722,14 @@ def has_put_method(url: str, *args, **kwargs) -> tuple:
          'https://www.w3schools.com/sql/sql_injection.asp',
      ],
      score={})
-def has_sqli(url: str, *args, **kwargs) -> bool:
+def has_sqli(url: str, *args, **kwargs) -> tuple:
     r"""
     Check SQLi vulnerability by checking common SQL strings in response.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _generic_has_multiple_text(url, SQLI_ERROR_MSG, *args, **kwargs)
 
@@ -818,7 +810,7 @@ def has_command_injection(url: str, expect: str,
          'https://portswigger.net/web-security/os-command-injection',
      ],
      score={})
-def has_php_command_injection(url: str, expect: str, *args, **kwargs) -> bool:
+def has_php_command_injection(url: str, expect: str, *args, **kwargs) -> tuple:
     r"""
     Check PHP command injection vulnerability by checking a expected string.
 
@@ -845,7 +837,7 @@ def has_php_command_injection(url: str, expect: str, *args, **kwargs) -> bool:
          'https://portswigger.net/web-security/os-command-injection',
      ],
      score={})
-def has_session_fixation(url: str, expect: str, *args, **kwargs) -> bool:
+def has_session_fixation(url: str, expect: str, *args, **kwargs) -> tuple:
     r"""
     Check session fixation by not passing cookies and having authenticated.
 
@@ -873,7 +865,7 @@ def has_session_fixation(url: str, expect: str, *args, **kwargs) -> bool:
          'https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2005-0229',
      ],
      score={})
-def has_insecure_dor(url: str, expect: str, *args, **kwargs) -> bool:
+def has_insecure_dor(url: str, expect: str, *args, **kwargs) -> tuple:
     r"""
     Check insecure direct object reference vulnerability.
 
@@ -887,7 +879,7 @@ def has_insecure_dor(url: str, expect: str, *args, **kwargs) -> bool:
 
 
 @api(risk=HIGH, kind=DAST)
-def has_dirtraversal(url: str, expect: str, *args, **kwargs) -> bool:
+def has_dirtraversal(url: str, expect: str, *args, **kwargs) -> tuple:
     r"""
     Check directory traversal vulnerability by checking a expected string.
 
@@ -901,7 +893,7 @@ def has_dirtraversal(url: str, expect: str, *args, **kwargs) -> bool:
 
 
 @api(risk=HIGH, kind=DAST)
-def has_csrf(url: str, expect: str, *args, **kwargs) -> bool:
+def has_csrf(url: str, expect: str, *args, **kwargs) -> tuple:
     r"""
     Check Cross-Site Request Forgery vulnerability.
 
@@ -915,7 +907,7 @@ def has_csrf(url: str, expect: str, *args, **kwargs) -> bool:
 
 
 @api(risk=HIGH, kind=DAST)
-def has_lfi(url: str, expect: str, *args, **kwargs) -> bool:
+def has_lfi(url: str, expect: str, *args, **kwargs) -> tuple:
     r"""
     Check local file inclusion vulnerability by checking a expected string.
 
@@ -929,7 +921,7 @@ def has_lfi(url: str, expect: str, *args, **kwargs) -> bool:
 
 
 @api(risk=MEDIUM, kind=DAST)
-def has_hpp(url: str, expect: str, *args, **kwargs) -> bool:
+def has_hpp(url: str, expect: str, *args, **kwargs) -> tuple:
     r"""
     Check HTTP Parameter Pollution vulnerability.
 
@@ -944,7 +936,7 @@ def has_hpp(url: str, expect: str, *args, **kwargs) -> bool:
 
 @api(risk=HIGH, kind=DAST)
 def has_insecure_upload(url: str, expect: str, file_param: str,
-                        file_path: str, *args, **kwargs) -> bool:
+                        file_path: str, *args, **kwargs) -> tuple:
     r"""
     Check insecure upload vulnerability.
 
@@ -960,6 +952,7 @@ def has_insecure_upload(url: str, expect: str, file_param: str,
 
 
 @api(risk=MEDIUM, kind=DAST)
+@unknown_if(http.ParameterError, http.ConnError)
 def has_xsleak_by_frames_discrepancy(url_a: str,
                                      url_b: str,
                                      need_samesite_strict_cookies: bool,
@@ -969,8 +962,11 @@ def has_xsleak_by_frames_discrepancy(url_a: str,
     Check if a view is vulnerable to a XSLeak by counting the number of frames.
 
     See: `CWE-204 <https://cwe.mitre.org/data/definitions/204.html`_.
-    See: `Browser Side Channels research <{research_url}>`_.
-    See: `Real life exploitation <{exploit_url}>`_.
+    See: `Browser Side Channels research <https://github.com/xsleaks/
+    xsleaks/wiki/Browser-Side-Channels#frame-count>`_.
+    See: `Real life exploitation <https://www.imperva.com/blog/
+    mapping-communication-between-facebook-accounts
+    -using-a-browser-based-side-channel-attack/>`_.
 
     If the same view of a website renders a different number of frames and is
     using cookie-based authentication and is not using cookies with the
@@ -988,25 +984,15 @@ def has_xsleak_by_frames_discrepancy(url_a: str,
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
-    """.format(research_url=('https://github.com/xsleaks/xsleaks/wiki/'
-                             'Browser-Side-Channels#frame-count'),
-               exploit_url=('https://www.imperva.com/blog/'
-                            'mapping-communication-between-facebook-accounts'
-                            '-using-a-browser-based-side-channel-attack/'))
+    """
     if need_samesite_strict_cookies:
         return CLOSED, ('Site is not vulnerable to XSLeaks by abusing '
                         'cross-origin window.frames.length property')
 
-    try:
-        session_a = http.HTTPSession(url_a, *request_args, **request_kwargs)
-        session_b = http.HTTPSession(url_b, *request_args, **request_kwargs)
+    session_a = http.HTTPSession(url_a, *request_args, **request_kwargs)
+    session_b = http.HTTPSession(url_b, *request_args, **request_kwargs)
 
-        content_a, content_b = \
-            session_a.response.text, session_b.response.text
-    except http.ConnError as exc:
-        return UNKNOWN, f'Could not connnect: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    content_a, content_b = session_a.response.text, session_b.response.text
 
     fingerprint_a, fingerprint_b = \
         session_a.get_fingerprint(), session_b.get_fingerprint()
@@ -1032,33 +1018,29 @@ def has_xsleak_by_frames_discrepancy(url_a: str,
 
 
 @api(risk=MEDIUM, kind=DAST)
+@unknown_if(http.ParameterError, http.ConnError)
 def has_not_subresource_integrity(
         url: str, *request_args, **request_kwargs) -> tuple:
     r"""
     Check if elements fetched by the provided url have `SRI`.
 
-    See: `Documentation <{research_url}>`_.
+    See: `Documentation <https://developer.mozilla.org/en-US/docs/Web/
+    Security/Subresource_Integrity>`_.
 
     :param url: URL to test.
     :param \*request_args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*request_kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
-    """.format(research_url=('https://developer.mozilla.org/en-US/docs/Web/'
-                             'Security/Subresource_Integrity'))
-    try:
-        with http.HTTPSession(url, *request_args, **request_kwargs) as sess:
-            html = sess.response.text
-            fingerprint = sess.get_fingerprint()
-    except http.ConnError as exc:
-        return UNKNOWN, f'Could not connnect: {exc}'
-    except http.ParameterError as exc:
-        return UNKNOWN, f'An invalid parameter was passed: {exc}'
+    """
+    session = http.HTTPSession(url, *request_args, **request_kwargs)
+    html = session.response.text
+    fingerprint = session.get_fingerprint()
 
     soup = BeautifulSoup(html, features="html.parser")
 
     vulns: List[Unit] = []
     safes: List[Unit] = []
-    msg: str = '{elem_types} HTML element {asserts} integrity attributes'
+    msg: str = '{elem_types} element {asserts} integrity attributes'
 
     for elem_types in ('link', 'script'):
         vulnerable: bool = any(
@@ -1108,18 +1090,17 @@ def is_sessionid_exposed(url: str, argument: str = 'sessionid',
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    field: str = _get_field(kwargs)
     regex: str = rf'\b({argument})\b=([a-zA-Z0-9_-]+)'
 
     session = http.HTTPSession(url, *args, **kwargs)
-    session._add_unit(
-        is_vulnerable=re.search(regex, session.response.url, re.IGNORECASE),
+    session._set_messages(
         source=f'HTTP/Request/GET/params/{argument}',
-        specific=[field])
-
-    return session._get_tuple_result(
         msg_open='Session ID is exposed',
         msg_closed='Session ID is not exposed')
+    session._add_unit(
+        is_vulnerable=re.search(regex, session.response.url, re.IGNORECASE),
+        specific=[f'{argument} is exposed'])
+    return session._get_tuple_result()
 
 
 @api(risk=LOW,
@@ -1144,17 +1125,14 @@ def is_version_visible(url, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    field: str = _get_field(kwargs)
-
     service = banner.HTTPService(url, *args, **kwargs)
-    service.sess._add_unit(
-        is_vulnerable=service.get_version(),
+    service.sess._set_messages(
         source=f'HTTP/Response/Header/Server',
-        specific=[field])
-
-    return service.sess._get_tuple_result(
-        msg_open='Version is visible',
-        msg_closed='Version is not visible')
+        msg_open='Version visible in Server header',
+        msg_closed='Version is not visible in Server header')
+    service.sess._add_unit(
+        is_vulnerable=service.get_version())
+    return service.sess._get_tuple_result()
 
 
 @api(risk=MEDIUM,
@@ -1181,20 +1159,17 @@ def is_not_https_required(url: str, *args, **kwargs) -> tuple:
         raise AssertionError('URL should start with http://')
 
     session = http.HTTPSession(url, *args, **kwargs)
-    session._add_unit(
-        is_vulnerable=not session.url.startswith('https'),
+    session._set_messages(
         source=f'HTTP/SSL/Disabled',
-        specific=['HTTP/SSL'])
-
-    return session._get_tuple_result(
         msg_open='HTTPS is not forced on URL',
         msg_closed='HTTPS is forced on URL')
+    session._add_unit(
+        is_vulnerable=not session.url.startswith('https'))
+    return session._get_tuple_result()
 
 
-@notify
-@level('low')
-@track
-def has_dirlisting(url: str, *args, **kwargs) -> bool:
+@api(risk=LOW, kind=DAST)
+def has_dirlisting(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if the given URL has directory listing enabled.
 
@@ -1203,31 +1178,9 @@ def has_dirlisting(url: str, *args, **kwargs) -> bool:
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
-    bad_text = 'Index of'
-    try:
-        http_session = http.HTTPSession(url, *args, **kwargs)
-        response = http_session.response
-        fingerprint = http_session.get_fingerprint()
-        the_page = response.text
-
-        if re.search(str(bad_text), the_page, re.IGNORECASE):
-            show_open('Directory listing enabled',
-                      details=dict(url=url, fingerprint=fingerprint))
-            return True
-        show_close('Directory listing not enabled',
-                   details=dict(url=url, fingerprint=fingerprint))
-        return False
-    except http.ConnError as exc:
-        show_unknown('Could not connnect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
+    return _generic_has_text(url, 'Index of', *args, **kwargs)
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -1241,23 +1194,20 @@ def is_resource_accessible(url: str, *args, **kwargs) -> tuple:
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
     :rtype: :class:`fluidasserts.Result`
     """
-    field: str = _get_field(kwargs)
     session = http.HTTPSession(url, *args, **kwargs)
-    session._add_unit(
-        is_vulnerable=re.search(
-            r'[2-3]\d\d', str(session.response.status_code)),
+    session._set_messages(
         source='HTTP/Response/StatusCode',
-        specific=[field])
-
-    return session._get_tuple_result(
         msg_open='Resource is available',
         msg_closed='Resource is not available')
+    session._add_unit(
+        is_vulnerable=re.search(
+            r'[2-3]\d\d', str(session.response.status_code)))
+    return session._get_tuple_result()
 
 
-@notify
-@level('low')
-@track
-def is_response_delayed(url: str, *args, **kwargs) -> bool:
+@api(risk=LOW, kind=DAST)
+@unknown_if(http.ParameterError, http.ConnError)
+def is_response_delayed(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if the response time is acceptable.
 
@@ -1267,36 +1217,18 @@ def is_response_delayed(url: str, *args, **kwargs) -> bool:
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     max_response_time = 1
-    try:
-        http_session = http.HTTPSession(url, *args, **kwargs)
-        fingerprint = http_session.get_fingerprint()
-    except http.ConnError as exc:
-        show_unknown('Could not connnect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-
-    response_time = http_session.response.elapsed.total_seconds()
-    delta = max_response_time - response_time
-
-    if delta >= 0:
-        show_close('Response time is acceptable',
-                   details=dict(url=http_session.url,
-                                response_time=response_time,
-                                fingerprint=fingerprint))
-        return False
-    show_open('Response time not acceptable',
-              details=dict(url=http_session.url,
-                           response_time=response_time,
-                           fingerprint=fingerprint))
-    return True
+    session = http.HTTPSession(url, *args, **kwargs)
+    session._set_messages(
+        source='HTTP/Server/Configuration/Date',
+        msg_open='Long response time',
+        msg_closed='Response time is acceptable')
+    current_response_time: float = session.response.elapsed.total_seconds()
+    session._add_unit(
+        is_vulnerable=current_response_time > max_response_time)
+    return session._get_tuple_result()
 
 
 @api(risk=MEDIUM,
@@ -1364,14 +1296,14 @@ def has_user_enumeration(url: str, user_field: str,
 
     avg_ratio: float = sum_ratios / len(fake_responses) / len(true_responses)
 
-    session._add_unit(
-        is_vulnerable=avg_ratio <= 0.95,
+    session._set_messages(
         source='HTTP/Response/Discrepancy',
-        specific=[user_field])
-
-    return session._get_tuple_result(
         msg_open='User enumeration is possible',
         msg_closed='User enumeration not possible')
+    session._add_unit(
+        is_vulnerable=avg_ratio <= 0.95,
+        specific=[user_field])
+    return session._get_tuple_result()
 
 
 @api(risk=MEDIUM,
@@ -1436,123 +1368,94 @@ def can_brute_force(url: str, ok_regex: str, user_field: str, pass_field: str,
         if ok_regex in sess.response.text:
             is_vulnerable = True
 
-    session._add_unit(
-        is_vulnerable=is_vulnerable,
+    session._set_messages(
         source='HTTP/Request/Limit',
-        specific=[user_field, pass_field])
-
-    return session._get_tuple_result(
         msg_open='Brute forcing is possible',
         msg_closed='Brute forcing is not possible')
+    session._add_unit(
+        is_vulnerable=is_vulnerable,
+        specific=[user_field, pass_field])
+    return session._get_tuple_result()
 
 
-@notify
-@level('medium')
-@track
-def has_clear_viewstate(url: str, *args, **kwargs) -> bool:
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(http.ParameterError, http.ConnError)
+def has_clear_viewstate(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if URL has encrypted ViewState by checking response.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        http_session = http.HTTPSession(url, *args, **kwargs)
-        fingerprint = http_session.get_fingerprint()
-    except http.ConnError as exc:
-        show_unknown('Could not connnect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    vsb64 = http_session.get_html_value('input', '__VIEWSTATE')
+    session = http.HTTPSession(url, *args, **kwargs)
+    session._set_messages(
+        source='HTTP/Server/Configuration/Date',
+        msg_open='View State is not encrypted',
+        msg_closed='View State is encrypted')
 
-    if not vsb64:
-        show_close('ViewState not found',
-                   details=dict(url=http_session.url,
-                                fingerprint=fingerprint))
-        return False
-    try:
-        vs_obj = ViewState(vsb64)
-        decoded_vs = vs_obj.decode()
-        show_open('ViewState is not encrypted',
-                  details=dict(url=http_session.url,
-                               ViewState=decoded_vs,
-                               fingerprint=fingerprint))
-        return True
-    except ViewStateException:
-        show_close('ViewState is encrypted',
-                   details=dict(url=http_session.url,
-                                fingerprint=fingerprint))
-    return False
+    viewstate = session.get_html_value('input', '__VIEWSTATE')
+
+    encrypted: bool = False
+    if viewstate:
+        try:
+            ViewState(viewstate).decode()
+        except ViewStateException:
+            encrypted = True
+
+    session._add_unit(is_vulnerable=viewstate and not encrypted)
+
+    return session._get_tuple_result()
 
 
-@notify
-@level('low')
-@track
-def is_date_unsyncd(url: str, *args, **kwargs) -> bool:
+@api(risk=LOW, kind=DAST)
+@unknown_if(KeyError, http.ParameterError, http.ConnError)
+def is_date_unsyncd(url: str, *args, **kwargs) -> tuple:
     r"""
-    Check if server's date is not syncronized with NTP servers.
+    Check if server's date is not synchronized with NTP servers.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        sess = http.HTTPSession(url, *args, **kwargs)
-        fingerprint = sess.get_fingerprint()
+    session = http.HTTPSession(url, *args, **kwargs)
+    session._set_messages(
+        source='HTTP/Server/Configuration/Date',
+        msg_open='Server is not synced with NTP servers',
+        msg_closed='Server is synced with NTP servers')
 
-        server_date = datetime.strptime(sess.response.headers['Date'],
-                                        '%a, %d %b %Y %H:%M:%S GMT')
-        server_ts = server_date.timestamp()
-        ntpclient = ntplib.NTPClient()
-        response = ntpclient.request('pool.ntp.org', port=123, version=3)
-        ntp_date = datetime.fromtimestamp(response.tx_time, tz=timezone('GMT'))
-        ntp_ts = datetime.utcfromtimestamp(ntp_date.timestamp()).timestamp()
-    except (KeyError, http.ConnError) as exc:
-        show_unknown('Could not connnect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    diff = ntp_ts - server_ts
+    server_date = datetime.strptime(
+        session.response.headers['Date'], '%a, %d %b %Y %H:%M:%S GMT')
 
-    if diff < -3 or diff > 3:
-        show_open("Server's clock is not syncronized with NTP",
-                  details=dict(url=url,
-                               server_date=server_date,
-                               ntp_date=ntp_date,
-                               offset=diff,
-                               fingerprint=fingerprint))
-        return True
-    show_close("Server's clock is syncronized with NTP",
-               details=dict(url=url,
-                            server_date=server_date,
-                            ntp_date=ntp_date,
-                            offset=diff,
-                            fingerprint=fingerprint))
-    return False
+    ntpclient = ntplib.NTPClient()
+    response = ntpclient.request('pool.ntp.org', port=123, version=3)
+    ntp_date = datetime.fromtimestamp(response.tx_time, tz=timezone('GMT'))
+    ntp_ts = datetime.utcfromtimestamp(ntp_date.timestamp()).timestamp()
+
+    delta_ts = ntp_ts - server_date.timestamp()
+
+    session._add_unit(is_vulnerable=-3 < delta_ts > 3)
+
+    return session._get_tuple_result()
 
 
-@notify
-@level('medium')
-@track
-def has_host_header_injection(url: str, *args, **kwargs) -> bool:
+@api(risk=MEDIUM,
+     kind=DAST,
+     references=[],
+     standards={},
+     examples=[],
+     score={})
+@unknown_if(http.ParameterError, http.ConnError)
+def has_host_header_injection(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if server is vulnerable to 'Host' header injection.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
     hostname = 'hackedbyfluidattacks.com'
     if 'headers' in kwargs:
@@ -1561,70 +1464,52 @@ def has_host_header_injection(url: str, *args, **kwargs) -> bool:
         kwargs['headers'] = {'Host': hostname}
 
     kwargs['redirect'] = False
-    try:
-        sess = http.HTTPSession(url, *args, **kwargs)
-        fingerprint = sess.get_fingerprint()
-    except (KeyError, http.ConnError) as exc:
-        show_unknown('Could not connnect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    if 'location' in sess.response.headers:
-        if hostname in sess.response.headers['Location']:
-            show_open('Server is vulnerable to Host header injection',
-                      details=dict(url=url, fingerprint=fingerprint))
-            return True
-    show_close('Server not vulnerable to Host header injection',
-               details=dict(url=url, fingerprint=fingerprint))
-    return False
+
+    session = http.HTTPSession(url, *args, **kwargs)
+    session._set_messages(
+        source='HTTP/Request/Headers/Host',
+        msg_open='Server is vulnerable to host header injection',
+        msg_closed='Server is not vulnerable to host header injection')
+    session._add_unit(
+        is_vulnerable=hostname in session.response.headers.get('Location', []))
+    return session._get_tuple_result()
 
 
-@notify
-@level('low')
-@track
-def has_mixed_content(url: str, *args, **kwargs) -> bool:
+@api(risk=LOW,
+     kind=DAST,
+     references=[
+         'https://portswigger.net/kb/issues/01000400_mixed-content',
+     ],
+     standards={
+         'CWE': '319',
+     },
+     examples=[],
+     score={
+         'CVSS:3.0/AV:A/AC:L/PR:N/UI:R/S:U/C:L/I:N/A:N': 3.5,
+     })
+@unknown_if(http.ParameterError, http.ConnError)
+def has_mixed_content(url: str, *args, **kwargs) -> tuple:
     r"""
     Check if resource has mixed (HTTP and HTTPS) links.
 
     :param url: URL to test.
     :param \*args: Optional arguments for :class:`.HTTPSession`.
     :param \*\*kwargs: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        sess = http.HTTPSession(url, *args, **kwargs)
-        fingerprint = sess.get_fingerprint()
-    except (KeyError, http.ConnError) as exc:
-        show_unknown('Could not connnect',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except http.ParameterError as exc:
-        show_unknown('An invalid parameter was passed',
-                     details=dict(url=url,
-                                  error=str(exc).replace(':', ',')))
-        return False
+    session = http.HTTPSession(url, *args, **kwargs)
+    session._set_messages(
+        source='HTTP/Response/Body',
+        msg_open='Resource has mixed content',
+        msg_closed='Resource has not mixed content')
 
-    links = _get_links(sess.response.text)
-    if not links:
-        show_close('No links found in site',
-                   details=dict(url=url, fingerprint=fingerprint))
-        return False
-    if any(x.startswith('http://') for x in links) and \
-            any(x.startswith('https://') for x in links):
+    links = _get_links(session.response.text)
+    has_http: bool = any(x.startswith('http://') for x in links)
+    has_https: bool = any(x.startswith('https://') for x in links)
 
-        insecure = list(filter(lambda x: x.startswith('http://'), links))
-        show_open('There is mixed content in resource',
-                  details=dict(url=url, fingerprint=fingerprint,
-                               http_links=insecure))
-        return True
-    show_close('There is not mixed content in resource',
-               details=dict(url=url, fingerprint=fingerprint))
-    return False
+    session._add_unit(is_vulnerable=has_http and has_https)
+
+    return session._get_tuple_result()
 
 
 @api(risk=LOW,
@@ -1653,6 +1538,11 @@ def has_reverse_tabnabbing(url: str, *args, **kwargs) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     session = http.HTTPSession(url, *args, **kwargs)
+    session._set_messages(
+        source='HTML/href/rel/noopener',
+        msg_open='There are a href tags susceptible to reverse tabnabbing',
+        msg_closed=('There are no a href tags susceptible to '
+                    'reverse tabnabbing'))
 
     http_re = re.compile("^http(s)?://")
     html_obj = BeautifulSoup(session.response.text, features="html.parser")
@@ -1668,10 +1558,6 @@ def has_reverse_tabnabbing(url: str, *args, **kwargs) -> tuple:
             and (not parsed['rel'] or 'noopener' not in parsed['rel'])
 
         session._add_unit(is_vulnerable=is_vulnerable,
-                          source='HTML/href/rel/noopener',
                           specific=[parsed['href']])
 
-    return session._get_tuple_result(
-        msg_open='There are a href tags susceptible to reverse tabnabbing',
-        msg_closed=('There are no a href tags susceptible to '
-                    'reverse tabnabbing'))
+    return session._get_tuple_result()

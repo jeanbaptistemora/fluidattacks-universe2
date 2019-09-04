@@ -154,14 +154,13 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> tuple:
             if int(max_age_val) >= 31536000:
                 is_vulnerable = False
 
+    session._set_messages(
+        source=f'REST/Response/Headers/{header}',
+        msg_open=f'{header} is secure',
+        msg_closed=f'{header} is insecure')
     session._add_unit(
-        is_vulnerable=is_vulnerable,
-        source=f'HTTP/Response/Headers/{header}',
-        specific=[header])
-
-    return session._get_tuple_result(
-        msg_open=f'Insecure header {header} is present',
-        msg_closed=f'Insecure header {header} is not present')
+        is_vulnerable=is_vulnerable)
+    return session._get_tuple_result()
 
 
 @api(risk=LOW, kind=DAST)
