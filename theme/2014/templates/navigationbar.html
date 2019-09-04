@@ -1,4 +1,4 @@
-<div class="menubar">
+<div class="montsy b fixed w-100 z-5">
   <div class='cssmenu'>
     <ul class="m-closed">
       <li><a href="{{ SITEURL }}/{{ gettext('Navb-cat-1') }}/" class="m-link">{{ gettext('Navb-opt-2') }}</a>
@@ -31,9 +31,10 @@
       <li><a href="https://community.fluidattacks.com/" class="m-link">Community</a></li>
     </ul>
   </div>
-  <div class="menu-logo">
+  <!-- Favicon logo -->
+  <div class="absolute top-1 w-100 dn db-l pl2">
     <a href="{{ SITEURL }}/">
-      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/favicon.png" alt="{{ gettext('Navb-logo') }}">
+      <img class="relative w2 z-2" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/favicon.png" alt="{{ gettext('Navb-logo') }}">
     </a>
   </div>
   <div class="searchbar">
@@ -48,7 +49,8 @@
       </div>
     </form>
   </div>
-  <div class="contact">
-    <a class="montsy" href="{{ SITEURL }}/contact-us/">Contact Us</a>
+  <!-- Red Contact Section -->
+  <div class="pointer db-l dn pr4 absolute top-1 pt2 right-0">
+    <a class="montsy c-fluid-red" href="{{ SITEURL }}/contact-us/">Contact Us</a>
   </div>
 </div>

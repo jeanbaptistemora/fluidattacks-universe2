@@ -28,27 +28,6 @@ $white: rgba(255, 255, 255, 1);
   position: absolute;
 }
 
-.menubar {
-  font-family: 'Montserrat';
-  font-weight: bold;
-  position: fixed;
-  width: 100%;
-  z-index: 10;
-}
-
-.menu-logo {
-  position: absolute;
-  text-align: center;
-  top: 15px;
-  width: 100%;
-
-  img {
-    position: relative;
-    width: 30px;
-    z-index: 2;
-  }
-}
-
 .searchbar {
   position: absolute;
   right: 15px;
@@ -75,19 +54,6 @@ $white: rgba(255, 255, 255, 1);
     &:hover {
       cursor: pointer;
     }
-  }
-}
-
-.contact {
-  cursor: pointer;
-  display: none;
-  padding-right: 8px;
-  position: absolute;
-  right: 10px;
-  top: 25px;
-
-  a {
-    color: $fluid-red;
   }
 }
 
@@ -238,11 +204,6 @@ $white: rgba(255, 255, 255, 1);
 }
 
 @media (min-width: 860px) {
-  .menu-logo {
-    left: 10px;
-    width: unset;
-  }
-
   .searchbar {
     right: 140px;
     top: 23px;
