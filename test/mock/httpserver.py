@@ -47,8 +47,8 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf'}
 APP = Flask(__name__, static_folder='static', static_url_path='/static')
 
 APP.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-PM800_AUTH_FAIL = HTTPBasicAuth()
-PM800_AUTH_OK = HTTPBasicAuth()
+POWERLOGIC_AUTH_FAIL = HTTPBasicAuth()
+POWERLOGIC_AUTH_OK = HTTPBasicAuth()
 
 
 def allowed_file(filename):
@@ -513,6 +513,7 @@ def put_close_1():
     resp.headers['allow'] = 'HEAD, OPTIONS, GET, POST, OPTIONS'
     return resp
 
+
 @APP.route('/http/headers/put_close/2', methods=['OPTIONS'])
 def put_close_2():
     """Metodo PUT deshabilitado."""
@@ -854,6 +855,7 @@ def http_xsl_frames_id(num: int):
         </html>
         """)
 
+
 @APP.route('/http/sri/open/1', methods=['GET'])
 def http_sri_1_open():
     """Return a vulnerable view against SRI."""
@@ -881,6 +883,7 @@ def http_sri_2_open():
             </body>
         </html>
         """)
+
 
 @APP.route('/http/sri/closed/1', methods=['GET'])
 def http_sri_1_closed():
@@ -984,27 +987,19 @@ def rest_hsts_fail():
     return resp
 
 
-@PM800_AUTH_FAIL.verify_password
-def pm800_default_creds(username, password):
-    """Check PM800 creds."""
-    pm800_default_creds = {
+@POWERLOGIC_AUTH_FAIL.verify_password
+def powerlogic_default_creds(username, password):
+    """Check PowerLogic creds."""
+    default_creds = {
         'Administrator': 'Gateway',
         'Guest': 'Guest'
     }
-    if username in pm800_default_creds:
-        return password == pm800_default_creds[username]
+    if username in default_creds:
+        return password == default_creds[username]
     return False
 
 
-@APP.route('/pm800_default_creds/fail')
-@PM800_AUTH_FAIL.login_required
-def pm800_creds_fail():
-    """PM800 with default credentials."""
-    resp = Response('Welcome to PM800')
-    return resp
-
-
-@PM800_AUTH_OK.verify_password
+@POWERLOGIC_AUTH_OK.verify_password
 def pm800_no_default_creds(username, password):
     """Check PM800 creds."""
     pm800_default_creds = {
@@ -1016,11 +1011,35 @@ def pm800_no_default_creds(username, password):
     return False
 
 
+@APP.route('/pm800_default_creds/fail')
+@POWERLOGIC_AUTH_FAIL.login_required
+def pm800_creds_fail():
+    """PM800 with default credentials."""
+    resp = Response('Welcome to PM800')
+    return resp
+
+
 @APP.route('/pm800_default_creds/ok')
-@PM800_AUTH_OK.login_required
+@POWERLOGIC_AUTH_OK.login_required
 def pm800_creds_ok():
     """PM800 with default credentials."""
     resp = Response('Welcome to PM800')
+    return resp
+
+
+@APP.route('/egx100_default_creds/fail')
+@POWERLOGIC_AUTH_FAIL.login_required
+def egx100_creds_fail():
+    """EGX100 with default credentials."""
+    resp = Response('Welcome to EGX100')
+    return resp
+
+
+@APP.route('/egx100_default_creds/ok')
+@POWERLOGIC_AUTH_OK.login_required
+def egx100_creds_ok():
+    """EGX100 with default credentials."""
+    resp = Response('Welcome to EGX100')
     return resp
 
 
