@@ -4,10 +4,10 @@
 
 
 # standard imports
-# None
+from typing import Optional
 
 # 3rd party imports
-from typing import Optional
+from requests.cookies import RequestsCookieJar
 
 # local imports
 from fluidasserts import show_close
@@ -17,16 +17,20 @@ from fluidasserts.helper import http
 from fluidasserts.utils.decorators import track, level, notify
 
 
-def _has_not_http_only(cookie_name: str, url: Optional[str],
-                       cookie_jar: Optional[dict], *args, **kwargs) -> bool:
+def _has_not_http_only(cookie_name: str,
+                       url: Optional[str],
+                       cookie_jar: Optional[RequestsCookieJar],
+                       *args, **kwargs) -> bool:
     r"""
-    Check if a cookie has the ``httponly`` attribute.
+    Check if a cookie has the **httponly** attribute.
+
+    Either **url** or **cookie_jar** has to be **None**.
 
     :param cookie_name: Name of the cookie to test.
-    Exactly one of the following has to be ``None``.
     :param url: URL to get cookies.
-    :param cookie_jar: Dict-like collection of cookies
-                       as returned by ``requests.cookies``.
+    :param cookie_jar: Collection of cookies as returned by
+                       the **requests** package, please see
+                       :class:`requests.cookies.RequestsCookieJar`.
     :param \*args: Optional positional arguments for
                    :class:`~fluidasserts.helper.http.HTTPSession`.
     :param \*\*kwargs: Optional keyword arguments for
@@ -69,16 +73,20 @@ def _has_not_http_only(cookie_name: str, url: Optional[str],
     return False
 
 
-def _has_not_secure(cookie_name: str, url: Optional[str],
-                    cookie_jar: Optional[dict], *args, **kwargs) -> bool:
+def _has_not_secure(cookie_name: str,
+                    url: Optional[str],
+                    cookie_jar: Optional[RequestsCookieJar],
+                    *args, **kwargs) -> bool:
     r"""
-    Check if a cookie has the ``secure`` attribute.
+    Check if a cookie has the **secure** attribute.
+
+    Either **url** or **cookie_jar** has to be **None**.
 
     :param cookie_name: Name of the cookie to test.
-    Exactly one of the following has to be ``None``.
     :param url: URL to get cookies.
-    :param cookie_jar: Dict-like collection of cookies
-                       as returned by ``requests.cookies``.
+    :param cookie_jar: Collection of cookies as returned by
+                       the **requests** package, please see
+                       :class:`requests.cookies.RequestsCookieJar`.
     :param \*args: Optional positional arguments for
                    :class:`~fluidasserts.helper.http.HTTPSession`.
     :param \*\*kwargs: Optional keyword arguments for
@@ -119,16 +127,20 @@ def _has_not_secure(cookie_name: str, url: Optional[str],
     return False
 
 
-def _has_not_same_site(cookie_name: str, url: Optional[str],
-                       cookie_jar: Optional[dict], *args, **kwargs) -> bool:
+def _has_not_same_site(cookie_name: str,
+                       url: Optional[str],
+                       cookie_jar: Optional[RequestsCookieJar],
+                       *args, **kwargs) -> bool:
     r"""
-    Check if a cookie has the ``samesite`` attribute.
+    Check if a cookie has the **samesite** attribute.
+
+    Either **url** or **cookie_jar** has to be **None**.
 
     :param cookie_name: Name of the cookie to test.
-    Exactly one of the following has to be ``None``.
     :param url: URL to get cookies.
-    :param cookie_jar: Dict-like collection of cookies
-                       as returned by ``requests.cookies``.
+    :param cookie_jar: Collection of cookies as returned by
+                       the **requests** package, please see
+                       :class:`requests.cookies.RequestsCookieJar`.
     :param \*args: Optional positional arguments for
                    :class:`~fluidasserts.helper.http.HTTPSession`.
     :param \*\*kwargs: Optional keyword arguments for
@@ -174,7 +186,7 @@ def _has_not_same_site(cookie_name: str, url: Optional[str],
 @track
 def has_not_httponly_set(cookie_name: str, url: str, *args, **kwargs) -> bool:
     r"""
-    Check if the cookie in the ``url`` has the ``httponly`` attribute.
+    Check if the cookie in the **url** has the **httponly** attribute.
 
     :param cookie_name: Name of the cookie to test.
     :param url: URL to get cookies.
@@ -189,21 +201,18 @@ def has_not_httponly_set(cookie_name: str, url: str, *args, **kwargs) -> bool:
 @notify
 @level('medium')
 @track
-def has_not_httponly_in_cookiejar(cookie_name: str, cookie_jar: dict,
-                                  *args, **kwargs) -> bool:
+def has_not_httponly_in_cookiejar(
+        cookie_name: str,
+        cookie_jar: RequestsCookieJar) -> bool:
     r"""
-    Check if the cookie in the ``cookie_jar`` has the ``httponly`` attribute.
+    Check if the cookie in the **cookie_jar** has the **httponly** attribute.
 
     :param cookie_name: Name of the cookie to test.
-    :param cookie_jar: Dict-like collection of cookies
-                       as returned by ``requests.cookies``.
-    :param \*args: Optional positional arguments for
-                   :class:`~fluidasserts.helper.http.HTTPSession`.
-    :param \*\*kwargs: Optional keyword arguments for
-                       :class:`~fluidasserts.helper.http.HTTPSession`.
+    :param cookie_jar: Collection of cookies as returned by
+                       the **requests** package, please see
+                       :class:`requests.cookies.RequestsCookieJar`.
     """
-    return _has_not_http_only(cookie_name, None, cookie_jar,
-                              *args, **kwargs)
+    return _has_not_http_only(cookie_name, None, cookie_jar)
 
 
 @notify
@@ -211,7 +220,7 @@ def has_not_httponly_in_cookiejar(cookie_name: str, cookie_jar: dict,
 @track
 def has_not_secure_set(cookie_name: str, url: str, *args, **kwargs) -> bool:
     r"""
-    Check if the cookie in the ``url`` has the ``secure`` attribute.
+    Check if the cookie in the **url** has the **secure** attribute.
 
     :param cookie_name: Name of the cookie to test.
     :param url: URL to get cookies.
@@ -226,21 +235,17 @@ def has_not_secure_set(cookie_name: str, url: str, *args, **kwargs) -> bool:
 @notify
 @level('medium')
 @track
-def has_not_secure_in_cookiejar(cookie_name: str, cookie_jar: dict,
-                                *args, **kwargs) -> bool:
+def has_not_secure_in_cookiejar(cookie_name: str,
+                                cookie_jar: RequestsCookieJar) -> bool:
     r"""
-    Check if the cookie in the ``cookie_jar`` has the ``secure`` attribute.
+    Check if the cookie in the **cookie_jar** has the **secure** attribute set.
 
     :param cookie_name: Name of the cookie to test.
-    :param cookie_jar: Dict-like collection of cookies
-                       as returned by ``requests.cookies``.
-    :param \*args: Optional positional arguments for
-                   :class:`~fluidasserts.helper.http.HTTPSession`.
-    :param \*\*kwargs: Optional keyword arguments for
-                       :class:`~fluidasserts.helper.http.HTTPSession`.
+    :param cookie_jar: Collection of cookies as returned by
+                       the **requests** package, please see
+                       :class:`requests.cookies.RequestsCookieJar`.
     """
-    return _has_not_secure(cookie_name, None, cookie_jar,
-                           *args, **kwargs)
+    return _has_not_secure(cookie_name, None, cookie_jar)
 
 
 @notify
@@ -248,7 +253,7 @@ def has_not_secure_in_cookiejar(cookie_name: str, cookie_jar: dict,
 @track
 def has_not_samesite_set(cookie_name: str, url: str, *args, **kwargs) -> bool:
     r"""
-    Check if the cookie in the ``url`` has the ``samesite`` attribute.
+    Check if the cookie in the **url** has the **samesite** attribute.
 
     :param cookie_name: Name of the cookie to test.
     :param url: URL to get cookies.
@@ -263,18 +268,14 @@ def has_not_samesite_set(cookie_name: str, url: str, *args, **kwargs) -> bool:
 @notify
 @level('medium')
 @track
-def has_not_samesite_in_cookiejar(cookie_name: str, cookie_jar: dict,
-                                  *args, **kwargs) -> bool:
+def has_not_samesite_in_cookiejar(cookie_name: str,
+                                  cookie_jar: RequestsCookieJar) -> bool:
     r"""
-    Check if the cookie in the ``cookie_jar`` has the ``samesite`` attribute.
+    Check if the cookie in the **cookie_jar** has the **samesite** attribute.
 
     :param cookie_name: Name of the cookie to test.
-    :param cookie_jar: Dict-like collection of cookies
-                       as returned by ``requests.cookies``.
-    :param \*args: Optional positional arguments for
-                   :class:`~fluidasserts.helper.http.HTTPSession`.
-    :param \*\*kwargs: Optional keyword arguments for
-                       :class:`~fluidasserts.helper.http.HTTPSession`.
+    :param cookie_jar: Collection of cookies as returned by
+                       the **requests** package, please see
+                       :class:`requests.cookies.RequestsCookieJar`.
     """
-    return _has_not_same_site(cookie_name, None, cookie_jar,
-                              *args, **kwargs)
+    return _has_not_same_site(cookie_name, None, cookie_jar)
