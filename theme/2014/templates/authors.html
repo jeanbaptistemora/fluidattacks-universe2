@@ -32,7 +32,8 @@
           </li>
           <li>
             <a href=".">
-               &nbsp;{{ gettext('Authors-breadcrumb-1') }}</a>
+               &nbsp;{{ gettext('Authors-breadcrumb-1') }}
+            </a>
           </li>
         </ul>
       </div>
@@ -50,7 +51,8 @@
               <li>
                 <a href="{{SITEURL}}/{{ author.url }}"
                    rel="bookmark">
-                   <p>{{ author }} ({{ articles|count }})</p></a>
+                  <p>{{ author }} ({{ articles|count }})</p>
+                </a>
               </li>
             {% endfor %}
           </ul>
