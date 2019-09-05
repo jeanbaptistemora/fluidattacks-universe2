@@ -45,16 +45,6 @@ $white: rgba(255, 255, 255, 1);
     widows: 240px;
     z-index: 3;
   }
-
-  img {
-    position: relative;
-    width: 25px;
-    z-index: 2;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
 }
 
 .search {

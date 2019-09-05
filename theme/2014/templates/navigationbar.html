@@ -40,10 +40,10 @@
   <div class="searchbar">
     <form action="{{ SITEURL }}/search.html" onsubmit="return validateForm(this.elements['q'].value);">
       <div class="search">
-        <input type="text" name="q" id="tipue_search_input" class="search-box" placeholder="{{ gettext('Navb-search-msg') }}">
+        <input type="text" name="q" id="tipue_search_input" class="search-box mr3-l" placeholder="{{ gettext('Navb-search-msg') }}">
         <label for="tipue_search_input" class="search-box-label">
           <span>
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/search.svg" alt="{{ gettext('Navb-img-alt-1') }}">
+            <img class="relative w2 z-2 pointer pr2-l" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/search.svg" alt="{{ gettext('Navb-img-alt-1') }}">
           </span>
         </label>
       </div>
