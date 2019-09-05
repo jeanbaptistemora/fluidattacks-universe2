@@ -12,7 +12,7 @@ import psycopg2
 
 # local imports
 from fluidasserts import Unit, LOW, MEDIUM, DAST, OPEN, CLOSED, UNKNOWN
-from fluidasserts.utils.decorators import api
+from fluidasserts.utils.decorators import api, unknown_if
 
 # Containers
 ConnectionString = namedtuple(
@@ -157,6 +157,7 @@ def does_not_support_ssl(dbname: str,
 
 
 @api(risk=MEDIUM, kind=DAST)
+@unknown_if(psycopg2.OperationalError)
 def has_not_logging_enabled(dbname: str,
                             user: str, password: str,
                             host: str, port: int) -> tuple:
@@ -176,25 +177,21 @@ def has_not_logging_enabled(dbname: str,
     msg_open: str = 'PostgreSQL has not logging enabled'
     msg_closed: str = 'PostgreSQL has logging enabled'
 
-    try:
-        # logging_collector must be 'on'
-        safe_logging_collector: bool = \
-            _get_var(connection_string, 'logging_collector') == 'on'
+    # logging_collector must be 'on'
+    safe_logging_collector: bool = \
+        _get_var(connection_string, 'logging_collector') == 'on'
 
-        # log_statement must be 'all'
-        safe_log_statement: bool = \
-            _get_var(connection_string, 'log_statement') == 'all'
+    # log_statement must be 'all'
+    safe_log_statement: bool = \
+        _get_var(connection_string, 'log_statement') == 'all'
 
-        # log_directory must be set
-        safe_log_directory: bool = \
-            bool(_get_var(connection_string, 'log_directory'))
+    # log_directory must be set
+    safe_log_directory: bool = \
+        bool(_get_var(connection_string, 'log_directory'))
 
-        # log_filename must be set
-        safe_log_filename: bool = \
-            bool(_get_var(connection_string, 'log_filename'))
-
-    except psycopg2.OperationalError as exc:
-        return UNKNOWN, f'An error occurred: {exc}'
+    # log_filename must be set
+    safe_log_filename: bool = \
+        bool(_get_var(connection_string, 'log_filename'))
 
     vulns: List[Unit] = []
     safes: List[Unit] = []
@@ -209,6 +206,59 @@ def has_not_logging_enabled(dbname: str,
         'log_directory must be set')
     (safe_specifics if safe_log_filename else vuln_specifics).append(
         'log_filename must be set')
+
+    if vuln_specifics:
+        vulns.append(Unit(
+            where=f'{host}:{port}',
+            source='PostgreSQL/Configuration',
+            specific=vuln_specifics,
+            fingerprint=None))
+    if safe_specifics:
+        safes.append(Unit(
+            where=f'{host}:{port}',
+            source='PostgreSQL/Configuration',
+            specific=safe_specifics,
+            fingerprint=None))
+
+    if vulns:
+        return OPEN, msg_open, vulns, safes
+    return CLOSED, msg_closed, vulns, safes
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(psycopg2.OperationalError)
+def has_not_data_checksums_enabled(dbname: str,
+                                   user: str, password: str,
+                                   host: str, port: int) -> tuple:
+    """
+    Check if the PostgreSQL implementation not data checksums enabled.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+    :returns: OPEN if `initdb` started without the --data-checksums flag,
+              UNKNOWN on errors, CLOSED otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    connection_string: ConnectionString = \
+        ConnectionString(dbname, user, password, host, port)
+
+    msg_open: str = 'PostgreSQL has data checksums disabled'
+    msg_closed: str = 'PostgreSQL has data checksums enabled'
+
+    # data_checksums must be 'on'
+    safe_data_checksums: bool = \
+        _get_var(connection_string, 'data_checksums') == 'on'
+
+    vulns: List[Unit] = []
+    safes: List[Unit] = []
+    vuln_specifics: List[str] = []
+    safe_specifics: List[str] = []
+
+    (safe_specifics if safe_data_checksums else vuln_specifics).append(
+        'data_checksums must be set to on')
 
     if vuln_specifics:
         vulns.append(Unit(

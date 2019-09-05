@@ -61,3 +61,12 @@ def test_has_not_logging_enabled_closed(get_mock_ip):
         DBNAME, USER, PASSWORD, get_mock_ip, PORT).is_closed()
     assert postgresql.has_not_logging_enabled(
         DBNAME, USER, PASSWORD, BAD_HOST, PORT).is_unknown()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['postgresql_hard'], indirect=True)
+def test_has_not_data_checksums_enabled_closed(get_mock_ip):
+    """Test postgresql.does_not_support_ssl."""
+    assert postgresql.has_not_data_checksums_enabled(
+        DBNAME, USER, PASSWORD, get_mock_ip, PORT).is_closed()
+    assert postgresql.has_not_data_checksums_enabled(
+        DBNAME, USER, PASSWORD, BAD_HOST, PORT).is_unknown()
