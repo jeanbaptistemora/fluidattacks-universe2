@@ -490,7 +490,8 @@ def test_host_injection_open():
 
 def test_mixed_content_open():
     """Resource has mixed content?."""
-    assert http.has_mixed_content('https://fluidattacks.com')
+    assert http.has_mixed_content(
+        f'{MOCK_SERVICE}/http/has_mixed_content/open/1')
 
 
 def test_has_reverse_tabnabbing_open():

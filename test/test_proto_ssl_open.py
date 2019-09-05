@@ -64,7 +64,7 @@ def test_has_beast_open(get_mock_ip):
 @pytest.mark.parametrize('get_mock_ip', ['ssl_hard'], indirect=True)
 def test_has_breach_open(get_mock_ip):
     """Presencia de la vulnerabilidad Breach?."""
-    assert ssl.has_breach('fluidattacks.com', SSL_PORT)
+    assert ssl.has_breach('google.com', SSL_PORT)
 
 
 @pytest.mark.parametrize('get_mock_ip', ['ssl_weak'], indirect=True)

@@ -68,6 +68,6 @@ def test_is_md5_used_close(get_mock_ip):
 @pytest.mark.parametrize('get_mock_ip', ['ssl_hard'], indirect=True)
 def test_is_cert_trusted_close(get_mock_ip):
     """Check if cert is trusted."""
-    assert not x509.is_cert_untrusted('fluidattacks.com', SSL_PORT)
+    assert not x509.is_cert_untrusted('google.com', SSL_PORT)
     assert not x509.is_cert_untrusted(get_mock_ip, 80)
     assert not x509.is_cert_untrusted(NON_EXISTANT, SSL_PORT)

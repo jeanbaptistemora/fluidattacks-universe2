@@ -778,6 +778,21 @@ def host_injection_ok():
     return resp
 
 
+@APP.route('/http/has_mixed_content/open/1', methods=['GET'])
+def http_mixed_content_open_1():
+    """Request handler for /http/has_mixed_content/open/1."""
+    url: str = 'https://mathiasbynens.github.io/rel-noopener/malicious.html'
+    return Response(f"""
+        <html>
+            <body>
+                <a href="http://fluidattacks.com">http</a>
+                <a href="https://fluidattacks.com">https</a>
+            </body>
+        </html>
+        """)
+
+
+
 @APP.route('/http/reverse_tabnabbing/ok/1', methods=['GET'])
 def http_reverse_tabnabbing_ok_1():
     """Response for ."""
