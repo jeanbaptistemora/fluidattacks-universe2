@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 build_app() {
 
@@ -30,16 +30,12 @@ build_app() {
 
   kaniko_login
 
-  # Set destination flag based on whether the building branch is
-  # either production or from a dev
-  if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
-    PUSH_POLICY="--destination $CI_REGISTRY_IMAGE:app"
-  else
-    PUSH_POLICY="--destination $CI_REGISTRY_IMAGE/ephemeral/app:$CI_COMMIT_REF_NAME"
-  fi
+  NAME='app'
 
   # Build container using kaniko
-  /kaniko/executor \
+  kaniko_build_experimental \
+    "$NAME" \
+    cache=false \
     --build-arg CI_API_V4_URL="$CI_API_V4_URL" \
     --build-arg CI_COMMIT_REF_NAME="$CI_COMMIT_REF_NAME" \
     --build-arg CI_PROJECT_ID="$CI_PROJECT_ID" \
@@ -50,14 +46,7 @@ build_app() {
     --build-arg ENV_NAME="$ENV_NAME" \
     --build-arg SSL_CERT="$FI_SSL_CERT" \
     --build-arg SSL_KEY="$FI_SSL_KEY" \
-    --build-arg VERSION="$FI_VERSION" \
-    --cache=false \
-    --cleanup \
-    --context "deploy/containers/app" \
-    --dockerfile "deploy/containers/app/Dockerfile" \
-    $PUSH_POLICY \
-    --single-snapshot \
-    --snapshotMode time
+    --build-arg VERSION="$FI_VERSION"
 }
 
 build_app
