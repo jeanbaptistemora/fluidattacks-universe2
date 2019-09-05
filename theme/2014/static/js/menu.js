@@ -15,7 +15,7 @@ of the screen
       }, options);
 
       return this.each(function() {
-        cssmenu.prepend('<div class="menu-button"></div>');
+        cssmenu.prepend('<div class="menu-button db dn-l relative minh-nav z-1 bb b--white bw2"></div>');
         $(this).find(".menu-button").on('click', function(){
           $(this).toggleClass('menu-opened');
           var mainmenu = $(this).next('ul');
@@ -25,7 +25,7 @@ of the screen
         cssmenu.find('li ul').parent().addClass('has-sub');
 
         multiTg = function() {
-          cssmenu.find(".has-sub").prepend('<span class="submenu-button"></span>');
+          cssmenu.find(".has-sub").prepend('<span class="submenu-button db dn-l absolute right-0 h3 w3 pointer "></span>');
           cssmenu.find('.submenu-button').on('click', function() {
             if ($(window).width() < 960) {
               $(this).toggleClass('submenu-opened');

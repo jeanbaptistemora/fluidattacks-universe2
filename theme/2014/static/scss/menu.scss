@@ -61,12 +61,6 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .menu-button {
-  border-bottom: 2px solid $white;
-  cursor: pointer;
-  min-height: 72px;
-  position: relative;
-  z-index: 1;
-
   &::before {
     @include menu-bars;
     background: $white;
@@ -129,11 +123,6 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .submenu-button {
-  cursor: pointer;
-  height: 60px;
-  position: absolute;
-  right: 0;
-  width: 45px;
 
   &.submenu-opened {
 
@@ -271,11 +260,6 @@ $white: rgba(255, 255, 255, 1);
     &:hover {
       background-color: $transparent;
     }
-  }
-
-  .menu-button,
-  .submenu-button {
-    display: none;
   }
 
   .sm-opened {
