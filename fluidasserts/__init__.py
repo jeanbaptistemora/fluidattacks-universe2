@@ -266,33 +266,42 @@ class Unit():
     def __init__(self,
                  *,
                  where: str,
-                 source: str,
+                 source: str = None,
                  specific: List[Any],
                  fingerprint: str = None):
         """Default constructor."""
         self.where: str = where
         self.source: str = source
-        self.specific: List[Any] = \
-            specific if isinstance(specific, list) else [None]
+        self.specific: List[Any] = specific
         self.fingerprint: str = fingerprint
 
+    def total_incidences(self) -> int:
+        """Return the number of incidences in this unit."""
+        return len(self.specific)
+
     def as_dict(self) -> dict:
-        """Dict reprensentation of this class."""
+        """Dict representation of this class."""
         result: Dict[str, Any] = {}
 
         result.update({'where': self.where})
-        result.update({'source': self.source})
 
-        # Stringify
-        specific = map(str, self.specific)
-        # Escape commas:
-        specific = map(lambda x: x.replace(r'\\', r'\\\\'), specific)
-        specific = map(lambda x: x.replace(r',', r'\\,'), specific)
-        # Join to make it less verbose
-        specific = ', '.join(specific)
+        if self.source:
+            result.update({'source': self.source})
 
-        result.update({'specific': specific})
-        result.update({'fingerprint': self.fingerprint})
+        if self.specific:
+            # Stringify
+            specific = map(str, self.specific)
+            # Escape commas:
+            specific = map(lambda x: x.replace(r'\\', r'\\\\'), specific)
+            specific = map(lambda x: x.replace(r',', r'\\,'), specific)
+            # Join to make it less verbose
+            specific = ', '.join(specific)
+
+            result.update({'specific': specific})
+
+        if self.fingerprint:
+            result.update({'fingerprint': self.fingerprint})
+
         return result
 
 
@@ -363,6 +372,18 @@ class Result():
         self.safes: List[Unit] = safes
         return True
 
+    def get_vulns_number(self) -> int:
+        """Return the number of incidences of all vulnerabilities."""
+        if hasattr(self, 'vulns'):
+            return sum(v.total_incidences() for v in self.vulns)
+        return 0
+
+    def get_safes_number(self) -> int:
+        """Return the number of incidences of all safe units."""
+        if hasattr(self, 'safes'):
+            return sum(s.total_incidences() for s in self.safes)
+        return 0
+
     def register_stats(self) -> bool:
         """Register this result stats."""
         global METHOD_STATS, METHOD_STATS_OWNER
@@ -391,6 +412,7 @@ class Result():
             result['secure-units'] = [v.as_dict() for v in self.safes]
         result.update({
             'parameters': self.func_params,
+            'vulnerable_incidences': self.get_vulns_number(),
             'when': self.when,
             'elapsed_seconds': self.duration,
             'test_kind': self.kind,

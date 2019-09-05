@@ -37,6 +37,7 @@ RUN apk update \
         openssl-dev \
         freetype-dev \
         postgresql-dev \
+        libmagic \
     && pip3 install --no-cache-dir -U ./*.zip \
     && apk del -r --purge \
         gcc \

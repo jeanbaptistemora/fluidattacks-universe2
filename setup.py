@@ -104,6 +104,7 @@ setup(
         'pysmb==1.1.27',               # fluidasserts.proto.smb
         'pytesseract==0.2.9',          # fluidasserts.format.captcha
         'python-dateutil==2.8.0',      # fluidasserts.cloud.aws
+        'python-magic==0.4.15',        # fluidasserts.format.file
         'pytz==2019.2',                # fluidasserts.proto.http
         'pywinrm==0.3.0',              # fluidasserts.helper.winrm_helper
         'requests==2.22.0',            # fluidasserts.proto.http
