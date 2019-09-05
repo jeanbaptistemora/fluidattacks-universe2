@@ -27,7 +27,7 @@ of the screen
         multiTg = function() {
           cssmenu.find(".has-sub").prepend('<span class="submenu-button"></span>');
           cssmenu.find('.submenu-button').on('click', function() {
-            if ($(window).width() < 865) {
+            if ($(window).width() < 960) {
               $(this).toggleClass('submenu-opened');
               $(this).siblings('ul').toggleClass('sm-opened');
             }
@@ -43,7 +43,7 @@ of the screen
         resizeFix = function() {
           var mainmenu = cssmenu.find('.menu-button');
           var submenu = cssmenu.find('.submenu-button');
-          if ($( window ).width() >= 845) {
+          if ($( window ).width() >= 960) {
             if (!cssmenu.children('ul').hasClass('m-opened')) {
               cssmenu.children('ul').toggleClass('m-opened')
             }
@@ -52,7 +52,7 @@ of the screen
             }
           }
 
-          if ($(window).width() < 845) {
+          if ($(window).width() < 960) {
             cssmenu.children('ul').removeClass('m-opened');
             cssmenu.find('ul li ul').removeClass('sm-opened');
             mainmenu.removeClass('menu-opened');
@@ -73,18 +73,11 @@ of the screen
       "products": 1,
       "customers": 2,
       "careers": 3,
-      "blog": 4
+      "blog": 4,
+      "community": 5
     };
-    var dict_es = {
-      "servicios": 0,
-      "productos": 1,
-      "clientes": 2,
-      "empleos": 3,
-      "blog": 4
-    };
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 6; i++) {
       var cat_en = Object.keys(dict_en)[i];
-      var cat_es = Object.keys(dict_es)[i];
       if(window.location.href.indexOf("en/" + cat_en + '/') != -1) {
         $($(".cssmenu > ul > li")[dict_en[cat_en]]).toggleClass("active");
         $($(".cssmenu > ul > li")[dict_en[cat_en]]).append("<img alt=\"Selected field icon\" src=\"/web/theme/images/selected.svg\">")
