@@ -1,13 +1,18 @@
 {% extends "base.html" %}
 
 {% block meta %}
-  <meta name="description" content="{{ gettext('Authors-metadescription') }}.">
-  <meta name="keywords" content="{{ gettext('Authors-keywords') }}">
+  <meta name="description"
+        content="{{ gettext('Authors-metadescription') }}.">
+  <meta name="keywords"
+        content="{{ gettext('Authors-keywords') }}">
 {% endblock meta %}
 
 {% block title %}{{ gettext('Authors-title') }} | {{ SITENAME }}{% endblock title %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/">{% endblock canonical %}
+{% block canonical %}
+  <link rel="canonical"
+        href="{{ SITEURL }}/blog/">
+{% endblock canonical %}
 
 
 {% block breadcrumb%}
@@ -16,15 +21,18 @@
       <div class="breadcrumb">
         <ul>
           <li>
-            <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
+            <a href="{{ SITEURL }}/">
+               <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
             <span>&gt;</span>
           </li>
           <li>
-            <a href="{{ SITEURL }}/blog/">&nbsp;<strong>Blog</strong>&nbsp;</a>
+            <a href="{{ SITEURL }}/blog/">
+               &nbsp;<strong>Blog</strong>&nbsp;</a>
             <span>&gt;</span>
           </li>
           <li>
-            <a href=".">&nbsp;{{ gettext('Authors-breadcrumb-1') }}</a>
+            <a href=".">
+               &nbsp;{{ gettext('Authors-breadcrumb-1') }}</a>
           </li>
         </ul>
       </div>
@@ -40,9 +48,9 @@
           <ul>
             {% for author, articles in authors|sort %}
               <li>
-                <a href="{{SITEURL}}/{{ author.url }}" rel="bookmark">
-                  <p>{{ author }} ({{ articles|count }})</p>
-                </a>
+                <a href="{{SITEURL}}/{{ author.url }}"
+                   rel="bookmark">
+                   <p>{{ author }} ({{ articles|count }})</p></a>
               </li>
             {% endfor %}
           </ul>
