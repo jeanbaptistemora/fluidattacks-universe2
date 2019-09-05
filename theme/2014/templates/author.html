@@ -1,42 +1,57 @@
 {% extends "index.html" %}
 
 {% block meta %}
-  <meta name="description" content="{{ gettext('Author-metadescription-1') }} {{ author }}.{{ gettext('Author-metadescription-2') }}">
-  <meta name="keywords" content="{{ gettext('Author-keywords') }}">
+  <meta name="description"
+        content="{{ gettext('Author-metadescription-1') }} {{ author }}.{{ gettext('Author-metadescription-2') }}">
+  <meta name="keywords"
+        content="{{ gettext('Author-keywords') }}">
 {% endblock meta %}
 
 {% block title %} {{ author }} | {{ AUTHOR }}{% endblock %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/">{% endblock canonical %}
+{% block canonical %}
+  <link rel="canonical"
+        href="{{ SITEURL }}/blog/">
+{% endblock canonical %}
 
 
 {% block opengraph %}
   {{ super() }}
-  <meta property="og:title" content="{{ SITENAME }} - Articles by {{ author }}">
-  <meta property="og:type" content="profile">
-  <meta property="profile:first_name" content="{{ author.name.split(' ')[0] }}">
-  <meta property="profile:last_name" content="{{ author.name.split(' ')[1:]|join(' ') }}">
-  <meta property="profile:username" content="{{ author.slug }}">
+  <meta property="og:title"
+        content="{{ SITENAME }} - Articles by {{ author }}">
+  <meta property="og:type"
+        content="profile">
+  <meta property="profile:first_name"
+        content="{{ author.name.split(' ')[0] }}">
+  <meta property="profile:last_name"
+        content="{{ author.name.split(' ')[1:]|join(' ') }}">
+  <meta property="profile:username"
+        content="{{ author.slug }}">
 {% endblock opengraph %}
+
 {% block breadcrumb %}
   <div class="navcontent-container">
     <div class="navcontent-info">
       <div class="breadcrumb">
         <ul>
           <li>
-            <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
+            <a href="{{ SITEURL }}/">
+              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
             <span>&gt;</span>
           </li>
           <li>
-            <a href="{{ SITEURL }}/blog/">&nbsp;<strong>Blog</strong>&nbsp;</a>
+            <a href="{{ SITEURL }}/blog/">
+               &nbsp;<strong>Blog</strong>&nbsp;</a>
             <span>&gt;</span>
           </li>
           <li>
-            <a href="../">&nbsp;<strong>{{ gettext('Authors-breadcrumb-1') }}</strong>&nbsp;</a>
+            <a href="../">
+              &nbsp;<strong>{{ gettext('Authors-breadcrumb-1') }}</strong>&nbsp;</a>
             <span>&gt;</span>
           </li>
           <li>
-            <a href=".">&nbsp;{{ author }}</a>
+            <a href=".">
+               &nbsp;{{ author }}</a>
           </li>
         </ul>
       </div>
