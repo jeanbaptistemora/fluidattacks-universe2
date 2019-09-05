@@ -23,8 +23,12 @@ deps_development() {
     'front/package.json'
   )
 
-  if check_file_changed "${FILES[@]}"; then
-    kaniko_build "$NAME"
+  if check_file_changed "${FILES[@]}" \
+    || ! reg_repo_tag_exists "$NAME" "$CI_COMMIT_REF_NAME"; then
+    kaniko_build_experimental \
+      "$NAME" \
+      cache=true \
+      --build-arg CI_COMMIT_REF_NAME="$CI_COMMIT_REF_NAME"
   else
     echo "No relevant files for $NAME were modified. Skipping build."
   fi

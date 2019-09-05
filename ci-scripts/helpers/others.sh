@@ -1,5 +1,41 @@
 #!/usr/bin/env sh
 
+reg_repo_id () {
+
+  # Get the id of a gitlab registry repo
+
+  #set -e
+
+  INTEGRATES_ID='4620828'
+  CHECK_URL="https://gitlab.com/api/v4/projects/$INTEGRATES_ID/registry/repositories"
+
+  wget -O - "$CHECK_URL" 2> /dev/null | jq ".[] | select (.name == \"$1\") | .id"
+}
+
+reg_repo_tag_exists () {
+
+  # Checks if a tag exists within a specific registry repository
+  # Example: reg_repo_tag_exists deps-production master will return 0
+
+  #set -e
+
+  REPO_NAME=$1
+  TAG_NAME=$2
+
+  INTEGRATES_ID='4620828'
+  REPO_ID=$(reg_repo_id "$REPO_NAME")
+  CHECK_URL="https://gitlab.com/api/v4/projects/$INTEGRATES_ID/registry/repositories/$REPO_ID/tags/$TAG_NAME"
+  TAG=$(wget -O - "$CHECK_URL" 2> /dev/null | jq -r '.name')
+
+  if [ "$TAG" = "$TAG_NAME" ]; then
+    echo "$REPO_NAME:$TAG_NAME exists"
+    return 0
+  else
+    echo "$REPO_NAME:$TAG_NAME does not exist"
+    return 1
+  fi
+}
+
 kaniko_login() {
   echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\
     \"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
@@ -34,6 +70,45 @@ kaniko_build() {
     $PUSH_POLICY \
     $CACHE \
     $CACHE_REPO \
+    --snapshotMode time "$@"
+}
+
+kaniko_build_experimental() {
+
+  # Build a Dockerfile using kaniko.
+  # Pushes ephemeral images for devs.
+  # Uses cache if parameter is specified.
+  # Additional kaniko parameters can be added if needed.
+  # Example: kaniko_build mobile cache=true --build-arg VERSION='1.2'
+
+  set -e
+
+  TARGET="$1"
+  USE_CACHE="$2"
+  shift 2
+
+  if [ "$USE_CACHE" != 'cache=true' ] && [ "$USE_CACHE" != 'cache=false' ]; then
+    echo 'Error. Either cache=true or cache=false must be specified for $2.'
+    return 1
+  else
+    echo "Option: \"$USE_CACHE\" specified."
+  fi
+
+  if [ "$USE_CACHE" = 'cache=true' ]; then
+    SET_CACHE="--cache=true --cache-repo $CI_REGISTRY_IMAGE/$TARGET/cache"
+  else
+    echo 'Not using cache.'
+  fi
+
+  kaniko_login
+
+  /kaniko/executor \
+    --cleanup \
+    --context "$CI_PROJECT_DIR" \
+    --dockerfile "deploy/containers/$TARGET/Dockerfile" \
+    --destination "$CI_REGISTRY_IMAGE/$TARGET:$CI_COMMIT_REF_NAME" \
+    $SET_CACHE \
+    --single-snapshot \
     --snapshotMode time "$@"
 }
 

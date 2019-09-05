@@ -6,7 +6,6 @@ stages:
   - mr-check
   - deploy
   - post-deploy
-  - coverage
 
 deps-mobile:
   tags:
@@ -47,7 +46,7 @@ test-terraform:
 
 test-front:
   stage: test
-  image: registry.gitlab.com/fluidattacks/integrates:deps-development
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/test-front.sh
   artifacts:
@@ -72,7 +71,7 @@ test-mobile:
 
 test-app:
   stage: test
-  image: registry.gitlab.com/fluidattacks/integrates:deps-development
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - . ci-scripts/helpers/others.sh && vault_login
     - vaultenv ./ci-scripts/jobs/test-app.sh
@@ -145,6 +144,31 @@ build-bot:
     - sh ci-scripts/jobs/build-bot.sh
   retry: 1
 
+danger:
+  stage: mr-check
+  image: starefossen/ruby-node:2-10
+  dependencies:
+    - test-terraform
+  script:
+    - ./ci-scripts/jobs/danger.sh
+  only:
+    - merge_requests
+
+coverage-report:
+  stage: mr-check
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  dependencies:
+    - test-app
+    - test-front
+  script:
+    - . ci-scripts/helpers/others.sh && vault_login
+    - vaultenv ./run_codecov.sh
+  retry: 1
+  only:
+    - merge_requests
+  except:
+    - master
+
 ephemeral-app:
   stage: deploy
   needs: [build-app]
@@ -172,38 +196,6 @@ stop-ephemeral-app:
   when: manual
   except:
     - master
-
-test-driver:
-  stage: post-deploy
-  image: registry.gitlab.com/fluidattacks/integrates:deps-development
-  script:
-    - . ci-scripts/helpers/others.sh && vault_login
-    - vaultenv ./ci-scripts/jobs/test-driver.sh
-  parallel: 3
-  retry: 1
-  artifacts:
-    name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
-    paths:
-      - screenshots/
-
-asserts-dynamic:
-  stage: post-deploy
-  image: fluid-docker.jfrog.io/fluid:integrates_dynamic
-  retry: 1
-  script:
-    - ./ci-scripts/jobs/asserts-dynamic.sh
-  only:
-    - master
-
-danger:
-  stage: mr-check
-  image: starefossen/ruby-node:2-10
-  dependencies:
-    - test-terraform
-  script:
-    - ./ci-scripts/jobs/danger.sh
-  only:
-    - merge_requests
 
 deploy-k8s:
   stage: deploy
@@ -240,9 +232,31 @@ deploy-mobile:
   only:
     - master
 
+test-driver:
+  stage: post-deploy
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - . ci-scripts/helpers/others.sh && vault_login
+    - vaultenv ./ci-scripts/jobs/test-driver.sh
+  parallel: 3
+  retry: 1
+  artifacts:
+    name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
+    paths:
+      - screenshots/
+
+asserts-dynamic:
+  stage: post-deploy
+  image: fluid-docker.jfrog.io/fluid:integrates_dynamic
+  retry: 1
+  script:
+    - ./ci-scripts/jobs/asserts-dynamic.sh
+  only:
+    - master
+
 new-version-mail:
   stage: post-deploy
-  image: registry.gitlab.com/fluidattacks/integrates:deps-development
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   dependencies:
     - build-app
   script:
@@ -253,18 +267,3 @@ new-version-mail:
     - master
   except:
     - schedules
-
-coverage-report:
-  stage: coverage
-  image: registry.gitlab.com/fluidattacks/integrates:deps-development
-  dependencies:
-    - test-app
-    - test-front
-  script:
-    - . ci-scripts/helpers/others.sh && vault_login
-    - vaultenv ./run_codecov.sh
-  retry: 1
-  only:
-    - merge_requests
-  except:
-    - master
