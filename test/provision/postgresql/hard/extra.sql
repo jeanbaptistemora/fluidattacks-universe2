@@ -10,3 +10,7 @@ ALTER SYSTEM SET logging_collector TO 'on';
 ALTER SYSTEM SET log_statement TO 'all';
 ALTER SYSTEM SET log_directory TO 'log';
 ALTER SYSTEM SET log_filename TO 'postgresql-%Y-%m-%d_%H%M%S.log';
+
+/* store_passwords_insecurely */
+
+ALTER SYSTEM SET password_encryption TO 'scram-sha-256';

@@ -252,6 +252,10 @@ def has_not_data_checksums_enabled(dbname: str,
     safe_data_checksums: bool = \
         _get_var(connection_string, 'data_checksums') == 'on'
 
+    # ignore_checksum_failure must be 'off'
+    safe_ignore_checksum_fail: bool = \
+        _get_var(connection_string, 'ignore_checksum_failure') == 'off'
+
     vulns: List[Unit] = []
     safes: List[Unit] = []
     vuln_specifics: List[str] = []
@@ -259,6 +263,90 @@ def has_not_data_checksums_enabled(dbname: str,
 
     (safe_specifics if safe_data_checksums else vuln_specifics).append(
         'data_checksums must be set to on')
+
+    (safe_specifics if safe_ignore_checksum_fail else vuln_specifics).append(
+        'ignore_checksum_failure must be set to off')
+
+    if vuln_specifics:
+        vulns.append(Unit(
+            where=f'{host}:{port}',
+            source='PostgreSQL/Configuration',
+            specific=vuln_specifics,
+            fingerprint=None))
+    if safe_specifics:
+        safes.append(Unit(
+            where=f'{host}:{port}',
+            source='PostgreSQL/Configuration',
+            specific=safe_specifics,
+            fingerprint=None))
+
+    if vulns:
+        return OPEN, msg_open, vulns, safes
+    return CLOSED, msg_closed, vulns, safes
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(psycopg2.OperationalError)
+def store_passwords_insecurely(dbname: str,
+                               user: str, password: str,
+                               host: str, port: int) -> tuple:
+    """
+    Check if PostgreSQL implementation store passwords with a risky algorithm.
+
+    Use of SCRAM-SHA-256 is suggested.
+
+    See `SCRAM <https://en.wikipedia.org/wiki/
+    Salted_Challenge_Response_Authentication_Mechanism>`_.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+    :returns: OPEN if a *risky* algorithm is used to store passwords in the
+              database, UNKNOWN on errors, CLOSED otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    connection_string: ConnectionString = \
+        ConnectionString(dbname, user, password, host, port)
+
+    msg_open: str = 'PostgreSQL stores passwords insecurely'
+    msg_closed: str = 'PostgreSQL stores passwords securely'
+
+    # password_encryption must not be 'off'
+    vuln_encryption_1: bool = \
+        _get_var(connection_string, 'password_encryption') == 'off'
+
+    # password_encryption must not be 'on' (alias for md5)
+    vuln_encryption_2: bool = \
+        _get_var(connection_string, 'password_encryption') == 'on'
+
+    # password_encryption must not be 'md5'
+    vuln_encryption_3: bool = \
+        _get_var(connection_string, 'password_encryption') == 'md5'
+
+    secure_digests: tuple = ('scram-sha-256',)
+
+    # password_encryption must be any of `secure_digests`
+    safe_encryption: bool = \
+        _get_var(connection_string, 'password_encryption') in secure_digests
+
+    vulns: List[Unit] = []
+    safes: List[Unit] = []
+    vuln_specifics: List[str] = []
+    safe_specifics: List[str] = []
+
+    (vuln_specifics if vuln_encryption_1 else safe_specifics).append(
+        'password_encryption must not be set to off')
+
+    (vuln_specifics if vuln_encryption_2 else safe_specifics).append(
+        'password_encryption must not be set to on (alias for md5)')
+
+    (vuln_specifics if vuln_encryption_3 else safe_specifics).append(
+        'password_encryption must not be set to md5')
+
+    (safe_specifics if safe_encryption else vuln_specifics).append(
+        'password_encryption must be set to scram-sha-256')
 
     if vuln_specifics:
         vulns.append(Unit(
