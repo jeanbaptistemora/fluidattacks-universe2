@@ -1,11 +1,16 @@
   {% extends "index.html" %}
 
-<link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+<link rel="stylesheet"
+      href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
 
 {% block meta %}
-  <meta name="description" content="{{ article.description }}">
-  <meta name="keywords" content="{{ article.keywords }}">
-  <meta name="image" property="og:image" content="{{ SITEURL }}/{{ article.url }}cover.png">
+  <meta name="description"
+        content="{{ article.description }}">
+  <meta name="keywords"
+        content="{{ article.keywords }}">
+  <meta name="image"
+        property="og:image"
+        content="{{ SITEURL }}/{{ article.url }}cover.png">
 {% endblock meta %}
 
 {% block title %}
@@ -26,7 +31,10 @@
   {% endif %}
 {% endblock title %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ article.url }}">{% endblock canonical %}
+{% block canonical %}
+  <link rel="canonical"
+        href="{{ SITEURL }}/{{ article.url }}">
+{% endblock canonical %}
 
 {% block breadcrumb%}
   <div class="navcontent-container">
@@ -34,19 +42,23 @@
       <div class="breadcrumb">
         <ul>
           <li>
-            <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
+            <a href="{{ SITEURL }}/">
+               <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
             <span>&gt;</span>
           </li>
           <li>
-            <a href="{{ SITEURL }}/blog/">&nbsp;<strong>Blog</strong>&nbsp;</a>
+            <a href="{{ SITEURL }}/blog/">
+               &nbsp;<strong>Blog</strong>&nbsp;</a>
             <span>&gt;</span>
           </li>
           <li>
-            <a href="{{SITEURL}}/{{ category.url }}../">&nbsp;<strong>{{ gettext('Articles-breadcrumb-1') }}</strong>&nbsp;</a>
+            <a href="{{SITEURL}}/{{ category.url }}../">
+               &nbsp;<strong>{{ gettext('Articles-breadcrumb-1') }}</strong>&nbsp;</a>
             <span>&gt;</span>
           </li>
           <li>
-            <a href="{{ SITEURL }}/{{ category.url }}">&nbsp;{{ article.category|replace("-", " ")|capitalize }}</a>
+            <a href="{{ SITEURL }}/{{ category.url }}">
+               &nbsp;{{ article.category|replace("-", " ")|capitalize }}</a>
           </li>
         </ul>
       </div>
@@ -60,7 +72,9 @@
       <div class="df-l">
         <!-- Article Cover -->
         <div class="relative w-50-l fl-l pt3">
-          <img src="{{ SITEURL }}/{{ article.url}}{{ article.image }}" alt="{{ article.alt }}" class="rep-img ma-auto bottom-0 top-0">
+          <img src="{{ SITEURL }}/{{ article.url}}{{ article.image }}"
+               alt="{{ article.alt }}"
+               class="rep-img ma-auto bottom-0 top-0">
         </div>
         <!-- Article Title -->
         <div class="w-50-l fl-l">
@@ -81,29 +95,46 @@
           <!-- Metadata: Author, Comment, Tags, Date -->
           <td class="db dtc-ns pl4-l">
             {% for author in article.authors %}
-              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/user.png" alt="{{ gettext('Articles-icon-alt-1') }}"><a class="c-fluid-bk f5 ml1 relative tc ttc hv-fluid-dkred" href="../../{{ author.url }}">{{ author }}</a>
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/user.png"
+                   alt="{{ gettext('Articles-icon-alt-1') }}">
+                   <a class="c-fluid-bk f5 ml1 relative tc ttc hv-fluid-dkred"
+                      href="../../{{ author.url }}">
+                      {{ author }}</a>
             {% endfor %}<br/>
           </td>
           <td class="db dtc-ns pl4-l">
-            <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/comment.png" alt="{{ gettext('Articles-icon-alt-2') }}"><a class="c-fluid-bk f5 ml1 relative tc ttc hv-fluid-dkred" href="./#disqus_thread">{{ gettext('Articles-icon-msg-1') }}</a><br/>
-          </td>
+              <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/comment.png"
+                   alt="{{ gettext('Articles-icon-alt-2') }}">
+                   <a class="c-fluid-bk f5 ml1 relative tc ttc hv-fluid-dkred"
+                      href="./#disqus_thread">
+                      {{ gettext('Articles-icon-msg-1') }}</a><br/></td>
           <td class="db dtc-ns pl4-l">
-            <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Articles-icon-alt-3') }}"><a class="c-fluid-bk f5 ml1 relative tc ttc hv-fluid-dkred" href="../../{{ category.url }}">{{ article.category|replace("-", " ") }}</a><br/>
-          </td>
+              <img src="{{ SITEURL}}/{{ THEME_STATIC_DIR }}/images/folder.png"
+                   alt="{{ gettext('Articles-icon-alt-3') }}">
+                   <a class="c-fluid-bk f5 ml1 relative tc ttc hv-fluid-dkred"
+                      href="../../{{ category.url }}">
+                      {{ article.category|replace("-", " ") }}</a><br/></td>
           <td class="db dtc-ns pl4-l">
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png" alt="{{ gettext('Articles-icon-alt-4') }}"><p class="di f5 ml2 relative">{{ article.locale_date }}</p><br/>
-          </td>
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/calendar2.png"
+                   alt="{{ gettext('Articles-icon-alt-4') }}">
+                   <p class="di f5 ml2 relative">
+                      {{ article.locale_date }}</p><br/></td>
         </tr>
       </table>
       <br>
       {{ article.content }}
       <br/>
       <div class="authorimg">
-        <img class="imgwriter fl" src="{{ SITEURL }}/images/authors/{{ article.writer }}.png" alt="{{ gettext('Articles-author-alt') }}">
+        <img class="imgwriter fl"
+             src="{{ SITEURL }}/images/authors/{{ article.writer }}.png"
+             alt="{{ gettext('Articles-author-alt') }}">
       </div>
       <table class="authorinfo relative w-80 left-1">
         <tr><td>
-            <p class="writer"><a href="{{ SITEURL }}/{{ article.author.url }} " class ="c-fluid-bk hv-fluid-dkred">{{article.name}}</a></p>
+            <p class="writer">
+               <a href="{{ SITEURL }}/{{ article.author.url }} "
+                  class ="c-fluid-bk hv-fluid-dkred">
+                  {{article.name}}</a></p>
         </td></tr>
         <tr><td>
           <p>{{article.about1}}</p>
@@ -119,9 +150,13 @@
           <section class="sect-related">
             {% for related_post in article.related_posts %}
               <div class="dit w-32 w-33-l">
-          <img class="mt2 mb2" src="{{ SITEURL }}/{{ related_post.url }}{{ related_post.featured_image }}" alt="related_post.alt"><br>
-          <a href="{{ SITEURL }}/{{ related_post.url }}" class= "c-fluid-bk montsy b hv-fluid-dkred">{{ related_post.title }}</a>
-        </div>
+                   <img class="mt2 mb2"
+                        src="{{ SITEURL }}/{{ related_post.url }}{{ related_post.featured_image }}"
+                        alt="related_post.alt"><br>
+                        <a href="{{ SITEURL }}/{{ related_post.url }}"
+                           class= "c-fluid-bk montsy b hv-fluid-dkred">
+                           {{ related_post.title }}</a>
+              </div>
             {% endfor %}
          </section>
        {% endif %}
@@ -130,7 +165,9 @@
            <!-- Tags -->
            <div class="tags mt3 overflow-hidden">
              <p>{% for tag in article.tags %}
-               <a class="bg-fluid-red white fl montsy b ttc f6 pt1 pb1 pr2 pl2 mb3 mr1 pointer hv-fluid-dkred" href="{{ SITEURL }}/{{ tag.url }} ">{{ tag | escape }}</a>
+               <a class="bg-fluid-red white fl montsy b ttc f6 pt1 pb1 pr2 pl2 mb3 mr1 pointer hv-fluid-dkred"
+                  href="{{ SITEURL }}/{{ tag.url }} ">
+                  {{ tag | escape }}</a>
              {% endfor %}</p>
            </div>
          </section>
@@ -142,13 +179,17 @@
          <!-- prev article -->
          <div class="dib vtop w-40 fl">
            {% if article.prev_article %}
-             <a class="c-fluid-red hv-fluid-dkred" href="{{ SITEURL }}/{{ article.prev_article.url}}">&lt;&nbsp;{{ article.prev_article.title }}</a>
+             <a class="c-fluid-red hv-fluid-dkred"
+                href="{{ SITEURL }}/{{ article.prev_article.url}}">
+                &lt;&nbsp;{{ article.prev_article.title }}</a>
            {% endif %}
          </div>
          <!-- next article -->
          <div class="dib vtop w-40 tr fr">
            {% if article.next_article %}
-             <a class="c-fluid-red hv-fluid-dkred" href="{{ SITEURL }}/{{ article.next_article.url}}">{{ article.next_article.title }}&nbsp;&gt;</a>
+             <a class="c-fluid-red hv-fluid-dkred"
+                href="{{ SITEURL }}/{{ article.next_article.url}}">
+                {{ article.next_article.title }}&nbsp;&gt;</a>
            {% endif %}
          </div>
        </div>
