@@ -3,25 +3,26 @@
 """This module allows to check generic PostgreSQL DB vulnerabilities."""
 
 # standard imports
-from typing import List
+from typing import Any, Dict, Iterator, List, NamedTuple, Optional, Tuple
 from contextlib import contextmanager
-from collections import namedtuple
 
 # 3rd party imports
 import psycopg2
 
 # local imports
-from fluidasserts import Unit, LOW, MEDIUM, DAST, OPEN, CLOSED, UNKNOWN
+from fluidasserts import Unit, LOW, MEDIUM, HIGH, DAST, OPEN, CLOSED, UNKNOWN
 from fluidasserts.utils.decorators import api, unknown_if
 
 # Containers
-ConnectionString = namedtuple(
-    typename='ConnectionString',
-    field_names=[
-        'dbname', 'user', 'password', 'host', 'port', 'sslmode'
-    ],
-    defaults=[
-        'prefer',
+#: Container with connection parameters and credentials
+ConnectionString = NamedTuple(
+    'ConnectionString', [
+        ('dbname', str),
+        ('user', str),
+        ('password', str),
+        ('host', str),
+        ('port', int),
+        ('sslmode', str),
     ])
 
 
@@ -53,9 +54,22 @@ def _get_var(connection_string: ConnectionString, variable_name: str) -> str:
     return var_value
 
 
+def _execute(connection_string: ConnectionString,
+             query: str,
+             variables: Optional[Dict[str, Any]]) -> Iterator[Any]:
+    """Yield the result of executing a command."""
+    with database(connection_string) as (_, cursor):
+        cursor.execute(query, variables)
+        yield from cursor
+
+
 @contextmanager
-def database(connection_string: ConnectionString):
-    """Context manager to get a safe connection and a cursor."""
+def database(connection_string: ConnectionString) -> Iterator[Tuple[Any, Any]]:
+    """
+    Context manager to get a safe connection and a cursor.
+
+    :param connection_string: Connection parameter and credentials.
+    """
     connection = psycopg2.connect(
         dbname=connection_string.dbname,
         user=connection_string.user,
@@ -79,17 +93,20 @@ def have_access(dbname: str,
                 user: str, password: str,
                 host: str, port: int) -> tuple:
     """
-    Check if the given connection string allows to connect to the DB.
+    Check if the given connection parameters allow to connect to the database.
 
     :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
     :param port: database port.
+    :returns: - ``OPEN`` if we were able to connect to the database.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
     connection_string: ConnectionString = \
-        ConnectionString(dbname, user, password, host, port)
+        ConnectionString(dbname, user, password, host, port, 'prefer')
 
     success: bool = False
     msg_open: str = 'PostgreSQL is accessible with given credentials'
@@ -127,10 +144,13 @@ def does_not_support_ssl(dbname: str,
     :param password: database password.
     :param host: database ip.
     :param port: database port.
+    :returns: - ``OPEN`` if server does not allow SSL connections.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
     connection_string: ConnectionString = \
-        ConnectionString(dbname, user, password, host, port, sslmode='require')
+        ConnectionString(dbname, user, password, host, port, 'require')
 
     supports_ssl: bool = False
     msg_open: str = 'PostgreSQL does not support SSL connections'
@@ -169,10 +189,15 @@ def has_not_logging_enabled(dbname: str,
     :param password: database password.
     :param host: database ip.
     :param port: database port.
+    :returns: - ``OPEN`` if system variables **logging_collector**,
+                **log_statement**, **log_directory**, and **log_filename** are
+                not configured to log all database transactions.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
     connection_string: ConnectionString = \
-        ConnectionString(dbname, user, password, host, port)
+        ConnectionString(dbname, user, password, host, port, 'prefer')
 
     msg_open: str = 'PostgreSQL has not logging enabled'
     msg_closed: str = 'PostgreSQL has logging enabled'
@@ -238,12 +263,15 @@ def has_not_data_checksums_enabled(dbname: str,
     :param password: database password.
     :param host: database ip.
     :param port: database port.
-    :returns: OPEN if `initdb` started without the --data-checksums flag,
-              UNKNOWN on errors, CLOSED otherwise.
+    :returns: - ``OPEN`` if system variables **data_checksums**, and
+                **ignore_checksum_failure** are not configured to guarantee
+                data integrity.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
     connection_string: ConnectionString = \
-        ConnectionString(dbname, user, password, host, port)
+        ConnectionString(dbname, user, password, host, port, 'prefer')
 
     msg_open: str = 'PostgreSQL has data checksums disabled'
     msg_closed: str = 'PostgreSQL has data checksums enabled'
@@ -287,31 +315,36 @@ def has_not_data_checksums_enabled(dbname: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(psycopg2.OperationalError)
-def store_passwords_insecurely(dbname: str,
-                               user: str, password: str,
-                               host: str, port: int) -> tuple:
+def has_insecure_password_encryption(dbname: str,
+                                     user: str, password: str,
+                                     host: str, port: int) -> tuple:
     """
-    Check if PostgreSQL implementation store passwords with a risky algorithm.
+    Check if PostgreSQL implementation store passwords using weak algorithms.
 
-    Use of SCRAM-SHA-256 is suggested.
+    Commands like **CREATE USER** or **ALTER USER** use the algorithm specified
+    in the system variable **password_encryption** to store the hashed
+    username and password in the **pg_shadow** table.
 
-    See `SCRAM <https://en.wikipedia.org/wiki/
-    Salted_Challenge_Response_Authentication_Mechanism>`_.
+    Setting **password_encryption** to
+    `scram-sha-256 <https://en.wikipedia.org/wiki/
+    Salted_Challenge_Response_Authentication_Mechanism>`_. is suggested.
 
     :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
     :param port: database port.
-    :returns: OPEN if a *risky* algorithm is used to store passwords in the
-              database, UNKNOWN on errors, CLOSED otherwise.
+    :returns: - ``OPEN`` if **password_encryption** is not set
+                to a **strong** algorithm.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
     connection_string: ConnectionString = \
-        ConnectionString(dbname, user, password, host, port)
+        ConnectionString(dbname, user, password, host, port, 'prefer')
 
-    msg_open: str = 'PostgreSQL stores passwords insecurely'
-    msg_closed: str = 'PostgreSQL stores passwords securely'
+    msg_open: str = 'PostgreSQL has insecure password_encryption'
+    msg_closed: str = 'PostgreSQL has secure password_encryption'
 
     # password_encryption must not be 'off'
     vuln_encryption_1: bool = \
@@ -347,6 +380,68 @@ def store_passwords_insecurely(dbname: str,
 
     (safe_specifics if safe_encryption else vuln_specifics).append(
         'password_encryption must be set to scram-sha-256')
+
+    if vuln_specifics:
+        vulns.append(Unit(
+            where=f'{host}:{port}',
+            source='PostgreSQL/Configuration',
+            specific=vuln_specifics,
+            fingerprint=None))
+    if safe_specifics:
+        safes.append(Unit(
+            where=f'{host}:{port}',
+            source='PostgreSQL/Configuration',
+            specific=safe_specifics,
+            fingerprint=None))
+
+    if vulns:
+        return OPEN, msg_open, vulns, safes
+    return CLOSED, msg_closed, vulns, safes
+
+
+@api(risk=HIGH, kind=DAST)
+@unknown_if(psycopg2.OperationalError)
+def has_insecurely_stored_passwords(dbname: str,
+                                    user: str, password: str,
+                                    host: str, port: int) -> tuple:
+    """
+    Check if database has passwords stored with a weak algorithm.
+
+    PostgreSQL stores the database users and passwords hashed in the
+    **pg_shadow** table. This method will check if any of them is hashed
+    with a weak algorithm, or even in plain text.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+    :returns: - ``OPEN`` if some shadow record in the **pg_shadow** table
+                is not using a **strong** digest algorithm.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    connection_string: ConnectionString = \
+        ConnectionString(dbname, user, password, host, port, 'prefer')
+
+    msg_open: str = 'PostgreSQL has insecurely stored passwords'
+    msg_closed: str = 'PostgreSQL has safely stored passwords'
+
+    vulns: List[Unit] = []
+    safes: List[Unit] = []
+    vuln_specifics: List[str] = []
+    safe_specifics: List[str] = []
+
+    query: str = 'SELECT usename, passwd FROM pg_shadow'
+
+    safe_digests = ('scram-sha-256',)
+
+    for usename, passwd in _execute(connection_string, query, {}):
+        is_safe: bool = any(passwd.lower().startswith(s) for s in safe_digests)
+        assertion: str = 'securely' if is_safe else 'insecurely'
+        specific: str = f'{usename} user password is {assertion} stored'
+        (safe_specifics if is_safe else vuln_specifics).append(specific)
 
     if vuln_specifics:
         vulns.append(Unit(

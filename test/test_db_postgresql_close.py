@@ -32,7 +32,7 @@ def test_have_access_open(get_mock_ip):
     """Test postgresql.have_access."""
     var_does_not_exist: str = 'var_does_not_exist'
     connection_string: str = postgresql.ConnectionString(
-        DBNAME, USER, PASSWORD, get_mock_ip, PORT)
+        DBNAME, USER, PASSWORD, get_mock_ip, PORT, 'prefer')
     assert not postgresql._get_var(connection_string, var_does_not_exist)
 
 
@@ -73,9 +73,18 @@ def test_has_not_data_checksums_enabled_closed(get_mock_ip):
 
 
 @pytest.mark.parametrize('get_mock_ip', ['postgresql_hard'], indirect=True)
-def test_store_passwords_insecurely_closed(get_mock_ip):
+def test_has_insecure_password_encryption_closed(get_mock_ip):
     """Test postgresql.does_not_support_ssl."""
-    assert postgresql.store_passwords_insecurely(
+    assert postgresql.has_insecure_password_encryption(
         DBNAME, USER, PASSWORD, get_mock_ip, PORT).is_closed()
-    assert postgresql.store_passwords_insecurely(
+    assert postgresql.has_insecure_password_encryption(
+        DBNAME, USER, PASSWORD, BAD_HOST, PORT).is_unknown()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['postgresql_hard'], indirect=True)
+def test_has_insecurely_stored_passwords_closed(get_mock_ip):
+    """Test postgresql.does_not_support_ssl."""
+    assert postgresql.has_insecurely_stored_passwords(
+        DBNAME, USER, PASSWORD, get_mock_ip, PORT).is_closed()
+    assert postgresql.has_insecurely_stored_passwords(
         DBNAME, USER, PASSWORD, BAD_HOST, PORT).is_unknown()

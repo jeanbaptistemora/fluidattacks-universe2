@@ -58,6 +58,15 @@ MOCKS = [
     }
 ]
 
+POST_COMMANDS = {
+    'postgresql:hard': [
+        """
+        psql --user postgres
+             --command "ALTER USER postgres WITH PASSWORD 'postgres'"
+        """,
+    ]
+}
+
 
 def get_mock_name(mock: str) -> str:
     """Get mock name."""
@@ -116,6 +125,15 @@ def start_container(image: str, mock_name: str) -> None:
             pytest.fail(str(exc))
 
 
+def exec_extra_commands(mock: str, mock_name: str) -> None:
+    """Execute extra commands in the container."""
+    container = CLIENT.containers.get(mock_name)
+    for extra_cmd in POST_COMMANDS.get(mock, []):
+        extra_cmd = extra_cmd.replace('\n', ' ')
+        print('exec', mock_name, extra_cmd)
+        container.exec_run(extra_cmd, detach=False)
+
+
 def smart_create_container(mock: str) -> None:
     """Build mocks caching imgs/containers and building/running when needed."""
     image = f'registry.gitlab.com/fluidattacks/asserts/mocks/{mock}'
@@ -141,6 +159,9 @@ def smart_create_container(mock: str) -> None:
 
     # Start a container, create it if not exists
     start_container(image, mock_name)
+
+    # Run extra commands
+    exec_extra_commands(mock, mock_name)
 
 
 def open_ports(mock: str, port_mapping) -> None:
@@ -195,7 +216,7 @@ def mock_graphql(request):
 def clone_test_repositories(request):
     """Clone a test repository."""
     repos = {
-        'build/test_times_rxjava': {
+        'test/times/rxjava': {
             'url': 'https://github.com/ReactiveX/RxJava.git',
             'rev': '9a36930bff81770c98b5babe58621fd8e49dba2d',
         }

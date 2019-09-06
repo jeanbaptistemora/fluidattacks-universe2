@@ -53,7 +53,14 @@ def test_has_not_data_checksums_enabled_open(get_mock_ip):
 
 
 @pytest.mark.parametrize('get_mock_ip', ['postgresql_weak'], indirect=True)
-def test_store_passwords_insecurely_open(get_mock_ip):
-    """Test postgresql.store_passwords_insecurely."""
-    assert postgresql.store_passwords_insecurely(
+def test_has_insecure_password_encryption_open(get_mock_ip):
+    """Test postgresql.has_insecure_password_encryption."""
+    assert postgresql.has_insecure_password_encryption(
+        DBNAME, USER, PASSWORD, get_mock_ip, PORT).is_open()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['postgresql_weak'], indirect=True)
+def test_has_insecurely_stored_passwords_open(get_mock_ip):
+    """Test postgresql.has_insecurely_stored_passwords."""
+    assert postgresql.has_insecurely_stored_passwords(
         DBNAME, USER, PASSWORD, get_mock_ip, PORT).is_open()

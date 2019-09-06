@@ -14,11 +14,11 @@ from fluidasserts.lang import core, java
 
 
 # Constants
-JAVA: str = 'build/test_times_rxjava/src/main/java/io/reactivex/rxjava3'
-MARKD: str = 'build/test_times_rxjava/docs'
+JAVA: str = 'test/times/rxjava/src/main/java/io/reactivex/rxjava3'
+MARKD: str = 'test/times/rxjava/docs'
 
 TIME_ZERO: float = 0.0
-TIME_NOTHING_TESTED: float = 0.025
+TIME_NOTHING_TESTED: float = 0.1
 
 COMMON_TEXT: str = 'a'
 UNCOMMON_TEXT: str = 'abc$%^#def'
