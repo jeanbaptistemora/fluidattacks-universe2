@@ -23,23 +23,10 @@ $white: rgba(255, 255, 255, 1);
   position: absolute;
 }
 
-.searchbar {
-  position: absolute;
-  right: 15px;
-  top: 20px;
-
-  .search-box {
-    border: 2px solid $fluid-gray;
-    border-radius: 5px;
-    height: 45px;
-    position: absolute;
-    right: 35px;
-    top: -8px;
-    transform: translateY(-80px);
-    transition: transform ease 500ms;
-    widows: 240px;
-    z-index: 3;
-  }
+.search-box {
+  transform: translateY(-80px);
+  transition: transform ease 500ms;
+  widows: 240px;
 }
 
 .search {
@@ -162,10 +149,6 @@ $white: rgba(255, 255, 255, 1);
 }
 
 @media (min-width: 960px) {
-  .searchbar {
-    right: 140px;
-    top: 23px;
-  }
 
   .contact {
     display: block;
