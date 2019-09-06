@@ -1,11 +1,12 @@
 """DAL functions for projects."""
 
-from __future__ import absolute_import
 from datetime import datetime
 
-from boto3.dynamodb.conditions import Attr
+from boto3.dynamodb.conditions import Attr, Key
+
+from app.dal import integrates_dal
+from app.dal.finding import TABLE as FINDINGS_TABLE
 from app.dal.helpers.analytics import query
-from . import integrates_dal
 
 
 def get_current_month_information(project_name, query_db):
@@ -51,3 +52,22 @@ def get_active_projects():
     filtering_exp = Attr('project_status').eq('ACTIVE') & Attr('project_status').exists()
     projects = integrates_dal.get_projects_data_dynamo(filtering_exp, 'project_name')
     return [prj['project_name'] for prj in projects]
+
+
+def list_findings(project_name):
+    filtering_exp = Key('project_name').eq(project_name)
+    response = FINDINGS_TABLE.query(
+        IndexName='project_findings',
+        KeyConditionExpression=filtering_exp,
+        ProjectionExpression='finding_id')
+    findings = response.get('Items', [])
+
+    while response.get('LastEvaluatedKey'):
+        response = FINDINGS_TABLE.query(
+            ExclusiveStartKey=response['LastEvaluatedKey'],
+            IndexName='project_findings',
+            KeyConditionExpression=filtering_exp,
+            ProjectionExpression='finding_id')
+        findings += response.get('Items', [])
+
+    return [finding['finding_id'] for finding in findings]

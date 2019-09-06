@@ -807,7 +807,7 @@ def list_findings(finding_ids):
             else:
                 raise FindingNotFound()
 
-        findings += finding_utils.format_data(finding)
+        findings.append(finding_utils.format_data(finding))
 
     return findings
 

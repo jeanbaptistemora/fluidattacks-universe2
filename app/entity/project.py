@@ -16,11 +16,7 @@ from app.dal import integrates_dal, project as redshift_dal
 from app.decorators import (
     get_entity_cache, require_login, require_project_access, require_role
 )
-from app.domain import project
-from app.domain.project import (
-    add_comment, validate_tags, validate_project, get_vulnerabilities,
-    get_pending_closing_check, get_max_severity, get_drafts, list_comments
-)
+from app.domain import project as project_domain
 from app.entity.finding import Finding
 from app.entity.user import User
 
@@ -108,7 +104,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_open_vulnerabilities(self, info):
         """Resolve open vulnerabilities attribute."""
         del info
-        self.open_vulnerabilities = get_vulnerabilities(
+        self.open_vulnerabilities = project_domain.get_vulnerabilities(
             self.findings_aux, 'openVulnerabilities')
         return self.open_vulnerabilities
 
@@ -116,7 +112,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_closed_vulnerabilities(self, info):
         """Resolve closed vulnerabilities attribute."""
         del info
-        self.closed_vulnerabilities = get_vulnerabilities(
+        self.closed_vulnerabilities = project_domain.get_vulnerabilities(
             self.findings_aux, 'closedVulnerabilities')
         return self.closed_vulnerabilities
 
@@ -124,7 +120,8 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_pending_closing_check(self, info):
         """Resolve pending closing check attribute."""
         del info
-        self.pending_closing_check = get_pending_closing_check(self.name)
+        self.pending_closing_check = project_domain.get_pending_closing_check(
+            self.name)
         return self.pending_closing_check
 
     @get_entity_cache
@@ -140,7 +137,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_max_severity(self, info):
         """Resolve maximum severity attribute."""
         del info
-        self.max_severity = get_max_severity(self.findings_aux)
+        self.max_severity = project_domain.get_max_severity(self.findings_aux)
         return self.max_severity
 
     @get_entity_cache
@@ -221,7 +218,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_comments(self, info):
-        self.comments = list_comments(
+        self.comments = project_domain.list_comments(
             user_email=util.get_jwt_content(info.context)['user_email'],
             project_name=self.name)
 
@@ -242,7 +239,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @require_role(['admin', 'customeradmin'])
     def resolve_users(self, info):
         """ Resolve project users """
-        init_email_list = project.get_users_from_db(self.name)
+        init_email_list = project_domain.get_users_from_db(self.name)
         user_email_list = util.user_email_filter(init_email_list,
                                                  util.get_jwt_content(info.context)['user_email'])
         self.users = [User(self.name, user_email) for user_email in user_email_list]
@@ -253,7 +250,8 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """ Resolve drafts attribute """
         util.cloudwatch_log(info.context, 'Security: Access to {project} '
                             'drafts'.format(project=self.name))
-        self.drafts = [Finding(draft_id) for draft_id in get_drafts(self.name)]
+        self.drafts = [Finding(draft_id)
+                       for draft_id in project_domain.get_drafts(self.name)]
         return self.drafts
 
     def resolve_description(self, info):
@@ -291,8 +289,8 @@ class AddProjectComment(Mutation):
             'modified': current_time,
             'parent': int(parameters.get('parent'))
         }
-        success = add_comment(project_name, user_info['user_email'],
-                              comment_data)
+        success = project_domain.add_comment(
+            project_name, user_info['user_email'], comment_data)
         if success:
             util.cloudwatch_log(info.context, 'Security: Added comment to \
                 {project} project succesfully'.format(project=project_name))
@@ -319,7 +317,7 @@ class RemoveTag(Mutation):
     def mutate(self, info, project_name, tag):
         success = False
         project_name = project_name.lower()
-        if validate_project(project_name):
+        if project_domain.validate_project(project_name):
             primary_keys = ['project_name', project_name.lower()]
             table_name = 'FI_projects'
             tag_deleted = integrates_dal.remove_set_element_dynamo(
@@ -355,10 +353,10 @@ class AddTags(Mutation):
     def mutate(self, info, project_name, tags):
         success = False
         project_name = project_name.lower()
-        if validate_project(project_name):
+        if project_domain.validate_project(project_name):
             primary_keys = ['project_name', project_name]
             table_name = 'FI_projects'
-            if validate_tags(tags):
+            if project_domain.validate_tags(tags):
                 tags_added = integrates_dal.add_set_element_dynamo(
                     table_name, primary_keys, 'tag', tags)
                 if tags_added:

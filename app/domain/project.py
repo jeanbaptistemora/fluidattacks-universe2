@@ -320,3 +320,8 @@ def get_active_projects():
     projects = project_dal.get_active_projects()
 
     return projects
+
+
+def list_findings(project_name):
+    """ Returns the list of finding ids associated with the project"""
+    return project_dal.list_findings(project_name)

@@ -6,7 +6,6 @@ from datetime import datetime
 import pytz
 import rollbar
 import boto3
-from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 from django.conf import settings
 
@@ -27,16 +26,9 @@ TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 
 def get_finding(finding_id):
     """ Retrieve all attributes from a finding """
+    response = TABLE.get_item(Key={'finding_id': finding_id})
 
-    filtering_exp = Key('finding_id').eq(finding_id)
-    response = TABLE.query(KeyConditionExpression=filtering_exp)
-    items = response['Items']
-    while response.get('LastEvaluatedKey'):
-        response = TABLE.query(KeyConditionExpression=filtering_exp,
-                               ExclusiveStartKey=response['LastEvaluatedKey'])
-        items += response['Items']
-
-    return items[0] if items else {}
+    return response.get('Item', {})
 
 
 def save_evidence(file_object, file_name):
