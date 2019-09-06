@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""This module allows to check generic PostgreSQL DB vulnerabilities."""
+"""Module for Dynamic Application Security Testing of PostgreSQL Databases."""
 
 # standard imports
 from typing import Any, Dict, Iterator, List, NamedTuple, Optional, Tuple
@@ -36,7 +36,9 @@ def _is_ssl_error(exception: psycopg2.Error) -> bool:
     return 'SSL' in str(exception)
 
 
-def _get_var(connection_string: ConnectionString, variable_name: str) -> str:
+def _get_var(connection_string: ConnectionString,
+             variable_name: str,
+             case_insensitive: bool = True) -> str:
     """Return the result of `SHOW variable_name;` or an empty string."""
     var_value: str = ''
     with database(connection_string) as (_, cursor):
@@ -51,6 +53,7 @@ def _get_var(connection_string: ConnectionString, variable_name: str) -> str:
             if len(row) == 1:
                 # var has a value
                 var_value, = row
+            var_value = var_value.lower() if case_insensitive else var_value
     return var_value
 
 
@@ -191,7 +194,9 @@ def has_not_logging_enabled(dbname: str,
     :param port: database port.
     :returns: - ``OPEN`` if system variables **logging_collector**,
                 **log_statement**, **log_directory**, and **log_filename** are
-                not configured to log all database transactions.
+                not configured to log all database transactions, and other
+                system variables as described in the check output are not set
+                to the specified values.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
@@ -202,35 +207,134 @@ def has_not_logging_enabled(dbname: str,
     msg_open: str = 'PostgreSQL has not logging enabled'
     msg_closed: str = 'PostgreSQL has logging enabled'
 
-    # logging_collector must be 'on'
-    safe_logging_collector: bool = \
-        _get_var(connection_string, 'logging_collector') == 'on'
-
-    # log_statement must be 'all'
-    safe_log_statement: bool = \
-        _get_var(connection_string, 'log_statement') == 'all'
-
-    # log_directory must be set
-    safe_log_directory: bool = \
-        bool(_get_var(connection_string, 'log_directory'))
-
-    # log_filename must be set
-    safe_log_filename: bool = \
-        bool(_get_var(connection_string, 'log_filename'))
-
+    is_safe: bool
     vulns: List[Unit] = []
     safes: List[Unit] = []
     vuln_specifics: List[str] = []
     safe_specifics: List[str] = []
 
-    (safe_specifics if safe_logging_collector else vuln_specifics).append(
+    #
+    # Needed to enable logging
+    #
+
+    is_safe = _get_var(connection_string, 'logging_collector') == 'on'
+    (safe_specifics if is_safe else vuln_specifics).append(
         'logging_collector must be set to on')
-    (safe_specifics if safe_log_statement else vuln_specifics).append(
+
+    is_safe = _get_var(connection_string, 'log_statement') == 'all'
+    (safe_specifics if is_safe else vuln_specifics).append(
         'log_statement must be set to all')
-    (safe_specifics if safe_log_directory else vuln_specifics).append(
+
+    is_safe = bool(_get_var(connection_string, 'log_directory'))
+    (safe_specifics if is_safe else vuln_specifics).append(
         'log_directory must be set')
-    (safe_specifics if safe_log_filename else vuln_specifics).append(
+
+    is_safe = bool(_get_var(connection_string, 'log_filename'))
+    (safe_specifics if is_safe else vuln_specifics).append(
         'log_filename must be set')
+
+    #
+    # Below are hardening configurations
+    #
+
+    is_safe = _get_var(connection_string, 'log_checkpoints') == 'on'
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_checkpoints must be set to on')
+
+    # csvlog is just a format, syslog and eventlog have problems
+    # use this in conjunction with logging_collector 'on' for a strong setting
+    is_safe = 'stderr' in _get_var(connection_string, 'log_destination')
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_destination must be set to stderr')
+
+    accepted = ('default', 'verbose')
+    is_safe = _get_var(connection_string, 'log_error_verbosity') in accepted
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_error_verbosity must be set to default or verbose')
+
+    #
+    # Repudiation
+    #
+
+    is_safe = _get_var(connection_string, 'log_connections') == 'on'
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_connections must be set to on')
+
+    is_safe = _get_var(connection_string, 'log_disconnections') == 'on'
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_disconnections must be set to on')
+
+    log_line_prefix: str = _get_var(connection_string, 'log_line_prefix')
+
+    for prefix in ('%m', '%u', '%d', '%r', '%c'):
+        is_safe = prefix in log_line_prefix
+        (safe_specifics if is_safe else vuln_specifics).append(
+            f'log_line_prefix must contain {prefix}')
+
+    #
+    # Performance
+    #
+
+    is_safe = _get_var(connection_string, 'log_duration') == 'on'
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_duration must be set to on')
+
+    is_safe = _get_var(connection_string, 'log_lock_waits') == 'on'
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_lock_waits must be set to on')
+
+    # Disable log_statement_stats
+    #   Enable log_executor_stats
+    #   Enable log_parser_stats
+    #   Enable log_planner_stats
+    # For a detailed log
+    is_safe = _get_var(connection_string, 'log_statement_stats') == 'off'
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_statement_stats must be set to on')
+
+    is_safe = _get_var(connection_string, 'log_executor_stats') == 'on'
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_executor_stats must be set to on')
+
+    is_safe = _get_var(connection_string, 'log_parser_stats') == 'on'
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_parser_stats must be set to on')
+
+    is_safe = _get_var(connection_string, 'log_planner_stats') == 'on'
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_planner_stats must be set to on')
+
+    is_safe = _get_var(connection_string, 'log_autovacuum_min_duration') == '0'
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_autovacuum_min_duration must be set to 0')
+
+    #
+    # Logging levels
+    #
+
+    is_safe = _get_var(connection_string, 'log_min_duration_statement') == '0'
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_min_duration_statement must be set to 0')
+
+    is_safe = _get_var(connection_string, 'log_min_error_statement') == 'error'
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_min_error_statement must be set to error')
+
+    is_safe = _get_var(connection_string, 'log_min_messages') == 'warning'
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_min_messages must be set to warning')
+
+    is_safe = _get_var(connection_string, 'log_replication_commands') == 'on'
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_replication_commands must be set to on')
+
+    #
+    # Avoid overwriting logs !
+    #
+
+    is_safe = _get_var(connection_string, 'log_truncate_on_rotation') == 'off'
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_truncate_on_rotation must be set to off')
 
     if vuln_specifics:
         vulns.append(Unit(

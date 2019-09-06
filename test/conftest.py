@@ -130,8 +130,14 @@ def exec_extra_commands(mock: str, mock_name: str) -> None:
     container = CLIENT.containers.get(mock_name)
     for extra_cmd in POST_COMMANDS.get(mock, []):
         extra_cmd = extra_cmd.replace('\n', ' ')
-        print('exec', mock_name, extra_cmd)
-        container.exec_run(extra_cmd, detach=False)
+        for retry_id in range(4):
+            print('exec', retry_id, mock_name, 'cmd', extra_cmd)
+            exit_code, output = container.exec_run(extra_cmd)
+            print('exec', retry_id, mock_name, 'exit_code', exit_code)
+            print('exec', retry_id, mock_name, 'output', output)
+            if exit_code == 0:
+                break
+            time.sleep(15.0)
 
 
 def smart_create_container(mock: str) -> None:
