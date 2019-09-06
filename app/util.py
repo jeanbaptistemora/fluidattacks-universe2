@@ -387,3 +387,9 @@ def verificate_hash_token(access_token, jti_token):
         rollbar.report_message('Error: Access token does not match', 'error')
 
     return resp
+
+
+def is_api_token(user_data):
+    is_api = bool(user_data.get('jti'))
+
+    return is_api
