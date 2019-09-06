@@ -151,7 +151,19 @@ class UpdateAccessToken(Mutation):
             )
 
             success = update_access_token(email, token_data)
+            if success:
+                util.cloudwatch_log(
+                    info.context, '{email} update access token'.format(
+                        email=user_info['user_email']))
+            else:
+                util.cloudwatch_log(
+                    info.context, '{email} attempted to update access token'
+                    .format(email=user_info['user_email']))
         else:
+            util.cloudwatch_log(
+                info.context, '{email} attempted to use expiration time \
+                greater than six months or minor than current time'
+                .format(email=user_info['user_email']))
             raise InvalidExpirationTime()
 
         return UpdateAccessToken(success, session_jwt)
@@ -166,4 +178,13 @@ class InvalidateAccessToken(Mutation):
         user_info = util.get_jwt_content(info.context)
 
         success = remove_access_token(user_info['user_email'])
+        if success:
+            util.cloudwatch_log(
+                info.context, '{email} invalidate access token'.format(
+                    email=user_info['user_email']))
+        else:
+            util.cloudwatch_log(
+                info.context, '{email} attempted to invalidate access token'
+                .format(email=user_info['user_email']))
+
         return InvalidateAccessToken(success)
