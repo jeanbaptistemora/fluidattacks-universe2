@@ -183,7 +183,8 @@ resource "aws_dynamodb_table" "findings" {
   global_secondary_index {
     name               = "project_findings"
     hash_key           = "project_name"
-    projection_type    = "KEYS_ONLY"
+    projection_type    = "INCLUDE"
+    non_key_attributes = ["releaseDate"]
   }
 
   point_in_time_recovery {

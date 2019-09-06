@@ -251,7 +251,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         util.cloudwatch_log(info.context, 'Security: Access to {project} '
                             'drafts'.format(project=self.name))
         self.drafts = [Finding(draft_id)
-                       for draft_id in project_domain.get_drafts(self.name)]
+                       for draft_id in project_domain.list_drafts(self.name)]
         return self.drafts
 
     def resolve_description(self, info):

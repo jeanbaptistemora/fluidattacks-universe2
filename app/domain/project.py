@@ -287,16 +287,11 @@ def is_finding_in_drafts(finding_id):
     return retval
 
 
-def get_drafts(project_name):
+def list_drafts(project_name):
     api = FormstackAPI()
-    drafts = []
     submissions = api.get_findings(project_name)['submissions']
-
-    for submission in submissions:
-        draft_id = submission['id']
-        is_draft = is_finding_in_drafts(draft_id)
-        if is_draft:
-            drafts.append(draft_id)
+    drafts = [submission['id'] for submission in submissions
+              if is_finding_in_drafts(submission['id'])]
 
     return drafts
 

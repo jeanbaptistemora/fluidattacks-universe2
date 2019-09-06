@@ -55,7 +55,8 @@ def get_active_projects():
 
 
 def list_findings(project_name):
-    filtering_exp = Key('project_name').eq(project_name)
+    filtering_exp = Key('project_name').eq(project_name) \
+        & Attr('releaseDate').exists()
     response = FINDINGS_TABLE.query(
         IndexName='project_findings',
         KeyConditionExpression=filtering_exp,

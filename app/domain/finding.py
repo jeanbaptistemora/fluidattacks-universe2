@@ -794,7 +794,7 @@ def get_finding(finding_id):
     return finding
 
 
-def list_findings(finding_ids):
+def get_findings(finding_ids):
     """Retrieves all attributes for the requested findings"""
     findings = []
     for finding_id in finding_ids:
