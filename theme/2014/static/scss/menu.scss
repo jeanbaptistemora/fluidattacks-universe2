@@ -4,11 +4,6 @@ $fluid-red: rgba(255, 52, 53, 1);
 $transparent: rgba(0, 0, 0, 0);
 $white: rgba(255, 255, 255, 1);
 
-@mixin link {
-  color: $white;
-  display: block;
-}
-
 @mixin menu-bars {
   content: '';
   left: 30px;
@@ -152,14 +147,6 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-.m-link {
-  @include link;
-  font-size: 20px;
-  letter-spacing: 1px;
-  min-height: 60px;
-  padding: 20px 10px 17px;
-}
-
 .sm-opened {
   display: block;
   position: relative;
@@ -172,14 +159,6 @@ $white: rgba(255, 255, 255, 1);
       border-top: 1px solid $fluid-gray;
     }
   }
-}
-
-.sm-link {
-  @include link;
-  font-size: 20px;
-  height: 100%;
-  padding: 20px 0 0 40px;
-  width: 100%;
 }
 
 @media (min-width: 960px) {
@@ -253,12 +232,6 @@ $white: rgba(255, 255, 255, 1);
       float: right;
       margin: -44px 3px 0 0;
       width: 10px;
-    }
-  }
-
-  .m-link {
-    &:hover {
-      background-color: $transparent;
     }
   }
 
