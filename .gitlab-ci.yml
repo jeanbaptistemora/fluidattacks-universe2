@@ -224,3 +224,5 @@ new_version_mail:
     - python3 mail.py
   only:
     - master
+  except:
+    - schedules
