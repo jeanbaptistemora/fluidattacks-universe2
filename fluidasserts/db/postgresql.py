@@ -563,3 +563,70 @@ def has_insecurely_stored_passwords(dbname: str,
     if vulns:
         return OPEN, msg_open, vulns, safes
     return CLOSED, msg_closed, vulns, safes
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(psycopg2.OperationalError)
+def has_insecure_file_permissions(dbname: str,
+                                  user: str, password: str,
+                                  host: str, port: int) -> tuple:
+    """
+    Check if database's data directory and log files have insecure permissions.
+
+    By default PostgreSQL set the **data_directory** file permissions
+    (**data_directory_mode**) to **0700**,
+    and the generated log files permissions (**log_file_mode**) at
+    **log_directory**/**log_filename** to **0600**.
+
+    This file permissions are reasonable, and must be kept like that!
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+    :returns: - ``OPEN`` if **data_directory_mode** or **log_file_mode** are
+                not set to **0700** and **0600**.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    connection_string: ConnectionString = \
+        ConnectionString(dbname, user, password, host, port, 'prefer')
+
+    is_safe: bool
+    accepted: tuple
+    msg_open: str = 'PostgreSQL has data checksums disabled'
+    msg_closed: str = 'PostgreSQL has data checksums enabled'
+
+    vulns: List[Unit] = []
+    safes: List[Unit] = []
+    vuln_specifics: List[str] = []
+    safe_specifics: List[str] = []
+
+    accepted = ('700', '0700')
+    is_safe = _get_var(connection_string, 'data_directory_mode') in accepted
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'data_directory_mode must be set to 0700')
+
+    accepted = ('600', '0600')
+    is_safe = _get_var(connection_string, 'log_file_mode') in accepted
+    (safe_specifics if is_safe else vuln_specifics).append(
+        'log_file_mode must be set to 0600')
+
+    if vuln_specifics:
+        vulns.append(Unit(
+            where=f'{host}:{port}',
+            source='PostgreSQL/Configuration',
+            specific=vuln_specifics,
+            fingerprint=None))
+    if safe_specifics:
+        safes.append(Unit(
+            where=f'{host}:{port}',
+            source='PostgreSQL/Configuration',
+            specific=safe_specifics,
+            fingerprint=None))
+
+    if vulns:
+        return OPEN, msg_open, vulns, safes
+    return CLOSED, msg_closed, vulns, safes
