@@ -2,13 +2,19 @@
 <html lang="{{ DEFAULT_LANG }}">
   <head>
     {% block head %}
-      <meta http-equiv="Content-type" content="text/html" charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+      <meta http-equiv="Content-type"
+            content="text/html"
+            charset="utf-8">
+      <meta http-equiv="X-UA-Compatible"
+            content="IE=edge">
+      <meta name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
       <!-- Meta Description -->
         {% block meta %}{% endblock meta %}
       <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-22974464-4"></script>
+        <script async
+                src="https://www.googletagmanager.com/gtag/js?id=UA-22974464-4">
+        </script>
         <script>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
@@ -17,57 +23,99 @@
         </script>
       <!-- End Google Analytics -->
       <!-- AddThis Share Bar -->
-        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a37e74c4b1448ce"></script>
+        <script type="text/javascript"
+                src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a37e74c4b1448ce">
+        </script>
       <!-- End AddThis -->
       <!-- MixPanel -->
         {% assets filters="uglifyjs", output="static/js/mixpanel.min.js", "js/mixpanel.js", "js/mixPanelDashboard.js" %}
-          <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+          <script type="text/javascript"
+                  src="{{ SITEURL }}/{{ ASSET_URL }}">
+          </script>
         {% endassets %}
       <!-- End MixPanel -->
 
       {% if GOOGLE_SITE_VERIFICATION %}
-        <meta name="google-site-verification" content="{{ GOOGLE_SITE_VERIFICATION }}">
+        <meta name="google-site-verification"
+              content="{{ GOOGLE_SITE_VERIFICATION }}">
       {% endif %}
       <title>{% block title %}{% endblock title %}</title>
       {% block canonical %}{% endblock canonical %}
       {% block language %}{% endblock language %}
-      <link rel="shortcut icon" type="image/x-icon" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/favicon.png" sizes="16x16" />
-      <link rel="icon" type="image/x-icon" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/favicon.png" sizes="16x16" />
-      <link rel="apple-touch-icon-precomposed" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/favicon.png" />
+      <link rel="shortcut icon"
+            type="image/x-icon"
+            href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/favicon.png"
+            sizes="16x16" />
+      <link rel="icon"
+            type="image/x-icon"
+            href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/favicon.png"
+            sizes="16x16" />
+      <link rel="apple-touch-icon-precomposed"
+            href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/favicon.png" />
       {% for name,link in SOCIAL if name in ['rss', 'rss-square'] %}
-        <link href="{{ link }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Full Atom Feed" />
+        <link href="{{ link }}"
+              type="application/atom+xml"
+              rel="alternate"
+              title="{{ SITENAME }} Full Atom Feed" />
       {% else %}
         {% if FEED_ALL_ATOM %}
-          <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Full Atom Feed" />
+          <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}"
+                type="application/atom+xml"
+                rel="alternate"
+                title="{{ SITENAME }} Full Atom Feed" />
         {% endif %}
         {% if FEED_ALL_RSS %}
-          <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Full RSS Feed" />
+          <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}"
+                type="application/rss+xml"
+                rel="alternate"
+                title="{{ SITENAME }} Full RSS Feed" />
         {% endif %}
         {% if FEED_ATOM %}
-          <link href="{{ FEED_DOMAIN }}/{{ FEED_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Atom Feed" />
+          <link href="{{ FEED_DOMAIN }}/{{ FEED_ATOM }}"
+                type="application/atom+xml"
+                rel="alternate"
+                title="{{ SITENAME }} Atom Feed" />
         {% endif %}
         {% if FEED_RSS %}
-          <link href="{{ FEED_DOMAIN }}/{{ FEED_RSS }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} RSS Feed" />
+          <link href="{{ FEED_DOMAIN }}/{{ FEED_RSS }}"
+                type="application/rss+xml"
+                rel="alternate"
+                title="{{ SITENAME }} RSS Feed" />
         {% endif %}
         {% if CATEGORY_FEED_ATOM and category %}
-          <link href="{{ FEED_DOMAIN }}/{{ CATEGORY_FEED_ATOM|format(category.slug) }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Categories Atom Feed" />
+          <link href="{{ FEED_DOMAIN }}/{{ CATEGORY_FEED_ATOM|format(category.slug) }}"
+                type="application/atom+xml"
+                rel="alternate"
+                title="{{ SITENAME }} Categories Atom Feed" />
         {% endif %}
         {% if CATEGORY_FEED_RSS and category %}
-          <link href="{{ FEED_DOMAIN }}/{{ CATEGORY_FEED_RSS|format(category.slug) }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Categories RSS Feed" />
+          <link href="{{ FEED_DOMAIN }}/{{ CATEGORY_FEED_RSS|format(category.slug) }}"
+                type="application/rss+xml"
+                rel="alternate"
+                title="{{ SITENAME }} Categories RSS Feed" />
         {% endif %}
         {% if TAG_FEED_ATOM and tag %}
-          <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_ATOM|format(tag.slug) }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Tags Atom Feed" />
+          <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_ATOM|format(tag.slug) }}"
+                type="application/atom+xml"
+                rel="alternate"
+                title="{{ SITENAME }} Tags Atom Feed" />
         {% endif %}
         {% if TAG_FEED_RSS and tag %}
-          <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_RSS|format(tag.slug) }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Tags RSS Feed" />
+          <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_RSS|format(tag.slug) }}"
+                type="application/rss+xml"
+                rel="alternate"
+                title="{{ SITENAME }} Tags RSS Feed" />
         {% endif %}
       {% endfor %}
       <!-- Compress and Minify CSS files and bundle from SASS files -->
         {% assets filters="scss, cssmin", output="static/css/theme.min.css", "scss/base.scss", "scss/landing.scss", "scss/pages.scss", "scss/article.scss","scss/monokai.scss", "scss/menu.scss", "scss/tipuesearch.scss", "scss/footer.scss", "/app/node_modules/intl-tel-input/src/css/intlTelInput.scss" , "/app/node_modules/owl.carousel2/src/scss/owl.carousel.scss" , "/app/node_modules/owl.carousel2/src/scss/owl.theme.default.scss" %}
-          <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ ASSET_URL }}">
+          <link rel="stylesheet"
+                type="text/css"
+                href="{{ SITEURL }}/{{ ASSET_URL }}">
         {% endassets %}
       <!-- Custom Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,700|Source+Sans+Pro:300|Overpass+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,700|Source+Sans+Pro:300|Overpass+Mono"
+              rel="stylesheet">
 
       <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
       <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -78,23 +126,32 @@
     {% endblock head %}
     {% block opengraph %}
       {% for admin in FACEBOOK_ADMINS %}
-        <meta property="fb:admins" content="{{ admin }}" >
+        <meta property="fb:admins"
+              content="{{ admin }}" >
       {% endfor %}
       {% for LOC in LOCALE %}
-        <meta property="og:locale" content="{{ LOC }}">
+        <meta property="og:locale"
+              content="{{ LOC }}">
       {% endfor %}
-      <meta property="og:site_name" content="{{ SITENAME }}">
+      <meta property="og:site_name"
+            content="{{ SITENAME }}">
     {% endblock opengraph %}
     {% block twitter_card %}
       {% for name,link in SOCIAL if name in ['twitter'] %}
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:site" content="@{{ link|replace('http://', 'https://')|replace('https://twitter.com/', '') }}">
-        <meta name="twitter:title" content="{{ SITENAME }}">
-        <meta name="twitter:description" content="{{ SITESUBTITLE|default('View the blog.') }}">
+        <meta name="twitter:card"
+              content="summary_large_image">
+        <meta name="twitter:site"
+              content="@{{ link|replace('http://', 'https://')|replace('https://twitter.com/', '') }}">
+        <meta name="twitter:title"
+              content="{{ SITENAME }}">
+        <meta name="twitter:description"
+              content="{{ SITESUBTITLE|default('View the blog.') }}">
         {% if HEADER_COVER %}
-          <meta name="twitter:image" content="{{ SITEURL }}/{{ HEADER_COVER }}">
+          <meta name="twitter:image"
+                content="{{ SITEURL }}/{{ HEADER_COVER }}">
         {% else %}
-          <meta name="twitter:image" content="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/post-bg.jpg">
+          <meta name="twitter:image"
+                content="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/post-bg.jpg">
         {% endif %}
       {% endfor %}
     {% endblock twitter_card %}
@@ -107,7 +164,8 @@
     <!-- End Mixpanel Event -->
     <!-- jQuery, Menu, Line Numbers in Source Code, Responsive Tables, Anchors and Owl Carousel -->
       {% assets filters="uglifyjs", output="static/js/theme.min.js", "/app/node_modules/jquery/dist/jquery.js", "/app/node_modules/iframe-resizer/js/iframeResizer.js", "/app/js/assets/tipuesearch/tipuesearch.min.js", "/app/js/assets/tipuesearch/tipuesearch_set.js", "js/menu.js", "js/linenum.js", "js/table-responsive.js", "js/id.js", "/app/node_modules/owl.carousel2/src/js/owl.carousel.js", "/app/node_modules/owl.carousel2/src/js/owl.autoplay.js" %}
-        <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+        <script type="text/javascript"
+                src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
       {% endassets %}
     <!-- Navigation -->
       {% include "navigationbar.html" %}
@@ -116,7 +174,9 @@
           <!-- Banner Image-->
           <div class="w-50 pl6-l pl4-m bg-fluid-black fl">
             <a href="{{ SITEURL }}/">
-              <img class="top-2 pt5 w-banner" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/banner.png" alt="{{ gettext('Header-img-alt') }}">
+              <img class="top-2 pt5 w-banner"
+                   src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/banner.png"
+                   alt="{{ gettext('Header-img-alt') }}">
             </a>
           </div>
           <!-- Banner title and text -->
@@ -212,6 +272,9 @@
     <!-- Footer -->
       {% include 'footer.html' %}
     <!-- RDStation -->
-      <script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/587d2441-4eaa-4f2e-b96b-b0a5dcb3fcf3-loader.js" ></script>
+      <script type="text/javascript"
+              async
+              src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/587d2441-4eaa-4f2e-b96b-b0a5dcb3fcf3-loader.js" >
+      </script>
   </body>
 </html>
