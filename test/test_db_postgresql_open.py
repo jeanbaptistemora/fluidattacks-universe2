@@ -78,3 +78,10 @@ def test_allows_too_many_concurrent_connections_open(get_mock_ip):
     """Test postgresql.allows_too_many_concurrent_connections."""
     assert postgresql.allows_too_many_concurrent_connections(
         DBNAME, USER, PASSWORD, get_mock_ip, PORT).is_open()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['postgresql_weak'], indirect=True)
+def test_does_not_invalidate_session_ids_open(get_mock_ip):
+    """Test postgresql.does_not_invalidate_session_ids."""
+    assert postgresql.does_not_invalidate_session_ids(
+        DBNAME, USER, PASSWORD, get_mock_ip, PORT).is_open()

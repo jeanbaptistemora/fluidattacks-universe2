@@ -42,3 +42,10 @@ ALTER SYSTEM SET password_encryption TO 'scram-sha-256';
 /* allows_too_many_concurrent_connections */
 
 ALTER SYSTEM SET max_connections TO '100';
+
+/* does_not_invalidate_session_ids */
+
+ALTER SYSTEM SET statement_timeout TO '60000';
+ALTER SYSTEM SET tcp_keepalives_idle TO '0';
+ALTER SYSTEM SET tcp_keepalives_interval TO '0';
+ALTER SYSTEM SET tcp_keepalives_count TO '0';
