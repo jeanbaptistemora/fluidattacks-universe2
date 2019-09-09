@@ -66,6 +66,26 @@ def _execute(connection_string: ConnectionString,
         yield from cursor
 
 
+def _get_result_as_tuple(*,
+                         host: str, port: int,
+                         msg_open: str, msg_closed: str,
+                         vulns: List[str], safes: List[str]) -> tuple:
+    """Return the tuple version of the Result object."""
+    vuln_units: List[Unit] = []
+    safe_units: List[Unit] = []
+
+    if vulns:
+        vuln_units.append(Unit(where=f'{host}:{port}',
+                               specific=vulns))
+    if safes:
+        safe_units.append(Unit(where=f'{host}:{port}',
+                               specific=safes))
+
+    if vulns:
+        return OPEN, msg_open, vuln_units, safe_units
+    return CLOSED, msg_closed, vuln_units, safe_units
+
+
 @contextmanager
 def database(connection_string: ConnectionString) -> Iterator[Tuple[Any, Any]]:
     """
@@ -630,3 +650,76 @@ def has_insecure_file_permissions(dbname: str,
     if vulns:
         return OPEN, msg_open, vulns, safes
     return CLOSED, msg_closed, vulns, safes
+
+
+@api(risk=MEDIUM,
+     kind=DAST,
+     references=[
+         'https://www.stigviewer.com/'
+         'stig/postgresql_9.x/2017-01-20/finding/V-72863',
+         'https://www.postgresql.org/'
+         'docs/current/runtime-config-connection.html',
+     ])
+@unknown_if(psycopg2.OperationalError)
+def allows_too_many_concurrent_connections(dbname: str,
+                                           user: str, password: str,
+                                           host: str, port: int,
+                                           max_connections: int = 100
+                                           ) -> tuple:
+    """
+    Check if number of allowed connections exceed the organization threshold.
+
+    An unlimited or high number of concurrent connections to PostgreSQL
+    could allow a successful Denial of Service (DoS) attack by exhausting
+    connection resources; and a system can also fail or be degraded by an
+    overload of legitimate users.
+
+    Limiting the number of concurrent sessions per user is helpful in
+    reducing these risks.
+
+    See `S.T.I.G. <https://www.stigviewer.com/stig/
+    postgresql_9.x/2017-01-20/finding/V-72863>`_.
+
+    See `PostgreSQL doc <https://www.postgresql.org/
+    docs/current/runtime-config-connection.html>`_.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+    :param max_connections: organization defined number of concurrent
+                            connections, a hundred is PostgreSQL's default.
+                            However, hardware and network settings are highly
+                            coupled to a propper value for this setting.
+    :returns: - ``OPEN`` if **max_connections** system variable is greater than
+                the specified **max_connections** parameter.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    connection_string: ConnectionString = \
+        ConnectionString(dbname, user, password, host, port, 'prefer')
+
+    is_safe: bool
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    try:
+        value = int(_get_var(connection_string, 'max_connections'))
+    except ValueError:
+        is_safe = False
+    else:
+        is_safe = value <= max_connections
+
+    (safes if is_safe else vulns).append(
+        f'max_connections must be less than {max_connections}')
+
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open='PostgreSQL allows too many concurrent connections',
+        msg_closed=('PostgreSQL allows a reasonable number of '
+                    'concurrent connections'),
+        vulns=vulns,
+        safes=safes)

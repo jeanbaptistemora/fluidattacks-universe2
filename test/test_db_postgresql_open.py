@@ -71,3 +71,10 @@ def test_has_insecure_file_permissions_open(get_mock_ip):
     """Test postgresql.has_insecure_file_permissions."""
     assert postgresql.has_insecure_file_permissions(
         DBNAME, USER, PASSWORD, get_mock_ip, PORT).is_open()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['postgresql_weak'], indirect=True)
+def test_allows_too_many_concurrent_connections_open(get_mock_ip):
+    """Test postgresql.allows_too_many_concurrent_connections."""
+    assert postgresql.allows_too_many_concurrent_connections(
+        DBNAME, USER, PASSWORD, get_mock_ip, PORT).is_open()

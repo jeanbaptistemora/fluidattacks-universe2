@@ -38,3 +38,7 @@ ALTER SYSTEM SET log_planner_stats TO 'on';
 /* store_passwords_insecurely */
 
 ALTER SYSTEM SET password_encryption TO 'scram-sha-256';
+
+/* allows_too_many_concurrent_connections */
+
+ALTER SYSTEM SET max_connections TO '100';
