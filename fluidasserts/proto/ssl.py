@@ -13,17 +13,19 @@ import copy
 import socket
 import struct
 from typing import Tuple, Optional, List
+from contextlib import suppress
 
 # 3rd party imports
 import tlslite
 
 # local imports
+from fluidasserts import DAST, LOW, OPEN, CLOSED, Unit
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify
 from fluidasserts.helper import http
 from fluidasserts.helper.ssl import connect
+from fluidasserts.utils.decorators import track, level, notify, api, unknown_if
 
 PORT = 443
 TYPRECEIVE = Tuple[Optional[str], Optional[int], Optional[int]]
@@ -281,35 +283,36 @@ def is_tlsv1_enabled(site: str, port: int = PORT) -> bool:
     return result
 
 
-@notify
-@level('low')
-@track
-def is_tlsv11_enabled(site: str, port: int = PORT) -> bool:
+@api(risk=LOW, kind=DAST)
+@unknown_if(socket.error, tlslite.errors.TLSLocalAlert)
+def is_tlsv11_enabled(site: str, port: int = PORT) -> tuple:
     """
     Check if TLSv1.1 suites are enabled.
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if **TLS v1.1** is enabled on site.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    result = True
-    try:
+    is_enabled: bool = False
+
+    with suppress(tlslite.errors.TLSRemoteAlert,
+                  tlslite.errors.TLSAbruptCloseError):
         with connect(site, port=port, min_version=(3, 2), max_version=(3, 2)):
-            show_open('TLSv1.1 enabled on site',
-                      details=dict(site=site, port=port))
-            result = True
-    except (tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSAbruptCloseError):
-        show_close('TLSv1.1 not enabled on site',
-                   details=dict(site=site, port=port))
-        result = False
-    except (tlslite.errors.TLSLocalAlert):
-        show_unknown('Port doesn\'t support SSL',
-                     details=dict(site=site, port=port))
-        result = False
-    except socket.error as exc:
-        result = False
-        show_unknown('Could not connect',
-                     details=dict(site=site, port=port, error=str(exc)))
-    return result
+            is_enabled = True
+
+    msg_open: str = 'TLS v1.1 is enabled'
+    msg_closed: str = 'TLS v1.1 is disabled'
+
+    units: List[Unit] = [
+        Unit(where=f'{site}@{port}',
+             specific=[msg_open if is_enabled else msg_closed])]
+
+    if is_enabled:
+        return OPEN, msg_open, units, []
+    return CLOSED, msg_closed, [], units
 
 
 @notify
@@ -385,40 +388,46 @@ def has_poodle_sslv3(site: str, port: int = PORT) -> bool:
     return result
 
 
-@notify
-@level('low')
-@track
-def has_breach(site: str, port: int = PORT) -> bool:
+@api(risk=LOW, kind=DAST)
+@unknown_if(http.ConnError)
+def has_breach(site: str, port: int = PORT) -> tuple:
     """
-    Check if BREACH is present.
+    Check if BREACH category of vulnerabilities is present.
+
+    Remember that to be vulnerable, a web application must:
+
+    - Be served from a server that uses HTTP-level compression.
+    - Reflect user-input in HTTP response bodies.
+    - Reflect a secret (such as a CSRF token) in HTTP response bodies.
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if the page is served with HTTP compression enabled,
+                requirements two and three are up to the human to be verified.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    url = 'https://{}:{}'.format(site, port)
     common_compressors = ['compress', 'exi', 'gzip',
                           'identity', 'pack200-gzip', 'br', 'bzip2',
                           'lzma', 'peerdist', 'sdch', 'xpress', 'xz']
 
+    session = http.HTTPSession(
+        url=f'https://{site}:{port}',
+        request_at_instantiation=False)
+    session._set_messages(
+        source='HTTP/Request/Headers/Content-Encoding',
+        msg_open='Site is vulnerable to BREACH attack',
+        msg_closed='Site is not vulnerable to BREACH attack')
+
     for compression in common_compressors:
-        header = {'Accept-Encoding': '{},deflate'.format(compression)}
-        try:
-            sess = http.HTTPSession(url, headers=header)
-            fingerprint = sess.get_fingerprint()
-            if 'Content-Encoding' in sess.response.headers:
-                if compression in sess.response.headers['Content-Encoding']:
-                    show_open('Site vulnerable to BREACH attack',
-                              details=dict(site=site, port=port,
-                                           compression=compression,
-                                           fingerprint=fingerprint))
-                    return True
-        except http.ConnError as exc:
-            show_unknown('Could not connect',
-                         details=dict(site=site, port=port, error=str(exc)))
-            return False
-    show_close('Site not vulnerable to BREACH attack',
-               details=dict(site=site, port=port))
-    return False
+        session.headers = {'Accept-Encoding': f'{compression},deflate'}
+        session.do_request()
+        content_encoding = session.response.headers.get('Content-Encoding', '')
+        session._add_unit(
+            is_vulnerable=compression in content_encoding)
+
+    return session._get_tuple_result()
 
 
 @notify
@@ -484,10 +493,9 @@ suites', details=dict(site=site, port=port))
     return result
 
 
-@notify
-@level('low')
-@track
-def has_beast(site: str, port: int = PORT) -> bool:
+@api(risk=LOW, kind=DAST)
+@unknown_if(socket.error, tlslite.errors.TLSLocalAlert)
+def has_beast(site: str, port: int = PORT) -> tuple:
     """
     Check if site allows BEAST attack.
 
@@ -496,28 +504,29 @@ def has_beast(site: str, port: int = PORT) -> bool:
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if **CBC** mode is used together with **SSL**.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    result = True
-    try:
-        with connect(site, port=port, min_version=(3, 1),
-                     max_version=(3, 1)) as conn:
-            if conn._recordLayer.isCBCMode():  # noqa
-                show_open('Site enables BEAST attack to clients',
-                          details=dict(site=site, port=port))
-                result = True
-    except (tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSAbruptCloseError):
-        show_close('Site not enables BEAST attack to clients',
-                   details=dict(site=site, port=port))
-        result = False
-    except (tlslite.errors.TLSLocalAlert):
-        show_unknown('Port doesn\'t support SSL',
-                     details=dict(site=site, port=port))
-        result = False
-    except socket.error as exc:
-        show_unknown('Could not connect',
-                     details=dict(site=site, port=port, error=str(exc)))
-        result = False
-    return result
+    is_vulnerable: bool = False
+    with suppress(tlslite.errors.TLSRemoteAlert,
+                  tlslite.errors.TLSAbruptCloseError):
+        with connect(site, port=port,
+                     min_version=(3, 1), max_version=(3, 1)) as connection:
+            if connection._recordLayer.isCBCMode():
+                is_vulnerable = True
+
+    msg_open: str = 'BEAST attack is possible'
+    msg_closed: str = 'BEAST attack is not possible'
+
+    units: List[Unit] = [
+        Unit(where=f'{site}@{port}',
+             specific=[msg_open if is_vulnerable else msg_closed])]
+
+    if is_vulnerable:
+        return OPEN, msg_open, units, []
+    return CLOSED, msg_closed, [], units
 
 
 @notify
@@ -734,35 +743,38 @@ to GOLDENDOODLE and Zombie POODLE attacks',
     return result
 
 
-@notify
-@level('low')
-@track
-def has_sweet32(site: str, port: int = PORT) -> bool:
+@api(risk=LOW, kind=DAST)
+@unknown_if(tlslite.errors.TLSLocalAlert)
+def has_sweet32(site: str, port: int = PORT) -> tuple:
     """
-    Check if server is vulnerable to SWEET32.
+    Check if server is vulnerable to **SWEET32**.
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if server supports **Triple DES ciphers**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    result = False
-    try:
+    is_vulnerable: bool = False
+    with suppress(socket.error,
+                  tlslite.errors.TLSRemoteAlert,
+                  tlslite.errors.TLSAbruptCloseError):
         with connect(site, port=port,
                      cipher_names=["3des"],
-                     min_version=(3, 1),
-                     max_version=(3, 3)):
-            show_open('Site vulnerable to SWEET32',
-                      details=dict(site=site, port=port))
-            result = True
-    except (tlslite.errors.TLSRemoteAlert,
-            tlslite.errors.TLSAbruptCloseError, socket.error):
-        result = False
-        show_close('Site not vulnerable to SWEET32',
-                   details=dict(site=site, port=port))
-    except (tlslite.errors.TLSLocalAlert):
-        show_unknown('Port doesn\'t support SSL',
-                     details=dict(site=site, port=port))
-        result = False
-    return result
+                     min_version=(3, 1), max_version=(3, 3)):
+            is_vulnerable = True
+
+    msg_open: str = 'SWEET32 attack is possible'
+    msg_closed: str = 'SWEET32 attack is not possible'
+
+    units: List[Unit] = [
+        Unit(where=f'{site}@{port}',
+             specific=[msg_open if is_vulnerable else msg_closed])]
+
+    if is_vulnerable:
+        return OPEN, msg_open, units, []
+    return CLOSED, msg_closed, [], units
 
 
 @notify

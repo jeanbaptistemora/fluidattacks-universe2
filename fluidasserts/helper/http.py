@@ -74,7 +74,8 @@ class HTTPSession():
                  auth: Optional[Tuple[str, str]] = None,
                  redirect: Optional[bool] = True,
                  timeout: Optional[float] = 10.0,
-                 stream: Optional[bool] = False) -> None:
+                 stream: Optional[bool] = False,
+                 request_at_instantiation: bool = True) -> None:
         """
         Construct method.
 
@@ -128,7 +129,8 @@ class HTTPSession():
         if 'Accept-Language' not in self.headers:
             self.headers['Accept-Language'] = 'en-US,en;q=0.5'
 
-        self.do_request()
+        if request_at_instantiation:
+            self.do_request()
 
     def __enter__(self):
         """Context manager for this class."""
