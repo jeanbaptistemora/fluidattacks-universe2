@@ -9,8 +9,6 @@ recursive-include fluidasserts *.py
 recursive-include fluidasserts/static *.lst
 
 # incluir los archivos de configuracion del software
-include conf/conf.cfg
-include conf/conf.spec
 include conf/README.rst
 include LOCAL-VERSION
 

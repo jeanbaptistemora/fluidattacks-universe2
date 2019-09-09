@@ -51,9 +51,6 @@ setup(
         'fluidasserts.syst',
         'fluidasserts.utils',
     ],
-    data_files=[
-        ('', ['conf/conf.cfg', 'conf/conf.spec']),
-    ],
     package_dir={
         'fluidasserts': 'fluidasserts',
     },
