@@ -3,17 +3,29 @@
     <ul class="pager mt3 mb3">
       <li class="next di">
         {% if articles_page.has_previous() %}
-          <a class="c-fluid-red montsy hv-fluid-dkred" href= "{{ SITEURL }}/{{ articles_previous_page.url }} ">&lt; {{ gettext('Pagination-prev') }}</a>
+          <a class="c-fluid-red montsy hv-fluid-dkred"
+             href= "{{ SITEURL }}/{{ articles_previous_page.url }} ">
+             &lt; {{ gettext('Pagination-prev') }}
+          </a>
         {% endif %}
         {% for page_num in range(articles_paginator.num_pages) %}
           {% if loop.first %}
-            <a href='{{ SITEURL }}/blog/index.html' class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-red montsy hv-fluid-dkred pr3 pl3">{{ page_num + 1 }}</a>
+            <a href='{{ SITEURL }}/blog/index.html'
+               class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-red montsy hv-fluid-dkred pr3 pl3">
+               {{ page_num + 1 }}
+            </a>
           {% else %}
-            <a href='{{ SITEURL }}/blog/index{{ page_num + 1 }}.html' class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-red montsy hv-fluid-dkred pr3 pl3">{{ page_num + 1 }}</a>
+            <a href='{{ SITEURL }}/blog/index{{ page_num + 1 }}.html'
+               class="{{ 'current b' if page_num + 1 == articles_page.number else '' }} c-fluid-red montsy hv-fluid-dkred pr3 pl3">
+               {{ page_num + 1 }}
+            </a>
           {% endif %}
         {% endfor %}
         {% if articles_page.has_next() %}
-          <a class="c-fluid-red montsy hv-fluid-dkred" href="{{ SITEURL }}/{{ articles_next_page.url }} " >{{ gettext('Pagination-nxt') }} &gt;</a>
+          <a class="c-fluid-red montsy hv-fluid-dkred"
+             href="{{ SITEURL }}/{{ articles_next_page.url }} " >
+             {{ gettext('Pagination-nxt') }} &gt;
+          </a>
         {% endif %}
       </li>
     </ul>
