@@ -285,11 +285,17 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.bts_url
 
+    @get_entity_cache
     def resolve_treatment(self, info):
         """ Resolve treatment attribute """
-        del info
-        if self.state == 'closed':
-            self.treatment = '-'
+        vulns_loader = info.context.loaders['vulnerability']
+        vulns = vulns_loader.load(self.id)
+
+        treatment = self.treatment
+        self.treatment = vulns.then(lambda vulns: (
+            treatment
+            if [vuln for vuln in vulns if vuln.current_state == 'open']
+            else '-'))
         return self.treatment
 
     def resolve_treatment_manager(self, info):
