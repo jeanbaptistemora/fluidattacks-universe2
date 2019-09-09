@@ -63,7 +63,7 @@ test-front:
 test-mobile:
   stage: test
   needs: [deps-mobile]
-  image: registry.gitlab.com/fluidattacks/integrates:deps-mobile
+  image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:master
   script:
     - ./ci-scripts/jobs/test-mobile.sh
   except:
@@ -214,7 +214,7 @@ deploy-mobile:
     - mobile
   stage: deploy
   needs: [deps-mobile]
-  image: registry.gitlab.com/fluidattacks/integrates:deps-mobile
+  image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:master
   script:
     - . ci-scripts/helpers/others.sh && vault_login
     - vaultenv ./ci-scripts/jobs/deploy-mobile.sh

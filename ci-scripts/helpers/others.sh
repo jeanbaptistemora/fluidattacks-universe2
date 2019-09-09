@@ -67,7 +67,7 @@ kaniko_build() {
       SET_EPH='--no-push'
     fi
   else
-    echo 'Error. Either eph=true or eph=false must be specified for $3'
+    echo 'Error. Either eph=true or eph=false must be specified for $2.'
     return 1
   fi
 
@@ -78,7 +78,7 @@ kaniko_build() {
   elif [ "$USE_CACHE" = 'cache=false' ]; then
     echo 'Not using cache.'
   else
-    echo 'Error. Either cache=true or cache=false must be specified for $2.'
+    echo 'Error. Either cache=true or cache=false must be specified for $3.'
     return 1
   fi
 
