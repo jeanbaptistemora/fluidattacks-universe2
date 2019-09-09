@@ -1,8 +1,10 @@
 {% extends "index.html" %}
 
 {% block meta %}
-  <meta name="description" content="{{ page.description }}">
-  <meta name="keywords" content="{{ page.keywords }}">
+  <meta name="description"
+        content="{{ page.description }}">
+  <meta name="keywords"
+        content="{{ page.keywords }}">
 {% endblock meta %}
 
 {% block title %}
@@ -23,7 +25,10 @@
   {% endif %}
 {% endblock title %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ page.url }}">{% endblock canonical %}
+{% block canonical %}
+<link rel="canonical"
+      href="{{ SITEURL }}/{{ page.url }}">
+{% endblock canonical %}
 
 {% block breadcrumb%}
   <div class="navcontent-container">
@@ -31,7 +36,9 @@
       <div class="breadcrumb">
         <ul>
           <li>
-            <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
+            <a href="{{ SITEURL }}/">
+              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
+            </a>
             <span>&gt;</span>
           </li>
           {% if page.rulesindex %}
@@ -41,12 +48,16 @@
           {% endif %}
           {% if "misc" not in page.category.name %}
             <li>
-              <a href="{{ SITEURL }}/{{ page.category.name }}/">&nbsp;<strong>{{ page.category|capitalize }}</strong>&nbsp;</a>
+              <a href="{{ SITEURL }}/{{ page.category.name }}/">
+                 &nbsp;<strong>{{ page.category|capitalize }}</strong>&nbsp;
+              </a>
               <span>&gt;</span>
             </li>
             {% if page.category2 %}
               <li>
-                <a href="{{ SITEURL }}/{{ page.category.name }}/{{ page.category2 }}/">&nbsp;<strong>{{ page.category2|replace('-', ' ') }}</strong>&nbsp;</a>
+                <a href="{{ SITEURL }}/{{ page.category.name }}/{{ page.category2 }}/">
+                    &nbsp;<strong>{{ page.category2|replace('-', ' ') }}</strong>&nbsp;
+                </a>
                 <span>&gt;</span>
               </li>
             {% endif %}
@@ -68,7 +79,9 @@
     <article>
       <h1>{{ page.title }}</h1>
       {% if page.subtitle %}
-        <span class="subtitle"><strong>{{ page.subtitle }}</strong></span>
+        <span class="subtitle">
+          <strong>{{ page.subtitle }}</strong>
+        </span>
       {% endif %}
       {% if page.rules %}
         <div class="description">
@@ -79,7 +92,9 @@
       <br>
       {% if page.toc %}
         {% assets filters="uglifyjs", output="static/js/toc.min.js", "js/toc.js" %}
-          <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+          <script type="text/javascript"
+                  src="{{ SITEURL }}/{{ ASSET_URL }}">
+          </script>
       {% endassets %}
       {% endif %}
       {% if page.rules %}
