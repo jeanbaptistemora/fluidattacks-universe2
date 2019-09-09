@@ -1,16 +1,22 @@
 {% extends "base.html" %}
 
 <!-- Tachyons stylesheet -->
-<link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+<link rel="stylesheet"
+      href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
 
 {% block meta %}
-  <meta name="description" content="{{ gettext('Landing-metadescription') }}.">
-  <meta name="keywords" content="{{ gettext('Landing-keywords')}}.">
+  <meta name="description"
+        content="{{ gettext('Landing-metadescription') }}.">
+  <meta name="keywords"
+        content="{{ gettext('Landing-keywords')}}.">
 {% endblock meta %}
 
 {% block title %}{{ gettext('Landing-title') }} | {{ SITENAME }}{% endblock title %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/">{% endblock canonical %}
+{% block canonical %}
+<link rel="canonical"
+      href="{{ SITEURL }}/">
+{% endblock canonical %}
 
 {% block content %}
 
@@ -20,22 +26,48 @@
     <h1 class="c-fluid-red">{{ gettext('Index-header-1') }}</h1>
     <div class="flex flex-wrap">
       <div class="fl w-50">
-        <h3 class="c-fluid-red tc"><a class="c-fluid-red" href="{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}/"><strong>{{ gettext('Index-header-2') }}</strong></a></h3>
-        <p class="tc tj-m tj-l f4 ml2 mr2 ml4-m mr4-m mr6-ns ml6-ns" >{{ gettext('Index-text-1') }} <br>  </p>
+        <h3 class="c-fluid-red tc">
+          <a class="c-fluid-red"
+             href="{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}/">
+            <strong>{{ gettext('Index-header-2') }}</strong>
+          </a>
+        </h3>
+        <p class="tc tj-m tj-l f4 ml2 mr2 ml4-m mr4-m mr6-ns ml6-ns" >
+           {{ gettext('Index-text-1') }}<br>
+        </p>
       </div>
       <div class="fl w-50">
-        <h3 class="c-fluid-red tc"><a class="c-fluid-red" href="{{SITEURL}}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}/"><strong>{{ gettext('Index-header-3') }}</strong></a></h3>
-        <p class="tc tj-m tj-l f4 ml2 mr2 ml4-m mr4-m mr6-ns ml6-ns">{{ gettext('Index-text-2') }} <br> </p>
+        <h3 class="c-fluid-red tc">
+          <a class="c-fluid-red"
+             href="{{SITEURL}}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}/">
+            <strong>{{ gettext('Index-header-3') }}</strong>
+          </a>
+        </h3>
+        <p class="tc tj-m tj-l f4 ml2 mr2 ml4-m mr4-m mr6-ns ml6-ns">
+          {{ gettext('Index-text-2') }} <br>
+        </p>
       </div>
       <div class="fl w-50 pt3 pb3">
-        <button class="bg-fluid-red white br3 pointer montsy f3 b pt2 pb2 pl3 pr3 " onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}'">{{ gettext('btn-text-1') }}</button>
+        <button class="bg-fluid-red white br3 pointer montsy f3 b pt2 pb2 pl3 pr3 "
+                onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-1') }}'">
+                {{ gettext('btn-text-1') }}
+        </button>
       </div>
       <div class="fl w-50 pt3 pb3">
-        <button class="bg-fluid-red white br3 pointer montsy f3 b pt2 pb2 pl3 pr3 " onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}'">{{ gettext('btn-text-1') }}</button>
+        <button class="bg-fluid-red white br3 pointer montsy f3 b pt2 pb2 pl3 pr3 "
+                onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-2') }}'">
+                {{ gettext('btn-text-1') }}
+        </button>
       </div>
     </div>
     <div class="pb3 pt4">
-      <p class="tc f4" >{{ gettext('Serv-txt') }} <button class="bg-fluid-red white br3 pointer montsy f4 b pt2 pb2 pl3 pr3 " onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-3') }}'">{{ gettext('Index-header-3.1') }}</button> page.</p>
+      <p class="tc f4" >
+        {{ gettext('Serv-txt') }}
+        <button class="bg-fluid-red white br3 pointer montsy f4 b pt2 pb2 pl3 pr3 "
+                onclick="window.location='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Index-serv-3') }}'">
+                {{ gettext('Index-header-3.1') }}
+        </button> page.
+      </p>
     </div>
   </div>
   <!-- Trusted by-->
@@ -50,10 +82,15 @@
                          "Internexa", "Simplexity", "Corredor Empresarial", "Practi Sistemas", "Servinteg",
                          "Deceval", "UCCORP", "Serempre", "Enterdev", "Ingeneo", "Libera", "ITS", "Quipux", "SOE360", "SUAM" ] %}
       {% for company in trusted %}
-        <div class="item"><img class="grayscale" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/trusted/{{ company|lower|replace(' ', '-') }}-logo.png" alt="{{company }} Logo"></div>
+        <div class="item">
+          <img class="grayscale"
+               src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/trusted/{{ company|lower|replace(' ', '-') }}-logo.png"
+               alt="{{ company }} Logo"></div>
       {% endfor %}
         {% assets filters="uglifyjs" , output="static/js/carousel.min.js" , "js/carousel.js"  %}
-        <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+        <script type="text/javascript"
+                src="{{ SITEURL }}/{{ ASSET_URL }}">
+        </script>
         {% endassets %}
     </div>
   </div>
@@ -61,16 +98,35 @@
   <div class="bg-white w-100 items-center">
     <h1 class="c-fluid-red">{{ gettext('Navb-opt-3') }}</h1>
     <div class="fl w-50-l w-100-ns pb4">
-     <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/integrates/"><span class="c-fluid-bk db montsy b f3" >{{ gettext('service-title-1') }}</span></a><br>
+     <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/integrates/">
+       <span class="c-fluid-bk db montsy b f3" >
+             {{ gettext('service-title-1') }}
+       </span>
+     </a><br>
      <p class="tc pa2 f4">{{ gettext('product-desc-1') }}</p>
-    <button class="bg-fluid-red white br3 pointer montsy f3 b pt2 pb2 pl3 pr3 " onclick="window.location='{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/integrates'">{{ gettext('btn-text-1') }}</button>
-    <button class="bg-fluid-red white br3 pointer montsy f3 b pt2 pb2 pl3 pr3 " onclick="window.location='{{ SITEURL }}/{{ gettext('Footer-link-1.6') }}'">Get a Demo</button>
-    <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/asserts/"><span class="c-fluid-bk db montsy b f3 pt4">{{ gettext('service-title-2') }}</span></a><br>
+    <button class="bg-fluid-red white br3 pointer montsy f3 b pt2 pb2 pl3 pr3 "
+            onclick="window.location='{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/integrates'">
+            {{ gettext('btn-text-1') }}
+    </button>
+    <button class="bg-fluid-red white br3 pointer montsy f3 b pt2 pb2 pl3 pr3 "
+            onclick="window.location='{{ SITEURL }}/{{ gettext('Footer-link-1.6') }}'">
+            Get a Demo
+    </button>
+    <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/asserts/">
+      <span class="c-fluid-bk db montsy b f3 pt4">
+            {{ gettext('service-title-2') }}
+      </span>
+    </a><br>
     <p class="tc pa2 f4">{{ gettext('product-desc-2') }}</p>
-    <button class="bg-fluid-red white br3 pointer montsy f3 b pt2 pb2 pl3 pr3 " onclick="window.location='{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/asserts'">{{ gettext('btn-text-1') }}</button>
+    <button class="bg-fluid-red white br3 pointer montsy f3 b pt2 pb2 pl3 pr3 "
+            onclick="window.location='{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/asserts'">
+            {{ gettext('btn-text-1') }}
+    </button>
     </div>
     <div class="fl w-50 dn dib-l">
-      <img class="w-80-ns" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products.png" alt="{{ gettext('Product-img-alt-1') }}">
+      <img class="w-80-ns"
+           src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products.png"
+           alt="{{ gettext('Product-img-alt-1') }}">
     </div>
   </div>
   <!-- Benefits -->
@@ -80,23 +136,41 @@
       <p class="white tc pb5 f4">{{ gettext('Index-bnft-text') }}</p>
     </div>
     <div class="benefit fl w-100 w-third-l pa0">
-     <img class="dn dib-l" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/benefit-4.svg" alt="{{ gettext('Index-img-alt-5') }}">
+     <img class="dn dib-l"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/benefit-4.svg"
+          alt="{{ gettext('Index-img-alt-5') }}">
      <span class="c-fluid-red db montsy b f3" >1</span>
-     <p class="white tc ml4 mr4 ml3-m mr3-m ml2-l mr2-l f4 pb4-m pb5">{{ gettext('Index-bnft-1') }}</p>
+     <p class="white tc ml4 mr4 ml3-m mr3-m ml2-l mr2-l f4 pb4-m pb5">
+        {{ gettext('Index-bnft-1') }}
+     </p>
     </div>
     <div class="benefit fl w-100 w-third-l pa0">
-     <img class="dn dib-l" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/benefit-2.svg" alt="{{ gettext('Index-img-alt-3') }}">
+     <img class="dn dib-l"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/benefit-2.svg"
+          alt="{{ gettext('Index-img-alt-3') }}">
      <span class="c-fluid-red db montsy b f3" >2</span>
-     <p class="white tc ml4 mr4 ml3-m mr3-m ml2-l mr2-l f4 pb4-m pb5">{{ gettext('Index-bnft-2') }}</p>
+     <p class="white tc ml4 mr4 ml3-m mr3-m ml2-l mr2-l f4 pb4-m pb5">
+        {{ gettext('Index-bnft-2') }}
+     </p>
     </div>
     <div class="benefit fl w-100 w-third-l pa0">
-     <img class="dn dib-l" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/benefit-1.svg" alt="{{ gettext('Index-img-alt-2') }}">
+     <img class="dn dib-l"
+          src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/benefit-1.svg"
+          alt="{{ gettext('Index-img-alt-2') }}">
      <span class="c-fluid-red db montsy b f3" >3</span>
-     <p class="white tc ml4 mr4 ml3-m mr3-m ml2-l mr2-l f4 pb4-m pb5">{{ gettext('Index-bnft-3') }}</p>
+     <p class="white tc ml4 mr4 ml3-m mr3-m ml2-l mr2-l f4 pb4-m pb5">
+        {{ gettext('Index-bnft-3') }}
+     </p>
     </div>
   </div>
   <div class="benefit-ftr bg-fluid-black w-100 pb4">
-      <p class="white f4 tc">{{ gettext('Bnft-footmsg') }} <button class="bg-fluid-red white br3 pointer montsy f3 b pt2 pb2 pl3 pr3 " onclick="window.location.href='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Footer-link-2.3') }}/'" >{{ gettext ('Footer-link-2.3') }}</button> </p>
+      <p class="white f4 tc">
+        {{ gettext('Bnft-footmsg') }}
+        <button class="bg-fluid-red white br3 pointer montsy f3 b pt2 pb2 pl3 pr3"
+                onclick="window.location.href='{{ SITEURL }}/{{ gettext('Index-cat-1') }}/{{ gettext('Footer-link-2.3') }}/'" >
+                {{ gettext ('Footer-link-2.3') }}
+        </button>
+      </p>
   </div>
   <!-- Customers -->
   <div class="customers bg-white pa3 ">
@@ -111,7 +185,11 @@
                             "XM", "Grupo ARGOS", "Corona", "Manuelita", "Grupo EXITO", "Avianca", "Abbott", "RSA", "The Missing Link",
                             "Kometsales", "Koombea", "Creative Software","Teraport", "S4N"]  %}
         {% for customer in customers %}
-        <span><img class="ma3 h-auto" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/{{ customer|lower|replace (' ','-') }}-logo.png" alt="{{ customer}} Logo"></span>
+        <span>
+          <img class="ma3 h-auto"
+               src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/{{ customer|lower|replace (' ','-') }}-logo.png"
+               alt="{{ customer}} Logo">
+        </span>
         {% endfor %}
       </p>
     </div>
@@ -119,11 +197,17 @@
   <!-- Contact -->
   <div class="contact-sec bg-fluid-lightgray ">
     <div class="contact-txt fl w-100-ns w-70-m w-70-l pt5-l pr5-l pt3-m pr3-m pt2 pr2">
-      <p class="tc tr-m tr-l ml5 mr5 pt5 pt4-m pt4-l pb4 pb0-m pb0-m f4" >{{ gettext('Contact-txt') }}</p>
-      <a href="{{ SITEURL }}/{{ gettext('Footer-link-1.6') }}/" class="bg-fluid-red br3 fr-m fr-l f3 mb3-m mb3-l mr5-m mr5-l mt5 mt2-m mt2-l pt2 pb2 pr3 pl3 b white pointer">{{ gettext('Footer-subtitle-1.6') }}</a>
+      <p class="tc tr-m tr-l ml5 mr5 pt5 pt4-m pt4-l pb4 pb0-m pb0-m f4" >
+         {{ gettext('Contact-txt') }}</p>
+      <a href="{{ SITEURL }}/{{ gettext('Footer-link-1.6') }}/"
+         class="bg-fluid-red br3 fr-m fr-l f3 mb3-m mb3-l mr5-m mr5-l mt5 mt2-m mt2-l pt2 pb2 pr3 pl3 b white pointer">
+         {{ gettext('Footer-subtitle-1.6') }}
+      </a>
     </div>
     <div class="contact-img fl pt5 w-30">
-      <img class="dn db-m db-l ml2-l mr-2 h-auto" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/contact.svg" alt="{{ gettext('Contact-img-alt') }}">
+      <img class="dn db-m db-l ml2-l mr-2 h-auto"
+           src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/contact.svg"
+           alt="{{ gettext('Contact-img-alt') }}">
     </div>
   </div>
 </div>
