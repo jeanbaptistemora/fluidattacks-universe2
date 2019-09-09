@@ -1,14 +1,18 @@
 {% extends "base.html" %}
 
 {% block meta %}
-  <meta name="description" content="{{ gettext('Categories-metadescription') }}">
-  <meta name="keywords" content="{{ gettext('Categories-keywords') }}">
+  <meta name="description"
+        content="{{ gettext('Categories-metadescription') }}">
+  <meta name="keywords"
+        content="{{ gettext('Categories-keywords') }}">
 {% endblock meta %}
 
 {% block title %}{{ gettext('Categories-title') }} | {{ SITENAME }}{% endblock %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/">{% endblock canonical %}
-
+{% block canonical %}
+<link rel="canonical"
+      href="{{ SITEURL }}/blog/">
+{% endblock canonical %}
 
 {% block breadcrumb%}
   <div class="navcontent-container">
@@ -16,7 +20,9 @@
       <div class="breadcrumb">
         <ul>
           <li>
-            <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
+            <a href="{{ SITEURL }}/">
+              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
+            </a>
             <span>&gt;</span>
           </li>
           <li>
@@ -40,7 +46,8 @@
           <ul>
             {% for category, articles in categories|sort %}
               <li>
-                <a href="{{ SITEURL }}/{{ category.url }}" rel="bookmark">
+                <a href="{{ SITEURL }}/{{ category.url }}"
+                   rel="bookmark">
                   <p>{{ category.name|replace("-", " ") }} ({{ articles|count }})</p>
                 </a>
               </li>

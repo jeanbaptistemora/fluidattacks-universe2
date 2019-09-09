@@ -1,14 +1,18 @@
 {% extends "index.html" %}
 
 {% block meta %}
-  <meta name="description" content="{{ gettext('Category-metadescription-1') }} {{ category.name|replace('-', ' ')|capitalize }}. {{ gettext('Category-metadescription-2') }}.">
-  <meta name="keywords" content="{{ gettext('Category-keywords') }}">
+  <meta name="description"
+        content="{{ gettext('Category-metadescription-1') }} {{ category.name|replace('-', ' ')|capitalize }}. {{ gettext('Category-metadescription-2') }}.">
+  <meta name="keywords"
+        content="{{ gettext('Category-keywords') }}">
 {% endblock meta %}
 
 {% block title %}{{ category.name|replace("-", " ")|capitalize }} | {{ AUTHOR }}{% endblock %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/">{% endblock canonical %}
-
+{% block canonical %}
+<link rel="canonical"
+      href="{{ SITEURL }}/blog/">
+{% endblock canonical %}
 
 {% block breadcrumb %}
   <div class="navcontent-container">
@@ -16,15 +20,21 @@
       <div class="breadcrumb">
         <ul>
           <li>
-            <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
+            <a href="{{ SITEURL }}/">
+              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
+            </a>
             <span>&gt;</span>
           </li>
           <li>
-            <a href="{{ SITEURL }}/blog/">&nbsp;<strong>Blog</strong>&nbsp;</a>
+            <a href="{{ SITEURL }}/blog/">
+              &nbsp;<strong>Blog</strong>&nbsp;
+            </a>
             <span>&gt;</span>
           </li>
           <li>
-            <a href="../">&nbsp;<strong>{{ gettext('Category-breadcrumb-1') }}</strong>&nbsp;</a>
+            <a href="../">
+              &nbsp;<strong>{{ gettext('Category-breadcrumb-1') }}</strong>&nbsp;
+            </a>
             <span>&gt;</span>
           </li>
           <li>
