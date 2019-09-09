@@ -4,27 +4,11 @@
   }
 }
 
-.colfoot {
-  width: 50%;
-}
-
-@media (min-width: 580px) {
-  .colfoot {
-    width: 33%;
-  }
-}
-
 @media (min-width: 780px) {
   .divlogo {
 
     img {
       width: 250px;
     }
-  }
-}
-
-@media (min-width: 1180px) {
-  .colfoot {
-    width: 16%;
   }
 }
