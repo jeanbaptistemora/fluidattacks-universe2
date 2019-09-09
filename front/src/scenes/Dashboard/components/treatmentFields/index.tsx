@@ -3,7 +3,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import globalStyle from "../../../../styles/global.css";
 import {  formatDropdownField } from "../../../../utils/formatHelpers";
-import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
+import { dateField, dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
@@ -88,6 +88,20 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
           </Col>
         </Row>
       : undefined}
+        <Row>
+          <Col md={12} sm={12} xs={12}>
+            <EditableField
+              component={dateField}
+              currentValue={props.dataset.acceptanceDate}
+              label={translate.t("search_findings.tab_description.acceptance_date")}
+              name="acceptationDate"
+              renderAsEditable={props.isEditing}
+              type="text"
+              validate={[required]}
+              visible={false}
+            />
+          </Col>
+        </Row>
     </React.Fragment>
     );
   };

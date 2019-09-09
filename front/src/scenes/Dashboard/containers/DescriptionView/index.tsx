@@ -30,6 +30,7 @@ import { renderFormFields } from "./formStructure";
 export interface IDescriptionViewProps {
   currentUserEmail: string;
   dataset: {
+    acceptanceDate: string;
     actor: string;
     affectedSystems: string;
     ambit: string;

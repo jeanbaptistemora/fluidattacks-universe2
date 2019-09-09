@@ -9,11 +9,25 @@ import { Badge, ControlLabel, FormControl, FormControlProps, FormGroup, Glyphico
 /**
  * Disabling here is necessary because
  * there are currently no available type definitions for
+ * neither this nor any other 3rd-party react datepicker input components
+ */
+// @ts-ignore
+import { DatePicker } from "react-datepicker";
+/* tslint:disable-next-line:no-import-side-effect no-submodule-imports
+ * Disabling this two rules is necessary for
+ * allowing the import of default styles that react-datepicker needs
+ * to display properly
+ */
+import "react-datepicker/dist/react-datepicker.css";
+/**
+ * Disabling here is necessary because
+ * there are currently no available type definitions for
  * neither this nor any other 3rd-party react phone input components
  */
 // @ts-ignore
 import ReactPhoneInput from "react-phone-input-2";
 import { FormProps, WrappedFieldProps } from "redux-form";
+import translate from "../translations/translate";
 import style from "./index.css";
 
 type CustomFieldProps = FormProps<{}, {}, {}> & FormControlProps & WrappedFieldProps;
@@ -111,6 +125,20 @@ export const textAreaField: ((arg1: CustomFieldProps & { withCount?: boolean }) 
         {...fieldProps}
         {...fieldProps.input}
         className={`${style.formControl} ${fieldProps.className}`}
+      />
+      {fieldProps.withCount === true ? renderCharacterCount(fieldProps.input.value as string) : undefined}
+      {(fieldProps.withCount === true && fieldProps.meta.error) ? <br/> : undefined}
+      {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
+    </div>
+  );
+
+export const dateField: ((arg1: CustomFieldProps & { withCount?: boolean }) => JSX.Element) =
+  (fieldProps: CustomFieldProps & { withCount?: boolean }): JSX.Element => (
+    <div>
+      <DatePicker
+          selected={fieldProps.input.value}
+          onChange={fieldProps.input.onChange}
+          placeholderText={translate.t("search_findings.tab_description.date_placeholder")}
       />
       {fieldProps.withCount === true ? renderCharacterCount(fieldProps.input.value as string) : undefined}
       {(fieldProps.withCount === true && fieldProps.meta.error) ? <br/> : undefined}

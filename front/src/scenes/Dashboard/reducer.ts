@@ -88,6 +88,7 @@ const initialState: IDashboardState = {
   confirmDialog: {},
   description: {
     dataset: {
+      acceptanceDate: "",
       actor: "",
       affectedSystems: "",
       ambit: "",

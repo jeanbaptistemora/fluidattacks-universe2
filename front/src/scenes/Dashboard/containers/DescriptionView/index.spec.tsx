@@ -19,6 +19,7 @@ describe("DescriptionView", () => {
   const mockProps: IDescriptionViewProps = {
     currentUserEmail: "user@test.com",
     dataset: {
+      acceptanceDate: "",
       actor: "ANYONE_INTERNET",
       affectedSystems: "",
       ambit: "",
