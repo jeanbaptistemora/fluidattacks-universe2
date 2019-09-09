@@ -1,6 +1,22 @@
 # -*- coding: utf-8 -*-
 
-"""Module for Dynamic Application Security Testing of PostgreSQL Databases."""
+"""
+``Dynamic Application Security Testing`` Suite of PostgreSQL Databases.
+
+The entire suite has been tested on the following PostgreSQL releases:
+
+- `Postgres v12 <https://www.postgresql.org/docs/12/index.html>`_.
+
+- `Postgres v11 <https://www.postgresql.org/docs/11/index.html>`_.
+
+- `Postgres v10 <https://www.postgresql.org/docs/10/index.html>`_.
+
+- `Postgres v9.6 <https://www.postgresql.org/docs/9.6/index.html>`_.
+
+- `Postgres v9.5 <https://www.postgresql.org/docs/9.5/index.html>`_.
+
+- `Postgres v9.4 <https://www.postgresql.org/docs/9.4/index.html>`_.
+"""
 
 # standard imports
 from typing import Any, Dict, Iterator, List, NamedTuple, Optional, Tuple
