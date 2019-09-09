@@ -19,7 +19,7 @@ from contextlib import suppress
 import tlslite
 
 # local imports
-from fluidasserts import DAST, LOW, OPEN, CLOSED, Unit
+from fluidasserts import DAST, LOW, MEDIUM, OPEN, CLOSED, Unit
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
@@ -192,33 +192,66 @@ def _build_heartbeat(tls_ver: str) -> List:
     return heartbeat
 
 
-@notify
-@level('medium')
-@track
-def is_pfs_disabled(site: str, port: int = PORT) -> bool:
+def _get_result_as_tuple(*,
+                         site: str, port: int,
+                         msg_open: str, msg_closed: str,
+                         open_if: bool) -> tuple:
+    """Return the tuple version of the Result object."""
+    units: List[Unit] = [
+        Unit(where=f'{site}@{port}',
+             specific=[msg_open if open_if else msg_closed])]
+
+    if open_if:
+        return OPEN, msg_open, units, []
+    return CLOSED, msg_closed, [], units
+
+
+@api(risk=MEDIUM,
+     kind=DAST,
+     references=[
+         'https://tools.ietf.org/html/rfc4492#section-2',
+         'https://cheatsheetseries.owasp.org/cheatsheets/'
+         'Transport_Layer_Protection_Cheat_Sheet.html'
+         '#rule---prefer-ephemeral-key-exchanges',
+     ])
+@unknown_if(socket.error, tlslite.errors.TLSLocalAlert)
+def is_pfs_disabled(site: str, port: int = PORT) -> tuple:
     """
-    Check if PFS is enabled.
+    Check if the Key Exchange algorithm used provide Perfect Forward Secrecy.
+
+    Currently, this algorithms are:
+
+    - Ephemeral Diffie-Hellman with RSA (DHE-RSA)
+    - Elliptic Curve Digital Signature Algorithm with RSA (ECDSA-RSA)
+    - Elliptic-curve Diffie–Hellman Anonymous (ECDH-Anon)
+    - Diffie–Hellman Anonymous (DH-Anon)
+
+    See: `RFC-4492 <https://tools.ietf.org/html/rfc4492#section-2>`_.
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if the **Key Exchange** algorithms used while
+                communicating with the server is one of *DHE-RSA*, *ECDSA-RSA*,
+                *ECDH-Anon*, or *DH-Anon* (Which provide Perfect Forward
+                Secrecy).
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
+    has_pfs: bool = False
+    with suppress(tlslite.errors.TLSRemoteAlert,
+                  tlslite.errors.TLSAbruptCloseError):
         with connect(site, port=port,
                      key_exchange_names=['dhe_rsa', 'ecdhe_rsa',
                                          'ecdh_anon', 'dh_anon']):
-            show_close('Forward Secrecy enabled on site',
-                       details=dict(site=site, port=port))
-            result = False
-    except (tlslite.errors.TLSRemoteAlert,
-            tlslite.errors.TLSAbruptCloseError):
-        show_open('Forward Secrecy not enabled on site',
-                  details=dict(site=site, port=port))
-        return True
-    except (tlslite.errors.TLSLocalAlert, socket.error) as exc:
-        show_unknown('Could not connect',
-                     details=dict(site=site, port=port, error=str(exc)))
-        result = False
-    return result
+            has_pfs = True
+
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open='Perfect Forward Secrecy is supported on site',
+        msg_closed='Perfect Forward Secrecy is not supported on site',
+        open_if=not has_pfs)
 
 
 @notify
@@ -252,35 +285,31 @@ def is_sslv3_enabled(site: str, port: int = PORT) -> bool:
     return result
 
 
-@notify
-@level('medium')
-@track
-def is_tlsv1_enabled(site: str, port: int = PORT) -> bool:
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(socket.error, tlslite.errors.TLSLocalAlert)
+def is_tlsv1_enabled(site: str, port: int = PORT) -> tuple:
     """
     Check if TLSv1 suites are enabled.
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if **TLS v1** is enabled by the server.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    result = True
-    try:
+    is_vulnerable: bool = False
+    with suppress(tlslite.errors.TLSRemoteAlert,
+                  tlslite.errors.TLSAbruptCloseError):
         with connect(site, port=port, min_version=(3, 1), max_version=(3, 1)):
-            show_open('TLSv1 enabled on site',
-                      details=dict(site=site, port=port))
-            result = True
-    except (tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSAbruptCloseError):
-        show_close('TLSv1 not enabled on site',
-                   details=dict(site=site, port=port))
-        result = False
-    except (tlslite.errors.TLSLocalAlert):
-        show_unknown('Port doesn\'t support SSL',
-                     details=dict(site=site, port=port))
-        result = False
-    except socket.error as exc:
-        result = False
-        show_unknown('Could not connect',
-                     details=dict(site=site, port=port, error=str(exc)))
-    return result
+            is_vulnerable = True
+
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open='TLS v1 is enabled on site',
+        msg_closed='TLS v1 is disabled on site',
+        open_if=is_vulnerable)
 
 
 @api(risk=LOW, kind=DAST)
@@ -292,7 +321,7 @@ def is_tlsv11_enabled(site: str, port: int = PORT) -> tuple:
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
     :returns: - ``OPEN`` if **TLS v1.1** is enabled on site.
-              - ``UNKNOWN`` on errors,
+              - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
@@ -303,16 +332,12 @@ def is_tlsv11_enabled(site: str, port: int = PORT) -> tuple:
         with connect(site, port=port, min_version=(3, 2), max_version=(3, 2)):
             is_enabled = True
 
-    msg_open: str = 'TLS v1.1 is enabled'
-    msg_closed: str = 'TLS v1.1 is disabled'
-
-    units: List[Unit] = [
-        Unit(where=f'{site}@{port}',
-             specific=[msg_open if is_enabled else msg_closed])]
-
-    if is_enabled:
-        return OPEN, msg_open, units, []
-    return CLOSED, msg_closed, [], units
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open='TLS v1.1 is enabled',
+        msg_closed='TLS v1.1 is disabled',
+        open_if=is_enabled)
 
 
 @notify
@@ -404,7 +429,7 @@ def has_breach(site: str, port: int = PORT) -> tuple:
     :param port: If necessary, specify port to connect to.
     :returns: - ``OPEN`` if the page is served with HTTP compression enabled,
                 requirements two and three are up to the human to be verified.
-              - ``UNKNOWN`` on errors,
+              - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
@@ -505,7 +530,7 @@ def has_beast(site: str, port: int = PORT) -> tuple:
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
     :returns: - ``OPEN`` if **CBC** mode is used together with **SSL**.
-              - ``UNKNOWN`` on errors,
+              - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
@@ -517,16 +542,12 @@ def has_beast(site: str, port: int = PORT) -> tuple:
             if connection._recordLayer.isCBCMode():
                 is_vulnerable = True
 
-    msg_open: str = 'BEAST attack is possible'
-    msg_closed: str = 'BEAST attack is not possible'
-
-    units: List[Unit] = [
-        Unit(where=f'{site}@{port}',
-             specific=[msg_open if is_vulnerable else msg_closed])]
-
-    if is_vulnerable:
-        return OPEN, msg_open, units, []
-    return CLOSED, msg_closed, [], units
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open='BEAST attack is possible',
+        msg_closed='BEAST attack is not possible',
+        open_if=is_vulnerable)
 
 
 @notify
@@ -625,35 +646,35 @@ def allows_modified_mac(site: str, port: int = PORT) -> bool:
     return result
 
 
-@notify
-@level('medium')
-@track
-def not_tls13_enabled(site: str, port: int = PORT) -> bool:
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(socket.error, tlslite.errors.TLSLocalAlert)
+def not_tls13_enabled(site: str, port: int = PORT) -> tuple:
     """
-    Check if site has TLSv1.3 enabled.
+    Check if server supports connections via **TLS v1.3**.
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if server has support for **TLS v1.3**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    result = True
+    does_support_tls_1_3 = False
     try:
         with connect(site, port=port, min_version=(3, 4), max_version=(3, 4)):
-            show_close('Site supports TLSv1.3',
-                       details=dict(site=site, port=port))
-            result = False
+            does_support_tls_1_3 = True
     except (tlslite.errors.TLSLocalAlert) as exc:
         if exc.message and 'Too old version' in exc.message:
-            show_open('Site does not support TLSv1.3',
-                      details=dict(site=site, port=port))
-            return True
-        show_unknown('Port doesn\'t support SSL',
-                     details=dict(site=site, port=port))
-        return False
-    except socket.error as exc:
-        result = False
-        show_unknown('Could not connect',
-                     details=dict(site=site, port=port, error=str(exc)))
-    return result
+            does_support_tls_1_3 = False
+        else:
+            raise exc
+
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open='TLS v1.3 is not supported',
+        msg_closed='TLS v1.3 is supported',
+        open_if=not does_support_tls_1_3)
 
 
 @notify
@@ -707,40 +728,36 @@ def allows_insecure_downgrade(site: str, port: int = PORT) -> bool:
     return result
 
 
-@notify
-@level('medium')
-@track
-def tls_uses_cbc(site: str, port: int = PORT) -> bool:
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(socket.error,
+            tlslite.errors.TLSLocalAlert,
+            tlslite.errors.TLSRemoteAlert,
+            tlslite.errors.TLSAbruptCloseError)
+def tls_uses_cbc(site: str, port: int = PORT) -> tuple:
     """
-    Check if TLS connection uses CBC.
+    Check if TLS connection uses CBC mode of operation.
+
+    Using TLS with ciphers in CBC mode may yield to GOLDENDOODLE and
+    Zombie POODLE attacks.
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if server supports ciphers in **CBC** mode.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    result = False
-    try:
-        with connect(site, port=port,
-                     min_version=(3, 1),
-                     max_version=(3, 3)) as conn:
-            if conn._recordLayer.isCBCMode():  # noqa
-                show_open('Site uses TLS CBC ciphers and may be vulnerable to \
-to GOLDENDOODLE and Zombie POODLE attacks',
-                          details=dict(site=site, port=port))
-                result = True
-            else:
-                show_close('Site does not use TLS CBC ciphers',
-                           details=dict(site=site, port=port))
-                result = False
-    except (tlslite.errors.TLSRemoteAlert,
-            tlslite.errors.TLSAbruptCloseError, socket.error) as exc:
-        result = False
-        show_unknown('Could not connect',
-                     details=dict(site=site, port=port, error=str(exc)))
-    except (tlslite.errors.TLSLocalAlert):
-        show_unknown('Port doesn\'t support SSL',
-                     details=dict(site=site, port=port))
-        result = False
-    return result
+    uses_cbc: bool = False
+    with connect(site, port=port,
+                 min_version=(3, 1), max_version=(3, 3)) as connection:
+        uses_cbc = connection._recordLayer.isCBCMode()
+
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open='Site uses TLS CBC ciphers',
+        msg_closed='Site does not use TLS CBC ciphers',
+        open_if=uses_cbc)
 
 
 @api(risk=LOW, kind=DAST)
@@ -765,16 +782,12 @@ def has_sweet32(site: str, port: int = PORT) -> tuple:
                      min_version=(3, 1), max_version=(3, 3)):
             is_vulnerable = True
 
-    msg_open: str = 'SWEET32 attack is possible'
-    msg_closed: str = 'SWEET32 attack is not possible'
-
-    units: List[Unit] = [
-        Unit(where=f'{site}@{port}',
-             specific=[msg_open if is_vulnerable else msg_closed])]
-
-    if is_vulnerable:
-        return OPEN, msg_open, units, []
-    return CLOSED, msg_closed, [], units
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open='SWEET32 attack is possible',
+        msg_closed='SWEET32 attack is not possible',
+        open_if=is_vulnerable)
 
 
 @notify
