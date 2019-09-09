@@ -10,7 +10,7 @@ from contextlib import contextmanager
 import psycopg2
 
 # local imports
-from fluidasserts import Unit, LOW, MEDIUM, HIGH, DAST, OPEN, CLOSED, UNKNOWN
+from fluidasserts import Unit, LOW, MEDIUM, HIGH, DAST, OPEN, CLOSED
 from fluidasserts.utils.decorators import api, unknown_if
 
 # Containers
@@ -92,6 +92,7 @@ def database(connection_string: ConnectionString) -> Iterator[Tuple[Any, Any]]:
     Context manager to get a safe connection and a cursor.
 
     :param connection_string: Connection parameter and credentials.
+    :returns: A tuple of (connection object, cursor object).
     """
     connection = psycopg2.connect(
         dbname=connection_string.dbname,
@@ -112,6 +113,7 @@ def database(connection_string: ConnectionString) -> Iterator[Tuple[Any, Any]]:
 
 
 @api(risk=LOW, kind=DAST)
+@unknown_if(psycopg2.Error)
 def have_access(dbname: str,
                 user: str, password: str,
                 host: str, port: int) -> tuple:
@@ -140,22 +142,24 @@ def have_access(dbname: str,
             success = True
     except psycopg2.OperationalError as exc:
         if not _is_auth_error(exc):
-            return UNKNOWN, f'An error occurred: {exc}'
+            raise exc
 
-    assertion: str = 'can' if success else 'can not'
+    vulns: List[str] = []
+    safes: List[str] = []
 
-    units: List[Unit] = [
-        Unit(where=f'{host}:{port}',
-             source='PostgreSQL/Configuration',
-             specific=[f'{dbname} database {assertion} be accessed'],
-             fingerprint=None)]
+    (vulns if success else safes).append(msg_open if success else msg_closed)
 
-    if success:
-        return OPEN, msg_open, units, []
-    return CLOSED, msg_closed, [], units
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=MEDIUM, kind=DAST)
+@unknown_if(psycopg2.Error)
 def does_not_support_ssl(dbname: str,
                          user: str, password: str,
                          host: str, port: int) -> tuple:
@@ -184,23 +188,25 @@ def does_not_support_ssl(dbname: str,
             supports_ssl = True
     except psycopg2.OperationalError as exc:
         if not _is_ssl_error(exc):
-            return UNKNOWN, f'An error occurred: {exc}'
+            raise exc
 
-    assertion: str = 'supports' if supports_ssl else 'does not support'
+    vulns: List[str] = []
+    safes: List[str] = []
 
-    units: List[Unit] = [
-        Unit(where=f'{host}:{port}',
-             source='PostgreSQL/Configuration',
-             specific=[f'PostgreSQL {assertion} SSL connections'],
-             fingerprint=None)]
+    (safes if supports_ssl else vulns).append(
+        msg_closed if supports_ssl else msg_open)
 
-    if supports_ssl:
-        return CLOSED, msg_closed, [], units
-    return OPEN, msg_open, units, []
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(psycopg2.OperationalError)
+@unknown_if(psycopg2.Error)
 def has_not_logging_enabled(dbname: str,
                             user: str, password: str,
                             host: str, port: int) -> tuple:
@@ -224,33 +230,28 @@ def has_not_logging_enabled(dbname: str,
     connection_string: ConnectionString = \
         ConnectionString(dbname, user, password, host, port, 'prefer')
 
-    msg_open: str = 'PostgreSQL has not logging enabled'
-    msg_closed: str = 'PostgreSQL has logging enabled'
-
     is_safe: bool
-    vulns: List[Unit] = []
-    safes: List[Unit] = []
-    vuln_specifics: List[str] = []
-    safe_specifics: List[str] = []
+    vulns: List[str] = []
+    safes: List[str] = []
 
     #
     # Needed to enable logging
     #
 
     is_safe = _get_var(connection_string, 'logging_collector') == 'on'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'logging_collector must be set to on')
 
     is_safe = _get_var(connection_string, 'log_statement') == 'all'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_statement must be set to all')
 
     is_safe = bool(_get_var(connection_string, 'log_directory'))
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_directory must be set')
 
     is_safe = bool(_get_var(connection_string, 'log_filename'))
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_filename must be set')
 
     #
@@ -258,18 +259,18 @@ def has_not_logging_enabled(dbname: str,
     #
 
     is_safe = _get_var(connection_string, 'log_checkpoints') == 'on'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_checkpoints must be set to on')
 
     # csvlog is just a format, syslog and eventlog have problems
     # use this in conjunction with logging_collector 'on' for a strong setting
     is_safe = 'stderr' in _get_var(connection_string, 'log_destination')
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_destination must be set to stderr')
 
     accepted = ('default', 'verbose')
     is_safe = _get_var(connection_string, 'log_error_verbosity') in accepted
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_error_verbosity must be set to default or verbose')
 
     #
@@ -277,18 +278,18 @@ def has_not_logging_enabled(dbname: str,
     #
 
     is_safe = _get_var(connection_string, 'log_connections') == 'on'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_connections must be set to on')
 
     is_safe = _get_var(connection_string, 'log_disconnections') == 'on'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_disconnections must be set to on')
 
     log_line_prefix: str = _get_var(connection_string, 'log_line_prefix')
 
     for prefix in ('%m', '%u', '%d', '%r', '%c'):
         is_safe = prefix in log_line_prefix
-        (safe_specifics if is_safe else vuln_specifics).append(
+        (safes if is_safe else vulns).append(
             f'log_line_prefix must contain {prefix}')
 
     #
@@ -296,11 +297,11 @@ def has_not_logging_enabled(dbname: str,
     #
 
     is_safe = _get_var(connection_string, 'log_duration') == 'on'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_duration must be set to on')
 
     is_safe = _get_var(connection_string, 'log_lock_waits') == 'on'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_lock_waits must be set to on')
 
     # Disable log_statement_stats
@@ -309,23 +310,23 @@ def has_not_logging_enabled(dbname: str,
     #   Enable log_planner_stats
     # For a detailed log
     is_safe = _get_var(connection_string, 'log_statement_stats') == 'off'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_statement_stats must be set to on')
 
     is_safe = _get_var(connection_string, 'log_executor_stats') == 'on'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_executor_stats must be set to on')
 
     is_safe = _get_var(connection_string, 'log_parser_stats') == 'on'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_parser_stats must be set to on')
 
     is_safe = _get_var(connection_string, 'log_planner_stats') == 'on'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_planner_stats must be set to on')
 
     is_safe = _get_var(connection_string, 'log_autovacuum_min_duration') == '0'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_autovacuum_min_duration must be set to 0')
 
     #
@@ -333,19 +334,19 @@ def has_not_logging_enabled(dbname: str,
     #
 
     is_safe = _get_var(connection_string, 'log_min_duration_statement') == '0'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_min_duration_statement must be set to 0')
 
     is_safe = _get_var(connection_string, 'log_min_error_statement') == 'error'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_min_error_statement must be set to error')
 
     is_safe = _get_var(connection_string, 'log_min_messages') == 'warning'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_min_messages must be set to warning')
 
     is_safe = _get_var(connection_string, 'log_replication_commands') == 'on'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_replication_commands must be set to on')
 
     #
@@ -353,29 +354,20 @@ def has_not_logging_enabled(dbname: str,
     #
 
     is_safe = _get_var(connection_string, 'log_truncate_on_rotation') == 'off'
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_truncate_on_rotation must be set to off')
 
-    if vuln_specifics:
-        vulns.append(Unit(
-            where=f'{host}:{port}',
-            source='PostgreSQL/Configuration',
-            specific=vuln_specifics,
-            fingerprint=None))
-    if safe_specifics:
-        safes.append(Unit(
-            where=f'{host}:{port}',
-            source='PostgreSQL/Configuration',
-            specific=safe_specifics,
-            fingerprint=None))
-
-    if vulns:
-        return OPEN, msg_open, vulns, safes
-    return CLOSED, msg_closed, vulns, safes
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open='PostgreSQL has not logging enabled',
+        msg_closed='PostgreSQL has logging enabled',
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(psycopg2.OperationalError)
+@unknown_if(psycopg2.Error)
 def has_not_data_checksums_enabled(dbname: str,
                                    user: str, password: str,
                                    host: str, port: int) -> tuple:
@@ -397,9 +389,6 @@ def has_not_data_checksums_enabled(dbname: str,
     connection_string: ConnectionString = \
         ConnectionString(dbname, user, password, host, port, 'prefer')
 
-    msg_open: str = 'PostgreSQL has data checksums disabled'
-    msg_closed: str = 'PostgreSQL has data checksums enabled'
-
     # data_checksums must be 'on'
     safe_data_checksums: bool = \
         _get_var(connection_string, 'data_checksums') == 'on'
@@ -408,37 +397,26 @@ def has_not_data_checksums_enabled(dbname: str,
     safe_ignore_checksum_fail: bool = \
         _get_var(connection_string, 'ignore_checksum_failure') == 'off'
 
-    vulns: List[Unit] = []
-    safes: List[Unit] = []
-    vuln_specifics: List[str] = []
-    safe_specifics: List[str] = []
+    vulns: List[str] = []
+    safes: List[str] = []
 
-    (safe_specifics if safe_data_checksums else vuln_specifics).append(
+    (safes if safe_data_checksums else vulns).append(
         'data_checksums must be set to on')
 
-    (safe_specifics if safe_ignore_checksum_fail else vuln_specifics).append(
+    (safes if safe_ignore_checksum_fail else vulns).append(
         'ignore_checksum_failure must be set to off')
 
-    if vuln_specifics:
-        vulns.append(Unit(
-            where=f'{host}:{port}',
-            source='PostgreSQL/Configuration',
-            specific=vuln_specifics,
-            fingerprint=None))
-    if safe_specifics:
-        safes.append(Unit(
-            where=f'{host}:{port}',
-            source='PostgreSQL/Configuration',
-            specific=safe_specifics,
-            fingerprint=None))
-
-    if vulns:
-        return OPEN, msg_open, vulns, safes
-    return CLOSED, msg_closed, vulns, safes
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open='PostgreSQL has data checksums disabled',
+        msg_closed='PostgreSQL has data checksums enabled',
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(psycopg2.OperationalError)
+@unknown_if(psycopg2.Error)
 def has_insecure_password_encryption(dbname: str,
                                      user: str, password: str,
                                      host: str, port: int) -> tuple:
@@ -467,9 +445,6 @@ def has_insecure_password_encryption(dbname: str,
     connection_string: ConnectionString = \
         ConnectionString(dbname, user, password, host, port, 'prefer')
 
-    msg_open: str = 'PostgreSQL has insecure password_encryption'
-    msg_closed: str = 'PostgreSQL has secure password_encryption'
-
     # password_encryption must not be 'off'
     vuln_encryption_1: bool = \
         _get_var(connection_string, 'password_encryption') == 'off'
@@ -488,43 +463,32 @@ def has_insecure_password_encryption(dbname: str,
     safe_encryption: bool = \
         _get_var(connection_string, 'password_encryption') in secure_digests
 
-    vulns: List[Unit] = []
-    safes: List[Unit] = []
-    vuln_specifics: List[str] = []
-    safe_specifics: List[str] = []
+    vulns: List[str] = []
+    safes: List[str] = []
 
-    (vuln_specifics if vuln_encryption_1 else safe_specifics).append(
+    (vulns if vuln_encryption_1 else safes).append(
         'password_encryption must not be set to off')
 
-    (vuln_specifics if vuln_encryption_2 else safe_specifics).append(
+    (vulns if vuln_encryption_2 else safes).append(
         'password_encryption must not be set to on (alias for md5)')
 
-    (vuln_specifics if vuln_encryption_3 else safe_specifics).append(
+    (vulns if vuln_encryption_3 else safes).append(
         'password_encryption must not be set to md5')
 
-    (safe_specifics if safe_encryption else vuln_specifics).append(
+    (safes if safe_encryption else vulns).append(
         'password_encryption must be set to scram-sha-256')
 
-    if vuln_specifics:
-        vulns.append(Unit(
-            where=f'{host}:{port}',
-            source='PostgreSQL/Configuration',
-            specific=vuln_specifics,
-            fingerprint=None))
-    if safe_specifics:
-        safes.append(Unit(
-            where=f'{host}:{port}',
-            source='PostgreSQL/Configuration',
-            specific=safe_specifics,
-            fingerprint=None))
-
-    if vulns:
-        return OPEN, msg_open, vulns, safes
-    return CLOSED, msg_closed, vulns, safes
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open='PostgreSQL has insecure password_encryption',
+        msg_closed='PostgreSQL has secure password_encryption',
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=HIGH, kind=DAST)
-@unknown_if(psycopg2.OperationalError)
+@unknown_if(psycopg2.Error)
 def has_insecurely_stored_passwords(dbname: str,
                                     user: str, password: str,
                                     host: str, port: int) -> tuple:
@@ -549,13 +513,8 @@ def has_insecurely_stored_passwords(dbname: str,
     connection_string: ConnectionString = \
         ConnectionString(dbname, user, password, host, port, 'prefer')
 
-    msg_open: str = 'PostgreSQL has insecurely stored passwords'
-    msg_closed: str = 'PostgreSQL has safely stored passwords'
-
-    vulns: List[Unit] = []
-    safes: List[Unit] = []
-    vuln_specifics: List[str] = []
-    safe_specifics: List[str] = []
+    vulns: List[str] = []
+    safes: List[str] = []
 
     query: str = 'SELECT usename, passwd FROM pg_shadow'
 
@@ -565,28 +524,19 @@ def has_insecurely_stored_passwords(dbname: str,
         is_safe: bool = any(passwd.lower().startswith(s) for s in safe_digests)
         assertion: str = 'securely' if is_safe else 'insecurely'
         specific: str = f'{usename} user password is {assertion} stored'
-        (safe_specifics if is_safe else vuln_specifics).append(specific)
+        (safes if is_safe else vulns).append(specific)
 
-    if vuln_specifics:
-        vulns.append(Unit(
-            where=f'{host}:{port}',
-            source='PostgreSQL/Configuration',
-            specific=vuln_specifics,
-            fingerprint=None))
-    if safe_specifics:
-        safes.append(Unit(
-            where=f'{host}:{port}',
-            source='PostgreSQL/Configuration',
-            specific=safe_specifics,
-            fingerprint=None))
-
-    if vulns:
-        return OPEN, msg_open, vulns, safes
-    return CLOSED, msg_closed, vulns, safes
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open='PostgreSQL has insecurely stored passwords',
+        msg_closed='PostgreSQL has safely stored passwords',
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(psycopg2.OperationalError)
+@unknown_if(psycopg2.Error)
 def has_insecure_file_permissions(dbname: str,
                                   user: str, password: str,
                                   host: str, port: int) -> tuple:
@@ -616,40 +566,27 @@ def has_insecure_file_permissions(dbname: str,
 
     is_safe: bool
     accepted: tuple
-    msg_open: str = 'PostgreSQL has data checksums disabled'
-    msg_closed: str = 'PostgreSQL has data checksums enabled'
 
-    vulns: List[Unit] = []
-    safes: List[Unit] = []
-    vuln_specifics: List[str] = []
-    safe_specifics: List[str] = []
+    vulns: List[str] = []
+    safes: List[str] = []
 
     accepted = ('700', '0700')
     is_safe = _get_var(connection_string, 'data_directory_mode') in accepted
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'data_directory_mode must be set to 0700')
 
     accepted = ('600', '0600')
     is_safe = _get_var(connection_string, 'log_file_mode') in accepted
-    (safe_specifics if is_safe else vuln_specifics).append(
+    (safes if is_safe else vulns).append(
         'log_file_mode must be set to 0600')
 
-    if vuln_specifics:
-        vulns.append(Unit(
-            where=f'{host}:{port}',
-            source='PostgreSQL/Configuration',
-            specific=vuln_specifics,
-            fingerprint=None))
-    if safe_specifics:
-        safes.append(Unit(
-            where=f'{host}:{port}',
-            source='PostgreSQL/Configuration',
-            specific=safe_specifics,
-            fingerprint=None))
-
-    if vulns:
-        return OPEN, msg_open, vulns, safes
-    return CLOSED, msg_closed, vulns, safes
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open='PostgreSQL has data checksums disabled',
+        msg_closed='PostgreSQL has data checksums enabled',
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=MEDIUM,
@@ -660,7 +597,7 @@ def has_insecure_file_permissions(dbname: str,
          'https://www.postgresql.org/'
          'docs/current/runtime-config-connection.html',
      ])
-@unknown_if(psycopg2.OperationalError)
+@unknown_if(psycopg2.Error)
 def allows_too_many_concurrent_connections(dbname: str,
                                            user: str, password: str,
                                            host: str, port: int,
@@ -701,16 +638,11 @@ def allows_too_many_concurrent_connections(dbname: str,
     connection_string: ConnectionString = \
         ConnectionString(dbname, user, password, host, port, 'prefer')
 
-    is_safe: bool
     vulns: List[str] = []
     safes: List[str] = []
 
-    try:
-        value = int(_get_var(connection_string, 'max_connections'))
-    except ValueError:
-        is_safe = False
-    else:
-        is_safe = value <= max_connections
+    value: str = _get_var(connection_string, 'max_connections')
+    is_safe: bool = value and int(value) <= max_connections
 
     (safes if is_safe else vulns).append(
         f'max_connections must be less than {max_connections}')
