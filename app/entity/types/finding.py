@@ -58,8 +58,8 @@ class FindingType(ObjectType):  # noqa pylint: disable=too-many-instance-attribu
     ambit = String()
     category = String()
 
-    def __init__(self):
-        super(FindingType, self).__init__()
+    def __init__(self, *args, **kwargs):
+        super(FindingType, self).__init__(args, kwargs)
 
         self.id = ''  # noqa pylint: disable=invalid-name
         self.vulnerabilities = []

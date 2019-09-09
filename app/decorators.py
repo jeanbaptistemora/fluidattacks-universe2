@@ -286,6 +286,8 @@ def get_cached(func):
             if ret:
                 return ret
             ret = func(*args, **kwargs)
+            if isinstance(ret, Promise):
+                ret = ret.get()
             cache.set(key_name, ret, timeout=CACHE_TTL)
             return ret
         except RedisClusterException:

@@ -55,19 +55,21 @@ def get_active_projects():
 
 
 def list_findings(project_name):
-    filtering_exp = Key('project_name').eq(project_name) \
-        & Attr('releaseDate').exists()
+    key_exp = Key('project_name').eq(project_name)
+    filter_exp = Attr('releaseDate').exists()
     response = FINDINGS_TABLE.query(
+        FilterExpression=filter_exp,
         IndexName='project_findings',
-        KeyConditionExpression=filtering_exp,
+        KeyConditionExpression=key_exp,
         ProjectionExpression='finding_id')
     findings = response.get('Items', [])
 
     while response.get('LastEvaluatedKey'):
         response = FINDINGS_TABLE.query(
             ExclusiveStartKey=response['LastEvaluatedKey'],
+            FilterExpression=filter_exp,
             IndexName='project_findings',
-            KeyConditionExpression=filtering_exp,
+            KeyConditionExpression=key_exp,
             ProjectionExpression='finding_id')
         findings += response.get('Items', [])
 

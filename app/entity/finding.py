@@ -32,9 +32,9 @@ class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
     """Formstack Finding Class."""
 
     # pylint: disable=too-many-statements
-    def __init__(self, finding_id):
+    def __init__(self, finding_id='', *args, **kwargs):
         """Class constructor."""
-        super(Finding, self).__init__()
+        super(Finding, self).__init__(args, kwargs)
 
         resp = get_finding(finding_id)
 

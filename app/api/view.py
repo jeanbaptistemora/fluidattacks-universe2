@@ -1,6 +1,7 @@
 from django.conf import settings
 from graphene_django.views import GraphQLView
 
+from app.api.dataloaders.finding import FindingLoader
 from app.api.dataloaders.vulnerability import VulnerabilityLoader
 from app.api.middleware import blacklist_middleware, ExecutorBackend
 from app.api.schema import SCHEMA
@@ -11,7 +12,7 @@ class APIView(GraphQLView):
         """Appends dataloader instances to context"""
         context = super(APIView, self).get_context(request)
         context.loaders = {
-            'finding': {},
+            'finding': FindingLoader(),
             'vulnerability': VulnerabilityLoader()
         }
 
