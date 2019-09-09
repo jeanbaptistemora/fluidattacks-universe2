@@ -71,14 +71,13 @@ of the screen
     var dict_en = {
       "services": 0,
       "products": 1,
-      "customers": 2,
-      "careers": 3,
-      "blog": 4,
-      "community": 5
+      "careers": 2,
+      "blog": 3,
+      "community": 4
     };
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 5; i++) {
       var cat_en = Object.keys(dict_en)[i];
-      if(window.location.href.indexOf("en/" + cat_en + '/') != -1) {
+      if(window.location.href.indexOf( cat_en + '/') != -1) {
         $($(".cssmenu > ul > li")[dict_en[cat_en]]).toggleClass("active");
         $($(".cssmenu > ul > li")[dict_en[cat_en]]).append("<img alt=\"Selected field icon\" src=\"/web/theme/images/selected.svg\">")
       }
