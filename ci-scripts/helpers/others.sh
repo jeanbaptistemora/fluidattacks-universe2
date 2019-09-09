@@ -43,61 +43,43 @@ kaniko_login() {
 
 kaniko_build() {
 
-  # Build a Dockerfile using kaniko with cache
-  # and push to the registry if the branch is master.
-  # kaniko parameters can be added if needed.
-  # Example: kaniko_build mobile --build-arg VERSION='1.2'
-
-  set -e
-
-  TARGET="$1"
-  shift 1
-
-  kaniko_login
-
-  if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
-    PUSH_POLICY="--destination $CI_REGISTRY_IMAGE:$TARGET"
-    CACHE='--cache=true'
-    CACHE_REPO="--cache-repo $CI_REGISTRY_IMAGE/cache/$TARGET"
-  else
-    PUSH_POLICY='--no-push'
-  fi
-
-  /kaniko/executor \
-    --cleanup \
-    --context "$CI_PROJECT_DIR" \
-    --dockerfile "deploy/containers/$TARGET/Dockerfile" \
-    $PUSH_POLICY \
-    $CACHE \
-    $CACHE_REPO \
-    --snapshotMode time "$@"
-}
-
-kaniko_build_experimental() {
-
   # Build a Dockerfile using kaniko.
-  # Pushes ephemeral images for devs.
-  # Uses cache if parameter is specified.
+  # Pushes ephemeral images for devs if eph=true.
+  # Uses cache if cache=true.
   # Additional kaniko parameters can be added if needed.
-  # Example: kaniko_build mobile cache=true --build-arg VERSION='1.2'
+  # Example: kaniko_build mobile eph=false cache=true --build-arg VERSION='1.2'
 
   set -e
 
   TARGET="$1"
-  USE_CACHE="$2"
-  shift 2
+  USE_EPH="$2"
+  USE_CACHE="$3"
+  shift 3
 
-  if [ "$USE_CACHE" != 'cache=true' ] && [ "$USE_CACHE" != 'cache=false' ]; then
-    echo 'Error. Either cache=true or cache=false must be specified for $2.'
-    return 1
+  # Set cache parameter based on USE_EPH
+  echo "Option: \"$USE_EPH\" specified."
+  if [ "$USE_EPH" = 'eph=true' ]; then
+    SET_EPH="--destination $CI_REGISTRY_IMAGE/$TARGET:$CI_COMMIT_REF_NAME"
+  elif [ "$USE_EPH" = 'eph=false' ]; then
+    if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
+      SET_EPH="--destination $CI_REGISTRY_IMAGE/$TARGET:$CI_COMMIT_REF_NAME"
+    else
+      SET_EPH='--no-push'
+    fi
   else
-    echo "Option: \"$USE_CACHE\" specified."
+    echo 'Error. Either eph=true or eph=false must be specified for $3'
+    return 1
   fi
 
+  # Set destination parameter based on USE_CACHE
+  echo "Option: \"$USE_CACHE\" specified."
   if [ "$USE_CACHE" = 'cache=true' ]; then
     SET_CACHE="--cache=true --cache-repo $CI_REGISTRY_IMAGE/$TARGET/cache"
-  else
+  elif [ "$USE_CACHE" = 'cache=false' ]; then
     echo 'Not using cache.'
+  else
+    echo 'Error. Either cache=true or cache=false must be specified for $2.'
+    return 1
   fi
 
   kaniko_login
@@ -106,9 +88,8 @@ kaniko_build_experimental() {
     --cleanup \
     --context "$CI_PROJECT_DIR" \
     --dockerfile "deploy/containers/$TARGET/Dockerfile" \
-    --destination "$CI_REGISTRY_IMAGE/$TARGET:$CI_COMMIT_REF_NAME" \
+    $SET_EPH \
     $SET_CACHE \
-    --single-snapshot \
     --snapshotMode time "$@"
 }
 
