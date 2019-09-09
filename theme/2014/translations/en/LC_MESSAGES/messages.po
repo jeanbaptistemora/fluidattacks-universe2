@@ -429,64 +429,6 @@ msgstr "products"
 msgid "Footer-header-3"
 msgstr "Products"
 
-#: templates/footer.html:49 templates/footer.html:50 templates/footer.html:51
-#: templates/footer.html:52 templates/footer.html:53 templates/footer.html:54
-#: templates/footer.html:55 templates/footer.html:56 templates/footer.html:57
-msgid "Footer-cat-3"
-msgstr "customers"
-
-#: templates/footer.html:49
-msgid "Footer-header-4"
-msgstr "Customers"
-
-#: templates/footer.html:50
-msgid "Footer-link-4.1"
-msgstr "financial"
-
-#: templates/footer.html:50
-msgid "Footer-subtitle-4.1"
-msgstr "Financial"
-
-#: templates/footer.html:51
-msgid "Footer-link-4.2"
-msgstr "communications"
-
-#: templates/footer.html:51
-msgid "Footer-subtitle-4.2"
-msgstr "Communications"
-
-#: templates/footer.html:52
-msgid "Footer-link-4.3"
-msgstr "consumer"
-
-#: templates/footer.html:52
-msgid "Footer-subtitle-4.3"
-msgstr "Consumer"
-
-#: templates/footer.html:53
-msgid "Footer-link-4.4"
-msgstr "technology"
-
-#: templates/footer.html:53
-msgid "Footer-subtitle-4.4"
-msgstr "Technology"
-
-#: templates/footer.html:54
-msgid "Footer-link-4.5"
-msgstr "utilities"
-
-#: templates/footer.html:54
-msgid "Footer-subtitle-4.5"
-msgstr "Utilities"
-
-#: templates/footer.html:56
-msgid "Footer-link-4.7"
-msgstr "transportation"
-
-#: templates/footer.html:56
-msgid "Footer-subtitle-4.7"
-msgstr "Transportation"
-
 #: templates/footer.html:57
 msgid "Footer-link-4.8"
 msgstr "reviews"
