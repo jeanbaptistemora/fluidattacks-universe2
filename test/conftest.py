@@ -21,6 +21,8 @@ from docker.models.containers import Image, Container
 from test.mock import graphqlserver
 from test.mock import httpserver
 from test.mock import sip
+from test.mock import camera_hard
+from test.mock import camera_weak
 
 # Constants
 CLIENT = docker.from_env()
@@ -140,7 +142,7 @@ def exec_extra_commands(mock: str, mock_name: str) -> None:
             time.sleep(15.0)
 
 
-def smart_create_container(mock: str) -> None:
+def create_container(mock: str) -> None:
     """Build mocks caching imgs/containers and building/running when needed."""
     image = f'registry.gitlab.com/fluidattacks/asserts/mocks/{mock}'
     context = f'test/provision/{mock.replace(":", "/")}'
@@ -194,7 +196,7 @@ def stop_container(mock_name: str, remove: bool = False) -> None:
 @pytest.fixture(scope='session', autouse=True)
 def mock_sip(request):
     """Start SIP mock endpoints."""
-    prcs = Process(target=sip.start, name='MockHTTPServer')
+    prcs = Process(target=sip.start, name='MockSIPServer')
     prcs.daemon = True
     prcs.start()
     time.sleep(1)
@@ -202,8 +204,26 @@ def mock_sip(request):
 
 @pytest.fixture(scope='session', autouse=True)
 def mock_http(request):
-    """Inicia y detiene el servidor HTTP antes de ejecutar una prueba."""
+    """Start HTTP mocks."""
     prcs = Process(target=httpserver.start, name='MockHTTPServer')
+    prcs.daemon = True
+    prcs.start()
+    time.sleep(1)
+
+
+@pytest.fixture(scope='session', autouse=True)
+def mock_camera_weak(request):
+    """Start camera mocks."""
+    prcs = Process(target=camera_weak.start, name='MockCameraWeakServer')
+    prcs.daemon = True
+    prcs.start()
+    time.sleep(1)
+
+
+@pytest.fixture(scope='session', autouse=True)
+def mock_camera_hard(request):
+    """Start camera mocks."""
+    prcs = Process(target=camera_hard.start, name='MockCameraHardServer')
     prcs.daemon = True
     prcs.start()
     time.sleep(1)
@@ -238,7 +258,7 @@ def run_mocks(request):
     """Run mock with given parameters."""
     with Pool(processes=cpu_count()) as workers:
         for mocks in MOCKS:
-            workers.map(smart_create_container, tuple(mocks.keys()), 1)
+            workers.map(create_container, tuple(mocks.keys()), 1)
             workers.starmap(open_ports, tuple(mocks.items()), 1)
 
 

@@ -19,7 +19,7 @@ from fluidasserts.utils.decorators import track, level, notify
 @notify
 @level('high')
 @track
-def axis_has_rce(cam_ip: str) -> bool:
+def axis_has_rce(url: str) -> bool:
     """
     Check if Axis Communications MPQT/PACS Server has RCE.
 
@@ -28,17 +28,17 @@ def axis_has_rce(cam_ip: str) -> bool:
     :param cam_ip: IP or host of Axis camera.
     """
     try:
-        url = 'http://{}/httpDisabled.shtml?&http_user=%p|%p'.format(cam_ip)
+        url = '{}/httpDisabled.shtml?&http_user=%p|%p'.format(url)
         sess = http.HTTPSession(url)
     except http.ConnError as exc:
         show_unknown('Could not connect',
-                     details=dict(cam_ip=cam_ip,
+                     details=dict(url=url,
                                   reason=str(exc).replace(':', ',')))
         return False
 
     if sess.response.status_code == 500:
-        show_open('Axis camera vulnerable to RCE', details=dict(cam_ip=cam_ip))
+        show_open('Axis camera vulnerable to RCE', details=dict(url=url))
         return True
     show_close('Axis camera not vulnerable to RCE',
-               details=dict(cam_ip=cam_ip))
+               details=dict(url=url))
     return False
