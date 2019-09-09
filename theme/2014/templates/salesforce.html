@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
 <!-- Tachyons stylesheet -->
-<link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+<link rel="stylesheet"
+      href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
 
 {% block meta %}
-  <meta name="description" content="{{ page.description }}">
-  <meta name="keywords" content="{{ page.keywords }}">
+  <meta name="description"
+        content="{{ page.description }}">
+  <meta name="keywords"
+        content="{{ page.keywords }}">
 {% endblock meta %}
 
 {% block title %}
@@ -26,7 +29,9 @@
   {% endif %}
 {% endblock title %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ page.url }}">
+{% block canonical %}
+<link rel="canonical"
+      href="{{ SITEURL }}/{{ page.url }}">
 {% endblock canonical %}
 
 {% block breadcrumb%}
@@ -35,8 +40,9 @@
       <div class="breadcrumb">
         <ul>
           <li>
-            <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}
-            </strong>&nbsp;</a>
+            <a href="{{ SITEURL }}/">
+              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
+            </a>
             <span>&gt;</span>
           </li>
           <li>
@@ -65,47 +71,100 @@
           setInterval(timestamp, 500);
         </script>
         <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8"
-          method="POST" onsubmit="return validateForm()" class="salesforce">
-          <input type=hidden name='captcha_settings'
-            value='{"keyname":"Fluidattacks","fallback":"true","orgId":"00D1I000001dGP6","ts":""}'>
-          <input type=hidden name="oid" value="00D1I000001dGP6"/>
-          <input type=hidden name="retURL" value="{{ SITEURL }}/{{ gettext('Footer-link-1.6') }}/{{ gettext('Ack-page') }}/"/>
+              method="POST"
+              onsubmit="return validateForm()"
+              class="salesforce">
+          <input type=hidden
+                 name='captcha_settings'
+                 value='{"keyname":"Fluidattacks","fallback":"true","orgId":"00D1I000001dGP6","ts":""}'>
+          <input type=hidden
+                 name="oid"
+                 value="00D1I000001dGP6"/>
+          <input type=hidden
+                 name="retURL"
+                 value="{{ SITEURL }}/{{ gettext('Footer-link-1.6') }}/{{ gettext('Ack-page') }}/"/>
           <div class="w-100 w-50-l fl pr2">
-            <label for="first_name" class="form-label">First Name:</label>
-            <input  id="first_name" maxlength="40" name="first_name" size="20" type="text" class="form-input" required /><br>
+            <label for="first_name"
+                   class="form-label">
+                   First Name:
+            </label>
+            <input  id="first_name"
+                    maxlength="40"
+                    name="first_name"
+                    size="20"
+                    type="text"
+                    class="form-input"
+                    required /><br>
           </div>
           <div class="w-100 w-50-l fl">
-            <label for="last_name" class=form-label> Last Name:</label>
-            <input  id="last_name" maxlength="40" name="last_name" size="20" type="text" class="form-input" required /><br>
+            <label for="last_name"
+                   class=form-label>
+                   Last Name:
+            </label>
+            <input  id="last_name"
+                    maxlength="40"
+                    name="last_name"
+                    size="20"
+                    type="text"
+                    class="form-input"
+                    required /><br>
           </div>
           <div class="w-100 w-50-l fl pr2 pb3">
-            <label for="email" class="form-label">
-              {{ gettext('Form-field-2') }}</label>
-              <input  id="email" maxlength="80" name="email" size="20" type="text"
-              class="form-input" required />
+            <label for="email"
+                   class="form-label">
+                   {{ gettext('Form-field-2') }}
+            </label>
+              <input  id="email"
+                      maxlength="80"
+                      name="email"
+                      size="20"
+                      type="text"
+                      class="form-input"
+                      required />
           </div>
           <div class="w-100 w-50-l fl pb3">
-            <input id="country" maxlength="40" name="country" size="20"
-            type="hidden" value="">
-            <label for="mobile" class="form-label">
-              {{ gettext('Form-field-3')}}</label>
-              <input  id="mobile" maxlength="40" name="local_mobile" size="20"
-              type="text" class="form-input" required />
-              <span id="valid-msg" class="intl-valid hide">
+            <input id="country"
+                   maxlength="40"
+                   name="country"
+                   size="20"
+                   type="hidden"
+                   value="">
+            <label for="mobile"
+                   class="form-label">
+                   {{ gettext('Form-field-3')}}
+            </label>
+              <input  id="mobile"
+                      maxlength="40"
+                      name="local_mobile"
+                      size="20"
+                      type="text"
+                      class="form-input"
+                      required />
+              <span id="valid-msg"
+                    class="intl-valid hide">
               {{ gettext('Form-number-valid') }}</span>
-              <span id="error-msg" class="intl-error  hide">
+              <span id="error-msg"
+                    class="intl-error  hide">
               {{ gettext('Form-number-not-valid') }}</span>
           </div>
           {% assets filters="uglifyjs", output="static/js/intlTelInput.min.js", "/app/node_modules/intl-tel-input/build/js/intlTelInput.js" %}
-            <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+            <script type="text/javascript"
+                    src="{{ SITEURL }}/{{ ASSET_URL }}">
+            </script>
           {% endassets %}
           {% assets filters="uglifyjs", output="static/js/form.min.js", "js/form.js" %}
               <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
           {% endassets %}
-          <label for="Subject" class="form-label tc">
-            {{ gettext('Form-field-4') }}</label>
-          <select  id="00N1I00000NEIK7" name="00N1I00000NEIK7" title="Necesidad"
-            class="form-input" onchange="selectedValue()" required>
+          <label for="Subject"
+                 class="form-label tc">
+                 {{ gettext('Form-field-4') }}
+          </label>
+          <select  id="00N1I00000NEIK7"
+                   name="00N1I00000NEIK7"
+                   title="Necesidad"
+                   class="form-input"
+                   onchange="selectedValue()"
+                   required>
             <option value=""></option>
             <option value="Quiero una propuesta de servicios">
               {{ gettext('Form-field-5') }}</option>
@@ -129,22 +188,47 @@
               }
             }
           </script>
-          <label id="poi" class="form-label hidden">Products of Interest:</label>
-          <select  id="00N1I00000Lfv4l" name="00N1I00000Lfv4l" title="Producto de interes" class="form-input hidden">
-            <option value="Indeterminado">Undetermined</option>
-            <option value="Puntual">One-Shot Hacking</option>
-            <option value="Continuas">Continuous Hacking</option>
+          <label id="poi"
+                 class="form-label hidden">
+                 Products of Interest:
+          </label>
+          <select  id="00N1I00000Lfv4l"
+                   name="00N1I00000Lfv4l"
+                   title="Producto de interes"
+                   class="form-input hidden">
+            <option value="Indeterminado">
+                    Undetermined
+            </option>
+            <option value="Puntual">
+                    One-Shot Hacking
+            </option>
+            <option value="Continuas">
+                    Continuous Hacking
+            </option>
           </select>
-          <span class="intl-error hide form-error">Please select an option</span>
+          <span class="intl-error hide form-error">
+                Please select an option
+          </span>
           <br>
           <label>Message:</label><br>
-          <textarea  id="00N1I00000O9iJ6" name="00N1I00000O9iJ6" wrap="soft" class="msg-field"></textarea><br>
+          <textarea  id="00N1I00000O9iJ6"
+                     name="00N1I00000O9iJ6"
+                     wrap="soft"
+                     class="msg-field">
+          </textarea><br>
           <br>
-          <script src="https://www.google.com/recaptcha/api.js?hl=en" async defer></script>
-          <div class="g-recaptcha" data-sitekey="6LduWqYUAAAAAArX5eMR9xBwFuQK291lVGoXfHHA"></div>
+          <script src="https://www.google.com/recaptcha/api.js?hl=en"
+                  async
+                  defer>
+          </script>
+          <div class="g-recaptcha"
+               data-sitekey="6LduWqYUAAAAAArX5eMR9xBwFuQK291lVGoXfHHA"></div>
           <br>
           <div class="form-button">
-            <input type="submit" name="submit" class="form-submit" value="Send"/>
+            <input type="submit"
+                   name="submit"
+                   class="form-submit"
+                   value="Send"/>
           </div>
         </form>
       <br>
