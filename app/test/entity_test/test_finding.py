@@ -11,6 +11,7 @@ from graphene.test import Client
 from jose import jwt
 
 from app.api.schema import SCHEMA
+from app.api.dataloaders.finding import FindingLoader
 from app.api.dataloaders.vulnerability import VulnerabilityLoader
 
 
@@ -47,7 +48,10 @@ class FindingTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        request.loaders = {'vulnerability': VulnerabilityLoader()}
+        request.loaders = {
+            'finding': FindingLoader(),
+            'vulnerability': VulnerabilityLoader()
+        }
         result = SCHEMA.execute(query, context=request)
         assert not result.errors
         assert result.data.get('finding')['id'] == '422286126'
@@ -96,6 +100,7 @@ class FindingTests(TestCase):
             key=settings.JWT_SECRET,
         )
         request.FILES['document'] = uploaded_file
+        request.loaders = {'finding': FindingLoader()}
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert result['data']['updateEvidence']['success']
@@ -131,6 +136,7 @@ class FindingTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.loaders = {'finding': FindingLoader()}
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert result['data']['updateDescription']['success']
@@ -182,6 +188,7 @@ class FindingTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.loaders = {'finding': FindingLoader()}
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert result['data']['updateSeverity']['success']

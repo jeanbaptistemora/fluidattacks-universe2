@@ -7,6 +7,7 @@ from django.conf import settings
 from graphene.test import Client
 from jose import jwt
 
+from app.api.dataloaders.finding import FindingLoader
 from app.api.schema import SCHEMA
 
 
@@ -42,6 +43,7 @@ class ProjectEntityTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.loaders = {'finding': FindingLoader()}
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert result['data']['project']

@@ -68,9 +68,6 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         self.description = description
         self.remediated_over_time = []
 
-        self.findings_aux = integrates_dal.get_findings_released_dynamo(
-            self.name, 'finding_id, treatment, cvss_temporal')
-
     def __str__(self):
         """String representation of entity."""
         return self.name
@@ -97,23 +94,38 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """Resolve findings attribute."""
         util.cloudwatch_log(info.context, 'Security: Access to {project} '
                             'findings'.format(project=self.name))
-        self.findings = [Finding(i['finding_id']) for i in self.findings_aux]
+        finding_ids = project_domain.list_findings(self.name)
+        findings_loader = info.context.loaders['finding']
+        self.findings = findings_loader.load_many(finding_ids)
+
         return self.findings
 
     @get_entity_cache
     def resolve_open_vulnerabilities(self, info):
         """Resolve open vulnerabilities attribute."""
-        del info
-        self.open_vulnerabilities = project_domain.get_vulnerabilities(
-            self.findings_aux, 'openVulnerabilities')
+        finding_ids = project_domain.list_findings(self.name)
+        vulns_loader = info.context.loaders['vulnerability']
+
+        self.open_vulnerabilities = vulns_loader.load_many(finding_ids).then(
+            lambda findings: sum([
+                len([vuln for vuln in vulns if vuln.current_state == 'open'])
+                for vulns in findings
+            ]))
+
         return self.open_vulnerabilities
 
     @get_entity_cache
     def resolve_closed_vulnerabilities(self, info):
         """Resolve closed vulnerabilities attribute."""
-        del info
-        self.closed_vulnerabilities = project_domain.get_vulnerabilities(
-            self.findings_aux, 'closedVulnerabilities')
+        finding_ids = project_domain.list_findings(self.name)
+        vulns_loader = info.context.loaders['vulnerability']
+
+        self.open_vulnerabilities = vulns_loader.load_many(finding_ids).then(
+            lambda findings: sum([
+                len([vuln for vuln in vulns if vuln.current_state == 'closed'])
+                for vulns in findings
+            ]))
+
         return self.closed_vulnerabilities
 
     @get_entity_cache
@@ -136,8 +148,13 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @get_entity_cache
     def resolve_max_severity(self, info):
         """Resolve maximum severity attribute."""
-        del info
-        self.max_severity = project_domain.get_max_severity(self.findings_aux)
+        finding_ids = project_domain.list_findings(self.name)
+        findings_loader = info.context.loaders['finding']
+
+        self.max_severity = findings_loader.load_many(finding_ids).then(
+            lambda findings: max([finding.severity_score
+                                  for finding in findings]))
+
         return self.max_severity
 
     @get_entity_cache
@@ -161,8 +178,11 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @get_entity_cache
     def resolve_total_findings(self, info):
         """Resolve total findings attribute."""
-        del info
-        self.total_findings = len(self.findings_aux)
+        finding_ids = project_domain.list_findings(self.name)
+        findings_loader = info.context.loaders['finding']
+        findings = findings_loader.load_many(finding_ids)
+        self.total_findings = findings.then(len)
+
         return self.total_findings
 
     @get_entity_cache
@@ -250,8 +270,10 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """ Resolve drafts attribute """
         util.cloudwatch_log(info.context, 'Security: Access to {project} '
                             'drafts'.format(project=self.name))
-        self.drafts = [Finding(draft_id)
-                       for draft_id in project_domain.list_drafts(self.name)]
+        finding_ids = project_domain.list_drafts(self.name)
+        findings_loader = info.context.loaders['finding']
+        self.drafts = findings_loader.load_many(finding_ids)
+
         return self.drafts
 
     def resolve_description(self, info):

@@ -88,7 +88,9 @@ class Query(ObjectType):
         """Resolve for finding."""
         util.cloudwatch_log(info.context, 'Security: Access to \
             finding: {finding_id} succesfully'.format(finding_id=identifier))
-        return Finding(identifier)
+        findings_loader = info.context.loaders['finding']
+
+        return findings_loader.load(identifier)
 
     def resolve_login(self, info):
         """ Resolve for login info """

@@ -1,6 +1,5 @@
-""" GraphQL Entity for Formstack Findings """
+""" GraphQL Entity for Findings """
 # pylint: disable=no-self-use
-# pylint: disable=super-init-not-called
 from __future__ import absolute_import
 from time import time
 
@@ -16,7 +15,7 @@ from app.decorators import (
 )
 from app.domain.finding import (
     add_comment, add_file_attribute, approve_draft, cast_tracking,
-    delete_finding, get_finding, get_tracking_dict, get_unique_dict,
+    delete_finding, get_tracking_dict, get_unique_dict,
     group_by_state, list_comments, reject_draft, remove_repeated,
     request_verification, save_evidence, save_severity, update_description,
     update_treatment, verify_finding
@@ -29,57 +28,7 @@ from app.utils import findings as finding_utils
 
 
 class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
-    """Formstack Finding Class."""
-
-    # pylint: disable=too-many-statements
-    def __init__(self, finding_id='', *args, **kwargs):
-        """Class constructor."""
-        super(Finding, self).__init__(args, kwargs)
-
-        resp = get_finding(finding_id)
-
-        if resp:
-            self.id = finding_id  # noqa pylint: disable=invalid-name
-            self.project_name = resp.get('projectName')
-            self.release_date = resp.get('releaseDate', '')
-            self.records = resp.get('records')
-            self.exploit = resp.get('exploit')
-            self.cvss_version = resp.get('cvssVersion', '')
-            self.severity = resp.get('severity')
-            self.evidence = resp.get('evidence')
-            self.report_level = resp.get('reportLevel', '')
-            self.title = resp.get('finding', '')
-            self.scenario = resp.get('scenario', '')
-            self.actor = resp.get('actor', '')
-            self.description = resp.get('vulnerability', '')
-            self.requirements = resp.get('requirements', '')
-            self.attack_vector_desc = resp.get('attackVectorDesc', '')
-            self.threat = resp.get('threat', '')
-            self.recommendation = resp.get('effectSolution', '')
-            self.affected_systems = resp.get('affectedSystems', '')
-            self.compromised_attributes = resp.get('compromisedAttrs', '')
-            self.compromised_records = int(resp.get('recordsNumber', '0'))
-            self.cwe_url = resp.get('cwe', '')
-            self.bts_url = resp.get('externalBts', '')
-            self.treatment_manager = resp.get('treatmentManager', '')
-            self.treatment_justification = resp.get('treatmentJustification', '')
-            self.client_code = resp.get('clientCode', '')
-            self.client_project = resp.get('clientProject', '')
-            self.probability = int(resp.get('probability', '0'))
-            self.detailed_severity = int(resp.get('detailedSeverity'))
-            self.risk = resp.get('risk', '')
-            self.risk_level = resp.get('riskValue', '')
-            self.ambit = resp.get('ambit', '')
-            self.category = resp.get('category', '')
-            self.type = resp.get('findingType', '')
-            self.age = resp.get('age', 0)
-            self.last_vulnerability = resp.get('lastVulnerability', 0)
-            self.is_exploitable = resp.get('exploitable', False)
-            self.severity_score = resp.get('severityCvss', '')
-            self.report_date = resp.get('reportDate', '')
-            self.analyst = resp.get('analyst', '')
-            self.treatment = resp.get('treatment', '')
-            self.remediated = resp.get('remediated')
+    """Finding Class."""
 
     def __str__(self):
         return self.id + '_finding'
@@ -456,7 +405,9 @@ class UpdateEvidence(Mutation):
                                     non-allowed format in {project} project'
                                     .format(project=project_name))
             raise GraphQLError('Extension not allowed')
-        ret = UpdateEvidence(success=success, finding=Finding(finding_id))
+        findings_loader = info.context.loaders['finding']
+        ret = UpdateEvidence(
+            finding=findings_loader.load(finding_id), success=success)
         util.invalidate_cache(finding_id)
         return ret
 
@@ -499,10 +450,9 @@ class UpdateEvidenceDescription(Mutation):
             rollbar.report_message('Error: \
 An error occurred updating evidence description', 'error', info.context)
 
-        ret = \
-            UpdateEvidenceDescription(
-                success=success,
-                finding=Finding(finding_id))
+        findings_loader = info.context.loaders['finding']
+        ret = UpdateEvidenceDescription(
+            finding=findings_loader.load(finding_id), success=success)
         util.invalidate_cache(finding_id)
         return ret
 
@@ -545,7 +495,9 @@ class UpdateSeverity(Mutation):
         project = integrates_dal.get_finding_project(finding_id)
         success = False
         success = save_severity(parameters.get('data'))
-        ret = UpdateSeverity(success=success, finding=Finding(finding_id))
+        findings_loader = info.context.loaders['finding']
+        ret = UpdateSeverity(
+            finding=findings_loader.load(finding_id), success=success)
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project)
         if success:
@@ -697,7 +649,9 @@ class UpdateDescription(Mutation):
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to update \
                 description in finding {id}'.format(id=finding_id))
-        ret = UpdateDescription(success=success, finding=Finding(finding_id))
+        findings_loader = info.context.loaders['finding']
+        ret = UpdateDescription(
+            finding=findings_loader.load(finding_id), success=success)
         project_name = get_project_name(finding_id)
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
@@ -747,7 +701,9 @@ class UpdateTreatment(Mutation):
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to update \
                 treatment in finding {id}'.format(id=finding_id))
-        ret = UpdateTreatment(success=success, finding=Finding(finding_id))
+        findings_loader = info.context.loaders['finding']
+        ret = UpdateTreatment(
+            finding=findings_loader.load(finding_id), success=success)
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
         return ret
