@@ -1,13 +1,19 @@
 {% extends "base.html" %}
 
-<link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+<link rel="stylesheet"
+      href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
 
 {% block meta %}
-  <meta name="description" content="{{ gettext('Index-metadescription') }}">
-  <meta name="keywords" content="{{ gettext('Index-keywords') }}">
+  <meta name="description"
+        content="{{ gettext('Index-metadescription') }}">
+  <meta name="keywords"
+        content="{{ gettext('Index-keywords') }}">
 {% endblock meta %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/index.html">{% endblock canonical %}
+{% block canonical %}
+<link rel="canonical"
+      href="{{ SITEURL }}/blog/index.html">
+{% endblock canonical %}
 
 {% block title %}
 {{ gettext('Index-title') }} | {{ SITENAME }}
@@ -19,7 +25,9 @@
       <div class="breadcrumb">
         <ul>
           <li>
-            <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
+            <a href="{{ SITEURL }}/">
+              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
+            </a>
             <span>&gt;</span>
           </li>
           <li>
@@ -37,11 +45,14 @@
     {% for article in articles_page.object_list %}
       <div class="ba1 shadow-1 mb3 relative dt-ns mt0-ns w-100 w-75-m w-30-l pr3-ns pl3-ns pt3 ma-auto">
         {% if  article.featured_image %}
-          <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}" alt="{{ article.alt }}">
+          <img src="{{ SITEURL }}/blog/{{ article.slug }}{{ article.featured_image }}"
+               alt="{{ article.alt }}">
         {% endif %}
         <!-- Article Preview: Title, Description, Author, Tags ... -->
         <div class="h-28em-l h-auto-vl">
-          <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">
+          <a href="{{ SITEURL }}/{{ article.url }}"
+             rel="bookmark"
+             title="Permalink to {{ article.title|striptags }}">
             <!-- Title -->
             <h1 class="post-title c-fluid-bk mb0 tc hv-fluid-dkred f4">
               {{ article.title }}
@@ -49,24 +60,37 @@
           </a>
           {% if article.subtitle %}
             <!-- Subtitle -->
-            <span class="db f5 c-fluid-bk db i tc b pt3">{{ article.subtitle }}</span>
+            <span class="db f5 c-fluid-bk db i tc b pt3">
+              {{ article.subtitle }}
+            </span>
           {% endif %}<br/>
           <div class='post-info tl pl2'>
             <!-- Author -->
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png" alt="{{ gettext('Index-icon-alt-1') }}">
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon.png"
+                 alt="{{ gettext('Index-icon-alt-1') }}">
             {% for author in article.authors %}
-              <a class=" c-fluid-bk ttc hv-fluid-dkred " href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a><br/>
+              <a class=" c-fluid-bk ttc hv-fluid-dkred "
+                 href="{{ SITEURL }}/{{ author.url }}">
+                 {{ author }}
+              </a><br/>
             {% endfor %}
             <!-- Category -->
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png" alt="{{ gettext('Index-icon-alt-2') }}">
-            <a class=" c-fluid-bk ttc hv-fluid-dkred " href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category|replace("-", " ") }}</a><br/>
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/folder.png"
+                 alt="{{ gettext('Index-icon-alt-2') }}">
+            <a class=" c-fluid-bk ttc hv-fluid-dkred "
+               href="{{ SITEURL }}/{{ article.category.url }}">
+               {{ article.category|replace("-", " ") }}
+            </a><br/>
             <!-- Tags -->
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png" alt="{{ gettext('Index-icon-alt-3') }}">
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/tags.png"
+                 alt="{{ gettext('Index-icon-alt-3') }}">
             {% for tag in article.tags %}
               {% if loop.last %}
-                <a class=" c-fluid-bk ttc hv-fluid-dkred " href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a><br/>
+                <a class=" c-fluid-bk ttc hv-fluid-dkred "
+                   href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a><br/>
               {% else %}
-                <a class=" c-fluid-bk ttc hv-fluid-dkred " href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
+                <a class=" c-fluid-bk ttc hv-fluid-dkred "
+                   href="{{ SITEURL }}/{{ tag.url }}">{{ tag }},&nbsp;</a>
               {% endif %}
             {% endfor %}
           </div>
@@ -82,7 +106,9 @@
           <!-- Read More Button -->
           <div class="divread absolute bottom-2">
             <span class="button f4 pa2">
-              <a href="{{ SITEURL }}/{{ article.url }}">{{ gettext('Index-msg-btn') }}</a>
+              <a href="{{ SITEURL }}/{{ article.url }}">
+                 {{ gettext('Index-msg-btn') }}
+              </a>
             </span>
           </div>
         </div>
