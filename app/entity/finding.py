@@ -5,7 +5,9 @@ from time import time
 
 import rollbar
 from graphql import GraphQLError
-from graphene import String, Boolean, Int, Mutation, Field
+from graphene import (
+    Boolean, Field, Float, Int, JSONString, List, Mutation, ObjectType, String
+)
 from graphene.types.generic import GenericScalar
 
 from app import util
@@ -22,13 +24,62 @@ from app.domain.finding import (
 )
 from app.domain.user import get_role
 from app.dto.finding import FindingDTO, get_project_name
-from app.entity.types.finding import FindingType
+from app.entity.vulnerability import Vulnerability
 from app.services import get_user_role, is_customeradmin
 from app.utils import findings as finding_utils
 
 
-class Finding(FindingType): # noqa pylint: disable=too-many-instance-attributes
+class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     """Finding Class."""
+
+    actor = String()
+    affected_systems = String()
+    age = Int()
+    ambit = String()
+    analyst = String()
+    attack_vector_desc = String()
+    bts_url = String()
+    category = String()
+    client_code = String()
+    client_project = String()
+    closed_vulnerabilities = Int()
+    comments = List(GenericScalar)
+    compromised_attributes = String()
+    compromised_records = Int()
+    cvss_version = String()
+    cwe_url = String()
+    description = String()
+    detailed_severity = Int()
+    evidence = GenericScalar()
+    exploit = String()
+    id = String()  # noqa pylint: disable=invalid-name
+    is_exploitable = Boolean()
+    last_vulnerability = Int()
+    observations = List(GenericScalar)
+    open_vulnerabilities = Int()
+    probability = Int()
+    project_name = String()
+    recommendation = String()
+    records = JSONString()
+    release_date = String()
+    remediated = Boolean()
+    report_date = String()
+    report_level = String()
+    requirements = String()
+    risk = String()
+    risk_level = String()
+    scenario = String()
+    severity = GenericScalar()
+    severity_score = Float()
+    state = String()
+    threat = String()
+    title = String()
+    tracking = List(GenericScalar)
+    treatment = String()
+    treatment_justification = String()
+    treatment_manager = String()
+    type = String()
+    vulnerabilities = List(Vulnerability, vuln_type=String(), state=String())
 
     def __str__(self):
         return self.id + '_finding'

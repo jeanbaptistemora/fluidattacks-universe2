@@ -779,21 +779,6 @@ def migrate_finding(draft_id, finding_data):
     return True
 
 
-def get_finding(finding_id):
-    finding = finding_dal.get_finding(finding_id)
-    if not finding:
-        fs_finding = finding_vulnerabilities(finding_id)
-        if fs_finding:
-            migrate_finding(finding_id, fs_finding)
-            finding = finding_dal.get_finding(finding_id)
-        else:
-            raise FindingNotFound()
-
-    finding = finding_utils.format_data(finding)
-
-    return finding
-
-
 def get_findings(finding_ids):
     """Retrieves all attributes for the requested findings"""
     findings = []

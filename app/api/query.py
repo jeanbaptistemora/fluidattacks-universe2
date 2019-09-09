@@ -86,8 +86,8 @@ class Query(ObjectType):
     @get_cached
     def resolve_finding(self, info, identifier=None):
         """Resolve for finding."""
-        util.cloudwatch_log(info.context, 'Security: Access to \
-            finding: {finding_id} succesfully'.format(finding_id=identifier))
+        util.cloudwatch_log(info.context, 'Security: Access to finding: '
+                            '{} succesfully'.format(identifier))
         findings_loader = info.context.loaders['finding']
 
         return findings_loader.load(identifier)

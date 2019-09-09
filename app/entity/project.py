@@ -26,7 +26,6 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
     name = String()
     findings = List(Finding)
-    findings_aux = []
     open_vulnerabilities = Int()
     closed_vulnerabilities = Int()
     current_month_authors = Int()
