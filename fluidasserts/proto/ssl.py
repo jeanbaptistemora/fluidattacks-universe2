@@ -475,36 +475,33 @@ def allows_anon_ciphers(site: str, port: int = PORT) -> tuple:
         open_if=is_vulnerable)
 
 
-@notify
-@level('high')
-@track
-def allows_weak_ciphers(site: str, port: int = PORT) -> bool:
+@api(risk=HIGH, kind=DAST)
+@unknown_if(socket.error, tlslite.errors.TLSLocalAlert)
+def allows_weak_ciphers(site: str, port: int = PORT) -> tuple:
     """
     Check if site accepts weak cipher suites.
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if we are able to connect via **RC4**, **Triple DES**,
+                or *Null* cipher suites.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    result = True
-    try:
+    is_vulnerable: bool = False
+    with suppress(tlslite.errors.TLSRemoteAlert,
+                  tlslite.errors.TLSAbruptCloseError):
         with connect(site, port=port,
                      cipher_names=['rc4', '3des', 'null']):
-            show_open('Site allows weak (RC4, 3DES and NULL) cipher \
-suites', details=dict(site=site, port=port))
-            result = True
-    except (tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSAbruptCloseError):
-        show_close('Site not allows weak (RC4, 3DES and NULL) cipher \
-suites', details=dict(site=site, port=port))
-        result = False
-    except (tlslite.errors.TLSLocalAlert):
-        show_unknown('Port doesn\'t support SSL',
-                     details=dict(site=site, port=port))
-        result = False
-    except socket.error as exc:
-        result = False
-        show_unknown('Could not connect',
-                     details=dict(site=site, port=port, error=str(exc)))
-    return result
+            is_vulnerable = True
+
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open='Site allows weak cipher suites',
+        msg_closed='Site does not allow weak cipher suites',
+        open_if=is_vulnerable)
 
 
 @api(risk=LOW, kind=DAST)
