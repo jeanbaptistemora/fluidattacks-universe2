@@ -254,35 +254,33 @@ def is_pfs_disabled(site: str, port: int = PORT) -> tuple:
         open_if=not has_pfs)
 
 
-@notify
-@level('high')
-@track
-def is_sslv3_enabled(site: str, port: int = PORT) -> bool:
+@api(risk=HIGH, kind=DAST)
+@unknown_if(socket.error, tlslite.errors.TLSLocalAlert)
+def is_sslv3_enabled(site: str, port: int = PORT) -> tuple:
     """
-    Check if SSLv3 suites are enabled.
+    Check if SSL v3 suites are enabled.
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if the we are able to stablish a connection using
+                **SSL v3** to the server.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    result = True
-    try:
-        with connect(site, port=port, min_version=(3, 0), max_version=(3, 0)):
-            show_open('SSLv3 enabled on site',
-                      details=dict(site=site, port=port))
-            result = True
-    except (tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSAbruptCloseError):
-        show_close('SSLv3 not enabled on site',
-                   details=dict(site=site, port=port))
-        result = False
-    except (tlslite.errors.TLSLocalAlert):
-        show_unknown('Port doesn\'t support SSL',
-                     details=dict(site=site, port=port))
-        result = False
-    except socket.error as exc:
-        result = False
-        show_unknown('Could not connect',
-                     details=dict(site=site, port=port, error=str(exc)))
-    return result
+    is_vulnerable: bool = False
+    with suppress(tlslite.errors.TLSRemoteAlert,
+                  tlslite.errors.TLSAbruptCloseError):
+        with connect(site, port=port,
+                     min_version=(3, 0), max_version=(3, 0)):
+            is_vulnerable = True
+
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open='SSL v3 is enabled on site',
+        msg_closed='SSL v3 is not enabled on site',
+        open_if=is_vulnerable)
 
 
 @api(risk=MEDIUM, kind=DAST)
