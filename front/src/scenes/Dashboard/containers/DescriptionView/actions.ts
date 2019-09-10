@@ -93,6 +93,7 @@ export const loadDescription: ThunkActionStructure<void> =
           ambit
           category
           type
+          acceptanceDate
         }
       }`;
 
@@ -296,12 +297,14 @@ export const updateTreatment: ThunkActionStructure<void> =
           treatment: "${values.treatment}",
           treatmentManager: "${values.treatmentManager}",
           treatmentJustification: ${JSON.stringify(values.treatmentJustification)},
+          acceptanceDate: ${values.acceptanceDate},
         ) {
           finding {
             btsUrl
             treatment
             treatmentManager
             treatmentJustification
+            acceptanceDate
           }
           success
         }

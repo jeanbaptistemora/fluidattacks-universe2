@@ -13,6 +13,7 @@ def _batch_load_fn(finding_ids):
 
     for finding in finding_domain.get_findings(finding_ids):
         findings[finding['findingId']] = Finding(
+            acceptance_date=finding.get('acceptanceDate', ''),
             actor=finding.get('actor', ''),
             affected_systems=finding.get('affectedSystems', ''),
             age=finding.get('age', 0),
@@ -56,7 +57,6 @@ def _batch_load_fn(finding_ids):
             treatment_manager=finding.get('treatmentManager', ''),
             type=finding.get('findingType', '')
         )
-
     return Promise.resolve([findings.get(finding_id, [])
                             for finding_id in finding_ids])
 

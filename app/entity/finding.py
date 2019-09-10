@@ -32,6 +32,7 @@ from app.utils import findings as finding_utils
 class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     """Finding Class."""
 
+    acceptance_date = String()
     actor = String()
     affected_systems = String()
     age = Int()
@@ -403,6 +404,11 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.analyst
 
+    def resolve_acceptance_date(self, info):
+        """ Resolve acceptance_date attribute """
+        del info
+        return self.acceptance_date
+
 
 class UpdateEvidence(Mutation):
     """ Update evidence files """
@@ -712,6 +718,7 @@ class UpdateDescription(Mutation):
 class UpdateTreatment(Mutation):
     """ Update treatment of a finding """
     class Arguments(object):
+        acceptanceDate = String()
         bts_url = String()
         finding_id = String(required=True)
         treatment = String(required=True)

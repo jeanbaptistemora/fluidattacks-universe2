@@ -94,11 +94,10 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
               component={dateField}
               currentValue={props.dataset.acceptanceDate}
               label={translate.t("search_findings.tab_description.acceptance_date")}
-              name="acceptationDate"
+              name="acceptanceDate"
               renderAsEditable={props.isEditing}
-              type="text"
-              validate={[required]}
               visible={false}
+              type="date"
             />
           </Col>
         </Row>
