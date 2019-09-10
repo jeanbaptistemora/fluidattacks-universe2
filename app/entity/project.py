@@ -119,7 +119,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         finding_ids = project_domain.list_findings(self.name)
         vulns_loader = info.context.loaders['vulnerability']
 
-        self.open_vulnerabilities = vulns_loader.load_many(finding_ids).then(
+        self.closed_vulnerabilities = vulns_loader.load_many(finding_ids).then(
             lambda findings: sum([
                 len([vuln for vuln in vulns if vuln.current_state == 'closed'])
                 for vulns in findings
