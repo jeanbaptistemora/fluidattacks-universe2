@@ -160,7 +160,7 @@ const enTranslations: dict = {
       tab_title: "Comments",
     },
     tab_description: {
-      acceptance_date: "Accept until (YYYY/MM/DD)",
+      acceptance_date: "Accept until",
       action: "Action",
       actor: {
         any_customer: "Any customer of the organization",
@@ -204,7 +204,6 @@ const enTranslations: dict = {
       compromised_records: "Compromised records",
       customer_project_code: "Customer's project code",
       customer_project_name: "Customer's project name",
-      date_placeholder: "Click to select a date",
       description: "Description",
       download_vulnerabilities: "Download Vulnerabilities",
       editVuln: "Edit vulnerabilites",
