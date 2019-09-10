@@ -22,7 +22,6 @@ import tlslite
 from fluidasserts import DAST, LOW, MEDIUM, HIGH, OPEN, CLOSED, UNKNOWN, Unit
 from fluidasserts import show_close
 from fluidasserts import show_open
-from fluidasserts import show_unknown
 from fluidasserts.helper import http
 from fluidasserts.helper.ssl import connect
 from fluidasserts.utils.decorators import track, level, notify, api, unknown_if
@@ -536,10 +535,9 @@ def has_beast(site: str, port: int = PORT) -> tuple:
         open_if=is_vulnerable)
 
 
-@notify
-@level('high')
-@track
-def has_heartbleed(site: str, port: int = PORT) -> bool:
+@api(risk=HIGH, kind=DAST)
+@unknown_if(socket.error, )
+def has_heartbleed(site: str, port: int = PORT) -> tuple:
     """
     Check if site allows Heartbleed attack.
 
@@ -548,41 +546,46 @@ def has_heartbleed(site: str, port: int = PORT) -> bool:
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if we are able to make the server return a response
+                with a length longer than sent (a.k.a. Heartbleed Attack).
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    # pylint: disable=too-many-nested-blocks
-    try:
-        versions = ['TLSv1.2', 'TLSv1.1', 'TLSv1.0', 'SSLv3']
-        for vers in versions:
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.settimeout(5)
-            sock.connect((site, port))
-            sock.send(bytes(_build_client_hello(vers)))
-            typ, _, _ = _rcv_tls_record(sock)
-            if not typ:
-                continue
-            if typ == 22:
-                # Received Server Hello
-                sock.send(bytes(_build_heartbeat(vers)))
-                while True:
-                    typ, _, pay = _rcv_tls_record(sock)
-                    if typ == 21 or typ is None:
-                        break
-                    if typ == 24:
-                        # Received hearbeat response
-                        if len(pay) > 3:
-                            # Length is higher than sent
-                            show_open('Site vulnerable to Heartbleed \
-attack ({})'.format(vers), details=dict(site=site, port=port))
-                            return True
-            sock.close()
-        show_close("Site doesn't support SSL/TLS heartbeats",
-                   details=dict(site=site, port=port))
-        return False
-    except socket.error as exc:
-        show_unknown('Could not connect',
-                     details=dict(site=site, port=port, error=str(exc)))
-        result = False
-    return result
+    is_vulnerable: bool = False
+    should_continue: bool = True
+    versions = ['TLSv1.2', 'TLSv1.1', 'TLSv1.0', 'SSLv3']
+    for vers in versions:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(5)
+        sock.connect((site, port))
+        sock.send(bytes(_build_client_hello(vers)))
+        typ, _, _ = _rcv_tls_record(sock)
+        if not typ:
+            continue
+        if typ == 22:
+            # Received Server Hello
+            sock.send(bytes(_build_heartbeat(vers)))
+            while should_continue:
+                typ, _, pay = _rcv_tls_record(sock)
+                if typ == 21 or typ is None:
+                    break
+                if typ == 24:
+                    # Received hearbeat response
+                    if len(pay) > 3:
+                        # Length is higher than sent
+                        is_vulnerable = True
+                        should_continue = False
+        sock.close()
+        if not should_continue:
+            break
+
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open=f'Site is vulnerable to Heartbleed attack ({vers})',
+        msg_closed='Site does not support SSL/TLS heartbeats',
+        open_if=is_vulnerable)
 
 
 @notify
