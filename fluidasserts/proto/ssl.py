@@ -19,7 +19,7 @@ from contextlib import suppress
 import tlslite
 
 # local imports
-from fluidasserts import DAST, LOW, MEDIUM, OPEN, CLOSED, Unit
+from fluidasserts import DAST, LOW, MEDIUM, OPEN, CLOSED, UNKNOWN, Unit
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
@@ -677,55 +677,55 @@ def not_tls13_enabled(site: str, port: int = PORT) -> tuple:
         open_if=not does_support_tls_1_3)
 
 
-@notify
-@level('medium')
-@track
-def allows_insecure_downgrade(site: str, port: int = PORT) -> bool:
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(tlslite.errors.TLSLocalAlert, tlslite.errors.TLSRemoteAlert)
+def allows_insecure_downgrade(site: str, port: int = PORT) -> tuple:
     """
     Check if site has support for TLS_FALLBACK_SCSV extension.
 
+    See: `TLS Fallback Signaling Cipher Suite Value (SCSV) for Preventing
+    Protocol Downgrade Attacks
+    <https://tools.ietf.org/html/draft-bmoeller-tls-downgrade-scsv-02>`_.
+
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if server has not support for **TLS_FALLBACK_SCSV**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    supported = []
+    supported: List[int] = []
     for version in reversed(range(0, 5)):
-        try:
+        with suppress(OSError, tlslite.errors.TLSRemoteAlert):
             with connect(site, port=port, max_version=(3, version)):
                 supported.append(version)
-        except (tlslite.errors.TLSRemoteAlert, OSError):
-            continue
-        except tlslite.errors.TLSLocalAlert:
-            show_unknown('Port does not support SSL/TLS',
-                         details=dict(site=site, port=port))
-            return False
+
     if not supported:
-        show_unknown('Could not connect to server',
-                     details=dict(site=site, port=port))
-        return False
+        return UNKNOWN, 'Could not connect to server via SSL'
 
-    result = True
+    is_vulnerable: bool = False
+    msg_open: str = 'Site does not supports TLS_FALLBACK_SCSV'
+    msg_closed: str = 'Site supports TLS_FALLBACK_SCSV'
 
-    if len(supported) > 1 and any(x in (0, 1, 2) for x in supported):
+    if any(x in (0, 1, 2) for x in supported):
         try:
-            with connect(site, port=port, max_version=(3, min(supported)),
-                         scsv=True):
-                show_open('Site does not support TLS_FALLBACK_SCSV',
-                          details=dict(site=site, port=port))
-                result = True
+            with connect(site, port=port,
+                         max_version=(3, min(supported)), scsv=True):
+                is_vulnerable = True
         except tlslite.errors.TLSRemoteAlert as exc:
-            if str(exc) in ('inappropriate_fallback', 'close_notify'):
-                show_close('Site supports TLS_FALLBACK_SCSV',
-                           details=dict(site=site, port=port))
-            else:
-                show_unknown('Could not connect to server',
-                             details=dict(site=site, port=port,
-                                          error=str(exc).replace(':', ',')))
-            result = False
+            denied_downgrade: Tuple[str, str] = ('inappropriate_fallback',
+                                                 'close_notify')
+            if not any(x in str(exc) for x in denied_downgrade):
+                raise exc
     else:
-        show_close('Host does not support multiple TLS versions',
-                   details=dict(site=site, port=port))
-        result = False
-    return result
+        msg_closed = 'Host does not support multiple TLS versions'
+
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        open_if=is_vulnerable)
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -790,59 +790,54 @@ def has_sweet32(site: str, port: int = PORT) -> tuple:
         open_if=is_vulnerable)
 
 
-@notify
-@level('medium')
-@track
-def has_tls13_downgrade_vuln(site: str, port: int = PORT) -> bool:
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(socket.error, tlslite.errors.TLSLocalAlert)
+def has_tls13_downgrade_vuln(site: str, port: int = PORT) -> tuple:
     """
     Check if server is prone to TLSv1.3 downgrade attack.
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if server supports **Triple DES ciphers**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    supported = []
+    supported: List[int] = []
     for version in reversed(range(0, 5)):
-        try:
+        with suppress(OSError,
+                      tlslite.errors.TLSLocalAlert,
+                      tlslite.errors.TLSRemoteAlert):
             with connect(site, port=port,
                          min_version=(3, version),
                          max_version=(3, version)):
                 supported.append(version)
-        except (tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSLocalAlert,
-                OSError):
-            continue
+
     if not supported:
-        show_unknown('Could not connect to server',
-                     details=dict(site=site, port=port))
-        return False
+        return UNKNOWN, 'Could not connect to server'
 
     if 4 not in supported:
-        show_unknown('Site does not support TLSv1.3',
-                     details=dict(site=site, port=port))
-        return False
-    if len(supported) > 1:
-        try:
-            with connect(site, port=port, min_version=(3, min(supported)),
-                         max_version=(3, min(supported)),
-                         key_exchange_names=['rsa']):
-                show_open('Site supports TLSv1.3 and older versions and \
-supports RSA keys without (EC)DH(E) cipher suites',
-                          details=dict(site=site, port=port,
-                                       supported=supported))
-                result = True
-        except (tlslite.errors.TLSRemoteAlert,
-                tlslite.errors.TLSAbruptCloseError):
-            show_close('Site supports TLSv1.3 older versions but \
-RSA keys require (EC)DH(E) cipher suites',
-                       details=dict(site=site, port=port,
-                                    supported=supported))
-            result = False
-        except (tlslite.errors.TLSLocalAlert, socket.error) as exc:
-            show_unknown('Could not connect',
-                         details=dict(site=site, port=port, error=str(exc)))
-            result = False
-    else:
-        show_close('Site not vulnerable to TLSv1.3 downgrade attack',
-                   details=dict(site=site, port=port,
-                                supported=supported))
-        result = False
-    return result
+        return UNKNOWN, 'Site does not support TLSv1.3'
+
+    is_vulnerable: bool = False
+    msg_open: str = ('Site supports TLSv1.3 and older versions and supports '
+                     'RSA keys without (EC)DH(E) cipher suites')
+    msg_closed: str = 'Site not vulnerable to TLSv1.3 downgrade attack'
+
+    try:
+        with connect(site, port=port,
+                     min_version=(3, min(supported)),
+                     max_version=(3, min(supported)),
+                     key_exchange_names=['rsa']):
+            is_vulnerable = True
+    except (tlslite.errors.TLSRemoteAlert,
+            tlslite.errors.TLSAbruptCloseError):
+        msg_closed = ('Site supports TLSv1.3 older versions but RSA keys '
+                      'require (EC)DH(E) cipher suites')
+
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        open_if=is_vulnerable)
