@@ -371,10 +371,9 @@ def has_poodle_tls(site: str, port: int = PORT) -> tuple:
         open_if=is_vulnerable)
 
 
-@notify
-@level('high')
-@track
-def has_poodle_sslv3(site: str, port: int = PORT) -> bool:
+@api(risk=HIGH, kind=DAST)
+@unknown_if(socket.error, tlslite.errors.TLSLocalAlert)
+def has_poodle_sslv3(site: str, port: int = PORT) -> tuple:
     """
     Check if POODLE SSLv3 is present.
 
@@ -383,28 +382,27 @@ def has_poodle_sslv3(site: str, port: int = PORT) -> bool:
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if the server is vulnerable to POODLE TLS Attack.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    result = False
-    try:
-        with connect(site, port=port, min_version=(3, 0),
-                     cipher_names=["aes256", "aes128", "3des"],
-                     max_version=(3, 0), check='POODLE'):
-            show_open('Site vulnerable to POODLE SSLv3 attack',
-                      details=dict(site=site, port=port))
-            return True
-    except (tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSAbruptCloseError):
-        show_close('Site not vulnerable to POODLE SSLv3 attack',
-                   details=dict(site=site, port=port))
-        result = False
-    except (tlslite.errors.TLSLocalAlert):
-        show_unknown('Port doesn\'t support SSL',
-                     details=dict(site=site, port=port))
-        result = False
-    except socket.error as exc:
-        result = False
-        show_unknown('Could not connect',
-                     details=dict(site=site, port=port, error=str(exc)))
-    return result
+    is_vulnerable: bool = False
+    with suppress(tlslite.errors.TLSRemoteAlert,
+                  tlslite.errors.TLSAbruptCloseError):
+        with connect(site, port=port,
+                     check='POODLE',
+                     min_version=(3, 0),
+                     max_version=(3, 0),
+                     cipher_names=["aes256", "aes128", "3des"]):
+            is_vulnerable = True
+
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open='Site is vulnerable to POODLE SSL v3 attack',
+        msg_closed='Site is not vulnerable to POODLE SSL v3 attack',
+        open_if=is_vulnerable)
 
 
 @api(risk=LOW, kind=DAST)
