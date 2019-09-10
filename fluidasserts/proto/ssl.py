@@ -447,35 +447,32 @@ def has_breach(site: str, port: int = PORT) -> tuple:
     return session._get_tuple_result()
 
 
-@notify
-@level('high')
-@track
-def allows_anon_ciphers(site: str, port: int = PORT) -> bool:
+@api(risk=HIGH, kind=DAST)
+@unknown_if(socket.error, tlslite.errors.TLSLocalAlert)
+def allows_anon_ciphers(site: str, port: int = PORT) -> tuple:
     """
     Check if site accepts anonymous cipher suites.
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if the we were able to connect via **SSL** using an
+                anonymous cipher suite.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    result = True
-    try:
+    is_vulnerable: bool = False
+    with suppress(tlslite.errors.TLSRemoteAlert,
+                  tlslite.errors.TLSAbruptCloseError):
         with connect(site, port=port, anon=True):
-            show_open('Site allows anonymous cipher suites',
-                      details=dict(site=site, port=port))
-            result = True
-    except (tlslite.errors.TLSRemoteAlert, tlslite.errors.TLSAbruptCloseError):
-        show_close('Site not allows anonymous cipher suites',
-                   details=dict(site=site, port=port))
-        result = False
-    except (tlslite.errors.TLSLocalAlert):
-        show_unknown('Port doesn\'t support SSL',
-                     details=dict(site=site, port=port))
-        result = False
-    except socket.error as exc:
-        result = False
-        show_unknown('Could not connect',
-                     details=dict(site=site, port=port, error=str(exc)))
-    return result
+            is_vulnerable = True
+
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open='Site allows anonymous cipher suites',
+        msg_closed='Site does not allow anonymous cipher suites',
+        open_if=is_vulnerable)
 
 
 @notify
