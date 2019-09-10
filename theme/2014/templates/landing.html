@@ -112,8 +112,10 @@
             onclick="window.location='{{ SITEURL }}/{{ gettext('Footer-link-1.6') }}'">
             Get a Demo
     </button>
+    </div>
+    <div class="fl w-50-l w-100-ns pb4">
     <a href="{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/asserts/">
-      <span class="c-fluid-bk db montsy b f3 pt4">
+      <span class="c-fluid-bk db montsy b f3">
             {{ gettext('service-title-2') }}
       </span>
     </a><br>
@@ -122,11 +124,6 @@
             onclick="window.location='{{ SITEURL }}/{{ gettext('Footer-cat-2') }}/asserts'">
             {{ gettext('btn-text-1') }}
     </button>
-    </div>
-    <div class="fl w-50 dn dib-l">
-      <img class="w-80-ns"
-           src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/products.png"
-           alt="{{ gettext('Product-img-alt-1') }}">
     </div>
   </div>
   <!-- Benefits -->
@@ -188,7 +185,7 @@
         <span>
           <img class="ma3 h-auto"
                src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/{{ customer|lower|replace (' ','-') }}-logo.png"
-               alt="{{ customer}} Logo">
+               alt="{{ customer }} Logo">
         </span>
         {% endfor %}
       </p>
