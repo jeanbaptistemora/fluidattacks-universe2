@@ -15,13 +15,7 @@ from app.dal import integrates_dal
 from app.decorators import (
     get_entity_cache, require_finding_access, require_login, require_role
 )
-from app.domain.finding import (
-    add_comment, add_file_attribute, approve_draft, cast_tracking,
-    delete_finding, get_tracking_dict, get_unique_dict,
-    group_by_state, list_comments, reject_draft, remove_repeated,
-    request_verification, save_evidence, save_severity, update_description,
-    update_treatment, verify_finding
-)
+import app.domain.finding as finding_domain
 from app.domain.user import get_role
 from app.dto.finding import FindingDTO, get_project_name
 from app.entity.vulnerability import Vulnerability
@@ -143,12 +137,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         if self.release_date:
             vulns_loader = info.context.loaders['vulnerability']
             vulns = vulns_loader.load(self.id).then(lambda vulns: vulns).get()
-            vuln_casted = remove_repeated(vulns)
-            unique_dict = get_unique_dict(vuln_casted)
-            tracking = get_tracking_dict(unique_dict)
-            tracking_grouped = group_by_state(tracking)
-            order_tracking = sorted(tracking_grouped.items())
-            self.tracking = cast_tracking(order_tracking)
+            self.tracking = finding_domain.get_tracking_vulnerabilities(vulns)
         else:
             self.tracking = []
         return self.tracking
@@ -197,7 +186,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """ Resolve comments attribute """
         del info
 
-        self.comments = list_comments(
+        self.comments = finding_domain.list_comments(
             comment_type='comment,verification',
             finding_id=self.id
         )
@@ -209,7 +198,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """ Resolve observations attribute """
         del info
 
-        self.observations = list_comments(
+        self.observations = finding_domain.list_comments(
             comment_type='observation',
             finding_id=self.id
         )
@@ -454,8 +443,10 @@ class UpdateEvidence(Mutation):
                     ['exploit', field_num.EXPLOIT],
                     ['fileRecords', field_num.REG_FILE]
                 ]
-                success = save_evidence(fieldname[int(evidence_id)],
-                                        finding_id, project_name, uploaded_file)
+                success = finding_domain.save_evidence(fieldname[int(evidence_id)],
+                                                       finding_id,
+                                                       project_name,
+                                                       uploaded_file)
         else:
             util.cloudwatch_log(info.context,
                                 'Security: Attempted to upload evidence file with a \
@@ -492,7 +483,7 @@ class UpdateEvidenceDescription(Mutation):
                 'evidence5_description': 'evidence_route_4',
                 'evidence6_description': 'evidence_route_5',
             }
-            success = add_file_attribute(
+            success = finding_domain.add_file_attribute(
                 finding_id,
                 description_parse[field],
                 'description',
@@ -551,7 +542,7 @@ class UpdateSeverity(Mutation):
         finding_id = parameters.get('finding_id')
         project = integrates_dal.get_finding_project(finding_id)
         success = False
-        success = save_severity(parameters.get('data'))
+        success = finding_domain.save_severity(parameters.get('data'))
         findings_loader = info.context.loaders['finding']
         ret = UpdateSeverity(
             finding=findings_loader.load(finding_id), success=success)
@@ -599,7 +590,7 @@ class AddFindingComment(Mutation):
                                      user_data['last_name']]),
                 'parent': int(parameters.get('parent')),
             }
-            success = add_comment(
+            success = finding_domain.add_comment(
                 user_email=user_email,
                 comment_data=comment_data,
                 finding_id=parameters.get('finding_id'),
@@ -629,7 +620,7 @@ class VerifyFinding(Mutation):
     @require_finding_access
     def mutate(self, info, **parameters):
         user_email = util.get_jwt_content(info.context)['user_email']
-        success = verify_finding(
+        success = finding_domain.verify_finding(
             finding_id=parameters.get('finding_id'),
             user_email=user_email
         )
@@ -652,7 +643,7 @@ class RequestVerification(Mutation):
     @require_finding_access
     def mutate(self, info, finding_id, justification):
         user_info = util.get_jwt_content(info.context)
-        success = request_verification(
+        success = finding_domain.request_verification(
             finding_id=finding_id,
             user_email=user_info['user_email'],
             user_fullname=str.join(' ',
@@ -699,7 +690,7 @@ class UpdateDescription(Mutation):
     @require_role(['analyst', 'admin'])
     @require_finding_access
     def mutate(self, info, finding_id, **parameters):
-        success = update_description(finding_id, parameters)
+        success = finding_domain.update_description(finding_id, parameters)
         if success:
             util.cloudwatch_log(info.context, 'Security: Updated description in\
                 finding {id} succesfully'.format(id=finding_id))
@@ -751,8 +742,9 @@ class UpdateTreatment(Mutation):
                 raise GraphQLError('Invalid treatment manager')
         elif parameters['treatment'] == 'ACCEPTED':
             parameters['treatment_manager'] = user_data['user_email']
-        success = update_treatment(finding_id, parameters,
-                                   user_data['user_email'])
+        success = finding_domain.update_treatment(finding_id,
+                                                  parameters,
+                                                  user_data['user_email'])
         if success:
             util.cloudwatch_log(info.context, 'Security: Updated treatment in\
                 finding {id} succesfully'.format(id=finding_id))
@@ -779,7 +771,10 @@ class DeleteDraft(Mutation):
         reviewer_email = util.get_jwt_content(info.context)['user_email']
         try:
             project_name = get_project_name(finding_id)
-            success = reject_draft(finding_id, reviewer_email, project_name, info.context)
+            success = finding_domain.reject_draft(finding_id,
+                                                  reviewer_email,
+                                                  project_name,
+                                                  info.context)
             util.invalidate_cache(finding_id)
             util.invalidate_cache(project_name)
         except KeyError:
@@ -805,7 +800,10 @@ class DeleteFinding(Mutation):
     def mutate(self, info, finding_id, justification):
         try:
             project_name = get_project_name(finding_id)
-            success = delete_finding(finding_id, project_name, justification, info.context)
+            success = finding_domain.delete_finding(finding_id,
+                                                    project_name,
+                                                    justification,
+                                                    info.context)
             util.invalidate_cache(finding_id)
             util.invalidate_cache(project_name)
         except KeyError:
@@ -831,7 +829,7 @@ class ApproveDraft(Mutation):
         try:
             project_name = get_project_name(draft_id)
             success, release_date = \
-                approve_draft(draft_id, project_name, info.context)
+                finding_domain.approve_draft(draft_id, project_name, info.context)
             util.invalidate_cache(draft_id)
             util.invalidate_cache(project_name)
         except KeyError:

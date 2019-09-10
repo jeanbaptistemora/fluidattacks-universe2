@@ -116,10 +116,10 @@ def remove_repeated(vulnerabilities):
     """Remove vulnerabilities that changes in the same day."""
     vuln_casted = []
     for vuln in vulnerabilities:
-        for state in vuln.historic_state:
+        for state in vuln['historic_state']:
             vuln_without_repeated = {}
             format_date = state.get('date').split(' ')[0]
-            vuln_without_repeated[format_date] = {vuln.id: state.get('state')}
+            vuln_without_repeated[format_date] = {vuln['uuid']: state.get('state')}
             vuln_casted.append(vuln_without_repeated)
     return vuln_casted
 
@@ -320,18 +320,16 @@ def get_age_finding(act_finding):
     return age
 
 
-def get_tracking_vulnerabilities(act_finding, vulnerabilities):
+def get_tracking_vulnerabilities(vulnerabilities):
     """get tracking vulnerabilities dictionary"""
     tracking = []
-    release_date = act_finding['releaseDate']
-    if release_date:
-        vuln_casted = remove_repeated(vulnerabilities)
-        unique_dict = get_unique_dict(vuln_casted)
-        tracking = get_tracking_dict(unique_dict)
-        tracking_grouped = group_by_state(tracking)
-        order_tracking = sorted(tracking_grouped.items())
-        tracking_casted = cast_tracking(order_tracking)
-        tracking = tracking_casted
+    vuln_casted = remove_repeated(vulnerabilities)
+    unique_dict = get_unique_dict(vuln_casted)
+    tracking = get_tracking_dict(unique_dict)
+    tracking_grouped = group_by_state(tracking)
+    order_tracking = sorted(tracking_grouped.items())
+    tracking_casted = cast_tracking(order_tracking)
+    tracking = tracking_casted
     return tracking
 
 

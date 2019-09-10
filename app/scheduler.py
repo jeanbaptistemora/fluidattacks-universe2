@@ -241,15 +241,15 @@ def get_new_vulnerabilities():
     rollbar.report_message(
         'Warning: Function to get new vulnerabilities is running', 'warning')
     projects = get_active_projects()
+    fin_attrs = 'finding_id, treatment, project_name, finding'
     for project in projects:
-        project = project.lower()
         context = {'updated_findings': list(), 'no_treatment_findings': list()}
         try:
-            finding_requests = integrates_dal.get_findings_released_dynamo(project)
+            finding_requests = integrates_dal.get_findings_released_dynamo(project, fin_attrs)
             for act_finding in finding_requests:
                 finding_url = get_finding_url(act_finding)
                 msj_finding_pending = \
-                    create_msj_finding_pending(act_finding, context)
+                    create_msj_finding_pending(act_finding)
                 delta = calculate_vulnerabilities(act_finding)
                 finding_text = format_vulnerabilities(delta, act_finding)
                 if msj_finding_pending:
@@ -267,6 +267,7 @@ def get_new_vulnerabilities():
                 'Error: An error ocurred getting new vulnerabilities '
                 'notification email',
                 'error')
+            raise
         if context['updated_findings']:
             mail_to = prepare_mail_recipients(project)
             send_mail_new_vulnerabilities(mail_to, context)
@@ -281,7 +282,7 @@ def prepare_mail_recipients(project):
 
 def calculate_vulnerabilities(act_finding):
     vulns = integrates_dal.get_vulnerabilities_dynamo(act_finding['finding_id'])
-    all_tracking = get_tracking_vulnerabilities(act_finding, vulns)
+    all_tracking = get_tracking_vulnerabilities(vulns)
     delta_total = 0
     if len(all_tracking) > 1:
         if (datetime.strptime(all_tracking[-1]['date'], "%Y-%m-%d")) > (datetime.now() -
@@ -318,7 +319,7 @@ def format_vulnerabilities(delta, act_finding):
     return finding_text
 
 
-def create_msj_finding_pending(act_finding, context):
+def create_msj_finding_pending(act_finding):
     """Validate if a finding has treatment."""
     finding_vulns = finding_vulnerabilities(act_finding['finding_id'])
     state = finding_vulns['estado'].lower()
@@ -328,11 +329,6 @@ def create_msj_finding_pending(act_finding, context):
             str(days) + ' day(s)-'
         result = finding_name
     else:
-        message = 'Finding {finding!s} of project {project!s} ' \
-            'has defined treatment' \
-            .format(finding=act_finding['finding_id'],
-                    project=act_finding['project_name'])
-        util.cloudwatch_log(context, message)
         result = ''
     return result
 
