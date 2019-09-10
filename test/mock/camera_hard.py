@@ -3,12 +3,9 @@
 """Camera mocks."""
 
 # standard imports
-import base64
 
 # 3rd party imports
 from flask import Flask
-from flask import request
-from flask import Response
 
 
 # local imports

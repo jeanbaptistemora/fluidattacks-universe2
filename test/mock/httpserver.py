@@ -781,7 +781,6 @@ def host_injection_ok():
 @APP.route('/http/has_mixed_content/open/1', methods=['GET'])
 def http_mixed_content_open_1():
     """Request handler for /http/has_mixed_content/open/1."""
-    url: str = 'https://mathiasbynens.github.io/rel-noopener/malicious.html'
     return Response(f"""
         <html>
             <body>

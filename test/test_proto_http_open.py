@@ -405,7 +405,7 @@ def test_is_header_x_powered_by_present_open():
         '%s/x_powered_by/fail' % (BASE_URL)).is_open()
 
 
-def test_is_header_serever_present_open():
+def test_is_header_server_present_open():
     """Check Server header existence."""
     assert http.is_header_server_present(
         '%s/server/fail' % (BASE_URL)).is_open()

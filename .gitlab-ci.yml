@@ -20,9 +20,12 @@ stages:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
   before_script:
-    - echo '{"auths":{"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'","password":"'"${CI_REGISTRY_PASSWORD}"'"},
-        "'"${HUB_REGISTRY}"'":{"username":"'"${HUB_USER}"'","password":"'"${HUB_PASSWORD}"'"}}}'
-          > /kaniko/.docker/config.json
+    - echo '{"auths":{'
+              '"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'",'
+                                 '"password":"'"${CI_REGISTRY_PASSWORD}"'"},'
+              '"'"${HUB_REGISTRY}"'":{"username":"'"${HUB_USER}"'",'
+                                  '"password":"'"${HUB_PASSWORD}"'"}}}' >
+          /kaniko/.docker/config.json
 
 build:
   stage: build
@@ -137,9 +140,10 @@ danger:
     DANGER_GITLAB_HOST: "gitlab.com"
     DANGER_GITLAB_API_BASE_URL: "https://gitlab.com/api/v4"
   before_script:
-    - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
-      | grep ${CI_COMMIT_SHA}
-      | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
+    - export CI_MERGE_REQUEST_ID=$(
+        git ls-remote -q origin merge-requests\*\head
+        | grep ${CI_COMMIT_SHA}
+        | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
     - npm install --unsafe-perm
     - bundle install
   script:
