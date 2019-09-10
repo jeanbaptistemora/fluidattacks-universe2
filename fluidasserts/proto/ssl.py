@@ -19,7 +19,7 @@ from contextlib import suppress
 import tlslite
 
 # local imports
-from fluidasserts import DAST, LOW, MEDIUM, OPEN, CLOSED, UNKNOWN, Unit
+from fluidasserts import DAST, LOW, MEDIUM, HIGH, OPEN, CLOSED, UNKNOWN, Unit
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
@@ -340,10 +340,9 @@ def is_tlsv11_enabled(site: str, port: int = PORT) -> tuple:
         open_if=is_enabled)
 
 
-@notify
-@level('high')
-@track
-def has_poodle_tls(site: str, port: int = PORT) -> bool:
+@api(risk=HIGH, kind=DAST)
+@unknown_if(socket.error, tlslite.errors.TLSLocalAlert)
+def has_poodle_tls(site: str, port: int = PORT) -> tuple:
     """
     Check if POODLE TLS is present.
 
@@ -352,29 +351,26 @@ def has_poodle_tls(site: str, port: int = PORT) -> bool:
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if the server is vulnerable to POODLE TLS Attack.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    result = False
-    try:
-        with connect(site, port=port, check='POODLE',
+    is_vulnerable: bool = False
+    with suppress(tlslite.errors.TLSRemoteAlert,
+                  tlslite.errors.TLSAbruptCloseError):
+        with connect(site, port=port,
+                     check='POODLE',
                      cipher_names=["aes256", "aes128", "3des"],
                      min_version=(3, 1)):
-            show_open('Site vulnerable to POODLE TLS attack',
-                      details=dict(site=site, port=port))
-            result = True
-    except (tlslite.errors.TLSRemoteAlert,
-            tlslite.errors.TLSAbruptCloseError):
-        show_close('Site not vulnerable to POODLE TLS attack',
-                   details=dict(site=site, port=port))
-        result = False
-    except (tlslite.errors.TLSLocalAlert):
-        show_unknown('Port doesn\'t support SSL',
-                     details=dict(site=site, port=port))
-        result = False
-    except socket.error as exc:
-        result = False
-        show_unknown('Could not connect',
-                     details=dict(site=site, port=port, error=str(exc)))
-    return result
+            is_vulnerable = True
+
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open='Site is vulnerable to POODLE TLS attack',
+        msg_closed='Site is not vulnerable to POODLE TLS attack',
+        open_if=is_vulnerable)
 
 
 @notify
@@ -689,7 +685,7 @@ def allows_insecure_downgrade(site: str, port: int = PORT) -> tuple:
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
-    :returns: - ``OPEN`` if server has not support for **TLS_FALLBACK_SCSV**.
+    :returns: - ``OPEN`` if server does not support for **TLS_FALLBACK_SCSV**.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`

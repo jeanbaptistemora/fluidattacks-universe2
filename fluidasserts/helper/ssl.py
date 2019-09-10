@@ -74,25 +74,28 @@ def connect_legacy(hostname: str, port: int = PORT,
 
 # pylint: disable=too-many-arguments
 @contextmanager
-def connect(hostname, port: int = PORT, check: str = None,
+def connect(hostname,
+            port: int = PORT,
+            check: str = None,
             min_version: Tuple[int, int] = (3, 0),
             max_version: Tuple[int, int] = (3, 4),
             cipher_names: List[str] = None,
             key_exchange_names: List[str] = None,
             anon: bool = False,
-            scsv: bool = False)\
-        -> Generator[tlslite.TLSConnection, None, None]:
+            scsv: bool = False
+            ) -> Generator[tlslite.TLSConnection, None, None]:
     """
     Establish a SSL/TLS connection.
 
     :param hostname: Host name to connect to.
     :param port: Port to connect. Defaults to 443.
-    :param check_poodle_tls: Depending on this, choose padding method.
+    :param check: Depending on this, choose padding method.
     :param min_version: Minimum SSL/TLS version acceptable. (Default TLS 1.0)
     :param max_version: Minimum SSL/TLS version acceptable. (Default TLS 1.2)
     :param cipher_names: List of allowed ciphers.
     :param key_exchange_names: List of exchange names.
     :param anon: Whether to make the handshake anonymously.
+    :param scsv: Whether to use TLS_FALLBACK_SCSV.
     """
     if check == 'POODLE':
         tlslite.recordlayer.RecordLayer.addPadding = _my_add_padding_poodle
@@ -109,6 +112,7 @@ def connect(hostname, port: int = PORT, check: str = None,
     settings.minVersion = min_version
     settings.maxVersion = max_version
     settings.sendFallbackSCSV = scsv
+
     if cipher_names:
         settings.cipherNames = cipher_names
     if key_exchange_names:
@@ -126,5 +130,8 @@ def connect(hostname, port: int = PORT, check: str = None,
             connection.handshakeClientAnonymous(settings=settings)
         else:
             connection.handshakeClientCert(settings=settings)
-    yield connection
-    connection.close()
+
+    try:
+        yield connection
+    finally:
+        connection.close()
