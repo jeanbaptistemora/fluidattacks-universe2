@@ -151,8 +151,9 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         findings_loader = info.context.loaders['finding']
 
         self.max_severity = findings_loader.load_many(finding_ids).then(
-            lambda findings: max([finding.severity_score
-                                  for finding in findings]))
+            lambda findings: max([
+                finding.severity_score for finding in findings])
+            if findings else 0)
 
         return self.max_severity
 

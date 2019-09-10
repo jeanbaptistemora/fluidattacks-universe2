@@ -71,8 +71,13 @@ def verify_csrf(func):
     def verify_and_call(*args, **kwargs):
         request = args[0]
         if request.COOKIES.get(settings.JWT_COOKIE_NAME):
-            return csrf_protect(func)(*args, **kwargs)
-        return func(*args, **kwargs)
+            ret = csrf_protect(func)(*args, **kwargs)
+        else:
+            ret = func(*args, **kwargs)
+
+        if isinstance(ret, Promise):
+            ret = ret.get()
+        return ret
     return verify_and_call
 
 
