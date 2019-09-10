@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-This modulle allows to check SSL vulnerabilities.
+This module allows to check SSL vulnerabilities.
 
 Heartbleed code inspired from original PoC by
 Jared Stafford (jspenguin@jspenguin.org)
@@ -20,16 +20,12 @@ import tlslite
 
 # local imports
 from fluidasserts import DAST, LOW, MEDIUM, HIGH, OPEN, CLOSED, UNKNOWN, Unit
-from fluidasserts import show_close
-from fluidasserts import show_open
 from fluidasserts.helper import http
 from fluidasserts.helper.ssl import connect
-from fluidasserts.utils.decorators import track, level, notify, api, unknown_if
+from fluidasserts.utils.decorators import api, unknown_if
 
 PORT = 443
 TYPRECEIVE = Tuple[Optional[str], Optional[int], Optional[int]]
-
-# pylint: disable=protected-access
 
 
 def _my_send_finished(self, master_secret, cipher_suite=None, next_proto=None,
@@ -261,7 +257,7 @@ def is_sslv3_enabled(site: str, port: int = PORT) -> tuple:
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
-    :returns: - ``OPEN`` if the we are able to stablish a connection using
+    :returns: - ``OPEN`` if we are able to stablish a connection using
                 **SSL v3** to the server.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
@@ -290,7 +286,8 @@ def is_tlsv1_enabled(site: str, port: int = PORT) -> tuple:
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
-    :returns: - ``OPEN`` if **TLS v1** is enabled by the server.
+    :returns: - ``OPEN`` if we are able to connect to the server using
+                **TLS v1**.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
@@ -317,7 +314,8 @@ def is_tlsv11_enabled(site: str, port: int = PORT) -> tuple:
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
-    :returns: - ``OPEN`` if **TLS v1.1** is enabled on site.
+    :returns: - ``OPEN`` if we are able to connect to the server using
+                **TLS v1.1**.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
@@ -381,7 +379,7 @@ def has_poodle_sslv3(site: str, port: int = PORT) -> tuple:
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
-    :returns: - ``OPEN`` if the server is vulnerable to POODLE TLS Attack.
+    :returns: - ``OPEN`` if the server is vulnerable to POODLE SSL v3 Attack.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
@@ -454,7 +452,7 @@ def allows_anon_ciphers(site: str, port: int = PORT) -> tuple:
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
-    :returns: - ``OPEN`` if the we were able to connect via **SSL** using an
+    :returns: - ``OPEN`` if we were able to connect via **SSL** using an
                 anonymous cipher suite.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
@@ -588,20 +586,22 @@ def has_heartbleed(site: str, port: int = PORT) -> tuple:
         open_if=is_vulnerable)
 
 
-@notify
-@level('high')
-@track
-def allows_modified_mac(site: str, port: int = PORT) -> bool:
+@api(risk=HIGH, kind=DAST)
+def allows_modified_mac(site: str, port: int = PORT) -> tuple:
     """
     Check if site allows messages with modified MAC.
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
+    :returns: - ``OPEN`` if the server accepts a socket with a modified MAC.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
+    is_vulnerable: bool = False
     orig_method = \
         copy.deepcopy(tlslite.tlsconnection.TLSConnection._sendFinished)
     tlslite.tlsconnection.TLSConnection._sendFinished = _my_send_finished
-    result = False
     failed_bits = list()
     for mask_bit in range(0, 96):
         mask = bytearray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
@@ -619,20 +619,17 @@ def allows_modified_mac(site: str, port: int = PORT) -> bool:
                 tlslite.errors.TLSLocalAlert, socket.error):
             continue
         else:
-            result = True
             failed_bits.append(mask_bit)
+            is_vulnerable = True
 
     tlslite.tlsconnection.TLSConnection._sendFinished = orig_method
 
-    if result:
-        show_open('Server allowed messages with modified MAC',
-                  details=dict(server=site, port=port,
-                               failed_bits=", ".join([str(x)
-                                                     for x in failed_bits])))
-    else:
-        show_close('Server rejected messages with modified MAC',
-                   details=dict(server=site, port=port))
-    return result
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open='Server allows messages with modified MAC',
+        msg_closed='Server rejects messages with modified MAC',
+        open_if=is_vulnerable)
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -678,7 +675,7 @@ def allows_insecure_downgrade(site: str, port: int = PORT) -> tuple:
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
-    :returns: - ``OPEN`` if server does not support for **TLS_FALLBACK_SCSV**.
+    :returns: - ``OPEN`` if server does not support **TLS_FALLBACK_SCSV**.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
@@ -757,7 +754,7 @@ def has_sweet32(site: str, port: int = PORT) -> tuple:
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
-    :returns: - ``OPEN`` if server supports **Triple DES ciphers**.
+    :returns: - ``OPEN`` if server supports **Triple DES** ciphers.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
@@ -787,7 +784,8 @@ def has_tls13_downgrade_vuln(site: str, port: int = PORT) -> tuple:
 
     :param site: Address to connect to.
     :param port: If necessary, specify port to connect to.
-    :returns: - ``OPEN`` if server supports **Triple DES ciphers**.
+    :returns: - ``OPEN`` if server supports multiple **TLS** versions and
+                supports **RSA** keys without (EC)DH(E) cipher suites.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
