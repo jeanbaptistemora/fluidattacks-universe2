@@ -341,8 +341,14 @@ def print_message(message, args):
 def show_banner(args):
     """Show Asserts banner."""
     enable_win_colors()
-    header = textwrap.dedent(f"""\
-        # Fluid Asserts (v. {fluidasserts.__version__})
+    header = textwrap.dedent(rf"""
+        #    ________      _     __   ___                        __
+        #   / ____/ /_  __(_)___/ /  /   |  _____________  _____/ /______
+        #  / /_  / / / / / / __  /  / /| | / ___/ ___/ _ \/ ___/ __/ ___/
+        # / __/ / / /_/ / / /_/ /  / ___ |(__  |__  )  __/ /  / /_(__  )
+        #/_/   /_/\__,_/_/\__,_/  /_/  |_/____/____/\___/_/   \__/____/
+        #
+        # v. {fluidasserts.__version__}
         #  ___
         # | >>|> fluid
         # |___|  attacks, we hack your software
