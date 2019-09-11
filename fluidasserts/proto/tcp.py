@@ -4,66 +4,75 @@
 
 # standard imports
 import socket
+from contextlib import suppress
 
 # third party imports
 import tlslite
 
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
-from fluidasserts.helper import ssl as ssl_helper
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts import Unit, LOW, MEDIUM, DAST, OPEN, CLOSED
+from fluidasserts.helper import ssl
+from fluidasserts.utils.decorators import api, unknown_if
 
 
-@notify
-@level('low')
-@track
-def is_port_open(ipaddress: str, port: int) -> bool:
+@api(risk=LOW, kind=DAST)
+@unknown_if(OverflowError)
+def is_port_open(ipaddress: str, port: int) -> tuple:
     """
     Check if a given port on an IP address is open.
 
     :param ipaddress: IP address to test.
     :param port: Port to connect to.
+    :returns: - ``OPEN`` if we are able to connect to the given IP Address and
+                port using bare sockets.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
+    msg_open: str = 'Port is open'
+    msg_closed: str = 'Port is closed'
+    is_port_open: bool = False
+
+    with suppress(socket.error):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(3)
         sock.connect((ipaddress, port))
-        show_open('Port is open', details=dict(ip=ipaddress, port=port))
-        return True
-    except socket.error:
-        show_close('Port is close', details=dict(ip=ipaddress, port=port))
-        return False
-    except OverflowError:
-        show_unknown('Bad arguments were given',
-                     details=dict(ip=ipaddress, port=port))
-        return False
+        is_port_open = True
+
+    unit: Unit = Unit(where=f'{ipaddress}@{port}',
+                      specific=[msg_open if is_port_open else msg_closed])
+
+    if is_port_open:
+        return OPEN, msg_open, [unit], []
+    return CLOSED, msg_closed, [], [unit]
 
 
-@notify
-@level('medium')
-@track
-def is_port_insecure(ipaddress: str, port: int) -> bool:
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(socket.timeout, OverflowError, ConnectionRefusedError)
+def is_port_insecure(ipaddress: str, port: int) -> tuple:
     """
     Check if a given port on an IP address is insecure.
 
     :param ipaddress: IP address to test.
     :param port: Port to connect to.
+    :returns: - ``OPEN`` if we are not able to connect to the given IP Address
+                and **port** using **TLS**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        with ssl_helper.connect(ipaddress, port):
-            show_close('Port is secure', details=dict(ip=ipaddress, port=port))
-            return False
-    except (ConnectionRefusedError, TimeoutError, socket.timeout):
-        show_unknown('Could not connect',
-                     details=dict(ip=ipaddress, port=port))
-        return False
-    except (tlslite.errors.TLSIllegalParameterException,
-            tlslite.errors.TLSLocalAlert):
-        show_open('Port is not secure', details=dict(ip=ipaddress, port=port))
-        return True
-    except OverflowError:
-        show_unknown('Bad arguments were given',
-                     details=dict(ip=ipaddress, port=port))
-        return False
+    msg_open: str = 'Port does not support TLS'
+    msg_closed: str = 'Port does support TLS'
+    is_vulnerable: bool = True
+
+    with suppress(tlslite.errors.TLSLocalAlert,
+                  tlslite.errors.TLSIllegalParameterException):
+        with ssl.connect(ipaddress, port):
+            is_vulnerable = False
+
+    unit: Unit = Unit(where=f'{ipaddress}@{port}',
+                      specific=[msg_open if is_vulnerable else msg_closed])
+
+    if is_vulnerable:
+        return OPEN, msg_open, [unit], []
+    return CLOSED, msg_closed, [], [unit]
