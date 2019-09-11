@@ -2,7 +2,9 @@
 
 from datetime import datetime
 
+import pytz
 from boto3.dynamodb.conditions import Attr, Key
+from django.conf import settings
 
 from app.dal import integrates_dal
 from app.dal.finding import TABLE as FINDINGS_TABLE
@@ -56,7 +58,9 @@ def get_active_projects():
 
 def list_findings(project_name):
     key_exp = Key('project_name').eq(project_name)
-    filter_exp = Attr('releaseDate').exists()
+    tzn = pytz.timezone(settings.TIME_ZONE)
+    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    filter_exp = Attr('releaseDate').exists() & Attr('releaseDate').lte(today)
     response = FINDINGS_TABLE.query(
         FilterExpression=filter_exp,
         IndexName='project_findings',
