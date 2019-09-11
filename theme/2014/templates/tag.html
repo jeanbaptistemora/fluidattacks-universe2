@@ -1,8 +1,10 @@
 {% extends "index.html" %}
 
 {% block meta %}
-  <meta name="description" content="{{ gettext('Tag-metadescription-1') }} {{ tag|capitalize }}. {{ gettext('Tag-metadescription-2') }}.">
-  <meta name="keywords" content="{{ gettext('Tag-keywords') }}">
+  <meta name="description"
+        content="{{ gettext('Tag-metadescription-1') }} {{ tag|capitalize }}. {{ gettext('Tag-metadescription-2') }}.">
+  <meta name="keywords"
+        content="{{ gettext('Tag-keywords') }}">
 {% endblock meta %}
 
 {% block title %}
@@ -18,8 +20,10 @@
   {% endif %}
 {% endblock %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/blog/">{% endblock canonical %}
-
+{% block canonical %}
+  <link rel="canonical"
+        href="{{ SITEURL }}/blog/">
+{% endblock canonical %}
 
 {% block breadcrumb %}
   <div class="navcontent-container">
@@ -27,15 +31,21 @@
       <div class="breadcrumb">
         <ul>
           <li>
-            <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
+            <a href="{{ SITEURL }}/">
+              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
+            </a>
             <span>&gt;</span>
           </li>
           <li>
-            <a href="{{ SITEURL }}/blog/">&nbsp;<strong>Blog</strong>&nbsp;</a>
+            <a href="{{ SITEURL }}/blog/">
+              &nbsp;<strong>Blog</strong>&nbsp;
+            </a>
             <span>&gt;</span>
           </li>
           <li>
-            <a href="../">&nbsp;<strong>{{ gettext('Tag-breadcrumb-1') }}</strong>&nbsp;</a>
+            <a href="../">
+              &nbsp;<strong>{{ gettext('Tag-breadcrumb-1') }}</strong>&nbsp;
+            </a>
             <span>&gt;</span>
           </li>
           <li>

@@ -1,13 +1,18 @@
 {% extends "index.html" %}
 
 {% block meta %}
-  <meta name="description" content="{{ gettext('Search-metadescription') }}.">
-  <meta name="keywords" content="{{ gettext('Search-keywords') }}">
+  <meta name="description"
+        content="{{ gettext('Search-metadescription') }}.">
+  <meta name="keywords"
+        content="{{ gettext('Search-keywords') }}">
 {% endblock meta %}
 
 {% block title %}{{ gettext('Search-title') }} | {{ SITENAME }}{% endblock %}
 
-{% block canonical %}<link rel="canonical" href="{{ SITEURL }}/search.html">{% endblock canonical %}
+{% block canonical %}
+  <link rel="canonical"
+        href="{{ SITEURL }}/search.html">
+{% endblock canonical %}
 
 
 {% block breadcrumb %}
@@ -16,7 +21,9 @@
       <div class="breadcrumb">
         <ul>
           <li>
-            <a href="{{ SITEURL }}/"><strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;</a>
+            <a href="{{ SITEURL }}/">
+              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
+            </a>
             <span>&gt;</span>
           </li>
           <li>
