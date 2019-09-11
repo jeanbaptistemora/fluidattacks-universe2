@@ -1,6 +1,3 @@
-$aqua: rgba(0, 255, 255, 1);
-$black: rgba(0, 0, 0, 1);
-$blue: rgba(0, 0, 255, 1);
 $font: 'Source Sans Pro';
 $darkblue: rgba(29, 79, 114, 1);
 $darkgray: rgba(102, 102, 102, 1);
@@ -9,25 +6,14 @@ $fluid-dark-red: rgba(203, 50, 51, 1);
 $fluid-gray: rgba(176, 176, 176, 1);
 $fluid-light-gray: rgba(241, 241, 241, 1);
 $fluid-red: rgba(255, 52, 53, 1);
-$fuchsia: rgba(255, 0, 255, 1);
-$gray: rgba(128, 128, 128, 1);
-$green: rgba(0, 128, 0, 1);
 $lightblue: rgba(0, 133, 161, 1);
 $lightgray: rgba(211, 211, 211, 1);
 $lightergray: rgba(238, 238, 238, 1);
-$lime: rgba(0, 255, 0, 1);
-$maroon: rgba(128, 0, 0, 1);
-$navy: rgba(0, 0, 128, 1);
-$olive: rgba(128, 128, 0, 1);
-$purple: rgba(128, 0, 128, 1);
-$red: rgba(255, 0, 0, 1);
 $shadowgray: rgba(170, 170, 170, 1);
-$silver: rgba(192, 192, 192, 1);
-$teal: rgba(0, 128, 128, 1);
 $textblack: rgba(48, 48, 48, 1);
 $tooltipblack: rgba(68, 68, 68, 1);
 $white: rgba(255, 255, 255, 1);
-$yellow: rgba(255, 255, 0, 1);
+$black: rgba(0, 0, 0, 1);
 
 // Tachyons custom classes:
 
@@ -649,134 +635,6 @@ article {
   p {
     margin-top: 0;
   }
-}
-
-.aqua {
-  color: $aqua;
-}
-
-.black {
-  color: $black;
-}
-
-.blue {
-  color: $blue;
-}
-
-.fuchsia {
-  color: $fuchsia;
-}
-
-.gray {
-  color: $gray;
-}
-
-.green {
-  color: $green;
-}
-
-.lime {
-  color: $lime;
-}
-
-.maroon {
-  color: $maroon;
-}
-
-.navy {
-  color: $navy;
-}
-
-.olive {
-  color: $olive;
-}
-
-.purple {
-  color: $purple;
-}
-
-.red {
-  color: $red;
-}
-
-.silver {
-  color: $silver;
-}
-
-.teal {
-  color: $teal;
-}
-
-.white {
-  color: $white;
-}
-
-.yellow {
-  color: $yellow;
- }
-
-.aqua-background {
-  background: $aqua;
-}
-
-.black-background {
-  background: $black;
-}
-
-.blue-background {
-  background: $blue;
-}
-
-.fuchsia-background {
-  background: $fuchsia;
-}
-
-.gray-background {
-  background: $gray;
-}
-
-.green-background {
-  background: $green;
-}
-
-.lime-background {
-  background: $lime;
-}
-
-.maroon-background {
-  background: $maroon;
-}
-
-.navy-background {
-  background: $navy;
-}
-
-.olive-background {
-  background: $olive;
-}
-
-.purple-background {
-  background: $purple;
-}
-
-.red-background {
-  background: $red;
-}
-
-.silver-background {
-  background: $silver;
-}
-
-.teal-background {
-  background: $teal;
-}
-
-.white-background {
-  background: $white;
-}
-
-.yellow-background {
-  background: $yellow;
 }
 
 .big {
