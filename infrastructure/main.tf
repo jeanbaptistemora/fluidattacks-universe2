@@ -61,6 +61,10 @@ module "eks" {
   vpcId               = var.vpcId
 }
 
+module "new-eks" {
+  source = "./new-eks"
+}
+
 output "vaultKmsKey" {
   value     = module.eks.vaultKmsKey
   sensitive = true
