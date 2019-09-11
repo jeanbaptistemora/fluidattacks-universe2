@@ -20,11 +20,11 @@ provider "template" {
 }
 
 locals {
-  cluster_name = "test-eks-${random_string.suffix.result}"
+  cluster_name = "fluid-cluster-${random_string.suffix.result}"
 }
 
 resource "random_string" "suffix" {
-  length  = 8
+  length  = 5
   special = false
 }
 
@@ -42,7 +42,7 @@ module "fluid-cluster" {
       asg_max_size                  = 1
       tags = [{
         key                 = "Name"
-        value               = "EKS-conventional-worker"
+        value               = "fluid-cluster-conventional-worker"
         propagate_at_launch = true
       }]
     }

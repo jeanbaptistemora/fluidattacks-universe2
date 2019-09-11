@@ -1,5 +1,5 @@
 resource "aws_security_group" "fluid-cluster-conventional-workers" {
-  name_prefix = "worker-group-eks"
+  name_prefix = "fluid-cluster-worker-"
   vpc_id      = module.vpc.vpc_id
 
   ingress {
