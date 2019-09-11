@@ -63,12 +63,12 @@ def artchecker(path, exit_code):
         exit_code = 1
 
     #  Many other repetitive checks:
-    for regex, message in ARTRULES.items():
-        out = os.popen(regex +"  "+ path).read()
+    for check, errmessage in ARTRULES.items():
+        out = os.popen(check +"  "+ path).read()
         if out:
             ph.print_failure("Issue found in "+path+"\n")
             ph.print_failure(out)
-            ph.print_warning(message+"\n\n")
+            ph.print_warning(errmessage+"\n\n")
             exit_code = 1
 
     return exit_code

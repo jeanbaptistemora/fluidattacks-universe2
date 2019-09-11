@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 """
-This file contains a set of rules for web repo content
-and blog articles (Da Rules)
+This file contains a set of rules for web repo content,
+blog articles and overall files rules (Da Rules)
 Author: Oscar Eduardo Prado oprado@fluidattacks.com
 """
 
@@ -113,4 +113,23 @@ ARTRULES = {
     "pcregrep -L  '^:alt:' ":
     "The articles must have the \"alt\" metadata set "
     "for their representative image."
+}
+
+#General Checks
+GENCHECKS = {
+    # Check there are not any articles with the .asc extension
+    "find content -iname '*.asc' | grep -E './.*'":
+    "Extension \".asc\" is no longer supported. ",
+
+    # Check that names do not have underscore
+    "find content -iname '*_*' | grep -E './.*'":
+    "Use hyphen '-' instead of underscore '_' for filenames. ",
+
+    # Check no uppercase characters are used in the filenames
+    "find content | grep -E '.*[A-Z].*'":
+    "Filenames must always be lowercase.",
+
+    #Check that there are no spaces in filenames
+    "find content -iname '* *' | grep -E './.*'":
+    "Filenames must not have spaces in them, use hyphen \"-\" instead. "
 }

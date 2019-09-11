@@ -78,7 +78,7 @@ def rulechecker(path, exit_code):
         ph.print_warning("Documents must be wrapped at column 80. \n\n")
         exit_code = 1
 
-    #  Many other repetitive checks:
+    #  Many other repetitive checks from the dictionary:
     for regex, message in CONTENTRULES.items():
         out = os.popen(regex +"  "+ path).read()
         if out:
