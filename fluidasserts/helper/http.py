@@ -315,13 +315,16 @@ class HTTPSession():
             text_to_get = result_tag[field]
         return text_to_get
 
-    def get_fingerprint(self) -> dict:
+    def get_fingerprint(self) -> Optional[dict]:
         """
         Get HTTP fingerprint.
 
         :return: A dict containing the SHA and banner of the host,
                  as per :meth:`Service.get_fingerprint()`.
         """
+        if not self.response:
+            return None
+
         dynamic_headers = (
             'Date', 'Set-Cookie', 'Last-Modified', 'ETag'
             'x-amz-id-2', 'x-amz-request-id',

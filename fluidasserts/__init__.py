@@ -24,6 +24,13 @@ from typing import Callable, Dict, List, Any
 from pkg_resources import get_distribution, DistributionNotFound
 import oyaml as yaml
 
+# Objects that are not standard YAML Nodes will be represented by its type
+from yaml.dumper import SafeDumper
+from yaml.representer import SafeRepresenter as SafeRepres
+
+yaml.add_multi_representer(
+    object, lambda _, x: SafeRepres().represent_str(str(type(x))), SafeDumper)
+
 # local imports
 # none
 
