@@ -136,7 +136,7 @@ def format_data(finding):
               'severityScope', 'userInteraction']
     }
     finding['severity'] = {
-        field: float(finding[field])
+        field: float(finding.get(field, 0))
         for field in cvss_fields[finding['cvssVersion']]
     }
     base_score = cvss.calculate_cvss_basescore(

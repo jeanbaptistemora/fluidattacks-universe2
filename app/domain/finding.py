@@ -1,4 +1,5 @@
 from __future__ import absolute_import, division
+import random
 import sys
 import threading
 from datetime import datetime, timedelta
@@ -807,3 +808,11 @@ def save_evidence(evidence_field, finding_id, project_name, uploaded_file):
         save_file_url(finding_id, evidence_field[0], file_name)
 
     return success
+
+
+def create_draft(analyst_email, project_name, title):
+    last_fs_id = 540000000
+    finding_id = str(random.randint(last_fs_id, 1000000000))
+    project_name = project_name.lower()
+
+    return finding_dal.create(analyst_email, finding_id, project_name, title)

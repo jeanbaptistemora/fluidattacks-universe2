@@ -24,6 +24,30 @@ DYNAMODB_RESOURCE = boto3.resource(
 TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 
 
+def create(analyst_email, finding_id, project_name, title):
+    success = False
+    try:
+        tzn = pytz.timezone(settings.TIME_ZONE)
+        today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+        response = TABLE.put_item(
+            Item={
+                'analyst': analyst_email,
+                'cvss_version': '3',
+                'exploitability': 0,
+                'files': [],
+                'finding': title,
+                'finding_id': finding_id,
+                'project_name': project_name,
+                'report_date': today,
+                'report_level': 'GENERAL'
+            })
+        success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError as ex:
+        rollbar.report_message('Error: Couldn\'nt create new draft',
+                               'error', extra_data=ex, payload_data=locals())
+    return success
+
+
 def get_finding(finding_id):
     """ Retrieve all attributes from a finding """
     response = TABLE.get_item(Key={'finding_id': finding_id})

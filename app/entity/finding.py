@@ -1,6 +1,5 @@
 """ GraphQL Entity for Findings """
 # pylint: disable=no-self-use
-from __future__ import absolute_import
 from time import time
 
 import rollbar
@@ -13,7 +12,8 @@ from graphene.types.generic import GenericScalar
 from app import util
 from app.dal import integrates_dal
 from app.decorators import (
-    get_entity_cache, require_finding_access, require_login, require_role
+    get_entity_cache, require_finding_access, require_login, require_role,
+    require_project_access
 )
 import app.domain.finding as finding_domain
 from app.domain.user import get_role
@@ -841,3 +841,22 @@ class ApproveDraft(Mutation):
             util.cloudwatch_log(info.context, 'Security: Attempted to approve \
                 draft in {project} project'.format(project=project_name))
         return ApproveDraft(release_date, success)
+
+
+class CreateDraft(Mutation):
+    """ Creates a new draft """
+    class Arguments(object):
+        project_name = String(required=True)
+        title = String(required=True)
+    success = Boolean()
+
+    @require_login
+    @require_role(['admin', 'analyst'])
+    @require_project_access
+    def mutate(self, info, project_name, title):
+        analyst_email = util.get_jwt_content(info.context)['user_email']
+        success = finding_domain.create_draft(
+            analyst_email, project_name, title)
+        util.cloudwatch_log(info.context, 'Security: Created draft in '
+                            '{} project succesfully'.format(project_name))
+        return CreateDraft(success=success)

@@ -42,7 +42,7 @@ def _batch_load_fn(finding_ids):
             release_date=finding.get('releaseDate', ''),
             remediated=finding.get('remediated', False),
             report_date=finding.get('reportDate', ''),
-            report_level=finding.get('reportDate', ''),
+            report_level=finding.get('reportLevel', ''),
             requirements=finding.get('requirements', ''),
             risk=finding.get('risk', ''),
             risk_level=finding.get('riskValue', ''),
