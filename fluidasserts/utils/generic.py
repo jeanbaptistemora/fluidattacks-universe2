@@ -199,10 +199,9 @@ class FluidAsserts():
               :lines: 15-22
 
         Just in case you need it,
-        The resultant :class:`fluidasserts.Result` object can be accessed at::
+        the resultant :class:`fluidasserts.Result` object can be accessed at::
 
             creator.result
-
     """
 
     __name__ = 'FluidAsserts'

@@ -383,7 +383,7 @@ def has_not_data_checksums_enabled(dbname: str,
                                    user: str, password: str,
                                    host: str, port: int) -> tuple:
     """
-    Check if the PostgreSQL implementation not data checksums enabled.
+    Check if the PostgreSQL implementation has data checksums disabled.
 
     :param dbname: database name.
     :param user: username with access permissions to the database.
@@ -432,7 +432,7 @@ def has_insecure_password_encryption(dbname: str,
                                      user: str, password: str,
                                      host: str, port: int) -> tuple:
     """
-    Check if PostgreSQL implementation store passwords using weak algorithms.
+    Check if PostgreSQL implementation stores passwords using weak algorithms.
 
     Commands like **CREATE USER** or **ALTER USER** use the algorithm specified
     in the system variable **password_encryption** to store the hashed
