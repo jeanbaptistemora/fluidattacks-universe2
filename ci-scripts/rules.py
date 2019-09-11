@@ -6,6 +6,7 @@ and blog articles (Da Rules)
 Author: Oscar Eduardo Prado oprado@fluidattacks.com
 """
 
+#Rules for all asciidoc files
 CONTENTRULES = {
     # Check use of incorrect names to address the company
     "pcregrep -on 'Fluid(?! Attacks)|Fluidsignal Group|fluidsignal"
@@ -90,6 +91,26 @@ CONTENTRULES = {
     "Captions must not contain \"Image #\", \"Figure #\" or \"Table #\".\n\n",
 
     # Check if first source code has title
-    "pcregrep --color -ML '^\\..*\n\\[source' ":
+    "pcregrep -ML '^\\..*\n\\[source'":
     "The first code block of an article must have a title. "
+}
+
+#Rules for Blog articles
+ARTRULES = {
+    #Check that every article in blog has a valid title lenght
+    "pcregrep -no '(?<=^= ).{37,}'":
+    "The title lenght exceeds 35 characters.",
+
+    #Check that every article in blog has a subtitle defined
+    "pcregrep -L '^:subtitle:'":
+    "The attributte \"subtitle\" must be defined. ",
+
+    #Check that every article in blog has a valid subtitle lenght
+    "pcregrep -o '(?<=^:subtitle: ).{56,}' ":
+    "The subtitle lenght exceeds 55 characters. ",
+
+    # Check that articles have alt description for their featured images
+    "pcregrep -L  '^:alt:' ":
+    "The articles must have the \"alt\" metadata set "
+    "for their representative image."
 }
