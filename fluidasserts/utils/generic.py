@@ -13,15 +13,16 @@ from functools import lru_cache
 
 # 3rd party imports
 import yaml
-from typing import Callable
+from typing import Callable, List, Union
 
 # local imports
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
 from fluidasserts import method_stats_set_owner
+from fluidasserts import Unit, Result, OPEN, CLOSED, UNKNOWN
 from fluidasserts.helper import asynchronous
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts.utils.decorators import track, level, notify, mp_track
 
 # pylint: disable=broad-except
 
@@ -152,3 +153,131 @@ def add_finding(finding: str) -> bool:
     print(message, end='', flush=True, file=sys.stdout)
     print(message, end='', flush=True, file=sys.stderr)
     return True
+
+
+class FluidAsserts():
+    """
+    Generic context manager to assert security assumptions.
+
+    :examples:
+
+        - ``Static Application Security Testing (SAST) check``
+
+          .. literalinclude:: example/creator-sast.py
+              :linenos:
+              :language: python
+
+          Once you run your exploit with Asserts you'll get:
+
+          .. literalinclude:: example/creator-sast.py.out
+              :language: yaml
+              :lines: 15-28
+
+        - ``Dynamic Application Security Testing (DAST) check``
+
+          .. literalinclude:: example/creator-dast.py
+              :linenos:
+              :language: python
+
+          Once you run your exploit with Asserts you'll get:
+
+          .. literalinclude:: example/creator-dast.py.out
+              :language: yaml
+              :lines: 15-28
+
+        - Errors inside the exploit automatically mark the check
+          as ``UNKNOWN``:
+
+          .. literalinclude:: example/creator-errors.py
+              :linenos:
+              :language: python
+
+          Once you run your exploit with Asserts you'll get:
+
+          .. literalinclude:: example/creator-errors.py.out
+              :language: yaml
+              :lines: 15-22
+
+        Just in case you need it,
+        The resultant :class:`fluidasserts.Result` object can be accessed at::
+
+            creator.result
+
+    """
+
+    __name__ = 'FluidAsserts'
+
+    def __init__(self,
+                 *,
+                 risk: str,
+                 kind: str,
+                 message: str):
+        """Initialize the parameters for the context manager."""
+        self._message: str = message
+        self._open_units: List[Unit] = []
+        self._closed_units: List[Unit] = []
+
+        self.result = Result(risk=risk, kind=kind,
+                             func=self, func_args=[], func_kwargs={})
+
+        # Notify that the check is running
+        print(f'  check: {self.result.func_id}', file=sys.stderr, flush=True)
+
+        # Track the function
+        mp_track(self.result.func_id)
+
+    def __enter__(self):
+        """What we are going to do once it gets called from the with block."""
+        return self
+
+    def set_open(self, *, where: str, specific: List[Union[int, str]]):
+        """
+        Add a cardinality with status ``OPEN``.
+
+        :param where: Location of the cardinality, a path for Static (SAST)
+                      checks, a url or host:port for Dynamic (DAST)
+                      checks.
+        :param specific: The vulnerable line for SAST Checks or the input field
+                         for dynamic checks.
+        """
+        self._open_units.append(Unit(where=where, specific=specific))
+
+    def set_closed(self, *, where: str, specific: List[Union[int, str]]):
+        """
+        Add a cardinality with status ``CLOSED``.
+
+        :param where: Location of the cardinality, a path for Static (SAST)
+                      checks, a url or host:port for Dynamic (DAST)
+                      checks.
+        :param specific: The vulnerable line for SAST Checks or the input field
+                         for dynamic checks.
+        """
+        self._closed_units.append(Unit(where=where, specific=specific))
+
+    def __exit__(self, exc_type, exc_value, _) -> bool:
+        """Handle exceptions and print results."""
+        if exc_type:
+            status: str = UNKNOWN
+            message: str = f'An error occurred: {exc_value}'
+        else:
+            status = OPEN if self._open_units else CLOSED
+            message = self._message
+
+        # Append the results to the Result object
+        self.result.set_status(status)
+        self.result.set_message(message)
+        self.result.set_vulns(self._open_units)
+        self.result.set_safes(self._closed_units)
+
+        # Register it to the stats
+        self.result.register_stats()
+
+        # Print
+        self.result.print()
+
+        # If exceptions happened inside the block:
+        #   They will not propagate
+        #   The check will be marked as UNKNOWN
+        return True
+
+    __wrapped__ = __init__

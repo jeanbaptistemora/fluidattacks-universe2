@@ -154,8 +154,7 @@ def get_module_description(package, module):
     package = importlib.import_module(package)
     mod = getattr(package, module)
     docstring = parse_docstring(mod.__doc__)
-    desc = '\n'.join(filter(None, (docstring['short_description'],
-                                   docstring['long_description'])))
+    desc = docstring['short_description']
     desc = re.sub(r'`_.', '', desc)
     desc = re.sub(r'[`<>\\]', '', desc)
     return desc
@@ -410,11 +409,15 @@ class Result():
             result['vulnerabilities'] = [v.as_dict() for v in self.vulns]
         if self.safes and len(self.safes) <= 10:
             result['secure-units'] = [v.as_dict() for v in self.safes]
+        if self.func_params:
+            result['parameters'] = self.func_params
         result.update({
-            'parameters': self.func_params,
             'vulnerable_incidences': self.get_vulns_number(),
             'when': self.when,
-            'elapsed_seconds': self.duration,
+        })
+        if hasattr(self, 'duration'):
+            result['elapsed_seconds'] = self.duration
+        result.update({
             'test_kind': self.kind,
             'risk': self.risk,
         })

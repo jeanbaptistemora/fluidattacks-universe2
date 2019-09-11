@@ -51,6 +51,18 @@ def test_get_sha256():
     assert expected_sha256 == generic.get_sha256(
         'test/static/format/jks/open/1.jks')
 
+
+def test_fluidasserts_open():
+    """Test class fluidasserts."""
+    from fluidasserts import HIGH, SAST
+
+    with generic.FluidAsserts(risk=HIGH, kind=SAST, message='Test') as creator:
+        creator.set_open(where='File.py', specific=[1])
+        creator.set_closed(where='File2.py', specific=[2])
+
+    assert creator.result.is_open()
+
+
 #
 # Closing tests
 #
@@ -62,3 +74,21 @@ def test_check_function_close():
     assert not generic.check_function(is_greater, 'a', 2)
     assert not generic.check_function(is_greater_async, 1, 2)
     assert not generic.check_function(is_greater_async, 'a', 2)
+
+
+def test_fluidasserts_closed():
+    """Test class fluidasserts."""
+    from fluidasserts import LOW, MEDIUM, DAST
+    from fluidasserts.helper.http import HTTPSession
+
+    with generic.FluidAsserts(risk=MEDIUM,
+                              kind=DAST,
+                              message='Test') as creator:
+        creator.set_closed(where='https://fluidattacks.com', specific=['test'])
+
+    assert creator.result.is_closed()
+
+    with generic.FluidAsserts(risk=LOW, kind=DAST, message='Test') as creator:
+        _ = HTTPSession('this `fake url` will raise parameter error')
+
+    assert creator.result.is_unknown()
