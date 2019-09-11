@@ -74,7 +74,8 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     treatment_justification = String()
     treatment_manager = String()
     type = String()
-    vulnerabilities = List(Vulnerability, vuln_type=String(), state=String())
+    vulnerabilities = List(Vulnerability, vuln_type=String(), state=String(),
+                           approval_status=String())
 
     def __str__(self):
         return self.id + '_finding'
@@ -90,17 +91,24 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         return self.project_name
 
     @get_entity_cache
-    def resolve_vulnerabilities(self, info, vuln_type='', state=''):
+    def resolve_vulnerabilities(self, info,
+                                vuln_type='', state='', approval_status=''):
         """Resolve vulnerabilities attribute."""
         vulns_loader = info.context.loaders['vulnerability']
         vuln_filtered = vulns_loader.load(self.id)
 
         if vuln_type:
             vuln_filtered = vuln_filtered.then(lambda vulns: [
-                vuln for vuln in vulns if vuln.vuln_type == vuln_type])
+                vuln for vuln in vulns if vuln.vuln_type == vuln_type and
+                not vuln.current_approval_status])
         if state:
             vuln_filtered = vuln_filtered.then(lambda vulns: [
-                vuln for vuln in vulns if vuln.current_state == state])
+                vuln for vuln in vulns if vuln.current_state == state and
+                not vuln.current_approval_status])
+        if approval_status:
+            vuln_filtered = vuln_filtered.then(lambda vulns: [
+                vuln for vuln in vulns
+                if vuln.current_approval_status == approval_status])
 
         return vuln_filtered
 
@@ -127,7 +135,8 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         vulns = vulns_loader.load(self.id)
 
         self.closed_vulnerabilities = vulns.then(lambda vulns: len([
-            vuln for vuln in vulns if vuln.current_state == 'closed']))
+            vuln for vuln in vulns if vuln.current_state == 'closed' and
+            not vuln.current_approval_status]))
 
         return self.closed_vulnerabilities
 

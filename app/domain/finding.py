@@ -324,7 +324,9 @@ def get_age_finding(act_finding):
 def get_tracking_vulnerabilities(vulnerabilities):
     """get tracking vulnerabilities dictionary"""
     tracking = []
-    vuln_casted = remove_repeated(vulnerabilities)
+    vulns_filtered = [vuln for vuln in vulnerabilities
+                      if not vuln['current_approval_status']]
+    vuln_casted = remove_repeated(vulns_filtered)
     unique_dict = get_unique_dict(vuln_casted)
     tracking = get_tracking_dict(unique_dict)
     tracking_grouped = group_by_state(tracking)
