@@ -19,10 +19,6 @@ provider "template" {
   version = "~> 2.1"
 }
 
-data "aws_availability_zones" "available" {
-  state = "available"
-}
-
 locals {
   cluster_name = "test-eks-${random_string.suffix.result}"
 }
