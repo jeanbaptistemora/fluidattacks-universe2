@@ -13,8 +13,6 @@ from fluidasserts import HIGH, DAST
 from fluidasserts.helper import http
 from fluidasserts.utils.decorators import api, unknown_if
 
-# pylint: disable=protected-access
-
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(http.ConnError)
@@ -33,12 +31,12 @@ def axis_has_rce(url: str) -> tuple:
     url = f'{url}/httpDisabled.shtml?&http_user=%p|%p'
     sess = http.HTTPSession(url)
 
-    sess._set_messages(
+    sess.set_messages(
         source='Camera/HTTPServer',
         msg_open='Axis camera vulnerable to RCE',
         msg_closed='Axis camera not vulnerable to RCE'
     )
 
-    sess._add_unit(is_vulnerable=sess.response.status_code == 500)
+    sess.add_unit(is_vulnerable=sess.response.status_code == 500)
 
-    return sess._get_tuple_result()
+    return sess.get_tuple_result()

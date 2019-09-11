@@ -4,7 +4,6 @@
 
 # pylint: disable=no-member
 # pylint: disable=import-error
-# pylint: disable=protected-access
 # pylint: disable=too-many-arguments
 # pylint: disable=too-many-instance-attributes
 
@@ -140,7 +139,7 @@ class HTTPSession():
         """Context manager clean up function."""
         pass
 
-    def _add_unit(self, *, is_vulnerable: bool, specific: list = None) -> None:
+    def add_unit(self, *, is_vulnerable: bool, specific: list = None) -> None:
         """Append a new :class:`fluidasserts.Unit` object to this session."""
         (self._vulns if is_vulnerable else self._safes).append(
             Unit(where=self.url,
@@ -149,12 +148,12 @@ class HTTPSession():
                      self._msg_open if is_vulnerable else self._msg_closed],
                  fingerprint=self.get_fingerprint()))
 
-    def _set_messages(self, *, source: str, msg_open: str, msg_closed: str):
+    def set_messages(self, *, source: str, msg_open: str, msg_closed: str):
         """Set the open and closed msg attributes for this session."""
         self._source, self._msg_open, self._msg_closed = \
             source, msg_open, msg_closed
 
-    def _get_tuple_result(self) -> Tuple[str, str, List[Unit], List[Unit]]:
+    def get_tuple_result(self) -> Tuple[str, str, List[Unit], List[Unit]]:
         """Return a :class:`typing.Tuple` version of the results object."""
         if self._vulns:
             return OPEN, self._msg_open, self._vulns, self._safes

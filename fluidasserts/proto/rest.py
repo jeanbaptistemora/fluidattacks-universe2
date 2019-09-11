@@ -38,13 +38,13 @@ def has_access(url: str, *args, **kwargs) -> tuple:
     """
     ok_access_list = (200, 202, 204, 301, 302, 307)
     session = http.HTTPSession(url, *args, **kwargs)
-    session._set_messages(
+    session.set_messages(
         source=f'REST/Response',
         msg_open='Endpoint is accessible',
         msg_closed='Endpoint is not accessible')
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=session.response.status_code in ok_access_list)
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=LOW, kind=DAST)
@@ -63,13 +63,13 @@ def accepts_empty_content_type(url: str, *args, **kwargs) -> tuple:
             kwargs['headers'].pop('Content-Type', None)
 
     session = http.HTTPSession(url, *args, **kwargs)
-    session._set_messages(
+    session.set_messages(
         source=f'REST/Request/Headers/Content-Type',
         msg_open='Endpoint accepts empty Content-Type requests',
         msg_closed='Endpoint rejects empty Content-Type requests')
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=session.response.status_code not in (406, 415))
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=LOW, kind=DAST)
@@ -91,13 +91,13 @@ def accepts_insecure_accept_header(url: str, *args, **kwargs) -> tuple:
         kwargs = {'headers': {'Accept': '*/*'}}
 
     session = http.HTTPSession(url, *args, **kwargs)
-    session._set_messages(
+    session.set_messages(
         source=f'REST/Request/Headers/Accept',
         msg_open='Endpoint accepts insecure Accept header requests',
         msg_closed='Endpoint rejects insecure Accept header requests')
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=session.response.status_code not in (406, 415))
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -154,13 +154,13 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> tuple:
             if int(max_age_val) >= 31536000:
                 is_vulnerable = False
 
-    session._set_messages(
+    session.set_messages(
         source=f'REST/Response/Headers/{header}',
         msg_open=f'{header} is secure',
         msg_closed=f'{header} is insecure')
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=is_vulnerable)
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=LOW, kind=DAST)

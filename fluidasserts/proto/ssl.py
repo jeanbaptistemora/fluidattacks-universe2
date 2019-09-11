@@ -429,7 +429,7 @@ def has_breach(site: str, port: int = PORT) -> tuple:
     session = http.HTTPSession(
         url=f'https://{site}:{port}',
         request_at_instantiation=False)
-    session._set_messages(
+    session.set_messages(
         source='HTTP/Request/Headers/Content-Encoding',
         msg_open='Site is vulnerable to BREACH attack',
         msg_closed='Site is not vulnerable to BREACH attack')
@@ -438,10 +438,10 @@ def has_breach(site: str, port: int = PORT) -> tuple:
         session.headers = {'Accept-Encoding': f'{compression},deflate'}
         session.do_request()
         content_encoding = session.response.headers.get('Content-Encoding', '')
-        session._add_unit(
+        session.add_unit(
             is_vulnerable=compression in content_encoding)
 
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=HIGH, kind=DAST)

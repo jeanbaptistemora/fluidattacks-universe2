@@ -214,13 +214,13 @@ def _has_method(url: str, method: str, *args, **kwargs) -> tuple:
     allow_header = session.response.headers.get('allow', '')
 
     method = method.upper()
-    session._set_messages(
+    session.set_messages(
         source=f'HTTP/Request/{method}',
         msg_open=f'{method} method enabled',
         msg_closed=f'{method} method disabled')
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=method in allow_header)
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @unknown_if(http.ParameterError, http.ConnError)
@@ -232,13 +232,13 @@ def _is_header_present(url: str, header: str, *args, **kwargs) -> tuple:
     :param header: Header to test if present.
     """
     session = http.HTTPSession(url, *args, **kwargs)
-    session._set_messages(
+    session.set_messages(
         source=f'HTTP/Response/Headers/{header}',
         msg_open=f'Header {header} is present',
         msg_closed=f'Header {header} is not present')
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=header in session.response.headers)
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @unknown_if(http.ParameterError, http.ConnError)
@@ -264,21 +264,21 @@ def _has_insecure_value(url: str,
             flags=re.IGNORECASE)
 
     if vulnerable_if_missing:
-        session._set_messages(
+        session.set_messages(
             source=f'HTTP/Response/Headers/{header}',
             msg_open=f'{header} header is missing',
             msg_closed=f'{header} header is present')
-        session._add_unit(
+        session.add_unit(
             is_vulnerable=missing or insecure)
-        return session._get_tuple_result()
+        return session.get_tuple_result()
 
-    session._set_messages(
+    session.set_messages(
         source=f'HTTP/Response/Headers/{header}',
         msg_open=f'{header} header has an insecure value',
         msg_closed=f'{header} header has a secure value')
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=not missing and insecure)
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @unknown_if(http.ParameterError, http.ConnError)
@@ -294,7 +294,7 @@ def _generic_has_multiple_text(url: str, regex_list: List[str],
     """
     field: str = _get_field(kwargs)
     session = http.HTTPSession(url, *args, **kwargs)
-    session._set_messages(
+    session.set_messages(
         source='HTTP/Response/Body',
         msg_open='Bad text is present in response',
         msg_closed='Bad text is not present in response')
@@ -306,10 +306,10 @@ def _generic_has_multiple_text(url: str, regex_list: List[str],
         re.search(regex, session.response.text, re.IGNORECASE)
         for regex in regex_list)
 
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=is_vulnerable,
         specific=[field])
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @unknown_if(http.ParameterError, http.ConnError)
@@ -325,14 +325,14 @@ def _generic_has_text(url: str, text: str,
     """
     field: str = _get_field(kwargs)
     session = http.HTTPSession(url, *args, **kwargs)
-    session._set_messages(
+    session.set_messages(
         source='HTTP/Response/Body',
         msg_open='Bad text is present in response',
         msg_closed='Bad text is not present in response')
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=re.search(text, session.response.text, re.IGNORECASE),
         specific=[field])
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @unknown_if(http.ParameterError, http.ConnError)
@@ -348,15 +348,15 @@ def _generic_has_not_text(url: str, text: str,
     """
     field: str = _get_field(kwargs)
     session = http.HTTPSession(url, *args, **kwargs)
-    session._set_messages(
+    session.set_messages(
         source='HTTP/Response/Body',
         msg_open='Bad text is not present in response',
         msg_closed='Bad text is present in response')
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=not re.search(
             text, session.response.text, re.IGNORECASE),
         specific=[field])
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=LOW, kind=DAST)
@@ -644,13 +644,13 @@ def is_header_hsts_missing(url: str, *args, **kwargs) -> tuple:
             if int(max_age_val) >= 31536000:
                 is_vulnerable = False
 
-    session._set_messages(
+    session.set_messages(
         source=f'HTTP/Response/Headers/{header}',
         msg_open=f'{header} is secure',
         msg_closed=f'{header} is insecure')
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=is_vulnerable)
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -1093,14 +1093,14 @@ def is_sessionid_exposed(url: str, argument: str = 'sessionid',
     regex: str = rf'\b({argument})\b=([a-zA-Z0-9_-]+)'
 
     session = http.HTTPSession(url, *args, **kwargs)
-    session._set_messages(
+    session.set_messages(
         source=f'HTTP/Request/GET/params/{argument}',
         msg_open='Session ID is exposed',
         msg_closed='Session ID is not exposed')
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=re.search(regex, session.response.url, re.IGNORECASE),
         specific=[f'{argument} is exposed'])
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=LOW,
@@ -1126,13 +1126,13 @@ def is_version_visible(url, *args, **kwargs) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     service = banner.HTTPService(url, *args, **kwargs)
-    service.sess._set_messages(
+    service.sess.set_messages(
         source=f'HTTP/Response/Header/Server',
         msg_open='Version visible in Server header',
         msg_closed='Version is not visible in Server header')
-    service.sess._add_unit(
+    service.sess.add_unit(
         is_vulnerable=service.get_version())
-    return service.sess._get_tuple_result()
+    return service.sess.get_tuple_result()
 
 
 @api(risk=MEDIUM,
@@ -1159,13 +1159,13 @@ def is_not_https_required(url: str, *args, **kwargs) -> tuple:
         raise AssertionError('URL should start with http://')
 
     session = http.HTTPSession(url, *args, **kwargs)
-    session._set_messages(
+    session.set_messages(
         source=f'HTTP/SSL/Disabled',
         msg_open='HTTPS is not forced on URL',
         msg_closed='HTTPS is forced on URL')
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=not session.url.startswith('https'))
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=LOW, kind=DAST)
@@ -1195,14 +1195,14 @@ def is_resource_accessible(url: str, *args, **kwargs) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     session = http.HTTPSession(url, *args, **kwargs)
-    session._set_messages(
+    session.set_messages(
         source='HTTP/Response/StatusCode',
         msg_open='Resource is available',
         msg_closed='Resource is not available')
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=re.search(
             r'[2-3]\d\d', str(session.response.status_code)))
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=LOW, kind=DAST)
@@ -1221,14 +1221,14 @@ def is_response_delayed(url: str, *args, **kwargs) -> tuple:
     """
     max_response_time = 1
     session = http.HTTPSession(url, *args, **kwargs)
-    session._set_messages(
+    session.set_messages(
         source='HTTP/Server/Configuration/Date',
         msg_open='Long response time',
         msg_closed='Response time is acceptable')
     current_response_time: float = session.response.elapsed.total_seconds()
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=current_response_time > max_response_time)
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=MEDIUM,
@@ -1296,14 +1296,14 @@ def has_user_enumeration(url: str, user_field: str,
 
     avg_ratio: float = sum_ratios / len(fake_responses) / len(true_responses)
 
-    session._set_messages(
+    session.set_messages(
         source='HTTP/Response/Discrepancy',
         msg_open='User enumeration is possible',
         msg_closed='User enumeration not possible')
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=avg_ratio <= 0.95,
         specific=[user_field])
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=MEDIUM,
@@ -1368,14 +1368,14 @@ def can_brute_force(url: str, ok_regex: str, user_field: str, pass_field: str,
         if ok_regex in sess.response.text:
             is_vulnerable = True
 
-    session._set_messages(
+    session.set_messages(
         source='HTTP/Request/Limit',
         msg_open='Brute forcing is possible',
         msg_closed='Brute forcing is not possible')
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=is_vulnerable,
         specific=[user_field, pass_field])
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -1390,7 +1390,7 @@ def has_clear_viewstate(url: str, *args, **kwargs) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     session = http.HTTPSession(url, *args, **kwargs)
-    session._set_messages(
+    session.set_messages(
         source='HTTP/Server/Configuration/Date',
         msg_open='View State is not encrypted',
         msg_closed='View State is encrypted')
@@ -1404,9 +1404,9 @@ def has_clear_viewstate(url: str, *args, **kwargs) -> tuple:
         except ViewStateException:
             encrypted = True
 
-    session._add_unit(is_vulnerable=viewstate and not encrypted)
+    session.add_unit(is_vulnerable=viewstate and not encrypted)
 
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=LOW, kind=DAST)
@@ -1421,7 +1421,7 @@ def is_date_unsyncd(url: str, *args, **kwargs) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     session = http.HTTPSession(url, *args, **kwargs)
-    session._set_messages(
+    session.set_messages(
         source='HTTP/Server/Configuration/Date',
         msg_open='Server is not synced with NTP servers',
         msg_closed='Server is synced with NTP servers')
@@ -1436,9 +1436,9 @@ def is_date_unsyncd(url: str, *args, **kwargs) -> tuple:
 
     delta_ts = ntp_ts - server_date.timestamp()
 
-    session._add_unit(is_vulnerable=-3 < delta_ts > 3)
+    session.add_unit(is_vulnerable=-3 < delta_ts > 3)
 
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=MEDIUM,
@@ -1466,13 +1466,13 @@ def has_host_header_injection(url: str, *args, **kwargs) -> tuple:
     kwargs['redirect'] = False
 
     session = http.HTTPSession(url, *args, **kwargs)
-    session._set_messages(
+    session.set_messages(
         source='HTTP/Request/Headers/Host',
         msg_open='Server is vulnerable to host header injection',
         msg_closed='Server is not vulnerable to host header injection')
-    session._add_unit(
+    session.add_unit(
         is_vulnerable=hostname in session.response.headers.get('Location', []))
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=LOW,
@@ -1498,7 +1498,7 @@ def has_mixed_content(url: str, *args, **kwargs) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     session = http.HTTPSession(url, *args, **kwargs)
-    session._set_messages(
+    session.set_messages(
         source='HTTP/Response/Body',
         msg_open='Resource has mixed content',
         msg_closed='Resource has not mixed content')
@@ -1507,9 +1507,9 @@ def has_mixed_content(url: str, *args, **kwargs) -> tuple:
     has_http: bool = any(x.startswith('http://') for x in links)
     has_https: bool = any(x.startswith('https://') for x in links)
 
-    session._add_unit(is_vulnerable=has_http and has_https)
+    session.add_unit(is_vulnerable=has_http and has_https)
 
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=LOW,
@@ -1538,7 +1538,7 @@ def has_reverse_tabnabbing(url: str, *args, **kwargs) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     session = http.HTTPSession(url, *args, **kwargs)
-    session._set_messages(
+    session.set_messages(
         source='HTML/href/rel/noopener',
         msg_open='There are a href tags susceptible to reverse tabnabbing',
         msg_closed=('There are no a href tags susceptible to '
@@ -1557,7 +1557,7 @@ def has_reverse_tabnabbing(url: str, *args, **kwargs) -> tuple:
             and parsed['target'] == '_blank' \
             and (not parsed['rel'] or 'noopener' not in parsed['rel'])
 
-        session._add_unit(is_vulnerable=is_vulnerable,
-                          specific=[parsed['href']])
+        session.add_unit(is_vulnerable=is_vulnerable,
+                         specific=[parsed['href']])
 
-    return session._get_tuple_result()
+    return session.get_tuple_result()

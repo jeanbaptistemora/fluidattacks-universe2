@@ -48,7 +48,7 @@ def _generic_check_attribute(cookie_attribute: str,
     else:
         cookielist = cookie_jar
 
-    session._set_messages(
+    session.set_messages(
         source=f'Cookie/Attributes/{cookie_attribute}',
         msg_open=f'{cookie_attribute} not set in cookie {cookie_name}',
         msg_closed=f'{cookie_attribute} is set in cookie {cookie_name}')
@@ -76,9 +76,9 @@ def _generic_check_attribute(cookie_attribute: str,
                 cookie.get_nonstandard_attr('SameSite') == 'Strict':
             is_vulnerable = False
 
-    session._add_unit(is_vulnerable=is_vulnerable)
+    session.add_unit(is_vulnerable=is_vulnerable)
 
-    return session._get_tuple_result()
+    return session.get_tuple_result()
 
 
 @api(risk=MEDIUM, kind=DAST)
