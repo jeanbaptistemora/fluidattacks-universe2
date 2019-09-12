@@ -41,6 +41,9 @@ RUN apt-get update \
     && curl -Lo heptio-authenticator-aws https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.3.0/heptio-authenticator-aws_0.3.0_linux_amd64 \
         && chmod a+x heptio-authenticator-aws \
         && mv heptio-authenticator-aws /usr/local/bin/ \
+    && curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/aws-iam-authenticator \
+        && chmod +x aws-iam-authenticator \
+        && mv aws-iam-authenticator /usr/local/bin/ \
     && curl -Lo helm.tar.gz https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz \
         && tar -zxvf helm.tar.gz \
         && mv linux-amd64/helm /usr/local/bin/ \
