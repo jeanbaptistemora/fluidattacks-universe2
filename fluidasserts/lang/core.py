@@ -24,7 +24,7 @@ L_CHAR = QuotedString("'")
 L_STRING = QuotedString('"')
 
 
-def _generic_c_has_if_without_else(
+def generic_c_has_if_without_else(
         location: str,
         conditions: list,
         use_regex: bool = False,

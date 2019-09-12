@@ -17,7 +17,6 @@ import paramiko
 # local imports
 # none
 
-# pylint: disable=too-many-locals
 # pylint: disable=protected-access
 # pylint: disable=too-few-public-methods
 # pylint: disable=no-self-use

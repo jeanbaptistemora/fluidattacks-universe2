@@ -107,7 +107,6 @@ def _declares_catch_for_exceptions(
         py_dest: str,
         exceptions_list: List[str],
         msgs: Dict[str, str],
-        allow_empty: bool = False,
         exclude: list = None) -> tuple:
     """Search for the declaration of catch for the given exceptions."""
     any_exception = L_VAR_CHAIN_NAME

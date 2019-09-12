@@ -72,7 +72,6 @@ def connect_legacy(hostname: str, port: int = PORT,
     ssock.close()
 
 
-# pylint: disable=too-many-arguments
 @contextmanager
 def connect(hostname,
             port: int = PORT,

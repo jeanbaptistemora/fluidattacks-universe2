@@ -18,9 +18,6 @@ The entire suite has been tested on the following PostgreSQL releases:
 - `Postgres v9.4 <https://www.postgresql.org/docs/9.4/index.html>`_.
 """
 
-# pylint: disable=too-many-locals
-# pylint: disable=too-many-arguments
-
 # standard imports
 from typing import Any, Dict, Iterator, List, NamedTuple, Optional, Tuple
 from contextlib import contextmanager

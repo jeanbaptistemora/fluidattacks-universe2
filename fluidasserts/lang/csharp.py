@@ -242,7 +242,7 @@ def has_if_without_else(
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
     """
-    return core._generic_c_has_if_without_else(
+    return core.generic_c_has_if_without_else(
         csharp_dest, conditions, use_regex, LANGUAGE_SPECS, exclude)
 
 

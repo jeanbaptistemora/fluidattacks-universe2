@@ -31,7 +31,7 @@ class ClientErr(botocore.exceptions.BotoCoreError):
     """
 
 
-def retry(func: Callable) -> Callable:
+def retry_on_errors(func: Callable) -> Callable:
     """Decorator to retry the function if a ConnError/ClientErr is raised."""
     @functools.wraps(func)
     def decorated(*args, **kwargs) -> Any:  # noqa
@@ -47,7 +47,8 @@ def retry(func: Callable) -> Callable:
     return decorated
 
 
-@retry
+# pylint: disable=unused-argument
+@retry_on_errors
 def get_aws_client(
         service: str, key_id: str, secret: str, retry: bool = True) -> object:
     """
@@ -62,7 +63,7 @@ def get_aws_client(
                         region_name='us-east-1')
 
 
-@retry
+@retry_on_errors
 def run_boto3_func(key_id: str, secret: str, service: str,
                    func: str, param: str = None,
                    retry: bool = True, **kwargs) -> dict:
@@ -86,7 +87,7 @@ def run_boto3_func(key_id: str, secret: str, service: str,
         raise ClientErr
 
 
-@retry
+@retry_on_errors
 def get_credentials_report(
         key_id: str, secret: str, retry: bool = True) -> dict:
     """

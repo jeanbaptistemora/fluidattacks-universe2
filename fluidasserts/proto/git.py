@@ -29,7 +29,7 @@ def commit_has_secret(repo: str, commit_id: str, secret: str) -> bool:
     try:
         repo_obj = git.Repo(repo)
         diff = repo_obj.git.diff(f'{commit_id}~1..{commit_id}')
-    except (git.exc.GitCommandError, git.exc.InvalidGitRepositoryError) as exc:
+    except git.GitError as exc:
         show_unknown('There was an error',
                      details=dict(repo=repo, commit_id=commit_id,
                                   error=str(exc).replace(':', ',')))

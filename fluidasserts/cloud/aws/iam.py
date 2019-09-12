@@ -17,12 +17,12 @@ from fluidasserts.utils.decorators import track, level, notify
 from fluidasserts.helper import aws
 
 
-def _any_to_list(input):
+def _any_to_list(_input):
     """Convert anything to list."""
-    if isinstance(input, str):
-        res = [input]
+    if isinstance(_input, str):
+        res = [_input]
     else:
-        res = list(input)
+        res = list(_input)
     return res
 
 
@@ -594,7 +594,7 @@ def has_not_support_role(key_id: str, secret: str, retry: bool = True) -> bool:
                      details=dict(error=str(exc).replace(':', '')))
         return False
     policies = list(filter(lambda x: x['PolicyName'] == 'AWSSupportAccess',
-                    policies))
+                           policies))
     if not policies:
         show_open('There is not a AWSSupportAccess policy')
         return True

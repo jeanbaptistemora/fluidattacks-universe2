@@ -845,9 +845,8 @@ def check_boolean_env_var(var_name):
             exit_asserts('config-error')
 
 
-def main():
-    """Run CLI."""
-    init()
+def get_argparser():
+    """Return an argparser with the CLI arguments."""
     argparser = argparse.ArgumentParser()
     argparser.add_argument('-q', '--quiet', help='decrease output verbosity',
                            action='store_true')
@@ -897,13 +896,25 @@ def main():
                                  'credentials'))
     argparser.add_argument('exploits', nargs='*', help='exploits to execute')
 
+    return argparser
+
+
+def main():
+    """Run CLI."""
+    init()
+
+    argparser = get_argparser()
     args = argparser.parse_args()
+
     show_banner(args)
 
-    if not args.exploits and not args.http \
-       and not args.ssl and not args.dns \
-       and not args.lang and not args.aws \
-       and not args.apk:
+    if not any((args.apk,
+                args.aws,
+                args.dns,
+                args.exploits,
+                args.http,
+                args.lang,
+                args.ssl)):
         argparser.print_help()
         exit_asserts('config-error')
 

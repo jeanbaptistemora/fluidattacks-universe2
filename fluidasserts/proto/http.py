@@ -1045,12 +1045,11 @@ def has_not_subresource_integrity(
         vulnerable: bool = any(
             elem.get('integrity') is None for elem in soup(elem_types))
         asserts: str = 'has not' if vulnerable else 'has'
-        msg: str = '{elem_types} element {asserts} integrity attributes'
 
         unit: Unit = Unit(
             where=url,
             source=f'HTTP/Response/HTML/Tag/{elem_types}',
-            specific=[msg.format(**locals())],
+            specific=[f'{elem_types} element {asserts} integrity attributes'],
             fingerprint=fingerprint)
 
         if vulnerable:

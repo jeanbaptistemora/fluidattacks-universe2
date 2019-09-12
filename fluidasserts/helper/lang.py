@@ -30,12 +30,16 @@ def _get_line_number(column: int, columns_per_line: List[int]) -> int:
     :param column: Column number to be searched.
     :param cols_per_line: List of columns per line.
     """
+    result: int = 0
     for line_no, cols_up_to_this_line in _enum_and_accum(columns_per_line):
         if cols_up_to_this_line > column:
-            return line_no
+            result = line_no
+            break
+    return result
 
 
-def _parse(grammar: ParserElement, path: str) -> Tuple[List[Unit], List[Unit]]:
+def parse_single(grammar: ParserElement,
+                 path: str) -> Tuple[List[Unit], List[Unit]]:
     """
     Return a tuple with the results of parsing path with grammar.
 
@@ -91,7 +95,7 @@ def parse(grammar: ParserElement,
     exclude = tuple(exclude) if exclude else tuple()
     extensions = lang_spec.get('extensions')
     for full_path in get_paths(path, endswith=extensions, exclude=exclude):
-        _matched, _not_matched = _parse(grammar, full_path)
+        _matched, _not_matched = parse_single(grammar, full_path)
         matched.extend(_matched)
         not_matched.extend(_not_matched)
 

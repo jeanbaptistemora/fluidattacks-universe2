@@ -190,6 +190,7 @@ METHOD_STATS_OWNER = 'global'
 
 def method_stats_set_owner(owner: str) -> bool:
     """Set the current owner of METHOD_STATS."""
+    # pylint: disable=global-statement
     global METHOD_STATS_OWNER
     METHOD_STATS_OWNER = owner.replace(':', '')
     return True
@@ -328,6 +329,12 @@ class Result():
         self.func_desc: str = get_module_description(func.__module__,
                                                      func.__name__)
 
+        self.status: str = None
+        self.message: str = None
+        self.duration: float = None
+        self.safes: List[Unit] = None
+        self.vulns: List[Unit] = None
+
         func_params: Dict[str, Any] = {}
 
         _func: Callable = func
@@ -392,6 +399,7 @@ class Result():
 
     def register_stats(self) -> bool:
         """Register this result stats."""
+        # pylint: disable=global-statement
         global METHOD_STATS, METHOD_STATS_OWNER
         if METHOD_STATS_OWNER not in METHOD_STATS:
             METHOD_STATS[METHOD_STATS_OWNER] = {}
@@ -455,9 +463,9 @@ class Result():
         """Cast to boolean."""
         if self.is_open():
             return True
-        elif self.is_closed():
+        if self.is_closed():
             return False
-        elif self.is_unknown():
+        if self.is_unknown():
             return False
         raise ValueError(
             f'status is set to an unsupported value: {self.status}')

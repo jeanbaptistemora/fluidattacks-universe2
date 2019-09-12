@@ -260,7 +260,6 @@ def has_not_subresource_integrity(path: str) -> tuple:
 
     vulns: List[Unit] = []
     safes: List[Unit] = []
-    msg: str = '{elem_types} HTML element {asserts} integrity attributes'
 
     for file_path in get_paths(path, endswith=('.html',)):
         with open(file_path, 'r', encoding='latin-1') as file_desc:
@@ -274,7 +273,8 @@ def has_not_subresource_integrity(path: str) -> tuple:
             unit: Unit = Unit(
                 where=path,
                 source=f'HTML/Tag/{elem_types}',
-                specific=[msg.format(**locals())],
+                specific=[(f'{elem_types} HTML element '
+                           f'{asserts} integrity attributes')],
                 fingerprint=get_sha256(file_path))
 
             if vulnerable:

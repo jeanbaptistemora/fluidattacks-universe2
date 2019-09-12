@@ -4,7 +4,6 @@
 
 # pylint: disable=no-member
 # pylint: disable=import-error
-# pylint: disable=too-many-arguments
 # pylint: disable=too-many-instance-attributes
 # pylint: disable=protected-access
 
@@ -15,8 +14,8 @@ from collections import OrderedDict
 from typing import List, Optional, Tuple
 
 # 3rd party imports
-import requests
 from bs4 import BeautifulSoup
+import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 # local imports
@@ -139,7 +138,6 @@ class HTTPSession():
 
     def __exit__(self, *kwargs) -> None:
         """Context manager clean up function."""
-        pass
 
     def add_unit(self, *, is_vulnerable: bool, specific: list = None) -> None:
         """Append a new :class:`fluidasserts.Unit` object to this session."""

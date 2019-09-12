@@ -15,7 +15,7 @@ from fluidasserts.utils.generic import get_paths, get_sha256
 from fluidasserts.utils.decorators import api, unknown_if
 
 
-COMPILED_BINARY_MIME_TYPES: List[str] = [
+COMPILED_BINARY_MIMES: List[str] = [
     'application/java-archive',
     'application/x-java-applet',
 ]
@@ -24,12 +24,12 @@ COMPILED_BINARY_MIME_TYPES: List[str] = [
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_compiled_binaries(path: str,
-                          mime_types: List[str] = COMPILED_BINARY_MIME_TYPES,
+                          mime_types: List[str] = COMPILED_BINARY_MIMES.copy(),
                           exclude: List[str] = None) -> tuple:
     """
     Check if there are files in *path* that match a compiled binary mime type.
 
-    It checks for `fluidasserts.format.file.COMPILED_BINARY_MIME_TYPES`
+    It checks for `fluidasserts.format.file.COMPILED_BINARY_MIMES`
     mime types.
 
     :param path: location to check recursively

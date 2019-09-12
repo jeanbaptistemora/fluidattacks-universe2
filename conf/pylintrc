@@ -68,7 +68,15 @@ confidence=
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use"--disable=all --enable=classes
 # --disable=W"
-disable=superfluous-parens,missing-super-argument,locally-disabled
+
+# Some checks have many arguments to describe organizational constants that
+#   are not safe to assume
+# Some checks use many local variables too, let the number of statements
+#   (too-many-statements) be who decide when a function is getting long
+disable=missing-super-argument,
+        locally-disabled,
+        too-many-arguments,
+        too-many-locals,
 
 [REPORTS]
 
