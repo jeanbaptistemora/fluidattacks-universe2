@@ -9,21 +9,22 @@
 # None
 
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
+from fluidasserts import HIGH, DAST
 from fluidasserts.helper import http
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts.utils.decorators import api, unknown_if
 
 
-@notify
-@level('high')
-@track
-def pm800_has_default_credentials(url: str) -> bool:
+@api(risk=HIGH, kind=DAST)
+@unknown_if(http.ConnError)
+def pm800_has_default_credentials(url: str) -> tuple:
     """
     Check if PowerLogic PM800 has default credentials.
 
-    :param hostname: IP or host of phone.
+    :param url: URL of PM800 admin page.
+    :returns: - ``OPEN`` if PM800 device has default credentials.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
     default_creds = {
         ('Administrator', 'Gateway'),
@@ -35,33 +36,31 @@ def pm800_has_default_credentials(url: str) -> bool:
     }
     working_creds = []
     for creds in default_creds:
-        try:
-            sess = http.HTTPSession(url, auth=creds)
-        except http.ConnError as exc:
-            show_unknown('Could not connect',
-                         details=dict(url=url,
-                                      reason=str(exc).replace(':', ',')))
-            return False
-
+        sess = http.HTTPSession(url, auth=creds)
         if sess.response.status_code == 200 and 'PM800' in sess.response.text:
             working_creds.append(creds)
-    if working_creds:
-        show_open('PowerLogic PM800 device has default credentials',
-                  details=dict(url=url, credentials=working_creds))
-        return True
-    show_close('PowerLogic PM800 device does not have default credentials',
-               details=dict(url=url))
-    return False
+
+    sess.set_messages(
+        source='PM800/HTTPServer',
+        msg_open='PowerLogic PM800 device has default credentials',
+        msg_closed='PowerLogic PM800 device does not have default credentials'
+    )
+
+    sess.add_unit(is_vulnerable=working_creds, specific=working_creds)
+    return sess.get_tuple_result()
 
 
-@notify
-@level('high')
-@track
-def egx100_has_default_credentials(url: str) -> bool:
+@api(risk=HIGH, kind=DAST)
+@unknown_if(http.ConnError)
+def egx100_has_default_credentials(url: str) -> tuple:
     """
     Check if PowerLogic EGX100 has default credentials.
 
-    :param hostname: IP or host of phone.
+    :param url: URL of EGX100 admin page.
+    :returns: - ``OPEN`` if EGX100 device has default credentials.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
     default_creds = {
         ('Administrator', 'Gateway'),
@@ -69,20 +68,14 @@ def egx100_has_default_credentials(url: str) -> bool:
     }
     working_creds = []
     for creds in default_creds:
-        try:
-            sess = http.HTTPSession(url, auth=creds)
-        except http.ConnError as exc:
-            show_unknown('Could not connect',
-                         details=dict(url=url,
-                                      reason=str(exc).replace(':', ',')))
-            return False
-
+        sess = http.HTTPSession(url, auth=creds)
         if sess.response.status_code == 200 and 'EGX100' in sess.response.text:
             working_creds.append(creds)
-    if working_creds:
-        show_open('PowerLogic EGX100 device has default credentials',
-                  details=dict(url=url, credentials=working_creds))
-        return True
-    show_close('PowerLogic EGX100 device does not have default credentials',
-               details=dict(url=url))
-    return False
+    sess.set_messages(
+        source='PM800/HTTPServer',
+        msg_open='PowerLogic EGX100 device has default credentials',
+        msg_closed='PowerLogic EGX100 device does not have default credentials'
+    )
+
+    sess.add_unit(is_vulnerable=working_creds, specific=working_creds)
+    return sess.get_tuple_result()

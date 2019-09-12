@@ -54,7 +54,7 @@ def is_version_visible(server: str, port: int = 5060,
     :param ipaddress: IP address to test.
     :param port: Port to connect to.
     """
-    request = """OPTIONS sip:100@{dest_ip} SIP/2.0
+    request = f"""OPTIONS sip:100@{server} SIP/2.0
 Via: SIP/2.0/UDP {source_ip}:{source_port};rport
 Content-Length: 0
 From: "fake" <sip:fake@{source_ip}>
@@ -67,8 +67,6 @@ Call-ID: fake-id@{source_ip}
 Max-Forwards: 70
 
 """
-    request = request.format(source_ip=source_ip, source_port=source_port,
-                             dest_ip=server)
     request = request.replace('\n', '\r\n')
 
     proto = None
