@@ -331,7 +331,7 @@ def not_verifies_ssl_hostname(apk_file: str) -> tuple:
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def not_pinned_certs(apk_file: str) -> bool:
+def not_pinned_certs(apk_file: str) -> tuple:
     """
     Check if the given APK does not pin x509 certificates.
 
