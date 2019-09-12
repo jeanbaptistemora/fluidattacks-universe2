@@ -64,17 +64,10 @@ as a reference for all security tests.
 to some of the biggest organizations in Colombia.
 This means that there will always be challenging projects
 in which you can participate.
-link:../../customers/financial/#bancolombia[Bancolombia],
-link:../../customers/financial/#colpatria[Colpatria],
-link:../../customers/financial/#davivienda[Davivienda],
+Bancolombia, Colpatria, Davivienda,
 -- the biggest banks in the country;
-link:../../customers/communications/#tigo-une[+UNE+],
-link:../../customers/communications/#etb[+ETB+],
-link:../../customers/communications/#edatel[+EDATEL+],
-link:../../customers/communications/#claro[Claro],
++UNE+, +ETB+, +EDATEL+, Claro,
 -- the biggest ISP in the country; and many more.
-To see a complete list of our clients
-go to our link:../../customers/[Clients Section].
 
 == Great talent working together
 

@@ -21,7 +21,7 @@ with Nicolás Acosta, Chief Information Security Officer (CISO) of
 link:https://empresa.corona.co/nuestra-compania/quienes-somos[Corona.]
 We spoke about risks, setbacks, and truths and falsehood in cybersecurity.
 If you have not read the first part
-link:../innovation-more-understandable/[click here to read it.]
+link:../innovation-understandable/[click here to read it.]
 
 == Risk Management
 
@@ -71,8 +71,6 @@ We wanted to discuss a bit about this topic with Nicolás.
 
 == Setbacks
 
-We are yet to know a company that has always succeeded
-in its cybersecurity strategy, and that’s normal.
 How companies and cybersecurity teams face struggles are diverse.
 Nicolás shared with us some of his setbacks as CISO.
 
@@ -108,9 +106,7 @@ Nicolás shared with us some of his setbacks as CISO.
 To conclude our conversation,
 we talked about what Nicolás consider false in the discipline,
 as well as what is true.
-Similar to others, there are myths and issues not easy to identify.
 We wondered what a CISO like Nicolás could tell us.
-
 
 *What do you think is a ‘lie’ in cybersecurity,*
 *but most people seem to believe in?*
@@ -171,10 +167,6 @@ Botnets exist; ransomware exists.
 If I’m not cautious in my digital behaviors,
 something terrible could happen to me.
 So, It's vital to have “healthy” digital habits.
-Do update your machine; do use antivirus;
-do not install applications you don’t know where they come from.
-And the most important thing: do not click when you are not supposed to.
-It’s simple stuff. Yet, some people still behave as if nothing will occur.
 This is a game of balance,
 a game where you should never feel safe enough
 that controls just stop making sense, but at the same time,

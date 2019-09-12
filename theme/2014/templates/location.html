@@ -7,6 +7,25 @@
       content="{{ page.keywords }}">
 {% endblock meta %}
 
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if page.title|length < 23 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    {% if page.title|length < 11 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+
 {% block canonical %}
   <link rel="canonical"
         href="{{ SITEURL }}/{{ page.url }}">
@@ -24,7 +43,7 @@
             <span>&gt;</span>
           </li>
           <li>
-            <a href="a">&nbsp;{{ page.title }}</a>
+            <a href=".">&nbsp;{{ page.title }}</a>
           </li>
         </ul>
       </div>
