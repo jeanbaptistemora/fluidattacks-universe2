@@ -718,7 +718,7 @@ class UpdateDescription(Mutation):
 class UpdateTreatment(Mutation):
     """ Update treatment of a finding """
     class Arguments(object):
-        acceptanceDate = String()
+        acceptance_date = String()
         bts_url = String()
         finding_id = String(required=True)
         treatment = String(required=True)
@@ -752,8 +752,7 @@ class UpdateTreatment(Mutation):
         elif parameters['treatment'] == 'ACCEPTED':
             parameters['treatment_manager'] = user_data['user_email']
         success = finding_domain.update_treatment(finding_id,
-                                                  parameters,
-                                                  user_data['user_email'])
+                                                  parameters)
         if success:
             util.cloudwatch_log(info.context, 'Security: Updated treatment in\
                 finding {id} succesfully'.format(id=finding_id))

@@ -118,8 +118,8 @@ export const textAreaField: ((arg1: CustomFieldProps & { withCount?: boolean }) 
     </div>
   );
 
-export const dateField: ((arg1: CustomFieldProps & { withCount?: boolean }) => JSX.Element) =
-  (fieldProps: CustomFieldProps & { withCount?: boolean }): JSX.Element => (
+export const dateField: ((arg1: CustomFieldProps) => JSX.Element) =
+  (fieldProps: CustomFieldProps): JSX.Element => (
     <div>
       <FormControl
         className={style.formControl}

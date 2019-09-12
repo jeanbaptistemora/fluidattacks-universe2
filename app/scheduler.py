@@ -16,10 +16,10 @@ from __init__ import (
 )
 from . import views
 from .dal import integrates_dal
-from .domain.finding import (get_age_finding, get_tracking_vulnerabilities)
+from .domain.finding import (get_age_finding, get_tracking_vulnerabilities, update_treatment)
 from .domain.project import (
     get_last_closing_vuln, get_mean_remediate, get_max_open_severity,
-    get_total_treatment, get_active_projects
+    get_total_treatment, get_active_projects, get_findings
 )
 from .dal.helpers.formstack import FormstackAPI
 from .dto import remission
@@ -577,3 +577,20 @@ def update_indicators():
                 'Error: An error ocurred updating '
                 'indicators of the project {project}'.format(project=project),
                 'error')
+
+
+def reset_expired_accepted_findings():
+    """ Update treatment if acceptance date expires """
+    rollbar.report_message(
+        'Warning: Function to update treatment if acceptance date expires is running', 'warning')
+    today = datetime.now().strftime('%Y-%m-%d')
+    projects = get_active_projects()
+    findings = []
+    for project in projects:
+        findings += get_findings(project, 'acceptance_date, finding_id')
+        for finding in findings:
+            finding_id = finding.get('finding_id')
+            date = finding.get('acceptance_date')
+            if date >= today:
+                treatment = {'treatment': 'NEW'}
+                update_treatment(finding_id, treatment)

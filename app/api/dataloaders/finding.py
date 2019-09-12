@@ -57,7 +57,7 @@ def _batch_load_fn(finding_ids):
             treatment_manager=finding.get('treatmentManager', ''),
             type=finding.get('findingType', '')
         )
-        
+
     return Promise.resolve([findings.get(finding_id, [])
                             for finding_id in finding_ids])
 
