@@ -41,3 +41,12 @@ def print_unknown(msg, color=''):
     Default (white) messages
     """
     print_info(msg, color)
+
+def error_print(path, out, message):
+    """
+    Print custom error msgs
+    """
+    print_failure("Issue found in "+path+"\n")
+    if out != '':
+        print_failure(out)
+    print_warning(message+"\n\n")
