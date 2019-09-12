@@ -59,8 +59,9 @@ ConnectionString = NamedTuple(
 
 def _execute(connection_string: ConnectionString,
              query: str,
-             variables: Optional[Dict[str, Any]]) -> Iterator[Any]:
+             variables: Optional[Dict[str, Any]] = None) -> Iterator[Any]:
     """Yield the result of executing a command."""
+    variables = variables or {}
     with database(connection_string) as (_, cursor):
         cursor.execute(query, variables)
         yield from cursor
@@ -133,8 +134,8 @@ def test_db_exists(server: str, username: str, password: str,
     msg_closed: str = 'test Database is not present'
 
     vulnerable: bool = any(db == 'test'
-                           for db, in _execute(
-                               connection_string, 'SHOW DATABASES', {}))
+                           for db, in _execute(connection_string,
+                                               'SHOW DATABASES'))
 
     vulns: List[str] = []
     safes: List[str] = []
@@ -154,19 +155,20 @@ def test_db_exists(server: str, username: str, password: str,
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(mysql.connector.Error)
 def local_infile_enabled(server: str, username: str, password: str,
-                         port: int = 3306) -> bool:
+                         port: int = 3306) -> tuple:
     """Check if 'local_infile' parameter is set to ON."""
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'Parameter "local_infile" is ON on server'
     msg_closed: str = 'Parameter "local_infile" is OFF on server'
 
-    query: str = 'SHOW VARIABLES WHERE Variable_name = %(Variable_name)s'
-    parameters: Dict[str, str] = {'Variable_name': 'local_infile'}
+    query: str = """
+        SHOW VARIABLES
+        WHERE Variable_name = 'local_infile'
+        """
 
-    vulnerable: bool = any(var_name == 'local_infile' and var_value == 'ON'
-                           for var_name, var_value in _execute(
-                               connection_string, query, parameters))
+    vulnerable: bool = any(row == ('local_infile', 'ON')
+                           for row in _execute(connection_string, query))
 
     vulns: List[str] = []
     safes: List[str] = []
@@ -183,265 +185,229 @@ def local_infile_enabled(server: str, username: str, password: str,
         safes=safes)
 
 
-@notify
-@level('low')
-@track
+@api(risk=LOW, kind=DAST)
+@unknown_if(mysql.connector.Error)
 def symlinks_enabled(server: str, username: str, password: str,
-                     port: str = 3306) -> bool:
+                     port: int = 3306) -> tuple:
     """Check if symbolic links are enabled on MySQL server."""
-    try:
-        mydb = _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('There was an error connecting to MySQL engine',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        return False
-    else:
-        mycursor = mydb.cursor()
+    connection_string = ConnectionString(username, password, server, port)
 
-        query = "SHOW variables LIKE 'have_symlink'"
-        try:
-            mycursor.execute(query)
-        except mysql.connector.errors.ProgrammingError as exc:
-            show_unknown('There was an error executing query',
-                         details=dict(server=server, username=username,
-                                      error=str(exc).replace(':', ',')))
-            return False
+    msg_open: str = 'Symbolic links are supported by server'
+    msg_closed: str = 'Symbolic links are not supported by server'
 
-        result = ('have_symlink', 'DISABLED') not in list(mycursor)
+    query: str = """
+        SHOW VARIABLES LIKE 'have_symlink'
+        """
 
-        if result:
-            show_open('Symbolic links are supported by server',
-                      details=dict(server=server))
-        else:
-            show_close('Symbolic links are not supported by server',
-                       details=dict(server=server))
-        return result
+    vulnerable: bool = not any(row == ('have_symlink', 'DISABLED')
+                               for row in _execute(connection_string, query))
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (vulns if vulnerable else safes).append(
+        msg_open if vulnerable else msg_closed)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
-@notify
-@level('low')
-@track
+@api(risk=LOW, kind=DAST)
+@unknown_if(mysql.connector.Error)
 def memcached_enabled(server: str, username: str, password: str,
-                      port: str = 3306) -> bool:
+                      port: int = 3306) -> tuple:
     """Check if memcached daemon is enabled on server."""
-    try:
-        mydb = _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('There was an error connecting to MySQL engine',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        return False
-    else:
-        mycursor = mydb.cursor()
+    connection_string = ConnectionString(username, password, server, port)
 
-        query = "SELECT * FROM information_schema.plugins WHERE \
-PLUGIN_NAME='daemon_memcached'"
-        try:
-            mycursor.execute(query)
-        except mysql.connector.errors.ProgrammingError as exc:
-            show_unknown('There was an error executing query',
-                         details=dict(server=server, username=username,
-                                      error=str(exc).replace(':', ',')))
-            return False
+    msg_open: str = 'Memcached daemon is enabled on server'
+    msg_closed: str = 'Memcached daemon is disabled on server'
 
-        result = len(list(mycursor)) != 0
+    query: str = """
+        SELECT * FROM information_schema.plugins
+        WHERE PLUGIN_NAME = 'daemon_memcached'
+        """
 
-        if result:
-            show_open('Memcached daemon enabled on server',
-                      details=dict(server=server))
-        else:
-            show_close('Memcached daemon not enabled on server',
-                       details=dict(server=server))
-        return result
+    # vulnerable if there are returned rows
+    vulnerable: bool = bool(tuple(_execute(connection_string, query)))
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (vulns if vulnerable else safes).append(
+        msg_open if vulnerable else msg_closed)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(mysql.connector.Error)
 def secure_file_priv_disabled(server: str, username: str,
-                              password: str, port: int = 3306) -> bool:
+                              password: str, port: int = 3306) -> tuple:
     """Check if secure_file_priv is configured on server."""
-    try:
-        mydb = _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('There was an error connecting to MySQL engine',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        return False
-    else:
-        mycursor = mydb.cursor()
+    connection_string = ConnectionString(username, password, server, port)
 
-        query = "SHOW GLOBAL VARIABLES WHERE \
-Variable_name = 'secure_file_priv' AND Value<>''"
-        try:
-            mycursor.execute(query)
-        except mysql.connector.errors.ProgrammingError as exc:
-            show_unknown('There was an error executing query',
-                         details=dict(server=server, username=username,
-                                      error=str(exc).replace(':', ',')))
-            return False
+    msg_open: str = 'Parameter secure_file_priv is not established'
+    msg_closed: str = 'Parameter secure_file_priv is established'
 
-        result = len(list(mycursor)) == 0
+    query: str = """
+        SHOW GLOBAL VARIABLES
+        WHERE Variable_name = 'secure_file_priv' AND Value <> ''
+        """
 
-        if result:
-            show_open('Parameter "secure_file_priv" not established',
-                      details=dict(server=server))
-        else:
-            show_close('Parameter "secure_file_priv" is established',
-                       details=dict(server=server))
-        return result
+    # vulnerable if there are no returned rows
+    vulnerable: bool = not bool(tuple(_execute(connection_string, query)))
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (vulns if vulnerable else safes).append(
+        msg_open if vulnerable else msg_closed)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(mysql.connector.Error)
 def strict_all_tables_disabled(server: str, username: str,
-                               password: str, port: int = 3306) -> bool:
+                               password: str, port: int = 3306) -> tuple:
     """Check if STRICT_ALL_TABLES is enabled on MySQL server."""
-    try:
-        mydb = _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('There was an error connecting to MySQL engine',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        return False
-    else:
-        mycursor = mydb.cursor()
+    connection_string = ConnectionString(username, password, server, port)
 
-        query = "SHOW VARIABLES LIKE 'sql_mode'"
-        try:
-            mycursor.execute(query)
-        except mysql.connector.errors.ProgrammingError as exc:
-            show_unknown('There was an error executing query',
-                         details=dict(server=server, username=username,
-                                      error=str(exc).replace(':', ',')))
-            return False
+    msg_open: str = 'STRICT_ALL_TABLES is not enabled on by server'
+    msg_closed: str = 'STRICT_ALL_TABLES is enabled on by server'
 
-        result = 'STRICT_ALL_TABLES' not in list(mycursor)[0][1]
+    query: str = """
+        SHOW VARIABLES LIKE 'sql_mode'
+        """
 
-        if result:
-            show_open('STRICT_ALL_TABLES not enabled on by server',
-                      details=dict(server=server))
-        else:
-            show_close('STRICT_ALL_TABLES enabled on by server',
-                       details=dict(server=server))
-        return result
+    vulnerable: bool = not any(value == 'STRICT_ALL_TABLES'
+                               for _, value in _execute(connection_string,
+                                                        query))
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (vulns if vulnerable else safes).append(
+        msg_open if vulnerable else msg_closed)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(mysql.connector.Error)
 def log_error_disabled(server: str, username: str, password: str,
-                       port: int = 3306) -> bool:
+                       port: int = 3306) -> tuple:
     """Check if 'log_error' parameter is set on MySQL server."""
-    try:
-        mydb = _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('There was an error connecting to MySQL engine',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        return False
-    else:
-        mycursor = mydb.cursor()
+    connection_string = ConnectionString(username, password, server, port)
 
-        query = "SHOW variables LIKE 'log_error'"
-        try:
-            mycursor.execute(query)
-        except mysql.connector.errors.ProgrammingError as exc:
-            show_unknown('There was an error executing query',
-                         details=dict(server=server, username=username,
-                                      error=str(exc).replace(':', ',')))
-            return False
+    msg_open: str = 'Parameter log_error not set on server'
+    msg_closed: str = 'Parameter log_error is set on server'
 
-        result = ('log_error', '') in list(mycursor)
+    query: str = """
+        SHOW VARIABLES LIKE 'log_error'
+        """
 
-        if result:
-            show_open('Parameter "log_error" not set on server',
-                      details=dict(server=server))
-        else:
-            show_close('Parameter "log_error" is set on server',
-                       details=dict(server=server))
-        return result
+    vulnerable: bool = any(row == ('log_error', '')
+                           for row in _execute(connection_string, query))
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (vulns if vulnerable else safes).append(
+        msg_open if vulnerable else msg_closed)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(mysql.connector.Error)
 def logs_on_system_fs(server: str, username: str, password: str,
-                      port: int = 3306) -> bool:
+                      port: int = 3306) -> tuple:
     """Check if logs are stored on a system filesystem on server."""
-    try:
-        mydb = _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('There was an error connecting to MySQL engine',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        return False
-    else:
-        mycursor = mydb.cursor()
+    connection_string = ConnectionString(username, password, server, port)
 
-        query = "SELECT @@global.log_bin_basename"
-        try:
-            mycursor.execute(query)
-        except mysql.connector.errors.ProgrammingError as exc:
-            show_unknown('There was an error executing query',
-                         details=dict(server=server, username=username,
-                                      error=str(exc).replace(':', ',')))
-            return False
+    msg_open: str = 'Logs are stored on system filesystems on server'
+    msg_closed: str = 'Logs are outside system filesystems on server'
 
-        _result = list(mycursor)[0][0]
-        result = _result.startswith('/var') or _result.startswith('/usr')
+    query: str = 'SELECT @@global.log_bin_basename'
 
-        if result:
-            show_open('Logs are stored on system filesystems on server',
-                      details=dict(server=server))
-        else:
-            show_close('Logs are outside system filesystems on server',
-                       details=dict(server=server))
-        return result
+    vulnerable: bool = any(value.startswith('/var') or value.startswith('/usr')
+                           for value, in _execute(connection_string, query))
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (vulns if vulnerable else safes).append(
+        msg_open if vulnerable else msg_closed)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
-@notify
-@level('low')
-@track
+@api(risk=LOW, kind=DAST)
+@unknown_if(mysql.connector.Error)
 def logs_verbosity_low(server: str, username: str, password: str,
-                       port: int = 3306) -> bool:
+                       port: int = 3306) -> tuple:
     """Check if logs verbosity includes errors, warnings and notes."""
-    try:
-        mydb = _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('There was an error connecting to MySQL engine',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        return False
-    else:
-        mycursor = mydb.cursor()
+    connection_string = ConnectionString(username, password, server, port)
 
-        query = "SHOW GLOBAL VARIABLES LIKE 'log_error_verbosity'"
-        try:
-            mycursor.execute(query)
-        except mysql.connector.errors.ProgrammingError as exc:
-            show_unknown('There was an error executing query',
-                         details=dict(server=server, username=username,
-                                      error=str(exc).replace(':', ',')))
-            return False
+    msg_open: str = 'Logs verbosity is not enough'
+    msg_closed: str = 'Logs verbosity is sufficient'
 
-        res = list(mycursor)
-        if res:
-            verbosity = res[0][1]
-            result = verbosity not in ('2', '3')
-        else:
-            verbosity = 'empty'
-            result = True
+    query: str = """
+        SHOW GLOBAL VARIABLES LIKE 'log_error_verbosity'
+        """
 
-        if result:
-            show_open('Logs verbosity not enough',
-                      details=dict(server=server, verbosity=verbosity))
-        else:
-            show_close('Logs verbosity is sufficient',
-                       details=dict(server=server, verbosity=verbosity))
-        return result
+    is_safe: bool = any(value in ('2', '3')
+                        for _, value in _execute(connection_string, query))
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (safes if is_safe else vulns).append(
+        msg_closed if is_safe else msg_open)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @notify
