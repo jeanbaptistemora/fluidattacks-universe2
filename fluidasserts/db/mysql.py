@@ -3,16 +3,20 @@
 """This module allows to check generic MySQL/MariaDB DB vulnerabilities."""
 
 # standard imports
-from __future__ import absolute_import
+from typing import Any, Iterator, List, NamedTuple, Tuple
+from contextlib import contextmanager
 
 # 3rd party imports
 import mysql.connector
+import mysql.connector.errorcode
 
 # local imports
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts import DAST, LOW
+from fluidasserts.db import _get_result_as_tuple
+from fluidasserts.utils.decorators import track, level, notify, api, unknown_if
 
 
 class ConnError(Exception):
@@ -42,24 +46,71 @@ def _get_mysql_cursor(server: str,
         return mydb
 
 
-@notify
-@level('low')
-@track
-def have_access(server: str, username: str, password: str,
-                port: int = 3306) -> bool:
-    """Check if there is access to database server."""
-    result = True
+# Containers
+#: Container with connection parameters and credentials
+ConnectionString = NamedTuple(
+    'ConnectionString', [
+        ('user', str),
+        ('passwd', str),
+        ('host', str),
+        ('port', int),
+    ])
+
+
+@contextmanager
+def database(connection_string: ConnectionString) -> Iterator[Tuple[Any, Any]]:
+    """
+    Context manager to get a safe connection and a cursor.
+
+    :param connection_string: Connection parameter and credentials.
+    :returns: A tuple of (connection object, cursor object).
+    """
+    connection = mysql.connector.connect(
+        user=connection_string.user,
+        passwd=connection_string.passwd,
+        host=connection_string.host,
+        port=connection_string.port)
+
     try:
-        _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('Not access to server',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        result = False
-    else:
-        show_open('Access to server verified',
-                  details=dict(server=server))
-    return result
+        cursor = connection.cursor()
+        try:
+            yield connection, cursor
+        finally:
+            cursor.close()
+    finally:
+        connection.close()
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(mysql.connector.Error)
+def have_access(server: str, username: str, password: str,
+                port: int = 3306) -> tuple:
+    """Check if there is access to database server."""
+    connection_string = ConnectionString(username, password, server, port)
+
+    success: bool = False
+    msg_open: str = 'MySQL is accessible with given credentials'
+    msg_closed: str = 'MySQL is not accessible with given credentials'
+
+    try:
+        with database(connection_string):
+            success = True
+    except mysql.connector.Error as exc:
+        if exc.errno != mysql.connector.errorcode.ER_ACCESS_DENIED_ERROR:
+            raise exc
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (vulns if success else safes).append(msg_open if success else msg_closed)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @notify

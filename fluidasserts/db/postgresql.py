@@ -26,7 +26,8 @@ from contextlib import contextmanager
 import psycopg2
 
 # local imports
-from fluidasserts import Unit, LOW, MEDIUM, HIGH, DAST, OPEN, CLOSED
+from fluidasserts import LOW, MEDIUM, HIGH, DAST
+from fluidasserts.db import _get_result_as_tuple
 from fluidasserts.utils.decorators import api, unknown_if
 
 # Containers
@@ -75,26 +76,6 @@ def _get_var(connection_string: ConnectionString,
         break
 
     return var_value.lower() if case_insensitive else var_value
-
-
-def _get_result_as_tuple(*,
-                         host: str, port: int,
-                         msg_open: str, msg_closed: str,
-                         vulns: List[str], safes: List[str]) -> tuple:
-    """Return the tuple version of the Result object."""
-    vuln_units: List[Unit] = []
-    safe_units: List[Unit] = []
-
-    if vulns:
-        vuln_units.append(Unit(where=f'{host}:{port}',
-                               specific=vulns))
-    if safes:
-        safe_units.append(Unit(where=f'{host}:{port}',
-                               specific=safes))
-
-    if vulns:
-        return OPEN, msg_open, vuln_units, safe_units
-    return CLOSED, msg_closed, vuln_units, safe_units
 
 
 @contextmanager
