@@ -3,7 +3,7 @@
 """This module allows to check generic MySQL/MariaDB DB vulnerabilities."""
 
 # standard imports
-from typing import Any, Iterator, List, NamedTuple, Tuple
+from typing import Any, Dict, Iterator, List, NamedTuple, Optional, Tuple
 from contextlib import contextmanager
 
 # 3rd party imports
@@ -14,7 +14,7 @@ import mysql.connector.errorcode
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
-from fluidasserts import DAST, LOW
+from fluidasserts import DAST, LOW, MEDIUM
 from fluidasserts.db import _get_result_as_tuple
 from fluidasserts.utils.decorators import track, level, notify, api, unknown_if
 
@@ -55,6 +55,15 @@ ConnectionString = NamedTuple(
         ('host', str),
         ('port', int),
     ])
+
+
+def _execute(connection_string: ConnectionString,
+             query: str,
+             variables: Optional[Dict[str, Any]]) -> Iterator[Any]:
+    """Yield the result of executing a command."""
+    with database(connection_string) as (_, cursor):
+        cursor.execute(query, variables)
+        yield from cursor
 
 
 @contextmanager
@@ -113,74 +122,65 @@ def have_access(server: str, username: str, password: str,
         safes=safes)
 
 
-@notify
-@level('low')
-@track
+@api(risk=LOW, kind=DAST)
+@unknown_if(mysql.connector.Error)
 def test_db_exists(server: str, username: str, password: str,
-                   port: int = 3306) -> bool:
+                   port: int = 3306) -> tuple:
     """Check if "test" database exists."""
-    try:
-        mydb = _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('There was an error connecting to MySQL engine',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        return False
-    else:
-        mycursor = mydb.cursor()
+    connection_string = ConnectionString(username, password, server, port)
 
-        try:
-            mycursor.execute("SHOW DATABASES")
-        except mysql.connector.errors.ProgrammingError as exc:
-            show_unknown('There was an error executing query',
-                         details=dict(server=server, username=username,
-                                      error=str(exc).replace(':', ',')))
-            return False
+    msg_open: str = 'test Database is present'
+    msg_closed: str = 'test Database is not present'
 
-        result = ('test',) in list(mycursor)
+    vulnerable: bool = any(db == 'test'
+                           for db, in _execute(
+                               connection_string, 'SHOW DATABASES', {}))
 
-        if result:
-            show_open('Database "test" is present',
-                      details=dict(server=server))
-        else:
-            show_close('Database "test" not present',
-                       details=dict(server=server))
-        return result
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (vulns if vulnerable else safes).append(
+        msg_open if vulnerable else msg_closed)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(mysql.connector.Error)
 def local_infile_enabled(server: str, username: str, password: str,
                          port: int = 3306) -> bool:
     """Check if 'local_infile' parameter is set to ON."""
-    try:
-        mydb = _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('There was an error connecting to MySQL engine',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        return False
-    else:
-        mycursor = mydb.cursor()
+    connection_string = ConnectionString(username, password, server, port)
 
-        query = "SHOW VARIABLES WHERE Variable_name = 'local_infile'"
-        try:
-            mycursor.execute(query)
-        except mysql.connector.errors.ProgrammingError as exc:
-            show_unknown('There was an error executing query',
-                         details=dict(server=server, username=username,
-                                      error=str(exc).replace(':', ',')))
-            return False
-        result = ('local_infile', 'ON') in list(mycursor)
+    msg_open: str = 'Parameter "local_infile" is ON on server'
+    msg_closed: str = 'Parameter "local_infile" is OFF on server'
 
-        if result:
-            show_open('Parameter "local_infile" is ON on server',
-                      details=dict(server=server))
-        else:
-            show_close('Parameter "local_infile" is OFF on server',
-                       details=dict(server=server))
-        return result
+    query: str = 'SHOW VARIABLES WHERE Variable_name = %(Variable_name)s'
+    parameters: Dict[str, str] = {'Variable_name': 'local_infile'}
+
+    vulnerable: bool = any(var_name == 'local_infile' and var_value == 'ON'
+                           for var_name, var_value in _execute(
+                               connection_string, query, parameters))
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (vulns if vulnerable else safes).append(
+        msg_open if vulnerable else msg_closed)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @notify
