@@ -4,13 +4,13 @@
 """
 Script to run general content checks of web repo
 Author: Oscar Eduardo Prado oprado@fluidattacks.com
-Version 1.3
-Patch notes 1.4:
-- Create dictionary for repetitive checks
+Version 1.5
+Patch notes 1.5:
+- Use error_print function
 """
 
 import os
-import print_helper as ph
+from print_helper import error_print
 from rules import GENCHECKS
 
 def genchecks(exit_code):
@@ -22,8 +22,7 @@ def genchecks(exit_code):
     for check, message in GENCHECKS.items():
         out = os.popen(check).read()
         if out:
-            ph.print_failure(out)
-            ph.print_warning(message+"\n\n")
+            error_print("", out, message)
             exit_code = 1
 
     return exit_code

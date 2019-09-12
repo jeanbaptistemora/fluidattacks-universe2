@@ -4,13 +4,13 @@
 Script that checks structure and rules in blog entries
 Replaces check-articles.sh
 Author: Oscar Eduardo Prado oprado@fluidattacks.com
-Version 1.4
-Patch notes 1.4:
-- Externalize repetitive checks
+Version 1.5
+Patch notes 1.5:
+- Use error_print function
 """
 
 import os
-import print_helper as ph
+from print_helper import error_print
 from rules import ARTRULES
 
 def artchecker(path, exit_code):
@@ -24,9 +24,9 @@ def artchecker(path, exit_code):
     if "blog" in path:
         out = os.popen("pcregrep  '"+art_cat+"' categories.lst ").read()
     if not out:
-        ph.print_failure("Issue found in "+path+" \n")
-        ph.print_warning(art_cat+" does not match any valid category " \
-                                   "in categories list file.\n\n")
+        message = art_cat+ " does not match any valid category "\
+                 "in categories list file."
+        error_print(path, '', message)
         exit_code = 1
 
     #check that every article has valid tags
@@ -37,9 +37,8 @@ def artchecker(path, exit_code):
         if "blog/" in path:
             out = os.popen("pcregrep  '"+tag+"' tags.lst ").read()
         if not out:
-            ph.print_failure("Issue found in "+path+" \n")
-            ph.print_warning(tag+" does not match any valid tag " \
-                                      "in tags list file.\n\n")
+            message = tag+" does not match any valid tag in tags list file."
+            error_print(path, '', message)
             exit_code = 1
 
     # Check that every article has a proper Word Count and LIX metrics:
@@ -51,24 +50,20 @@ def artchecker(path, exit_code):
     os.system("rm -rf temp.txt")
 
     if int(lix) >= 50:
-        ph.print_failure("Issue found in "+path+"\n")
-        ph.print_failure("Current LIX: "+lix)
-        ph.print_warning("LIX must be lower than 50\n\n")
+        message = "LIX must be lower than 50"
+        error_print(path, "Current LIX: "+lix, message)
         exit_code = 1
 
     if not 800 < int(word_count) < 1200:
-        ph.print_failure("Issue found in "+path+"\n")
-        ph.print_failure("Current Word Count: "+word_count)
-        ph.print_warning("Word count must be in range [800-1200]\n\n")
+        message = "Word count must be in range [800-1200]"
+        error_print(path, "Current Word Count: "+word_count, message)
         exit_code = 1
 
     #  Many other repetitive checks:
     for check, errmessage in ARTRULES.items():
         out = os.popen(check +"  "+ path).read()
         if out:
-            ph.print_failure("Issue found in "+path+"\n")
-            ph.print_failure(out)
-            ph.print_warning(errmessage+"\n\n")
+            error_print(path, out, errmessage)
             exit_code = 1
 
     return exit_code
