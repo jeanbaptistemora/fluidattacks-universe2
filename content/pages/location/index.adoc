@@ -1,54 +1,6 @@
 :slug: location/
 :description: Fluid Attacks is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications. The purpose of this page is to present additional information about the location of Fluid Attacks offices in Colombia and USA.
 :keywords: Fluid Attacks, Location, Office, HQ, HeadQuarters, Contact.
+:template: location
 
 = Location
-
-[role="tb-location-hq"]
-[cols=1]
-|====
-
-a|=== Headquarters
-a|=== United States
-*Address:* +
-795 Folsom Street, 1st Floor +
-San Francisco, CA. +
-94107 +
-*Phone:* +
-+1.415.404.2154 +
-++++
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12613.019591560002!2d-122.4031097883033!3d37.78406573491725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085807e0e3b97b5%3A0x890f970065001c21!2s795+Folsom+St%2C+San+Francisco%2C+CA+94107%2C+EE.+UU.!5e0!3m2!1ses!2sco!4v1539184991930" width="600" height="450" frameborder="0" style="border:0;display: block;margin: 0 auto;" allowfullscreen></iframe>
-++++
-a|=== Branches
-|====
-
-
-[role="tb-location-branch"]
-[cols=2]
-|====
-a|====  Medellín
-*Address:* +
-Calle 7 Sur N 42 – 70 +
-Forum Building, 2003 +
-Poblado, Medellín, Colombia +
-050022 +
-*Phone:* +
-+57.(4).444.26.37 +
-+57.314.653.3428 +
-++++
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.5018222236636!2d-75.57561538523105!3d6.197327695513531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e468287e3771c03%3A0xbcb5bb4181365fff!2sEdificio+Forum+Torre!5e0!3m2!1sen!2sco!4v1514988923691" width="600" height="450" frameborder="0" style="border:0;display: block;margin: 0 auto;" allowfullscreen></iframe>
-++++
-
-a|==== Bogotá
-*Address:* +
-Carrera 19 N 84 - 17 +
-Almaru Country Building, 204 +
-Barrios Unidos, Bogotá, Colombia +
-110231 +
-*Phone:* +
-+57.(1).402.91.62 +
-+57.314.653.3428 +
-++++
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d994.1424792111003!2d-74.05850607077032!3d4.6704969364396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9af4133c15ef%3A0x6d80b0ba64a624e5!2sAk.%2019%20%2384-17%2C%20Bogot%C3%A1!5e0!3m2!1ses-419!2sco!4v1567438254662!5m2!1ses-419!2sco" width="600" height="450" frameborder="0" style="border:0;display: block;margin: 0 auto;" allowfullscreen></iframe>
-++++
-|====

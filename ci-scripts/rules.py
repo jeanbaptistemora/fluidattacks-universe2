@@ -88,11 +88,12 @@ CONTENTRULES = {
 
     # Check that caption is not manually placed
     "pcregrep -ni '^\\.image\\s\\d|^\\.table\\s\\d|^\\.figure\\s\\d\' ":
-    "Captions must not contain \"Image #\", \"Figure #\" or \"Table #\".\n\n",
+    "Captions must not contain \"Image #\", \"Figure #\" or \"Table #\".\n\n"
 
     # Check if first source code has title
-    "pcregrep -ML '^\\..*\n\\[source'":
-    "The first code block of an article must have a title. "
+    # This check is not working as intended, I will fix it in the next MR
+    # "pcregrep -ML '^\\..*\n\\[source'":
+    # "The first code block of an article must have a title. "
 }
 
 #Rules for Blog articles

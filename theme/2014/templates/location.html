@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block meta %}
+<meta name="description"
+      content="{{ page.description }}">
+<meta name="keywords"
+      content="{{ page.keywords }}">
+{% endblock meta %}
+
+{% block canonical %}
+  <link rel="canonical"
+        href="{{ SITEURL }}/{{ page.url }}">
+{% endblock canonical %}
+
+{% block breadcrumb%}
+  <div class="navcontent-container">
+    <div class="navcontent-info">
+      <div class="breadcrumb">
+        <ul>
+          <li>
+            <a href="{{ SITEURL }}/">
+              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
+            </a>
+            <span>&gt;</span>
+          </li>
+          <li>
+            <a href="a">&nbsp;{{ page.title }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock breadcrumb %}
+
+{% block content %}
+  <h1>{{ page.title }}</h1>
+  <!-- HQ -->
+  <div class="w-100 montsy pb5">
+    <h3>Headquarters</h3>
+    <h3>United states</h3>
+    <p class="ma-auto w6 tl f4 pl4">
+      <strong>Address:</strong><br>
+      795 Folsom Street, 1st Floor<br>
+      San Francisco, CA.<br>
+      94107<br>
+      <strong>Phone:</strong><br>
+      +1.415.404.2154<br>
+    </p>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12613.019591560002!2d-122.4031097883033!3d37.78406573491725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085807e0e3b97b5%3A0x890f970065001c21!2s795+Folsom+St%2C+San+Francisco%2C+CA+94107%2C+EE.+UU.!5e0!3m2!1ses!2sco!4v1539184991930"
+            frameborder="0"
+            allowfullscreen
+            class="dib">
+    </iframe>
+  </div>
+
+  <!-- Branches -->
+<div class="w-100 w-75-l ma-auto">
+  <div class="w-100 w-50-l montsy pb5 fl bg-white">
+    <h3>Bogotá</h3>
+    <p class="ma-auto w6 tl f4 pl4">
+      <strong>Address:</strong><br>
+      Carrera 19 N 84 - 17<br>
+      Almaru Country Building, 204<br>
+      Antiguo Country, Bogotá <br>
+      Colombia <br>
+      110231<br>
+      <strong>Phone:</strong><br>
+      +57.(1).402.91.62 <br>
+      +57.314.653.3428 <br>
+    </p>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d994.1424792111003!2d-74.05850607077032!3d4.6704969364396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9af4133c15ef%3A0x6d80b0ba64a624e5!2sAk.%2019%20%2384-17%2C%20Bogot%C3%A1!5e0!3m2!1ses-419!2sco!4v1567438254662!5m2!1ses-419!2sco"
+          frameborder="0"
+          class="dib"
+          allowfullscreen>
+    </iframe>
+  </div>
+
+  <div class="w-100 w-50-l montsy pb5 fl bg-white">
+    <h3>Medellín</h3>
+    <p class="ma-auto w6 tl f4 pl4">
+      <strong>Address:</strong><br>
+      Calle 7 Sur N 42 – 70 <br>
+      Forum Building, 2003 <br>
+      Poblado, Medellín <br>
+      Colombia <br>
+      110231<br>
+      <strong>Phone:</strong><br>
+      +57.(4).444.26.37 <br>
+      +57.314.653.3428 <br>
+    </p>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.5018222236636!2d-75.57561538523105!3d6.197327695513531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e468287e3771c03%3A0xbcb5bb4181365fff!2sEdificio+Forum+Torre!5e0!3m2!1sen!2sco!4v1514988923691"
+           frameborder="0"
+           class="dib"
+           allowfullscreen>
+    </iframe>
+  </div>
+</div>
+{% endblock content %}
