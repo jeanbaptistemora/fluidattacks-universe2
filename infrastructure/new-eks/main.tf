@@ -38,7 +38,6 @@ module "fluid-cluster" {
     {
       name                          = "conventional-workers"
       instance_type                 = "t3.nano"
-      additional_security_group_ids = [aws_security_group.fluid-cluster-conventional-workers.id]
       asg_max_size                  = 1
       tags = [{
         key                 = "Name"
