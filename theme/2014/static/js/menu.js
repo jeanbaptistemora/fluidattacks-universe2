@@ -78,7 +78,7 @@ of the screen
     for (var i = 0; i < 5; i++) {
       var cat_en = Object.keys(dict_en)[i];
       if(window.location.href.indexOf( cat_en + '/') != -1) {
-        $($(".cssmenu > ul > li")[dict_en[cat_en]]).toggleClass("active");
+        $($(".cssmenu > ul > li")[dict_en[cat_en]]).toggleClass("active-block");
         $($(".cssmenu > ul > li")[dict_en[cat_en]]).append("<img alt=\"Selected field icon\" src=\"/web/theme/images/selected.svg\">")
       }
     }

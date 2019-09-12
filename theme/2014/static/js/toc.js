@@ -92,14 +92,14 @@ $(document).scroll(function () {
     var diff = ScrollTop - Top;
     var TocLink = $("li > a[href*='#"+ this.id +"']:not(.anchor-sign)");
     if ((diff > -50) && (diff < 0)) {
-      if ($("li > a[class*='active']").length) {
-        $("li > a[class*='active']").toggleClass("active");
+      if ($("li > a[class*='active-block']").length) {
+        $("li > a[class*='active-block']").toggleClass("active-block");
       }
-      $(TocLink).toggleClass("active");
+      $(TocLink).toggleClass("active-block");
     }
-    if ($(TocLink).hasClass("active") && diff < -60) {
-      $(TocLink).toggleClass("active");
-      $($(TocLink).parent()[0].previousSibling).children("a").toggleClass("active");
+    if ($(TocLink).hasClass("active-block") && diff < -60) {
+      $(TocLink).toggleClass("active-block");
+      $($(TocLink).parent()[0].previousSibling).children("a").toggleClass("active-block");
     }
   });
 });

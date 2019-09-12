@@ -98,7 +98,7 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-.active {
+.active-block {
   img {
     display: none;
   }
@@ -209,7 +209,7 @@ $white: rgba(255, 255, 255, 1);
     }
   }
 
-  .active {
+  .active-block {
     img {
       display: block;
       float: right;
