@@ -273,97 +273,95 @@ def webview_allows_resource_access(apk_file: str) -> bool:
     )
 
 
-@notify
-@level('low')
-@track
-def not_forces_updates(apk_file: str) -> bool:
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def not_forces_updates(apk_file: str) -> tuple:
     """
     Check if the given APK forces to use the latest version.
 
     :param apk_file: Path to the image to be tested.
+    :returns: - ``OPEN`` if APK forces to use the latest version.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        apk, dvms, _ = analyze_apk(apk_file)
-    except FileNotFoundError as exc:
-        show_unknown('Error reading file',
-                     details=dict(apk=apk_file, error=str(exc)))
-        return False
-
+    _, dvms, _ = analyze_apk(apk_file)
     act_source = get_activities_source(dvms)
+    return _get_result_as_tuple(
+        apk_file=apk_file,
+        msg_open='APK not forces updating',
+        msg_closed='APK forces updating',
+        open_if='AppUpdateManager' not in act_source
+    )
 
-    if 'AppUpdateManager' not in act_source:
-        show_open('APK not forces updating', details=dict(apk=apk_file))
-        return True
-    show_close('APK forces updating',
-               details=dict(apk=apk_file))
-    return False
 
-
-@notify
-@level('low')
-@track
-def not_verifies_ssl_hostname(apk_file: str) -> bool:
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def not_verifies_ssl_hostname(apk_file: str) -> tuple:
     """
     Check if the given APK doesn't verify the SSLSocket hostname.
 
     :param apk_file: Path to the image to be tested.
+    :returns: - ``OPEN`` if APK doesn't verify the SSLSocket hostname.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        _, dvms, _ = analyze_apk(apk_file)
-    except FileNotFoundError as exc:
-        show_unknown('Error reading file',
-                     details=dict(apk=apk_file, error=str(exc)))
-        return False
-
+    _, dvms, _ = analyze_apk(apk_file)
     act_source = get_activities_source(dvms)
 
     result = False
+    msg_closed = ''
     if 'SSLSocket' in act_source:
         if 'getDefaultHostnameVerifier' not in act_source:
             show_open('APK does not verify hostname in SSL cert',
                       details=dict(apk=apk_file))
             result = True
         else:
-            show_close('APK verifies hostname in SSL cert',
-                       details=dict(apk=apk_file))
+            msg_closed = 'APK verifies hostname in SSL cert'
     else:
-        show_close('APK does not use SSLSocket',
-                   details=dict(apk=apk_file))
-    return result
+        msg_closed = 'APK does not use SSLSocket'
+    return _get_result_as_tuple(
+        apk_file=apk_file,
+        msg_open='APK does not verify hostname in SSL cert',
+        msg_closed=msg_closed,
+        open_if=result
+    )
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
 def not_pinned_certs(apk_file: str) -> bool:
     """
     Check if the given APK does not pin x509 certificates.
 
     :param apk_file: Path to the image to be tested.
+    :returns: - ``OPEN`` if APK does not pin x509 certificates.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        apk_obj = APK(apk_file)
-    except FileNotFoundError as exc:
-        show_unknown('Error reading file',
-                     details=dict(apk=apk_file, error=str(exc)))
-        return False
+    apk_obj = APK(apk_file)
 
+    is_vuln = False
+    msg_open = ''
     try:
         net_conf = str(apk_obj.get_file('res/xml/network_security_config.xml'))
     except androguard.core.bytecodes.apk.FileNotPresent:
-        show_open('No declarative pinning file was found',
-                  details=dict(apk=apk_file))
-        return True
-
-    result = False
-    if 'pin-set' not in net_conf:
-        show_open('APK does not pin certificates',
-                  details=dict(apk=apk_file))
-        result = True
+        msg_open = 'No declarative pinning file was found'
+        is_vuln = True
     else:
-        show_close('APK pinnes certificates',
-                   details=dict(apk=apk_file))
-    return result
+        if 'pin-set' not in net_conf:
+            msg_open = 'APK does not pin certificates'
+            is_vuln = True
+        else:
+            is_vuln = False
+    return _get_result_as_tuple(
+        apk_file=apk_file,
+        msg_open=msg_open,
+        msg_closed='APK pinnes certificates',
+        open_if=is_vuln
+    )
 
 
 @notify
