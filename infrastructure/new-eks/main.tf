@@ -20,7 +20,7 @@ provider "template" {
 }
 
 locals {
-  cluster_name = "fluid-cluster-${random_string.suffix.result}"
+  cluster_name = "eks-${random_string.suffix.result}"
 }
 
 resource "random_string" "suffix" {
@@ -28,7 +28,7 @@ resource "random_string" "suffix" {
   special = false
 }
 
-module "fluid-cluster" {
+module "eks" {
   source       = "terraform-aws-modules/eks/aws"
   cluster_name = local.cluster_name
   subnets      = module.vpc.private_subnets
@@ -38,10 +38,11 @@ module "fluid-cluster" {
     {
       name                          = "conventional-workers"
       instance_type                 = "t3.nano"
-      asg_max_size                  = 1
+      asg_max_size                  = 2
+      asg_desired_capacity          = 2
       tags = [{
         key                 = "Name"
-        value               = "fluid-cluster-conventional-worker"
+        value               = "eks-conventional-worker"
         propagate_at_launch = true
       }]
     }
