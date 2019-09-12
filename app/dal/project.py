@@ -56,6 +56,31 @@ def get_active_projects():
     return [prj['project_name'] for prj in projects]
 
 
+def list_drafts(project_name):
+    key_exp = Key('project_name').eq(project_name)
+    tzn = pytz.timezone(settings.TIME_ZONE)
+    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    filter_exp = Attr('releaseDate').not_exists() \
+        | Attr('releaseDate').gt(today)
+    response = FINDINGS_TABLE.query(
+        FilterExpression=filter_exp,
+        IndexName='project_findings',
+        KeyConditionExpression=key_exp,
+        ProjectionExpression='finding_id')
+    drafts = response.get('Items', [])
+
+    while response.get('LastEvaluatedKey'):
+        response = FINDINGS_TABLE.query(
+            ExclusiveStartKey=response['LastEvaluatedKey'],
+            FilterExpression=filter_exp,
+            IndexName='project_findings',
+            KeyConditionExpression=key_exp,
+            ProjectionExpression='finding_id')
+        drafts += response.get('Items', [])
+
+    return [draft['finding_id'] for draft in drafts]
+
+
 def list_findings(project_name):
     key_exp = Key('project_name').eq(project_name)
     tzn = pytz.timezone(settings.TIME_ZONE)

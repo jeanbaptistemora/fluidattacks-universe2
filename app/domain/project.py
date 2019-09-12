@@ -292,6 +292,8 @@ def list_drafts(project_name):
     submissions = api.get_findings(project_name)['submissions']
     drafts = [submission['id'] for submission in submissions
               if is_finding_in_drafts(submission['id'])]
+    dyn_drafts = project_dal.list_drafts(project_name)
+    drafts += [draft_id for draft_id in dyn_drafts if draft_id not in drafts]
 
     return drafts
 

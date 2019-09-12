@@ -642,15 +642,12 @@ def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_nam
 
 
 def reject_draft(draft_id, reviewer_email, project_name, context):
-    fin_dto = FindingDTO()
     api = FormstackAPI()
-    is_draft = ('releaseDate' not in
-                integrates_dal.get_finding_attributes_dynamo(draft_id, ['releaseDate']))
+    draft_data = finding_dal.get_finding(draft_id)
+    is_draft = 'releaseDate' not in draft_data
     result = False
 
     if is_draft:
-        finding_data = fin_dto.parse(draft_id, api.get_submission(draft_id))
-
         delete_all_comments(draft_id)
         delete_all_evidences_s3(draft_id, project_name, context)
         integrates_dal.delete_finding_dynamo(draft_id)
@@ -660,8 +657,8 @@ def reject_draft(draft_id, reviewer_email, project_name, context):
 
         api.delete_submission(draft_id)
         send_draft_reject_mail(
-            draft_id, project_name, finding_data['analyst'],
-            finding_data['finding'], reviewer_email)
+            draft_id, project_name, draft_data['analyst'],
+            draft_data['finding'], reviewer_email)
         result = True
     else:
         raise GraphQLError('CANT_REJECT_FINDING')
@@ -690,15 +687,12 @@ def send_finding_delete_mail(
 
 
 def delete_finding(finding_id, project_name, justification, context):
-    fin_dto = FindingDTO()
     api = FormstackAPI()
-    is_finding = ('releaseDate' in
-                  integrates_dal.get_finding_attributes_dynamo(finding_id, ['releaseDate']))
+    finding_data = finding_dal.get_finding(finding_id)
+    is_finding = 'releaseDate' in finding_data
     result = False
 
     if is_finding:
-        finding_data = fin_dto.parse(finding_id, api.get_submission(finding_id))
-
         delete_all_comments(finding_id)
         delete_all_evidences_s3(finding_id, project_name, context)
         integrates_dal.delete_finding_dynamo(finding_id)
