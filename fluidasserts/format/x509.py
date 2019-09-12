@@ -2,7 +2,6 @@
 """This module allows to check ``X509`` certificates' vulnerabilities."""
 
 # standard imports
-from __future__ import absolute_import
 import datetime
 import socket
 import ssl
@@ -15,18 +14,18 @@ from cryptography.x509 import load_pem_x509_certificate
 from cryptography.x509.oid import NameOID
 
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
 from fluidasserts import Unit, DAST, MEDIUM, OPEN, CLOSED
-from fluidasserts.utils.decorators import track, level, notify, api, unknown_if
 from fluidasserts.helper.ssl import connect
 from fluidasserts.helper.ssl import connect_legacy
+from fluidasserts.utils.decorators import api, unknown_if
 
 PORT = 443
 
 
-def _uses_sign_alg(site: str, alg: str, port: int) -> bool:
+@unknown_if(socket.error,
+            tlslite.errors.TLSLocalAlert,
+            tlslite.errors.TLSRemoteAlert)
+def _uses_sign_alg(site: str, alg: str, port: int) -> tuple:
     """
     Check if the given hashing method was used in signing the site certificate.
 
@@ -34,41 +33,21 @@ def _uses_sign_alg(site: str, alg: str, port: int) -> bool:
     :param alg: Hashing method to test.
     :param port: Port to connect to.
     """
-    result = True
+    with connect(site, port=port) as connection:
+        __cert = connection.session.serverCertChain.x509List[0].bytes
+        cert = ssl.DER_cert_to_PEM_cert(__cert)
 
-    try:
-        with connect(site, port=port) as connection:
-            __cert = connection.session.serverCertChain.x509List[0].bytes
-            cert = ssl.DER_cert_to_PEM_cert(__cert)
-    except socket.error:
-        show_unknown('Port closed', details=dict(site=site, port=port))
-        return False
-    except tlslite.errors.TLSRemoteAlert as exc:
-        show_unknown('Could not connect',
-                     details=dict(site=site, port=port,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except (tlslite.errors.TLSLocalAlert):
-        show_unknown('Port doesn\'t support SSL',
-                     details=dict(site=site, port=port))
-        return False
     cert_obj = load_pem_x509_certificate(cert.encode('utf-8'),
                                          default_backend())
 
-    sign_algorith = cert_obj.signature_hash_algorithm.name
+    sign_algo: str = cert_obj.signature_hash_algorithm.name
 
-    if alg in sign_algorith:
-        show_open('Certificate has {} as signature algorithm'.
-                  format(sign_algorith.upper()),
-                  details=dict(site=site, port=port))
-        result = True
-    else:
-        show_close('Certificate does not use {} as signature algorithm'.
-                   format(alg.upper()),
-                   details=dict(site=site, port=port,
-                                cert_algorithm=sign_algorith.upper()))
-        result = False
-    return result
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open=f'Certificate has {sign_algo} as signature algorithm',
+        msg_closed=f'Certificate has not {sign_algo} as signature algorithm',
+        open_if=alg in sign_algo)
 
 
 def _get_result_as_tuple(*,
@@ -199,68 +178,45 @@ def is_cert_untrusted(site: str, port: int = PORT) -> tuple:
         open_if=not is_trusted)
 
 
-@notify
-@level('medium')
-@track
-def is_cert_validity_lifespan_unsafe(site: str, port: int = PORT) -> bool:
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(socket.error,
+            tlslite.errors.TLSLocalAlert,
+            tlslite.errors.TLSRemoteAlert)
+def is_cert_validity_lifespan_unsafe(site: str, port: int = PORT) -> tuple:
     """
     Check if certificate lifespan is larger than two years which is insecure.
 
     :param site: Site address.
     :param port: Port to connect to.
+    :returns: - ``OPEN`` if certificate's lifespan (**not_valid_after** -
+                **not_valid_before**) is more than two 730 days.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
     max_validity_days = 730
 
-    result = True
-    try:
-        with connect(site, port=port) as conn:
-            __cert = conn.session.serverCertChain.x509List[0].bytes
-            cert = ssl.DER_cert_to_PEM_cert(__cert)
-    except socket.error:
-        show_unknown('Port closed', details=dict(site=site, port=port))
-        return False
-    except tlslite.errors.TLSRemoteAlert as exc:
-        show_unknown('Could not connect',
-                     details=dict(site=site, port=port,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except (tlslite.errors.TLSLocalAlert):
-        show_unknown('Port doesn\'t support SSL',
-                     details=dict(site=site, port=port))
-        return False
+    with connect(site, port=port) as conn:
+        __cert = conn.session.serverCertChain.x509List[0].bytes
+        cert = ssl.DER_cert_to_PEM_cert(__cert)
+
     cert_obj = load_pem_x509_certificate(cert.encode('utf-8'),
                                          default_backend())
 
-    cert_validity = \
-        cert_obj.not_valid_after - cert_obj.not_valid_before
+    not_after = cert_obj.not_valid_after
+    not_before = cert_obj.not_valid_before
+    lifespan = (not_after - not_before).days
 
-    if cert_validity.days <= max_validity_days:
-        show_close('Certificate has a secure lifespan',
-                   details=dict(site=site, port=port,
-                                not_valid_before=cert_obj.not_valid_before.
-                                isoformat(),
-                                not_valid_after=cert_obj.not_valid_after.
-                                isoformat(),
-                                max_validity_days=max_validity_days,
-                                cert_validity_days=cert_validity.days))
-        result = False
-    else:
-        show_open('Certificate has an insecure lifespan',
-                  details=dict(site=site, port=port,
-                               not_valid_before=cert_obj.not_valid_before.
-                               isoformat(),
-                               not_valid_after=cert_obj.not_valid_after.
-                               isoformat(),
-                               max_validity_days=max_validity_days,
-                               cert_validity_days=cert_validity.days))
-        result = True
-    return result
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open=f'Certificate lifespan of {lifespan} days is insecure',
+        msg_closed=f'Certificate lifespan of {lifespan} days is safe',
+        open_if=lifespan > max_validity_days)
 
 
-@notify
-@level('medium')
-@track
-def is_sha1_used(site: str, port: int = PORT) -> bool:
+@api(risk=MEDIUM, kind=DAST)
+def is_sha1_used(site: str, port: int = PORT) -> tuple:
     """
     Check if certificate was signed using the ``SHA1`` algorithm.
 
@@ -271,14 +227,16 @@ def is_sha1_used(site: str, port: int = PORT) -> bool:
 
     :param site: Site address.
     :param port: Port to connect to.
+    :returns: - ``OPEN`` if certificate's signing algorithm is **SHA1**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _uses_sign_alg(site, 'sha1', port)
 
 
-@notify
-@level('medium')
-@track
-def is_md5_used(site: str, port: int = PORT) -> bool:
+@api(risk=MEDIUM, kind=DAST)
+def is_md5_used(site: str, port: int = PORT) -> tuple:
     """
     Check if certificate was signed using the ``MD5`` algorithm.
 
@@ -289,5 +247,9 @@ def is_md5_used(site: str, port: int = PORT) -> bool:
 
     :param site: Site address.
     :param port: Port to connect to.
+    :returns: - ``OPEN`` if certificate's signing algorithm is **MD5**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
     return _uses_sign_alg(site, 'md5', port)
