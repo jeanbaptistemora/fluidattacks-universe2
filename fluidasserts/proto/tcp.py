@@ -31,18 +31,18 @@ def is_port_open(ipaddress: str, port: int) -> tuple:
     """
     msg_open: str = 'Port is open'
     msg_closed: str = 'Port is closed'
-    is_port_open: bool = False
+    port_open: bool = False
 
     with suppress(socket.error):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(3)
         sock.connect((ipaddress, port))
-        is_port_open = True
+        port_open = True
 
     unit: Unit = Unit(where=f'{ipaddress}@{port}',
-                      specific=[msg_open if is_port_open else msg_closed])
+                      specific=[msg_open if port_open else msg_closed])
 
-    if is_port_open:
+    if port_open:
         return OPEN, msg_open, [unit], []
     return CLOSED, msg_closed, [], [unit]
 

@@ -9,9 +9,9 @@ from typing import List
 
 # 3rd party imports
 from androguard.misc import AnalyzeAPK
+from androguard.core.analysis import analysis
 from androguard.core.bytecodes.apk import APK
 from androguard.core.bytecodes.dvm import DalvikVMFormat
-from androguard.core.analysis import analysis
 import androguard
 
 # local imports
@@ -35,9 +35,9 @@ def analyze_apk(path: str) -> tuple:
 def get_dex(path: str) -> tuple:
     """Return DEX analysis from APK file."""
     apk_obj = APK(path)
-    dx = DalvikVMFormat(apk_obj.get_dex())
+    _dex = DalvikVMFormat(apk_obj.get_dex())
     dex = analysis.Analysis()
-    dex.add(dx)
+    dex.add(_dex)
     dex.create_xref()
     return dex
 
@@ -449,14 +449,12 @@ def not_obfuscated(apk_file: str) -> bool:
                      details=dict(apk=apk_file, error=str(exc)))
         return False
 
-    from androguard.core.analysis import analysis
+    not_obfs = [dvm.header.signature.hex() for dvm in dvms
+                if not analysis.is_ascii_obfuscation(dvm)]
 
-    not_obfuscated = [dvm.header.signature.hex() for dvm in dvms
-                      if not analysis.is_ascii_obfuscation(dvm)]
-
-    if not_obfuscated:
+    if not_obfs:
         show_open('APK has DVMs not obfuscated',
-                  details=dict(apk=apk_file, not_obfuscated=not_obfuscated))
+                  details=dict(apk=apk_file, not_obfuscated=not_obfs))
         return True
     show_close('All APK DVMs are obfuscated', details=dict(apk=apk_file))
     return False

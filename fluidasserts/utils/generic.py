@@ -49,7 +49,6 @@ def _scan_for_dirs(path: str):
             if entry.is_dir(follow_symlinks=False):
                 yield full_path
                 yield from _scan_for_dirs(full_path)
-    return
 
 
 @lru_cache(maxsize=None, typed=True)
@@ -133,8 +132,8 @@ def get_sha256(path: str) -> str:
     """
     sha256 = hashlib.sha256()
     if path is not None and os.path.exists(path):
-        for path in get_paths(path):
-            with open(path, 'rb', buffering=0) as handle:
+        for fpath in get_paths(path):
+            with open(fpath, 'rb', buffering=0) as handle:
                 for block in iter(lambda: handle.read(128 * 1024), b''):
                     sha256.update(block)
     return sha256.hexdigest()

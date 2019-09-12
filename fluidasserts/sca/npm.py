@@ -69,11 +69,11 @@ def _get_requirements(path: str, exclude: tuple) -> set:
         return reqs
     endswith = ('package.json', 'package-lock.json')
     dictionary = {ord(c): None for c in '^~<=>'}
-    for path in get_paths(path, endswith=endswith, exclude=exclude):
-        with open(path) as file:
+    for fpath in get_paths(path, endswith=endswith, exclude=exclude):
+        with open(fpath) as file:
             data = json.load(file)
         reqs.update(
-            (path, dep, ver.translate(dictionary))
+            (fpath, dep, ver.translate(dictionary))
             for dep, ver in _get_all_versions(data))
     return reqs
 

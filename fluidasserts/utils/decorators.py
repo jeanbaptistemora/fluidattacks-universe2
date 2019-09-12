@@ -7,13 +7,13 @@ import sys
 import functools
 from typing import Any, Callable
 from timeit import default_timer as timer
-from fluidasserts.utils.tracking import mp_track
 
 # 3rd party imports
 import oyaml as yaml
 
 # local imports
 from fluidasserts import Result, UNKNOWN
+from fluidasserts.utils.tracking import mp_track
 
 
 def _get_func_id(func: Callable) -> str:
