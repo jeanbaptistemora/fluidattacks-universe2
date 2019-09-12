@@ -14,7 +14,7 @@ import mysql.connector.errorcode
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
-from fluidasserts import DAST, LOW, MEDIUM
+from fluidasserts import DAST, LOW, MEDIUM, HIGH
 from fluidasserts.db import _get_result_as_tuple
 from fluidasserts.utils.decorators import track, level, notify, api, unknown_if
 
@@ -410,167 +410,143 @@ def logs_verbosity_low(server: str, username: str, password: str,
         safes=safes)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
+@unknown_if(mysql.connector.Error)
 def auto_creates_users(server: str, username: str, password: str,
-                       port: int = 3306) -> bool:
+                       port: int = 3306) -> tuple:
     """Check if 'NO_AUTO_CREATE_USER' param is set."""
-    try:
-        mydb = _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('There was an error connecting to MySQL engine',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        return False
-    else:
-        mycursor = mydb.cursor()
+    connection_string = ConnectionString(username, password, server, port)
 
-        queries = ['SELECT @@global.sql_mode', 'SELECT @@session.sql_mode']
-        result = False
-        for query in queries:
-            try:
-                mycursor.execute(query)
-            except mysql.connector.errors.ProgrammingError as exc:
-                show_unknown('There was an error executing query',
-                             details=dict(server=server, username=username,
-                                          error=str(exc).replace(':', ',')))
-                return False
+    msg_open: str = 'Param "NO_AUTO_CREATE_USER" not set on server'
+    msg_closed: str = 'Param "NO_AUTO_CREATE_USER" is set on server'
 
-            _result = list(mycursor)[0][0]
-            result = 'NO_AUTO_CREATE_USER' not in _result
-            if result:
-                break
+    query: str = """
+        SELECT @@global.sql_mode
+        UNION ALL
+        SELECT @@session.sql_mode
+        """
 
-        if result:
-            show_open('Param "NO_AUTO_CREATE_USER" not set on server',
-                      details=dict(server=server))
-        else:
-            show_close('Param "NO_AUTO_CREATE_USER" is set on server',
-                       details=dict(server=server))
-        return result
+    is_safe: bool = any('NO_AUTO_CREATE_USER' in var
+                        for var, in _execute(connection_string, query))
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (safes if is_safe else vulns).append(
+        msg_closed if is_safe else msg_open)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
+@unknown_if(mysql.connector.Error)
 def has_users_without_password(server: str, username: str,
-                               password: str, port: int = 3306) -> bool:
+                               password: str, port: int = 3306) -> tuple:
     """Check if users have a password set."""
-    try:
-        mydb = _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('There was an error connecting to MySQL engine',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        return False
-    else:
-        mycursor = mydb.cursor()
+    connection_string = ConnectionString(username, password, server, port)
 
-        query = 'select user from mysql.user where password=""'
-        try:
-            mycursor.execute(query)
-        except mysql.connector.errors.ProgrammingError as exc:
-            show_unknown('There was an error executing query',
-                         details=dict(server=server, username=username,
-                                      error=str(exc).replace(':', ',')))
-            return False
+    msg_open: str = 'There are users without password on server'
+    msg_closed: str = 'All users have passwords on server'
 
-        _result = list(mycursor)
-        result = len(_result) != 0
+    query: str = """
+        SELECT user FROM mysql.user WHERE password = ''
+        """
 
-        if result:
-            show_open('There are users without password on server',
-                      details=dict(server=server,
-                                   users=", ".join([x[0].decode()
-                                                    for x in _result])))
-        else:
-            show_close('All users have passwords on server',
-                       details=dict(server=server))
-        return result
+    vulnerable: bool = bool(tuple(_execute(connection_string, query)))
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (vulns if vulnerable else safes).append(
+        msg_open if vulnerable else msg_closed)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
+@unknown_if(mysql.connector.Error)
 def password_expiration_unsafe(server: str, username: str,
-                               password: str, port: int = 3306) -> bool:
+                               password: str, port: int = 3306) -> tuple:
     """Check if password expiration time is safe."""
-    try:
-        mydb = _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('There was an error connecting to MySQL engine',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        return False
-    else:
-        mycursor = mydb.cursor()
+    connection_string = ConnectionString(username, password, server, port)
 
-        query = 'SHOW VARIABLES LIKE "default_password_lifetime"'
-        try:
-            mycursor.execute(query)
-        except mysql.connector.errors.ProgrammingError as exc:
-            show_unknown('There was an error executing query',
-                         details=dict(server=server, username=username,
-                                      error=str(exc).replace(':', ',')))
-            return False
+    msg_open: str = 'Password lifetime is unsafe'
+    msg_closed: str = 'Password lifetime is safe'
 
-        _result = list(mycursor)
-        if not _result:
-            result = True
-        elif int(_result[0][1]) > 90:
-            result = True
-        else:
-            result = False
+    query: str = """
+        SHOW VARIABLES LIKE "default_password_lifetime"
+        """
+    results: Tuple[Any] = tuple(_execute(connection_string, query))
+    vulnerable: bool = not results or any(int(val) > 90 for _, val in results)
 
-        if result:
-            show_open('Password lifetime is unsafe',
-                      details=dict(server=server))
+    vulns: List[str] = []
+    safes: List[str] = []
 
-        else:
-            show_close('Password lifetime is safe',
-                       details=dict(server=server))
-        return result
+    (vulns if vulnerable else safes).append(
+        msg_open if vulnerable else msg_closed)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
+@unknown_if(mysql.connector.Error)
 def password_equals_to_user(server: str, username: str,
-                            password: str, port: int = 3006) -> bool:
+                            password: str, port: int = 3306) -> bool:
     """Check if users' password is the same username."""
-    try:
-        mydb = _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('There was an error connecting to MySQL engine',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        return False
-    else:
-        mycursor = mydb.cursor()
+    connection_string = ConnectionString(username, password, server, port)
 
-        query = 'SELECT User,password FROM mysql.user \
-WHERE BINARY password=CONCAT("*", UPPER(SHA1(UNHEX(SHA1(user)))))'
-        try:
-            mycursor.execute(query)
-        except mysql.connector.errors.ProgrammingError as exc:
-            show_unknown('There was an error executing query',
-                         details=dict(server=server, username=username,
-                                      error=str(exc).replace(':', ',')))
-            return False
+    msg_open: str = 'There are users whose username is their password'
+    msg_closed: str = 'There are no users whose username is their password'
 
-        _result = list(mycursor)
-        result = len(_result) != 0
+    query: str = """
+        SELECT User, password
+        FROM mysql.user
+        WHERE (
+            password = MD5(%(username)s)
+            or password = SHA1(%(username)s)
+            or password = PASSWORD(%(username)s)
+            or password = ENCRYPT(%(username)s)
+        )
+        """
+    variables: Dict[str, str] = {
+        'username': username
+    }
 
-        if result:
-            show_open('There are users with the password=username',
-                      details=dict(server=server,
-                                   users=", ".join([x[0].decode()
-                                                    for x in _result])))
-        else:
-            show_close('All users have passwords different to the username',
-                       details=dict(server=server))
-        return result
+    # vulnerable if there are returned rows
+    vulnerable: bool = bool(tuple(_execute(connection_string,
+                                           query, variables)))
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (vulns if vulnerable else safes).append(
+        msg_open if vulnerable else msg_closed)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @notify
