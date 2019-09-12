@@ -5,6 +5,7 @@
 # standard imports
 from functools import lru_cache
 import logging
+from typing import List
 
 # 3rd party imports
 from androguard.misc import AnalyzeAPK
@@ -14,9 +15,11 @@ from androguard.core.analysis import analysis
 import androguard
 
 # local imports
+from fluidasserts import Unit, LOW, MEDIUM, SAST, OPEN, CLOSED, UNKNOWN
 from fluidasserts import show_open
 from fluidasserts import show_close
 from fluidasserts import show_unknown
+from fluidasserts.utils.decorators import api, unknown_if
 from fluidasserts.utils.decorators import track, level, notify
 
 androguard.core.androconf.show_logging(level=logging.CRITICAL)
@@ -79,44 +82,55 @@ def get_http_urls(dex):
             not any(re.match(whitel, x.get_value()) for whitel in whitelist)]
 
 
-@notify
-@level('low')
-@track
-def is_unsigned(apk_file: str) -> bool:
+def _get_result_as_tuple(*,
+                         apk_file: str,
+                         msg_open: str, msg_closed: str,
+                         open_if: bool) -> tuple:
+    """Return the tuple version of the Result object."""
+    units: List[Unit] = [
+        Unit(where=f'{apk_file}',
+             specific=[msg_open if open_if else msg_closed])]
+
+    if open_if:
+        return OPEN, msg_open, units, []
+    return CLOSED, msg_closed, [], units
+
+
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def is_unsigned(apk_file: str) -> tuple:
     """
     Check if the given APK file is signed.
 
     :param apk_file: Path to the image to be tested.
+    :returns: - ``OPEN`` if APK is unsigned.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        apk = APK(apk_file)
-    except FileNotFoundError as exc:
-        show_unknown('Error reading file',
-                     details=dict(apk=apk_file, error=str(exc)))
-        return False
+    apk = APK(apk_file)
 
-    if apk.is_signed():
-        show_close('APK file is signed', details=dict(apk=apk_file))
-        return False
-    show_open('APK file is not signed', details=dict(apk=apk_file))
-    return True
+    return _get_result_as_tuple(
+        apk_file=apk_file,
+        msg_open='APK file is not signed',
+        msg_closed='APK file is signed',
+        open_if=not apk.is_signed()
+    )
 
 
-@notify
-@level('low')
-@track
-def not_checks_for_root(apk_file: str) -> bool:
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def not_checks_for_root(apk_file: str) -> tuple:
     """
     Check if the given APK file have methods to check for root.
 
     :param apk_file: Path to the image to be tested.
+    :returns: - ``OPEN`` if APK has means for checking if the device is rooted.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        _, _, dex = analyze_apk(apk_file)
-    except FileNotFoundError as exc:
-        show_unknown('Error reading file',
-                     details=dict(apk=apk_file, error=str(exc)))
-        return False
+    _, _, dex = analyze_apk(apk_file)
 
     root_checker_methods = {
         'isRooted',
@@ -126,28 +140,28 @@ def not_checks_for_root(apk_file: str) -> bool:
         'checkSuExists',
     }
 
-    if any(x.name in root_checker_methods for x in dex.get_methods()):
-        show_close('App verifies for root', details=dict(apk=apk_file))
-        return False
-    show_open('App doesn\'t verify for root', details=dict(apk=apk_file))
-    return True
+    check_root = any(x.name in root_checker_methods for x in dex.get_methods())
+    return _get_result_as_tuple(
+        apk_file=apk_file,
+        msg_open='App doesn\'t verify for root',
+        msg_closed='App verifies for root',
+        open_if=not check_root
+    )
 
 
-@notify
-@level('medium')
-@track
-def uses_dangerous_perms(apk_file: str) -> bool:
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def uses_dangerous_perms(apk_file: str) -> tuple:
     """
     Check if the given APK uses dangerous permissions.
 
     :param apk_file: Path to the image to be tested.
+    :returns: - ``OPEN`` if APK uses dangerous permissions.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        apk = APK(apk_file)
-    except FileNotFoundError as exc:
-        show_unknown('Error reading file',
-                     details=dict(apk=apk_file, error=str(exc)))
-        return False
+    apk = APK(apk_file)
 
     dangerous = {
         'dangerous'
@@ -156,86 +170,86 @@ def uses_dangerous_perms(apk_file: str) -> bool:
     perms = apk.get_details_permissions()
     effective_dangerous = [(x, perms[x][1]) for x in perms
                            if perms[x][0] in dangerous]
-    if effective_dangerous:
-        show_open('APK uses dangerous permissions',
-                  details=dict(apk=apk_file, permissions=effective_dangerous))
-        return True
-    show_close('APK doesn\'t use dangerous permissions',
-               details=dict(apk=apk_file))
-    return False
+
+    return _get_result_as_tuple(
+        apk_file=apk_file,
+        msg_open=f'APK uses dangerous permissions: {effective_dangerous}',
+        msg_closed='APK doesn\'t use dangerous permissions',
+        open_if=effective_dangerous
+    )
 
 
-@notify
-@level('medium')
-@track
-def has_fragment_injection(apk_file: str) -> bool:
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_fragment_injection(apk_file: str) -> tuple:
     """
     Check if the given APK is vulnerable to fragment injection.
 
     :param apk_file: Path to the image to be tested.
+    :returns: - ``OPEN`` if APK is vulnerable to fragment injection.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        apk, dvms, _ = analyze_apk(apk_file)
-    except FileNotFoundError as exc:
-        show_unknown('Error reading file',
-                     details=dict(apk=apk_file, error=str(exc)))
-        return False
+    apk_obj, dvms, _ = analyze_apk(apk_file)
 
-    sdk_version = apk.get_target_sdk_version()
+    sdk_version = apk_obj.get_target_sdk_version()
     target_sdk_version = int(sdk_version) if sdk_version else 0
 
     if target_sdk_version == 0:
-        show_unknown('Could not determine target SDK version',
-                     details=dict(apk=apk_file))
-        return False
+        return UNKNOWN, f'Could not determine target SDK version on {apk_file}'
+
+    is_vuln = False
     if target_sdk_version < 19:
         act_source = get_activities_source(dvms)
         if 'PreferenceActivity' in act_source:
-            show_open('APK vulnerable to fragment injection',
-                      details=dict(apk=apk_file))
-            return True
-    show_close('APK not vulnerable to fragment injection',
-               details=dict(apk=apk_file))
-    return False
+            is_vuln = True
+    return _get_result_as_tuple(
+        apk_file=apk_file,
+        msg_open='APK vulnerable to fragment injection',
+        msg_closed='APK not vulnerable to fragment injection',
+        open_if=is_vuln
+    )
 
 
-@notify
-@level('low')
-@track
-def webview_caches_javascript(apk_file: str) -> bool:
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def webview_caches_javascript(apk_file: str) -> tuple:
     """
     Check if the given APK has WebView that caches JavaScript data and code.
 
     :param apk_file: Path to the image to be tested.
+    :returns: - ``OPEN`` if APK has WebView that caches JavaScript.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        apk, dvms, _ = analyze_apk(apk_file)
-    except FileNotFoundError as exc:
-        show_unknown('Error reading file',
-                     details=dict(apk=apk_file, error=str(exc)))
-        return False
-
+    _, dvms, _ = analyze_apk(apk_file)
     act_source = get_activities_source(dvms)
 
+    is_vuln = False
     if 'setJavaScriptEnabled' in act_source:
         if 'clearCache' not in act_source:
-            show_open('WebView has JavaScript enabled \
-but doesn\'t clear cache',
-                      details=dict(apk=apk_file))
-            return True
-    show_close('WebView has JavaScript not enabled or clears cache',
-               details=dict(apk=apk_file))
-    return False
+            is_vuln = True
+    return _get_result_as_tuple(
+        apk_file=apk_file,
+        msg_open='WebView not clears JavaScript cache',
+        msg_closed='WebView has JavaScript not enabled or clears cache',
+        open_if=is_vuln
+    )
 
 
-@notify
-@level('low')
-@track
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
 def webview_allows_resource_access(apk_file: str) -> bool:
     """
     Check if the given APK has WebView that allows resource access.
 
     :param apk_file: Path to the image to be tested.
+    :returns: - ``OPEN`` if APK has WebView that allows resource access.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
     dangerous_allows = {
         'setAllowContentAccess',
@@ -243,26 +257,20 @@ def webview_allows_resource_access(apk_file: str) -> bool:
         'setAllowFileAccessFromFileURLs',
         'setAllowUniversalAccessFromFileURLs',
     }
-    try:
-        apk, dvms, _ = analyze_apk(apk_file)
-    except FileNotFoundError as exc:
-        show_unknown('Error reading file',
-                     details=dict(apk=apk_file, error=str(exc)))
-        return False
 
+    _, dvms, _ = analyze_apk(apk_file)
     act_source = get_activities_source(dvms)
 
+    effective_dangerous = []
     if 'setJavaScriptEnabled' in act_source:
         effective_dangerous = [x for x in dangerous_allows
                                if x in act_source]
-        if effective_dangerous:
-            show_open('WebView allows resource access',
-                      details=dict(apk=apk_file,
-                                   dangerous_allows=effective_dangerous))
-            return True
-    show_close('WebView does not allow resource access',
-               details=dict(apk=apk_file))
-    return False
+    return _get_result_as_tuple(
+        apk_file=apk_file,
+        msg_open=f'WebView allows resource access: {effective_dangerous}',
+        msg_closed='WebView does not allow resource access',
+        open_if=effective_dangerous
+    )
 
 
 @notify
