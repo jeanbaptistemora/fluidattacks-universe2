@@ -18,6 +18,9 @@ The entire suite has been tested on the following PostgreSQL releases:
 - `Postgres v9.4 <https://www.postgresql.org/docs/9.4/index.html>`_.
 """
 
+# pylint: disable=too-many-locals
+# pylint: disable=too-many-arguments
+
 # standard imports
 from typing import Any, Dict, Iterator, List, NamedTuple, Optional, Tuple
 from contextlib import contextmanager
@@ -67,10 +70,14 @@ def _get_var(connection_string: ConnectionString,
              case_insensitive: bool = True) -> str:
     """Return the value of a system variable or an empty string."""
     var_value: str = str()
-    statement: str = \
-        "SELECT setting FROM pg_settings WHERE name = %(variable_name)s"
+    query: str = """
+        SELECT setting FROM pg_settings WHERE name = %(variable_name)s
+        """
+    variables: Dict[str, str] = {
+        'variable_name': variable_name,
+    }
 
-    for row in _execute(connection_string, statement, locals().copy()):
+    for row in _execute(connection_string, query, variables):
         # Variable is defined
         var_value, = row
         break
@@ -223,8 +230,7 @@ def has_not_logging_enabled(dbname: str,
         ConnectionString(dbname, user, password, host, port, 'prefer')
 
     is_safe: bool
-    vulns: List[str] = []
-    safes: List[str] = []
+    vulns, safes = [], []
 
     #
     # Needed to enable logging

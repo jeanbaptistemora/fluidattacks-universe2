@@ -21,6 +21,7 @@ def _get_func_id(func: Callable) -> str:
     return f"{func.__module__} -> {func.__name__}"
 
 
+# pylint: disable=unused-argument
 def api(risk: str, kind: str, **kwargs: Any) -> Callable:
     """Pre-processing and post-processing of the function results."""
     def wrapper(func: Callable) -> Callable:

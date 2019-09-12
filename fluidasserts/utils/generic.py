@@ -134,8 +134,10 @@ def get_sha256(path: str) -> str:
     if path is not None and os.path.exists(path):
         for fpath in get_paths(path):
             with open(fpath, 'rb', buffering=0) as handle:
-                for block in iter(lambda: handle.read(128 * 1024), b''):
+                block = handle.read(128 * 1024)
+                while block:
                     sha256.update(block)
+                    block = handle.read(128 * 1024)
     return sha256.hexdigest()
 
 
