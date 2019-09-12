@@ -6,6 +6,7 @@ from __future__ import absolute_import
 import datetime
 import socket
 import ssl
+from typing import List
 
 # 3rd party imports
 import tlslite
@@ -17,7 +18,8 @@ from cryptography.x509.oid import NameOID
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts import Unit, DAST, MEDIUM, OPEN, CLOSED
+from fluidasserts.utils.decorators import track, level, notify, api, unknown_if
 from fluidasserts.helper.ssl import connect
 from fluidasserts.helper.ssl import connect_legacy
 
@@ -69,10 +71,25 @@ def _uses_sign_alg(site: str, alg: str, port: int) -> bool:
     return result
 
 
-@notify
-@level('medium')
-@track
-def is_cert_cn_not_equal_to_site(site: str, port: int = PORT) -> bool:
+def _get_result_as_tuple(*,
+                         site: str, port: int,
+                         msg_open: str, msg_closed: str,
+                         open_if: bool) -> tuple:
+    """Return the tuple version of the Result object."""
+    units: List[Unit] = [
+        Unit(where=f'{site}:{port}',
+             specific=[msg_open if open_if else msg_closed])]
+
+    if open_if:
+        return OPEN, msg_open, units, []
+    return CLOSED, msg_closed, [], units
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(socket.error,
+            tlslite.errors.TLSLocalAlert,
+            tlslite.errors.TLSRemoteAlert)
+def is_cert_cn_not_equal_to_site(site: str, port: int = PORT) -> tuple:
     """
     Check if certificate Common Name (CN) is different from given sitename.
 
@@ -81,24 +98,16 @@ def is_cert_cn_not_equal_to_site(site: str, port: int = PORT) -> bool:
 
     :param site: Site address.
     :param port: Port to connect to.
+    :returns: - ``OPEN`` if the parameter **site** does not equal the
+                certificate's **Common Name** (CN).
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    result = True
-    try:
-        with connect(site, port=port) as conn:
-            __cert = conn.session.serverCertChain.x509List[0].bytes
-            cert = ssl.DER_cert_to_PEM_cert(__cert)
-    except socket.error:
-        show_unknown('Port closed', details=dict(site=site, port=port))
-        return False
-    except tlslite.errors.TLSRemoteAlert as exc:
-        show_unknown('Could not connect',
-                     details=dict(site=site, port=port,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except (tlslite.errors.TLSLocalAlert):
-        show_unknown('Port doesn\'t support SSL',
-                     details=dict(site=site, port=port))
-        return False
+    with connect(site, port=port) as conn:
+        __cert = conn.session.serverCertChain.x509List[0].bytes
+        cert = ssl.DER_cert_to_PEM_cert(__cert)
+
     cert_obj = load_pem_x509_certificate(cert.encode('utf-8'),
                                          default_backend())
     cert_cn = \
@@ -111,22 +120,21 @@ def is_cert_cn_not_equal_to_site(site: str, port: int = PORT) -> bool:
     if cert_cn.startswith('*.'):
         domain = '.' + cert_cn.split('*.')[1].lower()
 
-    if (site.lower() != cert_cn and wc_cert != cert_cn and
-            not site.endswith(domain)):
-        show_open('{} CN not equals to site'.format(cert_cn),
-                  details=dict(site=site, port=port, cn=cert_cn))
-        result = True
-    else:
-        show_close('{} CN equals to site'.format(cert_cn),
-                   details=dict(site=site, port=port, cn=cert_cn))
-        result = False
-    return result
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open=f'{cert_cn} CN is not equal to site {site}',
+        msg_closed=f'{cert_cn} CN is equal to site {site}',
+        open_if=(site.lower() != cert_cn
+                 and wc_cert != cert_cn
+                 and not site.endswith(domain)))
 
 
-@notify
-@level('medium')
-@track
-def is_cert_inactive(site: str, port: int = PORT) -> bool:
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(socket.error,
+            tlslite.errors.TLSLocalAlert,
+            tlslite.errors.TLSRemoteAlert)
+def is_cert_inactive(site: str, port: int = PORT) -> tuple:
     """
     Check if certificate is no longer valid.
 
@@ -135,77 +143,60 @@ def is_cert_inactive(site: str, port: int = PORT) -> bool:
 
     :param site: Site address.
     :param port: Port to connect to.
+    :returns: - ``OPEN`` if certificate's **not valid after** date is
+                less than or equal the current time.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    result = True
-    try:
-        with connect(site, port=port) as conn:
-            __cert = conn.session.serverCertChain.x509List[0].bytes
-            cert = ssl.DER_cert_to_PEM_cert(__cert)
-    except socket.error:
-        show_unknown('Port closed', details=dict(site=site, port=port))
-        return False
-    except tlslite.errors.TLSRemoteAlert as exc:
-        show_unknown('Could not connect',
-                     details=dict(site=site, port=port,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    except (tlslite.errors.TLSLocalAlert):
-        show_unknown('Port doesn\'t support SSL',
-                     details=dict(site=site, port=port))
-        return False
+    with connect(site, port=port) as conn:
+        __cert = conn.session.serverCertChain.x509List[0].bytes
+        cert = ssl.DER_cert_to_PEM_cert(__cert)
+
     cert_obj = load_pem_x509_certificate(cert.encode('utf-8'),
                                          default_backend())
 
-    if cert_obj.not_valid_after > datetime.datetime.now():
-        show_close('Certificate is still valid',
-                   details=dict(site=site, port=port,
-                                not_valid_after=cert_obj.not_valid_after.
-                                isoformat(),
-                                current_time=datetime.datetime.now().
-                                isoformat()))
-        result = False
-    else:
-        show_open('Certificate is expired',
-                  details=dict(site=site, port=port,
-                               not_valid_after=cert_obj.not_valid_after.
-                               isoformat(),
-                               current_time=datetime.datetime.now().
-                               isoformat()))
-        result = True
-    return result
+    now = datetime.datetime.now()
+    cert_time = cert_obj.not_valid_after
+
+    now_str: str = now.isoformat()
+    cert_time_str: str = cert_time.isoformat()
+
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open=f'Certificate is expired {now_str} > {cert_time_str}',
+        msg_closed=f'Certificate is still valid {now_str} <= {cert_time_str}',
+        open_if=now > cert_time)
 
 
-@notify
-@level('medium')
-@track
-def is_cert_untrusted(site: str, port: int = PORT) -> bool:
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(socket.error)
+def is_cert_untrusted(site: str, port: int = PORT) -> tuple:
     """
     Check if certificate is trusted (signed by recognized CA).
 
     :param site: Site address.
     :param port: Port to connect to.
+    :returns: - ``OPEN`` if certificate's is **signed** by a recognized
+                **Certificate Authority**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    result = True
+    is_trusted: bool = False
     try:
         with connect_legacy(site, port, validate_cert=True):
-            show_close('Cert is trusted',
-                       details=dict(server=site, port=port))
-            result = False
+            is_trusted = True
     except socket.error as exc:
-        if exc.errno == 1 and 'verify failed' in str(exc.strerror):
-            show_open('Cert is not trusted',
-                      details=dict(server=site, port=port))
-        elif exc.errno == 1 and 'verify failed' not in str(exc.strerror):
-            show_unknown('Port doesn\'t support SSL',
-                         details=dict(server=site, port=port,
-                                      reason=str(exc).replace(':', ',')))
-            result = False
-        else:
-            show_unknown('Could not connect',
-                         details=dict(server=site, port=port,
-                                      reason=str(exc).replace(':', ',')))
-            result = False
-    return result
+        if not (exc.errno == 1 and 'verify failed' in str(exc.strerror)):
+            raise exc
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open='Cert is not trusted',
+        msg_closed='Cert is trusted',
+        open_if=not is_trusted)
 
 
 @notify
