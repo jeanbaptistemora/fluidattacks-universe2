@@ -6,6 +6,8 @@
 # pylint: disable=import-error
 # pylint: disable=too-many-arguments
 # pylint: disable=too-many-instance-attributes
+# pylint: disable=protected-access
+
 
 # standard imports
 import hashlib

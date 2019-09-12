@@ -165,7 +165,7 @@ INTROSPECTION_QUERY: str = textwrap.dedent("""
 #
 
 
-def query(url: str, query: str, *args, **kwargs) -> None:
+def do_query(url: str, query: str, *args, **kwargs) -> None:
     """Make a generic query to a GraphQL instance."""
     kwargs['files'] = {'query': (None, query)}
     return http.HTTPSession(url, *args, **kwargs)
@@ -202,7 +202,7 @@ def accepts_introspection(url: str, *args, **kwargs) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     try:
-        obj = query(url, INTROSPECTION_QUERY, *args, **kwargs)
+        obj = do_query(url, INTROSPECTION_QUERY, *args, **kwargs)
     except http.ConnError as exc:
         return UNKNOWN, f'Connection Error: {exc}'
     except http.ParameterError as exc:
@@ -262,11 +262,11 @@ def has_dos(url: str, query: str,
     """
     kwargs['timeout'] = aiohttp.ClientTimeout(total=timeout)
 
-    async def run_dos(url: str, query: str, num: int, args, kwargs):
+    async def run_dos(url: str, qquery: str, num: int, args, kwargs):
         """Function to run multiple queries and return the errors."""
         tasks = (
             asyncio.ensure_future(
-                query_async(url, query, *args, **kwargs)) for _ in range(num))
+                query_async(url, qquery, *args, **kwargs)) for _ in range(num))
 
         responses = await asyncio.gather(*tasks, return_exceptions=True)
 
@@ -290,5 +290,4 @@ def has_dos(url: str, query: str,
 
     if timeouts:
         return OPEN, 'GraphQL is vulnerable to a DoS', units
-    else:
-        return CLOSED, 'GraphQL is vulnerable to a DoS', [], units
+    return CLOSED, 'GraphQL is vulnerable to a DoS', [], units

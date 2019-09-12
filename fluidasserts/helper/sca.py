@@ -6,13 +6,12 @@
 import os
 import re
 import json
-import aiohttp
 import urllib.parse
 
 # 3rd party imports
-from pyparsing import Regex
 from functools import reduce
-
+from pyparsing import Regex
+import aiohttp
 
 # local imports
 from fluidasserts import Unit
@@ -50,6 +49,7 @@ def _get_vuln_line(path: str, pkg: str, ver: str) -> int:
     return matches[0].specific[0]
 
 
+# pylint: disable=unused-argument
 @asynchronous.http_retry
 async def get_vulns_ossindex_async(package_manager: str, path: str,
                                    package: str, version: str,

@@ -17,6 +17,11 @@ import paramiko
 # local imports
 # none
 
+# pylint: disable=too-many-locals
+# pylint: disable=protected-access
+# pylint: disable=too-few-public-methods
+# pylint: disable=no-self-use
+
 
 class ConnError(Exception):
     """
@@ -26,7 +31,7 @@ class ConnError(Exception):
     """
 
 
-class AutoAddHostPolicy(object):
+class AutoAddHostPolicy():
     """
     Policy for automatically adding the hostname and new host key.
 
@@ -34,7 +39,7 @@ class AutoAddHostPolicy(object):
     """
 
     def missing_host_key(self, client, hostname, key):
-        """Method called when there is no missing host key in the client."""
+        """Add policy when there is a missing host key in the client."""
         client._host_keys.add(hostname, key.get_name(), key)
         if client._host_keys_filename is not None:
             client.save_host_keys(client._host_keys_filename)
@@ -48,7 +53,6 @@ def build_ssh_object() -> Generator[paramiko.client.SSHClient, None, None]:
         yield ssh_conn
 
 
-# pylint: disable=too-many-locals
 def ssh_user_pass(server: str, username: str, password: str,
                   command: str) -> Tuple[bool, bool]:
     """

@@ -9,11 +9,11 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional, Set, Union
 
 # 3rd party imports
-from bs4 import BeautifulSoup
-from pytz import timezone
 from difflib import SequenceMatcher
-from viewstate import ViewState, ViewStateException
 from urllib.parse import parse_qsl
+from pytz import timezone
+from bs4 import BeautifulSoup
+from viewstate import ViewState, ViewStateException
 import ntplib
 
 # local imports
@@ -1040,12 +1040,12 @@ def has_not_subresource_integrity(
 
     vulns: List[Unit] = []
     safes: List[Unit] = []
-    msg: str = '{elem_types} element {asserts} integrity attributes'
 
     for elem_types in ('link', 'script'):
         vulnerable: bool = any(
             elem.get('integrity') is None for elem in soup(elem_types))
         asserts: str = 'has not' if vulnerable else 'has'
+        msg: str = '{elem_types} element {asserts} integrity attributes'
 
         unit: Unit = Unit(
             where=url,

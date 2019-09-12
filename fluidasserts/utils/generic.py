@@ -10,10 +10,10 @@ import sys
 import asyncio
 import hashlib
 from functools import lru_cache
+from typing import Callable, List, Union
 
 # 3rd party imports
-import yaml
-from typing import Callable, List, Union
+import oyaml as yaml
 
 # local imports
 from fluidasserts import show_close

@@ -28,6 +28,8 @@ PORT = 443
 TYPRECEIVE = Tuple[Optional[str], Optional[int], Optional[int]]
 
 
+# pylint: disable=protected-access
+
 def _my_send_finished(self, master_secret, cipher_suite=None, next_proto=None,
                       settings=None):
     """Duck-tapped TLSConnection._sendFinished function."""
