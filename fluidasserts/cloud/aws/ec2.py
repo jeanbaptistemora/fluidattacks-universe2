@@ -2,18 +2,15 @@
 
 """AWS cloud checks (EC2)."""
 
-# standard imports
-# None
-
 # 3rd party imports
-# None
+from botocore.exceptions import BotoCoreError
+from botocore.vendored.requests.exceptions import RequestException
 
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts import DAST, LOW, MEDIUM
 from fluidasserts.helper import aws
+from fluidasserts.cloud.aws import _get_result_as_tuple
+from fluidasserts.utils.decorators import api, unknown_if
 
 
 def _check_port_in_seggroup(port: int, group: dict) -> list:
@@ -29,11 +26,10 @@ def _check_port_in_seggroup(port: int, group: dict) -> list:
     return vuln
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
 def seggroup_allows_anyone_to_admin_ports(
-        key_id: str, secret: str, retry: bool = True) -> bool:
+        key_id: str, secret: str, retry: bool = True) -> tuple:
     """
     Check if security groups allows connection from anyone to SSH service.
 
@@ -55,271 +51,250 @@ def seggroup_allows_anyone_to_admin_ports(
         11211,  # Memcached
         27017,  # MongoDB
     }
-    try:
-        sec_groups = aws.run_boto3_func(key_id, secret, 'ec2',
-                                        'describe_security_groups',
-                                        param='SecurityGroups',
-                                        retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    if not sec_groups:
-        show_close('Not security groups were found')
-        return False
 
-    result = False
+    security_groups = aws.run_boto3_func(key_id=key_id,
+                                         secret=secret,
+                                         service='ec2',
+                                         func='describe_security_groups',
+                                         param='SecurityGroups',
+                                         retry=retry)
 
-    for group in sec_groups:
-        for admin_port in admin_ports:
-            vuln = _check_port_in_seggroup(admin_port, group)
-            if vuln:
-                show_open(f'Security group allows connections \
-from anyone to {admin_port}',
-                          details=dict(group=group['Description'],
-                                       ip_ranges=vuln))
-                result = True
-            else:
-                show_close(f'Security group not allows connections \
-from anyone to port {admin_port}',
-                           details=dict(group=group['Description']))
-    return result
+    msg_open: str = 'Security group allows connections to admin_ports'
+    msg_closed: str = 'Security group denies connections to admin_ports'
+
+    vulns, safes = [], []
+
+    if security_groups:
+        for group in security_groups:
+            group_id = group['GroupId']
+            for port in admin_ports:
+                is_vulnerable: bool = _check_port_in_seggroup(port, group)
+
+                (vulns if is_vulnerable else safes).append(
+                    f'Security group {group_id} ' +
+                    f'must deny connections to port {port}')
+
+    return _get_result_as_tuple(
+        service='EC2', objects='security groups',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
 def default_seggroup_allows_all_traffic(
-        key_id: str, secret: str, retry: bool = True) -> bool:
+        key_id: str, secret: str, retry: bool = True) -> tuple:
     """
     Check if default security groups allows connection to or from anyone.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    try:
-        sec_groups = aws.run_boto3_func(key_id, secret, 'ec2',
-                                        'describe_security_groups',
-                                        param='SecurityGroups',
-                                        retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    if not sec_groups:
-        show_close('Not security groups were found')
-        return False
+    security_groups = aws.run_boto3_func(key_id=key_id,
+                                         secret=secret,
+                                         service='ec2',
+                                         func='describe_security_groups',
+                                         param='SecurityGroups',
+                                         retry=retry)
 
-    result = False
+    msg_open: str = \
+        'Default security groups allows connections from/to anyone'
+    msg_closed: str = \
+        'Default security groups does not allow connections from/to anyone'
 
-    def_groups = filter(lambda x: x['GroupName'] == 'default', sec_groups)
+    vulns, safes = [], []
 
-    for group in def_groups:
-        for ip_perm in group['IpPermissions'] + group['IpPermissionsEgress']:
-            vuln = [ip_perm for x in ip_perm['IpRanges']
-                    if x['CidrIp'] == '0.0.0.0/0']
-        if vuln:
-            show_open('Default security groups allows connections \
-to or from anyone',
-                      details=dict(group=group['Description'],
-                                   ip_ranges=vuln))
-            result = True
-        else:
-            show_close('Default security groups not allows connections \
-to or from anyone',
-                       details=dict(group=group['Description']))
+    if security_groups:
+        for group in security_groups:
+            if not group['GroupName'] == 'default':
+                continue
 
-    return result
+            group_id = group['GroupId']
+
+            ip_permissions = \
+                group['IpPermissions'] + group['IpPermissionsEgress']
+
+            is_vulnerable: bool = any(
+                ip_range['CidrIp'] == '0.0.0.0/0'
+                for ip_permission in ip_permissions
+                for ip_range in ip_permission['IpRanges'])
+
+            (vulns if is_vulnerable else safes).append(
+                f'Default security group {group_id} ' +
+                f'must not have 0.0.0.0/0 CIDRs')
+
+    return _get_result_as_tuple(
+        service='EC2', objects='security groups',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
 def has_unencrypted_volumes(
-        key_id: str, secret: str, retry: bool = True) -> bool:
+        key_id: str, secret: str, retry: bool = True) -> tuple:
     """
     Check if there are unencrypted volumes.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    try:
-        volumes = aws.run_boto3_func(key_id, secret, 'ec2',
-                                     'describe_volumes',
-                                     param='Volumes',
-                                     retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    if not volumes:
-        show_close('Not volumes found')
-        return False
+    volumes = aws.run_boto3_func(key_id=key_id,
+                                 secret=secret,
+                                 service='ec2',
+                                 func='describe_volumes',
+                                 param='Volumes',
+                                 retry=retry)
 
-    result = False
+    msg_open: str = 'Account have non-encrypted volumes'
+    msg_closed: str = 'All volumes are encrypted'
 
-    for volume in volumes:
-        if not volume['Encrypted']:
-            show_open('Volume is not encrypted', details=dict(volume=volume))
-            result = True
-        else:
-            show_close('Volume is encrypted', details=dict(volume=volume))
-    return result
+    vulns, safes = [], []
+
+    if volumes:
+        for volume in volumes:
+            volume_id = volume['VolumeId']
+            (vulns if not volume['Encrypted'] else safes).append(
+                f'Volume {volume_id} must be encrypted')
+
+    return _get_result_as_tuple(
+        service='EC2', objects='volumes',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
 def has_unencrypted_snapshots(
-        key_id: str, secret: str, retry: bool = True) -> bool:
+        key_id: str, secret: str, retry: bool = True) -> tuple:
     """
     Check if there are unencrypted snapshots.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    try:
-        identity = aws.run_boto3_func(key_id, secret, 'sts',
-                                      'get_caller_identity',
-                                      retry=retry)
-        snapshots = aws.run_boto3_func(key_id, secret, 'ec2',
-                                       'describe_snapshots',
-                                       param='Snapshots',
-                                       retry=retry,
-                                       OwnerIds=[identity['Account']])
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    if not snapshots:
-        show_close('Not snapshots found')
-        return False
+    identity = aws.run_boto3_func(key_id=key_id,
+                                  secret=secret,
+                                  service='sts',
+                                  func='get_caller_identity',
+                                  retry=retry)
+    snapshots = aws.run_boto3_func(key_id=key_id,
+                                   secret=secret,
+                                   service='ec2',
+                                   func='describe_snapshots',
+                                   param='Snapshots',
+                                   OwnerIds=[identity['Account']],
+                                   retry=retry)
 
-    result = False
+    msg_open: str = 'Account have non-encrypted snapshots'
+    msg_closed: str = 'All snapshots are encrypted'
 
-    for snapshot in snapshots:
-        if not snapshot['Encrypted']:
-            show_open('Snapshot is not encrypted',
-                      details=dict(snapshot=snapshot))
-            result = True
-        else:
-            show_close('Snapshot is encrypted',
-                       details=dict(snapshot=snapshot))
-    return result
+    vulns, safes = [], []
+
+    if snapshots:
+        for snapshot in snapshots:
+            snapshot_id = snapshot['SnapshotId']
+            (vulns if not snapshot['Encrypted'] else safes).append(
+                f'Snapshot {snapshot_id} must be encrypted')
+
+    return _get_result_as_tuple(
+        service='EC2', objects='snapshots',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
-@notify
-@level('low')
-@track
+@api(risk=LOW, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
 def has_unused_seggroups(
-        key_id: str, secret: str, retry: bool = True) -> bool:
+        key_id: str, secret: str, retry: bool = True) -> tuple:
     """
     Check if there are unused security groups.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    try:
-        seggroups = aws.run_boto3_func(key_id, secret, 'ec2',
-                                       'describe_security_groups',
-                                       param='SecurityGroups',
-                                       retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    if not seggroups:
-        show_close('Not security groups found')
-        return False
+    security_groups = aws.run_boto3_func(key_id=key_id,
+                                         secret=secret,
+                                         service='ec2',
+                                         func='describe_security_groups',
+                                         param='SecurityGroups',
+                                         retry=retry)
 
-    result = False
+    msg_open: str = 'Some security groups are not being used'
+    msg_closed: str = 'All security groups are being used'
 
-    for group in seggroups:
-        net_ifaces = aws.run_boto3_func(key_id, secret, 'ec2',
-                                        'describe_network_interfaces',
-                                        param='NetworkInterfaces',
-                                        retry=retry,
-                                        Filters=[{'Name': 'group-id',
-                                                  'Values':
-                                                  [group['GroupId']]}])
-        if not net_ifaces:
-            show_open('Security group is not used',
-                      details=dict(security_group=group['GroupId']))
-            result = True
-        else:
-            show_close('Security group is being used',
-                       details=dict(security_group=group['GroupId'],
-                                    net_interfaces=net_ifaces))
-    return result
+    vulns, safes = [], []
+
+    if security_groups:
+        for group in security_groups:
+            group_id = group['GroupId']
+            net_interfaces = aws.run_boto3_func(key_id=key_id,
+                                                secret=secret,
+                                                service='ec2',
+                                                func=('describe_'
+                                                      'network_interfaces'),
+                                                param='NetworkInterfaces',
+                                                Filters=[{
+                                                    'Name': 'group-id',
+                                                    'Values': [
+                                                        group['GroupId'],
+                                                    ]
+                                                }],
+                                                retry=retry)
+
+            (vulns if not net_interfaces else safes).append(
+                f'Security group {group_id} must be used or deleted')
+
+    return _get_result_as_tuple(
+        service='EC2', objects='security groups',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
-@notify
-@level('low')
-@track
+@api(risk=LOW, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
 def vpcs_without_flowlog(
-        key_id: str, secret: str, retry: bool = True) -> bool:
+        key_id: str, secret: str, retry: bool = True) -> tuple:
     """
     Check if VPCs have flow logs.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    try:
-        vpcs = aws.run_boto3_func(key_id, secret, 'ec2',
-                                  'describe_vpcs',
-                                  param='Vpcs',
-                                  retry=retry,
-                                  Filters=[{'Name': 'state',
-                                            'Values':
-                                            ['available']}])
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    if not vpcs:
-        show_close('Not VPCs found')
-        return False
+    virtual_clouds = aws.run_boto3_func(key_id=key_id,
+                                        secret=secret,
+                                        service='ec2',
+                                        func='describe_vpcs',
+                                        param='Vpcs',
+                                        Filters=[{
+                                            'Name': 'state',
+                                            'Values': ['available']
+                                        }],
+                                        retry=retry)
 
-    result = False
+    msg_open: str = 'No Flow Logs found for VPC'
+    msg_closed: str = 'Flow Logs found for VPC'
 
-    for vpc in vpcs:
-        flow_logs = aws.run_boto3_func(key_id, secret, 'ec2',
-                                       'describe_flow_logs',
-                                       param='FlowLogs',
-                                       retry=retry,
-                                       Filters=[{'Name': 'resource-id',
-                                                 'Values':
-                                                 [vpc['VpcId']]}])
-        if not flow_logs:
-            show_open('No Flow Logs found for VPC',
-                      details=dict(vpc=vpc['VpcId']))
-            result = True
-        else:
-            show_close('Flow Logs found for VPC',
-                       details=dict(vpc=vpc['VpcId'],
-                                    flow_logs=flow_logs))
-    return result
+    vulns, safes = [], []
+
+    if virtual_clouds:
+        for cloud in virtual_clouds:
+            cloud_id = cloud['VpcId']
+            net_interfaces = aws.run_boto3_func(key_id=key_id,
+                                                secret=secret,
+                                                service='ec2',
+                                                func='describe_flow_logs',
+                                                param='FlowLogs',
+                                                Filters=[{
+                                                    'Name': 'resource-id',
+                                                    'Values': [cloud_id],
+                                                }],
+                                                retry=retry)
+
+            (vulns if not net_interfaces else safes).append(
+                f'VPC {cloud_id} must be used or deleted')
+
+    return _get_result_as_tuple(
+        service='EC2', objects='virtual private clouds',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
