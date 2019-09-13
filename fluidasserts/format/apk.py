@@ -359,161 +359,156 @@ def not_pinned_certs(apk_file: str) -> tuple:
     return _get_result_as_tuple(
         apk_file=apk_file,
         msg_open=msg_open,
-        msg_closed='APK pinnes certificates',
+        msg_closed='APK pines certificates',
         open_if=is_vuln
     )
 
 
-@notify
-@level('low')
-@track
-def allows_user_ca(apk_file: str) -> bool:
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def allows_user_ca(apk_file: str) -> tuple:
     """
     Check if the given APK allows to trust on user-given CAs.
 
     :param apk_file: Path to the image to be tested.
+    :returns: - ``OPEN`` if APK allows to trust on user-given CAs.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        apk_obj = APK(apk_file)
-    except FileNotFoundError as exc:
-        show_unknown('Error reading file',
-                     details=dict(apk=apk_file, error=str(exc)))
-        return False
+    apk_obj = APK(apk_file)
 
-    result = False
+    msg_open = ''
+    msg_closed = ''
     try:
         net_conf = str(apk_obj.get_file('res/xml/network_security_config.xml'))
     except androguard.core.bytecodes.apk.FileNotPresent:
         sdk_version = apk_obj.get_target_sdk_version()
         target_sdk = int(sdk_version) if sdk_version else 0
         if target_sdk < 24:
-            show_open('No network security config file found and SDK version \
-allows user-supplied CAs by default',
-                      details=dict(apk=apk_file, target_sdk=target_sdk))
-            result = True
-        else:
-            show_close('No network security config file found but SDK version \
-defaults to deny user-supplied CAs',
-                       details=dict(apk=apk_file, target_sdk=target_sdk))
-            result = False
-        return result
+            msg_open = 'No network security config file found and SDK version \
+allows user-supplied CAs by default'
+            return _get_result_as_tuple(
+                apk_file=apk_file,
+                msg_open=msg_open,
+                msg_closed=msg_closed,
+                open_if=True
+            )
+        msg_closed = 'No network security config file found but SDK version \
+defaults to deny user-supplied CAs'
+        return _get_result_as_tuple(
+            apk_file=apk_file,
+            msg_open=msg_open,
+            msg_closed=msg_closed,
+            open_if=False
+        )
 
     result = False
-
     if 'trust-anchors' in net_conf and 'user' in net_conf:
-        show_open('APK allows to trust user-supplied CAs',
-                  details=dict(apk=apk_file))
+        msg_open = 'APK allows to trust user-supplied CAs'
         result = True
     else:
-        show_close('APK denies to trust user-supplied CAs',
-                   details=dict(apk=apk_file))
-    return result
+        msg_closed = 'APK denies to trust user-supplied CAs'
+    return _get_result_as_tuple(
+        apk_file=apk_file,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        open_if=result
+    )
 
 
-@notify
-@level('medium')
-@track
-def has_debug_enabled(apk_file: str) -> bool:
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_debug_enabled(apk_file: str) -> tuple:
     """
     Check if the given APK has debug enabled.
 
     :param apk_file: Path to the image to be tested.
+    :returns: - ``OPEN`` if APK has debug enabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        apk_obj = APK(apk_file)
-    except FileNotFoundError as exc:
-        show_unknown('Error reading file',
-                     details=dict(apk=apk_file, error=str(exc)))
-        return False
+    apk_obj = APK(apk_file)
 
-    if apk_obj.get_element("application", "debuggable") == 'true':
-        show_open('APK has debug enabled', details=dict(apk=apk_file))
-        return True
-    show_close('APK has debug disabled', details=dict(apk=apk_file))
-    return False
+    return _get_result_as_tuple(
+        apk_file=apk_file,
+        msg_open='APK has debug enabled',
+        msg_closed='APK has debug disabled',
+        open_if=apk_obj.get_element("application", "debuggable") == 'true'
+    )
 
 
-@notify
-@level('low')
-@track
-def not_obfuscated(apk_file: str) -> bool:
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def not_obfuscated(apk_file: str) -> tuple:
     """
     Check if the given APK is not obfuscated.
 
     :param apk_file: Path to the image to be tested.
+    :returns: - ``OPEN`` if APK is not obfuscated.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        _, dvms, _ = analyze_apk(apk_file)
-    except FileNotFoundError as exc:
-        show_unknown('Error reading file',
-                     details=dict(apk=apk_file, error=str(exc)))
-        return False
-
+    _, dvms, _ = analyze_apk(apk_file)
     not_obfs = [dvm.header.signature.hex() for dvm in dvms
                 if not analysis.is_ascii_obfuscation(dvm)]
+    return _get_result_as_tuple(
+        apk_file=apk_file,
+        msg_open=f'APK has DVMs not obfuscated: {not_obfs}',
+        msg_closed='All APK DVMs are obfuscated',
+        open_if=not_obfs
+    )
 
-    if not_obfs:
-        show_open('APK has DVMs not obfuscated',
-                  details=dict(apk=apk_file, not_obfuscated=not_obfs))
-        return True
-    show_close('All APK DVMs are obfuscated', details=dict(apk=apk_file))
-    return False
 
-
-@notify
-@level('low')
-@track
-def uses_insecure_delete(apk_file: str) -> bool:
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def uses_insecure_delete(apk_file: str) -> tuple:
     """
     Check if the given APK uses insecure delete of data.
 
     :param apk_file: Path to the image to be tested.
+    :returns: - ``OPEN`` if APK uses insecure delete of data.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        dex = get_dex(apk_file)
-    except FileNotFoundError as exc:
-        show_unknown('Error reading file',
-                     details=dict(apk=apk_file, error=str(exc)))
-        return False
+    dex = get_dex(apk_file)
 
     deletes_insecure = is_method_present(dex, 'Ljava/io/File;', 'delete',
                                          '()Z')
 
-    if deletes_insecure:
-        show_open('APK does not securely remove files',
-                  details=dict(apk=apk_file,
-                               deletes_insecure=deletes_insecure))
-        return True
-    show_close('APK securely remove files', details=dict(apk=apk_file))
-    return False
+    return _get_result_as_tuple(
+        apk_file=apk_file,
+        msg_open='APK does not securely remove files',
+        msg_closed='APK securely remove files',
+        open_if=deletes_insecure
+    )
 
 
-@notify
-@level('low')
-@track
-def uses_http_resources(apk_file: str) -> bool:
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def uses_http_resources(apk_file: str) -> tuple:
     """
     Check if the given APK references HTTP (not HTTPS) resources.
 
     :param apk_file: Path to the image to be tested.
+    :returns: - ``OPEN`` if APK references HTTP (not HTTPS) resources.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
     """
-    try:
-        dex = get_dex(apk_file)
-    except FileNotFoundError as exc:
-        show_unknown('Error reading file',
-                     details=dict(apk=apk_file, error=str(exc)))
-        return False
+    dex = get_dex(apk_file)
 
     insecure_urls = get_http_urls(dex)
 
-    if insecure_urls:
-        show_open('APK references insecure URLs',
-                  details=dict(apk=apk_file,
-                               insecure_urls=insecure_urls))
-        return True
-    show_close('All HTTP references in APK use HTTPS',
-               details=dict(apk=apk_file))
-    return False
+    return _get_result_as_tuple(
+        apk_file=apk_file,
+        msg_open=f'APK references insecure URLs: {insecure_urls}',
+        msg_closed='All HTTP references in APK use HTTPS',
+        open_if=insecure_urls
+    )
 
 
 @notify
