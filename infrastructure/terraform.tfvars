@@ -31,6 +31,9 @@ eksSnetRegSecondary = [
   "us-east-1b",
 ]
 
+# New EKS Vars
+terraform-states-bucket = "terraform-states"
+
 # ElastiCache Vars
 cacheGroupId          = "tf-redis-cluster"
 cacheGroupDescription = "Redis Cluster Cache"

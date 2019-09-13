@@ -45,6 +45,9 @@ variable "eksSnetRegSecondary" {
   type = list(string)
 }
 
+# New EKS Vars
+variable "terraform-states-bucket" {}
+
 # ElastiCache Vars
 variable "cacheGroupId" {}
 variable "cacheGroupDescription" {}

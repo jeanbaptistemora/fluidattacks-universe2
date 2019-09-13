@@ -14,11 +14,12 @@ provider "aws" {
 
 # Create from scratch
 module "bucket" {
-  source             = "./bucket"
-  fiBucket           = var.fiBucket
-  fsBucket           = var.fsBucket
-  fwBucket           = var.fwBucket
-  break-build-bucket = var.break-build-bucket
+  source                  = "./bucket"
+  fiBucket                = var.fiBucket
+  fsBucket                = var.fsBucket
+  fwBucket                = var.fwBucket
+  break-build-bucket      = var.break-build-bucket
+  terraform-states-bucket = var.terraform-states-bucket
 }
 
 # Create from scratch
