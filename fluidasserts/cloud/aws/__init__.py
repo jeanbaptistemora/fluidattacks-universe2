@@ -2,14 +2,28 @@
 
 """Fluid Asserts AWS cloud package."""
 
-# Imported but unused
-# flake8: noqa
+# standard imports
+from typing import List
 
-from fluidasserts.cloud.aws import cloudfront
-from fluidasserts.cloud.aws import cloudtrail
-from fluidasserts.cloud.aws import ec2
-from fluidasserts.cloud.aws import generic
-from fluidasserts.cloud.aws import iam
-from fluidasserts.cloud.aws import rds
-from fluidasserts.cloud.aws import redshift
-from fluidasserts.cloud.aws import s3
+# local imports
+from fluidasserts import Unit, OPEN, CLOSED
+
+
+def _get_result_as_tuple(*,
+                         service: str,
+                         msg_open: str, msg_closed: str,
+                         vulns: List[str], safes: List[str]) -> tuple:
+    """Return the tuple version of the Result object."""
+    vuln_units: List[Unit] = []
+    safe_units: List[Unit] = []
+
+    if vulns:
+        vuln_units.append(Unit(where=f'AWS/{service}',
+                               specific=vulns))
+    if safes:
+        safe_units.append(Unit(where=f'AWS/{service}',
+                               specific=safes))
+
+    if vulns:
+        return OPEN, msg_open, vuln_units, safe_units
+    return CLOSED, msg_closed, vuln_units, safe_units
