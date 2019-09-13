@@ -6,12 +6,20 @@
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Query, QueryResult } from "react-apollo";
+import { Mutation, MutationFn, Query, QueryResult } from "react-apollo";
+import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { Field, InjectedFormProps } from "redux-form";
+import { Button } from "../../../../components/Button";
 import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
+import { Modal } from "../../../../components/Modal";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { formatDrafts, handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { textField } from "../../../../utils/forms/fields";
+import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
-import { GET_DRAFTS } from "./queries";
+import { required } from "../../../../utils/validations";
+import { GenericForm } from "../../components/GenericForm";
+import { CREATE_DRAFT_MUTATION, GET_DRAFTS } from "./queries";
 import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "./types";
 
 const tableHeaders: IHeader[] = [
@@ -35,44 +43,110 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
   const { projectName } = props.match.params;
 
   const goToFinding: ((rowInfo: { id: string }) => void) = (rowInfo: { id: string }): void => {
-    mixpanel.track(
-      "ReadDraft",
-      {
-        Organization: (window as Window & { userOrganization: string }).userOrganization,
-        User: (window as Window & { userName: string }).userName,
-      });
+    mixpanel.track("ReadDraft", {
+      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+      User: (window as typeof window & { userName: string }).userName,
+    });
     location.hash = `#!/project/${projectName}/drafts/${rowInfo.id}/description`;
   };
 
-  const handleQryResult: ((qrResult: IProjectDraftsAttr) => void) = (qrResult: IProjectDraftsAttr): void => {
-    mixpanel.track(
-      "ProjectDrafts",
-      {
-        Organization: (window as Window & { userOrganization: string }).userOrganization,
-        User: (window as Window & { userName: string }).userName,
-      });
+  const handleQryResult: ((qrResult: IProjectDraftsAttr) => void) = (): void => {
+    mixpanel.track("ProjectDrafts", {
+      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+      User: (window as typeof window & { userName: string }).userName,
+    });
     hidePreloader();
+  };
+
+  const [isDraftModalOpen, setDraftModalOpen] = React.useState(false);
+
+  const openNewDraftModal: (() => void) = (): void => {
+    setDraftModalOpen(true);
+  };
+
+  const closeNewDraftModal: (() => void) = (): void => {
+    setDraftModalOpen(false);
   };
 
   return (
     <Query query={GET_DRAFTS} variables={{ projectName }} onCompleted={handleQryResult}>
       {
-        ({loading, error, data}: QueryResult<IProjectDraftsAttr>): React.ReactNode => {
+        ({ data, error, loading, refetch }: QueryResult<IProjectDraftsAttr>): React.ReactNode => {
           if (loading) {
             showPreloader();
 
-            return <React.Fragment/>;
+            return <React.Fragment />;
           }
           if (!_.isUndefined(error)) {
             hidePreloader();
             handleGraphQLErrors("An error occurred getting project drafts", error);
 
-            return <React.Fragment/>;
+            return <React.Fragment />;
           }
           if (!_.isUndefined(data)) {
+            const handleMutationResult: ((result: { createDraft: { success: boolean } }) => void) = (
+              result: { createDraft: { success: boolean } },
+            ): void => {
+              if (result.createDraft.success) {
+                closeNewDraftModal();
+                msgSuccess(
+                  translate.t("project.drafts.success_create"),
+                  translate.t("project.drafts.title_success"),
+                );
+                refetch()
+                  .catch();
+              }
+            };
 
             return (
               <React.StrictMode>
+                {(window as typeof window & { userRole: string }).userRole === "admin"
+                  ? <Row>
+                    <Col md={2} mdOffset={5}>
+                      <ButtonToolbar>
+                        <Button onClick={openNewDraftModal}>
+                          <Glyphicon glyph="plus" />&nbsp;{translate.t("project.drafts.new")}
+                        </Button>
+                      </ButtonToolbar>
+                    </Col>
+                  </Row>
+                  : undefined}
+                <Modal
+                  footer={<div />}
+                  headerTitle={translate.t("project.drafts.new")}
+                  onClose={closeNewDraftModal}
+                  open={isDraftModalOpen}
+                >
+                  <Mutation mutation={CREATE_DRAFT_MUTATION} onCompleted={handleMutationResult}>
+                    {(createDraft: MutationFn): React.ReactNode => {
+                      const handleSubmit: ((values: {}) => void) = (values: {}): void => {
+                        createDraft({ variables: { ...values, projectName } })
+                          .catch();
+                      };
+
+                      return (
+                        <GenericForm name="newDraft" onSubmit={handleSubmit}>
+                          {({ pristine, submitting }: InjectedFormProps): JSX.Element => (
+                            <React.Fragment>
+                              <Row>
+                                <Col md={12}>
+                                  <label>{translate.t("project.drafts.title")}</label>
+                                  <Field component={textField} name="title" type="text" validate={[required]} />
+                                </Col>
+                              </Row>
+                              <br />
+                              <ButtonToolbar className="pull-right">
+                                <Button bsStyle="success" block={true} type="submit" disabled={pristine || submitting}>
+                                  {translate.t("confirmmodal.proceed")}
+                                </Button>
+                              </ButtonToolbar>
+                            </React.Fragment>
+                          )}
+                        </GenericForm>
+                      );
+                    }}
+                  </Mutation>
+                </Modal>
                 <p>{translate.t("project.findings.help_label")}</p>
                 <DataTable
                   dataset={formatDrafts(data.project.drafts)}

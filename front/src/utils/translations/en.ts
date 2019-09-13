@@ -74,6 +74,12 @@ const enTranslations: dict = {
     verified_success: "This finding was marked as verified.",
   },
   project: {
+    drafts: {
+      new: "New Draft",
+      success_create: "Draft created successfully",
+      title: "Title",
+      title_success: "Success",
+    },
     findings: {
       boolean: {
         False: "No",

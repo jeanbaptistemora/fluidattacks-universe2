@@ -29,9 +29,7 @@ from app.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
     send_mail_accepted_finding, send_mail_delete_draft, send_mail_delete_finding
 )
-from app.utils import (
-    cvss, forms as forms_utils, notifications, findings as finding_utils
-)
+from app.utils import cvss, notifications, findings as finding_utils
 
 
 def save_file_url(finding_id, field_name, file_url):
@@ -444,27 +442,6 @@ def update_description(finding_id, updated_values):
             updated_values['risk_value'] = calc_risk_level(
                 updated_values['probability'],
                 updated_values['severity'])
-
-    description = integrates_dal.get_finding_attributes_dynamo(
-        finding_id,
-        ['vulnerability'])
-
-    if not description:
-        finding_dto = FindingDTO()
-        api = FormstackAPI()
-        submission_data = api.get_submission(finding_id)
-        description_info = \
-            finding_dto.parse_description(submission_data, finding_id)
-        project_info = \
-            finding_dto.parse_project(submission_data, finding_id)
-        aditional_info = \
-            forms_utils.dict_concatenation(description_info,
-                                           project_info)
-        updated_values = \
-            forms_utils.dict_concatenation(aditional_info, updated_values)
-    else:
-        # Finding data has been already migrated
-        pass
 
     updated_values = {util.camelcase_to_snakecase(k): updated_values.get(k)
                       for k in updated_values}

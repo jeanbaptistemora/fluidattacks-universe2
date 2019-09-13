@@ -18,3 +18,11 @@ export const GET_DRAFTS: DocumentNode = gql`
     }
   }
 `;
+
+export const CREATE_DRAFT_MUTATION: DocumentNode = gql`
+  mutation CreateDraftMutation($projectName: String!, $title: String!) {
+    createDraft(projectName: $projectName, title: $title) {
+      success
+    }
+  }
+`;

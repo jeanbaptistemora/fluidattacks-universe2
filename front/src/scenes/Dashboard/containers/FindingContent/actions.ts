@@ -76,11 +76,12 @@ export const rejectDraft: ((draftId: string, projectName: string) => ThunkResult
         .then((response: AxiosResponse) => {
           const { data } = response.data;
 
-          if (data.rejectDraft.success) {
+          if (data.deleteDraft.success) {
             msgSuccess(
               translate.t("search_findings.finding_deleted", { findingId: draftId }),
               translate.t("proj_alerts.title_success"));
             location.hash = `#!/project/${projectName}/drafts`;
+            location.reload();
           }
         })
         .catch((error: AxiosError) => {
@@ -112,6 +113,7 @@ export const deleteFinding: ((findingId: string, projectName: string, justificat
               translate.t("search_findings.finding_deleted", { findingId }),
               translate.t("proj_alerts.title_success"));
             location.hash = `#!/project/${projectName}/findings`;
+            location.reload();
           }
         })
         .catch((error: AxiosError) => {
