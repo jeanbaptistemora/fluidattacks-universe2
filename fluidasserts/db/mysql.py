@@ -63,7 +63,19 @@ def database(connection_string: ConnectionString) -> Iterator[Tuple[Any, Any]]:
 @unknown_if(mysql.connector.Error)
 def have_access(server: str, username: str, password: str,
                 port: int = 3306) -> tuple:
-    """Check if there is access to database server."""
+    """
+    Check if there is access to database server.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if we are able to connect with the provided
+                credentials.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     success: bool = False
@@ -95,7 +107,18 @@ def have_access(server: str, username: str, password: str,
 @unknown_if(mysql.connector.Error)
 def test_db_exists(server: str, username: str, password: str,
                    port: int = 3306) -> tuple:
-    """Check if "test" database exists."""
+    """
+    Check if "test" database exists.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if a database with name 'test' exists.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'test Database is present'
@@ -124,7 +147,18 @@ def test_db_exists(server: str, username: str, password: str,
 @unknown_if(mysql.connector.Error)
 def local_infile_enabled(server: str, username: str, password: str,
                          port: int = 3306) -> tuple:
-    """Check if 'local_infile' parameter is set to ON."""
+    """
+    Check if 'local_infile' parameter is set to ON.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if variable **local_infile** is set to **ON**.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'Parameter "local_infile" is ON on server'
@@ -157,7 +191,18 @@ def local_infile_enabled(server: str, username: str, password: str,
 @unknown_if(mysql.connector.Error)
 def symlinks_enabled(server: str, username: str, password: str,
                      port: int = 3306) -> tuple:
-    """Check if symbolic links are enabled on MySQL server."""
+    """
+    Check if symbolic links are enabled on MySQL server.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if variable **have_symlink** is set to **DISABLED**.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'Symbolic links are supported by server'
@@ -189,7 +234,18 @@ def symlinks_enabled(server: str, username: str, password: str,
 @unknown_if(mysql.connector.Error)
 def memcached_enabled(server: str, username: str, password: str,
                       port: int = 3306) -> tuple:
-    """Check if memcached daemon is enabled on server."""
+    """
+    Check if memcached daemon is enabled on server.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if **MemCached Daemon Plugin** is enabled.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'Memcached daemon is enabled on server'
@@ -222,7 +278,18 @@ def memcached_enabled(server: str, username: str, password: str,
 @unknown_if(mysql.connector.Error)
 def secure_file_priv_disabled(server: str, username: str,
                               password: str, port: int = 3306) -> tuple:
-    """Check if secure_file_priv is configured on server."""
+    """
+    Check if secure_file_priv is configured on server.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if variable **secure_file_priv** is not set.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'Parameter secure_file_priv is not established'
@@ -255,7 +322,19 @@ def secure_file_priv_disabled(server: str, username: str,
 @unknown_if(mysql.connector.Error)
 def strict_all_tables_disabled(server: str, username: str,
                                password: str, port: int = 3306) -> tuple:
-    """Check if STRICT_ALL_TABLES is enabled on MySQL server."""
+    """
+    Check if STRICT_ALL_TABLES is enabled on MySQL server.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if variable **sql_mode** is not set to
+                **STRICT_ALL_TABLES**.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'STRICT_ALL_TABLES is not enabled on by server'
@@ -288,7 +367,18 @@ def strict_all_tables_disabled(server: str, username: str,
 @unknown_if(mysql.connector.Error)
 def log_error_disabled(server: str, username: str, password: str,
                        port: int = 3306) -> tuple:
-    """Check if 'log_error' parameter is set on MySQL server."""
+    """
+    Check if 'log_error' parameter is set on MySQL server.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if variable **log_error** is not set.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'Parameter log_error not set on server'
@@ -320,7 +410,19 @@ def log_error_disabled(server: str, username: str, password: str,
 @unknown_if(mysql.connector.Error)
 def logs_on_system_fs(server: str, username: str, password: str,
                       port: int = 3306) -> tuple:
-    """Check if logs are stored on a system filesystem on server."""
+    """
+    Check if logs are stored on a system filesystem on server.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if logs are stored on **/var** or **/usr**
+                directories.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'Logs are stored on system filesystems on server'
@@ -350,7 +452,19 @@ def logs_on_system_fs(server: str, username: str, password: str,
 @unknown_if(mysql.connector.Error)
 def logs_verbosity_low(server: str, username: str, password: str,
                        port: int = 3306) -> tuple:
-    """Check if logs verbosity includes errors, warnings and notes."""
+    """
+    Check if logs verbosity includes errors, warnings and notes.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if variable **log_error_verbosity** is not set to
+                either *2* or *3*.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'Logs verbosity is not enough'
@@ -382,7 +496,19 @@ def logs_verbosity_low(server: str, username: str, password: str,
 @unknown_if(mysql.connector.Error)
 def auto_creates_users(server: str, username: str, password: str,
                        port: int = 3306) -> tuple:
-    """Check if 'NO_AUTO_CREATE_USER' param is set."""
+    """
+    Check if 'NO_AUTO_CREATE_USER' param is set.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if global or session variable
+                **NO_AUTO_CREATE_USER** is not set.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'Param "NO_AUTO_CREATE_USER" not set on server'
@@ -416,7 +542,18 @@ def auto_creates_users(server: str, username: str, password: str,
 @unknown_if(mysql.connector.Error)
 def has_users_without_password(server: str, username: str,
                                password: str, port: int = 3306) -> tuple:
-    """Check if users have a password set."""
+    """
+    Check if users have a password set.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if there are **users** without a **password**.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'There are users without password on server'
@@ -447,7 +584,19 @@ def has_users_without_password(server: str, username: str,
 @unknown_if(mysql.connector.Error)
 def password_expiration_unsafe(server: str, username: str,
                                password: str, port: int = 3306) -> tuple:
-    """Check if password expiration time is safe."""
+    """
+    Check if password expiration time is safe.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if variable **default_password_lifetime** is not set
+                or more than *90* days.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'Password lifetime is unsafe'
@@ -478,7 +627,19 @@ def password_expiration_unsafe(server: str, username: str,
 @unknown_if(mysql.connector.Error)
 def password_equals_to_user(server: str, username: str,
                             password: str, port: int = 3306) -> tuple:
-    """Check if users' password is the same username."""
+    """
+    Check if users' password is the same username.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if at least *1* **username** has a password that is
+                equal to its own **username**.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'There are users whose username is their password'
@@ -521,7 +682,18 @@ def password_equals_to_user(server: str, username: str,
 @unknown_if(mysql.connector.Error)
 def users_have_wildcard_host(server: str, username: str,
                              password: str, port: int = 3306) -> tuple:
-    """Check if users have a wildcard host grants."""
+    """
+    Check if users have a wildcard host grants.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if a user has wildcard host grants.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'There are users with wildcard hosts'
@@ -551,7 +723,17 @@ def users_have_wildcard_host(server: str, username: str,
 @unknown_if(mysql.connector.Error)
 def not_use_ssl(server: str, username: str, password: str,
                 port: int = 3306) -> tuple:
-    """Check if MySQL server uses SSL."""
+    """Check if MySQL server uses SSL.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if variable **have_ssl** is set to **DISABLED**.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'Server does not use SSL'
@@ -581,7 +763,20 @@ def not_use_ssl(server: str, username: str, password: str,
 @unknown_if(mysql.connector.Error)
 def ssl_unforced(server: str, username: str, password: str,
                  port: int = 3306) -> tuple:
-    """Check if users are forced to use SSL."""
+    """
+    Check if users are forced to use SSL.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if at least one **user** with **external** connection
+                grants have not **ssl_type** set to one of **ANY**, **X509**
+                or **SPECIFIED**.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
     connection_string = ConnectionString(username, password, server, port)
 
     msg_open: str = 'Users are not forced to use SSL'
