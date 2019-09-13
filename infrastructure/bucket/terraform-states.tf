@@ -4,7 +4,7 @@
 variable "terraform-states-bucket" {}
 
 resource "aws_s3_bucket" "terraform-states-bucket" {
-  bucket = var.terraform-states-bucket
+  bucket = "${var.terraform-states-bucket}"
   acl    = "private"
   versioning {
     enabled = true
