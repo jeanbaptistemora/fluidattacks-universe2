@@ -10,7 +10,7 @@ from fluidasserts import Unit, OPEN, CLOSED
 
 
 def _get_result_as_tuple(*,
-                         service: str,
+                         service: str, objects: str,
                          msg_open: str, msg_closed: str,
                          vulns: List[str], safes: List[str]) -> tuple:
     """Return the tuple version of the Result object."""
@@ -26,4 +26,6 @@ def _get_result_as_tuple(*,
 
     if vulns:
         return OPEN, msg_open, vuln_units, safe_units
-    return CLOSED, msg_closed, vuln_units, safe_units
+    if safes:
+        return CLOSED, msg_closed, vuln_units, safe_units
+    return CLOSED, f'No {objects} found to check', vuln_units, safe_units

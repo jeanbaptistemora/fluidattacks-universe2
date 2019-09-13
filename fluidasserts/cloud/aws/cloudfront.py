@@ -2,9 +2,6 @@
 
 """AWS cloud checks (Cloudfront)."""
 
-# standard imports
-from typing import List
-
 # 3rd party imports
 from botocore.exceptions import BotoCoreError
 from botocore.vendored.requests.exceptions import RequestException
@@ -36,8 +33,7 @@ def has_not_geo_restrictions(key_id: str, secret: str,
     msg_open: str = 'There are distributions without geo-restrictions'
     msg_closed: str = 'All distributions have geo-restrictions'
 
-    vuln_distribution_ids: List[str] = []
-    safe_distribution_ids: List[str] = []
+    vulns, safes = [], []
 
     if distributions:
         for dist in distributions['Items']:
@@ -53,17 +49,13 @@ def has_not_geo_restrictions(key_id: str, secret: str,
             geo_restriction = restrictions['GeoRestriction']
             geo_restriction_type = geo_restriction['RestrictionType']
 
-            (vuln_distribution_ids
-             if geo_restriction_type == 'none'
-             else safe_distribution_ids).append(f'Distribution {dist_id}')
-
-    else:
-        msg_closed = 'No distributions were found'
+            (vulns if geo_restriction_type == 'none' else safes).append(
+                f'Distribution {dist_id} must be geo-restricted')
 
     return _get_result_as_tuple(
-        service='CloudFront',
+        service='CloudFront', objects='distributions',
         msg_open=msg_open, msg_closed=msg_closed,
-        vulns=vuln_distribution_ids, safes=safe_distribution_ids)
+        vulns=vulns, safes=safes)
 
 
 @api(risk=LOW, kind=DAST)
@@ -86,8 +78,7 @@ def has_logging_disabled(key_id: str, secret: str,
     msg_open: str = 'There are distributions without logging enabled'
     msg_closed: str = 'All distributions have logging enabled'
 
-    vuln_distribution_ids: List[str] = []
-    safe_distribution_ids: List[str] = []
+    vulns, safes = [], []
 
     if distributions:
         for dist in distributions['Items']:
@@ -103,14 +94,10 @@ def has_logging_disabled(key_id: str, secret: str,
             distribution_config = config['DistributionConfig']
             is_logging_enabled = distribution_config['Logging']['Enabled']
 
-            (vuln_distribution_ids
-             if not is_logging_enabled
-             else safe_distribution_ids).append(f'Distribution {dist_id}')
-
-    else:
-        msg_closed = 'No distributions were found'
+            (vulns if not is_logging_enabled else safes).append(
+                f'Distribution {dist_id} must have logging enabled')
 
     return _get_result_as_tuple(
-        service='CloudFront',
+        service='CloudFront', objects='distributions',
         msg_open=msg_open, msg_closed=msg_closed,
-        vulns=vuln_distribution_ids, safes=safe_distribution_ids)
+        vulns=vulns, safes=safes)
