@@ -421,74 +421,75 @@ new employees ask when they become part of our work team:
   in extreme and extraordinary cases.
 
 *Can I schedule my vacations ahead of time?*::
-  In +Fluid Attacks+ you can anticipate your vacations
-  even if you haven't finished your period.
-  Vacations must be requested with minimum +30+ calendar days of anticipation,
-  and will be assessed regarding other vacation applications
-  requested before by other employees (+FIFO+).
-  You have to consider that the minimum vacation term
-  must be of +5+ days including weekends.
+  At +Fluid Attacks+, you can schedule vacations
+  even if you haven't yet finished your work probationary period.
+  Vacations must be requested with a minimum of +30+ calendar days
+  advance notice and for a minimum of +5+ days including weekends.
+  When we receive your vacation request it is placed,
+  along with vacation requests from other employees,
+  in the order in which we received it.
+  Therefore, those who have requested vacation time before you,
+  will be granted vacation time, also before you.
   If you have an exceptional event that you have to attend,
-  you don't need to request vacations for that,
-  it suffices to notify the corresponding exception.
+  you don’t need to request vacation time, just notify your supervisor.
 
-*When do I get a salary revision?*::
-  The salary can be reviewed under +3+ possible circumstances.
-  The first, named yearly review, is mandatory
-  and it occurs after +12+ months with the same salary.
-  The second, named extemporaneous review, is optional
-  and it occurs before +12+ months with the same salary.
-  The third, named requested review,
-  can be asked anytime by the talent.
-  It is named requested review because the first two reviews
-  are always made by +Fluid Attacks+
-  without any request of the talent.
+*When do I get a salary review?*::
+  Salary reviews are done under +3+ possible circumstances.
+  The first circumstance is the yearly review.
+  The yearly review is mandatory, is initiated by +Fluid Attacks+,
+  and occurs after an employee has worked for +12+ months with the same salary.
+  The second circumstance is the extemporaneous review.
+  Extemporaneous reviews are optional,
+  are also initiated by +Fluid Attacks+,
+  and occur before an employee has worked for +12+ months with the same salary.
+  The third circumstance is the requested review.
+  Requested reviews are initiated by, and at, the employee's request.
 
 *What are the possible outcomes of a salary review?*::
-  In any kind of review either yearly, extemporaneous or requested,
-  there are only two possible outcomes:
-  first, an inflation adjustment which results by determining
-  that the current salary is appropriated
-  and hence, the salary is not modified
-  or it is slightly adjusted regarding the legal minimum wage
-  of the previous year.
-  The second, named re-scaling,
-  results when the current salary must be adjusted to a higher scale.
+  A salary review can result in a determination
+  that your current salary is appropriate and hence,
+  the salary is not changed,
+  or it may be slightly adjusted
+  regarding the legal minimum wage of the previous year.
+  A salary review can also result in re-scaling,
+  which means your current salary would be adjusted to a higher scale.
 
 *What factors determine my salary?*::
-  The salary is determined by +3+ factors:
-  historical performance, long term alignment, and group payment capacity.
+  Your salary is determined by 3 factors:
+  historical performance, long-term alignment, and group payment capacity.
   +
-  * Historical performance corresponds to a constant value generation,
-  in the framework of the company values and processes.
-  +
-  +
-  * The long term alignment represents that your vision
-  and +Fluid Attacks'+ vision are completely aligned,
-  and hence your career scheme can be fully developed
-  in long term inside the company.
+  * Historical performance, within the framework of +Fluid Attacks'+ values
+  and processes, is represented as a constant value generation.
   +
   +
-  * The group payment capacity is an external factor
-  which defines the capacity of +Fluid Attacks+
-  to fulfill all the commitments on a long term.
+  * Long-term alignment indicates that your career goals
+  are completely aligned with the needs of our company.
+  Therefore, your long-term career plan
+  can be fully realized through your work with +Fluid Attacks+.
+  +
+  +
+  * Group payment capacity is an external factor
+  which defines the ability of +Fluid Attacks+
+  to fulfill commitments on a long-term basis.
 
 *What factors DO NOT determine my salary?*::
-  The salary is not affected by factors such as:
-  academic level, certifications, seniority,
-  experience inside and outside +Fluid Attacks+,
-  hierarchy, previous salaries in different companies or salary expectations.
-  The salary is only defined
-  by the factors mentioned in the <<q25, previous question>>.
+  Your salary is not affected by factors
+  such as your academic achievement, professional certifications,
+  seniority, work experience inside or outside +Fluid Attacks+,
+  professional position within +Fluid Attacks'+ hierarchy,
+  previous salaries you may have received in different companies,
+  or your current salary expectations.
+  See <<q25, question 25>> for the factors that determine salaries.
   This means that there could be hackers or programmers
   with higher salaries than their bosses,
-  and people with basic education gaining more than people with master degrees.
-  More certifications does not necessarily mean more salary,
-  the salary is only increased if the historic performance
-  and long term alignment is improved
-  as a result of the new certifications
-  and knowledge of the talent,
-  and if +Fluid Attacks+ can afford such increase in long term.
+  and people with basic education earning more
+  than people with masters degrees.
+  Attaining professional certifications
+  does not necessarily increase your salary.
+  Salaries are only increased if historic performance
+  and long-term alignment are improved as a result of the new certifications,
+  and therefore, result in an increase in the employee's knowledge and skills,
+  and if +Fluid Attacks+ can afford such an increase in the long term.
 
 *How Fluid Attacks determines the salary factors for a new talent?*::
   The historic performance and long term alignment for a new talent
