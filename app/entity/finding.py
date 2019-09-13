@@ -100,11 +100,11 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         if vuln_type:
             vuln_filtered = vuln_filtered.then(lambda vulns: [
                 vuln for vuln in vulns if vuln.vuln_type == vuln_type and
-                not vuln.current_approval_status])
+                vuln.current_approval_status != 'PENDING'])
         if state:
             vuln_filtered = vuln_filtered.then(lambda vulns: [
                 vuln for vuln in vulns if vuln.current_state == state and
-                not vuln.current_approval_status])
+                vuln.current_approval_status != 'PENDING'])
         if approval_status:
             vuln_filtered = vuln_filtered.then(lambda vulns: [
                 vuln for vuln in vulns
@@ -119,7 +119,8 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         vulns = vulns_loader.load(self.id)
 
         self.open_vulnerabilities = vulns.then(lambda vulns: len([
-            vuln for vuln in vulns if vuln.current_state == 'open']))
+            vuln for vuln in vulns if vuln.current_state == 'open' and
+            vuln.current_approval_status != 'PENDING']))
 
         return self.open_vulnerabilities
 
@@ -136,7 +137,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
         self.closed_vulnerabilities = vulns.then(lambda vulns: len([
             vuln for vuln in vulns if vuln.current_state == 'closed' and
-            not vuln.current_approval_status]))
+            vuln.current_approval_status != 'PENDING']))
 
         return self.closed_vulnerabilities
 
