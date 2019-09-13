@@ -15,6 +15,7 @@ provider "aws" {
 # Create from scratch
 module "bucket" {
   source                  = "./bucket"
+  region                  = var.region
   fiBucket                = var.fiBucket
   fsBucket                = var.fsBucket
   fwBucket                = var.fwBucket
