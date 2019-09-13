@@ -1,5 +1,4 @@
 variable "break-build-bucket" {}
-variable "region" {}
 
 resource "aws_s3_bucket" "break-build-bucket" {
   bucket = var.break-build-bucket
