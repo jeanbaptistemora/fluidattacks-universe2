@@ -2,9 +2,6 @@
 
 """This module allows to check JavaScript code vulnerabilities."""
 
-# standard imports
-import re
-
 # 3rd party imports
 from pyparsing import (Suppress, nestedExpr, cppStyleComment,
                        MatchFirst, Keyword, Empty, QuotedString)
@@ -27,8 +24,6 @@ LANGUAGE_SPECS = {
 L_CHAR = QuotedString("'")
 # "anything"
 L_STRING = QuotedString('"')
-# Compiled regular expressions
-RE_HAVES_DEFAULT = re.compile(r'(?:default\s*:)', flags=re.M)
 
 
 @api(risk=LOW, kind=SAST)
@@ -183,23 +178,8 @@ def has_switch_without_default(js_dest: str, exclude: list = None) -> tuple:
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
     """
-    switch = Keyword('switch') + nestedExpr(opener='(', closer=')')
-    grammar = Suppress(switch) + nestedExpr(opener='{', closer='}')
-    grammar.ignore(cppStyleComment)
-    grammar.ignore(L_STRING)
-    grammar.ignore(L_CHAR)
-    grammar.addCondition(lambda x: not RE_HAVES_DEFAULT.search(str(x)))
-
-    return lang.generic_method(
-        path=js_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: 'Code does not have "switch" with "default" clause',
-            CLOSED: 'Code has "switch" with "default" clause',
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude)
+    return core.generic_c_has_switch_without_default(
+        js_dest, LANGUAGE_SPECS, exclude)
 
 
 @api(risk=LOW, kind=SAST)

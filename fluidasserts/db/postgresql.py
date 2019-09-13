@@ -587,9 +587,9 @@ def has_insecure_file_permissions(dbname: str,
 @api(risk=MEDIUM,
      kind=DAST,
      references=[
-         'https://www.stigviewer.com/'
+         'https://www.stigviewer.com/' +
          'stig/postgresql_9.x/2017-01-20/finding/V-72863',
-         'https://www.postgresql.org/'
+         'https://www.postgresql.org/' +
          'docs/current/runtime-config-connection.html',
      ],
      standards={
@@ -659,11 +659,11 @@ def allows_too_many_concurrent_connections(dbname: str,
 @api(risk=MEDIUM,
      kind=DAST,
      references=[
-         'https://www.stigviewer.com/'
+         'https://www.stigviewer.com/' +
          'stig/postgresql_9.x/2017-01-20/finding/V-73037',
-         'https://www.postgresql.org/'
+         'https://www.postgresql.org/' +
          'docs/current/runtime-config-client.html',
-         'https://www.postgresql.org/'
+         'https://www.postgresql.org/' +
          'docs/current/runtime-config-connection.html',
      ],
      standards={

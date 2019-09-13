@@ -207,8 +207,8 @@ def _get_result_as_tuple(*,
      kind=DAST,
      references=[
          'https://tools.ietf.org/html/rfc4492#section-2',
-         'https://cheatsheetseries.owasp.org/cheatsheets/'
-         'Transport_Layer_Protection_Cheat_Sheet.html'
+         'https://cheatsheetseries.owasp.org/cheatsheets/' +
+         'Transport_Layer_Protection_Cheat_Sheet.html' +
          '#rule---prefer-ephemeral-key-exchanges',
      ])
 @unknown_if(socket.error, tlslite.errors.TLSLocalAlert)

@@ -3,7 +3,6 @@
 """This module allows to check ``C#`` code vulnerabilities."""
 
 # standard imports
-import re
 from typing import Dict, List
 
 # 3rd party imports
@@ -35,9 +34,6 @@ L_STRING = QuotedString('"')
 L_VAR_NAME = Word(alphas + '_', alphanums + '_')
 # Class_123.property1.property1.value
 L_VAR_CHAIN_NAME = delimitedList(L_VAR_NAME, delim='.', combine=True)
-
-# Compiled regular expressions
-RE_HAVES_DEFAULT = re.compile(r'(?:default\s*:)', flags=re.M)
 
 
 def _declares_catch_for_exceptions(
@@ -173,23 +169,8 @@ def has_switch_without_default(
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
     """
-    switch = Keyword('switch') + nestedExpr(opener='(', closer=')')
-    grammar = Suppress(switch) + nestedExpr(opener='{', closer='}')
-    grammar.ignore(cppStyleComment)
-    grammar.ignore(L_STRING)
-    grammar.ignore(L_CHAR)
-    grammar.addCondition(lambda x: not RE_HAVES_DEFAULT.search(str(x)))
-
-    return lang.generic_method(
-        path=csharp_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: 'Code does not have "switch" with "default" clause',
-            CLOSED: 'Code has "switch" with "default" clause',
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude)
+    return core.generic_c_has_switch_without_default(
+        csharp_dest, LANGUAGE_SPECS, exclude)
 
 
 @api(risk=LOW, kind=SAST)

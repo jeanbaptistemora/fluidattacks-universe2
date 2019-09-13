@@ -10,7 +10,8 @@ from typing import List
 
 # 3rd party imports
 from pyparsing import (cppStyleComment, Keyword, Literal, MatchFirst,
-                       nestedExpr, Optional, QuotedString, Regex, ZeroOrMore)
+                       nestedExpr, Optional, QuotedString, Regex, ZeroOrMore,
+                       Suppress)
 
 # local imports
 from fluidasserts import Unit, LOW, MEDIUM, HIGH, OPEN, CLOSED, UNKNOWN, SAST
@@ -22,6 +23,8 @@ from fluidasserts.utils.decorators import api
 L_CHAR = QuotedString("'")
 # "anything"
 L_STRING = QuotedString('"')
+# Compiled regular expressions
+RE_HAVES_DEFAULT = re.compile(r'(?:default\s*:)', flags=re.M)
 
 
 def generic_c_has_if_without_else(
@@ -59,6 +62,38 @@ def generic_c_has_if_without_else(
         msgs={
             OPEN: 'Code has "if" without "else" clause',
             CLOSED: 'Code has "if" with "else" clause',
+        },
+        spec=lang_specs,
+        excl=exclude)
+
+
+def generic_c_has_switch_without_default(
+        location: str, lang_specs: dict = None, exclude: list = None) -> tuple:
+    r"""
+    Check if all ``switch``\ es have a ``default`` clause.
+
+    See `REQ.161 <https://fluidattacks.com/web/rules/161/>`_.
+
+    See `CWE-478 <https://cwe.mitre.org/data/definitions/478.html>`_.
+
+    :param location: Path to a source file or package.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    switch = Keyword('switch') + nestedExpr(opener='(', closer=')')
+    grammar = Suppress(switch) + nestedExpr(opener='{', closer='}')
+    grammar.ignore(cppStyleComment)
+    grammar.ignore(L_STRING)
+    grammar.ignore(L_CHAR)
+    grammar.addCondition(lambda x: not RE_HAVES_DEFAULT.search(str(x)))
+
+    return lang.generic_method(
+        path=location,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Code does not have "switch" with "default" clause',
+            CLOSED: 'Code has "switch" with "default" clause',
         },
         spec=lang_specs,
         excl=exclude)

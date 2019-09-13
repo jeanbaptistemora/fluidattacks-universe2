@@ -36,9 +36,6 @@ L_VAR_NAME = Word(alphas + '$_', alphanums + '$_')
 # Class$_123.property1.property1.value
 L_VAR_CHAIN_NAME = delimitedList(L_VAR_NAME, delim='.', combine=True)
 
-# Compiled regular expressions
-RE_HAVES_DEFAULT = re.compile(r'(?:default\s*:)', flags=re.M)
-
 
 def _declares_catch_for_exceptions(
         java_dest: str,
@@ -265,23 +262,8 @@ def has_switch_without_default(java_dest: str, exclude: list = None) -> tuple:
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
     """
-    switch = Keyword('switch') + nestedExpr(opener='(', closer=')')
-    grammar = Suppress(switch) + nestedExpr(opener='{', closer='}')
-    grammar.ignore(javaStyleComment)
-    grammar.ignore(L_CHAR)
-    grammar.ignore(L_STRING)
-    grammar.addCondition(lambda x: not RE_HAVES_DEFAULT.search(str(x)))
-
-    return lang.generic_method(
-        path=java_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: 'Code does not have "switch" with "default" clause',
-            CLOSED: 'Code has "switch" with "default" clause',
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude)
+    return core.generic_c_has_switch_without_default(
+        java_dest, LANGUAGE_SPECS, exclude)
 
 
 @api(risk=LOW, kind=SAST)
