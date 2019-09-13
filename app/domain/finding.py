@@ -323,7 +323,8 @@ def get_tracking_vulnerabilities(vulnerabilities):
     """get tracking vulnerabilities dictionary"""
     tracking = []
     vulns_filtered = [vuln for vuln in vulnerabilities
-                      if vuln['current_approval_status'] != 'PENDING']
+                      if vuln['historic_state'][-1].get('approval_status')
+                      != 'PENDING']
     vuln_casted = remove_repeated(vulns_filtered)
     unique_dict = get_unique_dict(vuln_casted)
     tracking = get_tracking_dict(unique_dict)
