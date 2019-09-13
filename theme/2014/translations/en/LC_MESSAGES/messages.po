@@ -820,9 +820,7 @@ msgstr ""
 "<strong class="white"> will no longer delay your project's progress: </strong>"
 "With our continuous hacking service, we report your vulnerabilities "
 "in the early stages and during the development of your project. "
-"Your developers can close vulnerabilities at the pace "
-"the project develops instead of risking failure to close them "
-"right before going to the production phase."
+"Your developers can close vulnerabilities at the pace the project develops. "
 
 #: templates/landing.html:97
 msgid "Index-img-alt-4"
