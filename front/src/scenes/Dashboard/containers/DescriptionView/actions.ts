@@ -297,7 +297,7 @@ export const updateTreatment: ThunkActionStructure<void> =
           treatment: "${values.treatment}",
           treatmentManager: "${values.treatmentManager}",
           treatmentJustification: ${JSON.stringify(values.treatmentJustification)},
-          acceptanceDate: "${values.acceptanceDate}",
+          acceptanceDate: "${values.acceptanceDate} 00:00:00",
         ) {
           finding {
             btsUrl

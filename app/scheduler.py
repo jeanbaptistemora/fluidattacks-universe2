@@ -583,7 +583,7 @@ def reset_expired_accepted_findings():
     """ Update treatment if acceptance date expires """
     rollbar.report_message(
         'Warning: Function to update treatment if acceptance date expires is running', 'warning')
-    today = datetime.now().strftime('%Y-%m-%d')
+    today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     projects = get_active_projects()
     findings = []
     for project in projects:
