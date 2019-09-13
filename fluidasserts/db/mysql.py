@@ -11,42 +11,10 @@ import mysql.connector
 import mysql.connector.errorcode
 
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
 from fluidasserts import DAST, LOW, MEDIUM, HIGH
 from fluidasserts.db import _get_result_as_tuple
-from fluidasserts.utils.decorators import track, level, notify, api, unknown_if
+from fluidasserts.utils.decorators import api, unknown_if
 
-
-class ConnError(Exception):
-    """
-    A connection error occurred.
-
-    :py:exc:`mysql.connector.errors.InterfaceError` wrapper exception.
-    """
-
-
-def _get_mysql_cursor(server: str,
-                      username: str,
-                      password: str,
-                      port: int) -> mysql.connector.MySQLConnection:
-    """Get MySQL cursor."""
-    try:
-        mydb = mysql.connector.connect(
-            host=server,
-            user=username,
-            passwd=password,
-            port=port
-        )
-    except (mysql.connector.errors.InterfaceError,
-            mysql.connector.errors.ProgrammingError) as exc:
-        raise ConnError(exc)
-    else:
-        return mydb
-
-
-# Containers
 #: Container with connection parameters and credentials
 ConnectionString = NamedTuple(
     'ConnectionString', [
@@ -509,7 +477,7 @@ def password_expiration_unsafe(server: str, username: str,
 @api(risk=HIGH, kind=DAST)
 @unknown_if(mysql.connector.Error)
 def password_equals_to_user(server: str, username: str,
-                            password: str, port: int = 3306) -> bool:
+                            password: str, port: int = 3306) -> tuple:
     """Check if users' password is the same username."""
     connection_string = ConnectionString(username, password, server, port)
 
@@ -549,118 +517,98 @@ def password_equals_to_user(server: str, username: str,
         safes=safes)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
+@unknown_if(mysql.connector.Error)
 def users_have_wildcard_host(server: str, username: str,
-                             password: str, port: int = 3306) -> bool:
+                             password: str, port: int = 3306) -> tuple:
     """Check if users have a wildcard host grants."""
-    try:
-        mydb = _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('There was an error connecting to MySQL engine',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        return False
-    else:
-        mycursor = mydb.cursor()
+    connection_string = ConnectionString(username, password, server, port)
 
-        query = 'SELECT user FROM mysql.user WHERE host = "%"'
-        try:
-            mycursor.execute(query)
-        except mysql.connector.errors.ProgrammingError as exc:
-            show_unknown('There was an error executing query',
-                         details=dict(server=server, username=username,
-                                      error=str(exc).replace(':', ',')))
-            return False
+    msg_open: str = 'There are users with wildcard hosts'
+    msg_closed: str = 'There are not users with wildcard hosts'
 
-        _result = list(mycursor)
-        result = len(_result) != 0
+    query: str = 'SELECT user FROM mysql.user WHERE host = "%"'
 
-        if result:
-            show_open('There are users with wildcard hosts',
-                      details=dict(server=server,
-                                   users=", ".join([x[0].decode()
-                                                    for x in _result])))
-        else:
-            show_close('There are not users with wildcard hosts',
-                       details=dict(server=server))
-        return result
+    # vulnerable if there are returned rows
+    vulnerable: bool = bool(tuple(_execute(connection_string, query)))
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (vulns if vulnerable else safes).append(
+        msg_open if vulnerable else msg_closed)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
+@unknown_if(mysql.connector.Error)
 def not_use_ssl(server: str, username: str, password: str,
-                port: int = 3306) -> bool:
+                port: int = 3306) -> tuple:
     """Check if MySQL server uses SSL."""
-    try:
-        mydb = _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('There was an error connecting to MySQL engine',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        return False
-    else:
-        mycursor = mydb.cursor()
+    connection_string = ConnectionString(username, password, server, port)
 
-        query = 'SHOW variables WHERE variable_name = "have_ssl"'
-        try:
-            mycursor.execute(query)
-        except mysql.connector.errors.ProgrammingError as exc:
-            show_unknown('There was an error executing query',
-                         details=dict(server=server, username=username,
-                                      error=str(exc).replace(':', ',')))
-            return False
+    msg_open: str = 'Server does not use SSL'
+    msg_closed: str = 'Server does use SSL'
 
-        _result = list(mycursor)
-        result = _result[0][1] == 'DISABLED'
+    query: str = 'SHOW variables WHERE variable_name = "have_ssl"'
 
-        if result:
-            show_open('Server don\'t use SSL',
-                      details=dict(server=server))
-        else:
-            show_close('Server uses SSL',
-                       details=dict(server=server))
-        return result
+    vulnerable: bool = any(value == 'DISABLED'
+                           for _, value in _execute(connection_string, query))
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (vulns if vulnerable else safes).append(
+        msg_open if vulnerable else msg_closed)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
+@unknown_if(mysql.connector.Error)
 def ssl_unforced(server: str, username: str, password: str,
-                 port: int = 3306) -> bool:
+                 port: int = 3306) -> tuple:
     """Check if users are forced to use SSL."""
-    try:
-        mydb = _get_mysql_cursor(server, username, password, port)
-    except ConnError as exc:
-        show_unknown('There was an error connecting to MySQL engine',
-                     details=dict(server=server, user=username,
-                                  error=str(exc)))
-        return False
-    else:
-        mycursor = mydb.cursor()
+    connection_string = ConnectionString(username, password, server, port)
 
-        query = 'SELECT user, ssl_type FROM mysql.user WHERE NOT HOST \
-IN ("::1", "127.0.0.1", "localhost") AND \
-NOT ssl_type IN ("ANY", "X509", "SPECIFIED")'
-        try:
-            mycursor.execute(query)
-        except mysql.connector.errors.ProgrammingError as exc:
-            show_unknown('There was an error executing query',
-                         details=dict(server=server, username=username,
-                                      error=str(exc).replace(':', ',')))
-            return False
+    msg_open: str = 'Users are not forced to use SSL'
+    msg_closed: str = 'Users are forced to use SSL'
 
-        _result = list(mycursor)
-        result = len(_result) != 0
+    query: str = """
+        SELECT user, ssl_type
+        FROM mysql.user
+        WHERE (
+            NOT HOST IN ("::1", "127.0.0.1", "localhost")
+            AND NOT ssl_type IN ("ANY", "X509", "SPECIFIED")
+        )
+        """
 
-        if result:
-            show_open('Users are not forced to use SSL',
-                      details=dict(server=server,
-                                   users=", ".join([x[0].decode()
-                                                    for x in _result])))
-        else:
-            show_close('Users are forced to use SSL',
-                       details=dict(server=server))
-        return result
+    # vulnerable if there are returned rows
+    vulnerable: bool = bool(tuple(_execute(connection_string, query)))
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (vulns if vulnerable else safes).append(
+        msg_open if vulnerable else msg_closed)
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
