@@ -163,28 +163,6 @@
         </button>
       </p>
   </div>
-  <!-- Customers -->
-  <div class="customers bg-white pa3 ">
-    <h1 class="c-fluid-red">{{ gettext('Index-header-4') }}</h1>
-    <div class="paragraph">
-      <p class="tc f4">{{ gettext('Index-msg-2') }}</p>
-    </div>
-    <div class="paragraph">
-      <p class="tc">
-        {% set customers = ["Bancolombia" , "Grupo AVAL", "BBVA" ,  "Colpatria", "Banistmo", "Banco del Pacifico", "Banesco",
-                            "Banco Agromercantil", "Banco Agricola" , "Sura", "Proteccion", "Tigo UNE", "Claro", "Internexa",
-                            "XM", "Grupo ARGOS", "Corona", "Manuelita", "Grupo EXITO", "Avianca", "Abbott", "RSA", "The Missing Link",
-                            "Kometsales", "Koombea", "Creative Software","Teraport", "S4N"]  %}
-        {% for customer in customers %}
-        <span>
-          <img class="ma3 h-auto"
-               src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/customers/{{ customer|lower|replace (' ','-') }}-logo.png"
-               alt="{{ customer }} Logo">
-        </span>
-        {% endfor %}
-      </p>
-    </div>
-  </div>
   <!-- Contact -->
   <div class="contact-sec bg-fluid-lightgray ">
     <div class="contact-txt fl w-100-ns w-70-m w-70-l pt5-l pr5-l pt3-m pr3-m pt2 pr2">
