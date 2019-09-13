@@ -11,7 +11,7 @@ from app.entity.user import (
 )
 from app.entity.vulnerability import (
     UploadFile, DeleteVulnerability,
-    UpdateTreatmentVuln
+    UpdateTreatmentVuln, ApproveVulnerability
 )
 from app.entity.finding import (
     UpdateEvidence, UpdateSeverity,
@@ -42,6 +42,7 @@ class Mutations(ObjectType):
     downloadFile = DownloadFile.Field()
 
     uploadFile = UploadFile.Field()
+    approveVulnerability = ApproveVulnerability.Field()
     updateTreatmentVuln = UpdateTreatmentVuln.Field()
     deleteVulnerability = DeleteVulnerability.Field()
 

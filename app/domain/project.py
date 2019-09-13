@@ -326,3 +326,7 @@ def list_findings(project_name):
 
 def get_findings(project, data_attr=''):
     return integrates_dal.get_findings_dynamo(project, data_attr)
+
+
+def get_finding_project_name(finding_id):
+    return integrates_dal.get_finding_project(finding_id)
