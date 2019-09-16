@@ -20,7 +20,6 @@ module "bucket" {
   fsBucket                             = var.fsBucket
   fwBucket                             = var.fwBucket
   break-build-bucket                   = var.break-build-bucket
-  fluidattacks-terraform-states-bucket = var.fluidattacks-terraform-states-bucket
 }
 
 # Create from scratch
