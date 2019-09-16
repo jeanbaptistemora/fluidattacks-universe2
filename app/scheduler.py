@@ -266,7 +266,7 @@ def get_new_vulnerabilities():
             rollbar.report_message(
                 'Error: An error ocurred getting new vulnerabilities '
                 'notification email',
-                'error')
+                'error', payload_data=locals())
             raise
         if context['updated_findings']:
             mail_to = prepare_mail_recipients(project)
@@ -312,7 +312,7 @@ def format_vulnerabilities(delta, act_finding):
     else:
         finding_text = ''
         message = 'Finding {finding!s} of project ' \
-            '{project!s} no change during the week' \
+            '{project!s} has no changes during the week' \
             .format(finding=act_finding['finding_id'],
                     project=act_finding['project_name'])
         LOGGER.info(message)
