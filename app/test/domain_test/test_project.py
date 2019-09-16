@@ -9,7 +9,9 @@ from app.domain.project import (
     get_email_recipients, validate_tags, validate_project, get_vulnerabilities,
     get_pending_closing_check, get_last_closing_vuln, get_last_closing_date,
     is_vulnerability_closed, get_max_severity, get_max_open_severity,
-    get_open_vulnerability_date, get_mean_remediate, get_total_treatment)
+    get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
+    is_finding_in_drafts, list_drafts, list_comments, get_active_projects,
+    list_findings, get_findings, get_finding_project_name)
 from app.dal.integrates_dal import DYNAMODB_RESOURCE, get_vulnerability_dynamo
 
 
@@ -187,12 +189,12 @@ class ProjectTest(TestCase):
                 Key={'finding_id': finding_id}
             )['Item']
             for finding_id in open_vuln_finding]
-    
+
         test_data = get_mean_remediate(open_finding)
         current_day = datetime.now(tz=timezone('America/Bogota')).date()
         expected_output = int((current_day - datetime(2019, 3, 22).date()).days)
         assert test_data == expected_output
-        
+
         closed_vuln_finding = ['457497316']
         closed_finding = [
             DYNAMODB_RESOURCE.Table('FI_findings').get_item(
@@ -216,3 +218,55 @@ class ProjectTest(TestCase):
         test_data = get_total_treatment(findings)
         expected_output = {'inProgress': 1, 'accepted': 5, 'undefined': 0}
         assert test_data == expected_output
+
+    def test_is_finding_in_drafts(self):
+        finding_id = '463558592'
+        draft_id = '475041513'
+
+        assert not is_finding_in_drafts(finding_id)
+        assert is_finding_in_drafts(draft_id)
+
+    def test_list_drafts(self):
+        project_name = 'UNITTESTING'
+        test_data = list_drafts(project_name)
+        expected_output = [u'475041513', u'526734257']
+        assert test_data == expected_output
+
+    def test_list_comments(self):
+        user_email = 'test@test.com'
+        project_name = 'unittesting'
+        test_data = list_comments(user_email, project_name)
+        expected_output = {
+            'content': u'Im posting this comment using the API!',
+            'parent': 0, 'created':
+            '2018/12/27 11:40:05',
+            'id': 1545928805777,
+            'fullname': u'Test User',
+            'email': u'test@test.com', 'modified': '2018/12/27 11:40:05',
+            'created_by_current_user': True
+        }
+        assert test_data[0] == expected_output
+
+    def test_get_active_projects(self):
+        test_data = get_active_projects()
+        assert test_data is not None
+
+    def test_list_findings(self):
+        project_name = 'unittesting'
+        test_data = list_findings(project_name)
+        expected_output = [
+            u'463461507', u'436423161', u'436992569', u'457502279',
+            u'463462578', u'462739885', u'457497316', u'422286126',
+            u'463558592', u'472184283', u'445291998', u'435326463'
+        ]
+        assert expected_output == test_data
+
+    def test_get_findings(self):
+        project_name = 'unittesting'
+        test_data = get_findings(project_name, 'finding_id')
+        assert {'finding_id': '475041513'} in test_data
+
+    def test_get_finding_project_name(self):
+        finding_id = '475041513'
+        test_data = get_finding_project_name(finding_id)
+        assert test_data == 'unittesting'
