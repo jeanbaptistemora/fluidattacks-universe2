@@ -235,3 +235,87 @@ class FindingTests(TestCase):
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert result['data']['addFindingComment']['success']
+
+    def test_update_treatment_accepted(self):
+        query = '''
+                mutation {
+                  updateTreatment (
+                    acceptanceDate: "",
+                    btsUrl: "",
+                    findingId: "463558592",
+                    treatment: "ACCEPTED",
+                    treatmentManager: "unittest@test.com",
+                    treatmentJustification: "This is a treatment justification test"
+                  ) {
+                    success
+                    finding {
+                      treatment
+                    }
+                  }
+                }
+        '''
+        testing_client = Client(SCHEMA)
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        request.loaders = {
+            'finding': FindingLoader(),
+            'vulnerability': VulnerabilityLoader()}
+        result = testing_client.execute(query, context=request)
+        assert 'errors' not in result
+        assert result['data']['updateTreatment']['success']
+
+    def test_update_treatment_new(self):
+        query = '''
+                mutation {
+                  updateTreatment (
+                    acceptanceDate: "",
+                    btsUrl: "",
+                    findingId: "436992569",
+                    treatment: "NEW",
+                    treatmentManager: "",
+                    treatmentJustification: ""
+                  ) {
+                    success
+                    finding {
+                      treatment
+                    }
+                  }
+                }
+        '''
+        testing_client = Client(SCHEMA)
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        request.loaders = {
+            'finding': FindingLoader(),
+            'vulnerability': VulnerabilityLoader()}
+        result = testing_client.execute(query, context=request)
+        assert 'errors' not in result
+        assert result['data']['updateTreatment']['success']
