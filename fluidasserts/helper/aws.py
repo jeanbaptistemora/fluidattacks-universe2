@@ -3,9 +3,11 @@
 """AWS cloud helper."""
 
 # standard imports
+import csv
 import time
 import functools
-from typing import Callable, Any
+from io import StringIO
+from typing import Any, Callable, Dict, Tuple
 
 # 3rd party imports
 import boto3
@@ -104,6 +106,52 @@ def get_credentials_report(
         response = client.get_credential_report()
         users = response['Content'].decode().split('\n')[1:]
         return (x.split(',') for x in users)
+    except botocore.vendored.requests.exceptions.ConnectionError:
+        raise ConnError
+    except botocore.exceptions.ClientError:
+        raise ClientErr
+
+
+@retry_on_errors
+def credentials_report(
+        key_id: str, secret: str, retry: bool = True) -> Tuple[Dict[str, str]]:
+    """
+    Get IAM credentials report.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    try:
+        client = get_aws_client(service='iam',
+                                key_id=key_id,
+                                secret=secret)
+        client.generate_credential_report()
+        response = client.get_credential_report()
+        users_csv = StringIO(response['Content'].decode())
+        # Fields are:
+        #   user
+        #   arn
+        #   user_creation_time
+        #   password_enabled
+        #   password_last_used
+        #   password_last_changed
+        #   password_next_rotation
+        #   mfa_active
+        #   access_key_1_active
+        #   access_key_1_last_rotated
+        #   access_key_1_last_used_date
+        #   access_key_1_last_used_region
+        #   access_key_1_last_used_service
+        #   access_key_2_active
+        #   access_key_2_last_rotated
+        #   access_key_2_last_used_date
+        #   access_key_2_last_used_region
+        #   access_key_2_last_used_service
+        #   cert_1_active
+        #   cert_1_last_rotated
+        #   cert_2_active
+        #   cert_2_last_rotated
+        return tuple(csv.DictReader(users_csv, delimiter=','))
     except botocore.vendored.requests.exceptions.ConnectionError:
         raise ConnError
     except botocore.exceptions.ClientError:

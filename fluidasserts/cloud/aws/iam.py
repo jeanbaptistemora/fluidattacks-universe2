@@ -8,13 +8,17 @@ import pytz
 
 # 3rd party imports
 from dateutil import parser
+from botocore.exceptions import BotoCoreError
+from botocore.vendored.requests.exceptions import RequestException
 
 # local imports
 from fluidasserts import show_close
 from fluidasserts import show_open
 from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts import DAST, MEDIUM, HIGH
 from fluidasserts.helper import aws
+from fluidasserts.cloud.aws import _get_result_as_tuple
+from fluidasserts.utils.decorators import track, level, notify, api, unknown_if
 
 
 def _any_to_list(_input):
@@ -26,82 +30,80 @@ def _any_to_list(_input):
     return res
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
 def has_mfa_disabled(
-        key_id: str, secret: str, retry: bool = True) -> bool:
+        key_id: str, secret: str, retry: bool = True) -> tuple:
     """
     Search users with password enabled and without MFA.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    result = False
-    try:
-        users = aws.get_credentials_report(key_id, secret, retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
+    users = aws.credentials_report(key_id=key_id,
+                                   secret=secret,
+                                   retry=retry)
+
+    msg_open: str = 'Users have password enabled with MFA'
+    msg_closed: str = 'Users do not have password enabled or MFA'
+
+    vulns, safes = [], []
+
     for user in users:
-        if user[3] == 'true':
-            if user[7] == 'false':
-                show_open('User has password enabled without MFA',
-                          details=dict(user=user[0]))
-                result = True
-            else:
-                show_close('User has password enabled with MFA',
-                           details=dict(user=user[0]))
-        else:
-            show_close('User does not have password enabled',
-                       details=dict(user=user[0]))
-    return result
+        user_name = user['user']
+        user_has_mfa: bool = user['mfa_active'] == 'false'
+        user_has_pass: bool = user['password_enabled'] == 'true'
+
+        (vulns if user_has_pass and not user_has_mfa else safes).append(
+            (f'User:{user_name}', f'Must have MFA'))
+
+    return _get_result_as_tuple(
+        service='IAM', objects='users',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
 def have_old_creds_enabled(
-        key_id: str, secret: str, retry: bool = True) -> bool:
+        key_id: str, secret: str, retry: bool = True) -> tuple:
     """
     Find password not used in the last 90 days.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    result = False
-    try:
-        users = aws.get_credentials_report(key_id, secret, retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
+    users = aws.credentials_report(key_id=key_id,
+                                   secret=secret,
+                                   retry=retry)
+
+    msg_open: str = 'Users have unused passwords (last 90 days)'
+    msg_closed: str = 'Users do not have unused passwords (last 90 days)'
+
+    vulns, safes = [], []
+
+    three_months_ago = datetime.now() - timedelta(days=90)
+    three_months_ago = three_months_ago.replace(tzinfo=pytz.UTC)
+
+    client = aws.get_aws_client(service='iam',
+                                key_id=key_id,
+                                secret=secret)
+
     for user in users:
-        if user[3] == 'true':
-            client = aws.get_aws_client('iam', key_id, secret)
-            user_info = client.get_user(UserName=user[0])
-            pass_last_used = user_info['User']['PasswordLastUsed']
-            now_minus_90 = datetime.now() - timedelta(days=90)
-            if pass_last_used < now_minus_90.replace(tzinfo=pytz.UTC):
-                show_open('User has not used the password in more than \
-90 days and it\'s still active',
-                          details=dict(user=user[0],
-                                       password_last_used=pass_last_used))
-                result = True
-            else:
-                show_close('User has used the password in the last 90 days',
-                           details=dict(user=user[0],
-                                        password_last_used=pass_last_used))
-    return result
+        if user['password_enabled'] != 'true':
+            continue
+
+        user_name = user['user']
+        user_info = client.get_user(UserName=user_name)
+        user_pass_last_used = user_info['User']['PasswordLastUsed']
+
+        (vulns if user_pass_last_used < three_months_ago else safes).append(
+            (f'User:{user_name}', f'Must not have an unused password'))
+
+    return _get_result_as_tuple(
+        service='IAM', objects='users',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
 @notify
