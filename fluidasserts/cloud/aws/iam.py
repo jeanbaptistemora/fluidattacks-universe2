@@ -149,215 +149,195 @@ the last 90 days',
     return result
 
 
-@notify
-@level('high')
-@track
-def root_has_access_keys(key_id: str, secret: str, retry: bool = True) -> bool:
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def root_has_access_keys(key_id: str, secret: str,
+                         retry: bool = True) -> tuple:
     """
     Check if root account has access keys.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    result = False
-    try:
-        users = aws.get_credentials_report(key_id, secret, retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    root_user = next(users)
-    if root_user[8] == 'true' or root_user[13] == 'true':
-        show_open('Root user has access keys', details=dict(user=root_user))
-        result = True
-    else:
-        show_close('Root user does not have access keys',
-                   details=dict(user=root_user))
-        result = False
-    return result
+    users = aws.credentials_report(key_id=key_id,
+                                   secret=secret,
+                                   retry=retry)
+
+    msg_open: str = 'Root user has access keys'
+    msg_closed: str = 'Root user does not have access keys'
+
+    vulns, safes = [], []
+
+    # Root user is always the first retrieved
+    root_user = users[0]
+
+    root_has_active_keys: bool = any((
+        root_user['access_key_1_active'] == 'true',
+        root_user['access_key_2_active'] == 'true'))
+
+    (vulns if root_has_active_keys else safes).append(
+        (f'User:Root-Account', f'Must not have access keys'))
+
+    return _get_result_as_tuple(
+        service='IAM', objects='users',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
 def not_requires_uppercase(
-        key_id: str, secret: str, retry: bool = True) -> bool:
+        key_id: str, secret: str, retry: bool = True) -> tuple:
     """
     Check if password policy requires uppercase letters.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    result = False
-    try:
-        policy = aws.run_boto3_func(key_id, secret, 'iam',
-                                    'get_account_password_policy',
-                                    param='PasswordPolicy',
-                                    retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    if policy['RequireUppercaseCharacters']:
-        show_close('Password policy requires uppercase letters',
-                   details=dict(policy=policy))
-        result = False
-    else:
-        show_open('Password policy does not require uppercase letters',
-                  details=dict(policy=policy))
-        result = True
-    return result
+    policy = aws.run_boto3_func(key_id=key_id,
+                                secret=secret,
+                                service='iam',
+                                func='get_account_password_policy',
+                                param='PasswordPolicy',
+                                retry=retry)
+
+    msg_open: str = 'Password policy does not require uppercase letters'
+    msg_closed: str = 'Password policy requires uppercase letters'
+
+    vulns, safes = [], []
+
+    (vulns if not policy['RequireUppercaseCharacters'] else safes).append(
+        ('PasswordPolicy', 'Must require uppercase chars'))
+
+    return _get_result_as_tuple(
+        service='IAM', objects='password policies',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
 def not_requires_lowercase(
-        key_id: str, secret: str, retry: bool = True) -> bool:
+        key_id: str, secret: str, retry: bool = True) -> tuple:
     """
     Check if password policy requires lowercase letters.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    result = False
-    try:
-        policy = aws.run_boto3_func(key_id, secret, 'iam',
-                                    'get_account_password_policy',
-                                    param='PasswordPolicy',
-                                    retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    if policy['RequireLowercaseCharacters']:
-        show_close('Password policy requires lowercase letters',
-                   details=dict(policy=policy))
-        result = False
-    else:
-        show_open('Password policy does not require lowercase letters',
-                  details=dict(policy=policy))
-        result = True
-    return result
+    policy = aws.run_boto3_func(key_id=key_id,
+                                secret=secret,
+                                service='iam',
+                                func='get_account_password_policy',
+                                param='PasswordPolicy',
+                                retry=retry)
+
+    msg_open: str = 'Password policy does not require lowercase letters'
+    msg_closed: str = 'Password policy requires lowercase letters'
+
+    vulns, safes = [], []
+
+    (vulns if not policy['RequireLowercaseCharacters'] else safes).append(
+        ('PasswordPolicy', 'Must require lowercase chars'))
+
+    return _get_result_as_tuple(
+        service='IAM', objects='password policies',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
-@notify
-@level('high')
-@track
-def not_requires_symbols(key_id: str, secret: str, retry: bool = True) -> bool:
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def not_requires_symbols(key_id: str, secret: str,
+                         retry: bool = True) -> tuple:
     """
     Check if password policy requires symbols.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    result = False
-    try:
-        policy = aws.run_boto3_func(key_id, secret, 'iam',
-                                    'get_account_password_policy',
-                                    param='PasswordPolicy',
-                                    retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    if policy['RequireSymbols']:
-        show_close('Password policy requires symbols',
-                   details=dict(policy=policy))
-        result = False
-    else:
-        show_open('Password policy does not require symbols',
-                  details=dict(policy=policy))
-        result = True
-    return result
+    policy = aws.run_boto3_func(key_id=key_id,
+                                secret=secret,
+                                service='iam',
+                                func='get_account_password_policy',
+                                param='PasswordPolicy',
+                                retry=retry)
+
+    msg_open: str = 'Password policy does not require symbols'
+    msg_closed: str = 'Password policy requires symbols'
+
+    vulns, safes = [], []
+
+    (vulns if not policy['RequireSymbols'] else safes).append(
+        ('PasswordPolicy', 'Must require symbols chars'))
+
+    return _get_result_as_tuple(
+        service='IAM', objects='password policies',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
-@notify
-@level('high')
-@track
-def not_requires_numbers(key_id: str, secret: str, retry: bool = True) -> bool:
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def not_requires_numbers(key_id: str, secret: str,
+                         retry: bool = True) -> tuple:
     """
     Check if password policy requires numbers.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    result = False
-    try:
-        policy = aws.run_boto3_func(key_id, secret, 'iam',
-                                    'get_account_password_policy',
-                                    param='PasswordPolicy',
-                                    retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    if policy['RequireNumbers']:
-        show_close('Password policy requires numbers',
-                   details=dict(policy=policy))
-        result = False
-    else:
-        show_open('Password policy does not require numbers',
-                  details=dict(policy=policy))
-        result = True
-    return result
+    policy = aws.run_boto3_func(key_id=key_id,
+                                secret=secret,
+                                service='iam',
+                                func='get_account_password_policy',
+                                param='PasswordPolicy',
+                                retry=retry)
+
+    msg_open: str = 'Password policy does not require numbers'
+    msg_closed: str = 'Password policy requires numbers'
+
+    vulns, safes = [], []
+
+    (vulns if not policy['RequireNumbers'] else safes).append(
+        ('PasswordPolicy', 'Must require numeric chars'))
+
+    return _get_result_as_tuple(
+        service='IAM', objects='password policies',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
 def min_password_len_unsafe(
-        key_id: str, secret: str, min_len=14, retry: bool = True) -> bool:
+        key_id: str, secret: str, min_len=14, retry: bool = True) -> tuple:
     """
     Check if password policy requires passwords greater than 14 chars.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
-    :param min_len: Mininum length required. Default 14
+    :param min_len: Minimum length required. Default 14
     """
-    result = False
-    try:
-        policy = aws.run_boto3_func(key_id, secret, 'iam',
-                                    'get_account_password_policy',
-                                    param='PasswordPolicy',
-                                    retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    if policy['MinimumPasswordLength'] >= min_len:
-        show_close('Password policy requires long passwords',
-                   details=dict(min_length=min_len, policy=policy))
-        result = False
-    else:
-        show_open('Password policy does not require long passwords',
-                  details=dict(min_length=min_len, policy=policy))
-        result = True
-    return result
+    policy = aws.run_boto3_func(key_id=key_id,
+                                secret=secret,
+                                service='iam',
+                                func='get_account_password_policy',
+                                param='PasswordPolicy',
+                                retry=retry)
+
+    msg_open: str = 'Password policy does not require long enough passwords'
+    msg_closed: str = 'Password policy requires long enough passwords'
+
+    vulns, safes = [], []
+
+    (vulns if policy['MinimumPasswordLength'] < min_len else safes).append(
+        ('PasswordPolicy', f'Must be at least {min_len} chars long'))
+
+    return _get_result_as_tuple(
+        service='IAM', objects='password policies',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
 @notify
@@ -370,7 +350,7 @@ def password_reuse_unsafe(
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
-    :param min_len: Mininum reuse required. Default 24
+    :param min_len: Minimum reuse required. Default 24
     """
     result = False
     try:
