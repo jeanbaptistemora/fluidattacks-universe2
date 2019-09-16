@@ -40,7 +40,7 @@ def has_public_instances(key_id: str, secret: str,
             instance_arn = instance['DBInstanceArn']
 
             (vulns if instance['PubliclyAccessible'] else safes).append(
-                (instance_arn, 'must not be publicly accessible'))
+                (instance_arn, 'Must not be publicly accessible'))
 
     return _get_result_as_tuple(
         service='RDS', objects='instances',

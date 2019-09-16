@@ -40,7 +40,7 @@ def trails_not_multiregion(
             trail_arn = trail['TrailARN']
 
             (vulns if not trail['IsMultiRegionTrail'] else safes).append(
-                (trail_arn, 'must be multi-region'))
+                (trail_arn, 'Must be multi-region'))
 
     return _get_result_as_tuple(
         service='CloudTrail', objects='trails',
@@ -119,7 +119,7 @@ def is_trail_bucket_public(key_id: str, secret: str,
             is_vulnerable = aws.get_bucket_public_grants(trail_bucket, grants)
 
             (vulns if is_vulnerable else safes).append(
-                (f'{trail_bucket}@{trail_arn}', 'bucket must be private'))
+                (f'{trail_bucket}@{trail_arn}', 'Bucket must be private'))
 
     return _get_result_as_tuple(
         service='CloudTrail', objects='trails',
@@ -161,7 +161,7 @@ def is_trail_bucket_logging_disabled(key_id: str, secret: str,
                                          Bucket=t_bucket)
 
             (vulns if not logging.get('LoggingEnabled') else safes).append(
-                (f'S3:{t_bucket}@{t_arn}', 'bucket must have logging enabled'))
+                (f'S3:{t_bucket}@{t_arn}', 'Bucket must have logging enabled'))
 
     return _get_result_as_tuple(
         service='CloudTrail', objects='trails',
@@ -196,7 +196,7 @@ def has_unencrypted_logs(key_id: str, secret: str,
             trail_arn = trail['TrailARN']
 
             (vulns if not trail.get('KmsKeyId') else safes).append(
-                (trail_arn, 'logs must be encrypted'))
+                (trail_arn, 'Logs must be encrypted'))
 
     return _get_result_as_tuple(
         service='CloudTrail', objects='trails',

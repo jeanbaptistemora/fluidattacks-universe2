@@ -48,7 +48,7 @@ def has_server_access_logging_disabled(
             bucket_logging_enabled = bool(bucket_logging.get('LoggingEnabled'))
 
             (vulns if not bucket_logging_enabled else safes).append(
-                (bucket_name, 'must have logging enabled'))
+                (bucket_name, 'Must have logging enabled'))
 
     return _get_result_as_tuple(
         service='S3', objects='buckets',
@@ -92,7 +92,7 @@ def has_public_buckets(
             result = aws.get_bucket_public_grants(bucket_name, bucket_grants)
 
             (vulns if result else safes).append(
-                (bucket_name, 'must not be publicly accessible'))
+                (bucket_name, 'Must not be publicly accessible'))
 
     return _get_result_as_tuple(
         service='S3', objects='buckets',

@@ -74,6 +74,16 @@ def test_policies_attached_open():
     assert iam.policies_attached_to_users(AWS_ACCESS_KEY_ID,
                                           AWS_SECRET_ACCESS_KEY)
 
+def test_policies_attached_open():
+    """Search IAM policies: Policies attached directly to users."""
+    assert iam.policies_attached_to_users(AWS_ACCESS_KEY_ID,
+                                          AWS_SECRET_ACCESS_KEY).is_open()
+
+def test_have_old_access_keys_open():
+    """Search old access keys."""
+    assert iam.have_old_access_keys(AWS_ACCESS_KEY_ID,
+                                    AWS_SECRET_ACCESS_KEY).is_open()
+
 #
 # Closing tests
 #

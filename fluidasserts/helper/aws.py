@@ -90,29 +90,6 @@ def run_boto3_func(key_id: str, secret: str, service: str,
 
 
 @retry_on_errors
-def get_credentials_report(
-        key_id: str, secret: str, retry: bool = True) -> dict:
-    """
-    Get IAM credentials report.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    try:
-        client = get_aws_client('iam',
-                                key_id=key_id,
-                                secret=secret)
-        client.generate_credential_report()
-        response = client.get_credential_report()
-        users = response['Content'].decode().split('\n')[1:]
-        return (x.split(',') for x in users)
-    except botocore.vendored.requests.exceptions.ConnectionError:
-        raise ConnError
-    except botocore.exceptions.ClientError:
-        raise ClientErr
-
-
-@retry_on_errors
 def credentials_report(
         key_id: str, secret: str, retry: bool = True) -> Tuple[Dict[str, str]]:
     """

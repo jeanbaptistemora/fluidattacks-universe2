@@ -39,7 +39,7 @@ def has_public_clusters(key_id: str, secret: str, retry: bool = True) -> tuple:
             cluster_id = cluster['ClusterIdentifier']
 
             (vulns if cluster['PubliclyAccessible'] else safes).append(
-                (cluster_id, 'must not be publicly accessible'))
+                (cluster_id, 'Must not be publicly accessible'))
 
     return _get_result_as_tuple(
         service='RedShift', objects='clusters',

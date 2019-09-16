@@ -12,13 +12,10 @@ from botocore.exceptions import BotoCoreError
 from botocore.vendored.requests.exceptions import RequestException
 
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
-from fluidasserts import DAST, MEDIUM, HIGH
+from fluidasserts import DAST, LOW, MEDIUM, HIGH
 from fluidasserts.helper import aws
 from fluidasserts.cloud.aws import _get_result_as_tuple
-from fluidasserts.utils.decorators import track, level, notify, api, unknown_if
+from fluidasserts.utils.decorators import api, unknown_if
 
 
 def _any_to_list(_input):
@@ -50,12 +47,12 @@ def has_mfa_disabled(
     vulns, safes = [], []
 
     for user in users:
-        user_name = user['user']
+        user_arn = user['arn']
         user_has_mfa: bool = user['mfa_active'] == 'false'
         user_has_pass: bool = user['password_enabled'] == 'true'
 
         (vulns if user_has_pass and not user_has_mfa else safes).append(
-            (f'User:{user_name}', 'Must have MFA'))
+            (user_arn, 'Must have MFA'))
 
     return _get_result_as_tuple(
         service='IAM', objects='users',
@@ -93,12 +90,11 @@ def have_old_creds_enabled(
         if user['password_enabled'] != 'true':
             continue
 
-        user_name = user['user']
-        user_info = client.get_user(UserName=user_name)
-        user_pass_last_used = user_info['User']['PasswordLastUsed']
+        user_pass_last_used = \
+            client.get_user(UserName=user['user'])['User']['PasswordLastUsed']
 
         (vulns if user_pass_last_used < three_months_ago else safes).append(
-            (f'User:{user_name}', 'Must not have an unused password'))
+            (user['arn'], 'Must not have an unused password'))
 
     return _get_result_as_tuple(
         service='IAM', objects='users',
@@ -106,47 +102,48 @@ def have_old_creds_enabled(
         vulns=vulns, safes=safes)
 
 
-@notify
-@level('medium')
-@track
-def have_old_access_keys(key_id: str, secret: str, retry: bool = True) -> bool:
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def have_old_access_keys(key_id: str, secret: str,
+                         retry: bool = True) -> tuple:
     """
     Find access keys not rotated in the last 90 days.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    result = False
-    try:
-        users = aws.get_credentials_report(key_id, secret, retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
+    users = aws.credentials_report(key_id=key_id,
+                                   secret=secret,
+                                   retry=retry)
+
+    msg_open: str = ('User access keys have not been '
+                     'rotated in the last 90 days')
+    msg_closed: str = 'User access keys have been rotated in the last 90 days'
+
+    vulns, safes = [], []
+
+    three_months_ago = datetime.now() - timedelta(days=90)
+    three_months_ago = three_months_ago.replace(tzinfo=pytz.UTC)
+
     for user in users:
-        if user[8] == 'true':
-            ak_last_change = parser.parse(user[9]).replace(tzinfo=pytz.UTC)
-            now_plus_90 = datetime.now() - timedelta(days=90)
-            if ak_last_change < now_plus_90.replace(tzinfo=pytz.UTC):
-                show_open('User\'s access key have not been rotated in \
-the last 90 days',
-                          details=dict(user=user[0],
-                                       last_rotated=ak_last_change,
-                                       expected_rotation_time=now_plus_90))
-                result = True
-            else:
-                show_close('User\'s access key has been rotated in the last \
-90 days', details=dict(user=user[0],
-                       last_rotated=ak_last_change,
-                       expected_rotation_time=now_plus_90))
-        else:
-            show_close('User does not have access keys enabled',
-                       details=dict(user=user[0]))
-    return result
+        if any((user['access_key_1_active'] != 'true',
+                user['access_key_2_active'] != 'true')):
+            continue
+
+        user_arn = user['arn']
+
+        is_vulnerable: bool = any(
+            parser.parse(user[x]).replace(tzinfo=pytz.UTC) < three_months_ago
+            for x in ('access_key_1_last_rotated',
+                      'access_key_2_last_rotated'))
+
+        (vulns if is_vulnerable else safes).append(
+            (user_arn, 'Keys must be rotated'))
+
+    return _get_result_as_tuple(
+        service='IAM', objects='users',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
 @api(risk=HIGH, kind=DAST)
@@ -170,13 +167,14 @@ def root_has_access_keys(key_id: str, secret: str,
 
     # Root user is always the first retrieved
     root_user = users[0]
+    root_arn = root_user['arn']
 
     root_has_active_keys: bool = any((
         root_user['access_key_1_active'] == 'true',
         root_user['access_key_2_active'] == 'true'))
 
     (vulns if root_has_active_keys else safes).append(
-        ('User:Root-Account', 'Must not have access keys'))
+        (root_arn, 'Must not have access keys'))
 
     return _get_result_as_tuple(
         service='IAM', objects='users',
@@ -207,7 +205,7 @@ def not_requires_uppercase(
     vulns, safes = [], []
 
     (vulns if not policy['RequireUppercaseCharacters'] else safes).append(
-        ('PasswordPolicy', 'Must require uppercase chars'))
+        ('Account/PasswordPolicy', 'Must require uppercase chars'))
 
     return _get_result_as_tuple(
         service='IAM', objects='password policies',
@@ -238,7 +236,7 @@ def not_requires_lowercase(
     vulns, safes = [], []
 
     (vulns if not policy['RequireLowercaseCharacters'] else safes).append(
-        ('PasswordPolicy', 'Must require lowercase chars'))
+        ('Account/PasswordPolicy', 'Must require lowercase chars'))
 
     return _get_result_as_tuple(
         service='IAM', objects='password policies',
@@ -269,7 +267,7 @@ def not_requires_symbols(key_id: str, secret: str,
     vulns, safes = [], []
 
     (vulns if not policy['RequireSymbols'] else safes).append(
-        ('PasswordPolicy', 'Must require symbols chars'))
+        ('Account/PasswordPolicy', 'Must require symbols chars'))
 
     return _get_result_as_tuple(
         service='IAM', objects='password policies',
@@ -300,7 +298,7 @@ def not_requires_numbers(key_id: str, secret: str,
     vulns, safes = [], []
 
     (vulns if not policy['RequireNumbers'] else safes).append(
-        ('PasswordPolicy', 'Must require numeric chars'))
+        ('Account/PasswordPolicy', 'Must require numeric chars'))
 
     return _get_result_as_tuple(
         service='IAM', objects='password policies',
@@ -332,7 +330,7 @@ def min_password_len_unsafe(
     vulns, safes = [], []
 
     (vulns if policy['MinimumPasswordLength'] < min_len else safes).append(
-        ('PasswordPolicy/MinimumPasswordLength',
+        ('Account/PasswordPolicy/MinimumPasswordLength',
          f'Must be at least {min_len} chars long'))
 
     return _get_result_as_tuple(
@@ -367,7 +365,7 @@ def password_reuse_unsafe(
     password_reuse: int = policy.get('PasswordReusePrevention', 0)
 
     (vulns if password_reuse < min_reuse else safes).append(
-        ('PasswordPolicy/PasswordReusePrevention',
+        ('Account/PasswordPolicy/PasswordReusePrevention',
          f'Must be at least {min_reuse}'))
 
     return _get_result_as_tuple(
@@ -402,8 +400,8 @@ def password_expiration_unsafe(
     pasword_max_age: int = policy.get('MaxPasswordAge', max_days + 1)
 
     (vulns if pasword_max_age > max_days else safes).append(
-        ('PasswordPolicy/MaxPasswordAge',
-         f'Must be at less than {max_days}'))
+        ('Account/PasswordPolicy/MaxPasswordAge',
+         f'Must be at less than {max_days} days'))
 
     return _get_result_as_tuple(
         service='IAM', objects='password policies',
@@ -441,145 +439,146 @@ def root_without_mfa(key_id: str, secret: str, retry: bool = True) -> tuple:
         vulns=vulns, safes=safes)
 
 
-@notify
-@level('low')
-@track
+@api(risk=LOW, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
 def policies_attached_to_users(
-        key_id: str, secret: str, retry: bool = True) -> bool:
+        key_id: str, secret: str, retry: bool = True) -> tuple:
     """
     Check if there are policies attached to users.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    result = False
-    try:
-        users = aws.run_boto3_func(key_id, secret, 'iam',
-                                   'list_users',
-                                   param='Users',
-                                   retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
+    users = aws.run_boto3_func(key_id=key_id,
+                               secret=secret,
+                               service='iam',
+                               func='list_users',
+                               param='Users',
+                               retry=retry)
+
+    msg_open: str = 'User has policies directly attached'
+    msg_closed: str = 'User does not have policies directly attached'
+
+    vulns, safes = [], []
+
     for user in users:
-        user_pol = aws.run_boto3_func(key_id, secret, 'iam',
-                                      'list_attached_user_policies',
-                                      param='AttachedPolicies',
-                                      retry=retry,
-                                      UserName=user['UserName'])
-        if user_pol:
-            show_open('User has policies directly attached',
-                      details=(dict(user=user['UserName'],
-                                    user_policy=user_pol)))
-            result = True
-        else:
-            show_close('User does not have policies attached',
-                       details=(dict(user=user['UserName'])))
-    return result
+        user_arn = user['Arn']
+        user_policies = aws.run_boto3_func(key_id=key_id,
+                                           secret=secret,
+                                           service='iam',
+                                           func='list_attached_user_policies',
+                                           param='AttachedPolicies',
+                                           UserName=user['UserName'],
+                                           retry=retry)
+        (vulns if user_policies else safes).append(
+            (user_arn, 'Must not have policies directly attached'))
+
+    return _get_result_as_tuple(
+        service='IAM', objects='users',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
 def have_full_access_policies(
-        key_id: str, secret: str, retry: bool = True) -> bool:
+        key_id: str, secret: str, retry: bool = True) -> tuple:
     """
     Check if there are policies that allow full administrative privileges.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    result = False
-    try:
-        policies = aws.run_boto3_func(key_id, secret, 'iam',
-                                      'list_policies',
-                                      param='Policies',
-                                      retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
+    policies = aws.run_boto3_func(key_id=key_id,
+                                  secret=secret,
+                                  service='iam',
+                                  func='list_policies',
+                                  param='Policies',
+                                  retry=retry)
+
+    msg_open: str = 'Policies allow full administrative privileges'
+    msg_closed: str = 'Policies does not allow full administrative privileges'
+
+    vulns, safes = [], []
+
     for policy in policies:
-        pol_ver = aws.run_boto3_func(key_id, secret, 'iam',
-                                     'get_policy_version',
+        pol_arn = policy['Arn']
+        pol_ver = aws.run_boto3_func(key_id=key_id,
+                                     secret=secret,
+                                     service='iam',
+                                     func='get_policy_version',
                                      param='PolicyVersion',
-                                     retry=retry,
                                      PolicyArn=policy['Arn'],
-                                     VersionId=policy['DefaultVersionId'])
+                                     VersionId=policy['DefaultVersionId'],
+                                     retry=retry)
+
         pol_ver = list(pol_ver['Document']['Statement'])
+
         try:
             count = sum(x['Effect'] == 'Allow' and
                         '*' in _any_to_list(x['Action']) and
                         '*' in _any_to_list(x['Resource']) for x in pol_ver)
         except TypeError:
             count = 0
-        if count:
-            show_open('Policy allows full admin access',
-                      details=(dict(policy=policy['PolicyName'],
-                                    access=pol_ver)))
-            result = True
-        else:
-            show_close('Policy avoid full admin access',
-                       details=(dict(policy=policy['PolicyName'])))
-    return result
+
+        (vulns if count > 0 else safes).append(
+            (pol_arn, 'Must not allow full privileges'))
+
+    return _get_result_as_tuple(
+        service='IAM', objects='policies',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
-@notify
-@level('low')
-@track
-def has_not_support_role(key_id: str, secret: str, retry: bool = True) -> bool:
+@api(risk=LOW, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_not_support_role(key_id: str, secret: str,
+                         retry: bool = True) -> tuple:
     """
     Check if there are a support role.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    result = False
-    try:
-        policies = aws.run_boto3_func(key_id, secret, 'iam',
-                                      'list_policies',
-                                      param='Policies',
+    policies = aws.run_boto3_func(key_id=key_id,
+                                  secret=secret,
+                                  service='iam',
+                                  func='list_policies',
+                                  param='Policies',
+                                  retry=retry)
+
+    msg_open: str = \
+        'There are not entities attached to the AWSSupportAccess policy'
+    msg_closed: str = \
+        'There are entities attached to the AWSSupportAccess policy'
+
+    vulns, safes = [], []
+
+    support_policies = [
+        p for p in policies if p['PolicyName'] == 'AWSSupportAccess']
+
+    for policy in support_policies:
+        policy_arn = policy['Arn']
+
+        entities = aws.run_boto3_func(key_id=key_id,
+                                      secret=secret,
+                                      service='iam',
+                                      func='list_entities_for_policy',
+                                      PolicyArn=policy_arn,
                                       retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    policies = list(filter(lambda x: x['PolicyName'] == 'AWSSupportAccess',
-                           policies))
-    if not policies:
-        show_open('There is not a AWSSupportAccess policy')
-        return True
 
-    for policy in policies:
-        entities = aws.run_boto3_func(key_id, secret, 'iam',
-                                      'list_entities_for_policy',
-                                      retry=retry,
-                                      PolicyArn=policy['Arn'])
-        attached_users = len(list(filter(None, entities['PolicyUsers'])))
-        attached_groups = len(list(filter(None, entities['PolicyGroups'])))
-        attached_roles = len(list(filter(None, entities['PolicyRoles'])))
+        attached_times = (
+            len(list(filter(None, entities['PolicyUsers']))) +
+            len(list(filter(None, entities['PolicyGroups']))) +
+            len(list(filter(None, entities['PolicyRoles']))))
 
-        total = attached_groups + attached_roles + attached_users
+        (vulns if attached_times == 0 else safes).append(
+            (policy_arn, 'Must have entities attached'))
 
-        if total:
-            show_close('There are entities attached to support policy',
-                       details=dict(policy=policy['PolicyName'],
-                                    entities=entities))
-        else:
-            show_open('There are not entities attached to support policy',
-                      details=dict(policy=policy['PolicyName'],
-                                   entities=entities))
-    return result
+    (safes if support_policies else vulns).append(
+        ('Policies/AWSSupportAccess', 'Must be present'))
+
+    return _get_result_as_tuple(
+        service='IAM', objects='Support Access policies',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)

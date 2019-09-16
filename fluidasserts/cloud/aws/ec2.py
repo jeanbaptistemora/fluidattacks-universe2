@@ -72,7 +72,7 @@ def seggroup_allows_anyone_to_admin_ports(
                 is_vulnerable: bool = _check_port_in_seggroup(port, group)
 
                 (vulns if is_vulnerable else safes).append(
-                    (group_id, f'must deny connections to port {port}'))
+                    (group_id, f'Must deny connections to port {port}'))
 
     return _get_result_as_tuple(
         service='EC2', objects='security groups',
@@ -120,7 +120,7 @@ def default_seggroup_allows_all_traffic(
                 for ip_range in ip_permission['IpRanges'])
 
             (vulns if is_vulnerable else safes).append(
-                (group_id, 'must not have 0.0.0.0/0 CIDRs'))
+                (group_id, 'Must not have 0.0.0.0/0 CIDRs'))
 
     return _get_result_as_tuple(
         service='EC2', objects='security groups',
@@ -154,7 +154,7 @@ def has_unencrypted_volumes(
         for volume in volumes:
             volume_id = volume['VolumeId']
             (vulns if not volume['Encrypted'] else safes).append(
-                (volume_id, 'must be encrypted'))
+                (volume_id, 'Must be encrypted'))
 
     return _get_result_as_tuple(
         service='EC2', objects='volumes',
@@ -194,7 +194,7 @@ def has_unencrypted_snapshots(
         for snapshot in snapshots:
             snapshot_id = snapshot['SnapshotId']
             (vulns if not snapshot['Encrypted'] else safes).append(
-                (snapshot_id, 'must be encrypted'))
+                (snapshot_id, 'Must be encrypted'))
 
     return _get_result_as_tuple(
         service='EC2', objects='snapshots',
@@ -242,7 +242,7 @@ def has_unused_seggroups(
                                                 retry=retry)
 
             (vulns if not net_interfaces else safes).append(
-                (group_id, 'must be used or deleted'))
+                (group_id, 'Must be used or deleted'))
 
     return _get_result_as_tuple(
         service='EC2', objects='security groups',
@@ -291,7 +291,7 @@ def vpcs_without_flowlog(
                                                 retry=retry)
 
             (vulns if not net_interfaces else safes).append(
-                (cloud_id, 'must be used or deleted'))
+                (cloud_id, 'Must be used or deleted'))
 
     return _get_result_as_tuple(
         service='EC2', objects='virtual private clouds',
