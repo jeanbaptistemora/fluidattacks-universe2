@@ -2,45 +2,47 @@
 
 """AWS cloud checks (Generic)."""
 
-# standard imports
-# None
-
 # 3rd party imports
-# None
+from botocore.exceptions import BotoCoreError
+from botocore.vendored.requests.exceptions import RequestException
 
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts import DAST, MEDIUM
 from fluidasserts.helper import aws
+from fluidasserts.cloud.aws import _get_result_as_tuple
+from fluidasserts.utils.decorators import api, unknown_if
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(RequestException)
 def are_valid_credentials(
-        key_id: str, secret: str, retry: bool = True) -> bool:
+        key_id: str, secret: str, retry: bool = True) -> tuple:
     """
     Check if given AWS credentials are working.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
+    are_valid: bool = True
     try:
-        identity = aws.run_boto3_func(key_id, secret, 'sts',
-                                      'get_caller_identity',
-                                      retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr:
-        show_close('Given credentials are not valid.',
-                   details=dict(key_id=key_id, secret=secret))
-        return False
-    else:
-        show_open('Given credentials are valid.',
-                  details=dict(identity=identity, key_id=key_id,
-                               secret=secret))
-        return True
+        _ = aws.run_boto3_func(key_id=key_id,
+                               secret=secret,
+                               service='sts',
+                               func='get_caller_identity',
+                               retry=retry)
+    except BotoCoreError:
+        are_valid = False
+
+    msg_open: str = 'Provided AWS Credentials are valid'
+    msg_closed: str = 'Provided AWS Credentials are not valid'
+
+    vulns, safes = [], []
+
+    (vulns if are_valid else safes).append(
+        (f'Credentials/Key:{key_id}/Secret:{secret[:4]}...{secret[-4:]}',
+         f'Is valid'))
+
+    return _get_result_as_tuple(
+        service='IAM', objects='credentials',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
