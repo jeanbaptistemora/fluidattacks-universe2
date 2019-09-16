@@ -13,7 +13,7 @@
 :about1: Behavioral strategist
 :about2: Data scientist in training.
 
-= Healthtech Protection
+= HealthTech Protection
 
 Many startups are achieving success by redefining how the economy works.
 +Xtechs+ (financial, health, insurance, among others)
@@ -45,7 +45,6 @@ could learn from what has been innovative in healthcare management.
 
 .Atul Gawande
 image::atul.png[Atul Gawande, Source: https://commons.wikimedia.org/wiki/File:Atul-Gawande_%28cropped%29.jpg]
-
 
 Here’s a short story:
 Atul Gawande, renowned surgeon and writer
@@ -142,7 +141,7 @@ and his team found to lower mortality rates in +ICUs+:
 using checklists.
 However, we go some steps further:
 
-* We are capable of link:../../services/continuous-hacking/[continuously hacking] enterprise-level systems.
+* We are capable of [button]#link:../../services/continuous-hacking/[continuously hacking]# enterprise-level systems.
 This is like a smart checklist.
 As this is continuous, our services can detect small changes
 that could pose risks to your business.
@@ -154,7 +153,7 @@ They think and work all the time on how your system's flaws
 can be combined to configure attack vectors others cannot identify.
 
 * We are also capable of assessing valuable +IT+
-and information assets link:../../services/one-shot-hacking/[in one shot].
+and information assets [button]#link:../../services/one-shot-hacking/[in one shot]#.
 Again, we rely on _"smart"_ checklists.
 
 * We automate almost everything we already know.
