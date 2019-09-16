@@ -48,9 +48,12 @@ def no_connection():
 
 def test_clusters_public_close():
     """Redshift clusters public?."""
-    assert not redshift.has_public_clusters(AWS_ACCESS_KEY_ID,
-                                            AWS_SECRET_ACCESS_KEY_BAD,
-                                            retry=False)
+    assert redshift.has_public_clusters(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_closed()
+
+    assert redshift.has_public_clusters(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_BAD, retry=False).is_unknown()
+
     with no_connection():
-        assert not redshift.has_public_clusters(
-            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
+        assert redshift.has_public_clusters(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False).is_unknown()

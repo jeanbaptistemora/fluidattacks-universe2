@@ -2,51 +2,46 @@
 
 """AWS cloud checks (Redshift)."""
 
-# standard imports
-# None
-
 # 3rd party imports
-# None
+from botocore.exceptions import BotoCoreError
+from botocore.vendored.requests.exceptions import RequestException
 
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts import DAST, MEDIUM
 from fluidasserts.helper import aws
+from fluidasserts.cloud.aws import _get_result_as_tuple
+from fluidasserts.utils.decorators import api, unknown_if
 
 
-@notify
-@level('medium')
-@track
-def has_public_clusters(key_id: str, secret: str, retry: bool = True) -> bool:
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_public_clusters(key_id: str, secret: str, retry: bool = True) -> tuple:
     """
     Check if Redshift clusters are publicly accessible.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    try:
-        clusters = aws.run_boto3_func(key_id, secret, 'redshift',
-                                      'describe_clusters',
-                                      param='Clusters',
-                                      retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    if not clusters:
-        show_close('Not clusters were found')
-        return False
+    clusters = aws.run_boto3_func(key_id=key_id,
+                                  secret=secret,
+                                  service='redshift',
+                                  func='describe_clusters',
+                                  param='Clusters',
+                                  retry=retry)
 
-    result = [x for x in clusters if x['PubliclyAccessible']]
-    if result:
-        show_open('Clusters are publicly accessible',
-                  details=dict(clusters=result))
-        return True
-    show_close('Clusters are not publicly accessible')
-    return False
+    msg_open: str = 'Clusters are publicly accessible'
+    msg_closed: str = 'Clusters are not publicly accessible'
+
+    vulns, safes = [], []
+
+    if clusters:
+        for cluster in clusters:
+            cluster_id = cluster['ClusterIdentifier']
+
+            (vulns if cluster['PubliclyAccessible'] else safes).append(
+                (cluster_id, 'must not be publicly accessible'))
+
+    return _get_result_as_tuple(
+        service='RedShift', objects='clusters',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
