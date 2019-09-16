@@ -54,7 +54,7 @@ def artchecker(path, exit_code):
         error_print(path, "Current LIX: "+lix, message)
         exit_code = 1
 
-    if not 800 < int(word_count) < 1200:
+    if not 800 <= int(word_count) <= 1200:
         message = "Word count must be in range [800-1200]"
         error_print(path, "Current Word Count: "+word_count, message)
         exit_code = 1
