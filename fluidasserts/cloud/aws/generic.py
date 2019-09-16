@@ -40,7 +40,7 @@ def are_valid_credentials(
 
     (vulns if are_valid else safes).append(
         (f'Credentials/Key:{key_id}/Secret:{secret[:4]}...{secret[-4:]}',
-         f'Is valid'))
+         'Is valid'))
 
     return _get_result_as_tuple(
         service='IAM', objects='credentials',

@@ -55,7 +55,7 @@ def has_mfa_disabled(
         user_has_pass: bool = user['password_enabled'] == 'true'
 
         (vulns if user_has_pass and not user_has_mfa else safes).append(
-            (f'User:{user_name}', f'Must have MFA'))
+            (f'User:{user_name}', 'Must have MFA'))
 
     return _get_result_as_tuple(
         service='IAM', objects='users',
@@ -98,7 +98,7 @@ def have_old_creds_enabled(
         user_pass_last_used = user_info['User']['PasswordLastUsed']
 
         (vulns if user_pass_last_used < three_months_ago else safes).append(
-            (f'User:{user_name}', f'Must not have an unused password'))
+            (f'User:{user_name}', 'Must not have an unused password'))
 
     return _get_result_as_tuple(
         service='IAM', objects='users',
@@ -176,7 +176,7 @@ def root_has_access_keys(key_id: str, secret: str,
         root_user['access_key_2_active'] == 'true'))
 
     (vulns if root_has_active_keys else safes).append(
-        (f'User:Root-Account', f'Must not have access keys'))
+        ('User:Root-Account', 'Must not have access keys'))
 
     return _get_result_as_tuple(
         service='IAM', objects='users',
@@ -332,7 +332,8 @@ def min_password_len_unsafe(
     vulns, safes = [], []
 
     (vulns if policy['MinimumPasswordLength'] < min_len else safes).append(
-        ('PasswordPolicy', f'Must be at least {min_len} chars long'))
+        ('PasswordPolicy/MinimumPasswordLength',
+         f'Must be at least {min_len} chars long'))
 
     return _get_result_as_tuple(
         service='IAM', objects='password policies',
@@ -340,11 +341,10 @@ def min_password_len_unsafe(
         vulns=vulns, safes=safes)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
 def password_reuse_unsafe(
-        key_id: str, secret: str, min_reuse=24, retry: bool = True) -> bool:
+        key_id: str, secret: str, min_reuse=24, retry: bool = True) -> tuple:
     """
     Check if password policy avoids reuse of the last 24 passwords.
 
@@ -352,41 +352,34 @@ def password_reuse_unsafe(
     :param secret: AWS Key Secret
     :param min_len: Minimum reuse required. Default 24
     """
-    result = False
-    try:
-        policy = aws.run_boto3_func(key_id, secret, 'iam',
-                                    'get_account_password_policy',
-                                    param='PasswordPolicy',
-                                    retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    if 'PasswordReusePrevention' in policy:
-        if policy['PasswordReusePrevention'] >= min_reuse:
-            show_close('Password policy avoid reusing passwords',
-                       details=dict(min_reuse=min_reuse, policy=policy))
-            result = False
-        else:
-            show_open('Password policy allows reusing passwords',
-                      details=dict(min_reuse=min_reuse, policy=policy))
-            result = True
-    else:
-        show_open('Password policy not contains reuse clause',
-                  details=dict(policy=policy))
-        result = True
-    return result
+    policy = aws.run_boto3_func(key_id=key_id,
+                                secret=secret,
+                                service='iam',
+                                func='get_account_password_policy',
+                                param='PasswordPolicy',
+                                retry=retry)
+
+    msg_open: str = 'Password policy allows reusing passwords'
+    msg_closed: str = 'Password policy avoids reusing passwords'
+
+    vulns, safes = [], []
+
+    password_reuse: int = policy.get('PasswordReusePrevention', 0)
+
+    (vulns if password_reuse < min_reuse else safes).append(
+        ('PasswordPolicy/PasswordReusePrevention',
+         f'Must be at least {min_reuse}'))
+
+    return _get_result_as_tuple(
+        service='IAM', objects='password policies',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
 def password_expiration_unsafe(
-        key_id: str, secret: str, max_days=90, retry: bool = True) -> bool:
+        key_id: str, secret: str, max_days=90, retry: bool = True) -> tuple:
     """
     Check if password policy expires the passwords within 90 days or less.
 
@@ -394,69 +387,58 @@ def password_expiration_unsafe(
     :param secret: AWS Key Secret
     :param max_days: Max expiration days. Default 90
     """
-    result = False
-    try:
-        policy = aws.run_boto3_func(key_id, secret, 'iam',
-                                    'get_account_password_policy',
-                                    param='PasswordPolicy',
-                                    retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    if 'MaxPasswordAge' in policy:
-        if policy['MaxPasswordAge'] <= max_days:
-            show_close('Password expiration policy is safe',
-                       details=dict(max_days=max_days, policy=policy))
-            result = False
-        else:
-            show_open('Password expiration policy is not safe',
-                      details=dict(max_days=max_days, policy=policy))
-            result = True
-    else:
-        show_open('Password policy not contains expiration clause',
-                  details=dict(policy=policy))
-        result = True
-    return result
+    policy = aws.run_boto3_func(key_id=key_id,
+                                secret=secret,
+                                service='iam',
+                                func='get_account_password_policy',
+                                param='PasswordPolicy',
+                                retry=retry)
+
+    msg_open: str = 'Password policy allows reusing passwords'
+    msg_closed: str = 'Password policy avoids reusing passwords'
+
+    vulns, safes = [], []
+
+    pasword_max_age: int = policy.get('MaxPasswordAge', max_days + 1)
+
+    (vulns if pasword_max_age > max_days else safes).append(
+        ('PasswordPolicy/MaxPasswordAge',
+         f'Must be at less than {max_days}'))
+
+    return _get_result_as_tuple(
+        service='IAM', objects='password policies',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
-@notify
-@level('high')
-@track
-def root_without_mfa(key_id: str, secret: str, retry: bool = True) -> bool:
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def root_without_mfa(key_id: str, secret: str, retry: bool = True) -> tuple:
     """
     Check if root account does not have MFA.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    result = False
-    try:
-        summary = aws.run_boto3_func(key_id, secret, 'iam',
-                                     'get_account_summary',
-                                     param='SummaryMap',
-                                     retry=retry)
-    except aws.ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    except aws.ClientErr as exc:
-        show_unknown('Error retrieving info. Check credentials.',
-                     details=dict(error=str(exc).replace(':', '')))
-        return False
-    if summary['AccountMFAEnabled'] == 1:
-        show_close('Root password has MFA enabled',
-                   details=dict(account_summary=summary))
-        result = False
-    else:
-        show_open('Root password has MFA disabled',
-                  details=dict(account_summary=summary))
-        result = True
-    return result
+    summary = aws.run_boto3_func(key_id=key_id,
+                                 secret=secret,
+                                 service='iam',
+                                 func='get_account_summary',
+                                 param='SummaryMap',
+                                 retry=retry)
+
+    msg_open: str = 'Root password has MFA disabled'
+    msg_closed: str = 'Root password has MFA enabled'
+
+    vulns, safes = [], []
+
+    (vulns if summary['AccountMFAEnabled'] != 1 else safes).append(
+        ('User:Root-Account', 'Must have MFA'))
+
+    return _get_result_as_tuple(
+        service='IAM', objects='password policies',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
 
 
 @notify
