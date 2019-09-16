@@ -38,6 +38,7 @@ def has_not_geo_restrictions(key_id: str, secret: str,
     if distributions:
         for dist in distributions['Items']:
             dist_id = dist['Id']
+            dist_arn = dist['ARN']
             config = aws.run_boto3_func(key_id=key_id,
                                         secret=secret,
                                         service='cloudfront',
@@ -48,9 +49,8 @@ def has_not_geo_restrictions(key_id: str, secret: str,
             restrictions = config['Restrictions']
             geo_restriction = restrictions['GeoRestriction']
             geo_restriction_type = geo_restriction['RestrictionType']
-
             (vulns if geo_restriction_type == 'none' else safes).append(
-                f'Distribution {dist_id} must be geo-restricted')
+                (dist_arn, 'Distribution must be geo-restricted'))
 
     return _get_result_as_tuple(
         service='CloudFront', objects='distributions',
@@ -83,6 +83,7 @@ def has_logging_disabled(key_id: str, secret: str,
     if distributions:
         for dist in distributions['Items']:
             dist_id = dist['Id']
+            dist_arn = dist['ARN']
             config = aws.run_boto3_func(key_id=key_id,
                                         secret=secret,
                                         service='cloudfront',
@@ -95,7 +96,7 @@ def has_logging_disabled(key_id: str, secret: str,
             is_logging_enabled = distribution_config['Logging']['Enabled']
 
             (vulns if not is_logging_enabled else safes).append(
-                f'Distribution {dist_id} must have logging enabled')
+                (dist_arn, 'Distribution must have logging enabled'))
 
     return _get_result_as_tuple(
         service='CloudFront', objects='distributions',

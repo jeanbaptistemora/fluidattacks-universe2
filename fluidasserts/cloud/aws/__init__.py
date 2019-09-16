@@ -17,12 +17,16 @@ def _get_result_as_tuple(*,
     vuln_units: List[Unit] = []
     safe_units: List[Unit] = []
 
+    # Example:
+    # - where: AWS/EC2/vpc-00fc6258883d60e5b
+    #   specific: must be used or deleted
+
     if vulns:
-        vuln_units.append(Unit(where=f'AWS/{service}',
-                               specific=vulns))
+        vuln_units.extend(Unit(where=f'AWS/{service}/{id_}',
+                               specific=[vuln]) for id_, vuln in vulns)
     if safes:
-        safe_units.append(Unit(where=f'AWS/{service}',
-                               specific=safes))
+        safe_units.extend(Unit(where=f'AWS/{service}/{id_}',
+                               specific=[safe]) for id_, safe in safes)
 
     if vulns:
         return OPEN, msg_open, vuln_units, safe_units
