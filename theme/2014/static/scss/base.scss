@@ -101,40 +101,6 @@ $black: rgba(0, 0, 0, 1);
   max-width: 95ch;
 }
 
-.breadcrumb {
-  font-family: 'Montserrat';
-  font-size: 14px;
-  text-align: left;
-  text-transform: capitalize;
-  width: 65%;
-
-  a {
-    color: $fluid-black;
-
-    &:hover {
-      color: $fluid-dark-red;
-    }
-  }
-
-  ul {
-    display: inline-block;
-    list-style: none;
-    width: 100%;
-
-    li {
-      display: inline-block;
-      margin-top: 0;
-    }
-  }
-
-  span {
-    color: $fluid-red;
-    font-size: 10px;
-    font-weight: bold;
-    vertical-align: middle;
-  }
-}
-
 .list-title {
   background-color: $white;
   border-top: 3px solid $darkblue;
@@ -855,13 +821,5 @@ article {
 
   .tdborder {
     display: table-cell;
-  }
-}
-
-@media screen and (max-width: 510px) {
-  .breadcrumb {
-    font-size: 11px;
-    text-align: none;
-    width: 50%;
   }
 }
