@@ -129,3 +129,15 @@ GENCHECKS = {
     "find content -iname '* *' | grep -E './.*'":
     "Filenames must not have spaces in them, use hyphen \"-\" instead. "
 }
+
+#Images Checks
+IMGCHECKS = {
+    #Image size must not exceed 300kb
+    "find content/ -iname '*.png' -size +300k":
+    "Image file size must not exceed 300Kb. ",
+
+    #Only valid image extension is PNG
+    "find . -iname '*.jpeg' -o -iname '*.jpg' "
+    "-o -iname '*.bmp' -o -iname '*.tiff'":
+    "The only allowed extension for images is PNG. ",
+}
