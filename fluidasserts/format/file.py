@@ -5,6 +5,7 @@
 
 # standard imports
 from typing import List
+from os.path import splitext, basename
 
 # 3rd party imports
 import magic
@@ -29,6 +30,8 @@ def has_compiled_binaries(path: str,
     """
     Check if there are files in *path* that match a compiled binary mime type.
 
+    Check if the source code of the binaries found is available
+
     It checks for `fluidasserts.format.file.COMPILED_BINARY_MIMES`
     mime types.
 
@@ -45,12 +48,18 @@ def has_compiled_binaries(path: str,
 
     exclude = exclude or tuple()
 
-    for file in get_paths(path, exclude=tuple(exclude)):
+    paths = get_paths(path, exclude=tuple(exclude))
+    for file in paths:
         mime_type: str = magic.from_file(file, mime=True)
 
         vulnerable: bool = mime_type in mime_types
+        if vulnerable:
+            filename = splitext(basename(file))[0]
+            filename = filename.split('$')[0]
+            filename += '.java'
+            source_exists = any(i.endswith(filename) for i in paths)
 
-        (vulns if vulnerable else safes).append(
+        (vulns if vulnerable and not source_exists else safes).append(
             Unit(where=file,
                  source='FILE/MimeType/Binary',
                  specific=[msg_open if vulnerable else msg_closed],
