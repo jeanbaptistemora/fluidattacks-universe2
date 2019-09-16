@@ -32,7 +32,7 @@ eksSnetRegSecondary = [
 ]
 
 # New EKS Vars
-terraform-states-bucket = "terraform-states"
+fluidattacks-terraform-states-bucket = "fluidattacks-terraform-states"
 
 # ElastiCache Vars
 cacheGroupId          = "tf-redis-cluster"

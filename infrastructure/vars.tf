@@ -46,7 +46,7 @@ variable "eksSnetRegSecondary" {
 }
 
 # New EKS Vars
-variable "terraform-states-bucket" {}
+variable "fluidattacks-terraform-states-bucket" {}
 
 # ElastiCache Vars
 variable "cacheGroupId" {}

@@ -1,10 +1,10 @@
 # This file creates a bucket to store tfstate json files for all
 # our services
 
-variable "terraform-states-bucket" {}
+variable "fluidattacks-terraform-states-bucket" {}
 
-resource "aws_s3_bucket" "terraform-states-bucket" {
-  bucket = var.terraform-states-bucket
+resource "aws_s3_bucket" "fluidattacks-terraform-states-bucket" {
+  bucket = var.fluidattacks-terraform-states-bucket
   region = var.region
   acl    = "private"
   versioning {
