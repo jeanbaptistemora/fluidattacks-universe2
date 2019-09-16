@@ -143,3 +143,23 @@
 .phone_number {
   padding-left: 50px;
 }
+
+.suggestionList {
+  border-color: #000000;
+  border-style: solid;
+  border-width: 0px 1px 1px 1px;
+  list-style-type: none;
+  max-height: 300px;
+  overflow-y: scroll;
+  padding-inline-start: 0px;
+}
+
+.suggestionList li {
+  font-size: 18px;
+  padding-inline-start: 10px;
+}
+
+.suggestionList li:hover {
+  background-color: #FF3435;
+  color: #FFFFFF;
+}

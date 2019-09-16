@@ -26,6 +26,42 @@ const renderCharacterCount: ((text: string) => JSX.Element) = (text: string): JS
   <Badge pullRight={true} className={style.badge}>{text.length}</Badge>
 );
 
+type autocompleteFieldProps = CustomFieldProps & { suggestions: string[] };
+export const autocompleteTextField: ((fieldProps: autocompleteFieldProps) => JSX.Element) = (
+  fieldProps: autocompleteFieldProps,
+): JSX.Element => {
+  const filteredSuggestions: string[] = fieldProps.suggestions
+    .filter((suggestion: string): boolean =>
+      !_.isEmpty(fieldProps.input.value.trim()) && suggestion.includes(fieldProps.input.value));
+
+  const renderSuggestion: ((suggestion: string) => JSX.Element) = (suggestion: string): JSX.Element => {
+    const handleSuggestionClick: (() => void) = (): void => {
+      fieldProps.input.onChange(suggestion);
+    };
+
+    return (
+      <li onClick={handleSuggestionClick}><span>{suggestion}</span></li>
+    );
+  };
+
+  const shouldRender: boolean = filteredSuggestions.length > 0 && filteredSuggestions[0] !== fieldProps.input.value;
+
+  return (
+    <div>
+      <FormControl
+        className={style.formControl}
+        disabled={fieldProps.disabled}
+        id={fieldProps.id}
+        placeholder={fieldProps.placeholder}
+        type={fieldProps.type}
+        {...fieldProps.input}
+      />
+      {shouldRender ? <ul className={style.suggestionList}>{filteredSuggestions.map(renderSuggestion)}</ul> : undefined}
+      {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
+    </div>
+  );
+};
+
 export const textField: ((arg1: CustomFieldProps) => JSX.Element) =
   (fieldProps: CustomFieldProps): JSX.Element => (
     <div>
@@ -113,7 +149,7 @@ export const textAreaField: ((arg1: CustomFieldProps & { withCount?: boolean }) 
         className={`${style.formControl} ${fieldProps.className}`}
       />
       {fieldProps.withCount === true ? renderCharacterCount(fieldProps.input.value as string) : undefined}
-      {(fieldProps.withCount === true && fieldProps.meta.error) ? <br/> : undefined}
+      {(fieldProps.withCount === true && fieldProps.meta.error) ? <br /> : undefined}
       {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
     </div>
   );

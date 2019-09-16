@@ -14,7 +14,7 @@ import { dataTable as DataTable, IHeader } from "../../../../components/DataTabl
 import { Modal } from "../../../../components/Modal";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { formatDrafts, handleGraphQLErrors } from "../../../../utils/formatHelpers";
-import { textField } from "../../../../utils/forms/fields";
+import { autocompleteTextField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
@@ -67,6 +67,23 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
   const closeNewDraftModal: (() => void) = (): void => {
     setDraftModalOpen(false);
   };
+
+  const [titleSuggestions, setTitleSuggestions] = React.useState<string[]>([]);
+  const onMount: (() => void) = (): void => {
+    const baseUrl: string = "https://spreadsheets.google.com/feeds/cells";
+    const spreadsheetId: string = "1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc";
+    const column: number = 1;
+    const rowOffset: number = 2;
+    const extraParams: string = `&max-col=${column}&min-row=${rowOffset}`;
+
+    fetch(`${baseUrl}/${spreadsheetId}/1/public/values?alt=json${extraParams}`)
+      .then(async (httpResponse: Response) => httpResponse.json())
+      .then((data: { feed: { entry: Array<{ content: { $t: string } }> } }) => {
+        setTitleSuggestions(data.feed.entry.map((row: { content: { $t: string } }) => row.content.$t));
+      })
+      .catch();
+  };
+  React.useEffect(onMount, []);
 
   return (
     <Query query={GET_DRAFTS} variables={{ projectName }} onCompleted={handleQryResult}>
@@ -131,12 +148,21 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                               <Row>
                                 <Col md={12}>
                                   <label>{translate.t("project.drafts.title")}</label>
-                                  <Field component={textField} name="title" type="text" validate={[required]} />
+                                  <Field
+                                    component={autocompleteTextField}
+                                    name="title"
+                                    suggestions={titleSuggestions}
+                                    type="text"
+                                    validate={[required]}
+                                  />
                                 </Col>
                               </Row>
                               <br />
                               <ButtonToolbar className="pull-right">
-                                <Button bsStyle="success" block={true} type="submit" disabled={pristine || submitting}>
+                                <Button bsStyle="success" onClick={closeNewDraftModal}>
+                                  {translate.t("confirmmodal.cancel")}
+                                </Button>
+                                <Button bsStyle="success" type="submit" disabled={pristine || submitting}>
                                   {translate.t("confirmmodal.proceed")}
                                 </Button>
                               </ButtonToolbar>
