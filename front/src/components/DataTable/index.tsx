@@ -63,6 +63,7 @@ export interface IHeader {
   width?: string;
   wrapped?: boolean;
 
+  approveFunction?(arg1: { [key: string]: string } | undefined): void;
   deleteFunction?(arg1: { [key: string]: string } | undefined): void;
 }
 
@@ -113,6 +114,14 @@ export const dateFormatter: ((value: string) => string) =
   return value;
 };
 
+const approveFormatter: ((value: string, row: { [key: string]: string }, key: IHeader) => JSX.Element) =
+  (value: string, row: { [key: string]: string }, key: IHeader): JSX.Element =>
+    (
+      <a onClick={(): void => { if (key.approveFunction !== undefined) { key.approveFunction(row); }}}>
+        <FluidIcon icon="ok" width="20px" height="20px" />
+      </a>
+    );
+
 const deleteFormatter: ((value: string, row: { [key: string]: string }, key: IHeader) => JSX.Element) =
   (value: string, row: { [key: string]: string }, key: IHeader): JSX.Element =>
     (
@@ -132,7 +141,8 @@ const renderGivenHeaders: ((arg1: IHeader[]) => JSX.Element[]) =
        key.isStatus ? statusFormatter :
                       (key.isDate ? dateFormatter :
                         (key.deleteFunction !== undefined ? deleteFormatter :
-                          undefined))
+                          (key.approveFunction !== undefined ? approveFormatter :
+                            undefined)))
       }
       formatExtraData={key}
       dataSort={true}
