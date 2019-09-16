@@ -106,6 +106,22 @@ terraform-states-bucket:
     - ./infrastructure/terraform/states-bucket.sh
   only:
     - master
+  except:
+    - schedules
+
+lint-eks:
+  stage: tests
+  image: registry.gitlab.com/fluidsignal/serves:builder
+  script:
+    - ./ci-scripts/jobs/lint-eks.sh
+  except:
+    - master
+
+terraform-eks:
+  stage: deploy
+  image: registry.gitlab.com/fluidsignal/serves:builder
+  script:
+    - ./ci-scripts/jobs/terraform-eks.sh
 
 test_code:
   stage: tests
