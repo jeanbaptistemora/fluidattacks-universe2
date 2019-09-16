@@ -3,6 +3,7 @@ image: registry.gitlab.com/fluidsignal/serves:builder
 stages:
   - deps
   - analytics
+  - terraform-backend
   - tests
   - build
   - mr-check
@@ -97,6 +98,14 @@ build_builder:
         --destination "${CI_REGISTRY_IMAGE}:builder"
   <<: *only_schedules
   <<: *except_analytics
+
+terraform-states-bucket:
+  stage: terraform-backend
+  image: registry.gitlab.com/fluidsignal/serves:builder
+  script:
+    - ./infrastructure/terraform/states-bucket.sh
+  only:
+    - master
 
 test_code:
   stage: tests
