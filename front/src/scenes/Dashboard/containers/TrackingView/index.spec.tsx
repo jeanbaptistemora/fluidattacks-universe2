@@ -34,6 +34,7 @@ describe("Tracking view", () => {
             id: "438679960",
             inputsVulns: [{
               __typename: "Vulnerability",
+              currentApprovalStatus: "",
               currentState: "open",
               externalBts: "",
               findingId: "438679960",
@@ -46,6 +47,7 @@ describe("Tracking view", () => {
               where: "https://example.com/contact",
             }],
             linesVulns: [],
+            pendingVulns: [],
             portsVulns: [],
             releaseDate: "2019-03-12 00:00:00",
             success: true,

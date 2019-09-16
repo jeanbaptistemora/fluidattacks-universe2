@@ -14,6 +14,10 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
         vulnType: "lines") {
         ...vulnInfo
       }
+      pendingVulns: vulnerabilities(
+        approvalStatus: "PENDING") {
+        ...vulnInfo
+      }
       inputsVulns: vulnerabilities(
         vulnType: "inputs") {
         ...vulnInfo
@@ -31,6 +35,7 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
     treatmentManager
     treatmentJustification
     externalBts
+    currentApprovalStatus
   }
   `;
 
@@ -50,6 +55,18 @@ export const DELETE_VULN_MUTATION: DocumentNode = gql`
     deleteVulnerability (
       id: $id,
       findingId: $findingId
+    ) {
+      success
+    }
+  }
+  `;
+
+export const APPROVE_VULN_MUTATION: DocumentNode = gql`
+  mutation ApproveVulnMutation($uuid: String!, $findingId: String!, $approvalStatus: Boolean!) {
+    approveVulnerability (
+      uuid: $uuid,
+      findingId: $findingId,
+      approvalStatus: $approvalStatus
     ) {
       success
     }

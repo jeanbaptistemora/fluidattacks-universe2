@@ -4,17 +4,22 @@ export interface IVulnsAttr {
   finding: {
     id: string;
     inputsVulns: Array<{
-      currentState: string; externalBts: string; id: string; specific: string;
+      currentApprovalStatus: string; currentState: string; externalBts: string; id: string; specific: string;
       treatment: string; treatmentJustification: string; treatmentManager: string;
       vulnType: string; where: string;
     }>;
     linesVulns: Array<{
-      currentState: string; externalBts: string; id: string; specific: string;
+      currentApprovalStatus: string; currentState: string; externalBts: string; id: string; specific: string;
+      treatment: string; treatmentJustification: string; treatmentManager: string;
+      vulnType: string; where: string;
+    }>;
+    pendingVulns: Array<{
+      currentApprovalStatus: string; currentState: string; externalBts: string; id: string; specific: string;
       treatment: string; treatmentJustification: string; treatmentManager: string;
       vulnType: string; where: string;
     }>;
     portsVulns: Array<{
-      currentState: string; externalBts: string; id: string; specific: string;
+      currentApprovalStatus: string; currentState: string; externalBts: string; id: string; specific: string;
       treatment: string; treatmentJustification: string; treatmentManager: string;
       vulnType: string; where: string;
     }>;
@@ -29,6 +34,12 @@ export interface IDeleteVulnAttr {
   };
 }
 
+export interface IApproveVulnAttr {
+  approveVulnerability: {
+    success: boolean;
+  };
+}
+
 export interface IUpdateVulnTreatment {
   updateTreatmentVuln: {
     success: boolean;
@@ -38,6 +49,7 @@ export interface IUpdateVulnTreatment {
 export interface IVulnerabilitiesViewProps {
   descriptParam?: IDescriptionViewProps;
   editMode: boolean;
+  editModePending?: boolean;
   findingId: string;
   renderAsEditable?: boolean;
   separatedRow?: boolean;
@@ -45,5 +57,5 @@ export interface IVulnerabilitiesViewProps {
   userRole: string;
 }
 
-export type IVulnType = (IVulnsAttr["finding"]["inputsVulns"] | IVulnsAttr["finding"]["linesVulns"] |
-IVulnsAttr["finding"]["portsVulns"]);
+export type IVulnType = (IVulnsAttr["finding"]["pendingVulns"] | IVulnsAttr["finding"]["inputsVulns"] |
+IVulnsAttr["finding"]["linesVulns"] | IVulnsAttr["finding"]["portsVulns"]);

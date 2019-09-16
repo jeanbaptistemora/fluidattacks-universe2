@@ -128,6 +128,7 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
   const specificGrouped: IVulnType =
   _.map(groups, (line: IVulnType) =>
     ({
+        currentApprovalStatus: line[0].currentApprovalStatus,
         currentState: line[0].currentState,
         externalBts: line[0].externalBts,
         id: line[0].id,
@@ -250,7 +251,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               return arrayVulnInfo;
             };
 
-            const dataInputs: IVulnsAttr["finding"]["inputsVulns"] = filterState(data.finding.inputsVulns, props.state);
+            const dataInputs: IVulnsAttr["finding"]["inputsVulns"] = filterState(
+              data.finding.inputsVulns, props.state);
             const dataLines: IVulnsAttr["finding"]["linesVulns"] = filterState(data.finding.linesVulns, props.state);
             const dataPorts: IVulnsAttr["finding"]["portsVulns"] = filterState(data.finding.portsVulns, props.state);
 
