@@ -2,6 +2,9 @@
 
 """AWS cloud checks (EC2)."""
 
+# std imports
+from contextlib import suppress
+
 # 3rd party imports
 from botocore.exceptions import BotoCoreError
 from botocore.vendored.requests.exceptions import RequestException
@@ -17,12 +20,10 @@ def _check_port_in_seggroup(port: int, group: dict) -> list:
     """Check if port is open according to security group."""
     vuln = []
     for perm in group['IpPermissions']:
-        try:
+        with suppress(KeyError):
             vuln += [perm for x in perm['IpRanges']
                      if x['CidrIp'] == '0.0.0.0/0' and
                      perm['FromPort'] <= port <= perm['ToPort']]
-        except KeyError:
-            pass
     return vuln
 
 
