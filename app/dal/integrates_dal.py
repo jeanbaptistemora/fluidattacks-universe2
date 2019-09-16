@@ -1523,30 +1523,29 @@ def get_findings_dynamo(project, data_attr=''):
     return findings
 
 
-def get_projects_data_dynamo(filtering_exp, data_attr=''):
+def get_projects_data_dynamo(filtering_exp='', data_attr=''):
     """Get project from Dynamodb"""
     table = DYNAMODB_RESOURCE.Table('FI_projects')
-    if data_attr:
-        response = table.scan(
-            FilterExpression=filtering_exp,
-            ProjectionExpression=data_attr)
-        items = response['Items']
-        while response.get('LastEvaluatedKey'):
-            response = table.scan(
-                FilterExpression=filtering_exp,
-                ProjectionExpression=data_attr,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-
+    scan_attrs = {}
+    if filtering_exp:
+        scan_attrs['FilterExpression'] = filtering_exp
     else:
-        response = table.scan(
-            FilterExpression=filtering_exp)
-        items = response['Items']
-        while response.get('LastEvaluatedKey'):
-            response = table.scan(
-                FilterExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
+        # FilterExpression not especified
+        pass
+
+    if data_attr:
+        scan_attrs['ProjectionExpression'] = data_attr
+    else:
+        # ProjectionExpression not especified
+        pass
+
+    response = table.scan(**scan_attrs)
+    items = response['Items']
+    while response.get('LastEvaluatedKey'):
+        scan_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
+        response = table.scan(**scan_attrs)
+        items += response['Items']
+
     return items
 
 

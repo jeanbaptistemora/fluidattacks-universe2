@@ -103,3 +103,9 @@ def list_findings(project_name):
         findings += response.get('Items', [])
 
     return [finding['finding_id'] for finding in findings]
+
+
+def get_all_projects():
+    """Get all projects in DynamoDB"""
+    projects = integrates_dal.get_projects_data_dynamo(data_attr='')
+    return [prj['project_name'] for prj in projects]
