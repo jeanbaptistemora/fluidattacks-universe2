@@ -39,6 +39,7 @@ from app.domain.vulnerability import (
 )
 from app.documentator.pdf import CreatorPDF
 from app.documentator.secure_pdf import SecurePDF
+from app.documentator.all_vulns import generate_all_vulns_xlsx
 from app.dto import closing, project as project_dto
 from app.dto.finding import (
     FindingDTO, parse_finding, get_project_name,
@@ -745,6 +746,22 @@ def generate_complete_report(request):
                                                    username=username)
     book.save(filepath)
 
+    with open(filepath, 'r') as document:
+        response = HttpResponse(document.read())
+        response['Content-Type'] = 'application/vnd.openxmlformats\
+                        -officedocument.spreadsheetml.sheet'
+        response['Content-Disposition'] = 'inline;filename={filename}'.format(
+            filename=filename)
+    return response
+
+
+@cache_content
+@never_cache
+@authorize(['admin'])
+def export_all_vulnerabilities(request):
+    user_data = util.get_jwt_content(request)
+    filepath = generate_all_vulns_xlsx(user_data['user_email'])
+    filename = os.path.basename(filepath)
     with open(filepath, 'r') as document:
         response = HttpResponse(document.read())
         response['Content-Type'] = 'application/vnd.openxmlformats\

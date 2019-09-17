@@ -43,5 +43,6 @@ urlpatterns = [
         views.project_to_pdf),
     url(r'^xls/(?P<lang>[a-z]{2})/project/(?P<project>[A-Za-z0-9]+)/?$',
         views.project_to_xls),
-    url(r'^complete_report/?$', views.generate_complete_report)
+    url(r'^complete_report/?$', views.generate_complete_report),
+    url(r'^export_all_vulnerabilities/?$', views.export_all_vulnerabilities)
 ]
