@@ -10,16 +10,14 @@ from PIL import Image
 import pytesseract
 
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
+from fluidasserts import Unit, SAST, DAST, OPEN, CLOSED, MEDIUM
 from fluidasserts.helper import http
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts.utils.decorators import unknown_if, api
 
 
-@notify
-@level('medium')
-@track
-def is_insecure_in_image(image: str, expected_text: str) -> bool:
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def is_insecure_in_image(image: str, expected_text: str) -> tuple:
     """
     Check if the given image is an insecure CAPTCHA.
 
@@ -29,21 +27,28 @@ def is_insecure_in_image(image: str, expected_text: str) -> bool:
     :param image: Path to the image to be tested.
     :param expected_text: Text the image might contain.
     """
-    result = pytesseract.image_to_string(Image.open(image))
-    if result == expected_text:
-        show_open('Captcha is insecure',
-                  details=dict(expected=expected_text, reversed=result))
-        return True
-    show_close('Captcha is secure',
-               details=dict(expected=expected_text, reversed=result))
-    return False
+    image_obj = Image.open(image)
+
+    ocr_result: str = pytesseract.image_to_string(image_obj)
+
+    msg_open = 'Captcha is reversible by an OCR'
+    msg_closed = 'Captcha is safe against an OCR'
+
+    is_solvable_by_an_ocr: bool = ocr_result == expected_text
+
+    unit: Unit = Unit(where=image,
+                      specific=[
+                          msg_open if is_solvable_by_an_ocr else msg_closed])
+
+    if is_solvable_by_an_ocr:
+        return OPEN, msg_open, [unit], []
+    return CLOSED, msg_closed, [], [unit]
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(http.ConnError, http.ParameterError)
 def is_insecure_in_url(image_url: str, expected_text: str,
-                       *args, **kwargs) -> bool:
+                       *args, **kwargs) -> tuple:
     r"""
     Check if the image in the URL is an insecure CAPTCHA.
 
@@ -58,15 +63,15 @@ def is_insecure_in_url(image_url: str, expected_text: str,
         :class:`~fluidasserts.helper.http.HTTPSession`.
     """
     session = http.HTTPSession(image_url, stream=True, *args, **kwargs)
-    fingerprint = session.get_fingerprint()
+    session.set_messages(
+        source='Captcha/Challenge/Complexity',
+        msg_open='Captcha is reversible by an OCR',
+        msg_closed='Captcha is safe against an OCR')
+
     image = session.response.raw
-    result = pytesseract.image_to_string(Image.open(image))
-    if result == expected_text:
-        show_open('Captcha is insecure',
-                  details=dict(expected=expected_text, reversed=result,
-                               fingerprint=fingerprint))
-        return True
-    show_close('Captcha is secure',
-               details=dict(expected=expected_text, reversed=result,
-                            fingerprint=fingerprint))
-    return False
+    image_obj = Image.open(image)
+
+    ocr_result: str = pytesseract.image_to_string(image_obj)
+
+    session.add_unit(is_vulnerable=ocr_result == expected_text)
+    return session.get_tuple_result()

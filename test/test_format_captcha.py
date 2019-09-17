@@ -41,11 +41,14 @@ def test_is_insecure_in_url_open():
 
 def test_is_insecure_in_image_close():
     """Insecure captcha close."""
-    assert not captcha.is_insecure_in_image(SECURE_CAPTCHA_IMG[0],
-                                            SECURE_CAPTCHA_IMG[1])
+    assert captcha.is_insecure_in_image(SECURE_CAPTCHA_IMG[0],
+                                        SECURE_CAPTCHA_IMG[1]).is_closed()
+    assert captcha.is_insecure_in_url('not exists', 'test').is_unknown()
 
 
 def test_is_insecure_in_url_close():
     """Insecure captcha close."""
-    assert not captcha.is_insecure_in_url(SECURE_CAPTCHA_URL[0],
-                                          SECURE_CAPTCHA_URL[1])
+    assert captcha.is_insecure_in_url(SECURE_CAPTCHA_URL[0],
+                                      SECURE_CAPTCHA_URL[1]).is_closed()
+    assert captcha.is_insecure_in_url('param error', 'test').is_unknown()
+    assert captcha.is_insecure_in_url('http://0.0.0.0', 'test').is_unknown()
