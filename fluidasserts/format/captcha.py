@@ -57,7 +57,9 @@ def is_insecure_in_url(image_url: str, expected_text: str,
     :param \*\*kwargs: Optional keyword arguments for
         :class:`~fluidasserts.helper.http.HTTPSession`.
     """
-    session = http.HTTPSession(image_url, stream=True, *args, **kwargs)
+    kwargs = kwargs or {}
+    kwargs.update({'stream': True})
+    session = http.HTTPSession(image_url, *args, **kwargs)
     session.set_messages(
         source='Captcha/Challenge/Complexity',
         msg_open='Captcha is reversible by an OCR',

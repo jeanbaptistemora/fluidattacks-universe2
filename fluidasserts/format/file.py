@@ -46,9 +46,10 @@ def has_compiled_binaries(path: str,
     safes: List[Unit] = []
     vulns: List[Unit] = []
 
-    exclude = exclude or tuple()
+    exclude_tuple: tuple = tuple(exclude) if exclude else tuple()
 
-    paths = get_paths(path, exclude=tuple(exclude))
+    paths: tuple = get_paths(path, exclude=exclude_tuple)
+
     for file in paths:
         mime_type: str = magic.from_file(file, mime=True)
 

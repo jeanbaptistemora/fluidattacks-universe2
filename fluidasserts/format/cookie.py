@@ -40,7 +40,8 @@ def _generic_check_attribute(cookie_attribute: str,
     kwargs = kwargs or {}
     kwargs.update({'request_at_instantiation': False})
 
-    session = http.HTTPSession(url, *args, **kwargs)
+    canon_url: str = str(url)
+    session = http.HTTPSession(canon_url, *args, **kwargs)
 
     if url is not None:
         session.do_request()
