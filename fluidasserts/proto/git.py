@@ -9,16 +9,26 @@ import os
 import git
 
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts import Unit, SAST, LOW, OPEN, CLOSED
+from fluidasserts.utils.decorators import unknown_if, api
 
 
-@notify
-@level('low')
-@track
-def commit_has_secret(repo: str, commit_id: str, secret: str) -> bool:
+def _get_result_as_tuple(*,
+                         path: str,
+                         msg_open: str, msg_closed: str,
+                         open_if: bool = None) -> tuple:
+    """Return the tuple version of the Result object."""
+    unit: Unit = Unit(where=path,
+                      specific=[msg_open if open_if else msg_closed])
+
+    if open_if:
+        return OPEN, msg_open, [unit], []
+    return CLOSED, msg_closed, [], [unit]
+
+
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError, git.GitError)
+def commit_has_secret(repo: str, commit_id: str, secret: str) -> tuple:
     r"""
     Check if commit has given secret.
 
@@ -26,32 +36,18 @@ def commit_has_secret(repo: str, commit_id: str, secret: str) -> bool:
     :param commit_id: Commit to test.
     :param secret: Secret to search.
     """
-    try:
-        repo_obj = git.Repo(repo)
-        diff = repo_obj.git.diff(f'{commit_id}~1..{commit_id}')
-    except git.GitError as exc:
-        show_unknown('There was an error',
-                     details=dict(repo=repo, commit_id=commit_id,
-                                  error=str(exc).replace(':', ',')))
-        return False
+    diff = git.Repo(repo).git.diff(f'{commit_id}~1..{commit_id}')
 
-    result = True
-    if secret in diff:
-        show_open('Secret found in commit',
-                  details=dict(repo=repo, commit_id=commit_id,
-                               secret=secret))
-    else:
-        show_close('Secret not found in commit',
-                   details=dict(repo=repo, commit_id=commit_id,
-                                secret=secret))
-        result = False
-    return result
+    return _get_result_as_tuple(
+        path=repo,
+        msg_open=f'Secret found in commit {commit_id}',
+        msg_closed=f'Secret not found in commit {commit_id}',
+        open_if=secret in diff)
 
 
-@notify
-@level('low')
-@track
-def has_insecure_gitignore(repo: str) -> bool:
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError, git.GitError)
+def has_insecure_gitignore(repo: str) -> tuple:
     r"""
     Check if .gitignore file has secure exceptions.
 
@@ -64,21 +60,16 @@ def has_insecure_gitignore(repo: str) -> bool:
         'Thumbs.db',
         '.DS_Store',
     )
-    result = True
-    try:
-        with open(os.path.join(repo, '.gitignore')) as git_fd:
-            content = git_fd.read()
-            result = not all(x in content for x in secure_entries)
-    except FileNotFoundError as exc:
-        show_unknown('There was an error',
-                     details=dict(repo=repo,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    else:
-        if result:
-            show_open('Security entries not found in .gitignore',
-                      details=dict(repo=repo, secure_entries=secure_entries))
-        else:
-            show_close('Security entries found in .gitignore',
-                       details=dict(repo=repo, secure_entries=secure_entries))
-        return result
+
+    gitignore_path = os.path.join(repo, '.gitignore')
+
+    with open(gitignore_path) as git_fd:
+        content = git_fd.read()
+
+    safe_gitignore = all(x in content for x in secure_entries)
+
+    return _get_result_as_tuple(
+        path=gitignore_path,
+        msg_open='All security entries were found in .gitignore',
+        msg_closed='Not all security entries were found in .gitignore',
+        open_if=not safe_gitignore)
