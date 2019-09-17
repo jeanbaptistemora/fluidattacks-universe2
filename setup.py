@@ -109,6 +109,8 @@ setup(
         'tlslite-ng==0.8.0-alpha26',   # fluidasserts.proto.ssl
         'typed-ast==1.4.0',            # fluidasserts
         'viewstate==0.4.3',            # fluidasserts.proto.http
+        'google-api-python-client==1.7.11',     # fluidasserts.cloud.gcp
+        'google-auth-httplib2==0.0.3',    # fluidasserts.cloud.gcp
     ],
     include_package_data=True,         # files to include in MANIFEST.in
     entry_points={
