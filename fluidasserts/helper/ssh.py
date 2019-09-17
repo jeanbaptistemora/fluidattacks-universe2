@@ -122,7 +122,7 @@ def ssh_with_config(server: str, username: str, config_file: str,
 
 def ssh_exec_command(server: str, username: str, password: str, command: str,
                      config_file: str = None,
-                     raise_errors: bool = False) -> Tuple[bool, bool]:
+                     raise_errors: bool = True) -> Tuple[bool, bool]:
     """
     Connect using SSH and execute specific command.
 
@@ -138,6 +138,6 @@ def ssh_exec_command(server: str, username: str, password: str, command: str,
         out, err = ssh_with_config(server, username, config_file, command)
 
     if raise_errors and err:
-        raise OSError(err)
+        raise OSError(str(err))
 
     return out, err

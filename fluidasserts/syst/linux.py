@@ -21,8 +21,8 @@ def is_min_priv_disabled(server: str, username: str, password: str,
     :param password: Password for given user.
     :param ssh_config: Path to SSH connection config file.
     """
-    out, _ = ssh_exec_command(
-        server, username, password, 'umask', ssh_config)
+    cmd: str = 'umask'
+    out, _ = ssh_exec_command(server, username, password, cmd, ssh_config)
 
     return _get_result_as_tuple(
         system='Unix', host=server,
@@ -44,8 +44,7 @@ def is_sudo_disabled(server: str, username: str, password: str,
     :param ssh_config: Path to SSH connection config file.
     """
     cmd: str = 'which sudo'
-    out, _ = ssh_exec_command(
-        server, username, password, cmd, ssh_config, raise_errors=True)
+    out, _ = ssh_exec_command(server, username, password, cmd, ssh_config)
 
     is_sudo_installed: bool = bool(out)
 
@@ -69,8 +68,7 @@ def are_compilers_installed(server: str, username: str, password: str,
     :param ssh_config: Path to SSH connection config file.
     """
     cmd: str = 'which cc gcc c++ g++ javac ld as nasm'
-    out, _ = ssh_exec_command(
-        server, username, password, cmd, ssh_config, raise_errors=True)
+    out, _ = ssh_exec_command(server, username, password, cmd, ssh_config)
 
     have_compilers: bool = bool(out)
 
@@ -94,8 +92,7 @@ def is_antimalware_not_installed(server: str, username: str, password: str,
     :param ssh_config: Path to SSH connection config file.
     """
     cmd: str = 'which clamscan avgscan'
-    out, _ = ssh_exec_command(
-        server, username, password, cmd, ssh_config, raise_errors=True)
+    out, _ = ssh_exec_command(server, username, password, cmd, ssh_config)
 
     is_antivirus_installed: bool = bool(out)
 
@@ -119,8 +116,7 @@ def is_remote_admin_enabled(server: str, username: str, password: str,
     :param ssh_config: Path to SSH connection config file.
     """
     cmd: str = 'grep -i "^PermitRootLogin.*yes" /etc/ssh/sshd_config'
-    out, _ = ssh_exec_command(
-        server, username, password, cmd, ssh_config, raise_errors=True)
+    out, _ = ssh_exec_command(server, username, password, cmd, ssh_config)
 
     is_remote_admin_enabled_enabled: bool = bool(out)
 
@@ -144,8 +140,7 @@ def are_syncookies_disabled(server: str, username: str, password: str,
     :param ssh_config: Path to SSH connection config file.
     """
     cmd: str = 'sysctl -q -n net.ipv4.tcp_syncookies'
-    out, _ = ssh_exec_command(
-        server, username, password, cmd, ssh_config, raise_errors=True)
+    out, _ = ssh_exec_command(server, username, password, cmd, ssh_config)
 
     are_syn_cookies_enabled: bool = bool(out)
 
