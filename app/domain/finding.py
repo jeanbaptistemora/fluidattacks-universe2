@@ -785,9 +785,20 @@ def save_evidence(evidence_field, finding_id, project_name, uploaded_file):
     return success
 
 
-def create_draft(analyst_email, project_name, title):
+def create_draft(analyst_email, project_name, title, **kwargs):
     last_fs_id = 540000000
     finding_id = str(random.randint(last_fs_id, 1000000000))
     project_name = project_name.lower()
 
-    return finding_dal.create(analyst_email, finding_id, project_name, title)
+    if 'description' in kwargs:
+        kwargs['vulnerability'] = kwargs['description']
+        del kwargs['description']
+    if 'recommendation' in kwargs:
+        kwargs['effect_solution'] = kwargs['recommendation']
+        del kwargs['recommendation']
+    if 'type' in kwargs:
+        kwargs['finding_type'] = kwargs['type']
+        del kwargs['type']
+
+    return finding_dal.create(
+        analyst_email, finding_id, project_name, title, **kwargs)

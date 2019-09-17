@@ -5,7 +5,8 @@ from time import time
 import rollbar
 from graphql import GraphQLError
 from graphene import (
-    Boolean, Field, Float, Int, JSONString, List, Mutation, ObjectType, String
+    Boolean, Enum, Field, Float, Int, JSONString, List, Mutation, ObjectType,
+    String
 )
 from graphene.types.generic import GenericScalar
 
@@ -855,17 +856,25 @@ class ApproveDraft(Mutation):
 class CreateDraft(Mutation):
     """ Creates a new draft """
     class Arguments(object):
+        cwe = String(required=False)
+        description = String(required=False)
         project_name = String(required=True)
+        recommendation = String(required=False)
+        requirements = String(required=False)
+        risk = String(required=False)
+        threat = String(required=False)
         title = String(required=True)
+        type = Enum('FindingType', [
+            ('SECURITY', 'SECURITY'), ('HYGIENE', 'HYGIENE')])(required=False)
     success = Boolean()
 
     @require_login
     @require_role(['admin', 'analyst'])
     @require_project_access
-    def mutate(self, info, project_name, title):
+    def mutate(self, info, project_name, title, **kwargs):
         analyst_email = util.get_jwt_content(info.context)['user_email']
         success = finding_domain.create_draft(
-            analyst_email, project_name, title)
+            analyst_email, project_name, title, **kwargs)
         util.cloudwatch_log(info.context, 'Security: Created draft in '
                             '{} project succesfully'.format(project_name))
         return CreateDraft(success=success)

@@ -24,7 +24,7 @@ DYNAMODB_RESOURCE = boto3.resource(
 TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 
 
-def create(analyst_email, finding_id, project_name, title):
+def create(analyst_email, finding_id, project_name, title, **kwargs):
     success = False
     try:
         tzn = pytz.timezone(settings.TIME_ZONE)
@@ -40,7 +40,7 @@ def create(analyst_email, finding_id, project_name, title):
                 'project_name': project_name,
                 'report_date': today,
                 'report_level': 'GENERAL'
-            })
+            }.update(kwargs))
         success = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as ex:
         rollbar.report_message('Error: Couldn\'nt create new draft',
