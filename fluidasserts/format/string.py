@@ -8,12 +8,12 @@ import pkg_resources
 # None
 
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts import SAST, LOW, MEDIUM, HIGH, _get_result_as_tuple_sast
+from fluidasserts.utils.decorators import unknown_if, api
 
 
-def _check_password_strength(password: str, length: int) -> bool:
+@unknown_if(FileNotFoundError)
+def _check_password_strength(password: str, length: int) -> tuple:
     """
     Check if a user password is secure.
 
@@ -41,35 +41,27 @@ def _check_password_strength(password: str, length: int) -> bool:
     with open(dictionary) as dict_fd:
         words = (x.rstrip() for x in dict_fd.readlines())
 
-    result = True
+    msg_open: str = 'Password is insecure'
+    is_password_secure: bool = False
 
     if len(password) < length:
-        show_open('{} is too short'.format(password),
-                  details=dict(length=len(password)))
-        result = True
+        msg_open = 'Password is too short'
     elif password in words:
-        show_open('{} is a dictionary password'.format(password))
-        result = True
+        msg_open = 'Password is a dictionary password'
     elif caps < 1 or lower < 1 or nums < 1 or special < 1 or spaces < 1:
-        show_open('{} is too weak'.format(password),
-                  details=dict(caps=str(caps), lower=str(lower),
-                               numbers=str(nums), special=str(special),
-                               spaces=str(spaces)))
-        result = True
+        msg_open = 'Password is too weak'
     else:
-        show_close('{} password is secure'.format(password),
-                   details=dict(caps=str(caps), lower=str(lower),
-                                numbers=str(nums), special=str(special),
-                                spaces=str(spaces)))
-        result = False
+        is_password_secure = True
 
-    return result
+    return _get_result_as_tuple_sast(
+        path=f'Password/{password}',
+        msg_open=msg_open,
+        msg_closed='Password is secure',
+        open_if=not is_password_secure)
 
 
-@notify
-@level('high')
-@track
-def is_user_password_insecure(password: str) -> bool:
+@api(risk=HIGH, kind=SAST)
+def is_user_password_insecure(password: str) -> tuple:
     """
     Check if a user password is insecure.
 
@@ -84,10 +76,8 @@ def is_user_password_insecure(password: str) -> bool:
     return _check_password_strength(password, min_password_len)
 
 
-@notify
-@level('high')
-@track
-def is_system_password_insecure(password: str) -> bool:
+@api(risk=HIGH, kind=SAST)
+def is_system_password_insecure(password: str) -> tuple:
     """
     Check if a system password is insecure.
 
@@ -102,10 +92,8 @@ def is_system_password_insecure(password: str) -> bool:
     return _check_password_strength(password, min_password_len)
 
 
-@notify
-@level('medium')
-@track
-def is_otp_token_insecure(password: str) -> bool:
+@api(risk=MEDIUM, kind=SAST)
+def is_otp_token_insecure(password: str) -> tuple:
     """
     Check if a one-time password token is insecure.
 
@@ -115,25 +103,18 @@ def is_otp_token_insecure(password: str) -> bool:
     :param password: Password to be tested.
     :returns: True if insecure, False if secure.
     """
-    min_password_len = 6
+    min_password_len: int = 6
 
-    result = True
-    if len(password) < min_password_len:
-        show_open('{} OTP token is too short'.format(password),
-                  details=dict(length=len(password)))
-        result = True
-    else:
-        show_close('{} OTP token is secure'.format(password),
-                   details=dict(length=len(password)))
-        result = False
-
-    return result
+    return _get_result_as_tuple_sast(
+        path=f'OTP/{password}',
+        msg_open='OTP Token is too short',
+        msg_closed='OTP Token length is enough',
+        open_if=len(password) < min_password_len)
 
 
-@notify
-@level('low')
-@track
-def is_ssid_insecure(ssid: str) -> bool:
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def is_ssid_insecure(ssid: str) -> tuple:
     """
     Check if a given SSID is insecure.
 
@@ -149,12 +130,8 @@ def is_ssid_insecure(ssid: str) -> bool:
     with open(dictionary) as dict_fd:
         words = (x.rstrip() for x in dict_fd.readlines())
 
-    result = True
-    if ssid in words:
-        show_open('{} is a dictionary word.'.format(ssid))
-        result = True
-    else:
-        show_close('{} is a secure SSID.'.format(ssid))
-        result = False
-
-    return result
+    return _get_result_as_tuple_sast(
+        path=f'SSID/{ssid}',
+        msg_open='OTP Token is too short',
+        msg_closed='OTP Token length is enough',
+        open_if=ssid in words)
