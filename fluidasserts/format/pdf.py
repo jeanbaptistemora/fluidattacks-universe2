@@ -2,43 +2,41 @@
 
 """This module allows to check PDF vulnerabilities."""
 
-# standard imports
-# None
-
 # 3rd party imports
 from PyPDF2 import PdfFileReader
 
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts import Unit, SAST, LOW, OPEN, CLOSED
+from fluidasserts.utils.decorators import api, unknown_if
 
 
-def _has_attribute(filename: str, metaname: str) -> bool:
+@unknown_if(FileNotFoundError)
+def _has_attribute(filename: str, metaname: str) -> tuple:
     """
     Check if ``docinfo`` attribute is present.
 
     :param filename: Path to the ``PDF`` file.
     :param metaname: Name of the attribute to search.
     """
-    input_pdf = PdfFileReader(open(filename, 'rb'))
-    pdf_docinfo = input_pdf.getDocumentInfo()
+    with open(filename, 'rb') as pdf_handle:
+        input_pdf = PdfFileReader(pdf_handle)
+        pdf_docinfo = input_pdf.getDocumentInfo()
+
     metavalue = getattr(pdf_docinfo, metaname)
-    if metavalue is not None:
-        show_open('{} metadata in {}'.format(metaname, filename),
-                  details=dict(value=str(metavalue)))
 
-        result = True
-    else:
-        show_close('{} metadata in {}'.format(metaname, filename))
-        result = False
-    return result
+    msg_open: str = f'{metaname} is present in PDF'
+    msg_closed: str = f'{metaname} is not present in PDF'
+
+    unit: Unit = Unit(where=filename,
+                      specific=[msg_open if metavalue else msg_closed])
+
+    if metavalue:
+        return OPEN, msg_open, [unit], []
+    return CLOSED, msg_closed, [], [unit]
 
 
-@notify
-@level('low')
-@track
-def has_creator(filename: str) -> bool:
+@api(risk=LOW, kind=SAST)
+def has_creator(filename: str) -> tuple:
     """
     Check if ``creator`` attribute is present.
 
@@ -47,10 +45,8 @@ def has_creator(filename: str) -> bool:
     return _has_attribute(filename, 'creator')
 
 
-@notify
-@level('low')
-@track
-def has_producer(filename: str) -> bool:
+@api(risk=LOW, kind=SAST)
+def has_producer(filename: str) -> tuple:
     """
     Check if ``producer`` attribute is present.
 
@@ -59,10 +55,8 @@ def has_producer(filename: str) -> bool:
     return _has_attribute(filename, 'producer')
 
 
-@notify
-@level('low')
-@track
-def has_author(filename: str) -> bool:
+@api(risk=LOW, kind=SAST)
+def has_author(filename: str) -> tuple:
     """
     Check if ``author`` attribute is present.
 
