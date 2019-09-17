@@ -10,7 +10,7 @@ from PIL import Image
 import pytesseract
 
 # local imports
-from fluidasserts import Unit, SAST, DAST, OPEN, CLOSED, MEDIUM
+from fluidasserts import SAST, DAST, MEDIUM, _get_result_as_tuple_sast
 from fluidasserts.helper import http
 from fluidasserts.utils.decorators import unknown_if, api
 
@@ -31,18 +31,13 @@ def is_insecure_in_image(image: str, expected_text: str) -> tuple:
 
     ocr_result: str = pytesseract.image_to_string(image_obj)
 
-    msg_open = 'Captcha is reversible by an OCR'
-    msg_closed = 'Captcha is safe against an OCR'
-
     is_solvable_by_an_ocr: bool = ocr_result == expected_text
 
-    unit: Unit = Unit(where=image,
-                      specific=[
-                          msg_open if is_solvable_by_an_ocr else msg_closed])
-
-    if is_solvable_by_an_ocr:
-        return OPEN, msg_open, [unit], []
-    return CLOSED, msg_closed, [], [unit]
+    return _get_result_as_tuple_sast(
+        path=image,
+        msg_open='Captcha is reversible by an OCR',
+        msg_closed='Captcha is safe against an OCR',
+        open_if=is_solvable_by_an_ocr)
 
 
 @api(risk=MEDIUM, kind=DAST)

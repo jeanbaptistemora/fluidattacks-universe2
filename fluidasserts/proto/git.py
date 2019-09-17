@@ -9,21 +9,8 @@ import os
 import git
 
 # local imports
-from fluidasserts import Unit, SAST, LOW, OPEN, CLOSED
+from fluidasserts import SAST, LOW, _get_result_as_tuple_sast
 from fluidasserts.utils.decorators import unknown_if, api
-
-
-def _get_result_as_tuple(*,
-                         path: str,
-                         msg_open: str, msg_closed: str,
-                         open_if: bool = None) -> tuple:
-    """Return the tuple version of the Result object."""
-    unit: Unit = Unit(where=path,
-                      specific=[msg_open if open_if else msg_closed])
-
-    if open_if:
-        return OPEN, msg_open, [unit], []
-    return CLOSED, msg_closed, [], [unit]
 
 
 @api(risk=LOW, kind=SAST)
@@ -38,7 +25,7 @@ def commit_has_secret(repo: str, commit_id: str, secret: str) -> tuple:
     """
     diff = git.Repo(repo).git.diff(f'{commit_id}~1..{commit_id}')
 
-    return _get_result_as_tuple(
+    return _get_result_as_tuple_sast(
         path=repo,
         msg_open=f'Secret found in commit {commit_id}',
         msg_closed=f'Secret not found in commit {commit_id}',
@@ -68,7 +55,7 @@ def has_insecure_gitignore(repo: str) -> tuple:
 
     safe_gitignore = all(x in content for x in secure_entries)
 
-    return _get_result_as_tuple(
+    return _get_result_as_tuple_sast(
         path=gitignore_path,
         msg_open='All security entries were found in .gitignore',
         msg_closed='Not all security entries were found in .gitignore',

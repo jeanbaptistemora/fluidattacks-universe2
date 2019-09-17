@@ -5,7 +5,6 @@
 # standard imports
 from functools import lru_cache
 import logging
-from typing import List
 
 # 3rd party imports
 from androguard.misc import AnalyzeAPK
@@ -15,7 +14,9 @@ from androguard.core.bytecodes.dvm import DalvikVMFormat
 import androguard
 
 # local imports
-from fluidasserts import Unit, LOW, MEDIUM, SAST, OPEN, CLOSED, UNKNOWN
+from fluidasserts import (LOW, MEDIUM, SAST, UNKNOWN,
+                          _get_result_as_tuple_sast)
+
 from fluidasserts import show_open
 from fluidasserts import show_close
 from fluidasserts import show_unknown
@@ -82,20 +83,6 @@ def get_http_urls(dex):
             not any(re.match(whitel, x.get_value()) for whitel in whitelist)]
 
 
-def _get_result_as_tuple(*,
-                         apk_file: str,
-                         msg_open: str, msg_closed: str,
-                         open_if: bool) -> tuple:
-    """Return the tuple version of the Result object."""
-    units: List[Unit] = [
-        Unit(where=f'{apk_file}',
-             specific=[msg_open if open_if else msg_closed])]
-
-    if open_if:
-        return OPEN, msg_open, units, []
-    return CLOSED, msg_closed, [], units
-
-
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
 def is_unsigned(apk_file: str) -> tuple:
@@ -110,8 +97,8 @@ def is_unsigned(apk_file: str) -> tuple:
     """
     apk = APK(apk_file)
 
-    return _get_result_as_tuple(
-        apk_file=apk_file,
+    return _get_result_as_tuple_sast(
+        path=apk_file,
         msg_open='APK file is not signed',
         msg_closed='APK file is signed',
         open_if=not apk.is_signed()
@@ -141,8 +128,8 @@ def not_checks_for_root(apk_file: str) -> tuple:
     }
 
     check_root = any(x.name in root_checker_methods for x in dex.get_methods())
-    return _get_result_as_tuple(
-        apk_file=apk_file,
+    return _get_result_as_tuple_sast(
+        path=apk_file,
         msg_open='App doesn\'t verify for root',
         msg_closed='App verifies for root',
         open_if=not check_root
@@ -171,8 +158,8 @@ def uses_dangerous_perms(apk_file: str) -> tuple:
     effective_dangerous = [(x, perms[x][1]) for x in perms
                            if perms[x][0] in dangerous]
 
-    return _get_result_as_tuple(
-        apk_file=apk_file,
+    return _get_result_as_tuple_sast(
+        path=apk_file,
         msg_open=f'APK uses dangerous permissions: {effective_dangerous}',
         msg_closed='APK doesn\'t use dangerous permissions',
         open_if=effective_dangerous
@@ -204,8 +191,8 @@ def has_fragment_injection(apk_file: str) -> tuple:
         act_source = get_activities_source(dvms)
         if 'PreferenceActivity' in act_source:
             is_vuln = True
-    return _get_result_as_tuple(
-        apk_file=apk_file,
+    return _get_result_as_tuple_sast(
+        path=apk_file,
         msg_open='APK vulnerable to fragment injection',
         msg_closed='APK not vulnerable to fragment injection',
         open_if=is_vuln
@@ -231,8 +218,8 @@ def webview_caches_javascript(apk_file: str) -> tuple:
     if 'setJavaScriptEnabled' in act_source:
         if 'clearCache' not in act_source:
             is_vuln = True
-    return _get_result_as_tuple(
-        apk_file=apk_file,
+    return _get_result_as_tuple_sast(
+        path=apk_file,
         msg_open='WebView not clears JavaScript cache',
         msg_closed='WebView has JavaScript not enabled or clears cache',
         open_if=is_vuln
@@ -265,8 +252,8 @@ def webview_allows_resource_access(apk_file: str) -> bool:
     if 'setJavaScriptEnabled' in act_source:
         effective_dangerous = [x for x in dangerous_allows
                                if x in act_source]
-    return _get_result_as_tuple(
-        apk_file=apk_file,
+    return _get_result_as_tuple_sast(
+        path=apk_file,
         msg_open=f'WebView allows resource access: {effective_dangerous}',
         msg_closed='WebView does not allow resource access',
         open_if=effective_dangerous
@@ -287,8 +274,8 @@ def not_forces_updates(apk_file: str) -> tuple:
     """
     _, dvms, _ = analyze_apk(apk_file)
     act_source = get_activities_source(dvms)
-    return _get_result_as_tuple(
-        apk_file=apk_file,
+    return _get_result_as_tuple_sast(
+        path=apk_file,
         msg_open='APK not forces updating',
         msg_closed='APK forces updating',
         open_if='AppUpdateManager' not in act_source
@@ -321,8 +308,8 @@ def not_verifies_ssl_hostname(apk_file: str) -> tuple:
             msg_closed = 'APK verifies hostname in SSL cert'
     else:
         msg_closed = 'APK does not use SSLSocket'
-    return _get_result_as_tuple(
-        apk_file=apk_file,
+    return _get_result_as_tuple_sast(
+        path=apk_file,
         msg_open='APK does not verify hostname in SSL cert',
         msg_closed=msg_closed,
         open_if=result
@@ -356,8 +343,8 @@ def not_pinned_certs(apk_file: str) -> tuple:
             is_vuln = True
         else:
             is_vuln = False
-    return _get_result_as_tuple(
-        apk_file=apk_file,
+    return _get_result_as_tuple_sast(
+        path=apk_file,
         msg_open=msg_open,
         msg_closed='APK pines certificates',
         open_if=is_vuln
@@ -388,16 +375,16 @@ def allows_user_ca(apk_file: str) -> tuple:
         if target_sdk < 24:
             msg_open = 'No network security config file found and SDK version \
 allows user-supplied CAs by default'
-            return _get_result_as_tuple(
-                apk_file=apk_file,
+            return _get_result_as_tuple_sast(
+                path=apk_file,
                 msg_open=msg_open,
                 msg_closed=msg_closed,
                 open_if=True
             )
         msg_closed = 'No network security config file found but SDK version \
 defaults to deny user-supplied CAs'
-        return _get_result_as_tuple(
-            apk_file=apk_file,
+        return _get_result_as_tuple_sast(
+            path=apk_file,
             msg_open=msg_open,
             msg_closed=msg_closed,
             open_if=False
@@ -409,8 +396,8 @@ defaults to deny user-supplied CAs'
         result = True
     else:
         msg_closed = 'APK denies to trust user-supplied CAs'
-    return _get_result_as_tuple(
-        apk_file=apk_file,
+    return _get_result_as_tuple_sast(
+        path=apk_file,
         msg_open=msg_open,
         msg_closed=msg_closed,
         open_if=result
@@ -431,8 +418,8 @@ def has_debug_enabled(apk_file: str) -> tuple:
     """
     apk_obj = APK(apk_file)
 
-    return _get_result_as_tuple(
-        apk_file=apk_file,
+    return _get_result_as_tuple_sast(
+        path=apk_file,
         msg_open='APK has debug enabled',
         msg_closed='APK has debug disabled',
         open_if=apk_obj.get_element("application", "debuggable") == 'true'
@@ -454,8 +441,8 @@ def not_obfuscated(apk_file: str) -> tuple:
     _, dvms, _ = analyze_apk(apk_file)
     not_obfs = [dvm.header.signature.hex() for dvm in dvms
                 if not analysis.is_ascii_obfuscation(dvm)]
-    return _get_result_as_tuple(
-        apk_file=apk_file,
+    return _get_result_as_tuple_sast(
+        path=apk_file,
         msg_open=f'APK has DVMs not obfuscated: {not_obfs}',
         msg_closed='All APK DVMs are obfuscated',
         open_if=not_obfs
@@ -479,8 +466,8 @@ def uses_insecure_delete(apk_file: str) -> tuple:
     deletes_insecure = is_method_present(dex, 'Ljava/io/File;', 'delete',
                                          '()Z')
 
-    return _get_result_as_tuple(
-        apk_file=apk_file,
+    return _get_result_as_tuple_sast(
+        path=apk_file,
         msg_open='APK does not securely remove files',
         msg_closed='APK securely remove files',
         open_if=deletes_insecure
@@ -503,8 +490,8 @@ def uses_http_resources(apk_file: str) -> tuple:
 
     insecure_urls = get_http_urls(dex)
 
-    return _get_result_as_tuple(
-        apk_file=apk_file,
+    return _get_result_as_tuple_sast(
+        path=apk_file,
         msg_open=f'APK references insecure URLs: {insecure_urls}',
         msg_closed='All HTTP references in APK use HTTPS',
         open_if=insecure_urls

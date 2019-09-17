@@ -475,6 +475,19 @@ class Result():
         return json.dumps(self.as_dict(), indent=4)
 
 
+def _get_result_as_tuple_sast(*,
+                              path: str,
+                              msg_open: str, msg_closed: str,
+                              open_if: bool) -> tuple:
+    """Return the tuple version of the Result object."""
+    unit: Unit = Unit(where=path,
+                      specific=[msg_open if open_if else msg_closed])
+
+    if open_if:
+        return OPEN, msg_open, [unit], []
+    return CLOSED, msg_closed, [], [unit]
+
+
 def show_close(message, details=None):
     """Show close message."""
     check_cli()
