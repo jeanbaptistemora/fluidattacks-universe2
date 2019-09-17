@@ -17,22 +17,25 @@
 {% block breadcrumb%}
   <div class="navcontent-container">
     <div class="navcontent-info">
-      <div class="breadcrumb">
-        <ul>
-          <li>
-            <a href="{{ SITEURL }}/">
+      <div class="montsy f6-l f7 tl ttc w-70-l w-100">
+        <ul class="dib list w-100">
+          <li class="dib mt0">
+            <a class="c-fluid-bk hv-fluid-dkred"
+               href="{{ SITEURL }}/">
               <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
             </a>
-            <span>&gt;</span>
+            <span class="c-fluid-red v-mid b">&gt;</span>
           </li>
-          <li>
-            <a href="{{ SITEURL }}/blog/">
+          <li class="dib mt0">
+            <a class="c-fluid-bk hv-fluid-dkred"
+               href="{{ SITEURL }}/blog/">
               &nbsp;<strong>Blog</strong>&nbsp;
             </a>
-            <span>&gt;</span>
+            <span class="c-fluid-red v-mid b">&gt;</span>
           </li>
-          <li>
-            <a href=".">&nbsp;{{ gettext('Tag-breadcrumb-1') }}</a>
+          <li class="dib mt0">
+            <a class="c-fluid-bk hv-fluid-dkred"
+               href=".">&nbsp;{{ gettext('Tag-breadcrumb-1') }}</a>
           </li>
         </ul>
       </div>
