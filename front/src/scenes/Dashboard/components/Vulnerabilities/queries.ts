@@ -36,6 +36,7 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
     treatmentJustification
     externalBts
     currentApprovalStatus
+    lastApprovedStatus
   }
   `;
 

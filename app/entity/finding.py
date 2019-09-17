@@ -16,7 +16,8 @@ from app.decorators import (
     get_entity_cache, require_finding_access, require_login, require_role,
     require_project_access
 )
-import app.domain.finding as finding_domain
+from app.domain import (
+    finding as finding_domain, vulnerability as vuln_domain)
 from app.domain.user import get_role
 from app.dto.finding import FindingDTO, get_project_name
 from app.entity.vulnerability import Vulnerability
@@ -101,11 +102,14 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         if vuln_type:
             vuln_filtered = vuln_filtered.then(lambda vulns: [
                 vuln for vuln in vulns if vuln.vuln_type == vuln_type and
-                vuln.current_approval_status != 'PENDING'])
+                (vuln.current_approval_status != 'PENDING' or
+                 vuln.last_approved_status)])
         if state:
             vuln_filtered = vuln_filtered.then(lambda vulns: [
-                vuln for vuln in vulns if vuln.current_state == state and
-                vuln.current_approval_status != 'PENDING'])
+                vuln for vuln in vulns
+                if vuln_domain.get_current_state(vuln) == state and
+                (vuln.current_approval_status != 'PENDING' or
+                 vuln.last_approved_status)])
         if approval_status:
             vuln_filtered = vuln_filtered.then(lambda vulns: [
                 vuln for vuln in vulns
@@ -120,8 +124,10 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         vulns = vulns_loader.load(self.id)
 
         self.open_vulnerabilities = vulns.then(lambda vulns: len([
-            vuln for vuln in vulns if vuln.current_state == 'open' and
-            vuln.current_approval_status != 'PENDING']))
+            vuln for vuln in vulns
+            if vuln_domain.get_current_state(vuln) == 'open' and
+            (vuln.current_approval_status != 'PENDING' or
+             vuln.last_approved_status)]))
 
         return self.open_vulnerabilities
 
@@ -137,8 +143,10 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         vulns = vulns_loader.load(self.id)
 
         self.closed_vulnerabilities = vulns.then(lambda vulns: len([
-            vuln for vuln in vulns if vuln.current_state == 'closed' and
-            vuln.current_approval_status != 'PENDING']))
+            vuln for vuln in vulns
+            if vuln_domain.get_current_state(vuln) == 'closed' and
+            (vuln.current_approval_status != 'PENDING' or
+             vuln.last_approved_status)]))
 
         return self.closed_vulnerabilities
 
@@ -295,8 +303,8 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         treatment = self.treatment
         self.treatment = vulns.then(lambda vulns: (
             treatment
-            if [vuln for vuln in vulns if vuln.current_state == 'open']
-            else '-'))
+            if [vuln for vuln in vulns
+                if vuln_domain.get_current_state(vuln) == 'open'] else '-'))
         return self.treatment
 
     def resolve_treatment_manager(self, info):
@@ -357,7 +365,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
         self.state = vulns.then(lambda vulns: 'open' if [
             vuln for vuln in vulns
-            if vuln.current_state == 'open'] else 'closed')
+            if vuln_domain.get_current_state(vuln) == 'open'] else 'closed')
 
         return self.state
 

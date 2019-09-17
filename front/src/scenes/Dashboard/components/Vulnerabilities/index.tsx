@@ -83,7 +83,8 @@ const filterState:
   ((dataVuln: IVulnType, state: string) => IVulnType) =
     (dataVuln: IVulnType, state: string): IVulnType =>
 
-      dataVuln.filter((vuln: IVulnType[0]) => vuln.currentState === state);
+      dataVuln.filter((vuln: IVulnType[0]) => !_.isUndefined(vuln.lastApprovedStatus) ?
+      vuln.lastApprovedStatus === state : vuln.currentState === state);
 
 const specificToNumber: ((line: { [key: string]: string }) => number) =
   (line: { [key: string]: string }): number =>
@@ -132,6 +133,7 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
         currentState: line[0].currentState,
         externalBts: line[0].externalBts,
         id: line[0].id,
+        lastApprovedStatus: line[0].lastApprovedStatus,
         specific: line[0].vulnType === "inputs" ? line.map(getSpecific)
           .join(", ") : groupValues(line.map(specificToNumber)),
         treatment: line[0].treatment,

@@ -19,7 +19,7 @@ from app import util
 from app.dal.helpers.drive import DriveAPI
 from app.dal.helpers.formstack import FormstackAPI
 from app.dal import integrates_dal, finding as finding_dal, user as user_dal
-from app.domain.vulnerability import update_vulnerabilities_date
+from app.domain import vulnerability as vuln_domain
 from app.dto.finding import (
     FindingDTO, get_project_name, migrate_description, migrate_treatment,
     migrate_report_date, finding_vulnerabilities
@@ -118,7 +118,8 @@ def remove_repeated(vulnerabilities):
         for state in vuln['historic_state']:
             vuln_without_repeated = {}
             format_date = state.get('date').split(' ')[0]
-            vuln_without_repeated[format_date] = {vuln['UUID']: state.get('state')}
+            vuln_without_repeated[format_date] = {
+                vuln['UUID']: vuln_domain.get_current_state(vuln)}
             vuln_casted.append(vuln_without_repeated)
     return vuln_casted
 
@@ -324,7 +325,8 @@ def get_tracking_vulnerabilities(vulnerabilities):
     tracking = []
     vulns_filtered = [vuln for vuln in vulnerabilities
                       if vuln['historic_state'][-1].get('approval_status')
-                      != 'PENDING']
+                      != 'PENDING' or vuln_domain.get_last_approved_status(
+                          vuln)]
     vuln_casted = remove_repeated(vulns_filtered)
     unique_dict = get_unique_dict(vuln_casted)
     tracking = get_tracking_dict(unique_dict)
@@ -342,7 +344,7 @@ def verify_finding(finding_id, user_email):
                                                      ['finding']).get('finding')
     success = finding_dal.verify(finding_id)
     if success:
-        update_vulnerabilities_date(user_email, finding_id)
+        vuln_domain.update_vulnerabilities_date(user_email, finding_id)
         send_finding_verified_email(finding_id,
                                     finding_name, project_name)
         project_users = [user[0]

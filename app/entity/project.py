@@ -16,7 +16,7 @@ from app.dal import integrates_dal, project as redshift_dal
 from app.decorators import (
     get_entity_cache, require_login, require_project_access, require_role
 )
-from app.domain import project as project_domain
+from app.domain import project as project_domain, vulnerability as vuln_domain
 from app.entity.finding import Finding
 from app.entity.user import User
 
@@ -107,7 +107,10 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
         self.open_vulnerabilities = vulns_loader.load_many(finding_ids).then(
             lambda findings: sum([
-                len([vuln for vuln in vulns if vuln.current_state == 'open'])
+                len([vuln for vuln in vulns
+                     if vuln_domain.get_current_state(vuln) == 'open' and
+                     (vuln.current_approval_status != 'PENDING' or
+                      vuln.last_approved_status)])
                 for vulns in findings
             ]))
 
@@ -121,7 +124,10 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
         self.closed_vulnerabilities = vulns_loader.load_many(finding_ids).then(
             lambda findings: sum([
-                len([vuln for vuln in vulns if vuln.current_state == 'closed'])
+                len([vuln for vuln in vulns
+                     if vuln_domain.get_current_state(vuln) == 'closed' and
+                     (vuln.current_approval_status != 'PENDING' or
+                      vuln.last_approved_status)])
                 for vulns in findings
             ]))
 

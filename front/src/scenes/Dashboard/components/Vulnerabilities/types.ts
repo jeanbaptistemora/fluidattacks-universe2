@@ -4,24 +4,24 @@ export interface IVulnsAttr {
   finding: {
     id: string;
     inputsVulns: Array<{
-      currentApprovalStatus: string; currentState: string; externalBts: string; id: string; specific: string;
-      treatment: string; treatmentJustification: string; treatmentManager: string;
-      vulnType: string; where: string;
+      currentApprovalStatus: string; currentState: string; externalBts: string; id: string;
+      lastApprovedStatus: string; specific: string; treatment: string; treatmentJustification: string;
+      treatmentManager: string; vulnType: string; where: string;
     }>;
     linesVulns: Array<{
-      currentApprovalStatus: string; currentState: string; externalBts: string; id: string; specific: string;
-      treatment: string; treatmentJustification: string; treatmentManager: string;
-      vulnType: string; where: string;
+      currentApprovalStatus: string; currentState: string; externalBts: string; id: string;
+      lastApprovedStatus: string; specific: string; treatment: string; treatmentJustification: string;
+      treatmentManager: string; vulnType: string; where: string;
     }>;
     pendingVulns: Array<{
-      currentApprovalStatus: string; currentState: string; externalBts: string; id: string; specific: string;
-      treatment: string; treatmentJustification: string; treatmentManager: string;
-      vulnType: string; where: string;
+      currentApprovalStatus: string; currentState: string; externalBts: string; id: string;
+      lastApprovedStatus: string; specific: string; treatment: string; treatmentJustification: string;
+      treatmentManager: string; vulnType: string; where: string;
     }>;
     portsVulns: Array<{
-      currentApprovalStatus: string; currentState: string; externalBts: string; id: string; specific: string;
-      treatment: string; treatmentJustification: string; treatmentManager: string;
-      vulnType: string; where: string;
+      currentApprovalStatus: string; currentState: string; externalBts: string; id: string;
+      lastApprovedStatus: string; specific: string; treatment: string; treatmentJustification: string;
+      treatmentManager: string; vulnType: string; where: string;
     }>;
     releaseDate: string;
     success: string;
