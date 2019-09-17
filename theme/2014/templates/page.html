@@ -95,13 +95,6 @@
       {% endif %}
       {{ page.content }}
       <br>
-      {% if page.toc %}
-        {% assets filters="uglifyjs", output="static/js/toc.min.js", "js/toc.js" %}
-          <script type="text/javascript"
-                  src="{{ SITEURL }}/{{ ASSET_URL }}">
-          </script>
-      {% endassets %}
-      {% endif %}
       {% if page.rules %}
         <script type="application/ld+json">
           {
