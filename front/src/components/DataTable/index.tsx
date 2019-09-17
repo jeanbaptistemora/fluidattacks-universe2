@@ -118,7 +118,7 @@ const approveFormatter: ((value: string, row: { [key: string]: string }, key: IH
   (value: string, row: { [key: string]: string }, key: IHeader): JSX.Element =>
     (
       <a onClick={(): void => { if (key.approveFunction !== undefined) { key.approveFunction(row); }}}>
-        <FluidIcon icon="ok" width="20px" height="20px" />
+        <FluidIcon icon="verified" width="20px" height="20px" />
       </a>
     );
 

@@ -67,6 +67,22 @@ export const trackingViewComponent: React.FunctionComponent<ITrackingViewProps> 
         <React.Fragment>
           <Row>
             <Col md={12}>
+              { _.includes(["admin", "analyst"], props.userRole) ?
+              <Row>
+                <Col md={2} className={style.text_right}>
+                  <label className={style.track_title}>{translate.t("search_findings.tab_tracking.pending")}</label>
+                </Col>
+                <Col md={10}>
+                  <VulnerabilitiesView
+                    editMode={false}
+                    editModePending={true}
+                    state={"PENDING"}
+                    findingId={props.findingId}
+                    userRole={props.userRole}
+                  />
+                </Col>
+              </Row>
+              : undefined }
               <Row>
                 <Col md={2} className={style.text_right}>
                   <label className={style.track_title}>{translate.t("search_findings.tab_tracking.open")}</label>

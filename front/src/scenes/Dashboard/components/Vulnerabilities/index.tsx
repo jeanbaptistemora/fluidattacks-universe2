@@ -37,8 +37,9 @@ import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
 import { GenericForm } from "../GenericForm";
 import { default as SimpleTable } from "../SimpleTable/index";
 import style from "./index.css";
-import { DELETE_VULN_MUTATION, GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
-import { IDeleteVulnAttr, IUpdateVulnTreatment, IVulnerabilitiesViewProps,
+import { APPROVE_VULN_MUTATION, DELETE_VULN_MUTATION, GET_VULNERABILITIES,
+         UPDATE_TREATMENT_MUTATION } from "./queries";
+import { IApproveVulnAttr, IDeleteVulnAttr, IUpdateVulnTreatment, IVulnerabilitiesViewProps,
          IVulnsAttr, IVulnType } from "./types";
 
 type ISelectRowType = (Array<{[value: string]: string | undefined | null}>);
@@ -78,6 +79,12 @@ export const getAttrVulnUpdate: (selectedQery: NodeListOf<Element>) => ISelectRo
 
   return attrVuln;
 };
+
+const filterApprovalStatus:
+  ((dataVuln: IVulnType, state: string) => IVulnType) =
+    (dataVuln: IVulnType, state: string): IVulnType =>
+
+      dataVuln.filter((vuln: IVulnType[0]) => vuln.currentApprovalStatus === state);
 
 const filterState:
   ((dataVuln: IVulnType, state: string) => IVulnType) =
@@ -133,6 +140,7 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
         currentState: line[0].currentState,
         externalBts: line[0].externalBts,
         id: line[0].id,
+        isNew: line[0].isNew,
         lastApprovedStatus: line[0].lastApprovedStatus,
         specific: line[0].vulnType === "inputs" ? line.map(getSpecific)
           .join(", ") : groupValues(line.map(specificToNumber)),
@@ -145,6 +153,25 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
 
   return specificGrouped;
 };
+
+const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVulnType => (
+    _.map(lines, (line: IVulnType[0]) =>
+      ({
+        currentApprovalStatus: line.currentApprovalStatus,
+        currentState: line.currentState,
+        externalBts: line.externalBts,
+        id: line.id,
+        isNew: _.isEmpty(line.lastApprovedStatus) ?
+        translate.t("search_findings.tab_description.new") :
+        translate.t("search_findings.tab_description.old"),
+        lastApprovedStatus: line.lastApprovedStatus,
+        specific: line.specific,
+        treatment: line.treatment,
+        treatmentJustification: line.treatmentJustification,
+        treatmentManager: line.treatmentManager,
+        vulnType: line.vulnType,
+        where: line.where,
+      })));
 
 const updateVulnerabilities: ((findingId: string) => void) = (findingId: string): void => {
   if (isValidVulnsFile("#vulnerabilities")) {
@@ -257,6 +284,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               data.finding.inputsVulns, props.state);
             const dataLines: IVulnsAttr["finding"]["linesVulns"] = filterState(data.finding.linesVulns, props.state);
             const dataPorts: IVulnsAttr["finding"]["portsVulns"] = filterState(data.finding.portsVulns, props.state);
+            const dataPendingVulns: IVulnsAttr["finding"]["pendingVulns"] = newVulnerabilities(filterApprovalStatus(
+              data.finding.pendingVulns, props.state));
 
             const handleMtDeleteVulnRes: ((mtResult: IDeleteVulnAttr) => void) = (mtResult: IDeleteVulnAttr): void => {
               if (!_.isUndefined(mtResult)) {
@@ -272,6 +301,26 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     });
                   msgSuccess(
                     translate.t("search_findings.tab_description.vulnDeleted"),
+                    translate.t("proj_alerts.title_success"));
+                }
+              }
+            };
+
+            const handleMtPendingVulnRes: ((mtResult: IApproveVulnAttr) => void) = (mtResult: IApproveVulnAttr):
+            void => {
+              if (!_.isUndefined(mtResult)) {
+                if (mtResult.approveVulnerability.success) {
+                  refetch()
+                    .catch();
+                  hidePreloader();
+                  mixpanel.track(
+                    "ApproveVulnerability",
+                    {
+                      Organization: (window as Window & { userOrganization: string }).userOrganization,
+                      User: (window as Window & { userName: string }).userName,
+                    });
+                  msgSuccess(
+                    translate.t("search_findings.tab_description.vuln_approval"),
                     translate.t("proj_alerts.title_success"));
                 }
               }
@@ -416,6 +465,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   let formattedDataLines: IVulnsAttr["finding"]["linesVulns"] = dataLines;
                   let formattedDataPorts: IVulnsAttr["finding"]["portsVulns"] = dataPorts;
                   let formattedDataInputs: IVulnsAttr["finding"]["inputsVulns"] = dataInputs;
+                  const formattedDataPendingVulns: IVulnsAttr["finding"]["pendingVulns"] = dataPendingVulns;
 
                   if (props.editMode && _.isEmpty(data.finding.releaseDate)) {
                     inputsHeader.push({
@@ -597,6 +647,113 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                           </React.Fragment>
                         : undefined
                       }
+
+                      <Mutation mutation={APPROVE_VULN_MUTATION} onCompleted={handleMtPendingVulnRes}>
+                      { (approveVulnerability: MutationFn<IDeleteVulnAttr, {
+                        approvalStatus: boolean; findingId: string; uuid: string; }>,
+                         mutationResult: MutationResult): React.ReactNode => {
+                        if (mutationRes.loading) {
+                          showPreloader();
+                        }
+                        if (!_.isUndefined(mutationResult.error)) {
+                          hidePreloader();
+                          handleGraphQLErrors("An error occurred approving vulnerabilities", mutationResult.error);
+
+                          return <React.Fragment/>;
+                        }
+
+                        const handleApproveVulnerability: ((vulnInfo: { [key: string]: string } | undefined) =>
+                        void) =
+                          (vulnInfo: { [key: string]: string } | undefined): void => {
+                            if (vulnInfo !== undefined) {
+                              approveVulnerability({ variables: {approvalStatus: true, findingId: props.findingId,
+                                                                 uuid: vulnInfo.id}})
+                              .catch();
+                            }
+                        };
+                        const handleRejectVulnerability: ((vulnInfo: { [key: string]: string } | undefined) =>
+                        void) =
+                          (vulnInfo: { [key: string]: string } | undefined): void => {
+                            if (vulnInfo !== undefined) {
+                              approveVulnerability({ variables: {approvalStatus: false, findingId: props.findingId,
+                                                                 uuid: vulnInfo.id}})
+                              .catch();
+                            }
+                        };
+
+                        const pendingsHeader: IHeader[] = [
+                          {
+                            align: "left" as DataAlignType,
+                            dataField: "where",
+                            header: "Where",
+                            isDate: false,
+                            isStatus: false,
+                            width: "60%",
+                            wrapped: true,
+                          },
+                          {
+                            align: "left" as DataAlignType,
+                            dataField: "specific",
+                            header: translate.t("search_findings.tab_description.field"),
+                            isDate: false,
+                            isStatus: false,
+                            width: "15%",
+                            wrapped: true,
+                          },
+                          {
+                            align: "left" as DataAlignType,
+                            dataField: "currentState",
+                            header: translate.t("search_findings.tab_description.state"),
+                            isDate: false,
+                            isStatus: true,
+                            width: "15%",
+                            wrapped: true,
+                          }];
+                        if (_.isEqual(props.editModePending, true)) {
+                          pendingsHeader.push({
+                            align: "center" as DataAlignType,
+                            approveFunction: handleApproveVulnerability,
+                            dataField: "id",
+                            header: translate.t("search_findings.tab_description.approve"),
+                            isDate: false,
+                            isStatus: false,
+                            width: "10%",
+                          });
+                          pendingsHeader.push({
+                            align: "center" as DataAlignType,
+                            dataField: "id",
+                            deleteFunction: handleRejectVulnerability,
+                            header: translate.t("search_findings.tab_description.delete"),
+                            isDate: false,
+                            isStatus: false,
+                            width: "10%",
+                          });
+                          }
+
+                        return (
+                          <React.StrictMode>
+                            { dataPendingVulns.length > 0 ?
+                            <React.Fragment>
+                              <SimpleTable
+                                id="pendingVulns"
+                                dataset={formattedDataPendingVulns}
+                                exportCsv={false}
+                                headers={pendingsHeader}
+                                onClickRow={(): void => undefined}
+                                pageSize={10}
+                                search={false}
+                                enableRowSelection={false}
+                                title=""
+                                selectionMode="checkbox"
+                              />
+                              <br/>
+                            </React.Fragment>
+                            : undefined
+                            }
+                            </React.StrictMode>
+                            );
+                          }}
+                      </Mutation>
 
                       <Mutation mutation={UPDATE_TREATMENT_MUTATION} onCompleted={handleMtUpdateTreatmentVulnRes}>
                         { (updateTreatmentVuln: MutationFn<IUpdateVulnTreatment, {
