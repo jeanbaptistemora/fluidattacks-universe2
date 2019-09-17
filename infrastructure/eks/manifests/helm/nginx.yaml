@@ -7,6 +7,7 @@ controller:
     proxy-body-size: "100m"
     server-tokens: "false"
     use-gzip: "false"
+    ssl-protocols: "TLSv1.2 TLSv1.3"
   kind: DaemonSet
   extraArgs:
     default-ssl-certificate: serves/fluidattacks-cert
