@@ -2,25 +2,17 @@
 
 """This module allows to check generic Linux vulnerabilities."""
 
-# standard imports
-# None
-
-# 3rd party imports
-# None
-
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
+from fluidasserts import DAST, LOW, MEDIUM, HIGH
+from fluidasserts.syst import _get_result_as_tuple
 from fluidasserts.helper.ssh import ssh_exec_command, ConnError
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts.utils.decorators import api, unknown_if
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(OSError, ConnError)
 def is_min_priv_disabled(server: str, username: str, password: str,
-                         ssh_config: str = None) -> bool:
+                         ssh_config: str = None) -> tuple:
     """
     Check if ``umask`` or similar is secure in ``os_linux``.
 
@@ -29,31 +21,20 @@ def is_min_priv_disabled(server: str, username: str, password: str,
     :param password: Password for given user.
     :param ssh_config: Path to SSH connection config file.
     """
-    result = True
-    cmd = 'umask'
-    try:
-        out, _ = ssh_exec_command(server, username, password, cmd, ssh_config)
-    except ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(server=server, username=username,
-                                  error=str(exc)))
-        return False
-    if out == b'0027':
-        show_close('{} server has secure default privileges'.
-                   format(server), details=dict(umask=out.decode('utf-8')))
-        result = False
-    else:
-        show_open('{} server has insecure default privileges'.
-                  format(server), details=dict(umask=out.decode('utf-8')))
-        result = True
-    return result
+    out, _ = ssh_exec_command(
+        server, username, password, 'umask', ssh_config)
+
+    return _get_result_as_tuple(
+        system='Unix', host=server,
+        msg_open='Server has insecure default privileges',
+        msg_closed='Server has secure default privileges',
+        open_if=out != b'0027')
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(OSError, ConnError)
 def is_sudo_disabled(server: str, username: str, password: str,
-                     ssh_config: str = None) -> bool:
+                     ssh_config: str = None) -> tuple:
     """
     Check if there's ``sudo`` or similar installed in ``os_linux``.
 
@@ -62,31 +43,23 @@ def is_sudo_disabled(server: str, username: str, password: str,
     :param password: Password for given user.
     :param ssh_config: Path to SSH connection config file.
     """
-    result = True
-    cmd = 'which sudo'
-    try:
-        out, _ = ssh_exec_command(server, username, password, cmd, ssh_config)
-    except ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(server=server, username=username,
-                                  error=str(exc)))
-        return False
-    if out:
-        show_close('{} server has "sudo" (or like) installed'.
-                   format(server), details=dict(paths=out.decode('utf-8')))
-        result = False
-    else:
-        show_open('{} server does not have "sudo" (or like) installed'.
-                  format(server), details=dict(paths=out.decode('utf-8')))
-        result = True
-    return result
+    cmd: str = 'which sudo'
+    out, _ = ssh_exec_command(
+        server, username, password, cmd, ssh_config, raise_errors=True)
+
+    is_sudo_installed: bool = bool(out)
+
+    return _get_result_as_tuple(
+        system='Unix', host=server,
+        msg_open='Server has not "sudo" or similar installed',
+        msg_closed='Server has "sudo" or similar installed',
+        open_if=not is_sudo_installed)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(OSError, ConnError)
 def are_compilers_installed(server: str, username: str, password: str,
-                            ssh_config: str = None) -> bool:
+                            ssh_config: str = None) -> tuple:
     """
     Check if there is any compiler installed in ``os_linux``.
 
@@ -95,31 +68,23 @@ def are_compilers_installed(server: str, username: str, password: str,
     :param password: Password for given user.
     :param ssh_config: Path to SSH connection config file.
     """
-    result = True
-    cmd = 'which cc gcc c++ g++ javac ld as nasm'
-    try:
-        out, _ = ssh_exec_command(server, username, password, cmd, ssh_config)
-    except ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(server=server, username=username,
-                                  error=str(exc)))
-        return False
-    if not out:
-        show_close('{} server does not have compilers installed'.
-                   format(server), details=dict(paths=out.decode('utf-8')))
-        result = False
-    else:
-        show_open('{} server has compilers installed'.format(server),
-                  details=dict(paths=out.decode('utf-8')))
-        result = True
-    return result
+    cmd: str = 'which cc gcc c++ g++ javac ld as nasm'
+    out, _ = ssh_exec_command(
+        server, username, password, cmd, ssh_config, raise_errors=True)
+
+    have_compilers: bool = bool(out)
+
+    return _get_result_as_tuple(
+        system='Unix', host=server,
+        msg_open='Server has compilers installed',
+        msg_closed='Server has not compilers installed',
+        open_if=have_compilers)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(OSError, ConnError)
 def is_antimalware_not_installed(server: str, username: str, password: str,
-                                 ssh_config: str = None) -> bool:
+                                 ssh_config: str = None) -> tuple:
     """
     Check if there is any antimalware installed in ``os_linux``.
 
@@ -128,31 +93,23 @@ def is_antimalware_not_installed(server: str, username: str, password: str,
     :param password: Password for given user.
     :param ssh_config: Path to SSH connection config file.
     """
-    result = True
-    cmd = 'which clamscan avgscan'
-    try:
-        out, _ = ssh_exec_command(server, username, password, cmd, ssh_config)
-    except ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(server=server, username=username,
-                                  error=str(exc)))
-        return False
-    if out:
-        show_close('{} server has an antivirus installed'.format(server),
-                   details=dict(paths=out.decode('utf-8')))
-        result = False
-    else:
-        show_open('{} server does not have an antivirus installed'.
-                  format(server), details=dict(paths=out.decode('utf-8')))
-        result = True
-    return result
+    cmd: str = 'which clamscan avgscan'
+    out, _ = ssh_exec_command(
+        server, username, password, cmd, ssh_config, raise_errors=True)
+
+    is_antivirus_installed: bool = bool(out)
+
+    return _get_result_as_tuple(
+        system='Unix', host=server,
+        msg_open='Server has not an antivirus installed',
+        msg_closed='Server has an antivirus installed',
+        open_if=not is_antivirus_installed)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
+@unknown_if(OSError, ConnError)
 def is_remote_admin_enabled(server: str, username: str, password: str,
-                            ssh_config: str = None) -> bool:
+                            ssh_config: str = None) -> tuple:
     """
     Check if admins can remotely log into ``os_linux``.
 
@@ -161,31 +118,23 @@ def is_remote_admin_enabled(server: str, username: str, password: str,
     :param password: Password for given user.
     :param ssh_config: Path to SSH connection config file.
     """
-    result = True
-    cmd = 'grep -i "^PermitRootLogin.*yes" /etc/ssh/sshd_config'
-    try:
-        out, _ = ssh_exec_command(server, username, password, cmd, ssh_config)
-    except ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(server=server, username=username,
-                                  error=str(exc)))
-        return False
-    if not out:
-        show_close('{} server does not have remote admin login enabled'.
-                   format(server), details=dict(result=out.decode('utf-8')))
-        result = False
-    else:
-        show_open('{} server has remote admin login enabled'.
-                  format(server), details=dict(result=out.decode('utf-8')))
-        result = True
-    return result
+    cmd: str = 'grep -i "^PermitRootLogin.*yes" /etc/ssh/sshd_config'
+    out, _ = ssh_exec_command(
+        server, username, password, cmd, ssh_config, raise_errors=True)
+
+    is_remote_admin_enabled_enabled: bool = bool(out)
+
+    return _get_result_as_tuple(
+        system='Unix', host=server,
+        msg_open='Server has remote admin login enabled',
+        msg_closed='Server has not remote admin login enabled',
+        open_if=is_remote_admin_enabled_enabled)
 
 
-@notify
-@level('low')
-@track
+@api(risk=LOW, kind=DAST)
+@unknown_if(OSError, ConnError)
 def are_syncookies_disabled(server: str, username: str, password: str,
-                            ssh_config: str = None) -> bool:
+                            ssh_config: str = None) -> tuple:
     """
     Check if ``SynCookies`` or similar is enabled in ``os_linux``.
 
@@ -194,25 +143,14 @@ def are_syncookies_disabled(server: str, username: str, password: str,
     :param password: Password for given user.
     :param ssh_config: Path to SSH connection config file.
     """
-    result = True
-    cmd = 'sysctl -q -n net.ipv4.tcp_syncookies'
-    try:
-        out, err = ssh_exec_command(server, username, password, cmd,
-                                    ssh_config)
-    except ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(server=server, username=username,
-                                  error=str(exc)))
-        return False
-    if err:
-        show_unknown('Error checking', details=dict(error=err.decode('utf-8')))
-        return False
-    if out == b'1':
-        show_close('{} server has syncookies enabled'.
-                   format(server), details=dict(result=out.decode('utf-8')))
-        result = False
-    else:
-        show_open('{} server has syncookies disabled'.
-                  format(server), details=dict(result=out.decode('utf-8')))
-        result = True
-    return result
+    cmd: str = 'sysctl -q -n net.ipv4.tcp_syncookies'
+    out, _ = ssh_exec_command(
+        server, username, password, cmd, ssh_config, raise_errors=True)
+
+    are_syn_cookies_enabled: bool = bool(out)
+
+    return _get_result_as_tuple(
+        system='Unix', host=server,
+        msg_open='Server has not SynCookies enabled',
+        msg_closed='Server has SynCookies enabled',
+        open_if=not are_syn_cookies_enabled)
