@@ -5,22 +5,17 @@
 # standard imports
 import re
 
-# 3rd party imports
-# None
-
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
+from fluidasserts import DAST, LOW, MEDIUM, HIGH
+from fluidasserts.syst import _get_result_as_tuple
 from fluidasserts.helper.winrm import winrm_exec_command, ConnError
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts.utils.decorators import api, unknown_if
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ConnError)
 def are_compilers_installed(server: str, username: str,
-                            password: str) -> bool:
+                            password: str) -> tuple:
     """
     Check if there is any compiler installed in Windows Server.
 
@@ -28,41 +23,26 @@ def are_compilers_installed(server: str, username: str,
     :param username: User to connect to WinRM.
     :param password: Password for given user.
     """
-    common_compilers = ['Visual', 'Python', 'Mingw', 'CygWin']
-    cmd = b'reg query \
-"HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall" /s'
+    common_compilers = ('Visual', 'Python', 'Mingw', 'CygWin')
 
-    try:
-        installed_software = winrm_exec_command(server, username, password,
-                                                cmd)
-    except ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(server=server, username=username,
-                                  error=str(exc)))
-        return False
-    installed_compilers = 0
+    query: str = ('reg query "HKLM\\Software\\Microsoft\\Windows\\'
+                  'CurrentVersion\\Uninstall" /s')
 
-    for compiler in common_compilers:
-        if re.search(compiler, installed_software, re.IGNORECASE) is not None:
-            installed_compilers = installed_compilers + 1
+    installed_software = winrm_exec_command(server, username, password, query)
 
-    result = True
-    if installed_compilers > 0:
-        show_open('{} server has compilers installed'.format(server),
-                  details=dict(installed_software=installed_software))
-        result = True
-    else:
-        show_close('{} server has no compilers installed'.format(server),
-                   details=dict(installed_software=installed_software))
-        result = False
-    return result
+    return _get_result_as_tuple(
+        system='Windows', host=server,
+        msg_open='Server has compilers installed',
+        msg_closed='Server does not have compilers installed',
+        open_if=any(
+            re.search(compiler, installed_software, re.IGNORECASE)
+            for compiler in common_compilers))
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
+@unknown_if(ConnError)
 def is_antimalware_not_installed(server: str, username: str,
-                                 password: str) -> bool:
+                                 password: str) -> tuple:
     """
     Check if there is any antimalware installed in Windows Server.
 
@@ -70,42 +50,26 @@ def is_antimalware_not_installed(server: str, username: str,
     :param username: User to connect to WinRM.
     :param password: Password for given user.
     """
-    common_av = ['Symantec', 'Norton', 'AVG', 'Kaspersky', 'TrendMicro',
-                 'Panda', 'Sophos', 'McAfee', 'Eset']
-    cmd = b'reg query \
-"HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall" /s'
+    common_av = ('Symantec', 'Norton', 'AVG', 'Kaspersky', 'TrendMicro',
+                 'Panda', 'Sophos', 'McAfee', 'Eset')
 
-    try:
-        installed_software = winrm_exec_command(server, username, password,
-                                                cmd)
-    except ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(server=server, username=username,
-                                  error=str(exc)))
-        return False
-    installed_av = 0
+    query: str = ('reg query "HKLM\\Software\\Microsoft\\Windows\\'
+                  'CurrentVersion\\Uninstall" /s')
 
-    for antivirus in common_av:
-        if re.search(antivirus, installed_software, re.IGNORECASE) is not None:
-            installed_av = installed_av + 1
+    installed_software = winrm_exec_command(server, username, password, query)
 
-    result = True
-    if installed_av > 0:
-        show_close('{} server has an antivirus installed'.format(server),
-                   details=dict(installed_software=installed_software))
-        result = False
-    else:
-        show_open('{} server does not have an antivirus installed'
-                  .format(server),
-                  details=dict(installed_software=installed_software))
-        result = True
-    return result
+    return _get_result_as_tuple(
+        system='Windows', host=server,
+        msg_open='Server has an antivirus installed',
+        msg_closed='Server does not have an antivirus installed',
+        open_if=any(
+            re.search(antivirus, installed_software, re.IGNORECASE)
+            for antivirus in common_av))
 
 
-@notify
-@level('low')
-@track
-def are_syncookies_disabled(server: str) -> bool:
+@api(risk=LOW, kind=DAST)
+@unknown_if(ConnError)
+def are_syncookies_disabled(server: str) -> tuple:
     """
     Check if SynCookies or similar is enabled in Windows Server.
 
@@ -115,15 +79,17 @@ def are_syncookies_disabled(server: str) -> bool:
     """
     # On Windows, SYN Cookies are enabled by default and there's no
     # way to disable it.
-    show_close('Server has SYN Cookies enabled.', details=dict(server=server))
-    return False
+    return _get_result_as_tuple(
+        system='Windows', host=server,
+        msg_open='Server has not SYN Cookies enabled',
+        msg_closed='Server has SYN Cookies enabled',
+        open_if=False)
 
 
-@notify
-@level('high')
-@track
+@api(risk=HIGH, kind=DAST)
+@unknown_if(ConnError)
 def are_protected_users_disabled(server: str, username: str,
-                                 password: str) -> bool:
+                                 password: str) -> tuple:
     """
     Check if protected users is enabled on system.
 
@@ -133,45 +99,39 @@ def are_protected_users_disabled(server: str, username: str,
     :param username: User to connect to WinRM.
     :param password: Password for given user.
     """
-    security_patches = ['KB2871997']
-    cmd = b'reg query \
-"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Component\
-Based Servicing\\Packages" /s'
+    security_patches = ('KB2871997',)
 
-    try:
-        installed_software = winrm_exec_command(server, username, password,
-                                                cmd)
-    except ConnError as exc:
-        show_unknown('Could not connect',
-                     details=dict(server=server, username=username,
-                                  error=str(exc)))
-        return False
-    installed_patches = 0
+    msg_closed: str = 'Server has all required patches'
 
-    for patch in security_patches:
-        if re.search(patch, installed_software, re.IGNORECASE) is not None:
-            installed_patches = installed_patches + 1
+    query: str = ('reg query "HKLM\\SOFTWARE\\Microsoft\\Windows\\'
+                  'CurrentVersion\\ComponentBased Servicing\\Packages" /s')
 
-    result = True
-    if installed_patches == len(security_patches):
-        show_close('{} server has all required patches installed'.
-                   format(server),
-                   details=dict(security_patches=security_patches))
-        result = False
-    else:
-        cmd = b'reg query \
-"HKLM\\System\\CurrentControlSet\\Control\\SecurityProviders\\WDigest" \
-/v UseLogonCredential'
+    installed_software = winrm_exec_command(server, username, password, query)
 
-        has_logon_credentials = winrm_exec_command(server, username,
-                                                   password, cmd)
-        if re.search('UseLogonCredential.*0x0', has_logon_credentials,
-                     re.IGNORECASE) is not None:
-            result = False
-            show_close('{} server has UseLogonCredentials\
-set to 0x0'.format(server))
-        else:
-            result = True
-            show_open('{} server missing security patch'.format(server),
-                      details=dict(security_patches=security_patches))
-    return result
+    server_needed_patches = (
+        len(security_patches)
+        - sum(1
+              for patch in security_patches
+              if re.search(patch, installed_software, re.IGNORECASE)))
+
+    if server_needed_patches > 0:
+
+        query = ('reg query "HKLM\\System\\CurrentControlSet\\'
+                 'Control\\SecurityProviders\\WDigest" /v UseLogonCredential')
+
+        logon_credentials = winrm_exec_command(server,
+                                               username,
+                                               password,
+                                               query)
+
+        safe_use_logon_credentials: bool = bool(re.search(
+            r'UseLogonCredential.*0x0', logon_credentials, re.I))
+
+        if safe_use_logon_credentials:
+            msg_closed = 'Server has UseLogonCredentials set to 0x0'
+
+    return _get_result_as_tuple(
+        system='Windows', host=server,
+        msg_open='Server is missing KB2871997 update',
+        msg_closed=msg_closed,
+        open_if=server_needed_patches > 0 and not safe_use_logon_credentials)
