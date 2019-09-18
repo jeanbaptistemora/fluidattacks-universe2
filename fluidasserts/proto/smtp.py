@@ -5,22 +5,17 @@
 # standard imports
 import smtplib
 
-# 3rd party imports
-# None
-
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts import DAST, LOW, MEDIUM, _get_result_as_tuple_host_port
 from fluidasserts.helper import banner
+from fluidasserts.utils.decorators import api
 
+# Constants
 PORT = 25
 
 
-@notify
-@level('medium')
-@track
-def has_vrfy(ip_address: str, port: int = PORT) -> bool:
+@api(risk=MEDIUM, kind=DAST)
+def has_vrfy(ip_address: str, port: int = PORT) -> tuple:
     """
     Check if IP has VRFY command enabled.
 
@@ -32,27 +27,17 @@ def has_vrfy(ip_address: str, port: int = PORT) -> bool:
     fingerprint = service.get_fingerprint(ip_address)
     vrfy = server.verify('root')
 
-    result = True
-    if 502 not in vrfy:
-        show_open('SMTP "VRFY" method', details=dict(ip=ip_address,
-                                                     fingerprint=fingerprint,
-                                                     port=port))
-        result = True
-    else:
-        show_close('SMTP "VRFY" method', details=dict(ip=ip_address,
-                                                      fingerprint=fingerprint,
-                                                      port=port))
-        result = False
-
-    server.quit()
-    return result
+    return _get_result_as_tuple_host_port(
+        protocol='SMTP', host=ip_address, port=port,
+        msg_open='Has VRFY command enabled',
+        msg_closed='Has VRFY command disabled',
+        open_if=502 not in vrfy,
+        fingerprint=fingerprint)
 
 
-@notify
-@level('low')
-@track
+@api(risk=LOW, kind=DAST)
 def is_version_visible(ip_address: str, port: int = PORT,
-                       payload: bool = None) -> bool:
+                       payload: bool = None) -> tuple:
     """
     Check if banner is visible.
 
@@ -63,15 +48,11 @@ def is_version_visible(ip_address: str, port: int = PORT,
     version = service.get_version(ip_address)
     fingerprint = service.get_fingerprint(ip_address)
 
-    result = True
-    if version:
-        result = True
-        show_open('SMTP version visible on {}:{}'.format(ip_address, port),
-                  details=dict(version=version,
-                               fingerprint=fingerprint))
-    else:
-        result = False
-        show_close('SMTP version not visible on {}:{}'.
-                   format(ip_address, port),
-                   details=dict(fingerprint=fingerprint))
-    return result
+    result: bool = bool(version)
+
+    return _get_result_as_tuple_host_port(
+        protocol='SMTP', host=ip_address, port=port, extra=payload,
+        msg_open='Version is visible',
+        msg_closed='Version is not visible',
+        open_if=result,
+        fingerprint=fingerprint)
