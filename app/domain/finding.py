@@ -342,7 +342,10 @@ def verify_finding(finding_id, user_email):
     finding_name = \
         integrates_dal.get_finding_attributes_dynamo(finding_id,
                                                      ['finding']).get('finding')
-    success = finding_dal.verify(finding_id)
+
+    tzn = pytz.timezone(settings.TIME_ZONE)
+    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    success = finding_dal.update(finding_id, {'verification_date': today})
     if success:
         vuln_domain.update_vulnerabilities_date(user_email, finding_id)
         send_finding_verified_email(finding_id,
@@ -391,7 +394,10 @@ def request_verification(finding_id, user_email, user_fullname, justification):
     finding_name = \
         integrates_dal.get_finding_attributes_dynamo(finding_id,
                                                      ['finding']).get('finding')
-    success = finding_dal.request_verification(finding_id)
+    tzn = pytz.timezone(settings.TIME_ZONE)
+    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    success = finding_dal.update(finding_id, {
+        'verification_request_date': today})
     if success:
         comment_data = {
             'user_id': int(round(time() * 1000)),
