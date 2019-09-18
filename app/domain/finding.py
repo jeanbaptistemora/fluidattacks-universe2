@@ -24,7 +24,7 @@ from app.dto.finding import (
     FindingDTO, get_project_name, migrate_description, migrate_treatment,
     migrate_report_date, finding_vulnerabilities
 )
-from app.exceptions import FindingNotFound
+from app.exceptions import FindingNotFound, IsNotTheAuthor
 from app.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
     send_mail_accepted_finding, send_mail_delete_draft, send_mail_delete_finding
@@ -818,3 +818,17 @@ def create_draft(analyst_email, project_name, title, **kwargs):
 
     return finding_dal.create(
         analyst_email, finding_id, project_name, title, **kwargs)
+
+
+def submit_draft(finding_id, analyst_email):
+    success = False
+    finding = finding_dal.get_finding(finding_id)
+    if finding.get('analyst') == analyst_email:
+        tzn = pytz.timezone(settings.TIME_ZONE)
+        today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+
+        success = finding_dal.update(finding_id, {'report_date': today})
+    else:
+        raise IsNotTheAuthor()
+
+    return success

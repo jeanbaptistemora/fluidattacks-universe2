@@ -1,13 +1,10 @@
 """ DAL functions for findings """
 
 from __future__ import absolute_import
-from datetime import datetime
 
-import pytz
 import rollbar
 import boto3
 from botocore.exceptions import ClientError
-from django.conf import settings
 
 # pylint:disable=relative-import
 from __init__ import (
@@ -27,8 +24,6 @@ TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 def create(analyst_email, finding_id, project_name, title, **kwargs):
     success = False
     try:
-        tzn = pytz.timezone(settings.TIME_ZONE)
-        today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
         finding = {
             'analyst': analyst_email,
             'cvss_version': '3',
@@ -37,14 +32,13 @@ def create(analyst_email, finding_id, project_name, title, **kwargs):
             'finding': title,
             'finding_id': finding_id,
             'project_name': project_name,
-            'report_date': today,
             'report_level': 'GENERAL'
         }
         finding.update(kwargs)
         response = TABLE.put_item(Item=finding)
         success = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as ex:
-        rollbar.report_message('Error: Couldn\'nt create new draft',
+        rollbar.report_message('Error: Couldn\'nt create draft',
                                'error', extra_data=ex, payload_data=locals())
     return success
 

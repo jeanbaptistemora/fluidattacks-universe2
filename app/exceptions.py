@@ -158,3 +158,12 @@ class FindingNotFound(Exception):
         """ Constructor """
         msg = 'Exception - Finding not found'
         super(FindingNotFound, self).__init__(msg)
+
+
+class IsNotTheAuthor(Exception):
+    """Exception to control author-only allowed operations"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Only the draft author can perform this operation'
+        super(IsNotTheAuthor, self).__init__(msg)

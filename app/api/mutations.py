@@ -18,7 +18,7 @@ from app.entity.finding import (
     UpdateEvidenceDescription,
     AddFindingComment, VerifyFinding, RequestVerification,
     UpdateDescription, UpdateTreatment, DeleteDraft,
-    DeleteFinding, ApproveDraft, CreateDraft
+    DeleteFinding, ApproveDraft, CreateDraft, SubmitDraft
 )
 from app.entity.project import (
     AddProjectComment, RemoveTag, AddTags
@@ -67,6 +67,7 @@ class Mutations(ObjectType):
     create_draft = CreateDraft.Field()
     deleteDraft = DeleteDraft.Field()
     deleteFinding = DeleteFinding.Field()
+    submit_draft = SubmitDraft.Field()
 
     updateEvent = UpdateEvent.Field()
     removeTag = RemoveTag.Field()
