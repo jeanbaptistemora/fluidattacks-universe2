@@ -3,28 +3,24 @@
 """This module allows to check SSH vulnerabilities."""
 
 # standard imports
-from __future__ import absolute_import
 import socket
+from contextlib import suppress
 
 # 3rd party imports
 import paramiko
 
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
-from fluidasserts.helper import banner
-from fluidasserts.helper import ssh
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts import DAST, LOW, MEDIUM, _get_result_as_tuple_host_port
+from fluidasserts.helper import banner, ssh
+from fluidasserts.utils.decorators import unknown_if, api
 
-PORT = 22
+PORT: int = 22
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(socket.timeout, paramiko.ssh_exception.NoValidConnectionsError)
 def is_cbc_used(host: str, port: int = PORT, username: str = None,
-                password: str = None) -> bool:
+                password: str = None) -> tuple:
     """
     Check if SSH has CBC algorithms enabled.
 
@@ -33,48 +29,30 @@ def is_cbc_used(host: str, port: int = PORT, username: str = None,
     :param username: Username.
     :param password: Password.
     """
-    result = True
-    try:
+    result: bool = False
+    with suppress(paramiko.ssh_exception.AuthenticationException):
         service = banner.SSHService(port)
         fingerprint = service.get_fingerprint(host)
         with ssh.build_ssh_object() as ssh_obj:
             ssh_obj.connect(host, port, username=username, password=password)
             transport = ssh_obj.get_transport()
-    except (paramiko.ssh_exception.NoValidConnectionsError,
-            socket.timeout) as exc:
-        show_unknown('Port closed',
-                     details=dict(host=host,
-                                  port=port,
-                                  error=str(exc)))
-        return False
-    except paramiko.ssh_exception.AuthenticationException:
-        show_close('SSH does not have insecure HMAC encryption algorithms',
-                   details=dict(host=host, port=port, fingerprint=fingerprint))
-        return False
-    else:
-        if "-cbc" not in transport.remote_cipher:
-            show_close('SSH does not have insecure CBC encryption algorithms',
-                       details=dict(host=host,
-                                    port=port,
-                                    remote_cipher=transport.remote_cipher,
-                                    fingerprint=fingerprint))
-            result = False
-        else:
-            show_open('SSH has insecure CBC encryption algorithms',
-                      details=dict(host=host,
-                                   port=port,
-                                   remote_cipher=transport.remote_cipher,
-                                   fingerprint=fingerprint))
+
+        if '-cbc' in transport.remote_cipher:
             result = True
 
-    return result
+    return _get_result_as_tuple_host_port(
+        protocol='SSH', host=host, port=port,
+        msg_open='Uses insecure CBC encryption algorithms',
+        msg_closed='Does not use insecure CBC encryption algorithms',
+        open_if=result,
+        auth=(username, password),
+        fingerprint=fingerprint)
 
 
-@notify
-@level('medium')
-@track
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(socket.timeout, paramiko.ssh_exception.NoValidConnectionsError)
 def is_hmac_used(host: str, port: int = PORT, username: str = None,
-                 password: str = None) -> bool:
+                 password: str = None) -> tuple:
     """
     Check if SSH has weak HMAC algorithms enabled.
 
@@ -83,47 +61,28 @@ def is_hmac_used(host: str, port: int = PORT, username: str = None,
     :param username: Username.
     :param password: Password.
     """
-    result = True
-    try:
+    result: bool = False
+    with suppress(paramiko.ssh_exception.AuthenticationException):
         service = banner.SSHService(port)
         fingerprint = service.get_fingerprint(host)
         with ssh.build_ssh_object() as ssh_obj:
             ssh_obj.connect(host, port, username=username, password=password)
             transport = ssh_obj.get_transport()
-    except (paramiko.ssh_exception.NoValidConnectionsError,
-            socket.timeout) as exc:
-        show_unknown('Port closed',
-                     details=dict(host=host,
-                                  port=port,
-                                  error=str(exc)))
-        return False
-    except paramiko.ssh_exception.AuthenticationException:
-        show_close('SSH does not have insecure HMAC encryption algorithms',
-                   details=dict(host=host, port=port, fingerprint=fingerprint))
-        return False
-    else:
-        if "hmac-md5" not in transport.remote_cipher:
-            show_close('SSH does not have insecure HMAC encryption algorithms',
-                       details=dict(host=host,
-                                    port=port,
-                                    remote_cipher=transport.remote_cipher,
-                                    fingerprint=fingerprint))
-            result = False
-        else:
-            show_open('SSH has insecure HMAC encryption algorithms',
-                      details=dict(host=host,
-                                   port=port,
-                                   remote_cipher=transport.remote_cipher,
-                                   fingerprint=fingerprint))
+
+        if "hmac-md5" in transport.remote_cipher:
             result = True
 
-    return result
+    return _get_result_as_tuple_host_port(
+        protocol='SSH', host=host, port=port,
+        msg_open='Uses insecure HMAC encryption algorithms',
+        msg_closed='Does not use insecure HMAC encryption algorithms',
+        open_if=result,
+        auth=(username, password),
+        fingerprint=fingerprint)
 
 
-@notify
-@level('low')
-@track
-def is_version_visible(ip_address: str, port: int = PORT) -> bool:
+@api(risk=LOW, kind=DAST)
+def is_version_visible(ip_address: str, port: int = PORT) -> tuple:
     """
     Check if banner is visible.
 
@@ -134,15 +93,11 @@ def is_version_visible(ip_address: str, port: int = PORT) -> bool:
     version = service.get_version(ip_address)
     fingerprint = service.get_fingerprint(ip_address)
 
-    result = True
-    if version:
-        result = True
-        show_open('SSH version visible on {}:{}'.format(ip_address, port),
-                  details=dict(version=version,
-                               fingerprint=fingerprint))
-    else:
-        result = False
-        show_close('SSH version not visible on {}:{}'.
-                   format(ip_address, port),
-                   details=dict(fingerprint=fingerprint))
-    return result
+    result: bool = bool(version)
+
+    return _get_result_as_tuple_host_port(
+        protocol='SSH', host=ip_address, port=port,
+        msg_open='Version is visible',
+        msg_closed='Version is not visible',
+        open_if=result,
+        fingerprint=fingerprint)
