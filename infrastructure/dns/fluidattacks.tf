@@ -203,6 +203,7 @@ resource "aws_route53_record" "mainTXT" {
   records = [
     "v=spf1 include:_spf.google.com include:spf.mandrillapp.com include:servers.mcsv.net include:customeriomail.com include:_spf.salesforce.com -all",
     "google-site-verification=SK6CMgAtuuw7tR6eCev6XY8D6rjn9BW8AGd5KWS1b5g",
+    "google-site-verification=zVcDOWOKonibpIrLLyFEuy8jbpTJyOPiA39vngIpEvI",
     "MS=ms97836067",
   ]
 }
