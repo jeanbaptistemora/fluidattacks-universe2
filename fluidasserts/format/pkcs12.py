@@ -2,39 +2,33 @@
 
 """This module allows to check ``PKCS12`` vulnerabilities."""
 
-
 # standard imports
-from os.path import isfile
+from contextlib import suppress
 
 # 3rd party imports
 from OpenSSL import crypto
 
 # local imports
-from fluidasserts import show_open
-from fluidasserts import show_close
-from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts import SAST, HIGH, _get_result_as_tuple_sast
+from fluidasserts.utils.decorators import unknown_if, api
 
 
-@notify
-@level('high')
-@track
-def has_no_password_protection(p12_file: str) -> bool:
+@api(risk=HIGH, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_no_password_protection(p12_file: str) -> tuple:
     """
     Check if a .p12 file is password protected.
 
     :param p12_file: .p12 file to check
     """
-    if not isfile(p12_file):
-        show_unknown('File not found',
-                     details=dict(file=p12_file))
-        return False
-    try:
-        crypto.load_pkcs12(open(p12_file, 'rb').read())
-        show_open('File is not password protected',
-                  details=dict(file=p12_file))
-        return True
-    except crypto.Error:
-        show_close('File is password protected',
-                   details=dict(file=p12_file))
-        return False
+    is_password_protected: bool = True
+    with suppress(crypto.Error):
+        with open(p12_file, 'rb') as p12_file_handle:
+            crypto.load_pkcs12(p12_file_handle.read())
+            is_password_protected = False
+
+    return _get_result_as_tuple_sast(
+        path=p12_file,
+        msg_open='File is not password protected',
+        msg_closed='File is password protected',
+        open_if=not is_password_protected)
