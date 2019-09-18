@@ -13,6 +13,7 @@ ENV PYPI_PASS="value"
 ENV AWS_ACCESS_KEY_ID="value"
 ENV AWS_SECRET_ACCESS_KEY="value"
 ENV CODECOV_TOKEN="value"
+ENV GOOGLE_APPLICATION_CREDENTIALS_CONTENT="value"
 
 RUN git clone --depth 1 \
         -b "${CI_COMMIT_REF_NAME}" "${CI_REPOSITORY_URL}" /home/asserts \
