@@ -688,7 +688,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                             header: "Where",
                             isDate: false,
                             isStatus: false,
-                            width: "60%",
+                            width: "54%",
                             wrapped: true,
                           },
                           {
@@ -715,7 +715,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                             header: translate.t("search_findings.tab_description.is_new"),
                             isDate: false,
                             isStatus: false,
-                            width: "10%",
+                            width: "12%",
                             wrapped: true,
                           }];
                         if (_.isEqual(props.editModePending, true)) {
@@ -726,7 +726,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                             header: translate.t("search_findings.tab_description.approve"),
                             isDate: false,
                             isStatus: false,
-                            width: "10%",
+                            width: "12%",
                           });
                           pendingsHeader.push({
                             align: "center" as DataAlignType,
@@ -735,7 +735,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                             header: translate.t("search_findings.tab_description.delete"),
                             isDate: false,
                             isStatus: false,
-                            width: "10%",
+                            width: "12%",
                           });
                           }
 
