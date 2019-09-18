@@ -2,7 +2,6 @@
 
 """This module allows to check common ``file`` vulnerabilities."""
 
-
 # standard imports
 from typing import List
 from os.path import splitext, basename

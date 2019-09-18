@@ -2,7 +2,6 @@
 
 """This module allows to check Cookies vulnerabilities."""
 
-
 # standard imports
 from typing import Optional
 
@@ -124,7 +123,7 @@ def has_not_httponly_in_cookiejar(
 
 
 @api(risk=MEDIUM, kind=DAST)
-def has_not_secure_set(cookie_name: str, url: str, *args, **kwargs) -> bool:
+def has_not_secure_set(cookie_name: str, url: str, *args, **kwargs) -> tuple:
     r"""
     Check if the cookie in the **url** has the **secure** attribute.
 
@@ -146,7 +145,7 @@ def has_not_secure_set(cookie_name: str, url: str, *args, **kwargs) -> bool:
 
 @api(risk=MEDIUM, kind=DAST)
 def has_not_secure_in_cookiejar(cookie_name: str,
-                                cookie_jar: RequestsCookieJar) -> bool:
+                                cookie_jar: RequestsCookieJar) -> tuple:
     r"""
     Check if the cookie in the **cookie_jar** has the **secure** attribute set.
 
@@ -164,7 +163,7 @@ def has_not_secure_in_cookiejar(cookie_name: str,
 
 
 @api(risk=MEDIUM, kind=DAST)
-def has_not_samesite_set(cookie_name: str, url: str, *args, **kwargs) -> bool:
+def has_not_samesite_set(cookie_name: str, url: str, *args, **kwargs) -> tuple:
     r"""
     Check if the cookie in the **url** has the **samesite** attribute.
 
@@ -186,7 +185,7 @@ def has_not_samesite_set(cookie_name: str, url: str, *args, **kwargs) -> bool:
 
 @api(risk=MEDIUM, kind=DAST)
 def has_not_samesite_in_cookiejar(cookie_name: str,
-                                  cookie_jar: RequestsCookieJar) -> bool:
+                                  cookie_jar: RequestsCookieJar) -> tuple:
     r"""
     Check if the cookie in the **cookie_jar** has the **samesite** attribute.
 

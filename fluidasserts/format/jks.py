@@ -2,7 +2,6 @@
 
 """This module allows to check ``JKS`` vulnerabilities."""
 
-
 # standard imports
 import os
 from typing import List
