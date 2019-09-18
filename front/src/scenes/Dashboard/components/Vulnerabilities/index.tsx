@@ -708,6 +708,15 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                             isStatus: true,
                             width: "15%",
                             wrapped: true,
+                          },
+                          {
+                            align: "left" as DataAlignType,
+                            dataField: "isNew",
+                            header: translate.t("search_findings.tab_description.is_new"),
+                            isDate: false,
+                            isStatus: false,
+                            width: "10%",
+                            wrapped: true,
                           }];
                         if (_.isEqual(props.editModePending, true)) {
                           pendingsHeader.push({
