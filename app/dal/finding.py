@@ -29,18 +29,19 @@ def create(analyst_email, finding_id, project_name, title, **kwargs):
     try:
         tzn = pytz.timezone(settings.TIME_ZONE)
         today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
-        response = TABLE.put_item(
-            Item={
-                'analyst': analyst_email,
-                'cvss_version': '3',
-                'exploitability': 0,
-                'files': [],
-                'finding': title,
-                'finding_id': finding_id,
-                'project_name': project_name,
-                'report_date': today,
-                'report_level': 'GENERAL'
-            }.update(kwargs))
+        finding = {
+            'analyst': analyst_email,
+            'cvss_version': '3',
+            'exploitability': 0,
+            'files': [],
+            'finding': title,
+            'finding_id': finding_id,
+            'project_name': project_name,
+            'report_date': today,
+            'report_level': 'GENERAL'
+        }
+        finding.update(kwargs)
+        response = TABLE.put_item(Item=finding)
         success = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as ex:
         rollbar.report_message('Error: Couldn\'nt create new draft',

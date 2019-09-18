@@ -30,9 +30,12 @@ type autocompleteFieldProps = CustomFieldProps & { suggestions: string[] };
 export const autocompleteTextField: ((fieldProps: autocompleteFieldProps) => JSX.Element) = (
   fieldProps: autocompleteFieldProps,
 ): JSX.Element => {
-  const filteredSuggestions: string[] = fieldProps.suggestions
-    .filter((suggestion: string): boolean =>
-      !_.isEmpty(fieldProps.input.value.trim()) && suggestion.includes(fieldProps.input.value));
+  const filteredSuggestions: string[] = _.isEmpty(fieldProps.input.value.trim())
+    ? []
+    : fieldProps.suggestions.filter((suggestion: string): boolean =>
+      suggestion
+        .toLowerCase()
+        .includes(fieldProps.input.value.toLowerCase()));
 
   const renderSuggestion: ((suggestion: string) => JSX.Element) = (suggestion: string): JSX.Element => {
     const handleSuggestionClick: (() => void) = (): void => {
@@ -49,6 +52,7 @@ export const autocompleteTextField: ((fieldProps: autocompleteFieldProps) => JSX
   return (
     <div>
       <FormControl
+        autoComplete="off"
         className={style.formControl}
         disabled={fieldProps.disabled}
         id={fieldProps.id}

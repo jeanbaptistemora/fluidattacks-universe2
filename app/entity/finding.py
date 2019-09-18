@@ -5,8 +5,8 @@ from time import time
 import rollbar
 from graphql import GraphQLError
 from graphene import (
-    Boolean, Enum, Field, Float, Int, JSONString, List, Mutation, ObjectType,
-    String
+    Argument, Boolean, Enum, Field, Float, Int, JSONString, List, Mutation,
+    ObjectType, String
 )
 from graphene.types.generic import GenericScalar
 
@@ -872,8 +872,8 @@ class CreateDraft(Mutation):
         risk = String(required=False)
         threat = String(required=False)
         title = String(required=True)
-        type = Enum('FindingType', [
-            ('SECURITY', 'SECURITY'), ('HYGIENE', 'HYGIENE')])(required=False)
+        type = Argument(Enum('FindingType', [
+            ('SECURITY', 'SECURITY'), ('HYGIENE', 'HYGIENE')]), required=False)
     success = Boolean()
 
     @require_login

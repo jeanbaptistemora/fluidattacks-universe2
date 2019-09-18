@@ -68,18 +68,46 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
     setDraftModalOpen(false);
   };
 
-  const [titleSuggestions, setTitleSuggestions] = React.useState<string[]>([]);
-  const onMount: (() => void) = (): void => {
-    const baseUrl: string = "https://spreadsheets.google.com/feeds/cells";
-    const spreadsheetId: string = "1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc";
-    const column: number = 1;
-    const rowOffset: number = 2;
-    const extraParams: string = `&max-col=${column}&min-row=${rowOffset}`;
+  interface ISuggestion {
+    cwe: string;
+    description: string;
+    recommendation: string;
+    requirements: string;
+    title: string;
+    type: string;
+  }
+  const [suggestions, setSuggestions] = React.useState<ISuggestion[]>([]);
+  const titleSuggestions: string[] = suggestions.map((suggestion: ISuggestion): string => suggestion.title);
 
+  const onMount: (() => void) = (): void => {
+    const baseUrl: string = "https://spreadsheets.google.com/feeds/list";
+    const spreadsheetId: string = "1L37WnF6enoC8Ws8vs9sr0G29qBLwbe-3ztbuopu1nvc";
+    const rowOffset: number = 2;
+    const extraParams: string = `&min-row=${rowOffset}`;
+
+    interface IRowStructure {
+      gsx$cwe: { $t: string };
+      gsx$descripcion: { $t: string };
+      gsx$fin: { $t: string };
+      gsx$recomendacion: { $t: string };
+      gsx$requisito: { $t: string };
+      gsx$tipo: { $t: string };
+    }
     fetch(`${baseUrl}/${spreadsheetId}/1/public/values?alt=json${extraParams}`)
       .then(async (httpResponse: Response) => httpResponse.json())
-      .then((data: { feed: { entry: Array<{ content: { $t: string } }> } }) => {
-        setTitleSuggestions(data.feed.entry.map((row: { content: { $t: string } }) => row.content.$t));
+      .then((data: { feed: { entry: IRowStructure[] } }): void => {
+        setSuggestions(data.feed.entry.map((row: IRowStructure) => {
+          const cwe: RegExpMatchArray | null = row.gsx$cwe.$t.match(/\d+/g);
+
+          return {
+            cwe: cwe === null ? "" : cwe[0],
+            description: row.gsx$descripcion.$t,
+            recommendation: row.gsx$recomendacion.$t,
+            requirements: row.gsx$requisito.$t,
+            title: row.gsx$fin.$t,
+            type: row.gsx$tipo.$t === "Seguridad" ? "SECURITY" : "HYGIENE",
+          };
+        }));
       })
       .catch();
   };
@@ -136,8 +164,11 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                 >
                   <Mutation mutation={CREATE_DRAFT_MUTATION} onCompleted={handleMutationResult}>
                     {(createDraft: MutationFn): React.ReactNode => {
-                      const handleSubmit: ((values: {}) => void) = (values: {}): void => {
-                        createDraft({ variables: { ...values, projectName } })
+                      const handleSubmit: ((values: { title: string }) => void) = (values: { title: string }): void => {
+                        const matchingSuggestion: ISuggestion = suggestions.filter((
+                          suggestion: ISuggestion): boolean => suggestion.title === values.title)[0];
+
+                        createDraft({ variables: { title: values.title, projectName, ...matchingSuggestion } })
                           .catch();
                       };
 

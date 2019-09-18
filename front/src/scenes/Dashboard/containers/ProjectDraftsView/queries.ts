@@ -20,8 +20,28 @@ export const GET_DRAFTS: DocumentNode = gql`
 `;
 
 export const CREATE_DRAFT_MUTATION: DocumentNode = gql`
-  mutation CreateDraftMutation($projectName: String!, $title: String!) {
-    createDraft(projectName: $projectName, title: $title) {
+  mutation CreateDraftMutation(
+    $cwe: String,
+    $description: String,
+    $projectName: String!,
+    $recommendation: String,
+    $requirements: String,
+    $risk: String,
+    $threat: String,
+    $title: String!,
+    $type: FindingType
+    ) {
+    createDraft(
+      cwe: $cwe,
+      description: $description,
+      projectName: $projectName,
+      recommendation: $recommendation,
+      requirements: $requirements,
+      risk: $risk,
+      threat: $threat,
+      title: $title,
+      type: $type
+    ) {
       success
     }
   }
