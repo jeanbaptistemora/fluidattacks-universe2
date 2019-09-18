@@ -58,14 +58,6 @@ $black: rgba(0, 0, 0, 1);
   margin: 20px 0 10px;
 }
 
-@mixin anchor-size($size, $bottom, $left) {
-  .anchor-sign {
-    bottom: $bottom;
-    font-size: $size;
-    margin-left: $left;
-  }
-}
-
 @mixin quo-lit-block {
   border: 1px solid $lightgray;
   border-left: 3px solid $darkblue;
@@ -111,25 +103,21 @@ $black: rgba(0, 0, 0, 1);
 
 h1 {
   @include hn;
-  @include anchor-size(20px, 6px, -15px);
   font-size: 34px;
 }
 
 h2 {
   @include hn;
-  @include anchor-size(18px, 5px, -12px);
   font-size: 30px;
 }
 
 h3 {
   @include hn;
-  @include anchor-size(15px, 4px, -10px);
   font-size: 24px;
 }
 
 h4 {
   @include hn;
-  @include anchor-size(12px, 4px, -8px);
   font-size: 18px;
 }
 
@@ -668,18 +656,11 @@ article {
 @media (min-width: 770px) {
   h1 {
     font-size: 42px;
-
-    .anchor-sign {
-      bottom: 15px;
-    }
   }
 
   h2 {
     font-size: 34px;
 
-    .anchor-sign {
-      bottom: 11px;
-    }
   }
 
   h3 {
@@ -688,10 +669,6 @@ article {
 
   h4 {
     font-size: 21px;
-
-    .anchor-sign {
-      bottom: 3px;
-    }
   }
 
   .title {

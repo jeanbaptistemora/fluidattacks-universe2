@@ -20,7 +20,7 @@ A link is also created next to the titles to improve accesibility
           str = str.replace(/[¡!¿?,':\.]/g, '');
           str = str.replace(/\s+/g, '-');
           str = str.replace(/[áéíóúñ]/g, function(match) {return replaceChars[match];});
-          $(titles[j]).prepend('<a href="#'+ str +'" class="anchor-sign top-0"></a>');
+          $(titles[j]).prepend('<a href="#'+ str +'" class="anchor-sign f4 top-0"></a>');
           $(titles[j]).prepend('<span id="'+ str +'" class="anchor"></span>');
           $(titles[j]).removeAttr("id");
           if ( titles.length ) {
