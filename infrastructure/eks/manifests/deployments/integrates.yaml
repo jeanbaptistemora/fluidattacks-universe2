@@ -17,7 +17,7 @@ metadata:
   annotations:
     kubernetes.io/change-cause: "Integates deployment from Serves on $DATE"
 spec:
-  replicas: 1
+  replicas: 3
   strategy:
     rollingUpdate:
       maxSurge: 1
