@@ -1,0 +1,200 @@
+:slug: red-team-exercise/
+:date: 2019-09-18
+:category: documentation
+:subtitle: What is a Red Team Exercise?
+:tags: security, testing
+:image: cover.png
+:alt: Foosball red vs blue. Photo by Stefan Steinbauer on Unsplash: https://unsplash.com/photos/va-B5dBbpr4
+:description: In this blog will be provided information on a Red Team exercise, for the reader to have a general context about what does a Red Team, also called Red Team exercise; we will mention the main strategy used in a Red Team exercise, also the benefits from this exercise to the customer.
+:keywords: Redteam, Pentesting, Attack, KillChain, Hacking, Bussiness.
+:author: Anderson Taguada
+:writer: anders2d
+:name: Anderson Taguada
+:about1: Software Engineering undergrad student
+:about2: "Test" -Anonymous Tester
+
+= Red Team exercise
+
+Red Team is referred to a group
+that tries to access a system
+through simulating a cyberattack,
+but, in this exercise, a Red Team is like a soccer team,
+because a soccer team has its offensive strategies
+and every player has an important role;
+this is the purpose of a Red Team:
+use strategies, techniques, and tools to weaken a system.
+
+
+== A brief concept of Red Team
+
+Red Team is a group with knowledge in cybersecurity
+that unlike the pentester,
+they goes beyond than searching vulnerabilities and notified them.
+a Red Team also simulates a real attack, assuming an adversary role.
+
+
+== Divide and conquer
+
+Red Team members have different link:https://www.tutorialspoint.com/ethical_hacking/ethical_hacking_skills.htm[hacking skills],
+and rarely the members have the same skills;
+this is because if an attack is structured and divided,
+the members will focus on specific activities to achieve success,
+thus, in a Red Team, you can find the following skills:
+
+.Posible roles in a Red Team via link:https://medium.com/@redteamwrangler/how-do-i-prepare-to-join-a-red-team-d74ffb5fdbe6[Medium.com].
+image::skillredteam.png[Possible roles in a Red Team via Medium.com.]
+
+In consideration of the above,
+we had a talk with Andres of +Fluid Attacks+,
+when we asked him about the Red Team exercise
+in +Fluid Attacks+, he said:
+[role="fluid-qanda"]
+  . First, the Red Team propose five hacking objetives,
+  for example: escalate privileges, modify system files or install backdoor
+  to do it, we use the kill chain strategy"
+
+Please, take a look at this video from +Fox9+ about Red Team exercise:
+
+++++
+<div style="text-align: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YIV0xvatX0M"
+frameborder="0" allowfullscreen></iframe></div>
+++++
+
+== What is Kill Chain?
+
+Kill Chain is a military term
+to describe the steps to effect an attack;
+one of its model is the +F2T2EA+
+and include the following phases:<<r3, [1]>>
+
+. *Find*: Identify a target.
+Find a target within surveillance or reconnaissance data
+or via intelligence means.
+
+. *Fix*: Fix the target's location.
+Obtain specific coordinates for the target either
+from existing data or by collecting additional data.
+
+. *Track*: Monitor the target's movement.
+Keep track of the target until either a decision is made not to engage
+the target or the target is successfully engaged.
+
+. *Target*: Select an appropriate weapon or asset
+to use on the target to create desired effects.
+Apply command and control capabilities
+to assess the value of the target and the availability
+of appropriate weapons to engage it.
+
+. *Engage*: Apply the weapon to the target.
+
+. *Assess*: Evaluate the effects of the attack,
+including any intelligence gathered at the location.
+
+.+F2T2EA+ - The Kill Chain via link:http://myarick.blogspot.com/2014/02/f2t2ea.html[Biz -n- Seen Blog].
+image::f2t2ea-killchain.png[+F2T2EA+ - The Kill Chain]
+
+== Cyber Kill Chain
+
+This term was adopted by link:https://www.lockheedmartin.com/en-us/index.html[Lockheed Martin]
+and his incident team to prevent cyber attacks.
+Cyber Kill Chain has the next phases:
+
+. *Reconnaissance* : Learning about the target using many techniques.
+
+. *Weaponization* : Combining your vector of attack with a malicious
+payload.
+
+. *Delivery* : Actually transmitting the payload via some communications
+vector.
+
+. *Exploitation* : Taking advantage of some software or human weakness to
+get your payload to run.
+
+. *Installation* : The payload establishes the persistence of an
+individual host.
+
+. *Command & Control (C2*) : The malware calls home, providing attacker control.
+
+. *Actions on Objectives* : The bad actor steals or does whatever he was
+planning on doing.
+
+.Cyber Kill Chain Phases via link:https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html[Lockheed Martin].
+image::cyber-kill-chain.png[Cyber Kill Chain Phases]
+
+== Cyber Kill Chain 3.0
+
+This is an update of the cyber kill chain
+for better defense by link:https://www.watchguard.com/es/wgrd-about/leadership/corey-nachreiner[Corey Nachreiner]
+Watchguard Chief Technology Officer.
+
+Cyber Kill Chain 3.0 has the next phases<<r1, [2]>>:
+
+. Recon
+
+. Delivery
+
+. Exploitation
+
+. Infection
+
+. Command & Control - Lateral Movement & Pivoting
+
+. Objective/Exfiltration.
+
+As you can see, 3.0 version does not have big changes,
+these changes were designed for better security defense,
+but those are not the unique strategies,
+as say link:https://www.helpnetsecurity.com/2015/02/10/kill-chain-30-update-the-cyber-kill-chain-for-better-defense/[HelpNetSecurity]
+[role="fluid-qanda"]
+ . "Security professionals have differing opinions
+ on the effectiveness of the kill chain as a defense model.
+ Some love it, pointing out how several successful
+ infosec teams use it, while others think it's lacking crucial details,
+ and only covers a certain type of attacks.
+ I think there is truth to both views,
+ so I'd like to propose three simple steps to make the kill chain even better,
+ let's call it +Kill Chain 3.0+."
+
+For these reasons, Kill Chain is not the only option,
+also, you can adapt your attack
+link:https://en.wikipedia.org/wiki/Military_strategy[strategy].
+
+== Customer benefits
+
+Then, what are the benefits on the client side?
+it is so easy,
+Because on a real attack scenario
+the customer will not know how to proceed,
+however if there is a simulation of cyberattack,
+the Red Team will notify every weakness on the system or application
+where the customer failed,
+so the customer keep protected its information.
+
+So, the customer can fix, build, design, and maximize the cybersecurity<<r4, [3]>>
+and for this reason, the link:https://en.wikipedia.org/wiki/Blue_team_(computer_security)[Blue Team] exists.
+In this post was not mentioned, but like Red Team,
+Blue Team has its defensive estragies,
+and we will go into that in greater detail on another post.
+
+== Conclusions
+
+As link:https://medium.com/@redteamwrangler/how-do-i-prepare-to-join-a-red-team-d74ffb5fdbe6[Medium.com]
+say a Red Team member must have an offensive Mindset,
+for this reason, "+CTFs+, wargames, or pen testing labs
+are a great way to exercise offensive mindset"<<r5, [4]>>
+and in +Fluid Attacks+, every new member,
+train with hacking and programming challenges
+to check and grade the level of offensive Mind.
+
+== References
+
+. [[r1]] link:https://www.helpnetsecurity.com/2015/02/10/kill-chain-30-update-the-cyber-kill-chain-for-better-defense[Kill Chain 3.0: Update the cyber kill chain for better defense].
+
+. [[r2]] link:https://sci-hub.tw/https://ieeexplore.ieee.org/abstract/document/8406561[Red Team Exercises].
+
+. [[r3]] link:https://en.wikipedia.org/wiki/Kill_chain[Kill chain].
+
+. [[r4]] link:https://resources.infosecinstitute.com/red-teaming-overview-assessment-methodology/#gref[Red Teaming Overview, Assessment & Methodology].
+
+. [[r5]] link:https://medium.com/@redteamwrangler/how-do-i-prepare-to-join-a-red-team-d74ffb5fdbe6[How to prepare to join a Red Team].
