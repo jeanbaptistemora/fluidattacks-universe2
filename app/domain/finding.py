@@ -501,6 +501,14 @@ def update_treatment(finding_id, updated_values):
         updated_values['external_bts'] = ''
         send_accepted_email(finding_id, updated_values.get('treatment_manager'),
                             updated_values.get('treatment_justification'))
+        if updated_values.get('acceptance_date'):
+            date_size = updated_values['acceptance_date'].split(' ')
+            if len(date_size) == 1:
+                updated_values['acceptance_date'] += ' ' + datetime.now().strftime('%H:%M:%S')
+        if updated_values.get('acceptance_date') == '':
+            date = datetime.now() + timedelta(days=90)
+            max_date = date.strftime('%Y-%m-%d %H:%M:%S')
+            updated_values['acceptance_date'] = max_date
 
     result_update_finding = integrates_dal.update_mult_attrs_dynamo(
         'FI_findings',
