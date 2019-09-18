@@ -1,6 +1,6 @@
 # pylint: disable=relative-beyond-top-level
 from __future__ import absolute_import
-import cgi
+from cgi import escape
 import mandrill
 import rollbar
 from __init__ import FI_MANDRILL_API_KEY, FI_TEST_PROJECTS
@@ -11,6 +11,21 @@ VERIFY_TAG = ['verify']
 COMMENTS_TAG = ['comments']
 VULNERABILITIES_TAG = ['vulnerabilities']
 GENERAL_TAG = ['general']
+
+
+def _escape_context(context):
+    attr_to_esc = [
+        'solution_description',
+        'description',
+        'resource_list',
+        'justification',
+        'updated_vuln_description',
+        'comment'
+    ]
+    for attr in attr_to_esc:
+        if context.get(attr):
+            context[attr] = escape(context[attr])
+    return context
 
 
 def _remove_test_projects(context, test_proj_list):
@@ -39,7 +54,8 @@ def _get_recipient_first_name(email):
 def _send_mail(template_name, email_to, context, tags):
     project = context.get('project', '').lower()
     test_proj_list = FI_TEST_PROJECTS.split(',')
-    new_context = _remove_test_projects(context, test_proj_list)
+    no_test_context = _remove_test_projects(context, test_proj_list)
+    new_context = _escape_context(no_test_context)
     if project not in test_proj_list:
         mandrill_client = mandrill.Mandrill(API_KEY)
         message = {
@@ -88,7 +104,6 @@ def send_mail_remediate_finding(email_to, context):
 
 
 def send_mail_comment(email_to, context):
-    context['comment'] = cgi.escape(context['comment'])
     _send_mail('new-comment',
                email_to,
                context=context,
