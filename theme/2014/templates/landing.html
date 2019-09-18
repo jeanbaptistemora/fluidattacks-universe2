@@ -79,14 +79,15 @@
         <div class="item">
           <img class="grayscale"
                src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/trusted/{{ company|lower|replace(' ', '-') }}-logo.png"
-               alt="{{ company }} Logo"></div>
+               alt="{{ company }} Logo">
+        </div>
       {% endfor %}
-        {% assets filters="uglifyjs" , output="static/js/carousel.min.js" , "js/carousel.js"  %}
+    </div>
+      {% assets filters="uglifyjs" , output="static/js/carousel.min.js" , "js/carousel.js"  %}
         <script type="text/javascript"
                 src="{{ SITEURL }}/{{ ASSET_URL }}">
         </script>
-        {% endassets %}
-    </div>
+      {% endassets %}
   </div>
   <!-- Products -->
   <div class="bg-white w-100 items-center">
