@@ -490,6 +490,33 @@ def _get_result_as_tuple_sast(*,
     return CLOSED, msg_closed, [], [unit]
 
 
+def _get_result_as_tuple_host_port(*,
+                                   protocol: str, host: str, port: int,
+                                   msg_open: str, msg_closed: str,
+                                   open_if: bool,
+                                   auth: tuple = None,
+                                   extra: str = None,
+                                   fingerprint: Any = None) -> tuple:
+    """Return the tuple version of the Result object."""
+    auth_str: str = (
+        (f'{auth[0]}' if auth and auth[0] else str()) +
+        (f':{auth[1]}' if auth and auth[1] else str()))
+
+    where: str = (
+        f'{protocol}://{auth_str}' +
+        ('@' if auth_str else str()) +
+        f'{host}:{port}' +
+        f'/{extra}' if extra else str())
+
+    unit: Unit = Unit(where=where,
+                      specific=[msg_open if open_if else msg_closed],
+                      fingerprint=fingerprint)
+
+    if open_if:
+        return OPEN, msg_open, [unit], []
+    return CLOSED, msg_closed, [], [unit]
+
+
 def show_close(message, details=None):
     """Show close message."""
     check_cli()
