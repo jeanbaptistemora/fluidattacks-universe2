@@ -352,6 +352,14 @@ msgstr "contact-us"
 msgid "Footer-subtitle-1.6"
 msgstr "Contact Us"
 
+#: templates/footer.html:22 templates/landing.html:156
+msgid "Footer-link-1.7"
+msgstr "reviews"
+
+#: templates/footer.html:22 templates/landing.html:156
+msgid "Footer-subtitle-1.7"
+msgstr "Reviews"
+
 #: templates/salesforce.html:56
 msgid "Ack-page"
 msgstr "thank-you"
@@ -838,17 +846,6 @@ msgstr ""
 msgid "Bnft-footmsg"
 msgstr "Learn more about our "
 
-#: templates/landing.html:116
-msgid "Index-header-4"
-msgstr "Customers"
-
-#: templates/landing.html:118
-msgid "Index-msg-2"
-msgstr ""
-"Fluid Attacks has over 17 years of experience working with companies from"
-" different markets and economic sectors. See below for a partial list of "
-"our customers."
-
 #: templates/landing.html:155
 msgid "Contact-txt"
 msgstr ""
@@ -888,17 +885,6 @@ msgstr "One Shot Hacking"
 #: templates/navigationbar.html:15 templates/navigationbar.html:16
 msgid "Navb-cat-2"
 msgstr "products"
-
-#: templates/navigationbar.html:19 templates/navigationbar.html:21
-#: templates/navigationbar.html:22 templates/navigationbar.html:23
-#: templates/navigationbar.html:24 templates/navigationbar.html:25
-#: templates/navigationbar.html:26 templates/navigationbar.html:27
-msgid "Navb-cat-4"
-msgstr "customers"
-
-#: templates/navigationbar.html:19
-msgid "Navb-opt-4"
-msgstr "Customers"
 
 #: templates/navigationbar.html:21
 msgid "Navb-link-4.1"
