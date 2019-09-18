@@ -1,61 +1,46 @@
 # -*- coding: utf-8 -*-
 
-"""This module allows to check LDAP vulnerabilities."""
+"""This module allows to check ``LDAP`` vulnerabilities."""
 
 # standard imports
-# None
+from contextlib import suppress
 
 # 3rd party imports
+from ldap3 import Server
 from ldap3 import Connection
 from ldap3.core.exceptions import LDAPExceptionError, LDAPSocketOpenError
-from ldap3 import Server
 
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
-from fluidasserts.utils.decorators import track, level, notify
+from fluidasserts import DAST, HIGH, _get_result_as_tuple_host_port
+from fluidasserts.utils.decorators import unknown_if, api
 
 PORT = 389
 SSL_PORT = 636
 
 
-@notify
-@level('high')
-@track
-def is_anonymous_bind_allowed(ldap_server: str, port: int = PORT) -> bool:
+@api(risk=HIGH, kind=DAST)
+@unknown_if(LDAPSocketOpenError)
+def is_anonymous_bind_allowed(ldap_server: str, port: int = PORT) -> tuple:
     """
     Check whether anonymous binding is allowed on LDAP server.
 
     :param ldap_server: LDAP server address to test.
     :param port: If necessary, specify port to connect to.
     """
-    result = True
+    anonymous_bonded: bool = False
 
-    try:
-        server = Server(ldap_server)
-        conn = Connection(server)
+    with suppress(LDAPExceptionError):
+        try:
+            server = Server(ldap_server)
+            conn = Connection(server)
+        finally:
+            conn.unbind()
 
-    except LDAPExceptionError:
-        show_close('LDAP anonymous bind failed',
-                   details=dict(server=ldap_server, port=port))
-        return False
-    finally:
-        conn.unbind()
-
-    try:
         if conn.bind() is True:
-            show_open('LDAP anonymous bind success',
-                      details=dict(server=ldap_server, port=port))
-            result = True
-        else:
-            show_close('LDAP anonymous bind failed',
-                       details=dict(server=ldap_server, port=port))
-            result = False
-    except LDAPSocketOpenError as exc:
-        show_unknown('Could not connect',
-                     details=dict(server=ldap_server,
-                                  port=port,
-                                  error=str(exc).replace(':', ',')))
-        return False
-    return result
+            anonymous_bonded = True
+
+    return _get_result_as_tuple_host_port(
+        protocol='LDAP', host=ldap_server, port=port,
+        msg_open='LDAP anonymous bind is possible',
+        msg_closed='LDAP anonymous bind is not possible',
+        open_if=anonymous_bonded)
