@@ -478,10 +478,12 @@ class Result():
 def _get_result_as_tuple_sast(*,
                               path: str,
                               msg_open: str, msg_closed: str,
-                              open_if: bool) -> tuple:
+                              open_if: bool,
+                              fingerprint: Any = None) -> tuple:
     """Return the tuple version of the Result object."""
     unit: Unit = Unit(where=path,
-                      specific=[msg_open if open_if else msg_closed])
+                      specific=[msg_open if open_if else msg_closed],
+                      fingerprint=fingerprint)
 
     if open_if:
         return OPEN, msg_open, [unit], []
