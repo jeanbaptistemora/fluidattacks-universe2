@@ -5,8 +5,9 @@ from django.test import TestCase
 
 from app.utils.findings import (
     _get_evidence, _download_evidence_file, get_records_from_file,
-    get_exploit_from_file
+    get_exploit_from_file, format_data
 )
+from app.dal.finding import get_finding
 
 
 class FindingsTests(TestCase):
@@ -71,3 +72,30 @@ class FindingsTests(TestCase):
         test_data = get_exploit_from_file(project_name, finding_id, file_name)
         expected_output = 'print "It works!"\n'
         assert test_data == expected_output
+
+    def test_format_data(self):
+        finding_id = '422286126'
+        finding_to_test = get_finding(finding_id)
+        test_data = list(format_data(finding_to_test).keys())
+        expected_keys = [
+            'context', 'modifiedSeverityScope', 'availabilityRequirement',
+            'evidence', 'releaseDate', 'availabilityImpact','exploit',
+            'modifiedPrivilegesRequired', 'verificationRequestDate',
+            'modifiedAttackVector', 'testType', 'id', 'affectedSystems',
+            'attackVectorDesc', 'requirements', 'severity', 'cvssBasescore',
+            'userInteraction', 'actor', 'cvssEnv', 'privilegesRequired',
+            'interested', 'treatmentJustification', 'treatment', 'projectName',
+            'finding', 'confidentialityImpact', 'integrityRequirement',
+            'remediationLevel', 'cwe', 'leader', 'modifiedConfidentialityImpact',
+            'files', 'modifiedUserInteraction', 'attackComplexity',
+            'attackVector', 'reportConfidence', 'cvssTemporal', 'remediated',
+            'clientProject', 'compromisedAttrs', 'findingType', 'exploitable',
+            'confidentialityRequirement', 'records', 'recordsNumber',
+            'modifiedAttackComplexity', 'treatmentManager', 'severityScope',
+            'cvssVersion', 'analyst', 'subscription', 'reportDate',
+            'effectSolution', 'reportLevel', 'verificationDate', 'scenario',
+            'severityCvss', 'modifiedAvailabilityImpact', 'age', 'vulnerability',
+            'findingId', 'threat', 'lastVulnerability', 'integrityImpact',
+            'detailedSeverity', 'modifiedIntegrityImpact','relatedFindings',
+            'exploitability']
+        assert test_data == expected_keys
