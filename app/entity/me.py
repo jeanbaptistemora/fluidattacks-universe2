@@ -22,6 +22,7 @@ from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 
 
 class Me(ObjectType):
+    access_token = Boolean()
     role = String(project_name=String(required=False))
     projects = List(Project)
 
@@ -50,6 +51,14 @@ class Me(ObjectType):
             )
 
         return self.projects
+
+    def resolve_access_token(self, info):
+        jwt_content = util.get_jwt_content(info.context)
+        user_email = jwt_content.get('user_email')
+        access_token = get_user_attributes(user_email, ['access_token'])
+        self.access_token = bool(access_token)
+
+        return self.access_token
 
 
 class SignIn(Mutation):
