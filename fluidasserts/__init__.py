@@ -11,7 +11,6 @@ but were slightly modified to fit this project.
 from __future__ import absolute_import
 
 import importlib
-import inspect
 import os
 import re
 import sys
@@ -56,7 +55,6 @@ LOCAL_TZ = datetime.utcnow().astimezone().tzinfo
 DATE_FORMAT = '%Y-%m-%dT%H:%M:%S%z'
 
 # pylint: disable=too-many-instance-attributes
-# pylint: disable=too-few-public-methods
 
 
 def check_cli():
@@ -167,22 +165,6 @@ def get_module_description(package, module):
     return desc
 
 
-def get_caller_module(depth: int = 3) -> str:
-    """Get caller module."""
-    frm = inspect.stack()[depth]
-    mod = inspect.getmodule(frm[0])
-    return mod.__name__
-
-
-def get_caller_function(depth: int = 3) -> str:
-    """Get caller function."""
-    function = sys._getframe(depth).f_code.co_name  # noqa
-    while function.startswith('_'):
-        function = sys._getframe(depth).f_code.co_name  # noqa
-        depth += 1
-    return function
-
-
 # Do not handle this vars directly, use the methods
 METHOD_STATS = {}
 METHOD_STATS_OWNER = 'global'
@@ -193,23 +175,6 @@ def method_stats_set_owner(owner: str) -> bool:
     # pylint: disable=global-statement
     global METHOD_STATS_OWNER
     METHOD_STATS_OWNER = owner.replace(':', '')
-    return True
-
-
-def method_stats_register_caller(with_status: str) -> bool:
-    """Register the current finding and Asserts module in METHOD_STATS."""
-    caller_module: str = get_caller_module()
-    caller_function: str = get_caller_function()
-    caller: str = f"{caller_module}.{caller_function}"
-    caller = re.sub(r'^fluidasserts\.', '', caller)
-    if METHOD_STATS_OWNER not in METHOD_STATS:
-        METHOD_STATS[METHOD_STATS_OWNER] = {}
-    try:
-        METHOD_STATS[METHOD_STATS_OWNER][caller][with_status] += 1
-    except KeyError:
-        METHOD_STATS[METHOD_STATS_OWNER][caller] = {
-            OPEN: 0, CLOSED: 0, UNKNOWN: 0}
-        METHOD_STATS[METHOD_STATS_OWNER][caller][with_status] += 1
     return True
 
 
@@ -224,47 +189,6 @@ def method_stats_parse_stats() -> dict:
         for owner, methods in METHOD_STATS.items()
     }
     return method_stats
-
-
-class Message():
-    """Output message class."""
-
-    def __init__(
-            self,
-            status: str,
-            message: str,
-            details: dict) -> None:
-        """Create constructor method."""
-        self.__status_codes = [OPEN, CLOSED, UNKNOWN]
-        self.date = datetime.now()
-        self.status: str = status
-        self.message: str = message
-        self.details: dict = details if isinstance(details, dict) else {}
-        self.caller_module: str = get_caller_module()
-        self.caller_function: str = get_caller_function()
-        self.check: str = f'{self.caller_module}.{self.caller_function}'
-        self.module_description = get_module_description(self.caller_module,
-                                                         self.caller_function)
-
-    def __build_message(self):
-        """Build message dict."""
-        data = {}
-        data['check'] = self.check
-        if 'metadata' not in self.details:
-            data['description'] = self.module_description
-        data['status'] = self.status
-        data['message'] = self.message
-        if self.details:
-            data['details'] = self.details
-        data['when'] = self.date
-        return data
-
-    def as_yaml(self):
-        """Get YAML representation of message."""
-        return yaml.safe_dump(self.__build_message(),
-                              default_flow_style=False,
-                              explicit_start=True,
-                              allow_unicode=True)
 
 
 class Unit():
@@ -515,30 +439,6 @@ def _get_result_as_tuple_host_port(*,
     if open_if:
         return OPEN, msg_open, [unit], []
     return CLOSED, msg_closed, [], [unit]
-
-
-def show_close(message, details=None):
-    """Show close message."""
-    check_cli()
-    method_stats_register_caller(CLOSED)
-    message = Message(CLOSED, message, details)
-    print(message.as_yaml(), end='', flush=True)
-
-
-def show_open(message, details=None):
-    """Show open message."""
-    check_cli()
-    method_stats_register_caller(OPEN)
-    message = Message(OPEN, message, details)
-    print(message.as_yaml(), end='', flush=True)
-
-
-def show_unknown(message, details=None):
-    """Show unknown message."""
-    check_cli()
-    method_stats_register_caller(UNKNOWN)
-    message = Message(UNKNOWN, message, details)
-    print(message.as_yaml(), end='', flush=True)
 
 
 # Set __version__
