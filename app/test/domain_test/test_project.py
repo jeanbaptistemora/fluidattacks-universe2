@@ -192,7 +192,11 @@ class ProjectTest(TestCase):
 
         test_data = get_mean_remediate(open_finding)
         current_day = datetime.now(tz=timezone('America/Bogota')).date()
-        expected_output = int((current_day - datetime(2019, 3, 22).date()).days)
+        expected_output = int(int(
+            int((current_day - datetime(2019, 1, 15).date()).days) * 2
+            + int((current_day - datetime(2019, 1, 16).date()).days) * 2
+            + int((current_day - datetime(2018, 12, 17).date()).days))
+            / 7)
         assert test_data == expected_output
 
         closed_vuln_finding = ['457497316']
