@@ -12,7 +12,7 @@ data:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: integrates
+  name: integrates-app
   namespace: serves
   annotations:
     kubernetes.io/change-cause: "Integates deployment from Serves on $DATE"
@@ -25,10 +25,10 @@ spec:
   template:
     metadata:
       labels:
-        app: integrates
+        app: integrates-app
     spec:
       containers:
-      - name: container-integrates
+      - name: container-integrates-app
         image: registry.gitlab.com/fluidattacks/integrates/app:master
         imagePullPolicy: Always
         resources:
@@ -56,6 +56,18 @@ spec:
           periodSeconds: 5
           successThreshold: 3
           failureThreshold: 10
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: "app"
+                      operator: In
+                      values:
+                      - integrates-app
+                topologyKey: "kubernetes.io/hostname"
       imagePullSecrets:
       - name: gitlab-reg
 ---
