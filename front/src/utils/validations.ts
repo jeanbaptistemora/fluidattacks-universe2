@@ -195,6 +195,18 @@ export const isValidDate: ((arg1: string) => string | undefined) =
   }
 };
 
+export const isValidDateAccessToken: ((arg1: string) => string | undefined) =
+  (value: string): string | undefined => {
+  let date: Date; date = new Date(value);
+  let today: Date; today = new Date(); today = new Date(today.setMonth(today.getMonth() + 6));
+
+  if (date > today) {
+    return translate.t("validations.valid_date_token");
+  } else {
+    return undefined;
+  }
+};
+
 export const isLowerDate: ((arg1: string) => string | undefined) =
   (value: string): string | undefined => {
   let date: Date; date = new Date(value);

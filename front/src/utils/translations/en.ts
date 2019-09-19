@@ -607,6 +607,14 @@ const enTranslations: dict = {
   sidebar: {
     forms: "Forms",
     reports: "Reports",
+    token: "Token",
+  },
+  update_access_token: {
+    expiration_time: "Expiration Time",
+    invalidate: "Invalidate Token",
+    invalidated: "Invalidated Token",
+    success: "Updated Access Token",
+    title: "Update Access Token",
   },
   validations: {
     alphanumeric: "Only alphanumeric characters",
@@ -620,6 +628,7 @@ const enTranslations: dict = {
     required: "Required field",
     tags: "This field can only contain alphanumeric characters and dashes",
     valid_date: "The date must be below three months",
+    valid_date_token: "The date must be below six months",
   },
 };
 
