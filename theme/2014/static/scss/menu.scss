@@ -192,9 +192,6 @@ $white: rgba(255, 255, 255, 1);
   }
 
   .has-sub {
-    a {
-      padding-right: 15px;
-    }
 
     &:hover {
       ul {
@@ -220,7 +217,6 @@ $white: rgba(255, 255, 255, 1);
 
   .sm-opened {
     display: none;
-    left: -20px;
     position: absolute;
 
     li {
