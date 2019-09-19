@@ -182,3 +182,27 @@ export const isValidFileSize: ((file: File, fileSize: number) => boolean) =
 
   return isValid;
 };
+
+export const isValidDate: ((arg1: string) => string | undefined) =
+  (value: string): string | undefined => {
+  let date: Date; date = new Date(value);
+  let today: Date; today = new Date(); today = new Date(today.setMonth(today.getMonth() + 3));
+
+  if (date > today) {
+    return translate.t("validations.valid_date");
+  } else {
+    return undefined;
+  }
+};
+
+export const isLowerDate: ((arg1: string) => string | undefined) =
+  (value: string): string | undefined => {
+  let date: Date; date = new Date(value);
+  let today: Date; today = new Date();
+
+  if (date <= today) {
+    return translate.t("validations.lower_date");
+  } else {
+    return undefined;
+  }
+};

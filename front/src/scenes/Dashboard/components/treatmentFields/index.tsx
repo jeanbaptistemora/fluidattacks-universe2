@@ -5,7 +5,7 @@ import globalStyle from "../../../../styles/global.css";
 import {  formatDropdownField } from "../../../../utils/formatHelpers";
 import { dateField, dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { required } from "../../../../utils/validations";
+import { isLowerDate, isValidDate, required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
 
@@ -86,9 +86,6 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
               validate={[required]}
             />
           </Col>
-        </Row>
-      : undefined}
-        <Row>
           <Col md={3} sm={12} xs={12}>
             <EditableField
               component={dateField}
@@ -96,11 +93,12 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
               label={translate.t("search_findings.tab_description.acceptance_date")}
               name="acceptanceDate"
               renderAsEditable={props.isEditing}
-              type="text"
-              visible={false}
+              type="date"
+              validate={[isValidDate, isLowerDate]}
             />
           </Col>
         </Row>
+      : undefined}
     </React.Fragment>
     );
   };

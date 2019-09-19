@@ -614,10 +614,12 @@ const enTranslations: dict = {
     email: "The email format is not valid",
     file_size: "The file size must be less than {{count}}MB",
     invalidValueInField: "The value inserted in one of the fields is not valid",
+    lower_date: "Invalid date",
     minLength: "This field requires at least {{count}} characters",
     numeric: "This field can only contain numbers",
     required: "Required field",
     tags: "This field can only contain alphanumeric characters and dashes",
+    valid_date: "The date must be below three months",
   },
 };
 
