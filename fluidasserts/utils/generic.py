@@ -200,7 +200,11 @@ class FluidAsserts():
         self._closed_units: List[Unit] = []
 
         self.result = Result(risk=risk, kind=kind,
-                             func=self, func_args=[], func_kwargs={})
+                             func=self,
+                             func_args=[],
+                             func_kwargs={'risk': risk,
+                                          'kind': kind,
+                                          'message': message})
 
         # Notify that the check is running
         print(f'  check: {self.result.func_id}', file=sys.stderr, flush=True)

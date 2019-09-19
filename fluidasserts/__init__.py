@@ -8,13 +8,13 @@ but were slightly modified to fit this project.
 """
 
 # standard imports
-from __future__ import absolute_import
-
 import importlib
 import os
 import re
 import sys
 import json
+import types
+import inspect
 import textwrap
 from datetime import datetime
 from typing import Callable, Dict, List, Any
@@ -22,17 +22,18 @@ from typing import Callable, Dict, List, Any
 # 3rd party imports
 from pkg_resources import get_distribution, DistributionNotFound
 import oyaml as yaml
-
-# Objects that are not standard YAML Nodes will be represented by its type
 from yaml.dumper import SafeDumper
 from yaml.representer import SafeRepresenter as SafeRepres
 
+# Objects that are not standard YAML Nodes will be represented as follows:
+#   Function objects -> function( args in definition ... )
 yaml.add_multi_representer(
-    object, lambda _, x: SafeRepres().represent_str(str(type(x))), SafeDumper)
-
-# local imports
-# none
-
+    types.FunctionType, lambda _, x: SafeRepres().represent_str(
+        f'function{inspect.signature(x)}'), SafeDumper)
+#   Objects -> type(object)
+yaml.add_multi_representer(
+    object, lambda _, x: SafeRepres().represent_str(
+        str(type(x))), SafeDumper)
 
 # Constants
 OPEN: str = 'OPEN'
@@ -259,8 +260,6 @@ class Result():
         self.safes: List[Unit] = None
         self.vulns: List[Unit] = None
 
-        func_params: Dict[str, Any] = {}
-
         _func: Callable = func
         # Adding decorators to a function modify its metadata, fortunately
         # The wrapper function will keep a reference to the wrapped function
@@ -270,19 +269,18 @@ class Result():
         while hasattr(_func, '__wrapped__'):
             _func = getattr(_func, '__wrapped__')
 
-        func_vars = _func.__code__.co_varnames
-        func_nargs = len(func_args)
-        func_nkwargs = len(func_vars) - func_nargs
-
-        # Append the args and the kwargs
-        func_params.update({func_vars[i]: func_args[i]
-                            for i in range(func_nargs)})
-        func_params.update({func_vars[i]: func_kwargs.get(func_vars[i])
-                            for i in range(func_nargs, func_nkwargs)})
-
-        # Filter not supplied values
-        self.func_params: Dict[str, Any] = \
-            {k: v for k, v in func_params.items() if v is not None}
+        # This will set self.func_params to a dict with the args used at call:
+        #   example:
+        #     f = lambda a, *b, c=None, **d:
+        #   called with:
+        #     f(1, 2, 3, g=3, c=5)
+        #   self.func_params:
+        #     {'a': 1, 'b': (2, 3), 'c': 5, 'd': {'g': 3}}
+        func_sig: inspect.Signature = inspect.signature(_func)
+        func_bind: inspect.BoundArguments = \
+            func_sig.bind(*func_args, **func_kwargs)
+        func_bind.apply_defaults()
+        self.func_params = func_bind.arguments
 
     def set_status(self, status: str) -> bool:
         """Set the status."""
