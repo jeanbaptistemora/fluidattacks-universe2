@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 # -*- coding: utf-8 -*-
 
 """Asserts generic meta-method."""
@@ -16,15 +14,10 @@ from typing import Callable, List, Union
 import oyaml as yaml
 
 # local imports
-from fluidasserts import show_close
-from fluidasserts import show_open
-from fluidasserts import show_unknown
 from fluidasserts import method_stats_set_owner
-from fluidasserts import Unit, Result, OPEN, CLOSED, UNKNOWN
+from fluidasserts import Unit, Result, LOW, OPEN, CLOSED, UNKNOWN
 from fluidasserts.helper import asynchronous
-from fluidasserts.utils.decorators import track, level, notify, mp_track
-
-# pylint: disable=broad-except
+from fluidasserts.utils.decorators import mp_track, unknown_if, api
 
 
 def _scan_for_files(path: str):
@@ -57,10 +50,10 @@ def _full_paths_in_path(path: str) -> tuple:
     return tuple(_scan_for_files(path))
 
 
-@notify
-@level('low')
-@track
-def check_function(func: Callable, *args, **kwargs) -> bool:
+# pylint: disable=unused-argument
+@api(risk=LOW, kind='Generic')
+@unknown_if(Exception)
+def check_function(func: Callable, *args, metadata=None, **kwargs) -> bool:
     """Run arbitrary code and return results in Asserts format.
 
     This is useful for verifying very specific scenarios.
@@ -71,33 +64,22 @@ def check_function(func: Callable, *args, **kwargs) -> bool:
     :param *args: Positional parameters that will be passed to func.
     :param *kwargs: Keyword parameters that will be passed to func.
     """
-    metadata = kwargs.pop('metadata', None)
-    try:
-        if asyncio.iscoroutinefunction(func):
-            ret = asynchronous.run_func(
-                func, ((args, kwargs),), return_exceptions=False)[0]
-        else:
-            ret = func(*args, **kwargs)
-    except Exception as exc:
-        show_unknown('Function returned an error',
-                     details=dict(metadata=metadata,
-                                  function_call=dict(args=args,
-                                                     kwargs=kwargs),
-                                  error=repr(exc).replace(':', ',')))
+    if asyncio.iscoroutinefunction(func):
+        ret = asynchronous.run_func(
+            func, ((args, kwargs),), return_exceptions=False)[0]
     else:
-        if ret:
-            show_open('Function check was found open',
-                      details=dict(metadata=metadata,
-                                   function_call=dict(args=args,
-                                                      kwargs=kwargs,
-                                                      return_value=ret)))
-            return True
-        show_close('Function check was found closed',
-                   details=dict(metadata=metadata,
-                                function_call=dict(args=args,
-                                                   kwargs=kwargs,
-                                                   return_value=ret)))
-    return False
+        ret = func(*args, **kwargs)
+
+    is_check_open: bool = bool(ret)
+    msg_open: str = 'Check was found open'
+    msg_closed: str = 'Check was found closed'
+
+    unit = Unit(where='Custom function call',
+                specific=[msg_open if is_check_open else msg_closed])
+
+    if is_check_open:
+        return OPEN, msg_open, [unit], []
+    return CLOSED, msg_closed, [], [unit]
 
 
 @lru_cache(maxsize=None, typed=True)
