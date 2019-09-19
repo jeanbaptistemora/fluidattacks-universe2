@@ -37,11 +37,6 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-.cssmenu {
-  background: $fluid-black;
-  line-height: 1;
-}
-
 .menu-button {
   &::before {
     @include menu-bars;
@@ -149,15 +144,6 @@ $white: rgba(255, 255, 255, 1);
 }
 
 @media (min-width: 960px) {
-
-  .contact {
-    display: block;
-  }
-
-  .search {
-    display: inline-block;
-    margin-left: 20px;
-  }
 
   .cssmenu {
     height: 72px;
