@@ -1,14 +1,22 @@
+from collections import OrderedDict  
+
 from django.conf import settings
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from jose import jwt
 
+from app.dal.finding import get_finding
+from app.dal.integrates_dal import get_findings_released_dynamo
+from app.dal.vulnerability import get_vulnerabilities
 from app.scheduler import (
     is_not_a_fluidattacks_email, remove_fluid_from_recipients, get_event,
     is_a_unsolved_event, get_events_submissions, get_unsolved_events,
-    extract_info_from_event_dict, get_external_recipients, get_finding_url
-    )
+    extract_info_from_event_dict, get_finding_url,
+    get_status_vulns_by_time_range, create_weekly_date, get_accepted_vulns,
+    get_by_time_range, create_register_by_week, create_data_format_chart,
+    get_all_vulns_by_project, get_first_week_dates
+)
 
 
 class SchedulerTests(TestCase):
@@ -104,4 +112,82 @@ class SchedulerTests(TestCase):
         test_data = get_finding_url(dumb_finding_dict)
         expected_output = 'https://fluidattacks.com/integrates/dashboard#!\
 /project/test/test/description'
+        assert test_data == expected_output
+
+    def test_get_status_vulns_by_time_range(self):
+        released_findings = get_findings_released_dynamo('UNITTESTING')
+        first_day = '2019-01-01 12:00:00'
+        last_day = '2019-06-30 23:59:59'
+        vulns = get_all_vulns_by_project(released_findings)
+        test_data = get_status_vulns_by_time_range(
+            vulns, first_day, last_day, released_findings
+        )
+        expected_output = {'found': 23, 'accepted': 4, 'closed': 7}
+        assert test_data == expected_output
+
+    def test_create_weekly_date(self):
+        first_date = '2019-09-19 13:23:32'
+        test_data = create_weekly_date(first_date)
+        expected_output = 'Sep 16 - 22, 2019'
+        assert test_data == expected_output
+
+    def test_get_accepted_vulns(self):
+        released_findings = get_findings_released_dynamo('UNITTESTING')
+        first_day = '2019-01-01 12:00:00'
+        last_day = '2019-06-30 23:59:59'
+        vulns = get_all_vulns_by_project(released_findings)
+        test_data = get_accepted_vulns(
+            released_findings, vulns, first_day, last_day
+        )
+        expected_output = 4
+        assert test_data == expected_output
+
+    def test_get_by_time_range(self):
+        finding = get_finding('422286126')
+        first_day = '2019-01-01 12:00:00'
+        last_day = '2019-06-30 23:59:59'
+        vuln = get_vulnerabilities('422286126')[0]
+        test_data = get_by_time_range(
+            finding, vuln, first_day, last_day
+        )
+        expected_output = 1
+        assert test_data == expected_output
+
+    def test_create_register_by_week(self):
+        project_name = 'unittesting'
+        test_data = create_register_by_week(project_name)
+        print test_data
+        assert isinstance(test_data, list)
+        for item in test_data:
+            assert isinstance(item, list)
+            assert isinstance(item[0], dict)
+            assert item[0] is not None
+
+    def test_create_data_format_chart(self):
+        registers = OrderedDict(
+            [('Sep 24 - 30, 2018',
+              {'found': 2, 'accepted': 0, 'closed': 0, 'assumed_closed': 0})]
+        )
+        test_data = create_data_format_chart(registers)
+        print test_data
+        expected_output = [
+            [{'y': 2, 'x': 'Sep 24 - 30, 2018'}],
+            [{'y': 0, 'x': 'Sep 24 - 30, 2018'}],
+            [{'y': 0, 'x': 'Sep 24 - 30, 2018'}],
+            [{'y': 0, 'x': 'Sep 24 - 30, 2018'}]
+        ]
+        assert test_data == expected_output
+
+    def test_get_all_vulns_by_project(self):
+        all_registers = get_findings_released_dynamo('UNITTESTING')
+        test_data = get_all_vulns_by_project(all_registers)
+        assert isinstance(test_data, list)
+        for item in test_data:
+            assert isinstance(item, dict)
+        assert test_data[0]['finding_id']
+
+    def test_get_first_week_dates(self):
+        vulns = get_vulnerabilities('422286126')
+        test_data = get_first_week_dates(vulns)
+        expected_output = ('2018-09-24 00:00:00', '2018-09-30 23:59:59')
         assert test_data == expected_output
