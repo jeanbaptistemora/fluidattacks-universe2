@@ -74,14 +74,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: integrates
+  name: integrates-app
   namespace: serves
 spec:
   ports:
   - port: 80
     targetPort: 80
   selector:
-    app: integrates
+    app: integrates-app
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
