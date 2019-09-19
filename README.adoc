@@ -1,0 +1,43 @@
+:description: Unlike other asciidoc pages in this repository, this file aims to provide better insight about the Fluid Attacks web repository, it's main files, paths and features, the main dependencies used to add new changes and usefull overall information about the repository.
+:keywords: Web, Repository, Fluid Attacks, Guidelines, Readme, Features
+:author: Oscar Eduardo Prado
+:date: 2019-10-19
+
+= Fluid Attacks Web Repository
+
+This repository contains all the pages
+in the Fluid Attacks website.
+
+== Dependencies
+
+As a developer you need these dependencies/tools
+to work on this repository,
+depending on what you need:
+
+. link:http://asciidoc.org/[AsciiDoc] for dynamically generated pages.
+. link:https://www.python.org/[Python 3.7] for web linters.
+. link:https://sass-lang.com/[sass] and link:https://tachyons.io/[tachyons]
+for styles customization.
+. HTML5 and link:https://jinja.palletsprojects.com/en/2.10.x/[Jinja2] for static pages.
+. link:https://blog.getpelican.com/[Pelican] for parsing AsciiDoc into HTML
+. link:https://pre-commit.com/[pre-commit] for local linting over
+the changes in the commit
+
+For more information about all the dependecies
+used in this repository you can check the link:builder/base/Dockerfile[Dockerfile]
+
+== Work Paths
+
+Depending on what you need to modify on this repository
+you may need to use some of the following paths
+
+* link:content/[content] includes all the AsciiDoc pages:
++
+** link:content/blog/[blog] contains the blog articles.
+** link:content/images[images] contains the icons and blog author photos.
+If you are a new blog author you must first add your picture link:content/images/authors[here]
+to reference it in the +:writer:+ metadata.
+** link:content/pages/[pages] contains all the remaining pages.
+* link:ci-scripts/[ci-scripts] contain the web linters
+and pre-commit configuration files
+* link:theme/2014/[theme] folder includes all the scss, js and static HTML pages
