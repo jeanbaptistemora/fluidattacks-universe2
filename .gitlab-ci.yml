@@ -259,9 +259,9 @@ change_keys:
         jq -r '.auth.client_token')
     - sed -i 's/$FI_VAULT_HOST/'"$(echo -n $VAULT_HOST | base64)"'/;
         s/$FI_VAULT_TOKEN/'"$(echo -n $INTEGRATES_VAULT_TOKEN | base64)"'/'
-        eks/manifests/deployments/integrates.yaml
+        eks/manifests/deployments/integrates-app.yaml
     - sed -i 's/$DATE/'"$(date)"'/' eks/manifests/deployments/*.yaml
-    - kubectl apply -f eks/manifests/deployments/integrates.yaml
+    - kubectl apply -f eks/manifests/deployments/integrates-app.yaml
     - kubectl rollout status deploy/integrates-app --timeout=5m ||
         { kubectl rollout undo deploy/integrates-app && exit 1; }
     - python3 -c "from rotate_fs_keys import delete_formstack_tokens;

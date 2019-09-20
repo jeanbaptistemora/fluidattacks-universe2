@@ -282,7 +282,7 @@ export FI_VAULT_HOST
 export FI_VAULT_TOKEN
 
 deploy_application deployments/exams.yaml
-deploy_application deployments/integrates.yaml
+deploy_application deployments/integrates-app.yaml
 deploy_application deployments/vpn.yaml
 deploy_application daemonsets/newrelic-infra.yaml
 
