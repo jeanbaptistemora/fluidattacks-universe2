@@ -235,17 +235,6 @@ pre {
   border-top: 3px solid $darkblue;
 }
 
-article {
-  margin: 0 auto;
-  max-width: 95ch;
-  text-align: left;
-
-  h1 {
-    margin: 20px 0 30px;
-    text-align: center;
-  }
-}
-
 .anchor {
   display: block;
   position: relative;
@@ -463,30 +452,6 @@ article {
   p {
     margin-top: 0;
   }
-}
-
-.big {
-  font-size: 2em;
-  }
-
-.small {
-  font-size: .6em;
-}
-
-.underline {
-  text-decoration: underline;
-}
-
-.overline {
-  text-decoration: overline;
-}
-
-.line-through {
-  text-decoration: line-through;
-}
-
-.paragraph {
-  margin-bottom: 20px;
 }
 
 .preamble {

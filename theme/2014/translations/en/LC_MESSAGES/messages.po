@@ -982,6 +982,10 @@ msgstr "Previous"
 msgid "Pagination-nxt"
 msgstr "Next"
 
+#: templates/salesforce.html:62
+msgid "contact-text"
+msgstr "Talk to our experts and start solving your vulnerabilities now!"
+
 #: templates/salesforce.html:114
 msgid "Form-number-valid"
 msgstr "Number is valid"
