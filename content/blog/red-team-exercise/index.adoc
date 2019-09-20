@@ -1,11 +1,11 @@
 :slug: red-team-exercise/
 :date: 2019-09-18
 :category: documentation
-:subtitle: What is a Red Team Exercise?
+:subtitle: What is a Red Team exercise?
 :tags: security, testing
 :image: cover.png
 :alt: Foosball red vs blue. Photo by Stefan Steinbauer on Unsplash: https://unsplash.com/photos/va-B5dBbpr4
-:description: In this blog will be provided information on a Red Team exercise, for the reader to have a general context about what does a Red Team, also called Red Team exercise; we will mention the main strategy used in a Red Team exercise, also the benefits from this exercise to the customer.
+:description: This blog will provide information on a Red Team exercise. It will give the reader a general context about what a Red Team does and the main strategy used during a Red Team exercise. It will also detail the benefits of a Red Team exercise for the customer.
 :keywords: Redteam, Pentesting, Attack, KillChain, Hacking, Bussiness.
 :author: Anderson Taguada
 :writer: anders2d
@@ -15,31 +15,30 @@
 
 = Red Team exercise
 
-Red Team is referred to a group
-that tries to access a system
-through simulating a cyberattack,
-but, in this exercise, a Red Team is like a soccer team,
-because a soccer team has its offensive strategies
-and every player has an important role;
-this is the purpose of a Red Team:
-use strategies, techniques, and tools to weaken a system.
+Red Team refers to a team of professional hackers
+that attempts to access a system through simulating a cyberattack.
+During a Red Team exercise each team member plays a specific role
+while the team, as a whole,
+uses offensive strategies,
+a variety of techniques,
+and tools in order to weaken a system.
 
 
-== A brief concept of Red Team
+== Red Team--The Concept
 
-Red Team is a group with knowledge in cybersecurity
-that unlike the pentester,
-they goes beyond than searching vulnerabilities and notified them.
-a Red Team also simulates a real attack, assuming an adversary role.
+In cybersecurity, a Red Team's knowledge,
+skills, and abilities go beyond those of a pentester
+whose role is to search, find, and report system vulnerabilities.
+A Red Team also simulates a real attack by assuming an adversarial role.
 
 
-== Divide and conquer
+== Divide and Conquer
 
-Red Team members have different link:https://www.tutorialspoint.com/ethical_hacking/ethical_hacking_skills.htm[hacking skills],
-and rarely the members have the same skills;
-this is because if an attack is structured and divided,
-the members will focus on specific activities to achieve success,
-thus, in a Red Team, you can find the following skills:
+Red Team members possess different link:https://www.tutorialspoint.com/ethical_hacking/ethical_hacking_skills.htm[hacking skills],
+in order to simulate a real attack.
+A real attack may be structured and divided,
+with the attackers focusing on specific activities to achieve success.
+Therefore, in a Red Team, you will find team members with the following skills:
 
 .Posible roles in a Red Team via link:https://medium.com/@redteamwrangler/how-do-i-prepare-to-join-a-red-team-d74ffb5fdbe6[Medium.com].
 image::skillredteam.png[Possible roles in a Red Team via Medium.com.]
@@ -49,7 +48,7 @@ we had a talk with Andres of +Fluid Attacks+,
 when we asked him about the Red Team exercise
 in +Fluid Attacks+, he said:
 [role="fluid-qanda"]
-  . First, the Red Team propose five hacking objetives,
+  . "First, the Red Team propose five hacking objetives,
   for example: escalate privileges, modify system files or install backdoor
   to do it, we use the kill chain strategy"
 
