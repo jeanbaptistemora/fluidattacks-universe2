@@ -491,36 +491,39 @@ new employees ask when they become part of our work team:
   and therefore, result in an increase in the employee's knowledge and skills,
   and if +Fluid Attacks+ can afford such an increase in the long term.
 
-*How Fluid Attacks determines the salary factors for a new talent?*::
-  The historic performance and long term alignment for a new talent
-  that has never worked for +Fluid Attacks+
-  are defined by regarding his/her selection process.
-  For this reason, this process is strict and rigorous.
-  However there can be two posible failure scenarios:
-  underestimation, in which case we perform extemporaneous salary reviews,
-  or overestimation, which results only on inflation adjustments
-  in yearly salary reviews.
+*How does Fluid Attacks determine the salary factors for a new employee?*::
+  For a new employee who has never previously worked for Fluid Attacks,
+  historic performance and long-term alignment
+  is defined by the new employee's selection process.
+  This is why the selection process is strict and rigorous.
+  However, there can be two possible failures within this system.
+  One is an underestimation of the new employee's skills, abilities,
+  and knowledge in which case we would perform an extemporaneous salary review.
+  The other is an overestimation of skills, abilities,
+  and knowledge which would result only in an inflation adjustment
+  in a yearly salary review.
 
 *What would be my estimated salary after one year?*::
   <<q23,See question 23>>
 
 *What are the available salary ranges?*::
-  In +Fluid Attacks+ there are salaries from +$1.4M COP+ to +$14M COP+.
-  For lower salaries there are more people in that range,
-  for higher salaries there are less people.
-  That means these values follow an exponential distribution.
+  At +Fluid Attacks+ salaries range from $1.4M COP to $14M COP.
+  These values follow an exponential distribution,
+  meaning there are more people in the lower salary range
+  and fewer people in the higher salary range.
 
-*What does Fluid Attacks expect from a new talent?*::
-  In +Fluid Attacks+ we have three immovable and non-negotiable link:../../values[values]:
+*What does Fluid Attacks expect from a new employee?*::
+  At Fluid Attacks, we have three unchanging, non-negotiable link:../../values[values]:
   +
-  * *HONESTY:* We expect the talent to stick strictly to our ethics code,
-  to genuinely accept our working philosophy,
-  always speaking with the *truth*,
-  using the defined channels
-  and in a prudent manner.
-  We expect an immaculate care of +Fluid Attacks+ and customers
-  confidential information,
-  as well as a responsible use of the hacking knowledge.
+  * *HONESTY:* We expect new employees to strictly abide by our ethics code,
+  to follow our working philosophy,
+  to always speak the truth using defined channels and in a respectful manner.
+  We expect all employees,
+  regardless of how long they have worked for Fluid Attacks,
+  will exercise maximum security in safeguarding
+  our company's and customer's confidential information.
+  In addition, our expectation is that employees
+  will use their hacking knowledge in a responsible manner.
   Do not hack without authorization, even outside +Fluid Attacks+.
   +
   +
