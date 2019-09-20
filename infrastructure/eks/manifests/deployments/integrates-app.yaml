@@ -59,13 +59,13 @@ spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-            labelSelector:
-              matchExpressions:
-                - key: "app"
-                  operator: In
-                  values:
-                  - integrates-app
-            topologyKey: "kubernetes.io/hostname"
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values:
+                    - integrates-app
+              topologyKey: "kubernetes.io/hostname"
       imagePullSecrets:
       - name: gitlab-reg
 ---
