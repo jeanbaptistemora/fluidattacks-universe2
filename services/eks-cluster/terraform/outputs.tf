@@ -23,7 +23,7 @@ output "region" {
   value       = var.region
 }
 
-output "cluseter-name" {
+output "cluster-name" {
   description = "Name of the cluster"
   value       = local.cluster_name
 }

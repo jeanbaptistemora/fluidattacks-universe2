@@ -18,5 +18,5 @@ get_cluster_name() {
     --backend-config="bucket=$BUCKET" \
     eks-cluster/terraform/
 
-  terraform output cluseter-name
+  terraform output cluster-name
 }

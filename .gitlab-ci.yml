@@ -103,7 +103,7 @@ terraform-states-bucket:
   stage: terraform-backend
   image: registry.gitlab.com/fluidsignal/serves:builder
   script:
-    - ./infrastructure/terraform/states-bucket.sh
+    - ./services/states-bucket/states-bucket.sh
   only:
     - master
   except:
