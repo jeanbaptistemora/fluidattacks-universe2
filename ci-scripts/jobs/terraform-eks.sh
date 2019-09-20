@@ -22,13 +22,13 @@ terraform_eks(){
 
   terraform init \
     --backend-config="bucket=$BUCKET" \
-    infrastructure/terraform/eks
+    services/eks-cluster/terraform/
 
   # Set either apply or plan terraform setting based on branch
   if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
-    terraform apply -auto-approve -refresh=true infrastructure/terraform/eks
+    terraform apply -auto-approve -refresh=true services/eks-cluster/terraform/
   else
-    terraform plan -refresh=true infrastructure/terraform/eks
+    terraform plan -refresh=true services/eks-cluster/terraform/
   fi
 
 }

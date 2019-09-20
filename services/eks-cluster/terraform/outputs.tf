@@ -22,3 +22,8 @@ output "region" {
   description = "AWS region."
   value       = var.region
 }
+
+output "cluseter-name" {
+  description = "Name of the cluster"
+  value       = local.cluster_name
+}
