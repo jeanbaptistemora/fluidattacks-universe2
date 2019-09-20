@@ -15,21 +15,25 @@ terraform_eks(){
   export TF_VAR_aws_access_key
   export TF_VAR_aws_secret_key
   local BUCKET
+  local CURRENT_DIR
 
   TF_VAR_aws_access_key="$AWS_ACCESS_KEY_ID"
   TF_VAR_aws_secret_key="$AWS_SECRET_KEY_ID"
   BUCKET='fluidattacks-terraform-states'
+  CURRENT_DIR=$(pwd)
 
-  terraform init \
-    --backend-config="bucket=$BUCKET" \
-    services/eks-cluster/terraform/
+  cd services/eks-cluster/terraform/ || return 1
+
+  terraform init --backend-config="bucket=$BUCKET"
 
   # Set either apply or plan terraform setting based on branch
   if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
-    terraform apply -auto-approve -refresh=true services/eks-cluster/terraform/
+    terraform apply -auto-approve -refresh=true
   else
-    terraform plan -refresh=true services/eks-cluster/terraform/
+    terraform plan -refresh=true
   fi
+
+  cd "$CURRENT_DIR" || return 1
 
 }
 
