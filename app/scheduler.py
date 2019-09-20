@@ -591,6 +591,6 @@ def reset_expired_accepted_findings():
         for finding in findings:
             finding_id = finding.get('finding_id')
             date = finding.get('acceptance_date')
-            if date >= today:
+            if date <= today:
                 treatment = {'treatment': 'NEW'}
                 update_treatment(finding_id, treatment)
