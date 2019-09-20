@@ -19,8 +19,8 @@ runners:
     - jfrog-reg
   privileged: false
   builds:
-    cpuLimit: 900m
-    memoryLimit: 5Gi
+    cpuLimit: 1000m
+    memoryLimit: 4Gi
     cpuRequests: 500m
     memoryRequests: 1Gi
 resources:
