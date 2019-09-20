@@ -24,9 +24,9 @@ stages:
               '"'"${CI_REGISTRY}"'":{'
                   '"username":"'"${CI_REGISTRY_USER}"'",'
                   '"password":"'"${CI_REGISTRY_PASSWORD}"'"},'
-              '"'"${DOCKER_HUB_REGISTRY}"'":{'
+              '"'"${DOCKER_HUB_URL}"'":{'
                   '"username":"'"${DOCKER_HUB_USER}"'",'
-                  '"password":"'"${DOCKER_HUB_PASSWORD}"'"}}}' >
+                  '"password":"'"${DOCKER_HUB_PASS}"'"}}}' >
           /kaniko/.docker/config.json
 
 build:
