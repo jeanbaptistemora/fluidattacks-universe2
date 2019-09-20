@@ -21,10 +21,12 @@ stages:
     entrypoint: [""]
   before_script:
     - echo '{"auths":{'
-              '"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'",'
-                                 '"password":"'"${CI_REGISTRY_PASSWORD}"'"},'
-              '"'"${HUB_REGISTRY}"'":{"username":"'"${HUB_USER}"'",'
-                                  '"password":"'"${HUB_PASSWORD}"'"}}}' >
+              '"'"${CI_REGISTRY}"'":{'
+                  '"username":"'"${CI_REGISTRY_USER}"'",'
+                  '"password":"'"${CI_REGISTRY_PASSWORD}"'"},'
+              '"'"${DOCKER_HUB_REGISTRY}"'":{'
+                  '"username":"'"${DOCKER_HUB_USER}"'",'
+                  '"password":"'"${DOCKER_HUB_PASSWORD}"'"}}}' >
           /kaniko/.docker/config.json
 
 build:
