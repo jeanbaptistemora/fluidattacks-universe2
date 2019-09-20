@@ -1,3 +1,9 @@
+export interface IInvalidateAccessTokenAttr {
+  invalidateAccessToken: {
+    success: boolean;
+  };
+}
+
 export interface IUpdateAccessTokenAttr {
   updateAccessToken: {
     sessionJwt: string;
