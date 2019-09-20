@@ -262,8 +262,8 @@ change_keys:
         eks/manifests/deployments/integrates.yaml
     - sed -i 's/$DATE/'"$(date)"'/' eks/manifests/deployments/*.yaml
     - kubectl apply -f eks/manifests/deployments/integrates.yaml
-    - kubectl rollout status deploy/integrates --timeout=5m ||
-        { kubectl rollout undo deploy/integrates && exit 1; }
+    - kubectl rollout status deploy/integrates-app --timeout=5m ||
+        { kubectl rollout undo deploy/integrates-app && exit 1; }
     - python3 -c "from rotate_fs_keys import delete_formstack_tokens;
         delete_formstack_tokens()"
   <<: *only_schedules
