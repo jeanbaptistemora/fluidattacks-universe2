@@ -24,7 +24,7 @@ from app.dto.finding import (
     FindingDTO, get_project_name, migrate_description, migrate_treatment,
     migrate_report_date, finding_vulnerabilities
 )
-from app.exceptions import FindingNotFound, IsNotTheAuthor
+from app.exceptions import FindingNotFound, InvalidDate, IsNotTheAuthor
 from app.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
     send_mail_accepted_finding, send_mail_delete_draft, send_mail_delete_finding
@@ -498,6 +498,7 @@ def update_treatment_in_vuln(finding_id, updated_values):
 
 def update_treatment(finding_id, updated_values):
     updated_values['external_bts'] = updated_values.get('bts_url')
+    date = datetime.now() + timedelta(days=90)
     del updated_values['bts_url']
 
     if updated_values['treatment'] == 'NEW':
@@ -508,11 +509,15 @@ def update_treatment(finding_id, updated_values):
         send_accepted_email(finding_id, updated_values.get('treatment_manager'),
                             updated_values.get('treatment_justification'))
         if updated_values.get('acceptance_date'):
+            today_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             date_size = updated_values['acceptance_date'].split(' ')
             if len(date_size) == 1:
                 updated_values['acceptance_date'] += ' ' + datetime.now().strftime('%H:%M:%S')
+            if updated_values.get('acceptance_date') <= today_date:
+                raise InvalidDate()
+            if updated_values.get('acceptance_date') > date.strftime('%Y-%m-%d'):
+                raise InvalidDate()
         if updated_values.get('acceptance_date') == '':
-            date = datetime.now() + timedelta(days=90)
             max_date = date.strftime('%Y-%m-%d %H:%M:%S')
             updated_values['acceptance_date'] = max_date
 

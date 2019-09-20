@@ -167,3 +167,12 @@ class IsNotTheAuthor(Exception):
         """ Constructor """
         msg = 'Exception - Only the draft author can perform this operation'
         super(IsNotTheAuthor, self).__init__(msg)
+
+
+class InvalidDate(Exception):
+    """Exception to control the date inserted in an Accepted finding"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - The inserted date is invalid'
+        super(InvalidDate, self).__init__(msg)

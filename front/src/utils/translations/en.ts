@@ -166,7 +166,7 @@ const enTranslations: dict = {
       tab_title: "Comments",
     },
     tab_description: {
-      acceptance_date: "Accept until",
+      acceptance_date: "Accepted until",
       action: "Action",
       actor: {
         any_customer: "Any customer of the organization",
