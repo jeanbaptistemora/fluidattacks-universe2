@@ -176,3 +176,21 @@ class InvalidDate(Exception):
         """ Constructor """
         msg = 'Exception - The inserted date is invalid'
         super(InvalidDate, self).__init__(msg)
+
+
+class AlreadyApproved(Exception):
+    """Exception to control draft-only operations"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - This draft has already been approved'
+        super(AlreadyApproved, self).__init__(msg)
+
+
+class AlreadySubmitted(Exception):
+    """Exception to control submitted drafts"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - This draft has already been submitted'
+        super(AlreadySubmitted, self).__init__(msg)

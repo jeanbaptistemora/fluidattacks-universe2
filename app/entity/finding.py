@@ -883,6 +883,7 @@ class CreateDraft(Mutation):
         analyst_email = util.get_jwt_content(info.context)['user_email']
         success = finding_domain.create_draft(
             analyst_email, project_name, title, **kwargs)
+
         if success:
             util.cloudwatch_log(info.context, 'Security: Created draft in '
                                 '{} project succesfully'.format(project_name))
@@ -901,7 +902,9 @@ class SubmitDraft(Mutation):
     def mutate(self, info, finding_id):
         analyst_email = util.get_jwt_content(info.context)['user_email']
         success = finding_domain.submit_draft(finding_id, analyst_email)
+
         if success:
+            util.invalidate_cache(finding_id)
             util.cloudwatch_log(info.context, 'Security: Submitted draft '
                                 '{} succesfully'.format(finding_id))
         return SubmitDraft(success=success)

@@ -24,7 +24,10 @@ from app.dto.finding import (
     FindingDTO, get_project_name, migrate_description, migrate_treatment,
     migrate_report_date, finding_vulnerabilities
 )
-from app.exceptions import FindingNotFound, InvalidDate, IsNotTheAuthor
+from app.exceptions import (
+    AlreadyApproved, AlreadySubmitted, FindingNotFound, InvalidDate,
+    IsNotTheAuthor
+)
 from app.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
     send_mail_accepted_finding, send_mail_delete_draft, send_mail_delete_finding
@@ -661,7 +664,7 @@ def reject_draft(draft_id, reviewer_email, project_name, context):
             draft_data['finding'], reviewer_email)
         result = True
     else:
-        raise GraphQLError('CANT_REJECT_FINDING')
+        raise AlreadyApproved()
 
     return result
 
@@ -712,21 +715,19 @@ def delete_finding(finding_id, project_name, justification, context):
 
 
 def approve_draft(draft_id, project_name, context):
-    fin_dto = FindingDTO()
-    api = FormstackAPI()
-    is_draft = ('releaseDate' not in
-                integrates_dal.get_finding_attributes_dynamo(draft_id, ['releaseDate']))
+    finding_data = finding_dal.get_finding(draft_id)
+    is_draft = 'releaseDate' not in finding_data
     success = False
-    has_vulns = integrates_dal.get_vulnerabilities_dynamo(draft_id)
 
     if is_draft:
+        has_vulns = integrates_dal.get_vulnerabilities_dynamo(draft_id)
         if has_vulns:
-            finding_data = fin_dto.parse(draft_id, api.get_submission(draft_id))
             release_date, has_release, has_last_vuln = update_release(project_name,
                                                                       finding_data, draft_id)
             if has_release and has_last_vuln:
                 integrates_dal.add_release_to_project_dynamo(
                     project_name, release_date)
+                success = True
             else:
                 rollbar.report_message('Error: An error occurred accepting the draft', 'error')
         else:
@@ -735,7 +736,7 @@ def approve_draft(draft_id, project_name, context):
         util.cloudwatch_log(context,
                             'Security: Attempted to accept an already \
                             released finding')
-        raise GraphQLError('CANT_APPROVE_FINDING')
+        raise AlreadyApproved()
     return success, release_date
 
 
@@ -828,12 +829,23 @@ def create_draft(analyst_email, project_name, title, **kwargs):
 def submit_draft(finding_id, analyst_email):
     success = False
     finding = finding_dal.get_finding(finding_id)
-    if finding.get('analyst') == analyst_email:
-        tzn = pytz.timezone(settings.TIME_ZONE)
-        today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    is_draft = 'releaseDate' not in finding
 
-        success = finding_dal.update(finding_id, {'report_date': today})
+    if is_draft:
+        is_author = finding.get('analyst') == analyst_email
+        if is_author:
+            if 'reportDate' not in finding:
+                tzn = pytz.timezone(settings.TIME_ZONE)
+                today = datetime.now(tz=tzn).today().strftime(
+                    '%Y-%m-%d %H:%M:%S')
+
+                success = finding_dal.update(finding_id, {
+                    'report_date': today})
+            else:
+                raise AlreadySubmitted()
+        else:
+            raise IsNotTheAuthor()
     else:
-        raise IsNotTheAuthor()
+        raise AlreadyApproved()
 
     return success

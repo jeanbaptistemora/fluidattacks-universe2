@@ -88,8 +88,14 @@ export const rejectDraft: ((draftId: string, projectName: string) => ThunkResult
           if (error.response !== undefined) {
             const { errors } = error.response.data;
 
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error(error.message, errors);
+            switch (errors[0].message) {
+              case "Exception - This draft has already been approved":
+                msgError(translate.t("proj_alerts.draft_already_approved"));
+                break;
+              default:
+                msgError(translate.t("proj_alerts.error_textsad"));
+                rollbar.error(error.message, errors);
+            }
           }
         });
     };
@@ -152,7 +158,7 @@ export const approveDraft: ((draftId: string) => ThunkResult<void>) =
           if (error.response !== undefined) {
             const { errors } = error.response.data;
             switch (errors[0].message) {
-              case "CANT_APPROVE_FINDING":
+              case "Exception - This draft has already been approved":
                 msgError(translate.t("proj_alerts.draft_already_approved"));
                 break;
               case "CANT_APPROVE_FINDING_WITHOUT_VULNS":
