@@ -7,7 +7,7 @@ undo_rollout() {
   set -e
 
   if [[ "$1" == 'app' ]]; then
-    kubectl rollout undo deploy/integrates
+    kubectl rollout undo deploy/integrates-app
     return 0
   elif [[ "$1" == 'bot' ]]; then
     kubectl rollout undo deploy/integrates-bot
@@ -100,7 +100,7 @@ deploy_k8s() {
 
   kubectl apply -f "$CONFIG"
 
-  if ! kubectl rollout status deploy/integrates --timeout=5m; then
+  if ! kubectl rollout status deploy/integrates-app --timeout=5m; then
     undo_rollout app
     return 1
   fi
