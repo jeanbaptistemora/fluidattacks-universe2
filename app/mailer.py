@@ -84,6 +84,10 @@ def _send_mail(template_name, email_to, context, tags):
         pass
 
 
+def send_mail_new_draft(email_to, context):
+    _send_mail('new-draft', email_to, context=context, tags=GENERAL_TAG)
+
+
 def send_mail_new_vulnerabilities(email_to, context):
     _send_mail('newvulnerabilitiesintegrates', email_to, context=context, tags=VULNERABILITIES_TAG)
 

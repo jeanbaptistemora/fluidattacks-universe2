@@ -30,7 +30,8 @@ from app.exceptions import (
 )
 from app.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
-    send_mail_accepted_finding, send_mail_delete_draft, send_mail_delete_finding
+    send_mail_accepted_finding, send_mail_delete_draft,
+    send_mail_delete_finding, send_mail_new_draft
 )
 from app.utils import cvss, notifications, findings as finding_utils
 
@@ -826,6 +827,28 @@ def create_draft(analyst_email, project_name, title, **kwargs):
         analyst_email, finding_id, project_name, title, **kwargs)
 
 
+def send_new_draft_mail(
+    analyst_email, finding_id, finding_title, project_name
+):
+    recipients = FI_MAIL_REVIEWERS.split(',')
+
+    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
+    email_context = {
+        'analyst_email': analyst_email,
+        'finding_id': finding_id,
+        'finding_name': finding_title,
+        'finding_url': base_url + '/project/{project!s}/drafts/{id!s}'
+                                  '/description'.format(
+                                      project=project_name, id=finding_id),
+        'project_name': project_name
+    }
+    email_send_thread = threading.Thread(
+        name='New draft email thread',
+        target=send_mail_new_draft,
+        args=(recipients, email_context))
+    email_send_thread.start()
+
+
 def submit_draft(finding_id, analyst_email):
     success = False
     finding = finding_dal.get_finding(finding_id)
@@ -841,6 +864,11 @@ def submit_draft(finding_id, analyst_email):
 
                 success = finding_dal.update(finding_id, {
                     'report_date': today})
+                if success:
+                    send_new_draft_mail(analyst_email,
+                                        finding_id,
+                                        finding.get('finding'),
+                                        finding.get('project_name'))
             else:
                 raise AlreadySubmitted()
         else:
