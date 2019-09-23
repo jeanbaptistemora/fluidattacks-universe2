@@ -25,9 +25,11 @@ $black: rgba(0, 0, 0, 1);
 .w-32 { width: 32%; }
 .montsy { font-family: 'Montserrat'; }
 .sans-pro { font-family: 'Source Sans Pro'; }
+.mono { font-family: 'Overpass Mono', monospace; }
 .c-fluid-bk { color: $fluid-black; }
 .c-fluid-red { color: $fluid-red; }
 .c-fluif-gray { color: $fluid-gray; }
+.c-fluid-dkblue { color: $darkblue; }
 .grayscale { filter: grayscale(100);}
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-fluid-bk { &:hover { color: $fluid-black;} }
@@ -123,7 +125,6 @@ h4 {
 
 a {
   color: $darkblue;
-  text-decoration: none;
 
   &:hover {
     color: $fluid-dark-red;
@@ -172,17 +173,6 @@ p {
   strong {
     color: $textblack;
     font-weight: bold;
-  }
-
-  .monospaced {
-    background-color: $fluid-light-gray;
-    border-radius: 5px;
-    font-family: 'Overpass Mono', monospace;
-    font-size: 16px;
-    overflow-wrap: break-word;
-    padding: 3px 5px;
-    vertical-align: middle;
-    word-break: break-word;
   }
 }
 
@@ -648,10 +638,6 @@ pre {
 
   p {
     font-size: 20px;
-
-    .monospaced {
-      font-size: 18px;
-    }
   }
 
   .admonitionblock {
