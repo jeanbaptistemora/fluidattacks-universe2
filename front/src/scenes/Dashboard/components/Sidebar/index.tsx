@@ -9,9 +9,11 @@ import style from "./index.css";
 
 interface ISidebarProps {
   onLogoutClick(): void;
+  onOpenAccessTokenModal(): void;
 }
 
 const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => {
+  const handleOpenUpdateTokenModal: (() => void) = (): void => { props.onOpenAccessTokenModal(); };
   const handleLogoutClick: (() => void) = (): void => { props.onLogoutClick(); };
   const handleLogoClick: (() => void) = (): void => { location.hash = "#!/home"; };
   const isAnalyst: boolean = _.includes(["admin", "analyst"], (window as Window & { userRole: string }).userRole);
@@ -19,8 +21,14 @@ const sidebar: React.FC<ISidebarProps> = (props: ISidebarProps): JSX.Element => 
   const renderAnalystTabs: (() => JSX.Element) = (): JSX.Element => (
     <React.Fragment>
       <TabItem icon={<i className="icon pe-7s-note2" />} label={translate.t("sidebar.forms")} to="/forms" />
-    </React.Fragment>
-  );
+      <React.StrictMode>
+        <li onClick={handleOpenUpdateTokenModal}>
+          <div className={style.item}><i className="icon pe-7s-user" />
+            <span className={style.label}>{translate.t("sidebar.token")}</span>
+          </div>
+        </li>
+      </React.StrictMode>
+    </React.Fragment>);
 
   const renderMenu: ((isNormalScreenSize: boolean) => JSX.Element) = (isNormalScreenSize: boolean): JSX.Element => (
     <BurgerMenu

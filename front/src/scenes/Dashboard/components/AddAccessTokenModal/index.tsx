@@ -180,7 +180,7 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                           type="text"
                           className={globalStyle.noResize}
                           component={textAreaField}
-                          disabled={true}
+                          disabled={false}
                           rows="7"
                         />
                       </Col>

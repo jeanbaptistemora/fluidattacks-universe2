@@ -12,7 +12,7 @@ import Xhr from "../../utils/xhr";
 import * as actionType from "./actionTypes";
 
 export interface IActionStructure {
-  payload: any;
+  payload?: any;
   type: string;
 }
 
@@ -96,4 +96,14 @@ export const closeConfirmDialog: ((dialogName: string) => IActionStructure) =
   (dialogName: string): IActionStructure => ({
     payload: { dialogName },
     type: actionType.CLOSE_CONFIRM_DIALOG,
+  });
+
+export const openUpdateAccessToken: (() => IActionStructure) =
+  (): IActionStructure => ({
+    type: actionType.OPEN_ACCESS_TOKEN_MODAL,
+  });
+
+export const closeUpdateAccessToken: (() => IActionStructure) =
+  (): IActionStructure => ({
+    type: actionType.CLOSE_ACCESS_TOKEN_MODAL,
   });

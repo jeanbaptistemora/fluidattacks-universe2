@@ -16,7 +16,7 @@ describe("Sidebar", () => {
 
   it("should render a sidebar", () => {
     const wrapper: ShallowWrapper = shallow(
-      <Sidebar onLogoutClick={functionMock}/>,
+      <Sidebar onLogoutClick={functionMock} onOpenAccessTokenModal={functionMock}/>,
     );
     expect(wrapper)
       .toHaveLength(1);

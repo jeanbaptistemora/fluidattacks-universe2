@@ -71,6 +71,7 @@ export interface IDashboardState {
     };
   };
   tracking: Pick<ITrackingViewProps, "closings">;
+  updateAccessTokenModal: { open: boolean };
   user: {
     displayPreference: "grid" | "list";
     role: string;
@@ -200,6 +201,7 @@ const initialState: IDashboardState = {
   tracking: {
     closings: [],
   },
+  updateAccessTokenModal: { open: false },
   user: {
     displayPreference: _.get(localStorage, "projectsDisplay", "grid"),
     role: "",
@@ -482,6 +484,26 @@ actionMap[actionType.OPEN_CONFIRM_DIALOG] =
           ...state.confirmDialog[action.payload.dialogName],
           isOpen: true,
         },
+      },
+    });
+
+actionMap[actionType.OPEN_ACCESS_TOKEN_MODAL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+    ({
+      ...state,
+      updateAccessTokenModal: {
+        ...state.updateAccessTokenModal,
+        open: true,
+      },
+  });
+
+actionMap[actionType.CLOSE_ACCESS_TOKEN_MODAL] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+    ({
+      ...state,
+      updateAccessTokenModal: {
+        ...state.updateAccessTokenModal,
+        open: false,
       },
     });
 

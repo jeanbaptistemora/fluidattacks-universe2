@@ -610,10 +610,14 @@ const enTranslations: dict = {
     token: "Token",
   },
   update_access_token: {
+    access_token: "Access Token",
+    close: "Close",
+    delete: "Token invalidated successfully",
     expiration_time: "Expiration Time",
-    invalidate: "Invalidate Token",
+    invalidate: "Invalidate Current Token",
     invalidated: "Invalidated Token",
     success: "Updated Access Token",
+    successfully: "Token updated successfully",
     title: "Update Access Token",
   },
   validations: {
