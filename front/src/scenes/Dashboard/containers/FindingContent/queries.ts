@@ -4,6 +4,7 @@ export const GET_FINDING_HEADER: DocumentNode = gql`
   query GetFindingHeader($findingId: String!) {
     finding(identifier: $findingId) {
       analyst
+      id
       reportDate
       title
     }

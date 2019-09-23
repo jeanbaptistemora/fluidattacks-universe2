@@ -10,7 +10,6 @@ import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 
 interface IActionButtonsProps {
-  findingId: string;
   hasSubmission: boolean;
   hasVulns: boolean;
   isAuthor: boolean;

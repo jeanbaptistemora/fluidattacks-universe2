@@ -1,18 +1,25 @@
+/* tslint:disable:jsx-no-multiline-js
+ *
+ * Disabling this rule is necessary for accessing render props from
+ * apollo components
+ */
+
 import _ from "lodash";
 import React from "react";
+import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { NavLink, Redirect, Route, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Field, submit } from "redux-form";
-import { Button } from "../../../../components/Button/index";
 import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
-import { FluidIcon } from "../../../../components/FluidIcon";
 import { dropdownField } from "../../../../utils/forms/fields";
+import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { openConfirmDialog } from "../../actions";
 import { AlertBox } from "../../components/AlertBox";
+import { FindingActions } from "../../components/FindingActions";
 import { FindingHeader } from "../../components/FindingHeader";
 import { GenericForm } from "../../components/GenericForm";
 import { IDashboardState } from "../../reducer";
@@ -28,6 +35,7 @@ import {
   approveDraft, clearFindingState, deleteFinding, loadFindingData, rejectDraft, ThunkDispatcher,
 } from "./actions";
 import style from "./index.css";
+import { GET_FINDING_HEADER, SUBMIT_DRAFT_MUTATION } from "./queries";
 import {
   IFindingContentBaseProps, IFindingContentDispatchProps, IFindingContentProps, IFindingContentStateProps,
 } from "./types";
@@ -43,10 +51,9 @@ const enhance: InferableComponentEnhancer<{}> = lifecycle<IFindingContentProps, 
 const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
   const userRole: string =
-  _.isEmpty(props.userRole) ? (window as Window & { userRole: string }).userRole : props.userRole;
-  const currentUserEmail: string = (window as Window & { userEmail: string }).userEmail;
+    _.isEmpty(props.userRole) ? (window as typeof window & { userRole: string }).userRole : props.userRole;
+  const currentUserEmail: string = (window as typeof window & { userEmail: string }).userEmail;
   const isDraft: boolean = _.isEmpty(props.header.reportDate);
-  const hasVulns: number = props.header.openVulns + props.header.closedVulns;
 
   const findingStatus: string = isDraft ? "drafts" : "findings";
 
@@ -81,33 +88,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
     props.onDelete(values.justification);
   };
 
-  const renderActionButtons: (() => JSX.Element | undefined) = (): JSX.Element | undefined =>
-    _.includes(["admin"], userRole) && isDraft ? (
-      <React.Fragment>
-        <Col md={2}>
-          <Button block={true} bsStyle="success" onClick={handleApprove} disabled={hasVulns === 0}>
-            <FluidIcon icon="verified" />&nbsp;Approve
-          </Button>
-        </Col>
-        <Col md={2}>
-          <Button block={true} bsStyle="warning" onClick={handleOpenRejectConfirm}>
-            <FluidIcon icon="delete" />&nbsp;Reject
-          </Button>
-        </Col>
-      </React.Fragment>
-    ) : _.includes(["admin", "analyst"], userRole)
-        ? (
-          <Col md={2} mdOffset={2}>
-            <Button
-              block={true}
-              bsStyle="warning"
-              onClick={isDraft ? handleOpenRejectConfirm : handleOpenDeleteConfirm}
-            >
-              <FluidIcon icon="delete" />&nbsp;Delete
-            </Button>
-          </Col>
-        ) : undefined;
-
   return (
     <React.StrictMode>
       <div className={style.mainContainer}>
@@ -115,12 +95,56 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           <Col md={12} sm={12}>
             <React.Fragment>
               {props.alert === undefined ? undefined : <AlertBox message={props.alert} />}
-              <Row>
-                <Col md={8}>
-                  <h2>{props.title}</h2>
-                </Col>
-                {renderActionButtons()}
-              </Row>
+              <Query query={GET_FINDING_HEADER} variables={{ findingId }}>
+                {({ data, loading, refetch }: QueryResult): JSX.Element => {
+                  if (_.isNil(data) || loading) { return <React.Fragment />; }
+
+                  const handleMutationResult: ((result: { submitDraft: { success: boolean } }) => void) = (
+                    result: { submitDraft: { success: boolean } },
+                  ): void => {
+                    if (result.submitDraft.success) {
+                      msgSuccess(
+                        translate.t("project.drafts.success_submit"),
+                        translate.t("project.drafts.title_success"),
+                      );
+                      refetch()
+                        .catch();
+                    }
+                  };
+
+                  return (
+                    <Row>
+                      <Col md={8}>
+                        <h2>{data.finding.title}</h2>
+                      </Col>
+                      <Col md={4}>
+                        <Mutation mutation={SUBMIT_DRAFT_MUTATION} onCompleted={handleMutationResult}>
+                          {(submitDraft: MutationFn, { loading: submitting }: MutationResult): JSX.Element => {
+                            const handleSubmitClick: (() => void) = (): void => {
+                              submitDraft({ variables: { findingId } })
+                                .catch();
+                            };
+
+                            return (
+                              <FindingActions
+                                hasVulns={props.header.openVulns + props.header.closedVulns > 0}
+                                hasSubmission={!_.isEmpty(data.finding.reportDate)}
+                                isAuthor={data.finding.analyst === currentUserEmail}
+                                isDraft={isDraft}
+                                loading={submitting}
+                                onApprove={handleApprove}
+                                onDelete={handleOpenDeleteConfirm}
+                                onReject={handleOpenRejectConfirm}
+                                onSubmit={handleSubmitClick}
+                              />
+                            );
+                          }}
+                        </Mutation>
+                      </Col>
+                    </Row>
+                  );
+                }}
+              </Query>
               <hr />
               <div className={style.stickyContainer}>
                 <FindingHeader {...props.header} />
@@ -286,7 +310,7 @@ const mapStateToProps: MapStateToProps<IFindingContentStateProps, IFindingConten
 const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFindingContentBaseProps> =
   (dispatch: ThunkDispatcher, ownProps: IFindingContentBaseProps): IFindingContentDispatchProps => {
     const { findingId, projectName } = ownProps.match.params;
-    const organization: string = (window as Window & { Organization: string }).Organization;
+    const organization: string = (window as typeof window & { Organization: string }).Organization;
 
     return ({
       onApprove: (): void => { dispatch(approveDraft(findingId)); },
@@ -294,7 +318,8 @@ const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFind
       onDelete: (justification: string): void => { dispatch(deleteFinding(findingId, projectName, justification)); },
       onLoad: (): void => {
         dispatch(loadProjectData(projectName));
-        dispatch(loadFindingData(findingId, projectName, organization)); },
+        dispatch(loadFindingData(findingId, projectName, organization));
+      },
       onReject: (): void => { dispatch(rejectDraft(findingId, projectName)); },
       onUnmount: (): void => { dispatch(clearFindingState()); },
       openDeleteConfirm: (): void => { dispatch(openConfirmDialog("confirmDeleteFinding")); },
