@@ -1,4 +1,7 @@
-from collections import OrderedDict  
+# -*- coding: utf-8 -*-
+import pytest
+from collections import OrderedDict
+from decimal import Decimal
 
 from django.conf import settings
 from django.test import TestCase
@@ -15,10 +18,16 @@ from app.scheduler import (
     extract_info_from_event_dict, get_finding_url,
     get_status_vulns_by_time_range, create_weekly_date, get_accepted_vulns,
     get_by_time_range, create_register_by_week, create_data_format_chart,
-    get_all_vulns_by_project, get_first_week_dates
+    get_all_vulns_by_project, get_first_week_dates, get_date_last_vulns,
+    create_msj_finding_pending, all_users_formatted, format_vulnerabilities,
+    get_project_indicators
 )
 
 
+@pytest.mark.usefixtures(
+    'create_users_table',
+    'create_projects_table',
+    'create_project_access_table')
 class SchedulerTests(TestCase):
 
     def test_is_not_a_fluid_attacks_email(self):
@@ -191,3 +200,52 @@ class SchedulerTests(TestCase):
         test_data = get_first_week_dates(vulns)
         expected_output = ('2018-09-24 00:00:00', '2018-09-30 23:59:59')
         assert test_data == expected_output
+
+    def test_get_date_last_vulns(self):
+        vulns = get_vulnerabilities('422286126')
+        test_data = get_date_last_vulns(vulns)
+        expected_output = '2019-01-07 16:01:26'
+        assert test_data == expected_output
+
+    def test_format_vulnerabilities(self):
+        act_finding = get_finding('422286126')
+        positive_delta = 1
+        neutral_delta = 0
+        negative_delta = -1
+
+        test_data = format_vulnerabilities(positive_delta, act_finding)
+        expected_output = 'FIN.S.0051. Weak passwords reversed (+1)'
+        assert test_data == expected_output
+
+        test_data = format_vulnerabilities(neutral_delta, act_finding)
+        expected_output = ''
+        assert test_data == expected_output
+
+        test_data = format_vulnerabilities(negative_delta, act_finding)
+        expected_output = 'FIN.S.0051. Weak passwords reversed (-1)'
+        assert test_data == expected_output
+
+    def test_create_msj_finding_pending(self):
+        not_new_treatment_finding = get_finding('422286126')
+        new_treatment_finding = get_finding('445291998')
+
+        test_data = create_msj_finding_pending(not_new_treatment_finding)
+        expected_output = ''
+        assert test_data == expected_output
+
+        test_data = create_msj_finding_pending(new_treatment_finding)
+        expected_output = u'FIN.S.0002. Denegación de servicio asimétrica'
+        assert expected_output in test_data
+
+    def test_all_user_formatted(self):
+        company = 'test'
+        test_data = all_users_formatted(company)
+        expected_output = {'t': 0}
+        assert test_data == expected_output
+
+    def test_get_project_indicators(self):
+        project_name = 'unittesting'
+        test_data = get_project_indicators(project_name)
+        assert isinstance(test_data, dict)
+        assert len(test_data) == 5
+        assert test_data['max_open_severity'] == Decimal(4.9).quantize(Decimal('0.1'))
