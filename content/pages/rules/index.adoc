@@ -173,6 +173,7 @@
 
 * link:218/[REQ.218 Control access to virtual machines].
 * link:219/[REQ.219 Manage hypervisors through software].
+* link:220/[REQ.220 Manage machine profiles].
 
 == Numbers
 
