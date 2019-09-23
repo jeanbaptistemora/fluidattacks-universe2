@@ -1,13 +1,23 @@
+from __future__ import absolute_import
 import os
 from datetime import datetime
 
+from boto3 import client
 from django.test import TestCase
+from django.test import RequestFactory
+from django.conf import settings
+from django.contrib.sessions.middleware import SessionMiddleware
+from jose import jwt
+from __init__ import (
+    FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
+)
 
 from app.dal.finding import get_finding
 from app.util import (
     response, is_name, is_numeric, ord_asc_by_criticidad, user_email_filter,
     assert_file_mime, has_release, get_last_vuln, validate_release_date,
-    validate_future_releases)
+    validate_future_releases, get_jwt_content, list_s3_objects, replace_all, 
+    list_to_dict, camelcase_to_snakecase)
 
 
 class UtilTests(TestCase):
@@ -91,3 +101,59 @@ class UtilTests(TestCase):
     def test_validate_future_releases(self):
         finding_released = get_finding('475041513')
         assert not validate_future_releases(finding_released)
+
+    def test_get_jwt_content(self):
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        test_data = get_jwt_content(request)
+        expected_output = {
+            u'company': u'unittest',
+            u'user_role': u'admin',
+            u'user_email': u'unittest'}
+        assert test_data == expected_output
+
+    def test_list_s3_objects(self):
+        s3_client = client(
+            service_name='s3',
+            aws_access_key_id=FI_AWS_S3_ACCESS_KEY,
+            aws_secret_access_key=FI_AWS_S3_SECRET_KEY)
+        bucket = FI_AWS_S3_BUCKET
+        key = 'oneshot'
+        test_data = list_s3_objects(s3_client, bucket, key)
+        assert isinstance(test_data, list)
+        for item in test_data:
+            assert key in item
+
+    def test_replace_all(self):
+        data = {'a': 'a', 'b': 'b', 'c': 'c'}
+        text = 'replaced'
+        test_data = replace_all(text, data)
+        expected_output = 'replaced'
+        assert test_data == expected_output
+
+    def test_list_to_dict(self):
+        keys = ['item', 'item2', 'item3']
+        values = ['hi', 'this is a', 'item']
+        test_data = list_to_dict(keys, values)
+        expected_output = {'item': 'hi', 'item2': 'this is a', 'item3': 'item'}
+        assert test_data == expected_output
+
+    def test_camelcase_to_snakecase(self):
+        camelcase_string = 'thisIsATest'
+        test_data = camelcase_to_snakecase(camelcase_string)
+        expected_output = 'this_is_a_test'
+        assert test_data == expected_output
