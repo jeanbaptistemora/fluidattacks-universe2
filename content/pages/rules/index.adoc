@@ -220,6 +220,7 @@
 * link:269/[REQ.269 Use principle of least privilege].
 * link:273/[REQ.273 Define fixed security suite].
 * link:274/[REQ.274 Define system scope].
+* link:280/[REQ.280 Restrict service root directory].
 * link:284/[REQ.284 Define maximum number of connections]
 * link:287/[REQ.287 Generate alerts in resources].
 * link:289/[REQ.289 Secure system images and media].
