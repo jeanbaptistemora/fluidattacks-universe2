@@ -1,4 +1,4 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
+import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { GraphQLError } from "graphql";
 // tslint:disable-next-line: no-import-side-effect
@@ -56,7 +56,7 @@ describe("Update access token modal", () => {
   });
 
   it("should render an error in component", async () => {
-    const wrapper: ShallowWrapper = shallow(
+    const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mockError} addTypename={true}>
           <UpdateAccessTokenModal {...mockProps} />
@@ -69,7 +69,7 @@ describe("Update access token modal", () => {
   });
 
   it("should render an add component", async () => {
-    const wrapper: ShallowWrapper = shallow(
+    const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={true}>
           <UpdateAccessTokenModal {...mockProps} />
