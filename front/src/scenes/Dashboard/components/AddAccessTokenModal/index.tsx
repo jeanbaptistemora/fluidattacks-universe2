@@ -152,6 +152,19 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                   .catch();
               };
 
+            const handleCopy: (() => void) = (): void => {
+              navigator.clipboard.writeText(!_.isUndefined(mutationRes.data) ?
+              mutationRes.data.updateAccessToken.sessionJwt : "")
+              .then(() => {
+                document.execCommand("copy");
+              })
+              .catch();
+              msgSuccess(
+                translate.t("update_access_token.copy.successfully"),
+                translate.t("update_access_token.copy.success"),
+              );
+            };
+
             return (
               <GenericForm name="updateAccessToken" onSubmit={handleUpdateAccessToken} >
                  {({ submitSucceeded }: InjectedFormProps): JSX.Element => (
@@ -180,9 +193,12 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                           type="text"
                           className={globalStyle.noResize}
                           component={textAreaField}
-                          disabled={false}
+                          disabled={true}
                           rows="7"
                         />
+                        <Button bsStyle="default" onClick={handleCopy}>
+                          {translate.t("update_access_token.copy.copy")}
+                        </Button>
                       </Col>
                     </Row>
                     : undefined }

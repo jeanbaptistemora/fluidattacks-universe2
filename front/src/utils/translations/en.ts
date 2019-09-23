@@ -612,6 +612,11 @@ const enTranslations: dict = {
   update_access_token: {
     access_token: "Access Token",
     close: "Close",
+    copy : {
+      copy: "Copy",
+      success: "Token copied",
+      successfully: "Token copied successfully",
+    },
     delete: "Token invalidated successfully",
     expiration_time: "Expiration Time",
     invalidate: "Invalidate Current Token",
