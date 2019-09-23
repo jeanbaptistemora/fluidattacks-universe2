@@ -77,6 +77,7 @@ const enTranslations: dict = {
     drafts: {
       new: "New Draft",
       success_create: "Draft created successfully",
+      success_submit: "Draft submitted for review successfully",
       title: "Title",
       title_success: "Success",
     },
@@ -97,7 +98,7 @@ const enTranslations: dict = {
           + "the password is 15032019someone",
         tech_title: "Technical Reports",
       },
-      tableSet:  {
+      tableSet: {
         btn: "Table settings",
         modal_title: "Columns Filter",
       },

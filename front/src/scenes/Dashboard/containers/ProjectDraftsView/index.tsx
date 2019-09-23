@@ -6,7 +6,7 @@
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Mutation, MutationFn, Query, QueryResult } from "react-apollo";
+import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
@@ -163,7 +163,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                   open={isDraftModalOpen}
                 >
                   <Mutation mutation={CREATE_DRAFT_MUTATION} onCompleted={handleMutationResult}>
-                    {(createDraft: MutationFn): React.ReactNode => {
+                    {(createDraft: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
                       const handleSubmit: ((values: { title: string }) => void) = (values: { title: string }): void => {
                         const matchingSuggestion: ISuggestion = suggestions.filter((
                           suggestion: ISuggestion): boolean => suggestion.title === values.title)[0];
@@ -174,7 +174,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
 
                       return (
                         <GenericForm name="newDraft" onSubmit={handleSubmit}>
-                          {({ pristine, submitting }: InjectedFormProps): JSX.Element => (
+                          {({ pristine }: InjectedFormProps): JSX.Element => (
                             <React.Fragment>
                               <Row>
                                 <Col md={12}>
