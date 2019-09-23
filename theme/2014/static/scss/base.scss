@@ -28,7 +28,7 @@ $black: rgba(0, 0, 0, 1);
 .mono { font-family: 'Overpass Mono', monospace; }
 .c-fluid-bk { color: $fluid-black; }
 .c-fluid-red { color: $fluid-red; }
-.c-fluif-gray { color: $fluid-gray; }
+.c-fluid-gray { color: $fluid-gray; }
 .c-fluid-dkblue { color: $darkblue; }
 .grayscale { filter: grayscale(100);}
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
@@ -58,14 +58,6 @@ $black: rgba(0, 0, 0, 1);
   font-weight: bold;
   line-height: 1;
   margin: 20px 0 10px;
-}
-
-@mixin quo-lit-block {
-  border: 1px solid $lightgray;
-  border-left: 3px solid $darkblue;
-  font-size: 16px;
-  overflow: auto;
-  padding: 15px 10px;
 }
 
 @mixin cell($padding) {
@@ -207,18 +199,6 @@ ul {
   p {
     margin-top: 15px;
   }
-}
-
-.quoteblock {
-  @include quo-lit-block;
-  color: $darkgray;
-  font-style: italic;
-  margin: 15px 0;
-  text-align: center;
-}
-
-pre {
-  @include quo-lit-block;
 }
 
 .hrcoments {
