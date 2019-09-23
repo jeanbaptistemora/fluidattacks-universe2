@@ -122,6 +122,14 @@ terraform-eks:
   image: registry.gitlab.com/fluidsignal/serves:builder
   script:
     - ./ci-scripts/jobs/terraform-eks.sh
+  <<: *except_analytics
+
+deploy-helm:
+  stage: deploy
+  image: registry.gitlab.com/fluidsignal/serves:builder
+  script:
+    - ./ci-scripts/jobs/deploy-helm.sh
+  <<: *except_analytics
 
 test_code:
   stage: tests

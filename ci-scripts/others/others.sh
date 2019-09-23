@@ -2,7 +2,7 @@
 
 get_cluster_name() {
 
-  set -e -v
+  set -e
 
   # Get the name of the current running cluster
 
@@ -15,7 +15,7 @@ get_cluster_name() {
   export TF_VAR_aws_secret_key
   local BUCKET
   local CURRENT_DIR
-  local CLUSTER_NAME
+  export CLUSTER_NAME
 
   TF_VAR_aws_access_key="$AWS_ACCESS_KEY_ID"
   TF_VAR_aws_secret_key="$AWS_SECRET_KEY_ID"
@@ -30,6 +30,29 @@ get_cluster_name() {
 
   cd "$CURRENT_DIR" || return 1
 
-  echo "$CLUSTER_NAME"
+}
 
+create_resource() {
+
+  # Create resource in cluster using kubectl
+
+  set -e
+
+  if kubectl get --all-namespaces "$1" | grep -q "$2"; then
+    echo "$1 $2 already exists."
+  else
+    echo "Creating $1 $2 ..."
+    kubectl create "$@"
+  fi
+}
+
+kubectl_login() {
+
+  # Log in to cluster for using kubectl
+
+  set -e
+
+  get_cluster_name
+
+  aws eks update-kubeconfig --name $CLUSTER_NAME --region us-east-1
 }
