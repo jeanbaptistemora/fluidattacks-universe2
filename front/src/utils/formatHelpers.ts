@@ -431,6 +431,10 @@ export const handleErrors: ((errorText: string, errors: readonly GraphQLError[])
         msgError(translate.t("validations.invalidValueInField"));
       } else if (_.includes("Exception - Invalid Expiration Time", err.message)) {
         msgError(translate.t("update_access_token.invalid_exp_time"));
+      } else if (_.includes(err.message, "Exception - This draft has missing fields")) {
+        msgError(translate.t("project.drafts.error_submit", {
+          missingFields: err.message.split("fields: ")[1],
+        }));
       } else {
         msgError(translate.t("proj_alerts.error_textsad"));
         rollbar.error(errorText, err);

@@ -26,5 +26,16 @@ export interface IFindingContentDispatchProps {
   openRejectConfirm(): void;
 }
 
+export interface IHeaderQueryResult {
+  finding: {
+    analyst?: string;
+    closedVulns: number;
+    id: string;
+    openVulns: number;
+    reportDate: string;
+    title: string;
+  };
+}
+
 export type IFindingContentProps = IFindingContentBaseProps &
   (IFindingContentStateProps & IFindingContentDispatchProps);

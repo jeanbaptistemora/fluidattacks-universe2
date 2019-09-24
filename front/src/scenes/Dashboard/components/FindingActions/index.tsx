@@ -9,7 +9,7 @@ import { ButtonToolbar } from "react-bootstrap";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 
-interface IActionButtonsProps {
+interface IFindingActionsProps {
   hasSubmission: boolean;
   hasVulns: boolean;
   isAuthor: boolean;
@@ -21,7 +21,7 @@ interface IActionButtonsProps {
   onSubmit(): void;
 }
 
-const findingActions: React.FC<IActionButtonsProps> = (props: IActionButtonsProps): JSX.Element => {
+const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsProps): JSX.Element => {
   const { onApprove, onDelete, onReject, onSubmit } = props;
 
   const userRole: string = (window as typeof window & { userRole: string }).userRole;

@@ -25,8 +25,8 @@ from app.dto.finding import (
     migrate_report_date, finding_vulnerabilities
 )
 from app.exceptions import (
-    AlreadyApproved, AlreadySubmitted, FindingNotFound, InvalidDate,
-    IsNotTheAuthor
+    AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
+    InvalidDate, IsNotTheAuthor
 )
 from app.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
@@ -855,23 +855,37 @@ def send_new_draft_mail(
 def submit_draft(finding_id, analyst_email):
     success = False
     finding = get_finding(finding_id)
-    is_draft = 'releaseDate' not in finding
 
-    if is_draft:
-        is_author = finding.get('analyst') == analyst_email
-        if is_author:
+    if 'releaseDate' not in finding:
+        if finding.get('analyst') == analyst_email:
             if 'reportDate' not in finding:
-                tzn = pytz.timezone(settings.TIME_ZONE)
-                today = datetime.now(tz=tzn).today().strftime(
-                    '%Y-%m-%d %H:%M:%S')
+                evidence_list = [finding['evidence'].get(ev_name)
+                                 for ev_name in finding['evidence']]
+                has_evidence = any([evidence.get('url')
+                                    for evidence in evidence_list])
+                has_severity = finding['severityCvss'] > Decimal(0)
+                has_vulns = vuln_domain.list_vulnerabilities([finding_id])
 
-                success = finding_dal.update(finding_id, {
-                    'report_date': today})
-                if success:
-                    send_new_draft_mail(analyst_email,
-                                        finding_id,
-                                        finding.get('finding'),
-                                        finding.get('project_name'))
+                if all([has_evidence, has_severity, has_vulns]):
+                    tzn = pytz.timezone(settings.TIME_ZONE)
+                    today = datetime.now(tz=tzn).today().strftime(
+                        '%Y-%m-%d %H:%M:%S')
+
+                    success = finding_dal.update(finding_id, {
+                        'report_date': today})
+                    if success:
+                        send_new_draft_mail(analyst_email,
+                                            finding_id,
+                                            finding.get('finding'),
+                                            finding.get('project_name'))
+                else:
+                    required_fields = {
+                        'evidence': has_evidence,
+                        'severity': has_severity,
+                        'vulnerabilities': has_vulns
+                    }
+                    raise IncompleteDraft([field for field in required_fields
+                                          if not required_fields[field]])
             else:
                 raise AlreadySubmitted()
         else:

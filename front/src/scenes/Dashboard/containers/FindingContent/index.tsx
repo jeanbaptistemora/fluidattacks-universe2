@@ -4,6 +4,7 @@
  * apollo components
  */
 
+import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
@@ -13,6 +14,7 @@ import { NavLink, Redirect, Route, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Field, submit } from "redux-form";
 import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
+import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
@@ -37,7 +39,8 @@ import {
 import style from "./index.css";
 import { GET_FINDING_HEADER, SUBMIT_DRAFT_MUTATION } from "./queries";
 import {
-  IFindingContentBaseProps, IFindingContentDispatchProps, IFindingContentProps, IFindingContentStateProps,
+  IFindingContentBaseProps, IFindingContentDispatchProps, IFindingContentProps,
+  IFindingContentStateProps, IHeaderQueryResult,
 } from "./types";
 
 // tslint:disable-next-line:no-any Allows to render containers without specifying values for their redux-supplied props
@@ -96,10 +99,14 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
             <React.Fragment>
               {props.alert === undefined ? undefined : <AlertBox message={props.alert} />}
               <Query query={GET_FINDING_HEADER} variables={{ findingId }}>
-                {({ data, loading, refetch }: QueryResult): JSX.Element => {
+                {({ data, loading, refetch }: QueryResult<IHeaderQueryResult>): JSX.Element => {
                   if (_.isUndefined(data) || loading) { return <React.Fragment />; }
 
-                  const handleMutationResult: ((result: { submitDraft: { success: boolean } }) => void) = (
+                  const handleSubmitError: ((error: ApolloError) => void) = (error: ApolloError): void => {
+                    handleGraphQLErrors("An error occurred submitting draft", error);
+                  };
+
+                  const handleSubmitResult: ((result: { submitDraft: { success: boolean } }) => void) = (
                     result: { submitDraft: { success: boolean } },
                   ): void => {
                     if (result.submitDraft.success) {
@@ -111,6 +118,9 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                         .catch();
                     }
                   };
+                  const isAuthor: boolean = data.finding.analyst === currentUserEmail;
+                  const hasVulns: boolean = data.finding.openVulns + data.finding.closedVulns > 0;
+                  const hasSubmission: boolean = !_.isEmpty(data.finding.reportDate);
 
                   return (
                     <Row>
@@ -118,8 +128,12 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                         <h2>{data.finding.title}</h2>
                       </Col>
                       <Col md={4}>
-                        <Mutation mutation={SUBMIT_DRAFT_MUTATION} onCompleted={handleMutationResult}>
-                          {(submitDraft: MutationFn, { loading: submitting }: MutationResult): JSX.Element => {
+                        <Mutation
+                          mutation={SUBMIT_DRAFT_MUTATION}
+                          onCompleted={handleSubmitResult}
+                          onError={handleSubmitError}
+                        >
+                          {(submitDraft: MutationFn, submitResult: MutationResult): JSX.Element => {
                             const handleSubmitClick: (() => void) = (): void => {
                               submitDraft({ variables: { findingId } })
                                 .catch();
@@ -127,11 +141,11 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
 
                             return (
                               <FindingActions
-                                hasVulns={props.header.openVulns + props.header.closedVulns > 0}
-                                hasSubmission={!_.isEmpty(data.finding.reportDate)}
-                                isAuthor={data.finding.analyst === currentUserEmail}
+                                hasVulns={hasVulns}
+                                hasSubmission={hasSubmission}
+                                isAuthor={isAuthor}
                                 isDraft={isDraft}
-                                loading={submitting}
+                                loading={submitResult.loading}
                                 onApprove={handleApprove}
                                 onDelete={handleOpenDeleteConfirm}
                                 onReject={handleOpenRejectConfirm}

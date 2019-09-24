@@ -194,3 +194,13 @@ class AlreadySubmitted(Exception):
         """ Constructor """
         msg = 'Exception - This draft has already been submitted'
         super(AlreadySubmitted, self).__init__(msg)
+
+
+class IncompleteDraft(Exception):
+    """Exception to control draft submission"""
+
+    def __init__(self, fields):
+        """ Constructor """
+        msg = 'Exception - This draft has missing fields: {}'.format(
+            ', '.join(fields))
+        super(IncompleteDraft, self).__init__(msg)

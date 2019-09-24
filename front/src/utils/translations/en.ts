@@ -75,6 +75,7 @@ const enTranslations: dict = {
   },
   project: {
     drafts: {
+      error_submit: "Please provide {{missingFields}} before submitting",
       new: "New Draft",
       success_create: "Draft created successfully",
       success_submit: "Draft submitted for review successfully",
@@ -613,7 +614,7 @@ const enTranslations: dict = {
   update_access_token: {
     access_token: "Access Token",
     close: "Close",
-    copy : {
+    copy: {
       copy: "Copy",
       success: "Token copied",
       successfully: "Token copied successfully",
