@@ -169,7 +169,7 @@ export const dateField: ((arg1: CustomFieldProps) => JSX.Element) =
         onChange={fieldProps.input.onChange}
         onBlur={fieldProps.input.onBlur}
         disabled={fieldProps.disabled}
-        value={fieldProps.input.value}
+        value={fieldProps.input.value.split(" ")[0]}
       />
       {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
     </div>

@@ -89,7 +89,7 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
           <Col md={3} sm={12} xs={12}>
             <EditableField
               component={dateField}
-              currentValue={props.dataset.acceptanceDate}
+              currentValue={props.dataset.acceptanceDate.split(" ")[0]}
               label={translate.t("search_findings.tab_description.acceptance_date")}
               name="acceptanceDate"
               renderAsEditable={props.isEditing}
