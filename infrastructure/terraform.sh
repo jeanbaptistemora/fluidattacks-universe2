@@ -1,5 +1,49 @@
 #!/usr/bin/env bash
 
+get_nginx_elb() {
+
+  # Get nginx elb name and zone for production
+
+  local ELBS_INFO
+  local JQ_QUERY
+  local ELBS_NAMES
+  local TAGS
+
+  # Terraform vars
+  export TF_VAR_elbDns
+  export TF_VAR_elbZone
+
+  ELBS_INFO='/tmp/elbs-info.tmp'
+  JQ_QUERY='.TagDescriptions[0].Tags[] | select(.Key == "kubernetes.io/cluster/FluidServes")'
+
+  # Get load balancers info
+  aws elb --region us-east-1 describe-load-balancers > "$ELBS_INFO"
+
+  # Get load balancers names
+  ELBS_NAMES=$(jq -r '.LoadBalancerDescriptions[].LoadBalancerName' "$ELBS_INFO")
+
+  # Iterate over all the available elbs in order to know which one belongs
+  # to production nginx.
+  # When found, set required envars and return 0
+  for NAME in $ELBS_NAMES; do
+    TAGS="/tmp/tags-$NAME.tmp"
+    aws elb --region us-east-1 describe-tags --load-balancer-names "$NAME" > "$TAGS"
+    if jq -e "$JQ_QUERY" "$TAGS" &> /dev/null; then
+      TF_VAR_elbDns=$(jq -r ".LoadBalancerDescriptions[] \
+        | select(.LoadBalancerName == \"$NAME\") \
+        | .DNSName" "$ELBS_INFO")
+      TF_VAR_elbZone=$(jq -r ".LoadBalancerDescriptions[] \
+        | select(.LoadBalancerName == \"$NAME\") \
+        | .CanonicalHostedZoneNameID" "$ELBS_INFO")
+      return 0
+    fi
+  done
+
+  echo "Error: No nginx production load balancer was found."
+  return 1
+
+}
+
 set -e
 
 curl -o terraform.zip https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip
@@ -63,12 +107,7 @@ terraform output fwBucket >> dns/terraform.tfvars
 terraform output fiBucket >> dns/terraform.tfvars
 
 cd dns/
-export TF_VAR_elbDns="$(aws elb --region us-east-1 \
-  describe-load-balancers | \
-  jq -r '.LoadBalancerDescriptions[].DNSName')"
-export TF_VAR_elbZone="$(aws elb --region us-east-1 \
-  describe-load-balancers | \
-  jq -r '.LoadBalancerDescriptions[].CanonicalHostedZoneNameID')"
+get_nginx_elb
 terraform init --backend-config="bucket=${FS_S3_BUCKET_NAME}"
 tflint
 terraform plan -refresh=true
