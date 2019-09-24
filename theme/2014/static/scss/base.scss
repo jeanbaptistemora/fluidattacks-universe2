@@ -76,17 +76,6 @@ $black: rgba(0, 0, 0, 1);
   width: 100%;
 }
 
-.navcontent-container {
-  box-shadow: 0 5px 5px $fluid-light-gray;
-  padding: 0 25px;
-}
-
-.navcontent-info {
-  display: flex;
-  margin: auto;
-  max-width: 95ch;
-}
-
 .list-title {
   background-color: $white;
   border-top: 3px solid $darkblue;
@@ -606,11 +595,6 @@ ul {
 @media(min-width: 980px) {
   .at-expanding-share-button-desktop {
     display: none;
-  }
-
-  .navcontent-info,
-  article {
-    max-width: 120ch;
   }
 }
 

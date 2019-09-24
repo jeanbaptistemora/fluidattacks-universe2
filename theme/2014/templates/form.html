@@ -26,9 +26,11 @@
 {% block canonical %}<link rel="canonical" href="{{ SITEURL }}/{{ page.url }}">{% endblock canonical %}
 
 {% block breadcrumb%}
-  <div class="navcontent-container">
-    <div class="navcontent-info">
-      <div class="montsy f6-l f7 tl ttc w-70-l w-100">
+  <!-- navcontent-container -->
+  <div class="pv0 ph2 shadow-4">
+    <!-- navcontent-info -->
+    <div class="df ma-auto">
+      <div class="montsy f6-l f7 tl ttc w-70-l w-100 ma-auto">
         <ul class="dib list w-100">
           <li class="dib mt0">
             <a class="c-fluid-bk hv-fluid-dkred"
@@ -47,7 +49,7 @@
 {% endblock breadcrumb %}
 {% block content %}
   <div class="divpage">
-    <article class="ma-auto tl">
+    <article class="ma-auto tl mw7">
       {% if page.form == "salesforce" %}
         <h1>{{ page.title }}</h1>
         {{ page.content }}
