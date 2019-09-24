@@ -205,22 +205,11 @@ ul {
   border-top: 3px solid $darkblue;
 }
 
-.anchor {
-  display: block;
-  position: relative;
-  top: -72px;
-  visibility: hidden;
-}
-
 .anchor-sign {
-  color: $lightgray;
-  font-weight: 400;
-  position: relative;
-
   &::before {
     content: '\0023';
   }
-}
+ }
 
 .tableblock {
   margin: 15px auto;
@@ -522,19 +511,6 @@ ul {
     font-size: 18px;
     line-height: 29.75px;
   }
-}
-
-.description {
-  font-size: 18px;
-  font-style: italic;
-  text-align: center;
-}
-
-.subtitle {
-  display: block;
-  font-size: 18px;
-  font-style: italic;
-  text-align: center;
 }
 
 //scss-lint:disable ImportantRule
