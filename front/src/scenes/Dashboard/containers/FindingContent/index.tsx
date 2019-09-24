@@ -97,7 +97,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
               {props.alert === undefined ? undefined : <AlertBox message={props.alert} />}
               <Query query={GET_FINDING_HEADER} variables={{ findingId }}>
                 {({ data, loading, refetch }: QueryResult): JSX.Element => {
-                  if (_.isNil(data) || loading) { return <React.Fragment />; }
+                  if (_.isUndefined(data) || loading) { return <React.Fragment />; }
 
                   const handleMutationResult: ((result: { submitDraft: { success: boolean } }) => void) = (
                     result: { submitDraft: { success: boolean } },
