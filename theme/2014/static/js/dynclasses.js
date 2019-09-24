@@ -23,5 +23,11 @@ Tachyons classes on dynamically generated content
 
     $( ".tooltip" ).addClass("bb black relative")
 
+    //tag cloud tags
+    $( ".tag-1" ).addClass("f1")
+    $( ".tag-2" ).addClass("f2")
+    $( ".tag-3" ).addClass("f3")
+    $( ".tag-4" ).addClass("f4")
+
   });
 })(jQuery);

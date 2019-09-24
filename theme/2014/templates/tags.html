@@ -46,13 +46,14 @@
 {% endblock breadcrumb %}
 {% block content %}
   <div class="divpage">
-    <article class="ma-auto tl mw7">
+    <article class="ma-auto tc mw7">
       <h1 class="tc">{{ gettext('Tags-header') }}:</h1>
       <div class="preamble">
         <ul class="tagcloud">
           {% for tag in tag_cloud %}
-            <li class="tag-{{ tag.1 }}">
-              <a href="{{ SITEURL }}/{{ tag.0.url }}">
+            <li class="tag-{{ tag.1 }} dib">
+              <a class="mono2 ttc"
+                 href="{{ SITEURL }}/{{ tag.0.url }}">
                 {{ tag.0 }}
                 {% if TAG_CLOUD_BADGE %}
                   <span class="badge">{{ tag.2 }}</span>

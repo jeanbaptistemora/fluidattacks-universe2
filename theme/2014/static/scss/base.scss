@@ -27,6 +27,7 @@ $black: rgba(0, 0, 0, 1);
 .montsy { font-family: 'Montserrat'; }
 .sans-pro { font-family: 'Source Sans Pro'; }
 .mono { font-family: 'Overpass Mono', monospace; }
+.mono2 { font-family: monospaced; }
 .c-fluid-bk { color: $fluid-black; }
 .c-fluid-red { color: $fluid-red; }
 .c-fluid-gray { color: $fluid-gray; }
@@ -407,29 +408,6 @@ ul {
 
 .preamble {
   font-size: 21px;
-}
-
-.tagcloud {
-  li {
-    display: inline-block;
-
-    a {
-      font-family: monospaced;
-      text-transform: capitalize;
-    }
-  }
-}
-
-.tag-1 {
-  font-size: 190%;
-}
-
-.tag-2 {
-  font-size: 160%;
-}
-
-.tag-3 {
-  font-size: 130%;
 }
 
 .tb-fluid {
