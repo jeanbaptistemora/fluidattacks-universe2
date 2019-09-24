@@ -43,13 +43,12 @@ def retry_on_errors(func: Callable) -> Callable:
 # pylint: disable=unused-argument
 # pylint: disable=no-member
 @retry_on_errors
-def get_project_service(
-        function: str, project_id: str, credentials_file: str,
+def get_iam_policy(
+        project_id: str, credentials_file: str,
         retry: bool = True) -> object:
     """
-    Get GCP service object.
+    Get GCP IAM Policy.
 
-    :param function: GCP Service Function
     :param project_id: GCP Project Id
     :param credentials_file: JSON file with GCP credentials
     """
@@ -60,7 +59,57 @@ def get_project_service(
     service = googleapiclient.discovery.build(
         'cloudresourcemanager', 'v1', credentials=credentials)
 
-    projects = service.projects()
-    service_to_call = getattr(projects, function)
-    resp = service_to_call(resource=project_id, body={}).execute()
+    iam_policy = service.projects().getIamPolicy(resource=project_id, body={})
+    resp = iam_policy.execute()
     return resp['bindings']
+
+
+# pylint: disable=unused-argument
+# pylint: disable=no-member
+@retry_on_errors
+def get_service_accounts(
+        project_id: str, credentials_file: str,
+        retry: bool = True) -> object:
+    """
+    Get GCP service accounts.
+
+    :param project_id: GCP Project Id
+    :param credentials_file: JSON file with GCP credentials
+    """
+    credentials = service_account.Credentials.from_service_account_file(
+        filename=credentials_file,
+        scopes=['https://www.googleapis.com/auth/cloud-platform'])
+
+    service = googleapiclient.discovery.build(
+        'iam', 'v1', credentials=credentials)
+
+    name = f'projects/{project_id}'
+    serv_acct = service.projects().serviceAccounts().list(name=name)
+    resp = serv_acct.execute()
+    return [x['name'] for x in resp['accounts']]
+
+
+# pylint: disable=unused-argument
+# pylint: disable=no-member
+@retry_on_errors
+def get_keys_managed_by_user(
+        user: str, credentials_file: str,
+        retry: bool = True) -> object:
+    """
+    Get GCP service accounts.
+
+    :param project_id: GCP Project Id
+    :param credentials_file: JSON file with GCP credentials
+    """
+    credentials = service_account.Credentials.from_service_account_file(
+        filename=credentials_file,
+        scopes=['https://www.googleapis.com/auth/cloud-platform'])
+
+    service = googleapiclient.discovery.build(
+        'iam', 'v1', credentials=credentials)
+
+    service = service.projects()
+    user_keys = service.serviceAccounts().keys().list(name=user,
+                                                      keyTypes='USER_MANAGED')
+    resp = user_keys.execute()
+    return resp['keys'] if resp else {}

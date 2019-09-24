@@ -25,9 +25,8 @@ def has_gmail_users(project_id: str, cred_file: str,
     :param project_id: GCP Project Id
     :param cred_file: JSON file with GCP credentials
     """
-    roles = gcp.get_project_service(function='getIamPolicy',
-                                    project_id=project_id,
-                                    credentials_file=cred_file, retry=retry)
+    roles = gcp.get_iam_policy(project_id=project_id,
+                               credentials_file=cred_file, retry=retry)
 
     msg_open: str = 'Gmail users are present'
     msg_closed: str = 'Not Gmail users are present'
