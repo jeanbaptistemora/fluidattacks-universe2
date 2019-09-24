@@ -2,12 +2,13 @@
  * JSX-NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code that dynamically renders the fields
  */
+import { ApolloError } from "apollo-boost";
 import _ from "lodash";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, ControlLabel, Row } from "react-bootstrap";
 import { Provider } from "react-redux";
-import { change, Field, InjectedFormProps } from "redux-form";
+import { change, Field, InjectedFormProps, reset } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
@@ -128,19 +129,26 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
         }
       };
 
+      const handleMtUpdateTokenErr: ((mtError: ApolloError) => void) =
+      (mtResult: ApolloError): void => {
+        if (!_.isUndefined(mtResult)) {
+          hidePreloader();
+          handleGraphQLErrors("An error occurred adding access token", mtResult);
+          store.dispatch(reset("updateAccessToken"));
+        }
+      };
+
       return (
-        <Mutation mutation={UPDATE_ACCESS_TOKEN_MUTATION} onCompleted={handleMtUpdateTokenRes}>
+        <Mutation
+          mutation={UPDATE_ACCESS_TOKEN_MUTATION}
+          onCompleted={handleMtUpdateTokenRes}
+          onError={handleMtUpdateTokenErr}
+        >
         { (updateAccessToken: MutationFn<IUpdateAccessTokenAttr, {expirationTime: number}>,
            mutationRes: MutationResult): React.ReactNode => {
 
             if (mutationRes.loading) {
               showPreloader();
-            }
-            if (!_.isUndefined(mutationRes.error)) {
-              hidePreloader();
-              handleGraphQLErrors("An error occurred adding access token", mutationRes.error);
-
-              return <React.Fragment/>;
             }
 
             const handleUpdateAccessToken: ((values: IAccessTokenAttr) => void) =

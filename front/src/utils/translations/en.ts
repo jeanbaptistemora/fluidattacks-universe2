@@ -620,6 +620,7 @@ const enTranslations: dict = {
     },
     delete: "Token invalidated successfully",
     expiration_time: "Expiration Time",
+    invalid_exp_time: "Expiration time must be minor than six month and greater than current date",
     invalidate: "Invalidate Current Token",
     invalidated: "Invalidated Token",
     success: "Updated Access Token",

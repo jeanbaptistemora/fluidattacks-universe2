@@ -429,6 +429,8 @@ export const handleErrors: ((errorText: string, errors: readonly GraphQLError[])
         msgError(translate.t("validations.email"));
       } else if (_.includes("Exception - Parameter is not valid", err.message)) {
         msgError(translate.t("validations.invalidValueInField"));
+      } else if (_.includes("Exception - Invalid Expiration Time", err.message)) {
+        msgError(translate.t("update_access_token.invalid_exp_time"));
       } else {
         msgError(translate.t("proj_alerts.error_textsad"));
         rollbar.error(errorText, err);
