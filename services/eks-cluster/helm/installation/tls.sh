@@ -72,11 +72,14 @@ set_tls() {
   generate_key $CA_KEY
   generate_ca_cert $CA_KEY $CA_CERT
 
-  # Generate key and for user tiller
+  # Generate key and csr for user tiller
   generate_key $TILLER_KEY
   generate_csr $TILLER_KEY $TILLER_CSR
 
-  # Generate crt for user tiller by signing it with the CA
+  # Generate crt for user tiller by signing its csr with the CA
   sign_csr $CA_KEY $CA_CERT $TILLER_CSR $TILLER_CERT
+
+  # Remove unnecessary files
+  rm "$CA_KEY" "$TILLER_CSR"
 
 }

@@ -1,5 +1,37 @@
 #!/usr/bin/env bash
 
+get_last_tls_keys() {
+
+  # Get the last tls keys from helm
+
+  local JSON_FILE='/tmp/fulljson'
+  local CA_B64='/tmp/ca.pem.b64'
+  local CRT_B64='/tmp/cert.pem.b64'
+  local KEY_B64='/tmp/key.pem.b64'
+
+  # Create helm folder
+  mkdir -p ~/.helm
+
+  # Get json with secret
+  kubectl get secret tiller-secret \
+    --namespace=kube-system -o json \
+    > "$JSON_FILE"
+
+  # Get b64 keys
+  jq -r '.data."ca.crt"' "$JSON_FILE" > "$CA_B64"
+  jq -r '.data."tls.crt"' "$JSON_FILE" > "$CRT_B64"
+  jq -r '.data."tls.key"' "$JSON_FILE" > "$KEY_B64"
+
+  # Decode b64 keys to text and move them to helm
+  base64 -d "$CA_B64" > ~/.helm/ca.pem
+  base64 -d "$CRT_B64" > ~/.helm/cert.pem
+  base64 -d "$KEY_B64" > ~/.helm/key.pem
+
+  # Remove unnecessary files
+  rm "$JSON_FILE" "$CA_B64" "$CRT_B64" "$KEY_B64"
+
+}
+
 install_helm() {
 
   # Install helm in the cluster sugin TLS and rbac policies.
@@ -7,7 +39,6 @@ install_helm() {
   set -e
 
   . services/eks-cluster/helm/installation/tls.sh
-  . ci-scripts/others/others.sh
 
   local INSTALL_FOLDER
   local ROLE_TILLER
@@ -28,36 +59,30 @@ install_helm() {
   TILLER_KEY='/tmp/tiller.key'
   CA_CERT='/tmp/ca.cert'
 
-  # Create tiller namespace and serviceaccount and role
-  create_resource namespace tiller-context
-  create_resource serviceaccount tiller --namespace tiller-context
-
-  # Create tiller role and rolebinding
-  kubectl apply -f $ROLE_TILLER
-  kubectl apply -f $ROLEBINDING_TILLER
+  # Create tiller service account
+  kubectl apply -f services/eks-cluster/helm/installation/sa-tiller.yaml
 
   # Create certificates and keys for tls
   set_tls
 
   # Uninstall tiller if it already exists
-  if kubectl get deployment tiller-deploy --namespace=tiller-context; then
+  if kubectl get deployment tiller-deploy --namespace=kube-system; then
     echo 'Tiller already installed. Removing it to renovate certificate.'
-    kubectl delete deployment tiller-deploy --namespace=tiller-context
-    kubectl delete secret tiller-secret --namespace=tiller-context
-    kubectl delete service tiller-deploy --namespace=tiller-context
+    # Get last keys from helm in order tu run helm commands
+    get_last_tls_keys
+    helm reset --force --tls
   fi
 
   helm init \
     --upgrade \
-    --service-account tiller \
-    --tiller-namespace tiller-context \
     --tiller-tls \
+    --service-account tiller \
     --tiller-tls-cert $TILLER_CERT \
     --tiller-tls-key $TILLER_KEY \
     --tls-ca-cert $CA_CERT \
     --tiller-tls-verify
 
-  # Clean tmp
-  rm -rf /tmp/*
+  # Remove unnecessary files
+  rm "$TILLER_CERT" "$TILLER_KEY" "$CA_CERT"
 
 }

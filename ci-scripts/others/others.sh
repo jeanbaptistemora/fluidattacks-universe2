@@ -46,6 +46,16 @@ create_resource() {
   fi
 }
 
+function replace_env_vars() {
+
+  # Replace envars in a file with their values
+
+  set -e
+
+  envsubst < "$1" > tmp
+  mv tmp "$1"
+}
+
 kubectl_login() {
 
   # Log in to cluster for using kubectl
