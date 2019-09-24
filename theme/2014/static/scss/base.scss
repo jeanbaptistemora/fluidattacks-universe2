@@ -20,6 +20,7 @@ $black: rgba(0, 0, 0, 1);
 .bg-fluid-gray { background-color: $fluid-gray;}
 .bg-fluid-lightgray { background-color: $lightergray; }
 .bg-fluid-black { background-color: $fluid-black; }
+.bg-tooltip { background-color: $tooltipblack; }
 .minw-100 { min-width: 100%; }
 .ma-auto { margin: auto; }
 .w-32 { width: 32%; }
@@ -33,12 +34,14 @@ $black: rgba(0, 0, 0, 1);
 .grayscale { filter: grayscale(100);}
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-fluid-bk { &:hover { color: $fluid-black;} }
+.hideme { visibility: hidden; }
 .fluid-bullet { list-style-image: url('../../images/bullet2.png');}
 .h-banner { height: 15em; }
 .w-banner { width: 20em; }
 .minh-nav { min-height: 5em; }
 .h-search { height: 2.5em; }
 .w6 { width: 19em; }
+.w-maxcontent { width: max-content; }
 
 // Tachyons custom responsive classes
 //Large screens
@@ -458,35 +461,13 @@ ul {
 
 
 .tooltip {
-  border-bottom: 1px dotted $darkgray;
-  color: $black;
-  position: relative;
 
   &:hover {
-    color: $black;
 
     .tooltip-text {
-      opacity: 1;
       visibility: visible;
     }
   }
-}
-
-.tooltip-text {
-  background-color: $tooltipblack;
-  box-shadow: 5px 5px 40px $shadowgray;
-  color: $white;
-  font-size: 15px;
-  line-height: 16px;
-  max-width: 280px;
-  padding: 5px;
-  position: absolute;
-  text-align: center;
-  top: 25px;
-  transition: opacity .3s;
-  visibility: hidden;
-  width: max-content;
-  z-index: 3;
 }
 
 .admonitionblock {

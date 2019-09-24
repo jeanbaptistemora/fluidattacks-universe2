@@ -18,5 +18,10 @@ Tachyons classes on dynamically generated content
     //pre-formatted text
     $( "pre" ).addClass("overflow-auto bl b--dark-blue bw2 i tl f5 pa3 bg-fluid-lightgray ma0");
 
+    //tooltips
+    $ ( ".tooltip-text" ).addClass("bg-tooltip shadow-4 white absolute z-3 f6 w-maxcontent ph2 tc hideme mt4")
+
+    $( ".tooltip" ).addClass("bb black relative")
+
   });
 })(jQuery);
