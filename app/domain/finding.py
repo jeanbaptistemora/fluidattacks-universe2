@@ -19,7 +19,7 @@ from app import util
 from app.dal.helpers.drive import DriveAPI
 from app.dal.helpers.formstack import FormstackAPI
 from app.dal import integrates_dal, finding as finding_dal, user as user_dal
-from app.domain import vulnerability as vuln_domain
+from app.domain import project as project_domain, vulnerability as vuln_domain
 from app.dto.finding import (
     FindingDTO, get_project_name, migrate_description, migrate_treatment,
     migrate_report_date, finding_vulnerabilities
@@ -812,7 +812,7 @@ def save_evidence(evidence_field, finding_id, project_name, uploaded_file):
 
 
 def create_draft(analyst_email, project_name, title, **kwargs):
-    last_fs_id = 540000000
+    last_fs_id = 550000000
     finding_id = str(random.randint(last_fs_id, 1000000000))
     project_name = project_name.lower()
 
@@ -834,6 +834,7 @@ def send_new_draft_mail(
     analyst_email, finding_id, finding_title, project_name
 ):
     recipients = FI_MAIL_REVIEWERS.split(',')
+    recipients += project_domain.list_managers(project_name)
 
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     email_context = {

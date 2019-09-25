@@ -78,7 +78,7 @@ const enTranslations: dict = {
       error_submit: "Please provide {{missingFields}} before submitting",
       new: "New Draft",
       success_create: "Draft created successfully",
-      success_submit: "Draft submitted for review successfully",
+      success_submit: "Draft successfully submitted for review",
       title: "Title",
       title_success: "Success",
     },

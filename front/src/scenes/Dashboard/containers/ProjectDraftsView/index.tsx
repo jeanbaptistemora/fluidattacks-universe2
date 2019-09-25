@@ -145,17 +145,15 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
 
             return (
               <React.StrictMode>
-                {(window as typeof window & { userRole: string }).userRole === "admin"
-                  ? <Row>
-                    <Col md={2} mdOffset={5}>
-                      <ButtonToolbar>
-                        <Button onClick={openNewDraftModal}>
-                          <Glyphicon glyph="plus" />&nbsp;{translate.t("project.drafts.new")}
-                        </Button>
-                      </ButtonToolbar>
-                    </Col>
-                  </Row>
-                  : undefined}
+                <Row>
+                  <Col md={2} mdOffset={5}>
+                    <ButtonToolbar>
+                      <Button onClick={openNewDraftModal}>
+                        <Glyphicon glyph="plus" />&nbsp;{translate.t("project.drafts.new")}
+                      </Button>
+                    </ButtonToolbar>
+                  </Col>
+                </Row>
                 <Modal
                   footer={<div />}
                   headerTitle={translate.t("project.drafts.new")}

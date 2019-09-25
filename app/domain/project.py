@@ -330,3 +330,7 @@ def get_findings(project, data_attr=''):
 
 def get_finding_project_name(finding_id):
     return integrates_dal.get_finding_project(finding_id)
+
+
+def list_managers(project_name):
+    return [manager[0] for manager in project_dal.list_managers(project_name)]

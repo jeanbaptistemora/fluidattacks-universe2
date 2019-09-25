@@ -3,8 +3,11 @@
 from datetime import datetime
 
 import pytz
+import rollbar
 from boto3.dynamodb.conditions import Attr, Key
 from django.conf import settings
+from django.db import connections
+from django.db.utils import OperationalError
 
 from app.dal import integrates_dal
 from app.dal.finding import TABLE as FINDINGS_TABLE
@@ -103,6 +106,26 @@ def list_findings(project_name):
         findings += response.get('Items', [])
 
     return [finding['finding_id'] for finding in findings]
+
+
+def list_managers(project_name):
+    managers = []
+    with connections['integrates'].cursor() as cursor:
+        try:
+            cursor.execute(
+                'SELECT users.email FROM users LEFT JOIN project_access '
+                'ON users.id = project_access.user_id '
+                'WHERE users.role = \'customeradmin\' '
+                'AND users.email LIKE \'%%@fluidattacks.com\''
+                'AND project_access.project_id=('
+                'SELECT id FROM projects WHERE project=%s) ', (project_name, ))
+            managers = cursor.fetchall()
+        except OperationalError as ex:
+            rollbar.report_message(
+                'Error: Couldn\'nt list project managers',
+                'error', extra_data=ex, payload_data=locals())
+
+    return managers
 
 
 def get_all_projects():
