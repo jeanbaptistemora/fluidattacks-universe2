@@ -44,21 +44,21 @@
 {% endblock breadcrumb %}
 {% block content %}
   <div class="divpage">
-    <article class="ma-auto tl mw8">
+    <article class="ma-auto tl-ns tc mw8">
       <h1 class="tc">{{ gettext('Categories-header') }}:</h1>
-      <div class="preamble">
-        <div class="itemlist">
-          <ul>
-            {% for category, articles in categories|sort %}
-              <li>
-                <a href="{{ SITEURL }}/{{ category.url }}"
+      <div class="ml6-l ml4-m">
+        <ul class="fluid-bullet three-columns-l two-columns-m bullet-inside">
+          {% for category, articles in categories|sort %}
+            <li class="pv2">
+              <a href="{{ SITEURL }}/{{ category.url }}"
                    rel="bookmark">
-                  <p>{{ category.name|replace("-", " ") }} ({{ articles|count }})</p>
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
+                <p class="di ttc">
+                   {{ category.name|replace("-", " ") }} ({{ articles|count }})
+                </p>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
       </div>
     </article>
   </div>

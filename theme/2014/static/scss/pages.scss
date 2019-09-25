@@ -43,35 +43,6 @@ $white: rgba(255, 255, 255, 1);
   display: none;
 }
 
-.itemlist {
-  margin-left: 30%;
-
-  p {
-    margin-top: 10px;
-    text-transform: capitalize;
-  }
-}
-
-@media (min-width: 480px) {
-  .itemlist {
-    margin-left: 15%;
-
-    ul {
-      column-count: 2;
-      list-style-position: inside;
-      text-align: left;
-
-      li {
-        margin-top: 0;
-      }
-
-      p {
-        display: inline;
-      }
-    }
-  }
-}
-
 @media (min-width: 905px) {
   .tdresponsive {
     display: none;
@@ -81,13 +52,5 @@ $white: rgba(255, 255, 255, 1);
     border: 1px solid $lightgray;
     display: table-cell;
     padding: 10px;
-  }
-
-  .itemlist {
-    margin-left: 10%;
-
-    ul {
-      column-count: 3;
-    }
   }
 }

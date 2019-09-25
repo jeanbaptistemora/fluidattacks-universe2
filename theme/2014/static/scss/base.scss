@@ -37,6 +37,7 @@ $black: rgba(0, 0, 0, 1);
 .hv-fluid-bk { &:hover { color: $fluid-black;} }
 .hideme { visibility: hidden; }
 .fluid-bullet { list-style-image: url('../../images/bullet2.png');}
+.bullet-inside { list-style-position: inside; }
 .h-banner { height: 15em; }
 .w-banner { width: 20em; }
 .minh-nav { min-height: 5em; }
@@ -45,10 +46,17 @@ $black: rgba(0, 0, 0, 1);
 .w-maxcontent { width: max-content; }
 
 // Tachyons custom responsive classes
+
+//medium resolutions
+@media screen and (min-width: 30em) and (max-width: 60em) {
+  .two-columns-m { column-count: 2; }
+}
+
 //Large screens
 @media screen and (min-width: 60em) {
   .h-28em-l { height: 28em; }
   .h-banner-l { height: 20em; }
+  .three-columns-l { column-count: 3; }
 }
 
 //Very large screens
@@ -396,10 +404,6 @@ ul {
   p {
     margin-top: 0;
   }
-}
-
-.preamble {
-  font-size: 21px;
 }
 
 .tb-fluid {

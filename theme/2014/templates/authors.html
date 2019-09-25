@@ -47,21 +47,23 @@
 {% endblock breadcrumb %}
 {% block content %}
   <div class="divpage">
-    <article class="ma-auto tl mw8">
-      <h1 class="tc">{{ gettext('Authors-header') }}:</h1>
-      <div class="preamble">
-        <div class="itemlist">
-          <ul>
-            {% for author, articles in authors|sort %}
-              <li>
-                <a href="{{SITEURL}}/{{ author.url }}"
-                   rel="bookmark">
-                  <p>{{ author }} ({{ articles|count }})</p>
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
+    <article class="ma-auto tl-ns tc mw8">
+      <h1 class="tc">
+        {{ gettext('Authors-header') }}:
+      </h1>
+      <div class="ml6-l ml4-m">
+        <ul class="fluid-bullet three-columns-l two-columns-m bullet-inside">
+          {% for author, articles in authors|sort %}
+            <li class="pv2">
+              <a href="{{SITEURL}}/{{ author.url }}"
+                 rel="bookmark">
+                <p class="di ttc">
+                  {{ author }} ({{ articles|count }})
+                </p>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
       </div>
     </article>
   </div>

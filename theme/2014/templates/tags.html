@@ -48,21 +48,19 @@
   <div class="divpage">
     <article class="ma-auto tc mw7">
       <h1 class="tc">{{ gettext('Tags-header') }}:</h1>
-      <div class="preamble">
-        <ul class="tagcloud">
-          {% for tag in tag_cloud %}
-            <li class="tag-{{ tag.1 }} dib">
-              <a class="mono2 ttc"
-                 href="{{ SITEURL }}/{{ tag.0.url }}">
-                {{ tag.0 }}
-                {% if TAG_CLOUD_BADGE %}
-                  <span class="badge">{{ tag.2 }}</span>
-                {% endif %}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
+      <ul class="tagcloud">
+        {% for tag in tag_cloud %}
+          <li class="tag-{{ tag.1 }} dib">
+            <a class="mono2 ttc"
+                href="{{ SITEURL }}/{{ tag.0.url }}">
+              {{ tag.0 }}
+              {% if TAG_CLOUD_BADGE %}
+                <span class="badge">{{ tag.2 }}</span>
+              {% endif %}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
     </article>
   </div>
 {% endblock content %}
