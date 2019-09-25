@@ -52,32 +52,6 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-.button {
-  background-color: $fluid-red;
-  border-radius: 10px;
-  color: $white;
-  font-family: 'Montserrat';
-  font-size: 21px;
-  font-weight: bold;
-  padding: 2px 10px;
-  white-space: nowrap;
-
-  a {
-    color: $white;
-  }
-
-  &:hover {
-    background-color: $fluid-dark-red;
-  }
-}
-
-.tb-product {
-  .button {
-    padding: 10px 60px;
-    text-transform: capitalize;
-  }
-}
-
 @media (min-width: 480px) {
   .itemlist {
     margin-left: 15%;
