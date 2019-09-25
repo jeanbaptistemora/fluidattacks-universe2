@@ -647,7 +647,7 @@ def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_nam
 
 def reject_draft(draft_id, reviewer_email, project_name, context):
     api = FormstackAPI()
-    draft_data = finding_dal.get_finding(draft_id)
+    draft_data = get_finding(draft_id)
     is_draft = 'releaseDate' not in draft_data
     result = False
 
@@ -692,7 +692,7 @@ def send_finding_delete_mail(
 
 def delete_finding(finding_id, project_name, justification, context):
     api = FormstackAPI()
-    finding_data = finding_dal.get_finding(finding_id)
+    finding_data = get_finding(finding_id)
     is_finding = 'releaseDate' in finding_data
     result = False
 
@@ -716,7 +716,7 @@ def delete_finding(finding_id, project_name, justification, context):
 
 
 def approve_draft(draft_id, project_name, context):
-    finding_data = finding_dal.get_finding(draft_id)
+    finding_data = get_finding(draft_id)
     is_draft = 'releaseDate' not in finding_data
     success = False
 
@@ -776,20 +776,23 @@ def migrate_finding(draft_id, finding_data):
     return True
 
 
+def get_finding(finding_id):
+    """Retrieves and formats finding attributes"""
+    finding = finding_dal.get_finding(finding_id)
+    if not finding:
+        fs_finding = finding_vulnerabilities(finding_id)
+        if fs_finding:
+            migrate_finding(finding_id, fs_finding)
+            finding = finding_dal.get_finding(finding_id)
+        else:
+            raise FindingNotFound()
+
+    return finding_utils.format_data(finding)
+
+
 def get_findings(finding_ids):
     """Retrieves all attributes for the requested findings"""
-    findings = []
-    for finding_id in finding_ids:
-        finding = finding_dal.get_finding(finding_id)
-        if not finding:
-            fs_finding = finding_vulnerabilities(finding_id)
-            if fs_finding:
-                migrate_finding(finding_id, fs_finding)
-                finding = finding_dal.get_finding(finding_id)
-            else:
-                raise FindingNotFound()
-
-        findings.append(finding_utils.format_data(finding))
+    findings = [get_finding(finding_id) for finding_id in finding_ids]
 
     return findings
 
@@ -851,7 +854,7 @@ def send_new_draft_mail(
 
 def submit_draft(finding_id, analyst_email):
     success = False
-    finding = finding_dal.get_finding(finding_id)
+    finding = get_finding(finding_id)
     is_draft = 'releaseDate' not in finding
 
     if is_draft:
