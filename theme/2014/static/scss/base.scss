@@ -306,14 +306,6 @@ ul {
   display: table;
   text-align: center;
 
-  a {
-    color: $fluid-black;
-
-    &:hover {
-      color: $fluid-dark-red;
-    }
-  }
-
   td {
     &:last-child {
       border-top-style: hidden;
