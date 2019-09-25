@@ -13,21 +13,6 @@ $white: rgba(255, 255, 255, 1);
   padding: .3em .6em;
 }
 
-.maps {
-  @include table-border;
-  display: table-cell;
-  text-align: center;
-
-  iframe {
-    border: 0;
-    height: 300px;
-    margin-bottom: 25px;
-    margin-top: 15px;
-    max-width: 100%;
-    width: 400px;
-  }
-}
-
 .tbborder {
   border-spacing: 0;
   margin-bottom: 5%;
@@ -35,27 +20,9 @@ $white: rgba(255, 255, 255, 1);
   width: 100%;
 }
 
-.tblocation {
-  height: auto;
-  table-layout: fixed;
-  width: 100%;
-
-  th {
-    @include table-border;
-    text-align: center;
-    width: 60px;
-  }
-}
-
 .tdborder {
   @include table-border;
   height: 750px;
-}
-
-.tdlocation {
-  @include table-border;
-  display: table-cell;
-  text-align: center;
 }
 
 .tdresponsive {
