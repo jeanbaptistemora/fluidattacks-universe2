@@ -3,32 +3,49 @@
 """This module allows to check ``PKCS12`` vulnerabilities."""
 
 # standard imports
-from contextlib import suppress
+from typing import List
 
 # 3rd party imports
 from OpenSSL import crypto
 
 # local imports
-from fluidasserts import SAST, HIGH, _get_result_as_tuple_sast
+from fluidasserts import SAST, HIGH, OPEN, CLOSED, Unit
 from fluidasserts.utils.decorators import unknown_if, api
+from fluidasserts.utils.generic import get_paths, get_sha256
 
 
 @api(risk=HIGH, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_no_password_protection(p12_file: str) -> tuple:
+def has_no_password_protection(path: str) -> tuple:
     """
-    Check if a .p12 file is password protected.
+    Check if a PKCS 12 file is password protected.
 
-    :param p12_file: .p12 file to check
+    :param path: path to check.
     """
-    is_password_protected: bool = True
-    with suppress(crypto.Error):
-        with open(p12_file, 'rb') as p12_file_handle:
-            crypto.load_pkcs12(p12_file_handle.read())
-            is_password_protected = False
+    msg_open: str = 'File is not password protected'
+    msg_closed: str = 'File is password protected'
 
-    return _get_result_as_tuple_sast(
-        path=p12_file,
-        msg_open='File is not password protected',
-        msg_closed='File is password protected',
-        open_if=not is_password_protected)
+    safes: List[Unit] = []
+    vulns: List[Unit] = []
+
+    for full_path in get_paths(
+            path, endswith=(
+                '.p12',
+                '.pfx',
+            )):
+        vulnerable = True
+        try:
+            with open(full_path, 'rb') as p12_file_handle:
+                crypto.load_pkcs12(p12_file_handle.read())
+        except crypto.Error:
+            vulnerable = False
+
+        (vulns if vulnerable else safes).append(
+            Unit(
+                where=full_path,
+                source='PKCS 12/Password',
+                specific=[msg_open if vulnerable else msg_closed],
+                fingerprint=get_sha256(path)))
+    if vulns:
+        return OPEN, msg_open, vulns, safes
+    return CLOSED, msg_closed, vulns, safes
