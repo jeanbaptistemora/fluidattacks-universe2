@@ -111,70 +111,6 @@ $white: rgba(255, 255, 255, 1);
   }
 }
 
-.salesforce {
-  margin: 0 30px;
-
-  .form-label {
-    display: block;
-  }
-
-  .form-input {
-    display: block;
-    font-family: 'Source Sans Pro';
-    font-size: 18px;
-    height: 35px;
-    width: 100%;
-  }
-
-  .form-button {
-    text-align: center;
-  }
-
-  .hidden {
-    display: none;
-  }
-
-  .msg-field {
-    height: 80px;
-    width: 100%;
-  }
-
-  .form-submit {
-    background-color: $fluid-red;
-    border: 0;
-    border-radius: 10px;
-    color: $white;
-    font-family: 'Source Sans Pro';
-    font-size: 20px;
-    height: 35px;
-    width: 150px;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  .intl-tel-input {
-    display: block;
-  }
-
-  .intl-error {
-    color: $fluid-red;
-    float: right;
-    font-weight: 800;
-  }
-
-  .intl-valid {
-    color: $green;
-    float: right;
-    font-weight: 800;
-  }
-
-  .hide {
-    display: none;
-  }
-}
-
 @media (min-width: 480px) {
   .itemlist {
     margin-left: 15%;
@@ -192,11 +128,6 @@ $white: rgba(255, 255, 255, 1);
         display: inline;
       }
     }
-  }
-
-  .salesforce {
-    margin: auto;
-    max-width: 400px;
   }
 }
 

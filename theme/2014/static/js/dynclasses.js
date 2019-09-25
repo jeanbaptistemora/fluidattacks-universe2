@@ -29,5 +29,8 @@ Tachyons classes on dynamically generated content
     $( ".tag-3" ).addClass("f3")
     $( ".tag-4" ).addClass("f4")
 
+    //international tel input
+    $( ".intl-tel-input" ).addClass("db")
+
   });
 })(jQuery);

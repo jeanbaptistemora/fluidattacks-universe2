@@ -7,16 +7,16 @@ function validateForm() {
   }
 
   if ($("#00N1I00000NEIK7").val() === "") {
-    $('.form-error').removeClass('hide');
+    $('.form-error').removeClass('dn');
     valid = false;
   }
   else {
-    $('.form-error').addClass('hide');
+    $('.form-error').addClass('dn');
   }
 
   if(captcha_response.length == 0){
     valid = false;
-    alert("Captcha no verificado");
+    alert("You must verify the Captcha first");
   }
 
   return valid;
@@ -49,18 +49,18 @@ var iti = window.intlTelInput(input, {
 
 var reset = function() {
   input.classList.remove("error");
-  errorMsg.classList.add("hide");
-  validMsg.classList.add("hide");
+  errorMsg.classList.add("dn");
+  validMsg.classList.add("dn");
 };
 
 input.addEventListener('blur', function() {
   reset();
   if (input.value.trim()) {
     if (iti.isValidNumber()) {
-      validMsg.classList.remove("hide");
+      validMsg.classList.remove("dn");
     } else {
       input.classList.add("error");
-      errorMsg.classList.remove("hide");
+      errorMsg.classList.remove("dn");
     }
   }
 });
