@@ -8,6 +8,7 @@ stages:
   - build
   - mr-check
   - deploy
+  - eks-initial-setup
   - postdeploy
   - rotation
   - backup
@@ -97,38 +98,6 @@ build_builder:
         --dockerfile "${CI_PROJECT_DIR}/containers/builder/Dockerfile"
         --destination "${CI_REGISTRY_IMAGE}:builder"
   <<: *only_schedules
-  <<: *except_analytics
-
-terraform-states-bucket:
-  stage: terraform-backend
-  image: registry.gitlab.com/fluidsignal/serves:builder
-  script:
-    - ./services/states-bucket/states-bucket.sh
-  only:
-    - master
-  except:
-    - schedules
-
-lint-eks:
-  stage: tests
-  image: registry.gitlab.com/fluidsignal/serves:builder
-  script:
-    - ./ci-scripts/jobs/lint-eks.sh
-  except:
-    - master
-
-terraform-eks:
-  stage: deploy
-  image: registry.gitlab.com/fluidsignal/serves:builder
-  script:
-    - ./ci-scripts/jobs/terraform-eks.sh
-  <<: *except_analytics
-
-deploy-helm:
-  stage: deploy
-  image: registry.gitlab.com/fluidsignal/serves:builder
-  script:
-    - ./ci-scripts/jobs/deploy-helm.sh
   <<: *except_analytics
 
 test_code:
@@ -643,3 +612,51 @@ analytics_refresh_token_timedoctor:
   only:
     variables:
       - $FLAG_REFRESH_TOKENS
+
+eks-helm-install:
+  stage: eks-initial-setup
+  image: registry.gitlab.com/fluidsignal/serves:builder
+  script:
+    - ./ci-scripts/jobs/eks-helm-install.sh
+  only:
+    - master
+  except:
+    - schedules
+
+eks-terraform-apply:
+  stage: deploy
+  image: registry.gitlab.com/fluidsignal/serves:builder
+  script:
+    - ./ci-scripts/jobs/eks-terraform-apply.sh
+  only:
+    - master
+  except:
+    - schedules
+
+eks-terraform-lint:
+  stage: tests
+  image: registry.gitlab.com/fluidsignal/serves:builder
+  script:
+    - ./ci-scripts/jobs/eks-terraform-lint.sh
+  except:
+    - master
+    - schedules
+
+eks-terraform-plan:
+  stage: tests
+  image: registry.gitlab.com/fluidsignal/serves:builder
+  script:
+    - ./ci-scripts/jobs/eks-terraform-plan.sh
+  except:
+    - master
+    - schedules
+
+terraform-states-bucket:
+  stage: terraform-backend
+  image: registry.gitlab.com/fluidsignal/serves:builder
+  script:
+    - ci-scripts/jobs/terraform-states-bucket.sh
+  only:
+    - master
+  except:
+    - schedules
