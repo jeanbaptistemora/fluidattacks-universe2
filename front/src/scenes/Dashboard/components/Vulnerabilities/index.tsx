@@ -136,11 +136,13 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
   const specificGrouped: IVulnType =
   _.map(groups, (line: IVulnType) =>
     ({
+        analyst: "",
         currentApprovalStatus: line[0].currentApprovalStatus,
         currentState: line[0].currentState,
         externalBts: line[0].externalBts,
         id: line[0].id,
         isNew: line[0].isNew,
+        lastAnalyst: "",
         lastApprovedStatus: line[0].lastApprovedStatus,
         specific: line[0].vulnType === "inputs" ? line.map(getSpecific)
           .join(", ") : groupValues(line.map(specificToNumber)),
@@ -157,6 +159,7 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
 const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVulnType => (
     _.map(lines, (line: IVulnType[0]) =>
       ({
+        analyst: line.analyst,
         currentApprovalStatus: line.currentApprovalStatus,
         currentState: line.currentState,
         externalBts: line.externalBts,
@@ -164,6 +167,7 @@ const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType)
         isNew: _.isEmpty(line.lastApprovedStatus) ?
         translate.t("search_findings.tab_description.new") :
         translate.t("search_findings.tab_description.old"),
+        lastAnalyst: "",
         lastApprovedStatus: line.lastApprovedStatus,
         specific: line.specific,
         treatment: line.treatment,
@@ -214,9 +218,14 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     if (!_.isUndefined(props.descriptParam)) {
       props.descriptParam.formValues.treatment = props.descriptParam.formValues.treatmentVuln;
     }
+    const canGetAnalyst: boolean = _.includes(["analyst", "admin"], props.userRole);
 
     return(
-    <Query query={GET_VULNERABILITIES} variables={{ identifier: props.findingId }} notifyOnNetworkStatusChange={true}>
+    <Query
+      query={GET_VULNERABILITIES}
+      variables={{ identifier: props.findingId, analystField: canGetAnalyst }}
+      notifyOnNetworkStatusChange={true}
+    >
       {
         ({loading, error, data, refetch, networkStatus}: QueryResult<IVulnsAttr>): React.ReactNode => {
           const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
@@ -346,6 +355,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             const isEditable: boolean = _.isUndefined(props.renderAsEditable) ? false : props.renderAsEditable;
             const separatedRow: boolean = !_.isUndefined(props.separatedRow) ? props.separatedRow
             : false;
+            const getAnalyst: boolean = !_.isUndefined(props.analyst) ? props.analyst : false;
+            const shouldGroup: boolean = !(props.editMode && separatedRow);
 
             const handleOpenVulnSetClick: () => void = (): void => {
               setModalHidden(true);
@@ -495,7 +506,32 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                                 isStatus: false,
                                 width: "10%",
                               });
-                  } else if (!(separatedRow && props.editMode)) {
+                  } else if (getAnalyst) {
+                    inputsHeader.push({
+                      align: "left" as DataAlignType,
+                      dataField: "lastAnalyst",
+                      header: translate.t("search_findings.tab_description.analyst"),
+                      isDate: false,
+                      isStatus: false,
+                      width: "30%",
+                    });
+                    linesHeader.push({
+                      align: "left" as DataAlignType,
+                      dataField: "lastAnalyst",
+                      header: translate.t("search_findings.tab_description.analyst"),
+                      isDate: false,
+                      isStatus: false,
+                      width: "30%",
+                    });
+                    portsHeader.push({
+                      align: "left" as DataAlignType,
+                      dataField: "lastAnalyst",
+                      header: translate.t("search_findings.tab_description.analyst"),
+                      isDate: false,
+                      isStatus: false,
+                      width: "30%",
+                    });
+                  } else if (shouldGroup) {
                     formattedDataLines = groupSpecific(dataLines);
                     formattedDataPorts = groupSpecific(dataPorts);
                     formattedDataInputs = groupSpecific(dataInputs);
@@ -688,7 +724,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                             header: "Where",
                             isDate: false,
                             isStatus: false,
-                            width: "54%",
+                            width: "50%",
                             wrapped: true,
                           },
                           {
@@ -718,6 +754,16 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                             width: "12%",
                             wrapped: true,
                           }];
+                        if (getAnalyst) {
+                          pendingsHeader.push({
+                            align: "left" as DataAlignType,
+                            dataField: "analyst",
+                            header: translate.t("search_findings.tab_description.analyst"),
+                            isDate: false,
+                            isStatus: false,
+                            width: "38%",
+                          });
+                        }
                         if (_.isEqual(props.editModePending, true)) {
                           pendingsHeader.push({
                             align: "center" as DataAlignType,

@@ -2,25 +2,29 @@ import { gql } from "apollo-boost";
 import { DocumentNode } from "graphql";
 
 export const GET_VULNERABILITIES: DocumentNode = gql`
-  query GetVulnerabilitiesQuery($identifier: String!) {
+  query GetVulnerabilitiesQuery($identifier: String!, $analystField: Boolean!) {
     finding(identifier: $identifier) {
       id
       releaseDate
       portsVulns: vulnerabilities(
         vulnType: "ports") {
         ...vulnInfo
+        lastAnalyst @include(if: $analystField)
       }
       linesVulns: vulnerabilities(
         vulnType: "lines") {
         ...vulnInfo
+        lastAnalyst @include(if: $analystField)
       }
       pendingVulns: vulnerabilities(
         approvalStatus: "PENDING") {
         ...vulnInfo
+        analyst @include(if: $analystField)
       }
       inputsVulns: vulnerabilities(
         vulnType: "inputs") {
         ...vulnInfo
+        lastAnalyst @include(if: $analystField)
       }
     }
   }

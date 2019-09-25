@@ -74,6 +74,7 @@ export const trackingViewComponent: React.FunctionComponent<ITrackingViewProps> 
                 </Col>
                 <Col md={10}>
                   <VulnerabilitiesView
+                    analyst={_.includes(["admin", "analyst"], props.userRole)}
                     editMode={false}
                     editModePending={true}
                     state={"PENDING"}
@@ -89,6 +90,7 @@ export const trackingViewComponent: React.FunctionComponent<ITrackingViewProps> 
                 </Col>
                 <Col md={10}>
                   <VulnerabilitiesView
+                    analyst={_.includes(["admin", "analyst"], props.userRole)}
                     editMode={false}
                     findingId={props.findingId}
                     state={"open"}
@@ -102,6 +104,7 @@ export const trackingViewComponent: React.FunctionComponent<ITrackingViewProps> 
                 </Col>
                 <Col md={10}>
                   <VulnerabilitiesView
+                    analyst={_.includes(["admin", "analyst"], props.userRole)}
                     editMode={false}
                     findingId={props.findingId}
                     state={"closed"}
