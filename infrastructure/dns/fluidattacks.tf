@@ -213,7 +213,7 @@ resource "aws_route53_record" "email_dmarc" {
   name    = "_dmarc.${aws_route53_zone.fs_maindomain.name}"
   type    = "TXT"
   ttl     = "300"
-  records = ["v=DMARC1; p=none; rua=mailto:technology@fluidattacks.com"]
+  records = ["v=DMARC1; p=none; rua=mailto:technology+dmarc@fluidattacks.com"]
 }
 
 resource "aws_route53_record" "googleTXT" {
