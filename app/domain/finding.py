@@ -247,40 +247,32 @@ def get_email_recipients(project_name, comment_type):
 
 def send_comment_mail(user_email, comment_data, finding_id):
     comment_type = comment_data['comment_type']
-    project_name = get_project_name(finding_id).lower()
-    recipients = get_email_recipients(project_name, comment_type)
-    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
-    dynamo_value = integrates_dal.get_finding_attributes_dynamo(
-        finding_id, ['finding'])
-    if dynamo_value:
-        finding_title = dynamo_value.get('finding')
-    else:
-        fin_dto = FindingDTO()
-        api = FormstackAPI()
-        finding_title = fin_dto.parse(
-            finding_id, api.get_submission(finding_id)
-        ).get('finding')
+    finding = get_finding(finding_id)
+    recipients = get_email_recipients(finding.get('projectName'), comment_type)
 
+    is_draft = 'releaseDate' in finding
+    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     email_context = {
-        'project': project_name,
-        'finding_name': finding_title,
+        'project': finding.get('projectName'),
+        'finding_name': finding.get('finding'),
         'user_email': user_email,
         'finding_id': finding_id,
         'comment': comment_data['content'].replace('\n', ' '),
         'comment_type': comment_type,
         'parent': comment_data['parent'],
         'comment_url':
-            base_url + '/project/{project!s}/{finding!s}/{comment_type!s}s'
-        .format(project=project_name, finding=finding_id,
-                comment_type=comment_type)
+            base_url
+            + '/project/{project}/{finding_type}/{id}/{comment_type}s'.format(
+            comment_type=comment_type,
+            finding_type='findings' if is_draft else 'drafts',
+            id=finding_id,
+            project=finding.get('projectName'))
     }
-    mail_title = \
-        'New {comment_type!s} email thread'.format(comment_type=comment_type)
+
     email_send_thread = threading.Thread(
-        name=mail_title,
+        name='New {} email thread'.format(comment_type),
         target=send_mail_comment,
-        args=(recipients,
-              email_context))
+        args=(recipients, email_context))
     email_send_thread.start()
 
 

@@ -16,7 +16,6 @@ from app.decorators import get_entity_cache
 from app.dto.finding import (
     total_vulnerabilities
 )
-from app.dto import project as project_dto
 from app.mailer import send_mail_comment
 from app.util import format_comment_date
 
@@ -246,15 +245,6 @@ def get_total_treatment(findings):
         'undefined': undefined_treatment
     }
     return treatment
-
-
-def get_project_info(project_name):
-    reqset = FormstackAPI().get_project_info(project_name)['submissions']
-    if reqset:
-        submission_id = reqset[-1]['id']
-        submission = FormstackAPI().get_submission(submission_id)
-        return project_dto.parse(submission)
-    return []
 
 
 @get_entity_cache

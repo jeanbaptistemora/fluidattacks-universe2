@@ -40,7 +40,7 @@ from app.domain.vulnerability import (
 from app.documentator.pdf import CreatorPDF
 from app.documentator.secure_pdf import SecurePDF
 from app.documentator.all_vulns import generate_all_vulns_xlsx
-from app.dto import closing, project as project_dto
+from app.dto import closing
 from app.dto.finding import (
     FindingDTO, parse_finding, get_project_name,
     mask_finding_fields_dynamo
@@ -300,15 +300,6 @@ def pdf_evidences(findings):
                 evidence['name'] = 'image::../images/' + \
                     evidence['id'] + '.png[align="center"]'
     return findings
-
-
-def get_project_info(project):
-    reqset = FormstackAPI().get_project_info(project)["submissions"]
-    if reqset:
-        submission_id = reqset[-1]["id"]
-        submission = FormstackAPI().get_submission(submission_id)
-        return project_dto.parse(submission)
-    return []
 
 
 def format_finding(finding, request):
