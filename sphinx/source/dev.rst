@@ -125,7 +125,7 @@ Version control workflow
 
 After receiving developer access and cloning the repository,
 setup your credentials if you haven't done so already.
-In Gitlab (from the website) and
+In GitLab (from the website) and
 your local git installation (with ``git config``),
 your username must be ``loginatfluid`` v.g. ``dknuthatfluid``
 and your email must be your corporate email, v.g. ``dknuth@fluidattacks.com``.
@@ -194,7 +194,7 @@ that is, if his pipeline passes...
 Continuous Integration
 ----------------------
 
-``Asserts`` uses Gitlab CI to
+``Asserts`` uses GitLab CI to
 make sure that a change in a commit
 does not break anything in the master branch.
 Among other things, the CI pipeline:

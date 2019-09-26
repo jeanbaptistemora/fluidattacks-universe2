@@ -107,7 +107,7 @@ What kind of vulnerabilities can ``Asserts`` test?
 
 
 As of |today|
-``Asserts`` provides <CHECKS> checks
+``Asserts`` provides 302 checks
 in the scenarios above.
 Use the search box in the sidebar,
 peruse the :ref:`genindex`

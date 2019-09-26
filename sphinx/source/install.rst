@@ -54,67 +54,107 @@ the directory where your exploits live into the container: ::
    :language: yaml
 
 -----------------------------------------------
-Usage in a CI (Continuous Integration) pipeline
+Inside your CI (Continuous Integration) pipeline
 -----------------------------------------------
 
 If you have an application subscribed to our
 Continuous Hacking Service
 which includes the use of ``Asserts``,
 you can integrate it into
-your ``CI`` pipeline to
+your ``CI/CD`` pipeline to
 ensure that your software builds and ships
-with no open vulnerabilities.
+with ``no open vulnerabilities``.
 We will provide a custom ``Docker`` container
 with the specific tests you need
-and maintain the build-breaking exploit.
+and maintain the build-breaker exploit.
 
 To achieve this, follow these steps:
 
 #. Add the required environment variables
-   ``USER``, ``PASS``, ``ORG`` and ``APP``.
+   ``ID`` and ``SECRET``.
    Don't worry, the values will be provided by us!:
 
-   * ``USER``: Name of the user from our Container Registry
-   * ``PASS``: The password of the user
-   * ``ORG``: The name of the organization
-   * ``APP``: The name of the application
+   * ``ID``: an identifier that works like your username
+   * ``SECRET``: another identifier that works like your password
 
-   For example, in Gitlab, your environment would look like this:
+   For example, in GitLab, your environment would look like this:
 
    .. figure:: _static/vars.png
-      :alt: Gitlab environment variables for using Asserts
+      :alt: GitLab environment variables for using Asserts
 
-      Gitlab CI environment variables
+      GitLab CI environment variables
 
 #. Add a job to run ``Fluid Asserts``.
-   For example, in Gitlab,
-   you would add these three lines to
-   your ``.gitlab-ci.yml``:
+   For example:
 
-   .. code-block:: yaml
+   * in ``GitLab``:
 
-      fluidasserts:
-        script:
-          - docker login fluid-docker.jfrog.io -u "$USER" -p "$PASS"
-          - docker pull fluid-docker.jfrog.io/"$ORG":"$APP"
-          - docker run -e ORG="$ORG" -e APP="$APP" -e USER="$USER"
-                       -e PASS="$PASS" -e FA_STRICT="true" --rm
-                       fluid-docker.jfrog.io/"$ORG":"$APP"
-          - docker logout fluid-docker.jfrog.io
+     Add these three lines to
+     your ``.gitlab-ci.yml``:
+
+     .. code-block:: yaml
+
+        fluidasserts:
+          script:
+            - docker pull fluidattacks/break-build
+            - bash <(docker run fluidattacks/break-build --static --id ${ID} --secret ${SECRET})
+
+   * in ``Azure DevOps (VSTS)``,
+
+     Add a **Command Line** task with the following script:
+
+     .. code-block:: bash
+
+        docker pull fluidattacks/break-build
+        bash <(docker run fluidattacks/break-build --static --id ${ID} --secret ${SECRET})
 
 #. Now your pipeline will break
    if any vulnerability is found to be open.
    In order to not break the build,
    but still run the tests,
-   set the ``FA_STRICT`` variable above to ``"false"``.
+   add the ``--no-strict`` flag on the command.
+
+#. You can customize the execution
+
+   .. The commands are the following::
+
+   --static
+      Run the static container.
+   --dynamic
+      Run the dynamic container.
+   --cpus N
+      Add this flag to allow execution in N host CPUs (defaults to 1)
+   --id ID
+      Use this flag to set your user ID
+   --secret SECRET
+      Use this flag to set your user Secret
+   --no-strict
+      Don't ``Break the Build`` if any vulnerability is found to be open :(
 
 ~~~~~~~~~
 CI stages
 ~~~~~~~~~
 
 OK, I'm in. But in what stage should I test my app with ``Asserts``?
-There are at least three good moments to perform closure testing:
 
+Let's think for a moment in the following architecture
+
+Locally:
+
+#. Develop an amazing feature
+#. Push your code to the repository
+
+Inside the continuous integration:
+
+#. Test the code
+#. Build the code
+#. Deploy an ephemeral environment
+#. Make a Pull/Merge Request
+#. Deploy the production environment
+
+There are at least four good moments to perform closure testing.
+
+* just after pushing your code to the repository
 * after deploying to a staging or ephemeral environment
 * after deploying to the production environment
 * even after every single commit!
@@ -125,25 +165,16 @@ _______________
 
 Just as before, we log in to the artifacts repository,
 pull the custom image and run it with ``Docker``.
-This time, however, we mount the volume corresponding to the current commit
-(``/tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}``)
-to the ``/code`` directory in the container,
-since the container is already set-up to test the code there.
-This job is ran only in the ``master`` branch and
-in one of the latest stages, namely ``post-deploy``.
+This job is run only in the ``master`` branch and
+in one of the latest stages, namely ``asserts-prod``.
 
 .. code-block:: yaml
 
-   asserts-prod:
-     stage: post-deploy
+   asserts-production:
+     stage: asserts-prod
      script:
-       - docker login fluid-docker.jfrog.io -u "$USER" -p "$PASS"
-       - docker pull fluid-docker.jfrog.io/"$ORG":"$APP"
-       - docker run -e ORG="$ORG" -e APP="$APP" -e USER="$USER" -e PASS="$PASS"
-                    -e FA_STRICT="true" --rm -e STAGE=post-deploy
-                    -v /tmp${CI_PROJECT_DIR}/${CI_COMMIT_REF_NAME}:/code
-                    fluid-docker.jfrog.io/"$ORG":"$APP"
-       - docker logout fluid-docker.jfrog.io
+       - docker pull fluidattacks/break-build
+       - bash <(docker run fluidattacks/break-build --dynamic --id ${ID} --secret ${SECRET})
      retry: 2
      only:
        - master
@@ -160,16 +191,10 @@ you can also perform closure testing in those:
 .. code-block:: yaml
 
    Asserts-Review:
-     stage: test
+     stage: asserts-post-ephemeral
      script:
-       - docker login fluid-docker.jfrog.io -u "$USER" -p "$PASS"
-       - docker pull fluid-docker.jfrog.io/"$ORG":"$APP"
-       - docker run -e ORG="$ORG" -e APP="$APP" -e USER="$USER" -e PASS="$PASS"
-                    -e FA_STRICT="true" --rm -e STAGE=test
-                    -e BRANCH="$CI_COMMIT_REF_SLUG"
-                    -v /tmp${CI_PROJECT_DIR}/${CI_COMMIT_SHA}:/code
-                    fluid-docker.jfrog.io/"$ORG":"$APP"
-       - docker logout fluid-docker.jfrog.io
+       - docker pull fluidattacks/break-build
+       - bash <(docker run fluidattacks/break-build --dynamic --id ${ID} --secret ${SECRET})
      retry: 2
      except:
        - master
@@ -177,9 +202,31 @@ you can also perform closure testing in those:
 
 In contrast to the post-deploy job above,
 this one runs on the development branches,
-during the ``test`` stage.
+during the ``asserts-post-ephemeral`` stage.
 Otherwise, everything else is the same,
 just like staging environments mirror production environments.
+
+_______________
+Just after pushing your code
+_______________
+
+We can start catching bugs even only with the source code:
+
+.. code-block:: yaml
+
+   Asserts-Review:
+     stage: asserts-code-test
+     script:
+       - docker pull fluidattacks/break-build
+       - bash <(docker run fluidattacks/break-build --static --id ${ID} --secret ${SECRET})
+     except:
+       - master
+       - triggers
+
+In contrast to the post-ephemeral job above,
+this one runs on the development branches,
+during the ``asserts-code-test`` stage,
+over the source code only.
 
 __________
 Pre-commit
@@ -232,9 +279,3 @@ Just
   - pre-commit run --all-files
 
 somewhere in your ``CI`` script.
-
-
-
-
-
-

@@ -10,7 +10,7 @@ Summary
 In a computer
 ~~~~~~~~~~~~~
 
-On a modern operating system, all you need is Python 3.6 or higher.
+On a modern operating system, all you need is Python 3.7 or higher.
 
 If installing on a very barebones operating system,
 make sure you have
