@@ -25,9 +25,9 @@ import argparse
 
 from uuid import uuid4 as gen_id
 from typing import Iterable, Callable, Dict, List, Tuple, Set, Any
-from datetime import datetime
 
 import boto3 as amazon_sdk
+import dateutil.parser
 
 from . import logs
 
@@ -576,36 +576,12 @@ def std_date(date: Any) -> str:
     # log the received value
     logs.log_conversions(f"date [{date}]")
 
-    date = str(date)
-    new_date: str = ""
-
-    # replace anything that is not a digit by an space
-    date = re.sub(r"[^\d]", r" ", date)
-
-    # replace any repeated space character by a single space character
-    date = re.sub(r"\s+", r" ", date)
-
-    # remove leading and trailing whitespace
-    date = date.strip(" ")
-
-    # everything is normalized now, try to match with this formats
-    date_formats: Tuple[str, str, str] = (
-        "%Y %m %d %H %M %S %f",
-        "%Y %m %d %H %M %S",
-        "%Y %m %d",
-    )
-
-    for date_format in date_formats:
-        try:
-            date_obj = datetime.strptime(date, date_format)
-            # raise ValueError when not possible to match date with date_format
-            new_date = date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
-            break
-        except ValueError:
-            pass
+    try:
+        date_obj = dateutil.parser.parse(str(date))
+    except (ValueError, OverflowError):
+        raise UnrecognizedDate()
     else:
-        # else clause executes if the loop did not encounter a break statement
-        raise UnrecognizedDate
+        new_date = date_obj.strftime("%Y-%m-%dT%H:%M:%SZ")
 
     # log the returned value
     logs.log_conversions(f"     [{new_date}]")
