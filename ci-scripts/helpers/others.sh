@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
 
-reg_repo_id () {
+reg_repo_id() {
 
   # Get the id of a gitlab registry repo
 
-  #set -e
+  set -e
 
   INTEGRATES_ID='4620828'
   CHECK_URL="https://gitlab.com/api/v4/projects/$INTEGRATES_ID/registry/repositories"
@@ -12,28 +12,20 @@ reg_repo_id () {
   wget -O - "$CHECK_URL" 2> /dev/null | jq ".[] | select (.name == \"$1\") | .id"
 }
 
-reg_repo_tag_exists () {
+delete_reg_repo() {
 
-  # Checks if a tag exists within a specific registry repository
-  # Example: reg_repo_tag_exists deps-production master will return 0
+  # Delete registry repo
+  # Example: delete_reg_repo deps-production/cache
 
-  #set -e
+  set -e
 
-  REPO_NAME=$1
-  TAG_NAME=$2
+  REPO_NAME="$1"
 
   INTEGRATES_ID='4620828'
   REPO_ID=$(reg_repo_id "$REPO_NAME")
-  CHECK_URL="https://gitlab.com/api/v4/projects/$INTEGRATES_ID/registry/repositories/$REPO_ID/tags/$TAG_NAME"
-  TAG=$(wget -O - "$CHECK_URL" 2> /dev/null | jq -r '.name')
+  DELETE_URL="https://gitlab.com/api/v4/projects/4620828/registry/repositories/$REPO_ID"
 
-  if [ "$TAG" = "$TAG_NAME" ]; then
-    echo "$REPO_NAME:$TAG_NAME exists"
-    return 0
-  else
-    echo "$REPO_NAME:$TAG_NAME does not exist"
-    return 1
-  fi
+  curl --request DELETE --header "PRIVATE-TOKEN: $GITLAB_API_TOKEN" "$DELETE_URL"
 }
 
 kaniko_login() {

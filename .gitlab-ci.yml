@@ -267,3 +267,12 @@ new-version-mail:
     - master
   except:
     - schedules
+
+clean-registry-caches:
+  stage: post-deploy
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - vaultenv ./ci-scripts/jobs/clean-registry-caches.sh
+  only:
+    - master
+    - schedules

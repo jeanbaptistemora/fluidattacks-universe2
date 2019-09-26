@@ -100,7 +100,7 @@ deploy_k8s() {
 
   kubectl apply -f "$CONFIG"
 
-  if ! kubectl rollout status deploy/integrates-app --timeout=5m; then
+  if ! kubectl rollout status deploy/integrates-app --timeout=8m; then
     undo_rollout app
     return 1
   fi
