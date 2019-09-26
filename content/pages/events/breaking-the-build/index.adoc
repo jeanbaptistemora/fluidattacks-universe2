@@ -196,7 +196,7 @@ in case the facility exceeds its capacity.
 offered by +Fluid Attacks+
 the event material is sent to the attendance
 once *all* the assistants have completed the
-[button]#link:http://go.fluidattacks.com/rompiendo-el-build[online satisfaction survey]#
+[button]#link:https://fluidsignal.formstack.com/forms/talk[online satisfaction survey]#
 *before leaving* the auditorium.
 
 == 8. Public

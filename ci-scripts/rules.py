@@ -9,8 +9,8 @@ Author: Oscar Eduardo Prado oprado@fluidattacks.com
 #Rules for all asciidoc files
 CONTENTRULES = {
     # Check use of incorrect names to address the company
-    "pcregrep -on 'Fluid(?! Attacks)|Fluidsignal Group|fluidsignal"
-    "|\\ fluid[)}\\ \\]] |FLUID\\W|FLUIDAttacks'":
+    "pcregrep -on 'Fluid(?! Attacks)|Fluidsignal Group"
+    "|fluidsignal(?!\\.formstack)|\\ fluid[)}\\ \\]] |FLUID\\W|FLUIDAttacks'":
     "The only accepted name is Fluid Attacks. ",
 
     # Check blank spaces after headers

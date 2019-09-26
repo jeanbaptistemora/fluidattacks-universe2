@@ -31,9 +31,8 @@ Frequently asked questions about Continuous Hacking.
 
 *In what industries does Fluid Attacks have experience?*::
   Along our career trajectory we have been working with companies
-  from different sectors.
-  Please refer to our link:../../customers/[customers] page
-  for further information.
+  from different sectors, such as financial, transportation,
+  industrial, consumer, communications, technology and utilities.
 
 *How does Fluid Attacks stay on top of new techniques and changes?*::
   We ensure to constantly research and keep updated

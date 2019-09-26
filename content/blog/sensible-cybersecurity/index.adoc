@@ -5,7 +5,7 @@
 :tags: interview, risk, company
 :image: cover.png
 :alt: Nicolás Acosta, CISO at Corona
-:description: We interviewed Nicolás Acosta, CISO of Corona, a multinational company in the home improvement and construction industry. Nicolás shared his perspective on some topics like artificial intelligence, machine learning, innovation, setbacks as CISO, among others.
+:description: We interviewed Nicolás Acosta, CISO of Corona, a multinational company in the home improvement and construction industry. On this second part of the interview, Nicolás shared with us his point of view about risk management, main setbacks, truths and falsehoods regarding cybersecurity.
 :keywords: CISO, Cybersecurity, Expected Loss, Hacking, Risk Management, Strategy
 :author: Julian Arango
 :writer: jarango
