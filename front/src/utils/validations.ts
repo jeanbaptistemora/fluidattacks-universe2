@@ -186,7 +186,7 @@ export const isValidFileSize: ((file: File, fileSize: number) => boolean) =
 export const isValidDate: ((arg1: string) => string | undefined) =
   (value: string): string | undefined => {
   let date: Date; date = new Date(value);
-  let today: Date; today = new Date(); today = new Date(today.setMonth(today.getMonth() + 3));
+  let today: Date; today = new Date(); today = new Date(today.setMonth(today.getMonth() + 6));
 
   if (date > today) {
     return translate.t("validations.valid_date");

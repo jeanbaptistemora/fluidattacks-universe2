@@ -639,7 +639,7 @@ const enTranslations: dict = {
     numeric: "This field can only contain numbers",
     required: "Required field",
     tags: "This field can only contain alphanumeric characters and dashes",
-    valid_date: "The date must be below three months",
+    valid_date: "The date must be below six months",
     valid_date_token: "The date must be below six months",
   },
 };
