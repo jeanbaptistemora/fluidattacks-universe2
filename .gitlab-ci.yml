@@ -41,8 +41,6 @@ test-terraform:
   only:
     - branches
     - merge_requests
-  except:
-    - master
 
 test-front:
   stage: test
@@ -57,8 +55,6 @@ test-front:
   only:
     - branches
     - merge_requests
-  except:
-    - master
 
 test-mobile:
   stage: test
@@ -66,8 +62,6 @@ test-mobile:
   image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:master
   script:
     - ./ci-scripts/jobs/test-mobile.sh
-  except:
-    - master
 
 test-app:
   stage: test
@@ -83,8 +77,6 @@ test-app:
   only:
     - branches
     - merge_requests
-  except:
-    - master
 
 asserts-static:
   stage: test
@@ -99,8 +91,6 @@ asserts-static:
   script:
     - cp -a ./* /code/
     - /entrypoint.sh
-  except:
-    - master
 
 commitlint:
   stage: test
@@ -108,8 +98,6 @@ commitlint:
   script:
     - npm install --unsafe-perm
     - ./ci-scripts/jobs/commitlint.sh
-  except:
-    - master
 
 build-terraform:
   stage: build
@@ -274,5 +262,4 @@ clean-registry-caches:
   script:
     - vaultenv ./ci-scripts/jobs/clean-registry-caches.sh
   only:
-    - master
     - schedules
