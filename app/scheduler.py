@@ -1,34 +1,28 @@
 """ Asynchronous task execution scheduler for FLUIDIntegrates """
 
-# pylint: disable=E0402
-
 from __future__ import absolute_import
-from datetime import datetime, timedelta
-from collections import OrderedDict, defaultdict
 import logging
 import logging.config
+from collections import OrderedDict, defaultdict
+from datetime import datetime, timedelta
+
 import rollbar
 from botocore.exceptions import ClientError
 from django.conf import settings
-from __init__ import (
-    FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS,
-    FI_MAIL_REVIEWERS
-)
-from . import views
-from .dal import integrates_dal
-from .domain.finding import (get_age_finding, get_tracking_vulnerabilities, update_treatment)
-from .domain.project import (
-    get_last_closing_vuln, get_mean_remediate, get_max_open_severity,
-    get_total_treatment, get_active_projects, get_findings
-)
-from .dal.helpers.formstack import FormstackAPI
-from .dto import remission
-from .dto import eventuality
-from .dto.finding import finding_vulnerabilities
-from .mailer import send_mail_new_vulnerabilities, send_mail_new_remediated, \
-    send_mail_new_releases, send_mail_unsolved_events, \
+
+from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
+from app import util, views
+from app.dal import integrates_dal
+from app.dal.helpers.formstack import FormstackAPI
+from app.domain import finding as finding_domain, project as project_domain
+from app.dto import remission
+from app.dto import eventuality
+from app.dto.finding import finding_vulnerabilities
+from app.mailer import (
+    send_mail_new_vulnerabilities, send_mail_new_remediated,
+    send_mail_new_releases, send_mail_unsolved_events,
     send_mail_project_deletion
-from . import util
+)
 
 
 logging.config.dictConfig(settings.LOGGING)
@@ -240,7 +234,7 @@ def get_new_vulnerabilities():
     """Summary mail send with the findings of a project."""
     rollbar.report_message(
         'Warning: Function to get new vulnerabilities is running', 'warning')
-    projects = get_active_projects()
+    projects = project_domain.get_active_projects()
     fin_attrs = 'finding_id, treatment, project_name, finding'
     for project in projects:
         context = {'updated_findings': list(), 'no_treatment_findings': list()}
@@ -282,7 +276,7 @@ def prepare_mail_recipients(project):
 
 def calculate_vulnerabilities(act_finding):
     vulns = integrates_dal.get_vulnerabilities_dynamo(act_finding['finding_id'])
-    all_tracking = get_tracking_vulnerabilities(vulns)
+    all_tracking = finding_domain.get_tracking_vulnerabilities(vulns)
     delta_total = 0
     if len(all_tracking) > 1:
         if (datetime.strptime(all_tracking[-1]['date'], "%Y-%m-%d")) > (datetime.now() -
@@ -324,7 +318,7 @@ def create_msj_finding_pending(act_finding):
     finding_vulns = finding_vulnerabilities(act_finding['finding_id'])
     state = finding_vulns['estado'].lower()
     if act_finding['treatment'] == 'NEW' and state == 'abierto':
-        days = get_age_finding(act_finding)
+        days = finding_domain.get_age_finding(act_finding)
         finding_name = act_finding['finding'] + ' -' + \
             str(days) + ' day(s)-'
         result = finding_name
@@ -337,7 +331,7 @@ def get_remediated_findings():
     """Summary mail send with findings that have not been verified yet."""
     rollbar.report_message(
         'Warning: Function to get remediated findings is running', 'warning')
-    active_projects = get_active_projects()
+    active_projects = project_domain.get_active_projects()
     findings = []
     for project in active_projects:
         findings += integrates_dal.get_remediated_project_dynamo(project)
@@ -406,29 +400,25 @@ def inactive_users():
 
 def get_new_releases():
     """Summary mail send with findings that have not been released yet."""
-    rollbar.report_message(
-        'Warning: Function to get new releases is running ')
-    projects = get_active_projects()
-    api = FormstackAPI()
+    rollbar.report_message('Warning: Function to get new releases is running')
+    projects = project_domain.get_active_projects()
     context_finding = {'findings': list()}
     cont = 0
     for project in projects:
         try:
-            finding_requests = api.get_findings(project)['submissions']
+            finding_requests = finding_domain.get_findings(
+                project_domain.list_drafts(project))
             for finding in finding_requests:
-                finding_parsed = finding_vulnerabilities(finding['id'])
-                project_fin = str.lower(str(finding_parsed['projectName']))
-                if ('releaseDate' not in finding_parsed and
-                        project_fin == project):
+                if 'releaseDate' not in finding:
                     context_finding['findings'].append({
-                        'finding_name': finding_parsed['finding'],
+                        'finding_name': finding.get('finding'),
                         'finding_url':
-                        '{url!s}/dashboard#!/project/{project!s}/{finding!s}'
-                        '/description'
+                        '{url!s}/dashboard#!/project/{project!s}/drafts/'
+                        '{finding!s}/description'
                             .format(url=BASE_URL,
                                     project=project,
-                                    finding=finding['id']),
-                        'project': str.upper(str(project))
+                                    finding=finding.get('findingId')),
+                        'project': project.upper()
                     })
                     cont += 1
         except (TypeError, KeyError):
@@ -448,7 +438,7 @@ def get_new_releases():
 
 def send_unsolved_to_all(context):
     """Send email with unsolved events to all projects """
-    projects = get_active_projects()
+    projects = project_domain.get_active_projects()
     return [send_unsolved_events_email(x[0], context) for x in projects]
 
 
@@ -535,7 +525,7 @@ def deletion_of_finished_project():
     else:
         days_to_send = [6]
         days_to_delete = 7
-    projects = get_active_projects()
+    projects = project_domain.get_active_projects()
     return [deletion(x[0], days_to_send, days_to_delete)
             for x in projects]
 
@@ -544,10 +534,10 @@ def get_project_indicators(project):
     findings = integrates_dal.get_findings_released_dynamo(
         project, 'finding_id, treatment, cvss_temporal')
     indicators = {
-        'last_closing_date': get_last_closing_vuln(findings),
-        'mean_remediate': get_mean_remediate(findings),
-        'max_open_severity': get_max_open_severity(findings),
-        'total_treatment': get_total_treatment(findings),
+        'last_closing_date': project_domain.get_last_closing_vuln(findings),
+        'mean_remediate': project_domain.get_mean_remediate(findings),
+        'max_open_severity': project_domain.get_max_open_severity(findings),
+        'total_treatment': project_domain.get_total_treatment(findings),
         'remediated_over_time': create_register_by_week(project)
     }
     return indicators
@@ -557,7 +547,7 @@ def update_indicators():
     """Update in dynamo indicators."""
     rollbar.report_message(
         'Warning: Function to update indicators in DynamoDB is running', 'warning')
-    projects = get_active_projects()
+    projects = project_domain.get_active_projects()
     table_name = 'FI_projects'
     for project in projects:
         indicators = get_project_indicators(project)
@@ -581,16 +571,17 @@ def update_indicators():
 
 def reset_expired_accepted_findings():
     """ Update treatment if acceptance date expires """
-    rollbar.report_message(
-        'Warning: Function to update treatment if acceptance date expires is running', 'warning')
+    rollbar.report_message('Warning: Function to update treatment if'
+                           'acceptance date expires is running', 'warning')
     today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    projects = get_active_projects()
-    findings = []
+    projects = project_domain.get_active_projects()
+
     for project in projects:
-        findings += get_findings(project, 'acceptance_date, finding_id')
+        findings = finding_domain.get_findings(
+            project_domain.list_findings(project))
         for finding in findings:
-            finding_id = finding.get('finding_id')
-            date = finding.get('acceptance_date')
+            finding_id = finding.get('findingId')
+            date = finding.get('acceptanceDate')
             if date <= today:
                 treatment = {'treatment': 'NEW'}
-                update_treatment(finding_id, treatment)
+                finding_domain.update_treatment(finding_id, treatment)

@@ -11,7 +11,7 @@ from app.domain.project import (
     is_vulnerability_closed, get_max_severity, get_max_open_severity,
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
     is_finding_in_drafts, list_drafts, list_comments, get_active_projects,
-    list_findings, get_findings, get_finding_project_name)
+    list_findings, get_finding_project_name)
 from app.dal.integrates_dal import DYNAMODB_RESOURCE, get_vulnerability_dynamo
 
 
@@ -264,11 +264,6 @@ class ProjectTest(TestCase):
             u'463558592', u'472184283', u'445291998', u'435326463'
         ]
         assert expected_output == test_data
-
-    def test_get_findings(self):
-        project_name = 'unittesting'
-        test_data = get_findings(project_name, 'finding_id')
-        assert {'finding_id': '475041513'} in test_data
 
     def test_get_finding_project_name(self):
         finding_id = '475041513'
