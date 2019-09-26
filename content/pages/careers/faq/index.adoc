@@ -527,32 +527,39 @@ new employees ask when they become part of our work team:
   Do not hack without authorization, even outside +Fluid Attacks+.
   +
   +
-  * *TEAM WORK:* We expect the talent to help his/her coworkers,
-  either peers or leaders in the tasks they don't like
-  but the work nature requires.
-  to work in a dedicated and focused manner in the assigned projects,
-  preferentially finishing them early without sacrificing the quality.
+  * *TEAMWORK:* We expect new employees to help their coworkers,
+  whether team-players or team-leaders,
+  in tasks the new employee may not like
+  but the work requires.
+  We expect new employees to work in a dedicated
+  and focused manner on all assigned projects.
+  We prefer projects to be finished early,
+  but not at the expense of sacrificing work quality.
   +
   +
-  * *DISCIPLINE:* We expect the talent to self-manage without a leader,
-  to comply the deadlines without excuses,
-  to arrive on time for commitments and meetings
-  either with customers or coworkers,
+  * *DISCIPLINE:* We expect new employees to self-manage
+  without constant supervision,
+  to meet all deadlines without excuses,
+  to arrive on time for all commitments and meetings
+  with customers and coworkers,
   to send deliverables with zero adjustments,
-  to voluntary involve and try to solve the issues affecting the company,
-  and to self empower through new horizons to improve the company.
+  to work on the issues of the client's company with effort and integrity,
+  and to actively innovate and start to improve
+  our client's company and +Fluid Attacks+.
   +
   +
-  Finally, we expect these expectations to be fully fulfilled always,
-  and to increase the rigor on its application over time.
+  Finally, we expect that all three unchanging,
+  non-negotiable values will always be practiced
+  and that over time will be used effortlessly,
+  consistently and with effectiveness.
 
-*What does Fluid Attacks expect technically from a new talent?*::
-  As our motto says:
-  *"Find all vulnerabilities and report them as soon as possible"*
-  for that, we expect the talent to:
+*What are Fluid Attacks' technical expectations from a new employee?*::
+  Our motto says,
+  *"Find all vulnerabilities and report them as soon as possible."*
+  To meet this expectation a new employee must:
   +
   +
-  * Program in a fancy, functional way.
+  * Program in innovative and functional ways.
   +
   +
   * Generate daily value in production deployments.
