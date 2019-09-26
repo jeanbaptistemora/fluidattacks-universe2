@@ -173,7 +173,7 @@ resource "aws_route53_record" "discourse" {
 
 resource "aws_route53_record" "mattermost" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "mattermost.${aws_route53_zone.fs_maindomain.name}"
+  name    = "chat.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
   records = ["pokac7.stackhero-network.com"]
@@ -181,7 +181,7 @@ resource "aws_route53_record" "mattermost" {
 
 resource "aws_route53_record" "mattermost_dkim" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "dkim._domainkey.mattermost.${aws_route53_zone.fs_maindomain.name}"
+  name    = "dkim._domainkey.chat.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
   records = ["dkim._domainkey.pokac7.stackhero-network.com"]
@@ -189,7 +189,7 @@ resource "aws_route53_record" "mattermost_dkim" {
 
 resource "aws_route53_record" "mattermost_dmarc" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "_dmarc.mattermost.${aws_route53_zone.fs_maindomain.name}"
+  name    = "_dmarc.chat.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
   records = ["_dmarc.stackhero-network.com"]
