@@ -73,14 +73,6 @@ through questions and answers:
 
 * +CEH+.
 
-// Winners
-//{yes} We have always finished in *first (1) place in all (4 of 4)*
-//Capture the Flag (+CTF+) events for suppliers selection
-//made by our customers.
-//{no} They finish in second or third place,
-//or even not participate at all
-//when the selection process involves Capture the Flag (+CTF+).
-
 a|==== Model
 | +Red Team+
 link:../continuous-hacking/#testing-techniques[^5^]
@@ -156,9 +148,12 @@ a|{yes} Integrable with any development method, such as:
 * Agile.
 * +DevOps+.
 
-[button]#link:../../services/continuous-hacking/[Continuous Hacking]#,
-[button]#link:../../products/integrates/[Integrates]#
-and [button]#link:../../products/asserts/[Asserts]#
+[button]#link:../../services/continuous-hacking/[Continuous Hacking]#, +
+{sp} +
+[button]#link:../../products/integrates/[Integrates]# +
+{sp} +
+and [button]#link:../../products/asserts/[Asserts]# +
+{sp} +
 fit perfect for the last 2 use cases.
 a|{no} Integrable with a single development method:
 
@@ -286,7 +281,8 @@ link:../../products/integrates/#compromised-records[Example].
 | {no} No record extraction
 
 a|==== Cycles
-| {yes} Multiple cycles in our service
+| {yes} Multiple cycles in our service: +
+{sp} +
 [button]#link:../../services/continuous-hacking/[Continuous Hacking]#
 link:../continuous-hacking/#remediation-validation[^23^].
 | {no}  Only 1.
@@ -338,7 +334,7 @@ a|==== Pricing
 | {no} Variable, depending on time and materials.
 
 |====
-
+{sp} +
 Want further information about our services?
 Do not hesitate to
 [button]#link:../../contact-us/[contact us]#.
