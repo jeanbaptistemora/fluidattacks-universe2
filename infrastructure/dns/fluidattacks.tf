@@ -171,6 +171,30 @@ resource "aws_route53_record" "discourse" {
   records = ["fluidattacks.hosted-by-discourse.com"]
 }
 
+resource "aws_route53_record" "mattermost" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "mattermost.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["pokac7.stackhero-network.com"]
+}
+
+resource "aws_route53_record" "mattermost_dkim" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "dkim._domainkey.mattermost.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["dkim._domainkey.pokac7.stackhero-network.com"]
+}
+
+resource "aws_route53_record" "mattermost_dmarc" {
+  zone_id = aws_route53_zone.fs_maindomain.zone_id
+  name    = "_dmarc.mattermost.${aws_route53_zone.fs_maindomain.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["_dmarc.stackhero-network.com"]
+}
+
 # MX Records
 resource "aws_route53_record" "mainMX" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
