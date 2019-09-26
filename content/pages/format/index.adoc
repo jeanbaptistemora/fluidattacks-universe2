@@ -4,7 +4,6 @@
 :variable: AsciiDoc
 :category: blog
 :plus: &#43
-//:toc: yes
 
 = Format
 
@@ -743,18 +742,6 @@ link:https://google.com[Google].
 * Render
 +
 [button]#link:https://google.com[Google]#.
-
-==== Link - Option 2 - Do not use
-
-* Source
-+
-....
-https://google.com
-....
-
-* Render
-+
-https://google.com
 
 == Special Blocks
 
@@ -1547,11 +1534,11 @@ should *start with the word*, +diagram+, for example,
 * Source
 +
 ....
-["graphviz", "diagram1.png"]
+["graphviz", "diagram-fsm.png"]
 ----
 digraph finite_state_machine {
   rankdir=LR;
-  label="Análisis de un Proceso"
+  label="Process Analysis"
   labelloc=top
   size="8,5"
   node [shape = doublecircle]; LR_0 LR_3 LR_4 LR_8;
@@ -1576,11 +1563,11 @@ digraph finite_state_machine {
 
 * Render
 +
-["graphviz", "diagram1.png"]
+["graphviz", "diagram-fsm.png"]
 ----
 digraph finite_state_machine {
   rankdir=LR;
-  label="Análisis de un Proceso"
+  label="Process Analysis"
   labelloc=top
   size="8,5"
   node [shape = doublecircle]; LR_0 LR_3 LR_4 LR_8;
@@ -1604,47 +1591,6 @@ digraph finite_state_machine {
 
 You can use this link:http://www.webgraphviz.com/[GraphViz Live Editor]
 to generate graphs and view examples.
-
-* Source
-+
-....
-["plantuml", "diagram-classes.png"]
-----
-autonumber
-skinparam sequenceArrowThickness 2
-skinparam roundcorner 40
-skinparam maxmessagesize 250
-== Descripción de un Proceso ==
-
-Elemento1 -> Elemento2: Acción-1
-
-Elemento3 -> Elemento4: Acción_2
-
-Elemento5 -> Elemento6: Acción 3
-
-----
-....
-
-* Render
-+
-["plantuml", "diagram-classes.png"]
-----
-autonumber
-skinparam sequenceArrowThickness 2
-skinparam roundcorner 40
-skinparam maxmessagesize 250
-== Descripción de un Proceso ==
-
-Elemento1 -> Elemento2: Acción-1
-
-Elemento3 -> Elemento4: Acción_2
-
-Elemento5 -> Elemento6: Acción 3
-
-----
-
-You can use this link:https://www.planttext.com/[PlantUML Live Editor]
-to see the rendered graph for your source code.
 
 === Tooltips
 

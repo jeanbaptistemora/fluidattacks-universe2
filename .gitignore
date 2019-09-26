@@ -6,7 +6,6 @@ webtest.sh
 .babel.cfg.swp
 messages.mo
 cache/
-diagram*.png
 venv/*
 *.md5
 
