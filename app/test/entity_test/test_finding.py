@@ -59,8 +59,8 @@ class FindingTests(TestCase):
             ('findingId', '422286126'),
             ('id', u'80d6a69f-a376-46be-98cd-2fdedcffdcc0'),
             ('historicState',
-             [{u'date': u'2018-09-28 10:32:58', u'state': u'open'},
-              {u'date': u'2019-01-08 16:01:26', u'state': u'open'}]),
+             [{u'date': u'2018-09-28 10:32:58', u'state': u'open', u'analyst':u'test@unittesting.com'},
+              {u'date': u'2019-01-08 16:01:26', u'state': u'open', u'analyst':u'test@unittesting.com'}]),
             ('specific', u'phone'),
             ('vulnType', u'inputs'),
             ('where', u'https://example.com')])
