@@ -48,7 +48,10 @@ def is_port_open(ipaddress: str, port: int) -> tuple:
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(socket.timeout, OverflowError, ConnectionRefusedError)
+@unknown_if(socket.timeout,
+            TimeoutError,
+            OverflowError,
+            ConnectionRefusedError)
 def is_port_insecure(ipaddress: str, port: int) -> tuple:
     """
     Check if a given port on an IP address is insecure.
