@@ -80,18 +80,18 @@ test-app:
 
 asserts-static:
   stage: test
-  image: docker.io/library/docker:19
+  image:
+    name: fluidattacks/break-build
+    entrypoint: [""]
   tags:
     - mobile
   before_script:
-    - apk add bash
-  script:
     - docker pull fluidattacks/break-build
-    - docker run fluidattacks/break-build
-        --static
-        --id ${BREAK_BUILD_ID}
-        --secret ${BREAK_BUILD_SECRET} > break-build.sh
-    - bash break-build.sh
+  script:
+    - bash <(docker run fluidattacks/break-build
+              --static
+              --id ${BREAK_BUILD_ID}
+              --secret ${BREAK_BUILD_SECRET})
   except:
     - master
 
@@ -238,18 +238,18 @@ test-driver:
 
 asserts-dynamic:
   stage: post-deploy
-  image: docker.io/library/docker:19
+  image:
+    name: fluidattacks/break-build
+    entrypoint: [""]
   tags:
     - mobile
   before_script:
-    - apk add bash
-  script:
     - docker pull fluidattacks/break-build
-    - docker run fluidattacks/break-build
-        --dynamic
-        --id ${BREAK_BUILD_ID}
-        --secret ${BREAK_BUILD_SECRET} > break-build.sh
-    - bash break-build.sh
+  script:
+    - bash <(docker run fluidattacks/break-build
+              --dynamic
+              --id ${BREAK_BUILD_ID}
+              --secret ${BREAK_BUILD_SECRET})
   only:
     - master
 
