@@ -47,6 +47,7 @@ MOCKS = [
         'mysql_db:hard': {'3306/tcp': 3306},
         'mysql_os:weak': {'22/tcp': 22},
         'mssql:weak': {'1433/tcp': 1433},
+        'mssql:hard': {'1433/tcp': 1433},
         'os:hard': {'22/tcp': 22},
         'os:weak': {'22/tcp': 22},
         'postgresql:hard': {'5432/tcp': 5432},
@@ -69,7 +70,9 @@ POST_COMMANDS = {
              --command "ALTER USER postgres WITH PASSWORD 'postgres'"
         """,
     ],
-    'mssql:weak': ['./scripts/commands.sh',]
+    'mssql:weak': ['./scripts/commands.sh',],
+    'mssql:hard': ['./scripts/commands.sh',],
+
 }
 
 
