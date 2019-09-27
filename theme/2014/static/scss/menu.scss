@@ -145,19 +145,6 @@ $white: rgba(255, 255, 255, 1);
 
 @media (min-width: 960px) {
 
-  .cssmenu {
-    height: 72px;
-    padding-left: 50px;
-
-    a {
-      font-size: 16px;
-
-      &:hover {
-        color: $white;
-      }
-    }
-  }
-
   .m-opened {
     height: 72px;
     max-height: unset;

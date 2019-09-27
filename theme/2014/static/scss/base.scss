@@ -57,6 +57,7 @@ $black: rgba(0, 0, 0, 1);
   .h-28em-l { height: 28em; }
   .h-banner-l { height: 20em; }
   .three-columns-l { column-count: 3; }
+  .hover-white-l { &:hover { color: $white; }}
 }
 
 //Very large screens
