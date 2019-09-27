@@ -38,10 +38,25 @@ def _my_add_padding_poodle(self, data: bytes) -> bytes:
     return data
 
 
+def get_ssl_version(max_version: Tuple):
+    """Build SSL TLS version options."""
+    version = ssl.PROTOCOL_TLSv1_2
+    if max_version[1] == 0:
+        version = ssl.PROTOCOL_SSLv23
+    elif max_version[1] == 1:
+        version = ssl.PROTOCOL_TLSv1
+    elif max_version[1] == 2:
+        version = ssl.PROTOCOL_TLSv1_1
+    elif max_version[1] == 3:
+        version = ssl.PROTOCOL_TLSv1_2
+    return version
+
+
 @contextmanager
 def connect_legacy(hostname: str, port: int = PORT,
                    ciphers: str = 'HIGH:!DH:!aNULL',
-                   validate_cert: bool = False) \
+                   validate_cert: bool = False,
+                   max_version: Tuple[int, int] = (3, 3)) \
         -> Generator[ssl.SSLSocket, None, None]:
     """
     Establish a legacy SSL/TLS connection.
@@ -56,7 +71,7 @@ def connect_legacy(hostname: str, port: int = PORT,
     else:
         flags = ssl.VERIFY_DEFAULT
 
-    context = ssl.create_default_context()
+    context = ssl.SSLContext(get_ssl_version(max_version))
     context.verify_flags = flags
     context.check_hostname = False
     context.verify_mode = ssl.CERT_OPTIONAL
@@ -65,7 +80,7 @@ def connect_legacy(hostname: str, port: int = PORT,
     context.load_default_certs()
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.settimeout(10)
+    sock.settimeout(15)
     ssock = context.wrap_socket(sock=sock, server_hostname=hostname)
     ssock.connect((hostname, port))
     yield ssock
@@ -77,11 +92,12 @@ def connect(hostname,
             port: int = PORT,
             check: str = None,
             min_version: Tuple[int, int] = (3, 0),
-            max_version: Tuple[int, int] = (3, 4),
+            max_version: Tuple[int, int] = (3, 3),
             cipher_names: List[str] = None,
             key_exchange_names: List[str] = None,
             anon: bool = False,
-            scsv: bool = False
+            scsv: bool = False,
+            use_sni: bool = True
             ) -> Generator[tlslite.TLSConnection, None, None]:
     """
     Establish a SSL/TLS connection.
@@ -117,7 +133,7 @@ def connect(hostname,
     if key_exchange_names:
         settings.keyExchangeNames = key_exchange_names
 
-    if tlslite.utils.dns_utils.is_valid_hostname(hostname):
+    if tlslite.utils.dns_utils.is_valid_hostname(hostname) and use_sni:
         if anon:
             connection.handshakeClientAnonymous(settings=settings,
                                                 serverName=hostname)

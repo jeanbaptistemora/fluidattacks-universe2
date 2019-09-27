@@ -21,7 +21,7 @@ import tlslite
 # local imports
 from fluidasserts import DAST, LOW, MEDIUM, HIGH, OPEN, CLOSED, UNKNOWN, Unit
 from fluidasserts.helper import http
-from fluidasserts.helper.ssl import connect
+from fluidasserts.helper.ssl import connect, connect_legacy
 from fluidasserts.utils.decorators import api, unknown_if
 
 PORT = 443
@@ -246,8 +246,8 @@ def is_pfs_disabled(site: str, port: int = PORT) -> tuple:
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='Perfect Forward Secrecy is supported on site',
-        msg_closed='Perfect Forward Secrecy is not supported on site',
+        msg_open='Perfect Forward Secrecy is not supported on site',
+        msg_closed='Perfect Forward Secrecy is supported on site',
         open_if=not has_pfs)
 
 
@@ -295,9 +295,13 @@ def is_tlsv1_enabled(site: str, port: int = PORT) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     is_vulnerable: bool = False
-    with suppress(tlslite.errors.TLSRemoteAlert,
-                  tlslite.errors.TLSAbruptCloseError):
-        with connect(site, port=port, min_version=(3, 1), max_version=(3, 1)):
+    try:
+        with suppress(tlslite.errors.TLSAbruptCloseError):
+            with connect(site, port=port, min_version=(3, 1),
+                         max_version=(3, 1)):
+                is_vulnerable = True
+    except tlslite.TLSRemoteAlert:
+        with connect_legacy(site, port, max_version=(3, 1)):
             is_vulnerable = True
 
     return _get_result_as_tuple(
@@ -322,19 +326,23 @@ def is_tlsv11_enabled(site: str, port: int = PORT) -> tuple:
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    is_enabled: bool = False
+    is_vulnerable: bool = False
 
-    with suppress(tlslite.errors.TLSRemoteAlert,
-                  tlslite.errors.TLSAbruptCloseError):
-        with connect(site, port=port, min_version=(3, 2), max_version=(3, 2)):
-            is_enabled = True
+    try:
+        with suppress(tlslite.errors.TLSAbruptCloseError):
+            with connect(site, port=port, min_version=(3, 2),
+                         max_version=(3, 2)):
+                is_vulnerable = True
+    except tlslite.TLSRemoteAlert:
+        with connect_legacy(site, port, max_version=(3, 2)):
+            is_vulnerable = True
 
     return _get_result_as_tuple(
         site=site,
         port=port,
         msg_open='TLS v1.1 is enabled',
         msg_closed='TLS v1.1 is disabled',
-        open_if=is_enabled)
+        open_if=is_vulnerable)
 
 
 @api(risk=HIGH, kind=DAST)
