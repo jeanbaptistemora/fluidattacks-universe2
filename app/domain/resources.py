@@ -1,18 +1,19 @@
 """Domain functions for resources."""
-from __future__ import absolute_import
+
+from __future__ import absolute_import, unicode_literals
 import base64
 import datetime
 import threading
 import urllib
 
-# pylint:disable=relative-import
-from __init__ import FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY
-from app.exceptions import ErrorUploadingFileS3, InvalidFileSize
-from app.dal import integrates_dal, resources as resources_dal
-from app.mailer import send_mail_resources
 from botocore import signers
-from cryptography.hazmat.primitives import hashes, serialization, asymmetric
 from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import asymmetric, hashes, serialization
+
+from __init__ import FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY
+from app.dal import integrates_dal, resources as resources_dal
+from app.exceptions import ErrorUploadingFileS3, InvalidFileSize
+from app.mailer import send_mail_resources
 
 
 def rsa_signer(message):

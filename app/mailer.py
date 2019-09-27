@@ -1,10 +1,12 @@
-# pylint: disable=relative-beyond-top-level
 from __future__ import absolute_import
 from cgi import escape
+
 import mandrill
 import rollbar
+
 from __init__ import FI_MANDRILL_API_KEY, FI_TEST_PROJECTS
-from .dal import integrates_dal
+from app.dal import integrates_dal
+
 
 API_KEY = FI_MANDRILL_API_KEY
 VERIFY_TAG = ['verify']
@@ -23,8 +25,16 @@ def _escape_context(context):
         'comment'
     ]
     for attr in attr_to_esc:
-        if context.get(attr):
-            context[attr] = escape(context[attr])
+        if attr in context:
+            value = context[attr]
+            if isinstance(value, list):
+                if all(isinstance(item, dict) for item in value):
+                    context[attr] = [{key: escape(item[key]) for key in item}
+                                     for item in value]
+                else:
+                    context[attr] = [escape(str(item)) for item in value]
+            else:
+                context[attr] = escape(value)
     return context
 
 
