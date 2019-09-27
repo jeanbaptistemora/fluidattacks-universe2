@@ -80,17 +80,20 @@ test-app:
 
 asserts-static:
   stage: test
-  image: fluid-docker.jfrog.io/fluid:integrates_static
-  retry: 1
-  variables:
-    BRANCH: "${CI_COMMIT_REF_NAME}"
-    FA_STRICT: "true"
-    ORG: "fluid"
-    PASS: "${INTEGRATES_JFROG_PASS}"
-    USER: "${INTEGRATES_JFROG_USER}"
+  image: docker.io/library/docker:19
+  tags:
+    - mobile
+  before_script:
+    - apk add bash
   script:
-    - cp -a ./* /code/
-    - /entrypoint.sh
+    - docker pull fluidattacks/break-build
+    - docker run fluidattacks/break-build
+        --static
+        --id ${BREAK_BUILD_ID}
+        --secret ${BREAK_BUILD_SECRET} > break-build.sh
+    - bash break-build.sh
+  except:
+    - master
 
 commitlint:
   stage: test
@@ -235,10 +238,18 @@ test-driver:
 
 asserts-dynamic:
   stage: post-deploy
-  image: fluid-docker.jfrog.io/fluid:integrates_dynamic
-  retry: 1
+  image: docker.io/library/docker:19
+  tags:
+    - mobile
+  before_script:
+    - apk add bash
   script:
-    - ./ci-scripts/jobs/asserts-dynamic.sh
+    - docker pull fluidattacks/break-build
+    - docker run fluidattacks/break-build
+        --dynamic
+        --id ${BREAK_BUILD_ID}
+        --secret ${BREAK_BUILD_SECRET} > break-build.sh
+    - bash break-build.sh
   only:
     - master
 
