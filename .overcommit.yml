@@ -257,6 +257,8 @@ PreCommit:
     description: 'Check for trailing whitespace'
     required_executable: 'grep'
     flags: ['-IHn', "[ \t]$"]
+    exclude:
+      - '**/*.patch'
 
   LineEndings:
     description: 'Check line endings'

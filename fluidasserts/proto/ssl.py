@@ -275,8 +275,8 @@ def is_sslv3_enabled(site: str, port: int = PORT) -> tuple:
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='SSL v3 is enabled on site',
-        msg_closed='SSL v3 is not enabled on site',
+        msg_open='SSLv3 is enabled on site',
+        msg_closed='SSLv3 is not enabled on site',
         open_if=is_vulnerable)
 
 
@@ -307,8 +307,8 @@ def is_tlsv1_enabled(site: str, port: int = PORT) -> tuple:
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='TLS v1 is enabled on site',
-        msg_closed='TLS v1 is disabled on site',
+        msg_open='TLSv1 is enabled on site',
+        msg_closed='TLSv1 is disabled on site',
         open_if=is_vulnerable)
 
 
@@ -340,8 +340,8 @@ def is_tlsv11_enabled(site: str, port: int = PORT) -> tuple:
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='TLS v1.1 is enabled',
-        msg_closed='TLS v1.1 is disabled',
+        msg_open='TLSv1.1 is enabled',
+        msg_closed='TLSv1.1 is disabled',
         open_if=is_vulnerable)
 
 
@@ -407,8 +407,8 @@ def has_poodle_sslv3(site: str, port: int = PORT) -> tuple:
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='Site is vulnerable to POODLE SSL v3 attack',
-        msg_closed='Site is not vulnerable to POODLE SSL v3 attack',
+        msg_open='Site is vulnerable to POODLE SSLv3 attack',
+        msg_closed='Site is not vulnerable to POODLE SSLv3 attack',
         open_if=is_vulnerable)
 
 
@@ -668,8 +668,8 @@ def not_tls13_enabled(site: str, port: int = PORT) -> tuple:
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open='TLS v1.3 is not supported',
-        msg_closed='TLS v1.3 is supported',
+        msg_open='TLSv1.3 is not supported',
+        msg_closed='TLSv1.3 is supported',
         open_if=not does_support_tls_1_3)
 
 

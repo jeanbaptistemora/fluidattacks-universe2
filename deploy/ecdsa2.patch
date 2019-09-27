@@ -1,0 +1,312 @@
+diff -urN tlslite-ng-simple-ecdsa-support/tests/clientECCert.pem tlslite-ng-client-ecdsa-support/tests/clientECCert.pem
+--- tlslite-ng-simple-ecdsa-support/tests/clientECCert.pem	1969-12-31 19:00:00.000000000 -0500
++++ tlslite-ng-client-ecdsa-support/tests/clientECCert.pem	2019-09-25 14:21:37.000000000 -0500
+@@ -0,0 +1,11 @@
++-----BEGIN CERTIFICATE-----
++MIIBfjCCASOgAwIBAgIUTxkWwfl73xnqhoJqWZ+R4RPCX54wCgYIKoZIzj0EAwIw
++FDESMBAGA1UEAwwJbG9jYWxob3N0MB4XDTE5MDkyNTE2NDgzMloXDTI5MDkyMjE2
++NDgzMlowFDESMBAGA1UEAwwJbG9jYWxob3N0MFkwEwYHKoZIzj0CAQYIKoZIzj0D
++AQcDQgAEQNSgjtKQ2KEyIjcamNSSH83huV2aYpJMCRYAXvEBUNygmCwxCod2j97J
++Z4rnBmd9ySlceT65nXFuDuKlftIlLaNTMFEwHQYDVR0OBBYEFM9448HkxS8PnjT2
++CRzwBP3SWGK1MB8GA1UdIwQYMBaAFM9448HkxS8PnjT2CRzwBP3SWGK1MA8GA1Ud
++EwEB/wQFMAMBAf8wCgYIKoZIzj0EAwIDSQAwRgIhAKCSuUb8eWvb3WCQcA8Wj2av
++V8UXsXPk5N2HyDojhklvAiEA97Z8QDFxMg20hm8cPGMlQT1r3PtPwF0eRsL2rPu0
++nxY=
++-----END CERTIFICATE-----
+diff -urN tlslite-ng-simple-ecdsa-support/tests/clientECKey.pem tlslite-ng-client-ecdsa-support/tests/clientECKey.pem
+--- tlslite-ng-simple-ecdsa-support/tests/clientECKey.pem	1969-12-31 19:00:00.000000000 -0500
++++ tlslite-ng-client-ecdsa-support/tests/clientECKey.pem	2019-09-25 14:21:37.000000000 -0500
+@@ -0,0 +1,5 @@
++-----BEGIN PRIVATE KEY-----
++MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgjIlFWfrrN8Rsn7RU
++9mZsG6hTDEa/1pXw8oNBML7UjeihRANCAARA1KCO0pDYoTIiNxqY1JIfzeG5XZpi
++kkwJFgBe8QFQ3KCYLDEKh3aP3slniucGZ33JKVx5PrmdcW4O4qV+0iUt
++-----END PRIVATE KEY-----
+diff -urN tlslite-ng-simple-ecdsa-support/tests/tlstest.py tlslite-ng-client-ecdsa-support/tests/tlstest.py
+--- tlslite-ng-simple-ecdsa-support/tests/tlstest.py	2019-09-25 14:20:03.000000000 -0500
++++ tlslite-ng-client-ecdsa-support/tests/tlstest.py	2019-09-25 14:21:37.000000000 -0500
+@@ -568,12 +568,27 @@
+ 
+     synchro.recv(1)
+     connection = connect()
+-    # TODO add client certificate support in TLS 1.3
+-    settings = HandshakeSettings()
+-    settings.maxVersion = (3, 3)
+-    connection.handshakeClientCert(x509Chain, x509Key, settings=settings)
++    connection.handshakeClientCert(x509Chain, x509Key)
++    testConnClient(connection)
++    assert isinstance(connection.session.serverCertChain, X509CertChain)
++    connection.close()
++
++    test_no += 1
++
++    print("Test {0} - good mutual ECDSA X.509".format(test_no))
++    with open(os.path.join(dir, "clientECCert.pem")) as f:
++        x509Cert = X509().parse(f.read())
++    x509Chain = X509CertChain([x509Cert])
++    with open(os.path.join(dir, "clientECKey.pem")) as f:
++        x509Key = parsePEMKey(f.read(), private=True)
++
++    synchro.recv(1)
++    connection = connect()
++    connection.handshakeClientCert(x509Chain, x509Key)
+     testConnClient(connection)
+     assert isinstance(connection.session.serverCertChain, X509CertChain)
++    assert len(connection.session.serverCertChain.getEndEntityPublicKey()) ==\
++            256
+     connection.close()
+ 
+     test_no += 1
+@@ -1691,6 +1706,19 @@
+     connection.close()
+ 
+     test_no += 1
++
++    print("Test {0} - good mutual ECDSA X.509".format(test_no))
++    synchro.send(b'R')
++    connection = connect()
++    connection.handshakeServer(certChain=x509ecdsaChain,
++                               privateKey=x509ecdsaKey, reqCert=True)
++    testConnServer(connection)
++    assert(isinstance(connection.session.clientCertChain, X509CertChain))
++    assert len(connection.session.clientCertChain.getEndEntityPublicKey()) ==\
++            256
++    connection.close()
++
++    test_no += 1
+ 
+     print("Test {0} - good mutual X.509, TLSv1.3 no certs".format(test_no))
+     synchro.send(b'R')
+diff -urN tlslite-ng-simple-ecdsa-support/tlslite/keyexchange.py tlslite-ng-client-ecdsa-support/tlslite/keyexchange.py
+--- tlslite-ng-simple-ecdsa-support/tlslite/keyexchange.py	2019-09-25 14:20:03.000000000 -0500
++++ tlslite-ng-client-ecdsa-support/tlslite/keyexchange.py	2019-09-25 14:21:37.000000000 -0500
+@@ -336,7 +336,7 @@
+                                                   premasterSecret,
+                                                   clientRandom,
+                                                   serverRandom,
+-                                                  privateKey.key_type)
++                                                  key_type=privateKey.key_type)
+         if signatureAlgorithm and \
+                 signatureAlgorithm[1] == SignatureAlgorithm.ecdsa:
+             padding = None
+diff -urN tlslite-ng-simple-ecdsa-support/tlslite/tlsconnection.py tlslite-ng-client-ecdsa-support/tlslite/tlsconnection.py
+--- tlslite-ng-simple-ecdsa-support/tlslite/tlsconnection.py	2019-09-25 14:20:03.000000000 -0500
++++ tlslite-ng-client-ecdsa-support/tlslite/tlsconnection.py	2019-09-25 14:21:37.000000000 -0500
+@@ -1253,6 +1253,7 @@
+             assert isinstance(certificate_verify, CertificateVerify)
+ 
+             signature_scheme = certificate_verify.signatureAlgorithm
++            self.serverSigAlg = signature_scheme
+ 
+             signature_context = KeyExchange.calcVerifyBytes((3, 4),
+                                                             srv_cert_verify_hh,
+@@ -1270,6 +1271,16 @@
+             if signature_scheme[1] == SignatureAlgorithm.ecdsa:
+                 padType = None
+                 hashName = HashAlgorithm.toRepr(signature_scheme[0])
++                if publicKey.curve_name == "NIST256p" and \
++                        hashName != "sha256" or \
++                        publicKey.curve_name == "NIST384p" and \
++                        hashName != "sha384" or \
++                        publicKey.curve_name == "NIST521p" and \
++                        hashName != "sha512":
++                    raise TLSIllegalParameterException(
++                            "server selected signature method invalid for the "
++                            "certificate it presented (curve mismatch)")
++
+                 saltLen = None
+             else:
+                 scheme = SignatureScheme.toRepr(signature_scheme)
+@@ -1470,7 +1481,7 @@
+                             bytearray(b''),  # no session_id in TLS 1.3
+                             serverHello.cipher_suite,
+                             None,  # no SRP
+-                            None,  # no client cert chain
++                            clientCertChain,
+                             certificate.cert_chain if certificate else None,
+                             None,  # no TACK
+                             False,  # no TACK in hello
+@@ -1766,15 +1777,13 @@
+             yield result
+         yield masterSecret
+ 
+-    def _clientGetKeyFromChain(self, certificate, settings, tackExt=None):
+-        #Get and check cert chain from the Certificate message
+-        cert_chain = certificate.cert_chain
+-        if not cert_chain or cert_chain.getNumCerts() == 0:
+-            for result in self._sendError(AlertDescription.illegal_parameter,
+-                    "Other party sent a Certificate message without "\
+-                    "certificates"):
+-                yield result
++    def _check_certchain_with_settings(self, cert_chain, settings):
++        """
++        Verify that the key parameters match enabled ones.
+ 
++        Checks if the certificate key size matches the minimum and maximum
++        sizes set or that it uses curves enabled in settings
++        """
+         #Get and check public key from the cert chain
+         publicKey = cert_chain.getEndEntityPublicKey()
+         cert_type = cert_chain.x509List[0].certAlg
+@@ -1826,6 +1835,23 @@
+                         "Other party's public key too large: %d" %
+                         len(publicKey)):
+                     yield result
++        yield publicKey
++
++    def _clientGetKeyFromChain(self, certificate, settings, tackExt=None):
++        #Get and check cert chain from the Certificate message
++        cert_chain = certificate.cert_chain
++        if not cert_chain or cert_chain.getNumCerts() == 0:
++            for result in self._sendError(AlertDescription.illegal_parameter,
++                    "Other party sent a Certificate message without "\
++                    "certificates"):
++                yield result
++
++        for result in self._check_certchain_with_settings(cert_chain,
++                settings):
++            if result in (0, 1):
++                yield result
++            else: break
++        publicKey = result
+ 
+         # If there's no TLS Extension, look for a TACK cert
+         if tackpyLoaded:
+@@ -2701,13 +2727,18 @@
+                                             signature_scheme, None, None, None,
+                                             prf_name, b'client')
+ 
+-            scheme = SignatureScheme.toRepr(signature_scheme)
+-            pad_type = SignatureScheme.getPadding(scheme)
+-            hash_name = SignatureScheme.getHash(scheme)
+-            salt_len = getattr(hashlib, hash_name)().digest_size
+-
+             public_key = client_cert_chain.getEndEntityPublicKey()
+ 
++            if signature_scheme[1] == SignatureAlgorithm.ecdsa:
++                hash_name = HashAlgorithm.toRepr(signature_scheme[0])
++                pad_type = None
++                salt_len = None
++            else:
++                scheme = SignatureScheme.toRepr(signature_scheme)
++                pad_type = SignatureScheme.getPadding(scheme)
++                hash_name = SignatureScheme.getHash(scheme)
++                salt_len = getattr(hashlib, hash_name)().digest_size
++
+             if not public_key.verify(certificate_verify.signature,
+                                      signature_context,
+                                      pad_type,
+@@ -3704,7 +3735,8 @@
+             if not reqCAs:
+                 reqCAs = []
+             valid_sig_algs = self._sigHashesToList(settings)
+-            certificateRequest.create([ClientCertificateType.rsa_sign],
++            certificateRequest.create([ClientCertificateType.rsa_sign,
++                                       ClientCertificateType.ecdsa_sign],
+                                       reqCAs,
+                                       valid_sig_algs)
+             msgs.append(certificateRequest)
+@@ -3792,46 +3824,55 @@
+                             "Verify"):
+                         yield result
+                 signatureAlgorithm = certificateVerify.signatureAlgorithm
++            if not signatureAlgorithm and \
++                    clientCertChain.x509List[0].certAlg == "ecdsa":
++                signatureAlgorithm = (HashAlgorithm.sha1,
++                                      SignatureAlgorithm.ecdsa)
+ 
+             cvhh = self._certificate_verify_handshake_hash
+-            verifyBytes = KeyExchange.calcVerifyBytes(self.version,
+-                                                      cvhh,
+-                                                      signatureAlgorithm,
+-                                                      premasterSecret,
+-                                                      clientHello.random,
+-                                                      serverHello.random)
+-            publicKey = clientCertChain.getEndEntityPublicKey()
+-            if len(publicKey) < settings.minKeySize:
+-                for result in self._sendError(\
+-                        AlertDescription.handshake_failure,
+-                        "Client's public key too small: %d" % len(publicKey)):
+-                    yield result
+-
+-            if len(publicKey) > settings.maxKeySize:
+-                for result in self._sendError(\
+-                        AlertDescription.handshake_failure,
+-                        "Client's public key too large: %d" % len(publicKey)):
++            verifyBytes = KeyExchange.calcVerifyBytes(
++                    self.version,
++                    cvhh,
++                    signatureAlgorithm,
++                    premasterSecret,
++                    clientHello.random,
++                    serverHello.random,
++                    key_type=clientCertChain.x509List[0].certAlg)
++
++            for result in self._check_certchain_with_settings(
++                    clientCertChain,
++                    settings):
++                if result in (0, 1):
+                     yield result
++                else: break
++            publicKey = result
+ 
+-            scheme = SignatureScheme.toRepr(signatureAlgorithm)
+-            # for pkcs1 signatures hash is used to add PKCS#1 prefix, but
+-            # that was already done by calcVerifyBytes
+-            hashName = None
+-            saltLen = 0
+-            if scheme is None:
+-                padding = 'pkcs1'
++            if not signatureAlgorithm or \
++                    signatureAlgorithm[1] != SignatureAlgorithm.ecdsa:
++                scheme = SignatureScheme.toRepr(signatureAlgorithm)
++                # for pkcs1 signatures hash is used to add PKCS#1 prefix, but
++                # that was already done by calcVerifyBytes
++                hashName = None
++                saltLen = 0
++                if scheme is None:
++                    padding = 'pkcs1'
++                else:
++                    padding = SignatureScheme.getPadding(scheme)
++                    if padding == 'pss':
++                        hashName = SignatureScheme.getHash(scheme)
++                        saltLen = getattr(hashlib, hashName)().digest_size
+             else:
+-                padding = SignatureScheme.getPadding(scheme)
+-                if padding == 'pss':
+-                    hashName = SignatureScheme.getHash(scheme)
+-                    saltLen = getattr(hashlib, hashName)().digest_size
++                hashName = HashAlgorithm.toStr(signatureAlgorithm[0])
++                verifyBytes = verifyBytes[:publicKey.public_key.curve.baselen]
++                padding = None
++                saltLen = None
+ 
+             if not publicKey.verify(certificateVerify.signature,
+                                     verifyBytes,
+                                     padding,
+                                     hashName,
+                                     saltLen):
+-                for result in self._sendError(\
++                for result in self._sendError(
+                         AlertDescription.decrypt_error,
+                         "Signature failed to verify"):
+                     yield result
+@@ -4090,14 +4131,12 @@
+ 
+                 # in TLS 1.3 ECDSA key curve is bound to hash
+                 if publicKey and version > (3, 3):
+-                    size = len(publicKey)
+-                    size, r = divmod(size, 8)
+-                    size += int(bool(r))
+-                    if size == 32 and hashName != "sha256":
++                    curve = publicKey.curve_name
++                    if curve == "NIST256p" and hashName != "sha256":
+                         continue
+-                    if size == 48 and hashName != "sha384":
++                    if curve == "NIST384p" and hashName != "sha384":
+                         continue
+-                    if size == 65 and hashName != "sha512":
++                    if curve == "NIST521p" and hashName != "sha512":
+                         continue
+ 
+                 sigAlgs.append((getattr(HashAlgorithm, hashName),

@@ -127,6 +127,7 @@ def connect(hostname,
     settings.minVersion = min_version
     settings.maxVersion = max_version
     settings.sendFallbackSCSV = scsv
+    settings.use_heartbeat_extension = False
 
     if cipher_names:
         settings.cipherNames = cipher_names
