@@ -40,6 +40,7 @@ RUN apk update \
         postgresql-dev \
         freetds-dev \
         libmagic \
+    && pip3 install --no-cache-dir cython==0.29.13 \
     && pip3 install --no-cache-dir -U ./*.zip \
     && apk del -r --purge \
         gcc \

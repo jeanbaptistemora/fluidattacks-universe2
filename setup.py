@@ -79,6 +79,7 @@ setup(
         'colorama==0.4.1',             # logging
         'configobj==5.0.6',            # fluidasserts
         'cryptography==2.7',           # fluidasserts.proto.ssl
+        'cython==0.29.13',             # fluidasserts.db.mssql
         'defusedxml==0.6.0',           # fluidasserts.sca
         'dnspython==1.16.0',           # fluidasserts.proto.dns
         'gitpython==3.0.1',            # fluidasserts.proto.git
@@ -98,7 +99,6 @@ setup(
         'pyjks==19.0.0',               # fluidasserts.format.jks
         'pyjwt==1.7.1',                # fluidasserts.format.jwt
         'pymssql==2.1.4',              # fluidasserts.db.mssql
-        'Cython==0.29.13',             # fluidasserts.db.mssql
         'pynacl==1.3.0',               # fluidasserts.proto.ssl
         'pyparsing==2.4.2',            # fluidasserts.lang
         'pypdf2==1.26.0',              # fluidasserts.format.pdf
