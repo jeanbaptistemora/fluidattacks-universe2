@@ -48,7 +48,7 @@ module "eks" {
   worker_groups = [
     {
       name                          = "conventional-workers"
-      instance_type                 = "t3.nano"
+      instance_type                 = "t3.small"
       asg_max_size                  = 2
       asg_desired_capacity          = 2
       tags = [{
