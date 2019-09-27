@@ -4,7 +4,10 @@ terraform_states_bucket() {
 
   set -e
 
-  ./services/states-bucket/states-bucket.sh
+  # Import functions
+  . services/states-bucket/states-bucket.sh
+
+  create_states_bucket
 
 }
 

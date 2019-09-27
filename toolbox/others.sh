@@ -14,6 +14,8 @@ aws_login() {
 
   # Log in to aws
 
+  set -e
+
   export TF_VAR_aws_access_key
   export TF_VAR_aws_secret_key
 

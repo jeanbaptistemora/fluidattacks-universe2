@@ -1,0 +1,15 @@
+image:
+  repository: quay.io/jetstack/cert-manager-controller
+  tag: v0.10.0
+rbac:
+  create: true
+serviceAccount:
+  create: true
+  name: cert-manager-sa
+resources:
+  limits:
+    cpu: 13m
+    memory: 40Mi
+  requests:
+    cpu: 10m
+    memory: 32Mi

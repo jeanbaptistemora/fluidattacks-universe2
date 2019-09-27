@@ -2,9 +2,9 @@
 
 eks_terraform_plan() {
 
-  set -e
-
   # Plan eks infra using terraform
+
+  set -e
 
   # Import functions
   . toolbox/terraform.sh

@@ -4,7 +4,7 @@ generate_key() {
 
   # Generate key
 
-  set -e -v
+  set -e
 
   openssl genrsa -out "$1" 4096
 }
@@ -13,7 +13,7 @@ generate_ca_cert() {
 
   # Generate ca
 
-  set -e -v
+  set -e
 
   openssl req \
     -key "$1" \
@@ -29,7 +29,7 @@ generate_csr() {
 
   # Generate csr
 
-  set -e -v
+  set -e
 
   local CERT_INFO
 
@@ -45,7 +45,7 @@ sign_csr() {
 
   # Sign csr with a ca to make it crt
 
-  set -e -v
+  set -e
 
   openssl x509 -req -CAkey "$1" -CA "$2" -CAcreateserial -in "$3" -out "$4" -days 90
 }
@@ -54,7 +54,7 @@ set_tls() {
 
   # Create files to set up Tiller with TLS
 
-  set -e -v
+  set -e
 
   local CA_KEY
   local CA_CERT

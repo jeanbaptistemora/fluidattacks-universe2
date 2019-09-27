@@ -2,18 +2,17 @@
 
 eks_initial_setup() {
 
+  # Run cluster initial setup after creating it.
+  # It creates namespaces, installs helm and charts
+
   set -e
 
-  # Run cluster initial setup after creating it
-
   # Import functions
-  . services/eks-cluster/helpers.sh
+  . services/eks-cluster/kubectl-setup/kubectl-setup.sh
+  . services/eks-cluster/helm/installation/deploy-helm.sh
 
-  # Login to cluster
-  kubectl_login services/eks-cluster/terraform fluidattacks-terraform-states
-
-  # Create base namespaces
-  kubectl apply -f services/eks-cluster/initial-setup/namespaces.yaml
+  kubectl_setup
+  deploy_helm
 }
 
 eks_initial_setup

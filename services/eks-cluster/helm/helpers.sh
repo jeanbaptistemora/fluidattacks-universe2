@@ -20,14 +20,14 @@ install_chart() {
 
   # Upgrade chart if already installed or just install it
   if helm list --tls | grep -q "$NAME"; then
-    echo-blue "Upgrading $CHART"
+    echo "Upgrading $CHART"
     helm upgrade "$NAME" "$CHART" \
       --values "$VALUES" \
       --version "$VERSION" \
       --wait \
       --tls
   else
-    echo-blue "Installing chart $CHART..."
+    echo "Installing chart $CHART..."
     helm install "$CHART" \
       --name "$NAME" \
       --namespace "$NAMESPACE" \

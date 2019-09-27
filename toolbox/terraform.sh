@@ -20,7 +20,7 @@ init_terraform() {
   curl -Lo tflint.zip https://github.com/wata727/tflint/releases/download/v0.9.3/tflint_linux_amd64.zip
   unzip tflint.zip
   rm tflint.zip
-  install tflint /usr/local/bin/
+  mv tflint /usr/local/bin/
 
   local STARTING_DIR
 

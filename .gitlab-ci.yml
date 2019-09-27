@@ -613,11 +613,11 @@ analytics_refresh_token_timedoctor:
     variables:
       - $FLAG_REFRESH_TOKENS
 
-eks-helm-install:
+eks-initial-setup:
   stage: eks-initial-setup
   image: registry.gitlab.com/fluidsignal/serves:builder
   script:
-    - ./ci-scripts/jobs/eks-helm-install.sh
+    - ./ci-scripts/jobs/eks-initial-setup.sh
   only:
     - master
   except:

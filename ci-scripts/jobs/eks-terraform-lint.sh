@@ -2,9 +2,9 @@
 
 eks_terraform_lint() {
 
-  set -e
-
   # Run tflint on eks terraform folder
+
+  set -e
 
   # Import functions
   . toolbox/terraform.sh

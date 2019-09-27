@@ -3,7 +3,7 @@
 check_bucket() {
   # Check if the $1 bucket exists.
 
-  set -e -v
+  set -e
 
   aws s3api list-buckets --query 'Buckets[].Name' | grep -q "$1"
 }
@@ -11,7 +11,7 @@ check_bucket() {
 create_bucket() {
   # Create the $1 bucket if it does not exist already.
 
-  set -e -v
+  set -e
 
   if ! check_bucket "$1"; then
     echo "creating $1 for terraform tfstates."
@@ -39,7 +39,7 @@ create_bucket() {
 create_states_bucket(){
   # Deploy backend bucket for storing terraform tfstate files
 
-  set -e -v
+  set -e
 
   export TF_VAR_aws_access_key
   export TF_VAR_aws_secret_key
@@ -51,5 +51,3 @@ create_states_bucket(){
 
   create_bucket "$BUCKET"
 }
-
-create_states_bucket

@@ -34,10 +34,12 @@ get_last_tls_keys() {
 
 install_helm() {
 
-  # Install helm in the cluster sugin TLS and rbac policies.
+  # Install helm and tiller in the cluster with TLS and rbac policies.
 
   set -e
 
+  # Import functions
+  . services/eks-cluster/helpers.sh
   . services/eks-cluster/helm/installation/tls.sh
 
   local INSTALL_FOLDER
@@ -58,6 +60,8 @@ install_helm() {
   TILLER_CERT='/tmp/tiller.crt'
   TILLER_KEY='/tmp/tiller.key'
   CA_CERT='/tmp/ca.cert'
+
+  kubectl_login services/eks-cluster/terraform fluidattacks-terraform-states
 
   # Create tiller service account
   kubectl apply -f services/eks-cluster/helm/installation/sa-tiller.yaml
@@ -82,7 +86,28 @@ install_helm() {
     --tls-ca-cert $CA_CERT \
     --tiller-tls-verify
 
+  get_last_tls_keys
+
   # Remove unnecessary files
   rm "$TILLER_CERT" "$TILLER_KEY" "$CA_CERT"
+
+}
+
+deploy_helm() {
+  # Install helm and charts
+
+  set -e
+
+  # Import functions
+  . services/eks-cluster/helm/charts/install-charts.sh
+
+  # Install tiller in cluster
+  install_helm
+
+  # Wait 5 seconds for tiller to deploy
+  sleep 5
+
+  # Install charts
+  install_charts
 
 }

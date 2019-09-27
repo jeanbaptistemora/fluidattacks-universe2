@@ -2,9 +2,9 @@
 
 eks_terraform_apply() {
 
-  set -e
-
   # Deploy eks infra using terraform
+
+  set -e
 
   # Import functions
   . toolbox/terraform.sh

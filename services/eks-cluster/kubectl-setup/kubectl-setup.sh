@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-initial_setup() {
+kubectl_setup() {
 
   # Set initial configuration for eks cluster
 
@@ -11,6 +11,6 @@ initial_setup() {
   kubectl_login services/eks-cluster/terraform fluidattacks-terraform-states
 
   # Create cluster namespaces
-  kubectl apply -f services/eks-cluster/initial-setup/namespaces.yaml
+  kubectl apply -f services/eks-cluster/kubectl-setup/namespaces.yaml
 
 }
