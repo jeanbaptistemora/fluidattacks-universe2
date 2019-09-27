@@ -82,6 +82,8 @@ setup(
         'defusedxml==0.6.0',           # fluidasserts.sca
         'dnspython==1.16.0',           # fluidasserts.proto.dns
         'gitpython==3.0.1',            # fluidasserts.proto.git
+        'google-api-python-client==1.7.11',     # fluidasserts.cloud.gcp
+        'google-auth-httplib2==0.0.3',    # fluidasserts.cloud.gcp
         'ldap3==2.6',                  # fluidasserts.proto.ldap
         'mixpanel==4.4.0',             # fluidasserts.utils.decorators
         'mysql-connector==2.2.9',      # fluidasserts.db.mysql_db
@@ -95,6 +97,7 @@ setup(
         'pygments==2.4.2',             # fluidasserts
         'pyjks==19.0.0',               # fluidasserts.format.jks
         'pyjwt==1.7.1',                # fluidasserts.format.jwt
+        'pymssql==2.1.4',              # fluidasserts
         'pynacl==1.3.0',               # fluidasserts.proto.ssl
         'pyparsing==2.4.2',            # fluidasserts.lang
         'pypdf2==1.26.0',              # fluidasserts.format.pdf
@@ -109,8 +112,6 @@ setup(
         'tlslite-ng==0.8.0-alpha27',   # fluidasserts.proto.ssl
         'typed-ast==1.4.0',            # fluidasserts
         'viewstate==0.4.3',            # fluidasserts.proto.http
-        'google-api-python-client==1.7.11',     # fluidasserts.cloud.gcp
-        'google-auth-httplib2==0.0.3',    # fluidasserts.cloud.gcp
     ],
     include_package_data=True,         # files to include in MANIFEST.in
     entry_points={
