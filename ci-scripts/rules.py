@@ -88,7 +88,11 @@ CONTENTRULES = {
 
     # Check that caption is not manually placed
     "pcregrep -ni '^\\.image\\s\\d|^\\.table\\s\\d|^\\.figure\\s\\d\' ":
-    "Captions must not contain \"Image #\", \"Figure #\" or \"Table #\".\n\n"
+    "Captions must not contain \"Image #\", \"Figure #\" or \"Table #\".\n\n",
+
+    #Check that all images are local
+    "pcregrep -nr 'image::?https?://.*$'":
+    "Only local images are allowed."
 }
 
 #Rules for Blog articles
