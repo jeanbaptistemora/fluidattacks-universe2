@@ -21,7 +21,7 @@ import tlslite
 # local imports
 from fluidasserts import DAST, LOW, MEDIUM, HIGH, OPEN, CLOSED, UNKNOWN, Unit
 from fluidasserts.helper import http
-from fluidasserts.helper.ssl import connect, connect_legacy
+from fluidasserts.helper.ssl import connect
 from fluidasserts.utils.decorators import api, unknown_if
 
 PORT = 443
@@ -295,13 +295,10 @@ def is_tlsv1_enabled(site: str, port: int = PORT) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     is_vulnerable: bool = False
-    try:
-        with suppress(tlslite.errors.TLSAbruptCloseError):
-            with connect(site, port=port, min_version=(3, 1),
-                         max_version=(3, 1)):
-                is_vulnerable = True
-    except tlslite.TLSRemoteAlert:
-        with connect_legacy(site, port, max_version=(3, 1)):
+    with suppress(tlslite.errors.TLSAbruptCloseError,
+                  tlslite.TLSRemoteAlert):
+        with connect(site, port=port, min_version=(3, 1),
+                     max_version=(3, 1)):
             is_vulnerable = True
 
     return _get_result_as_tuple(
@@ -327,14 +324,10 @@ def is_tlsv11_enabled(site: str, port: int = PORT) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     is_vulnerable: bool = False
-
-    try:
-        with suppress(tlslite.errors.TLSAbruptCloseError):
-            with connect(site, port=port, min_version=(3, 2),
-                         max_version=(3, 2)):
-                is_vulnerable = True
-    except tlslite.TLSRemoteAlert:
-        with connect_legacy(site, port, max_version=(3, 2)):
+    with suppress(tlslite.errors.TLSAbruptCloseError,
+                  tlslite.TLSRemoteAlert):
+        with connect(site, port=port, min_version=(3, 2),
+                     max_version=(3, 2)):
             is_vulnerable = True
 
     return _get_result_as_tuple(

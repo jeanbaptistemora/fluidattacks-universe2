@@ -38,25 +38,10 @@ def _my_add_padding_poodle(self, data: bytes) -> bytes:
     return data
 
 
-def get_ssl_version(max_version: Tuple):
-    """Build SSL TLS version options."""
-    version = ssl.PROTOCOL_TLSv1_2
-    if max_version[1] == 0:
-        version = ssl.PROTOCOL_SSLv23
-    elif max_version[1] == 1:
-        version = ssl.PROTOCOL_TLSv1
-    elif max_version[1] == 2:
-        version = ssl.PROTOCOL_TLSv1_1
-    elif max_version[1] == 3:
-        version = ssl.PROTOCOL_TLSv1_2
-    return version
-
-
 @contextmanager
 def connect_legacy(hostname: str, port: int = PORT,
                    ciphers: str = 'HIGH:!DH:!aNULL',
-                   validate_cert: bool = False,
-                   max_version: Tuple[int, int] = (3, 3)) \
+                   validate_cert: bool = False) \
         -> Generator[ssl.SSLSocket, None, None]:
     """
     Establish a legacy SSL/TLS connection.
@@ -71,7 +56,7 @@ def connect_legacy(hostname: str, port: int = PORT,
     else:
         flags = ssl.VERIFY_DEFAULT
 
-    context = ssl.SSLContext(get_ssl_version(max_version))
+    context = ssl.create_default_context()
     context.verify_flags = flags
     context.check_hostname = False
     context.verify_mode = ssl.CERT_OPTIONAL
