@@ -23,8 +23,12 @@ install_cert_manager() {
     jetstack/cert-manager \
     cert-manager \
     operations \
-    services/eks-cluster/helm/charts/cert-manager.yaml \
+    services/eks-cluster/helm/charts/cert-manager/cert-manager.yaml \
     v0.10.0
+
+  # Install LetsEncrypt Cluster Issuer
+  kubectl apply -f \
+    services/eks-cluster/helm/charts/cert-manager/cluster-issuer-fluid.yaml
 }
 
 install_charts() {
