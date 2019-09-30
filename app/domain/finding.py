@@ -212,20 +212,6 @@ def migrate_evidence_description(finding):
     return True
 
 
-def list_comments(comment_type, finding_id):
-    comments = [{
-        'content': comment['content'],
-        'created': util.format_comment_date(comment['created']),
-        'email': comment['email'],
-        'fullname': comment['fullname'],
-        'id': int(comment['user_id']),
-        'modified': util.format_comment_date(comment['modified']),
-        'parent': int(comment['parent'])
-    } for comment in integrates_dal.get_comments_dynamo(int(finding_id), comment_type)]
-
-    return comments
-
-
 def get_email_recipients(project_name, comment_type):
     project_users = integrates_dal.get_project_users(project_name)
     recipients = []

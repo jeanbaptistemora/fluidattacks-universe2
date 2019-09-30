@@ -17,7 +17,9 @@ from app.decorators import (
     require_project_access
 )
 from app.domain import (
-    finding as finding_domain, vulnerability as vuln_domain)
+    comment as comment_domain, finding as finding_domain,
+    vulnerability as vuln_domain
+)
 from app.domain.user import get_role
 from app.dto.finding import FindingDTO, get_project_name
 from app.entity.vulnerability import Vulnerability
@@ -205,10 +207,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """ Resolve comments attribute """
         del info
 
-        self.comments = finding_domain.list_comments(
-            comment_type='comment,verification',
-            finding_id=self.id
-        )
+        self.comments = comment_domain.get_comments(self.id)
         return self.comments
 
     @require_role(['analyst', 'admin'])
@@ -217,10 +216,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """ Resolve observations attribute """
         del info
 
-        self.observations = finding_domain.list_comments(
-            comment_type='observation',
-            finding_id=self.id
-        )
+        self.observations = comment_domain.get_observations(self.id)
         return self.observations
 
     def resolve_report_level(self, info):
