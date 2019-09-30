@@ -407,7 +407,8 @@ def inactive_users():
 
 def get_new_releases():
     """Summary mail send with findings that have not been released yet."""
-    rollbar.report_message('Warning: Function to get new releases is running')
+    rollbar.report_message('Warning: Function to get new releases is running',
+                           'warning')
     projects = project_domain.get_active_projects()
     context_finding = {'findings': list()}
     cont = 0
