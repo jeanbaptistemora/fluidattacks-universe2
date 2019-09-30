@@ -1,15 +1,14 @@
 """ FluidIntegrates services definition """
+
 import rollbar
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-# pylint: disable=E0402
-from . import util
-# pylint: disable=E0402
-from .dal import integrates_dal, user as user_dal
-from .dal.helpers.formstack import FormstackAPI
-from .domain.user import get_role, get_user_attributes
-from .dto.finding import FindingDTO
-from .dto.eventuality import EventDTO
+
+from app import util
+from app.dal import integrates_dal
+from app.dal.helpers.formstack import FormstackAPI
+from app.domain import finding as finding_domain, user as user_domain
+from app.dto.eventuality import EventDTO
 
 
 @csrf_exempt
@@ -32,28 +31,17 @@ def has_access_to_project(user, project_name, rol):
     return integrates_dal.has_access_to_project(user, project_name)
 
 
-def has_access_to_finding(user, findingid, role):
+def has_access_to_finding(user, finding_id, role):
     """ Verify if the user has access to a finding submission. """
     has_access = False
     # Skip this check for admin users since they don't have any assigned projects
     if role == 'admin':
         has_access = True
     else:
-        project = integrates_dal.get_finding_project(findingid)
+        finding = finding_domain.get_finding(finding_id)
+        has_access = has_access_to_project(
+            user, finding.get('projectName'), role)
 
-        if project:
-            has_access = has_access_to_project(user, project, role)
-        else:
-            api = FormstackAPI()
-            fin_dto = FindingDTO()
-            finding_data = fin_dto.parse_project(api.get_submission(findingid), findingid)
-            project = finding_data['projectName'] if 'projectName' in finding_data else None
-
-            if project:
-                has_access = has_access_to_project(user, project, role)
-            else:
-                rollbar.report_message(
-                    'Error: An error ocurred getting finding project', 'error')
     return has_access
 
 
@@ -94,7 +82,7 @@ def is_customeradmin(project, email):
 
 def has_valid_access_token(email, context, jti):
     """ Verify if has active access token and match. """
-    access_token = user_dal.get_user_attributes(email, ['access_token'])
+    access_token = user_domain.get_user_attributes(email, ['access_token'])
     resp = False
     if context and access_token:
         resp = util.verificate_hash_token(access_token, jti)
@@ -118,14 +106,14 @@ def has_responsibility(project, email):
 
 
 def has_phone_number(email):
-    user_info = get_user_attributes(email, ['phone'])
+    user_info = user_domain.get_user_attributes(email, ['phone'])
     user_phone = user_info['phone'] if user_info else '-'
     return user_phone
 
 
 def get_user_role(user_data):
     if user_data.get('jti'):
-        role = get_role(user_data['user_email'])
+        role = user_domain.get_role(user_data['user_email'])
     else:
         role = user_data['user_role']
     return role

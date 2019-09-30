@@ -12,7 +12,6 @@ from django.conf import settings
 from __init__ import FI_MAIL_REPLYERS
 from app.dal.helpers.formstack import FormstackAPI
 from app.dal import integrates_dal, project as project_dal
-from app.decorators import get_entity_cache
 from app.dto.finding import (
     total_vulnerabilities
 )
@@ -247,7 +246,6 @@ def get_total_treatment(findings):
     return treatment
 
 
-@get_entity_cache
 def get_users_from_db(name):
     """resolve a full list of users from database"""
     init_emails = integrates_dal.get_project_users(name)

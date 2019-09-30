@@ -263,6 +263,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         return self.tags
 
     @require_role(['admin', 'customeradmin'])
+    @get_entity_cache
     def resolve_users(self, info):
         """ Resolve project users """
         init_email_list = project_domain.get_users_from_db(self.name)
