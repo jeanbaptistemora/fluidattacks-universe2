@@ -143,21 +143,18 @@ build_vpn:
 
 danger:
   stage: mr-check
-  image: starefossen/ruby-node:2-10
+  image: fluidattacks/danger-ruby
+  only:
+    - merge_requests
   variables:
-    DANGER_GITLAB_API_TOKEN: ${DANGER_TOKEN}
-    DANGER_GITLAB_HOST: "gitlab.com"
-    DANGER_GITLAB_API_BASE_URL: "https://gitlab.com/api/v4"
+    DANGER_GITLAB_API_TOKEN: $DANGER_TOKEN
   before_script:
     - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
       | grep ${CI_COMMIT_SHA}
       | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
     - npm install --unsafe-perm
-    - bundle install
   script:
-    - bundle exec danger --verbose --fail-on-errors=true
-  only:
-    - merge_requests
+    - danger --verbose --fail-on-errors=true
 
 deploy_infra:
   stage: deploy
