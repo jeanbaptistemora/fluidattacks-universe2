@@ -19,6 +19,7 @@ from multiprocessing import Pool, cpu_count
 # pylint: disable=no-name-in-module
 # pylint: disable=global-statement
 # pylint: disable=exec-used
+# pylint: disable=too-many-lines
 
 # 3rd party imports
 import yaml
@@ -527,7 +528,8 @@ def exec_http_package(urls: List[str], enable_multiprocessing: bool):
 def exec_ssl_package(addresses: List[str], enable_multiprocessing: bool):
     """Execute generic checks from the SSL package."""
     template = textwrap.dedent("""
-        from fluidasserts.proto import {module}
+        from fluidasserts.proto import ssl
+        from fluidasserts.format import x509
         from fluidasserts.utils.generic import add_finding
 
         add_finding('Fluid Asserts - Protocols - {title} Module')
@@ -561,12 +563,20 @@ def exec_ssl_package(addresses: List[str], enable_multiprocessing: bool):
         ('ssl', 'SSL part 4'): """
             ssl.tls_uses_cbc('{ip_address}', {port})
             """,
+        ('x509', 'X509 verifications'): """
+            x509.is_cert_cn_not_equal_to_site('{ip_address}', {port})
+            x509.is_cert_cn_using_wildcard('{ip_address}', {port})
+            x509.is_cert_inactive('{ip_address}', {port})
+            x509.is_cert_untrusted('{ip_address}', {port})
+            x509.is_cert_validity_lifespan_unsafe('{ip_address}', {port})
+            x509.is_sha1_used('{ip_address}', {port})
+            x509.is_md5_used('{ip_address}', {port})
+            """,
     }
 
     exploits = [
         (module[1], template.format(
             title=module[1],
-            module=module[0],
             methods=textwrap.dedent(methods.format(
                 ip_address=address.split(':')[0],
                 port=address.split(':')[1] if ':' in address else 443))))
