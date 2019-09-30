@@ -6,12 +6,14 @@ import datetime
 import socket
 import ssl
 from typing import List
+from contextlib import suppress
 
 # 3rd party imports
 import tlslite
 from cryptography.hazmat.backends import default_backend
-from cryptography.x509 import load_pem_x509_certificate
-from cryptography.x509.oid import NameOID
+from cryptography.x509 import load_pem_x509_certificate, DNSName
+from cryptography.x509.oid import NameOID, ExtensionOID
+from cryptography.x509.extensions import ExtensionNotFound
 
 # local imports
 from fluidasserts import Unit, DAST, MEDIUM, OPEN, CLOSED
@@ -93,12 +95,24 @@ def is_cert_cn_not_equal_to_site(site: str, port: int = PORT) -> tuple:
         cert_obj.subject.get_attributes_for_oid(NameOID.COMMON_NAME)[
             0].value.lower()
 
+    altnames = []
+    with suppress(ExtensionNotFound):
+        ext = cert_obj.extensions.get_extension_for_oid(
+            ExtensionOID.SUBJECT_ALTERNATIVE_NAME
+        )
+        altnames = ext.value.get_values_for_type(DNSName)
+
+    msg_open = \
+        (f'{cert_cn} CN is not equal to site {site}'
+         ' or is not listed on altnames')
+    msg_closed = \
+        f'{cert_cn} CN is equal to site {site} or is listed on altnames'
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open=f'{cert_cn} CN is not equal to site {site}',
-        msg_closed=f'{cert_cn} CN is equal to site {site}',
-        open_if=site.lower() != cert_cn)
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        open_if=(site.lower() != cert_cn) and (site.lower() not in altnames))
 
 
 @api(risk=MEDIUM, kind=DAST)
