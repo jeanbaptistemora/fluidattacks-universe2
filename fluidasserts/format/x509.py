@@ -93,20 +93,49 @@ def is_cert_cn_not_equal_to_site(site: str, port: int = PORT) -> tuple:
         cert_obj.subject.get_attributes_for_oid(NameOID.COMMON_NAME)[
             0].value.lower()
 
-    wc_cert = '*.' + site.lower()
+    return _get_result_as_tuple(
+        site=site,
+        port=port,
+        msg_open=f'{cert_cn} CN is not equal to site {site}',
+        msg_closed=f'{cert_cn} CN is equal to site {site}',
+        open_if=site.lower() != cert_cn)
 
-    domain = 'NONE'
-    if cert_cn.startswith('*.'):
-        domain = '.' + cert_cn.split('*.')[1].lower()
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(socket.error,
+            tlslite.errors.TLSLocalAlert,
+            tlslite.errors.TLSRemoteAlert)
+def is_cert_cn_using_wildcard(site: str, port: int = PORT) -> tuple:
+    """
+    Check if certificate uses wildcard in CN.
+
+    Name in certificate should be coherent with organization name, see
+    `REQ. 093 <https://fluidattacks.com/web/rules/093/>`_
+
+    :param site: Site address.
+    :param port: Port to connect to.
+    :returns: - ``OPEN`` if the parameter **site** does not equal the
+                certificate's **Common Name** (CN).
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    with connect(site, port=port) as conn:
+        __cert = conn.session.serverCertChain.x509List[0].bytes
+        cert = ssl.DER_cert_to_PEM_cert(__cert)
+
+    cert_obj = load_pem_x509_certificate(cert.encode('utf-8'),
+                                         default_backend())
+    cert_cn = \
+        cert_obj.subject.get_attributes_for_oid(NameOID.COMMON_NAME)[
+            0].value.lower()
 
     return _get_result_as_tuple(
         site=site,
         port=port,
         msg_open=f'{cert_cn} CN is not equal to site {site}',
         msg_closed=f'{cert_cn} CN is equal to site {site}',
-        open_if=(site.lower() != cert_cn
-                 and wc_cert != cert_cn
-                 and not site.endswith(domain)))
+        open_if=cert_cn.startswith('*.'))
 
 
 @api(risk=MEDIUM, kind=DAST)

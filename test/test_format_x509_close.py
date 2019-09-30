@@ -34,6 +34,13 @@ def test_cn_equal_to_site_close(get_mock_ip):
 
 
 @pytest.mark.parametrize('get_mock_ip', ['ssl_hard'], indirect=True)
+def test_cn_wildcard_close(get_mock_ip):
+    """CN del cert concuerda con el nombre del sitio?."""
+    assert not x509.is_cert_cn_using_wildcard(get_mock_ip, 80)
+    assert not x509.is_cert_cn_using_wildcard('0.0.0.0')
+
+
+@pytest.mark.parametrize('get_mock_ip', ['ssl_hard'], indirect=True)
 def test_cert_active_close(get_mock_ip):
     """Certificado aun esta vigente?."""
     assert not x509.is_cert_inactive(get_mock_ip)
