@@ -24,34 +24,14 @@ resource "aws_db_parameter_group" "default" {
   }
 }
 
-resource "aws_db_parameter_group" "moodle-v36" {
-  name   = "moodle-v36"
+resource "aws_db_parameter_group" "fluid-database" {
+  name   = "fluid-database"
   family = "mysql5.6"
-  description = "Parameter Group to upgrade Moodle tp 3.6"
+  description = "Parameter Group for fluid-database"
 
-  parameter {
-    name  = "character_set_server"
-    value = "utf8mb4"
-  }
-
-  parameter {
-    name  = "collation_server"
-    value = "utf8mb4_unicode_ci"
-  }
-
-  parameter {
-    name  = "innodb_file_format"
-    value = "barracuda"
-  }
-
-  parameter {
-    name  = "innodb_large_prefix"
-    value = 1
-  }
-
-  parameter {
-    name  = "skip-character-set-client-handshake"
-    value = 1
+  parameter{
+    name = "wait_timeout"
+    value = 900
   }
 }
 
@@ -68,7 +48,7 @@ resource "aws_db_instance" "fluid-database" {
   instance_class            = "${var.instanceClass}"
   maintenance_window        = "sun:05:00-sun:05:30"
   name                      = "${var.dbName}"
-  parameter_group_name      = "${aws_db_parameter_group.moodle-v36.id}"
+  parameter_group_name      = "${aws_db_parameter_group.fluid-database.id}"
   password                  = "${var.dbPass}"
   publicly_accessible       = true
   skip_final_snapshot       = false
