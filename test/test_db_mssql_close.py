@@ -30,6 +30,14 @@ def test_have_access_closed(get_mock_ip):
     assert mssql.have_access(DBNAME, USER, WRONG_PASSWORD, get_mock_ip,
                              PORT).is_closed()
 
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_has_text_closed(get_mock_ip):
+    """Test mssql.has_text."""
+    assert mssql.has_text(DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip,
+                             PORT, 'select * from users', 'fluidasserts123.').is_closed()
+
+
 #
 # UNKNOWN
 #
@@ -40,3 +48,10 @@ def test_have_access_unknown(get_mock_ip):
     """Test mssql.have_access."""
     assert mssql.have_access(DBNAME, ADMIN_USER, ADMIN_PASSWORD, '0.0.0.0',
                              PORT).is_unknown()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_has_text_unknown(get_mock_ip):
+    """Test mssql.has_text."""
+    assert mssql.has_text(DBNAME, ADMIN_USER, ADMIN_PASSWORD, '0.0.0.0',
+                             PORT, 'select * from users', 'fluidasserts123.').is_unknown()

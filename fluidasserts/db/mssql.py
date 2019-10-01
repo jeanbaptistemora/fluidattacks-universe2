@@ -42,15 +42,23 @@ def _is_compatibility_error(exception: pymssql.Error) -> bool:
     return exception.args[0] == 16202
 
 
+@contextmanager
 def _execute(connection_string: ConnectionString, query: str,
-             variables: Optional[Dict[str, Any]]):
-    with databse(connection_string) as (conn, cursor):
-        if not variables:
-            cursor.execute(query)
-        else:
-            cursor.execute(query, variables)
-        conn.commit()
-        return cursor
+             variables: Optional[Dict[str, Any]] = None) -> Cursor:
+    """Cursor with state after execute a query."""
+    with databse(connection_string) as (_, cursor):
+        cursor.execute(query)
+        row = cursor.fetchone()
+        while row:
+            row = cursor.fetchone()
+        try:
+            if not variables:
+                cursor.execute(query)
+            else:
+                cursor.execute(query, variables)
+            yield cursor
+        finally:
+            pass
 
 
 @contextmanager
@@ -157,6 +165,56 @@ def can_execute_commands(dbname: str, user: str, password: str, host: str,
 
     vulns: List[str] = []
     safes: List[str] = []
+
+    (vulns if success else safes).append(msg_open if success else msg_closed)
+
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=HIGH, kind=DAST)
+@unknown_if(pymssql.Error)
+def has_text(dbname: str, user: str, password: str, host: str, port: int,
+             query: str, expected_text: str) -> Tuple:
+    """
+    Check if the executed query return the expected text.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+    :param query: query to execute.
+    :param expected_text: expected text of the query.
+    :returns: - ``OPEN`` if query result is equal to the ``expected_text``
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port)
+    success: bool = False
+    msg_open: str = 'The query result matches the expected text'
+    msg_closed: str = 'The query result doesn\'t match the expected text'
+
+    vulns: List[str] = []
+    safes: List[str] = []
+    with _execute(connection_string, query) as cursor:
+        data = cursor.fetchall()
+        for row in data:
+            beaked = False
+            for column in row:
+                if expected_text == column:
+                    success = True
+                    beaked = True
+                    break
+            if beaked:
+                break
 
     (vulns if success else safes).append(msg_open if success else msg_closed)
 
