@@ -1,0 +1,179 @@
+:slug: do-we-need-a-purple-team/
+:date: 2019-10-04
+:category: documentation
+:subtitle: How can we understand purple teams?
+:tags: security, testing
+:image: cover.png
+:alt: Multicolored hallway. Photo by Efe Kurnaz on Unsplash: https://unsplash.com/photos/RnCPiXixooY
+:description: In this blog, we will show you the basics of Purple teams. We will address some topics such as what they are, what they are not, when they are needed, what they do, what an organization should not do and possible ways to implement them successfully in an organization.
+:keywords: Purpleteam, Pentesting, Communication, Cooperation, Hacking, Organization.
+:author: Alejandro Herrera
+:writer: alejandrohg7
+:name: Alejandro Herrera
+:about1: Tourism Business Administrator
+:about2: Passionate about programming
+
+= Do we need a Purple team?
+
+We can interpret the Purple teams as a mixture
+of Red or sword and Blue or shield teams in pentesting processes.
+They are professional hackers
+that simulate attacks and protect an organization.
+
+
+== Notions
+
+In cybersecurity, the organizations should understand the Purple teams
+as a communication bridge
+that allows Blue and Red teams to work together in a simulated cyberattack.
+The main goal is to help improve organization security posture.
+In other words, they can help coordinate
+and increase the effectiveness of both teams.
+We have to be careful with the implementation and execution
+of a Purple team  <<r1, ^[1]^>>, as Julian Arango <<r6, ^[2]^>> says:
+
+.A Conflict of Interest?
+[quote]
+  " In some cases,
+  this interaction can propitiate malfunctions inside the organizations,
+  especially when the affected parties are biased by their interest
+  and can manipulate or conduct the results of a pentest.”
+
+
+== What does a Purple team?
+
+Some of the highlights are <<r2, ^[3]^>>:
+
+. *Analyze*: They analyze the behavior
+and interactions between the Red and Blue teams.
+Along the process, they can generate recommendations, suggestions
+and improvements for both parties.
+In practice, if there are not link:../attack-no-announce/[well-defined cybersecurity objectives] <<r7, ^[4]^>>
+and there are personal interests on the test outcome
+is likely that link:../conflict-interest/[a conflict of interest] appears.
+The organization can suffer conducted Pentest,
+tampering of pentesting outcomes,
+lack of blindspot detection <<r6, ^[5]^>>, among others.
+
+. *Detection*: How can the Red team bypass the detection capabilities
+of the Blue team.
+
+. *Remedial actions*: They can suggest fixes to avoid vulnerabilities.
+
+. *Transfer*: Ultimately deriving
+maximum value from the exercise by applying the new
+knowledge and ensuring strong defenses.
+
+== When does an organization need Purple team?
+
+Unfortunately, Red and Blue teams can get out of sync
+with each other and have some cooperation issues.
+Some common causes are <<r3, ^[6]^>>:
+
+. *Bad politics*: Organizational politics does not encourage the flow
+of information, they evaluate the success of the Red team for the amount
+of failed controls from the Blue team,
+and the success of the Blue team for the number of alerts.
+Therefore the partners are not motivated to share information.
+
+. *Slow feedback loop*: The information moves too slow between teams
+or in some cases, does not even move.
+There is poor communication between teams.
+
+. *Mindset*: Each team works separately to obtain its objectives.
+For instance, the Red team will enhance offensive exploit.
+The Blue team will enhance defensive findings.
+This mindset can damage the overall security system of an organization.
+
+. *Arrogance*: The Red team thinks itself too elite
+to share information with the Blue team.
+
+. *Restricted*: The Red team
+is pulled inside the organization and becomes restricted,
+ultimately resulting in a catastrophic reduction in its effectiveness.
+
+. *Bad design*: The Red team and Blue team are not designed
+to interact with each other continuously,
+as a matter of course, so lessons learned on each
+side are effectively lost.
+
+. *Separate efforts*: Information security management does not see
+the Red and Blue team as part of the same work.
+There is no shared metrics between them.
+
+.Red vs Blue, source: link:https://images.unsplash.com/photo-1492435793713-b1f8565c25ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80[Photo by Samuel Zeller on Unsplash].
+image::redblue.png[alt="Red vs Blue", width="600"]
+
+If your organization presents one of these illnesses is more likely
+to think in a Purple team as a solution.
+Rather than considering it as a separate group of people,
+the organizations should consider it as
+a help function between Red and Blue partners.
+
+== What is not the solution?
+
+Under any circumstance, it is recommended to create a separate group
+of people who permanently carry out the intermediation between
+the Red and Blue teams.
+This measure would not solve the underlying problem,
+which is to improve communication and collaboration between teams.
+
+== So which are the possibles solutions?
+
+We need to improve communication and cooperation between teams.
+The following techniques can be used to enhance these two aspects.
+
+. *Team engagement*: A third party analyzes
+how the Red and Blue teams communicate and cooperate regularly.
+Based on their behavior, the third-party makes recommendations.
+This measure is momentary and finite.
+The main goal of this technique is <<r4, ^[7]^>>:
+to make the communication process smoother and to ease knowledge transfer.
+
+. *Team exercise*: Someone monitors both teams in real-time
+to see how they work.
+The main goal of this technique is <<r5, ^[8]^>>:
+to evaluate your security controls and ability
+to detect attacks, compromise, lateral movement, command
+and to control communications, and data exfiltration.
+This technique enriches and validates the detection mechanisms used in situ
+and helps to identify and reduce cyber attack paths.
+
+. *Team meetings*: Periodically, Red and Blue teams meet
+to share knowledge and give feedback about attacks and
+defenses used in the pentest process.
+
+== The benefit of appropriate implementation
+
+It will create a better flow of information
+between Red and Blue teams which means,
+Red will learn how Blue is detecting and mitigating their offensives,
+Blue will be able to know how Red is bypassing their defenses.
+This loop of enhancing between the Red and Blue teams
+improves the organization's security posture.
+
+== Conclusion
+
+A Purple team should be understood as a function
+of Red and Blue teams,
+a mixture of both sides of the same coin,
+where the information can flow in an infinite loop of enhancing the abilities
+of Red and Blue teams.
+Under any circumstance should it be understood as a permanent group
+of people who will mediate the relationship between the Red and Blue team.
+
+== References
+
+. [[r1]] link:https://www.cgisecurity.com/2018/05/my-experiences-leading-purple-team.html[Cgisecurity].
+
+. [[r2]] link:https://www.itlab.com/blog/understanding-the-roles-of-red-blue-and-purple-security-teams[Understanding the roles of Red Blue and purple security teams].
+
+. [[r3]] link:https://danielmiessler.com/study/purple-team/[Purple team].
+
+. [[r4]] link:http://www.circleid.com/posts/20161130_the_purple_team_pentest/[The Purple team pentest].
+
+. [[r5]] link:https://www.swordshield.com/purple-team-assessment-service/[Purple team assessment service].
+
+. [[r6]] link:../conflict-interest/[A Conflict of Interest?].
+
+. [[r7]] link:../attack-no-announce/[Attacking Without Announce].
