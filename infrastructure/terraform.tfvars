@@ -15,7 +15,7 @@ vpcId            = "vpc-53ea4637"
 dbVpcId       = "vpc-98fd1fe1"
 storageType   = "gp2"
 engine        = "mysql"
-instanceClass = "db.t2.micro"
+instanceClass = "db.t2.small"
 
 # EKS Vars
 rtbId               = "rtb-a74ad5c3"
