@@ -1,3 +1,4 @@
+attrs==19.1.0
 awscli==1.16.156
 codecov==2.0.15
 flake8==3.5.0
