@@ -147,8 +147,8 @@ def is_cert_cn_using_wildcard(site: str, port: int = PORT) -> tuple:
     return _get_result_as_tuple(
         site=site,
         port=port,
-        msg_open=f'{cert_cn} CN is not equal to site {site}',
-        msg_closed=f'{cert_cn} CN is equal to site {site}',
+        msg_open=f'{cert_cn} uses wildcard for site {site}',
+        msg_closed=f'{cert_cn} does not use wildcard for site {site}',
         open_if=cert_cn.startswith('*.'))
 
 
