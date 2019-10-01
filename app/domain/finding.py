@@ -21,8 +21,8 @@ from app.dal.helpers.formstack import FormstackAPI
 from app.dal import integrates_dal, finding as finding_dal, user as user_dal
 from app.domain import project as project_domain, vulnerability as vuln_domain
 from app.dto.finding import (
-    FindingDTO, get_project_name, migrate_description, migrate_treatment,
-    migrate_report_date, finding_vulnerabilities
+    FindingDTO, migrate_description, migrate_treatment, migrate_report_date,
+    finding_vulnerabilities
 )
 from app.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
@@ -320,20 +320,17 @@ def get_tracking_vulnerabilities(vulnerabilities):
 
 
 def verify_finding(finding_id, user_email):
-    project_name = get_project_name(finding_id).lower()
-    finding_name = \
-        integrates_dal.get_finding_attributes_dynamo(finding_id,
-                                                     ['finding']).get('finding')
-
+    finding = get_finding(finding_id)
+    project_name = finding.get('projectName')
+    finding_name = finding.get('finding')
     tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     success = finding_dal.update(finding_id, {'verification_date': today})
+
     if success:
         vuln_domain.update_vulnerabilities_date(user_email, finding_id)
-        send_finding_verified_email(finding_id,
-                                    finding_name, project_name)
-        project_users = [user[0]
-                         for user
+        send_finding_verified_email(finding_id, finding_name, project_name)
+        project_users = [user[0] for user
                          in integrates_dal.get_project_users(project_name)
                          if user[1] == 1]
         notifications.notify_mobile(
@@ -372,10 +369,9 @@ def send_remediation_email(user_email, finding_id, finding_name,
 
 
 def request_verification(finding_id, user_email, user_fullname, justification):
-    project_name = get_project_name(finding_id).lower()
-    finding_name = \
-        integrates_dal.get_finding_attributes_dynamo(finding_id,
-                                                     ['finding']).get('finding')
+    finding = get_finding(finding_id)
+    project_name = finding.get('projectName')
+    finding_name = finding.get('finding')
     tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     success = finding_dal.update(finding_id, {
@@ -396,8 +392,7 @@ def request_verification(finding_id, user_email, user_fullname, justification):
         )
         send_remediation_email(user_email, finding_id, finding_name,
                                project_name, justification)
-        project_users = [user[0]
-                         for user
+        project_users = [user[0] for user
                          in integrates_dal.get_project_users(project_name)
                          if user[1] == 1]
         notifications.notify_mobile(
@@ -444,12 +439,11 @@ def update_description(finding_id, updated_values):
 
 
 def send_accepted_email(finding_id, user_email, justification):
-    project_name = get_project_name(finding_id).lower()
+    finding = get_finding(finding_id)
+    project_name = finding.get('projectName')
+    finding_name = finding.get('finding')
     project_users = integrates_dal.get_project_users(project_name)
     recipients = [user[0] for user in project_users if user[1] == 1]
-    finding_name = \
-        integrates_dal.get_finding_attributes_dynamo(finding_id,
-                                                     ['finding']).get('finding')
 
     email_send_thread = threading.Thread(
         name='Accepted finding email thread',
