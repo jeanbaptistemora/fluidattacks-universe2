@@ -67,9 +67,8 @@ output "vaultKmsKey" {
   sensitive = true
 }
 
-# # Create with existing DB
+# Create with existing DB
 module "database" {
-  # source = "./database-outside"
   source        = "./database"
   dbRegion      = var.dbRegion
   dbVpcId       = var.dbVpcId
