@@ -10,7 +10,6 @@ import pytz
 from django.conf import settings
 
 from __init__ import FI_MAIL_REPLYERS
-from app.dal.helpers.formstack import FormstackAPI
 from app.dal import integrates_dal, project as project_dal
 from app.dto.finding import (
     total_vulnerabilities
@@ -276,14 +275,7 @@ def is_finding_in_drafts(finding_id):
 
 
 def list_drafts(project_name):
-    api = FormstackAPI()
-    submissions = api.get_findings(project_name)['submissions']
-    drafts = [submission['id'] for submission in submissions
-              if is_finding_in_drafts(submission['id'])]
-    dyn_drafts = project_dal.list_drafts(project_name)
-    drafts += [draft_id for draft_id in dyn_drafts if draft_id not in drafts]
-
-    return drafts
+    return project_dal.list_drafts(project_name)
 
 
 def list_comments(user_email, project_name):
