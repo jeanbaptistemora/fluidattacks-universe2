@@ -15,7 +15,7 @@ CREATE TABLE users (
     password VARCHAR(16)
 );
 GO
-INSERT INTO users VALUES ('user1', 'fluidasserts123.');
+INSERT INTO users VALUES ('user1', 'c878cba33f53e16643c1679d831075e0');
 GO
 select * from users;
 GO
@@ -27,19 +27,3 @@ CREATE LOGIN $DB_USER WITH PASSWORD = \"$DB_PASSWORD\";
 USE $DB_USER;
 CREATE USER $DB_USER FOR LOGIN $DB_USER WITH DEFAULT_SCHEMA = $DB_NAME;
 GO"
-
-# Enabled xp_cmdshell
-execute_query "
--- To allow advanced options to be changed.
-EXEC sp_configure 'show advanced options', 1;
-GO
--- To update the currently configured value for advanced options.
-RECONFIGURE;
-GO
--- To enable the feature.
-EXEC sp_configure 'xp_cmdshell', 1;
-GO
--- To update the currently configured value for this feature.
-RECONFIGURE;
-GO
-"

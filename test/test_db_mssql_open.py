@@ -12,6 +12,8 @@ from fluidasserts.db import mssql
 # Constants
 
 DBNAME: str = 'mssql'
+ADMIN_USER = 'SA'
+ADMIN_PASSWORD = 'fluidasserts123.'
 USER: str = 'mssql'
 PASSWORD: str = 'Fluid1234.'
 PORT = 1433
