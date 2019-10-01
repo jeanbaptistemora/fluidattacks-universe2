@@ -231,7 +231,7 @@ class ProjectTest(TestCase):
         assert is_finding_in_drafts(draft_id)
 
     def test_list_drafts(self):
-        project_name = 'UNITTESTING'
+        project_name = 'unittesting'
         test_data = list_drafts(project_name)
         expected_output = [u'475041513', u'526734257']
         assert test_data == expected_output

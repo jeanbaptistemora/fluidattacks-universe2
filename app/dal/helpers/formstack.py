@@ -39,7 +39,8 @@ class FormstackAPI(object):
 AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         self.token_list = FI_FORMSTACK_TOKENS.split(',')
         self.failed_attemps = 0
-        self.current_token = self.token_list[random.randint(0, len(self.token_list) - 1)]
+        self.current_token = self.token_list[random.randint(
+            0, len(self.token_list) - 1)]
 
     def requests_per_page(self, method, url, data=None):
         """Return the request from Formstack."""
@@ -76,21 +77,21 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         """ Build the requests used to consult in Formstack. """
         executed_request = None
         try:
+            self.headers_config['Authorization'] = 'Bearer {}'.format(
+                self.current_token)
             if method != "GET":
                 self.headers_config["cache-control"] = "no-cache"
                 self.headers_config["content-type"] = \
                     "application/x-www-form-urlencoded"
-                url += "?oauth_token=:token".replace(":token",
-                                                     self.current_token)
+                executed_request = requests.request(
+                    method, url, data=data, headers=self.headers_config)
             else:
-                if not data:
-                    data = {"oauth_token": self.current_token}
-                else:
-                    data["oauth_token"] = self.current_token
-            executed_request = requests.request(
-                method, url,
-                data=data, headers=self.headers_config
-            )
+                self.headers_config['content-type'] = 'application/json'
+                params = '&'.join(['{}={}'.format(k, v)
+                                   for k, v in data.items()]) if data else ''
+                executed_request = requests.request(
+                    method, url='{}?{}'.format(url, params),
+                    headers=self.headers_config)
         # Formstack SSLError
         except requests.exceptions.SSLError:
             executed_request = None

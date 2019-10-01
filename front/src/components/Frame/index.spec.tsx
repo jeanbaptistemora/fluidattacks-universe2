@@ -15,7 +15,7 @@ describe("Frame", () => {
   it("should render a frame", () => {
     const wrapper: ShallowWrapper = shallow((
       <Frame
-        src="https://fluidattacks.com/forms/cierres"
+        src="https://fluidsignal.formstack.com/forms/cierres"
         height={3000}
         id="id"
       />

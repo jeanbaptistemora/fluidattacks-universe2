@@ -8,7 +8,7 @@ import style from "../ProjectContent/index.css";
 
 const formsView: React.FC = (): JSX.Element => {
   const progressForm: (() => JSX.Element) = (): JSX.Element => (
-    <Frame src="https://fluidattacks.com/forms/avance" height={3000} id="ifrmProgress" />
+    <Frame src="https://fluidsignal.formstack.com/forms/avance" height={3000} id="ifrmProgress" />
   );
 
   const findingForm: (() => JSX.Element) = (): JSX.Element => (
@@ -31,11 +31,11 @@ const formsView: React.FC = (): JSX.Element => {
   );
 
   const closingForm: (() => JSX.Element) = (): JSX.Element => (
-    <Frame src="https://fluidattacks.com/forms/cierres" height={3000} id="ifrmClosure" />
+    <Frame src="https://fluidsignal.formstack.com/forms/cierres" height={3000} id="ifrmClosure" />
   );
 
   const eventForm: (() => JSX.Element) = (): JSX.Element => (
-    <Frame src="https://fluidattacks.com/forms/eventualidad" height={3000} id="ifrmEvents" />
+    <Frame src="https://fluidsignal.formstack.com/forms/eventualidad" height={3000} id="ifrmEvents" />
   );
 
   return (
