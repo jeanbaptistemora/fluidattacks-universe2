@@ -1,6 +1,5 @@
 from __future__ import absolute_import, division
 import random
-import sys
 import threading
 from datetime import datetime, timedelta
 from decimal import Decimal
@@ -16,14 +15,10 @@ from __init__ import (
     FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS, FI_MAIL_REPLYERS
 )
 from app import util
-from app.dal.helpers.drive import DriveAPI
 from app.dal.helpers.formstack import FormstackAPI
 from app.dal import integrates_dal, finding as finding_dal, user as user_dal
 from app.domain import project as project_domain, vulnerability as vuln_domain
-from app.dto.finding import (
-    FindingDTO, migrate_description, migrate_treatment, migrate_report_date,
-    finding_vulnerabilities
-)
+from app.dto.finding import FindingDTO
 from app.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
     InvalidDate, IsNotTheAuthor
@@ -69,50 +64,6 @@ def add_file_attribute(finding_id, file_name, file_attr, file_attr_value):
             file_data,
             attr_name)
     return is_url_saved
-
-
-def migrate_all_files(finding_id, project_name):
-    fin_dto = FindingDTO()
-    api = FormstackAPI()
-    try:
-        finding = fin_dto.parse(finding_id, api.get_submission(finding_id))
-        files = [
-            {'id': '0', 'name': 'animation', 'field': fin_dto.ANIMATION, 'ext': '.gif'},
-            {'id': '1', 'name': 'exploitation', 'field': fin_dto.EXPLOTATION, 'ext': '.png'},
-            {'id': '2', 'name': 'evidence_route_1', 'field': fin_dto.DOC_ACHV1, 'ext': '.png'},
-            {'id': '3', 'name': 'evidence_route_2', 'field': fin_dto.DOC_ACHV2, 'ext': '.png'},
-            {'id': '4', 'name': 'evidence_route_3', 'field': fin_dto.DOC_ACHV3, 'ext': '.png'},
-            {'id': '5', 'name': 'evidence_route_4', 'field': fin_dto.DOC_ACHV4, 'ext': '.png'},
-            {'id': '6', 'name': 'evidence_route_5', 'field': fin_dto.DOC_ACHV5, 'ext': '.png'},
-            {'id': '7', 'name': 'exploit', 'field': fin_dto.EXPLOIT, 'ext': '.exp'},
-            {'id': '8', 'name': 'fileRecords', 'field': fin_dto.REG_FILE, 'ext': '.csv'}
-        ]
-        for file_obj in files:
-            base_name = '{proj}/{fin}/{proj}-{fin}-{field}'.format(
-                field=file_obj['field'],
-                fin=finding_id,
-                proj=project_name)
-            already_migrated = finding_dal.search_evidence(base_name)
-            has_file = file_obj['name'] in finding
-            if has_file and not already_migrated:
-                drive_api = DriveAPI()
-
-                file_name = finding[file_obj['name']]
-                download_path = drive_api.download(file_name)
-                if download_path:
-                    full_name = '{base}-{name}{ext}'.format(
-                        base=base_name,
-                        ext=file_obj['ext'],
-                        name=file_name.replace(' ', '-'))
-                    if finding_dal.migrate_evidence(download_path, full_name):
-                        file_name = full_name.split('/')[2]
-                        save_file_url(finding_id, file_obj['name'], file_name)
-                else:
-                    rollbar.report_message(
-                        'Error: An error occurred downloading file from Drive',
-                        'error')
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info())
 
 
 def remove_repeated(vulnerabilities):
@@ -190,26 +141,6 @@ def filter_evidence_filename(evidence_files, name):
     evidence_info = [evidence for evidence in evidence_files
                      if evidence['name'] == name]
     return evidence_info[0].get('file_url', '') if evidence_info else ''
-
-
-def migrate_evidence_description(finding):
-    """Migrate evidence description to dynamo."""
-    finding_id = finding['id']
-    description_fields = {
-        'evidence_description_1': 'evidence_route_1',
-        'evidence_description_2': 'evidence_route_2',
-        'evidence_description_3': 'evidence_route_3',
-        'evidence_description_4': 'evidence_route_4',
-        'evidence_description_5': 'evidence_route_5'}
-    description = {k: finding.get(k)
-                   for (k, v) in description_fields.items()
-                   if finding.get(k)}
-    response = [add_file_attribute(finding_id, description_fields[k],
-                                   'description', v)
-                for (k, v) in description.items()]
-    if not all(response):
-        return False
-    return True
 
 
 def get_email_recipients(project_name, comment_type):
@@ -735,29 +666,11 @@ def update_release(project_name, finding_data, draft_id):
     return release_date, has_release, has_last_vuln
 
 
-def migrate_finding(draft_id, finding_data):
-    migrate_all_files(draft_id, finding_data['projectName'])
-    save_severity(finding_data)
-    migrate_description(finding_data)
-    migrate_treatment(finding_data)
-    migrate_report_date(finding_data)
-    migrate_evidence_description(finding_data)
-    if not (save_severity or migrate_description or migrate_treatment or migrate_report_date or
-            migrate_evidence_description):
-        return False
-    return True
-
-
 def get_finding(finding_id):
     """Retrieves and formats finding attributes"""
     finding = finding_dal.get_finding(finding_id)
     if not finding:
-        fs_finding = finding_vulnerabilities(finding_id)
-        if fs_finding:
-            migrate_finding(finding_id, fs_finding)
-            finding = finding_dal.get_finding(finding_id)
-        else:
-            raise FindingNotFound()
+        raise FindingNotFound()
 
     return finding_utils.format_data(finding)
 

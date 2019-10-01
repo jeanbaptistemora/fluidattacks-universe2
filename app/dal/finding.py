@@ -74,12 +74,6 @@ def save_evidence(file_object, file_name):
     return success
 
 
-def migrate_evidence(file_path, file_name):
-    success = s3.upload_stored_file(FI_AWS_S3_BUCKET, file_path, file_name)
-
-    return success
-
-
 def search_evidence(file_name):
     return s3.list_files(FI_AWS_S3_BUCKET, file_name)
 

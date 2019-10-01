@@ -733,56 +733,6 @@ def total_vulnerabilities(finding_id):
     return finding
 
 
-def migrate_description(finding):
-    primary_keys = ['finding_id', str(finding['id'])]
-    if finding.get('projectName'):
-        finding['projectName'] = finding['projectName'].lower()
-    else:
-        # Finding does not have project name
-        pass
-    description_fields = ['analyst', 'leader', 'interested', 'projectName',
-                          'clientProject', 'context', 'reportLevel',
-                          'subscription', 'clientCode', 'finding',
-                          'probability', 'severity', 'riskValue', 'ambit',
-                          'category', 'testType', 'relatedFindings', 'actor',
-                          'scenario', 'recordsNumber', 'records',
-                          'vulnerability', 'attackVectorDesc',
-                          'threat', 'risk', 'requirements', 'cwe',
-                          'effectSolution', 'kb', 'findingType',
-                          'affectedSystems']
-    description = {util.camelcase_to_snakecase(k): finding.get(k)
-                   for k in description_fields if finding.get(k)}
-    response = \
-        integrates_dal.add_multiple_attributes_dynamo('FI_findings',
-                                                      primary_keys, description)
-    if not response:
-        return False
-    return True
-
-
-def migrate_treatment(finding):
-    finding_id = ['finding_id', str(finding['id'])]
-    description_fields = ['treatment', 'treatmentJustification',
-                          'treatmentManager', 'externalBts']
-    description = {util.camelcase_to_snakecase(k): finding.get(k)
-                   for k in description_fields if finding.get(k)}
-    vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(str(finding['id']))
-    if description:
-        integrates_dal.add_multiple_attributes_dynamo('FI_findings',
-                                                      finding_id,
-                                                      description)
-        for vuln in vulnerabilities:
-            response_update_vuln = \
-                integrates_dal.update_mult_attrs_dynamo('FI_vulnerabilities',
-                                                        {'finding_id': str(finding['id']),
-                                                         'UUID': vuln['UUID']},
-                                                        description)
-            if not response_update_vuln:
-                return False
-        return True
-    return True
-
-
 def has_migrated_evidence(finding_id):
     """Validate if a finding has evidence description in dynamo."""
     attr_name = 'files'
@@ -798,20 +748,6 @@ def has_migrated_evidence(finding_id):
     else:
         response = False
     return response
-
-
-def migrate_report_date(finding):
-    primary_keys = ['finding_id', str(finding['id'])]
-    description_fields = ['reportDate']
-    description = {util.camelcase_to_snakecase(k): finding.get(k)
-                   for k in description_fields if finding.get(k)}
-    response = \
-        integrates_dal.add_multiple_attributes_dynamo('FI_findings',
-                                                      primary_keys,
-                                                      description)
-    if not response:
-        return False
-    return True
 
 
 def parse_finding(finding):
