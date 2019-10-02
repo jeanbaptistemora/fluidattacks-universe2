@@ -11,6 +11,7 @@ from django.conf import settings
 
 from __init__ import FI_MAIL_REPLYERS
 from app.dal import integrates_dal, project as project_dal
+from app.domain import vulnerability as vuln_domain
 from app.dto.finding import (
     total_vulnerabilities
 )
@@ -130,10 +131,10 @@ def get_last_closing_vuln(findings):
 
 def get_last_closing_date(vulnerability):
     """Get last closing date of a vulnerability."""
-    all_states = vulnerability.get('historic_state')
-    current_state = all_states[len(all_states) - 1]
+    current_state = vuln_domain.get_last_approved_state(vulnerability)
     last_closing_date = None
-    if current_state.get('state') == 'closed':
+
+    if current_state and current_state.get('state') == 'closed':
         last_closing_date = datetime.strptime(
             current_state.get('date').split(' ')[0],
             '%Y-%m-%d'
@@ -146,11 +147,9 @@ def get_last_closing_date(vulnerability):
     return last_closing_date
 
 
-def is_vulnerability_closed(vulnerability):
+def is_vulnerability_closed(vuln):
     """Return if a vulnerability is closed."""
-    all_states = vulnerability.get('historic_state')
-    current_state = all_states[len(all_states) - 1]
-    is_vuln_closed = current_state.get('state') == 'closed'
+    is_vuln_closed = vuln_domain.get_last_approved_status(vuln) == 'closed'
     return is_vuln_closed
 
 
@@ -181,7 +180,8 @@ def get_open_vulnerability_date(vulnerability):
     all_states = vulnerability.get('historic_state')
     current_state = all_states[0]
     open_date = None
-    if current_state.get('state') == 'open':
+    if current_state.get('state') == 'open' and \
+       not current_state.get('approval_status'):
         open_date = datetime.strptime(
             current_state.get('date').split(' ')[0],
             '%Y-%m-%d'

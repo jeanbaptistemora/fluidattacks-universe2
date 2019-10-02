@@ -12,6 +12,7 @@ import rollbar
 
 from ..dal import integrates_dal
 from ..dal.helpers.formstack import FormstackAPI
+from ..domain import vulnerability as vuln_domain
 from ..utils import forms
 from ..utils import cvss
 from .. import util
@@ -721,8 +722,7 @@ def total_vulnerabilities(finding_id):
     vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(finding_id)
     finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
     for vuln in vulnerabilities:
-        all_states = vuln.get('historic_state')
-        current_state = all_states[len(all_states) - 1].get('state')
+        current_state = vuln_domain.get_last_approved_status(vuln)
         if current_state == 'open':
             finding['openVulnerabilities'] += 1
         elif current_state == 'closed':

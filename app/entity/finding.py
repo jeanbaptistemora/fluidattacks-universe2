@@ -300,7 +300,8 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         self.treatment = vulns.then(lambda vulns: (
             treatment
             if [vuln for vuln in vulns
-                if vuln_domain.get_current_state(vuln) == 'open'] else '-'))
+                if vuln_domain.get_last_approved_status(vuln) == 'open']
+            else '-'))
         return self.treatment
 
     def resolve_treatment_manager(self, info):
@@ -361,7 +362,8 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
         self.state = vulns.then(lambda vulns: 'open' if [
             vuln for vuln in vulns
-            if vuln_domain.get_current_state(vuln) == 'open'] else 'closed')
+            if vuln_domain.get_last_approved_status(vuln) == 'open']
+            else 'closed')
 
         return self.state
 

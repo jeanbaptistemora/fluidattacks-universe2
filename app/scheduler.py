@@ -14,7 +14,9 @@ from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
 from app import util, views
 from app.dal import integrates_dal
 from app.dal.helpers.formstack import FormstackAPI
-from app.domain import finding as finding_domain, project as project_domain
+from app.domain import (
+    finding as finding_domain, project as project_domain,
+    vulnerability as vuln_domain)
 from app.dto import remission
 from app.dto import eventuality
 from app.dto.finding import finding_vulnerabilities
@@ -103,12 +105,15 @@ def get_status_vulns_by_time_range(vulns, first_day, last_day,
     resp = defaultdict(int)
     for vuln in vulns:
         historic_states = vuln['historic_state']
-        last_state = historic_states[-1]
-        if first_day <= last_state['date'] <= last_day and last_state['state'] == 'closed':
+        last_state = vuln_domain.get_last_approved_state(vuln)
+
+        if last_state and first_day <= last_state['date'] <= last_day and \
+           last_state['state'] == 'closed':
             resp['closed'] += 1
         if first_day <= historic_states[0]['date'] <= last_day:
             resp['found'] += 1
-    resp['accepted'] = get_accepted_vulns(findings_released, vulns, first_day, last_day)
+    resp['accepted'] = get_accepted_vulns(
+        findings_released, vulns, first_day, last_day)
     return resp
 
 
@@ -140,8 +145,10 @@ def get_by_time_range(finding, vuln, first_day, last_day):
     """Accepted vulnerability of finding."""
     count = 0
     if finding['finding_id'] == vuln['finding_id']:
-        history = vuln['historic_state'][-1]
-        if first_day <= history['date'] <= last_day and history['state'] == 'open':
+
+        history = vuln_domain.get_last_approved_state(vuln)
+        if history and first_day <= history['date'] <= last_day and \
+           history['state'] == 'open':
             count += 1
         else:
             # date of vulnerabilities outside of time_range or state not open
