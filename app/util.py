@@ -393,3 +393,13 @@ def is_api_token(user_data):
     is_api = bool(user_data.get('jti'))
 
     return is_api
+
+
+def is_valid_format(date):
+    try:
+        datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
+        resp = True
+    except ValueError:
+        resp = False
+
+    return resp

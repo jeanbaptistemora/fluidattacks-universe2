@@ -67,12 +67,10 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
             name="btsUrl"
             renderAsEditable={props.isEditing}
             type="text"
-            visible={!props.isEditing && hasBts || (props.isEditing && props.formValues.treatment === "IN PROGRESS")}
+            visible={!props.isEditing && hasBts || (props.formValues.treatment === "IN PROGRESS")}
           />
         </Col>
       </Row>
-      {/* tslint:disable-next-line jsx-no-multiline-js Necessary for validate conditional */}
-      {shouldRender || changeRender ?
         <Row>
           <Col md={12} sm={12} xs={12}>
             <EditableField
@@ -84,8 +82,11 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
               renderAsEditable={props.isEditing}
               type="text"
               validate={[required]}
+              visible={shouldRender || changeRender}
             />
           </Col>
+        </Row>
+        <Row>
           <Col md={3} sm={12} xs={12}>
             <EditableField
               component={dateField}
@@ -95,10 +96,10 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
               renderAsEditable={props.isEditing}
               type="date"
               validate={[isValidDate, isLowerDate]}
+              visible={(props.formValues.treatment === "ACCEPTED")}
             />
           </Col>
         </Row>
-      : undefined}
     </React.Fragment>
     );
   };

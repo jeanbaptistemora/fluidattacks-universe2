@@ -204,3 +204,12 @@ class IncompleteDraft(Exception):
         msg = 'Exception - This draft has missing fields: {}'.format(
             ', '.join(fields))
         super(IncompleteDraft, self).__init__(msg)
+
+
+class InvalidDateFormat(Exception):
+    """Exception to control the date format inserted in an Accepted finding"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - The date format is invalid'
+        super(InvalidDateFormat, self).__init__(msg)

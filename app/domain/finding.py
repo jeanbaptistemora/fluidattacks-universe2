@@ -21,7 +21,7 @@ from app.domain import project as project_domain, vulnerability as vuln_domain
 from app.dto.finding import FindingDTO
 from app.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
-    InvalidDate, IsNotTheAuthor
+    InvalidDate, IsNotTheAuthor, InvalidDateFormat
 )
 from app.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
@@ -412,21 +412,23 @@ def update_treatment(finding_id, updated_values):
         updated_values['external_bts'] = ''
         updated_values['acceptance_date'] = ''
     if updated_values['treatment'] == 'ACCEPTED':
-        updated_values['external_bts'] = ''
-        send_accepted_email(finding_id, updated_values.get('treatment_manager'),
-                            updated_values.get('treatment_justification'))
         if updated_values.get('acceptance_date'):
             today_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             date_size = updated_values['acceptance_date'].split(' ')
+            date_value = updated_values.get('acceptance_date')
+            is_valid_date = util.is_valid_format(date_value)
+            if is_valid_date is False:
+                raise InvalidDateFormat()
             if len(date_size) == 1:
                 updated_values['acceptance_date'] += ' ' + datetime.now().strftime('%H:%M:%S')
             if updated_values.get('acceptance_date') <= today_date:
                 raise InvalidDate()
-            if updated_values.get('acceptance_date') > date.strftime('%Y-%m-%d'):
+            if updated_values.get('acceptance_date') > date.strftime('%Y-%m-%d %H:%M:%S'):
                 raise InvalidDate()
         if updated_values.get('acceptance_date') == '':
             max_date = date.strftime('%Y-%m-%d %H:%M:%S')
             updated_values['acceptance_date'] = max_date
+        updated_values['external_bts'] = ''
 
     result_update_finding = integrates_dal.update_mult_attrs_dynamo(
         'FI_findings',
@@ -435,6 +437,8 @@ def update_treatment(finding_id, updated_values):
     )
     result_update_vuln = update_treatment_in_vuln(finding_id, updated_values)
     if result_update_finding and result_update_vuln:
+        send_accepted_email(finding_id, updated_values.get('treatment_manager'),
+                            updated_values.get('treatment_justification'))
         return True
     return False
 
