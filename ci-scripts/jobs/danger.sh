@@ -1,28 +1,23 @@
 #!/usr/bin/env bash
 
-danger() {
+run_danger() {
 
-  # Runs danger on a Gitlab Merge Request
+  # Run danger on a Gitlab Merge Request
 
   set -e
 
   export DANGER_GITLAB_API_TOKEN
-  export DANGER_GITLAB_HOST
-  export DANGER_GITLAB_API_BASE_URL
   export CI_MERGE_REQUEST_ID
 
-  DANGER_GITLAB_API_TOKEN=$DANGER_TOKEN
-  DANGER_GITLAB_HOST='gitlab.com'
-  DANGER_GITLAB_API_BASE_URL='https://gitlab.com/api/v4'
+  DANGER_GITLAB_API_TOKEN="$DANGER_TOKEN"
   CI_MERGE_REQUEST_ID=$(
     git ls-remote -q origin merge-requests\*head | \
-    grep "${CI_COMMIT_SHA}" | \
+    grep "$CI_COMMIT_SHA" | \
     sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g'
   )
 
   npm install --unsafe-perm
-  bundle install
-  bundle exec danger --verbose --fail-on-errors=true
+  danger --verbose --fail-on-errors=true
 }
 
-danger
+run_danger

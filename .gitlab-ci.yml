@@ -137,7 +137,7 @@ build-bot:
 
 danger:
   stage: mr-check
-  image: starefossen/ruby-node:2-10
+  image: fluidattacks/danger-ruby
   dependencies:
     - test-terraform
   script:
