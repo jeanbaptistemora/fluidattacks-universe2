@@ -321,7 +321,12 @@ def calculate_etag(_, img_file):
 
 def is_valid_file_name(name):
     """ Verify that filename has valid characters. """
-    is_valid = bool(re.search("^[A-Za-z0-9!_.*'()&$@=;:+,? -]*$", str(name)))
+    name = str(name)
+    name_len = len(name.split("."))
+    if name_len <= 2:
+        is_valid = bool(re.search("^[A-Za-z0-9!_.*'()&$@=;:+,? -]*$", str(name)))
+    else:
+        is_valid = False
     return is_valid
 
 
