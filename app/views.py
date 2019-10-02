@@ -409,14 +409,18 @@ def format_release_date(finding):
 @never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
-def get_evidence(request, project, findingid, fileid):
+def get_evidence(request, project, evidence_type, findingid, fileid):
     username = request.session['username']
     role = request.session['role']
-    if (not has_access_to_finding(username, findingid, role) and
-            not has_access_to_event(username, findingid, role)):
-        util.cloudwatch_log(request,
-                            'Security: \
-Attempted to retrieve evidence img without permission')
+    if evidence_type == 'findings' and \
+            not has_access_to_finding(username, findingid, role):
+        util.cloudwatch_log(request, 'Security: Attempted to retrieve finding '
+                                     'evidence without permission')
+        return util.response([], 'Access denied', True)
+    elif evidence_type == 'events' and \
+            not has_access_to_event(username, findingid, role):
+        util.cloudwatch_log(request, 'Security: Attempted to retrieve event '
+                                     'evidence without permission')
         return util.response([], 'Access denied', True)
     else:
         if fileid is None:

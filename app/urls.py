@@ -34,7 +34,8 @@ urlpatterns = [
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^api/?\.*$', csrf_exempt(verify_csrf(APIView.as_view()))),
     # Use of Formstack services.
-    url(r'^project/(?P<project>[A-Za-z0-9]+)/([A-Za-z0-9]+)/(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$',  # noqa
+    url(r'^project/(?P<project>[A-Za-z0-9]+)/(?P<evidence_type>[A-Za-z0-9]+)/'
+        r'(?P<findingid>[0-9]+)/([A-Za-z.=]+)/(?P<fileid>[A-Za-z0-9._-]+)?$',
         views.get_evidence),
     url(r'^(?P<findingid>[0-9]+)/download_vulnerabilities?$',
         views.download_vulnerabilities),
