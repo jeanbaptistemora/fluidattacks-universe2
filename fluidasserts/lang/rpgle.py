@@ -6,9 +6,9 @@
 from typing import Dict, Any
 
 # 3rd party imports
-from pyparsing import (CaselessKeyword, Keyword, Word, Optional,
+from pyparsing import (CaselessKeyword, Word, Optional,
                        alphas, alphanums, nums, cppStyleComment,
-                       MatchFirst, delimitedList, LineEnd, Regex)
+                       MatchFirst, delimitedList, Regex)
 
 # local imports
 from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, SAST
@@ -56,34 +56,6 @@ def has_dos_dow_sqlcod(rpg_dest: str, exclude: list = None) -> tuple:
         msgs={
             OPEN: 'Code does have DoS for using "DoW SQLCOD = 0"',
             CLOSED: 'Code does not have DoS for using "DoW SQLCOD = 0"',
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude)
-
-
-@api(risk=LOW, kind=SAST)
-def has_uninitialized_vars(rpg_dest: str, exclude: list = None) -> tuple:
-    """
-    Search for uninitialized variables.
-
-    :param rpg_dest: Path to a RPG source or directory.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    grammar = Keyword('D') + VAR_NAME + MatchFirst([
-        'S' + Word(alphanums) + Word(nums),
-        'S' + Word(alphanums),
-        'C',
-    ]) + LineEnd()
-    grammar.ignore(RPG_COMMENT)
-
-    return lang.generic_method(
-        path=rpg_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: 'Code has uninitialized variables',
-            CLOSED: 'Code does not have uninitialized variables',
         },
         spec=LANGUAGE_SPECS,
         excl=exclude)

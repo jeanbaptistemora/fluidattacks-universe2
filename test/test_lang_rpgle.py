@@ -35,18 +35,6 @@ def test_has_dos_dow_sqlcod_in_dir_open():
     assert rpgle.has_dos_dow_sqlcod(CODE_DIR).is_open()
 
 
-def test_has_uninitialized_open():
-    """Code has uninitialized variables."""
-    result = rpgle.has_uninitialized_vars(INSECURE_CODE)
-    assert len(result.vulns[0].specific) == 5
-    assert result.is_open()
-
-
-def test_has_uninitialized_in_dir_open():
-    """Code has uninitialized variables."""
-    assert rpgle.has_uninitialized_vars(CODE_DIR).is_open()
-
-
 def test_has_generic_exceptions_open():
     """Code has empty on-error."""
     assert rpgle.has_generic_exceptions(INSECURE_CODE).is_open()
@@ -76,13 +64,6 @@ def test_has_dos_dow_sqlcod_close():
     assert rpgle.has_dos_dow_sqlcod(SECURE_CODE).is_closed()
     assert rpgle.has_dos_dow_sqlcod(CODE_DIR, exclude=['test']).is_closed()
     assert rpgle.has_dos_dow_sqlcod(NON_EXISTANT_CODE).is_unknown()
-
-
-def test_has_uninitialized_close():
-    """Code has uninitialized variables."""
-    assert rpgle.has_uninitialized_vars(SECURE_CODE).is_closed()
-    assert rpgle.has_uninitialized_vars(CODE_DIR, exclude=['test']).is_closed()
-    assert rpgle.has_uninitialized_vars(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_has_generic_exceptions_close():

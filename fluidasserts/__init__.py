@@ -224,8 +224,8 @@ class Unit():
             # Stringify
             specific = map(str, self.specific)
             # Escape commas:
-            specific = map(lambda x: x.replace(r'\\', r'\\\\'), specific)
-            specific = map(lambda x: x.replace(r',', r'\\,'), specific)
+            specific = map(lambda x: x.replace('\\', '\\\\'), specific)
+            specific = map(lambda x: x.replace(',', '\\,'), specific)
             # Join to make it less verbose
             specific = ', '.join(specific)
 
