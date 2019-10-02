@@ -6,7 +6,7 @@
 :image: cover.png
 :alt: Data and regression line, crop.
 :description: We begin to tackle the question of why vectors are the most apt representation for data as input to machine learning algorithms and present the scikit-learn API by means of simple linear regression, i.e., finding the line that best fits data, on a fictional example from simple motion.
-:keywords: Machine learning, Vulnerability, Open Source, Deep learning, Lint, Bug
+:keywords: Machine learning, Linear Regression, Python, Algorithm, Prediction, Regression
 :author: Rafael Ballestas
 :writer: raballestasr
 :name: Rafael Ballestas
@@ -20,7 +20,7 @@ After our link:../tags/risk[risk quantification series],
 it should come as no surprise
 that we like numbers and measuring.
 However, when confronted with the question:
-"Why do you need to translate code into vectors?"
+"Why do you need to translate code into vectors?",
 I am speechless.
 
 Most (if not all) machine learning algorithms in abstract,
@@ -32,13 +32,14 @@ They rely on concepts such as _distance_,
 _error_, _cost functions_ and attempt to
 minimize the latter by
 adjusting their inner parameters.
+All of these concepts are inherently mathematical.
 
-Perhaps the easiest from these algorithms to
-understand well is perhaps the humble linear regression.
+Out of these algorithms, the easiest to
+understand well is perhaps the simple linear regression.
 So let's start with that.
-Plus it is a fundamentally different kind of task
+Plus, _regression_ is a fundamentally different kind of task
 from the ones we have
-link:../crash-course-machine-learning/[discussed mostly in the series],
+link:../crash-course-machine-learning/[discussed the most in the series],
 which are _classification_ and _clustering_ tasks:
 Regression aims to predict a number taken from
 a continuum instead of answering "yes" or "no"
@@ -83,7 +84,13 @@ i.e., the regression.
 We can make several measurements of _x_ and _t_,
 which we might register in a table like this:
 
+.Position vs time table, first few observations
+image::table.png[Position vs time table]
+
 This doesn't say as much as a plot:
+
+.This shows positive correlation
+image::data.png[Position vs time table scatterplot]
 
 Here we see there is a clear linear relation,
 but no single line would perfectly fit all points.
@@ -133,6 +140,7 @@ The flow to use this library is tipically the same
 regardless of how sophisticated the chosen model:
 
 * Create an instance of the model:
+
 .Creating a linear regressor in scikit
 [source,python]
 ----
@@ -168,9 +176,13 @@ import matplotlib.pyplot as plt
 plt.scatter(t, x, alpha=0.7)
 plt.plot(time, xfit, 'red')
 ----
+
+.Regression line fits the data relatively well
+image::regression.png[Data + regression line]
+
 In the case of simple linear regression,
 it is possible to _see_ how well the model performed as above.
-Quantitatively, we can use the _R^2_ metric:
+Quantitatively, we can use the _R^2^_ metric:
 
 [source,python]
 ----
@@ -187,9 +199,9 @@ machine learning algorithms in +scikit+,
 with a few subtle changes from one to the next,
 such as:
 
-* usually one splits the data into training,
+* usually, one splits the data into training,
 validation and testing sets.
-However the expected format remains the same:
+However, the expected format remains the same:
 the _features_ or _predictors_
 (+t+ above, but usually is +x+)
 needs to be an array of vectors
