@@ -767,7 +767,7 @@ def submit_draft(finding_id, analyst_email):
                         send_new_draft_mail(analyst_email,
                                             finding_id,
                                             finding.get('finding'),
-                                            finding.get('project_name'))
+                                            finding.get('projectName'))
                 else:
                     required_fields = {
                         'evidence': has_evidence,
