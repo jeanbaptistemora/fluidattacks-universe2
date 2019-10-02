@@ -1,8 +1,8 @@
 import { configure } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { ConfigurableValidator } from "revalidate";
-import { evidenceHasValidSize, evidenceHasValidType, isValidFileName,
-         isValidFileSize, minLength, numberBetween, validEmail, validTag } from "./validations";
+import { alphaNumeric, evidenceHasValidSize, evidenceHasValidType, isLowerDate, isValidDate, isValidFileName,
+         isValidFileSize, minLength, numberBetween, numeric, required, validEmail, validTag } from "./validations";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
@@ -24,6 +24,42 @@ describe("Validations", () => {
     const length: ConfigurableValidator = minLength(4);
     expect(length("4"))
       .toEqual("This field requires at least 4 characters");
+  });
+
+  it("should raise validation", () => {
+    const nonRequired: ConfigurableValidator = required;
+    expect(nonRequired(undefined))
+      .toBeDefined();
+  });
+
+  it("shouldn't raise validation", () => {
+    const requiredFn: ConfigurableValidator = required;
+    expect(requiredFn("valid"))
+      .toBeUndefined();
+  });
+
+  it("should raise validation", () => {
+    const nonNumeric: ConfigurableValidator = numeric;
+    expect(nonNumeric("invalid"))
+      .toBeDefined();
+  });
+
+  it("shouldn't raise validation", () => {
+    const numericFn: ConfigurableValidator = numeric;
+    expect(numericFn("123"))
+      .toBeUndefined();
+  });
+
+  it("shouldn't be alpha numeric", () => {
+    const nonAlphaNumeric: ConfigurableValidator = alphaNumeric;
+    expect(nonAlphaNumeric("asdf|sd34"))
+      .toBeDefined();
+  });
+
+  it("should be alpha numeric", () => {
+    const alphaNumericFn: ConfigurableValidator = alphaNumeric;
+    expect(alphaNumericFn("asdfsd34"))
+      .toBeUndefined();
   });
 
   it("should be a valid size .gif file", () => {
@@ -250,5 +286,33 @@ describe("Validations", () => {
     const fileSize: boolean = isValidFileSize(file, 0);
     expect(fileSize)
       .toEqual(false);
+  });
+
+  it("should be a valid date", () => {
+    let today: Date; today = new Date(); today = new Date(today.setMonth(today.getMonth() + 1));
+    const date: string | undefined = isLowerDate(today.toDateString());
+    expect(date)
+      .toBeUndefined();
+  });
+
+  it("should't be a valid date", () => {
+    let today: Date; today = new Date(); today = new Date(today.setMonth(today.getMonth() - 1));
+    const date: string | undefined = isLowerDate(today.toDateString());
+    expect(date)
+      .toBeDefined();
+  });
+
+  it("should be a maximum valid date", () => {
+    let today: Date; today = new Date(); today = new Date(today.setMonth(today.getMonth() + 5));
+    const date: string | undefined = isValidDate(today.toDateString());
+    expect(date)
+      .toBeUndefined();
+  });
+
+  it("shouldn't be a maximum valid date", () => {
+    let today: Date; today = new Date(); today = new Date(today.setMonth(today.getMonth() + 7));
+    const date: string | undefined = isValidDate(today.toDateString());
+    expect(date)
+      .toBeDefined();
   });
 });
