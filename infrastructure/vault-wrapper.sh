@@ -106,9 +106,6 @@ function vault_generate_aws_keys() {
       echo-green "Updating ${aws_service^} variables in Serves..."
       vault_update_variables "serves" "$access_key_name" "$access_key" \
         "$secret_key_name" "$secret_key"
-      echo-green "Updating ${aws_service^} variables in Continuous..."
-      vault_update_variables "continuous/tools" "$access_key_name" "$access_key" \
-        "$secret_key_name" "$secret_key"
     fi
   else
     echo-green "Updating ${aws_service^} variables in ${project^}..."

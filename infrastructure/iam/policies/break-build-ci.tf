@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "break-build-ecr-ci-data" {
+data "aws_iam_policy_document" "break-build-ci-data" {
 
   statement {
     sid = "ecrPushToAssertsRegistries"
@@ -26,12 +26,23 @@ data "aws_iam_policy_document" "break-build-ecr-ci-data" {
     ]
   }
 
+  statement {
+    sid = "s3ReadWriteBreakBuildCi"
+    effect = "Allow"
+    actions = [
+      "s3:GetObject",
+      "s3:PutObject"
+    ]
+    resources = [
+      "arn:aws:s3:::break-build-ci/*"
+    ]
+  }
 }
 
-resource "aws_iam_policy" "break-build-ecr-ci-policy" {
-  name        = "break-build-ecr-ci-policy"
+resource "aws_iam_policy" "break-build-ci-policy" {
+  name        = "break-build-ci-policy"
   path        = "/asserts/"
   description = "Policy for break build ECR container image deployment"
 
-  policy = "${data.aws_iam_policy_document.break-build-ecr-ci-data.json}"
+  policy = "${data.aws_iam_policy_document.break-build-ci-data.json}"
 }
