@@ -132,3 +132,16 @@ def get_all_projects():
     """Get all projects in DynamoDB"""
     projects = integrates_dal.get_projects_data_dynamo(data_attr='')
     return [prj['project_name'] for prj in projects]
+
+
+def get_description(project):
+    """ Get the description of a project. """
+    description = integrates_dal.get_project_attributes_dynamo(
+        project, ['description'])
+    project_description = ''
+    if description:
+        project_description = description.get('description')
+    else:
+        # project without description
+        pass
+    return project_description

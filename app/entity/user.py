@@ -14,6 +14,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
 from app.decorators import require_login, require_role, require_project_access
+from app.domain import project as project_domain
 from app.domain.user import add_phone_to_user, get_role
 from .. import util
 from ..dal import integrates_dal
@@ -229,7 +230,7 @@ def create_new_user(context, new_user_data, project_name, email):
         integrates_dal.add_user_to_project_dynamo(project_name.lower(),
                                                   email.lower(), role)
     if integrates_dal.add_access_to_project(email, project_name):
-        description = integrates_dal.get_project_description(project_name)
+        description = project_domain.get_description(project_name.lower())
         project_url = \
             'https://fluidattacks.com/integrates/dashboard#!/project/' \
             + project_name.lower() + '/indicators'

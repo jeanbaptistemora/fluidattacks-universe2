@@ -139,17 +139,6 @@ def get_user_first_name(email):
     return first_name
 
 
-def get_project_description(project):
-    """ Get the description of a project. """
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT description FROM projects WHERE project = %s'
-        cursor.execute(query, (project,))
-        row = cursor.fetchone()
-    if row is None:
-        return "None"
-    return row[0]
-
-
 def is_registered(email):
     """ Check if the user is registered. """
     with connections['integrates'].cursor() as cursor:
