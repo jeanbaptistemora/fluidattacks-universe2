@@ -51,6 +51,9 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     nginx.ingress.kubernetes.io/server-alias: autonomicmind.co
     nginx.ingress.kubernetes.io/upstream-vhost: "fluidsignal.formstack.com"
+    nginx.ingress.kubernetes.io/server-snippet: |
+      proxy_ssl_name fluidsignal.formstack.com;
+      proxy_ssl_server_name on;
 spec:
   tls:
   - hosts:
@@ -63,7 +66,7 @@ spec:
       paths:
       - backend:
           serviceName: formstack
-          servicePort: 443 
+          servicePort: 443
         path: /forms(.*)
 ---
 apiVersion: extensions/v1beta1
