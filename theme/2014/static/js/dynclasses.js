@@ -36,5 +36,8 @@ Tachyons classes on dynamically generated content
     $( ".button" ).addClass("bg-fluid-red br3 white montsy f4 b pa2 hv-fluid-dkred");
     $( "span.button  > a" ).addClass("white");
 
+    //Add whitespace after a paragraph
+    $( ".paragraph" ).addClass("pb3");
+
   });
 })(jQuery);

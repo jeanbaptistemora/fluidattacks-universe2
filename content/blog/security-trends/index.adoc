@@ -48,7 +48,6 @@ Your mobile, webcam, router or even your printer can be a target.
 And these attacks are not particularly difficult to perform,
 you can even find link:https://www.youtube.com/watch?v=6JFP_gUIZZY[Youtube tutorials] about it.
 
-{sp} +
 If you are part of the industry,
 you cannot feel safe either,
 since +PLCs+, +SCADA+ systems, smart sensors and drives
@@ -81,7 +80,6 @@ We cannot disregard the security aspect,
 the providers fulfilled their duty,
 now we must fulfill ours.
 
-{sp} +
 According to Ben Morris from link:https://www.bishopfox.com/[+Bishop Fox+] <<r2, ^[2]^>>,
 speaker of the link:https://www.defcon.org/html/defcon-27/dc-27-index.html[Defcon Security Conference #27],
 hundreds of thousands of +Amazon Elastic Block Storage+ (+EBS+),
@@ -112,11 +110,10 @@ to gain access to shared memory pools on physical systems.
 So it it important to keep updated
 in both software and hardware to avoid these kind of attacks.
 
-{sp} +
 At +Fluid Attacks+ we have all our infrastructure as code.
-We use link:https://aws.amazon.com/s3/[AWS S3]
+We use link:https://aws.amazon.com/s3/[+AWS S3+]
 as cloud computing service provider,
-link:https://www.terraform.io/[terraform] and link:https://www.docker.com/[docker]
+link:https://www.terraform.io/[+terraform+] and link:https://www.docker.com/[+docker+]
 to configure and link:../../events/burn-the-datacenter/[regenerate our datacenter].
 We apply infrastructure hardening by using link:https://www.hashicorp.com/blog/why-we-need-dynamic-secrets[ephemereal secrets]
 in a serverless approach.
@@ -133,7 +130,6 @@ for this reason, I won't go any further,
 instead I would like to resume +Fluid Attacks'+
 panorama about Machine learning in the cybersecurity field.
 
-{sp} +
 At +Fluid Attacks+ we do not discourage
 the use of automated tools in security tests,
 we even have our own link:../../products/commands/[custom cyberweapon]
@@ -188,8 +184,6 @@ before providing personal information,
 when purchasing online
 (check the +URL+ and certificates,
 suspect when the application requires _too much_ information, etc).
-
-{sp} +
 
 ''''
 
