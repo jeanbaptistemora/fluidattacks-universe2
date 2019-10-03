@@ -8,7 +8,6 @@ import base64
 
 from django.conf import settings
 import pytz
-import rollbar
 
 from ..dal import integrates_dal
 from ..dal.helpers.formstack import FormstackAPI
@@ -652,44 +651,6 @@ def vulnerabilities_status(finding_new):
     else:
         status = 'Abierto'
     return status
-
-
-def finding_vulnerabilities(submission_id):
-    finding = []
-    if str(submission_id).isdigit() is True:
-        fin_dto = FindingDTO()
-        api = FormstackAPI()
-        finding = fin_dto.parse(
-            submission_id,
-            api.get_submission(submission_id)
-        )
-        finding_new = total_vulnerabilities(submission_id)
-        finding['cardinalidad_total'] = finding.get('openVulnerabilities')
-        if (finding_new and
-                (finding_new.get('openVulnerabilities') or
-                    finding_new.get('closedVulnerabilities'))):
-            total_cardinality = finding_new.get('openVulnerabilities') + \
-                finding_new.get('closedVulnerabilities')
-            finding['cardinalidad_total'] = str(total_cardinality)
-            finding['estado'] = vulnerabilities_status(finding_new)
-            if finding_new.get('openVulnerabilities') >= 0:
-                finding['openVulnerabilities'] = \
-                    str(finding_new.get('openVulnerabilities'))
-            else:
-                # This finding does not have open vulnerabilities
-                pass
-        else:
-            finding['estado'] = 'Abierto'
-        if finding.get('estado') == 'Cerrado':
-            finding['where'] = '-'
-            finding['treatmentManager'] = '-'
-            finding['treatmentJustification'] = '-'
-            finding['treatment'] = '-'
-        finding = format_release(finding)
-        return finding
-    else:
-        rollbar.report_message('Error: An error occurred catching finding', 'error')
-        return None
 
 
 def format_release(finding):

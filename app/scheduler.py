@@ -16,10 +16,10 @@ from app.dal import integrates_dal
 from app.dal.helpers.formstack import FormstackAPI
 from app.domain import (
     finding as finding_domain, project as project_domain,
-    vulnerability as vuln_domain)
+    vulnerability as vuln_domain
+)
 from app.dto import remission
 from app.dto import eventuality
-from app.dto.finding import finding_vulnerabilities
 from app.mailer import (
     send_mail_new_vulnerabilities, send_mail_new_remediated,
     send_mail_new_releases, send_mail_unsolved_events,
@@ -322,9 +322,11 @@ def format_vulnerabilities(delta, act_finding):
 
 def create_msj_finding_pending(act_finding):
     """Validate if a finding has treatment."""
-    finding_vulns = finding_vulnerabilities(act_finding['finding_id'])
-    state = finding_vulns['estado'].lower()
-    if act_finding['treatment'] == 'NEW' and state == 'abierto':
+    open_vulns = [
+        vuln for vuln in vuln_domain.get_vulnerabilities(
+            act_finding['finding_id'])
+        if vuln['current_state'] == 'open']
+    if act_finding.get('treatment', 'NEW') == 'NEW' and open_vulns:
         days = finding_domain.get_age_finding(act_finding)
         finding_name = act_finding['finding'] + ' -' + \
             str(days) + ' day(s)-'

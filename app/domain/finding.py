@@ -553,7 +553,6 @@ def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_nam
 
 
 def reject_draft(draft_id, reviewer_email, project_name, context):
-    api = FormstackAPI()
     draft_data = get_finding(draft_id)
     is_draft = 'releaseDate' not in draft_data
     result = False
@@ -566,7 +565,6 @@ def reject_draft(draft_id, reviewer_email, project_name, context):
         for vuln in integrates_dal.get_vulnerabilities_dynamo(draft_id):
             integrates_dal.delete_vulnerability_dynamo(vuln['UUID'], draft_id)
 
-        api.delete_submission(draft_id)
         send_draft_reject_mail(
             draft_id, project_name, draft_data['analyst'],
             draft_data['finding'], reviewer_email)
