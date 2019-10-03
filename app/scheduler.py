@@ -412,7 +412,7 @@ def get_new_releases():
     rollbar.report_message('Warning: Function to get new releases is running',
                            'warning')
     projects = project_domain.get_active_projects()
-    context_finding = {'findings': list()}
+    context_finding = defaultdict(list)
     cont = 0
     for project in projects:
         try:
@@ -420,7 +420,9 @@ def get_new_releases():
                 project_domain.list_drafts(project))
             for finding in finding_requests:
                 if 'releaseDate' not in finding:
-                    context_finding['findings'].append({
+                    category = ('unsubmitted' if 'reportDate' not in finding
+                                else 'unreleased')
+                    context_finding[category].append({
                         'finding_name': finding.get('finding'),
                         'finding_url':
                         '{url!s}/dashboard#!/project/{project!s}/drafts/'
