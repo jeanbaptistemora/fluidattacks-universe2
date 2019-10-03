@@ -5,7 +5,6 @@
 # standard imports
 import os
 import re
-import json
 import urllib.parse
 
 # 3rd party imports
@@ -51,9 +50,9 @@ def _get_vuln_line(path: str, pkg: str, ver: str) -> int:
 
 # pylint: disable=unused-argument
 @asynchronous.http_retry
-async def get_vulns_ossindex_async(package_manager: str, path: str,
-                                   package: str, version: str,
-                                   retry: bool) -> tuple:
+async def get_vulns_vulndb_async(package_manager: str, path: str,
+                                 package: str, version: str,
+                                 retry: bool) -> tuple:
     """
     Search vulnerabilities on given package_manager/package/version.
 
@@ -61,15 +60,17 @@ async def get_vulns_ossindex_async(package_manager: str, path: str,
     :param package: Package name.
     :param version: Package version.
     """
+    enc_pkg = _url_encode(package)
+    base_url = 'https://nvd.nist.gov/vuln/search/results?'
+    query_str1 = 'form_type=Advanced&results_type=overview&search_type=all'
     if version:
-        url = 'https://ossindex.net/v2.0/package/{}/{}/{}'.format(
-            _url_encode(package_manager),
-            _url_encode(package),
-            _url_encode(version))
+        enc_ver = _url_encode(version)
+        query_str2 = \
+            f'&cpe_product=cpe%3A%2F%3A%3A{enc_pkg}:{enc_ver}'
     else:
-        url = 'https://ossindex.net/v2.0/package/{}/{}'.format(
-            _url_encode(package_manager),
-            _url_encode(package))
+        query_str2 = f'&cpe_product=cpe%3A%2F%3A%3A{enc_pkg}'
+
+    url = base_url + query_str1 + query_str2
 
     timeout = aiohttp.ClientTimeout(total=10.0)
     async with aiohttp.ClientSession(trust_env=True,
@@ -78,14 +79,19 @@ async def get_vulns_ossindex_async(package_manager: str, path: str,
             text = await response.text()
 
     vuln_titles = tuple()
-    resp = json.loads(text)[0]
-    if resp['id'] != 0 and resp['vulnerability-matches'] > 0:
-        vulns = resp['vulnerabilities']
-        vuln_titles = tuple({x['title']: ", ".join(x['versions'])}
-                            for x in vulns)
+    regex_total = re.compile(r'"vuln-matching-records-count">([0-9]+)')
+    total = int(regex_total.findall(text)[0])
+    regex_item = re.compile(r'vuln-detail-link-[0-9]+">(CVE-[0-9-]+)</a>')
+    items = regex_item.findall(text)
+    regex_name = re.compile(r'vuln-summary-[0-9]+">([^<]*?)</p>')
+    names = regex_name.findall(text)
+
+    if total > 0:
+        vuln_titles = dict(zip(items, names))
         vuln_titles = tuple(reduce(
             lambda l, x: l.append(x) or l if x not in l else l,
             vuln_titles, []))
+
     return path, package, version, vuln_titles
 
 
@@ -98,10 +104,10 @@ def process_requirements(pkg_mgr: str, path: str,
         return CLOSED, 'No packages have been found in that path'
 
     results = asynchronous.run_func(
-        get_vulns_ossindex_async,
+        get_vulns_vulndb_async,
         [((pkg_mgr, _path, dep, ver), {'retry': retry})
          for _path, dep, ver in reqs])
-    results = filter(lambda x: isinstance(x, tuple), results)
+    results = list(filter(lambda x: isinstance(x, tuple), results))
 
     has_vulns, proj_vulns = None, {}
     for _path, dep, ver, vulns in results:
@@ -112,7 +118,6 @@ def process_requirements(pkg_mgr: str, path: str,
                 proj_vulns[_path].update({component: vulns})
             except KeyError:
                 proj_vulns[_path] = {component: vulns}
-
     vulns = [Unit(where=f'{_path} [{pkg}@{ver if ver else "unpinned"}]',
                   source='Lines',
                   specific=[_get_vuln_line(_path, pkg, ver)],

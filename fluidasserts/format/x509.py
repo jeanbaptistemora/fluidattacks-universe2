@@ -123,13 +123,11 @@ def is_cert_cn_using_wildcard(site: str, port: int = PORT) -> tuple:
     """
     Check if certificate uses wildcard in CN.
 
-    Name in certificate should be coherent with organization name, see
-    `REQ. 093 <https://fluidattacks.com/web/rules/093/>`_
+    Common Name in certificates should not use wildcards.
 
     :param site: Site address.
     :param port: Port to connect to.
-    :returns: - ``OPEN`` if the parameter **site** does not equal the
-                certificate's **Common Name** (CN).
+    :returns: - ``OPEN`` if the **CN** uses wildcards.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
