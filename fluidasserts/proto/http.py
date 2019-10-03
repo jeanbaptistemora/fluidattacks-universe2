@@ -282,10 +282,16 @@ def _has_insecure_value(url: str,
             flags=re.IGNORECASE)
 
     if vulnerable_if_missing:
-        session.set_messages(
-            source=f'HTTP/Response/Headers/{header}',
-            msg_open=f'{header} header is missing',
-            msg_closed=f'{header} header is present')
+        if missing:
+            session.set_messages(
+                source=f'HTTP/Response/Headers/{header}',
+                msg_open=f'{header} header is missing which is insecure',
+                msg_closed=f'{header} header is present which is secure')
+        else:
+            session.set_messages(
+                source=f'HTTP/Response/Headers/{header}',
+                msg_open=f'{header} header is insecure',
+                msg_closed=f'{header} header is secure')
         session.add_unit(
             is_vulnerable=missing or insecure)
         return session.get_tuple_result()
