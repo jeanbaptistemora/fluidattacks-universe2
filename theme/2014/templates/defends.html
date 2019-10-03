@@ -31,26 +31,44 @@
 {% endblock canonical %}
 
 {% block content %}
+  <article class="ma-auto tl mw8">
+  <h1 class="tc pb4">
+    {{ page.title }}
+  </h1>
   {% for defendspage in pages if defendspage.defends %}
     {% if loop.first %}
-      <a class="defends-category">
-        <h2>{{ defendspage.category }}</h2>
+      <a class="defends-category bg-white bb b--light-silver flex black w-100 pointer">
+        <h2 class="w6">
+          {{ defendspage.category }}
+        </h2>
       </a>
       {% set cat = defendspage.category %}
-      <div class="defendspanel">
+      <div class="defendspanel overflow-hidden bg-white mb2">
         {% for defendsarticle in pages if defendsarticle.defends and defendsarticle.category == cat%}
-          <a href="../{{ defendsarticle.slug }}"><h3>{{ defendsarticle.title }}</h3></a>
+          <a class="c-fluid-bk hv-fluid-dkred"
+             href="../{{ defendsarticle.slug }}">
+             <h3 class="ml4">
+               {{ defendsarticle.title }}
+             </h3>
+          </a>
         {% endfor %}
       </div>
     {% else %}
       {% if defendspage.category != loop.previtem.category %}
-        <a class="defends-category">
-          <h2>{{ defendspage.category }}</h2>
+        <a class="defends-category bg-white bb b--light-silver flex black w-100 pointer">
+          <h2 class="w6">
+            {{ defendspage.category }}
+          </h2>
         </a>
         {% set cat = defendspage.category %}
-        <div class="defendspanel">
+        <div class="defendspanel overflow-hidden bg-white mb2">
           {% for defendsarticle in pages if defendsarticle.defends and defendsarticle.category == cat%}
-            <a href="../{{ defendsarticle.slug }}"><h3>{{ defendsarticle.title }}</h3></a>
+            <a class="c-fluid-bk hv-fluid-dkred"
+               href="../{{ defendsarticle.slug }}">
+               <h3 class="ml4">
+                 {{ defendsarticle.title }}
+               </h3>
+            </a>
           {% endfor %}
         </div>
       {% endif %}
@@ -59,4 +77,6 @@
   {% assets filters="uglifyjs", output="static/js/defends.min.js", "js/defends.js" %}
     <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
   {% endassets %}
+  </article>
+
 {% endblock content %}

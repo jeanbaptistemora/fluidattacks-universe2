@@ -6,12 +6,6 @@ $fluid-red: rgba(255, 52, 53, 1);
 $white: rgba(255, 255, 255, 1);
 
 .defends-category {
-  background-color: $white;
-  border: 0;
-  border-top: 1px solid $fluid-gray;
-  color: $black;
-  display: flex;
-  width: 100%;
 
   &::after {
     color: $fluid-black;
@@ -23,8 +17,6 @@ $white: rgba(255, 255, 255, 1);
   }
 
   &:hover {
-    cursor: pointer;
-
     &::after {
       color: $fluid-black;
     }
@@ -38,22 +30,6 @@ $white: rgba(255, 255, 255, 1);
 }
 
 .defendspanel {
-  background-color: $white;
-  margin-bottom: 15px;
   max-height: 0;
-  overflow: hidden;
   transition: max-height .2s ease-out;
-
-  a {
-    color: $fluid-black;
-
-    &:hover {
-      color: $fluid-dark-red;
-    }
-
-    h3 {
-      margin-left: 30px;
-    }
-
-  }
 }
