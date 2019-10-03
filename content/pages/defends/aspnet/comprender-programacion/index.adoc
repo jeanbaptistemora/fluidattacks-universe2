@@ -1,0 +1,132 @@
+:slug: defends/aspnet/comprender-programacion/
+:category: aspnet
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET abarcando generalidades y explicando conceptos relacionados a buenas prácticas de programación, para desarrollar aplicaciones web computacionalmente seguras.
+:keywords: ASP.NET, Seguridad, Programación, DotNet Framework, Buenas Prácticas, Código neutral.
+:defends: yes
+
+= Comprender programación segura
+
+== Necesidad
+
+Comprender conceptos de la programación segura en +ASP.NET+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. La aplicación está construida
+con el lenguaje de programación +ASP.NET+.
+
+== Solución
+
+. *Código neutral respecto a la seguridad:*
+El código neutral con respecto a la seguridad
+no realiza ninguna acción concreta
+con el sistema de seguridad.
+Puede aprovechar las ventajas
+de las tecnologías de seguridad de +.NET Framework+.
++
+Una biblioteca neutral respecto a la seguridad
+posee características importantes de comprender.
+Suponga que la biblioteca proporciona
+los elementos de la +API+ que utilizan archivos
+o llaman a código no administrado.
+Si su código no tiene el correspondiente permiso,
+entonces no se ejecutará de la forma descrita.
+Sin embargo, aunque el código tenga el permiso,
+todo código de la aplicación que llame a ese código
+deberá tener el mismo permiso para funcionar correctamente.
++
+Si el código que realiza la llamada
+no tiene el permiso necesario,
+aparece una excepción +SecurityException+.
+Lo anterior es resultado del recorrido de pila
+de seguridad de acceso a código.
+
+. *Código de la aplicación que no sea un componente reutilizable:*
+Si el código forma parte de una aplicación
+que no llamará otro código,
+la seguridad es una cuestión sencilla
+y puede que no sea necesario programar un código especial.
+No obstante, tenga en cuenta
+que un código malicioso puede llamar a su código.
+Sin embargo, la seguridad de acceso a código
+puede evitar el acceso de código malicioso a los recursos.
+Este tipo de código podría leer los valores de campos
+o propiedades que contengan información confidencial.
++
+Además, es posible que el código
+admita los datos proporcionados por el usuario
+desde Internet o de otras fuentes que no sean de confianza.
+En este caso es necesario tener mucho cuidado
+con las entradas malintencionadas <<r1 ,^[1]^>>.
+
+. *Implementación de contenedor administrado en código nativo:*
+Normalmente, en este escenario se implementa
+alguna funcionalidad muy útil en código nativo.
+Ésto se realiza con el fin de que esté disponible para código administrado.
+Con la invocación de plataforma o la interoperabilidad +COM+
+es fácil escribir contenedores administrados.
+No obstante, si los escribe de esta forma,
+los llamadores de los contenedores
+deben tener derechos de código no administrado
+para funcionar correctamente.
+Con una directiva predeterminada,
+esto significa que el código descargado de una intranet
+o de Internet no funcionará con los contenedores.
++
+No conceda derechos de código no administrado
+a todas las aplicaciones que utilizan estos contenedores.
+En su lugar, realícelo únicamente con código de contenedor.
+Si la funcionalidad no expone recursos
+y la implementación es asimismo "segura",
+sólo es necesario declarar los derechos del contenedor.
+Ésto que permite a cualquier código llamar a través del contenedor.
+Cuando se exponen recursos,
+la codificación de seguridad debe ser la misma
+que la del código de biblioteca.
+Como el contenedor puede exponer llamadores a esos recursos,
+es necesario realizar una comprobación
+de la seguridad de código nativo,
+que es responsabilidad del contenedor.
+
+. *Código de biblioteca que expone recursos protegidos:*
+Esta forma de enfocar la codificación de seguridad
+es la más eficaz.
+Probablemente, también sea
+la más peligrosa si se realiza incorrectamente.
+La biblioteca se utiliza como una interfaz
+para que otro código tenga acceso a determinados recursos
+que normalmente no estarían disponibles.
+Al igual que la clases de +.NET Framework+
+exigen permisos en los recursos que utilizan.
++
+En cualquier parte que exponga un recurso,
+el código debe exigir el permiso apropiado al recurso.
+A continuación, se deben declarar sus derechos
+para ejecutar la operación en curso <<r2 ,^[2]^>>.
+
+. *Instrucciones de codificación segura:*
+La directiva de seguridad basada
+ofrece mecanismos explícitos y muy eficaces
+para implementar el sistema de seguridad.
+Con la mayor parte del código de la aplicación
+se puede usar la infraestructura implementada por +.NET Framework+.
++
+En algunos casos, es necesario utilizar
+una seguridad específica de la aplicación.
+Ésta se crea mediante la extensión del sistema de seguridad
+o con nuevos métodos +ad hoc+.
++
+Con los permisos que exige +.NET Framework+
+se deben construir las barreras que impidan
+que un código malicioso realice acciones no deseadas.
+Además, mediante el código de confianza
+se debe conseguir un equilibro entre la seguridad
+y la capacidad de uso en todos los escenarios esperados.
+
+== Referencias
+
+. [[r1]] link:https://www.codeproject.com/Articles/1116318/Points-to-Secure-Your-ASP-NET-MVC-Applications[Secure Your ASP.NET MVC Applications]
+. [[r2]] link:https://www.infragistics.com/community/blogs/b/brijmishra/posts/9-tips-for-writing-secure-applications-in-asp-net[Tips for Writing Secure Applications in ASP.NET]

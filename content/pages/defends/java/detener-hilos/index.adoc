@@ -1,0 +1,117 @@
+:slug: defends/java/detener-hilos/
+:category: java
+:description: Nuestros ethical hackers explican que son los hilos o threads en una aplicación, además explican, mediante un ejemplo, cual es la manera adecuada de detener su ejecución en una aplicación realizada en Java ya que los métodos stop y suspend se consideran inseguros.
+:keywords: Java, Hilos, Threads, Seguridad, Métodos, Calidad.
+:defends: yes
+
+= Detener Hilos
+
+== Necesidad
+
+Detener hilos de manera segura en +Java+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está aprovechando la característica de múltiples hilos de +Java+.
+. Se debe detener algún hilo de la aplicación.
+
+== Solución
+
+Se entiende por hilos o +threads+ a una secuencia de tareas encadenadas,
+es decir, tareas que se ejecutan simultáneamente de manera independiente.
+Los hilos poseen un estado de ejecución
+y pueden sincronizarse entre ellos
+para evitar problemas de compartición de recursos.
+Por ejemplo, si dos hilos necesitan acceder
+a un recurso, entre ellos mismos "negocean"
+cuál de los ha de acceder primero.
+Generalmente, cada hilo tiene una tarea específica y determinada,
+como forma de aumentar la eficiencia del uso del procesador.
+
+Los hilos tienden a ser usados para realizar trabajos interactivos
+y en segundo plano, para el procesamiento asíncrono,
+la aceleración de la ejecución de un sistema,
+y la estructuración modular de los programas.
+
+En esta solución se verá la manera adecuada
+de detener los hilos o +threads+
+de forma segura en una aplicación +Java+.
+
+. Usualmente, para poder utilizarlos en +Java+
+es necesario crear clases que extienden a la clase +Thread+,
+y reescribir el método principal +run()+.
+El método +run()+, por lo general,
+es el que se va a ejecutar principalmente
+al iniciar un hilo o +Thread+.
+
+. Entonces, en una aplicación donde se utilicen los hilos,
+es muy factible que exista la necesidad de detener
+las tareas que están realizando estos +threads+.
+Para eso se suelen usar los métodos +stop()+ y +suspend()+.
+No obstante el uso de estos métodos es considerado obsoleto por +Java+
+ya que son inseguros, por ende no se deberían usar.
+
+. Por tanto, se recomienda que la mayoría de usos del método +stop()+
+deben ser reemplazados por código
+que simplemente modifique alguna variable
+para indicarle al hilo que debería dejar de ejecutarse.
+Entonces, el hilo debe revisar el valor de esta variable regularmente,
+y retornar de su método +run()+
+si la variable le indica que debe detenerse.
+Esta variable debe ser +volatile+.
+
+. Por ejemplo, suponiendo que la aplicación contiene el siguiente código.
++
+.hilo.java
+[source, java, linenums]
+----
+private Thread blinker;
+
+public void start() {
+  blinker = new Thread(this);
+  blinker.start();
+}
+public void stop() {
+  blinker.stop(); // INSEGURO!
+}
+public void run() {
+  Thread thisThread = Thread.currentThread();
+  while (true) {
+    try {
+      thisThread.sleep(interval);
+    }
+  catch (InterruptedException e){}
+    repaint();
+  }
+}
+----
+
+. Se puede evitar el uso del método +stop()+ de la siguiente manera.
++
+[source, java, linenums]
+----
+private volatile Thread blinker;
+
+public void stop() {
+  blinker = null;
+}
+public void run() {
+  Thread thisThread = Thread.currentThread();
+  while (blinker == thisThread) {
+    try {
+      thisThread.sleep(interval);
+    }
+  catch (InterruptedException e){}
+    repaint();
+  }
+}
+----
+
+== Referencias
+
+. [[r1]] link:https://es.wikipedia.org/wiki/Hilo_(inform%C3%A1tica)[Hilos]
+. [[r2]] link:https://docs.oracle.com/javase/8/docs/technotes/guides/concurrency/threadPrimitiveDeprecation.html[Java Thread Primitive Deprecation]
+. [[r3]] link:../../../rules/158/[REQ.158 Codificación Actualizada]

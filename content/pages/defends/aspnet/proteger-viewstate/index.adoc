@@ -1,0 +1,85 @@
+:slug: defends/aspnet/proteger-viewstate/
+:category: aspnet
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET al proteger adecuadamente el ViewState. La información almacenada en el ViewState le permite a un atacante conocer detalles técnicos de la misma para realizar ataques complejos.
+:keywords: ASP.NET, Seguridad, ViewState, Protección, Cifrado, Cliente
+:defends: yes
+
+= Proteger el ViewState
+
+== Necesidad
+
+Se requiere proteger el +ViewState+ en +ASP.NET+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. La aplicación esta construida en +ASP.NET+ version +1.1+ , +2.0+ , superior.
+
+== Solución
+
+Un mecanismo ampliamente utilizado en +ASP.NET+
+para intercambiar información en el lado del cliente es el +ViewState+.
+Consiste en un campo oculto de las aplicaciones web
+que contiene información acerca del estado general de la página.
+Esta información, a diferencia de las +cookies+
+no es accesible desde todas las páginas del sitio web.
+Además en +ASP.NET+ el +ViewState+ es utilizado
+para mejorar el rendimiento del servidor,
+permitiéndole preservar elementos en la interfaz de usuario
+sin necesidad de realizar multiples peticiones al servidor.
+
+Los desarrolladores normalmente utilizan el +ViewState+
+para almacenar información entre peticiones sucesivas,
+evitando así sobrecargar el servidor.
+Esta información permite conservar datos del usuario
+en el lado del cliente, y tiene un gran número de usos.
+Por ejemplo, permitir que una vez enviado un formulario,
+el usuario sea capaz de regresar y modificar algún valor,
+sin necesidad de llenar el formulario desde el principio.
+Sin embargo si un +ViewState+ no es adecuadamente protegido
+puede revelar información técnica a un usuario malicioso.
+Incluso puede ser modificado por un atacante,
+para probar si se genera algún comportamiento inesperado
+en la validación del servidor.
+
+Para proteger el +ViewState+ en +ASP.NET+
+se deben tener en cuentas las siguientes consideraciones:
+
+. Cifrar el +ViewState+ desde el archivo de configuración.
+Asignar el valor +Always+ al atributo +viewStateEncryptionMode+
+del elemento +pages+.
+Este se encuentra en el archivo de configuración
+de la aplicación +web.config+ <<r2, ^[2]^>>.
++
+.web.config
+[source, csharp, linenums]
+----
+<page
+   viewStateEncryptionMode=”Always”
+/>
+----
+
+. Cifrar el +ViewState+ desde la página.
+Para ello, asigne el valor +Always+ al atributo +viewStateEncryptionMode+
+en la directiva +@Page+.
+
+. Habilitar la ejecución +MAC+ para el +ViewState+.
+Es necesario especificarle a +ASP.NET+
+que ejecute un código de autenticación de mensajes (+MAC+)
+para el +ViewState+ de la página cuando el cliente lo devuelve.
+Para realizar esto,
+se debe asignar el valor +true+ al atributo +enableViewStateMac+
+del elemento +pages+,
+contenido en el archivo de configuración de la aplicación +web.config+.
+
+== Referencias
+
+. [[r1]] link:https://msdn.microsoft.com/en-us/library/ms972969.aspx#securitybarriers_topic2[Take Advantage of ASP.NET Built-in Features to Fend Off Web Attacks].
+
+. [[r2]] link:https://docs.microsoft.com/es-es/previous-versions/dotnet/netframework-2.0/950xf363(v=vs.80)[Elemento pages (Esquema de configuración de ASP.NET)].
+
+. [[r3]] link:https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ff650037(v=pandp.10)#pagpractices0001_sensitivedata[Security Practices: ASP.NET Security Practices at a Glance].
+
+. [[r4]] link:http://www.reydes.com/d/?q=Evaluar_el_ViewState_de_ASP_NET[Evaluar El ViewState De ASP.NET].

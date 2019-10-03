@@ -1,0 +1,13 @@
+     DTexto            S             10A   INZ('Caracteres')
+     DFecha            S               D   INZ(d'2013-07-04')
+     DNumeroReal       S              8F   INZ(31337.29)
+     DNumeroEntero     S             20I 0 INZ(123456789)
+
+      /free
+       DSPLY Texto;
+       DSPLY Fecha;
+       DSPLY NumeroReal;
+       DSPLY NumeroEntero;
+
+       *inlr = *on;
+      /end-free

@@ -1,0 +1,159 @@
+:slug: defends/csharp/definir-opciones-seguras/
+:category: csharp
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en C Sharp al definir opciones seguras en estructuras condicionales. Esto mejora la seguridad de la aplicación al contemplar todos los escenarios posibles, en un ambiente controlado.
+:keywords: C Sharp, Opciones, Seguras, Condicionales, Seguridad, Default
+:defends: yes
+
+= Definir opciones seguras en condicionales
+
+== Necesidad
+
+Establecer opciones seguras por defecto en estructuras condicionales.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +C Sharp+.
+
+. La aplicación utiliza estructuras condicionales,
+tales como +if+ o +switch+.
+
+== Solución
+
+Cuando se desarrollan aplicaciones,
+es muy importante pensar en la seguridad general de las mismas.
+Para ello existen muchos criterios de programación segura
+que se pueden aplicar para evitar ataques malintencionados.
+La validación de entradas es uno de ellos,
+y constituye un proceso esencial para crear
+aplicaciones seguras,
+pues es gracias a ella que es posible proteger el sistema
+contra ataques comunes de inyección de código y similares.
+La definición de opciones por defecto en las estructuras condicionales
+hace parte de la validación de entradas,
+debido a que permite abarcar todos los posibles escenarios,
+terminando la aplicación en un escenario seguro y controlado
+ante una entrada inválida.
+
+En cada estructura condicional
+empleada en una aplicación en lenguaje +C Sharp+,
+se recomienda definir opciones seguras por defecto.
+Para lograr esto, se deben seguir los siguientes criterios:
+
+* Para sentencias +if+ debe usarse su correspondiente +else+ <<r1, ^[1]^>>.
+* Para sentencias +switch+ debe usarse su correspondiente +default+ <<r2, ^[2]^>>.
+
+A continuación presentamos un ejemplo
+donde se muestra la forma correcta
+de utilizar las opciones por defecto +else+ y +default+.
+Para ello, se debe seguir el siguiente procedimiento:
+
+. Como parte de la validación inicial,
+debemos verificar que exista más de un argumento al llamar al programa.
+Para ello utilizamos la siguiente porción de código:
++
+.conditionalvalidation.cs
+[source, csharp, linenums]
+----
+using System;
+
+class Program{
+  static void Main(string[] args){
+    if (args.Length < 1){
+      Console.WriteLine("El programa espera un argumento.");
+    }
+...
+----
+
+. Si el número de argumentos es el esperado,
+se verifica que el argumento tenga solo un carácter.
++
+[source, csharp, linenums]
+----
+    else if (args[0].Length == 1){
+...
+----
+
+. En caso de que se cumplan todas las condiciones,
+se muestra un mensaje si se eligió la opción +0+ ó +1+,
+u otro diferente si se eligió la opción +2+.
++
+[source, csharp, linenums]
+----
+  switch (args[0]){
+    case "0":
+      Console.WriteLine("Primera opción seleccionada.");
+      break;
+
+    case "1":
+      Console.WriteLine("Primera opción seleccionada.");
+      break;
+
+    case "2":
+      Console.WriteLine("Segunda opción seleccionada.");
+      break;
+...
+----
+
+. En caso de que se ingrese una opción no contemplada,
+se muestra un mensaje de error:
++
+[source, csharp, linenums]
+----
+    default:
+      Console.WriteLine("La opción ingresada no es válida.");
+      break;
+    }
+
+----
+
+. De forma similar, mostramos un mensaje de error
+cuando no se ingresa el número esperado de argumentos:
++
+[source, csharp, linenums]
+----
+    }
+    else{
+      Console.WriteLine("Se espera como argumento una opción de un solo carácter.");
+    }
+  }
+}
+----
+
+. Se compila y ejecuta el programa con diferentes entradas.
+De esta forma comprobamos que su comportamiento es el esperado
+ante diferentes tipos de argumentos.
++
+[source, bash, linenums]
+----
+\>csc DefaultOptions.cs
+
+\>DefaultOptions
+El programa espera un argumento.
+
+\>DefaultOptions hola
+Se espera como argumento una opción de un solo carácter.
+
+\>DefaultOptions h
+La opción ingresada no es válida.
+
+\>DefaultOptions 5
+La opción ingresada no es válida.
+
+\>DefaultOptions 0
+Primera opción seleccionada.
+
+\>DefaultOptions 1
+Primera opción seleccionada.
+
+\>DefaultOptions 2
+Segunda opción seleccionada.
+----
+
+== Referencias
+
+. [[r1]] link:https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2010/5011f09h(v=vs.100)[Referencias de C Sharp: if-else (MSDN)].
+. [[r2]] link:https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2010/06tc147t(v=vs.100)[Referencias de C Sharp Switch (MSDN)].
+. [[r3]] link:../../../rules/161/[REQ.161 Opciones por defecto seguras].

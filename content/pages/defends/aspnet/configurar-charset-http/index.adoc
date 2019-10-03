@@ -1,0 +1,122 @@
+:slug: defends/aspnet/configurar-charset-http/
+:category: aspnet
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura del parámetro Charset en ASP.NET. Esto permite reforzar la protección contra ataques de tipo HTTP Request Smuggling así como exploits que usan Unicode.
+:keywords: ASP.NET, Seguridad, Charset, HTTP Request Smuggling, Codificación, Configuración.
+:defends: yes
+
+= Configurar charset de HTTP
+
+== Necesidad
+
+Establecer +Charset+ en +ASP.NET+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando en +ASP.NET+.
+
+== Solución
+
+. Las aplicaciones son rara vez probadas
+contra los +exploits+ que usan +Unicode+,
+sin embargo, muchas son vulnerables
+al mismo tipo de problemas
+que permite a un atacante realizar
+un +HTTP Request Smuggling+.
+
+. El +HTTP Request Smuggling+
+le permite a un atacante
+evadir los controles de un sistema,
+usando codificaciones diferentes,
+para que dos sistemas (usualmente, un +WAF+ y el servidor +WEB+)
+perciban peticiones +HTTP+ diferentes.
+
+. La forma normal (+canonical form+) es la representación más simple
+o más estándar de algo.
+El proceso de normalizar las solicitudes
+se encarga de abordar el modo
+en que los sistemas transforman los datos de una forma a otra.
+En sí, normalizar es convertir algo
+desde su estado original
+a una representación más simple.
+
+. Las aplicaciones Web deben tratar
+con muchos procesos de normalización
+desde la codificación del +URL+,
+hasta la traducción de las +IP+.
+Cuando se toman decisiones de seguridad
+basándose en datos normalizados imperfectos,
+la aplicación debe ser capaz de manejar
+entradas inesperadas de manera segura.
+
+. Para evitar los ataques
+que se aprovechan de la normalización,
+se debe seleccionar una forma normal
+y modificar todas las entradas de usuario dicha forma
+antes de tomar decisiones de autorización.
+
+. De la misma manera,
+se debe ejecutar un proceso de ethical hacking
+después de que se ha realizado la decodificación,
+por lo cual se recomienda verificar
+que la codificación usada esté soportada
+para cada símbolo que se presenta.
+
+. En +ASP+ y +ASP.Net+. +ContentType+ y +Charset+
+se configuran por separado
+y consisten en métodos del objeto +Response+ <<r1, ^[1]^>> .
+Para configurar el +charset+ use por ejemplo:
++
+.Web.config
+[source, xml, linenums]
+----
+<% Response.charset="utf-8" %>
+----
+
+. En +ASP.Net+, la configuración de +Response.ContentEncoding+
+se hará cargo tanto del parámetro +charset+ del +Content-Type+ de +HTTP+
+como de la codificación real
+del documento que se envía ,
+la cual debe ser, por supuesto, la misma.
+El valor predeterminado puede configurarse
+en el elemento +globalization+ en +Web.config+
+(o +Machine.config+, que originariamente, se configura en UTF-8).
+
+. Especificar la codificación:
+Para configurar la codificación en todas las páginas,
+se debe añadir una propiedad globalización
+en el archivo +Web.config+ <<r2, ^[2]^>>
+y a continuación, establezca sus atributos +fileEncoding+,
++requestEncoding+ y +responseEncoding+,
+como se muestra en el siguiente ejemplo:
++
+[source,xml,linenums]
+----
+<configuration>
+  <system.web>
+    <globalization
+      fileEncoding="utf-8"
+      requestEncoding="utf-8"
+      responseEncoding="utf-8"
+      culture="en-US"
+      uiCulture="de-DE"
+    />
+  </system.web>
+</configuration>
+----
+
+. Para establecer la codificación de una página individual,
+establezca los atributos +RequestEncoding+ y +ResponseEncoding+
+de la directiva +@ Page+, como se muestra en el siguiente ejemplo:
++
+[source,xml,linenums]
+----
+<%@ Page RequestEncoding="utf-8" ResponseEncoding="utf-8" %>
+----
+
+== Referencias
+
+. [[r1]] link:https://msdn.microsoft.com/en-us/library/ms525304(v=vs.90).aspx[Response.Charset].
+. [[r2]] link:https://msdn.microsoft.com/en-us/library/39d1w2xf(v=vs.100).aspx[Cómo seleccionar y codificar para la globalización de páginas Web ASP.NET].

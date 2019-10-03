@@ -1,0 +1,84 @@
+:slug: defends/java/validar-archivos-richfaces/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al validar archivos utilizando Richfaces. La biblioteca Richfaces permite establecer filtros para validar las peticiones ajax realizadas a la aplicación web, mejorando su seguridad.
+:keywords: Java, Seguridad, Validar, Archivos, Richfaces, Ajax
+:defends: yes
+
+= Validar Archivos Richfaces
+
+== Necesidad
+
+Validar el formato de los archivos
+que se permiten cargar al sistema en +Java+
+usando el +framework+ +Richfaces+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. La aplicación está construida en +Java EE 1.5+ en adelante.
+. La aplicación está utilizando el +framework+ +RichFaces 3.2.0+ en adelante.
+
+== Solución
+
+Hoy en día y gracias al incremento exponencial del uso de Internet,
+tanto las personas como las empresas
+tienen la opción de buscar y ofrecer infinidad de servicios.
+Como prueba de ello, están las páginas web que permiten compartir,
+entre sus usuarios, todo tipo de contenido
+(imágenes, videos, animaciones, +software+, productos, entre otros).
+Y, puesto que compartir dichos archivos implica,
+por lógica, permitir la subida o carga  de los mismos a los servidores
+donde están alojadas las páginas web.
+es absolutamente necesario contar con algún tipo de control
+que límite la cantidad, forma, tamaño
+e incluso el tipo de archivo que se admitirá.
+
+Al mencionar que es absolutamente necesario
+establecer controles frente al contenido,
+se debe a que cuando se permite la subida
+o carga de archivos por parte de los usuarios a una aplicación web,
+se abre la puerta a nuevas posibilidades de ser víctima
+de algún ataque cibernético o, como comúnmente se dice, ser hackeado.
+Eso implica poner en riesgo tanto la confidencialidad, la integridad
+y la disponibilidad del servicio o la aplicación web.
+
+Como se ha mencionado antes,
+una de las formas de controlar los archivos
+que son cargados a un servidor web
+es verificando que los archivos
+sólo puedan ser de un tipo específico.
+Por ejemplo, si la aplicación permite que sus usuarios suban imágenes,
+esta debe controlar que únicamente se admitan
+archivos tipo +png+, +jpg+, +gif+,
+entre otras extensiones correspondientes exclusivamente a las imágenes.
+
+Para habilitar la validación de formatos de archivos en +Java EE+
+se debe hacer lo siguiente:
+
+. En esta ocasión se utilizará el +framework+ +RichFaces+.
++Richfaces+ es una biblioteca de código abierto
+basada en +Java+.
+Dicha biblioteca permite crear aplicaciones web con +Ajax+.
+
+. Para implemtar la validación
+se debe utilizar la propiedad +acceptedTypes+
+del componente de la siguiente forma ^<<r1,[1]>>^.
++
+.propiedad.html
+[source, html, linenums]
+----
+<rich:fileUpload acceptedTypes="txt, zip"/>
+----
+
+. En la instrucción anterior, se valida que, únicamente,
+los archivos que pueden ser cargados en la aplicación
+deben ser archivos de texto con extensión +txt+
+o archivos comprimidos con extensión +zip+.
+
+== Referencias
+
+. [[r1]] link:http://docs.jboss.org/richfaces/latest_3_3_X/en/devguide/html/rich_fileUpload.html[JBoss - Richfile]
+. [[r2]] link:http://richfaces.jboss.org/[RichFaces]
+. [[r3]] link:../../../rules/173/[REQ.173 Descartar entradas inseguras]

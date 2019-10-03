@@ -1,0 +1,7 @@
+:slug: defends/
+:description: Defends, the Fluid Attacks knowledge base is focused on information security topics. Here you can find many  articles related to security practices to develop secure applications. This KB intends to educate developers and programmers in order to avoid common security issues.
+:keywords: Fluid Attacks, Knowledge Base, KB, Information, Security, Articles.
+:template: defends
+:defendsindex: yes
+
+= Defends

@@ -1,0 +1,129 @@
+:slug: defends/aspnet/generar-aleatorios-seguros/
+:category: aspnet
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al generar números aleatorios criptográficamente seguros. Los números aleatorios son utilizados para generar llaves criptográficas por lo que no deben ser replicados fácilmente.
+:keywords: ASPNET, Seguridad, Criptografía, Números, Aleatorios, Seguros.
+:defends: yes
+
+= Generar aleatorios seguros
+
+== Necesidad
+
+Generar números aleatorios seguros en +ASP.Net+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +ASP.Net+.
+. Se desean generar números aleatorios seguros.
+. Deben utilizarse mecanismos de cifrado asimétrico.<<r1,^[1]^>>
+. Debe usarse el mecanismo criptográfico más seguro
+ofrecido por la plataforma.<<r2,^[2]^>>
+
+== Solución
+
+Los números aleatorios generalmente son utilizados
+para generar llaves criptográficas
+que sirven para asegurar archivos y documentos.
+Es por eso que es de vital importancia
+que los números aleatorios sean siempre seguros
+para resistir posibles predicciones
+o ataques de criptoanalistas <<r3,^[3]^>>.
+
+Existen diversas formas de generar números aleatorios,
+un ejemplo es utilizando generadores físicos,
+los cuales toman señales aleatorias del ambiente,
+tales como:
+
+* El ruido generado por una fuga de corriente
+desde un diodo a un transistor.
+
+* El ruido generado al presionar una tecla.
+
+* Señales perceptibles provenientes de alguna fuente de audio.
+
+* Tiempos entre interrupciones.
+
+* Y muchos otros más.
+
+Después de obtener la señal aleatoria,
+ésta es procesada a través
+de una función criptográfica Hash
+para obtener el número aleatorio.
+
+Este tipo de generadores poseen la ventaja
+de ser verdaderamente aleatorios,
+a diferencia de los generadores pseudo-aleatorios,
+los cuales utilizan algoritmos aleatorios estáticos
+que pueden ser generados a partir de código.
+De esta manera los números aleatorios
+generados con un generador físico
+no pueden ser recreados
+por ningún tipo de +software+.
+
+Otra forma de generar números aleatorios
+es utilizando generadores basados en código,
+los cuales toman un valor semilla inicial
+para generar una secuencia pseudo aleatoria de números.
+El problema de esta práctica,
+es que los resultados pueden ser reproducibles,
+es decir, con las mismas condiciones iniciales
+y el mismo valor semilla
+es posible generar la misma secuencia de números.
+
+Para el caso de este artículo,
+se hará uso de la clase +RNGCryptoServiceProvider+
+para generar números aleatorios
+criptográficamente seguros.
+Para ello debemos seguir los siguientes pasos:
+
+. La clase +RNGCryptoServiceProvider+ proporciona
+un generador de números pseudoaleatorios
+usando la implementación de un proveedor de servicios criptográficos <<r4, ^[4]^>>.
+Esta clase no puede heredarse.
+Inicialmente se usan los siguientes componentes:
++
+.test.py
+[source, java, linenums]
+----
+using System;
+using System.IO;
+using System.Text;
+using System.Security.Cryptography;
+class RNGCSP
+{
+    public static void Main()
+    {
+----
+
+. Luego se crea el objeto
+generador de números pseudoaleatorios.
++
+[source, java, linenums]
+----
+RandomNumberGenerator rng = new RNGCryptoServiceProvider();
+----
+
+. El método +GetBytes+ llena un arreglo de bytes
+con una secuencia de valores aleatorios criptográficamente seguros.
++
+[source,java,linenums]
+----
+byte[] tokenData = new byte[32];
+rng.GetBytes(tokenData);
+----
+
+. Finalmente, convertimos a Base64 para facilitar su impresión.
++
+[source,java,linenums]
+----
+string token = Convert.ToBase64String(tokenData);
+----
+
+== Referencias
+
+. [[r1]] link:../../../rules/148/[REQ.148 Cifrado asimétrico de tamaño mínimo].
+. [[r2]] link:../../../rules/224/[REQ.224 Usar mecanismos criptográficos seguros].
+. [[r3]] link:https://www.segu-info.com.ar/proyectos/p1_generador-numeros.htm[Generadores de números aleatorios].
+. [[r4]] link:https://msdn.microsoft.com/en-us/library/system.security.cryptography.rngcryptoserviceprovider.aspx[Microsoft, RNGCryptosServiceProvider].

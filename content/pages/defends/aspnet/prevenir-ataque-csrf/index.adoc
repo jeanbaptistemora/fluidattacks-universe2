@@ -1,0 +1,124 @@
+:slug: defends/aspnet/prevenir-ataque-csrf/
+:category: aspnet
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al prevenir los ataques CSRF. La falsificación de peticiones en una página web puede causar graves daños debido a que explotan la confianza de la página en un usuario legítimo.
+:keywords: ASPNET, Seguridad, CSRF, Cross Site Request Forgery, Petición, Buenas Prácticas.
+:defends: yes
+
+= Prevenir ataque CSRF
+
+== Necesidad
+
+Prevenir ataque CSRF.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. La aplicación está construida
+con el lenguaje de programación +ASP.NET+.
+
+== Solución
+
+. Para prevenir la CSRF debe comenzar por seguir algunas reglas:
+
+* Asegúrese de que las solicitudes
+no se puedan reemplazar al hacer clic en un vínculo
+para una solicitud +GET+.
+La especificación de HTTP para las solicitudes +GET+
+da a entender que las solicitudes +GET+
+sólo se deben usar para recuperar datos
+y no para modificar el estado  <<r1, ^[1]^>>.
+
+* Asegúrese de que las solicitudes
+no se puedan reproducir si un atacante usó +JavaScript+
+para imitar una solicitud +POST+ de un formulario.
+
+* Prevenga cualquier tipo de acciones mediante +GET+.
+Por ejemplo, no permita la creación ni la eliminación
+a través de una dirección +URL+.
+Idealmente, estas operaciones debieran requerir
+algún tipo de interacción con el usuario.
+Si bien esto no previene los ataques
+basados en formularios más inteligentes,
+impide un sinnúmero de ataques más fáciles,
+como el que se describió en el ejemplo
+del mensaje de correo electrónico que contiene una imagen,
+además de los vínculos básicos incrustados
+en los sitios comprometidos por +XSS+ <<r2, ^[2]^>> .
+
+. En +Web Forms+ la prevención de los ataques
+es un poco diferente de +ASP.NET MVC+.
+Con +Web Forms+, se puede firmar el atributo +ViewStateMac+,
+lo que entrega protección contra la falsificación,
+siempre y cuando no se establezca +EnableViewStateMac=false+.
+También tendrá que firmar +ViewState+
+con la sesión de usuario actual
+y prevenir que +ViewState+ se pase a la cadena de consulta
+para bloquear lo que algunos llaman
+los ataques de un solo clic,
+como se ve a continuación:
++
+.test.py
+[source,java,linenums]
+----
+void Page_Init(object sender, EventArgs e)
+{
+  if (Session.IsNewSession)
+  {
+    Session["ForceSession"] = DateTime.Now;
+  }
+  this.ViewStateUserKey = Session.SessionID;
+  if (Page.EnableViewState)
+  {
+    if (!string.IsNullOrEmpty(Request.Params["__VIEWSTATE"]) &&
+      string.IsNullOrEmpty(Request.Form["__VIEWSTATE"]))
+    {
+      throw new Exception("Viewstate existed, but not on the form.");
+    }
+  }
+}
+----
+
+* La razón por la que se asigna un valor aleatorio a la sesión
+es para garantizar que se establezca la sesión.
+Puede usar cualquier identificador temporal para la sesión,
+pero el identificador de la sesión +ASP.NET+ cambiará
+con cada solicitud hasta que usted realmente cree una sesión.
+Como aquí no nos sirve un identificador de sesión
+que cambia con cada solicitud,
+tenemos que crear una sesión nueva para fijarlo.
+
+* +ASP.NET MVC+ contiene su propio conjunto
+de métodos auxiliares integrados
+que brindan protección contra los ataques +CSRF+
+que usan +tokens+ únicos que se pasan con la solicitud.
+Estos métodos no solo usan un campo de formulario oculto requerido,
+sino que también el valor de una +cookie+,
+lo que dificulta la falsificación de las solicitudes.
+Estas medidas de protección se pueden implementar fácilmente
+y es absolutamente imprescindible
+que las incorpore en sus aplicaciones.
+Para agregar +@Html.AntiForgery­Token()+
+dentro de +<form>+ en su vista, haga lo siguiente:
++
+[source, java, linenums]
+----
+@using (Html.BeginForm())
+{
+  @Html.AntiForgeryToken();
+  @Html.EditorForModel();
+  <input type="submit" value="Submit" />
+}
+[HttpPost]
+[ValidateAntiForgeryToken()]
+public ActionResult Index(User user)
+{
+  ...
+}
+----
+
+=== Referencias
+
+. [[r1]] link:https://msdn.microsoft.com/es-es/magazine/hh708755.aspx[Protección contra CSRF].
+. [[r2]] link:https://www.owasp.org/index.php/.NET_AntiXSS_Library[Librería Anti-Cross Site Scripting].

@@ -1,0 +1,162 @@
+:slug: defends/aspnet/establecer-opciones-seguras/
+:category: aspnet
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET. Estableciendo buenas prácticas de programación al momento de definir opciones por defecto cuando se utilizan estructuras condicionales.
+:keywords: ASP.NET, Seguridad, Programación, Estructuras, Condicionales, Opción por Defecto.
+:defends: yes
+
+= Establecer condicionales seguros
+
+== Necesidad
+
+Establecer opciones seguras por defecto
+en estructuras condicionales en el lenguaje +ASP.NET+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +ASP.NET+.
+
+== Solución
+
+Cuando se desarrolla una aplicación web,
+de manera frecuente se hace necesario
+el uso de estructuras condicionales
+que sirven para detectar las decisiones del usuario,
+establecer un menú, entre muchas otras aplicaciones.
+Cuando existen muchas opciones o decisiones
+que puede tomar el usuario,
+se crean estructuras condicionales grandes
+las cuales son susceptibles a errores al ingresar opciones no válidas.
+Un atacante puede utilizar ésto para vulnerar la aplicación
+y realizar un daño u obtener información confidencial
+al aprovecharse de las malas prácticas de programación
+presentes en la aplicación.
+
+Debido a lo anterior, es necesario definir
+una opción por defecto
+en todas las estructuras condicionales.
+También es necesario validar las opciones ingresadas por el usuario,
+comparándolas en términos de longitud y formato
+a la opción esperada por la aplicación.
+De esta manera es posible cubrir una mayor cantidad de escenarios
+que pueden afectar negativamente el programa.
+De esta manera es posible crear
+una aplicación más segura y resistente a ataques.
+
+Para el caso de las aplicaciones desarrolladas en +ASPNET+
+las pautas mencionadas anteriormente
+deben aplicarse concretamente
+a las estructuras condicionales +if+ y +switch+.
+Para ello se definen los siguientes criterios:
+
+* Para sentencias +if+, establecer una opción por defecto
+al utilizar su correspondiente +else+ <<r1 , ^[1]^>>.
+
+* Para sentencias +switch+, establecer una opción por defecto
+al utilizar su correspondiente +default+ <<r2, ^[2]^>>.
+
+En el siguiente ejemplo se muestra la forma correcta
+de utilizar las opciones por defecto +else+ y +default+.
+
+. Se empieza validando que exista más de un argumento
+en el momento de llamar al programa:
++
+.Program.java
+[source, java,linenums]
+----
+using System;
+class Program
+{
+    static void Main(string[] args)
+    {
+        if (args.Length < 1)
+        {
+            Console.WriteLine("El programa espera un argumento.");
+        }
+...
+----
+
+. En caso afirmativo, se verifica que el argumento
+tenga solo un carácter:
++
+[source,java,linenums]
+----
+        else if (args[0].Length == 1)
+        {
+...
+----
+
+. En caso afirmativo, se muestra un mensaje
+si se eligió la opción +0+ o la opción +1+.
+En caso de elegitse la opción +2+
+mostrar un mensaje diferente:
++
+[source,java,linenums]
+----
+                default:
+                    Console.WriteLine("La opción ingresada no es válida.");
+                    break;
+            }
+        }
+        else
+        {
+            Console.WriteLine("Se espera como argumento una opción de un solo carácter.");
+        }
+    }
+}
+----
+
+. Se manejan los casos cuando las condiciones anteriores no fueron ciertas.
++
+[source,java,linenums]
+----
+                default:
+                    Console.WriteLine("La opción ingresada no es válida.");
+                    break;
+            }
+        }
+        else
+        {
+            Console.WriteLine("Se espera como argumento una opción de un solo carácter.");
+        }
+    }
+}
+----
+
+. Se compila y ejecuta el programa con diferentes entradas.
+Ésto sirve para comprobar su comportamiento
+ante diferentes tipos de argumentos.
+
+[source,cs,linenums]
+----
+\>csc DefaultOptions.cs
+
+\>DefaultOptions
+El programa espera un argumento.
+
+\>DefaultOptions hola
+Se espera como argumento una opción de un solo carácter.
+
+\>DefaultOptions h
+La opción ingresada no es válida.
+
+\>DefaultOptions 5
+La opción ingresada no es válida.
+
+\>DefaultOptions 0
+Primera opción seleccionada.
+
+\>DefaultOptions 1
+Primera opción seleccionada.
+
+\>DefaultOptions 2
+Segunda opción seleccionada.
+----
+
+== Referencias
+
+. [[r1]] link:https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/if-else[if-else (MSDN)].
+. [[r2]] link:https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/switch[switch (MSDN)].
+. [[r3]] link:../../../rules/161/[REQ.161 Opciones por defecto seguras].

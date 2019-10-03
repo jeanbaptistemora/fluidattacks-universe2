@@ -1,0 +1,161 @@
+:slug: defends/csharp/liberar-recursos/
+:category: csharp
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de recursos dentro de un programa C#, evitando que información disponible en memoria pueda ser capturada por usuarios no autorizados.
+:keywords: Buffer, Liberar, StreamReader, Memoria, Recurso, C#.
+:defends: yes
+
+= Liberar Recursos
+
+== Necesidad
+
+Liberar recursos de forma apropiada.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +C#+ versión +4.0+ o superior.
+. Si se está usando una versión de +C#+ anterior a +4.0+,
+ver link:../../aspnet/liberar-recursos/[Liberación de recursos en +ASP.NET+].
+. El código fuente debe estar implementado de tal forma
+que cierre cualquier recurso
+que se encuentre abierto
+y no esté siendo utilizado.<<r1,^[1]^>>
+
+== Solución
+
+. En primer lugar, se utilizan los espacios de nombre +System+ y +System.IO+,
+para imprimir por la salida estándar del sistema
+y para hacer uso de la clase +StreamReader+:
++
+.resource.cs
+[source, csharp, linenums]
+----
+using System;
+using System.IO;
+----
+
+. Posteriormente, se abre el archivo "+Release.cs+" para ser leído.
+El contenido de dicho archivo
+es simplemente un bloque de código +C#+ de ejemplo,
+el cual imprime un mensaje de saludo
+desde la salida estándar.
+Por otra parte, el uso de +using+
+permite que la instancia de +StreamReader+
+sea liberada al salir del bloque.
+Esto ocurre gracias a que la clase
+cumple con la interfaz +IDisposable+<<r2,^[2]^>>
+al heredar de +TextReader+<<r3,^[3]^>> que la implementa:
++
+[source, csharp, linenums]
+----
+namespace FSG
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                String line;
+                using (StreamReader sr = new StreamReader("Release.cs"))
+                {
+----
+
+. Se lee línea a línea el contenido del archivo
+y se muestra por salida estándar:
++
+[source, csharp, linenums]
+----
+ while ((line = sr.ReadLine()) != null)
+ {
+   Console.WriteLine(line);
+ }
+----
+
+. Por último, también es posible liberar los recursos de manera explícita
+a través del método +StreamReader.Close()+,
+aunque, como ya se dijo,
+este paso no es necesario
+debido al uso de la interfaz +IDisposable+:
++
+[source, csharp, linenums]
+----
+ sr.Close();
+
+}
+----
+
+. En caso de que al archivo no haya podido ser leído,
+por ejemplo si no existía,
+se muestra un mensaje en la salida estándar del sistema:
++
+[source, csharp, linenums]
+----
+}catch (Exception)
+            {
+                Console.WriteLine("File can't be opened");
+            }
+        }
+    }
+}
+----
+
+. Con el fin de ejecutar el anterior programa,
+desde la terminal nos debemos ubicar primero en el directorio del proyecto
+y, en el caso de sistemas basados en +Linux+,
+se debe instalar los comandos +mcs+ y +mono+
+los cuales permiten ejecutar aplicaciones desarrolladas en +C#+ desde +Linux+.
+Ejecutamos el comando +mcs+ seguido del nombre del archivo:
++
+[source, bash, linenums]
+----
+$ ls
+Release.cs resource.cs
+$ mcs resource.cs
+$ ls
+Release.cs  resource.cs  resource.exe
+----
+. Luego de compilar el programa correctamente,
+se obtiene el +bytecode+ (archivo +.exe+) del programa
+y se procede a ejecutar el mismo mediante el comando +mono+:
++
+[source, bash, linenums]
+----
+$ mono resource.exe
+----
+. La salida en consola luego de ejecutar el programa es la siguiente
+(en este caso el contenido del fichero
+es código +C#+ como se mencionó anteriormente):
++
+[source, bash, linenums]
+----
+using System;
+using System.IO;
+
+namespace FSG
+{
+    class Release
+    {
+        static void Main(string[] args)
+        {
+           Console.WriteLine("Hello from Test!");
+        }
+    }
+}
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/resource.cs[Resource.cs]# contiene
+las instrucciones +C#+ anteriores.
+
+== Referencias
+
+. [[r1]] link:../../../rules/167/[REQ.167 Cerrar recursos no utilizados].
+. [[r2]] link:https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-statement[using Statement (C# Reference)].
+. [[r3]] link:https://msdn.microsoft.com/en-us/library/system.io.textreader.aspx[TextReader Class].

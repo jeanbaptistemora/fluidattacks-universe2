@@ -1,0 +1,133 @@
+:slug: defends/linux/limitar-sesiones-concurrente/
+:category: linux
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en Linux al limitar el número de sesiones concurrentes. Los atacantes pueden establecer un gran número de sesiones concurrentes para efectuar un ataque de denegación de servicio.
+:keywords: Linux, Evitar, Sesiones, Concurrentes, Seguridad, Buenas Prácticas.
+:defends: yes
+
+= Limitar Número de Sesiones Concurrentes por Usuario
+
+== Necesidad
+
+Limitar número de sesiones concurrentes por usuario en +Linux+
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se dispone de un servidor con un sistema operativo basado en +Linux+.
+. Las sesiones concurrentes de un sistema
+se deben controlar o informar.<<r1,^[1]^>>
+
+== Solución
+
++GNU/Linux+, también conocido como +Linux+,
+es un sistema operativo libre tipo +Unix+.<<r2,^[2]^>>
+Es decir, es un sistema operativo
+multiplataforma, multiusuario<<r3,^[3]^>> y multitarea.
+El sistema es la combinación de varios proyectos,
+entre los cuales destacan +GNU+
+y el núcleo +Linux+.
+Su desarrollo es uno de los ejemplos más prominentes de software libre.
+Todo su código fuente puede ser utilizado,
+modificado y redistribuido libremente por cualquiera,
+bajo los términos de la +GPL+ (Licencia Pública General de +GNU+)
+y otra serie de licencias libres.
+
+El ser multiusuario implica
+que el sistema operativo permite proveer servicio
+y procesamiento a múltiples usuarios simultáneamente.
+En otras palabras. un sistema multiusuario cumplen simultáneamente
+las necesidades de dos o más usuarios,
+que comparten los mismos recursos.
+
+Entonces, tomando como base dicha caracteristica:
+es posible determinar que un usuario puede tener
+o crear varias sesiones al mismo tiempo.
+Es decir, establecer sesiones concurrentes hacia el sistema.
+
+Se entiende por sesiones concurrentes
+a todas las conexiones simultáneas que existen entre un usuario
+y un sistema específico.
+
+Si bien, poder tener múltiples conexiones hacia un sistema
+puede ser o mejor dicho es ventajoso,
+también es recomendable limitar o controlar
+el número de estas por las siguientes razones:
+
+Se evita la degradación del rendimiento y errores
+provocados en el sistema por parte de los usuarios conectados.
+También se evitan posibles ataques de denegación de servicio.
+Además, evita la falta de trazabilidad
+en el momento de ocurrencia de un incidente de seguridad.
+Por ultimo, previene el consumo excesivo de los recursos
+del sistema provocado por mantener activas
+diferentes sesiones al tiempo.
+
+Para limitar el número de sesiones concurrentes
+por usuario en el sistema operativo
+se deben seguir los siguientes pasos:
+
+. Primero, se debe editar el archivo +/etc/security/limits.conf+
+agregando las siguientes líneas:
++
+.limits.conf
+[source, shell, linenums]
+----
+# /etc/security/limits.conf
+#
+#Cada línea describe los límites para el usuario de la forma:
+#
+#<dominio> <tipo> <ítem> <valor>
+#
+#Donde:
+#<dominio>:
+# - el comodín *, para indicar cualquier usuario
+# - si la restricción aplica para el usuario root,
+# entonces se debe usar literalmente "root"
+#
+#<tipo>:
+# - "hard" para forzar el límite
+#
+#<item>:
+# - maxlogins - número máximo de sesiones por usuario
+#
+#<domain> <type> <item> <value>
+#
+# El valor indica el número de sesiones concurrentes máximas por usuario
+# requeridas por las políticas de seguridad de la organización
+* hard maxlogins 1
+root hard maxlogins 1
+----
+
+. Al realizar una conexión a través de +SSH+^<<r4,[4]>>,<<r5,[5]>>^
+y sobrepasar el número máximo de sesiones concurrentes
+se puede apreciar el siguiente mensaje:
++
+[source, shell, linenums]
+----
+login as: fluidattacks
+fluidattacks@192.168.0.106's password:
+
+Linux FLUIDTools 3.12-kali1-686-pae #1 SMP Debian 3.12.6-2kali1 (2014-01-06) i686
+The programs included with the Kali GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+Kali GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Too many logins for 'fluidattacks'.
+Last login: Tue Mar 18 22:35:38 2014 from 192.168.0.100
+----
+
+. El mensaje anterior indica que el usuario +fluidattacks+
+ha sobrepasado el número de sesiones concurrentes
+el cual fue establecido en 1
+y por tanto, no admite la nueva conexión.
+
+== Referencias
+
+. [[r1]] link:../../../rules/025/[REQ.025 Controlar sesiones concurrentes].
+. [[r2]] link:https://es.wikipedia.org/wiki/GNU/Linux[GNU/Linux].
+. [[r3]] link:https://es.wikipedia.org/wiki/Multiusuario[Multiusuario].
+. [[r4]] link:https://www.hardmaniacos.com/sesiones-remotas-en-linux/[Sesiones remotas en Linux].
+. [[r5]] link:https://inteligenciaux.wordpress.com/2010/09/14/aseguramiento-ssh-linux/[Aseguramiento SSH Linux].

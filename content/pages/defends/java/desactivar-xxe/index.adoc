@@ -1,0 +1,124 @@
+:slug: defends/java/desactivar-xxe/
+:category: java
+:description: Nuestros ethical hackers explican que los documentos XML que usan entidades externas pueden ser vulnerables a un ataque conocido como XXE, por tanto, recomiendan desactivar dicha funcionalidad del interprete XML o usar DocumentBuilderFactory para prevenir el uso de las entidades.
+:keywords: Java, Seguridad, XXE, Ataque, XML, Entidad.
+:defends: yes
+
+= Desactivar Resolución de Entidades Externas XML
+
+== Necesidad
+
+Desactivar resolución de entidades externas +XML+ en +Java+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se utiliza el lenguaje de programación +Java+.
+. Se procesan archivos +XML+.
+
+== Solución
+
++XML+ es un lenguaje similar a +HTML+,
+pero a diferencia de este,
++XML+ no está predefinido,
+esto quiere decir que es necesario definir
+y crear las propias etiquetas,
+eso sí, hay que tener en cuenta
+que se deben cumplir todas las reglas de sintaxis
+creadas para el lenguaje.
+
++XML+ permite el uso de entidades.
+Dichas entidades permiten abreviar
+entradas dentro de un documento +XML+,
+esto quiere decir que,
+gracias a una entidad,
+es posible reducir significativamente
+el tamaño y complejidad de un +XML+.
+
+Existen varios tipos de entidades.
+En este documento nos compete las entidades externas.
+Tales entidades sirven para referenciar
+su contenido o valor desde otros ficheros,
+los cuales pueden ser binarios o de texto.
+
+El problema es que cuando se utilizan entidades externas,
+se está abriendo las puertas
+a un ataque conocido como +XML External Entity+ o +XXE+.
+Este ataque se da cuando un documento +XML+
+hace referencia a una entidad externa
+y dicha entidad no es procesada adecuadamente
+debido a una mala configuración del interprete +XML+.
+Dicho ataque consiste en realizar una inyección
+que permita obtener información de archivos internos del servidor
+o, en el peor de los casos, generar una caída total del servicio.
+
+Debido a lo anterior se recomienda desactivar
+el procesamiento de entidades externas
+lo cual se puede hacer desde el procesador de archivos +XML+ o,
+como en el caso de esta solución,
+usando la clase +DocumentBuilderFactory+ de +Java+.
+Para hacerlo:
+
+. Se deben importar los paquetes necesarios
++
+.DocumentTest.java
+[source, java, linenums]
+----
+import java.io.File;
+import org.w3c.dom.Document;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+----
+
+. Después, en el método +Main+ de la aplicación,
+se debe instanciar una variable de tipo +String+.
+Dicha variable va a contener
+el valor leído desde el documento +XML+.
+Además, también se debe instanciar
+un objeto de tipo +Document+.
++
+[source, java, linenums]
+----
+public class DocumentTest {
+  public static void main(String[] args) {
+    String element = null;
+    Document objDocXML = null;
+----
+
+. Dentro de un bloque +try+,
+es necesario crear el +factory+ de +DocumentBuilder+
+y desactivar la característica
+de procesamiento de entidades externas
+utilizando el método +setFeature+.
++
+[source, java, linenums]
+----
+try {
+   DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+   dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+   DocumentBuilder builder = dbf.newDocumentBuilder();
+----
+
+. Después, se procesa el archivo +XML+
+y se imprime el valor del elemento obtenido.
+Por último se cierra el bloque +try+.
++
+[source, java, linenums]
+----
+objDocXML = builder.parse(new File("input.xml"));
+element = objDocXML.getChildNodes().item(1).getTextContent();
+System.out.println("Element value: " + element);
+}
+catch (Exception e) {}
+----
+
+. De esta manera cuando la aplicación procese
+una entidad externa, se lanzará una excepción
+debido al uso de ésta y no se procesará.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing[XML External Entity (XXE) Processing]
+. [[r2]] link:https://developer.mozilla.org/es/docs/Introducci%C3%B3n_a_XML[Introducción a XML]

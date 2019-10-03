@@ -1,0 +1,204 @@
+:slug: defends/java/controlar-tamano-archivo/
+:category: java
+:description: Nuestros ethical hackers explican la importancia de controlar el tamaño de los archivos subidos por parte de los usuarios a una aplicación web. Además, explican la manera de realizar este control a través de un servlet de Java usando MultipartConfig..
+:keywords: Java, Archivos, Tamaño, Servlets, Formularios, MultipartConfig.
+:defends: yes
+
+= Controlar Tamaño de Archivos
+
+== Necesidad
+
+Controlar el tamaño de los archivos en una aplicación +Java EE+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se desarrolla una aplicación web en +Java+.
+. Se utiliza la especificación de +Java EE 6+.
+. Los archivos deben tener un tamaño máximo definido.<<r1,^[1]^>>
+
+== Solución
+
+Hoy en día y gracias al incremento exponencial del uso de Internet,
+tanto las personas como las empresas
+tienen la opción de buscar y ofrecer infinidad de servicios.
+Como prueba de ello, están las páginas web que permiten compartir,
+entre sus usuarios, todo tipo de contenido
+(imágenes, videos, animaciones, +software+, entre otros).
+Y, puesto que compartir dichos archivos implica,
+por lógica, permitir la subida de los mismos a los servidores
+donde están alojadas las páginas web,
+es absolutamente necesario contar con algún tipo de control
+que límite la cantidad, forma, tamaño
+e incluso el tipo de archivo que se admitirá.
+
+Como se ha mencionado antes,
+una de las formas de controlar los archivos
+que son cargados a un servidor web
+es verificando que los archivos
+no superen determinado tamaño,
+esto con el fin de garantizar entre otras cosas,
+que no se sature la capacidad de almacenamiento del servidor.
+
+Para habilitar la validación del tamaño de archivos en +Java EE+
+se debe tener en cuenta lo siguiente:
+
+. La versión +3.0+ de la especificación +Java Servlet+ <<r2,^[2]^>>
+incluye una nueva clase para facilitar
+el manejo de archivos subidos por formularios web.
+
+. La anotación +javax.servlet.annotation.MultipartConfig+
+se utiliza para indicarle al servidor de aplicaciones
+que el +servlet+ espera peticiones
+en el formato +multipart/form-data+.
+
+. La anotación +MultipartConfig+ soporta
+los siguientes atributos opcionales:
+
+* *+location+:* Una ruta absoluta
+a una carpeta dentro del sistema.
+Esta ubicación es usada para almacenar archivos temporalmente
+mientras se procesan las partes.
+* *+fileSizeThreshold+:* Si el archivo supera este tamaño en +bytes+,
+será temporalmente almacenado en disco.
+El tamaño predeterminado es +0 bytes+.
+* *+MaxFileSize+:* El tamaño máximo de los archivos subidos en +bytes+.
+Si el tamaño del archivo subido es superior a este,
+se arrojará una excepción +IllegalStateException+.
+
+. Creamos un archivo +HTML+ o +JSP+ <<r3,^[3]^>>
+el cual contiene el formulario
+que nos permitirá enviar el archivo al +servlet+.
++
+.formulario.html
+[source, html, linenums]
+----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>File Upload</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <form method="POST" action="upload" enctype="multipart/form-data" >
+      File:
+      <input type="file" name="file" id="file" /> <br/>
+      Destination:
+      <input type="text" value="/tmp" name="destination"/>
+      </br>
+      <input type="submit" value="Upload" name="upload" id="upload" />
+    </form>
+  </body>
+</html>
+----
+
+. En esta solución recibiremos la ruta destino desde el usuario,
+no es una práctica recomendada,
+pero se usa para simplificar el ejemplo.
+
+. En el +servlet+, donde aceptaremos las peticiones,
+agregamos las anotaciones de +WebServlet+ y +MultipartConfig+.
+En nuestro ejemplo el tamaño máximo permitido
+para un archivo será de +5 MB+.
++
+[source, java, linenums]
+----
+@WebServlet(name = "FileUploadServlet", urlPatterns = {"/upload"})
+  @MultipartConfig(location="/tmp", fileSizeThreshold=1024*1024,  maxFileSize=1024*1024*5,
+    maxRequestSize=1024*1024*5*5)
+
+public class FileUploadServlet extends HttpServlet {
+  private final static Logger LOGGER =
+  Logger.getLogger(FileUploadServlet.class.getCanonicalName());
+----
+
+. En el método +processRequest+
+se obtiene la ruta destino para el archivo
+y la parte del archivo desde la petición.
+Luego llama al método +getFileName+,
+para obtener el nombre del archivo.
+Se crea un +FileOutputStream+
+y se copia el archivo a la ruta deseada.
++
+[source, java, linenums]
+----
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+  throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    // Create path components to save the file
+    // path se recibe desde el usuario a modo de ejemplo, no es una práctica recomendable
+    // permitirle al usuario especificar una ruta dentro del servidor
+    final String path = request.getParameter("destination");
+    final Part filePart = request.getPart("file");
+    final String fileName = getFileName(filePart);
+    OutputStream out = null;
+    InputStream filecontent = null;
+    final PrintWriter writer = response.getWriter();
+    try {
+      out = new FileOutputStream(new File(path + File.separator + fileName));
+      filecontent = filePart.getInputStream();
+      int read = 0;
+      final byte[] bytes = new byte[1024];
+      while ((read = filecontent.read(bytes)) != -1) {
+        out.write(bytes, 0, read);
+      }
+      writer.println("New file " + fileName + " created at " + path);
+      LOGGER.log(Level.INFO, "File {0} being uploaded to {1}", new Object[]{fileName, path});
+    }
+  catch (FileNotFoundException fne) {
+      writer.println("You either did not specify a file to upload or are " +
+        "trying to upload a file to a protected or nonexistentlocation.");
+      writer.println("<br/> ERROR: " + fne.getMessage());
+      LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
+        new Object[]{fne.getMessage()});
+    }
+  finally {
+      if (out != null) {
+        out.close();
+      }
+      if (filecontent != null) {
+        filecontent.close();
+      }
+      if (writer != null) {
+        writer.close();
+      }
+    }
+}
+----
+
+. Creamos un nuevo método +getFileName+
+el cual permite obtener el nombre del archivo
+a partir de una de las partes.
++
+[source, java, linenums]
+----
+private String getFileName(final Part part) {
+  final String partHeader = part.getHeader("content-disposition");
+  LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);
+  for (String content : part.getHeader("content-disposition").split(";")) {
+    if (content.trim().startsWith("filename")) {
+      return content.substring(
+      content.indexOf('=') + 1).trim().replace("\"", "");
+    }
+  }
+  return null;
+}
+----
+
+. Cuando se intente subir un archivo mayor de +5 MB+
+obtendremos la siguiente excepción.
++
+[source, shell, linenums]
+----
+Caused by: java.lang.IllegalStateException:
+org.apache.catalina.fileupload.SizeException: The field file exceeds its maximum
+permitted size of 5242880 characters.
+----
+
+== Referencias
+
+. [[r1]] link:../../../rules/039/[REQ.039 Establecer tamaño máximo de archivos].
+. [[r2]] link:https://docs.oracle.com/javaee/6/tutorial/doc/glrbb.html[The Java EE 6 Tutorial].
+. [[r3]] link:http://www.codejava.net/java-ee/servlet/apache-commons-fileupload-example-with-servlet-and-jsp[Apache Commons FileUpload Example with Servlet and JSP].

@@ -1,0 +1,91 @@
+:slug: defends/rpg/liberar-recursos/
+:category: rpg
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la liberación correcta de recursos dentro de un programa desarrollado en RPG, evitando así que información disponible en memoria pueda ser capturada por usuarios no autorizados.
+:keywords: RPG, Recursos, Memoria, Liberar, Seguridad, Tiempo De Vida.
+:defends: yes
+
+= Liberar Recursos
+
+== Necesidad
+
+Liberar recursos en +RPG+
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +RPG+.
+
+. El código fuente debe estar implementado
+de tal forma que cierre cualquier recurso
+que se encuentre abierto y no esté siendo utilizado.<<r1,^[1]^>>
+
+== Solución
+
+Durante la ejecución de un programa
+suelen asignarse diferentes tipos de recursos.
+Es importante que estos recursos sean liberados
+en el momento en que no se requieran,
+ya que el no hacerlo puede generar problemas de disponibilidad.
+Si bien es cierto que el sistema operativo
+se encarga de liberar los recursos
+que estaban asignados a un programa que ha fallado o finalizado,
+algunos programas tienen una vida de duración muy superior
+a la vida de uso de los recursos asignados,
+por lo que es fundamental tener una administración adecuada de los mismos
+que evite cuellos de botella en las demás aplicaciones del sistema.
+
+. A continuación se presentan algunos comandos que son importante considerar,
+y que deben tener un tratamiento de asignación/liberación controlado:
+
+* El comando +ALCOBJ+<<r2,^[2]^>> establece cerrojos
+sobre archivos en estructuras distribuidas,
+los cuales son compartidos en lectura.
+Además, es importante evitar inanición en otros procesos
+que requieran los archivos en +DDM+.
+Para liberar los cerrojos,
+se usa el comando +DLCOBJ+.
+
+* Con +OPEN+<<r3,^[3]^>> se establece una conexión lógica
+entre el servidor fuente
+y los datos en el objetivo.
+El comando +CLOSE+ finaliza la conexión.
+
+* Con la llamada +%Alloc(num)+<<r4,^[4]^>>
+se puede asignar memoria
+para el posterior almacenamiento de datos:
++
+.test.v
+[source, verilog, linenums]
+----
+/FREE
+     pointer = %ALLOC(200);
+/END-FREE
+----
+
+. La llamada a +DEALLOC+<<r5,^[5]^>> permite liberar dicho espacio:
++
+[source, verilog, linenums]
+----
+/FREE
+     dealloc pointer;
+/END-FREE
+----
+
+. Note que en este caso,
++pointer+ se convierte en un apuntador perdido,
+ya que hace referencia a un lugar de memoria que fue liberado.
+
+. La lista anterior no es exhaustiva,
+pero sirve para mostrar el ejemplo de archivos, objetos distribuidos y memoria.
+También es importante considerar las conexiones a bases de datos
+y +sockets+, los semáforos, etc.
+
+== Referencias
+
+. [[r1]] link:../../../rules/167/[REQ.167 Cerrar recursos no utilizados].
+. [[r2]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_i5_54/cl/alcobj.htm[Allocate Object (ALCOBJ)].
+. [[r3]] link:https://www.ibm.com/support/knowledgecenter/SSAE4W_9.6.0/com.ibm.etools.iseries.langref.doc/evferlsh315.htm[OPEN (Open File for Processing)].
+. [[r4]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_71/rzasd/sc092508816.htm[%ALLOC (Allocate Storage)].
+. [[r5]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_72/rzasd/zzdeall.htm[DEALLOC (Free Storage)].

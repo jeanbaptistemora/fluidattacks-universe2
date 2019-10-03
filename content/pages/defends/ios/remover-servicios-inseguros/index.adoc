@@ -1,0 +1,218 @@
+:slug: defends/ios/remover-servicios-inseguros/
+:category: ios
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en IOS 12 al remover servicios inseguros o innecesarios. Los servicios innecesarios suponen una carga adicional para el rendimiento además de constituir una  potencial brecha de seguridad.
+:keywords: IOS 12, CISCO, Seguridad, Deshabilitar, Servicios, Innecesarios.
+:defends: yes
+
+= Remover Servicios Innecesarios o Inseguros
+
+== Necesidad
+
+Línea base de seguridad Cisco - Deshabilitar servicios.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se tiene acceso a un dispositivo Cisco como administrador.
+
+== Solución.
+
+A continuación se describe como mitigar diferentes riesgos relacionados.
+Previo a ejecutar las instrucciones específicas para cada procedimiento,
+se debe ejecutar los siguientes pasos para ingresar al modo de configuración:
+
+. Autenticarse en el dispositivo.
+
+. Ingresar al modo privilegiado por medio del comando +enable+
+e ingresar la contraseña cuando ésta sea solicitada.
+
+. Si se quiere ver la configuración actual,
+ingresar el comando +show running-config+.
+
+. Ingresar al modo de configuración por medio del comando +configure terminal+.
+El usuario deberá ver que el +prompt+ cambia a +Switch (config)#+.
+
+. Después de ingresar los comandos de configuración,
+salir de este modo por medio del comando +exit+.
+
+. Para guardar los cambios y que estos sean aplicados cuando inicie el equipo,
+ejecutar el comando +copy running-configuration startup-configuration+.
+
+En algunos casos, las configuraciones expuestas a continuación
+deshabilitan los servicios para el dispositivo de forma global,
+pero en otros casos las configuraciones únicamente afectan una interfaz.
+Para aplicar las configuraciones a múltiples interfaces
+se recomienda hacer uso de la opción +range+ del comando +interface+.
+A continuación un ejemplo para aplicar la configuración
+a las interfaces +GigabitEthernet+ +6/1+ hasta +6/3+:
+
+.GigabitEthernet settings
+[source, bash, linenums]
+----
+Switch(config)# interface range gigabitethernet 6/1 – 3
+----
+
+=== Deshabilitar small services
+
+Estos son servicios que escuchan en los puertos +7+, +9+, +13+, +19+
+(+echo+, +discard+, +daytime+ y +chargen+).
+Dos de estos servicios, +echo+ y +chargen+,
+pueden ser usados en denegación de servicio.
+
+Para deshabilitar estos servicios, ejecutar los comandos:
+
+[source, bash, linenums]
+----
+Switch(config)# no service tcp-small-servers
+Switch(config)# no service udp-small-servers
+----
+
+=== Bootp Server
+
+Un switch +Cisco+ puede hacer las veces de servidor +bootp+,
+servicio por el cual distribuye imágenes del sistema a otros sistemas +Cisco+.
+Para descativar este servicio ingresamos la siguiente línea:
+
+[source, bash, linenums]
+----
+Switch(config)# no ip bootp server
+----
+
+=== Finger
+
+Este servicio provee información
+acerca de usuarios actualmente activos en el sistema.
+Ambos comandos expuestos a continuación deshabilitan el servicio,
+pero cabe resaltar que el primero remplazará al segundo
+en versiones futuras de +IOS+.
+Desactivamos el servicio mediante el siguiente comando:
+
+[source, bash, linenums]
+----
+Switch(config)# no ip finger
+Switch(config)# no service finger
+----
+
+=== Autocarga de configuración
+
+Un dispositivo +Cisco+ puede obtener su configuración
+desde un servidor en la red.
+No se recomienda hacer uso de esta funcionalidad
+debido a que la información de configuración
+es transmitida en texto plano durante su proceso de inicio (+boot+)
+y puede ser vista por personal no autorizado.
+Hacer uso de los comandos a continuación para deshabilitar esta funcionalidad:
+
+[source, bash, linenums]
+----
+Switch(config)# no service config
+Switch(config)# no boot host
+Switch(config)# no boot network
+Switch(config)# no boot system
+----
+
+=== Address Resolution Protocol (ARP)
+
+Normalmente, los mensajes ARP están limitados
+a un único dominio de +broadcast+,
+pero un switch puede actuar como +proxy+ entre dominios.
+Para deshabilitar esta funcionalidad, hacer uso del comando:
+
+[source, bash, linenums]
+----
+Switch(config-if)# no ip proxy-arp
+----
+
+=== Internet Control Message Protocol (ICMP)
+
+Un switch +Cisco+ puede generar automáticamente
+tres tipos de mensajes +ICMP+: +Host Unreachable+, +Redirect+ y +Mask Reply+.
+Los mensajes +Mask Reply+ entregan la máscara de red
+para una red en particular a quien hace esta petición.
+Para desactivar este servicio ingresamos el siguiente comando:
+
+[source, bash, linenums]
+----
+Switch(config-if)# no ip unreachables
+Switch(config-if)# no ip redirects
+Switch(config-if)# no ip mask-reply
+----
+
+Los +Directed broadcasts+ permite mensajes de +broadcast+ iniciados
+de diferentes dominios de +broadcast+ a los atados localmente al switch.
+Se recomienda que esta funcionalidad sea deshabilitada por medio del comando:
+
+[source, bash, linenums]
+----
+Switch(config-if)# no ip directed-broadcast
+----
+
+=== Hyper Text Transfer Protocol (HTTP)
+
+Es posible administrar dispositivos +Cisco+ a través de una interfaz web.
+Se recomienda restringir la administración a herramientas de línea de comando
+y deshabilitar esta funcionalidad por medio del comando:
+
+[source, bash, linenums]
+----
+Switch(config)# no ip http server
+----
+
+=== SNMP
+
++SNMP+ es un protocolo utilizado para la administración de los equipos de red.
+No se recomienda hacer uso de este protocolo en versiones +1+ y +2+,
+debido a que la comunidad se transmite en texto plano.
+Si no es requerido, se recomienda deshabilitarlo
+por medio de los siguientes comandos:
+
+[source, bash, linenums]
+----
+Switch(config)# no snmp-server community
+Switch(config)# no snmp-server enable traps
+Switch(config)# no snmp-server system-shutdown
+Switch(config)# no snmp-server
+----
+
+=== Cisco Discovery Protocol (CDP)
+
++CDP+ provee la posibilidad para compartir información de sistema
+entre dispositivos Cisco.
+Si esta funcionalidad no es necesaria,
+se recomienda deshabilitarla por medio de los comandos:
+
+[source, bash, linenums]
+----
+Switch(config)# no cdp run
+Switch(config)# no cdp advertise-v2
+Switch(config)# interface range fastethernet 0/1 - 24
+Switch(config-if)# no cdp enable
+----
+
+=== VTP
+
+Virtual Trunking Protocol (+VTP+) simplifica la administración de de +VLANs+
+cuando se despliega un gran número de estas.
+Sin embargo conlleva problemas de seguridad,
+por lo cual se recomienda deshabilitarlo por medio de los siguientes comandos:
+
+[source, bash, linenums]
+----
+Switch(config)# no vtp mode
+Switch(config)# no vtp password
+Switch(config)# no vtp pruning
+----
+
+== Referencias
+
+. [[r1]] link:https://www.cisco.com/c/en/us/td/docs/ios/12_2/security/configuration/guide/fsecur_c.pdf[Cisco IOS Security Configuration Guide, Release 12.2]
+
+. [[r2]] link:https://www.nsa.gov/what-we-do/information-assurance/[Cisco IOS Switch Security Configuration Guide]
+
+. [[r3]] link:../../../rules/266/[REQ.266 Deshabilitar funciones inseguras].
+
+. [[r4]] link:../../../rules/267/[REQ.267 Deshabilitar funciones innecesarias].
+
+. [[r5]] link:../../../rules/275/[REQ.275 Establecer inicio por defecto].

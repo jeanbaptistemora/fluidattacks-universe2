@@ -1,0 +1,156 @@
+:slug: defends/cobol/manejar-errores-aritmeticos/
+:category: cobol
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al manejar adecuadamente los errores en las operaciones aritméticas. Las operaciones aritméticas son susceptibles a eventos excepcionales que pueden filtrar información sensible.
+:keywords: COBOL, Seguridad, Errores, Operaciones, Aritméticas, Información Sensible.
+:defends: yes
+
+= Manejar Errores en Operaciones Aritméticas
+
+== Necesidad
+
+Manejar errores en operaciones aritméticas en +COBOL+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +COBOL+.
+. La aplicación realiza operaciones aritméticas
+con las instrucciones +ADD+, +SUBTRACT+, +MULTIPLY+, +DIVIDE+, o +COMPUTE+.
+. El código sólo debe realizar las funciones
+para las cuales fue diseñado
+y no acciones colaterales<<r1,^[1]^>>.
+. El sistema debe evitar difundir información sensible
+al momento de ocurrir un evento excepcional<<r2,^[2]^>>.
+
+== Solución
+
+. Las operaciones aritméticas pueden causar ciertos tipos de error
+que generalmente resultan en mensajes +MCH+.
+Al usar las instrucciones
++ADD+, +SUBTRACT+, +MULTIPLY+, +DIVIDE+ o +COMPUTE+,
+es posible controlar estos errores
+mediante el uso de la instrucción +ON SIZE ERROR+.
+
+. Las siguientes condiciones son manejadas
+a través de la instrucción +ON SIZE ERROR+:
+
+* La longitud del resultado de la operación aritmética
+es mayor a la longitud del número que lo contiene.
+
+* División por cero.
+
+* Cero elevado a la cero.
+
+* Cero elevado a un número negativo.
+
+* Número negativo elevado a un fraccionario.
+
+* Desbordamiento de números flotantes.
+
+. A continuación podrá evidenciar el uso de la instrucción +ON SIZE ERROR+:
+
+* Se define la división +IDENTIFICATION DIVISION+^<<r3,[3]>>,<<r4,[4]>>^.
++
+.cobolonsz.cbl
+[source, cobol,linenums]
+----
+       IDENTIFICATION DIVISION.
+      ******************
+      * Identification *
+      ******************
+       PROGRAM-ID. COBOLONSZ.
+----
+
+* La división de datos contendrá la variable +W01-TOTALAMOUNT+,
+la cual tiene como propósito
+almacenar el monto total de una persona en el banco
+(note como la longitud del dato es de 6 dígitos).
++
+[source, cobol,linenums]
+----
+      ********
+      * Data *
+      ********
+       DATA DIVISION.
+
+       WORKING-STORAGE SECTION.
+       01 W01-TOTALAMOUNT PIC 9(06) VALUE 0.
+----
+
+* A continuación, se define la división +PROCEDURE DIVISION+<<r5,^[5]^>>
+donde inicia el programa.
++
+[source, cobol,linenums]
+----
+      ********
+      * Main *
+      ********
+       PROCEDURE DIVISION.
+       MAIN.
+----
+
+* Luego se suma el monto total de $500.000, $400.000 y $300.000.
+El resultado es almacenado en +W01-TOTALAMOUNT+
+(Si ocurre una excepción,
++CALC-ERROR+ es el encargado de manejar el problema).
++
+[source, cobol,linenums]
+----
+       ADD 500000 400000 300000 TO W01-TOTALAMOUNT
+       ON SIZE ERROR PERFORM CALC-ERROR.
+----
+
+* Se despliega en pantalla el monto total.
++
+[source, cobol,linenums]
+----
+       DISPLAY W01-TOTALAMOUNT.
+       STOP RUN.
+----
+
+* En esta sección es posible tratar el desbordamiento como un error,
+para el ejemplo mostraremos una advertencia.
++
+[source, cobol,linenums]
+----
+       CALC-ERROR.
+           DISPLAY "Arithmetic overflow".
+           STOP RUN.
+----
+
+* En este caso es mostrada la excepción
+debido a que la suma total del monto ($1.200.000),
+supera la longitud esperada en la variable +W01-TOTALAMOUNT+.
+
+* Se debe redefinir la variable
+con el objetivo de almacenar números más grandes.
++
+[source, cobol,linenums]
+----
+      ********
+      * Data *
+      ********
+       DATA DIVISION.
+
+       WORKING-STORAGE SECTION.
+       01 W01-TOTALAMOUNT PIC 9(63) VALUE 0.
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/cobolonsz.cbl[cobolonsz.cbl]# contiene
+todas las instrucciones +COBOL+ con la variable +W01-TOTALAMOUNT+ redefinida
+(sin desbordamiento).
+
+== Referencias
+
+. [[r1]] link:../../../rules/154/[REQ.154 Eliminar puertas traseras].
+. [[r2]] link:../../../rules/083/[REQ.083 No registrar datos sensibles en bitácoras].
+. [[r3]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[IBM - Identification Division].
+. [[r4]] link:http://www.escobol.com/modules.php?name=Sections&op=viewarticle&artid=11[Identification Division].
+. [[r5]] link:http://www.mainframestechhelp.com/tutorials/cobol/cobol-procedure-division.htm[COBOL Procedure Division].

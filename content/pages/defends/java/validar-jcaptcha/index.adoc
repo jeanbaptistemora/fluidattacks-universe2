@@ -1,0 +1,261 @@
+:slug: defends/java/validar-jcaptcha/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al utilizar Jcaptcha para validar que las acciones realizadas en la aplicación sean realizadas por un humano. La validación Jcaptcha permite un control anti-robot para la aplicación.
+:keywords: Java, Seguridad, Validar, Captcha, Control, Anti-Robot.
+:defends: yes
+
+= Validar JCaptcha
+
+== Necesidad
+
+Validar que las acciones las realiza un humano +Java+
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se dispone de una aplicación +Java+
+conforme con la especificación del lenguaje +1.4.2+ o superior.
+. Se va utilizar, como control anti-robot, el producto +JCaptcha+.
+
+== Solución
+
+. Descargue la librería +jcaptcha-1.0-all.jar+
+que se encuentra contenida en el archivo +jcaptcha-1.0-bin.zip+ ^<<r1,[1]>>^.
+
+. En el archivo +web.xml+ de la aplicación
+se debe especificar el +servlet+
+que se encargará de generar la imagen +captcha+.
+Además, debe realizar la validación del texto introducido por el usuario.
+Para este caso el +servlet+ +com.servlet.identifies.LoginServlet+
+se va a encargar de realizar estas dos funciones.
++
+.LoginServlet.xml
+[source, xml, linenums]
+----
+<servlet>
+  <servlet-name>LoginServlet</servlet-name>
+  <servlet-class>com.servlet.identifies.LoginServlet </servlet-class>
+  <init-param>
+    <param-name>ImageType</param-name>
+    <param-value>PNG</param-value>
+  </init-param>
+  <load-on-startup>0</load-on-startup>
+</servlet>
+<servlet-mapping>
+  <servlet-name>LoginServlet</servlet-name>
+  <url-pattern>/login</url-pattern>
+</servlet-mapping>
+----
+
+. En el código anterior se utiliza el parámetro +ImageType+.
+En él se especifica el tipo de archivo de imagen
+que se va a enviar al usuario.
+
+. Incluir en la forma de ingreso de información
+el campo tipo imagen (elemento +HTML+ +img+),
+el cual desplegará la imagen que se va mostrar al usuario.
+Y el campo +valorCaptcha+,
+que contendrá el texto ingresado por el usuario.
+El texto deberá corresponder con el contenido de la imagen.
++
+[source, html, linenums]
+----
+<html>
+  <body>
+    <form name="Login" action="/servletidentifies/login" method="post">
+      <table border="0" cellspacing="0" cellpadding="3">
+        <tr><td valign="middle">Ingrese el texto mostrado en la imagen: <br/>
+          <!-- Solicitud al servlet mediante el método GET para obtener la imagen -->
+          <img src="/servletidentifies/login" align="middle" alt="Ingrese el texto
+             mostrado en la imagen" border="1"/></td>
+          <td>
+            <!-- Texto ingresado por el usuario -->
+            <input type="text" name="valorCaptcha"/>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" align="right"><input type="submit"
+            value="Submit"/></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+----
+
+. Para generar la imagen +captcha+ se debe utilizar las clases
++ImageCaptchaService+ y +DefaultManageableImageCaptchaService+,
+las cuales están contenidas en el paquete +com.octo.captcha.service.image+.
+Para este caso, la clase que se va a utilizar
+para generar la imagen es +ServicioCaptcha+.
++
+[source, java, linenums]
+----
+package com.servlet.servletidentifies;
+
+import com.octo.captcha.service.image.ImageCaptchaService;
+import com.octo.captcha.service.image.DefaultManageableImageCaptchaService;
+
+public class ServicioCaptcha
+{
+  private static ImageCaptchaService instance = new DefaultManageableImageCaptchaService();
+  public static ImageCaptchaService getInstance()
+  {
+    return instance;
+  }
+}
+----
+
+. Generar la imagen captcha.
+Para este punto se debe utilizar la clase anteriormente creada
+para obtener una referencia de la clase +ImageCaptchaService+,
+la cual, en última instancia, va a ser utilizada
+para generar la imagen +captcha+.
+En esta parte se va a implementar el +servlet+ +LoginServlet+
+que se encarga de generar y desplegar la imagen +captcha+
+como respuesta a una solicitud recibida
+por el método +GET+ del protocolo +HTTP+.
+El método +getImageChallengeForID+ de la clase +getImageChallengeForID+
+se va a emplear para generar la imagen,
+pasándole como parámetro el identificador de sesión,
+el cual va ser utilizado para el proceso de verificación del +captcha+.
++
+[source, java, linenums]
+----
+package com.servlet.servletidentifies;
+
+import com.octo.captcha.service.CaptchaServiceException;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Map;
+import javax.imageio.ImageIO;
+
+public class LoginServlet extends HttpServlet
+{
+  String sImgType = null;
+  public void init( ServletConfig servletConfig ) throws ServletException
+  {
+    super.init( servletConfig );
+    sImgType = servletConfig.getInitParameter( "ImageType" );
+    sImgType = sImgType==null ? "png" : sImgType.trim().toLowerCase();
+    if ( !sImgType.equalsIgnoreCase("png") && !sImgType.equalsIgnoreCase("jpg") &&
+       !sImgType.equalsIgnoreCase("jpeg") )
+    {
+      sImgType = "png";
+    }
+  }
+  protected void doGet( HttpServletRequest request, HttpServletResponse response )
+    throws ServletException, IOException
+  {
+    ByteArrayOutputStream imgOutputStream = new ByteArrayOutputStream();
+    byte[] captchaBytes;
+    try
+    {
+      String identificadorCaptcha = request.getSession().getId();
+      // Generar la imagen captcha en base al identificador especificado
+      BufferedImage challengeImage = ServicioCaptcha.getInstance()
+       .getImageChallengeForID(captchaId, request.getLocale() );
+      ImageIO.write( challengeImage, sImgType, imgOutputStream );
+      captchaBytes = imgOutputStream.toByteArray();
+    }
+    catch( CaptchaServiceException cse )
+    {
+      response.sendError( HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+        "Error generando la imagen captcha" );
+      return;
+    }
+    catch( IOException ioe )
+    {
+       response.sendError( HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+          "Error generando la imagen captcha" );
+       return;
+    }
+    response.setHeader( "Cache-Control", "no-store" );
+    response.setHeader( "Pragma", "no-cache" );
+    response.setDateHeader( "Expires", 0 );
+    response.setContentType( "image/" + (sImgType.equalsIgnoreCase("png") ? "png" : "jpeg"));
+    // Se despliega la imagen al usuario.
+    ServletOutputStream outStream = response.getOutputStream();
+    outStream.write( captchaBytes );
+    outStream.flush();
+    outStream.close();
+  }
+}
+----
+
+. Validar la respuesta ingresada por el usuario.
+Una vez enviado la respuesta del usuario
+mediante el método +POST+ del protocolo +HTTP+ al +servlet+ +LoginServlet+,
+se verifica por medio del método +validateResponseForID+
+de la clase +DefaultManageableImageCaptchaService+
+que la respuesta ingresada corresponda con el contenido de la imagen
+que se mostró al usuario.
++
+[source, java, linenums]
+----
+package com.servlet.servletidentifies;
+
+import com.octo.captcha.service.CaptchaServiceException;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Map;
+import javax.imageio.ImageIO;
+
+public class LoginServlet extends HttpServlet
+{
+  String sImgType = null;
+  public void init( ServletConfig servletConfig ) throws ServletException
+  {
+    ...
+  }
+  protected void doGet( HttpServletRequest request, HttpServletResponse response )
+    throws ServletException, IOException
+    {
+      ...
+    }
+  protected void doPost( HttpServletRequest request, HttpServletResponse response )
+    throws ServletException, IOException
+    {
+      // Se obtienen los parámetros involucrados en la solicitud
+      Map paramMap = request.getParameterMap();
+      String[] valorCaptcha = (String[])paramMap.get( "valorCaptcha" );
+      String sessId = request.getSession().getId();
+      String textoCaptcha = valorCaptcha.length>0 ? valorCaptcha[0] : "";
+      // Se verifica si el texto ingresado por el usuario corresponde con el
+      // contenido mostrado en la imagen
+      boolean estadoCaptcha =ServicioCaptcha.getInstance().validateResponseForID(
+      sessId, textoCaptcha );
+      if (estadoCaptcha)
+      {
+        // Captcha verificado correctamente
+      }
+      else
+      {
+        // Captcha invalido
+      }
+   }
+}
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+[button]#link:src/loginservlet.java[LoginServlet.java]#
+Clase LoginServlet.
+
+== Referencias
+
+. [[r1]] link:https://sourceforge.net/projects/jcaptcha/[JCaptcha Project]
+. [[r2]] link:https://www.owasp.org/index.php/JCaptcha_servlet_example[JCaptcha Servlet Example]
+. [[r3]] link:https://www.owasp.org/index.php/Captchas_en_Java[Captchas in Java]
+. [[r4]] link:../../../rules/123/[REQ.123 Restringir lectura de correos]
+. [[r5]] link:../../../rules/237/[REQ.237 Establecer acciones de usuario seguras]

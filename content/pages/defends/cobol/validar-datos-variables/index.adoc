@@ -1,0 +1,215 @@
+:slug: defends/cobol/validar-datos-variables/
+:category: cobol
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al explicar en detalle cómo se deben validar adecuadamente los diferentes tipos de datos ingresados por el usuario, los cuales pueden provocar un mal funcionamiento del sistema.
+:keywords: Validar, Variables, COBOL, Clase, Datos, SPECIAL-NAMES.
+:defends: yes
+
+= Validar Datos en Variables
+
+== Necesidad
+
+Validar el tipo de dato contenido en una variable en +COBOL+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +COBOL+.
+. Los datos provenientes del usuario deben ser validados.
+. Debe validarse la entrada de información antes de ser usada<<r1,^[1]^>>.
+. Debe validarse la entrada de información en el servidor
+y no sólo en el cliente<<r2,^[2]^>>.
+
+== Solución
+
+. Existen cinco tipos de condiciones simples
+que pueden ser usadas para tomar decisiones,
+una de ellas es la denominada condición de clase,
+con la cual podemos validar que el contenido de las variables
+pertenezcan al tipo de dato deseado
+y que la aplicación manejará.
+
+. "La condición de clase
+determina cuando el contenido de un ítem es alfabético,
+alfabético con minúsculas, alfabético con mayúsculas, numérico
+o si contiene solo caracteres en el conjunto especificado
+en la cláusula +"CLASS"+
+como se define en el parágrafo +SPECIAL-NAMES+
+de la sección +Environment+"<<r3,^[3]^>>.
+
+. Se da inicio a la aplicación definiendo la división +IDENTIFICATION DIVISION+<<r4,^[4]^>>:
++
+.cobolinput.cbl
+[source,cobol,linenums]
+----
+       IDENTIFICATION DIVISION.
+      ******************
+      * Identification *
+      ******************
+       PROGRAM-ID. COBOLINPUT.
+----
+. Definimos la división +ENVIRONMENT DIVISION+<<r5,^[5]^>>:
++
+[source,cobol,linenums]
+----
+      ***************
+      * Environment *
+      ***************
+       ENVIRONMENT DIVISION.
+----
+. En +SPECIAL-NAMES+ declaramos una nueva clase llamada +WS-VALID-CHARSET+,
+la cual se compone de las letras: A, B, C, D, x, y, z, S, T, 9 y espacio.
++
+[source,cobol,linenums]
+----
+       SPECIAL-NAMES.
+           CLASS WS-VALID-CHARSET IS
+               'A' THRU 'D'
+               'x' THRU 'z'
+               'S' 'T' '9' ' '.
+----
+. Dentro de la division +DATA DIVISION+<<r6,^[6]^>>
+definimos la variable +W01-INPUT+ para obtener la entrada del usuario:
++
+[source,cobol,linenums]
+----
+      ********
+      * Data *
+      ********
+       DATA DIVISION.
+
+       WORKING-STORAGE SECTION.
+       01 W01-INPUT PIC X(10).
+----
+. Dentro de la division +PROCEDURE DIVISION+<<r7,^[7]^>>
+obtenemos la entrada del usuario
+y la almacenamos en la variable +W01-INPUT+:
++
+[source,cobol,linenums]
+----
+      ********
+      * Main *
+      ********
+       PROCEDURE DIVISION.
+       MAIN.
+           ACCEPT W01-INPUT.
+----
+. A continuación validamos cada tipo de dato, comenzando con el numérico (0-9):
++
+[source,cobol,linenums]
+----
+       IF W01-INPUT IS NUMERIC
+           DISPLAY "Numeric"
+       ELSE
+           DISPLAY "Not numeric"
+       END-IF.
+----
+. Alfabético (a-z, A-Z):
++
+[source,cobol,linenums]
+----
+       IF W01-INPUT IS ALPHABETIC
+           DISPLAY "Alphabetic"
+       ELSE
+           DISPLAY "Not alphabetic"
+       END-IF.
+----
+. Alfabético con minúsculas (a-z):
++
+[source,cobol,linenums]
+----
+       IF W01-INPUT IS ALPHABETIC-LOWER
+           DISPLAY "Alphabetic lower"
+       ELSE
+           DISPLAY "Not alphabetic lower"
+       END-IF.
+----
+. Alfabético con mayúsculas (A-Z):
++
+[source,cobol,linenums]
+----
+       IF W01-INPUT IS ALPHABETIC-UPPER
+           DISPLAY "Alphabetic upper"
+       ELSE
+           DISPLAY "Not alphabetic upper"
+       END-IF.
+----
+. Clase definida por el usuario (A-D, x-z, S, T, 9, ' '):
++
+[source,cobol,linenums]
+----
+       IF W01-INPUT IS WS-VALID-CHARSET
+           DISPLAY "Charset valid"
+       ELSE
+           DISPLAY "Charset not valid"
+       END-IF.
+
+       STOP RUN.
+----
+. En la siguiente tabla podrá encontrar algunos casos de prueba:
++
+.Salida obtenida luego de ejecutar el programa para diferentes datos de entrada.
+[cols="^,^,^,^,^,^",options="header"]
+|===
+|Entrada
+|Numérico
+|Alfabético
+|Alfabético minus
+|Alfabético mayus
+|Clase personalizada
+
+|0000001234
+|X
+|
+|
+|
+|
+
+|admin
+|
+|X
+|X
+|
+|
+
+|+Fluid Attacks+
+|
+|X
+|
+|X
+|
+
+|ABCD
+|
+|X
+|
+|X
+|X
+
+|AxST BD9
+|
+|
+|
+|
+|X
+
+|===
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/cobolinput.cbl[cobolinput.cbl]# contiene
+la implementación del código depurado anteriormente.
+
+== Referencias
+
+. [[r1]] link:../../../rules/173/[REQ.173 Descartar información insegura].
+. [[r2]] link:https://www.ibm.com/support/knowledgecenter/ssw_i5_54/books/sc092539.pdf[ILE COBOL Reference].
+. [[r3]] link:https://www.ibm.com/support/knowledgecenter/SS4QVT_8.5.1/com.ibm.etools.iseries.langref.doc/c0925395104.htm[SPECIAL-NAMES Paragraph].
+. [[r4]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[Identification Division].
+. [[r5]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_72/rzasb/envcon.htm[Environment Division].
+. [[r6]] link:http://www.escobol.com/modules.php?name=Sections&op=viewarticle&artid=13[Data Division].
+. [[r7]] link:https://www.ibm.com/support/knowledgecenter/SSQ2R2_9.1.1/com.ibm.ent.cbl.zos.doc/PGandLR/ref/rlpds.html[Procedure division structure].

@@ -1,0 +1,137 @@
+:slug: defends/csharp/depurar-programas/
+:category: csharp
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en C Sharp al habilitar los mensajes de depuracion en un ambiente de desarrollo para que estos puedan ser facilmente eliminados al ser desplegada la aplicacion en un ambiente productivo.
+:keywords: C Sharp, Seguridad, Desarrollo, Depuración, Buenas Prácticas, Programación.
+:defends: yes
+
+= Depuración de programas
+
+== Necesidad
+
+Se está desarrollando una aplicación en +C#+ y se deben habilitar los mensajes
+de depuracion en las fases de desarrollo de manera que estos puedan ser
+facilmente deshabilitados en un ambiente de producción.
+
+== Contexto
+
+A continuación se describen las circunstancias bajo las cuales la siguiente
+solución tiene sentido:
+
+. Se está desarrollando una aplicación en +C#+.
+. Los eventos de depuración deben estar habilitados en la fase de desarrollo
+y deshabilitados en un ambiente de producción.
+
+== Solución
+
+. Para que los eventos de depuración funcionen correctamente en la fase de
+desarrollo y puedan ser eliminados fácilmente en la etapa de producción,
+podemos hacer uso de directivas del preprocesador o del uso de clases
+especializadas para la depuración.<<r2,^[2]^>>
+Las directivas del preprocesador ayudaran a que el codigo fuente sea
+facilmente modificado entre diferentes ambientes.
+Para el primer caso, se debe usar los condicionales del preprocesador junto a
+la variable +DEBUG+:
++
+.ejemplo.cs
+[source, csharp, linenums]
+----
+using System;
+class Program
+{
+    static void Main(string[] args)
+    {
+#if DEBUG
+        Console.WriteLine("Using preprocessor");
+#endif
+    }
+}
+----
+
+. Si la variable +DEBUG+ es definida en el momento de compilación, el mensaje
++"Using preprocessor"+ es mostrado en pantalla luego de la ejecución:
++
+[source, bash]
+----
+csc /define:DEBUG /out:Program.exe Program.cs
+Program.exe
+Using preprocessor
+csc /out:Program.exe Program.cs
+Program.exe
+----
+
+. Para el uso de clases especializadas para la depuración se deben importar
+todas las clases relacionadas al nombre de espacio +Diagnostics+ <<r2, ^[2]^>>:
++
+[source, csharp, linenums]
+----
+using System;
+using System.Diagnostics;
+----
+
+. Se define el nombre de la clase y el inicio del programa:
++
+[source, csharp, linenums]
+----
+class Program
+{
+    static void Main(string[] args)
+    {
+----
+
+. Utilizamos el método +WriteLine+ de la clase +Debug+, el cual envía
+el contenido a +listeners+ especializados para la depuración, en el entorno
+integrado de desarrollo de C# los resultados son
+enviados a la pestaña de resultados +(CTRL + ALT + O)+:
++
+[source, csharp, linenums]
+----
+        Debug.WriteLine("Debug line");
+        Debug.WriteLine("Calling method 1");
+        Debug.WriteLine("Calling method 2");
+    }
+}
+----
+
+. Para habilitar este tipo de depuración en un ambiente diferente del ofrecido
+por +Visual Studio+, debe agregarse uno o más +listeners+ que estén pendientes
+de atender los mensajes de depuración.
+Por ejemplo, para hacerlo mediante la salida
+estándar (+stdout+), puede utilizar:
++
+[source, csharp, linenums]
+----
+Debug.Listeners.Clear(); //Solo en caso de que se desee deshabilitar a los demás listeners
+Debug.Listeners.Add(new TextWriterTraceListener(Console.Out));
+----
+
+. Para habilitar este tipo de depuración, el programa debe compilarse indicando
+la directiva de depuración:
++
+[source, bash]
+----
+csc /define:DEBUG /out:Program.exe Program.cs
+Program.exe
+Debug line
+Calling method 1
+Calling method 2
+csc /out:Program.exe Program.cs
+Program.exe
+----
+
+. De esta manera se facilita el cambio entre los diferentes ambientes. Los
+mensajes de depuración podran ser facilmente deshabilitados en ambientes
+productivos y habilitados en ambientes de desarrollo
+donde es necesaria la depuración.
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/program.cs[program.cs]# contiene
+todas las instrucciones +C#+ del programa.
+
+== Referencias
+
+. [[r1]] link:../../../rules/078/[REQ.078 Eventos con severidad deshabilitados].
+. [[r2]] link:http://msdn.microsoft.com/en-us/library/gg145030.aspx[System.Diagnostics Namespaces].

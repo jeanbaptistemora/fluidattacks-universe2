@@ -1,0 +1,219 @@
+:slug: defends/java/registrar-bitacora/
+:category: java
+:description: Nuestros ethical hackers explican que son las bitácoras, porque es importante utilizarlas y cual es la manera adecuada de generar dichos informes en una aplicación Java con el fin de conocer los acontecimientos relevantes que han afectado la ejecución del programa.
+:keywords: Java, Bitácora, Eventos, Seguridad, Log, Análisis.
+:defends: yes
+
+= Registrar Eventos en Bitácoras
+
+== Necesidad
+
+Registrar eventos en las bitácoras de una aplicación +Java+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se dispone de una aplicación +Java+
+conforme con la especificación del lenguaje +1.4.2+ o superior.
+. Se desea minimizar el número de dependencias externas
+de la aplicación (uso de +frameworks+ de +logging+).
+
+== Solución
+
+Una bitácora o +log+ es una grabación secuencial en un archivo
+o en una base de datos de todos los acontecimientos (eventos o acciones)
+que afectan a un proceso particular
+(aplicación, actividad de una red informática, etc.).
+De esta forma constituye una evidencia
+del comportamiento del sistema.<<r1,[1]>>
+
+Generalmente los acontecimientos vienen anotados
+con el momento exacto o +data+ (fecha, hora, minuto, segundo)
+en el que ocurrió, lo que permite analizar paso a paso la actividad.
+Además, una o más categorizaciones del acontecimiento registrado.
+Es frecuente usar categorías distintas
+para distinguir la importancia del acontecimiento
+estableciendo distintos niveles de registro
+los cuales suelen ser: depuración, información, advertencia y error.
+
+El uso de bitácoras puede servir para:
+
+* Análisis forense.
+* Detección de intrusos.
+* Depuración de errores.
+* Motorización.
+* Cumplir con las leyes establecidas.
+* Auditoría.
+
+Por otro lado, los +logs+ pueden contener información confidencial
+que no debe ser revelada por privacidad e incluso seguridad del sistema.
+En estos casos es necesaria proteger la confidencialidad de la información
+haciendo uso de métodos de cifrado y demás.
+
+Cada evento que desea grabarse en la bitácora tiene un nivel.
+Este nivel indica la prioridad o urgencia de dicho evento.
+Los niveles en orden descendente de urgencia son:
+
+* +SEVERE+.
+* +WARNING+.
+* +INFO+.
+* +CONFIG+.
+* +FINE+.
+* +FINER+.
+* +FINEST+.
+
+Adicionalmente, existen niveles con significado
+solo en tiempo de configuración o despliegue,
+y que permiten deshabilitar por completo
+el registro de evento
+o por el contrario,
+habilitar el registro de eventos de todos los niveles.
+
+. El API estándar de bitácoras de +Java+,
+se forma principalmente por el concepto de +logger+.
+Dicho concepto corresponde a un nombre de estructura jerárquica
+similar a la de los paquetes y clases,
+además representa una configuración particular para grabar eventos.
+Así, una clase, paquete o aplicación particular
+puede tener un +logger+ particular
+cuya configuración puede ser cambiada en tiempo de despliegue.
+
+. En el código fuente,
+el objeto +logger+ correspondiente, es obtenido mediante
++
+.logger.java
+[source, java, linenums]
+----
+private static Logger logger = Logger.getLogger("com.FLUIDsignal.FLUIDmeters");
+----
+
+. Para grabar eventos asociados al +logger+ existen dos opciones.
+La primera, mas corta, involucra el nivel del evento
+en el nombre de la función.
++
+[source, java, linenums]
+----
+logger.severe("evento");
+logger.warning("evento");
+logger.info("evento");
+logger.config("evento");
+logger.fine("evento");
+logger.finer("evento");
+logger.finest("evento");
+----
+
+. El segundo involucra el nivel como un parámetro adicional.
++
+[source, java, linenums]
+----
+logger.log(Level.SEVERE, "evento");
+logger.log(Level.WARNING, "evento");
+logger.log(Level.INFO, "evento");
+logger.log(Level.CONFIG, "evento");
+logger.log(Level.FINE, "evento");
+logger.log(Level.FINER, "evento");
+logger.log(Level.FINEST, "evento");
+----
+
+. Se recomienda el uso de la primera opción
+por su mantenibilidad y legibilidad.
+
+. Adicionalmente, para cualquiera de las dos alternativas,
+existen versiones de las funciones
+que reciben como parámetro
+las excepciones generadas en una clausula +try-catch+.
++
+[source, java, linenums]
+----
+logger.warning("evento", e);
+logger.log(Level.WARNING, "evento", e);
+----
+
+. A continuación se presenta un ejemplo
+del uso completo del API de bitácoras en cuestión.
++
+.ejemplo.java
+[source, java, linenums]
+----
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
+public class Main
+{
+  private final static Logger logger = Logger.getLogger(Main.class.getName());
+  public static void main(String argv[])
+  {
+    logger.setLevel(Level.WARNING);
+    logger.warning("Comenzando el main");
+    try
+    {
+      System.out.println("Hola");
+      int i = 0/0;
+    }
+    catch (Exception e)
+    {
+      logger.severe("Problemas dentro del main");
+    }
+    logger.info("No se mostrará por no tener nivel
+      WARNING o superior: Finalizando el main");
+  }
+}
+----
+
+. Se observa la salida.
++
+.salida.shell
+[source, shell, linenums]
+----
+java com.FLUIDsignal.Main
+Nov 21, 2011 9:09:50 AM com.FLUIDsignal.Main main
+WARNING:: Comenzando el main
+Hola
+Nov 21, 2011 9:09:50 AM com.FLUIDsignal.Main main
+SEVERE: Problemas dentro del main
+----
+
+. Hay que notar que sólo los mensajes
+con nivel de depuración de +INFO+ o superiores,
+como es el caso de +SEVERE+, fueron mostrados.
+
+. La configuración de los +loggers+
+se define primero por los valores por defecto
+que se encuentran en +lib/logging.properties+
+en el directorio del +JRE+.
+
+.  Adicionalmente puede definir +loggers+ particulares
+mediante la invocación de la máquina virtual
+con los siguientes parámetros
++
+.logparticular.shell
+[source, shell, linenums]
+----
+java -Djava.util.logging.config.file=mylogging.properties <class>
+----
+Para ambientes de producción
+se recomienda utilizar niveles que contengan
+solo el nivel de detalle necesario
+y que no incluyan eventos de depuración.
+Esta recomendación ayudará a mantener
+el rendimiento de la aplicación
+y el tamaño de las bitácoras en valores apropiados.
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+[button]#link:src/main.java[Main.java]#
+Clase Main.
+
+== Referencias
+
+. [[r1]] link:https://es.wikipedia.org/wiki/Log_(inform%C3%A1tica)[Log (informática)]
+. [[r2]] link:https://docs.oracle.com/javase/7/docs/api/java/util/logging/Level.html[Class Level]
+. [[r3]] link:https://docs.oracle.com/javase/7/docs/technotes/guides/logging/overview.html[Java Logging Overview]
+. [[r4]] link:https://examples.javacodegeeks.com/core-java/util/logging/java-util-logging-example/[java.util.logging Example]
+. [[r5]] link:../../../rules/075/[REQ.075 Registrar eventos en bitácoras]
+. [[r6]] link:../../../rules/078/[REQ.078 Eventos con severidad deshabilitados]

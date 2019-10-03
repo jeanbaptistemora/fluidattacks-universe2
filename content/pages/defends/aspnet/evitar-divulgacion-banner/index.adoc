@@ -1,0 +1,211 @@
+:slug: defends/aspnet/evitar-divulgacion-banner/
+:category: aspnet
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al evitar la divulgación de información. El banner grabbing es un método de obtención de información donde el atacante puede conocer la infraestructura detrás de una aplicación.
+:keywords: ASPNET, Seguridad, Evitar, Divulgación, Banner, Buenas Prácticas.
+:defends: yes
+
+= Evitar divulgación de banner
+
+== Necesidad
+
+Se requiere impedir que el servicio
+envíe en sus cabeceras +HTTP+
+la versión de +ASP.NET+ con la que está programada el sistema.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se tiene una aplicación que corre
+sobre +ASP.NET+ versión 2
+. Se tienen permisos para modificar
+el código fuente de la aplicación.
+
+== Solución
+
+. Para evitar este comportamiento,
+es necesario establecer en +false+
+el valor del atributo +enableVersionHeader+
+del elemento +httpRuntime+ <<r1, ^[1]^>>.
++
+.test.py
+[source, xml, linenums]
+----
+<httpRuntime
+   executionTimeout = "HH:MM:SS"
+   maxRequestLength = "number"
+   requestLengthDiskThreshold = "number"
+   useFullyQualifiedRedirectUrl = "[True|False]"
+   minFreeThreads = "number"
+   minLocalRequestFreeThreads = "number"
+   appRequestQueueLimit = "number"
+   enableKernelOutputCache = "[True|False]"
+   enableVersionHeader = "[True|False]"
+   apartmentThreading = "[True|False]"
+   requireRootedSaveAsPath = "[True|False]"
+   enable = "[True|False]"
+   sendCacheControlHeader = "[True|False]"
+   shutdownTimeout = "HH:MM:SS"
+   delayNotificationTimeout = "HH:MM:SS"
+   waitChangeNotification = "number"
+   maxWaitChangeNotification = "number"
+   enableHeaderChecking = "[True|False]"
+/>
+----
+
+. En la siguiente tabla
+se describen los atributos del elemento +httpRuntime+ <<r2, ^[2]^>>:
++
+|===
+|*Atributo*|*Descripción*
+
+|+apartmentThreading+
+|Atributo +Boolean+ opcional.
+Habilita los subprocesos de apartamento
+para la compatibilidad con ASP clásica.
+
+|+appRequestQueueLimit+
+|Atributo Int32 opcional.
+Especifica el número máximo de solicitudes
+que +ASP.NET+ coloca en la cola de la aplicación.
+Las solicitudes entrantes se rechazarán
+con el mensaje de error +"503 - Server Too Busy"+
+(servidor ocupado).
+Cuando la cola supere el límite
+especificado en este atributo.
+
+|+delayNotificationTimeout+
+|Atributo +TimeSpan+ opcional.
+Especifica el tiempo de espera para retrasar las notificaciones.
+
+
+|+enable+
+|Atributo Boolean opcional.
+Especifica si el dominio de aplicación
+está habilitado para aceptar las solicitudes entrantes
+en el nodo actual y en los nodos secundarios.
+Si su valor es +False+,
+la aplicación está desactivada.
+
+|+enableHeaderChecking+
+|Atributo Boolean opcional.
+Especifica si +ASP.NET+ debe comprobar
+si el encabezado de la solicitud
+sufre posibles ataques de inyección.
+Si se detecta un ataque,
++ASP.NET+ responde con un error.
+
+|+enableKernelOutputCache+
+|Atributo +Boolean+ opcional.
+Especifica si está habilitado
+el almacenamiento en la caché de resultados.
+ La configuración del almacenamiento en la caché de resultados
+y el tipo de solicitud
+determinan si el contenido puede almacenarse en caché.
+
+|+enableVersionHeader+
+|Atributo +Boolean+ opcional.
+Especifica si +ASP.NET+ debe generar
+un encabezado de versión.
++Microsoft Visual Studio+ 2005 usa este atributo
+para determinar qué versión de +ASP.NET+ se está utilizando.
+No es necesario para los sitios de producción
+y se puede deshabilitar.
+
+|+executionTimeout+
+|Atributo +TimeSpan+ opcional.
+Especifica, en segundos, el tiempo máximo
+durante el cual una solicitud puede ejecutarse
+antes de que +ASP.NET+ la cierre automáticamente.
+Para evitar que la aplicación
+se cierre durante la depuración,
+no establezca este tiempo de espera en un valor alto.
+
+|+minFreeThreads+
+|Atributo +Int32+ opcional.
+ Especifica, en KB, el límite del umbral
+ del almacenamiento en búfer
+ de las secuencias de entrada.
+ Este límite puede usarse
+ para los ataques de denegación de servicio que se producen,
+ por ejemplo, cuando los usuarios
+ envían archivos de gran tamaño al servidor.
+
+|+minLocalRequestFreeThreads+
+|Atributo +Int32+ opcional.
+Especifica el número mínimo de subprocesos libres
+que +ASP.NET+ mantiene disponibles
+para permitir la ejecución de nuevas solicitudes locales.
+Esto ayuda a evitar un posible interbloqueo
+con reentrada recursiva en el servidor Web.
+
+|+requestLengthDiskThreshold+
+|Atributo +Int32+ opcional.
+Especifica, en bytes, el límite del umbral
+del almacenamiento en búfer de las secuencias de entrada.
+Este valor no debe sobrepasar
+el valor del atributo +maxRequestLength+.
+
+
+|+requireRootedSaveAsPath+
+|Atributo +Boolean+ opcional.
+Especifica si el parámetro +filename+
+de un método +SaveAs+ debe ser una ruta de acceso absoluta.
+El proceso de +ASP.NET+ debe tener permiso
+para crear archivos en la ubicación especificada.
+
+|+sendCacheControlHeader+
+|Atributo +Boolean+ opcional.
+Especifica si se envía un encabezado de control de caché.
+Su valor se establece en Private de manera predeterminada.
+Si su valor es +True+,
+estará desactivado el almacenamiento en caché en el cliente.
+
+|+shutdownTimeout+
+|Atributo +TimeSpan+ opcional.
+Especifica el número de minutos que se conceden
+al proceso de trabajo para que se cierre por sí mismo.
+Una vez transcurrido este plazo,
++ASP.NET+ cierra el proceso de trabajo.
+
+|+useFullyQualifiedRedirectUrl+
+|Atributo +Boolean+ opcional.
+Especifica si las redirecciones en el cliente son completas
+con el formato +"http://servidor/ruta de acceso"+,
+lo cual es necesario para algunos controles móviles.
+Si su valor es +True+,
+todas las redirecciones incompletas
+se convierten automáticamente en direcciones completas.
+
+|+waitChangeNotification+
+|Atributo +Int32+ opcional.
+Especifica el tiempo, en segundos,
+que se debe esperar hasta otra notificación de cambios
+del archivo antes de reiniciar +AppDomain+.
+|===
+
+. En el siguiente ejemplo se muestra
+cómo especificar los parámetros +HTTP+
+del motor en tiempo de ejecución
+para una aplicación +ASP.NET+:
++
+[source, xml, linenums]
+----
+<configuration>
+  <system.web>
+  <httpRuntime maxRequestLength="4000"
+    enable = "True"
+    idleTimeOut = "15"
+    requestLengthDiskThreshold="512
+    useFullyQualifiedRedirectUrl="True"
+    executionTimeout="45"
+    enableVersionHeader = "False"
+  </system.web>
+</configuration>
+----
+
+== Referencias
+
+. [[r1]] link:https://msdn.microsoft.com/en-us/library/system.web.configuration.httpruntimesection.enableversionheader(v=vs.110).aspx[enableVersionHeader Property]
+. [[r2]] link:https://msdn.microsoft.com/es-es/library/[Microsoft, Catalogo de Referencia y API]

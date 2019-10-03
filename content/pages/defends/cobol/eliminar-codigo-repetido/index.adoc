@@ -1,0 +1,128 @@
+:slug: defends/cobol/eliminar-codigo-repetido/
+:category: cobol
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al eliminar el código repetido. Las buenas prácticas de programación contribuyen enormemente a desarrollar aplicaciones y servicios computacionalmente seguros.
+:keywords: Cobol, Programación, Buenas Prácticas, Eliminar, Código, Repetido.
+:defends: yes
+
+= Eliminar Código Repetido
+
+== Necesidad
+
+Eliminar código repetido en +COBOL+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +COBOL+.
+. El código no debe repetirse<<r1,^[1]^>>.
+
+== Solución
+
+. Para eliminar código repetido a través de la aplicación,
+use la sentencia +COPY+ en cualquier división del programa
+y en cualquier nivel de secuencia,
+con el fin incluir código almacenado en el programa.
+Es posible anidar sentencias +COPY+
+a cualquier nivel de profundidad.
+
+. Para especificar más de una biblioteca fuente,
+use múltiples definiciones del sistema
+o la combinación de múltiples definiciones
+y la palabra reservada +IN/OF+ (+IN/OF+ nombre biblioteca)<<r2,^[2]^>>:
+
+* +z/OS batch:+ Use +JCL+
+para concatenar conjuntos de datos en la sentencia +SYSLIB DD+.
+De forma alternativa, utilice múltiples sentencias +DD+
+y use +IN/OF+ de la sentencia +COPY+.
+
+* +TSO:+ Use la sentencia +ALLOCATE+ para
+concatenar conjuntos de datos para +SYSLIB+.
+De forma alternativa, utilice múltiples sentencias +ALLOCATE+
+y use +IN/OF+ de la sentencia +COPY+.
+
+* +UNIX:+ Use la variable de entorno +SYSLIB+ para
+definir múltiples rutas hacia los +copybooks+.
+De forma alternativa, utilice múltiples variables de entorno
+y use +IN/OF+ de la sentencia +COPY+.
+
+. Por ejemplo, si usted omite la palabra reservada +OF+,
+la biblioteca por defecto es +SYSLIB:+
++
+[source,cobol,linenums]
+----
+       COPY MEMBER1 OF COPYLIB
+----
+
+. Para que las líneas del código almacenado
+sean tratadas como líneas de depuración, por ejemplo,
+como si tuviera una "D" insertada en la columna 7,
+ponga la D en la primera línea de la sentencia +COPY+<<r3,^[3]^>>
+(Resaltar que la depuración
+debe ser deshabilitada en servidores en producción):
++
+[source,cobol,linenums]
+----
+      DCOPY MEMBER1 OF COPYLIB
+----
+. La instrucción +COPY+ no puede ser depurada
+(es una instrucción tratada en tiempo de compilación),
+si el código contiene una "D" en la columna 7
+y el modo +WITH DEBUGGING+<<r4,^[4]^>>
+en la división +ENVIRONMENT DIVISION+ no está especificado,
+la sentencia +COPY+ nunca será procesada.
+
+. En el siguiente ejemplo puede encontrar el programa usado para
+depurar las líneas del código almacenado:
++
+.cobolcopyd.cbl
+[source,cobol,linenums]
+----
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. COBOLCOPYD.
+----
+. Por lo tanto, es importante definir el modo +WITH DEBUGGING+
+de la división +ENVIRONMENT DIVISION+:
++
+[source,cobol,linenums]
+----
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       SOURCE-COMPUTER. IBM-ISERIES WITH DEBUGGING MODE.
+----
+. En la división +DATA DIVISION+,
+usamos la sentencia +COPY+ para
+copiar el código almacenado y contenido en +QSYSINC-QCBLLESRC+
+(Copia la estructura para códigos de error):
++
+[source,cobol,linenums]
+----
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+      DCOPY QUSEC OF QSYSINC-QCBLLESRC.
+----
+. Se muestra el valor por defecto de la variable +BYTES-PROVIDED:+
++
+[source,cobol,linenums]
+----
+       PROCEDURE DIVISION.
+       MAIN.
+           DISPLAY BYTES-PROVIDED OF QUS-EC.
+           STOP RUN.
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/cobolcopyd.cbl[cobolcopyd.cbl]# contiene
+todas las instrucciones +COBOL+ del programa.
+
+== Referencias
+
+. [[r1]] link:../../../rules/162/[REQ.162 Eliminar código redundante].
+. [[r2]] link:https://www.ibm.com/support/knowledgecenter/SSAE4W_9.0.0/com.ibm.etools.iseries.langref.doc/c0925395663.htm[COPY Statement - Format 1].
+. [[r3]] link:https://www.ibm.com/support/knowledgecenter/SSQ2R2_9.5.1/com.ibm.etools.cbl.win.doc/topics/rlcdscop.htm[COPY statement].
+. [[r4]] link:https://www.ibm.com/support/knowledgecenter/SSAE4W_9.0.0/com.ibm.etools.iseries.langref.doc/c0925395102.htm[WITH DEBUGGING MODE Clause].

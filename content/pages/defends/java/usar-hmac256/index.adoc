@@ -1,0 +1,133 @@
+:slug: defends/java/usar-hmac256/
+:category: java
+:description: Nuestros ethical hackers explican en que consiste el código de autenticación de mensajes en clave hmac y las funciones hash criptográficas y como pueden ser combinadas con el fin de generar el algoritmo hmac256 el cual es usado para generar resúmenes criptográficos seguros.
+:keywords: Java, Seguridad, HMAC, SHA256, Criptografía, Algoritmo.
+:defends: yes
+
+= Usar HMAC-SHA256
+
+== Necesidad
+
+Generar el resumen criptográfico de una información
+mediante el uso del algoritmo +HMAC-SHA256+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se dispone de un compilador estándar de +Java+.
+
+== Solución
+
++HMAC+ o código de autenticación de mensajes en clave +hash+,
+fue diseñado con el fin de calcular un código +MAC+
+(+Message authentication code+. Es decir,
+una porción de información utilizada para calcular un mensaje),
+haciendo uso de una función +hash+ criptográfica
+y una llave secreta.
+Por lo tanto, se intuye que la fuerza criptográfica del +HMAC+
+depende directamente de la potencia criptográfica
+de la función de +hash+ subyacente,
+el tamaño de su salida de +hash+
+y el tamaño y calidad de la llave.
+
+Por otro lado, una función +hash+ criptográfica
+es un algoritmo matemático
+que transforma un bloque de información
+en una serie de caracteres con longitud fija,
+dicha información puede ser un fichero de texto,
+una imagen o, incluso, un archivo ejecutable.
+Sin importar el tamaño del bloque de información,
+y dependiendo de la función hash elegida,
+el valor cifrado tendrá siempre la misma longitud.
+
+Un ejemplo de este tipo de función criptográfica es +SHA256+
+cuyo tamaño de salida del valor cifrado equivale a +256 bits+.
+Entonces, al hacer uso del código de autenticación +HMAC+
+en compañía de la función +SHA256+ (+HMAC-SHA256+),
+se obtiene un algoritmo de cifrado
+bastante potente a la hora de generar resúmenes criptográficos.
+
+. En +Java+, con el fin de generar un resumen criptográfico
+usando +HMAC-SHA256+ es necesario importar las siguientes clases
++
+.cli.java
+[source, java, linenums]
+----
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.Mac;
+----
+
+. Una vez importadas las clases,
+y con el fin de generar la clave secreta,
+se debe invocar el método estático
++getInstance+ de la clase +KeyGenerator+
++
+[source, java, linenums]
+----
+class CLI {
+  public static void main(String[] args) throws Exception {
+    String algorithm = "HmacSHA256";
+    KeyGenerator kg = KeyGenerator.getInstance(algorithm);
+    SecretKey key = kg.generateKey();
+----
+
+. Para utilizar una instancia del algoritmo +HMAC-SHA256+
+es necesario utilizar el método estático +getInstance+
+de la clase +Mac+,
+pasándole como parámetro el nombre del algoritmo a ser empleado.
++
+[source, java, linenums]
+----
+Mac mac = Mac.getInstance(algorithm);
+mac.init(key);
+----
+
+. Con el fin de obtener el +hash+ del contenido
+de la variable +message+,
+se debe invocar el método +doFinal+ de la clase +Mac+.
++
+[source, java, linenums]
+----
+String message = "This is the message";
+byte[] tag = mac.doFinal(message.getBytes());
+----
+
+. Finalmente se imprimen los resultados
+de cuando se cifra y descifra el texto.
++
+[source, java, linenums]
+----
+  System.out.println("Text: " + message);
+  String encodedTag = javax.xml.bind.DatatypeConverter.printBase64Binary(tag);
+  System.out.println(algorithm + ": " + encodedTag);
+ }
+}
+----
+
+. Compilamos y ejecutamos
++
+.compile.bash
+[source, bash, linenums]
+----
+$ javac CLI.java
+$ java CLI
+mensaje: This is the message
+HmacSHA256: NmMyZDQ4YWI4YTJkZj/BkYzkxMjU4YzRkOWQwMzMyYzkzM+jAzM2FhM2FjYmU3YjI5ZWZkNzMyYjNmYWUxMjFjNg==
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+[button]#link:src/cli.java[CLI.java]#
+Clase CLI.
+
+== Referencias
+
+. [[r1]] link:https://tools.ietf.org/html/rfc2104[HMAC: Keyed-Hashing for Message Authentication]
+. [[r2]] link:https://tools.ietf.org/html/rfc4634[US Secure Hash Algorithms (SHA and HMAC-SHA)]
+. [[r3]] link:https://www.jokecamp.com/blog/examples-of-creating-base64-hashes-using-hmac-sha256-in-different-languages/#java[Examples of creating base64 hashes using HMAC SHA256]

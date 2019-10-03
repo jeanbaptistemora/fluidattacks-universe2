@@ -1,0 +1,169 @@
+:slug: defends/csharp/evitar-codigo-duplicado/
+:category: csharp
+:description: Nuestros ethical hackers explican cómo evitar caer en la mala practica de programación que consiste el código fuente duplicado, en los desarrollos utilizando la centralización del manejo de excepciones como ejemplo de la reutilización de código.
+:keywords: C Sharp, Buenas Prácticas, Código, Duplicado, Excepciones, Depuración.
+:defends: yes
+
+= Evitar código fuente duplicado
+
+== Necesidad
+
+Evitar código fuente duplicado en +C#+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +C#+.
+. Se desea evitar código fuente duplicado en la aplicación.<<r1,^[1]^>>
+
+== Solución
+
+. Es común encontrar código duplicado en diferentes tipos de aplicaciones,
+esta duplicación representa trabajo, riesgo y complejidad adicional,
+por lo que evitar duplicar código fuente
+es importante para mantener la seguridad de la aplicación.<<r2,^[2]^>>
+
+. Declaramos la nueva clase y una constante para depurar los mensajes:
++
+.ejemplo.cs
+[source, csharp, linenums]
+----
+class Reuse {
+  private static bool DEBUG = true;
+----
+
+. El método main llama a dos métodos que generan errores,
+estos errores son imprimidos en pantalla
+si la constante de depuración tiene el valor verdadero:
++
+[source, csharp, linenums]
+----
+  static void Main(string[] args) {
+    divisionPorCero();
+    integerParseInt();
+  }
+----
+
+. El primer método arroja un error de división por cero,
+vemos que los mensajes de error son imprimidos
+a través de la salida estándar,
+con la causa y el mensaje de excepción:
++
+[source, csharp, linenums]
+----
+  public static void divisionPorCero() {
+    try {
+        int x = 4;
+        int y = x;
+        Console.WriteLine("Resultado: "+(22/(x-y)));
+      } catch (Exception e) {
+      if (DEBUG) {
+        Console.Error.WriteLine("Error");
+        Console.Error.WriteLine("Causa "+e.Source+" "+e.Message);
+      }
+    }
+  }
+----
+
+. Igualmente se define un segundo método
+que arroja la excepción la clase +Integer+.
+En el cual termina el programa:
++
+[source, csharp, linenums]
+----
+  public static void integerParseInt() {
+    try {
+      Console.WriteLine("Resultado: " + int.Parse("Fluid Attacks"));
+    }
+    catch (Exception e) {
+      if (DEBUG) {
+        Console.Error.WriteLine("Error");
+        Console.Error.WriteLine("Causa " + e.Source + " " + e.Message);
+      }
+    }
+  }
+----
+
+. El error consiste en duplicar el código, si las clases siguen creciendo
+y se continua la metodología de duplicar el código,
+cambios futuros en la aplicación como eliminar el mensaje causa,
+filtrar ciertas palabras de las excepciones, entre otros,
+pueden llegar a causar una fuga de información.<<r3,^[3]^>>
+Si los mensajes de error son manejados de forma centralizada,
+el cambio se hace únicamente en un lugar,
+por lo que a un crecimiento futuro
+no representaría riesgo de fuga de información.
+Para evitar duplicar código
+se debe abstraer las llamadas en común a un nuevo método.
+Declaramos la nueva clase y una constante para depurar los mensajes:
++
+[source, csharp, linenums]
+----
+class Reuse {
+  private static bool DEBUG = true;
+----
+
+. El método main llama a dos métodos que generan errores,
+estos errores son imprimidos en pantalla
+si la constante de depuración tiene el valor verdadero:
++
+[source, csharp, linenums]
+----
+  static void Main(string[] args) {
+    divisionPorCero();
+    integerParseInt();
+  }
+----
+
+. El método +showError+ se encargará de ahora en adelante
+de manejar los mensajes de error.
+Un cambio en este método se ve reflejado en todas sus demás llamadas:
++
+[source, csharp, linenums]
+----
+  public static void showError(Exception e) {
+    if (DEBUG){
+      Console.Error.WriteLine("Error");
+      Console.Error.WriteLine("Causa " + e.Source + " " + e.Message);
+    }
+  }
+----
+
+. Ahora los dos métodos llaman al método +showError+:
++
+[source, csharp, linenums]
+----
+  public static void divisionPorCero() {
+    try {
+      int x = 4;
+      int y = x;
+      Console.WriteLine("Resultado: "+(22/(x-y)));
+    } catch (Exception e) {
+      showError(e);
+    }
+  }
+  public static void integerParseInt() {
+    try {
+      Console.WriteLine("Resultado: " + int.Parse("Fluid Attacks"));
+    }
+    catch (Exception e) {
+      showError(e);
+    }
+  }
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/ejemplo.cs[ejemplo.cs]# contiene
+todas las instrucciones +C#+ del programa.
+
+== Referencias
+
+. [[r1]] link:../../../rules/162/[REQ.162 Eliminar código redundante].
+. [[r2]] link:http://www.informit.com/articles/article.aspx?p=457502&seqNum=5[The Bad Code Spotter's Guide, Repetition].
+. [[r3]] link:https://www.amazon.com/Clean-Coder-Conduct-Professional-Programmers/dp/0137081073/ref=ntt_at_ep_dpt_2[The Clean Coder: A Code of Conduct for Professional Programmers].

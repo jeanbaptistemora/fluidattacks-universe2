@@ -1,0 +1,285 @@
+:slug: defends/cobol/prevenir-sqli-sentencias/
+:category: cobol
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al evitar que un intruso pueda realizar ataques de inyección sql para acceder a información relevante almacenada en la base de datos.
+:keywords: COBOL, Sentencias Parametrizadas, Sentencias Estáticas, Inyección SQL, Vulnerabilidad, Seguridad.
+:defends: yes
+
+= Prevenir SQLi Mediante Sentencias Parametrizadas
+
+== Necesidad
+
+Prevenir +SQL Injection+ a través del uso de sentencias parametrizadas
+y sentencias estáticas en +COBOL+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +COBOL+.
+. La aplicación hace uso de +SQL+
+en combinación con datos que pueden ser establecidos por el usuario.
+. Debe validarse la entrada de información antes de ser usada<<r1,^[1]^>>.
+
+== Solución
+
+. El uso de sentencias dinámicas en las aplicaciones
+pueden generar problemas de seguridad,
+y más cuando el usuario
+es quien ha establecido los valores que se usan en la sentencia.
+Se creará una aplicación en +COBOL+ vulnerable a inyección de +SQL+
+haciendo uso de construcciones dinámicas.
+
+. La siguiente tabla representa los datos almacenados en la tabla +SQLTEST+:
++
+.Datos de la tabla +SQLTEST+.
+[options="header"]
+|===
+|USUARIO |CONTRASEÑA
+
+|+admin+
+|+123456Abcd$+
+
+|+test+
+|+test+
+
+|+FLUIDsignal+
+|+FLUIDsignalgroup2012+
+
+|===
+. Se da inicio al programa mediante la división +IDENTIFICATION DIVISION+<<r2,^[2]^>>:
++
+.cobolsql.cob
+[source,cobol,linenums]
+----
+       IDENTIFICATION DIVISION.
+      ******************
+      * Identification *
+      ******************
+       PROGRAM-ID. COBOLSQL.
+----
+. La división +DATA DIVISION+<<r3,^[3]^>> contiene las variables a usar:
+
+* +W01-USERNAME:+ es el nombre de usuario recibido desde la entrada estándar.
+* +W02-PASSWORD:+ es la contraseña del usuario obtenida
+a partir de la sentencia dinámica.
+* +W03-SQLCMD:+ contiene la sentencia dinámica.
+
++
+[source,cobol,linenums]
+----
+      ********
+      * Data *
+      ********
+       DATA DIVISION.
+
+       WORKING-STORAGE SECTION.
+       01 W01-USERNAME PIC X(64) VALUE "".
+       01 W02-PASSWORD PIC X(64) VALUE "".
+       01 W03-SQLCMD   PIC X(128) VALUE "".
+----
+. Se copia la estructura de datos +SQLCA+,
+la cual contiene las variables necesarias
+para el manejo de errores en las sentencias +SQL+:
++
+[source,cobol,linenums]
+----
+       COPY SQLCA OF QSYSINC-QCBLLESRC.
+----
+. Dentro de la división +PROCEDURE DIVISION+<<r4,^[4]^>>
+se obtiene el nombre del usuario desde la entrada estándar
+y se lo almacena en la variable +W01-USERNAME+:
++
+[source,cobol,linenums]
+----
+      ********
+      * Main *
+      ********
+       PROCEDURE DIVISION.
+       MAIN.
+           DISPLAY "Username: ".
+           ACCEPT W01-USERNAME.
+----
+. El propósito de la sentencia dinámica
+es obtener la contraseña para el usuario ingresado:
++
+[source,sql,linenums]
+----
+SELECT contrasenia FROM SQLTEST WHERE usuario = "user_input"
+----
+. Concatenamos parte de la sentencia
+con el nombre del usuario recibido de la entrada estándar,
+en este punto es donde se activa la vulnerabilidad
+al no manejar un filtro adecuado:
++
+[source,cobol,linenums]
+----
+       STRING "SELECT contrasenia" SPACE
+              "FROM SQLTEST" SPACE
+              "WHERE usuario = """ W01-USERNAME """"
+              DELIMITED BY SIZE
+              INTO W03-SQLCMD.
+----
+. Declaramos la sentencia +STMT+:
++
+[source,cobol,linenums]
+----
+       EXEC SQL
+           DECLARE STMT STATEMENT
+       END-EXEC
+----
+. Se prepara +Q1+ en base a la sentencia dinámica:
++
+[source,cobol,linenums]
+----
+       EXEC SQL
+           PREPARE STMT FROM :W03-SQLCMD
+       END-EXEC
+----
+. El cursor sirve para recorrer todos los registros obtenidos
+a partir de la sentencia:
++
+[source,cobol,linenums]
+----
+       EXEC SQL
+           DECLARE C1 CURSOR FOR STMT
+       END-EXEC.
+----
+. Se abre el cursor:
++
+[source,cobol,linenums]
+----
+       EXEC SQL
+           OPEN C1
+       END-EXEC.
+----
+. Ejecutamos la sentencia y enviamos el resultado a la variable +W02-PASSWORD+:
++
+[source,cobol,linenums]
+----
+       EXEC SQL
+           FETCH C1 INTO :W02-PASSWORD
+       END-EXEC.
+----
+. Realizamos el mismo procedimiento
+hasta que no se encuentre más registros:
++
+[source,cobol,linenums]
+----
+       PERFORM UNTIL SQLCODE NOT = 0
+           DISPLAY "Resultado: " W02-PASSWORD
+
+           EXEC SQL
+               FETCH C1 INTO :W02-PASSWORD
+           END-EXEC
+       END-PERFORM.
+----
+. Cerramor el cursor y terminamos el programa:
++
+[source,cobol,linenums]
+----
+       EXEC SQL
+           CLOSE C1
+       END-EXEC.
+
+       STOP RUN.
+----
+. Ingresamos un usuario diseñado especialmente para inyectar código +SQL+:
++
+[source,bat,linenums]
+----
+" OR 1=1-- -
+----
+. Esto permite romper la sentencia, quedando como:
++
+[source,bat,linenums]
+----
+SELECT contrasenia FROM SQLTEST WHERE usuario = "" OR 1=1-- -"
+----
+. El resultado es el listado de las contraseñas para todos los usuarios:
++
+[source,bat,linenums]
+----
+Resultado: 123456Abcd$
+
+Resultado: test
+
+Resultado: FLUIDsignalgroup2012
+----
+. Esta vulnerabilidad puede ser corregida
+haciendo uso de sentencias estáticas
+o a través del uso de la palabra clave +USING+
+para parametrizar los valores.
+
+== Sentencias parametrizadas
+
+En el anterior código se deben corregir dos bloques:
+
+. El primero es donde inicializamos la sentencia dinámica<<r5,^[5]^>>,
+ahora parametrizamos el valor dinámico haciendo uso del carácter "?".
+Esto le permite internamente al motor de la base de datos,
+buscar el valor ingresado por el usuario
+sin romper la sentencia como se vio anteriormente:
++
+[source,cobol,linenums]
+----
+       STRING "SELECT contrasenia" SPACE
+              "FROM SQLTEST" SPACE
+              "WHERE usuario = ?"
+              DELIMITED BY SIZE
+              INTO W03-SQLCMD.
+----
+. Para sentencias +SELECT+, hacemos uso de la palabra clave +USING+
+en el momento de abrir el cursor:
++
+[source,cobol,linenums]
+----
+       EXEC SQL
+           OPEN C1 USING :W01-USERNAME
+       END-EXEC.
+----
+. Al ingresar de nuevo la inyección,
+el programa procesa correctamente la cadena
+y retorna una lista nula de contraseñas.
+
+== Sentencias estáticas
+
+. El uso de sentencias estáticas
+es una forma segura de combinar sentencias con la entrada del usuario.
+En este caso no es necesario declarar y preparar sentencias,
+basta con construir la petición en el mismo código de +COBOL+
+al momento de declarar el cursor:
++
+[source,cobol,linenums]
+----
+       EXEC SQL
+           DECLARE C1 CURSOR FOR
+           SELECT contrasenia
+           FROM SQLTEST
+           WHERE usuario = :W01-USERNAME
+       END-EXEC.
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en los siguientes enlaces:
+
+. [button]#link:src/cobolsql.cob[cobolsql.cob]# contiene
+la implementación del código vulnerable.
+
+. [button]#link:src/preparedstatement.cob[preparedstatement.cob]# contiene
+la implementación del código con la vulnerabilidad corregida
+mediante sentencias parametrizadas.
+
+. [button]#link:src/staticstatement.cob[staticstatement.cob]# contiene
+la implementación del código con la vulnerabilidad corregida
+mediante sentencias estáticas.
+
+== Referencias
+
+. [[r1]] link:../../../rules/173/[REQ.173 Descartar información insegura].
+. [[r2]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[Identification Division].
+. [[r3]] link:http://www.escobol.com/modules.php?name=Sections&op=viewarticle&artid=13[Data Division].
+. [[r4]] link:https://www.ibm.com/support/knowledgecenter/SSQ2R2_9.1.1/com.ibm.ent.cbl.zos.doc/PGandLR/ref/rlpds.html[Procedure division structure].
+. [[r5]] link:http://www.redbooks.ibm.com/redbooks/pdfs/sg246418.pdf[Squeezing the Most Out of Dynamic SQL with DB2 for z/OS and OS/390].

@@ -1,0 +1,102 @@
+:slug: defends/apache/restringir-banner/
+:category: apache
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en Apache al restringir los banners. Un atacante puede utilizar los banners para ejecutar un banner grabbing con el cual puede conocer la infraestructura detrás de una aplicación web.
+:keywords: Apache, Seguridad , Banners, Configuración, Servidor, HTTP.
+:defends: yes
+
+= Restringir Banners
+
+== Necesidad
+
+Restringir la visualización de nombre y versión de Servidor +HTTP Apache+
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se utiliza +Apache2+ como servidor web.
+. Se desea ocultar la información de versión
+de la plataforma +Apache+.<<r1,^[1]^>>
+
+== Solución
+
+El +banner grabbing+ es una de las formas de conocer
+qué infraestructura o sistema se encuentra
+detrás de una aplicación web o servicio.
+El método de +banner grabbing+<<r2,^[2]^>>
+puede aplicarse sobre cualquier tipo de servicio, cómo por ejemplo,
++FTP+, +VNC+, +HTTP+, entre otros.
+En el caso de +HTTP+ es posible conocer el servidor
+que se aloja detrás del sitio web,
+y en algunos casos es posible conocer la versión del mismo.
+
+Para más información de esta técnica puede leer el siguiente artículo
+link:../../../blog/informacion-servicios-revelada/[Exponiendo La Información De Tus Servicios]
+
+Dar a conocer la información del servidor web
+representa un riesgo para la seguridad
+puesto que permite a un atacante obtener información específica
+para, posteriormente, aprovechar las posibles vulnerabilidades
+asociadas a dicha información, y realizar así,
+un ataque que comprometa confidencialidad, integridad
+y disponibilidad del servidor.
+
+. Entonces, para evitar exponer la información en un servidor +Apache+
+se recomienda seguir los siguientes pasos.<<r3,^[3]^>>
+
+. En el archivo de configuración +httpd.conf+
+asegúrese de contener las siguientes directivas:
++
+.httpd.conf
+[source, shell, linenums]
+----
+ServerSignature Off +
+ServerTokens Prod
+----
+
+. En caso de no encontrar el archivo +httpd.conf+
+editar el archivo security en +/etc/apache2/conf.d/+
+
+. Después de realizar la modificación en el archivo de configuración
+se debe reiniciar el servicio:
++
+[source, bash, linenums]
+----
+% apache2 restart
+----
+
+. La directiva +ServerSignature+ le indica al +Apache+
+que muestre la versión en los errores de requisitos +HTTP+.
+
+. La directiva +ServerTokens+ hace que en los encabezados
+solo se vea: +Server: Apache+.
+
+. Si lo que se desea es que no aparezca el Nombre del +Apache+
+o cambiar completamente este valor, lo que necesitará hacer es lo siguiente:
+
+. Descargar el código fuente de +Apache+.
+
+. Editar el archivo +httpd.h+,
+cambiando el valor de la cadena +Apache+ en la línea:
++
+[source, shell, linenums]
+----
+define SERVER_BASEPRODUCT "Apache"
+----
+
+. Por un valor diferente como:
++
+[source, shell, linenums]
+----
+define SERVER_BASEPRODUCT "Server"
+----
+
+. Bajar el servicio +Apache+, recompilar, reinstalar
+e iniciar el servicio +Apache+.
+
+== Referencias
+
+. [[r1]] link:../../../rules/277/[REQ.277 Información de servicios inaccesible].
+. [[r2]] link:https://www.welivesecurity.com/la-es/2012/11/21/obtener-informacion-de-servidores-web-con-banner-grabbing/[Obtener información de servidores web con banner grabbing].
+. [[r3]] link:https://httpd.apache.org/docs/2.4/es/[Documentación Apache].

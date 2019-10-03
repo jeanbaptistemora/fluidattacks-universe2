@@ -1,0 +1,170 @@
+:slug: defends/java/limitar-vida-recurso/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de recursos dentro de un programa Java, evitando que información disponible en memoria pueda ser capturada por usuarios no autorizados.
+:keywords: Java, Datos sensibles, Datos confidenciales, Lectura segura, Memoria, Tiempo de vida.
+:defends: yes
+
+= Limitar tiempo de vida de recursos
+
+== Necesidad
+
+Eliminar (limpiar) recursos
+dentro de la aplicación
+cuando ya no estén en uso.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +Java+ versión 8.0 o superior.
+. El código debe eliminar información sensible en memoria.
+. La aplicación debe liberar recursos cuando ya no estén en uso,<<r1,^[1]^>>
+limitando así su tiempo de vida.
+
+== Solución
+
+* *Lectura no segura de ficheros:*
+
+. El siguiente bloque de código +Java+
+especifica el método +readData+
+donde se declara un objeto de la clase link:https://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html[+BufferedReader+]
+cuyo constructor recibe como parámetro un objeto +InputStreamReader+
+quien a su vez espera por un nuevo objeto +FileInputStream+.
+Lo anterior permite leer datos desde un archivo:
++
+[source, java, linenums]
+----
+void readData() throws IOException {
+  BufferedReader br = new BufferedReader(new InputStreamReader(
+  new FileInputStream("file")));
+  // Leer desde el fichero
+  String data = br.readLine();
+}
+----
++
+El método +readLine+ retorna los datos
+como un objeto +String+,
+los cuales pueden permanecer activos
+incluso mucho tiempo después de que ya no son necesarios.
+
+* *Lectura segura de ficheros:*
++
+Para solucionar lo anterior,
+se utiliza un búfer +NIO (new I/O)+ asignado directamente
+para leer datos confidenciales desde el archivo.
+Con lo cual, éstos se pueden borrar inmediatamente después de su uso
+y no se almacenan en la memoria caché ni en el búfer en varias ubicaciones.
+Existen solo en la memoria del sistema.
+
+. En primer lugar, declaramos una variable llamada +zeroes+ de tipo +byte+
+cuyo tamaño está determinado por la variable +bufferSize+:
++
+.test.java
+[source, java, linenums]
+----
+class Test {
+  public static void main (String args[]) throws IOException {
+    void readData() {
+      int bufferSize = 16 * 1024;
+      byte zeroes = new byte[bufferSize];
+----
+. Posterior a ello, asignamos al objeto +buffer+ de tipo +ByteBuffer+
+un nuevo búfer de +byte+ directo (+NIO+),
+cuya capacidad es determinada por la variable +bufferSize:+
++
+[source, java, linenums]
+----
+  ByteBuffer buffer = ByteBuffer.allocateDirect(bufferSize);
+----
+. Mediante el método +getChannel+ de la clase +FileInputStream+,
+se retorna un objeto +FileChannel+
+asociado al flujo de datos de entrada actual.
+Dicho objeto es asignado a la variable +rdr+ del mismo tipo:
++
+[source, java, linenums]
+----
+  try (FileChannel rdr = (new FileInputStream("file.txt")).getChannel()) {
+----
+. Iniciamos la lectura del búfer:
++
+[source, java, linenums]
+----
+  while (rdr.read(buffer) > 0) {
+    buffer.flip();
+----
+. Imprimimos en pantalla el contenido del búfer:
++
+[source, java, linenums]
+----
+  while(buffer.hasRemaining()){
+    System.out.print((char) buffer.get());
+  }
+----
+. Por último, limpiamos y sobrescribimos con ceros
+el contenido del búfer:
++
+[source, java, linenums]
+----
+        buffer.clear();
+        buffer.put(zeroes); // sobrescribir el búfer con ceros
+        buffer.clear();
+      }
+
+    } catch (Throwable e) {
+      // Manejar el error
+    }
+  }
+}
+----
++
+Note que la eliminación manual de los datos del búfer es obligatoria
+porque los búfer directos no son recogidos por el recolector de basura.
+
+. Para ejecutar el anterior programa,
+desde la terminal se debe ubicar primero en el directorio del proyecto
+y ejecutar el comando +javac+:
++
+[source, bash, linenums]
+----
+$ ls
+file.txt Test.java
+$ javac Test.java
+$ ls
+file.txt Test.class Test.java
+----
+. Luego de compilar el programa correctamente,
+se obtiene el +bytecode+ (archivo +.class+) del programa
+y se procede a ejecutar el mismo mediante el comando +Java+:
++
+[source, bash, linenums]
+----
+$ java Test.class
+----
+. La salida en consola luego de ejecutar el programa es la siguiente
+(en este caso el contenido del fichero
+son contraseñas de prueba):
++
+[source, bash, linenums]
+----
+Contrasenas:
+FLUIDtest
+admin123
+javaTest
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/test.java[Test.java]# contiene
+la definición del método +readData+
+cuyo fin es la manipulación segura de ficheros.
+
+== Referencias
+
+. [[r1]] link:../../../rules/999/[REQ.999 Limitar tiempo de vida de recursos].
+. *+CSHARP+* link:../../csharp/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
+. *+SCALA+* link:../../scala/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
+. *+PHP+* link:../../php/limitar-vida-recurso/[Limitar tiempo de vida de recursos].

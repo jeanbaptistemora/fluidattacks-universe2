@@ -1,0 +1,173 @@
+:slug: defends/csharp/realizar-peticiones-https/
+:category: csharp
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en C Sharp al realizar peticiones seguras usando HTTPS. El protocolo HTTPS encripta la comunicación entre el servidor y el cliente, evitando que esta sea espiada o manipulada.
+:keywords: C Sharp, Peticiones, HTTPS, Seguridad, Protocolos, Servidor
+:defends: yes
+
+= Realizar Peticiones Seguras Usando HTTPS
+
+== Necesidad
+
+Realizar peticiones seguras usando +HTTPS+ en +C#+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +C#+.
+
+. Se cuenta con un servidor corriendo +HTTPS+
+con certificados válidos.
+
+== Solución
+
+Al momento de programar una aplicación web,
+comúnmente se requiere establecer sistemas de tipo +petición-respuesta+
+que permitan la comunicación entre nuestro servidor y el cliente.
+Inicialmente se utilizaban protocolos como el +HTTP+,
+sin embargo, se ha probado que este protocolo es inseguro
+debido a que la información enviada no es protegida ni cifrada,
+de modo que puede ser espiada o alterada por un usuario malicioso.
+
+Para solucionar este problema,
+se creó el protocolo +HTTPS+ (+Hypertext Transfer Protocol Secure+),
+el cual combina los protocolos +HTTP+ y +SSL/TLS+
+para establecer una comunicación segura entre un cliente y el servidor.
+La principal diferencia del protocolo +HTTPS+
+respecto al +HTTP+ es el uso de una conexión cifrada
+que solo es visible por el servidor y el cliente,
+además del uso de certificados +SSL+
+para identificar sitios de confianza.
+Por esta razón es altamente recomendable
+utilizar peticiones +HTTPS+ en las aplicaciones web.
+A continuación mostraremos cómo implementar este protocolo en +C#+
+
+. Esta solución muestra el uso de peticiones +HTTPS+
+usando el método +HttpWebRequest+.
+Note que para que la conexión sea exitosa,
+es importante que el servidor cuente con certificados
+firmados por un tercero reconocido.
+De lo contrario, esta solución
+puede generar la excepción +System.Net.WebException+.
+Para iniciar se requieren los siguientes espacios de nombres.
++
+.securerqst.cs
+[source, csharp, linenums]
+----
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Security.Cryptography;
+using System.Net;
+
+namespace ConsoleApplication1 {
+  class Program {
+    static void Main(string[] args) {
+----
+
+. Se define cuales son los datos +POST+
+que se van a enviar y el servidor al cual se le hace la solicitud.
++
+[source, csharp, linenums]
+----
+    string post_data = "foo=bar&baz=oof";
+    string uri = "https://www.verisign.com/";
+----
+
+. Se configura la solicitud haciendo uso del +API+.
++
+[source, csharp, linenums]
+----
+    HttpWebRequest request = (HttpWebRequest)
+    WebRequest.Create(uri);
+    request.KeepAlive = false;
+    request.ProtocolVersion = HttpVersion.Version10;
+    request.Method = "POST";
+----
+
+. Se configuran los datos +POST+ y se prepara la solicitud
++
+[source, csharp, linenums]
+----
+    byte[] postBytes = Encoding.ASCII.GetBytes(post_data);
+    request.ContentType = "application/x-www-form-urlencoded";
+    request.ContentLength = postBytes.Length;
+    Stream requestStream = request.GetRequestStream();
+----
+
+. Se envía la solicitud y se cierra la conexión.
++
+[source, csharp, linenums]
+----
+    requestStream.Write(postBytes, 0, postBytes.Length);
+    requestStream.Close();
+----
+
+. Finalmente, se reciben los datos y se imprimen en pantalla.
++
+[source, csharp, linenums]
+----
+    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+    Console.WriteLine(new StreamReader(response.GetResponseStream()).ReadToEnd());
+    Console.WriteLine(response.StatusCode);
+    }
+  }
+}
+----
+
+. No se recomienda el uso de certificados autofirmados
+o el uso de terceros no confiables,
+si usted decide tomar ese riesgo,
+la forma de adecuar esta solución es:
++
+* Implementar una subclase de +ICertificatePolicy+.
++
+* Forzar la validación de los certificados a verdadera.
++
+Para ello, se presenta el siguiente fragmento de código:
++
+.custompolicy.cs
+[source, csharp, linenums]
+----
+using System.Security.Cryptography.X509Certificates;
+using System.Net;
+
+public class MyPolicy : ICertificatePolicy {
+  public bool CheckValidationResult(ServicePoint srvPoint,
+                                    X509Certificate certificate, WebRequest request,
+    int certificateProblem) {
+      return true;
+    }
+}
+----
+
+. Una vez se ha hecho esto,
+simplemente se debe asignar esta política
+antes de enviar las peticiones.
++
+.securerqst.cs
+[source, csharp, linenums]
+----
+System.Net.ServicePointManager.CertificatePolicy = new MyPolicy();
+----
+
+. El compilador emitirá advertencias de obsolescencia,
+de nuevo, sugerimos no usar este enfoque
+excepto para propósitos de pruebas.
+
+== Descargas
+
+Puedes descargar el código fuente pulsando en el siguiente enlace:
+
+* [button]#link:src/securerqst.cs[securerqst.cs]#
+* [button]#link:src/custompolicy.cs[custompolicy.cs]#
+
+
+== Referencias
+
+. [[r1]] link:https://docs.microsoft.com/en-us/dotnet/api/system.net.httpwebrequest?redirectedfrom=MSDN&view=netframework-4.7.2[HttpWebRequest Class]
+
+. [[r2]] link:../../../181/[REQ.181 Transmitir por medio de protocolos seguros].

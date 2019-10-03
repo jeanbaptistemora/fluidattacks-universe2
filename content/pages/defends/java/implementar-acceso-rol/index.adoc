@@ -1,0 +1,324 @@
+:slug: defends/java/implementar-acceso-rol/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al implementar un control de acceso basado en roles. En este tipo de control de acceso los usuarios son agrupados en roles y cada rol tiene sus propios privilegios de acceso.
+:keywords: Java, Seguridad, Acceso, Rol, Privilegios, Acceso.
+:defends: yes
+
+= Implementar Control de Acceso Basado en Roles
+
+== Necesidad
+
+Implementar control de acceso basado en roles (+Role Based Access Control+)
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está usando un compilador estándar de +Java+.
+
+== Solución
+
+El control de acceso basado en roles (+RBAC+) es un modelo de autorización
+bajo el cual se agrupan sujetos en roles
+y la asignación de permisos sobre los recursos
+se hace con los roles y no con los sujetos directamente.
+
+Un sujeto solo podrá acceder a un recurso
+si alguno de los roles a los que pertenece
+posee los privilegios para hacerlo.
+
+. La clase +Subject+ simboliza el sujeto
+con intenciones de acceder a un recurso.
++
+.Subject.java
+[source, java, linenums]
+----
+class Subject
+{
+  private String name;
+  public Subject(String n)
+  {
+    name = n;
+  }
+  public String getName()
+  {
+    return name;
+  }
+  public boolean equals(Subject s)
+  {
+    return (s.name.equals(name));
+  }
+}
+----
+
+. La clase +Resource+ representa un recurso
+que intentará ser accedido por un sujeto.
++
+[source, java, linenums]
+----
+class Resource
+{
+  private String name;
+  public Resource(String n)
+  {
+    name = n;
+  }
+  public void access()
+  {
+    System.out.println("El recurso " + name + " fue accedido");
+  }
+  public String getName()
+  {
+    return name;
+  }
+  public boolean equals(Resource r)
+  {
+    return (r.name.equals(name));
+  }
+}
+----
+
+. La clase +Role+ representa el rol al que podrán pertenecer
+un conjunto de sujetos.
+Para esto se cuenta con el método +addSubject+
+para agregar nuevos sujetos y +contains+
+que determina la pertenencia o no de un sujeto al rol.
+* Este proceso puede optimizarse de diferente maneras,
+una de ellas podría ser utilizando estructuras de datos +Set+,
+consultas en bases de datos entre otros.
++
+[source, java, linenums]
+----
+import java.util.ArrayList;
+import java.util.Iterator;
+
+class Role
+{
+   private String name;
+   private ArrayList subjects = new ArrayList();
+   public Role(String n)
+   {
+     name = n;
+   }
+   public String getName()
+   {
+     return name;
+   }
+   public void addSubject(Subject s)
+   {
+     subjects.add(s);
+   }
+   public boolean contains(Subject s0)
+   {
+     Iterator i = subjects.iterator();
+     while(i.hasNext())
+     {
+       Subject s = (Subject) i.next();
+       if(s.equals(s0))
+       {
+         return true;
+       }
+     }
+     return false;
+   }
+   public boolean equals(Role r)
+   {
+     return (r.name.equals(name));
+   }
+}
+----
+
+. Se define la clase +Permission+
+que representa autorización de acceso de un rol hacia un recurso.
+
+. El método +grantedTo+ se encarga de validar
+si el permiso corresponde de rol hacia un recurso.
++
+[source, java, linenums]
+----
+class Permission {
+  private Role role;
+  private Resource resource;
+  public Permission( Role s, Resource r) {
+    role = s;
+    resource = r;
+  }
+  public Permission( Permission p) {
+    role = p.role;
+    resource = p.resource;
+  }
+  Resource getResource() {
+    return resource;
+  }
+  Role getRole() {
+    return role;
+  }
+    boolean grantedTo(Role role, Resource res) {
+    return(this.role.equals(role) && res.equals(resource));
+  }
+}
+----
+
+. La clase +AccessController+ determina
+cuando un sujeto puede acceder a un recurso
+y se encarga de mostrar por la salida estándar
+un mensaje que indica si fue exitoso o no el acceso.
+
+. La clase permite que se registren nuevos permisos
+mediante el método +addPermission+.
+
+. Para verificar que un sujeto pueda acceder a un objeto,
+se recorren uno a uno los permisos y se comprueba para cada uno
+si el rol relacionado tiene acceso al recurso
+y si el sujeto pertenece a ese rol.
+* Este proceso puede optimizarse de diferente maneras,
+una de ellas podría ser utilizando estructuras de datos como +Map+ y +Set+,
+consultas en bases de datos entre otros.
++
+[source, java, linenums]
+----
+import java.util.ArrayList;
+import java.util.Iterator;
+
+class AccessController
+{
+  private static ArrayList permissions = new ArrayList();
+  private static boolean isAccessAllowed(Subject subj, Resource res)
+  {
+    // obtener los roles del usuario
+    Iterator i = permissions.iterator();
+    while(i.hasNext())
+    {
+      Permission p = (Permission) i.next();
+      if(p.getRole().contains(subj) && p.grantedTo(p.getRole(), res))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+  public static void addPermission(Permission p)
+  {
+    permissions.add(p);
+  }
+  public static void access(Subject s, Resource r)
+  {
+    if(isAccessAllowed(s, r))
+    {
+      r.access();
+    }
+    else
+    {
+      System.out.println ("El acceso a " + r.getName() + " por " + s.getName() +
+        " ha sido denegado");
+    }
+  }
+}
+----
+
+. La clase +CLI+ se encarga de crear roles, sujetos, permisos y recursos.
+Luego comprueba cuales sujetos tienen acceso a cuales recursos.
+
+. Primero se crean los roles 1 y 2.
++
+[source, java, linenums]
+----
+class CLI
+{
+  public static void main(String[] args)
+  {
+    Role role1 = new Role("Rol1");
+    Role role2 = new Role("Rol2");
+----
+
+. Se crean 4 sujetos, numerados del 0 al 3.
++
+[source, java, linenums]
+----
+Subject subj0 = new Subject("Sujeto0");
+Subject subj1 = new Subject("Sujeto1");
+Subject subj2 = new Subject("Sujeto2");
+Subject subj3 = new Subject("Sujeto3");
+----
+
+. A los sujetos 0 y 1 se les asigna el +rol 1+.
+A los sujetos 2 y 3 se les asigna el +rol 2+.
++
+[source, java, linenums]
+----
+role1.addSubject(subj0);
+role1.addSubject(subj1);
+role2.addSubject(subj2);
+role2.addSubject(subj3);
+----
+
+. Se crea un recurso.
++
+[source, java, linenums]
+----
+Resource res1 = new Resource("Recurso1");
+----
+
+. Se asignan permisos del +rol 1+ hacia el recurso.
++
+[source, java, linenums]
+----
+Permission perm1 = new Permission(role1, res1);
+AccessController.addPermission(perm1);
+----
+
+. Se comprueba el acceso desde cada sujeto hacia el recurso.
++
+[source, java, linenums]
+----
+   AccessController.access(subj0, res1);
+   AccessController.access(subj1, res1);
+   AccessController.access(subj2, res1);
+   AccessController.access(subj3, res1);
+  }
+}
+----
+
+. Al compilar y ejecutar, se aprecia que únicamente
+los sujetos pertenecientes al +rol 1+ pudieron acceder al recurso.
++
+[source, shell, linenums]
+----
+% javac CLI.java
+% java CLI
+
+El recurso Recurso1 fue accedido
+El recurso Recurso1 fue accedido
+El acceso a Recurso1 por Sujeto2 ha sido denegado
+El acceso a Recurso1 por Sujeto3 ha sido denegado
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en los siguientes enlaces:
+
+[button]#link:src/subject.java[Subject.java]#
+Clase Subject.
+
+[button]#link:src/resource.java[Resource.java]#
+Clase Resource.
+
+[button]#link:src/role.java[Role.java]#
+Clase Role.
+
+[button]#link:src/permission.java[Permission.java]#
+Clase Permission.
+
+[button]#link:src/accesscontroller.java[AccessController.java]#
+Clase AccessController.
+
+[button]#link:src/cli.java[CLI.java]#
+Clase CLI.
+
+== Referencias
+
+. [[r1]] link:https://docs.oracle.com/cd/E24842_01/html/E23286/rbac-1.html[Control de acceso basado en roles]
+. [[r2]] link:https://www.ibm.com/support/knowledgecenter/es/SSAW57_8.5.5/com.ibm.websphere.nd.doc/ae/csec_rolebased.html[Autorización basada en roles]
+. [[r3]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema]

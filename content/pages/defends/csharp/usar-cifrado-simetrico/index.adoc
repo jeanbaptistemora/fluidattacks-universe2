@@ -1,0 +1,164 @@
+:slug: defends/csharp/usar-cifrado-simetrico/
+:category: csharp
+:description: Nuestros ethical hackers explican cómo implementar un método para cifrar texto, usando un algoritmo de cifrado simétrico (AES) y con Salt con una llave de 256 Bytes para cumplir con buenas practicas en el momento de desarrollar una aplicación en C#.
+:keywords: C Sharp, Buenas Prácticas, Cifrado Simétrico, Hash, Salt, Implementar.
+:defends: yes
+
+= Usar Cifrado Simétrico
+
+== Necesidad
+
+Cifrado simétrico con el algoritmo AES
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. La aplicación se está desarrollando en lenguaje C#.
+. Es necesario emplear un algoritmo de cifrado simétrico.
+
+== Solución
+
+. Para usar los algoritmos
+de cifrado simétrico use +System.Security.Cryptography+.
++
+.ejemplo.cs
+[source, csharp, linenums]
+----
+using System.Security.Cryptography;
+----
+
+. Para realizar el cifrado se va a crear un método
+que permita hacer esta tarea.
+Note que en una aplicación de la vida real,
+este método puede ser modificado
+de manera que se adapte mejor a sus necesidades.
++
+[source, csharp, linenums]
+----
+public static string Encrypt(string plainText, string passPhrase, string saltValue, string hashAlgorithm, int passwordIterations, string initVector, int keySize)
+----
+
+. Las entradas del método son:
+
+* Texto en claro : Lo que se desea cifrar.
+* Frase clave: Una frase que a la cual aplicar el algoritmo +hash+
+que permita ingresar como clave del algoritmo +AES+.
+* +Salt+: Garantiza que la misma clave produce un +hash+ diferente
+* El algoritmo +hash+ a usar: Algoritmo a usar
+* Iteraciones de la clave: Número de iteraciones
+que se deben realizar sobre la clave.
+* Vector de inicialización: Usados por el algoritmo para mejorar la seguridad
+* Tamaño de la clave : Se recomienda hacerlo mayor o igual a 256 +bits+
+
+. Para los propósitos de este ejemplo,
+se asume que las cadenas (+string+) sólo contienen códigos +ASCII+.
+Si usted desea usar otros caracteres, use una codificación adecuada.
+
+. Inicialmente, se convierten los datos de entrada en arreglos de bytes.
++
+[source, csharp, linenums]
+----
+  byte[] initVectorBytes = Encoding.ASCII.GetBytes(initVector);
+  byte[] saltValueBytes  = Encoding.ASCII.GetBytes(saltValue);
+  byte[] plainTextBytes  = Encoding.UTF8.GetBytes(plainText);
+----
+
+. Luego, se debe crear una contraseña de la cual se derivará la clave.
+Para esto, el +Framework+ de +.NET+
+ofrece una clase llamada +PasswordDeriveBytes+.
++
+[source, csharp, linenums]
+----
+  PasswordDeriveBytes password = new PasswordDeriveBytes(passPhrase,saltValueBytes,hashAlgorithm,passwordIterations);
+----
+
+. El objeto +password+ contiene métodos para generar +bytes+ pseudo aleatorios
+para el cifrado de la llave.
+Especifique el tamaño en +bytes+.
++
+[source, csharp, linenums]
+----
+  byte[] keyBytes = password.GetBytes(keySize / 8);
+----
+
+. La siguiente etapa es crear un objeto de cifrado +Rijndael+.
++
+[source, csharp, linenums]
+----
+  RijndaelManaged symmetricKey = new RijndaelManaged();
+----
+
+. Es muy importante establecer un modo de cifra adecuado.
+En este caso, se selecciona +CBC+.
++
+[source, csharp, linenums]
+----
+  symmetricKey.Mode = CipherMode.CBC;
+----
+
+. El +API+ requiere de un cifrador para poder realizar las operaciones.
+Y además de un espacio de memoria para almacenar los datos cifrados.
++
+[source, csharp, linenums]
+----
+  ICryptoTransform encryptor = symmetricKey.CreateEncryptor(keyBytes,initVectorBytes);
+  MemoryStream memoryStream = new MemoryStream();
+----
+
+. El flujo de cifrado es muy importante,
+el modo para cifrado debe ser +"Write"+.
+Para descifrar se debe usar +"Read"+.
++
+[source, csharp, linenums]
+----
+  CryptoStream cryptoStream = new CryptoStream(memoryStream,encryptor,CryptoStreamMode.Write);
+----
+
+. Finalmente, se usa el método +Write+ para realizar el cifrado.
+Se debe hacer un llamado al método +FlushFinalBlock+.
++
+[source, csharp, linenums]
+----
+  cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
+  cryptoStream.FlushFinalBlock();
+----
+
+. El flujo de memoria se puede convertir en un arreglo de +bytes+.
++
+[source, csharp, linenums]
+----
+  byte[] cipherTextBytes = memoryStream.ToArray();
+----
+
+. Se cierran los flujos usados.
++
+[source, csharp, linenums]
+----
+  memoryStream.Close();
+  cryptoStream.Close();
+----
+
+. y se hace cualquier postprocesamiento adicional.
++
+[source, csharp, linenums]
+----
+  string cipherText = Convert.ToBase64String(cipherTextBytes);
+  return cipherText;
+}
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/ejemplo.cs[ejemplo.cs]# contiene
+todas las instrucciones +C#+ del programa.
+
+== Referencias
+
+. [[r1]] link:https://msdn.microsoft.com/en-us/library/system.security.cryptography.aes(v=vs.90).aspx[System.Security.Criptography]
+. [[r2]] link:https://www.codeproject.com/Articles/769741/Csharp-AES-bits-Encryption-Library-with-Salt[C# AES 256 bits Encryption Library with Salt]
+. [[r3]] link:../../../rules/149/[REQ.149 Cifrado simétrico de tamaño mínimo]

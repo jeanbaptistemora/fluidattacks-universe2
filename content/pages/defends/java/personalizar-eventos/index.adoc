@@ -1,0 +1,203 @@
+:slug: defends/java/personalizar-eventos/
+:category: java
+:description: Nuestros ethical hackers, teniendo como base que los eventos de seguridad deben ser registrados en bitácoras, explican la manera de personalizar dicho registro realizando una configuración segura del logger utilizando archivos de configuración personalizados.
+:keywords: Java, Seguridad, Bitacoras, Logs, Logger, Información.
+:defends: yes
+
+= Personalizar Registro de Eventos
+
+== Necesidad
+
+Personalizar el registro de eventos
+mediante un archivo de configuración.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se dispone de una aplicación +Java+
+conforme con la especificación del lenguaje +1.4.2+ o superior.
+
+== Solución
+
+En el artículo link:../registrar-bitacora/[Registrar Eventos en Bitácoras],
+nuestros ethical hackers explicaron que son las bitácoras,
+porque es importante utilizarlas
+y cual es la manera adecuada de generar dichos informes
+en una aplicación +Java+.
+
+En el presente artículo, se explicará la forma de realizar
+la configuración del +logger+
+especificando un archivo de configuración
+donde se establezcan las propiedades que éste debe tener.
+
+. Para realizar lo anterior,
+se debe utilizar, en modo ejecución,
+el parámetro +Djava.util.logging.config.file+.
+El valor anterior será usado
+por la clase +java.util.logging.LogManager+.
+Dicha clase, en última instancia, se encarga de crear
+el +logger+ con las propiedades que se definan.
+
+. Por otro lado, el archivo de propiedades donde se especifican,
+valga la redundancia, las propiedades que deben tener el +logger+,
+será creado como +logging.properties+.
+
+. En dicho archivo se especifica
+el uso de dos manejadores de eventos
++java.util.logging.FileHandler+ y +java.util.logging.ConsoleHandler+.
+También, se establecen las propiedades
+para el manejador de eventos +FileHandler+;
+el cual registra los eventos en el archivo de +log+.
+Y configura el nivel de +log+
+para registrar los eventos que tengan
+una mayor o igual jerarquía al nivel +INFO+.
+
+. Después de eso, se configura el manejador de eventos +ConsoleHandler+.
+Lo anterior se hace para que registre en consola
+un evento de cualquier nivel.
++
+.handler.java
+[source, java, linenums]
+----
+handlers= java.util.logging.FileHandler, java.util.logging.ConsoleHandler.level= ALL
+java.util.logging.FileHandler.pattern = java%u.log
+java.util.logging.FileHandler.limit = 50000
+java.util.logging.FileHandler.count = 1
+java.util.logging.FileHandler.formatter = java.util.logging.XMLFormatter
+java.util.logging.FileHandler.level = INFO
+java.util.logging.ConsoleHandler.level = ALL
+java.util.logging.ConsoleHandler.formatter = java.util.logging.SimpleFormatter
+----
+
+. Luego, se crea la clase encargada de solicitar al +logger+
+el registro de algunos eventos de diferentes niveles.
+Se deben importar las siguientes clases
++
+.cli.java
+[source, java, linenums]
+----
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+class CLI
+{
+----
+
+. Para obtener una referencia del +logger+ previamente configurado,
+se debe invocar el método estático +Logger.getLogger+
+pasando como parámetro el nombre del +logger+.
+Si no se especifica un nombre en particular,
+se obtiene una referencia al +root logger+.
++
+[source, java, linenums]
+----
+public static void main(String argv[]) throws Exception
+{
+  Logger logger = Logger.getLogger(“”);
+----
+
+. Se procede a registrar algunos eventos de diferentes niveles.
++
+[source, java, linenums]
+----
+    logger.info("procesando...");
+    try
+    {
+      throw(new Exception());
+    }
+    catch (Exception e)
+    {
+      logger.log(Level.WARNING, "houston... we've got a problem", e);
+    }
+    logger.fine("hecho!");
+  }
+}
+----
+
+. Se compila el programa.
++
+.compilar.shell
+[source, shell, linenums]
+----
+$ javac CLI.java
+----
+
+. Luego, se ejecuta el programa utilizando
+el parámetro +Djava.util.logging.config.file+
+cuyo valor debe ser la clase
+que contiene la configuración del +logger+.
++
+[source, shell, linenums]
+----
+$ java -Djava.util.logging.config.file=logging.properties CLI
+----
+
+. Luego de ejecutar el comando anterior
+se obtiene como salida la información
+de los eventos registrados
++
+[source, shell, linenums]
+----
+Dec 1, 2011 10:15:34 AM CLI main
+INFO: procesando...
+Dec 1, 2011 10:15:34 AM CLI main
+WARNING: houston... we've got a problem
+java.lang.Exception
+ at CLI.main(CLI.java:13)
+Dec 1, 2011 10:15:34 AM CLI main
+FINE: hecho!
+----
+
+. Como se puede observar en los registros de los eventos
+en el +log+ de la aplicación +java0.log+,
+el evento de nivel +fine+ no fue registrado
+debido a que el manejador de eventos +FileHandlertiene+,
+el cual fue configurado para mostrar
+los eventos que tengan una mayor o igual jerarquía del nivel +INFO+.
++
+.log.xml
+[source, xml, linenums]
+----
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+  <record>
+   <date>2011-12-01T10:14:03</date>
+   <millis>1322752443926</millis>
+   <sequence>0</sequence>
+   <logger>local.applications</logger>
+   <level>INFO</level>
+   <class>CLI</class>
+   <method>main</method>
+   <thread>10</thread>
+   <message>procesando...</message>
+  </record>
+  <record>
+   <date>2011-12-01T10:14:04</date>
+   <millis>1322752444043</millis>
+   <sequence>1</sequence>
+   <logger>local.applications</logger>
+   <level>WARNING</level>
+   <class>CLI</class>
+   <method>main</method>
+   <thread>10</thread>
+   <message>houston... we've got a problem</message>
+   <exception>
+     <message>java.lang.Exception</message>
+     <frame>
+       <class>CLI</class>
+       <method>main</method>
+       <line>13</line>
+     </frame>
+   </exception>
+  </record>
+</log>
+----
+
+== Referencias
+
+. [[r1]] link:https://docs.oracle.com/javase/7/docs/api/java/util/logging/LogManager.html[Class LogManager]
+. [[r2]] link:https://docs.oracle.com/cd/E50629_01/wls/WLAPI/com/bea/logging/LogLevel.html[Class LogLevel]
+. [[r3]] link:../../../rules/075/[REQ.075 Registrar eventos en bitácoras]

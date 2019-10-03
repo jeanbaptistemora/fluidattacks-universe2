@@ -1,0 +1,85 @@
+:slug: defends/hacking/evitar-ataque-dos/
+:category: hacking
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura de sistemas para evitar un ataque de denegación de servicios (DoS). Un ataque DoS produce que un recurso sea inaccesible al generar una sobrecarga de información en el servidor.
+:keywords: Hacking, DOS, Denegación de servicio, Ataque , Buenas Prácticas, Servidor.
+:defends: yes
+
+= Evitar Ataque de Denegación de Servicio
+
+== Necesidad
+
+Evitar un ataque de Denegación de Servicio.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se tiene una aplicación, servicio, o infraestructura
+con la que tienen que interactuar varios usuarios.
+. La organización debe generar un modelo de amenazas para el sistema,
+donde se identifiquen las posibles amenazas.^<<r1,[1]>>^
+
+== Solución
+
+Un ataque de denegación de servicio,
+también conocido como ataque +DoS+ (por sus siglas en inglés),
+es un ataque a un sistema de computadoras o red
+que causa que un servicio o recurso sea inaccesible a los usuarios.
+Normalmente tiende a provocar
+la pérdida de la conectividad con la red
+por el consumo del ancho de banda de la red de la víctima
+o sobrecarga de los recursos computacionales del sistema atacado.
+
+Los ataques +DoS+ se generan mediante la saturación de los puertos
+con múltiples flujos de información,
+produciendo una sobrecarga en el servidor
+y este no pueda seguir prestando su servicio.
+Por eso se le denomina denegación,
+pues hace que el servidor
+no pueda atender a la cantidad enorme de solicitudes.^<<r2,[2]>>^
+
+Un ataque +DoS+ puede ser perpetrado de las siguientes formas:
+
+* Consumo de recursos computacionales, tales como ancho de banda,
+espacio de disco, o tiempo de procesador.
+* Alteración de información de configuración,
+tales como información de rutas de encaminamiento.
+* Alteración de información de estado,
+tales como interrupción de sesiones +TCP+ (+TCP reset+).
+* Interrupción de componentes físicos de red.
+* Obstrucción de medios de comunicación
+entre usuarios de un servicio y la víctima,
+de manera que ya no puedan comunicarse adecuadamente.
+
+. El +CWE-400+ ^<<r3,[3]>>^ determina como una debilidad el hecho
+que un sistema permita una excesiva cantidad de peticiones
+que podrían llegar a agotar sus recursos,
+y terminar en una denegación de servicios para los usuarios del sistema.
+
+. Según +Mitre+ (organización sin ánimo de lucro que gestiona los +CVE+)
+existen una serie de directrices que pueden ayudar:
+
+. Diseñar mecanismos que permitan limitar la cantidad de recursos
+que un usuario no autorizado puede usar.
+
+. Mejorar el sistema de control de acceso y autenticación.
+
+. Definir un limite máximo de cantidad de peticiones por unidad de tiempo,
+y bloquear aquellos usuarios que superen este umbral.
+
+. Asegurar que una falla de petición de recursos en la aplicación
+deje a la misma en un estado seguro.
+
+. Asegurar un trato adecuado del error cuando un recurso se consume.
+
+. En esta referencia ^<<r4,[4]>>^
+puede encontrarse mas información respecto
+a un +e-business security checklist+ que puede ser de utilidad.
+
+== Referencias
+
+. [[r1]] link:../../../rules/008/[REQ.008 Generar modelo de amenazas del sistema].
+. [[r2]] link:https://es.wikipedia.org/wiki/Ataque_de_denegaci%C3%B3n_de_servicio[Ataque de denegación de servicio].
+. [[r3]] link:https://cwe.mitre.org/data/definitions/400.html[CWE-400: Uncontrolled Resource Consumption ('Resource Exhaustion')].
+. [[r4]] link:https://www-935.ibm.com/services/us/bcrs/pdf/wp_denial-of-service.pdf[Denial-of-Service attacks: Understanding network vulnerabilities].

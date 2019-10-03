@@ -1,0 +1,121 @@
+:slug: defends/csharp/filtrar-entradas-regex/
+:category: csharp
+:description: Nuestros ethical hackers explican cómo validar el tipo de contenido de una variable en nuestras aplicaciones C# utilizando expresiones regulares para filtrar el tipo de caracteres que pueden contener estas con el fin de evitar inyecciones de código malicioso.
+:keywords: C Sharp, Buenas Prácticas, Inyección, Filtrado, Entradas, Expresiones Regulares.
+:defends: yes
+
+= Filtrar entradas usando Expresiones Regulares
+
+== Necesidad
+
+Filtrar entradas en una aplicación usando expresiones regulares en +C#+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se requiere implementar un control
+para validar la entrada de datos en la aplicación
+. La aplicación está hecha en +C#+.
+
+== Solución
+
+. Las expresiones regulares son usadas dentro de las aplicaciones +C#+
+para limitar la entrada de datos no confiables o inseguras
+evitando, de esta manera,
+que un atacante pueda inyectar código malicioso.
+Las expresiones regulares son una buena manera
+de validar los campos de texto como nombres, direcciones,
+números de teléfono, correo electrónico
+y otra información del usuario.
+Además, también se pueden utilizar para forzar la entrada
+(limitando el rango de caracteres de entrada),
+aplicar reglas de formato y verificar longitudes.
+
+. El soporte para las expresiones regulares
+está disponible para las aplicaciones desarrolladas en +C#+
+mediante el uso del espacio de nombres +System.Text.RegularExpressions+,
+el cual contiene la clase +Regex+ <<r1,^[1]^>>.
++
+.ejemplo.cs
+[source, csharp, linenums]
+----
+using System;
+using System.Text.RegularExpressions;
+----
+
+. A continuación se debe crear una instancia de la clase +Regex+,
+la cual es la representación de la expresión regular.
++
+[source, csharp, linenums]
+----
+namespace LineaBase {
+
+  class Program {
+
+    static Regex re = new Regex("^[a-zA-Z'.\\s]{1,40}$");
+----
+
+. La expresión regular utilizada en el código anterior
+limita un campo de nombre de entrada
+para los caracteres alfabéticos
+(mayúsculas y minúsculas), caracteres de espacio,
+la comilla simple y el carácter de punto.
+Además, la longitud del campo está limitada a 40 caracteres.
+Como paso siguiente se comprueba,
+mediante el método +IsMatch+ de la instancia de +Regex+
+si la dirección de correo pasada como parámetro
+corresponde al patrón o no.
+El segundo argumento indica a partir de que posición de la entrada
+se verificará la existencia del patrón,
+en este caso usamos 0 para indicar que desde el inicio.
++
+[source, csharp, linenums]
+----
+    static void Main(string[] args) {
+      string email = args[0];
+      string respuesta = re.IsMatch(email, 0) ? "válido" : "NO válido";
+      Console.Out.WriteLine("{0}", respuesta);
+    }
+  }
+}
+----
+
+. Se compila y ejecuta pasando como parámetro el argumento "hola"
+y se observa que se ha clasificado la cadena como válida.
++
+[source, csharp]
+----
+> csc ejemplo.cs
+Microsoft (R) Visual C# 2010 Compiler version 4.0.30319.1
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+> ejemplo hola
+válido
+----
+
+. Ahora se ejecuta pasando como parámetro el argumento "hola*",
+con un asterisco al final,
+carácter que no se encuentra en la definición del patrón,
+y se observa que se ha clasificado la cadena como NO válida.
++
+[source, csharp]
+----
+> ejemplo hola*
+NO válido
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/ejemplo.cs[ejemplo.cs]# contiene
+todas las instrucciones +C#+ del programa.
+
+== Referencias
+
+. [[r1]] link:https://msdn.microsoft.com/en-us/library/system.text.regularexpressions.aspx[MSDN System.Text.RegularExpressions Namespace]
+. [[r2]] link:https://docs.microsoft.com/en-us/dotnet/standard/base-types/best-practices[Best Practices for Regular Expressions in .NET]
+. [[r3]] link:../../../rules/173/[REQ.173 Descartar información insegura]

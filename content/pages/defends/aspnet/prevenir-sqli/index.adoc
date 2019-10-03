@@ -1,0 +1,156 @@
+:slug: defends/aspnet/prevenir-sqli/
+:category: aspnet
+:description:  Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al prevenir inyección SQL. Cuando se manejan bases de datos relacionales es importante validar las entradas para evitar el ingreso de código malicioso.
+:keywords: ASPNET, Seguridad, SQLi, Validación, Entradas, Buenas Prácticas.
+:defends: yes
+
+= Prevenir inyección SQL
+
+== Necesidad
+
+Prevenir inyección de código +SQL+ en +ASP.NET+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. La aplicación está construida con el lenguaje de programación +ASP.NET+.
+
+== Solución
+
+Un aspecto importante de la creación de aplicaciones +ASP.NET+ seguras
+es la posibilidad de validar
+la información proporcionada por los usuarios en un formulario.
++ASP.NET+ cuenta con controles de validación
+que proporcionan una forma eficaz
+y fácil de usar para comprobar errores.
+
+. *Validación de entrada a las páginas Web +ASP.NET+:*
+Los controles de validación proporcionan
+un mecanismo fácil de utilizar
+para todos los tipos comunes
+de validación estándar.
+Los controles de validación
+permiten personalizar completamente
+cómo se muestra la información de errores al usuario.
+
+. *Utilizar controles de validación:*
+Existen controles para distintos tipos de validación,
+como la comprobación de un intervalo
+o la comparación de modelos:
++
+.Tipos de validación para controles de servidor +ASP.NET+.
+|===
+|*Tipo de validación* | *Control a utilizar* | *Descripción*
+
+|Entrada requerida.
+|+RequiredFieldValidator+.
+|Garantiza que el usuario no omite una entrada.
+
+|Comparación con un valor.
+|+CompareValidator+.
+|Compara los datos proporcionados por el usuario
+con un valor constante, con el valor de otro control
+o para un tipo de datos específico.
+
+|Comprobación del intervalo.
+|+RangeValidator+.
+|Comprueba que una entrada de usuario
+está entre los límites superior e inferior especificados.
+
+|Coincidencia de modelos.
+|+RegularExpressionValidator+.
+|Comprueba que la entrada del usuario
+coincide con un modelo definido por una expresión regular.
+
+|Definida por el usuario.
+|+CustomValidator+.
+|Comprueba la entrada de usuario
+utilizando la validación lógica que ha escrito.
+|===
+
+. En un formulario se pueden asociar
+más de un control de validación a un control.
+Cada control hace referencia
+a un control de entrada situado en otra parte de la página.
+Cuando se procesan los datos introducidos por el usuario,
+el control de validación comprueba dichos datos
+y establece una propiedad para indicar si han pasado la comprobación.
+Los controles de validación
+se pueden asociar en grupos de validación
+con el objetivo de que los controles
+que pertenezcan a un grupo común se validen juntos.
+
+. *Validar múltiples condiciones:*
+
+Es posible que se deseen comprobar múltiples condiciones.
+Por ejemplo, supongamos que desea especificar
+que una entrada de usuario es necesaria
+y que sólo puede contener fechas
+dentro de un intervalo especificado.
++
+En las páginas se puede asociar más de un control de validación
+a cada control de entrada.
+En ese caso, las comprobaciones realizadas
+por los controles se resuelven
+utilizando un operador lógico +AND+.
+Lo anterior significa que los datos
+deben pasar todas las comprobaciones
+para que se consideren válidos.
++
+En algunos casos podrían ser entradas válidas
+en varios formatos distintos.
+Por ejemplo, si solicita un número de teléfono,
+puede permitir que los usuarios introduzcan un número local,
+un número de larga distancia
+o un número internacional.
++
+Para realizar este tipo de comprobación,
+que es una operación lógica +OR+
+en la que sólo se debe pasar una comprobación.
+Utilice el control de validación +RegularExpressionValidator+
+y especifique múltiples modelos válidos en el control.
+
+. *Modelo de validación:*
+El modelo de objetos expuesto
+por cada uno de los controles de validación
+y por la página permite interactuar
+con los controles de validación.
+Cada control de validación expone su propiedad +IsValid+,
+que se evalúa para determinar
+si se ha pasado la comprobación de validación
+o se han producido errores en ese control.
++
+
+. *Personalizar la validación:*
+El proceso de validación se puede personalizar de las siguientes maneras:​
+
+* Especificar el formato, el texto y la ubicación
+de los mensajes de error.
+
+* Crear validación personalizada utilizando el control +CustomValidator+.
+El control llama a la lógica personalizada,
+sin embargo, funciona de la misma manera
+que otros controles de validación.
+Esto proporciona una forma fácil
+de crear una lógica de validación personalizada,
+pero sin dejar de utilizar
+el marco de trabajo de validación de la página.
+
+* En la validación en el cliente,
+interceptar la llamada a la validación
+y sustituir o agregar su propia lógica de validación.
+
+. *Validar datos en procedimientos almacenados de +SQL Server+:*
+La validación de datos en el código de cliente es importante
+para no realizar viajes innecesarios
+de ida y vuelta al servidor.
+En el caso de +SQL Server 2000+, vea +Validating User Input+,
++Specifying Parameters+ +Stored Procedures+ y +CREATE PROCEDURE+
+en los libros en pantalla de +SQL Server 2000+.
+
+== Referencias
+
+. [[r1]] link:https://msdn.microsoft.com/en-us/library/ff648339.aspx[Prevenir SQLi].
+. [[r2]] link:https://msdn.microsoft.com/en-us/library/ms972961.aspx[User Input Validation in ASP.NET].

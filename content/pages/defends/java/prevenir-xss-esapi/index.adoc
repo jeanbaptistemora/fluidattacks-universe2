@@ -1,0 +1,122 @@
+:slug: defends/java/prevenir-xss-esapi/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al prevenir cross site scripting utilizando ESAPI. ESAPI es una librería de control que permite implementar medidas de seguridad contra distintos ataques en una aplicación web.
+:keywords: Java, Seguridad, Buenas Prácticas, ESAPI, XSS, Cross Site Scripting.
+:defends: yes
+
+= Prevenir Cross Site Scripting Usando ESAPI
+
+== Necesidad
+
+Prevenir +XSS+ en aplicaciones +Java EE+ usando +ESAPI+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se dispone de un programa realizado en +Java EE 1.5+ o superior.
+
+== Solución
+
++Cross Site Scripting+ o, por su abreviación,
++XSS+ es una vulnerabilidad en el sistema de validación de +HTML+
+la cual permite inyectar, en páginas web,
+código +JavaScript+ u otro lenguaje similar (ej: +VBScript+).
+
+Por lo general, esta vulnerabilidad es explotada
+con el fin de tener acceso a cualquier +cookie+,
++tokens+ de sesión u otra información sensible retenida por el navegador
+y usada con en el sitio vulnerable.
+Es más, estas secuencias de comandos pueden, incluso,
+reescribir el contenido de una página +HTML+.
+
+Por su parte, +ESAPI+ +(The OWASP Enterprise Security API)+
+es una librería de control
+para implementar seguridad en una aplicación web en +Java+.
++ESAPI+ proporciona la clase +Encoder+ del paquete +org.owasp.esapi+
+para codificar la salida a un formato especifico
+como es +HTML+, +XPATH+, +CSS+, +VBSCRIPT+, +URL+, +SQL+,
++LDAP+, +JavaScript+, entre otros.
+Actualmente se encuentra disponible la versión +2.0+ de +ESAPI+
+la cual soporta +Java 1.5+ y superior ^<<r1,[1]>>^.
+
+Para prevenir +Cross Site Scripting+ utilizando +ESAPI 2.0+
+se debe seguir los siguientes pasos:
+
+. Descargar la versión +2.0+ de +ESAPI+ y seguir el manual de instalación ^<<r1,[1]>>^.
+
+. Importar las clases +org.owasp.esapi.ESAPI+
+y la interfaz +org.owasp.esapi.Encoder+.
++
+.esapi.java
+[source, java, linenums]
+----
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.Encoder;
+----
+
+. Especificar el tipo de codificación.
+Cuando se necesita insertar un dato no confiable
+directamente dentro del cuerpo +HTML+ de un documento,
+la entrada debe ser codificada en formato +HTML+ ^<<r2,[2]>>^.
++
+[source, java, linenums]
+----
+//Reemplazar (para el caso particular)
+String unSafe = request.getParameter("input");
+//Por
+String safe = ESAPI.encoder().encodeForHTML( request.getParameter( "input" ) );
+----
+
+. Para este caso, la función +encodeForHTML+
+codifica caracteres especiales como +& < > " '/+
+para evitar el cambio en cualquier contexto de ejecución.
+Por ejemplo, cuando la entrada de datos contiene +scripts+ inyectados.
+
+. Si el dato de entrada no confiable se inserta
+como un valor de un atributo de un elemento +HTML+
+como aparece a continuación:
++
+[source, html, linenums]
+----
+<div attr=...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...>content</div>
+  dentro de un atributo sin comilla
+<div attr='...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...'>content</div>
+  dentro de un atributo con comilla simple
+<div attr="...ESCAPE UNTRUSTED DATA BEFORE PUTTING HERE...">content</div>
+  dentro de un atributo con comilla simple
+----
+
+. Se debe considerar la siguiente instrucción de código
+para que se codifiquen caracteres especiales dentro de los atributos.
++
+[source, html, linenums]
+----
+String safe = ESAPI.encoder().encodeForHTMLAttribute( request.getParameter("input"));
+----
+
+Para concluir, es bueno saber que está vulnerabilidad
+puede presentarse de dos formas:
++XSS+ almacenado, y +XSS+ reflejado.
+En el primero, el código inyectado
+es almacenado en el servidor de la aplicación,
+de tal manera que cuando cualquier persona entre a la parte de la página
+donde se ha inyectado el código,
+éste se ejecute extrayendo o modificando la información de la víctima.
+
+Por su parte, en el +XSS+ reflejado
+el código malicioso no se almacena en el servidor,
+sino que existe de forma temporal cuando se abre la página web vulnerable,
+logrando de esta forma, entre otras cosas,
+obtener información sensible de la víctima.
+En este caso, se debe forzar a la víctima que visita el sitio web vulnerable
+que sea ella misma quien ejecuta la inyección de código.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/Category:OWASP_Enterprise_Security_API#tab=Java_EE[OWASP ESAPI for Java EE]
+. [[r2]] link:https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet[XSS Prevention Cheat Sheet]
+. [[r3]] link:https://www.owasp.org/index.php/Category:OWASP_Enterprise_Security_API/es[OWASP Enterprise Security API]
+. [[r4]] link:../../../rules/173/[REQ.173 Descartar entradas inseguras]
+. [[r5]] link:../../../rules/160/[REQ.160 Salidas codificadas]

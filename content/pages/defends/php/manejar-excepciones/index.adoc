@@ -1,0 +1,149 @@
+:slug: defends/php/manejar-excepciones/
+:category: php
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en PHP. En este artículo encontrará las formas adecuadas de manejar excepciones en el lenguaje PHP y cómo evitar incurrir en errores que podrían llevar a fugas de información.
+:keywords: Php, Seguridad, Excepciones, Logs, Debugging, Back-end.
+:defends: yes
+
+= Manejar Excepciones
+
+== Necesidad
+
+Gestionar errores adecuadamente en el lenguaje de programación +PHP+
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se utiliza el lenguaje +PHP+.
+. Se requiere darle un trato adecuado a las excepciones.
+
+== Solución
+
+Una excepción es la indicación de que se produjo un error en el programa.
+Las excepciones, como su nombre lo indica,
+se producen cuando la ejecución de un programa no termina correctamente,
+sino que termina de manera excepcional
+como consecuencia de una situación inesperada.
+
+. +PHP+ tiene un modelo de excepciones, el cual permite gestionar
+los errores de forma simple y fácil de mantener.
+Para gestionar los errores,
+se debe proceder de la siguiente forma:
+
+* Identificar las líneas de código que pueden generar errores y
+cuales tipos de errores específicamente pueden ser generados.
+Esto se puede hacer accediendo a la documentación de las
+funciones si se trata de una librería o código desarrollado por
+terceros.
+
+* Para cada tipo de error identificado debe existir una clase tipo
+Exception que permita generar el error y que sea gestionado de
+alguna forma por alguno de los consumidores de esta función.
++PHP+ define una jerarquía de errores posibles, la mayoría de las
+veces es posible utilizar estos errores, en otras ocasiones es
+posible crear errores propios heredando de alguno de estos:
++
+** *+LogicException+*
+*** +BadFunctionCallException+
+*** +BasMethodCallException+
+*** +DomainException+
+*** +InvalidArgumentException+
+*** +LengthException+
+*** +OutOfRangeException+
+** *+RunTimeException+*
+*** +OutOfBoundsException+
+*** +OverFlowException+
+*** +RangeException+
+*** +UnexpectedValueException+
+
+. Para lanzar un error se utiliza la palabra reservada +throw+.
+Ejemplo de una excepción controlada adecuadamente:
++
+
+.ejemplo-throw.php
+[source, php, linenums]
+----
+<?php
+
+function inverse($x) {
+  if (!$x) {
+    throw new Exception('Division by zero.');
+  }
+  else {
+    return 1/$x;
+  }
+}
+
+?>
+----
+
+. Ubicar estas líneas dentro de un bloque +try/catch+
+Los bloques +try/catch+ son de la siguiente forma:
++
+.ejemplo-trycatch.php
+[source, php, linenums]
+----
+<?php
+
+try {
+  foo();
+}
+catch (Exception $error) {
+  echo 'Error: ', $error->getMessage(), "\n";
+}
+
+?>
+----
+
+. Para cada tipo de excepción se debe construir un bloque +catch+
+diferente que gestione adecuadamente cada tipo de error de forma
+independiente.
++
+.ejemplo-multicatch.php
+[source, php, linenums]
+----
+<?php
+
+try {
+  foo(); // throws Domainexception
+  bar(); // throws Outofboundsxception
+}
+catch ( *OutOfBoundsException* $error) {
+  echo 'Error: ', $error->getMessage(), "\n";
+}
+catch ( *DomainException* $error) {
+  echo 'Error al intentar realizar la accion: ', $error->getMessage(), "\n";
+  recovery();
+}
+
+?>
+----
+
+* Es también importante asegurarse de que los mensajes
+de error resultantes de las excepciones declaradas,
+no contengan ningún tipo de información confidencial o
+cualquier elemento que permita a un posible atacante identificar datos,
+como: versión del +software+, archivos de configuración,
+rutas a directorios privados que lleven a fugas de información.
+Para facilitar esta tarea,
+también se puede considerar el uso de +loggers+ que permitan
+llevar un registro seguro y controlado que pueda ser usado para +debugging+.
+
+* Se debe considerar, adicionalmente,
+la implementación de mensajes personalizados
+desde el +front-end+ para eventos de error,
+con el fin de evitar exponer algún tipo de información
+que permita a un posible atacante identificar patrones de respuesta
+a sus acciones maliciosas.
+
+* Al implementar excepciones se debe evitar repetir código,
+por lo cual deberían centralizarse todos los elementos comúnes
+que se usarán en caso de que una excepción ocurra.
+Puede ver más información al respecto [button]#link:../../java/evitar-codigo-duplicado/[aquí]#
+
+== Referencias
+
+. [[r1]] link:http://php.net/manual/es/class.exception.php[Class Exception]
+. [[r2]] link:http://php.net/exceptions[Exceptions]
+. [[r3]] link:../../../rules/277/[REQ.277 Información de servicios inaccesible]

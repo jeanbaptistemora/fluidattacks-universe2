@@ -1,0 +1,76 @@
+:slug: defends/programacion/evitar-cod-duplicado/
+:category: programacion
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura al evitar código duplicado. El código repetido es una mala práctica que agrega complejidad innecesaria a la aplicación y supone un riesgo potencial para la seguridad de la misma.
+:keywords: Programación, Buenas Prácticas, Código, Duplicado, Bibliotecas, Funciones.
+:defends: yes
+
+= Evitar Código Fuente Duplicado
+
+== Necesidad
+
+Evitar código fuente duplicado
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está utilizando un lenguaje de programación cualquiera.
+. Se desea evitar código repetido o duplicado
+dentro del desarrollo de un programa o aplicación.
+
+== Solución
+
+El termino código duplicado es utilizado para hacer referencia
+a las secuencias de código fuente que ocurren más de una vez
+dentro de un mismo programa.
+El código duplicado es considerado, generalmente,
+una mala práctica de programación
+principalmente por las siguientes razones:
+
+. En primer lugar, la repetición de código
+indica una falla en el uso de los mecanismos de abstracción
+apropiados en el programa, como pueden ser los métodos,
+las funciones, las +subclases+ y los tipos genéricos.
+
+. Segundo, repetir código generará, valga la redundancia,
+código más largo de lo que debería ser, y,
+como seguramente se podrá apreciar, contendrá más errores.
+
+. En tercer lugar, las instancias repetidas de código
+dificultan el mantenimiento porque le obligan,
+a quien hace dicho mantenimiento,
+a realizar un seguimiento y modificación manual
+de cada fragmento de repetición por separado.
+
+. En cuarto lugar, al tener que leer secciones de código
+más largo y repetido, se hará más difícil la comprensión del mismo,
+y en consecuencia, incidirá directamente
+sobre el punto anterior.
+
+. Por último, al duplicar el código,
+el tamaño de los archivos contenedores y el tiempo de compilado
+van a ser mucho más grandes.
+
+. En lugar de repetir el código
+se debe utilizar alguna de las siguientes opciones:
+
+* *Subrutinas:* Son segmentos de código separado del bloque principal,
+los cuales pueden ser invocados en cualquier momento desde otras +subrutinas+.
+Las +subrutinas+ también son conocidas como procedimientos o métodos.
+
+* *Bibliotecas:* Son un conjunto de implementaciones funcionales,
+que ofrecen una interfaz bien definida para la funcionalidad que se invoca.
+Las bibliotecas no esperan ser utilizadas de forma autónoma,
+sino que su fin es ser utilizadas por otros programas
+independientes y de forma simultánea.
+Las bibliotecas pueden vincularse a un programa
+o a otras bibliotecas en distintos puntos del desarrollo o la ejecución,
+según el tipo de vínculo que se quiera establecer.
+
+== Referencias
+
+. [[r1]] link:https://es.wikipedia.org/wiki/C%C3%B3digo_duplicado[Código duplicado]
+. [[r2]] link:https://es.wikipedia.org/wiki/Subrutina[Subrutina]
+. [[r3]] link:https://es.wikipedia.org/wiki/Biblioteca_(inform%C3%A1tica)[Biblioteca (informática)]
+. [[r4]] link:../../../rules/162/[REQ.162 Eliminar código redundante]

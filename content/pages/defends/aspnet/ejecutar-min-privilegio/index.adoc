@@ -1,0 +1,140 @@
+:slug: defends/aspnet/ejecutar-min-privilegio/
+:category: aspnet
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET desarrollando aplicaciones computacionalmente seguras aplicando el principio del mínimo privilegio. Esto facilita desarrollar aplicaciones fáciles de probar y mantener.
+:keywords: ASP.NET, Seguridad, Mínimo, Privilegio, Permisos, Programación.
+:defends: yes
+
+= Ejecutar aplicaciones con mínimo privilegio
+
+== Necesidad
+
+Ejecutar las aplicaciones con el principio de mínimo privilegio.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +ASP.NET+.
+
+. Se desean aplicar los principios de mínimo privilegio.<<r1,^[1]^>>
+
+. La organización debe generar un modelo de amenazas para el sistema,
+donde se identifiquen las posibles amenazas.<<r2,^[2]^>>
+
+== Solución
+
+. Cuando se diseña, construye o despliega una aplicación,
+se debe asumir que la aplicación va a ser atacada.
+Con frecuencia, los ataques a las aplicaciones
+son ejecutados utilizando código que actúa
+con privilegios del usuario.
+Para controlar esta situación,
+se puede aplicar el principio de mínimo privilegio,
+esto es, otorgar privilegios
+la menor cantidad de tiempo
+a la menor cantidad de código
+que sea requerido para realizar las tareas <<r3,^[3]^>>.
+
+. La mejor práctica para crear aplicaciones seguras
+es comenzar sin permisos
+y luego, añadir los mínimos privilegios
+que requiera una tarea para poder ejecutarse.
+Si se realiza de forma opuesta,
+es decir, iniciar con todos los privilegios
+y luego negar los permisos que no se requieren
+puede resultar en aplicaciones inseguras
+que son difíciles de probar y mantener.
+
+. En el espacio de nombres +System.security+
+del ensamblado +mscorlib+ (+mscorlib.dll+)
+existen diferentes llamadas para manipular los privilegios
+con los que cuenta una aplicación a nivel de código.
+Entre ellos, podemos destacar +PermitOnly+ y +Deny+.
+Con +Deny+ podemos restringir el acceso
+a algún privilegio para las llamadas
+que se realicen posteriormente.
++PermitOnly+ es similar a +Deny+,
+en cuanto a que permite restringir a nivel de código
+los llamados que pueden realizarse.^<<r4,[4]>>,<<r5,[5]>>^
+La diferencia radica en que +Deny+
+especifica los permisos que originan un error
+en el recorrido por la pila,
+mientras que +PermitOnly+ especifica
+únicamente los que no lo originan.
+
+. +PermitOnly+ es un método utilizado
+para garantizar que el código pueda utilizarse
+para obtener acceso únicamente a los recursos especificados.
+La llamada a +PermitOnly+ es eficaz
+hasta que el código retorna al punto de invocación.
+Sólo puede existir un método +PermitOnly+ activo en cada marco.
+Un intento de llamar a +PermitOnly+
+cuando hay otro método +PermitOnly+ activo en el marco
+arroja como resultado una +SecurityException+.
+El método +PermitOnly+ de un permiso no concedido
+se pasará por alto,
+debido a que ninguna solicitud
+para ese permiso podrá tener éxito.
+No obstante, si existe código situado
+en la parte inferior de la pila de llamadas
+que invoque el método +Demand+ para ese permiso,
+esto produce una +SecurityException+
+cuando el recorrido por la pila alcanza el código
+que intentó llamar a +PermitOnly+.
+Esto es debido a que el código
+que llamó a +PermitOnly+ no dispone del permiso,
+aunque haya llamado a +PermitOnly+ para dicho permiso.
+La pila de llamadas suele representarse de forma decreciente,
+por lo que los métodos que se encuentran
+en las posiciones superiores de la pila de llamadas,
+llaman a métodos de las posiciones inferiores.
+A continuación se presenta una porción de código
+que muestra el uso del método +PermitOnly+:
++
+.PermissionExample.java
+[source,java,linenums]
+----
+Console.WriteLine("Dando acceso a clipboard.");
+clipboardPermission.PermitOnly();
+DemandAllClipboardAccess();
+Console.WriteLine("Revertir el permiso sobre el clipboard.");
+CodeAccessPermission.RevertPermitOnly();
+DemandAllClipboardAccess();
+----
+
+. El método +PermitOnly+ solo debe utilizarse
+para proteger los recursos
+frente a un acceso accidental
+por parte del código de plena confianza.
+No debe usarse para proteger los recursos
+ante un uso incorrecto intencionado
+por parte de código que no es de confianza.
+Por ejemplo, si el método A
+emite +PermitOnly+ para un permiso
+y, a continuación, llama al método B,
+el método B puede invalidar abiertamente +PermitOnly+ emitiendo +Assert+.
+El método al que se llama siempre
+está situado en la parte superior de la pila.
+Por lo tanto, si el método B intenta obtener acceso
+a un recurso protegido,
+el sistema de seguridad iniciará
+una comprobación de permisos con él
+puesto que el método B es el llamador inmediato
+y a continuación, se desplazará hacia abajo
+en la pila para confirmar
+que no haya ningún +Deny+ o +PermitOnly+
+situado por debajo en la pila.
+El método B, que está intentando obtener acceso al recurso,
+puede detener inmediatamente el recorrido de pila
+utilizando el método +Assert+.
+En ese caso, el +PermitOnly+ que el método A (el método de llamada)
+colocó en la pila no se detectará nunca.
+
+== Referencias
+
+. [[r1]] link:../../../rules/269/[REQ.269 Usar principio mínimo privilegio].
+. [[r2]] link:../../../rules/008/[REQ.008 Generar modelo de amenazas del sistema].
+. [[r3]] link:https://es.wikipedia.org/wiki/Principio_de_m%C3%ADnimo_privilegio[Principio de Mínimo Privilegio].
+. [[r4]] link:https://msdn.microsoft.com/es-es/library/system.security.codeaccesspermission.permitonly.aspx[Microsoft, CodeAccessPermission PermitOnly].
+. [[r5]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema].

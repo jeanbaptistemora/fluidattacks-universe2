@@ -1,0 +1,124 @@
+:slug: defends/java/manejar-sesion-jsp/
+:category: java
+:description: Nuestros ethical hackers explican que son las sesiones y como son implementadas en páginas web, además, explican cómo evitar vulnerabilidades de seguridad al hacer una correcta implementación y manejo de sesiones en aplicaciones desarrolladas en Java Server Pages.
+:keywords: Java, Seguridad, Sesión, JSP, Web, Administración.
+:defends: yes
+
+= Manejar Sesiones en JSP
+
+== Necesidad
+
+Manejo apropiado de sesiones en +Java Server Pages+ (+JSP+)
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se utiliza el lenguaje de programación Java.
+. Se quiere desarrollar una aplicación web.
+. Se desea utilizar sesiones
+para intercambiar información entre páginas.
+
+== Solución
+
+La conexión que se establece
+entre un usuario y un servidor Web se denomina sesión.
+Las sesiones permiten almacenar información
+a lo largo de diferentes páginas,
+permitiendo acceder a ella en el momento que se requiera.
+Dentro de las sesiones es posible guardar cierta información
+la primera vez que el usuario visita la página,
+y dicha información puede ser mostrada
+en una visita posterior
+sin necesidad de interactuar con una base de datos
+o un archivo externo.
+Como estas sesiones son manejadas por lado del servidor,
+no se corre el riesgo de que el usuario las pueda alterar.
+Además, las sesiones son controladas
+mediante objetos de sesión, los cuales,
+contienen toda la información del usuario.
+
+. En +Java+, las sesiones pueden ser administradas
+usando la clase +javax.servlet.http.HttpSession+.
+
+. Los principales métodos de dicha clase son:
+
+* +getAttribute()+ retorna el objeto asociado
+al nombre especificado en la sesión, o null si el objeto no existe.
+* +invalidate()+ invalida la sesión y cualquier objeto asociado a esta.
+* +removeAttribute()+ remueve el objeto asociado a la sesión.
+* +setAttribute()+ asocia un objeto al nombre en la sesión,
+si el nombre ya existía el objeto reemplazará el anterior.
+* +setMaxInactiveInterval()+ especifica el número de segundos
+que el servidor esperará entre peticiones para invalidar la sesión.
+Si el valor especificado es negativo, la sesión nunca expirará.
+
+. En el archivo +index.jsp+ se tiene formulario
+para recibir la información
+que se desea guardar en la sesión.
+Dicha información se enviará al archivo +save.jsp+
++
+.index.jsp
+[source, html, linenums]
+----
+<form action="save.jsp" method="GET">
+   Value: <input type="text" name="value">
+   <input type="submit" value="Save">
+</form>
+----
+
+. En +save.jsp+ se recibe el parámetro enviado
+el cual es guardado en la sesión
+utilizando el método +setAttribute+ del objeto +session+.
++
+.save.jsp
+[source, java, linenums]
+----
+String formParameter = request.getParameter("value");
+if(formParameter==null)
+  formParameter="";
+session.setMaxInactiveInterval(60*5); // 5 minutes
+session.setAttribute("formParameter", formParameter);
+----
+
+. Como se puede apreciar, se utiliza el método +setMaxInactiveInterval+
+para asignar el tiempo de vida máximo de la sesión inactiva.
+
+. Se muestra en la página el contenido que se almacenó
+y el enlace hacia la página +invalidate.jsp+.
++
+.save.jsp
+[source, html, linenums]
+----
+<p>
+  Hi, your value was ${fn:escapeXml(formParameter)}
+</p>
+<p>
+ <a href="view.jsp">View data from session</a>
+</p>
+----
+
+. En +invalidate.jsp+ se elimina los datos de la sesión
+utilizando el método +invalidate+.
++
+.invalidate.jsp
+[source, html, linenums]
+----
+session.invalidate();
+----
+
+. Con el método +invalidate+ es posible
+permitirle al usuario cerrar la sesión de manera manual.
+También es posible mostrar enlaces
+para poder verificar que la sesión fue eliminada,
+o volver a iniciar el proceso.
+
+== Referencias
+
+. [[r1]] link:https://tomcat.apache.org/tomcat-5.5-doc/servletapi/javax/servlet/http/HttpSession.html[Interface HttpSession]
+. [[r2]] link:http://dis.um.es/~lopezquesada/documentos/IES_1213/IAW/curso/UT5/ActividadesAlumnos/12/sesiones.html[Manual JSP]
+. [[r3]] link:https://www.arquitecturajava.com/usando-java-session-en-aplicaciones-web/[Usando Java Session en aplicaciones web]
+. [[r4]] link:../../../rules/023/[REQ.023 Cerrar sesión de un usuario inactivo]
+. [[r5]] link:../../../rules/024/[REQ.024 Transferir información con objetos de sesión]
+. [[r6]] link:../../../rules/028/[REQ.028 Permitir finalizar sesión de usuario]

@@ -1,0 +1,133 @@
+:slug: defends/scala/validar-archivo-header/
+:category: scala
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Scala al validar los tipos de archivos utilizando los encabezados. Al realizar una validación de entradas se aumenta la seguridad de la aplicación evitando diversos tipos de ataques.
+:keywords: Scala, Encabezados, Extensión, Archivo, Validación, Entrada.
+:defends: yes
+
+= Validar Tipo de Archivo Usando los Encabezados
+
+== Necesidad
+
+Validar tipo de archivo usando los encabezados.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se esta desarrollando una aplicación
+en lenguaje de programación +Scala v2.10.4+
+. Se necesita validar la entrada de datos,
+específicamente validar el tipo de archivo a ser manipulado.
+. Se requiere determinar el tipo de archivo
+usando mecanismos más confiables que solo revisar la extensión.
+
+== Solución
+
+Al momento de desarrollar una aplicación
+es importante realizar un proceso de validación apropiado.
+Esto se debe a que muchas de las vulnerabilidades de una aplicación
+pueden ser explotadas a través de sus entradas,
+lo que las convierte en un blanco común para los atacantes.
+Por ejemplo, un usuario puede subir un archivo con contenido malicioso
+que al no ser validado correctamente puede comprometer
+la integridad de la información confidencial allí consolidada.
+A continuación te enseñamos cómo validar archivos
+utilizando los encabezados en el lenguaje +Scala+.
+
+Dado que el lenguaje no proporciona una biblioteca
+que permita la detección de tipos de archivo según sus encabezados
+se hará uso de la biblioteca +Mime Type Detection Utility+ <<r2, ^[2]^>>
+y sus dependencias,
++Mime Type Detection Utility+ determina el tipo de archivo
+revisando los encabezados (+magic headers+).
+
+La aplicación requiere que las dependencias listadas a continuación
+se encuentren en el +classpath+ <<r2, ^[2]^>> <<r3, ^[3]^>>:
+
+. +mime-util-X.X.X.jar+
+. +slf4j-api-X.X.X.jar+
+. +slf4j-simple-X.X.X.jar+
+
+. Una opción rápida para agregar clases al +classpath+
+es copiando los +jar+ a +[jre path]/lib/ext/+
+
+. Inicialmente creamos un archivo a utilizar en las pruebas
+que denominaremos +test.pdf+,
+cuyo único contenido sera la palabra +fsg+:
++
+.creación archivo de prueba
+[source, bash, linenums]
+----
+% echo "fsg" > test.pdf
+----
+. Creamos el archivo +Main.java+
+que contendrá el código de la aplicación.
+
+. Importamos la interfaz +java.util.Collection+
+para contener la lista de tipos de archivo y +java.io.File+
+que representará el archivo a procesar.
++
+.FileExtValidation.scala
+[source, scala, linenums]
+----
+import java.util.Collection
+import java.io.File
+...
+----
+
+. Importamos la clase +eu.medsea.mimeutil.MimeUtil+
+que será la encargada hacer todo el proceso de consulta del tipo de archivo.
++
+[source, scala, linenums]
+----
+import eu.medsea.mimeutil.MimeUtil
+...
+----
+
+. Registramos como detector de tipos
++eu.medsea.mimeutil.detector.MagicMimeMimeDetector+
+(puede usarse cualquier implementación de +AbstractMimeDetector+).
++
+[source, scala, linenums]
+----
+object Main{
+  def main(args: Array[String]){
+    MimeUtil.registerMimeDetector("eu.medsea.mimeutil.detector.MagicMimeMimeDetector");
+...
+----
+
+. A continuación creamos una instancia de +File+
+referenciando a nuestro archivo de prueba +test.pdf+,
+la cual se envía al método +getMimeTypes+ para retornar una colección
+con los tipos de archivos detectados y mostrarlos por la salida estándar.
++
+[source, scala, linenums]
+----
+        val f = new File ("test.pdf");
+        val mimeTypes = MimeUtil.getMimeTypes(f);
+        println(mimeTypes);
+    }
+}
+----
+
+. Finalmente ejecutamos la aplicación para ver los resultados:
++
+.validación de archivo
+[source, scala, linenums]
+----
+% scala -classpath "slf4j-simple-1.7.13.jar:slf4j-api-1.7.13.jar:mime-util-2.1.3.jar" MimeType.scala
+application/octet-stream
+----
+
+. Podemos darnos cuenta de cómo este mecanismo no tuvo en cuenta la extensión
+y determinó correctamente que eran datos arbitrarios.
+
+== Referencias
+
+. [[r1]] link:http://www.rgagnon.com/javadetails/java-0487.html[Get the Mime Type of a File].
+. [[r2]] link:https://sourceforge.net/projects/mime-util/[Mime Type Detection Utility].
+. [[r3]] link:https://www.slf4j.org/download.html[Simple Logging Facade for Java].
+. [[r4]] link:http://mime-util.sourceforge.net/apidocs/eu/medsea/mimeutil/MimeUtil.html[Mime util API].
+. [[r5]] link:https://en.wikipedia.org/wiki/Media_type[Internet media type].
+. [[r6]] link:../../../rules/040/[REQ.040 Contrastar formato y extensión de archivos].

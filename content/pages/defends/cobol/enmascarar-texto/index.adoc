@@ -1,0 +1,136 @@
+:slug: defends/cobol/enmascarar-texto/
+:category: cobol
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al enmascarar el texto ingresado por el usuario. La información sensible, por ejemplo usuarios y contraseñas deben ser enmascarados en aplicaciones de ambientes de producción.
+:keywords: Cobol, Seguridad, Enmascarar, Texto, Buenas Prácticas, Contraseña.
+:defends: yes
+
+= Enmascarar Texto
+
+== Necesidad
+
+Enmascarar el texto ingresado por el usuario en +COBOL+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +COBOL+.
+. La aplicación no debe mostrar
+el texto ingresado por el usuario (contraseñas, información sensible, etc).
+. Los datos de ambientes diferentes a producción
+deben encontrarse enmascarados<<r1,^[1]^>>.
+
+== Solución
+
+. Definimos las divisiones de la aplicación:
++
+.cobolpass.cbl
+[source,cobol,linenums]
+----
+       IDENTIFICATION DIVISION.
+      ******************
+      * Identification *
+      ******************
+       PROGRAM-ID. COBOLPASS.
+----
++
+Mediante +PROGRAM-ID+ definimos el nombre del programa,
+en este caso +COBOLPASS+.
+
+. Declaramos las variables +W01-USERNAME+ y +W02-PASSWORD+:
++
+[source,cobol,linenums]
+----
+      ********
+      * Data *
+      ********
+       DATA DIVISION.
+
+       WORKING-STORAGE SECTION.
+       01 W01-USERNAME PIC X(20).
+       01 W02-PASSWORD PIC X(20).
+----
++
+En esta división podemos definir entre otras cosas,
+las variables utilizadas por el programa.
+Para ello, dentro de la sección: +WORKING-STORAGE SECTION+
+definimos todas las variables que se van a utilizar.
+Cada variable que se defina dentro de dicha sección,
+debe constar de las siguientes tres partes<<r2,^[2]^>>:
+
+* *Número de Nivel:* el número de nivel le informa al compilador
+el tipo de campo utilizado.
+En este caso es +01+,
+indicando la primer entrada de un registro
+o la primer entrada de un campo que se va a subdividir.
+
+* *Nombre de Variable:* es un identificador de variable, el cual,
+no puede consistir de ninguna palabra clave dentro de +COBOL+,
+ni consistir de caracteres extraños.
+Se suele utilizar letras, números y guiones.
+En el código anterior
+se declaran dos variables como:
++W01-USERNAME+ y +W02-PASSWORD+.
+
+* *+PICTURE/PIC:+* el propósito de esta palabra reservada
+es identificar el tipo de dato
+que va a contener la variable.
+En este caso su valor es +X+,
+indicando valores alfanuméricos
+con 20 caracteres de longitud.
+
+. Definimos el algoritmo o
+las tareas realizadas por el programa
+dentro de la división +PROCEDURE DIVISION+<<r3,^[3]^>>:
++
+[source,cobol,linenums]
+----
+      ********
+      * Main *
+      ********
+       PROCEDURE DIVISION.
+       MAIN.
+           DISPLAY "Username: ".
+           ACCEPT W01-USERNAME.
+----
++
+Mediante +DISPLAY+ podemos desplegar texto en pantalla
+y con la instrucción +ACCEPT+^<<r4,[4]>>,<<r5,[5]>>^
+es posible capturar datos desde el teclado.
+En este caso se solicita el nombre de usuario
+y el valor ingresado por el usuario
+es almacenado en la variable +W01-USERNAME+.
+
+. De manera similar, la contraseña
+es solicitada al usuario
+y almacenada dentro de la variable +W02-PASSWORD+.
+Sin embargo, en esta ocasión
+el texto ingresado por el usuario
+es enmascarado mediante las instrucciones +NO-ECHO+ o +SECURE+
+de tal forma que un tercero no pueda visualizarlo:
++
+[source,cobol,linenums]
+----
+       DISPLAY "Password: ".
+       ACCEPT W02-PASSWORD WITH NO-ECHO.
+
+       STOP RUN.
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/cobolpass.cbl[cobolpass.cbl]# contiene
+los pasos necesarios para enmascarar el texto explicado anteriormente.
+
+== Referencias
+
+. [[r1]] link:../../../rules/180/[REQ.180 Enmascarar datos].
+. [[r2]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=13[Data Division].
+. [[r3]] link:http://www.escobol.com/modules.php?name=Sections&op=printpage&artid=14[Procedure Division].
+. [[r4]] link:https://www.ibm.com/support/knowledgecenter/SSQ2R2_14.0.0/com.ibm.etools.cbl.win.doc/topics/rlpsacce.htm[ACCEPT statement].
+. [[r5]] link:https://supportline.microfocus.com/Documentation/AcucorpProducts/docs/v6_online_doc/gtman3/gt3678.htm[ACUCOBOL-GT Reference Manual].
+. [[r6]] link:../../../rules/159/[REQ.159 Código ofuscado].

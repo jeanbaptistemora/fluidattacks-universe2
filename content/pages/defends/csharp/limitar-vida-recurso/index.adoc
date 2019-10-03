@@ -1,0 +1,197 @@
+:slug: defends/csharp/limitar-vida-recurso/
+:category: csharp
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de recursos dentro de un programa C#, evitando que información disponible en memoria pueda ser capturada por usuarios no autorizados.
+:keywords: C sharp, Información sensible, Información confidencial, Memoria, Búfer, Lectura segura.
+:defends: yes
+
+= Limitar tiempo de vida de recursos
+
+== Necesidad
+
+Eliminar (limpiar) recursos
+dentro de la aplicación
+cuando ya no estén en uso.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +C#+ versión 5.0 o superior.
+. El código debe eliminar información sensible en memoria.
+. La aplicación debe liberar recursos cuando ya no estén en uso,<<r1,^[1]^>>
+limitando así su tiempo de vida.
+
+== Solución
+
+* *Lectura segura de ficheros:*
++
+En esta sección se va a implementar un programa
+el cual permite la lectura segura de ficheros
+almacenados en el ordenador:
+
+. En primer lugar se define el nombre de la clase +MyReadFile+
+dentro del espacio de nombre +mytest+:
++
+.myreadfile.cs
+[source, csharp, linenums]
+----
+using System;
+using System.IO;
+using System.Text;
+
+namespace mytest
+{
+   class MyReadFile
+   {
+----
+
+. A continuación se define el método +ReadFile+:
++
+[source, csharp, linenums]
+----
+static void ReadFile(string fileName){
+----
++
+Dicho método permite la lectura segura de ficheros
+mediante un objeto de la clase link:https://msdn.microsoft.com/en-us/library/system.io.filestream(v=vs.110).aspx[+FileStream+]
+(esta clase almacena los datos en el búfer
+para obtener un mejor rendimiento),
+recibiendo como parámetro el +string fileName+
+el cual representa la ruta
+donde se encuentra almacenado el fichero en el ordenador.
+
+. En primer lugar creamos una instancia
+de la clase +FileStream+ (el objeto +js+):
++
+[source, csharp, linenums]
+----
+FileStream fs = new FileStream(fileName,FileMode.Open,FileAccess.Read);
+----
++
+En este caso, el link:https://msdn.microsoft.com/en-us/library/tyhc0kft(v=vs.110).aspx[constructor] de dicha clase recibe tres argumentos:
+
+** *+string Path:+* ruta relativa o absoluta del archivo a ser procesado.
+En este caso la variable +fileName+.
+
+** *+FileMode mode:+* especifica cómo debería ser procesado el archivo
+por el sistema operativo.
+Existen varias link:https://msdn.microsoft.com/en-us/en-en/library/system.io.filemode(v=vs.110).aspx[constantes]
+para este argumento, en este caso se utiliza el valor +Open+,
+lo cual implica que el sistema operativo
+debe abrir un fichero existente en el ordenador.
+
+** *+FileAccess access:+* constante que determina
+cómo puede obtener acceso al archivo el objeto +FileStream+.
+Existen tres constantes para este link:https://msdn.microsoft.com/en-us/en-en/library/4z36sx0f(v=vs.110).aspx[argumento],
+en este caso se utiliza el valor +Read+,
+lo cual implica acceso de lectura al fichero.
+
+. Luego procesamos el fichero a leer:
++
+[source, csharp, linenums]
+----
+  if(fs.CanRead){
+
+    byte[] buffer = new byte[fs.Length];
+    int bytesread = fs.Read(buffer,0,buffer.Length);
+----
++
+Mediante el método +CanRead+
+se verifica si el flujo de datos actual admite lectura de los mismos.
+Posterior a ello, el método +Read+
+de la clase +FileStream+ recibe tres parámetros:
+
+** +*byte[] array:*+ contiene la matriz de bytes
+especificada con los valores entre +offset+ y +(offset + count - 1)+.
+En este caso le pasamos la variable +buffer+.
+
+** +*int offset:*+ desplazamiento de bytes en el parámetro +array+
+donde se colocarán los bytes leídos,
+en este caso 0.
+
+** +*int count:*+ número máximo de bytes que se pueden leer.
+En este caso le pasamos +buffer.Length+.
+
+. Posterior a ello, mediante la sentencia +Console.WriteLine+
+se imprime en pantalla el contenido del fichero leído.
++
+[source, csharp, linenums]
+----
+      Console.WriteLine(Encoding.ASCII.GetString(buffer,0,bytesread));
+    }
+    fs.Flush();//limpiamos el búfer
+    fs.Close();
+
+  }
+----
++
+Finalmente, una vez no es necesario la lectura del fichero,
+se limpia el búfer de datos mediante el método +Flush+.
+Y por último mediante el método +close+ se cierra el archivo leído
+y se libera los recursos asociados al flujo de datos del archivo actual.
+
+. Para llamar al método +ReadFile+,
+dentro del método +Main+ realizamos la llamada al mismo,
+pasando como argumento la variable +fileText+
+que contiene la ruta al fichero a ser leído:
++
+[source, csharp, linenums]
+----
+    public static void Main (string[] args)
+    {
+      string fileText = @"texto.txt";
+      ReadFile(fileText);
+    }
+  }
+}
+----
+. Para ejecutar el anterior programa,
+desde la terminal se debe ubicar primero en el directorio del proyecto
+y, en el caso de sistemas basados en +Linux+
+se debe instalar los comandos +mcs+ y +mono+
+los cuales permiten ejecutar aplicaciones desarrolladas en +C#+ desde +Linux+.
+Ejecutamos el comando +mcs+ seguido del nombre del archivo:
++
+[source, bash, linenums]
+----
+$ ls
+myreadfile.cs texto.txt
+$ mcs myreadfile.cs
+$ ls
+myreadfile.cs myreadfile.exe texto.txt
+----
+. Luego de compilar el programa correctamente,
+se obtiene el +bytecode+ (archivo +.exe+) del programa
+y se procede a ejecutar el mismo mediante el comando +mono+:
++
+[source, bash, linenums]
+----
+$ mono myreadfile.exe
+----
+. La salida en consola luego de ejecutar el programa es la siguiente
+(en este caso el contenido del fichero
+son contraseñas de prueba):
++
+[source, bash, linenums]
+----
+Contrasenas:
+FLUIDtest
+admin123
+csharpTest
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/myreadfile.cs[myreadfile.cs]# contiene
+las instrucciones +C#+ para la lectura de un fichero desde un búfer.
+
+== Referencias
+
+. [[r1]] link:../../../rules/999/[REQ.999 Limitar tiempo de vida de recursos].
+. *+Java+* link:../../java/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
+. *+SCALA+* link:../../scala/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
+. *+PHP+* link:../../php/limitar-vida-recurso/[Limitar tiempo de vida de recursos].

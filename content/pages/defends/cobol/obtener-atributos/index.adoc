@@ -1,0 +1,199 @@
+:slug: defends/cobol/obtener-atributos/
+:category: cobol
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al obtener los atributos de un objeto. Al acceder a algunos atributos de los objetos se puede verificar su autenticidad, lo cual ayuda a establecer fuentes confiables.
+:keywords: Cobol, Seguridad, Atributos, Autenticidad, Firma digital, Metadatos.
+:defends: yes
+
+= Obtener Atributos
+
+== Necesidad
+
+Obtener todos los atributos de un objeto desde +COBOL+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +COBOL+.
+. La aplicación hace uso de algún atributo del objeto sobre el cual opera.
+. Los archivos sobre los cuáles se opera
+deben tener un tamaño limitado.
+. Debe utilizarse firmas digitales
+para garantizar la autenticidad de información sensible.<<r1,^[1]^>>
+
+== Solución
+
+. Cada uno de los objetos almacenados
+en el sistema de archivos +QSYS.LIB+
+están asociados a un conjunto de atributos o metadatos
+que contienen información extra del objeto tales como:
+
+* Propietario.
+
+* Descripción.
+
+* Tiempo de creación, acceso, modificación.
+
+* Licencia del programa.
+
+* Tamaño lógico y físico.
+
+* Firma digital.
+
+* Atributos de autorización, entre otros.
+
+. El objetivo de la siguiente solución
+es obtener todos los atributos de un objeto
+haciendo uso de +QUSROBJD+.<<r2,^[2]^>>
+
+. Se inicia definiendo la división +IDENTIFICATION DIVISION+:
++
+.cobolobj.cbl
+[source, cobol,linenums]
+----
+       IDENTIFICATION DIVISION.
+      ******************
+      * Identification *
+      ******************
+       PROGRAM-ID. COBOLOBJ.
+----
++
+En esta división mediante la sentencia +PROGRAM-ID+,
+se denomina al programa como +COBOLOBJ+.
+Cabe resaltar que el uso de +IDENTIFICATION DIVISION+
+no se limita a establecer el nombre de un programa en +COBOL+.
+Al final del presente artículo,^<<r3,[3]>>,<<r4,[4]>>^
+puede encontrar mayor información
+relacionada al uso de dicha división.
+
+. En la división +DATA DIVISION+<<r5,^[5]^>>
+y dentro de la sección +WORKING-STORAGE SECTION+,
+se declaran tres estructuras de datos:
+
+* +DATA-TYPES:+ los diferentes tipos de datos
+para ser reutilizados en las demás variables.
+
+* +REQUIRED-PARAMETER:+ parámetros obligatorios de la biblioteca +QUSROBJD+
+que contiene información acerca del nombre del objeto, su tipo
+y biblioteca en la que se encuentra el mismo.
+
+* +OPTIONAL-PARAMETER:+ parámetros opcionales de la biblioteca +QUSROBJD+
+que contendrá el detalle del error en caso de que ocurra alguno.
+
++
+[source, cobol,linenums]
+----
+      ********
+      * Data *
+      ********
+       DATA DIVISION.
+
+       WORKING-STORAGE SECTION.
+      * Qualified object name = "OBJECT    " + "LIBRARY   "
+       01 REQUIRED-PARAMETER.
+           02 R-RECEIVER-LENGTH PIC S9(9) BINARY VALUE 653.
+           02 R-FORMAT-NAME     PIC X(08) VALUE "OBJD0400".
+           02 R-QOBJECT-NAME.
+              03 R-OBJECT-NAME  PIC X(10) VALUE "".
+              03 R-LIBRARY-NAME PIC X(10) VALUE "".
+           02 R-OBJECT-TYPE     PIC X(10) VALUE "".
+
+       01 OPTIONAL-PARAMETER.
+           02 O-BYTES-PROVIDED   PIC S9(9) BINARY VALUE 256.
+           02 O-BYTES-AVAILABLE  PIC S9(9) BINARY VALUE 0.
+           02 O-EXCEPTION-ID     PIC X(08).
+           02 O-RESERVED         PIC X(01).
+           02 O-EXCEPTION-DATA   PIC X(240).
+----
+
+. Copiamos de las estructuras de datos
+para el llamado a la interfaz de aplicación +QUSROBJD+.
+Al final de este artículo<<r6,^[6]^>>
+puede encontrar más ejemplos relacionados con +QUSROBJD+:
++
+[source, cobol,linenums]
+----
+       COPY QUSROBJD OF QSYSINC-QCBLLESRC.
+----
+. Dentro de la división +PROCEDURE DIVISION+<<r7,^[7]^>>
+y mediante la sentencia +ACCEPT+,
+se obtiene los datos de entrada ingresados por el usuario.
++
+[source, cobol,linenums]
+----
+      ********
+      * Main *
+      ********
+       PROCEDURE DIVISION.
+       MAIN.
+           DISPLAY "Nombre del objeto: ".
+           ACCEPT R-OBJECT-NAME.
+
+           DISPLAY "Tipo del objeto (*FILE, *SRC, etc): ".
+           ACCEPT R-OBJECT-TYPE.
+
+           DISPLAY "Nombre de la bilbioteca: ".
+           ACCEPT R-LIBRARY-NAME.
+----
+. Se hace el llamado a la biblioteca +QUSROBJD+
+usando las estructuras anteriormente definidas:
++
+[source, cobol,linenums]
+----
+       CALL "QUSROBJD" USING
+           QUS-OBJD0400
+           R-RECEIVER-LENGTH
+           R-FORMAT-NAME
+           R-OBJECT-NAME
+           R-OBJECT-TYPE
+           OPTIONAL-PARAMETER.
+----
+. Si la ejecución está libre de errores
+entonces se verifica el tamaño del objeto
+y que éste cuente con firma digital:
++
+[source, cobol,linenums]
+----
+       IF O-BYTES-AVAILABLE = 0 THEN
+           IF OBJECT-SIZE < 100000 THEN
+               DISPLAY "Tamanio del objeto: " OBJECT-SIZE
+           ELSE
+               DISPLAY "Tamanio del objeto no es valido"
+           END-IF
+
+           IF DIGITALLY-SIGNED NOT = 0 THEN
+               DISPLAY "Objeto firmado digitalmente"
+           ELSE
+               DISPLAY "Objeto no firmado digitalmente"
+           END-IF
+----
+. En caso de error
+se despliega en pantalla el +ID+ de la excepción:
++
+[source, cobol,linenums]
+----
+       ELSE
+           DISPLAY "Ha ocurrido un error: " O-EXCEPTION-ID
+       END-IF.
+
+       STOP RUN.
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/cobolobj.cbl[cobolobj.cbl]# contiene
+el código explicado anteriormente para trabajar con atributos de objetos.
+
+== Referencias
+
+. [[r1]] link:../../../rules/178/[REQ.178 Utilizar firmas digitales].
+. [[r2]] link:https://www.ibm.com/support/knowledgecenter/ssw_i5_54/apis/qusrobjd.htm[Retrieve Object Description (QUSROBJD) API].
+. [[r3]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[IBM - Identification Division].
+. [[r4]] link:http://www.escobol.com/modules.php?name=Sections&op=viewarticle&artid=11[Identification Division].
+. [[r5]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/datdivs.htm[Data Division Structure].
+. [[r6]] link:https://www.ibm.com/support/knowledgecenter/ssw_ibm_i_73/apiref/apipdf.pdf[API overview and concepts].
+. [[r7]] link:http://www.mainframestechhelp.com/tutorials/cobol/cobol-procedure-division.htm[COBOL Procedure Division].

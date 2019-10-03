@@ -1,0 +1,286 @@
+:slug: defends/java/evitar-inyeccion-xpath/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al evitar ataques inyección XPATH. Los ataques XPATH se aprovechan de los intérpretes para inyectar consultas maliciosas en las entradas de una aplicación.
+:keywords: Java, Seguridad, Inyección, XPATH, Buenas Prácticas, XML.
+:defends: yes
+
+=  Evitar Ataques de XPATH Injection
+
+== Necesidad
+
+Evitar ataques de +XPATH Injection+
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación con +Java+.
+. Se está desarrollando una aplicación que utiliza
+el +API+ de interpretación de +XML+ +XPATH+.
+
+== Solución
+
+De manera similar a las +SQL Injection+,
+los ataques de +XPATH Injection+ se producen
+cuando un sitio web utiliza la información suministrada por el usuario
+para construir una consulta +XPATH+ para datos +XML+.
+Mediante el envío de sentencias intencionalmente mal formadas,
+un atacante puede descubrir cómo se estructuran los datos +XML+,
+incluso acceder a todos sus datos.
+El atacante incluso puede ser capaz de elevar sus privilegios
+en el sitio web si los datos +XML+ se utilizan para la autenticación.
+
+Las consultas +XML+ se realizan con +XPATH+,
+un tipo de declaración descriptiva simple
+que permite la consulta +XML+ para localizar información.
+Al igual que +SQL+, puede especificar ciertos atributos
+para encontrar y mostrar patrones para que coincidan.
+Cuando se hace uso de +XML+ en un sitio web
+es común aceptar algún tipo de entrada
+en la cadena de consulta para identificar
+el contenido a localizar y mostrar en la página.
+
+Por último, hay que saber que +XPATH+ es un lenguaje estándar,
+y su notación y/o sintaxis es siempre independiente de la implementación,
+lo que significa que el ataque puede ser automatizado.
+No hay dialectos diferentes,
+ya que se lleva a cabo en las solicitudes de las bases de datos +SQL+.
+Debido a que no existe un control de acceso de nivel,
+es posible obtener el documento completo. ^<<r1,[1]>>^
+
+En esa solución se pretende mostrar un ataque +XPATH+
+y como evitarlo en una aplicación desarrollada en +Java+.
+
+. Primero considere el siguiente archivo +XML+.
++
+.test.xml
+[source, xml, linenums]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+ <users>
+   <user>
+     <firstname>Ben</firstname>
+     <lastname>Elmore</lastname>
+     <loginID>abc</loginID>
+     <password>test123</password>
+   </user>
+   <user>
+     <firstname>Shlomy</firstname>
+     <lastname>Gantz</lastname>
+     <loginID>xyz</loginID>
+     <password>123test</password>
+   </user>
+   <user>
+     <firstname>Jeghis</firstname>
+     <lastname>Katz</lastname>
+     <loginID>mrj</loginID>
+     <password>jk2468</password>
+   </user>
+   <user>
+     <firstname>Darien</firstname>
+     <lastname>Heap</lastname>
+     <loginID>drano</loginID>
+     <password>2mne8s</password>
+    </user>
+ </users>
+----
+
+. Ahora bien, es posible fabricar la siguiente consulta de +XPATH+.
++
+[source, shell, linenums]
+----
+/users/user[loginID/text()='abc' and password/text()='test123']
+----
+
+. Si un atacante pudiera controlar las entradas de la consulta,
+de manera similar a los ataques de +SQL Injection+,
+podría fabricar una consulta de este tipo.
++
+[source, shell, linenums]
+----
+/users/user[LoginID/text()='' or '1'='1' and password/text()='' or '1'='1']
+----
+
+. En el siguiente código,
+si un atacante puede manipular la entrada a +doLogin+,
+es posible realizar tautologías que permitan evadir
+el mecanismo de autenticación.
++
+[source, java, linenums]
+----
+private boolean doLogin(String loginID, String password)
+ throws ParserConfigurationException, SAXException,
+  IOException, XPathExpressionException {
+    DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
+    domFactory.setNamespaceAware(true);
+    DocumentBuilder builder = domFactory.newDocumentBuilder();
+    Document doc = builder.parse("users.xml");
+    XPathFactory factory = XPathFactory.newInstance();
+    XPath xpath = factory.newXPath();
+    String query = "//users/user[loginID/text()='"
+      + loginID + "' and password/text()='"+password+"' ]/firstname/text()";
+    XPathExpression expr = xpath.compile(query);
+    Object result = expr.evaluate(doc, XPathConstants.NODESET);
+    NodeList nodes = (NodeList) result;
+    //print first names to the console
+    for (int i = 0; i < nodes.getLength(); i++) {
+      System.out.println(nodes.item(i).getNodeValue()+" accede al sistema");}
+      if (nodes.getLength() >= 1) {
+        return true;}
+      else
+       {return false;}
+    }
+----
+
+. Para prevenir estos ataques,
+se procede del mismo modo que con los ataques de +SQL Injection+.
+Es decir, realizando validación de las entradas,
+sistemas de prevención como +WAF+,
+inspección de datos en las diferentes capas.
+Por ejemplo, en el servidor Web +Apache+ se puede usar
+el +Mod_Security SecFilterSelective THE_REQUEST "(\'|\")")+.
+Ademas, es importante usar parametrización en las consultas.
++
+[source, java, linenums]
+----
+declare variable $loginID as xs:string external;
+declare variable $password as xs:string external;
+//users/user[@loginID=$loginID and @password=$password]
+----
+
+. Para utilizar consultas parametrizadas se requiere emplear +XQuery+,
+que es un super conjunto de +XPATH+.
+XQuery básicamente permite utilizar archivos +XML+
+como si fuesen bases de datos.
+Java no soporta de modo nativo +XQuery+,
+pero existen parseadores gratuitos
+como el referenciado en ^<<r3,[3]>>^.
+
+. El código completo usando +AWT+ sería:
++
+[source, java, linenums]
+----
+import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
+import javax.xml.parsers.*;
+import javax.xml.xpath.*;
+
+public class XpathInjectionExample {
+  public static void main(String[] args) {
+    System.out.println("Running");
+    self= new XpathInjectionExample();
+    self.printForm();
+  }
+
+  public static void doLogin() {
+    boolean auth = false;
+    try {
+      auth = self.doLogin(self.lUserName.getText(), self.lPass.getText());
+    } catch (ParserConfigurationException e1) {
+        System.out.println("ParserConfigurationException");
+    } catch (SAXException e1) {
+        System.out.println("SAXException");
+    } catch (IOException e1) {
+        System.out.println("IOException");
+    } catch (XPathExpressionException e1) {
+        System.out.println("XPathExpressionException");
+    }
+    if (auth)
+    self.lbl2.setText("Autenticacion exitosa");
+    else
+    self.lbl2.setText("Usuario y/o Contrasena invalida");
+  }
+
+  private boolean doLogin(String loginID, String password)
+     throws ParserConfigurationException,
+       SAXException, IOException, XPathExpressionException
+  {
+     DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
+     domFactory.setNamespaceAware(true);
+     DocumentBuilder builder = domFactory.newDocumentBuilder();
+     Document doc = builder.parse("users.xml");
+     XPathFactory factory = XPathFactory.newInstance();
+     XPath xpath = factory.newXPath();
+     String query = "//users/user[loginID/text()='"
+       + loginID + "' and password/text()='"+password+"' ]/firstname/text()";
+     XPathExpression expr = xpath.compile(query);
+     Object result = expr.evaluate(doc, XPathConstants.NODESET);
+     NodeList nodes = (NodeList) result;
+     //print first names to the console
+     for (int i = 0; i < nodes.getLength(); i++) {
+       System.out.println(nodes.item(i).getNodeValue()+" accede al sistema");}
+       if (nodes.getLength() >= 1) {
+         return true;}
+       else
+         {return false;}
+  }
+
+  private void printForm() {
+    al = new myActionListener();
+    frm=new Frame("Autenticacion");
+    lbl = new Label("Bienvenido al sistema mas seguro..."
+      + "sientase tranquilo, nosotros no usamos SQL!");
+    frm.add(lbl);
+    frm.setSize(600,200);
+    frm.setVisible(true);
+    frm.addWindowListener(new WindowAdapter(){
+      public void windowClosing(WindowEvent e){
+        System.exit(0);}
+      });
+    p = new Panel();
+    p1 = new Panel();
+    jUserName = new Label("Nombre de usuario");
+    lUserName = new TextField(20);
+    jPass =new Label("Last Name");
+    lPass=new TextField(20);
+    lPass.setEchoChar('*');
+    p.setLayout(new GridLayout(3,1));
+    p.add(jUserName);
+    p.add(lUserName);
+    p.add(jPass);
+    p.add(lPass);
+    Submit=new Button("Hecho");
+    Submit.setActionCommand("Hecho");
+    Submit.addActionListener(al);
+    p.add(Submit);
+    p1.add(p);
+    lbl2 = new Label("Presione Hecho para continuar");
+    p1.add(lbl2);
+    frm.add(p1,BorderLayout.NORTH);
+  }
+
+  // miembros del GUI
+  private Frame frm;
+  private Label lbl;
+  private Label lbl2;
+  private Panel p;
+  private Panel p1;
+  private Label jUserName;
+  private TextField lUserName;
+  private Label jPass;
+  private TextField lPass;
+  private Button Submit;
+  private ActionListener al;
+  public static XpathInjectionExample self;
+}
+
+class myActionListener implements ActionListener {
+  public void actionPerformed(ActionEvent ae) {
+    String s = ae.getActionCommand();
+    if (s.equals("Hecho")) {
+      XpathInjectionExample.doLogin() ;
+    }
+  }
+}
+----
+
+== Referencias
+
+. [[r1]] link:https://es.wikipedia.org/wiki/Inyecci%C3%B3n_XPath[XPATH Injection]
+. [[r2]] link:https://www.owasp.org/index.php/XPATH_Injection[XPath injection]
+. [[r3]] link:https://sourceforge.net/projects/saxon/files/latest/download?source=files[Saxon Home Edition (HE) (open source)]
+. [[r4]] link:../../../rules/173/[REQ.173 Descartar información insegura]

@@ -1,0 +1,83 @@
+:slug: defends/csharp/establecer-content-type/
+:category: csharp
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en C Sharp al establecer las cabeceras content-type y charset de una aplicación desarrollada para evitar ataques que utilizan diferentes codificaciones, como el HTTP Request Smuggling.
+:keywords: C Sharp, Seguridad, Charset, Content-Type, Buenas Prácticas, HTTP Request Smuggling.
+:defends: yes
+
+= Establecer Content-Type y Charset
+
+== Necesidad
+
+Establecer +Content-Type+ y +Charset+ en +C#+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando en +C#+.
+. Se necesita establer la cabecera +Content-Type+^<<r1,[1]>>,<<r2,[2]>>^.
+. Se necesita establecer la propiedad +Charset+ de la cabecera +Content-Type+<<r3,^[3]^>>.
+
+== Solución
+
+. Las aplicaciones son rara vez probadas contra los exploits que usan +Unicode+,
+y sin embargo, muchas son vulnerables al mismo tipo de problemas
+que permite a un atacante realizar un "+HTTP REQUEST SMUGGLING+".
+El "+HTTP REQUEST SMUGGLING+" le permite a un atacante evadir
+los controles de un sistema, usando codificaciones diferentes,
+para que dos sistemas (usualmente, un +WAF+ y el servidor +WEB+)
+perciban peticiones +HTTP+ diferentes.
++
+La forma canónica significa la forma más simple o más estándar de algo.
+El proceso de canonizar las solicitudes
+se encarga de abordar la forma en que los sistemas
+transforman los datos de una forma a otra.
++
+En sí, canonizar es convertir algo de una representación a una forma más simple.
+Las aplicaciones +Web+ deben lidiar con muchos procesos de canonización
+desde la codificación de la +URL+ hasta la traducción de las +IP+.
+Cuando se toman decisiones de seguridad basándose en datos canonizados,
+la aplicación debe ser capaz de lidiar
+con entradas inesperadas de manera segura.
++
+Para evitar los ataques que se aprovechan de la canonización,
+se debe seleccionar una forma canónica
+y todas las entradas de usuario deben ser canonizadas
+a esa forma antes de tomar decisiones de autorización.
+Se debe realizar un proceso de ethical hacking
+después de que se ha realizado la decodificación.
++
+Se recomienda verificar que la codificación usada está soportada
+para cada símbolo que se presenta.
+Para definir una forma canónica, en +HTTP+ definimos el +Content-Type+.
+En +C#+ tenemos la propiedad +HttpResponse.ContentType+, <<r4,^[4]^>>
+que permite establecer u obtener el tipo +MIME+ del flujo de salida.
+Se encuentra en el espacio de nombres
++System.Web+ en el ensamblado +System.Web+ de +System.Web.dll+.
++
+.ejemplo.cs
+[source, csharp]
+----
+// Establece el contet type.
+Response.ContentType = "image/jpeg";
+----
+
+. De manera similar, podemos definir el +Character-Set+ usado.
+En +C#+ se cuenta con +HttpResponse.Charset+
+que permite establecer u obtener el tipo +MIME+ del flujo de salida.
++
+[source, csharp]
+----
+if (Response.Charset == "utf-8")
+ {
+   // ...
+ }
+----
+
+== Referencias
+
+. [[r1]] link:../../../rules/043/[REQ.043 Definir content type explícito].
+. [[r2]] link:https://www.owasp.org/index.php/Security_Headers[OWASP, Security Headers].
+. [[r3]] link:../../../rules/044/[REQ.044 Definir charset explícito].
+. [[r4]] link:https://msdn.microsoft.com/en-us/library/system.web.httpresponse.contenttype.aspx[Microsoft, httpresponse.contenttype].

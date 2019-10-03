@@ -1,0 +1,232 @@
+:slug: defends/cobol/liberar-recursos/
+:category: cobol
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al liberar recursos. Al liberar recursos que no están siendo utilizados se mejora el rendimiento de la aplicación y la experiencia del usuario.
+:keywords: Cobol, Seguridad, Liberar, Recursos, Buenas Prácticas, SQL.
+:defends: yes
+
+= Liberar Recursos
+
+== Necesidad
+
+Liberar recursos abiertos en +COBOL+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +COBOL+.
+. El programa hace uso de archivos o cursores +SQL+.
+. El código debe cerrar los recursos que utiliza<<r1,^[1]^>>.
+
+== Solución
+
+La sentencia +CLOSE+ en +COBOL+
+permite cerrar varios tipos de recursos,
+entre los cuales se incluyen archivos
+y cursores de la base de datos.
+
+* *Liberar archivos*
+
+. Los archivos en +COBOL+ se deben cerrar usando la sintaxis^<<r2,[2]>>,<<r3,[3]>>^:
++
+[source,cobol,linenums]
+----
+       CLOSE descriptor
+----
+. Se define la división +IDENTIFICATION DIVISION+^<<r4,[4]>>,<<r5,[5]>>^:
++
+.cobolclsf.cbl
+[source,cobol,linenums]
+----
+       IDENTIFICATION DIVISION.
+      ******************
+      * Identification *
+      ******************
+       PROGRAM-ID. COBOLCLSF.
+----
++
+Se establece el nombre del programa a +COBOLCLSF+
+mediante la sentencia +PROGRAM-ID+.
+
+. En la división +ENVIRONMENT DIVISION+<<r6,^[6]^>>
+y dentro de la sección +INPUT-OUTPUT SECTION+,
+se declara el uso del descriptor +TEST-FILE+
+el cual es asignado al archivo +TESTFILE+:
++
+[source,cobol,linenums]
+----
+      ***************
+      * Environment *
+      ***************
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+           SELECT TEST-FILE ASSIGN TO 'TESTFILE'
+           ORGANIZATION IS SEQUENTIAL.
+----
+. En la división +DATA DIVISION+<<r7,^[7]^>>
+y dentro de la sección +FILE SECTION+,
+se establece el formato del archivo:
++
+[source,cobol,linenums]
+----
+      ********
+      * Data *
+      ********
+       DATA DIVISION.
+
+       FILE SECTION.
+       FD TEST-FILE.
+       01 TEST-FILE-RECORD PIC X(32).
+----
+. En la división +PROCEDURE DIVISION+<<r8,^[8]^>>
+se encuentra la lógica del programa:
++
+[source,cobol,linenums]
+----
+      ********
+      * Main *
+      ********
+       PROCEDURE DIVISION.
+       MAIN.
+----
+. Abrimos el archivo en modo +EXTEND+,
+lo que permite agregar al final del mismo el contenido:
++
+[source,cobol,linenums]
+----
+       OPEN EXTEND TEST-FILE.
+----
+. A continuación, se mueve la cadena "Hola mundo" al registro.
+Esta operación debe ser realizada luego de abrir el archivo:
++
+[source,cobol,linenums]
+----
+       MOVE "Hola mundo" TO TEST-FILE-RECORD.
+----
+. Se escribe el contenido:
++
+[source,cobol,linenums]
+----
+       WRITE TEST-FILE-RECORD.
+----
+. Además, todo archivo abierto debe ser cerrado:
++
+[source,cobol,linenums]
+----
+       CLOSE TEST-FILE.
+----
+. Por último, se detiene la ejecución del programa:
++
+[source,cobol,linenums]
+----
+       STOP RUN.
+----
+
+* *Liberar cursores*
+
+. Se inicia la solución definiendo la división +IDENTIFICATION DIVISION+:
++
+.cobolclsc.cbl
+[source,cobol,linenums]
+----
+       IDENTIFICATION DIVISION.
+      ******************
+      * Identification *
+      ******************
+       PROGRAM-ID. COBOLCLSC.
+----
+. En la división +DATA DIVISION+
+se declara la variable
+para almacenar el nombre de usuario que obtenemos de la base de datos.
+Igualmente se copia la estructura de datos +SQLCA+
+que tiene como propósito
+recibir los mensajes de error producidos por las sentencias:
++
+[source,cobol,linenums]
+----
+      ********
+      * Data *
+      ********
+       DATA DIVISION.
+
+       WORKING-STORAGE SECTION.
+       01 WS-USERNAME PIC X(64) VALUE "".
+
+       COPY SQLCA OF QSYSINC-QCBLLESRC.
+----
+. Dentro de la división +PROCEDURE DIVISION+
+se declara inicialmente el cursor +C1+:
++
+[source,cobol,linenums]
+----
+      ********
+      * Main *
+      ********
+       PROCEDURE DIVISION.
+       MAIN.
+           EXEC SQL
+               DECLARE C1 CURSOR FOR
+               SELECT usuario
+               FROM SQLTEST
+           END-EXEC.
+----
+. Abrimos el cursor y obtenemos el contenido del primer registro:
++
+[source,cobol,linenums]
+----
+       EXEC SQL
+           OPEN C1
+       END-EXEC.
+
+       EXEC SQL
+           FETCH C1 INTO :WS-USERNAME
+       END-EXEC.
+----
+. Se muestra el nombre del usuario obtenido:
++
+[source,cobol,linenums]
+----
+       DISPLAY "Nombre de usuario: " WS-USERNAME
+----
+. Finalmente, el proceso de cierre de cursores
+es realizado automáticamente al finalizar cada programa en +COBOL+,
+pero se debe realizar en el código por seguridad
+y para mantener compatibilidad entre diferentes plataformas:
++
+[source,cobol,linenums]
+----
+       EXEC SQL
+           CLOSE C1
+       END-EXEC.
+----
+. Por último, se finaliza el programa:
++
+[source,cobol,linenums]
+----
+       STOP RUN.
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en los siguientes enlaces:
+
+. [button]#link:src/cobolclsf.cbl[cobolclsf.cbl]# contiene
+instrucciones para cerrar correctamente un recurso abierto
+tal como se explicó antes.
+. [button]#link:src/cobolclsc.cbl[cobolclsc.cbl]# contiene
+instrucciones para cerrar correctamente un cursor abierto
+tal como se explicó antes.
+
+== Referencias
+
+. [[r1]] link:../../../rules/167/[REQ.167 Cerrar recursos no utilizados].
+. [[r2]] link:https://www.ibm.com/support/knowledgecenter/SSQ2R2_9.1.1/com.ibm.ent.cbl.zos.doc/PGandLR/ref/rlpsclos.html[CLOSE statement].
+. [[r3]] link:https://www.ibm.com/support/knowledgecenter/en/SSAE4W_9.1.1/com.ibm.etools.iseries.langref.doc/c0925395371.htm[CLOSE Statement Considerations].
+. [[r4]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[IBM - Identification Division].
+. [[r5]] link:http://www.escobol.com/modules.php?name=Sections&op=viewarticle&artid=11[Identification Division].
+. [[r6]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_72/rzasb/envcon.htm[Environment Division].
+. [[r7]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/datdivs.htm[Data Division Structure].
+. [[r8]] link:http://www.mainframestechhelp.com/tutorials/cobol/cobol-procedure-division.htm[COBOL Procedure Division].

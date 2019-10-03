@@ -1,0 +1,103 @@
+:slug: defends/java/establecer-control-acceso-url/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al establecer un control de acceso a URL. El control de acceso consta de un conjunto de reglas que definen la disponibilidad de los recursos para los usuarios de la aplicación.
+:keywords: Java, Seguridad, Control, Acceso, URL, Buenas prácticas.
+:defends: yes
+
+=  Establecer Control de Acceso a URL
+
+== Necesidad
+
+Establecer control de acceso a +URL+ mediante servidor de aplicaciones en +Java+
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido
+
+. Se dispone de un servidor de aplicaciones
+conforme con las especificaciones empresariales de +Java+.
+
+. Se han configurado los roles de seguridad necesarios
+por la aplicación en el servidor de aplicaciones.
+* link:../definir-rol-seguridad-tomcat/[Definir Roles De Seguridad En Tomcat]
+* link:../../glassfish/definir-rol-seguridad/[Definir Roles De Seguridad En GlassFish]
+
+. Se ha configurado la interfaz de autenticación para la aplicación web.
+
+== Solución
+
+El control de acceso se define como un conjunto de reglas que,
+tal como su nombre lo indica,
+permite o rechaza el acceso a determinados componentes de un sistema.
+Para poder realizar dicho control, el usuario que solicita el acceso,
+por lo general, debe autenticarse ante el sistema
+para que este pueda identificar el +rol+ que desempeña el usuario
+y así brindarle o negarle el acceso solicitado.
+
+Por lo general, el control de acceso se hace
+con el fin de cumplir los siguientes objetivos:
+
+Mantener la integridad de la información.
+Esto se refiere a que toda la información que se almacena
+sólo pueda ser modificada por las personas autorizadas.
+
+Preservar la confidencialidad de la información.
+En este caso, se hace referencia a que la información confidencial
+únicamente pueda ser consultada o leída
+por los roles definidos para tal fin.
+Cualquier otro rol, no tendrá acceso a dicha información.
+
+Mantener el control de acceso, es decir,
+tener siempre disponible información sobre quien
+y porque ha accedido a determinado recurso.
+Esto, con el fin de que,
+en caso de que suceda algún evento
+que comprometa la seguridad y la integridad de la información,
+saber quien, posiblemente, fue el responsable.
+
+Entonces, para definir un control de acceso a +urls+
+mediante un servidor de aplicaciones en +Java+,
+se siguen los siguientes pasos:
+
+. Dentro del archivo +WEB-INF\web.xml+ de la aplicación web
+se deben configurar los +roles+ requeridos en la aplicación.
++
+.web.xml
+[source, xml, linenums]
+----
+ <security-role>
+  <role-name>rol1</role-name>
+</security-role>
+<security-role>
+  <role-name>rol2</role-name>
+</security-role>
+----
+
+. Posteriormente, se debe definir la restricción de seguridad
+para la dirección +URL+ que se quiere proteger.
+Como es lógico esta +URL+ solo puede ser accedida por determinados roles.
++
+[source, xml, linenums]
+----
+ <security-constraint>
+  <display-name>Restricción de Seguridad 1</display-name>
+  <web-resource-collection>
+    <web-resource-name>Direcciones Protegidas</web-resource-name>
+    <url-pattern>/restringido/*</url-pattern>
+  </web-resource-collection>
+  <auth-constraint>
+    <role-name>rol1</role-name>
+  </auth-constraint>
+</security-constraint>
+----
+
+. De esta forma, el acceso a todos los archivos
+contenidos en +/restringido+ estará disponible
+solo a las personas que hayan sido autenticadas satisfactoriamente
+con los +roles+ correspondientes, en este caso, +rol1+.
+
+== Referencias
+
+. [[r1]] link:http://www.hipergate.org/es/webxml.html[Configuración de /WEB-INF/web.xml]
+. [[r2]] link:https://docs.oracle.com/cd/E13222_01/wls/docs92/webapp/configureservlet.html[Creating and Configuring Servlets]

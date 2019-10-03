@@ -1,0 +1,114 @@
+:slug: defends/html/deshabilitar-cache-app-web/
+:category: html
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en HTML al deshabilitar la caché en campos de aplicaciones web. La memoria caché en un formulario web puede ser utilizada para perpetrar un ataque de robo de información.
+:keywords: HTML, Caché , Deshabilitar, Formulario, Navegador, Autocompletar.
+:defends: yes
+
+= Deshabilitar Caché en Campos de Aplicaciones Web
+
+== Necesidad
+
+Deshabilitar la opción para autocompletar campos en aplicaciones Web.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se necesita deshabilitar la +caché+ del navegador
+en ciertos campos con información crítica.
+
+. Se necesita deshabilitar la +caché+ en todos los campos de un formulario.
+
+. El sistema no debe almacenar información sensible
+en archivos temporales o en memoria caché.<<r1,[1]>>
+
+== Solución
+
+Para empezar, un formulario web es aquel
+que permite al usuario introducir datos
+los cuales son enviados a un servidor para ser procesados.
+Los formularios web hacen uso de casillas de selección,
+botones de opción, o campos de texto.
+Por ejemplo, un formulario web pueden ser usado
+para introducir datos de envío o datos de una tarjeta de crédito
+con el objetivo de solicitar un producto.
+
+Además de servir como plantillas para nueva información,
+los formularios web también pueden ser usados
+para consultar y mostrar información existente
+como los campos de busqueda de,
+valga la redundancia, los buscadores web.
+
+Los formularios web están definidos
+en +HTML+ y apoyados en lenguajes de programación como +Perl+, +Java+ o +.NET+.
+Las implementaciones de estos lenguajes
+usualmente invocan automáticamente los idiomas de la interfaz de usuario
+y otras de sus características, tales como el diseño estructural y tema,
+minimizando el tiempo, el costo y el tiempo de programación.<<r2,[2]>>
+
+Por otro lado, la +caché+ en un formulario es la encargada
+de almacenar en la +memoria+ del +navegador+
+la información ingresada por el usuario.
+Esto se hace con el fin de que, en caso de que
+el usuario tenga que volver a llenar el formulario,
+no tenga que digitar los datos nuevamente.
+
+El problema que se presenta es que,
+en caso de que el formulario recoja información
+que debe ser privada,
+al tener la caché del formulario activa,
+cualquier persona que visite la página
+con el mismo navegador usado por un usuario anterior
+tendrá acceso a la información suministrada por éste.
+Por tanto, para desactivar la +caché+
+en una aplicación web se debe:
+
+
+. Usar la opción +autocomplete=off+
+en el campo que no se desea guardar +caché+
+mediante etiquetas +HTML+ especificando el atributo
++autocomplete+ en cada etiqueta +input+.<<r3,[3]>>
++
+.formulario.html
+[source, html,linenums]
+----
+<html>
+ <head>
+   <title>Login</title>
+ </head>
+ <body bgcolor="white">
+   <form method="POST" action="login.jsp">
+     <table border="0" cellspacing="5">
+       <tr><th align="right">Usuario:</th>
+         <td align="left"><input type="text" name="j_username"autocomplete="off"></td>
+       </tr>
+       <tr><th align="right">Contrase&ntilde;a:</th>
+         <td align="left"><input type="password" name="j_password"></td>
+       </tr>
+       <tr><td align="right"><input type="submit" value="Ingresar"></td>
+         <td align="left"><input type="reset" value="Limpiar"></td>
+       </tr>
+     </table>
+   </form>
+ </body>
+</html>
+----
+
+. En el caso que se requiera desactivar la +caché+
+para todas las entradas en el formulario,
+el atributo +autocomplete+ se usa en la etiqueta de formulario,<<r4,[4]>>
+no es necesario en este caso especificar el atributo en cada +input+.
++
+[source, html,linenums]
+----
+ <form method="POST" action="login.jsp" autocomplete="off"> <input type="text"
+ name="j_username"> <input type="password" name="j_password"> </form>
+----
+
+== Referencias
+
+. [[r1]] link:../../../rules/177/[REQ.177 Almacenar datos de forma segura].
+. [[r2]] link:https://es.wikipedia.org/wiki/Formulario_web[Formulario web].
+. [[r3]] link:https://html.com/attributes/input-autocomplete/[INPUT AUTOCOMPLETE].
+. [[r4]] link:http://ryanfarley.com/blog/archive/2005/02/23/1739.aspx[Disabling Auto-Complete on ASP.NET Forms].

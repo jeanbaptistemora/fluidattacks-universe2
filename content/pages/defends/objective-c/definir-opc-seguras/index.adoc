@@ -1,0 +1,133 @@
+:slug: defends/objective-c/definir-opc-seguras/
+:category: objective-c
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Objective C al definir escenarios seguros por defecto en las estructuras condicionales. Las buenas prácticas de programación permiten desarrollar aplicaciones seguras y confiables.
+:keywords: Objective C, Condicionales, Seguros, Programación, Opciones, Defecto.
+:defends: yes
+
+= Establecer Opciones Seguras en Condicionales
+
+== Necesidad
+
+Establecer opciones seguras por defecto
+en estructuras condicionales en +Objetive-C+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +Objective-C+ para +iOS 8+.
+
+. La aplicación utiliza estructuras condicionales
+como +if+ o +switch+.
+
+. No se ha definido escenarios por defecto
+ante condiciones no contempladas por la aplicación.
+
+== Solución
+
+Las buenas prácticas de programación
+consisten en una serie de criterios que permiten evitar fallos
+y vulnerabilidades de seguridad en el momento
+de desarrollar una aplicación.
+Una de las prácticas más comunes,
+es usar opciones por defecto seguras
+cuando se utilizan estructuras condicionales.
+Esto se realiza para evitar que la aplicación falle
+en el momento de presentarse una condición que no ha sido definida
+dentro de las opciones válidas.
+Las buenas prácticas se pueden aplicar
+a cualquier lenguaje de programación+.
+
+En cada estructura condicional empleada en una aplicación +iOS+,
+se recomienda contemplar todos los posibles escenarios.
+Para ello debemos seguir los siguientes criterios:
+
+* Para sentencias +if+ debe usarse con su correspondiente +else+ <<r1, ^[1]^>>.
+* Para sentencias +switch+ debe usarse su correspondiente caso +default+ <<r2, ^[2]^>>.
+
+En este artículo mostraremos a través de un ejemplo
+cómo definir opciones seguras por defecto en +Objective C+.
+Para ello seguiremos el siguiente procedimiento:
+
+. Antes de iniciar debemos validar que el usuario haya ingresado
+al menos un argumento válido para ejecutar la aplicación.
+
+. Una vez verificado que el número de argumentos sea correcto,
+procedemos a importar el +framework+ +Foundation.h+
+el cual define unas interfaces de +C+ para usar objetos
+y tipos de datos nativos:
++
+.switch.m
+[source, C, linenums]
+----
+import <Foundation/Foundation.h>
+----
+
+. Creamos el método principal
+y una variable local como ejemplo:
++
+[source, C, linenums]
+----
+int main(){
+  NSInteger nota = 4;
+----
+
+. Definimos las opciones.
+En este caso utilizaremos una sentencia +switch - case+
+que verifica y muestra un mensaje de acuerdo al valor
+de la variable +nota+.
+El código se muestra a continuación:
++
+[source, C, linenums]
+----
+switch(nota){
+  case '5' :
+    NSLog(@"Excelente!\n" );
+    break;
+
+  case '4' :
+    NSLog(@"Bien hecho!\n" );
+    break;
+
+  case '3' :
+    NSLog(@"Pasaste!\n" );
+    break;
+
+  case '2' :
+    NSLog(@"Intentalo de nuevo!\n" );
+    break;
+
+  case '1' :
+    NSLog(@"Perdiste!\n" );
+    break;s
+----
+
+. Creamos la opción segura por defecto para el +switch+, +default+.
+Con esto es posible evitar comportamientos inesperados:
++
+[source, C, linenums]
+----
+  default :
+    NSLog(@"Nota Invalida\n" );
+  }
+return 0;
+}
+----
+
+De esta manera aseguramos que la aplicación se comporte bien
+al no ingresar opciones fuera de las definidas en cada caso.
+
+== Descargas
+
+. [button]#link:src/switch.m[switch.m]# Contiene el ejemplo anterior,
+mostrando el uso correcto de la estructura condicional +switch - case+
+en +Objective C+.
+
+== Referencias
+
+. [[r1]] link:https://www.tutorialspoint.com/objective_c/if_else_statement_in_objective_c.htm[Objective-C - if...else statement].
+
+. [[r2]] link:https://www.tutorialspoint.com/objective_c/switch_statement_in_objective_c.htm[Objective-C - switch statement].
+
+. [[r3]] link:../../../rules/161/[REQ.161 Opciones por defecto seguras].

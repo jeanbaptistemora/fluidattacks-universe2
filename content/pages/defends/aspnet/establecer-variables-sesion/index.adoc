@@ -1,0 +1,102 @@
+:slug: defends/aspnet/establecer-variables-sesion/
+:category: aspnet
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al establecer variables de sesión. Las variables de sesión permiten un intercambio eficiente de información entre páginas sin necesidad de enviar peticiones GET o POST.
+:keywords: ASPNET, Seguridad, Variables, Sesión, Buenas Prácticas, DotNet Framework.
+:defends: yes
+
+= Establecer variables de sesión
+
+== Necesidad
+
+Establecer variables de sesión como
+mecanismo primario de transferencia de información entre páginas.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. La aplicación esta construida en +ASP.NET+ versión +1.1+, +2.0+ o superior.
+. Se utiliza la versión del +.NET Framework+ 1.0,1.1 o superior.
+. Si el sistema debe transferir información entre páginas,
+debe realizarse a través de objetos de sesión.<<r1 , ^[1]^>>
+
+== Solución
+
+A la hora de desarrollar páginas web,
+muchas veces es necesario preguntarse
+cuál será el mecanismo de transferencia de información
+que utilizará nuestra página.
+Los formularios que utilizan métodos +GET+ y +POST+
+son bastante populares, sin embargo pueden generar
+problemas de seguridad a la aplicación
+si no se utilizan de forma adecuada.
+
+Las sesiones son variables creadas en el servidor
+que pueden ejecutarse sin que el usuario tenga conocimiento de ello.
+El paso de variables utilizando sesiones
+ofrece una alternativa a los formularios con métodos +GET+ y +POST+
+para el intercambio de información.
+Ésta información puede ser recuperable en cualquier
+parte del sitio Web mientras la sesión permanezca activa.
+Las sesiones permiten un paso de parámetros y variables
+entre diferentes páginas,
+de una forma más segura y confiable.
+
+Las sesiones cuentan con un tiempo de caducidad,
+el cual puede ser personalizado.
+El valor por defecto del tiempo caducidad de la sesión
+es de 20 minutos de inactividad.
+Una vez ha terminado la sesión,
+las variables de sesión definidas ya no serán accesibles.
+Gracias a este mecanismo es posible implementar
+los sistemas seguros de identificación <<r2 , ^[2]^>>.
+
+Para utilizar las variables de sesión
+como mecanismo de transferencia de información entre páginas
+se debe considerar los siguientes pasos <<r3, ^[3]^>>:
+
+. Almacenar valores en una sesión particular.
+Se debe usar la clase +HttpSessionState+,
+la cual esta presente en el espacio de nombre +System.Web.SessionState+.
++
+.MyApp.java
+[source,java,linenums]
+----
+HttpSessionState.Session["nombreObjeto"]  ="valorObjeto";
+----
++
+Esto crea automáticamente un nuevo tema llamado +nombreObjeto+
+en la Colección de estado de sesión (si no existe)
+y establece su valor a +valorObjeto+.
++
+. Leer los valores almacenados en el +Session State+.
+Para recuperar el objeto previamente almacenado en el +Session State+
+se debe hacer lo siguiente:
++
+[source,C,linenums]
+----
+string nombreVariable = HttpSessionState.Session["nombreObjeto"].ToString();
+----
++
+Tenga en cuenta que el método +ToString()+ se llama
+debido a que los datos que se almacenan
+en el estado de la sesión son de tipo +Object+.
+Por lo tanto, la conversión o casting al tipo adecuado es necesario.
++
+. Eliminar el objeto que se almacenó en el +Session State+.
+El procedimiento para eliminar un objeto guardado en el +Session State+,
+se muestra a continuación:
++
+[source,C,linenums]
+----
+HttpSessionState.Remove("nombreObjeto");
+----
+
+== Referencias
+
+. [[r1]] link:../../../rules/024/[REQ.024 Transferir información con objetos de sesión].
+
+. [[r2]] link:http://www.uterra.com/codigo_php/codigo_php.php?ref=las_variables_de_sesion_en_php[¿Qué son las sesiones?].
+
+. [[r3]] link:https://medium.com/@neharastogi_2838/how-to-pass-values-between-two-web-pages-in-asp-net-f4225ed19b7[Microsoft, Pass Values Between ASP.NET Web Forms Pages].

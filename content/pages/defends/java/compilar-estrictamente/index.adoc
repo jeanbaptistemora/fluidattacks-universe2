@@ -1,0 +1,146 @@
+:slug: defends/java/compilar-estrictamente/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al compilar de forma estricta. Los mensajes de compilación pueden contener información que permita a un atacante la identificación y explotación de vulnerabilidades en la aplicación.
+:keywords: Java, Seguridad, Buenas Prácticas, Compilación, Estricta, Código.
+:defends: yes
+
+= Compilar Proyecto de Forma Estricta
+
+== Necesidad
+
+Compilar un proyecto desarrollado en +Java+ de forma estricta.
+
+== Contexto
+
+A continuación se describen las condiciones
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +Java+.
+
+== Solución
+
+Por defecto, +Java+ impone un ambiente de compilación bastante estricto
+en cuanto al manejo de tipos.
+Sin embargo, algunas opciones de compilación
+pueden ser bastante útiles a la hora
+de ayudar en la producción de un código más seguro.
+
+. En general, y como primera regla,
+no es buena idea compilar un programa en +Java+
+usando miembros o clases obsoletas.
+La opción +-deprecation+ (o +- Xlint:deprecation+)
+da mayor información sobre los elementos obsoletos utilizados en el programa.
+Esto puede ayudar a evitar que los programadores
+hagan uso de funciones inseguras.
+
+. De manera general, las advertencias sobre este tipo de situaciones
+no deberían ignorarse.
+
+. Por ejemplo, se crea una clase que use
+el método +stop+ de la clase +Thread+.
++
+.stop.java
+[source, java, linenums]
+----
+class T implements Runnable {
+  public void run() {
+    Thread thisThread = Thread.currentThread();
+    thisThread.stop();
+  }
+}
+----
+
+. Se nota que compilando del modo tradicional,
+solamente se informa que se está haciendo uso de clases obsoletas,
+pero no se ofrece mucho detalle al respecto.
++
+[source, bash, linenums]
+----
+% javac T.java
+Note: T.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+----
+
+. En cambio, al utilizar la opción +-deprecation+,
+la información obtenida es mayor, en este caso,
+si se indica el lugar exacto donde se produce el problema.
++
+[source, bash, linenums]
+----
+% javac -deprecation T.java
+T.java:5: warning: [deprecation] stop() in Thread has been deprecated
+ thisThread.stop();
+ ^
+1 warning
+----
+
+. Se observa que utilizando la opción +-Xlint:deprecation+
+se consigue el mismo resultado:
++
+[source, bash, linenums]
+----
+% javac -Xlint:deprecation T.java
+T.java:5: warning: [deprecation] stop() in Thread has been deprecated
+ thisThread.stop();
+ ^
+1 warning
+----
+
+. Por defecto, +Java+ incluye información de depuración
+sobre el número de línea y el nombre archivo.
+Sin embargo, esto puede modificarse
+para que Java no de tanta información.
+En producción esto no es deseable
+y se sugiere remover toda la información de depuración
+
+. Por ejemplo, se comparará la ejecución del siguiente código.
++
+[source, java, linenums]
+----
+class X {
+  public static void main(String... args) {
+    int x = 5 / 0;
+  }
+}
+----
+
+. Cuando se compila del modo tradicional,
+se observa que el mensaje de la excepción
+informa que el error fue producido en la línea 5
+en un archivo llamado +X.java.
++
+[source, bash, linenums]
+----
+% javac X.java
+% java X
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+ at X.main(X.java:5)
+----
+
+. Por el contrario, cuando se compila usando la opción +-g:none+,
+simplemente se informa que que la fuente es desconocida:
++
+[source, bash, linenums]
+----
+% javac -g:none X.java
+% java X
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+ at X.main(Unknown Source)
+----
+
+. Por último, +Java+ permite la generación de archivos clase
+para los archivos fuente cargados implícitamente.
+Esto puede ser peligroso, se sugiere deshabilitar esta característica.
++
+[source, bash, linenums]
+----
+javac -deprecation -g:none -implicit:none
+----
+
+== Referencias
+
+. [[r1]] link:http://mmc.geofisica.unam.mx/acl/Herramientas/Java/JavaBasico/manual%20basico%20java.pdf[Manual Básico de Java]
+. [[r2]] link:https://groups.google.com/forum/#!topic/google-web-toolkit/tIf5Tdl9-u8[The "-implicit" argument of javac for JDK 6]
+. [[r3]] link:https://docs.oracle.com/javase/6/docs/technotes/tools/windows/javac.html#searching[Oracle Java 6 - Java Compiler]
+. [[r4]] link:http://www.idevelopment.info/data/Programming/java/miscellaneous_java/Using_CLASSPATH_and_SOURCEPATH.html[Using CLASSPATH and SOURCEPATH]
+. [[r5]] link:../../../rules/157/[REQ.157 Compilación estricta]

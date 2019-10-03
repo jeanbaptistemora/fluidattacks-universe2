@@ -1,0 +1,189 @@
+:slug: defends/cobol/generar-numeros-aleatorios/
+:category: cobol
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al generar números aleatorias. Los números aleatorios son muy utilizados en aplicaciones criptográficas y contribuyen a mejorar la seguridad general de la aplicación.
+:keywords: Cobol, Seguridad, Generar, Números, Aleatorios, Semilla.
+:defends: yes
+
+= Generar Números Aleatorios
+
+== Necesidad
+
+Generar números aleatorios utilizando +timestamp+ como semilla en +COBOL+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +COBOL+.
+. Los números aleatorios generados
+deben seguir una distribución uniforme<<r1,^[1]^>>.
+
+== Solución
+
+. En la siguiente solución
+se muestra la forma de generar números aleatorios
+que siguen una distribución rectangular
+usando la función nativa +RANDOM+ de +COBOL+.
+Para dicho propósito, se debe calcular una semilla
+la cual, sirve para inicializar el generador de números aleatorios.
+No generar una semilla
+y obtener el valor directamente
+podría generar problemas de seguridad
+ya que los números aleatorios podrían ser fácilmente predecibles.
+
+. Se da inicio a la solución definiendo la división +IDENTIFICATION DIVISION+<<r2,^[2]^>>:
++
+.cobolrand.cbl
+[source,cobol,linenums]
+----
+       IDENTIFICATION DIVISION.
+      ******************
+      * Identification *
+      ******************
+       PROGRAM-ID. COBOLRAND.
+----
++
+En el anterior bloque de código,
+se establece el nombre del programa a +COBOLRAND+
+mediante la sentencia +PROGRAM-ID+.
+Cabe resaltar que el uso de +IDENTIFICATION DIVISION+
+no se limita a establecer el nombre de un programa en +COBOL+.
+Al final del presente artículo^<<r2,[2]>>,<<r3,[3]>>^
+puede encontrar mayor información
+sobre los demás usos que se le dan a dicha división.
+
+. En la división +DATA DIVISION+<<r4,^[4]^>>
+se definen cuatro variables:
++W01-RANDOM+ en la que finalmente se almacenará el número aleatorio,
++W02-CURRENT-DATE-DATA+ que contendrá la fecha actual de ejecución del programa
+y dos variables de uso temporal
+que nos ayudarán a calcular los segundos transcurridos
+desde el primero de enero de 1970:
++
+[source,cobol,linenums]
+----
+      ********
+      * Data *
+      ********
+       DATA DIVISION.
+
+       WORKING-STORAGE SECTION.
+       01 W01-RANDOM PIC S9V9(10).
+       01 W02-CURRENT-DATE-DATA.
+           05 W02-CURRENT-DATE.
+               10 W02-CURRENT-YEAR   PIC 9(04).
+               10 W02-CURRENT-MONTH  PIC 9(02).
+               10 W02-CURRENT-DAY    PIC 9(02).
+           05 W02-CURRENT-TIME.
+               10 W02-CURRENT-HOURS  PIC 9(02).
+               10 W02-CURRENT-MINUTE PIC 9(02).
+               10 W02-CURRENT-SECOND PIC 9(02).
+               10 W02-CURRENT-MILLIS PIC 9(02).
+           05 W02-DIFF-FROM-GMT PIC X(05).
+       01 W03-IDAY PIC 9(12).
+       01 W04-SVAL PIC 9(12).
+----
+. En la división +PROCEDURE DIVISION+<<r5,^[5]^>>,
+se define el algoritmo
+o tareas realizadas por el programa desarrollado en +COBOL+.
+Por lo tanto, se inicia el proceso
+obteniendo la fecha actual de ejecución del programa:
++
+[source,cobol,linenums]
+----
+      ********
+      * Main *
+      ********
+       PROCEDURE DIVISION.
+       MAIN.
+           MOVE FUNCTION CURRENT-DATE TO W02-CURRENT-DATE-DATA.
+----
+. Se calcula el número de días transcurridos desde 1970
+(sin contar los años bisiestos):
++
+[source,cobol,linenums]
+----
+       COMPUTE W03-IDAY = 365 * (W02-CURRENT-YEAR - 1970).
+----
+. Según el valor del mes, se va acumulando esos días
+con los días transcurridos en el actual año:
++
+[source,cobol,linenums]
+----
+       EVALUATE W02-CURRENT-MONTH
+           WHEN 1  COMPUTE W03-IDAY = W03-IDAY + 0
+           WHEN 2  COMPUTE W03-IDAY = W03-IDAY + 31
+           WHEN 3  COMPUTE W03-IDAY = W03-IDAY + 59
+           WHEN 4  COMPUTE W03-IDAY = W03-IDAY + 90
+           WHEN 5  COMPUTE W03-IDAY = W03-IDAY + 120
+           WHEN 6  COMPUTE W03-IDAY = W03-IDAY + 151
+           WHEN 7  COMPUTE W03-IDAY = W03-IDAY + 181
+           WHEN 8  COMPUTE W03-IDAY = W03-IDAY + 212
+           WHEN 9  COMPUTE W03-IDAY = W03-IDAY + 243
+           WHEN 10 COMPUTE W03-IDAY = W03-IDAY + 273
+           WHEN 11 COMPUTE W03-IDAY = W03-IDAY + 304
+           WHEN 12 COMPUTE W03-IDAY = W03-IDAY + 365
+           WHEN OTHER COMPUTE W03-IDAY = W03-IDAY + 0
+       END-EVALUATE.
+----
+. Se acumula el número de días transcurridos:
++
+[source,cobol,linenums]
+----
+       COMPUTE W03-IDAY = W03-IDAY + (W02-CURRENT-DAY - 1).
+----
+. Finalmente se obtiene el número de segundos transcurridos
+desde el 1 de enero de 1970,
+esto ayudará a generar una semilla de forma segura:
++
+[source,cobol,linenums]
+----
+       COMPUTE W04-SVAL = W02-CURRENT-SECOND +
+                         (60 * W02-CURRENT-MINUTE) +
+                         (3600 * (W02-CURRENT-HOURS + (24 * W03-IDAY))).
+----
+. Finalmente se obtiene el valor del número aleatorio
+y se muestra en pantalla dicho valor contenido en la variable +W01-RANDOM+:
++
+[source,cobol,linenums]
+----
+       COMPUTE W01-RANDOM = FUNCTION RANDOM(W04-SVAL).
+
+       DISPLAY "Numero aleatorio: " W01-RANDOM.
+
+       STOP RUN.
+----
+. Para efectos de prueba, los siguientes números fueron generados
+al ejecutar el programa repetidas veces:
++
+[source,bat,linenums]
+----
+04368076122
+08795147673
+03222219224
+06503433877
+00930505428
+05357576979
+09784648530
+04211720081
+03065863183
+02909507143
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/cobolrand.cbl[cobolrand.cbl]# contiene
+todas las instrucciones +COBOL+
+para generar los números aleatorios.
+
+== Referencias
+
+. [[r1]] link:../../../rules/223/[REQ.223 Generar números con distribución uniforme].
+. [[r2]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/iddiv.htm[IBM - Identification Division].
+. [[r3]] link:http://www.escobol.com/modules.php?name=Sections&op=viewarticle&artid=11[Identification Division].
+. [[r4]] link:https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_73/rzasb/datdivs.htm[Data Division Structure].
+. [[r5]] link:http://www.mainframestechhelp.com/tutorials/cobol/cobol-procedure-division.htm[COBOL Procedure Division].

@@ -1,0 +1,106 @@
+:slug: defends/apache/desactivar-http-trace/
+:category: apache
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura en Apache al desactivar el método HTTP Trace. Un atacante puede aprovecharse de éste método para realizar un ataque de tipo cross site scripting (XSS).
+:keywords: Apache, Seguridad, HTTP Trace, Servidor, XSS, Aplicación.
+:defends: yes
+
+= Desactivar Método HTTP TRACE
+
+== Necesidad
+
+Se busca desactivar el método +HTTP TRACE+ en un servidor Web +Apache+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se cuenta con una instalación funcional
+de +Apache+ versión +2.2.22+ o superior.
+
+== Solución
+
+El Protocolo de transferencia de hipertexto
+(en inglés: +Hypertext Transfer Protocol+ o +HTTP+)
+es el protocolo de comunicación que permite
+las transferencias de información en la +World Wide Web+ (+WWW+).
++HTTP+ es un protocolo orientado a transacciones
+y sigue el esquema petición-respuesta entre un cliente y un servidor.
+El cliente realiza una petición enviando un mensaje,
+con cierto formato al servidor.
+El servidor le envía un mensaje de respuesta.^<<r1,[1]>>^
+
+Para realizar estas peticiones +HTTP+
+define un conjunto de métodos de petición
+para indicar la acción que se desea realizar para un recurso determinado.
+
+Algunos de los métodos más usados son:
+
+* +GET+: El método +GET+  solicita
+una representación de un recurso específico.
+Las peticiones que usan el método +GET+ sólo deben recuperar datos.
+* +HEAD+: El método +HEAD+ pide
+una respuesta idéntica a la de una petición +GET+,
+pero sin el cuerpo de la respuesta.
+* +POST+: El método +POST+ se utiliza
+para enviar una entidad a un recurso en específico,
+causando a menudo un cambio en el estado
+o efectos secundarios en el servidor.
+* +PUT+: El método +PUT+ reemplaza todas las representaciones actuales
+del recurso de destino con la carga útil de la petición.
+* +DELETE+: El método +DELETE+ borra un recurso en específico.
+* +CONNECT+: El método +CONNECT+ establece
+un tunel hacia el servidor identificado por el recurso.
+* +OPTIONS+: El método +OPTIONS+ es utilizado para describir
+as opciones de comunicación para el recurso de destino.
+* +TRACE+: El método +TRACE+  realiza una prueba de bucle
+de retorno de mensaje a lo largo de la ruta al recurso de destino.^<<r2,[2]>>^
+
+. El metodo +Trace+, en principio inofensivo,
+devuelve como cuerpo las cabeceras de la petición del cliente
+incluyendo las +cookies+.
+Entonces, la combinación de este método +HTTP+
+con un fallo +Cross Site Scripting+ (+XSS+) en la aplicación web
+puede acabar en un robo de sesión de usuario.
+Por tal motivo, en esta solución se explicará como desactivar
+dicho método en un servidor +Apache+.
+
+. Se abre el archivo de configuración de +Apache+,
+ubicado generalmente en +/etc/apache2/conf.d/security+
+y se edita la siguiente línea:
++
+.configuracion.shell
+[source, shell, linenums]
+----
+TraceEnable off
+----
+
+. Se reinicia el servidor web con el comando: +apache2ctl restart+.
+
+. Para evitar un +Cross-Site-Tracing attack+
+se habilita el módulo +rewrite+ de +Apache2+
++
+[source, shell, linenums]
+----
+a2enmod rewrite
+----
+
+. Y se edita el archivo de configuración de cada +virtualhost+
+o del  archivo +/etc/apache2/sitesavailable/default+.
++
+[source, shell, linenums]
+----
+<VirtualHost :80>
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK|OPTIONS)
+RewriteRule .* - [F]
+</IfModule>
+----
+
+== Referencias
+
+. [[r1]] link:https://es.wikipedia.org/wiki/Protocolo_de_transferencia_de_hipertexto[Protocolo de transferencia de hipertexto]
+. [[r2]] link:https://developer.mozilla.org/es/docs/Web/HTTP/Methods[Métodos de petición HTTP]
+. [[r3]] link:http://www.ducea.com/2007/10/22/apache-tips-disable-the-http-trace-method/[Disabling HTTP TRACE Method]
+. [[r4]] link:http://www.owasp.org/index.php/Cross_Site_Tracing[Cross Site Tracing]

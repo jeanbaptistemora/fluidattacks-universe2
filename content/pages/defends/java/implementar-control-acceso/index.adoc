@@ -1,0 +1,244 @@
+:slug: defends/java/implementar-control-acceso/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al implementar un control de acceso discrecional. De esta manera es posible especificar para cada uno de los recursos los sujetos que pueden acceder a él.
+:keywords: Java, Seguridad, Control de Acceso, Discrecional, Recursos, Permisos.
+:defends: yes
+
+= Implementar Control de Acceso Discrecional
+
+== Necesidad
+
+Implementar control de acceso discrecional
+(+Discretionary Access Control+) en +Java+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está usando un compilador estándar de +Java+.
+
+== Solución
+
+El control de acceso discrecional (+DAC+)
+es un modelo de autorización donde para cada recurso
+se especifican cuales son los sujetos que pueden acceder a él.
+
+Un sujeto solo podrá acceder a los recursos para los cuales implícitamente
+se le han asignado permisos.
+
+Aunque ha empezado a entrar en desuso en pro de otros modelos como +MAC+
+(+Mandatory Access Control+) y  +RBAC+ (Control de acceso basado en roles),
+es el modelo usado en la +JVM+ ^<<r1,[1]>>^.
+
+. Se define la clase +Permission+ que representa autorización de acceso
+de un sujeto hacia un recurso.
+
+. El método +grantedTo+ se encargará de validar
+si el permiso de un recurso corresponde al sujeto.
++
+.Permission.java
+[source, java, linenums]
+----
+class Permission
+{
+  private Subject subject;
+  private Resource resource;
+  public Permission(Subject s, Resource r)
+  {
+    subject = s;
+    resource = r;
+  }
+  public Permission (Permission p)
+  {
+    subject = p.subject;
+    resource = p.resource;
+  }
+  Resource getResource()
+  {
+    return resource;
+  }
+  Subject getSubject()
+  {
+    return subject;
+  }
+  boolean grantedTo(Subject s, Resource r)
+  {
+    return(s.equals(subject) && r.equals(resource));
+  }
+}
+----
+
+. La clase +Subject+ simboliza el sujeto
+con intenciones de acceder a un recurso.
++
+[source, java, linenums]
+----
+class Subject
+{
+  private String name;
+  public Subject(String n)
+  {
+    name = n;
+  }
+  public String getName()
+  {
+    return name;
+  }
+  public boolean equals(Subject s)
+  {
+    return(s.name.equals(name));
+  }
+}
+----
+
+. La clase +Resource+ representa un recurso
+que intentará ser accedido por un sujeto.
++
+[source, java, linenums]
+----
+class Resource
+{
+  private String name;
+  public Resource(String n)
+  {
+    name = n;
+  }
+  public void access()
+  {
+    System.out.println("El recurso " + name + " fue accedido");
+  }
+  public String getName()
+  {
+    return name;
+  }
+  public boolean equals(Resource r)
+  {
+    return (r.name.equals(name));
+  }
+}
+----
+
+. La clase +AccessController+ determina cuando un sujeto
+puede acceder a un recurso y se encarga de mostrar por la salida estándar
+un mensaje que indica si fue exitoso o no el acceso.
+
+. La clase permite que se registren nuevos permisos
+mediante el método +addPermission+.
+
+. Para verificar que un sujeto pueda acceder a un objeto,
+se recorren uno a uno los permisos
+y se comprueba que corresponda al sujeto y al recurso.
+
+. Este proceso puede optimizarse de diferente maneras,
+una de ellas podría ser utilizando estructuras de datos como +Map+ y +Set+,
+o consultas en bases de datos entre otros.
++
+[source, java, linenums]
+----
+import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+class AccessController
+{
+  private static Collection permissions = new ArrayList();
+  private static boolean isAccessAllowed(Subject s, Resource r)
+  {
+    Iterator i = permissions.iterator();
+    while(i.hasNext())
+    {
+      Permission p = (Permission) i.next();
+      if(p.grantedTo(s, r))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+  public static void addPermission(Permission p)
+  {
+    permissions.add(p);
+  }
+  public static void access(Subject s, Resource r)
+  {
+    if(isAccessAllowed(s, r))
+    {
+      r.access();
+    }
+    else
+    {
+      System.out.println ("El acceso a " + r.getName() +  " por " + s.getName() +
+        " ha sido denegado");
+    }
+  }
+}
+----
+
+. La clase CLI se encarga de crear dos sujetos y dos recursos,
+asigna luego el permiso de acceso del +sujeto 1+ hacia el +recurso 1+
+y finalmente intenta un acceso por cada combinación posible
+entre sujetos y recursos.
++
+[source, java, linenums]
+----
+class CLI
+{
+  public static void main(String[] args)
+  {
+    Subject s0 = new Subject("Sujeto0");
+    Subject s1 = new Subject("Sujeto1");
+    Resource r1 = new Resource("Recurso1");
+    Resource r2 = new Resource("Recurso2");
+    Permission p = new Permission(s1, r1);
+    AccessController.addPermission(p);
+    AccessController.access(s0, r1);
+    AccessController.access(s0, r2);
+    AccessController.access(s1, r1);
+    AccessController.access(s1, r2);
+  }
+}
+----
+
+. Al compilar y ejecutar, se aprecia que únicamente el +sujeto 1+
+pudo acceder al +recurso 1+,
+puesto que era el único permiso añadido al controlador.
++
+[source, shell, linenums]
+----
+% javac CLI.java
+% java CLI
+
+El acceso a Recurso1 por Sujeto0 ha sido denegado
+El acceso a Recurso2 por Sujeto0 ha sido denegado
+El recurso Recurso1 fue accedido
+El acceso a Recurso2 por Sujeto1 ha sido denegado
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en los siguientes enlaces:
+
+[button]#link:src/permission.java[Permission.java]#
+Clase Permission.
+
+[button]#link:src/subject.java[Subject.java]#
+Clase Subject.
+
+[button]#link:src/resource.java[Resource.java]#
+Clase Resource.
+
+[button]#link:src/accesscontroller.java[AccessController.java]#
+Clase AccessController.
+
+[button]#link:src/cli.java[CLI.java]#
+Clase CLI.
+
+== Referencias
+
+. [[r1]] link:http://www.hpl.hp.com/techreports/98/HPL-98-79.pdf[Security in the Large: Is Java's Sandbox Scalable?]
+. [[r2]] link:https://es.wikipedia.org/wiki/Control_de_Acceso_Discrecional[Control de Acceso Discrecional]
+. [[r3]] link:https://docs.oracle.com/cd/E24842_01/html/E23286/rbac-1.html[Control de acceso basado en roles]
+. [[r4]] link:https://en.wikipedia.org/wiki/Mandatory_access_control[Mandatory access control]
+. [[r5]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema]

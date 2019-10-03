@@ -1,0 +1,112 @@
+:slug: defends/aspnet/cifrar-contrasenas-con-salt/
+:category: aspnet
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de contraseñas en ASP.NET, agregando robustez a la aplicación al cifrar contraseñas con un valor aleatorio salt utilizando una función de resumen hash.
+:keywords: ASP.NET, Seguridad, Contraseña, Cifrar, Salt, Hash.
+:defends: yes
+
+= Cifrar contraseñas con salt
+
+== Necesidad
+
+Cifrado de contraseñas con +salt+ en +ASP.NET+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se desarrolla una aplicación en +ASP.NET+.
+. Se requiere implementar +salt+
+al momento de cifrar las contraseñas^<<r1,[1]>>,<<r2,[2]>><<r3,[3]>>^.
+. Se requiere el uso de funciones de resumen (+hash+)
+para cifrado de contraseñas.^<<r3,[3]>>,<<r4,[4]>>^
+
+== Solución
+
+. El proveedor de pertenencia de +SQL Server+
+admite los formatos de contraseña +Clear+, +Encrypted+ y +Hashed+.
+Las contraseñas +Clear+ se guardan en texto sin formato,
+lo cual mejora el rendimiento de almacenamiento
+y recuperación de contraseñas
+pero es menos seguro,
+ya que las contraseñas se leen con facilidad
+si la base de datos de SQL Server se ve comprometida.
+Las contraseñas +Encrypted+ se cifran cuando se almacenan
+y se pueden descifrar
+para su comparación o recuperación.
+Esto requiere un procesamiento adicional
+para el almacenamiento y la recuperación de contraseñas,
+pero es más seguro
+ya que las contraseñas
+no pueden determinarse con facilidad
+si se ve comprometida la base de datos +SQL Server+.
+Las contraseñas +Hashed+ se fragmentan
+utilizando un algoritmo +hash+ unidireccional
+y un valor +salt+ que se genera aleatoriamente
+cuando se almacenan en la base de datos.
+Cuando se valida una contraseña,
+se fragmenta con el valor +salt+
+en la base de datos para su comprobación.
+Las contraseñas fragmentadas no se pueden recuperar <<r5, ^[5]^>>.
+
+. El valor de +PasswordFormat+ se especifica
+en la sección +providers+ del archivo +Web.config+
+de la aplicación +ASP.NET+.
+
+. De manera predeterminada, las contraseñas +Encrypted+ se cifran
+y a las contraseñas +Hashed+ se les aplica un algoritmo +hash+
+según la información proporcionada
+en el elemento +machineKey+ de la configuración <<r6, ^[6]^>>.
+Tenga en cuenta que si se especifica un valor de 3DES
+para el atributo +validation+
+o si no se especifica ningún valor,
+se aplicará el algoritmo hash +SHA1+
+a las contraseñas correspondientes.
+
+. Se puede definir un algoritmo +hash+ personalizado
+mediante el atributo +hashAlgorithmType+ <<r7, ^[7]^>>
+del elemento de configuración +membership+ ,
+presente en el esquema de configuración de +ASP.NET+.
+Si elige el cifrado, el cifrado de contraseña predeterminado utiliza +AES+.
+Puede cambiar el algoritmo de cifrado
+estableciendo el atributo +decryption+
+del elemento de configuración +machineKey+.
+Si cifra las contraseñas, debe proporcionar un valor explícito
+para el atributo +decryptionKey+
+en el elemento +machineKey+.
+No se admite el valor predeterminado de +AutoGenerate+
+para el atributo +decryptionKey+
+al utilizar las contraseñas cifradas con Pertenencia de +ASP.NET+ <<r8, ^[8]^>>.
+
+. En el siguiente ejemplo,
+se muestra el elemento +membership+
+en la sección +system.web+
+del archivo +Web.config+ de una aplicación +ASP.NET+.
+A continuación, se especifica la instancia +SqlMembershipProvider+
+de la aplicación y se establece el formato de contraseña en +Hashed+.
+
+.Web.config
+[source, xml, linenums]
+<membership defaultProvider="SqlProvider" userIsOnlineTimeWindow="20">
+  <providers>
+    <add name="SqlProvider"
+      type="System.Web.Security.SqlMembershipProvider"
+      connectionStringName="SqlServices"
+      enablePasswordRetrieval="false"
+      enablePasswordReset="true"
+      requiresQuestionAndAnswer="true"
+      passwordFormat="Hashed"
+      applicationName="MyApplication" />
+  </providers>
+</membership>
+
+== Referencias
+
+. [[r1]] link:../../../rules/134/[REQ.134 Almacenar contraseñas con Salt].
+. [[r2]] link:../../../rules/135/[REQ.135 Derivaciones de clave aleatorias].
+. [[r3]] link:../../../rules/147/[REQ.147 Utilizar mecanismos pre-existentes].
+. [[r4]] link:../../../rules/150/[REQ.150 Funciones resumen de tamaño mínimo].
+. [[r5]] link:https://stackoverflow.com/questions/949271/storing-hashed-passwords-base64-or-hex-string-or-something-else[Storing Hashed Passwords].
+. [[r6]] link:https://msdn.microsoft.com/es-es/library/system.web.security.sqlmembershipprovider.passwordformat(v=vs.110).aspx[Password Format].
+. [[r7]] link:https://msdn.microsoft.com/en-us/library/system.security.cryptography.hashalgorithm.aspx[HashAlgorithm Class].
+. [[r8]] link:https://msdn.microsoft.com/es-es/library/system.security.cryptography.randomnumbergenerator.aspx[RandomNumberGenerator Class].

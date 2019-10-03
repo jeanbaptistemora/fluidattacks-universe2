@@ -1,0 +1,223 @@
+:slug: defends/java/crear-control-obligatorio/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al implementar un control de acceso obligatorio. Éste tipo de control determina el acceso a un recurso basado en los privilegios del usuario que intenta acceder a él.
+:keywords: Java, Seguridad, Control, Acceso, Obligatorio, Sensibilidad.
+:defends: yes
+
+= Crear Control de Acceso Obligatorio
+
+== Necesidad
+
+Implementar control de acceso obligatorio
+(+Mandatory Access Control+) en +Java+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está usando un compilador estándar de +Java+.
+
+== Solución
+
+El control de acceso obligatorio (+MAC+) es un modelo de autorización
+bajo el cual se determina el acceso a un recurso
+en base al nivel de privilegios
+que pueda tener el sujeto que lo pretende acceder.
+
+. Un sujeto solo podrá tener acceso a los recursos
+que cuenten con una clasificación de un nivel
+igual o menor a su actual nivel de permisos.
+
+. Se define la clase +Sensibility+
+la cual representa el nivel de sensibilidad.
+
+. El constructor recibe como parámetro un entero que,
+entre más grande sea, significará un nivel de acceso más alto.
+
+. El método +allows+ determina si otro nivel de sensibilidad
+es más alto que el propio.
++
+.Sensibility.java
+[source, java, linenums]
+----
+class Sensibility
+{
+  int sensibility;
+  // 0: unclassified
+  // 1: classified
+  // 2: secret
+  // 3: top secret
+  public Sensibility(int s)
+  {
+    sensibility = s;
+  }
+  public boolean allows(Sensibility s)
+  {
+    return s.sensibility >= sensibility;
+  }
+}
+----
+
+. La clase +Subject+ simboliza el sujeto
+con intenciones de acceder a un recurso.
+Por lo tanto, además de un nombre,
+también requiere un nivel de sensibilidad
+que pueda ser comparado con el del recurso.
++
+[source, java, linenums]
+----
+class Subject
+{
+  private String name;
+  private Sensibility clearance;
+  public Subject(String n, Sensibility c)
+  {
+    name = n;
+    clearance = c;
+  }
+  public String getName()
+  {
+    return name;
+  }
+  public Sensibility getClearance()
+  {
+    return clearance;
+  }
+}
+----
+
+. La clase +Resource+ representa un recurso
+que intentará ser accedido por un sujeto.
+Para determinar si este tendrá acceso o no,
+se requiere de un nivel de sensibilidad
+que se le denominará la clasificación del recurso.
++
+[source, java, linenums]
+----
+class Resource
+{
+  private String name;
+  private Sensibility classification;
+  public Resource(String n, Sensibility c)
+  {
+    name = n;
+    classification = c;
+  }
+  public String getName()
+  {
+    return name;
+  }
+  public Sensibility getClassification()
+  {
+    return classification;
+  }
+  public void access()
+  {
+    System.out.println("El recurso " + name + " fue accedido");
+  }
+}
+----
+
+. La clase +AccessController+ determina
+cuando un sujeto puede acceder a un recurso y, además,
+se encarga de mostrar por la salida estándar
+un mensaje que indica si fue exitoso o no el acceso.
++
+[source, java, linenums]
+----
+class AccessController
+{
+  private static boolean isAccessAllowed(Subject s, Resource r)
+  {
+    return(r.getClassification().allows(s.getClearance()));
+  }
+  public static void access(Subject s, Resource r)
+  {
+    if(isAccessAllowed(s, r))
+    {
+      r.access();
+    }
+    else
+    {
+      System.out.println("[AccessController] El acceso a " + r.getName() + " por " + s.getName() +
+       " ha sido denegado");
+    }
+  }
+}
+----
+
+. La clase +CLI+ se encarga de crear dos sujetos y dos recursos,
+asigna un nivel de sensibilidad para cada uno
+e intenta acceder desde cada sujeto hacia cada uno de los recursos.
++
+[source, java, linenums]
+----
+class CLI
+{
+  public static void main(String[] args)
+  {
+    Sensibility normal = new Sensibility(0);
+    Sensibility confidential = new Sensibility(1);
+    Sensibility secret = new Sensibility(2);
+    Subject s0 = new Subject("Sujeto0", normal);
+    Subject s1 = new Subject("Sujeto1", confidential);
+    Resource r1 = new Resource("Recurso1", confidential);
+    Resource r2 = new Resource("Recurso2", secret);
+    AccessController.access(s0, r1);
+    AccessController.access(s0, r2);
+    AccessController.access(s1, r1);
+    AccessController.access(s1, r2);
+  }
+}
+----
+
+. Al compilar y ejecutar, se aprecia que únicamente el +Sujeto 1+
+pudo acceder al +Recurso 1+,
+dado que ambos tenían un nivel de sensibilidad de +confidential+.
++
+[source, shell, linenums]
+----
+% javac CLI.java
+% java CLI
+
+[AccessController] El acceso a Recurso1 por Sujeto1 ha sido denegado
+[AccessController] El acceso a Recurso2 por Sujeto1 ha sido denegado
+El recurso Recurso1 fue accedido
+[AccessController] El acceso a Recurso2 por Sujeto2 ha sido denegado
+----
+
+. En el acceso del +sujeto 1+ es valido
+porque el nivel +normal+ era inferior a +confidential+ y +secret+.
+
+. En el caso del +sujeto 2+, el acceso es fallido
+porque el nivel +confidential+ era inferior a +secret+.
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+[button]#link:src/sensibility.java[Sensibility.java]#
+Clase Sensibility.
+
+[button]#link:src/subject.java[Subject.java]#
+Clase Subject.
+
+[button]#link:src/resource.java[Resource.java]#
+Clase Resource.
+
+[button]#link:src/accesscontroller.java[AccessController.java]#
+Clase AccessController.
+
+[button]#link:src/cli.java[CLI.java]#
+Clase CLI.
+
+== Referencias
+
+. [[r1]] link:https://en.wikipedia.org/wiki/Mandatory_access_control[Mandatory access control]
+. [[r2]] link:http://ieeexplore.ieee.org/abstract/document/6913208/?reload=true[Security Enhanced Java: Mandatory Access Control
+for the Java Virtual Machine]
+. [[r3]] REQ.0171: El sistema debe restringir el acceso a objetos del sistema
+que tengan contenido sensible.
+Solo permitirá acceso a usuarios autorizados.

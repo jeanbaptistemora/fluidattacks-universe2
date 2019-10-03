@@ -1,0 +1,138 @@
+:slug: defends/aspnet/registrar-eventos-bitacoras/
+:category: aspnet
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la programación segura en ASP.NET al registrar eventos excepcionales en bitácoras. Los registros de eventos permiten mejorar la trazabilidad de errores en caso de presentarse eventos de seguridad.
+:keywords: ASP.NET, Seguridad, Eventos, Registro, Bitácoras, Logs
+:defends: yes
+
+= Registrar Eventos Excepcionales en Bitácora
+
+== Necesidad
+
+Registrar eventos excepcionales en una bitácora en +ASP.NET+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se cuenta con una aplicación web desarrollada con +ASP.NET+.
+
+== Solución
+
+. Un conjunto bien diseñado de bloques de código de control de errores
+puede hacer que un programa sea mucho más fuerte
+y menos propenso a interrupciones,
+porque la aplicación controla tales errores.
+A continuación se proporciona una lista de sugerencias
+sobre los procedimientos recomendados para controlar excepciones:
+Saber cuándo configurar un bloque +Try/Catch+.
+Por ejemplo, se puede comprobar mediante programación
+si se da una condición que es probable que ocurra
+sin utilizar el control de errores.
+En otras situaciones, es aconsejable utilizar el control de excepciones
+para detectar una condición de error.
+En el ejemplo siguiente se usa una instrucción +if+
+para comprobar si se ha cerrado una conexión.
+Se puede usar este método en lugar de producir una excepción
+si la conexión no está cerrada.
++
+.check-connection
+[source, csharp, linenums]
+----
+If conn.State <> ConnectionState.Closed Then
+  conn.Close()
+End If
+
+if(conn.State != ConnectionState.Closed)
+  conn.Close();
+----
+
+. En el ejemplo siguiente,
+se produce una excepción si la conexión no está cerrada.
++
+[source, csharp, linenums]
+----
+Try
+  conn.Close()
+  Catch ex As InvalidOperationException
+  'Do something with the error or ignore it.
+End Try
+
+try {
+  conn.Close();
+}
+catch(InvalidOperationException ex) {
+  //Do something with the error or ignore it.
+}
+----
+
+. El método que se elija
+depende de la frecuencia con que se espera que se produzca el evento.
+Si el evento es muy excepcional y es un error
+(por ejemplo, un final de archivo inesperado),
+es mejor utilizar el control de excepciones
+porque se ejecuta menos código en el caso normal.
+Si el evento ocurre con frecuencia,
+es mejor utilizar el método de programación para comprobar si hay errores.
+En este caso, si se produce una excepción,
+se tarda más en controlarla.
+
+. Utilice bloques +Try/Finally+
+en torno a código que podría generar una excepción
+y centralice las instrucciones +Catch+ en una ubicación.
+De esta manera, la instrucción +Try+ genera la excepción,
+la instrucción +Finally+ cierra o desasigna recursos
+y la instrucción +Catch+ controla la excepción desde una ubicación central.
+Ordene siempre las excepciones de los bloques +Catch+
+de la más específica a la menos.
+Con esta técnica se controla la excepción específica
+antes de que pase a un bloque +Catch+ más general.
+Termine los nombres de clases de excepción con la palabra +Exception+.
+Por ejemplo:
++
+[source, csharp, linenums]
+----
+Public Class EmployeeListNotFoundException
+  Inherits Exception
+
+public class MyFileNotFoundException : Exception {
+}
+----
+
+. Cuando cree excepciones definidas por el usuario,
+debe garantizar que los metadatos de las excepciones
+están disponibles para el código que se ejecute de forma remota,
+incluso cuando se produzcan excepciones en distintos dominios de aplicación.
+Por ejemplo, supongamos que el dominio de aplicación +A+
+crea el dominio de aplicación +B+,
+que ejecuta código que produce una excepción.
+Para que el dominio de aplicación +A+
+detecte y controle la excepción correctamente,
+debe poder encontrar el ensamblado que contiene
+la excepción que produce el dominio de aplicación +B+.
+Si el dominio de aplicación +B+ produce una excepción
+contenida en un ensamblado de su base
+pero no en la base de la aplicación del dominio de aplicación +A+,
+este último dominio no encontrará la excepción
+y +Common Language Runtime+ producirá una +FileNotFoundException+.
+Para evitar esta situación, puede implementar
+el ensamblado que contiene la información de la excepción de dos maneras:
+Ponga el ensamblado en una base de aplicación
+compartida por los dos dominios de aplicación.
+O bien, Si los dominios no comparten una base de aplicación común,
+firme el ensamblado que contiene la información de la excepción
+con un nombre seguro e impleméntelo en la caché de ensamblados global.
+
+== Referencias
+
+. [[r1]] link:https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.eventlogentrytype?redirectedfrom=MSDN&view=netframework-4.7.2[EventLogEntryType Enum].
+
+. [[r2]] link:https://docs.microsoft.com/es-es/previous-versions/dotnet/netframework-1.1/seyhszts(v=vs.80)[Procedimientos recomendados para controlar excepciones].
+
+. [[r3]] link:https://docs.microsoft.com/es-es/dotnet/visual-basic/developing-apps/programming/log-info/how-to-write-to-an-application-event-log[Cómo: Escribir en el registro de eventos de una aplicación].
+
+. [[r4]] link:https://msdn.microsoft.com/es-es/library/fwzzh56s(v=vs.100).aspx[Cómo: Crear controladores de eventos en las aplicaciones ASP.NET]
+
+. [[r5]] link:../../../rules/075[REQ.075 Registrar eventos en bitácoras].
+
+. [[r6]] link:../../../rules/076[REQ.076 Registrar niveles de severidad de eventos].

@@ -1,0 +1,118 @@
+:slug: defends/java/comprimir-datos-codigo/
+:category: java
+:description: Nuestros ethical hackers explican que es la comprensión de datos en los mensajes de las transmisiones HTTP enseñando la manera en que ésta funciona en la comunicación. Por último, muestran la manera de configurar dicha compresión en un servidor apache tomcat.
+:keywords: Java, Apache, Tomcar, HTTP, Encodings, Comprensión.
+:defends: yes
+
+= Comprimir Datos y Código Durante el Transporte
+
+== Necesidad
+
+Mejorar el uso del ancho de banda del canal de comunicaciones
+usando compresión de contenido en +HTTP+ y +Java+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +Java+
+orientado a +Web+ (+Servlet+).
+. Se está usando el servidor de aplicaciones +Apache Tomcat+.
+
+== Solución
+
+La comprensión de datos en el protocolo +HTTP+
+es la capacidad que tienen los servidores y clientes web
+para hacer un mejor uso de ancho de banda disponible
+y proporcionar mayores velocidades de transmisión entre ambos.
+Dichos datos son comprimidos, antes de ser enviados, desde el servidor.
+Para ello, el navegador del cliente informa al servidor
+cuales son los métodos de comprensión que soporta.
+Entonces, el servidor, basado en dicha información,
+comprimirá el contenido antes de ser enviado al cliente.
+
+En pocas palabras, la comprensión de datos en el protocolo +HTTP+
+consiste en una negociación
+entre el servidor web y el navegador del cliente.
+Negociación que, sea dicho de paso,
+consiste en los siguientes pasos:
+
+. El cliente web agrega el +header+ +Accept-Encoding+
+en la solicitud +HTTP+.
+Dicho encabezado incluye los +encodings+ o esquemas de compresión
+que soporta el navegador del cliente.
+* *Nota:* Existen diferentes esquemas de comprensión de contenido,
+sin embargo los más comunes son +deflate+ y +gzip+.
++
+.header.shell
+[source, shell, linenums]
+----
+GET /encrypted-area HTTP/1.1
+Host: www.ejemplo.com
+Accept-Encoding: gzip, deflate
+----
+. En caso de que el servidor entienda o acepte alguno de los +encodings+
+que anunció el cliente en la solicitud +HTTP+,
+los datos transferidos por parte del servidor
+irán comprimidos en el +encoding+ definido.
+
+. Para terminar, el servidor web contestará un mensaje +HTTP+
+en el cual añadirá el +header+ +Content-Encoding+.
+Dicho header permitirá dar a conocer
+el esquema que se necesita utilizar para descomprimir el mensaje.
++
+[source, shell, linenums]
+----
+HTTP/1.1 200 OK
+Date: Mon, 23 May 2005 22:38:34 GMT
+Server: Apache/1.3.3.7 (Unix) (Red-Hat/Linux)
+Last-Modified: Wed, 08 Jan 2003 23:11:55 GMT
+Etag: "3f80f-1b6-3e1cb03b"
+Accept-Ranges: bytes
+Content-Length: 438
+Connection: close
+Content-Type: text/html; charset=UTF-8
+Content-Encoding: gzip
+----
+
+. Cabe destacar que en algunas ocasiones
+el navegador no necesariamente
+recibirá un contenido comprimido por parte del servidor.
+La razón es porque los +encodings+ son definidos en el servidor web
+y puede haber ocasiones en las cuales
+esta funcionalidad esté deshabilitada por determinada razón.
+
+. Siempre es bueno realizar dicha comprensión
+desde el servidor de la aplicación.
+Por eso, en esta solución se mostrará
+la manera de hacerlo en un servidor +Apache Tomcat+.
+
+. Para eso es necesario modificar el conector +/conf/server.xml+
+de la siguiente manera.
++
+[source, xml, linenums]
+----
+compression="on"
+compressionMinSize="2048"
+compressableMimeType="text/html,text/xml"
+----
+
+. Este es un ejemplo de un conector con compresión habilitada
++
+[source, xml, linenums]
+----
+<Connector port="8080" maxHttpHeaderSize="8192"
+  maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
+  enableLookups="false" redirectPort="8443" acceptCount="100"
+  connectionTimeout="20000" disableUploadTimeout="true"
+  compression="on"
+  compressionMinSize="2048"
+  compressableMimeType="text/html,text/xml"/>
+----
+
+== Referencias
+
+. [[r1]] link:http://tomcat.apache.org/tomcat-5.5-doc/config/http.html[Apache Tomcat Configuration Reference]
+. [[r2]] link:https://wiki.genexus.com/commwiki/servlet/wiki?14074,Compresi%C3%B3n+HTTP,[Compresión HTTP]
+. [[r3]] link:../../../rules/181/[REQ.181 Transmitir por medio de protocolos seguros]

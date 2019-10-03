@@ -1,0 +1,134 @@
+:slug: defends/java/ofuscar-aplicacion/
+:category: java
+:description: Nuestros ethical hackers cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al ocultar el código fuente. La ofuscación del código dificulta que los atacantes puedan encontrar y explotar vulnerabilidades basándose en el funcionamiento de la aplicación.
+:keywords: Java, Ofuscar, Código, Seguridad, Buenas Prácticas, Ocultar.
+:defends: yes
+
+= Ofuscar Aplicación
+
+== Necesidad
+
+Ofuscar una aplicación escrita en +Java+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se requiere asegurar el código sensible
+de una aplicación o biblioteca realizada en +Java+.
+. Se pretende usar un método de ofuscación
+que consisten en renombrar clases y/o métodos.
+. Se usará la herramienta +ProGuard+ ^<<r1,[1]>>^.
+
+== Solución
+
+. La ofuscación de código consiste en realizar cambios
+que no afecten el funcionamiento del código fuente de la aplicación,
+pero evita que este sea fácilmente visualizado
+y comprendido por un atacante.
+Esto solo debe ser hecho
+con los archivos que vayan a ser publicados
+en el entorno de producción
+y no en etapas de desarrollo.
+
+. Hay que tener en cuenta que todos los mecanismos de ofuscación
+pueden ser reversados, por lo cual,
+es recomendable no ocultar
+información confidencial dentro del código fuente.
+
+. En esta solución se verá la manera de +ofuscar+ el código
+de una aplicación realizada en +Java+.
+De igual manera, el método descrito se enfoca
+en renombrar los métodos y las clases
+convirtiéndolos en caracteres incomprensibles para un humano.
+
+. +ProudGuard+ es un software que contrae, optimiza,
+ofusca y verifica clases, métodos y atributos
+codificados en +Java+.
+
+. Como ejemplo, se utilizará una aplicación
+con el siguiente contenido.
++
+.content.shell
+[source, shell, linenums]
+----
+jar tvf paquete-1.0.jar
+0 Thu Nov 24 15:57:48 COT 2011 META-INF/
+142 Thu Nov 24 15:57:48 COT 2011 META-INF/MANIFEST.MF
+0 Fri Sep 17 11:18:22 COT 2010 com/
+0 Thu Nov 24 15:57:40 COT 2011 com/FLUIDsignal/
+551 Thu Nov 24 15:57:40 COT 2011 com/FLUIDsignal/Seguridad.class
+551 Thu Nov 24 15:56:40 COT 2011 com/FLUIDsignal/Persona.class
+551 Thu Nov 24 15:15:14 COT 2011 com/FLUIDsignal/CLI.class
+551 Thu Nov 24 15:57:06 COT 2011 com/FLUIDsignal/Utilidades.class
+----
+
+. Para ofuscar el contenido de la aplicación,
+se ejecuta +ProGuard+ con los siguientes argumentos:
+
+* +injar+: Especifica el archivo origen que se quiere ofuscar.
+* +outjar+: Especifica el archivo destino
+que tendrá el contenido ofuscado.
+* +libraryjars+: Especifica las clases que son usadas por la aplicación.
+Específicamente las que son extendidas en la aplicación.
+* +keep+: Especifica el punto de entrada de la aplicación.
+Es importante para la opción de simplificación
+aunque no es obligatorio usarlo siempre.
+* +dontshrink+ y +dontoptimize+: Desactiva estas características del programa.
++
+.ofuscacion.shell
+[source, shell, linenums]
+----
+java -jar proguard.jar -injar paquete-1.0.jar -outjar paquete-ofuscado-1.0.jar \
+-libraryjars $JAVA_HOME/lib/rt.jar \
+-keep 'public class proguard.ProGuard { public static void main(java.lang.String[]); }' \
+-dontshrink -dontoptimize
+ProGuard, version 4.6
+Reading program jar [/home/aroldan/software/proguard4.6/lib/paquete-1.0.jar]
+Reading library jar [/usr/lib/jvm/java-6-sun-1.6.0.26/jre/lib/rt.jar]
+Note: the configuration refers to the unknown class 'proguard.ProGuard'
+Note: there were 1 references to unknown classes.
+  You should check your configuration for typos.
+Preparing output jar [/home/aroldan/software/proguard4.6/lib/paquete-ofuscado-1.0.jar]
+Copying resources from program jar
+[/home/aroldan/software/proguard4.6/lib/paquete-1.0.jar]
+----
+
+. Finalmente, se puede ver que el contenido del archivo
+contiene nombres de clases ilegibles.
++
+.resultado.shell
+[source, shell, linenums]
+----
+jar tvf paquete-ofuscado-1.0.jar 142 Thu Nov 24 16:17:38 COT 2011 META-INF/MANIFEST.MF
+422 Thu Nov 24 16:17:38 COT 2011 a/a/c.class
+422 Thu Nov 24 16:17:38 COT 2011 a/a/b.class
+422 Thu Nov 24 16:17:38 COT 2011 a/a/a.class
+422 Thu Nov 24 16:17:38 COT 2011 a/a/d.class
+----
+
+. En conclusión, la ofuscación de código tiene varias ventajas,
+sobre todo en cuanto a la seguridad,
+ya que evita que un atacante
+comprenda el funcionamiento del código
+y por tanto, no logre alterarlo con malos propósitos.
+
+. Otra razón para usar ofuscación
+es la protección de la propiedad intelectual.
+Puesto que muchas veces se quiere que terceras personas
+no sepan la manera en que está programada determinada aplicación
+y así evitar su reproducción
+sin que sean reconocidos los respectivos derechos intelectuales.
+
+. El único inconveniente que puede tener,
+es que debido a que el código final es completamente ilegible
+la mantenibilidad del código se hace un poco laboriosa
+en caso de que el archivo original llegase a perderse
+obligando a trabajar directamente sobre el comprimido.
+
+== Referencias
+
+. [[r1]] link:https://www.guardsquare.com/en/proguard[ProGuard]
+. [[r2]] link:https://es.wikipedia.org/wiki/Ofuscaci%C3%B3n[Ofuscación]
+. [[r3]] link:../../../rules/159/[REQ.159 Código ofuscado]

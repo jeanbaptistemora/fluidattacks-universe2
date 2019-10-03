@@ -1,0 +1,32 @@
+       PROCESS NOMONOPRC.
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. CBLERR2.
+
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+         SOURCE-COMPUTER. IBM-ISERIES.
+         OBJECT-COMPUTER. IBM-ISERIES.
+         SPECIAL-NAMES.
+         LINKAGE TYPE PROCEDURE FOR "QlnSetCobolErrorHandler".
+
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01  MISC.
+           05  Y               PIC S9(09) VALUE 0.
+       01  ERROR-HANDLER       PROCEDURE-POINTER.
+       01  OLD-ERROR-HANDLER   PROCEDURE-POINTER.
+       01  NUMERIC-GROUP.
+           05  X               PIC  9(03).
+       COPY QUSEC OF QSYSINC-QCBLLESRC.
+
+       PROCEDURE DIVISION.
+       MAIN.
+           MOVE 16 TO BYTES-PROVIDED OF QUS-EC.
+           SET ERROR-HANDLER TO ENTRY LINKAGE PROGRAM "ERRHDL2".
+           CALL "QlnSetCobolErrorHandler"
+           USING ERROR-HANDLER,
+                 OLD-ERROR-HANDLER,
+                 QUS-EC.
+           ADD X TO Y.
+
+           STOP RUN.

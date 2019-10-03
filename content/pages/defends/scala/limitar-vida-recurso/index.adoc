@@ -1,0 +1,174 @@
+:slug: defends/scala/limitar-vida-recurso/
+:category: scala
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de recursos dentro de un programa Scala, evitando que información disponible en memoria pueda ser capturada por usuarios no autorizados.
+:keywords: Scala, Datos sensibles, Datos confidenciales, Lectura segura, Memoria, Tiempo de vida.
+:defends: scala
+
+= Limitar tiempo de vida de recursos
+
+== Necesidad
+
+Eliminar (limpiar) recursos
+dentro de la aplicación
+cuando ya no estén en uso.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +Scala+ versión +2.11.6+ o superior.
+. El código debe eliminar información sensible en memoria.
+. La aplicación debe liberar recursos cuando ya no estén en uso,<<r1,^[1]^>>
+limitando así su tiempo de vida.
+
+== Solución
+
+Existen diversas formas de leer ficheros en +Scala+.
+La primera consiste en el uso de
+una sintaxis concisa de una sola línea,
+sin embargo, tiene el efecto secundario de dejar el archivo o recurso abierto,
+lo cual representa una falla de seguridad.
+El segundo, consiste de la implementación de código +Scala+ algo más robusto,
+permitiendo cerrar el recurso manualmente desde el mismo código.
+En este artículo se abordan ambas formas de lectura de ficheros.
+
+* *Lectura no segura de ficheros:*
+
+. Importamos las librerías necesarias:
++
+.readfileone.scala
+[source, scala, linenums]
+----
+import scala.io.Source
+----
+. Posterior a lo anterior,
+se procede a crear un objeto tipo link:https://en.wikipedia.org/wiki/Singleton_pattern[+Singleton+] llamado +ReadFileOne+.
+Dentro de este, se define el método +main+
+el cual no retorna ningún dato
+(esto se especifica mediante +Unit =+).
++
+.readfileone.scala
+[source, scala, linenums]
+----
+object ReadFileOne {
+
+  def main(args: Array[String]): Unit = {
+----
+. Definimos la variable inmutable +filename+, cuyo contenido
+corresponde a la ruta del fichero o recurso a leer:
++
+[source, scala, linenums]
+----
+  val filename = "exampleone.txt"
+----
+. A través del método +scala.io.Source.fromFile+
+y de un ciclo +for+
+se lee el contenido del fichero línea por línea
+y se imprime en pantalla:
++
+[source, scala, linenums]
+----
+    for (line <-Source.fromFile(filename).getLines) {
+      println(line)
+    }
+  }
+}
+----
++
+Sin embargo, como se mencionó al principio de este artículo,
+este enfoque no es seguro debido a que
+deja el archivo o recurso abierto en el búfer.
+
+* *Lectura segura de ficheros:*
+
+. Importamos las librerías necesarias:
++
+.readfiletwo.scala
+[source, scala, linenums]
+----
+  import scala.io.Source
+----
+. Posterior a lo anterior,
+se procede a crear un objeto tipo link:https://en.wikipedia.org/wiki/Singleton_pattern[+Singleton+] llamado +ReadFileTwo+.
+Dentro de este, se define el método +main+
+el cual no retorna ningún dato
+(esto se especifica mediante +Unit =+).
++
+[source, scala, linenums]
+----
+object ReadFileTwo {
+
+  def main(args: Array[String]): Unit = {
+----
+. Definimos la variable inmutable +bufferedSource+, cuyo contenido
+corresponde a la ruta del fichero o recurso a leer:
++
+[source, scala, linenums]
+----
+  val bufferedSource = Source.fromFile("exampletwo.txt")
+----
+. Se lee el contenido del fichero línea por línea
+y se imprime en pantalla:
++
+[source, scala, linenums]
+----
+  for (line <- bufferedSource.getLines) {
+    println(line)
+  }
+----
+. Por último, cerramos el recurso abierto una vez éste no sea necesario:
++
+[source, scala, linenums]
+----
+    bufferedSource.close
+  }
+}
+----
+. Para ejecutar el anterior programa,
+desde la terminal se debe ubicar primero en el directorio del proyecto
+y ejecutar el comando +scalac+
+(se debe tener instalado +Scala+ previamente):
++
+[source, bash, linenums]
+----
+$ ls
+exampletwo.txt ReadFileTwo.scala
+$ scalac ReadFileTwo.scala
+$ ls
+exampletwo.txt ReadFileTwo.class ReadFileTwo.scala ReadFileTwo$.class ReadFileTwo$$anonfun$main$1.class
+----
+. Luego de compilar el programa correctamente,
+se obtiene el +bytecode+ (archivo +.class+) del programa
+y se procede a ejecutar el mismo mediante el comando +Scala+:
++
+[source, bash, linenums]
+----
+$ scala ReadFileTwo
+----
+. La salida en consola luego de ejecutar el programa es la siguiente
+(en este caso el contenido del fichero
+son contraseñas de prueba):
++
+[source, bash, linenums]
+----
+Contrasenas:
+FLUIDtest
+admin123
+scalaTest
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/readfiletwo.scala[ReadFileTwo.scala]# contiene
+las instrucciones +Scala+ para la manipulación segura de ficheros.
+
+== Referencias
+
+. [[r1]] link:../../../rules/999/[REQ.999 Limitar tiempo de vida de recursos].
+. *+CSHARP+* link:../../csharp/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
+. *+Java+* link:../../java/limitar-vida-recurso/[Limitar tiempo de vida de recursos].
+. *+PHP+* link:../../php/limitar-vida-recurso/[Limitar tiempo de vida de recursos].

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block meta %}
+<meta name="description"
+      content="{{ page.description }}">
+<meta name="keywords"
+      content="{{ page.keywords }}">
+{% endblock meta %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if page.title|length < 23 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    {% if page.title|length < 11 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+{% block canonical %}
+  <link rel="canonical"
+        href="{{ SITEURL }}/{{ page.url }}">
+{% endblock canonical %}
+
+{% block content %}
+  {% for defendspage in pages if defendspage.defends %}
+    {% if loop.first %}
+      <a class="defends-category">
+        <h2>{{ defendspage.category }}</h2>
+      </a>
+      {% set cat = defendspage.category %}
+      <div class="defendspanel">
+        {% for defendsarticle in pages if defendsarticle.defends and defendsarticle.category == cat%}
+          <a href="../{{ defendsarticle.slug }}"><h3>{{ defendsarticle.title }}</h3></a>
+        {% endfor %}
+      </div>
+    {% else %}
+      {% if defendspage.category != loop.previtem.category %}
+        <a class="defends-category">
+          <h2>{{ defendspage.category }}</h2>
+        </a>
+        {% set cat = defendspage.category %}
+        <div class="defendspanel">
+          {% for defendsarticle in pages if defendsarticle.defends and defendsarticle.category == cat%}
+            <a href="../{{ defendsarticle.slug }}"><h3>{{ defendsarticle.title }}</h3></a>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  {% assets filters="uglifyjs", output="static/js/defends.min.js", "js/defends.js" %}
+    <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+  {% endassets %}
+{% endblock content %}

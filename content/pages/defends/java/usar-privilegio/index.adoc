@@ -1,0 +1,187 @@
+:slug: defends/java/usar-privilegio/
+:category: java
+:description: Nuestros ethical hackers explican que son los permisos y la importancia de estos a la hora de controlar y proteger la información. Además, explican la manera de brindar permisos privilegiados a una aplicación desarrollada en Java haciendo uso de la clase AccessController.
+:keywords: Java, Seguridad, AccessController, Permisos, Acceso, Mínimo Privilegio.
+:defends: yes
+
+= Usar Acciones Privilegiadas
+
+== Necesidad
+
+Usar acciones privilegiadas en +Java+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se cuenta con un compilador estándar de +Java+.
+
+== Solución
+
+En el área de la seguridad informática
+uno de los temas más recurrentes, es decir,
+el tema al que tiende a ponerle más atención
+(claro está por su importancia)
+es a la administración,
+asignación y negación de permisos.
+Pero ¿qué son los permisos?
+¿Por qué es importante prestarles atención?
+
+Bueno, un permiso no es más que
+el poder que se le otorga a un usuario,
+componente o funcionalidad de un sistema
+de interactuar con dicho sistema
+de una manera controlada.
+Es decir, un permiso define de una manera simple y efectiva
+las reglas de acceso que se tendrán
+a la hora de interactuar con un archivo,
+un sistema y sus componentes, o un sistema operativo.
+
+A partir de la definición anterior
+no es necesario profundizar
+en una explicación de su importancia,
+ya que es obvia.
+Es necesario definir y controlar de manera adecuada
+los permisos para evitar que personas indeseadas accedan,
+conozcan y manipulen la información.
+
+En la presente solución se explicará la manera
+de conceder permisos de acceso privilegiado
+a una aplicación desarrollada en +Java+
+sobre los recursos del sistema.
+Aunque siempre se recomienda apegarse
+al principio del mínimo privilegio.
+
+. El siguiente archivo +policy+
+otorgara privilegios de lectura de los archivos
+ubicados en las carpetas +/tmp+ y +/etc+.
+Dicho archivo tiene la opción +codebase+
+la cual permite definir la ubicación de las fuentes.
++
+.policy.file
+[source, shell, linenums]
+----
+grant
+ codebase "file:src/normal" {
+ permission java.io.FilePermission "${/}tmp", "read";
+ permission java.io.FilePermission "${/}etc", "read";
+};
+grant
+ codebase "file:src/acciones" {
+ permission java.io.FilePermission "${/}tmp", "read";
+ permission java.io.FilePermission "${/}etc", "read";
+};
+----
+
+. Para dar los permisos sobre un programa
+se debe hacer uso de la clase +AccessController+
+y el método +doPrivileged+
+el cual ejecuta las acciones considerando
+los privilegios establecidos para determinado código.
+
+. Primero, se creará la clase +CountFilesAction.java+.
+Esta clase implementa la interface +PrivilegedAction+
+la cual podrá ser utilizada más adelante como acción privilegiada.
+Además, la clase posee un solo atributo
+que representará la ruta del directorio.
++
+.CountFilesAction.java
+[source, java, linenums]
+----
+import java.io.*;
+import java.security.*;
+
+public class CountFilesAction implements PrivilegedAction {
+  private String directory;
+  public CountFilesAction(String d) {
+    directory = d;
+  }
+----
+
+. El método +run()+ devolverá el número de archivos
+en el directorio especificado.
++
+[source, java, linenums]
+----
+  public Object run() {
+    File f = new File(directory);
+    File fArray[] = f.listFiles();
+    return new Integer(fArray.length);
+  }
+}
+----
+
+. A continuación, se crea la clase
+que invocará la acción privilegiada,
+la cual se llamará +CountFiles.java+.
+Dentro de esta clase se construyen
+las rutas para los directorios +/tmp+ y +/etc+
+de tal modo que no dependan del sistema operativo.
++
+.CountFiles.java
+[source, java, linenums]
+----
+import java.io.File;
+import java.security.AccessController;
+
+public class CountFiles {
+  public static void main(String[] args) {
+  String dir1 = File.separator + "tmp";
+  String dir2 = File.separator + "etc";
+----
+
+. Se instancia +CountFilesAction+ que contiene
+el código a ejecutar en modo privilegiado.
++
+[source, java, linenums]
+----
+  Object o;
+  o = AccessController.doPrivileged(new CountFilesAction(dir1));
+  System.out.println(" found " + o + " files in " + dir1);
+  o = AccessController.doPrivileged(new CountFilesAction(dir2));
+  System.out.println(" found " + o + " files in " + dir2);
+  System.exit(0);
+ }
+}
+----
+
+. En caso de no poseer los privilegios requeridos
+al ejecutar +CountFiles+ se lanzará
+una excepción tipo +AccessControlException+.
++
+.excepcion.shell
+[source, shell, linenums]
+----
+Exception in thread "main" java.security.AccessControlException:
+ access denied (java.io.FilePermission /tmp read)
+ at
+java.security.AccessControlContext.checkPermission(AccessControlContext.java:374)
+ at java.security.AccessController.checkPermission(AccessController.java:546)
+ at java.lang.SecurityManager.checkPermission(SecurityManager.java:532)
+ at java.lang.SecurityManager.checkRead(SecurityManager.java:871)
+ at java.io.File.list(File.java:971)
+ at java.io.File.listFiles(File.java:1051)
+ at CountFilesAction.run(CountFilesAction.java:17)
+ at java.security.AccessController.doPrivileged(Native Method)
+ at CountFiles.main(CountFiles.java:11)
+----
+
+. Pero dado que gracias al uso de +AccessController.doPrivileged+
+se cuentan con los permisos requeridos
+para acceder a las carpetas +/tmp+ y +/etc+
+al ejecutar la clase +CountFiles+
+se obtiene la siguiente salida.
++
+.salida.shell
+[source, shell, linenums]
+----
+found 12 files in /tmp
+found 150 files in /etc
+----
+
+== Referencias
+
+. [[r1]] link:https://docs.oracle.com/javase/8/docs/api/java/security/AccessController.html[Class AccessController]
+. [[r2]] link:https://blogthinkbig.com/principio-de-minimo-privilegio[Qué es el Principio de Mínimo Privilegio]
+. [[r3]] link:../../../rules/176/[REQ.176 Restringir objetos del sistema]

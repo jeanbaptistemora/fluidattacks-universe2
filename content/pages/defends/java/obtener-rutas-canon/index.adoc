@@ -1,0 +1,132 @@
+:slug: defends/java/obtener-rutas-canon/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al obtener rutas absolutas canónicas. La validación de entradas es un proceso esencial para evitar ataques de inyección de código malicioso.
+:keywords: Java, Ruta Absoluta, Directorio, Transversal, Validación, Ruta Canónica
+:defends: yes
+
+= Obtener Rutas Absolutas Canónicas
+
+== Necesidad
+
+Obtener rutas absolutas canónicas
+para evitar ataques de directorio transversal.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. La aplicación está construida en +Java+.
+. La aplicación emplea rutas que referencian archivos
+o directorios del sistema operativo que deben ser validados.
+. La aplicación se está desarrollando en ambientes +UNIX+.
+Para Windows consultar el uso del comando +mklink+.
+
+. Se está desarrollando para una versión anterior que +Java 7+.
+A partir de +Java 7+ se recomienda en cambio hacer uso
+del método +toRealPath+ de la interfaz +java.nio.file.Path+.
+
+== Solución
+
+Para desarrollar una aplicación robusta y segura
+es necesario tener en cuenta muchos criterios y recomendaciones.
+Entre ellas una de las más importantes consiste en validar
+las entradas proporcionadas por los usuarios.
+Esto se realiza para evitar ataques comunes de inyección de código
+como +Cross Site Scripting+ (+XSS+) o +SQL Injection+ (+SQLi+),
+pero también puede evitar ataques
+de escalado de directorios (+Path Traversal+).
+
+En un ataque de directorio transversal,
+el atacante es capaz de acceder de forma no autorizada
+a archivos y carpetas de directorios superiores de la aplicación,
+comprometiendo la confidencialidad de la información allí almacenada.
+
+Existen muchas alternativas
+para impedir los ataques de directorios transversales
+como la link:../filtrar-entrada-datos-regex/[validación con expresiones regulares]
+o  la link:../validar-redirecciones/[validación de redirecciones].
+En este artículo mostraremos cómo evitar
+este tipo de ataques en tu aplicación,
+al obtener rutas absolutas canónicas.
+
+. +Java+ proporciona la función +getCanonicalPath()+ de la clase +java.io.File+
+que se encarga de retornar el nombre de la ruta absoluta normalizada.
+A continuación se presenta un fragmento de código fuente
+implementando esta función:
++
+.CanonPath.java
+[source,java,linenums]
+----
+import java.io.File;
+import java.io.IOException;
+
+class Main {
+  public static void main(String[] args) {
+    try{
+        String link_name = "../../../tmp/prueba";
+        File dirLog= new File( link_name );
+        System.out.println("Path: " + dirLog.getPath());
+        String canonicalPath = dirLog.getCanonicalPath();
+        System.out.println("Canonical path: " + canonicalPath);
+    ...
+----
+
+. Esta función se encarga de remover elementos especiales
+como +.+, +..+ y resolver enlaces simbólicos,
+alias +shortcuts+ en todas las plataformas,
+devolviendo la versión canónica de la ruta especificada <<r1 , ^[1]^>>.
+
+. Para el siguiente ejemplo se crea un archivo llamado +/tmp/hola+
+y luego un enlace simbólico a este llamado +/tmp/prueba+:
++
+[source,bash,linenums]
+----
+ryepes@const /tmp % echo hola > hola
+ryepes@const /tmp % ln -s hola prueba
+ryepes@const /tmp % ls -la | grep hola
+-rw-r--r--  1 ryepes ryepes    5 Nov 21 08:14 hola
+lrwxrwxrwx  1 ryepes ryepes    4 Nov 21 08:14 prueba -> hola
+----
+
+. Para determinar si la ruta ingresada
+es un enlace simbólico se realiza el siguiente procedimiento <<r2, ^[2]^>>:
++
+[source, java, linenums]
+----
+  File file = new File("/tmp/prueba");
+  System.out.println("\nAbsolute path: " + file.getAbsolutePath());
+  System.out.println("Canonical path: " + file.getCanonicalPath());
+
+    if (file.getAbsolutePath().equals(file.getCanonicalPath())) {
+      System.out.println("Direccionan la misma ruta");
+    }
+
+    else {
+      System.out.println("Posible link simbólico");
+    }
+}
+  catch(IOException e){
+    System.out.println(e);
+  }
+----
+
+. Se observa, luego de la ejecución, la siguiente salida:
++
+[source,bash,linenums]
+----
+$ java Main
+Path: ../../../tmp/prueba
+Canonical path: /home/ryepes/tmp/prueba
+
+Absolute path: /tmp/prueba
+Canonical path: /tmp/hola
+Posible link simbólico
+----
+
+== Referencias
+
+. [[r1]] link:https://wiki.sei.cmu.edu/confluence/display/java/FIO16-J.+Canonicalize+path+names+before+validating+them[FIO16-J. Canonicalize path names before validating].
+. [[r2]] link:https://stackoverflow.com/questions/813710/java-1-6-determine-symbolic-links[Determine symbolic links].
+. [[r3]] link:http://cwe.mitre.org/data/definitions/22.html[CWE-22: Path Traversal Weakness].
+. [[r4]] link:../../../rules/037/[REQ.037 Parámetros sin datos sensibles].

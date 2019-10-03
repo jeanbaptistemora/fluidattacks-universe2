@@ -1,0 +1,179 @@
+:slug: defends/scala/limitar-vida-variable/
+:category: scala
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de variables u objetos dentro de un programa Scala, evitando que información disponible en memoria pueda ser capturada por usuarios no autorizados.
+:keywords: Scala, Datos sensibles, Datos confidenciales, Lectura segura, Memoria, Tiempo de vida.
+:defends: yes
+
+= Limitar tiempo de vida de variables
+
+== Necesidad
+
+Eliminar (limpiar) datos, variables
+y/o objetos creados por la aplicación
+cuando ya no estén en uso.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +Scala+ versión +2.11.6+ o superior.
+. El código debe eliminar información sensible en memoria.
+. La aplicación debe limpiar/eliminar datos, variables
+y/o objetos creados por la misma cuando ya no estén en uso,<<r1,^[1]^>>
+limitando así su tiempo de vida.
+
+== Solución
+
+* *Limpiar contenido de un +ArrayBuffer+:*
+
+. A continuación se describe un sencillo código de ejemplo demostrativo,
+donde se explica la manera de limpiar datos almacenados
+dentro de un link:http://www.scala-lang.org/api/2.8.1/scala/collection/mutable/ArrayBuffer.html[+ArrayBuffer:+]
++
+.test.scala
+[source, scala, linenums]
+----
+  import scala.collection.mutable.ArrayBuffer
+
+  var mab = ArrayBuffer(1,2,3,4,5)
+  mab.clear
+----
++
+En el anterior bloque de código
+se importa en primer lugar la clase +ArrayBuffer+.
+Posterior a ello, se crea un nuevo +ArrayBuffer+
+cuyo contenido inicial son números del 1 al 5
+y son referenciados mediante la variable +mab+.
+Luego mediante dicha variable,
+podemos acceder al método link:http://www.scala-lang.org/api/2.7.4/scala/collection/mutable/ArrayBuffer.html#clear%28%29[+clear+]
+cuya función es limpiar el contenido del respectivo búfer,
+evitando así, que información sensible permanezca en memoria.
+
+* *Lectura segura de credenciales:*
++
+El siguiente bloque de código
+permite la lectura segura de credenciales
+ingresadas desde la consola.
+
+. Dado que es posible reutilizar código +Java+ dentro de +Scala+,
+en primer lugar importamos las clases requeridas:<<r2,^[2]^>>
++
+.password.scala
+[source, scala, linenums]
+----
+  import scala.collection.JavaConversions._
+----
+. Posterior a lo anterior,
+se procede a crear un objeto tipo link:https://en.wikipedia.org/wiki/Singleton_pattern[+Singleton+] llamado +Password+.
+Dentro de este, se define el método +main+
+el cual no retorna ningún dato
+(esto se especifica mediante +Unit =+).
++
+[source, scala, linenums]
+----
+  object Password {
+
+    def main(args: Array[String]): Unit = {
+----
+. En la constante +c+
+almacenamos una referencia a un objeto de la clase +Console+
+mediante el método link:https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#console()[+console+] de la clase +System+:
++
+[source, scala, linenums]
+----
+  val c = System.console()
+      if (c == null) {
+        System.err.println("No console.")
+        System.exit(1)
+      }
+----
++
+De lo anterior, una vez creado dicho objeto,
+se verifica si este es nulo.
+En caso de serlo,
+se detiene la ejecución del programa
+mediante el método +exit+.
+
+. Se lee la información del nombre de usuario
+mediante el método link:https://docs.oracle.com/javase/7/docs/api/java/io/Console.html#readLine()[+readLine+],
+y, por medio del método link:https://docs.oracle.com/javase/7/docs/api/java/io/Console.html#readPassword()[+readPassword+]
+(el cual retorna un +array+ de caracteres)
+se lee la contraseña desde la consola
+sin imprimir los caracteres en pantalla:
++
+[source, scala, linenums]
+----
+  val username: String = c.readLine("Ingrese su nombre de usuario: ")
+  val password: Array[Char] = c.readPassword("Ingrese su contraseña: ")
+----
+. Mediante el método +verify+ que recibe el nombre usuario y contraseña,
+simulamos el proceso de validación del usuario
+(el lector debe implementar este método de acuerdo a sus necesidades):
++
+[source, scala, linenums]
+----
+  val isValidUser: Boolean = verify(username, password)
+    // limpiar la contraseña
+    for( a <- 0 to (password.length - 1) ) {
+         password(a) = '0'
+      }
+    if (!isValidUser) {
+      throw new SecurityException("Invalid Credentials")
+    }
+  }
+
+  // Validación simulada, siempre devuelve true
+  private def verify(username: String, password: Array[Char]): Boolean = true
+
+}
+----
++
+Del anterior bloque de código
+se observa que una vez no es necesaria la contraseña,
+esta es eliminada o sobrescrita de memoria con ceros.
+
+. Para ejecutar el anterior programa,
+desde la terminal se debe ubicar primero en el directorio del proyecto
+y ejecutar el comando +scalac+
+(se debe tener instalado +Scala+ previamente):
++
+[source, bash, linenums]
+----
+$ ls
+Password.scala
+$ scalac Password.scala
+$ ls
+Password.class Password.scala Password$.class Password$$anonfun$main$1.class
+----
+. Luego de compilar el programa correctamente,
+se obtiene el +bytecode+ (archivo +.class+) del programa
+y se procede a ejecutar el mismo mediante el comando +Scala+:
++
+[source, bash, linenums]
+----
+$ scala Password
+----
+. La salida en consola luego de ejecutar el programa es la siguiente
+(los símbolos '*' son simbólicos ya que en pantalla no se verá nada):
++
+[source, bash, linenums]
+----
+Ingresa tu nombre de usuario: FLUIDtest
+Ingresa tu contraseña: *******
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/password.scala[password.scala]# contiene
+las instrucciones +Scala+ para el manejo de credenciales de manera segura.
+
+== Referencias
+
+. [[r1]] link:../../../rules/998/[REQ.998 Limitar tiempo de vida de variables].
+. [[r2]] link:http://www.scala-lang.org/api/2.9.3/scala/collection/JavaConversions$.html[JavaConversions].
+. *+CSHARP+* link:../../csharp/limitar-vida-variable/[Limitar tiempo de vida de variables].
+. *+Java+* link:../../java/limitar-vida-variable/[Limitar tiempo de vida de variables].

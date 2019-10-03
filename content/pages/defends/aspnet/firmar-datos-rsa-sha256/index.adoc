@@ -1,0 +1,119 @@
+:slug: defends/aspnet/firmar-datos-rsa-sha256/
+:category: aspnet
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al firmar datos con RSA y SHA256. Las firmas digitales permiten verificar la autenticidad de los datos permitiéndoles cumplir con el principio de integridad y no repudio.
+:keywords: ASPNET, Seguridad, Firma Digital, RSA, SHA256, Hash.
+:defends: yes
+
+= Firmar datos con RSA y SHA256
+
+== Necesidad
+
+Firma de datos con +RSA+ y +SHA256+ en +ASP.Net+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +ASP.Net+.
+. Se desea firmar contenido.<<r1,^[1]^>>
+
+== Solución
+
+Las firmas digitales, al igual que las firmas hechas a puño y letra,
+sirven para autentificar la identidad de su autor,
+otorgar un consentimiento, o aprobar la información contenida
+en un documento con validez legal.
+
+Las firmas digitales se realizan a través de un proceso criptográfico
+el cual debe cumplir con los principios de
+autenticación, integridad y no repudio.
+Además, una firma digital debe ser:
+
+* *Única:* Generada por un único firmante.
+* *Infalsificable:* Computacionalmente segura.
+* *Verificable:* Puede ser corroborada por jueces o autoridades competentes.
+* *Innegable:* El firmante no puede negar su propia firma.
+* *Viable:* Fácil de generar.
+
+En +ASP.NET+ es posible generar firmas digitales
+utilizando criptografía asimétrica +RSA+
+o funciones +hash+ criptográficas como +SHA256.+
+Para ello, se realizan los siguientes pasos:
+
+. El primer ítem necesario es el certificado
+con la respectiva clave privada.
+Una posibilidad es leer el certificado
+de la máquina local o el usuario actual
+usando un archivo +.cer+
+que permita identificar la clave privada,
+para luego enumerar los certificados
+y el +hash+ correspondiente <<r2,^[2]^>>.
+A continuación se presenta una porción de código
+con el procedimiento anteriormente descrito:
++
+.Certificates.java
+[source,java,linenums]
+----
+X509Certificate2 publicCert = new X509Certificate2(@"C:\mycertificate.cer");
+X509Certificate2 privateCert = null;
+X509Store store = new X509Store(StoreLocation.LocalMachine);
+store.Open(OpenFlags.ReadOnly);
+foreach( X509Certificate2 cert in store.Certificates)
+{
+    if (cert.GetCertHashString() == publicCert.GetCertHashString())
+        privateCert = cert;
+}
+----
+
+. Sin importar la forma
+en que se obtenga el certificado con la clave privada,
+en algunos casos se requiere reconstruirlo.
+La razón por la cual esto se hace necesario
+es para cambiar el +CSP+
+(proveedor de servicios de criptografía),
+ya que se va a usar +SHA256+
+el cual es más seguro que otros +hash+
+que han demostrado tener problemas de colisiones <<r3,^[3]^>>.
+Lo primero que se hace es exportar la clave
+y luego reimportarla usando cualquier formato intermedio,
+en esta solución se usa +XML+.
++
+[source, java, linenums]
+----
+RSACryptoServiceProvider key = new RSACryptoServiceProvider();
+key.FromXmlString(privateCert.PrivateKey.ToXmlString(true));
+----
+
+. Una vez que se tiene esto listo, se procede a firmar los datos.
+Pero antes, se necesitan datos que firmar.
++
+[source,java,linenums]
+----
+byte[] data = new byte[1024];
+----
+
+. Y se procede a realizar su firma:
++
+[source, java, linenums]
+----
+byte[] sig = key.SignData(data, CryptoConfig.MapNameToOID("SHA256"));
+----
+
+. Finalmente, la verificación de la firma se hace
+usando el certificado digital,
+sin necesidad de hacer el proceso
+de exportar/importar o la clave privada.
++
+[source, java, linenums]
+----
+key = (RSACryptoServiceProvider)publicCert.PublicKey.Key;
+if (!key.VerifyData(data, CryptoConfig.MapNameToOID("SHA256"), sig))
+    throw new CryptographicException();
+----
+
+== Referencias
+
+. [[r1]] link:../../../rules/178/[REQ.178 Utilizar firmas digitales].
+. [[r2]] link:https://stackoverflow.com/questions/7444586/how-can-i-sign-a-file-using-rsa-and-sha256-with-net[StackOverFlow, Sign a File Using RSA and Sha256 with .NET].
+. [[r3]] link:https://msdn.microsoft.com/es-es/library/system.security.cryptography.rsacryptoserviceprovider(v=vs.80).aspx[Microsoft, RSACryptoServiceProvider].

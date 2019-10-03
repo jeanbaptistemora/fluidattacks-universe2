@@ -1,0 +1,126 @@
+:slug: defends/java/generar-aleatorio-seguro/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al generar valores aleatorios de manera segura. Es importante que al momento de generar valores aleatorios éstos no puedan replicarse facilmente para evitar brechas de seguridad.
+:keywords: Java, Seguridad, Generar, Número, Cadena, Aleatorio.
+:defends: yes
+
+= Generar Valores Aleatorios de Manera Segura
+
+== Necesidad
+
+Se requiere utilizar una función de generación de números,
+cadenas o +sales+ aleatorias en la aplicación.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +Java 1.4+ o superior.
+. La aplicación necesita generar números aleatorios usados
+como identificadores que no se almacenan.
+
+== Solución
+
+La generación de números pseudo-aleatorios
+criptográficamente seguros se usa con el fin de satisfacer
+requerimientos de seguridad en la creación de claves,
+firmas o certificados digitales y, en general,
+para crear algoritmos de encriptación
+que usan llaves numéricas de un sólo uso.
+
+En +Java+, la clase +java.security.SecureRandom+
+proporciona un generador de números pseudoaleatorios
+que cumplen, por lo menos, con la especificación +FIPS 140-2+
+sobre pruebas estadísticas para generadores de números aleatorios
+y requisitos de seguridad de los módulos criptográficos ^<<r1,[1]>>^.
+
+La especificación define 4 niveles de seguridad
+entre los cuales se menciona que se debe añadir
+una resistencia a la intrusión tanto física como lógica
+con fines de desmontaje o modificación,
+de manera que dificulte al máximo los ataques
+para lo cual, se debe contar con una protección criptográfica
+y administración de claves de forma eficiente.
+
+Adicionalmente, la clase debe producir
+una salida no determinística, por lo tanto,
+requiere que la semilla no sea predecible
+y que la salida sean secuencias criptográficamente fuertes
+tal como está descrito en +RFC 1750+:
+Recomendaciones de aleatoriedad para la seguridad ^<<r2,[2]>>^.
+
+. Se debe importar la clase +SecureRandom+ de la biblioteca +security+.
++
+.randomNumber.java
+[source, java,linenums]
+----
+import java.security.SecureRandom;
+----
+
+. Se define el método +generateRandomNumber+ en conjunto con +SecureRandom+,
+para generar un número aleatorio de tipo entero.
+
+. Declaramos el método, retornará un número de tipo +int+.
++
+[source, java,linenums]
+----
+public static int generateRandomNumber() {
+----
+
+. Se declara un +array+ de +bytes+ con el tamaño de un entero
+para sistemas operativos de +32 bits+.
++
+[source, java,linenums]
+----
+byte[] integer = new byte[4];
+----
+
+. Se usa +SecureRandom+ y su método +nextBytes+
+para llenar aleatoriamente el +array+.
+Se debe tener en cuenta que a partir
+de la versión +8+ de +Java+,
+se recomienda instanciar el método +getInstanceStrong()+
+para una mayor entropía.
++
+[source, java,linenums]
+----
+SecureRandom random = new SecureRandom.getInstanceStrong();
+random.nextBytes(integer);
+----
+
+. Hacemos uso del método +toInt+ ^<<r3,[3]>>^
+para convertir el +array+ de +bytes+ a entero.
+Retornamos el valor generado.
++
+[source, java,linenums]
+----
+return toInt(integer);
+}
+
+public static int toInt(byte[] bytes) {
+int result = 0;
+for (int i = 0; i < 4; i++) {
+  result = (result << 8) - Byte.MIN_VALUE + (int) bytes[i];
+}
+ return result;
+}
+----
+
+. Este es el resultado para la generación de números aleatorios.
++
+[source, shell, linenums]
+----
+-1061930007
+1168469548
+-1436156118
+1022454756
+----
+
+== Referencias
+
+. [[r1]] link:https://www.seagate.com/files/docs/pdf/es-ES/whitepaper/fips-140-2-faq-mb605.1-1007es.pdf[Tecnología de la unidad FIPS 140-2 estándar y con autocifrado]
+. [[r2]] link:http://www.ietf.org/rfc/rfc1750.txt[RFC 1750]
+. [[r3]] link:http://bethecoder.com/applications/articles/java/basics/how-to-convert-byte-array-to-integer.html[How to convert Byte Array to Integer]
+. [[r4]] link:https://wiki.sei.cmu.edu/confluence/display/java/MSC02-J.+Generate+strong+random+numbers[MSC02-J. Generate strong random numbers]
+. [[r5]] link:../../../rules/224/[REQ.224 Usar mecanismos criptográficos seguros]

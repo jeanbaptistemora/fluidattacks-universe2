@@ -1,0 +1,114 @@
+:slug: defends/windows/evitar-enumeracion-usuario/
+:category: windows
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la configuración segura de Windows. En este instructivo, explicaremos paso a paso cómo evitar mostrar los nombres de usuarios existentes a usuarios no autenticados en windows 7.
+:keywords: Windows, Seguridad, Autenticación, Usuarios, Windows 7, Buenas prácticas.
+:defends: yes
+
+= Evitar Enumeración de Usuarios
+
+== Necesidad
+
+No mostrar los nombres de usuarios existentes
+requiriendo usuario y contraseña
+durante el proceso de autenticación en +Windows 7+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se tiene una máquina funcionando con
+el sistema operativo +Windows 7+.
+. Opcionalmente se desea propagar la configuración
+a equipos pertenecientes a un dominio de +Windows+.
+
+== Solución
+
+La enumeración de usuarios es un ataque que consiste
+en comprobar la existencia de cuentas de usuarios existentes
+en un sistema de información.
+Dicha identificación se hace para,
+una vez conocidos los usuarios validos,
+poderlos usar para realizar
+un ataque que le permita al atacante acceder al sistema.
+Por lo general, dichos ataques son realizados
+por fuerza bruta y/o uso de diccionarios.
+
+Esta solución pretende evitar que un atacante conozca
+el listado de usuarios existentes
+para planear un ataque de fuerza bruta o de diccionario.
+
+. Ingresar al sistema y verificar que se solicite
+como mínimo nombre de usuario y contraseña.
++
+image::login.png[login-enumeracion]
+
+. Para aplicar esta configuración a un dominio
+por medio de +Directorio Activo+,
+se debe configurar la siguiente ruta
+modificando la configuración de directivas de dominio:
++
+.ruta.shell
+[source, shell, linenums]
+----
+Computer configuration/Windows Settings/Security Settings/LocalPolicies/SecurityOptions
+----
+
+. La ruta seguida puede apreciarse en la siguiente imagen:
++
+image::ruta.png[ruta]
+
+. Para configurar la política de modo local,
+se abre el +Local Group Policy Editor+.
+Para esto, el usuario debe dar clic en +Inicio+, +ejecutar+
+y después digitar +gpedit.msc+.
+Luego, se debe seguir la ruta mencionada anteriormente.
+Observará que la misma ruta en el formulario difiere ligeramente
+que la de los pasos para la configuración de equipos
+pertenecientes a un dominio de +Windows+.
++
+image::gpedit.png[gpedit]
+
+. Habilite la propiedad de Inicio de sesión interactivo
++No mostrar el último nombre de usuario+.
++
+image::sesion.png[sesion]
+
+. Para verificar que la longitud de clave sea superior a cero
+la ruta a seguir será la mostrada en la imagen.
+Lo anterior significa que sólo se necesitaría el nombre de usuario
+para un usuario que no haya establecido una contraseña.
++
+[source, shell, linenums]
+----
+Configuración del equipo/Configuración de Windows/Configuración de Seguridad
+  /Directivas de cuentas/Directivas de contraseñas
+----
+
+. Configurar mediante las opciones presentadas
+que la longitud de la contraseña sea diferente de cero
+y acorde a las políticas internas de la organización.
+
+. Se debe verificar también que la opción de enumerar cuentas de administrador
+esté deshabilitada para evitar mostrar las cuentas de administrador existentes.
+Para esto siga la ruta:
++
+[source, shell, linenums]
+----
+ Configuración del equipo/Plantillas administrativa/Componentes de Windows
+    /Interfaz de usuario de credenciales
+----
++
+image::directiva.png[directivas]
+
+. De esta forma, cuando se requiera acceder a los recursos privilegiados
+no se informará el nombre de usuario del administrador:
+
+image::login-2.png[login]
+
+== Referencias
+
+. [[r1]] link:https://blog.rapid7.com/2017/06/15/about-user-enumeration/[About User Enumeration]
+. [[r2]] link:http://velozityweb.com/blog/all/enumeracion-de-usuarios-y-sistemas/#sthash.Rjwut7vV.dpbs[Enumeración de usuarios y sistemas]
+. [[r3]] link:../../../rules/229/[REQ.229 Solicitar credenciales de acceso]
+. [[r4]] link:../../../rules/177/[REQ.177 Almacenar datos de forma segura]

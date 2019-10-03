@@ -1,0 +1,132 @@
+:slug: defends/java/concatenar-cadena-caracter/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al concatenar las cadenas de caracteres. Las concatenaciones recursivas e iterativas requieren de un gran carga computacional por lo cual deben realizarse de forma eficiente.
+:keywords: Java, Buenas Prácticas, Concatenar, Cadenas, StringBuilder, StringBuffer.
+:defends: yes
+
+= Concatenar Cadenas de Caracteres
+
+== Necesidad
+
+Concatenar cadenas de caracteres sin afectar el rendimiento en +Java+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se sabe cuando usar la clase +StringBuilder+ frente a +StringBuffer+.
+. Se está desarrollando en +Java 1.5+ o superior.
+Si se está desarrollando en +Java 1.0 - 1.4+,
+se debe utilizar +StringBuffer+ en vez de +StringBuilder+.
+. Se busca una comparación aproximada.
+. La concatenación se hace de forma iterativa o recursiva.
+
+== Solución
+
++Java+ dispone de dos tipos de clases
+para representar las cadenas de caracteres:
+
+* *Cadenas mutables:* Una vez instanciada una cadena su valor puede cambiar.
+* *Cadenas inmutables:* Una vez instanciada una cadena
+su valor no puede cambiar.
+
+Teniendo en consideración lo anterior,
+es ideal utilizar cadenas inmutables
+cuando se sabe que no se realizarán modificaciones
+como concatenaciones, reducciónes, entre otras operaciones, sobre las cadenas.
+Por su parte, el uso de las cadenas mutables
+son para todo lo contrario
+es decir, las cadenas serán concatenadas,
+reducidas, entre otras modificaciones
+que se pueden hacer sobre las mismas.
+
+El uso de estos lineamientos
+evita la creación de objetos innecesarios
+cuando se realizan operaciones entre cadenas inmutables ^<<r1,[1]>>^.
+
+Concatenar cadenas de caracteres mediante el operador \+
+es adecuado para unir pocos +Strings+,
+teniendo en cuenta que la +JVM+ cuenta con optimizadores
+que pueden hacer uso, por ejemplo, de +StringBuilder+.
+
+Para un gran número de iteraciones,
+se recomienda hacer uso del método +append+
+de las clases +StringBuilder+ (no sincronizada)
+o +StringBuffer+ (sincronizada).
+De este modo solo es necesario la creación de una sola instancia ^<<r2,[2]>>^.
+
+El siguiente código busca ejemplificar el uso de +StringBuilder+
+y medir su rendimiento:
+
+. Se empieza por definir los objetos que serán usados más adelante.
++
+.main.java
+[source, java, linenums]
+----
+class Main {
+  public static void main(String args []) {
+    long startTime = System.currentTimeMillis ();
+    String strPrueba="Fluid Attacks";
+    String tmpString = new String ();
+----
+
+. Se crea una instancia de la clase +java.lang.StringBuilder+ ^<<r3,[3]>>^.
++
+[source, java, linenums]
+----
+StringBuilder strBuilder = new StringBuilder();
+----
+
+. Para agregar múltiples objetos +String+ se debe crear operaciones atómicas
+donde se ingrese cada objeto +String+ por separado.
+Vemos como en el ciclo siguiente se agrega el +String+ consecutivamente.
++
+[source, java, linenums]
+----
+int numIteraciones=5000;
+for (int i=0; i < numIteraciones ;i++){
+  strBuilder.append (strPrueba);
+}
+----
+
+. Finalmente, para convertir objetos +StringBuilder+ a +String+
+se usa el método +toString+.
++
+[source, java, linenums]
+----
+tmpString = strBuilder.toString();
+----
+
+. Se calcula el tiempo de ejecución
+para comparar con la aplicación que no usa +StringBuilder+.
++
+[source, java, linenums]
+----
+  long endTime = System.currentTimeMillis () - startTime;
+  System.out.println(endTime);
+  }
+}
+----
+
+. Se observa la diferencia en milisegundos de +4+ frente a +484+,
+corriendo la aplicación en un procesador +Core i5 de 2.40GHz+
+con +4GB+ de memoria +RAM+.
++
+[source, shell, linenums]
+----
+% javac Main.java
+% java Main
+4
+% javac MainUsandoMas.java
+% java MainUsandoMas
+484
+----
+
+== Referencias
+
+. [[r1]] link:https://www.campusmvp.es/recursos/post/cadenas-mutables-e-inmutables-en-java-cuando-usar-string-stringbuilder-y-stringbuffer.aspx[Cadenas mutables e inmutables en Java]
+. [[r2]] link:http://www-01.ibm.com/software/webservers/appserv/ws_bestpractices.pdf[Best Practices for Performance]
+. [[r3]] link:https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html[Class StringBuilder]
+. [[r4]] link:http://www.precisejava.com/javaperf/j2se/StringAndStringBuffer.htm#Strings104[Optimization techniques when Concatenating Strings]
+. [[r5]] link:../../../rules/164/[REQ.164 Utilizar estructuras optimizadas]

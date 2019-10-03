@@ -1,0 +1,122 @@
+:slug: defends/java/determinar-archivo-ext/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al determinar el tipo de archivo verificando su extensión. La validación de entradas es fundamental para desarrollar aplicaciones robustas y seguras.
+:keywords: Java, Validación, Tipo, Archivo, Extensión, Seguridad
+:defends: yes
+
+= Determinar Tipo Archivo Usando Su Extensión
+
+== Necesidad
+
+Determinar tipo de archivo usando su extensión desde +Java+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación con +Java+.
+. Se necesita validar la entrada de datos,
+específicamente validar el tipo de archivo a ser manipulado.
+. Se confía en que la extensión
+es suficiente para determinar el tipo de archivo.
+
+== Solución
+
+Las entradas representan una forma de comunicación
+entre la aplicación y el usuario.
+Al momento de programar aplicaciones computacionalmente seguras
+debemos suponer que el usuario final puede ser un usuario malicioso,
+por lo cual es necesario tomar medidas de seguridad
+para evitar que nuestra aplicación sea vulnerada,
+a través de prácticas de programación segura.
+Aquí es donde la validación de entradas juega un papel fundamental
+a la hora de fortalecer la seguridad de nuestra aplicación.
+En este artículo nos enfocaremos en realizar una validación de archivos
+basándonos en su extensión.
+Para ello debemos seguir los siguientes pasos:
+
+. Inicialmente creamos un archivo a utilizar en las pruebas
+que denominaremos +test.pdf+, cuyo único contenido sera la palabra +fsg+:
++
+.Creando el archivo de prueba
+[source, bash, linenums]
+----
+% cat test.pdf
+fsg
+----
+
+. Creamos el archivo +FileUtils.java+
+que contendrá el código de la aplicación.
+
+. Importamos la interfáz +java.net.FileNameMap+,
+que representa una tabla de equivalencias entre extensión y tipo de archivo.
++
+.FileValidate.java
+[source, java, linenums]
+----
+% cat FileUtils.java
+import java.net.FileNameMap;
+...
+----
+
+. Importamos la clase abstracta +java.net.URLConnection+,
+la cual representa enlaces de comunicación entre una aplicación y una URL.
++
+[source, java, linenums]
+----
+import java.net.URLConnection;
+...
+----
+
+. Usando el método +getFileNameMap+,
+obtenemos una instancia que cumple la interfaz +FileNameMap+,
+la cual denominaremos +fileNameMap+.
++
+[source,java, linenums]
+----
+public class FileUtils {
+  public static void main(String args[]) {
+  FileNameMap fileNameMap = URLConnection.getFileNameMap();
+...
+----
+
+. Solicitamos a la nueva instancia
+que consulte el tipo de archivo para nuestro archivo de prueba
++test.pdf+ y lo mostramos por la salida estándar.
++
+[source, java, linenums]
+----
+    String type = fileNameMap.getContentTypeFor("file://test.pdf");
+    System.out.println(type);
+  }
+}
+----
+
+. El método +getContentTypeFor+ que busca la equivalencia
+entre extensión y tipo de archivo en +[jre_home]/lib/content-types.properties+,
+excepto si se ha definido el archivo +content.types.user.table+,
+lo cual generalmente no es necesario.
+
+. Finalmente compilamos la clase y la ejecutamos
+para observar los resultados:
++
+[source, java, linenums]
+----
+% javac FileUtils.java
+% java FileUtils
+application/pdf
+----
+
+. Se observa que este mecanismo clasificó nuestro archivo de prueba como pdf,
+aún cuando sabemos que el contenido no lo es.
+Notar también que no se requiere manejo de excepciones.
+Si el archivo no existe la aplicación simplemente mostrará +null+.
+
+== Referencias
+
+. [[r1]] link:http://www.rgagnon.com/javadetails/java-0487.html[Get the Mime Type of a File].
+. [[r2]] link:https://docs.oracle.com/javase/6/docs/api/java/net/URLConnection.html[Class URLConnection].
+. [[r3]] link:https://docs.oracle.com/javase/6/docs/api/java/net/FileNameMap.html[Interface FileNameMap].
+. [[r4]] link:https://en.wikipedia.org/wiki/Media_type[Wikipedia Internet media type].
+. [[r5]] link:../../../rules/040/[REQ.040 Contrastar formato y extensión de archivos].

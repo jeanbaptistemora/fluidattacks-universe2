@@ -1,0 +1,203 @@
+:slug: defends/java/limitar-vida-variable/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la creación, manipulación y eliminación correcta de variables u objetos dentro de un programa Java, evitando que información disponible en memoria pueda ser capturada por usuarios no autorizados.
+:keywords: Java, Datos sensibles, Datos confidenciales, Lectura segura, Memoria, Tiempo de vida.
+:defends: yes
+
+= Limitar tiempo de vida de variables
+
+== Necesidad
+
+Eliminar (limpiar) datos, variables
+y/o objetos creados por la aplicación
+cuando ya no estén en uso.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +Java+ versión 8.0 o superior.
+. El código debe eliminar información sensible en memoria.
+. La aplicación debe limpiar/eliminar datos, variables
+y/o objetos creados por la misma cuando ya no estén en uso,<<r1,^[1]^>>
+limitando así su tiempo de vida.
+
+== Solución
+
+* *Lectura no segura de credenciales:*
++
+A continuación se describe un código de ejemplo en +Java+,
+el cual permite leer las credenciales de un usuario desde la consola:
+
+. Se declara la clase +Password+
+y dentro de ella se define el método +Main+:
++
+.password.java
+[source, java, linenums]
+----
+  class Password {
+    public static void main (String args[]) throws IOException {
+----
+
+. Se crea un objeto de la clase +Console+
+mediante el método estático link:https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#console()[+console+] de la clase +System+:
++
+[source, java, linenums]
+----
+  Console c = System.console();
+----
+. Una vez creado dicho objeto,
+se verifica si este es nulo,
+es caso de serlo,
+se detiene la ejecución del programa
+mediante el método estático link:https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#exit(int)[+exit+:]
++
+[source, java, linenums]
+----
+  if (c == null) {
+    System.err.println("No console.");
+    System.exit(1);
+  }
+----
++
+El valor de 1 dentro de dicho método
+se utiliza para indicar
+que la ejecución del programa falló,
+0 en caso de ejecución exitosa.
+
+. Se lee la información del nombre de usuario
+y la contraseña desde la consola mediante el método link:https://docs.oracle.com/javase/7/docs/api/java/io/Console.html#readLine()[+readLine+]
+de la clase +Console+.
+Las cadenas retornadas por dicho método
+se almacenan como objetos de tipo +String+:
++
+[source, java, linenums]
+----
+  String username = c.readLine("Ingresa tu nombre de usuario: ");
+  String password = c.readLine("Ingresa tu contraseña: ");
+----
+
+. Mediante el método +verify+ que recibe el nombre usuario y contraseña,
+simulamos el proceso de validación del usuario
+(el lector debe implementar este método de acuerdo a sus necesidades):
++
+[source, java, linenums]
+----
+    if (!verify(username, password)) {
+      throw new SecurityException("Invalid Credentials");
+    }
+
+  }
+
+  // Validación simulada, siempre devuelve true
+  private static final boolean verify(String username, String password) {
+    return true;
+  }
+}
+----
++
+En el anterior bloque de código
+las credenciales permanecen expuestas
+hasta que el recolector de basura
+recupera la memoria asociada a dichas cadenas.
+
+* *Lectura segura de credenciales:*
+
+. Para dar solución a lo anterior,
+se modificó el bloque de código de tal forma
+que se utilizó en primera medida
+el método link:https://docs.oracle.com/javase/7/docs/api/java/io/Console.html#readPassword()[+readPassword+]
+(el cual retorna un +array+ de caracteres)
+para obtener la contraseña desde la consola
+sin imprimir los caracteres en pantalla:
++
+[source, java, linenums]
+----
+class Password {
+  public static void main (String args[]) throws IOException {
+    Console c = System.console();
+
+    if (c == null) {
+      System.err.println("No console.");
+      System.exit(1);
+    }
+
+    String username = c.readLine("Enter your user name: ");
+    char[] password = c.readPassword("Enter your password: ");
+----
++
+El método +readPassword()+ permite que la contraseña
+sea retornada como una secuencia de caracteres
+en lugar de como un objeto +String+.
+Por lo tanto, no sobrevivirá a la recolección de elementos no utilizados,
+incluso si coincide con otra cadena.
+En consecuencia, el programador puede borrar la contraseña
+inmediatamente después de su uso.
+
+. En segunda medida, se sobrescriben o limpian los datos
+mediante el método estático link:https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html[+fill+]
+de la clase +Arrays+:
++
+[source, java, linenums]
+----
+    boolean isValidUser = verify(username, password);
+
+    // limpiar la contraseña
+    Arrays.fill(password,' ');
+
+    if (!isValidUser) {
+      throw new SecurityException("Invalid Credentials");
+    }
+
+  }
+
+  // Validación simulada, siempre devuelve true
+  private static final boolean verify(String username, char[] password) {
+    return true;
+  }
+}
+----
+. Para ejecutar el anterior programa,
+desde la terminal se debe ubicar primero en el directorio del proyecto
+y ejecutar el comando +javac+:
++
+[source, bash, linenums]
+----
+$ ls
+Password.java
+$ javac Password.java
+$ ls
+Password.java Password.class
+----
+. Luego de compilar el programa correctamente,
+se obtiene el +bytecode+ (archivo +.class+) del programa
+y se procede a ejecutar el mismo mediante el comando +Java+:
++
+[source, bash, linenums]
+----
+$ java Password.class
+----
+. La salida en consola luego de ejecutar el programa es la siguiente
+(los símbolos '*' son simbólicos ya que en pantalla no se verá nada):
++
+[source, bash, linenums]
+----
+Ingresa tu nombre de usuario: FLUIDtest
+Ingresa tu contraseña: *******
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+. [button]#link:src/password.java[Password.java]# contiene
+todas las instrucciones +Java+
+para el manejo de credenciales de manera segura.
+
+== Referencias
+
+. [[r1]] link:../../../rules/998/[REQ.998 Limitar tiempo de vida de variables].
+. *+CSHARP+* link:../../csharp/limitar-vida-variable/[Limitar tiempo de vida de variables].
+. *+SCALA+* link:../../scala/limitar-vida-variable/[Limitar tiempo de vida de variables].

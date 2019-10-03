@@ -1,0 +1,84 @@
+:slug: defends/java/prevenir-ataque-xss/
+:category: java
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en Java al prevenir ataques de tipo Cross Site Scripting (XSS). El XSS es una vulnerabilidad muy común de las aplicaciones y actualmente existen muchas herramientas que ayudan a prevenirlo.
+:keywords: Java, Seguridad, Buenas Prácticas, Prevenir, XSS, Cross Site Scripting.
+:defends: yes
+
+= Prevenir Cross Site Scripting
+
+== Necesidad
+
+Evitar la vulnerabilidad de +Cross Site Scripting+ (+XSS+) en +Java EE+
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se tiene una aplicación web bajo la plataforma +Java EE+
+a la cual se le quiere controlar
+las vulnerabilidades posibles de +Cross Site Scripting+.
+
+== Solución
+
++Cross Site Scripting+ o, por su abreviación,
++XSS+ es una vulnerabilidad en el sistema de validación de +HTML+
+la cual permite inyectar, en páginas web,
+código +JavaScript+ u otro lenguaje similar (ej: +VBScript+).
+
+Por lo general, esta vulnerabilidad es explotada
+con el fin de tener acceso a cualquier +cookie+,
++tokens+ de sesión u otra información sensible retenida por el navegador
+y usada con en el sitio vulnerable.
+Es más, estas secuencias de comandos pueden, incluso,
+reescribir el contenido de una página +HTML+.
+
+Para evitar +Cross Site Scripting+, se deben de cumplir los siguientes
+lineamientos:
+
+. Nunca incluya datos foráneos, solo desde lugares de confianza.
+
+. Codifique los datos que vaya a incluir en un elemento +HTML+.
+
+. Codifique y valide los atributos que vaya a incluir en un atributo +HTML+.
+
+. Codifique y valide el código +JavaScript+
+que vaya a incluir en un bloque de código +JavaScript+ y +HTML+.
+
+. Codifique y valide el código +CSS+ que vaya a incluir en los estilos +HTML+.
+
+. Codifique y valide las direcciones +URL+
+que vaya a incluir en un +URL+ del +HTML+.
+
+. Se pueden generar +taglibs+ especiales que se encarguen de codificar
+los datos de salida como se sugiere acá. ^<<r2,[2]>>^
+
+. También existen librerías tipo plataforma que se pueden agregar
+a la aplicación actual para controlar la codificación de algunos campos,
+como son ^<<r3,[3]>>,^<<r4,[4>>.
+
+Para concluir, es bueno saber que está vulnerabilidad
+puede presentarse de dos formas:
++XSS+ almacenado, y +XSS+ reflejado.
+En el primero, el código inyectado
+es almacenado en el servidor de la aplicación,
+de tal manera que cuando cualquier persona entre a la parte de la página
+donde se ha inyectado el código,
+éste se ejecute extrayendo o modificando la información de la víctima.
+
+Por su parte, en el +XSS+ reflejado
+el código malicioso no se almacena en el servidor,
+sino que existe de forma temporal cuando se abre la página web vulnerable,
+logrando de esta forma, entre otras cosas,
+obtener información sensible de la víctima.
+En este caso, se debe forzar a la víctima que visita el sitio web vulnerable
+que sea ella misma quien ejecuta la inyección de código.
+
+== Referencias
+
+. [[r1]] link:https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)[Cross-site Scripting (XSS)]
+. [[r2]] link:https://www.ibm.com/developerworks/tivoli/library/s-csscript/[IBM - Library S-csscript]
+. [[r3]] link:https://hdivsecurity.com/[Http Data Integrity Validator - Hdiv]
+. [[r4]] link:https://dzone.com/articles/xss-filter-java-ee-web-apps[XSSFilter - Java]
+. [[r5]] link:../../../rules/173/[REQ.173 Descartar entradas inseguras]
+. [[r6]] link:../../../rules/160/[REQ.160 Salidas codificadas]

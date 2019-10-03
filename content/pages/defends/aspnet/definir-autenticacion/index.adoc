@@ -1,0 +1,183 @@
+:slug: defends/aspnet/definir-autenticacion/
+:category: aspnet
+:description: Nuestros ethical hackers explican como evitar vulnerabilidades de seguridad mediante la configuración segura de autenticación de usuarios programando en ASP.NET con el fin de mejorar la seguridad de la aplicación ofreciendo pautas para almacenar de forma segura las credenciales de acceso.
+:keywords: ASP.NET, Seguridad, Autenticación, Credenciales, Contraseña, Almacenamiento.
+:defends: yes
+:table-caption: Tabla
+
+= Definir autenticación
+
+== Necesidad
+
+Definir autenticación en +ASP.NET+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +ASP.NET+.
+
+== Solución
+
+. La autenticación es el proceso de obtención
+de credenciales de identificación,
+tales como el nombre y la contraseña de un usuario.
+Si las credenciales son válidas,
+la entidad que presentó las credenciales
+se considera una identidad autenticada.
++ASP.NET+ implementa la autenticación
+a través de proveedores de autenticación.
+Éstos son módulos de código que contienen
+el código necesario para autenticar
+las credenciales del solicitante.
+En la siguiente tabla se describen
+los proveedores de autenticación integrados en +ASP.NET+.
++
+.Proveedores de autenticación de +ASP.NET+.
+|===
+|Término |Descripción
+
+|Proveedor de autenticación de +Windows+.
+|Proporciona información sobre cómo utilizar
+la autenticación de +Windows+
+y los Servicios de +Internet Information Server (IIS)+ de autenticación
+para asegurar las aplicaciones ASP.NET.
+
+|Proveedor de autenticación con formularios.
+|Proporciona información sobre cómo crear
+un formulario de acceso específico
+y realizar la autenticación con su propio código.
+Una forma cómoda de trabajar
+con la autenticación de formularios
+es utilizar membresía +ASP.NET+
+y los controles de inicio de sesión +ASP.NET+.
+Éstos en conjunto proporcionan una manera
+de recoger las credenciales de usuario/autenticación
+y gestionarlos, con poco o ningún código.
+|===
+
+. Proveedor de autenticación con formularios:
+La autenticación con formularios permite autenticar
+el nombre de usuario y la contraseña
+mediante un formulario de inicio de sesión que se crea.
+Si la aplicación autentica la solicitud,
+el sistema emite un +ticket+
+que contiene una clave
+para el restablecimiento de la identidad
+para las solicitudes posteriores.
+A continuación se presenta un ejemplo
+de una autenticación con formularios:
++
+.Web.config
+[source, html]
+----
+<forms loginUrl="Restricted\login.aspx"
+       protection="All"
+       requireSSL="true"
+       timeout="10"
+       name="AppNameCookie"
+       path="/FormsAuth"
+       slidingExpiration="true" />
+----
+
+. Almacenamiento de usuarios
+en el archivo de configuración de aplicaciones:
+Cuando se utiliza la autenticación de formularios,
+puede validar usuarios
+a partir de pares usuario / contraseña
+para determinar si el acceso debe concederse.
+En el siguiente ejemplo,
+los usuarios +Kim+ y +John+ pueden iniciar sesión
+si proporcionan la contraseña correcta <<r1, ^[1]^>>.
++
+[source, html]
+----
+ <credentials passwordFormat="SHA1" >
+    <user name="Kim"
+          password="07B7F3EE06F278DB966BE960E7CBBD103DF30CA6"/>
+    <user name="John"
+          password="BA56E5E0366D003E98EA1C7F04ABF8FCB3753889"/>
+</credentials>
+----
+
+. Los pares de credenciales en el ejemplo
+se cifran utilizando el formato
+de una contraseña +Secure Hash Algorithm+ (SHA1).
+Se requiere el atributo +PasswordFormat+.
+Los valores para esta propiedad
+se enumeran en la siguiente tabla.
++
+.Tipos de cifrado de credenciales.
+|===
+|Valor | Descripción
+
+|Texto claro
+|Las contraseñas se almacenan en texto claro.
+La contraseña de usuario
+se compara directamente a este valor
+sin más transformación.
+
+|MD5
+|Las contraseñas se almacenan
+utilizando un +Message Digest 5 (MD5)+.
+Para validar las credenciales,
+la contraseña del usuario
+aplica un algoritmo +hash+
+utilizando el algoritmo +MD5+
+y se compara con el valor almacenado.
+La contraseña de texto no se almacena
+o se compara cuando se utiliza este valor.
+Este algoritmo produce
+un mejor rendimiento que +SHA1+.
+
+|SHA1
+|Las contraseñas se almacenan
+utilizando el +hash+ +SHA1+.
+Para validar las credenciales,
+la contraseña del usuario
+aplica un algoritmo +hash+
+utilizando el algoritmo +SHA1+
+y se compara con el valor almacenado.
+La contraseña de texto no se almacena.
+Utilice este algoritmo para mejorar la seguridad
+en el algoritmo +MD5+.
+
+|===
+
+. El +.NET Framework+ incluye clases y métodos
+para crear valores +hash+ mediante programación
+para el almacenamiento persistente.
+Una clase útil para la programación de esta tarea
+es la clase +FormsAuthentication+ <<r2, ^[2]^>>.
+Su método +HashPasswordForStoringInConfigFile+ puede hacer el +hash+.
+Para un control más preciso,
+puede utilizar también las clases +System.Security.Cryptography+.
+
+. Las contraseñas con algoritmo +hash+
+almacenados en un archivo de texto
+no se pueden utilizar
+para regenerar la contraseña original.
+Sin embargo son potencialmente vulnerables
+a un ataque de diccionario.
+En este tipo de ataque,
+el atacante,realiza varios intentos
+de adivinar las contraseñas
+utilizando un diccionario virtual de gran tamaño.
+Posterior a ello compara los +hashes+ generados
+con el +hash+ almacenado.
+Si almacena las contraseñas +hash+ de cualquier manera,
+usted debe asegurarse que los usuarios elijan contraseñas
+que no sean palabras comunes.
+Además, deben contener algunos números
+y caracteres no alfanuméricos
+para ayudar a prevenir los ataques de diccionario.
+Además, usted puede hacer más fácil
+la gestión de credenciales mediante el almacenamiento
+a través de la suscripción de +ASP.NET+.
+
+== Referencias
+
+. [[r1]] link:https://msdn.microsoft.com/en-us/library/da0adyye(v=vs.100).aspx[Credenciales de autenticación de formularios].
+
+. [[r2]] link:https://msdn.microsoft.com/es-es/library/system.web.security.formsauthentication(v=vs.110).aspx[Clase FormsAuthentication].

@@ -1,0 +1,115 @@
+:slug: defends/cobol/evitar-elementos-obsoletos/
+:category: cobol
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en COBOL al evitar elementos obsoletos. Los elementos que no están siendo utilizados en una aplicación pueden ser usados por atacantes para vulnerarla, a través de clases o métodos en desuso.
+:keywords: Cobol, Seguridad, Buenas Prácticas, Eliminar, Elementos, Obsoletos.
+:defends: yes
+
+= Evitar Elementos Obsoletos
+
+== Necesidad
+
+Conocer elementos obsoletos del lenguaje +COBOL+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +COBOL+.
+. Se debe evitar el uso de funciones
+o elementos obsoletos del lenguaje
+que puedan afectar la seguridad de la aplicación.
+. El código solo debe usar funciones seguras
+y actualizadas del lenguaje<<r1,^[1]^>>.
+. Se desea implementar un sistema
+lo más estable posible.
+. Es necesario llevar a cabo tareas de actualización
+y mantenimiento a una estructura existente basada en +COBOL+.
+
+== Solución
+
+. Los elementos en desuso del lenguaje
+son elementos categorizados como obsoletos
+en el estándar +ANSI X3.23-1985 COBOL+<<r2,^[2]^>>.
+Estos elementos no forman parte del estándar +COBOL+ de 2002<<r3,^[3]^>>
+y por lo tanto no son mejorados, modificados o mantenidos.
+
+. En +COBOL+, los elementos del lenguaje listados aquí
+serán eliminados en futuras especificaciones de +COBOL+.
+Por lo cual, no deberían ser usados bajo ninguna circunstancia en un programa.
+
+. +COBOL+ es un lenguaje de programación
+que ofrece compatibilidad con versiones anteriores,
+sin embargo, el uso de elementos obsoletos,
+podría afectar la seguridad
+y estabilidad dentro de la aplicación.
+
+. Aparte de la versiones +ANSI+ del lenguaje,
++IBM+ tiene su propia versión conocida como:
++IBM Enterprise Cobol+, lanzada en 1991
+y que además cuenta con actualizaciones periódicas,
+siendo ampliamente usada en sistemas +host (Mainframe)+ bajo +z/OS+.
+
+. A continuación se da a conocer
+una tabla con los elementos
+considerados obsoletos dentro de +COBOL+,
+tanto en su versión estándar,
+como para la versión de +IBM+,
+como se mencionó anteriormente,
+si un programa contiene alguno de los elementos listados a continuación,
+éste debe ser eliminado del código fuente:
++
+.Listado de elementos obsoletos en +COBOL+.
+[options="header"]
+|===
+|Elemento |Localización
+
+|+ALL.+
+|En los literales mayores a un caracter
+con un tipo de dato numérico o numérico editado.
+
+|+AUTHOR, INSTALLATION, DATE-WRITTEN, DATE-COMPILED+ y +SECURITY.+
+|División de Identificación.
+
+|+MEMORY SIZE.+
+|Apartado de OBJECT-COMPUTER.
+
+|+RERUN.+
+.2+|Apartado de I-O-CONTROL.
+
+|+MULTIPLE FILE TAPE.+
+
+|+LABEL RECORD.+
+.3+|Entrada de descripción del archivo.
+
+|+VALUE OF.+
+
+|+DATA RECORDS.+
+
+|+ALTER.+
+.4+|Instrucción.
+
+|+ENTER.+
+
+|+STOP.+
+
+|+USE FOR DEBUGGING.+
+
+|+KEY.+
+|Instrucción +DISABLE+ o +ENABLE+.
+
+|+REVERSED.+
+|Instrucción +OPEN+.
+
+|+GO TO.+
+|Al excluir el nombre del procedimiento.
+
+|Módulo de segmentación.
+|
+|===
+
+== Referencias
+
+. [[r1]] link:../../../rules/158/[REQ.158 Codificación Actualizada].
+. [[r2]] link:https://supportline.microfocus.com/documentation/books/sx20books/atobsl.htm[Summary of obsolete language elements].
+. [[r3]] link:https://www.ibm.com/support/knowledgecenter/SS6SG3_4.2.0/com.ibm.entcobol.doc_4.2/PGandLR/rlpreobs.htm[Obsolete language elements].

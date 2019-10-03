@@ -1,0 +1,162 @@
+:slug: defends/java/ubicar-codigo-fuente/
+:category: java
+:description: Nuestros ethical hackers nos explican que son los dominios de protección y su injerencia sobre los permisos de acceso que pueden o no tener las aplicaciones. Además, mediante un ejemplo practico en Java muestran la manera de conocer la ubicación de los recursos de un dominio particular.
+:keywords: Java, Seguridad, Permisos, Dominio, Protección, Recursos.
+:defends: yes
+
+= Conocer la Ubicación del Código Fuente
+
+== Necesidad
+
+Se requiere conocer información
+de la ubicación del código fuente
+y de los certificados digitales
+que tenga asociado un dominio de protección en particular.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se dispone de un compilador estándar de +Java+.
+
+== Solución
+
+Sin duda alguna la información es considerada
+como el activo más importante de cualquier organización
+por lo que se hace absolutamente necesario diseñar,
+o mejor dicho, implementar mecanismos seguros
+que permitan resguardarla de personas indeseadas.
+
+En ese orden de ideas,
+los dominios de protección
+fueron creados con el fin de delimitar
+el acceso a un recurso de información.
+En palabras más técnicas,
+un dominio de protección
+es un conjunto de recursos
+a los cuales un determinado proceso puede acceder.
+
+Por otro lado, los permisos
+constan de un objetivo y de una acción.
+Por ejemplo, para acceder a una propiedad de un sistema
+el objetivo puede ser una propiedad específica
+y las acciones pueden ser leer o escribir el valor de la propiedad.
+
+En +Java+ las clases de una aplicación
+hacen parte de un dominio de protección.
+Por lo tanto dicho dominio tiene establecido
+un conjunto de permisos.
+Por ejemplo, es posible obtener información
+tanto de la ubicación del código fuente
+como del certificado digital que está siendo usado.
+Para ello, la aplicación solicita acceso a un recurso del sistema,
+es decir, pide un permiso
+el cual será evaluado y se determinará
+si la aplicación puede acceder o no
+a la información solicitada.
+Veamos el ejemplo de una manera más practica.
+
+. En primer lugar, es necesario importar las siguientes clases
++
+.cli.java
+[source, java, linenums]
+----
+import java.security.Policy;
+import java.security.Permission;
+import java.security.ProtectionDomain;
+import java.security.PermissionCollection;
+import java.security.CodeSource;
+import java.security.cert.Certificate;
+import java.net.URL;
+----
+
+. Para obtener el dominio de protección
+al cual hace parte la clase,
+se debe invocar el método
++getProtectionDomain+ de la clase +Class+.
++
+[source, java, linenums]
+----
+class CLI {
+  public static void main(String[] args) {
+    ProtectionDomain protectionDomain = CLI.class.getProtectionDomain();
+----
+
+. Con el fin de tener una referencia al código fuente
+se debe utilizar el domino de protección anteriormente obtenido.
+De igual manera, +codeSource.getLocation+
+permite obtener la ubicación del código fuente
+dentro del sistema de archivos del sistema operativo.
++
+[source, java, linenums]
+----
+CodeSource codeSource = protectionDomain.getCodeSource();
+URL codebase = codeSource.getLocation();
+System.out.println(codebase);
+----
+
+. Para obtener información del certificado digital
+que está siendo usado
+hay que invocar el método
++getCertificates+ de la clase +CodeSource+.
+Luego, es necesario comprobar
+que se haya obtenido referencia
+a algún certificado digital
+para luego iterar sobre cada elemento del arreglo creado.
++
+[source, java, linenums]
+----
+    Certificate[] certificates = codeSource.getCertificates();
+    if (certificates == null) {
+      System.out.println("ProtectionDomain sin certificados");
+    }
+    else {
+      for (int i=0; i<certificates.length; i++) {
+        System.out.println(certificates[i]);
+      }
+    }
+  }
+}
+----
+
+. Adicionalmente, se debe crear
+el archivo de políticas +java.policy+
+el cual concederá el permiso al código fuente
+de obtener una referencia al dominio de protección actual.
++
+.java.policy
+[source, bash, linenums]
+----
+grant {
+  permission java.lang.RuntimePermission "getProtectionDomain";
+};
+----
+
+. Se compila y ejecuta teniendo en cuenta
+que hay que utilizar el archivo +java.policy+.
++
+.compile.bash
+[source, bash, linenums]
+----
+$ javac src/CLI.java
+$ javac src/CLI.java
+
+$ java -classpath src -Djava.security.manager -Djava.security.policy==java.policy CLI
+file:/fluidattacks/041-codesource_default/src/
+ProtectionDomain not certificates
+----
+
+== Descargas
+
+Puedes descargar el código fuente
+pulsando en el siguiente enlace:
+
+[button]#link:src/cli.java[CLI.java]#
+Clase CLI.
+
+== Referencias
+
+. [[r1]] link:https://www.uv.es/sto/cursos/seguridad.java/html/sjava-33.html[Dominios protegidos, modelo de permisos y políticas de seguridad]
+. [[r2]] link:https://docs.oracle.com/javase/7/docs/technotes/guides/security/permissions.html[Permissions in the Java Development Kit]
+. [[r3]] link:https://docs.gigaspaces.com/xap/10.2/security/java-security-policy-file.html[Java Security Policy File]

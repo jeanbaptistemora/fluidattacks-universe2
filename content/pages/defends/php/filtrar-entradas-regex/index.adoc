@@ -1,0 +1,157 @@
+:slug: defends/php/filtrar-entradas-regex/
+:category: php
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en PHP, verificando y limpiando las entradas del sistema con ayuda de expresiones regulares, para evitar posibles explotaciones de XSS (Cross-site scripting).
+:keywords: Php, Seguridad, Regex, Sanitize, XSS, Web.
+:defends: yes
+
+= Filtrar Entradas con Expresiones Regulares
+
+== Necesidad
+
+Filtrar la entrada de un usuario en una aplicación
+para evitar problemas de seguridad
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. La aplicación está hecha en +PHP+
+. Se tiene acceso para modificar la aplicación
+
+== Solución
+
+* Las expresiones regulares, también conocidas como +regex+,
+son de mucha utilidad para un programador,
+pues permiten, a través de patrones establecidos,
+detectar si una cadena de texto contiene o no determinados elementos.
+En este caso vamos a usarlas para filtrar
+el contenido que se ingrese
+en las entradas de datos (+input+) de la aplicación.
++
+Esto muy importante en todo programa,
+pues se debe prevenir posibles intentos
+de ejecución de scripts maliciosos al usar caracteres
+que le indiquen al sistema no interpretar
+lo ingresado como una +string+,
+sino como un código a ejecutar.
+
+* En +PHP+ se usa la función +sanitize+
+para filtrar la entrada de un usuario.
+Esto permite que, a nivel de aplicación,
+se pueda determinar el tipo de dato y los caracteres permitidos en los
+campos de la petición.
+Así se previene los fallas de
+seguridad, como +Cross Site Scripting+ (+XSS+).
+
+. El código de la función +sanitize+ es el siguiente:
++
+.sanitize.php
+[source, php, linenums]
+----
+<?php
+
+function cleanInput($input) {
+  $search = array(
+  '@<script[^>]*?>.*?</script>@si', // Elimina Javascript
+  '@<[\/\!]*?[^<>]*?>@si', // Elimina tags HTML
+  '@<style[^>]*?>.*?</style>@siU', // Elimina propiedades del style
+  '@<![\s\S]*?--[ \t\n\r]*>@' // Elimina comentarios multilínea
+  );
+
+  $output = preg_replace($search, '', $input);
+  return $output;
+}
+
+function sanitize($input) {
+  if (is_array($input)) {
+    foreach($input as $var=>$val) {
+      $output[$var] = sanitize($val);
+    }
+  }
+  else {
+    if (get_magic_quotes_gpc()) {
+      $input = stripslashes($input);
+    }
+    $input = cleanInput($input);
+    $output = mysql_real_escape_string($input);
+  }
+  return $output;
+}
+
+?>
+----
+
+. Por ejemplo, se tiene el siguiente contenido en la variable +$_GET+:
++
+.input
+[source, php, linenums]
+----
+Array (
+  [id] => 77blabla,
+  [name] => "Hi! <script src='http://www.evilsite.com/bad_script.js'></script> It's a good day!",
+  [variable1] => somedata,
+  [variable2] => somedata
+)
+----
+
+. Si se ejecuta con +sanitize+ se obtiene lo siguiente:
++
+.ejemplo-sanitize.php
+[source, php, linenums]
+----
+$getvars = sanitize($_GET);
+unset($_GET);
+----
++
+.resultado:
+[source, php]
+----
+Array (
+  [id] => 77,
+  [name] => "Hi! It\'s a good day!"
+)
+----
+
+. Esta función debe usarse antes de cualquier manejo de
+variables que impliquen datos ingresados por
+el usuario.
+
+. Para acceder a los datos que se ingresaron a través de
++GET+, se usa la nueva variable +$getvars+.
++
+.ejemplo-getvars.php
+[source, php, linenums]
+----
+echo $getvars['name'];
+----
++
+.resultado:
+[source, text]
+----
+Hi! It\'s a good day!
+----
++
+Tal como se puede ver en el ejemplo anterior,
+filtrando las entradas con la función +sanitize+,
+el resultado final se muestra sin la etiqueta +script+ y
+con el caracter de escape +\+ para el apóstrofo.
+
+* Tenga en cuenta que las expresiones regulares,
+además de ayudar a prevenir ataques de +XSS+,
+también pueden ser de utilidad para definir,
+ya sea validar campos de forma básica, o para prevenir fallas similares
+en campos que alteren las consultas +SQL+ internas.
+
+* Si usted desea conocer más sobre este tema,
+lo invitamos a leer el siguiente artículo del blog de +Fluid Attacks+,
+elaborado por uno de nuestros ethical hackers:
+[button]#link:../../../blog/mandamiento-validar-entradas/[Mandamiento #1: validar entradas]#
+
+* Para más información sobre el uso de +regex+,
+puede visitar la link:http://php.net/manual/es/function.preg-match.php[Web oficial de PHP]
+
+== Referencias
+
+. [[r1]] link:../../../rules/173/[REQ.173 Descartar información insegura]
+. [[r2]] link:http://css-tricks.com/snippets/php/sanitize-database-inputs/[Sanitize database inputs]

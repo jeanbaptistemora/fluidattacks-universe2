@@ -1,0 +1,108 @@
+:slug: defends/csharp/quitar-metadatos-imgs/
+:category: csharp
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en C Sharp al eliminar los metadatos de las imágenes. La información sensible puede filtrarse a través de los metadatos presentes en imágenes y fotografías.
+:keywords: C Sharp, Eliminar, Metadatos, Imágenes, Seguridad, Información Sensible.
+:defends: yes
+
+= Remover Metadatos de Imágenes
+
+== Necesidad
+
+Remover metadatos de imágenes en +C#+.
+
+== Contexto
+
+A continuación se describen las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando una aplicación en +C#+.
+. La aplicación utiliza imágenes o fotografías.
+. Se requiere remover metadatos en imágenes.
+
+== Solución
+
+Al momento de desarrollar una aplicación,
+es importante que tanto ésta como sus dependencias,
+cumplan con ciertas medidas de seguridad
+para garantizar que no sea vulnerada por ciberdelincuentes.
+Cuando una aplicación utiliza imágenes
+a menudo éstas contienen metadatos.
+Los metadatos proporcionan información adicional sobre la imagen,
+como fecha de captura (para el caso de una fotografía),
+tamaño en pixeles, información sobre el dispositivo con el que se tomó
+(marca, modelo, etc.), última fecha de modificación,
+ubicación geográfica entre muchos otros datos.
+Un ejemplo de esto son las cabeceras +EXIF+
+(Exchangeable Image Format)
+presente en los formatos +JPG+, +TIFF+, +RIFF+ y +WAVE+ <<r1, ^[1]^>>.
+En este artículo mostraremos cómo remover los metadatos de una imagen
+utilizando el lenguaje de progrmación +C#+.
+
+. Para eliminar metadatos en imágenes,
+primero importamos los +namespaces+ necesarios
+y definimos el nombre de la clase.
+Para el correcto funcionamiento de los métodos que utilizaremos más adelante
+importamos las librerías +System+ y +System.Drawing+
+necesarios para el tratamiento de la imagen.
+A continuación se presenta la porción de código
+encargada del procedimiento descrito anteriormente:
++
+.cleanmetadata.cs
+[source, csharp, linenums]
+----
+using System;
+using System.Drawing;
+
+namespace metadata
+{
+  class MainClass{
+----
+
+. Desarrollamos el método +Main+ donde llamamos al método +RemoveExifData+
+con la ruta de la imagen:
++
+[source, csharp, linenums]
+----
+public static void Main(string[] args) {
+  try {
+    Console.WriteLine(RemoveExifData("image.jpg"));
+  }
+
+  catch (IOException e) {
+    Console.WriteLine("Error "+e.Message);
+  }
+}
+----
+
+. El método +RemoveExifData+ se encarga de leer la imagen pixel por pixel,
+sin tener en cuenta cualquier otro tipo de dato,
+por lo que es una función segura
+al momento de eliminar información extra contenida en la imagen.
+Este método recibe como parámetro
+la ruta donde se encuentra alojada la imagen.
++
+[source, csharp, linenums]
+----
+public static string RemoveExifData(string imagePath){
+----
+
+. Se lee la imagen utilizando el método +FromFile+ de la clase +Image+
+pasando como parámetro la ruta de la imagen y se vuelve a guardar
+utilizando el método +Save+.
+Esto permite sobrescribir la imagen, eliminando los metadatos
+en la nueva imagen.
++
+[source, csharp, linenums]
+----
+  Image bufImage = Image.FromFile(imagePath);
+  bufImage.Save(imagePath);
+  return imagePath;
+}
+----
+
+== Referencias
+
+. [[r1]] link:https://www.genbeta.com/imagen-digital/que-se-sabe-de-una-fotografia-a-partir-de-sus-metadatos[GenBeta - ¿Qué se sabe de una fotografía a partir de sus metadatos?].
+. [[r2]] link:https://www.welivesecurity.com/la-es/2014/05/13/metadatos-fotos-podrian-mostrar-mas/[ESET image metadata].
+. [[r3]] link:https://opendatasecurity.io/es/que-revelan-los-metadatos-en-las-fotos/[Open Data Security - ¿Qué revelan los metadatos en las fotos?].
+. [[r4]] link:../../../rules/045/[REQ.045 Eliminar metadatos al compartir archivos].

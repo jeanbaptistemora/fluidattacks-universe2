@@ -1,0 +1,137 @@
+:slug: defends/aspnet/evitar-codigo-muerto/
+:category: aspnet
+:description: Nuestros ethical hackers explican cómo evitar vulnerabilidades de seguridad mediante la programación segura en ASPNET al evitar el código muerto. Un atacante puede utilizar las clases o métodos obsoletos para vulnerar la aplicación, por lo que se recomienda eliminar el código en desuso.
+:keywords: ASPNET, Seguridad, Evitar, Código, Muerto, Buenas Prácticas.
+:defends: yes
+
+= Evitar código muerto
+
+== Necesidad
+
+Evitar código muerto en +ASP.Net+.
+
+== Contexto
+
+A continuación se describe las circunstancias
+bajo las cuales la siguiente solución tiene sentido:
+
+. Se está desarrollando en +ASP.Net+.
+. Las funciones, métodos o clases
+deben ser invocadas en algún escenario funcional del sistema.<<r1,^[1]^>>
+
+== Solución
+
+El código fuente que compone las aplicaciones web
+a menudo es bastante extenso,
+por lo cual es posible que contenga código muerto o en desuso.
+El código muerto se refiere a secciones de código
+que son cargadas en memoria o interpretadas
+pero que nunca son usadas,
+se refiere también a secciones de código olvidadas
+que si no son eliminadas
+pueden ocasionar problemas de seguridad <<r2,^[2]^>>.
+Una sección de código muerto
+puede ser utilizada por un usuario malicioso
+para vulnerar la aplicación,
+obteniendo información sensible
+o afectando negativamente su funcionamiento.
+
+Una buena práctica de programación consiste en evitar
+que código en desuso termine en la aplicación final.
+Lo anterior trae consigo otras ventajas
+como reducir el tiempo de compilación,
+mejorar la mantenibilidad de la aplicación <<r3,^[3]^>>
+y disminuir la complejidad y extensión del código fuente.
+A continuación presentamos un ejemplo de código muerto
+y el riesgo al que podría estar expuesto su aplicación
+en caso de no eliminarlo.
+
+. Definimos la nueva clase e
+importamos las clases necesarias desde la biblioteca IO.
+La clase contendrá dos métodos para listar directorios,
+de los cuales sólo se utiliza uno a lo largo de la aplicación:
++
+.MyApp.java
+[source,java,linenums]
+----
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Diagnostics;
+
+...
+
+    class dead
+    {
+----
+
+. En el método +main+ encontramos el llamado al método +listarArchivos+,
+el cual retorna la lista de archivos según el parámetro de la ruta.
+Entre comentarios podemos ver una forma antigua
+de retornar los archivos a través del método +ejecutar+,
+el cual hace el llamado al sistema operativo del comando especificado.
++
+[source,java,linenums]
+----
+ static void Main(string[] args)
+        {
+        // método viejo
+        // ejecutar("dir");
+
+        // método nuevo
+        listarArchivos("c:\\");
+        }
+----
+
+. El método seguro para listar los archivos es
+a través del uso de la clase +Directory.GetFile+:
++
+[source,java,linenums]
+----
+     public static void listarArchivos(String ruta) {
+
+           string[] archivos = Directory.GetFiles("c:\MyDir\"");
+           if (archivos != null) {
+            for (int i = 0; i < archivos.Length; i++) {
+                Console.WriteLine(archivos[i]);
+            }
+            } else {
+            Console.Error.WriteLine("La ruta no existe");
+            }
+       }
+----
+
+. El antiguo método y que no ha sido comentado,
+hace un llamado a +Process+,
+el cual invoca al sistema operativo
+y ejecuta el comando especificado.
+Si este método no es eliminado del código,
+al compilarlo, se mantiene
+y puede ser usado por clases externas con contenido malicioso.
+La misma funcionalidad del código
+podría permitir a un atacante escalar privilegios en el servidor.
++
+[source,java,linenums]
+----
+      public static void ejecutar(String comando)
+        {
+        String linea = "";
+        String resultado = "";
+        Process p;
+        p.StartInfo.UseShellExecute = false;
+        p.StartInfo.RedirectStandardOutput = true;
+        p.StartInfo.FileName = comando;
+        p.Start();
+        String output = p.StandardOutput.ReadToEnd();
+        Console.WriteLine(output);
+        p.WaitForExit();
+    }
+----
+
+== Referencias
+
+. [[r1]] link:../../../rules/163/[REQ.163 Invocar en escenario funcional].
+. [[r2]] link:https://en.wikipedia.org/wiki/Dead_code[Dead Code - Wikipedia].
+. [[r3]] link:http://blog.utopicainformatica.com/2010/12/codigo-muerto.html[Código muerto].
