@@ -25,7 +25,6 @@ try:
     FI_AZUREAD_OAUTH2_SECRET = os.environ['FI_AZUREAD_OAUTH2_SECRET']
     FI_DRIVE_AUTHORIZATION = os.environ['FI_DRIVE_AUTHORIZATION']
     FI_FORMSTACK_TOKENS = os.environ['FI_FORMSTACK_TOKENS']
-    FI_AWS_OUTPUT = os.environ['FI_AWS_OUTPUT']
     FI_DEBUG = os.environ['FI_DEBUG']
     FI_ROLLBAR_ACCESS_TOKEN = os.environ['FI_ROLLBAR_ACCESS_TOKEN']
     FI_AWS_S3_ACCESS_KEY = os.environ['FI_AWS_S3_ACCESS_KEY']
@@ -47,9 +46,9 @@ try:
     FI_AWS_REDSHIFT_USER = os.environ['FI_AWS_REDSHIFT_USER']
     FI_AWS_REDSHIFT_PASSWORD = os.environ['FI_AWS_REDSHIFT_PASSWORD']
     FI_AWS_REDSHIFT_HOST = os.environ['FI_AWS_REDSHIFT_HOST']
-    FI_AWS_REDSHIFT_PORT = os.environ['FI_AWS_REDSHIFT_PORT']
     FI_GOOGLE_OAUTH2_KEY_ANDROID = os.environ['FI_GOOGLE_OAUTH2_KEY_ANDROID']
     FI_GOOGLE_OAUTH2_KEY_IOS = os.environ['FI_GOOGLE_OAUTH2_KEY_IOS']
+    FI_AWS_REDSHIFT_PORT = 5439
 except KeyError as e:
     print("Environment variable " + e.args[0] + " doesn't exist")
     raise
