@@ -17,7 +17,7 @@ from app.util import (
     response, is_name, is_numeric, ord_asc_by_criticidad, user_email_filter,
     assert_file_mime, has_release, get_last_vuln, validate_release_date,
     validate_future_releases, get_jwt_content, list_s3_objects, replace_all, 
-    list_to_dict, camelcase_to_snakecase)
+    list_to_dict, camelcase_to_snakecase, is_valid_file_name, is_valid_format)
 
 
 class UtilTests(TestCase):
@@ -156,4 +156,16 @@ class UtilTests(TestCase):
         camelcase_string = 'thisIsATest'
         test_data = camelcase_to_snakecase(camelcase_string)
         expected_output = 'this_is_a_test'
+        assert test_data == expected_output
+
+    def test_is_valid_file_name(self):
+        name = 'test123.py'
+        test_data = is_valid_file_name(name)
+        expected_output = True
+        assert test_data == expected_output
+
+    def test_is_valid_format(self):
+        date = '2019-03-30 00:00:00'
+        test_data = is_valid_format(date)
+        expected_output = True
         assert test_data == expected_output
