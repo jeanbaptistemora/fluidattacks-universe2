@@ -1,0 +1,26 @@
+controller:
+  config:
+    hsts-include-subdomains: "false"
+    proxy-body-size: "100m"
+    server-tokens: "false"
+    use-gzip: "false"
+    ssl-protocols: "TLSv1.2 TLSv1.3"
+  kind: DaemonSet
+  extraArgs:
+    default-ssl-certificate: operations/fluidattacks-default-cert
+  minReadySeconds: 20
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+    resources:
+     limits:
+       cpu: 100m
+       memory: 64Mi
+     requests:
+       cpu: 100m
+     memory: 64Mi
+defaultBackend:
+  enabled: true
+rbac:
+  create: true

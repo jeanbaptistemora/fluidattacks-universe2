@@ -2,12 +2,13 @@
 
 install_cert_manager() {
 
-  # Install Cert Manager
+  # Install Cert Manager chart
 
   set -e
 
   # Import functions
   . services/eks-cluster/helm/helpers.sh
+  . toolbox/others.sh
 
   # Necessary configurations for cert-manager
   kubectl apply \
@@ -31,14 +32,33 @@ install_cert_manager() {
     services/eks-cluster/helm/charts/cert-manager/cluster-issuer-fluid.yaml
 }
 
+install_nginx() {
+
+  # Install nginx chart
+
+  set -e
+
+  # Import functions
+  . services/eks-cluster/helm/helpers.sh
+
+  install_chart \
+    stable/nginx-ingress \
+    nginx-ingress \
+    operations \
+    services/eks-cluster/helm/charts/nginx/nginx.yaml \
+    0.25.1
+}
+
 install_charts() {
 
   # Install helm charts
 
   set -e
 
-  # Order matters:
-  # cert-manager first
+  # Order matters!
+
+  # Cert manager and nginx first as they are used by most other applications
   install_cert_manager
+  install_nginx
 
 }
