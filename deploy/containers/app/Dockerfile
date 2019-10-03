@@ -48,8 +48,8 @@ RUN mkdir app/documentator/images \
   && chmod -R 0744 app/techdoc
 
 # Set up Drive authentication
-RUN export FI_DRIVE_AUTHORIZATION=$(echo "$DRIVE_AUTHORIZATION" | base64 -d) \
-  && export FI_DRIVE_AUTHORIZATION_CLIENT=$(echo "$DRIVE_AUTHORIZATION_CLIENT" | base64 -d) \
+RUN export FI_DRIVE_AUTHORIZATION="$(echo $DRIVE_AUTHORIZATION | base64 -d)" \
+  && export FI_DRIVE_AUTHORIZATION_CLIENT="$(echo $DRIVE_AUTHORIZATION_CLIENT | base64 -d)" \
   && export FI_DOCUMENTROOT="$DOCUMENTROOT" \
   && python deploy/containers/common/vars/render.py
 
