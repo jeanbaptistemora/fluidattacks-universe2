@@ -6,7 +6,7 @@
 import re
 from copy import deepcopy
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Set, Union
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 # 3rd party imports
 from difflib import SequenceMatcher
@@ -198,6 +198,22 @@ def _request_dataset(url: str, dataset_list: List, *args, **kwargs) -> List:
     return resp
 
 
+def _caseless_key_in_dict(index: str, dictionary: dict) -> bool:
+    """Return True if index is a key of dictionary ignoring casing."""
+    for key in dictionary:
+        if isinstance(key, str) and index.lower() == key.lower():
+            return True
+    return False
+
+
+def _caseless_indexing(index: str, dictionary: dict) -> Tuple[str, Any]:
+    """Index a dicctionary by key without taking into account casing."""
+    for key, val in dictionary.items():
+        if isinstance(key, str) and index.lower() == key.lower():
+            return key, val
+    raise IndexError(f'{index} is not present on dictionary')
+
+
 @unknown_if(http.ParameterError, http.ConnError)
 def _has_method(url: str, method: str, *args, **kwargs) -> tuple:
     r"""
@@ -255,12 +271,14 @@ def _has_insecure_value(url: str,
     session = http.HTTPSession(url, *args, **kwargs)
     missing: bool = True
     insecure: bool = True
+    header_lower: str = header.lower()
 
-    if header in session.response.headers:
+    if _caseless_key_in_dict(header, session.response.headers):
         missing = False
+        _, header_value = _caseless_indexing(header, session.response.headers)
         insecure = not re.match(
-            pattern=HDR_RGX[header.lower()],
-            string=session.response.headers[header],
+            pattern=HDR_RGX[header_lower],
+            string=header_value,
             flags=re.IGNORECASE)
 
     if vulnerable_if_missing:

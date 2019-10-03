@@ -373,7 +373,7 @@ def content_security_policy_fail():
 def content_type_ok():
     """Header que define bien el tipo de contenido."""
     resp = Response('Content-Type OK')
-    resp.headers['Content-Type'] = 'application/json; charset=utf-8'
+    resp.headers['ConTent-Type'] = 'application/json; charset=utf-8'
     resp.headers['X-Content-Type-Options'] = 'nosniff'
     return resp
 
@@ -382,7 +382,7 @@ def content_type_ok():
 def content_type_fail():
     """Header que define mal el tipo de contenido."""
     resp = Response('Content-Type FAIL')
-    resp.headers['Content-Type'] = 'application/json'
+    resp.headers['ConTent-Type'] = 'application/json'
     return resp
 
 
@@ -390,7 +390,7 @@ def content_type_fail():
 def rest_content_type_ok():
     """Header que define bien el tipo de contenido."""
     resp = Response('Content-Type OK')
-    resp.headers['Content-Type'] = 'application/json; charset=utf-8'
+    resp.headers['ConTent-Type'] = 'application/json; charset=utf-8'
     resp.headers['X-Content-Type-Options'] = 'nosniff'
     return resp
 
@@ -399,7 +399,7 @@ def rest_content_type_ok():
 def rest_content_type_fail():
     """Header que define mal el tipo de contenido."""
     resp = Response('Content-Type FAIL')
-    resp.headers['Content-Type'] = 'application/json'
+    resp.headers['ConTent-Type'] = 'application/json'
     return resp
 
 
