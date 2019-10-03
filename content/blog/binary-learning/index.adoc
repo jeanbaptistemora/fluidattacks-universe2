@@ -1,7 +1,7 @@
 :slug: binary-learning/
 :date: 2019-01-25
 :subtitle: Learning to exploit binaries
-:category: attacks
+:category: machine-learning
 :tags: machine learning, vulnerability, exploit
 :image: cover.png
 :alt: Binary machine learning. Credits: https://unsplash.com/photos/h3sAF1cVURw

@@ -1,7 +1,7 @@
 :slug: crash-course-machine-learning/
 :date: 2018-11-19
 :subtitle: A survey of machine learning algorithms
-:category: attacks
+:category: machine-learning
 :tags: machine learning, security, application
 :image: cover.png
 :alt: Robot playing the piano
@@ -71,7 +71,7 @@ since it _learns_ a couple of parameters from the data
 and can make predictions based on those.
 
 .Linear Regression
-image::https://upload.wikimedia.org/wikipedia/commons/3/3a/Linear_regression.svg[alt="Linear Regression",width="60%"]
+image::../digression-regression/regression.png[alt="Linear Regression"]
 
 Two other interesting problems are
 estimating the probability distribution of a sample of points
@@ -80,7 +80,7 @@ finding a lower-dimensional representation of our inputs
 (*dimensionality reduction*):
 
 .Dimensionality reduction.
-image::https://www.turingfinance.com/wp-content/uploads/2014/10/Dimensionality.png[width="60%",alt="Dimensionality reduction"]
+image::dim-reduction[width="60%",alt="Dimensionality reduction"]
 
 With these _classifications_ out of the way,
 let's go deeper into each particular technique
@@ -97,7 +97,7 @@ any new point must be on one of the two sides,
 and is thus classified as belonging to one class or the other.
 
 .Support Vector Machines in `2D` and `3D`.
-image::https://cdn-images-1.medium.com/max/1600/1*csqbt5-K4GVi4i4Lrcx_eA.png[alt="2D linear SVM",width="50%"]
+image::svm.png[alt="2D linear SVM",width="50%"]
 
 More generally, if the inputs are _n_-dimensional vectors,
 an +SVM+ tries to find a geometric object of dimension _n-1_ (a _hyperplane_)
@@ -156,7 +156,7 @@ After training, since the whole network is fixed,
 it's only a matter of giving it input and getting the output.
 
 .A neural network with two layers.
-image::https://www.researchgate.net/profile/Hassen_Bouzgou/publication/316351306/figure/fig5/AS:485878301761541@1492853822090/Architecture-of-a-multilayer-perceptron-neural-network.png[Multilayer perceptron]
+image::neural-network.png[Multilayer perceptron]
 
 The networks described above are _feed-forward_,
 but there are also

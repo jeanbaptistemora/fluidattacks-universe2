@@ -1,7 +1,7 @@
 :slug: anomaly-serial-killer-doll/
 :date: 2018-12-05
 :subtitle: Hunting missing checks with anomaly detection
-:category: attacks
+:category: machine-learning
 :tags: machine learning, vulnerability, discovery
 :image: cover.png
 :alt: Chucky the actual serial killer doll

@@ -1,6 +1,6 @@
 :slug: vulnerabilities-in-deep/
 :date: 2019-09-23
-:category: documentation
+:category: machine-learning
 :subtitle: Deep Learning for vulnerability disclosure
 :tags: machine learning, detect, software
 :image: cover.png

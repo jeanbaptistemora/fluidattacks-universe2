@@ -1,7 +1,7 @@
 :slug: big-code/
 :date: 2019-08-02
 :subtitle: Learning from open source
-:category: attacks
+:category: machine-learning
 :tags: machine learning, vulnerability, code
 :image: cover.png
 :alt: Git. Photo by Yancy Min on Unsplash: https://unsplash.com/photos/842ofHC6MaI/

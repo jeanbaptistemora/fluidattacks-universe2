@@ -1,7 +1,7 @@
 :slug: natural-code/
 :date: 2019-07-26
 :subtitle: Natural language processing for code security
-:category: attacks
+:category: machine-learning
 :tags: machine learning, vulnerability, code
 :image: cover.png
 :alt: Photo by Andres Urena on Unsplash. Credits: https://unsplash.com/photos/k1osF_h2fzA

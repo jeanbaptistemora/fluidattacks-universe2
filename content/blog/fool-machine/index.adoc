@@ -1,7 +1,7 @@
 :slug: fool-machine/
 :date: 2019-08-13
 :subtitle: Trick neural network classifiers
-:category: attacks
+:category: machine-learning
 :tags: machine learning, vulnerability, code
 :image: cover.png
 :alt: Photo by KP Bodenstein on Unsplash: https://unsplash.com/photos/ElQI4kGSbiw
@@ -54,7 +54,7 @@ You could:
 as does this
 link:https://github.com/advboxes/AdvBox/blob/master/applications/StealthTshirt/README.md[Stealth T-shirt]:
 
-image::https://raw.githubusercontent.com/advboxes/AdvBox/master/applications/StealthTshirt/output1.gif[Stealth T-shirt]
+image::stealth-shirt.gif[Stealth T-shirt]
 
 - make an autonomous car crash:
 

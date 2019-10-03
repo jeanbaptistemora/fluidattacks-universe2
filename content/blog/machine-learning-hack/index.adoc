@@ -1,7 +1,7 @@
 :slug: machine-learning-hack/
 :date: 2018-11-07
 :subtitle: Machine learning for vulnerability discovery
-:category: attacks
+:category: machine-learning
 :tags: machine learning, vulnerability, discovery
 :image: cover.png
 :alt: Can machines learn to hack?
@@ -289,7 +289,7 @@ software engineering metrics could be thought of as a case of
 "confusing symptoms and causes":
 
 .Correlation vs causation. Via link:https://imgs.xkcd.com/comics/correlation.png[XKCD].
-image::https://imgs.xkcd.com/comics/correlation.png[XKCD on correlation]
+image::correlation.png[XKCD on correlation]
 
 Hence, most papers reviewed in this category present
 high false positive rates and
