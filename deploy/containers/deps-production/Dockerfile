@@ -9,11 +9,15 @@ ARG PIP_REQUIREMENTS='deploy/containers/deps-production/requirements.txt'
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=America/Bogota
 
-# apt deps and timezone
+# apt deps: Timezone and openssl first
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
   && apt update \
   && apt -y upgrade \
   && apt install -yo DPkg::Options::='--force-confnew' --no-install-recommends \
+    openssl
+
+# apt deps: Install other deps
+RUN apt install -yo DPkg::Options::='--force-confnew' --no-install-recommends \
     ca-certificates \
     curl \
     gnupg2 \
