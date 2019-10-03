@@ -35,7 +35,7 @@
     {{"| "+fin['finding']}}
     {{"| "+fin['severityCvss']}}
     {{"| "+fin['openVulnerabilities']}}
-    {{"| "+fin['estado']+"\n"}}
+    {{"| "+fin['state']+"\n"}}
     {{"| "+fin['treatment']+"\n"}}
 {%- endfor %}
 |===
@@ -78,12 +78,12 @@
 ==== {{fin['finding'] + "\n"}}
 |===
 |{{severity_title}}|{{cardinality_title}}|{{records_title}}|{{state_title}}
-{{"|"+fin['severityCvss']+"|"+fin['openVulnerabilities']+"|"+fin['recordsNumber']+"|"+fin['estado']}}
+{{"|"+fin['severityCvss']+"|"+fin['openVulnerabilities']+"|"+fin.get('recordsNumber', '0')+"|"+fin['state']}}
 |===
 ===== {{description_title}}
 {{fin['vulnerability'] + "\n"}}
 ===== {{threat_title}}
-{{fin['threat'] + "\n"}}
+{{fin.get('threat', '-') + "\n"}}
 
 {% if 'risk' in fin %}
 ===== {{risk_title}}

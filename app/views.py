@@ -34,6 +34,7 @@ from app.dal.helpers.drive import DriveAPI
 from app.dal.helpers.formstack import FormstackAPI
 from app.dal import integrates_dal
 from app.decorators import authenticate, authorize, cache_content
+from app.domain import finding as finding_domain, project as project_domain
 from app.domain.vulnerability import (
     group_specific, get_open_vuln_by_type, get_vulnerabilities_by_type
 )
@@ -225,58 +226,53 @@ def validation_project_to_pdf(request, lang, doctype):
 @authorize(['analyst', 'customer', 'admin'])
 def project_to_pdf(request, lang, project, doctype):
     "Export a project to a PDF"
-    findings_parsed = []
     assert project.strip()
     if not has_access_to_project(request.session['username'],
                                  project, request.session['role']):
-        util.cloudwatch_log(request,
-                            'Security: \
-Attempted to export project pdf without permission')
+        util.cloudwatch_log(request, 'Security: Attempted to export project'
+                                     ' pdf without permission')
         return util.response([], 'Access denied', True)
     else:
-        user = request.session['username'].split("@")[0]
+        user = request.session['username'].split('@')[0]
         validator = validation_project_to_pdf(request, lang, doctype)
         if validator is not None:
             return validator
-        findings = integrates_dal.get_findings_dynamo(project)
-        for fin in findings:
-            if util.validate_release_date(fin):
-                finding_parsed = parse_finding(fin)
-                finding = format_finding(finding_parsed, request)
-                findings_parsed.append(finding)
-            else:
-                # Finding does not have a valid release date
-                pass
+        findings = finding_domain.get_findings(
+            project_domain.list_findings(project.lower()))
+        findings = [cast_new_vulnerabilities(
+            get_open_vuln_by_type(finding['findingId'], request), finding)
+            for finding in findings]
+
         pdf_maker = CreatorPDF(lang, doctype)
         secure_pdf = SecurePDF()
-        findings_ord = util.ord_asc_by_criticidad(findings_parsed)
+        findings_ord = util.ord_asc_by_criticidad(findings)
         findings = pdf_evidences(findings_ord)
-        report_filename = ""
-        if doctype == "tech":
+        report_filename = ''
+        if doctype == 'tech':
             pdf_maker.tech(findings, project)
             report_filename = secure_pdf.create_full(user,
                                                      pdf_maker.out_name,
                                                      project)
         else:
-            return HttpResponse("Disabled report generation",
-                                content_type="text/html")
+            return HttpResponse(
+                'Disabled report generation', content_type='text/html')
         if not os.path.isfile(report_filename):
-            rollbar.report_message('Error: \
-Documentation has not been generated', 'error', request)
-            raise HttpResponse('Documentation has not been generated :(',
-                               content_type="text/html")
+            rollbar.report_message(
+                'Couldn\'t generate pdf report', 'error', request)
+            raise HttpResponse(
+                'Couldn\'t generate pdf report', content_type='text/html')
         with open(report_filename, 'r') as document:
             response = HttpResponse(document.read(),
-                                    content_type="application/pdf")
+                                    content_type='application/pdf')
             response['Content-Disposition'] = \
-                "inline;filename=:id.pdf".replace(":id", project + "_IT")
+                'inline;filename={}_IT.pdf'.format(project)
         return response
 
 
 def pdf_evidences(findings):
     fin_dto = FindingDTO()
     for finding in findings:
-        folder_name = finding['projectName'] + '/' + finding['id']
+        folder_name = finding['projectName'] + '/' + finding['findingId']
         key_list = key_existing_list(folder_name)
         field_list = [fin_dto.DOC_ACHV1, fin_dto.DOC_ACHV2,
                       fin_dto.DOC_ACHV3, fin_dto.DOC_ACHV4,

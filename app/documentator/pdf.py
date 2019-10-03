@@ -4,6 +4,7 @@
 import os
 import time
 import sys
+
 import jinja2
 import matplotlib
 matplotlib.use('Agg')
@@ -249,29 +250,22 @@ class CreatorPDF(object):
         team = 'Engineering Team'
         version = 'v1.0'
         team_mail = 'engineering@fluidattacks.com'
-        main_pie_filename = self.make_pie_finding(
-            findings,
-            project,
-            words
-        )
+        main_pie_filename = self.make_pie_finding(findings, project, words)
         for finding in findings:  # Fix para viejos hallazgos de formstack
             if 'treatment' not in finding:
                 finding['treatment'] = words['treat_status_wor']
-            elif finding['treatment'] == '-':
-                finding['treatment'] = '-'
             elif finding['treatment'] == 'NEW':
                 finding['treatment'] = words['treat_status_wor']
             elif finding['treatment'] == 'ACCEPTED':
                 finding['treatment'] = words['treat_status_asu']
             elif finding['treatment'] == 'IN PROGRESS':
                 finding['treatment'] = words['treat_status_rem']
-            if 'estado' in finding:
-                if finding['estado'] == 'Cerrado':
-                    finding['estado'] = words['fin_status_closed']
-                else:
-                    finding['estado'] = words['fin_status_open']
+            if int(finding['openVulnerabilities']) > 0:
+                finding['state'] = words['fin_status_open']
             else:
-                finding['estado'] = '-'
+                finding['state'] = words['fin_status_closed']
+                finding['treatment'] = '-'
+
         main_pie_filename = 'image::../images/' \
             + main_pie_filename \
             + '[width=300, align="center"]'
@@ -442,7 +436,7 @@ def make_vuln_table(findings, words):
         else:
             vuln_table[3][1] += 1
             vuln_table[3][3] += vuln_amount
-        ttl_num_reg += int(finding['recordsNumber'])
+        ttl_num_reg += int(finding.get('recordsNumber', 0))
         finding['severityCvss'] = str(finding['severityCvss'])
         if top <= 5:
             top_table.append([

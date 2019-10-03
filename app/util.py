@@ -127,14 +127,13 @@ def get_evidence_set_s3(finding, key_list, field_list):
             evidence_route = \
                 '{project}/{findingid}/{project}-{findingid}-{fieldid}'.format(
                     project=finding['projectName'].lower(),
-                    findingid=finding['id'],
+                    findingid=finding['findingId'],
                     fieldid=field_list[i - 1])
-            description = 'evidence_description_' + str(i)
-            if description in finding and \
-                    evidence_route in k:
+            evidence_item = finding['evidence']['evidence' + str(i)]
+            if evidence_route in k:
                 evidence_set.append({
                     'id': k,
-                    'explanation': finding[description].capitalize()
+                    'explanation': evidence_item['description'].capitalize()
                 })
     return evidence_set
 
