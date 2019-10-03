@@ -415,10 +415,6 @@ def update_treatment(finding_id, updated_values):
         if updated_values.get('acceptance_date'):
             today_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             date_size = updated_values['acceptance_date'].split(' ')
-            date_value = updated_values.get('acceptance_date')
-            is_valid_date = util.is_valid_format(date_value)
-            if is_valid_date is False:
-                raise InvalidDateFormat()
             if len(date_size) == 1:
                 updated_values['acceptance_date'] += ' ' + datetime.now().strftime('%H:%M:%S')
             if updated_values.get('acceptance_date') <= today_date:
@@ -429,6 +425,10 @@ def update_treatment(finding_id, updated_values):
             max_date = date.strftime('%Y-%m-%d %H:%M:%S')
             updated_values['acceptance_date'] = max_date
         updated_values['external_bts'] = ''
+        date_value = updated_values['acceptance_date']
+        is_valid_date = util.is_valid_format(date_value)
+        if is_valid_date is False:
+            raise InvalidDateFormat()
 
     result_update_finding = integrates_dal.update_mult_attrs_dynamo(
         'FI_findings',
