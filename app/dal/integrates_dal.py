@@ -139,19 +139,6 @@ def get_user_first_name(email):
     return first_name
 
 
-def is_registered(email):
-    """ Check if the user is registered. """
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT registered FROM users WHERE email = %s'
-        cursor.execute(query, (email,))
-        row = cursor.fetchone()
-    if row is None:
-        return '0'
-    if row[0] == 1:
-        return '1'
-    return '0'
-
-
 def is_in_database(email):
     """ Check if the user exists in DB. """
     with connections['integrates'].cursor() as cursor:

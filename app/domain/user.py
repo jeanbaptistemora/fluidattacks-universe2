@@ -16,6 +16,21 @@ def get_user_attributes(email, data):
     return user_dal.get_user_attributes(email, data)
 
 
+def is_registered(email):
+    is_registered_attr = get_user_attributes(email, ['registered'])
+    registered = False
+    if is_registered_attr and is_registered_attr.get('registered') == 1:
+        registered = True
+    else:
+        # User not found or registered attr is 0
+        pass
+    return registered
+
+
+def register(email):
+    return user_dal.update_user_attribute(email, 1, 'registered')
+
+
 def remove_access_token(email):
     """ Remove access token attribute """
     return user_dal.remove_user_attribute(email, 'access_token')

@@ -45,7 +45,7 @@ def authorize(roles):
         def authorize_and_call(*args, **kwargs):
             request = args[0]
             # Verify role if the user is logged in
-            if "username" in request.session and request.session['registered'] == '1':
+            if 'username' in request.session and request.session['registered']:
                 if request.session['role'] not in roles:
                     return util.response([], 'Access denied', True)
             else:

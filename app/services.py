@@ -21,7 +21,7 @@ def login(request):
 
 def is_registered(user):
     """ Verify if the user is registered. """
-    return integrates_dal.is_registered(user)
+    return user_domain.is_registered(user)
 
 
 def has_access_to_project(user, project_name, rol):

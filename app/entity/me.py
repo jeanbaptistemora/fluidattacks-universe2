@@ -12,8 +12,7 @@ import rollbar
 from app import util
 from app.dal import integrates_dal
 from app.decorators import require_login
-from app.domain.user import (
-    get_role, get_user_attributes, remove_access_token, update_access_token)
+from app.domain import user as user_domain
 from app.entity.project import Project
 from app.exceptions import InvalidExpirationTime
 from app.services import get_user_role, is_customeradmin
@@ -55,7 +54,8 @@ class Me(ObjectType):
     def resolve_access_token(self, info):
         jwt_content = util.get_jwt_content(info.context)
         user_email = jwt_content.get('user_email')
-        access_token = get_user_attributes(user_email, ['access_token'])
+        access_token = user_domain.get_user_attributes(
+            user_email, ['access_token'])
         self.access_token = bool(access_token)
 
         return self.access_token
@@ -95,7 +95,7 @@ class SignIn(Mutation):
                     raise GraphQLError('INVALID_AUTH_TOKEN')
                 else:
                     email = user_info['email']
-                    authorized = integrates_dal.is_registered(email) == '1'
+                    authorized = user_domain.is_registered(email)
                     if push_token:
                         integrates_dal.add_set_element_dynamo(
                             'FI_users', ['email', email],
@@ -103,8 +103,8 @@ class SignIn(Mutation):
                     session_jwt = jwt.encode(
                         {
                             'user_email': email,
-                            'user_role': get_role(email),
-                            'company': get_user_attributes(
+                            'user_role': user_domain.get_role(email),
+                            'company': user_domain.get_user_attributes(
                                 email, ['company'])['company'],
                             'first_name': user_info['given_name'],
                             'last_name': user_info['family_name'],
@@ -147,7 +147,7 @@ class UpdateAccessToken(Mutation):
             session_jwt = jwt.encode(
                 {
                     'user_email': email,
-                    'company': get_user_attributes(
+                    'company': user_domain.get_user_attributes(
                         email, ['company'])['company'],
                     'first_name': user_info['first_name'],
                     'last_name': user_info['last_name'],
@@ -159,7 +159,7 @@ class UpdateAccessToken(Mutation):
                 key=settings.JWT_SECRET_API
             )
 
-            success = update_access_token(email, token_data)
+            success = user_domain.update_access_token(email, token_data)
             if success:
                 util.cloudwatch_log(
                     info.context, '{email} update access token'.format(
@@ -186,7 +186,7 @@ class InvalidateAccessToken(Mutation):
     def mutate(_, info):
         user_info = util.get_jwt_content(info.context)
 
-        success = remove_access_token(user_info['user_email'])
+        success = user_domain.remove_access_token(user_info['user_email'])
         if success:
             util.cloudwatch_log(
                 info.context, '{email} invalidate access token'.format(

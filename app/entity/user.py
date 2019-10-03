@@ -14,8 +14,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
 from app.decorators import require_login, require_role, require_project_access
-from app.domain import project as project_domain
-from app.domain.user import add_phone_to_user, get_role
+from app.domain import project as project_domain, user as user_domain
 from .. import util
 from ..dal import integrates_dal
 from ..services import (
@@ -58,7 +57,7 @@ class User(ObjectType):
         self.organization = organization.title() if organization else ''
         self.responsibility = has_responsibility(project_name, user_email)
         self.phone_number = has_phone_number(user_email)
-        user_role = get_role(user_email)
+        user_role = user_domain.get_role(user_email)
 
         if is_customeradmin(project_name, user_email):
             self.role = 'customer_admin'
@@ -207,11 +206,12 @@ def create_new_user(context, new_user_data, project_name, email):
         integrates_dal.add_multiple_attributes_dynamo('FI_users', primary_keys_dynamo,
                                                       {'company': organization,
                                                        'phone': phone_number})
-    if integrates_dal.is_registered(email) == '0':
+    if not user_domain.is_registered(email):
         integrates_dal.register(email)
+        user_domain.register(email)
         integrates_dal.assign_role(email, role)
         integrates_dal.assign_company(email, organization)
-    elif integrates_dal.is_registered(email) == '1':
+    elif user_domain.is_registered(email):
         integrates_dal.assign_role(email, role)
     if responsibility and len(responsibility) <= 50:
         integrates_dal.add_project_access_dynamo(email, project_name,
@@ -225,7 +225,7 @@ def create_new_user(context, new_user_data, project_name, email):
                                                      project=project_name)
         )
     if phone_number and phone_number[1:].isdigit():
-        add_phone_to_user(email, phone_number)
+        user_domain.add_phone_to_user(email, phone_number)
     if role == 'customeradmin':
         integrates_dal.add_user_to_project_dynamo(project_name.lower(),
                                                   email.lower(), role)
@@ -369,7 +369,7 @@ def modify_user_information(context, modified_user_data, project_name, email):
                 {project} bypassing validation'.format(email=email,
                                                        project=project_name))
     if phone and phone[1:].isdigit():
-        add_phone_to_user(email, phone)
+        user_domain.add_phone_to_user(email, phone)
     else:
         util.cloudwatch_log(
             context,
