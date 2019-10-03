@@ -20,7 +20,6 @@ replace_env_vars() {
 
 check_deployment_ready() {
 
-  # Check every 5 seconds if a deployment is ready.
   # limit is in minutes
   # Return 0 if it is ready
   # Return 1 if it is not
