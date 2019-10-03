@@ -16,7 +16,8 @@ kubectl_setup() {
 
   # Create default ssl certificate (official Godaddy cert)
   replace_env_vars \
-    services/eks-cluster/kubectl-setup/fluidattacks-default-cert.yaml
+    services/eks-cluster/kubectl-setup/fluidattacks-default-cert.yaml \
+    '$FLUID_TLS_KEY,$FLUIDATTACKS_TLS_CERT'
   kubectl apply -f \
     services/eks-cluster/kubectl-setup/fluidattacks-default-cert.yaml
 }
