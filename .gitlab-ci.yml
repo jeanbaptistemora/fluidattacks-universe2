@@ -614,6 +614,7 @@ eks-initial-setup:
   stage: eks-initial-setup
   image: registry.gitlab.com/fluidsignal/serves:builder
   script:
+    - . toolbox/others.sh && vault_login
     - vaultenv ./ci-scripts/jobs/eks-initial-setup.sh
   only:
     - master
