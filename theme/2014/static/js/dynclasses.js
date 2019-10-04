@@ -33,7 +33,7 @@ Tachyons classes on dynamically generated content
     $( ".intl-tel-input" ).addClass("db");
 
     //fluid-buttons
-    $( ".button" ).addClass("bg-fluid-red br3 white montsy f4 b pa2 hv-fluid-dkred");
+    $( ".button" ).addClass("bg-fluid-red br3 white montsy f4 b pa1 hv-fluid-dkred");
     $( "span.button  > a" ).addClass("white");
 
     //Add whitespace after a paragraph
