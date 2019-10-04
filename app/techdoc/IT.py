@@ -12,19 +12,16 @@ class ITReport(object):
     data = None
     lang = None
     row = 3
-    qc_row = 3
     result_filename = ''
     result_path = '/usr/src/app/app/techdoc/results/'
     templates = {
         'es': {
-            'NOQC': '/usr/src/app/app/techdoc/templates/NOQC.xlsx',
-            'QC': '/usr/src/app/app/techdoc/templates/QC.xlsx'
+            'TECHNICAL': '/usr/src/app/app/techdoc/templates/TECHNICAL.xlsx',
         },
         'en': {}}
     sheet_names = {
         'es': {
             'finding': 'Findings',
-            'qc_matriz': 'MatrizQC'
         },
         'en': {}}
     finding = {
@@ -56,58 +53,29 @@ class ITReport(object):
     def __init__(self, project, data, username, lang='es'):
         """Initialize variables."""
         self.lang = lang
-        report_format = self.detect_format(data)
-        self.generate(data, project, username, report_format)
-
-    def detect_format(self, data):
-        detailed = 0
-        for finding in data:
-            if finding['reportLevel'] == 'DETAILED':
-                detailed += 1
-        detailed = detailed * 100 / len(data)
-        if detailed >= 60:
-            self.workbook = load_workbook(
-                filename=self.templates[self.lang]['QC']
-            )
-            return 'QC'
         self.workbook = load_workbook(
-            filename=self.templates[self.lang]['NOQC']
+            filename=self.templates[self.lang]['TECHNICAL']
         )
-        return 'NOQC'
+        self.generate(data, project, username)
 
-    def hide_cell(self, data, report_format):
+    def hide_cell(self, data):
         init_row = 3 + 12 * len(data)
         end_row = 3 + 12 * 60
         self.__select_finding_sheet()
         for row in range(init_row, end_row):
             self.current_sheet.row_dimensions[row].hidden = True
-        if report_format == 'QC':
-            init_row_qc = 3 + 1 * len(data)
-            end_row_qc = 63
-            self.__select_qc_sheet()
-            for row in range(init_row_qc, end_row_qc):
-                self.current_sheet.row_dimensions[row].hidden = True
 
-    def generate(self, data, project, username, report_format):
+    def generate(self, data, project, username):
         for finding in data:
             self.__write(finding)
             self.row += 12
-            if report_format == 'QC':
-                self.__write_qc(finding)
-                self.qc_row += 1
-        self.hide_cell(data, report_format)
+        self.hide_cell(data)
         self.__save(project, username)
 
     def __select_finding_sheet(self):
         """Select finding sheet."""
         self.current_sheet = self.workbook[
             self.sheet_names[self.lang]['finding']
-        ]
-
-    def __select_qc_sheet(self):
-        """Select QC matrix sheet."""
-        self.current_sheet = self.workbook[
-            self.sheet_names[self.lang]['qc_matriz']
         ]
 
     def set_cell(self, col, value, inc=0):
@@ -117,14 +85,6 @@ class ITReport(object):
     def set_cell_number(self, col, value, inc=0):
         """Assign a numeric value to a cell with findings index."""
         self.current_sheet.cell(row=self.row + inc, column=col).value = float(value)
-
-    def set_cell_qc(self, col, value, inc=0):
-        """Assign a value to a cell with QC index."""
-        self.current_sheet.cell(row=self.qc_row + inc, column=col).value = value
-
-    def set_cell_number_qc(self, col, value, inc=0):
-        """Assign a numeric value to a cell with QC index."""
-        self.current_sheet.cell(row=self.qc_row + inc, column=col).value = float(value)
 
     def __get_req(self, req_vect): # noqa
         """Get all the identifiers with the REQ.XXXX format."""
@@ -262,35 +222,6 @@ class ITReport(object):
         self.set_cell(
             self.finding['measurements'],
             self.__get_measure('reportConfidence', row['reportConfidence']), 10)
-
-    def __write_qc(self, row):
-        """Write Formstack finding in a row on the QC matrix sheet."""
-        self.__select_qc_sheet()
-        self.set_cell_qc(self.matriz['type'],
-                         translate_parameter(row['testType']))
-        self.set_cell_qc(self.matriz['component'], row['clientProject'])
-        self.set_cell_qc(self.matriz['requirements_id'],
-                         self.__get_req(row['requirements']))
-        self.set_cell_qc(self.matriz['requirements'], row['requirements'])
-        if 'scenario' in row:
-            self.set_cell_qc(self.matriz['scenario'],
-                             translate_parameter(row['scenario']))
-        if 'ambit' in row:
-            self.set_cell_qc(self.matriz['ambit'],
-                             translate_parameter(row['ambit']))
-        if 'category' in row:
-            self.set_cell_qc(self.matriz['category'], row['category'])
-        if 'threat' in row:
-            self.set_cell_qc(self.matriz['threat'], row['threat'])
-        if 'probability' in row:
-            self.set_cell_qc(self.matriz['probability'],
-                             get_probability(row['probability']))
-        self.set_cell_qc(
-            self.matriz['cssv3_value'], cast_severity(row['severityCvss']))
-        if 'severity' in row:
-            self.set_cell_number_qc(self.matriz['severity'], row['severity'])
-        if 'risk' in row:
-            self.set_cell_qc(self.matriz['risk'], row['risk'])
 
     def __save(self, project, username):
         self.result_filename = self.result_path
