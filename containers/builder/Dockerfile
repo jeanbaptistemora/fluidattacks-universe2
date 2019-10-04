@@ -90,6 +90,9 @@ RUN apt-get update \
     && curl -LsSo vaultenv.deb https://github.com/channable/vaultenv/releases/download/v0.9.0/vaultenv-0-9-0.deb \
         && dpkg -i vaultenv.deb \
         && rm vaultenv.deb \
+    && curl -LsSo sops.deb https://github.com/mozilla/sops/releases/download/3.4.0/sops_3.4.0_amd64.deb \
+        && dpkg -i sops.deb \
+        && rm sops.deb \
     && rm -rf /var/lib/apt
 
 CMD ["bash"]
