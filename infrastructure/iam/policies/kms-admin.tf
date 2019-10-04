@@ -1,7 +1,7 @@
 data "aws_iam_policy_document" "kms-admin" {
 
   statement {
-    sid = "kms-all-permissions"
+    sid = "kmsAllPermissions"
     effect = "Allow"
     actions = [
       "kms:DescribeCustomKeyStores",
@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "kms-admin" {
   }
 
   statement {
-    sid = "kms-alises-and-keys"
+    sid = "kmsAlisesAndKeys"
     effect = "Allow"
     actions = [
       "kms:*"
