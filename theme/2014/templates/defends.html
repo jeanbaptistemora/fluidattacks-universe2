@@ -25,6 +25,30 @@
   {% endif %}
 {% endblock title %}
 
+{% block breadcrumb%}
+  <!-- navcontent-container -->
+  <div class="pv0 ph2 shadow-4">
+    <!-- navcontent-info -->
+    <div class="df ma-auto">
+      <div class="montsy f6-l f7 tl ttc w-70-l w-100 ma-auto">
+        <ul class="dib list w-100">
+          <li class="dib mt0">
+            <a class="c-fluid-bk hv-fluid-dkred"
+               href="{{ SITEURL }}/">
+              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
+            </a>
+            <span class="c-fluid-red v-mid b">&gt;</span>
+          </li>
+          <li class="dib mt0">
+            <a class="c-fluid-bk hv-fluid-dkred"
+               href=".">&nbsp;{{ page.title }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock breadcrumb %}
+
 {% block canonical %}
   <link rel="canonical"
         href="{{ SITEURL }}/{{ page.url }}">
@@ -37,7 +61,7 @@
   </h1>
   {% for defendspage in pages if defendspage.defends %}
     {% if loop.first %}
-      <a class="defends-category bg-white bb b--light-silver flex black w-100 pointer">
+      <a class="defends-category bg-white bb b--light-silver flex black w-100 pointer ttc">
         <h2 class="w6">
           {{ defendspage.category }}
         </h2>
@@ -55,7 +79,7 @@
       </div>
     {% else %}
       {% if defendspage.category != loop.previtem.category %}
-        <a class="defends-category bg-white bb b--light-silver flex black w-100 pointer">
+        <a class="defends-category bg-white bb b--light-silver flex black w-100 pointer ttc">
           <h2 class="w6">
             {{ defendspage.category }}
           </h2>
