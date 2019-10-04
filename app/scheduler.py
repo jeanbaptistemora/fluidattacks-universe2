@@ -412,7 +412,7 @@ def get_new_releases():
     rollbar.report_message('Warning: Function to get new releases is running',
                            'warning')
     projects = project_domain.get_active_projects()
-    context_finding = defaultdict(list)
+    email_context = defaultdict(list)
     cont = 0
     for project in projects:
         try:
@@ -422,7 +422,7 @@ def get_new_releases():
                 if 'releaseDate' not in finding:
                     category = ('unsubmitted' if 'reportDate' not in finding
                                 else 'unreleased')
-                    context_finding[category].append({
+                    email_context[category].append({
                         'finding_name': finding.get('finding'),
                         'finding_url':
                         '{url!s}/dashboard#!/project/{project!s}/drafts/'
@@ -438,11 +438,12 @@ def get_new_releases():
                 'Warning: An error ocurred getting data for new drafts email',
                 'warning')
     if cont > 0:
-        context_finding['total'] = cont
+        email_context['total_unreleased'] = len(email_context['unreleased'])
+        email_context['total_unsubmitted'] = len(email_context['unsubmitted'])
         approvers = FI_MAIL_REVIEWERS.split(',')
         mail_to = [FI_MAIL_PROJECTS]
         mail_to.extend(approvers)
-        send_mail_new_releases(mail_to, context_finding)
+        send_mail_new_releases(mail_to, email_context)
     else:
         rollbar.report_message('Warning: There are no new drafts',
                                'warning')
