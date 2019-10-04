@@ -100,13 +100,14 @@ deploy_helm() {
 
   # Import functions
   . services/eks-cluster/helm/charts/install-charts.sh
-  . toolbox/others.sh
 
   # Install tiller in cluster
   install_helm
 
   # Wait until tiller is deployed
-  check_deployment_ready tiller-deploy kube-system 1
+  kubectl rollout status deployment.apps/tiller-deploy \
+    --namespace kube-system \
+    --timeout=1m
 
   # Install charts
   install_charts

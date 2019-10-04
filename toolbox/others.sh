@@ -18,32 +18,6 @@ replace_env_vars() {
   mv tmp "$FILE"
 }
 
-check_deployment_ready() {
-
-  # limit is in minutes
-  # Return 0 if it is ready
-  # Return 1 if it is not
-
-  set -e
-
-  local DEPLOYMENT
-  local NAMESPACE
-  local TIME
-
-  DEPLOYMENT="$1"
-  NAMESPACE="$2"
-  TIME="$3"
-
-  if kubectl rollout status "deployment.apps/$DEPLOYMENT" \
-    --namespace "$NAMESPACE" --timeout="${TIME}m"; then
-    echo 'Deployment is ready.'
-    return 0
-  else
-    echo 'Deployment was never ready.'
-    return 1
-  fi
-}
-
 aws_login() {
 
   # Log in to aws

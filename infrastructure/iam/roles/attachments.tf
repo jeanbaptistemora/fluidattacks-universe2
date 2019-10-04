@@ -51,3 +51,9 @@ resource "aws_iam_policy_attachment" "SSO-r53full" {
   roles     = ["${aws_iam_role.SSO.name}"]
   policy_arn = "arn:aws:iam::aws:policy/AmazonRoute53FullAccess"
 }
+
+resource "aws_iam_policy_attachment" "SSO-kms-full" {
+  name       = "SSO-kms-full"
+  roles     = ["${aws_iam_role.SSO.name}"]
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/kms-admin"
+}
