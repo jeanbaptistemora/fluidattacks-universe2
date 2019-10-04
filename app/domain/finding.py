@@ -622,7 +622,7 @@ def delete_finding(finding_id, project_name, justification, context):
     return result
 
 
-def approve_draft(draft_id, project_name, context):
+def approve_draft(draft_id, context):
     finding_data = get_finding(draft_id)
     is_draft = 'releaseDate' not in finding_data
     success = False
@@ -630,14 +630,13 @@ def approve_draft(draft_id, project_name, context):
     if is_draft:
         has_vulns = integrates_dal.get_vulnerabilities_dynamo(draft_id)
         if has_vulns:
-            release_date, has_release, has_last_vuln = update_release(project_name,
-                                                                      finding_data, draft_id)
+            release_date, has_release, has_last_vuln = update_release(
+                draft_id)
             if has_release and has_last_vuln:
-                integrates_dal.add_release_to_project_dynamo(
-                    project_name, release_date)
                 success = True
             else:
-                rollbar.report_message('Error: An error occurred accepting the draft', 'error')
+                rollbar.report_message(
+                    'Error: An error occurred accepting the draft', 'error')
         else:
             raise GraphQLError('CANT_APPROVE_FINDING_WITHOUT_VULNS')
     else:
@@ -648,25 +647,16 @@ def approve_draft(draft_id, project_name, context):
     return success, release_date
 
 
-def update_release(project_name, finding_data, draft_id):
+def update_release(draft_id):
     local_timezone = pytz.timezone(settings.TIME_ZONE)
     release_date = datetime.now(tz=local_timezone).date()
-    if ('subscription' in finding_data and
-            finding_data['subscription'] in ['CONTINUOUS', 'Concurrente', 'Si']):
-        releases = integrates_dal.get_project_dynamo(project_name)
-
-        for release in releases:
-            if 'lastRelease' in release:
-                last_release = datetime.strptime(
-                    release['lastRelease'].split(' ')[0], '%Y-%m-%d')
-                last_release = last_release.replace(tzinfo=local_timezone).date()
-                if last_release >= release_date:
-                    release_date = last_release + timedelta(days=1)
     release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
-    has_release = integrates_dal.add_attribute_dynamo('FI_findings', ['finding_id', draft_id],
-                                                      'releaseDate', release_date)
-    has_last_vuln = integrates_dal.add_attribute_dynamo('FI_findings', ['finding_id', draft_id],
-                                                        'lastVulnerability', release_date)
+
+    has_release = integrates_dal.add_attribute_dynamo(
+        'FI_findings', ['finding_id', draft_id], 'releaseDate', release_date)
+    has_last_vuln = integrates_dal.add_attribute_dynamo(
+        'FI_findings', ['finding_id', draft_id], 'lastVulnerability',
+        release_date)
     return release_date, has_release, has_last_vuln
 
 

@@ -845,7 +845,7 @@ class ApproveDraft(Mutation):
         try:
             project_name = get_project_name(draft_id)
             success, release_date = \
-                finding_domain.approve_draft(draft_id, project_name, info.context)
+                finding_domain.approve_draft(draft_id, info.context)
             util.invalidate_cache(draft_id)
             util.invalidate_cache(project_name)
         except KeyError:

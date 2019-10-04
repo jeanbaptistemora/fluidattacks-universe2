@@ -36,7 +36,6 @@ const tableHeaders: IHeader[] = [
     width: "6%",
   },
   { align: "center", dataField: "isExploitable", header: "Exploitable", isDate: false, isStatus: false, width: "10%" },
-  { align: "center", dataField: "isReleased", header: "Released", isDate: false, isStatus: false, width: "10%" },
 ];
 
 const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDraftsBaseProps): JSX.Element => {

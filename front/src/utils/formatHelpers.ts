@@ -405,13 +405,11 @@ export const formatDrafts: ((dataset: IDraftsDataset) => IDraftsDataset) =
       SECURITY: "search_findings.tab_description.type.security",
     };
     const reportDate: string = draft.reportDate.split(" ")[0];
-    const isReleased: string = translate.t(_.isEmpty(draft.releaseDate)
-      ? "project.findings.boolean.False" : "project.findings.boolean.True");
     const type: string = translate.t(typeParameters[draft.type]);
     const isExploitable: string = translate.t(Boolean(draft.isExploitable)
       ? "project.findings.boolean.True" : "project.findings.boolean.False");
 
-    return { ...draft, reportDate, type, isExploitable, isReleased };
+    return { ...draft, reportDate, type, isExploitable };
   });
 
 export const handleErrors: ((errorText: string, errors: readonly GraphQLError[]) => void) =
