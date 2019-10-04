@@ -53,8 +53,8 @@ class User(ObjectType):
             self.last_login = diff_last_login
 
         self.first_login = integrates_dal.get_user_first_login(user_email).split('.', 1)[0]
-        organization = integrates_dal.get_organization(user_email)
-        self.organization = organization.title() if organization else ''
+        organization = user_domain.get_organization(user_email)
+        self.organization = organization.title()
         self.responsibility = has_responsibility(project_name, user_email)
         self.phone_number = has_phone_number(user_email)
         user_role = user_domain.get_role(user_email)
@@ -203,14 +203,14 @@ def create_new_user(context, new_user_data, project_name, email):
 
     if not integrates_dal.is_in_database(email):
         integrates_dal.create_user(email)
-        integrates_dal.add_multiple_attributes_dynamo('FI_users', primary_keys_dynamo,
-                                                      {'company': organization,
-                                                       'phone': phone_number})
+        integrates_dal.add_multiple_attributes_dynamo(
+            'FI_users', primary_keys_dynamo, {'company': organization.lower(),
+                                              'phone': phone_number})
     if not user_domain.is_registered(email):
         integrates_dal.register(email)
         user_domain.register(email)
         integrates_dal.assign_role(email, role)
-        integrates_dal.assign_company(email, organization)
+        integrates_dal.assign_company(email, organization.lower())
     elif user_domain.is_registered(email):
         integrates_dal.assign_role(email, role)
     if responsibility and len(responsibility) <= 50:
@@ -358,6 +358,7 @@ def modify_user_information(context, modified_user_data, project_name, email):
     phone = modified_user_data['phone_number']
     organization = modified_user_data['organization']
     integrates_dal.assign_company(email, organization.lower())
+    user_domain.update_user_attribute(email, organization.lower(), 'company')
     if responsibility and len(responsibility) <= 50:
         integrates_dal.add_project_access_dynamo(email, project_name,
                                                  'responsibility',

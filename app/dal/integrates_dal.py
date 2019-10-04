@@ -115,17 +115,6 @@ def get_user_first_login(email):
     return unicode(row[0])
 
 
-def get_organization(email):
-    """ Get the company of a user. """
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT company FROM users WHERE email = %s'
-        cursor.execute(query, (email,))
-        row = cursor.fetchone()
-    if row is None:
-        return "None"
-    return row[0]
-
-
 def get_user_first_name(email):
     """ Get the first name of a user. """
     with connections['integrates'].cursor() as cursor:

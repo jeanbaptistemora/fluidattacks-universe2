@@ -6,6 +6,17 @@ def add_phone_to_user(email, phone):
     return user_dal.update_user_attribute(email, phone, 'phone')
 
 
+def get_organization(email):
+    organization_attr = get_user_attributes(email, ['company'])
+    organization = ''
+    if organization_attr and organization_attr.get('company'):
+        organization = organization_attr.get('company')
+    else:
+        # User not found or without company
+        pass
+    return organization
+
+
 def get_role(email):
     """ Get the role of a user. """
     return user_dal.get_role(email)
@@ -48,3 +59,7 @@ def update_access_token(email, token_data):
         'salt': token_data['salt']
     }
     return user_dal.update_user_attribute(email, access_token, 'access_token')
+
+
+def update_user_attribute(email, data_attr, name_attr):
+    return user_dal.update_user_attribute(email, data_attr, name_attr)

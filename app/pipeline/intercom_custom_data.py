@@ -1,5 +1,5 @@
 # pylint: disable=E0402
-from ..dal import integrates_dal
+from ..domain import user as user_domain
 
 
 # pylint: disable=no-self-use
@@ -20,7 +20,7 @@ class IntercomCustomData(object):
     def custom_data(self, user):
         """ Send extra data to Intercom. """
         email = user.get_username()
-        company = integrates_dal.get_organization(email)
+        company = user_domain.get_organization(email)
         return {
             'Company': company,
         }
