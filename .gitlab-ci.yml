@@ -51,7 +51,7 @@ builder:
   script:
     - /kaniko/executor
         --verbosity warn
-        --cache true
+        --cache=true
         --cache-repo "${CI_REGISTRY_IMAGE}/cache"
         --cleanup
         --context "${CI_PROJECT_DIR}/builder/base/"
