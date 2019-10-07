@@ -21,6 +21,7 @@ import { AnyAction } from "redux";
 import { submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { Button } from "../../../../components/Button/index";
+import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
 import { IHeader } from "../../../../components/DataTable/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Modal } from "../../../../components/Modal/index";
@@ -686,7 +687,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
 
                       <Mutation mutation={APPROVE_VULN_MUTATION} onCompleted={handleMtPendingVulnRes}>
                       { (approveVulnerability: MutationFn<IDeleteVulnAttr, {
-                        approvalStatus: boolean; findingId: string; uuid: string; }>,
+                        approvalStatus: boolean; findingId: string; uuid?: string; }>,
                          mutationResult: MutationResult): React.ReactNode => {
                         if (mutationRes.loading) {
                           showPreloader();
@@ -715,6 +716,24 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                                                                  uuid: vulnInfo.id}})
                               .catch();
                             }
+                        };
+
+                        const openApproveConfirm: (() => void) = (): void => {
+                          store.dispatch(actions.openConfirmDialog("confirmApproveVulns"));
+                        };
+
+                        const openDeleteConfirm: (() => void) = (): void => {
+                          store.dispatch(actions.openConfirmDialog("confirmDeleteVulns"));
+                        };
+
+                        const handleApproveAllVulnerabilities: (() => void) = (): void => {
+                          approveVulnerability({ variables: {approvalStatus: true, findingId: props.findingId }})
+                          .catch();
+                        };
+
+                        const handleDeleteAllVulnerabilities: (() => void) = (): void => {
+                          approveVulnerability({ variables: {approvalStatus: false, findingId: props.findingId }})
+                          .catch();
                         };
 
                         const pendingsHeader: IHeader[] = [
@@ -802,12 +821,33 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                                 selectionMode="checkbox"
                               />
                               <br/>
+                              {_.includes(["admin", "analyst"], props.userRole) ?
+                              <ButtonToolbar className="pull-right">
+                                <Button onClick={openApproveConfirm}>
+                                  <FluidIcon icon="verified" />
+                                  {translate.t("search_findings.tab_description.approve_all")}
+                                </Button>
+                                <Button onClick={openDeleteConfirm}>
+                                  <FluidIcon icon="delete" />
+                                  {translate.t("search_findings.tab_description.delete_all")}
+                                </Button>
+                              </ButtonToolbar>
+                              : undefined}
                             </React.Fragment>
-                            : undefined
-                            }
-                            </React.StrictMode>
-                            );
-                          }}
+                            : undefined }
+                            <ConfirmDialog
+                              name="confirmDeleteVulns"
+                              onProceed={handleDeleteAllVulnerabilities}
+                              title={translate.t("search_findings.tab_description.delete_all_vulns")}
+                            />
+                            <ConfirmDialog
+                              name="confirmApproveVulns"
+                              onProceed={handleApproveAllVulnerabilities}
+                              title={translate.t("search_findings.tab_description.approve_all_vulns")}
+                            />
+                          </React.StrictMode>
+                          );
+                        }}
                       </Mutation>
 
                       <Mutation mutation={UPDATE_TREATMENT_MUTATION} onCompleted={handleMtUpdateTreatmentVulnRes}>

@@ -67,11 +67,11 @@ export const DELETE_VULN_MUTATION: DocumentNode = gql`
   `;
 
 export const APPROVE_VULN_MUTATION: DocumentNode = gql`
-  mutation ApproveVulnMutation($uuid: String!, $findingId: String!, $approvalStatus: Boolean!) {
+  mutation ApproveVulnMutation($uuid: String, $findingId: String!, $approvalStatus: Boolean!) {
     approveVulnerability (
-      uuid: $uuid,
       findingId: $findingId,
-      approvalStatus: $approvalStatus
+      approvalStatus: $approvalStatus,
+      uuid: $uuid
     ) {
       success
     }
