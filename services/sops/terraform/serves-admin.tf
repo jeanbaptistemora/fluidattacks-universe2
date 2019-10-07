@@ -27,7 +27,7 @@ data "aws_iam_policy_document" "serves-admin-data" {
 }
 
 resource "aws_iam_policy" "serves-admin" {
-  name        = "serves-admin"
+  name        = "serves_admin"
   path        = "/serves/"
   description = "Policy for serves administration"
 
