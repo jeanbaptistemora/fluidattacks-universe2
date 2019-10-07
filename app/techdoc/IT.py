@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """ Class for generate an xlsx file with findings information. """
 import re
+
 from openpyxl import load_workbook
 
 
@@ -172,13 +173,13 @@ class ITReport(object):
         self.__select_finding_sheet()
         self.set_cell(self.finding['name'], row['finding'])
         self.set_cell(self.finding['description'], row['vulnerability'])
-        self.set_cell(self.finding['where'], row['where'])
-        if int(row['recordsNumber']) != 0:
+        self.set_cell(self.finding['where'], row.get('where', ''))
+        if int(row.get('recordsNumber', 0)) > 0:
             self.set_cell(self.finding['where_records'],
                           'Evidences/' + row['finding'] + '/records.csv')
         self.set_cell_number(self.finding['severityCvss'], row['severityCvss'])
         self.set_cell_number(self.finding['cardinality'], row['openVulnerabilities'])
-        self.set_cell_number(self.finding['affected_records'], row['recordsNumber'])
+        self.set_cell_number(self.finding['affected_records'], row.get('recordsNumber', '0'))
         self.set_cell(self.finding['evidence'], 'Evidences/' + row['finding'])
         self.set_cell(self.finding['solution'], row['effectSolution'])
         self.set_cell(self.finding['requirements_id'],
