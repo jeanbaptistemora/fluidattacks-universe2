@@ -67,7 +67,7 @@ export const rejectDraft: ((draftId: string, projectName: string) => ThunkResult
   (draftId: string, projectName: string): ThunkResult<void> =>
     (_0: ThunkDispatcher): void => {
       let gQry: string; gQry = `mutation {
-        deleteDraft(findingId: "${draftId}") {
+        rejectDraft(findingId: "${draftId}") {
           success
         }
       }`;
@@ -76,11 +76,10 @@ export const rejectDraft: ((draftId: string, projectName: string) => ThunkResult
         .then((response: AxiosResponse) => {
           const { data } = response.data;
 
-          if (data.deleteDraft.success) {
+          if (data.rejectDraft.success) {
             msgSuccess(
-              translate.t("search_findings.finding_deleted", { findingId: draftId }),
+              translate.t("search_findings.finding_rejected", { findingId: draftId }),
               translate.t("proj_alerts.title_success"));
-            location.hash = `#!/project/${projectName}/drafts`;
             location.reload();
           }
         })

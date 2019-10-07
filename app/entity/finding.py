@@ -768,7 +768,7 @@ class UpdateTreatment(Mutation):
         return ret
 
 
-class DeleteDraft(Mutation):
+class RejectDraft(Mutation):
     class Arguments(object):
         finding_id = String(required=True)
     success = Boolean()
@@ -778,23 +778,21 @@ class DeleteDraft(Mutation):
     @require_finding_access
     def mutate(self, info, finding_id):
         reviewer_email = util.get_jwt_content(info.context)['user_email']
-        try:
-            project_name = get_project_name(finding_id)
-            success = finding_domain.reject_draft(finding_id,
-                                                  reviewer_email,
-                                                  project_name,
-                                                  info.context)
-            util.invalidate_cache(finding_id)
-            util.invalidate_cache(project_name)
-        except KeyError:
-            raise GraphQLError('DRAFT_NOT_FOUND')
+        project_name = get_project_name(finding_id)
+
+        success = finding_domain.reject_draft(
+            finding_id, reviewer_email, project_name)
+        util.invalidate_cache(finding_id)
+        util.invalidate_cache(project_name)
         if success:
-            util.cloudwatch_log(info.context, 'Security: Deleted draft in\
-                finding {id} succesfully'.format(id=finding_id))
+            util.cloudwatch_log(
+                info.context,
+                'Security: Draft {} rejected succesfully'.format(finding_id))
         else:
-            util.cloudwatch_log(info.context, 'Security: Attempted to delete \
-                draft in finding {id}'.format(id=finding_id))
-        return DeleteDraft(success=success)
+            util.cloudwatch_log(
+                info.context,
+                'Security: Attempted to reject draft {}'.format(finding_id))
+        return RejectDraft(success=success)
 
 
 class DeleteFinding(Mutation):
@@ -807,22 +805,20 @@ class DeleteFinding(Mutation):
     @require_role(['admin', 'analyst'])
     @require_finding_access
     def mutate(self, info, finding_id, justification):
-        try:
-            project_name = get_project_name(finding_id)
-            success = finding_domain.delete_finding(finding_id,
-                                                    project_name,
-                                                    justification,
-                                                    info.context)
+        project_name = get_project_name(finding_id)
+
+        success = finding_domain.delete_finding(
+            finding_id, project_name, justification, info.context)
+        if success:
             util.invalidate_cache(finding_id)
             util.invalidate_cache(project_name)
-        except KeyError:
-            raise GraphQLError('FINDING_NOT_FOUND')
-        if success:
-            util.cloudwatch_log(info.context, 'Security: Deleted finding: {id}\
-                succesfully'.format(id=finding_id))
+            util.cloudwatch_log(
+                info.context,
+                'Security: Deleted finding: {} succesfully'.format(finding_id))
         else:
-            util.cloudwatch_log(info.context, 'Security: Attempted to delete \
-                finding: {id}'.format(id=finding_id))
+            util.cloudwatch_log(
+                info.context,
+                'Security: Attempted to delete finding: {}'.format(finding_id))
         return DeleteFinding(success=success)
 
 

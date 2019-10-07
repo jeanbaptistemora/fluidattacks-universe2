@@ -37,8 +37,11 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
           <Button onClick={onApprove} disabled={!canApprove}>
             <FluidIcon icon="verified" />&nbsp;Approve
           </Button>
-          <Button onClick={onReject}>
-            <FluidIcon icon="delete" />&nbsp;Reject
+          <Button onClick={onReject} disabled={!props.hasSubmission}>
+            Reject
+          </Button>
+          <Button onClick={onDelete}>
+            <FluidIcon icon="delete" />&nbsp;Delete
           </Button>
         </React.Fragment>
       ) : _.includes(["admin", "analyst"], userRole) ? (

@@ -147,7 +147,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                                 isDraft={isDraft}
                                 loading={submitResult.loading}
                                 onApprove={handleApprove}
-                                onDelete={isDraft ? handleOpenRejectConfirm : handleOpenDeleteConfirm}
+                                onDelete={handleOpenDeleteConfirm}
                                 onReject={handleOpenRejectConfirm}
                                 onSubmit={handleSubmitClick}
                               />

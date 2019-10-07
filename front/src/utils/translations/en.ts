@@ -147,6 +147,7 @@ const enTranslations: dict = {
       upload_date: "Upload Date",
     },
     finding_deleted: "Finding {{findingId}} has been deleted",
+    finding_rejected: "Finding {{findingId}} has been rejected",
     high_severity: "High",
     low_severity: "Tolerable",
     medium_severity: "Moderate",

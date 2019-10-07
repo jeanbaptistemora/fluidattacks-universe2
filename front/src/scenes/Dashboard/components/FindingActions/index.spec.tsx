@@ -118,7 +118,7 @@ describe("FindingActions", (): void => {
     expect(wrapper)
       .toHaveLength(1);
     expect(buttons)
-      .toHaveLength(2);
+      .toHaveLength(3);
     expect(buttons
       .at(0)
       .children()
@@ -128,9 +128,15 @@ describe("FindingActions", (): void => {
     expect(buttons
       .at(1)
       .children()
-      .at(1)
+      .at(0)
       .text())
       .toContain("Reject");
+    expect(buttons
+      .at(2)
+      .children()
+      .at(1)
+      .text())
+      .toContain("Delete");
   });
 
   it("should disable approve button", (): void => {

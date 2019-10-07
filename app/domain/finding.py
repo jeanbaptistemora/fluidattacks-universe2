@@ -25,7 +25,7 @@ from app.exceptions import (
 )
 from app.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
-    send_mail_accepted_finding, send_mail_delete_draft,
+    send_mail_accepted_finding, send_mail_reject_draft,
     send_mail_delete_finding, send_mail_new_draft
 )
 from app.utils import cvss, notifications, findings as finding_utils
@@ -533,7 +533,7 @@ def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_nam
 
     email_send_thread = threading.Thread(
         name='Reject draft email thread',
-        target=send_mail_delete_draft,
+        target=send_mail_reject_draft,
         args=(recipients, {
             'project': project_name,
             'analyst_mail': discoverer_email,
@@ -544,23 +544,17 @@ def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_nam
     email_send_thread.start()
 
 
-def reject_draft(draft_id, reviewer_email, project_name, context):
+def reject_draft(draft_id, reviewer_email, project_name):
     draft_data = get_finding(draft_id)
     is_draft = 'releaseDate' not in draft_data
     result = False
 
     if is_draft:
-        delete_all_comments(draft_id)
-        delete_all_evidences_s3(draft_id, project_name, context)
-        integrates_dal.delete_finding_dynamo(draft_id)
-
-        for vuln in integrates_dal.get_vulnerabilities_dynamo(draft_id):
-            integrates_dal.delete_vulnerability_dynamo(vuln['UUID'], draft_id)
-
-        send_draft_reject_mail(
-            draft_id, project_name, draft_data['analyst'],
-            draft_data['finding'], reviewer_email)
-        result = True
+        result = finding_dal.update(draft_id, {'report_date': None})
+        if result:
+            send_draft_reject_mail(
+                draft_id, project_name, draft_data['analyst'],
+                draft_data['finding'], reviewer_email)
     else:
         raise AlreadyApproved()
 
@@ -588,28 +582,26 @@ def send_finding_delete_mail(
 
 
 def delete_finding(finding_id, project_name, justification, context):
-    api = FormstackAPI()
     finding_data = get_finding(finding_id)
     is_finding = 'releaseDate' in finding_data
-    result = False
+
+    delete_all_comments(finding_id)
+    delete_all_evidences_s3(finding_id, project_name, context)
+
+    for vuln in integrates_dal.get_vulnerabilities_dynamo(finding_id):
+        integrates_dal.delete_vulnerability_dynamo(vuln['UUID'], finding_id)
 
     if is_finding:
-        delete_all_comments(finding_id)
-        delete_all_evidences_s3(finding_id, project_name, context)
-        integrates_dal.delete_finding_dynamo(finding_id)
-
-        for vuln in integrates_dal.get_vulnerabilities_dynamo(finding_id):
-            integrates_dal.delete_vulnerability_dynamo(vuln['UUID'], finding_id)
-
+        api = FormstackAPI()
         api.delete_submission(finding_id)
+
+    success = finding_dal.delete(finding_id)
+    if success:
         send_finding_delete_mail(
             finding_id, finding_data['finding'], project_name,
             finding_data['analyst'], justification)
-        result = True
-    else:
-        raise GraphQLError('CANT_DELETE_DRAFT')
 
-    return result
+    return success
 
 
 def approve_draft(draft_id, context):
