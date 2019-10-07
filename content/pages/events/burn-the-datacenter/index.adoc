@@ -1,5 +1,5 @@
 :slug: events/burn-the-datacenter/
-:subtitle: from pets to cattle
+:subtitle: From pets to cattle
 :category: events
 :description: This page aims to inform the customer about the different talks offered by Fluid Attacks. The Burn the datacenter conference seeks to socialize our belief in the future for technologies and software development for the next 10 years, according to the opinion of our experts.
 :keywords: Fluid Attacks, Burn the datacenter, Technology, Continuous Integration, Infrastructure, Code

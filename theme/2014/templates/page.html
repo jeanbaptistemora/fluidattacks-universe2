@@ -102,9 +102,11 @@
     <article class="ma-auto tl mw8">
       <h1 class="tc" >{{ page.title }}</h1>
       {% if page.subtitle %}
-        <span class="subtitle">
-          <strong>{{ page.subtitle }}</strong>
-        </span>
+        <div class="tc">
+          <span>
+            <strong class="tc">{{ page.subtitle }}</strong>
+          </span>
+        </div>
       {% endif %}
       {% if page.rules %}
         <div class="description">
