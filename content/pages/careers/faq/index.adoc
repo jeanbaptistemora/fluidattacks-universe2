@@ -565,15 +565,16 @@ new employees ask when they become part of our work team:
   * Generate daily value in production deployments.
   +
   +
-  * Search ways to make things work instead of making excuses
-  to avoid doing them.
+  * Search for ways to make things work.
+  Do not make excuses to avoid doing them.
   +
   +
-  * Hack the customer systems without being detected.
+  * Hack the customer's systems without being detected.
   +
   +
-  * Extract as much information as possible from the customer systems
-  to increase the awareness of the real impact of a vulnerability.
+  * Extract as much information as possible
+  from every customer's systems to help them understand
+  the real impact of a vulnerability.
   +
   +
   * Document all vulnerabilities immediately after finding them.
@@ -582,85 +583,88 @@ new employees ask when they become part of our work team:
   * Report all existing vulnerabilities.
   +
   +
-  * Notify about the installed +backdoors+ and uninstall them
-  after finished the project.
+  * Notify customers about installed backdoors,
+  and uninstall them after finishing the project.
   +
   +
-  * Hack as much systems as possible in the assigned time.
+  * Hack as many systems as possible in the assigned time.
   +
   +
-  * Find not evident and critical vulnerabilities.
+  * Find critical vulnerabilities
+  including those that may not be obvious.
   +
   +
-  * Teach his/her coworkers the new hacking techniques
-  without jealousy.
+  * Share with and willingly teach coworkers
+  any new hacking techniques.
   +
   +
-  * Make contributions to the company products.
+  * Make meaningful contributions to Fluid Attacks' products.
   +
   +
-  * Dedicate to his/her default activity when a lockout comes out
+  * Focus on your default activity
+  when a lockout comes out
   (migration, product, blog articles, etc).
   +
   +
-  * Search solutions on his/her own in a investigative manner.
+  * Search for solutions independently.
   +
   +
-  * Be willing to learn when a solution can't be found
-  instead of expecting someone else to solve it.
+  * Be willing to learn, improvise,
+  and create when a solution is not easily found.
+  Ask for help if you need it,
+  but do not simply expect someone else to solve it.
   +
   +
   In general, we look for dedicated persons
   who are willing to share their knowledge
   and fulfill their roles with no excuses.
 
-*Can I grow professionally in Fluid Attacks?*::
-  In order to answer this question we classify
-  growth in 3 aspects:
-  power, knowledge, and money.
+*Can I grow professionally at Fluid Attacks?*::
+  At +Fluid Attacks+ we classify growth in 3 different areas:
+  authority, knowledge, and money.
   +
   +
-  * The power growth is usually low,
-  since we do not aim to grow in workforce,
-  but to have highly competitive products,
-  and hence the managerial positions are opened
-  only when there are personnel retirements.
-  However, our current +CEO+ started as Support Engineer +10+ years ago.
+  * Growth in authority is usually low
+  since we do not intentionally try to grow our workforce
+  but to have highly competitive products instead.
+  Therefore, our managerial positions are open
+  only when someone leaves a position
+  or when there are personnel retirements.
+  Our current +CEO+ started as a Support Engineer 10 years ago.
   +
   +
-  * We consider the knowledge growth is high,
-  since we control the technologies we use (not the customer),
-  we constantly update our tools
-  because we audit many customers
-  and hence we must learn the current and emergent technologies
-  in a very short time.
+  * Growth in knowledge is high
+  since we, not the customer, control the technologies we use.
+  We constantly update our tools
+  because we audit many customers and therefore,
+  we must learn the most current and emergent technologies
+  within a very short timeframe.
   The projects are short and the learning is constant.
-  In the security and hacking area
+  In the security and hacking area,
   we have the experience and the track record
-  to consider us the biggest Hacking company in Latin America.
+  to be considered the largest hacking company in Latin America.
   +
   +
-  * The money growth tends to be medium,
-  first because the salary in +Fluid Attacks+
-  is not only attached to the power (non-tecnical scale)
-  but also to the knowledge (technical scale)
-  and hence, is common to find engineers with higher salaries
-  than their bosses (see <<q23, Question 23>>).
+  *  Growth in money tends to be in the midrange
+  because salaries at +Fluid Attacks+ are not only attached
+  to the growth in authority (non-technical scale)
+  but also to the growth in knowledge (technical scale).
+  This is why it is common to find engineers
+  with higher salaries than their bosses (see <<q23, Question 23>>).
 
-*Can my role evolve over time and according to*::
-*the acquired knowledge and certifications?*::
-  The seniority, certifications and knowledge
-  don't guarantee the evolution of the role.
-  One employee can play the same role for a long time,
-  have many certifications,
-  learn about many new technologies
-  and nevertheless do not improve his/her performance,
-  or use these factors to improve the company with dedication.
+*Can my role evolve over time and in accordance*::
+*with my acquired knowledge and certifications?*::
+  Seniority, certifications, and knowledge
+  do not guarantee the evolution of your role.
+  An employee may occupy the same role for a long time,
+  have many certifications, learn many new technologies,
+  and still not improve their performance,
+  or use these factors to improve +Fluid Attacks+.
   For this reason, none of the previously mentioned variables
   can guarantee the evolution of the role.
-  As an employee, you can evolve
-  if your performance keeps improving every trimester,
-  if you follow the defined process and deliver the best results consistently.
+  As an employee, you can evolve if your performance keeps improving
+  every trimester, if you follow the defined process,
+  and if you consistently deliver high-quality results.
 
 *How does Fluid Attacks recognize a performance that exceeds the expected?*::
   +Fluid Attacks+ has a simple philosophy regarding this aspect,
