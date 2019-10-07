@@ -17,13 +17,14 @@ SCR_PATH = 'screenshots/'
 class ViewTestCase(unittest.TestCase):
 
     def setUp(self):
+        s3_bucket = 'fluidintegrates.resources'
         profile_path = os.path.join(os.getcwd(), 'selenium_profile.default')
         if not os.path.exists(profile_path):
             session = boto3.Session(
                 aws_access_key_id = os.environ['FI_AWS_S3_ACCESS_KEY'],
                 aws_secret_access_key = os.environ['FI_AWS_S3_SECRET_KEY'])
             s3 = session.resource('s3')
-            s3.Bucket(os.environ['FI_AWS_S3_RESOURCES_BUCKET']).download_file(
+            s3.Bucket(s3_bucket).download_file(
                 'selenium/selenium_profile.tar.gz', 'profile.tar.gz')
             with tarfile.open('profile.tar.gz') as tar:
               tar.extractall()

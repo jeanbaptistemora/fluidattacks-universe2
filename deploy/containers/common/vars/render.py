@@ -7,7 +7,7 @@ j2_env = Environment(loader=FileSystemLoader('/usr/src/app/deploy/containers/com
 
 context = {
     'DRIVE_AUTHORIZATION': os.environ['FI_DRIVE_AUTHORIZATION'],
-    'documentroot': os.environ['FI_DOCUMENTROOT'],
+    'documentroot': '/usr/src/app/',
     'DRIVE_AUTHORIZATION_CLIENT': os.environ['FI_DRIVE_AUTHORIZATION_CLIENT'],
 
 }

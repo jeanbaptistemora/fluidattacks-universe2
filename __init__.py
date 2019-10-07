@@ -29,8 +29,6 @@ try:
     FI_ROLLBAR_ACCESS_TOKEN = os.environ['FI_ROLLBAR_ACCESS_TOKEN']
     FI_AWS_S3_ACCESS_KEY = os.environ['FI_AWS_S3_ACCESS_KEY']
     FI_AWS_S3_SECRET_KEY = os.environ['FI_AWS_S3_SECRET_KEY']
-    FI_AWS_S3_BUCKET = os.environ['FI_AWS_S3_BUCKET']
-    FI_AWS_S3_RESOURCES_BUCKET = os.environ['FI_AWS_S3_RESOURCES_BUCKET']
     FI_ENVIRONMENT = os.environ['FI_ENVIRONMENT']
     FI_MANDRILL_API_KEY = os.environ['FI_MANDRILL_API_KEY']
     FI_JWT_SECRET = os.environ['FI_JWT_SECRET']
@@ -48,7 +46,11 @@ try:
     FI_AWS_REDSHIFT_HOST = os.environ['FI_AWS_REDSHIFT_HOST']
     FI_GOOGLE_OAUTH2_KEY_ANDROID = os.environ['FI_GOOGLE_OAUTH2_KEY_ANDROID']
     FI_GOOGLE_OAUTH2_KEY_IOS = os.environ['FI_GOOGLE_OAUTH2_KEY_IOS']
+
+    #not secrets but must be environ vars
     FI_AWS_REDSHIFT_PORT = 5439
+    FI_AWS_S3_BUCKET = 'fluidintegrates.fluidattacks.com'
+    FI_AWS_S3_RESOURCES_BUCKET = 'fluidintegrates.resources'
 except KeyError as e:
     print("Environment variable " + e.args[0] + " doesn't exist")
     raise

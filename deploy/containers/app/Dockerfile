@@ -6,7 +6,6 @@ FROM registry.gitlab.com/fluidattacks/integrates/deps-$ENV_NAME:$CI_COMMIT_REF_N
 ARG CI_API_V4_URL
 ARG CI_COMMIT_REF_NAME
 ARG CI_PROJECT_ID
-ARG DOCUMENTROOT
 ARG DRIVE_AUTHORIZATION
 ARG DRIVE_AUTHORIZATION_CLIENT
 ARG ENV_NAME
@@ -50,7 +49,6 @@ RUN mkdir app/documentator/images \
 # Set up Drive authentication
 RUN export FI_DRIVE_AUTHORIZATION="$(echo $DRIVE_AUTHORIZATION | base64 -d)" \
   && export FI_DRIVE_AUTHORIZATION_CLIENT="$(echo $DRIVE_AUTHORIZATION_CLIENT | base64 -d)" \
-  && export FI_DOCUMENTROOT="$DOCUMENTROOT" \
   && python deploy/containers/common/vars/render.py
 
 # Set up apache
