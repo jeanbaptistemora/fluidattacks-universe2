@@ -63,7 +63,6 @@ export const loadDescription: ThunkActionStructure<void> =
           }
         }
         finding(identifier: "${findingId}") {
-          reportLevel
           title
           scenario
           actor
@@ -84,14 +83,7 @@ export const loadDescription: ThunkActionStructure<void> =
           treatment
           treatmentManager
           treatmentJustification
-          clientCode
-          clientProject
-          probability
-          detailedSeverity
           risk
-          riskLevel
-          ambit
-          category
           type
           acceptanceDate
         }
@@ -215,17 +207,10 @@ export const updateDescription: ThunkActionStructure<void> =
           recommendation: ${JSON.stringify(values.recommendation)},
           records: ${JSON.stringify(values.compromisedAttributes)},
           recordsNumber: ${values.compromisedRecords},
-          reportLevel: "GENERAL",
           requirements: ${JSON.stringify(values.requirements)},
           scenario: ${JSON.stringify(values.scenario)},
           threat: ${JSON.stringify(values.threat)},
           title: ${JSON.stringify(values.title)},
-          clientCode: ${JSON.stringify(values.clientCode)},
-          clientProject: ${JSON.stringify(values.clientProject)}
-          severity: ${0},
-          probability: ${values.probability},
-          ambit: ${JSON.stringify(values.ambit)},
-          category: ${JSON.stringify(values.category)},
           findingType: ${JSON.stringify(values.type)}
         ) {
           finding {
@@ -237,19 +222,11 @@ export const updateDescription: ThunkActionStructure<void> =
             recommendation
             compromisedAttributes
             compromisedRecords
-            reportLevel
             requirements
             scenario
             threat
             title
-            clientCode
-            clientProject
-            probability
-            detailedSeverity
             risk
-            riskLevel
-            ambit
-            category
             type
           }
           success

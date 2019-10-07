@@ -184,7 +184,6 @@ def mock_dynamodb_table_fi_findings(mock_dal_dynamodb):
             'remediation_level': Decimal(0.97).quantize(Decimal('0.10')),
             'report_confidence': Decimal(0.92).quantize(Decimal('0.10')),
             'report_date': '2018-07-09 07:23:14',
-            'report_level': 'GENERAL',
             'requirements': 'REQ.0132. Passwords (phrase type) \
                              must be at least 3 words long.',
             'scenario': 'UNAUTHORIZED_USER_EXTRANET',

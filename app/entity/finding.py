@@ -63,7 +63,6 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     release_date = String()
     remediated = Boolean()
     report_date = String()
-    report_level = String()
     requirements = String()
     risk = String()
     risk_level = String()
@@ -218,11 +217,6 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
         self.observations = comment_domain.get_observations(self.id)
         return self.observations
-
-    def resolve_report_level(self, info):
-        """ Resolve report_level attribute """
-        del info
-        return self.report_level
 
     def resolve_title(self, info):
         """ Resolve title attribute """
@@ -692,7 +686,6 @@ class UpdateDescription(Mutation):
         recommendation = String(required=True)
         records = String()
         records_number = Int(required=True)
-        report_level = String(required=True)
         requirements = String(required=True)
         risk = String()
         severity = Int()

@@ -352,14 +352,6 @@ def update_description(finding_id, updated_values):
     del updated_values['description']
     del updated_values['recommendation']
 
-    if updated_values.get('probability') and updated_values.get('severity'):
-        if updated_values['severity'] < 0 or updated_values['severity'] > 5:
-            raise GraphQLError('Invalid severity')
-        else:
-            updated_values['risk_value'] = calc_risk_level(
-                updated_values['probability'],
-                updated_values['severity'])
-
     updated_values = {util.camelcase_to_snakecase(k): updated_values.get(k)
                       for k in updated_values}
     return integrates_dal.update_mult_attrs_dynamo(

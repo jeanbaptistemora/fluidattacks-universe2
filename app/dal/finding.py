@@ -32,7 +32,6 @@ def create(analyst_email, finding_id, project_name, title, **kwargs):
             'finding': title,
             'finding_id': finding_id,
             'project_name': project_name,
-            'report_level': 'GENERAL'
         }
         finding.update(kwargs)
         response = TABLE.put_item(Item=finding)

@@ -139,7 +139,7 @@ def cast_finding_attributes(finding):
         'Nuevo': 'NEW',
         'Remediar': 'IN PROGRESS'
     }
-    list_fields = ['reportLevel', 'subscription', 'testType', 'findingType',
+    list_fields = ['subscription', 'testType', 'findingType',
                    'actor', 'scenario', 'ambit', 'context', 'treatment']
     for field in list_fields:
         if finding.get(field):
