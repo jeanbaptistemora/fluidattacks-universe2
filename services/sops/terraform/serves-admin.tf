@@ -1,7 +1,7 @@
 data "aws_iam_policy_document" "serves-admin-data" {
 
   statement {
-    sid = "General admin"
+    sid = "GeneralAdmin"
     effect = "Allow"
     actions = [
       "sns:*",
@@ -27,7 +27,7 @@ data "aws_iam_policy_document" "serves-admin-data" {
 }
 
 resource "aws_iam_policy" "serves-admin" {
-  name        = "serves_admin"
+  name        = "serves-admin"
   path        = "/serves/"
   description = "Policy for serves administration"
 
