@@ -39,5 +39,8 @@ Tachyons classes on dynamically generated content
     //Add whitespace after a paragraph
     $( ".paragraph" ).addClass("pb3");
 
+    //qanda
+    $( ".qlist > ol > li" ).addClass("mb0 pb3");
+
   });
 })(jQuery);

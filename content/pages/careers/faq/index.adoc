@@ -189,15 +189,14 @@ new employees ask when they become part of our work team:
   and overcome weaknesses.
   Because of this, each profile is grouped in one of these roles:
   technical and non-technical.
-  +
+
   *  In technical roles the responsibilities are typically:
   hack systems, audit source code, develop attack exploits,
   develop tools for hackers, document found vulnerabilities,
   configure infrastructure as code, perform peer review,
   present reports to customers, share knowledge with customers and co-workers,
   migrate obsolete information, and create new information, among others.
-  +
-  +
+
   * In non-technical roles the responsibilities are typically:
   customer management, technical pre-sales, marketing,
   representing +Fluid Attacks+ to other companies,
@@ -287,12 +286,11 @@ new employees ask when they become part of our work team:
 *How does Fluid Attacks support an employee's*::
 *continuous training and development?*::
   With time and money:
-  +
+
   * *In time:* The time you put into training,
   on workdays or weekends,
   can be reported and is then subject to compensation.
-  +
-  +
+
   * *In money:* Fluid Attacks pays for the professional certification tests
   you take which enhance your value as an employee.
 
@@ -391,11 +389,10 @@ new employees ask when they become part of our work team:
 *Does Fluid Attacks have a dress code?*::
   It depends on whether you are working at a +Fluid Attacks'+ facility
   or onsite at the client's facility:
-  +
+
   * When working at a +Fluid Attacks+ facility there is no dress code.
   We suggest you dress comfortably in business casual attire.
-  +
-  +
+
   * When working at a client's facility
   we expect you to comply with the client company's dress code.
 
@@ -457,17 +454,15 @@ new employees ask when they become part of our work team:
 *What factors determine my salary?*::
   Your salary is determined by 3 factors:
   historical performance, long-term alignment, and group payment capacity.
-  +
+
   * Historical performance, within the framework of +Fluid Attacks'+ values
   and processes, is represented as a constant value generation.
-  +
-  +
+
   * Long-term alignment indicates that your career goals
   are completely aligned with the needs of our company.
   Therefore, your long-term career plan
   can be fully realized through your work with +Fluid Attacks+.
-  +
-  +
+
   * Group payment capacity is an external factor
   which defines the ability of +Fluid Attacks+
   to fulfill commitments on a long-term basis.
@@ -514,7 +509,7 @@ new employees ask when they become part of our work team:
 
 *What does Fluid Attacks expect from a new employee?*::
   At Fluid Attacks, we have three unchanging, non-negotiable link:../../values[values]:
-  +
+
   * *HONESTY:* We expect new employees to strictly abide by our ethics code,
   to follow our working philosophy,
   to always speak the truth using defined channels and in a respectful manner.
@@ -525,8 +520,7 @@ new employees ask when they become part of our work team:
   In addition, our expectation is that employees
   will use their hacking knowledge in a responsible manner.
   Do not hack without authorization, even outside +Fluid Attacks+.
-  +
-  +
+
   * *TEAMWORK:* We expect new employees to help their coworkers,
   whether team-players or team-leaders,
   in tasks the new employee may not like
@@ -535,8 +529,7 @@ new employees ask when they become part of our work team:
   and focused manner on all assigned projects.
   We prefer projects to be finished early,
   but not at the expense of sacrificing work quality.
-  +
-  +
+
   * *DISCIPLINE:* We expect new employees to self-manage
   without constant supervision,
   to meet all deadlines without excuses,
@@ -547,7 +540,6 @@ new employees ask when they become part of our work team:
   and to actively innovate and start to improve
   our client's company and +Fluid Attacks+.
   +
-  +
   Finally, we expect that all three unchanging,
   non-negotiable values will always be practiced
   and that over time will be used effortlessly,
@@ -557,63 +549,47 @@ new employees ask when they become part of our work team:
   Our motto says,
   *"Find all vulnerabilities and report them as soon as possible."*
   To meet this expectation a new employee must:
-  +
-  +
+
   * Program in innovative and functional ways.
-  +
-  +
+
   * Generate daily value in production deployments.
-  +
-  +
+
   * Search for ways to make things work.
   Do not make excuses to avoid doing them.
-  +
-  +
+
   * Hack the customer's systems without being detected.
-  +
-  +
+
   * Extract as much information as possible
-  from every customer's systems to help them understand
+  from every customer's system to help them understand
   the real impact of a vulnerability.
-  +
-  +
+
   * Document all vulnerabilities immediately after finding them.
-  +
-  +
+
   * Report all existing vulnerabilities.
-  +
-  +
+
   * Notify customers about installed backdoors,
   and uninstall them after finishing the project.
-  +
-  +
+
   * Hack as many systems as possible in the assigned time.
-  +
-  +
+
   * Find critical vulnerabilities
   including those that may not be obvious.
-  +
-  +
+
   * Share with and willingly teach coworkers
   any new hacking techniques.
-  +
-  +
+
   * Make meaningful contributions to Fluid Attacks' products.
-  +
-  +
+
   * Focus on your default activity
   when a lockout comes out
   (migration, product, blog articles, etc).
-  +
-  +
+
   * Search for solutions independently.
-  +
-  +
+
   * Be willing to learn, improvise,
   and create when a solution is not easily found.
   Ask for help if you need it,
   but do not simply expect someone else to solve it.
-  +
   +
   In general, we look for dedicated persons
   who are willing to share their knowledge
@@ -622,8 +598,7 @@ new employees ask when they become part of our work team:
 *Can I grow professionally at Fluid Attacks?*::
   At +Fluid Attacks+ we classify growth in 3 different areas:
   authority, knowledge, and money.
-  +
-  +
+
   * Growth in authority is usually low
   since we do not intentionally try to grow our workforce
   but to have highly competitive products instead.
@@ -631,20 +606,18 @@ new employees ask when they become part of our work team:
   only when someone leaves a position
   or when there are personnel retirements.
   Our current +CEO+ started as a Support Engineer 10 years ago.
-  +
-  +
+
   * Growth in knowledge is high
   since we, not the customer, control the technologies we use.
   We constantly update our tools
-  because we audit many customers and therefore,
+  because we audit many customers and, therefore,
   we must learn the most current and emergent technologies
   within a very short timeframe.
   The projects are short and the learning is constant.
   In the security and hacking area,
   we have the experience and the track record
   to be considered the largest hacking company in Latin America.
-  +
-  +
+
   *  Growth in money tends to be in the midrange
   because salaries at +Fluid Attacks+ are not only attached
   to the growth in authority (non-technical scale)
@@ -673,7 +646,7 @@ new employees ask when they become part of our work team:
   The reward is more significant if it's made in a extemporaneous way
   (before +12+ months).
   This implies that the reward is always made in private
-  and results in a higher standard for the future performance of te talent,
+  and results in a higher standard for the future performance of the talent,
   and hence a new re-scaling will be more difficult to reach.
 
 *If my salary is not re-scaled, am I doing something wrong?*::
