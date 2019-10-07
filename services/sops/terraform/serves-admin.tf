@@ -41,6 +41,6 @@ resource "aws_iam_group" "serves-admin" {
 
 resource "aws_iam_policy_attachment" "serves-admin" {
   name       = "serves-admin"
-  groups     = aws_iam_group.serves-admin.name
-  policy_arn = aws_iam_policy.serves-admin-policy.arn
+  groups     = [aws_iam_group.serves-admin.name]
+  policy_arn = aws_iam_policy.serves-admin.arn
 }

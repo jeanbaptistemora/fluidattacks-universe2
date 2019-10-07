@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-eks_terraform_lint() {
+sops_terraform_lint() {
 
-  # Run tflint on eks terraform folder
+  # Run tflint on sops terraform folder
 
   set -e
 
@@ -10,9 +10,9 @@ eks_terraform_lint() {
   . toolbox/terraform.sh
 
   lint_terraform \
-    services/eks-cluster/terraform \
+    services/sops/terraform \
     fluidattacks-terraform-states
 
 }
 
-eks_terraform_lint
+sops_terraform_lint
