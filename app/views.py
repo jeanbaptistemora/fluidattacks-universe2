@@ -408,7 +408,7 @@ def format_release_date(finding):
 def get_evidence(request, project, evidence_type, findingid, fileid):
     username = request.session['username']
     role = request.session['role']
-    if (evidence_type == 'findings'
+    if (evidence_type in ['drafts', 'findings']
         and has_access_to_finding(username, findingid, role)) \
             or (evidence_type == 'events'
                 and has_access_to_event(username, findingid, role)):
