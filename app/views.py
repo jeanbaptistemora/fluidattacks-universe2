@@ -408,17 +408,10 @@ def format_release_date(finding):
 def get_evidence(request, project, evidence_type, findingid, fileid):
     username = request.session['username']
     role = request.session['role']
-    if evidence_type == 'findings' and \
-            not has_access_to_finding(username, findingid, role):
-        util.cloudwatch_log(request, 'Security: Attempted to retrieve finding '
-                                     'evidence without permission')
-        return util.response([], 'Access denied', True)
-    elif evidence_type == 'events' and \
-            not has_access_to_event(username, findingid, role):
-        util.cloudwatch_log(request, 'Security: Attempted to retrieve event '
-                                     'evidence without permission')
-        return util.response([], 'Access denied', True)
-    else:
+    if (evidence_type == 'findings'
+        and has_access_to_finding(username, findingid, role)) \
+            or (evidence_type == 'events'
+                and has_access_to_event(username, findingid, role)):
         if fileid is None:
             rollbar.report_message('Error: Missing evidence image ID',
                                    'error', request)
@@ -444,6 +437,11 @@ Invalid evidence image ID format', 'error', request)
                 drive_api = DriveAPI()
                 evidence_img = drive_api.download(fileid)
                 return retrieve_image(request, evidence_img)
+    else:
+        util.cloudwatch_log(
+            request,
+            'Security: Attempted to retrieve evidence without permission')
+        return util.response([], 'Access denied', True)
 
 
 @condition(etag_func=util.calculate_etag)
