@@ -17,8 +17,8 @@ build_app() {
   export FI_DRIVE_AUTHORIZATION_CLIENT
   export FI_SSL_KEY
   export FI_SSL_CERT
-  FI_DRIVE_AUTHORIZATION=$(vault read -field=drive_authorization_new secret/integrates/$ENV_NAME)
-  FI_DRIVE_AUTHORIZATION_CLIENT=$(vault read -field=drive_authorization_client_new secret/integrates/$ENV_NAME)
+  FI_DRIVE_AUTHORIZATION=$(vault read -field=drive_authorization secret/integrates/$ENV_NAME)
+  FI_DRIVE_AUTHORIZATION_CLIENT=$(vault read -field=drive_authorization_client secret/integrates/$ENV_NAME)
   FI_SSL_KEY=$(vault read -field=ssl_key secret/integrates/$ENV_NAME)
   FI_SSL_CERT=$(vault read -field=ssl_cert secret/integrates/$ENV_NAME)
 
