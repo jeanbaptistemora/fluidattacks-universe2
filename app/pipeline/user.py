@@ -11,7 +11,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
     username = details['username'][:63]
     first_name = details['first_name'][:29]
     last_name = details['last_name'][:29]
-    email = details['email']
+    email = details['email'].lower()
 
     # Put details on session.
     strategy.session_set('first_name', first_name)
@@ -39,7 +39,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
 
 
 def check_registered(strategy, details, backend, *args, **kwargs):
-    email = details['email']
+    email = details['email'].lower()
     is_registered = user_domain.is_registered(email)
     last_login = integrates_dal.get_user_last_login(email)
     role = user_domain.get_role(email)
