@@ -21,7 +21,7 @@ from app.domain import project as project_domain, vulnerability as vuln_domain
 from app.dto.finding import FindingDTO
 from app.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
-    InvalidDate, IsNotTheAuthor, InvalidDateFormat
+    InvalidDate, IsNotTheAuthor, InvalidDateFormat, NotSubmitted
 )
 from app.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
@@ -546,15 +546,17 @@ def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_nam
 
 def reject_draft(draft_id, reviewer_email, project_name):
     draft_data = get_finding(draft_id)
-    is_draft = 'releaseDate' not in draft_data
     result = False
 
-    if is_draft:
-        result = finding_dal.update(draft_id, {'report_date': None})
-        if result:
-            send_draft_reject_mail(
-                draft_id, project_name, draft_data['analyst'],
-                draft_data['finding'], reviewer_email)
+    if 'releaseDate' not in draft_data:
+        if 'reportDate' in draft_data:
+            result = finding_dal.update(draft_id, {'report_date': None})
+            if result:
+                send_draft_reject_mail(
+                    draft_id, project_name, draft_data['analyst'],
+                    draft_data['finding'], reviewer_email)
+        else:
+            raise NotSubmitted()
     else:
         raise AlreadyApproved()
 
@@ -605,41 +607,31 @@ def delete_finding(finding_id, project_name, justification, context):
 
 
 def approve_draft(draft_id, context):
-    finding_data = get_finding(draft_id)
-    is_draft = 'releaseDate' not in finding_data
+    draft_data = get_finding(draft_id)
+    release_date = None
     success = False
 
-    if is_draft:
-        has_vulns = integrates_dal.get_vulnerabilities_dynamo(draft_id)
+    if 'releaseDate' not in draft_data:
+        has_vulns = vuln_domain.list_vulnerabilities([draft_id])
         if has_vulns:
-            release_date, has_release, has_last_vuln = update_release(
-                draft_id)
-            if has_release and has_last_vuln:
-                success = True
+            if 'reportDate' in draft_data:
+                tzn = pytz.timezone(settings.TIME_ZONE)
+                release_date = datetime.now(tz=tzn).date()
+                release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
+                success = finding_dal.update(draft_id, {
+                    'lastVulnerability': release_date,
+                    'releaseDate': release_date
+                })
             else:
-                rollbar.report_message(
-                    'Error: An error occurred accepting the draft', 'error')
+                raise NotSubmitted()
         else:
             raise GraphQLError('CANT_APPROVE_FINDING_WITHOUT_VULNS')
     else:
-        util.cloudwatch_log(context,
-                            'Security: Attempted to accept an already \
-                            released finding')
+        util.cloudwatch_log(
+            context,
+            'Security: Attempted to accept an already released finding')
         raise AlreadyApproved()
     return success, release_date
-
-
-def update_release(draft_id):
-    local_timezone = pytz.timezone(settings.TIME_ZONE)
-    release_date = datetime.now(tz=local_timezone).date()
-    release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
-
-    has_release = integrates_dal.add_attribute_dynamo(
-        'FI_findings', ['finding_id', draft_id], 'releaseDate', release_date)
-    has_last_vuln = integrates_dal.add_attribute_dynamo(
-        'FI_findings', ['finding_id', draft_id], 'lastVulnerability',
-        release_date)
-    return release_date, has_release, has_last_vuln
 
 
 def get_finding(finding_id):

@@ -213,3 +213,12 @@ class InvalidDateFormat(Exception):
         """ Constructor """
         msg = 'Exception - The date format is invalid'
         super(InvalidDateFormat, self).__init__(msg)
+
+
+class NotSubmitted(Exception):
+    """Exception to control unsubmitted drafts"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - The draft has not been submitted yet'
+        super(NotSubmitted, self).__init__(msg)
