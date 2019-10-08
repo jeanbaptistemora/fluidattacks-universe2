@@ -10,7 +10,9 @@ import rollbar
 from botocore.exceptions import ClientError
 from django.conf import settings
 
-from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
+from __init__ import (
+    FI_TEST_PROJECTS, FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
+)
 from app import util, views
 from app.dal import integrates_dal
 from app.dal.helpers.formstack import FormstackAPI
@@ -411,32 +413,37 @@ def get_new_releases():
     """Summary mail send with findings that have not been released yet."""
     rollbar.report_message('Warning: Function to get new releases is running',
                            'warning')
+    test_projects = FI_TEST_PROJECTS.split(',')
     projects = project_domain.get_active_projects()
     email_context = defaultdict(list)
     cont = 0
     for project in projects:
-        try:
-            finding_requests = finding_domain.get_findings(
-                project_domain.list_drafts(project))
-            for finding in finding_requests:
-                if 'releaseDate' not in finding:
-                    category = ('unsubmitted' if 'reportDate' not in finding
-                                else 'unreleased')
-                    email_context[category].append({
-                        'finding_name': finding.get('finding'),
-                        'finding_url':
-                        '{url!s}/dashboard#!/project/{project!s}/drafts/'
-                        '{finding!s}/description'
-                            .format(url=BASE_URL,
-                                    project=project,
-                                    finding=finding.get('findingId')),
-                        'project': project.upper()
-                    })
-                    cont += 1
-        except (TypeError, KeyError):
-            rollbar.report_message(
-                'Warning: An error ocurred getting data for new drafts email',
-                'warning')
+        if project not in test_projects:
+            try:
+                finding_requests = finding_domain.get_findings(
+                    project_domain.list_drafts(project))
+                for finding in finding_requests:
+                    if 'releaseDate' not in finding:
+                        category = ('unsubmitted' if 'reportDate' not in finding
+                                    else 'unreleased')
+                        email_context[category].append({
+                            'finding_name': finding.get('finding'),
+                            'finding_url':
+                            '{url!s}/dashboard#!/project/{project!s}/drafts/'
+                            '{finding!s}/description'
+                                .format(url=BASE_URL,
+                                        project=project,
+                                        finding=finding.get('findingId')),
+                            'project': project.upper()
+                        })
+                        cont += 1
+            except (TypeError, KeyError):
+                rollbar.report_message(
+                    'Warning: An error ocurred getting data for new drafts email',
+                    'warning')
+        else:
+            # ignore test projects
+            pass
     if cont > 0:
         email_context['total_unreleased'] = len(email_context['unreleased'])
         email_context['total_unsubmitted'] = len(email_context['unsubmitted'])
