@@ -69,7 +69,7 @@ def test_user_managed_keys_open():
 #
 
 
-def test_user_managed_keys_open():
+def test_user_managed_keys_closed():
     """Check that services accounts have only GCP-managed account keys."""
     path = write_bad_gcp_creds_file()
     assert iam.has_user_managed_account_keys(project_id=PROJECT_ID,
