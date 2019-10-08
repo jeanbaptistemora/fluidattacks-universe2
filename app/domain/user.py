@@ -20,17 +20,6 @@ def get_data(email, attr):
     return data
 
 
-def get_organization(email):
-    organization_attr = get_user_attributes(email, ['company'])
-    organization = ''
-    if organization_attr and organization_attr.get('company'):
-        organization = organization_attr.get('company')
-    else:
-        # User not found or without company
-        pass
-    return organization
-
-
 def get_role(email):
     """ Get the role of a user. """
     return user_dal.get_role(email)

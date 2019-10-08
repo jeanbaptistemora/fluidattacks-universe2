@@ -375,7 +375,7 @@ def verificate_hash_token(access_token, jti_token):
     resp = False
     backend = default_backend()
     token_hashed = Scrypt(
-        salt=binascii.unhexlify(access_token['access_token']['salt']),
+        salt=binascii.unhexlify(access_token['salt']),
         length=NUMBER_OF_BYTES,
         n=SCRYPT_N,
         r=SCRYPT_R,
@@ -385,7 +385,7 @@ def verificate_hash_token(access_token, jti_token):
     try:
         token_hashed.verify(
             binascii.unhexlify(jti_token),
-            binascii.unhexlify(access_token['access_token']['jti']))
+            binascii.unhexlify(access_token['jti']))
         resp = True
     except InvalidKey:
         rollbar.report_message('Error: Access token does not match', 'error')

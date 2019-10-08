@@ -82,7 +82,7 @@ def is_customeradmin(project, email):
 
 def has_valid_access_token(email, context, jti):
     """ Verify if has active access token and match. """
-    access_token = user_domain.get_user_attributes(email, ['access_token'])
+    access_token = user_domain.get_data(email, 'access_token')
     resp = False
     if context and access_token:
         resp = util.verificate_hash_token(access_token, jti)
@@ -106,8 +106,8 @@ def has_responsibility(project, email):
 
 
 def has_phone_number(email):
-    user_info = user_domain.get_user_attributes(email, ['phone'])
-    user_phone = user_info['phone'] if user_info else '-'
+    user_info = user_domain.get_data(email, 'phone')
+    user_phone = user_info if user_info else '-'
     return user_phone
 
 

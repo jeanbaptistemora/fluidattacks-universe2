@@ -54,8 +54,7 @@ class Me(ObjectType):
     def resolve_access_token(self, info):
         jwt_content = util.get_jwt_content(info.context)
         user_email = jwt_content.get('user_email')
-        access_token = user_domain.get_user_attributes(
-            user_email, ['access_token'])
+        access_token = user_domain.get_data(user_email, 'access_token')
         self.access_token = bool(access_token)
 
         return self.access_token
@@ -104,8 +103,7 @@ class SignIn(Mutation):
                         {
                             'user_email': email,
                             'user_role': user_domain.get_role(email),
-                            'company': user_domain.get_user_attributes(
-                                email, ['company'])['company'],
+                            'company': user_domain.get_data(email, 'company'),
                             'first_name': user_info['given_name'],
                             'last_name': user_info['family_name'],
                             'exp': datetime.utcnow() +
@@ -147,8 +145,8 @@ class UpdateAccessToken(Mutation):
             session_jwt = jwt.encode(
                 {
                     'user_email': email,
-                    'company': user_domain.get_user_attributes(
-                        email, ['company'])['company'],
+                    'company': user_domain.get_data(
+                        email, 'company'),
                     'first_name': user_info['first_name'],
                     'last_name': user_info['last_name'],
                     'jti': token_data['jti'],

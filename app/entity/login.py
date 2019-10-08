@@ -15,9 +15,8 @@ class Login(ObjectType):
     def __init__(self, user_email):
         """ Login information class """
         self.authorized = user_domain.is_registered(user_email)
-        user_info = user_domain.get_user_attributes(
-            user_email, ['legal_remember'])
-        self.remember = user_info['legal_remember'] if user_info else False
+        user_info = user_domain.get_data(user_email, 'legal_remember')
+        self.remember = user_info if user_info else False
 
     def resolve_authorized(self, info):
         """ Resolve user authorization """

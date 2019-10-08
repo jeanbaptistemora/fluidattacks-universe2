@@ -20,7 +20,7 @@ class IntercomCustomData(object):
     def custom_data(self, user):
         """ Send extra data to Intercom. """
         email = user.get_username()
-        company = user_domain.get_organization(email)
+        company = user_domain.get_data(email, 'company')
         return {
             'Company': company,
         }

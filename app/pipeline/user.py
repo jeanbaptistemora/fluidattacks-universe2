@@ -46,7 +46,7 @@ def check_registered(strategy, details, backend, *args, **kwargs):
     is_registered = user_domain.is_registered(email)
     last_login = user_domain.get_data(email, 'last_login')
     role = user_domain.get_role(email)
-    company = user_domain.get_organization(email)
+    company = user_domain.get_data(email, 'company')
     strategy.session_set('username', email)
     strategy.session_set('registered', is_registered)
     if role == 'customeradmin':
