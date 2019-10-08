@@ -1,6 +1,6 @@
 :slug: security-trends/
 :date: 2019-10-03
-:subtitle: Cibersecurity risks on technology trends
+:subtitle: Cybersecurity risks on technology trends
 :category: techniques
 :tags: cybersecurity, business, trends
 :image: cover.png
@@ -101,7 +101,7 @@ can directly impact your company.
 A weak +AWS+ configuration can be detected using automated tools.
 link:../../products/asserts/[Asserts], one of our products
 can detect these flaws,
-using the link:https://fluidattacks.com/asserts/fluidasserts.cloud.aws.cloudtrail/[AWS Cloudtrail module].
+using the link:https://fluidattacks.com/asserts/fluidasserts.cloud.aws.cloudtrail/[+AWS Cloudtrail module+].
 However another percentage of the leakages
 were caused as a result of hardware vulnerabilities <<r4, ^[4]^>>
 such as +Spectre+ <<r5, ^[5]^>>, +Meltdown+ <<r6, ^[6]^>> or +Foreshadow+ <<r7, ^[7]^>>,
