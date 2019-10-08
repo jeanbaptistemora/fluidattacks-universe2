@@ -148,7 +148,7 @@ class ITReport(object):
                     '1.0': 'High',
                 },
                 'remediationLevel': {
-                    '0.95': 'Oficial Fix',
+                    '0.95': 'Official Fix',
                     '0.96': 'Temporary Fix',
                     '0.97': 'Workaround',
                     '1.0': 'Unavailable',
