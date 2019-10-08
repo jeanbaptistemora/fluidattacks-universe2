@@ -14,10 +14,8 @@ class AcessTokenTest(TestCase):
     def test_verificate_hash_token(self):
         token = calculate_hash_token()
         access_token = {
-            'access_token': {
-                'salt': token['salt'],
-                'jti': token['jti_hashed']
-            }
+            'salt': token['salt'],
+            'jti': token['jti_hashed']
         }
         different_token = calculate_hash_token()
 
