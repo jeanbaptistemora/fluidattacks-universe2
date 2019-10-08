@@ -550,7 +550,21 @@ def reject_draft(draft_id, reviewer_email, project_name):
 
     if 'releaseDate' not in draft_data:
         if 'reportDate' in draft_data:
-            result = finding_dal.update(draft_id, {'report_date': None})
+            tzn = pytz.timezone(settings.TIME_ZONE)
+            rejection_date = datetime.now(tz=tzn).today()
+            rejection_date = rejection_date.strftime('%Y-%m-%d %H:%M:%S')
+            rejection_dict = {
+                'analyst': draft_data.get('analyst', ''),
+                'rejection_date': rejection_date,
+                'report_date': draft_data.get('reportDate', ''),
+                'reviewer': reviewer_email,
+            }
+            current_history = draft_data.get('rejectionHistory', [])
+
+            result = finding_dal.update(draft_id, {
+                'report_date': None,
+                'rejection_history': current_history.append(rejection_dict)
+            })
             if result:
                 send_draft_reject_mail(
                     draft_id, project_name, draft_data['analyst'],
