@@ -68,9 +68,23 @@ RUN apt-get update -qq && \
     git init && \
     git remote add origin https://github.com/jekylltools/jekyll-tipue-search.git && \
     git config core.sparsecheckout true && \
-    cat ../js-files.txt >> .git/info/sparse-checkout && \
+    head -n 2 ../js-files.txt >> .git/info/sparse-checkout && \
     git pull origin master && \
     git reset --hard d4b5df7 && \
+    # Remove the git configuration to allow other repos in the same folder
+    rm -rf .git && \
+    cd ../ && \
+
+    #Download the necessary file to implement turnjs plugin from its repo
+    cd js && \
+    git init && \
+    git remote add origin https://github.com/blasten/turn.js.git && \
+    git config core.sparsecheckout true && \
+    tail -n 1 ../js-files.txt >> .git/info/sparse-checkout && \
+    git pull origin master && \
+    git reset --hard 08c1f65 && \
+    # Remove the git configuration to allow other repos in the same folder
+    rm -rf .git && \
     cd ../ && \
 
     # Download only the plugins used in the site, from the Pelican-Plugins repository

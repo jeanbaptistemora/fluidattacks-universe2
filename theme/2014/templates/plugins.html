@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block meta %}
+<meta name="description"
+      content="{{ page.description }}">
+<meta name="keywords"
+      content="{{ page.keywords }}">
+{% endblock meta %}
+
+{% block title %}
+  {% set TITLE = 0 %}
+  {% if DEFAULT_LANG == "en" %}
+    {% if page.title|length < 23 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE = 1 %}
+    {% endif %}
+  {% elif DEFAULT_LANG == "es" %}
+    {% if page.title|length < 11 %}
+{{ page.title }} | {{ SITENAME }}
+      {% set TITLE =1 %}
+    {% endif %}
+  {% endif %}
+  {% if TITLE == 0 %}
+{{ page.title }} | {{ AUTHOR }}
+  {% endif %}
+{% endblock title %}
+
+{% block canonical %}
+  <link rel="canonical"
+        href="{{ SITEURL }}/{{ page.url }}">
+{% endblock canonical %}
+
+{% block breadcrumb%}
+  <!-- navcontent-container -->
+  <div class="pv0 ph2 shadow-4">
+    <!-- navcontent-info -->
+    <div class="df ma-auto">
+      <div class="montsy f6-l f7 tl ttc w-70-l w-100 ma-auto">
+        <ul class="dib list w-100">
+          <li class="dib mt0">
+            <a class="c-fluid-bk hv-fluid-dkred"
+               href="{{ SITEURL }}/">
+              <strong>{{ gettext('Breadcrumb-0') }}</strong>&nbsp;
+            </a>
+            <span class="c-fluid-red v-mid b">&gt;</span>
+          </li>
+          <li class="dib mt0">
+            <a class="c-fluid-bk hv-fluid-dkred"
+               href=".">&nbsp;{{ page.title }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock breadcrumb %}
+
+{% block content %}
+  <h1>{{ page.title }}</h1>
+  <h2>Owl Carousel</h2>
+  <p class="tc montsy pb3">
+    Same carousel as in landing, same config file, different items:
+  </p>
+  <div class="owl-carousel owl-theme pb4">
+    {% for n in range(10) %}
+      <div class="item">
+        <span class="f1 ph6 gray b bg-fluid-lightgray tc">
+          {{ n }}
+        </span>
+      </div>
+    {% endfor %}
+  </div>
+    {% assets filters="uglifyjs" , output="static/js/carousel.min.js" , "js/carousel.js"  %}
+      <script type="text/javascript"
+              src="{{ SITEURL }}/{{ ASSET_URL }}">
+      </script>
+    {% endassets %}
+   <h2>Flipbook</h2>
+   <p class="tc montsy pb3">
+     jQuery plugin to create a flipbook using turnjs. Move left/right arrows to change pages:
+   </p>
+   <div id="magazine"
+        class="pb4 ma-auto">
+    {% for i in range(1, 20) %}
+    <div>
+      <img
+        src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/plugin-test/turtles-{{i}}.png"
+        alt="Page {{i}}">
+    </div>
+    {% endfor %}
+   </div>
+   {% assets filters="uglifyjs", output="static/js/flipbook.min.js", "js/flipbook.js" %}
+     <script type="text/javascript"
+             src="{{ SITEURL }}/{{ ASSET_URL }}">
+     </script>
+   {% endassets %}
+
+{% endblock content %}

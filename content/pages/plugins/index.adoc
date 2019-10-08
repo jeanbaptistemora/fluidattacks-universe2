@@ -1,0 +1,6 @@
+:slug: plugins/
+:description: The main objective of this page is to be a test of third party plugins, to check how it renders in the current site, what functionalities may be feasible to include in future features and prevent the visible sites to include buggy or non compatible plugins.
+:keywords: Fluid Attacks, Plugins, Third Party, Libraries, Features, Test
+:template: plugins
+
+= Plugin Test
