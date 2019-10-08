@@ -36,7 +36,7 @@ And then go inside the container: ::
    $ docker run -it fluidattacks/asserts sh
    / # asserts
 
-.. literalinclude:: example/banner-only.py.out
+.. literalinclude:: example/banner-only.exp.out
 
 Make sure to do the ``docker pull`` before every ``docker run``
 to ensure you are running the latest ``Asserts`` version.
@@ -50,7 +50,7 @@ the directory where your exploits live into the container: ::
   $ docker run -v /home/me/myexploits/:/exploits/ -it fluidattacks/asserts sh
   / # asserts /exploits/open-sqli.py
 
-.. literalinclude:: example/qstart-sqli-open.py.out
+.. literalinclude:: example/qstart-sqli-open.exp.out
    :language: yaml
 
 -----------------------------------------------

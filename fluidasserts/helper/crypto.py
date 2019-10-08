@@ -1,8 +1,35 @@
 # -*- coding: utf-8 -*-
 
-"""This module provide support for ``Cryptography`` operations."""
+"""
+This module provide support for ``Cryptography`` operations.
+
+:examples:
+    - **Create an encrypted YAML file:**
+
+      .. literalinclude:: example/crypto-create-yaml.py
+          :linenos:
+          :language: python
+
+      `$ python3 crypto-create-yaml.py`:
+
+      .. literalinclude:: example/crypto-create-yaml.py.out
+          :language: yaml
+
+      Save this file as **/resources/secrets.yml**
+
+    - ``Use the encrypted YAML file in your exploits:``
+
+      .. literalinclude:: example/crypto-use-yaml.exp
+          :linenos:
+          :language: python
+
+      .. literalinclude:: example/crypto-use-yaml.exp.out
+          :linenos:
+          :language: python
+"""
 
 # standard imports
+import io
 import sys
 import base64
 from typing import Dict
@@ -42,15 +69,30 @@ def _validate_secrets(secrets: Dict[str, str]) -> None:
             raise AssertionError('secrets must be a dictionary of str -> str')
 
 
-def create(*, key_b64: str, secrets: Dict[str, str], file=sys.stdout) -> bool:
-    """Create an encrypted YAML file and print it to stdout."""
+def create_encrypted_yaml(*,
+                          key_b64: str,
+                          secrets: Dict[str, str],
+                          file: io.TextIOWrapper = sys.stdout):
+    """
+    Create an encrypted ``YAML`` file and print it to **file**.
+
+    :param key_b64:
+        - **Secret** used to encrypt the resultant ``YAML`` file
+        - **an AWS secret key works out-of-the-box**
+        - must be from 30 to 32 bytes encoded in standard base64.
+    :param secrets: A **Dictionary** that maps strings to strings,
+        note that only strings are supported,
+        example: *{'user': 'Donald Knuth', 'password': 'asserts'}*
+    :returns: Prints the content of the encrypted ``YAML`` to **file**,
+        (defaults to sys.stdout).
+    """
     secrets = secrets or {}
 
     # Data quality
     key_b64_url_safe: bytes = _validate_key(key_b64)
     _validate_secrets(secrets)
 
-    # Conversions
+    # Encrypt
     secrets_encrypted: Dict[str, str] = {
         'secrets': {
             key: fernet.encrypt(val.encode()).decode()
@@ -59,19 +101,20 @@ def create(*, key_b64: str, secrets: Dict[str, str], file=sys.stdout) -> bool:
         }
     }
 
+    # Dump it to YAML
     secrets_as_yaml: str = yaml.safe_dump(secrets_encrypted,
                                           width=64,
                                           default_flow_style=False,
                                           allow_unicode=True)
 
-    # Encrypt
+    # Flush it into file
     print(secrets_as_yaml, end=str(), file=file)
 
     return True
 
 
-class Secrets:
-    """Dict-like object to programatically access an encrypted YAML."""
+class DecryptedYAML:
+    """Decrypt an encrypted YAML and expose a dict interface to the secrets."""
 
     # pylint: disable=too-few-public-methods
 
@@ -96,5 +139,5 @@ class Secrets:
         }
 
     def __getitem__(self, key) -> str:
-        """Return an decrypted key from the encrypted yaml file."""
+        """Return a decrypted key from the encrypted yaml file."""
         return self.decrypted_data[key]

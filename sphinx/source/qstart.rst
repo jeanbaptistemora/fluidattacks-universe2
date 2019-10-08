@@ -22,7 +22,7 @@ Usage
 
 Import the required ``Fluid Asserts`` modules into your exploit:
 
-.. literalinclude:: example/qstart-sqli-open.py
+.. literalinclude:: example/qstart-sqli-open.exp
 
 And run your exploit.
 ``Asserts`` will tell you
@@ -31,7 +31,7 @@ whether the vulnerability
 is still open
 or has been closed:
 
-.. literalinclude:: example/qstart-sqli-open.py.out
+.. literalinclude:: example/qstart-sqli-open.exp.out
    :language: yaml
 
 See more use cases and examples in our :doc:`usage` page.

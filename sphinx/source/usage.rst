@@ -27,7 +27,7 @@ To verify that
 a SQL injection is still open,
 you can write a script like this:
 
-.. literalinclude:: example/qstart-sqli-open.py
+.. literalinclude:: example/qstart-sqli-open.exp
 
 Then run it:
 
@@ -35,19 +35,19 @@ Then run it:
 
    $ asserts open_sqli.py
 
-.. literalinclude:: example/qstart-sqli-open.py.out
+.. literalinclude:: example/qstart-sqli-open.exp.out
     :language: yaml
 
 To verify that a SQL injection is closed,
 use the same function:
 
-.. literalinclude:: example/qstart-sqli-closed.py
+.. literalinclude:: example/qstart-sqli-closed.exp
 
 .. code-block:: shell-session
 
    $ asserts closed_sqli.py
 
-.. literalinclude:: example/qstart-sqli-closed.py.out
+.. literalinclude:: example/qstart-sqli-closed.exp.out
     :language: yaml
 
 ------------------------------
@@ -57,23 +57,23 @@ Cross-Site Scripting (``XSS``)
 The function :func:`.has_xss` requires
 a few more parameters:
 
-.. literalinclude:: example/qstart-xss-open.py
+.. literalinclude:: example/qstart-xss-open.exp
 
 .. code-block:: shell-session
 
    $ asserts open_xss.py
 
-.. literalinclude:: example/qstart-xss-open.py.out
+.. literalinclude:: example/qstart-xss-open.exp.out
     :language: yaml
 
 To test if
 an ``XSS`` vulnerability has been closed:
 
-.. literalinclude:: example/qstart-xss-closed.py
+.. literalinclude:: example/qstart-xss-closed.exp
 
 .. code-block:: shell-session
 
    $ asserts closed_xss.py
 
-.. literalinclude:: example/qstart-xss-closed.py.out
+.. literalinclude:: example/qstart-xss-closed.exp.out
     :language: yaml

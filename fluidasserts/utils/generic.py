@@ -146,38 +146,38 @@ class FluidAsserts():
 
         - ``Static Application Security Testing (SAST) check``
 
-          .. literalinclude:: example/creator-sast.py
+          .. literalinclude:: example/creator-sast.exp
               :linenos:
               :language: python
 
           Once you run your exploit with Asserts you'll get:
 
-          .. literalinclude:: example/creator-sast.py.out
+          .. literalinclude:: example/creator-sast.exp.out
               :language: yaml
               :lines: 15-28
 
         - ``Dynamic Application Security Testing (DAST) check``
 
-          .. literalinclude:: example/creator-dast.py
+          .. literalinclude:: example/creator-dast.exp
               :linenos:
               :language: python
 
           Once you run your exploit with Asserts you'll get:
 
-          .. literalinclude:: example/creator-dast.py.out
+          .. literalinclude:: example/creator-dast.exp.out
               :language: yaml
               :lines: 15-28
 
         - Errors inside the exploit automatically mark the check
           as ``UNKNOWN``:
 
-          .. literalinclude:: example/creator-errors.py
+          .. literalinclude:: example/creator-errors.exp
               :linenos:
               :language: python
 
           Once you run your exploit with Asserts you'll get:
 
-          .. literalinclude:: example/creator-errors.py.out
+          .. literalinclude:: example/creator-errors.exp.out
               :language: yaml
               :lines: 15-22
 

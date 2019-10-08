@@ -1,0 +1,20 @@
+from os import environ
+from fluidasserts.helper import crypto
+
+# Decrypt the yaml file
+
+secrets = crypto.DecryptedYAML(key_b64=environ['yaml_key_b64'],
+                               encrypted_yaml_path='/resources/secrets.yml')
+
+# Use in your exploits as the original dictionary
+
+user = secrets['user']
+password = secrets['password']
+
+# Example
+
+from fluidasserts.proto import git
+
+git.commit_has_secret(repo='.',
+                      commit_id='9a656868db2cc2554798041c8a7c3a613e64e314',
+                      secret=f"'pass': '{password}'")

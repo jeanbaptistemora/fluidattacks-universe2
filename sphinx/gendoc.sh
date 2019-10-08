@@ -1,14 +1,21 @@
 #!/usr/bin/env sh
 
 striprun() {
-    asserts "$1" |
+    $1 "$2" |
     perl -pe 's/\e([^\[\]]|\[.*?[a-zA-Z]|\].*?\a)//g' |
-    tee "$1".out
+    tee "$2".out
 }
+
+# Setup the exploits environment
+mkdir -p /resources && cp {sphinx/source/example/,/}resources/secrets.yml
+export yaml_key_b64='dGVzdHN0ZXN0c3Rlc3RzdGVzdHN0ZXN0c3Rlc3RzCg=='
 
 # Execute the examples and save their output
 for example in sphinx/source/example/*.py; do
-  striprun "$example"
+  striprun "python3" "$example"
+done
+for example in sphinx/source/example/*.exp; do
+  striprun "asserts" "$example"
 done
 
 # Generate credits.rst
