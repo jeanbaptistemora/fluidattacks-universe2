@@ -197,9 +197,7 @@ class FindingDTO(object):
         initial_dict = forms.create_dict(request_arr)
         migrated_dict = {}
         migrated_aditional_info_dict = {}
-        description_title = ['subscription', 'client_code',
-                             'finding', 'probability', 'severity',
-                             'risk_value', 'ambit', 'category', 'test_type',
+        description_title = ['subscription', 'finding', 'test_type',
                              'related_findings', 'actor', 'scenario']
         description = integrates_dal.get_finding_attributes_dynamo(
             str(submission_id),
@@ -215,14 +213,11 @@ class FindingDTO(object):
                 self.FINDING: 'finding',
                 self.SUBSCRIPTION: 'subscription',
                 self.CLIENT_CODE: 'clientCode',
-                self.PROBABILITY: 'probability',
                 self.SEVERITY: 'severity',
                 self.RISK_VALUE: 'riskValue',
                 self.RELATED_FINDINGS: 'relatedFindings',
                 self.TEST_TYPE: 'testType',
                 self.SCENARIO: 'scenario',
-                self.AMBIT: 'ambit',
-                self.CATEGORY: 'category',
                 self.ACTOR: 'actor'
             }
             migrated_dict = {v: initial_dict[k]
@@ -701,14 +696,13 @@ def has_migrated_evidence(finding_id):
 def parse_finding(finding):
     """Parse data from dynamo."""
     finding_titles = [
-        'report_date', 'subscription', 'client_code',
-        'finding', 'probability', 'severity', 'risk_value', 'ambit', 'risk',
-        'category', 'test_type', 'related_findings', 'actor', 'scenario',
+        'report_date', 'subscription', 'finding', 'risk',
+        'test_type', 'related_findings', 'actor', 'scenario',
         'vulnerability', 'attack_vector_desc', 'affected_systems',
         'requirements', 'cwe', 'effect_solution', 'kb', 'finding_type',
         'treatment', 'treatment_justification', 'treatment_manager', 'threat',
         'external_bts', 'analyst', 'leader', 'interested', 'project_name',
-        'client_project', 'context', 'records_number', 'records'
+        'context', 'records_number', 'records'
     ]
     if finding:
         finding_fields = {k: util.snakecase_to_camelcase(k)

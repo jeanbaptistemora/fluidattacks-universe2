@@ -61,7 +61,7 @@ class ITReport(object):
 
     def hide_cell(self, data):
         init_row = 3 + 12 * len(data)
-        end_row = 3 + 12 * 60
+        end_row = 3 + 12 * 70
         self.__select_finding_sheet()
         for row in range(init_row, end_row):
             self.current_sheet.row_dimensions[row].hidden = True
@@ -250,29 +250,3 @@ def translate_parameter(param):
         'DATABASES': 'Bases de Datos'
     }
     return translation_values.get(param)
-
-
-def get_probability(probability):
-    probability_values = {
-        '100': '100% Vulnerado Anteriormente',
-        '75': '75% Fácil de vulnerar',
-        '50': '50% Posible de vulnerar',
-        '25': '25% Difícil de vulnerar'
-    }
-    return probability_values.get(str(probability))
-
-
-def cast_severity(severity):
-    """Cast severity value."""
-    severity_value = ''
-    if severity >= 9.0 and severity <= 10.0:
-        severity_value = 'Crítica'
-    elif severity >= 7.0 and severity <= 8.9:
-        severity_value = 'Alta'
-    elif severity >= 4.0 and severity <= 6.9:
-        severity_value = 'Media'
-    elif severity >= 0.1 and severity <= 3.9:
-        severity_value = 'Baja'
-    else:
-        severity_value = 'Ninguna'
-    return severity_value

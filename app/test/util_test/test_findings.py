@@ -96,6 +96,6 @@ class FindingsTests(TestCase):
             'effectSolution', 'reportLevel', 'verificationDate', 'scenario',
             'severityCvss', 'modifiedAvailabilityImpact', 'age', 'vulnerability',
             'findingId', 'threat', 'lastVulnerability', 'integrityImpact',
-            'detailedSeverity', 'modifiedIntegrityImpact','relatedFindings',
+            'modifiedIntegrityImpact','relatedFindings',
             'exploitability']
         assert test_data == expected_keys

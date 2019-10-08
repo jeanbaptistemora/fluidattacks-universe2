@@ -34,13 +34,9 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     actor = String()
     affected_systems = String()
     age = Int()
-    ambit = String()
     analyst = String()
     attack_vector_desc = String()
     bts_url = String()
-    category = String()
-    client_code = String()
-    client_project = String()
     closed_vulnerabilities = Int()
     comments = List(GenericScalar)
     compromised_attributes = String()
@@ -48,7 +44,6 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     cvss_version = String()
     cwe_url = String()
     description = String()
-    detailed_severity = Int()
     evidence = GenericScalar()
     exploit = String()
     id = String()  # noqa pylint: disable=invalid-name
@@ -56,7 +51,6 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     last_vulnerability = Int()
     observations = List(GenericScalar)
     open_vulnerabilities = Int()
-    probability = Int()
     project_name = String()
     recommendation = String()
     records = JSONString()
@@ -65,7 +59,6 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     report_date = String()
     requirements = String()
     risk = String()
-    risk_level = String()
     scenario = String()
     severity = GenericScalar()
     severity_score = Float()
@@ -308,45 +301,10 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.treatment_justification
 
-    def resolve_client_code(self, info):
-        """ Resolve client_code attribute """
-        del info
-        return self.client_code
-
-    def resolve_client_project(self, info):
-        """ Resolve client_project attribute """
-        del info
-        return self.client_project
-
-    def resolve_probability(self, info):
-        """ Resolve probability attribute """
-        del info
-        return self.probability
-
-    def resolve_detailed_severity(self, info):
-        """ Resolve detailed_severity attribute """
-        del info
-        return self.detailed_severity
-
     def resolve_risk(self, info):
         """ Resolve risk attribute """
         del info
         return self.risk
-
-    def resolve_risk_level(self, info):
-        """ Resolve risk_level attribute """
-        del info
-        return self.risk_level
-
-    def resolve_ambit(self, info):
-        """ Resolve ambit attribute """
-        del info
-        return self.ambit
-
-    def resolve_category(self, info):
-        """ Resolve category attribute """
-        del info
-        return self.category
 
     @get_entity_cache
     def resolve_state(self, info):
@@ -675,20 +633,14 @@ class UpdateDescription(Mutation):
         actor = String(required=True)
         affected_systems = String(required=True)
         attack_vector_desc = String(required=True)
-        ambit = String()
-        category = String()
-        client_code = String()
-        client_project = String()
         cwe = String(required=True)
         description = String(required=True)
         finding_id = String(required=True)
-        probability = Int()
         recommendation = String(required=True)
         records = String()
         records_number = Int(required=True)
         requirements = String(required=True)
         risk = String()
-        severity = Int()
         scenario = String(required=True)
         threat = String(required=True)
         title = String(required=True)

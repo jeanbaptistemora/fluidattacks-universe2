@@ -33,18 +33,15 @@ export interface IDescriptionViewProps {
     acceptanceDate: string;
     actor: string;
     affectedSystems: string;
-    ambit: string;
     analyst: string;
     attackVectorDesc: string;
     btsUrl: string;
-    category: string;
     clientCode: string;
     clientProject: string;
     compromisedAttributes: string;
     compromisedRecords: string;
     cweUrl: string;
     description: string;
-    probability: number;
     recommendation: string;
     releaseDate: string;
     remediated: boolean;
@@ -217,8 +214,6 @@ export const descriptionView: React.ComponentType<IDescriptionViewProps> = redux
   (state: StateType<Reducer>): IDescriptionViewProps => ({
     ...state.dashboard.description,
     formValues: {
-      detailedSeverity: fieldSelector(state, "detailedSeverity"),
-      probability: fieldSelector(state, "probability"),
       treatment: fieldSelector(state, "treatment"),
       treatmentVuln: fieldSelectorVuln(state, "treatment"),
     },

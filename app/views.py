@@ -558,7 +558,7 @@ def mask_project_findings(project):
 def mask_project_findings_dynamo(project):
     """Mask project findings information in DynamoDB."""
     api = FormstackAPI()
-    fields = ['client_code', 'client_project', 'related_findings',
+    fields = ['related_findings',
               'vulnerability', 'attack_vector_desc', 'affected_systems',
               'threat', 'risk', 'treatment_justification', 'treatment',
               'treatment_manager', 'effect_solution']

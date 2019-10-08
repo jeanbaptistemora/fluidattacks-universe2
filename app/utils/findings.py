@@ -94,7 +94,6 @@ def format_data(finding):
     else:
         finding['age'] = util.calculate_datediff_since(
             finding['releaseDate']).days
-    finding['detailedSeverity'] = finding.get('severity', 0)
     finding['exploitable'] = forms_utils.is_exploitable(
         float(finding['exploitability']), finding['cvssVersion']) == 'Si'
     finding['remediated'] = (
