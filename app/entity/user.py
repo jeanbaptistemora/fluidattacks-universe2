@@ -41,10 +41,9 @@ class User(ObjectType):
         self.first_login = '-'
         self.last_login = [-1, -1]
 
-        last_login = integrates_dal.get_user_last_login(user_email)
-        last_login = last_login.split('.', 1)[0]
+        last_login = user_domain.get_data(user_email, 'last_login')
 
-        if last_login == '1111-01-01 11:11:11' or last_login == '-':
+        if last_login == '1111-1-1 11:11:11' or not last_login:
             self.last_login = [-1, -1]
         else:
             dates_difference = \

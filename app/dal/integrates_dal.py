@@ -93,17 +93,6 @@ def update_user_data(email, username, first_name, last_name):
     return row
 
 
-def get_user_last_login(email):
-    """ Get the user's last login date. """
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT last_login FROM users WHERE email = %s'
-        cursor.execute(query, (email,))
-        row = cursor.fetchone()
-    if row is None:
-        return '-'
-    return unicode(row[0])
-
-
 def get_user_first_login(email):
     """ Get the user's first login date. """
     with connections['integrates'].cursor() as cursor:

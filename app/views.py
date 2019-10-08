@@ -34,7 +34,8 @@ from app.dal.helpers.drive import DriveAPI
 from app.dal.helpers.formstack import FormstackAPI
 from app.dal import integrates_dal
 from app.decorators import authenticate, authorize, cache_content
-from app.domain import finding as finding_domain, project as project_domain
+from app.domain import (
+    finding as finding_domain, project as project_domain, user as user_domain)
 from app.domain.vulnerability import (
     group_specific, get_open_vuln_by_type, get_vulnerabilities_by_type
 )
@@ -124,11 +125,12 @@ def dashboard(request):
     "View of control panel for authenticated users"
     try:
         parameters = {
-            'username': request.session["username"],
-            'company': request.session["company"],
-            'last_login': request.session["last_login"]
+            'username': request.session['username'],
+            'company': request.session['company'],
+            'last_login': request.session['last_login']
         }
-        integrates_dal.update_user_login(request.session["username"])
+        integrates_dal.update_user_login(request.session['username'])
+        user_domain.update_last_login(request.session['username'])
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
         return redirect('/error500')

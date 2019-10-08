@@ -20,10 +20,12 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
     if user:
         if integrates_dal.has_complete_data(user):
             integrates_dal.update_user_login(user)
+            user_domain.update_last_login(user)
         else:
             integrates_dal.update_user_data(email, username, first_name,
                                             last_name)
             integrates_dal.update_user_login(user)
+            user_domain.update_last_login(user)
     else:
         mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
         name = first_name + ' ' + last_name
@@ -32,6 +34,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
             'mail_user': email,
         }
         send_mail_new_user(mail_to, context)
+        user_domain.update_last_login(email)
         integrates_dal.create_user(email, username=username,
                                    first_name=first_name,
                                    last_name=last_name,
@@ -41,7 +44,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
 def check_registered(strategy, details, backend, *args, **kwargs):
     email = details['email'].lower()
     is_registered = user_domain.is_registered(email)
-    last_login = integrates_dal.get_user_last_login(email)
+    last_login = user_domain.get_data(email, 'last_login')
     role = user_domain.get_role(email)
     company = user_domain.get_organization(email)
     strategy.session_set('username', email)

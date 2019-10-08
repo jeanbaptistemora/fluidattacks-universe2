@@ -1,9 +1,23 @@
+from datetime import datetime
+import pytz
+from django.conf import settings
 from app.dal import user as user_dal
 
 
 def add_phone_to_user(email, phone):
     """ Update user phone number. """
     return user_dal.update_user_attribute(email, phone, 'phone')
+
+
+def get_data(email, attr):
+    data_attr = get_user_attributes(email, [attr])
+    data = ''
+    if data_attr and data_attr.get(attr):
+        data = data_attr.get(attr)
+    else:
+        # User not found or without attribute
+        pass
+    return data
 
 
 def get_organization(email):
@@ -59,6 +73,12 @@ def update_access_token(email, token_data):
         'salt': token_data['salt']
     }
     return user_dal.update_user_attribute(email, access_token, 'access_token')
+
+
+def update_last_login(email):
+    tzn = pytz.timezone(settings.TIME_ZONE)
+    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    return update_user_attribute(str(email), today, 'last_login')
 
 
 def update_user_attribute(email, data_attr, name_attr):
