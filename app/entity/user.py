@@ -195,7 +195,7 @@ def create_new_user(context, new_user_data, project_name, email):
         responsibility = new_user_data['responsibility']
         role = new_user_data['role']
         phone_number = new_user_data['phone_number']
-        primary_keys_dynamo = ['email', email]
+        primary_keys_dynamo = ['email', email.lower()]
     else:
         return False
 
