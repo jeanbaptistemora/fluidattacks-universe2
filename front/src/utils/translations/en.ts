@@ -75,8 +75,10 @@ const enTranslations: dict = {
   },
   project: {
     drafts: {
+      approve: "Approve Draft",
       error_submit: "Please provide {{missingFields}} before submitting",
       new: "New Draft",
+      reject: "Reject Draft",
       success_create: "Draft created successfully",
       success_submit: "Draft successfully submitted for review",
       title: "Title",
@@ -152,7 +154,6 @@ const enTranslations: dict = {
     low_severity: "Tolerable",
     medium_severity: "Moderate",
     openVulnsLabel: "Open vulnerabilities",
-    reject: "Reject Draft",
     reportDateLabel: "Report date",
     repositories_table: {
       branch: "Branch",

@@ -40,6 +40,7 @@ describe("FindingContent", () => {
     onLoad: functionMock,
     onReject: functionMock,
     onUnmount: functionMock,
+    openApproveConfirm: functionMock,
     openDeleteConfirm: functionMock,
     openRejectConfirm: functionMock,
     title: "FIN.S.0001. Finding test",

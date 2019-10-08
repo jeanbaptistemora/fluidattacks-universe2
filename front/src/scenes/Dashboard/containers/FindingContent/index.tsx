@@ -84,6 +84,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
 
   const handleApprove: (() => void) = (): void => { props.onApprove(); };
   const handleReject: (() => void) = (): void => { props.onReject(); };
+  const handleOpenApproveConfirm: (() => void) = (): void => { props.openApproveConfirm(); };
   const handleOpenDeleteConfirm: (() => void) = (): void => { props.openDeleteConfirm(); };
   const handleOpenRejectConfirm: (() => void) = (): void => { props.openRejectConfirm(); };
   const handleConfirmDelete: (() => void) = (): void => { props.onConfirmDelete(); };
@@ -146,7 +147,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                                 isAuthor={isAuthor}
                                 isDraft={isDraft}
                                 loading={submitResult.loading}
-                                onApprove={handleApprove}
+                                onApprove={handleOpenApproveConfirm}
                                 onDelete={handleOpenDeleteConfirm}
                                 onReject={handleOpenRejectConfirm}
                                 onSubmit={handleSubmitClick}
@@ -301,7 +302,12 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           </FormGroup>
         </GenericForm>
       </ConfirmDialog>
-      <ConfirmDialog name="confirmRejectDraft" onProceed={handleReject} title={translate.t("search_findings.reject")} />
+      <ConfirmDialog
+        name="confirmApproveDraft"
+        onProceed={handleApprove}
+        title={translate.t("project.drafts.approve")}
+      />
+      <ConfirmDialog name="confirmRejectDraft" onProceed={handleReject} title={translate.t("project.drafts.reject")} />
     </React.StrictMode>
   );
 };
@@ -336,6 +342,7 @@ const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFind
       },
       onReject: (): void => { dispatch(rejectDraft(findingId, projectName)); },
       onUnmount: (): void => { dispatch(clearFindingState()); },
+      openApproveConfirm: (): void => { dispatch(openConfirmDialog("confirmApproveDraft")); },
       openDeleteConfirm: (): void => { dispatch(openConfirmDialog("confirmDeleteFinding")); },
       openRejectConfirm: (): void => { dispatch(openConfirmDialog("confirmRejectDraft")); },
     });
