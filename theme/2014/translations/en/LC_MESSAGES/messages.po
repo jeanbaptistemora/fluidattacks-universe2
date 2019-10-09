@@ -838,8 +838,8 @@ msgstr "Graph showing the increase of earnings"
 msgid "Index-bnft-3"
 msgstr ""
 "<strong class="white">Closing vulnerabilities is guaranteed: </strong>"
-"Asserts, our engine, automates attacks to verify the status (open or closed) "
-"of vulnerabilities found by a security analyst. "
+"Asserts, our engine, automates attacks to verify "
+"the status (open or closed) of vulnerabilities. "
 "Asserts can be included in CI / CD environments as security gate."
 
 #: templates/landing.html:113
