@@ -3,11 +3,9 @@
 # pylint: disable=E0402
 # Disabling this rule is necessary for importing modules beyond the top level
 # pylint: disable=relative-beyond-top-level
-from datetime import datetime
 import base64
 
 from django.conf import settings
-import pytz
 
 from ..dal import integrates_dal
 from ..dal.helpers.formstack import FormstackAPI
@@ -16,8 +14,6 @@ from ..utils import forms
 from ..utils import cvss
 from .. import util
 
-
-# pylint: disable=E0402
 
 class FindingDTO(object):
     """Class to create an object with the attributes of a finding."""
@@ -250,40 +246,6 @@ def mask_evidence_dynamo(finding_id):
     else:
         response = False
     return response
-
-
-def vulnerabilities_status(finding_new):
-    if (finding_new.get('closedVulnerabilities') > 0 and
-            finding_new.get('openVulnerabilities') == 0):
-        status = 'Cerrado'
-    else:
-        status = 'Abierto'
-    return status
-
-
-def format_release(finding):
-    """Format formstack information to show release date."""
-    primary_keys = ['finding_id', finding['id']]
-    finding_dynamo = integrates_dal.get_data_dynamo(
-        'FI_findings', primary_keys[0], primary_keys[1])
-    if finding_dynamo:
-        finding_data = finding_dynamo[0]
-        if finding_data.get('releaseDate'):
-            finding['releaseDate'] = finding_data.get('releaseDate')
-        if finding_data.get('lastVulnerability'):
-            finding['lastVulnerability'] = finding_data.get('lastVulnerability')
-    if finding.get('releaseDate'):
-        tzn = pytz.timezone(settings.TIME_ZONE)
-        today_day = datetime.now(tz=tzn).date()
-        finding_last_vuln = datetime.strptime(
-            finding['releaseDate'].split(' ')[0],
-            '%Y-%m-%d'
-        )
-        finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
-        if finding_last_vuln <= today_day:
-            final_date = util.calculate_datediff_since(finding['releaseDate'])
-            finding['edad'] = ':n'.replace(':n', str(final_date.days))
-    return finding
 
 
 def total_vulnerabilities(finding_id):
