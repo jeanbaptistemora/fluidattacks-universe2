@@ -7,7 +7,7 @@ data "aws_iam_policy_document" "ssofinance-policy" {
       "ec2:StopInstances"
     ]
     resources = [
-      "arn:aws:ec2:us-east-1:205810638802:instance/i-0ba149836e9bb8e7c"
+      "arn:aws:ec2:us-east-1:${data.aws_caller_identity.current.account_id}:instance/i-0ba149836e9bb8e7c"
     ]
   }
 }
