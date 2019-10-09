@@ -7,7 +7,8 @@ striprun() {
 }
 
 # Setup the exploits environment
-mkdir -p /resources && cp {sphinx/source/example/,/}resources/secrets.yml
+mkdir -p /resources
+cp sphinx/source/example/resources/secrets.yml /resources/secrets.yml
 export yaml_key_b64='dGVzdHN0ZXN0c3Rlc3RzdGVzdHN0ZXN0c3Rlc3RzCg=='
 
 # Execute the examples and save their output
