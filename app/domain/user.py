@@ -9,6 +9,12 @@ def add_phone_to_user(email, phone):
     return user_dal.update_user_attribute(email, phone, 'phone')
 
 
+def get_current_date():
+    tzn = pytz.timezone(settings.TIME_ZONE)
+    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    return today
+
+
 def get_data(email, attr):
     data_attr = get_user_attributes(email, [attr])
     data = ''
@@ -64,10 +70,13 @@ def update_access_token(email, token_data):
     return user_dal.update_user_attribute(email, access_token, 'access_token')
 
 
+def update_first_login(email):
+    return update_user_attribute(
+        str(email), get_current_date(), 'date_joined')
+
+
 def update_last_login(email):
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
-    return update_user_attribute(str(email), today, 'last_login')
+    return update_user_attribute(str(email), get_current_date(), 'last_login')
 
 
 def update_user_attribute(email, data_attr, name_attr):

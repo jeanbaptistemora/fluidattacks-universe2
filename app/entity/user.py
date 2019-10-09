@@ -51,7 +51,7 @@ class User(ObjectType):
             diff_last_login = [dates_difference.days, dates_difference.seconds]
             self.last_login = diff_last_login
 
-        self.first_login = integrates_dal.get_user_first_login(user_email).split('.', 1)[0]
+        self.first_login = user_domain.get_data(user_email, 'date_joined')
         organization = user_domain.get_data(user_email, 'company')
         self.organization = organization.title()
         self.responsibility = has_responsibility(project_name, user_email)
