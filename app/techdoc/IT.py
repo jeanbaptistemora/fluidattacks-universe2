@@ -186,43 +186,43 @@ class ITReport(object):
                       self.__get_req(row['requirements']))
         self.set_cell(
             self.finding['measurements'],
-            self.__get_measure('attackVector', row['attackVector']))
+            self.__get_measure('attackVector', row['severity']['attackVector']))
         self.set_cell(
             self.finding['measurements'],
-            self.__get_measure('attackComplexity', row['attackComplexity']), 1)
+            self.__get_measure('attackComplexity', row['severity']['attackComplexity']), 1)
         self.set_cell(
             self.finding['measurements'],
             self.__get_measure(
-                'privilegesRequired', row['privilegesRequired']),
+                'privilegesRequired', row['severity']['privilegesRequired']),
             2)
         self.set_cell(
             self.finding['measurements'],
-            self.__get_measure('userInteraction', row['userInteraction']), 3)
+            self.__get_measure('userInteraction', row['severity']['userInteraction']), 3)
         self.set_cell(
             self.finding['measurements'],
-            self.__get_measure('severityScope', row['severityScope']), 4)
+            self.__get_measure('severityScope', row['severity']['severityScope']), 4)
         self.set_cell(
             self.finding['measurements'],
             self.__get_measure(
-                'confidentialityImpact', row['confidentialityImpact']),
+                'confidentialityImpact', row['severity']['confidentialityImpact']),
             5)
         self.set_cell(
             self.finding['measurements'],
-            self.__get_measure('integrityImpact', row['integrityImpact']), 6)
+            self.__get_measure('integrityImpact', row['severity']['integrityImpact']), 6)
         self.set_cell(
             self.finding['measurements'],
             self.__get_measure(
-                'availabilityImpact', row['availabilityImpact']),
+                'availabilityImpact', row['severity']['availabilityImpact']),
             7)
         self.set_cell(
             self.finding['measurements'],
-            self.__get_measure('exploitability', row['exploitability']), 8)
+            self.__get_measure('exploitability', row['severity']['exploitability']), 8)
         self.set_cell(
             self.finding['measurements'],
-            self.__get_measure('remediationLevel', row['remediationLevel']), 9)
+            self.__get_measure('remediationLevel', row['severity']['remediationLevel']), 9)
         self.set_cell(
             self.finding['measurements'],
-            self.__get_measure('reportConfidence', row['reportConfidence']), 10)
+            self.__get_measure('reportConfidence', row['severity']['reportConfidence']), 10)
 
     def __save(self, project, username):
         self.result_filename = self.result_path

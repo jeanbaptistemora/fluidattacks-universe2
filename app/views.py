@@ -44,8 +44,7 @@ from app.documentator.secure_pdf import SecurePDF
 from app.documentator.all_vulns import generate_all_vulns_xlsx
 from app.dto import closing
 from app.dto.finding import (
-    FindingDTO, parse_finding, get_project_name,
-    mask_finding_fields_dynamo
+    FindingDTO, get_project_name, mask_finding_fields_dynamo
 )
 from app.services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
@@ -153,61 +152,49 @@ def logout(request):
     return response
 
 
-# pylint: disable=too-many-branches
-# pylint: disable=too-many-locals
 @cache_content
 @never_cache
 @csrf_exempt
 @authorize(['analyst', 'customer', 'admin'])
 def project_to_xls(request, lang, project):
     "Create the technical report"
-    findings_parsed = []
-    detail = {
-        "content_type": "application/vnd.openxmlformats\
-                        -officedocument.spreadsheetml.sheet",
-        "content_disposition": "inline;filename=:project.xlsx",
-        "path": "/usr/src/app/app/autodoc/results/:project_:username.xlsx"
-    }
     username = request.session['username'].split("@")[0]
     if project.strip() == "":
-        rollbar.report_message('Error: Empty fields in project', 'error', request)
+        rollbar.report_message(
+            'Error: Empty fields in project', 'error', request)
         return util.response([], 'Empty fields', True)
     if not has_access_to_project(request.session['username'],
                                  project, request.session['role']):
-        util.cloudwatch_log(request,
-                            'Security: \
-Attempted to export project xls without permission')
+        util.cloudwatch_log(
+            request,
+            'Security: Attempted to export project xls without permission')
         return util.response([], 'Access denied', True)
     if lang not in ["es", "en"]:
         rollbar.report_message('Error: Unsupported language', 'error', request)
         return util.response([], 'Unsupported language', True)
-    findings = integrates_dal.get_findings_dynamo(project)
+    findings = finding_domain.get_findings(
+        project_domain.list_findings(project.lower()))
     if findings:
-        for fin in findings:
-            if util.validate_release_date(fin):
-                finding_parsed = parse_finding(fin)
-                finding = format_finding(finding_parsed, request)
-                findings_parsed.append(finding)
-            else:
-                # Finding does not have a valid release date
-                pass
+        findings = [cast_new_vulnerabilities(
+            get_open_vuln_by_type(finding['findingId'], request), finding)
+            for finding in findings]
     else:
         rollbar.report_message(
-            'Error: project' + project + 'does not have findings in dynamo',
-            'error',
+            'Project {} does not have findings in dynamo'.format(project),
+            'warning',
             request)
         return util.response([], 'Empty fields', True)
-    data = util.ord_asc_by_criticidad(findings_parsed)
+    data = util.ord_asc_by_criticidad(findings)
     it_report = ITReport(project, data, username)
     filepath = it_report.result_filename
     reports.set_xlsx_password(filepath, time.strftime('%d%m%Y') + username)
 
     with open(filepath, 'r') as document:
-        response = HttpResponse(document.read(),
-                                content_type=detail["content_type"])
-        file_name = detail["content_disposition"]
-        file_name = file_name.replace(":project", project)
-        response['Content-Disposition'] = file_name
+        response = HttpResponse(document.read())
+        response['Content-Type'] = ('application/vnd.openxmlformats'
+                                    '-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'inline;filename={}.xlsx'.format(
+            project)
     return response
 
 
@@ -220,8 +207,6 @@ def validation_project_to_pdf(request, lang, doctype):
         return util.response([], 'Unsupported doctype', True)
 
 
-# pylint: disable=too-many-branches
-# pylint: disable=too-many-locals
 @cache_content
 @never_cache
 @csrf_exempt
@@ -300,53 +285,15 @@ def pdf_evidences(findings):
     return findings
 
 
-def format_finding(finding, request):
-    """Format some attributes in a finding."""
-    finding_id = finding.get('id')
-    finding_new = get_open_vuln_by_type(finding_id, request)
-    finding['cardinalidad_total'] = finding.get('openVulnerabilities')
-    finding['cierres'] = []
-    if (finding_new and
-            (finding_new.get('openVulnerabilities') or
-                finding_new.get('closedVulnerabilities'))):
-        finding = cast_new_vulnerabilities(finding_new, finding)
-    else:
-        if finding.get('where'):
-            error_msg = \
-                'Error: Finding {finding_id} of project {project} has \
-vulnerabilities in old format'\
-                .format(finding_id=finding_id, project=finding['projectName'])
-            rollbar.report_message(error_msg, 'error', request)
-        else:
-            # Finding does not have vulnerabilities in old format.
-            pass
-        finding['estado'] = 'Abierto'
-    finding = format_release_date(finding)
-    if finding['estado'] == 'Cerrado':
-        finding['where'] = '-'
-        finding['treatmentManager'] = '-'
-        finding['treatmentJustification'] = '-'
-        finding['treatment'] = '-'
-    return finding
-
-
 def cast_new_vulnerabilities(finding_new, finding):
     """Cast values for new format."""
-    total_cardinality = finding_new.get('openVulnerabilities') + \
-        finding_new.get('closedVulnerabilities')
-    finding['cardinalidad_total'] = str(total_cardinality)
-    if (finding_new.get('closedVulnerabilities') > 0 and
-            finding_new.get('openVulnerabilities') == 0):
-        finding['estado'] = 'Cerrado'
-    else:
-        finding['estado'] = 'Abierto'
     if finding_new.get('openVulnerabilities') >= 0:
         finding['openVulnerabilities'] = \
             str(finding_new.get('openVulnerabilities'))
     else:
         # This finding does not have open vulnerabilities
         pass
-    where = ''
+    where = '-'
     if finding_new.get('portsVulns'):
         finding['portsVulns'] = \
             group_specific(finding_new.get('portsVulns'), 'ports')
@@ -695,6 +642,7 @@ Attempted to retrieve vulnerabilities without permission')
 
 @never_cache
 @require_http_methods(["GET"])
+# pylint: disable=too-many-locals
 def generate_complete_report(request):
     user_data = util.get_jwt_content(request)
     projects = [project[0] for project in integrates_dal.get_projects_by_user(
