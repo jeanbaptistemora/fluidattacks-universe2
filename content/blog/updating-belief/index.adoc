@@ -24,21 +24,21 @@ to reduce that uncertainty, i.e., measuring.
 
 Why do we speak of "belief" and not "probability" here?
 Intuitively, when we have mentioned
-[button]#link:../quantifying-risk/[probabilities],#
+[inner]#link:../quantifying-risk/[probabilities],#
 we're meaning some belief or measure of uncertainty.
 For example, when giving a confidence interval,
 we say we _believe_ the actual value is
 between the boundaries of the interval,
 up to a certain degree of confidence.
 When we simulate multiple scenarios in
-[button]#link:../monetizing-vulnerabilities[Monte Carlo simulations]#
+[inner]#link:../monetizing-vulnerabilities[Monte Carlo simulations]#
 and finally aggregate the results,
 we're expressing that we believe
 that the loss will be so many millions or larger.
 
 In science, hypotheses are disproven trough observable, measurable evidence.
 Similarly, testing in general
---and [button]#link:../../[pentesting]# in particular--
+—and [inner]#link:../../[pentesting]# in particular—
 can change our beliefs, that is,
 our initially proposed or _prior_ probabilities,
 based upon evidence.
@@ -48,7 +48,7 @@ However, it does require us to discuss a
 few basic probability theory facts.
 If you're familiar with it,
 feel free to skip straight to
-<<sec-app-cyber, application to cybersecurity risk>>.
+link:#so-how-does-this-apply-to-cyber-risk[application to cybersecurity risk].
 
 == Mathematical interlude
 
@@ -132,7 +132,6 @@ can _update_ or _refine_ our estimates
 on the likelihoods of the causes.
 
 
-[[sec-app-cyber]]
 == So how does this apply to cyber risk?
 
 Since Bayes Rule helps us reduce our uncertainty,

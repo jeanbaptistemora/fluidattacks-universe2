@@ -42,5 +42,8 @@ Tachyons classes on dynamically generated content
     //qanda
     $( ".qlist > ol > li" ).addClass("mb0 pb3");
 
+    //red inner links
+    $( "span.inner > a" ).addClass("c-fluid-dkred b hover-bg-light-gray")
+
   });
 })(jQuery);
