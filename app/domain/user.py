@@ -39,16 +39,16 @@ def get_user_attributes(email, data):
 def is_registered(email):
     is_registered_attr = get_user_attributes(email, ['registered'])
     registered = False
-    if is_registered_attr and is_registered_attr.get('registered') == 1:
+    if is_registered_attr and is_registered_attr.get('registered'):
         registered = True
     else:
-        # User not found or registered attr is 0
+        # User not found or registered attr is False
         pass
     return registered
 
 
 def register(email):
-    return user_dal.update_user_attribute(email, 1, 'registered')
+    return user_dal.update_user_attribute(email, True, 'registered')
 
 
 def remove_access_token(email):
