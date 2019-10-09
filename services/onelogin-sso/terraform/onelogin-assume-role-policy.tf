@@ -7,7 +7,7 @@ data "aws_iam_policy_document" "onelogin-assume-role-policy-data" {
     ]
     principals {
       type = "Federated"
-      identifiers = [aws_iam_saml_provider.onelogin-saml-provider.arn]
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:saml-provider/onelogin-saml-provider"]
     }
     condition {
       test     = "StringEquals"
