@@ -19,7 +19,7 @@ but were able to successfully finish this stage, you have the most valuable
 competence of all: The ability to learn new things on the fly and apply them to
 solve real problems.
 This, along with a good personality and strong
-[button]#link:../../values[values]#, mean more to us and our customers than
+[inner]#link:../../values[values]#, mean more to us and our customers than
 anything else.
 
 == 1. Philosophy
@@ -67,11 +67,11 @@ you will use in your daily work with +Fluid Attacks+.
 == 3. Recommendations
 
 . When solving +programming+ challenges,
-we recommend [button]#link:https://www.codeabbey.com/[Codeabbey]#.
+we recommend [inner]#link:https://www.codeabbey.com/[Codeabbey]#.
 Also, we suggest using a language that is not widely used.
 
 . When solving +ctf-hacking+ challenges,
-we recommend [button]#link:https://www.root-me.org/?lang=en[Root Me]#.
+we recommend [inner]#link:https://www.root-me.org/?lang=en[Root Me]#.
 
 . After solving a challenge, immediately submit your answer.
 Do not save your answers to send later as a larger group submission.
@@ -94,7 +94,7 @@ who are working in the same stage that you are,
 to discuss questions or issues you may have.
 
 . Request permission to access the +Git Training+ repository by filling out this
-[button]#link:https://fluidattacks.com/forms/access[form]#.
+[inner]#link:https://fluidattacks.com/forms/access[form]#.
 
 . In the +Repo Access Message+ field, paste the following message:
 +
@@ -111,7 +111,7 @@ ____________________________________________________________________
 . Complete +three (3)+ +ctf-hacking+ challenges
 
 . Request permission to access the +Writeups+ repository by filling out this
-[button]#link:https://fluidattacks.com/forms/access[form]#.
+[inner]#link:https://fluidattacks.com/forms/access[form]#.
 This time around, the Repo Access Message field should have the following:
 Request developer permissions to the +Writeups+ repository through this
 .
@@ -148,7 +148,7 @@ In all cases, the email address for these steps is: careers@autonomicmind.com
 
 If you were removed from the challenge due to circumstances 1, 2 or 3,
 you may apply again, at any time, and start the process over by clicking
-[button]#link:../../../../forms/aplicacion[here]#
+[inner]#link:../../../../forms/aplicacion[here]#
 If your removal was a result of circumstance 4 or 5
 you are not eligible for any future retry.
 
@@ -210,7 +210,7 @@ to all solutions submitted. We use:
 Now that you know all the rules
 and have a general understanding
 of why these challenges are important,
-you can proceed to the [button]#link:https://gitlab.com/fluidattacks/writeups/wikis/Submission[Submission guide]#
+you can proceed to the [inner]#link:https://gitlab.com/fluidattacks/writeups/wikis/Submission[Submission guide]#
 and start posting your solutions. Good luck!
 
 == 10. keywords

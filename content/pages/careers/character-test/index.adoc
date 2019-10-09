@@ -23,7 +23,7 @@ we ask that you please follow the following instructions:
 . Follow the link that will be sent to you via email
 once you finish the previous states.
 +
-Or follow this [button]#link:https://fluidattacks.com/forms/profile[link]#
+Or follow this [inner]#link:https://fluidattacks.com/forms/profile[link]#
 . Follow the instructions on screen,
 . Once you are registered
 you can take the test in 8 minutes.

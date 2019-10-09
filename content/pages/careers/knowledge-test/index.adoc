@@ -16,7 +16,7 @@ To access, complete, and submit the exam do the following:
 
 == Create an account
 
-. Click on link. [button]#link:https://fluidattacks.com/courses/login/index.php[link]#
+. Click on link. [inner]#link:https://fluidattacks.com/courses/login/index.php[link]#
 . Click on *+CREATE NEW ACCOUNT+* and fill in the form.
 Please note that your username is case-sensitive and must be
 in lowercase letters only.
@@ -31,7 +31,7 @@ If it is not there, contact us.
 
 == Install SafeExamBrowser
 
-. Download the following [button]#link:../../files/fluidexams.zip[security software]#
+. Download the following [inner]#link:../../files/fluidexams.zip[security software]#
 to access the exam.
 [IMPORTANT]
 Please, finish reading all the steps before you attempt to open the program.

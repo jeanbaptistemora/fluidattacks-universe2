@@ -15,12 +15,12 @@ If you have any questions about any item,
 do not hesitate to email us at careers@autonomicmind.com.
 
 To take part in the process,
-fill out the following [button]#link:https://fluidattacks.com/forms/seleccion[form]#.
+fill out the following [inner]#link:https://fluidattacks.com/forms/seleccion[form]#.
 
 == The Company
 
 For more information about +Fluid Attacks+,
-please read our [button]#link:../../about-us/[About us]# section
+please read our [inner]#link:../../about-us/[About us]# section
 
 
 === Context
@@ -34,7 +34,7 @@ We do this to:
 ** Be objective, precise, and fair in the performance evaluation
 
 * At +Fluid Attacks+, we follow an ethics code
-which you can read by clicking [button]#link:../../values/[here]#
+which you can read by clicking [inner]#link:../../values/[here]#
 
 == The Selection Process
 

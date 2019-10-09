@@ -89,7 +89,7 @@ You might find the answer to your question is already here.
   If you still have problems send us an email via careers@autonomicmind.com.
 
 *I didn’t receive the attached file for data analysis. How do I get it?*::
-  Try downloading the file from [button]#link:../non-technical-challenges/hallazgos-open-data.tar.bz2[here]#.
+  Try downloading the file from [inner]#link:../non-technical-challenges/hallazgos-open-data.tar.bz2[here]#.
 
 *I ran out of time for the test. Can I get more time?*::
    If you have a valid reason
@@ -107,7 +107,7 @@ You might find the answer to your question is already here.
 
 *What should I put in my portfolio?*::
   You can find instructions and
-  advice for creating your portfolio [button]#link:../portfolio/[here]#.
+  advice for creating your portfolio [inner]#link:../portfolio/[here]#.
 
 *I do not have a VISA. What should I put in that field?*::
   This field is not mandatory.
@@ -223,7 +223,7 @@ new employees ask when they become part of our work team:
   The net salary will depend on your personal variables,
   such as the amount you want to contribute to retirement funds,
   and the number of dependents you declare for tax purposes, among others.
-  However, in the following [button]#link:http://www.elempleo.com/co/calculadora-salarial/[link]#
+  However, in the following [inner]#link:http://www.elempleo.com/co/calculadora-salarial/[link]#
   you can simulate an approximated value for your net salary.
   Enter the proposed salary in the first field (+Salario+).
   Then press +Calcular+.

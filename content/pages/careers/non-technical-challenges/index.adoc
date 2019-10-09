@@ -46,7 +46,7 @@ improve the implementation of the company's mission in our society:
 "Find all existing vulnerabilities and report them as soon as possible".
 
 The spreadsheet can be found in this
-[button]#link:hallazgos-open-data.tar.bz2[file]#
+[inner]#link:hallazgos-open-data.tar.bz2[file]#
 
 One conclusion must be drawn from each graph and
 a correspoding *concrete* managerial action,

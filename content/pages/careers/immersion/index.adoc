@@ -37,7 +37,7 @@ in completing the assignments.
 
 == 3. Terms
 
-. All [button]#link:../technical-challenges/#terms[terms]#
+. All [inner]#link:../technical-challenges/#terms[terms]#
 from the technical challenge stage apply.
 . Use the assigned tool in automatic mode
 to report all your work time.
@@ -69,10 +69,10 @@ you are required to work at your maximum level of productivity and commitment.
 == 4. Criteria
 
 . For the challenges,
-use the same [button]#link:../technical-challenges/#criteria[criteria]#
+use the same [inner]#link:../technical-challenges/#criteria[criteria]#
 listed in the challenge stage.
 . For the articles,
-use the same criteria defined in the [button]#link:../../style/[style guide]#.
+use the same criteria defined in the [inner]#link:../../style/[style guide]#.
 
 == 5. Cycles
 
@@ -124,7 +124,7 @@ write *one (1)* article for the blog by sending an +MR+
 to the link:https://gitlab.com/fluidattacks/web[web repository].
 
 . Repeat the previous steps until you complete the
-[button]#link:../immersion/#objectives[objectives]#.
+[inner]#link:../immersion/#objectives[objectives]#.
 
 . Read carefully the programming challenge requirements below:
 
