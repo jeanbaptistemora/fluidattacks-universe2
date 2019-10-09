@@ -5,7 +5,7 @@ import mandrill
 import rollbar
 
 from __init__ import FI_MANDRILL_API_KEY, FI_TEST_PROJECTS
-from app.dal import integrates_dal
+from app.domain import user as user_domain
 
 
 API_KEY = FI_MANDRILL_API_KEY
@@ -52,7 +52,7 @@ def _remove_test_projects(context, test_proj_list):
 
 
 def _get_recipient_first_name(email):
-    first_name = integrates_dal.get_user_first_name(email)
+    first_name = user_domain.get_data(email, 'first_name')
     if not first_name:
         first_name = email.split('@')[0]
     else:

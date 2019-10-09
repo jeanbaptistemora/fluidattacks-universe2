@@ -70,13 +70,12 @@ def update_access_token(email, token_data):
     return user_dal.update_user_attribute(email, access_token, 'access_token')
 
 
-def update_first_login(email):
-    return update_user_attribute(
-        str(email), get_current_date(), 'date_joined')
-
-
 def update_last_login(email):
     return update_user_attribute(str(email), get_current_date(), 'last_login')
+
+
+def update_multiple_user_attributes(email, data_dict):
+    return user_dal.update_multiple_user_attributes(email, data_dict)
 
 
 def update_user_attribute(email, data_attr, name_attr):

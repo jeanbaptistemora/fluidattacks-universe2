@@ -29,6 +29,12 @@ def remove_user_attribute(email, name_attribute):
         TABLE, primary_key, name_attribute)
 
 
+def update_multiple_user_attributes(email, data_dict):
+    primary_key = ['email', email.lower()]
+    return integrates_dal.add_multiple_attributes_dynamo(
+        TABLE, primary_key, data_dict)
+
+
 def update_user_attribute(email, data_attribute, name_attribute):
     primary_key = ['email', email.lower()]
     return integrates_dal.add_attribute_dynamo(

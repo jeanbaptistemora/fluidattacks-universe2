@@ -93,19 +93,6 @@ def update_user_data(email, username, first_name, last_name):
     return row
 
 
-def get_user_first_name(email):
-    """ Get the first name of a user. """
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT first_name FROM users WHERE email = %s'
-        cursor.execute(query, (email,))
-        row = cursor.fetchone()
-    if row:
-        first_name = row[0]
-    else:
-        first_name = ''
-    return first_name
-
-
 def is_in_database(email):
     """ Check if the user exists in DB. """
     with connections['integrates'].cursor() as cursor:

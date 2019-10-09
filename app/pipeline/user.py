@@ -17,6 +17,12 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
     strategy.session_set('first_name', first_name)
     strategy.session_set('last_name', last_name)
 
+    today = user_domain.get_current_date()
+    data_dict = {
+        'first_name': first_name,
+        'last_login': today,
+        'date_joined': today
+    }
     if user:
         if integrates_dal.has_complete_data(user):
             integrates_dal.update_user_login(user)
@@ -25,8 +31,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
             integrates_dal.update_user_data(email, username, first_name,
                                             last_name)
             integrates_dal.update_user_login(user)
-            user_domain.update_first_login(user)
-            user_domain.update_last_login(user)
+            user_domain.update_multiple_user_attributes(str(user), data_dict)
     else:
         mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
         name = first_name + ' ' + last_name
@@ -35,12 +40,11 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
             'mail_user': email,
         }
         send_mail_new_user(mail_to, context)
-        user_domain.update_last_login(email)
-        user_domain.update_first_login(email)
+        user_domain.update_multiple_user_attributes(email, data_dict)
         integrates_dal.create_user(email, username=username,
                                    first_name=first_name,
                                    last_name=last_name,
-                                   first_time="1")
+                                   first_time='1')
 
 
 def check_registered(strategy, details, backend, *args, **kwargs):
