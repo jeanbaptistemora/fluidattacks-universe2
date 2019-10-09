@@ -43,15 +43,10 @@ export const evidenceHasValidType: ((arg1: File, arg2: number) => boolean) =
   let RECORDS: number; RECORDS = 8;
   const fileType: string = `.${_.last(file.name.split("."))}`.toLowerCase();
 
-  if (evidenceType === ANIMATION) {
-    valid = fileType === ".gif";
+  if (evidenceType === ANIMATION || (_.includes(EVIDENCE, evidenceType))) {
+    valid = fileType === ".gif" || fileType === ".png";
     if (!valid) {
-      msgError(translate.t("proj_alerts.file_type_gif"));
-    }
-  } else if (_.includes(EVIDENCE, evidenceType)) {
-    valid = fileType === ".png";
-    if (!valid) {
-      msgError(translate.t("proj_alerts.file_type_png"));
+      msgError(translate.t("proj_alerts.file_type_evidence"));
     }
   } else if (evidenceType === EXPLOIT) {
     valid = fileType === ".py" || fileType === ".exp";

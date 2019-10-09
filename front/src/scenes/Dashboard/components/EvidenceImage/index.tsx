@@ -38,7 +38,12 @@ const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvide
     >
       {({ pristine, submitting }: InjectedFormProps): JSX.Element => (
         <React.Fragment>
-          <Field name={`${props.name}_filename`} id={props.name} component={fileInputField} />
+          <Field
+            name={`${props.name}_filename`}
+            id={props.name}
+            component={fileInputField}
+            accept="image/x-png,image/gif"
+          />
           {props.isDescriptionEditable ? renderDescriptionField(props.name) : undefined}
           <Button bsStyle="success" block={true} type="submit" disabled={pristine || submitting}>
             <FluidIcon icon="loading" />
