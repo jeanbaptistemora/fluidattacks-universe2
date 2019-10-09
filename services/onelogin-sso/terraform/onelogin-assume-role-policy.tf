@@ -1,6 +1,6 @@
 data "aws_iam_policy_document" "onelogin-assume-role-policy-data" {
   statement {
-    sid = "Onelogin SAML access"
+    sid = "OneloginSAMLAccess"
     effect = "Allow"
     actions = [
       "sts:AssumeRoleWithSAML"
@@ -18,12 +18,4 @@ data "aws_iam_policy_document" "onelogin-assume-role-policy-data" {
       ]
     }
   }
-}
-
-resource "aws_iam_policy" "onelogin-assume-role-policy" {
-  name        = "onelogin-assume-role"
-  path        = "/"
-  description = "Attach this policy to roles that you want to use with onelogin"
-
-  policy = data.aws_iam_policy_document.onelogin-assume-role-policy-data.json
 }
