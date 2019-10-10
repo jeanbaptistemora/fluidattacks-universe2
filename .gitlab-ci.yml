@@ -40,7 +40,7 @@ build:
         --dockerfile Dockerfile.builder
         --context .
         --destination "${CI_REGISTRY_IMAGE}:builder"
-        --cache true
+        --cache
         --cache-repo "${CI_REGISTRY_IMAGE}"/builder-cache
         --cleanup
         --verbosity warn
@@ -193,11 +193,23 @@ push-container:
         --build-arg BUILDER_IMAGE="${CI_REGISTRY_IMAGE}:builder"
         --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
         --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
-        --dockerfile Dockerfile.runner
         --context .
-        --destination "${CI_REGISTRY_IMAGE}:runner"
-        --destination "fluidattacks/asserts"
         --cleanup
+        --destination "${CI_REGISTRY_IMAGE}:runner"
+        --destination fluidattacks/asserts:light
+        --dockerfile Dockerfile.runner
+        --target light
+        --verbosity warn
+    - /kaniko/executor
+        --build-arg BUILDER_IMAGE="${CI_REGISTRY_IMAGE}:builder"
+        --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
+        --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
+        --context .
+        --cleanup
+        --destination "${CI_REGISTRY_IMAGE}:runner"
+        --destination fluidattacks/asserts
+        --dockerfile Dockerfile.runner
+        --target full
         --verbosity warn
   only:
     - master

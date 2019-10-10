@@ -6,9 +6,6 @@ Este modulo contiene las funciones necesarias para probar si el modulo de
 HTTP se encuentra adecuadamente implementado.
 """
 
-# standard imports
-from __future__ import print_function
-
 # 3rd party imports
 import pytest
 
@@ -44,6 +41,7 @@ def get_bwapp_cookies(cont_ip):
     if not http_session.is_auth:
         return {}
     return http_session.cookies
+
 
 #
 # Open tests

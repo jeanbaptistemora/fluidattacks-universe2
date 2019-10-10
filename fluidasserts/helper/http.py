@@ -9,12 +9,19 @@
 
 
 # standard imports
+import sys
+import time
+import textwrap
+import secrets
 import hashlib
+import unittest.mock
 from collections import OrderedDict
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, NoReturn
 
 # 3rd party imports
+import selenium.webdriver
 from bs4 import BeautifulSoup
+
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
@@ -340,3 +347,112 @@ class HTTPSession():
                     status=self.response.status_code,
                     headers=OrderedDict(self.response.headers.copy()),
                     sha256=sha256.hexdigest())
+
+
+class HTTPBot():
+    """HTTP Automation Bot."""
+
+    def __init__(self,
+                 developer_mode: bool = False,
+                 implicitly_wait: float = 15.0) -> NoReturn:
+        """
+        :class:`.HTTPBot` Constructor.
+
+        :param implicitly_wait: How many seconds will the Bot poll the
+            DOM when trying to find any element (or elements) not immediately
+            available.
+        :param developer_mode: When set to True you'll get usefull messages
+            to aid in the development of exploits, (it logs to console).
+        """
+        # Webdriver options
+        webdriver_options = selenium.webdriver.chrome.options.Options()
+        webdriver_options.headless = True
+        # bypass OS security model
+        webdriver_options.add_argument("--no-sandbox")
+        # disable /dev/shm (shared memory) usage
+        webdriver_options.add_argument("--disable-dev-shm-usage")
+
+        # Webdriver instance
+        self.driver = selenium.webdriver.Chrome(options=webdriver_options)
+        self.driver.implicitly_wait(implicitly_wait)
+
+        # Properties used later
+        self.bot_id: str = secrets.token_hex(4)
+        self.developer_mode: bool = developer_mode
+
+    def __enter__(self):
+        """Context manager for this class."""
+        return self
+
+    def __exit__(self, *kwargs):
+        """Context manager clean up function."""
+        self.driver.quit()
+
+    #
+    # Actions to perform
+    #
+
+    def visit(self, url: str):
+        """Visit a url."""
+        self.driver.get(url)
+        self._notify('visit', url)
+
+    def wait(self, seconds: float) -> NoReturn:
+        """Wait ``seconds`` seconds."""
+        self._notify('wait', seconds)
+        time.sleep(seconds)
+
+    #
+    # Interface to current state data
+    #
+
+    def get_cookie(self, name: str):
+        """Return a cookie in the current session."""
+        cookie = self.driver.get_cookie(name)
+        self._notify(f'get_cookie(name={name})', cookie)
+        return cookie
+
+    def get_cookies(self):
+        """Return all cookies in the current session."""
+        cookies = self.driver.get_cookies()
+        self._notify('get_cookies', cookies)
+        return cookies
+
+    def get_source(self) -> str:
+        """Return the current page source code."""
+        source_code: BeautifulSoup = \
+            BeautifulSoup(self.driver.page_source, features='html.parser')
+        self._notify('get_source', source_code.prettify())
+        return source_code
+
+    #
+    # Debuggers
+    #
+
+    def _notify(self, where: str, obj: str) -> NoReturn:
+        """Notify to stderr what's being done by the bot."""
+        if self.developer_mode:
+            if isinstance(obj, (tuple, list)):
+                text = '\n'.join(f'- {o}' for o in obj)
+            else:
+                text = str(obj)
+
+            print(*(
+                f'# ---',
+                f'# Bot[{self.bot_id}].{where}:',
+                f'#',
+                textwrap.indent(text=text, prefix='#  '),
+            ), sep='\n', file=sys.stderr)
+
+    def get_fillables(self) -> Tuple[dict]:
+        """Print a list of possible fields to fill."""
+        with unittest.mock.patch.object(self, 'developer_mode', False):
+            fillables: Tuple[dict, ...] = tuple(
+                {
+                    attr: tag.attrs.get(attr, None)
+                    for attr in ('id', 'name')
+                }
+                for tag in self.get_source()('input'))
+
+        self._notify('get_fillables', fillables)
+        return fillables

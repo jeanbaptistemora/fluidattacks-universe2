@@ -1,6 +1,6 @@
 ARG BUILDER_IMAGE
 
-FROM "${BUILDER_IMAGE}" as deps
+FROM "${BUILDER_IMAGE}" AS deps
 
 ARG CI_COMMIT_REF_NAME
 ARG CI_REPOSITORY_URL
@@ -20,7 +20,7 @@ RUN git clone --depth 1 \
     && cd /home/asserts \
     && scons dist
 
-FROM python:3.7-alpine3.9
+FROM python:3.7-alpine3.9 AS light
 
 WORKDIR /home
 COPY --from=deps /home/asserts/build/dist/* /home/
@@ -61,6 +61,19 @@ RUN apk update \
         libcrypto1.1 \
         libxslt-dev \
         curl \
+    && rm -rf \
+        /var/cache/apk/* \
+        /home/*
+
+FROM light as full
+
+RUN apk add --no-cache \
+        udev \
+        wget==1.20.3-r0 \
+        xvfb==1.20.3-r1 \
+        libexif==0.6.21-r3 \
+        chromium==72.0.3626.121-r0 \
+        chromium-chromedriver==72.0.3626.121-r0 \
     && rm -rf \
         /var/cache/apk/* \
         /home/*
