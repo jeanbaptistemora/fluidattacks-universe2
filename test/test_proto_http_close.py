@@ -67,6 +67,50 @@ def test_a1_sqli_close(get_mock_ip):
 
 
 @pytest.mark.parametrize('get_mock_ip', ['bwapp'], indirect=True)
+def test_a1_sqli_time_closed(get_mock_ip):
+    """App vulnerable a SQLi? per time."""
+    bwapp_cookie = get_bwapp_cookies(get_mock_ip)
+    bwapp_cookie['security_level'] = '2'
+    vulnerable_url = 'http://' + get_mock_ip + '/sqli_1.php'
+    unknown_url = 'http://0.0.0.0/sqli_1.php'
+    params_safe = {'title': "asserts", 'action': 'search'}
+    params_break = {'title': "asserts' or sleep(1)  or'", 'action': 'search'}
+    params_unknown = {'tile': "asserts", 'action': 'searc'}
+    assert http.has_sqli_time(
+        vulnerable_url,
+        vulnerable_url,
+        10,
+        args_safe=[
+            params_safe,
+        ],
+        args_break=[
+            params_break,
+        ],
+        kwargs_safe={
+            'cookies': bwapp_cookie
+        },
+        kwargs_break={
+            'cookies': bwapp_cookie
+        }).is_closed()
+    assert http.has_sqli_time(
+        vulnerable_url,
+        unknown_url,
+        10,
+        args_safe=[
+            params_safe,
+        ],
+        args_break=[
+            params_unknown,
+        ],
+        kwargs_safe={
+            'cookies': bwapp_cookie
+        },
+        kwargs_break={
+            'cookies': bwapp_cookie
+        }).is_unknown()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['bwapp'], indirect=True)
 def test_a1_os_injection_close(get_mock_ip):
     """App vulnerable a command injection?."""
     bwapp_cookie = get_bwapp_cookies(get_mock_ip)

@@ -1584,3 +1584,107 @@ def has_reverse_tabnabbing(url: str, *args, **kwargs) -> tuple:
                          specific=[parsed['href']])
 
     return session.get_tuple_result()
+
+
+@api(
+    risk=HIGH,
+    kind=DAST,
+    references=[
+        'https://www.owasp.org/index.php/SQL_Injection',
+        'https://www.acunetix.com/websitesecurity/sql-injection/'
+    ],
+    standards={
+        'CWE': '89',
+        'WASC': '19',
+        'CAPEC': '66',
+    },
+    examples=[
+        'https://www.w3schools.com/sql/sql_injection.asp',
+    ],
+    score={})
+@unknown_if(http.ConnError, http.ParameterError)
+def has_sqli_time(url_safe: str,
+                  url_break: str,
+                  time: int,
+                  args_safe: List = None,
+                  kwargs_safe: Dict = None,
+                  args_break: List = None,
+                  kwargs_break: Dict = None) -> tuple:
+    """
+    Check SQLi vulnerability by checking the delay of response.
+
+    Take an undamaged URL along with the optional parameters
+    of the class: `.HTTPSession`. and calculate the average response time.
+    Take an exploited URL with optional parameters
+    from: class: `.HTTPSession` and calculate the response time and then
+    compare the result with the average response time of the undamaged URL.
+
+    ### Sugestions:
+    - Use a [`sleep`][1] method in your attack.
+    - Use this method with stable connection network, a slow connection can
+    generate a False Positive.
+    - Use a perceptible time delay to prevent a False Positive.
+    [1]:https://cutt.ly/deiKvd1
+
+    :param url_safe: URL to test without SQLi.
+    :param url_break: URL to test with SQLi.
+    :param time: Delay of response.
+    :param args_safe: Optional arguments for :class:`.HTTPSession`.
+    :param kwargs_safe: Optional arguments for :class:`.HTTPSession`.
+    :param args_break: Optional arguments for :class:`.HTTPSession`.
+    :param kwargs_break: Optional arguments for :class:`.HTTPSession`.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    field: str = _get_field(kwargs_break)
+
+    is_vulnerable = False
+
+    times = []
+
+    for i in range(6):
+        try:
+            req = http.HTTPSession(url_safe, *args_safe, **kwargs_safe)
+        except (http.requests.HTTPError, http.ConnError,
+                http.ParameterError) as exc:
+            # we need at least 3 succesful requests to measure the avg
+            # if we are not able to collect them, mark the check as UNKONWN
+            if i > 2 and len(times) < 3:
+                raise exc
+        else:
+            times.append(req.response.elapsed.seconds)
+
+    avg_time = sum(times) / len(times)
+
+    if (not isinstance(kwargs_break, dict) and kwargs_break is not None) or (
+            not isinstance(kwargs_safe, dict) and kwargs_safe is not None):
+        raise TypeError('kwargs must be a Dict')
+
+    kwargs_break = kwargs_break or {}
+    kwargs_break.update({'timeout': time + (avg_time * 1.3)})
+
+    session_break = http.HTTPSession(
+        url_break, *args_break, **kwargs_break, request_at_instantiation=False)
+    session_break.set_messages(
+        source='HTTP/Response/Body',
+        msg_open=('This endpoint is vulnerable to SQLi using '
+                  'time delay technique'),
+        msg_closed=('This endpoint is not vulnerable to SQLi using '
+                    'time delay technique'))
+
+    try:
+        session_break.do_request()
+    except http.ConnError as exc:
+        if 'timed out' not in str(exc):
+            raise exc
+        is_vulnerable = True
+    else:
+        time_end = session_break.response.elapsed.seconds
+        is_vulnerable = time_end >= time and time_end > avg_time
+
+        if session_break.response.status_code >= 500:
+            return UNKNOWN, f'We got a {session_break.response.status_code} \
+                status code'
+
+    session_break.add_unit(is_vulnerable=is_vulnerable, specific=[field])
+
+    return session_break.get_tuple_result()
