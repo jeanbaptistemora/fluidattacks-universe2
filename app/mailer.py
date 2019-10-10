@@ -133,7 +133,7 @@ def send_mail_new_remediated(email_to, context):
 
 
 def send_mail_reject_draft(email_to, context):
-    _send_mail('deletedraftintegrates', email_to, context=context, tags=GENERAL_TAG)
+    _send_mail('unsubmitted_draft', email_to, context=context, tags=GENERAL_TAG)
 
 
 def send_mail_new_releases(email_to, context):

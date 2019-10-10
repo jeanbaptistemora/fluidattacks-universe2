@@ -546,7 +546,7 @@ def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_nam
 
 def reject_draft(draft_id, reviewer_email, project_name):
     draft_data = get_finding(draft_id)
-    result = False
+    success = False
 
     if 'releaseDate' not in draft_data:
         if 'reportDate' in draft_data:
@@ -561,11 +561,11 @@ def reject_draft(draft_id, reviewer_email, project_name):
             }
             current_history = draft_data.get('rejectionHistory', [])
 
-            result = finding_dal.update(draft_id, {
+            success = finding_dal.update(draft_id, {
                 'report_date': None,
                 'rejection_history': current_history.append(rejection_dict)
             })
-            if result:
+            if success:
                 send_draft_reject_mail(
                     draft_id, project_name, draft_data['analyst'],
                     draft_data['finding'], reviewer_email)
@@ -574,7 +574,7 @@ def reject_draft(draft_id, reviewer_email, project_name):
     else:
         raise AlreadyApproved()
 
-    return result
+    return success
 
 
 def send_finding_delete_mail(
