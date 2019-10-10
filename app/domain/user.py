@@ -35,6 +35,17 @@ def get_data(email, attr):
     return data
 
 
+def get_project_access(email, project_name):
+    has_access_attr = user_dal.get_project_access(email, project_name)
+    resp = False
+    if has_access_attr and has_access_attr[0].get('has_access'):
+        resp = True
+    else:
+        # User without project access
+        pass
+    return resp
+
+
 def get_user_attributes(email, data):
     """ Get attributes of a user. """
     return user_dal.get_user_attributes(email, data)
@@ -76,6 +87,10 @@ def update_access_token(email, token_data):
 
 def update_last_login(email):
     return update_user_attribute(str(email), get_current_date(), 'last_login')
+
+
+def update_project_access(email, project_name, access):
+    return user_dal.update_project_access(email, project_name, access)
 
 
 def update_multiple_user_attributes(email, data_dict):

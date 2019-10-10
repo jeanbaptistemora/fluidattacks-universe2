@@ -28,7 +28,7 @@ def has_access_to_project(user, project_name, rol):
     """ Verify if the user has access to a project. """
     if rol == 'admin':
         return True
-    return integrates_dal.has_access_to_project(user, project_name)
+    return user_domain.get_project_access(user, project_name)
 
 
 def has_access_to_finding(user, finding_id, role):

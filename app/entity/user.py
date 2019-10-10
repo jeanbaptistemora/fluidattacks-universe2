@@ -231,6 +231,7 @@ def create_new_user(context, new_user_data, project_name, email):
         integrates_dal.add_user_to_project_dynamo(project_name.lower(),
                                                   email.lower(), role)
     if integrates_dal.add_access_to_project(email, project_name):
+        user_domain.update_project_access(email, project_name, True)
         description = project_domain.get_description(project_name.lower())
         project_url = \
             'https://fluidattacks.com/integrates/dashboard#!/project/' \
