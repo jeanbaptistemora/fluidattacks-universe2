@@ -1,6 +1,6 @@
-:slug: do-we-need-a-purple-team/
+:slug: purple-team/
 :date: 2019-10-04
-:category: documentation
+:category: politics
 :subtitle: How can we understand purple teams?
 :tags: security, testing
 :image: cover.png
