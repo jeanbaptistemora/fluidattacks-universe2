@@ -44,7 +44,7 @@ const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvide
             component={fileInputField}
             accept="image/x-png,image/gif"
           />
-          {props.isDescriptionEditable ? renderDescriptionField(props.name) : undefined}
+          {props.isDescriptionEditable ? renderDescriptionField(props.name) : <p>{props.description}</p>}
           <Button bsStyle="success" block={true} type="submit" disabled={pristine || submitting}>
             <FluidIcon icon="loading" />
             &nbsp;{translate.t("search_findings.tab_evidence.update")}
