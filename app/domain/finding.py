@@ -16,8 +16,11 @@ from __init__ import (
 )
 from app import util
 from app.dal.helpers.formstack import FormstackAPI
-from app.dal import integrates_dal, finding as finding_dal, user as user_dal
-from app.domain import project as project_domain, vulnerability as vuln_domain
+from app.dal import integrates_dal, finding as finding_dal
+from app.domain import (
+    project as project_domain, user as user_domain,
+    vulnerability as vuln_domain
+)
 from app.dto.finding import FindingDTO
 from app.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
@@ -150,7 +153,7 @@ def get_email_recipients(project_name, comment_type):
     if comment_type == 'observation':
         approvers = FI_MAIL_REVIEWERS.split(',')
         analysts = [user[0] for user in project_users
-                    if user_dal.get_role(user[0]) == 'analyst']
+                    if user_domain.get_data(user[0], 'role') == 'analyst']
 
         recipients += approvers
         recipients += analysts

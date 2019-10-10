@@ -113,7 +113,7 @@ def has_phone_number(email):
 
 def get_user_role(user_data):
     if user_data.get('jti'):
-        role = user_domain.get_role(user_data['user_email'])
+        role = user_domain.get_data(user_data['user_email'], 'role')
     else:
         role = user_data['user_role']
     return role

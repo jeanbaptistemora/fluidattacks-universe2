@@ -20,7 +20,7 @@ from app.domain import (
     comment as comment_domain, finding as finding_domain,
     vulnerability as vuln_domain
 )
-from app.domain.user import get_role
+from app.domain import user as user_domain
 from app.dto.finding import FindingDTO, get_project_name
 from app.entity.vulnerability import Vulnerability
 from app.services import get_user_role, is_customeradmin
@@ -695,9 +695,9 @@ class UpdateTreatment(Mutation):
                                  for user in integrates_dal.get_project_users(project_name)
                                  if user[1] == 1]
                 customer_roles = ['customer', 'customeradmin']
-                customer_users = [user
-                                  for user in project_users
-                                  if get_role(user) in customer_roles]
+                customer_users = \
+                    [user for user in project_users
+                     if user_domain.get_data(user, 'role') in customer_roles]
                 if parameters.get('treatment_manager') not in customer_users:
                     raise GraphQLError('Invalid treatment manager')
             else:

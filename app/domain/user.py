@@ -9,6 +9,15 @@ def add_phone_to_user(email, phone):
     return user_dal.update_user_attribute(email, phone, 'phone')
 
 
+def assign_role(email, role):
+    if (role != 'analyst' and role != 'customer' and
+            role != 'admin' and role != 'customeradmin'):
+        resp = False
+    else:
+        resp = update_user_attribute(email, role, 'role')
+    return resp
+
+
 def get_current_date():
     tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
@@ -24,11 +33,6 @@ def get_data(email, attr):
         # User not found or without attribute
         pass
     return data
-
-
-def get_role(email):
-    """ Get the role of a user. """
-    return user_dal.get_role(email)
 
 
 def get_user_attributes(email, data):

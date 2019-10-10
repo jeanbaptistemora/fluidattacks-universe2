@@ -56,7 +56,7 @@ class User(ObjectType):
         self.organization = organization.title()
         self.responsibility = has_responsibility(project_name, user_email)
         self.phone_number = has_phone_number(user_email)
-        user_role = user_domain.get_role(user_email)
+        user_role = user_domain.get_data(user_email, 'role')
 
         if is_customeradmin(project_name, user_email):
             self.role = 'customer_admin'
@@ -209,9 +209,11 @@ def create_new_user(context, new_user_data, project_name, email):
         integrates_dal.register(email)
         user_domain.register(email)
         integrates_dal.assign_role(email, role)
+        user_domain.assign_role(email, role)
         integrates_dal.assign_company(email, organization.lower())
     elif user_domain.is_registered(email):
         integrates_dal.assign_role(email, role)
+        user_domain.assign_role(email, role)
     if responsibility and len(responsibility) <= 50:
         integrates_dal.add_project_access_dynamo(email, project_name,
                                                  'responsibility',
@@ -323,6 +325,8 @@ class EditUser(Mutation):
                 and modified_user_data['role'] in ['customer', 'customeradmin']):
             if integrates_dal.assign_role(modified_user_data['email'],
                                           modified_user_data['role']) is None:
+                user_domain.assign_role(
+                    modified_user_data['email'], modified_user_data['role'])
                 modify_user_information(info.context, modified_user_data,
                                         project_name, user_data['user_email'])
                 success = True
