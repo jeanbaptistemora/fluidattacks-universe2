@@ -534,16 +534,20 @@ def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_nam
     recipients = FI_MAIL_REVIEWERS.split(',')
     recipients.append(discoverer_email)
 
+    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
+    email_context = {
+        'admin_mail': reviewer_email,
+        'analyst_mail': discoverer_email,
+        'draft_url': '{}/project/{}/drafts/{}/description'.format(
+            base_url, project_name, draft_id),
+        'finding_id': draft_id,
+        'finding_name': finding_name,
+        'project': project_name
+    }
     email_send_thread = threading.Thread(
         name='Reject draft email thread',
         target=send_mail_reject_draft,
-        args=(recipients, {
-            'project': project_name,
-            'analyst_mail': discoverer_email,
-            'finding_name': finding_name,
-            'admin_mail': reviewer_email,
-            'finding_id': draft_id,
-        }))
+        args=(recipients, email_context))
     email_send_thread.start()
 
 
