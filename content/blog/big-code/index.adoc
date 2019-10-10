@@ -17,15 +17,15 @@
 = Big Code
 
 In our
-link:../tags/machine-learning[Machine Learning (+ML+) for secure code series]
+[inner]#link:../tags/machine-learning[Machine Learning (+ML+) for secure code series]#
 the _mantra_ has always been the same:
 to figure out how to leverage the power of +ML+
 to detect security vulnerabilities in source code,
-regardless of the link:../crash-course-machine-learning[technique],
-be it link:../deep-hacking[deep learning],
-link:../exploit-code-graph[graph mining],
-link:../natural-code[natural language processing], or
-link:../anomaly-serial-killer-doll[anomaly detection].
+regardless of the [inner]#link:../crash-course-machine-learning[technique]#,
+be it [inner]#link:../deep-hacking[deep learning]#,
+[inner]#link:../exploit-code-graph[graph mining]#,
+[inner]#link:../natural-code[natural language processing]#, or
+[inner]#link:../anomaly-serial-killer-doll[anomaly detection]#.
 
 In this article we present a new player in the field:
 link:https://www.deepcode.ai/[DeepCode],
@@ -211,14 +211,14 @@ at least 29 different vulnerabilities have been reported in +DVNA+.
 You can see a
 link:https://gitlab.com/fluidattacks/writeups/blob/master/vbd/dvna/results-toe.md[report]
 on manual testing vs the +LGTM+
-link:../oracle-code[code-as-data] tool in there, too,
+[inner]#link:../oracle-code[code-as-data]# tool in there, too,
 where it is quite clear that tool misses most of the vulnerabilities as well.
 
 OK, now for a more realistic test,
 let's try running +DeepCode+ on some of our own repos, namely,
-link:../../products/integrates[Integrates],
+[inner]#link:../../products/integrates[Integrates]#,
 our platform for vulnerability centralization and management and
-link:../../products/asserts[Asserts],
+[inner]#link:../../products/asserts[Asserts]#,
 our vulnerability automation framework.
 Both are
 link:https://gitlab.com/fluidattacks[open-source],
@@ -271,11 +271,11 @@ will be taken care of.
 
 Once again, this confirms the other _mantra_
 we have held in this
-link:../tags/machine-learning[Machine Learning (+ML+) series],
+[inner]#link:../tags/machine-learning[Machine Learning (+ML+) series]#,
 but also
-link:../replaced-machines/[elsewhere]
-link:../../services/differentiators/#method[in the]
-link:../importance-pentesting/[site].
+[inner]#link:../replaced-machines/[elsewhere]#
+[inner]#link:../../services/differentiators/#method[in the]#
+[inner]#link:../importance-pentesting/[site]#.
 Automated tools,
 even +ML+-powered ones,
 while they might have the potential to do

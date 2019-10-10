@@ -213,12 +213,12 @@ and that sh*t happens from time to time.
 
 We invite you to check our services
 if you still don’t know about them.
-We offer link:../../services/continuous-hacking/[Continuous Hacking],
+We offer [inner]#link:../../services/continuous-hacking/[Continuous Hacking]#,
 a service that provides a constant review of your source code
 and applications, looking for vulnerabilities
 (allowing the develop team to focus only on the development),
 as well as the tracking of the found weaknesses.
-The service leverages on link:../../products/integrates[Integrates],
+The service leverages on [inner]#link:../../products/integrates[Integrates]#,
 our product for Vulnerability Management.
 +Integrates+ is a critical component of our value proposition.
 We know +Integrates+ is not yet a front runner.

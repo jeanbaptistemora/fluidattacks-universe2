@@ -256,7 +256,7 @@ activated, admin FROM users;#
 
 Then we get the most of the users' info
 (passwords are hashed, but can be
-link:../storing-password-safely/[recovered]).
+[inner]#link:../storing-password-safely/[recovered]#).
 
 .Succesful manual +SQL+ injection
 image::scr-succesful-sqli.png["bWAPP SQL injection screenshot showing passwords"]

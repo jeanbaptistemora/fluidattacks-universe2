@@ -59,7 +59,7 @@ the amount of +IoT+ devices will increase considerably.
 But we can mitigate some risks from now,
 by applying a system hardening,
 something as simple as changing the default credentials,
-and using link:../requiem-password/[secure passwords],
+and using [inner]#link:../requiem-password/[secure passwords]#,
 could prevent an +IoT+ attack.
 
 == Companies in the Cloud
@@ -99,7 +99,7 @@ the lack of knowledge, or the negligence
 regarding the infrastructure settings
 can directly impact your company.
 A weak +AWS+ configuration can be detected using automated tools.
-link:../../products/asserts/[Asserts], one of our products
+[inner]#link:../../products/asserts/[Asserts]#, one of our products
 can detect these flaws,
 using the link:https://fluidattacks.com/asserts/fluidasserts.cloud.aws.cloudtrail/[+AWS Cloudtrail module+].
 However another percentage of the leakages
@@ -114,7 +114,7 @@ At +Fluid Attacks+ we have all our infrastructure as code.
 We use link:https://aws.amazon.com/s3/[+AWS S3+]
 as cloud computing service provider,
 link:https://www.terraform.io/[+terraform+] and link:https://www.docker.com/[+docker+]
-to configure and link:../../events/burn-the-datacenter/[regenerate our datacenter].
+to configure and [inner]#link:../../events/burn-the-datacenter/[regenerate our datacenter]#.
 We apply infrastructure hardening by using link:https://www.hashicorp.com/blog/why-we-need-dynamic-secrets[ephemereal secrets]
 in a serverless approach.
 We take security very serious, since it's our value promise.
@@ -125,25 +125,25 @@ Machine Learning, Neural Networks
 and Artificial Intelligence ,in general,
 has demonstrated to have several applications,
 and cybersecurity is not the exception.
-This topic has been widely addressed on link:../tags/machine-learning/[several blog entries],
+This topic has been widely addressed on [inner]#link:../tags/machine-learning/[several blog entries]#,
 for this reason, I won't go any further,
 instead I would like to resume +Fluid Attacks'+
 panorama about Machine learning in the cybersecurity field.
 
 At +Fluid Attacks+ we do not discourage
 the use of automated tools in security tests,
-we even have our own link:../../products/commands/[custom cyberweapon]
+we even have our own [inner]#link:../../products/commands/[custom cyberweapon]#
 that we use in some of our tests.
 However, a real security issue comes out
 when only automated tools
 are used to perform security tests,
 since these tools can report false positives,
 (for example, in the case of neural networks,
-some inputs can link:../fool-machine/[fool] the entire algorithm)
+some inputs can [inner]#link:../fool-machine/[fool]# the entire algorithm)
 and do not replace human malice
-to correlate vulnerabilities and link:../importance-pentesting/[create more complex attack vectors].
+to correlate vulnerabilities and [inner]#link:../importance-pentesting/[create more complex attack vectors]#.
 We see the machine learning emerging technologies more as tools
-rather than the holy grail in cybersecurity that will link:../replaced-machines/[replace human hackers].
+rather than the holy grail in cybersecurity that will [inner]#link:../replaced-machines/[replace human hackers]#.
 These tools can help our analysts to decide where to look first,
 what portions of code may have vulnerabilities
 and require further attention,

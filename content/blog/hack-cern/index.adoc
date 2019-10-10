@@ -83,7 +83,7 @@ We wanted to know more about +ML+ in his work, so we asked him.
  with an accuracy of +99%+ and less than +0.06%+ of false positives.”
 
 Impressive.
-We see a link to what we shared days ago on link:../seek-chaos/[antifragility ]
+We see a link to what we shared days ago on [inner]#link:../seek-chaos/[antifragility ]#
 and this cutting-edge work.
 By constant training and exposure to stressors,
 the framework makes itself better and better (just like lifting weights).
@@ -148,8 +148,8 @@ is something very likely to happen soon.
 
 +IoT+ weaknesses and leakage of sensitive information (of course!)
 are well under our scope.
-We provide link:../../services/continuous-hacking/[Continuous hacking],
-as well as link:../../services/one-shot-hacking/[One-shot hacking].
+We provide [inner]#link:../../services/continuous-hacking/[Continuous hacking]#,
+as well as [inner]#link:../../services/one-shot-hacking/[One-shot hacking]#.
 If you have +IoT+ devices deployed on your premises,
 we can help you identifying attacks vectors,
 as well as providing ways to increase their security.
@@ -158,7 +158,7 @@ We can help you to protect better your sensitive information.
 Our services rely on highly-skilled security analysts
 as well as on technology designed to deliver real value to your company.
 But, we go further.
-link:../../contact-us/[Get in touch] so we can discuss how we can help you.
+[inner]#link:../../contact-us/[Get in touch]# so we can discuss how we can help you.
 
 We continue our conversation with Andrés.
 

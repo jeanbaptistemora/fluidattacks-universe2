@@ -141,7 +141,7 @@ and his team found to lower mortality rates in +ICUs+:
 using checklists.
 However, we go some steps further:
 
-* We are capable of [button]#link:../../services/continuous-hacking/[continuously hacking]# enterprise-level systems.
+* We are capable of [inner]#link:../../services/continuous-hacking/[continuously hacking]# enterprise-level systems.
 This is like a smart checklist.
 As this is continuous, our services can detect small changes
 that could pose risks to your business.
@@ -153,16 +153,16 @@ They think and work all the time on how your system's flaws
 can be combined to configure attack vectors others cannot identify.
 
 * We are also capable of assessing valuable +IT+
-and information assets [button]#link:../../services/one-shot-hacking/[in one shot]#.
+and information assets [inner]#link:../../services/one-shot-hacking/[in one shot]#.
 Again, we rely on _"smart"_ checklists.
 
 * We automate almost everything we already know.
-[button]#link:../../products/asserts/[Asserts]# is the product we have to assess
+[inner]#link:../../products/asserts/[Asserts]# is the product we have to assess
 how customers' systems are, quickly.
 It is like using a smart checklist,
 fed by all of our knowledge and experience.
 
-* All that we do gets stored, described, and tracked in [button]#link:../../products/integrates/[Integrates]#,
+* All that we do gets stored, described, and tracked in [inner]#link:../../products/integrates/[Integrates]#,
 our Vulnerability Management Platform.
 +Integrates+ makes it easier for our customers to keep track
 of their security weaknesses as well as their fixes performed.
@@ -174,8 +174,8 @@ as our work is proactive, not reactive.
 With us, you don't have to wait to be hacked for real,
 and then discuss how to improve for the future.
 We help you to anticipate those complications,
-so you are better prepared, so you get more link:../seek-chaos/[antifragile].
+so you are better prepared, so you get more [inner]#link:../seek-chaos/[antifragile]#.
 
 Do you want to share your thoughts?
-link:../../contact-us/[Do get in touch with us!]
+[inner]#link:../../contact-us/[Do get in touch with us!]#
 We can help.

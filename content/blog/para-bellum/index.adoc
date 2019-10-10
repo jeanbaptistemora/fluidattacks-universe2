@@ -178,7 +178,7 @@ where we could "hold" the `PDF` in balance,
 besides being the value with more repetitions
 if we repeatedly draw numbers from such a distribution:
 
-.Expected value of a link:../hit-miss/[beta distribution]. Via link:https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Beta_first_moment.svg/220px-Beta_first_moment.svg.png[Wikimedia].
+.Expected value of a [inner]#link:../hit-miss/[beta distribution]#. Via link:https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Beta_first_moment.svg/220px-Beta_first_moment.svg.png[Wikimedia].
 image::beta-mean.png[Expected value of a beta distribution]
 
 The `TVaR` is thus the expected value of the loss,
@@ -192,7 +192,7 @@ image::tvar.png[Illustration of VaR and TVaR]
 
 In our case, since we are mainly interested
 in cybersecurity risk, which we quantify
-via [button]#link:../monetizing-vulnerabilities/[simulations]#,
+via [inner]#link:../monetizing-vulnerabilities/[simulations]#,
 we can always re-run them and
 aggregate the results differently
 in order to obtain the density function and

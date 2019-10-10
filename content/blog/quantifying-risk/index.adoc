@@ -150,7 +150,7 @@ actually introducing noise or error.
 
 The ultimate goal will be
 to perform a simulation of random events, also known as
-[button]#link:../monetizing-vulnerabilities/[Monte Carlo simulations]#.
+[inner]#link:../monetizing-vulnerabilities/[Monte Carlo simulations]#.
 This type of simulation runs many times on single events,
 and their happening or not happening is based on a
 link:https://www.investopedia.com/terms/p/probabilitydistribution.asp[probability distribution],
@@ -171,7 +171,7 @@ a point where it can be done consistently and accurately.
 Even if the estimates are completely wrong,
 the good thing is that they can be further refined by
 a simple rule from basic probability theory:
-[button]#link:../updating-belief/[Bayes rule]#.
+[inner]#link:../updating-belief/[Bayes rule]#.
 It involves the prior probabilities (i.e., our estimates or initial beliefs)
 and the posterior probabilities,
 the ones computed after observing a certain piece of evidence.
@@ -180,7 +180,7 @@ Without going into details,
 which we will leave for the next articles,
 it can be shown that, from five expert inputs,
 including the probability of a successful
-[button]#link:../importance-pentesting/[penetration test]#,
+[inner]#link:../importance-pentesting/[penetration test]#,
 and the probability of remotely exploitable vulnerabilities
 when the pen test is positive, that in that case, the
 probability of suffering a major data breach can go
@@ -191,7 +191,7 @@ regarding the value of information.
 
 Later we will also discuss more advanced methods
 based on Bayes rule such as
-[button]#link:../hit-miss/[iteratively adjusting distributions]#,
+[inner]#link:../hit-miss/[iteratively adjusting distributions]#,
 which allows making forecasts with very scarce data, and
 decomposing probabilities with many conditions.
 
@@ -201,7 +201,7 @@ This article merely pretended to be an introduction to
 the whole slew of methods that exist in other fields
 to estimate risk, uncertainty and the unknown,
 but have not been adopted in the field of cybersecurity.
-In [button]#link:../tags/risk[upcoming articles]#,
+In [inner]#link:../tags/risk[upcoming articles]#,
 we will show in more detail
 how some of these methods work.
 

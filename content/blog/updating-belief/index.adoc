@@ -24,7 +24,7 @@ to reduce that uncertainty, i.e., measuring.
 
 Why do we speak of "belief" and not "probability" here?
 Intuitively, when we have mentioned
-[inner]#link:../quantifying-risk/[probabilities],#
+[inner]#link:../quantifying-risk/[probabilities]#,
 we're meaning some belief or measure of uncertainty.
 For example, when giving a confidence interval,
 we say we _believe_ the actual value is

@@ -54,7 +54,7 @@ Oh yes, we have link:https://git-scm.com/[Git] commit messages.
 
 == Most Git repositories have messy logs
 
-Thanks to the link:../../services/continuous-hacking/[+Continuous Hacking+]
+Thanks to the [inner]#link:../../services/continuous-hacking/[+Continuous Hacking+]#
 service we offer at +Fluid Attacks+,
 we get to see +Git+ repositories
 from different organizations in several countries.
@@ -164,7 +164,7 @@ I want you to notice the three most important details to begin with:
 
 . Titles include keywords like +feat+, +front+, +fix+, +doc+...
 These tags will be essential for the Data Analytics efforts,
-as they will allow link:../crash-course-machine-learning/[algorithms]
+as they will allow [inner]#link:../crash-course-machine-learning/[algorithms]#
 to know what the purpose of the commit was.
 . Body section is usually itemized, with every item describing
 relevant changes made in the commit.

@@ -18,16 +18,16 @@
 = Parse and Conquer
 
 As you might have noticed, at `Fluid Attacks`
-we like link:../pars-orationis-secura/[parser combinators],
-link:../why-we-go-functional[functional programming],
-and, of course, link:../tags/python/[Python].
+we like [inner]#link:../pars-orationis-secura/[parser combinators]#,
+[inner]#link:../why-we-go-functional[functional programming]#,
+and, of course, [inner]#link:../tags/python/[Python]#.
 In the parser article,
 I showed you the essentials of `Pyparsing` and
 we also showed how to leverage its power
 to find `SQL` injections in a `PHP` application.
 Here we will extend those essentials to show you
 how we use parser combinators in
-link:../../products/asserts/[Asserts],
+[inner]#link:../../products/asserts/[Asserts]#,
 our vulnerability closure checker engine.
 Feel free to refer to that article
 for more details on how `Pyparsing` works,
@@ -42,7 +42,7 @@ For that, a regular expression will suffice.
 However, when what you need to do is more involved,
 such as looking for `SQL` injections,
 or analyzing source code for poor programming practices
-as per our link:../../rules/[Rules]
+as per our [inner]#link:../../rules/[Rules]#
 and recommendations,
 parsers are our tool of choice.
 This is one of the tasks at which `Asserts` excels,

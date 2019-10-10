@@ -46,7 +46,7 @@ to see the problem.
 These are vulnerable to
 link:https://en.wikipedia.org/wiki/Brute-force_attack[brute-forcing],
 link:https://en.wikipedia.org/wiki/Dictionary_attack[dictionary attacks],
-and link:../storing-password-safely[rainbow tables],
+and [inner]#link:../storing-password-safely[rainbow tables]#,
 to name a few of the ways they can be cracked.
 
 In order to avoid these situations,
@@ -74,7 +74,7 @@ leading to the reuse of the same weak ones,
 which makes the situation even worse.
 
 Possible solutions to the problem with many accounts are
-link:../multiple-credentials-begone/[Single-Sign-On services]
+[inner]#link:../multiple-credentials-begone/[Single-Sign-On services]#
 and password managers such as link:https://keepass.info/[Keepass].
 But these are sometimes infeasible,
 for example to login to your computer,

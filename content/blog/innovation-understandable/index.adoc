@@ -97,7 +97,7 @@ and artificial intelligence (+AI+) in cybersecurity, a hot topic right now.
   which are doing novel work at industry-level.
   *Fluid Attacks* invests resources in exploring and testing
   with stuff others don’t.
-  Fluid Attacks’ link:../../services/continuous-hacking/[Hacking]
+  Fluid Attacks’ [inner]#link:../../services/continuous-hacking/[Hacking]#
   services are proof of that.
   A couple of times, I’ve read on the news stuff *Fluid Attacks* began
   to prototype and test months before."
@@ -186,6 +186,6 @@ Nicolás mentioned about innovation at Corona, and we were curious to know more.
 
 Interested in our approach?
 Take a look at our
-link:../../services/continuous-hacking/[Continous Hacking]
-and link:../../services/one-shot-hacking/[One-shot]
+[inner]#link:../../services/continuous-hacking/[Continous Hacking]#
+and [inner]#link:../../services/one-shot-hacking/[One-shot]#
 Hacking services.

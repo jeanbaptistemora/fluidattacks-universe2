@@ -16,7 +16,7 @@
 
 = The infinite monkey fuzzer
 
-In our link:../fuzzy-bugs-online/[last entry],
+In our [inner]#link:../fuzzy-bugs-online/[last entry]#,
 we argued that fuzzing is both ``dumb'' and surprising.
 In this article,
 we'll continue exploring the possibilities of fuzzing.
@@ -61,7 +61,7 @@ we can count:
 
 * corpus distillation
 * program flow analysis
-* link:../symbolic-execution-mortals/[symbolic execution], and
+* [inner]#link:../symbolic-execution-mortals/[symbolic execution]#, and
 * static analysis.
 
 However, while these methods appear to be very promising,
@@ -297,7 +297,7 @@ link:http://lcamtuf.coredump.cx/afl/#bugs[``bug-o-rama trophy case''].
 
 So there you have it:
 as promised, a more in-depth follow-up
-to our link:../fuzzy-bugs-online/[initial invitation to fuzzing].
+to our [inner]#link:../fuzzy-bugs-online/[initial invitation to fuzzing]#.
 According to +AFL+'s father,
 this technique is both
 very powerful and underappreciated:

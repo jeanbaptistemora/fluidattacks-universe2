@@ -18,9 +18,9 @@
 
 If we have learned anything so far
 in our quest to understand how
-link:../crash-course-machine-learning/[machine learning] (`ML`)
+[inner]#link:../crash-course-machine-learning/[machine learning]# (`ML`)
 can be used to
-link:../machine-learning-hack[detect vulnerabilities] in source code,
+[inner]#link:../machine-learning-hack[detect vulnerabilities]# in source code,
 it's that what matters the most in this process
 are the different representations of source code
 which are later fed to the actual `ML` algorithms.
@@ -29,7 +29,7 @@ both semantic and syntactic information about the code.
 
 Also, that one `ML` technique seems particularly promising,
 but hardly exploited, namely,
-link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[deep learning].
+[inner]#link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[deep learning]#.
 Methods such as
 link:https://en.wikipedia.org/wiki/Recurrent_neural_network[Recurrent Neural Networks] (`RNN`),
 link:https://en.wikipedia.org/wiki/Convolutional_neural_network[Convolutional Neural Networks] (`CNN`),
@@ -60,15 +60,15 @@ the authors can leverage well-known patterns in
 previously identified vulnerabilites.
 Simply patterns that might trigger dangerous situations, such as
 the use of `malloc` and pointers in `C`,
-link:../pars-orationis-secura/#specifying-the-targets[concatenating user input],
-link:../stand-shoulders-giants/[importing flawed libraries], etc.
+[inner]#link:../pars-orationis-secura/#specifying-the-targets[concatenating user input]#,
+[inner]#link:../stand-shoulders-giants/[importing flawed libraries]#, etc.
 Anything that a regular
-link:../replaced-machines/[static analysis tool]
+[inner]#link:../replaced-machines/[static analysis tool]#
 might look for, but probably with false positives.
 They call these _Syntactic Vulnerability Candidates_ (`SyVC`).
 These can be either a single token (`malloc`)
 taken from the program's
-link:../oracle-code/#databases-out-of-programs[Abstract Syntax Tree]
+[inner]#link:../oracle-code/#databases-out-of-programs[Abstract Syntax Tree]#
 or a set of tokens (`memset(dataBuffer...`) or
 a whole statement which involves one of
 the mentioned danger situations.
@@ -83,7 +83,7 @@ our knowledge about what happens before and after
 executing a particular line of code.
 And where does this information lie?
 As we know by know, this can be found in the
-link:../exploit-code-graph/#combining-standard-code-representations[`Control Flow` and `Program Dependency` graphs].
+[inner]#link:../exploit-code-graph/#combining-standard-code-representations[`Control Flow` and `Program Dependency` graphs]#.
 Armed with these two graphs,
 one can find the whole "influence zone" of a particular token or line,
 with a technique they call _program slicing_.
@@ -153,7 +153,7 @@ out of the 126 different _kinds_ of vulnerabilities contained in the dataset:
 For this particular "experiment",
 the graph code representations were obtained with the tool
 link:http://mlsec.org/joern/[Joern] by Yamaguchi et al.,
-a sister project of link:../anomaly-serial-killer-doll/[`Chucky`] of sorts.
+a sister project of [inner]#link:../anomaly-serial-killer-doll/[`Chucky`]# of sorts.
 The `SeVC` to vector encoding was performed with
 link:https://radimrehurek.com/gensim/models/word2vec.html[`word2vec`].
 
@@ -173,7 +173,7 @@ well-established static detection tools such as mentioned `Checkmarx`.
 `SySeVR` was able to identify 15 vulnerabilities new to `NVD`
 in open source projects like `Thunderbird` and `Seamonkey`,
 all of which were, as it should,
-link:../vulnerability-disclosure/[responsibly disclosed].
+[inner]#link:../vulnerability-disclosure/[responsibly disclosed]#.
 Some of them got listed in `CVE`.
 Others were silently patched by their manufacturers.
 These are, of course, the most important product of this idea and

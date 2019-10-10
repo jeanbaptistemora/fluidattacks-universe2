@@ -104,7 +104,7 @@ image::found-vulnerabilities.png[Found vulnerabilities.]
 
 In the feature extraction step,
 they tried with two types of
-link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[Neural Networks],
+[inner]#link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[Neural Networks]#,
 link:https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53[CNN] (Convolutional Neural Network) and
 link:https://towardsdatascience.com/recurrent-neural-networks-d4642c9bc7ce[RNN]
 (Recurrent Neural Network).
@@ -123,7 +123,7 @@ image::model.png[Convolutional Neural Model]
 == Results
 
 This vulnerability detection approach using Data mining,
-link:../deep-hacking/[Deep and Machine Learning]
+[inner]#link:../deep-hacking/[Deep and Machine Learning]#
 added some advantages
 compared to lexical analyzers
 since it does not need to be compiled to work
@@ -145,7 +145,7 @@ whether there is a vulnerability present or not.
 
 == Conclusions
 
-Techniques of link:../deep-hacking/[Deep and Machine Learning]
+Techniques of [inner]#link:../deep-hacking/[Deep and Machine Learning]#
 are used in the solution of problems
 from a different perspective, the data.
 The previous article is an example that
@@ -161,9 +161,9 @@ they demonstrate the potential that this type of tools
 could have during the process of vulnerability disclosure.
 It is also important to evaluate
 the possibility of integrate them
-into the process of link:../../products/asserts/[continuous integration]
+into the process of [inner]#link:../../products/asserts/[continuous integration]#
 of software development to detect problems
-in link:../../services/continuous-hacking/[early stages] and that they go out
+in [inner]#link:../../services/continuous-hacking/[early stages]# and that they go out
 to latter phases with vulnerabilities within them.
 
 == References

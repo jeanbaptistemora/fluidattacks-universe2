@@ -18,7 +18,7 @@
 
 Years ago, we faced something odd in a project:
 a customer was putting pressure on us while performing a
-link:../../services/one-shot-hacking/[One-Shot Hacking].
+[inner]#link:../../services/one-shot-hacking/[One-Shot Hacking]#.
 The manager who hired us demanded preliminary results
 and made comments about how we should frame some of the findings, what to keep,
 and what to remove from the final report.
@@ -128,13 +128,13 @@ delivering value to our customers.
 We have been successful in helping them as independent and skilled auditors,
 typically performing the following:
 
-* link:../../services/continuous-hacking/[Continuous hacking],
+* [inner]#link:../../services/continuous-hacking/[Continuous hacking]#,
 a service to continuously check and improve robustness of defenses.
-* link:../../services/one-shot-hacking/[One-shot hacking],
+* [inner]#link:../../services/one-shot-hacking/[One-shot hacking]#,
 if a precise audit is needed.
 
 Our customers rely on
-link:../../products/integrates/[Integrates],
+[inner]#link:../../products/integrates/[Integrates]#,
 *Fluid Attacks's* vulnerability management platform,
 to keep track of weaknesses.
 They don’t have to worry much about managing findings on their IT assets;
@@ -154,7 +154,7 @@ We are genuinely independent auditors because
 we do not provide design and operation of defenses for the market.
 Although we provide expert advice and curated resources
 on how to better protect information assets (check
-link:../../products/rules/[Rules],
+[inner]#link:../../products/rules/[Rules]#,
 it's FREE).
 
 *Identify conflicts of interest and design environments to avoid them.*

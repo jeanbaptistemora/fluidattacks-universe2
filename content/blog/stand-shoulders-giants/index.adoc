@@ -15,7 +15,7 @@
 
 = Stand on the shoulders of giants
 
-In our link:../infinite-monkey-fuzzer/[last post],
+In our [inner]#link:../infinite-monkey-fuzzer/[last post]#,
 we reproduced the discovery of
 a vulnerability in +libpng+.
 But that is only a small library,
@@ -258,7 +258,7 @@ and produces a lot of false positives.
 
 You could try hiring such a service, and maybe
 even try to complement it with dynamic analysis tools
-like link:../infinite-monkey-fuzzer/[fuzzing] and debuggers,
+like [inner]#link:../infinite-monkey-fuzzer/[fuzzing]# and debuggers,
 but those have their own issues.
 
 But these are no replacement for good old-fashioned

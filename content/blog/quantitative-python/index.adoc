@@ -17,10 +17,10 @@
 
 = Quantitative Python
 
-Now that we have an understanding of  link:../quantifying-risk/[risk concepts]
-such as the link:../monetizing-vulnerabilities/[loss exceedance curve],
-link:../para-bellum/[value-at-risk], link:../updating-belief/[Bayes Rule],
-and link:../hit-miss/[fitting distributions],
+Now that we have an understanding of  [inner]#link:../quantifying-risk/[risk concepts]#
+such as the [inner]#link:../monetizing-vulnerabilities/[loss exceedance curve]#,
+[inner]#link:../para-bellum/[value-at-risk]#, [inner]#link:../updating-belief/[Bayes Rule]#,
+and [inner]#link:../hit-miss/[fitting distributions]#,
 we would like to have a realiable, extensible and preferably open tool
 to perform these computations.
 In the background, we have used a spreadsheet, which is hard to extend.
@@ -51,7 +51,7 @@ although it might not be the best fit for developing more involved code.
 Let us see how we can automate the generation of a loss exceedance curve (`LEC`)
 via Monte Carlo simulation.
 Here we will closely follow our
-link:../monetizing-vulnerabilities/[article on the subject],
+[inner]#link:../monetizing-vulnerabilities/[article on the subject]#,
 so as not to duplicate information.
 In that article, we wanted to find a distribution for losses
 based on expert estimations of occurrence likelihood
@@ -74,7 +74,7 @@ events_basic = pd.read_csv('events.csv')
 events_basic.head()
 ----
 
-.Data as imported into Jupyter like in our link:../monetizing-vulnerabilities/#input-data[Monte Carlo article].
+.Data as imported into Jupyter like in our [inner]#link:../monetizing-vulnerabilities/#input-data[Monte Carlo article]#.
 image::data-imported.png[Imported data]
 
 We declare an event happens if a number
@@ -218,7 +218,7 @@ plt.plot(edges[:-1], cumrev)
 
 And _voilà_, we get our loss exceedance curve as we sought:
 
-.Simple loss exceedance curve like in our link:../monetizing-vulnerabilities/#lec-simple[Monte Carlo article].
+.Simple loss exceedance curve like in our [inner]#link:../monetizing-vulnerabilities/#lec-simple[Monte Carlo article]#.
 image::lec-simple.png[Simple loss exceedance curve]
 
 We can repeat the procedure with a more moderate dataset
@@ -226,7 +226,7 @@ to obtain the inherent risk `LEC`,
 in the sense that the probabilities and impact CIs are lower.
 And finally, to obtain the risk tolerance curve,
 we give a few points obtained from interviewing someone in charge,
-as described in link:../monetizing-vulnerabilities/[the original article]
+as described in [inner]#link:../monetizing-vulnerabilities/[the original article]#
 and fitting a curve to it using link:https://www.scipy.org/[SciPy's]
 link:https://docs.scipy.org/doc/scipy/reference/interpolate.html[Interpolation functions:]
 
@@ -242,7 +242,7 @@ plt.plot(xint, fit(xint))
 
 All together in a single plot:
 
-.Loss exceedance curves like in our link:../monetizing-vulnerabilities/#lec-all[Monte Carlo article].
+.Loss exceedance curves like in our [inner]#link:../monetizing-vulnerabilities/#lec-all[Monte Carlo article]#.
 image::risk-curves-together.png[Risk curves together]
 
 == Risk measures
@@ -261,7 +261,7 @@ in its `Numpy`-array incarnation:
 Hence the `VaR`, according to this particular simulation
 is a little over $23 million.
 It is just as simple to obtain the
-link:../para-bellum/[tail value at risk].
+[inner]#link:../para-bellum/[tail value at risk]#.
 If we had a mathematical function for the distribution
 we would have to compute an integral in order to obtain it,
 but since what we have is a _discrete_ approximation to it,
@@ -301,7 +301,7 @@ once for each day of a fictitious month,
 compute the `VaR` and `tVaR` for each day
 and observe how they evolve:
 
-.Fabricated VaR monitoring example like in our link:../para-bellum/#var-monitor[VaR article].
+.Fabricated VaR monitoring example like in our [inner]#link:../para-bellum/#var-monitor[VaR article]#.
 image::monitor-var-time.png[Evolution of daily VaR in month]
 
 Since this was a made-up example and

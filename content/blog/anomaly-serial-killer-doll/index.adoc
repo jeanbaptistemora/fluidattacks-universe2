@@ -16,7 +16,7 @@
 
 = The anomaly serial killer doll
 
-In our link:../exploit-code-graph/[previous article]
+In our [inner]#link:../exploit-code-graph/[previous article]#
 we focused on _taint-style_ vulnerabilites, i.e.,
 those that are essentially due to the lack of input sanitization
 which allows _tainted_, user-controlled data
@@ -39,15 +39,15 @@ leading to a massive distribution of malware.
 But when taint-style vulnerabilities do occur, they are certainly _anomalies_.
 Thus, searching for this kind of situation
 (in mature software systems) is a problem
-for which link:../machine-learning-hack/#anomaly-detection-approaches[anomaly detection]
-link:../crash-course-machine-learning/#anomaly-detection-via-k-nearest-neighbors[machine learning] algorithms
+for which [inner]#link:../machine-learning-hack/#anomaly-detection-approaches[anomaly detection]#
+[inner]#link:../crash-course-machine-learning/#anomaly-detection-via-k-nearest-neighbors[machine learning]# algorithms
 lend themselves well.
 
 Given a function,
 `Chucky` finds all the sources and sinks referenced by it.
-If you've been following our link:../tags/machine-learning/[latest articles],
+If you've been following our [inner]#link:../tags/machine-learning/[latest articles]#,
 it should come as no surprise that the first step in the procedure
-is to perform a _robust_ link:../pars-orationis-secura/[parsing].
+is to perform a _robust_ [inner]#link:../pars-orationis-secura/[parsing]#.
 
 Notice the use of the word _robust_ above:
 as opposed to the strict parsing done by linters and compilers,
@@ -95,7 +95,7 @@ higher ranks to the rare ones, so as to strike a balance.
 The result of applying this, to every function in the code to analyze,
 is that every function is represented as a vector.
 Thus, distances between them can be computed,
-and its link:../crash-course-machine-learning/#anomaly-detection-via-k-nearest-neighbors[_k_ nearest neighbors]
+and its [inner]#link:../crash-course-machine-learning/#anomaly-detection-via-k-nearest-neighbors[_k_ nearest neighbors]#
 chosen as that function’s neighborhood.
 Intuitively, this should couple every function
 with the _k_ most similar functions in terms of the +API+ symbols they use.
@@ -108,7 +108,7 @@ we also need to know which checks or conditionals
 are really security-relevant, and which ones are just noise.
 This, however, is not so easy since we need to take into account
 the flow of data between variables,
-which sounds more like a job for link:../symbolic-execution-mortals[symbolic execution]
+which sounds more like a job for [inner]#link:../symbolic-execution-mortals[symbolic execution]#
 and taint analysis, which is in fact what +Chucky+ uses.
 
 .Tainted dependency graph (right) for the snippet to the left

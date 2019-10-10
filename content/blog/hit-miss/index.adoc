@@ -22,16 +22,16 @@ is that since major security breaches are relatively rare
 and hence, there cannot be enough data for
 proper statistical analysis.
 While this might be true in the classical sense,
-it is not if we adopt a link:../updating-belief/[Bayesian] mindset,
+it is not if we adopt a [inner]#link:../updating-belief/[Bayesian]# mindset,
 which basically amounts to being open to change
 your beliefs due to new evidence.
 
-Remember the link:../quantifying-risk[Rule of 5]?
+Remember the [inner]#link:../quantifying-risk[Rule of 5]#?
 It allows us to give a 90% confidence interval with only 5 samples.
 This is already a counterexample
 for the "not enough data" obstacle.
 Also recall how we used
-link:../monetizing-vulnerabilities[probability distributions]
+[inner]#link:../monetizing-vulnerabilities[probability distributions]#
 in order to run simulations on many possible scenarios
 and updated our beliefs based upon evidence,
 all based only on a few expertly estimated probabilities.
@@ -84,7 +84,7 @@ image::beta-dist.png[Beta distribution with different parameters]
 
 Wait: it gets better.
 The beta distribution can be updated with evidence and observations,
-just like we did when working with link:../updating-belief[Bayes Rule],
+just like we did when working with [inner]#link:../updating-belief[Bayes Rule]#,
 to give better estimations.
 Since alpha and beta represent hits and misses,
 and if we observe some breaches and some non-breaches,
@@ -165,7 +165,7 @@ better yet, a 90% confidence interval
 in which that probability lies.
 We can also use it to update our previous models.
 Remember that in our
-link:../monetizing-vulnerabilities[simulations]
+[inner]#link:../monetizing-vulnerabilities[simulations]#
 to obtain the Loss Exceedance Curve,
 we used a log-normal distribution simply
 because it was the best fit due to some
@@ -192,7 +192,7 @@ the iterative updating of a fitted beta distribution
 can aid your company in better understanding risk,
 and not only in cibersecurity,
 since nothing in this method is inherent to cybersecurity risk.
-Especially in combination with link:../monetizing-vulnerabilities/[random simulations],
+Especially in combination with [inner]#link:../monetizing-vulnerabilities/[random simulations]#,
 which turn these abstract distributions
 into concrete bills and coins.
 

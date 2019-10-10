@@ -68,7 +68,7 @@ image::speech-recogn.png[Trick speech recognition]
 
 So, how does one go about creating such an adversarial example?
 Recall that in our brief survey of machine learning techniques, we discussed
-link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[training neural networks].
+[inner]#link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[training neural networks]#.
 It is an iterative process in which
 you continuously adjust the _weight_ parameters of your black box (the +ANN+)
 until the outputs agree with the expected ones,

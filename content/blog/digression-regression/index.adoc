@@ -16,7 +16,7 @@
 
 = Digression to Regression
 
-After our link:../tags/risk[risk quantification series],
+After our [inner]#link:../tags/risk[risk quantification series]#,
 it should come as no surprise
 that we like numbers and measuring.
 However, when confronted with the question:
@@ -39,7 +39,7 @@ understand well is perhaps the simple linear regression.
 So let's start with that.
 Plus, _regression_ is a fundamentally different kind of task
 from the ones we have
-link:../crash-course-machine-learning/[discussed the most in the series],
+[inner]#link:../crash-course-machine-learning/[discussed the most in the series]#,
 which are _classification_ and _clustering_ tasks:
 Regression aims to predict a number taken from
 a continuum instead of answering "yes" or "no"

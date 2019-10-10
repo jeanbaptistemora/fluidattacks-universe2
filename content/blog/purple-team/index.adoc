@@ -48,9 +48,9 @@ Some of the highlights are <<r2, ^[3]^>>:
 and interactions between the Red and Blue teams.
 Along the process, they can generate recommendations, suggestions
 and improvements for both parties.
-In practice, if there are not link:../attack-no-announce/[well-defined cybersecurity objectives] <<r7, ^[4]^>>
+In practice, if there are not [inner]#link:../attack-no-announce/[well-defined cybersecurity objectives]# <<r7, ^[4]^>>
 and there are personal interests on the test outcome
-is likely that link:../conflict-interest/[a conflict of interest] appears.
+is likely that [inner]#link:../conflict-interest/[a conflict of interest]# appears.
 The organization can suffer conducted Pentest,
 tampering of pentesting outcomes,
 lack of blindspot detection <<r6, ^[5]^>>, among others.
@@ -174,6 +174,6 @@ of people who will mediate the relationship between the Red and Blue team.
 
 . [[r5]] link:https://www.swordshield.com/purple-team-assessment-service/[Purple team assessment service].
 
-. [[r6]] link:../conflict-interest/[A Conflict of Interest?].
+. [[r6]] [inner]#link:../conflict-interest/[A Conflict of Interest?]#.
 
-. [[r7]] link:../attack-no-announce/[Attacking Without Announce].
+. [[r7]] [inner]#link:../attack-no-announce/[Attacking Without Announce]#.

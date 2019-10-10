@@ -27,7 +27,7 @@ if you allow the _inception_ reference).
 
 == VaR
 
-link:../para-bellum/[Recall] that Value at Risk (+VaR+)
+[inner]#link:../para-bellum/[Recall]# that Value at Risk (+VaR+)
 measures the worst-case scenario in an uncertain return
 by telling us beyond how much our losses
 will most likely _not_ go,
@@ -64,8 +64,8 @@ what if that confidence is broken, i.e.,
 the `VaR` is breached? What can we expect?
 That's precisely the answer the
 _tail_ value at risk tries to answer.
-By using the link:../great-expectations/[expected value]
-of a link:../updating-belief/#mathematical-interlude[conditional probability],
+By using the [inner]#link:../great-expectations/[expected value]#
+of a [inner]#link:../updating-belief/#mathematical-interlude[conditional probability]#,
 it gives us, in a single number,
 what would be expected in case that the dreaded worst case scenario occurs.
 
@@ -100,7 +100,7 @@ image::../monetizing-vulnerabilities/roc.png[Return on control]
 The change in loss was obtained from two simulated scenarios:
 one with the control and another without it.
 Both were obtained by "averaging out", i.e.
-finding the link:../great-expectations/[expected value] of
+finding the [inner]#link:../great-expectations/[expected value]# of
 a simulated distribution for the loss.
 
 The Annualized Loss Expectancy (+ALE+) is related to such a computation,
@@ -146,9 +146,9 @@ and one of our favorites at that.
 The loss exceedance curve.
 We have already discussed it at length
 in our
-link:../quantifying-risk[introduction to quantitative risk],
-our general link:../monetizing-vulnerabilities[Monte Carlo simulation article],
-and gave an implementation in link:../quantitative-python[Quantitative Python].
+[inner]#link:../quantifying-risk[introduction to quantitative risk]#,
+our general [inner]#link:../monetizing-vulnerabilities[Monte Carlo simulation article]#,
+and gave an implementation in [inner]#link:../quantitative-python[Quantitative Python]#.
 In a nutshell, it is a graph that tells you
 the probability of losing a given amount or more,
 for any amount in a range.

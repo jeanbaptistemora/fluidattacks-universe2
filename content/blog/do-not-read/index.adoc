@@ -29,7 +29,7 @@ plenty of times motivated by surprising factors.
 That single click you made a few seconds ago is an example.
 In this post, we are changing a bit
 the topics we were writing about recently about cool mathematical stuff
-(thanks to link:../[Rafa Ballestas!])
+(thanks to [inner]#link:../[Rafa Ballestas!]#)
 
 As a company, we have wondered for years
 how could we harness what science already knows
@@ -83,7 +83,7 @@ has found (by speaking to cybersecurity experts) that +70-80%+
 of the costs attributed to cybersecurity attacks
 have its origins in human error.
 You could think about choosing _sometimes insanely_ weak passwords
-(we have written about this link:../requiem-password/[before].
+(we have written about this [inner]#link:../requiem-password/[before]#.
 Its ridiculous how pervasive this is),
 the computer sessions we left open unnecessarily
 waiting for someone to dive in,
@@ -158,7 +158,7 @@ Off-loading cognitive attention on secure coding
 from developers is a way to provide more robustness to security,
 by allocating full attention to safe coding
 (there are some ways to do this).
-Do you know our link:../../services/continuous-hacking/[continuous hacking service]?
+Do you know our [inner]#link:../../services/continuous-hacking/[continuous hacking service]#?
 We are bandwidth for you!
 We make easier for your development team
 to focus first on functionality and performance,
@@ -166,14 +166,14 @@ without forgetting about security.
 That’s our missing and with zero false positives.
 Additionally, we provide bandwidth not only to developers
 but also to IT security administrators and project managers
-through our link:../../products/integrates/[Integrates platform].
+through our [inner]#link:../../products/integrates/[Integrates platform]#.
 You don’t have to invest important cognitive resources
 to deal with tracking weaknesses,
 their remediation, and reporting or results.
 
 . *Provide tools to augment heuristics:*
 developers can rely on heuristics too for secure coding.
-Have you visited our link:../../products/rules/[Rules product] ?
+Have you visited our [inner]#link:../../products/rules/[Rules product]# ?
 It is completely FREE!
 Your company can leverage
 what we have built over the years

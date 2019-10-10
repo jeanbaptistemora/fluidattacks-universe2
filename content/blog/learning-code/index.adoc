@@ -42,8 +42,8 @@ of interesting debates at +Fluid Attacks+ some time ago.
 +Fluid Attacks+ keeps learning through challenges,
 as Ricardo mentioned, starting at the hiring process.
 Take a look at our products,
-like [button]#link:../../products/integrates/[Integrates]#
-and [button]#link:../../products/rules/[Rules]# (this one is *FREE!*).
+like [inner]#link:../../products/integrates/[Integrates]#
+and [inner]#link:../../products/rules/[Rules]# (this one is *FREE!*).
 
 *In cybersecurity strategy, what should organizations start*
 *and what should they stop doing?*
@@ -123,8 +123,8 @@ link:https://www.geekwire.com/2014/nate-silver/[journalists should learn to code
 
 Indeed, +Fluid Attacks+ has a +DevOps+ approach.
 Want to know more?
-Visit our [button]#link:../../services/continuous-hacking/[Continuous Hacking]#
-and [button]#link:../../services/one-shot-hacking/[One-shot Hacking]# services.
+Visit our [inner]#link:../../services/continuous-hacking/[Continuous Hacking]#
+and [inner]#link:../../services/one-shot-hacking/[One-shot Hacking]# services.
 
 *Why do you think companies that know their weaknesses,*
 *do not fix them or do it too late?*
@@ -146,7 +146,7 @@ and [button]#link:../../services/one-shot-hacking/[One-shot Hacking]# services.
   for example, saying _'that happens in other companies, not here'_.
 
 A CISO told us something very similar. Want to read about it?
-Click [button]#link:../sensible-cybersecurity/[here]#
+Click [inner]#link:../sensible-cybersecurity/[here]#
 
 image::pc-lock.png[Computer and Lock]
 
@@ -163,7 +163,7 @@ image::pc-lock.png[Computer and Lock]
   It is worrying that there is no concrete solution
   to malware and ransomware yet.
   The hope for some people are potential +ML-based+ solutions
-  link:../hack-cern/[like those tested at +CERN+] by our friend Andrés.
+  [inner]#link:../hack-cern/[like those tested at +CERN+]# by our friend Andrés.
   +
   +
   . Another misconception

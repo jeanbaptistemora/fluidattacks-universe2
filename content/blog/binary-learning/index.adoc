@@ -17,7 +17,7 @@
 = Binary learning
 
 While our main focus, as stated
-link:../machine-learning-hack/[previously],
+[inner]#link:../machine-learning-hack/[previously]#,
 is to apply machine learning (`ML`) techniques to
 the discovery of vulnerabilities in source code,
 that is,
@@ -28,7 +28,7 @@ which is radically different in the following sense:
 
 * Works on binaries. No source code required.
 * Mixes dynamic and static detection.
-* Guides link:../infinite-monkey-fuzzer/[fuzzing campagins].
+* Guides [inner]#link:../infinite-monkey-fuzzer/[fuzzing campagins]#.
 * Looks primarily for memory corruption.
 * Is very lightweight, hence scalable.
 
@@ -52,11 +52,11 @@ image::vdisc.png[Diagram depicting training and recall phases of VDiscover]
 In this diagram, _vulnerability discovery procedure_
 means any of the [button]#link:../categories/attacks/[tests]#
 we use daily to find security flaws, but especially
-black-box link:../infinite-monkey-fuzzer[fuzzing] of binaries,
-concrete link:../symbolic-execution-mortals[symbolic ("concolic") testing]
-and link:../pars-orationis-secura/[static]
-link:../importance-pentesting/[analysis]
-link:../replaced-machines/[tools] which, while
+black-box [inner]#link:../infinite-monkey-fuzzer[fuzzing]# of binaries,
+concrete [inner]#link:../symbolic-execution-mortals[symbolic ("concolic") testing]#
+and [inner]#link:../pars-orationis-secura/[static]#
+[inner]#link:../importance-pentesting/[analysis]#
+[inner]#link:../replaced-machines/[tools]# which, while
 prone to false positives,
 can still be useful to generate test cases or
 guide processes like this one.
@@ -91,7 +91,7 @@ we need to choose:
 
   . A special vulnerability detection procedure.
     They chose simple, one `byte` at a time,
-    link:../infinite-monkey-fuzzer/[fuzzing] of inputs.
+    [inner]#link:../infinite-monkey-fuzzer/[fuzzing]# of inputs.
 
   . A dataset. They chose one made up from 1039 taken from the
     link:https://security-tracker.debian.org/tracker/[Debian Bug Tracker].
@@ -125,9 +125,9 @@ a machine learning model can employ to predict whether
 a test case will be flagged as vulnerable or not"<<r1, ^[1]^>>.
 
 They avoid building
-link:../exploit-code-graph/[graph representations of code] altogether,
+[inner]#link:../exploit-code-graph/[graph representations of code]# altogether,
 and instead settle on reading the
-link:../reversing-mortals[disassembly of the code]
+[inner]#link:../reversing-mortals[disassembly of the code]#
 at *random*, but many times,
 thus ensuring capturing pretty much all possible
 sequences of standard `C` library calls.
@@ -139,13 +139,13 @@ which may be exit, crash, abort, or timeout.
 
 Onward to training the machines!
 They used three different models: a
-link:../crash-course-machine-learning/#decision-trees-and-forests[random forest],
+[inner]#link:../crash-course-machine-learning/#decision-trees-and-forests[random forest]#,
 a link:https://en.wikipedia.org/wiki/Logistic_regression[logistic regression model],
 which can be thought of a particular case of their third model, the
-link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[multilayer perceptron]
+[inner]#link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[multilayer perceptron]#
 The dataset was divided into three disjoint sets
 for training, validation and testing,
-preprocessed with a combination of link:../natural-code[n-grams]
+preprocessed with a combination of [inner]#link:../natural-code[n-grams]#
 and `word2vec` encoding,
 and adjusted the training to compensate for
 _class imbalance_ (an issue with data where

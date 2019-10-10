@@ -18,10 +18,10 @@
 = Machine-learning to hack
 
 To date the
-link:../libssh-bypass-cve/[most]
-link:../treacherous-poodle/[important]
-link:../release-the-beast/[security]
-link:../my-heart-bleeds/[vulnerabilities]
+[inner]#link:../libssh-bypass-cve/[most]#
+[inner]#link:../treacherous-poodle/[important]#
+[inner]#link:../release-the-beast/[security]#
+[inner]#link:../my-heart-bleeds/[vulnerabilities]#
 have been found via laborius code auditing.
 Also, this is the only way
 vulnerabilities can be found and fixed during development.
@@ -95,7 +95,7 @@ extracting features such as:
   confidential information being leaked, altered or denied access to.
 
 // star chucky
-The system link:../anomaly-serial-killer-doll/[Chucky] by
+The system [inner]#link:../anomaly-serial-killer-doll/[Chucky]# by
 link:https://user.informatik.uni-goettingen.de/~krieck/docs/2013-ccs.pdf[Yamaguchi et al. (2013)]
 is the one that interests us the most
 since it is more compatible with our interests, i.e.,
@@ -106,23 +106,23 @@ and secure +API+ usage (v.g. checking buffer size).
 It uses the
 link:https://en.wikipedia.org/wiki/Bag-of-words_model[bag-of-words]
 model to represent the code and the
-link:../crash-course-machine-learning/#anomaly-detection-via-k-nearest-neighbors[k-nearest-neighbors]
+[inner]#link:../crash-course-machine-learning/#anomaly-detection-via-k-nearest-neighbors[k-nearest-neighbors]#
 technique to analyze it.
 'Chucky' discovered 12 new vulnerabilites in
 high-profile projects such as
 link:https://pidgin.im/[Pidgin] and link:http://libtiff.org/[LibTIFF].
-See our link:../anomaly-serial-killer-doll[article on Chucky] for details.
+See our [inner]#link:../anomaly-serial-killer-doll[article on Chucky]# for details.
 
 // also joern
 A year later,
 link:https://www.sec.cs.tu-bs.de/pubs/2014-ieee.pdf[Yamaguchi et al. (2014)]
 reuse this idea of
-link:../exploit-code-graph/[exploiting graph representations of code]
+[inner]#link:../exploit-code-graph/[exploiting graph representations of code]#
 in order to find vulnerable code patterns.
 This time they propose automating the design of effective traversals
 which might lead to vulnerability detection
 using the unsupervised
-link:../crash-course-machine-learning/#k-means-clustering[clustering] approach.
+[inner]#link:../crash-course-machine-learning/#k-means-clustering[clustering]# approach.
 This resulted in the tool link:http://www.mlsec.org/joern/['Joern'],
 which was able to find 5 zero-day vulnerabilities in products like Pidgin.
 
@@ -172,15 +172,15 @@ In general terms, anomaly detection approaches have the following limitations:
 
 The aim is to take a large dataset of vulnerability samples
 and extract vulnerable code patterns using
-(usually link:../crash-course-machine-learning/[supervised])
+(usually [inner]#link:../crash-course-machine-learning/[supervised]#)
 machine learning algorithms.
 The key is the technique used for extracting features, which
 range from convential
-link:../pars-orationis-secura/[parsers],
+[inner]#link:../pars-orationis-secura/[parsers]#,
 data-flow and control-flow analysis,
 and even directly text mining the source code.
 Most of these papers use
-link:../crash-course-machine-learning/[classification] algorithms.
+[inner]#link:../crash-course-machine-learning/[classification]# algorithms.
 
 // yama14 extrapol
 Once more Yamaguchi et al.
@@ -215,7 +215,7 @@ and encode them with
 link:https://en.wikipedia.org/wiki/Word2vec[word2vec].
 They have tested several +ML+ techniques such as
 link:https://en.wikipedia.org/wiki/Logistic_regression[logistic regression],
-link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[MLP]
+[inner]#link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[MLP]#
 and link:https://en.wikipedia.org/wiki/Random_forest[random forests].
 
 //china
@@ -228,14 +228,14 @@ which claim to extract both syntactic and semantic information from the code,
 thus also considering both data and control flow.
 They report good results with low false positives
 and 15 zero-day vulnerabilities in high-profile open source libraries.
-See our link:../deep-hacking[article on these systems].
+See our [inner]#link:../deep-hacking[article on these systems]#.
 
 link:https://dl.acm.org/citation.cfm?id=3138840[Lin et al. (2017)]
 propose a different variant
 which simplifies the feature extraction,
 going back to just +AST+ with no semantic information,
 using
-link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[deep learning]
+[inner]#link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[deep learning]#
 in the form of
 link:https://en.wikipedia.org/wiki/Long_short-term_memory[bidirectional long short-term memory (BLSTM) networks],
 plus a completely new element:
@@ -315,7 +315,7 @@ Some limitations that are common:
   Purely automated approaches are, in view of Rice's theorem,
   imposible or misguided.
 
-Thus our good old link:../importance-pentesting/[pentest is not dead].
+Thus our good old [inner]#link:../importance-pentesting/[pentest is not dead]#.
 Even at the level of cutting-edge research,
 automated vulnerability discovery,
 and especially confirmation and exploitation,

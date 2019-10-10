@@ -21,7 +21,7 @@ with Nicolás Acosta, Chief Information Security Officer (CISO) of
 link:https://empresa.corona.co/nuestra-compania/quienes-somos[Corona.]
 We spoke about risks, setbacks, and truths and falsehood in cybersecurity.
 If you have not read the first part
-link:../innovation-understandable/[click here to read it.]
+[inner]#link:../innovation-understandable/[click here to read it.]#
 
 == Risk Management
 
@@ -55,7 +55,7 @@ We wanted to discuss a bit about this topic with Nicolás.
   and it’s complicated to understand.
   Nevertheless, it's the best approximation we have to speak in business terms.
   _(Interested in Expected Loss? Take a look at
-  link:../risk-indicator-roundup/[Risk Indicator Roundup.])_ +
+  [inner]#link:../risk-indicator-roundup/[Risk Indicator Roundup.]#)_ +
 
   . In organizations where security breaches
   translate quickly into money, it's easier to connect the dots.
@@ -177,10 +177,10 @@ We are thankful to Nicolás for this conversation about our job
 as cybersecurity professionals.
 We hope you have enjoyed these insights from the lens of a CISO.
 Do you want to share your thoughts?
-link:../../contact-us/[Do get in touch with us!]
+[inner]#link:../../contact-us/[Do get in touch with us!]#
 
 And remember our solutions. Take a look at our
-link:../../services/continuous-hacking/[Continous Hacking]
-and link:../../services/one-shot-hacking/[One-shot Hacking]
+[inner]#link:../../services/continuous-hacking/[Continous Hacking]#
+and [inner]#link:../../services/one-shot-hacking/[One-shot Hacking]#
 services. We can help you with detecting improvements in your cybersecurity
 operations, as we do it with Corona.

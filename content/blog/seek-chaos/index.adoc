@@ -248,10 +248,10 @@ We can help.
 Check out our services.
 We inject a mix of _“troubles”_ into your applications and +IT+ infrastructure:
 
-* [button]#link:../../services/continuous-hacking[Continuous hacking]#.
+* [inner]#link:../../services/continuous-hacking[Continuous hacking]#.
 Think of it as a constant source of stressors.
 
-* [button]#link:../../services/one-shot-hacking/[One-shot hacking]#.
+* [inner]#link:../../services/one-shot-hacking/[One-shot hacking]#.
 This is like a one-shot stressor
 focused on your most valuable information assets
 (or on the target you want).
@@ -263,7 +263,7 @@ That way, you can learn how to better prepare for potential incidents
 and outthink attackers!
 And don’t worry: we do it in a controlled way.
 
-We also invite you to take a look at [button]#link:../../products/integrates[Integrates]#,
+We also invite you to take a look at [inner]#link:../../products/integrates[Integrates]#,
 our platform to keep track of weaknesses.
 Think of it as a platform that helps you to learn
 how to become antifragile in cybersecurity.

@@ -21,7 +21,7 @@ In the field of information security,
 is as important as
 'reporting them as soon as possible'.
 For that, we need an effective means to communicate with all stakeholders.
-We have proposed [button]#link:../app-pickle/[before]# using +Gherkin+.
+We have proposed [inner]#link:../app-pickle/[before]# using +Gherkin+.
 In that entry, we showed how to use +Gherkin+'s syntax
 in order to document attack vectors,
 i.e. how to find and exploit vulnerabilities in an app.
@@ -178,7 +178,7 @@ Hence we could theoretically access the +PHP+ source of
 any page in this server.
 Second, the +HTML+ part is actually rendered in the browser,
 which could lead to a
-link:../xss-protection/[+XSS+]
+[inner]#link:../xss-protection/[+XSS+]#
 or
 link:https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)[+CSRF+]
 attack.
@@ -235,7 +235,7 @@ Those are stored in
 link:https://www.cyberciti.biz/faq/understanding-etcshadow-file/[+/etc/shadow+]
 in the form of hashes,
 which can be
-link:../storing-password-safely/[cracked if the passwords are weak].
+[inner]#link:../storing-password-safely/[cracked if the passwords are weak]#.
 However, the +shadow+ file,
 unlike the +passwd+ file,
 is protected:

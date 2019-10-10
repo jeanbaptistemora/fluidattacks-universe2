@@ -47,7 +47,7 @@ This is our calibrated estimate of the _impact_ to the organization.
 
 Now, instead of rating the "likelihood" on a scale from 1 to 5
 as is done in the risk "matrices",
-allow the experts from your [button]#link:../../[security testers]#
+allow the experts from your [inner]#link:../../[security testers]#
 to make an estimate in terms of probabilities.
 Something like "there is a 15% chance that the organization
 undergoes a denial of service" is what we need to hear here.
@@ -124,7 +124,7 @@ or better yet, a curve.
 image::mc-results-hist.png[Monte Carlo results summary]
 
 From these results, we can build a
-link:../quantifying-risk/[loss exceedance curve],
+[inner]#link:../quantifying-risk/[loss exceedance curve]#,
 simply by counting the number of times the simulated results
 are higher than a threshold, and plotting the results:
 

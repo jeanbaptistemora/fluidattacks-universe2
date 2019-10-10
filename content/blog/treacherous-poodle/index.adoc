@@ -80,7 +80,7 @@ security team.
 
 If you are not aware what this terms are
 check the
-link:../release-the-beast/[+BEAST+]
+[inner]#link:../release-the-beast/[+BEAST+]#
 article, the +(CBC-MAC)+ will be explained here,
 don't worry.
 
@@ -244,7 +244,7 @@ characters by "-", don't get confused.
 
 Then the process of encryption with +CBC+
 as described in the
-link:../release-the-beast/[+BEAST+]
+[inner]#link:../release-the-beast/[+BEAST+]#
 article. Which output is:
 
 .Output of encrypted message

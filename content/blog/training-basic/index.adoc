@@ -120,8 +120,8 @@ To our surprise, he wasn't that enthusiastic.
 
 Security, as part of the development process, is essential to +Fluid Attacks+.
 We are proud to be working with this approach for several years now.
-Our [button]#link:../../services/continuous-hacking/[Continuous Hacking]#
-and [button]#link:../../services/one-shot-hacking/[One-shot Hacking]# services
+Our [inner]#link:../../services/continuous-hacking/[Continuous Hacking]#
+and [inner]#link:../../services/one-shot-hacking/[One-shot Hacking]# services
 rely on +IaC+ to support our customers consistently and faster.
 
 We turned into cybersecurity specifics,
@@ -194,4 +194,4 @@ The second part of this conversation will be published shortly.
 We hope you have enjoyed this post
 and we look forward to hearing from customers, partners, and friends.
 Do you want to share your thoughts?
-[button]#link:../../contact-us/[Do get in touch with us!]#
+[inner]#link:../../contact-us/[Do get in touch with us!]#

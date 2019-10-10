@@ -30,7 +30,7 @@ and that applies to risk analysis as well.
 Besides the obvious examples of mathematical plots,
 diagrams can be great aids in understanding and modeling a situation
 whose outcome is unknown.
-Remember link:../updating-belief/#mathematical-interlude[tree diagrams]?
+Remember [inner]#link:../updating-belief/#mathematical-interlude[tree diagrams]#?
 They are a good tool to help understand a situation
 in which there are several choices and one depends on the other.
 In reality, they are a simplified version of
@@ -185,7 +185,7 @@ $$ EV = \int v\times p(v)\,dv $$
 We would like to compute and maximize
 the expected value for the utility,
 but that value depends probabilistically on others.
-Recalling our discussion about link:../updating-belief/[conditional probability],
+Recalling our discussion about [inner]#link:../updating-belief/[conditional probability]#,
 you know that the probability of two events happening together can be
 computed with the probability of one of them,
 and the probability of one given the other.

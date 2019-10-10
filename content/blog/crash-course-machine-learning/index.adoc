@@ -18,7 +18,7 @@
 
 In this article we clarify
 some of the undefined terms in our
-link:../machine-learning-hack/[previous article] and thereby
+[inner]#link:../machine-learning-hack/[previous article]# and thereby
 explore a selection of machine learning algorithms and
 their applications to information security.
 

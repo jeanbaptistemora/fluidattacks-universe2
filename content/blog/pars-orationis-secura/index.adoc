@@ -22,18 +22,18 @@ around here,
 because it's 'very buggy!'.
 We have shown here how to find and exploit
 vulnerabilities like
-link:../fuzzy-bugs-online/#comparison-with-manual-injection[+SQL+]
-link:../importance-pentesting/[injection],
-link:../gherkin-steroids/#dynamic-detection-and-exploitation[directory traversal],
-link:../xml-exploitable-markup-language/#injecting-xpath-into-a-vulnerable-app[+XPath+ injection],
+[inner]#link:../fuzzy-bugs-online/#comparison-with-manual-injection[+SQL+]#
+[inner]#link:../importance-pentesting/[injection]#,
+[inner]#link:../gherkin-steroids/#dynamic-detection-and-exploitation[directory traversal]#,
+[inner]#link:../xml-exploitable-markup-language/#injecting-xpath-into-a-vulnerable-app[+XPath+ injection]#,
 and
-link:../app-pickle/#documenting-attack-vectors[+UNIX+ command injection].
+[inner]#link:../app-pickle/#documenting-attack-vectors[+UNIX+ command injection]#.
 All of these have one thing in common, namely:
 they could have been prevented with a little
 link:https://www.owasp.org/index.php/Data_Validation[Input Validation].
 
-Taking some ideas from link:../exploit-code-graph/[static code analysis]
-and the link:../oracle-code/['code-as-data'] approach,
+Taking some ideas from [inner]#link:../exploit-code-graph/[static code analysis]#
+and the [inner]#link:../oracle-code/['code-as-data']# approach,
 what if we could use some sort of
 code or syntax analysis tool
 in order to gain intelligence about
