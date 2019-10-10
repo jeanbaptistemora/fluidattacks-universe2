@@ -93,17 +93,6 @@ def update_user_data(email, username, first_name, last_name):
     return row
 
 
-def is_in_database(email):
-    """ Check if the user exists in DB. """
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT id FROM users WHERE email = %s'
-        cursor.execute(query, (email,))
-        row = cursor.fetchone()
-    if row is None:
-        return False
-    return True
-
-
 def has_complete_data(email):
     """ Check if the user has all data in DB . """
     with connections['integrates'].cursor() as cursor:

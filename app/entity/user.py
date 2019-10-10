@@ -200,7 +200,7 @@ def create_new_user(context, new_user_data, project_name, email):
 
     success = False
 
-    if not integrates_dal.is_in_database(email):
+    if not user_domain.get_data(email, 'email'):
         integrates_dal.create_user(email)
         integrates_dal.add_multiple_attributes_dynamo(
             'FI_users', primary_keys_dynamo, {'company': organization.lower(),
