@@ -1,7 +1,7 @@
 #!/bin/bash
 
 execute_query () {
-    /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P $SA_PASSWORD -Q "$1"
+    /opt/mssql-tools/bin/sqlcmd -S tcp:localhost,1432 -U SA -P $SA_PASSWORD -Q "$1"
 }
 
 # create database
@@ -24,7 +24,7 @@ GO
 # create user
 execute_query "
 CREATE LOGIN $DB_USER WITH PASSWORD = \"$DB_PASSWORD\";
-USE $DB_USER;
+USE $DB_NAME;
 CREATE USER $DB_USER FOR LOGIN $DB_USER WITH DEFAULT_SCHEMA = $DB_NAME;
 GO"
 

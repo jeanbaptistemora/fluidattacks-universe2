@@ -11,10 +11,10 @@ from fluidasserts.db import mssql
 
 # Constants
 
-DBNAME: str = 'mssql'
+DBNAME: str = 'test_db'
 ADMIN_USER = 'SA'
 ADMIN_PASSWORD = 'fluidasserts123.'
-USER: str = 'mssql'
+USER: str = 'test_user'
 PASSWORD: str = 'Fluid1234.'
 WRONG_PASSWORD = 'Fluid1234'
 PORT = 1433
