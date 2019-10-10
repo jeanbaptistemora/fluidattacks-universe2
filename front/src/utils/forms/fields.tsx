@@ -5,7 +5,8 @@
 
 import _ from "lodash";
 import React from "react";
-import { Badge, ControlLabel, FormControl, FormControlProps, FormGroup, Glyphicon, HelpBlock } from "react-bootstrap";
+import { Badge, ControlLabel, FormControl, FormControlProps,
+  FormGroup, Glyphicon, HelpBlock, InputGroup } from "react-bootstrap";
 /**
  * Disabling here is necessary because
  * there are currently no available type definitions for
@@ -125,21 +126,23 @@ const handleFileChange: ((arg1: React.FormEvent<FormControl>, arg2: CustomFieldP
 export const fileInputField: ((arg1: CustomFieldProps) => JSX.Element) =
   (fieldProps: CustomFieldProps): JSX.Element => (
     <FormGroup controlId={fieldProps.id} className={style.text_center}>
-      <FormControl
-        target={fieldProps.target}
-        className={`${style.inputfile} ${style.inputfile_evidence}`}
-        type="file"
-        accept={fieldProps.accept}
-        name={fieldProps.name}
-        onChange={(event: React.FormEvent<FormControl>): void => { handleFileChange(event, fieldProps); }}
-        onClick={fieldProps.onClick}
-      />
-      <ControlLabel>
-        <span>{fieldProps.input.value}</span>
-        <strong>
-          <Glyphicon glyph="search" /> Choose a file&hellip;
-        </strong>
-      </ControlLabel>
+      <InputGroup>
+        <FormControl
+          target={fieldProps.target}
+          className={`${style.inputfile} ${style.inputfile_evidence}`}
+          type="file"
+          accept={fieldProps.accept}
+          name={fieldProps.name}
+          onChange={(event: React.FormEvent<FormControl>): void => { handleFileChange(event, fieldProps); }}
+          onClick={fieldProps.onClick}
+        />
+        <ControlLabel>
+          <span>{fieldProps.input.value}</span>
+          <strong>
+            <Glyphicon glyph="search" /> Explore&hellip;
+          </strong>
+        </ControlLabel>
+      </InputGroup>
     </FormGroup>
   );
 

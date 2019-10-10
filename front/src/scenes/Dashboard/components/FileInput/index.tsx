@@ -4,7 +4,7 @@
  */
 import _ from "lodash";
 import React, { useState } from "react";
-import { ControlLabel, FormControl, FormGroup, Glyphicon, Row } from "react-bootstrap";
+import { ControlLabel, FormControl, FormGroup, Glyphicon, InputGroup, Row } from "react-bootstrap";
 import translate from "../../../../utils/translations/translate";
 import style from "./index.css";
 /**
@@ -36,29 +36,31 @@ export const fileInputComponent: React.FunctionComponent<IFileInputProps> =
     <React.StrictMode>
       { props.visible
         ? <FormGroup controlId={props.id} className={style.text_center}>
-            <Row>
-              <FormControl
-                target={props.target}
-                className={`${style.inputfile} ${style.inputfile_evidence}`}
-                type="file"
-                accept={props.type}
-                name={`${props.id}[]`}
-                onChange={handleFileNameChange}
-              />
-              <ControlLabel>
-                <span>{fileName}</span>
-                <strong>
-                  <Glyphicon glyph={props.icon}/>&nbsp;Choose a file&hellip;
-                </strong>
-              </ControlLabel>
-            </Row>
-            { !_.isUndefined(props.fileSize) ?
+            <InputGroup>
               <Row>
-                <label style={{ color: "#f22" }}>* </label>
-                {translate.t("validations.file_size", { count: props.fileSize })}
+                <FormControl
+                  target={props.target}
+                  className={`${style.inputfile} ${style.inputfile_evidence}`}
+                  type="file"
+                  accept={props.type}
+                  name={`${props.id}[]`}
+                  onChange={handleFileNameChange}
+                />
+                <ControlLabel>
+                  <span>{fileName}</span>
+                  <strong>
+                    <Glyphicon glyph={props.icon}/>&nbsp;Explore&hellip;
+                  </strong>
+                </ControlLabel>
               </Row>
-              : undefined
-            }
+              { !_.isUndefined(props.fileSize) ?
+                <Row>
+                  <label style={{ color: "#f22" }}>* </label>
+                  {translate.t("validations.file_size", { count: props.fileSize })}
+                </Row>
+                : undefined
+              }
+            </InputGroup>
           </FormGroup>
         : undefined
       }

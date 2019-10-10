@@ -59,7 +59,7 @@
 }
 
 :local .inputfile_evidence + label > span {
-    width: 165px;
+    width: 130px;
     min-height: 2em;
     display: inline-block;
     text-overflow: ellipsis;
