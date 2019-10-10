@@ -970,10 +970,6 @@ msgstr "Search this site..."
 msgid "Navb-img-alt-1"
 msgstr "Magnifying glass"
 
-#: templates/page.html:155
-msgid "Page-disqus-sect"
-msgstr "Leave a comment"
-
 #: templates/pagination.html:6
 msgid "Pagination-prev"
 msgstr "Previous"
@@ -1061,9 +1057,6 @@ msgstr "Tags"
 #: templates/tags.html:63
 msgid "Tags-header"
 msgstr "Tags"
-
-#~ msgid "Articles-disqus-sect"
-#~ msgstr "Leave a comment"
 
 #~ msgid "Author-breadcrumb-1"
 #~ msgstr "Authors"
