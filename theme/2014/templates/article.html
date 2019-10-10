@@ -213,40 +213,6 @@
          </div>
        </div>
        <br />
-       {% if DISQUS_SITENAME and SITEURL %}
-         <div class="comments">
-           <div id="disqus_thread"></div>
-           {% if DEFAULT_LANG == "es" %}
-             <script type="text/javascript">
-               var disqus_config = function () {
-                 this.page.identifier = "{{ article.slug }}";
-                 this.page.url = "{{ SITEURL }}/{{ article.url }}";
-                 this.language = "es_AR";
-               };
-               (function() {
-                 var d = document, dsq = d.createElement('script');
-                 dsq.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
-                 dsq.setAttribute('data-timestamp', +new Date());
-                 (d.head || d.body).appendChild(dsq);
-               })();
-             </script>
-           {% elif DEFAULT_LANG == "en" %}
-             <script type="text/javascript">
-               var disqus_config = function () {
-                 this.page.identifier = "{{ article.slug }}";
-                 this.page.url = "{{ SITEURL }}/{{ article.url }}";
-               };
-               (function() {
-                 var d = document, dsq = d.createElement('script');
-                 dsq.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
-                 dsq.setAttribute('data-timestamp', +new Date());
-                 (d.head || d.body).appendChild(dsq);
-               })();
-             </script>
-           {% endif %}
-         </div>
-         <script id="dsq-count-scr" src="//{{ DISQUS_SITENAME }}.disqus.com/count.js" async></script>
-       {% endif %}
        <script type="application/ld+json">
          {
            "@context": "http://schema.org",
