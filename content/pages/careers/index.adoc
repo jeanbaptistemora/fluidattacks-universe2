@@ -9,7 +9,7 @@ If so, carefully read each section below and make sure you understand it.
 Do not skip any sections.
 
 [role="etapa_c"]
-== 1. Fluid Attacks Overview:
+== 1. Overview
 
 Who We Are, Who We Are Looking For, and How to Apply
 
