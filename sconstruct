@@ -17,10 +17,12 @@ env['ENV']['HOME'] = os.environ['HOME']
 for var in (
         'DOCKER_USER',
         'DOCKER_PASS',
+        'WEBBOT_GMAIL_USER',
+        'WEBBOT_GMAIL_PASS',
         'CI_COMMIT_REF_NAME',
         'AWS_ACCESS_KEY_ID',
         'AWS_SECRET_ACCESS_KEY',
-	'GOOGLE_APPLICATION_CREDENTIALS_CONTENT',
+	    'GOOGLE_APPLICATION_CREDENTIALS_CONTENT',
         'CODECOV_TOKEN',):
     try:
         env['ENV'][var] = os.environ[var]

@@ -16,13 +16,14 @@ import tempfile
 import textwrap
 from contextlib import contextmanager
 from collections import OrderedDict
-from typing import Any, Dict, List, NoReturn, Optional, Tuple
+from typing import Any, Dict, Iterable, List, NoReturn, Optional, Tuple
 
 # 3rd party imports
 import yaml
 import names
 import selenium.webdriver
 import selenium.common.exceptions
+from selenium.webdriver.remote.webdriver import WebDriver, WebElement
 from bs4 import BeautifulSoup
 from PIL import Image
 import requests
@@ -352,14 +353,22 @@ class HTTPSession():
                     sha256=sha256.hexdigest())
 
 
-class HTTPBot():
+def _reindent_and_print(lines):
+    """Reindent a list of lines and print it as commented yaml."""
+    print(textwrap.indent('\n'.join(lines), '# '), file=sys.stderr)
+
+
+# pylint: disable=too-many-public-methods
+
+
+class WebBot():
     """HTTP Automation Bot."""
 
     def __init__(self,
                  developer_mode: bool = False,
                  implicitly_wait: float = 8.0) -> NoReturn:
         """
-        :class:`.HTTPBot` Constructor.
+        :class:`.WebBot` Constructor.
 
         :param implicitly_wait: How many seconds will the Bot poll the
             DOM when trying to find any element (or elements) not immediately
@@ -368,17 +377,20 @@ class HTTPBot():
             to aid in the development of exploits, (it logs to console).
         """
         # Webdriver options
-        webdriver_options = selenium.webdriver.chrome.options.Options()
+        webdriver_options = selenium.webdriver.ChromeOptions()
         webdriver_options.headless = True
+        # set language
+        webdriver_options.add_experimental_option(
+            'prefs', {'intl.accept_languages': 'en,en_US'})
         # bypass OS security model
-        webdriver_options.add_argument("--no-sandbox")
+        webdriver_options.add_argument('--no-sandbox')
         # disable /dev/shm (shared memory) usage
-        webdriver_options.add_argument("--disable-dev-shm-usage")
+        webdriver_options.add_argument('--disable-dev-shm-usage')
 
         # Webdriver instance
         self.driver = selenium.webdriver.Chrome(options=webdriver_options)
         self.driver.implicitly_wait(implicitly_wait)
-        self.driver.set_window_size(1920, 1080)
+        self.driver.set_window_size(2560, 1080)
 
         # Properties used later
         self.bot_id: str = names.get_first_name()
@@ -422,6 +434,8 @@ class HTTPBot():
         if elements:
             elements[0].send_keys(fill_with)
             success = True
+        else:
+            self._notify_warning('No elements found!')
 
         self._notify_result({'success': success})
         return success
@@ -468,6 +482,8 @@ class HTTPBot():
         if elements:
             elements[0].click()
             success = True
+        else:
+            self._notify_warning('No elements found!')
 
         self._notify_result({'success': success})
         return success
@@ -484,12 +500,40 @@ class HTTPBot():
         """Click an element identifying it by its ``partial link text``."""
         self._click_by('partial_link_text', identifier)
 
-    def show_snapshot(self):
+    def click_by_human_text(self, identifier: str):
+        """Click an element identifying it by the ``visible text``."""
+        self._notify_action('click_by_human_text', locals())
+
+        success: bool = False
+        elements = tuple(
+            element
+            for element in self._get_clickables()
+            if identifier == element.text)
+
+        if len(elements) > 1:
+            self._notify_warning('More than one element found!')
+        if elements:
+            elements[0].click()
+            success = True
+        else:
+            self._notify_warning('No elements found!')
+
+        self._notify_result({'success': success})
+        return success
+
+    def show_me(self):
         """Take an snapshot and display it in the default image viewer."""
-        with tempfile.NamedTemporaryFile(suffix='.png') as handle:
-            self.driver.save_screenshot(handle.name)
-            image = Image.open(handle.name)
-            image.show()
+        self._notify_action('show_me', locals())
+        success: bool = False
+
+        file = tempfile.NamedTemporaryFile(suffix='.png', delete=False)
+        file.close()
+
+        success = self.driver.save_screenshot(file.name)
+
+        image = Image.open(file.name)
+        image.show()
+        self._notify_result({'success': success})
 
     #
     # Interface to current state data
@@ -533,10 +577,13 @@ class HTTPBot():
                 port=cookie.get('port'),
                 secure=cookie.get('secure', False),
                 expires=cookie.get('expiry'),
-                discard=cookie.get('discard', True),
+                discard=cookie.get('discard', False),
                 comment=cookie.get('comment'),
                 comment_url=cookie.get('comment_url'),
-                rest={'HttpOnly': cookie.get('httpOnly')},
+                rest={
+                    'HttpOnly': cookie.get('httpOnly'),
+                    'SameSite': cookie.get('sameSite'),
+                },
             ))
         self._notify_result(cookies)
         return cookies
@@ -568,31 +615,34 @@ class HTTPBot():
         if self.developer_mode:
             _args = args.copy()
             _args.pop('self')
-            print(f'# ---', file=sys.stderr)
-            print(f'# Bot[{self.bot_id}].{where}:', file=sys.stderr)
+            lines = []
+            lines.append(f'---')
+            lines.append(f'Bot[{self.bot_id}].{where}:')
 
             if _args:
-                print('#  Args:')
-                _args = textwrap.indent(yaml.dump(_args), '#    ')
-                print(_args, end='', file=sys.stderr)
+                lines.append('  Args:')
+                _args = textwrap.indent(yaml.dump(
+                    _args, allow_unicode=True)[:-1], '    ')
+                lines.append(_args)
+            _reindent_and_print(lines)
 
     def _notify_result(self, body: Any) -> NoReturn:
         """Notify to stderr what's being done by the bot."""
         if self.developer_mode and body:
-            text = textwrap.indent(text=yaml.dump(body), prefix='#    ')
-
-            print('#')
-            print('#  Result:')
-            print(text, end='', file=sys.stderr)
+            lines = []
+            lines.append('  Result:')
+            lines.append(textwrap.indent(
+                yaml.dump(body, allow_unicode=True)[:-1], prefix='    '))
+            _reindent_and_print(lines)
 
     def _notify_warning(self, text: Any) -> NoReturn:
         """Notify to stderr what's being done by the bot."""
         if self.developer_mode:
-            text = textwrap.indent(
-                text=yaml.dump({'WARNING': text}), prefix='#    ')
-            print(text, end='', file=sys.stderr)
+            lines = []
+            lines.append(f'    Warning: {text}')
+            _reindent_and_print(lines)
 
-    def get_fillables(self) -> Tuple[dict]:
+    def get_fillables(self, show_hidden: bool = False) -> Tuple[dict]:
         """Print a list of possible fields to fill."""
         self._notify_action('get_fillables', locals())
         with self._no_dev_mode():
@@ -604,21 +654,58 @@ class HTTPBot():
                     'value': element.get_attribute('value'),
                 }
                 for element in self.driver.find_elements_by_tag_name('input'))
+            if not show_hidden:
+                fillables = tuple(filter(
+                    lambda x: x['type'] != 'hidden', fillables))
 
         self._notify_result(fillables)
         return fillables
 
-    def get_clickables(self) -> Tuple[dict]:
-        """Print a list of possible buttons to click."""
+    def _get_clickables(self) -> Iterable[WebElement]:
+        """Yield clickable WebElements."""
+        for element in self.driver.find_elements_by_tag_name('button'):
+            # A button, we want to click that
+            yield element
+
+        found_texts: set = set()
+        for element in reversed(self.driver.find_elements_by_tag_name('div')):
+            # A decorative div
+            if not element.text:
+                continue
+            element_parents = element.find_elements_by_xpath('..')
+            if not element_parents or \
+                    any(isinstance(x, WebDriver) for x in element_parents):
+                # This is the top level div
+                continue
+            if element_parents[0].text == element.text:
+                # There is a more generic div with the same contents
+                continue
+            if any(ft in element.text for ft in found_texts):
+                # This is generic div
+                continue
+
+            found_texts.add(element.text)
+            yield element
+
+    def get_clickables(self) -> Tuple[dict, ...]:
+        """Print a list of possible elements to click."""
         self._notify_action('get_clickables', locals())
-        with self._no_dev_mode():
-            fillables: Tuple[dict, ...] = tuple(
-                {
-                    'id': element.get_attribute('id'),
-                    'name': element.get_attribute('name'),
-                    'type': element.get_attribute('type'),
-                    'value': element.get_attribute('value'),
-                }
-                for element in self.driver.find_elements_by_tag_name('button'))
+
+        fillables: Tuple[dict, ...] = tuple(
+            {
+                'tag': element.tag_name,
+                'id': element.get_attribute('id'),
+                'name': element.get_attribute('name'),
+                'type': element.get_attribute('type'),
+                'value': element.get_attribute('value'),
+                'class': element.get_attribute('class'),
+                'human_text': element.text,
+                'human_size':
+                    f'x={element.size["height"]} y={element.size["width"]}',
+                'human_location':
+                    f'x={element.location["x"]} y={element.location["y"]}',
+            }
+            for element in self._get_clickables())
+
         self._notify_result(fillables)
         return fillables

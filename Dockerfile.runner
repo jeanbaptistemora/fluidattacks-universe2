@@ -8,6 +8,8 @@ ARG CI_REPOSITORY_URL
 # Variables must be defined to run SCons, but their value is not used
 ENV DOCKER_USER="value"
 ENV DOCKER_PASS="value"
+ENV WEBBOT_GMAIL_USER="value"
+ENV WEBBOT_GMAIL_PASS="value"
 ENV PYPI_USER="value"
 ENV PYPI_PASS="value"
 ENV AWS_ACCESS_KEY_ID="value"

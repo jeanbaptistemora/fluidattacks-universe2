@@ -28,7 +28,7 @@ BWAPP_PORT = 80
 
 def get_bwapp_cookies(cont_ip):
     """Log in to bWAPP and return valid cookie."""
-    with helper.HTTPBot() as bot:
+    with helper.WebBot() as bot:
         # Install BWAPP
         bot.visit(f'http://{cont_ip}/install.php?install=yes')
 

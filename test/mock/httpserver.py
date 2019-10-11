@@ -142,6 +142,25 @@ def response_ok():
     return resp
 
 
+@APP.route('/bot/cookies/full', methods=['GET'])
+def bot_cookies_full():
+    """Return cookies."""
+    expires = datetime.datetime.utcnow()
+    expires += datetime.timedelta(seconds=1800)
+    expires_str = expires.strftime('%a, %d %b %Y %H:%M:%S GMT')
+    resp = Response('Take a cookie :)')
+    resp.set_cookie(
+        'AssertsCookie', 'Value',
+        max_age=3600,
+        expires=expires_str,
+        path='/',
+        secure=False,
+        httponly=True,
+        samesite='Lax',
+    )
+    return resp
+
+
 @APP.route('/userenum_post/fail', methods=['POST'])
 def user_enumeration_post_fail():
     """Form vuln a user enumeration."""
