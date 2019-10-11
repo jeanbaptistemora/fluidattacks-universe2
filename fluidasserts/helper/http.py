@@ -11,17 +11,20 @@
 # standard imports
 import sys
 import time
-import textwrap
-import secrets
 import hashlib
-import unittest.mock
+import tempfile
+import textwrap
+from contextlib import contextmanager
 from collections import OrderedDict
-from typing import List, Optional, Tuple, NoReturn
+from typing import Any, List, NoReturn, Optional, Tuple
 
 # 3rd party imports
+import yaml
+import names
 import selenium.webdriver
+import selenium.common.exceptions
 from bs4 import BeautifulSoup
-
+from PIL import Image
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
@@ -354,7 +357,7 @@ class HTTPBot():
 
     def __init__(self,
                  developer_mode: bool = False,
-                 implicitly_wait: float = 15.0) -> NoReturn:
+                 implicitly_wait: float = 8.0) -> NoReturn:
         """
         :class:`.HTTPBot` Constructor.
 
@@ -375,9 +378,10 @@ class HTTPBot():
         # Webdriver instance
         self.driver = selenium.webdriver.Chrome(options=webdriver_options)
         self.driver.implicitly_wait(implicitly_wait)
+        self.driver.set_window_size(1920, 1080)
 
         # Properties used later
-        self.bot_id: str = secrets.token_hex(4)
+        self.bot_id: str = names.get_first_name()
         self.developer_mode: bool = developer_mode
 
     def __enter__(self):
@@ -394,13 +398,98 @@ class HTTPBot():
 
     def visit(self, url: str):
         """Visit a url."""
+        self._notify_action(f'visit', locals())
         self.driver.get(url)
-        self._notify('visit', url)
+        self._notify_result(None)
 
     def wait(self, seconds: float) -> NoReturn:
         """Wait ``seconds`` seconds."""
-        self._notify('wait', seconds)
+        self._notify_action(f'wait', locals())
         time.sleep(seconds)
+        self._notify_result(None)
+
+    def _fill_by(self, selector, identifier: str, fill_with: str):
+        """Fill a *fillable* element identifying it by its ``selector``."""
+        _args = locals()
+        _args.pop('selector')
+        self._notify_action(f'fill_by_{selector}', _args)
+
+        success: bool = False
+        function = getattr(self.driver, f'find_elements_by_{selector}')
+        elements = function(identifier)
+        if len(elements) > 1:
+            self._notify_warning('More than one element found!')
+        if elements:
+            elements[0].send_keys(fill_with)
+            success = True
+
+        self._notify_result({'success': success})
+        return success
+
+    def fill_by_id(self, identifier: str, fill_with: str):
+        """Fill an element identifying it by its ``id``."""
+        self._fill_by('id', identifier, fill_with)
+
+    def fill_by_name(self, identifier: str, fill_with: str):
+        """Fill an element identifying it by its ``name``."""
+        self._fill_by('name', identifier, fill_with)
+
+    def fill_by_class_name(self, identifier: str, fill_with: str):
+        """Fill an element identifying it by its ``class name``."""
+        self._fill_by('class_name', identifier, fill_with)
+
+    def fill_by_css_selector(self, identifier: str, fill_with: str):
+        """Fill an element identifying it by its ``css selector``."""
+        self._fill_by('css_selector', identifier, fill_with)
+
+    def fill_by_link_text(self, identifier: str, fill_with: str):
+        """Fill an element identifying it by its ``link text``."""
+        self._fill_by('link_text', identifier, fill_with)
+
+    def fill_by_partial_link_text(self, identifier: str, fill_with: str):
+        """Fill an element identifying it by ``partial link text``."""
+        self._fill_by('partial_link_text', identifier, fill_with)
+
+    def fill_by_xpath(self, identifier: str, fill_with: str):
+        """Fill an element identifying it by its ``xpath``."""
+        self._fill_by('xpath', identifier, fill_with)
+
+    def _click_by(self, selector, identifier: str):
+        """Click a *clickable* element identifying it by its ``selector``."""
+        _args = locals()
+        _args.pop('selector')
+        self._notify_action(f'click_by_{selector}', _args)
+
+        success: bool = False
+        function = getattr(self.driver, f'find_elements_by_{selector}')
+        elements = function(identifier)
+        if len(elements) > 1:
+            self._notify_warning('More than one element found!')
+        if elements:
+            elements[0].click()
+            success = True
+
+        self._notify_result({'success': success})
+        return success
+
+    def click_by_name(self, identifier: str):
+        """Click an element identifying it by its ``name``."""
+        self._click_by('name', identifier)
+
+    def click_by_link_text(self, identifier: str):
+        """Click an element identifying it by its ``link text``."""
+        self._click_by('link_text', identifier)
+
+    def click_by_partial_link_text(self, identifier: str):
+        """Click an element identifying it by its ``partial link text``."""
+        self._click_by('partial_link_text', identifier)
+
+    def show_snapshot(self):
+        """Take an snapshot and display it in the default image viewer."""
+        with tempfile.NamedTemporaryFile(suffix='.png') as handle:
+            self.driver.save_screenshot(handle.name)
+            image = Image.open(handle.name)
+            image.show()
 
     #
     # Interface to current state data
@@ -408,51 +497,96 @@ class HTTPBot():
 
     def get_cookie(self, name: str):
         """Return a cookie in the current session."""
+        self._notify_action(f'get_cookie', locals())
         cookie = self.driver.get_cookie(name)
-        self._notify(f'get_cookie(name={name})', cookie)
+        self._notify_result(cookie)
         return cookie
 
     def get_cookies(self):
         """Return all cookies in the current session."""
+        self._notify_action('get_cookies', locals())
         cookies = self.driver.get_cookies()
-        self._notify('get_cookies', cookies)
+        self._notify_result(cookies)
         return cookies
 
     def get_source(self) -> str:
         """Return the current page source code."""
+        self._notify_action('get_source', locals())
         source_code: BeautifulSoup = \
             BeautifulSoup(self.driver.page_source, features='html.parser')
-        self._notify('get_source', source_code.prettify())
+        self._notify_result(source_code.prettify())
         return source_code
 
     #
     # Debuggers
     #
 
-    def _notify(self, where: str, obj: str) -> NoReturn:
+    @contextmanager
+    def _no_dev_mode(self):
+        """Temporarily disable the developer mode."""
+        old_value = self.developer_mode
+        self.developer_mode = False
+        try:
+            yield
+        finally:
+            self.developer_mode = old_value
+
+    def _notify_action(self, where: str, args) -> NoReturn:
         """Notify to stderr what's being done by the bot."""
         if self.developer_mode:
-            if isinstance(obj, (tuple, list)):
-                text = '\n'.join(f'- {o}' for o in obj)
-            else:
-                text = str(obj)
+            _args = args.copy()
+            _args.pop('self')
+            print(f'# ---', file=sys.stderr)
+            print(f'# Bot[{self.bot_id}].{where}:', file=sys.stderr)
 
-            print(*(
-                f'# ---',
-                f'# Bot[{self.bot_id}].{where}:',
-                f'#',
-                textwrap.indent(text=text, prefix='#  '),
-            ), sep='\n', file=sys.stderr)
+            if _args:
+                print('#  Args:')
+                _args = textwrap.indent(yaml.dump(_args), '#    ')
+                print(_args, end='', file=sys.stderr)
+
+    def _notify_result(self, body: Any) -> NoReturn:
+        """Notify to stderr what's being done by the bot."""
+        if self.developer_mode and body:
+            text = textwrap.indent(text=yaml.dump(body), prefix='#    ')
+
+            print('#')
+            print('#  Result:')
+            print(text, end='', file=sys.stderr)
+
+    def _notify_warning(self, text: Any) -> NoReturn:
+        """Notify to stderr what's being done by the bot."""
+        if self.developer_mode:
+            text = textwrap.indent(
+                text=yaml.dump({'WARNING': text}), prefix='#    ')
+            print(text, end='', file=sys.stderr)
 
     def get_fillables(self) -> Tuple[dict]:
         """Print a list of possible fields to fill."""
-        with unittest.mock.patch.object(self, 'developer_mode', False):
+        self._notify_action('get_fillables', locals())
+        with self._no_dev_mode():
             fillables: Tuple[dict, ...] = tuple(
                 {
-                    attr: tag.attrs.get(attr, None)
-                    for attr in ('id', 'name')
+                    'id': element.get_attribute('id'),
+                    'name': element.get_attribute('name'),
+                    'type': element.get_attribute('type'),
+                    'value': element.get_attribute('value'),
                 }
-                for tag in self.get_source()('input'))
+                for element in self.driver.find_elements_by_tag_name('input'))
 
-        self._notify('get_fillables', fillables)
+        self._notify_result(fillables)
+        return fillables
+
+    def get_clickables(self) -> Tuple[dict]:
+        """Print a list of possible buttons to click."""
+        self._notify_action('get_clickables', locals())
+        with self._no_dev_mode():
+            fillables: Tuple[dict, ...] = tuple(
+                {
+                    'id': element.get_attribute('id'),
+                    'name': element.get_attribute('name'),
+                    'type': element.get_attribute('type'),
+                    'value': element.get_attribute('value'),
+                }
+                for element in self.driver.find_elements_by_tag_name('button'))
+        self._notify_result(fillables)
         return fillables

@@ -88,6 +88,7 @@ setup(
         'ldap3==2.6',                  # fluidasserts.proto.ldap
         'mixpanel==4.4.0',             # fluidasserts.utils.decorators
         'mysql-connector==2.2.9',      # fluidasserts.db.mysql_db
+        'names==0.3.0',                # fluidasserts.helper.http
         'ntplib==0.3.3',               # fluidasserts.proto.http
         'oyaml==0.9',                  # fluidasserts
         'paramiko==2.6.0',             # fluidasserts.helper.ssh_helper
