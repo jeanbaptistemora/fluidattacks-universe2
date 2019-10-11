@@ -1614,17 +1614,20 @@ def has_sqli_time(url_safe: str,
     Check SQLi vulnerability by checking the delay of response.
 
     Take an undamaged URL along with the optional parameters
-    of the class: `.HTTPSession`. and calculate the average response time.
+    of the :class:`.HTTPSession`. and calculate the average response time.
     Take an exploited URL with optional parameters
-    from: class: `.HTTPSession` and calculate the response time and then
+    from :class:`.HTTPSession`. and calculate the response time and then
     compare the result with the average response time of the undamaged URL.
 
-    ### Sugestions:
-    - Use a [`sleep`][1] method in your attack.
-    - Use this method with stable connection network, a slow connection can
-    generate a False Positive.
-    - Use a perceptible time delay to prevent a False Positive.
-    [1]:https://cutt.ly/deiKvd1
+    ============
+    Suggestions:
+    ============
+
+    * Use a `sleep <https://cutt.ly/deiKvd1>`_ method in your attack.
+    * Use this method with stable connection network, a slow connection can
+      generate a False Positive.
+
+    * Use a perceptible time delay to prevent a False Positive.
 
     :param url_safe: URL to test without SQLi.
     :param url_break: URL to test with SQLi.
@@ -1641,17 +1644,21 @@ def has_sqli_time(url_safe: str,
 
     times = []
 
-    for i in range(6):
+    last_exc = None
+
+    for _ in range(6):
         try:
             req = http.HTTPSession(url_safe, *args_safe, **kwargs_safe)
         except (http.requests.HTTPError, http.ConnError,
                 http.ParameterError) as exc:
-            # we need at least 3 succesful requests to measure the avg
-            # if we are not able to collect them, mark the check as UNKONWN
-            if i > 2 and len(times) < 3:
-                raise exc
+            last_exc = exc
         else:
             times.append(req.response.elapsed.seconds)
+
+    # we need at least 3 successful requests to measure the avg
+    # if we are not able to collect them, mark the check as UNKNOWN
+    if len(times) < 3:
+        raise last_exc
 
     avg_time = sum(times) / len(times)
 
