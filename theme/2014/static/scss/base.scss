@@ -13,6 +13,17 @@ $textblack: rgba(48, 48, 48, 1);
 $tooltipblack: rgba(68, 68, 68, 1);
 $white: rgba(255, 255, 255, 1);
 $black: rgba(0, 0, 0, 1);
+//Monokai theme colors
+$codeblack: rgba(39, 40, 43, 1);
+$codebrown: rgba(117, 113, 94, 1);
+$codedarkred: rgba(30, 0, 16, 1);
+$codegray: rgba(242, 242, 242, 1);
+$codegreen: rgba(166, 226, 46, 1);
+$codelightblue: rgba(102, 217, 239, 1);
+$codelightred: rgba(249, 38, 114, 1);
+$codepink: rgba(150, 0, 80, 1);
+$codepurple: rgba(174, 129, 255, 1);
+$codeyellow: rgba(230, 219, 116, 1);
 
 // Tachyons custom classes:
 
@@ -21,6 +32,8 @@ $black: rgba(0, 0, 0, 1);
 .bg-fluid-lightgray { background-color: $lightergray; }
 .bg-fluid-black { background-color: $fluid-black; }
 .bg-tooltip { background-color: $tooltipblack; }
+.bg-code-bk { background-color: $codeblack; }
+.bg-code-dkred { background-color: $codedarkred; }
 .minw-100 { min-width: 100%; }
 .ma-auto { margin: auto; }
 .w-32 { width: 32%; }
@@ -33,6 +46,14 @@ $black: rgba(0, 0, 0, 1);
 .c-fluid-dkred { color: $fluid-dark-red; }
 .c-fluid-gray { color: $fluid-gray; }
 .c-fluid-dkblue { color: $darkblue; }
+.c-codegray { color: $codegray; }
+.c-codebrown { color: $codebrown; }
+.c-codegreen { color: $codegreen; }
+.c-codelightblue { color: $codelightblue; }
+.c-codepurple { color: $codepurple; }
+.c-codepink { color: $codepink; }
+.c-codelightred { color: $codelightred; }
+.c-codeyellow { color: $codeyellow; }
 .grayscale { filter: grayscale(100);}
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-fluid-bk { &:hover { color: $fluid-black;} }
