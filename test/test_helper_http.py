@@ -34,6 +34,10 @@ def test_httpbot_login_1(get_mock_ip):
         # Test cookies
         cookies = bot.get_cookies()
         assert cookies
+        cookies = bot.get_cookies_as_jar()
+        assert cookies
+        cookies = bot.get_cookies_as_dict()
+        assert cookies
         cookie = bot.get_cookie('PHPSESSID')
         assert cookie
 

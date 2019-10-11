@@ -16,7 +16,7 @@ import tempfile
 import textwrap
 from contextlib import contextmanager
 from collections import OrderedDict
-from typing import Any, List, NoReturn, Optional, Tuple
+from typing import Any, Dict, List, NoReturn, Optional, Tuple
 
 # 3rd party imports
 import yaml
@@ -506,6 +506,38 @@ class HTTPBot():
         """Return all cookies in the current session."""
         self._notify_action('get_cookies', locals())
         cookies = self.driver.get_cookies()
+        self._notify_result(cookies)
+        return cookies
+
+    def get_cookies_as_dict(self) -> Dict[str, str]:
+        """Return all cookies in the current session as a dictionary."""
+        self._notify_action('get_cookies_as_dict', locals())
+        cookies: Dict[str, str] = {
+            cookie['name']: cookie['value']
+            for cookie in self.driver.get_cookies()
+        }
+        self._notify_result(cookies)
+        return cookies
+
+    def get_cookies_as_jar(self) -> requests.cookies.RequestsCookieJar:
+        """Return all cookies in the current session as a RequestsCookieJar."""
+        self._notify_action('get_cookies_as_jar', locals())
+        cookies = requests.cookies.RequestsCookieJar()
+        for cookie in self.driver.get_cookies():
+            cookies.set_cookie(requests.cookies.create_cookie(
+                name=cookie['name'],
+                value=cookie['value'],
+                version=cookie.get('version', 0),
+                domain=cookie.get('domain', ''),
+                path=cookie.get('path', '/'),
+                port=cookie.get('port'),
+                secure=cookie.get('secure', False),
+                expires=cookie.get('expiry'),
+                discard=cookie.get('discard', True),
+                comment=cookie.get('comment'),
+                comment_url=cookie.get('comment_url'),
+                rest={'HttpOnly': cookie.get('httpOnly')},
+            ))
         self._notify_result(cookies)
         return cookies
 

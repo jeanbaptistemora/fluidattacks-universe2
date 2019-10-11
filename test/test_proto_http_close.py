@@ -31,19 +31,22 @@ BAD_FORMAT_SERVICE = 'fluidattacks'
 
 def get_bwapp_cookies(cont_ip):
     """Log in to bWAPP and return valid cookie."""
-    install_url = 'http://' + cont_ip + '/install.php?install=yes'
-    helper.HTTPSession(install_url)
-    login_url = 'http://' + cont_ip + '/login.php'
-    http_session = helper.HTTPSession(login_url)
+    with helper.HTTPBot() as bot:
+        # Install BWAPP
+        bot.visit(f'http://{cont_ip}/install.php?install=yes')
 
-    http_session.data = 'login=bee&password=bug&security_level=0&form=submit'
+        # Login to BWAPP
+        bot.visit(f'http://{cont_ip}/login.php')
 
-    successful_text = 'Welcome Bee'
-    http_session.formauth_by_response(successful_text)
+        # Fill the username
+        bot.fill_by_id('login', 'bee')
+        bot.fill_by_id('password', 'bug')
 
-    if not http_session.is_auth:
-        return {}
-    return http_session.cookies
+        # Click the login button
+        bot.click_by_name('form')
+
+        # Cookies
+        return bot.get_cookies_as_jar()
 
 #
 # Close tests
