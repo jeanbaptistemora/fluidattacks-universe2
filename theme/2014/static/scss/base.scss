@@ -264,14 +264,6 @@ ul {
   }
 }
 
-.frame-sides {
-  td,
-  th {
-    border-bottom-style: hidden;
-    border-top-style: hidden;
-  }
-}
-
 .frame-none {
   td,
   th {
@@ -289,14 +281,6 @@ ul {
 
   h4 {
     text-align: center;
-  }
-}
-
-.subp {
-  p {
-    left: 4%;
-    position: relative;
-    text-align: left;
   }
 }
 
@@ -392,24 +376,6 @@ ul {
 
   p {
     margin-top: 0;
-  }
-}
-
-.hdlist {
-  font-size: 18px;
-
-  table {
-    margin: 0;
-
-    td {
-      border-top: 0;
-      padding: 0;
-      vertical-align: middle;
-    }
-  }
-
-  .hdlist1 {
-    font-weight: bold;
   }
 }
 

@@ -63,5 +63,8 @@ Tachyons classes on dynamically generated content
     $( ".linenos > .linenodiv > pre" ).addClass("bg-code-bk bn br0 ma0 c-codegray");
     $( ".code" ).addClass("bn pa0 w-100");
 
+    //Definitions:
+    $( ".hdlist1" ).addClass("f4 b");
+
   });
 })(jQuery);
