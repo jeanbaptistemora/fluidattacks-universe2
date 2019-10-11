@@ -526,3 +526,33 @@ def uses_system_exit(java_dest: str, exclude: list = None) -> tuple:
         },
         spec=LANGUAGE_SPECS,
         excl=exclude)
+
+
+@api(risk=MEDIUM, kind=SAST)
+def uses_insecure_aes(java_dest: str, exclude: list = None):
+    """Check if code uses an insecure AES mode."""
+    ecb_mode = '/' + CaselessKeyword('ECB')
+    cbc_mode = '/' + CaselessKeyword('CBC')
+    padding_pkc = '/' + CaselessKeyword('PKCS5Padding')
+    padding_all = '/' + Word(alphanums)
+    algorithm = '"' + CaselessKeyword('AES') + Optional(
+        ((ecb_mode + padding_all) | (cbc_mode + padding_pkc))) + '"'
+
+    grammar = Suppress(Keyword('Cipher') + '.' + Keyword('getInstance')) + \
+        nestedExpr()
+    grammar.ignore(javaStyleComment)
+    grammar.addCondition(
+        # Ensure that at least one token is the AES algorithm
+        lambda tokens: tokens.asList() and any(
+            algorithm.matches(tok) for tok in tokens[0]))
+
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: f'Code uses insecure AES modes',
+            CLOSED: f'Code uses secure AES modes',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)

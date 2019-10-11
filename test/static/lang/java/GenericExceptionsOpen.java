@@ -37,12 +37,28 @@ class GenericExceptionsOpen{
                "DES/ECB/PKCS5Padding" // a comment
                /* A comment */
                "The provider as string");
-      Cipher des = Cipher // a comment
+
+      Cipher aes = Cipher // a comment
                   /*another comment*/          .getInstance(
-               "DES/ECB/PKCS5Padding" // a comment
+               "AES/ECB/NoPadding" // a comment
                /* A comment */
                TheProviderAsAVar /* A comment */
                );
+
+      Cipher aes = Cipher // a comment
+                  /*another comment*/          .getInstance(
+               "AES/ECB/PKCS5Padding" // a comment
+               /* A comment */
+               TheProviderAsAVar /* A comment */
+               );
+
+      Cipher aes = Cipher // a comment
+                  /*another comment*/          .getInstance(
+               "AES/CBC/PKCS5Padding" // a comment
+               /* A comment */
+               TheProviderAsAVar /* A comment */
+               );
+
       des.init(Cipher.ENCRYPT_MODE, secretKeySpec);
       byte[] encrypted = des.doFinal(input.getBytes("UTF-8"));
 
