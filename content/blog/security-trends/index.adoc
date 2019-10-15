@@ -61,9 +61,9 @@ All of these can prevent an +IoT+ attack.
 
 == Companies in the Cloud
 
-Most of the companies are now migrating to the cloud.
+Most companies are now migrating to the cloud.
 The advantages of Infrastructure as Code (+IaC+) are clear:
-maintainability, scalability, pricing, among others.
+maintainability, scalability, and pricing, among others.
 With cloud computing service providers like
 link:https://aws.amazon.com/[Amazon Web Services],
 link:https://www.digitalocean.com/[Digital Ocean] or
@@ -73,147 +73,140 @@ our small infrastructure team seems obsolete in comparison.
 It's better to outsource this aspect to bigger companies
 and stop worrying about physical infrastructure.
 Well, this is not completely true.
-We cannot disregard the security aspect,
+We cannot disregard the security aspect;
 the providers fulfilled their duty,
 now we must fulfill ours.
 
-According to Ben Morris from link:https://www.bishopfox.com/[+Bishop Fox+] <<r2, ^[2]^>>,
-speaker of the link:https://www.defcon.org/html/defcon-27/dc-27-index.html[Defcon Security Conference #27],
+According to Ben Morris,
+of link:https://www.bishopfox.com/[+Bishop Fox+] <<r2, ^[2]^>>,
+speaking at link:https://www.defcon.org/html/defcon-27/dc-27-index.html[Defcon Security Conference #27],
 hundreds of thousands of +Amazon Elastic Block Storage+ (+EBS+),
-have misconfigurations that led
-to sensitive data leakages: passwords, authentication keys,
-encryption keys, among others.
+have misconfigurations that led to sensitive data leakages:
+passwords, authentication keys, and encryption keys, among others.
 
 .AWS Alerts on bucket misconfigurations. Source: link:https://thenextweb.com/security/2017/06/02/amazon-web-services-leak-data-aws/[AWS users leaving sensitive Data].
 image::aws-alarm.png[AWS misconfigurations]
 
-And it's even worse.
-In 2018, more than +70+ million records
-were leaked due to poorly configured +AWS S3+ buckets <<r3, ^[3]^>>.
-The main causes of this kind of vulnerabilities
-are again, the human factor:
-the lack of knowledge, or the negligence
-regarding the infrastructure settings
+And what's worse is in 2018,
+more than +70+ million records were leaked
+due to poorly configured +AWS S3+ buckets <<r3, ^[3]^>>.
+The main cause of this kind of vulnerability was again the human factor.
+A lack of knowledge
+or negligence regarding infrastructure settings
 can directly impact your company.
 A weak +AWS+ configuration can be detected using automated tools.
-[inner]#link:../../products/asserts/[Asserts]#, one of our products
-can detect these flaws,
-using the link:https://fluidattacks.com/asserts/fluidasserts.cloud.aws.cloudtrail/[+AWS Cloudtrail module+].
-However another percentage of the leakages
-were caused as a result of hardware vulnerabilities <<r4, ^[4]^>>
+[inner]#link:../../products/asserts/[Asserts]#, one of our products,
+can detect these flaws, using the link:https://fluidattacks.com/asserts/fluidasserts.cloud.aws.cloudtrail/[+AWS Cloudtrail module+].
+However, some of the cloud leakages
+were also caused by hardware vulnerabilities <<r3, ^[3]^>>,
 such as +Spectre+ <<r5, ^[5]^>>, +Meltdown+ <<r6, ^[6]^>> or +Foreshadow+ <<r7, ^[7]^>>,
-that exploit vendor chips vulnerabilities
+that exploit vendor chips' vulnerabilities
 to gain access to shared memory pools on physical systems.
-So it it important to keep updated
-in both software and hardware to avoid these kind of attacks.
+So, it is important to keep up to date with both software and hardware
+to avoid these kinds of attacks.
 
-At +Fluid Attacks+ we have all our infrastructure as code.
+At +Fluid Attacks+, we have all our infrastructure as code.
 We use link:https://aws.amazon.com/s3/[+AWS S3+]
-as cloud computing service provider,
-link:https://www.terraform.io/[+terraform+] and link:https://www.docker.com/[+docker+]
-to configure and [inner]#link:../../events/burn-the-datacenter/[regenerate our datacenter]#.
-We apply infrastructure hardening by using link:https://www.hashicorp.com/blog/why-we-need-dynamic-secrets[ephemereal secrets]
+as our cloud computing service provider,
+link:https://www.terraform.io/[+terraform+]
+and link:https://www.docker.com/[+docker+]
+to configure our infrastructure,
+and link:https://gitlab.com/[+Gitlab as service+]
+to [inner]#link:../../events/burn-the-datacenter/[regenerate our datacenter]#
+on every new version of our products.
+We implement infrastructure hardening using link:https://www.hashicorp.com/blog/why-we-need-dynamic-secrets[ephemeral secrets]
 in a serverless approach.
-We take security very serious, since it's our value promise.
+At +Fluid Attacks+, we take security very seriously,
+since it’s our value promise.
 
 == Machine Learning
 
-Machine Learning, Neural Networks
-and Artificial Intelligence ,in general,
-has demonstrated to have several applications,
-and cybersecurity is not the exception.
-This topic has been widely addressed on [inner]#link:../tags/machine-learning/[several blog entries]#,
-for this reason, I won't go any further,
-instead I would like to resume +Fluid Attacks'+
-panorama about Machine learning in the cybersecurity field.
+Machine Learning, Neural Networks,
+and Artificial Intelligence have demonstrated
+that they have several applications,
+and cybersecurity is not an exception.
+This topic has been widely addressed in [inner]#link:../tags/machine-learning/[several blog entries]#,
+so instead, let's discuss +Fluid Attacks'+ opinion
+about the prospects for Machine Learning in the cybersecurity field
 
-At +Fluid Attacks+ we do not discourage
-the use of automated tools in security tests,
+At +Fluid Attacks+, we do not discourage
+the use of automated tools in security tests;
 we even have our own [inner]#link:../../products/commands/[custom cyberweapon]#
-that we use in some of our tests.
-However, a real security issue comes out
-when only automated tools
-are used to perform security tests,
-since these tools can report false positives,
-(for example, in the case of neural networks,
-some inputs can [inner]#link:../fool-machine/[fool]# the entire algorithm)
-and do not replace human malice
-to correlate vulnerabilities and [inner]#link:../importance-pentesting/[create more complex attack vectors]#.
-We see the machine learning emerging technologies more as tools
-rather than the holy grail in cybersecurity that will [inner]#link:../replaced-machines/[replace human hackers]#.
+that we sometimes use in our own tests.
+However, a real security issue comes up
+when only automated tools are used,
+since these tools can report false positives.
+For example, in the case of neural networks,
+some inputs can [inner]#link:../fool-machine/[fool]# the entire algorithm.
+Automated tools also do not have the human malice
+to correlate vulnerabilities and then [inner]#link:../importance-pentesting/[create more complex attack vectors]#.
+We see machine learning emerging technologies more as tools
+rather than the holy grail of cybersecurity that will [inner]#link:../replaced-machines/[replace human hackers]#.
 These tools can help our analysts to decide where to look first,
 what portions of code may have vulnerabilities
 and require further attention,
-or which inputs may have not been properly sanitized.
+or which inputs may not have been properly sanitized.
 
 == E-Commerce
 
-Nowadays businesses usually have an online
-alternative to purchase or sell products or services.
-This have to be handled with extreme careful,
-since most of the cyberattacks aim
-to profit from these functionalities.
-E-commerce attacks come in all kind of flavors and colors <<r8, ^[8]^>>:
+In today's world, businesses usually have an online alternative
+for purchasing or selling products or services.
+These online alternatives have to be handled with extreme care
+since most cyberattacks aim to profit from these functionalities.
+E-commerce attacks come in all shapes and sizes <<r8, ^[8]^>>:
 phishing, identity theft, +DDOS+, credit card frauds, and more.
 
-Most of them are based on social engineering.
-Attacks that intend to trick the victim to perform actions
+Most attacks are based on social engineering.
+These are attacks that try to trick the victim into performing actions
 (click a link or provide confidential information)
-that helps the attacker to gain control over the victim's transactions.
+that help the attacker gain control over the victim’s transactions.
 
 .Verizon Data Breach Investigations Report 2019. Source: link:https://enterprise.verizon.com/resources/reports/dbir/2019/summary-of-findings/[Summary of findings].
 image::verizon-findings.svg[alt="Verizon findings", width=500]
 
 According to Verizon,
-on its anual _Data Breach Investigations Report_ <<r9, ^[9]^>>,
+in its annual _Data Breach Investigations Report_ <<r9, ^[9]^>>,
 social engineering is the second
 most used tactic to extract confidential information.
-This is worrying,
-because it doesn't matter how secure an application can be,
-when the users are fooled to provide the access credentials.
-This, of course, applies to electronic commerce as well.
+This is worrying because it doesn't matter how secure an application is
+if users are fooled into providing access credentials.
+This, of course, applies to E-commerce as well.
 
-One effective mitigation for social engineering,
-is to train the people with talks and workshops,
-teaching how to identify a phishing attack,
-as well as some basic security measures to execute,
-before providing personal information,
-when purchasing online
-(check the +URL+ and certificates,
-suspect when the application requires _too much_ information, etc).
+One effective way to help reduce social engineering attacks
+is to train people via presentations and workshops
+on how to identify a phishing attack,
+along with basic security measures they can execute
+before providing personal information when purchasing online.
+A few of these are checking the URL and certificates,
+and being suspicious when the application
+asks for too much information, etc.
 
 ''''
 
 == Conclusions
 
-As technology evolves,
-cybersecurity should evolve as well.
-This is the ideal scenario,
-but often differs from the reality.
+As technology evolves, cybersecurity should evolve as well.
+But often what should happen differs from what does happen.
 Cyberattacks become more complex
-and solutions, patches and fixes take too much
-to be developed and deployed.
-On the bright side,
-With the increasing trends in cyberattacks,
-cybersecurity is gaining more relevance.
-Each time more companies are investing
-on security, developing tools
-such as machine learning neural networks, and +AIs+,
-and worrying about their applications
-before exposing them to the Internet.
-We totally agree with this belief,
+and solutions, patches, and fixes take too much time to develop and deploy.
+On the bright side, with increasing cyberattacks,
+cybersecurity is becoming more relevant.
+Companies are investing more in security,
+developing tools such as machine learning, neural networks, and +AIs+,
+and considering security risk consequences
+before exposing applications to the Internet.
+As a result, more companies now believe what +Fluid Attacks+ has always known,
 security should be applied
-on the entire Software Development Life Cycle (+SDLC+).
-
+to the entire Software Development Life Cycle (+SDLC+).
 
 == References
 
 . [[r1]] link:https://www.bankinfosecurity.com/attacks-targeting-iot-devices-windows-smb-surge-a-13082[Attacks Targeting IoT Devices and Windows SMB Surge].
-. [[r2]] link:https://www.defcon.org/html/defcon-27/dc-27-speakers.html#Morris[Ben Morris - Defcon Security Conference #27 ].
-. [[r3]] link:https://www.symantec.com/security-center/threat-report?om_ext_cid=biz_vnty_istr-24_multi_v10195[Symantec Threat Report].
-. [[r4]] link:https://www.your-itdepartment.co.uk/news/2019-internet-security-threat-report/[Internet Security Threat Report 2019].
-. [[r5]] link:https://spectreattack.com/spectre.pdf[Spectre Vulnerability].
-. [[r6]] link:https://meltdownattack.com/meltdown.pdf[Meltdown Vulnerability].
-. [[r7]] link:https://foreshadowattack.eu/[Foreshadow Vulnerability].
-. [[r8]] link:https://gbhackers.com/a-rising-of-e-commerce-cyber-attack-most-dangerous-threats-of-2019/[A Rising of E-Commerce Cyber Attack].
-. [[r9]] link:https://enterprise.verizon.com/resources/reports/dbir/[Verizon Data Breach Investigations Report 2019].
+. [[r2]] link:https://www.defcon.org/html/defcon-27/dc-27-speakers.html#Morris[Ben Morris - Defcon Security Conference #27].
+. [[r3]] link:https://www.symantec.com/security-center/threat-report?om_ext_cid=biz_vnty_istr-24_multi_v10195[2019 Internet Security Threat Report].
+. [[r4]] link:https://spectreattack.com/spectre.pdf[Spectre Attacks: Exploiting Speculative Execution].
+. [[r5]] link:https://meltdownattack.com/meltdown.pdf[Meltdown: Reading Kernel Memory from User Space].
+. [[r6]] link:https://foreshadowattack.eu/[Foreshadow: Breaking the Virtual Memory Abstraction
+with Transient Out-of-Order Execution].
+. [[r7]] link:https://gbhackers.com/a-rising-of-e-commerce-cyber-attack-most-dangerous-threats-of-2019/[A Rising of E-Commerce Cyber Attack & Most Dangerous Cyber Threats of 2019].
+. [[r8]] link:https://enterprise.verizon.com/resources/reports/dbir/[Verizon 2019 Data Breach Investigations Report].
