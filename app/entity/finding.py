@@ -412,10 +412,11 @@ class UpdateEvidence(Mutation):
                     ['exploit', field_num.EXPLOIT],
                     ['fileRecords', field_num.REG_FILE]
                 ]
-                success = finding_domain.save_evidence(fieldname[int(evidence_id)],
-                                                       finding_id,
-                                                       project_name,
-                                                       uploaded_file)
+                success = finding_domain.save_evidence(
+                    fieldname[int(evidence_id)], finding_id, project_name,
+                    uploaded_file)
+                if success:
+                    util.invalidate_cache(finding_id)
         else:
             util.cloudwatch_log(info.context,
                                 'Security: Attempted to upload evidence file with a \
@@ -425,7 +426,6 @@ class UpdateEvidence(Mutation):
         findings_loader = info.context.loaders['finding']
         ret = UpdateEvidence(
             finding=findings_loader.load(finding_id), success=success)
-        util.invalidate_cache(finding_id)
         return ret
 
 
@@ -458,6 +458,7 @@ class UpdateEvidenceDescription(Mutation):
                 'description',
                 description)
             if success:
+                util.invalidate_cache(finding_id)
                 util.cloudwatch_log(info.context, 'Security: Evidence description \
                     succesfully updated in finding ' + finding_id)
             else:
@@ -470,7 +471,6 @@ An error occurred updating evidence description', 'error', info.context)
         findings_loader = info.context.loaders['finding']
         ret = UpdateEvidenceDescription(
             finding=findings_loader.load(finding_id), success=success)
-        util.invalidate_cache(finding_id)
         return ret
 
 
@@ -515,9 +515,9 @@ class UpdateSeverity(Mutation):
         findings_loader = info.context.loaders['finding']
         ret = UpdateSeverity(
             finding=findings_loader.load(finding_id), success=success)
-        util.invalidate_cache(finding_id)
-        util.invalidate_cache(project)
         if success:
+            util.invalidate_cache(finding_id)
+            util.invalidate_cache(project)
             util.cloudwatch_log(info.context, 'Security: Updated severity in\
                 finding {id} succesfully'.format(id=parameters.get('finding_id')))
         else:
@@ -571,10 +571,10 @@ class AddFindingComment(Mutation):
             util.cloudwatch_log(info.context, 'Security: Added comment in\
                 finding {id} succesfully'.format(id=parameters.get('finding_id')))
         else:
+            util.invalidate_cache(parameters.get('finding_id'))
             util.cloudwatch_log(info.context, 'Security: Attempted to add \
                 comment in finding {id}'.format(id=parameters.get('finding_id')))
         ret = AddFindingComment(success=success, comment_id=comment_id)
-        util.invalidate_cache(parameters.get('finding_id'))
         return ret
 
 
@@ -593,10 +593,11 @@ class VerifyFinding(Mutation):
             finding_id=parameters.get('finding_id'),
             user_email=user_email
         )
-        util.cloudwatch_log(info.context, 'Security: Verified the finding_id:\
-            {id}'.format(id=parameters.get('finding_id')))
+        if success:
+            util.invalidate_cache(parameters.get('finding_id'))
+            util.cloudwatch_log(info.context, 'Security: Verified the \
+                finding_id: {id}'.format(id=parameters.get('finding_id')))
         ret = VerifyFinding(success=success)
-        util.invalidate_cache(parameters.get('finding_id'))
         return ret
 
 
@@ -620,10 +621,11 @@ class RequestVerification(Mutation):
                                     user_info['last_name']]),
             justification=justification
         )
-        util.cloudwatch_log(info.context, 'Security: Verified a request in finding_id:\
-            {id}'.format(id=finding_id))
+        if success:
+            util.invalidate_cache(finding_id)
+            util.cloudwatch_log(info.context, 'Security: Verified a request\
+                in finding_id: {id}'.format(id=finding_id))
         ret = RequestVerification(success=success)
-        util.invalidate_cache(finding_id)
         return ret
 
 
@@ -654,6 +656,9 @@ class UpdateDescription(Mutation):
     def mutate(self, info, finding_id, **parameters):
         success = finding_domain.update_description(finding_id, parameters)
         if success:
+            project_name = finding_domain.get_finding(finding_id)['projectName']
+            util.invalidate_cache(finding_id)
+            util.invalidate_cache(project_name)
             util.cloudwatch_log(info.context, 'Security: Updated description in\
                 finding {id} succesfully'.format(id=finding_id))
         else:
@@ -662,9 +667,6 @@ class UpdateDescription(Mutation):
         findings_loader = info.context.loaders['finding']
         ret = UpdateDescription(
             finding=findings_loader.load(finding_id), success=success)
-        project_name = finding_domain.get_finding(finding_id)['projectName']
-        util.invalidate_cache(finding_id)
-        util.invalidate_cache(project_name)
         return ret
 
 
@@ -707,6 +709,8 @@ class UpdateTreatment(Mutation):
         success = finding_domain.update_treatment(finding_id,
                                                   parameters)
         if success:
+            util.invalidate_cache(finding_id)
+            util.invalidate_cache(project_name)
             util.cloudwatch_log(info.context, 'Security: Updated treatment in\
                 finding {id} succesfully'.format(id=finding_id))
         else:
@@ -715,8 +719,6 @@ class UpdateTreatment(Mutation):
         findings_loader = info.context.loaders['finding']
         ret = UpdateTreatment(
             finding=findings_loader.load(finding_id), success=success)
-        util.invalidate_cache(finding_id)
-        util.invalidate_cache(project_name)
         return ret
 
 
@@ -734,9 +736,9 @@ class RejectDraft(Mutation):
 
         success = finding_domain.reject_draft(
             finding_id, reviewer_email, project_name)
-        util.invalidate_cache(finding_id)
-        util.invalidate_cache(project_name)
         if success:
+            util.invalidate_cache(finding_id)
+            util.invalidate_cache(project_name)
             util.cloudwatch_log(
                 info.context,
                 'Security: Draft {} rejected succesfully'.format(finding_id))
@@ -787,11 +789,11 @@ class ApproveDraft(Mutation):
             project_name = finding_domain.get_finding(draft_id)['projectName']
             success, release_date = \
                 finding_domain.approve_draft(draft_id, info.context)
-            util.invalidate_cache(draft_id)
-            util.invalidate_cache(project_name)
         except KeyError:
             raise GraphQLError('DRAFT_NOT_FOUND')
         if success:
+            util.invalidate_cache(draft_id)
+            util.invalidate_cache(project_name)
             util.cloudwatch_log(info.context, 'Security: Approved draft in\
                 {project} project succesfully'.format(project=project_name))
         else:

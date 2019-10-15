@@ -145,6 +145,8 @@ class GrantUserAccess(Mutation):
             rollbar.report_message('Error: Invalid role provided: ' +
                                    new_user_data['role'], 'error', info.context)
         if success:
+            util.invalidate_cache(project_name)
+            util.invalidate_cache(query_args.get('email'))
             util.cloudwatch_log(info.context, 'Security: Given grant access to {user} \
                 in {project} project'.format(user=query_args.get('email'), project=project_name))
         else:
@@ -155,8 +157,6 @@ class GrantUserAccess(Mutation):
             GrantUserAccess(success=success,
                             granted_user=User(project_name,
                                               new_user_data['email']))
-        util.invalidate_cache(project_name)
-        util.invalidate_cache(query_args.get('email'))
         return ret
 
 
@@ -277,14 +277,14 @@ class RemoveUserAccess(Mutation):
         success = is_user_removed_dal and is_user_removed_dynamo
         removed_email = user_email if success else None
         if success:
+            util.invalidate_cache(project_name)
+            util.invalidate_cache(user_email)
             util.cloudwatch_log(info.context, 'Security: Removed user: {user} from {project} \
                 project succesfully'.format(user=user_email, project=project_name))
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to remove user: {user}\
                 from {project} project'.format(user=user_email, project=project_name))
         ret = RemoveUserAccess(success=success, removed_email=removed_email)
-        util.invalidate_cache(project_name)
-        util.invalidate_cache(user_email)
         return ret
 
 
@@ -339,6 +339,8 @@ class EditUser(Mutation):
                                    modified_user_data['role'], 'error',
                                    info.context)
         if success:
+            util.invalidate_cache(project_name)
+            util.invalidate_cache(query_args.get('email'))
             util.cloudwatch_log(info.context, 'Security: Modified user data:{user} \
                 in {project} project succesfully'.format(user=query_args.get('email'),
                                                          project=project_name))
@@ -350,8 +352,6 @@ class EditUser(Mutation):
             EditUser(success=success,
                      modified_user=User(project_name,
                                         modified_user_data['email']))
-        util.invalidate_cache(project_name)
-        util.invalidate_cache(query_args.get('email'))
         return ret
 
 

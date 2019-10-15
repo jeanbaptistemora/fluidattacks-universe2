@@ -321,13 +321,13 @@ class AddProjectComment(Mutation):
         success = project_domain.add_comment(
             project_name, user_info['user_email'], comment_data)
         if success:
+            util.invalidate_cache(project_name)
             util.cloudwatch_log(info.context, 'Security: Added comment to \
                 {project} project succesfully'.format(project=project_name))
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to add \
                 comment in {project} project'.format(project=project_name))
         ret = AddProjectComment(success=success, comment_id=comment_id)
-        util.invalidate_cache(project_name)
         return ret
 
 
@@ -357,13 +357,13 @@ class RemoveTag(Mutation):
                 rollbar.report_message('Error: \
 An error occurred removing a tag', 'error', info.context)
         if success:
+            util.invalidate_cache(project_name)
             util.cloudwatch_log(info.context, 'Security: Removed tag from \
                 {project} project succesfully'.format(project=project_name))
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to remove \
                 tag in {project} project'.format(project=project_name))
         ret = RemoveTag(success=success, project=Project(project_name))
-        util.invalidate_cache(project_name)
         return ret
 
 
@@ -401,7 +401,7 @@ Attempted to upload tags without the allowed structure')
             util.cloudwatch_log(info.context,
                                 'Security: \
 Attempted to upload tags without the allowed validations')
-
+        if success:
+            util.invalidate_cache(project_name)
         ret = AddTags(success=success, project=Project(project_name))
-        util.invalidate_cache(project_name)
         return ret

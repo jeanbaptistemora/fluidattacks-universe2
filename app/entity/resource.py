@@ -123,6 +123,7 @@ An error occurred adding repository', 'error', info.context)
             rollbar.report_message('Error: \
 An error occurred adding repository', 'error', info.context)
         if success:
+            util.invalidate_cache(project_name)
             util.cloudwatch_log(info.context, 'Security: Added repositories to \
                 {project} project succesfully'.format(project=project_name))
         else:
@@ -130,7 +131,6 @@ An error occurred adding repository', 'error', info.context)
                 from {project} project'.format(project=project_name))
         ret = AddRepositories(success=success,
                               resources=Resource(project_name))
-        util.invalidate_cache(project_name)
         return ret
 
 
@@ -183,6 +183,7 @@ class RemoveRepositories(Mutation):
                 rollbar.report_message('Error: \
 An error occurred removing repository', 'error', info.context)
         if success:
+            util.invalidate_cache(project_name)
             util.cloudwatch_log(info.context, 'Security: Removed repositories from \
                 {project} project succesfully'.format(project=project_name))
         else:
@@ -190,7 +191,6 @@ An error occurred removing repository', 'error', info.context)
                 from {project} project'.format(project=project_name))
         ret = RemoveRepositories(success=success,
                                  resources=Resource(project_name))
-        util.invalidate_cache(project_name)
         return ret
 
 
@@ -239,6 +239,7 @@ An error occurred adding environments', 'error', info.context)
             rollbar.report_message('Error: \
 An error occurred adding environments', 'error', info.context)
         if success:
+            util.invalidate_cache(project_name)
             util.cloudwatch_log(info.context, 'Security: Added environments to \
                 {project} project succesfully'.format(project=project_name))
         else:
@@ -246,7 +247,6 @@ An error occurred adding environments', 'error', info.context)
                 from {project} project'.format(project=project_name))
         ret = AddEnvironments(success=success,
                               resources=Resource(project_name))
-        util.invalidate_cache(project_name)
         return ret
 
 
@@ -300,13 +300,13 @@ An error occurred removing an environment', 'error', info.context)
                                 'Security: \
 Attempted to remove an environment that does not exist')
         if success:
+            util.invalidate_cache(project_name)
             util.cloudwatch_log(info.context, 'Security: Removed environments from \
                 {project} project succesfully'.format(project=project_name))
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to remove environments \
                 from {project} project'.format(project=project_name))
         ret = RemoveEnvironments(success=success, resources=Resource(project_name))
-        util.invalidate_cache(project_name)
         return ret
 
 
@@ -377,13 +377,13 @@ class AddFiles(Mutation):
             except ErrorUploadingFileS3:
                 raise GraphQLError('Error uploading file')
         if success:
+            util.invalidate_cache(project_name)
             util.cloudwatch_log(info.context, 'Security: Added evidence files to \
                 {project} project succesfully'.format(project=project_name))
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to add evidence files \
                 from {project} project'.format(project=project_name))
         ret = AddFiles(success=success, resources=Resource(project_name))
-        util.invalidate_cache(project_name)
         return ret
 
 
@@ -433,6 +433,7 @@ class RemoveFiles(Mutation):
                                 'removed',
                                 'file')
         if success:
+            util.invalidate_cache(project_name)
             util.cloudwatch_log(info.context, 'Security: Removed Files from \
                 {project} project succesfully'.format(project=project_name))
         else:
@@ -440,7 +441,6 @@ class RemoveFiles(Mutation):
                 from {project} project'.format(project=project_name))
 
         ret = RemoveFiles(success=success, resources=Resource(project_name))
-        util.invalidate_cache(project_name)
         return ret
 
 

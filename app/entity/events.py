@@ -182,10 +182,11 @@ class UpdateEvent(Mutation):
     @require_event_access_gql
     def mutate(self, info, event_id, affectation):
         success = update_event(event_id, affectation, info)
+        if success:
+            project_name = get_event_project_name(event_id)
+            util.invalidate_cache(event_id)
+            util.invalidate_cache(project_name)
         ret = UpdateEvent(
             success=success,
             event=Events(identifier=event_id, context=info.context))
-        project_name = get_event_project_name(event_id)
-        util.invalidate_cache(event_id)
-        util.invalidate_cache(project_name)
         return ret
