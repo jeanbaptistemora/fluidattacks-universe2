@@ -53,11 +53,11 @@ a|image::healthchecks.svg[alt="Source code with successful checks"]
 
 a|image::severity.svg[alt="Checklist"]
 
-2+a|== You decide the Severity and Hacking Environments
+2+a|== Severity and Hacking Environments
 
 You are able to decide which security requirements will be tested
 on each Ethical Hacking (Profiling) through our
-[button]#link:../../products/rules/[Rules]# product.
+[inner]#link:../../products/rules/[Rules]# product.
 You will know the exact severity for each hacking
 (for inspected and non-inspected profiled requirements).
 Basic service allows customers to choose a single environment
@@ -79,7 +79,7 @@ a|image::agile-communication.svg[alt="Two persons having a conversation"]
 
 Our platform for communication,
 follow up and reporting of your project.
-You can use [button]#link:../../products/integrates/[Integrates]#
+You can use [inner]#link:../../products/integrates/[Integrates]#
 to access general information about each finding,
 check its remediation status,
 classify it according to age,
@@ -97,7 +97,7 @@ and a projected business impact statement,
 as well as a summary of the project scope,
 methodology used, conclusions and recommendations.
 
-2+a|== Remediation validation and support
+2+a|== Remediation
 
 Multiple finding validation cycles
 are performed during the subscription period
@@ -110,25 +110,26 @@ used to remediate the vulnerability
 and then request, through Integrates,
 a finding validation.
 You can request clarification on any issue
-by directly contacting our hackers through our platform [button]#link:../../products/integrates/[Integrates]#.
+by directly contacting our hackers through our platform [inner]#link:../../products/integrates/[Integrates]#.
 
 a|image::validate-remediation.svg[alt="Checklist"]
 
 a|image::exploitation.svg[alt="Computer with an open lock symbol"]
 
-2+a|== Reproduce mock attacks with Asserts, our exploitation engine
+2+a|== Reproduce mock attacks
 
-As long as we have access to your deployed applications
-and we authorize your use of our exploitation engine [button]#link:../../products/asserts/[Asserts]#,
-you may reproduce a mock attack that targets a vulnerability
-to determine independently if you have eliminated it.
+We can reproduce mock attacks with [inner]#link:../../products/asserts/[Asserts]#,
+an automated closing engine which closes security findings
+over execution environments (+DAST+ and +SAST+).
++Asserts+ breaks the build if finds out that a vulnerability is open,
+either because it reopened or has not been closed.
 
 2+a|== Critical information extraction
 
 Whenever findings indicate the need to obtain information,
 information extraction is done to maximize finding impacts
 without compromising sensitive information.
-[button]#link:../../products/integrates/#compromised-records[Example]#.
+[inner]#link:../../products/integrates/#compromised-records[Example]#.
 
 a|image::critical-info.svg[alt="Arrows flowing out of a lock"]
 
@@ -157,12 +158,12 @@ a|image::trained-team.svg[alt="Team"]
 
 * To check on differences between our services
 and other providers take a look at our differentiators
-[button]#link:../differentiators/[here]#.
+[inner]#link:../differentiators/[here]#.
 
 * To check on differences between our One-shot hacking
 and Continuous hacking take a look at our comparative
-[button]#link:../comparative/[here]#.
+[inner]#link:../comparative/[here]#.
 
 Want further information about our services?
 Do not hesitate to
-[button]#link:../../contact-us/[contact us]#.
+[inner]#link:../../contact-us/[contact us]#.
