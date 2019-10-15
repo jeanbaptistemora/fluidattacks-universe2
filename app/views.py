@@ -43,9 +43,7 @@ from app.documentator.pdf import CreatorPDF
 from app.documentator.secure_pdf import SecurePDF
 from app.documentator.all_vulns import generate_all_vulns_xlsx
 from app.dto import closing
-from app.dto.finding import (
-    FindingDTO, get_project_name, mask_finding_fields_dynamo
-)
+from app.dto.finding import FindingDTO, mask_finding_fields_dynamo
 from app.services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
 )
@@ -623,7 +621,7 @@ Attempted to retrieve vulnerabilities without permission')
         else:
             # This finding does not have new vulnerabilities
             pass
-        project = get_project_name(findingid).lower()
+        project = finding_domain.get_finding(findingid)['projectName']
         file_name = '/tmp/{project}-{finding_id}.yaml'.format(
             finding_id=findingid, project=project)
         stream = file(file_name, 'w')

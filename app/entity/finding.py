@@ -21,7 +21,7 @@ from app.domain import (
     vulnerability as vuln_domain
 )
 from app.domain import user as user_domain
-from app.dto.finding import FindingDTO, get_project_name
+from app.dto.finding import FindingDTO
 from app.entity.vulnerability import Vulnerability
 from app.services import get_user_role, is_customeradmin
 from app.utils import findings as finding_utils
@@ -383,7 +383,7 @@ class UpdateEvidence(Mutation):
     def mutate(self, info, evidence_id, finding_id):
         success = False
         uploaded_file = info.context.FILES.get('document', '')
-        project_name = get_project_name(finding_id).lower()
+        project_name = finding_domain.get_finding(finding_id)['projectName']
         if util.assert_uploaded_file_mime(uploaded_file,
                                           ['image/gif',
                                            'image/png',
@@ -662,7 +662,7 @@ class UpdateDescription(Mutation):
         findings_loader = info.context.loaders['finding']
         ret = UpdateDescription(
             finding=findings_loader.load(finding_id), success=success)
-        project_name = get_project_name(finding_id)
+        project_name = finding_domain.get_finding(finding_id)['projectName']
         util.invalidate_cache(finding_id)
         util.invalidate_cache(project_name)
         return ret
@@ -685,7 +685,7 @@ class UpdateTreatment(Mutation):
     @require_finding_access
     def mutate(self, info, finding_id, **parameters):
         user_data = util.get_jwt_content(info.context)
-        project_name = get_project_name(finding_id)
+        project_name = finding_domain.get_finding(finding_id)['projectName']
 
         if parameters['treatment'] == 'IN PROGRESS':
             if not is_customeradmin(project_name, user_data['user_email']):
@@ -730,7 +730,7 @@ class RejectDraft(Mutation):
     @require_finding_access
     def mutate(self, info, finding_id):
         reviewer_email = util.get_jwt_content(info.context)['user_email']
-        project_name = get_project_name(finding_id)
+        project_name = finding_domain.get_finding(finding_id)['projectName']
 
         success = finding_domain.reject_draft(
             finding_id, reviewer_email, project_name)
@@ -757,7 +757,7 @@ class DeleteFinding(Mutation):
     @require_role(['admin', 'analyst'])
     @require_finding_access
     def mutate(self, info, finding_id, justification):
-        project_name = get_project_name(finding_id)
+        project_name = finding_domain.get_finding(finding_id)['projectName']
 
         success = finding_domain.delete_finding(
             finding_id, project_name, justification, info.context)
@@ -784,7 +784,7 @@ class ApproveDraft(Mutation):
     @require_role(['admin'])
     def mutate(self, info, draft_id):
         try:
-            project_name = get_project_name(draft_id)
+            project_name = finding_domain.get_finding(draft_id)['projectName']
             success, release_date = \
                 finding_domain.approve_draft(draft_id, info.context)
             util.invalidate_cache(draft_id)

@@ -8,7 +8,6 @@ import base64
 from django.conf import settings
 
 from ..dal import integrates_dal
-from ..dal.helpers.formstack import FormstackAPI
 from ..domain import vulnerability as vuln_domain
 from ..utils import forms
 from ..utils import cvss
@@ -370,17 +369,3 @@ def parse_evidence_description(finding):
     else:
         evidence_tab_info = {}
     return evidence_tab_info
-
-
-def get_project_name(finding_id):
-    """Get the name of the project of a finding."""
-    project = integrates_dal.get_finding_project(finding_id)
-    if not project:
-        api = FormstackAPI()
-        fin_dto = FindingDTO()
-        finding_data = fin_dto.parse_project(api.get_submission(finding_id), finding_id)
-        project = finding_data.get('projectName')
-    else:
-        # Project exist in dynamo
-        pass
-    return project
