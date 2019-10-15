@@ -21,32 +21,31 @@ and are written as specific and understandable objectives.
 They are the security demands that you agree to follow and comply with.
 In our hacking services, we determine if these are met or not.
 
-a|You can access the product
-
-a|[button]#link:../../rules/[here]#
 |====
+
+You can access the product [inner]#link:../../rules/[here]#
 
 == Standards
 
 Rules is based on several standards
 related to information security, including:
 
-. [button]#link:../../search.html?q=HIPAA[HIPAA]#
+. [inner]#link:../../search.html?q=HIPAA[HIPAA]#
 link:https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html[Health Insurance Portability and Accountability Act.]
 
-. [button]#link:../../search.html?q=ASVS[ASVS]#
+. [inner]#link:../../search.html?q=ASVS[ASVS]#
 link:https://www.owasp.org/index.php/Category:OWASP_Application_Security_Verification_Standard_Project[+OWASP+ Application Security Verification Standard].
 
-. [button]#link:../../search.html?q=CWE[CWE]#
+. [inner]#link:../../search.html?q=CWE[CWE]#
 link:https://cwe.mitre.org/[Common Weakness Enumeration].
 
-. [button]#link:../../search.html?q=NIST+800-53[NIST]#
+. [inner]#link:../../search.html?q=NIST+800-53[NIST]#
 link:https://nvd.nist.gov/800-53/Rev4[+NIST+ Special Publication 800-53 (Rev. 4)].
 
-. [button]#link:../../search.html?q=bssim9[BSSIM9]#
+. [inner]#link:../../search.html?q=bssim9[BSSIM9]#
 link:https://www.bsimm.com/download.html[Building Security In Maturity Model].
 
 
 Want to know more about our products?
 Do not hesitate to
-[button]#link:../../contact-us/[contact us]#.
+[inner]#link:../../contact-us/[contact us]#.
