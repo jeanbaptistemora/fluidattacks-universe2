@@ -97,12 +97,10 @@ def test_WebBot_login_3(get_mock_ip):
 
         # Put the email
         bot.fill_by_id('identifierId', GMAIL_USER)
-
-        # Click continue
-        bot.click_by_human_text('Siguiente')
-        bot.wait(3.0)
+        bot.send_enter()
+        bot.wait(5.0)
 
         # Put the password
         bot.fill_by_name('password', GMAIL_PASS)
         bot.click_by_human_text('Siguiente')
-        bot.wait(3.0)
+        bot.wait(5.0)

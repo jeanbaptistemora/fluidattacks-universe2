@@ -23,6 +23,7 @@ import yaml
 import names
 import selenium.webdriver
 import selenium.common.exceptions
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webdriver import WebDriver, WebElement
 from bs4 import BeautifulSoup
 from PIL import Image
@@ -534,6 +535,11 @@ class WebBot():
         image = Image.open(file.name)
         image.show()
         self._notify_result({'success': success})
+
+    def send_enter(self):
+        """Send an ``Enter`` to the current active element."""
+        self._notify_action('send_enter', locals())
+        self.driver.switch_to.active_element.send_keys(Keys.ENTER)
 
     #
     # Interface to current state data
