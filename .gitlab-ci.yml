@@ -161,8 +161,6 @@ coverage-report:
     - master
 
 ephemeral-app:
-  tags:
-    - mobile
   stage: deploy
   needs: [build-app]
   image: registry.gitlab.com/fluidsignal/serves:builder
@@ -226,6 +224,8 @@ deploy-mobile:
     - master
 
 test-driver:
+  tags:
+    - mobile
   stage: post-deploy
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
