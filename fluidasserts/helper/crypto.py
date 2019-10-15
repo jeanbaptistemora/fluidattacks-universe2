@@ -96,8 +96,8 @@ def create_encrypted_yaml(*,
     secrets_encrypted: Dict[str, str] = {
         'secrets': {
             key: fernet.encrypt(val.encode()).decode()
-            for key, val in secrets.items()
             for fernet in (Fernet(key=key_b64_url_safe),)
+            for key, val in secrets.items()
         }
     }
 
@@ -109,6 +109,56 @@ def create_encrypted_yaml(*,
 
     # Flush it into file
     print(secrets_as_yaml, end=str(), file=file)
+
+    return True
+
+
+def create_decrypted_yaml(*,
+                          key_b64: str,
+                          input_file: str,
+                          output_file=sys.stdout):
+    """
+    Decrypt an existing ``YAML`` file dumping the results to **output_file**.
+
+    :param key_b64:
+        - **Secret** used to decrypt the resultant ``YAML`` file
+        - **an AWS secret key works out-of-the-box**
+        - must be from 30 to 32 bytes encoded in standard base64.
+    :param input_file: A path to the encrypted ``YAML``.
+    :param output_file: A path or file-like object where the decrypted yaml
+        will be put.
+    :returns: Prints the content of the encrypted ``YAML`` to **output_file**,
+        (defaults to sys.stdout).
+    """
+    # Data quality
+    key_b64_url_safe: bytes = _validate_key(key_b64)
+
+    # Load the input file as a dictionary from the YAML file
+    with open(input_file) as file:
+        input_file_content = file.read()
+        input_file_yaml = yaml.safe_load(input_file_content)
+
+    # Decrypt
+    secrets_decrypted: Dict[str, str] = {
+        'secrets': {
+            key: fernet.decrypt(val.encode()).decode()
+            for fernet in (Fernet(key=key_b64_url_safe),)
+            for key, val in input_file_yaml['secrets'].items()
+        }
+    }
+
+    # Dump it to YAML
+    secrets_as_yaml: str = yaml.safe_dump(secrets_decrypted,
+                                          width=64,
+                                          default_flow_style=False,
+                                          allow_unicode=True)
+
+    # Flush it into file
+    if isinstance(output_file, str):
+        with open(output_file, 'w') as output_file_handle:
+            print(secrets_as_yaml, end=str(), file=output_file_handle)
+    else:
+        print(secrets_as_yaml, end=str(), file=output_file)
 
     return True
 
@@ -134,8 +184,8 @@ class DecryptedYAML:
         # Decrypt it and expose it
         self.decrypted_data = {
             key: fernet.decrypt(val.encode()).decode()
-            for key, val in self.encrypted_data.items()
             for fernet in (Fernet(key=self.key_b64_url_safe),)
+            for key, val in self.encrypted_data.items()
         }
 
     def __getitem__(self, key) -> str:
