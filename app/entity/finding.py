@@ -568,10 +568,10 @@ class AddFindingComment(Mutation):
         else:
             raise GraphQLError('Invalid comment type')
         if success:
+            util.invalidate_cache(parameters.get('finding_id'))
             util.cloudwatch_log(info.context, 'Security: Added comment in\
                 finding {id} succesfully'.format(id=parameters.get('finding_id')))
         else:
-            util.invalidate_cache(parameters.get('finding_id'))
             util.cloudwatch_log(info.context, 'Security: Attempted to add \
                 comment in finding {id}'.format(id=parameters.get('finding_id')))
         ret = AddFindingComment(success=success, comment_id=comment_id)
