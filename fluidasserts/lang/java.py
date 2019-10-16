@@ -615,3 +615,40 @@ def uses_insecure_rsa(java_dest: str, exclude: list = None) -> tuple:
         },
         spec=LANGUAGE_SPECS,
         excl=exclude)
+
+
+@api(
+    risk=MEDIUM,
+    kind=SAST,
+)
+def uses_cipher_in_ecb_mode(java_dest: str, exclude: list = None):
+    """
+    Check if ECB cipher mode is in using.
+
+    :param java_dest: Path to a Java source file or package.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    insecure_modes = '/' + oneOf('ECB', caseless=True)
+    any_padding = '/' + Word(alphanums + '-')
+    any_algorithm = Word(alphanums)
+
+    algorithm = '"' + any_algorithm + insecure_modes + any_padding + '"'
+    grammar = Suppress(
+        Keyword('Cipher') + '.' + Keyword('getInstance')) + nestedExpr()
+    grammar.ignore(javaStyleComment)
+    grammar.addCondition(
+        # Ensure that at least one token is the ECB mode
+        lambda tokens: tokens.asList() and any(
+            algorithm.matches(tok) for tok in tokens[0]))
+
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: f'Code uses an insecure cipher mode (ECB)',
+            CLOSED: f'Code uses a secure cipher mode',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)

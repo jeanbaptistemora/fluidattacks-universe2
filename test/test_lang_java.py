@@ -189,9 +189,21 @@ def test_uses_insecure_rsa_open():
     assert java.uses_insecure_rsa(INSECURE_CODE).is_open()
 
 
+def test_uses_cipher_in_ecb_mode_open():
+    """Search ECB cipher mode."""
+    assert java.uses_cipher_in_ecb_mode(INSECURE_CODE).is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_uses_cipher_in_ecb_mode_closed():
+    """Search ECB cipher mode."""
+    assert java.uses_cipher_in_ecb_mode(SECURE_CODE).is_closed()
+    assert java.uses_cipher_in_ecb_mode(CODE_DIR, exclude=['test']).is_closed()
+    assert java.uses_cipher_in_ecb_mode(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_uses_insecure_rsa_closed():
