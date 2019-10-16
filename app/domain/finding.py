@@ -76,9 +76,12 @@ def remove_repeated(vulnerabilities):
         for state in vuln['historic_state']:
             vuln_without_repeated = {}
             format_date = state.get('date').split(' ')[0]
-            vuln_without_repeated[format_date] = {
-                vuln['UUID']: vuln_domain.get_current_state(vuln)}
-            vuln_casted.append(vuln_without_repeated)
+            vuln_without_repeated[format_date] = {vuln['UUID']: state.get('state')}
+            if state.get('approval_status') != 'PENDING':
+                vuln_casted.append(vuln_without_repeated)
+            else:
+                # don't append pending's state to tracking
+                pass
     return vuln_casted
 
 
