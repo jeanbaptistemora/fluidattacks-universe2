@@ -106,7 +106,7 @@ So, it is important to keep up to date with both software and hardware
 to avoid these kinds of attacks.
 
 At +Fluid Attacks+, we have all our infrastructure as code.
-We use link:https://aws.amazon.com/s3/[+AWS S3+]
+We use link:https://aws.amazon.com/s3/[+AWS+]
 as our cloud computing service provider,
 link:https://www.terraform.io/[+terraform+]
 and link:https://www.docker.com/[+docker+]
