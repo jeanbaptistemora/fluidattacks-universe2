@@ -50,6 +50,15 @@
                  href=".">&nbsp;{{ page.title }}</a>
             </li>
           {% endif %}
+          {% if page.rules %}
+            <li class="dib mt0" >
+              <a class="c-fluid-bk hv-fluid-dkred"
+                 href="{{ SITEURL }}/rules/">&nbsp;
+                 <strong>Rules</strong>&nbsp;
+              </a>
+              <span class="c-fluid-red v-mid b">&gt;</span>
+            </li>
+          {% endif %}
           {% if page.defends %}
           <li class="dib mt0" >
             <a class="c-fluid-bk hv-fluid-dkred"
@@ -66,7 +75,7 @@
             <span class="c-fluid-red v-mid b">&gt;</span>
           </li>
           {% endif %}
-          {% if "misc" not in page.category.name and not page.defends %}
+          {% if "misc" not in page.category.name and not page.defends and not page.rules %}
             <li class="dib mt0" >
               <a class="c-fluid-bk hv-fluid-dkred"
                  href="{{ SITEURL }}/{{ page.category.name }}/">

@@ -63,27 +63,52 @@
     {% for rulepath in pages if rulepath.rules %}
       {% if loop.first %}
         {% do rendered.append( rulepath.category ) %}
-        <h2>{{ rulepath.category |replace('-', ' ') | capitalize }}</h2>
+          <div class="rulescat hover-bg-light-gray flex">
+            <h3 class="w-90">{{ rulepath.category |replace('-', ' ') | capitalize }}</h3>
+            <img class=""
+                 src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+                 alt="Fluid Arrow">
+          </div>
         {% set cat = rulepath.category %}
+        <div class="ruleslist dn">
         {% for ruleart in pages if ruleart.rules and ruleart.category == cat %}
-          <a class="f4 montsy"
-             href="../{{ ruleart.slug }}">
-             {{ ruleart.title }}
-          </a><br>
+          <ul class="pl4">
+             <li>
+               <a class="f4 montsy"
+                  href="../{{ ruleart.slug }}">
+                  {{ ruleart.title }}
+               </a><br>
+             </li>
+           </ul>
         {% endfor %}
+        </div>
       {% else %}
         {% if rulepath.category != loop.previtem.category and rulepath.category not in rendered %}
           {% do rendered.append( rulepath.category ) %}
-          <h2>{{ rulepath.category |replace('-', ' ') | capitalize }}</h2>
+          <div class="rulescat hover-bg-light-gray flex">
+            <h3 class="w-90">{{ rulepath.category |replace('-', ' ') | capitalize }}</h3>
+            <img class=""
+                 src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+                 alt="Fluid Arrow">
+          </div>
           {% set cat = rulepath.category %}
+          <div class="ruleslist dn">
           {% for ruleart in pages if ruleart.rules and ruleart.category == cat %}
-            <a class="f4 montsy"
-               href="../{{ ruleart.slug }}">
-               {{ ruleart.title }}
-            </a><br>
+           <ul class="pl4">
+              <li>
+                <a class="f4 montsy"
+                 href="../{{ ruleart.slug }}">
+                    {{ ruleart.title }}
+                </a><br>
+              </li>
+            </ul>
           {% endfor %}
+          </div>
         {% endif %}
       {% endif %}
     {% endfor %}
+    {% assets filters="uglifyjs", output="static/js/rules.min.js", "js/rules.js" %}
+      <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+    {% endassets %}
   </article>
 {% endblock content %}
