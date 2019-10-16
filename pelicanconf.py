@@ -64,7 +64,7 @@ SITEMAP = {
 }
 DEFAULT_PAGINATION = 12
 # Line that allows the localization of the site (traslation)
-JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
+JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n', 'jinja2.ext.do']}
 I18N_SUBSITES = {
     'en': {
         'SITENAME': 'A Pentesting Company | Fluid Attacks',
