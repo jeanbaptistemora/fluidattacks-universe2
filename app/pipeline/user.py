@@ -21,6 +21,7 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
     data_dict = {
         'first_name': first_name,
         'last_login': today,
+        'last_name': last_name,
         'date_joined': today
     }
     if user:
