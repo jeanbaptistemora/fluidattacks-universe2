@@ -766,3 +766,41 @@ def submit_draft(finding_id, analyst_email):
         raise AlreadyApproved()
 
     return success
+
+
+def mask_finding(finding_id):
+    finding = get_finding(finding_id)
+
+    attrs_to_mask = [
+        'affected_systems', 'attack_vector_desc', 'effect_solution',
+        'related_findings', 'risk', 'threat', 'treatment',
+        'treatment_justification', 'treatment_manager', 'vulnerability'
+    ]
+    finding_result = finding_dal.update(finding_id, {
+        attr: 'Masked' for attr in attrs_to_mask
+    })
+
+    evidence_prefix = '{}/{}'.format(finding['projectName'], finding_id)
+    evidence_result = all([
+        finding_dal.remove_evidence(file_name)
+        for file_name in finding_dal.search_evidence(evidence_prefix)])
+    finding_dal.update(finding_id, {
+        'files': [
+            {'file_url': 'Masked', 'name': 'Masked', 'description': 'Masked'}
+            for _ in finding['evidence']
+        ]
+    })
+
+    comments = integrates_dal.get_comments_dynamo(int(finding_id), 'comment')
+    comments_result = all([integrates_dal.delete_comment_dynamo(
+        comment['finding_id'], comment['user_id']) for comment in comments])
+
+    vulns_result = all([
+        vuln_domain.mask_vuln(finding_id, vuln['UUID'])
+        for vuln in vuln_domain.get_vulnerabilities(finding_id)])
+
+    success = all([
+        finding_result, evidence_result, comments_result, vulns_result])
+    util.invalidate_cache(finding_id)
+
+    return success

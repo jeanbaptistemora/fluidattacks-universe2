@@ -434,20 +434,21 @@ def delete_comment(comment):
 def delete_project(project):
     """Delete project information."""
     project = project.lower()
-    util.invalidate_cache(project)
     are_users_removed = remove_all_users_access(project)
-    is_project_masked = mask_project_findings(project)
-    is_project_masked_in_dynamo = mask_project_findings_dynamo(project)
+    are_findings_masked = [
+        finding_domain.mask_finding(finding_id)
+        for finding_id in project_domain.list_findings(project)]
     are_closings_masked = mask_project_closings(project)
     project_deleted = remove_project_from_db(project)
     update_project_state_db = integrates_dal.update_attribute_dynamo(
         'FI_projects',
         ['project_name', project],
         'project_status', 'FINISHED')
-    is_project_deleted = \
-        are_users_removed and is_project_masked and \
-        are_closings_masked and project_deleted and \
-        is_project_masked_in_dynamo and update_project_state_db
+    is_project_deleted = all([
+        are_closings_masked, are_findings_masked, are_users_removed,
+        project_deleted, update_project_state_db])
+    util.invalidate_cache(project)
+
     return is_project_deleted
 
 
