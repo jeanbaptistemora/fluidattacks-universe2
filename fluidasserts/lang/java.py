@@ -530,7 +530,15 @@ def uses_system_exit(java_dest: str, exclude: list = None) -> tuple:
 
 @api(risk=MEDIUM, kind=SAST)
 def uses_insecure_aes(java_dest: str, exclude: list = None):
-    """Check if code uses an insecure AES mode."""
+    """
+    Check if code uses an insecure AES mode.
+
+    AES should not be used with ECB or CBC/PKCS5Padding.
+
+    :param java_dest: Path to a Java source file or package.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
+    """
     ecb_mode = '/' + CaselessKeyword('ECB')
     cbc_mode = '/' + CaselessKeyword('CBC')
     padding_pkc = '/' + CaselessKeyword('PKCS5Padding')
@@ -572,9 +580,9 @@ def uses_insecure_rsa(java_dest: str, exclude: list = None) -> tuple:
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
     :rtype: :class:`fluidasserts.Result`
-    :returns: - ``OPEN`` if an OAEP padding is not used or ECB mode is used.
-          - ``CLOSED`` if an OAEP padding isused or ECB mode is not used.
-          - ``UNKNOWN`` on errors.
+    :returns: - ``UNKNOWN`` on errors.
+        - ``OPEN`` if an **OAEP** padding is not used or **ECB** mode is used.
+        - ``CLOSED`` otherwise.
 
     """
     insecure_modes = '/' + oneOf('ECB', caseless=True)
