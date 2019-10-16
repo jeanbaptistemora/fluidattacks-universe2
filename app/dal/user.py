@@ -36,3 +36,18 @@ def update_user_attribute(email, data_attribute, name_attribute):
     primary_key = ['email', email.lower()]
     return integrates_dal.add_attribute_dynamo(
         TABLE, primary_key, name_attribute, data_attribute)
+
+
+def get_projects(user_email, active):
+    """ Get projects of a user """
+    projects = integrates_dal.get_data_dynamo(
+        'FI_project_access', 'user_email', user_email.lower())
+    if active:
+        projects_filtered = [project.get('project_name')
+                             for project in projects
+                             if project.get('has_access', '')]
+    else:
+        projects_filtered = [project.get('project_name')
+                             for project in projects
+                             if not project.get('has_access', '')]
+    return projects_filtered

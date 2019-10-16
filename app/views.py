@@ -644,7 +644,7 @@ Attempted to retrieve vulnerabilities without permission')
 # pylint: disable=too-many-locals
 def generate_complete_report(request):
     user_data = util.get_jwt_content(request)
-    projects = [project[0] for project in integrates_dal.get_projects_by_user(
+    projects = [project for project in user_domain.get_projects(
         user_data['user_email'])]
     book = load_workbook('/usr/src/app/app/techdoc/templates/COMPLETE.xlsx')
     sheet = book.active

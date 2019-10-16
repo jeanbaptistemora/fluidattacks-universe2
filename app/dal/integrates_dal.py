@@ -270,19 +270,6 @@ WHERE project_access.project_id=(SELECT id FROM projects where project=%s)'
     return rows
 
 
-def get_projects_by_user(user_id):
-    """ Gets the users related to a project. """
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT projects.project, projects.description, \
-project_access.has_access FROM project_access INNER JOIN users \
-ON project_access.user_id=users.id INNER JOIN projects \
-ON project_access.project_id=projects.id WHERE users.email=%s \
-ORDER BY projects.project ASC'
-        cursor.execute(query, (user_id,))
-        rows = cursor.fetchall()
-    return rows
-
-
 def get_user_dynamo(email):
     """ Get legal notice acceptance status """
     table = DYNAMODB_RESOURCE.Table('FI_users')

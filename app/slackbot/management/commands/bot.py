@@ -8,6 +8,7 @@ import slackclient
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from app.dal import integrates_dal
+from app.domain import project as project_domain, user as user_domain
 from app import util
 from mixpanel import Mixpanel
 
@@ -83,14 +84,16 @@ def do_list_projects(data):
         if user.find('\'') >= 0:
             output = SQL_ERROR
         else:
-            output = integrates_dal.get_projects_by_user(user)
-            aux = []
-            for out in output:
-                if out[2] == 1:
-                    aux.append(out[0] + ': ' + out[1] + ' - Active')
-                else:
-                    aux.append(out[0] + ': ' + out[1] + ' - Suspended')
-            output = '\n'.join(aux)
+            projs_active = \
+                ['{proj}: {description} - Active'.format(
+                 proj=proj, description=project_domain.get_description(proj))
+                 for proj in user_domain.get_projects(user)]
+            projs_suspended = \
+                ['{proj}: {description} - Suspended'.format(
+                 proj=proj, description=project_domain.get_description(proj))
+                 for proj in user_domain.get_projects(user, active=False)]
+            all_projects = projs_active + projs_suspended
+            output = '\n'.join(all_projects)
     except ValueError:
         output = CANT_DO_ERROR
     return output

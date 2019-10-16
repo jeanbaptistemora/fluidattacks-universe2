@@ -12,7 +12,7 @@ import rollbar
 from app import util
 from app.dal import integrates_dal
 from app.decorators import require_login
-from app.domain import user as user_domain
+from app.domain import project as project_domain, user as user_domain
 from app.entity.project import Project
 from app.exceptions import InvalidExpirationTime
 from app.services import get_user_role, is_customeradmin
@@ -44,9 +44,10 @@ class Me(ObjectType):
     def resolve_projects(self, info):
         jwt_content = util.get_jwt_content(info.context)
         user_email = jwt_content.get('user_email')
-        for project in integrates_dal.get_projects_by_user(user_email):
+        for project in user_domain.get_projects(user_email):
             self.projects.append(
-                Project(project_name=project[0], description=project[1])
+                Project(project_name=project,
+                        description=project_domain.get_description(project))
             )
 
         return self.projects

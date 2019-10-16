@@ -35,6 +35,10 @@ def get_data(email, attr):
     return data
 
 
+def get_projects(user_email, active=True):
+    return user_dal.get_projects(user_email, active)
+
+
 def get_project_access(email, project_name):
     has_access_attr = user_dal.get_project_access(email, project_name)
     resp = False
