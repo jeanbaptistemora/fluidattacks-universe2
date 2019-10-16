@@ -26,7 +26,7 @@ mapping:
             required: true
           path:
             type: str
-            pattern: ^([^/]+/([^/]+/?)+)|([^\\]+\\([^\\]+\\?)+)$
+            pattern: ^([^/][^/]+/([^/]+/?)+)|([^\\]+\\([^\\]+\\?)+)|^([^/]+)$
             required: true
           state:
             type: str
