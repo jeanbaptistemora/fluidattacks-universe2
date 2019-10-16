@@ -67,7 +67,7 @@ const renderTreatmentFields: renderFormFieldsFn = (props: IDescriptionViewProps)
             name="btsUrl"
             renderAsEditable={props.isEditing}
             type="text"
-            visible={!props.isEditing && hasBts || (props.formValues.treatment === "IN PROGRESS")}
+            visible={!props.isEditing && hasBts || (props.isEditing)}
           />
         </Col>
       </Row>

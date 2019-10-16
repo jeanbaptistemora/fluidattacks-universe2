@@ -401,10 +401,8 @@ def update_treatment_in_vuln(finding_id, updated_values):
 def update_treatment(finding_id, updated_values):
     updated_values['external_bts'] = updated_values.get('bts_url')
     date = datetime.now() + timedelta(days=180)
-    del updated_values['bts_url']
 
     if updated_values['treatment'] == 'NEW':
-        updated_values['external_bts'] = ''
         updated_values['acceptance_date'] = ''
     if updated_values['treatment'] == 'ACCEPTED':
         if updated_values.get('acceptance_date'):
@@ -419,7 +417,6 @@ def update_treatment(finding_id, updated_values):
         if updated_values.get('acceptance_date') == '':
             max_date = date.strftime('%Y-%m-%d %H:%M:%S')
             updated_values['acceptance_date'] = max_date
-        updated_values['external_bts'] = ''
         date_value = updated_values['acceptance_date']
         is_valid_date = util.is_valid_format(date_value)
         if is_valid_date is False:
