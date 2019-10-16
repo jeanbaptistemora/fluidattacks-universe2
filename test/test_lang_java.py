@@ -194,9 +194,21 @@ def test_uses_cipher_in_ecb_mode_open():
     assert java.uses_cipher_in_ecb_mode(INSECURE_CODE).is_open()
 
 
+def test_uses_cipher_in_ecb_mode_open():
+    """Search ECB cipher mode."""
+    assert java.uses_cipher_in_ecb_mode(INSECURE_CODE).is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_uses_broken_password_encryptio_closed():
+    """Search insecure encryption methods."""
+    assert java.uses_broken_password_encryption(SECURE_CODE).is_closed()
+    assert java.uses_broken_password_encryption(CODE_DIR, exclude=['test']).is_closed()
+    assert java.uses_broken_password_encryption(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_uses_cipher_in_ecb_mode_closed():

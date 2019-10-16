@@ -652,3 +652,44 @@ def uses_cipher_in_ecb_mode(java_dest: str, exclude: list = None):
         },
         spec=LANGUAGE_SPECS,
         excl=exclude)
+
+
+@api(
+    risk=MEDIUM,
+    kind=SAST,
+)
+def uses_broken_password_encryption(java_dest: str, exclude: list = None):
+    """
+    Check if code use insecure methods to encrypt passwords.
+
+    :param java_dest: Path to a Java source file or package.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    _import_security = Keyword('org.springframework.security')
+    insecure_inports = [
+        '.authentication.encoding.Md5PasswordEncoder',
+        '.authentication.encoding.ShaPasswordEncoder',
+        '.crypto.password.LdapShaPasswordEncoder',
+        '.crypto.password.Md4PasswordEncoder',
+        '.crypto.password.MessageDigestPasswordEncoder',
+        '.crypto.password.NoOpPasswordEncoder',
+        '.crypto.password.StandardPasswordEncoder',
+        '.crypto.scrypt.SCryptPasswordEncoder'
+    ]
+
+    grammar = MatchFirst([_import_security + i for i in insecure_inports])
+    grammar.ignore(javaStyleComment)
+    grammar.ignore(L_STRING)
+    grammar.ignore(L_CHAR)
+
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Code uses insecure methods to cipher passwords',
+            CLOSED: 'Code uses secure methods to cipher passwords',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
