@@ -65,8 +65,7 @@
         {% do rendered.append( rulepath.category ) %}
           <div class="rulescat hover-bg-light-gray flex">
             <h3 class="w-90">{{ rulepath.category |replace('-', ' ') | capitalize }}</h3>
-            <img class=""
-                 src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
                  alt="Fluid Arrow">
           </div>
         {% set cat = rulepath.category %}
@@ -87,8 +86,7 @@
           {% do rendered.append( rulepath.category ) %}
           <div class="rulescat hover-bg-light-gray flex">
             <h3 class="w-90">{{ rulepath.category |replace('-', ' ') | capitalize }}</h3>
-            <img class=""
-                 src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/arrow.svg"
                  alt="Fluid Arrow">
           </div>
           {% set cat = rulepath.category %}
