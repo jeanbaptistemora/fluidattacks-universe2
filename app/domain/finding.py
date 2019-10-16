@@ -24,7 +24,7 @@ from app.domain import (
 from app.dto.finding import FindingDTO
 from app.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
-    InvalidDate, IsNotTheAuthor, InvalidDateFormat, NotSubmitted
+    InvalidDate, InvalidDateFormat, NotSubmitted
 )
 from app.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
@@ -563,11 +563,12 @@ def reject_draft(draft_id, reviewer_email, project_name):
                 'report_date': draft_data.get('reportDate', ''),
                 'reviewer': reviewer_email,
             }
-            current_history = draft_data.get('rejectionHistory', [])
+            history = draft_data.get('rejectionHistory', [])
+            history.append(rejection_dict)
 
             success = finding_dal.update(draft_id, {
                 'report_date': None,
-                'rejection_history': current_history.append(rejection_dict)
+                'rejection_history': history
             })
             if success:
                 send_draft_reject_mail(
@@ -729,39 +730,36 @@ def submit_draft(finding_id, analyst_email):
     finding = get_finding(finding_id)
 
     if 'releaseDate' not in finding:
-        if finding.get('analyst') == analyst_email:
-            if 'reportDate' not in finding:
-                evidence_list = [finding['evidence'].get(ev_name)
-                                 for ev_name in finding['evidence']]
-                has_evidence = any([evidence.get('url')
-                                    for evidence in evidence_list])
-                has_severity = finding['severityCvss'] > Decimal(0)
-                has_vulns = vuln_domain.list_vulnerabilities([finding_id])
+        if 'reportDate' not in finding:
+            evidence_list = [finding['evidence'].get(ev_name)
+                             for ev_name in finding['evidence']]
+            has_evidence = any([evidence.get('url')
+                                for evidence in evidence_list])
+            has_severity = finding['severityCvss'] > Decimal(0)
+            has_vulns = vuln_domain.list_vulnerabilities([finding_id])
 
-                if all([has_evidence, has_severity, has_vulns]):
-                    tzn = pytz.timezone(settings.TIME_ZONE)
-                    today = datetime.now(tz=tzn).today().strftime(
-                        '%Y-%m-%d %H:%M:%S')
+            if all([has_evidence, has_severity, has_vulns]):
+                tzn = pytz.timezone(settings.TIME_ZONE)
+                today = datetime.now(tz=tzn).today().strftime(
+                    '%Y-%m-%d %H:%M:%S')
 
-                    success = finding_dal.update(finding_id, {
-                        'report_date': today})
-                    if success:
-                        send_new_draft_mail(analyst_email,
-                                            finding_id,
-                                            finding.get('finding'),
-                                            finding.get('projectName'))
-                else:
-                    required_fields = {
-                        'evidence': has_evidence,
-                        'severity': has_severity,
-                        'vulnerabilities': has_vulns
-                    }
-                    raise IncompleteDraft([field for field in required_fields
-                                          if not required_fields[field]])
+                success = finding_dal.update(finding_id, {
+                    'report_date': today})
+                if success:
+                    send_new_draft_mail(analyst_email,
+                                        finding_id,
+                                        finding.get('finding'),
+                                        finding.get('projectName'))
             else:
-                raise AlreadySubmitted()
+                required_fields = {
+                    'evidence': has_evidence,
+                    'severity': has_severity,
+                    'vulnerabilities': has_vulns
+                }
+                raise IncompleteDraft([field for field in required_fields
+                                       if not required_fields[field]])
         else:
-            raise IsNotTheAuthor()
+            raise AlreadySubmitted()
     else:
         raise AlreadyApproved()
 

@@ -119,7 +119,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                         .catch();
                     }
                   };
-                  const isAuthor: boolean = data.finding.analyst === currentUserEmail;
                   const hasVulns: boolean = data.finding.openVulns + data.finding.closedVulns > 0;
                   const hasSubmission: boolean = !_.isEmpty(data.finding.reportDate);
 
@@ -128,7 +127,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                       <Col md={8}>
                         <h2>{data.finding.title}</h2>
                       </Col>
-                      <Col md={4}>
+                      <Col>
                         <Mutation
                           mutation={SUBMIT_DRAFT_MUTATION}
                           onCompleted={handleSubmitResult}
@@ -144,7 +143,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                               <FindingActions
                                 hasVulns={hasVulns}
                                 hasSubmission={hasSubmission}
-                                isAuthor={isAuthor}
                                 isDraft={isDraft}
                                 loading={submitResult.loading}
                                 onApprove={handleOpenApproveConfirm}

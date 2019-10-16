@@ -12,7 +12,6 @@ import { FluidIcon } from "../../../../components/FluidIcon";
 interface IFindingActionsProps {
   hasSubmission: boolean;
   hasVulns: boolean;
-  isAuthor: boolean;
   isDraft: boolean;
   loading: boolean;
   onApprove(): void;
@@ -29,9 +28,7 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
 
   return (
     <ButtonToolbar className="pull-right">
-      {props.isAuthor && !props.hasSubmission ? (
-        <Button disabled={props.loading} onClick={onSubmit}>Submit</Button>
-      ) : undefined}
+      {props.hasSubmission ? undefined : <Button disabled={props.loading} onClick={onSubmit}>Submit</Button>}
       {_.includes(["admin"], userRole) && props.isDraft ? (
         <React.Fragment>
           <Button onClick={onApprove} disabled={!canApprove}>

@@ -17,8 +17,7 @@ describe("FindingActions", (): void => {
     const wrapper: ShallowWrapper = shallow(
       <FindingActions
         hasVulns={false}
-        hasSubmission={false}
-        isAuthor={false}
+        hasSubmission={true}
         isDraft={false}
         loading={false}
         onApprove={jest.fn()}
@@ -41,7 +40,6 @@ describe("FindingActions", (): void => {
       <FindingActions
         hasVulns={false}
         hasSubmission={true}
-        isAuthor={false}
         isDraft={false}
         loading={false}
         onApprove={jest.fn()}
@@ -69,7 +67,6 @@ describe("FindingActions", (): void => {
       <FindingActions
         hasVulns={false}
         hasSubmission={false}
-        isAuthor={true}
         isDraft={true}
         loading={false}
         onApprove={jest.fn()}
@@ -104,7 +101,6 @@ describe("FindingActions", (): void => {
       <FindingActions
         hasVulns={true}
         hasSubmission={true}
-        isAuthor={false}
         isDraft={true}
         loading={false}
         onApprove={jest.fn()}
@@ -145,7 +141,6 @@ describe("FindingActions", (): void => {
       <FindingActions
         hasVulns={false}
         hasSubmission={false}
-        isAuthor={false}
         isDraft={true}
         loading={false}
         onApprove={jest.fn()}
@@ -156,7 +151,7 @@ describe("FindingActions", (): void => {
     );
     const buttons: ShallowWrapper = wrapper.find("button");
     const approveButton: ShallowWrapper<Button.ButtonProps> = buttons
-      .at(0);
+      .at(1);
 
     expect(wrapper)
       .toHaveLength(1);
