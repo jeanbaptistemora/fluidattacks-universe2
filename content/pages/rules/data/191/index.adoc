@@ -1,0 +1,25 @@
+:slug: rules/191/
+:category: data
+:description: This document contains the details of the security requirements related to the definition and management of sensitive data in the organization. This requirement establishes the importance of protecting sensitive data with the maximum security level defined in the system.
+:keywords: Requirement, Security, System, Protection, Personal Data, User
+:rules: yes
+
+= REQ.191 Protect data with maximum level
+
+== Requirement
+
+Personal data must be secured with
+the maximum protection level defined (+ISACA.G31.5+).
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
+Verify that access to sensitive records is protected,
+such that only authorized objects or data is accessible to each user
+(for example, protect against users
+tampering with a parameter to see or alter another user's account).
+
+. [[r2]] link:https://gdpr-info.eu/recitals/no-6/[GDPR- 6  Ensuring a high level of data protection
+despite the increased exchange of data].
+
+. [[r3]] link:https://gdpr-info.eu/recitals/no-51/[GDPR-51:  Protecting sensitive personal data].

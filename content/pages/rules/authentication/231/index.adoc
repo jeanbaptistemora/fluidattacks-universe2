@@ -1,0 +1,33 @@
+:slug: rules/231/
+:category: authentication
+:description: This document contains the details of the security requirements related to the definition and management of access credentials in the organization. This requirement establishes the importance of defining mechanisms and components for biometric verification during authentication process.
+:keywords: Requirement, Security, Authentication, Biometric, Validation, Access Credentials
+:rules: yes
+
+= REQ.231 Define biometric verification component
+
+== Requirement
+
+Systems with critical information must define a component
+for biometric verification during authentication process.
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(d):]
+Person or Entity Authentication:
+Implement procedures to verify that a person or entity
+seeking access to electronic protected health information
+is the one claimed.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(iii):]
+Access Control and Validation Procedures: Implement procedures
+to control and validate a person's access to facilities
+based on their role or function, including visitor control,
+and control of access to software programs for testing and revision.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V2_Authentication[+OWASP-ASVS v3.1-2.31+]
+Verify that users can enrol and use TOTP verification, two-factor, biometric
+(Touch ID or similar), or equivalent multi-factor authentication mechanism
+that provides protection against single factor credential disclosure.
+
+. [[r4]] link:https://gdpr-info.eu/recitals/no-64/[GDPR- 64  Identity verification].

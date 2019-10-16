@@ -1,0 +1,12 @@
+:slug: rules/168/
+:category: source
+:description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of explicitly defining and initializing all the variables used in the source code.
+:keywords: Security, Requirement, Source Code, Variables, Initialization, Best Practices.
+:rules: yes
+
+= REQ.168 Initialize variables explicitly
+
+== Requirement
+
+All the variables in the source code
+must be explicitly initialized.

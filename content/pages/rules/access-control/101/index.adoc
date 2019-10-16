@@ -1,0 +1,29 @@
+:slug: rules/101/
+:category: access-control
+:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of assigning ID cards in order to restrict the physical access only to the allowed personnel.
+:keywords: Requirement, Security, Access Control, Parking, Vehicles, Physical Access
+:rules: yes
+
+= REQ.101 Assign ID cards to workforce members
+
+== Requirement
+
+The organization must guarantee that
+all the workforce members that carry out activities inside the facilities
+must be registered and have
+the corresponding access control system cards.
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(1)]
+Facility Access Controls:
+Implement policies and procedures to limit physical access
+to its electronic information systems and the facility or facilities
+in which they are housed,
+while ensuring that properly authorized access is allowed.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(iii):]
+Access Control and Validation Procedures: Implement procedures
+to control and validate a person's access to facilities
+based on their role or function, including visitor control,
+and control of access to software programs for testing and revision.

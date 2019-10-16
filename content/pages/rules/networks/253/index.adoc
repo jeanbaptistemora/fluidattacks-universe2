@@ -1,0 +1,12 @@
+:slug: rules/253/
+:category: networks
+:description: This document contains the details of the security requirements related to the definition and management of networks in the organization. This requirement establishes the importance of restricting the network access only to authorized users using credentials and MAC addresses.
+:keywords: Private, Network, Credentials, Wireless, MAC, Address.
+:rules: yes
+
+= REQ.253 Restrict network access
+
+== Requirement
+
+The access to private wireless networks must be restricted
+through user credentials and authorized +MAC+ addresses.

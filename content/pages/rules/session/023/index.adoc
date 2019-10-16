@@ -1,0 +1,87 @@
+:slug: rules/023/
+:category: session
+:description: This documents contains the details of the security requirements related to web application session management and session variables. This requirement establishes the importance of closing inactive user sessions after a certain period inactivity in order to avoid security breaches.
+:keywords: Requirement, Security, Session, Cookies, Attributes, HttpOnly.
+:rules: yes
+
+= REQ.023 Close inactive users sessions
+
+== Requirement
+
+The system must close a session if there is a period of inactivity
+on the user side, greater than or equal to +5+ minutes.
+
+== Description
+
+A system that has authentication and login
+can keep it open for an indefinite period
+if there is no automatic control of session closure
+and the user does not close it manually.
+
+Failure to control the closing times may allow an attacker
+to take advantage of unattended sessions and execute actions
+on behalf of the authenticated user without their authorization,
+altering confidential information associated with accounts,
+this risk can increase its criticality notably
+if the system allows the entry to administrators with high privileges,
+since it would affect the integrity,
+confidentiality and availability of the system,
+its users and the information it contains.
+
+== Implementation
+
+Set the session times: Depending on the business needs
+and/or the company's session management policies,
+end times of unattended sessions must be set at a prudential time
+(recommended of +5+ minutes).
+
+== Attacks
+
+. An employed or anonymous user takes control of an account
+unattended by another user without their authorization. <<r1, ^[1]^>> <<r2, ^[2]^>>
+
+. In a web server, having several open sessions during a long period
+force the server to consume a lot of memory
+by deploying and maintaining session objects.
+
+== Attributes
+
+* Layer: Resource Layer.
+
+* Asset: Session Management.
+
+* Scope: Adherence.
+
+* Phase: Operation.
+
+* Type of Control: Procedure.
+
+== References
+
+. [[r1]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+
+. [[r2]] link:https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management[Top 10 2013-A2-Broken Authentication and Session Management].
+
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(iii):]
+Automatic Logoff: Implement electronic procedures
+that terminate an electronic session after a predetermined time of inactivity.
+
+. [[r4]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[+OWASP-ASVS v3.1-3.3+].
+Verify that sessions timeout after a specified period of inactivity.
+
+. [[r5]] link:https://www.owasp.org/index.php/ASVS_V3_Session_Management[+OWASP-ASVS v3.1-3.4+].
+Verify that sessions timeout after an administratively-configurable
+maximum time period regardless of activity (an absolute timeout).
+
+. [[r6]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-12[+NIST+ 800-53 AC-12]
+Session termination: The information system automatically terminates
+a user session after organization-defined conditions
+or trigger events requiring session disconnect.
+
+. [[r8]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (2)]
+The organization requires that users log out when
+[Assignment: organization-defined time-period of expected inactivity
+or description of when to log out].
+
+. [[r9]] link:https://www.bsimm.com/framework/governance/software-security-metrics-strategy.html[+BSSIM9+ SM2.6:]
+Require security sign-off.

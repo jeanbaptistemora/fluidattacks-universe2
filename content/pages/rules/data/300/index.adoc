@@ -1,0 +1,16 @@
+:slug: rules/300/
+:category: data
+:description: This document contains the details of the security requirements related to the definition and management of data access in the organization. This requirement establishes the importance of masking sensitive personal and business data to avoid information leakages.
+:keywords: Requirement, Security, Data, Information, Business, Mask
+:rules: yes
+
+= REQ.300 Mask Sensitive data
+
+== Requirement
+
+Bussiness sensitive data
+(credit card númbers, +CVV+, etc) must be masked.
+
+== References
+
+. [[r1]] link:https://gdpr-info.eu/recitals/no-51/[GDPR-51:  Protecting sensitive personal data]

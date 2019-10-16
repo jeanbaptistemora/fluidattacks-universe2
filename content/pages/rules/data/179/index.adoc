@@ -1,0 +1,25 @@
+:slug: rules/179/
+:category: data
+:description: This document contains the details of the security requirements related to data management in the organization. This requirement establishes the importance of defining the frequency period for the backup process of the information stored on every system.
+:keywords: Requirement, Security, Information, Backup, Documentation, Frequency
+:rules: yes
+
+= REQ.179 Define backup frequency
+
+== Requirement
+
+The organization must define the frequency period
+to execute the backup to each information system.
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(i)]
+Contingency Operations: Establish (and implement as needed)
+procedures that allow facility access in support of restoration
+of lost data under the disaster recovery plan
+and emergency mode operations plan in the event of an emergency.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(2)(iv)]
+Data Backup and Storage: Create a retrievable exact copy
+of electronic protected health information,
+when needed, before movement of equipment.

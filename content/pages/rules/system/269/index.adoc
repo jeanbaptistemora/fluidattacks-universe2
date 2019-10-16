@@ -1,0 +1,28 @@
+:slug: rules/269/
+:category: system
+:description: This document contains the details of the security requirements related to the definition and management of systems in the organization. This requirement establishes the importance of setting privileges for new objects following the principle of least privilege.
+:keywords: Requirement, Security, System, Principle, Least Privilege, Objects
+:rules: yes
+
+= REQ.269 Use principle of least privilege
+
+== Requirement
+
+Privileges for new objects must be set
+according to the principle of least privilege (+umask+).
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.1+]
+Verify that the principle of least privilege exists.
+Users should only be able to access functions, data files, URLs,
+controllers, services, and other resources,
+for which they possess specific authorization.
+This implies protection against spoofing and elevation of privilege.
+
+. [[r2]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-6[+NIST+ 800-53 AC-6]
+The organization employs the principle of least privilege,
+allowing only authorized accesses for users
+(or processes acting on behalf of users)
+which are necessary to accomplish assigned tasks
+in accordance with organizational missions and business functions.

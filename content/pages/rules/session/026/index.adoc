@@ -1,0 +1,16 @@
+:slug: rules/026/
+:category: session
+:description: This documents contains the details of the security requirements related to web application session management and session variables. This requirement establishes the importance of encrypting and verifying client side session information in order to ensure the protection of health information.
+:keywords: Requirement, Security, Session, Information, ViewState, Client side
+:rules: yes
+
+= REQ.026 Encrypt client-side session information
+
+== Requirement
+
+The system must encrypt and verify
+client-side session information (ViewState).
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management[Top 10 2013-A2-Broken Authentication and Session Management].

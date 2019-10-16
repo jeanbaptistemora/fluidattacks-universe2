@@ -1,0 +1,12 @@
+:slug: rules/305/
+:category: data
+:description: This document contains the details of the security requirements related to the definition and management of sensitive data in the organization. This requirement establishes the importance of prioritizing the usage of tokens in credit cards systems to avoid the storage of sensitive information.
+:keywords: Credit Card, Token, Data, Storage, Sensitive, Information.
+:rules: yes
+
+= REQ.305 Prioritize token usage
+
+== Requirement
+
+All systems related to credit cards
+must use tokens instead of storing cards information.

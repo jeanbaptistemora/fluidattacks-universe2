@@ -1,0 +1,12 @@
+:slug: rules/274/
+:category: system
+:description: This document contains the details of the security requirements related to the definition and assignment of environments in the organization. This requirement establishes the importance of assigning only one type of environment to each information system in order to limit its scope.
+:keywords: Environment, Development, System, Test, QA, Production.
+:rules: yes
+
+= REQ.274 Define system scope
+
+== Requirement
+
+A system must belong only to one of the defined environments.
+(Development, Testing - +QA+, Production).

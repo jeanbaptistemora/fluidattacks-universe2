@@ -1,0 +1,12 @@
+:slug: rules/247/
+:category: networks
+:description: This document contains the details of the security requirements related to the definition and management of networks in the organization. This requirement establishes the importance of hiding the SSID for private networks that manage sensitive information.
+:keywords: Wireless, Private Network, SSID, Hide, Security, Configuration
+:rules: yes
+
+= REQ.247 Hide SSID on private networks
+
+== Requirement
+
+The private networks must disable
+the disclosure of the +SSID+ (+Service Set Identifier+).

@@ -1,0 +1,69 @@
+:slug: rules/262/
+:category: services
+:description: This document contains the details of the security requirements related to the definition and management of third-party services in the organization. This requirement establishes the importance of verifying that third-party components are always up to date in a stable and tested version.
+:keywords: Requirement, Security, Product, Stable, Updated, Tested.
+:rules: yes
+
+= REQ.262 Verify third-party components
+
+== Requirement
+
+The components provided by third-parties
+must be implemented in stable, tested and updated versions.
+
+== Description
+
+. The organization must ensure that all its products
+and the products provided by third-parties
+are up to date to the latest stable and tested version,
+reducing the risk of exploiting vulnerabilities
+reported in previous versions.
+
+. When a product changes its version,
+the implemented improvements must be checked
+to verify if there were fixes or new controls
+related to recently discovered vulnerabilities.
+
+== Implementation
+
+. Identify all the products that compose the technology stack,
+including operating systems, versions, dependencies,
+logical and physical authentication, features and person in charge.
+This inventory must be kept updated.
+
+. Monitor the security of all identified components in public databases,
+implementing alerts when public vulnerabilities are disclosed
+in the products used by the organization
+and determining the affectation level
+caused by the reported vulnerability.
+
+. Apply the necessary updates taking into account the vulnerability type,
+the affected components,
+and the risk classification within the organization.
+
+. Define security policies for the used components,
+requiring updated versions, specific software,
+ethical hacking and product licenses;
+include internal policies  to disable unused features
+and update default settings
+that may pose a risk to the organization.
+
+== Attacks
+
+. An attacker obtains technical information about a specific product.
+If the service/software is out of date,
+there could be public exploits <<r1, ^[1]^>>
+designed to attack known vulnerabilities
+present in previous versions of the product.
+
+== Attributes
+
+. Layer: Application layer.
+. Asset: Services and functions.
+. Scope: Stability.
+. Phase: Operation.
+. Type of Control: Recommendation.
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities[Top 10 2013-A9-Using Components with Known Vulnerabilities].

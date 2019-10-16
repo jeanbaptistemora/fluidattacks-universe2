@@ -1,0 +1,12 @@
+:slug: rules/249/
+:category: networks
+:description: This document contains the details of the security requirements related to the definition and management of networks in the organization. This requirement establishes the importance of properly locating the network access points to ensure the correct distribution of the wireless signal.
+:keywords: Network, SSID, Access point, Wireless, Location, Security.
+:rules: yes
+
+= REQ.249 Locate access points
+
+== Requirement
+
+The access points must be placed in strategic locations,
+allowing the network signal to reach only the authorized facilities.

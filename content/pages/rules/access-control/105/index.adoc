@@ -1,0 +1,25 @@
+:slug: rules/105/
+:category: access-control
+:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of avoiding assets leakage by forbidding the entry of elements that may extract information from the facilities.
+:keywords: Requirement, Security, Assets, Leakage, Extraction, Policies
+:rules: yes
+
+= REQ.105 Avoid assets leakage
+
+== Requirement
+
+The organization must forbid the entry into the facilities
+of elements that allow the extraction
+of digital or physical information assets.
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(ii):]
+Facility Security Plan: Implement policies and procedures
+to safeguard the facility and the equipment therein
+from unauthorized physical access, tampering, and theft
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(c):]
+Workstation Security: Implement physical safeguards for all workstations
+that access electronic protected health information
+to restrict access to authorized users.

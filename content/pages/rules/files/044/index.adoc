@@ -1,0 +1,20 @@
+:slug: rules/044/
+:category: files
+:description: This document contains the details of the security requirements related to the definition and management of files in the organization. This requirement establishes the importance of defining a explicit character set for all system files dynamically generated.
+:keywords: Requirement, Security, Character Set, Encoding, Files, Dynamic
+:rules: yes
+
+= REQ.044 Define explicit charset
+
+== Requirement
+
+All system files dynamically generated
+must have a Character set explicitly defined.
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V5_Input_validation_and_output_encoding[+OWASP-ASVS v3.1-5.21+]
+Verify that unstructured data is sanitized
+to enforce generic safety measures such as allowed characters and length,
+and characters potentially harmful in given context should be escaped
+(e.g. natural names with Unicode or apostrophes, such as ねこ or O'Hara).

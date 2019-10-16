@@ -1,0 +1,87 @@
+:slug: rules/075/
+:category: logs
+:description: This document contains the details of the security requirements related to the definition and management of Logs. This requirement establishes the importance of recording exceptional and security events in logs, allowing the backtracking and proper response in an undesired scenario.
+:keywords: Requirement, Security, Record, Logs, Events, Tracking
+:rules: yes
+
+= REQ.075 Record exceptional events in logs
+
+== Requirement
+
+The system must register all exceptional and security events in logs.
+
+== Description
+
+The organization must properly record the exceptional and security events
+in duly protected log (confidentiality),
+considering that an event of this type
+should not show confidential or detailed information of the problem
+in error messages to prevent the use of that information
+on the part of an attacker or malicious user.
+
+Recorded events allow error pages to display simple generic messages,
+alerting end users that an error has occurred,
+with some option to contact support.
+
+The detail of how to address these problems
+should be kept securely stored in a previously defined log storage.
+When an event of these types is not properly recorded,
+a malicious behavior can be proven difficult to detect
+or a forensic analysis can be obstructed
+in case an attack is successful.
+
+== Implementation
+
+. Use a centralized logging mechanism
+that supports several levels of detail.
+Make sure all events
+related to successes and failures are recorded.
+
+. Make sure that the logging level
+is properly configured for production environments.
+Enough information must be recorded
+to allow a system administrator to detect attacks,
+diagnose errors and recover from attacks.
+On the other hand, recording too much information
+can lead to the same problems (+CWE-779+).
+
+== Attacks
+
+Given the scenario that critical security information is not recorded,
+an attacker can perform an attack
+that won't leave a trace during a forensic analysis,
+therefore discovering the cause of the problem
+or the origin of one or several attacks
+can prove to be very difficult or impossible.
+
+== Attributes
+
+* Layer: Application Layer.
+
+* Asset: Logs
+
+* Scope: Responsibility.
+
+* Phase: Operation.
+
+* Type of Control: Procedure.
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/Codereview-Error-Handling[OWASP - CodeReview-Error-Handling].
+
+. [[r2]] link:https://www.owasp.org/index.php/OWASP_Proactive_Controls[OWASP - Proactive Controls].
+
+. [[r3]] link:https://www.owasp.org/index.php/Exception_Handling#Logging_Exception_Details[OWASP - Exception Handling].
+
+. [[r4]] link:https://cwe.mitre.org/data/definitions/778.html[CWE - Insufficient logging].
+
+. [[r5]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(b):]
+Audit Controls: Implement hardware, software, and/or procedural mechanisms
+that record and examine activity in information systems
+that contain or use electronic protected health information.
+
+. [[r6]] link:https://www.owasp.org/index.php/ASVS_V7_Cryptography[+OWASP-ASVS v3.1-8.3+]
+Verify security logging controls provide the ability
+to log success and particularly failure events
+that are identified as security-relevant

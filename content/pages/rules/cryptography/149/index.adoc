@@ -1,0 +1,22 @@
+:slug: rules/149/
+:category: cryptography
+:description: This document contains the details of the security requirements related to the definition and management of cryptographic systems. This requirement establishes the importance of setting symmetric encryption of minimum size in the cryptographic functions of the system.
+:keywords: Requirement, Security, Symmetric, Encryption, Cryptographic, Size
+:rules: yes
+
+= REQ.149 Set minimum size of symmetric encryption
+
+== Requirement
+
+The symmetric encryption mechanism must use a minimum key size of +128 bits+.
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(2)(iv):]
+Encryption and Decryption: Implement a mechanism to encrypt and decrypt
+electronic protected health information.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.12+]
+There is an explicit policy for how cryptographic keys (if any) are managed,
+and the lifecycle of cryptographic keys is enforced.
+Ideally, follow a key management standard such as +NIST SP 800-57+.

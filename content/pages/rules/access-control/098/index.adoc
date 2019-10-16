@@ -1,0 +1,19 @@
+:slug: rules/098/
+:category: access-control
+:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of safeguarding the information assets by implementing physical barriers in the facilities.
+:keywords: Requirement, Security, Information, Assets, Physical Access, Barriers
+:rules: yes
+
+= REQ.098 Safeguard information assets
+
+== Requirement
+
+The organization must have physical barriers (doors, fences, walls, etc)
+required to safeguard logical and physical information assets
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(ii):]
+Facility Security Plan: Implement policies and procedures
+to safeguard the facility and the equipment therein
+from unauthorized physical access, tampering, and theft

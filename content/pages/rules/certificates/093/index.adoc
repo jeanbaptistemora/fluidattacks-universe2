@@ -1,0 +1,12 @@
+:slug: rules/093/
+:category: certificates
+:description: This document contains the details of the security requirements related to the definition and management of digital certificates. This requirement establishes the importance of using consistent certificates, with valid and updated information about the associated organization.
+:keywords: Services, Server, Digital, Certificates, Consistent, Organization
+:rules: yes
+
+= REQ.093 Use consistent certificates
+
+== Requirement
+
+Certificates must be used with a consistent identification
+of the organization associated (service, server, among others).

@@ -1,0 +1,24 @@
+:slug: rules/183/
+:category: data
+:description: This document contains the details of the security requirements related to definition and management of sensitive data in the organization. This requirement establishes the importance of removing sensitive data securely when they are no longer required to avoid information leakages.
+:keywords: Requirement, Security, Data, Removal, Information, System
+:rules: yes
+
+= REQ.183 Delete sensitive data securely
+
+== Requirement
+
+System must support the secure removal of sensitive data
+when they are no longer required,
+so that they can not be recovered.
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.6+]
+Verify that there is a method to remove each type of sensitive data
+from the application at the end of the required retention policy.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.11+]
+Verify that sensitive information maintained in memory
+is overwritten with zeros as soon as it no longer required,
+to mitigate memory dumping attacks.

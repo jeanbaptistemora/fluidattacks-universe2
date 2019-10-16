@@ -1,0 +1,21 @@
+:slug: rules/256/
+:category: networks
+:description: This document contains the details of the security requirements related to the definition and management of logical networks in the organization. This requirement establishes the importance of restricting server port access to avoid security breaches in the system.
+:keywords: Requirement, Security, Configuration, Servers, Ports, Networks
+:rules: yes
+
+= REQ.256 Restrict server ports access
+
+== Requirement
+
+Servers with applications or content
+must only have access to the ports
+that allow them to fulfill their purpose.
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(e)(1):]
+Transmission Security: Implement technical security measures
+to guard against unauthorized access
+to electronic protected health information
+that is being transmitted over an electronic communications network.

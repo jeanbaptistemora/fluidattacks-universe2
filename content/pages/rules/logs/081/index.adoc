@@ -1,0 +1,14 @@
+:slug: rules/081/
+:category: logs
+:description: This document contains the details of the security requirements related to the definition and management of Logs and events. This requirement establishes the importance of properly storing logs after the occurrence of security events according to the current legislation.
+:keywords: Security, Requirement, System, Logs, Law, Event
+:rules: yes
+
+= REQ.081 Store logs according to legislation
+
+== Requirement
+
+The organization must store the logs
+for at least +5+ years after the occurrence
+of a security event in the system,
+or according to the current legislation for such system.

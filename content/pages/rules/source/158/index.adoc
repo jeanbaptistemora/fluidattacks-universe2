@@ -1,0 +1,23 @@
+:slug: rules/158/
+:category: source
+:description: This document contains the details of the security requirements related to the definition and management of system source code. This requirement establishes the importance of implementing applications in a secure programming language, properly updated and free of known vulnerabilities.
+:keywords: Requirement, Security, Source Code, Updates, Vulnerabilities, Programming
+:rules: yes
+
+= REQ.158 Define secure programming language
+
+== Requirement
+
+System source code must be implemented
+in a stable, updated, tested, and free of known vulnerabilities
+version of the chosen programming language.
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.9+]
+A mechanism for enforcing updates of the application exists.
+
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.11+]
+All application components, libraries, modules, frameworks, platform,
+and operating systems are free from known vulnerabilities.

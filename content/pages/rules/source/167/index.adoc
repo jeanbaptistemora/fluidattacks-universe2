@@ -1,0 +1,12 @@
+:slug: rules/167/
+:category: source
+:description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of closing unused resources to avoid security issues and improve the maintainability of the application.
+:keywords: Security, Requirement, Source, Code,  Resources, Unused
+:rules: yes
+
+= REQ.167 Close unused resources
+
+== Requirement
+
+The source code must implement mechanisms
+to ensure the closure of any unused open resource.

@@ -1,0 +1,18 @@
+:slug: rules/177/
+:category: data
+:description: This document contains the details of the security requirements related to the definition and management of sensitive information in the organization. This requirement establishes the importance of storing sensitive data securely, avoiding temporary files and cache memory.
+:keywords: Requirement, Security, Data, Storage, Information, Cache
+:rules: yes
+
+= REQ.177 Store data securely
+
+== Requirement
+
+System must not store sensitive information
+in temporary files or cache memory.
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V9_Data_Protection[+OWASP-ASVS v3.1-9.1+]
+Verify that all forms containing sensitive information
+have disabled client side caching, including autocomplete features.

@@ -1,0 +1,19 @@
+:slug: rules/301/
+:category: data
+:description: This document contains the details of the security requirements related to the definition and management of sensitive data in the organization. This requirement establishes the importance of notifying the users when there are modifications in authentication mechanisms or security settings.
+:keywords: Requirement, Security, Settings, Notification, Users, Configuration
+:rules: yes
+
+= REQ.301 Notify configuration changes
+
+== Requirement
+
+The system must notify the users when modifications are made
+in their authentication mechanisms or other security settings.
+
+== References
+
+. [[r1]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (4)]
+The information system automatically audits account creation,
+modification, enabling, disabling, and removal actions,
+and notifies [Assignment: organization-defined personnel or roles].

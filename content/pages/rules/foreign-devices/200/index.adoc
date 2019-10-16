@@ -1,0 +1,25 @@
+:slug: rules/200/
+:category: foreign-devices
+:description: This document contains the details of the security requirements related to the definition and management of foreign devices in the organization. This requirement establishes the importance of controlling and keeping a record of the entrance and departure of foreign devices in the facilities.
+:keywords: Requirement, Security, Foreign, Devices, Record, Control
+:rules: yes
+
+= REQ.200 Keep record of foreign devices
+
+== Requirement
+
+The organization must keep a record
+of all foreign devices entered and withdrawn of the facilities.
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(1):]
+Device and Media Controls: Implement policies and procedures
+that govern the receipt and removal of hardware and electronic media
+that contain electronic protected health information
+into and out of a facility,
+and the movement of these items within the facility.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(d)(2)(iii):]
+Accountability (A): Maintain a record of the movements of hardware
+and electronic media and any person responsible therefore.

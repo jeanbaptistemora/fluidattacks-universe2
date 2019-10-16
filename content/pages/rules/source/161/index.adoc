@@ -1,0 +1,73 @@
+:slug: rules/161/
+:category: source
+:description: This document contains the details of the security requirements related to the definition and management of source code in the organization. This requirement establishes the importance of defining secure default options in order to avoid unexpected behaviors in the application.
+:keywords: Requirement, Security, Default, Source Code, Conditional, Programming
+:rules: yes
+
+= REQ.161 Define secure default options
+
+== Requirement
+
+Source code must define secure default options
+ensuring secure failures in the application.
+(+try+, +catch/except; default+ en +switches+)
+
+== Description
+
+The organization must ensure that its own systems and those of third parties
+are safe and fully comply with the functions for which they were implemented.
+For this, baselines must be implemented from the design
+and development phase to avoid bad practices in the development cycles,
+e.g the use of conditional without default option,
+which can cause unexpected behavior in the system.
+
+The source code in the system is safer
+when good programming practices are implemented
+since the development stage
+ensuring the portability and maintenance of the application.
+If a system is difficult to maintain
+it will probably exist vulnerabilities within the source code.
+
+
+== Implementation
+
+. Definition of baselines since design/architecture stages
+in order to guarantee the implementation of good programming practices
+in the source code development.
+
+. In the development lifecycle there must be a responsible
+for the product review from the source code to the system behavior
+in order to avoid unexpected behaviors
+in final stage of the implementation.
+
+. Quality code and source code vulnerabilities scanners:
+They are tools that using lexical and syntactical analyzers
+perform code revision, processes it, suggest improvements
+and highlight possible vulnerabilities in the development stage.
+Using this kind of tools during the development process
+helps to improve code performance,
+detect logic excessively complex
+and simulate security issues that allows the developer
+to validate and discard false positives.
+
+== Attacks
+
+. Lead to unexpected behaviors in the application.
+. Leak sensitive information from unexpected errors.
+
+== Attributes
+
+* Layer: Application Layer
+* Asset: Source Code
+* Scope: Matureness
+* Phase: Building
+* Type of Control: Recommendation
+
+== References
+
+. [[r1]] link:https://cwe.mitre.org/data/definitions/474.html[+CWE-474+: Use of Function with Inconsistent Implementations].
+. [[r2]] link:https://cwe.mitre.org/data/definitions/398.html[+CWE-398+: Indicator of Poor Code Quality].
+. [[r3]] link:https://cwe.mitre.org/data/definitions/388.html[+CWE-388+: Error Handling].
+. [[r4]] link:https://standards.ieee.org/findstds/standard/1028-2008.html[+IEEE+: Standard for Software Reviews and Audits].
+. [[r5]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.8+]
+Verify that access controls fail securely.

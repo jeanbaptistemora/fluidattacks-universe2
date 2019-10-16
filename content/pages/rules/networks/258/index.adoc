@@ -1,0 +1,13 @@
+:slug: rules/258/
+:category: networks
+:description: This document contains the details of the security requirements related to the definition and management of logical networks in the organization. This requirement establishes the importance of restricting the content of certain websites using a custom proxy configuration.
+:keywords: Security, Requirement,  Content, Filter, Proxy, Network.
+:rules: yes
+
+= REQ.258 Filter website content
+
+== Requirement
+
+The organization must filter the content of websites
+accessed from a location belonging to the same entity
+(Output +Proxy+).
