@@ -608,8 +608,8 @@ def uses_insecure_rsa(java_dest: str, exclude: list = None) -> tuple:
         gmmr=grammar,
         func=lang.parse,
         msgs={
-            OPEN: (f'Code uses an insecure RSA padding we '
-                   'recommend use a OAEP padding'),
+            OPEN: (f'Code uses an insecure RSA padding scheme, '
+                   'OAEP padding is required'),
             CLOSED:
             f'Code uses a secure RSA padding',
         },
@@ -623,7 +623,7 @@ def uses_insecure_rsa(java_dest: str, exclude: list = None) -> tuple:
 )
 def uses_cipher_in_ecb_mode(java_dest: str, exclude: list = None):
     """
-    Check if ECB cipher mode is in using.
+    Check if ECB cipher mode is being used.
 
     :param java_dest: Path to a Java source file or package.
     :param exclude: Paths that contains any string from this list are ignored.
