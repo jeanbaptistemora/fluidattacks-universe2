@@ -556,3 +556,54 @@ def uses_insecure_aes(java_dest: str, exclude: list = None):
         },
         spec=LANGUAGE_SPECS,
         excl=exclude)
+
+
+@api(
+    risk=MEDIUM,
+    kind=SAST,
+    standards={
+        'CWE': '780',
+    },
+)
+def uses_insecure_rsa(java_dest: str, exclude: list = None) -> tuple:
+    """
+    Check if RSA algorithm uses an insecure padding.
+
+    :param java_dest: Path to a Java source file or package.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
+    :returns: - ``OPEN`` if an OAEP padding is not used or ECB mode is used.
+          - ``CLOSED`` if an OAEP padding isused or ECB mode is not used.
+          - ``UNKNOWN`` on errors.
+
+    """
+    insecure_modes = '/' + oneOf('ECB', caseless=True)
+    any_modes = '/' + Word(alphanums)
+
+    padding = '/' + Word(alphanums + '-')
+    padding.addCondition(lambda tokens: 'oaep' not in str(tokens).lower())
+    any_padding = '/' + Word(alphanums + '-')
+
+    algorithm = '"' + CaselessKeyword('RSA') + Optional(
+        (insecure_modes + any_padding) | (any_modes + padding)) + '"'
+
+    grammar = Suppress(
+        Keyword('Cipher') + '.' + Keyword('getInstance')) + nestedExpr()
+    grammar.ignore(javaStyleComment)
+    grammar.addCondition(
+        # Ensure that at least one token is the RSA algorithm
+        lambda tokens: tokens.asList() and any(
+            algorithm.matches(tok) for tok in tokens[0]))
+
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: (f'Code uses an insecure RSA padding we '
+                   'recommend use a OAEP padding'),
+            CLOSED:
+            f'Code uses a secure RSA padding',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)

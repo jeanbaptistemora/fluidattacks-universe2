@@ -1,5 +1,6 @@
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 
 class GenericExceptionsOpen{
     public static void main(String args[]){
@@ -47,7 +48,7 @@ class GenericExceptionsOpen{
 
       Cipher aes = Cipher // a comment
                   /*another comment*/          .getInstance(
-               "AES/ECB/PKCS5Padding" // a comment
+               "AES/ECB/PKcS5Pading" // a comment
                /* A comment */
                TheProviderAsAVar /* A comment */
                );
@@ -55,6 +56,26 @@ class GenericExceptionsOpen{
       Cipher aes = Cipher // a comment
                   /*another comment*/          .getInstance(
                "AES/CBC/PKCS5Padding" // a comment
+               /* A comment */
+               TheProviderAsAVar /* A comment */
+               );
+
+      Cipher rsa = Cipher // a comment
+                  /*another comment*/          .getInstance(
+               "RSA/EcB/OAEPWITHSHA-256ANDMGF1PADDING" // a comment
+               /* A comment */
+               TheProviderAsAVar /* A comment */
+               );
+
+      Cipher rsa = Cipher // a comment
+                  /*another comment*/          .getInstance(
+               "RSA/CBC/PkCS1Padding" // a comment
+               /* A comment */
+               TheProviderAsAVar /* A comment */
+               );
+      Cipher rsa = Cipher // a comment
+                  /*another comment*/          .getInstance(
+               "RSA" // a comment
                /* A comment */
                TheProviderAsAVar /* A comment */
                );

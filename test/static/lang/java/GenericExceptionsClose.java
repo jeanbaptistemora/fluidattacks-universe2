@@ -25,6 +25,28 @@ class GenericExceptionsClose{
                   /* A comment */
                   TheProviderAsAVar /* A comment */
                   );         aes.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+
+         Cipher rsa = Cipher // a comment
+                  /*another comment*/          .getInstance(
+               "RSA/CBC/OAEPWITHSHA-256ANDMGF1PADDING" // a comment
+               /* A comment */
+               TheProviderAsAVar /* A comment */
+               );
+
+         Cipher rsa = Cipher // a comment
+                  /*another comment*/          .getInstance(
+               "RSA/CBC/OAEPpadding" // a comment
+               /* A comment */
+               TheProviderAsAVar /* A comment */
+               );
+
+         Cipher rsa = Cipher // a comment
+                  /*another comment*/          .getInstance(
+               "RSa/CbC/OAEPPadding" // a comment
+               /* A comment */
+               TheProviderAsAVar /* A comment */
+               );
+
          byte[] encrypted = aes.doFinal(input.getBytes("UTF-8"));
 
          if (a[0] > 200) {

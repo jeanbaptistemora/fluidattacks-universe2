@@ -184,9 +184,21 @@ def test_uses_system_exit_open():
     assert java.uses_system_exit(INSECURE_CODE).is_open()
 
 
+def test_uses_insecure_rsa_open():
+    """Search insecure RSA padding."""
+    assert java.uses_insecure_rsa(INSECURE_CODE).is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_uses_insecure_rsa_closed():
+    """Search insecure RSA padding."""
+    assert java.uses_insecure_rsa(SECURE_CODE).is_closed()
+    assert java.uses_insecure_rsa(CODE_DIR, exclude=['test']).is_closed()
+    assert java.uses_insecure_rsa(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_has_generic_exceptions_close():
