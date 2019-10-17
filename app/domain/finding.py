@@ -150,18 +150,18 @@ def filter_evidence_filename(evidence_files, name):
 
 
 def get_email_recipients(project_name, comment_type):
-    project_users = integrates_dal.get_project_users(project_name)
+    project_users = project_domain.get_users(project_name)
     recipients = []
 
     if comment_type == 'observation':
         approvers = FI_MAIL_REVIEWERS.split(',')
-        analysts = [user[0] for user in project_users
-                    if user_domain.get_data(user[0], 'role') == 'analyst']
+        analysts = [user for user in project_users
+                    if user_domain.get_data(user, 'role') == 'analyst']
 
         recipients += approvers
         recipients += analysts
     else:
-        recipients = [user[0] for user in project_users if user[1] == 1]
+        recipients = project_users
         replyers = FI_MAIL_REPLYERS.split(',')
         recipients += replyers
 
@@ -212,8 +212,7 @@ def add_comment(user_email, comment_data, finding_id, is_remediation_comment):
 
 
 def send_finding_verified_email(finding_id, finding_name, project_name):
-    project_users = integrates_dal.get_project_users(project_name)
-    recipients = [user[0] for user in project_users if user[1] == 1]
+    recipients = project_domain.get_users(project_name)
 
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     email_send_thread = threading.Thread(
@@ -267,9 +266,7 @@ def verify_finding(finding_id, user_email):
     if success:
         vuln_domain.update_vulnerabilities_date(user_email, finding_id)
         send_finding_verified_email(finding_id, finding_name, project_name)
-        project_users = [user[0] for user
-                         in integrates_dal.get_project_users(project_name)
-                         if user[1] == 1]
+        project_users = project_domain.get_users(project_name)
         notifications.notify_mobile(
             project_users,
             t('notifications.verified.title'),
@@ -284,8 +281,7 @@ def verify_finding(finding_id, user_email):
 
 def send_remediation_email(user_email, finding_id, finding_name,
                            project_name, justification):
-    project_users = integrates_dal.get_project_users(project_name)
-    recipients = [user[0] for user in project_users if user[1] == 1]
+    recipients = project_domain.get_users(project_name)
 
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     email_send_thread = threading.Thread(
@@ -329,9 +325,7 @@ def request_verification(finding_id, user_email, user_fullname, justification):
         )
         send_remediation_email(user_email, finding_id, finding_name,
                                project_name, justification)
-        project_users = [user[0] for user
-                         in integrates_dal.get_project_users(project_name)
-                         if user[1] == 1]
+        project_users = project_domain.get_users(project_name)
         notifications.notify_mobile(
             project_users,
             t('notifications.remediated.title'),
@@ -371,8 +365,7 @@ def send_accepted_email(finding_id, user_email, justification):
     finding = get_finding(finding_id)
     project_name = finding.get('projectName')
     finding_name = finding.get('finding')
-    project_users = integrates_dal.get_project_users(project_name)
-    recipients = [user[0] for user in project_users if user[1] == 1]
+    recipients = project_domain.get_users(project_name)
 
     email_send_thread = threading.Thread(
         name='Accepted finding email thread',

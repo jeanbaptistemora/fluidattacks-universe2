@@ -21,8 +21,7 @@ from app.util import format_comment_date
 
 def get_email_recipients(project_name):
     """Get the recipients of the comment email."""
-    project_users = integrates_dal.get_project_users(project_name)
-    recipients = [user[0] for user in project_users if user[1] == 1]
+    recipients = [str(user) for user in get_users(project_name)]
     replyers = FI_MAIL_REPLYERS.split(',')
     recipients += replyers
 
@@ -245,13 +244,6 @@ def get_total_treatment(findings):
     return treatment
 
 
-def get_users_from_db(name):
-    """resolve a full list of users from database"""
-    init_emails = integrates_dal.get_project_users(name)
-    users_list = [user[0] for user in init_emails if user[1] == 1]
-    return users_list
-
-
 def is_finding_in_drafts(finding_id):
     release_date = integrates_dal.get_finding_attributes_dynamo(finding_id,
                                                                 ['releaseDate']
@@ -314,3 +306,7 @@ def list_managers(project_name):
 
 def get_description(project_name):
     return project_dal.get_description(project_name)
+
+
+def get_users(project_name, active=True):
+    return project_dal.get_users(project_name, active)

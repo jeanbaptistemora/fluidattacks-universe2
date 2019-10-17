@@ -88,9 +88,8 @@ def send_unsolved_events_email(project, context):
 
 
 def get_external_recipients(project):
-    recipients = integrates_dal.get_project_users(project)
-    recipients_list = [x[0] for x in recipients if x[1] == 1]
-    return remove_fluid_from_recipients(recipients_list)
+    recipients = project_domain.get_users(project)
+    return remove_fluid_from_recipients(recipients)
 
 
 def get_finding_url(finding):
@@ -277,8 +276,7 @@ def get_new_vulnerabilities():
 
 
 def prepare_mail_recipients(project):
-    recipients = integrates_dal.get_project_users(project)
-    mail_to = [x[0] for x in recipients if x[1] == 1]
+    mail_to = project_domain.get_users(project)
     mail_to.append(FI_MAIL_CONTINUOUS)
     return mail_to
 

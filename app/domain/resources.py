@@ -12,6 +12,7 @@ from cryptography.hazmat.primitives import asymmetric, hashes, serialization
 
 from __init__ import FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY
 from app.dal import integrates_dal, resources as resources_dal
+from app.domain import project as project_domain
 from app.exceptions import ErrorUploadingFileS3, InvalidFileSize
 from app.mailer import send_mail_resources
 
@@ -68,9 +69,8 @@ def format_resource(resource_list, resource_type):
 
 
 def send_mail(project_name, user_email, resource_list, action, resource_type):
-    recipients = integrates_dal.get_project_users(project_name.lower())
+    mail_to = project_domain.get_users(project_name.lower())
     admins = [user[0] for user in integrates_dal.get_admins()]
-    mail_to = [x[0] for x in recipients if x[1] == 1]
     mail_to += admins
     resource_description = format_resource(resource_list, resource_type)
     if resource_type == 'repository' and len(resource_list) > 1:

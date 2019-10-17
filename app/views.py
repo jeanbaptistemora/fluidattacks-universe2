@@ -433,7 +433,9 @@ def delete_project(project):
 
 def remove_all_users_access(project):
     """Remove user access to project."""
-    all_users = integrates_dal.get_project_users(project)
+    user_active = project_domain.get_users(project)
+    user_suspended = project_domain.get_users(project, active=False)
+    all_users = user_active + user_suspended
     are_users_removed = True
     for user in all_users:
         is_user_removed = remove_user_access(project, user[0])

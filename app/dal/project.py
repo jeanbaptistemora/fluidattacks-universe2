@@ -145,3 +145,17 @@ def get_description(project):
         # project without description
         pass
     return project_description
+
+
+def get_users(project, active):
+    """Get users of a project."""
+    project_name = project.lower()
+    users = integrates_dal.get_data_dynamo_filter(
+        'FI_project_access', 'project_name', project_name)
+    if active:
+        users_filtered = [user.get('user_email') for user in users
+                          if user.get('has_access', '')]
+    else:
+        users_filtered = [user.get('user_email') for user in users
+                          if not user.get('has_access', '')]
+    return users_filtered

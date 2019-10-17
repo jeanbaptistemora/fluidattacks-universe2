@@ -18,9 +18,9 @@ from app.decorators import (
 )
 from app.domain import (
     comment as comment_domain, finding as finding_domain,
+    project as project_domain, user as user_domain,
     vulnerability as vuln_domain
 )
-from app.domain import user as user_domain
 from app.dto.finding import FindingDTO
 from app.entity.vulnerability import Vulnerability
 from app.services import get_user_role, is_customeradmin
@@ -672,9 +672,7 @@ class UpdateTreatment(Mutation):
             if not is_customeradmin(project_name, user_data['user_email']):
                 parameters['treatment_manager'] = user_data['user_email']
             if parameters.get('treatment_manager'):
-                project_users = [user[0]
-                                 for user in integrates_dal.get_project_users(project_name)
-                                 if user[1] == 1]
+                project_users = project_domain.get_users(project_name)
                 customer_roles = ['customer', 'customeradmin']
                 customer_users = \
                     [user for user in project_users

@@ -255,21 +255,6 @@ def assign_company(email, company):
     return row
 
 
-def get_project_users(project):
-    """ Gets the users related to a project. """
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT users.email, project_access.has_access \
-FROM users LEFT JOIN project_access ON users.id = project_access.user_id \
-WHERE project_access.project_id=(SELECT id FROM projects where project=%s)'
-        try:
-            cursor.execute(query, (project,))
-            rows = cursor.fetchall()
-        except OperationalError:
-            rollbar.report_exc_info()
-            rows = []
-    return rows
-
-
 def get_user_dynamo(email):
     """ Get legal notice acceptance status """
     table = DYNAMODB_RESOURCE.Table('FI_users')
@@ -920,6 +905,25 @@ def get_data_dynamo(table_name, primary_name_key, primary_key):
         if response.get('LastEvaluatedKey'):
             response = table.query(
                 KeyConditionExpression=filtering_exp,
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items
+
+
+def get_data_dynamo_filter(table_name, primary_name_key, primary_key):
+    """Get atributes data."""
+    table = DYNAMODB_RESOURCE.Table(table_name)
+    primary_key = primary_key.lower()
+    filter_key = primary_name_key
+    filtering_exp = Key(filter_key).eq(primary_key)
+    response = table.scan(FilterExpression=filtering_exp)
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = table.scan(
+                FilterExpression=filtering_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:
