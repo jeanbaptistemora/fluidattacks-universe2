@@ -404,6 +404,7 @@ def update_treatment_in_vuln(finding_id, updated_values):
 def update_treatment(finding_id, updated_values):
     updated_values['external_bts'] = updated_values.get('bts_url')
     date = datetime.now() + timedelta(days=180)
+    del updated_values['bts_url']
 
     if updated_values['treatment'] == 'NEW':
         updated_values['acceptance_date'] = ''

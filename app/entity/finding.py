@@ -275,6 +275,8 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_bts_url(self, info):
         """ Resolve bts_url attribute """
         del info
+        if self.bts_url is None:
+            return ''
         return self.bts_url
 
     @get_entity_cache
