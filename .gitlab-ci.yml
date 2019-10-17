@@ -20,14 +20,13 @@ stages:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
   before_script:
+    - AUTH_CIR="$(echo ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64)"
+    - AUTH_HUB="$(echo ${DOCKER_HUB_USER}:${DOCKER_HUB_PASS} | base64)"
     - echo '{"auths":{'
-              '"'"${CI_REGISTRY}"'":{'
-                  '"username":"'"${CI_REGISTRY_USER}"'",'
-                  '"password":"'"${CI_REGISTRY_PASSWORD}"'"},'
-              '"'"${DOCKER_HUB_URL}"'":{'
-                  '"username":"'"${DOCKER_HUB_USER}"'",'
-                  '"password":"'"${DOCKER_HUB_PASS}"'"}}}' >
+              '"'"${CI_REGISTRY}"'":{"auth":"'${AUTH_CIR}'"},'
+              '"'"${DOCKER_HUB_URL}"'":{"auth":"'${AUTH_HUB}'"}}}' >
           /kaniko/.docker/config.json
+    - unset AUTH_CIR AUTH_HUB
 
 build:
   stage: build
@@ -195,7 +194,7 @@ push-container:
         --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
         --context .
         --cleanup
-        --destination "${CI_REGISTRY_IMAGE}:runner"
+        --destination "${CI_REGISTRY_IMAGE}:runner-light"
         --destination fluidattacks/asserts:light
         --dockerfile Dockerfile.runner
         --target light

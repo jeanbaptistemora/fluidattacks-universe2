@@ -52,7 +52,7 @@ def _get_vuln_line(path: str, pkg: str, ver: str) -> int:
 @asynchronous.http_retry
 async def get_vulns_vulndb_async(package_manager: str, path: str,
                                  package: str, version: str,
-                                 retry: bool) -> tuple:
+                                 retry: bool = True) -> tuple:
     """
     Search vulnerabilities on given package_manager/package/version.
 

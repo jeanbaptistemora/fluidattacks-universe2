@@ -3,6 +3,7 @@
 """This module provide support for Asynchronous python."""
 
 # standard imports
+import time
 import asyncio
 import functools
 from typing import Any, List, Callable
@@ -86,11 +87,11 @@ def http_retry(func: Callable) -> Callable:
     async def decorated(*args, **kwargs) -> Any:  # noqa
         """Retry the function if a ConnError is raised."""
         if kwargs.get('retry'):
-            for _ in range(12):
+            for _ in range(5):
                 try:
                     return await func(*args, **kwargs)
                 except CONNECTION_ERRORS:
                     # Wait some seconds and retry
-                    await asyncio.sleep(5.0)
+                    await time.sleep(1.0)
         return await func(*args, **kwargs)
     return decorated
