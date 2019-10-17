@@ -62,6 +62,7 @@ RUN apk update \
         libssl1.1 \
         libcrypto1.1 \
         libxslt-dev \
+        libjpeg \
         curl \
     && rm -rf \
         /var/cache/apk/* \
