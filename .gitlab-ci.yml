@@ -20,13 +20,10 @@ stages:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
   before_script:
-    - AUTH_CIR="$(echo ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64)"
-    - AUTH_HUB="$(echo ${DOCKER_HUB_USER}:${DOCKER_HUB_PASS} | base64)"
     - echo '{"auths":{'
-              '"'"${CI_REGISTRY}"'":{"auth":"'${AUTH_CIR}'"},'
-              '"'"${DOCKER_HUB_URL}"'":{"auth":"'${AUTH_HUB}'"}}}' >
+              '"'"${CI_REGISTRY}"'":{"auth":"'${CI_REGISTRY_AUTH}'"},'
+              '"'"${DOCKER_HUB_URL}"'":{"auth":"'${DOCKER_HUB_AUTH}'"}}}' >
           /kaniko/.docker/config.json
-    - unset AUTH_CIR AUTH_HUB
 
 build:
   stage: build
