@@ -5,7 +5,7 @@
 :tags: machine learning, detect, software
 :image: cover.png
 :alt: Data Has A Better Idea. Photo by Stefan Steinbauer on Unsplash: https://unsplash.com/photos/1K6IQsQbizI
-:description: Next, we will talk about an article from the Boston University in which new applications of Artificial Intelligence in the field of security are presented, we will discuss their approach to discover vulnerabilities in source code and finally some future work that can be developed on that field.
+:description: This blog discusses an article from Boston University presenting new applications of Artificial Intelligence in the security field. We will discuss their approach for discovering vulnerabilities in source code, and finally, future work that is being developed in the security field.
 :keywords: Machine Learning, Deep Learning, Detection, Vulnerability, Code, AI
 :author: Oscar Uribe
 :writer: oscardjuribe
@@ -13,69 +13,67 @@
 :about1: Software and Computer Engineering undergrad student
 :about2: "Behind every successful Coder there an even more successful De-coder to understand that code." Anonymous
 
-= Vulnerabilities in deep
+= Vulnerabilities in Deep Learning
 
-Nowadays, the use of +AI+ (Artificial Intelligence) algorithms
-has started to be used widely searching to solve problems
-from another perspective, the data.
-Data scientist have been working in problems
-related with areas like medicine, data mining, robotics, etc.
+Currently, data scientists have begun using +AI+
+(Artificial Intelligence) algorithms
+to solve problems from the data perspective.
+Data scientists have been working on problems related
+to areas like medicine, data mining, robotics, etc.
 
-Lately, some investigations has been venturing in how +AI+
-can be use into the area of the security.
-For example, how we will be discussing,
-the vulnerability detection inside source code.
+Some investigations have been exploring how Artificial Intelligence
+can be used in cybersecurity.
+For example, how we can use Artificial Intelligence
+for vulnerability detection inside source code.
 
-Most vulnerabilities come from bad practices
+Most vulnerabilities are a result of using bad practices
 at the time of programming.
-When these failures are not detected in a timely manner,
-these can be discovered later by attackers.
-A non disclosure vulnerability means
-a risk of later exploitation for a system.
-So, it is important to detect failures in early stages in our systems.
+When these vulnerabilities are not detected in a timely manner,
+they can later be discovered and exploited by attackers.
+So, it is important to detect vulnerabilities
+in the early stages of a system's development.
 
-There are tools that can make static analysis of the source code,
-these tools check the source code for problems
-without the need of compiling and executing it.
+There are tools that can perform static analysis of the source code.
+These tools check the source code for problems
+without the need for compiling and executing it.
 There are also dynamic analysis tools
-which send some information to the system inputs
-with presets or random values in order
-to check for failures or improper exceptions handling.
+that send information to the system inputs
+with presets or random values
+in order to check for failures or improper exceptions handling.
 
-== Initial thoughts
+== Initial Thoughts
 
-In an link:https://arxiv.org/pdf/1807.04320.pdf[article]
-published by the Boston University,
-they expose the possibility to use an Artificial Intelligence
-and algorithms of Deep and Machine Learning for
-automatic vulnerability detection from source code.
-The idea stems from the fact that there is a large
-amount of open source code available to be analyzed.
+In a Boston University link:https://arxiv.org/pdf/1807.04320.pdf[article],
+the authors discuss the possibility of using Artificial Intelligence
+and algorithms for Deep and Machine Learning
+to automatically detect source code vulnerabilities.
+The idea stems from the fact that there is a large amount
+of open-source code available to be analyzed.
 After all, code is just text
-and is possible to apply data mining algorithms on it
-to extract training data.
+and it is possible to use data mining algorithms
+on source code to extract training data.
 
+Static and dynamic code analyzers
+do not get the most out of source code.
+The algorithms that they use are based on preset rules
+that do not take into account small variations in the original rule.
+The result is that some vulnerabilities
+and failures may remain undiscovered.
 
-The static and dynamic code analyzers
-do not get the most out of the source code.
-The algorithms that they use are based on some preset rules
-that do not take into account small variations of the original rule.
-So some vulnerabilities and failures may remain undiscovered.
-
-The purpose of the exercise was using data mining,
-deep and machine learning techniques to automate a process
-where always could be present the human error.
-This can let go unnoticed vulnerabilities that
-can be present in applications
-or within operating systems and then be exploited by hackers.
+The purpose of this exercise was to use data mining,
+and deep and machine learning techniques
+to automate a process frequently susceptible to human errors,
+which can then result in unnoticed vulnerabilities
+in applications or within operating systems.
+These unnoticed vulnerabilities may then be exploited by hackers.
 
 == Data
 
-For that, they used +C+ and `C++` codes from different sources
+For data, they used +C+ and `C++` codes from different sources,
 such as +SATE IV Juliet Test Suite+,
 a code recompilation used for test cases
 that contains some known vulnerabilities,
-code from +Debian+ distributions
+code from +Debian+ distributions,
 and some +GitHub+ public repositories.
 
 .Vulnerable code distribution link:https://arxiv.org/pdf/1807.04320.pdf[[1\]].
@@ -83,56 +81,53 @@ image::code-distribution.png[Vulnerable code distribution.]
 
 == Labeling
 
-In the labeling, they created a custom lexer,
-which sought to capture only the important information
-and label the other as generic.
-The labels already provided by the test database were used.
-For the +Debian+ and +GitHub+ codes they used the dynamics analyzers
-in order to search outputs that later could be interpreted
-by the security professionals as one of the
-known vulnerabilities from the +CWE+ list.
-Also in the +GitHub+ repositories,
-they searched inside the commits,
-words like _“buggy”_, _“error”_, _“fixed”_, _“broken”_, and others,
-in order to be able to classify each block
-of source code as vulnerable or non-vulnerable.
+ In labeling, a custom lexer was created
+ to capture only the important information and label the rest as generic.
+ The labels already provided by the test database were used.
+ For the +Debian+ and +GitHub+ codes,
+ they used dynamics analyzers in order to search outputs
+ that later could be interpreted by security professionals
+ as one of the known vulnerabilities
+ from the Common Weakness Enumeration (+CWE+) list.
+ Also in the +GitHub+ repositories,
+ they searched inside the commits,
+ words like _“buggy”_, _“error”_, _“fixed”_, _“broken”_,
+ and others, in order to classify each block of source code
+ as vulnerable or non-vulnerable.
+
 
 .Statistics CWE vulnerabilities detected link:https://arxiv.org/pdf/1807.04320.pdf[[1\]].
 image::found-vulnerabilities.png[Found vulnerabilities.]
 
-== Feature extraction
+== Feature Extraction
 
 In the feature extraction step,
-they tried with two types of
-[inner]#link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[Neural Networks]#,
-link:https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53[CNN] (Convolutional Neural Network) and
-link:https://towardsdatascience.com/recurrent-neural-networks-d4642c9bc7ce[RNN]
-(Recurrent Neural Network).
+two types of [inner]#link:../crash-course-machine-learning/#artificial-neural-networks-and-deep-learning[Neural Networks]# were tried,
+link:https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53[+CNN+] (Convolutional Neural Network)
+and link:https://towardsdatascience.com/recurrent-neural-networks-d4642c9bc7ce[+RNN+] (Recurrent Neural Network).
 
-But despite of the neural network seems
-to work fine for the data extraction used by the model,
-performance at the time to classify was not the best.
-To solve that after the feature extraction made
-by the Neural Networks they passed the output through
-a link:https://towardsdatascience.com/understanding-random-forest-58381e0602d2[Random Forest] classifier,
-obtaining better results and avoiding the overfitting.
+Despite the neural network working fine
+for the data extraction used by the model,
+classification was not the best.
+To solve that, after the Neural Networks feature extraction was made,
+they passed the output through a link:https://towardsdatascience.com/understanding-random-forest-58381e0602d2[Random Forest] classifier.
+They then obtained better results and avoided overfitting.
 
 .Convolutional Neural Network Model and Random Forest link:https://arxiv.org/pdf/1807.04320.pdf[[1\]].
 image::model.png[Convolutional Neural Model]
 
 == Results
 
-This vulnerability detection approach using Data mining,
-[inner]#link:../deep-hacking/[Deep and Machine Learning]#
-added some advantages
-compared to lexical analyzers
-since it does not need to be compiled to work
-and it can be adjusted to obtain the desire precision.
+Vulnerability detection using Data mining,
+and [inner]#link:../deep-hacking/[Deep and Machine Learning]#
+added some advantages compared with lexical analyzers
+since it does not need to be compiled to work,
+and it can be adjusted to obtain the desired precision.
 
-Also, while the static analyzers has a limited numbers of findings,
-because of the preset rules,
-and does not take into account variations of the rules,
-only identify a small portion of the real vulnerabilities.
+Static analyzers have a limited number of findings
+because of preset rules and do not take into account variations of the rules.
+Static analyzers only identify a small portion
+of the real vulnerabilities present in the source code.
 
 .Detection of vulnerabilities link:https://arxiv.org/pdf/1807.04320.pdf[[1\]].
 image::detections.png[Detections]
