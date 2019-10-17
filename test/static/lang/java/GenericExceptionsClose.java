@@ -47,6 +47,13 @@ class GenericExceptionsClose{
                TheProviderAsAVar /* A comment */
                );
 
+         SSLContext.getInstance("tlsv1.2");
+
+         var instance = SSLContext.getInstance(  // a comment
+               "DTLSv1.3" /* A comment */
+               // a comment
+               );
+
          byte[] encrypted = aes.doFinal(input.getBytes("UTF-8"));
 
          if (a[0] > 200) {

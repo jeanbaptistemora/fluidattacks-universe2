@@ -199,9 +199,21 @@ def test_uses_cipher_in_ecb_mode_open():
     assert java.uses_cipher_in_ecb_mode(INSECURE_CODE).is_open()
 
 
+def test_uses_insecure_ssl_context_open():
+    """Search insecure SSL context."""
+    assert java.uses_insecure_ssl_context(INSECURE_CODE).is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_uses_insecure_ssl_context_closed():
+    """Search insecure SSL context."""
+    assert java.uses_insecure_ssl_context(SECURE_CODE).is_closed()
+    assert java.uses_insecure_ssl_context(CODE_DIR, exclude=['test']).is_closed()
+    assert java.uses_insecure_ssl_context(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_uses_broken_password_encryptio_closed():

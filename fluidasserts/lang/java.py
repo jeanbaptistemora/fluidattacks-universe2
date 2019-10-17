@@ -693,3 +693,49 @@ def uses_broken_password_encryption(java_dest: str, exclude: list = None):
         },
         spec=LANGUAGE_SPECS,
         excl=exclude)
+
+
+@api(
+    risk=MEDIUM,
+    kind=SAST,
+)
+def uses_insecure_ssl_context(java_dest: str, exclude: list = None):
+    """
+    Check if code uses insecure SSL context.
+
+    The secure versions are:
+        - TLS.
+        - DTLS.
+        - TLSv1.2.
+        - DTLSv1.2.
+        - TLSv1.3.
+        - DTLSv1.3.
+
+    :param java_dest: Path to a Java source file or package.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    secure_versions = MatchFirst([
+        CaselessKeyword(i)
+        for i in [
+            '"TLS"', '"DTLS"', '"TLSv1.2"', '"DTLSv1.2"', '"TLSv1.3"',
+            '"DTLSv1.3"'
+        ]
+    ])
+    grammar = Suppress(
+        Keyword('SSLContext') + '.' + Keyword('getInstance')) + nestedExpr()
+    grammar.ignore(javaStyleComment)
+    grammar.addCondition(
+        # Ensure the matching token is not one of the secure algorithms
+        lambda tokens: tokens.asList() and
+        not any(secure_versions.matches(tok) for tok in tokens[0]))
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Code uses insecure SSL context version',
+            CLOSED: 'Code uses secure SSL context version',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)

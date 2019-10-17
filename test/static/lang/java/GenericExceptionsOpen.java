@@ -80,6 +80,14 @@ class GenericExceptionsOpen{
                TheProviderAsAVar /* A comment */
                );
 
+      SSLContext.getInstance( // a comment
+               "SSL" // a comment
+               /* A comment */);
+
+      SSLContext.getInstance( // a comment
+               "SsLv3" // a comment
+               /* A comment */);
+
       des.init(Cipher.ENCRYPT_MODE, secretKeySpec);
       byte[] encrypted = des.doFinal(input.getBytes("UTF-8"));
 
