@@ -2,8 +2,7 @@ from decimal import Decimal
 
 from django.test import TestCase
 
-from app.dto.finding import FindingDTO
-from app.utils import cvss
+from app.utils import cvss, findings as finding_utils
 
 
 class CvssTests(TestCase):
@@ -13,10 +12,9 @@ class CvssTests(TestCase):
                     'availabilityImpact': 0, 'accessComplexity': 0.61,
                     'authentication': 0.704, 'accessVector': 1
                     }
-        fin_dto = FindingDTO()
         cvss_version = '2'
         cvss_basescore = cvss.calculate_cvss_basescore(
-            severity, fin_dto.CVSS_PARAMETERS, cvss_version)
+            severity, finding_utils.CVSS_PARAMETERS['2'], cvss_version)
         cvss_basescore_test = Decimal(4.3).quantize(Decimal('0.1'))
         assert cvss_basescore == cvss_basescore_test
 
@@ -27,10 +25,9 @@ class CvssTests(TestCase):
                     'exploitability': 0.95, 'resolutionLevel': 0.95,
                     'confidenceLevel': 0.95
                     }
-        fin_dto = FindingDTO()
         cvss_version = '2'
         cvss_basescore = cvss.calculate_cvss_basescore(
-            severity, fin_dto.CVSS_PARAMETERS, cvss_version)
+            severity, finding_utils.CVSS_PARAMETERS['2'], cvss_version)
         cvss_temporal = cvss.calculate_cvss_temporal(
             severity, cvss_basescore, cvss_version)
         cvss_temporal_test = Decimal(3.7).quantize(Decimal('0.1'))
@@ -45,10 +42,9 @@ class CvssTests(TestCase):
                     'resolutionLevel': 0.95, 'integrityImpact': 0.275,
                     'collateralDamagePotential': 0.1, 'exploitability': 0.95,
                     }
-        fin_dto = FindingDTO()
         cvss_version = '2'
         cvss_environment = cvss.calculate_cvss_environment(
-            severity, fin_dto.CVSS_PARAMETERS, cvss_version)
+            severity, finding_utils.CVSS_PARAMETERS['2'], cvss_version)
         cvss_environment_test = Decimal(0.9).quantize(Decimal('0.1'))
         assert cvss_environment == cvss_environment_test
 
@@ -58,10 +54,9 @@ class CvssTests(TestCase):
                     'attackVector': 0.85, 'attackComplexity': 0.77,
                     'privilegesRequired': 0.68, 'userInteraction': 0.85
                     }
-        fin_dto = FindingDTO()
         cvss_version = '3'
         cvss_basescore = cvss.calculate_cvss_basescore(
-            severity, fin_dto.CVSS3_PARAMETERS, cvss_version)
+            severity, finding_utils.CVSS_PARAMETERS['3'], cvss_version)
         cvss_basescore_test = Decimal(6.4).quantize(Decimal('0.1'))
         assert cvss_basescore == cvss_basescore_test
 
@@ -71,10 +66,9 @@ class CvssTests(TestCase):
                     'attackVector': 0.85, 'attackComplexity': 0.77,
                     'privilegesRequired': 0.62, 'userInteraction': 0.85
                     }
-        fin_dto = FindingDTO()
         cvss_version = '3'
         cvss_basescore = cvss.calculate_cvss_basescore(
-            severity, fin_dto.CVSS3_PARAMETERS, cvss_version)
+            severity, finding_utils.CVSS_PARAMETERS['3'], cvss_version)
         cvss_basescore_test = Decimal(5.4).quantize(Decimal('0.1'))
         assert cvss_basescore == cvss_basescore_test
 
@@ -86,10 +80,9 @@ class CvssTests(TestCase):
                     'exploitability': 0.97, 'remediationLevel': 0.97,
                     'reportConfidence': 1
                     }
-        fin_dto = FindingDTO()
         cvss_version = '3'
         cvss_basescore = cvss.calculate_cvss_basescore(
-            severity, fin_dto.CVSS3_PARAMETERS, cvss_version)
+            severity, finding_utils.CVSS_PARAMETERS['3'], cvss_version)
         cvss_temporal = cvss.calculate_cvss_temporal(
             severity, float(cvss_basescore), cvss_version)
         cvss_temporal_test = Decimal(6.1).quantize(Decimal('0.1'))
@@ -103,10 +96,9 @@ class CvssTests(TestCase):
                     'exploitability': 0.97, 'remediationLevel': 0.97,
                     'reportConfidence': 1
                     }
-        fin_dto = FindingDTO()
         cvss_version = '3'
         cvss_basescore = cvss.calculate_cvss_basescore(
-            severity, fin_dto.CVSS3_PARAMETERS, cvss_version)
+            severity, finding_utils.CVSS_PARAMETERS['3'], cvss_version)
         cvss_temporal = cvss.calculate_cvss_temporal(
             severity, float(cvss_basescore), cvss_version)
         cvss_temporal_test = Decimal(5.1).quantize(Decimal('0.1'))
@@ -121,10 +113,9 @@ class CvssTests(TestCase):
                     'modifiedPrivilegesRequired': 0.68, 'remediationLevel': 0.97,
                     'exploitability': 0.97, 'modifiedUserInteraction': 0.85
                     }
-        fin_dto = FindingDTO()
         cvss_version = '3'
         cvss_environment = cvss.calculate_cvss_environment(
-            severity, fin_dto.CVSS3_PARAMETERS, cvss_version)
+            severity, finding_utils.CVSS_PARAMETERS['3'], cvss_version)
         cvss_environment_test = Decimal(5.3).quantize(Decimal('0.1'))
         assert cvss_environment == cvss_environment_test
 
@@ -137,9 +128,8 @@ class CvssTests(TestCase):
                     'modifiedPrivilegesRequired': 0.62, 'remediationLevel': 0.97,
                     'exploitability': 0.97, 'modifiedUserInteraction': 0.85
                     }
-        fin_dto = FindingDTO()
         cvss_version = '3'
         cvss_environment = cvss.calculate_cvss_environment(
-            severity, fin_dto.CVSS3_PARAMETERS, cvss_version)
+            severity, finding_utils.CVSS_PARAMETERS['3'], cvss_version)
         cvss_environment_test = Decimal(4.6).quantize(Decimal('0.1'))
         assert cvss_environment == cvss_environment_test

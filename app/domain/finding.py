@@ -21,7 +21,6 @@ from app.domain import (
     project as project_domain, user as user_domain,
     vulnerability as vuln_domain
 )
-from app.dto.finding import FindingDTO
 from app.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
     InvalidDate, InvalidDateFormat, NotSubmitted, InvalidFileSize
@@ -434,9 +433,9 @@ def update_treatment(finding_id, updated_values):
 
 def save_severity(finding):
     """Organize severity metrics to save in dynamo."""
-    fin_dto = FindingDTO()
     primary_keys = ['finding_id', str(finding['id'])]
     cvss_version = finding.get('cvssVersion', '')
+    cvss_parameters = finding_utils.CVSS_PARAMETERS[cvss_version]
     if cvss_version == '3':
         severity_fields = ['attackVector', 'attackComplexity',
                            'privilegesRequired', 'userInteraction',
@@ -464,7 +463,6 @@ def save_severity(finding):
         unformatted_severity['modifiedPrivilegesRequired'] = modified_priviles
         severity['modified_privileges_required'] = \
             Decimal(modified_priviles).quantize(Decimal('0.01'))
-        cvss_parameters = fin_dto.CVSS3_PARAMETERS
     else:
         severity_fields = ['accessVector', 'accessComplexity',
                            'authentication', 'exploitability',
@@ -476,7 +474,6 @@ def save_severity(finding):
         severity = {util.camelcase_to_snakecase(k): Decimal(str(finding.get(k)))
                     for k in severity_fields}
         unformatted_severity = {k: float(str(finding.get(k))) for k in severity_fields}
-        cvss_parameters = fin_dto.CVSS_PARAMETERS
     severity['cvss_basescore'] = cvss.calculate_cvss_basescore(
         unformatted_severity, cvss_parameters, cvss_version)
     severity['cvss_temporal'] = cvss.calculate_cvss_temporal(
