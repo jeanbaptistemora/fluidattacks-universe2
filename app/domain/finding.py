@@ -666,16 +666,15 @@ def get_findings(finding_ids):
     return findings
 
 
-def save_evidence(evidence_field, finding_id, project_name, uploaded_file):
-    full_name = '{proj}/{fin}/{proj}-{fin}-{field}-{name}'.format(
-        field=evidence_field[1],
+def save_evidence(evidence_name, finding_id, project_name, uploaded_file):
+    full_name = '{proj}/{fin}/{proj}-{fin}-{name}'.format(
         fin=finding_id,
         name=uploaded_file.name.replace(' ', '-'),
         proj=project_name)
     success = finding_dal.save_evidence(uploaded_file, full_name)
     if success:
         file_name = full_name.split('/')[2]
-        save_file_url(finding_id, evidence_field[0], file_name)
+        save_file_url(finding_id, evidence_name, file_name)
 
     return success
 

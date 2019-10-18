@@ -25,13 +25,6 @@ class FormstackAPITests(TestCase):
         request = api_frms.get_submission(submission_id)
         assert request['id'] == submission_id
 
-    def test_get_findings(self):
-        """Check that Formstack correctly return the findings of a project."""
-        api_frms = FormstackAPI()
-        project = 'basaiti'
-        request = api_frms.get_findings(project)
-        assert 'submissions' in request
-
     def test_get_eventualities(self):
         """ Check that Formstack correctly return
             the eventualities of a project. """

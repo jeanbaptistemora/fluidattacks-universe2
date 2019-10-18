@@ -120,24 +120,6 @@ def get_evidence_set(finding):
     return evidence_set
 
 
-def get_evidence_set_s3(finding, key_list, field_list):
-    evidence_set = []
-    for k in key_list:
-        for i in range(1, 6):
-            evidence_route = \
-                '{project}/{findingid}/{project}-{findingid}-{fieldid}'.format(
-                    project=finding['projectName'].lower(),
-                    findingid=finding['findingId'],
-                    fieldid=field_list[i - 1])
-            evidence_item = finding['evidence']['evidence' + str(i)]
-            if evidence_route in k:
-                evidence_set.append({
-                    'id': k,
-                    'explanation': evidence_item['description'].capitalize()
-                })
-    return evidence_set
-
-
 def user_email_filter(emails, actual_user):
     if "@fluidattacks.com" in actual_user:
         final_users = emails

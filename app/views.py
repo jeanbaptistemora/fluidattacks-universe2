@@ -42,7 +42,6 @@ from app.documentator.pdf import CreatorPDF
 from app.documentator.secure_pdf import SecurePDF
 from app.documentator.all_vulns import generate_all_vulns_xlsx
 from app.dto import closing
-from app.dto.finding import FindingDTO
 from app.services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
 )
@@ -254,14 +253,14 @@ def project_to_pdf(request, lang, project, doctype):
 
 
 def pdf_evidences(findings):
-    fin_dto = FindingDTO()
     for finding in findings:
         folder_name = finding['projectName'] + '/' + finding['findingId']
-        key_list = key_existing_list(folder_name)
-        field_list = [fin_dto.DOC_ACHV1, fin_dto.DOC_ACHV2,
-                      fin_dto.DOC_ACHV3, fin_dto.DOC_ACHV4,
-                      fin_dto.DOC_ACHV5]
-        evidence_set = util.get_evidence_set_s3(finding, key_list, field_list)
+        evidence = finding['evidence']
+        evidence_set = [{
+            'id': '{}/{}'.format(folder_name, evidence[ev_item]['url']),
+            'explanation': evidence[ev_item]['description'].capitalize()
+        } for ev_item in evidence if evidence[ev_item]['url'].endswith('.png')]
+
         if evidence_set:
             finding['evidence_set'] = evidence_set
             for evidence in evidence_set:

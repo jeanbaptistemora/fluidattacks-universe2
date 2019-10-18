@@ -21,7 +21,6 @@ from app.domain import (
     project as project_domain, user as user_domain,
     vulnerability as vuln_domain
 )
-from app.dto.finding import FindingDTO
 from app.entity.vulnerability import Vulnerability
 from app.services import get_user_role, is_customeradmin
 from app.utils import findings as finding_utils
@@ -400,17 +399,16 @@ class UpdateEvidence(Mutation):
                                         .format(project=project_name))
                 raise GraphQLError('File exceeds the size limits')
             else:
-                field_num = FindingDTO()
                 fieldname = [
-                    ['animation', field_num.ANIMATION],
-                    ['exploitation', field_num.EXPLOTATION],
-                    ['evidence_route_1', field_num.DOC_ACHV1],
-                    ['evidence_route_2', field_num.DOC_ACHV2],
-                    ['evidence_route_3', field_num.DOC_ACHV3],
-                    ['evidence_route_4', field_num.DOC_ACHV4],
-                    ['evidence_route_5', field_num.DOC_ACHV5],
-                    ['exploit', field_num.EXPLOIT],
-                    ['fileRecords', field_num.REG_FILE]
+                    'animation',
+                    'exploitation',
+                    'evidence_route_1',
+                    'evidence_route_2',
+                    'evidence_route_3',
+                    'evidence_route_4',
+                    'evidence_route_5',
+                    'exploit',
+                    'fileRecords'
                 ]
                 success = finding_domain.save_evidence(
                     fieldname[int(evidence_id)], finding_id, project_name,

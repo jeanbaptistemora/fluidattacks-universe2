@@ -24,8 +24,6 @@ class FormstackAPI(object):
 
     headers_config = {}
     SUBMISSION_URL = "https://www.formstack.com/api/v2/submission/:id.json"
-    # Finding URL
-    FN_URL = settings.FN_URL
     # Project information URL
     IN_URL = "https://www.formstack.com/api/v2/form/2696665/submission.json"
     # Eventuality URL
@@ -136,16 +134,6 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         """ Get a submission by ID. """
         url = self.SUBMISSION_URL.replace(":id", submission_id)
         return self.request("GET", url)
-
-    @cache_control(max_age=600)
-    def get_findings(self, project):
-        """ Get the findings of a project. """
-        search_field = settings.FIELDS_FINDING['PROJECT_NAME']
-        data = {'search_field_1': search_field,
-                'search_value_1': project,
-                'page': 1,
-                'per_page': 50}
-        return self.requests_per_page("GET", self.FN_URL, data=data)
 
     def get_remmisions(self, project):
         """ Get the remissions of a project by its name. """
