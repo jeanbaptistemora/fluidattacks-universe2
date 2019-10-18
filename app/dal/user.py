@@ -6,6 +6,13 @@ from app.dal import integrates_dal
 TABLE = 'FI_users'
 
 
+def get_all_companies():
+    filter_exp = Attr('company').exists()
+    users = integrates_dal.get_data_dynamo_filter(TABLE, filter_exp)
+    companies = [user.get('company').strip().upper() for user in users]
+    return list(set(companies))
+
+
 def get_project_access(email, project_name):
     return integrates_dal.get_project_access_dynamo(email, project_name)
 

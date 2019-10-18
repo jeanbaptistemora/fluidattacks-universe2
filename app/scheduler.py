@@ -376,7 +376,7 @@ def weekly_report():
         (datetime.today() - timedelta(days=7)).date().strftime('%Y-%m-%d')
     final_date = \
         (datetime.today() - timedelta(days=1)).date().strftime('%Y-%m-%d')
-    all_companies = integrates_dal.get_all_companies()
+    all_companies = user_domain.get_all_companies()
     all_users = [all_users_formatted(x) for x in all_companies]
     registered_users = integrates_dal.all_users_report('FLUID',
                                                        final_date)
@@ -394,7 +394,7 @@ def weekly_report():
 def all_users_formatted(company):
     """Format total users by company."""
     total_users = integrates_dal.get_all_users(company)
-    all_users_by_company = {company[0]: int(total_users[0][0])}
+    all_users_by_company = {company: int(total_users[0][0])}
     return all_users_by_company
 
 

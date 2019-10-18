@@ -432,18 +432,6 @@ def all_users_report(company_name, finish_date):
     return rows
 
 
-def get_all_companies():
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT DISTINCT UPPER(company) FROM users where company != %s'
-        try:
-            cursor.execute(query, ("None",))
-            rows = cursor.fetchall()
-        except OperationalError:
-            rollbar.report_exc_info()
-            rows = []
-    return rows
-
-
 def get_all_users(company_name):
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT COUNT(id) FROM users WHERE company = %s and \
