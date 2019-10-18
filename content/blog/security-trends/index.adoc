@@ -99,7 +99,7 @@ A weak +AWS+ configuration can be detected using automated tools.
 can detect these flaws, using the link:https://fluidattacks.com/asserts/fluidasserts.cloud.aws.cloudtrail/[+AWS Cloudtrail module+].
 However, some of the cloud leakages
 were also caused by hardware vulnerabilities <<r3, ^[3]^>>,
-such as +Spectre+ <<r5, ^[5]^>>, +Meltdown+ <<r6, ^[6]^>> or +Foreshadow+ <<r7, ^[7]^>>,
+such as +Spectre+ <<r4, ^[4]^>>, +Meltdown+ <<r5, ^[5]^>> or +Foreshadow+ <<r6, ^[6]^>>,
 that exploit vendor chips' vulnerabilities
 to gain access to shared memory pools on physical systems.
 So, it is important to keep up to date with both software and hardware
@@ -153,7 +153,7 @@ In today's world, businesses usually have an online alternative
 for purchasing or selling products or services.
 These online alternatives have to be handled with extreme care
 since most cyberattacks aim to profit from these functionalities.
-E-commerce attacks come in all shapes and sizes <<r8, ^[8]^>>:
+E-commerce attacks come in all shapes and sizes <<r7, ^[7]^>>:
 phishing, identity theft, +DDOS+, credit card frauds, and more.
 
 Most attacks are based on social engineering.
@@ -165,7 +165,7 @@ that help the attacker gain control over the victim’s transactions.
 image::verizon-findings.svg[alt="Verizon findings", width=500]
 
 According to Verizon,
-in its annual _Data Breach Investigations Report_ <<r9, ^[9]^>>,
+in its annual _Data Breach Investigations Report_ <<r8, ^[8]^>>,
 social engineering is the second
 most used tactic to extract confidential information.
 This is worrying because it doesn't matter how secure an application is
