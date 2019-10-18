@@ -13,6 +13,14 @@ def get_all_companies():
     return list(set(companies))
 
 
+def get_all_users(company_name):
+    filter_exp = Attr('company').exists() & \
+        Attr('company').eq(company_name) & Attr('registered').exists() & \
+        Attr('registered').eq(True)
+    users = integrates_dal.get_data_dynamo_filter(TABLE, filter_exp)
+    return len(users)
+
+
 def get_project_access(email, project_name):
     return integrates_dal.get_project_access_dynamo(email, project_name)
 

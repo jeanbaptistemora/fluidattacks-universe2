@@ -22,6 +22,10 @@ def get_all_companies():
     return user_dal.get_all_companies()
 
 
+def get_all_users(company_name):
+    return user_dal.get_all_users(company_name.lower())
+
+
 def get_current_date():
     tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')

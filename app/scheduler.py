@@ -393,8 +393,8 @@ def weekly_report():
 
 def all_users_formatted(company):
     """Format total users by company."""
-    total_users = integrates_dal.get_all_users(company)
-    all_users_by_company = {company: int(total_users[0][0])}
+    total_users = user_domain.get_all_users(company)
+    all_users_by_company = {company: total_users}
     return all_users_by_company
 
 
