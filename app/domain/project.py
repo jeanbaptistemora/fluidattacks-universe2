@@ -310,3 +310,7 @@ def get_description(project_name):
 
 def get_users(project_name, active=True):
     return project_dal.get_users(project_name, active)
+
+
+def remove_all_project_access(project):
+    return project_dal.remove_all_project_access(project)

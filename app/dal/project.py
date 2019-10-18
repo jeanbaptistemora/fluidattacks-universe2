@@ -9,7 +9,7 @@ from django.conf import settings
 from django.db import connections
 from django.db.utils import OperationalError
 
-from app.dal import integrates_dal
+from app.dal import integrates_dal, user as user_dal
 from app.dal.finding import TABLE as FINDINGS_TABLE
 from app.dal.helpers.analytics import query
 
@@ -160,3 +160,20 @@ def get_users(project, active):
         users_filtered = [user.get('user_email') for user in users
                           if not user.get('has_access', '')]
     return users_filtered
+
+
+def remove_all_project_access(project):
+    project_exists = integrates_dal.get_project_attributes_dynamo(
+        project.lower(), ['project_name'])
+    resp = False
+    if project_exists:
+        active = True
+        users = get_users(project, active)
+        users_response = \
+            [user_dal.update_project_access(user, project, False)
+             for user in users]
+        resp = all(users_response)
+    else:
+        # project doesn't exists
+        pass
+    return resp
