@@ -1,0 +1,171 @@
+:slug: triage-hacker/
+:date: 2019-10-18
+:subtitle: Prioritize code auditing via ML
+:category: machine-learning
+:tags: machine learning, security, code
+:image: cover.png
+:alt: Photo by camilo jimenez on Unsplash: https://unsplash.com/photos/vGu08RYjO-s
+:description: A simple attempt at defining a vulnerability classifier using categorical encoding and a basic neural network with a single hidden layer produces 86% accuracy on the artificial Java Juliet dataset. Later on we will optimize and adapt these steps to build a more accurate classifier.
+:keywords: Machine learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability
+:author: Rafael Ballestas
+:writer: raballestasr
+:name: Rafael Ballestas
+:about1: Mathematician
+:about2: with an itch for CS
+:source-highlighter: pygments
+
+
+= Triage for hackers
+
+Based upon our [inner]#link:../vulnerability-classifiers[last experiment]#,
+in this article I would like to
+give a global vision of how our
++ML+ for vulnerability discovery
+approach should work.
+
+First off, what problem would this solve?
+I will repeat myself here:
+When one of our analysts has to audit a new
+[inner]#link:../../services/continuous-hacking/[continuous hacking]# project,
+usually all they get is access to one or more big code repositories.
+And clients expect vulnerabily reports as soon as possible.
+The idea is for our predictor
+to sort all the files in these repositories
+according to the likelihood of containing a vulnerability
+so that the analyst can give priority to those for manual inspection.
+Ideally, when the analyst is confronted with a new project,
+instead of looking at an overview of all files in a repository or its `git log`,
+she could have a number that tells,
+for each file in the repo,
+how likely it is that it contains code vulnerabilities:
+
+.From a messy git log to a prioritized file breakdown
+image::log-to-triage.png[From a messy git log to a prioritized file breakdown]
+
+Next, how should this be done?
+Many different kinds of machine learning algorithms
+have been used by the authors we have reviewed here:
+link:../crash-course-machine-learning/#decision-trees-and-forests[random forests],
+link:../binary-learning/[deep neural networks],
+link:../exploit-code-graph/[clustering],
+link:../natural-code/[n-grams].
+The actual algorithm to be used is one of the variables
+that we can experiment with.
+For starters, we used a
+link:../crash-course-machine-learning/artificial-neural-networks-and-deep-learning[neural network]
+with a single hidden layer for simplicity.
+Still, this gave us
+link:../vulnerability-classifiers[good results]
+for a first iteration.
+Regardless of the algorithm to be chosen,
+all of these must be fed with samples of code
+labeled with their vulnerability,
+or in the simplest case,
+a "yes" for vulnerable and a "no" for the rest.
+Our algorithm will then proceed to "learn",
+be that pattern identification, anomaly detection,
+clustering in the training phase
+and be able to work in the prediction phase as described above.
+
+What data should we feed to this algorithm?
+We need lots of labeled data in order for
+such an attempt to work, according to Andrew Ng.
+But not too much that it would be an obstacle.
+Fortunately, we have a good amount of code vulnerabilites stored in
+link:../../products/integrates/[Integrates].
+The ones we are interested in are the ones
+which point to a particular set of lines of code
+in a specific repository.
+We should be able to look up these repositories,
+and extract the relevant pieces of code.
+We could also extract, at random,
+some other pieces of code and label them as not vulnerable,
+thus obtaining a dataset.
+The flow would be as in this image:
+
+.Fetching data from Integrates and repositories
+image::fetch.png[Integrates > Checkout repositories > Build dataset]
+
+This poses several new challenges:
+
+. Accessing +Integrates+ and the repositories.
+. Parsing all the obtained files.
+. Splitting vulnerable and safe code.
+. Masking the code so as not to expose it.
+
+But from the data analysis point of view,
+perhaps the most challeging aspect is:
+how do we feed code into algorithm that expect numerical values
+or sets thereof, i.e., vectors from a continuum?
+We discussed this a bit in our
+[inner]#link:../digression-regression[presentation]#
+of the +Python+ data ecosystem,
+and in our
+[inner]link:../vulnerability-classifiers[first iteration],
+we opted simply for breaking up the code string into tokens
+and further assigning an integer to each of these.
+We thus obtain a proper dataset for machine learning:
+
+.Embedding via neural network
+image::embedding.png[Embedding via neural network]
+
+Other alternatives we will explore are
+word embedding such as +word2vec+ and +code2vec+,
+which at the moment are not working for us as they
+project each token into a vector, while what we need
+is to map functions or even entire classes or files
+into a single vector.
+Token sequences are easily reversible,
+as seen in the last article,
+but code embeddings would not be so easy,
+thus dealing with the masking issue.
+
+Thus far we have performed these experiments in local machines.
+However this is impractical, for many reasons,
+one of which is the lack of computational muscle,
+in particular the lack of +GPUs+,
+which are pretty much a requirement for deep neural networks.
+link:https://aws.amazon.com/[Amazon Web Services]
+provides a solution called
+link:https://aws.amazon.com/sagemaker/[Sagemaker].
+In +Sagemaker+ you are given a
+link:https://jupyter.org/[Jupyter] notebook
+in which you can do data science to your heart's content.
+No fuss about setting up machines,
+installing dependencies, everything is ready.
+Such would be our choice for training the machines.
+The output of this training process
+is a +Python+ object which is able to make predictions.
+As seen in our previous article,
+this can be saved in the
+link:https://keras.io[Keras]
++H5+ format and loaded again into a +Python+ script.
+An easy way to deploy this model to make predictions
+would be on a serverless application on +AWS Lambda+,
+so that it could be readily accessed by the analysts
+to deal with new projects.
+
+Hopefully this cycle would be completed
+by the analyst manually detecting, confirming
+and exploiting —should there be a working environment—
+vulnerabilities where the classifier predicted high
+likelihood and reporting them back to +Integrates+.
+As the +Integrates+ databases fills up again,
+we should repeat the training cycle
+with a prudent frequency,
+which could be daily, weekly, etc.
+This is another hyperparameter to be tuned
+which would provide more data
+and feedback to the machine.
+That would complete the whole cycle:
+
+.Full process
+image::process.png[Full process]
+
+A lot remains to be done, of course:
+
+* Determining the best algorithms for each phase.
+* Tuning all parameters.
+* Provisioning the infrastructure.
+* Choosing the best possible embedding.
+* Connecting to data sources.
