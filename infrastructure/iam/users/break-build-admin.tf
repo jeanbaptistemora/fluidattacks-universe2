@@ -40,7 +40,7 @@ data "aws_iam_policy_document" "break-build-admin-data" {
       "s3:PutObject",
     ]
     resources = [
-      "arn:aws:s3::${data.aws_caller_identity.current.account_id}:break-build-*"
+      "arn:aws:s3:::break-build-*"
     ]
   }
 
