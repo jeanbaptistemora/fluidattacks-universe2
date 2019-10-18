@@ -18,6 +18,10 @@ def assign_role(email, role):
     return resp
 
 
+def get_admins():
+    return user_dal.get_admins()
+
+
 def get_all_companies():
     return user_dal.get_all_companies()
 

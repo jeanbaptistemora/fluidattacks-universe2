@@ -6,6 +6,12 @@ from app.dal import integrates_dal
 TABLE = 'FI_users'
 
 
+def get_admins():
+    filter_exp = Attr('role').exists() & Attr('role').eq('admin')
+    admins = integrates_dal.get_data_dynamo_filter(TABLE, filter_exp)
+    return [user.get('email') for user in admins]
+
+
 def get_all_companies():
     filter_exp = Attr('company').exists()
     users = integrates_dal.get_data_dynamo_filter(TABLE, filter_exp)

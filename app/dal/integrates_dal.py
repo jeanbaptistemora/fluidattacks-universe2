@@ -475,18 +475,6 @@ def delete_project(project=None):
     return False
 
 
-def get_admins():
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT email FROM users WHERE role = %s'
-        try:
-            cursor.execute(query, ("admin", ))
-            rows = cursor.fetchall()
-        except OperationalError:
-            rollbar.report_exc_info()
-            rows = []
-    return rows
-
-
 def get_comments_dynamo(finding_id, comment_type):
     """ Get comments of a finding. """
     table = DYNAMODB_RESOURCE.Table('FI_comments')
