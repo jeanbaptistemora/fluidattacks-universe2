@@ -21,7 +21,7 @@ to solve problems from the data perspective.
 Data scientists have been working on problems related
 to areas like medicine, data mining, robotics, etc.
 
-Some investigations have been exploring how Artificial Intelligence
+Some researches have been exploring how Artificial Intelligence
 can be used in cybersecurity.
 For example, how we can use Artificial Intelligence
 for vulnerability detection inside source code.
@@ -85,7 +85,7 @@ image::code-distribution.png[Vulnerable code distribution.]
  to capture only the important information and label the rest as generic.
  The labels already provided by the test database were used.
  For the +Debian+ and +GitHub+ codes,
- they used dynamics analyzers in order to search outputs
+ they used dynamic analyzers in order to search outputs
  that later could be interpreted by security professionals
  as one of the known vulnerabilities
  from the Common Weakness Enumeration (+CWE+) list.
@@ -121,11 +121,12 @@ image::model.png[Convolutional Neural Model]
 Vulnerability detection using Data mining,
 and [inner]#link:../deep-hacking/[Deep and Machine Learning]#
 added some advantages compared with lexical analyzers
-since it does not need to be compiled to work,
-and it can be adjusted to obtain the desired precision.
+since they do not need to be compiled to work,
+and they can be adjusted to obtain the desired precision.
 
 Static analyzers have a limited number of findings
-because of preset rules and do not take into account variations of the rules.
+because of preset rules and the fact that they do not take into account
+the variations of the rules.
 Static analyzers only identify a small portion
 of the real vulnerabilities present in the source code.
 
