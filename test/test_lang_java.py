@@ -204,9 +204,23 @@ def test_uses_insecure_ssl_context_open():
     assert java.uses_insecure_ssl_context(INSECURE_CODE).is_open()
 
 
+def test_uses_various_verbs_in_request_mapping_open():
+    """Search @RequestMappings with various HTTP verbs."""
+    assert java.uses_various_verbs_in_request_mapping(INSECURE_CODE).is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_uses_various_verbs_in_request_mapping_closed():
+    """Search @RequestMapping with various HTTP verbs."""
+    assert java.uses_various_verbs_in_request_mapping(SECURE_CODE).is_closed()
+    assert java.uses_various_verbs_in_request_mapping(
+        CODE_DIR, exclude=['test']).is_closed()
+    assert java.uses_various_verbs_in_request_mapping(
+        NON_EXISTANT_CODE).is_unknown()
 
 
 def test_uses_insecure_ssl_context_closed():

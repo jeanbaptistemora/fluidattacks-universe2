@@ -84,6 +84,17 @@ class GenericExceptionsOpen{
                "SSL" // a comment
                /* A comment */);
 
+        @RequestMapping(value = "*", // a comment
+         method = {
+             GET,
+             PUT, // a comment
+              DELETE})
+
+        @RequestMapping(value = "*", // a comment
+         method = {
+             RequestMethod.PUT,  RequestMethod.POST ,  /* A comment */
+               RequestMethod.POST})
+
       SSLContext.getInstance( // a comment
                "SsLv3" // a comment
                /* A comment */);

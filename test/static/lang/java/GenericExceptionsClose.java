@@ -54,6 +54,13 @@ class GenericExceptionsClose{
                // a comment
                );
 
+         @RequestMapping(value = "*", // a comment
+         method = {
+             GET})
+
+         @RequestMapping(value = "*",
+          method = GET /* A comment */
+          )
          byte[] encrypted = aes.doFinal(input.getBytes("UTF-8"));
 
          if (a[0] > 200) {

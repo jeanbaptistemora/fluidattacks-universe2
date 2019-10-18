@@ -10,7 +10,7 @@ from typing import Dict, List
 from pyparsing import (CaselessKeyword, Word, Literal, Optional, alphas,
                        alphanums, Suppress, nestedExpr, javaStyleComment,
                        QuotedString, oneOf, Keyword, MatchFirst, delimitedList,
-                       Empty)
+                       Empty, Regex, Or)
 
 # local imports
 from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, SAST
@@ -736,6 +736,73 @@ def uses_insecure_ssl_context(java_dest: str, exclude: list = None):
         msgs={
             OPEN: 'Code uses insecure SSL context version',
             CLOSED: 'Code uses secure SSL context version',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
+
+
+@api(
+    risk=MEDIUM,
+    kind=SAST,
+)
+def uses_various_verbs_in_request_mapping(java_dest: str,
+                                          exclude: list = None):
+    """
+    Check if code uses various HTTP verbs in a RequestMapping.
+
+    :param java_dest: Path to a Java source file or package.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    verbs_list = [
+        'GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE',
+        'PATCH'
+    ]
+
+    def any_content(limit):
+        return Suppress(Regex(rf'(.*?{limit})+', flags=re.DOTALL))
+
+    only_verb = Word(alphas) + Suppress(Optional(Literal(',')))
+
+    req_verb = Suppress(Keyword('RequestMethod') + '.') + Word(
+        alphas) + Suppress(Optional(Literal(',')))
+
+    verbs = Or([only_verb, req_verb])
+
+    methods = Suppress('=') + nestedExpr(opener='{', closer='}', content=verbs)
+
+    content = any_content('method') + methods
+    grammar = Suppress(
+        Keyword('@RequestMapping')) + nestedExpr(content=content)
+
+    grammar.ignore(javaStyleComment)
+
+    def flatten(elements, aux_list=None):
+        aux_list = aux_list if aux_list is not None else []
+        for i in elements:
+            if isinstance(i, list):
+                flatten(i, aux_list)
+            else:
+                aux_list.append(i)
+        return aux_list
+
+    def count_verbs(k):
+        count = 0
+        data = flatten(k.asList())
+        for i in data:
+            if i in verbs_list:
+                count += 1
+        return count > 1
+
+    grammar.addCondition(count_verbs)
+
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Code uses uses various HTTP verbs in a RequestMapping',
+            CLOSED: 'Code uses only HTTP verbs per RequestMapping',
         },
         spec=LANGUAGE_SPECS,
         excl=exclude)
