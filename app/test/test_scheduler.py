@@ -238,9 +238,9 @@ class SchedulerTests(TestCase):
         assert expected_output in test_data
 
     def test_all_user_formatted(self):
-        company = 'test'
+        company = '_test_'
         test_data = all_users_formatted(company)
-        expected_output = {'t': 0}
+        expected_output = {company: 0}
         assert test_data == expected_output
 
     def test_get_project_indicators(self):
