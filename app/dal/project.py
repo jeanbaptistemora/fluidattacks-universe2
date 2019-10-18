@@ -3,15 +3,13 @@
 from datetime import datetime
 
 import pytz
-import rollbar
 from boto3.dynamodb.conditions import Attr, Key
 from django.conf import settings
-from django.db import connections
-from django.db.utils import OperationalError
 
 from app.dal import integrates_dal, user as user_dal
 from app.dal.finding import TABLE as FINDINGS_TABLE
 from app.dal.helpers.analytics import query
+from app.domain import user as user_domain
 
 
 def get_current_month_information(project_name, query_db):
@@ -109,22 +107,13 @@ def list_findings(project_name):
 
 
 def list_managers(project_name):
-    managers = []
-    with connections['integrates'].cursor() as cursor:
-        try:
-            cursor.execute(
-                'SELECT users.email FROM users LEFT JOIN project_access '
-                'ON users.id = project_access.user_id '
-                'WHERE users.role = \'customeradmin\' '
-                'AND users.email LIKE \'%%@fluidattacks.com\''
-                'AND project_access.project_id=('
-                'SELECT id FROM projects WHERE project=%s) ', (project_name, ))
-            managers = cursor.fetchall()
-        except OperationalError as ex:
-            rollbar.report_message(
-                'Error: Couldn\'nt list project managers',
-                'error', extra_data=ex, payload_data=locals())
-
+    users_active = get_users(project_name, True)
+    users_inactive = get_users(project_name, False)
+    all_users = users_active + users_inactive
+    managers = \
+        [user for user in all_users
+         if user_domain.get_data(user, 'role') == 'customeradmin' and
+         user.endswith('@fluidattacks.com')]
     return managers
 
 

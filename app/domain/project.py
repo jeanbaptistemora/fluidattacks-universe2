@@ -301,7 +301,7 @@ def get_finding_project_name(finding_id):
 
 
 def list_managers(project_name):
-    return [manager[0] for manager in project_dal.list_managers(project_name)]
+    return project_dal.list_managers(project_name.lower())
 
 
 def get_description(project_name):
