@@ -112,7 +112,7 @@ setup(
         'requests==2.22.0',            # fluidasserts.proto.http
         'requirements-detector==0.6',  # fluidasserts.sca
         'selenium==3.141.0',           # fluidasserts.helper.http
-        'tlslite-ng-ecdsa==0.0.1',     # fluidasserts.proto.ssl
+        'tlslite-ng==0.8.0-alpha28',   # fluidasserts.proto.ssl
         'typed-ast==1.4.0',            # fluidasserts
         'viewstate==0.4.3',            # fluidasserts.proto.http
     ],
