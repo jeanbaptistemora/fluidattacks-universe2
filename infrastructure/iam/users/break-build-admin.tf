@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "break-build-admin-data" {
       "ecr:CompleteLayerUpload"
     ]
     resources = [
-      "arn:aws:ecr::${data.aws_caller_identity.current.account_id}:repository/*"
+      "arn:aws:ecr:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:repository/*"
     ]
   }
 
@@ -40,7 +40,7 @@ data "aws_iam_policy_document" "break-build-admin-data" {
       "s3:PutObject",
     ]
     resources = [
-      "arn:aws:s3:::break-build-*"
+      "arn:aws:s3:::${var.break-build-bucket}/*"
     ]
   }
 
