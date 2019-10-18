@@ -8,8 +8,6 @@ from django.conf import settings
 
 from ..dal import integrates_dal
 from ..domain import vulnerability as vuln_domain
-from ..utils import forms
-from .. import util
 
 
 class FindingDTO(object):
@@ -127,39 +125,6 @@ class FindingDTO(object):
                         'mod_impact_factor_5': 3.25, 'mod_impact_factor_6': 0.02,
                         'mod_impact_factor_7': 15}
 
-    def __init__(self):
-        """Class constructor."""
-        self.request_id = None
-        self.data = dict()
-
-    def parse_project(self, request_arr, submission_id):
-        "Convert project info in formstack format"
-        project_title = ['analyst', 'leader', 'interested', 'project_name',
-                         'client_project', 'context']
-        project_info = integrates_dal.get_finding_attributes_dynamo(
-            str(submission_id),
-            project_title)
-        if project_info and project_info.get('analyst'):
-            project_fields = {k: util.snakecase_to_camelcase(k)
-                              for k in project_title}
-            parsed_dict = {v: project_info[k]
-                           for (k, v) in project_fields.items()
-                           if k in project_info.keys()}
-        else:
-            initial_dict = forms.create_dict(request_arr)
-            project_fields = {
-                self.ANALIST: 'analyst',
-                self.LEADER: 'leader',
-                self.INTERESADO: 'interested',
-                self.PROJECT_NAME: 'projectName',
-                self.CLIENT_PROJECT: 'clientProject',
-                self.CONTEXT: 'context'
-            }
-            parsed_dict = {v: initial_dict[k]
-                           for (k, v) in project_fields.items()
-                           if k in initial_dict.keys()}
-        return parsed_dict
-
 
 def total_vulnerabilities(finding_id):
     """Get total vulnerabilities in new format."""
@@ -175,20 +140,3 @@ def total_vulnerabilities(finding_id):
             # Vulnerability does not have a valid state
             pass
     return finding
-
-
-def has_migrated_evidence(finding_id):
-    """Validate if a finding has evidence description in dynamo."""
-    attr_name = 'files'
-    files = integrates_dal.get_finding_attributes_dynamo(finding_id, [attr_name])
-    if files and files.get(attr_name):
-        for file_obj in files.get(attr_name):
-            if (file_obj.get('name') == 'evidence_route_1' and
-                    file_obj.get('description')):
-                response = True
-                break
-            else:
-                response = False
-    else:
-        response = False
-    return response
