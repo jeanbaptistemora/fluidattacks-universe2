@@ -457,17 +457,6 @@ def remove_user_access(project, user_email):
     return is_user_removed
 
 
-def mask_finding(submission_id):
-    """Mask finding information."""
-    api = FormstackAPI()
-    finding_id = submission_id["id"]
-    generic_dto = FindingDTO()
-    generic_dto.mask_finding(finding_id, "Masked")
-    generic_dto.to_formstack()
-    request = api.update(generic_dto.request_id, generic_dto.data)
-    return request
-
-
 def mask_project_closings(project):
     """Mask project closings information."""
     api = FormstackAPI()
