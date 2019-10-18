@@ -130,6 +130,7 @@ def do_add_all_project_access(data):
             output = SQL_ERROR
         else:
             if integrates_dal.add_all_access_to_project(project):
+                project_domain.add_all_access_to_project(project)
                 output = '*[OK]* Added access to all users to project *%s*.' \
                     % (project)
                 mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)

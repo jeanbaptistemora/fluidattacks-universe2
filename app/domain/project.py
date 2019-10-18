@@ -312,5 +312,9 @@ def get_users(project_name, active=True):
     return project_dal.get_users(project_name, active)
 
 
+def add_all_access_to_project(project):
+    return project_dal.add_all_access_to_project(project)
+
+
 def remove_all_project_access(project):
     return project_dal.remove_all_project_access(project)
