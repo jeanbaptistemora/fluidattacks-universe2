@@ -18,7 +18,7 @@ from app.dal import integrates_dal
 from app.dal.helpers.formstack import FormstackAPI
 from app.domain import (
     finding as finding_domain, project as project_domain,
-    vulnerability as vuln_domain
+    user as user_domain, vulnerability as vuln_domain
 )
 from app.dto import remission
 from app.dto import eventuality
@@ -372,20 +372,21 @@ def weekly_report():
     """Save weekly report in dynamo."""
     rollbar.report_message(
         'Warning: Function to do weekly report in DynamoDB is running', 'warning')
-    init_date = (datetime.today() - timedelta(days=7)).date()
-    final_date = (datetime.today() - timedelta(days=1)).date()
+    init_date = \
+        (datetime.today() - timedelta(days=7)).date().strftime('%Y-%m-%d')
+    final_date = \
+        (datetime.today() - timedelta(days=1)).date().strftime('%Y-%m-%d')
     all_companies = integrates_dal.get_all_companies()
     all_users = [all_users_formatted(x) for x in all_companies]
     registered_users = integrates_dal.all_users_report('FLUID',
                                                        final_date)
-    logged_users = integrates_dal.logging_users_report('FLUID',
-                                                       init_date,
-                                                       final_date)
+    logged_users = user_domain.logging_users_report(
+        'FLUID', init_date, final_date)
     integrates_dal.weekly_report_dynamo(
-        str(init_date),
-        str(final_date),
+        init_date,
+        final_date,
         registered_users[0][0],
-        logged_users[0][0],
+        logged_users,
         all_users
     )
 

@@ -432,20 +432,6 @@ def all_users_report(company_name, finish_date):
     return rows
 
 
-def logging_users_report(company_name, init_date, finish_date):
-    """ Gets the number of logged in users in integrates. """
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT COUNT(id) FROM users WHERE company != %s and \
-        registered = 1 and last_login >= %s and last_login <= %s'
-        try:
-            cursor.execute(query, (company_name, init_date, finish_date,))
-            rows = cursor.fetchall()
-        except OperationalError:
-            rollbar.report_exc_info()
-            rows = []
-    return rows
-
-
 def get_all_companies():
     with connections['integrates'].cursor() as cursor:
         query = 'SELECT DISTINCT UPPER(company) FROM users where company != %s'
@@ -912,18 +898,15 @@ def get_data_dynamo(table_name, primary_name_key, primary_key):
     return items
 
 
-def get_data_dynamo_filter(table_name, primary_name_key, primary_key):
+def get_data_dynamo_filter(table_name, filter_exp):
     """Get atributes data."""
     table = DYNAMODB_RESOURCE.Table(table_name)
-    primary_key = primary_key.lower()
-    filter_key = primary_name_key
-    filtering_exp = Key(filter_key).eq(primary_key)
-    response = table.scan(FilterExpression=filtering_exp)
+    response = table.scan(FilterExpression=filter_exp)
     items = response['Items']
     while True:
         if response.get('LastEvaluatedKey'):
             response = table.scan(
-                FilterExpression=filtering_exp,
+                FilterExpression=filter_exp,
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
         else:

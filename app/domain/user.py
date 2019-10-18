@@ -66,6 +66,10 @@ def is_registered(email):
     return registered
 
 
+def logging_users_report(company_name, init_date, finish_date):
+    return user_dal.logging_users_report(company_name, init_date, finish_date)
+
+
 def register(email):
     return user_dal.update_user_attribute(email, True, 'registered')
 

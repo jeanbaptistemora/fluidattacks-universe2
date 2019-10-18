@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+from boto3.dynamodb.conditions import Attr
 from app.dal import integrates_dal
 
 
@@ -13,6 +14,16 @@ def get_user_attributes(email, data):
     primary_key = {'email': email.lower()}
     return integrates_dal.get_table_attributes_dynamo(
         TABLE, primary_key, data)
+
+
+def logging_users_report(company_name, init_date, finish_date):
+    filter_exp = Attr('last_login').exists() & \
+        Attr('last_login').lte(finish_date) & \
+        Attr('last_login').gte(init_date) & \
+        Attr('registered').exists() & Attr('registered').eq(True) & \
+        Attr('company').exists() & Attr('company').ne(company_name.lower())
+    users = integrates_dal.get_data_dynamo_filter(TABLE, filter_exp)
+    return len(users)
 
 
 def remove_user_attribute(email, name_attribute):
