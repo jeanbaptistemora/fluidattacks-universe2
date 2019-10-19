@@ -10,10 +10,10 @@ from typing import Dict, List
 from pyparsing import (CaselessKeyword, Word, Literal, Optional, alphas,
                        alphanums, Suppress, nestedExpr, javaStyleComment,
                        QuotedString, oneOf, Keyword, MatchFirst, delimitedList,
-                       Empty, Regex, Or)
+                       Empty, Regex, Or, nums)
 
 # local imports
-from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, SAST
+from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, SAST, UNKNOWN
 from fluidasserts.lang import core
 from fluidasserts.helper import lang
 from fluidasserts.utils.decorators import api
@@ -803,6 +803,80 @@ def uses_various_verbs_in_request_mapping(java_dest: str,
         msgs={
             OPEN: 'Code uses uses various HTTP verbs in a RequestMapping',
             CLOSED: 'Code uses only HTTP verbs per RequestMapping',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
+
+
+@api(
+    risk=MEDIUM,
+    kind=SAST,
+)
+def uses_insecure_key_pair_length(java_dest: str, exclude: list = None):
+    """
+    Check if the code uses an insecure length to generate key pairs.
+
+    :param java_dest: Path to a Java source file or package.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    algorithm = nestedExpr(
+        content=Suppress('"') + Word(alphas) + Suppress('"'))('alg_name')
+
+    length = Suppress(Keyword('init')) + nestedExpr(content=Word(nums))
+
+    def check_length(tokens):
+        alg_name = tokens.alg_name[0][0].replace('"', '').lower()
+        alg_length = int(tokens.alg_length)
+        must_lengts = {
+            'rsa': 4096,
+            'dsa': 3000,
+            'ec': 270,
+            'diffiehellman': 512
+        }
+        try:
+            return alg_length < must_lengts[alg_name]
+        except KeyError:
+            return UNKNOWN, f'{alg_name} algorithm cannot be recognized.'
+
+    anything_except_get_instance = (Regex(r'(.*?;)+', flags=re.DOTALL))
+
+    instance = Suppress(
+        '=' + Keyword('KeyPairGenerator') + '.' + Keyword('getInstance'))
+
+    grammar = L_VAR_NAME.copy()(
+        'varname1') + instance + algorithm + anything_except_get_instance(
+            'regex')
+
+    def flatten(elements, aux_list=None):
+        aux_list = aux_list if aux_list is not None else []
+        for i in elements:
+            if isinstance(i, list):
+                flatten(i, aux_list)
+            else:
+                aux_list.append(i)
+        return aux_list
+
+    def set_length(tokens):
+        gramm = tokens.varname1 + Suppress('.') + length('alg_length')
+        gramm.ignore(javaStyleComment)
+        data1 = flatten(gramm.searchString(tokens.regex).asList())
+        setattr(tokens, 'varname2', data1[0])
+        setattr(tokens, 'alg_length', data1[1])
+
+    grammar.ignore(javaStyleComment)
+    grammar.setParseAction(set_length)
+    grammar.addCondition(check_length)
+
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: ('The code uses an insecure length for the '
+                   'algorithm that generates the key pairs.'),
+            CLOSED: ('The code uses a secure length for the '
+                     'algorithm that generates the key pairs.'),
         },
         spec=LANGUAGE_SPECS,
         excl=exclude)

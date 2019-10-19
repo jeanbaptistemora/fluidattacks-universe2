@@ -80,15 +80,26 @@ class GenericExceptionsOpen{
                TheProviderAsAVar /* A comment */
                );
 
-      SSLContext.getInstance( // a comment
+               SSLContext.getInstance( // a comment
                "SSL" // a comment
                /* A comment */);
 
-        @RequestMapping(value = "*", // a comment
-         method = {
-             GET,
-             PUT, // a comment
-              DELETE})
+               KeyPairGenerator token2 = KeyPairGenerator.getInstance( // a comment
+                  "RSA"  /* A comment */
+                  );
+               KeyPairGenerator token1 = KeyPairGenerator.getInstance("RSA");
+               token1.init(
+                   /* A comment */ 4096
+                   );
+               token2.init( // a comment
+                 /* A comment */
+                  256);
+
+               @RequestMapping(value = "*", // a comment
+               method = {
+               GET,
+               PUT, // a comment
+               DELETE})
 
         @RequestMapping(value = "*", // a comment
          method = {

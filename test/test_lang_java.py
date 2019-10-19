@@ -209,9 +209,21 @@ def test_uses_various_verbs_in_request_mapping_open():
     assert java.uses_various_verbs_in_request_mapping(INSECURE_CODE).is_open()
 
 
+def test_uses_insecure_key_pair_length_open():
+    """Search insecure length in generated key pairs."""
+    assert java.uses_insecure_key_pair_length(INSECURE_CODE).is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_uses_insecure_key_pair_length_closed():
+    """Search insecure length in generated key pairs."""
+    assert java.uses_insecure_key_pair_length(INSECURE_CODE).is_open()
+    assert java.uses_insecure_key_pair_length(CODE_DIR, exclude=['test']).is_closed()
+    assert java.uses_insecure_key_pair_length(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_uses_various_verbs_in_request_mapping_closed():

@@ -49,10 +49,16 @@ class GenericExceptionsClose{
 
          SSLContext.getInstance("tlsv1.2");
 
+
+         KeyPairGenerator key2 = KeyPairGenerator.getInstance("DSA");
+
          var instance = SSLContext.getInstance(  // a comment
                "DTLSv1.3" /* A comment */
                // a comment
                );
+         key2.initialize(
+            3125 /* A comment */
+            );
 
          @RequestMapping(value = "*", // a comment
          method = {
