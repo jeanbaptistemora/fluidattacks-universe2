@@ -54,9 +54,20 @@ def test_swallows_exceptions_in_dir_open():
     """Code swallows exceptions."""
     assert rpgle.swallows_exceptions(CODE_DIR).is_open()
 
+
+def test_uses_debugging_open():
+    """Search debug statements."""
+    assert rpgle.uses_debugging(INSECURE_CODE).is_open()
+
 #
 # Closing tests
 #
+
+def test_uses_debugging_closed():
+    """Search debug statements."""
+    assert rpgle.uses_debugging(SECURE_CODE).is_closed()
+    assert rpgle.uses_debugging(CODE_DIR, exclude=['test']).is_closed()
+    assert rpgle.uses_debugging(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_has_dos_dow_sqlcod_close():

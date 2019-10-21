@@ -783,6 +783,7 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             rpgle.has_dos_dow_sqlcod('__path__')
             rpgle.has_generic_exceptions('__path__')
             rpgle.swallows_exceptions('__path__')
+            rpgle.uses_debugging('__path__')
             """,
     }
 

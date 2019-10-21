@@ -47,3 +47,12 @@ D CharConst       C
     endmon ;
 
  /End-Free
+
+   H*-------------------------------------------------------------------------
+   H   DATEDIT(*YMD) DEBUG(*YES)
+   H   DATEDIT(*YMD) DEBUG()
+   H**************************************************************************
+
+   C     SR990         BegSR
+   C     'CVTERR'      DUMP                                                   DUMP for error
+   H     DEBUG(*INPUT : *DUMP : *XMLSAX)

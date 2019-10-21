@@ -6,9 +6,9 @@
 from typing import Dict, Any
 
 # 3rd party imports
-from pyparsing import (CaselessKeyword, Word, Optional,
-                       alphas, alphanums, nums, cppStyleComment,
-                       MatchFirst, delimitedList, Regex)
+from pyparsing import (CaselessKeyword, Word, Optional, alphas, alphanums,
+                       nums, cppStyleComment, MatchFirst, delimitedList, Regex,
+                       nestedExpr, Suppress, Keyword, OneOrMore)
 
 # local imports
 from fluidasserts import LOW, MEDIUM, OPEN, CLOSED, SAST
@@ -118,6 +118,40 @@ def swallows_exceptions(rpg_dest: str, exclude: list = None) -> tuple:
         msgs={
             OPEN: 'Code swallows exceptions',
             CLOSED: 'Code does not swallow exceptions',
+        },
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
+
+
+@api(
+    risk=LOW,
+    kind=SAST,
+    standards={
+        'CWE': '489',
+    },
+)
+def uses_debugging(rpg_dest: str, exclude: list = None) -> tuple:
+    """
+    Check if code uses **DEBUG** statement.
+
+    :param rpg_dest: Path to a RPG source or directory.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    option = Suppress('*') + Word(alphas) + Optional(Suppress(':'))
+    grammar = Keyword('DEBUG') + nestedExpr(content=OneOrMore(option))
+    grammar.addCondition(
+        lambda tokens: True if len(tokens[1]) > 1
+        or not tokens[1] else tokens[1][0] != 'NO'
+    )
+
+    return lang.generic_method(
+        path=rpg_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Code uses debugging.',
+            CLOSED: 'Code does not use debugging.',
         },
         spec=LANGUAGE_SPECS,
         excl=exclude)
