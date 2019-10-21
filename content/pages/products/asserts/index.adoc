@@ -2,6 +2,7 @@
 :category: products
 :description: In this page we present the products offered by Fluid Attacks. Asserts is an engine to automate the closing of security findings over execution environments, which can be implemented in a CI pipeline to determine if a security issue persists in the application.
 :keywords: Fluid Attacks, Products, Asserts, Ethical Hacking, Pentesting, Security.
+:template: salesforce
 
 = Asserts
 
@@ -322,7 +323,3 @@ pre-commit run --all-files
 ----
 
 somewhere in your +CI+ script.
-
-Want to know more about our products?
-Do not hesitate to
-[button]#link:../../contact-us/[contact us]#.

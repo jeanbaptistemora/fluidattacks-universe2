@@ -59,8 +59,9 @@
 {% endblock breadcrumb %}
 {% block content %}
   <div class="divpage">
-    <article class="ma-auto tl mw6">
+    <article class="ma-auto tl mw8">
       <h1 class="tc">{{ page.title }}</h1>
+        {{ page.content }}
         <p class="tc">{{ gettext('contact-text') }}</p>
         <br/>
         <script class="ma-auto"
@@ -75,6 +76,7 @@
           }
           setInterval(timestamp, 500);
         </script>
+        <div class="w-60-l ma-auto mw6">
         <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8"
               method="POST"
               onsubmit="return validateForm()"
@@ -236,6 +238,7 @@
                    value="Send"/>
           </div>
         </form>
+        </div>
       <br>
     </article>
   </div>

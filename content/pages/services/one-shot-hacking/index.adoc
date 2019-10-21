@@ -2,6 +2,7 @@
 :category: services
 :description: In this page we present our One Shot Hacking service, which aims to detect and report all vulnerabilities and security issues within your application. The rigorous inspection of our team allow us to detect all existing security findings with no false positives.
 :keywords: Fluid Attacks, Services, Ethical Hacking, Pentesting, Security, Application.
+:template: salesforce
 
 = One-Shot Hacking
 
@@ -160,8 +161,6 @@ and those regarding standard alignment and security regulation compliance.
 This enables us to detect +Zero-Day+ findings,
 all with no false-positive reports.
 
-
-
 |====
 
 * To check on differences between our services
@@ -171,7 +170,3 @@ and other providers take a look at our differentiators
 * To check on differences between our One-shot hacking
 and Continuous hacking take a look at our comparative
 [button]#link:../comparative/[here]#.
-
-Want further information about our services?
-Do not hesitate to
-[button]#link:../../contact-us/[contact us]#.
