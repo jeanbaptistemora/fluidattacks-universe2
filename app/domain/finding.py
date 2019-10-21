@@ -542,7 +542,7 @@ def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_nam
     email_send_thread.start()
 
 
-def reject_draft(draft_id, reviewer_email, project_name):
+def reject_draft(draft_id, reviewer_email):
     draft_data = get_finding(draft_id)
     success = False
 
@@ -551,22 +551,20 @@ def reject_draft(draft_id, reviewer_email, project_name):
             tzn = pytz.timezone(settings.TIME_ZONE)
             rejection_date = datetime.now(tz=tzn).today()
             rejection_date = rejection_date.strftime('%Y-%m-%d %H:%M:%S')
-            rejection_dict = {
-                'analyst': draft_data.get('analyst', ''),
-                'rejection_date': rejection_date,
-                'report_date': draft_data.get('reportDate', ''),
+            history = draft_data.get('submissionHistory', [{}])
+            history[-1].update({
+                'review_date': rejection_date,
                 'reviewer': reviewer_email,
-            }
-            history = draft_data.get('rejectionHistory', [])
-            history.append(rejection_dict)
+                'status': 'REJECTED'
+            })
 
             success = finding_dal.update(draft_id, {
                 'report_date': None,
-                'rejection_history': history
+                'submission_history': history
             })
             if success:
                 send_draft_reject_mail(
-                    draft_id, project_name, draft_data['analyst'],
+                    draft_id, draft_data['projectName'], draft_data['analyst'],
                     draft_data['finding'], reviewer_email)
         else:
             raise NotSubmitted()
@@ -619,7 +617,7 @@ def delete_finding(finding_id, project_name, justification, context):
     return success
 
 
-def approve_draft(draft_id, context):
+def approve_draft(draft_id, reviewer_email):
     draft_data = get_finding(draft_id)
     release_date = None
     success = False
@@ -629,20 +627,25 @@ def approve_draft(draft_id, context):
         if has_vulns:
             if 'reportDate' in draft_data:
                 tzn = pytz.timezone(settings.TIME_ZONE)
-                release_date = datetime.now(tz=tzn).date()
+                release_date = datetime.now(tz=tzn).today()
                 release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
+                history = draft_data.get('submissionHistory', [{}])
+                history[-1].update({
+                    'review_date': release_date,
+                    'reviewer': reviewer_email,
+                    'status': 'APPROVED'
+                })
+
                 success = finding_dal.update(draft_id, {
                     'lastVulnerability': release_date,
-                    'releaseDate': release_date
+                    'releaseDate': release_date,
+                    'submission_history': history
                 })
             else:
                 raise NotSubmitted()
         else:
             raise GraphQLError('CANT_APPROVE_FINDING_WITHOUT_VULNS')
     else:
-        util.cloudwatch_log(
-            context,
-            'Security: Attempted to accept an already released finding')
         raise AlreadyApproved()
     return success, release_date
 
@@ -733,11 +736,19 @@ def submit_draft(finding_id, analyst_email):
 
             if all([has_evidence, has_severity, has_vulns]):
                 tzn = pytz.timezone(settings.TIME_ZONE)
-                today = datetime.now(tz=tzn).today().strftime(
-                    '%Y-%m-%d %H:%M:%S')
+                report_date = datetime.now(tz=tzn).today()
+                report_date = report_date.strftime('%Y-%m-%d %H:%M:%S')
+                history = finding.get('submissionHistory', [])
+                history.append({
+                    'analyst': analyst_email,
+                    'report_date': report_date,
+                    'status': 'SUBMITTED'
+                })
 
                 success = finding_dal.update(finding_id, {
-                    'report_date': today})
+                    'report_date': report_date,
+                    'submission_history': history
+                })
                 if success:
                     send_new_draft_mail(analyst_email,
                                         finding_id,

@@ -708,8 +708,7 @@ class RejectDraft(Mutation):
         reviewer_email = util.get_jwt_content(info.context)['user_email']
         project_name = finding_domain.get_finding(finding_id)['projectName']
 
-        success = finding_domain.reject_draft(
-            finding_id, reviewer_email, project_name)
+        success = finding_domain.reject_draft(finding_id, reviewer_email)
         if success:
             util.invalidate_cache(finding_id)
             util.invalidate_cache(project_name)
@@ -759,12 +758,11 @@ class ApproveDraft(Mutation):
     @require_login
     @require_role(['admin'])
     def mutate(self, info, draft_id):
-        try:
-            project_name = finding_domain.get_finding(draft_id)['projectName']
-            success, release_date = \
-                finding_domain.approve_draft(draft_id, info.context)
-        except KeyError:
-            raise GraphQLError('DRAFT_NOT_FOUND')
+        reviewer_email = util.get_jwt_content(info.context)['user_email']
+        project_name = finding_domain.get_finding(draft_id)['projectName']
+
+        success, release_date = finding_domain.approve_draft(
+            draft_id, reviewer_email)
         if success:
             util.invalidate_cache(draft_id)
             util.invalidate_cache(project_name)
