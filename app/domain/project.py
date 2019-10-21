@@ -12,9 +12,6 @@ from django.conf import settings
 from __init__ import FI_MAIL_REPLYERS
 from app.dal import integrates_dal, project as project_dal
 from app.domain import vulnerability as vuln_domain
-from app.dto.finding import (
-    total_vulnerabilities
-)
 from app.mailer import send_mail_comment
 from app.util import format_comment_date
 
@@ -85,6 +82,22 @@ def validate_project(project):
     else:
         is_valid_project = False
     return is_valid_project
+
+
+def total_vulnerabilities(finding_id):
+    """Get total vulnerabilities in new format."""
+    vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(finding_id)
+    finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
+    for vuln in vulnerabilities:
+        current_state = vuln_domain.get_last_approved_status(vuln)
+        if current_state == 'open':
+            finding['openVulnerabilities'] += 1
+        elif current_state == 'closed':
+            finding['closedVulnerabilities'] += 1
+        else:
+            # Vulnerability does not have a valid state
+            pass
+    return finding
 
 
 def get_vulnerabilities(findings, vuln_type):

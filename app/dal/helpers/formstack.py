@@ -143,15 +143,6 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
                 'per_page': 50}
         return self.requests_per_page("GET", remission.URL, data=data)
 
-    def get_closings_by_project(self, project):
-        """ Get the all closures of a project """
-        search_field = "39596058"
-        data = {'search_field_1': search_field,
-                'search_value_1': project,
-                'page': 1,
-                'per_page': 50}
-        return self.requests_per_page("GET", self.CL_URL, data=data)
-
     def update(self, request_id, data_dto):
         """ Update a record in formstack. """
         url = self.SUBMISSION_URL.replace(":id", request_id)

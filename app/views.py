@@ -30,7 +30,6 @@ from __init__ import (
 )
 from app import util
 from app.dal.helpers.drive import DriveAPI
-from app.dal.helpers.formstack import FormstackAPI
 from app.dal import integrates_dal
 from app.decorators import authenticate, authorize, cache_content
 from app.domain import (
@@ -41,7 +40,6 @@ from app.domain.vulnerability import (
 from app.documentator.pdf import CreatorPDF
 from app.documentator.secure_pdf import SecurePDF
 from app.documentator.all_vulns import generate_all_vulns_xlsx
-from app.dto import closing
 from app.services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
 )
@@ -416,14 +414,13 @@ def delete_project(project):
     are_findings_masked = [
         finding_domain.mask_finding(finding_id)
         for finding_id in project_domain.list_findings(project)]
-    are_closings_masked = mask_project_closings(project)
     project_deleted = remove_project_from_db(project)
     update_project_state_db = integrates_dal.update_attribute_dynamo(
         'FI_projects',
         ['project_name', project],
         'project_status', 'FINISHED')
     is_project_deleted = all([
-        are_closings_masked, are_findings_masked, are_users_removed,
+        are_findings_masked, are_users_removed,
         project_deleted, update_project_state_db])
     util.invalidate_cache(project)
 
@@ -454,28 +451,6 @@ def remove_user_access(project, user_email):
     is_user_removed_dynamo = integrates_dal.remove_project_access_dynamo(user_email, project)
     is_user_removed = is_user_removed_dal and is_user_removed_dynamo
     return is_user_removed
-
-
-def mask_project_closings(project):
-    """Mask project closings information."""
-    api = FormstackAPI()
-    try:
-        closing_data = api.get_closings_by_project(project)["submissions"]
-        masked = list(map(mask_closing, closing_data))
-        is_closing_masked = all(masked)
-        return is_closing_masked
-    except KeyError:
-        rollbar.report_message('Error: An error occurred masking closing', 'error')
-        return False
-
-
-def mask_closing(submission_id):
-    """Mask closing information."""
-    api = FormstackAPI()
-    closing_id = submission_id["id"]
-    closing_info = closing.mask_closing(closing_id, "Masked")["data"]
-    request = api.update(closing_info['request_id'], closing_info["data"])
-    return request
 
 
 def remove_project_from_db(project):
