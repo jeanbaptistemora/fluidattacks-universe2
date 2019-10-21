@@ -26,6 +26,10 @@ def get_all_companies():
     return user_dal.get_all_companies()
 
 
+def get_all_inactive_users(final_date):
+    return user_dal.get_all_inactive_users(final_date)
+
+
 def get_all_users(company_name):
     return user_dal.get_all_users(company_name.lower())
 

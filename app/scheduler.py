@@ -403,6 +403,8 @@ def inactive_users():
         'Warning: Function to delete inactive users is running', 'warning')
     final_date = (datetime.today() - timedelta(days=7))
     inac_users = integrates_dal.all_inactive_users()
+    inac_users_dynamo = user_domain.get_all_inactive_users(
+        final_date.strftime('%Y-%m-%d %H:%M:%S'))
     for user in inac_users:
         if user[1] <= final_date:
             integrates_dal.delete_user(user[0])

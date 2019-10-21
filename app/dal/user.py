@@ -19,6 +19,16 @@ def get_all_companies():
     return list(set(companies))
 
 
+def get_all_inactive_users(final_date):
+    filtering_exp = Attr('registered').exists() & \
+        Attr('registered').eq(False) & \
+        (Attr('last_login').not_exists() |
+         (Attr('last_login').exists() & Attr('last_login').lte(final_date)))
+    users = integrates_dal.get_data_dynamo_filter(TABLE, filtering_exp)
+    users_data = [user.get('email') for user in users]
+    return users_data
+
+
 def get_all_users(company_name):
     filter_exp = Attr('company').exists() & \
         Attr('company').eq(company_name) & Attr('registered').exists() & \
