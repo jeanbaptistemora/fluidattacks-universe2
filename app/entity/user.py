@@ -3,6 +3,7 @@
 # pylint: disable=relative-beyond-top-level
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
+from __future__ import unicode_literals
 import threading
 import re
 from datetime import datetime
