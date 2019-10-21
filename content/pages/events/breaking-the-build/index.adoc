@@ -208,7 +208,7 @@ and experimentation inside your company,
 considering people that can make decisions is important.
 
 The *workshop* is designed for an audience
-between *10 and 15* persons on the customer side,
+between *12 and 14* persons on the customer side,
 besides +4+ additional assistants on +Fluid Attacks+ side.
 
 == 9. Requirements
