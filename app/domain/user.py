@@ -95,6 +95,10 @@ def remove_access_token(email):
     return user_dal.remove_user_attribute(email, 'access_token')
 
 
+def remove_user(email):
+    return user_dal.remove_user(email.lower())
+
+
 def update_legal_remember(email, remember):
     """ Remember legal notice acceptance """
     return user_dal.update_user_attribute(email, remember, 'legal_remember')

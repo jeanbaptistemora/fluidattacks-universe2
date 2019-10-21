@@ -57,6 +57,11 @@ def logging_users_report(company_name, init_date, finish_date):
     return len(users)
 
 
+def remove_user(email):
+    primary_keys = {'email': email.lower()}
+    return integrates_dal.delete_item(TABLE, primary_keys)
+
+
 def remove_user_attribute(email, name_attribute):
     primary_key = {'email': email.lower()}
     return integrates_dal.remove_attr_dynamo(

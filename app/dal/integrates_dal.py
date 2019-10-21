@@ -1417,6 +1417,24 @@ def get_event_project(event_id):
     return item
 
 
+def delete_item(table_name, primary_keys):
+    """ Remove item """
+
+    table = DYNAMODB_RESOURCE.Table(table_name)
+    try:
+        item = table.get_item(Key=primary_keys)
+        resp = False
+        if item.get('Item'):
+            response = table.delete_item(Key=primary_keys)
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        else:
+            # item not found
+            pass
+        return resp
+    except ClientError:
+        return False
+
+
 def remove_attr_dynamo(table_name, primary_keys, attr_name):
     """ Remove given attribute """
 
