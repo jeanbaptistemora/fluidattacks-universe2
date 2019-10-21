@@ -686,6 +686,7 @@ class UpdateTreatment(Mutation):
             util.invalidate_cache(project_name)
             util.cloudwatch_log(info.context, 'Security: Updated treatment in\
                 finding {id} succesfully'.format(id=finding_id))
+            util.break_build_trigger_deployment(project_name)
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to update \
                 treatment in finding {id}'.format(id=finding_id))

@@ -11,6 +11,7 @@ import re
 import secrets
 import pytz
 import rollbar
+import requests
 
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt
 from cryptography.hazmat.backends import default_backend
@@ -24,7 +25,12 @@ from django.core.files.uploadedfile import (
 from django.core.cache import cache
 from jose import jwt, JWTError
 # pylint: disable=E0402
-from __init__ import FI_ENVIRONMENT
+from __init__ import (
+    FI_ENVIRONMENT,
+    BREAK_BUILD_TRIGGER_URL,
+    BREAK_BUILD_TRIGGER_REF,
+    BREAK_BUILD_TRIGGER_TOKEN
+)
 from .exceptions import InvalidAuthorization
 
 
@@ -389,3 +395,42 @@ def is_valid_format(date):
         resp = False
 
     return resp
+
+
+def break_build_trigger_deployment(project_name):
+    success = False
+
+    exceptions = (
+        requests.exceptions.ChunkedEncodingError,
+        requests.exceptions.ConnectTimeout,
+        requests.exceptions.ConnectionError,
+        requests.exceptions.ContentDecodingError,
+        requests.exceptions.HTTPError,
+        requests.exceptions.ProxyError,
+        requests.exceptions.ReadTimeout,
+        requests.exceptions.RetryError,
+        requests.exceptions.SSLError,
+        requests.exceptions.StreamConsumedError,
+        requests.exceptions.Timeout,
+        requests.exceptions.TooManyRedirects,
+    )
+
+    parameters = {
+        'ref': BREAK_BUILD_TRIGGER_REF,
+        'token': BREAK_BUILD_TRIGGER_TOKEN,
+        'variables[subs]': project_name,
+    }
+
+    try:
+        requests.post(
+            url=BREAK_BUILD_TRIGGER_URL,
+            files={
+                param: (None, value) for param, value in parameters.items()
+            })
+
+    except exceptions:
+        rollbar.report_exc_info()
+    else:
+        success = True
+
+    return success
