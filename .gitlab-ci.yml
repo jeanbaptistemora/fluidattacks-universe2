@@ -91,7 +91,7 @@ asserts-static:
     - bash <(docker run fluidattacks/break-build
               --static
               --id ${BREAK_BUILD_ID}
-              --secret ${BREAK_BUILD_SECRET})
+              --secret ${BREAK_BUILD_SECRET}) || true
   except:
     - master
 
@@ -253,7 +253,7 @@ asserts-dynamic:
     - bash <(docker run fluidattacks/break-build
               --dynamic
               --id ${BREAK_BUILD_ID}
-              --secret ${BREAK_BUILD_SECRET})
+              --secret ${BREAK_BUILD_SECRET}) || true
   only:
     - master
 
@@ -265,7 +265,7 @@ new-version-mail:
   script:
     - . ci-scripts/helpers/others.sh && vault_login
     - export DJANGO_SETTINGS_MODULE=fluidintegrates.settings
-    - vaultenv python integrates_version.py
+    - vaultenv python3 integrates_version.py
   only:
     - master
   except:

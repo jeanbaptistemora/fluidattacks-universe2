@@ -27,7 +27,7 @@ RUN sed -i "s/env#/${ENV_NAME}#/g" env.vars
 # Clean unnecessary apps
 RUN apt-get remove --purge -y \
     apache2 \
-    libapache2-mod-wsgi \
+    libapache2-mod-wsgi-py3 \
     nodejs \
     td-agent \
   && apt-get -y autoremove

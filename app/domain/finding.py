@@ -1,4 +1,4 @@
-from __future__ import absolute_import, division
+
 import random
 import threading
 from datetime import datetime, timedelta
@@ -105,7 +105,7 @@ def get_tracking_dict(unique_dict):
         for date in range(1, len(sorted_dates)):
             prev_date = sorted_dates[date - 1]
             tracking_dict[sorted_dates[date]] = tracking_dict[prev_date].copy()
-            actual_date_dict = unique_dict[sorted_dates[date]].items()
+            actual_date_dict = list(unique_dict[sorted_dates[date]].items())
             for vuln, state in actual_date_dict:
                 tracking_dict[sorted_dates[date]][vuln] = state
     return tracking_dict
@@ -114,8 +114,8 @@ def get_tracking_dict(unique_dict):
 def group_by_state(tracking_dict):
     """Group vulnerabilities by state."""
     tracking = {}
-    for tracking_date, status in tracking_dict.items():
-        for vuln_state in status.values():
+    for tracking_date, status in list(tracking_dict.items()):
+        for vuln_state in list(status.values()):
             status_dict = \
                 tracking.setdefault(tracking_date, {'open': 0, 'closed': 0})
             status_dict[vuln_state] += 1
@@ -809,7 +809,7 @@ def mask_finding(finding_id):
 
 
 def evidence_exceeds_size(uploaded_file, evidence_type, context):
-    evidence = range(7)
+    evidence = list(range(7))
     exploit = 7
     records = 8
     mib = 1048576

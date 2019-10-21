@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """ Functions to consume the Formstack API. """
 
-from __future__ import absolute_import
+
 import json
 import random
 import requests
@@ -86,7 +86,7 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
             else:
                 self.headers_config['content-type'] = 'application/json'
                 params = '&'.join(['{}={}'.format(k, v)
-                                   for k, v in data.items()]) if data else ''
+                                   for k, v in list(data.items())]) if data else ''
                 executed_request = requests.request(
                     method, url='{}?{}'.format(url, params),
                     headers=self.headers_config)

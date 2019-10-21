@@ -1,5 +1,5 @@
 # pylint: disable=E0402
-from __future__ import absolute_import
+
 from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS
 from ..dal import integrates_dal
 from ..domain import user as user_domain

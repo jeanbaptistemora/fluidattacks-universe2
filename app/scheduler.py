@@ -1,6 +1,6 @@
 """ Asynchronous task execution scheduler for FLUIDIntegrates """
 
-from __future__ import absolute_import
+
 import logging
 import logging.config
 from collections import OrderedDict, defaultdict
@@ -178,7 +178,7 @@ def create_register_by_week(project):
             accepted += result_vulns_by_week.get('accepted', 0)
             closed += result_vulns_by_week.get('closed', 0)
             found += result_vulns_by_week.get('found', 0)
-            if any(status_vuln for status_vuln in result_vulns_by_week.values()):
+            if any(status_vuln for status_vuln in list(result_vulns_by_week.values())):
                 week_dates = create_weekly_date(first_day)
                 all_registers[week_dates] = {
                     'found': found,
@@ -200,7 +200,7 @@ def create_data_format_chart(all_registers):
         'closed': [],
         'accepted': [],
         'assumed_closed': []}
-    for week, dict_status in all_registers.items():
+    for week, dict_status in list(all_registers.items()):
         for status in plot_points:
             plot_points[status].append({'x': week, 'y': dict_status[status]})
     for status in plot_points:
@@ -303,11 +303,11 @@ def calculate_vulnerabilities(act_finding):
 def format_vulnerabilities(delta, act_finding):
     """Format vulnerabities changes in findings."""
     if delta > 0:
-        finding_text = u'{finding!s} (+{delta!s})'.format(
+        finding_text = '{finding!s} (+{delta!s})'.format(
             finding=act_finding['finding'],
             delta=delta)
     elif delta < 0:
-        finding_text = u'{finding!s} ({delta!s})'.format(
+        finding_text = '{finding!s} ({delta!s})'.format(
             finding=act_finding['finding'],
             delta=delta)
     else:
@@ -474,8 +474,8 @@ def deletion(project, days_to_send, days_to_delete):
             remission.create_dict(
                 formstack_api.get_submission(x['id'])
             ) for x in remission_submissions]
-        filtered_remissions = list(filter(lambda x: x['FLUID_PROJECT'].lower()
-                                          == project.lower(), remissions_list))
+        filtered_remissions = list([x for x in remissions_list if x['FLUID_PROJECT'].lower()
+                                          == project.lower()])
         project_info = integrates_dal.get_project_dynamo(project)
         if filtered_remissions and project_info:
             lastest_remission = remission.get_lastest(filtered_remissions)

@@ -47,7 +47,7 @@ RUN mkdir app/documentator/images \
   && chmod -R 0744 app/techdoc
 
 # Set up Drive authentication
-RUN python deploy/containers/common/vars/render.py
+RUN python3 deploy/containers/common/vars/render.py
 
 # Set up apache
 RUN chown -R www-data:www-data . \

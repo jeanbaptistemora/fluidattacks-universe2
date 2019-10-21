@@ -31,7 +31,7 @@ class UtilTests(TestCase):
             'message': 'this is a test',
             'data': 'this is data',
             'error': '500'}
-        print type(test_data)
+        print(type(test_data))
 
     def test_is_name(self):
         bad_names = ['', 'asd>;', 'asd asd']

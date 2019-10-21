@@ -1,10 +1,10 @@
 """Domain functions for resources."""
 
-from __future__ import absolute_import, unicode_literals
+
 import base64
 import datetime
 import threading
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 from botocore import signers
 from cryptography.hazmat.backends import default_backend
@@ -27,7 +27,7 @@ def rsa_signer(message):
 
 
 def sign_url(domain, file_name, expire_mins):
-    filename = urllib.quote_plus(str(file_name))
+    filename = urllib.parse.quote_plus(str(file_name))
     url = domain + "/" + filename
     key_id = FI_CLOUDFRONT_ACCESS_KEY
     now_time = datetime.datetime.utcnow()

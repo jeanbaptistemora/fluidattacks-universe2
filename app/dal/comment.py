@@ -1,6 +1,6 @@
 """ DAL functions for comments """
 
-from __future__ import absolute_import
+
 
 import boto3
 from boto3.dynamodb.conditions import Attr, Key

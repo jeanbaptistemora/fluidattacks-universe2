@@ -1,6 +1,6 @@
 """Functions to connect to the analytics database."""
 
-from __future__ import absolute_import
+
 import sys
 from contextlib import contextmanager
 from __init__ import (

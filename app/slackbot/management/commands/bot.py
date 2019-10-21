@@ -1,5 +1,5 @@
 """FLUIDIntegrates admin bot."""
-from __future__ import absolute_import, unicode_literals
+
 import logging
 import logging.config
 import time
@@ -44,7 +44,7 @@ def do_add_project(data):
             else:
                 companies_text = \
                     text[(text.index('[') + 1):text.index(']')].split(',')
-                companies = map(unicode.strip, companies_text)
+                companies = list(map(str.strip, companies_text))
                 description = ' '.join(text.split('] ')[1:])
         except ValueError:
             output = \
@@ -245,10 +245,10 @@ class Command(BaseCommand):
             response = self.COMMANDS_FUNCTIONS[command_parsed[0]](command)
         else:
             response = 'Not sure what you mean. Use the *' +\
-                ', '.join(self.COMMANDS_FUNCTIONS.keys()) +\
+                ', '.join(list(self.COMMANDS_FUNCTIONS.keys())) +\
                 '* commands, delimited by spaces: \n'
             response += '\n'.join('{} {}'.format(k, v)
-                                  for k, v in self.COMMANDS_HELP.items())
+                                  for k, v in list(self.COMMANDS_HELP.items()))
         self.slack_client.api_call('chat.postMessage', channel=channel,
                                    text=response, as_user=True)
 

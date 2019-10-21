@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """ Export all vulnerabilities """
 
-from __future__ import absolute_import
+
 import hashlib
 from openpyxl import Workbook
 

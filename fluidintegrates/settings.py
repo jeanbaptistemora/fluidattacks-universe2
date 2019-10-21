@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 # pylint: disable=E0402
-from __future__ import absolute_import
+
 import os
 import subprocess
 import sys
@@ -207,11 +207,11 @@ LOGGING = {
     },
     'formatters': {
         'simple': {
-            'format': u"%(asctime)s [%(levelname)-8s] %(message)s",
+            'format': "%(asctime)s [%(levelname)-8s] %(message)s",
             'datefmt': "%Y-%m-%d %H:%M:%S"
         },
         'aws': {
-            'format': u"%(asctime)s [%(levelname)-8s] %(message)s",
+            'format': "%(asctime)s [%(levelname)-8s] %(message)s",
             'datefmt': "%Y-%m-%d %H:%M:%S"
         },
     },

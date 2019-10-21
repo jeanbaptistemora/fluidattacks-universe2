@@ -4,7 +4,7 @@
 # pylint: disable=too-many-lines
 """ Views and services for FluidIntegrates """
 
-from __future__ import absolute_import
+
 import os
 import re
 import sys
@@ -183,7 +183,7 @@ def project_to_xls(request, lang, project):
     filepath = it_report.result_filename
     reports.set_xlsx_password(filepath, time.strftime('%d%m%Y') + username)
 
-    with open(filepath, 'r') as document:
+    with open(filepath, 'rb') as document:
         response = HttpResponse(document.read())
         response['Content-Type'] = ('application/vnd.openxmlformats'
                                     '-officedocument.spreadsheetml.sheet')
@@ -242,7 +242,7 @@ def project_to_pdf(request, lang, project, doctype):
                 'Couldn\'t generate pdf report', 'error', request)
             raise HttpResponse(
                 'Couldn\'t generate pdf report', content_type='text/html')
-        with open(report_filename, 'r') as document:
+        with open(report_filename, 'rb') as document:
             response = HttpResponse(document.read(),
                                     content_type='application/pdf')
             response['Content-Disposition'] = \
@@ -316,7 +316,7 @@ def cast_new_vulnerabilities(finding_new, finding):
 def format_where(where, vulnerabilities):
     """Formate where field with new vulnerabilities."""
     for vuln in vulnerabilities:
-        where = u'{where!s}{vuln_where!s} ({vuln_specific!s})\n'\
+        where = '{where!s}{vuln_where!s} ({vuln_specific!s})\n'\
                 .format(where=where,
                         vuln_where=vuln.get('where'),
                         vuln_specific=vuln.get('specific'))
@@ -391,7 +391,7 @@ Invalid evidence image ID format', 'error', request)
 def retrieve_image(request, img_file):
     if util.assert_file_mime(img_file, ["image/png", "image/jpeg",
                                         "image/gif"]):
-        with open(img_file, "r") as file_obj:
+        with open(img_file, "rb") as file_obj:
             mime = Magic(mime=True)
             mime_type = mime.from_file(img_file)
             return HttpResponse(file_obj.read(), content_type=mime_type)
@@ -477,7 +477,7 @@ Attempted to retrieve vulnerabilities without permission')
         data_yml = {}
         vuln_types = {'ports': dict, 'lines': dict, 'inputs': dict}
         if finding:
-            for vuln_key, cast_fuction in vuln_types.items():
+            for vuln_key, cast_fuction in list(vuln_types.items()):
                 if finding.get(vuln_key):
                     data_yml[vuln_key] = list(map(cast_fuction, list(finding.get(vuln_key))))
                 else:
@@ -489,10 +489,10 @@ Attempted to retrieve vulnerabilities without permission')
         project = finding_domain.get_finding(findingid)['projectName']
         file_name = '/tmp/{project}-{finding_id}.yaml'.format(
             finding_id=findingid, project=project)
-        stream = file(file_name, 'w')
+        stream = open(file_name, 'w')
         yaml.safe_dump(data_yml, stream, default_flow_style=False)
         try:
-            with open(file_name, 'r') as file_obj:
+            with open(file_name, 'rb') as file_obj:
                 response = HttpResponse(file_obj.read(), content_type='text/x-yaml')
                 response['Content-Disposition'] = \
                     'attachment; filename="{project}-{finding_id}.yaml"'.format(
@@ -548,7 +548,7 @@ def generate_complete_report(request):
                                                    username=username)
     book.save(filepath)
 
-    with open(filepath, 'r') as document:
+    with open(filepath, 'rb') as document:
         response = HttpResponse(document.read())
         response['Content-Type'] = 'application/vnd.openxmlformats\
                         -officedocument.spreadsheetml.sheet'
@@ -564,7 +564,7 @@ def export_all_vulnerabilities(request):
     user_data = util.get_jwt_content(request)
     filepath = generate_all_vulns_xlsx(user_data['user_email'])
     filename = os.path.basename(filepath)
-    with open(filepath, 'r') as document:
+    with open(filepath, 'rb') as document:
         response = HttpResponse(document.read())
         response['Content-Type'] = 'application/vnd.openxmlformats\
                         -officedocument.spreadsheetml.sheet'

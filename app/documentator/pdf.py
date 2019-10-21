@@ -7,6 +7,7 @@ import sys
 
 import jinja2
 import matplotlib
+import importlib
 matplotlib.use('Agg')
 from pylab import figure, pie, axis, savefig, cla, clf, close  # noqa
 
@@ -40,12 +41,12 @@ class CreatorPDF(object):
         self.style_dir = self.path + self.style_dir
         if self.doctype == 'tech':
             self.proj_tpl = 'templates/tech.adoc'
-        reload(sys)
+        importlib.reload(sys)
         try:
             sys.setdefaultencoding('utf-8')
         except AttributeError:
             # Py3
-            reload(sys)
+            importlib.reload(sys)
         self.lang_support()
 
     def create_command(self, tpl_name):
@@ -141,7 +142,7 @@ class CreatorPDF(object):
         template = template_env.get_template(self.proj_tpl)
         tpl_name = self.tpl_dir + ':id_IT.tpl'.replace(':id', project)
         render_text = template.render(self.context)
-        with open(tpl_name, 'w') as tplfile:
+        with open(tpl_name, 'wb') as tplfile:
             tplfile.write(render_text.encode('utf-8'))
         self.create_command(tpl_name)
         os.system(self.command)

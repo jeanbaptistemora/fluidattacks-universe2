@@ -19,7 +19,7 @@ def parse(submission, initial_dict):
             "35631688": "LAST_REMISSION"
         }
         parsed_dict = {remission_fields[k]: initial_dict[k]
-                       for (k, v) in remission_fields.items()}
+                       for (k, v) in list(remission_fields.items())}
         parsed_dict["TIMESTAMP"] = submission["timestamp"]
         parsed_dict["APPROVAL_STATUS"] = submission["approval_status"]
         return parsed_dict
@@ -28,7 +28,7 @@ def parse(submission, initial_dict):
             "29187648": "FLUID_PROJECT",
         }
         parsed_dict = {project_field[k]: initial_dict[k]
-                       for (k, v) in project_field.items()}
+                       for (k, v) in list(project_field.items())}
         return parsed_dict
 
 

@@ -37,7 +37,7 @@ RUN apt-get update \
 
 # python deps
 COPY "$PIP_REQUIREMENTS" /tmp
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
+RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
 
 # npm deps. node_modules folders are stored in /npm-deps,
 # make sure to copy them to the required folder if needed.

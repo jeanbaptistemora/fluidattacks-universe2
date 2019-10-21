@@ -34,7 +34,7 @@ class EventTests(TestCase):
             key=settings.JWT_SECRET,
         )
         result = dict(SCHEMA.execute(query, context_value=request).data)
-        if 'event' in result.keys():
+        if 'event' in list(result.keys()):
             detail = dict(result['event'])['detail']
             assert detail == 'Integrates unit test'
         assert 'event' in result

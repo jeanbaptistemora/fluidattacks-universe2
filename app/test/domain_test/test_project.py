@@ -67,7 +67,7 @@ class ProjectTest(TestCase):
             for finding_id in findings_to_get]
         test_data = get_last_closing_vuln(findings)
         actual_date = datetime.now().date()
-        initial_date = datetime(2019, 01, 15).date()
+        initial_date = datetime(2019, 1, 15).date()
         expected_output = actual_date - initial_date
         assert test_data == expected_output.days
 
@@ -233,7 +233,7 @@ class ProjectTest(TestCase):
     def test_list_drafts(self):
         project_name = 'unittesting'
         test_data = list_drafts(project_name)
-        expected_output = [u'475041513', u'526734257']
+        expected_output = ['475041513', '526734257']
         assert test_data == expected_output
 
     def test_list_comments(self):
@@ -241,12 +241,12 @@ class ProjectTest(TestCase):
         project_name = 'unittesting'
         test_data = list_comments(user_email, project_name)
         expected_output = {
-            'content': u'Im posting this comment using the API!',
+            'content': 'Im posting this comment using the API!',
             'parent': 0, 'created':
             '2018/12/27 11:40:05',
             'id': 1545928805777,
-            'fullname': u'Test User',
-            'email': u'test@test.com', 'modified': '2018/12/27 11:40:05',
+            'fullname': 'Test User',
+            'email': 'test@test.com', 'modified': '2018/12/27 11:40:05',
             'created_by_current_user': True
         }
         assert test_data[0] == expected_output
@@ -259,9 +259,9 @@ class ProjectTest(TestCase):
         project_name = 'unittesting'
         test_data = list_findings(project_name)
         expected_output = [
-            u'463461507', u'436423161', u'436992569', u'457502279',
-            u'463462578', u'462739885', u'457497316', u'422286126',
-            u'463558592', u'472184283', u'445291998', u'435326463'
+            '463461507', '436423161', '436992569', '457502279',
+            '463462578', '462739885', '457497316', '422286126',
+            '463558592', '472184283', '445291998', '435326463'
         ]
         assert expected_output == test_data
 

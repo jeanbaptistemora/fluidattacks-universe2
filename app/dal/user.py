@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+
 from boto3.dynamodb.conditions import Attr
 from app.dal import integrates_dal
 

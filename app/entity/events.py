@@ -6,7 +6,7 @@
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
 
-from __future__ import absolute_import
+
 from graphene import Boolean, Field, Mutation, ObjectType, String
 from app.decorators import require_login, require_role, require_event_access_gql
 from app.dto.eventuality import event_data

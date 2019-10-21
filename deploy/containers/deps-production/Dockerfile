@@ -29,13 +29,16 @@ RUN apt install -yo DPkg::Options::='--force-confnew' --no-install-recommends \
     python \
     python-dev \
     python-pip \
+    python3 \
+    python3-dev \
+    python3-pip \
     python-setuptools \
     redis \
     sudo \
     apache2 \
     cron \
     netbase \
-    libapache2-mod-wsgi \
+    libapache2-mod-wsgi-py3 \
     libmagic1 \
     ruby \
     libpq-dev
@@ -50,7 +53,8 @@ RUN curl -sL "$NODE_URL" | bash - \
 
 # python deps
 COPY "$PIP_REQUIREMENTS" /tmp
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
+RUN pip3 install -U setuptools && \
+    pip3 install --no-cache-dir -r /tmp/requirements.txt
 
 # ruby deps
 RUN gem install -N asciidoctor:1.5.8 \
@@ -72,7 +76,7 @@ RUN npm install -g secure-spreadsheet@0.1.0 \
 # patches and cleans
 COPY "$PATCHES/enable_redis_cluster_sessions.diff" /tmp
 RUN cat /tmp/enable_redis_cluster_sessions.diff \
-    | patch -d /usr/local/lib/python2.7/dist-packages/redis_sessions -p1 \
+    | patch -d /usr/local/lib/python3.7/dist-packages/redis_sessions -p1 \
   && apt -y autoremove \
   && rm -rf \
     /var/lib/apt/lists/* \

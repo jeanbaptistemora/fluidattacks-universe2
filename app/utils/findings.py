@@ -1,3 +1,4 @@
+import datetime
 import io
 import itertools
 
@@ -61,7 +62,7 @@ def get_records_from_file(project_name, finding_id, file_name):
         with io.open(file_path, mode='r', encoding=encoding) as records_file:
             csv_reader = csv.reader(records_file)
             max_rows = 1000
-            headers = csv_reader.next()
+            headers = next(csv_reader)
             file_content = [util.list_to_dict(headers, row)
                             for row in itertools.islice(csv_reader, max_rows)]
     except (csv.Error, LookupError, UnicodeDecodeError) as ex:
@@ -96,12 +97,18 @@ def format_data(finding):
             finding['releaseDate']).days
     finding['exploitable'] = forms_utils.is_exploitable(
         float(finding['exploitability']), finding['cvssVersion']) == 'Si'
+
+    def_date = '1900-1-1 0:0:0'
+    ver_date = finding.get('verificationDate') \
+        if finding.get('verificationDate') else def_date
+    ver_date = datetime.datetime.strptime(ver_date, '%Y-%m-%d %H:%M:%S')
+    ver_req_date = finding.get('verificationRequestDate') \
+        if finding.get('verificationRequestDate') else def_date
+    ver_req_date = datetime.datetime.strptime(ver_req_date,
+                                              '%Y-%m-%d %H:%M:%S')
     finding['remediated'] = (
-        True if finding.get('verificationRequestDate')
-        and not finding.get('verificationDate')
-        or finding.get('verificationDate')
-        < finding.get('verificationRequestDate')
-        else False)
+        True if ver_req_date != def_date and ver_date == def_date
+        or (ver_date < ver_req_date) else False)
 
     finding['evidence'] = {
         'animation': _get_evidence('animation', finding['files']),

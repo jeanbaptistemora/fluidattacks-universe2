@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+
 from cgi import escape
 
 import mandrill
@@ -80,7 +80,7 @@ def _send_mail(template_name, email_to, context, tags):
                                    'content': fname_mail}]}
             message['to'].append({'email': email})
             message['merge_vars'].append(merge_var)
-        for key, value in new_context.items():
+        for key, value in list(new_context.items()):
             message['global_merge_vars'].append(
                 {'name': key, 'content': value}
             )

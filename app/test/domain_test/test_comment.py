@@ -23,6 +23,6 @@ class CommentTests(TestCase):
         expected_output = [{
             'parent': 0, 'created': '2019/01/08 17:05:14',
             'modified': '2019/01/08 17:05:14',
-            'email': u'test@test.com', 'content': u'Test comment',
-            'fullname': u'Test User', 'id': 1546985114796}]
+            'email': 'test@test.com', 'content': 'Test comment',
+            'fullname': 'Test User', 'id': 1546985114796}]
         assert test_data == expected_output

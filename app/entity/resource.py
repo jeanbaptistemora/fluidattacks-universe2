@@ -3,7 +3,7 @@
 # pylint: disable=relative-beyond-top-level
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
-from __future__ import absolute_import
+
 from datetime import datetime
 import rollbar
 from mixpanel import Mixpanel

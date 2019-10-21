@@ -1,5 +1,5 @@
 # pylint: disable=E0401
-from __future__ import absolute_import
+
 from fluidintegrates.settings import *  # noqa
 from __init__ import FI_DEBUG
 

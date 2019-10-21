@@ -39,15 +39,15 @@ class SecurePDF(object):
     def watermark(self, in_filename):
         """ Add a watermark to all pages of a PDF. """
         pdf_foutname = 'water_' + in_filename
-        input = PdfFileReader(file(self.result_dir + in_filename, 'rb')) # noqa
+        input = PdfFileReader(open(self.result_dir + in_filename, 'rb')) # noqa
         output = PdfFileWriter()
-        watermark = PdfFileReader(file(self.watermark_tpl, 'rb'))
+        watermark = PdfFileReader(open(self.watermark_tpl, 'rb'))
         for i in range(0, input.getNumPages()):
             overlay = watermark.getPage(0)
             page = input.getPage(i)
             page.mergePage(overlay)
             output.addPage(page)
-        output_stream = file(self.result_dir + pdf_foutname, 'wb')
+        output_stream = open(self.result_dir + pdf_foutname, 'wb')
         output.write(output_stream)
         output_stream.close()
         return pdf_foutname
@@ -55,13 +55,12 @@ class SecurePDF(object):
     def lock(self, in_filename):
         """  Add a password to a PDF. """
         pdf_foutname = self.secure_pdf_username + "_" + in_filename
-        password = time.strftime('%d%m%Y') + \
-            self.secure_pdf_username.encode('utf8', 'ignore')
+        password = time.strftime('%d%m%Y') + self.secure_pdf_username
         output = PdfFileWriter()
-        input = PdfFileReader(file(self.result_dir + in_filename, 'rb')) # noqa
+        input = PdfFileReader(open(self.result_dir + in_filename, 'rb')) # noqa
         for i in range(0, input.getNumPages()):
             output.addPage(input.getPage(i))
-        output_stream = file(self.result_dir + pdf_foutname, 'wb')
+        output_stream = open(self.result_dir + pdf_foutname, 'wb')
         output.encrypt(password, use_128bit=True)
         output.write(output_stream)
         output_stream.close()

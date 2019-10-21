@@ -57,13 +57,13 @@ class FindingTests(TestCase):
         assert result.data.get('finding')['id'] == '422286126'
         test_data = OrderedDict([
             ('findingId', '422286126'),
-            ('id', u'80d6a69f-a376-46be-98cd-2fdedcffdcc0'),
+            ('id', '80d6a69f-a376-46be-98cd-2fdedcffdcc0'),
             ('historicState',
-             [{u'date': u'2018-09-28 10:32:58', u'state': u'open', u'analyst':u'test@unittesting.com'},
-              {u'date': u'2019-01-08 16:01:26', u'state': u'open', u'analyst':u'test@unittesting.com'}]),
-            ('specific', u'phone'),
-            ('vulnType', u'inputs'),
-            ('where', u'https://example.com')])
+             [{'date': '2018-09-28 10:32:58', 'state': 'open', 'analyst':'test@unittesting.com'},
+              {'date': '2019-01-08 16:01:26', 'state': 'open', 'analyst':'test@unittesting.com'}]),
+            ('specific', 'phone'),
+            ('vulnType', 'inputs'),
+            ('where', 'https://example.com')])
         assert test_data in result.data.get('finding')['vulnerabilities']
 
     def test_update_evidence(self):
@@ -81,7 +81,7 @@ class FindingTests(TestCase):
         '''
         testing_client = Client(SCHEMA)
         uploaded_file = SimpleUploadedFile('testFile.gif',
-                                           'file_content',
+                                           b'file_content',
                                            content_type='animation/gif')
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()

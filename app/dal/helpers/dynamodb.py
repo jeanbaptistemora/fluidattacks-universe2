@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Functions to connect to dynamodb database."""
-from __future__ import absolute_import
+
 
 from __init__ import (
     FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY, FI_ENVIRONMENT,

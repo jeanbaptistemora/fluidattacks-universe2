@@ -3,7 +3,7 @@
 # pylint: disable=relative-beyond-top-level
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
-from __future__ import unicode_literals
+
 import threading
 import re
 from datetime import datetime
@@ -184,7 +184,7 @@ def validate_phone_field(phone_field):
 
 
 def create_new_user(context, new_user_data, project_name, email):
-    analizable_list = new_user_data.values()[1:-1]
+    analizable_list = list(new_user_data.values())[1:-1]
     if (
         all(validate_field(field) for field in analizable_list) and
         validate_phone_field(new_user_data['phone_number']) and

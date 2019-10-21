@@ -10,7 +10,7 @@ def _calc_cvss2_temporal(severity, basescore):
     """Calculate cvss v2 temporal attribute."""
     temporal = Decimal(float(basescore) * severity['exploitability'] *
                        severity['resolutionLevel'] *
-                       severity['confidenceLevel'], 1)
+                       severity['confidenceLevel'])
     resp = temporal.quantize(Decimal("0.1"))
     return resp
 

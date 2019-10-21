@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """ FluidIntegrates auxiliar functions. """
-from __future__ import absolute_import
+
 import collections
 from datetime import datetime, timedelta
 import binascii
@@ -130,8 +130,8 @@ def user_email_filter(emails, actual_user):
     if "@fluidattacks.com" in actual_user:
         final_users = emails
     else:
-        final_users = list(filter(lambda email: not(
-            email.endswith('@fluidattacks.com')), emails))
+        final_users = list([email for email in emails if not(
+            email.endswith('@fluidattacks.com'))])
     return final_users
 
 
@@ -244,7 +244,7 @@ def list_s3_objects(client_s3, bucket_s3, key):
 
 
 def replace_all(text, dic):
-    for i, j in dic.items():
+    for i, j in list(dic.items()):
         text = text.replace(i, j)
     return text
 
@@ -425,7 +425,7 @@ def break_build_trigger_deployment(project_name):
         requests.post(
             url=BREAK_BUILD_TRIGGER_URL,
             files={
-                param: (None, value) for param, value in parameters.items()
+                param: (None, value) for param, value in list(parameters.items())
             })
 
     except exceptions:

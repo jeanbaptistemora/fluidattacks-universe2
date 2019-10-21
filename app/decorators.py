@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """ Decorators for FluidIntegrates. """
 
-from __future__ import absolute_import
+
 import functools
 import re
 

@@ -4,7 +4,7 @@
 # Disabling this rule is necessary for importing modules beyond the top level
 # pylint: disable=relative-beyond-top-level
 
-from __future__ import absolute_import
+
 import os
 import rollbar
 import boto3
@@ -97,8 +97,8 @@ class EventDTO(object):
             self.EVIDENCE_FILE: 'evidenceFile'
         }
         parsed_dict = {v: initial_dict[k]
-                       for (k, v) in event_fields.items()
-                       if k in initial_dict.keys()}
+                       for (k, v) in list(event_fields.items())
+                       if k in list(initial_dict.keys())}
         if parsed_dict.get('evidence'):
             parsed_dict['evidence'] = \
                 forms.drive_url_filter(parsed_dict['evidence'])
@@ -175,8 +175,8 @@ def parse_event_dynamo(submission_id):
         event_fields = {k: util.snakecase_to_camelcase(k)
                         for k in event_headers}
         parsed_dict = {v: event[k]
-                       for (k, v) in event_fields.items()
-                       if k in event.keys()}
+                       for (k, v) in list(event_fields.items())
+                       if k in list(event.keys())}
         parsed_dict['id'] = event.get('event_id')
     else:
         rollbar.report_message(

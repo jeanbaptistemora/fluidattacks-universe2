@@ -1,6 +1,6 @@
 """ DAL functions for findings """
 
-from __future__ import absolute_import
+
 
 import rollbar
 import boto3

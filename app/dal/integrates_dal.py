@@ -1,5 +1,5 @@
 # pylint: disable=too-many-lines
-from __future__ import absolute_import
+
 from datetime import datetime
 from django.db import connections
 from django.db.utils import OperationalError
@@ -1180,7 +1180,7 @@ def add_multiple_attributes_dynamo(table_name, primary_keys, dic_data):
         resp = update_mult_attrs_dynamo(table_name, keys_dic, dic_data)
     else:
         try:
-            dic_data_field = {k: dic_data[k] for k in dic_data.keys()}
+            dic_data_field = {k: dic_data[k] for k in list(dic_data.keys())}
             attr_to_add = forms.dict_concatenation(keys_dic, dic_data_field)
             response = table.put_item(
                 Item=attr_to_add
@@ -1197,14 +1197,14 @@ def update_mult_attrs_dynamo(table_name, primary_keys, dic_data):
     table = DYNAMODB_RESOURCE.Table(table_name)
     try:
         str_format = '{metric} = :{metric}'
-        empty_values = {k: v for k, v in dic_data.items() if v == ""}
+        empty_values = {k: v for k, v in list(dic_data.items()) if v == ""}
         for item in empty_values:
             remove_attr_dynamo(table_name, primary_keys, item)
             del dic_data[item]
 
-        dic_data_params = [str_format.format(metric=x) for x in dic_data.keys()]
+        dic_data_params = [str_format.format(metric=x) for x in list(dic_data.keys())]
         query_params = 'SET ' + ', '.join(dic_data_params)
-        expression_params = {':' + k: dic_data[k] for k in dic_data.keys()}
+        expression_params = {':' + k: dic_data[k] for k in list(dic_data.keys())}
         response = table.update_item(
             Key=primary_keys,
             UpdateExpression=query_params,

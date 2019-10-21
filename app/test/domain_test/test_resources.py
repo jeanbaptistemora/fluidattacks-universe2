@@ -17,7 +17,7 @@ class ResourcesTests(TestCase):
     def test_validate_file_size(self):
         filename = os.path.dirname(os.path.abspath(__file__))
         filename = os.path.join(filename, '../mock/test-vulns.yaml')
-        with open(filename) as test_file:
+        with open(filename, 'rb') as test_file:
             file_to_test = SimpleUploadedFile(test_file.name, test_file.read())
             assert validate_file_size(file_to_test, 1)
             with pytest.raises(InvalidFileSize):

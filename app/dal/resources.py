@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+
 # pylint:disable=relative-import
 from __init__ import FI_AWS_S3_RESOURCES_BUCKET
 from app.dal.helpers import s3
