@@ -51,6 +51,7 @@ class ViewTestCase(unittest.TestCase):
     def __login(self):
         selenium = self.selenium
         selenium.get(self.url)
+        time.sleep(5)
         selenium.find_element_by_xpath(
             "//*[contains(text(), 'Log in with Google')]").click()
         WebDriverWait(selenium,
@@ -63,6 +64,11 @@ class ViewTestCase(unittest.TestCase):
     def test_01_init_page(self):
         selenium = self.selenium
         selenium.get(self.url)
+        WebDriverWait(selenium,
+                      self.delay).until(
+                          EC.presence_of_element_located(
+                              (By.XPATH,
+                              "//*[contains(text(), 'Log in with Google')]")))
         selenium.save_screenshot(SCR_PATH + '01-init_page.png')
         assert 'Log in with Google' in selenium.page_source
 
