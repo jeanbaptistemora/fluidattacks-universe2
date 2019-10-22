@@ -304,13 +304,13 @@ def set_company_alert_dynamo(message, company_name, project_name):
     """ Create, update or activate an alert for a company. """
     project = project_name.lower()
     if project != 'all':
-        with connections['integrates'].cursor() as cursor:
-            query = 'SELECT * FROM projects WHERE project=%s'
-            cursor.execute(query, (project,))
-            row = cursor.fetchone()
-            if row is None:
-                # Project already exists.
-                return False
+        project_exists = get_project_attributes_dynamo(
+            project_name.lower(), ['project_name'])
+        if not project_exists:
+            return False
+        else:
+            # project not found
+            pass
     company_name = company_name.lower()
     project_name = project_name.lower()
     table = DYNAMODB_RESOURCE.Table('FI_alerts_by_company')
