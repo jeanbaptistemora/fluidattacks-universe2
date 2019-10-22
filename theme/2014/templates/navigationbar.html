@@ -83,12 +83,13 @@
   </div>
   <!-- Searching features -->
   <div class="pr6-l absolute top-0 right-2 pt1">
-    <form action="{{ SITEURL }}/search.html"
-          onsubmit="return validateForm(this.elements['q'].value);">
+    <form action="{{ SITEURL }}/search.html">
       <div class="search pt2 dib-l">
         <input type="text"
                name="q"
                id="tipue_search_input"
+               pattern="[a-zA-Z0-9 ]*"
+               title="Only alphanumeric characters"
                class="search-box mr3 h-search ba bw2 z-3"
                placeholder="{{ gettext('Navb-search-msg') }}">
           <label for="tipue_search_input"
