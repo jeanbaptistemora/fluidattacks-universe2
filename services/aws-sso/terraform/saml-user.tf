@@ -17,6 +17,10 @@ resource "aws_iam_user" "okta-access-user" {
   path = "/"
 }
 
+resource "aws_iam_access_key" "okta-access-user-key" {
+  user = aws_iam_user.okta-access-user.name
+}
+
 resource "aws_iam_policy" "okta-saml-policy" {
   name        = "okta-access"
   path        = "/"
