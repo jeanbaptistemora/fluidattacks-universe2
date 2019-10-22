@@ -165,20 +165,19 @@
       </p>
   </div>
   <!-- Contact -->
-  <div class="contact-sec bg-fluid-lightgray ">
-    <div class="contact-txt fl w-100-ns w-70-m w-70-l pt5-l pr5-l pt3-m pr3-m pt2 pr2">
-      <p class="tc tr-m tr-l ml5 mr5 pt5 pt4-m pt4-l pb4 pb0-m pb0-m f4" >
-         {{ gettext('Contact-txt') }}</p>
-      <button class="bg-fluid-red montsy br3 fr-m fr-l f4 mb3-m mb3-l mr5-m mr5-l mt5 mt2-m mt2-l pt2 pb2 pr3 pl3 b white pointer"
-              onclick="window.location.href='{{ SITEURL }}/{{ gettext('Footer-link-1.6') }}/'">
-         {{ gettext('Footer-subtitle-1.6') }}
-      </button>
-    </div>
-    <div class="contact-img fl pt5 w-30">
-      <img class="dn db-m db-l ml2-l mr-2 h-auto"
-           src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/contact.svg"
+  <div class="contact-sec bg-fluid-lightgray h5">
+    <div class="contact-img ma-auto pt3 w-100">
+      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/contact.svg"
            alt="{{ gettext('Contact-img-alt') }}">
     </div>
+    <div class="contact-txt w-100">
+      <p class="tc pt3" >
+         {{ gettext('Contact-txt') }}</p>
+    </div>
+    <!-- Contact Form -->
+  </div>
+  <div class="bg-fluid-lightgray w-100 pb5">
+  {% include "contact.html" %}
   </div>
 </div>
 
