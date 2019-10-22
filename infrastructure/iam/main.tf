@@ -18,10 +18,6 @@ resource "aws_iam_account_password_policy" "strict" {
   require_uppercase_characters   = true
 }
 
-module "providers" {
-  source = "./providers"
-}
-
 module "users" {
   source = "./users"
   break-build-bucket   = "${var.break-build-bucket}"
@@ -30,8 +26,6 @@ module "users" {
 
 module "roles" {
   source     = "./roles"
-  sso        = "${module.providers.sso}"
-  ssofinance = "${module.providers.ssofinance}"
 }
 
 module "policies" {
