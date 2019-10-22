@@ -1,15 +1,13 @@
-data "aws_iam_policy_document" "ssofinance-policy" {
+data "aws_iam_policy_document" "okta-assume-role-policy-data" {
   statement {
-    sid = ""
+    sid = "OktaSAMLAccess"
     effect = "Allow"
     actions = [
       "sts:AssumeRoleWithSAML"
     ]
     principals {
       type = "Federated"
-      identifiers = [
-        "${var.ssofinance}"
-      ]
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:saml-provider/okta-saml-provider"]
     }
     condition {
       test     = "StringEquals"
@@ -23,7 +21,6 @@ data "aws_iam_policy_document" "ssofinance-policy" {
 }
 
 resource "aws_iam_role" "SSO_Finance" {
-  name = "SSO_Finance"
-
-  assume_role_policy = "${data.aws_iam_policy_document.ssofinance-policy.json}"
+  name               = "SSO_Finance"
+  assume_role_policy = "${data.aws_iam_policy_document.okta-assume-role-policy-data.json}"
 }
