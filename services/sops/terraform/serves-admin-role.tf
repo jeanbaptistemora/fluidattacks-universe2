@@ -26,16 +26,16 @@ data "aws_iam_policy_document" "serves-admin-policy-data" {
   }
 }
 
-data "aws_iam_policy_document" "onelogin-assume-role-policy-data" {
+data "aws_iam_policy_document" "okta-assume-role-policy-data" {
   statement {
-    sid = "OneloginSAMLAccess"
+    sid = "OktaSAMLAccess"
     effect = "Allow"
     actions = [
       "sts:AssumeRoleWithSAML"
     ]
     principals {
       type = "Federated"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:saml-provider/onelogin-saml-provider"]
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:saml-provider/okta-saml-provider"]
     }
     condition {
       test     = "StringEquals"
@@ -57,7 +57,7 @@ resource "aws_iam_policy" "serves-admin-policy" {
 
 resource "aws_iam_role" "serves-admin-role" {
   name = "serves-admin"
-  assume_role_policy = data.aws_iam_policy_document.onelogin-assume-role-policy-data.json
+  assume_role_policy = data.aws_iam_policy_document.okta-assume-role-policy-data.json
 }
 
 resource "aws_iam_role_policy_attachment" "serves-admin-role-attach-policy" {

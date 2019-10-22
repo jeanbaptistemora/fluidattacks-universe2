@@ -10,7 +10,7 @@ onelogin_sso_terraform_apply() {
   . toolbox/terraform.sh
 
   run_terraform \
-    services/onelogin-sso/terraform \
+    services/aws-sso/terraform \
     fluidattacks-terraform-states \
     apply
 

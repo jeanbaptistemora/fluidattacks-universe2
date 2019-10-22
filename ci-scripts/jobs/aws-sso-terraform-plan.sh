@@ -10,7 +10,7 @@ onelogin_sso_terraform_plan() {
   . toolbox/terraform.sh
 
   run_terraform \
-    services/onelogin-sso/terraform \
+    services/aws-sso/terraform \
     fluidattacks-terraform-states \
     plan
 

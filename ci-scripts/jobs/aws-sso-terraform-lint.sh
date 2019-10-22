@@ -10,7 +10,7 @@ onelogin_sso_terraform_lint() {
   . toolbox/terraform.sh
 
   lint_terraform \
-    services/onelogin-sso/terraform \
+    services/aws-sso/terraform \
     fluidattacks-terraform-states
 
 }
