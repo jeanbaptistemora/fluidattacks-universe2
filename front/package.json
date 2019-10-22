@@ -12,10 +12,10 @@
     "url": "https://gitlab.com/fluidattacks/integrates/issues"
   },
   "dependencies": {
+    "@babel/types": "7.6.1",
     "@nivo/axes": "0.59.0",
     "@nivo/legends": "0.59.0",
     "@nivo/line": "0.59.0",
-    "@babel/types": "7.6.1",
     "@types/chart.js": "2.7.28",
     "@types/graphql": "14.2.0",
     "@types/jquery": "3.3.30",
@@ -53,7 +53,7 @@
     "font-awesome": "4.7.0",
     "graphql": "14.2.1",
     "graphql-tag": "2.10.1",
-    "i18next": "13.1.5",
+    "i18next": "17.3.0",
     "jquery": "3.4.1",
     "jquery-comments_brainkit": "1.2.8",
     "lodash": "4.17.14",
@@ -68,6 +68,7 @@
     "react-circular-progressbar": "1.0.0",
     "react-dom": "16.8.6",
     "react-fontawesome": "1.6.1",
+    "react-i18next": "10.13.1",
     "react-image-gallery": "0.8.10",
     "react-image-lightbox": "5.1.0",
     "react-media": "1.9.2",

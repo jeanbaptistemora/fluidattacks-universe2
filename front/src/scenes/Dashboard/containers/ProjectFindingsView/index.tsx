@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import { Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Checkbox, Col, Glyphicon, Row } from "react-bootstrap";
 import FontAwesome from "react-fontawesome";
+import { Trans } from "react-i18next";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { Button } from "../../../../components/Button";
 import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
@@ -225,9 +226,13 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                   <Row className={style.modalContainer}>
                     <Col md={12} id="techReport">
                       <h3>{translate.t("project.findings.report.tech_title")}</h3>
-                      <p>{translate.t("project.findings.report.tech_description")}</p>
+                      <Trans>
+                        <p>{translate.t("project.findings.report.tech_description")}</p>
+                      </Trans>
                       <br />
-                      <p>{translate.t("project.findings.report.tech_example")}</p>
+                      <Trans>
+                        <p className={style.techExample}>{translate.t("project.findings.report.tech_example")}</p>
+                      </Trans>
                       <Row>
                         <Col md={12} className={style.downloadButtonsContainer}>
                           <ButtonToolbar>

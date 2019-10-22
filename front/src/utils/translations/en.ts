@@ -94,10 +94,10 @@ const enTranslations: dict = {
         btn: "Reports",
         modal_close: "Close",
         modal_title: "Reports",
-        tech_description: "Technical reports are protected by password. "
-          + "The password is the PDF or XLSX report generation date and your username.",
-        tech_example: "Example: someone@fluidattacks.com generates the technical report on 15/03/2019 therefore, "
-          + "the password is 15032019someone",
+        tech_description: "Technical reports are protected by <strong>password</strong>. "
+          + "The <strong>password</strong> is the PDF or XLSX report generation date and your username.",
+        tech_example: "<strong>Example:</strong> someone@fluidattacks.com generates the technical report "
+          + "on 15/03/2019 therefore, the password is 15032019someone",
         tech_title: "Technical Reports",
       },
       tableSet: {
@@ -585,9 +585,9 @@ const enTranslations: dict = {
       successfully: "Token copied successfully",
     },
     delete: "Token invalidated successfully",
-    expiration_time: "Expiration Time",
+    expiration_time: "Expiration Date",
     invalid_exp_time: "Expiration time must be minor than six month and greater than current date",
-    invalidate: "Invalidate Current Token",
+    invalidate: "Cancel Current Token",
     invalidated: "Invalidated Token",
     success: "Updated Access Token",
     successfully: "Token updated successfully",

@@ -19,3 +19,7 @@
 :local .tableModalContainer {
   text-align: left;
 }
+
+:local .techExample {
+  font-size: 18px;
+}
