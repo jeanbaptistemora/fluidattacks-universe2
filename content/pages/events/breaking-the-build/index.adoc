@@ -146,21 +146,27 @@ This *workshop* has been presented to professionals
 in technology and auditing areas, for companies such as:
 link:https://www.accenture.com/co-es/new-applied-now[+Accenture+],
 link:https://www.arus.com.co/[+Arus+],
+link:https://www.ath.com.co/wps/themes/html/ath/index.html[+ATH+],
 link:https://www.avianca.com/co/es/[+Avianca+],
 link:https://www.grupobancolombia.com/wps/portal/personas[+Bancolombia+],
 link:https://www.banistmo.com/[+Banitsmo+],
 link:https://www.biva.mx/en/web/portal-biva/home[+BIVA+],
 link:http://www.cadena.com.co/es/home.aspx[+Cadena+],
 link:http://cidenet.com.co/[+Cidenet+],
+link:https://www.colpatria.com/[+Colpatria+],
 link:http://www.cognox.co[+Cognox+],
+link:https://www.vendesfacil.com/[+Coordiutil+],
 link:https://www.corona.co/[+Corona+]
 link:http://www.eafit.edu.co/[+EAFIT+],
 link:https://evendidigital.com/[+Evendi Digital+],
 link:https://www.f2x.com.co/[+F2X+], link:http://www.gco.com.co/[+GCO+],
+link:https://www.grupoaval.com/wps/portal/grupo-aval/aval/[+Grupo AVAL+],
 link:https://www.grupoexito.com.co/es/[+Grupo Éxito+],
+link:https://interbank.pe/[+Interbank+],
 link:https://www.kometsales.com/[+Komet Sales+],
 link:https://www.payvalida.com/co/es/[+Pay valida+],
 link:https://www.proteccion.com/wps/portal/proteccion/[+Protección+],
+link:https://www.runt.com.co/[+RUNT+],
 link:http://www.seti.com.co/sitios/seti/Paginas/HomePageSeti.aspx[+Seti+]
 and link:http://www.techandsolve.com/[+Tech and Solve+].
 
