@@ -14,6 +14,7 @@ from __init__ import (
 )
 
 from app import util
+from app.dal import project as project_dal
 from ..utils import forms
 
 
@@ -303,50 +304,52 @@ def get_company_alert_dynamo(company_name, project_name):
 
 def set_company_alert_dynamo(message, company_name, project_name):
     """ Create, update or activate an alert for a company. """
-    project = project_name.lower()
-    if project != 'all':
-        project_exists = get_project_attributes_dynamo(
-            project_name.lower(), ['project_name'])
-        if not project_exists:
-            return False
-    company_name = company_name.lower()
     project_name = project_name.lower()
-    table = DYNAMODB_RESOURCE.Table('FI_alerts_by_company')
-    item = get_company_alert_dynamo(company_name, project_name)
-    if item == []:
-        try:
-            response = table.put_item(
-                Item={
-                    'company_name': company_name,
-                    'project_name': project_name,
-                    'message': message,
-                    'status_act': '1',
-                }
-            )
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            return resp
-        except ClientError:
-            rollbar.report_exc_info()
-            return False
+    company_name = company_name.lower()
+    if project_name != 'all':
+        resp = project_dal.exists(project_name)
     else:
-        for _item in item:
+        resp = True
+    if resp:
+        table = DYNAMODB_RESOURCE.Table('FI_alerts_by_company')
+        item = get_company_alert_dynamo(company_name, project_name)
+        if item == []:
             try:
-                response = table.update_item(
-                    Key={
-                        'company_name': _item['company_name'],
-                        'project_name': _item['project_name'],
-                    },
-                    UpdateExpression='SET message = :val1, status_act = :val2',
-                    ExpressionAttributeValues={
-                        ':val1': str(message),
-                        ':val2': '1',
+                response = table.put_item(
+                    Item={
+                        'company_name': company_name,
+                        'project_name': project_name,
+                        'message': message,
+                        'status_act': '1',
                     }
                 )
+                resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
             except ClientError:
                 rollbar.report_exc_info()
-                return False
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
+                resp = False
+        else:
+            for _item in item:
+                try:
+                    response = table.update_item(
+                        Key={
+                            'company_name': _item['company_name'],
+                            'project_name': _item['project_name'],
+                        },
+                        UpdateExpression='SET message = :val1,\
+                            status_act = :val2',
+                        ExpressionAttributeValues={
+                            ':val1': str(message),
+                            ':val2': '1',
+                        }
+                    )
+                except ClientError:
+                    rollbar.report_exc_info()
+                    resp = False
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    else:
+        # project not found
+        pass
+    return resp
 
 
 def change_status_comalert_dynamo(message, company_name, project_name):
