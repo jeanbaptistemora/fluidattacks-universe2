@@ -151,7 +151,7 @@ class UpdateAccessToken(Mutation):
                     'first_name': user_info['first_name'],
                     'last_name': user_info['last_name'],
                     'jti': token_data['jti'],
-                    'iat': datetime.utcnow(),
+                    'iat': datetime.utcnow().isoformat(),
                     'exp': expiration_time
                 },
                 algorithm='HS512',

@@ -11,7 +11,7 @@ ENV TZ=America/Bogota
 
 # apt deps: Timezone and openssl first
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
-  && apt update \
+  && apt -o Acquire::Check-Valid-Until=false update \
   && apt -y upgrade \
   && apt install -yo DPkg::Options::='--force-confnew' --no-install-recommends \
     openssl

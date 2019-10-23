@@ -353,9 +353,9 @@ def calculate_hash_token():
     ).derive(jti_token)
 
     return {
-        'jti_hashed': binascii.hexlify(jti_hashed),
-        'jti': binascii.hexlify(jti_token),
-        'salt': binascii.hexlify(salt)
+        'jti_hashed': binascii.hexlify(jti_hashed).decode(),
+        'jti': binascii.hexlify(jti_token).decode(),
+        'salt': binascii.hexlify(salt).decode()
     }
 
 

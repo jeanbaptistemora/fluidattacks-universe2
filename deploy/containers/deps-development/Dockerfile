@@ -24,7 +24,7 @@ RUN curl -LsSo vault.zip "$VAULT_URL" \
 RUN mkdir -p /usr/share/man/man1
 
 # apt deps
-RUN apt-get update \
+RUN apt-get -o Acquire::Check-Valid-Until=false update \
   && apt-get -y upgrade \
   && apt-get install -y --no-install-recommends \
     unzip \

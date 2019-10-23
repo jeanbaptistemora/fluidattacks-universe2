@@ -7,7 +7,7 @@ ARG VAULTENV_BASE='https://github.com/channable/vaultenv/releases/download'
 ARG VAULTENV_VERSION='v0.9.0/vaultenv-0-9-0.deb'
 
 # apt deps
-RUN apt update \
+RUN apt -o Acquire::Check-Valid-Until=false update \
   && apt install --no-install-recommends -y \
     openjdk-8-jdk-headless \
     rsync \
