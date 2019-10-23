@@ -271,11 +271,8 @@ class RemoveUserAccess(Mutation):
 
         integrates_dal.remove_role_to_project_dynamo(project_name, user_email,
                                                      'customeradmin')
-        is_user_removed_dal = \
-            integrates_dal.remove_access_project(user_email, project_name)
-        is_user_removed_dynamo = \
-            integrates_dal.remove_project_access_dynamo(user_email, project_name)
-        success = is_user_removed_dal and is_user_removed_dynamo
+        success = integrates_dal.remove_project_access_dynamo(
+            user_email, project_name)
         removed_email = user_email if success else None
         if success:
             util.invalidate_cache(project_name)

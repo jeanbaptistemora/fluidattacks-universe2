@@ -381,43 +381,6 @@ def change_status_comalert_dynamo(message, company_name, project_name):
     return True
 
 
-def remove_access_project(email=None, project_name=None):
-    """ Remove a user's access to a project. """
-    if email and project_name:
-        project_name = project_name.lower()
-
-        with connections['integrates'].cursor() as cursor:
-            query = 'SELECT id FROM users WHERE email = %s'
-            try:
-                cursor.execute(query, (email,))
-                user_id = cursor.fetchone()
-            except OperationalError:
-                rollbar.report_exc_info()
-                return False
-
-            query = 'SELECT id FROM projects WHERE project = %s'
-            try:
-                cursor.execute(query, (project_name,))
-                project_id = cursor.fetchone()
-            except OperationalError:
-                rollbar.report_exc_info()
-                return False
-
-            if project_id and user_id:
-                query = 'DELETE FROM project_access WHERE user_id = %s and \
-        project_id = %s'
-                try:
-                    cursor.execute(query, (user_id[0], project_id[0],))
-                    cursor.fetchone()
-                    return True
-                except OperationalError:
-                    rollbar.report_exc_info()
-                    return False
-            else:
-                return False
-    return False
-
-
 def all_inactive_users():
     """ Gets amount of inactive users in Integrates. """
     with connections['integrates'].cursor() as cursor:

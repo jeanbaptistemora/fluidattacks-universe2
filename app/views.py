@@ -434,7 +434,7 @@ def remove_all_users_access(project):
     all_users = user_active + user_suspended
     are_users_removed = True
     for user in all_users:
-        is_user_removed = remove_user_access(project, user[0])
+        is_user_removed = remove_user_access(project, user)
         if is_user_removed:
             are_users_removed = True
         else:
@@ -445,12 +445,9 @@ def remove_all_users_access(project):
 
 def remove_user_access(project, user_email):
     """Remove user access to project."""
-    integrates_dal.remove_role_to_project_dynamo(project, user_email, "customeradmin")
-    is_user_removed_dal = integrates_dal.remove_access_project(user_email,
-                                                               project)
-    is_user_removed_dynamo = integrates_dal.remove_project_access_dynamo(user_email, project)
-    is_user_removed = is_user_removed_dal and is_user_removed_dynamo
-    return is_user_removed
+    integrates_dal.remove_role_to_project_dynamo(
+        project, user_email, 'customeradmin')
+    return integrates_dal.remove_project_access_dynamo(user_email, project)
 
 
 def remove_project_from_db(project):
