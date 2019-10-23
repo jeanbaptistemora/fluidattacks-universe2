@@ -34,6 +34,10 @@ def get_all_users(company_name):
     return user_dal.get_all_users(company_name.lower())
 
 
+def get_all_users_report(company_name, finish_date):
+    return user_dal.get_all_users_report(company_name.lower(), finish_date)
+
+
 def get_current_date():
     tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')

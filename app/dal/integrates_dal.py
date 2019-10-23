@@ -416,22 +416,6 @@ def remove_access_project(email=None, project_name=None):
     return False
 
 
-def all_users_report(company_name, finish_date):
-    """ Gets the number of registered users in integrates. """
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT COUNT(DISTINCT(users.id)) FROM users  \
-        LEFT JOIN project_access ON users.id = project_access.user_id \
-        WHERE project_access.has_access = 1 and users.registered = 1 and \
-        users.company != %s and users.date_joined <= %s'
-        try:
-            cursor.execute(query, (company_name, finish_date,))
-            rows = cursor.fetchall()
-        except OperationalError:
-            rollbar.report_exc_info()
-            rows = []
-    return rows
-
-
 def all_inactive_users():
     """ Gets amount of inactive users in Integrates. """
     with connections['integrates'].cursor() as cursor:

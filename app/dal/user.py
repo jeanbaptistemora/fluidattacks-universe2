@@ -37,6 +37,22 @@ def get_all_users(company_name):
     return len(users)
 
 
+def get_all_users_report(company_name, finish_date):
+    filter_exp = Attr('has_access').exists() & Attr('has_access').eq(True)
+    attribute = 'user_email'
+    project_access = integrates_dal.get_data_dynamo_filter(
+        'FI_project_access', filter_exp, data_attr=attribute)
+    project_users = set([user.get('user_email') for user in project_access])
+    filter_exp = Attr('date_joined').lte(finish_date) & \
+        Attr('registered').eq(True) & Attr('company').ne(company_name)
+    attribute = 'email'
+    users = integrates_dal.get_data_dynamo_filter(
+        TABLE, filter_exp, data_attr=attribute)
+    users = [user.get('email') for user in users]
+    users_filtered = project_users.intersection(users)
+    return len(users_filtered)
+
+
 def get_project_access(email, project_name):
     return integrates_dal.get_project_access_dynamo(email, project_name)
 

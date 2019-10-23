@@ -378,14 +378,13 @@ def weekly_report():
         (datetime.today() - timedelta(days=1)).date().strftime('%Y-%m-%d')
     all_companies = user_domain.get_all_companies()
     all_users = [all_users_formatted(x) for x in all_companies]
-    registered_users = integrates_dal.all_users_report('FLUID',
-                                                       final_date)
+    registered_users = user_domain.get_all_users_report('FLUID', final_date)
     logged_users = user_domain.logging_users_report(
         'FLUID', init_date, final_date)
     integrates_dal.weekly_report_dynamo(
         init_date,
         final_date,
-        registered_users[0][0],
+        registered_users,
         logged_users,
         all_users
     )
