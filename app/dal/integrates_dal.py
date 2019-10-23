@@ -107,37 +107,6 @@ def has_complete_data(email):
     return True
 
 
-def has_access_to_project(email, project_name):
-    """ Verify that a user has access to a specific project. """
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT id FROM users WHERE email = %s'
-        try:
-            cursor.execute(query, (email,))
-            user_id = cursor.fetchone()
-        except OperationalError:
-            rollbar.report_exc_info()
-            return False
-
-        query = 'SELECT id FROM projects WHERE project = %s'
-        try:
-            cursor.execute(query, (project_name.lower(),))
-            project_id = cursor.fetchone()
-        except OperationalError:
-            rollbar.report_exc_info()
-            return False
-
-        if project_id and user_id:
-            query = 'SELECT has_access FROM project_access \
-WHERE user_id = %s and project_id = %s'
-            cursor.execute(query, (user_id[0], project_id[0],))
-            has_access = cursor.fetchone()
-        else:
-            return False
-    if has_access and has_access[0] == 1:
-        return True
-    return False
-
-
 def remove_all_project_access(project_name=None):
     """ Remove access permission to all users in a project. """
     if project_name:
