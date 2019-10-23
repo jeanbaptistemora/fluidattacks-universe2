@@ -59,9 +59,26 @@ def test_uses_debugging_open():
     """Search debug statements."""
     assert rpgle.uses_debugging(INSECURE_CODE).is_open()
 
+
+def test_uses_dump_open():
+    """Search DUMP statements."""
+    assert rpgle.uses_dump(f'{CODE_DIR}dump/1_open.rpg').is_open()
+    assert rpgle.uses_dump(f'{CODE_DIR}dump/2_open.rpg').is_open()
+    assert rpgle.uses_dump(f'{CODE_DIR}dump/3_open.rpg').is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_uses_dump_closed():
+    """Search DUMP statements."""
+    assert rpgle.uses_dump(f'{CODE_DIR}dump/1_close.rpg').is_closed()
+    assert rpgle.uses_dump(f'{CODE_DIR}dump/2_close.rpg').is_closed()
+    assert rpgle.uses_dump(f'{CODE_DIR}dump/3_close.rpg').is_closed()
+    assert rpgle.uses_dump(NON_EXISTANT_CODE).is_unknown()
+
 
 def test_uses_debugging_closed():
     """Search debug statements."""
