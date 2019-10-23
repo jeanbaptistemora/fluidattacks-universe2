@@ -5,7 +5,7 @@
 :tags: security, testing
 :image: cover.png
 :alt: Photo by NESA by Makers on Unsplash
-:description: This blog will give an introduction about static application security test (SAST) to the readers, to have a general concept of what SAST is, We will mention how it works, the types, also some of its history and also some of the benefits of implementing in the projects.
+:description: This blog is an introduction to the static application security test (SAST). It will provide the reader with a general concept of what SAST is, how it works, the types of static application security testing, along with some of its history and a few of the benefits of implementing SAST in projects.
 :keywords: SAST, SDLC, Code, Automated test, Manual test, Vulnerabilities
 :author: Kevin Cardona
 :writer: kzccardona
@@ -15,78 +15,87 @@
 
 = Sastisfying App Security
 
-+SAST+ is a kind of white box test
-in which a set of technologies is used
-to analyze the source code, byte code or the application binaries
-in search of known security vulnerabilities
++SAST+ is a type of white box test
+in which a set of technologies is used to analyze the source code,
+byte code or the application binaries
+in order to reveal known security vulnerabilities
 that can be exploited by malicious users.
 
 
-== A bit histoty
+== A Bit of History
 
-In the 1976 Michael E. Fagan explain in his paper
-_Design and code inspections to reduce errors in program development
-how to do the code review_, creating the world's first code review process.
-The link:https://en.wikipedia.org/wiki/Fagan_inspection[Fagan inspection] is a formal process
-of execution that involves several phases and participants
-and that defines some entry and exit criteria
-to start or end the process.
+In his 1976 paper,
+_Design and Code Inspections to Reduce Errors in Program Development_,
+Michael E. Fagan explains how to do a code review and,
+thus, creates the world’s first code review process.
+link:https://en.wikipedia.org/wiki/Fagan_inspection[Fagan inspection] is a formal execution process
+involving several phases and participants,
+and also defines entry and exit criteria
+to both start and end the process.
 
 .Fagan Flow via link:https://www.secjuice.com/sast-isnt-code-review-fight-me/[secjuice.com]
 image::fagan.png[Fagan Flow via secjuice.com]
 
-Later in 1992 E.P. Doolan in his article
-_Experience with Fagan's inspection method_
-proposes the use of software that keep a database of the errors detected
-and automatically scan the code for these errors,
-being this the beginning of the use of automated tools.
+In 1992, in his article
+_Experience with Fagan’s Inspection Method_,
+E.P. Doolan proposes using software that keeps a database of detected errors
+and automatically scans the code for them.
+This begins the use of automated tools.
 
 == Software Development Life Cycle (SDLC)
 
-is a serie of phases that must be followed
-for the development of a software product,
-in order to ensure that the quality, functionality and objectives
-of the application meet customer expectations and development standards.
++SDLC+ is a series of stages that must be followed
+for the development of a specific software product.
+These stages ensure that the quality, functionality,
+and objectives of the application meet customer expectations
+and development standards.
 
-.Software development Life Cycle phases via link:https://www.synotive.com/blog/wp-content/uploads/2017/02/software-development-life-cycle.jpg[Synotive.com]
+.Software Development Life Cycle stages via link:https://www.synotive.com/blog/wp-content/uploads/2017/02/software-development-life-cycle.jpg[Synotive.com]
 image::sdlc.png[Software development Life Cycle phases via Synotive.com]
 
-During the +SDLC+ is important to apply testing methodologies
-that allow to identify security vulnerabilities in early stages of development
-and resolve them quickly before the applications release.
-These vulnerabilities can be found on websites as below:
-. link:https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project[OWASP Top Ten Project]
-. link:https://www.sans.org/top25-software-errors/[Top 25 Most Dangerous Software Errors]
-. link:https://cwe.mitre.org/[CWE Common Weakness Enumeration]
+During the +SDLC+ it is important to use testing methodologies
+in the early stages of development
+that identify and resolve security vulnerabilities quickly,
+before the application's release.
+These vulnerabilities can be found on the following websites:
+
+. link:https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project[OWASP Top Ten Project].
+. link:https://www.sans.org/top25-software-errors/[CWE/SANS TOP 25 Most Dangerous Software Errors].
+. link:https://cwe.mitre.org/[CWE Common Weakness Enumeration].
 
 .OWASP Top Ten Project via link:https://www.owasp.org/images/5/5e/OWASP-Top-10-2017-es.pdf[owasp.org]
 image::owasp.png[OWASP Top Ten Project via owasp.org]
 
-By applying Static Application Security Testing +(SAST)+
+By applying Static Application Security Testing (+SAST+)
 we can detect and avoid most of the security vulnerabilities
-listed in the previous links pages.
+listed in the previous links' pages.
 
-== How does SAST works?
+== How does SAST work?
 
-It can be applied manually or through the use of automaded tools
++SAST+ can be applied manually
+or through the use of automated tools.
 
-*Manual testing* :
-In this case a team of testers
-is responsible for reviewing the code for known security vulnerabilities
-once the vulnerabilities are found, they are reported to the development team
-to be solved as soon as possible.
-Manual testing includes several phases, including :
+*Manual testing* is done by a team of testers
+responsible for reviewing the code
+for known security vulnerabilities.
+Once vulnerabilities are found,
+they are reported to the development team to be solved.
+Manual testing includes several stages including:
 
-. *Synchronization* : this stage includes the appropriation of the application
-Know from the developers what it does and how it does it.
+. *Synchronization:* This stage includes receiving
+from the developers the application,
+a complete explanation of what the application does,
+and how the application does it.
 
-. *Review* : In this stage the testing team takes the sorce code
-and analyzes each line, method, class and files for security vulnerabilities.
+. *Review:* In this stage, the testing team
+takes the source code and analyzes each line, method, class,
+and file for security vulnerabilities.
 
-. *Reporting* : false positives and irrelevant information
-are eliminated at this stage
-findig reports are created and delivered to project leaders
-to be communicated to developers to mitigate or patch the vulnerabilities.
+. *Reporting:* At this stage, false positives
+and irrelevant information are eliminated,
+finding reports are created and delivered to project leaders
+responsible for communicating with developers,
+who then mitigate or patch the vulnerabilities.
 
 .Report of finding in manually test via link:https://www.mitre.org/sites/default/files/publications/secure-code-review-report-sample.pdf:[Mitre.org]
 image::report.png[Report of finding in manually test via Mitre.org]
