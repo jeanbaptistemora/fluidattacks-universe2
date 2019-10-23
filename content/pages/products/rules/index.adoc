@@ -23,7 +23,7 @@ In our hacking services, we determine if these are met or not.
 
 |====
 
-You can access the product [inner]#link:../../rules/[here]#
+You can access the product [button]#link:../../rules/[here]#
 
 == Standards
 

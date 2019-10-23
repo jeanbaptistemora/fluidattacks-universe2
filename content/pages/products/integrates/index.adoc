@@ -142,7 +142,7 @@ This same script can also be used to verify a client company’s solution
 for a particular problem has been successful.
 
 If the client company is licensed to use our product,
-[button]#link:../asserts/[Asserts]#, they may reproduce a mock attack
+[inner]#link:../asserts/[Asserts]#, they may reproduce a mock attack
 that targets the vulnerability to determine independently
 if they have eliminated the vulnerability.
 

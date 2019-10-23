@@ -108,7 +108,7 @@ when: 2018-09-06 08:33:08.781518
 
 === Usage in a CI (Continuous Integration) pipeline
 
-If you have an application subscribed to our link:../../services/continuous-hacking/[Continuous Hacking Service ]
+If you have an application subscribed to our [inner]#link:../../services/continuous-hacking/[Continuous Hacking Service ]#
 which includes the use of +Asserts+,
 you can integrate it into your +CI+ pipeline
 to ensure that your software builds and ships with no open vulnerabilities.
