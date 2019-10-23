@@ -7,6 +7,7 @@ from boto3.dynamodb.conditions import Attr, Key
 from django.conf import settings
 
 from app.dal import integrates_dal, user as user_dal
+from app.dal.event import TABLE as EVENTS_TABLE
 from app.dal.finding import TABLE as FINDINGS_TABLE
 from app.dal.helpers.analytics import query
 from app.domain import user as user_domain
@@ -104,6 +105,25 @@ def list_findings(project_name):
         findings += response.get('Items', [])
 
     return [finding['finding_id'] for finding in findings]
+
+
+def list_events(project_name):
+    key_exp = Key('project_name').eq(project_name)
+    response = EVENTS_TABLE.query(
+        IndexName='project_events',
+        KeyConditionExpression=key_exp,
+        ProjectionExpression='event_id')
+    events = response.get('Items', [])
+
+    while response.get('LastEvaluatedKey'):
+        response = EVENTS_TABLE.query(
+            ExclusiveStartKey=response['LastEvaluatedKey'],
+            IndexName='project_events',
+            KeyConditionExpression=key_exp,
+            ProjectionExpression='event_id')
+        events += response.get('Items', [])
+
+    return [event['event_id'] for event in events]
 
 
 def list_managers(project_name):

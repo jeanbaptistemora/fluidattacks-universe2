@@ -1,10 +1,12 @@
 """Domain functions for events."""
 
 import rollbar
-from app.dal import integrates_dal
+
 from app import util
+from app.dal import integrates_dal, event as event_dal
 from app.dal.helpers.formstack import FormstackAPI
 from app.dto.eventuality import EventDTO
+from app.exceptions import EventNotFound
 
 
 def update_event(event_id, affectation, info):
@@ -61,3 +63,17 @@ def get_event_project_name(event_id):
         # Project exist in dynamo
         pass
     return project
+
+
+def get_event(event_id):
+    event = event_dal.get_event(event_id)
+    if not event:
+        raise EventNotFound()
+
+    return event
+
+
+def get_events(event_ids):
+    events = [get_event(event_id) for event_id in event_ids]
+
+    return events

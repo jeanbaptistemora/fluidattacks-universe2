@@ -213,3 +213,12 @@ class NotSubmitted(Exception):
         """ Constructor """
         msg = 'Exception - The draft has not been submitted yet'
         super(NotSubmitted, self).__init__(msg)
+
+
+class EventNotFound(Exception):
+    """Exception to control event data availability"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Event not found'
+        super(EventNotFound, self).__init__(msg)
