@@ -15,8 +15,8 @@ diff -urN redis_sessions.old/session.py redis_sessions/session.py
                  password=settings.SESSION_REDIS_PASSWORD
              )
 +        elif self.connection_type == 'redis_cluster':
-+            from rediscluster import StrictRedisCluster
-+            self.__redis[self.connection_key] = StrictRedisCluster(
++            from rediscluster import RedisCluster
++            self.__redis[self.connection_key] = RedisCluster(
 +                host=settings.SESSION_REDIS_HOST,
 +                port=settings.SESSION_REDIS_PORT,
 +                socket_timeout=settings.SESSION_REDIS_SOCKET_TIMEOUT,
