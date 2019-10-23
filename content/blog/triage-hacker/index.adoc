@@ -5,7 +5,7 @@
 :tags: machine learning, security, code
 :image: cover.png
 :alt: Photo by camilo jimenez on Unsplash: https://unsplash.com/photos/vGu08RYjO-s
-:description: A high level view of our idea about how machine learning techniques can be applied to vulnerability discovery and exploitation. Our focus will be on aiding, not replacing, manual code auditing and hopefully making this process quicker and more precise.
+:description: A high-level view of our idea about how machine learning techniques can be applied to vulnerability discovery and exploitation. Our focus will be on aiding, not replacing, manual code auditing and hopefully making this process quicker and more precise.
 :keywords: Machine learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability
 :author: Rafael Ballestas
 :writer: raballestasr
@@ -18,7 +18,7 @@
 = Triage for hackers
 
 Based upon our [inner]#link:../vulnerability-classifier[last experiment]#,
-in this article I would like to
+in this article, I would like to
 give a global vision of how our
 +ML+ for vulnerability discovery
 approach should work.
@@ -28,7 +28,7 @@ I will repeat myself here:
 When one of our analysts has to audit a new
 [inner]#link:../../services/continuous-hacking/[continuous hacking]# project,
 usually all they get is access to one or more big code repositories.
-And clients expect vulnerabily reports as soon as possible.
+And clients expect vulnerability reports as soon as possible.
 The idea is for our predictor
 to sort all the files in these repositories
 according to the likelihood of containing a vulnerability
@@ -68,15 +68,15 @@ in the training phase,
 and be able to work in the prediction phase as described above.
 
 What data should we feed to this algorithm?
-We need lots of labeled data in order for
+We need lots of labeled data for
 such an attempt to work, according to Andrew Ng.
 But not too much that it would be an obstacle.
-Fortunately, we have a good amount of code vulnerabilites stored in
+Fortunately, we have a good amount of code vulnerabilities stored in
 [inner]#link:../../products/integrates/[Integrates]#.
 The ones we are interested in are those
 which point to a particular set of lines of code
 in a specific repository.
-We should be able to look up these repositories,
+We should be able to look up these repositories
 and extract the relevant pieces of code.
 We could also extract, at random,
 some other pieces of code and label them as not vulnerable,
@@ -94,8 +94,8 @@ This poses several new challenges:
 . Masking the code so as not to expose it.
 
 But from the data analysis point of view,
-perhaps the most challeging aspect is:
-how do we feed code into algorithm that expect numerical values
+perhaps the most challenging aspect is:
+how do we feed code into an algorithm that expects numerical values
 or sets thereof, i.e., vectors from a continuum?
 We discussed this a bit in our
 [inner]#link:../digression-regression[presentation]#
@@ -110,7 +110,7 @@ We thus obtain a proper dataset for machine learning:
 image::embedding.png[Embedding via neural network]
 
 Other alternatives we will explore are
-word embedding such as +word2vec+ and +code2vec+,
+word embeddings, such as +word2vec+ and +code2vec+,
 which at the moment are not working for us as they
 project each token into a vector, while what we need
 is to map functions or even entire classes or files
@@ -121,7 +121,7 @@ but code embeddings would not be so easy,
 thus dealing with the masking issue.
 
 Thus far we have performed these experiments in local machines.
-However this is impractical, for many reasons,
+However, this is impractical, for many reasons,
 one of which is the lack of computational muscle,
 in particular of +GPUs+,
 which are pretty much a requirement for deep neural networks.
@@ -135,7 +135,7 @@ No fuss about setting up machines,
 installing dependencies, everything is ready.
 Such would be our choice for training the machines.
 The output of this training process
-is a +Python+ object which is able to make predictions.
+is a +Python+ object which can make predictions.
 As seen in
 [inner]#link:../vulnerability-classifier[previous]#
 [inner]#link:../fool-machine[articles]#,
@@ -147,12 +147,12 @@ would be on a serverless application on +AWS Lambda+,
 so that it could be readily accessed by the analysts
 to deal with new projects.
 
-Hopefully this cycle would be completed
+Hopefully, this cycle would be completed
 by the analyst manually detecting, confirming
 and exploiting —should there be a working environment—
 vulnerabilities where the classifier predicted high
 likelihood and reporting them back to +Integrates+.
-As the +Integrates+ databases fills up again,
+As the +Integrates+ database fills up again,
 we should repeat the training cycle
 with a prudent frequency,
 which could be daily, weekly, etc.
