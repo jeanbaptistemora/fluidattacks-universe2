@@ -16,8 +16,8 @@ from django.conf import settings
 logging.getLogger('googleapiclient.discovery_cache').setLevel(logging.ERROR)
 
 
-class DriveAPI(object):
-    """ Class to consume the Google Drive API. """
+class DriveAPI():
+    """Class to consume the Google Drive API."""
 
     scopes = []
     client_secret_file = ""

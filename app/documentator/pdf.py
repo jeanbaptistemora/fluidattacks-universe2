@@ -4,17 +4,18 @@
 import os
 import time
 import sys
+import importlib
 
 import jinja2
 import matplotlib
-import importlib
+
 matplotlib.use('Agg')
 from pylab import figure, pie, axis, savefig, cla, clf, close  # noqa
 
 
 # pylint: disable=too-many-instance-attributes
-class CreatorPDF(object):
-    """ Class to generate reports in PDF. """
+class CreatorPDF():
+    """Class to generate reports in PDF."""
 
     style_dir = '/resources/themes'
     tpl_dir = '/tpls/'
@@ -214,13 +215,13 @@ class CreatorPDF(object):
         explode = (0.1, 0, 0, 0)
         for finding in findings:
             severity = finding['severityCvss']
-            if severity >= 9.0 and severity <= 10.0:
+            if 9.0 <= severity <= 10.0:
                 finding_state_pie[0] += 1
-            elif severity >= 7.0 and severity <= 8.9:
+            elif 7.0 <= severity <= 8.9:
                 finding_state_pie[1] += 1
-            elif severity >= 4.0 and severity <= 6.9:
+            elif 4.0 <= severity <= 6.9:
                 finding_state_pie[2] += 1
-            elif severity >= 0.0 and severity <= 3.9:  # Abierto por defecto
+            elif 0.0 <= severity <= 3.9:  # Abierto por defecto
                 finding_state_pie[3] += 1
             else:
                 finding_state_pie[3] += 1

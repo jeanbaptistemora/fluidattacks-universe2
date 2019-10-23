@@ -9,7 +9,7 @@ from PyPDF2 import PdfFileWriter, PdfFileReader
 from ..dal import integrates_dal
 
 
-class SecurePDF(object):
+class SecurePDF():
     """ Add basic security to PDF. """
 
     result_dir = ''

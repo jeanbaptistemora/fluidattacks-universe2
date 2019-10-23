@@ -1,6 +1,4 @@
-""" DAL functions for findings """
-
-
+"""DAL functions for findings."""
 
 import rollbar
 import boto3

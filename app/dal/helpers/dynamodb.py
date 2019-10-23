@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """Functions to connect to dynamodb database."""
 
+import boto3
 
 from __init__ import (
     FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY, FI_ENVIRONMENT,
     FI_DYNAMODB_HOST, FI_DYNAMODB_PORT
 )
 
-import boto3
 
 RESOURCE_OPTIONS = {}
 if FI_ENVIRONMENT == 'development':

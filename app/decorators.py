@@ -135,26 +135,17 @@ Unauthorized role attempted to perform operation')
 def verify_jti(email, context, jti):
     if not has_valid_access_token(email, context, jti):
         raise InvalidAuthorization()
-    else:
-        # access_token matched
-        pass
 
 
 def role_allowed(role, allowed_roles):
     """Is role in allowed_roles."""
     if role not in allowed_roles:
         raise PermissionDenied()
-    else:
-        # user role is allowed
-        pass
 
 
 def role_customer_admin(project_name, email):
     if not is_customeradmin(project_name, email):
         raise PermissionDenied()
-    else:
-        # user is a customeradmin
-        pass
 
 
 def require_project_access(func):
@@ -180,10 +171,9 @@ def require_project_access(func):
 Attempted to retrieve {project} project info without permission'
                                     .format(project=kwargs.get('project_name')))
                 raise GraphQLError('Access denied')
-            else:
-                util.cloudwatch_log(context,
-                                    'Security: Access to {project} project'
-                                    .format(project=kwargs.get('project_name')))
+            util.cloudwatch_log(context,
+                                'Security: Access to {project} project'
+                                .format(project=kwargs.get('project_name')))
         else:
             rollbar.report_message('Error: Empty fields in project',
                                    'error', context)
@@ -194,7 +184,7 @@ Attempted to retrieve {project} project info without permission'
 
 def require_finding_access(func):
     """
-    Require_finding_access decorator
+    Require_finding_access decorator.
 
     Verifies that the current user has access to a given finding
     """

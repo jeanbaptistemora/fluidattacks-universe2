@@ -126,8 +126,7 @@ class Query(ObjectType):
                                 'Security: Access to project {project} '
                                 'succesfully'.format(project=project_name))
             return Project(project_name)
-        else:
-            raise InvalidProject()
+        raise InvalidProject()
 
     @require_login
     def resolve_me(self, info):

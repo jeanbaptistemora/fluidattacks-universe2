@@ -3,12 +3,14 @@
 
 import sys
 from contextlib import contextmanager
+
+import rollbar
+import psycopg2
+
 from __init__ import (
     FI_AWS_REDSHIFT_DB_NAME, FI_AWS_REDSHIFT_USER, FI_AWS_REDSHIFT_PASSWORD,
     FI_AWS_REDSHIFT_HOST, FI_AWS_REDSHIFT_PORT
 )
-import rollbar
-import psycopg2
 
 
 def redshift_conection():

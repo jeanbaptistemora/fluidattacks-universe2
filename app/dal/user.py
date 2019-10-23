@@ -42,7 +42,7 @@ def get_all_users_report(company_name, finish_date):
     attribute = 'user_email'
     project_access = integrates_dal.get_data_dynamo_filter(
         'FI_project_access', filter_exp, data_attr=attribute)
-    project_users = set([user.get('user_email') for user in project_access])
+    project_users = {user.get('user_email') for user in project_access}
     filter_exp = Attr('date_joined').lte(finish_date) & \
         Attr('registered').eq(True) & Attr('company').ne(company_name)
     attribute = 'email'

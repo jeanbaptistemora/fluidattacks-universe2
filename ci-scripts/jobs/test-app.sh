@@ -9,7 +9,7 @@ test_app() {
   # Linters
   prospector -F -s veryhigh -u django -p app/ -i node_modules || true
   prospector -F -s high -u django -p app/ -i node_modules || true
-  prospector -F -s veryhigh -u django fluidintegrates/ || true
+  prospector -F -s veryhigh -u django fluidintegrates/
 
   # Unit tests
   cp -a "$PWD" /usr/src/app_src

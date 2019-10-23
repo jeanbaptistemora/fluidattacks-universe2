@@ -1,6 +1,4 @@
-""" DAL functions for comments """
-
-
+"""DAL functions for comments."""
 
 import boto3
 from boto3.dynamodb.conditions import Attr, Key

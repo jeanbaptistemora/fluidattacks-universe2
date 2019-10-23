@@ -6,11 +6,13 @@ from django.db.utils import OperationalError
 from boto3 import resource
 from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
-# pylint: disable=E0402
+# pylint: disable=relative-beyond-top-level
+import rollbar
+
 from __init__ import (
     FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY
 )
-import rollbar
+
 from app import util
 from ..utils import forms
 
@@ -236,8 +238,7 @@ def register(email):
 
 def assign_role(email, role):
     """ Assigns a role to a user in the DB. """
-    if (role != 'analyst' and role != 'customer' and
-            role != 'admin' and role != 'customeradmin'):
+    if role not in ('analyst', 'customer', 'admin', 'customeradmin'):
         return False
     with connections['integrates'].cursor() as cursor:
         query = 'UPDATE users SET role=%s WHERE email = %s'
@@ -308,9 +309,6 @@ def set_company_alert_dynamo(message, company_name, project_name):
             project_name.lower(), ['project_name'])
         if not project_exists:
             return False
-        else:
-            # project not found
-            pass
     company_name = company_name.lower()
     project_name = project_name.lower()
     table = DYNAMODB_RESOURCE.Table('FI_alerts_by_company')
@@ -377,6 +375,7 @@ def change_status_comalert_dynamo(message, company_name, project_name):
         except ClientError:
             rollbar.report_exc_info()
             return False
+    return True
 
 
 def remove_access_project(email=None, project_name=None):

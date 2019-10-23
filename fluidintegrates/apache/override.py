@@ -1,4 +1,4 @@
-# pylint: disable=E0401
+# pylint: disable=import-error
 
 from fluidintegrates.settings import *  # noqa
 from __init__ import FI_DEBUG

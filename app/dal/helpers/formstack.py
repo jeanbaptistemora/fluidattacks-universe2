@@ -1,26 +1,25 @@
 # -*- coding: utf-8 -*-
-""" Functions to consume the Formstack API. """
-
+"""Functions to consume the Formstack API."""
 
 import json
 import random
 import requests
-from requests.exceptions import ConnectionError
-# pylint: disable=E0402
-# Pylint doesn't recognize absolute imports beyond top level modules.
+# pylint: disable=relative-beyond-top-level
 # pylint: disable=F0401
 from django.conf import settings
 from django.views.decorators.cache import cache_control
-from __init__ import FI_FORMSTACK_TOKENS
 from retrying import retry
 from app.dto import remission
 import rollbar
 
+from __init__ import FI_FORMSTACK_TOKENS
+
+
 requests.adapters.DEFAULT_RETRIES = 10
 
 
-class FormstackAPI(object):
-    """ Class to consume the Formstack API. """
+class FormstackAPI():
+    """Class to consume the Formstack API."""
 
     headers_config = {}
     SUBMISSION_URL = "https://www.formstack.com/api/v2/submission/:id.json"

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.10/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
-# pylint: disable=E0402
+# pylint: disable=relative-beyond-top-level
 
 import os
 import subprocess
@@ -148,7 +148,7 @@ DATABASES = {
 ROLLBAR = {
     'access_token': FI_ROLLBAR_ACCESS_TOKEN,
     'environment': FI_ENVIRONMENT,
-    'enabled': False if DEBUG else True,
+    'enabled': not DEBUG,
     'root': BASE_DIR,
     'capture_email': True,
     'capture_username': True,
