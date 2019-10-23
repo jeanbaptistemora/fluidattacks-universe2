@@ -152,8 +152,7 @@ def get_users(project, active):
 
 
 def add_all_access_to_project(project):
-    project_exists = integrates_dal.get_project_attributes_dynamo(
-        project.lower(), ['project_name'])
+    project_exists = exists(project)
     resp = False
     if project_exists:
         users_active = get_users(project, True)
@@ -170,8 +169,7 @@ def add_all_access_to_project(project):
 
 
 def remove_all_project_access(project):
-    project_exists = integrates_dal.get_project_attributes_dynamo(
-        project.lower(), ['project_name'])
+    project_exists = exists(project)
     resp = False
     if project_exists:
         active = True
@@ -182,5 +180,17 @@ def remove_all_project_access(project):
         resp = all(users_response)
     else:
         # project doesn't exists
+        pass
+    return resp
+
+
+def exists(project_name):
+    project_exists = integrates_dal.get_project_attributes_dynamo(
+        project_name.lower(), ['project_name'])
+    resp = False
+    if project_exists and project_exists.get('project_name', ''):
+        resp = True
+    else:
+        # project not found
         pass
     return resp
