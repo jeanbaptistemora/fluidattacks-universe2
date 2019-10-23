@@ -79,6 +79,17 @@ resource "aws_dynamodb_table" "events" {
     type = "S"
   }
 
+  attribute {
+    name = "project_name"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name               = "project_events"
+    hash_key           = "project_name"
+    projection_type    = "KEYS_ONLY"
+  }
+
   point_in_time_recovery {
     enabled = true
   }
