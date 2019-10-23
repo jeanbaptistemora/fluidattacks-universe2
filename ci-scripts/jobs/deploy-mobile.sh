@@ -53,12 +53,18 @@ deploy_mobile() {
   # import functions
   . ci-scripts/helpers/check-changed.sh
 
+  local FOLDERS
+  local FILES
+
   FOLDERS=(
     'mobile/'
   )
   FILES=(
     'ci-scripts/jobs/deploy-mobile.sh'
   )
+
+  # Increase max_user_watches as deployment requires it
+  echo 'fs.inotify.max_user_watches=524288' >> /etc/sysctl.conf && sysctl -p
 
   if check_folder_changed "${FOLDERS[@]}" \
     || check_file_changed "${FILES[@]}"; then
