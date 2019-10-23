@@ -107,38 +107,6 @@ def has_complete_data(email):
     return True
 
 
-def add_access_to_project(email, project_name):
-    """ Give access of a project to a user. """
-    if has_access_to_project(email, project_name):
-        return True
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT id FROM users WHERE email = %s'
-        try:
-            cursor.execute(query, (email,))
-            user_id = cursor.fetchone()
-        except OperationalError:
-            user_id = None
-
-        query = 'SELECT id FROM projects WHERE project = %s'
-        try:
-            cursor.execute(query, (project_name,))
-            project_id = cursor.fetchone()
-        except OperationalError:
-            rollbar.report_exc_info()
-            project_id = None
-
-        if project_id and user_id:
-            query = 'INSERT INTO project_access(user_id, project_id, \
-has_access) VALUES(%s, %s, %s)'
-            try:
-                cursor.execute(query, (user_id[0], project_id[0], 1))
-                return True
-            except OperationalError:
-                rollbar.report_exc_info()
-                return False
-    return False
-
-
 def has_access_to_project(email, project_name):
     """ Verify that a user has access to a specific project. """
     with connections['integrates'].cursor() as cursor:
