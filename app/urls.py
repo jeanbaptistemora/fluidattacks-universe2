@@ -1,6 +1,4 @@
-""" File for linking routes between http queries and django views. """
-
-
+"""File for linking routes between http queries and django views."""
 
 from django.conf.urls import (
     url, include, handler400, handler403, handler404, handler500
@@ -11,7 +9,7 @@ from app import services, views
 from app.api.view import APIView
 from app.decorators import verify_csrf
 
-# pylint: disable=W0104
+# pylint: disable=pointless-statement
 handler400, handler403, handler404, handler500
 
 # pylint: disable=invalid-name

@@ -21,11 +21,10 @@ def drive_url_filter(drive):
     if drive.find("s3.amazonaws.com") != -1:
         new_url = drive.split("/")[5]
         return new_url
-    else:
-        if drive.find("id=") != -1:
-            new_url = drive.split("id=")[1]
-            if new_url.find("&") != -1:
-                return new_url.split("&")[0]
+    if drive.find("id=") != -1:
+        new_url = drive.split("id=")[1]
+        if new_url.find("&") != -1:
+            return new_url.split("&")[0]
     return drive
 
 
@@ -51,7 +50,7 @@ def is_exploitable(explotability, version):
         else:
             exploitable = 'No'
     else:
-        if explotability == 1.0 or explotability == 0.95:
+        if explotability in (1.0, 0.95):
             exploitable = 'Si'
         else:
             exploitable = 'No'

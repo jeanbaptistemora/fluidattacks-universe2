@@ -24,7 +24,7 @@ from django.core.files.uploadedfile import (
 )
 from django.core.cache import cache
 from jose import jwt, JWTError
-# pylint: disable=E0402
+# pylint: disable=relative-beyond-top-level
 from __init__ import (
     FI_ENVIRONMENT,
     BREAK_BUILD_TRIGGER_URL,
@@ -336,7 +336,7 @@ def is_valid_expiration_time(expiration_time):
     """Verify that expiration time is minor than six months"""
     exp = datetime.utcfromtimestamp(expiration_time)
     now = datetime.utcnow()
-    return exp < (now + timedelta(weeks=MAX_API_AGE_WEEKS)) and exp > now
+    return now < exp < (now + timedelta(weeks=MAX_API_AGE_WEEKS))
 
 
 def calculate_hash_token():

@@ -7,10 +7,10 @@ import re
 import slackclient
 from django.core.management.base import BaseCommand
 from django.conf import settings
+from mixpanel import Mixpanel
 from app.dal import integrates_dal
 from app.domain import project as project_domain, user as user_domain
 from app import util
-from mixpanel import Mixpanel
 
 from __init__ import FI_SLACK_BOT_ID
 
@@ -41,11 +41,10 @@ def do_add_project(data):
                 output = 'You must enter the project type: \
                     *Continuous* or *Oneshot*.'
                 return output
-            else:
-                companies_text = \
-                    text[(text.index('[') + 1):text.index(']')].split(',')
-                companies = list(map(str.strip, companies_text))
-                description = ' '.join(text.split('] ')[1:])
+            companies_text = \
+                text[(text.index('[') + 1):text.index(']')].split(',')
+            companies = list(map(str.strip, companies_text))
+            description = ' '.join(text.split('] ')[1:])
         except ValueError:
             output = \
                 'You must enter the company or companies names \

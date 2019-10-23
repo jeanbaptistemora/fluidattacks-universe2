@@ -5,7 +5,7 @@ import re
 from openpyxl import load_workbook
 
 
-class ITReport(object):
+class ITReport():
     """Class to generate IT reports."""
 
     workbook = None

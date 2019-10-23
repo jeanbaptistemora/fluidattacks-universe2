@@ -1,4 +1,4 @@
-# pylint: disable=E0402
+# pylint: disable=relative-beyond-top-level
 
 from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS
 from ..dal import integrates_dal
@@ -6,7 +6,8 @@ from ..domain import user as user_domain
 from ..mailer import send_mail_new_user
 
 
-# pylint: disable=W0613
+# pylint: disable=unused-argument
+# pylint: disable=keyword-arg-before-vararg
 def create_user(strategy, details, backend, user=None, *args, **kwargs):
     username = details['username'][:63]
     first_name = details['first_name'][:29]

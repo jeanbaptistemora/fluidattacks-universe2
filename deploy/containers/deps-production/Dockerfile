@@ -26,13 +26,9 @@ RUN apt install -yo DPkg::Options::='--force-confnew' --no-install-recommends \
     default-libmysqlclient-dev \
     git \
     libmariadb3 \
-    python \
-    python-dev \
-    python-pip \
     python3 \
     python3-dev \
     python3-pip \
-    python-setuptools \
     redis \
     sudo \
     apache2 \

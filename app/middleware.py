@@ -16,11 +16,6 @@ class SocialAuthException(SocialAuthExceptionMiddleware):
                     if (location.origin.indexOf("://fluidattacks.com") === -1) { \
                         location = "/registration"; \
                     }else{ location = "/integrates/registration"; } </script>')
-
-            # A user clicked return or stopped the page load after social auth
-            elif exception_type in ["AuthCanceled", "AuthMissingParameter",
-                                    "AuthStateMissing"]:
-                return redirect("/index")
-        else:
-            return super(SocialAuthException, self).process_exception(request,
-                                                                      exception)
+            return redirect("/index")
+        return super(SocialAuthException, self).process_exception(request,
+                                                                    exception)

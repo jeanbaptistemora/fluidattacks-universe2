@@ -1,9 +1,9 @@
-# pylint: disable=E0402
+# pylint: disable=relative-beyond-top-level
 from ..domain import user as user_domain
 
 
 # pylint: disable=no-self-use
-class IntercomUserData(object):
+class IntercomUserData():
     def user_data(self, user):
         """ Required method, same name and only accepts
             one attribute (django User model) """
@@ -15,7 +15,7 @@ class IntercomUserData(object):
         }
 
 
-class IntercomCustomData(object):
+class IntercomCustomData():
     """ Custom data class. """
     def custom_data(self, user):
         """ Send extra data to Intercom. """

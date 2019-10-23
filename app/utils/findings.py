@@ -49,8 +49,7 @@ def _download_evidence_file(project_name, finding_id, file_name):
         tmp_filepath = util.replace_all(localfile, ext)
         finding_dal.download_evidence(file_id, tmp_filepath)
         return tmp_filepath
-    else:
-        raise Exception('Evidence not found')
+    raise Exception('Evidence not found')
 
 
 def get_records_from_file(project_name, finding_id, file_name):
@@ -108,7 +107,7 @@ def format_data(finding):
                                               '%Y-%m-%d %H:%M:%S')
     finding['remediated'] = (
         True if ver_req_date != def_date and ver_date == def_date
-        or (ver_date < ver_req_date) else False)
+        or ver_date < ver_req_date else False)
 
     finding['evidence'] = {
         'animation': _get_evidence('animation', finding['files']),

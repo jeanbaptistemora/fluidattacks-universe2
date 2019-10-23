@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 # Disabling this rule is necessary for include returns inside if-else structure
-# pylint: disable-msg=R1705
+# pylint: disable-msg=no-else-return
 # pylint: disable=too-many-lines
-""" Views and services for FluidIntegrates """
-
+"""Views and services for FluidIntegrates."""
 
 import os
 import re
@@ -43,7 +42,7 @@ from app.documentator.all_vulns import generate_all_vulns_xlsx
 from app.services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
 )
-from app.techdoc.IT import ITReport
+from app.techdoc.it_report import ITReport
 from app.utils import reports
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
@@ -199,6 +198,7 @@ def validation_project_to_pdf(request, lang, doctype):
     if doctype not in ["tech", "executive"]:
         rollbar.report_message('Error: Unsupported doctype', 'error', request)
         return util.response([], 'Unsupported doctype', True)
+    return None
 
 
 @cache_content

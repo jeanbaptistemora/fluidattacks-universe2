@@ -1,5 +1,4 @@
-
-from cgi import escape
+from html import escape
 
 import mandrill
 import rollbar

@@ -473,8 +473,9 @@ def deletion(project, days_to_send, days_to_delete):
             remission.create_dict(
                 formstack_api.get_submission(x['id'])
             ) for x in remission_submissions]
-        filtered_remissions = list([x for x in remissions_list if x['FLUID_PROJECT'].lower()
-                                          == project.lower()])
+        filtered_remissions = list([x for x in remissions_list
+                                    if x['FLUID_PROJECT'].lower()
+                                    == project.lower()])
         project_info = integrates_dal.get_project_dynamo(project)
         if filtered_remissions and project_info:
             lastest_remission = remission.get_lastest(filtered_remissions)
