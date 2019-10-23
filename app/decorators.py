@@ -220,7 +220,7 @@ Attempted to retrieve finding-related info without permission')
     return verify_and_call
 
 
-def require_event_access_gql(func):
+def require_event_access(func):
     """
     Require_event_access decorator
 

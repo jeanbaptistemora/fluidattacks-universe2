@@ -1,26 +1,17 @@
-""" GraphQL Entity for Formstack Findings """
-# pylint: disable=F0401
+""" GraphQL Entity for Events """
 # pylint: disable=no-self-use
 # pylint: disable=super-init-not-called
-# pylint: disable=relative-beyond-top-level
-# Disabling this rule is necessary for importing modules beyond the top level
-# directory.
-
-
 from graphene import Boolean, Field, Mutation, ObjectType, String
-from app.decorators import require_login, require_role, require_event_access_gql
+
+from app import util
+from app.decorators import require_login, require_role, require_event_access
+from app.domain import event as event_domain
 from app.dto.eventuality import event_data
-from app.domain.event import (
-    update_event, get_event_project_name
-)
-from .. import util
 
 
-class Events(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
+class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     """ Formstack Events Class """
     id = String()  # noqa pylint: disable=invalid-name
-    success = Boolean()
-    error_message = String()
     analyst = String()
     client = String()
     project_name = String()
@@ -76,10 +67,6 @@ class Events(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
             self.affected_components = resp.get('affectedComponents')
             self.context = resp.get('context')
             self.subscription = resp.get('subscription')
-        else:
-            self.success = False
-            self.error_message = 'Finding does not exist'
-        self.success = True
 
     def resolve_id(self, info):
         """ Resolve id attribute """
@@ -171,22 +158,22 @@ class Events(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 class UpdateEvent(Mutation):
     """Update event status."""
 
-    class Arguments(object):
+    class Arguments:
         event_id = String(required=True)
         affectation = String(required=True)
     success = Boolean()
-    event = Field(Events)
+    event = Field(Event)
 
     @require_login
     @require_role(['analyst', 'admin'])
-    @require_event_access_gql
+    @require_event_access
     def mutate(self, info, event_id, affectation):
-        success = update_event(event_id, affectation, info)
+        success = event_domain.update_event(event_id, affectation, info)
         if success:
-            project_name = get_event_project_name(event_id)
+            project_name = event_domain.get_event_project_name(event_id)
             util.invalidate_cache(event_id)
             util.invalidate_cache(project_name)
         ret = UpdateEvent(
             success=success,
-            event=Events(identifier=event_id, context=info.context))
+            event=Event(identifier=event_id, context=info.context))
         return ret

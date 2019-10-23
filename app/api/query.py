@@ -5,14 +5,14 @@ from app import util
 from app.dal import integrates_dal
 from app.dal.helpers.formstack import FormstackAPI
 from app.decorators import (
-    get_cached, require_event_access_gql, require_finding_access,
+    get_cached, require_event_access, require_finding_access,
     require_login, require_project_access, require_role
 )
 from app.domain import project as project_domain
 from app.entity.me import Me
 from app.entity.alert import Alert
 from app.entity.login import Login
-from app.entity.event import Events
+from app.entity.event import Event
 from app.entity.resource import Resource
 from app.entity.user import User
 from app.entity.finding import Finding
@@ -26,9 +26,9 @@ class Query(ObjectType):
                   project_name=String(required=True),
                   organization=String(required=True))
 
-    event = Field(Events, identifier=String(required=True))
+    event = Field(Event, identifier=String(required=True))
 
-    events = List(Events, project_name=String(required=True))
+    events = List(Event, project_name=String(required=True))
 
     finding = Field(Finding, identifier=String(required=True))
 
@@ -55,13 +55,13 @@ class Query(ObjectType):
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
-    @require_event_access_gql
+    @require_event_access
     @get_cached
     def resolve_event(self, info, identifier=None):
         """ Resolve for event """
         util.cloudwatch_log(info.context, 'Security: Access to \
             Event: {event_id} succesfully'.format(event_id=identifier))
-        return Events(identifier, info.context)
+        return Event(identifier, info.context)
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
@@ -74,7 +74,7 @@ class Query(ObjectType):
         data = []
         if project_exist:
             if "submissions" in resp:
-                data = [Events(i["id"], info.context)
+                data = [Event(i["id"], info.context)
                         for i in resp["submissions"]]
         else:
             raise InvalidProject
