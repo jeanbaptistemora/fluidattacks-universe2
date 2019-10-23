@@ -12,7 +12,7 @@ from app.domain import project as project_domain
 from app.entity.me import Me
 from app.entity.alert import Alert
 from app.entity.login import Login
-from app.entity.events import Events
+from app.entity.event import Events
 from app.entity.resource import Resource
 from app.entity.user import User
 from app.entity.finding import Finding

@@ -23,7 +23,7 @@ from app.entity.finding import (
 from app.entity.project import (
     AddProjectComment, RemoveTag, AddTags
 )
-from app.entity.events import UpdateEvent
+from app.entity.event import UpdateEvent
 from app.entity.me import SignIn, UpdateAccessToken, InvalidateAccessToken
 
 
