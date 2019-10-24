@@ -59,6 +59,7 @@ const enTranslations: dict = {
     invalid: "is invalid",
     invalid_schema: "Uploaded file does not match with the schema",
     invalid_specific: "Invalid field/line/port",
+    invalid_structure: "Provided file has wrong structure",
     invalid_treatment_mgr: "Please select a treatment manager",
     key: "Key",
     no_file_selected: "No file selected",

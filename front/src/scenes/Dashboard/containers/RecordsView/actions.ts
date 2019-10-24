@@ -87,6 +87,9 @@ export const updateRecords: ((findingId: string) => ThunkResult<void>) = (findin
             case "Extension not allowed":
               msgError(translate.t("proj_alerts.file_type_wrong"));
               break;
+            case "Wrong file structure":
+              msgError(translate.t("proj_alerts.invalid_structure"));
+              break;
             default:
               msgError(translate.t("proj_alerts.no_file_update"));
               rollbar.error(error.message, errors);

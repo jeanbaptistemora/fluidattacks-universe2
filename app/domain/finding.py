@@ -1,4 +1,4 @@
-
+import io
 import random
 import threading
 from datetime import datetime, timedelta
@@ -8,6 +8,7 @@ from time import time
 import pytz
 import rollbar
 from django.conf import settings
+from django.core.files.base import ContentFile
 from graphql import GraphQLError
 from i18n import t
 
@@ -666,16 +667,46 @@ def get_findings(finding_ids):
     return findings
 
 
+def append_records_to_file(records, new_file):
+    header = records[0].keys()
+    values = [list(v) for v in [record.values() for record in records]]
+    new_file_records = new_file.read()
+    new_file_header = new_file_records.decode('utf-8').split('\n')[0]
+    new_file_records = r'\n'.join(new_file_records.decode('utf-8').split('\n')[1:])
+    records_str = ''
+    for record in values:
+        records_str += repr(str(','.join(record)) + '\n').replace('\'', '')
+    aux = records_str
+    records_str = str(','.join(header)) + r'\n' + aux + str(new_file_records).replace('\'', '')
+    if new_file_header != str(','.join(header)):
+        raise GraphQLError('Wrong file structure')
+
+    buff = io.BytesIO(records_str.encode('utf-8').decode('unicode_escape').encode('utf-8'))
+    content_file = ContentFile(buff.read())
+    content_file.close()
+    return content_file
+
+
 def save_evidence(evidence_name, finding_id, project_name, uploaded_file):
     full_name = '{proj}/{fin}/{proj}-{fin}-{name}'.format(
         fin=finding_id,
         name=uploaded_file.name.replace(' ', '-'),
         proj=project_name)
+
+    if evidence_name == 'fileRecords':
+        old_file = integrates_dal.get_finding_attributes_dynamo(finding_id, ['files'])
+        old_file_name = next((
+            item['file_url'] for item in old_file['files'] if item['name'] == 'fileRecords'), '')
+        if old_file_name != '':
+            old_records = finding_utils.get_records_from_file(
+                project_name, finding_id, old_file_name)
+            if old_records:
+                uploaded_file = append_records_to_file(old_records, uploaded_file)
+                uploaded_file.open()
     success = finding_dal.save_evidence(uploaded_file, full_name)
     if success:
         file_name = full_name.split('/')[2]
         save_file_url(finding_id, evidence_name, file_name)
-
     return success
 
 

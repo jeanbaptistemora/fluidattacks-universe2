@@ -4,9 +4,11 @@ import os
 import boto3
 import rollbar
 from botocore.exceptions import ClientError
+from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import (
     InMemoryUploadedFile, TemporaryUploadedFile
 )
+
 
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY
@@ -59,7 +61,7 @@ def _send_to_s3(bucket, file_object, file_name):
 
 def upload_memory_file(bucket, file_object, file_name):
     success = False
-    if isinstance(file_object, (InMemoryUploadedFile, TemporaryUploadedFile)):
+    if isinstance(file_object, (InMemoryUploadedFile, TemporaryUploadedFile, ContentFile)):
         success = _send_to_s3(bucket, file_object.file, file_name)
     else:
         rollbar.report_message('Error: Attempt to upload invalid memory file',
