@@ -258,6 +258,13 @@ ul {
 }
 
 .frame-topbot {
+
+  h2 {
+    a {
+      color: $black;
+    }
+  }
+
   td,
   th {
     border-left-style: hidden;

@@ -15,6 +15,8 @@ System where all the project's stakeholders come together.
 It aims to bring the hacker and the developer closer together,
 besides giving the ability to remediate reported vulnerabilities
 in an effective manner.
+Click [inner]#link:integrates/[here]# for more information.
+
 a|image::integrates.svg[Web browser window]
 
 a|image::asserts.svg[Magnifying glass finding error in document]
@@ -24,6 +26,7 @@ Engine to automate the closing of security findings
 over execution environments.
 It can be executed in computers running OS +Windows+ or +Linux+, and it can
 also be included in your +Continuous Integration+ environment.
+Click [inner]#link:asserts/[here]# for more information.
 
 2+a|== link:rules/[Rules]
 
@@ -31,6 +34,8 @@ Set of requirements  used to parameterize a +pen test+.
 These rules determine how rigurous a +pen test+ really is,
 by defining what is going to be tested,
 and what is going to be considered a vulnerability.
+Click [inner]#link:rules/[here]# for more information.
+
 a|image::rules.svg[Checklist]
 
 a|image::commands.svg[Command Line Interface]
@@ -39,6 +44,7 @@ a|image::commands.svg[Command Line Interface]
 
 Cyberweapon developed entirely by us for in-depth penetration of work stations
 and critical servers during +pen tests+.
+Click [inner]#link:commands/[here]# for more information.
 
 |====
 
