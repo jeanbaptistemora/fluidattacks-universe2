@@ -13,8 +13,8 @@ from app.dal.finding import get_finding
 from app.dal.integrates_dal import get_findings_released_dynamo
 from app.dal.vulnerability import get_vulnerabilities
 from app.scheduler import (
-    is_not_a_fluidattacks_email, remove_fluid_from_recipients, get_event,
-    is_a_unsolved_event, get_events_submissions, get_unsolved_events,
+    is_not_a_fluidattacks_email, remove_fluid_from_recipients,
+    is_a_unsolved_event, get_unsolved_events,
     extract_info_from_event_dict, get_finding_url,
     get_status_vulns_by_time_range, create_weekly_date, get_accepted_vulns,
     get_by_time_range, create_register_by_week, create_data_format_chart,
@@ -40,46 +40,12 @@ class SchedulerTests(TestCase):
         test_data = remove_fluid_from_recipients(emails)
         expected_output = ['test@test.com', 'test2@test.com']
         assert test_data == expected_output
-
-    def test_get_event(self):
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        event_id = '418900971'
-        test_data = get_event(event_id, request)
-        assert isinstance(test_data, dict)
-        assert len(test_data) == 18
-        for field in test_data.values():
-            assert field is not None
-        assert test_data['id'] == '418900971'
     
     def test_is_a_unsolved_event(self):
-        dumb_unsolved_event = {'id': 'testid', 'eventStatus': 'UNSOLVED'}
-        dumb_solved_event = {'id': 'testid', 'eventStatus': 'SOLVED'}
+        dumb_unsolved_event = {'id': 'testid', 'event_status': 'UNSOLVED'}
+        dumb_solved_event = {'id': 'testid', 'event_status': 'SOLVED'}
         assert is_a_unsolved_event(dumb_unsolved_event)
         assert not is_a_unsolved_event(dumb_solved_event)
-
-    def test_get_events_submissions(self):
-        project_name = 'unittesting'
-        test_data = get_events_submissions(project_name)
-        assert isinstance(test_data, list)
-        for item in test_data:
-            assert isinstance(item, dict)
-            for value in item.values():
-                assert value is not None
 
     def test_get_unsolved_events(self):
         request = RequestFactory().get('/')
@@ -99,14 +65,14 @@ class SchedulerTests(TestCase):
             key=settings.JWT_SECRET,
         )
         project_name = 'unittesting'
-        test_data = get_unsolved_events(project_name, request)
+        test_data = get_unsolved_events(project_name)
         assert isinstance(test_data, list)
         assert isinstance(test_data[0], dict)
-        assert test_data[0]['eventId'] == '538745942'
+        assert test_data[0]['event_id'] == '538745942'
 
     def test_extract_info_from_event_dict(self):
         dumb_event_dict = {
-            'id': 'testid', 'eventType': 'test', 'detail': 'detail'
+            'id': 'testid', 'event_type': 'test', 'detail': 'detail'
         }
         test_data = extract_info_from_event_dict(dumb_event_dict)
         expected_output = {'type': 'test', 'details': 'detail'}

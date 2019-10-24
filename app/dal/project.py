@@ -126,15 +126,11 @@ def list_events(project_name):
     return [event['event_id'] for event in events]
 
 
-def list_managers(project_name):
-    users_active = get_users(project_name, True)
-    users_inactive = get_users(project_name, False)
-    all_users = users_active + users_inactive
-    managers = \
-        [user for user in all_users
-         if user_domain.get_data(user, 'role') == 'customeradmin' and
-         user.endswith('@fluidattacks.com')]
-    return managers
+def list_internal_managers(project_name):
+    all_managers = list_project_managers(project_name)
+    internal_managers = \
+        [user for user in all_managers if user.endswith('@fluidattacks.com')]
+    return internal_managers
 
 
 def get_all_projects():
@@ -214,3 +210,13 @@ def exists(project_name):
         # project not found
         pass
     return resp
+
+
+def list_project_managers(project_name):
+    users_active = get_users(project_name, True)
+    users_inactive = get_users(project_name, False)
+    all_users = users_active + users_inactive
+    managers = \
+        [user for user in all_users
+         if user_domain.get_data(user, 'role') == 'customeradmin']
+    return managers

@@ -702,7 +702,7 @@ def send_new_draft_mail(
     analyst_email, finding_id, finding_title, project_name
 ):
     recipients = FI_MAIL_REVIEWERS.split(',')
-    recipients += project_domain.list_managers(project_name)
+    recipients += project_domain.list_internal_managers(project_name)
 
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     email_context = {

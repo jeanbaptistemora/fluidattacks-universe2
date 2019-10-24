@@ -18,10 +18,10 @@ from app.dal import integrates_dal
 from app.dal.helpers.formstack import FormstackAPI
 from app.domain import (
     finding as finding_domain, project as project_domain,
-    user as user_domain, vulnerability as vuln_domain
+    user as user_domain, vulnerability as vuln_domain,
+    event as event_domain
 )
 from app.dto import remission
-from app.dto import eventuality
 from app.mailer import (
     send_mail_new_vulnerabilities, send_mail_new_remediated,
     send_mail_new_releases, send_mail_unsolved_events,
@@ -45,45 +45,43 @@ def remove_fluid_from_recipients(emails):
     return new_email_list
 
 
-def get_event(event_id, context):
-    event = eventuality.event_data(event_id, context)
-    return event
-
-
 def is_a_unsolved_event(event):
-    return event['eventStatus'] == 'UNSOLVED'
+    return event.get('event_status') == 'UNSOLVED'
 
 
-def get_events_submissions(project):
-    formstack_api = FormstackAPI()
-    return formstack_api.get_eventualities(project)['submissions']
-
-
-def get_unsolved_events(project, context):
-    events_submissions = get_events_submissions(project)
-
-    events = [get_event(x['id'], context) for x in events_submissions]
-    unsolved_events = list(filter(is_a_unsolved_event, events))
+def get_unsolved_events(project):
+    events = project_domain.list_events(project)
+    event_list = []
+    for event in events:
+        event_attr = event_domain.get_event(event)
+        event_list.append(event_attr)
+    unsolved_events = list(filter(is_a_unsolved_event, event_list))
     return unsolved_events
 
 
 def extract_info_from_event_dict(event_dict):
-    return {'type': event_dict['eventType'], 'details': event_dict['detail']}
+    event_dict = {'type': event_dict['event_type'], 'details': event_dict['detail']}
+    return event_dict
 
 
-def send_unsolved_events_email(project, context):
-    unsolved_events = get_unsolved_events(project, context)
+def send_unsolved_events_email(project):
+    unsolved_events = get_unsolved_events(project)
     mail_to = get_external_recipients(project)
-    project_info = integrates_dal.get_project_dynamo(project)
+    project_info = project_domain.get_project_info(project)
+    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     if project_info and \
             project_info[0].get('type') == 'continuous':
         mail_to.append(FI_MAIL_CONTINUOUS)
         mail_to.append(FI_MAIL_PROJECTS)
+    else:
+        mail_to = []
     events_info_for_email = [extract_info_from_event_dict(x)
                              for x in unsolved_events]
     context_event = {'project': project.capitalize(),
-                     'events': events_info_for_email}
-    if context_event['events'] and mail_to:
+                     'events_len': len(events_info_for_email),
+                     'event_url': '{}/project/{}/events'.format(
+                         base_url, project)}
+    if context_event['events_len'] and mail_to:
         send_mail_unsolved_events(mail_to, context_event)
 
 
@@ -454,10 +452,10 @@ def get_new_releases():
                                'warning')
 
 
-def send_unsolved_to_all(context):
+def send_unsolved_to_all():
     """Send email with unsolved events to all projects """
     projects = project_domain.get_active_projects()
-    return [send_unsolved_events_email(x[0], context) for x in projects]
+    return [send_unsolved_events_email(x[0]) for x in projects]
 
 
 def deletion(project, days_to_send, days_to_delete):

@@ -325,8 +325,8 @@ def get_finding_project_name(finding_id):
     return integrates_dal.get_finding_project(finding_id)
 
 
-def list_managers(project_name):
-    return project_dal.list_managers(project_name.lower())
+def list_internal_managers(project_name):
+    return project_dal.list_internal_managers(project_name.lower())
 
 
 def get_description(project_name):
@@ -343,3 +343,13 @@ def add_all_access_to_project(project):
 
 def remove_all_project_access(project):
     return project_dal.remove_all_project_access(project)
+
+
+def get_project_info(project):
+    project = integrates_dal.get_project_dynamo(project)
+    return project
+
+
+def get_managers(project_name):
+    project = integrates_dal.get_project_dynamo(project_name)
+    return project[0].get('customeradmin')
