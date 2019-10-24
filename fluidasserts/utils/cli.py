@@ -760,6 +760,13 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             java.uses_print_stack_trace('__path__')
             java.uses_sha1_hash('__path__')
             java.uses_system_exit('__path__')
+            java.uses_broken_password_encryption('__path__')
+            java.uses_cipher_in_ecb_mode('__path__')
+            java.uses_insecure_aes('__path__')
+            java.uses_insecure_key_pair_length('__path__')
+            java.uses_insecure_rsa('__path__')
+            java.uses_insecure_ssl_context('__path__')
+            java.uses_various_verbs_in_request_mapping('__path__')
             """,
         ('javascript', 'Javascript'): """
             javascript.has_insecure_randoms('__path__')
