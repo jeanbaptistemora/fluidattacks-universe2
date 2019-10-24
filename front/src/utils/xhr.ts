@@ -143,6 +143,7 @@ class Xhr {
       return this.executeRequest(payload, errorText, callbackFn);
     }
   }
+
   // tslint:enable:no-any
 
   /**

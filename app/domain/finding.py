@@ -710,6 +710,23 @@ def save_evidence(evidence_name, finding_id, project_name, uploaded_file):
     return success
 
 
+def remove_evidence(evidence_name, finding_id, project_name):
+    if evidence_name == 'fileRecords':
+        old_file = integrates_dal.get_finding_attributes_dynamo(finding_id, ['files'])
+        old_file_name = next((
+            item['file_url'] for item in old_file['files'] if item['name'] == 'fileRecords'), '')
+        full_name = '{proj}/{fin}/{proj}-{fin}-{name}'.format(
+            fin=finding_id,
+            name=old_file_name.split('-')[-1],
+            proj=project_name)
+        success = finding_dal.save_evidence(ContentFile(b''), full_name)
+        if success:
+            file_name = old_file_name
+            save_file_url(finding_id, evidence_name, file_name)
+        return success
+    return False
+
+
 def create_draft(analyst_email, project_name, title, **kwargs):
     last_fs_id = 550000000
     finding_id = str(random.randint(last_fs_id, 1000000000))

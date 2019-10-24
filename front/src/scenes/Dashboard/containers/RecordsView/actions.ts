@@ -47,6 +47,43 @@ export const editRecords: (() => IActionStructure) =
     type: actionTypes.EDIT_RECORDS,
   });
 
+export const removeRecords: ((findingId: string) => ThunkResult<void>) = (findingId: string): ThunkResult<void> =>
+  (dispatch: ThunkDispatcher): void => {
+    let gQry: string;
+    gQry = `mutation {
+      removeEvidence (
+        evidenceId: "8",
+        findingId: "${findingId}") {
+        success
+        finding {
+          records
+        }
+      }
+    }`;
+    new Xhr().request(gQry, "An error occurred removing records")
+      .then((response: AxiosResponse) => {
+        const { data } = response.data;
+        if (data.removeEvidence.success) {
+          dispatch({
+            payload: { records: JSON.parse(data.removeEvidence.finding.records) },
+            type: actionTypes.LOAD_RECORDS,
+          });
+          msgSuccess(
+            translate.t("proj_alerts.records_removed"),
+            translate.t("search_findings.tab_users.title_success"),
+          );
+        } else {
+          msgError(translate.t("proj_alerts.error_textsad"));
+        }
+      })
+      .catch((error: AxiosError) => {
+        if (error.response !== undefined) {
+          const { errors } = error.response.data;
+          msgError(errors[0].message);
+        }
+      });
+  };
+
 export const updateRecords: ((findingId: string) => ThunkResult<void>) = (findingId: string): ThunkResult<void> =>
   (dispatch: ThunkDispatcher): void => {
     let gQry: string;

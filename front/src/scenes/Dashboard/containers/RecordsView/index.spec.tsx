@@ -43,6 +43,7 @@ describe("Records view", () => {
         isEditing={false}
         onEdit={jest.fn()}
         onLoad={jest.fn()}
+        onRemove={jest.fn()}
         onUpdate={jest.fn()}
         userRole="analyst"
         {...routePropsMock}
@@ -66,6 +67,7 @@ describe("Records view", () => {
         isEditing={false}
         onEdit={handleEditClick}
         onLoad={jest.fn()}
+        onRemove={jest.fn()}
         onUpdate={jest.fn()}
         userRole="analyst"
         {...routePropsMock}
@@ -88,6 +90,7 @@ describe("Records view", () => {
         isEditing={false}
         onEdit={jest.fn()}
         onLoad={jest.fn()}
+        onRemove={jest.fn()}
         onUpdate={jest.fn()}
         userRole="customer"
         {...routePropsMock}
@@ -106,6 +109,7 @@ describe("Records view", () => {
         isEditing={true}
         onEdit={jest.fn()}
         onLoad={jest.fn()}
+        onRemove={jest.fn()}
         onUpdate={jest.fn()}
         userRole="analyst"
         {...routePropsMock}
@@ -113,6 +117,25 @@ describe("Records view", () => {
     );
     expect(wrapper.find("button")
       .findWhere((element: ShallowWrapper) => element.contains("Update"))
+      .at(0))
+      .toHaveLength(1);
+  });
+
+  it("should render remove field", (): void => {
+    const wrapper: ShallowWrapper = shallow(
+      <RecordsView
+        dataset={dataset}
+        isEditing={true}
+        onEdit={jest.fn()}
+        onLoad={jest.fn()}
+        onRemove={jest.fn()}
+        onUpdate={jest.fn()}
+        userRole="analyst"
+        {...routePropsMock}
+      />,
+    );
+    expect(wrapper.find("button")
+      .findWhere((element: ShallowWrapper) => element.contains("Delete"))
       .at(0))
       .toHaveLength(1);
   });
@@ -125,6 +148,7 @@ describe("Records view", () => {
         isEditing={false}
         onEdit={jest.fn()}
         onLoad={jest.fn()}
+        onRemove={jest.fn()}
         onUpdate={jest.fn()}
         userRole="analyst"
         {...routePropsMock}

@@ -12,7 +12,7 @@ import translate from "../../../../utils/translations/translate";
 import { isValidEvidenceFile } from "../../../../utils/validations";
 import { FileInput } from "../../components/FileInput/index";
 import { IDashboardState } from "../../reducer";
-import { editRecords, loadRecords, ThunkDispatcher, updateRecords } from "./actions";
+import { editRecords, loadRecords, removeRecords, ThunkDispatcher, updateRecords } from "./actions";
 
 type IRecordsViewBaseProps = Pick<RouteComponentProps<{ findingId: string }>, "match">;
 
@@ -21,6 +21,7 @@ type IRecordsViewStateProps = IDashboardState["records"] & { userRole: string };
 interface IRecordsViewDispatchProps {
   onEdit(): void;
   onLoad(): void;
+  onRemove(): void;
   onUpdate(): void;
 }
 
@@ -75,6 +76,32 @@ const renderUploadField: ((arg1: IRecordsViewProps) => JSX.Element) = (props: IR
   );
 };
 
+const renderRemoveField: ((arg1: IRecordsViewProps) => JSX.Element) = (props: IRecordsViewProps): JSX.Element => {
+  const handleRemoveClick: (() => void) = (): void => {
+    mixpanel.track("RemoveRecords", {
+      Organization: (window as Window & { userOrganization: string }).userOrganization,
+      User: (window as Window & { userName: string }).userName,
+    });
+    props.onRemove();
+  };
+
+  return (
+  <Row>
+    <Col md={4} mdOffset={6} xs={12} sm={12} />
+      <Col sm={2}>
+        <Button
+          bsStyle="primary"
+          block={true}
+          onClick={handleRemoveClick}
+        >
+          <FluidIcon icon="delete" />
+          &nbsp;{translate.t("search_findings.tab_evidence.remove")}
+        </Button>
+      </Col>
+    </Row>
+  );
+};
+
 const renderEditPanel: ((arg1: IRecordsViewProps) => JSX.Element) = (props: IRecordsViewProps): JSX.Element => {
   const handleEditClick: (() => void) = (): void => { props.onEdit(); };
 
@@ -94,6 +121,7 @@ const renderEditPanel: ((arg1: IRecordsViewProps) => JSX.Element) = (props: IRec
       </Row>
       <br />
       {props.isEditing ? renderUploadField(props) : undefined}
+      {props.isEditing && props.dataset.length > 0 ? renderRemoveField(props) : undefined}
     </React.Fragment>
   );
 };
@@ -136,6 +164,7 @@ const mapDispatchToProps: MapDispatchToProps<IRecordsViewDispatchProps, IRecords
     return ({
       onEdit: (): void => { dispatch(editRecords()); },
       onLoad: (): void => { dispatch(loadRecords(findingId)); },
+      onRemove: (): void => { dispatch(removeRecords(findingId)); },
       onUpdate: (): void => { dispatch(updateRecords(findingId)); },
     });
   };

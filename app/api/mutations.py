@@ -14,7 +14,7 @@ from app.entity.vulnerability import (
     UpdateTreatmentVuln, ApproveVulnerability
 )
 from app.entity.finding import (
-    UpdateEvidence, UpdateSeverity,
+    UpdateEvidence, RemoveEvidence, UpdateSeverity,
     UpdateEvidenceDescription,
     AddFindingComment, VerifyFinding, RequestVerification,
     UpdateDescription, UpdateTreatment, RejectDraft,
@@ -53,6 +53,7 @@ class Mutations(ObjectType):
     editUser = EditUser.Field()
 
     updateEvidence = UpdateEvidence.Field()
+    removeEvidence = RemoveEvidence.Field()
     updateEvidenceDescription = UpdateEvidenceDescription.Field()
 
     updateSeverity = UpdateSeverity.Field()

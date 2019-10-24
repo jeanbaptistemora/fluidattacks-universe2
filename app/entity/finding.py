@@ -359,6 +359,31 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         return self.acceptance_date
 
 
+class RemoveEvidence(Mutation):
+    """ Remove evidence files """
+
+    class Arguments():
+        finding_id = String(required=True)
+        evidence_id = String(required=True)
+    success = Boolean()
+    finding = Field(Finding)
+
+    @require_login
+    @require_role(['analyst', 'admin'])
+    @require_finding_access
+    def mutate(self, info, evidence_id, finding_id):
+        del evidence_id
+        project_name = finding_domain.get_finding(finding_id)['projectName']
+        success = finding_domain.remove_evidence(
+            'fileRecords', finding_id, project_name)
+        if success:
+            util.invalidate_cache(finding_id)
+        findings_loader = info.context.loaders['finding']
+        ret = UpdateEvidence(
+            finding=findings_loader.load(finding_id), success=success)
+        return ret
+
+
 class UpdateEvidence(Mutation):
     """ Update evidence files """
 
