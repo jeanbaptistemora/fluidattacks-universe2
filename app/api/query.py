@@ -2,8 +2,6 @@
 from graphene import Field, List, ObjectType, String
 
 from app import util
-from app.dal import integrates_dal
-from app.dal.helpers.formstack import FormstackAPI
 from app.decorators import (
     get_cached, require_event_access, require_finding_access,
     require_login, require_project_access, require_role
@@ -59,26 +57,10 @@ class Query(ObjectType):
     @get_cached
     def resolve_event(self, info, identifier=None):
         """ Resolve for event """
-        util.cloudwatch_log(info.context, 'Security: Access to \
-            Event: {event_id} succesfully'.format(event_id=identifier))
+        util.cloudwatch_log(
+            info.context,
+            f'Security: Access to Event: {identifier} succesfully')
         return Event(identifier, info.context)
-
-    @require_login
-    @require_role(['analyst', 'customer', 'admin'])
-    @require_project_access
-    def resolve_events(self, info, project_name=""):
-        """ Resolve for eventualities """
-        resp = FormstackAPI().get_eventualities(str(project_name))
-        project_exist = integrates_dal.get_project_attributes_dynamo(
-            project_name.lower(), ['project_name'])
-        data = []
-        if project_exist:
-            if "submissions" in resp:
-                data = [Event(i["id"], info.context)
-                        for i in resp["submissions"]]
-        else:
-            raise InvalidProject
-        return data
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])

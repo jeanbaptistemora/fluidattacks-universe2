@@ -3,13 +3,15 @@ import { DocumentNode } from "graphql";
 
 export const GET_EVENTS: DocumentNode = gql`
   query GetEventsQuery($projectName: String!) {
-    events(projectName: $projectName){
-      eventDate,
-      detail,
-      id,
-      projectName,
-      eventStatus,
-      eventType
+    project(projectName: $projectName) {
+      events {
+        eventDate
+        detail
+        id
+        projectName
+        eventStatus
+        eventType
+      }
     }
   }
 `;

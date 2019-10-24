@@ -445,7 +445,7 @@ export const handleGraphQLErrors: ((errorText: string, error: ApolloError) => vo
     handleErrors(errorText, error.graphQLErrors);
   };
 
-type IEventsDataset = IEventsAttr["events"];
+type IEventsDataset = IEventsAttr["project"]["events"];
 export const formatEvents: ((dataset: IEventsDataset) => IEventsDataset) =
   (dataset: IEventsDataset): IEventsDataset => dataset.map((event: IEventsDataset[0]) => {
     const eventType: string = translate.t(castEventType(event.eventType));

@@ -75,7 +75,7 @@ const eventsView: React.FunctionComponent<IEventViewBaseProps> = (props: IEventV
                   <Col md={12} sm={12}>
                     <b>{translate.t("search_findings.tab_events.table_advice")}</b>
                     <DataTable
-                      dataset={formatEvents(data.events)}
+                      dataset={formatEvents(data.project.events)}
                       enableRowSelection={false}
                       exportCsv={true}
                       onClickRow={(row: { id: string }): void => {

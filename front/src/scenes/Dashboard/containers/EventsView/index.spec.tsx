@@ -71,15 +71,18 @@ describe("EventsView", () => {
       },
       result: {
         data: {
-          events: [{
-            __typename: "Events",
-            detail: "Test description",
-            eventDate: "2018-10-17 00:00:00",
-            eventStatus: "SOLVED",
-            eventType: "AUTHORIZATION_SPECIAL_ATTACK",
-            id: "463457733",
-            projectName: "TEST",
-          }],
+          project: {
+            __typename: "Project",
+            events: [{
+              __typename: "Events",
+              detail: "Test description",
+              eventDate: "2018-10-17 00:00:00",
+              eventStatus: "SOLVED",
+              eventType: "AUTHORIZATION_SPECIAL_ATTACK",
+              id: "463457733",
+              projectName: "TEST",
+            }],
+          },
         },
       },
   }];

@@ -42,8 +42,10 @@ class EventTests(TestCase):
     def test_get_events(self):
         """Check for eventualities"""
         query = '''{
-            events(projectName:"unittesting"){
-                detail
+            project(projectName:"unittesting") {
+                events {
+                    detail
+                }
             }
         }'''
         request = RequestFactory().get('/')
@@ -63,10 +65,9 @@ class EventTests(TestCase):
             key=settings.JWT_SECRET,
         )
         result = dict(SCHEMA.execute(query, context_value=request).data)
-        if 'events' in result:
-            detail = dict(result['events'][0])['detail']
-            assert len(detail) >= 1
-        assert 'events' in result
+        assert 'events' in result['project']
+        detail = dict(result['project']['events'][0])['detail']
+        assert len(detail) >= 1
 
     def test_update_event(self):
         query = '''
