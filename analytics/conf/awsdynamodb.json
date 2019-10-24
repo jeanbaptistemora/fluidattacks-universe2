@@ -34,6 +34,7 @@
         "finding_id"
       ],
       "schema": {
+        "acceptance_date": "date-time",
         "access_complexity": "number",
         "access_vector": "number",
         "actor": "string",
@@ -46,6 +47,7 @@
         "authentication": "number",
         "availability_impact": "number",
         "availability_requirement": "number",
+        "bts_url": "string",
         "category": "string",
         "client_code": "string",
         "client_finding_type": "string",
@@ -101,6 +103,7 @@
         "scenario": "string",
         "severity": "number",
         "severity_scope": "number",
+        "submission_history": "list<dict>",
         "subscription": "string",
         "test_type": "string",
         "threat": "string",
@@ -120,6 +123,7 @@
         "user_email"
       ],
       "schema": {
+        "has_access": "string",
         "project_name": "string",
         "responsibility": "string",
         "user_email": "string"
@@ -138,20 +142,20 @@
         "files": "list<dict>",
         "findings_deleted": "list<dict>",
         "hasRelease": "string",
-        "lastRelease": "date-time",
         "last_closing_date": "number",
         "max_open_severity": "number",
         "mean_remediate": "number",
         "portfolio": "string",
         "project_name": "string",
         "project_status": "string",
+        "remediated_over_time": "string",
         "repositories": "list<dict>",
         "resp_developer": "string",
         "resp_product_owner": "string",
         "resp_project_manager": "string",
         "resp_tester": "string",
-        "status": "string",
         "tag": "set",
+        "total_treatment": "string",
         "type": "string"
       }
     },
@@ -175,12 +179,15 @@
       "schema": {
         "access_token": "string",
         "company": "string",
+        "date_joined": "date-time",
         "devices_to_notify": "set",
         "email": "string",
         "first_name": "string",
+        "last_login": "date-time",
         "last_name": "string",
         "legal_remember": "string",
         "phone": "string",
+        "registered": "string",
         "remember": "string",
         "role": "string",
         "username": "string"
@@ -193,8 +200,10 @@
       ],
       "schema": {
         "UUID": "string",
+        "acceptance_date": "date-time",
         "analyst": "string",
         "btsUrl": "string",
+        "bts_url": "string",
         "external_bts": "string",
         "finding_id": "string",
         "historic_state": "list<dict>",
