@@ -90,6 +90,10 @@ const enTranslations: dict = {
       },
       exportCsv: "Export to CSV",
       help_label: "Click on a finding to see more details",
+      remediated: {
+        False: "-",
+        True: "Pending",
+      },
       report: {
         btn: "Reports",
         modal_close: "Close",

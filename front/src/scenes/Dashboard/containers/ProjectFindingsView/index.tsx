@@ -139,7 +139,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       isDate: false, isStatus: false, visible: checkedItems.treatment, width: "8%",
     },
     {
-      align: "center", dataField: "remediated", header: "Remediated",
+      align: "center", dataField: "remediated", header: "Verification",
       isDate: false, isStatus: false, visible: checkedItems.remediated, width: "8%",
     },
     {

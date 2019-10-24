@@ -390,7 +390,7 @@ export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
     const isExploitable: string = translate.t(Boolean(finding.isExploitable)
       ? "project.findings.boolean.True" : "project.findings.boolean.False");
     const remediated: string = translate.t(Boolean(finding.remediated)
-    ? "project.findings.boolean.True" : "project.findings.boolean.False");
+    ? "project.findings.remediated.True" : "project.findings.remediated.False");
 
     const where: string = _.uniqBy(finding.vulnerabilities, "where")
       .map((vuln: { where: string }): string => vuln.where)
