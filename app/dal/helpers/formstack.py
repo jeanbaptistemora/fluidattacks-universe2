@@ -4,7 +4,6 @@
 import json
 import random
 import requests
-# pylint: disable=relative-beyond-top-level
 # pylint: disable=F0401
 from django.conf import settings
 from django.views.decorators.cache import cache_control

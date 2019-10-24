@@ -70,11 +70,8 @@ def set_company_alert_dynamo(message, company_name, project_name):
     """ Create, update or activate an alert for a company. """
     project_name = project_name.lower()
     company_name = company_name.lower()
-    if project_name != 'all':
-        resp = project_dal.exists(project_name)
-    else:
-        resp = True
-    if resp:
+    resp = False
+    if project_name == 'all' or project_dal.exists(project_name):
         table = DYNAMODB_RESOURCE.Table('FI_alerts_by_company')
         item = get_company_alert_dynamo(company_name, project_name)
         if item == []:
@@ -90,7 +87,6 @@ def set_company_alert_dynamo(message, company_name, project_name):
                 resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
             except ClientError:
                 rollbar.report_exc_info()
-                resp = False
         else:
             for _item in item:
                 try:
@@ -108,11 +104,7 @@ def set_company_alert_dynamo(message, company_name, project_name):
                     )
                 except ClientError:
                     rollbar.report_exc_info()
-                    resp = False
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    else:
-        # project not found
-        pass
     return resp
 
 

@@ -5,9 +5,11 @@ from ..domain import user as user_domain
 from ..mailer import send_mail_new_user
 
 
-# pylint: disable=unused-argument
 # pylint: disable=keyword-arg-before-vararg
 def create_user(strategy, details, backend, user=None, *args, **kwargs):
+    del args
+    del kwargs
+    del backend
     first_name = details['first_name'][:29]
     last_name = details['last_name'][:29]
     email = details['email'].lower()
@@ -40,6 +42,9 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
 
 
 def check_registered(strategy, details, backend, *args, **kwargs):
+    del args
+    del kwargs
+    del backend
     email = details['email'].lower()
     is_registered = user_domain.is_registered(email)
     last_login = user_domain.get_data(email, 'last_login')
