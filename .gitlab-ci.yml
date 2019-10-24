@@ -225,6 +225,7 @@ deploy-mobile:
 
 test-driver:
   stage: post-deploy
+  needs: [ephemeral-app]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - . ci-scripts/helpers/others.sh && vault_login
