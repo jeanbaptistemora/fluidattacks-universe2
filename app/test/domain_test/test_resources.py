@@ -8,10 +8,6 @@ from app.domain.resources import validate_file_size
 from app.exceptions import InvalidFileSize
 
 
-@pytest.mark.usefixtures(
-    'create_users_table',
-    'create_projects_table',
-    'create_project_access_table')
 class ResourcesTests(TestCase):
 
     def test_validate_file_size(self):

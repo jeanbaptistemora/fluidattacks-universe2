@@ -24,10 +24,6 @@ from app.scheduler import (
 )
 
 
-@pytest.mark.usefixtures(
-    'create_users_table',
-    'create_projects_table',
-    'create_project_access_table')
 class SchedulerTests(TestCase):
 
     def test_is_not_a_fluid_attacks_email(self):

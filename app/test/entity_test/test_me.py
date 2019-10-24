@@ -10,10 +10,6 @@ from jose import jwt
 from app.api.schema import SCHEMA
 
 
-@pytest.mark.usefixtures(
-    'create_users_table',
-    'create_projects_table',
-    'create_project_access_table')
 class MeTests(TestCase):
 
     def test_get_me(self):

@@ -5,10 +5,6 @@ from django.test import TestCase
 import app.domain.comment as comment_domain
 
 
-@pytest.mark.usefixtures(
-    'create_users_table',
-    'create_projects_table',
-    'create_project_access_table')
 class CommentTests(TestCase):
 
     def test_list_comments(self):

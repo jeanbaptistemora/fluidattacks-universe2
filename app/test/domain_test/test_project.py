@@ -15,10 +15,6 @@ from app.domain.project import (
 from app.dal.integrates_dal import DYNAMODB_RESOURCE, get_vulnerability_dynamo
 
 
-@pytest.mark.usefixtures(
-    'create_users_table',
-    'create_projects_table',
-    'create_project_access_table')
 class ProjectTest(TestCase):
 
     def test_get_email_recipients(self):

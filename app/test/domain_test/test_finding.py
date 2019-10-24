@@ -10,10 +10,6 @@ from app.dal.vulnerability import get_vulnerabilities
 from app.exceptions import (InvalidDateFormat, InvalidDate)
 
 
-@pytest.mark.usefixtures(
-    'create_users_table',
-    'create_projects_table',
-    'create_project_access_table')
 class FindingTests(TestCase):
 
     def test_get_email_recipients(self):

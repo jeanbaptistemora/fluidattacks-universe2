@@ -4,10 +4,6 @@ from django.test import TestCase
 from app.dal.project import get_current_month_information
 
 
-@pytest.mark.usefixtures(
-    'create_users_table',
-    'create_projects_table',
-    'create_project_access_table')
 class ProjectTests(TestCase):
 
     def test_get_current_month_information(self):

@@ -14,11 +14,6 @@ from app.entity.user import (validate_email_address,
 from app.api.schema import SCHEMA
 
 
-@pytest.mark.usefixtures(
-    'create_users_table',
-    'create_projects_table',
-    'create_project_access_table'
-)
 class UserTests(TestCase):
 
     def test_grant_user_access(self):

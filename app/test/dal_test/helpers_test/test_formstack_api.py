@@ -5,10 +5,6 @@ from django.test import TestCase
 from app.dal.helpers.formstack import FormstackAPI
 
 
-@pytest.mark.usefixtures(
-    'create_users_table',
-    'create_projects_table',
-    'create_project_access_table')
 class FormstackAPITests(TestCase):
     def test_request(self):
         """ Make a request to formstack and verify that

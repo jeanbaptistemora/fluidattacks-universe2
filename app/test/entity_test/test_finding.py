@@ -193,10 +193,6 @@ class FindingTests(TestCase):
         assert 'errors' not in result
         assert result['data']['updateSeverity']['success']
 
-    @pytest.mark.usefixtures(
-        'create_users_table',
-        'create_projects_table',
-        'create_project_access_table')
     def test_add_finding_comment(self):
         query = '''
           mutation {
