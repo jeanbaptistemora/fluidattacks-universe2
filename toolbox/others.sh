@@ -62,6 +62,7 @@ vault_login() {
 aws_okta_login() {
 
     # Log in to aws via okta
+    # i.e: aws_okta_login serves-admin
 
     set -Eeuo pipefail
 
@@ -96,4 +97,23 @@ create_sops_file() {
   )
 
   sops --aws-profile "$PROFILE" "$FILE"
+}
+
+decrypt_sops_file() {
+
+  # Decrypt a sops file
+  # i.e: decrypt_sops_file vars.production.yaml serves-admin
+
+  set -Eeuo pipefail
+
+  local FILE
+  local PROFILE
+
+  FILE="$1"
+  PROFILE="$2"
+
+  aws_okta_login "$PROFILE"
+
+  sops --aws-profile "$PROFILE" "$FILE"
+
 }
