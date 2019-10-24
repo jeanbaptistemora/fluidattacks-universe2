@@ -107,35 +107,6 @@ def has_complete_data(email):
     return True
 
 
-def remove_all_project_access(project_name=None):
-    """ Remove access permission to all users in a project. """
-    if project_name:
-        project_name = project_name.lower()
-
-        with connections['integrates'].cursor() as cursor:
-            query = 'SELECT id FROM projects WHERE project = %s'
-            try:
-                cursor.execute(query, (project_name,))
-                project_id = cursor.fetchone()
-            except OperationalError:
-                rollbar.report_exc_info()
-                return False
-
-            if project_id:
-                query = 'UPDATE project_access SET has_access=0 \
-WHERE project_id = %s'
-                try:
-                    cursor.execute(query, (project_id[0],))
-                    cursor.fetchone()
-                    return True
-                except OperationalError:
-                    rollbar.report_exc_info()
-                    return False
-            else:
-                return False
-    return False
-
-
 def add_all_access_to_project(project_name=None):
     """ Add access permission to all users of a project. """
     if project_name:

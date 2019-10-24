@@ -105,8 +105,7 @@ def do_remove_all_project_access(data):
         if project.find('\'') >= 0:
             output = SQL_ERROR
         else:
-            if integrates_dal.remove_all_project_access(project):
-                project_domain.remove_all_project_access(project)
+            if project_domain.remove_all_project_access(project):
                 output = '*[OK]* Removed access to all users to project *%s*.'\
                     % (project)
                 mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
