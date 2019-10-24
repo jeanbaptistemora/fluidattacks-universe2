@@ -139,7 +139,9 @@ class ViewTestCase(unittest.TestCase):
 
         time.sleep(5)
         selenium.save_screenshot(SCR_PATH + '05-03-finding.png')
-        assert 'The forms in the application allow the injection of code' in selenium.page_source
+        assert('The forms in the application allow the injection and execution of code in '+
+        'Javascript, making possible for an attacker to compromise the session of an user'
+        in selenium.page_source)
         assert 'REQ.0173. The system must discard all' in selenium.page_source
         assert 'http://localhost/bWAPP/htmli_post.php' in selenium.page_source
 
