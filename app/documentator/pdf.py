@@ -4,6 +4,7 @@
 import os
 import time
 import sys
+import subprocess
 import importlib
 
 import jinja2
@@ -139,14 +140,15 @@ class CreatorPDF():
         self.out_name = project + '_IT.pdf'
         searchpath = self.path
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
-        template_env = jinja2.Environment(loader=template_loader)
+        template_env = jinja2.Environment(loader=template_loader,
+                                          autoescape=jinja2.select_autoescape(['html', 'xml']))
         template = template_env.get_template(self.proj_tpl)
         tpl_name = self.tpl_dir + ':id_IT.tpl'.replace(':id', project)
         render_text = template.render(self.context)
         with open(tpl_name, 'wb') as tplfile:
             tplfile.write(render_text.encode('utf-8'))
         self.create_command(tpl_name)
-        os.system(self.command)
+        subprocess.call(self.command, shell=True)
 
     def project_info_context(self, project_info):
         """ Create the template to render and apply the context. """
