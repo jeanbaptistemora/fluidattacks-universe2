@@ -58,3 +58,42 @@ vault_login() {
       role_id="$ROLE_ID" secret_id="$SECRET_ID" \
   )
 }
+
+aws_okta_login() {
+
+    # Log in to aws via okta
+
+    set -Eeuo pipefail
+
+    local PROFILE
+
+    PROFILE="$1"
+
+    okta-awscli --profile "$PROFILE"
+}
+
+create_sops_file() {
+
+  # Create encrypted file with sops using one aws kms key
+  # i.e: create_sops_file vars-production.yaml alias/serves-production serves-admin
+
+  set -Eeuo pipefail
+
+  local FILE
+  local KEY_ALIAS
+  local PROFILE
+
+  FILE="$1"
+  KEY_ALIAS="$2"
+  PROFILE="$3"
+
+  aws_okta_login "$PROFILE"
+
+  export SOPS_KMS_ARN
+  SOPS_KMS_ARN=$( \
+    aws --profile "$PROFILE" kms describe-key --key-id "$KEY_ALIAS" \
+    | jq -r .KeyMetadata.Arn \
+  )
+
+  sops --aws-profile "$PROFILE" "$FILE"
+}
