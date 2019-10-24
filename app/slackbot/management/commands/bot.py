@@ -57,12 +57,12 @@ def do_add_project(data):
         elif description.strip() == '':
             output = 'You must enter a project description.'
         else:
-            if integrates_dal.create_project(project, description):
-                integrates_dal.add_project_dynamo(project,
-                                                  description,
-                                                  companies,
-                                                  project_type,
-                                                  status='ACTIVE')
+            if integrates_dal.add_project_dynamo(
+               project,
+               description,
+               companies,
+               project_type,
+               status='ACTIVE'):
                 output = \
                     '*[OK]* Created project *%s* *%s* *"%s"* *%s*.' % \
                     (project, project_type, description, companies)

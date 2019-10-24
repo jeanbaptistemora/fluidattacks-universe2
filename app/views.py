@@ -413,14 +413,12 @@ def delete_project(project):
     are_findings_masked = [
         finding_domain.mask_finding(finding_id)
         for finding_id in project_domain.list_findings(project)]
-    project_deleted = remove_project_from_db(project)
     update_project_state_db = integrates_dal.update_attribute_dynamo(
         'FI_projects',
         ['project_name', project],
         'project_status', 'FINISHED')
     is_project_deleted = all([
-        are_findings_masked, are_users_removed,
-        project_deleted, update_project_state_db])
+        are_findings_masked, are_users_removed, update_project_state_db])
     util.invalidate_cache(project)
 
     return is_project_deleted
@@ -447,12 +445,6 @@ def remove_user_access(project, user_email):
     integrates_dal.remove_role_to_project_dynamo(
         project, user_email, 'customeradmin')
     return integrates_dal.remove_project_access_dynamo(user_email, project)
-
-
-def remove_project_from_db(project):
-    """Delete records of projects in db."""
-    deleted_mysql = integrates_dal.delete_project(project)
-    return deleted_mysql
 
 
 @cache_content

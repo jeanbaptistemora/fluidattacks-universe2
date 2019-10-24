@@ -1,8 +1,5 @@
 # pylint: disable=too-many-lines
 
-from datetime import datetime
-from django.db import connections
-from django.db.utils import OperationalError
 from boto3 import resource
 from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
@@ -22,78 +19,6 @@ DYNAMODB_RESOURCE = resource('dynamodb',
                              aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
                              aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
                              region_name='us-east-1')
-
-
-def create_user(email, username='-', first_name='-', last_name='-', first_time='-'):
-    """ Add a new user. """
-    role = 'None'
-    if first_time == "1":
-        last_login = datetime.now()
-    else:
-        last_login = "1111-1-1 11:11:11"
-    date_joined = last_login
-
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT id FROM users WHERE email = %s'
-        cursor.execute(query, (email,))
-        row = cursor.fetchone()
-        if row is None:
-            query = 'INSERT INTO users(username, first_name, last_name, \
-email, role, last_login, date_joined) \
-VALUES (%s, %s, %s, %s, %s, %s, %s)'
-            cursor.execute(query,
-                           (username, first_name,
-                            last_name, email, role,
-                            last_login, date_joined))
-            row = cursor.fetchone()
-    return row
-
-
-def create_project(project=None, description=None):
-    """ Add a new project. """
-    if project and description:
-        project = project.lower()
-
-        with connections['integrates'].cursor() as cursor:
-            query = 'SELECT * FROM projects WHERE project=%s'
-            cursor.execute(query, (project,))
-            row = cursor.fetchone()
-
-            if row is not None:
-                # Project already exists.
-                return False
-
-            query = 'INSERT INTO projects(project, description) \
-VALUES (%s, %s)'
-            try:
-                cursor.execute(query, (project, description,))
-            except OperationalError:
-                rollbar.report_exc_info()
-                return False
-        return True
-    return False
-
-
-def update_user_data(email, username, first_name, last_name):
-    """Update the user's last login date. """
-    date_joined = datetime.now()
-    with connections['integrates'].cursor() as cursor:
-        query = 'UPDATE users SET username=%s, first_name=%s, last_name=%s, date_joined=%s   \
-                 WHERE email = %s'
-        cursor.execute(query, (username, first_name, last_name, date_joined, email,))
-        row = cursor.fetchone()
-    return row
-
-
-def has_complete_data(email):
-    """ Check if the user has all data in DB . """
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT username FROM users WHERE email = %s'
-        cursor.execute(query, (email,))
-        row = cursor.fetchone()
-    if row is None or row[0] == '-':
-        return False
-    return True
 
 
 def get_user_dynamo(email):
@@ -218,49 +143,6 @@ def change_status_comalert_dynamo(message, company_name, project_name):
             rollbar.report_exc_info()
             return False
     return True
-
-
-def all_inactive_users():
-    """ Gets amount of inactive users in Integrates. """
-    with connections['integrates'].cursor() as cursor:
-        query = 'SELECT id, last_login FROM users WHERE registered = 0'
-        try:
-            cursor.execute(query)
-            rows = cursor.fetchall()
-        except OperationalError:
-            rollbar.report_exc_info()
-            rows = []
-    return rows
-
-
-def delete_user(user_id=None):
-    """ Delete user of Integrates DB. """
-    if user_id:
-        with connections['integrates'].cursor() as cursor:
-            query = 'DELETE FROM users WHERE id = %s'
-            try:
-                cursor.execute(query, (user_id,))
-                cursor.fetchone()
-                return True
-            except OperationalError:
-                rollbar.report_exc_info()
-                return False
-    return False
-
-
-def delete_project(project=None):
-    """Delete project of Integrates DB."""
-    if project:
-        with connections['integrates'].cursor() as cursor:
-            query = 'DELETE FROM projects WHERE project = %s'
-            try:
-                cursor.execute(query, (project,))
-                cursor.fetchone()
-                return True
-            except OperationalError:
-                rollbar.report_exc_info()
-                return False
-    return False
 
 
 def get_comments_dynamo(finding_id, comment_type):
