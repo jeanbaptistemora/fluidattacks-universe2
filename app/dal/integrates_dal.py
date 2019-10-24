@@ -74,17 +74,6 @@ VALUES (%s, %s)'
     return False
 
 
-def update_user_login(email):
-    """Update the user's last login date. """
-    last_login = datetime.now()
-
-    with connections['integrates'].cursor() as cursor:
-        query = 'UPDATE users SET last_login=%s WHERE email = %s'
-        cursor.execute(query, (last_login, email,))
-        row = cursor.fetchone()
-    return row
-
-
 def update_user_data(email, username, first_name, last_name):
     """Update the user's last login date. """
     date_joined = datetime.now()
@@ -105,35 +94,6 @@ def has_complete_data(email):
     if row is None or row[0] == '-':
         return False
     return True
-
-
-def register(email):
-    """ Register user in the DB. """
-    with connections['integrates'].cursor() as cursor:
-        query = 'UPDATE users SET registered=1 WHERE email = %s'
-        cursor.execute(query, (email,))
-        row = cursor.fetchone()
-    return row
-
-
-def assign_role(email, role):
-    """ Assigns a role to a user in the DB. """
-    if role not in ('analyst', 'customer', 'admin', 'customeradmin'):
-        return False
-    with connections['integrates'].cursor() as cursor:
-        query = 'UPDATE users SET role=%s WHERE email = %s'
-        cursor.execute(query, (role, email,))
-        row = cursor.fetchone()
-    return row
-
-
-def assign_company(email, company):
-    """ Assigns a company to a user in the DB."""
-    with connections['integrates'].cursor() as cursor:
-        query = 'UPDATE users SET company=%s WHERE email = %s'
-        cursor.execute(query, (company, email,))
-        row = cursor.fetchone()
-    return row
 
 
 def get_user_dynamo(email):

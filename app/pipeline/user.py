@@ -27,12 +27,10 @@ def create_user(strategy, details, backend, user=None, *args, **kwargs):
     }
     if user:
         if integrates_dal.has_complete_data(user):
-            integrates_dal.update_user_login(user)
             user_domain.update_last_login(user)
         else:
             integrates_dal.update_user_data(email, username, first_name,
                                             last_name)
-            integrates_dal.update_user_login(user)
             user_domain.update_multiple_user_attributes(str(user), data_dict)
     else:
         mail_to = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]

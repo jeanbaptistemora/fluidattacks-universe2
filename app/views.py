@@ -121,7 +121,6 @@ def dashboard(request):
             'company': request.session['company'],
             'last_login': request.session['last_login']
         }
-        integrates_dal.update_user_login(request.session['username'])
         user_domain.update_last_login(request.session['username'])
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
