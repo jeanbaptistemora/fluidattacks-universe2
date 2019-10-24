@@ -1,13 +1,9 @@
-# coding=utf-8
-
-from datetime import datetime
-from numpy import arange
-
-from django.test import TestCase
-
 from app.utils.forms import (
     dict_concatenation, is_exploitable, string_to_date,
 )
+from datetime import datetime
+from django.test import TestCase
+from numpy import arange
 
 
 class FormsTests(TestCase):

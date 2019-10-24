@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 
 from boto3 import client
+from django.http import JsonResponse
 from django.test import TestCase
 from django.test import RequestFactory
 from django.conf import settings
@@ -11,7 +12,7 @@ from jose import jwt
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 )
-
+import json
 from app.dal.finding import get_finding
 from app.util import (
     response, is_name, is_numeric, ord_asc_by_criticidad, user_email_filter,
@@ -27,11 +28,10 @@ class UtilTests(TestCase):
         message = 'this is a test'
         error = '500'
         test_data = response(data, message, error)
-        expected_output = {
-            'message': 'this is a test',
-            'data': 'this is data',
-            'error': '500'}
-        print(type(test_data))
+        expected_output = { 'data': 'this is data',
+                            'message': 'this is a test',
+                            'error': '500'}
+        assert json.loads(test_data.content.decode('utf-8')) == expected_output
 
     def test_is_name(self):
         bad_names = ['', 'asd>;', 'asd asd']

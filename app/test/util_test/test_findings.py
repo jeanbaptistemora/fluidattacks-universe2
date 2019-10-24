@@ -63,6 +63,7 @@ class FindingsTests(TestCase):
                 [('song', 'hysteria'),
                  ('artist', 'def leppard'),
                  ('year', '1987')])]
+
         assert test_data == expected_output
 
     def test_get_exploit_from_file(self):
@@ -98,6 +99,7 @@ class FindingsTests(TestCase):
             'findingId', 'threat', 'lastVulnerability', 'integrityImpact',
             'modifiedIntegrityImpact','relatedFindings',
             'exploitability']
+
         assert True
         # Must be enabled later
         # assert test_data == expected_keys
