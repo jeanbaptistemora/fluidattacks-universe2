@@ -18,4 +18,4 @@ class SocialAuthException(SocialAuthExceptionMiddleware):
                     }else{ location = "/integrates/registration"; } </script>')
             return redirect("/index")
         return super(SocialAuthException, self).process_exception(request,
-                                                                    exception)
+                                                                  exception)

@@ -294,7 +294,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 class AddProjectComment(Mutation):
     """ Add comment to project """
 
-    class Arguments(object):
+    class Arguments():
         content = String(required=True)
         parent = String(required=True)
         project_name = String(required=True)
@@ -335,7 +335,7 @@ class AddProjectComment(Mutation):
 class RemoveTag(Mutation):
     """Remove a tag of a given project."""
 
-    class Arguments(object):
+    class Arguments():
         project_name = String(required=True)
         tag = String(required=True)
     project = Field(Project)
@@ -371,7 +371,7 @@ An error occurred removing a tag', 'error', info.context)
 class AddTags(Mutation):
     """Add a tags to a project."""
 
-    class Arguments(object):
+    class Arguments():
         project_name = String(required=True)
         tags = JSONString()
     project = Field(Project)

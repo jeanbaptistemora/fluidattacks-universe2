@@ -105,7 +105,7 @@ class User(ObjectType):
 class GrantUserAccess(Mutation):
     """Grant access to a given project."""
 
-    class Arguments(object):
+    class Arguments():
         project_name = String()
         email = String()
         organization = String()
@@ -172,15 +172,13 @@ def validate_email_address(email):
 def validate_field(field):
     if field[0].isalnum() or (field[0] == "-" or field[0] is None):
         return True
-    else:
-        raise GraphQLError('Exception - Parameter is not valid')
+    raise GraphQLError('Exception - Parameter is not valid')
 
 
 def validate_phone_field(phone_field):
     if re.match((r'(^\+\d+$)|(^\d+$)|(^$)|(^-$)'), phone_field):
         return True
-    else:
-        raise GraphQLError('Exception - Parameter is not valid')
+    raise GraphQLError('Exception - Parameter is not valid')
 
 
 def create_new_user(context, new_user_data, project_name, email):
@@ -255,7 +253,7 @@ def create_new_user(context, new_user_data, project_name, email):
 class RemoveUserAccess(Mutation):
     """Remove user of a given project."""
 
-    class Arguments(object):
+    class Arguments():
         project_name = String()
         user_email = String()
 
@@ -288,7 +286,7 @@ class RemoveUserAccess(Mutation):
 class EditUser(Mutation):
     """Edit user of a given project."""
 
-    class Arguments(object):
+    class Arguments():
         project_name = String(required=True)
         email = String(required=True)
         organization = String(required=True)

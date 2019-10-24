@@ -62,7 +62,7 @@ class Me(ObjectType):
 
 
 class SignIn(Mutation):
-    class Arguments(object):
+    class Arguments():
         auth_token = String(required=True)
         provider = String(required=True)
         push_token = String(required=False)
@@ -87,33 +87,32 @@ class SignIn(Mutation):
                         'Error: Invalid oauth2 issuer',
                         'error', info.context, user_info['iss'])
                     raise GraphQLError('INVALID_AUTH_TOKEN')
-                elif user_info['aud'] not in [FI_GOOGLE_OAUTH2_KEY_ANDROID,
-                                              FI_GOOGLE_OAUTH2_KEY_IOS]:
+                if user_info['aud'] not in [FI_GOOGLE_OAUTH2_KEY_ANDROID,
+                                            FI_GOOGLE_OAUTH2_KEY_IOS]:
                     rollbar.report_message(
                         'Error: Invalid oauth2 audience',
                         'error', info.context, user_info['aud'])
                     raise GraphQLError('INVALID_AUTH_TOKEN')
-                else:
-                    email = user_info['email']
-                    authorized = user_domain.is_registered(email)
-                    if push_token:
-                        integrates_dal.add_set_element_dynamo(
-                            'FI_users', ['email', email],
-                            'devices_to_notify', [push_token])
-                    session_jwt = jwt.encode(
-                        {
-                            'user_email': email,
-                            'user_role': user_domain.get_data(email, 'role'),
-                            'company': user_domain.get_data(email, 'company'),
-                            'first_name': user_info['given_name'],
-                            'last_name': user_info['family_name'],
-                            'exp': datetime.utcnow() +
-                            timedelta(seconds=settings.SESSION_COOKIE_AGE)
-                        },
-                        algorithm='HS512',
-                        key=settings.JWT_SECRET,
-                    )
-                    success = True
+                email = user_info['email']
+                authorized = user_domain.is_registered(email)
+                if push_token:
+                    integrates_dal.add_set_element_dynamo(
+                        'FI_users', ['email', email],
+                        'devices_to_notify', [push_token])
+                session_jwt = jwt.encode(
+                    {
+                        'user_email': email,
+                        'user_role': user_domain.get_data(email, 'role'),
+                        'company': user_domain.get_data(email, 'company'),
+                        'first_name': user_info['given_name'],
+                        'last_name': user_info['family_name'],
+                        'exp': datetime.utcnow() +
+                        timedelta(seconds=settings.SESSION_COOKIE_AGE)
+                    },
+                    algorithm='HS512',
+                    key=settings.JWT_SECRET,
+                )
+                success = True
             except ValueError:
                 util.cloudwatch_log(
                     info.context,
@@ -128,7 +127,7 @@ class SignIn(Mutation):
 
 
 class UpdateAccessToken(Mutation):
-    class Arguments(object):
+    class Arguments():
         expiration_time = Int(required=True)
     success = Boolean()
     session_jwt = String()

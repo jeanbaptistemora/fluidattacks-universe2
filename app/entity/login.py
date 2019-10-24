@@ -30,7 +30,7 @@ class Login(ObjectType):
 
 
 class AcceptLegal(Mutation):
-    class Arguments(object):
+    class Arguments():
         remember = Boolean()
     success = Boolean()
 

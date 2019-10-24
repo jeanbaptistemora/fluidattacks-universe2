@@ -10,8 +10,7 @@ def add_phone_to_user(email, phone):
 
 
 def assign_role(email, role):
-    if (role != 'analyst' and role != 'customer' and
-            role != 'admin' and role != 'customeradmin'):
+    if role not in ('analyst', 'customer', 'admin', 'customeradmin'):
         resp = False
     else:
         resp = update_user_attribute(email, role, 'role')

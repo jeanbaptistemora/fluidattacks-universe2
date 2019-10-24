@@ -1,8 +1,8 @@
 """ GraphQL Entity for Dynamo Alerts """
 # pylint: disable=F0401
 # pylint: disable=super-init-not-called
-from app.dal import integrates_dal
 from graphene import Int, String, ObjectType
+from app.dal import integrates_dal
 
 
 class Alert(ObjectType):

@@ -4,7 +4,9 @@
 import base64
 import datetime
 import threading
-import urllib.request, urllib.parse, urllib.error
+import urllib.request
+import urllib.parse
+import urllib.error
 
 from botocore import signers
 from cryptography.hazmat.backends import default_backend
@@ -98,9 +100,6 @@ def send_mail(project_name, user_email, resource_list, action, resource_type):
 def validate_file_size(uploaded_file, file_size):
     """Validate if uploaded file size is less than a given file size."""
     mib = 1048576
-    response = False
     if uploaded_file.size > file_size * mib:
         raise InvalidFileSize()
-    else:
-        response = True
-    return response
+    return True

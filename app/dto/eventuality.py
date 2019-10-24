@@ -1,6 +1,6 @@
 # coding=utf-8
 """ DTO to map the Integrates fields to formstack """
-# pylint: disable=E0402
+# pylint: disable=relative-beyond-top-level
 # Disabling this rule is necessary for importing modules beyond the top level
 # pylint: disable=relative-beyond-top-level
 
@@ -25,7 +25,7 @@ CLIENT_S3 = boto3.client('s3',
 BUCKET_S3 = FI_AWS_S3_BUCKET
 
 
-class EventDTO(object):
+class EventDTO():
     """Class to create an object with the attributes of an event."""
 
     FIELDS_EVENT = settings.FIELDS_EVENT

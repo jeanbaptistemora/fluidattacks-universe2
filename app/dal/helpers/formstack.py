@@ -9,9 +9,9 @@ import requests
 from django.conf import settings
 from django.views.decorators.cache import cache_control
 from retrying import retry
-from app.dto import remission
 import rollbar
 
+from app.dto import remission
 from __init__ import FI_FORMSTACK_TOKENS
 
 

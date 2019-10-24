@@ -814,12 +814,13 @@ def evidence_exceeds_size(uploaded_file, evidence_type, context):
     records = 8
     mib = 1048576
     if evidence_type in evidence:
-        return uploaded_file.size > 10 * mib
+        size = uploaded_file.size > 10 * mib
     elif evidence_type == exploit:
-        return uploaded_file.size > 1 * mib
+        size = uploaded_file.size > 1 * mib
     elif evidence_type == records:
-        return uploaded_file.size > 1 * mib
+        size = uploaded_file.size > 1 * mib
     else:
         util.cloudwatch_log(context, 'Security: \
 Attempted to upload an unknown type of evidence')
         raise InvalidFileSize()
+    return size

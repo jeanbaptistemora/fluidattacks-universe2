@@ -81,6 +81,7 @@ def get_exploit_from_file(project_name, finding_id, file_name):
     return file_content
 
 
+# pylint: disable=simplifiable-if-expression
 def format_data(finding):
     finding = {
         util.snakecase_to_camelcase(attribute): finding.get(attribute)

@@ -370,7 +370,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 class UpdateEvidence(Mutation):
     """ Update evidence files """
 
-    class Arguments(object):
+    class Arguments():
         finding_id = String(required=True)
         evidence_id = String(required=True)
     success = Boolean()
@@ -398,23 +398,22 @@ class UpdateEvidence(Mutation):
                                         heavier than allowed in {project} project'
                                         .format(project=project_name))
                 raise GraphQLError('File exceeds the size limits')
-            else:
-                fieldname = [
-                    'animation',
-                    'exploitation',
-                    'evidence_route_1',
-                    'evidence_route_2',
-                    'evidence_route_3',
-                    'evidence_route_4',
-                    'evidence_route_5',
-                    'exploit',
-                    'fileRecords'
-                ]
-                success = finding_domain.save_evidence(
-                    fieldname[int(evidence_id)], finding_id, project_name,
-                    uploaded_file)
-                if success:
-                    util.invalidate_cache(finding_id)
+            fieldname = [
+                'animation',
+                'exploitation',
+                'evidence_route_1',
+                'evidence_route_2',
+                'evidence_route_3',
+                'evidence_route_4',
+                'evidence_route_5',
+                'exploit',
+                'fileRecords'
+            ]
+            success = finding_domain.save_evidence(
+                fieldname[int(evidence_id)], finding_id, project_name,
+                uploaded_file)
+            if success:
+                util.invalidate_cache(finding_id)
         else:
             util.cloudwatch_log(info.context,
                                 'Security: Attempted to upload evidence file with a \
@@ -430,7 +429,7 @@ class UpdateEvidence(Mutation):
 class UpdateEvidenceDescription(Mutation):
     """ Update evidence description """
 
-    class Arguments(object):
+    class Arguments():
         description = String(required=True)
         finding_id = String(required=True)
         field = String(required=True)
@@ -473,7 +472,7 @@ An error occurred updating evidence description', 'error', info.context)
 
 
 class UpdateSeverity(Mutation):
-    class Arguments(object):
+    class Arguments():
         finding_id = String(required=True)
         data = GenericScalar(required=True)
     success = Boolean()
@@ -503,7 +502,7 @@ class UpdateSeverity(Mutation):
 
 class AddFindingComment(Mutation):
     """ Add comment to finding """
-    class Arguments(object):
+    class Arguments():
         content = String(required=True)
         finding_id = String(required=True)
         parent = String(required=True)
@@ -555,7 +554,7 @@ class AddFindingComment(Mutation):
 
 class VerifyFinding(Mutation):
     """ Verify a finding """
-    class Arguments(object):
+    class Arguments():
         finding_id = String(required=True)
     success = Boolean()
 
@@ -578,7 +577,7 @@ class VerifyFinding(Mutation):
 
 class RequestVerification(Mutation):
     """ Request verification """
-    class Arguments(object):
+    class Arguments():
         finding_id = String(required=True)
         justification = String(required=True)
     success = Boolean()
@@ -606,7 +605,7 @@ class RequestVerification(Mutation):
 
 class UpdateDescription(Mutation):
     """ Update description of a finding """
-    class Arguments(object):
+    class Arguments():
         actor = String(required=True)
         affected_systems = String(required=True)
         attack_vector_desc = String(required=True)
@@ -647,7 +646,7 @@ class UpdateDescription(Mutation):
 
 class UpdateTreatment(Mutation):
     """ Update treatment of a finding """
-    class Arguments(object):
+    class Arguments():
         acceptance_date = String()
         bts_url = String()
         finding_id = String(required=True)
@@ -697,7 +696,7 @@ class UpdateTreatment(Mutation):
 
 
 class RejectDraft(Mutation):
-    class Arguments(object):
+    class Arguments():
         finding_id = String(required=True)
     success = Boolean()
 
@@ -723,7 +722,7 @@ class RejectDraft(Mutation):
 
 
 class DeleteFinding(Mutation):
-    class Arguments(object):
+    class Arguments():
         finding_id = String(required=True)
         justification = String(required=True)
     success = Boolean()
@@ -750,7 +749,7 @@ class DeleteFinding(Mutation):
 
 
 class ApproveDraft(Mutation):
-    class Arguments(object):
+    class Arguments():
         draft_id = String(required=True)
     release_date = String()
     success = Boolean()
@@ -776,7 +775,7 @@ class ApproveDraft(Mutation):
 
 class CreateDraft(Mutation):
     """ Creates a new draft """
-    class Arguments(object):
+    class Arguments():
         cwe = String(required=False)
         description = String(required=False)
         project_name = String(required=True)
@@ -805,7 +804,7 @@ class CreateDraft(Mutation):
 
 class SubmitDraft(Mutation):
     """ Submits a draft for review """
-    class Arguments(object):
+    class Arguments():
         finding_id = String(required=True)
     success = Boolean()
 

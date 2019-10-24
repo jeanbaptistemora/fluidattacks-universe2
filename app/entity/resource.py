@@ -9,9 +9,9 @@ import rollbar
 from mixpanel import Mixpanel
 from graphql import GraphQLError
 from graphene import ObjectType, JSONString, Mutation, String, Boolean, Field
+from django.conf import settings
 
 from __init__ import FI_CLOUDFRONT_RESOURCES_DOMAIN
-from django.conf import settings
 from ..decorators import (
     require_login, require_role, require_project_access, get_entity_cache
 )
@@ -77,7 +77,7 @@ class Resource(ObjectType):
 class AddRepositories(Mutation):
     """Add repositories to a given project."""
 
-    class Arguments(object):
+    class Arguments():
         resources_data = JSONString()
         project_name = String()
     resources = Field(Resource)
@@ -137,7 +137,7 @@ An error occurred adding repository', 'error', info.context)
 class RemoveRepositories(Mutation):
     """Remove repositories of a given project."""
 
-    class Arguments(object):
+    class Arguments():
         repository_data = JSONString()
         project_name = String()
     resources = Field(Resource)
@@ -197,7 +197,7 @@ An error occurred removing repository', 'error', info.context)
 class AddEnvironments(Mutation):
     """Add environments to a given project."""
 
-    class Arguments(object):
+    class Arguments():
         resources_data = JSONString()
         project_name = String()
     resources = Field(Resource)
@@ -253,7 +253,7 @@ An error occurred adding environments', 'error', info.context)
 class RemoveEnvironments(Mutation):
     """Remove environments of a given project."""
 
-    class Arguments(object):
+    class Arguments():
         repository_data = JSONString()
         project_name = String()
     resources = Field(Resource)
@@ -312,7 +312,7 @@ Attempted to remove an environment that does not exist')
 
 class AddFiles(Mutation):
     """ Update evidence files """
-    class Arguments(object):
+    class Arguments():
         files_data = JSONString()
         project_name = String()
     resources = Field(Resource)
@@ -352,9 +352,6 @@ class AddFiles(Mutation):
                                  if f.get('fileName') == uploaded_file.name]
             if contains_repeated:
                 raise GraphQLError('File already exist')
-            else:
-                # File is unique
-                pass
         else:
             # Project doesn't have files
             pass
@@ -390,7 +387,7 @@ class AddFiles(Mutation):
 class RemoveFiles(Mutation):
     """Remove files of a given project."""
 
-    class Arguments(object):
+    class Arguments():
         files_data = JSONString()
         project_name = String()
     resources = Field(Resource)
@@ -446,7 +443,7 @@ class RemoveFiles(Mutation):
 
 class DownloadFile(Mutation):
     """ Download requested resource file """
-    class Arguments(object):
+    class Arguments():
         files_data = JSONString()
         project_name = String()
     success = Boolean()

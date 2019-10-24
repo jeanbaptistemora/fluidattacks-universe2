@@ -423,15 +423,15 @@ def make_vuln_table(findings, words):
         if finding['openVulnerabilities'] != '-':
             vuln_amount = int(finding['openVulnerabilities'])
         ttl_vulns += vuln_amount
-        if severity >= 9.0 and severity <= 10.0:
+        if 9.0 <= severity <= 10.0:
             vuln_table[0][1] += 1
             vuln_table[0][3] += vuln_amount
             crit_as_text = words['crit_c']
-        elif severity >= 7.0 and severity <= 8.9:
+        elif 7.0 <= severity <= 8.9:
             vuln_table[1][1] += 1
             vuln_table[1][3] += vuln_amount
             crit_as_text = words['crit_h']
-        elif severity >= 4.0 and severity <= 6.9:
+        elif 4.0 <= severity <= 6.9:
             vuln_table[2][1] += 1
             vuln_table[2][3] += vuln_amount
             crit_as_text = words['crit_m']
