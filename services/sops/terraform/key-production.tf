@@ -93,3 +93,8 @@ resource "aws_kms_key" "key-serves-production" {
   deletion_window_in_days = 10
   is_enabled              = true
 }
+
+resource "aws_kms_alias" "key-serves-production" {
+  name          = "alias/serves-production"
+  target_key_id = aws_kms_key.key-serves-production.key_id
+}
