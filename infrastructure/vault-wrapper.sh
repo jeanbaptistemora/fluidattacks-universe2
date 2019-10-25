@@ -16,16 +16,16 @@ function vault_add_policy() {
   new_policies=$(printf ', %s' "$@" | sed 's/,\ //')
   curr_policies=$(vault_get_user_policies "$email")
   new_policies="${curr_policies}, ${new_policies}"
-  vault write "auth/radius/users/$email" policies="$new_policies"
+  vault write "auth/okta/users/$email" policies="$new_policies"
 }
 
-function vault_create_radius_user() {
+function vault_create_user() {
   local email="$1"
   shift 1
   local policies
   policies=$(printf ', %s' "$@" | sed 's/,\ //')
   if [[ "$email" =~ (@fluidattacks.com|@autonomicmind.co) ]]; then
-    vault write "auth/radius/users/$email" policies="$policies"
+    vault write "auth/okta/users/$email" policies="$policies"
   else
     echo 'Email address does not belong neither to Fluid Attacks nor to Autonomicmind'
   fi
@@ -50,9 +50,9 @@ function vault_create_variables() {
   rm vars.json
 }
 
-function vault_delete_radius_user() {
+function vault_delete_user() {
   local email="$1"
-  vault delete "auth/radius/users/$email"
+  vault delete "auth/okta/users/$email"
 }
 
 function vault_delete_variables() {
@@ -116,13 +116,13 @@ function vault_generate_aws_keys() {
 
 function vault_get_user_policies() {
   local email="$1"
-  vault read -format=json "auth/radius/users/$email" | \
+  vault read -format=json "auth/okta/users/$email" | \
     jq -r -c '.data.policies' | tr -d \"[] | sed 's/,/,\ /g'
 }
 
 function vault_remove_all_policies() {
   local email="$1"
-  vault write "auth/radius/users/$email" policies=""
+  vault write "auth/okta/users/$email" policies=""
 }
 
 function vault_remove_policy() {
@@ -135,7 +135,7 @@ function vault_remove_policy() {
     curr_policies="${curr_policies//${policy}, }"
     curr_policies="${curr_policies//${policy}}"
   done
-  vault write "auth/radius/users/$email" policies="$curr_policies"
+  vault write "auth/okta/users/$email" policies="$curr_policies"
 }
 
 function vault_update_variables() {
@@ -188,14 +188,14 @@ if [[ "$*" =~ (-h|help|--help|usage) ]]; then
        - user_email: Email address of the user whose permissions are going to be modified.
        - policy: Permissions that are going to be attached to the user.
 
-  2. vault_create_radius_user: Create a new user who authenticates using OneLogin via RADIUS.
+  2. vault_create_user: Create a new user who authenticates using Okta.
 
      usage:
-       vault_create_radius_user user_email
-       vault_create_radius_user user_email policy1 policy2 ...
+       vault_create_user user_email
+       vault_create_user user_email policy1 policy2 ...
 
      params:
-       - user_email: Email address of the user which is going to be created. It must be the same one used in OneLogin.
+       - user_email: Email address of the user which is going to be created. It must be the same one used in Okta.
        - policies (optional): Set of policies to attach to the newly created user. If none specified, the user will be created but will not have access to any resource.
 
   3. vault_create_variables: Create a new set of variables or add a new ones to an existing set.
@@ -217,10 +217,10 @@ if [[ "$*" =~ (-h|help|--help|usage) ]]; then
        - path: Path in Vault where the variables are going to be written. The prefix "secret/" should not be included.
        - var_name: Name of the variable in Vault which is going to be created.
 
-  5. vault_delete_radius_user: Delete a user who authenticates using OneLogin via RADIUS.
+  5. vault_delete_user: Delete a user who authenticates using Okta
 
      usage:
-       vault_delete_radius_user user_email
+       vault_delete_user user_email
 
      params:
        - user_email: Email address of the user which is going to be deleted
