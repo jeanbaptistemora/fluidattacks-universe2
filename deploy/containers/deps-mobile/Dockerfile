@@ -3,7 +3,7 @@ FROM starefossen/ruby-node:2-10
 ARG PATCHES='deploy/containers/deps-mobile'
 ARG VAULT_BASE='https://releases.hashicorp.com/vault'
 ARG VAULT_VERSION='0.11.6/vault_0.11.6_linux_amd64.zip'
-ARG VAULTENV_BASE='https://github.com/channable/vaultenv/releases/download/v0.10.0/vaultenv-0.10.0_x86_64-ubuntu-1804.deb'
+ARG VAULTENV_BASE='https://github.com/channable/vaultenv/releases/download/v0.9.0/vaultenv-0-9-0.deb'
 
 # apt deps
 RUN apt -o Acquire::Check-Valid-Until=false update \

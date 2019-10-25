@@ -18,7 +18,7 @@ deps_mobile() {
   FILES=(
     'mobile/package.json'
     'mobile/Gemfile'
-    'deploy/containers/mobile/Dockerfile'
+    'deploy/containers/deps-mobile/Dockerfile'
     'ci-scripts/jobs/deps-mobile.sh'
   )
 
