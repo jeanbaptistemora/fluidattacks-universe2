@@ -372,10 +372,13 @@ export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
       open: "search_findings.status.open",
     };
     const treatmentParameters: { [value: string]: string } = {
-      "-": "-",
-      "ACCEPTED": "search_findings.tab_description.treatment.accepted",
-      "IN PROGRESS": "search_findings.tab_description.treatment.in_progress",
-      "NEW": "search_findings.tab_description.treatment.new",
+      "-": (finding.state === "closed") ? "-" : "-",
+      "ACCEPTED": (finding.state === "open")
+        ? "search_findings.tab_description.treatment.accepted" : "-",
+      "IN PROGRESS": (finding.state === "open")
+        ? "search_findings.tab_description.treatment.in_progress" : "-",
+      "NEW": (finding.state === "open")
+        ? "search_findings.tab_description.treatment.new" : "-",
     };
     const typeParameters: { [value: string]: string } = {
       HYGIENE: "search_findings.tab_description.type.hygiene",
