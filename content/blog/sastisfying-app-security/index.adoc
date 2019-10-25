@@ -100,21 +100,23 @@ who then mitigate or patch the vulnerabilities.
 .Report of finding in manually test via link:https://www.mitre.org/sites/default/files/publications/secure-code-review-report-sample.pdf:[Mitre.org]
 image::report.png[Report of finding in manually test via Mitre.org]
 
-*Automated tools* :
-Actually in the world there are many link:https://www.owasp.org/index.php/Source_Code_Analysis_Tools[tools]
-that allow to perfom the analysis of the code automatically
-and that gives reports of the vulnerabilities found
-during the scannig process.
-Because it is much more flexible it can be integrated
-in all development enviroments that include
-Waterfall scenarios, Continuous Integration +(CI/CD)+ environments,
-+Agile/DevOps+, source repositories, and even with other testing tools.
+*Automated tools:*
+There are many link:https://www.owasp.org/index.php/Source_Code_Analysis_Tools[tools]
+that allow us to automatically perform code analysis
+and provide reports of the vulnerabilities
+discovered during the scanning process.
+Because these tools are more flexible,
+they can be integrated with development environments
+that include Waterfall scenarios,
+Continuous Integration (+CI/CD+) environments,
++Agile/DevOps+, source repositories,
+and even with other testing tools.
 
-These type of tools use sophisticated functions
-as data flow analysis, control flow analysis and pattern recognition
-to identify potential security vulnerabilities
-presenting improvements in the time of report findings
-in complex projects or with too many lines of code.
+These types of tools use sophisticated functions
+such as data flow analysis, control flow analysis, and pattern recognition
+to identify potential security vulnerabilities.
+The result is a faster report of vulnerabilities,
+especially in complex projects or projects with too many lines of code.
 
 .Report of findings in automated tests via link:https://www.oreilly.com/library/view/industrial-internet-application/9781788298599/521ecdf9-f298-4e26-9b68-5baf6602094d.xhtml[Oreilly.com]
 image::toolreport.png[Report of findings in automated tests via Oreilly.com]
