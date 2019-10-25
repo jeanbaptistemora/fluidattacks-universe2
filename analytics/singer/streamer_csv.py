@@ -13,9 +13,8 @@ def stream_csv(csv_file_path: str) -> None:
     stream_name = os.path.basename(csv_file_path).replace(".csv", "")
     with open(csv_file_path) as csv_file:
         for row in csv.DictReader(
-                csv_file,
-                delimiter=",",
-                quoting=csv.QUOTE_NONNUMERIC):
+                f=csv_file,
+                delimiter=","):
             print(
                 json.dumps(
                     {

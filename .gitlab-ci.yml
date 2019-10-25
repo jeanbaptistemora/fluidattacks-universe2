@@ -88,6 +88,7 @@ stages:
       - $FLAG_SYNC_INTERCOM
       - $FLAG_SYNC_GITLAB
       - $FLAG_SYNC_CONTINUOUS
+      - $FLAG_SYNC_ZOHO
 
 build_builder:
   stage: deps
@@ -609,6 +610,40 @@ analytics_refresh_token_timedoctor:
   only:
     variables:
       - $FLAG_REFRESH_TOKENS
+
+sync_zoho:
+  stage: analytics
+  <<: *vault_vars
+  before_script:
+    - *vault_get_token
+    - set -ETeumo pipefail
+  script:
+    - pip3 install --upgrade requests
+    - email="$(vault read -field=analytics_zoho_email secret/serves)"
+    - token="$(vault read -field=analytics_zoho_token secret/serves)"
+    - space="$(vault read -field=analytics_zoho_space secret/serves)"
+    - vault read -field=analytics_auth_redshift secret/serves > secret.json
+    - vault read -field=analytics_zoho_tables secret/serves | while read -r table;
+        do
+          ./analytics/singer/converter_zoho_csv.py
+            --email "${email}" --token "${token}"
+            --space "${space}" --table "${table}" --target "${table}" &&
+          ./analytics/singer/streamer_csv.py "${table}" >> .jsonstream;
+        done
+    - pip3 install
+        analytics/singer/tap_json
+        analytics/singer/target_redshift
+    - cat .jsonstream | tap-json > .singer
+    - cat .singer | target-redshift --schema-name "zoho"
+                                    --auth secret.json
+                                    --drop-schema
+  after_script:
+    - rm -rf secret.json
+    - unset email token space
+  <<: *only_schedules
+  only:
+    variables:
+      - $FLAG_SYNC_ZOHO
 
 eks-initial-setup:
   stage: eks-initial-setup
