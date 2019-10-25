@@ -1,8 +1,8 @@
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
-import { IEventsAttr } from "../scenes/Dashboard/containers/EventsView/types";
 import { IProjectDraftsAttr } from "../scenes/Dashboard/containers/ProjectDraftsView/types";
+import { IEventsAttr } from "../scenes/Dashboard/containers/ProjectEventsView/types";
 import { IProjectFindingsAttr } from "../scenes/Dashboard/containers/ProjectFindingsView/types";
 import { IUsersAttr } from "../scenes/Dashboard/containers/ProjectUsersView/types";
 import { ISeverityAttr, ISeverityField } from "../scenes/Dashboard/containers/SeverityView/types";
