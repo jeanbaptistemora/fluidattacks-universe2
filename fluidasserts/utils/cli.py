@@ -33,6 +33,8 @@ from pygments.util import UnclosingTextIOWrapper
 
 # local imports
 import fluidasserts
+from fluidasserts import OPEN, CLOSED, UNKNOWN, ERROR
+from fluidasserts.utils import constants
 
 
 OUTFILE = sys.stdout
@@ -44,7 +46,7 @@ DEF_EXIT_CODES: Dict[str, int] = {
 
     'config-error': 78,
 
-    'exploit-error': 1,
+    'exploit-error': 0,
     'exploit-not-found': 0,
 }
 
@@ -212,13 +214,13 @@ def colorize(parsed_content):
     enable_win_colors()
     for node in parsed_content:
         try:
-            if node['status'] == 'OPEN':
+            if node['status'] == OPEN:
                 style = OPEN_COLORS
-            elif node['status'] == 'CLOSED':
+            elif node['status'] == CLOSED:
                 style = CLOSE_COLORS
-            elif node['status'] == 'UNKNOWN':
+            elif node['status'] == UNKNOWN:
                 style = UNKNOWN_COLORS
-            elif node['status'] == 'ERROR':
+            elif node['status'] == ERROR:
                 style = OPEN_COLORS
         except KeyError:
             style = SUMMARY_COLORS
@@ -258,25 +260,25 @@ def get_total_checks(output_list):
 def get_total_open_checks(output_list):
     """Get total open checks."""
     return sum(1 for output in output_list
-               if 'status' in output and output['status'] == 'OPEN')
+               if 'status' in output and output['status'] == OPEN)
 
 
 def get_total_closed_checks(output_list):
     """Get total closed checks."""
     return sum(1 for output in output_list
-               if 'status' in output and output['status'] == 'CLOSED')
+               if 'status' in output and output['status'] == CLOSED)
 
 
 def get_total_unknown_checks(output_list):
     """Get total unknown checks."""
     return sum(1 for output in output_list
-               if 'status' in output and output['status'] == 'UNKNOWN')
+               if 'status' in output and output['status'] == UNKNOWN)
 
 
 def get_total_error_checks(output_list):
     """Get total error checks."""
     return sum(1 for output in output_list
-               if 'status' in output and output['status'] == 'ERROR')
+               if 'status' in output and output['status'] == ERROR)
 
 
 def filter_content(parsed: list, args) -> list:
@@ -285,10 +287,10 @@ def filter_content(parsed: list, args) -> list:
         node
         for node in parsed
         if 'status' not in node
-        or (node.get('status') == 'ERROR')
-        or (args.show_open and node.get('status') == 'OPEN')
-        or (args.show_closed and node.get('status') == 'CLOSED')
-        or (args.show_unknown and node.get('status') == 'UNKNOWN')]
+        or (node.get('status') == ERROR)
+        or (args.show_open and node.get('status') == OPEN)
+        or (args.show_closed and node.get('status') == CLOSED)
+        or (args.show_unknown and node.get('status') == UNKNOWN)]
     return result
 
 
@@ -297,7 +299,7 @@ def get_risk_levels(parsed_content):
     try:
         filtered = [
             x for x in parsed_content
-            if 'status' in x and 'risk' in x and x['status'] == 'OPEN']
+            if 'status' in x and 'risk' in x and x['status'] == OPEN]
 
         high_risk = sum(1 for x in filtered if x['risk'] == 'high')
         medium_risk = sum(1 for x in filtered if x['risk'] == 'medium')
@@ -343,18 +345,16 @@ def show_banner(args):
     """Show Asserts banner."""
     enable_win_colors()
     header = textwrap.dedent(rf"""
-        #    ________      _     __   ___                        __
-        #   / ____/ /_  __(_)___/ /  /   |  _____________  _____/ /______
-        #  / /_  / / / / / / __  /  / /| | / ___/ ___/ _ \/ ___/ __/ ___/
-        # / __/ / / /_/ / / /_/ /  / ___ |(__  |__  )  __/ /  / /_(__  )
-        #/_/   /_/\__,_/_/\__,_/  /_/  |_/____/____/\___/_/   \__/____/
+        #     ________      _     __   ___                        __
+        #    / ____/ /_  __(_)___/ /  /   |  _____________  _____/ /______
+        #   / /_  / / / / / / __  /  / /| | / ___/ ___/ _ \/ ___/ __/ ___/
+        #  / __/ / / /_/ / / /_/ /  / ___ |(__  |__  )  __/ /  / /_(__  )
+        # /_/   /_/\__,_/_/\__,_/  /_/  |_/____/____/\___/_/   \__/____/
         #
         # v. {fluidasserts.__version__}
         #  ___
         # | >>|> fluid
         # |___|  attacks, we hack your software
-        #
-        # Loading attack modules ...
         #
         """)
 
@@ -448,7 +448,7 @@ def exec_wrapper(exploit_name: str, exploit_content: str) -> str:  # noqa
     except BaseException as exc:  # lgtm [py/catch-base-exception]
         print(stderr_result.getvalue(), end='', file=sys.stderr)
         print(stdout_result.getvalue(), end='', file=sys.stdout)
-        return yaml.safe_dump(dict(status='ERROR',
+        return yaml.safe_dump(dict(status=ERROR,
                                    exploit=exploit_name,
                                    exception=str(type(exc)),
                                    message=str(exc)),
@@ -827,7 +827,7 @@ def exec_exploits(
             results = itertools.starmap(exec_wrapper, exploit_contents)
         return "".join(results)
     except FileNotFoundError:
-        print('Exploit not found')
+        print('No exploits found')
         exit_asserts('exploit-not-found')
 
 
@@ -865,7 +865,11 @@ def check_boolean_env_var(var_name):
 def get_argparser():
     """Return an argparser with the CLI arguments."""
     argparser = argparse.ArgumentParser()
-    argparser.add_argument('-q', '--quiet', help='decrease output verbosity',
+    argparser.add_argument('-q', '--quiet', help='do not show checks output',
+                           action='store_true')
+    argparser.add_argument('-k', '--kiss',
+                           help=('keep it simple, shows only who and where '
+                                 'has been found to be vulnerable'),
                            action='store_true')
     argparser.add_argument('-n', '--no-color', help='remove colors',
                            action='store_true')
@@ -918,11 +922,14 @@ def get_argparser():
 
 def main():
     """Run CLI."""
+    # On Windows this will filter ANSI escape sequences out of any text sent
+    #   to stdout or stderr, and replace them with equivalent Win32 calls.
     init()
 
     argparser = get_argparser()
     args = argparser.parse_args()
 
+    # Print the Fluid Asserts banner
     show_banner(args)
 
     if not any((args.apk,
@@ -935,16 +942,19 @@ def main():
         argparser.print_help()
         exit_asserts('config-error')
 
+    # Set the exit codes
     global EXIT_CODES
     EXIT_CODES = RICH_EXIT_CODES if args.enrich_exit_codes else DEF_EXIT_CODES
+
+    # Set the checks verbosity level
+    constants.VERBOSE_CHECKS = bool(not args.kiss)
 
     check_boolean_env_var('FA_STRICT')
     check_boolean_env_var('FA_NOTRACK')
 
     start_time = timer()
     parsed = get_content(args)
-    end_time = timer()
-    elapsed_time = end_time - start_time
+    elapsed_time = timer() - start_time
 
     if not args.quiet:
         if args.show_open or args.show_closed or args.show_unknown:
@@ -1007,10 +1017,11 @@ def main():
             fd_out.write(result)
             fd_out.write(message)
 
-    if error_checks:
-        exit_asserts('exploit-error')
-    if args.enrich_exit_codes and unknown_checks:
-        exit_asserts('unknown')
+    if args.enrich_exit_codes:
+        if error_checks:
+            exit_asserts('exploit-error')
+        if unknown_checks:
+            exit_asserts('unknown')
     if open_checks:
         exit_asserts('open')
     exit_asserts('closed')

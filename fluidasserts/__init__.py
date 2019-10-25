@@ -16,8 +16,9 @@ import json
 import types
 import inspect
 import textwrap
+import collections
 from datetime import datetime
-from typing import Callable, Dict, List, Any
+from typing import Callable, Dict, OrderedDict, List, Any
 
 # 3rd party imports
 from pkg_resources import get_distribution, DistributionNotFound
@@ -25,7 +26,14 @@ import oyaml as yaml
 from yaml.dumper import SafeDumper
 from yaml.representer import SafeRepresenter as SafeRepres
 
+# local imports
+from fluidasserts.utils import constants
+
 # Objects that are not standard YAML Nodes will be represented as follows:
+#   Ordered dictionaries
+yaml.add_multi_representer(
+    collections.OrderedDict, lambda _, x: SafeRepres().represent_dict(
+        x), SafeDumper)
 #   Function objects -> function( args in definition ... )
 yaml.add_multi_representer(
     types.FunctionType, lambda _, x: SafeRepres().represent_str(
@@ -39,6 +47,7 @@ yaml.add_multi_representer(
 OPEN: str = 'OPEN'
 CLOSED: str = 'CLOSED'
 UNKNOWN: str = 'UNKNOWN'
+ERROR: str = 'ERROR'
 
 LOW: str = 'low'
 MEDIUM: str = 'medium'
@@ -213,12 +222,12 @@ class Unit():
 
     def as_dict(self) -> dict:
         """Dict representation of this class."""
-        result: Dict[str, Any] = {}
+        result: OrderedDict[str, Any] = collections.OrderedDict()
 
-        result.update({'where': self.where})
+        result['where'] = self.where
 
-        if self.source:
-            result.update({'source': self.source})
+        if constants.VERBOSE_CHECKS and self.source:
+            result['source'] = self.source
 
         if self.specific:
             # Stringify
@@ -229,10 +238,10 @@ class Unit():
             # Join to make it less verbose
             specific = ', '.join(specific)
 
-            result.update({'specific': specific})
+            result['specific'] = specific
 
-        if self.fingerprint:
-            result.update({'fingerprint': self.fingerprint})
+        if constants.VERBOSE_CHECKS and self.fingerprint:
+            result['fingerprint'] = self.fingerprint
 
         return result
 
@@ -335,29 +344,26 @@ class Result():
 
     def as_dict(self) -> dict:
         """Return a dict representation of the class."""
-        result = {}
-        result.update({
-            'check': self.func_id,
-            'description': self.func_desc,
-            'status': self.status,
-            'message': self.message,
-        })
+        result: OrderedDict[str, Any] = collections.OrderedDict()
+        result['check'] = self.func_id
+        result['description'] = self.func_desc
+        result['status'] = self.status
+        if constants.VERBOSE_CHECKS:
+            result['message'] = self.message
         if self.vulns:
             result['vulnerabilities'] = [v.as_dict() for v in self.vulns]
-        if self.safes and len(self.safes) <= 10:
+        if constants.VERBOSE_CHECKS and self.safes and len(self.safes) <= 10:
             result['secure-units'] = [v.as_dict() for v in self.safes]
-        if self.func_params:
+        if constants.VERBOSE_CHECKS and self.func_params:
             result['parameters'] = self.func_params
-        result.update({
-            'vulnerable_incidences': self.get_vulns_number(),
-            'when': self.when,
-        })
-        if hasattr(self, 'duration'):
+        if constants.VERBOSE_CHECKS:
+            result['vulnerable_incidences'] = self.get_vulns_number()
+            result['when'] = self.when
+        if constants.VERBOSE_CHECKS and hasattr(self, 'duration'):
             result['elapsed_seconds'] = self.duration
-        result.update({
-            'test_kind': self.kind,
-            'risk': self.risk,
-        })
+        if constants.VERBOSE_CHECKS:
+            result['test_kind']: self.kind
+        result['risk'] = self.risk
         return result
 
     def print(self) -> bool:
