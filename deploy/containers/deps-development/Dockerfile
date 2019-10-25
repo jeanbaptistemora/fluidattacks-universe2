@@ -3,7 +3,7 @@ ARG CI_COMMIT_REF_NAME
 FROM registry.gitlab.com/fluidattacks/integrates/deps-production:$CI_COMMIT_REF_NAME
 
 ARG VAULT_URL='https://releases.hashicorp.com/vault/0.11.6/vault_0.11.6_linux_amd64.zip'
-ARG GECKO_DRIVER_URL='https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz'
+ARG GECKO_DRIVER_URL='https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz'
 ARG DYNAMODB_LOCAL_URL='https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.tar.gz'
 ARG PIP_REQUIREMENTS='deploy/containers/deps-development/requirements.txt'
 
