@@ -6,3 +6,8 @@ repos:
         entry: python3 -m prospector --profile .prospector.yml
         language: system
         files: \.py$
+    -   id: mypy
+        name: mypy
+        entry: python3 -m mypy --ignore-missing-imports
+        language: system
+        files: \.py$
