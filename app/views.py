@@ -68,7 +68,7 @@ def error500(request):
     return render(request, "HTTP500.html", parameters)
 
 
-def error401(request):
+def error401(request, _):
     "Unauthorized error view"
     parameters = {}
     return render(request, "HTTP401.html", parameters)
@@ -239,7 +239,7 @@ def project_to_pdf(request, lang, project, doctype):
         if not os.path.isfile(report_filename):
             rollbar.report_message(
                 'Couldn\'t generate pdf report', 'error', request)
-            raise HttpResponse(
+            return HttpResponse(
                 'Couldn\'t generate pdf report', content_type='text/html')
         with open(report_filename, 'rb') as document:
             response = HttpResponse(document.read(),

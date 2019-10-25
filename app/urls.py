@@ -13,10 +13,10 @@ from app.decorators import verify_csrf
 handler400, handler403, handler404, handler500
 
 # pylint: disable=invalid-name
-handler400 = 'app.views.error500'
+handler400 = 'app.views.error401'
 handler401 = 'app.views.error401'
 handler403 = 'app.views.error401'
-handler404 = 'app.views.error500'
+handler404 = 'app.views.error401'
 handler500 = 'app.views.error500'
 
 urlpatterns = [
