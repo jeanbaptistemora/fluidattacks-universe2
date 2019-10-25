@@ -5,6 +5,7 @@ set -e
 
 env | egrep 'VAULT.*'  >> /etc/environment
 if [ "$1" = 'app' ]; then
+  ./manage.py collectstatic --no-input
   a2ensite integrates-ssl.conf
   a2ensite 000-default.conf
   /etc/init.d/td-agent restart

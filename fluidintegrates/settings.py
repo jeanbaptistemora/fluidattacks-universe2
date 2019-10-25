@@ -236,16 +236,18 @@ LOGGING = {
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 MEDIA_ROOT = ''
 MEDIA_URL = ''
-STATIC_ROOT = ''
+STATIC_ROOT = 'app/assets/'
 STATIC_URL = '/assets/'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, '../app/assets'),
-)
+STATICFILES_DIRS = [
+    ('app', os.path.join(STATIC_ROOT, 'app')),
+    ('dashboard', os.path.join(STATIC_ROOT, 'dashboard')),
+    ('img', os.path.join(STATIC_ROOT, 'img')),
+]
 
 CRONJOBS = [
     ('0 5 * * 1', 'app.scheduler.get_new_vulnerabilities'),
