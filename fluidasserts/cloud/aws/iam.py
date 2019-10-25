@@ -582,3 +582,76 @@ def has_not_support_role(key_id: str, secret: str,
         service='IAM', objects='Support Access policies',
         msg_open=msg_open, msg_closed=msg_closed,
         vulns=vulns, safes=safes)
+
+
+@api(
+    risk=MEDIUM,
+    kind=DAST,
+    standards={
+        'CWE': '250',
+    },
+)
+@unknown_if(BotoCoreError, RequestException)
+def has_permissive_role_policies(key_id: str, secret: str,
+                                 retry: bool = True) -> tuple:
+    """
+    Check if an IAM Role Policy grants wildcard privileges.
+
+    See https://cwe.mitre.org/data/definitions/250.html
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    roles = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='iam',
+        func='list_roles',
+        param='Roles',
+        retry=retry)
+
+    msg_open: str = ('IAM role policies violate the '
+                     'principle of least privilege')
+    msg_closed: str = ('IAM role policies comply with '
+                       'the principle of least privilege')
+
+    vulns, safes = [], []
+
+    def get_role_policies(role_name):
+        return aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='iam',
+            func='list_role_policies',
+            param='PolicyNames',
+            retry=retry,
+            RoleName=role_name,
+        )
+
+    def get_policy_role(policy_name, role_name):
+        return aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='iam',
+            func='get_role_policy',
+            param='PolicyDocument',
+            retry=retry,
+            PolicyName=policy_name,
+            RoleName=role_name)
+
+    for role in roles:
+        role_policies = get_role_policies(role['RoleName'])
+        for policy_name in role_policies:
+            for statement in get_policy_role(policy_name,
+                                             role['RoleName'])['Statement']:
+                (vulns if statement['Action'] == '*'
+                 and statement['Effect'] == 'Allow' else safes).append(
+                     (role['Arn'], 'IAM Role Policy Too Permissive'))
+
+    return _get_result_as_tuple(
+        service='IAM',
+        objects='Policies',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
