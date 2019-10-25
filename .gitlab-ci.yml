@@ -633,7 +633,7 @@ sync_zoho:
     - pip3 install
         analytics/singer/tap_json
         analytics/singer/target_redshift
-    - cat .jsonstream | tap-json > .singer
+    - cat .jsonstream | tap-json --date-formats '%Y-%m-%d %H:%M:%S' > .singer
     - cat .singer | target-redshift --schema-name "zoho"
                                     --auth secret.json
                                     --drop-schema

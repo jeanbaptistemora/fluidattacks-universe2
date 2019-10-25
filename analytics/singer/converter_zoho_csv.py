@@ -1,8 +1,11 @@
 #! /usr/bin/env python3
 
 # Standard imports
+import os
+import csv
 import sys
 import argparse
+import contextlib
 import urllib.parse
 
 # Third parties imports
@@ -14,6 +17,7 @@ def export_csv(
         email: str, token: str,
         space: str, table: str) -> bool:
     """Export a Zoho Table from a Workspace to a CSV."""
+    # pylint: disable=too-many-locals
     email = urllib.parse.quote(email)
     token = urllib.parse.quote(token)
     table = urllib.parse.quote(table)
@@ -34,10 +38,32 @@ def export_csv(
             request=request.prepare(),
             stream=True)
 
-        with open(target, 'wb') as target_handle:
+        with open(f'_{target}', 'wb') as target_handle:
             for chunk in response.iter_content(chunk_size=1024):
                 if chunk:
                     target_handle.write(chunk)
+
+        # Open and save again to re-format the CSV with QUOTE_NONNUMERIC
+        with open(f'_{target}') as source, open(target, 'w') as dest:
+            source_reader = csv.DictReader(source)
+            dest_writer = csv.DictWriter(
+                f=dest,
+                fieldnames=source_reader.fieldnames,
+                quoting=csv.QUOTE_NONNUMERIC)
+            dest_writer.writeheader()
+            for row in source_reader:
+                for column in row:
+                    # Transform the string into a proper numeric type
+                    with contextlib.suppress(ValueError):
+                        val_int: int = int(row[column])
+                        val_float: float = round(float(row[column]), 6)
+                        row[column] = (
+                            val_int  # type: ignore
+                            if val_int == val_float
+                            else val_float)
+                dest_writer.writerow(row)
+
+        os.unlink(f'_{target}')
 
     return True
 
