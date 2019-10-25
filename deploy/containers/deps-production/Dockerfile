@@ -53,7 +53,7 @@ RUN pip3 install -U setuptools && \
     pip3 install --no-cache-dir -r /tmp/requirements.txt
 
 # ruby deps
-RUN gem install -N asciidoctor:1.5.8 \
+RUN gem install -N asciidoctor:1.5.8 concurrent-ruby \
   && gem install -N asciidoctor-pdf:1.5.0.alpha.16 --pre \
   && /usr/sbin/td-agent-gem install \
     eventmachine \
