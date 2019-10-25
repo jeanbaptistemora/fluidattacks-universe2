@@ -13,7 +13,6 @@ from graphene.types.generic import GenericScalar
 
 from app import util
 from app.dal import integrates_dal, project as redshift_dal
-from app.dal.helpers.formstack import FormstackAPI
 from app.decorators import (
     get_entity_cache, require_login, require_project_access, require_role
 )
@@ -21,7 +20,6 @@ from app.domain import project as project_domain, vulnerability as vuln_domain
 from app.entity.event import Event
 from app.entity.finding import Finding
 from app.entity.user import User
-from app.exceptions import InvalidProject
 
 
 class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
@@ -293,17 +291,11 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """ Resolve project events """
         util.cloudwatch_log(
             info.context, f'Security: Access to {self.name} events')
-        resp = FormstackAPI().get_eventualities(str(self.name))
-        project_exist = integrates_dal.get_project_attributes_dynamo(
-            self.name.lower(), ['project_name'])
-        data = []
-        if project_exist:
-            if "submissions" in resp:
-                data = [Event(i["id"], info.context)
-                        for i in resp["submissions"]]
-        else:
-            raise InvalidProject
-        return data
+        event_ids = project_domain.list_events(self.name)
+        events_loader = info.context.loaders['event']
+        self.events = events_loader.load_many(event_ids)
+
+        return self.events
 
     def resolve_description(self, info):
         """ Resolve project description """

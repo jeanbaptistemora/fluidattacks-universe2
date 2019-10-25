@@ -5,6 +5,7 @@ from django.conf import settings
 from graphene.test import Client
 from jose import jwt
 
+from app.api.dataloaders.event import EventLoader
 from app.api.schema import SCHEMA
 
 
@@ -33,6 +34,7 @@ class EventTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.loaders = {'event': EventLoader()}
         result = dict(SCHEMA.execute(query, context_value=request).data)
         if 'event' in list(result.keys()):
             detail = dict(result['event'])['detail']
@@ -64,6 +66,7 @@ class EventTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.loaders = {'event': EventLoader()}
         result = dict(SCHEMA.execute(query, context_value=request).data)
         assert 'events' in result['project']
         detail = dict(result['project']['events'][0])['detail']
@@ -109,6 +112,7 @@ class EventTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
+        request.loaders = {'event': EventLoader()}
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert result['data']['updateEvent']['event']['eventStatus'] == 'SOLVED'

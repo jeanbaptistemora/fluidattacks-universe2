@@ -14,7 +14,6 @@ from botocore.exceptions import ClientError
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 from app.dal.helpers.drive import DriveAPI
 from ..dal import integrates_dal
-from ..dal.helpers.formstack import FormstackAPI
 from ..utils import forms
 from .. import util
 
@@ -152,8 +151,7 @@ def cast_event_attributes(event):
                    'actionBeforeBlocking', 'actionAfterBlocking']
     for field in list_fields:
         if event.get(field):
-            event[field] = cast_event_field.get(
-                event.get(field).encode('utf-8'), '')
+            event[field] = cast_event_field.get(event.get(field), '')
     return event
 
 
@@ -186,31 +184,6 @@ def parse_event_dynamo(submission_id):
     return parsed_dict
 
 
-def event_data(submission_id, context):
-    """Get event data."""
-    event = []
-    event_title = 'event_date'
-    event = integrates_dal.get_event_attributes_dynamo(
-        submission_id,
-        event_title)
-    if event:
-        event_parsed = parse_event_dynamo(submission_id)
-    else:
-        ev_dto = EventDTO()
-        api = FormstackAPI()
-        if str(submission_id).isdigit() is True:
-            event_parsed = ev_dto.parse(
-                submission_id,
-                api.get_submission(submission_id)
-            )
-            migrate_event(event_parsed)
-            migrate_event_files(event_parsed, context)
-        else:
-            rollbar.report_message(
-                'Error: An error occurred catching event', 'error')
-    return event_parsed
-
-
 def migrate_event(event):
     """Migrate event to dynamo."""
     primary_keys = ['event_id', str(event['id'])]
@@ -231,10 +204,11 @@ def migrate_event(event):
                         if event.get(util.snakecase_to_camelcase(k))}
     response = integrates_dal.add_multiple_attributes_dynamo(
         'fi_events', primary_keys, event_attributes)
+    migrate_event_files(event)
     return response
 
 
-def migrate_event_files(event, context):
+def migrate_event_files(event):
     """Migrate event files to s3."""
     project_name = event.get('projectName').lower()
     event_id = event.get('id')
@@ -259,14 +233,13 @@ def migrate_event_files(event, context):
                 event_id=event_id,
                 file_id=curr_file['id'])
             folder = util.list_s3_objects(CLIENT_S3, BUCKET_S3, file_name)
-            migrate_event_files_aux(curr_file,
-                                    file_name, event_id, folder, context)
+            migrate_event_files_aux(curr_file, file_name, folder)
         else:
             # Event does not have evidences
             pass
 
 
-def migrate_event_files_aux(curr_file, file_name, event_id, folder, context):
+def migrate_event_files_aux(curr_file, file_name, folder):
     """Migrate event files auxiliar."""
     if folder:
         # File exist in s3
@@ -274,26 +247,26 @@ def migrate_event_files_aux(curr_file, file_name, event_id, folder, context):
     else:
         fileroute = '/tmp/:id.tmp'.replace(':id', curr_file['id'])
         if os.path.exists(fileroute):
-            send_file_to_s3(file_name, curr_file, event_id, context)
+            send_file_to_s3(file_name, curr_file)
         else:
             drive_api = DriveAPI()
             file_download_route = drive_api.download(
                 curr_file['id'])
             if file_download_route:
-                send_file_to_s3(file_name, curr_file, event_id, context)
+                send_file_to_s3(file_name, curr_file)
             else:
                 rollbar.report_message(
                     'Error: An error occurred downloading \
                     file from Drive', 'error')
 
 
-def send_file_to_s3(file_name, evidence, event_id, context):
+def send_file_to_s3(file_name, evidence):
     """Save evidence files in s2."""
     evidence_id = evidence['id']
     fileroute = '/tmp/:id.tmp'.replace(':id', evidence_id)
     evidence_type = evidence['file_type']
     is_file_saved = False
-    with open(fileroute, 'r') as file_obj:
+    with open(fileroute, 'rb') as file_obj:
         try:
             mime = Magic(mime=True)
             mime_type = mime.from_file(fileroute)
@@ -301,12 +274,6 @@ def send_file_to_s3(file_name, evidence, event_id, context):
                 file_name_s3 = file_name + evidence_type.get(mime_type)
                 CLIENT_S3.upload_fileobj(file_obj, BUCKET_S3, file_name_s3)
                 is_file_saved = True
-            else:
-                util.cloudwatch_log(
-                    context,
-                    'File of event {event_id} does not have the right type'
-                    .format(event_id=event_id)
-                )
         except ClientError:
             rollbar.report_exc_info()
             is_file_saved = False

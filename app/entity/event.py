@@ -1,12 +1,10 @@
 """ GraphQL Entity for Events """
 # pylint: disable=no-self-use
-# pylint: disable=super-init-not-called
 from graphene import Boolean, Field, Mutation, ObjectType, String
 
 from app import util
 from app.decorators import require_login, require_role, require_event_access
 from app.domain import event as event_domain
-from app.dto.eventuality import event_data
 
 
 class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
@@ -27,46 +25,6 @@ class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     context = String()
     subscription = String()
     evidence_file = String()
-
-    def __init__(self, identifier, context):
-        """ Class constructor """
-        self.id = ''  # noqa pylint: disable=invalid-name
-        self.analyst = ''
-        self.client = ''
-        self.project_name = ''
-        self.client_project = ''
-        self.event_type = ''
-        self.event_date = ''
-        self.detail = ''
-        self.affectation = ''
-        self.event_status = ''
-        self.evidence = ''
-        self.accessibility = ''
-        self.affected_components = ''
-        self.context = ''
-        self.subscription = ''
-        self.evidence_file = ''
-
-        event_id = str(identifier)
-        resp = event_data(event_id, context)
-
-        if resp:
-            self.id = event_id
-            self.analyst = resp.get('analyst')
-            self.client = resp.get('client')
-            self.project_name = resp.get('projectName')
-            self.client_project = resp.get('clientProject', '')
-            self.event_type = resp.get('eventType')
-            self.event_date = resp.get('eventDate')
-            self.detail = resp.get('detail')
-            self.affectation = resp.get('affectation')
-            self.event_status = resp.get('eventStatus')
-            self.evidence = resp.get('evidence', '')
-            self.evidence_file = resp.get('evidence_file', '')
-            self.accessibility = resp.get('accessibility')
-            self.affected_components = resp.get('affectedComponents')
-            self.context = resp.get('context')
-            self.subscription = resp.get('subscription')
 
     def resolve_id(self, info):
         """ Resolve id attribute """
@@ -121,22 +79,16 @@ class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_affectation(self, info):
         """ Resolve affectation attribute """
         del info
-        if not self.affectation:
-            return ''
         return self.affectation
 
     def resolve_accessibility(self, info):
         """ Resolve accessibility attribute """
         del info
-        if not self.accessibility:
-            return ''
         return self.accessibility
 
     def resolve_affected_components(self, info):
         """ Resolve affected components attribute """
         del info
-        if not self.affected_components:
-            return ''
         return self.affected_components
 
     def resolve_context(self, info):
@@ -173,7 +125,7 @@ class UpdateEvent(Mutation):
             project_name = event_domain.get_event_project_name(event_id)
             util.invalidate_cache(event_id)
             util.invalidate_cache(project_name)
-        ret = UpdateEvent(
-            success=success,
-            event=Event(identifier=event_id, context=info.context))
+        events_loader = info.context.loaders['event']
+
+        ret = UpdateEvent(success=success, event=events_loader.load(event_id))
         return ret

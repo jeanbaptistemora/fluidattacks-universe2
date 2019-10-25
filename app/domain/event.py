@@ -5,7 +5,7 @@ import rollbar
 from app import util
 from app.dal import integrates_dal, event as event_dal
 from app.dal.helpers.formstack import FormstackAPI
-from app.dto.eventuality import EventDTO
+from app.dto.eventuality import EventDTO, migrate_event
 from app.exceptions import EventNotFound
 
 
@@ -68,7 +68,14 @@ def get_event_project_name(event_id):
 def get_event(event_id):
     event = event_dal.get_event(event_id)
     if not event:
-        raise EventNotFound()
+        api = FormstackAPI()
+        fs_event = api.get_submission(event_id)
+        if 'error' not in fs_event:
+            ev_dto = EventDTO()
+            migrate_event(ev_dto.parse(event_id, fs_event))
+            event = event_dal.get_event(event_id)
+        else:
+            raise EventNotFound()
 
     return event
 

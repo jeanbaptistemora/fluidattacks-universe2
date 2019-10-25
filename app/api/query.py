@@ -60,7 +60,9 @@ class Query(ObjectType):
         util.cloudwatch_log(
             info.context,
             f'Security: Access to Event: {identifier} succesfully')
-        return Event(identifier, info.context)
+        events_loader = info.context.loaders['event']
+
+        return events_loader.load(identifier)
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
