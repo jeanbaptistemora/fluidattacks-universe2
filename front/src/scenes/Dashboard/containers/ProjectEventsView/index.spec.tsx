@@ -9,7 +9,7 @@ import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../store/index";
-import { EventsView } from "./index";
+import { ProjectEventsView } from "./index";
 import { GET_EVENTS } from "./queries";
 import { IEventsViewProps } from "./types";
 
@@ -101,7 +101,7 @@ describe("EventsView", () => {
   }];
 
   it("should return a fuction", () => {
-    expect(typeof (EventsView))
+    expect(typeof (ProjectEventsView))
       .toEqual("function");
   });
 
@@ -109,7 +109,7 @@ describe("EventsView", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mockError} addTypename={true}>
-          <EventsView {...mockProps} />
+          <ProjectEventsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
@@ -122,7 +122,7 @@ describe("EventsView", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={true}>
-          <EventsView {...mockProps} />
+          <ProjectEventsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );

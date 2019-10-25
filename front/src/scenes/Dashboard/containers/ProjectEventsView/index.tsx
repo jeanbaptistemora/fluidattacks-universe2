@@ -1,8 +1,4 @@
-/* tslint:disable:jsx-no-lambda jsx-no-multiline-js no-empty
- * JSX-NO-LAMBDA: Disabling this rule is necessary because it is not possible
- * to call functions with props as params from the JSX element definition
- * without using lambda expressions () => {}
- *
+/* tslint:disable:jsx-no-multiline-js
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
@@ -40,32 +36,38 @@ const tableHeaders: IHeader[] = [
     isStatus: true, width: "13%", wrapped: true,
   },
 ];
-const eventsView: React.FunctionComponent<IEventViewBaseProps> = (props: IEventViewBaseProps): JSX.Element => {
+const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: IEventViewBaseProps): JSX.Element => {
   const { projectName } = props.match.params;
   const handleQryResult: ((qrResult: IEventsAttr) => void) = (qrResult: IEventsAttr): void => {
-    mixpanel.track(
-      "ProjectEvents",
-      {
-        Organization: (window as Window & { userOrganization: string }).userOrganization,
-        User: (window as Window & { userName: string }).userName,
-      });
+    mixpanel.track("ProjectEvents", {
+      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+      User: (window as typeof window & { userName: string }).userName,
+    });
     hidePreloader();
+  };
+
+  const goToEvent: ((rowInfo: { id: string }) => void) = (rowInfo: { id: string }): void => {
+    mixpanel.track("ReadEvent", {
+      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+      User: (window as typeof window & { userName: string }).userName,
+    });
+    location.hash = `#!/project/${projectName}/events/${rowInfo.id}/description`;
   };
 
   return (
     <Query query={GET_EVENTS} variables={{ projectName }} onCompleted={handleQryResult}>
       {
-        ({loading, error, data}: QueryResult<IEventsAttr>): React.ReactNode => {
+        ({ loading, error, data }: QueryResult<IEventsAttr>): React.ReactNode => {
           if (loading) {
             showPreloader();
 
-            return <React.Fragment/>;
+            return <React.Fragment />;
           }
           if (!_.isUndefined(error)) {
             hidePreloader();
             handleGraphQLErrors("An error occurred getting eventualities", error);
 
-            return <React.Fragment/>;
+            return <React.Fragment />;
           }
           if (!_.isUndefined(data)) {
 
@@ -78,10 +80,7 @@ const eventsView: React.FunctionComponent<IEventViewBaseProps> = (props: IEventV
                       dataset={formatEvents(data.project.events)}
                       enableRowSelection={false}
                       exportCsv={true}
-                      onClickRow={(row: { id: string }): void => {
-                        window.location.href =
-                        `/integrates/dashboard#!/project/${projectName}/events/${row.id}/description`;
-                      }}
+                      onClickRow={goToEvent}
                       search={true}
                       headers={tableHeaders}
                       id="tblEvents"
@@ -99,4 +98,4 @@ const eventsView: React.FunctionComponent<IEventViewBaseProps> = (props: IEventV
   );
 };
 
-export { eventsView as EventsView };
+export { projectEventsView as ProjectEventsView };

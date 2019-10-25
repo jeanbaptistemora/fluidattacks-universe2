@@ -9,7 +9,7 @@ import { IDashboardState } from "../../reducer";
 import { ProjectIndicatorsView } from "../IndicatorsView/index";
 import { ProjectCommentsView } from "../ProjectCommentsView/index";
 import { ProjectDraftsView } from "../ProjectDraftsView";
-import { EventsView } from "../ProjectEventsView/index";
+import { ProjectEventsView } from "../ProjectEventsView/index";
 import ProjectFindingsView from "../ProjectFindingsView/index";
 import ProjectUsersView from "../ProjectUsersView/index";
 import ProjectResourcesView from "../ResourcesView/index";
@@ -95,7 +95,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   <Route path="/project/:projectName/indicators" component={ProjectIndicatorsView} />
                   <Route path="/project/:projectName/findings" component={ProjectFindingsView} />
                   <Route path="/project/:projectName/drafts" component={ProjectDraftsView} />
-                  <Route path="/project/:projectName/events" component={EventsView} />
+                  <Route path="/project/:projectName/events" component={ProjectEventsView} />
                   <Route path="/project/:projectName/resources" component={ProjectResourcesView} />
                   <Route path="/project/:projectName/users" component={ProjectUsersView} />
                   <Route path="/project/:projectName/comments" component={ProjectCommentsView} />
