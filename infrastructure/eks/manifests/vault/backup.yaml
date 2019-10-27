@@ -3,6 +3,8 @@ kind: "EtcdBackup"
 metadata:
   name: vault-etcd-cluster-backup
 spec:
+  backupPolicy:
+    TimeoutInSecond: 600
   clientTLSSecret: etcd-cluster-tls
   etcdEndpoints: 
     - https://etcd-cluster-client.serves.svc:2379
