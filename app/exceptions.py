@@ -133,15 +133,6 @@ class InvalidProject(Exception):
         super(InvalidProject, self).__init__(msg)
 
 
-class ForbiddenField(Exception):
-    """Exception to control graphql api fields."""
-
-    def __init__(self):
-        """ Constructor """
-        msg = 'Exception - Requested field not allowed'
-        super(ForbiddenField, self).__init__(msg)
-
-
 class QueryDepthExceeded(Exception):
     """Exception to control graphql max query depth"""
 
