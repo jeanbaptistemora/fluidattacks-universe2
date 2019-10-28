@@ -1,0 +1,21 @@
+:slug: rules/052/
+:category: architecture
+:description: This documents contains the details of the security requirements related to logical architecture management in the organization. This requirement establishes the importance of identifying critical components related to security in order to protect sensitive information there stored.
+:keywords: Requirement, Security, Critical, Components, Application, Identification
+:rules: yes
+:extended: yes
+
+= REQ.052 Identify critical components
+
+== Requirement
+
+All critical security components must be identified (+TCB+).
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.1+]
+All app components are identified and known to be needed.
+
+. [[r2]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.4+]
+Data considered sensitive
+in the context of the application is clearly identified.

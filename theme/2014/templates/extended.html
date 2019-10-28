@@ -41,6 +41,13 @@
           </li>
           <li class="dib mt0">
             <a class="c-fluid-bk hv-fluid-dkred"
+               href="{{ SITEURL }}/rules/">
+              <strong>rules</strong>&nbsp;
+            </a>
+            <span class="c-fluid-red v-mid b">&gt;</span>
+          </li>
+          <li class="dib mt0">
+            <a class="c-fluid-bk hv-fluid-dkred"
                href=".">&nbsp;{{ page.title }}</a>
           </li>
         </ul>
@@ -60,7 +67,7 @@
       {{ page.title }}
     </h1>
     {% set rendered = [] %}
-    {% for rulepath in pages if rulepath.rules and not rulepath.extended %}
+    {% for rulepath in pages if rulepath.rules and rulepath.extended %}
       {% if loop.first %}
         {% do rendered.append( rulepath.category ) %}
           <div class="rulescat hover-bg-light-gray flex">
@@ -91,7 +98,7 @@
           </div>
           {% set cat = rulepath.category %}
           <div class="ruleslist dn">
-          {% for ruleart in pages if ruleart.rules and not ruleart.extended and ruleart.category == cat %}
+          {% for ruleart in pages if ruleart.rules and ruleart.extended and ruleart.category == cat %}
            <ul class="pl4">
               <li>
                 <a class="f4 montsy"
@@ -108,11 +115,5 @@
     {% assets filters="uglifyjs", output="static/js/rules.min.js", "js/rules.js" %}
       <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
     {% endassets %}
-    <p class="pt4"> {{ gettext ('Rules-msg') }}
-      <button class="bg-fluid-red white br3 pointer montsy f4 b pt2 pb2 pl2 pr2"
-              onclick="window.location.href='{{ SITEURL }}/rules/extended'" >
-              {{ gettext ('Rules-link') }}
-      </button>
-    </p>
   </article>
 {% endblock content %}

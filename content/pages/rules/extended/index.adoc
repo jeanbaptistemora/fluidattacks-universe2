@@ -1,0 +1,7 @@
+:slug: rules/extended/
+:description: The purpose of this page is to present the products offered by Fluid Attacks. Rules is a recompilation of several security criteria developed by Fluid Attacks, based on different international standards in order to assure the information security of the company in different areas.
+:keywords: Fluid Attacks, Products, Rules, Criteria, Security, Applications.
+:rulesindex: yes
+:template: extended
+
+= Extended Security Rules
