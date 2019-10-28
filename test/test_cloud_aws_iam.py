@@ -86,6 +86,12 @@ def test_has_root_active_signing_certificates_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_users_with_password_and_access_keys_open():
+    """Search users whit users with password and access keys activated."""
+    assert iam.users_with_password_and_access_keys(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #

@@ -4,6 +4,7 @@
 
 # standard imports
 from datetime import datetime, timedelta
+from contextlib import suppress
 import pytz
 
 # 3rd party imports
@@ -689,6 +690,64 @@ def has_root_active_signing_certificates(key_id: str,
     return _get_result_as_tuple(
         service='IAM',
         objects='Credentials',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def users_with_password_and_access_keys(key_id: str,
+                                        secret: str,
+                                        retry: bool = True) -> tuple:
+    """
+    Check if there are users with password and access keys activated.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    vulns, safes = [], []
+
+    msg_open: str = ('Users have access keys and password '
+                     'assigned for authentication.')
+    msg_closed: str = ('Users have only keys or password '
+                       'assigned for authentication, but not both.')
+
+    users = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='iam',
+        func='list_users',
+        param='Users',
+        retry=retry)
+
+    client = aws.get_aws_client('iam', key_id, secret)
+
+    for user in users:
+        access_keys = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='iam',
+            func='list_access_keys',
+            param='AccessKeyMetadata',
+            retry=retry,
+            UserName=user['UserName'])
+        access_keys_activated: bool = any(
+            map(lambda x: x['Status'], access_keys))
+
+        with suppress(
+                client.exceptions.NoSuchEntityException) as login_profile:
+            login_profile = client.get_login_profile(UserName=user['UserName'])
+
+        (vulns if access_keys_activated and login_profile is not None else
+         safes).append(
+             (user['Arn'],
+              'User must have only password or access keys, but not both.'))
+
+    return _get_result_as_tuple(
+        service='IAM',
+        objects='Users',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
