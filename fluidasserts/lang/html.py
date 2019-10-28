@@ -266,8 +266,22 @@ def has_not_subresource_integrity(path: str) -> tuple:
             soup = BeautifulSoup(file_desc.read(), features="html.parser")
 
         for elem_types in ('link', 'script'):
-            vulnerable: bool = any(
-                elem.get('integrity') is None for elem in soup(elem_types))
+            vulnerable: bool = False
+            for elem in soup(elem_types):
+                does_not_have_integrity: bool = \
+                    elem.get('integrity') is None
+
+                if elem_types == 'link':
+                    references_external_resource: bool = \
+                        elem.get('href', '').startswith('http')
+                elif elem_types == 'script':
+                    references_external_resource = \
+                        elem.get('src', '').startswith('http')
+
+                if does_not_have_integrity and references_external_resource:
+                    vulnerable = True
+                    break
+
             asserts: str = 'has not' if vulnerable else 'has'
 
             unit: Unit = Unit(
