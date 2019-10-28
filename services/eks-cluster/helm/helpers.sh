@@ -4,7 +4,7 @@ install_chart() {
 
   # Install or update helm chart
 
-  set -e
+  set -Eeuo pipefail
 
   local CHART="$1"
   local NAME="$2"

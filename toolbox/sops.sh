@@ -48,7 +48,6 @@ decrypt_sops_file() {
   aws_okta_login "$PROFILE"
 
   sops --aws-profile "$PROFILE" -d "$FILE"
-
 }
 
 sops_env() {
@@ -77,5 +76,4 @@ sops_env() {
   . <(./toolbox/sops_env_yaml.py "$TMP_FILE")
 
   rm -rf "$TMP_FILE"
-
 }

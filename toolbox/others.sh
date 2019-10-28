@@ -7,14 +7,12 @@ replace_env_vars() {
   set -Eeuo pipefail
 
   local FILE
-  local VARS
 
   FILE="$1"
-  VARS="$2"
 
   shift 1
 
-  envsubst $2 < "$FILE" > tmp
+  envsubst < "$FILE" > tmp
   mv tmp "$FILE"
 }
 
