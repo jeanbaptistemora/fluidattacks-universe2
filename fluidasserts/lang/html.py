@@ -9,6 +9,7 @@ from typing import List
 
 # 3rd party imports
 from bs4 import BeautifulSoup
+from bs4.element import Tag
 from pyparsing import (makeHTMLTags, CaselessKeyword, ParseException,
                        Literal, SkipTo, stringEnd)
 
@@ -51,6 +52,25 @@ def _has_attributes(filename: str, tag: str, attrs: dict) -> bool:
         return result
 
 
+def _get_xpath(tag: Tag) -> str:
+    """Return the xpath of a BeautifulSoup Tag."""
+    # Inspiration from https://gist.github.com/ergoithz/6cf043e3fdedd1b94fcf
+    components = []
+    child = tag if tag.name else tag.parent
+    for parent in child.parents:
+        siblings = parent.find_all(child.name, recursive=False)
+        if len(siblings) == 1:
+            components.append(child.name)
+        else:
+            for sibling_no, sibling in enumerate(siblings, 1):
+                if sibling is child:
+                    components.append(sibling_no)
+                    break
+        child = parent
+    components.reverse()
+    return '/' + '/'.join(components)
+
+
 @api(risk=LOW, kind=SAST)
 def has_not_autocomplete(filename: str) -> tuple:
     """
@@ -77,19 +97,31 @@ def has_not_autocomplete(filename: str) -> tuple:
     with open(filename, 'r', encoding='latin-1') as file_desc:
         html_obj = BeautifulSoup(file_desc.read(), features="html.parser")
 
-    vulnerable: bool = False
-    for obj in html_obj.findAll(['input', 'form']):
+    vulnerabilities: list = []
+    for obj in html_obj('input'):
+        autocomplete_enabled: bool = obj.get('autocomplete', 'on') != 'off'
+        is_input_enabled: bool = obj.get('disabled', '') != ''
+        is_input_type_sensitive: bool = obj.get('type', 'text') in (
+            # autocomplete only works with these:
+            #   https://www.w3schools.com/tags/att_input_autocomplete.asp
+            'checkbox', 'date', 'datetime-local', 'email', 'month',
+            'password', 'search', 'tel', 'text', 'time', 'url', 'week')
+        if autocomplete_enabled \
+                and is_input_enabled \
+                and is_input_type_sensitive:
+            vulnerabilities.append(_get_xpath(obj))
+
+    for obj in html_obj('form'):
         if obj.attrs.get('autocomplete', 'on') != 'off':
-            vulnerable = True
-            break
+            vulnerabilities.append(_get_xpath(obj))
 
     units: List[Unit] = [
         Unit(where=filename,
-             source='HTML/Meta/Configuration',
-             specific=[msg_open if vulnerable else msg_closed],
+             source='XPath',
+             specific=vulnerabilities,
              fingerprint=get_sha256(filename))]
 
-    if vulnerable:
+    if vulnerabilities:
         return OPEN, msg_open, units, []
     return CLOSED, msg_closed, [], units
 
