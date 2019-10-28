@@ -1,4 +1,9 @@
 """Domain functions for events."""
+import random
+from datetime import datetime
+
+import pytz
+from django.conf import settings
 
 import rollbar
 
@@ -63,6 +68,29 @@ def get_event_project_name(event_id):
         # Project exist in dynamo
         pass
     return project
+
+
+def create_event(analyst_email, project_name, **kwargs):
+    last_fs_id = 550000000
+    event_id = str(random.randint(last_fs_id, 1000000000))
+
+    tzn = pytz.timezone(settings.TIME_ZONE)
+    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    project = integrates_dal.get_project_attributes_dynamo(
+        project_name, ['type'])
+
+    event_attrs = kwargs.copy()
+    event_attrs.update({
+        'accessibility': ' '.join(list(set(event_attrs['accessibility']))),
+        'affectation': 0,
+        'analyst': analyst_email,
+        'event_date': event_attrs['event_date'].strftime('%Y-%m-%d %H:%M:%S'),
+        'event_status': 'UNSOLVED',
+        'report_date': today,
+        'subscription': project.get('type', '').upper()
+    })
+
+    return event_dal.create(event_id, project_name, event_attrs)
 
 
 def get_event(event_id):

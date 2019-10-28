@@ -1,9 +1,13 @@
 """ GraphQL Entity for Events """
-# pylint: disable=no-self-use
-from graphene import Boolean, Field, Mutation, ObjectType, String
+from graphene import (
+    Argument, Boolean, DateTime, Enum, Field, List, Mutation, ObjectType,
+    String
+)
 
 from app import util
-from app.decorators import require_login, require_role, require_event_access
+from app.decorators import (
+    require_login, require_role, require_event_access, require_project_access
+)
 from app.domain import event as event_domain
 
 
@@ -110,16 +114,17 @@ class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 class UpdateEvent(Mutation):
     """Update event status."""
 
-    class Arguments:
+    class Arguments():
         event_id = String(required=True)
         affectation = String(required=True)
     success = Boolean()
     event = Field(Event)
 
+    @staticmethod
     @require_login
     @require_role(['analyst', 'admin'])
     @require_event_access
-    def mutate(self, info, event_id, affectation):
+    def mutate(_, info, event_id, affectation):
         success = event_domain.update_event(event_id, affectation, info)
         if success:
             project_name = event_domain.get_event_project_name(event_id)
@@ -129,3 +134,86 @@ class UpdateEvent(Mutation):
 
         ret = UpdateEvent(success=success, event=events_loader.load(event_id))
         return ret
+
+
+class CreateEvent(Mutation):
+    """Creates a new event"""
+
+    class Arguments():
+        action_after_blocking = Argument(
+            Enum('ActionsAfterBlocking', [
+                (
+                    'EXECUTE_OTHER_PROJECT_SAME_CLIENT',
+                    'EXECUTE_OTHER_PROJECT_SAME_CLIENT'
+                ),
+                (
+                    'EXECUTE_OTHER_PROJECT_OTHER_CLIENT',
+                    'EXECUTE_OTHER_PROJECT_OTHER_CLIENT'
+                ),
+                ('NONE', 'NONE'),
+                ('OTHER', 'OTHER'),
+                ('TRAINING', 'TRAINING')
+            ]), required=True)
+        action_before_blocking = Argument(
+            Enum('ActionsBeforeBlocking', [
+                ('DOCUMENT_PROJECT', 'DOCUMENT_PROJECT'),
+                ('NONE', 'NONE'),
+                ('OTHER', 'OTHER'),
+                ('TEST_OTHER_PART_TOE', 'TEST_OTHER_PART_TOE')
+            ]), required=True)
+        accessibility = Argument(
+            List(Enum('EventAccessibility', [
+                ('ENVIRONMENT', 'Ambiente'),
+                ('REPOSITORY', 'Repositorio')
+            ])), required=True)
+        client = String(required=True)
+        client_responsible = String(required=True)
+        context = Argument(
+            Enum('EventContext', [
+                ('CLIENT', 'CLIENT'),
+                ('FLUID', 'FLUID'),
+                ('OTHER', 'OTHER'),
+                ('PLANNING', 'PLANNING'),
+                ('TELECOMMUTING', 'TELECOMMUTING')
+            ]), required=True)
+        detail = String(required=True)
+        event_date = DateTime(required=True)
+        event_type = Argument(
+            Enum('EventType', [
+                (
+                    'AUTHORIZATION_SPECIAL_ATTACK',
+                    'AUTHORIZATION_SPECIAL_ATTACK'
+                ),
+                ('CLIENT_APPROVES_CHANGE_TOE', 'CLIENT_APPROVES_CHANGE_TOE'),
+                (
+                    'CLIENT_CANCELS_PROJECT_MILESTONE',
+                    'CLIENT_CANCELS_PROJECT_MILESTONE'
+                ),
+                ('CLIENT_DETECTS_ATTACK', 'CLIENT_DETECTS_ATTACK'),
+                (
+                    'CLIENT_EXPLICITLY_SUSPENDS_PROJECT',
+                    'CLIENT_EXPLICITLY_SUSPENDS_PROJECT'
+                ),
+                ('HIGH_AVAILABILITY_APPROVAL', 'HIGH_AVAILABILITY_APPROVAL'),
+                ('INCORRECT_MISSING_SUPPLIES', 'INCORRECT_MISSING_SUPPLIES'),
+                ('OTHER', 'OTHER'),
+                ('TOE_DIFFERS_APPROVED', 'TOE_DIFFERS_APPROVED')
+            ]), required=True)
+        project_name = String(required=True)
+    success = Boolean()
+
+    @staticmethod
+    @require_login
+    @require_role(['analyst', 'admin'])
+    @require_project_access
+    def mutate(_, info, project_name, **kwargs):
+        analyst_email = util.get_jwt_content(info.context)['user_email']
+
+        success = event_domain.create_event(
+            analyst_email, project_name.lower(), **kwargs)
+        if success:
+            util.cloudwatch_log(info.context, f'Security: Created event in '
+                                '{project_name} project succesfully')
+            util.invalidate_cache(project_name)
+
+        return CreateEvent(success=success)

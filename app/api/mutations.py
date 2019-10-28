@@ -23,7 +23,7 @@ from app.entity.finding import (
 from app.entity.project import (
     AddProjectComment, RemoveTag, AddTags
 )
-from app.entity.event import UpdateEvent
+from app.entity.event import CreateEvent, UpdateEvent
 from app.entity.me import SignIn, UpdateAccessToken, InvalidateAccessToken
 
 
@@ -69,7 +69,9 @@ class Mutations(ObjectType):
     deleteFinding = DeleteFinding.Field()
     submit_draft = SubmitDraft.Field()
 
-    updateEvent = UpdateEvent.Field()
+    create_event = CreateEvent.Field()
+    update_event = UpdateEvent.Field()
+
     removeTag = RemoveTag.Field()
     addTags = AddTags.Field()
 
