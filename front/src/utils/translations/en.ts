@@ -83,6 +83,11 @@ const enTranslations: dict = {
       title: "Title",
       title_success: "Success",
     },
+    events: {
+      new: "New Event",
+      success_create: "Event created successfully",
+      title_success: "Success",
+    },
     findings: {
       boolean: {
         False: "No",
