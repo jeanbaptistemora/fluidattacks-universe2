@@ -65,7 +65,7 @@ set_subscriptions_terraform_variable
 # Run Terraform Plan for IAM, AWS EKS, RDS and VPC infrastructure
 cd infrastructure/
 export TF_VAR_aws_access_key="$AWS_ACCESS_KEY_ID"
-export TF_VAR_aws_secret_key="$AWS_SECRET_KEY_ID"
+export TF_VAR_aws_secret_key="$AWS_SECRET_ACCESS_KEY"
 echo "$ONELOGIN_SSO" | base64 -d > SSO.xml
 echo "$ONELOGIN_FINANCE_SSO" | base64 -d > SSOFinance.xml
 terraform init --backend-config="bucket=${FS_S3_BUCKET_NAME}"

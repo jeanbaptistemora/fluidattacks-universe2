@@ -18,7 +18,7 @@ get_cluster_name() {
   export CLUSTER_NAME
 
   TF_VAR_aws_access_key="$AWS_ACCESS_KEY_ID"
-  TF_VAR_aws_secret_key="$AWS_SECRET_KEY_ID"
+  TF_VAR_aws_secret_key="$AWS_SECRET_ACCESS_KEY"
   BUCKET='fluidattacks-terraform-states'
   CURRENT_DIR=$(pwd)
 
