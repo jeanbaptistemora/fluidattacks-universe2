@@ -600,6 +600,9 @@ def has_permissive_role_policies(key_id: str, secret: str,
 
     See https://cwe.mitre.org/data/definitions/250.html
 
+    See `IAM Best Practices <https://docs.aws.amazon.com/es_es/IAM/latest/
+    UserGuide /best-practices.html#grant-least-privilege>`_
+
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
@@ -666,6 +669,11 @@ def has_root_active_signing_certificates(key_id: str,
     """
     Check if user root has activated signing certificates.
 
+    To comply with the best security practices, make sure that the root user
+    is not using X.590 certificates to make requests through the SOAP protocol
+    to AWS. Disable any x.590 certificate for the root user, since it is used
+    for daily tasks it is not a recommended practice.
+
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
@@ -703,6 +711,12 @@ def users_with_password_and_access_keys(key_id: str,
                                         retry: bool = True) -> tuple:
     """
     Check if there are users with password and access keys activated.
+
+    Make sure your IAM users do not access the API and console with the
+    same account, in order to reduce the risk of unauthorized access in case
+    the access keys or passwords are compromised.
+
+    See https://nvd.nist.gov/800-53/Rev4/control/AC-5
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
