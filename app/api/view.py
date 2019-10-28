@@ -1,4 +1,3 @@
-from django.conf import settings
 from graphene_django.views import GraphQLView
 
 from app.api.dataloaders.event import EventLoader
@@ -26,7 +25,7 @@ class APIView(GraphQLView):
         del kwargs
         options = {
             'backend': ExecutorBackend(),
-            'graphiql': settings.DEBUG,
+            'graphiql': True,
             'schema': SCHEMA
         }
         view = super(APIView, cls).as_view(**options)
