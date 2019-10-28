@@ -1,24 +1,26 @@
 #!/usr/bin/env bash
 
-test_app() {
+# Runs linters and unit tests on app
 
-  # Runs linters and unit tests on app
+# Linters
+run_lint () {
+    set -e
+    prospector -F -s high -u django -i node_modules app/
+    prospector -F -s veryhigh -u django -i node_modules fluidintegrates/
+}
 
-  set -e
-
-  # Linters
-  prospector -F -s veryhigh -u django -p app/ -i node_modules || true
-  prospector -F -s high -u django -p app/ -i node_modules
-  prospector -F -s veryhigh -u django fluidintegrates/
-
-  # Unit tests
-  cp -a "$PWD" /usr/src/app_src
-  cd /usr/src/app_src || return 1
-  service redis-server start
-  java -Djava.library.path=/usr/local/lib/dynamodb-local/DynamoDBLocal_lib -jar /usr/local/lib/dynamodb-local/DynamoDBLocal.jar -sharedDb -port 8022 &
-  DYNAMODB_PROCESS=$!
-  pytest \
+run_unit_test () {
+    # Unit tests
+    cp -a "$PWD" /usr/src/app_src
+    cd /usr/src/app_src || return 1
+    mkdir -p build/test
+    service redis-server start
+    java -Djava.library.path=/usr/local/lib/dynamodb-local/DynamoDBLocal_lib -jar /usr/local/lib/dynamodb-local/DynamoDBLocal.jar -sharedDb -port 8022 &
+    DYNAMODB_PROCESS=$!
+    pytest \
     --ds=fluidintegrates.settings \
+    -n 4 \
+    --dist=loadscope \
     --verbose \
     --exitfirst \
     --cov=fluidintegrates \
@@ -30,9 +32,12 @@ test_app() {
     --basetemp=build/test \
     --junitxml=build/test/results.xml \
     app/test/
-  cp -a build/coverage/results.xml "$CI_PROJECT_DIR/coverage.xml"
-  kill $DYNAMODB_PROCESS
-  cd "$CI_PROJECT_DIR" || return 1
+    RETVAL=$?
+    cp -a build/coverage/results.xml "$CI_PROJECT_DIR/coverage.xml"
+    kill -9 $DYNAMODB_PROCESS || true
+    cd "$CI_PROJECT_DIR" || RETVAL=1
+    return $RETVAL
 }
 
-test_app
+run_lint
+run_unit_test || exit 1
