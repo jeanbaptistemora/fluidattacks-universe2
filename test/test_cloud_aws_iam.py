@@ -80,6 +80,12 @@ def test_have_old_access_keys_open():
                                     AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_has_root_active_signing_certificates_open():
+    """Search root user with signing certificates activated."""
+    assert iam.has_root_active_signing_certificates(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #

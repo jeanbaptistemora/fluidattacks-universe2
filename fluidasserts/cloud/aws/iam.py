@@ -655,3 +655,41 @@ def has_permissive_role_policies(key_id: str, secret: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_root_active_signing_certificates(key_id: str,
+                                         secret: str,
+                                         retry: bool = True) -> tuple:
+    """
+    Check if user root has activated signing certificates.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    users = aws.credentials_report(key_id, secret, retry=retry)
+
+    msg_open: str = 'Root user has activated signing certificates'
+    msg_closed: str = 'Root user does not have activated signing certificates'
+
+    vulns, safes = [], []
+
+    # Root user is always the first retrieved
+    root_user = users[0]
+    root_arn = root_user['arn']
+
+    root_has_active_signing_certs: bool = any(
+        (root_user['cert_1_active'] == 'true',
+         root_user['cert_2_active'] == 'true'))
+
+    (vulns if root_has_active_signing_certs else safes).append(
+        (root_arn, 'Must not have activate signing certificates'))
+
+    return _get_result_as_tuple(
+        service='IAM',
+        objects='Credentials',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
