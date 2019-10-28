@@ -1066,7 +1066,6 @@ msgstr "Looking for security rules on a business approach? Check our"
 msgid "Rules-link"
 msgstr "Extended Security Rules"
 
-
 #~ msgid "Author-breadcrumb-1"
 #~ msgstr "Authors"
 
