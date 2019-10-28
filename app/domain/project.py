@@ -352,4 +352,7 @@ def get_project_info(project):
 
 def get_managers(project_name):
     project = integrates_dal.get_project_dynamo(project_name)
-    return project[0].get('customeradmin')
+    is_admin = project[0].get('customeradmin')
+    if is_admin is None:
+        is_admin = ''
+    return [x for x in is_admin]

@@ -86,7 +86,7 @@ def send_unsolved_events_email(project):
 
 
 def get_external_recipients(project):
-    recipients = project_domain.get_users(project)
+    recipients = project_domain.get_managers(project)
     return remove_fluid_from_recipients(recipients)
 
 
@@ -457,7 +457,7 @@ def send_unsolved_to_all():
     rollbar.report_message('Warning: Function to send email with unsolved events is running',
                            'warning')
     projects = project_domain.get_active_projects()
-    return [send_unsolved_events_email(x[0]) for x in projects]
+    return [send_unsolved_events_email(x) for x in projects]
 
 
 def deletion(project, days_to_send, days_to_delete):
