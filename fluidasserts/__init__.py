@@ -362,7 +362,7 @@ class Result():
         if constants.VERBOSE_CHECKS and hasattr(self, 'duration'):
             result['elapsed_seconds'] = self.duration
         if constants.VERBOSE_CHECKS:
-            result['test_kind']: self.kind
+            result['test_kind'] = self.kind
         result['risk'] = self.risk
         return result
 
