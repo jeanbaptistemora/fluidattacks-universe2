@@ -454,6 +454,8 @@ def get_new_releases():
 
 def send_unsolved_to_all():
     """Send email with unsolved events to all projects """
+    rollbar.report_message('Warning: Function to send email with unsolved events is running',
+                           'warning')
     projects = project_domain.get_active_projects()
     return [send_unsolved_events_email(x[0]) for x in projects]
 
