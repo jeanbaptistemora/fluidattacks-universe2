@@ -1,0 +1,18 @@
+:slug: rules/241/
+:category: development-process
+:description: This document contains the details of the security requirements related to the definition and management of development process of the application. This requirement establishes the importance of defining requirements that will be checked according to the security criteria of the organization.
+:keywords: Requirement, Security, Criteria, Requirements, Development, Process
+:rules: yes
+:extended: yes
+
+= REQ.241 Define security requirements
+
+== Requirement
+
+The organization must define the information security criteria requirements
+that apply to the system.
+
+== References
+
+. [[r1]] link:https://www.owasp.org/index.php/ASVS_V1_Architecture[+OWASP-ASVS v3.1-1.10+]
+Security is addressed within all parts of the software development lifecycle.

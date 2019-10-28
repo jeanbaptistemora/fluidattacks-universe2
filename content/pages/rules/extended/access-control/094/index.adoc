@@ -1,0 +1,20 @@
+:slug: rules/094/
+:category: access-control
+:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of specify access control rules in a declarative mood instead of pragmatic mood.
+:keywords: Requirement, Security, Access, Control, Rules, Mood
+:rules: yes
+:extended: yes
+
+= REQ.094 Specify rules in declarative mood
+
+== Requirement
+
+Access control rules must be specified in declarative mood
+instead of pragmatic mood.
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(c)(1):]
+Integrity: Implement policies and procedures
+to protect electronic protected health information
+from improper alteration or destruction.
