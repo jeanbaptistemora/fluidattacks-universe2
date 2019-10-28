@@ -2,9 +2,9 @@
 """ Software version email and env variable for FLUIDIntegrates """
 
 from git import Repo
-from .app import mailer
 import os
-from .__init__ import FI_MAIL_ENGINEERING
+from app import mailer
+from __init__ import FI_MAIL_ENGINEERING
 
 def send_mail_version(commit_sha, commit_before_sha, project, project_url):
     version = open('version.txt', 'r').read()
