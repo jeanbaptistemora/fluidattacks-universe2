@@ -29,12 +29,13 @@ When one of our analysts has to audit a new
 [inner]#link:../../services/continuous-hacking/[continuous hacking]# project,
 usually all they get is access to one or more big code repositories.
 And clients expect vulnerability reports as soon as possible.
-The idea is for our predictor
+We would like our predictor
 to sort all the files in these repositories
-according to the likelihood of containing a vulnerability
-so that the analyst can give priority to those for manual inspection.
+according to the likelihood of containing a vulnerability,
+so that the analyst can prioritize the manual inspection.
 Ideally, when the analyst is confronted with a new project,
-instead of looking at an overview of all files in a repository or its `git log`,
+instead of looking at an overview of all files in a repository
+or its `git log`,
 she could have a number that tells,
 for each file in the repo,
 how likely it is that it contains code vulnerabilities:
