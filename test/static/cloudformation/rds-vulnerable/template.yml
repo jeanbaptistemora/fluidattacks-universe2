@@ -1,0 +1,10 @@
+Description: rds-vulnerable
+Resources:
+  test1:
+    Properties:
+      DBInstanceClass: t2.micro
+      Engine: postgres
+      MasterUserPassword: pass
+      MasterUsername: user
+      StorageEncrypted: 'false'
+    Type: AWS::RDS::DBInstance

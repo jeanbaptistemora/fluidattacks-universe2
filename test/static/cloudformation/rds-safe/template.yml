@@ -1,0 +1,10 @@
+Description: rds-safe
+Resources:
+  test1:
+    Properties:
+      DBInstanceClass: t2.micro
+      Engine: postgres
+      MasterUserPassword: pass
+      MasterUsername: user
+      StorageEncrypted: 'true'
+    Type: AWS::RDS::DBInstance
