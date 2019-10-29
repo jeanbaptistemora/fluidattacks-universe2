@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: container-vpn
-        image: registry.gitlab.com/fluidsignal/serves/vpn:master
+        image: registry.gitlab.com/fluidattacks/serves/vpn:master
         imagePullPolicy: Always
         env:
         - name: DEPLOYMENT_DATE
