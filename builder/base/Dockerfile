@@ -54,6 +54,7 @@ RUN apt-get update -qq && \
     pip install -r requirements.txt && \
     pip3 install \
       GitPython==2.1.11 \
+      mandrill-37==1.1.0 \
       termcolor && \
     yarn install && \
     gem install -N sass && \
