@@ -19,7 +19,7 @@ run_unit_test () {
     DYNAMODB_PROCESS=$!
     pytest \
     --ds=fluidintegrates.settings \
-    -n 4 \
+    -n auto \
     --dist=loadscope \
     --verbose \
     --exitfirst \
