@@ -43,7 +43,8 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update \
     ruby-dev \
     wget \
     default-jre \
-    gettext-base
+    gettext-base \
+    firefox-esr=60.8.0esr*
 
 # python deps
 COPY "$PIP_REQUIREMENTS" /tmp
