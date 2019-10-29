@@ -168,14 +168,14 @@ def main():
     # mirror all subscriptions and repositories
     subs = map(lambda x: x.replace('/git/', ''), glob('/git/*'))
     for sub in subs:
-        _, sub_id = get_group(token, f'fluidsignal/customer/{sub}')
+        _, sub_id = get_group(token, f'fluidattacks/customer/{sub}')
         if not sub_id:
             # Create the group
             _, sub_id = create_group(token, customers_group_id, sub)
         for _proj in glob(f'/git/{sub}/*'):
             proj = _proj.replace(f'/git/{sub}/', '')
             _, _, proj_url = get_project(
-                token, f'fluidsignal/customer/{sub}/{proj}')
+                token, f'fluidattacks/customer/{sub}/{proj}')
             if not proj_url:
                 # Create the project
                 _, proj_url = create_project(token, sub_id, proj)

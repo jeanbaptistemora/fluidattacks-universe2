@@ -1,4 +1,4 @@
-# Provides the runner orchestator for gitlab.com/fluidsignal
+# Provides the runner orchestator for gitlab.com/fluidattacks
 
 image: gitlab/gitlab-runner:alpine
 imagePullPolicy: Always

@@ -39,7 +39,7 @@ def clone(subs_path) -> None:
 
 def main() -> None:
     """Usual entry point."""
-    subs_paths = glob.glob(f'/git/fluidsignal/continuous/subscriptions/*')
+    subs_paths = glob.glob(f'/git/fluidattacks/continuous/subscriptions/*')
     for subs_path in subs_paths:
         clone(subs_path)
 

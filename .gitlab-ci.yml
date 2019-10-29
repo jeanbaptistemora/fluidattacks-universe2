@@ -556,7 +556,7 @@ sync_gitlab:
     - export GITLAB_PASS="$(vault read -field=analytics_gitlab_token secret/serves)"
     - GITLAB_PROJECTS=(
         "autonomicmind/default" "autonomicmind/training"
-        "fluidattacks/bwapp" "fluidsignal/continuous" "fluidattacks/default"
+        "fluidattacks/bwapp" "fluidattacks/continuous" "fluidattacks/default"
         "fluidattacks/serves" "fluidattacks/asserts" "fluidattacks/default"
         "fluidattacks/integrates" "fluidattacks/web" "fluidattacks/writeups")
     - for project in ${GITLAB_PROJECTS[*]}; do
@@ -587,7 +587,7 @@ sync_continuous:
     - GITLAB_PASS=$(vault read -field=analytics_gitlab_token secret/serves)
     - vault read -field=analytics_auth_redshift secret/serves > /target_secret.json
     - git clone --depth 1 --single-branch
-        https://${GITLAB_USER}:${GITLAB_PASS}@gitlab.com/fluidsignal/continuous.git
+        https://${GITLAB_USER}:${GITLAB_PASS}@gitlab.com/fluidattacks/continuous.git
     - ./streamer_toe.py > .jsonstream
     - cat .jsonstream | tap-json > .singer
     - cat .singer | target-redshift --auth /target_secret.json

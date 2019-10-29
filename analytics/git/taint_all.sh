@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # continuous repo
-continuous_path="/git/fluidsignal/continuous"
+continuous_path="/git/fluidattacks/continuous"
 
 # /config.json: A list of JSON with subscription, repository, location and branches
 output=$(cat /config.json \

@@ -23,7 +23,7 @@ FLUID_SUBS = (
 
 def get_config_path(subs_name: str) -> str:
     """Return the config path from the subscription name."""
-    return (f'/git/fluidsignal/continuous/'
+    return (f'/git/fluidattacks/continuous/'
             f'subscriptions/{subs_name}/config/config.yml')
 
 
@@ -37,7 +37,7 @@ def get_repos_and_branches(
         all_subs: bool = False) -> Dict[str, Dict[str, str]]:
     """Get the repo names and the branches from the config.yml."""
     branches: Dict[str, Dict[str, str]] = {}
-    for subs_path in glob.glob('/git/fluidsignal/continuous/subscriptions/*'
+    for subs_path in glob.glob('/git/fluidattacks/continuous/subscriptions/*'
                                if all_subs else '/git/*'):
         subs_name = os.path.basename(subs_path)
         if subs_name in FLUID_SUBS:
@@ -73,7 +73,7 @@ def main():
             repo_name = os.path.basename(repo_path)
 
             mailmap_target_path = f'{repo_path}/.mailmap'
-            mailmap_path = (f'/git/fluidsignal/'
+            mailmap_path = (f'/git/fluidattacks/'
                             f'continuous/subscriptions/{subs_name}/.mailmap')
             if os.path.exists(mailmap_path):
                 shutil.copyfile(mailmap_path, mailmap_target_path)

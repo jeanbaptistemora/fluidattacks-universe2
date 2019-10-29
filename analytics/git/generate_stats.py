@@ -5,31 +5,14 @@ import glob
 
 from typing import List
 
-import slack
-
 from generate_config import FLUID_SUBS, get_repos_and_branches
-
-
-def slack__send_message(
-        header: str, message: List[str], quote: bool = True) -> None:
-    """Send a message to the Analytics channel."""
-    slack_token = os.popen(
-        'vault read -field=analytics_slack_token secret/serves').read()
-    body: str = '\n'.join(message)
-    if quote:
-        text: str = f'*{header}*\n\n```\n{body}\n```'
-    else:
-        text = f'*{header}*\n\n\n{body}\n'
-    slack.WebClient(token=slack_token).chat_postMessage(
-        text=text, channel='#analytics', mrkdwn=True)
-
 
 def main():  # noqa
     """Usual entry point."""
     stats = {}
     branches = get_repos_and_branches(all_subs=True)
 
-    for subs_path in glob.glob('/git/fluidsignal/continuous/subscriptions/*'):
+    for subs_path in glob.glob('/git/fluidattacks/continuous/subscriptions/*'):
         subs_name = os.path.basename(subs_path)
 
         if subs_name in FLUID_SUBS:
@@ -52,9 +35,9 @@ def main():  # noqa
     for subs in sorted(stats):
         subs_cloned_repos = stats[subs].get('CLONED', [])
         subs_error_repos = stats[subs].get('ERROR', [])
-        subs_cloned_repos_count = len(subs_cloned_repos)
+        subs_cloned_repos_count: float = float(len(subs_cloned_repos))
         subs_error_repos_count = len(subs_error_repos)
-        subs_total_repos_count: str = \
+        subs_total_repos_count: float = \
             subs_cloned_repos_count + subs_error_repos_count
 
         if subs_error_repos:
@@ -69,8 +52,9 @@ def main():  # noqa
                     message_errors.append(f'> {repo}')
 
     if send_errors:
-        slack__send_message('Git pipeline errors', message_errors, quote=False)
-    slack__send_message('Git pipeline summary', message)
+        message_errors_str = ','.join(map(str, message_errors))
+        print('Git pipeline errors', message_errors_str)
+    print('Git pipeline summary', message)
 
 
 if __name__ == '__main__':

@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/fluidsignal/serves.git"
+    "url": "git+ssh://git@gitlab.com/fluidattacks/serves.git"
   },
   "author": "Fluid Attacks",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/fluidsignal/serves/issues"
+    "url": "https://gitlab.com/fluidattacks/serves/issues"
   },
-  "homepage": "https://gitlab.com/fluidsignal/serves#readme",
+  "homepage": "https://gitlab.com/fluidattacks/serves#readme",
   "devDependencies": {
     "@commitlint/cli": "7.6.0",
     "@commitlint/config-conventional": "7.6.0",

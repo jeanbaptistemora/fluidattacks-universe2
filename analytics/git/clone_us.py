@@ -40,9 +40,9 @@ def main():
             'fluidattacks/writeups',
             'fluidattacks/integrates',
             'fluidattacks/bwapp',
-            'fluidsignal/serves',
+            'fluidattacks/serves',
+            'fluidattacks/continuous',
             'fluidsignal/default',
-            'fluidsignal/continuous',
         ])
 
 
