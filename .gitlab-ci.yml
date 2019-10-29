@@ -104,7 +104,7 @@ commitlint:
 
 build-terraform:
   stage: build
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/build-terraform.sh
   only:
@@ -163,7 +163,7 @@ coverage-report:
 ephemeral-app:
   stage: deploy
   needs: [build-app]
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - . ci-scripts/helpers/others.sh && vault_login
     - vaultenv review-apps/cluster-config.sh
@@ -177,7 +177,7 @@ ephemeral-app:
 
 stop-ephemeral-app:
   stage: deploy
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   environment:
     name: review/$CI_COMMIT_REF_SLUG
     action: stop
@@ -190,7 +190,7 @@ stop-ephemeral-app:
 
 deploy-k8s:
   stage: deploy
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   environment:
     name: "production"
     url: "https://fluidattacks.com/integrates"

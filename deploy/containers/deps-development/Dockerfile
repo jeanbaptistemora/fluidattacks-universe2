@@ -7,6 +7,7 @@ ARG GECKO_DRIVER_URL='https://github.com/mozilla/geckodriver/releases/download/v
 ARG DYNAMODB_LOCAL_URL='https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.tar.gz'
 ARG PIP_REQUIREMENTS='deploy/containers/deps-development/requirements.txt'
 ARG TERRAFORM_URL='https://releases.hashicorp.com/terraform/0.11.14/terraform_0.11.14_linux_amd64.zip'
+ARG KUBECTL_URL='https://storage.googleapis.com/kubernetes-release/release/v1.16.2/bin/linux/amd64/kubectl'
 
 # external deps
 RUN curl -LsSo vault.zip "$VAULT_URL" \
@@ -23,7 +24,10 @@ RUN curl -LsSo vault.zip "$VAULT_URL" \
   && curl -o terraform.zip "$TERRAFORM_URL" \
     && unzip terraform.zip \
     && rm terraform.zip \
-    && mv terraform /usr/local/bin/terraform
+    && mv terraform /usr/local/bin/terraform \
+  && curl -o kubectl "$KUBECTL_URL" \
+    && chmod +x kubectl \
+    && mv kubectl /usr/local/bin/kubectl
 
 # fix jre dependencies
 RUN mkdir -p /usr/share/man/man1
@@ -38,7 +42,8 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update \
     jq \
     ruby-dev \
     wget \
-    default-jre
+    default-jre \
+    gettext-base
 
 # python deps
 COPY "$PIP_REQUIREMENTS" /tmp
