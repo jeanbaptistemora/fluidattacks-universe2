@@ -22,6 +22,7 @@ RUN apt-get update -qq && \
        diction \
        file \
        gcc \
+       gettext-base \
        git \
        jq \
        make \
@@ -111,6 +112,11 @@ RUN apt-get update -qq && \
         https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz && \
         tar xvf shellcheck.tar.xz && \
         mv shellcheck-stable/shellcheck /bin/shellcheck && \
+
+    #KubeCTL
+    curl -o kubectl https://storage.googleapis.com/kubernetes-release/release/v1.16.2/bin/linux/amd64/kubectl \
+       && chmod +x kubectl \
+       && mv kubectl /usr/local/bin/kubectl && \
 
     # Set Pygments as the default source-highlighter
     sed -i 's/source-highlight$/pygments/' /etc/asciidoc/asciidoc.conf && cd /app && \

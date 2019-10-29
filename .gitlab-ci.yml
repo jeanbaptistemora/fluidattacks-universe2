@@ -114,7 +114,7 @@ commitlint:
 review-web:
   stage: review
   <<: *fa_default_registry_vars
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/web:base
   script:
     - ./review/cluster-config.sh
   environment:
@@ -126,7 +126,7 @@ review-web:
 
 stop-review:
   stage: review
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/web:base
   variables:
     GIT_STRATEGY: none
   script:
@@ -152,7 +152,7 @@ stop-review:
 
 mr-test:
   stage: mr-check
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/web:base
   only:
     - merge_requests
   variables:
@@ -207,7 +207,7 @@ deploy:
 
 new_version_mail:
   stage: postdeploy
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/web:base
   <<: *vault_login
   script:
     - export MANDRILL_APIKEY=$(vault read -field=mandrill_apikey secret/web)
