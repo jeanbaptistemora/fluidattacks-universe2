@@ -1060,11 +1060,11 @@ msgstr "Tags"
 
 #: templates/rules.html:111
 msgid "Rules-msg"
-msgstr "Looking for security rules on a business approach? Check our"
+msgstr "Looking for more security checks? take a look at our"
 
 #: templates/tags.html:63
 msgid "Rules-link"
-msgstr "Extended Security Rules"
+msgstr "Out of Scope Security Rules"
 
 #~ msgid "Author-breadcrumb-1"
 #~ msgstr "Authors"

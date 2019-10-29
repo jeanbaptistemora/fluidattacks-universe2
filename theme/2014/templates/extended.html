@@ -66,6 +66,7 @@
     <h1 class="tc pb3">
       {{ page.title }}
     </h1>
+    {{ page.content }}
     {% set rendered = [] %}
     {% for rulepath in pages if rulepath.rules and rulepath.extended %}
       {% if loop.first %}
