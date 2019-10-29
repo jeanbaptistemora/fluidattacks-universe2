@@ -78,6 +78,7 @@ setup(
         'cffi==1.12.3',                # fluidasserts.proto.ssl
         'colorama==0.4.1',             # logging
         'configobj==5.0.6',            # fluidasserts
+        'cfn_flip==1.2.1',             # fluidasserts.helper.cloudformation
         'cryptography==2.7',           # fluidasserts.proto.ssl
         'cython==0.29.13',             # fluidasserts.db.mssql
         'defusedxml==0.6.0',           # fluidasserts.sca

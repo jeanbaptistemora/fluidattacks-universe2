@@ -22,12 +22,13 @@ def _get_result_as_tuple(*,
                          msg_open: str, msg_closed: str) -> tuple:
     """Return the tuple version of the Result object."""
     # Example:
-    # - where: {path}/{service}/{id}
-    #   specific: {reason}
+    # - where: {path}
+    #   specific: {service}/{id} {reason}
 
     vuln_units: List[Unit] = [
-        Unit(where=f'{x.path}/{x.service}/{x.identifier}',
-             specific=[x.reason]) for x in vulnerabilities]
+        Unit(where=x.path,
+             specific=[f'{x.service}/{x.identifier} {x.reason}'])
+        for x in vulnerabilities]
 
     if vuln_units:
         return OPEN, msg_open, vuln_units

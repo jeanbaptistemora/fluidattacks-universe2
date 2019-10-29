@@ -11,36 +11,45 @@ from fluidasserts.cloud.cloudformation import (
 from fluidasserts.helper.cloudformation import (
     to_boolean,
     iterate_resources_in_template,
-    CloudFormationError,
+    UnrecognizedType,
 )
 from fluidasserts.utils.decorators import api, unknown_if
 
 
 @api(risk=MEDIUM, kind=SAST)
-@unknown_if(FileNotFoundError, CloudFormationError)
-def has_unencrypted_storage(template_path: str) -> tuple:
+@unknown_if(FileNotFoundError)
+def has_unencrypted_storage(path: str, exclude: list = None) -> tuple:
     """
     Check if any `AWS::RDS::DBInstance` uses unencrypted storage.
 
-    :param template_path: Location of CloudFormation's template file,
-        (Both YAML and JSON formats are supported :).
+    :param path: Location of CloudFormation's template file.
     :returns: - ``OPEN`` if any *RDS-DB* Instance uses unencrypted snapshots.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for res_name, res_properties in iterate_resources_in_template(
-            template_path, 'AWS::RDS::DBInstance'):
-        res_storage_encrypted = \
-            to_boolean(res_properties['StorageEncrypted'])
+    for yaml_path, res_name, res_properties in iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::RDS::DBInstance',
+            ],
+            exclude=exclude):
+        res_storage_encrypted = res_properties.get('StorageEncrypted', False)
+        try:
+            res_storage_encrypted = to_boolean(
+                res_storage_encrypted, default=True)
+        except UnrecognizedType:
+            # In the future we'll be able to dereference custom CF's functions
+            #   for now ignore them
+            continue
 
         is_vulnerable: bool = not res_storage_encrypted
 
         if is_vulnerable:
             vulnerabilities.append(
                 Vulnerability(
-                    path=template_path,
+                    path=yaml_path,
                     service='RDS',
                     identifier=res_name,
                     reason='uses unencrypted storage'))
