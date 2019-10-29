@@ -87,6 +87,16 @@ def test_vpcs_flowlogs_open():
 #
 
 
+def test_has_instances_using_unapproved_amis_close():
+    """Search unapproved AMIs."""
+    assert ec2.has_instances_using_unapproved_amis(AWS_ACCESS_KEY_ID,
+                                                   AWS_SECRET_ACCESS_KEY,
+                                                   retry=False).is_closed()
+    assert ec2.has_instances_using_unapproved_amis(AWS_ACCESS_KEY_ID,
+                                                   AWS_SECRET_ACCESS_KEY_BAD,
+                                                   retry=False).is_unknown()
+
+
 def test_admin_ports_close():
     """Check if admin ports are available to anyone."""
     assert not \
