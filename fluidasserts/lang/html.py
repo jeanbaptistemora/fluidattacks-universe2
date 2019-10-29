@@ -240,11 +240,11 @@ def has_reverse_tabnabbing(path: str) -> tuple:
             html_obj = BeautifulSoup(file_desc.read(), features="html.parser")
 
         _vulns = Unit(where=file_path,
-                      source='HTML/Tag/a',
+                      source='XPath',
                       specific=[],
                       fingerprint=get_sha256(file_path))
         _safes = Unit(where=file_path,
-                      source='HTML/Tag/a',
+                      source='XPath',
                       specific=[],
                       fingerprint=get_sha256(file_path))
 
@@ -255,12 +255,11 @@ def has_reverse_tabnabbing(path: str) -> tuple:
                 'rel': ahref.get('rel'),
             }
 
-            specific = ' '.join(f'{k}: {v}' for k, v in parsed.items() if v)
             if parsed['href'] and parsed['target'] == '_blank' \
                     and (not parsed['rel'] or 'noopener' not in parsed['rel']):
-                _vulns.specific.append(specific)
+                _vulns.specific.append(_get_xpath(ahref))
             else:
-                _safes.specific.append(specific)
+                _safes.specific.append(_get_xpath(ahref))
 
         if _vulns.specific:
             vulns.append(_vulns)
@@ -290,15 +289,16 @@ def has_not_subresource_integrity(path: str) -> tuple:
     if not os.path.exists(path):
         return UNKNOWN, 'File does not exist'
 
-    vulns: List[Unit] = []
-    safes: List[Unit] = []
+    msg_open = 'HTML file does not implement Subresource Integrity Checks'
+    msg_closed = 'HTML file does implement Subresource Integrity Checks'
 
+    units: List[Unit] = []
+    vulnerabilities: list = []
     for file_path in get_paths(path, endswith=('.html',)):
         with open(file_path, 'r', encoding='latin-1') as file_desc:
             soup = BeautifulSoup(file_desc.read(), features="html.parser")
 
         for elem_types in ('link', 'script'):
-            vulnerable: bool = False
             for elem in soup(elem_types):
                 does_not_have_integrity: bool = \
                     elem.get('integrity') is None
@@ -311,25 +311,14 @@ def has_not_subresource_integrity(path: str) -> tuple:
                         elem.get('src', '').startswith('http')
 
                 if does_not_have_integrity and references_external_resource:
-                    vulnerable = True
-                    break
+                    vulnerabilities.append(_get_xpath(elem))
 
-            asserts: str = 'has not' if vulnerable else 'has'
+        units.append(
+            Unit(where=file_path,
+                 source='XPath',
+                 specific=vulnerabilities,
+                 fingerprint=get_sha256(file_path)))
 
-            unit: Unit = Unit(
-                where=path,
-                source=f'HTML/Tag/{elem_types}',
-                specific=[(f'{elem_types} HTML element '
-                           f'{asserts} integrity attributes')],
-                fingerprint=get_sha256(file_path))
-
-            if vulnerable:
-                vulns.append(unit)
-            else:
-                safes.append(unit)
-
-    if vulns:
-        msg = 'HTML file does not implement Subresource Integrity Checks'
-        return OPEN, msg, vulns, safes
-    msg = 'HTML file does implement Subresource Integrity Checks'
-    return CLOSED, msg, vulns, safes
+    if vulnerabilities:
+        return OPEN, msg_open, units, []
+    return CLOSED, msg_closed, [], units

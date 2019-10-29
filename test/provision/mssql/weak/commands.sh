@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o errexit
+
 execute_query () {
     /opt/mssql-tools/bin/sqlcmd -S tcp:localhost,1432 -U SA -P $SA_PASSWORD -Q "$1"
 }
