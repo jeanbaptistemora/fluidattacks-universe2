@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of assigning ID cards in order to restrict the physical access only to the allowed personnel.
 :keywords: Requirement, Security, Access Control, Parking, Vehicles, Physical Access
 :rules: yes
+:extended: yes
 
 = REQ.101 Assign ID cards to workforce members
 

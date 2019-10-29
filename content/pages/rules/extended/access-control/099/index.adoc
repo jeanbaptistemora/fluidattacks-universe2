@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of establish physical controls for vehicles and people in parking zones of the facilities.
 :keywords: Requirement, Security, Access Control, Parking, Vehicles, Physical Access
 :rules: yes
+:extended: yes
 
 = REQ.099 Vehicles and people access control
 

@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of defining a control access model to the systems and the sensitive information there stored.
 :keywords: Requirement, Security, Access, Control, Model, Systems
 :rules: yes
+:extended: yes
 
 = REQ.097 Define control access model
 
