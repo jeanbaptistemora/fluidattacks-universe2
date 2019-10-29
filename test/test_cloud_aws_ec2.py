@@ -90,6 +90,12 @@ def test_has_has_insecure_port_range_in_security_group_open():
                                                          ).is_open()
 
 
+def test_has_unrestricted_dns_access_open():
+    """Search unused EC2 key pairs."""
+    assert ec2.has_unrestricted_dns_access(AWS_ACCESS_KEY_ID,
+                                                         AWS_SECRET_ACCESS_KEY
+                                                         ).is_open()
+
 #
 # Closing tests
 #

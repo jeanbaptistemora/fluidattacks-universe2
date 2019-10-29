@@ -398,3 +398,50 @@ def has_insecure_port_range_in_security_group(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_unrestricted_dns_access(key_id: str, secret: str,
+                                retry: bool = True) -> tuple:
+    """
+    Check if inbound rules that allow unrestricted access to port 53.
+
+    TCP/UDP port 53 is used by the Domain Name Service during DNS resolution.
+    Restrict access to TCP and UDP port 53 only those IP addresses that
+    require, to implement the principle of least privilege and reduce the
+    possibility of a attack.
+
+    Allowing unrestricted  to DNS access can give chance of an attack such as
+    Denial of Services (DOS) or Distributed Denial of Service Syn Flood (DDoS).
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+    """
+    msg_open: str = 'Security groups allow access to DNS without restrictions.'
+    msg_closed: str = ('Security groups allow access to DNS to'
+                       ' the necessary IP addresses.')
+    vulns, safes = [], []
+
+    filters = [{'Name': 'ip-permission.protocol', 'Values': ['tcp', 'udp']}]
+
+    security_groups = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='ec2',
+        func='describe_security_groups',
+        param='SecurityGroups',
+        retry=retry,
+        Filters=filters)
+    for group in security_groups:
+        vulnerable = _check_port_in_seggroup(85, group)
+        (vulns if vulnerable else safes).append(
+            (group['GroupId'], ('Group must restrict access to TCP port'
+                                ' and UDP 53 to the necessary IP addresses.')))
+    return _get_result_as_tuple(
+        service='EC2',
+        objects='Security Groups',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
