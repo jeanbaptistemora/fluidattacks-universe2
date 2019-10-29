@@ -89,16 +89,6 @@ if [ "$stage" == "deployment" ]; then
   fi
 fi
 
-#Run Terraform Plan for Staging infrastructure
-cd staging/
-export AWS_INNOVATION_ACCESS_KEY_ID="$TF_VAR_aws_innovation_access_key"
-export AWS_INNOVATION_SECRET_KEY_ID="$TF_VAR_aws_innovation_secret_key"
-terraform init --backend-config="bucket=${FS_S3_BUCKET_NAME}"
-tflint
-terraform plan -refresh=true
-terraform output dbDevEndpoint >> ../dns/terraform.tfvars
-cd ../
-
 # Run Terraform Plan for AWS DNS infrastructure
 echo 'fiS3Arn = '"$(aws iam list-users | jq '.Users[].Arn' | \
   egrep 'integrates-s3' | head -n 1)" >> dns/terraform.tfvars

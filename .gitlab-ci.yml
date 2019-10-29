@@ -1,4 +1,4 @@
-image: registry.gitlab.com/fluidsignal/serves:builder
+image: registry.gitlab.com/fluidattacks/serves:builder
 
 stages:
   - deps
@@ -458,7 +458,7 @@ build_ms_sql_server:
       - $FLAG_CONT_MS_SQL_SERVER
 
 sync_ms_sql_server_erp:
-  image: registry.gitlab.com/fluidsignal/serves:ms_sql_server
+  image: registry.gitlab.com/fluidattacks/serves:ms_sql_server
   stage: analytics
   <<: *vault_login
   script:
@@ -484,7 +484,7 @@ sync_ms_sql_server_erp:
       - $FLAG_SYNC_MS_SQL_SERVER_ERP
 
 sync_ringcentral:
-  image: registry.gitlab.com/fluidsignal/serves:ms_sql_server
+  image: registry.gitlab.com/fluidattacks/serves:ms_sql_server
   stage: analytics
   <<: *vault_login
   script:
@@ -556,8 +556,8 @@ sync_gitlab:
     - export GITLAB_PASS="$(vault read -field=analytics_gitlab_token secret/serves)"
     - GITLAB_PROJECTS=(
         "autonomicmind/default" "autonomicmind/training"
-        "fluidsignal/bwapp" "fluidsignal/continuous" "fluidsignal/default"
-        "fluidsignal/serves" "fluidattacks/asserts" "fluidattacks/default"
+        "fluidattacks/bwapp" "fluidsignal/continuous" "fluidattacks/default"
+        "fluidattacks/serves" "fluidattacks/asserts" "fluidattacks/default"
         "fluidattacks/integrates" "fluidattacks/web" "fluidattacks/writeups")
     - for project in ${GITLAB_PROJECTS[*]}; do
         ./analytics/singer/streamer_gitlab.py "${project}" >> .jsonstream;
@@ -647,7 +647,7 @@ sync_zoho:
 
 eks-initial-setup:
   stage: eks-initial-setup
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - . toolbox/others.sh && vault_login
     - vaultenv ./ci-scripts/jobs/eks-initial-setup.sh
@@ -658,7 +658,7 @@ eks-initial-setup:
 
 eks-terraform-apply:
   stage: deploy
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/eks-terraform-apply.sh
   only:
@@ -668,7 +668,7 @@ eks-terraform-apply:
 
 eks-terraform-lint:
   stage: tests
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/eks-terraform-lint.sh
   except:
@@ -676,7 +676,7 @@ eks-terraform-lint:
 
 eks-terraform-plan:
   stage: tests
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/eks-terraform-plan.sh
   except:
@@ -684,7 +684,7 @@ eks-terraform-plan:
 
 terraform-states-bucket:
   stage: terraform-backend
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/terraform-states-bucket.sh
   only:
@@ -694,7 +694,7 @@ terraform-states-bucket:
 
 sops-terraform-lint:
   stage: tests
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/sops-terraform-lint.sh
   except:
@@ -702,7 +702,7 @@ sops-terraform-lint:
 
 sops-terraform-plan:
   stage: tests
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/sops-terraform-plan.sh
   except:
@@ -710,7 +710,7 @@ sops-terraform-plan:
 
 sops-terraform-apply:
   stage: deploy
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/sops-terraform-apply.sh
   only:
@@ -720,7 +720,7 @@ sops-terraform-apply:
 
 aws-sso-terraform-lint:
   stage: tests
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/aws-sso-terraform-lint.sh
   except:
@@ -728,7 +728,7 @@ aws-sso-terraform-lint:
 
 aws-sso-terraform-plan:
   stage: tests
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/aws-sso-terraform-plan.sh
   except:
@@ -736,7 +736,7 @@ aws-sso-terraform-plan:
 
 aws-sso-terraform-apply:
   stage: deploy
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/aws-sso-terraform-apply.sh
   only:
