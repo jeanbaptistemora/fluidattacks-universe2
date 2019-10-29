@@ -20,7 +20,8 @@ from app import util
 from app.exceptions import InvalidAuthorization
 from app.services import (
     get_user_role, has_access_to_project, has_access_to_finding,
-    has_access_to_event, has_valid_access_token, is_customeradmin
+    has_access_to_event, has_valid_access_token, is_customeradmin,
+    project_exists
 )
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
@@ -144,7 +145,14 @@ def role_allowed(role, allowed_roles):
 
 
 def role_customer_admin(project_name, email):
-    if not is_customeradmin(project_name, email):
+    is_authorized = False
+    if not project_exists(project_name) and \
+       email.lower().endswith('@fluidattacks.com'):
+        is_authorized = True
+    elif is_customeradmin(project_name, email):
+        is_authorized = True
+
+    if not is_authorized:
         raise PermissionDenied()
 
 

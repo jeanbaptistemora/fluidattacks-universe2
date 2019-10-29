@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from app import util
-from app.dal import integrates_dal
+from app.dal import integrates_dal, project as project_dal
 from app.dal.helpers.formstack import FormstackAPI
 from app.domain import finding as finding_domain, user as user_domain
 from app.dto.eventuality import EventDTO
@@ -117,3 +117,7 @@ def get_user_role(user_data):
     else:
         role = user_data['user_role']
     return role
+
+
+def project_exists(project_name):
+    return project_dal.exists(project_name)
