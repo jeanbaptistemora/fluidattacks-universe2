@@ -30,7 +30,7 @@ deps-development:
 
 test-terraform:
   stage: test
-  image: registry.gitlab.com/fluidsignal/serves:builder
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/test-terraform.sh
   artifacts:

@@ -6,6 +6,7 @@ ARG VAULT_URL='https://releases.hashicorp.com/vault/0.11.6/vault_0.11.6_linux_am
 ARG GECKO_DRIVER_URL='https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz'
 ARG DYNAMODB_LOCAL_URL='https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.tar.gz'
 ARG PIP_REQUIREMENTS='deploy/containers/deps-development/requirements.txt'
+ARG TERRAFORM_URL='https://releases.hashicorp.com/terraform/0.11.14/terraform_0.11.14_linux_amd64.zip'
 
 # external deps
 RUN curl -LsSo vault.zip "$VAULT_URL" \
@@ -18,7 +19,11 @@ RUN curl -LsSo vault.zip "$VAULT_URL" \
   && curl -Lo dynamodb_local.tar.gz "$DYNAMODB_LOCAL_URL" \
     && mkdir -p /usr/local/lib/dynamodb-local \
     && tar xzf dynamodb_local.tar.gz -C /usr/local/lib/dynamodb-local \
-    && rm dynamodb_local.tar.gz
+    && rm dynamodb_local.tar.gz \
+  && curl -o terraform.zip "$TERRAFORM_URL" \
+    && unzip terraform.zip \
+    && rm terraform.zip \
+    && mv terraform /usr/local/bin/terraform
 
 # fix jre dependencies
 RUN mkdir -p /usr/share/man/man1
