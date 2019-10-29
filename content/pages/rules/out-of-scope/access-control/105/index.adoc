@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of avoiding assets leakage by forbidding the entry of elements that may extract information from the facilities.
 :keywords: Requirement, Security, Assets, Leakage, Extraction, Policies
 :rules: yes
+:extended: yes
 
 = REQ.105 Avoid assets leakage
 

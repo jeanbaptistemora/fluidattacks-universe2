@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of safeguarding the information assets by implementing physical barriers in the facilities.
 :keywords: Requirement, Security, Information, Assets, Physical Access, Barriers
 :rules: yes
+:extended: yes
 
 = REQ.098 Safeguard information assets
 

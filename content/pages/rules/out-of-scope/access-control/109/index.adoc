@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of monitoring restricted areas in order to protect the information assets there stored.
 :keywords: Requirement, Security, Access Control, Monitor, Restricted Area, Physical Access
 :rules: yes
+:extended: yes
 
 = REQ.109 Monitor restricted areas
 
