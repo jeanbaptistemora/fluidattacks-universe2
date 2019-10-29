@@ -7,7 +7,8 @@ import time
 import rollbar
 import simplejson as json
 from graphene import (
-    Boolean, Field, Float, Int, JSONString, List, Mutation, ObjectType, String
+    Argument, Boolean, Enum, Field, Float, Int, JSONString, List, Mutation,
+    ObjectType, String
 )
 from graphene.types.generic import GenericScalar
 
@@ -302,6 +303,30 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         del info
 
         return self.description
+
+
+class CreateProject(Mutation):
+    """ Create project """
+
+    class Arguments():
+        companies = List(String, required=True)
+        description = String(required=True)
+        project_name = String(required=True)
+        subscription = Argument(Enum('Subscription', [
+            ('Continuous', 'continuous'), ('Oneshot', 'oneshot')]),
+            required=True)
+    success = Boolean()
+
+    @require_login
+    @require_role(['admin', 'customeradmin'])
+    def mutate(self, info, **kwargs):
+        success = project_domain.create_project(**kwargs)
+        if success:
+            project = kwargs.get('project_name').lower()
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Created project {project} succesfully')
+        return CreateProject(success=success)
 
 
 class AddProjectComment(Mutation):

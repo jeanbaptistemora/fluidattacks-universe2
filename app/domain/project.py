@@ -13,6 +13,7 @@ from __init__ import FI_MAIL_REPLYERS
 from app.dal import integrates_dal, project as project_dal
 from app.dal.helpers.formstack import FormstackAPI
 from app.domain import vulnerability as vuln_domain
+from app.exceptions import InvalidParameter
 from app.mailer import send_mail_comment
 from app.util import format_comment_date
 
@@ -55,6 +56,27 @@ def add_comment(project_name, email, comment_data):
     return integrates_dal.add_project_comment_dynamo(project_name,
                                                      email,
                                                      comment_data)
+
+
+def create_project(**kwargs):
+    companies = [company.lower() for company in kwargs.get('companies')]
+    description = kwargs.get('description').lower()
+    project_name = kwargs.get('project_name').lower()
+    subscription = kwargs.get('subscription').lower()
+    resp = False
+    if not (not description.strip() or not project_name.strip() or
+       not all([company.strip() for company in companies]) or
+       not companies):
+        if not project_dal.exists(project_name):
+            resp = integrates_dal.add_project_dynamo(
+                project_name,
+                description,
+                companies,
+                subscription,
+                status='ACTIVE')
+    else:
+        raise InvalidParameter()
+    return resp
 
 
 def validate_tags(tags):

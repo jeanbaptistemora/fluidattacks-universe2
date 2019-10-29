@@ -117,6 +117,14 @@ class InvalidPort(Exception):
         super(InvalidPort, self).__init__(msg)
 
 
+class InvalidParameter(Exception):
+    """Exception to control empty parameter"""
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Error empty value is not valid'
+        super(InvalidParameter, self).__init__(msg)
+
+
 class InvalidSpecific(Exception):
     """Exception to control valid specific value in vulnerabilities."""
     def __init__(self):
