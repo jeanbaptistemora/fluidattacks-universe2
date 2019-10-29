@@ -351,3 +351,50 @@ def has_instances_using_unapproved_amis(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_insecure_port_range_in_security_group(key_id: str,
+                                              secret: str,
+                                              retry: bool = True) -> tuple:
+    """
+    Check if security groups implement range of ports to allow inbound traffic.
+
+    Establishing a range of ports within security groups is not a good
+    practice, because attackers can use port scanners to identify what services
+    are running in instances.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+    """
+    msg_open: str = 'Security group have port ranges established.'
+    msg_closed: str = 'Security group do not have port ranges established.'
+    vulns, safes = [], []
+
+    security_groups = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='ec2',
+        func='describe_security_groups',
+        param='SecurityGroups',
+        retry=retry)
+    for group in security_groups:
+        vulnerable = []
+
+        for rule in group['IpPermissions']:
+            with suppress(KeyError):
+                vulnerable.append(rule['FromPort'] != rule['ToPort'])
+
+        vulnerable = any(vulnerable)
+        (vulns if vulnerable else safes).append(
+            (group['GroupId'],
+             'The security group should not implement a range of ports.'))
+
+    return _get_result_as_tuple(
+        service='EC2',
+        objects='Security Groups',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

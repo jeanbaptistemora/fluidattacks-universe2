@@ -82,6 +82,14 @@ def test_vpcs_flowlogs_open():
         ec2.vpcs_without_flowlog(AWS_ACCESS_KEY_ID,
                                  AWS_SECRET_ACCESS_KEY)
 
+
+def test_has_has_insecure_port_range_in_security_group_open():
+    """Search security groups with insecure port range."""
+    assert ec2.has_insecure_port_range_in_security_group(AWS_ACCESS_KEY_ID,
+                                                         AWS_SECRET_ACCESS_KEY
+                                                         ).is_open()
+
+
 #
 # Closing tests
 #
