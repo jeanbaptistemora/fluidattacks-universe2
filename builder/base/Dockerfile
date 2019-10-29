@@ -52,7 +52,9 @@ RUN apt-get update -qq && \
       python get-pip.py && \
       rm get-pip.py && \
     pip install -r requirements.txt && \
-    pip3 install termcolor && \
+    pip3 install \
+      GitPython==2.1.11 \
+      termcolor && \
     yarn install && \
     gem install -N sass && \
 
