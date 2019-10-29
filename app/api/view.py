@@ -3,7 +3,6 @@ from graphene_django.views import GraphQLView
 from app.api.dataloaders.event import EventLoader
 from app.api.dataloaders.finding import FindingLoader
 from app.api.dataloaders.vulnerability import VulnerabilityLoader
-from app.api.middleware import ExecutorBackend
 from app.api.schema import SCHEMA
 
 
@@ -24,7 +23,6 @@ class APIView(GraphQLView):
         """Applies custom configs to the GraphQL view"""
         del kwargs
         options = {
-            'backend': ExecutorBackend(),
             'graphiql': True,
             'schema': SCHEMA
         }

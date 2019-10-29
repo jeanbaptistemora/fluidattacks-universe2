@@ -133,15 +133,6 @@ class InvalidProject(Exception):
         super(InvalidProject, self).__init__(msg)
 
 
-class QueryDepthExceeded(Exception):
-    """Exception to control graphql max query depth"""
-
-    def __init__(self):
-        """ Constructor """
-        msg = 'Exception - Max query depth exceeded'
-        super(QueryDepthExceeded, self).__init__(msg)
-
-
 class FindingNotFound(Exception):
     """Exception to control finding data availability"""
 
