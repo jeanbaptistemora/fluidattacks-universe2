@@ -492,3 +492,59 @@ def has_instances_using_iam_roles(key_id: str, secret: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_unused_ec2_key_pairs(key_id: str, secret: str,
+                             retry: bool = True) -> tuple:
+    """
+    Check if there are unused EC2 key pairs.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are unused EC2 key pairs.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'There are unused EC2 key pairs.'
+    msg_closed: str = 'All EC2 key pairs are in use.'
+    vulns, safes = [], []
+
+    key_pairs = map(lambda x: x['KeyName'],
+                    aws.run_boto3_func(
+                        key_id=key_id,
+                        secret=secret,
+                        service='ec2',
+                        func='describe_key_pairs',
+                        param='KeyPairs',
+                        retry=retry))
+    for key in key_pairs:
+        filters = [{
+            'Name': 'instance-state-name',
+            'Values': ['running']
+        }, {
+            'Name': 'key-name',
+            'Values': [key]
+        }]
+
+        instances = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='ec2',
+            func='describe_instances',
+            param='Reservations',
+            retry=retry,
+            Filters=filters)
+        (vulns if not instances else safes).append(
+            (key, 'The EC2 key pair is not in use, it must be removed.'))
+    return _get_result_as_tuple(
+        service='EC2',
+        objects='Key Pairs',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
