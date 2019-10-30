@@ -294,7 +294,9 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
             info.context, f'Security: Access to {self.name} events')
         event_ids = project_domain.list_events(self.name)
         events_loader = info.context.loaders['event']
-        self.events = events_loader.load_many(event_ids)
+        self.events = events_loader.load_many(event_ids).then(
+            lambda events: [event for event in events
+                            if event.project_name == self.name.lower()])
 
         return self.events
 

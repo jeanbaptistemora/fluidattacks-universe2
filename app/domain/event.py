@@ -77,13 +77,14 @@ def create_event(analyst_email, project_name, **kwargs):
     tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     project = integrates_dal.get_project_attributes_dynamo(
-        project_name, ['type'])
+        project_name, ['companies', 'type'])
 
     event_attrs = kwargs.copy()
     event_attrs.update({
         'accessibility': ' '.join(list(set(event_attrs['accessibility']))),
         'affectation': 0,
         'analyst': analyst_email,
+        'client': project.get('companies', [''])[0],
         'event_date': event_attrs['event_date'].strftime('%Y-%m-%d %H:%M:%S'),
         'event_status': 'UNSOLVED',
         'report_date': today,
