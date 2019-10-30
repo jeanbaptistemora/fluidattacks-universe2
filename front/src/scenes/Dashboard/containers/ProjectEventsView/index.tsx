@@ -6,15 +6,18 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
-import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
-import { InjectedFormProps } from "redux-form";
+import { ButtonToolbar, Col, ControlLabel, FormGroup, Glyphicon, Row } from "react-bootstrap";
+import { Field, FormSection, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
 import { Modal } from "../../../../components/Modal";
+import globalStyle from "../../../../styles/global.css";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { formatEvents, handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { checkboxField, dateTimeField, dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
+import { required, someRequired, validEmail } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
 import { IEventsAttr, IEventViewBaseProps } from "./types";
@@ -43,7 +46,7 @@ const tableHeaders: IHeader[] = [
 ];
 const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: IEventViewBaseProps): JSX.Element => {
   const { projectName } = props.match.params;
-  const handleQryResult: ((qrResult: IEventsAttr) => void) = (qrResult: IEventsAttr): void => {
+  const handleQryResult: ((qrResult: IEventsAttr) => void) = (): void => {
     mixpanel.track("ProjectEvents", {
       Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
@@ -120,8 +123,14 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                 >
                   <Mutation mutation={CREATE_EVENT_MUTATION} onCompleted={handleMutationResult}>
                     {(createEvent: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
-                      const handleSubmit: ((values: {}) => void) = (values: {}): void => {
-                        createEvent({ variables: { projectName, ...values } })
+                      interface IFormValues { accessibility: { [key: string]: boolean }; }
+
+                      const handleSubmit: ((values: IFormValues) => void) = (values: IFormValues): void => {
+                        const selectedAccessibility: string[] = Object.keys(values.accessibility)
+                          .filter((key: string) => values.accessibility[key])
+                          .map((key: string) => key.toUpperCase());
+
+                        createEvent({ variables: { projectName, ...values, accessibility: selectedAccessibility } })
                           .catch();
                       };
 
@@ -129,8 +138,157 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                         <GenericForm name="newEvent" onSubmit={handleSubmit}>
                           {({ pristine }: InjectedFormProps): JSX.Element => (
                             <React.Fragment>
-                              <Row />
-                              <br />
+                              <Row>
+                                <Col md={5}>
+                                  <FormGroup>
+                                    <ControlLabel>{translate.t("project.events.form.date")}</ControlLabel>
+                                    <Field component={dateTimeField} name="eventDate" validate={required} />
+                                  </FormGroup>
+                                </Col>
+                                <Col md={7}>
+                                  <FormGroup>
+                                    <ControlLabel>{translate.t("project.events.form.type.title")}</ControlLabel>
+                                    <Field component={dropdownField} name="eventType" validate={required}>
+                                      <option value="" selected={true} />
+                                      <option value="AUTHORIZATION_SPECIAL_ATTACK">
+                                        {translate.t("project.events.form.type.special_attack")}
+                                      </option>
+                                      <option value="CLIENT_APPROVES_CHANGE_TOE">
+                                        {translate.t("project.events.form.type.toe_change")}
+                                      </option>
+                                      <option value="CLIENT_CANCELS_PROJECT_MILESTONE">
+                                        {translate.t("project.events.form.type.cancel_project")}
+                                      </option>
+                                      <option value="CLIENT_DETECTS_ATTACK">
+                                        {translate.t("project.events.form.type.detects_attack")}
+                                      </option>
+                                      <option value="CLIENT_EXPLICITLY_SUSPENDS_PROJECT">
+                                        {translate.t("project.events.form.type.suspends_project")}
+                                      </option>
+                                      <option value="HIGH_AVAILABILITY_APPROVAL">
+                                        {translate.t("project.events.form.type.high_availability")}
+                                      </option>
+                                      <option value="INCORRECT_MISSING_SUPPLIES">
+                                        {translate.t("project.events.form.type.missing_supplies")}
+                                      </option>
+                                      <option value="TOE_DIFFERS_APPROVED">
+                                        {translate.t("project.events.form.type.toe_differs")}
+                                      </option>
+                                      <option value="OTHER">
+                                        {translate.t("project.events.form.other")}
+                                      </option>
+                                    </Field>
+                                  </FormGroup>
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col md={4}>
+                                  <FormGroup>
+                                    <ControlLabel>{translate.t("project.events.form.context.title")}</ControlLabel>
+                                    <Field component={dropdownField} name="context" validate={required}>
+                                      <option value="" selected={true} />
+                                      <option value="CLIENT">
+                                        {translate.t("project.events.form.context.client")}
+                                      </option>
+                                      <option value="FLUID">
+                                        {translate.t("project.events.form.context.fluid")}
+                                      </option>
+                                      <option value="PLANNING">
+                                        {translate.t("project.events.form.context.planning")}
+                                      </option>
+                                      <option value="TELECOMMUTING">
+                                        {translate.t("project.events.form.context.telecommuting")}
+                                      </option>
+                                      <option value="OTHER">
+                                        {translate.t("project.events.form.other")}
+                                      </option>
+                                    </Field>
+                                  </FormGroup>
+                                </Col>
+                                <Col md={5}>
+                                  <FormGroup>
+                                    <ControlLabel>
+                                      {translate.t("project.events.form.responsible")}
+                                    </ControlLabel>
+                                    <Field component={textField} name="clientResponsible" validate={validEmail} />
+                                  </FormGroup>
+                                </Col>
+                                <Col md={3}>
+                                  <FormGroup>
+                                    <ControlLabel>
+                                      {translate.t("project.events.form.accessibility.title")}
+                                    </ControlLabel>
+                                    <FormSection name="accessibility">
+                                      <Field component={checkboxField} name="environment" validate={someRequired}>
+                                        {translate.t("project.events.form.accessibility.environment")}
+                                      </Field>
+                                      <Field component={checkboxField} name="repository" validate={someRequired}>
+                                        {translate.t("project.events.form.accessibility.repository")}
+                                      </Field>
+                                    </FormSection>
+                                  </FormGroup>
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col md={12}>
+                                  <FormGroup>
+                                    <ControlLabel>{translate.t("project.events.form.details")}</ControlLabel>
+                                    <Field
+                                      className={globalStyle.noResize}
+                                      component={textAreaField}
+                                      name="detail"
+                                      validate={required}
+                                    />
+                                  </FormGroup>
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col md={5}>
+                                  <FormGroup>
+                                    <ControlLabel>
+                                      {translate.t("project.events.form.action_before.title")}
+                                    </ControlLabel>
+                                    <Field component={dropdownField} name="actionBeforeBlocking" validate={required}>
+                                      <option value="" selected={true} />
+                                      <option value="DOCUMENT_PROJECT">
+                                        {translate.t("project.events.form.action_before.document")}
+                                      </option>
+                                      <option value="TEST_OTHER_PART_TOE">
+                                        {translate.t("project.events.form.action_before.test_other")}
+                                      </option>
+                                      <option value="NONE">
+                                        {translate.t("project.events.form.none")}
+                                      </option>
+                                      <option value="OTHER">
+                                        {translate.t("project.events.form.other")}
+                                      </option>
+                                    </Field>
+                                  </FormGroup>
+                                </Col>
+                                <Col md={7}>
+                                  <FormGroup>
+                                    <ControlLabel>{translate.t("project.events.form.action_after.title")}</ControlLabel>
+                                    <Field component={dropdownField} name="actionAfterBlocking" validate={required}>
+                                      <option value="" selected={true} />
+                                      <option value="EXECUTE_OTHER_PROJECT_SAME_CLIENT">
+                                        {translate.t("project.events.form.action_after.other_same")}
+                                      </option>
+                                      <option value="EXECUTE_OTHER_PROJECT_OTHER_CLIENT">
+                                        {translate.t("project.events.form.action_after.other_other")}
+                                      </option>
+                                      <option value="TRAINING">
+                                        {translate.t("project.events.form.action_after.training")}
+                                      </option>
+                                      <option value="NONE">
+                                        {translate.t("project.events.form.none")}
+                                      </option>
+                                      <option value="OTHER">
+                                        {translate.t("project.events.form.other")}
+                                      </option>
+                                    </Field>
+                                  </FormGroup>
+                                </Col>
+                              </Row>
                               <ButtonToolbar className="pull-right">
                                 <Button bsStyle="success" onClick={closeNewEventModal}>
                                   {translate.t("confirmmodal.cancel")}
