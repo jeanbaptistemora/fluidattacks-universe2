@@ -8,6 +8,8 @@ from app.api.schema import SCHEMA
 
 
 class APIView(GraphQLView):
+    graphiql_template = 'graphiql.html'
+
     def get_context(self, request):
         """Appends dataloader instances to context"""
         context = super(APIView, self).get_context(request)
