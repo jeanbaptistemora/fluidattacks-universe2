@@ -4,9 +4,10 @@
 
 # Linters
 run_lint () {
-    set -e
-    prospector -F -s high -u django -i node_modules app/
-    prospector -F -s veryhigh -u django -i node_modules fluidintegrates/
+    RETVAL=0
+    prospector -F -s high -u django -i node_modules app/ || RETVAL=1
+    prospector -F -s veryhigh -u django -i node_modules fluidintegrates/ || RETVAL=1
+    return $RETVAL
 }
 
 provision_mock () {
@@ -108,6 +109,11 @@ provision_mock () {
     done
 }
 
+teardown () {
+    kill -9 $DYNAMODB_PROCESS || true
+    rm -f shared-local-instance.db
+}
+
 run_unit_test () {
     # Unit tests
     cp -a "$PWD" /usr/src/app_src
@@ -132,15 +138,10 @@ run_unit_test () {
     cp -a build/coverage/results.xml "$CI_PROJECT_DIR/coverage.xml"
 
     cd "$CI_PROJECT_DIR" || RETVAL=1
+    teardown
     return $RETVAL
 }
 
-teardown () {
-    kill -9 $DYNAMODB_PROCESS || true
-    rm -f shared-local-instance.db
-}
-
-run_lint
+run_lint || exit 1
 provision_mock
 run_unit_test || exit 1
-teardown
