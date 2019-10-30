@@ -5,6 +5,7 @@
 # standard imports
 import csv
 import time
+import json
 import functools
 from io import StringIO
 from typing import Any, Callable, Dict, Iterator, Tuple
@@ -178,26 +179,36 @@ def to_boolean(obj: str) -> bool:
         f'{obj} is not a CloudFormation boolean')
 
 
+def is_scalar(obj: Any) -> bool:
+    """True if obj is an scalar."""
+    return isinstance(obj, (bool, int, float, str))
+
+
 def load_template(template_path: str) -> Template:
     """Return the CloudFormation content of the template on `template_path`."""
-    try:
-        with open(template_path,
-                  encoding='utf-8',
-                  errors='replace') as template_handle:
-            template_contents: str = template_handle.read()
+    with open(
+            template_path,
+            encoding='utf-8',
+            errors='replace') as template_handle:
+        template_contents: str = template_handle.read()
 
-        contents = cfn_tools.load_yaml(template_contents)
+    error_list = []
+    for function, errors in (('load_yaml', yaml.error.YAMLError),
+                             ('load_json', json.decoder.JSONDecodeError)):
 
-        if not isinstance(contents, cfn_tools.odict.ODict):
-            raise CloudFormationInvalidTemplateError(
+        try:
+            contents = getattr(cfn_tools, function)(template_contents)
+        except errors as err:
+            error_list.append((type(err), err))
+        else:
+            if isinstance(contents, cfn_tools.odict.ODict):
+                return contents
+
+            err = CloudFormationInvalidTemplateError(
                 'Not a CloudFormation template')
+            error_list.append((type(err), err))
 
-    except (yaml.parser.ParserError,
-            yaml.scanner.ScannerError,
-            yaml.composer.ComposerError,
-            CloudFormationInvalidTemplateError) as exc:
-        raise CloudFormationError(f'Type {type(exc)}, {exc}')
-    return contents
+    raise CloudFormationInvalidTemplateError(str(error_list))
 
 
 def iterate_resources_in_template(
@@ -209,7 +220,9 @@ def iterate_resources_in_template(
     """Yield resources of the provided types."""
     exclude = tuple(exclude or [])
     for template_path in get_paths(
-            starting_path, exclude=exclude, endswith=('.yml', '.yaml')):
+            starting_path,
+            exclude=exclude,
+            endswith=('.yml', '.yaml', '.json')):
         try:
             template: Template = load_template(template_path)
             for res_name, res_data in template.get('Resources', {}).items():

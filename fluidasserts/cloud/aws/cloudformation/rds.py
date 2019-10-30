@@ -16,10 +16,10 @@ from fluidasserts.utils.decorators import api, unknown_if
 @unknown_if(FileNotFoundError)
 def has_unencrypted_storage(path: str, exclude: list = None) -> tuple:
     """
-    Check if any `AWS::RDS::DBInstance` uses unencrypted storage.
+    Check if any `DBCluster` or `DBInstance` use unencrypted storage.
 
     :param path: Location of CloudFormation's template file.
-    :returns: - ``OPEN`` if any *RDS-DB* Instance uses unencrypted snapshots.
+    :returns: - ``OPEN`` if `StorageEncrypted` attribute is set to **false**.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
@@ -28,6 +28,7 @@ def has_unencrypted_storage(path: str, exclude: list = None) -> tuple:
     for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
             starting_path=path,
             resource_types=[
+                'AWS::RDS::DBCluster',
                 'AWS::RDS::DBInstance',
             ],
             exclude=exclude):
@@ -51,5 +52,47 @@ def has_unencrypted_storage(path: str, exclude: list = None) -> tuple:
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='RDS instances use unencrypted storage',
-        msg_closed='RDS instances use encrypted storage')
+        msg_open='RDS clusters or instances have unencrypted storage',
+        msg_closed='RDS clusters or instances have encrypted storage')
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_not_automated_back_ups(path: str, exclude: list = None) -> tuple:
+    """
+    Check if any `DBCluster` or `DBInstance` have not automated backups.
+
+    :param path: Location of CloudFormation's template file.
+    :returns: - ``OPEN`` if `BackupRetentionPeriod` attribute is set to 0.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::RDS::DBCluster',
+                'AWS::RDS::DBInstance',
+            ],
+            exclude=exclude):
+        back_up_retention_period = res_props.get('BackupRetentionPeriod', 1)
+        if not helper.is_scalar(back_up_retention_period):
+            # In the future we'll be able to dereference custom CF's functions
+            #   for now ignore them
+            continue
+
+        is_vulnerable: bool = back_up_retention_period in (0, '0')
+
+        if is_vulnerable:
+            vulnerabilities.append(
+                Vulnerability(
+                    path=yaml_path,
+                    service='RDS',
+                    identifier=res_name,
+                    reason='has not automated backups enabled'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='RDS cluster or instances have not automated backups enabled',
+        msg_closed='RDS cluster or instances have automated backups enabled')

@@ -30,14 +30,22 @@ def write_template(template: troposphere.Template) -> bool:
 template = troposphere.Template(
     Description='rds-safe',
 )
+cluster = troposphere.rds.DBCluster(
+    title='cluster1',
+    Engine='postgres',
+    StorageEncrypted=True,
+    BackupRetentionPeriod=32,
+)
 instance = troposphere.rds.DBInstance(
-    title='test1',
+    title='instance1',
     DBInstanceClass='t2.micro',
     Engine='postgres',
     MasterUsername='user',
     MasterUserPassword='pass',
     StorageEncrypted=True,
+    BackupRetentionPeriod='32',
 )
+template.add_resource(cluster)
 template.add_resource(instance)
 write_template(template)
 
@@ -48,13 +56,23 @@ write_template(template)
 template = troposphere.Template(
     Description='rds-vulnerable',
 )
+cluster = troposphere.rds.DBCluster(
+    title='cluster1',
+    Engine='postgres',
+    StorageEncrypted=False,
+    # Disables automated back-ups
+    BackupRetentionPeriod=0,
+)
 instance = troposphere.rds.DBInstance(
-    title='test1',
+    title='instance1',
     DBInstanceClass='t2.micro',
     Engine='postgres',
     MasterUsername='user',
     MasterUserPassword='pass',
     StorageEncrypted=False,
+    # Disables automated back-ups
+    BackupRetentionPeriod='0',
 )
+template.add_resource(cluster)
 template.add_resource(instance)
 write_template(template)

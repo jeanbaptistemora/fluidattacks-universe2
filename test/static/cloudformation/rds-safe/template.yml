@@ -1,7 +1,14 @@
 Description: rds-safe
 Resources:
-  test1:
+  cluster1:
     Properties:
+      BackupRetentionPeriod: 32
+      Engine: postgres
+      StorageEncrypted: 'true'
+    Type: AWS::RDS::DBCluster
+  instance1:
+    Properties:
+      BackupRetentionPeriod: '32'
       DBInstanceClass: t2.micro
       Engine: postgres
       MasterUserPassword: pass

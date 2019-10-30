@@ -1,7 +1,14 @@
 Description: rds-vulnerable
 Resources:
-  test1:
+  cluster1:
     Properties:
+      BackupRetentionPeriod: 0
+      Engine: postgres
+      StorageEncrypted: 'false'
+    Type: AWS::RDS::DBCluster
+  instance1:
+    Properties:
+      BackupRetentionPeriod: '0'
       DBInstanceClass: t2.micro
       Engine: postgres
       MasterUserPassword: pass
