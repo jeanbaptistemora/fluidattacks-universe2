@@ -96,6 +96,12 @@ def test_has_unrestricted_dns_access_open():
                                                          AWS_SECRET_ACCESS_KEY
                                                          ).is_open()
 
+
+def test_has_instances_using_iam_access_keys_open():
+    """Search instances using iam access keys."""
+    assert ec2.has_instances_using_iam_roles(AWS_ACCESS_KEY_ID,
+                                                   AWS_SECRET_ACCESS_KEY
+                                                   ).is_open()
 #
 # Closing tests
 #

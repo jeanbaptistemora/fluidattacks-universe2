@@ -8,6 +8,7 @@ from contextlib import suppress
 # 3rd party imports
 from botocore.exceptions import BotoCoreError
 from botocore.vendored.requests.exceptions import RequestException
+import numpy as np
 
 # local imports
 from fluidasserts import DAST, LOW, MEDIUM
@@ -38,7 +39,7 @@ def seggroup_allows_anyone_to_admin_ports(
     :param secret: AWS Key Secret
     """
     admin_ports = {
-        22,  # SSH
+        22,    # SSH
         1521,  # Oracle
         2438,  # Oracle
         3306,  # MySQL
@@ -51,6 +52,7 @@ def seggroup_allows_anyone_to_admin_ports(
         9160,  # Cassandra
         11211,  # Memcached
         27017,  # MongoDB
+        445,    # CIFS
     }
 
     security_groups = aws.run_boto3_func(key_id=key_id,
@@ -441,6 +443,51 @@ def has_unrestricted_dns_access(key_id: str, secret: str,
     return _get_result_as_tuple(
         service='EC2',
         objects='Security Groups',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_instances_using_iam_roles(key_id: str, secret: str,
+                                  retry: bool = True) -> tuple:
+    """
+    Check if EC2 instances uses IAM Roles Profiles instead of IAM Access Keys.
+
+    Use IAM roles instead of IAM Access Keys to appropriately grant access
+    permissions to any application that perform AWS API requests running on
+    your EC2 instances. With IAM roles you can avoid sharing long-term
+    credentials and protect your instances from unauthorized access.
+
+    See https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/iam-roles
+    -for-amazon-ec2.html
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+    """
+    msg_open: str = 'Instances are not using IAM roles.'
+    msg_closed: str = 'Instances are using IAM roles.'
+    vulns, safes = [], []
+    instances = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='ec2',
+        func='describe_instances',
+        param='Reservations',
+        retry=retry)
+
+    instances = np.array(list(map(lambda x: x['Instances'],
+                                  instances))).flatten().tolist()
+
+    for i in instances:
+        (vulns if 'IamInstanceProfile' not in i.keys() else safes).append(
+            (i['InstanceId'], 'Instance must use an IAM role.'))
+
+    return _get_result_as_tuple(
+        service='EC2',
+        objects='Instances',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
