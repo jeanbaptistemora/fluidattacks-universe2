@@ -91,7 +91,7 @@ def test_has_has_insecure_port_range_in_security_group_open():
 
 
 def test_has_unrestricted_dns_access_open():
-    """Search unused EC2 key pairs."""
+    """Search unrestricted DNS access."""
     assert ec2.has_unrestricted_dns_access(AWS_ACCESS_KEY_ID,
                                                          AWS_SECRET_ACCESS_KEY
                                                          ).is_open()
@@ -108,6 +108,13 @@ def test_has_unused_ec2_key_pairs_open():
     """Search unused EC2 key pairs."""
     assert ec2.has_unused_ec2_key_pairs(AWS_ACCESS_KEY_ID,
                                         AWS_SECRET_ACCESS_KEY).is_open()
+
+
+def test():
+    """Search unrestricted ftp access."""
+    assert ec2.has_unrestricted_ftp_access(AWS_ACCESS_KEY_ID,
+                                           AWS_SECRET_ACCESS_KEY).is_open()
+
 
 #
 # Closing tests

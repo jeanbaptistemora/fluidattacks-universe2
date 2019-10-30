@@ -22,9 +22,11 @@ def _check_port_in_seggroup(port: int, group: dict) -> list:
     vuln = []
     for perm in group['IpPermissions']:
         with suppress(KeyError):
-            vuln += [perm for x in perm['IpRanges']
-                     if x['CidrIp'] == '0.0.0.0/0' and
-                     perm['FromPort'] <= port <= perm['ToPort']]
+            if perm['FromPort'] <= port <= perm['ToPort']:
+                vuln += [perm for x in perm['IpRanges']
+                         if x['CidrIp'] == '0.0.0.0/0']
+                vuln += [perm for x in perm['Ipv6Ranges']
+                         if x['CidrIp'] == '::/0']
     return vuln
 
 
@@ -544,6 +546,56 @@ def has_unused_ec2_key_pairs(key_id: str, secret: str,
     return _get_result_as_tuple(
         service='EC2',
         objects='Key Pairs',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_unrestricted_ftp_access(key_id: str, secret: str,
+                                retry: bool = True) -> tuple:
+    """
+    Check security groups allow unrestricted access to TCP ports 20 and 21.
+
+    Restrict access to TCP ports 20 y 21 to only IP addresses that require,
+    it in order to implement the principle of least privilege.
+    TCP ports 20 and 21 are used for data transfer and communication by the
+    File Transfer Protocol (FTP) client-server applications:
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if FTP access is allowed without restrictions.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Security groups allow access to ftp without restrictions.'
+    msg_closed: str = ('Security groups allow access to ftp to'
+                       ' the necessary IP addresses.')
+    vulns, safes = [], []
+
+    filters = [{'Name': 'ip-permission.protocol', 'Values': ['tcp']}]
+    security_groups = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='ec2',
+        func='describe_security_groups',
+        param='SecurityGroups',
+        retry=retry,
+        Filters=filters)
+    for group in security_groups:
+        vulnerable = any([_check_port_in_seggroup(i, group) for i in [20, 21]])
+        (vulns if vulnerable else safes).append(
+            (group['GroupId'],
+             'Group must restrict access only to the necessary IP addresses.'))
+
+    return _get_result_as_tuple(
+        service='EC2',
+        objects='Security Groups',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
