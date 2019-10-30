@@ -329,7 +329,12 @@ SESSION_REDIS = {
 }
 
 # GraphQL API
-GRAPHQL_MAX_QUERY_DEPTH = 3
+GRAPHQL = {
+    'depth': {
+        'max': 3,
+        'whitelist': ['__schema', '__type']
+    }
+}
 
 # Social
 SOCIAL_AUTH_PIPELINE = (

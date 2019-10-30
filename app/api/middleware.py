@@ -15,13 +15,15 @@ def _get_depth(selection_set, fragments, depth_level=0):
     """
     max_depth = depth_level
     for field in selection_set.selections:
-        if isinstance(field, FragmentSpread):
-            field = fragments[field.name.value]
+        if field.name.value not in settings.GRAPHQL['depth']['whitelist']:
+            if isinstance(field, FragmentSpread):
+                field = fragments[field.name.value]
 
-        if field.selection_set:
-            depth = _get_depth(field.selection_set, fragments, depth_level + 1)
-            if depth > max_depth:
-                max_depth = depth
+            if field.selection_set:
+                depth = _get_depth(
+                    field.selection_set, fragments, depth_level + 1)
+                if depth > max_depth:
+                    max_depth = depth
     return max_depth
 
 
@@ -47,6 +49,6 @@ class ExecutorBackend(GraphQLCoreBackend):
                      if isinstance(definition, FragmentDefinition)}
         for field in query_tree:
             depth = _get_depth(field.selection_set, fragments)
-            if depth > settings.GRAPHQL_MAX_QUERY_DEPTH and not settings.DEBUG:
+            if depth > settings.GRAPHQL['depth']['max'] and not settings.DEBUG:
                 raise QueryDepthExceeded()
         return document
