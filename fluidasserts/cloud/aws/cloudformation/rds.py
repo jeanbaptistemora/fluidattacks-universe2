@@ -1,4 +1,3 @@
-
 """AWS CloudFormation checks for RDS."""
 
 # Local imports
@@ -19,6 +18,7 @@ def has_unencrypted_storage(path: str, exclude: list = None) -> tuple:
     Check if any `DBCluster` or `DBInstance` use unencrypted storage.
 
     :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
     :returns: - ``OPEN`` if `StorageEncrypted` attribute is set to **false**.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
@@ -46,7 +46,7 @@ def has_unencrypted_storage(path: str, exclude: list = None) -> tuple:
             vulnerabilities.append(
                 Vulnerability(
                     path=yaml_path,
-                    service='RDS',
+                    entity='AWS::RDS::(DBCluster,DBInstance)',
                     identifier=res_name,
                     reason='uses unencrypted storage'))
 
@@ -63,6 +63,7 @@ def has_not_automated_back_ups(path: str, exclude: list = None) -> tuple:
     Check if any `DBCluster` or `DBInstance` have not automated backups.
 
     :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
     :returns: - ``OPEN`` if `BackupRetentionPeriod` attribute is set to 0.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
@@ -88,7 +89,7 @@ def has_not_automated_back_ups(path: str, exclude: list = None) -> tuple:
             vulnerabilities.append(
                 Vulnerability(
                     path=yaml_path,
-                    service='RDS',
+                    entity='AWS::RDS::(DBCluster,DBInstance)',
                     identifier=res_name,
                     reason='has not automated backups enabled'))
 

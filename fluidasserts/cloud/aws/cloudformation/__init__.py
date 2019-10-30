@@ -9,7 +9,7 @@ from fluidasserts import Unit, OPEN, CLOSED
 # Containers
 Vulnerability = NamedTuple('Vulnerability', [
     ('path', str),
-    ('service', str),
+    ('entity', str),
     ('identifier', str),
     ('reason', str),
 ])
@@ -21,11 +21,11 @@ def _get_result_as_tuple(*,
     """Return the tuple version of the Result object."""
     # Example:
     # - where: {path}
-    #   specific: {service}/{id} {reason}
+    #   specific: {entity}/{id} {reason}
 
     vuln_units: List[Unit] = [
         Unit(where=x.path,
-             specific=[f'{x.service}/{x.identifier} {x.reason}'])
+             specific=[f'{x.entity}/{x.identifier} {x.reason}'])
         for x in vulnerabilities]
 
     if vuln_units:

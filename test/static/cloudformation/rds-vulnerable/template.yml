@@ -15,3 +15,14 @@ Resources:
       MasterUsername: user
       StorageEncrypted: 'false'
     Type: AWS::RDS::DBInstance
+  secret1:
+    Properties:
+      GenerateSecretString:
+        ExcludeCharacters: '01234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&''()*+,-./:;<=>?@[\]^_`{|}~'
+        ExcludeLowercase: 'true'
+        ExcludeNumbers: 'true'
+        ExcludePunctuation: 'true'
+        ExcludeUppercase: 'true'
+        PasswordLength: 10
+        RequireEachIncludedType: 'false'
+    Type: AWS::SecretsManager::Secret

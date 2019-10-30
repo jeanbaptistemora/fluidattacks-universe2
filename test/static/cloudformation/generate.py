@@ -6,6 +6,7 @@ import os
 import textwrap
 import troposphere
 import troposphere.rds
+import troposphere.secretsmanager
 
 
 def write_template(template: troposphere.Template) -> bool:
@@ -30,6 +31,19 @@ def write_template(template: troposphere.Template) -> bool:
 template = troposphere.Template(
     Description='rds-safe',
 )
+secret = troposphere.secretsmanager.Secret(
+    title='secret1',
+    GenerateSecretString=troposphere.secretsmanager.GenerateSecretString(
+        title='generateSecretString1',
+        ExcludeCharacters='',
+        PasswordLength=32,
+        ExcludeLowercase=False,
+        ExcludeUppercase='false',
+        ExcludeNumbers=0,
+        ExcludePunctuation='False',
+        RequireEachIncludedType='true',
+    )
+)
 cluster = troposphere.rds.DBCluster(
     title='cluster1',
     Engine='postgres',
@@ -45,6 +59,7 @@ instance = troposphere.rds.DBInstance(
     StorageEncrypted=True,
     BackupRetentionPeriod='32',
 )
+template.add_resource(secret)
 template.add_resource(cluster)
 template.add_resource(instance)
 write_template(template)
@@ -55,6 +70,22 @@ write_template(template)
 
 template = troposphere.Template(
     Description='rds-vulnerable',
+)
+secret = troposphere.secretsmanager.Secret(
+    title='secret1',
+    GenerateSecretString=troposphere.secretsmanager.GenerateSecretString(
+        title='generateSecretString1',
+        ExcludeCharacters=('01234567890'
+                           'abcdefghijklmnopqrstuvwxyz'
+                           'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                           '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'),
+        PasswordLength=10,
+        ExcludeLowercase=True,
+        ExcludeUppercase='true',
+        ExcludeNumbers=1,
+        ExcludePunctuation='True',
+        RequireEachIncludedType='false',
+    )
 )
 cluster = troposphere.rds.DBCluster(
     title='cluster1',
@@ -73,6 +104,7 @@ instance = troposphere.rds.DBInstance(
     # Disables automated back-ups
     BackupRetentionPeriod='0',
 )
+template.add_resource(secret)
 template.add_resource(cluster)
 template.add_resource(instance)
 write_template(template)
