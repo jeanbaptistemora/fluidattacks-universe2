@@ -1,0 +1,22 @@
+{
+   "FI_alerts_by_company" : [
+      {
+         "PutRequest" : {
+            "Item" : {
+               "company_name" : {
+                  "S" : "fluid"
+               },
+               "message" : {
+                  "S" : "unittest"
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "status_act" : {
+                  "S" : "1"
+               }
+            }
+         }
+      }
+   ]
+}

@@ -1,0 +1,1383 @@
+{
+   "FI_findings" : [
+      {
+         "PutRequest" : {
+            "Item" : {
+               "access_complexity" : {
+                  "N" : "0.61"
+               },
+               "access_vector" : {
+                  "N" : "0.395"
+               },
+               "actor" : {
+                  "S" : "SOME_CUSTOMERS"
+               },
+               "affected_systems" : {
+                  "S" : "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
+               },
+               "analyst" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "attack_complexity" : {
+                  "N" : "0.44"
+               },
+               "attack_vector" : {
+                  "N" : "0.2"
+               },
+               "attack_vector_desc" : {
+                  "S" : "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
+               },
+               "authentication" : {
+                  "N" : "0.56"
+               },
+               "availability_impact" : {
+                  "N" : "0.22"
+               },
+               "availability_requirement" : {
+                  "N" : "0.5"
+               },
+               "client_project" : {
+                  "S" : "Unit Test"
+               },
+               "collateral_damage_potential" : {
+                  "N" : "0.1"
+               },
+               "confidence_level" : {
+                  "N" : "0.95"
+               },
+               "confidentiality_impact" : {
+                  "N" : "0.22"
+               },
+               "confidentiality_requirement" : {
+                  "N" : "0.5"
+               },
+               "context" : {
+                  "S" : "Cierre"
+               },
+               "cvss_basescore" : {
+                  "N" : "3.8"
+               },
+               "cvss_env" : {
+                  "N" : "1.7"
+               },
+               "cvss_temporal" : {
+                  "N" : "3.4"
+               },
+               "cvss_version" : {
+                  "S" : "3"
+               },
+               "cwe" : {
+                  "S" : "308"
+               },
+               "effect_solution" : {
+                  "S" : "Implementar un doble factor de autenticación ya sea por software o hardware para incrementar el nivel de protección de la autenticación de los recursos críticos."
+               },
+               "exploitability" : {
+                  "N" : "0.94"
+               },
+               "files" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "Evidencia"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-475041513-32202896-1ADt9wDMBWrQ5ZvzXhYJn7cdIypzAWOn4.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_1"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "AAAAAAAAAAAA"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-475041513-53713035-l.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_2"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "finding" : {
+                  "S" : "FIN.S.0081. Ausencia de doble factor de autenticación"
+               },
+               "finding_distribution" : {
+                  "N" : "0"
+               },
+               "finding_id" : {
+                  "S" : "475041513"
+               },
+               "finding_type" : {
+                  "S" : "SECURITY"
+               },
+               "integrity_impact" : {
+                  "N" : "0.22"
+               },
+               "integrity_requirement" : {
+                  "N" : "1"
+               },
+               "interested" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "lastVulnerability" : {
+                  "S" : "2019-09-20 00:00:00"
+               },
+               "leader" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "modified_attack_complexity" : {
+                  "N" : "0.44"
+               },
+               "modified_attack_vector" : {
+                  "N" : "0.85"
+               },
+               "modified_availability_impact" : {
+                  "N" : "0.22"
+               },
+               "modified_confidentiality_impact" : {
+                  "N" : "0.22"
+               },
+               "modified_integrity_impact" : {
+                  "N" : "0"
+               },
+               "modified_privileges_required" : {
+                  "N" : "0.27"
+               },
+               "modified_severity_scope" : {
+                  "N" : "0"
+               },
+               "modified_user_interaction" : {
+                  "N" : "0.62"
+               },
+               "privileges_required" : {
+                  "N" : "0.62"
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "records_number" : {
+                  "S" : "0"
+               },
+               "related_findings" : {
+                  "S" : "0"
+               },
+               "remediation_level" : {
+                  "N" : "0.95"
+               },
+               "report_confidence" : {
+                  "N" : "1"
+               },
+               "report_date" : {
+                  "S" : "2019-02-04 12:46:10"
+               },
+               "report_level" : {
+                  "S" : "GENERAL"
+               },
+               "requirements" : {
+                  "S" : "REQ.0229. El sistema debe solicitar a cualquier actor que intenta autenticarse, como mínimo un nombre de usuario y una contraseña."
+               },
+               "resolution_level" : {
+                  "N" : "1"
+               },
+               "scenario" : {
+                  "S" : "ANONYMOUS_INTRANET"
+               },
+               "severity_scope" : {
+                  "N" : "0"
+               },
+               "subscription" : {
+                  "S" : "CONTINUOUS"
+               },
+               "test_type" : {
+                  "S" : "APP"
+               },
+               "threat" : {
+                  "S" : "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos."
+               },
+               "treatment" : {
+                  "S" : "NEW"
+               },
+               "user_interaction" : {
+                  "N" : "0.85"
+               },
+               "vulnerability" : {
+                  "S" : "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos."
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "acceptance_date" : {
+                  "S" : "2020-03-31 11:43:00"
+               },
+               "actor" : {
+                  "S" : "ANY_EMPLOYEE"
+               },
+               "affected_systems" : {
+                  "S" : "test"
+               },
+               "analyst" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "attack_complexity" : {
+                  "N" : "0.44"
+               },
+               "attack_vector" : {
+                  "N" : "0.62"
+               },
+               "attack_vector_desc" : {
+                  "S" : "Test attack vector."
+               },
+               "availability_impact" : {
+                  "N" : "0.22"
+               },
+               "availability_requirement" : {
+                  "N" : "1"
+               },
+               "client_project" : {
+                  "S" : "test"
+               },
+               "confidentiality_impact" : {
+                  "N" : "0.22"
+               },
+               "confidentiality_requirement" : {
+                  "N" : "1.5"
+               },
+               "context" : {
+                  "S" : "SEARCHING"
+               },
+               "cvss_basescore" : {
+                  "N" : "3.7"
+               },
+               "cvss_env" : {
+                  "N" : "3.7"
+               },
+               "cvss_temporal" : {
+                  "N" : "3.2"
+               },
+               "cvss_version" : {
+                  "S" : "3"
+               },
+               "cwe" : {
+                  "S" : "200"
+               },
+               "effect_solution" : {
+                  "S" : "Filtrar la informacioue recibe y envia la aplicacioor medio de listas blancas"
+               },
+               "exploitability" : {
+                  "N" : "0.94"
+               },
+               "files" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "test"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-463461507-32202896-some-thing.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_1"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "A2 test"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-463461507-53713035-DeepinScreenshot_select-area_20190109085840.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_2"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "123A"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-463461507-53713045-DeepinScreenshot_deepin-terminal_20190513073408.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_3"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "AAA1"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-463461507-53714414-baratheon-logo.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_4"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "sdasdasda"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-463461507-53714452-3.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_5"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "file_url" : {
+                              "S" : "unittesting-463461507-53714414-stark-logo.png"
+                           },
+                           "name" : {
+                              "S" : "53714414"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "file_url" : {
+                              "S" : "unittesting-463461507-38307199-exploit.py"
+                           },
+                           "name" : {
+                              "S" : "exploit"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "file_url" : {
+                              "S" : "unittesting-463461507-49412246-songs.csv"
+                           },
+                           "name" : {
+                              "S" : "fileRecords"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "finding" : {
+                  "S" : "FIN.S.0083. Inyeccion  (XXE)"
+               },
+               "finding_id" : {
+                  "S" : "463461507"
+               },
+               "finding_type" : {
+                  "S" : "SECURITY"
+               },
+               "id" : {
+                  "S" : "463461507"
+               },
+               "integrity_impact" : {
+                  "N" : "0"
+               },
+               "integrity_requirement" : {
+                  "N" : "1"
+               },
+               "interested" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "lastVulnerability" : {
+                  "S" : "2019-09-23 09:38:44"
+               },
+               "leader" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "modified_attack_complexity" : {
+                  "N" : "0.44"
+               },
+               "modified_attack_vector" : {
+                  "N" : "0.62"
+               },
+               "modified_availability_impact" : {
+                  "N" : "0.22"
+               },
+               "modified_confidentiality_impact" : {
+                  "N" : "0.22"
+               },
+               "modified_integrity_impact" : {
+                  "N" : "0"
+               },
+               "modified_privileges_required" : {
+                  "N" : "0.85"
+               },
+               "modified_severity_scope" : {
+                  "N" : "0"
+               },
+               "modified_user_interaction" : {
+                  "N" : "0.62"
+               },
+               "privileges_required" : {
+                  "N" : "0.85"
+               },
+               "probability" : {
+                  "N" : "1000"
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "records" : {
+                  "S" : "0"
+               },
+               "records_number" : {
+                  "S" : "1"
+               },
+               "related_findings" : {
+                  "S" : "-"
+               },
+               "releaseDate" : {
+                  "S" : "2019-01-10 00:00:00"
+               },
+               "remediation_level" : {
+                  "N" : "0.95"
+               },
+               "report_confidence" : {
+                  "N" : "0.96"
+               },
+               "report_date" : {
+                  "S" : "2018-12-17 10:58:23"
+               },
+               "report_level" : {
+                  "S" : "2018-12-17 10:58:23"
+               },
+               "requirements" : {
+                  "S" : "REQ.0173. El sistema debe descartar toda la informacion potencialmente insegura que sea recibida por entradas de datos."
+               },
+               "scenario" : {
+                  "S" : "ANONYMOUS_INTERNET"
+               },
+               "severity" : {
+                  "N" : "0"
+               },
+               "severity_scope" : {
+                  "N" : "0"
+               },
+               "subscription" : {
+                  "S" : "ONESHOT"
+               },
+               "test_type" : {
+                  "S" : "APP"
+               },
+               "threat" : {
+                  "S" : "<i>test</i>"
+               },
+               "treatment" : {
+                  "S" : "ACCEPTED"
+               },
+               "treatment_justification" : {
+                  "S" : "This is a test treatment justification"
+               },
+               "treatment_manager" : {
+                  "S" : "test@testmail.com"
+               },
+               "user_interaction" : {
+                  "N" : "0.62"
+               },
+               "verification_date" : {
+                  "S" : "2019-09-19 10:40:45"
+               },
+               "verification_request_date" : {
+                  "S" : "2019-09-19 10:41:04"
+               },
+               "vulnerability" : {
+                  "S" : "La aplicaciofectada permite la inyeccio de coo XML que es ejecutado de forma remota y permite la exfiltracio de archivos o ejecucioemota de comandos en el servidor."
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "access_complexity" : {
+                  "N" : "0.35"
+               },
+               "access_vector" : {
+                  "N" : "1"
+               },
+               "actor" : {
+                  "S" : "ANYONE_INTERNET"
+               },
+               "affected_systems" : {
+                  "S" : "System"
+               },
+               "analyst" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "attack_complexity" : {
+                  "N" : "0.44"
+               },
+               "attack_vector" : {
+                  "N" : "0.62"
+               },
+               "attack_vector_desc" : {
+                  "S" : "- Atack vector"
+               },
+               "authentication" : {
+                  "N" : "0.56"
+               },
+               "availability_impact" : {
+                  "N" : "0.22"
+               },
+               "availability_requirement" : {
+                  "N" : "1.5"
+               },
+               "client_project" : {
+                  "S" : "Unit Testing"
+               },
+               "collateral_damage_potential" : {
+                  "N" : "0"
+               },
+               "confidence_level" : {
+                  "N" : "0.9"
+               },
+               "confidentiality_impact" : {
+                  "N" : "0"
+               },
+               "confidentiality_requirement" : {
+                  "N" : "1.5"
+               },
+               "context" : {
+                  "S" : "SEARCHING"
+               },
+               "cvss_basescore" : {
+                  "N" : "2.9"
+               },
+               "cvss_env" : {
+                  "N" : "0"
+               },
+               "cvss_temporal" : {
+                  "N" : "2.7"
+               },
+               "cvss_version" : {
+                  "S" : "3"
+               },
+               "cwe" : {
+                  "S" : "None"
+               },
+               "effect_solution" : {
+                  "S" : "De acuerdo a la clasificación de la información encontrada, establecer los controles necesarios para que la información sea accesible sólo a las personas indicadas."
+               },
+               "exploitability" : {
+                  "N" : "0.97"
+               },
+               "files" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "file_url" : {
+                              "S" : "unittesting-436992569-38307272-1Vs8X3Pl4K1ABzXQy0-YVcBiPYiyZvsz5.gif"
+                           },
+                           "name" : {
+                              "S" : "animation"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "Comm1"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-436992569-32202896-1WMpUhAncaF5o-tBFLkyAAme0pIx7S9Um.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_1"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "Comm2"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-436992569-53713035-17bS7a3waYXTFrcBwVnjueJ9MIf2yitN6.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_2"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "Comm3"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-436992569-53713045-1HrOmyFRTtwLpxfxEbvo5Src5CE0nlBsy.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_3"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "Comm4"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-436992569-53714414-1MVTDprB57kvSmg_6PZFtiZxO52L4kOqK.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_4"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "Comm5"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-436992569-53714452-1GktoVQCK-ToQxqH3uUQSzqFtDKRi_gg3.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_5"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "file_url" : {
+                              "S" : "unittesting-436992569-38307199-1YhdDU2Ls1syblBhunK1JpEobuq8GOx-e.py"
+                           },
+                           "name" : {
+                              "S" : "exploit"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "file_url" : {
+                              "S" : "unittesting-436992569-49412246-12aNmmqfNHOIaywA3Bm9sYc8fDkbgI7ya.csv"
+                           },
+                           "name" : {
+                              "S" : "fileRecords"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "file_url" : {
+                              "S" : "unittesting-436992569-38307222-1ZawwjdpawUUPFmkg3B1EFfdBPPjtR_js.png"
+                           },
+                           "name" : {
+                              "S" : "exploitation"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "finding" : {
+                  "S" : "FIN.S.0038. Fuga de información de negocio"
+               },
+               "finding_distribution" : {
+                  "N" : "0.25"
+               },
+               "finding_id" : {
+                  "S" : "436992569"
+               },
+               "finding_type" : {
+                  "S" : "SECURITY"
+               },
+               "integrity_impact" : {
+                  "N" : "0"
+               },
+               "integrity_requirement" : {
+                  "N" : "0.5"
+               },
+               "interested" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "lastVulnerability" : {
+                  "S" : "2019-09-20 13:14:58"
+               },
+               "leader" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "modified_attack_complexity" : {
+                  "N" : "0.77"
+               },
+               "modified_attack_vector" : {
+                  "N" : "0.85"
+               },
+               "modified_availability_impact" : {
+                  "N" : "0"
+               },
+               "modified_confidentiality_impact" : {
+                  "N" : "0"
+               },
+               "modified_integrity_impact" : {
+                  "N" : "0"
+               },
+               "modified_privileges_required" : {
+                  "N" : "0.85"
+               },
+               "modified_severity_scope" : {
+                  "N" : "0"
+               },
+               "modified_user_interaction" : {
+                  "N" : "0.85"
+               },
+               "privileges_required" : {
+                  "N" : "0.85"
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "records" : {
+                  "S" : "Apellido(s)\nArchivo(s)\nCódigo de identificación"
+               },
+               "records_number" : {
+                  "S" : "5"
+               },
+               "related_findings" : {
+                  "S" : "0"
+               },
+               "releaseDate" : {
+                  "S" : "2019-04-08 00:00:00"
+               },
+               "remediation_level" : {
+                  "N" : "0.97"
+               },
+               "report_confidence" : {
+                  "N" : "0.96"
+               },
+               "report_date" : {
+                  "S" : "2018-09-06 14:23:09"
+               },
+               "report_level" : {
+                  "S" : "GENERAL"
+               },
+               "requirements" : {
+                  "S" : "REQ.0176. El sistema debe restringir el acceso a objetos del sistema que tengan contenido sensible. Sólo permitirá su acceso a usuarios autorizados."
+               },
+               "resolution_level" : {
+                  "N" : "0.95"
+               },
+               "scenario" : {
+                  "S" : "Escaneo de Infraestructura"
+               },
+               "severity_scope" : {
+                  "N" : "1"
+               },
+               "subscription" : {
+                  "S" : "ONESHOT"
+               },
+               "test_type" : {
+                  "S" : "APP"
+               },
+               "threat" : {
+                  "S" : "Risk."
+               },
+               "treatment" : {
+                  "S" : "NEW"
+               },
+               "user_interaction" : {
+                  "N" : "0.62"
+               },
+               "vulnerability" : {
+                  "S" : "Se obtiene información de negocio, como:\r\n- Lista de usuarios\r\n- Información estratégica\r\n- Información de empleados\r\n- Información de clientes\r\n- Información de proveedores"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "actor" : {
+                  "S" : "ANYONE_INTERNET"
+               },
+               "affected_systems" : {
+                  "S" : "Server bWAPP\nAnother Server"
+               },
+               "analyst" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "attack_complexity" : {
+                  "N" : "0.77"
+               },
+               "attack_vector" : {
+                  "N" : "0.62"
+               },
+               "attack_vector_desc" : {
+                  "S" : "This is an attack vector"
+               },
+               "availability_impact" : {
+                  "N" : "0"
+               },
+               "availability_requirement" : {
+                  "N" : "1"
+               },
+               "client_project" : {
+                  "S" : "Fluid"
+               },
+               "confidentiality_impact" : {
+                  "N" : "0"
+               },
+               "confidentiality_requirement" : {
+                  "N" : "1"
+               },
+               "context" : {
+                  "S" : "SEARCHING"
+               },
+               "cvss_basescore" : {
+                  "N" : "3.5"
+               },
+               "cvss_env" : {
+                  "N" : "2.9"
+               },
+               "cvss_temporal" : {
+                  "N" : "2.9"
+               },
+               "cvss_version" : {
+                  "S" : "3"
+               },
+               "cwe" : {
+                  "S" : "200"
+               },
+               "effect_solution" : {
+                  "S" : "Implement password politicies with the best practicies for strong passwords."
+               },
+               "exploitability" : {
+                  "N" : "0.91"
+               },
+               "files" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "changed for testing purposes"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-422286126-53713035-test.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_2"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "changed for testing purposesese"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-422286126-53714414-evidencia.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_4"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "file_url" : {
+                              "S" : "unittesting-422286126-49412246-Untitled 1.csv"
+                           },
+                           "name" : {
+                              "S" : "fileRecords"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "file_url" : {
+                              "S" : "unittesting-422286126-38307199-exploit.py"
+                           },
+                           "name" : {
+                              "S" : "exploit"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "yes, it does."
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-422286126-53714452-l.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_5"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "file_url" : {
+                              "S" : "unittesting-422286126-testFile.gif"
+                           },
+                           "name" : {
+                              "S" : "animation"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "file_url" : {
+                              "S" : "unittesting-422286126-38307222-a.png"
+                           },
+                           "name" : {
+                              "S" : "exploitation"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "this is a test description"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-422286126-32202896-logo.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_1"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "update testing"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-422286126-53713045-a.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_3"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "changed for testing purposes"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-422286126-53713045-a.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_4"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "changed for testing purposes"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-422286126-53713045-a.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_4"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "file_url" : {
+                              "S" : "unittesting-422286126-38307272-testFile.gif"
+                           },
+                           "name" : {
+                              "S" : "animation"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "finding" : {
+                  "S" : "FIN.S.0051. Weak passwords reversed"
+               },
+               "finding_id" : {
+                  "S" : "422286126"
+               },
+               "finding_type" : {
+                  "S" : "SECURITY"
+               },
+               "id" : {
+                  "S" : "422286126"
+               },
+               "integrity_impact" : {
+                  "N" : "0.22"
+               },
+               "integrity_requirement" : {
+                  "N" : "1"
+               },
+               "interested" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "lastVulnerability" : {
+                  "S" : "2018-11-20"
+               },
+               "leader" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "modified_attack_complexity" : {
+                  "N" : "0.77"
+               },
+               "modified_attack_vector" : {
+                  "N" : "0.62"
+               },
+               "modified_availability_impact" : {
+                  "N" : "0"
+               },
+               "modified_confidentiality_impact" : {
+                  "N" : "0"
+               },
+               "modified_integrity_impact" : {
+                  "N" : "0.22"
+               },
+               "modified_privileges_required" : {
+                  "N" : "0.62"
+               },
+               "modified_severity_scope" : {
+                  "N" : "0"
+               },
+               "modified_user_interaction" : {
+                  "N" : "0.85"
+               },
+               "privileges_required" : {
+                  "N" : "0.62"
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "records" : {
+                  "S" : "Clave plana\nLogin"
+               },
+               "records_number" : {
+                  "S" : "12"
+               },
+               "related_findings" : {
+                  "S" : "363808260"
+               },
+               "releaseDate" : {
+                  "S" : "2018-07-09 00:00:00"
+               },
+               "remediation_level" : {
+                  "N" : "0.97"
+               },
+               "report_confidence" : {
+                  "N" : "0.92"
+               },
+               "report_date" : {
+                  "S" : "2018-07-09 07:23:14"
+               },
+               "report_level" : {
+                  "S" : "GENERAL"
+               },
+               "requirements" : {
+                  "S" : "REQ.0132. Passwords (phrase type) must be at least 3 words long."
+               },
+               "scenario" : {
+                  "S" : "UNAUTHORIZED_USER_EXTRANET"
+               },
+               "severity" : {
+                  "N" : "0"
+               },
+               "severity_scope" : {
+                  "N" : "0"
+               },
+               "subscription" : {
+                  "S" : "CONTINUOUS"
+               },
+               "test_type" : {
+                  "S" : "SOURCE_CODE"
+               },
+               "threat" : {
+                  "S" : "A attack can get passwords  of users and He can impersonate them or used the credentials for practices maliciosus."
+               },
+               "treatment" : {
+                  "S" : "IN PROGRESS"
+               },
+               "treatment_justification" : {
+                  "S" : "This is a treatment justification test"
+               },
+               "treatment_manager" : {
+                  "S" : "unittest"
+               },
+               "user_interaction" : {
+                  "N" : "0.85"
+               },
+               "verification_date" : {
+                  "S" : "2019-08-21 13:37:15"
+               },
+               "verification_request_date" : {
+                  "NULL" : true
+               },
+               "vulnerability" : {
+                  "S" : "It's possible reverse the users credentials due that password policies no force to the users to used  good practices for strong credentials in the system.\n\nTest\n\nLine\n\nbreak"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "acceptance_date" : {
+                  "S" : "2020-04-26 13:40:04"
+               },
+               "actor" : {
+                  "S" : "ANY_COSTUMER"
+               },
+               "affected_systems" : {
+                  "S" : "test"
+               },
+               "analyst" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "attack_complexity" : {
+                  "N" : "0.44"
+               },
+               "attack_vector" : {
+                  "N" : "0.62"
+               },
+               "attack_vector_desc" : {
+                  "S" : "test"
+               },
+               "availability_impact" : {
+                  "N" : "0"
+               },
+               "availability_requirement" : {
+                  "N" : "1"
+               },
+               "client_project" : {
+                  "S" : "test3"
+               },
+               "confidentiality_impact" : {
+                  "N" : "0.56"
+               },
+               "confidentiality_requirement" : {
+                  "N" : "1"
+               },
+               "context" : {
+                  "S" : "SEARCHING"
+               },
+               "cvss_basescore" : {
+                  "N" : "5.1"
+               },
+               "cvss_env" : {
+                  "N" : "4.5"
+               },
+               "cvss_temporal" : {
+                  "N" : "4.3"
+               },
+               "cvss_version" : {
+                  "S" : "3"
+               },
+               "cwe" : {
+                  "S" : "200"
+               },
+               "effect_solution" : {
+                  "S" : "Hacer uso de tokens en los formularios para la verificación de las peticiones realizadas por usuarios legítimos.\r\n"
+               },
+               "exploitability" : {
+                  "N" : "0.91"
+               },
+               "files" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "test"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-463558592-32202896-evidencia.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_1"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "Test2"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-463558592-53713035-evidencia.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_2"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "Test3"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-463558592-53713045-fa.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_3"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "An error"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-463558592-53714414-integrates.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_4"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "4"
+                           },
+                           "file_url" : {
+                              "S" : "unittesting-463558592-53714452-DeepinScreenshot_select-area_20190109085840.png"
+                           },
+                           "name" : {
+                              "S" : "evidence_route_5"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "finding" : {
+                  "S" : "FIN.S.0007. Cross site request forgery"
+               },
+               "finding_id" : {
+                  "S" : "463558592"
+               },
+               "finding_type" : {
+                  "S" : "SECURITY"
+               },
+               "id" : {
+                  "S" : "463558592"
+               },
+               "integrity_impact" : {
+                  "N" : "0.22"
+               },
+               "integrity_requirement" : {
+                  "N" : "1.5"
+               },
+               "interested" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "lastVulnerability" : {
+                  "S" : "2018-12-17 00:00:00"
+               },
+               "leader" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "modified_attack_complexity" : {
+                  "N" : "0.44"
+               },
+               "modified_attack_vector" : {
+                  "N" : "0.62"
+               },
+               "modified_availability_impact" : {
+                  "N" : "0"
+               },
+               "modified_confidentiality_impact" : {
+                  "N" : "0.56"
+               },
+               "modified_integrity_impact" : {
+                  "N" : "0.22"
+               },
+               "modified_privileges_required" : {
+                  "N" : "0.62"
+               },
+               "modified_severity_scope" : {
+                  "N" : "0"
+               },
+               "modified_user_interaction" : {
+                  "N" : "0.62"
+               },
+               "privileges_required" : {
+                  "N" : "0.62"
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "records_number" : {
+                  "S" : "0"
+               },
+               "related_findings" : {
+                  "S" : "-"
+               },
+               "releaseDate" : {
+                  "S" : "2018-12-17 00:00:00"
+               },
+               "remediation_level" : {
+                  "N" : "0.95"
+               },
+               "report_confidence" : {
+                  "N" : "0.96"
+               },
+               "report_date" : {
+                  "S" : "2018-12-17 15:32:25"
+               },
+               "report_level" : {
+                  "S" : "GENERAL"
+               },
+               "requirements" : {
+                  "S" : "REQ.0174. La aplicación debe garantizar que las peticiones que ejecuten transacciones no sigan un patrón discernible."
+               },
+               "scenario" : {
+                  "S" : "AUTHORIZED_USER_EXTRANET"
+               },
+               "severity_scope" : {
+                  "N" : "0"
+               },
+               "subscription" : {
+                  "S" : "ONESHOT"
+               },
+               "test_type" : {
+                  "S" : "APP"
+               },
+               "threat" : {
+                  "S" : "Test."
+               },
+               "treatment" : {
+                  "S" : "ACCEPTED"
+               },
+               "treatment_justification" : {
+                  "S" : "This is a treatment justification test"
+               },
+               "treatment_manager" : {
+                  "S" : "unittest"
+               },
+               "user_interaction" : {
+                  "N" : "0.62"
+               },
+               "vulnerability" : {
+                  "S" : "La aplicación permite engañar a un usuario autenticado por medio de links manipulados para ejecutar acciones sobre la aplicación sin su consentimiento.."
+               }
+            }
+         }
+      }
+   ]
+}

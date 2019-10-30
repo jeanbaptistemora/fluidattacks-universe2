@@ -1,0 +1,22 @@
+{
+   "FI_users" : [
+      {
+         "PutRequest" : {
+            "Item" : {
+               "company" : {
+                  "S" : "unittest"
+               },
+               "email" : {
+                  "S" : "unittest"
+               },
+               "legal_remember" : {
+                  "BOOL" : true
+               },
+               "registered" : {
+                  "BOOL" : true
+               }
+            }
+         }
+      }
+   ]
+}

@@ -1,0 +1,1621 @@
+{
+   "FI_projects" : [
+      {
+         "PutRequest" : {
+            "Item" : {
+               "companies" : {
+                  "L" : [
+                     {
+                        "S" : "FLUID"
+                     }
+                  ]
+               },
+               "customeradmin" : {
+                  "SS" : [
+                     "unittest@fluidattacks.com",
+                     "unittest@fluidattacks.com"
+                  ]
+               },
+               "description" : {
+                  "S" : "oneshot testing"
+               },
+               "environments" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "urlEnv" : {
+                              "S" : "https://gitlab.com/fluidattacks/integrates"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "urlEnv" : {
+                              "S" : "https://gitlab.com/fluidattacks/asserts"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "urlEnv" : {
+                              "S" : "https://gitlab.com/fluidattacks/web"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "files" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "asdas"
+                           },
+                           "fileName" : {
+                              "S" : "Screenshot from 2019-03-11 18-08-30.png"
+                           },
+                           "uploadDate" : {
+                              "S" : "2019-03-12 14:43"
+                           },
+                           "uploader" : {
+                              "S" : "unittest@fluidattacks.com"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "test file"
+                           },
+                           "fileName" : {
+                              "S" : "hqdefault.jpg"
+                           },
+                           "uploadDate" : {
+                              "S" : "2019-05-28 16:33"
+                           },
+                           "uploader" : {
+                              "S" : "unittest@fluidattacks.com"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "test"
+                           },
+                           "fileName" : {
+                              "S" : "test.jpg"
+                           },
+                           "uploadDate" : {
+                              "S" : "2019-05-29 09:26"
+                           },
+                           "uploader" : {
+                              "S" : "unittest@fluidattacks.com"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "hasRelease" : {
+                  "BOOL" : true
+               },
+               "last_closing_date" : {
+                  "N" : "45"
+               },
+               "max_open_severity" : {
+                  "N" : "10"
+               },
+               "mean_remediate" : {
+                  "N" : "103"
+               },
+               "project_name" : {
+                  "S" : "oneshottest"
+               },
+               "project_status" : {
+                  "S" : "test"
+               },
+               "remediated_over_time" : {
+                  "L" : [
+                     {
+                        "L" : [
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Dec 24 - 30, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "6"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 7 - 13, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "7"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Mar 11 - 17, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "10"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "May 13 - 19, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "11"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "May 20 - 26, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "54"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jun 17 - 23, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "56"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jul 22 - 28, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "76"
+                                 }
+                              }
+                           }
+                        ]
+                     },
+                     {
+                        "L" : [
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Dec 24 - 30, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 7 - 13, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Mar 11 - 17, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "May 13 - 19, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "May 20 - 26, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jun 17 - 23, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jul 22 - 28, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           }
+                        ]
+                     },
+                     {
+                        "L" : [
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Dec 24 - 30, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "3"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 7 - 13, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "3"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Mar 11 - 17, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "3"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "May 13 - 19, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "3"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "May 20 - 26, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "29"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jun 17 - 23, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "29"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jul 22 - 28, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "44"
+                                 }
+                              }
+                           }
+                        ]
+                     },
+                     {
+                        "L" : [
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Dec 24 - 30, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "3"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 7 - 13, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "3"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Mar 11 - 17, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "3"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "May 13 - 19, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "3"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "May 20 - 26, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "29"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jun 17 - 23, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "29"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jul 22 - 28, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "44"
+                                 }
+                              }
+                           }
+                        ]
+                     }
+                  ]
+               },
+               "repositories" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "branch" : {
+                              "S" : "master"
+                           },
+                           "urlRepo" : {
+                              "S" : "https://gitlab.com/fluidsignal/integrates"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "branch" : {
+                              "S" : "master"
+                           },
+                           "urlRepo" : {
+                              "S" : "https://cgomezatfluid.integrates.env.fluidattacks.com/index"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "branch" : {
+                              "S" : "master"
+                           },
+                           "protocol" : {
+                              "S" : "SSH"
+                           },
+                           "urlRepo" : {
+                              "S" : "git@gitlab.com:fluidattacks/integrates.git"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "branch" : {
+                              "S" : "test"
+                           },
+                           "protocol" : {
+                              "S" : "HTTPS"
+                           },
+                           "urlRepo" : {
+                              "S" : "https://gitlab.com/fluidattacks/web"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "tag" : {
+                  "SS" : [
+                     "another-tag",
+                     "test",
+                     "test-projects",
+                     "test1"
+                  ]
+               },
+               "total_treatment" : {
+                  "M" : {
+                     "accepted" : {
+                        "N" : "0"
+                     },
+                     "inProgress" : {
+                        "N" : "0"
+                     },
+                     "undefined" : {
+                        "N" : "32"
+                     }
+                  }
+               },
+               "type" : {
+                  "S" : "oneshot"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "companies" : {
+                  "L" : [
+                     {
+                        "S" : "FLUID"
+                     }
+                  ]
+               },
+               "customeradmin" : {
+                  "SS" : [
+                     "unittest@fluidattacks.com"
+                  ]
+               },
+               "description" : {
+                  "S" : "Integrates unit test project"
+               },
+               "environments" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "urlEnv" : {
+                              "S" : "https://dacevedoatfluid.integrates.env."
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "urlEnv" : {
+                              "S" : "https://fluidattacks.com/"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "uploadDate" : {
+                              "S" : "2019-10-29 13:40"
+                           },
+                           "urlEnv" : {
+                              "S" : "https://unittesting.fluidattacks.com/"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "files" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "Test"
+                           },
+                           "fileName" : {
+                              "S" : "test.zip"
+                           },
+                           "uploadDate" : {
+                              "S" : "2019-03-01 15:21"
+                           },
+                           "uploader" : {
+                              "S" : "unittest@fluidattacks.com"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "shell"
+                           },
+                           "fileName" : {
+                              "S" : "shell.exe"
+                           },
+                           "uploadDate" : {
+                              "S" : "2019-04-24 14:56"
+                           },
+                           "uploader" : {
+                              "S" : "unittest@fluidattacks.com"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "shell2"
+                           },
+                           "fileName" : {
+                              "S" : "shell2.exe"
+                           },
+                           "uploadDate" : {
+                              "S" : "2019-04-24 14:59"
+                           },
+                           "uploader" : {
+                              "S" : "unittest@fluidattacks.com"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "eerweterterter"
+                           },
+                           "fileName" : {
+                              "S" : "asdasd.py"
+                           },
+                           "uploadDate" : {
+                              "S" : "2019-08-06 14:28"
+                           },
+                           "uploader" : {
+                              "S" : "unittest@fluidattacks.com"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "hasRelease" : {
+                  "BOOL" : true
+               },
+               "last_closing_date" : {
+                  "N" : "23"
+               },
+               "max_open_severity" : {
+                  "N" : "4.9"
+               },
+               "mean_remediate" : {
+                  "N" : "245"
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "project_status" : {
+                  "S" : "test"
+               },
+               "remediated_over_time" : {
+                  "L" : [
+                     {
+                        "L" : [
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Sep 24 - 30, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "2"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 8 - 14, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "6"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 15 - 21, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "7"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 22 - 28, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "16"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 29 - Nov 4, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "22"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Nov 5 - 11, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "39"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Nov 12 - 18, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "40"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Nov 19 - 25, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "46"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Nov 26 - Dec 2, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "100"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Dec 10 - 16, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "101"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Dec 17 - 23, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "104"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Dec 24 - 30, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "114"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 7 - 13, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "114"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 14 - 20, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "125"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 21 - 27, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "135"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 28 - Feb 3, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "135"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Feb 4 - 10, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "136"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jun 10 - 16, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "137"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jul 8 - 14, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "137"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jul 22 - 28, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "141"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Aug 5 - 11, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "150"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Aug 12 - 18, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "150"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Aug 26 - Sep 1, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "151"
+                                 }
+                              }
+                           }
+                        ]
+                     },
+                     {
+                        "L" : [
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Sep 24 - 30, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 8 - 14, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 15 - 21, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 22 - 28, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 29 - Nov 4, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Nov 5 - 11, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Nov 12 - 18, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Nov 19 - 25, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Nov 26 - Dec 2, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Dec 10 - 16, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Dec 17 - 23, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "1"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Dec 24 - 30, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "1"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 7 - 13, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "1"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 14 - 20, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "5"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 21 - 27, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "5"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 28 - Feb 3, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "5"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Feb 4 - 10, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "5"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jun 10 - 16, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "5"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jul 8 - 14, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "5"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jul 22 - 28, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "5"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Aug 5 - 11, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "5"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Aug 12 - 18, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "5"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Aug 26 - Sep 1, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "5"
+                                 }
+                              }
+                           }
+                        ]
+                     },
+                     {
+                        "L" : [
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Sep 24 - 30, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 8 - 14, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 15 - 21, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 22 - 28, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 29 - Nov 4, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Nov 5 - 11, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Nov 12 - 18, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Nov 19 - 25, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Nov 26 - Dec 2, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Dec 10 - 16, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Dec 17 - 23, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Dec 24 - 30, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "9"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 7 - 13, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "10"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 14 - 20, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "13"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 21 - 27, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "14"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 28 - Feb 3, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "17"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Feb 4 - 10, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "17"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jun 10 - 16, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "17"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jul 8 - 14, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "18"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jul 22 - 28, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "19"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Aug 5 - 11, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "19"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Aug 12 - 18, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "23"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Aug 26 - Sep 1, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "23"
+                                 }
+                              }
+                           }
+                        ]
+                     },
+                     {
+                        "L" : [
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Sep 24 - 30, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 8 - 14, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 15 - 21, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 22 - 28, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 29 - Nov 4, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Nov 5 - 11, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Nov 12 - 18, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Nov 19 - 25, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Nov 26 - Dec 2, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Dec 10 - 16, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Dec 17 - 23, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "1"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Dec 24 - 30, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "10"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 7 - 13, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "11"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 14 - 20, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "18"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 21 - 27, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "19"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jan 28 - Feb 3, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "22"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Feb 4 - 10, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "22"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jun 10 - 16, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "22"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jul 8 - 14, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "23"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Jul 22 - 28, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "24"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Aug 5 - 11, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "24"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Aug 12 - 18, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "28"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Aug 26 - Sep 1, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "28"
+                                 }
+                              }
+                           }
+                        ]
+                     }
+                  ]
+               },
+               "repositories" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "branch" : {
+                              "S" : "master"
+                           },
+                           "urlRepo" : {
+                              "S" : "https://gitlab.com/fluidsignal/engineering/"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "branch" : {
+                              "S" : "master"
+                           },
+                           "protocol" : {
+                              "NULL" : true
+                           },
+                           "uploadDate" : {
+                              "S" : "2019-10-29 13:40"
+                           },
+                           "urlRepo" : {
+                              "S" : "https://gitlab.com/fluidsignal/unittest"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "tag" : {
+                  "SS" : [
+                     "test-projects"
+                  ]
+               },
+               "total_treatment" : {
+                  "M" : {
+                     "accepted" : {
+                        "N" : "5"
+                     },
+                     "inProgress" : {
+                        "N" : "58"
+                     },
+                     "undefined" : {
+                        "N" : "65"
+                     }
+                  }
+               },
+               "type" : {
+                  "S" : "continuous"
+               }
+            }
+         }
+      }
+   ]
+}

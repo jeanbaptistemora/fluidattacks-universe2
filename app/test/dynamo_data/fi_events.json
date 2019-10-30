@@ -1,0 +1,286 @@
+{
+   "fi_events" : [
+      {
+         "PutRequest" : {
+            "Item" : {
+               "action_after_blocking" : {
+                  "S" : "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
+               },
+               "action_before_blocking" : {
+                  "S" : "TEST_OTHER_PART_TOE"
+               },
+               "affectation" : {
+                  "S" : "0"
+               },
+               "analyst" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "client" : {
+                  "S" : "Fluid"
+               },
+               "client_project" : {
+                  "S" : "unittesting"
+               },
+               "closer" : {
+                  "S" : "unittest"
+               },
+               "context" : {
+                  "S" : "FLUID"
+               },
+               "detail" : {
+                  "S" : "Integrates unit test"
+               },
+               "event_date" : {
+                  "S" : "2018-06-27 07:00"
+               },
+               "event_id" : {
+                  "S" : "418900971"
+               },
+               "event_status" : {
+                  "S" : "SOLVED"
+               },
+               "event_type" : {
+                  "S" : "OTHER"
+               },
+               "hours_before_blocking" : {
+                  "S" : "1"
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "report_date" : {
+                  "S" : "2018-06-27 14:40:05"
+               },
+               "subscription" : {
+                  "S" : "ONESHOT"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "accessibility" : {
+                  "S" : "Repositorio"
+               },
+               "action_after_blocking" : {
+                  "S" : "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
+               },
+               "action_before_blocking" : {
+                  "S" : "TEST_OTHER_PART_TOE"
+               },
+               "analyst" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "client" : {
+                  "S" : "Fluid Attacks"
+               },
+               "client_responsible" : {
+                  "S" : "aasad@asddd.com"
+               },
+               "context" : {
+                  "S" : "FLUID"
+               },
+               "detail" : {
+                  "S" : "test test test"
+               },
+               "event_date" : {
+                  "S" : "2019-04-02 03:02"
+               },
+               "event_id" : {
+                  "S" : "540462628"
+               },
+               "event_status" : {
+                  "S" : "UNSOLVED"
+               },
+               "event_type" : {
+                  "S" : "HIGH_AVAILABILITY_APPROVAL"
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "report_date" : {
+                  "S" : "2019-09-25 09:36:27"
+               },
+               "subscription" : {
+                  "S" : "CONTINUOUS"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "accessibility" : {
+                  "S" : "Repositorio"
+               },
+               "action_after_blocking" : {
+                  "S" : "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
+               },
+               "action_before_blocking" : {
+                  "S" : "DOCUMENT_PROJECT"
+               },
+               "affectation" : {
+                  "S" : "4"
+               },
+               "analyst" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "client" : {
+                  "S" : "Fluid Attacks"
+               },
+               "client_project" : {
+                  "S" : "0000"
+               },
+               "client_responsible" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "closer" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "context" : {
+                  "S" : "FLUID"
+               },
+               "detail" : {
+                  "S" : "This is an eventuality with evidence"
+               },
+               "event_date" : {
+                  "S" : "2019-03-11 09:00"
+               },
+               "event_id" : {
+                  "S" : "484763304"
+               },
+               "event_status" : {
+                  "S" : "SOLVED"
+               },
+               "event_type" : {
+                  "S" : "CLIENT_DETECTS_ATTACK"
+               },
+               "evidence" : {
+                  "S" : "1bhEW8rN33fq01SBmWjjEwEtK6HWkdMq6"
+               },
+               "evidence_file" : {
+                  "S" : "1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad"
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "report_date" : {
+                  "S" : "2019-03-11 08:57:45"
+               },
+               "subscription" : {
+                  "S" : "ONESHOT"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "action_after_blocking" : {
+                  "S" : "NONE"
+               },
+               "action_before_blocking" : {
+                  "S" : "NONE"
+               },
+               "affectation" : {
+                  "S" : "5"
+               },
+               "analyst" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "client" : {
+                  "S" : "Fluid"
+               },
+               "client_project" : {
+                  "S" : "unittesting"
+               },
+               "client_responsible" : {
+                  "S" : "someone@client.com"
+               },
+               "closer" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "context" : {
+                  "S" : "FLUID"
+               },
+               "detail" : {
+                  "S" : "Test con evidencia."
+               },
+               "event_date" : {
+                  "S" : "2018-12-17 16:20"
+               },
+               "event_id" : {
+                  "S" : "463578352"
+               },
+               "event_status" : {
+                  "S" : "SOLVED"
+               },
+               "event_type" : {
+                  "S" : "CLIENT_DETECTS_ATTACK"
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "report_date" : {
+                  "S" : "2018-12-17 16:21:03"
+               },
+               "subscription" : {
+                  "S" : "ONESHOT"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "accessibility" : {
+                  "S" : "Ambiente"
+               },
+               "action_after_blocking" : {
+                  "S" : "TRAINING"
+               },
+               "action_before_blocking" : {
+                  "S" : "TEST_OTHER_PART_TOE"
+               },
+               "analyst" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "client" : {
+                  "S" : "test"
+               },
+               "client_responsible" : {
+                  "S" : "test@test.com"
+               },
+               "context" : {
+                  "S" : "FLUID"
+               },
+               "detail" : {
+                  "S" : "Esta eventualidad fue levantada para poder realizar pruebas de unittesting"
+               },
+               "event_date" : {
+                  "S" : "2019-09-19 08:09"
+               },
+               "event_id" : {
+                  "S" : "538745942"
+               },
+               "event_status" : {
+                  "S" : "UNSOLVED"
+               },
+               "event_type" : {
+                  "S" : "CLIENT_DETECTS_ATTACK"
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "report_date" : {
+                  "S" : "2019-09-19 10:43:43"
+               },
+               "subscription" : {
+                  "S" : "ONESHOT"
+               }
+            }
+         }
+      }
+   ]
+}

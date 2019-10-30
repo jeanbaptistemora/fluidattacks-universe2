@@ -1,0 +1,25 @@
+{
+   "FI_toe" : [
+      {
+         "PutRequest" : {
+            "Item" : {
+               "fields" : {
+                  "N" : "50"
+               },
+               "fields_tested" : {
+                  "N" : "40"
+               },
+               "lines" : {
+                  "N" : "10000"
+               },
+               "lines_tested" : {
+                  "N" : "8000"
+               },
+               "project" : {
+                  "S" : "bwapp"
+               }
+            }
+         }
+      }
+   ]
+}

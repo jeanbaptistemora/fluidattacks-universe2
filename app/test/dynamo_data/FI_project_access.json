@@ -1,0 +1,244 @@
+{
+   "FI_project_access" : [
+      {
+         "PutRequest" : {
+            "Item" : {
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "responsibility" : {
+                  "S" : "edited"
+               },
+               "user_email" : {
+                  "S" : "test@test.testedited"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "has_access" : {
+                  "BOOL" : true
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "responsibility" : {
+                  "S" : "Tester"
+               },
+               "user_email" : {
+                  "S" : "unittest@fluidattacks.com"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "responsibility" : {
+                  "S" : "tester"
+               },
+               "user_email" : {
+                  "S" : "unittest@fluidattacks.com"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "has_access" : {
+                  "BOOL" : true
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "responsibility" : {
+                  "S" : "-"
+               },
+               "user_email" : {
+                  "S" : "unittest@fluidattacks.com"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "has_access" : {
+                  "BOOL" : true
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "responsibility" : {
+                  "S" : "Tester"
+               },
+               "user_email" : {
+                  "S" : "unittest@fluidattacks.com"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "has_access" : {
+                  "BOOL" : true
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "responsibility" : {
+                  "S" : "Pruebas Fluid"
+               },
+               "user_email" : {
+                  "S" : "unittest@fluidattacks.com"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "has_access" : {
+                  "BOOL" : true
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "user_email" : {
+                  "S" : "unittestinguser"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "has_access" : {
+                  "BOOL" : true
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "responsibility" : {
+                  "S" : "Test"
+               },
+               "user_email" : {
+                  "S" : "unittest@fluidattacks.com"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "has_access" : {
+                  "BOOL" : true
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "responsibility" : {
+                  "S" : "-"
+               },
+               "user_email" : {
+                  "S" : "unittest@fluidattacks.com"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "has_access" : {
+                  "BOOL" : true
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "responsibility" : {
+                  "S" : "-"
+               },
+               "user_email" : {
+                  "S" : "unittest@fluidattacks.com"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "has_access" : {
+                  "BOOL" : true
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "responsibility" : {
+                  "S" : "Developer Fluid"
+               },
+               "user_email" : {
+                  "S" : "unittest@fluidattacks.com"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "has_access" : {
+                  "BOOL" : true
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "responsibility" : {
+                  "S" : "tester"
+               },
+               "user_email" : {
+                  "S" : "testing@test.unittest"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "has_access" : {
+                  "BOOL" : true
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "responsibility" : {
+                  "S" : "asdasd"
+               },
+               "user_email" : {
+                  "S" : "asdasdsa@adasdas.asd"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "responsibility" : {
+                  "S" : "test"
+               },
+               "user_email" : {
+                  "S" : "testing@test.tester"
+               }
+            }
+         }
+      }
+   ]
+}
