@@ -15,10 +15,10 @@ import {
  */
 // @ts-ignore
 import ReactPhoneInput from "react-phone-input-2";
-import { FormProps, WrappedFieldProps } from "redux-form";
+import { WrappedFieldProps } from "redux-form";
 import style from "./index.css";
 
-type CustomFieldProps = FormProps<{}, {}, {}> & FormControlProps & WrappedFieldProps;
+type CustomFieldProps = WrappedFieldProps & FormControlProps;
 
 const renderError: ((arg1: string) => JSX.Element) = (msg: string): JSX.Element => (
   <HelpBlock id="validationError" className={style.validationError}>{msg}</HelpBlock>
@@ -29,7 +29,7 @@ const renderCharacterCount: ((text: string) => JSX.Element) = (text: string): JS
 );
 
 type autocompleteFieldProps = CustomFieldProps & { suggestions: string[] };
-export const autocompleteTextField: ((fieldProps: autocompleteFieldProps) => JSX.Element) = (
+export const autocompleteTextField: React.FC<autocompleteFieldProps> = (
   fieldProps: autocompleteFieldProps,
 ): JSX.Element => {
   const filteredSuggestions: string[] = _.isEmpty(fieldProps.input.value.trim())
@@ -68,7 +68,7 @@ export const autocompleteTextField: ((fieldProps: autocompleteFieldProps) => JSX
   );
 };
 
-export const textField: ((arg1: CustomFieldProps) => JSX.Element) =
+export const textField: React.FC<CustomFieldProps> =
   (fieldProps: CustomFieldProps): JSX.Element => (
     <div>
       <FormControl
@@ -87,7 +87,7 @@ export const textField: ((arg1: CustomFieldProps) => JSX.Element) =
     </div>
   );
 
-export const phoneNumberField: ((arg1: CustomFieldProps) => JSX.Element) =
+export const phoneNumberField: React.FC<CustomFieldProps> =
   (fieldProps: CustomFieldProps): JSX.Element => (
     <ReactPhoneInput
       defaultCountry="co"
@@ -104,7 +104,7 @@ const handleDropdownChange: ((arg1: React.FormEvent<FormGroup>, arg2: CustomFiel
     fieldProps.input.onChange((event.target as HTMLInputElement).value);
   };
 
-export const dropdownField: ((arg1: CustomFieldProps) => JSX.Element) =
+export const dropdownField: React.FC<CustomFieldProps> =
   (fieldProps: CustomFieldProps): JSX.Element => (
     <div>
       <FormControl
@@ -124,7 +124,7 @@ const handleFileChange: ((arg1: React.FormEvent<FormControl>, arg2: CustomFieldP
     fieldProps.input.onChange(!_.isNil(files) ? files[0].name : "");
   };
 
-export const fileInputField: ((arg1: CustomFieldProps) => JSX.Element) =
+export const fileInputField: React.FC<CustomFieldProps> =
   (fieldProps: CustomFieldProps): JSX.Element => (
     <FormGroup controlId={fieldProps.id} className={style.text_center}>
       <InputGroup>
@@ -147,7 +147,7 @@ export const fileInputField: ((arg1: CustomFieldProps) => JSX.Element) =
     </FormGroup>
   );
 
-export const textAreaField: ((arg1: CustomFieldProps & { withCount?: boolean }) => JSX.Element) =
+export const textAreaField: React.FC<CustomFieldProps & { withCount?: boolean }> =
   (fieldProps: CustomFieldProps & { withCount?: boolean }): JSX.Element => (
     <div>
       <FormControl
@@ -162,7 +162,7 @@ export const textAreaField: ((arg1: CustomFieldProps & { withCount?: boolean }) 
     </div>
   );
 
-export const dateField: ((arg1: CustomFieldProps) => JSX.Element) =
+export const dateField: React.FC<CustomFieldProps> =
   (fieldProps: CustomFieldProps): JSX.Element => (
     <div>
       <FormControl
@@ -179,9 +179,16 @@ export const dateField: ((arg1: CustomFieldProps) => JSX.Element) =
     </div>
   );
 
-export const checkboxField: ((arg1: CustomFieldProps) => JSX.Element) = (fieldProps: CustomFieldProps): JSX.Element => (
-  <div>
+export const dateTimeField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => (
+  <React.Fragment>
+    <FormControl className={style.formControl} id={fieldProps.id} type="datetime-local" {...fieldProps.input} />
+    {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
+  </React.Fragment>
+);
+
+export const checkboxField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => (
+  <React.Fragment>
     <Checkbox checked={fieldProps.input.value} children={fieldProps.children} {...fieldProps.input} />
     {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
-  </div>
+  </React.Fragment>
 );

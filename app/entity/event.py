@@ -1,6 +1,7 @@
 """ GraphQL Entity for Events """
 from graphene import (
-    Argument, Boolean, Enum, Field, List, Mutation, ObjectType, String
+    Argument, Boolean, DateTime, Enum, Field, List, Mutation, ObjectType,
+    String
 )
 
 from app import util
@@ -175,7 +176,7 @@ class CreateEvent(Mutation):
                 ('TELECOMMUTING', 'TELECOMMUTING')
             ]), required=True)
         detail = String(required=True)
-        event_date = String(required=True)
+        event_date = DateTime(required=True)
         event_type = Argument(
             Enum('EventType', [
                 (
