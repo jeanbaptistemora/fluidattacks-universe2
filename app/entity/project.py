@@ -446,3 +446,39 @@ Attempted to upload tags without the allowed validations')
             util.invalidate_cache(project_name)
         ret = AddTags(success=success, project=Project(project_name))
         return ret
+
+
+class AddAllProjectAccess(Mutation):
+
+    class Arguments():
+        project_name = String(required=True)
+    success = Boolean()
+
+    @require_login
+    @require_role(['admin'])
+    def mutate(self, info, project_name):
+        success = project_domain.add_all_access_to_project(project_name)
+        if success:
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Add all project access of {project_name}')
+            util.invalidate_cache(project_name)
+        return AddAllProjectAccess(success=success)
+
+
+class RemoveAllProjectAccess(Mutation):
+
+    class Arguments():
+        project_name = String(required=True)
+    success = Boolean()
+
+    @require_login
+    @require_role(['admin'])
+    def mutate(self, info, project_name):
+        success = project_domain.remove_all_project_access(project_name)
+        if success:
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Remove all project access of {project_name}')
+            util.invalidate_cache(project_name)
+        return RemoveAllProjectAccess(success=success)

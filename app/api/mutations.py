@@ -21,7 +21,8 @@ from app.entity.finding import (
     DeleteFinding, ApproveDraft, CreateDraft, SubmitDraft
 )
 from app.entity.project import (
-    AddProjectComment, CreateProject, RemoveTag, AddTags
+    AddProjectComment, CreateProject, RemoveTag, AddTags, AddAllProjectAccess,
+    RemoveAllProjectAccess
 )
 from app.entity.event import CreateEvent, UpdateEvent
 from app.entity.me import SignIn, UpdateAccessToken, InvalidateAccessToken
@@ -55,6 +56,8 @@ class Mutations(ObjectType):
 
     updateSeverity = UpdateSeverity.Field()
 
+    addAllProjectAccess = AddAllProjectAccess.Field()
+    removeAllProjectAccess = RemoveAllProjectAccess.Field()
     addProjectComment = AddProjectComment.Field()
     createProject = CreateProject.Field()
     addFindingComment = AddFindingComment.Field()
