@@ -5,8 +5,9 @@
 
 import _ from "lodash";
 import React from "react";
-import { Badge, ControlLabel, FormControl, FormControlProps,
-  FormGroup, Glyphicon, HelpBlock, InputGroup } from "react-bootstrap";
+import {
+  Badge, Checkbox, ControlLabel, FormControl, FormControlProps, FormGroup, Glyphicon, HelpBlock, InputGroup,
+} from "react-bootstrap";
 /**
  * Disabling here is necessary because
  * there are currently no available type definitions for
@@ -177,3 +178,10 @@ export const dateField: ((arg1: CustomFieldProps) => JSX.Element) =
       {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
     </div>
   );
+
+export const checkboxField: ((arg1: CustomFieldProps) => JSX.Element) = (fieldProps: CustomFieldProps): JSX.Element => (
+  <div>
+    <Checkbox checked={fieldProps.input.value} children={fieldProps.children} {...fieldProps.input} />
+    {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
+  </div>
+);

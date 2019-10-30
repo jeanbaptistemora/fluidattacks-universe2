@@ -612,6 +612,7 @@ const enTranslations: dict = {
     minLength: "This field requires at least {{count}} characters",
     numeric: "This field can only contain numbers",
     required: "Required field",
+    some_required: "Select at least one value",
     tags: "This field can only contain alphanumeric characters and dashes",
     valid_date: "The date must be below six months",
     valid_date_token: "The date must be below six months",

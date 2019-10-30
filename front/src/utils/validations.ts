@@ -1,12 +1,31 @@
 import _ from "lodash";
-import { ConfigurableValidator, ConfiguredValidator, hasLengthGreaterThan, isAlphaNumeric, isNumeric,
-  isRequired } from "revalidate";
+import { Validator } from "redux-form";
+import {
+  ConfigurableValidator, ConfiguredValidator, hasLengthGreaterThan, isAlphaNumeric, isNumeric, isRequired,
+} from "revalidate";
 import { msgError } from "./notifications";
 import translate from "./translations/translate";
 
 export const required: ConfiguredValidator = isRequired({
   message: translate.t("validations.required"),
 });
+
+export const someRequired: Validator = (
+  _0: boolean, allValues: { [key: string]: {} }, _1: {}, name: string,
+): string | undefined => {
+  let isValid: boolean = false;
+  const fieldId: string[] = name.split(".");
+
+  if (fieldId.length > 1) {
+    const groupName: string = fieldId[0];
+    const groupValues: { [key: string]: boolean } = allValues[groupName];
+    isValid = _.some(groupValues);
+  } else {
+    throw new TypeError("Checkbox / Radio must be grouped by a <FormSection> component");
+  }
+
+  return isValid ? undefined : translate.t("validations.some_required");
+};
 
 export const numberBetween: ((min: number, max: number) => ((value: number) => string | undefined)) =
   (min: number, max: number): ((value: number) => string | undefined) =>
@@ -24,8 +43,7 @@ export const alphaNumeric: ConfiguredValidator = isAlphaNumeric({
   message: translate.t("validations.alphanumeric"),
 });
 
-export const validEmail: ((arg1: string) => string | undefined) =
-  (value: string): string | undefined => {
+export const validEmail: Validator = (value: string): string | undefined => {
   const pattern: RegExp = /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i;
   if (_.isEmpty(value) || !pattern.test(value)) {
     return translate.t("validations.email");
@@ -34,8 +52,9 @@ export const validEmail: ((arg1: string) => string | undefined) =
   }
 };
 
-export const evidenceHasValidType: ((arg1: File, arg2: number) => boolean) =
-  (file: File, evidenceType: number): boolean => {
+export const evidenceHasValidType: ((file: File, evidenceType: number) => boolean) = (
+  file: File, evidenceType: number,
+): boolean => {
   let valid: boolean;
   let ANIMATION: number; ANIMATION = 0;
   let EVIDENCE: number[]; EVIDENCE = [1, 2, 3, 4, 5, 6];
@@ -113,14 +132,14 @@ export const isValidEvidenceFile: ((arg1: string) => boolean) =
     }
 
     return valid;
-};
+  };
 
 export const isFileSelected: ((arg1: string) => boolean) =
   (fieldId: string): boolean => {
     const selected: FileList | null = (document.querySelector(fieldId) as HTMLInputElement).files;
 
     return !(_.isNil(selected) || selected.length === 0);
-};
+  };
 
 export const isValidVulnsFile: ((fieldId: string) => boolean) = (fieldId: string): boolean => {
   const selected: FileList | null = (document.querySelector(fieldId) as HTMLInputElement).files;
@@ -145,8 +164,7 @@ export const isValidVulnsFile: ((fieldId: string) => boolean) = (fieldId: string
   return valid;
 };
 
-export const validTag: ((arg1: string) => string | undefined) =
-  (value: string): string | undefined => {
+export const validTag: Validator = (value: string): string | undefined => {
   const pattern: RegExp = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
   if (_.isEmpty(value) || !pattern.test(value)) {
     return translate.t("validations.tags");
@@ -166,10 +184,9 @@ export const isValidFileName: ((arg1: string) => boolean) =
     }
 
     return valid;
-};
+  };
 
-export const isValidFileSize: ((file: File, fileSize: number) => boolean) =
-  (file: File, fileSize: number): boolean => {
+export const isValidFileSize: ((file: File, fileSize: number) => boolean) = (file: File, fileSize: number): boolean => {
 
   let MIB: number; MIB = 1048576;
   let isValid: boolean; isValid = false;
@@ -182,8 +199,7 @@ export const isValidFileSize: ((file: File, fileSize: number) => boolean) =
   return isValid;
 };
 
-export const isValidDate: ((arg1: string) => string | undefined) =
-  (value: string): string | undefined => {
+export const isValidDate: ((arg1: string) => string | undefined) = (value: string): string | undefined => {
   let date: Date; date = new Date(value);
   let today: Date; today = new Date(); today = new Date(today.setMonth(today.getMonth() + 6));
 
@@ -194,8 +210,7 @@ export const isValidDate: ((arg1: string) => string | undefined) =
   }
 };
 
-export const isValidDateAccessToken: ((arg1: string) => string | undefined) =
-  (value: string): string | undefined => {
+export const isValidDateAccessToken: Validator = (value: string): string | undefined => {
   let date: Date; date = new Date(value);
   let today: Date; today = new Date(); today = new Date(today.setMonth(today.getMonth() + 6));
 
@@ -206,8 +221,7 @@ export const isValidDateAccessToken: ((arg1: string) => string | undefined) =
   }
 };
 
-export const isLowerDate: ((arg1: string) => string | undefined) =
-  (value: string): string | undefined => {
+export const isLowerDate: Validator = (value: string): string | undefined => {
   let date: Date; date = new Date(value);
   let today: Date; today = new Date();
 
