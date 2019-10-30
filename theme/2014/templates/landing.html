@@ -68,13 +68,17 @@
   <div class="db bg-fluid-lightgray pt4">
     <h1 class="c-fluid-red">Trusted by: </h1>
     <div class="owl-carousel owl-theme" >
-      {% set trusted = { "Mazda":"pa5", "Manpower":"pa5", "RSA":"", "Avianca":"", "Bancolombia":"", "Coordinadora":"", "Banco del Pacifico":"pa5", "VM2020":"pa4 nl4", "Koombea":"",
-                         "LaFrancol":"pa4 nl4", "Sura":"pa4" , "Banesco":"pa5", "Semana":"", "Gana":"pa4 nl4", "Tigo UNE":"pa5 ml4", "Ficohsa":"", "Banistmo":"nt3 pa3 ml4", "Decameron":"",
-                         "Cadena":"", "Helpharma":"nl4", "Coninsa":"", "Berkeley":"pa3", "BCP":"pa4", "Proteccion":"", "Corona":"pa5", "Banco Industrial":"", "Intergrupo":"pa5",
-                         "Ubidots":"nl4", "Bancamia":"", "ARUS":"pa4", "Seti":"pa5", "Kometsales":"" , "BIVA":"pa4", "ACH":"pa4", "Banco Multiple":"", "Sodimac":"", "Credibanco":"",
-                         "S4N":"nl4", "Coopcentral":"", "Ceiba":"", "Interpagos":"", "Guarumo":"nt4", "CFA":"", "Inteligo":"", "Validda":"", "Velez":"pa5", "GreenSQA":"nl4", "Grupo Uribe":"nl5",
-                         "FlyPass":"","Nequi":"","Corredor Empresarial":"", "Practi Sistemas":"", "Servicios Integrales":"pa4", "OmniBNK":"pa5 nl4",
-                         "Deceval":"ml5", "UCCORP":"pa4", "Serempre":"", "Enterdev":"pa4 ml5", "Ingeneo":"ml4", "Libera":"", "ITS Solutions":"pa3", "Quipux":"ml4", "SOE360":"", "SUAM":"pa4" } %}
+      {% set trusted = { "Mazda":"pa5" , "Manpower":"pa5" , "RSA":"pa4" , "Avianca":"" , "Bancolombia":"" , "Coordinadora":"" ,
+                         "Banco del Pacifico":"pa5" , "VM2020":"pa4 nl4" , "Koombea":"" , "LaFrancol":"pa4 nl4" , "Sura":"pa4" ,
+                         "Banesco":"pa5" , "Semana":"" , "Gana":"pa4 nl4" , "Tigo UNE":"pa5 ml4" , "Ficohsa":"" , "Banistmo":"nt3 pa3 ml4" ,
+                         "Decameron":"" , "Cadena":"" , "Helpharma":"nl4" , "Coninsa":"" , "Berkeley":"pa3" , "BCP":"pa4", "Proteccion":"" ,
+                         "Corona":"pa5" , "Banco Industrial":"" , "Intergrupo":"pa5" , "Ubidots":"nl4" , "Bancamia":"" , "ARUS":"pa4" ,
+                         "Seti":"pa5" , "Kometsales":"" , "BIVA":"pa4" , "ACH":"pa4" , "Banco Multiple":"" , "Sodimac":"" , "Credibanco":"" ,
+                         "S4N":"pa3 nl4" , "Coopcentral":"" , "Ceiba":"" , "Interpagos":"" , "Guarumo":"nt4" , "CFA":"" , "Inteligo":"" ,
+                         "Validda":"" , "Velez":"pa5" , "GreenSQA":"nl4" , "Grupo Uribe":"nl5" , "FlyPass":"" , "Nequi":"" ,
+                         "Corredor Empresarial":"" , "Practi Sistemas":"" , "Servicios Integrales":"pa4" , "OmniBNK":"pa5 nl4" ,
+                         "Deceval":"ml5" , "UCCORP":"pa4" , "Serempre":"" , "Enterdev":"pa4 ml5" , "Ingeneo":"ml4" , "Libera":"" ,
+                         "ITS Solutions":"pa3" , "Quipux":"ml4" , "SOE360":"pa4" , "SUAM":"pa4" } %}
       {% for company, styles in trusted.items() %}
         <div class="item">
           <img class="grayscale {{ styles }}"
