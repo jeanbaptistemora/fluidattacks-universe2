@@ -1,17 +1,13 @@
-# -*- coding: utf-8 -*-
 
-"""AWS cloud checks (RDS)."""
+"""AWS CloudFormation checks for RDS."""
 
-# local imports
+# Local imports
 from fluidasserts import SAST, MEDIUM
-from fluidasserts.cloud.cloudformation import (
-    _get_result_as_tuple,
+from fluidasserts.helper import aws as helper
+from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
-)
-from fluidasserts.helper.cloudformation import (
-    to_boolean,
-    iterate_resources_in_template,
-    UnrecognizedType,
+    CloudFormationInvalidTypeError,
+    _get_result_as_tuple,
 )
 from fluidasserts.utils.decorators import api, unknown_if
 
@@ -29,17 +25,16 @@ def has_unencrypted_storage(path: str, exclude: list = None) -> tuple:
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_properties in iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
             starting_path=path,
             resource_types=[
                 'AWS::RDS::DBInstance',
             ],
             exclude=exclude):
-        res_storage_encrypted = res_properties.get('StorageEncrypted', False)
+        res_storage_encrypted = res_props.get('StorageEncrypted', False)
         try:
-            res_storage_encrypted = to_boolean(
-                res_storage_encrypted, default=True)
-        except UnrecognizedType:
+            res_storage_encrypted = helper.to_boolean(res_storage_encrypted)
+        except CloudFormationInvalidTypeError:
             # In the future we'll be able to dereference custom CF's functions
             #   for now ignore them
             continue

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """Fluid Asserts AWS cloud package."""
 
 # standard imports
@@ -33,3 +31,15 @@ def _get_result_as_tuple(*,
     if vuln_units:
         return OPEN, msg_open, vuln_units
     return CLOSED, msg_closed, vuln_units
+
+
+class CloudFormationError(Exception):
+    """Base class for all errors in this module."""
+
+
+class CloudFormationInvalidTypeError(CloudFormationError):
+    """The Value is not of recognized type."""
+
+
+class CloudFormationInvalidTemplateError(CloudFormationError):
+    """The template is not JSON or YAML compliant."""

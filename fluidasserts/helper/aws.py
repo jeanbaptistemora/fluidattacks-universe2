@@ -7,14 +7,27 @@ import csv
 import time
 import functools
 from io import StringIO
-from typing import Any, Callable, Dict, Tuple
+from typing import Any, Callable, Dict, Iterator, Tuple
 
 # 3rd party imports
+import yaml
 import boto3
 import botocore
+import cfn_tools
 
 # local imports
-# None
+from fluidasserts.utils.generic import get_paths
+from fluidasserts.cloud.aws.cloudformation import (
+    CloudFormationError,
+    CloudFormationInvalidTypeError,
+    CloudFormationInvalidTemplateError,
+)
+
+# Constants
+Template = Dict[str, Any]
+TemplatePath = str
+ResourceName = str
+ResourceProperties = Dict[str, Any]
 
 
 class ConnError(botocore.vendored.requests.exceptions.ConnectionError):
@@ -148,3 +161,64 @@ def get_bucket_public_grants(bucket, grants):
                             grant['Grantee']['URI'] == public_acl:
                         public_buckets[val] = bucket
     return public_buckets
+
+
+#
+# CloudFormation
+#
+
+
+def to_boolean(obj: str) -> bool:
+    """True if obj is a CloudFormation boolean, False otherwise."""
+    if obj in (True, 'true', 'True', '1', 1):
+        return True
+    if obj in (False, 'false', 'False', '0', 0):
+        return False
+    raise CloudFormationInvalidTypeError(
+        f'{obj} is not a CloudFormation boolean')
+
+
+def load_template(template_path: str) -> Template:
+    """Return the CloudFormation content of the template on `template_path`."""
+    try:
+        with open(template_path,
+                  encoding='utf-8',
+                  errors='replace') as template_handle:
+            template_contents: str = template_handle.read()
+
+        contents = cfn_tools.load_yaml(template_contents)
+
+        if not isinstance(contents, cfn_tools.odict.ODict):
+            raise CloudFormationInvalidTemplateError(
+                'Not a CloudFormation template')
+
+    except (yaml.parser.ParserError,
+            yaml.scanner.ScannerError,
+            yaml.composer.ComposerError,
+            CloudFormationInvalidTemplateError) as exc:
+        raise CloudFormationError(f'Type {type(exc)}, {exc}')
+    return contents
+
+
+def iterate_resources_in_template(
+        starting_path: str,
+        resource_types: list,
+        exclude: list = None,
+        ignore_errors: bool = True) -> Iterator[
+            Tuple[TemplatePath, ResourceName, ResourceProperties]]:
+    """Yield resources of the provided types."""
+    exclude = tuple(exclude or [])
+    for template_path in get_paths(
+            starting_path, exclude=exclude, endswith=('.yml', '.yaml')):
+        try:
+            template: Template = load_template(template_path)
+            for res_name, res_data in template.get('Resources', {}).items():
+                if res_name.startswith('Fn::') \
+                        or res_name.startswith('!') \
+                        or res_data['Type'] not in resource_types:
+                    continue
+
+                yield template_path, res_name, res_data.get('Properties', {})
+        except CloudFormationError as exc:
+            if not ignore_errors:
+                raise exc
