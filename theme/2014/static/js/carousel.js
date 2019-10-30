@@ -1,8 +1,9 @@
 $('.owl-carousel').owlCarousel({
 center: true,
 loop:true,
-margin:10,
 autoplay: true,
+autoHeight: false,
+autoWidth:false,
 smartSpeed: 1000,
 autoplayTimeout:2000,
 responsive:{
