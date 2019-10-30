@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to the definition and management of development process of the application. This requirement establishes the importance of performing support to applications in different environments other than production.
 :keywords: Requirement, Security, Support, Production, Development, Process
 :rules: yes
+:extended: yes
 
 = REQ.242 Avoid production support in applications
 
