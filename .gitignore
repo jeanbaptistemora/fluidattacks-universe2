@@ -8,6 +8,7 @@ app/techdoc/results/*.xlsx
 !app/autodoc/templates/*.xlsx
 !app/techdoc/templates/*.xlsx
 logs
+shared-local-instance.db
 *.pyc
 *.sqlite3
 *.retry
