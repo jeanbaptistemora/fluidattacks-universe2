@@ -1,0 +1,36 @@
+:slug: rules/103/
+:category: authorization
+:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of defining processes to manage access cards for authorized workforce members.
+:keywords: Requirement, Security, Physical Access, Cards, Policies, Process
+:rules: yes
+:extended: yes
+
+= REQ.103 Manage access cards
+
+== Requirement
+
+The organization must define a process
+for assignation, stocktaking, replacement, re assignation and retirement
+of access cards
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(3)(i):]
+Workforce Security: Implement policies and procedures
+to ensure that all members of its workforce have appropriate access
+to electronic protected health information,
+as provided under paragraph (a)(4) of this section,
+and to prevent those workforce members who do not have access
+under paragraph (a)(4) of this section
+from obtaining access to electronic protected health information.
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(c):]
+Workstation Security: Implement physical safeguards for all workstations
+that access electronic protected health information
+to restrict access to authorized users.
+
+. [[r3]] link:https://www.law.cornell.edu/cfr/text/45/164.310[+HIPAA Security Rules+ 164.310(a)(2)(iii):]
+Access Control and Validation Procedures: Implement procedures
+to control and validate a person's access to facilities
+based on their role or function, including visitor control,
+and control of access to software programs for testing and revision

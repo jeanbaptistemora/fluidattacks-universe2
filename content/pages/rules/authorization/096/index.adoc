@@ -1,0 +1,51 @@
+:slug: rules/096/
+:category: authorization
+:description: This document contains the details of the security requirements related to the definition and management of access control in the organization. This requirement establishes the importance of defining the required privileges for each user to access the sensitive information of the organization.
+:keywords: Requirement, Security, Access, Control, Privileges, Users
+:rules: yes
+
+= REQ.096 Set user required privileges
+
+== Requirement
+
+The privileges required by the users
+who will access the system must be defined.
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(a)(1):]
+Access Control: Implement technical policies and procedures
+for electronic information systems
+that maintain electronic protected health information
+to allow access only to those persons or software programs
+that have been granted access rights as specified in link:https://www.law.cornell.edu/cfr/text/45/164.308[164.308(a)(4)]
+
+. [[r2]] link:https://www.law.cornell.edu/cfr/text/45/164.312[+HIPAA Security Rules+ 164.312(d):]
+Person or Entity Authentication:
+Implement procedures to verify  that a person or entity
+seeking access to electronic protected health information
+is the one claimed.
+
+. [[r3]] link:https://www.owasp.org/index.php/ASVS_V4_Access_Control[+OWASP-ASVS v3.1-4.4+]
+Verify that access to sensitive records is protected,
+such that only authorized objects or data is accessible to each user
+(for example, protect against users
+tampering with a parameter to see or alter another user's account).
+
+. [[r4]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (6)]
+The information system implements the following
+dynamic privilege management capabilities:
+[Assignment: organization-defined list
+of dynamic privilege management capabilities].
+
+. [[r5]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) a]
+The organization establishes and administers privileged user accounts
+in accordance with a role-based access scheme
+that organizes allowed information system access and privileges into roles.
+
+. [[r6]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) b]
+The organization monitors privileged role assignments.
+
+. [[r7]] link:https://nvd.nist.gov/800-53/Rev4/control/AC-2[+NIST+ 800-53 AC-2 (7) c]
+The organization Takes [Assignment: organization-defined actions]
+when privileged role assignments are no longer appropriate.
