@@ -60,7 +60,7 @@ def add_comment(project_name, email, comment_data):
 
 def create_project(**kwargs):
     companies = [company.lower() for company in kwargs.get('companies')]
-    description = kwargs.get('description').lower()
+    description = kwargs.get('description')
     project_name = kwargs.get('project_name').lower()
     subscription = kwargs.get('subscription').lower()
     resp = False
