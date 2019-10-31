@@ -2,7 +2,7 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
-import { connect, ConnectedComponentClass, MapDispatchToProps, MapStateToProps } from "react-redux";
+import { connect, ConnectedComponent, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button/index";
@@ -140,7 +140,7 @@ const mapDispatchToProps: MapDispatchToProps<IRecordsViewDispatchProps, IRecords
     });
   };
 
-const connectedRecordsView: ConnectedComponentClass<React.ComponentType<IRecordsViewProps>, IRecordsViewBaseProps> =
+const connectedRecordsView: ConnectedComponent<React.ComponentType<IRecordsViewProps>, IRecordsViewBaseProps> =
   connect(mapStateToProps, mapDispatchToProps)(enhance(recordsView));
 
 export { connectedRecordsView as RecordsView };

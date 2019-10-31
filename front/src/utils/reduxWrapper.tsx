@@ -3,7 +3,7 @@
  * and will receive React components with different types of props
 */
 import React from "react";
-import { connect } from "react-redux";
+import { connect, ConnectedComponent } from "react-redux";
 import store from "../store/index";
 
 type ComponentMapping = ((
@@ -20,7 +20,7 @@ const reduxWrapper: ComponentMapping =
    * between lowerCamelCase var naming rule from tslint
    * and PascalCase rule for naming JSX elements
    */
-  const ComponentWrapper: React.ComponentClass =
+  const ComponentWrapper: ConnectedComponent<React.FunctionComponent<any>, Pick<any, string | number | symbol>> =
     connect(mapStateToProps)(componentToWrap);
 
   return (props: any): JSX.Element => (
