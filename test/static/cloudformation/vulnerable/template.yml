@@ -18,8 +18,19 @@ Resources:
   role1:
     Properties:
       AssumeRolePolicyDocument:
-        Statement: []
+        Statement:
+          - Action:
+              - ecr:*
+            Effect: Allow
+            Resource:
+              - '*'
+          - Effect: Allow
+            NotAction: []
+          - Effect: Allow
+            NotPrincipal: []
         Version: '2012-10-17'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
       Policies:
         - PolicyDocument:
             Statement:
@@ -31,6 +42,10 @@ Resources:
               - Action: ecr:*
                 Effect: Allow
                 Resource: '*'
+              - Effect: Allow
+                NotAction: []
+              - Effect: Allow
+                NotResource: []
             Version: '2012-10-17'
           PolicyName: policy1
     Type: AWS::IAM::Role

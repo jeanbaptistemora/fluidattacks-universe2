@@ -37,8 +37,25 @@ role = troposphere.iam.Role(
     AssumeRolePolicyDocument={
         'Version': '2012-10-17',
         'Statement': [
+            {
+                'Effect': 'Allow',
+                # F2 IAM role should not allow * action on its trust policy
+                'Action': [
+                    'ecr:Get*',
+                ],
+                'Resource': [
+                    '*',
+                ],
+            },
+            # W14 IAM role should not allow Allow+NotAction on trust
+            #   permissions
+            # F6 IAM role should not allow Allow+NotPrincipal in its trust
+            #   policy
         ],
     },
+    ManagedPolicyArns=[
+        # W43 IAM role should not have AdministratorAccess policy
+    ],
     Policies=[
         troposphere.iam.Policy(
             title='policy1',
@@ -48,13 +65,21 @@ role = troposphere.iam.Role(
                 'Statement': [
                     {
                         'Effect': 'Allow',
+                        # F3 IAM role should not allow * action on its
+                        #   permissions policy
                         'Action': [
                             'ecr:Get*',
                         ],
+                        # W11 IAM role should not allow * resource on its
+                        #   permissions policy
+                        # F38 IAM role should not allow * resource with
+                        #   PassRole action on its permissions policy
                         'Resource': [
                             'arn:aws:ecr:us-east-1::repository/*',
                         ],
                     },
+                    # W15 IAM role should not allow Allow+NotAction
+                    # W21 IAM role should not allow Allow+NotResource
                 ],
             },
         ),
@@ -106,8 +131,36 @@ role = troposphere.iam.Role(
     AssumeRolePolicyDocument={
         'Version': '2012-10-17',
         'Statement': [
+            {
+                'Effect': 'Allow',
+                # F2 IAM role should not allow * action on its trust policy
+                'Action': [
+                    'ecr:*',
+                ],
+                'Resource': [
+                    '*',
+                ],
+            },
+            {
+                # W14 IAM role should not allow Allow+NotAction on trust
+                #   permissions
+                'Effect': 'Allow',
+                'NotAction': [
+                ],
+            },
+            {
+                # F6 IAM role should not allow Allow+NotPrincipal in its trust
+                #   policy
+                'Effect': 'Allow',
+                'NotPrincipal': [
+                ],
+            },
         ],
     },
+    ManagedPolicyArns=[
+        # W43 IAM role should not have AdministratorAccess policy
+        'arn:aws:iam::aws:policy/AdministratorAccess',
+    ],
     Policies=[
         troposphere.iam.Policy(
             title='policy1',
@@ -117,9 +170,15 @@ role = troposphere.iam.Role(
                 'Statement': [
                     {
                         'Effect': 'Allow',
+                        # F3 IAM role should not allow * action on its
+                        #   permissions policy
                         'Action': [
                             'ecr:*',
                         ],
+                        # W11 IAM role should not allow * resource on its
+                        #   permissions policy
+                        # F38 IAM role should not allow * resource with
+                        #   PassRole action on its permissions policy
                         'Resource': [
                             '*',
                         ],
@@ -128,6 +187,18 @@ role = troposphere.iam.Role(
                         'Effect': 'Allow',
                         'Action': 'ecr:*',
                         'Resource': '*',
+                    },
+                    {
+                        # W15 IAM role should not allow Allow+NotAction
+                        'Effect': 'Allow',
+                        'NotAction': [
+                        ],
+                    },
+                    {
+                        # W21 IAM role should not allow Allow+NotResource
+                        'Effect': 'Allow',
+                        'NotResource': [
+                        ],
                     },
                 ],
             },

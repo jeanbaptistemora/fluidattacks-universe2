@@ -18,8 +18,14 @@ Resources:
   role1:
     Properties:
       AssumeRolePolicyDocument:
-        Statement: []
+        Statement:
+          - Action:
+              - ecr:Get*
+            Effect: Allow
+            Resource:
+              - '*'
         Version: '2012-10-17'
+      ManagedPolicyArns: []
       Policies:
         - PolicyDocument:
             Statement:

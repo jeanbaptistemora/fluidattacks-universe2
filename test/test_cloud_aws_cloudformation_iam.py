@@ -10,10 +10,10 @@ VULN: str = 'test/static/cloudformation/vulnerable/template.yml'
 NOT_EXISTS: str = 'test/static/cloudformation/not-exists/template.yml'
 
 
-def test_role_with_unnecessary_privileges():
-    """test rds.role_with_unnecessary_privileges."""
-    result = iam.role_with_unnecessary_privileges(VULN)
+def test_is_role_over_privileged():
+    """test rds.is_role_over_privileged."""
+    result = iam.is_role_over_privileged(VULN)
     assert result.is_open()
-    assert result.get_vulns_number() == 2
-    assert iam.role_with_unnecessary_privileges(SAFE).is_closed()
-    assert iam.role_with_unnecessary_privileges(NOT_EXISTS).is_unknown()
+    assert result.get_vulns_number() == 8
+    assert iam.is_role_over_privileged(SAFE).is_closed()
+    assert iam.is_role_over_privileged(NOT_EXISTS).is_unknown()

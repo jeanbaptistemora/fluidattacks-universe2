@@ -19,21 +19,34 @@ def _force_list(obj: Any) -> List[Any]:
     return obj if isinstance(obj, list) else [obj]
 
 
-@api(risk=MEDIUM, kind=SAST)
+@api(risk=MEDIUM, kind=SAST)  # noqa: MC0001
 @unknown_if(FileNotFoundError)
-def role_with_unnecessary_privileges(
+def is_role_over_privileged(
         path: str, exclude: Optional[List[str]] = None) -> tuple:
     """
-    Check if any ``Role`` Policies grants wildcard permissions (``*``).
+    Check if any ``IAM::Role`` is miss configured.
+
+    The following checks are performed:
+
+    - F2 IAM role should not allow * action on its trust policy
+    - F3 IAM role should not allow * action on its permissions policy
+    - F6 IAM role should not allow Allow+NotPrincipal in its trust policy
+    - F38 IAM role should not allow * resource with PassRole action on its
+        permissions policy
+    - W11 IAM role should not allow * resource on its permissions policy
+    - W14 IAM role should not allow Allow+NotAction on trust permissions
+    - W15 IAM role should not allow Allow+NotAction
+    - W21 IAM role should not allow Allow+NotResource
+    - W43 IAM role should not have AdministratorAccess policy
 
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
-    :returns: - ``OPEN`` if any **PolicyDocument** grants access over
-                wildcard (``*``) Resource or wildcard (``Service::*``) Action
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
+    # pylint: disable=too-many-branches
     vulnerabilities: list = []
     wildcard_action: Pattern = re.compile(r'^(\*)|(\w+:\*)$')
     wildcard_resource: Pattern = re.compile(r'^(\*)$')
@@ -44,32 +57,84 @@ def role_with_unnecessary_privileges(
             ],
             exclude=exclude):
         vulnerable_entities: List[str] = []
+
+        for managed_policy in res_props.get('ManagedPolicyArns', []):
+            # W43: IAM role should not have AdministratorAccess policy
+            if 'AdministratorAccess' in managed_policy:
+                entity = f'ManagedPolicyArns: {managed_policy}'
+                reason = 'grants excessive privileges'
+                vulnerable_entities.append((entity, reason))
+
         for policy in res_props.get('Policies', []):
             policy_document = policy.get('PolicyDocument', {})
-            for statement in policy_document.get('Statement', []):
+            for statement in _force_list(policy_document.get('Statement', [])):
                 if statement.get('Effect') != 'Allow':
                     continue
+
+                # W15: IAM role should not allow Allow+NotAction
+                if 'NotAction' in statement:
+                    entity = 'Policies/PolicyDocument/Statement/NotAction'
+                    reason = 'avoid security through black listing'
+                    vulnerable_entities.append((entity, reason))
+                # W21: IAM role should not allow Allow+NotResource
+                if 'NotResource' in statement:
+                    entity = 'Policies/PolicyDocument/Statement/NotResource'
+                    reason = 'avoid security through black listing'
+                    vulnerable_entities.append((entity, reason))
                 for action in map(str, _force_list(
                         statement.get('Action', []))):
+                    # F3: IAM role should not allow * action on its
+                    #   permissions policy
                     if wildcard_action.match(action):
-                        vulnerable_entities.append(f'AWS::IAM::Role/Policies/'
-                                                   f'PolicyDocument/Statement/'
-                                                   f'Action: {action}')
+                        entity = (f'Policies/PolicyDocument'
+                                  f'/Statement/Action: {action}')
+                        reason = 'grants wildcard privileges'
+                        vulnerable_entities.append((entity, reason))
                 for resource in map(str, _force_list(
                         statement.get('Resource', []))):
+                    # W11: IAM role should not allow * resource on its
+                    #   permissions policy
+                    # F38: IAM role should not allow * resource with
+                    #   PassRole action on its permissions policy
                     if wildcard_resource.match(resource):
-                        vulnerable_entities.append(f'AWS::IAM::Role/Policies/'
-                                                   f'PolicyDocument/Statement/'
-                                                   f'Resource: {resource}')
+                        entity = (f'Policies/PolicyDocument'
+                                  f'/Statement/Resource: {resource}')
+                        reason = 'grants wildcard privileges'
+                        vulnerable_entities.append((entity, reason))
+
+        for statement in _force_list(res_props.get(
+                'AssumeRolePolicyDocument', {}).get('Statement', [])):
+            if statement.get('Effect') != 'Allow':
+                continue
+            for action in map(str, _force_list(
+                    statement.get('Action', []))):
+                # F2: IAM role should not allow * action on its trust policy
+                if wildcard_action.match(action):
+                    entity = (f'AssumeRolePolicyDocument'
+                              f'/Statement/Action: {action}')
+                    reason = 'grants wildcard privileges'
+                    vulnerable_entities.append((entity, reason))
+            # W14: IAM role should not allow Allow+NotAction on
+            #   trust permissions
+            if 'NotAction' in statement:
+                entity = f'AssumeRolePolicyDocument/Statement/NotAction'
+                reason = 'avoid security through black listing'
+                vulnerable_entities.append((entity, reason))
+            # F6: IAM role should not allow Allow+NotPrincipal in
+            #   its trust policy
+            if 'NotPrincipal' in statement:
+                entity = 'AssumeRolePolicyDocument/Statement/NotPrincipal'
+                reason = 'avoid security through black listing'
+                vulnerable_entities.append((entity, reason))
 
         if vulnerable_entities:
             vulnerabilities.extend(
                 Vulnerability(
                     path=yaml_path,
-                    entity=entity,
+                    entity=f'AWS::IAM::Role/{entity}',
                     identifier=res_name,
-                    reason='grants wildcard privileges')
-                for entity in set(vulnerable_entities))
+                    reason=reason)
+                for entity, reason in set(vulnerable_entities))
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
