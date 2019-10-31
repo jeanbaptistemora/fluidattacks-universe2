@@ -711,3 +711,48 @@ def has_security_groups_ip_ranges_in_rfc1918(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_unencrypted_amis(key_id: str, secret: str,
+                         retry: bool = True) -> tuple:
+    """
+    Check if there are unencrypted AMIs.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are unencrypted AMIs.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Amazon Machine Images (AMIs) are not encrypted.'
+    msg_closed: str = 'Amazon Machine Images (AMIs) are encrypted.'
+    vulns, safes = [], []
+    images = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='ec2',
+        func='describe_images',
+        param='Images',
+        retry=retry,
+        Owners=['self'])
+
+    for image in images:
+        vulnerable = []
+        for block in image['BlockDeviceMappings']:
+            with suppress(KeyError):
+                vulnerable.append(not block['Ebs']['Encrypted'])
+        (vulns if any(vulnerable) else safes).append(
+            (image['ImageId'], 'This AMI must be encrypted.'))
+
+    return _get_result_as_tuple(
+        service='EC2',
+        objects='AMIs',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

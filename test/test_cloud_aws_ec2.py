@@ -93,15 +93,15 @@ def test_has_has_insecure_port_range_in_security_group_open():
 def test_has_unrestricted_dns_access_open():
     """Search unrestricted DNS access."""
     assert ec2.has_unrestricted_dns_access(AWS_ACCESS_KEY_ID,
-                                                         AWS_SECRET_ACCESS_KEY
-                                                         ).is_open()
+                                           AWS_SECRET_ACCESS_KEY
+                                           ).is_open()
 
 
 def test_has_instances_using_iam_access_keys_open():
     """Search instances using iam access keys."""
     assert ec2.has_instances_using_iam_roles(AWS_ACCESS_KEY_ID,
-                                                   AWS_SECRET_ACCESS_KEY
-                                                   ).is_open()
+                                             AWS_SECRET_ACCESS_KEY
+                                             ).is_open()
 
 
 def test_has_unused_ec2_key_pairs_open():
@@ -130,6 +130,11 @@ def test_has_security_groups_ip_ranges_in_rfc1918_open():
                                                         ).is_open()
 
 
+def test_has_unencrypted_amis_open():
+    """Search unecrypted AMIs."""
+    assert ec2.has_unencrypted_amis(AWS_ACCESS_KEY_ID,
+                                    AWS_SECRET_ACCESS_KEY
+                                    ,).is_open()
 #
 # Closing tests
 #
