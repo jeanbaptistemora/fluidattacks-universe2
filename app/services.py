@@ -114,6 +114,8 @@ def has_phone_number(email):
 def get_user_role(user_data):
     if user_data.get('jti'):
         role = user_domain.get_data(user_data['user_email'], 'role')
+        if role == 'customeradmin':
+            role = 'customer'
     else:
         role = user_data['user_role']
     return role
