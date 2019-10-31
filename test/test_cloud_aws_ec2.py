@@ -116,6 +116,13 @@ def test():
                                            AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_has_default_security_groups_in_use_open():
+    """Search instances using default security groups."""
+    assert ec2.has_default_security_groups_in_use(AWS_ACCESS_KEY_ID,
+                                                  AWS_SECRET_ACCESS_KEY
+                                                  ).is_open()
+
+
 #
 # Closing tests
 #
