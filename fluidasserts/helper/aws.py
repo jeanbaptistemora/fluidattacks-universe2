@@ -66,8 +66,11 @@ def retry_on_errors(func: Callable) -> Callable:
 
 # pylint: disable=unused-argument
 @retry_on_errors
-def get_aws_client(
-        service: str, key_id: str, secret: str, retry: bool = True) -> object:
+def get_aws_client(service: str,
+                   key_id: str,
+                   secret: str,
+                   retry: bool = True,
+                   **kwargs) -> object:
     """
     Get AWS client object.
 
@@ -75,15 +78,25 @@ def get_aws_client(
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    return boto3.client(service, aws_access_key_id=key_id,
-                        aws_secret_access_key=secret,
-                        region_name='us-east-1')
+    final_kwargs = {'region_name': 'us-east-1'}
+    final_kwargs.update(**kwargs)
+
+    return boto3.client(
+        service,
+        aws_access_key_id=key_id,
+        aws_secret_access_key=secret,
+        **final_kwargs)
 
 
 @retry_on_errors
-def run_boto3_func(key_id: str, secret: str, service: str,
-                   func: str, param: str = None,
-                   retry: bool = True, **kwargs) -> dict:
+def run_boto3_func(key_id: str,
+                   secret: str,
+                   service: str,
+                   func: str,
+                   param: str = None,
+                   retry: bool = True,
+                   boto3_client_kwargs: dict = None,
+                   **kwargs) -> dict:
     """
     Run arbitrary boto3 function.
 
@@ -94,7 +107,8 @@ def run_boto3_func(key_id: str, secret: str, service: str,
     try:
         client = get_aws_client(service,
                                 key_id=key_id,
-                                secret=secret)
+                                secret=secret,
+                                **(boto3_client_kwargs or {}))
         method_to_call = getattr(client, func)
         result = method_to_call(**kwargs)
         return result if not param else result[param]
