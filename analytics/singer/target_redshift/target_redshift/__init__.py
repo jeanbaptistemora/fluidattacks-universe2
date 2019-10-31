@@ -531,8 +531,8 @@ def drop_schema(batcher: Batcher, schema_name: str) -> None:
 
     try:
         batcher.ex(f"DROP SCHEMA \"{schema_name}\" CASCADE", True)
-    except postgres.ProgrammingError:
-        pass
+    except postgres.ProgrammingError as exc:
+        LOGGER.error(f'EXCEPTION: {type(exc)} {exc}')
 
 
 def create_schema(batcher: Batcher, schema_name: str) -> None:
@@ -544,8 +544,8 @@ def create_schema(batcher: Batcher, schema_name: str) -> None:
     """
     try:
         batcher.ex(f"CREATE SCHEMA \"{schema_name}\"", True)
-    except postgres.ProgrammingError:
-        pass
+    except postgres.ProgrammingError as exc:
+        LOGGER.error(f'EXCEPTION: {type(exc)} {exc}')
 
 
 def create_table(
@@ -577,8 +577,8 @@ def create_table(
             batcher.ex(f"CREATE TABLE {path} ({fields},PRIMARY KEY({pkeys}))")
         else:
             batcher.ex(f"CREATE TABLE {path} ({fields})")
-    except postgres.ProgrammingError:
-        pass
+    except postgres.ProgrammingError as exc:
+        LOGGER.error(f'EXCEPTION: {type(exc)} {exc}')
 
 
 def rename_schema(batcher: Batcher, rename_from: str, rename_to: str) -> None:
@@ -597,8 +597,8 @@ def rename_schema(batcher: Batcher, rename_from: str, rename_to: str) -> None:
     try:
         statement = f"ALTER SCHEMA \"{rename_from}\" RENAME TO \"{rename_to}\""
         batcher.ex(statement, True)
-    except postgres.ProgrammingError:
-        pass
+    except postgres.ProgrammingError as exc:
+        LOGGER.error(f'EXCEPTION: {type(exc)} {exc}')
 
 
 def validate_schema(validator: JSON_VALIDATOR, schema: JSON) -> None:
