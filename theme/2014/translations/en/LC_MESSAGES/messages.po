@@ -996,7 +996,7 @@ msgstr "I am looking for a job"
 
 #: templates/salesforce.html:135
 msgid "Form-field-7"
-msgstr "Other"
+msgstr "I want a Demo"
 
 #: templates/search.html:4
 msgid "Search-metadescription"
