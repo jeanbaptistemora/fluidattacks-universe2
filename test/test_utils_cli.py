@@ -147,6 +147,20 @@ def test_cli_aws():
             cli.RICH_EXIT_CODES[x] for x in ('open', 'closed', 'unknown'))
 
 
+def test_cli_aws_cloudformation():
+    """Run CLI aws option."""
+    os.environ['FA_STRICT'] = 'true'
+    os.environ['FA_NOTRACK'] = 'true'
+    testargs = [
+        "asserts", "-eec", "-mp",
+        "--cloudformation", "test/static/cloudformation"]
+    with patch.object(sys, 'argv', testargs):
+        with pytest.raises(SystemExit) as exc:
+            cli.main()
+        assert exc.value.code in (
+            cli.RICH_EXIT_CODES[x] for x in ('open', 'closed', 'unknown'))
+
+
 def test_cli_dns():
     """Run CLI dns option."""
     os.environ['FA_STRICT'] = 'false'

@@ -664,6 +664,43 @@ def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
                          enable_multiprocessing=enable_multiprocessing)
 
 
+def exec_cloudformation_package(
+        paths: List[str], enable_multiprocessing: bool):
+    """Execute generic methods from the CloudFormation package."""
+    template = textwrap.dedent("""
+        from fluidasserts.cloud.aws.cloudformation import {module}
+        from fluidasserts.utils.generic import add_finding
+
+        add_finding('Fluid Asserts - CloudFormation - {title} Module')
+
+        {methods}
+        """)
+
+    source: Dict[str, str] = {
+        ('iam', 'IAM (Identity and Access Management)'): """
+            iam.role_with_unnecessary_privileges('__path__')
+            """,
+        ('rds', 'RDS (Relational Database Service)'): """
+            rds.has_unencrypted_storage('__path__')
+            rds.has_not_automated_back_ups('__path__')
+            """,
+        ('secretsmanager', 'Secrets Manager'): """
+            secretsmanager.insecure_generate_secret_string('__path__')
+            """,
+    }
+
+    exploits = [
+        (module[1], template.format(
+            title=module[1],
+            module=module[0],
+            methods=textwrap.dedent(methods.replace('__path__', path))))
+        for path in paths
+        for module, methods in source.items()]
+
+    return exec_exploits(exploit_contents=exploits,
+                         enable_multiprocessing=enable_multiprocessing)
+
+
 def exec_apk_package(apks):
     """Execute generic checks of APK module."""
     template = textwrap.dedent("""\
@@ -846,6 +883,9 @@ def get_content(args):
         content += exec_lang_package(args.lang, args.multiprocessing)
     if args.aws:
         content += exec_aws_package(args.aws, args.multiprocessing)
+    if args.cloudformation:
+        content += exec_cloudformation_package(
+            args.cloudformation, args.multiprocessing)
     if args.exploits:
         content += exec_exploits(exploit_paths=args.exploits,
                                  enable_multiprocessing=args.multiprocessing)
@@ -915,6 +955,10 @@ def get_argparser():
                            metavar='AWS_ACCESS_KEY_ID:AWS_SECRET_ACCESS_KEY',
                            help=('perform AWS checks using the given '
                                  'credentials'))
+    argparser.add_argument('--cloudformation', nargs='+', metavar='FILE/DIR',
+                           help=('perform AWS checks over CloudFormation '
+                                 'templates starting recursively from '
+                                 'FILE/DIR'))
     argparser.add_argument('exploits', nargs='*', help='exploits to execute')
 
     return argparser
@@ -934,6 +978,7 @@ def main():
 
     if not any((args.apk,
                 args.aws,
+                args.cloudformation,
                 args.dns,
                 args.exploits,
                 args.http,
