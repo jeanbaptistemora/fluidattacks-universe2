@@ -56,17 +56,3 @@ vault_login() {
       role_id="$ROLE_ID" secret_id="$SECRET_ID" \
   )
 }
-
-aws_okta_login() {
-
-  # Log in to aws via okta
-  # e.g: aws_okta_login serves-admin
-
-  set -Eeuo pipefail
-
-  local PROFILE
-
-  PROFILE="$1"
-
-  okta-awscli --profile "$PROFILE"
-}
