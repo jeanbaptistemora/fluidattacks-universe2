@@ -123,6 +123,13 @@ def test_has_default_security_groups_in_use_open():
                                                   ).is_open()
 
 
+def test_has_security_groups_ip_ranges_in_rfc1918_open():
+    """Search security groups with IP ranges in RFC1918."""
+    assert ec2.has_security_groups_ip_ranges_in_rfc1918(AWS_ACCESS_KEY_ID,
+                                                        AWS_SECRET_ACCESS_KEY
+                                                        ).is_open()
+
+
 #
 # Closing tests
 #

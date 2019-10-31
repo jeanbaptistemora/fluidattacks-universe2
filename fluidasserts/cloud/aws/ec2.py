@@ -649,3 +649,65 @@ def has_default_security_groups_in_use(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_security_groups_ip_ranges_in_rfc1918(key_id: str,
+                                             secret: str,
+                                             retry: bool = True) -> tuple:
+    """
+    Check if inbound rules access from IP address ranges specified in RFC-1918.
+
+    Using RFC-1918 CIDRs within your EC2 security groups allow an entire
+    private network to access EC2 instancess. Restrict access to only those
+    private IP addresses that require, it in order to implement the principle
+    of least privilege.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are rules access with IP ranges specified
+    in RFC-1918.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Security groups contains RFC-1918 CIDRs availables.'
+    msg_closed: str = 'Security groups not contains RFC-1918 CIDRs availables.'
+    vulns, safes = [], []
+
+    rfc1918 = {'10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16'}
+    security_groups = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='ec2',
+        func='describe_security_groups',
+        param='SecurityGroups',
+        retry=retry)
+
+    def _flatten(elements, aux_list=None):
+        aux_list = aux_list if aux_list is not None else []
+        for i in elements:
+            if isinstance(i, list):
+                _flatten(i, aux_list)
+            else:
+                aux_list.append(i)
+        return aux_list
+
+    for group in security_groups:
+        ips = map(lambda x: x['IpRanges'], group['IpPermissions'])
+        ips = set(
+            _flatten(map(lambda x: list(map(lambda y: y['CidrIp'], x)), ips)))
+        (vulns if not rfc1918.intersection(ips) else safes).append(
+            (group['GroupId'], ('Group must restrict access only to the'
+                                ' necessary private IP addresses.')))
+
+    return _get_result_as_tuple(
+        service='EC2',
+        objects='Security Groups',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
