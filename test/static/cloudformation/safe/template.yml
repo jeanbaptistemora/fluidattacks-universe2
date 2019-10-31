@@ -1,4 +1,4 @@
-Description: rds-safe
+Description: safe
 Resources:
   cluster1:
     Properties:
@@ -15,6 +15,22 @@ Resources:
       MasterUsername: user
       StorageEncrypted: 'true'
     Type: AWS::RDS::DBInstance
+  role1:
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement: []
+        Version: '2012-10-17'
+      Policies:
+        - PolicyDocument:
+            Statement:
+              - Action:
+                  - ecr:Get*
+                Effect: Allow
+                Resource:
+                  - arn:aws:ecr:us-east-1::repository/*
+            Version: '2012-10-17'
+          PolicyName: policy1
+    Type: AWS::IAM::Role
   secret1:
     Properties:
       GenerateSecretString:

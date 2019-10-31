@@ -1,5 +1,8 @@
 """AWS CloudFormation checks for RDS."""
 
+# Standard imports
+from typing import List, Optional
+
 # Local imports
 from fluidasserts import SAST, MEDIUM
 from fluidasserts.helper import aws as helper
@@ -13,13 +16,14 @@ from fluidasserts.utils.decorators import api, unknown_if
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_unencrypted_storage(path: str, exclude: list = None) -> tuple:
+def has_unencrypted_storage(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
     """
-    Check if any `DBCluster` or `DBInstance` use unencrypted storage.
+    Check if any ``DBCluster`` or ``DBInstance`` use unencrypted storage.
 
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
-    :returns: - ``OPEN`` if `StorageEncrypted` attribute is set to **false**.
+    :returns: - ``OPEN`` if **StorageEncrypted** attribute is set to **false**.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
@@ -58,13 +62,14 @@ def has_unencrypted_storage(path: str, exclude: list = None) -> tuple:
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_not_automated_back_ups(path: str, exclude: list = None) -> tuple:
+def has_not_automated_back_ups(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
     """
-    Check if any `DBCluster` or `DBInstance` have not automated backups.
+    Check if any ``DBCluster`` or ``DBInstance`` have not automated backups.
 
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
-    :returns: - ``OPEN`` if `BackupRetentionPeriod` attribute is set to 0.
+    :returns: - ``OPEN`` if **BackupRetentionPeriod** attribute is set to 0.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`

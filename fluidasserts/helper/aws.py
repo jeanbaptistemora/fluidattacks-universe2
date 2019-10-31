@@ -29,6 +29,7 @@ Template = Dict[str, Any]
 TemplatePath = str
 ResourceName = str
 ResourceProperties = Dict[str, Any]
+CLOUDFORMATION_EXTENSIONS = ('.yml', '.yaml', '.json', '.template')
 
 
 class ConnError(botocore.vendored.requests.exceptions.ConnectionError):
@@ -201,7 +202,8 @@ def load_template(template_path: str) -> Template:
         except errors as err:
             error_list.append((type(err), err))
         else:
-            if isinstance(contents, cfn_tools.odict.ODict):
+            if isinstance(contents, cfn_tools.odict.ODict) \
+                    and contents.get('Resources'):
                 return contents
 
             err = CloudFormationInvalidTemplateError(
@@ -222,7 +224,7 @@ def iterate_resources_in_template(
     for template_path in get_paths(
             starting_path,
             exclude=exclude,
-            endswith=('.yml', '.yaml', '.json')):
+            endswith=CLOUDFORMATION_EXTENSIONS):
         try:
             template: Template = load_template(template_path)
             for res_name, res_data in template.get('Resources', {}).items():

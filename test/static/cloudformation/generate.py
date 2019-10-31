@@ -5,6 +5,7 @@
 import os
 import textwrap
 import troposphere
+import troposphere.iam
 import troposphere.rds
 import troposphere.secretsmanager
 
@@ -18,7 +19,7 @@ def write_template(template: troposphere.Template) -> bool:
     os.makedirs(target_dir_path, exist_ok=True)
 
     print(target_file_path)
-    content: str = template.to_yaml()
+    content: str = template.to_yaml(clean_up=True, long_form=True)
     print(textwrap.indent(content, prefix='+   '))
     with open(target_file_path, 'w') as target_file_handle:
         target_file_handle.write(content)
@@ -29,7 +30,35 @@ def write_template(template: troposphere.Template) -> bool:
 #
 
 template = troposphere.Template(
-    Description='rds-safe',
+    Description='safe',
+)
+role = troposphere.iam.Role(
+    title='role1',
+    AssumeRolePolicyDocument={
+        'Version': '2012-10-17',
+        'Statement': [
+        ],
+    },
+    Policies=[
+        troposphere.iam.Policy(
+            title='policy1',
+            PolicyName='policy1',
+            PolicyDocument={
+                'Version': '2012-10-17',
+                'Statement': [
+                    {
+                        'Effect': 'Allow',
+                        'Action': [
+                            'ecr:Get*',
+                        ],
+                        'Resource': [
+                            'arn:aws:ecr:us-east-1::repository/*',
+                        ],
+                    },
+                ],
+            },
+        ),
+    ],
 )
 secret = troposphere.secretsmanager.Secret(
     title='secret1',
@@ -42,7 +71,7 @@ secret = troposphere.secretsmanager.Secret(
         ExcludeNumbers=0,
         ExcludePunctuation='False',
         RequireEachIncludedType='true',
-    )
+    ),
 )
 cluster = troposphere.rds.DBCluster(
     title='cluster1',
@@ -59,6 +88,7 @@ instance = troposphere.rds.DBInstance(
     StorageEncrypted=True,
     BackupRetentionPeriod='32',
 )
+template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(cluster)
 template.add_resource(instance)
@@ -69,7 +99,40 @@ write_template(template)
 #
 
 template = troposphere.Template(
-    Description='rds-vulnerable',
+    Description='vulnerable',
+)
+role = troposphere.iam.Role(
+    title='role1',
+    AssumeRolePolicyDocument={
+        'Version': '2012-10-17',
+        'Statement': [
+        ],
+    },
+    Policies=[
+        troposphere.iam.Policy(
+            title='policy1',
+            PolicyName='policy1',
+            PolicyDocument={
+                'Version': '2012-10-17',
+                'Statement': [
+                    {
+                        'Effect': 'Allow',
+                        'Action': [
+                            'ecr:*',
+                        ],
+                        'Resource': [
+                            '*',
+                        ],
+                    },
+                    {
+                        'Effect': 'Allow',
+                        'Action': 'ecr:*',
+                        'Resource': '*',
+                    },
+                ],
+            },
+        ),
+    ],
 )
 secret = troposphere.secretsmanager.Secret(
     title='secret1',
@@ -85,7 +148,7 @@ secret = troposphere.secretsmanager.Secret(
         ExcludeNumbers=1,
         ExcludePunctuation='True',
         RequireEachIncludedType='false',
-    )
+    ),
 )
 cluster = troposphere.rds.DBCluster(
     title='cluster1',
@@ -104,6 +167,7 @@ instance = troposphere.rds.DBInstance(
     # Disables automated back-ups
     BackupRetentionPeriod='0',
 )
+template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(cluster)
 template.add_resource(instance)

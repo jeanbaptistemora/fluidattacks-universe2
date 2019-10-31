@@ -1,7 +1,7 @@
 """AWS CloudFormation checks for SecretsManager."""
 
 # Standard library
-from typing import List
+from typing import List, Optional
 
 # Local imports
 from fluidasserts import SAST, HIGH
@@ -61,22 +61,25 @@ def _insecure_generate_secret_string_get_reasons(
 @api(risk=HIGH, kind=SAST)
 @unknown_if(FileNotFoundError)
 def insecure_generate_secret_string(path: str,
-                                    exclude: list = None,
+                                    exclude: Optional[List[str]] = None,
                                     min_length: int = 14) -> tuple:
     """
-    Check if any `AWS::SecretsManager::Secret # GenerateSecretString` is weak.
+    Check if any ``AWS::SecretsManager::Secret` is weak configured.
 
-    `AWS::SecretsManager::Secret` resource creates a secret and stores it in
-    Secrets Manager. You can either set the `SecretString` attribute, or
-    `GenerateSecretString`, in the later case, you are in charge of picking
+    ``AWS::SecretsManager::Secret`` entity creates a secret and stores it the
+    Secrets Manager.
+
+    You can either set the ``SecretString`` attribute, or
+    ``GenerateSecretString``.
+    In the later case, you are in charge of picking
     secure values to be used in the secret generation.
 
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
     :param min_length: Secrets are required to be generated with greater than
         or equal length than this parameter.
-    :returns: - ``OPEN`` if `GenerateSecretString` attribute is miss-configured
-                which will produce weak secrets.
+    :returns: - ``OPEN`` if **GenerateSecretString** attribute is
+                miss-configured which will produce weak secrets.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
