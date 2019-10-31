@@ -1,6 +1,6 @@
 """ GraphQL Entity for Events """
 from graphene import (
-    Argument, Boolean, DateTime, Enum, Field, List, Mutation, ObjectType,
+    Argument, Boolean, DateTime, Enum, Field, Int, List, Mutation, ObjectType,
     String
 )
 
@@ -166,6 +166,28 @@ class CreateEvent(Mutation):
                 ('ENVIRONMENT', 'Ambiente'),
                 ('REPOSITORY', 'Repositorio')
             ])), required=True)
+        affected_components = Argument(
+            List(Enum('AffectedComponents', [
+                ('FLUID_STATION', 'Estación de pruebas de FLUID'),
+                ('CLIENT_STATION', 'Estación de pruebas del Cliente'),
+                ('TOE_EXCLUSSION', 'Exclusión de alcance'),
+                ('DOCUMENTATION', 'Documentación del proyecto'),
+                ('LOCAL_CONNECTION', 'Conectividad local (LAN, WiFi)'),
+                ('INTERNET_CONNECTION', 'Conectividad a Internet'),
+                ('VPN_CONNECTION', 'Conectividad VPN'),
+                ('TOE_LOCATION', 'Ubicación del ToE (IP, URL)'),
+                ('TOE_CREDENTIALS', 'Credenciales en el ToE'),
+                ('TOE_PRIVILEGES', 'Privilegios en el ToE'),
+                ('TEST_DATA', 'Datos de prueba'),
+                ('TOE_UNSTABLE', 'Inestabilidad del ToE'),
+                ('TOE_UNACCESSIBLE', 'Inaccesibilidad del ToE'),
+                ('TOE_UNAVAILABLE', 'Indisponibilidad del ToE'),
+                ('TOE_ALTERATION', 'Alteración del ToE'),
+                ('SOURCE_CODE', 'Código fuente'),
+                ('COMPILE_ERROR', 'Error en compilación'),
+                ('OTHER', 'Otro(s)'),
+            ])), required=False)
+        blocking_hours = Int(required=False)
         client_responsible = String(required=True)
         context = Argument(
             Enum('EventContext', [

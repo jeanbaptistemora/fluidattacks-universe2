@@ -7,7 +7,8 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Glyphicon, Row } from "react-bootstrap";
-import { Field, FormSection, InjectedFormProps } from "redux-form";
+import { useSelector } from "react-redux";
+import { Field, FormSection, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
 import { Modal } from "../../../../components/Modal";
@@ -17,7 +18,7 @@ import { formatEvents, handleGraphQLErrors } from "../../../../utils/formatHelpe
 import { checkboxField, dateTimeField, dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
-import { required, someRequired, validEmail } from "../../../../utils/validations";
+import { numeric, required, someRequired, validEmail } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
 import { IEventsAttr, IEventViewBaseProps } from "./types";
@@ -72,6 +73,9 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
     setEventModalOpen(false);
   };
 
+  const selector: (state: {}, ...field: string[]) => string = formValueSelector("newEvent");
+  const eventType: string = useSelector((state: {}) => selector(state, "eventType"));
+
   return (
     <Query query={GET_EVENTS} variables={{ projectName }} onCompleted={handleQryResult}>
       {
@@ -123,14 +127,28 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                 >
                   <Mutation mutation={CREATE_EVENT_MUTATION} onCompleted={handleMutationResult}>
                     {(createEvent: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
-                      interface IFormValues { accessibility: { [key: string]: boolean }; }
+                      interface IFormValues {
+                        accessibility: { [key: string]: boolean };
+                        affectedComponents: { [key: string]: boolean };
+                      }
 
                       const handleSubmit: ((values: IFormValues) => void) = (values: IFormValues): void => {
                         const selectedAccessibility: string[] = Object.keys(values.accessibility)
                           .filter((key: string) => values.accessibility[key])
                           .map((key: string) => key.toUpperCase());
 
-                        createEvent({ variables: { projectName, ...values, accessibility: selectedAccessibility } })
+                        const selectedComponents: string[] = Object.keys(values.affectedComponents)
+                          .filter((key: string) => values.affectedComponents[key])
+                          .map((key: string) => key.toUpperCase());
+
+                        createEvent({
+                          variables: {
+                            projectName,
+                            ...values,
+                            accessibility: selectedAccessibility,
+                            affectedComponents: selectedComponents,
+                          },
+                        })
                           .catch();
                       };
 
@@ -229,6 +247,96 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                                   </FormGroup>
                                 </Col>
                               </Row>
+                              {eventType === "INCORRECT_MISSING_SUPPLIES" ?
+                                <Row>
+                                  <Col md={6}>
+                                    <FormGroup>
+                                      <ControlLabel>{translate.t("project.events.form.blocking_hours")}</ControlLabel>
+                                      <Field
+                                        component={textField}
+                                        name="blockingHours"
+                                        type="number"
+                                        validate={[numeric, required]}
+                                      />
+                                    </FormGroup>
+                                  </Col>
+                                  <Col md={6}>
+                                    <FormGroup>
+                                      <ControlLabel>
+                                        {translate.t("project.events.form.components.title")}
+                                      </ControlLabel>
+                                      <FormSection name="affectedComponents">
+                                        <Field component={checkboxField} name="FLUID_STATION" validate={someRequired}>
+                                          {translate.t("project.events.form.components.fluid_station")}
+                                        </Field>
+                                        <Field component={checkboxField} name="CLIENT_STATION" validate={someRequired}>
+                                          {translate.t("project.events.form.components.client_station")}
+                                        </Field>
+                                        <Field component={checkboxField} name="TOE_EXCLUSSION" validate={someRequired}>
+                                          {translate.t("project.events.form.components.toe_exclussion")}
+                                        </Field>
+                                        <Field component={checkboxField} name="DOCUMENTATION" validate={someRequired}>
+                                          {translate.t("project.events.form.components.documentation")}
+                                        </Field>
+                                        <Field
+                                          component={checkboxField}
+                                          name="LOCAL_CONNECTION"
+                                          validate={someRequired}
+                                        >
+                                          {translate.t("project.events.form.components.local_conn")}
+                                        </Field>
+                                        <Field
+                                          component={checkboxField}
+                                          name="INTERNET_CONNECTION"
+                                          validate={someRequired}
+                                        >
+                                          {translate.t("project.events.form.components.internet_conn")}
+                                        </Field>
+                                        <Field component={checkboxField} name="VPN_CONNECTION" validate={someRequired}>
+                                          {translate.t("project.events.form.components.vpn_conn")}
+                                        </Field>
+                                        <Field component={checkboxField} name="TOE_LOCATION" validate={someRequired}>
+                                          {translate.t("project.events.form.components.toe_location")}
+                                        </Field>
+                                        <Field component={checkboxField} name="TOE_CREDENTIALS" validate={someRequired}>
+                                          {translate.t("project.events.form.components.toe_credentials")}
+                                        </Field>
+                                        <Field component={checkboxField} name="TOE_PRIVILEGES" validate={someRequired}>
+                                          {translate.t("project.events.form.components.toe_privileges")}
+                                        </Field>
+                                        <Field component={checkboxField} name="TEST_DATA" validate={someRequired}>
+                                          {translate.t("project.events.form.components.test_data")}
+                                        </Field>
+                                        <Field component={checkboxField} name="TOE_UNSTABLE" validate={someRequired}>
+                                          {translate.t("project.events.form.components.toe_unstability")}
+                                        </Field>
+                                        <Field
+                                          component={checkboxField}
+                                          name="TOE_UNACCESSIBLE"
+                                          validate={someRequired}
+                                        >
+                                          {translate.t("project.events.form.components.toe_unaccessible")}
+                                        </Field>
+                                        <Field component={checkboxField} name="TOE_UNAVAILABLE" validate={someRequired}>
+                                          {translate.t("project.events.form.components.toe_unavailable")}
+                                        </Field>
+                                        <Field component={checkboxField} name="TOE_ALTERATION" validate={someRequired}>
+                                          {translate.t("project.events.form.components.toe_alteration")}
+                                        </Field>
+                                        <Field component={checkboxField} name="SOURCE_CODE" validate={someRequired}>
+                                          {translate.t("project.events.form.components.source_code")}
+                                        </Field>
+                                        <Field component={checkboxField} name="COMPILE_ERROR" validate={someRequired}>
+                                          {translate.t("project.events.form.components.compile_error")}
+                                        </Field>
+                                        <Field component={checkboxField} name="OTHER" validate={someRequired}>
+                                          {translate.t("project.events.form.other")}
+                                        </Field>
+                                      </FormSection>
+                                    </FormGroup>
+                                  </Col>
+                                </Row>
+                                : undefined}
                               <Row>
                                 <Col md={12}>
                                   <FormGroup>

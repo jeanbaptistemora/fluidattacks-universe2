@@ -90,6 +90,9 @@ def create_event(analyst_email, project_name, **kwargs):
         'report_date': today,
         'subscription': project.get('type', '').upper()
     })
+    if 'affected_components' in event_attrs:
+        event_attrs['affected_components'] = '\n'.join(
+            list(set(event_attrs['affected_components'])))
 
     return event_dal.create(event_id, project_name, event_attrs)
 
