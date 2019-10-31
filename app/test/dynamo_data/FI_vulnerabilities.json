@@ -1,5 +1,91 @@
 {
-   "FI_vulnerabilities" : [
+   "FI_vulnerabilities" : [  
+    {
+      "PutRequest": {
+        "Item": {
+          "specific": {
+            "S": "userToken"
+          },
+          "treatment_justification": {
+            "S": "Hemos decidido asumir el hallazgo para probar si es posible"
+          },
+          "vuln_type": {
+            "S": "inputs"
+          },
+          "where": {
+            "S": "https://10.1.1.1/"
+          },
+          "treatment": {
+            "S": "IN PROGRESS"
+          },
+          "treatment_manager": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "finding_id": {
+            "S": "457497316"
+          },
+          "UUID": {
+            "S": "6192c72f-2e10-4259-9207-717b2d90d8d2"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2018-11-27 14:54:08"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "open"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-01-10 15:06:22"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "closed"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-01-10 15:15:42"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "open"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "date": {
+                    "S": "2019-09-16 09:40:37"
+                  },
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "state": {
+                    "S": "closed"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },          
       {
          "PutRequest" : {
             "Item" : {
@@ -632,94 +718,6 @@
                },
                "where" : {
                   "S" : "192.168.100.108"
-               }
-            }
-         }
-      },
-      {
-         "PutRequest" : {
-            "Item" : {
-               "UUID" : {
-                  "S" : "db126a8e-9244-4f23-aa52-4f969b46b1c1"
-               },
-               "finding_id" : {
-                  "S" : "436992569"
-               },
-               "historic_state" : {
-                  "L" : [
-                     {
-                        "M" : {
-                           "analyst" : {
-                              "S" : "unittest@fluidattacks.com"
-                           },
-                           "approval_status" : {
-                              "S" : "APPROVED"
-                           },
-                           "date" : {
-                              "S" : "2019-09-13 08:27:26"
-                           },
-                           "state" : {
-                              "S" : "open"
-                           }
-                        }
-                     }
-                  ]
-               },
-               "specific" : {
-                  "S" : "333"
-               },
-               "treatment" : {
-                  "S" : "NEW"
-               },
-               "vuln_type" : {
-                  "S" : "ports"
-               },
-               "where" : {
-                  "S" : "192.168.100.102"
-               }
-            }
-         }
-      },
-      {
-         "PutRequest" : {
-            "Item" : {
-               "UUID" : {
-                  "S" : "edba0dd4-cd19-42b7-b81f-648a48c31bba"
-               },
-               "finding_id" : {
-                  "S" : "436992569"
-               },
-               "historic_state" : {
-                  "L" : [
-                     {
-                        "M" : {
-                           "analyst" : {
-                              "S" : "api-unittest@fluidattacks.com"
-                           },
-                           "approval_status" : {
-                              "S" : "APPROVED"
-                           },
-                           "date" : {
-                              "S" : "2019-09-16 14:56:45"
-                           },
-                           "state" : {
-                              "S" : "open"
-                           }
-                        }
-                     }
-                  ]
-               },
-               "specific" : {
-                  "S" : "888"
-               },
-               "treatment" : {
-                  "S" : "NEW"
-               },
-               "vuln_type" : {
-                  "S" : "ports"
-               },
-               "where" : {
-                  "S" : "192.168.100.121"
                }
             }
          }

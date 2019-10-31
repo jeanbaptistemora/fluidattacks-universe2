@@ -24,8 +24,8 @@ class FindingTests(TestCase):
         finding_id = '436992569'
         vulnerabilities = get_vulnerabilities(finding_id)
         test_data = get_tracking_vulnerabilities(vulnerabilities)
-        expected_output = {'date': '2019-01-17', 'effectiveness': 100,
-                           'open': 0, 'closed': 1, 'cycle': 0}
+        expected_output = {'date': '2019-08-30', 'effectiveness': 0,
+                           'open': 1, 'closed': 0, 'cycle': 0}
         assert test_data[0] == expected_output
 
     def test_get_findings(self):

@@ -1,24 +1,17 @@
 # pylint: disable=too-many-lines
 
-from boto3 import resource
 from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
 # pylint: disable=relative-beyond-top-level
 import rollbar
 
-from __init__ import (
-    FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY
-)
-
 from app import util
 from app.dal import project as project_dal
+from app.dal.helpers import dynamodb
 from ..utils import forms
 
 
-DYNAMODB_RESOURCE = resource('dynamodb',
-                             aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
-                             aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
-                             region_name='us-east-1')
+DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
 
 
 def get_user_dynamo(email):

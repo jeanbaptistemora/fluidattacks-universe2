@@ -13,7 +13,7 @@
                   "S" : "2019-08-20 16:35:16"
                },
                "email" : {
-                  "S" : "unittest"
+                  "S" : "unittest@fluidattacks.com"
                },
                "finding_id" : {
                   "N" : "422286126"
@@ -32,6 +32,39 @@
                }
             }
          }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "content": {
+              "S": "Se cierra la vulnerabilidad."
+            },
+            "user_id": {
+              "N": "1558048727932"
+            },
+            "comment_type": {
+              "S": "comment"
+            },
+            "finding_id": {
+              "N": "500592001"
+            },
+            "created": {
+              "S": "2019-05-16 18:18:47"
+            },
+            "parent": {
+              "N": "1558036062503"
+            },
+            "email": {
+              "S": "unittest@fluidattacks.com"
+            },
+            "fullname": {
+              "S": "unit test"
+            },
+            "modified": {
+              "S": "2019-05-16 18:18:47"
+            }
+          }
+        }
       }
    ]
 }

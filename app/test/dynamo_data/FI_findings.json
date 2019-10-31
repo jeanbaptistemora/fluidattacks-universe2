@@ -1,5 +1,229 @@
 {
    "FI_findings" : [
+    {
+      "PutRequest": {
+        "Item": {
+          "remediation_level": {
+            "N": "0.96"
+          },
+          "finding_id": {
+            "S": "457497316"
+          },
+          "user_interaction": {
+            "N": "0.85"
+          },
+          "effect_solution": {
+            "S": "Eliminar el banner de los servicios con fuga de información, Verificar que los encabezados HTTP no expongan ningún nombre o versión."
+          },
+          "availability_requirement": {
+            "N": "1"
+          },
+          "attack_vector_desc": {
+            "S": "Descripción"
+          },
+          "test_type": {
+            "S": "SOURCE_CODE"
+          },
+          "availability_impact": {
+            "N": "0.22"
+          },
+          "files": {
+            "L": [
+              {
+                "M": {
+                  "description": {
+                    "S": "Comentario"
+                  },
+                  "file_url": {
+                    "S": "unittesting-457497316-32202896-1kRLMz4s1IbSdvK6rPxcM_Xvc0u_f000Y.png"
+                  },
+                  "name": {
+                    "S": "evidence_route_1"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "name": {
+                    "S": "exploit"
+                  },
+                  "file_url": {
+                    "S": "unittesting-457497316-38307199-exploit.py"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "description": {
+                    "S": "test"
+                  },
+                  "file_url": {
+                    "S": "unittesting-457497316-53713035-evidencia.png"
+                  },
+                  "name": {
+                    "S": "evidence_route_2"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "description": {
+                    "S": "1"
+                  },
+                  "file_url": {
+                    "S": "unittesting-457497316-53713045-musk.png"
+                  },
+                  "name": {
+                    "S": "evidence_route_3"
+                  }
+                }
+              }
+            ]
+          },
+          "treatment": {
+            "S": "IN PROGRESS"
+          },
+          "context": {
+            "S": "SEARCHING"
+          },
+          "modified_confidentiality_impact": {
+            "N": "0.22"
+          },
+          "scenario": {
+            "S": "AUTHORIZED_USER_INTERNET"
+          },
+          "modified_availability_impact": {
+            "N": "0.22"
+          },
+          "report_confidence": {
+            "N": "0.92"
+          },
+          "threat": {
+            "S": "Amenaza."
+          },
+          "interested": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "lastVulnerability": {
+            "S": "2018-11-27 00:00:00"
+          },
+          "leader": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "confidentiality_requirement": {
+            "N": "1"
+          },
+          "cvss_temporal": {
+            "N": "3.9"
+          },
+          "records_number": {
+            "S": "0"
+          },
+          "attack_vector": {
+            "N": "0.62"
+          },
+          "integrity_requirement": {
+            "N": "1"
+          },
+          "modified_integrity_impact": {
+            "N": "0.22"
+          },
+          "actor": {
+            "S": "ANYONE_INTERNET"
+          },
+          "affected_systems": {
+            "S": "Sistema"
+          },
+          "vulnerability": {
+            "S": "Descripción de fuga de información técnica"
+          },
+          "modified_severity_scope": {
+            "N": "0"
+          },
+          "analyst": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "modified_user_interaction": {
+            "N": "0.85"
+          },
+          "report_date": {
+            "S": "2018-11-27 14:53:36"
+          },
+          "treatment_manager": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "modified_attack_vector": {
+            "N": "0.62"
+          },
+          "report_level": {
+            "S": "GENERAL"
+          },
+          "subscription": {
+            "S": "ONESHOT"
+          },
+          "client_project": {
+            "S": "Unit Test"
+          },
+          "cvss_version": {
+            "S": "3"
+          },
+          "privileges_required": {
+            "N": "0.62"
+          },
+          "treatment_justification": {
+            "S": "Hemos decidido asumir el hallazgo para probar si es posible"
+          },
+          "cwe": {
+            "S": "None"
+          },
+          "integrity_impact": {
+            "N": "0.22"
+          },
+          "releaseDate": {
+            "S": "2018-11-27 00:00:00"
+          },
+          "confidentiality_impact": {
+            "N": "0.22"
+          },
+          "severity_scope": {
+            "N": "0"
+          },
+          "related_findings": {
+            "S": "0"
+          },
+          "exploitability": {
+            "N": "0.94"
+          },
+          "modified_privileges_required": {
+            "N": "0.62"
+          },
+          "modified_attack_complexity": {
+            "N": "0.44"
+          },
+          "requirements": {
+            "S": "REQ.0077. La aplicación no debe revelar detalles del sistema interno como stack traces, fragmentos de sentencias SQL y nombres de base de datos o tablas.\r\nREQ.0176. El sistema debe restringir el acceso a objetos del sistema que tengan contenido sensible. Sólo permitirá su acceso a usuarios autorizados."
+          },
+          "cvss_basescore": {
+            "N": "4.6"
+          },
+          "finding": {
+            "S": "FIN.H.0037. Fuga de información técnica"
+          },
+          "finding_type": {
+            "S": "HYGIENE"
+          },
+          "attack_complexity": {
+            "N": "0.44"
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "cvss_env": {
+            "N": "3.9"
+          }
+        }
+      }
+    },       
       {
          "PutRequest" : {
             "Item" : {

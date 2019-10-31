@@ -14,6 +14,9 @@ if FI_ENVIRONMENT == 'development':
     ENDPOINT_URL = 'http://{}:{}'.format(FI_DYNAMODB_HOST, FI_DYNAMODB_PORT)
     RESOURCE_OPTIONS = {
         'service_name': 'dynamodb',
+        'aws_access_key_id': FI_AWS_DYNAMODB_ACCESS_KEY,
+        'aws_secret_access_key': FI_AWS_DYNAMODB_SECRET_KEY,
+        'region_name': 'us-east-1',
         'endpoint_url': ENDPOINT_URL
     }
 else:

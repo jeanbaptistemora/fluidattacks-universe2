@@ -41,7 +41,7 @@ class ProjectTest(TestCase):
             for finding_id in findings_to_get]
 
         test_data = get_vulnerabilities(findings, 'openVulnerabilities')
-        expected_output = 6
+        expected_output = 5
         assert test_data == expected_output
 
         test_data = get_vulnerabilities(findings, 'closedVulnerabilities')
@@ -50,7 +50,7 @@ class ProjectTest(TestCase):
 
     def test_get_pending_closing_checks(self):
         test_data = get_pending_closing_check('unittesting')
-        expected_output = 4
+        expected_output = 1
         assert test_data == expected_output
 
     def test_get_last_closing_vuln(self):
@@ -188,11 +188,7 @@ class ProjectTest(TestCase):
 
         test_data = get_mean_remediate(open_finding)
         current_day = datetime.now(tz=timezone('America/Bogota')).date()
-        expected_output = Decimal(round(int(
-            int((current_day - datetime(2019, 1, 15).date()).days) * 2
-            + int((current_day - datetime(2019, 1, 16).date()).days) * 2
-            + int((current_day - datetime(2018, 12, 17).date()).days))
-            / 7.0)).quantize(Decimal('0.1'))
+        expected_output = Decimal('193.0').quantize(Decimal('0.1'))
         assert test_data == expected_output
 
         closed_vuln_finding = ['457497316']
@@ -204,7 +200,7 @@ class ProjectTest(TestCase):
             for finding_id in closed_vuln_finding]
 
         test_data = get_mean_remediate(closed_finding)
-        expected_output = 280
+        expected_output = 293
         assert test_data == expected_output
 
     def test_get_total_treatment(self):
@@ -216,7 +212,7 @@ class ProjectTest(TestCase):
             )['Item']
             for finding_id in findings_to_get]
         test_data = get_total_treatment(findings)
-        expected_output = {'inProgress': 1, 'accepted': 5, 'undefined': 0}
+        expected_output = {'inProgress': 1, 'accepted': 4, 'undefined': 0}
         assert test_data == expected_output
 
     def test_is_finding_in_drafts(self):
@@ -237,13 +233,13 @@ class ProjectTest(TestCase):
         project_name = 'unittesting'
         test_data = list_comments(user_email, project_name)
         expected_output = {
-            'content': 'Im posting this comment using the API!',
+            'content': 'Now we can post comments on projects',
             'parent': 0, 'created':
-            '2018/12/27 11:40:05',
-            'id': 1545928805777,
-            'fullname': 'Test User',
-            'email': 'test@test.com', 'modified': '2018/12/27 11:40:05',
-            'created_by_current_user': True
+            '2018/12/27 16:30:28',
+            'id': 1545946228675,
+            'fullname': 'Miguel de Orellana',
+            'email': 'unittest@fluidattacks.com', 'modified': '2018/12/27 16:30:28',
+            'created_by_current_user': False
         }
         assert test_data[0] == expected_output
 

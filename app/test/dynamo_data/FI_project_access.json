@@ -28,10 +28,46 @@
                   "S" : "Tester"
                },
                "user_email" : {
-                  "S" : "unittest1@fluidattacks.com"
+                  "S" : "unittest@fluidattacks.com"
                }
             }
          }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "responsibility": {
+              "S": "Test"
+            },
+            "project_name": {
+              "S": "unittesting"
+            },
+            "has_access": {
+              "BOOL": true
+            },
+            "user_email": {
+              "S": "continuoushacking@gmail.com"
+            }
+          }
+        }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "responsibility": {
+              "S": "-"
+            },
+            "project_name": {
+              "S": "bwapp"
+            },
+            "has_access": {
+              "BOOL": true
+            },
+            "user_email": {
+              "S": "continuoushacking@gmail.com"
+            }
+          }
+        }
       },
       {
          "PutRequest" : {

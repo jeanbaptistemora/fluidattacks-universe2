@@ -5,6 +5,7 @@
 # changes introduced by the developer, before accepting changes into
 # production.
 
+
 function echo-blue() {
   echo -e '\033[1;34m'"${1}"'\033[0m'
 }

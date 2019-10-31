@@ -40,7 +40,7 @@ class SchedulerTests(TestCase):
         test_data = remove_fluid_from_recipients(emails)
         expected_output = ['test@test.com', 'test2@test.com']
         assert test_data == expected_output
-    
+
     def test_is_a_unsolved_event(self):
         dumb_unsolved_event = {'id': 'testid', 'event_status': 'UNSOLVED'}
         dumb_solved_event = {'id': 'testid', 'event_status': 'SOLVED'}
@@ -93,7 +93,7 @@ class SchedulerTests(TestCase):
         test_data = get_status_vulns_by_time_range(
             vulns, first_day, last_day, released_findings
         )
-        expected_output = {'found': 23, 'accepted': 4, 'closed': 7}
+        expected_output = {'found': 6, 'accepted': 4, 'closed': 2}
         assert test_data == expected_output
 
     def test_create_weekly_date(self):
@@ -189,14 +189,14 @@ class SchedulerTests(TestCase):
 
     def test_create_msj_finding_pending(self):
         not_new_treatment_finding = get_finding('422286126')
-        new_treatment_finding = get_finding('445291998')
+        new_treatment_finding = get_finding('436992569')
 
         test_data = create_msj_finding_pending(not_new_treatment_finding)
         expected_output = ''
         assert test_data == expected_output
 
         test_data = create_msj_finding_pending(new_treatment_finding)
-        expected_output = u'FIN.S.0002. Denegación de servicio asimétrica'
+        expected_output = u'FIN.S.0038. Fuga de información de negocio'
         assert expected_output in test_data
 
     def test_all_user_formatted(self):
@@ -210,4 +210,4 @@ class SchedulerTests(TestCase):
         test_data = get_project_indicators(project_name)
         assert isinstance(test_data, dict)
         assert len(test_data) == 5
-        assert test_data['max_open_severity'] == Decimal(4.9).quantize(Decimal('0.1'))
+        assert test_data['max_open_severity'] == Decimal(4.3).quantize(Decimal('0.1'))

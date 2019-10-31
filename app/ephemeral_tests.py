@@ -58,7 +58,7 @@ class ViewTestCase(unittest.TestCase):
                       self.delay).until(
                           EC.presence_of_element_located(
                                 (By.XPATH,
-                                "//*[contains(text(), 'BWAPP Sample')]")))
+                                "//*[contains(text(), 'Integrates unit test project')]")))
         return selenium
 
     def test_01_init_page(self):
@@ -75,7 +75,7 @@ class ViewTestCase(unittest.TestCase):
     def test_02_dashboard(self):
         selenium = self.__login()
         selenium.save_screenshot(SCR_PATH + '02-dashboard.png')
-        assert 'BWAPP Sample' in selenium.page_source
+        assert 'Integrates unit test project' in selenium.page_source
 
     def test_03_indicators(self):
         selenium = self.__login()
@@ -83,7 +83,7 @@ class ViewTestCase(unittest.TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'BWAPP Sample')]")))
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
         selenium.save_screenshot(SCR_PATH + '03-01-indicators.png')
         proj_elem.click()
         WebDriverWait(selenium,
@@ -100,11 +100,11 @@ class ViewTestCase(unittest.TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'BWAPP Sample')]")))
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
         selenium.save_screenshot(SCR_PATH + '04-01-findings.png')
         proj_elem.click()
 
-        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
         WebDriverWait(selenium,
                       self.delay).until(
                             EC.presence_of_element_located(
@@ -119,11 +119,11 @@ class ViewTestCase(unittest.TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'BWAPP Sample')]")))
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
         selenium.save_screenshot(SCR_PATH + '05-01-finding.png')
         proj_elem.click()
 
-        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
         find_ele = WebDriverWait(selenium,
                                 self.delay).until(
                                     EC.presence_of_element_located(
@@ -151,11 +151,11 @@ class ViewTestCase(unittest.TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'BWAPP Sample')]")))
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
         selenium.save_screenshot(SCR_PATH + '06-01-severity.png')
         proj_elem.click()
 
-        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
         find_ele = WebDriverWait(selenium,
                                 self.delay).until(
                                     EC.presence_of_element_located(
@@ -186,11 +186,11 @@ class ViewTestCase(unittest.TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'BWAPP Sample')]")))
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
         selenium.save_screenshot(SCR_PATH + '07-01-evidence.png')
         proj_elem.click()
 
-        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
         find_ele = WebDriverWait(selenium,
                                 self.delay).until(
                                     EC.presence_of_element_located(
@@ -219,11 +219,11 @@ class ViewTestCase(unittest.TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'BWAPP Sample')]")))
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
         selenium.save_screenshot(SCR_PATH + '08-01-exploit.png')
         proj_elem.click()
 
-        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
         find_ele = WebDriverWait(selenium,
                                 self.delay).until(
                                     EC.presence_of_element_located(
@@ -252,11 +252,11 @@ class ViewTestCase(unittest.TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'BWAPP Sample')]")))
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
         selenium.save_screenshot(SCR_PATH + '09-01-tracking.png')
         proj_elem.click()
 
-        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
         find_ele = WebDriverWait(selenium,
                                 self.delay).until(
                                     EC.presence_of_element_located(
@@ -285,11 +285,11 @@ class ViewTestCase(unittest.TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'BWAPP Sample')]")))
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
         selenium.save_screenshot(SCR_PATH + '10-01-comments.png')
         proj_elem.click()
 
-        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
         find_ele = WebDriverWait(selenium,
                                 self.delay).until(
                                     EC.presence_of_element_located(
@@ -318,11 +318,11 @@ class ViewTestCase(unittest.TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'BWAPP Sample')]")))
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
         selenium.save_screenshot(SCR_PATH + '11-01-techpdf.png')
         proj_elem.click()
 
-        selenium.get(self.url + '/dashboard#!/project/BWAPP/findings')
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/findings')
         WebDriverWait(selenium,
                       self.delay).until(
                             EC.presence_of_element_located(
@@ -358,10 +358,10 @@ class ViewTestCase(unittest.TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'BWAPP Sample')]")))
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
         selenium.save_screenshot(SCR_PATH + '13-01-events.png')
         proj_elem.click()
-        selenium.get(self.url + '/dashboard#!/project/BWAPP/events')
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/events')
 
         event_tab = WebDriverWait(selenium,
                                    self.delay).until(
@@ -386,10 +386,10 @@ class ViewTestCase(unittest.TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'BWAPP Sample')]")))
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
         selenium.save_screenshot(SCR_PATH + '14-01-resources.png')
         proj_elem.click()
-        selenium.get(self.url + '/dashboard#!/project/BWAPP/resources')
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/resources')
 
         WebDriverWait(selenium, self.delay).until(
             EC.presence_of_element_located(
@@ -405,10 +405,10 @@ class ViewTestCase(unittest.TestCase):
                                   self.delay).until(
                                       EC.presence_of_element_located(
                                           (By.XPATH,
-                                           "//*[contains(text(), 'BWAPP Sample')]")))
+                                           "//*[contains(text(), 'Integrates unit test project')]")))
         selenium.save_screenshot(SCR_PATH + '15-01-proj_comments.png')
         proj_elem.click()
-        selenium.get(self.url + '/dashboard#!/project/BWAPP/comments')
+        selenium.get(self.url + '/dashboard#!/project/UNITTESTING/comments')
 
         WebDriverWait(selenium, self.delay).until(
             EC.presence_of_element_located(

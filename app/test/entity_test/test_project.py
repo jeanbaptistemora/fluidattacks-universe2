@@ -17,7 +17,7 @@ class ProjectEntityTests(TestCase):
         """ Check for project resources """
         query = '''
           query {
-            project(projectName: "detailedtest"){
+            project(projectName: "unittesting"){
               name,
               totalFindings,
               description,
@@ -47,4 +47,4 @@ class ProjectEntityTests(TestCase):
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert result['data']['project']
-        assert result['data']['project']['totalFindings'] == 4
+        assert result['data']['project']['totalFindings'] == 12
