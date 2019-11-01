@@ -52,7 +52,7 @@ describe("Add user modal", () => {
       },
       result: {
         data: {
-          userData: {
+          user: {
             __typename: "User",
             organization: "Test",
             phoneNumber: "+573123456791",

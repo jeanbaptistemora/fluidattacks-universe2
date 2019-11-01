@@ -34,8 +34,8 @@ class Query(ObjectType):
 
     resources = Field(Resource, project_name=String(required=True))
 
-    user_data = Field(User, project_name=String(required=True),
-                      user_email=String(required=True))
+    user = Field(User, project_name=String(required=True),
+                 user_email=String(required=True))
 
     project = Field(Project, project_name=String(required=True))
 
@@ -94,7 +94,7 @@ class Query(ObjectType):
     @require_role(['analyst', 'customeradmin', 'admin'])
     @require_project_access
     @get_cached
-    def resolve_user_data(self, info, project_name, user_email):
+    def resolve_user(self, info, project_name, user_email):
         """ Resolve for user data """
         del info
         return User(project_name, user_email)

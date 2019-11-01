@@ -63,8 +63,8 @@ class UserTests(TestCase):
     def test_get_user(self):
         query = '''
             query {
-                userData(projectName: "unittesting",
-                         userEmail: "continuoushacking@gmail.com") {
+                user(projectName: "unittesting",
+                     userEmail: "continuoushacking@gmail.com") {
                     organization
                     responsibility
                     phoneNumber
@@ -90,7 +90,7 @@ class UserTests(TestCase):
         )
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
-        assert 'userData' in result['data']
+        assert 'user' in result['data']
 
     def test_add_user(self):
         query = '''
