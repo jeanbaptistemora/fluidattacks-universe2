@@ -113,10 +113,38 @@ instance = troposphere.rds.DBInstance(
     StorageEncrypted=True,
     BackupRetentionPeriod='32',
 )
+managed_policy = troposphere.iam.ManagedPolicy(
+    title='mangedPolicy1',
+    PolicyDocument={
+        'Version': '2012-10-17',
+        'Statement': [
+            {
+                # F5 IAM managed policy should not allow * action
+                'Effect': 'Allow',
+                'Action': [
+                    'ecr:Get*',
+                ],
+                # W13 IAM managed policy should not allow * resource
+                # F40 IAM managed policy should not allow a * resource with
+                #   PassRole action
+                'Resource': [
+                    'arn:aws:ecr:us-east-1::repository/*',
+                ],
+            },
+            # W17 IAM managed policy should not allow Allow+NotAction
+            # W23 IAM managed policy should not allow Allow+NotResource
+        ],
+    },
+    # F12 IAM managed policy should not apply directly to users.
+    #   Should be on group
+    Users=[
+    ],
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(cluster)
 template.add_resource(instance)
+template.add_resource(managed_policy)
 write_template(template)
 
 #
@@ -238,8 +266,52 @@ instance = troposphere.rds.DBInstance(
     # Disables automated back-ups
     BackupRetentionPeriod='0',
 )
+managed_policy = troposphere.iam.ManagedPolicy(
+    title='mangedPolicy1',
+    PolicyDocument={
+        'Version': '2012-10-17',
+        'Statement': [
+            {
+                # F5 IAM managed policy should not allow * action
+                'Effect': 'Allow',
+                'Action': [
+                    'ecr:*',
+                ],
+                # W13 IAM managed policy should not allow * resource
+                # F40 IAM managed policy should not allow a * resource with
+                #   PassRole action
+                'Resource': [
+                    '*',
+                ],
+            },
+            {
+                'Effect': 'Allow',
+                'Action': 'ecr:*',
+                'Resource': '*',
+            },
+            {
+                # W17 IAM managed policy should not allow Allow+NotAction
+                'Effect': 'Allow',
+                'NotAction': [
+                ],
+            },
+            {
+                # W23 IAM managed policy should not allow Allow+NotResource
+                'Effect': 'Allow',
+                'NotResource': [
+                ],
+            },
+        ],
+    },
+    # F12 IAM managed policy should not apply directly to users.
+    #   Should be on group
+    Users=[
+        'user1',
+    ],
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(cluster)
 template.add_resource(instance)
+template.add_resource(managed_policy)
 write_template(template)

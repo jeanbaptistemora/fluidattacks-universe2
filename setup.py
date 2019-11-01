@@ -40,6 +40,7 @@ setup(
         'fluidasserts',
         'fluidasserts.cloud',
         'fluidasserts.cloud.aws',
+        'fluidasserts.cloud.aws.cloudformation',
         'fluidasserts.db',
         'fluidasserts.format',
         'fluidasserts.helper',

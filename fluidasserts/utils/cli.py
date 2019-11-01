@@ -679,6 +679,7 @@ def exec_cloudformation_package(
     source: Dict[str, str] = {
         ('iam', 'IAM (Identity and Access Management)'): """
             iam.is_role_over_privileged('__path__')
+            iam.is_managed_policy_miss_configured('__path__')
             """,
         ('rds', 'RDS (Relational Database Service)'): """
             rds.has_unencrypted_storage('__path__')

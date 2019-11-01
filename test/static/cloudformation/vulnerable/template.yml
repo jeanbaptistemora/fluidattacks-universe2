@@ -15,6 +15,26 @@ Resources:
       MasterUsername: user
       StorageEncrypted: 'false'
     Type: AWS::RDS::DBInstance
+  mangedPolicy1:
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - ecr:*
+            Effect: Allow
+            Resource:
+              - '*'
+          - Action: ecr:*
+            Effect: Allow
+            Resource: '*'
+          - Effect: Allow
+            NotAction: []
+          - Effect: Allow
+            NotResource: []
+        Version: '2012-10-17'
+      Users:
+        - user1
+    Type: AWS::IAM::ManagedPolicy
   role1:
     Properties:
       AssumeRolePolicyDocument:
