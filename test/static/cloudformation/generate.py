@@ -14,15 +14,22 @@ def write_template(template: troposphere.Template) -> bool:
     """Write a template to the target file."""
     base_path: str = os.path.abspath(os.path.dirname(__file__))
     target_dir_path: str = os.path.join(base_path, template.description)
-    target_file_path: str = os.path.join(target_dir_path, 'template.yml')
-
     os.makedirs(target_dir_path, exist_ok=True)
-
-    print(target_file_path)
-    content: str = template.to_yaml(clean_up=True, long_form=True)
-    print(textwrap.indent(content, prefix='+   '))
-    with open(target_file_path, 'w') as target_file_handle:
-        target_file_handle.write(content)
+    for extension, kwargs in (
+            ('yaml', {
+                'clean_up': True,
+                'long_form': True
+            }),
+            ('json', {
+                'indent': 2
+            })):
+        target_file_path: str = os.path.join(
+            target_dir_path, f'template.{extension}')
+        print(target_file_path)
+        content: str = getattr(template, f'to_{extension}')(**kwargs)
+        print(textwrap.indent(content, prefix='+   '))
+        with open(target_file_path, 'w') as target_file_handle:
+            target_file_handle.write(content)
 
 
 #

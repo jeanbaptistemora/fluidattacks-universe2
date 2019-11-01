@@ -1,0 +1,135 @@
+{
+  "Description": "vulnerable",
+  "Resources": {
+    "cluster1": {
+      "Properties": {
+        "BackupRetentionPeriod": 0,
+        "Engine": "postgres",
+        "StorageEncrypted": "false"
+      },
+      "Type": "AWS::RDS::DBCluster"
+    },
+    "instance1": {
+      "Properties": {
+        "BackupRetentionPeriod": "0",
+        "DBInstanceClass": "t2.micro",
+        "Engine": "postgres",
+        "MasterUserPassword": "pass",
+        "MasterUsername": "user",
+        "StorageEncrypted": "false"
+      },
+      "Type": "AWS::RDS::DBInstance"
+    },
+    "mangedPolicy1": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ecr:*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                "*"
+              ]
+            },
+            {
+              "Action": "ecr:*",
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Effect": "Allow",
+              "NotAction": []
+            },
+            {
+              "Effect": "Allow",
+              "NotResource": []
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Users": [
+          "user1"
+        ]
+      },
+      "Type": "AWS::IAM::ManagedPolicy"
+    },
+    "role1": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ecr:*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                "*"
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "NotAction": []
+            },
+            {
+              "Effect": "Allow",
+              "NotPrincipal": []
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/AdministratorAccess"
+        ],
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
+                    "ecr:*"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                    "*"
+                  ]
+                },
+                {
+                  "Action": "ecr:*",
+                  "Effect": "Allow",
+                  "Resource": "*"
+                },
+                {
+                  "Effect": "Allow",
+                  "NotAction": []
+                },
+                {
+                  "Effect": "Allow",
+                  "NotResource": []
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "policy1"
+          }
+        ]
+      },
+      "Type": "AWS::IAM::Role"
+    },
+    "secret1": {
+      "Properties": {
+        "GenerateSecretString": {
+          "ExcludeCharacters": "01234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~",
+          "ExcludeLowercase": "true",
+          "ExcludeNumbers": "true",
+          "ExcludePunctuation": "true",
+          "ExcludeUppercase": "true",
+          "PasswordLength": 10,
+          "RequireEachIncludedType": "false"
+        }
+      },
+      "Type": "AWS::SecretsManager::Secret"
+    }
+  }
+}

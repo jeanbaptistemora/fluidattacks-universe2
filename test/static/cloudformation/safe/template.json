@@ -1,0 +1,97 @@
+{
+  "Description": "safe",
+  "Resources": {
+    "cluster1": {
+      "Properties": {
+        "BackupRetentionPeriod": 32,
+        "Engine": "postgres",
+        "StorageEncrypted": "true"
+      },
+      "Type": "AWS::RDS::DBCluster"
+    },
+    "instance1": {
+      "Properties": {
+        "BackupRetentionPeriod": "32",
+        "DBInstanceClass": "t2.micro",
+        "Engine": "postgres",
+        "MasterUserPassword": "pass",
+        "MasterUsername": "user",
+        "StorageEncrypted": "true"
+      },
+      "Type": "AWS::RDS::DBInstance"
+    },
+    "mangedPolicy1": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ecr:Get*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                "arn:aws:ecr:us-east-1::repository/*"
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Users": []
+      },
+      "Type": "AWS::IAM::ManagedPolicy"
+    },
+    "role1": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ecr:Get*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                "*"
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [],
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
+                    "ecr:Get*"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                    "arn:aws:ecr:us-east-1::repository/*"
+                  ]
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "policy1"
+          }
+        ]
+      },
+      "Type": "AWS::IAM::Role"
+    },
+    "secret1": {
+      "Properties": {
+        "GenerateSecretString": {
+          "ExcludeCharacters": "",
+          "ExcludeLowercase": "false",
+          "ExcludeNumbers": "false",
+          "ExcludePunctuation": "false",
+          "ExcludeUppercase": "false",
+          "PasswordLength": 32,
+          "RequireEachIncludedType": "true"
+        }
+      },
+      "Type": "AWS::SecretsManager::Secret"
+    }
+  }
+}
