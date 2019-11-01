@@ -119,8 +119,13 @@ def require_role(allowed_roles):
 
             try:
                 if 'customeradmin' in allowed_roles and role == 'customer':
-                    project_name = kwargs.get('project_name', args[0].name if args[0] else '')
+                    project_name = kwargs.get(
+                        'project_name', args[0].name if args[0] else '')
                     role_customer_admin(project_name, email)
+                elif 'customeradminfluid' in allowed_roles and \
+                     role == 'customer':
+                    project_name = kwargs.get('project_name', '')
+                    role_customer_admin_fluid(project_name, email)
                 else:
                     role_allowed(role, allowed_roles)
             except PermissionDenied:
@@ -145,12 +150,17 @@ def role_allowed(role, allowed_roles):
 
 
 def role_customer_admin(project_name, email):
+    if not is_customeradmin(project_name, email):
+        raise PermissionDenied()
+
+
+def role_customer_admin_fluid(project_name, email):
     is_authorized = False
-    if not project_exists(project_name) and \
-       email.lower().endswith('@fluidattacks.com'):
-        is_authorized = True
-    elif is_customeradmin(project_name, email):
-        is_authorized = True
+    if email.lower().endswith('@fluidattacks.com'):
+        if not project_exists(project_name):
+            is_authorized = True
+        elif is_customeradmin(project_name, email):
+            is_authorized = True
 
     if not is_authorized:
         raise PermissionDenied()

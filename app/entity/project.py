@@ -320,7 +320,7 @@ class CreateProject(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['admin', 'customeradmin'])
+    @require_role(['admin', 'customeradminfluid'])
     def mutate(self, info, **kwargs):
         success = project_domain.create_project(**kwargs)
         if success:
