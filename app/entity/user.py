@@ -3,13 +3,15 @@
 # pylint: disable=relative-beyond-top-level
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
+# pylint: disable=too-many-instance-attributes
+# Disabling this rule is necessary to have more than 7 instance attributes
 
 import threading
 import re
 from datetime import datetime
 
 import rollbar
-from graphene import ObjectType, Mutation, String, Boolean, Field
+from graphene import ObjectType, Mutation, String, Boolean, Field, List
 from graphql.error import GraphQLError
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
@@ -32,6 +34,7 @@ class User(ObjectType):
     organization = String()
     first_login = String()
     last_login = String()
+    list_projects = List(String)
 
     def __init__(self, project_name, user_email):
         self.email = user_email
@@ -41,6 +44,21 @@ class User(ObjectType):
         self.organization = ''
         self.first_login = '-'
         self.last_login = [-1, -1]
+        if not project_name:
+            projs_active = \
+                ['{proj}: {description} - Active'.format(
+                    proj=proj,
+                    description=project_domain.get_description(proj))
+                    for proj in user_domain.get_projects(self.email)]
+            projs_suspended = \
+                ['{proj}: {description} - Suspended'.format(
+                    proj=proj,
+                    description=project_domain.get_description(proj))
+                    for proj in user_domain.get_projects(
+                        self.email, active=False)]
+            self.list_projects = projs_active + projs_suspended
+        else:
+            self.list_projects = []
 
         last_login = user_domain.get_data(user_email, 'last_login')
 
@@ -55,11 +73,12 @@ class User(ObjectType):
         self.first_login = user_domain.get_data(user_email, 'date_joined')
         organization = user_domain.get_data(user_email, 'company')
         self.organization = organization.title()
-        self.responsibility = has_responsibility(project_name, user_email)
+        self.responsibility = has_responsibility(
+            project_name, user_email) if project_name else ''
         self.phone_number = has_phone_number(user_email)
         user_role = user_domain.get_data(user_email, 'role')
 
-        if is_customeradmin(project_name, user_email):
+        if project_name and is_customeradmin(project_name, user_email):
             self.role = 'customer_admin'
         elif user_role == 'customeradmin':
             self.role = 'customer'
@@ -100,6 +119,11 @@ class User(ObjectType):
         """ Resolve user's last login date """
         del info
         return self.last_login
+
+    @require_role(['admin', 'customeradminfluid'])
+    def resolve_list_projects(self, info):
+        del info
+        return self.list_projects
 
 
 class GrantUserAccess(Mutation):

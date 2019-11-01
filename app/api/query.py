@@ -37,6 +37,9 @@ class Query(ObjectType):
     user = Field(User, project_name=String(required=True),
                  user_email=String(required=True))
 
+    user_list_projects = Field(User.list_projects,
+                               user_email=String(required=True))
+
     project = Field(Project, project_name=String(required=True))
 
     # pylint: disable=invalid-name
@@ -98,6 +101,12 @@ class Query(ObjectType):
         """ Resolve for user data """
         del info
         return User(project_name, user_email)
+
+    @require_login
+    @require_role(['admin', 'customeradminfluid'])
+    def resolve_user_list_projects(self, info, user_email):
+        del info
+        return User(None, user_email).list_projects
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
