@@ -33,7 +33,7 @@ set_subscriptions_terraform_variable(){
   local COUNT
   export TF_VAR_break_build_projects
 
-  SUBSCRIPTIONS=$(get_asserts_subscriptions)
+  SUBSCRIPTIONS=$(get_active_subscriptions)
 
   # Prepare list
   TF_VAR_break_build_projects='['

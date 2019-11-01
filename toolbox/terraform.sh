@@ -17,7 +17,7 @@ init_terraform() {
   rm terraform.zip
   mv terraform /usr/local/bin/terraform
 
-  curl -Lo tflint.zip https://github.com/wata727/tflint/releases/download/v0.9.3/tflint_linux_amd64.zip
+  curl -Lo tflint.zip https://github.com/wata727/tflint/releases/download/v0.12.1/tflint_linux_amd64.zip
   unzip tflint.zip
   rm tflint.zip
   mv tflint /usr/local/bin/
