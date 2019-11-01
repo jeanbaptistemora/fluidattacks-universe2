@@ -1,0 +1,91 @@
+# -*- coding: utf-8 -*-
+
+"""AWS cloud checks (KMS)."""
+
+# std imports
+from contextlib import suppress
+import json
+
+# 3rd party imports
+from botocore.exceptions import BotoCoreError
+from botocore.vendored.requests.exceptions import RequestException
+
+# local imports
+from fluidasserts import DAST, HIGH
+from fluidasserts.helper import aws
+from fluidasserts.cloud.aws import _get_result_as_tuple
+from fluidasserts.utils.decorators import api, unknown_if
+
+
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_master_keys_exposed_to_everyone(key_id: str,
+                                        secret: str,
+                                        retry: bool = True) -> tuple:
+    """
+    Check if Amazon KMS master keys are exposed to everyone.
+
+    Allowing anonymous access to your AWS KMS keys is considered bad practice
+    and can lead to sensitive data leakage.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+    :returns: - ``OPEN`` if there are keys exposed to all users.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = \
+        'The Amazon KMS master keys are accessible to all users.'
+    msg_closed: str = \
+        'The Amazon KMS master keys are not accessible to all users.'
+    vulns, safes = [], []
+    aliases = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='kms',
+        func='list_aliases',
+        param='Aliases',
+        retry=retry)
+    for alias in aliases:
+        try:
+            policy_names = aws.run_boto3_func(
+                key_id=key_id,
+                secret=secret,
+                service='kms',
+                func='list_key_policies',
+                KeyId=alias['TargetKeyId'],
+                param='PolicyNames',
+                retry=retry)
+        except KeyError:
+            continue
+
+        for policy in policy_names:
+            key_string = aws.run_boto3_func(
+                key_id=key_id,
+                secret=secret,
+                service='kms',
+                func='get_key_policy',
+                KeyId=alias['TargetKeyId'],
+                PolicyName=policy,
+                param='Policy',
+                retry=retry)
+            key_policy = json.loads(key_string)
+            with suppress(KeyError) as vulnerable:
+                vulnerable = any(
+                    map(lambda x:
+                        x['Principal']['AWS'] == '*' and 'Condition' not in x,
+                        key_policy['Statement']))
+            (vulns if vulnerable else safes).append(
+                (alias['AliasArn'],
+                 ('AWS KMS master key must not be publicly accessible,'
+                  ' restrict access to necessary users')))
+
+    return _get_result_as_tuple(
+        service='KMS',
+        objects='Keys',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
