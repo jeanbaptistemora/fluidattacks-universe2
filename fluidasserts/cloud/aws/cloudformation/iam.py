@@ -1,4 +1,9 @@
-"""AWS CloudFormation checks for IAM."""
+"""
+AWS CloudFormation checks for ``IAM`` (Identity and Access Management).
+
+Some rules were taken from `CFN_NAG <https://github.com/
+stelligent/cfn_nag/master/LICENSE.md>`_
+"""
 
 # Standard imports
 import re
@@ -274,3 +279,59 @@ def is_managed_policy_miss_configured(
     """
     return _is_generic_policy_miss_configured(
         path=path, exclude=exclude, resource='ManagedPolicy')
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def missing_role_based_security(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if any ``IAM::User`` is granted privileges but not through a Role.
+
+    The following checks are performed:
+
+    - F10 IAM user should not have any inline policies.
+        Should be centralized Policy object on group (Role)
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::IAM::User',
+            ],
+            exclude=exclude):
+        vulnerable_entities: List[str] = []
+
+        # F10: IAM user should not have any inline policies.
+        #   Should be centralized Policy object on group (Role)
+        for policy in res_props.get('Policies', []):
+            policy_name = policy.get('PolicyName')
+            if not policy_name:
+                policy_name = policy.get('Ref')
+            if not policy_name:
+                policy_name = 'any'
+            entity = f'Policies: {policy_name}'
+            reason = ('do not attach inline policies'
+                      '; use role-based access control')
+            vulnerable_entities.append((entity, reason))
+
+        if vulnerable_entities:
+            vulnerabilities.extend(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=f'AWS::IAM::User/{entity}',
+                    identifier=res_name,
+                    reason=reason)
+                for entity, reason in set(vulnerable_entities))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='IAM User is not assigned permissions through a role',
+        msg_closed='IAM User is assigned permissions through a role')

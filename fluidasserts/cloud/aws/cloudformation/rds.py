@@ -1,4 +1,9 @@
-"""AWS CloudFormation checks for RDS."""
+"""
+AWS CloudFormation checks for ``RDS`` (Relational Database Service).
+
+Some rules were taken from `CFN_NAG <https://github.com/
+stelligent/cfn_nag/master/LICENSE.md>`_
+"""
 
 # Standard imports
 from typing import List, Optional

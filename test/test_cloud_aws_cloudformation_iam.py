@@ -35,3 +35,12 @@ def test_is_managed_policy_miss_configured():
     assert result.get_vulns_number() == 2 * 5
     assert iam.is_managed_policy_miss_configured(SAFE).is_closed()
     assert iam.is_managed_policy_miss_configured(NOT_EXISTS).is_unknown()
+
+
+def test_missing_role_based_security():
+    """test rds.missing_role_based_security."""
+    result = iam.missing_role_based_security(VULN)
+    assert result.is_open()
+    assert result.get_vulns_number() == 2 * 1
+    assert iam.missing_role_based_security(SAFE).is_closed()
+    assert iam.missing_role_based_security(NOT_EXISTS).is_unknown()

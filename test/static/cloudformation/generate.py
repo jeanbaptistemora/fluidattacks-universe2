@@ -46,7 +46,7 @@ role = troposphere.iam.Role(
         'Statement': [
             {
                 'Effect': 'Allow',
-                # F2 IAM role should not allow * action on its trust policy
+                # F2: IAM role should not allow * action on its trust policy
                 'Action': [
                     'ecr:Get*',
                 ],
@@ -54,14 +54,14 @@ role = troposphere.iam.Role(
                     '*',
                 ],
             },
-            # W14 IAM role should not allow Allow+NotAction on trust
+            # W14: IAM role should not allow Allow+NotAction on trust
             #   permissions
-            # F6 IAM role should not allow Allow+NotPrincipal in its trust
+            # F6: IAM role should not allow Allow+NotPrincipal in its trust
             #   policy
         ],
     },
     ManagedPolicyArns=[
-        # W43 IAM role should not have AdministratorAccess policy
+        # W43: IAM role should not have AdministratorAccess policy
     ],
     Policies=[
         troposphere.iam.Policy(
@@ -72,21 +72,21 @@ role = troposphere.iam.Role(
                 'Statement': [
                     {
                         'Effect': 'Allow',
-                        # F3 IAM role should not allow * action on its
+                        # F3: IAM role should not allow * action on its
                         #   permissions policy
                         'Action': [
                             'ecr:Get*',
                         ],
-                        # W11 IAM role should not allow * resource on its
+                        # W11: IAM role should not allow * resource on its
                         #   permissions policy
-                        # F38 IAM role should not allow * resource with
+                        # F38: IAM role should not allow * resource with
                         #   PassRole action on its permissions policy
                         'Resource': [
                             'arn:aws:ecr:us-east-1::repository/*',
                         ],
                     },
-                    # W15 IAM role should not allow Allow+NotAction
-                    # W21 IAM role should not allow Allow+NotResource
+                    # W15: IAM role should not allow Allow+NotAction
+                    # W21: IAM role should not allow Allow+NotResource
                 ],
             },
         ),
@@ -127,23 +127,23 @@ policy = troposphere.iam.PolicyType(
         'Version': '2012-10-17',
         'Statement': [
             {
-                # F4 IAM managed policy should not allow * action
+                # F4: IAM managed policy should not allow * action
                 'Effect': 'Allow',
                 'Action': [
                     'ecr:Get*',
                 ],
-                # W12 IAM managed policy should not allow * resource
-                # F39 IAM managed policy should not allow a * resource with
+                # W12: IAM managed policy should not allow * resource
+                # F39: IAM managed policy should not allow a * resource with
                 #   PassRole action
                 'Resource': [
                     'arn:aws:ecr:us-east-1::repository/*',
                 ],
             },
-            # W16 IAM managed policy should not allow Allow+NotAction
-            # W22 IAM managed policy should not allow Allow+NotResource
+            # W16: IAM managed policy should not allow Allow+NotAction
+            # W22: IAM managed policy should not allow Allow+NotResource
         ],
     },
-    # F11 IAM managed policy should not apply directly to users.
+    # F11: IAM managed policy should not apply directly to users.
     #   Should be on group
     Users=[
     ],
@@ -154,25 +154,33 @@ managed_policy = troposphere.iam.ManagedPolicy(
         'Version': '2012-10-17',
         'Statement': [
             {
-                # F5 IAM managed policy should not allow * action
+                # F5: IAM managed policy should not allow * action
                 'Effect': 'Allow',
                 'Action': [
                     'ecr:Get*',
                 ],
-                # W13 IAM managed policy should not allow * resource
-                # F40 IAM managed policy should not allow a * resource with
+                # W13: IAM managed policy should not allow * resource
+                # F40: IAM managed policy should not allow a * resource with
                 #   PassRole action
                 'Resource': [
                     'arn:aws:ecr:us-east-1::repository/*',
                 ],
             },
-            # W17 IAM managed policy should not allow Allow+NotAction
-            # W23 IAM managed policy should not allow Allow+NotResource
+            # W17: IAM managed policy should not allow Allow+NotAction
+            # W23: IAM managed policy should not allow Allow+NotResource
         ],
     },
-    # F12 IAM managed policy should not apply directly to users.
+    # F12: IAM managed policy should not apply directly to users.
     #   Should be on group
     Users=[
+    ],
+)
+user = troposphere.iam.User(
+    title='user1',
+    # F10: IAM user should not have any inline policies.
+    #   Should be centralized Policy object on group (Role)
+    Groups=[
+        'role1',
     ],
 )
 template.add_resource(role)
@@ -181,6 +189,7 @@ template.add_resource(cluster)
 template.add_resource(instance)
 template.add_resource(policy)
 template.add_resource(managed_policy)
+template.add_resource(user)
 write_template(template)
 
 #
@@ -197,7 +206,7 @@ role = troposphere.iam.Role(
         'Statement': [
             {
                 'Effect': 'Allow',
-                # F2 IAM role should not allow * action on its trust policy
+                # F2: IAM role should not allow * action on its trust policy
                 'Action': [
                     'ecr:*',
                 ],
@@ -206,14 +215,14 @@ role = troposphere.iam.Role(
                 ],
             },
             {
-                # W14 IAM role should not allow Allow+NotAction on trust
+                # W14: IAM role should not allow Allow+NotAction on trust
                 #   permissions
                 'Effect': 'Allow',
                 'NotAction': [
                 ],
             },
             {
-                # F6 IAM role should not allow Allow+NotPrincipal in its trust
+                # F6: IAM role should not allow Allow+NotPrincipal in its trust
                 #   policy
                 'Effect': 'Allow',
                 'NotPrincipal': [
@@ -222,7 +231,7 @@ role = troposphere.iam.Role(
         ],
     },
     ManagedPolicyArns=[
-        # W43 IAM role should not have AdministratorAccess policy
+        # W43: IAM role should not have AdministratorAccess policy
         'arn:aws:iam::aws:policy/AdministratorAccess',
     ],
     Policies=[
@@ -234,14 +243,14 @@ role = troposphere.iam.Role(
                 'Statement': [
                     {
                         'Effect': 'Allow',
-                        # F3 IAM role should not allow * action on its
+                        # F3: IAM role should not allow * action on its
                         #   permissions policy
                         'Action': [
                             'ecr:*',
                         ],
-                        # W11 IAM role should not allow * resource on its
+                        # W11: IAM role should not allow * resource on its
                         #   permissions policy
-                        # F38 IAM role should not allow * resource with
+                        # F38: IAM role should not allow * resource with
                         #   PassRole action on its permissions policy
                         'Resource': [
                             '*',
@@ -253,13 +262,13 @@ role = troposphere.iam.Role(
                         'Resource': '*',
                     },
                     {
-                        # W15 IAM role should not allow Allow+NotAction
+                        # W15: IAM role should not allow Allow+NotAction
                         'Effect': 'Allow',
                         'NotAction': [
                         ],
                     },
                     {
-                        # W21 IAM role should not allow Allow+NotResource
+                        # W21: IAM role should not allow Allow+NotResource
                         'Effect': 'Allow',
                         'NotResource': [
                         ],
@@ -309,13 +318,13 @@ policy = troposphere.iam.PolicyType(
         'Version': '2012-10-17',
         'Statement': [
             {
-                # F4 IAM managed policy should not allow * action
+                # F4: IAM managed policy should not allow * action
                 'Effect': 'Allow',
                 'Action': [
                     'ecr:*',
                 ],
-                # W12 IAM managed policy should not allow * resource
-                # F39 IAM managed policy should not allow a * resource with
+                # W12: IAM managed policy should not allow * resource
+                # F39: IAM managed policy should not allow a * resource with
                 #   PassRole action
                 'Resource': [
                     '*',
@@ -327,20 +336,20 @@ policy = troposphere.iam.PolicyType(
                 'Resource': '*',
             },
             {
-                # W16 IAM managed policy should not allow Allow+NotAction
+                # W16: IAM managed policy should not allow Allow+NotAction
                 'Effect': 'Allow',
                 'NotAction': [
                 ],
             },
             {
-                # W22 IAM managed policy should not allow Allow+NotResource
+                # W22: IAM managed policy should not allow Allow+NotResource
                 'Effect': 'Allow',
                 'NotResource': [
                 ],
             },
         ],
     },
-    # F11 IAM managed policy should not apply directly to users.
+    # F11: IAM managed policy should not apply directly to users.
     #   Should be on group
     Users=[
         'user1',
@@ -352,13 +361,13 @@ managed_policy = troposphere.iam.ManagedPolicy(
         'Version': '2012-10-17',
         'Statement': [
             {
-                # F5 IAM managed policy should not allow * action
+                # F5: IAM managed policy should not allow * action
                 'Effect': 'Allow',
                 'Action': [
                     'ecr:*',
                 ],
-                # W13 IAM managed policy should not allow * resource
-                # F40 IAM managed policy should not allow a * resource with
+                # W13: IAM managed policy should not allow * resource
+                # F40: IAM managed policy should not allow a * resource with
                 #   PassRole action
                 'Resource': [
                     '*',
@@ -370,23 +379,31 @@ managed_policy = troposphere.iam.ManagedPolicy(
                 'Resource': '*',
             },
             {
-                # W17 IAM managed policy should not allow Allow+NotAction
+                # W17: IAM managed policy should not allow Allow+NotAction
                 'Effect': 'Allow',
                 'NotAction': [
                 ],
             },
             {
-                # W23 IAM managed policy should not allow Allow+NotResource
+                # W23: IAM managed policy should not allow Allow+NotResource
                 'Effect': 'Allow',
                 'NotResource': [
                 ],
             },
         ],
     },
-    # F12 IAM managed policy should not apply directly to users.
+    # F12: IAM managed policy should not apply directly to users.
     #   Should be on group
     Users=[
         'user1',
+    ],
+)
+user = troposphere.iam.User(
+    title='user1',
+    # F10: IAM user should not have any inline policies.
+    #   Should be centralized Policy object on group (Role)
+    Policies=[
+        troposphere.Ref(policy),
     ],
 )
 template.add_resource(role)
@@ -395,4 +412,5 @@ template.add_resource(cluster)
 template.add_resource(instance)
 template.add_resource(policy)
 template.add_resource(managed_policy)
+template.add_resource(user)
 write_template(template)

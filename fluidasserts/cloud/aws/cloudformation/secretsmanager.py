@@ -1,4 +1,9 @@
-"""AWS CloudFormation checks for SecretsManager."""
+"""
+AWS CloudFormation checks for ``SecretsManager``.
+
+Some rules were taken from `CFN_NAG <https://github.com/
+stelligent/cfn_nag/master/LICENSE.md>`_
+"""
 
 # Standard library
 from typing import List, Optional
@@ -37,8 +42,8 @@ def _insecure_generate_secret_string_get_reasons(
         reasons.append('Secret must include numeric characters')
 
     if exclude_punctuation:
-        reasons.append('Using ExcludePunctuation is too agressive,'
-                       ' use ExcludeCharacters instead')
+        reasons.append('Using ExcludePunctuation is too agressive'
+                       '; use ExcludeCharacters instead')
 
     for charset_name, charset in (('numeric', NUMERICS),
                                   ('lowercase', LOWERCASE),

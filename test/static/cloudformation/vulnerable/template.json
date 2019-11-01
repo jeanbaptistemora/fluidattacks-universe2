@@ -166,6 +166,16 @@
         }
       },
       "Type": "AWS::SecretsManager::Secret"
+    },
+    "user1": {
+      "Properties": {
+        "Policies": [
+          {
+            "Ref": "policy1"
+          }
+        ]
+      },
+      "Type": "AWS::IAM::User"
     }
   }
 }

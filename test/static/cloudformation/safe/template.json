@@ -113,6 +113,14 @@
         }
       },
       "Type": "AWS::SecretsManager::Secret"
+    },
+    "user1": {
+      "Properties": {
+        "Groups": [
+          "role1"
+        ]
+      },
+      "Type": "AWS::IAM::User"
     }
   }
 }
