@@ -31,6 +31,12 @@ def test_has_master_keys_exposed_to_everyone_open():
                                                    ).is_open()
 
 
+def test_has_key_rotation_disabled_open():
+    """Search KMS master keys with key rotation disabled."""
+    assert kms.has_key_rotation_disabled(AWS_ACCESS_KEY_ID,
+                                         AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #
