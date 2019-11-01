@@ -30,14 +30,14 @@ RUN apt-get update \
         unzip \
         wget \
         apt-utils \
-    && curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.14/terraform_0.11.14_linux_amd64.zip \
+    && curl -o terraform.zip https://releases.hashicorp.com/terraform/0.12.13/terraform_0.12.13_linux_amd64.zip \
         && unzip terraform.zip \
         && rm terraform.zip \
         && mv terraform /usr/local/bin/terraform \
-    && curl -Lo tflint.zip https://github.com/wata727/tflint/releases/download/v0.7.2/tflint_linux_amd64.zip \
+    && curl -Lo tflint.zip https://github.com/wata727/tflint/releases/download/v0.12.1/tflint_linux_amd64.zip \
         && unzip tflint.zip \
         && rm tflint.zip \
-        && install tflint /usr/local/bin/ \
+        && mv tflint /usr/local/bin/ \
     && curl -Lo heptio-authenticator-aws https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.3.0/heptio-authenticator-aws_0.3.0_linux_amd64 \
         && chmod a+x heptio-authenticator-aws \
         && mv heptio-authenticator-aws /usr/local/bin/ \

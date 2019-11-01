@@ -46,16 +46,6 @@ get_nginx_elb() {
 
 set -e
 
-curl -o terraform.zip https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip
-unzip terraform.zip
-rm terraform.zip
-mv terraform /usr/local/bin/terraform
-
-curl -Lo tflint.zip https://github.com/wata727/tflint/releases/download/v0.9.3/tflint_linux_amd64.zip
-unzip tflint.zip
-rm tflint.zip
-install tflint /usr/local/bin/
-
 stage="${1:-test}"
 
 # Run Terraform Plan for IAM, AWS EKS, RDS and VPC infrastructure

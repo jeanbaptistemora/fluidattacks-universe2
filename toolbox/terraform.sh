@@ -12,16 +12,6 @@ init_terraform() {
   # Import functions
   . toolbox/others.sh
 
-  curl -o terraform.zip https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip
-  unzip terraform.zip
-  rm terraform.zip
-  mv terraform /usr/local/bin/terraform
-
-  curl -Lo tflint.zip https://github.com/wata727/tflint/releases/download/v0.12.1/tflint_linux_amd64.zip
-  unzip tflint.zip
-  rm tflint.zip
-  mv tflint /usr/local/bin/
-
   local STARTING_DIR
 
   STARTING_DIR=$(pwd)
