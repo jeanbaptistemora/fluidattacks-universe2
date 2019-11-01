@@ -233,8 +233,8 @@ class CreateEvent(Mutation):
         success = event_domain.create_event(
             analyst_email, project_name.lower(), **kwargs)
         if success:
-            util.cloudwatch_log(info.context, f'Security: Created event in '
-                                '{project_name} project succesfully')
+            util.cloudwatch_log(info.context, 'Security: Created event in '
+                                f'{project_name} project succesfully')
             util.invalidate_cache(project_name)
 
         return CreateEvent(success=success)

@@ -1,11 +1,3 @@
-/* tslint:disable:jsx-no-lambda jsx-no-multiline-js no-empty
- * JSX-NO-LAMBDA: Disabling this rule is necessary because it is not possible
- * to call functions with props as params from the JSX element definition
- * without using lambda expressions () => {}
- *
- * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
-  * readability of the code that defines the headers of the table
- */
 import React from "react";
 import { Col, Label, Row } from "react-bootstrap";
 import { castEventStatus, castEventType } from "../../../../utils/formatHelpers";

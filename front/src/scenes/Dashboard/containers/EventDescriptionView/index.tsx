@@ -327,24 +327,3 @@ export const eventEvidenceView: React.ComponentType<IEventDescriptionViewProps> 
     eventData: state.dashboard.eventDescription.eventData,
   }),
 );
-
-eventDescriptionView.defaultProps = {
-  eventData:
-    {
-      accessibility: "",
-      affectation: "",
-      affectedComponents: "",
-      analyst: "",
-      client: "",
-      clientProject: "",
-      detail: "",
-      eventDate: "",
-      eventStatus: "",
-      eventType: "",
-      evidence: undefined,
-      id: "",
-      projectName: "",
-    },
-  eventId: "",
-  isActiveTab: true,
-};

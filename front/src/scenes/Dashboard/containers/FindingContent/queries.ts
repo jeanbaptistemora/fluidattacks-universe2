@@ -1,12 +1,9 @@
 import { DocumentNode, gql } from "apollo-boost";
 import _ from "lodash";
 
-const userRole: string = (window as typeof window & { userRole: string }).userRole;
-
 export const GET_FINDING_HEADER: DocumentNode = gql`
   query GetFindingHeader($findingId: String!) {
     finding(identifier: $findingId) {
-      analyst @include(if: ${_.includes(["admin", "analyst"], userRole)})
       closedVulns: closedVulnerabilities
       id
       openVulns: openVulnerabilities
