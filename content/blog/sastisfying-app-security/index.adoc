@@ -21,7 +21,6 @@ byte code or the application binaries
 in order to reveal known security vulnerabilities
 that can be exploited by malicious users.
 
-
 == A Bit of History
 
 In his 1976 paper,
@@ -115,29 +114,34 @@ and even with other testing tools.
 These types of tools use sophisticated functions
 such as data flow analysis, control flow analysis, and pattern recognition
 to identify potential security vulnerabilities.
-The result is a faster report of vulnerabilities,
+The result is that vulnerabilities are reported sooner,
 especially in complex projects or projects with too many lines of code.
 
 .Report of findings in automated tests via link:https://www.oreilly.com/library/view/industrial-internet-application/9781788298599/521ecdf9-f298-4e26-9b68-5baf6602094d.xhtml[Oreilly.com]
 image::toolreport.png[Report of findings in automated tests via Oreilly.com]
 
-All reports must be examined by human components
-because these tools thend to generate a large number of false positives
-and need to be filtered to extract the potential risks of the application.
+Reports are always checked by employees
+because automated tools tend to generate a large number of false positives
+and need to be filtered to extract the potential risks of an application.
 
-As link:https://www.synopsys.com/software-integrity/resources/knowledge-database/static-application-security-testing.html[Synopsys.com]
-say, there are six simple steps
-needed to perform +SAST+ efficiently in organizations
+As link:https://www.synopsys.com/software-integrity/resources/knowledge-database/static-application-security-testing.html[Synopsys.com] says:
 
-. *Finalize the tool* : Select a tool that can perform code reviews
-of applications written in the programming languages you use.
+[quote]
+"There are six simple steps needed to perform SAST efficiently
+in firms which have a very large number of applications
+built on different languages, frameworks, and platforms."
 
-. *Create the scanning infrastructure and deploy the tool* :
+. *Finalize the tool:* "Select a static analysis tool
+that can perform code reviews of applications written
+in the programming languages you use."
+
+. *Create the scanning infrastructure and deploy the tool*:
+"This step involves handling the licensing requirements,
 setting up access control and authorization,
 and procuring the resources required (e.g., servers and databases)
-to deploy the tool.
+to deploy the tool."
 
-. *Customize the tool* : Fine-tune the tool
+. *Customize the tool:* "Fine-tune the tool
 to suit the needs of the organization.
 For example, you might configure it to reduce false positives
 or find additional security vulnerabilities
@@ -145,61 +149,67 @@ by writing new rules or updating existing ones.
 Integrate the tool into the build environment,
 create dashboards for tracking scan results, and build custom reports.
 
-. *Prioritize and onboard applications* : Once the tool is ready,
-onboard your applications. If you have a large number of applications,
+. *Prioritize and onboard applications:*
+"Once the tool is ready, onboard your applications.
+If you have a large number of applications,
 prioritize the high-risk applications to scan first.
 Eventually, all your applications should be onboarded and scanned regularly,
 with application scans synced with release cycles,
-daily or monthly builds, or code check-ins.
+daily or monthly builds, or code check-ins."
 
-. *Analyze scan results* : triaging the results of the scan
-to remove false positives. Once the set of issues is finalized,
+. *Analyze scan results:*
+"This step involves link:../triage-hacker/[triaging] the results of the scan
+to remove false positives.
+Once the set of issues is finalized,
 they should be tracked and provided to the deployment teams
-for proper and timely remediation.
+for proper and timely remediation."
 
-. *Provide governance and training* : Proper governance ensures
-that your development teams are employing the scanning tools properly.
+. *Provide governance and training:*
+"Proper governance ensures that your development teams
+are employing the scanning tools properly.
 The software security touchpoints should be present within the +SDLC+.
-+SAST+ should be incorporated as part
-of your application development and deployment process.
++SAST+ should be incorporated
+as part of your application development and deployment process."
 
 == Benefits
 
-It can be applied in early stages of the +SDLC+
-since it searches for vulnerabilities in the code before it is compiled
-ensuring the least amount of security vulnerabilities possibles
-in the release of the application.
++SAST+ can be applied in the early stages of the +SDLC+
+since it searches for vulnerabilities in the code before it is compiled.
+This ensures the least number of possible security vulnerabilities
+will make it into the application before it is released.
 
-Reduce money and time costs by finding
-and solving vulnerabilities in the early stages of the +SDLC+
-that could cost much more in the later stages
++SAST+ can reduce money and time costs
+by finding and solving vulnerabilities in the early stages of the +SDLC+
+that could cost you much more to fix,
+if discovered, in the later stages.
 
-It is really flexible, so it can be adapted to any type of project.
++SAST+ is flexible and can be adapted to any type of project.
 
-Has full integration with +CI/CD+, Agile and DevOps enviroments.
++SAST+ can be fully integrated with +CI/CD+,
+Agile, and DevOps environments.
 
 == Conclusions
 
 It is important to know the security vulnerabilities
-to which applications are exposed
-that is why we must read and inform
-in tops and rankings such as +OWASP+ or +CWE+.
+to which applications are exposed.
+In order to do so, we must continuously read and inform ourselves
+via resources such as +OWASP+ or +CWE+.
 
-Security tests should always be performed
-to applications to verify that they are able to maintain
-the confidentiality, integrity and availability of the information.
+Security tests should always be performed on applications
+to ensure that they are able to maintain the confidentiality,
+integrity, and availability of information.
 
-Always make continuous reviews to the application,
-security tests are not to be performed only once
+Always perform continuous reviews of an application.
+Security tests should never be performed only once.
 
-The application of +SAST+ to projects, helps programmers
-to reinforce the coding standards
+Using +SAST+ helps programmers reinforce coding standards.
 
 == References
 
-. link:https://www.checkmarx.com/2015/05/19/application-security-testing-automated-vs-manual/[SAST Automated vs Manual]
-. link:https://www.synopsys.com/software-integrity/resources/knowledge-database/static-application-security-testing.html[SAST by Synopsys]
-. link:https://www.checkmarx.com/2015/04/29/sast-vs-dast-why-sast-3/[SAST vs DAST]
-. link:https://www.owasp.org/index.php/Source_Code_Analysis_Tools[OWASP Source Code Analysis Tools]
-. link:https://cwe.mitre.org/[Mitre CWE]
-. link:https://www.secjuice.com/sast-isnt-code-review-fight-me/[SAST and Code Review]
+. link:https://www.checkmarx.com/2015/05/19/application-security-testing-automated-vs-manual/[Application Security Testing – Automated Vs Manual].
+. link:https://www.synopsys.com/software-integrity/resources/knowledge-database/static-application-security-testing.html[Static Application Security Testing].
+. link:https://www.checkmarx.com/2015/04/29/sast-vs-dast-why-sast-3/[SAST vs DAST – Why SAST?].
+. link:https://www.owasp.org/index.php/Source_Code_Analysis_Tools[Source Code Analysis Tools].
+. link:https://cwe.mitre.org/[Common Weakness Enumeration,
+A Community-Developed List of Software Weakness Types].
+. link:https://www.secjuice.com/sast-isnt-code-review-fight-me/[SAST Isn't Code Review].
