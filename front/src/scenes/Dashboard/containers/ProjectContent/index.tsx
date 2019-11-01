@@ -15,8 +15,10 @@ import ProjectUsersView from "../ProjectUsersView/index";
 import ProjectResourcesView from "../ResourcesView/index";
 import { clearProjectState, loadProjectData, ThunkDispatcher } from "./actions";
 import style from "./index.css";
-import { IProjectContentBaseProps, IProjectContentDispatchProps, IProjectContentProps,
-  IProjectContentStateProps } from "./types";
+import {
+  IProjectContentBaseProps, IProjectContentDispatchProps, IProjectContentProps,
+  IProjectContentStateProps,
+} from "./types";
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IProjectContentProps, {}>({
   componentDidMount(): void { this.props.onLoad(); },
@@ -40,13 +42,13 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
               <div>
                 <ul className={style.tabsContainer}>
                   <li id="indicatorsTab" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`/project/${projectName}/indicators`}>
+                    <NavLink activeClassName={style.active} to={`${props.match.url}/indicators`}>
                       <i className="icon pe-7s-graph3" />
                       &nbsp;{translate.t("project.tabs.indicators")}
                     </NavLink>
                   </li>
                   <li id="findingsTab" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`/project/${projectName}/findings`}>
+                    <NavLink activeClassName={style.active} to={`${props.match.url}/findings`}>
                       <i className="icon pe-7s-light" />
                       &nbsp;{translate.t("project.tabs.findings")}
                     </NavLink>
@@ -54,20 +56,20 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
                   {_.includes(["admin", "analyst"], props.userRole) ?
                     <li id="draftsTab" className={style.tab}>
-                      <NavLink activeClassName={style.active} to={`/project/${projectName}/drafts`}>
+                      <NavLink activeClassName={style.active} to={`${props.match.url}/drafts`}>
                         <i className="icon pe-7s-stopwatch" />
                         &nbsp;{translate.t("project.tabs.drafts")}
                       </NavLink>
                     </li>
                     : undefined}
                   <li id="eventsTab" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`/project/${projectName}/events`}>
+                    <NavLink activeClassName={style.active} to={`${props.match.url}/events`}>
                       <i className="icon pe-7s-star" />
                       &nbsp;{translate.t("project.tabs.events")}
                     </NavLink>
                   </li>
                   <li id="resourcesTab" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`/project/${projectName}/resources`}>
+                    <NavLink activeClassName={style.active} to={`${props.match.url}/resources`}>
                       <i className="icon pe-7s-box1" />
                       &nbsp;{translate.t("project.tabs.resources")}
                     </NavLink>
@@ -75,14 +77,14 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
                   {_.includes(["admin", "customeradmin"], props.userRole) ?
                     <li id="usersTab" className={style.tab}>
-                      <NavLink activeClassName={style.active} to={`/project/${projectName}/users`}>
+                      <NavLink activeClassName={style.active} to={`${props.match.url}/users`}>
                         <i className="icon pe-7s-users" />
                         &nbsp;{translate.t("project.tabs.users")}
                       </NavLink>
                     </li>
                     : undefined}
                   <li id="commentsTab" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`/project/${projectName}/comments`}>
+                    <NavLink activeClassName={style.active} to={`${props.match.url}/comments`}>
                       <i className="icon pe-7s-comment" />
                       &nbsp;{translate.t("project.tabs.comments")}
                     </NavLink>
@@ -92,14 +94,14 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
 
               <div className={style.tabContent}>
                 <Switch>
-                  <Route path="/project/:projectName/indicators" component={ProjectIndicatorsView} />
-                  <Route path="/project/:projectName/findings" component={ProjectFindingsView} />
-                  <Route path="/project/:projectName/drafts" component={ProjectDraftsView} />
-                  <Route path="/project/:projectName/events" component={ProjectEventsView} />
-                  <Route path="/project/:projectName/resources" component={ProjectResourcesView} />
-                  <Route path="/project/:projectName/users" component={ProjectUsersView} />
-                  <Route path="/project/:projectName/comments" component={ProjectCommentsView} />
-                  <Redirect to="/project/:projectName/indicators" />
+                  <Route path={`${props.match.path}/indicators`} component={ProjectIndicatorsView} exact={true} />
+                  <Route path={`${props.match.path}/findings`} component={ProjectFindingsView} exact={true} />
+                  <Route path={`${props.match.path}/drafts`} component={ProjectDraftsView} exact={true} />
+                  <Route path={`${props.match.path}/events`} component={ProjectEventsView} exact={true} />
+                  <Route path={`${props.match.path}/resources`} component={ProjectResourcesView} exact={true} />
+                  <Route path={`${props.match.path}/users`} component={ProjectUsersView} exact={true} />
+                  <Route path={`${props.match.path}/comments`} component={ProjectCommentsView} exact={true} />
+                  <Redirect to={`${props.match.path}/indicators`} />
                 </Switch>
               </div>
             </React.Fragment>
