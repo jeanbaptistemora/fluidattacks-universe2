@@ -50,9 +50,3 @@ variable "cacheGroupId" {}
 variable "cacheGroupDescription" {}
 variable "cacheNodeType" {}
 variable "cacheParamGroupName" {}
-
-# Asserts IAM, ACR and S3 vars
-variable "break-build-bucket" {}
-variable "break_build_projects" {
-  type = list(string)
-}

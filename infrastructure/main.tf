@@ -19,7 +19,6 @@ module "bucket" {
   fiBucket                             = var.fiBucket
   fsBucket                             = var.fsBucket
   fwBucket                             = var.fwBucket
-  break-build-bucket                   = var.break-build-bucket
 }
 
 # Create from scratch
@@ -28,13 +27,6 @@ module "iam" {
   fwBucket             = var.fwBucket
   fsBucket             = var.fsBucket
   region               = var.region
-  break-build-bucket   = var.break-build-bucket
-  break_build_projects = var.break_build_projects
-}
-
-module "ecr" {
-  source           = "./ecr"
-  break_build_projects = var.break_build_projects
 }
 
 # #Create from scratch

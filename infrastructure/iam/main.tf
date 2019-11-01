@@ -1,10 +1,6 @@
 variable "fsBucket" {}
 variable "fwBucket" {}
 variable "region" {}
-variable "break-build-bucket" {}
-variable "break_build_projects" {
-  type = list(string)
-}
 
 resource "aws_iam_account_password_policy" "strict" {
   allow_users_to_change_password = true
@@ -18,12 +14,6 @@ resource "aws_iam_account_password_policy" "strict" {
   require_uppercase_characters   = true
 }
 
-module "users" {
-  source = "./users"
-  break-build-bucket   = "${var.break-build-bucket}"
-  break_build_projects = "${var.break_build_projects}"
-}
-
 module "roles" {
   source     = "./roles"
 }
@@ -33,5 +23,4 @@ module "policies" {
   fsBucket           = "${var.fsBucket}"
   fwBucket           = "${var.fwBucket}"
   ssofinance         = "${module.roles.ssofinance}"
-  break-build-bucket = "${var.break-build-bucket}"
 }

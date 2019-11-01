@@ -36,6 +36,3 @@ cacheGroupId          = "tf-redis-cluster"
 cacheGroupDescription = "Redis Cluster Cache"
 cacheNodeType         = "cache.t2.medium"
 cacheParamGroupName   = "default.redis5.0.cluster.on"
-
-# Asserts vars
-break-build-bucket = "break-build-logs"
