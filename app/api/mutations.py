@@ -26,6 +26,7 @@ from app.entity.project import (
 )
 from app.entity.event import CreateEvent, UpdateEvent
 from app.entity.me import SignIn, UpdateAccessToken, InvalidateAccessToken
+from app.entity.alert import SetAlert
 
 
 class Mutations(ObjectType):
@@ -79,4 +80,5 @@ class Mutations(ObjectType):
     removeTag = RemoveTag.Field()
     addTags = AddTags.Field()
 
+    setAlert = SetAlert.Field()
     sign_in = SignIn.Field()

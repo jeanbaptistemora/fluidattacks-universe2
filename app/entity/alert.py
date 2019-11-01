@@ -1,8 +1,10 @@
 """ GraphQL Entity for Dynamo Alerts """
 # pylint: disable=F0401
 # pylint: disable=super-init-not-called
-from graphene import Int, String, ObjectType
-from app.dal import integrates_dal
+from graphene import Boolean, Int, Mutation, ObjectType, String
+from app import util
+from app.decorators import require_login, require_role
+from app.domain import alert as alert_domain
 
 
 class Alert(ObjectType):
@@ -18,7 +20,7 @@ class Alert(ObjectType):
         self.organization, self.status = "", 0
         project = str(project_name)
         organization = str(organization)
-        resp = integrates_dal.get_company_alert_dynamo(organization, project)
+        resp = alert_domain.get_company_alert(organization, project)
         if resp:
             self.message = resp[0]['message']
             self.project = resp[0]['project_name']
@@ -44,3 +46,23 @@ class Alert(ObjectType):
         """ Resolve status attribute """
         del info
         return self.status
+
+
+class SetAlert(Mutation):
+
+    class Arguments():
+        company = String(required=True)
+        message = String(required=True)
+        project_name = String(required=True)
+    success = Boolean()
+
+    @staticmethod
+    @require_login
+    @require_role(['admin', 'customeradminfluid'])
+    def mutate(_, info, company, message, project_name):
+        success = alert_domain.set_company_alert(
+            company, message, project_name)
+        if success:
+            util.cloudwatch_log(
+                info.context, f'Security: Set alert of {company}')
+        return SetAlert(success=success)
