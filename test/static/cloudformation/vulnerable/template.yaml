@@ -35,6 +35,27 @@ Resources:
       Users:
         - user1
     Type: AWS::IAM::ManagedPolicy
+  policy1:
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - ecr:*
+            Effect: Allow
+            Resource:
+              - '*'
+          - Action: ecr:*
+            Effect: Allow
+            Resource: '*'
+          - Effect: Allow
+            NotAction: []
+          - Effect: Allow
+            NotResource: []
+        Version: '2012-10-17'
+      PolicyName: policy1
+      Users:
+        - user1
+    Type: AWS::IAM::Policy
   role1:
     Properties:
       AssumeRolePolicyDocument:

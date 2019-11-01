@@ -27,6 +27,19 @@ Resources:
         Version: '2012-10-17'
       Users: []
     Type: AWS::IAM::ManagedPolicy
+  policy1:
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - ecr:Get*
+            Effect: Allow
+            Resource:
+              - arn:aws:ecr:us-east-1::repository/*
+        Version: '2012-10-17'
+      PolicyName: policy1
+      Users: []
+    Type: AWS::IAM::Policy
   role1:
     Properties:
       AssumeRolePolicyDocument:

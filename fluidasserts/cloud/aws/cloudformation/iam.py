@@ -142,7 +142,113 @@ def is_role_over_privileged(
         msg_closed='IAM Role grants granular privileges')
 
 
-@api(risk=MEDIUM, kind=SAST)  # noqa: MC0001
+def _is_generic_policy_miss_configured(  # noqa: MC0001
+        path: str, exclude: Optional[List[str]], resource: str) -> tuple:
+    """Policy and ManagedPolicy are equal in its PolicyDocument, reuse code."""
+    vulnerabilities: list = []
+    wildcard_action: Pattern = re.compile(r'^(\*)|(\w+:\*)$')
+    wildcard_resource: Pattern = re.compile(r'^(\*)$')
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                f'AWS::IAM::{resource}',
+            ],
+            exclude=exclude):
+        vulnerable_entities: List[str] = []
+
+        policy_document = res_props.get('PolicyDocument', {})
+        for statement in _force_list(policy_document.get('Statement', [])):
+            if statement.get('Effect') != 'Allow':
+                continue
+
+            # W16: IAM policy should not allow Allow+NotAction
+            # W17: IAM managed policy should not allow Allow+NotAction
+            if 'NotAction' in statement:
+                entity = f'{resource}/PolicyDocument/Statement/NotAction'
+                reason = 'avoid security through black listing'
+                vulnerable_entities.append((entity, reason))
+            # W22: IAM policy should not allow Allow+NotResource
+            # W23: IAM managed policy should not allow Allow+NotResource
+            if 'NotResource' in statement:
+                entity = f'{resource}/PolicyDocument/Statement/NotResource'
+                reason = 'avoid security through black listing'
+                vulnerable_entities.append((entity, reason))
+            for action in map(str, _force_list(
+                    statement.get('Action', []))):
+                # F4: IAM policy should not allow * action
+                # F5: IAM managed policy should not allow * action
+                if wildcard_action.match(action):
+                    entity = (f'{resource}/PolicyDocument'
+                              f'/Statement/Action: {action}')
+                    reason = 'grants wildcard privileges'
+                    vulnerable_entities.append((entity, reason))
+            for _resource in map(str, _force_list(
+                    statement.get('Resource', []))):
+                # W12: IAM policy should not allow * resource
+                # W13: IAM managed policy should not allow * resource
+                # F39: IAM policy should not allow * resource with
+                #   PassRole action
+                # F40: IAM managed policy should not allow a * resource with
+                #   PassRole action
+                if wildcard_resource.match(_resource):
+                    entity = (f'{resource}/PolicyDocument'
+                              f'/Statement/Resource: {_resource}')
+                    reason = 'grants wildcard privileges'
+                    vulnerable_entities.append((entity, reason))
+
+        for user in res_props.get('Users', []):
+            # F11: IAM policy should not apply directly to users.
+            #   Should be on group
+            # F12: IAM managed policy should not apply directly to users.
+            #   Should be on group
+            entity = f'{resource}/Users: {user}'
+            reason = f'{resource} applied to user, apply to role instead'
+            vulnerable_entities.append((entity, reason))
+
+        if vulnerable_entities:
+            vulnerabilities.extend(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=f'AWS::IAM::{resource}/{entity}',
+                    identifier=res_name,
+                    reason=reason)
+                for entity, reason in set(vulnerable_entities))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open=f'IAM {resource} is miss configured',
+        msg_closed=f'IAM {resource} is properly configured')
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def is_policy_miss_configured(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if any ``IAM::Policy`` is miss configured.
+
+    The following checks are performed:
+
+    - F4 IAM policy should not allow * action
+    - F11 IAM policy should not apply directly to users.
+        Should be on group
+    - F39 IAM policy should not allow * resource with PassRole action
+    - W12 IAM policy should not allow * resource
+    - W16 IAM policy should not allow Allow+NotAction
+    - W22 IAM policy should not allow Allow+NotResource
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    return _is_generic_policy_miss_configured(
+        path=path, exclude=exclude, resource='Policy')
+
+
+@api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def is_managed_policy_miss_configured(
         path: str, exclude: Optional[List[str]] = None) -> tuple:
@@ -166,68 +272,5 @@ def is_managed_policy_miss_configured(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    vulnerabilities: list = []
-    wildcard_action: Pattern = re.compile(r'^(\*)|(\w+:\*)$')
-    wildcard_resource: Pattern = re.compile(r'^(\*)$')
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::IAM::ManagedPolicy',
-            ],
-            exclude=exclude):
-        vulnerable_entities: List[str] = []
-
-        policy_document = res_props.get('PolicyDocument', {})
-        for statement in _force_list(policy_document.get('Statement', [])):
-            if statement.get('Effect') != 'Allow':
-                continue
-
-            # W17: IAM managed policy should not allow Allow+NotAction
-            if 'NotAction' in statement:
-                entity = 'ManagedPolicy/PolicyDocument/Statement/NotAction'
-                reason = 'avoid security through black listing'
-                vulnerable_entities.append((entity, reason))
-            # W23: IAM managed policy should not allow Allow+NotResource
-            if 'NotResource' in statement:
-                entity = 'ManagedPolicy/PolicyDocument/Statement/NotResource'
-                reason = 'avoid security through black listing'
-                vulnerable_entities.append((entity, reason))
-            for action in map(str, _force_list(
-                    statement.get('Action', []))):
-                # F5: IAM managed policy should not allow * action
-                if wildcard_action.match(action):
-                    entity = (f'ManagedPolicy/PolicyDocument'
-                              f'/Statement/Action: {action}')
-                    reason = 'grants wildcard privileges'
-                    vulnerable_entities.append((entity, reason))
-            for resource in map(str, _force_list(
-                    statement.get('Resource', []))):
-                # W13: IAM managed policy should not allow * resource
-                # F40: IAM managed policy should not allow a * resource with
-                #   PassRole action
-                if wildcard_resource.match(resource):
-                    entity = (f'ManagedPolicy/PolicyDocument'
-                              f'/Statement/Resource: {resource}')
-                    reason = 'grants wildcard privileges'
-                    vulnerable_entities.append((entity, reason))
-
-        for user in res_props.get('Users', []):
-            # F12: IAM managed policy should not apply directly to users.
-            #   Should be on group
-            entity = f'ManagedPolicy/Users: {user}'
-            reason = 'managed policy applied to user, apply to role instead'
-            vulnerable_entities.append((entity, reason))
-
-        if vulnerable_entities:
-            vulnerabilities.extend(
-                Vulnerability(
-                    path=yaml_path,
-                    entity=f'AWS::IAM::ManagedPolicy/{entity}',
-                    identifier=res_name,
-                    reason=reason)
-                for entity, reason in set(vulnerable_entities))
-
-    return _get_result_as_tuple(
-        vulnerabilities=vulnerabilities,
-        msg_open='IAM ManagedPolicy is miss configured',
-        msg_closed='IAM ManagedPolicy is properly configured')
+    return _is_generic_policy_miss_configured(
+        path=path, exclude=exclude, resource='ManagedPolicy')
