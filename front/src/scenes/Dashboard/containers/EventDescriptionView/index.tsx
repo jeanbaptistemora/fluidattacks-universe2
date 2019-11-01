@@ -27,7 +27,6 @@ import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
-import { EventHeader } from "../../components/EventHeader";
 import { GenericForm } from "../../components/GenericForm/index";
 import { default as ImageGallery } from "../../components/ImageGallery/index";
 import * as actions from "./actions";
@@ -109,7 +108,6 @@ const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
       <React.Fragment>
       <Row>
       <Col md={12} sm={12} xs={12}>
-      <EventHeader {...props} />
       {isManager ?
       <Row className={style.rowSeparation} style={{marginBottom: "15px"}}>
         <Col md={3} mdOffset={8} sm={12} xs={12}>
@@ -253,7 +251,6 @@ const renderEventGallery: ((props: IEventDescriptionViewProps) => JSX.Element) =
       <React.Fragment>
       <Row>
       <Col md={12} sm={12} xs={12} >
-      <EventHeader {...props} />
         <Col md={12} sm={12} xs={12}>
           <Row className={style.rowSeparation}>
             <ImageGallery

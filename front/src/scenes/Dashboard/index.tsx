@@ -14,9 +14,7 @@ import { closeUpdateAccessToken, openConfirmDialog, openUpdateAccessToken, Thunk
 import { updateAccessTokenModal as UpdateAccessTokenModal } from "./components/AddAccessTokenModal/index";
 import { Navbar } from "./components/Navbar/index";
 import { Sidebar } from "./components/Sidebar";
-import {
-  eventDescriptionView as EventDescriptionView, eventEvidenceView as EventEvidenceView,
-} from "./containers/EventDescriptionView/index";
+import { EventContent } from "./containers/EventContent/index";
 import FindingContent from "./containers/FindingContent/index";
 import { FormsView } from "./containers/FormsView";
 import HomeView from "./containers/HomeView";
@@ -56,19 +54,10 @@ const dashboard: React.FC<IDashboardProps> = (props: IDashboardProps): JSX.Eleme
           <div className={style.container}>
             <Navbar />
             <Switch>
-              <Route
-                path="/project/:projectName/events/:eventId(\d+)/description"
-                exact={true}
-                component={EventDescriptionView}
-              />
-              <Route
-                path="/project/:projectName/events/:eventId(\d+)/evidence"
-                exact={true}
-                component={EventEvidenceView}
-              />
               <Route path="/home" exact={true} component={HomeView} />
               <Route path="/forms" component={FormsView} />
               <Route path="/reports" component={ReportsView} />
+              <Route path="/project/:projectName/events/:eventId(\d+)" component={EventContent} />
               <Route path="/project/:projectName/:type(findings|drafts)/:findingId(\d+)" component={FindingContent} />
               <Redirect
                 path="/project/:projectName/:findingId(\d+)"

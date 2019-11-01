@@ -5,8 +5,6 @@ import { EventHeader, IEventHeaderProps } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
-const functionMock: (() => JSX.Element) = (): JSX.Element => <div />;
-
 describe("EventHeader", () => {
 
   it("should return a function", () => {
@@ -16,24 +14,10 @@ describe("EventHeader", () => {
 
   it("should render event header with evidence", () => {
     const mockProps: IEventHeaderProps  = {
-      eventData: {
-        accessibility: "",
-        affectation: "",
-        affectedComponents: "",
-        analyst: "",
-        client: "",
-        clientProject: "",
-        detail: "",
-        eventDate: "",
-        eventStatus: "",
-        eventType: "",
-        evidence: "test.png",
-        id: "",
-        projectName: "",
-      },
-      isActiveTab: true,
-      urlDescription: functionMock,
-      urlEvidence: functionMock,
+      eventDate: "",
+      eventStatus: "",
+      eventType: "",
+      id: "",
     };
     const wrapper: ShallowWrapper = shallow(
       <EventHeader {...mockProps}/>,
@@ -44,24 +28,10 @@ describe("EventHeader", () => {
 
   it("should render event header without evidence", () => {
     const mockProps: IEventHeaderProps  = {
-      eventData: {
-        accessibility: "",
-        affectation: "",
-        affectedComponents: "",
-        analyst: "",
-        client: "",
-        clientProject: "",
-        detail: "",
-        eventDate: "",
-        eventStatus: "",
-        eventType: "",
-        evidence: "",
-        id: "",
-        projectName: "",
-      },
-      isActiveTab: true,
-      urlDescription: functionMock,
-      urlEvidence: functionMock,
+      eventDate: "",
+      eventStatus: "",
+      eventType: "",
+      id: "",
     };
     const wrapper: ShallowWrapper = shallow(
       <EventHeader {...mockProps}/>,
