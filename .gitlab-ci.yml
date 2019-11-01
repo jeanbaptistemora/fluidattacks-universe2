@@ -77,6 +77,8 @@ test-app:
   only:
     - branches
     - merge_requests
+  except:
+    - master
 
 asserts-static:
   stage: test

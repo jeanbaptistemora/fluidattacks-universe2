@@ -109,9 +109,9 @@ class ViewTestCase(unittest.TestCase):
                       self.delay).until(
                             EC.presence_of_element_located(
                                 (By.XPATH,
-                                "//*[contains(text(), 'Reflected Cross Site')]")))
+                                "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
         selenium.save_screenshot(SCR_PATH + '04-02-findings.png')
-        assert 'Reflected Cross Site' in selenium.page_source
+        assert 'FIN.H.0037. Fuga de información técnica' in selenium.page_source
 
     def test_05_finding(self):
         selenium = self.__login()
@@ -128,22 +128,19 @@ class ViewTestCase(unittest.TestCase):
                                 self.delay).until(
                                     EC.presence_of_element_located(
                                         (By.XPATH,
-                                         "//*[contains(text(), 'Reflected Cross Site')]")))
+                                         "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
         selenium.save_screenshot(SCR_PATH + '05-02-finding.png')
         find_ele.click()
         WebDriverWait(selenium,
                       self.delay).until(
                             EC.presence_of_element_located(
                                 (By.XPATH,
-                                "//*[contains(text(), 'http://localhost/bWAPP/htmli_post.php')]")))
+                                "//*[contains(text(), 'Eliminar el banner de los servicios con fuga de información')]")))
 
         time.sleep(5)
         selenium.save_screenshot(SCR_PATH + '05-03-finding.png')
-        assert('The forms in the application allow the injection and execution of code in '+
-        'Javascript, making possible for an attacker to compromise the session of an user'
-        in selenium.page_source)
-        assert 'REQ.0173. The system must discard all' in selenium.page_source
-        assert 'http://localhost/bWAPP/htmli_post.php' in selenium.page_source
+        assert('Descripción de fuga de información técnica' in selenium.page_source)
+        assert 'REQ.0077. La aplicación no debe revelar detalles' in selenium.page_source
 
     def test_06_severity(self):
         selenium = self.__login()
@@ -160,7 +157,7 @@ class ViewTestCase(unittest.TestCase):
                                 self.delay).until(
                                     EC.presence_of_element_located(
                                         (By.XPATH,
-                                         "//*[contains(text(), 'Reflected Cross Site')]")))
+                                         "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
         selenium.save_screenshot(SCR_PATH + '06-02-severity.png')
         find_ele.click()
         sev_elem = WebDriverWait(selenium,
@@ -195,7 +192,7 @@ class ViewTestCase(unittest.TestCase):
                                 self.delay).until(
                                     EC.presence_of_element_located(
                                         (By.XPATH,
-                                         "//*[contains(text(), 'Reflected Cross Site')]")))
+                                         "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
         selenium.save_screenshot(SCR_PATH + '07-02-evidence.png')
         find_ele.click()
         sev_elem = WebDriverWait(selenium,
@@ -208,10 +205,10 @@ class ViewTestCase(unittest.TestCase):
                       self.delay).until(
                         EC.presence_of_element_located(
                             (By.XPATH,
-                            "//*[contains(text(), 'Pop-up message')]")))
+                            "//*[contains(text(), 'Comentario')]")))
         time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '07-04-evidence.png')
-        assert 'Pop-up message' in selenium.page_source
+        assert 'Comentario' in selenium.page_source
 
     def test_08_exploit(self):
         selenium = self.__login()
@@ -228,7 +225,7 @@ class ViewTestCase(unittest.TestCase):
                                 self.delay).until(
                                     EC.presence_of_element_located(
                                         (By.XPATH,
-                                         "//*[contains(text(), 'Reflected Cross Site')]")))
+                                         "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
         selenium.save_screenshot(SCR_PATH + '08-02-exploit.png')
         find_ele.click()
         sev_elem = WebDriverWait(selenium,
@@ -241,10 +238,10 @@ class ViewTestCase(unittest.TestCase):
                       self.delay).until(
                         EC.presence_of_element_located(
                             (By.XPATH,
-                            "//*[contains(text(), 'http.has_xss')]")))
+                            "//*[contains(text(), 'It works')]")))
         time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '08-04-exploit.png')
-        assert 'http.has_xss' in selenium.page_source
+        assert 'It works' in selenium.page_source
 
     def test_09_tracking(self):
         selenium = self.__login()
@@ -261,7 +258,7 @@ class ViewTestCase(unittest.TestCase):
                                 self.delay).until(
                                     EC.presence_of_element_located(
                                         (By.XPATH,
-                                         "//*[contains(text(), 'Reflected Cross Site')]")))
+                                         "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
         selenium.save_screenshot(SCR_PATH + '09-02-tracking.png')
         find_ele.click()
         sev_elem = WebDriverWait(selenium,
@@ -274,10 +271,10 @@ class ViewTestCase(unittest.TestCase):
                       self.delay).until(
                         EC.presence_of_element_located(
                             (By.XPATH,
-                            "//*[contains(text(), '2019-01-21')]")))
+                            "//*[contains(text(), '2019-09-16')]")))
         time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '09-04-tracking.png')
-        assert '2019-01-21' in selenium.page_source
+        assert '2019-09-16' in selenium.page_source
 
     def test_10_comments(self):
         selenium = self.__login()
@@ -294,7 +291,7 @@ class ViewTestCase(unittest.TestCase):
                                 self.delay).until(
                                     EC.presence_of_element_located(
                                         (By.XPATH,
-                                         "//*[contains(text(), 'Reflected Cross Site')]")))
+                                         "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
         selenium.save_screenshot(SCR_PATH + '10-02-comments.png')
         find_ele.click()
         sev_elem = WebDriverWait(selenium,
@@ -307,10 +304,10 @@ class ViewTestCase(unittest.TestCase):
                       self.delay).until(
                         EC.presence_of_element_located(
                             (By.XPATH,
-                            "//*[contains(text(), 'Validations were run against 5 of the 10 reported fields')]")))
+                            "//*[contains(text(), 'oldest')]")))
         time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '10-04-comments.png')
-        assert 'Validations were run against 5 of the 10 reported fields' in selenium.page_source
+        assert 'oldest' in selenium.page_source
 
     def test_11_techpdf(self):
         selenium = self.__login()
@@ -327,7 +324,7 @@ class ViewTestCase(unittest.TestCase):
                       self.delay).until(
                             EC.presence_of_element_located(
                                 (By.XPATH,
-                                "//*[contains(text(), 'Reflected Cross Site')]")))
+                                "//*[contains(text(), 'FIN.H.0037. Fuga de información técnica')]")))
 
         rep_modal = WebDriverWait(selenium,
                                   self.delay).until(
@@ -350,7 +347,7 @@ class ViewTestCase(unittest.TestCase):
                             (By.XPATH,
                              "//*[contains(text(), 'Reflected Cross')]")))
         selenium.save_screenshot(SCR_PATH + '11-04-techpdf.png')
-        assert 'Reflected Cross Site' in selenium.page_source
+        assert 'FIN.H.0037. Fuga de información técnica' in selenium.page_source
 
     def test_13_events(self):
         selenium = self.__login()
@@ -367,7 +364,7 @@ class ViewTestCase(unittest.TestCase):
                                    self.delay).until(
                                         EC.presence_of_element_located(
                                             (By.XPATH,
-                                             "//*[contains(text(), 'not possible to access the repo')]")))
+                                             "//*[contains(text(), 'This is an eventuality with evidence')]")))
         selenium.save_screenshot(SCR_PATH + '13-02-events.png')
         event_tab.click()
         WebDriverWait(selenium,
@@ -378,7 +375,7 @@ class ViewTestCase(unittest.TestCase):
 
         time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '13-03-events.png')
-        assert 'Test Event' in selenium.page_source
+        assert 'This is an eventuality with evidence' in selenium.page_source
 
     def test_14_resources(self):
         selenium = self.__login()
