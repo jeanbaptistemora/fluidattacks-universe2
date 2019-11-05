@@ -402,6 +402,13 @@ def update_treatment(finding_id, updated_values):
     if updated_values['treatment'] == 'NEW':
         updated_values['acceptance_date'] = ''
     if updated_values['treatment'] == 'ACCEPTED':
+        if updated_values.get('acceptance_date') == '':
+            max_date = date.strftime('%Y-%m-%d %H:%M:%S')
+            updated_values['acceptance_date'] = max_date
+        date_value = updated_values['acceptance_date']
+        is_valid_date = util.is_valid_format(date_value)
+        if is_valid_date is False:
+            raise InvalidDateFormat()
         if updated_values.get('acceptance_date'):
             today_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             date_size = updated_values['acceptance_date'].split(' ')
@@ -411,13 +418,6 @@ def update_treatment(finding_id, updated_values):
                 raise InvalidDate()
             if updated_values.get('acceptance_date') > date.strftime('%Y-%m-%d %H:%M:%S'):
                 raise InvalidDate()
-        if updated_values.get('acceptance_date') == '':
-            max_date = date.strftime('%Y-%m-%d %H:%M:%S')
-            updated_values['acceptance_date'] = max_date
-        date_value = updated_values['acceptance_date']
-        is_valid_date = util.is_valid_format(date_value)
-        if is_valid_date is False:
-            raise InvalidDateFormat()
 
     result_update_finding = integrates_dal.update_mult_attrs_dynamo(
         'FI_findings',
