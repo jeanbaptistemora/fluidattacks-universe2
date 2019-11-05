@@ -28,7 +28,6 @@ import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import { GenericForm } from "../../components/GenericForm/index";
-import { default as ImageGallery } from "../../components/ImageGallery/index";
 import * as actions from "./actions";
 import style from "./index.css";
 
@@ -243,27 +242,6 @@ const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
   );
 };
 
-const renderEventGallery: ((props: IEventDescriptionViewProps) => JSX.Element) =
-  (props: IEventDescriptionViewProps): JSX.Element => {
-    const eventEvidences: [{"original": string; "thumbnail": string }] = actions.getEventEvidence(props.eventData);
-
-    return (
-      <React.Fragment>
-      <Row>
-      <Col md={12} sm={12} xs={12} >
-        <Col md={12} sm={12} xs={12}>
-          <Row className={style.rowSeparation}>
-            <ImageGallery
-              items={eventEvidences}
-            />
-          </Row>
-        </Col>
-  </Col>
-</Row>
-    </React.Fragment>
-  );
-};
-
 export const descriptionComponent: React.FC<IEventDescriptionViewProps> =
   (props: IEventDescriptionViewProps): JSX.Element =>
     (
@@ -286,20 +264,6 @@ export const descriptionComponent: React.FC<IEventDescriptionViewProps> =
     </React.StrictMode>
   );
 
-export const evidenceComponent: React.FC<IEventDescriptionViewProps> =
-  (props: IEventDescriptionViewProps): JSX.Element =>
-    (
-    <React.StrictMode>
-      <div className={style.mainContainer} >
-      <Row>
-      <Col md={12} sm={12} xs={12}>
-          {renderEventGallery(props)}
-        </Col>
-      </Row>
-      </div>
-    </React.StrictMode>
-  );
-
 const fieldSelector: ((state: {}, ...fields: string[]) => string) = formValueSelector("editEvent");
 
 export const eventDescriptionView: React.ComponentType<IEventDescriptionViewProps> = reduxWrapper
@@ -316,14 +280,5 @@ export const eventDescriptionView: React.ComponentType<IEventDescriptionViewProp
       },
     },
     isEditable: state.dashboard.eventDescription.isEditable,
-  }),
-);
-
-export const eventEvidenceView: React.ComponentType<IEventDescriptionViewProps> = reduxWrapper
-(
-  enhance(evidenceComponent) as React.FunctionComponent<IEventDescriptionViewProps>,
-  (state: StateType<Reducer>): IEventDescriptionViewProps => ({
-    ...state,
-    eventData: state.dashboard.eventDescription.eventData,
   }),
 );
