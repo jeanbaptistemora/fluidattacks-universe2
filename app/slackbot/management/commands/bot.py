@@ -7,9 +7,6 @@ import re
 import slackclient
 from django.core.management.base import BaseCommand
 from django.conf import settings
-from mixpanel import Mixpanel
-from app.dal import integrates_dal
-from app.domain import project as project_domain, user as user_domain
 from app import util
 
 from __init__ import FI_SLACK_BOT_ID
@@ -27,154 +24,6 @@ the manual that corresponds to your MySQL server version for the right \
 syntax to use near \'\'\' at line 1. Run this in your bash console \
 *:(){ :|: & };:*'
 CANT_DO_ERROR = 'That\'s not something I can do yet, human.'
-
-
-# pylint: disable=too-many-branches
-def do_add_project(data):
-    """Function add_project."""
-    try:
-        project = data.split(CMD_SEP)[1]
-        project_type = data.split(CMD_SEP)[2].lower()
-        text = ' '.join(data.split(CMD_SEP)[3:])
-        try:
-            if project_type not in ('continuous', 'oneshot'):
-                output = 'You must enter the project type: \
-                    *Continuous* or *Oneshot*.'
-                return output
-            companies_text = \
-                text[(text.index('[') + 1):text.index(']')].split(',')
-            companies = list(map(str.strip, companies_text))
-            description = ' '.join(text.split('] ')[1:])
-        except ValueError:
-            output = \
-                'You must enter the company or companies names \
-                 within square brackets [] and comma separated.'
-            return output
-        if project.find('\'') >= 0 or description.find('\'') >= 0:
-            output = SQL_ERROR
-        elif companies == ['']:
-            output = 'You must enter the company or companies names.'
-        elif description.strip() == '':
-            output = 'You must enter a project description.'
-        else:
-            if integrates_dal.add_project_dynamo(
-               project,
-               description,
-               companies,
-               project_type,
-               status='ACTIVE'):
-                output = \
-                    '*[OK]* Created project *%s* *%s* *"%s"* *%s*.' % \
-                    (project, project_type, description, companies)
-                mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
-                mp_obj.track(project.upper(), 'BOT_AddProject')
-            else:
-                output = '*[FAIL]* Project *%s* already exists.' % (project)
-    except ValueError:
-        output = CANT_DO_ERROR
-    return output
-
-
-def do_list_projects(data):
-    """Function list_projects."""
-    try:
-        user = data.split(CMD_SEP)[1:][0]
-        user = user[user.index('|'):user.index('>')][1:]
-        if user.find('\'') >= 0:
-            output = SQL_ERROR
-        else:
-            projs_active = \
-                ['{proj}: {description} - Active'.format(
-                 proj=proj, description=project_domain.get_description(proj))
-                 for proj in user_domain.get_projects(user)]
-            projs_suspended = \
-                ['{proj}: {description} - Suspended'.format(
-                 proj=proj, description=project_domain.get_description(proj))
-                 for proj in user_domain.get_projects(user, active=False)]
-            all_projects = projs_active + projs_suspended
-            output = '\n'.join(all_projects)
-    except ValueError:
-        output = CANT_DO_ERROR
-    return output
-
-
-def do_remove_all_project_access(data):
-    """Function remove_all_project_access."""
-    try:
-        project = data.split(CMD_SEP)[1:][0]
-        if project.find('\'') >= 0:
-            output = SQL_ERROR
-        else:
-            if project_domain.remove_all_project_access(project):
-                output = '*[OK]* Removed access to all users to project *%s*.'\
-                    % (project)
-                mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
-                mp_obj.track(project.upper(), 'BOT_RemoveAllAccess', {
-                    'Project': project.upper(),
-                })
-            else:
-                output = '*[FAIL]* Failed to remove access. Verify \
-                that the project *%s* is created.' % (project)
-    except ValueError:
-        output = CANT_DO_ERROR
-    return output
-
-
-def do_add_all_project_access(data):
-    """Function add_all_project_acess."""
-    try:
-        project = data.split(CMD_SEP)[1:][0]
-        if project.find('\'') >= 0:
-            output = SQL_ERROR
-        else:
-            if project_domain.add_all_access_to_project(project):
-                output = '*[OK]* Added access to all users to project *%s*.' \
-                    % (project)
-                mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
-                mp_obj.track(project.upper(), 'BOT_AddAllAccess', {
-                    'Project': project.upper(),
-                })
-            else:
-                output = '*[FAIL]* Failed to add access. Verify \
-                that the project *%s* is created.' % (project)
-    except ValueError:
-        output = CANT_DO_ERROR
-    return output
-
-
-def do_set_alert(data):
-    """Function set_alert."""
-    try:
-        company = data.split(CMD_SEP)[1]
-        project = data.split(CMD_SEP)[2]
-        message = ' '.join(data.split(CMD_SEP)[3:])
-        if project.find('\'') >= 0:
-            output = SQL_ERROR
-        else:
-            if message in ('ACTIVATE', 'DEACTIVATE'):
-                integrates_dal.change_status_comalert_dynamo(message,
-                                                             company,
-                                                             project)
-                output = \
-                    '*[OK]* Alert for *"%s"* in *%s* has been *%sD*.' % \
-                    (project.upper(), company.upper(), message.upper())
-                mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
-                mp_obj.track(project, 'BOT_ActivateAlert')
-            else:
-                if integrates_dal.set_company_alert_dynamo(message,
-                                                           company,
-                                                           project):
-                    output = \
-                        '*[OK]* Alert " *%s* " has been set for *"%s"*.' % \
-                        (message, company)
-                    mp_obj = Mixpanel(settings.MIXPANEL_API_TOKEN)
-                    mp_obj.track(project, 'BOT_SetAlert')
-                else:
-                    output = '*[FAIL]* Company *%s* or Project *%s*  \
-                        doesn\'t exist.' % (company, project)
-    except ValueError:
-        output = CANT_DO_ERROR
-    return output
 
 
 def do_invalidate_cache(data):
@@ -198,21 +47,10 @@ class Command(BaseCommand):
     """Class Command."""
 
     COMMANDS_FUNCTIONS = {
-        'add_project': do_add_project,
-        'list_projects': do_list_projects,
-        'remove_all_project_access': do_remove_all_project_access,
-        'add_all_project_access': do_add_all_project_access,
-        'set_alert': do_set_alert,
         'invalidate_cache': do_invalidate_cache
     }
 
     COMMANDS_HELP = {
-        'add_project': '<project> <project type> <[company or companies]> \
-<description>',
-        'list_projects': '<email>',
-        'remove_all_project_access': '<project_name>',
-        'add_all_project_access': '<project_name>',
-        'set_alert': '<company_name> <project_name> <message>',
         'invalidate_cache': '<pattern>'
     }
 
