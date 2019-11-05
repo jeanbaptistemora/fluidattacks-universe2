@@ -27,6 +27,7 @@ from app.entity.project import (
 from app.entity.event import CreateEvent, UpdateEvent
 from app.entity.me import SignIn, UpdateAccessToken, InvalidateAccessToken
 from app.entity.alert import SetAlert
+from app.entity.cache import InvalidateCache
 
 
 class Mutations(ObjectType):
@@ -83,3 +84,5 @@ class Mutations(ObjectType):
 
     setAlert = SetAlert.Field()
     sign_in = SignIn.Field()
+
+    invalidateCache = InvalidateCache.Field()
