@@ -47,7 +47,8 @@ def _batch_load_fn(finding_ids):
             treatment_justification=finding.get(
                 'treatmentJustification', ''),
             treatment_manager=finding.get('treatmentManager', ''),
-            type=finding.get('findingType', '')
+            type=finding.get('findingType', ''),
+            submission_history=finding.get('submissionHistory', [])
         )
 
     return Promise.resolve([findings.get(finding_id, [])

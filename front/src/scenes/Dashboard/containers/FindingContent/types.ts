@@ -33,7 +33,13 @@ export interface IHeaderQueryResult {
     closedVulns: number;
     id: string;
     openVulns: number;
+    releaseDate: string;
     reportDate: string;
+    submissionHistory: Array<{
+      analyst: string; creation_date?: string;
+      report_date?: string; review_date?: string;
+      reviewer?: string; status?: string;
+    }>;
     title: string;
   };
 }

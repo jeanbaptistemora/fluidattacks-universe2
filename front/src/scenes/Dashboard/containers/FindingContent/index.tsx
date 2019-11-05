@@ -56,7 +56,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   const userRole: string =
     _.isEmpty(props.userRole) ? (window as typeof window & { userRole: string }).userRole : props.userRole;
   const currentUserEmail: string = (window as typeof window & { userEmail: string }).userEmail;
-  const isDraft: boolean = _.isEmpty(props.header.reportDate);
 
   const renderDescription: (() => JSX.Element) = (): JSX.Element => (
     <DescriptionView
@@ -117,8 +116,11 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                         .catch();
                     }
                   };
+                  const isDraft: boolean = _.isEmpty(data.finding.releaseDate);
                   const hasVulns: boolean = data.finding.openVulns + data.finding.closedVulns > 0;
-                  const hasSubmission: boolean = !_.isEmpty(data.finding.reportDate);
+                  const hasHistory: boolean = _.isEmpty(data.finding.submissionHistory);
+                  const hasSubmission: boolean = !hasHistory ?
+                    (data.finding.submissionHistory.slice(-1)[0].status === "SUBMITTED") : false;
 
                   return (
                     <Row>
@@ -139,9 +141,9 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
 
                             return (
                               <FindingActions
+                                isDraft={isDraft}
                                 hasVulns={hasVulns}
                                 hasSubmission={hasSubmission}
-                                isDraft={isDraft}
                                 loading={submitResult.loading}
                                 onApprove={handleOpenApproveConfirm}
                                 onDelete={handleOpenDeleteConfirm}

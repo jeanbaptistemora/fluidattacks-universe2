@@ -28,7 +28,8 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
 
   return (
     <ButtonToolbar className="pull-right">
-      {props.hasSubmission ? undefined : <Button disabled={props.loading} onClick={onSubmit}>Submit</Button>}
+      {!props.isDraft ? false : (props.hasSubmission ?
+        false : <Button disabled={props.loading} onClick={onSubmit}>Submit</Button>)}
       {_.includes(["admin"], userRole) && props.isDraft ? (
         <React.Fragment>
           <Button onClick={onApprove} disabled={!canApprove}>

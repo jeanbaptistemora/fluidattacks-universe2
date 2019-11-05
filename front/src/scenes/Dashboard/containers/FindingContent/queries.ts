@@ -10,8 +10,10 @@ export const GET_FINDING_HEADER: DocumentNode = gql`
       closedVulns: closedVulnerabilities
       id
       openVulns: openVulnerabilities
+      releaseDate
       reportDate
       title
+      submissionHistory
     }
   }
 `;

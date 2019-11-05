@@ -19,20 +19,14 @@ DYNAMODB_RESOURCE = boto3.resource(
 TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 
 
-def create(analyst_email, finding_id, project_name, title, **kwargs):
+def create(finding_id, project_name, finding_attrs):
     success = False
     try:
-        finding = {
-            'analyst': analyst_email,
-            'cvss_version': '3',
-            'exploitability': 0,
-            'files': [],
-            'finding': title,
+        finding_attrs.update({
             'finding_id': finding_id,
-            'project_name': project_name,
-        }
-        finding.update(kwargs)
-        response = TABLE.put_item(Item=finding)
+            'project_name': project_name
+        })
+        response = TABLE.put_item(Item=finding_attrs)
         success = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as ex:
         rollbar.report_message('Error: Couldn\'nt create draft',

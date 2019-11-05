@@ -545,14 +545,15 @@ def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_nam
 
 def reject_draft(draft_id, reviewer_email):
     draft_data = get_finding(draft_id)
+    history = draft_data.get('submissionHistory', [{}])
+    status = history[-1].get('status')
     success = False
 
     if 'releaseDate' not in draft_data:
-        if 'reportDate' in draft_data:
+        if status == 'SUBMITTED':
             tzn = pytz.timezone(settings.TIME_ZONE)
             rejection_date = datetime.now(tz=tzn).today()
             rejection_date = rejection_date.strftime('%Y-%m-%d %H:%M:%S')
-            history = draft_data.get('submissionHistory', [{}])
             history[-1].update({
                 'review_date': rejection_date,
                 'reviewer': reviewer_email,
@@ -560,7 +561,6 @@ def reject_draft(draft_id, reviewer_email):
             })
 
             success = finding_dal.update(draft_id, {
-                'report_date': None,
                 'submission_history': history
             })
             if success:
@@ -730,7 +730,14 @@ def remove_evidence(evidence_name, finding_id, project_name):
 def create_draft(analyst_email, project_name, title, **kwargs):
     last_fs_id = 550000000
     finding_id = str(random.randint(last_fs_id, 1000000000))
+    tzn = pytz.timezone(settings.TIME_ZONE)
     project_name = project_name.lower()
+    creation_date = datetime.now(tz=tzn).today()
+    creation_date = creation_date.strftime('%Y-%m-%d %H:%M:%S')
+    submission_history = {'analyst': analyst_email,
+                          'creation_date': creation_date,
+                          'status': 'CREATED'}
+    report_date = creation_date
 
     if 'description' in kwargs:
         kwargs['vulnerability'] = kwargs['description']
@@ -742,8 +749,18 @@ def create_draft(analyst_email, project_name, title, **kwargs):
         kwargs['finding_type'] = kwargs['type']
         del kwargs['type']
 
-    return finding_dal.create(
-        analyst_email, finding_id, project_name, title, **kwargs)
+    finding_attrs = kwargs.copy()
+    finding_attrs.update({
+        'analyst': analyst_email,
+        'cvss_version': '3',
+        'exploitability': 0,
+        'files': [],
+        'finding': title,
+        'reportDate': report_date,
+        'submissionHistory': [submission_history]
+    })
+
+    return finding_dal.create(finding_id, project_name, finding_attrs)
 
 
 def send_new_draft_mail(
@@ -774,7 +791,9 @@ def submit_draft(finding_id, analyst_email):
     finding = get_finding(finding_id)
 
     if 'releaseDate' not in finding:
-        if 'reportDate' not in finding:
+        submission_history = finding.get('submissionHistory')
+        is_submitted = submission_history[-1].get('status') == 'SUBMITTED'
+        if not is_submitted:
             evidence_list = [finding['evidence'].get(ev_name)
                              for ev_name in finding['evidence']]
             has_evidence = any([evidence.get('url')
@@ -783,9 +802,7 @@ def submit_draft(finding_id, analyst_email):
             has_vulns = vuln_domain.list_vulnerabilities([finding_id])
 
             if all([has_evidence, has_severity, has_vulns]):
-                tzn = pytz.timezone(settings.TIME_ZONE)
-                report_date = datetime.now(tz=tzn).today()
-                report_date = report_date.strftime('%Y-%m-%d %H:%M:%S')
+                report_date = finding.get('report_date')
                 history = finding.get('submissionHistory', [])
                 history.append({
                     'analyst': analyst_email,
@@ -794,7 +811,7 @@ def submit_draft(finding_id, analyst_email):
                 })
 
                 success = finding_dal.update(finding_id, {
-                    'report_date': report_date,
+                    'reportDate': report_date,
                     'submission_history': history
                 })
                 if success:

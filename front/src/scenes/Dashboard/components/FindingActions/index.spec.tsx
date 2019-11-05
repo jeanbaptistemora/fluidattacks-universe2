@@ -17,7 +17,7 @@ describe("FindingActions", (): void => {
     const wrapper: ShallowWrapper = shallow(
       <FindingActions
         hasVulns={false}
-        hasSubmission={true}
+        hasSubmission={false}
         isDraft={false}
         loading={false}
         onApprove={jest.fn()}

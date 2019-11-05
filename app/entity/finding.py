@@ -62,6 +62,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     severity = GenericScalar()
     severity_score = Float()
     state = String()
+    submission_history = List(GenericScalar)
     threat = String()
     title = String()
     tracking = List(GenericScalar)
@@ -200,6 +201,13 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
         self.comments = comment_domain.get_comments(self.id)
         return self.comments
+
+    @require_role(['analyst', 'admin'])
+    @get_entity_cache
+    def resolve_submission_history(self, info):
+        """ Resolve submission history of a draft """
+        del info
+        return self.submission_history
 
     @require_role(['analyst', 'admin'])
     @get_entity_cache
