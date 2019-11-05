@@ -53,6 +53,13 @@ def test_public_buckets_open():
     assert \
         s3.has_public_buckets(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
 
+
+def test_has_buckets_without_default_encryption():
+    """Search S3 buckets buckets without default encryption."""
+    assert s3.has_buckets_without_default_encryption(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False).is_open()
+
+
 #
 # Closing tests
 #
