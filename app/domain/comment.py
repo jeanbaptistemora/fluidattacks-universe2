@@ -26,7 +26,7 @@ def get_comments(finding_id, user_role):
     return comments
 
 
-def get_observations(finding_id):
-    observations = _get_comments('observation', finding_id, None)
+def get_observations(finding_id, user_role):
+    observations = _get_comments('observation', finding_id, user_role)
 
     return observations

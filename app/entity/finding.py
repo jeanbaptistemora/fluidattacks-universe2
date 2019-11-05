@@ -214,9 +214,10 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @get_entity_cache
     def resolve_observations(self, info):
         """ Resolve observations attribute """
-        del info
+        user_data = util.get_jwt_content(info.context)
+        curr_user_role = get_user_role(user_data)
 
-        self.observations = comment_domain.get_observations(self.id)
+        self.observations = comment_domain.get_observations(self.id, curr_user_role)
         return self.observations
 
     def resolve_title(self, info):

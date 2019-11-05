@@ -15,7 +15,7 @@ class CommentTests(TestCase):
         assert isinstance(test_data[0], dict)
         assert test_data[0] is not None
 
-        test_data = comment_domain.get_observations(finding_id)
+        test_data = comment_domain.get_observations(finding_id, 'admin')
         expected_output = [{
             'parent': 0, 'created': '2019/08/20 16:35:16',
             'modified': '2019/08/20 16:35:16',
