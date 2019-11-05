@@ -197,9 +197,10 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @get_entity_cache
     def resolve_comments(self, info):
         """ Resolve comments attribute """
-        del info
+        user_data = util.get_jwt_content(info.context)
+        curr_user_role = get_user_role(user_data)
 
-        self.comments = comment_domain.get_comments(self.id)
+        self.comments = comment_domain.get_comments(self.id, curr_user_role)
         return self.comments
 
     @require_role(['analyst', 'admin'])

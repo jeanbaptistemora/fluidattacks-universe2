@@ -249,7 +249,8 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_comments(self, info):
         self.comments = project_domain.list_comments(
             user_email=util.get_jwt_content(info.context)['user_email'],
-            project_name=self.name)
+            project_name=self.name,
+            user_role=util.get_jwt_content(info.context)['user_role'])
 
         return self.comments
 

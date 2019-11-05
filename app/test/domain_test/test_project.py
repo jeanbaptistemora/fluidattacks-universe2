@@ -231,7 +231,7 @@ class ProjectTest(TestCase):
     def test_list_comments(self):
         user_email = 'test@test.com'
         project_name = 'unittesting'
-        test_data = list_comments(user_email, project_name)
+        test_data = list_comments(user_email, project_name, 'admin')
         expected_output = {
             'content': 'Now we can post comments on projects',
             'parent': 0, 'created':

@@ -10,7 +10,7 @@ class CommentTests(TestCase):
     def test_list_comments(self):
         finding_id = '422286126'
 
-        test_data = comment_domain.get_comments(finding_id)
+        test_data = comment_domain.get_comments(finding_id, 'admin')
         assert isinstance(test_data, list)
         assert isinstance(test_data[0], dict)
         assert test_data[0] is not None
