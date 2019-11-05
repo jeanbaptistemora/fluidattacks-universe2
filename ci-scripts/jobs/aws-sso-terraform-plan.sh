@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-onelogin_sso_terraform_plan() {
+aws_sso_terraform_plan() {
 
   # Plan eks infra using terraform
 
-  set -e
+  set -Eeuo pipefail
 
   # Import functions
   . toolbox/terraform.sh
@@ -16,4 +16,4 @@ onelogin_sso_terraform_plan() {
 
 }
 
-onelogin_sso_terraform_plan
+aws_sso_terraform_plan

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-onelogin_sso_terraform_apply() {
+aws_sso_terraform_apply() {
 
   # Deploy eks infra using terraform
 
-  set -e
+  set -Eeuo pipefail
 
   # Import functions
   . toolbox/terraform.sh
@@ -16,4 +16,4 @@ onelogin_sso_terraform_apply() {
 
 }
 
-onelogin_sso_terraform_apply
+aws_sso_terraform_apply

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-onelogin_sso_terraform_lint() {
+aws_sso_terraform_lint() {
 
   # Run tflint on eks terraform folder
 
-  set -e
+  set -Eeuo pipefail
 
   # Import functions
   . toolbox/terraform.sh
@@ -15,4 +15,4 @@ onelogin_sso_terraform_lint() {
 
 }
 
-onelogin_sso_terraform_lint
+aws_sso_terraform_lint
