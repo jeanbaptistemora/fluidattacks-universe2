@@ -1,4 +1,4 @@
-"""Test methods of fluidasserts.cloud.cloudformation.rds module."""
+"""Test methods of fluidasserts.cloud.cloudformation.iam module."""
 
 # local imports
 from fluidasserts.cloud.aws.cloudformation import iam
@@ -11,7 +11,7 @@ NOT_EXISTS: str = 'test/static/cloudformation/not-exists'
 
 
 def test_is_role_over_privileged():
-    """test rds.is_role_over_privileged."""
+    """test iam.is_role_over_privileged."""
     result = iam.is_role_over_privileged(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == 2 * 8
@@ -20,7 +20,7 @@ def test_is_role_over_privileged():
 
 
 def test_is_policy_miss_configured():
-    """test rds.is_policy_miss_configured."""
+    """test iam.is_policy_miss_configured."""
     result = iam.is_policy_miss_configured(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == 2 * 5
@@ -29,7 +29,7 @@ def test_is_policy_miss_configured():
 
 
 def test_is_managed_policy_miss_configured():
-    """test rds.is_managed_policy_miss_configured."""
+    """test iam.is_managed_policy_miss_configured."""
     result = iam.is_managed_policy_miss_configured(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == 2 * 5
@@ -38,7 +38,7 @@ def test_is_managed_policy_miss_configured():
 
 
 def test_missing_role_based_security():
-    """test rds.missing_role_based_security."""
+    """test iam.missing_role_based_security."""
     result = iam.missing_role_based_security(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == 2 * 1

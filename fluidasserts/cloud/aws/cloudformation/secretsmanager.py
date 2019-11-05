@@ -1,9 +1,4 @@
-"""
-AWS CloudFormation checks for ``SecretsManager``.
-
-Some rules were taken from `CFN_NAG <https://github.com/
-stelligent/cfn_nag/master/LICENSE.md>`_
-"""
+"""AWS CloudFormation checks for ``SecretsManager``."""
 
 # Standard library
 from typing import List, Optional

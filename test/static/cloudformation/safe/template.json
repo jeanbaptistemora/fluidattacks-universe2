@@ -20,6 +20,13 @@
       },
       "Type": "AWS::RDS::DBInstance"
     },
+    "key1": {
+      "Properties": {
+        "EnableKeyRotation": "true",
+        "KeyPolicy": {}
+      },
+      "Type": "AWS::KMS::Key"
+    },
     "mangedPolicy1": {
       "Properties": {
         "PolicyDocument": {

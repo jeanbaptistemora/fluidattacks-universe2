@@ -15,6 +15,11 @@ Resources:
       MasterUsername: user
       StorageEncrypted: 'false'
     Type: AWS::RDS::DBInstance
+  key1:
+    Properties:
+      EnableKeyRotation: 'false'
+      KeyPolicy: {}
+    Type: AWS::KMS::Key
   mangedPolicy1:
     Properties:
       PolicyDocument:

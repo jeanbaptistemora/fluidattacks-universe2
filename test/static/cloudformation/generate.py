@@ -6,6 +6,7 @@ import os
 import textwrap
 import troposphere
 import troposphere.iam
+import troposphere.kms
 import troposphere.rds
 import troposphere.secretsmanager
 
@@ -183,6 +184,12 @@ user = troposphere.iam.User(
         'role1',
     ],
 )
+key = troposphere.kms.Key(
+    title='key1',
+    KeyPolicy={
+    },
+    EnableKeyRotation='true',
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(cluster)
@@ -190,6 +197,7 @@ template.add_resource(instance)
 template.add_resource(policy)
 template.add_resource(managed_policy)
 template.add_resource(user)
+template.add_resource(key)
 write_template(template)
 
 #
@@ -406,6 +414,12 @@ user = troposphere.iam.User(
         troposphere.Ref(policy),
     ],
 )
+key = troposphere.kms.Key(
+    title='key1',
+    KeyPolicy={
+    },
+    EnableKeyRotation='false',
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(cluster)
@@ -413,4 +427,5 @@ template.add_resource(instance)
 template.add_resource(policy)
 template.add_resource(managed_policy)
 template.add_resource(user)
+template.add_resource(key)
 write_template(template)

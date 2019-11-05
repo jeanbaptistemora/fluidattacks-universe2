@@ -682,6 +682,9 @@ def exec_cloudformation_package(
             iam.is_policy_miss_configured('__path__')
             iam.is_managed_policy_miss_configured('__path__')
             """,
+        ('kms', 'KMS (Key Management Service)'): """
+            kms.is_key_rotation_absent_or_disabled('__path__')
+            """,
         ('rds', 'RDS (Relational Database Service)'): """
             rds.has_unencrypted_storage('__path__')
             rds.has_not_automated_back_ups('__path__')
