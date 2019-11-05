@@ -196,12 +196,12 @@ security_group = troposphere.ec2.SecurityGroup(
     title='securityGroup1',
     GroupDescription='groupDescription1',
     SecurityGroupEgress=[
-        troposphere.ec2.SecurityGroupEgress(
-            title='securityGroupEgress1',
-            GroupId='securityGroup1Id',
-            IpProtocol='-1',
-            CidrIp='127.0.0.1/32',
-        ),
+        {
+            'IpProtocol': '-1',
+            'CidrIp': '127.0.0.1/32',
+            'FromPort': -1,
+            'ToPort': -1
+        },
     ],
 )
 template.add_resource(role)
@@ -438,6 +438,14 @@ key = troposphere.kms.Key(
 security_group = troposphere.ec2.SecurityGroup(
     title='securityGroup1',
     GroupDescription='groupDescription1',
+    SecurityGroupIngress=[
+        {
+            'IpProtocol': '-1',
+            'CidrIpv6': '::/0',
+            'FromPort': -1,
+            'ToPort': -1
+        },
+    ],
 )
 template.add_resource(role)
 template.add_resource(secret)

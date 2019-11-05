@@ -677,17 +677,23 @@ def exec_cloudformation_package(
         """)
 
     source: Dict[str, str] = {
+        ('ec2', 'EC2 (Elastic Cloud Compute)'): """
+            ec2.allows_all_outbound_traffic('__path__')
+            ec2.has_unrestricted_cidrs('__path__')
+            """,
         ('iam', 'IAM (Identity and Access Management)'): """
-            iam.is_role_over_privileged('__path__')
-            iam.is_policy_miss_configured('__path__')
             iam.is_managed_policy_miss_configured('__path__')
+            iam.is_policy_miss_configured('__path__')
+            iam.is_role_over_privileged('__path__')
+            iam.missing_role_based_security('__path__')
             """,
         ('kms', 'KMS (Key Management Service)'): """
             kms.is_key_rotation_absent_or_disabled('__path__')
             """,
         ('rds', 'RDS (Relational Database Service)'): """
-            rds.has_unencrypted_storage('__path__')
             rds.has_not_automated_back_ups('__path__')
+            rds.has_unencrypted_storage('__path__')
+            rds.is_publicly_accessible('__path__')
             """,
         ('secretsmanager', 'Secrets Manager'): """
             secretsmanager.insecure_generate_secret_string('__path__')

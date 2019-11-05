@@ -6,6 +6,8 @@ stelligent/cfn_nag/master/LICENSE.md>`_
 """
 
 # Standard imports
+import ipaddress
+import contextlib
 from typing import List, Optional
 
 # Local imports
@@ -65,3 +67,63 @@ def allows_all_outbound_traffic(
         vulnerabilities=vulnerabilities,
         msg_open='EC2 security groups allows all outbound traffic',
         msg_closed='EC2 security groups do not allow all outbound traffic')
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_unrestricted_cidrs(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if any ``EC2::SecurityGroup`` has ``0.0.0.0/0`` or ``::/0`` CIDRs.
+
+    The following checks are performed:
+
+    - W2 Security Groups found with cidr open to world on ingress
+    - W5 Security Groups found with cidr open to world on egress
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    unrestricted_ipv4 = ipaddress.IPv4Network('0.0.0.0/0')
+    unrestricted_ipv6 = ipaddress.IPv6Network('::/0')
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::EC2::SecurityGroup',
+            ],
+            exclude=exclude):
+        entities = []
+        for attribute in ('SecurityGroupEgress',
+                          'SecurityGroupIngress'):
+            for security_group in res_props.get(attribute, []):
+                with contextlib.suppress(KeyError,
+                                         ValueError,
+                                         ipaddress.AddressValueError):
+                    ipv4 = security_group['CidrIp']
+                    if ipaddress.IPv4Network(ipv4) == unrestricted_ipv4:
+                        entities.append(ipv4)
+
+                with contextlib.suppress(KeyError,
+                                         ValueError,
+                                         ipaddress.AddressValueError):
+                    ipv6 = security_group['CidrIpv6']
+                    if ipaddress.IPv6Network(ipv6) == unrestricted_ipv6:
+                        entities.append(ipv6)
+
+        vulnerabilities.extend(
+            Vulnerability(
+                path=yaml_path,
+                entity=f'AWS::EC2::SecurityGroup/{entity}',
+                identifier=res_name,
+                reason='is open to world')
+            for entity in entities)
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='EC2 security groups have unrestricted CIDRs',
+        msg_closed='EC2 security groups do not have unrestricted CIDRs')

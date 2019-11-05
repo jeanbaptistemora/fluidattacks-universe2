@@ -127,12 +127,10 @@
         "GroupDescription": "groupDescription1",
         "SecurityGroupEgress": [
           {
-            "Properties": {
-              "CidrIp": "127.0.0.1/32",
-              "GroupId": "securityGroup1Id",
-              "IpProtocol": "-1"
-            },
-            "Type": "AWS::EC2::SecurityGroupEgress"
+            "CidrIp": "127.0.0.1/32",
+            "FromPort": -1,
+            "IpProtocol": "-1",
+            "ToPort": -1
           }
         ]
       },

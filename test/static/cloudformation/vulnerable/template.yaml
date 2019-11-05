@@ -110,6 +110,11 @@ Resources:
   securityGroup1:
     Properties:
       GroupDescription: groupDescription1
+      SecurityGroupIngress:
+        - CidrIpv6: ::/0
+          FromPort: -1
+          IpProtocol: '-1'
+          ToPort: -1
     Type: AWS::EC2::SecurityGroup
   user1:
     Properties:
