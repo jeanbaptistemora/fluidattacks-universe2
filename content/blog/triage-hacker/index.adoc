@@ -5,7 +5,7 @@
 :tags: machine learning, security, code
 :image: cover.png
 :alt: Photo by camilo jimenez on Unsplash: https://unsplash.com/photos/vGu08RYjO-s
-:description: A high-level view of our idea about how machine learning techniques can be applied to vulnerability discovery and exploitation. Our focus will be on aiding, not replacing, manual code auditing and hopefully making this process quicker and more precise.
+:description: This blog is a high-level review of our previous discussion concerning machine learning techniques applied to vulnerability discovery and exploitation. Our focus will be on aiding, not replacing, manual code auditing, and hopefully, making this process quicker and more precise.
 :keywords: Machine learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability
 :author: Rafael Ballestas
 :writer: raballestasr
@@ -15,30 +15,28 @@
 :source-highlighter: pygments
 
 
-= Triage for hackers
+= Triage for Hackers
 
 Based upon our [inner]#link:../vulnerability-classifier[last experiment]#,
-in this article, I would like to
-give a global vision of how our
-+ML+ for vulnerability discovery
-approach should work.
+in this article, I will provide a global vision
+of how our +ML+ for vulnerability discovery approach should work.
 
-First off, what problem would this solve?
-I will repeat myself here:
-When one of our analysts has to audit a new
-[inner]#link:../../services/continuous-hacking/[continuous hacking]# project,
+First, what problem would this solve?
+I am repeating myself here
+but when one of our analysts has to audit
+a new [inner]#link:../../services/continuous-hacking/[continuous hacking]# project,
 usually all they get is access to one or more big code repositories.
 And clients expect vulnerability reports as soon as possible.
-We would like our predictor
-to sort all the files in these repositories
-according to the likelihood of containing a vulnerability,
+We would like our predictor to sort all the files in these repositories
+according to the likelihood, or possibility,
+that they contain a vulnerability
 so that the analyst can prioritize the manual inspection.
 Ideally, when the analyst is confronted with a new project,
 instead of looking at an overview of all files in a repository
-or its `git log`,
-she could have a number that tells,
-for each file in the repo,
-how likely it is that it contains code vulnerabilities:
+or its +git log+,
+they could have a number that ranks each file
+in the repo with the probability of it
+containing code vulnerabilities:
 
 .From a messy git log to a prioritized file breakdown
 image::log-to-triage.png[From a messy git log to a prioritized file breakdown]
@@ -50,21 +48,18 @@ have been used by the authors we have reviewed here:
 [inner]#link:../binary-learning/[deep neural networks]#,
 [inner]#link:../exploit-code-graph/[clustering]#,
 [inner]#link:../natural-code/[n-grams]#.
-The actual algorithm to be used is one of the variables
-that we can experiment with.
-For starters, we used a
-[inner]#link:../crash-course-machine-learning/artificial-neural-networks-and-deep-learning[neural network]#
+The actual algorithm to be used
+is one of the variables that we can experiment with.
+For starters, we used a [inner]#link:../crash-course-machine-learning/artificial-neural-networks-and-deep-learning[neural network]#
 with a single hidden layer for simplicity.
-Still, this gave us
-[inner]#link:../vulnerability-classifier[good results]#
-for a first iteration.
+Still, this gave us [inner]#link:../vulnerability-classifier[good results]# for a first iteration.
 Regardless of the algorithm to be chosen,
 all of these must be fed with samples of code
-labeled with their vulnerability,
-or in the simplest case,
-a "yes" for vulnerable and a "no" for the rest.
-Our algorithm will then proceed to "learn",
-be that pattern identification, anomaly detection or clustering,
+labeled with their vulnerability, or in the simplest case,
+a _"yes"_ for vulnerable and a _"no"_ for the rest.
+Our algorithm will then proceed to _"learn"_,
+whether it is pattern identification,
+anomaly detection or clustering,
 in the training phase,
 and be able to work in the prediction phase as described above.
 
