@@ -3,7 +3,6 @@
 :description: This document contains the details of the security requirements related to the definition and management of systems in the organization. This requirement establishes the importance of limiting administrative access to applications only to authorized users, in order to avoid several common attacks.
 :keywords: Requirement, Security, Restrict, Administrative, Access Control, Network
 :rules: yes
-:extended: yes
 
 = REQ.033 Restrict administrative access
 
