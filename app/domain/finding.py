@@ -561,6 +561,7 @@ def reject_draft(draft_id, reviewer_email):
             })
 
             success = finding_dal.update(draft_id, {
+                'release_date': None,
                 'submission_history': history
             })
             if success:
@@ -626,7 +627,7 @@ def approve_draft(draft_id, reviewer_email):
     if 'releaseDate' not in draft_data:
         has_vulns = vuln_domain.list_vulnerabilities([draft_id])
         if has_vulns:
-            if 'reportDate' in draft_data:
+            if 'report_date' in draft_data:
                 tzn = pytz.timezone(settings.TIME_ZONE)
                 release_date = datetime.now(tz=tzn).today()
                 release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
@@ -756,8 +757,8 @@ def create_draft(analyst_email, project_name, title, **kwargs):
         'exploitability': 0,
         'files': [],
         'finding': title,
-        'reportDate': report_date,
-        'submissionHistory': [submission_history]
+        'report_date': report_date,
+        'submission_history': [submission_history]
     })
 
     return finding_dal.create(finding_id, project_name, finding_attrs)
@@ -811,7 +812,7 @@ def submit_draft(finding_id, analyst_email):
                 })
 
                 success = finding_dal.update(finding_id, {
-                    'reportDate': report_date,
+                    'report_date': report_date,
                     'submission_history': history
                 })
                 if success:
