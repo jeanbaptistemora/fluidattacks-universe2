@@ -31,6 +31,13 @@ def test_secrets_encrypted_with_default_keys_open():
         AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_has_automatic_rotation_disabled_open():
+    """Search secrets with the automatic rotation disabled."""
+    assert secretsmanager.has_automatic_rotation_disabled(
+        AWS_ACCESS_KEY_ID,
+        AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #
