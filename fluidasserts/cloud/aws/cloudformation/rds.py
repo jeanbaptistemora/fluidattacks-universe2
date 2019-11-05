@@ -26,6 +26,11 @@ def has_unencrypted_storage(
     """
     Check if any ``DBCluster`` or ``DBInstance`` use unencrypted storage.
 
+    The following checks are performed:
+
+    - F26 RDS DBCluster should have StorageEncrypted enabled
+    - F27 RDS DBInstance should have StorageEncrypted enabled
+
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
     :returns: - ``OPEN`` if **StorageEncrypted** attribute is set to **false**.
@@ -107,3 +112,50 @@ def has_not_automated_back_ups(
         vulnerabilities=vulnerabilities,
         msg_open='RDS cluster or instances have not automated backups enabled',
         msg_closed='RDS cluster or instances have automated backups enabled')
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def is_publicly_accessible(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if any ``RDS::DBInstance`` is Internet facing (a.k.a. public).
+
+    The following checks are performed:
+
+    - F22 RDS instance should not be publicly accessible
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if **PubliclyAccessible** attribute is set to
+                **true**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::RDS::DBInstance',
+            ],
+            exclude=exclude):
+        is_public: bool = res_props.get('PubliclyAccessible', False)
+
+        try:
+            is_public = helper.to_boolean(is_public)
+        except CloudFormationInvalidTypeError:
+            continue
+
+        if is_public:
+            vulnerabilities.append(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=f'AWS::RDS::DBInstance',
+                    identifier=res_name,
+                    reason='is publicly accessible'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='RDS instances are publicly accessible',
+        msg_closed='RDS instances are not publicly accessible')

@@ -120,6 +120,7 @@ instance = troposphere.rds.DBInstance(
     MasterUserPassword='pass',
     StorageEncrypted=True,
     BackupRetentionPeriod='32',
+    PubliclyAccessible='false',
 )
 policy = troposphere.iam.PolicyType(
     title='policy1',
@@ -316,8 +317,8 @@ instance = troposphere.rds.DBInstance(
     MasterUsername='user',
     MasterUserPassword='pass',
     StorageEncrypted=False,
-    # Disables automated back-ups
     BackupRetentionPeriod='0',
+    PubliclyAccessible='true',
 )
 policy = troposphere.iam.PolicyType(
     title='policy1',

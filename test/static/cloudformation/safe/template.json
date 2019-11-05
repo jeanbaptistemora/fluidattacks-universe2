@@ -16,6 +16,7 @@
         "Engine": "postgres",
         "MasterUserPassword": "pass",
         "MasterUsername": "user",
+        "PubliclyAccessible": "false",
         "StorageEncrypted": "true"
       },
       "Type": "AWS::RDS::DBInstance"
