@@ -54,10 +54,16 @@ def test_public_buckets_open():
         s3.has_public_buckets(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
 
 
-def test_has_buckets_without_default_encryption():
-    """Search S3 buckets buckets without default encryption."""
+def test_has_buckets_without_default_encryption_open():
+    """Search S3 buckets without default encryption."""
     assert s3.has_buckets_without_default_encryption(
-        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False).is_open()
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
+def test_buckets_allow_unauthorized_public_access_open():
+    """Search for S3 buckets that allow unauthorized public access."""
+    assert s3.buckets_allow_unauthorized_public_access(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
 #

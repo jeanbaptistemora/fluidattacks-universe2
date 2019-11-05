@@ -2,6 +2,9 @@
 
 """AWS cloud checks (S3)."""
 
+# standard imports
+from contextlib import suppress
+import json
 # 3rd party imports
 from botocore.exceptions import BotoCoreError
 from botocore.vendored.requests.exceptions import RequestException
@@ -146,6 +149,68 @@ def has_buckets_without_default_encryption(key_id: str,
     return _get_result_as_tuple(
         service='KMS',
         objects='Keys',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def buckets_allow_unauthorized_public_access(key_id: str,
+                                             secret: str,
+                                             retry: bool = True) -> tuple:
+    """
+    Check if S3 buckets allow unauthorized public access via bucket policies.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+    :returns: - ``OPEN`` if policies allow unauthorized public access.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = \
+        'S3 buckets allow unauthorized public access via bucket policies.'
+    msg_closed: str = \
+        'S3 buckets do not allow public access via bucket policies.'
+    vulns, safes = [], []
+
+    buckets = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='s3',
+        func='list_buckets',
+        param='Buckets',
+        retry=retry)
+    for bucket_name in map(lambda x: x['Name'], buckets):
+        try:
+            bucket_policy_string = aws.run_boto3_func(
+                key_id=key_id,
+                secret=secret,
+                service='s3',
+                func='get_bucket_policy',
+                param='Policy',
+                Bucket=bucket_name,
+                retry=retry)
+        except aws.ClientErr:
+            continue
+
+        bucket_policies = json.loads(bucket_policy_string)['Statement']
+        vulnerable = []
+        for policy in bucket_policies:
+            with suppress(KeyError):
+                vulnerable.append(policy['Effect'] == 'Allow'
+                                  and policy['Principal'] == '*')
+
+        (vulns if any(vulnerable) else safes).append(
+            (bucket_name, ('Policies should not allow unauthorized access,'
+                           ' use deposit policies to limit access.')))
+
+    return _get_result_as_tuple(
+        service='S3',
+        objects='Buckets',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
