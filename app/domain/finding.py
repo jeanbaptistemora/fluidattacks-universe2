@@ -419,6 +419,10 @@ def update_treatment(finding_id, updated_values):
             if updated_values.get('acceptance_date') > date.strftime('%Y-%m-%d %H:%M:%S'):
                 raise InvalidDate()
 
+    return validate_update_treatment(finding_id, updated_values)
+
+
+def validate_update_treatment(finding_id, updated_values):
     result_update_finding = integrates_dal.update_mult_attrs_dynamo(
         'FI_findings',
         {'finding_id': finding_id},
@@ -426,8 +430,9 @@ def update_treatment(finding_id, updated_values):
     )
     result_update_vuln = update_treatment_in_vuln(finding_id, updated_values)
     if result_update_finding and result_update_vuln:
-        send_accepted_email(finding_id, updated_values.get('treatment_manager'),
-                            updated_values.get('treatment_justification'))
+        if updated_values['treatment'] == 'ACCEPTED':
+            send_accepted_email(finding_id, updated_values.get('treatment_manager'),
+                                updated_values.get('treatment_justification'))
         return True
     return False
 
