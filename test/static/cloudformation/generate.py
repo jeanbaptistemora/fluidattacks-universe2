@@ -5,6 +5,7 @@
 import os
 import textwrap
 import troposphere
+import troposphere.ec2
 import troposphere.iam
 import troposphere.kms
 import troposphere.rds
@@ -191,6 +192,18 @@ key = troposphere.kms.Key(
     },
     EnableKeyRotation='true',
 )
+security_group = troposphere.ec2.SecurityGroup(
+    title='securityGroup1',
+    GroupDescription='groupDescription1',
+    SecurityGroupEgress=[
+        troposphere.ec2.SecurityGroupEgress(
+            title='securityGroupEgress1',
+            GroupId='securityGroup1Id',
+            IpProtocol='-1',
+            CidrIp='127.0.0.1/32',
+        ),
+    ],
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(cluster)
@@ -199,6 +212,7 @@ template.add_resource(policy)
 template.add_resource(managed_policy)
 template.add_resource(user)
 template.add_resource(key)
+template.add_resource(security_group)
 write_template(template)
 
 #
@@ -421,6 +435,10 @@ key = troposphere.kms.Key(
     },
     EnableKeyRotation='false',
 )
+security_group = troposphere.ec2.SecurityGroup(
+    title='securityGroup1',
+    GroupDescription='groupDescription1',
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(cluster)
@@ -429,4 +447,5 @@ template.add_resource(policy)
 template.add_resource(managed_policy)
 template.add_resource(user)
 template.add_resource(key)
+template.add_resource(security_group)
 write_template(template)

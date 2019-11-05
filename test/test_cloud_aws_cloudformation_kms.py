@@ -1,4 +1,4 @@
-"""Test methods of fluidasserts.cloud.cloudformation.rds module."""
+"""Test methods of fluidasserts.cloud.cloudformation.kms module."""
 
 # local imports
 from fluidasserts.cloud.aws.cloudformation import kms

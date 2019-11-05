@@ -135,5 +135,5 @@ def insecure_generate_secret_string(path: str,
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
-        msg_open='GenerateSecretString is properly configured',
-        msg_closed='GenerateSecretString is miss-configured')
+        msg_open='GenerateSecretString is miss-configured',
+        msg_closed='GenerateSecretString is properly configured')

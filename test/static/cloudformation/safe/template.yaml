@@ -79,6 +79,16 @@ Resources:
         PasswordLength: 32
         RequireEachIncludedType: 'true'
     Type: AWS::SecretsManager::Secret
+  securityGroup1:
+    Properties:
+      GroupDescription: groupDescription1
+      SecurityGroupEgress:
+        - Properties:
+            CidrIp: 127.0.0.1/32
+            GroupId: securityGroup1Id
+            IpProtocol: '-1'
+          Type: AWS::EC2::SecurityGroupEgress
+    Type: AWS::EC2::SecurityGroup
   user1:
     Properties:
       Groups:

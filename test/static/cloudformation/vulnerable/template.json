@@ -175,6 +175,12 @@
       },
       "Type": "AWS::SecretsManager::Secret"
     },
+    "securityGroup1": {
+      "Properties": {
+        "GroupDescription": "groupDescription1"
+      },
+      "Type": "AWS::EC2::SecurityGroup"
+    },
     "user1": {
       "Properties": {
         "Policies": [
