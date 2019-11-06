@@ -437,7 +437,7 @@ const enTranslations: dict = {
       ssh: "SSH",
       success: "Item added successfully.",
       success_remove: "Item removed successfully.",
-      tags_title: "Tags",
+      tags_title: "Portfolio",
       total_envs: "Total environments: ",
       total_files: "Total files: ",
       total_repos: "Total repositories: ",

@@ -870,21 +870,17 @@ const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
 };
 
 const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
-  (props: IResourcesViewProps): JSX.Element => {
-    const userEmail: string = (window as Window & { userEmail: string }).userEmail;
-    const shouldDisplayTagsView: boolean =
-      (_.endsWith(userEmail, "@fluidattacks.com") || _.endsWith(userEmail, "@bancolombia.com.co"));
-
-    return (
+  (props: IResourcesViewProps): JSX.Element =>
+  (
   <React.StrictMode>
     <div id="resources" className="tab-pane cont active">
       {renderRespositories(props)}
       {renderEnvironments(props)}
       {renderFiles(props)}
-      {shouldDisplayTagsView ? renderTagsView(props) : undefined}
+      {renderTagsView(props)}
     </div>
   </React.StrictMode>
-); };
+  );
 
 interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IResourcesViewStateProps, IResourcesViewBaseProps, IState> =
