@@ -134,9 +134,9 @@ class CreatorPDF():
             'fin_status_closed': 'Closed'
         }
 
-    def tech(self, data, project, client_project):
+    def tech(self, data, project, description):
         """ Create the template to render and apply the context. """
-        self.fill_project(data, project, client_project)
+        self.fill_project(data, project, description)
         self.out_name = project + '_IT.pdf'
         searchpath = self.path
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
@@ -245,10 +245,10 @@ class CreatorPDF():
         close('all')
         return pie_filename
 
-    def fill_project(self, findings, project, client_project):  # noqa pylint: disable=too-many-locals
+    def fill_project(self, findings, project, description):  # noqa pylint: disable=too-many-locals
         """ Add project information. """
         words = self.wordlist[self.lang]
-        full_project = client_project
+        full_project = description
         doctype = words[self.doctype]
         full_project += ' [' + project + ']'
         team = 'Engineering Team'
@@ -281,7 +281,7 @@ class CreatorPDF():
             'team': team,
             'team_mail': team_mail,
             'customer': '',
-            'toe': client_project,
+            'toe': description,
             'version': version,
             'revdate': doctype + ' ' + time.strftime('%d/%m/%Y'),
             'simpledate': time.strftime('%Y.%m.%d'),

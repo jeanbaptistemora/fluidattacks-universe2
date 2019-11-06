@@ -222,8 +222,7 @@ def project_to_pdf(request, lang, project, doctype):
         findings = [cast_new_vulnerabilities(
             get_open_vuln_by_type(finding['findingId'], request), finding)
             for finding in findings]
-        client_project = project_domain.get_project_info(
-            project.lower())[0].get('client_project', '')
+        description = project_domain.get_description(project.lower())
 
         pdf_maker = CreatorPDF(lang, doctype)
         secure_pdf = SecurePDF()
@@ -231,7 +230,7 @@ def project_to_pdf(request, lang, project, doctype):
         findings = pdf_evidences(findings_ord)
         report_filename = ''
         if doctype == 'tech':
-            pdf_maker.tech(findings, project, client_project)
+            pdf_maker.tech(findings, project, description)
             report_filename = secure_pdf.create_full(user,
                                                      pdf_maker.out_name,
                                                      project)
