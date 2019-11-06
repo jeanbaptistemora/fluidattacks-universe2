@@ -25,6 +25,105 @@
               "S": "fluid"
             },
             "last_name": {
+              "S": "Manager"
+            },
+            "role": {
+              "S": "admin"
+            },
+            "first_name": {
+              "S": "Integrates"
+            },
+            "date_joined": {
+              "S": "2018-02-28 11:54:12"
+            },
+            "legal_remember": {
+              "BOOL": true
+            },
+            "last_login": {
+              "S": "2019-10-29 13:40:37"
+            },
+            "email": {
+              "S": "integratesmanager@gmail.com"
+            },
+            "registered": {
+              "BOOL": true
+            }
+          }
+        }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "company": {
+              "S": "fluid"
+            },
+            "last_name": {
+              "S": "User"
+            },
+            "role": {
+              "S": "customeradmin"
+            },
+            "first_name": {
+              "S": "Integrates"
+            },
+            "date_joined": {
+              "S": "2018-02-28 11:54:12"
+            },
+            "legal_remember": {
+              "BOOL": true
+            },
+            "last_login": {
+              "S": "2019-10-29 13:40:37"
+            },
+            "email": {
+              "S": "integratesuser@gmail.com"
+            },
+            "registered": {
+              "BOOL": true
+            }
+          }
+        }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "company": {
+              "S": "fluid"
+            },
+            "last_name": {
+              "S": "Analyst"
+            },
+            "role": {
+              "S": "analyst"
+            },
+            "first_name": {
+              "S": "Integrates"
+            },
+            "date_joined": {
+              "S": "2018-02-28 11:54:12"
+            },
+            "legal_remember": {
+              "BOOL": true
+            },
+            "last_login": {
+              "S": "2019-10-29 13:40:37"
+            },
+            "email": {
+              "S": "integratesanalyst@gmail.com"
+            },
+            "registered": {
+              "BOOL": true
+            }
+          }
+        }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "company": {
+              "S": "fluid"
+            },
+            "last_name": {
               "S": "Hacking"
             },
             "role": {

@@ -55,16 +55,52 @@
         "PutRequest": {
           "Item": {
             "responsibility": {
-              "S": "-"
+              "S": "Test"
             },
             "project_name": {
-              "S": "bwapp"
+              "S": "unittesting"
             },
             "has_access": {
               "BOOL": true
             },
             "user_email": {
-              "S": "continuoushacking@gmail.com"
+              "S": "integratesuser@gmail.com"
+            }
+          }
+        }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "responsibility": {
+              "S": "Test"
+            },
+            "project_name": {
+              "S": "unittesting"
+            },
+            "has_access": {
+              "BOOL": true
+            },
+            "user_email": {
+              "S": "integratesmanager@gmail.com"
+            }
+          }
+        }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "responsibility": {
+              "S": "Test"
+            },
+            "project_name": {
+              "S": "unittesting"
+            },
+            "has_access": {
+              "BOOL": true
+            },
+            "user_email": {
+              "S": "integratesanalyst@gmail.com"
             }
           }
         }
