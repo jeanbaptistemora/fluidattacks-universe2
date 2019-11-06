@@ -743,7 +743,6 @@ def create_draft(analyst_email, project_name, title, **kwargs):
     submission_history = {'analyst': analyst_email,
                           'creation_date': creation_date,
                           'status': 'CREATED'}
-    report_date = creation_date
 
     if 'description' in kwargs:
         kwargs['vulnerability'] = kwargs['description']
@@ -762,7 +761,7 @@ def create_draft(analyst_email, project_name, title, **kwargs):
         'exploitability': 0,
         'files': [],
         'finding': title,
-        'report_date': report_date,
+        'report_date': creation_date,
         'submission_history': [submission_history]
     })
 
@@ -808,7 +807,7 @@ def submit_draft(finding_id, analyst_email):
             has_vulns = vuln_domain.list_vulnerabilities([finding_id])
 
             if all([has_evidence, has_severity, has_vulns]):
-                report_date = finding.get('report_date')
+                report_date = submission_history[0].get('creation_date')
                 history = finding.get('submissionHistory', [])
                 history.append({
                     'analyst': analyst_email,
