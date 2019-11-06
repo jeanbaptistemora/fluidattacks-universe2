@@ -6,6 +6,12 @@ dbRegion   = "us-east-1"
 #EC2 Vars
 clusterInstanceType = "m5.xlarge"
 
+# S3 vars
+fsBucket    = "servestf"
+fwBucket    = "web.fluidattacks.com"
+fiBucket    = "fluidintegrates.fluidattacks.com"
+vaultBucket = "vault.fluidattacks"
+
 # Network vars
 cidr             = "192.168.100.0/24"
 vpcSecondaryCidr = "192.168.104.0/21"

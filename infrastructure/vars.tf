@@ -11,9 +11,6 @@ variable "fwBucket" {}
 variable "fiBucket" {}
 variable "vaultBucket" {}
 
-# gitlabCI
-variable "runnerIp" {}
-
 #EC2 vars
 variable "clusterInstanceType" {}
 

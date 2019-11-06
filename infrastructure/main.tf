@@ -29,14 +29,6 @@ module "iam" {
   region               = var.region
 }
 
-# #Create from scratch
-# module "createNetwork" {
-#   source     = "./network"
-#   sNetRegion = var.sNetRegion
-#   cidr       = var.cidr
-#   runnerIp   = var.runnerIp
-# }
-
 # Create Kubernetes cluster in existing VPC
 module "eks" {
   source              = "./eks"

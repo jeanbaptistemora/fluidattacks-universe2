@@ -123,12 +123,11 @@ test_terraform:
   stage: tests
   <<: *vault_login
   script:
-    - vaultenv infrastructure/terraform.sh
+    - ./infrastructure/terraform.sh
   after_script:
     - rm infrastructure/*.xml
   except:
-    refs:
-      - master
+    - master
 
 build_exams:
   stage: build

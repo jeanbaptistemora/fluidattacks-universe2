@@ -46,15 +46,41 @@ get_nginx_elb() {
 
 set -e
 
+# Import functions
+. <(curl -s https://gitlab.com/fluidattacks/default/raw/master/sops-source/sops.sh)
+. toolbox/others.sh
+
 stage="${1:-test}"
+
+# Set envars
+
+aws_login
+
+sops_env secrets-production.yaml default \
+  ONELOGIN_SSO \
+  ONELOGIN_FINANCE_SSO \
+  HELM_KEY \
+  HELM_CERT \
+  HELM_CA \
+  TF_VAR_dbName \
+  TF_VAR_dbPass \
+  TF_VAR_dbSnapId \
+  TF_VAR_dbUser \
+  FLUIDATTACKS_TLS_CERT \
+  FLUID_TLS_KEY \
+  FA_RUNNER_TOKEN \
+  FS_RUNNER_TOKEN \
+  AUTONOMIC_TLS_CERT \
+  AUTONOMIC_TLS_KEY \
+  NRIA_LICENSE_KEY \
+  TILLER_CERT \
+  TILLER_KEY
 
 # Run Terraform Plan for IAM, AWS EKS, RDS and VPC infrastructure
 cd infrastructure/
-export TF_VAR_aws_access_key="$AWS_ACCESS_KEY_ID"
-export TF_VAR_aws_secret_key="$AWS_SECRET_ACCESS_KEY"
 echo "$ONELOGIN_SSO" | base64 -d > SSO.xml
 echo "$ONELOGIN_FINANCE_SSO" | base64 -d > SSOFinance.xml
-terraform init --backend-config="bucket=${FS_S3_BUCKET_NAME}"
+terraform init --backend-config="bucket=servestf"
 tflint
 terraform plan -refresh=true
 
@@ -66,13 +92,6 @@ if [ "$stage" == "deployment" ]; then
   VAULT_KMS_KEY=$(terraform output vaultKmsKey)
   export VAULT_KMS_KEY
   eks/manifests/deploy.sh
-  if [ -n "${NEW_DEPLOY}" ]; then
-    git clone https://github.com/checkr/s3-sync.git;
-  fi
-  if [ -n "${NEW_DEPLOY}" ]; then
-    create-config.sh && cd s3-sync
-    go run main.go sync --config ./config-prod.yaml;
-  fi
 fi
 
 # Run Terraform Plan for AWS DNS infrastructure
@@ -84,7 +103,7 @@ terraform output fiBucket >> dns/terraform.tfvars
 
 cd dns/
 get_nginx_elb
-terraform init --backend-config="bucket=${FS_S3_BUCKET_NAME}"
+terraform init --backend-config="bucket=servestf"
 tflint
 terraform plan -refresh=true
 cd ../

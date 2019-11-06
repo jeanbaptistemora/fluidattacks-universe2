@@ -25,6 +25,9 @@ aws_login() {
   export TF_VAR_aws_access_key
   export TF_VAR_aws_secret_key
 
+  aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
+  aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
+
   TF_VAR_aws_access_key="$AWS_ACCESS_KEY_ID"
   TF_VAR_aws_secret_key="$AWS_SECRET_ACCESS_KEY"
 }
