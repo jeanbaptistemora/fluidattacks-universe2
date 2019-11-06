@@ -5,7 +5,6 @@ import threading
 import re
 from datetime import datetime
 from decimal import Decimal
-import hashlib
 import pytz
 
 from django.conf import settings
@@ -13,11 +12,10 @@ from django.conf import settings
 from __init__ import FI_MAIL_REPLYERS
 from app.dal import integrates_dal, project as project_dal
 from app.dal.helpers.formstack import FormstackAPI
-from app.domain import user as user_domain
+from app.domain import comment as comment_domain
 from app.domain import vulnerability as vuln_domain
 from app.exceptions import InvalidParameter
 from app.mailer import send_mail_comment
-from app.util import format_comment_date
 
 
 def get_email_recipients(project_name):
@@ -311,20 +309,8 @@ def list_drafts(project_name):
 
 
 def list_comments(user_email, project_name, user_role):
-    comments = [{
-        'content': comment['content'],
-        'created': format_comment_date(comment['created']),
-        'created_by_current_user': comment['email'] == user_email,
-        'email': comment['email'],
-        'fullname': comment['fullname']
-        if user_role in ['admin', 'analyst']
-        or user_domain.get_data(comment['email'], 'role') == 'customer'
-        else "Hacker " + hashlib.sha256(comment['fullname'].encode()).hexdigest()[-4:].upper(),
-        'id': int(comment['user_id']),
-        'modified': format_comment_date(comment['modified']),
-        'parent': int(comment['parent'])
-    } for comment in integrates_dal.get_project_comments_dynamo(project_name)]
-
+    comments = [comment_domain.fill_comment_data(user_email, user_role, comment)
+                for comment in integrates_dal.get_project_comments_dynamo(project_name)]
     return comments
 
 
