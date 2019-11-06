@@ -1,5 +1,5 @@
 export interface IUserDataAttr {
-  userData: {
+  user: {
     organization: string;
     phoneNumber: string;
     responsibility: string;

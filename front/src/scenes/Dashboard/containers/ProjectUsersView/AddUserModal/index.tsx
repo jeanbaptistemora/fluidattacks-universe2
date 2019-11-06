@@ -64,9 +64,9 @@ const loadAutofillData: (
         }
         if (!_.isUndefined(data)) {
           hidePreloader();
-          change("organization", data.userData.organization);
-          change("phoneNumber", data.userData.phoneNumber);
-          change("responsibility", data.userData.responsibility);
+          change("organization", data.user.organization);
+          change("phoneNumber", data.user.phoneNumber);
+          change("responsibility", data.user.responsibility);
         }
       })
       .catch();
