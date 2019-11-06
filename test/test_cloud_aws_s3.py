@@ -66,6 +66,12 @@ def test_buckets_allow_unauthorized_public_access_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_has_insecure_transport_open():
+    """Search S3 cubes that use unsafe transport."""
+    assert s3.has_insecure_transport(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #

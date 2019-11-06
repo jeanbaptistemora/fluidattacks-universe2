@@ -215,3 +215,71 @@ def buckets_allow_unauthorized_public_access(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_insecure_transport(key_id: str, secret: str,
+                           retry: bool = True) -> tuple:
+    """
+    Check if S3 buckets are protecting data in transit using SSL.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+    :returns: - ``OPEN`` if there are S3 buckets that do not protect
+                data in transit.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'S3 buckets do not protect data in transit.'
+    msg_closed: str = 'S3 buckets protect data in transit using SSL.'
+    vulns, safes = [], []
+
+    buckets = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='s3',
+        func='list_buckets',
+        param='Buckets',
+        retry=retry)
+    for bucket_name in map(lambda x: x['Name'], buckets):
+        try:
+            bucket_policy_string = aws.run_boto3_func(
+                key_id=key_id,
+                secret=secret,
+                service='s3',
+                func='get_bucket_policy',
+                param='Policy',
+                Bucket=bucket_name,
+                retry=retry)
+        except aws.ClientErr:
+            continue
+
+        bucket_statements = json.loads(bucket_policy_string)['Statement']
+        vulnerable = []
+        for stm in bucket_statements:
+            try:
+                if stm['Condition']['Bool']['aws:SecureTransport']:
+                    # stm['Effect'] only takes 'Deny'|'Allow'
+                    if stm['Effect'] == 'Deny':
+                        vulnerable.append(stm['Condition']['Bool']
+                                          ['aws:SecureTransport'] != 'false')
+                    else:
+                        vulnerable.append(stm['Condition']['Bool']
+                                          ['aws:SecureTransport'] != 'true')
+
+            except KeyError:
+                vulnerable.append(True)
+        (vulns if all(vulnerable) else safes).append(
+            (bucket_name,
+             'S3 buckets must protect the data in transit using SSL.'))
+
+    return _get_result_as_tuple(
+        service='KMS',
+        objects='Keys',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
