@@ -166,3 +166,17 @@ def test_tlsv13_downgrade_unknown(get_mock_ip):
     assert not ssl.has_tls13_downgrade_vuln(get_mock_ip, SSL_PORT)
     assert not ssl.has_tls13_downgrade_vuln(get_mock_ip, 80)
     assert not ssl.has_tls13_downgrade_vuln(NON_EXISTANT, 80)
+
+
+@pytest.mark.parametrize('get_mock_ip', ['ssl_hard'], indirect=True)
+def test_freak_close(get_mock_ip):
+    """Check FREAK attack close."""
+    assert not ssl.has_freak(get_mock_ip, SSL_PORT)
+
+
+@pytest.mark.parametrize('get_mock_ip', ['ssl_hard'], indirect=True)
+def test_freak_unknown(get_mock_ip):
+    """Check FREAK attack unknown."""
+    assert not ssl.has_freak(get_mock_ip, SSL_PORT)
+    assert not ssl.has_freak(get_mock_ip, 80)
+    assert not ssl.has_freak(NON_EXISTANT, 80)
