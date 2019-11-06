@@ -61,6 +61,7 @@ def add_comment(project_name, email, comment_data):
 
 
 def create_project(**kwargs):
+    client_project = kwargs.get('client_project')
     companies = [company.lower() for company in kwargs.get('companies')]
     description = kwargs.get('description')
     project_name = kwargs.get('project_name').lower()
@@ -68,14 +69,17 @@ def create_project(**kwargs):
     resp = False
     if not (not description.strip() or not project_name.strip() or
        not all([company.strip() for company in companies]) or
-       not companies):
+       not companies or not client_project.strip()):
         if not project_dal.exists(project_name):
-            resp = integrates_dal.add_project_dynamo(
-                project_name,
-                description,
-                companies,
-                subscription,
-                status='ACTIVE')
+            project = {
+                'project_name': project_name,
+                'description': description,
+                'client_project': client_project,
+                'companies': companies,
+                'type': subscription,
+                'project_status': 'ACTIVE'
+            }
+            resp = integrates_dal.add_project_dynamo(project)
     else:
         raise InvalidParameter()
     return resp

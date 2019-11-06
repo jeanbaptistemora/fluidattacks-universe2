@@ -269,19 +269,11 @@ def get_project_dynamo(project):
     return items
 
 
-def add_project_dynamo(project, description, companies, project_type, status):
+def add_project_dynamo(project):
     """Add project to dynamo."""
     table = DYNAMODB_RESOURCE.Table('FI_projects')
     try:
-        response = table.put_item(
-            Item={
-                'project_name': project.lower(),
-                'description': description,
-                'companies': companies,
-                'type': project_type,
-                'project_status': status
-            }
-        )
+        response = table.put_item(Item=project)
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
         return resp
     except ClientError:

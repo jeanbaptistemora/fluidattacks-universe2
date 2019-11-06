@@ -312,6 +312,7 @@ class CreateProject(Mutation):
     """ Create project """
 
     class Arguments():
+        client_project = String(required=True)
         companies = List(String, required=True)
         description = String(required=True)
         project_name = String(required=True)
