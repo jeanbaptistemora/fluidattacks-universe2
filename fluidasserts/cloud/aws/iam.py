@@ -766,3 +766,53 @@ def users_with_password_and_access_keys(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def group_with_inline_policies(key_id: str, secret: str,
+                               retry: bool = True) -> tuple:
+    """
+    Check if IAM groups have any inline policies attached.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+    :returns: - ``OPEN`` if there are groups with inline policies attached.
+                Encryption enabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'IAM groups with inline policies attached.'
+    msg_closed: str = ' IAM groups are using managed policies.'
+    vulns, safes = [], []
+
+    groups = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='iam',
+        func='list_groups',
+        param='Groups',
+        retry=retry)
+
+    for group in groups:
+        group_policies = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='iam',
+            func='list_group_policies',
+            GroupName=group['GroupName'],
+            param='PolicyNames',
+            retry=retry)
+        (vulns if group_policies else safes).append(
+            (group['Arn'],
+             'Replace any inline policies with managed policies.'))
+
+        return _get_result_as_tuple(
+            service='IAM',
+            objects='Groups',
+            msg_open=msg_open,
+            msg_closed=msg_closed,
+            vulns=vulns,
+            safes=safes)
