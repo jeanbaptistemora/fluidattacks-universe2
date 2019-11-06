@@ -72,6 +72,12 @@ def test_has_insecure_transport_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_has_disabled_server_side_encryption_open():
+    """Search S3 buckets with server side encryption disabled."""
+    assert s3.has_disabled_server_side_encryption(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #
