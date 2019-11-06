@@ -645,7 +645,7 @@ sync_zoho:
     variables:
       - $FLAG_SYNC_ZOHO
 
-eks-initial-setup:
+.eks-initial-setup:
   stage: eks-initial-setup
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -656,7 +656,7 @@ eks-initial-setup:
   except:
     - schedules
 
-eks-terraform-apply:
+.eks-terraform-apply:
   stage: deploy
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
