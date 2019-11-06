@@ -60,6 +60,7 @@ RUN apt-get update \
         requests==2.20.1 \
         selenium==3.141.0 \
         urllib3==1.25.3 \
+        yq==2.9.2 \
     && pip install \
         awscli==1.16.55 \
         requests==2.20.1 \
