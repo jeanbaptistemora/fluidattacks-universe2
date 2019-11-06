@@ -5,7 +5,7 @@
 :tags: security, android, application, pentesting
 :image: cover.png
 :alt: Turned on Android smartphone. Photo by Pathum Danthanarayana on Unsplash: https://unsplash.com/photos/t8TOMKe6xZU
-:description: In terms of market share, Android is the king of kings, having more than 80% of the total smartphone owner share. Hence, it is also the most suitable target for hackers. Here we are going to show how to intercept Android applications web traffic by installing a self signed certificate.
+:description: In terms of market share, Android is the king of kings, having more than 80% of the total smartphone owner share. Hence, it is also the most suitable target for hackers. Here we are going to show how to intercept Android applications' web traffic by installing a self-signed certificate.
 :keywords: Android, Security, Intercept, Hacking, Proxy, Application.
 :author: Jonathan Armas
 :writer: johna
@@ -19,9 +19,9 @@
 based on the +Linux+ kernel and used by mobile devices
 such as smartphones and tablets.
 Due to its popularity, it is the major target for hackers.
-One of their common techniques is intercepting the traffic of apps
-and trying to break them
-using attack methods like fuzzing and bruteforce.
+One of their common techniques is to intercept
+and try to break an app's web traffic
+using attack methods like fuzzing and brute force.
 
 Mobile applications usually share
 the same communication structure as web applications,
@@ -31,22 +31,22 @@ we are going to have to install a digital certificate
 into the phone in order to make it
 accept our proxied requests.
 
-Since +Android 7 Nougat+ (link:https://android-developers.googleblog.com/2016/07/changes-to-trusted-certificate.html[API >= 24])
+Since Android 7 Nougat (link:https://android-developers.googleblog.com/2016/07/changes-to-trusted-certificate.html[API >= 24])
 we can no longer use the simple method of setting our proxy
 and the certificate to capture +HTTPS+ traffic
-like the +Burpsuite+ page explains link:https://support.portswigger.net/customer/portal/articles/1841102-installing-burp-s-ca-certificate-in-an-android-device[here].
+as the +Burpsuite+ page explains link:https://support.portswigger.net/customer/portal/articles/1841102-installing-burp-s-ca-certificate-in-an-android-device[here].
 If we try this method,
 we will receive thousands of certificate failures from our proxy.
-This is because the +Android+ operating system
+This is because the Android operating system
 no longer trusts certificates installed by the user.
 
-To solve this, we need to have a rooted +Android+ smartphone,
+To solve this we need to have a rooted +Android+ smartphone,
 then create and sign a digital certificate,
-and finally put it on the System's certificate folder in our phone.
+and finally put it in the system's certificate folder in our phone.
 
-In order to intercept the application's traffic
-we are going to need some tools,
-the tools that we are going to use are:
+In order to intercept the application’s traffic
+we are going to need some tools.
+The tools that we are going to use are:
 
 * link:https://portswigger.net/burp[Burpsuite]
 * link:https://www.openssl.org/source/[OpenSSL]
@@ -60,41 +60,42 @@ When you communicate with a third party
 using a secure channel like +HTTPS+,
 the +SSL+ (Secure Socket Layer) protocol
 and the +TLS+ (Transport Layer Security) protocol
-include a security measure called digital certificates,
-such measure implements asymmetric encryption
+include a security measure called digital certificates
+that implements asymmetric encryption
 by using a private and public key.
 
-In this protocol, a public key is signed by
-the +CA+ (Certificate Authority) using their private key.
+In this protocol, a public key is signed
+by the +CA+ (Certificate Authority) using their private key.
 This way a certificate provides a link
 between the public key and the +CA+ that signed that key.
-The process of how a connection works is the following:
+The following process is how a connection works:
 
-. The browser connects to the server using a secure protocol
-. The server responds with the +digital certificate+
-containing the public key of the server.
-. The browser verifies if the +CA+ from the certificate
-is included in its trusted list of +CA's+
-(Here is where we will work).
+. The browser connects to the server using a secure protocol.
+. The server responds with the digital certificate
+containing the server's public key.
+. The browser looks to see if the +CA+ from the certificate is included
+on its trusted list of +CA's+.
+This is where we will work.
 . Once the browser verifies that the +CA+ from the certificate
 is in its trusted list of +CA's+,
 it uses the public key provided in +(2)+
 to create a session key.
-. Finally the browser and the server encrypt data
+. Finally, the browser and the server encrypt data
 over the connection using the session key.
 
-Having our certificate into the trusted store
-is a way to make our phone
-to trust in our proxy +HTTPS+ responses,
-without this we cannot intercept secure channel traffic.
-As we don't have a +CA+
+Having a +CA-issued+ digital certificate
+with its public keys stored on the trusted list
+indicates to a cellphone
+that it can _"trust"_ the proxy +HTTPS+ responses.
+Without this, we cannot intercept secure channel traffic.
+As we don’t have a +CA+
 we are going to create a self-signed one.
 
 First, we generate the certificate
 with 3650 days of validity
 and using a +SHA256+ hash.
-It also will request for some information.
-We can put here our personal/company information
+It will also request some information.
+We can put our personal/company information here
 or leave it blank:
 
 .Generating the certificate
@@ -122,9 +123,9 @@ Email Address []:continuous@fluidattacks.com
 ----
 
 After generating the certificate,
-we have convert it to +PEM+
-for importing it to the phone
-and +DER+ for importing it to +burp+:
+we have to convert it to +PEM+
+in order to import it into the phone,
+and +DER+ to import it into +burp+:
 
 .Converting the cert
 [source, bash]
@@ -142,13 +143,13 @@ in order to import it to +burp+:
 $ openssl pkcs8 -topk8 -in fluidattacks.key.der -inform der -out fluidattacks.key.pkcs8.der -outform der -nocrypt
 ----
 
-Now that we have all the files,
+Once we have all the files,
 we need to start configuring our phones.
 
 == Configuring Android
 
 The certificates installed on the phone
-follow the naming +HASH.0+,
+follow the name +HASH.0+;
 so we need the hash of the certificate:
 
 .Getting the hash
@@ -158,9 +159,9 @@ $ openssl x509 -inform PEM -subject_hash -in fluidattacks.pem | head -1
 ----
 
 After getting the hash,
-create a copy of the certificate
-with that hash on the name
-(Something like +49ef1764.0+):
+we create a copy of the certificate
+with that hash in the name.
+For example, something like +49ef1764.0+:
 
 .Renaming for Android
 [source, bash]
@@ -168,9 +169,9 @@ with that hash on the name
 $ cp fluidattacks.pem <HASH>.0
 ----
 
-Then we need to upload our certificate to the phone.
+Then, we need to upload our certificate to the phone.
 We can do it manually by connecting the phone
-and moving the file into some folder
+and moving the file into a folder
 or with the following command using +adb+:
 
 .Uploading the cert
@@ -180,11 +181,11 @@ $ adb push <HASH>.0 /data/local/tmp
 ----
 
 Once the file is in the phone,
-log in as root,
+log in as +root+,
 remount the folder +/system+ with read and write permissions
 (it is not mounted with those permissions by default),
 copy our certificate to the +/system/etc/security/cacerts/+ folder
-and change it's permissions and ownership to +644+ and +root:root+:
+and change its permissions and ownership to +644+ and +root:root:+
 
 .Setting the cert
 [source, bash, linenums]
@@ -198,7 +199,7 @@ phone# chown root:root /system/etc/security/cacerts/<HASH>.0
 ----
 
 The last thing left to do
-is restarting our phone to load our changes:
+is to restart our phone to load our changes:
 
 .Restarting
 [source, bash]
@@ -208,28 +209,28 @@ phone# reboot
 
 Once we turn the phone back on,
 our certificate will be installed
-on the +system's+ trusted credentials tab
-the phone will accept the responses of our proxy.
+on the system’s trusted credentials tab
+and the phone will accept the responses of our proxy.
 
 .Android certificate
 image::android-cert.png[Android certificate]
 
 == Configuring the Proxy
 
-Now we only need to set our proxy to use our certificate.
+Now we need to set our proxy in order to use our certificate.
 Open +Burpsuite+ and create a new project.
 Then move to the +Proxy+ tab
-and once there to the +Options+ tab.
+and open the +Options+ tab.
 
 .Burp options
 image::burp-options.png[Burp Options]
 
-Once there we are going to import our certificate
+The next step is to import our certificate
 by clicking on +Import / export CA certificate+,
-then select +Certificate and private key in DER format+,
-and finally choose our +fluidattacks.der+
+then selecting +Certificate+ and private key in +DER+ format,
+and choosing our +fluidattacks.der+
 and +fluidattacks.key.pkcs8.der+ files
-that we created previously.
+that we previously created.
 
 .Import DER
 image::import-der.png[Import DER]
@@ -237,32 +238,31 @@ image::import-der.png[Import DER]
 .Choose file
 image::cert-file.png[Choose file]
 
-The last thing that we need to do
-is set our proxy in our phones.
-First, we go to the +WiFi+ settings,
-then select a shared connection
-between the phone and the computer.
-Here we can use the same network
+Now, we need to set our proxy in our phones.
+Go to +WiFi+ settings,
+select a shared connection
+between the phone and the computer;
+we can use the same network
 that our computer is connected to
 or use our computer as a mobile hotspot
-to share it to our phone,
-then expand the +Advanced options+,
+to share it with our phone.
+Then, expand the +Advanced options+,
 set the +Proxy+ to +Manual+
-and put the +IP+ address and +port+ of the proxy.
+and input the +IP+ address and proxy's port.
 
 .Android Proxy
 image::android-proxy.png[Android Proxy]
 
-Now we are capturing secure channel requests
+We are now capturing secure channel requests
 made from our phone applications and browsers
-without the trouble of having certificate failures.
+without having problems with certificate failures.
 
 .Capture
 image::capture.png[Capture]
 
-If we want to have less default traffic on our proxy
-we can modify again the +WiFi+ settings of our phones
-and fill in the +Bypass proxy+ input
+If we want to have less default traffic on our proxy,
+we can again modify the +WiFi+ settings of our phones
+and fill-in the +Bypass proxy+ input
 with the following domains:
 
 .Default traffic sites
