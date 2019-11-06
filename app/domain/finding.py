@@ -632,7 +632,7 @@ def approve_draft(draft_id, reviewer_email):
     if 'releaseDate' not in draft_data:
         has_vulns = vuln_domain.list_vulnerabilities([draft_id])
         if has_vulns:
-            if 'report_date' in draft_data:
+            if 'reportDate' in draft_data:
                 tzn = pytz.timezone(settings.TIME_ZONE)
                 release_date = datetime.now(tz=tzn).today()
                 release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
