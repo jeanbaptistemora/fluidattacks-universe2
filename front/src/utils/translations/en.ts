@@ -655,6 +655,7 @@ const enTranslations: dict = {
     close: "Close",
     copy: {
       copy: "Copy",
+      failed: "It cannot be copied",
       success: "Token copied",
       successfully: "Token copied successfully",
     },
@@ -663,9 +664,11 @@ const enTranslations: dict = {
     invalid_exp_time: "Expiration time must be minor than six month and greater than current date",
     invalidate: "Cancel Current Token",
     invalidated: "Invalidated Token",
+    message: "Please copy this access token to a save place. You can not view it again after closing this dialog.",
     success: "Updated Access Token",
     successfully: "Token updated successfully",
     title: "Update Access Token",
+    token_created: "Token created at: ",
   },
   validations: {
     alphanumeric: "Only alphanumeric characters",

@@ -1,6 +1,7 @@
 
 from datetime import datetime, timedelta
 
+import json
 from django.conf import settings
 from google.auth.transport import requests
 from google.oauth2 import id_token
@@ -21,7 +22,7 @@ from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 
 
 class Me(ObjectType):
-    access_token = Boolean()
+    access_token = String()
     role = String(project_name=String(required=False))
     projects = List(Project)
 
@@ -56,7 +57,12 @@ class Me(ObjectType):
         jwt_content = util.get_jwt_content(info.context)
         user_email = jwt_content.get('user_email')
         access_token = user_domain.get_data(user_email, 'access_token')
-        self.access_token = bool(access_token)
+        access_token_dict = {
+            'hasAccessToken': bool(access_token),
+            'issuedAt': str(access_token.get('iat', '')) if bool(access_token) else ''
+        }
+
+        self.access_token = json.dumps(access_token_dict)
 
         return self.access_token
 

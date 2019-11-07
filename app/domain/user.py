@@ -110,6 +110,7 @@ def update_legal_remember(email, remember):
 def update_access_token(email, token_data):
     """ Update access token """
     access_token = {
+        'iat': int(datetime.utcnow().timestamp()),
         'jti': token_data['jti_hashed'],
         'salt': token_data['salt']
     }

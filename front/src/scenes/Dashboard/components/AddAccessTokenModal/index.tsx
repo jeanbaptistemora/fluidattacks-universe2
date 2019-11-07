@@ -16,13 +16,14 @@ import globalStyle from "../../../../styles/global.css";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { dateField, textAreaField } from "../../../../utils/forms/fields";
-import { msgSuccess } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { isLowerDate, isValidDateAccessToken, required } from "../../../../utils/validations";
 import { EditableField } from "../EditableField";
 import { GenericForm } from "../GenericForm/index";
 import { GET_ACCESS_TOKEN, INVALIDATE_ACCESS_TOKEN_MUTATION, UPDATE_ACCESS_TOKEN_MUTATION } from "./queries";
-import { IAccessTokenAttr, IGetAccessTokenAttr, IInvalidateAccessTokenAttr, IUpdateAccessTokenAttr } from "./types";
+import { IAccessTokenAttr, IGetAccessTokenAttr, IGetAccessTokenDictAttr, IInvalidateAccessTokenAttr,
+  IUpdateAccessTokenAttr } from "./types";
 
 export interface IAddAccessTokenModalProps {
   expirationTime?: string;
@@ -85,21 +86,37 @@ const renderFooter: ((props: IAddAccessTokenModalProps) => JSX.Element) =
                       invalidateAccessToken()
                         .catch();
                     };
+                  const accessToken: IGetAccessTokenDictAttr = JSON.parse(data.me.accessToken);
 
                   return (
-                  <React.Fragment>
+                    <React.Fragment>
+                    <Row>
+                      {accessToken.hasAccessToken ?
+                      <Col md={12}>
+                        {!_.isEmpty(accessToken.issuedAt) ?
+                          <ControlLabel>
+                            <b>{translate.t("update_access_token.token_created")}</b>
+                            &nbsp;{new Date(accessToken.issuedAt * 1000).toString()
+                                                                        .substring(0, 15)}
+                          </ControlLabel>
+                        : undefined }
+                     </Col>
+                      : undefined }
+                    </Row>
                     <ButtonToolbar className="pull-left">
-                      {data.me.accessToken ?
+                      <br />
+                      {accessToken.hasAccessToken ?
                       <Button bsStyle="default" onClick={handleInvalidateAccessToken}>
                         {translate.t("update_access_token.invalidate")}
                       </Button>
                       : undefined }
                     </ButtonToolbar>
                     <ButtonToolbar className="pull-right">
+                      <br />
                       <Button bsStyle="default" onClick={handleCloseModal}>
                         {translate.t("update_access_token.close")}
                       </Button>
-                      <Button bsStyle="primary" type="submit">
+                      <Button bsStyle="primary" type="submit" disabled={accessToken.hasAccessToken} >
                         {translate.t("confirmmodal.proceed")}
                       </Button>
                     </ButtonToolbar>
@@ -161,16 +178,22 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
               };
 
             const handleCopy: (() => void) = (): void => {
+              !_.isUndefined(navigator.clipboard) ?
               navigator.clipboard.writeText(!_.isUndefined(mutationRes.data) ?
               mutationRes.data.updateAccessToken.sessionJwt : "")
               .then(() => {
                 document.execCommand("copy");
+                msgSuccess(
+                  translate.t("update_access_token.copy.successfully"),
+                  translate.t("update_access_token.copy.success"),
+                );
               })
-              .catch();
-              msgSuccess(
-                translate.t("update_access_token.copy.successfully"),
-                translate.t("update_access_token.copy.success"),
-              );
+              /* tslint:disable-next-line: no-void-expression
+               * NO-VOID-EXPRESSION: Disabling this rule is necessary because msgError is void type
+               * and is necessary to show an error message when the browser has undefined or disable
+               * clipboard's events
+               */
+              .catch() : msgError(translate.t("update_access_token.copy.failed"));
             };
 
             return (
@@ -194,6 +217,10 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                     <Row>
                       <Col md={12}>
                         <ControlLabel>
+                          <b>{translate.t("update_access_token.message")}</b>
+                        </ControlLabel>
+                        <ControlLabel>
+                          <br />
                           <b>{translate.t("update_access_token.access_token")}</b>
                         </ControlLabel>
                         <Field

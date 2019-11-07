@@ -17,6 +17,11 @@ export interface IAccessTokenAttr {
 
 export interface IGetAccessTokenAttr {
   me: {
-    accessToken: boolean;
+    accessToken: string;
   };
+}
+
+export interface IGetAccessTokenDictAttr {
+  hasAccessToken: boolean;
+  issuedAt: number;
 }
