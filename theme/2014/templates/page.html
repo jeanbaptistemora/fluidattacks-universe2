@@ -75,13 +75,36 @@
             <span class="c-fluid-red v-mid b">&gt;</span>
           </li>
           {% endif %}
-          {% if "misc" not in page.category.name and not page.defends and not page.rules %}
+          {% if page.extended %}
             <li class="dib mt0" >
+              <a class="c-fluid-bk hv-fluid-dkred"
+                 href="{{ SITEURL }}/rules/out-of-scope/">
+                 &nbsp;<strong>Out of Scope</strong>&nbsp;
+              </a>
+              <span class="c-fluid-red v-mid b" >&gt;</span>
+            </li>
+          {% endif %}
+          {% if "misc" not in page.category.name and not page.defends %}
+            <li class="dib mt0" >
+              {% if page.rules %}
+                {% if page.extended %}
+                  <a class="c-fluid-bk hv-fluid-dkred"
+                     href="{{ SITEURL }}/rules/out-of-scope/#{{ page.category.name }}">
+                     &nbsp;<strong>{{ page.category|capitalize }}</strong>&nbsp;
+                {% else %}
+                  <a class="c-fluid-bk hv-fluid-dkred"
+                     href="{{ SITEURL }}/rules/#{{ page.category.name }}">
+                     &nbsp;<strong>{{ page.category|capitalize }}</strong>&nbsp;
+                {% endif %}
+              </a>
+              <span class="c-fluid-red v-mid b" >&gt;</span>
+              {% else %}
               <a class="c-fluid-bk hv-fluid-dkred"
                  href="{{ SITEURL }}/{{ page.category.name }}/">
                  &nbsp;<strong>{{ page.category|capitalize }}</strong>&nbsp;
               </a>
               <span class="c-fluid-red v-mid b" >&gt;</span>
+              {% endif %}
             </li>
             {% if page.category2 %}
               <li class="dib mt0" >
