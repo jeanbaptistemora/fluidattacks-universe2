@@ -1,0 +1,55 @@
+:slug: rules/025/
+:category: session
+:description: This documents contains the details of the security requirements related to web application session management and session variables. This requirement establishes the importance of informing and controlling concurrent sessions, in order to detect users impersonations and identity thefts.
+:keywords: Requirement, Security, Manage, Concurrent, Session, Configuration
+:rules: yes
+
+= REQ.025 Manage concurrent sessions
+
+== Requirement
+
+The concurrent sessions of a system
+must be informed or controlled.
+
+== Description
+
+A system that uses access sessions with authentication
+associated with unique users
+can provide simultaneous access to the services,
+using the same credentials.
+This may pose a risk for the service,
+the information and the system users,
+by allowing malicious users to interact
+simultaneously with the system using a valid user,
+leading to undetected identity thefts,
+unauthorized actions in name of the user (impersonation)
+and lack of tracking of the impersonated user <<r1, ^[1]^>> <<r2, ^[2]^>>.
+
+== Implementation
+
+. Restrict or remove concurrent sessions:
+Configure in the system the option to restrain
+the simultaneous connections using the same access credentials,
+either from an external authentication system
+or from the same system.
+
+== Attacks
+
+. An attacker logs in simultaneously
+using the account of a valid user.
+
+. An attacker performs unauthorized actions
+in the name of the valid user without tracking.
+
+== Attributes
+
+. Layer: Application Layer.
+. Asset: Session Management.
+. Scope: Integrity.
+. Phase: Operation.
+. Control Type: Procedure.
+
+== References
+
+. [[r1]] link:https://pcinetwork.org/forum/index.php?threads/pci-dss-3-0-6-5-10-broken-authentication-and-session-management.667/[[PCI DSS 3.0\] 6.5.10 Broken authentication and session management].
+. [[r2]] link:https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management[Top 10 2013-A2-Broken Authentication and Session Management].
