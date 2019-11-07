@@ -314,7 +314,6 @@ SESSION_COOKIE_AGE = 40 * 60
 CSRF_COOKIE_SECURE = True
 CLUSTER_SESSION = True
 
-
 if FI_ENVIRONMENT == 'development':
     CLUSTER_SESSION = False
 
@@ -336,6 +335,7 @@ GRAPHQL = {
     }
 }
 
+
 # Social
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
@@ -356,7 +356,6 @@ LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'registration'
 LOGIN_ERROR_URL = 'error401'
 
-
 SOCIAL_AUTH_SANITIZE_REDIRECTS = False
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
@@ -374,7 +373,6 @@ INTERCOM_INCLUDE_USERID = False
 INTERCOM_CUSTOM_DATA_CLASSES = [
     'app.pipeline.intercom_custom_data.IntercomCustomData',
 ]
-
 
 if DEBUG:
     SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/registration'
