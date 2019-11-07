@@ -304,7 +304,7 @@ class ViewTestCase(unittest.TestCase):
             selenium, self.delay).until(
                 expected.presence_of_element_located(
                     (By.XPATH,
-                     "//*[contains(text(), 'oldest')]")))
+                     "//*[contains(text(), 'Oldest')]")))
         time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '10-04-comments.png')
         assert 'oldest' in selenium.page_source
@@ -345,7 +345,7 @@ class ViewTestCase(unittest.TestCase):
             selenium, self.delay).until(
                 expected.presence_of_element_located(
                     (By.XPATH,
-                     "//*[contains(text(), 'Reflected Cross')]")))
+                     "//*[contains(text(), 'FIN.H.0037. Fuga de información')]")))
         selenium.save_screenshot(SCR_PATH + '11-04-techpdf.png')
         assert 'FIN.H.0037. Fuga de información técnica' in selenium.page_source
 
@@ -371,7 +371,7 @@ class ViewTestCase(unittest.TestCase):
             selenium, self.delay).until(
                 expected.presence_of_element_located(
                     (By.XPATH,
-                     "//*[contains(text(), 'Affected components')]")))
+                     "//*[contains(text(), 'This is an eventuality with evidence')]")))
 
         time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '13-03-events.png')
