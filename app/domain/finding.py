@@ -696,7 +696,7 @@ def append_records_to_file(records, new_file):
 def save_evidence(evidence_name, finding_id, project_name, uploaded_file):
     full_name = '{proj}/{fin}/{proj}-{fin}-{name}'.format(
         fin=finding_id,
-        name=uploaded_file.name.replace(' ', '-'),
+        name=uploaded_file.name.replace(' ', '_').replace('-', '_'),
         proj=project_name)
 
     if evidence_name == 'fileRecords':
