@@ -1,5 +1,5 @@
-import { gql } from "apollo-boost";
 import { DocumentNode } from "graphql";
+import gql from "graphql-tag";
 
 export const GET_VULNERABILITIES: DocumentNode = gql`
   query GetVulnerabilitiesQuery($identifier: String!, $analystField: Boolean!) {

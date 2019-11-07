@@ -1,5 +1,5 @@
-import { gql } from "apollo-boost";
 import { DocumentNode } from "graphql";
+import gql from "graphql-tag";
 
 export const REMOVE_TAG_MUTATION: DocumentNode = gql`
   mutation RemoveTagMutation($tagToRemove: String!, $projectName: String!) {

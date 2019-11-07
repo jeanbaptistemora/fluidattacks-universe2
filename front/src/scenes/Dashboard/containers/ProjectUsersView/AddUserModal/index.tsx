@@ -3,7 +3,7 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
-import { ApolloClient, ApolloQueryResult, NetworkStatus } from "apollo-boost";
+import { ApolloClient, ApolloQueryResult, NetworkStatus } from "apollo-client";
 import _ from "lodash";
 import React from "react";
 import { ApolloConsumer } from "react-apollo";

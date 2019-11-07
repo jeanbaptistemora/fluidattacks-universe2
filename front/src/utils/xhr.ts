@@ -1,6 +1,5 @@
 import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import _ from "lodash";
-import { getEnvironment, PRODUCTION_URL } from "./context";
 import { msgError } from "./notifications";
 import translate from "./translations/translate";
 
@@ -171,9 +170,7 @@ class Xhr {
     };
 
     const promise: Promise<any> = Axios.post(
-    getEnvironment() === "production"
-      ? `${PRODUCTION_URL}/integrates/api`
-      : "/integrates/api",
+    `${window.location.origin}/integrates/api`,
     payload,
     config,
     )
@@ -188,11 +185,7 @@ class Xhr {
          const { message } = errors[0];
 
          if (_.includes(["Login required", "Exception - Invalid Authorization"], message)) {
-            location.assign(
-             getEnvironment() === "production"
-             ? "/integrates/logout"
-             : "/integrates/logout",
-            );
+            location.assign("/integrates/logout");
           } else if (message === "Access denied") {
             msgError(translate.t("proj_alerts.access_denied"));
           } else {

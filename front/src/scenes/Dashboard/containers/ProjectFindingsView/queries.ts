@@ -1,5 +1,5 @@
-import { gql } from "apollo-boost";
 import { DocumentNode } from "graphql";
+import gql from "graphql-tag";
 
 export const GET_FINDINGS: DocumentNode = gql`
   query GetFindingsQuery($projectName: String!) {

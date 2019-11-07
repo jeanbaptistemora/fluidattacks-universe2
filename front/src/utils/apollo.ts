@@ -1,46 +1,9 @@
-import { default as ApolloClient } from "apollo-boost";
+import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
+import { ApolloClient } from "apollo-client";
+import { ApolloLink } from "apollo-link";
+import { HttpLink } from "apollo-link-http";
 import _ from "lodash";
-import unfetch from "unfetch";
-
-let PRODUCTION_URL: string[];
-PRODUCTION_URL = ["fluidattacks.com", "www.fluidattacks.com"];
-
-let REVIEW_URL_PATTERN: string;
-REVIEW_URL_PATTERN = ".integrates.env";
-
-let DEVELOPMENT_URL: string;
-DEVELOPMENT_URL = "https://localhost";
-
-let TESTS_URL: string;
-TESTS_URL = "http://localhost/";
-
-const getGrapQLBackend: (() => string) = (): string => {
-  let url: string;
-  /* tslint:disable-next-line:strict-type-predicates
-   * Disabling this rule is necessary because the following expression is
-   * misbelived to be always true by the linter while it is necessary for
-   * avoiding errors in the npm test environment where the object window
-   * doesn't exist.
-   */
-  if (typeof window === "undefined") {
-    url = "https://localhost/integrates/api";
-  } else {
-    const currentUrl: string = window.location.href;
-    const currentHostname: URL = new URL(currentUrl);
-    if (currentUrl.indexOf(DEVELOPMENT_URL) !== -1 || currentUrl === "about:blank" ||
-    currentUrl.indexOf(TESTS_URL) !== -1) {
-      url = "https://localhost/integrates/api";
-    } else if (currentUrl.indexOf(REVIEW_URL_PATTERN) !== -1) {
-      url = "/integrates/api";
-    } else if (PRODUCTION_URL.includes(currentHostname.hostname)) {
-      url = "https://fluidattacks.com/integrates/api";
-    } else {
-      throw new TypeError(`Couldn't identify environment for url: ${currentUrl}`);
-    }
-  }
-
-  return url;
-};
+import { getEnvironment } from "./context";
 
 const getCookie: (name: string) => string = (name: string): string => {
   let cookieValue: string;
@@ -53,7 +16,7 @@ const getCookie: (name: string) => string = (name: string): string => {
       if (cookie.substring(0, name.length + 1) === `${name}=`) {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
         break;
-       }
+      }
     }
   }
 
@@ -74,11 +37,16 @@ export const hidePreloader: () => void = (): void => {
   }
 };
 
-export const client: ApolloClient<{}> = new ApolloClient<{}>({
-  credentials: "same-origin",
-  fetch: _.isUndefined(fetch) ? unfetch : fetch,
-  headers: {
-    "X-CSRFToken": getCookie("csrftoken"),
-  },
-  uri: getGrapQLBackend(),
+export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
+  cache: new InMemoryCache(),
+  connectToDevTools: getEnvironment() !== "production",
+  link: ApolloLink.from([
+    new HttpLink({
+      credentials: "same-origin",
+      headers: {
+        "X-CSRFToken": getCookie("csrftoken"),
+      },
+      uri: `${window.location.origin}/integrates/api`,
+    }),
+  ]),
 });

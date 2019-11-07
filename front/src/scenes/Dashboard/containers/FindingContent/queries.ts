@@ -1,5 +1,5 @@
-import { DocumentNode, gql } from "apollo-boost";
-import _ from "lodash";
+import { DocumentNode } from "graphql";
+import gql from "graphql-tag";
 
 export const GET_FINDING_HEADER: DocumentNode = gql`
   query GetFindingHeader($findingId: String!) {

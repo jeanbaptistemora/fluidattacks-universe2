@@ -2,7 +2,7 @@
  * JSX-NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code that dynamically renders the fields
  */
-import { ApolloError } from "apollo-boost";
+import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";

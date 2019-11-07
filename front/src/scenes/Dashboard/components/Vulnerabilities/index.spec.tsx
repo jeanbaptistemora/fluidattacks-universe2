@@ -1,4 +1,4 @@
-import { configure, mount, ReactWrapper } from "enzyme";
+import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { GraphQLError } from "graphql";
 // tslint:disable-next-line: no-import-side-effect
@@ -115,7 +115,7 @@ describe("Vulnerabilities view", () => {
   });
 
   it("should render an error in vulnerabilities", async () => {
-    const wrapper: ReactWrapper = mount(
+    const wrapper: ShallowWrapper = shallow(
       <MockedProvider mocks={mockError} addTypename={true}>
         <VulnerabilitiesView
           editMode={false}
@@ -131,7 +131,7 @@ describe("Vulnerabilities view", () => {
   });
 
   it("should render vulnerabilities", async () => {
-    const wrapper: ReactWrapper = mount(
+    const wrapper: ShallowWrapper = shallow(
       <MockedProvider mocks={mocks} addTypename={true}>
         <VulnerabilitiesView
           editMode={false}

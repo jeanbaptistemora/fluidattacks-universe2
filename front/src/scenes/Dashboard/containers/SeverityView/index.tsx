@@ -5,7 +5,7 @@
  * JSX-NO-MULTILINE-JS: necessary for the sake of readability of the code that dynamically renders fields
  * as input or <p> depending on their state
  */
-import { NetworkStatus } from "apollo-boost";
+import { NetworkStatus } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";

@@ -1,4 +1,4 @@
-import { configure, mount, ReactWrapper } from "enzyme";
+import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { GraphQLError } from "graphql";
 // tslint:disable-next-line: no-import-side-effect
@@ -114,7 +114,7 @@ describe("DescriptionView", () => {
   });
 
   it("should render an error in component", async () => {
-    const wrapper: ReactWrapper = mount(
+    const wrapper: ShallowWrapper = shallow(
       <Provider store={store}>
         <MockedProvider mocks={mockError} addTypename={true}>
           <DescriptionView {...mockProps} />
@@ -127,7 +127,7 @@ describe("DescriptionView", () => {
   });
 
   it("should render a component", async () => {
-    const wrapper: ReactWrapper = mount(
+    const wrapper: ShallowWrapper = shallow(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={true}>
           <DescriptionView {...mockProps} />
