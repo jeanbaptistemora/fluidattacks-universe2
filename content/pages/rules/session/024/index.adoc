@@ -1,0 +1,12 @@
+:slug: rules/024/
+:category: session
+:description: This documents contains the details of the security requirements related to web application session management and session variables. This requirement establishes the importance of transferring sensitive information in a secure way using session objects.
+:keywords: Requirement, Security, Session, Transfer, Information, Objects
+:rules: yes
+
+= REQ.024 Transfer information using session objects
+
+== Requirement
+
+The system must use session objects
+to transfer information between pages when needed.
