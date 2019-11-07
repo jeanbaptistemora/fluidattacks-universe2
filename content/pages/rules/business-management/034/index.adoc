@@ -1,0 +1,21 @@
+:slug: rules/034/
+:category: business-management
+:description: This document contains the details of the security requirements related to the definition and management of systems in the organization. This requirement establishes the importance of allowing the system to manage and disable the user accounts through privileged users or system administrators.
+:keywords: Requirement, Security, User, Accounts, Management, Administration
+:rules: yes
+
+= REQ.034 Manage user accounts
+
+== Requirement
+
+The system must allow +superusers+
+or system administrators
+to disable user accounts.
+
+== References
+
+. [[r1]] link:https://www.law.cornell.edu/cfr/text/45/164.308[+HIPAA Security Rules+ 164.308(a)(3)(ii)(A):]
+Authorization and/or supervision (Addressable):
+Implement procedures for the authorization and/or supervision
+of workforce members who work with electronic protected health information
+or in locations where it might be accessed.
