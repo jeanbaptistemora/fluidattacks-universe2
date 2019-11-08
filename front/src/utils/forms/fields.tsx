@@ -1,3 +1,8 @@
+/* tslint:disable jsx-no-lambda
+ * Disabling this rule is necessary for the sake of simplicity and
+ * readability of the code that binds click events
+ */
+
 import _ from "lodash";
 import React from "react";
 import {
@@ -94,32 +99,33 @@ export const phoneNumberField: React.FC<CustomFieldProps> =
     />
   );
 
-export const dropdownField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => {
-  const handleDropdownChange: React.FormEventHandler<FormControl> = (event: React.FormEvent<FormControl>): void => {
+const handleDropdownChange: ((arg1: React.FormEvent<FormGroup>, arg2: CustomFieldProps) => void) =
+  (event: React.FormEvent<FormGroup>, fieldProps: CustomFieldProps): void => {
     fieldProps.input.onChange((event.target as HTMLInputElement).value);
   };
 
-  return (
+export const dropdownField: React.FC<CustomFieldProps> =
+  (fieldProps: CustomFieldProps): JSX.Element => (
     <div>
       <FormControl
         className={style.formControl}
         componentClass="select"
         children={fieldProps.children}
         defaultValue={fieldProps.meta.initial}
-        onChange={handleDropdownChange}
+        onChange={(event: React.FormEvent<FormGroup>): void => { handleDropdownChange(event, fieldProps); }}
       />
       {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
     </div>
   );
-};
 
-export const fileInputField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => {
-  const handleFileChange: React.FormEventHandler<FormControl> = (event: React.FormEvent<FormControl>): void => {
+const handleFileChange: ((arg1: React.FormEvent<FormControl>, arg2: CustomFieldProps) => void) =
+  (event: React.FormEvent<FormGroup>, fieldProps: CustomFieldProps): void => {
     const files: FileList | null = (event.target as HTMLInputElement).files;
     fieldProps.input.onChange(!_.isNil(files) ? files[0].name : "");
   };
 
-  return (
+export const fileInputField: React.FC<CustomFieldProps> =
+  (fieldProps: CustomFieldProps): JSX.Element => (
     <FormGroup controlId={fieldProps.id} className={style.text_center}>
       <InputGroup>
         <FormControl
@@ -128,7 +134,7 @@ export const fileInputField: React.FC<CustomFieldProps> = (fieldProps: CustomFie
           type="file"
           accept={fieldProps.accept}
           name={fieldProps.name}
-          onChange={handleFileChange}
+          onChange={(event: React.FormEvent<FormControl>): void => { handleFileChange(event, fieldProps); }}
           onClick={fieldProps.onClick}
         />
         <ControlLabel>
@@ -140,7 +146,6 @@ export const fileInputField: React.FC<CustomFieldProps> = (fieldProps: CustomFie
       </InputGroup>
     </FormGroup>
   );
-};
 
 export const textAreaField: React.FC<CustomFieldProps & { withCount?: boolean }> =
   (fieldProps: CustomFieldProps & { withCount?: boolean }): JSX.Element => (
