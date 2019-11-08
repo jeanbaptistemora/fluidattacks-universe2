@@ -34,12 +34,14 @@ export interface IAddAccessTokenModalProps {
 const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element) =
   (props: IAddAccessTokenModalProps): JSX.Element => {
       const [buttonDisable, setButtonDisable] = useState(false);
+      const [dateSelectorVisibility, setDateSelectorVisibility] = useState(true);
       const handleMtUpdateTokenRes: ((mtResult: IUpdateAccessTokenAttr) => void) =
       (mtResult: IUpdateAccessTokenAttr): void => {
         if (!_.isUndefined(mtResult)) {
           if (mtResult.updateAccessToken.success) {
             hidePreloader();
             setButtonDisable(true);
+            setDateSelectorVisibility(false);
             store.dispatch(change("updateAccessToken", "sessionJwt", mtResult.updateAccessToken.sessionJwt));
             msgSuccess(
               translate.t("update_access_token.successfully"),
@@ -104,6 +106,7 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
               const accessToken: IGetAccessTokenDictAttr = JSON.parse(qrResult.me.accessToken);
               if (accessToken.hasAccessToken) {
                 setButtonDisable(true);
+                setDateSelectorVisibility(false);
               } else {
                 setButtonDisable(false);
               }
@@ -123,6 +126,7 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                           name="expirationTime"
                           renderAsEditable={true}
                           type="date"
+                          visible={dateSelectorVisibility}
                           validate={[isLowerDate, isValidDateAccessToken, required]}
                         />
                      </Col>
@@ -176,10 +180,14 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                                   translate.t("update_access_token.delete"),
                                   translate.t("update_access_token.invalidated"),
                                 );
+                                setDateSelectorVisibility(true);
                               }
                             }
                           };
-                          const handleCloseModal: (() => void) = (): void => { props.onClose(); };
+                          const handleCloseModal: (() => void) = (): void => {
+                            props.onClose();
+                            setDateSelectorVisibility(true);
+                          };
 
                           return (
                             <Mutation
