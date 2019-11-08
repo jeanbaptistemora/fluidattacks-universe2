@@ -79,6 +79,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
     <TrackingView findingId={findingId} hasNewVulnerabilities={true} userRole={userRole} {...reduxProps} />
   );
 
+  const canGetSubmissionHistory: boolean = _.includes(["analyst", "admin"], props.userRole);
   const handleApprove: (() => void) = (): void => { props.onApprove(); };
   const handleReject: (() => void) = (): void => { props.onReject(); };
   const handleOpenApproveConfirm: (() => void) = (): void => { props.openApproveConfirm(); };
@@ -96,7 +97,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           <Col md={12} sm={12}>
             <React.Fragment>
               {props.alert === undefined ? undefined : <AlertBox message={props.alert} />}
-              <Query query={GET_FINDING_HEADER} variables={{ findingId }}>
+              <Query query={GET_FINDING_HEADER} variables={{ findingId, submissionField: canGetSubmissionHistory }}>
                 {({ data, loading, refetch }: QueryResult<IHeaderQueryResult>): JSX.Element => {
                   if (_.isUndefined(data) || loading) { return <React.Fragment />; }
 
