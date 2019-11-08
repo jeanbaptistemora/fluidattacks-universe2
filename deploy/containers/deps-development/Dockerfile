@@ -89,7 +89,7 @@ RUN pip3 install -U setuptools \
 # on top of it and finally, the new node_modules is moved to
 # /npm-deps again
 
-COPY front /tmp/front
+ADD front/package.json /tmp/front/package.json
 RUN npm install -g secure-spreadsheet@0.1.0 \
   && mkdir -p /npm-deps/front \
   && npm install --prefix /tmp/front --only=production \
