@@ -27,3 +27,9 @@ def test_encrypted_with_aws_master_keys_open():
     """Search AWS DynamoDB tables enctypted with AWS-owned Master Keys."""
     assert dynamodb.encrypted_with_aws_master_keys(
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
+def test_has_disabled_continuous_backups_open():
+    """Search AWS DynamoDB tables with continuous backups disabled."""
+    assert dynamodb.has_disabled_continuous_backups(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
