@@ -756,3 +756,46 @@ def has_unencrypted_amis(key_id: str, secret: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_publicly_shared_amis(key_id: str, secret: str,
+                             retry: bool = True) -> tuple:
+    """
+    Check if there are any publicly accessible AMIs within AWS account.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are any publicly accessible AMIs.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = \
+        'There are any publicly accessible AMIs within AWS account.'
+    msg_closed: str = \
+        'There are not any publicly accessible AMIs within AWS account.'
+    vulns, safes = [], []
+    images = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='ec2',
+        func='describe_images',
+        param='Images',
+        retry=retry,
+        Owners=['self'])
+
+    for image in images:
+        (vulns if image['Public'] else safes).append(
+            (image['ImageId'], 'The AMI must be private access.'))
+
+    return _get_result_as_tuple(
+        service='EC2',
+        objects='AMIS',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

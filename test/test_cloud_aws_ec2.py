@@ -133,8 +133,15 @@ def test_has_security_groups_ip_ranges_in_rfc1918_open():
 def test_has_unencrypted_amis_open():
     """Search unecrypted AMIs."""
     assert ec2.has_unencrypted_amis(AWS_ACCESS_KEY_ID,
-                                    AWS_SECRET_ACCESS_KEY
-                                    ,).is_open()
+                                    AWS_SECRET_ACCESS_KEY).is_open()
+
+
+def test():
+    """Search publicly shared AMIs."""
+    assert ec2.has_publicly_shared_amis(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #
