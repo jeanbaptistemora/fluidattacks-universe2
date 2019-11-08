@@ -14,11 +14,10 @@ ARG NODE_URL='https://deb.nodesource.com/setup_10.x'
 ARG TREASUREDATA_URL='https://toolbelt.treasuredata.com/sh/install-debian-stretch-td-agent2.sh'
 
 
-RUN apt -o Acquire::Check-Valid-Until=false update \
-  && apt install -yo DPkg::Options::='--force-confnew' --no-install-recommends \
-    openssl
 RUN mkdir -p /usr/share/man/man1 \
+  && apt -o Acquire::Check-Valid-Until=false update \
   && apt install -yo DPkg::Options::='--force-confnew' --no-install-recommends \
+    openssl \
     unzip \
     curl \
     netbase \
@@ -42,10 +41,8 @@ RUN mkdir -p /usr/share/man/man1 \
     git \
     libmagic1 \
     default-libmysqlclient-dev \
-    firefox-esr=60.8.0esr*
-
-# external deps
-RUN curl -LsSo vault.zip "$VAULT_URL" \
+    firefox-esr=60.8.0esr* \
+  && curl -LsSo vault.zip "$VAULT_URL" \
     && unzip vault.zip \
     && mv vault /usr/local/bin \
     && rm vault.zip \
