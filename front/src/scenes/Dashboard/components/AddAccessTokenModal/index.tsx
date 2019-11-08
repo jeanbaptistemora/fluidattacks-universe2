@@ -4,7 +4,7 @@
  */
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
-import React from "react";
+import React, { useState } from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, ControlLabel, Row } from "react-bootstrap";
 import { Provider } from "react-redux";
@@ -30,113 +30,16 @@ export interface IAddAccessTokenModalProps {
   open: boolean;
   onClose(): void;
 }
-const handleQryResult: ((qrResult: IGetAccessTokenAttr) => void) = (qrResult: IGetAccessTokenAttr): void => {
-  hidePreloader();
-};
-
-const renderFooter: ((props: IAddAccessTokenModalProps) => JSX.Element) =
-  (props: IAddAccessTokenModalProps): JSX.Element => (
-    <Query query={GET_ACCESS_TOKEN} fetchPolicy="network-only" onCompleted={handleQryResult}>
-      {
-        ({loading, error, data}: QueryResult<IGetAccessTokenAttr>): React.ReactNode => {
-          if (loading) {
-            showPreloader();
-
-            return <React.Fragment/>;
-          }
-          if (!_.isUndefined(error)) {
-            hidePreloader();
-            handleGraphQLErrors("An error occurred getting access token", error);
-
-            return <React.Fragment/>;
-          }
-          if (!_.isUndefined(data)) {
-            const handleMtInvalidateTokenRes: ((mtResult: IInvalidateAccessTokenAttr) => void) =
-            (mtResult: IInvalidateAccessTokenAttr): void => {
-              if (!_.isUndefined(mtResult)) {
-                if (mtResult.invalidateAccessToken.success) {
-                  props.onClose();
-
-                  hidePreloader();
-                  msgSuccess(
-                    translate.t("update_access_token.delete"),
-                    translate.t("update_access_token.invalidated"),
-                  );
-                }
-              }
-            };
-            const handleCloseModal: (() => void) = (): void => { props.onClose(); };
-
-            return (
-              <Mutation mutation={INVALIDATE_ACCESS_TOKEN_MUTATION} onCompleted={handleMtInvalidateTokenRes}>
-              { (invalidateAccessToken: MutationFn<IInvalidateAccessTokenAttr, {}>,
-                 mutationRes: MutationResult): React.ReactNode => {
-
-                  if (mutationRes.loading) {
-                    showPreloader();
-                  }
-                  if (!_.isUndefined(mutationRes.error)) {
-                    hidePreloader();
-                    handleGraphQLErrors("An error occurred invalidating access token", mutationRes.error);
-
-                    return <React.Fragment/>;
-                  }
-
-                  const handleInvalidateAccessToken: (() => void) = (): void => {
-                      invalidateAccessToken()
-                        .catch();
-                    };
-                  const accessToken: IGetAccessTokenDictAttr = JSON.parse(data.me.accessToken);
-
-                  return (
-                    <React.Fragment>
-                    <Row>
-                      {accessToken.hasAccessToken ?
-                      <Col md={12}>
-                        {!_.isEmpty(accessToken.issuedAt) ?
-                          <ControlLabel>
-                            <b>{translate.t("update_access_token.token_created")}</b>
-                            &nbsp;{new Date(accessToken.issuedAt * 1000).toString()
-                                                                        .substring(0, 15)}
-                          </ControlLabel>
-                        : undefined }
-                     </Col>
-                      : undefined }
-                    </Row>
-                    <ButtonToolbar className="pull-left">
-                      <br />
-                      {accessToken.hasAccessToken ?
-                      <Button bsStyle="default" onClick={handleInvalidateAccessToken}>
-                        {translate.t("update_access_token.invalidate")}
-                      </Button>
-                      : undefined }
-                    </ButtonToolbar>
-                    <ButtonToolbar className="pull-right">
-                      <br />
-                      <Button bsStyle="default" onClick={handleCloseModal}>
-                        {translate.t("update_access_token.close")}
-                      </Button>
-                      <Button bsStyle="primary" type="submit" disabled={accessToken.hasAccessToken} >
-                        {translate.t("confirmmodal.proceed")}
-                      </Button>
-                    </ButtonToolbar>
-                  </React.Fragment>
-                  );
-                }}
-                </Mutation>
-            );
-          }
-        }}
-    </Query>
-);
 
 const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element) =
   (props: IAddAccessTokenModalProps): JSX.Element => {
+      const [buttonDisable, setButtonDisable] = useState(false);
       const handleMtUpdateTokenRes: ((mtResult: IUpdateAccessTokenAttr) => void) =
       (mtResult: IUpdateAccessTokenAttr): void => {
         if (!_.isUndefined(mtResult)) {
           if (mtResult.updateAccessToken.success) {
             hidePreloader();
+            setButtonDisable(true);
             store.dispatch(change("updateAccessToken", "sessionJwt", mtResult.updateAccessToken.sessionJwt));
             msgSuccess(
               translate.t("update_access_token.successfully"),
@@ -196,6 +99,17 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
               .catch() : msgError(translate.t("update_access_token.copy.failed"));
             };
 
+            const handleQryResult: ((qrResult: IGetAccessTokenAttr) => void) =
+            (qrResult: IGetAccessTokenAttr): void => {
+              const accessToken: IGetAccessTokenDictAttr = JSON.parse(qrResult.me.accessToken);
+              if (accessToken.hasAccessToken) {
+                setButtonDisable(true);
+              } else {
+                setButtonDisable(false);
+              }
+              hidePreloader();
+            };
+
             return (
               <GenericForm name="updateAccessToken" onSubmit={handleUpdateAccessToken} >
                  {({ submitSucceeded }: InjectedFormProps): JSX.Element => (
@@ -237,7 +151,101 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                       </Col>
                     </Row>
                     : undefined }
-                    {renderFooter(props)}
+                    <Query query={GET_ACCESS_TOKEN} fetchPolicy="network-only" onCompleted={handleQryResult}>
+                    {
+                      ({loading, error, data}: QueryResult<IGetAccessTokenAttr>): React.ReactNode => {
+                        if (loading) {
+                          showPreloader();
+
+                          return <React.Fragment/>;
+                        }
+                        if (!_.isUndefined(error)) {
+                          hidePreloader();
+                          handleGraphQLErrors("An error occurred getting access token", error);
+
+                          return <React.Fragment/>;
+                        }
+                        if (!_.isUndefined(data)) {
+                          const handleMtInvalidateTokenRes: ((mtResult: IInvalidateAccessTokenAttr) => void) =
+                          (mtResult: IInvalidateAccessTokenAttr): void => {
+                            if (!_.isUndefined(mtResult)) {
+                              if (mtResult.invalidateAccessToken.success) {
+                                props.onClose();
+                                hidePreloader();
+                                msgSuccess(
+                                  translate.t("update_access_token.delete"),
+                                  translate.t("update_access_token.invalidated"),
+                                );
+                              }
+                            }
+                          };
+                          const handleCloseModal: (() => void) = (): void => { props.onClose(); };
+
+                          return (
+                            <Mutation
+                              mutation={INVALIDATE_ACCESS_TOKEN_MUTATION}
+                              onCompleted={handleMtInvalidateTokenRes}
+                            >
+                            { (invalidateAccessToken: MutationFn<IInvalidateAccessTokenAttr, {}>,
+                               mutationResult: MutationResult): React.ReactNode => {
+
+                                if (mutationResult.loading) {
+                                  showPreloader();
+                                }
+                                if (!_.isUndefined(mutationResult.error)) {
+                                  hidePreloader();
+                                  handleGraphQLErrors("An error occurred invalidating access token",
+                                                      mutationResult.error);
+
+                                  return <React.Fragment/>;
+                                }
+
+                                const handleInvalidateAccessToken: (() => void) = (): void => {
+                                    invalidateAccessToken()
+                                      .catch();
+                                  };
+                                const accessToken: IGetAccessTokenDictAttr = JSON.parse(data.me.accessToken);
+
+                                return (
+                                  <React.Fragment>
+                                  <Row>
+                                    {accessToken.hasAccessToken ?
+                                    <Col md={12}>
+                                      {!_.isEmpty(accessToken.issuedAt) ?
+                                        <ControlLabel>
+                                          <b>{translate.t("update_access_token.token_created")}</b>
+                                          &nbsp;{new Date(accessToken.issuedAt * 1000).toString()
+                                                                                      .substring(0, 15)}
+                                        </ControlLabel>
+                                      : undefined }
+                                  </Col>
+                                    : undefined }
+                                  </Row>
+                                  <ButtonToolbar className="pull-left">
+                                    <br />
+                                    {accessToken.hasAccessToken ?
+                                    <Button bsStyle="default" onClick={handleInvalidateAccessToken}>
+                                      {translate.t("update_access_token.invalidate")}
+                                    </Button>
+                                    : undefined }
+                                  </ButtonToolbar>
+                                  <ButtonToolbar className="pull-right">
+                                    <br />
+                                    <Button bsStyle="default" onClick={handleCloseModal}>
+                                      {translate.t("update_access_token.close")}
+                                    </Button>
+                                    <Button bsStyle="primary" disabled={buttonDisable} type="submit">
+                                      {translate.t("confirmmodal.proceed")}
+                                    </Button>
+                                  </ButtonToolbar>
+                                </React.Fragment>
+                                );
+                              }}
+                            </Mutation>
+                          );
+                        }
+                      }}
+                  </Query>
                   </React.Fragment>
                  )}
               </GenericForm>
