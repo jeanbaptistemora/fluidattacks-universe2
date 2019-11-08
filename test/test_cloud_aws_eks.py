@@ -43,6 +43,16 @@ def test_has_endpoints_are_publicly_accessible_open():
                                                  ).is_open()
 
 
+def test_has_disable_cluster_logging_open():
+    """Search clusters with logging disabled."""
+    assert eks.has_disable_cluster_logging(AWS_ACCESS_KEY_ID,
+                                           AWS_SECRET_ACCESS_KEY,
+                                           client_kwargs={
+                                               'region_name':
+                                               'us-east-2'}
+                                           ).is_open()
+
+
 #
 # Closing tests
 #
