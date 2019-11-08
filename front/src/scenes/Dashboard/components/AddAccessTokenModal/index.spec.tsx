@@ -8,9 +8,9 @@ import React from "react";
 import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 import { Provider } from "react-redux";
 import { Action, createStore, Store } from "redux";
-import wait from "waait";
 import { IAddAccessTokenModalProps, updateAccessTokenModal as UpdateAccessTokenModal } from "./index";
 import { GET_ACCESS_TOKEN } from "./queries";
+import { IGetAccessTokenDictAttr } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
@@ -25,6 +25,11 @@ describe("Update access token modal", () => {
 
   const store: Store<{}, Action<{}>> = createStore(() => ({}));
 
+  const accessToken: IGetAccessTokenDictAttr = {
+    hasAccessToken: true,
+    issuedAt: Date.now(),
+  };
+
   const mocks: ReadonlyArray<MockedResponse> = [
     {
       request: {
@@ -34,7 +39,7 @@ describe("Update access token modal", () => {
         data: {
             me: {
             __typename: "Me",
-            accessToken: false,
+            accessToken: JSON.stringify(accessToken),
           },
         },
       },
@@ -55,7 +60,7 @@ describe("Update access token modal", () => {
       .toEqual("function");
   });
 
-  it("should render an error in component", async () => {
+  it("should render an error in component", (): void => {
     const wrapper: ShallowWrapper = shallow(
       <Provider store={store}>
         <MockedProvider mocks={mockError} addTypename={true}>
@@ -63,12 +68,12 @@ describe("Update access token modal", () => {
         </MockedProvider>
       </Provider>,
     );
-    await wait(0);
+
     expect(wrapper)
       .toHaveLength(1);
   });
 
-  it("should render an add component", async () => {
+  it("should render an add component", (): void => {
     const wrapper: ShallowWrapper = shallow(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={true}>
@@ -76,7 +81,7 @@ describe("Update access token modal", () => {
         </MockedProvider>
       </Provider>,
     );
-    await wait(0);
+
     expect(wrapper)
       .toHaveLength(1);
   });
