@@ -68,20 +68,19 @@ RUN curl -LsSo vault.zip "$VAULT_URL" \
     && mv kubectl /usr/local/bin/kubectl \
   && curl -sL "$NODE_URL" | bash - \
     && apt install -y --no-install-recommends nodejs \
-  && curl -L "$TREASUREDATA_URL" | sh
-
-COPY "$PIP_REQUIREMENTS_DEV" /tmp/reqs_dev.txt
-COPY "$PIP_REQUIREMENTS_PROD" /tmp/reqs_prod.txt
-COPY front /tmp/front
-RUN pip3 install -U setuptools \
-  && pip3 install --no-cache-dir -r /tmp/reqs_prod.txt \
-  && pip3 install --no-cache-dir -r /tmp/reqs_dev.txt \
+  && curl -L "$TREASUREDATA_URL" | sh \
   && gem install -N asciidoctor:1.5.8 concurrent-ruby \
   && gem install -N asciidoctor-pdf:1.5.0.alpha.16 --pre \
   && /usr/sbin/td-agent-gem install \
     eventmachine \
     em-http-request \
     fluent-plugin-rewrite-tag-filter
+
+COPY "$PIP_REQUIREMENTS_DEV" /tmp/reqs_dev.txt
+COPY "$PIP_REQUIREMENTS_PROD" /tmp/reqs_prod.txt
+RUN pip3 install -U setuptools \
+  && pip3 install --no-cache-dir -r /tmp/reqs_prod.txt \
+  && pip3 install --no-cache-dir -r /tmp/reqs_dev.txt
 
 # npm deps. node_modules folders are stored in /npm-deps,
 # make sure to copy them to the required folder if needed.
@@ -90,6 +89,7 @@ RUN pip3 install -U setuptools \
 # on top of it and finally, the new node_modules is moved to
 # /npm-deps again
 
+COPY front /tmp/front
 RUN npm install -g secure-spreadsheet@0.1.0 \
   && mkdir -p /npm-deps/front \
   && npm install --prefix /tmp/front --only=production \
