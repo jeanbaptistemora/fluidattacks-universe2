@@ -127,6 +127,16 @@ build-app:
       - version.txt
     when: on_success
 
+build-bot:
+  stage: build
+  needs: [deps-development]
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - sh ci-scripts/jobs/build-bot.sh
+  retry: 1
+
 danger:
   stage: mr-check
   image: fluidattacks/danger-ruby

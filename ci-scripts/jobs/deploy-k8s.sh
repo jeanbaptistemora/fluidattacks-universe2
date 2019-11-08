@@ -9,8 +9,11 @@ undo_rollout() {
   if [[ "$1" == 'app' ]]; then
     kubectl rollout undo deploy/integrates-app
     return 0
+  elif [[ "$1" == 'bot' ]]; then
+    kubectl rollout undo deploy/integrates-bot
+    return 0
   else
-    echo 'Only app param accepted'
+    echo 'Only app and bot params accepted'
   fi
   return 1
 }
@@ -99,6 +102,11 @@ deploy_k8s() {
 
   if ! kubectl rollout status deploy/integrates-app --timeout=8m; then
     undo_rollout app
+    return 1
+  fi
+
+  if ! kubectl rollout status deploy/integrates-bot --timeout=5m; then
+    undo_rollout bot
     return 1
   fi
 

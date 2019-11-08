@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-# Initialize integrates app.
+# Initialize integrates app or bot.
 
 env | egrep 'VAULT.*'  >> /etc/environment
 if [[ x"$FI_ENVIRONMENT" = x"development" ]]; then
@@ -22,7 +22,16 @@ if [ "$1" = 'app' ]; then
     . deploy/containers/common/vars/provision_local_db.sh
   fi
   /usr/sbin/apache2ctl -D FOREGROUND
+elif [ "$1" = 'bot' ]; then
+  if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
+    ./manage.py crontab add
+    crontab -l >> /tmp/mycron
+    sed -i 's|/usr/bin|vaultenv /usr/bin|g' /tmp/mycron
+    crontab /tmp/mycron
+    service cron start
+  fi
+  ./manage.py bot
 else
-  echo 'Only app args allowed for $1'
+  echo 'Only app and bot args allowed for $1'
   exit 1
 fi
