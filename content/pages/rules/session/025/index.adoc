@@ -1,6 +1,6 @@
 :slug: rules/025/
 :category: session
-:description: This documents contains the details of the security requirements related to web application session management and session variables. This requirement establishes the importance of informing and controlling concurrent sessions, in order to detect users impersonations and identity thefts.
+:description: This documents contains the details of the security requirements related to web application session management and session variables. This requirement establishes the importance of informing and controlling concurrent sessions, in order to detect user impersonations and identity thefts.
 :keywords: Requirement, Security, Manage, Concurrent, Session, Configuration
 :rules: yes
 
@@ -13,17 +13,16 @@ must be informed or controlled.
 
 == Description
 
-A system that uses access sessions with authentication
+A system that uses authenticated access sessions
 associated with unique users
-can provide simultaneous access to the services,
-using the same credentials.
+may allow simultaneous access with the same credentials.
 This may pose a risk for the service,
 the information and the system users,
 by allowing malicious users to interact
 simultaneously with the system using a valid user,
 leading to undetected identity thefts,
 unauthorized actions in name of the user (impersonation)
-and lack of tracking of the impersonated user <<r1, ^[1]^>> <<r2, ^[2]^>>.
+and a loss of traceability of the impersonated user's actions <<r1, ^[1]^>> <<r2, ^[2]^>>.
 
 == Implementation
 
@@ -38,8 +37,8 @@ or from the same system.
 . An attacker logs in simultaneously
 using the account of a valid user.
 
-. An attacker performs unauthorized actions
-in the name of the valid user without tracking.
+. An attacker performs actions
+without traceability nor authorization.
 
 == Attributes
 
