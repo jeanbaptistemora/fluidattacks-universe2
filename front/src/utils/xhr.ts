@@ -84,8 +84,7 @@ class Xhr {
     * return promises with objects of different types as response
    */
   public request = async (query: string, errorText: string): Promise<any> => {
-    const payload: FormData = new FormData();
-    payload.append("query", query);
+    const payload: { query: string } = {query};
 
     return this.executeRequest(payload, errorText);
   }
@@ -136,7 +135,7 @@ class Xhr {
       throw new Error();
     } else {
       const payload: FormData = new FormData();
-      payload.append("query", query);
+      payload.append("operations", JSON.stringify({query}));
       payload.append("document", selected[0]);
 
       return this.executeRequest(payload, errorText, callbackFn);
@@ -158,8 +157,8 @@ class Xhr {
    */
 
   private readonly executeRequest:
-  ((arg1: FormData, arg2: string, callbackFn?: ((progress: number) => void)) => Promise<any>) =
-    async (payload: FormData, errorText: string, callbackFn?: ((progress: number) => void)) => {
+  ((arg1: {}, arg2: string, callbackFn?: ((progress: number) => void)) => Promise<any>) =
+    async (payload: {}, errorText: string, callbackFn?: ((progress: number) => void)) => {
     this.showPreloader();
 
     const config: AxiosRequestConfig = {
