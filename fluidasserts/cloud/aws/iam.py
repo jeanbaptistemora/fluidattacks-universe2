@@ -816,3 +816,66 @@ def group_with_inline_policies(key_id: str, secret: str,
             msg_closed=msg_closed,
             vulns=vulns,
             safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def mfa_disabled_for_users_with_console_password(key_id: str,
+                                                 secret: str,
+                                                 retry: bool = True) -> tuple:
+    """
+    Check if IAM Users with console password are not protected by MFA.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` .
+                Encryption enabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Users with console password are not protected by MFA.'
+    msg_closed: str = 'Users with console password are protected by MFA.'
+    vulns, safes = [], []
+
+    users = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='iam',
+        func='list_users',
+        param='Users',
+        retry=retry)
+
+    for user in users:
+        try:
+            aws.run_boto3_func(
+                key_id=key_id,
+                secret=secret,
+                service='iam',
+                func='get_login_profile',
+                UserName=user['UserName'],
+                param='LoginProfile',
+                retry=retry)
+        except aws.ClientErr:
+            continue
+
+        mfa_devices = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='iam',
+            func='list_mfa_devices',
+            UserName=user['UserName'],
+            param='MFADevices',
+            retry=retry)
+        (vulns if not mfa_devices else safes).append(
+            (user['Arn'], 'Enable MFA access protection for IAM user.'))
+
+    return _get_result_as_tuple(
+        service='IAM',
+        objects='Users',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

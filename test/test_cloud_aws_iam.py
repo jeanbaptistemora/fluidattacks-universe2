@@ -99,6 +99,12 @@ def test_group_with_inline_policies_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_mfa_disabled_for_users_with_console_password_open():
+    """Search IAM users with with console password and MFA disabled."""
+    assert iam.mfa_disabled_for_users_with_console_password(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #
