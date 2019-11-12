@@ -92,7 +92,6 @@ setup(
         'mysql-connector==2.2.9',      # fluidasserts.db.mysql_db
         'names==0.3.0',                # fluidasserts.helper.http
         'ntplib==0.3.3',               # fluidasserts.proto.http
-        'numpy==1.17.3',               # fluidasserts.cloud.aws.ec2
         'oyaml==0.9',                  # fluidasserts
         'paramiko==2.6.0',             # fluidasserts.helper.ssh_helper
         'pillow==6.1.0',               # fluidasserts.format.captcha

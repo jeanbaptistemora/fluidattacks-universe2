@@ -8,7 +8,6 @@ from contextlib import suppress
 # 3rd party imports
 from botocore.exceptions import BotoCoreError
 from botocore.vendored.requests.exceptions import RequestException
-import numpy as np
 
 # local imports
 from fluidasserts import DAST, LOW, MEDIUM
@@ -28,6 +27,16 @@ def _check_port_in_seggroup(port: int, group: dict) -> list:
                 vuln += [perm for x in perm['Ipv6Ranges']
                          if x['CidrIp'] == '::/0']
     return vuln
+
+
+def _flatten(elements, aux_list=None):
+    aux_list = aux_list if aux_list is not None else []
+    for i in elements:
+        if isinstance(i, list):
+            _flatten(i, aux_list)
+        else:
+            aux_list.append(i)
+    return aux_list
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -480,9 +489,7 @@ def has_instances_using_iam_roles(key_id: str, secret: str,
         param='Reservations',
         retry=retry)
 
-    instances = np.array(list(map(lambda x: x['Instances'],
-                                  instances))).flatten().tolist()
-
+    instances = _flatten(list(map(lambda x: x['Instances'], instances)))
     for i in instances:
         (vulns if 'IamInstanceProfile' not in i.keys() else safes).append(
             (i['InstanceId'], 'Instance must use an IAM role.'))
@@ -633,8 +640,7 @@ def has_default_security_groups_in_use(key_id: str,
             param='Reservations',
             retry=retry))
 
-    instances = np.array(list(instances)).flatten().tolist()
-    for instance in instances:
+    for instance in _flatten(list(instances)):
         security_groups = map(lambda x: x['GroupName'],
                               instance['SecurityGroups'])
         (vulns if 'default' in security_groups else safes).append(
@@ -686,15 +692,6 @@ def has_security_groups_ip_ranges_in_rfc1918(key_id: str,
         func='describe_security_groups',
         param='SecurityGroups',
         retry=retry)
-
-    def _flatten(elements, aux_list=None):
-        aux_list = aux_list if aux_list is not None else []
-        for i in elements:
-            if isinstance(i, list):
-                _flatten(i, aux_list)
-            else:
-                aux_list.append(i)
-        return aux_list
 
     for group in security_groups:
         ips = map(lambda x: x['IpRanges'], group['IpPermissions'])

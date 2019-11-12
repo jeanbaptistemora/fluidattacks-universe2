@@ -122,10 +122,17 @@ def test_has_unencrypted_amis_open():
                                     AWS_SECRET_ACCESS_KEY).is_open()
 
 
-def test():
+def test_has_publicly_shared_amis_open():
     """Search publicly shared AMIs."""
     assert ec2.has_publicly_shared_amis(
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
+def test_has_instances_using_iam_access_keys_open():
+    """Search instances using iam access keys."""
+    assert ec2.has_instances_using_iam_roles(AWS_ACCESS_KEY_ID,
+                                             AWS_SECRET_ACCESS_KEY
+                                             ).is_open()
 
 
 #
@@ -213,4 +220,3 @@ def test_vpcs_flowlogs_close():
     with no_connection():
         assert not ec2.vpcs_without_flowlog(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
-
