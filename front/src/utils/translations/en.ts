@@ -679,6 +679,7 @@ const enTranslations: dict = {
   validations: {
     alphanumeric: "Only alphanumeric characters",
     between: "This value must be between {{min}} and {{max}}",
+    datetime: "The datetime format is not valid",
     email: "The email format is not valid",
     file_size: "The file size must be less than {{count}}MB",
     invalidValueInField: "The value inserted in one of the fields is not valid",

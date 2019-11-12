@@ -8,6 +8,13 @@ import React from "react";
 import {
   Badge, Checkbox, ControlLabel, FormControl, FormControlProps, FormGroup, Glyphicon, HelpBlock, InputGroup,
 } from "react-bootstrap";
+import { default as Datetime } from "react-datetime";
+/* tslint:disable-next-line:no-import-side-effect no-submodule-imports
+ * Disabling this two rules is necessary for
+ * allowing the import of default styles that react-datetime needs
+ * to display properly even if some of them are overridden later
+ */
+import "react-datetime/css/react-datetime.css";
 /**
  * Disabling here is necessary because
  * there are currently no available type definitions for
@@ -181,7 +188,7 @@ export const dateField: React.FC<CustomFieldProps> =
 
 export const dateTimeField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => (
   <React.Fragment>
-    <FormControl className={style.formControl} id={fieldProps.id} type="datetime-local" {...fieldProps.input} />
+    <Datetime inputProps={{ className: style.formControl }} utc={true} {...fieldProps.input} />
     {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
   </React.Fragment>
 );

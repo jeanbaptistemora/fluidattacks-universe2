@@ -1,7 +1,9 @@
 import _ from "lodash";
+import moment, { Moment } from "moment";
 import { Validator } from "redux-form";
 import {
   ConfigurableValidator, ConfiguredValidator, hasLengthGreaterThan, isAlphaNumeric, isNumeric, isRequired,
+  matchesPattern,
 } from "revalidate";
 import { msgError } from "./notifications";
 import translate from "./translations/translate";
@@ -43,14 +45,15 @@ export const alphaNumeric: ConfiguredValidator = isAlphaNumeric({
   message: translate.t("validations.alphanumeric"),
 });
 
-export const validEmail: Validator = (value: string): string | undefined => {
-  const pattern: RegExp = /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i;
-  if (_.isEmpty(value) || !pattern.test(value)) {
-    return translate.t("validations.email");
-  } else {
-    return undefined;
-  }
-};
+export const validEmail: ConfiguredValidator = matchesPattern(
+  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+)({
+  message: translate.t("validations.email"),
+});
+
+export const validDatetime: ConfiguredValidator = (value?: Moment | string): string | undefined => (
+  moment.isMoment(value) ? undefined : translate.t("validations.datetime")
+);
 
 export const evidenceHasValidType: ((file: File, evidenceType: number) => boolean) = (
   file: File, evidenceType: number,

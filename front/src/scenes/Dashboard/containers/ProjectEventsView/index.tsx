@@ -18,7 +18,7 @@ import { formatEvents, handleGraphQLErrors } from "../../../../utils/formatHelpe
 import { checkboxField, dateTimeField, dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
-import { numeric, required, someRequired, validEmail } from "../../../../utils/validations";
+import { numeric, required, someRequired, validDatetime, validEmail } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
 import { IEventsAttr, IEventViewBaseProps } from "./types";
@@ -137,9 +137,11 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                           .filter((key: string) => values.accessibility[key])
                           .map((key: string) => key.toUpperCase());
 
-                        const selectedComponents: string[] = Object.keys(values.affectedComponents)
-                          .filter((key: string) => values.affectedComponents[key])
-                          .map((key: string) => key.toUpperCase());
+                        const selectedComponents: string[] | undefined = _.isUndefined(values.affectedComponents)
+                          ? undefined
+                          : Object.keys(values.affectedComponents)
+                            .filter((key: string) => values.affectedComponents[key])
+                            .map((key: string) => key.toUpperCase());
 
                         createEvent({
                           variables: {
@@ -160,7 +162,11 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                                 <Col md={5}>
                                   <FormGroup>
                                     <ControlLabel>{translate.t("project.events.form.date")}</ControlLabel>
-                                    <Field component={dateTimeField} name="eventDate" validate={required} />
+                                    <Field
+                                      component={dateTimeField}
+                                      name="eventDate"
+                                      validate={[required, validDatetime]}
+                                    />
                                   </FormGroup>
                                 </Col>
                                 <Col md={7}>
@@ -228,7 +234,11 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                                     <ControlLabel>
                                       {translate.t("project.events.form.responsible")}
                                     </ControlLabel>
-                                    <Field component={textField} name="clientResponsible" validate={validEmail} />
+                                    <Field
+                                      component={textField}
+                                      name="clientResponsible"
+                                      validate={[required, validEmail]}
+                                    />
                                   </FormGroup>
                                 </Col>
                                 <Col md={3}>
