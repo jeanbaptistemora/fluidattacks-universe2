@@ -97,13 +97,6 @@ def test_has_unrestricted_dns_access_open():
                                            ).is_open()
 
 
-def test_has_instances_using_iam_access_keys_open():
-    """Search instances using iam access keys."""
-    assert ec2.has_instances_using_iam_roles(AWS_ACCESS_KEY_ID,
-                                             AWS_SECRET_ACCESS_KEY
-                                             ).is_open()
-
-
 def test_has_unused_ec2_key_pairs_open():
     """Search unused EC2 key pairs."""
     assert ec2.has_unused_ec2_key_pairs(AWS_ACCESS_KEY_ID,
@@ -227,3 +220,11 @@ def test_vpcs_flowlogs_close():
     with no_connection():
         assert not ec2.vpcs_without_flowlog(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
+
+
+def test_has_instances_using_iam_access_keys_close():
+    """Search instances using iam access keys."""
+    assert not ec2.has_instances_using_iam_roles(AWS_ACCESS_KEY_ID,
+                                             AWS_SECRET_ACCESS_KEY
+                                             )
+

@@ -2,7 +2,7 @@ FROM debian:buster-slim
 
 WORKDIR /usr/src/asserts
 
-RUN apt-get update -qq && \
+RUN apt-get -o Acquire::Check-Valid-Until=false update -qq && \
     apt-get install -qqy --no-install-recommends \
         curl \
         apt-transport-https \
@@ -15,7 +15,7 @@ RUN echo "deb [arch=amd64] https://download.docker.com/linux/debian stretch stab
 
 RUN curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | apt-key add -
 
-RUN apt-get update -qq && \
+RUN apt-get -o Acquire::Check-Valid-Until=false update -qq && \
     apt-get install -y --no-install-recommends \
         python3 \
         python3-dev \
@@ -48,6 +48,7 @@ RUN apt-get update -qq && \
         libxml2-dev \
         libxslt1-dev \
         libxmlsec1-dev \
+        freetds-dev \
         libfreetype6-dev && \
     python3 -m pip install -U  setuptools \
         wheel \
