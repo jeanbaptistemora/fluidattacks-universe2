@@ -811,6 +811,7 @@ class CreateDraft(Mutation):
     class Arguments():
         cwe = String(required=False)
         description = String(required=False)
+        origin = String(required=False)
         project_name = String(required=True)
         recommendation = String(required=False)
         requirements = String(required=False)
@@ -825,9 +826,8 @@ class CreateDraft(Mutation):
     @require_role(['admin', 'analyst'])
     @require_project_access
     def mutate(self, info, project_name, title, **kwargs):
-        analyst_email = util.get_jwt_content(info.context)['user_email']
         success = finding_domain.create_draft(
-            analyst_email, project_name, title, **kwargs)
+            info, project_name, title, **kwargs)
 
         if success:
             util.cloudwatch_log(info.context, 'Security: Created draft in '

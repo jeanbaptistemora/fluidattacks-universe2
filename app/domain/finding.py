@@ -733,16 +733,22 @@ def remove_evidence(evidence_name, finding_id, project_name):
     return False
 
 
-def create_draft(analyst_email, project_name, title, **kwargs):
+def create_draft(info, project_name, title, **kwargs):
     last_fs_id = 550000000
     finding_id = str(random.randint(last_fs_id, 1000000000))
     tzn = pytz.timezone(settings.TIME_ZONE)
     project_name = project_name.lower()
     creation_date = datetime.now(tz=tzn).today()
     creation_date = creation_date.strftime('%Y-%m-%d %H:%M:%S')
+    user_data = util.get_jwt_content(info.context)
+    analyst_email = user_data['user_email']
     submission_history = {'analyst': analyst_email,
                           'creation_date': creation_date,
                           'status': 'CREATED'}
+    if util.is_api_token(user_data):
+        submission_history.update({
+            'analyst': f'api-{analyst_email}',
+            'origin': kwargs.get('origin', 'api')})
 
     if 'description' in kwargs:
         kwargs['vulnerability'] = kwargs['description']
