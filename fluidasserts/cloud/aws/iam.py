@@ -879,3 +879,59 @@ def mfa_disabled_for_users_with_console_password(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_old_ssh_public_keys(key_id: str, secret: str,
+                            retry: bool = True) -> tuple:
+    """
+    Find IAM users keep any outdated (older than 90 days) SSH public keys.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are users with outdated SSH public keys.
+                Encryption enabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = \
+        'There are users with old SSH public keys (older than 90 days).'
+    msg_closed: str = 'Users have updated SSH public keys.'
+    vulns, safes = [], []
+
+    three_months_ago = datetime.now() - timedelta(days=90)
+    three_months_ago = three_months_ago.replace(tzinfo=pytz.UTC)
+
+    users = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='iam',
+        func='list_users',
+        param='Users',
+        retry=retry)
+    for user in users:
+        keys = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='iam',
+            func='list_ssh_public_keys',
+            UserName=user['UserName'],
+            param='SSHPublicKeys',
+            retry=retry)
+
+        vulnerable = any(
+            map(lambda x: x['UploadDate'] < three_months_ago, keys))
+        (vulns if vulnerable else safes).append(
+            (user['Arn'], 'Update old SSH public keys.'))
+
+    return _get_result_as_tuple(
+        service='IAM',
+        objects='Users',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

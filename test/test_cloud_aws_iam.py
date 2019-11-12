@@ -110,6 +110,15 @@ def test_mfa_disabled_for_users_with_console_password_open():
 #
 
 
+def test_has_old_ssh_public_keys_close():
+    """Search olds ssh public keys."""
+    assert iam.has_old_ssh_public_keys(AWS_ACCESS_KEY_ID,
+                                       AWS_SECRET_ACCESS_KEY).is_closed()
+    assert iam.has_old_ssh_public_keys(AWS_ACCESS_KEY_ID,
+                                       AWS_SECRET_ACCESS_KEY_BAD,
+                                       retry=False).is_unknown()
+
+
 def test_has_permissive_role_policies_closed():
     """Search roles with permissive policies."""
     assert iam.has_permissive_role_policies(AWS_ACCESS_KEY_ID,
