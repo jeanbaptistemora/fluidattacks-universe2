@@ -70,26 +70,35 @@ export interface IHeader {
 const statusFormatter: ((value: string) => ReactElement<Label>) =
   (value: string): ReactElement<Label> => {
     let bgColor: string;
+    let status: string; status = "";
 
     switch (value) {
-      case "Cerrado":
       case "Closed":
-      case "Tratada":
       case "Solved":
         bgColor = "#31c0be";
         break;
-      case "Abierto":
       case "Open":
-      case "Pendiente":
       case "Unsolved":
         bgColor = "#f22";
         break;
-      case "Parcialmente cerrado":
       case "Partially closed":
         bgColor = "#ffbf00";
         break;
+      case "Submitted":
+          bgColor = "#31c0be";
+          status = value;
+          break;
+      case "Rejected":
+          bgColor = "#f22";
+          status = value;
+          break;
+      case "Created":
+          bgColor = "#ffbf00";
+          status = value;
+          break;
       default:
         bgColor = "";
+        status = "";
     }
 
     return (
@@ -99,7 +108,7 @@ const statusFormatter: ((value: string) => ReactElement<Label>) =
           backgroundColor: bgColor,
         }}
       >
-        {value}
+        {status === "" ? value : status}
       </Label>
     );
 };

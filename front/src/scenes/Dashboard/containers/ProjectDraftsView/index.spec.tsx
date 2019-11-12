@@ -20,7 +20,7 @@ describe("ProjectDraftsView", () => {
   const mockProps: IProjectDraftsBaseProps = {
     match: {
       isExact: true,
-      params: {projectName: "TEST"},
+      params: { projectName: "TEST" },
       path: "/",
       url: "",
     },
@@ -40,6 +40,7 @@ describe("ProjectDraftsView", () => {
             __typename: "Project",
             drafts: [{
               __typename: "Finding",
+              currentStatus: "",
               description: "Xcross site scripting - login.",
               id: "507046047",
               isExploitable: true,
@@ -53,7 +54,7 @@ describe("ProjectDraftsView", () => {
           },
         },
       },
-  }];
+    }];
 
   const mockError: ReadonlyArray<MockedResponse> = [
     {
@@ -66,7 +67,7 @@ describe("ProjectDraftsView", () => {
       result: {
         errors: [new GraphQLError("Access denied")],
       },
-  }];
+    }];
 
   it("should return a function", () => {
     expect(typeof (ProjectDraftsView))

@@ -407,12 +407,18 @@ export const formatDrafts: ((dataset: IDraftsDataset) => IDraftsDataset) =
       HYGIENE: "search_findings.tab_description.type.hygiene",
       SECURITY: "search_findings.tab_description.type.security",
     };
+    const status: { [value: string]: string } = {
+      CREATED: "search_findings.draft_status.created",
+      REJECTED: "search_findings.draft_status.rejected",
+      SUBMITTED: "search_findings.draft_status.submitted",
+    };
     const reportDate: string = draft.reportDate.split(" ")[0];
+    const currentStatus: string = translate.t(status[draft.currentStatus]);
     const type: string = translate.t(typeParameters[draft.type]);
     const isExploitable: string = translate.t(Boolean(draft.isExploitable)
       ? "project.findings.boolean.True" : "project.findings.boolean.False");
 
-    return { ...draft, reportDate, type, isExploitable };
+    return { ...draft, reportDate, type, isExploitable, currentStatus };
   });
 
 export const handleErrors: ((errorText: string, errors: readonly GraphQLError[]) => void) =

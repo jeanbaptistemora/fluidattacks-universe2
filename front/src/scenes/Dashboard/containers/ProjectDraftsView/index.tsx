@@ -35,7 +35,7 @@ const tableHeaders: IHeader[] = [
     align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", isDate: false, isStatus: false,
     width: "6%",
   },
-  { align: "center", dataField: "isExploitable", header: "Exploitable", isDate: false, isStatus: false, width: "10%" },
+  { align: "center", dataField: "currentStatus", header: "Status", isDate: false, isStatus: true, width: "10%" },
 ];
 
 const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDraftsBaseProps): JSX.Element => {

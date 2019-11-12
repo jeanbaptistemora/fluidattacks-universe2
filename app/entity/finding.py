@@ -40,6 +40,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     comments = List(GenericScalar)
     compromised_attributes = String()
     compromised_records = Int()
+    current_status = String()
     cvss_version = String()
     cwe_url = String()
     description = String()
@@ -367,6 +368,11 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """ Resolve acceptance_date attribute """
         del info
         return self.acceptance_date
+
+    def resolve_current_status(self, info):
+        """Resolve vulnerabilities attribute."""
+        del info
+        return self.current_status
 
 
 class RemoveEvidence(Mutation):

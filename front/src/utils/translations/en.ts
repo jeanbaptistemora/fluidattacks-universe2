@@ -212,6 +212,11 @@ const enTranslations: dict = {
       title: "Delete Finding",
     },
     draft_approved: "This finding has been approved",
+    draft_status: {
+      created: "Created",
+      rejected: "Rejected",
+      submitted: "Submitted",
+    },
     environment_table: {
       environment: "Environment",
     },
