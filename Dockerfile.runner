@@ -22,7 +22,7 @@ RUN git clone --depth 1 \
     && cd /home/asserts \
     && scons dist
 
-FROM python:3.8-alpine3.10 AS light
+FROM python:3.7-alpine3.10 AS light
 
 WORKDIR /home
 COPY --from=deps /home/asserts/build/dist/* /home/
