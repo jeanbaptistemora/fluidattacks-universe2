@@ -70,6 +70,60 @@
         }
       },
       {
+         "PutRequest": {
+           "Item": {
+             "responsibility": {
+               "S": "Test"
+             },
+             "project_name": {
+               "S": "oneshottest"
+             },
+             "has_access": {
+               "BOOL": true
+             },
+             "user_email": {
+               "S": "integratesuser@gmail.com"
+             }
+           }
+         }
+      },
+      {
+         "PutRequest": {
+           "Item": {
+             "responsibility": {
+               "S": "Test"
+             },
+             "project_name": {
+               "S": "oneshottest"
+             },
+             "has_access": {
+               "BOOL": true
+             },
+             "user_email": {
+               "S": "integratesmanager@gmail.com"
+             }
+           }
+         }
+      },
+      {
+         "PutRequest": {
+           "Item": {
+             "responsibility": {
+               "S": "Test"
+             },
+             "project_name": {
+               "S": "oneshottest"
+             },
+             "has_access": {
+               "BOOL": true
+             },
+             "user_email": {
+               "S": "integratesanalyst@gmail.com"
+             }
+           }
+         }
+      },
+      {
         "PutRequest": {
           "Item": {
             "responsibility": {

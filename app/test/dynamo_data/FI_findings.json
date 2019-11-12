@@ -413,6 +413,23 @@
                "scenario" : {
                   "S" : "ANONYMOUS_INTRANET"
                },
+               "submission_history": {
+                  "L": [
+                     {
+                        "M" : {
+                           "analyst" : {
+                              "S" : "unittest@fluidattacks.com"
+                           },
+                           "creation_date" :{
+                              "S" : "2019-02-04 12:46:10"
+                           },
+                           "status" : {
+                              "S" : "CREATED"
+                           }
+                        }
+                     }
+                  ]
+               },
                "severity_scope" : {
                   "N" : "0"
                },

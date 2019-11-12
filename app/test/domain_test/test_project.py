@@ -225,7 +225,7 @@ class ProjectTest(TestCase):
     def test_list_drafts(self):
         project_name = 'unittesting'
         test_data = list_drafts(project_name)
-        expected_output = ['475041513', '526734257']
+        expected_output = ['475041513']
         assert test_data == expected_output
 
     def test_list_comments(self):
@@ -251,9 +251,7 @@ class ProjectTest(TestCase):
         project_name = 'unittesting'
         test_data = list_findings(project_name)
         expected_output = [
-            '463461507', '436423161', '436992569', '457502279',
-            '463462578', '462739885', '457497316', '422286126',
-            '463558592', '472184283', '445291998', '435326463'
+            '422286126', '436992569', '463461507', '463558592', '457497316'
         ]
         assert expected_output == test_data
 
