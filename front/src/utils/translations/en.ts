@@ -336,6 +336,7 @@ const enTranslations: dict = {
       analyst: "Analyst",
       client: "Client",
       client_project: "Client's Project",
+      comments: "Comments",
       date: "Date",
       description: "Description",
       edit: "Edit",

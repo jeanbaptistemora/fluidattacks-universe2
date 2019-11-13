@@ -11,6 +11,7 @@ import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
 import { NavLink } from "react-router-dom";
 import translate from "../../../../utils/translations/translate";
 import { EventHeader } from "../../components/EventHeader";
+import { EventCommentsView } from "../EventCommentsView";
 import { eventDescriptionView as EventDescriptionView } from "../EventDescriptionView/index";
 import { EventEvidenceView } from "../EventEvidenceView";
 import style from "../FindingContent/index.css";
@@ -46,11 +47,18 @@ const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JS
                   &nbsp;{translate.t("search_findings.tab_events.evidence")}
                 </NavLink>
               </li>
+              <li id="commentsTab" className={style.tab}>
+                <NavLink activeClassName={style.active} to={`${props.match.url}/comments`}>
+                  <i className="icon pe-7s-comment" />
+                  &nbsp;{translate.t("search_findings.tab_events.comments")}
+                </NavLink>
+              </li>
             </ul>
             <div className={style.tabContent}>
               <Switch>
                 <Route path={`${props.match.path}/description`} component={EventDescriptionView} exact={true} />
                 <Route path={`${props.match.path}/evidence`} component={EventEvidenceView} exact={true} />
+                <Route path={`${props.match.path}/comments`} component={EventCommentsView} exact={true} />
                 <Redirect to={`${props.match.path}/description`} />
               </Switch>
             </div>
