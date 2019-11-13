@@ -691,7 +691,7 @@ def exec_cloudformation_package(
             kms.is_key_rotation_absent_or_disabled('__path__')
             """,
         ('rds', 'RDS (Relational Database Service)'): """
-            rds.has_not_automated_back_ups('__path__')
+            rds.has_not_automated_backups('__path__')
             rds.has_unencrypted_storage('__path__')
             rds.is_publicly_accessible('__path__')
             """,

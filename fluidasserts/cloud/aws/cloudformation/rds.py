@@ -72,7 +72,7 @@ def has_unencrypted_storage(
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def has_not_automated_back_ups(
+def has_not_automated_backups(
         path: str, exclude: Optional[List[str]] = None) -> tuple:
     """
     Check if any ``DBCluster`` or ``DBInstance`` have not automated backups.
