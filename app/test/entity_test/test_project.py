@@ -13,7 +13,7 @@ from app.api.schema import SCHEMA
 
 class ProjectEntityTests(TestCase):
 
-    def test_get_resources(self):
+    def test_get_project(self):
         """ Check for project resources """
         query = '''
           query {
@@ -47,4 +47,4 @@ class ProjectEntityTests(TestCase):
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert result['data']['project']
-        assert result['data']['project']['totalFindings'] == 5
+        assert result['data']['project']['lastClosingVuln'] == 23

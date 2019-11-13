@@ -13,9 +13,42 @@ from jose import jwt
 from app.api.schema import SCHEMA
 from app.api.dataloaders.finding import FindingLoader
 from app.api.dataloaders.vulnerability import VulnerabilityLoader
+from app.domain.finding import get_finding
 
 
 class FindingTests(TestCase):
+
+    def test_delete_finding(self):
+        query = '''
+          mutation {
+            deleteFinding(findingId: "422286126", justification: FINDING_CHANGED) {
+              success
+            }
+          }
+        '''
+        testing_client = Client(SCHEMA)
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+        request.loaders = {'finding': FindingLoader()}
+        result = testing_client.execute(query, context=request)
+        assert 'errors' not in result
+        assert result['data']['deleteFinding']['success']
+        finding = get_finding('422286126')
+        assert finding['submissionHistory'][-1].get('status') == 'DELETED'
 
     def test_get_finding(self):
         """ Check for finding """
