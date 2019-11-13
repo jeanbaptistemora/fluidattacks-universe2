@@ -551,6 +551,7 @@ def exec_ssl_package(addresses: List[str], enable_multiprocessing: bool):
             ssl.has_poodle_sslv3('{ip_address}', {port})
             ssl.has_poodle_tls('{ip_address}', {port})
             ssl.has_sweet32('{ip_address}', {port})
+            ssl.has_freak('{ip_address}', {port})
             ssl.has_tls13_downgrade_vuln('{ip_address}', {port})
             """,
         ('ssl', 'SSL part 3'): """
