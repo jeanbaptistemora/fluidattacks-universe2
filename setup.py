@@ -69,33 +69,33 @@ setup(
         'License :: Other/Proprietary License',
     ],
     install_requires=[
-        'aiohttp==3.5.4',              # fluidasserts
+        'aiohttp==3.6.2',              # fluidasserts
         'androguard==3.3.5',           # fluidasserts.format.apk
         'bandit==1.6.2',               # fluidasserts.lang.python
         'bcrypt==3.1.7',               # fluidasserts.proto.ssl
-        'beautifulsoup4==4.8.0',       # fluidasserts.helper.http_helper
-        'boto3==1.9.213',              # fluidasserts.cloud.aws
-        'certifi==2019.6.16',          # fluidasserts.proto.ssl
-        'cffi==1.12.3',                # fluidasserts.proto.ssl
+        'beautifulsoup4==4.8.1',       # fluidasserts.helper.http_helper
+        'boto3==1.10.17',              # fluidasserts.cloud.aws
+        'certifi==2019.9.11',          # fluidasserts.proto.ssl
+        'cffi==1.13.2',                # fluidasserts.proto.ssl
         'colorama==0.4.1',             # logging
         'configobj==5.0.6',            # fluidasserts
-        'cfn_flip==1.2.1',             # fluidasserts.helper.cloudformation
-        'cryptography==2.7',           # fluidasserts.proto.ssl
-        'cython==0.29.13',             # fluidasserts.db.mssql
+        'cfn_flip==1.2.2',             # fluidasserts.helper.cloudformation
+        'cryptography==2.8',           # fluidasserts.proto.ssl
+        'cython==0.29.14',             # fluidasserts.db.mssql
         'defusedxml==0.6.0',           # fluidasserts.sca
         'dnspython==1.16.0',           # fluidasserts.proto.dns
-        'gitpython==3.0.1',            # fluidasserts.proto.git
+        'gitpython==3.0.4',            # fluidasserts.proto.git
         'google-api-python-client==1.7.11',     # fluidasserts.cloud.gcp
         'google-auth-httplib2==0.0.3',    # fluidasserts.cloud.gcp
-        'ldap3==2.6',                  # fluidasserts.proto.ldap
-        'mixpanel==4.4.0',             # fluidasserts.utils.decorators
+        'ldap3==2.6.1',                  # fluidasserts.proto.ldap
+        'mixpanel==4.5.0',             # fluidasserts.utils.decorators
         'mysql-connector==2.2.9',      # fluidasserts.db.mysql_db
         'names==0.3.0',                # fluidasserts.helper.http
         'ntplib==0.3.3',               # fluidasserts.proto.http
         'oyaml==0.9',                  # fluidasserts
         'paramiko==2.6.0',             # fluidasserts.helper.ssh_helper
-        'pillow==6.1.0',               # fluidasserts.format.captcha
-        'psycopg2==2.8.3',             # fluidasserts.db.postgresql
+        'pillow==6.2.1',               # fluidasserts.format.captcha
+        'psycopg2==2.8.4',             # fluidasserts.db.postgresql
         'pyopenssl==19.0.0',           # fluidasserts.proto.ssl
         'pycrypto==2.6.1; platform_system == "Linux"',
         'pygments==2.4.2',             # fluidasserts
@@ -103,14 +103,14 @@ setup(
         'pyjwt==1.7.1',                # fluidasserts.format.jwt
         'pymssql-py38==2.1.4',         # fluidasserts.db.mssql
         'pynacl==1.3.0',               # fluidasserts.proto.ssl
-        'pyparsing==2.4.2',            # fluidasserts.lang
+        'pyparsing==2.4.5',            # fluidasserts.lang
         'pypdf2==1.26.0',              # fluidasserts.format.pdf
         'pysmb==1.1.27',               # fluidasserts.proto.smb
-        'pytesseract==0.2.9',          # fluidasserts.format.captcha
-        'python-dateutil==2.8.0',      # fluidasserts.cloud.aws
+        'pytesseract==0.3.0',          # fluidasserts.format.captcha
+        'python-dateutil==2.8.1',      # fluidasserts.cloud.aws
         'python-magic==0.4.15',        # fluidasserts.format.file
-        'pytz==2019.2',                # fluidasserts.proto.http
-        'pywinrm==0.3.0',              # fluidasserts.helper.winrm_helper
+        'pytz==2019.3',                # fluidasserts.proto.http
+        'pywinrm==0.4.1',              # fluidasserts.helper.winrm_helper
         'requests==2.22.0',            # fluidasserts.proto.http
         'requirements-detector==0.6',  # fluidasserts.sca
         'selenium==3.141.0',           # fluidasserts.helper.http
