@@ -16,7 +16,6 @@ from __init__ import (
     FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS, FI_MAIL_REPLYERS
 )
 from app import util
-from app.dal.helpers.formstack import FormstackAPI
 from app.dal import integrates_dal, finding as finding_dal
 from app.domain import (
     project as project_domain, user as user_domain,
@@ -601,35 +600,54 @@ def send_finding_delete_mail(
     email_send_thread.start()
 
 
+def filter_deleted_findings(findings_ids):
+    findings = [get_finding(finding_id) for finding_id in findings_ids]
+    return [finding['findingId'] for finding in findings
+            if finding.get('submissionHistory', [{}])[-1].get(
+                'status') != 'DELETED']
+
+
 def delete_finding(finding_id, project_name, justification, context):
     finding_data = get_finding(finding_id)
-    is_finding = 'releaseDate' in finding_data
+    submission_history = finding_data.get('submissionHistory', [{}])
+    success = False
 
-    delete_all_comments(finding_id)
-    delete_all_evidences_s3(finding_id, project_name, context)
+    if submission_history[-1].get('status') != 'DELETED':
+        tzn = pytz.timezone(settings.TIME_ZONE)
+        delete_date = datetime.now(tz=tzn).today()
+        delete_date = delete_date.strftime('%Y-%m-%d %H:%M:%S')
+        submission_history[-1].update({
+            'status': 'DELETED',
+            'deletion_date': delete_date,
+            'justification': justification,
+            'analyst': util.get_jwt_content(context)['user_email'],
+        })
+        success = finding_dal.update(finding_id, {
+            'submission_history': submission_history
+        })
 
-    for vuln in integrates_dal.get_vulnerabilities_dynamo(finding_id):
-        integrates_dal.delete_vulnerability_dynamo(vuln['UUID'], finding_id)
-
-    if is_finding:
-        api = FormstackAPI()
-        api.delete_submission(finding_id)
-
-    success = finding_dal.delete(finding_id)
-    if success:
-        send_finding_delete_mail(
-            finding_id, finding_data['finding'], project_name,
-            finding_data['analyst'], justification)
+        if success:
+            justification_dict = {
+                'DUPLICATED': 'It is duplicated',
+                'CHANGE_EVIDENCE': 'Change of evidence',
+                'FINDING_CHANGED': 'Finding has changed',
+                'NOT_VULNERABILITY': 'It is not a Vulnerability',
+            }
+            send_finding_delete_mail(
+                finding_id, finding_data['finding'], project_name,
+                finding_data['analyst'], justification_dict[justification])
 
     return success
 
 
 def approve_draft(draft_id, reviewer_email):
     draft_data = get_finding(draft_id)
+    submission_history = draft_data.get('submissionHistory')
     release_date = None
     success = False
 
-    if 'releaseDate' not in draft_data:
+    if 'releaseDate' not in draft_data and \
+       submission_history[-1].get('status') != 'DELETED':
         has_vulns = vuln_domain.list_vulnerabilities([draft_id])
         if has_vulns:
             if 'reportDate' in draft_data:
@@ -800,9 +818,10 @@ def send_new_draft_mail(
 def submit_draft(finding_id, analyst_email):
     success = False
     finding = get_finding(finding_id)
+    submission_history = finding.get('submissionHistory')
 
-    if 'releaseDate' not in finding:
-        submission_history = finding.get('submissionHistory')
+    if 'releaseDate' not in finding and \
+       submission_history[-1].get('status') != 'DELETED':
         is_submitted = submission_history[-1].get('status') == 'SUBMITTED'
         if not is_submitted:
             evidence_list = [finding['evidence'].get(ev_name)

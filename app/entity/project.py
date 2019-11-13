@@ -17,7 +17,10 @@ from app.dal import integrates_dal, project as redshift_dal
 from app.decorators import (
     get_entity_cache, require_login, require_project_access, require_role
 )
-from app.domain import project as project_domain, vulnerability as vuln_domain
+from app.domain import (
+    finding as finding_domain, project as project_domain,
+    vulnerability as vuln_domain
+)
 from app.entity.comment import Comment
 from app.entity.event import Event
 from app.entity.finding import Finding
@@ -99,7 +102,9 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
                             'findings'.format(project=self.name))
         finding_ids = project_domain.list_findings(self.name)
         findings_loader = info.context.loaders['finding']
-        self.findings = findings_loader.load_many(finding_ids)
+        self.findings = findings_loader.load_many(finding_ids).then(
+            lambda findings: [finding for finding in findings
+                              if finding.current_status != 'DELETED'])
 
         return self.findings
 
@@ -109,7 +114,8 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         finding_ids = project_domain.list_findings(self.name)
         vulns_loader = info.context.loaders['vulnerability']
 
-        self.open_vulnerabilities = vulns_loader.load_many(finding_ids).then(
+        self.open_vulnerabilities = vulns_loader.load_many(
+            finding_domain.filter_deleted_findings(finding_ids)).then(
             lambda findings: sum([
                 len([vuln for vuln in vulns
                      if vuln_domain.get_current_state(vuln) == 'open' and
@@ -126,7 +132,8 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         finding_ids = project_domain.list_findings(self.name)
         vulns_loader = info.context.loaders['vulnerability']
 
-        self.closed_vulnerabilities = vulns_loader.load_many(finding_ids).then(
+        self.closed_vulnerabilities = vulns_loader.load_many(
+            finding_domain.filter_deleted_findings(finding_ids)).then(
             lambda findings: sum([
                 len([vuln for vuln in vulns
                      if vuln_domain.get_current_state(vuln) == 'closed' and
@@ -162,7 +169,8 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
         self.max_severity = findings_loader.load_many(finding_ids).then(
             lambda findings: max([
-                finding.severity_score for finding in findings])
+                finding.severity_score for finding in findings
+                if finding.current_status != 'DELETED'])
             if findings else 0)
 
         return self.max_severity
@@ -190,7 +198,9 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """Resolve total findings attribute."""
         finding_ids = project_domain.list_findings(self.name)
         findings_loader = info.context.loaders['finding']
-        findings = findings_loader.load_many(finding_ids)
+        findings = findings_loader.load_many(finding_ids).then(
+            lambda findings: [finding for finding in findings
+                              if finding.current_status != 'DELETED'])
         self.total_findings = findings.then(len)
 
         return self.total_findings
@@ -284,7 +294,9 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
                             'drafts'.format(project=self.name))
         finding_ids = project_domain.list_drafts(self.name)
         findings_loader = info.context.loaders['finding']
-        self.drafts = findings_loader.load_many(finding_ids)
+        self.drafts = findings_loader.load_many(finding_ids).then(
+            lambda drafts: [draft for draft in drafts
+                            if draft.current_status != 'DELETED'])
 
         return self.drafts
 
