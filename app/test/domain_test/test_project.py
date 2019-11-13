@@ -188,7 +188,7 @@ class ProjectTest(TestCase):
 
         test_data = get_mean_remediate(open_finding)
         current_day = datetime.now(tz=timezone('America/Bogota')).date()
-        expected_output = Decimal('200.0').quantize(Decimal('0.1'))
+        expected_output = Decimal('201.0').quantize(Decimal('0.1'))
         assert test_data == expected_output
 
         closed_vuln_finding = ['457497316']
