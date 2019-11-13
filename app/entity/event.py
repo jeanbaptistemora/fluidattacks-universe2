@@ -1,4 +1,3 @@
-""" GraphQL Entity for Events """
 from graphene import (
     Argument, Boolean, DateTime, Enum, Field, Int, List, Mutation, ObjectType,
     String
@@ -6,16 +5,19 @@ from graphene import (
 
 from app import util
 from app.decorators import (
-    require_login, require_role, require_event_access, require_project_access
+    get_entity_cache, require_login, require_role, require_event_access,
+    require_project_access
 )
-from app.domain import event as event_domain
+from app.domain import comment as comment_domain, event as event_domain
+from app.entity.comment import Comment
 
 
 class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
-    """ Formstack Events Class """
+    """ GraphQL Entity for Events """
     id = String()  # noqa pylint: disable=invalid-name
     analyst = String()
     client = String()
+    comments = List(Comment)
     project_name = String()
     client_project = String()
     detail = String()
@@ -29,6 +31,9 @@ class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     context = String()
     subscription = String()
     evidence_file = String()
+
+    def __str__(self):
+        return self.id + '_event'
 
     def resolve_id(self, info):
         """ Resolve id attribute """
@@ -44,6 +49,16 @@ class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """ Resolve client attribute """
         del info
         return self.client
+
+    @get_entity_cache
+    def resolve_comments(self, info):
+        """ Resolve comments attribute """
+        self.comments = [
+            Comment(**comment)
+            for comment in comment_domain.get_event_comments(
+                self.id, util.get_jwt_content(info.context)['user_role'])]
+
+        return self.comments
 
     def resolve_evidence(self, info):
         """ Resolve evidence attribute """
@@ -238,3 +253,35 @@ class CreateEvent(Mutation):
             util.invalidate_cache(project_name)
 
         return CreateEvent(success=success)
+
+
+class AddEventComment(Mutation):
+    """ Add comment to event """
+
+    class Arguments():
+        content = String(required=True)
+        event_id = String(required=True)
+        parent = String(required=True)
+    comment_id = String()
+    success = Boolean()
+
+    @staticmethod
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_project_access
+    def mutate(_, info, content, event_id, parent):
+        user_info = util.get_jwt_content(info.context)
+        comment_id, success = comment_domain.create(
+            'event', content, event_id, parent, user_info)
+
+        if success:
+            util.invalidate_cache(event_id)
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Added comment to event {event_id} succesfully')
+        else:
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Attempted to add comment in event {event_id}')
+
+        return AddEventComment(success=success, comment_id=comment_id)

@@ -24,7 +24,7 @@ from app.entity.project import (
     AddProjectComment, CreateProject, RemoveTag, AddTags, AddAllProjectAccess,
     RemoveAllProjectAccess
 )
-from app.entity.event import CreateEvent, UpdateEvent
+from app.entity.event import AddEventComment, CreateEvent, UpdateEvent
 from app.entity.me import SignIn, UpdateAccessToken, InvalidateAccessToken
 from app.entity.alert import SetAlert
 from app.entity.cache import InvalidateCache
@@ -76,6 +76,7 @@ class Mutations(ObjectType):
     deleteFinding = DeleteFinding.Field()
     submit_draft = SubmitDraft.Field()
 
+    add_event_comment = AddEventComment.Field()
     create_event = CreateEvent.Field()
     update_event = UpdateEvent.Field()
 

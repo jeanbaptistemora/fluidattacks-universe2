@@ -2,6 +2,7 @@
 
 import rollbar
 from botocore.exceptions import ClientError
+
 from app.dal.helpers import dynamodb
 
 
