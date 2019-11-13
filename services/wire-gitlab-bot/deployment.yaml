@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: wire-gitlab-bot
+  namespace: serves
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: wire-gitlab-bot
+    spec:
+      containers:
+      - name: container-wire-gitlab-bot
+        image: debian:buster-slim
+        args:
+          - bash
+          - -ce
+          - 'sleep 10000000'
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 64m
+            memory: 64Mi
+          limits:
+            cpu: 128m
+            memory: 128Mi

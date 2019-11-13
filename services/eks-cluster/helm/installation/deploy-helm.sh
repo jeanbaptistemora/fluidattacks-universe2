@@ -29,7 +29,6 @@ get_last_tls_keys() {
 
   # Remove unnecessary files
   rm "$JSON_FILE" "$CA_B64" "$CRT_B64" "$KEY_B64"
-
 }
 
 install_helm() {
@@ -90,7 +89,6 @@ install_helm() {
 
   # Remove unnecessary files
   rm "$TILLER_CERT" "$TILLER_KEY" "$CA_CERT"
-
 }
 
 deploy_helm() {
@@ -111,5 +109,4 @@ deploy_helm() {
 
   # Install charts
   install_charts
-
 }
