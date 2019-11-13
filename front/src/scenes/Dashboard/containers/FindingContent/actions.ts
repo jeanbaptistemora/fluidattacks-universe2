@@ -103,7 +103,7 @@ export const deleteFinding: ((findingId: string, projectName: string, justificat
   (findingId: string, projectName: string, justification: string): ThunkResult<void> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string; gQry = `mutation {
-        deleteFinding(findingId: "${findingId}", justification: "${justification}") {
+        deleteFinding(findingId: "${findingId}", justification: ${justification}) {
           success
         }
       }`;

@@ -762,7 +762,12 @@ class RejectDraft(Mutation):
 class DeleteFinding(Mutation):
     class Arguments():
         finding_id = String(required=True)
-        justification = String(required=True)
+        justification = Argument(
+            Enum('DeleteFindingJustification', [
+                ('DUPLICATED', 'DUPLICATED'),
+                ('CHANGE_EVIDENCE', 'CHANGE_EVIDENCE'),
+                ('FINDING_CHANGED', 'FINDING_CHANGED'),
+                ('NOT_VULNERABILITY', 'NOT_VULNERABILITY')]), required=True)
     success = Boolean()
 
     @require_login
@@ -778,11 +783,11 @@ class DeleteFinding(Mutation):
             util.invalidate_cache(project_name)
             util.cloudwatch_log(
                 info.context,
-                'Security: Deleted finding: {} succesfully'.format(finding_id))
+                f'Security: Deleted finding: {finding_id} succesfully')
         else:
             util.cloudwatch_log(
                 info.context,
-                'Security: Attempted to delete finding: {}'.format(finding_id))
+                f'Security: Attempted to delete finding: {finding_id}')
         return DeleteFinding(success=success)
 
 

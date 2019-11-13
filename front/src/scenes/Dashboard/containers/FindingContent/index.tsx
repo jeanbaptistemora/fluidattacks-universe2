@@ -248,10 +248,10 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
             <ControlLabel>{translate.t("search_findings.delete.justif.label")}</ControlLabel>
             <Field name="justification" component={dropdownField} validate={[required]}>
               <option value="" />
-              <option value="Change of evidence">{translate.t("search_findings.delete.justif.evidence_change")}</option>
-              <option value="Finding has changed">{translate.t("search_findings.delete.justif.finding_change")}</option>
-              <option value="It is not a Vulnerability">{translate.t("search_findings.delete.justif.not_vuln")}</option>
-              <option value="It is duplicated">{translate.t("search_findings.delete.justif.duplicated")}</option>
+              <option value="CHANGE_EVIDENCE">{translate.t("search_findings.delete.justif.evidence_change")}</option>
+              <option value="FINDING_CHANGED">{translate.t("search_findings.delete.justif.finding_change")}</option>
+              <option value="NOT_VULNERABILITY">{translate.t("search_findings.delete.justif.not_vuln")}</option>
+              <option value="DUPLICATED">{translate.t("search_findings.delete.justif.duplicated")}</option>
             </Field>
           </FormGroup>
         </GenericForm>
