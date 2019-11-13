@@ -138,8 +138,6 @@
         "customeradmin": "set",
         "deletion_date": "date-time",
         "description": "string",
-        "environments": "list<dict>",
-        "files": "list<dict>",
         "findings_deleted": "list<dict>",
         "hasRelease": "string",
         "last_closing_date": "number",
@@ -149,7 +147,6 @@
         "project_name": "string",
         "project_status": "string",
         "remediated_over_time": "string",
-        "repositories": "list<dict>",
         "resp_developer": "string",
         "resp_product_owner": "string",
         "resp_project_manager": "string",
@@ -188,9 +185,7 @@
         "legal_remember": "string",
         "phone": "string",
         "registered": "string",
-        "remember": "string",
-        "role": "string",
-        "username": "string"
+        "role": "string"
       }
     },
     "FI_vulnerabilities": {
@@ -208,7 +203,7 @@
         "finding_id": "string",
         "historic_state": "list<dict>",
         "last_update": "date-time",
-        "specific": "number",
+        "specific": "string",
         "treatment": "string",
         "treatmentManager": "string",
         "treatment_justification": "string",
@@ -241,6 +236,7 @@
         "affectation": "number",
         "affected_components": "string",
         "analyst": "string",
+        "blocking_hours": "number",
         "client": "string",
         "client_project": "string",
         "client_responsible": "string",
