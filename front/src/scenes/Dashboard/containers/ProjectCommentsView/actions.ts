@@ -12,13 +12,28 @@ export const loadComments: ((projectName: string, callbackFn: loadCallback) => v
       let gQry: string;
       gQry = `{
         project(projectName: "${projectName}") {
-          comments
+          comments {
+            id
+            content
+            created
+            email
+            fullname
+            modified
+            parent
+          }
         }
       }`;
       new Xhr().request(gQry, "An error occurred getting project comments")
         .then((response: AxiosResponse) => {
           const { data } = response.data;
-          callbackFn(data.project.comments);
+          let comments: ICommentStructure[] = data.project.comments;
+          comments = comments.map((comment: ICommentStructure): ICommentStructure => ({
+            ...comment,
+            created_by_current_user: comment.email === (window as typeof window & { userEmail: string }).userEmail,
+            id: Number(comment.id),
+            parent: Number(comment.parent),
+          }));
+          callbackFn(comments);
         })
         .catch((error: AxiosError) => {
           if (error.response !== undefined) {

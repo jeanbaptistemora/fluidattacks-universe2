@@ -229,17 +229,15 @@ class ProjectTest(TestCase):
         assert test_data == expected_output
 
     def test_list_comments(self):
-        user_email = 'test@test.com'
         project_name = 'unittesting'
-        test_data = list_comments(user_email, project_name, 'admin')
+        test_data = list_comments(project_name, 'admin')
         expected_output = {
             'content': 'Now we can post comments on projects',
             'parent': 0, 'created':
             '2018/12/27 16:30:28',
             'id': 1545946228675,
             'fullname': 'Miguel de Orellana',
-            'email': 'unittest@fluidattacks.com', 'modified': '2018/12/27 16:30:28',
-            'created_by_current_user': False
+            'email': 'unittest@fluidattacks.com', 'modified': '2018/12/27 16:30:28'
         }
         assert test_data[0] == expected_output
 

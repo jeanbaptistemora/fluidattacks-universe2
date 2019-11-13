@@ -12,7 +12,15 @@ export const loadComments: ((findingId: string, type: string, callbackFn: loadCa
     let gQry: string;
     gQry = `{
       finding(identifier: "${findingId}"){
-        ${type}
+        ${type} {
+          id
+          content
+          created
+          email
+          fullname
+          modified
+          parent
+        }
       }
     }`;
     new Xhr().request(gQry, `An error occurred getting finding ${type}s`)
@@ -23,7 +31,9 @@ export const loadComments: ((findingId: string, type: string, callbackFn: loadCa
           : data.finding.observations;
         comments = comments.map((comment: ICommentStructure): ICommentStructure => ({
           ...comment,
-          created_by_current_user: comment.email === (window as Window & { userEmail: string }).userEmail,
+          created_by_current_user: comment.email === (window as typeof window & { userEmail: string }).userEmail,
+          id: Number(comment.id),
+          parent: Number(comment.parent),
         }));
 
         callbackFn(comments);

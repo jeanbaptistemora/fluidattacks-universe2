@@ -1,13 +1,10 @@
 """DAL functions for findings."""
 
 import rollbar
-import boto3
 from botocore.exceptions import ClientError
 
 # pylint:disable=relative-import
-from __init__ import (
-    FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY, FI_AWS_S3_BUCKET
-)
+from __init__ import FI_AWS_S3_BUCKET
 from app.dal.helpers import s3, dynamodb
 
 

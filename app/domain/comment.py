@@ -5,7 +5,7 @@ from app.domain import user as user_domain
 
 
 def _get_comments(comment_type, finding_id, user_role):
-    comments = [fill_comment_data(None, user_role, comment)
+    comments = [fill_comment_data(user_role, comment)
                 for comment in comment_dal.get_comments(comment_type, int(finding_id))]
     return comments
 
@@ -16,11 +16,10 @@ def get_comments(finding_id, user_role):
     return comments
 
 
-def fill_comment_data(user_email, user_role, data):
+def fill_comment_data(user_role, data):
     return {
         'content': data['content'],
         'created': util.format_comment_date(data['created']),
-        'created_by_current_user': data['email'] == user_email,
         'email': data['email'],
         'fullname':
             (data['fullname']

@@ -21,6 +21,7 @@ from app.domain import (
     project as project_domain, user as user_domain,
     vulnerability as vuln_domain
 )
+from app.entity.comment import Comment
 from app.entity.vulnerability import Vulnerability
 from app.services import get_user_role, is_customeradmin
 from app.utils import findings as finding_utils
@@ -37,7 +38,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     attack_vector_desc = String()
     bts_url = String()
     closed_vulnerabilities = Int()
-    comments = List(GenericScalar)
+    comments = List(Comment)
     compromised_attributes = String()
     compromised_records = Int()
     current_status = String()
@@ -49,7 +50,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     id = String()  # noqa pylint: disable=invalid-name
     is_exploitable = Boolean()
     last_vulnerability = Int()
-    observations = List(GenericScalar)
+    observations = List(Comment)
     open_vulnerabilities = Int()
     project_name = String()
     recommendation = String()
@@ -201,7 +202,9 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         user_data = util.get_jwt_content(info.context)
         curr_user_role = get_user_role(user_data)
 
-        self.comments = comment_domain.get_comments(self.id, curr_user_role)
+        self.comments = [Comment(**comment)
+                         for comment in comment_domain.get_comments(
+                             self.id, curr_user_role)]
         return self.comments
 
     @require_role(['analyst', 'admin'])
@@ -218,7 +221,9 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         user_data = util.get_jwt_content(info.context)
         curr_user_role = get_user_role(user_data)
 
-        self.observations = comment_domain.get_observations(self.id, curr_user_role)
+        self.observations = [Comment(**obs)
+                             for obs in comment_domain.get_observations(
+                                 self.id, curr_user_role)]
         return self.observations
 
     def resolve_title(self, info):

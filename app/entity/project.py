@@ -18,6 +18,7 @@ from app.decorators import (
     get_entity_cache, require_login, require_project_access, require_role
 )
 from app.domain import project as project_domain, vulnerability as vuln_domain
+from app.entity.comment import Comment
 from app.entity.event import Event
 from app.entity.finding import Finding
 from app.entity.user import User
@@ -33,7 +34,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     current_month_authors = Int()
     current_month_commits = Int()
     subscription = String()
-    comments = List(GenericScalar)
+    comments = List(Comment)
     tags = List(String)
     deletion_date = String()
     pending_closing_check = Int()
@@ -247,10 +248,9 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_comments(self, info):
-        self.comments = project_domain.list_comments(
-            user_email=util.get_jwt_content(info.context)['user_email'],
-            project_name=self.name,
-            user_role=util.get_jwt_content(info.context)['user_role'])
+        self.comments = [
+            Comment(**comment) for comment in project_domain.list_comments(
+                self.name, util.get_jwt_content(info.context)['user_role'])]
 
         return self.comments
 

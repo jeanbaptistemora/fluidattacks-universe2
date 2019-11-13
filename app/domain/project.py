@@ -308,8 +308,8 @@ def list_drafts(project_name):
     return project_dal.list_drafts(project_name)
 
 
-def list_comments(user_email, project_name, user_role):
-    comments = [comment_domain.fill_comment_data(user_email, user_role, comment)
+def list_comments(project_name, user_role):
+    comments = [comment_domain.fill_comment_data(user_role, comment)
                 for comment in integrates_dal.get_project_comments_dynamo(project_name)]
     return comments
 
