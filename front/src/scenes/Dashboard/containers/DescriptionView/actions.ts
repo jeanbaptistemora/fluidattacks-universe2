@@ -311,13 +311,11 @@ export const updateTreatment: ThunkActionStructure<void> =
           if (error.response !== undefined) {
             const { errors } = error.response.data;
 
-            switch (errors[0].message) {
-              case "Invalid treatment manager":
-                msgError(translate.t("proj_alerts.invalid_treatment_mgr"));
-                break;
-              default:
-                msgError(translate.t("proj_alerts.error_textsad"));
-                rollbar.error(error.message, errors);
+            if (errors[0].message === "Invalid treatment manager") {
+              msgError(translate.t("proj_alerts.invalid_treatment_mgr"));
+            } else {
+              msgError(translate.t("proj_alerts.error_textsad"));
+              rollbar.error(error.message, errors);
             }
           }
         });
