@@ -90,7 +90,7 @@ export const updateRecords: ((findingId: string) => ThunkResult<void>) = (findin
     gQry = `mutation {
     updateEvidence (
       evidenceId: "8",
-      findingId: "${findingId}") {
+      findingId: "${findingId}", file: "") {
       success
       finding {
         records

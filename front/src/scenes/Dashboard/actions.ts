@@ -27,7 +27,7 @@ export const updateVulnerabilities: ThunkActionStructure =
   (findingId: string): ThunkAction<void, {}, {}, Action> => (_: ThunkDispatcher): void => {
     let gQry: string;
     gQry = `mutation {
-      uploadFile(findingId: "${findingId}") {
+      uploadFile(findingId: "${findingId}", file: "") {
         success
       }
     }`;

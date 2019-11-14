@@ -164,7 +164,7 @@ export const updateEvidence: ThunkActionStructure =
     gQry = `mutation {
         updateEvidence (
           evidenceId: "${evidenceId}",
-          findingId: "${findingId}") {
+          findingId: "${findingId}", file: "") {
           success
           finding {
             evidence

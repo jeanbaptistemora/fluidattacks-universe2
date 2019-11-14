@@ -9,6 +9,7 @@ from graphene import (
     ObjectType, String
 )
 from graphene.types.generic import GenericScalar
+from graphene_file_upload.scalars import Upload
 
 from app import util
 from app.dal import integrates_dal
@@ -409,6 +410,7 @@ class UpdateEvidence(Mutation):
     """ Update evidence files """
 
     class Arguments():
+        file = Upload(required=True)
         finding_id = String(required=True)
         evidence_id = String(required=True)
     success = Boolean()
@@ -417,9 +419,10 @@ class UpdateEvidence(Mutation):
     @require_login
     @require_role(['analyst', 'admin'])
     @require_finding_access
-    def mutate(self, info, evidence_id, finding_id):
+    def mutate(self, info, evidence_id, finding_id, file):
+        del file
         success = False
-        uploaded_file = info.context.FILES.get('document', '')
+        uploaded_file = info.context.FILES['1']
         project_name = finding_domain.get_finding(finding_id)['projectName']
         if util.assert_uploaded_file_mime(uploaded_file,
                                           ['image/gif',

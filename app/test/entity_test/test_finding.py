@@ -104,7 +104,7 @@ class FindingTests(TestCase):
                 mutation {
                   updateEvidence (
                     evidenceId: "0",
-                    findingId: "422286126") {
+                    findingId: "422286126", file: "") {
                   success
                     finding {
                       evidence
@@ -132,7 +132,7 @@ class FindingTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        request.FILES['document'] = uploaded_file
+        request.FILES['1'] = uploaded_file
         request.loaders = {'finding': FindingLoader()}
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result

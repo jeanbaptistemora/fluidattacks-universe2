@@ -9,6 +9,7 @@ import rollbar
 from mixpanel import Mixpanel
 from graphql import GraphQLError
 from graphene import ObjectType, JSONString, Mutation, String, Boolean, Field
+from graphene_file_upload.scalars import Upload
 from django.conf import settings
 
 from __init__ import FI_CLOUDFRONT_RESOURCES_DOMAIN
@@ -103,8 +104,8 @@ class AddRepositories(Mutation):
                     'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3],
                     'historic_state': [{
                         'user': user_email,
-                        'date': util.format_comment_date(datetime.today()
-                                .strftime('%Y-%m-%d %H:%M:%S')),
+                        'date': util.format_comment_date(
+                            datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
                         'state': "ACTIVE"
                     }],
                 })
@@ -177,8 +178,8 @@ class UpdateRepositories(Mutation):
                 else:
                     repo_list[cont]['historic_state'] = [{
                         'user': user_email,
-                        'date': util.format_comment_date(datetime.today()
-                                .strftime('%Y-%m-%d %H:%M:%S')),
+                        'date': util.format_comment_date(
+                            datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
                         'state': "ACTIVE"
                     }]
                 json_data = [repo_list[cont]]
@@ -331,6 +332,7 @@ Attempted to remove an environment that does not exist')
 class AddFiles(Mutation):
     """ Update evidence files """
     class Arguments():
+        file = Upload(required=True)
         files_data = JSONString()
         project_name = String()
     resources = Field(Resource)
@@ -352,7 +354,7 @@ class AddFiles(Mutation):
                 'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3],
                 'uploader': user_email,
             })
-        uploaded_file = info.context.FILES.get('document', '')
+        uploaded_file = info.context.FILES['1']
         file_id = '{project}/{file_name}'.format(
             project=project_name,
             file_name=uploaded_file

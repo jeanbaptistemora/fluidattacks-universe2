@@ -121,7 +121,7 @@ export const saveFiles: ((projectName: string, filesData: IResources["files"]) =
       gQry = `mutation {
           addFiles (
             filesData: ${JSON.stringify(JSON.stringify(filesData))},
-            projectName: "${projectName}") {
+            projectName: "${projectName}", file: "") {
             success
             resources {
               environments
