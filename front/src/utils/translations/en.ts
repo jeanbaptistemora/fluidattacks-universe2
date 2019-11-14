@@ -236,6 +236,7 @@ const enTranslations: dict = {
       branch: "Branch",
       protocol: "Protocol",
       repository: "Repository URL",
+      state: "State",
     },
     severityLabel: "Severity",
     status: {
@@ -421,6 +422,7 @@ const enTranslations: dict = {
       base_url_placeholder: "gitlab.com/fluidattacks/integrates.git",
       branch: "Branch",
       branch_placeholder: "master",
+      change_state: "Change state",
       description: "Description",
       download: "Download",
       environment: "Environment",
@@ -442,6 +444,7 @@ const enTranslations: dict = {
       repository: "Repository URL",
       ssh: "SSH",
       success: "Item added successfully.",
+      success_change: "Item state changed successfully.",
       success_remove: "Item removed successfully.",
       tags_title: "Portfolio",
       total_envs: "Total environments: ",

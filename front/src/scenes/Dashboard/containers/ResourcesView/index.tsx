@@ -9,6 +9,7 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
+import { DataAlignType } from "react-bootstrap-table";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button/index";
@@ -27,10 +28,10 @@ import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptio
 import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
 import { ADD_ENVS_MUTATION, ADD_REPOS_MUTATION, ADD_TAGS_MUTATION, GET_ENVIRONMENTS, GET_REPOSITORIES,
-  GET_TAGS, REMOVE_ENV_MUTATION, REMOVE_REPO_MUTATION, REMOVE_TAG_MUTATION } from "./queries";
-import { IAddEnvAttr, IAddReposAttr, IAddTagsAttr, IEnvironmentsAttr, IProjectTagsAttr, IRemoveEnvAttr, IRemoveRepoAttr,
+  GET_TAGS, REMOVE_ENV_MUTATION, REMOVE_TAG_MUTATION, UPDATE_REPO_MUTATION } from "./queries";
+import { IAddEnvAttr, IAddReposAttr, IAddTagsAttr, IEnvironmentsAttr, IProjectTagsAttr, IRemoveEnvAttr,
   IRemoveTagsAttr, IRepositoriesAttr, IResourcesAttr, IResourcesViewBaseProps, IResourcesViewDispatchProps,
-  IResourcesViewProps, IResourcesViewStateProps } from "./types";
+  IResourcesViewProps, IResourcesViewStateProps, IUpdateRepoAttr } from "./types";
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IResourcesViewProps, {}>({
   componentDidMount(): void {
@@ -367,14 +368,19 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
           }
           if (!_.isUndefined(data)) {
             hidePreloader();
-            const repoDataset: IRepositoriesAttr[] = JSON.parse(data.resources.repositories);
+            let repos: IRepositoriesAttr[] = JSON.parse(data.resources.repositories);
+            repos = repos.map((repo: IRepositoriesAttr) => {
+              if ("historic_state" in repo) {
+                repo.state = repo.historic_state[repo.historic_state.length - 1].state;
+              }
 
-            const handleMtRemoveRepoRes: ((mtResult: IRemoveRepoAttr) => void) = (mtResult: IRemoveRepoAttr): void => {
+              return repo;
+            });
+            const repoDataset: IRepositoriesAttr[] = repos;
+            const handleMtUpdateRepoRes: ((mtResult: IUpdateRepoAttr) => void) = (mtResult: IUpdateRepoAttr): void => {
               if (!_.isUndefined(mtResult)) {
-                if (mtResult.removeRepositories.success) {
+                if (mtResult.updateRepositories.success) {
                   hidePreloader();
-                  refetch()
-                      .catch();
                   mixpanel.track(
                     "RemoveProjectRepo",
                     {
@@ -382,7 +388,7 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                       User: (window as Window & { userName: string }).userName,
                     });
                   msgSuccess(
-                    translate.t("search_findings.tab_resources.success_remove"),
+                    translate.t("search_findings.tab_resources.success_change"),
                     translate.t("search_findings.tab_users.title_success"),
                   );
                 }
@@ -412,150 +418,144 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
 
             return (
               <React.Fragment>
-                <Row>
-                  <Col md={12} sm={12}>
-                    <DataTable
-                      dataset={repoDataset}
-                      selectionMode="radio"
-                      enableRowSelection={true}
-                      exportCsv={true}
-                      search={true}
-                      headers={[
-                        {
-                          dataField: "protocol",
-                          header: translate.t("search_findings.repositories_table.protocol"),
-                          isDate: false,
-                          isStatus: false,
-                          width: "20%",
-                          wrapped: true,
-                        },
-                        {
-                          dataField: "urlRepo",
-                          header: translate.t("search_findings.repositories_table.repository"),
-                          isDate: false,
-                          isStatus: false,
-                          width: "60%",
-                          wrapped: true,
-                        },
-                        {
-                          dataField: "branch",
-                          header: translate.t("search_findings.repositories_table.branch"),
-                          isDate: false,
-                          isStatus: false,
-                          width: "20%",
-                          wrapped: true,
-                        },
-                      ]}
-                      id="tblRepositories"
-                      pageSize={15}
-                      title={translate.t("search_findings.tab_resources.repositories_title")}
-                    />
-                  </Col>
-                  <Col md={12}>
-                    <br />
-                    <Col mdOffset={4} md={2} sm={6}>
-                      <Button
-                        id="addRepository"
-                        block={true}
-                        bsStyle="primary"
-                        onClick={handleAddRepoClick}
-                      >
-                        <Glyphicon glyph="plus"/>&nbsp;
-                        {translate.t("search_findings.tab_resources.add_repository")}
-                      </Button>
-                    </Col>
-                    <Mutation mutation={REMOVE_REPO_MUTATION} onCompleted={handleMtRemoveRepoRes}>
-                      { (removeRepositories: MutationFn<IRemoveRepoAttr, {projectName: string; repoData: string}>,
-                         mutationRes: MutationResult): React.ReactNode => {
-                          if (mutationRes.loading) {
-                            showPreloader();
-                          }
-                          if (!_.isUndefined(mutationRes.error)) {
-                            hidePreloader();
-                            handleGraphQLErrors("An error occurred removing repositories", mutationRes.error);
-
-                            return <React.Fragment/>;
-                          }
-
-                          const handleRemoveRepo: (() => void) = (): void => {
-                            const selectedRow: HTMLTableRowElement | undefined = getSelectedRow("tblRepositories");
-                            if (selectedRow === undefined) {
-                              msgError(translate.t("search_findings.tab_resources.no_selection"));
-                            } else {
-                              const protocol: string | null = selectedRow.children[1].textContent;
-                              const repository: string | null = selectedRow.children[2].textContent;
-                              const branch: string | null = selectedRow.children[3].textContent;
-                              const repoRemoved: {[value: string]: string | null} = {
-                                branch,
-                                protocol,
-                                urlRepo: repository,
-                              };
-                              removeRepositories({ variables: { projectName, repoData: JSON.stringify(repoRemoved)} })
-                                .catch();
-                            }
-                          };
-
-                          return(
-                            <Col md={2} sm={6}>
-                              <Button
-                                id="removeRepository"
-                                block={true}
-                                bsStyle="primary"
-                                onClick={handleRemoveRepo}
-                              >
-                                <Glyphicon glyph="minus"/>&nbsp;
-                                {translate.t("search_findings.tab_resources.remove_repository")}
-                              </Button>
-                            </Col>
-                          );
-                        }}
-                    </Mutation>
-                  </Col>
-                  <Col md={12}>
-                    <br />
-                    <label style={{fontSize: "15px"}}>
-                      <b>{translate.t("search_findings.tab_resources.total_repos")}</b>
-                      {repoDataset.length}
-                    </label>
-                  </Col>
-                </Row>
-                <Mutation mutation={ADD_REPOS_MUTATION} onCompleted={handleMtAddReposRes}>
-                  { (addRepositories: MutationFn<IAddReposAttr, {projectName: string; repoData: string}>,
+              <Mutation mutation={UPDATE_REPO_MUTATION} onCompleted={handleMtUpdateRepoRes}>
+                  { (updateRepositories: MutationFn<IUpdateRepoAttr, {projectName: string; repoData: string}>,
                      mutationRes: MutationResult): React.ReactNode => {
                       if (mutationRes.loading) {
                         showPreloader();
                       }
                       if (!_.isUndefined(mutationRes.error)) {
                         hidePreloader();
-                        handleGraphQLErrors("An error occurred adding repositories", mutationRes.error);
+                        handleGraphQLErrors("An error occurred removing repositories", mutationRes.error);
 
                         return <React.Fragment/>;
                       }
 
-                      const handleAddRepo: ((values: { resources: IRepositoriesAttr[] }) => void) =
-                        (values: { resources: IRepositoriesAttr[] }): void => {
-                          if (containsRepeatedRepos(values.resources, repoDataset)) {
-                            msgError(translate.t("search_findings.tab_resources.repeated_item"));
-                          } else {
-                            addRepositories({
-                              variables: { projectName, repoData: JSON.stringify(values.resources)},
-                              },
-                            )
-                              .catch();
-                          }
-                        };
+                      const handleUpdateRepo: ((repoInfo: { [key: string]: string } | undefined) => void) =
+                      (repoInfo: { [key: string]: string } | undefined): void => {
+                        if (repoInfo !== undefined) {
+                          const repoUpdated: {[value: string]: string | null} = {
+                            branch: repoInfo.branch,
+                            protocol: repoInfo.protocol,
+                            urlRepo: repoInfo.urlRepo,
+                          };
+                          updateRepositories({ variables: { projectName, repoData: JSON.stringify(repoUpdated)} })
+                            .catch();
+                        }
+                      };
 
-                      return (
-                        <AddRepositoriesModal
-                          isOpen={props.reposModal.open}
-                          onClose={handleCloseReposModalClick}
-                          onSubmit={handleAddRepo}
-                        />
-                      );
-                  }}
+                      return(
+                        <React.Fragment>
+                        <Row>
+                          <Col md={12} sm={12}>
+                            <DataTable
+                              dataset={repoDataset}
+                              selectionMode="radio"
+                              enableRowSelection={false}
+                              exportCsv={true}
+                              search={true}
+                              headers={[
+                                {
+                                  dataField: "protocol",
+                                  header: translate.t("search_findings.repositories_table.protocol"),
+                                  isDate: false,
+                                  isStatus: false,
+                                  width: "14%",
+                                  wrapped: true,
+                                },
+                                {
+                                  dataField: "urlRepo",
+                                  header: translate.t("search_findings.repositories_table.repository"),
+                                  isDate: false,
+                                  isStatus: false,
+                                  width: "56%",
+                                  wrapped: true,
+                                },
+                                {
+                                  dataField: "branch",
+                                  header: translate.t("search_findings.repositories_table.branch"),
+                                  isDate: false,
+                                  isStatus: false,
+                                  width: "18%",
+                                  wrapped: true,
+                                },
+                                {
+                                  align: "right" as DataAlignType,
+                                  changeFunction: handleUpdateRepo,
+                                  dataField: "projectName",
+                                  header: "State",
+                                  isDate: false,
+                                  isStatus: false,
+                                  width: "12%",
+                                  wrapped: true,
+                                },
+                              ]}
+                              id="tblRepositories"
+                              pageSize={15}
+                              title={translate.t("search_findings.tab_resources.repositories_title")}
+                            />
+                          </Col>
+                          <Col md={12}>
+                            <br />
+                            <Col mdOffset={4} md={2} sm={6}>
+                              <Button
+                                id="addRepository"
+                                block={true}
+                                bsStyle="primary"
+                                onClick={handleAddRepoClick}
+                              >
+                                <Glyphicon glyph="plus"/>&nbsp;
+                                {translate.t("search_findings.tab_resources.add_repository")}
+                              </Button>
+                              </Col>
+                          </Col>
+                          <Col md={12}>
+                            <br />
+                            <label style={{fontSize: "15px"}}>
+                              <b>{translate.t("search_findings.tab_resources.total_repos")}</b>
+                              {repoDataset.length}
+                            </label>
+                          </Col>
+                        </Row>
+                      </React.Fragment>);
+                    }}
                 </Mutation>
-              </React.Fragment>
-            );
+                <Mutation mutation={ADD_REPOS_MUTATION} onCompleted={handleMtAddReposRes}>
+                { (addRepositories: MutationFn<IAddReposAttr, {projectName: string; repoData: string}>,
+                   mutationRes: MutationResult): React.ReactNode => {
+                    if (mutationRes.loading) {
+                      showPreloader();
+                    }
+                    if (!_.isUndefined(mutationRes.error)) {
+                      hidePreloader();
+                      handleGraphQLErrors("An error occurred adding repositories", mutationRes.error);
+
+                      return <React.Fragment/>;
+                    }
+
+                    const handleAddRepo: ((values: { resources: IRepositoriesAttr[] }) => void) =
+                      (values: { resources: IRepositoriesAttr[] }): void => {
+                        if (containsRepeatedRepos(values.resources, repoDataset)) {
+                          msgError(translate.t("search_findings.tab_resources.repeated_item"));
+                        } else {
+                          addRepositories({
+                            variables: { projectName, repoData: JSON.stringify(values.resources)},
+                            },
+                          )
+                            .catch();
+                        }
+                      };
+
+                    return (
+                      <AddRepositoriesModal
+                        isOpen={props.reposModal.open}
+                        onClose={handleCloseReposModalClick}
+                        onSubmit={handleAddRepo}
+                      />
+                    );
+                }}
+              </Mutation>
+              </React.Fragment>);
           }
         }}
       </Query>

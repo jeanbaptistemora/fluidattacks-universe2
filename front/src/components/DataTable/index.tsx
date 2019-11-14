@@ -5,6 +5,7 @@
  * to call functions with props as params from the JSX element definition
  * without using lambda expressions () => {}
  */
+import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import _ from "lodash";
 import React, { ReactElement } from "react";
 import { DropdownButton, Label, MenuItem } from "react-bootstrap";
@@ -64,6 +65,7 @@ export interface IHeader {
   wrapped?: boolean;
 
   approveFunction?(arg1: { [key: string]: string } | undefined): void;
+  changeFunction?(arg1: { [key: string]: string } | undefined): void;
   deleteFunction?(arg1: { [key: string]: string } | undefined): void;
 }
 
@@ -139,6 +141,26 @@ const deleteFormatter: ((value: string, row: { [key: string]: string }, key: IHe
       </a>
     );
 
+const changeFormatter: ((value: string, row: { [key: string]: string }, key: IHeader) => JSX.Element) =
+  (value: string, row: { [key: string]: string }, key: IHeader): JSX.Element => {
+  const handleOnChange: (() => void) = (): void => {
+    if (key.changeFunction !== undefined) {
+      key.changeFunction(row);
+    }
+  };
+
+  return (
+      <BootstrapSwitchButton
+        onChange={handleOnChange}
+        checked={!("state" in row) || row.state !== "INACTIVE"}
+        onstyle="danger"
+        onlabel="Active"
+        offlabel="Inactive"
+        style="btn-block"
+      />
+    );
+  };
+
 const renderGivenHeaders: ((arg1: IHeader[]) => JSX.Element[]) =
   (headers: IHeader[]): JSX.Element[] => (
   headers.map((key: IHeader, index: number) =>
@@ -149,9 +171,10 @@ const renderGivenHeaders: ((arg1: IHeader[]) => JSX.Element[]) =
       dataFormat={
        key.isStatus ? statusFormatter :
                       (key.isDate ? dateFormatter :
-                        (key.deleteFunction !== undefined ? deleteFormatter :
-                          (key.approveFunction !== undefined ? approveFormatter :
-                            undefined)))
+                        (key.changeFunction !== undefined ? changeFormatter :
+                          (key.deleteFunction !== undefined ? deleteFormatter :
+                            (key.approveFunction !== undefined ? approveFormatter :
+                              undefined))))
       }
       formatExtraData={key}
       dataSort={true}

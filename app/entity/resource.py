@@ -106,7 +106,7 @@ class AddRepositories(Mutation):
                         'user': user_email,
                         'date': util.format_comment_date(
                             datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
-                        'state': "ACTIVE"
+                        'state': 'ACTIVE'
                     }],
                 })
             else:
@@ -163,7 +163,6 @@ class UpdateRepositories(Mutation):
         cont = 0
         json_data = []
         user_email = util.get_jwt_content(info.context)['user_email']
-
         while len(repo_list) > cont:
             if repo_list[cont]['urlRepo'] == repository and repo_list[cont]['branch'] == branch:
                 if 'historic_state' in repo_list[cont]:
@@ -180,14 +179,14 @@ class UpdateRepositories(Mutation):
                         'user': user_email,
                         'date': util.format_comment_date(
                             datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
-                        'state': "ACTIVE"
+                        'state': 'INACTIVE'
                     }]
                 json_data = [repo_list[cont]]
                 break
             cont += 1
         update_repo = integrates_dal.update_list_resource_dynamo(
             'FI_projects',
-            ['project_name', project_name],
+            ['project_name', project_name], 
             repo_list,
             'repositories',
             integrates_dal.get_data_dynamo('FI_projects', 'project_name', project_name.lower()))

@@ -34,9 +34,17 @@ export interface IAddTagsAttr {
   };
 }
 
+export interface IHistoricState {
+  date: string;
+  state: string;
+  user: string;
+}
+
 export interface IRepositoriesAttr {
   branch: string;
+  historic_state: IHistoricState[];
   protocol: string;
+  state: string;
   urlRepo: string;
 }
 
@@ -47,8 +55,8 @@ export interface IResourcesAttr {
   };
 }
 
-export interface IRemoveRepoAttr {
-  removeRepositories: {
+export interface IUpdateRepoAttr {
+  updateRepositories: {
     resources: {
       repositories: string;
     };

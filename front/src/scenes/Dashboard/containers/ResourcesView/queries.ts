@@ -53,9 +53,9 @@ export const GET_REPOSITORIES: DocumentNode = gql`
   }
   `;
 
-export const REMOVE_REPO_MUTATION: DocumentNode = gql`
-  mutation RemoveRepoMutation($projectName: String!, $repoData: JSONString!, ) {
-    removeRepositories (
+export const UPDATE_REPO_MUTATION: DocumentNode = gql`
+  mutation UpdateRepoMutation($projectName: String!, $repoData: JSONString!, ) {
+    updateRepositories (
       repositoryData: $repoData,
       projectName: $projectName
     ) {
