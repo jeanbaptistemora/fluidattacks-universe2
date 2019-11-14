@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-get_active_subscriptions(){
+get_active_and_suspended_subscriptions(){
 
-  #Get active subscriptions from DynamoDB
-  #Returns a variable with all subscription names
+  # Get active and suspended subscriptions from DynamoDB
+  # Return a variable with all subscription names
 
   set -Eeuo pipefail
 
@@ -12,8 +12,10 @@ get_active_subscriptions(){
 
   SCAN_JSON=$(aws dynamodb scan \
     --table-name 'FI_projects' \
-    --filter-expression 'project_status = :active' \
-    --expression-attribute-values '{":active": {"S":"ACTIVE"}}' \
+    --filter-expression \
+      'project_status = :active OR project_status = :suspended' \
+    --expression-attribute-values \
+      '{":active": {"S":"ACTIVE"}, ":suspended": {"S":"SUSPENDED"}}' \
     --projection-expression 'project_name')
 
   SUBSCRIPTIONS=$(echo $SCAN_JSON | jq -r '.Items | .[].project_name.S')
@@ -23,7 +25,7 @@ get_active_subscriptions(){
 
 set_subscriptions_terraform_variable(){
 
-  # Set a terraform map variable with all the subscriptions found
+  # Set a terraform map variable with found subscriptions
   # As specified in:
   # https://www.terraform.io/docs/commands/environment-variables.html
 
@@ -33,7 +35,7 @@ set_subscriptions_terraform_variable(){
   local COUNT
   export TF_VAR_break_build_projects
 
-  SUBSCRIPTIONS=$(get_active_subscriptions)
+  SUBSCRIPTIONS=$(get_active_and_suspended_subscriptions)
 
   # Prepare list
   TF_VAR_break_build_projects='['
