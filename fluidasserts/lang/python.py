@@ -3,6 +3,7 @@
 """This module allows to check Python code vulnerabilities."""
 
 # standard imports
+import ast
 import os
 from typing import List, Dict
 
@@ -40,8 +41,6 @@ L_VAR_CHAIN_NAME = delimitedList(L_VAR_NAME, delim='.', combine=True)
 
 def _call_in_code(call, code_content):
     """Check if call is present in code_file."""
-    import ast
-
     code_tree = ast.parse(code_content)
     for node in code_tree.body:
         if isinstance(node, ast.Expr):
@@ -58,8 +57,6 @@ def _call_in_code(call, code_content):
 
 def _import_in_code(import_name, code_content):
     """Check if call is present in code_file."""
-    import ast
-
     code_tree = ast.parse(code_content)
     for node in code_tree.body:
         if isinstance(node, ast.Import):

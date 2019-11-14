@@ -6,6 +6,7 @@
 
 # standard imports
 import os
+import re
 import sys
 import textwrap
 import argparse
@@ -180,6 +181,7 @@ SUMMARY_COLORS = {
 }
 
 
+# pylint: disable=import-outside-toplevel
 def enable_win_colors():
     """Enable windows colors."""
     global OUTFILE
@@ -387,7 +389,6 @@ def stderr_redir():
 
 def lint_exploit(exploit):
     """Verify Asserts exploit guidelines against given exploit code."""
-    import re
     rules = {
         '001': {
             'description':

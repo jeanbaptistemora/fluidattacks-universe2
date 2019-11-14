@@ -3,6 +3,7 @@
 """This module allows to check ``APK`` vulnerabilities."""
 
 # standard imports
+import re
 from typing import Any, List, Tuple
 from functools import lru_cache
 import logging
@@ -62,8 +63,6 @@ def is_method_present(dex, class_name, method, descriptor):
 
 def get_http_urls(dex):
     """Get HTTP URLs used in APK file."""
-    import re
-
     whitelist = {
         'http://schemas.android.com/',
         'http://www.w3.org/',

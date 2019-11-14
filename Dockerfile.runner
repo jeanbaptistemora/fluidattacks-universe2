@@ -42,7 +42,7 @@ RUN apk update \
         postgresql-dev \
         freetds-dev \
         libmagic \
-    && pip3 install --no-cache-dir cython==0.29.13 \
+    && pip3 install --no-cache-dir cython==0.29.14 \
     && pip3 install --no-cache-dir -U ./*.zip \
     && apk del -r --purge \
         gcc \
@@ -72,11 +72,11 @@ FROM light as full
 
 RUN apk add --no-cache \
         udev \
-        wget==1.20.3-r0 \
-        xvfb==1.20.5-r0 \
-        libexif==0.6.21-r3 \
-        chromium==77.0.3865.120-r0 \
-        chromium-chromedriver==77.0.3865.120-r0 \
+        wget \
+        xvfb \
+        libexif \
+        chromium \
+        chromium-chromedriver \
     && rm -rf \
         /var/cache/apk/* \
         /home/*
