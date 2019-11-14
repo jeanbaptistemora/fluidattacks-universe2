@@ -1,9 +1,8 @@
 import os
-from jinja2 import Environment
-from jinja2 import FileSystemLoader
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 j2_env = Environment(loader=FileSystemLoader('/usr/src/app/deploy/containers/common/vars'),
-                     trim_blocks=True, autoescape=True)
+                     trim_blocks=True, autoescape=select_autoescape(['html', 'xml']))
 
 context = {
     'DRIVE_AUTHORIZATION': os.environ['FI_DRIVE_AUTHORIZATION'],
