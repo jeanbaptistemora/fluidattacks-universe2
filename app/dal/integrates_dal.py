@@ -549,13 +549,20 @@ def add_list_resource_dynamo(
             return False
     else:
         primary_keys = [primary_name_key, primary_key]
-        return update_list_resource_dynamo(
-            table_name,
-            primary_keys,
-            data,
-            attr_name,
-            item
+        update_response = table.update_item(
+            Key={
+                primary_keys[0]: primary_keys[1],
+            },
+            UpdateExpression='SET #attrName = list_append(#attrName, :val1)',
+            ExpressionAttributeNames={
+                '#attrName': attr_name
+            },
+            ExpressionAttributeValues={
+                ':val1': data
+            }
         )
+        resp = update_response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
 
 
 def update_list_resource_dynamo(table_name, primary_keys, data, attr_name, item):
@@ -565,7 +572,7 @@ def update_list_resource_dynamo(table_name, primary_keys, data, attr_name, item)
         if attr_name not in item[0]:
             table.update_item(
                 Key={
-                    primary_keys[0]: primary_keys[1],
+                    primary_keys[0]: primary_keys[1]
                 },
                 UpdateExpression='SET #attrName = :val1',
                 ExpressionAttributeNames={
@@ -579,7 +586,7 @@ def update_list_resource_dynamo(table_name, primary_keys, data, attr_name, item)
             Key={
                 primary_keys[0]: primary_keys[1],
             },
-            UpdateExpression='SET #attrName = list_append(#attrName, :val1)',
+            UpdateExpression='SET #attrName = :val1',
             ExpressionAttributeNames={
                 '#attrName': attr_name
             },

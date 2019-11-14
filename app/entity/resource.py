@@ -87,10 +87,10 @@ class AddRepositories(Mutation):
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access
     def mutate(self, info, resources_data, project_name):
+        project_name = project_name.lower()
         success = False
         json_data = []
         user_email = util.get_jwt_content(info.context)['user_email']
-
         for repo in resources_data:
             if 'urlRepo' in repo and 'branch' in repo:
                 repository = repo.get('urlRepo')
@@ -101,6 +101,12 @@ class AddRepositories(Mutation):
                     'branch': branch,
                     'protocol': protocol,
                     'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3],
+                    'historic_state': [{
+                        'user': user_email,
+                        'date': util.format_comment_date(datetime.today()
+                                .strftime('%Y-%m-%d %H:%M:%S')),
+                        'state': "ACTIVE"
+                    }],
                 })
             else:
                 rollbar.report_message('Error: \
@@ -134,7 +140,7 @@ An error occurred adding repository', 'error', info.context)
         return ret
 
 
-class RemoveRepositories(Mutation):
+class UpdateRepositories(Mutation):
     """Remove repositories of a given project."""
 
     class Arguments():
@@ -147,40 +153,52 @@ class RemoveRepositories(Mutation):
     @require_role(['analyst', 'customer', 'admin'])
     @require_project_access
     def mutate(self, info, repository_data, project_name):
+        project_name = project_name.lower()
         success = False
         repository = repository_data.get('urlRepo')
         branch = repository_data.get('branch')
         repo_list = \
             integrates_dal.get_project_dynamo(project_name)[0]['repositories']
-        index = -1
         cont = 0
         json_data = []
         user_email = util.get_jwt_content(info.context)['user_email']
 
-        while index < 0 and len(repo_list) > cont:
-            if repo_list[cont]['urlRepo'] == repository and \
-                    repo_list[cont]['branch'] == branch:
+        while len(repo_list) > cont:
+            if repo_list[cont]['urlRepo'] == repository and repo_list[cont]['branch'] == branch:
+                if 'historic_state' in repo_list[cont]:
+                    state = 'INACTIVE' \
+                        if repo_list[cont]['historic_state'][-1]['state'] == 'ACTIVE' else 'ACTIVE'
+                    repo_list[cont]['historic_state'].append({
+                        'user': user_email,
+                        'date': util.format_comment_date(
+                            datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
+                        'state': state
+                    })
+                else:
+                    repo_list[cont]['historic_state'] = [{
+                        'user': user_email,
+                        'date': util.format_comment_date(datetime.today()
+                                .strftime('%Y-%m-%d %H:%M:%S')),
+                        'state': "ACTIVE"
+                    }]
                 json_data = [repo_list[cont]]
-                index = cont
-            else:
-                index = -1
+                break
             cont += 1
-        if index >= 0:
-            remove_repo = integrates_dal.remove_list_resource_dynamo(
-                'FI_projects',
-                'project_name',
-                project_name,
-                'repositories',
-                index)
-            if remove_repo:
-                resources.send_mail(project_name,
-                                    user_email,
-                                    json_data,
-                                    'removed',
-                                    'repository')
-                success = True
-            else:
-                rollbar.report_message('Error: \
+        update_repo = integrates_dal.update_list_resource_dynamo(
+            'FI_projects',
+            ['project_name', project_name],
+            repo_list,
+            'repositories',
+            integrates_dal.get_data_dynamo('FI_projects', 'project_name', project_name.lower()))
+        if update_repo:
+            resources.send_mail(project_name,
+                                user_email,
+                                json_data,
+                                'remove',
+                                'repository')
+            success = True
+        else:
+            rollbar.report_message('Error: \
 An error occurred removing repository', 'error', info.context)
         if success:
             util.invalidate_cache(project_name)
@@ -189,7 +207,7 @@ An error occurred removing repository', 'error', info.context)
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to remove repositories \
                 from {project} project'.format(project=project_name))
-        ret = RemoveRepositories(success=success,
+        ret = UpdateRepositories(success=success,
                                  resources=Resource(project_name))
         return ret
 

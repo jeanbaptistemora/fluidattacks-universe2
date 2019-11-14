@@ -96,7 +96,7 @@ class ResourceTests(TestCase):
             'urlRepo': 'https://gitlab.com/fluidsignal/unittest'}
         env_to_remove = {'urlEnv': 'https://unittesting.fluidattacks.com/'}
         query = '''mutation{
-          removeRepositories(
+          updateRepositories(
             projectName: "unittesting", repositoryData: "$repo"){
             success
           }
@@ -127,7 +127,7 @@ class ResourceTests(TestCase):
         )
         result = SCHEMA.execute(query, context=request)
         assert not result.errors
-        assert result.data.get('removeRepositories')['success']
+        assert result.data.get('updateRepositories')['success']
         assert result.data.get('removeEnvironments')['success']
 
     def test_upload_files(self):
