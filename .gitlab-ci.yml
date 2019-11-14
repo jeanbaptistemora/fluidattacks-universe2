@@ -555,7 +555,7 @@ sync_gitlab:
     - export GITLAB_PASS="$(vault read -field=analytics_gitlab_token secret/serves)"
     - GITLAB_PROJECTS=(
         "autonomicmind/default" "autonomicmind/training"
-        "fluidattacks/bwapp" "fluidattacks/continuous" "fluidattacks/default"
+        "fluidattacks/continuous" "fluidattacks/default"
         "fluidattacks/serves" "fluidattacks/asserts" "fluidattacks/default"
         "fluidattacks/integrates" "fluidattacks/web" "fluidattacks/writeups")
     - for project in ${GITLAB_PROJECTS[*]}; do
