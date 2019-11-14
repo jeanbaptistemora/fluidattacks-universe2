@@ -3,11 +3,9 @@
 import logging
 import logging.config
 import time
-import re
 import slackclient
 from django.core.management.base import BaseCommand
 from django.conf import settings
-from app import util
 
 from __init__ import FI_SLACK_BOT_ID
 

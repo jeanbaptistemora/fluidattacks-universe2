@@ -2,7 +2,7 @@ FROM debian:buster-slim
 
 ARG PATCHES='deploy/containers/deps-production'
 ARG NODE_URL='https://deb.nodesource.com/setup_10.x'
-ARG VAULTENV_URL='https://github.com/channable/vaultenv/releases/download/v0.10.0/vaultenv-0.10.0_x86_64-ubuntu-1804.deb'
+ARG VAULTENV_URL='https://github.com/channable/vaultenv/releases/download/v0.11.0/vaultenv-v0.11.0-linux-musl'
 ARG TREASUREDATA_URL='https://toolbelt.treasuredata.com/sh/install-debian-stretch-td-agent2.sh'
 ARG PIP_REQUIREMENTS='deploy/containers/deps-production/requirements.txt'
 
@@ -43,9 +43,8 @@ RUN apt install -yo DPkg::Options::='--force-confnew' --no-install-recommends \
 RUN curl -sL "$NODE_URL" | bash - \
     && apt install -y --no-install-recommends nodejs \
   && curl -L "$TREASUREDATA_URL" | sh \
-  && curl "$VAULTENV_URL" -LsSo vaultenv.deb  \
-    && dpkg -i vaultenv.deb \
-    && rm vaultenv.deb
+  && curl "$VAULTENV_URL" -LsSo /usr/local/bin/vaultenv  \
+    && chmod 0755  /usr/local/bin/vaultenv
 
 # python deps
 COPY "$PIP_REQUIREMENTS" /tmp

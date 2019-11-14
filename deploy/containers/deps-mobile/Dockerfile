@@ -3,7 +3,7 @@ FROM starefossen/ruby-node:2-10
 # Static dependencies
 RUN export \
       VAULT_URL='https://releases.hashicorp.com/vault/0.11.6/vault_0.11.6_linux_amd64.zip' \
-      VAULTENV_URL='https://github.com/channable/vaultenv/releases/download/v0.9.0/vaultenv-0-9-0.deb' \
+      VAULTENV_URL='https://github.com/channable/vaultenv/releases/download/v0.11.0/vaultenv-v0.11.0-linux-musl' \
     && apt -o Acquire::Check-Valid-Until=false update \
     && apt install --no-install-recommends -y \
         openjdk-8-jdk-headless \
@@ -14,9 +14,8 @@ RUN export \
       && unzip vault.zip \
       && mv vault /usr/local/bin \
       && rm vault.zip \
-    && curl -LsSo vaultenv.deb "${VAULTENV_URL}" \
-      && dpkg -i vaultenv.deb \
-      && rm vaultenv.deb
+    && curl "$VAULTENV_URL" -LsSo /usr/local/bin/vaultenv  \
+      && chmod 0755  /usr/local/bin/vaultenv
 
 WORKDIR /usr/src/app
 

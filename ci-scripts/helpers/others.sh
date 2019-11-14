@@ -117,9 +117,9 @@ vault_login() {
   export SECRET_ID
   export VAULT_TOKEN
 
-  VAULT_ADDR="https://$VAULT_S3_BUCKET.com"
+  VAULT_ADDR="https://$VAULT_S3_BUCKET.com:443"
   VAULT_HOST="$VAULT_S3_BUCKET.com"
-  VAULT_PORT='443'
+  VAULT_PORT="443"
   VAULTENV_SECRETS_FILE="$CI_PROJECT_DIR/env.vars"
 
   if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then

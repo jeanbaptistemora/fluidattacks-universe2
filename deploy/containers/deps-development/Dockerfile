@@ -3,7 +3,7 @@ FROM debian:buster-slim
 ARG CI_COMMIT_REF_NAME
 
 ARG VAULT_URL='https://releases.hashicorp.com/vault/0.11.6/vault_0.11.6_linux_amd64.zip'
-ARG VAULTENV_URL='https://github.com/channable/vaultenv/releases/download/v0.10.0/vaultenv-0.10.0_x86_64-ubuntu-1804.deb'
+ARG VAULTENV_URL='https://github.com/channable/vaultenv/releases/download/v0.11.0/vaultenv-v0.11.0-linux-musl'
 ARG GECKO_DRIVER_URL='https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz'
 ARG DYNAMODB_LOCAL_URL='https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.tar.gz'
 ARG PIP_REQUIREMENTS_DEV='deploy/containers/deps-development/requirements.txt'
@@ -46,9 +46,8 @@ RUN mkdir -p /usr/share/man/man1 \
     && unzip vault.zip \
     && mv vault /usr/local/bin \
     && rm vault.zip \
-  && curl "$VAULTENV_URL" -LsSo vaultenv.deb  \
-    && dpkg -i vaultenv.deb \
-    && rm vaultenv.deb \
+  && curl "$VAULTENV_URL" -LsSo /usr/local/bin/vaultenv  \
+    && chmod 0755  /usr/local/bin/vaultenv \
   && curl -Lo geckodriver.tar.gz "$GECKO_DRIVER_URL" \
     && tar xzf geckodriver.tar.gz -C /usr/local/bin \
     && rm geckodriver.tar.gz \
