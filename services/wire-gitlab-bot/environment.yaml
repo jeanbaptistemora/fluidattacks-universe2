@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: wire-gitlab-bot-env
+  namespace: serves
+type: Opaque
+data:
+  DW_GITLAB_BOT_BASE_URL: $DW_GITLAB_BOT_BASE_URL
+  DW_GITLAB_BOT_WIRE_SERVICE_TOKEN: $DW_GITLAB_BOT_WIRE_SERVICE_TOKEN

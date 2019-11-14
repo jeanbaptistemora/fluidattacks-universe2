@@ -14,11 +14,17 @@ deploy_wire_gitlab_bot() {
   aws_login
   sops_env secrets-production.yaml default \
     WIRE_GITLAB_BOT_KEY \
-    WIRE_GITLAB_BOT_CERT
+    WIRE_GITLAB_BOT_CERT \
+    DW_GITLAB_BOT_BASE_URL \
+    DW_GITLAB_BOT_WIRE_SERVICE_TOKEN
 
   # Create secret for TLS communication
-  replace_env_vars services/wire-gitlab-bot/secret.yaml
-  kubectl apply -f services/wire-gitlab-bot/secret.yaml
+  replace_env_vars services/wire-gitlab-bot/certificate.yaml
+  kubectl apply -f services/wire-gitlab-bot/certificate.yaml
+
+  # Create environment
+  replace_env_vars services/wire-gitlab-bot/environment.yaml
+  kubectl apply -f services/wire-gitlab-bot/environment.yaml
 
   # Create service
   kubectl apply -f services/wire-gitlab-bot/service.yaml

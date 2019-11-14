@@ -31,3 +31,6 @@ spec:
           limits:
             cpu: 128m
             memory: 128Mi
+        envFrom:
+          - secretRef:
+              name: wire-gitlab-bot-env
