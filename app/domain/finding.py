@@ -244,6 +244,10 @@ def get_tracking_vulnerabilities(vulnerabilities):
                       if vuln['historic_state'][-1].get('approval_status')
                       != 'PENDING' or vuln_domain.get_last_approved_status(
                           vuln)]
+
+    vulns_filtered = [vuln for vuln in vulns_filtered
+                      if vuln_domain.get_last_approved_status(
+                          vuln) != 'DELETED']
     vuln_casted = remove_repeated(vulns_filtered)
     unique_dict = get_unique_dict(vuln_casted)
     tracking = get_tracking_dict(unique_dict)
