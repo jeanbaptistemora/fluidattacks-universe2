@@ -101,7 +101,7 @@ setup(
         'pygments==2.4.2',             # fluidasserts
         'pyjks==19.0.0',               # fluidasserts.format.jks
         'pyjwt==1.7.1',                # fluidasserts.format.jwt
-        'pymssql-py38==2.1.4',         # fluidasserts.db.mssql
+        'pymssql==2.1.4',              # fluidasserts.db.mssql
         'pynacl==1.3.0',               # fluidasserts.proto.ssl
         'pyparsing==2.4.5',            # fluidasserts.lang
         'pypdf2==1.26.0',              # fluidasserts.format.pdf
