@@ -279,9 +279,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             IVunlDataType[] = (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICategoryVulnType[][]):
             IVunlDataType[] => {
               let arrayVulnInfo: IVunlDataType[] = [];
-              selectedRowArray.map((selectedRow: ISelectRowType) => {
+              selectedRowArray.forEach((selectedRow: ISelectRowType) => {
                 if (!_.isUndefined(selectedRow)) {
-                  arrayVulnCategory.map((category: ICategoryVulnType[]) => {
+                  arrayVulnCategory.forEach((category: ICategoryVulnType[]) => {
                     arrayVulnInfo = getVulnByRow(selectedRow, category, arrayVulnInfo);
                   });
                 }
@@ -340,7 +340,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 { selectedQeryArray: Array<NodeListOf<Element>> } => {
                 const selectedQryArray: Array<NodeListOf<Element>> = [];
                 const vulnsTable: string[] = ["#inputsVulns", "#linesVulns", "#portsVulns"];
-                vulnsTable.map((table: string) => {
+                vulnsTable.forEach((table: string) => {
                   const qryTable: NodeListOf<Element> = document.querySelectorAll(`${table} tr input:checked`);
                   if (!_.isEmpty(qryTable)) {
                     selectedQryArray.push(qryTable);
@@ -583,11 +583,11 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                                                                       data.finding.portsVulns];
                     let result: {oneRowSelected: boolean; vulnerabilities: string []};
                     const vulnsId: string[] = [];
-                    selectedRows.map((selectQry: NodeListOf<Element>) => {
+                    selectedRows.forEach((selectQry: NodeListOf<Element>) => {
                       selectedRowArray.push(getAttrVulnUpdate(selectQry));
                     });
                     const vulns: IVunlDataType[] = getVulnInfo(selectedRowArray, arrayVulnCategory);
-                    vulns.map((vuln: IVunlDataType) => {
+                    vulns.forEach((vuln: IVunlDataType) => {
                       vulnsId.push(vuln.id);
                     });
                     result = {
