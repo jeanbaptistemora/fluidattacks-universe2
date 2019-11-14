@@ -18,7 +18,7 @@ export const enTranslations: i18next.ResourceLanguage = {
   },
   welcome: {
     greetingText: "Hello",
-    unauthorized: "You do not have authorization for login yet. \
-    Please contact Fluid Attacks's staff or your project administrator to get access.",
+    unauthorized: "You do not have authorization for login yet. " +
+    "Please contact Fluid Attacks's staff or your project administrator to get access.",
   },
 };
