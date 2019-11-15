@@ -197,7 +197,7 @@ security_group = troposphere.ec2.SecurityGroup(
     GroupDescription='groupDescription1',
     SecurityGroupEgress=[
         {
-            'IpProtocol': '-1',
+            'IpProtocol': 'tcp',
             'CidrIp': '127.0.0.1/32',
             'FromPort': -1,
             'ToPort': -1

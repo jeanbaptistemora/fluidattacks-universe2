@@ -682,6 +682,7 @@ def exec_cloudformation_package(
         ('ec2', 'EC2 (Elastic Cloud Compute)'): """
             ec2.allows_all_outbound_traffic('__path__')
             ec2.has_unrestricted_cidrs('__path__')
+            ec2.has_unrestricted_ip_protocols('__path__')
             """,
         ('iam', 'IAM (Identity and Access Management)'): """
             iam.is_managed_policy_miss_configured('__path__')

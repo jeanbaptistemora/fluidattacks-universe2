@@ -108,10 +108,12 @@ def has_unrestricted_cidrs(
                     ipv4 = security_group['CidrIp']
                     ipv4_obj = ipaddress.IPv4Network(ipv4, strict=False)
                     if ipv4_obj == unrestricted_ipv4:
-                        entities.append((ipv4, 'must not be 0.0.0.0/0'))
+                        entities.append(
+                            (f'CidrIp/{ipv4}', 'must not be 0.0.0.0/0'))
                     if attribute == 'SecurityGroupIngress' \
                             and ipv4_obj.num_addresses > 1:
-                        entities.append((ipv4, 'must use /32 subnet mask'))
+                        entities.append(
+                            (f'CidrIp/{ipv4}', 'must use /32 subnet mask'))
 
                 with contextlib.suppress(KeyError,
                                          ValueError,
@@ -119,10 +121,12 @@ def has_unrestricted_cidrs(
                     ipv6 = security_group['CidrIpv6']
                     ipv6_obj = ipaddress.IPv6Network(ipv6, strict=False)
                     if ipv6_obj == unrestricted_ipv6:
-                        entities.append((ipv6, 'must not be ::/0'))
+                        entities.append(
+                            (f'CidrIpv6/{ipv6}', 'must not be ::/0'))
                     if attribute == 'SecurityGroupIngress' \
                             and ipv6_obj.num_addresses > 1:
-                        entities.append((ipv6, 'must use /32 subnet mask'))
+                        entities.append(
+                            (f'CidrIpv6/{ipv6}', 'must use /32 subnet mask'))
 
         vulnerabilities.extend(
             Vulnerability(
@@ -136,3 +140,54 @@ def has_unrestricted_cidrs(
         vulnerabilities=vulnerabilities,
         msg_open='EC2 security groups have unrestricted CIDRs',
         msg_closed='EC2 security groups do not have unrestricted CIDRs')
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_unrestricted_ip_protocols(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Avoid ``EC2::SecurityGroup`` ingress/egress rules with any ip protocol.
+
+    The following checks are performed:
+
+    - W40 Security Groups egress with an IpProtocol of -1 found
+    - W42 Security Groups ingress with an ipProtocol of -1 found
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::EC2::SecurityGroup',
+            ],
+            exclude=exclude):
+        entities = []
+        for attribute in ('SecurityGroupEgress',
+                          'SecurityGroupIngress'):
+            for security_group in res_props.get(attribute, []):
+                with contextlib.suppress(KeyError):
+                    ip_protocol = security_group['IpProtocol']
+                    if ip_protocol in (-1, '-1'):
+                        entities.append(ip_protocol)
+
+        vulnerabilities.extend(
+            Vulnerability(
+                path=yaml_path,
+                entity=f'AWS::EC2::SecurityGroup/IpProtocol/{entity}',
+                identifier=res_name,
+                reason='Authorize all IP protocols')
+            for entity in entities)
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open=('EC2 security groups have ingress/egress rules '
+                  'with unrestricted IP protocols'),
+        msg_closed=('EC2 security groups do not have ingress/egress rules '
+                    'with unrestricted IP protocols'))
