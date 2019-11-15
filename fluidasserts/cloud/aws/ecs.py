@@ -113,3 +113,55 @@ def has_not_resources_usage_limits(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def write_root_file_system(key_id: str, secret: str,
+                           retry: bool = True) -> tuple:
+    """
+    Check if there are tasks that allow writing to the root file system.
+
+    Set `readonlyRootFilesystem` property as `true`.
+
+    See `ContainerDefinition <https://docs.aws.amazon.com/AmazonECS/latest/
+    APIReference/API_ContainerDefinition.html>`_.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are tasks with `readonlyRootFilesystem`.
+                property undefined or `false`.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Tasks allow writing to the root file system.'
+    msg_closed: str = 'Tasks do not allow writing to the root file system.'
+    vulns, safes = [], []
+
+    tasks = _get_tasks_running(key_id, secret, retry)
+    for task in tasks:
+        task_description = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='ecs',
+            func='describe_task_definition',
+            taskDefinition=task,
+            param='taskDefinition',
+            retry=retry)
+        vulnerable = any(map(lambda x: not x['readonlyRootFilesystem'] if
+                             'readonlyRootFilesystem' in x.keys() else True,
+                             task_description['containerDefinitions']))
+        (vulns if vulnerable else safes).append(
+            (task, ('Set readonlyRootFilesystem property as true in'
+                    ' the containers of the task.')))
+
+    return _get_result_as_tuple(
+        service='ECS',
+        objects='Tasks',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
