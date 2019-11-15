@@ -8,6 +8,18 @@ import Xhr from "../../../../utils/xhr";
 import * as actionTypes from "./actionTypes";
 import { IEventDescriptionViewProps } from "./index";
 
+const handleError: ((error: AxiosError) => void) = (error: AxiosError): void => {
+  if (error.response !== undefined) {
+    const { errors } = error.response.data;
+    msgError(translate.t("proj_alerts.error_textsad"));
+    rollbar.error(error.message, errors);
+  }
+};
+
+const handleErrorUpdateEvent: ((error: AxiosError) => void) = (error: AxiosError): void => {
+  handleError(error);
+};
+
 export interface IActionStructure {
   /* tslint:disable-next-line:no-any
    * Disabling this rule is necessary because the payload
@@ -81,11 +93,7 @@ export const loadEvent: ThunkActionStructure =
           });
         })
         .catch((error: AxiosError) => {
-          if (error.response !== undefined) {
-            const { errors } = error.response.data;
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error(error.message, errors);
-          }
+          handleError(error);
         });
     };
 
@@ -133,11 +141,6 @@ export const updateEvent: ThunkActionStructure =
           }
         })
         .catch((error: AxiosError) => {
-
-          if (error.response !== undefined) {
-            const { errors } = error.response.data;
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error(error.message, errors);
-          }
+          handleErrorUpdateEvent(error);
         });
     };
