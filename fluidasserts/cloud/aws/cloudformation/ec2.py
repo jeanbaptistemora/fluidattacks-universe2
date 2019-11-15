@@ -80,6 +80,7 @@ def has_unrestricted_cidrs(
 
     - W2 Security Groups found with cidr open to world on ingress
     - W5 Security Groups found with cidr open to world on egress
+    - W9 Security Groups found with ingress cidr that is not /32
 
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
@@ -105,23 +106,31 @@ def has_unrestricted_cidrs(
                                          ValueError,
                                          ipaddress.AddressValueError):
                     ipv4 = security_group['CidrIp']
-                    if ipaddress.IPv4Network(ipv4) == unrestricted_ipv4:
-                        entities.append(ipv4)
+                    ipv4_obj = ipaddress.IPv4Network(ipv4, strict=False)
+                    if ipv4_obj == unrestricted_ipv4:
+                        entities.append((ipv4, 'must not be 0.0.0.0/0'))
+                    if attribute == 'SecurityGroupIngress' \
+                            and ipv4_obj.num_addresses > 1:
+                        entities.append((ipv4, 'must use /32 subnet mask'))
 
                 with contextlib.suppress(KeyError,
                                          ValueError,
                                          ipaddress.AddressValueError):
                     ipv6 = security_group['CidrIpv6']
-                    if ipaddress.IPv6Network(ipv6) == unrestricted_ipv6:
-                        entities.append(ipv6)
+                    ipv6_obj = ipaddress.IPv6Network(ipv6, strict=False)
+                    if ipv6_obj == unrestricted_ipv6:
+                        entities.append((ipv6, 'must not be ::/0'))
+                    if attribute == 'SecurityGroupIngress' \
+                            and ipv6_obj.num_addresses > 1:
+                        entities.append((ipv6, 'must use /32 subnet mask'))
 
         vulnerabilities.extend(
             Vulnerability(
                 path=yaml_path,
                 entity=f'AWS::EC2::SecurityGroup/{entity}',
                 identifier=res_name,
-                reason='is open to world')
-            for entity in entities)
+                reason=reason)
+            for entity, reason in entities)
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,

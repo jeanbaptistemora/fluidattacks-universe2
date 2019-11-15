@@ -184,6 +184,12 @@
             "FromPort": -1,
             "IpProtocol": "-1",
             "ToPort": -1
+          },
+          {
+            "CidrIpv6": "123.123.123.0/24",
+            "FromPort": 22,
+            "IpProtocol": "-1",
+            "ToPort": 22
           }
         ]
       },

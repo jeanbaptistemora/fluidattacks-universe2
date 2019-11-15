@@ -445,6 +445,12 @@ security_group = troposphere.ec2.SecurityGroup(
             'FromPort': -1,
             'ToPort': -1
         },
+        {
+            'IpProtocol': '-1',
+            'CidrIpv6': '123.123.123.0/24',
+            'FromPort': 22,
+            'ToPort': 22
+        },
     ],
 )
 template.add_resource(role)
