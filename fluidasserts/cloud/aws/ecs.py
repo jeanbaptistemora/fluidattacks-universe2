@@ -165,3 +165,51 @@ def write_root_file_system(key_id: str, secret: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def no_iam_role_for_tasks(key_id: str, secret: str,
+                          retry: bool = True) -> tuple:
+    """
+    Check if there are tasks that do not use IAM roles.
+
+    Using IAM roles per task allows:
+
+    - Simplify usage of AWS SDKs in containers.
+    - Credential isolation between tasks / container.
+    - Authorisation per task / container.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are tasks that do not use IAM roles.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Tasks do not use IAM roles.'
+    msg_closed: str = 'Tasks use IAM roles.'
+    vulns, safes = [], []
+
+    tasks = _get_tasks_running(key_id, secret, retry)
+    for task in tasks:
+        task_description = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='ecs',
+            func='describe_task_definition',
+            taskDefinition=task,
+            param='taskDefinition',
+            retry=retry)
+        (vulns if 'taskRoleArn' not in task_description.keys() else
+         safes).append((task, 'Set an IAM role for the task.'))
+
+    return _get_result_as_tuple(
+        service='ECS',
+        objects='Tasks',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

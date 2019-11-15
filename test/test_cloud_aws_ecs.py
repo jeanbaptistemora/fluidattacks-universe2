@@ -32,3 +32,9 @@ def test_write_root_file_system_open():
     """Search tasks that allow write in the root file system."""
     assert ecs.write_root_file_system(AWS_ACCESS_KEY_ID,
                                       AWS_SECRET_ACCESS_KEY).is_open()
+
+
+def test_no_iam_role_for_tasks_open():
+    """Search for tasks that do not use IAM roles."""
+    assert ecs.no_iam_role_for_tasks(AWS_ACCESS_KEY_ID,
+                                     AWS_SECRET_ACCESS_KEY).is_open()
