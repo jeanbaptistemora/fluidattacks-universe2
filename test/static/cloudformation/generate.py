@@ -199,8 +199,8 @@ security_group = troposphere.ec2.SecurityGroup(
         {
             'IpProtocol': 'tcp',
             'CidrIp': '127.0.0.1/32',
-            'FromPort': -1,
-            'ToPort': -1
+            'FromPort': 8000,
+            'ToPort': 8000,
         },
     ],
 )
@@ -442,8 +442,8 @@ security_group = troposphere.ec2.SecurityGroup(
         {
             'IpProtocol': '-1',
             'CidrIpv6': '::/0',
-            'FromPort': -1,
-            'ToPort': -1
+            'FromPort': 1,
+            'ToPort': 65536
         },
         {
             'IpProtocol': '-1',

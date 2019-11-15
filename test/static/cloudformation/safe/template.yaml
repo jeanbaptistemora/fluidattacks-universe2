@@ -84,9 +84,9 @@ Resources:
       GroupDescription: groupDescription1
       SecurityGroupEgress:
         - CidrIp: 127.0.0.1/32
-          FromPort: -1
+          FromPort: 8000
           IpProtocol: tcp
-          ToPort: -1
+          ToPort: 8000
     Type: AWS::EC2::SecurityGroup
   user1:
     Properties:
