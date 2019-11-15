@@ -70,7 +70,11 @@ RUN mkdir -p /usr/share/man/man1 \
   && /usr/sbin/td-agent-gem install \
     eventmachine \
     em-http-request \
-    fluent-plugin-rewrite-tag-filter
+    fluent-plugin-rewrite-tag-filter \
+  && a2enmod proxy \
+  && a2enmod proxy_http \
+  && a2enmod rewrite \
+  && a2enmod substitute
 
 COPY "$PIP_REQUIREMENTS_DEV" /tmp/reqs_dev.txt
 COPY "$PIP_REQUIREMENTS_PROD" /tmp/reqs_prod.txt

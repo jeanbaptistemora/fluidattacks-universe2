@@ -11,7 +11,7 @@ metadata:
       more_set_headers "X-Content-Type-Options: nosniff";
       more_set_headers "Pragma: no-cache";
       more_set_headers "Expires: 0";
-      more_set_headers "Content-Security-Policy: script-src 'self' 'unsafe-inline' *.mxpnl.com *.cloudflare.com *.cookiebot.com *.intercomcdn.com *.intercom.io https://d2yyd1h5u9mauk.cloudfront.net *.pingdom.net cdn.jsdelivr.net/npm/;";
+      more_set_headers "Content-Security-Policy: script-src 'self' 'unsafe-inline' 'unsafe-eval' *.mxpnl.com *.cloudflare.com *.cookiebot.com *.intercomcdn.com *.intercom.io https://d2yyd1h5u9mauk.cloudfront.net *.pingdom.net cdn.jsdelivr.net/npm/;";
       gzip "off";
     nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
     nginx.ingress.kubernetes.io/app-root: /integrates
@@ -33,6 +33,10 @@ spec:
           serviceName: service-$CI_COMMIT_REF_SLUG
           servicePort: 80
         path: /(assets.*|oauth.*|index.*|registration.*|silk.*|errors.*)
+      - backend:
+          serviceName: service-$CI_COMMIT_REF_SLUG
+          servicePort: 80
+        path: /dynamo_shell(.*)
       - backend:
           serviceName: service-$CI_COMMIT_REF_SLUG
           servicePort: 80

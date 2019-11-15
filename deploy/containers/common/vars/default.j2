@@ -1,5 +1,15 @@
 <VirtualHost *:80>
-   	WSGIScriptAlias / /usr/src/app/fluidintegrates/apache/wsgi.py
+    AddOutputFilterByType SUBSTITUTE text/html
+    AddOutputFilterByType SUBSTITUTE text/javascript
+
+    ProxyPreserveHost On
+    RewriteEngine on
+    RewriteRule "^/dynamo_shell/(.*)$" "http://localhost:8022/shell/$1" [P]
+    ProxyPassReverse /dynamo_shell/ http://localhost:8022/shell/
+    ProxyPassReverse /integrates/dynamo_shell/ http://localhost:8022/shell/
+    Substitute "s|/shell/|/integrates/dynamo_shell/|i"
+
+    WSGIScriptAlias / /usr/src/app/fluidintegrates/apache/wsgi.py
     WSGIPassAuthorization On
     ServerAdmin engineering@fluidattacks.com
     Alias /assets/ /usr/src/app/app/assets/
