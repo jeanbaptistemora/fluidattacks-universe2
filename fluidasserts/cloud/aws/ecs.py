@@ -6,6 +6,7 @@
 # 3rd party imports
 from botocore.exceptions import BotoCoreError
 from botocore.vendored.requests.exceptions import RequestException
+from pyparsing import Literal, Optional
 
 # local imports
 from fluidasserts import DAST, MEDIUM
@@ -48,6 +49,13 @@ def _get_tasks_running(key_id: str,
             arn_task += tasks
 
     return arn_task
+
+
+def _is_root(user):
+    """Check if the user is root."""
+    root = (Literal('root') | Literal('0'))
+    grammar = root + Optional(':' + root)
+    return grammar.matches(user)
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -205,6 +213,53 @@ def no_iam_role_for_tasks(key_id: str, secret: str,
             retry=retry)
         (vulns if 'taskRoleArn' not in task_description.keys() else
          safes).append((task, 'Set an IAM role for the task.'))
+
+    return _get_result_as_tuple(
+        service='ECS',
+        objects='Tasks',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def run_containers_as_root_user(key_id: str, secret: str,
+                                retry: bool = True) -> tuple:
+    """
+    Check if the containers are running as root user.
+
+    Processes In Containers Should Not Run As Root.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are containers that run as root user.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Containers run as root user.'
+    msg_closed: str = 'Containers run as non-root user.'
+    vulns, safes = [], []
+
+    tasks = _get_tasks_running(key_id, secret, retry)
+    for task in tasks:
+        task_description = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='ecs',
+            func='describe_task_definition',
+            taskDefinition=task,
+            param='taskDefinition',
+            retry=retry)
+        vulnerable = any(map(lambda x: True if 'user' not in x.keys() else
+                             _is_root(x['user']),
+                             task_description['containerDefinitions']))
+        (vulns if vulnerable else safes).append(
+            (task, 'Run the container as a non-root user.'))
 
     return _get_result_as_tuple(
         service='ECS',

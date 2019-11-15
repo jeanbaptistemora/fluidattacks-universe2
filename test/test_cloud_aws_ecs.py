@@ -38,3 +38,9 @@ def test_no_iam_role_for_tasks_open():
     """Search for tasks that do not use IAM roles."""
     assert ecs.no_iam_role_for_tasks(AWS_ACCESS_KEY_ID,
                                      AWS_SECRET_ACCESS_KEY).is_open()
+
+
+def test_run_containers_as_root_user_open():
+    """Search for tasks that execute the container as root user."""
+    assert ecs.run_containers_as_root_user(AWS_ACCESS_KEY_ID,
+                                           AWS_SECRET_ACCESS_KEY).is_open()
