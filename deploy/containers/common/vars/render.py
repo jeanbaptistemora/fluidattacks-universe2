@@ -1,4 +1,5 @@
 import os
+import sys
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 j2_env = Environment(loader=FileSystemLoader('/usr/src/app/deploy/containers/common/vars'),
@@ -14,7 +15,10 @@ drive = j2_env.get_template('drive_authorization.j2')
 drive.stream(context).dump('drive_authorization.json')
 ssl = j2_env.get_template('integrates-ssl.j2')
 ssl.stream(context).dump('integrates-ssl.conf')
-default = j2_env.get_template('default.j2')
+if sys.argv[1] == 'development':
+    default = j2_env.get_template('default_dev.j2')
+else:
+    default = j2_env.get_template('default_prod.j2')
 default.stream(context).dump('000-default.conf')
 client = j2_env.get_template('drive_client_secret.j2')
 client.stream(context).dump('drive_client_secret.json')
