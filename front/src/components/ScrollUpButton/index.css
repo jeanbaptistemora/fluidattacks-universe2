@@ -18,7 +18,7 @@
 
 :local .container::before {
   content: '\e682';
-  font-family: 'Pe-icon-7-stroke';
+  font-family: 'Pe-icon-7-stroke', sans-serif;
   font-size: 30px;
   display: inline-block;
   vertical-align: middle;
