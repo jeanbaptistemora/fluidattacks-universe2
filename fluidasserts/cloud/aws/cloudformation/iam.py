@@ -33,16 +33,16 @@ def is_role_over_privileged(
 
     The following checks are performed:
 
-    - F2 IAM role should not allow * action on its trust policy
-    - F3 IAM role should not allow * action on its permissions policy
-    - F6 IAM role should not allow Allow+NotPrincipal in its trust policy
-    - F38 IAM role should not allow * resource with PassRole action on its
+    * F2 IAM role should not allow * action on its trust policy
+    * F3 IAM role should not allow * action on its permissions policy
+    * F6 IAM role should not allow Allow+NotPrincipal in its trust policy
+    * F38 IAM role should not allow * resource with PassRole action on its
         permissions policy
-    - W11 IAM role should not allow * resource on its permissions policy
-    - W14 IAM role should not allow Allow+NotAction on trust permissions
-    - W15 IAM role should not allow Allow+NotAction
-    - W21 IAM role should not allow Allow+NotResource
-    - W43 IAM role should not have AdministratorAccess policy
+    * W11 IAM role should not allow * resource on its permissions policy
+    * W14 IAM role should not allow Allow+NotAction on trust permissions
+    * W15 IAM role should not allow Allow+NotAction
+    * W21 IAM role should not allow Allow+NotResource
+    * W43 IAM role should not have AdministratorAccess policy
 
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
@@ -234,13 +234,13 @@ def is_policy_miss_configured(
 
     The following checks are performed:
 
-    - F4 IAM policy should not allow * action
-    - F11 IAM policy should not apply directly to users.
+    * F4 IAM policy should not allow * action
+    * F11 IAM policy should not apply directly to users.
         Should be on group
-    - F39 IAM policy should not allow * resource with PassRole action
-    - W12 IAM policy should not allow * resource
-    - W16 IAM policy should not allow Allow+NotAction
-    - W22 IAM policy should not allow Allow+NotResource
+    * F39 IAM policy should not allow * resource with PassRole action
+    * W12 IAM policy should not allow * resource
+    * W16 IAM policy should not allow Allow+NotAction
+    * W22 IAM policy should not allow Allow+NotResource
 
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
@@ -262,13 +262,13 @@ def is_managed_policy_miss_configured(
 
     The following checks are performed:
 
-    - F5 IAM managed policy should not allow * action
-    - F12 IAM managed policy should not apply directly to users.
+    * F5 IAM managed policy should not allow * action
+    * F12 IAM managed policy should not apply directly to users.
         Should be on group
-    - F40 IAM managed policy should not allow a * resource with PassRole action
-    - W13 IAM managed policy should not allow * resource
-    - W17 IAM managed policy should not allow Allow+NotAction
-    - W23 IAM managed policy should not allow Allow+NotResource
+    * F40 IAM managed policy should not allow a * resource with PassRole action
+    * W13 IAM managed policy should not allow * resource
+    * W17 IAM managed policy should not allow Allow+NotAction
+    * W23 IAM managed policy should not allow Allow+NotResource
 
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
@@ -290,7 +290,7 @@ def missing_role_based_security(
 
     The following checks are performed:
 
-    - F10 IAM user should not have any inline policies.
+    * F10 IAM user should not have any inline policies.
         Should be centralized Policy object on group (Role)
 
     :param path: Location of CloudFormation's template file.

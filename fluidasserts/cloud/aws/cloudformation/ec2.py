@@ -29,7 +29,7 @@ def allows_all_outbound_traffic(
 
     The following checks are performed:
 
-    - F1000 Missing egress rule means all traffic is allowed outbound.
+    * F1000 Missing egress rule means all traffic is allowed outbound,
         Make this explicit if it is desired configuration
 
     When you specify a VPC security group, Amazon EC2 creates a
@@ -78,9 +78,9 @@ def has_unrestricted_cidrs(
 
     The following checks are performed:
 
-    - W2 Security Groups found with cidr open to world on ingress
-    - W5 Security Groups found with cidr open to world on egress
-    - W9 Security Groups found with ingress cidr that is not /32
+    * W2 Security Groups found with cidr open to world on ingress
+    * W5 Security Groups found with cidr open to world on egress
+    * W9 Security Groups found with ingress cidr that is not /32
 
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
@@ -152,8 +152,8 @@ def has_unrestricted_ip_protocols(
 
     The following checks are performed:
 
-    - W40 Security Groups egress with an IpProtocol of -1 found
-    - W42 Security Groups ingress with an ipProtocol of -1 found
+    * W40 Security Groups egress with an IpProtocol of -1 found
+    * W42 Security Groups ingress with an ipProtocol of -1 found
 
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
@@ -204,9 +204,9 @@ def has_unrestricted_ports(
 
     The following checks are performed:
 
-    - W27 Security Groups found ingress with port range
+    * W27 Security Groups found ingress with port range
         instead of just a single port
-    - W29 Security Groups found egress with port range
+    * W29 Security Groups found egress with port range
         instead of just a single port
 
     :param path: Location of CloudFormation's template file.

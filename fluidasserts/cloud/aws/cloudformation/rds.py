@@ -28,8 +28,8 @@ def has_unencrypted_storage(
 
     The following checks are performed:
 
-    - F26 RDS DBCluster should have StorageEncrypted enabled
-    - F27 RDS DBInstance should have StorageEncrypted enabled
+    * F26 RDS DBCluster should have StorageEncrypted enabled
+    * F27 RDS DBInstance should have StorageEncrypted enabled
 
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
@@ -123,7 +123,7 @@ def is_publicly_accessible(
 
     The following checks are performed:
 
-    - F22 RDS instance should not be publicly accessible
+    * F22 RDS instance should not be publicly accessible
 
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.

@@ -28,7 +28,7 @@ def is_key_rotation_absent_or_disabled(
 
     The following checks are performed:
 
-    - F19 EnableKeyRotation should not be false or absent on KMS::Key resource
+    * F19 EnableKeyRotation should not be false or absent on KMS::Key resource
 
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
