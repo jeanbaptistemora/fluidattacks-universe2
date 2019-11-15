@@ -2,6 +2,7 @@ from graphene import (
     Argument, Boolean, DateTime, Enum, Field, Int, List, Mutation, ObjectType,
     String
 )
+from graphene_file_upload.scalars import Upload
 
 from app import util
 from app.decorators import (
@@ -285,3 +286,30 @@ class AddEventComment(Mutation):
                 f'Security: Attempted to add comment in event {event_id}')
 
         return AddEventComment(success=success, comment_id=comment_id)
+
+
+class UpdateEventEvidence(Mutation):
+    """Attaches a file as the event evidence """
+
+    class Arguments():
+        event_id = String(required=True)
+        file = Upload(required=True)
+    success = Boolean()
+
+    @staticmethod
+    @require_login
+    @require_role(['analyst', 'admin'])
+    @require_event_access
+    def mutate(_, info, event_id, file):
+        success = event_domain.update_evidence(event_id, file)
+        if success:
+            util.invalidate_cache(event_id)
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Updated evidence in event {event_id} succesfully')
+        else:
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Attempted to update evidence in event {event_id}')
+
+        return UpdateEventEvidence(success=success)

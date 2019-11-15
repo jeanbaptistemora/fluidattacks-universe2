@@ -14,7 +14,7 @@ from app.dal import integrates_dal, event as event_dal, project as project_dal
 from app.dal.helpers.formstack import FormstackAPI
 from app.domain import comment as comment_domain
 from app.dto.eventuality import EventDTO, migrate_event
-from app.exceptions import EventNotFound
+from app.exceptions import EventNotFound, InvalidFileSize, InvalidFileType
 from app.mailer import send_mail_comment
 
 
@@ -72,6 +72,29 @@ def get_event_project_name(event_id):
         # Project exist in dynamo
         pass
     return project
+
+
+def update_evidence(event_id, file):
+    success = False
+
+    if util.assert_uploaded_file_mime(file, ['image/gif', 'image/png']):
+        mib = 1048576
+
+        if file.size < 10 * mib:
+            event = get_event(event_id)
+            project_name = event.get('project_name')
+            file_name = file.name.replace(' ', '_').replace('-', '_')
+            evidence_id = f'{project_name}-{event_id}-{file_name}'
+            full_name = f'{project_name}/{event_id}/{evidence_id}'
+
+            if event_dal.save_evidence(file, full_name):
+                success = event_dal.update(event_id, {'evidence': evidence_id})
+        else:
+            raise InvalidFileSize()
+    else:
+        raise InvalidFileType()
+
+    return success
 
 
 def create_event(analyst_email, project_name, **kwargs):
