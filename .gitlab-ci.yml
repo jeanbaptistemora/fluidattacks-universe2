@@ -14,12 +14,14 @@ deps-mobile:
   image: fluidattacks/alpine-kaniko:latest
   script:
     - ./ci-scripts/jobs/deps-mobile.sh
+  interruptible: true
 
 deps-production:
   stage: deps-base
   image: fluidattacks/alpine-kaniko:latest
   script:
     - ./ci-scripts/jobs/deps-production.sh
+  interruptible: true
 
 deps-development:
   stage: deps-development
@@ -27,6 +29,7 @@ deps-development:
   image: fluidattacks/alpine-kaniko:latest
   script:
     - ./ci-scripts/jobs/deps-development.sh
+  interruptible: true
 
 test-terraform:
   stage: test
@@ -41,6 +44,7 @@ test-terraform:
   only:
     - branches
     - merge_requests
+  interruptible: true
 
 test-front:
   stage: test
@@ -55,6 +59,7 @@ test-front:
   only:
     - branches
     - merge_requests
+  interruptible: true
 
 test-mobile:
   stage: test
@@ -62,6 +67,7 @@ test-mobile:
   image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:master
   script:
     - ./ci-scripts/jobs/test-mobile.sh
+  interruptible: true
 
 test-app:
   stage: test
@@ -79,6 +85,7 @@ test-app:
     - merge_requests
   except:
     - master
+  interruptible: true
 
 asserts-static:
   stage: test
@@ -96,6 +103,7 @@ asserts-static:
               --secret ${BREAK_BUILD_SECRET}) || true
   except:
     - master
+  interruptible: true
 
 commitlint:
   stage: test
@@ -239,6 +247,7 @@ test-driver:
     paths:
       - screenshots/
     when: always
+  interruptible: true
 
 asserts-dynamic:
   stage: post-deploy
@@ -256,6 +265,7 @@ asserts-dynamic:
               --secret ${BREAK_BUILD_SECRET}) || true
   only:
     - master
+  interruptible: true
 
 new-version-mail:
   stage: post-deploy

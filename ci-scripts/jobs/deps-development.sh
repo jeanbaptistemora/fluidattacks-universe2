@@ -14,12 +14,22 @@ deps_development() {
   local NAME
 
   NAME='deps-development'
-
-  kaniko_build \
-    "$NAME" \
-    eph=true \
-    cache=true \
-    --build-arg CI_COMMIT_REF_NAME="$CI_COMMIT_REF_NAME"
+  FILES=(
+    'front/package.json'
+    'deploy/containers/deps-development/Dockerfile'
+    'deploy/containers/deps-development/requirements.txt'
+    'ci-scripts/jobs/deps-development.sh'
+  )
+  if check_file_changed "${FILES[@]}" \
+     || [ $SCHEDULE ]; then
+	  kaniko_build \
+    		"$NAME" \
+    		eph=true \
+    		cache=true \
+    		--build-arg CI_COMMIT_REF_NAME="$CI_COMMIT_REF_NAME"
+  else
+	echo "No relevant files for $NAME were modified. Skipping build."
+  fi
 }
 
 deps_development
