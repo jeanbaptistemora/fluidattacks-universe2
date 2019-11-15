@@ -90,6 +90,10 @@ const enTranslations: dict = {
       title_success: "Success",
     },
     events: {
+      evidence: {
+        edit: "Edit",
+        no_data: "There are no evidences",
+      },
       form: {
         accessibility: {
           environment: "Environment",
@@ -137,6 +141,7 @@ const enTranslations: dict = {
         },
         date: "Event date",
         details: "Details",
+        evidence: "Evidence image",
         none: "None",
         other: "Other",
         responsible: "Responsible (client)",

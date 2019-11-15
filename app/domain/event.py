@@ -97,7 +97,7 @@ def update_evidence(event_id, file):
     return success
 
 
-def create_event(analyst_email, project_name, **kwargs):
+def create_event(analyst_email, project_name, evidence_file, **kwargs):
     last_fs_id = 550000000
     event_id = str(random.randint(last_fs_id, 1000000000))
 
@@ -121,7 +121,11 @@ def create_event(analyst_email, project_name, **kwargs):
         event_attrs['affected_components'] = '\n'.join(
             list(set(event_attrs['affected_components'])))
 
-    return event_dal.create(event_id, project_name, event_attrs)
+    success = event_dal.create(event_id, project_name, event_attrs)
+    if success and evidence_file:
+        success = update_evidence(event_id, evidence_file)
+
+    return success
 
 
 def get_event(event_id):

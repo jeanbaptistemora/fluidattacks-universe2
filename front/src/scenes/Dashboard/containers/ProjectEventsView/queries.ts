@@ -28,6 +28,7 @@ export const CREATE_EVENT_MUTATION: DocumentNode = gql`
     $detail: String!,
     $eventDate: DateTime!,
     $eventType: EventType!,
+    $evidence: Upload,
     $projectName: String!
     ) {
     createEvent(
@@ -41,6 +42,7 @@ export const CREATE_EVENT_MUTATION: DocumentNode = gql`
       detail: $detail,
       eventDate: $eventDate,
       eventType: $eventType,
+      evidence: $evidence,
       projectName: $projectName
     ) {
       success

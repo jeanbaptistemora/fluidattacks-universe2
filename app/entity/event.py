@@ -236,6 +236,7 @@ class CreateEvent(Mutation):
                 ('OTHER', 'OTHER'),
                 ('TOE_DIFFERS_APPROVED', 'TOE_DIFFERS_APPROVED')
             ]), required=True)
+        evidence = Upload(required=False)
         project_name = String(required=True)
     success = Boolean()
 
@@ -243,11 +244,11 @@ class CreateEvent(Mutation):
     @require_login
     @require_role(['analyst', 'admin'])
     @require_project_access
-    def mutate(_, info, project_name, **kwargs):
+    def mutate(_, info, project_name, evidence=None, **kwargs):
         analyst_email = util.get_jwt_content(info.context)['user_email']
-
         success = event_domain.create_event(
-            analyst_email, project_name.lower(), **kwargs)
+            analyst_email, project_name.lower(), evidence, **kwargs)
+
         if success:
             util.cloudwatch_log(info.context, 'Security: Created event in '
                                 f'{project_name} project succesfully')

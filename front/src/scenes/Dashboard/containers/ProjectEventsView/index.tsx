@@ -15,7 +15,9 @@ import { Modal } from "../../../../components/Modal";
 import globalStyle from "../../../../styles/global.css";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { formatEvents, handleGraphQLErrors } from "../../../../utils/formatHelpers";
-import { checkboxField, dateTimeField, dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
+import {
+  checkboxField, dateTimeField, dropdownField, fileInputField, textAreaField, textField,
+} from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { numeric, required, someRequired, validDatetime, validEmail } from "../../../../utils/validations";
@@ -130,6 +132,7 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                       interface IFormValues {
                         accessibility: { [key: string]: boolean };
                         affectedComponents: { [key: string]: boolean };
+                        evidence?: FileList;
                       }
 
                       const handleSubmit: ((values: IFormValues) => void) = (values: IFormValues): void => {
@@ -149,6 +152,7 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                             ...values,
                             accessibility: selectedAccessibility,
                             affectedComponents: selectedComponents,
+                            evidence: _.isEmpty(values.evidence) ? undefined : (values.evidence as FileList)[0],
                           },
                         })
                           .catch();
@@ -404,6 +408,19 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                                         {translate.t("project.events.form.other")}
                                       </option>
                                     </Field>
+                                  </FormGroup>
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col md={6}>
+                                  <FormGroup>
+                                    <ControlLabel>{translate.t("project.events.form.evidence")}</ControlLabel>
+                                    <Field
+                                      accept="image/x-png,image/gif"
+                                      component={fileInputField}
+                                      id="evidence"
+                                      name="evidence"
+                                    />
                                   </FormGroup>
                                 </Col>
                               </Row>
