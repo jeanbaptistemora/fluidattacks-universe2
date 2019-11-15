@@ -84,6 +84,15 @@ To achieve this, follow these steps:
 
       GitLab CI environment variables
 
+#. Make sure your execution environment has the required dependencies
+
+   These are:
+
+      * Bash
+      * An updated version of Docker
+
+   Please note that using **sh** instead of **bash** is not supported
+
 #. Add a job to run ``Fluid Asserts``.
    For example:
 
@@ -108,6 +117,48 @@ To achieve this, follow these steps:
         docker pull fluidattacks/break-build
         bash <(docker run fluidattacks/break-build --static --id ${ID} --secret ${SECRET})
 
+   * in ``Jenkins``,
+
+     The configuration file should look like this:
+
+     .. code-block:: jenkins
+
+        pipeline {
+          agent {
+            label 'label'
+          }
+          environment {
+            ID = "test"
+            SECRET = "test"
+          }
+          stages {
+            stage('Break Build Static') {
+              steps {
+                script {
+                  sh """
+                    docker pull fluidattacks/break-build
+                    docker run fluidattacks/break-build --static --id $ {ID} --secret $ {SECRET} | bash
+                  """
+                }
+              }
+            }
+            stage('Break Build Dynamic') {
+              steps {
+                script {
+                  sh """
+                    docker pull fluidattacks/break-build
+                    docker run fluidattacks/break-build --dynamic --id $ {ID} --secret $ {SECRET} | bash
+                  """
+                }
+              }
+            }
+          }
+        }
+
+     Please note that while **sh** is the pipeline executor,
+     break build commands are piped to **bash**,
+     so **bash** is the actual executor
+
 #. Now your pipeline will break
    if any vulnerability is found to be open.
    In order to not break the build,
@@ -118,18 +169,29 @@ To achieve this, follow these steps:
 
    .. The commands are the following::
 
-   --static
-      Run the static container.
-   --dynamic
-      Run the dynamic container.
-   --cpus N
-      Add this flag to allow execution in N host CPUs (defaults to 1)
    --id ID
       Use this flag to set your user ID
    --secret SECRET
       Use this flag to set your user Secret
+   --static
+      Run the static container.
+   --dynamic
+      Run the dynamic container.
    --no-strict
       Don't ``Break the Build`` if any vulnerability is found to be open :(
+   --cpus N
+      Add this flag to allow execution in N host CPUs (defaults to 1).
+      Using **--cpus 0** will use all CPUs in the host
+   --no-image-rm
+      Use this flag to indicate that you do not want to
+      delete images after execution
+   --no-container-rm
+      Use this flag to indicate that you do not want to
+      delete containers after execution,
+      (for security reasons, containers should always be removed)
+   --color
+      Colorize the execution output,
+      (in some environments colorizing the output makes the output unreadable)
 
 ~~~~~~~~~
 CI stages
