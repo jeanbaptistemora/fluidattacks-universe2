@@ -35,13 +35,13 @@ import * as actions from "../../actions";
 import { FileInput } from "../../components/FileInput/index";
 import { TreatmentFieldsView } from "../../components/treatmentFields";
 import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
+import { deleteVulnerabilityModal as DeleteVulnerabilityModal } from "../DeleteVulnerability/index";
+import { IDeleteVulnAttr } from "../DeleteVulnerability/types";
 import { GenericForm } from "../GenericForm";
 import { default as SimpleTable } from "../SimpleTable/index";
 import style from "./index.css";
-import { APPROVE_VULN_MUTATION, DELETE_VULN_MUTATION, GET_VULNERABILITIES,
-         UPDATE_TREATMENT_MUTATION } from "./queries";
-import { IApproveVulnAttr, IDeleteVulnAttr, IUpdateVulnTreatment, IVulnerabilitiesViewProps,
-         IVulnsAttr, IVulnType } from "./types";
+import { APPROVE_VULN_MUTATION, GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
+import { IApproveVulnAttr, IUpdateVulnTreatment, IVulnerabilitiesViewProps, IVulnsAttr, IVulnType } from "./types";
 
 type ISelectRowType = (Array<{[value: string]: string | undefined | null}>);
 interface ICategoryVulnType {
@@ -134,8 +134,7 @@ const groupValues: ((values: number[]) => string) =
 
 const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVulnType => {
   const groups: { [key: string]: IVulnType }  = _.groupBy(lines, "where");
-  const specificGrouped: IVulnType =
-  _.map(groups, (line: IVulnType) =>
+  const specificGrouped: IVulnType = _.map(groups, (line: IVulnType) =>
     ({
         analyst: "",
         currentApprovalStatus: line[0].currentApprovalStatus,
@@ -187,6 +186,51 @@ const updateVulnerabilities: ((findingId: string) => void) = (findingId: string)
   }
 };
 
+const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnType[], vulnData: IVunlDataType[]) =>
+  IVunlDataType[] = (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnType[], vulnData: IVunlDataType[]):
+  IVunlDataType[] => {
+    selectedRow.forEach((row: {[value: string]: string | null | undefined }) => {
+      categoryVuln.forEach((vuln: {
+        externalBts: string;
+        id: string;
+        specific: string;
+        treatment: string;
+        treatmentJustification: string;
+        treatmentManager: string;
+        where: string;
+      }) => {
+        if (row.where === vuln.where && row.specific === vuln.specific) {
+        vulnData.push({
+          id: vuln.id,
+          treatments: {
+            btsUrl: vuln.externalBts,
+            treatment: vuln.treatment,
+            treatmentJustification: vuln.treatmentJustification,
+            treatmentManager: vuln.treatmentManager,
+          },
+        });
+        }
+      });
+    });
+
+    return vulnData;
+  };
+
+const getVulnInfo: (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICategoryVulnType[][]) =>
+  IVunlDataType[] = (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICategoryVulnType[][]):
+  IVunlDataType[] => {
+  let arrayVulnInfo: IVunlDataType[] = [];
+  selectedRowArray.forEach((selectedRow: ISelectRowType) => {
+    if (!_.isUndefined(selectedRow)) {
+      arrayVulnCategory.forEach((category: ICategoryVulnType[]) => {
+        arrayVulnInfo = getVulnByRow(selectedRow, category, arrayVulnInfo);
+      });
+    }
+  });
+
+  return arrayVulnInfo;
+  };
+
 export const renderButtonBar: ((props: IVulnerabilitiesViewProps) => JSX.Element) =
   (props: IVulnerabilitiesViewProps): JSX.Element => {
     let baseUrl: string; baseUrl = `${window.location.href.split("/dashboard#!")[0]}`;
@@ -215,11 +259,56 @@ export const renderButtonBar: ((props: IVulnerabilitiesViewProps) => JSX.Element
 const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
   (props: IVulnerabilitiesViewProps): JSX.Element => {
     const [modalHidden, setModalHidden] = useState(false);
+    const [deleteVulnModal, setDeleteVulnModal] = useState(false);
+    const [vulnerabilityId, setVulnerabilityId] = useState("");
 
     if (!_.isUndefined(props.descriptParam)) {
       props.descriptParam.formValues.treatment = props.descriptParam.formValues.treatmentVuln;
     }
     const canGetAnalyst: boolean = _.includes(["analyst", "admin"], props.userRole);
+
+    const getSelectQryTable: () => {selectedQeryArray: Array<NodeListOf<Element>> } = ():
+      { selectedQeryArray: Array<NodeListOf<Element>> } => {
+      const selectedQryArray: Array<NodeListOf<Element>> = [];
+      const vulnsTable: string[] = ["#inputsVulns", "#linesVulns", "#portsVulns"];
+      vulnsTable.forEach((table: string) => {
+        const qryTable: NodeListOf<Element> = document.querySelectorAll(`${table} tr input:checked`);
+        if (!_.isEmpty(qryTable)) {
+          selectedQryArray.push(qryTable);
+        }
+      });
+      const result: { selectedQeryArray: Array<NodeListOf<Element>> } = {
+        selectedQeryArray: selectedQryArray,
+      };
+
+      return result;
+    };
+
+    const isEditable: boolean = _.isUndefined(props.renderAsEditable) ? false : props.renderAsEditable;
+    const separatedRow: boolean = !_.isUndefined(props.separatedRow) ? props.separatedRow
+    : false;
+    const getAnalyst: boolean = !_.isUndefined(props.analyst) ? props.analyst : false;
+    const shouldGroup: boolean = !(props.editMode && separatedRow);
+
+    const handleOpenVulnSetClick: () => void = (): void => {
+      setModalHidden(true);
+    };
+
+    const handleCloseTableSetClick: () => void = (): void => {
+      setModalHidden(false);
+    };
+
+    const handleCloseDeleteVulnModal: (() => void) = (): void => {
+      setDeleteVulnModal(false);
+    };
+
+    const handleDeleteVulnerability: ((vulnInfo: { [key: string]: string } | undefined) => void) =
+    (vulnInfo: { [key: string]: string } | undefined): void => {
+      if (vulnInfo !== undefined) {
+        setVulnerabilityId(vulnInfo.id);
+        setDeleteVulnModal(true);
+      }
+    };
 
     return(
     <Query
@@ -244,52 +333,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
           if (!_.isUndefined(data)) {
             hidePreloader();
 
-            const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnType[],
-                                 vulnData: IVunlDataType[]) => IVunlDataType[] =
-                (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnType[], vulnData: IVunlDataType[])
-                                                                    : IVunlDataType[] => {
-                selectedRow.forEach((row: {[value: string]: string | null | undefined }) => {
-                  categoryVuln.forEach((vuln: {
-                                                externalBts: string;
-                                                id: string;
-                                                specific: string;
-                                                treatment: string;
-                                                treatmentJustification: string;
-                                                treatmentManager: string;
-                                                where: string;
-                                              }) => {
-                    if (row.where === vuln.where && row.specific === vuln.specific) {
-                      vulnData.push({
-                        id: vuln.id,
-                        treatments: {
-                          btsUrl: vuln.externalBts,
-                          treatment: vuln.treatment,
-                          treatmentJustification: vuln.treatmentJustification,
-                          treatmentManager: vuln.treatmentManager,
-                        },
-                      });
-                    }
-                  });
-                });
-
-                return vulnData;
-            };
-
-            const getVulnInfo: (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICategoryVulnType[][]) =>
-            IVunlDataType[] = (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICategoryVulnType[][]):
-            IVunlDataType[] => {
-              let arrayVulnInfo: IVunlDataType[] = [];
-              selectedRowArray.forEach((selectedRow: ISelectRowType) => {
-                if (!_.isUndefined(selectedRow)) {
-                  arrayVulnCategory.forEach((category: ICategoryVulnType[]) => {
-                    arrayVulnInfo = getVulnByRow(selectedRow, category, arrayVulnInfo);
-                  });
-                }
-              });
-
-              return arrayVulnInfo;
-            };
-
             const dataInputs: IVulnsAttr["finding"]["inputsVulns"] = filterState(
               data.finding.inputsVulns, props.state);
             const dataLines: IVulnsAttr["finding"]["linesVulns"] = filterState(data.finding.linesVulns, props.state);
@@ -300,6 +343,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             const handleMtDeleteVulnRes: ((mtResult: IDeleteVulnAttr) => void) = (mtResult: IDeleteVulnAttr): void => {
               if (!_.isUndefined(mtResult)) {
                 if (mtResult.deleteVulnerability.success) {
+                  setDeleteVulnModal(false);
                   refetch()
                     .catch();
                   hidePreloader();
@@ -312,6 +356,12 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   msgSuccess(
                     translate.t("search_findings.tab_description.vulnDeleted"),
                     translate.t("proj_alerts.title_success"));
+                } else {
+                  hidePreloader();
+                  msgError(
+                    translate.t("delete_vulns.not_success"),
+                  );
+                  setDeleteVulnModal(false);
                 }
               }
             };
@@ -336,284 +386,349 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               }
             };
 
-            const getSelectQryTable: () => {selectedQeryArray: Array<NodeListOf<Element>> } = ():
-                { selectedQeryArray: Array<NodeListOf<Element>> } => {
-                const selectedQryArray: Array<NodeListOf<Element>> = [];
-                const vulnsTable: string[] = ["#inputsVulns", "#linesVulns", "#portsVulns"];
-                vulnsTable.forEach((table: string) => {
-                  const qryTable: NodeListOf<Element> = document.querySelectorAll(`${table} tr input:checked`);
-                  if (!_.isEmpty(qryTable)) {
-                    selectedQryArray.push(qryTable);
-                  }
-                });
-                const result: { selectedQeryArray: Array<NodeListOf<Element>> } = {
-                  selectedQeryArray: selectedQryArray,
-                };
+            const handleMtUpdateTreatmentVulnRes: ((mtResult: IUpdateVulnTreatment) => void) =
+            (mtResult: IUpdateVulnTreatment): void => {
+              if (!_.isUndefined(mtResult)) {
+                if (mtResult.updateTreatmentVuln.success) {
+                  refetch()
+                    .catch();
+                  hidePreloader();
+                  mixpanel.track(
+                    "UpdatedTreatmentVulnerabilities",
+                    {
+                      Organization: (window as Window & { userOrganization: string }).userOrganization,
+                      User: (window as Window & { userName: string }).userName,
+                    });
+                  msgSuccess(
+                    translate.t("search_findings.tab_description.update_vulnerabilities"),
+                    translate.t("proj_alerts.title_success"));
+                  handleCloseTableSetClick();
+                }
+              }
+            };
+            const inputsHeader: IHeader[] = [
+            {
+              align: "left" as DataAlignType,
+              dataField: "where",
+              header: "URL",
+              isDate: false,
+              isStatus: false,
+              width: "60%",
+              wrapped: true,
+            },
+            {
+              align: "left" as DataAlignType,
+              dataField: "specific",
+              header: translate.t("search_findings.tab_description.field"),
+              isDate: false,
+              isStatus: false,
+              width: "20%",
+              wrapped: true,
+            },
+            {
+              align: "left" as DataAlignType,
+              dataField: "treatment",
+              header: translate.t("search_findings.tab_description.treatment.title"),
+              isDate: false,
+              isStatus: false,
+              visible: false,
+              width: "20%",
+            }];
+            const linesHeader: IHeader[] = [
+              {
+                align: "left" as DataAlignType,
+                dataField: "where",
+                header: translate.t("search_findings.tab_description.path"),
+                isDate: false,
+                isStatus: false,
+                width: "60%",
+                wrapped: true,
+              },
+              {
+                align: "left" as DataAlignType,
+                dataField: "specific",
+                header: translate.t("search_findings.tab_description.line", {count: 1}),
+                isDate: false,
+                isStatus: false,
+                width: "20%",
+                wrapped: true,
+              },
+              {
+                align: "left" as DataAlignType,
+                dataField: "treatment",
+                header: translate.t("search_findings.tab_description.treatment.title"),
+                isDate: false,
+                isStatus: false,
+                visible: false,
+                width: "20%",
+              }];
+            const portsHeader: IHeader[] = [
+              {
+                align: "left" as DataAlignType,
+                dataField: "where",
+                header: "Host",
+                isDate: false,
+                isStatus: false,
+                width: "60%",
+                wrapped: true,
+              },
+              {
+                align: "left" as DataAlignType,
+                dataField: "specific",
+                header: translate.t("search_findings.tab_description.port", {count: 1}),
+                isDate: false,
+                isStatus: false,
+                width: "20%",
+                wrapped: true,
+              },
+              {
+                align: "left" as DataAlignType,
+                dataField: "treatment",
+                header: translate.t("search_findings.tab_description.treatment.title"),
+                isDate: false,
+                isStatus: false,
+                visible: false,
+                width: "20%",
+              }];
 
-                return result;
+            let formattedDataLines: IVulnsAttr["finding"]["linesVulns"] = dataLines;
+            let formattedDataPorts: IVulnsAttr["finding"]["portsVulns"] = dataPorts;
+            let formattedDataInputs: IVulnsAttr["finding"]["inputsVulns"] = dataInputs;
+            const formattedDataPendingVulns: IVulnsAttr["finding"]["pendingVulns"] = dataPendingVulns;
+
+            if (props.editMode) {
+              inputsHeader.push({
+                          align: "center" as DataAlignType,
+                          dataField: "id",
+                          deleteFunction: handleDeleteVulnerability,
+                          header: translate.t("search_findings.tab_description.action"),
+                          isDate: false,
+                          isStatus: false,
+                          width: "10%",
+                        });
+              linesHeader.push({
+                          align: "center" as DataAlignType,
+                          dataField: "id",
+                          deleteFunction: handleDeleteVulnerability,
+                          header: translate.t("search_findings.tab_description.action"),
+                          isDate: false,
+                          isStatus: false,
+                          width: "10%",
+                        });
+              portsHeader.push({
+                          align: "center" as DataAlignType,
+                          dataField: "id",
+                          deleteFunction: handleDeleteVulnerability,
+                          header: translate.t("search_findings.tab_description.action"),
+                          isDate: false,
+                          isStatus: false,
+                          width: "10%",
+                        });
+            } else if (getAnalyst) {
+              inputsHeader.push({
+                align: "left" as DataAlignType,
+                dataField: "lastAnalyst",
+                header: translate.t("search_findings.tab_description.analyst"),
+                isDate: false,
+                isStatus: false,
+                width: "30%",
+              });
+              linesHeader.push({
+                align: "left" as DataAlignType,
+                dataField: "lastAnalyst",
+                header: translate.t("search_findings.tab_description.analyst"),
+                isDate: false,
+                isStatus: false,
+                width: "30%",
+              });
+              portsHeader.push({
+                align: "left" as DataAlignType,
+                dataField: "lastAnalyst",
+                header: translate.t("search_findings.tab_description.analyst"),
+                isDate: false,
+                isStatus: false,
+                width: "30%",
+              });
+            } else if (shouldGroup) {
+              formattedDataLines = groupSpecific(dataLines);
+              formattedDataPorts = groupSpecific(dataPorts);
+              formattedDataInputs = groupSpecific(dataInputs);
+            }
+
+            const renderButtonUpdateVuln: (() => JSX.Element) =
+              (): JSX.Element =>
+                (
+                  <React.Fragment>
+                    <Row>
+                      <Col mdOffset={5} md={4} hidden={true}>
+                        <Button bsStyle="warning" onClick={handleOpenVulnSetClick}>
+                          <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editVuln")}
+                        </Button>
+                      </Col>
+                    </Row><br/>
+                </React.Fragment>
+              );
+
+            const calculateRowsSelected: () => {oneRowSelected: boolean; vulnerabilities: string []} =
+            (): {oneRowSelected: boolean; vulnerabilities: string []}  => {
+              const selectedRows: Array<NodeListOf<Element>> = getSelectQryTable().selectedQeryArray;
+              const selectedRowArray: ISelectRowType[] = [];
+              const arrayVulnCategory: ICategoryVulnType[][] = [data.finding.inputsVulns,
+                                                                data.finding.linesVulns,
+                                                                data.finding.portsVulns];
+              let result: {oneRowSelected: boolean; vulnerabilities: string []};
+              const vulnsId: string[] = [];
+              selectedRows.forEach((selectQry: NodeListOf<Element>) => {
+                selectedRowArray.push(getAttrVulnUpdate(selectQry));
+              });
+              const vulns: IVunlDataType[] = getVulnInfo(selectedRowArray, arrayVulnCategory);
+              vulns.forEach((vuln: IVunlDataType) => {
+                vulnsId.push(vuln.id);
+              });
+              result = {
+                oneRowSelected: false,
+                vulnerabilities: vulnsId,
               };
+              if (vulns.length === 1) {
+                result = {
+                  oneRowSelected: true,
+                  vulnerabilities: vulnsId,
+                };
+                if (!_.isUndefined(props.descriptParam)) {
+                  props.descriptParam.dataset.treatment = vulns[0].treatments.treatment.toUpperCase();
+                  props.descriptParam.dataset.treatmentJustification = vulns[0].treatments.treatmentJustification;
+                  props.descriptParam.dataset.treatmentManager = vulns[0].treatments.treatmentManager;
+                  props.descriptParam.dataset.btsUrl = vulns[0].treatments.btsUrl;
+                }
+              }
 
-            const isEditable: boolean = _.isUndefined(props.renderAsEditable) ? false : props.renderAsEditable;
-            const separatedRow: boolean = !_.isUndefined(props.separatedRow) ? props.separatedRow
-            : false;
-            const getAnalyst: boolean = !_.isUndefined(props.analyst) ? props.analyst : false;
-            const shouldGroup: boolean = !(props.editMode && separatedRow);
-
-            const handleOpenVulnSetClick: () => void = (): void => {
-              setModalHidden(true);
+              return result;
             };
 
-            const handleCloseTableSetClick: () => void = (): void => {
-              setModalHidden(false);
-            };
+            const numberRowSelected: boolean = calculateRowsSelected().oneRowSelected;
+            const vulnsSelected: string [] = calculateRowsSelected().vulnerabilities;
 
             return (
-              <Mutation mutation={DELETE_VULN_MUTATION} onCompleted={handleMtDeleteVulnRes}>
-                { (deleteVulnerability: MutationFn<IDeleteVulnAttr, {findingId: string; id: string}>,
-                   mutationRes: MutationResult): React.ReactNode => {
-                  if (mutationRes.loading) {
-                    showPreloader();
-                  }
-                  if (!_.isUndefined(mutationRes.error)) {
-                    hidePreloader();
-                    handleGraphQLErrors("An error occurred deleting vulnerabilities", mutationRes.error);
+              <Mutation mutation={APPROVE_VULN_MUTATION} onCompleted={handleMtPendingVulnRes}>
+              { (approveVulnerability: MutationFn<IApproveVulnAttr, {
+                approvalStatus: boolean; findingId: string; uuid?: string; }>,
+                 mutationResult: MutationResult): React.ReactNode => {
+                if (mutationResult.loading) {
+                  showPreloader();
+                }
+                if (!_.isUndefined(mutationResult.error)) {
+                  hidePreloader();
+                  handleGraphQLErrors("An error occurred approving vulnerabilities", mutationResult.error);
 
-                    return <React.Fragment/>;
-                  }
+                  return <React.Fragment/>;
+                }
 
-                  const handleDeleteVulnerability: ((vulnInfo: { [key: string]: string } | undefined) => void) =
-                    (vulnInfo: { [key: string]: string } | undefined): void => {
-                      if (vulnInfo !== undefined) {
-                        deleteVulnerability({ variables: {findingId: vulnInfo.findingId, id: vulnInfo.id}})
-                        .catch();
-                      }
-                  };
-
-                  const inputsHeader: IHeader[] = [
-                    {
-                      align: "left" as DataAlignType,
-                      dataField: "where",
-                      header: "URL",
-                      isDate: false,
-                      isStatus: false,
-                      width: "60%",
-                      wrapped: true,
-                    },
-                    {
-                      align: "left" as DataAlignType,
-                      dataField: "specific",
-                      header: translate.t("search_findings.tab_description.field"),
-                      isDate: false,
-                      isStatus: false,
-                      width: "20%",
-                      wrapped: true,
-                    },
-                    {
-                      align: "left" as DataAlignType,
-                      dataField: "treatment",
-                      header: translate.t("search_findings.tab_description.treatment.title"),
-                      isDate: false,
-                      isStatus: false,
-                      visible: false,
-                      width: "20%",
-                    }];
-                  const linesHeader: IHeader[] = [
-                    {
-                      align: "left" as DataAlignType,
-                      dataField: "where",
-                      header: translate.t("search_findings.tab_description.path"),
-                      isDate: false,
-                      isStatus: false,
-                      width: "60%",
-                      wrapped: true,
-                    },
-                    {
-                      align: "left" as DataAlignType,
-                      dataField: "specific",
-                      header: translate.t("search_findings.tab_description.line", {count: 1}),
-                      isDate: false,
-                      isStatus: false,
-                      width: "20%",
-                      wrapped: true,
-                    },
-                    {
-                      align: "left" as DataAlignType,
-                      dataField: "treatment",
-                      header: translate.t("search_findings.tab_description.treatment.title"),
-                      isDate: false,
-                      isStatus: false,
-                      visible: false,
-                      width: "20%",
-                    }];
-                  const portsHeader: IHeader[] = [
-                    {
-                      align: "left" as DataAlignType,
-                      dataField: "where",
-                      header: "Host",
-                      isDate: false,
-                      isStatus: false,
-                      width: "60%",
-                      wrapped: true,
-                    },
-                    {
-                      align: "left" as DataAlignType,
-                      dataField: "specific",
-                      header: translate.t("search_findings.tab_description.port", {count: 1}),
-                      isDate: false,
-                      isStatus: false,
-                      width: "20%",
-                      wrapped: true,
-                    },
-                    {
-                      align: "left" as DataAlignType,
-                      dataField: "treatment",
-                      header: translate.t("search_findings.tab_description.treatment.title"),
-                      isDate: false,
-                      isStatus: false,
-                      visible: false,
-                      width: "20%",
-                    }];
-
-                  let formattedDataLines: IVulnsAttr["finding"]["linesVulns"] = dataLines;
-                  let formattedDataPorts: IVulnsAttr["finding"]["portsVulns"] = dataPorts;
-                  let formattedDataInputs: IVulnsAttr["finding"]["inputsVulns"] = dataInputs;
-                  const formattedDataPendingVulns: IVulnsAttr["finding"]["pendingVulns"] = dataPendingVulns;
-
-                  if (props.editMode && _.isEmpty(data.finding.releaseDate)) {
-                    inputsHeader.push({
-                                align: "center" as DataAlignType,
-                                dataField: "id",
-                                deleteFunction: handleDeleteVulnerability,
-                                header: translate.t("search_findings.tab_description.action"),
-                                isDate: false,
-                                isStatus: false,
-                                width: "10%",
-                              });
-                    linesHeader.push({
-                                align: "center" as DataAlignType,
-                                dataField: "id",
-                                deleteFunction: handleDeleteVulnerability,
-                                header: translate.t("search_findings.tab_description.action"),
-                                isDate: false,
-                                isStatus: false,
-                                width: "10%",
-                              });
-                    portsHeader.push({
-                                align: "center" as DataAlignType,
-                                dataField: "id",
-                                deleteFunction: handleDeleteVulnerability,
-                                header: translate.t("search_findings.tab_description.action"),
-                                isDate: false,
-                                isStatus: false,
-                                width: "10%",
-                              });
-                  } else if (getAnalyst) {
-                    inputsHeader.push({
-                      align: "left" as DataAlignType,
-                      dataField: "lastAnalyst",
-                      header: translate.t("search_findings.tab_description.analyst"),
-                      isDate: false,
-                      isStatus: false,
-                      width: "30%",
-                    });
-                    linesHeader.push({
-                      align: "left" as DataAlignType,
-                      dataField: "lastAnalyst",
-                      header: translate.t("search_findings.tab_description.analyst"),
-                      isDate: false,
-                      isStatus: false,
-                      width: "30%",
-                    });
-                    portsHeader.push({
-                      align: "left" as DataAlignType,
-                      dataField: "lastAnalyst",
-                      header: translate.t("search_findings.tab_description.analyst"),
-                      isDate: false,
-                      isStatus: false,
-                      width: "30%",
-                    });
-                  } else if (shouldGroup) {
-                    formattedDataLines = groupSpecific(dataLines);
-                    formattedDataPorts = groupSpecific(dataPorts);
-                    formattedDataInputs = groupSpecific(dataInputs);
-                  }
-
-                  const renderButtonUpdateVuln: (() => JSX.Element) =
-                    (): JSX.Element =>
-
-                      (
-                        <React.Fragment>
-                          <Row>
-                            <Col mdOffset={5} md={4} hidden={true}>
-                              <Button bsStyle="warning" onClick={handleOpenVulnSetClick}>
-                                <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editVuln")}
-                              </Button>
-                            </Col>
-                          </Row><br/>
-                      </React.Fragment>
-                    );
-
-                  const handleMtUpdateTreatmentVulnRes: ((mtResult: IUpdateVulnTreatment) => void) =
-                    (mtResult: IUpdateVulnTreatment): void => {
-                      if (!_.isUndefined(mtResult)) {
-                        if (mtResult.updateTreatmentVuln.success) {
-                          refetch()
-                            .catch();
-                          hidePreloader();
-                          mixpanel.track(
-                            "UpdatedTreatmentVulnerabilities",
-                            {
-                              Organization: (window as Window & { userOrganization: string }).userOrganization,
-                              User: (window as Window & { userName: string }).userName,
-                            });
-                          msgSuccess(
-                            translate.t("search_findings.tab_description.update_vulnerabilities"),
-                            translate.t("proj_alerts.title_success"));
-                          handleCloseTableSetClick();
-                        }
-                      }
-                    };
-
-                  const calculateRowsSelected: () => {oneRowSelected: boolean; vulnerabilities: string []} =
-                  (): {oneRowSelected: boolean; vulnerabilities: string []}  => {
-                    const selectedRows: Array<NodeListOf<Element>> = getSelectQryTable().selectedQeryArray;
-                    const selectedRowArray: ISelectRowType[] = [];
-                    const arrayVulnCategory: ICategoryVulnType[][] = [data.finding.inputsVulns,
-                                                                      data.finding.linesVulns,
-                                                                      data.finding.portsVulns];
-                    let result: {oneRowSelected: boolean; vulnerabilities: string []};
-                    const vulnsId: string[] = [];
-                    selectedRows.forEach((selectQry: NodeListOf<Element>) => {
-                      selectedRowArray.push(getAttrVulnUpdate(selectQry));
-                    });
-                    const vulns: IVunlDataType[] = getVulnInfo(selectedRowArray, arrayVulnCategory);
-                    vulns.forEach((vuln: IVunlDataType) => {
-                      vulnsId.push(vuln.id);
-                    });
-                    result = {
-                      oneRowSelected: false,
-                      vulnerabilities: vulnsId,
-                    };
-                    if (vulns.length === 1) {
-                      result = {
-                        oneRowSelected: true,
-                        vulnerabilities: vulnsId,
-                      };
-                      if (!_.isUndefined(props.descriptParam)) {
-                        props.descriptParam.dataset.treatment = vulns[0].treatments.treatment.toUpperCase();
-                        props.descriptParam.dataset.treatmentJustification = vulns[0].treatments.treatmentJustification;
-                        props.descriptParam.dataset.treatmentManager = vulns[0].treatments.treatmentManager;
-                        props.descriptParam.dataset.btsUrl = vulns[0].treatments.btsUrl;
-                      }
+                const handleApproveVulnerability: ((vulnInfo: { [key: string]: string } | undefined) =>
+                void) =
+                  (vulnInfo: { [key: string]: string } | undefined): void => {
+                    if (vulnInfo !== undefined) {
+                      approveVulnerability({ variables: {approvalStatus: true, findingId: props.findingId,
+                                                         uuid: vulnInfo.id}})
+                      .catch();
                     }
+                };
+                const handleRejectVulnerability: ((vulnInfo: { [key: string]: string } | undefined) =>
+                void) =
+                  (vulnInfo: { [key: string]: string } | undefined): void => {
+                    if (vulnInfo !== undefined) {
+                      approveVulnerability({ variables: {approvalStatus: false, findingId: props.findingId,
+                                                         uuid: vulnInfo.id}})
+                      .catch();
+                    }
+                };
 
-                    return result;
-                  };
+                const openApproveConfirm: (() => void) = (): void => {
+                  store.dispatch(actions.openConfirmDialog("confirmApproveVulns"));
+                };
 
-                  const numberRowSelected: boolean = calculateRowsSelected().oneRowSelected;
-                  const vulnsSelected: string [] = calculateRowsSelected().vulnerabilities;
+                const openDeleteConfirm: (() => void) = (): void => {
+                  store.dispatch(actions.openConfirmDialog("confirmDeleteVulns"));
+                };
 
-                  return (
+                const handleApproveAllVulnerabilities: (() => void) = (): void => {
+                  approveVulnerability({ variables: {approvalStatus: true, findingId: props.findingId }})
+                  .catch();
+                };
+
+                const handleDeleteAllVulnerabilities: (() => void) = (): void => {
+                  approveVulnerability({ variables: {approvalStatus: false, findingId: props.findingId }})
+                  .catch();
+                };
+
+                const pendingsHeader: IHeader[] = [
+                  {
+                    align: "left" as DataAlignType,
+                    dataField: "where",
+                    header: "Where",
+                    isDate: false,
+                    isStatus: false,
+                    width: "50%",
+                    wrapped: true,
+                  },
+                  {
+                    align: "left" as DataAlignType,
+                    dataField: "specific",
+                    header: translate.t("search_findings.tab_description.field"),
+                    isDate: false,
+                    isStatus: false,
+                    width: "15%",
+                    wrapped: true,
+                  },
+                  {
+                    align: "left" as DataAlignType,
+                    dataField: "currentState",
+                    header: translate.t("search_findings.tab_description.state"),
+                    isDate: false,
+                    isStatus: true,
+                    width: "15%",
+                    wrapped: true,
+                  },
+                  {
+                    align: "left" as DataAlignType,
+                    dataField: "isNew",
+                    header: translate.t("search_findings.tab_description.is_new"),
+                    isDate: false,
+                    isStatus: false,
+                    width: "12%",
+                    wrapped: true,
+                  }];
+                if (getAnalyst) {
+                  pendingsHeader.push({
+                    align: "left" as DataAlignType,
+                    dataField: "analyst",
+                    header: translate.t("search_findings.tab_description.analyst"),
+                    isDate: false,
+                    isStatus: false,
+                    width: "38%",
+                  });
+                }
+                if (_.isEqual(props.editModePending, true)) {
+                  pendingsHeader.push({
+                    align: "center" as DataAlignType,
+                    approveFunction: handleApproveVulnerability,
+                    dataField: "id",
+                    header: translate.t("search_findings.tab_description.approve"),
+                    isDate: false,
+                    isStatus: false,
+                    width: "12%",
+                  });
+                  pendingsHeader.push({
+                    align: "center" as DataAlignType,
+                    dataField: "id",
+                    deleteFunction: handleRejectVulnerability,
+                    header: translate.t("search_findings.tab_description.delete"),
+                    isDate: false,
+                    isStatus: false,
+                    width: "12%",
+                  });
+                  }
+
+                return (
                     <React.StrictMode>
                       { dataInputs.length > 0
                         ? <React.Fragment>
@@ -684,171 +799,52 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                           </React.Fragment>
                         : undefined
                       }
-
-                      <Mutation mutation={APPROVE_VULN_MUTATION} onCompleted={handleMtPendingVulnRes}>
-                      { (approveVulnerability: MutationFn<IDeleteVulnAttr, {
-                        approvalStatus: boolean; findingId: string; uuid?: string; }>,
-                         mutationResult: MutationResult): React.ReactNode => {
-                        if (mutationRes.loading) {
-                          showPreloader();
-                        }
-                        if (!_.isUndefined(mutationResult.error)) {
-                          hidePreloader();
-                          handleGraphQLErrors("An error occurred approving vulnerabilities", mutationResult.error);
-
-                          return <React.Fragment/>;
-                        }
-
-                        const handleApproveVulnerability: ((vulnInfo: { [key: string]: string } | undefined) =>
-                        void) =
-                          (vulnInfo: { [key: string]: string } | undefined): void => {
-                            if (vulnInfo !== undefined) {
-                              approveVulnerability({ variables: {approvalStatus: true, findingId: props.findingId,
-                                                                 uuid: vulnInfo.id}})
-                              .catch();
-                            }
-                        };
-                        const handleRejectVulnerability: ((vulnInfo: { [key: string]: string } | undefined) =>
-                        void) =
-                          (vulnInfo: { [key: string]: string } | undefined): void => {
-                            if (vulnInfo !== undefined) {
-                              approveVulnerability({ variables: {approvalStatus: false, findingId: props.findingId,
-                                                                 uuid: vulnInfo.id}})
-                              .catch();
-                            }
-                        };
-
-                        const openApproveConfirm: (() => void) = (): void => {
-                          store.dispatch(actions.openConfirmDialog("confirmApproveVulns"));
-                        };
-
-                        const openDeleteConfirm: (() => void) = (): void => {
-                          store.dispatch(actions.openConfirmDialog("confirmDeleteVulns"));
-                        };
-
-                        const handleApproveAllVulnerabilities: (() => void) = (): void => {
-                          approveVulnerability({ variables: {approvalStatus: true, findingId: props.findingId }})
-                          .catch();
-                        };
-
-                        const handleDeleteAllVulnerabilities: (() => void) = (): void => {
-                          approveVulnerability({ variables: {approvalStatus: false, findingId: props.findingId }})
-                          .catch();
-                        };
-
-                        const pendingsHeader: IHeader[] = [
-                          {
-                            align: "left" as DataAlignType,
-                            dataField: "where",
-                            header: "Where",
-                            isDate: false,
-                            isStatus: false,
-                            width: "50%",
-                            wrapped: true,
-                          },
-                          {
-                            align: "left" as DataAlignType,
-                            dataField: "specific",
-                            header: translate.t("search_findings.tab_description.field"),
-                            isDate: false,
-                            isStatus: false,
-                            width: "15%",
-                            wrapped: true,
-                          },
-                          {
-                            align: "left" as DataAlignType,
-                            dataField: "currentState",
-                            header: translate.t("search_findings.tab_description.state"),
-                            isDate: false,
-                            isStatus: true,
-                            width: "15%",
-                            wrapped: true,
-                          },
-                          {
-                            align: "left" as DataAlignType,
-                            dataField: "isNew",
-                            header: translate.t("search_findings.tab_description.is_new"),
-                            isDate: false,
-                            isStatus: false,
-                            width: "12%",
-                            wrapped: true,
-                          }];
-                        if (getAnalyst) {
-                          pendingsHeader.push({
-                            align: "left" as DataAlignType,
-                            dataField: "analyst",
-                            header: translate.t("search_findings.tab_description.analyst"),
-                            isDate: false,
-                            isStatus: false,
-                            width: "38%",
-                          });
-                        }
-                        if (_.isEqual(props.editModePending, true)) {
-                          pendingsHeader.push({
-                            align: "center" as DataAlignType,
-                            approveFunction: handleApproveVulnerability,
-                            dataField: "id",
-                            header: translate.t("search_findings.tab_description.approve"),
-                            isDate: false,
-                            isStatus: false,
-                            width: "12%",
-                          });
-                          pendingsHeader.push({
-                            align: "center" as DataAlignType,
-                            dataField: "id",
-                            deleteFunction: handleRejectVulnerability,
-                            header: translate.t("search_findings.tab_description.delete"),
-                            isDate: false,
-                            isStatus: false,
-                            width: "12%",
-                          });
-                          }
-
-                        return (
-                          <React.StrictMode>
-                            { dataPendingVulns.length > 0 ?
-                            <React.Fragment>
-                              <SimpleTable
-                                id="pendingVulns"
-                                dataset={formattedDataPendingVulns}
-                                exportCsv={false}
-                                headers={pendingsHeader}
-                                onClickRow={(): void => undefined}
-                                pageSize={10}
-                                search={false}
-                                enableRowSelection={false}
-                                title=""
-                                selectionMode="checkbox"
-                              />
-                              <br/>
-                              {_.includes(["admin", "analyst"], props.userRole) ?
-                              <ButtonToolbar className="pull-right">
-                                <Button onClick={openApproveConfirm}>
-                                  <FluidIcon icon="verified" />
-                                  {translate.t("search_findings.tab_description.approve_all")}
-                                </Button>
-                                <Button onClick={openDeleteConfirm}>
-                                  <FluidIcon icon="delete" />
-                                  {translate.t("search_findings.tab_description.delete_all")}
-                                </Button>
-                              </ButtonToolbar>
-                              : undefined}
-                            </React.Fragment>
-                            : undefined }
-                            <ConfirmDialog
-                              name="confirmDeleteVulns"
-                              onProceed={handleDeleteAllVulnerabilities}
-                              title={translate.t("search_findings.tab_description.delete_all_vulns")}
-                            />
-                            <ConfirmDialog
-                              name="confirmApproveVulns"
-                              onProceed={handleApproveAllVulnerabilities}
-                              title={translate.t("search_findings.tab_description.approve_all_vulns")}
-                            />
-                          </React.StrictMode>
-                          );
-                        }}
-                      </Mutation>
+                      { dataPendingVulns.length > 0 ?
+                      <React.Fragment>
+                        <SimpleTable
+                          id="pendingVulns"
+                          dataset={formattedDataPendingVulns}
+                          exportCsv={false}
+                          headers={pendingsHeader}
+                          onClickRow={(): void => undefined}
+                          pageSize={10}
+                          search={false}
+                          enableRowSelection={false}
+                          title=""
+                          selectionMode="checkbox"
+                        />
+                        <br/>
+                        {_.includes(["admin", "analyst"], props.userRole) ?
+                        <ButtonToolbar className="pull-right">
+                          <Button onClick={openApproveConfirm}>
+                            <FluidIcon icon="verified" />
+                            {translate.t("search_findings.tab_description.approve_all")}
+                          </Button>
+                          <Button onClick={openDeleteConfirm}>
+                            <FluidIcon icon="delete" />
+                            {translate.t("search_findings.tab_description.delete_all")}
+                          </Button>
+                        </ButtonToolbar>
+                        : undefined}
+                      </React.Fragment>
+                      : undefined }
+                      <ConfirmDialog
+                        name="confirmDeleteVulns"
+                        onProceed={handleDeleteAllVulnerabilities}
+                        title={translate.t("search_findings.tab_description.delete_all_vulns")}
+                      />
+                      <ConfirmDialog
+                        name="confirmApproveVulns"
+                        onProceed={handleApproveAllVulnerabilities}
+                        title={translate.t("search_findings.tab_description.approve_all_vulns")}
+                      />
+                      <DeleteVulnerabilityModal
+                        findingId={props.findingId}
+                        id={vulnerabilityId}
+                        open={deleteVulnModal}
+                        onClose={handleCloseDeleteVulnModal}
+                        onDeleteVulnRes={handleMtDeleteVulnRes}
+                      />
 
                       <Mutation mutation={UPDATE_TREATMENT_MUTATION} onCompleted={handleMtUpdateTreatmentVulnRes}>
                         { (updateTreatmentVuln: MutationFn<IUpdateVulnTreatment, {

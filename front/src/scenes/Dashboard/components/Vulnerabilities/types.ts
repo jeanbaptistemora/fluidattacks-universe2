@@ -28,12 +28,6 @@ export interface IVulnsAttr {
   };
 }
 
-export interface IDeleteVulnAttr {
-  deleteVulnerability: {
-    success: boolean;
-  };
-}
-
 export interface IApproveVulnAttr {
   approveVulnerability: {
     success: boolean;

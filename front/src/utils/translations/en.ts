@@ -6,6 +6,10 @@ const enTranslations: dict = {
     title_cvssv2: "Update CVSSv2",
     title_generic: "Confirm action",
   },
+  delete_vulns: {
+    not_success: "Vulnerability could not be eliminated",
+    title: "Delete Vulnerability",
+  },
   forms: {
     closing: "Closure",
     events: "Events",

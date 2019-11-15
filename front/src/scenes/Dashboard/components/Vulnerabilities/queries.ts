@@ -55,17 +55,6 @@ export const UPDATE_TREATMENT_MUTATION: DocumentNode = gql`
   }
   `;
 
-export const DELETE_VULN_MUTATION: DocumentNode = gql`
-  mutation DeleteVulnMutation($id: String!, $findingId: String!, ) {
-    deleteVulnerability (
-      id: $id,
-      findingId: $findingId
-    ) {
-      success
-    }
-  }
-  `;
-
 export const APPROVE_VULN_MUTATION: DocumentNode = gql`
   mutation ApproveVulnMutation($uuid: String, $findingId: String!, $approvalStatus: Boolean!) {
     approveVulnerability (
