@@ -7,7 +7,7 @@ runnerRegistrationToken: $FA_RUNNER_TOKEN
 unregisterRunners: true
 rbac:
   create: true
-concurrent: 30
+concurrent: 40
 checkInterval: 10
 metrics:
   enabled: false
@@ -19,9 +19,9 @@ runners:
     - jfrog-reg
   privileged: false
   builds:
-    cpuLimit: 1000m
-    memoryLimit: 4Gi
-    cpuRequests: 500m
+    cpuLimit: 500m
+    memoryLimit: 2Gi
+    cpuRequests: 250m
     memoryRequests: 1Gi
 resources:
   limits:
