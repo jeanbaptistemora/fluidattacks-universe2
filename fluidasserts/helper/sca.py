@@ -32,20 +32,27 @@ def _get_vuln_line(path: str, pkg: str, ver: str) -> int:
 
     pkg = re.escape(pkg)
     if ver is None:
-        regex = pkg
+        regexes = [
+            rf'"{pkg}"',
+            rf'{pkg}',
+        ]
     else:
         ver = re.escape(ver)
-        regex = rf'{pkg}.*?{ver}|{ver}.*?{pkg}'
+        regexes = [
+            rf'"{pkg}".*?{ver}',
+            rf'{pkg}.*?{ver}',
+            rf'{ver}.*?{pkg}',
+        ]
 
-    grammar = Regex(regex, flags=re.MULTILINE | re.DOTALL)
+    for regex in regexes:
+        grammar = Regex(regex, flags=re.MULTILINE | re.DOTALL)
 
-    matches, not_matches = lang.parse_single(grammar, path)
+        matches, _ = lang.parse_single(grammar, path)
+        if matches:
+            return matches[0].specific[0]
 
-    if not_matches:
-        # We were unable to find the package (and version) on that file
-        return 0
-
-    return matches[0].specific[0]
+    # We were unable to find the package (and version) on that file
+    return 0
 
 
 # pylint: disable=unused-argument

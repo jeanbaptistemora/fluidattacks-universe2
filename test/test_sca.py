@@ -75,7 +75,13 @@ def test_maven_package_has_vulnerabilities_open():
 def test_npm_package_has_vulnerabilities_open():
     """Search vulnerabilities."""
     assert npm.package_has_vulnerabilities('jquery')
-    assert npm.project_has_vulnerabilities(NPM_PROJECT_OPEN)
+    result = npm.project_has_vulnerabilities(NPM_PROJECT_OPEN)
+    assert result.is_open()
+    for vuln in result.vulns:
+        # In this file the aimed lines must be 6 instead of 5
+        if 'npm/open/4/package.json' not in vuln.where:
+            continue
+        assert vuln.specific == [6]
 
 
 def test_nuget_package_has_vulnerabilities_open():
