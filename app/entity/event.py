@@ -271,8 +271,8 @@ class AddEventComment(Mutation):
     @require_project_access
     def mutate(_, info, content, event_id, parent):
         user_info = util.get_jwt_content(info.context)
-        comment_id, success = comment_domain.create(
-            'event', content, event_id, parent, user_info)
+        comment_id, success = event_domain.add_comment(
+            content, event_id, parent, user_info)
 
         if success:
             util.invalidate_cache(event_id)

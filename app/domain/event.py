@@ -1,5 +1,6 @@
 """Domain functions for events."""
 import random
+import threading
 from datetime import datetime
 
 import pytz
@@ -7,11 +8,14 @@ from django.conf import settings
 
 import rollbar
 
+from __init__ import FI_MAIL_REPLYERS
 from app import util
-from app.dal import integrates_dal, event as event_dal
+from app.dal import integrates_dal, event as event_dal, project as project_dal
 from app.dal.helpers.formstack import FormstackAPI
+from app.domain import comment as comment_domain
 from app.dto.eventuality import EventDTO, migrate_event
 from app.exceptions import EventNotFound
+from app.mailer import send_mail_comment
 
 
 def update_event(event_id, affectation, info):
@@ -116,3 +120,39 @@ def get_events(event_ids):
     events = [get_event(event_id) for event_id in event_ids]
 
     return events
+
+
+def _send_comment_email(content, event_id, parent, user_info):
+    event = get_event(event_id)
+    project_name = event.get('project_name')
+    recipients = [user for user in project_dal.get_users(project_name, True)]
+    recipients += FI_MAIL_REPLYERS.split(',')
+
+    email_context = {
+        'comment': content.replace('\n', ' '),
+        'comment_type': 'event',
+        'comment_url': (
+            'https://fluidattacks.com/integrates/dashboard#!/'
+            f'project/{project_name}/events/{event_id}/comments'),
+        'finding_id': event_id,
+        'finding_name': f'Event #{event_id}',
+        'parent': parent,
+        'project': project_name,
+        'user_email': user_info['user_email']
+    }
+
+    email_send_thread = threading.Thread(
+        name='Event comment email thread',
+        target=send_mail_comment,
+        args=(recipients, email_context))
+    email_send_thread.start()
+
+
+def add_comment(content, event_id, parent, user_info):
+    success = comment_domain.create(
+        'event', content, event_id, parent, user_info)
+
+    if success:
+        _send_comment_email(content, event_id, parent, user_info)
+
+    return success
