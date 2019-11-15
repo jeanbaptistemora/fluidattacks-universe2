@@ -114,12 +114,31 @@ Resources:
         - CidrIpv6: ::/0
           FromPort: 1
           IpProtocol: '-1'
-          ToPort: 65536
+          ToPort: 65535
         - CidrIpv6: 123.123.123.0/24
           FromPort: 22
           IpProtocol: '-1'
           ToPort: 22
     Type: AWS::EC2::SecurityGroup
+  securityGroupEgress1:
+    Properties:
+      DestinationSecurityGroupId: serviceSecurityGroupId
+      FromPort: 1
+      GroupId:
+        Ref: securityGroup1
+      IpProtocol: '-1'
+      ToPort: 65535
+    Type: AWS::EC2::SecurityGroupEgress
+  securityGroupIngress1:
+    Properties:
+      FromPort: 1
+      IpProtocol: '-1'
+      SourceSecurityGroupId:
+        Fn::GetAtt:
+          - securityGroup1
+          - GroupId
+      ToPort: 65535
+    Type: AWS::EC2::SecurityGroupIngress
   user1:
     Properties:
       Policies:

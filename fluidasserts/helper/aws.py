@@ -247,7 +247,10 @@ def iterate_resources_in_template(
                         or res_data['Type'] not in resource_types:
                     continue
 
-                yield template_path, res_name, res_data.get('Properties', {})
+                res_properties = res_data.get('Properties', {})
+                res_properties['../Type'] = res_data['Type']
+
+                yield template_path, res_name, res_properties
         except CloudFormationError as exc:
             if not ignore_errors:
                 raise exc

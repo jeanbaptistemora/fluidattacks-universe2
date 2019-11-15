@@ -443,7 +443,7 @@ security_group = troposphere.ec2.SecurityGroup(
             'IpProtocol': '-1',
             'CidrIpv6': '::/0',
             'FromPort': 1,
-            'ToPort': 65536
+            'ToPort': 65535
         },
         {
             'IpProtocol': '-1',
@@ -452,6 +452,22 @@ security_group = troposphere.ec2.SecurityGroup(
             'ToPort': 22
         },
     ],
+)
+security_group_egress = troposphere.ec2.SecurityGroupEgress(
+    title='securityGroupEgress1',
+    IpProtocol='-1',
+    FromPort=1,
+    ToPort=65535,
+    GroupId=troposphere.Ref(security_group),
+    DestinationSecurityGroupId=troposphere.GetAtt('securityGroup2', 'GroupId'),
+)
+security_group_ingress = troposphere.ec2.SecurityGroupIngress(
+    title='securityGroupIngress1',
+    IpProtocol='-1',
+    FromPort=1,
+    ToPort=65535,
+    GroupId=troposphere.GetAtt('securityGroup2', 'GroupId'),
+    SourceSecurityGroupId=troposphere.GetAtt('securityGroup1', 'GroupId'),
 )
 template.add_resource(role)
 template.add_resource(secret)
@@ -462,4 +478,6 @@ template.add_resource(managed_policy)
 template.add_resource(user)
 template.add_resource(key)
 template.add_resource(security_group)
+template.add_resource(security_group_ingress)
+template.add_resource(security_group_egress)
 write_template(template)

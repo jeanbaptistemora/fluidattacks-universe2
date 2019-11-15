@@ -20,6 +20,33 @@ from fluidasserts.cloud.aws.cloudformation import (
 from fluidasserts.utils.decorators import api, unknown_if
 
 
+def _iterate_security_group_rules(
+        path: str, exclude: Optional[List[str]] = None):
+    """Iterate over the different security groups entities in the template."""
+    for yaml_path, sg_name, sg_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::EC2::SecurityGroup',
+            ],
+            exclude=exclude):
+        sg_type = sg_props['../Type']
+        for sg_flow in ('SecurityGroupEgress', 'SecurityGroupIngress'):
+            for sg_rule in sg_props.get(sg_flow, []):
+                sg_path = f'{sg_type}/{sg_flow}'
+                yield yaml_path, sg_name, sg_rule, sg_path, sg_flow
+
+    for yaml_path, sg_name, sg_rule in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::EC2::SecurityGroupEgress',
+                'AWS::EC2::SecurityGroupIngress',
+            ],
+            exclude=exclude):
+        sg_path = sg_rule['../Type']
+        sg_flow = sg_path.replace('AWS::EC2::', '')
+        yield yaml_path, sg_name, sg_rule, sg_path, sg_flow
+
+
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
 def allows_all_outbound_traffic(
@@ -217,32 +244,24 @@ def has_unrestricted_ports(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::EC2::SecurityGroup',
-            ],
-            exclude=exclude):
-        for attribute in ('SecurityGroupEgress',
-                          'SecurityGroupIngress'):
-            entities = []
+    for yaml_path, sg_name, sg_rule, sg_path, _ in \
+            _iterate_security_group_rules(path, exclude):
 
-            for security_group in res_props.get(attribute, []):
-                with contextlib.suppress(KeyError):
-                    from_port, to_port = tuple(map(
-                        str, (security_group['FromPort'],
-                              security_group['ToPort'])))
-                    if from_port != to_port:
-                        entities.append(f'{from_port}->{to_port}')
+        entities = []
 
-            vulnerabilities.extend(
-                Vulnerability(
-                    path=yaml_path,
-                    entity=(f'AWS::EC2::SecurityGroup'
-                            f'/{attribute}/FromPort->ToPort/{entity}'),
-                    identifier=res_name,
-                    reason='Grants access over a port range')
-                for entity in entities)
+        with contextlib.suppress(KeyError):
+            from_port, to_port = tuple(map(
+                str, (sg_rule['FromPort'], sg_rule['ToPort'])))
+            if from_port != to_port:
+                entities.append(f'{from_port}->{to_port}')
+
+        vulnerabilities.extend(
+            Vulnerability(
+                path=yaml_path,
+                entity=f'{sg_path}/FromPort->ToPort/{entity}',
+                identifier=sg_name,
+                reason='Grants access over a port range')
+            for entity in entities)
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
