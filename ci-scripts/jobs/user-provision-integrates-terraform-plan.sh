@@ -10,7 +10,7 @@ user_provision_integrates_terraform_plan() {
   . toolbox/terraform.sh
 
   run_terraform \
-    services/user-provision/integrates-user/terraform \
+    services/user-provision/integrates/terraform \
     fluidattacks-terraform-states \
     plan
 
