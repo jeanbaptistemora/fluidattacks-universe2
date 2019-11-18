@@ -14,7 +14,6 @@ Resources:
           - 32
           - 0
       Engine: postgres
-      StorageEncrypted: 'false'
     Type: AWS::RDS::DBCluster
   instance1:
     Properties:
@@ -138,7 +137,7 @@ Resources:
           FromPort: 22
           IpProtocol: '-1'
           ToPort: 22
-        - CidrIpv6: 2001:db8:a0b:12f0::64
+        - CidrIpv6: 2001:db8:a0b:12f0::64/16
           FromPort: 22
           IpProtocol: '-1'
           ToPort: 22

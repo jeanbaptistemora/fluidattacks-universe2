@@ -18,8 +18,7 @@
             0
           ]
         },
-        "Engine": "postgres",
-        "StorageEncrypted": "false"
+        "Engine": "postgres"
       },
       "Type": "AWS::RDS::DBCluster"
     },
@@ -220,7 +219,7 @@
             "ToPort": 22
           },
           {
-            "CidrIpv6": "2001:db8:a0b:12f0::64",
+            "CidrIpv6": "2001:db8:a0b:12f0::64/16",
             "FromPort": 22,
             "IpProtocol": "-1",
             "ToPort": 22

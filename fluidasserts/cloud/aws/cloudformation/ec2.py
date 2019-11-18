@@ -149,13 +149,13 @@ def has_unrestricted_cidrs(
                 entities.append(
                     (f'CidrIpv6/{ipv6}', 'must use /32 subnet mask'))
 
-            vulnerabilities.extend(
-                Vulnerability(
-                    path=yaml_path,
-                    entity=f'{sg_path}/{entity}',
-                    identifier=sg_name,
-                    reason=reason)
-                for entity, reason in entities)
+        vulnerabilities.extend(
+            Vulnerability(
+                path=yaml_path,
+                entity=f'{sg_path}/{entity}',
+                identifier=sg_name,
+                reason=reason)
+            for entity, reason in entities)
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
