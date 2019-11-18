@@ -138,16 +138,11 @@ const renderLightBox: ((props: IEvidenceViewProps) => JSX.Element) = (props: IEv
   const previousIndex: number = (props.currentIndex + evidenceImages.length - 1) % evidenceImages.length;
   const adjustZoom: (() => void) = (): void => {
     /**
-     * Hack:
-     * Due to a bug in this component, we need to set an initial img scale so it doesn't look too small
+     * As a workaround to a bug in this component,
+     * we need trigger the resize event for it to
+     * properly calculate the image scale
      */
-    setTimeout((): void => {
-      const currentImg: HTMLImageElement =
-        (document.getElementsByClassName("ril-image-current")[0] as HTMLImageElement);
-      const lightboxContainer: HTMLElement = (document.getElementsByClassName("ril-inner")[0] as HTMLElement);
-      const scaleFactor: number = (lightboxContainer.offsetWidth / currentImg.width) * 0.65;
-      currentImg.style.transform = `scale(${scaleFactor})`;
-    },         100);
+    setTimeout((): void => { window.dispatchEvent(new Event("resize")); }, 50);
   };
   const handleClose: (() => void) = (): void => { store.dispatch(actions.closeEvidence()); };
   const handleMovePrevious: (() => void) = (): void => {

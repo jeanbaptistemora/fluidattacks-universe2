@@ -7,6 +7,7 @@ import _ from "lodash";
 import React from "react";
 import { Mutation, MutationFn, Query, QueryResult } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
+import Lightbox from "react-image-lightbox";
 import { RouteComponentProps } from "react-router";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
@@ -27,7 +28,10 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
   const [isEditing, setEditing] = React.useState(false);
   const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };
 
-  const handleClick: (() => void) = (): void => undefined;
+  const [isImageOpen, setImageOpen] = React.useState(false);
+  const closeImage: (() => void) = (): void => { setImageOpen(false); };
+  const openImage: (() => void) = (): void => { setImageOpen(true); };
+
   const baseUrl: string = window.location.href.replace("dashboard#!/", "");
 
   return (
@@ -52,42 +56,66 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
               .catch();
           };
 
-          return (
-            <Mutation mutation={UPDATE_EVIDENCE_MUTATION} onCompleted={handleMutationResult}>
-              {(updateEvidence: MutationFn): React.ReactNode => {
-                const handleUpdate: ((values: { evidence_filename: FileList }) => void) = (
-                  values: { evidence_filename: FileList },
-                ): void => {
-                  showPreloader();
-                  updateEvidence({ variables: { eventId, file: values.evidence_filename[0] } })
-                    .catch();
-                  setEditing(false);
-                };
+          const renderLightbox: (() => JSX.Element) = (): JSX.Element => {
+            const adjustZoom: (() => void) = (): void => {
+              /**
+               * As a workaround to a bug in this component,
+               * we need trigger the resize event for it to
+               * properly calculate the image scale
+               */
+              setTimeout((): void => { window.dispatchEvent(new Event("resize")); }, 50);
+            };
 
-                return (
-                  <React.Fragment>
-                    {_.isEmpty(data.event.evidence) && !isEditing
-                      ? (
-                        <div className={style.noData}>
-                          <Glyphicon glyph="picture" />
-                          <p>{translate.t("project.events.evidence.no_data")}</p>
-                        </div>
-                      )
-                      : (
-                        <EvidenceImage
-                          description="Evidence"
-                          isDescriptionEditable={false}
-                          isEditing={isEditing}
-                          name="evidence"
-                          onClick={handleClick}
-                          onUpdate={handleUpdate}
-                          url={_.isEmpty(data.event.evidence) ? emptyImage : `${baseUrl}/${data.event.evidence}`}
-                        />
-                      )}
-                  </React.Fragment>
-                );
-              }}
-            </Mutation>
+            return (
+              <Lightbox
+                mainSrc={`${baseUrl}/${data.event.evidence}`}
+                imagePadding={50}
+                onAfterOpen={adjustZoom}
+                onCloseRequest={closeImage}
+                reactModalStyle={{ overlay: { zIndex: "1200" } }}
+              />
+            );
+          };
+
+          return (
+            <React.Fragment>
+              <Mutation mutation={UPDATE_EVIDENCE_MUTATION} onCompleted={handleMutationResult}>
+                {(updateEvidence: MutationFn): React.ReactNode => {
+                  const handleUpdate: ((values: { evidence_filename: FileList }) => void) = (
+                    values: { evidence_filename: FileList },
+                  ): void => {
+                    showPreloader();
+                    updateEvidence({ variables: { eventId, file: values.evidence_filename[0] } })
+                      .catch();
+                    setEditing(false);
+                  };
+
+                  return (
+                    <React.Fragment>
+                      {_.isEmpty(data.event.evidence) && !isEditing
+                        ? (
+                          <div className={style.noData}>
+                            <Glyphicon glyph="picture" />
+                            <p>{translate.t("project.events.evidence.no_data")}</p>
+                          </div>
+                        )
+                        : (
+                          <EvidenceImage
+                            description="Evidence"
+                            isDescriptionEditable={false}
+                            isEditing={isEditing}
+                            name="evidence"
+                            onClick={openImage}
+                            onUpdate={handleUpdate}
+                            url={_.isEmpty(data.event.evidence) ? emptyImage : `${baseUrl}/${data.event.evidence}`}
+                          />
+                        )}
+                    </React.Fragment>
+                  );
+                }}
+              </Mutation>
+              {isImageOpen ? renderLightbox() : undefined}
+            </React.Fragment>
           );
         }}
       </Query>
