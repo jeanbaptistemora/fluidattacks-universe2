@@ -50,6 +50,7 @@ class ResourceTests(TestCase):
         """ Check for add project resources"""
         repos_to_add = [
             {'branch': 'master',
+             'protocol': 'HTTP',
              'urlRepo': 'https://gitlab.com/fluidsignal/unittest'}
         ]
         envs_to_add = [
@@ -106,26 +107,37 @@ class ResourceTests(TestCase):
         assert result_empty.data.get('addRepositories')['success']
         assert result_empty.data.get('addEnvironments')['success']
 
-    def test_remove_resources(self):
-        """ Check for remove project resources """
-        repo_to_remove = {
-            'branch': 'master',
-            'urlRepo': 'https://gitlab.com/fluidsignal/unittest'}
-        env_to_remove = {'urlEnv': 'https://unittesting.fluidattacks.com/'}
-        query = '''mutation{
-          updateRepositories(
-            projectName: "unittesting", repositoryData: "$repo"){
-            success
-          }
-          removeEnvironments(
-            projectName: "unittesting", repositoryData: "$env"){
-            success
-          }
+    def test_update_resources(self):
+        """ Check for update project resources """
+        repos_to_update = [
+            {'branch': 'master', 'urlRepo': 'https://gitlab.com/fluidsignal/unittest'},
+            {'branch': 'master', 'urlRepo': 'https://gitlab.com/fluidsignal/engineering/'}
+        ]
+        envs_to_remove = [
+            {'urlEnv': 'https://unittesting.fluidattacks.com/'}
+        ]
+
+        query = '''mutation{'''
+        for c, env in enumerate(envs_to_remove):
+            query += '''
+            removeEnvironment'''+str(c+1)+''': removeEnvironments(
+                projectName: "unittesting", repositoryData: "$env"){
+                success
+              }'''
+            query = query.replace(
+                '$env', json.dumps(env).replace('"', '\\"'))
+
+        for c, repo in enumerate(repos_to_update):
+            query += '''
+            updateRepository'''+str(c+1)+''': updateRepositories(
+                projectName: "unittesting", repositoryData: "$repo"){
+                success
+              }'''
+            query = query.replace(
+                '$repo', json.dumps(repo).replace('"', '\\"'))
+        query += '''
         }'''
-        query = query.replace(
-            '$repo', json.dumps(repo_to_remove).replace('"', '\\"'))
-        query = query.replace(
-            '$env', json.dumps(env_to_remove).replace('"', '\\"'))
+
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
         middleware.process_request(request)
@@ -144,8 +156,10 @@ class ResourceTests(TestCase):
         )
         result = SCHEMA.execute(query, context=request)
         assert not result.errors
-        assert result.data.get('updateRepositories')['success']
-        assert result.data.get('removeEnvironments')['success']
+        assert len([result.data.get(value)['success']
+               for value in result.data if 'Rep' in value]) > 0
+        assert len([result.data.get(value)['success']
+               for value in result.data if 'Env' in value]) > 0
 
     def test_upload_files(self):
         file_to_upload = NamedTemporaryFile()

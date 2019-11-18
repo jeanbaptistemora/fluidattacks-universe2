@@ -1492,6 +1492,29 @@
                            "branch" : {
                               "S" : "master"
                            },
+                           "historic_state" : { 
+                              "L" : [
+                                 { 
+                                    "M" : {
+                                       "date" : {
+                                          "S" : "2019-10-29 13:40"
+                                       },
+                                       "state" : {
+                                          "S" : "INACTIVE"
+                                       },
+                                       "user" : {
+                                          "S" : "unittest@fluidattacks.com"
+                                       }
+                                    }
+                                 }
+                              ]
+                           },
+                           "protocol" : {
+                              "NULL" : true
+                           },
+                           "uploadDate" : {
+                              "S" : "2019-10-29 13:40"
+                           },
                            "urlRepo" : {
                               "S" : "https://gitlab.com/fluidsignal/engineering/"
                            }
@@ -1502,6 +1525,23 @@
                            "branch" : {
                               "S" : "master"
                            },
+                           "historic_state" : { 
+                              "L" : [
+                                 { 
+                                    "M" : {
+                                       "date" : {
+                                          "S" : "2019-10-29 13:40"
+                                       },
+                                       "state" : {
+                                          "S" : "ACTIVE"
+                                       },
+                                       "user" : {
+                                          "S" : "unittest@fluidattacks.com"
+                                       }
+                                    }
+                                 }
+                              ]
+                           },
                            "protocol" : {
                               "NULL" : true
                            },
@@ -1510,7 +1550,7 @@
                            },
                            "urlRepo" : {
                               "S" : "https://gitlab.com/fluidsignal/unittest"
-                           }
+                           }                        
                         }
                      }
                   ]
