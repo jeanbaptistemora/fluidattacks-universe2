@@ -6,6 +6,7 @@ stelligent/cfn_nag/master/LICENSE.md>`_
 """
 
 # Standard imports
+import contextlib
 from typing import List, Optional
 
 # Local imports
@@ -47,10 +48,8 @@ def is_key_rotation_absent_or_disabled(
 
         key_rotation: bool = res_props.get('EnableKeyRotation', False)
 
-        try:
+        with contextlib.suppress(CloudFormationInvalidTypeError):
             key_rotation = helper.to_boolean(key_rotation)
-        except CloudFormationInvalidTypeError:
-            continue
 
         if not key_rotation:
             vulnerabilities.append(

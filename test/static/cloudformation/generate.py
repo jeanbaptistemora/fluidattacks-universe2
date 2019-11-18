@@ -47,6 +47,11 @@ role = troposphere.iam.Role(
         'Version': '2012-10-17',
         'Statement': [
             {
+                'Effect': 'Deny',
+                'Action': '*',
+                'Resource': '*',
+            },
+            {
                 'Effect': 'Allow',
                 # F2: IAM role should not allow * action on its trust policy
                 'Action': [
@@ -72,6 +77,11 @@ role = troposphere.iam.Role(
             PolicyDocument={
                 'Version': '2012-10-17',
                 'Statement': [
+                    {
+                        'Effect': 'Deny',
+                        'Action': '*',
+                        'Resource': '*',
+                    },
                     {
                         'Effect': 'Allow',
                         # F3: IAM role should not allow * action on its
@@ -317,12 +327,20 @@ secret = troposphere.secretsmanager.Secret(
         RequireEachIncludedType='false',
     ),
 )
+secret2 = troposphere.secretsmanager.Secret(
+    title='secret2',
+)
 cluster = troposphere.rds.DBCluster(
     title='cluster1',
     Engine='postgres',
     StorageEncrypted=False,
     # Disables automated back-ups
     BackupRetentionPeriod=0,
+)
+cluster2 = troposphere.rds.DBCluster(
+    title='cluster2',
+    Engine='postgres',
+    BackupRetentionPeriod=troposphere.If('prod', 32, 0),
 )
 instance = troposphere.rds.DBInstance(
     title='instance1',
@@ -384,6 +402,11 @@ managed_policy = troposphere.iam.ManagedPolicy(
         'Version': '2012-10-17',
         'Statement': [
             {
+                'Effect': 'Deny',
+                'Action': '*',
+                'Resource': '*',
+            },
+            {
                 # F5: IAM managed policy should not allow * action
                 'Effect': 'Allow',
                 'Action': [
@@ -441,13 +464,25 @@ security_group = troposphere.ec2.SecurityGroup(
     SecurityGroupIngress=[
         {
             'IpProtocol': '-1',
+            'CidrIp': '0.0.0.0/0',
+            'FromPort': 1,
+            'ToPort': 65535
+        },
+        {
+            'IpProtocol': '-1',
             'CidrIpv6': '::/0',
             'FromPort': 1,
             'ToPort': 65535
         },
         {
             'IpProtocol': '-1',
-            'CidrIpv6': '123.123.123.0/24',
+            'CidrIp': '123.123.123.0/24',
+            'FromPort': 22,
+            'ToPort': 22
+        },
+        {
+            'IpProtocol': '-1',
+            'CidrIpv6': '2001:db8:a0b:12f0::64',
             'FromPort': 22,
             'ToPort': 22
         },
@@ -471,7 +506,9 @@ security_group_ingress = troposphere.ec2.SecurityGroupIngress(
 )
 template.add_resource(role)
 template.add_resource(secret)
+template.add_resource(secret2)
 template.add_resource(cluster)
+template.add_resource(cluster2)
 template.add_resource(instance)
 template.add_resource(policy)
 template.add_resource(managed_policy)

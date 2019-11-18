@@ -6,6 +6,16 @@ Resources:
       Engine: postgres
       StorageEncrypted: 'false'
     Type: AWS::RDS::DBCluster
+  cluster2:
+    Properties:
+      BackupRetentionPeriod:
+        Fn::If:
+          - prod
+          - 32
+          - 0
+      Engine: postgres
+      StorageEncrypted: 'false'
+    Type: AWS::RDS::DBCluster
   instance1:
     Properties:
       BackupRetentionPeriod: '0'
@@ -25,6 +35,9 @@ Resources:
     Properties:
       PolicyDocument:
         Statement:
+          - Action: '*'
+            Effect: Deny
+            Resource: '*'
           - Action:
               - ecr:*
             Effect: Allow
@@ -107,22 +120,35 @@ Resources:
         PasswordLength: 10
         RequireEachIncludedType: 'false'
     Type: AWS::SecretsManager::Secret
+  secret2:
+    Type: AWS::SecretsManager::Secret
   securityGroup1:
     Properties:
       GroupDescription: groupDescription1
       SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          FromPort: 1
+          IpProtocol: '-1'
+          ToPort: 65535
         - CidrIpv6: ::/0
           FromPort: 1
           IpProtocol: '-1'
           ToPort: 65535
-        - CidrIpv6: 123.123.123.0/24
+        - CidrIp: 123.123.123.0/24
+          FromPort: 22
+          IpProtocol: '-1'
+          ToPort: 22
+        - CidrIpv6: 2001:db8:a0b:12f0::64
           FromPort: 22
           IpProtocol: '-1'
           ToPort: 22
     Type: AWS::EC2::SecurityGroup
   securityGroupEgress1:
     Properties:
-      DestinationSecurityGroupId: serviceSecurityGroupId
+      DestinationSecurityGroupId:
+        Fn::GetAtt:
+          - securityGroup2
+          - GroupId
       FromPort: 1
       GroupId:
         Ref: securityGroup1
@@ -132,6 +158,10 @@ Resources:
   securityGroupIngress1:
     Properties:
       FromPort: 1
+      GroupId:
+        Fn::GetAtt:
+          - securityGroup2
+          - GroupId
       IpProtocol: '-1'
       SourceSecurityGroupId:
         Fn::GetAtt:

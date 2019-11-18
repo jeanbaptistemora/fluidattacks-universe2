@@ -74,6 +74,11 @@
         "AssumeRolePolicyDocument": {
           "Statement": [
             {
+              "Action": "*",
+              "Effect": "Deny",
+              "Resource": "*"
+            },
+            {
               "Action": [
                 "ecr:Get*"
               ],
@@ -90,6 +95,11 @@
           {
             "PolicyDocument": {
               "Statement": [
+                {
+                  "Action": "*",
+                  "Effect": "Deny",
+                  "Resource": "*"
+                },
                 {
                   "Action": [
                     "ecr:Get*"

@@ -14,7 +14,7 @@ def test_has_unencrypted_storage():
     """test rds.has_unencrypted_storage."""
     result = rds.has_unencrypted_storage(VULN)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 2
+    assert result.get_vulns_number() == 2 * 3
     assert rds.has_unencrypted_storage(SAFE).is_closed()
     assert rds.has_unencrypted_storage(NOT_EXISTS).is_unknown()
 

@@ -1,6 +1,7 @@
 """AWS CloudFormation checks for ``SecretsManager``."""
 
 # Standard library
+import contextlib
 from typing import List, Optional
 
 # Local imports
@@ -98,7 +99,7 @@ def insecure_generate_secret_string(path: str,
         exclude_chars: str = res_props_gss.get('ExcludeCharacters', '')
         password_length: str = res_props_gss.get('PasswordLength', 32)
 
-        try:
+        with contextlib.suppress(CloudFormationInvalidTypeError):
             exclude_lower: str = helper.to_boolean(
                 res_props_gss.get('ExcludeLowercase', False))
             exclude_upper: str = helper.to_boolean(
@@ -109,10 +110,6 @@ def insecure_generate_secret_string(path: str,
                 res_props_gss.get('ExcludePunctuation', False))
             require_each_include_type: str = helper.to_boolean(
                 res_props_gss.get('RequireEachIncludedType', True))
-        except CloudFormationInvalidTypeError:
-            # Two reasons, either a complex type or the code does not even
-            #   comply the specification
-            continue
 
         reasons: List[str] = _insecure_generate_secret_string_get_reasons(
             exclude_lower=exclude_lower,

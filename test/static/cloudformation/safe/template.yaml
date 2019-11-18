@@ -50,6 +50,9 @@ Resources:
     Properties:
       AssumeRolePolicyDocument:
         Statement:
+          - Action: '*'
+            Effect: Deny
+            Resource: '*'
           - Action:
               - ecr:Get*
             Effect: Allow
@@ -60,6 +63,9 @@ Resources:
       Policies:
         - PolicyDocument:
             Statement:
+              - Action: '*'
+                Effect: Deny
+                Resource: '*'
               - Action:
                   - ecr:Get*
                 Effect: Allow

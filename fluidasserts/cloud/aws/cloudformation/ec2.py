@@ -119,48 +119,41 @@ def has_unrestricted_cidrs(
     vulnerabilities: list = []
     unrestricted_ipv4 = ipaddress.IPv4Network('0.0.0.0/0')
     unrestricted_ipv6 = ipaddress.IPv6Network('::/0')
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::EC2::SecurityGroup',
-            ],
-            exclude=exclude):
-        for attribute in ('SecurityGroupEgress',
-                          'SecurityGroupIngress'):
-            entities = []
-            for security_group in res_props.get(attribute, []):
-                with contextlib.suppress(KeyError,
-                                         ValueError,
-                                         ipaddress.AddressValueError):
-                    ipv4 = security_group['CidrIp']
-                    ipv4_obj = ipaddress.IPv4Network(ipv4, strict=False)
-                    if ipv4_obj == unrestricted_ipv4:
-                        entities.append(
-                            (f'CidrIp/{ipv4}', 'must not be 0.0.0.0/0'))
-                    if attribute == 'SecurityGroupIngress' \
-                            and ipv4_obj.num_addresses > 1:
-                        entities.append(
-                            (f'CidrIp/{ipv4}', 'must use /32 subnet mask'))
+    for yaml_path, sg_name, sg_rule, sg_path, _ in \
+            _iterate_security_group_rules(path, exclude):
+        entities = []
 
-                with contextlib.suppress(KeyError,
-                                         ValueError,
-                                         ipaddress.AddressValueError):
-                    ipv6 = security_group['CidrIpv6']
-                    ipv6_obj = ipaddress.IPv6Network(ipv6, strict=False)
-                    if ipv6_obj == unrestricted_ipv6:
-                        entities.append(
-                            (f'CidrIpv6/{ipv6}', 'must not be ::/0'))
-                    if attribute == 'SecurityGroupIngress' \
-                            and ipv6_obj.num_addresses > 1:
-                        entities.append(
-                            (f'CidrIpv6/{ipv6}', 'must use /32 subnet mask'))
+        with contextlib.suppress(KeyError,
+                                 ValueError,
+                                 ipaddress.AddressValueError):
+            ipv4 = sg_rule['CidrIp']
+            ipv4_obj = ipaddress.IPv4Network(ipv4, strict=False)
+            if ipv4_obj == unrestricted_ipv4:
+                entities.append(
+                    (f'CidrIp/{ipv4}', 'must not be 0.0.0.0/0'))
+            if 'SecurityGroupIngress' in sg_path \
+                    and ipv4_obj.num_addresses > 1:
+                entities.append(
+                    (f'CidrIp/{ipv4}', 'must use /32 subnet mask'))
+
+        with contextlib.suppress(KeyError,
+                                 ValueError,
+                                 ipaddress.AddressValueError):
+            ipv6 = sg_rule['CidrIpv6']
+            ipv6_obj = ipaddress.IPv6Network(ipv6, strict=False)
+            if ipv6_obj == unrestricted_ipv6:
+                entities.append(
+                    (f'CidrIpv6/{ipv6}', 'must not be ::/0'))
+            if 'SecurityGroupIngress' in sg_path \
+                    and ipv6_obj.num_addresses > 1:
+                entities.append(
+                    (f'CidrIpv6/{ipv6}', 'must use /32 subnet mask'))
 
             vulnerabilities.extend(
                 Vulnerability(
                     path=yaml_path,
-                    entity=(f'AWS::EC2::SecurityGroup'
-                            f'/{attribute}/{entity}'),
-                    identifier=res_name,
+                    entity=f'{sg_path}/{entity}',
+                    identifier=sg_name,
                     reason=reason)
                 for entity, reason in entities)
 
@@ -190,29 +183,21 @@ def has_unrestricted_ip_protocols(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
-            starting_path=path,
-            resource_types=[
-                'AWS::EC2::SecurityGroup',
-            ],
-            exclude=exclude):
-        for attribute in ('SecurityGroupEgress',
-                          'SecurityGroupIngress'):
-            entities = []
-            for security_group in res_props.get(attribute, []):
-                with contextlib.suppress(KeyError):
-                    ip_protocol = security_group['IpProtocol']
-                    if ip_protocol in (-1, '-1'):
-                        entities.append(ip_protocol)
+    for yaml_path, sg_name, sg_rule, sg_path, _ in \
+            _iterate_security_group_rules(path, exclude):
+        entities = []
+        with contextlib.suppress(KeyError):
+            ip_protocol = sg_rule['IpProtocol']
+            if ip_protocol in (-1, '-1'):
+                entities.append(ip_protocol)
 
-            vulnerabilities.extend(
-                Vulnerability(
-                    path=yaml_path,
-                    entity=(f'AWS::EC2::SecurityGroup'
-                            f'/{attribute}/IpProtocol/{entity}'),
-                    identifier=res_name,
-                    reason='Authorize all IP protocols')
-                for entity in entities)
+        vulnerabilities.extend(
+            Vulnerability(
+                path=yaml_path,
+                entity=f'{sg_path}/IpProtocol/{entity}',
+                identifier=sg_name,
+                reason='Authorize all IP protocols')
+            for entity in entities)
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,

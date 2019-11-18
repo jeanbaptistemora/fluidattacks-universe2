@@ -6,6 +6,7 @@ stelligent/cfn_nag/master/LICENSE.md>`_
 """
 
 # Standard imports
+import contextlib
 from typing import List, Optional
 
 # Local imports
@@ -47,12 +48,9 @@ def has_unencrypted_storage(
             ],
             exclude=exclude):
         res_storage_encrypted = res_props.get('StorageEncrypted', False)
-        try:
+
+        with contextlib.suppress(CloudFormationInvalidTypeError):
             res_storage_encrypted = helper.to_boolean(res_storage_encrypted)
-        except CloudFormationInvalidTypeError:
-            # In the future we'll be able to dereference custom CF's functions
-            #   for now ignore them
-            continue
 
         is_vulnerable: bool = not res_storage_encrypted
 
@@ -93,9 +91,8 @@ def has_not_automated_backups(
             ],
             exclude=exclude):
         back_up_retention_period = res_props.get('BackupRetentionPeriod', 1)
+
         if not helper.is_scalar(back_up_retention_period):
-            # In the future we'll be able to dereference custom CF's functions
-            #   for now ignore them
             continue
 
         is_vulnerable: bool = back_up_retention_period in (0, '0')
@@ -142,10 +139,8 @@ def is_publicly_accessible(
             exclude=exclude):
         is_public: bool = res_props.get('PubliclyAccessible', False)
 
-        try:
+        with contextlib.suppress(CloudFormationInvalidTypeError):
             is_public = helper.to_boolean(is_public)
-        except CloudFormationInvalidTypeError:
-            continue
 
         if is_public:
             vulnerabilities.append(
