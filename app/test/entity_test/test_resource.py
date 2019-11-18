@@ -64,9 +64,22 @@ class ResourceTests(TestCase):
             success
           }
         }'''
+        query_empty = '''mutation {
+          addRepositories(
+            projectName: "oneshottest", resourcesData: "$repos") {
+            success
+          }
+          addEnvironments(projectName: "oneshottest", resourcesData: "$envs") {
+            success
+          }
+        }'''
         query = query.replace(
             '$repos', json.dumps(repos_to_add).replace('"', '\\"'))
         query = query.replace(
+            '$envs', json.dumps(envs_to_add).replace('"', '\\"'))
+        query_empty = query_empty.replace(
+            '$repos', json.dumps(repos_to_add).replace('"', '\\"'))
+        query_empty = query_empty.replace(
             '$envs', json.dumps(envs_to_add).replace('"', '\\"'))
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
@@ -85,9 +98,13 @@ class ResourceTests(TestCase):
             key=settings.JWT_SECRET,
         )
         result = SCHEMA.execute(query, context=request)
+        result_empty = SCHEMA.execute(query, context=request)
         assert not result.errors
         assert result.data.get('addRepositories')['success']
         assert result.data.get('addEnvironments')['success']
+        assert not result_empty.errors
+        assert result_empty.data.get('addRepositories')['success']
+        assert result_empty.data.get('addEnvironments')['success']
 
     def test_remove_resources(self):
         """ Check for remove project resources """
