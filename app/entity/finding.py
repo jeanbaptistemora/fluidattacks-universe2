@@ -602,16 +602,18 @@ class VerifyFinding(Mutation):
     @require_login
     @require_role(['analyst', 'admin'])
     @require_finding_access
-    def mutate(self, info, **parameters):
+    def mutate(self, info, finding_id):
+        project_name = project_domain.get_finding_project_name(finding_id)
         user_email = util.get_jwt_content(info.context)['user_email']
         success = finding_domain.verify_finding(
-            finding_id=parameters.get('finding_id'),
+            finding_id=finding_id,
             user_email=user_email
         )
         if success:
-            util.invalidate_cache(parameters.get('finding_id'))
-            util.cloudwatch_log(info.context, 'Security: Verified the \
-                finding_id: {id}'.format(id=parameters.get('finding_id')))
+            util.invalidate_cache(finding_id)
+            util.invalidate_cache(project_name)
+            util.cloudwatch_log(info.context, 'Security: Verified the '
+                                f'finding_id: {finding_id}')
         ret = VerifyFinding(success=success)
         return ret
 
@@ -627,6 +629,7 @@ class RequestVerification(Mutation):
     @require_role(['customer', 'admin'])
     @require_finding_access
     def mutate(self, info, finding_id, justification):
+        project_name = project_domain.get_finding_project_name(finding_id)
         user_info = util.get_jwt_content(info.context)
         success = finding_domain.request_verification(
             finding_id=finding_id,
@@ -638,8 +641,9 @@ class RequestVerification(Mutation):
         )
         if success:
             util.invalidate_cache(finding_id)
-            util.cloudwatch_log(info.context, 'Security: Verified a request\
-                in finding_id: {id}'.format(id=finding_id))
+            util.invalidate_cache(project_name)
+            util.cloudwatch_log(info.context, 'Security: Verified a request '
+                                f'in finding_id: {finding_id}')
         ret = RequestVerification(success=success)
         return ret
 
