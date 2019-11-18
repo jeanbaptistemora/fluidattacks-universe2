@@ -20,16 +20,11 @@ deps_production() {
     'deploy/containers/deps-production/requirements.txt'
     'ci-scripts/jobs/deps-production.sh'
   )
-  
-  if check_file_changed "${FILES[@]}" \
-     || [ $SCHEDULE ]; then
-	  kaniko_build \
-	    "$NAME" \
-	    eph=true \
-	    cache=true
-  else
-      echo "No relevant files for $NAME were modified. Skipping build."
-  fi
+
+  kaniko_build \
+    "$NAME" \
+    eph=true \
+    cache=true
 }
 
 deps_production

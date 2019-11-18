@@ -21,6 +21,7 @@ deps_development() {
     'ci-scripts/jobs/deps-development.sh'
   )
   if check_file_changed "${FILES[@]}" \
+     || docker_tag_not_exists deps-development $CI_COMMIT_REF_NAME \
      || [ $SCHEDULE ]; then
 	  kaniko_build \
     		"$NAME" \
