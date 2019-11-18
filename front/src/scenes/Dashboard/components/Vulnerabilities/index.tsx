@@ -1,8 +1,4 @@
-/* tslint:disable:jsx-no-lambda no-any jsx-no-multiline-js no-empty
- * JSX-NO-LAMBDA: Disabling this rule is necessary because it is not possible
- * to call functions with props as params from the JSX element definition
- * without using lambda expressions () => {}
- *
+/* tslint:disable:no-any jsx-no-multiline-js
  * NO-ANY: Disabling this rule is necessary because there are no specific types
  * for functions such as mapStateToProps and mapDispatchToProps used in the
  * redux wrapper of this component
@@ -234,6 +230,9 @@ const getVulnInfo: (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICat
 export const renderButtonBar: ((props: IVulnerabilitiesViewProps) => JSX.Element) =
   (props: IVulnerabilitiesViewProps): JSX.Element => {
     let baseUrl: string; baseUrl = `${window.location.href.split("/dashboard#!")[0]}`;
+    const handleUploadVulnerabilities: (() => void) = (): void => {
+      updateVulnerabilities(props.findingId);
+    };
 
     return (
       <React.Fragment>
@@ -247,7 +246,7 @@ export const renderButtonBar: ((props: IVulnerabilitiesViewProps) => JSX.Element
             <FileInput icon="search" id="vulnerabilities" type=".yaml, .yml" visible={true} />
           </Col>
           <Col md={3} sm={12}>
-            <Button bsStyle="success" onClick={(): void => { updateVulnerabilities(props.findingId); }}>
+            <Button bsStyle="success" onClick={handleUploadVulnerabilities}>
               <FluidIcon icon="import" /> {translate.t("search_findings.tab_description.update_vulnerabilities")}
             </Button>
           </Col>
@@ -740,7 +739,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               dataset={formattedDataInputs}
                               exportCsv={false}
                               headers={inputsHeader}
-                              onClickRow={(): void => undefined}
+                              onClickRow={undefined}
                               pageSize={10}
                               search={false}
                               enableRowSelection={
@@ -763,7 +762,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               dataset={formattedDataLines}
                               exportCsv={false}
                               headers={linesHeader}
-                              onClickRow={(): void => undefined}
+                              onClickRow={undefined}
                               pageSize={10}
                               search={false}
                               enableRowSelection={
@@ -786,7 +785,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               dataset={formattedDataPorts}
                               exportCsv={false}
                               headers={portsHeader}
-                              onClickRow={(): void => undefined}
+                              onClickRow={undefined}
                               pageSize={10}
                               search={false}
                               enableRowSelection={
@@ -806,7 +805,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                           dataset={formattedDataPendingVulns}
                           exportCsv={false}
                           headers={pendingsHeader}
-                          onClickRow={(): void => undefined}
+                          onClickRow={undefined}
                           pageSize={10}
                           search={false}
                           enableRowSelection={false}
@@ -881,6 +880,14 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                                     .catch();
                                   }
                             };
+                            const handleEditTreatment: (() => void) = (): void => {
+                              store.dispatch(submit("editTreatmentVulnerability"));
+                            };
+
+                            const handleUpdateTreatment: ((values: IDescriptionViewProps["dataset"]) => void) =
+                            (values: IDescriptionViewProps["dataset"]): void => {
+                              handleUpdateTreatmentVuln(values);
+                            };
 
                             return (
                               <Modal
@@ -890,9 +897,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               >
                               <GenericForm
                                 name="editTreatmentVulnerability"
-                                onSubmit={(values: IDescriptionViewProps["dataset"]): void => {
-                                  handleUpdateTreatmentVuln(values);
-                                }}
+                                onSubmit={handleUpdateTreatment}
                                 initialValues={
                                   numberRowSelected ? (!_.isUndefined(props.descriptParam) ?
                                   props.descriptParam.dataset : undefined) : undefined
@@ -904,8 +909,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                                   <ButtonToolbar className="pull-right">
                                     <Button
                                       bsStyle="primary"
-                                      onClick={(): void => {
-                                      store.dispatch(submit("editTreatmentVulnerability")); }}
+                                      onClick={handleEditTreatment}
                                     >
                                       {translate.t("confirmmodal.proceed")}
                                     </Button>
