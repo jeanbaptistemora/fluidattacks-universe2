@@ -42,9 +42,14 @@ def test_is_dynupdates_enabled_close(get_mock_ip):
 
 
 @pytest.mark.parametrize('get_mock_ip', ['dns_hard'], indirect=True)
-def test_has_cache_poison_close(get_mock_ip):
+def test_has_cache_poison_close_1(get_mock_ip):
     """Server vulnerable a cache poison?."""
     assert not dns.has_cache_poison(TEST_ZONE, get_mock_ip)
+
+
+@pytest.mark.parametrize('get_mock_ip', ['dns_hard'], indirect=True)
+def test_has_cache_poison_close_2(get_mock_ip):
+    """Server vulnerable a cache poison?."""
     assert not dns.has_cache_poison(TEST_ZONE, '200.200.200.200')
 
 
