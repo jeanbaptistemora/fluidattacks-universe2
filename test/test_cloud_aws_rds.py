@@ -52,6 +52,12 @@ def test_has_encryption_disabled_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
 
 
+def test_has_public_snapshots_open():
+    """Search public snapshots."""
+    assert rds.has_public_snapshots(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #

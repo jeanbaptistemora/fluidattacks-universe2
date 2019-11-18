@@ -90,3 +90,57 @@ def has_encryption_disabled(key_id: str, secret: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_public_snapshots(key_id: str, secret: str,
+                         retry: bool = True) -> tuple:
+    """
+    Check for snapshots that allow public access.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are snapshots that allow public access.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Snapshots are publicly accessible.'
+    msg_closed: str = 'Snapshots are not publicly accessible.'
+
+    vulns, safes = [], []
+    snapshots = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='rds',
+        func='describe_db_snapshots',
+        param='DBSnapshots',
+        retry=retry)
+    for snapshot in snapshots:
+        snapshot = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='rds',
+            func='describe_db_snapshot_attributes',
+            param='DBSnapshotAttributesResult',
+            DBSnapshotIdentifier=snapshot['DBSnapshotIdentifier'],
+            retry=retry)
+        vulnerable = any(
+            list(
+                map(lambda x: 'all' in x['AttributeValues'],
+                    snapshot['DBSnapshotAttributes'])))
+
+        (vulns if vulnerable else safes).append(
+            (snapshot['DBSnapshotIdentifier'],
+             'Disable public access from the snapshot.'))
+
+    return _get_result_as_tuple(
+        service='RDS',
+        objects='Snapshots',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
