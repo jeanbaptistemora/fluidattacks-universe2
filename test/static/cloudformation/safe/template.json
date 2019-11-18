@@ -9,6 +9,27 @@
       },
       "Type": "AWS::RDS::DBCluster"
     },
+    "ec2Volume1": {
+      "Properties": {
+        "AvailabilityZone": "us-east-1"
+      },
+      "Type": "AWS::EC2::Volume"
+    },
+    "ec2Volume2": {
+      "Properties": {
+        "AvailabilityZone": "us-east-1",
+        "Encrypted": {
+          "Fn::Join": [
+            "",
+            [
+              "tr",
+              "ue"
+            ]
+          ]
+        }
+      },
+      "Type": "AWS::EC2::Volume"
+    },
     "instance1": {
       "Properties": {
         "BackupRetentionPeriod": "32",

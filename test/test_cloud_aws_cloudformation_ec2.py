@@ -44,3 +44,12 @@ def test_has_unrestricted_ports():
     assert result.get_vulns_number() == 2 * 4
     assert ec2.has_unrestricted_ports(SAFE).is_closed()
     assert ec2.has_unrestricted_ports(NOT_EXISTS).is_unknown()
+
+
+def test_has_unencrypted_volumes():
+    """test ec2.has_unencrypted_volumes."""
+    result = ec2.has_unencrypted_volumes(VULN)
+    assert result.is_open()
+    assert result.get_vulns_number() == 2 * 1
+    assert ec2.has_unencrypted_volumes(SAFE).is_closed()
+    assert ec2.has_unencrypted_volumes(NOT_EXISTS).is_unknown()

@@ -22,6 +22,13 @@
       },
       "Type": "AWS::RDS::DBCluster"
     },
+    "ec2Volume1": {
+      "Properties": {
+        "AvailabilityZone": "us-east-1",
+        "Encrypted": "false"
+      },
+      "Type": "AWS::EC2::Volume"
+    },
     "instance1": {
       "Properties": {
         "BackupRetentionPeriod": "0",

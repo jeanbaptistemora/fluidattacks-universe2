@@ -684,6 +684,7 @@ def exec_cloudformation_package(
             ec2.has_unrestricted_cidrs('__path__')
             ec2.has_unrestricted_ip_protocols('__path__')
             ec2.has_unrestricted_ports('__path__')
+            ec2.has_unencrypted_volumes('__path__')
             """,
         ('iam', 'IAM (Identity and Access Management)'): """
             iam.is_managed_policy_miss_configured('__path__')

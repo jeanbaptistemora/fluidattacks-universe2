@@ -11,11 +11,12 @@ import contextlib
 from typing import List, Optional
 
 # Local imports
-from fluidasserts import SAST, MEDIUM
+from fluidasserts import SAST, LOW, MEDIUM
 from fluidasserts.helper import aws as helper
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
     _get_result_as_tuple,
+    CloudFormationInvalidTypeError,
 )
 from fluidasserts.utils.decorators import api, unknown_if
 
@@ -254,3 +255,42 @@ def has_unrestricted_ports(
                   'that allow access over a range of ports'),
         msg_closed=('EC2 security groups have ingress/egress rules '
                     'that allow access over single ports'))
+
+
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_unencrypted_volumes(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Verify if ``EC2::Volume`` has the encryption attribute set to **true**.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::EC2::Volume',
+            ],
+            exclude=exclude):
+        if 'Encrypted' not in res_props:
+            continue
+
+        with contextlib.suppress(CloudFormationInvalidTypeError):
+            if not helper.to_boolean(res_props['Encrypted']):
+                vulnerabilities.append(
+                    Vulnerability(
+                        path=yaml_path,
+                        entity='AWS::EC2::Volume',
+                        identifier=res_name,
+                        reason='is not encrypted'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='EC2 volumes are not encrypted',
+        msg_closed='EC2 volumes are encrypted')

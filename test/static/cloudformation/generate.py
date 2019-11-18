@@ -214,6 +214,15 @@ security_group = troposphere.ec2.SecurityGroup(
         },
     ],
 )
+ec2_volume = troposphere.ec2.Volume(
+    title='ec2Volume1',
+    AvailabilityZone='us-east-1',
+)
+ec2_volume2 = troposphere.ec2.Volume(
+    title='ec2Volume2',
+    AvailabilityZone='us-east-1',
+    Encrypted=troposphere.Join('', ['tr', 'ue']),
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(cluster)
@@ -223,6 +232,8 @@ template.add_resource(managed_policy)
 template.add_resource(user)
 template.add_resource(key)
 template.add_resource(security_group)
+template.add_resource(ec2_volume)
+template.add_resource(ec2_volume2)
 write_template(template)
 
 #
@@ -504,6 +515,11 @@ security_group_ingress = troposphere.ec2.SecurityGroupIngress(
     GroupId=troposphere.GetAtt('securityGroup2', 'GroupId'),
     SourceSecurityGroupId=troposphere.GetAtt('securityGroup1', 'GroupId'),
 )
+ec2_volume = troposphere.ec2.Volume(
+    title='ec2Volume1',
+    AvailabilityZone='us-east-1',
+    Encrypted='false',
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(secret2)
@@ -517,4 +533,5 @@ template.add_resource(key)
 template.add_resource(security_group)
 template.add_resource(security_group_ingress)
 template.add_resource(security_group_egress)
+template.add_resource(ec2_volume)
 write_template(template)
