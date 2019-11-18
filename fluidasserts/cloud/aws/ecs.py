@@ -58,6 +58,16 @@ def _is_root(user):
     return grammar.matches(user)
 
 
+def _flatten(elements, aux_list=None):
+    aux_list = aux_list if aux_list is not None else []
+    for i in elements:
+        if isinstance(i, list):
+            _flatten(i, aux_list)
+        else:
+            aux_list.append(i)
+    return aux_list
+
+
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def has_not_resources_usage_limits(key_id: str,
@@ -260,6 +270,57 @@ def run_containers_as_root_user(key_id: str, secret: str,
                              task_description['containerDefinitions']))
         (vulns if vulnerable else safes).append(
             (task, 'Run the container as a non-root user.'))
+
+    return _get_result_as_tuple(
+        service='ECS',
+        objects='Tasks',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def write_volumes(key_id: str, secret: str, retry: bool = True) -> tuple:
+    """
+    Check if there are tasks that allow containers write en in the volumes.
+
+    In the definition of containers set `mountPoints*.readOnly` property
+    as `true`.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are tasks with `mount Points*.readOnly`
+                property as `false`.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'The containers of the tasks allow write in the volumes.'
+    msg_closed: str = \
+        'The containers of the tasks do not allow write in the volumes.'
+    vulns, safes = [], []
+
+    tasks = _get_tasks_running(key_id, secret, retry)
+    for task in tasks:
+        task_description = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='ecs',
+            func='describe_task_definition',
+            taskDefinition=task,
+            param='taskDefinition',
+            retry=retry)
+        vulnerable = any(_flatten(list(map(lambda x: list(map(
+            lambda y: not y['readOnly'],
+            x['mountPoints'])), task_description['containerDefinitions']))))
+
+        (vulns if vulnerable else safes).append(
+            (task, ('Set property mountPoints.readOnly as true in the'
+                    ' containers of the tasks')))
 
     return _get_result_as_tuple(
         service='ECS',
