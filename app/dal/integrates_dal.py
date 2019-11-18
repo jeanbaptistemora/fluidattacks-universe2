@@ -534,8 +534,8 @@ def add_list_resource_dynamo(
     table = DYNAMODB_RESOURCE.Table(table_name)
     item = get_data_dynamo(table_name, primary_name_key, primary_key)
     primary_key = primary_key.lower()
-    if not item:
-        try:
+    try:
+        if not item:
             response = table.put_item(
                 Item={
                     primary_name_key: primary_key,
@@ -543,26 +543,37 @@ def add_list_resource_dynamo(
                 }
             )
             resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            return resp
-        except ClientError:
-            rollbar.report_exc_info()
-            return False
-    else:
-        primary_keys = [primary_name_key, primary_key]
-        update_response = table.update_item(
-            Key={
-                primary_keys[0]: primary_keys[1],
-            },
-            UpdateExpression='SET #attrName = list_append(#attrName, :val1)',
-            ExpressionAttributeNames={
-                '#attrName': attr_name
-            },
-            ExpressionAttributeValues={
-                ':val1': data
-            }
-        )
-        resp = update_response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
+        else:
+            if attr_name not in item[0]:
+                table.update_item(
+                    Key={
+                        primary_name_key: primary_key,
+                    },
+                    UpdateExpression='SET #attrName = :val1',
+                    ExpressionAttributeNames={
+                        '#attrName': attr_name
+                    },
+                    ExpressionAttributeValues={
+                        ':val1': []
+                    }
+                )
+            update_response = table.update_item(
+                Key={
+                    primary_name_key: primary_key,
+                },
+                UpdateExpression='SET #attrName = list_append(#attrName, :val1)',
+                ExpressionAttributeNames={
+                    '#attrName': attr_name
+                },
+                ExpressionAttributeValues={
+                    ':val1': data
+                }
+            )
+            resp = update_response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError:
+        rollbar.report_exc_info()
+        resp = False
+    return resp
 
 
 def update_list_resource_dynamo(table_name, primary_keys, data, attr_name, item):
