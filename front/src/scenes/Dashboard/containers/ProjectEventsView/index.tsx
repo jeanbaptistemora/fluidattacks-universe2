@@ -20,7 +20,7 @@ import {
 } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
-import { numeric, required, someRequired, validDatetime, validEmail } from "../../../../utils/validations";
+import { numeric, required, someRequired, validDatetime } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
 import { IEventsAttr, IEventViewBaseProps } from "./types";
@@ -210,7 +210,7 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                                 </Col>
                               </Row>
                               <Row>
-                                <Col md={4}>
+                                <Col md={6}>
                                   <FormGroup>
                                     <ControlLabel>{translate.t("project.events.form.context.title")}</ControlLabel>
                                     <Field component={dropdownField} name="context" validate={required}>
@@ -233,19 +233,7 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                                     </Field>
                                   </FormGroup>
                                 </Col>
-                                <Col md={5}>
-                                  <FormGroup>
-                                    <ControlLabel>
-                                      {translate.t("project.events.form.responsible")}
-                                    </ControlLabel>
-                                    <Field
-                                      component={textField}
-                                      name="clientResponsible"
-                                      validate={[required, validEmail]}
-                                    />
-                                  </FormGroup>
-                                </Col>
-                                <Col md={3}>
+                                <Col md={6}>
                                   <FormGroup>
                                     <ControlLabel>
                                       {translate.t("project.events.form.accessibility.title")}

@@ -204,7 +204,6 @@ class CreateEvent(Mutation):
                 ('OTHER', 'Otro(s)'),
             ])), required=False)
         blocking_hours = Int(required=False)
-        client_responsible = String(required=True)
         context = Argument(
             Enum('EventContext', [
                 ('CLIENT', 'CLIENT'),
