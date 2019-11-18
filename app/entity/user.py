@@ -161,7 +161,7 @@ class GrantUserAccess(Mutation):
             or (is_customeradmin(project_name, user_data['user_email'])
                 and new_user_data['role'] in ['customer', 'customeradmin']):
             if create_new_user(info.context, new_user_data,
-                               project_name, user_data['user_email']):
+                               project_name):
                 success = True
             else:
                 rollbar.report_message('Error: Couldn\'t grant access to project',
@@ -205,7 +205,7 @@ def validate_phone_field(phone_field):
     raise GraphQLError('Exception - Parameter is not valid')
 
 
-def create_new_user(context, new_user_data, project_name, email):
+def create_new_user(context, new_user_data, project_name):
     analizable_list = list(new_user_data.values())[1:-1]
     if (
         all(validate_field(field) for field in analizable_list) and
@@ -343,7 +343,7 @@ class EditUser(Mutation):
             if user_domain.assign_role(
                modified_user_data['email'], modified_user_data['role']):
                 modify_user_information(info.context, modified_user_data,
-                                        project_name, user_data['user_email'])
+                                        project_name)
                 success = True
             else:
                 rollbar.report_message('Error: Couldn\'t update user role',
@@ -369,7 +369,7 @@ class EditUser(Mutation):
         return ret
 
 
-def modify_user_information(context, modified_user_data, project_name, email):
+def modify_user_information(context, modified_user_data, project_name):
     role = modified_user_data['role']
     email = modified_user_data['email']
     responsibility = modified_user_data['responsibility']
