@@ -132,6 +132,9 @@ class GenericExceptionsOpen{
       catch(Exception e      ){
          log.info("The error was" + e);
       }
+      catch(lang.Throwable   e      ){
+         log.info("The error was" + e);
+      }
       catch   (NullPointerException|Exception e)   {
          log.info("The error was" + e);
       }

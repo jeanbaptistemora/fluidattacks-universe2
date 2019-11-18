@@ -83,8 +83,11 @@ def has_generic_exceptions(java_dest: str, exclude: list = None) -> tuple:
         java_dest=java_dest,
         exceptions_list=[
             'Exception',
+            'Throwable',
             'lang.Exception',
-            'java.lang.Exception'],
+            'lang.Throwable',
+            'java.lang.Exception',
+            'java.lang.Throwable'],
         msgs={
             OPEN: 'Code declares a "catch" for generic exceptions',
             CLOSED: 'Code does not declare "catch" for generic exceptions',

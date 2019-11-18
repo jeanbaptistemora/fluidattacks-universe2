@@ -41,7 +41,11 @@ LINES_FORMAT = 'lines: '
 
 def test_has_generic_exceptions_open():
     """Code uses generic exceptions."""
-    assert java.has_generic_exceptions(INSECURE_CODE).is_open()
+    exceptions = 7
+    throwables = 1
+    result = java.has_generic_exceptions(INSECURE_CODE)
+    assert result.is_open()
+    assert result.get_vulns_number() == exceptions + throwables
 
 
 def test_has_generic_exceptions_in_dir_open():
