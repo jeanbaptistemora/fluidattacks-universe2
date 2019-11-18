@@ -46,6 +46,12 @@ def test_instance_public_open():
     assert rds.has_public_instances(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
 
 
+def test_has_encryption_disabled_open():
+    """Search instance with encryption disabled."""
+    assert rds.has_encryption_disabled(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+
+
 #
 # Closing tests
 #
