@@ -90,11 +90,14 @@ def have_old_creds_enabled(
     for user in users:
         if user['password_enabled'] != 'true':
             continue
+        try:
+            user_pass_last_used = client.get_user(UserName=user['user'])[
+                'User']['PasswordLastUsed']
+            vulnerable = user_pass_last_used < three_months_ago
+        except KeyError:
+            vulnerable = False
 
-        user_pass_last_used = \
-            client.get_user(UserName=user['user'])['User']['PasswordLastUsed']
-
-        (vulns if user_pass_last_used < three_months_ago else safes).append(
+        (vulns if vulnerable else safes).append(
             (user['arn'], 'Must not have an unused password'))
 
     return _get_result_as_tuple(
