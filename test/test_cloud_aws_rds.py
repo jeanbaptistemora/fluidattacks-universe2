@@ -58,6 +58,12 @@ def test_has_public_snapshots_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_not_uses_iam_authentication_open():
+    """Search instances that do not use IAM authentication."""
+    assert rds.not_uses_iam_authentication(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #

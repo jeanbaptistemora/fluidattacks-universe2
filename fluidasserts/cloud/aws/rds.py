@@ -7,7 +7,7 @@ from botocore.exceptions import BotoCoreError
 from botocore.vendored.requests.exceptions import RequestException
 
 # local imports
-from fluidasserts import DAST, HIGH
+from fluidasserts import DAST, HIGH, MEDIUM
 from fluidasserts.helper import aws
 from fluidasserts.cloud.aws import _get_result_as_tuple
 from fluidasserts.utils.decorators import api, unknown_if
@@ -140,6 +140,49 @@ def has_public_snapshots(key_id: str, secret: str,
     return _get_result_as_tuple(
         service='RDS',
         objects='Snapshots',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def not_uses_iam_authentication(key_id: str, secret: str,
+                                retry: bool = True) -> tuple:
+    """
+    Check if the BD instances are not using IAM database authentication.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are instances that do not use IAM database
+                 authentication.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Instances do not use IAM database authentication.'
+    msg_closed: str = 'Instances use IAM database authentication.'
+
+    vulns, safes = [], []
+    instances = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='rds',
+        func='describe_db_instances',
+        param='DBInstances',
+        retry=retry)
+
+    for instance in instances:
+        (vulns if not instance['IAMDatabaseAuthenticationEnabled'] else
+         safes).append((instance['DBInstanceArn'],
+                        'Use IAM database authentication.'))
+
+    return _get_result_as_tuple(
+        service='RDS',
+        objects='Instances',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
