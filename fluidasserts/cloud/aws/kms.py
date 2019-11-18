@@ -129,7 +129,8 @@ def has_key_rotation_disabled(key_id: str, secret: str,
                 func='get_key_rotation_status',
                 param='KeyRotationEnabled',
                 KeyId=key['KeyId'],
-                retry=retry)
+                retry=retry,
+                retry_times=3)
         except aws.ClientErr:
             continue
 

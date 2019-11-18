@@ -141,7 +141,8 @@ def has_buckets_without_default_encryption(key_id: str,
                 service='s3',
                 func='get_bucket_encryption',
                 Bucket=bucket_name,
-                retry=retry)
+                retry=retry,
+                retry_times=3)
             safes.append((bucket_name, message))
         except aws.ClientErr:
             vulns.append((bucket_name, message))
@@ -193,7 +194,8 @@ def buckets_allow_unauthorized_public_access(key_id: str,
                 func='get_bucket_policy',
                 param='Policy',
                 Bucket=bucket_name,
-                retry=retry)
+                retry=retry,
+                retry_times=3)
         except aws.ClientErr:
             continue
 
@@ -253,7 +255,8 @@ def has_insecure_transport(key_id: str, secret: str,
                 func='get_bucket_policy',
                 param='Policy',
                 Bucket=bucket_name,
-                retry=retry)
+                retry=retry,
+                retry_times=3)
         except aws.ClientErr:
             continue
 
@@ -321,7 +324,8 @@ def has_disabled_server_side_encryption(key_id: str, secret: str,
                 func='get_bucket_policy',
                 param='Policy',
                 Bucket=bucket_name,
-                retry=retry)
+                retry=retry,
+                retry_times=3)
         except aws.ClientErr:
             continue
 

@@ -91,7 +91,7 @@ def have_old_creds_enabled(
         if user['password_enabled'] != 'true':
             continue
         try:
-            user_pass_last_used = client.get_user(UserName=user['user'])[
+            user_pass_last_used = aws.client_get_user(client, user['user'])[
                 'User']['PasswordLastUsed']
             vulnerable = user_pass_last_used < three_months_ago
         except KeyError:
@@ -753,9 +753,10 @@ def users_with_password_and_access_keys(key_id: str,
         access_keys_activated: bool = any(
             map(lambda x: x['Status'], access_keys))
 
-        with suppress(
-                client.exceptions.NoSuchEntityException) as login_profile:
-            login_profile = client.get_login_profile(UserName=user['UserName'])
+        login_profile = None
+        with suppress(client.exceptions.NoSuchEntityException):
+            login_profile = \
+                aws.client_get_login_profile(client, user['UserName'])
 
         (vulns if access_keys_activated and login_profile is not None else
          safes).append(
@@ -860,7 +861,8 @@ def mfa_disabled_for_users_with_console_password(key_id: str,
                 func='get_login_profile',
                 UserName=user['UserName'],
                 param='LoginProfile',
-                retry=retry)
+                retry=retry,
+                retry_times=3)
         except aws.ClientErr:
             continue
 

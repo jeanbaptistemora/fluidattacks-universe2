@@ -51,15 +51,18 @@ class ClientErr(botocore.exceptions.BotoCoreError):
 def retry_on_errors(func: Callable) -> Callable:
     """Decorator to retry the function if a ConnError/ClientErr is raised."""
     @functools.wraps(func)
-    def decorated(*args, **kwargs) -> Any:  # noqa
+    def decorated(*args, **base_kwargs) -> Any:  # noqa
         """Retry the function if a ConnError/ClientErr is raised."""
+        kwargs = base_kwargs.copy()
+        retry_times = kwargs.pop('retry_times', 12)
+        retry_sleep_seconds = kwargs.pop('retry_sleep_seconds', 1.0)
         if kwargs.get('retry'):
-            for _ in range(12):
+            for _ in range(retry_times):
                 try:
                     return func(*args, **kwargs)
                 except (ConnError, ClientErr):
                     # Wait some seconds and retry
-                    time.sleep(5.0)
+                    time.sleep(retry_sleep_seconds)
         return func(*args, **kwargs)
     return decorated
 
@@ -86,6 +89,28 @@ def get_aws_client(service: str,
         aws_access_key_id=key_id,
         aws_secret_access_key=secret,
         **final_kwargs)
+
+
+@retry_on_errors
+def client_get_user(client, username):
+    """
+    Get AWS user from a provided Client.
+
+    :param client: AWS Client instance
+    :param username: Username to query for
+    """
+    return client.get_user(UserName=username)
+
+
+@retry_on_errors
+def client_get_login_profile(client, username):
+    """
+    Get AWS login profile from a provided Client.
+
+    :param client: AWS Client instance
+    :param username: Username to query for
+    """
+    return client.get_login_profile(UserName=username)
 
 
 @retry_on_errors

@@ -273,13 +273,21 @@ def test_policies_attached_close():
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
 
 
-def test_full_access_policies_close():
+def test_full_access_policies_close_1():
     """Search IAM policies: Full access policies."""
     assert not iam.have_full_access_policies(AWS_ACCESS_KEY_ID,
                                              AWS_SECRET_ACCESS_KEY)
+
+
+def test_full_access_policies_close_2():
+    """Search IAM policies: Full access policies."""
     assert not iam.have_full_access_policies(AWS_ACCESS_KEY_ID,
                                              AWS_SECRET_ACCESS_KEY_BAD,
                                              retry=False)
+
+
+def test_full_access_policies_close_3():
+    """Search IAM policies: Full access policies."""
     with no_connection():
         assert not iam.have_full_access_policies(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
