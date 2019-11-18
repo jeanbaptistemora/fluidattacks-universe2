@@ -768,3 +768,29 @@ break-build-terraform-plan:
     - ./ci-scripts/jobs/break-build-terraform-plan.sh
   except:
     - schedules
+
+user-provision-integrates-terraform-lint:
+  stage: tests
+  image: registry.gitlab.com/fluidattacks/serves:builder
+  script:
+    - ./ci-scripts/jobs/user-provision-integrates-terraform-lint.sh
+  except:
+    - schedules
+
+user-provision-integrates-terraform-plan:
+  stage: tests
+  image: registry.gitlab.com/fluidattacks/serves:builder
+  script:
+    - ./ci-scripts/jobs/user-provision-integrates-terraform-plan.sh
+  except:
+    - schedules
+
+user-provision-integrates-terraform-apply:
+  stage: deploy
+  image: registry.gitlab.com/fluidattacks/serves:builder
+  script:
+    - ./ci-scripts/jobs/user-provision-integrates-terraform-apply.sh
+  only:
+    - master
+  except:
+    - schedules

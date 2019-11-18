@@ -1,14 +1,14 @@
 resource "aws_iam_user" "integrates" {
  name = "integrates-user"
- path = "user-provision"
+ path = "/user-provision/"
 }
 
-resource "aws_iam_acces_key" "integrates" {
+resource "aws_iam_access_key" "integrates" {
     user = aws_iam_user.integrates.name
 }
 
 resource "aws_iam_user_policy" "integrates-user-policies" {
-    name = "user-provisioning-policy-${aws_iam_user.integrates.name}"
+    name = "user-provision-policy-${aws_iam_user.integrates.name}"
     user = aws_iam_user.integrates.name
 
     policy = <<EOF
@@ -20,7 +20,7 @@ resource "aws_iam_user_policy" "integrates-user-policies" {
                 "kms:*"
             ],
             "Effect": "Allow",
-            "Resource": "*"
+            "Resource": "*",
             "Condition" : {
                 "StringEquals" : {
                     "aws:username" : "${aws_iam_user.integrates.name}"
