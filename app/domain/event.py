@@ -8,14 +8,16 @@ from django.conf import settings
 
 import rollbar
 
-from __init__ import FI_MAIL_REPLYERS
+from __init__ import (
+    FI_MAIL_CONTINUOUS, FI_MAIL_PRODUCTION, FI_MAIL_PROJECTS, FI_MAIL_REPLYERS
+)
 from app import util
 from app.dal import integrates_dal, event as event_dal, project as project_dal
 from app.dal.helpers.formstack import FormstackAPI
 from app.domain import comment as comment_domain
 from app.dto.eventuality import EventDTO, migrate_event
 from app.exceptions import EventNotFound, InvalidFileSize, InvalidFileType
-from app.mailer import send_mail_comment
+from app.mailer import send_mail_comment, send_mail_new_event
 
 
 def update_event(event_id, affectation, info):
@@ -97,6 +99,33 @@ def update_evidence(event_id, file):
     return success
 
 
+def _send_new_event_mail(analyst, event_id, project, subscription, event_type):
+    recipients = project_dal.list_project_managers(project)
+    recipients.append(analyst)
+    if subscription == 'oneshot':
+        recipients.append(FI_MAIL_PROJECTS)
+    elif subscription == 'continuous':
+        recipients += [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
+    if event_type in ['CLIENT_APPROVES_CHANGE_TOE',
+                      'CLIENT_CANCELS_PROJECT_MILESTONE',
+                      'CLIENT_EXPLICITLY_SUSPENDS_PROJECT']:
+        recipients.append(FI_MAIL_PRODUCTION)
+
+    email_context = {
+        'analyst_email': analyst,
+        'event_id': event_id,
+        'event_url': (
+            'https://fluidattacks.com/integrates/dashboard#!/'
+            f'project/{project}/events/{event_id}'),
+        'project_name': project
+    }
+    email_send_thread = threading.Thread(
+        name='New event email thread',
+        target=send_mail_new_event,
+        args=(recipients, email_context))
+    email_send_thread.start()
+
+
 def create_event(analyst_email, project_name, evidence_file, **kwargs):
     last_fs_id = 550000000
     event_id = str(random.randint(last_fs_id, 1000000000))
@@ -105,6 +134,7 @@ def create_event(analyst_email, project_name, evidence_file, **kwargs):
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     project = integrates_dal.get_project_attributes_dynamo(
         project_name, ['companies', 'type'])
+    subscription = project.get('type', '')
 
     event_attrs = kwargs.copy()
     event_attrs.update({
@@ -115,7 +145,7 @@ def create_event(analyst_email, project_name, evidence_file, **kwargs):
         'event_date': event_attrs['event_date'].strftime('%Y-%m-%d %H:%M:%S'),
         'event_status': 'UNSOLVED',
         'report_date': today,
-        'subscription': project.get('type', '').upper()
+        'subscription': subscription.upper()
     })
     if 'affected_components' in event_attrs:
         event_attrs['affected_components'] = '\n'.join(
@@ -124,6 +154,10 @@ def create_event(analyst_email, project_name, evidence_file, **kwargs):
     success = event_dal.create(event_id, project_name, event_attrs)
     if success and evidence_file:
         success = update_evidence(event_id, evidence_file)
+    if success:
+        _send_new_event_mail(
+            analyst_email, event_id, project_name, subscription,
+            event_attrs['event_type'])
 
     return success
 

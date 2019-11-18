@@ -168,3 +168,7 @@ def send_mail_updated_vulns(email_to, context):
 
 def send_mail_project_deletion(email_to, context):
     _send_mail('projectdeletion', email_to, context=context, tags=GENERAL_TAG)
+
+
+def send_mail_new_event(email_to, context):
+    _send_mail('new-event', email_to, context=context, tags=GENERAL_TAG)
