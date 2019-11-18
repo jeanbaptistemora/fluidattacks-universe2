@@ -1236,6 +1236,60 @@
                }
             }
          }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "UUID" : {
+                  "S" : "6f023c26-5x10-4ded-aa27-xx563c2206ax"
+               },
+               "finding_id" : {
+                  "S" : "560175507"
+               },
+               "historic_state" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "analyst" : {
+                              "S" : "unittest@fluidattacks.com"
+                           },
+                           "date" : {
+                              "S" : "2019-10-15 11:04:14"
+                           },
+                           "state" : {
+                              "S" : "open"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "analyst" : {
+                              "S" : "unittest@fluidattacks.com"
+                           },
+                           "date" : {
+                              "S" : "2019-11-02 15:59:16"
+                           },
+                           "state" : {
+                              "S" : "DELETED"
+                           },
+                           "justification" : {
+                              "S" : "NOT_VULNERABILITY"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "specific" : {
+                  "S" : "123345"
+               },
+               "vuln_type" : {
+                  "S" : "lines"
+               },
+               "where" : {
+                  "S" : "path/to/file1.ext"
+               }
+            }
+         }
       }
    ]
 }

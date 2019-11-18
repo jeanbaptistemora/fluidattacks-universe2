@@ -229,7 +229,7 @@ class ProjectTest(TestCase):
     def test_list_drafts(self):
         project_name = 'unittesting'
         test_data = list_drafts(project_name)
-        expected_output = ['475041513']
+        expected_output = ['475041513', '560175507']
         assert test_data == expected_output
 
     def test_list_comments(self):

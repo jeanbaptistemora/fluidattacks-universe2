@@ -1619,6 +1619,198 @@
                }
             }
          }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "actor" : {
+                  "S" : "ANY_EMPLOYEE"
+               },
+               "affected_systems" : {
+                  "S" : "test"
+               },
+               "analyst" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "attack_complexity" : {
+                  "N" : "0.44"
+               },
+               "attack_vector" : {
+                  "N" : "0.62"
+               },
+               "attack_vector_desc" : {
+                  "S" : "Test attack vector."
+               },
+               "availability_impact" : {
+                  "N" : "0.22"
+               },
+               "availability_requirement" : {
+                  "N" : "1"
+               },
+               "confidentiality_impact" : {
+                  "N" : "0.22"
+               },
+               "confidentiality_requirement" : {
+                  "N" : "1.5"
+               },
+               "context" : {
+                  "S" : "SEARCHING"
+               },
+               "cvss_basescore" : {
+                  "N" : "3.7"
+               },
+               "cvss_env" : {
+                  "N" : "3.7"
+               },
+               "cvss_temporal" : {
+                  "N" : "3.2"
+               },
+               "cvss_version" : {
+                  "S" : "3"
+               },
+               "cwe" : {
+                  "S" : "200"
+               },
+               "effect_solution" : {
+                  "S" : "Filtrar la informacioue recibe y envia la aplicacion medio de listas blancas"
+               },
+               "exploitability" : {
+                  "N" : "0.94"
+               },
+               "finding" : {
+                  "S" : "FIN.S.0012. Acceso a recursos protegidos sin autenticación"
+               },
+               "finding_id" : {
+                  "S" : "560175507"
+               },
+               "finding_type" : {
+                  "S" : "SECURITY"
+               },
+               "integrity_impact" : {
+                  "N" : "0"
+               },
+               "integrity_requirement" : {
+                  "N" : "1"
+               },
+               "interested" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "leader" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "modified_attack_complexity" : {
+                  "N" : "0.44"
+               },
+               "files": {
+                  "L": []
+               },
+               "modified_attack_vector" : {
+                  "N" : "0.62"
+               },
+               "modified_availability_impact" : {
+                  "N" : "0.22"
+               },
+               "modified_confidentiality_impact" : {
+                  "N" : "0.22"
+               },
+               "modified_integrity_impact" : {
+                  "N" : "0"
+               },
+               "modified_privileges_required" : {
+                  "N" : "0.85"
+               },
+               "modified_severity_scope" : {
+                  "N" : "0"
+               },
+               "modified_user_interaction" : {
+                  "N" : "0.62"
+               },
+               "privileges_required" : {
+                  "N" : "0.85"
+               },
+               "probability" : {
+                  "N" : "1000"
+               },
+               "project_name" : {
+                  "S" : "unittesting"
+               },
+               "records" : {
+                  "S" : "0"
+               },
+               "records_number" : {
+                  "S" : "1"
+               },
+               "related_findings" : {
+                  "S" : "-"
+               },
+               "remediation_level" : {
+                  "N" : "0.95"
+               },
+               "report_confidence" : {
+                  "N" : "0.96"
+               },
+               "requirements" : {
+                  "S" : "REQ.0173. El sistema debe descartar toda la informacion potencialmente insegura que sea recibida por entradas de datos."
+               },
+               "scenario" : {
+                  "S" : "ANONYMOUS_INTERNET"
+               },
+               "severity" : {
+                  "N" : "0"
+               },
+               "severity_scope" : {
+                  "N" : "0"
+               },
+               "subscription" : {
+                  "S" : "ONESHOT"
+               },
+               "test_type" : {
+                  "S" : "APP"
+               },
+               "threat" : {
+                  "S" : "<i>test</i>"
+               },
+               "user_interaction" : {
+                  "N" : "0.62"
+               },
+               "vulnerability" : {
+                  "S" : "La aplicación afectada permite la inyeccio de coo XML que es ejecutado de forma remota y permite la exfiltracio de archivos o ejecucioemota de comandos en el servidor."
+               },
+               "submission_history": {
+                  "L": [
+                     {
+                        "M" : {
+                           "analyst" : {
+                              "S" : "unittest@fluidattacks.com"
+                           },
+                           "creation_date" :{
+                              "S" : "2019-02-04 12:46:10"
+                           },
+                           "status" : {
+                              "S" : "CREATED"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "analyst" : {
+                              "S" : "unittest@fluidattacks.com"
+                           },
+                           "deletion_date" :{
+                              "S" : "2019-11-04 12:46:10"
+                           },
+                           "status" : {
+                              "S" : "DELETED"
+                           },
+                           "justification" : {
+                              "S" : "CHANGE_EVIDENCE"
+                           }
+                        }
+                     }
+                  ]
+               }
+            }
+         }
       }
    ]
 }
