@@ -142,6 +142,7 @@ const enTranslations: dict = {
         date: "Event date",
         details: "Details",
         evidence: "Evidence image",
+        evidence_file: "Evidence file",
         none: "None",
         other: "Other",
         responsible: "Responsible (client)",

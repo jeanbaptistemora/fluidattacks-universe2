@@ -76,10 +76,18 @@ def get_event_project_name(event_id):
     return project
 
 
-def update_evidence(event_id, file):
+def update_evidence(event_id, evidence_type, file):
     success = False
 
-    if util.assert_uploaded_file_mime(file, ['image/gif', 'image/png']):
+    if evidence_type == 'IMAGE':
+        allowed_mimes = ['image/gif', 'image/png']
+        attribute = 'evidence'
+    else:
+        allowed_mimes = [
+            'application/pdf', 'application/zip', 'text/csv', 'text/plain']
+        attribute = 'evidence_file'
+
+    if util.assert_uploaded_file_mime(file, allowed_mimes):
         mib = 1048576
 
         if file.size < 10 * mib:
@@ -90,7 +98,7 @@ def update_evidence(event_id, file):
             full_name = f'{project_name}/{event_id}/{evidence_id}'
 
             if event_dal.save_evidence(file, full_name):
-                success = event_dal.update(event_id, {'evidence': evidence_id})
+                success = event_dal.update(event_id, {attribute: evidence_id})
         else:
             raise InvalidFileSize()
     else:
@@ -126,7 +134,7 @@ def _send_new_event_mail(analyst, event_id, project, subscription, event_type):
     email_send_thread.start()
 
 
-def create_event(analyst_email, project_name, evidence_file, **kwargs):
+def create_event(analyst_email, project_name, file=None, image=None, **kwargs):
     last_fs_id = 550000000
     event_id = str(random.randint(last_fs_id, 1000000000))
 
@@ -152,9 +160,12 @@ def create_event(analyst_email, project_name, evidence_file, **kwargs):
             list(set(event_attrs['affected_components'])))
 
     success = event_dal.create(event_id, project_name, event_attrs)
-    if success and evidence_file:
-        success = update_evidence(event_id, evidence_file)
     if success:
+        if file:
+            update_evidence(event_id, 'FILE', file)
+        if image:
+            update_evidence(event_id, 'IMAGE', image)
+
         _send_new_event_mail(
             analyst_email, event_id, project_name, subscription,
             event_attrs['event_type'])

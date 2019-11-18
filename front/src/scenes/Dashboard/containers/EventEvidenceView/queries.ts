@@ -11,8 +11,8 @@ export const GET_EVENT_EVIDENCES: DocumentNode = gql`
 `;
 
 export const UPDATE_EVIDENCE_MUTATION: DocumentNode = gql`
-  mutation UpdateEvidenceMutation($eventId: String!, $file: Upload!) {
-    updateEventEvidence(eventId: $eventId, file: $file) {
+  mutation UpdateEvidenceMutation($eventId: String!, $evidenceType: EventEvidenceType!, $file: Upload!) {
+    updateEventEvidence(eventId: $eventId, evidenceType: $evidenceType, file: $file) {
       success
     }
   }

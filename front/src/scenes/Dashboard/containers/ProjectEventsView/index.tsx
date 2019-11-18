@@ -132,7 +132,8 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                       interface IFormValues {
                         accessibility: { [key: string]: boolean };
                         affectedComponents: { [key: string]: boolean };
-                        evidence?: FileList;
+                        file?: FileList;
+                        image?: FileList;
                       }
 
                       const handleSubmit: ((values: IFormValues) => void) = (values: IFormValues): void => {
@@ -152,7 +153,8 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                             ...values,
                             accessibility: selectedAccessibility,
                             affectedComponents: selectedComponents,
-                            evidence: _.isEmpty(values.evidence) ? undefined : (values.evidence as FileList)[0],
+                            file: _.isEmpty(values.file) ? undefined : (values.file as FileList)[0],
+                            image: _.isEmpty(values.image) ? undefined : (values.image as FileList)[0],
                           },
                         })
                           .catch();
@@ -404,10 +406,21 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                                   <FormGroup>
                                     <ControlLabel>{translate.t("project.events.form.evidence")}</ControlLabel>
                                     <Field
-                                      accept="image/x-png,image/gif"
+                                      accept="image/gif,image/png"
                                       component={fileInputField}
-                                      id="evidence"
-                                      name="evidence"
+                                      id="image"
+                                      name="image"
+                                    />
+                                  </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                  <FormGroup>
+                                    <ControlLabel>{translate.t("project.events.form.evidence_file")}</ControlLabel>
+                                    <Field
+                                      accept="application/pdf,application/zip,text/csv,text/plain"
+                                      component={fileInputField}
+                                      id="file"
+                                      name="file"
                                     />
                                   </FormGroup>
                                 </Col>

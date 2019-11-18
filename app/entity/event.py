@@ -235,7 +235,8 @@ class CreateEvent(Mutation):
                 ('OTHER', 'OTHER'),
                 ('TOE_DIFFERS_APPROVED', 'TOE_DIFFERS_APPROVED')
             ]), required=True)
-        evidence = Upload(required=False)
+        file = Upload(required=False)
+        image = Upload(required=False)
         project_name = String(required=True)
     success = Boolean()
 
@@ -243,10 +244,10 @@ class CreateEvent(Mutation):
     @require_login
     @require_role(['analyst', 'admin'])
     @require_project_access
-    def mutate(_, info, project_name, evidence=None, **kwargs):
+    def mutate(_, info, project_name, image=None, file=None, **kwargs):
         analyst_email = util.get_jwt_content(info.context)['user_email']
         success = event_domain.create_event(
-            analyst_email, project_name.lower(), evidence, **kwargs)
+            analyst_email, project_name.lower(), file, image, **kwargs)
 
         if success:
             util.cloudwatch_log(info.context, 'Security: Created event in '
@@ -293,6 +294,11 @@ class UpdateEventEvidence(Mutation):
 
     class Arguments():
         event_id = String(required=True)
+        evidence_type = Argument(
+            Enum('EventEvidenceType', [
+                ('IMAGE', 'IMAGE'),
+                ('FILE', 'FILE')
+            ]), required=True)
         file = Upload(required=True)
     success = Boolean()
 
@@ -300,8 +306,8 @@ class UpdateEventEvidence(Mutation):
     @require_login
     @require_role(['analyst', 'admin'])
     @require_event_access
-    def mutate(_, info, event_id, file):
-        success = event_domain.update_evidence(event_id, file)
+    def mutate(_, info, event_id, evidence_type, file):
+        success = event_domain.update_evidence(event_id, evidence_type, file)
         if success:
             util.invalidate_cache(event_id)
             util.cloudwatch_log(

@@ -30,7 +30,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
 
   const [isImageOpen, setImageOpen] = React.useState(false);
   const closeImage: (() => void) = (): void => { setImageOpen(false); };
-  const openImage: (() => void) = (): void => { setImageOpen(true); };
+  const openImage: (() => void) = (): void => { if (!isEditing) { setImageOpen(true); } };
 
   const baseUrl: string = window.location.href.replace("dashboard#!/", "");
 
@@ -85,7 +85,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                     values: { evidence_filename: FileList },
                   ): void => {
                     showPreloader();
-                    updateEvidence({ variables: { eventId, file: values.evidence_filename[0] } })
+                    updateEvidence({ variables: { eventId, evidenceType: "IMAGE", file: values.evidence_filename[0] } })
                       .catch();
                     setEditing(false);
                   };
