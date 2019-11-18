@@ -186,7 +186,7 @@ class UpdateRepositories(Mutation):
             cont += 1
         update_repo = integrates_dal.update_list_resource_dynamo(
             'FI_projects',
-            ['project_name', project_name], 
+            ['project_name', project_name],
             repo_list,
             'repositories',
             integrates_dal.get_data_dynamo('FI_projects', 'project_name', project_name.lower()))
@@ -194,7 +194,8 @@ class UpdateRepositories(Mutation):
             resources.send_mail(project_name,
                                 user_email,
                                 json_data,
-                                'remove',
+                                'activated' if repo_list[cont]['historic_state'][-1]['state'] == 'ACTIVE'
+                                else 'deactivated',
                                 'repository')
             success = True
         else:
