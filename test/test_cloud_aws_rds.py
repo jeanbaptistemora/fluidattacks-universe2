@@ -64,6 +64,12 @@ def test_not_uses_iam_authentication_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_unrestricted_db_security_groups_open():
+    """Search unrestricted security groups."""
+    assert rds.unrestricted_db_security_groups(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #

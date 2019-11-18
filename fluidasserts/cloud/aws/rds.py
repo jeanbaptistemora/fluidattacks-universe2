@@ -187,3 +187,72 @@ def not_uses_iam_authentication(key_id: str, secret: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def unrestricted_db_security_groups(key_id: str,
+                                    secret: str,
+                                    retry: bool = True) -> tuple:
+    """
+    Check if the database security groups allow unrestricted access.
+
+    AWS RDS DB security groups should not allow access from 0.0.0.0/0.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are instances that do not use IAM database
+                 authentication.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = \
+        'RDS DB security groups allow unrestricted access (0.0.0.0/0)'
+    msg_closed: str = 'RDS DB security groups have restricted access.'
+
+    vulns, safes = [], []
+    instances = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='rds',
+        func='describe_db_instances',
+        param='DBInstances',
+        retry=retry)
+    for instance in instances:
+        security_groups_ids = list(
+            map(lambda x: x['VpcSecurityGroupId'],
+                instance['VpcSecurityGroups']))
+        security_groups = aws.run_boto3_func(
+            key_id,
+            secret=secret,
+            service='ec2',
+            func='describe_security_groups',
+            param='SecurityGroups',
+            GroupIds=security_groups_ids,
+            retry=retry)
+        vulnerable = []
+        for group in security_groups:
+            ip_permissions = \
+                group['IpPermissions'] + group['IpPermissionsEgress']
+
+            is_vulnerable: bool = any(
+                ip_range['CidrIp'] == '0.0.0.0/0'
+                for ip_permission in ip_permissions
+                for ip_range in ip_permission['IpRanges'])
+
+            vulnerable.append(is_vulnerable)
+
+        (vulns if any(vulnerable) else safes).append(
+            (instance['DBInstanceArn'],
+             'Restrict access to the required IP addresses only.'))
+
+    return _get_result_as_tuple(
+        service='RDS',
+        objects='instances',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
