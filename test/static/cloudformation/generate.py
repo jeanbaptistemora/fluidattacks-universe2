@@ -223,6 +223,10 @@ ec2_volume2 = troposphere.ec2.Volume(
     AvailabilityZone='us-east-1',
     Encrypted=troposphere.Join('', ['tr', 'ue']),
 )
+ec2_instance = troposphere.ec2.Instance(
+    title='ec2instance1',
+    IamInstanceProfile='iamInstanceProfile1',
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(cluster)
@@ -234,6 +238,7 @@ template.add_resource(key)
 template.add_resource(security_group)
 template.add_resource(ec2_volume)
 template.add_resource(ec2_volume2)
+template.add_resource(ec2_instance)
 write_template(template)
 
 #
@@ -520,6 +525,9 @@ ec2_volume = troposphere.ec2.Volume(
     AvailabilityZone='us-east-1',
     Encrypted='false',
 )
+ec2_instance = troposphere.ec2.Instance(
+    title='ec2instance1',
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(secret2)
@@ -534,4 +542,5 @@ template.add_resource(security_group)
 template.add_resource(security_group_ingress)
 template.add_resource(security_group_egress)
 template.add_resource(ec2_volume)
+template.add_resource(ec2_instance)
 write_template(template)

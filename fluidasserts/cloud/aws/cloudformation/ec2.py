@@ -266,7 +266,7 @@ def has_unencrypted_volumes(
 
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
-    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+    :returns: - ``OPEN`` if the volume is not encrypted.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
@@ -294,3 +294,49 @@ def has_unencrypted_volumes(
         vulnerabilities=vulnerabilities,
         msg_open='EC2 volumes are not encrypted',
         msg_closed='EC2 volumes are encrypted')
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_not_an_iam_instance_profile(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Verify if ``EC2::Instance`` uses an IamInstanceProfile.
+
+    EC2 instances need credentials to access other AWS services.
+
+    An IAM role attached to the instance provides these credentials in a secure
+    way. With this, you don't have to manage credentials because they are
+    temporarily provided by the IAM Role and are rotated automatically.
+
+    See: https://docs.aws.amazon.com/en_us/AWSEC2/latest/UserGuide
+    /iam-roles-for-amazon-ec2.html
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if the instance has not attached an
+                IamInstanceProfile.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::EC2::Instance',
+            ],
+            exclude=exclude):
+        with contextlib.suppress(CloudFormationInvalidTypeError):
+            if 'IamInstanceProfile' not in res_props:
+                vulnerabilities.append(
+                    Vulnerability(
+                        path=yaml_path,
+                        entity='AWS::EC2::Instance/IamInstanceProfile',
+                        identifier=res_name,
+                        reason='is not present'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='EC2 instances have not an IamInstanceProfile set',
+        msg_closed='EC2 instances have an IamInstanceProfile set')
