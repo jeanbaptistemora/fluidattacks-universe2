@@ -265,7 +265,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     if (!_.isUndefined(props.descriptParam)) {
       props.descriptParam.formValues.treatment = props.descriptParam.formValues.treatmentVuln;
     }
-    const canGetAnalyst: boolean = _.includes(["analyst", "admin"], props.userRole);
+    const isAnalystorAdmin: boolean = _.includes(["analyst", "admin"], props.userRole);
 
     const getSelectQryTable: () => {selectedQeryArray: Array<NodeListOf<Element>> } = ():
       { selectedQeryArray: Array<NodeListOf<Element>> } => {
@@ -313,7 +313,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     return(
     <Query
       query={GET_VULNERABILITIES}
-      variables={{ identifier: props.findingId, analystField: canGetAnalyst }}
+      variables={{ identifier: props.findingId, analystField: isAnalystorAdmin }}
       notifyOnNetworkStatusChange={true}
     >
       {
@@ -496,7 +496,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             let formattedDataInputs: IVulnsAttr["finding"]["inputsVulns"] = dataInputs;
             const formattedDataPendingVulns: IVulnsAttr["finding"]["pendingVulns"] = dataPendingVulns;
 
-            if (props.editMode) {
+            if (props.editMode && isAnalystorAdmin) {
               inputsHeader.push({
                           align: "center" as DataAlignType,
                           dataField: "id",
