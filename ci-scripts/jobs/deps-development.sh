@@ -20,7 +20,11 @@ deps_development() {
     'deploy/containers/deps-development/requirements.txt'
     'ci-scripts/jobs/deps-development.sh'
   )
-  if check_file_changed "${FILES[@]}" \
+  FOLDERS=(
+      'ci-scripts/helpers/'
+  )
+  if check_folder_changed "${FOLDERS[@]}" \
+     || check_file_changed "${FILES[@]}" \
      || docker_tag_not_exists deps-development $CI_COMMIT_REF_NAME \
      || container_image_differs deps-development $CI_COMMIT_REF_NAME \
      || [ $SCHEDULE ]; then

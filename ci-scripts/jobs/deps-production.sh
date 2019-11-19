@@ -20,11 +20,22 @@ deps_production() {
     'deploy/containers/deps-production/requirements.txt'
     'ci-scripts/jobs/deps-production.sh'
   )
+  FOLDERS=(
+      'ci-scripts/helpers/'
+  )
+  if check_folder_changed "${FOLDERS[@]}" \
+     || check_file_changed "${FILES[@]}" \
+     || docker_tag_not_exists deps-production $CI_COMMIT_REF_NAME \
+     || container_image_differs deps-production $CI_COMMIT_REF_NAME \
+     || [ $SCHEDULE ]; then
+	  kaniko_build \
+	    "$NAME" \
+	    eph=true \
+	    cache=true
+  else
+      echo "No relevant files for $NAME were modified. Skipping build."
+  fi
 
-  kaniko_build \
-    "$NAME" \
-    eph=true \
-    cache=true
 }
 
 deps_production
