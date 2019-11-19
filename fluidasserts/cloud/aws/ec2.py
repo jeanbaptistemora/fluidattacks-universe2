@@ -342,20 +342,19 @@ def has_instances_using_unapproved_amis(key_id: str,
         retry=retry,
     )
 
-    for i in map(lambda x: x['Instances'], instances):
-        for j in i:
-            images = aws.run_boto3_func(
-                key_id=key_id,
-                secret=secret,
-                service='ec2',
-                func='describe_images',
-                param='Images',
-                retry=retry,
-                ImageIds=[j['ImageId']])
-
-            (vulns
-             if images[0]['ImageOwnerAlias'] != 'amazon' else safes).append(
-                 (j['InstanceId'], 'Base image must be approved by Amazon.'))
+    for instance in _flatten(map(lambda x: x['Instances'], instances)):
+        images = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='ec2',
+            func='describe_images',
+            param='Images',
+            retry=retry,
+            ImageIds=[instance['ImageId']])
+        (vulns if 'ImageOwnerAlias' in images[0].keys()
+         and images[0]['ImageOwnerAlias'] != 'amazon' else safes).append(
+             (instance['InstanceId'],
+              'Base image must be approved by Amazon.'))
 
     return _get_result_as_tuple(
         service='EC2',
