@@ -14,6 +14,7 @@ from app.api.schema import SCHEMA
 from app.api.dataloaders.finding import FindingLoader
 from app.api.dataloaders.vulnerability import VulnerabilityLoader
 from app.domain.finding import get_finding
+from app.exceptions import FindingNotFound
 
 
 class FindingTests(TestCase):
@@ -21,7 +22,7 @@ class FindingTests(TestCase):
     def test_delete_finding(self):
         query = '''
           mutation {
-            deleteFinding(findingId: "422286126", justification: FINDING_CHANGED) {
+            deleteFinding(findingId: "560175507", justification: FINDING_CHANGED) {
               success
             }
           }
@@ -47,8 +48,8 @@ class FindingTests(TestCase):
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert result['data']['deleteFinding']['success']
-        finding = get_finding('422286126')
-        assert finding['submissionHistory'][-1].get('status') == 'DELETED'
+        with pytest.raises(FindingNotFound):
+          assert get_finding('560175507')
 
     def test_get_finding(self):
         """ Check for finding """
