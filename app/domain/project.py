@@ -13,6 +13,7 @@ from __init__ import FI_MAIL_REPLYERS
 from app.dal import integrates_dal, project as project_dal
 from app.dal.helpers.formstack import FormstackAPI
 from app.domain import comment as comment_domain
+from app.domain import finding as finding_domain
 from app.domain import vulnerability as vuln_domain
 from app.exceptions import InvalidParameter
 from app.mailer import send_mail_comment
@@ -111,17 +112,18 @@ def validate_project(project):
 
 def total_vulnerabilities(finding_id):
     """Get total vulnerabilities in new format."""
-    vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(finding_id)
     finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
-    for vuln in vulnerabilities:
-        current_state = vuln_domain.get_last_approved_status(vuln)
-        if current_state == 'open':
-            finding['openVulnerabilities'] += 1
-        elif current_state == 'closed':
-            finding['closedVulnerabilities'] += 1
-        else:
-            # Vulnerability does not have a valid state
-            pass
+    if finding_domain.validate_finding(finding_id):
+        vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(finding_id)
+        for vuln in vulnerabilities:
+            current_state = vuln_domain.get_last_approved_status(vuln)
+            if current_state == 'open':
+                finding['openVulnerabilities'] += 1
+            elif current_state == 'closed':
+                finding['closedVulnerabilities'] += 1
+            else:
+                # Vulnerability does not have a valid state
+                pass
     return finding
 
 
@@ -145,16 +147,17 @@ def get_last_closing_vuln(findings):
     """Get day since last vulnerability closing."""
     closing_dates = []
     for fin in findings:
-        vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(
-            fin['finding_id'])
-        closing_vuln_date = [get_last_closing_date(vuln)
-                             for vuln in vulnerabilities
-                             if is_vulnerability_closed(vuln)]
-        if closing_vuln_date:
-            closing_dates.append(max(closing_vuln_date))
-        else:
-            # Vulnerability does not have closing date
-            pass
+        if finding_domain.validate_finding(fin['finding_id']):
+            vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(
+                fin['finding_id'])
+            closing_vuln_date = [get_last_closing_date(vuln)
+                                 for vuln in vulnerabilities
+                                 if is_vulnerability_closed(vuln)]
+            if closing_vuln_date:
+                closing_dates.append(max(closing_vuln_date))
+            else:
+                # Vulnerability does not have closing date
+                pass
     if closing_dates:
         current_date = max(closing_dates)
         tzn = pytz.timezone(settings.TIME_ZONE)
@@ -237,21 +240,23 @@ def get_mean_remediate(findings):
     total_days = 0
     tzn = pytz.timezone('America/Bogota')
     for finding in findings:
-        vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(
-            finding['finding_id'])
-        for vuln in vulnerabilities:
-            open_vuln_date = get_open_vulnerability_date(vuln)
-            closed_vuln_date = get_last_closing_date(vuln)
-            if open_vuln_date:
-                if closed_vuln_date:
-                    total_days += int((closed_vuln_date - open_vuln_date).days)
+        if finding_domain.validate_finding(finding['finding_id']):
+            vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(
+                finding['finding_id'])
+            for vuln in vulnerabilities:
+                open_vuln_date = get_open_vulnerability_date(vuln)
+                closed_vuln_date = get_last_closing_date(vuln)
+                if open_vuln_date:
+                    if closed_vuln_date:
+                        total_days += int(
+                            (closed_vuln_date - open_vuln_date).days)
+                    else:
+                        current_day = datetime.now(tz=tzn).date()
+                        total_days += int((current_day - open_vuln_date).days)
+                    total_vuln += 1
                 else:
-                    current_day = datetime.now(tz=tzn).date()
-                    total_days += int((current_day - open_vuln_date).days)
-                total_vuln += 1
-            else:
-                # Vulnerability does not have an open date
-                pass
+                    # Vulnerability does not have an open date
+                    pass
     if total_vuln:
         mean_vulnerabilities = Decimal(
             round(total_days / float(total_vuln))).quantize(Decimal('0.1'))
@@ -266,14 +271,15 @@ def get_total_treatment(findings):
     in_progress_vuln = 0
     undefined_treatment = 0
     for finding in findings:
-        open_vulns = total_vulnerabilities(
-            finding['finding_id']).get('openVulnerabilities')
-        if finding.get('treatment') == 'ACCEPTED':
-            accepted_vuln += open_vulns
-        elif finding.get('treatment') == 'IN PROGRESS':
-            in_progress_vuln += open_vulns
-        else:
-            undefined_treatment += open_vulns
+        if finding_domain.validate_finding(finding['finding_id']):
+            open_vulns = total_vulnerabilities(
+                finding['finding_id']).get('openVulnerabilities')
+            if finding.get('treatment') == 'ACCEPTED':
+                accepted_vuln += open_vulns
+            elif finding.get('treatment') == 'IN PROGRESS':
+                in_progress_vuln += open_vulns
+            else:
+                undefined_treatment += open_vulns
     treatment = {
         'accepted': accepted_vuln,
         'inProgress': in_progress_vuln,
