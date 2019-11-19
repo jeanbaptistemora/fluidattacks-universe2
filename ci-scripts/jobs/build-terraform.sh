@@ -14,6 +14,7 @@ build_terraform() {
 
   export AWS_ACCESS_KEY_ID
   export AWS_SECRET_ACCESS_KEY
+  export TF_VAR_aws_s3_evidences_bucket
   export TF_VAR_aws_s3_resources_bucket
 
   AWS_ACCESS_KEY_ID=$(
@@ -21,6 +22,9 @@ build_terraform() {
   )
   AWS_SECRET_ACCESS_KEY=$(
     vault read -field=aws_terraform_secret_key secret/integrates/production
+  )
+  TF_VAR_aws_s3_evidences_bucket=$(
+    vault read -field=aws_s3_evidences_bucket secret/integrates/production
   )
   TF_VAR_aws_s3_resources_bucket=$(
     vault read -field=aws_s3_resources_bucket secret/integrates/production
