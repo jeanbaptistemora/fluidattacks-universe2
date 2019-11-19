@@ -1,6 +1,5 @@
 stages:
   - deps-base
-  - deps-development
   - test
   - build
   - mr-check
@@ -24,8 +23,7 @@ deps-production:
   interruptible: true
 
 deps-development:
-  stage: deps-development
-  needs: [deps-production]
+  stage: deps-base
   image: fluidattacks/alpine-kaniko:latest
   script:
     - ./ci-scripts/jobs/deps-development.sh
@@ -89,6 +87,7 @@ test-app:
 
 asserts-static:
   stage: test
+  needs: [deps-development]
   image:
     name: fluidattacks/break-build
     entrypoint: [""]
@@ -172,7 +171,7 @@ coverage-report:
 
 ephemeral-app:
   stage: deploy
-  needs: [build-app]
+  needs: [build-app,deps-development]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - . ci-scripts/helpers/others.sh && vault_login
@@ -233,8 +232,9 @@ deploy-mobile:
   only:
     - master
 
-test-driver:
+test-driver-dev:
   stage: post-deploy
+  needs: [ephemeral-app]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - . ci-scripts/helpers/others.sh && vault_login
@@ -247,6 +247,26 @@ test-driver:
     paths:
       - screenshots/
     when: always
+  except:
+    - master
+  interruptible: true
+
+test-driver-prod:
+  stage: post-deploy
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:master
+  script:
+    - . ci-scripts/helpers/others.sh && vault_login
+    - vaultenv ./ci-scripts/jobs/test-driver.sh
+  parallel: 5
+  retry: 1
+  allow_failure: true
+  artifacts:
+    name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
+    paths:
+      - screenshots/
+    when: always
+  only:
+    - master
   interruptible: true
 
 asserts-dynamic:

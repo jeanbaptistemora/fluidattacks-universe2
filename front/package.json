@@ -91,6 +91,7 @@
     "redux-thunk": "2.3.0",
     "revalidate": "1.2.0",
     "rollbar": "2.4.7",
+    "typed-css-modules": "0.3.5",
     "typesafe-actions": "2.0.4",
     "typescript": "3.4.5",
     "uglifyjs-webpack-plugin": "1.2.7",
@@ -114,7 +115,6 @@
     "ts-jest": "24.0.2",
     "tslint": "5.10.0",
     "tslint-react": "3.6.0",
-    "typed-css-modules": "0.3.5",
     "waait": "1.0.5"
   },
   "scripts": {
