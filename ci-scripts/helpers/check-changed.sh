@@ -90,3 +90,13 @@ docker_tag_not_exists() {
     TAGS=$(curl --silent -f -lSL ${BASE_URL}/${REPO_ID}/tags | jq ".[] | select(.name == \"${2}\") | .location")
     test ! $TAGS
 }
+
+
+container_image_differs() {
+    BASE_IMG="remote://registry.gitlab.com/fluidattacks/integrates/${1}"
+    DIFFS=$(container-diff diff ${BASE_IMG}:master ${BASE_IMG}:$2 \
+            --type=pip --type=node --type=apt -q -j \
+            | jq '.[] | .Diff.InfoDiff' | sed -e 's/[\[\]]//g' | grep -v "^$")
+    echo "Differences encoutered in container ${BASE_IMG}:$2 and ${BASE_IMG}:master: $DIFFS"
+    test $DIFFS
+}
