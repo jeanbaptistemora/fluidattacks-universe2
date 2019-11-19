@@ -169,8 +169,34 @@ describe("Resources view", () => {
       </Provider>,
     );
     await wait(0);
+    wrapper.update();
+    const onerow: ReactWrapper = wrapper
+                                 .find("BootstrapTable")
+                                 .find("tbody")
+                                 .find("TableRow")
+                                 .find("TableColumn");
+    const statuschecked: boolean | undefined = wrapper
+                                               .find("BootstrapTable")
+                                               .find("tbody")
+                                               .find("TableColumn")
+                                               .at(3)
+                                               .find("n")
+                                               .prop("checked");
+    const protocol: string = wrapper
+                            .find("BootstrapTable")
+                            .find("tbody")
+                            .find("TableColumn")
+                            .at(0)
+                            .find("td")
+                            .text();
     expect(wrapper)
       .toHaveLength(1);
+    expect(onerow)
+      .toHaveLength(4);
+    expect(statuschecked)
+      .toEqual(true || false);
+    expect(protocol)
+      .toMatch(/^(HTTPS|SSH)$/);
   });
 
   it("should render environments component", async () => {
