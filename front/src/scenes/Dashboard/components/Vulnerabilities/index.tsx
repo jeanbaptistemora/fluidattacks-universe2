@@ -124,9 +124,11 @@ const getRanges: ((array: number[]) => string) =
   return ranges.join(", ");
 };
 
-const groupValues: ((values: number[]) => string) =
-  (values: number[]): string =>
-    getRanges(values.sort(compareNumbers));
+const groupValues: ((values: number[]) => string) = (values: number[]): string => {
+  values.sort(compareNumbers);
+
+  return getRanges(values);
+};
 
 const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVulnType => {
   const groups: { [key: string]: IVulnType }  = _.groupBy(lines, "where");
