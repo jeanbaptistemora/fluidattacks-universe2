@@ -8,7 +8,7 @@ ARG GECKO_DRIVER_URL='https://github.com/mozilla/geckodriver/releases/download/v
 ARG DYNAMODB_LOCAL_URL='https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.tar.gz'
 ARG PIP_REQUIREMENTS_DEV='deploy/containers/deps-development/requirements.txt'
 ARG PIP_REQUIREMENTS_PROD='deploy/containers/deps-production/requirements.txt'
-ARG TERRAFORM_URL='https://releases.hashicorp.com/terraform/0.11.14/terraform_0.11.14_linux_amd64.zip'
+ARG TERRAFORM_URL='https://releases.hashicorp.com/terraform/0.12.16/terraform_0.12.16_linux_amd64.zip'
 ARG KUBECTL_URL='https://storage.googleapis.com/kubernetes-release/release/v1.16.2/bin/linux/amd64/kubectl'
 ARG NODE_URL='https://deb.nodesource.com/setup_10.x'
 ARG TREASUREDATA_URL='https://toolbelt.treasuredata.com/sh/install-debian-stretch-td-agent2.sh'
@@ -41,7 +41,7 @@ RUN mkdir -p /usr/share/man/man1 \
     git \
     libmagic1 \
     default-libmysqlclient-dev \
-    firefox-esr=60.8.0esr* \
+    firefox-esr=68.2.0esr* \
   && curl -LsSo vault.zip "$VAULT_URL" \
     && unzip vault.zip \
     && mv vault /usr/local/bin \

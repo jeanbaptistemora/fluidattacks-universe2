@@ -1,7 +1,7 @@
 variable "bucket_name" {}
 
 resource "aws_s3_bucket" "fi_resources_bucket" {
-  bucket = "${var.bucket_name}"
+  bucket = var.bucket_name
   acl    = "private"
 
   server_side_encryption_configuration {
@@ -12,7 +12,7 @@ resource "aws_s3_bucket" "fi_resources_bucket" {
     }
   }
 
-  tags {
+  tags = {
     Pry = "Integrates"
   }
 }
@@ -31,21 +31,21 @@ data "aws_iam_policy_document" "cloudfront_s3_access" {
     principals {
       type        = "AWS"
       identifiers = [
-        "${aws_cloudfront_origin_access_identity.cloudfront_identity.iam_arn}"
+        aws_cloudfront_origin_access_identity.cloudfront_identity.iam_arn
       ]
     }
   }
 }
 
 resource "aws_s3_bucket_policy" "fi_resources_bucket_policy" {
-  bucket = "${aws_s3_bucket.fi_resources_bucket.id}"
-  policy = "${data.aws_iam_policy_document.cloudfront_s3_access.json}"
+  bucket = aws_s3_bucket.fi_resources_bucket.id
+  policy = data.aws_iam_policy_document.cloudfront_s3_access.json
 }
 
 output "fi_resources_bucket_id" {
-  value = "${aws_s3_bucket.fi_resources_bucket.id}"
+  value = aws_s3_bucket.fi_resources_bucket.id
 }
 
 output "fi_resources_bucket_arn" {
-  value = "${aws_s3_bucket.fi_resources_bucket.arn}"
+  value = aws_s3_bucket.fi_resources_bucket.arn
 }

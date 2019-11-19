@@ -12,10 +12,10 @@ resource "aws_cloudfront_distribution" "fi_resources_cloudfront" {
 
   origin {
     origin_id = "S3-fluidintegrates.resources"
-    domain_name = "${aws_s3_bucket.fi_resources_bucket.bucket_domain_name}"
+    domain_name = aws_s3_bucket.fi_resources_bucket.bucket_domain_name
 
     s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.cloudfront_identity.cloudfront_access_identity_path}"
+      origin_access_identity = aws_cloudfront_origin_access_identity.cloudfront_identity.cloudfront_access_identity_path
     }
   }
 
@@ -57,7 +57,7 @@ resource "aws_cloudfront_distribution" "fi_resources_cloudfront" {
     minimum_protocol_version       = "TLSv1"
   }
 
-  tags {
+  tags = {
     Pry = "Integrates"
   }
 }
