@@ -9,10 +9,10 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
-import { DataAlignType } from "react-bootstrap-table";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button/index";
+import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
 import { dataTable as DataTable } from "../../../../components/DataTable/index";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
@@ -20,6 +20,7 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidFileName, isValidFileSize } from "../../../../utils/validations";
+import { openConfirmDialog } from "../../actions";
 import { addEnvironmentsModal as AddEnvironmentsModal } from "../../components/AddEnvironmentsModal/index";
 import { AddFilesModal } from "../../components/AddFilesModal/index";
 import { addRepositoriesModal as AddRepositoriesModal } from "../../components/AddRepositoriesModal/index";
@@ -380,6 +381,8 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
             const handleMtUpdateRepoRes: ((mtResult: IUpdateRepoAttr) => void) = (mtResult: IUpdateRepoAttr): void => {
               if (!_.isUndefined(mtResult)) {
                 if (mtResult.updateRepositories.success) {
+                  refetch()
+                    .catch();
                   hidePreloader();
                   mixpanel.track(
                     "RemoveProjectRepo",
@@ -415,6 +418,7 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                 }
               }
             };
+            let auxRepo: {[value: string]: string | null} | undefined;
 
             return (
               <React.Fragment>
@@ -431,16 +435,61 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                         return <React.Fragment/>;
                       }
 
+                      const changeSwitchButtonStatus: (() => void) = (): void => {
+                        const statesHTMLCol: HTMLCollectionOf<Element> = document.getElementsByClassName("switch");
+                        const states: Element[] = Array.prototype.slice.call(statesHTMLCol);
+                        for (const state of states) {
+                          const button: Element = state;
+                          let urlRepo: HTMLElement | null = button.parentElement;
+                          for (let c: number = 0; c < 2; c++) {
+                            if (urlRepo !== null) {
+                              urlRepo = urlRepo.previousSibling as HTMLElement;
+                            }
+                          }
+                          if (urlRepo !== null && auxRepo !== undefined && urlRepo.innerHTML === auxRepo.urlRepo) {
+                            if ((auxRepo.state === "INACTIVE" && button.classList.contains("on")) ||
+                                (auxRepo.state === "ACTIVE" && button.classList.contains("off"))) {
+                              if (button.classList.contains("off")) {
+                                button.classList.remove("off");
+                                button.classList.remove("btn-light");
+                                button.classList.remove("btn-block");
+                                button.classList.add("on");
+                                button.classList.add("btn-danger");
+                                button.classList.add("btn-block");
+                              } else {
+                                button.classList.remove("on");
+                                button.classList.remove("btn-danger");
+                                button.classList.remove("btn-block");
+                                button.classList.add("off");
+                                button.classList.add("btn-light");
+                                button.classList.add("btn-block");
+                              }
+                            }
+                            break;
+                          }
+                        }
+                      };
+
+                      const handleUpdateRepoStateClick: (() => void) = (): void => {
+                        updateRepositories({ variables: { projectName, repoData: JSON.stringify(auxRepo)} })
+                          .catch();
+                      };
+
+                      const handleUpdateRepoStateClickRevert: (() => void) = (): void => {
+                        changeSwitchButtonStatus();
+                      };
+
                       const handleUpdateRepo: ((repoInfo: { [key: string]: string } | undefined) => void) =
                       (repoInfo: { [key: string]: string } | undefined): void => {
                         if (repoInfo !== undefined) {
                           const repoUpdated: {[value: string]: string | null} = {
                             branch: repoInfo.branch,
                             protocol: repoInfo.protocol,
+                            state: repoInfo.state,
                             urlRepo: repoInfo.urlRepo,
                           };
-                          updateRepositories({ variables: { projectName, repoData: JSON.stringify(repoUpdated)} })
-                            .catch();
+                          auxRepo = repoUpdated;
+                          props.onOpenChangeRepoStateModal();
                         }
                       };
 
@@ -480,7 +529,6 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                                   wrapped: true,
                                 },
                                 {
-                                  align: "right" as DataAlignType,
                                   changeFunction: handleUpdateRepo,
                                   dataField: "projectName",
                                   header: "State",
@@ -517,6 +565,14 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                             </label>
                           </Col>
                         </Row>
+
+                        <ConfirmDialog
+                          name="openChangeRepoStateModal"
+                          onProceed={handleUpdateRepoStateClick}
+                          onNotProceed={handleUpdateRepoStateClickRevert}
+                          title="Repository change state"
+                          closeOnProceed={true}
+                        />
                       </React.Fragment>);
                     }}
                 </Mutation>
@@ -910,6 +966,7 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
       onLoad: (): void => {
         dispatch(actions.loadResources(projectName));
       },
+      onOpenChangeRepoStateModal: (): void => { dispatch(openConfirmDialog("openChangeRepoStateModal")); },
       onOpenEnvsModal: (): void => { dispatch(actions.openAddEnvModal()); },
       onOpenFilesModal: (): void => { dispatch(actions.openAddFilesModal()); },
       onOpenOptionsModal: (row: string): void => { dispatch(actions.openOptionsModal(row)); },

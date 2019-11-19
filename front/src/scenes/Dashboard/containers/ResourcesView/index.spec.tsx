@@ -45,6 +45,7 @@ describe("Resources view", () => {
     onDeleteFile: functionMock,
     onDownloadFile: functionMock,
     onLoad: functionMock,
+    onOpenChangeRepoStateModal: functionMock,
     onOpenEnvsModal: functionMock,
     onOpenFilesModal: functionMock,
     onOpenOptionsModal: functionMock,

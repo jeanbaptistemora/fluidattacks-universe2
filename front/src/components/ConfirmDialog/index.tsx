@@ -27,13 +27,19 @@ interface IConfirmDialogBaseProps {
   closeOnProceed?: boolean;
   name: string;
   title: string;
+  onNotProceed?(): void;
   onProceed(): void;
 }
 
 type IConfirmDialogProps = IConfirmDialogBaseProps & (IConfirmDialogStateProps & IConfirmDialogDispatchProps);
 
 export const confirmDialog: React.FC<IConfirmDialogProps> = (props: IConfirmDialogProps): JSX.Element => {
-  const handleClose: (() => void) = (): void => { props.onClose(); };
+  const handleClose: (() => void) = (): void => {
+    props.onClose();
+    if (props.onNotProceed !== undefined) {
+      props.onNotProceed();
+    }
+  };
   const handleProceed: (() => void) = (): void => {
     props.onProceed();
     if (props.closeOnProceed === true) {
