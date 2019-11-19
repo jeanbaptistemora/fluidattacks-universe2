@@ -100,7 +100,8 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """Resolve findings attribute."""
         util.cloudwatch_log(info.context, 'Security: Access to {project} '
                             'findings'.format(project=self.name))
-        finding_ids = project_domain.list_findings(self.name)
+        finding_ids = finding_domain.filter_deleted_findings(
+            project_domain.list_findings(self.name))
         findings_loader = info.context.loaders['finding']
         self.findings = findings_loader.load_many(finding_ids).then(
             lambda findings: [finding for finding in findings
@@ -111,11 +112,11 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @get_entity_cache
     def resolve_open_vulnerabilities(self, info):
         """Resolve open vulnerabilities attribute."""
-        finding_ids = project_domain.list_findings(self.name)
+        finding_ids = finding_domain.filter_deleted_findings(
+            project_domain.list_findings(self.name))
         vulns_loader = info.context.loaders['vulnerability']
 
-        self.open_vulnerabilities = vulns_loader.load_many(
-            finding_domain.filter_deleted_findings(finding_ids)).then(
+        self.open_vulnerabilities = vulns_loader.load_many(finding_ids).then(
             lambda findings: sum([
                 len([vuln for vuln in vulns
                      if vuln_domain.get_current_state(vuln) == 'open' and
@@ -129,11 +130,11 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @get_entity_cache
     def resolve_closed_vulnerabilities(self, info):
         """Resolve closed vulnerabilities attribute."""
-        finding_ids = project_domain.list_findings(self.name)
+        finding_ids = finding_domain.filter_deleted_findings(
+            project_domain.list_findings(self.name))
         vulns_loader = info.context.loaders['vulnerability']
 
-        self.closed_vulnerabilities = vulns_loader.load_many(
-            finding_domain.filter_deleted_findings(finding_ids)).then(
+        self.closed_vulnerabilities = vulns_loader.load_many(finding_ids).then(
             lambda findings: sum([
                 len([vuln for vuln in vulns
                      if vuln_domain.get_current_state(vuln) == 'closed' and
@@ -164,7 +165,8 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @get_entity_cache
     def resolve_max_severity(self, info):
         """Resolve maximum severity attribute."""
-        finding_ids = project_domain.list_findings(self.name)
+        finding_ids = finding_domain.filter_deleted_findings(
+            project_domain.list_findings(self.name))
         findings_loader = info.context.loaders['finding']
 
         self.max_severity = findings_loader.load_many(finding_ids).then(
@@ -196,7 +198,8 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     @get_entity_cache
     def resolve_total_findings(self, info):
         """Resolve total findings attribute."""
-        finding_ids = project_domain.list_findings(self.name)
+        finding_ids = finding_domain.filter_deleted_findings(
+            project_domain.list_findings(self.name))
         findings_loader = info.context.loaders['finding']
         findings = findings_loader.load_many(finding_ids).then(
             lambda findings: [finding for finding in findings
@@ -292,7 +295,8 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """ Resolve drafts attribute """
         util.cloudwatch_log(info.context, 'Security: Access to {project} '
                             'drafts'.format(project=self.name))
-        finding_ids = project_domain.list_drafts(self.name)
+        finding_ids = finding_domain.filter_deleted_findings(
+            project_domain.list_drafts(self.name))
         findings_loader = info.context.loaders['finding']
         self.drafts = findings_loader.load_many(finding_ids).then(
             lambda drafts: [draft for draft in drafts

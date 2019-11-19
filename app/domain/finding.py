@@ -605,10 +605,8 @@ def send_finding_delete_mail(
 
 
 def filter_deleted_findings(findings_ids):
-    findings = [get_finding(finding_id) for finding_id in findings_ids]
-    return [finding['findingId'] for finding in findings
-            if finding.get('submissionHistory', [{}])[-1].get(
-                'status') != 'DELETED']
+    return [finding_id for finding_id in findings_ids
+            if validate_finding(finding_id)]
 
 
 def delete_finding(finding_id, project_name, justification, context):
@@ -682,7 +680,7 @@ def approve_draft(draft_id, reviewer_email):
 def get_finding(finding_id):
     """Retrieves and formats finding attributes"""
     finding = finding_dal.get_finding(finding_id)
-    if not finding:
+    if not finding or not validate_finding(finding=finding):
         raise FindingNotFound()
 
     return finding_utils.format_data(finding)
@@ -690,8 +688,8 @@ def get_finding(finding_id):
 
 def get_findings(finding_ids):
     """Retrieves all attributes for the requested findings"""
-    findings = [get_finding(finding_id) for finding_id in finding_ids]
-
+    findings = [get_finding(finding_id) for finding_id in finding_ids
+                if validate_finding(finding_id=finding_id)]
     return findings
 
 
@@ -923,3 +921,11 @@ def evidence_exceeds_size(uploaded_file, evidence_type, context):
 Attempted to upload an unknown type of evidence')
         raise InvalidFileSize()
     return size
+
+
+def validate_finding(finding_id=0, finding=None):
+    """Validate if a finding is not deleted."""
+    if not finding:
+        finding = finding_dal.get_finding(finding_id)
+    return finding.get(
+        'submission_history', [{}])[-1].get('status', '') != 'DELETED'
