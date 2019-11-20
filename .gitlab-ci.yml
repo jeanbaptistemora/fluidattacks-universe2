@@ -794,3 +794,29 @@ user-provision-integrates-terraform-apply:
     - master
   except:
     - schedules
+
+autoscaling-ci-terraform-lint:
+  stage: tests
+  image: registry.gitlab.com/fluidattacks/serves:builder
+  script:
+    - ./ci-scripts/jobs/autoscaling-ci-terraform-lint.sh
+  except:
+    - schedules
+
+autoscaling-ci-terraform-plan:
+  stage: tests
+  image: registry.gitlab.com/fluidattacks/serves:builder
+  script:
+    - ./ci-scripts/jobs/autoscaling-ci-terraform-plan.sh
+  except:
+    - schedules
+
+autoscaling-ci-terraform-apply:
+  stage: deploy
+  image: registry.gitlab.com/fluidattacks/serves:builder
+  script:
+    - ./ci-scripts/jobs/autoscaling-ci-terraform-apply.sh
+  only:
+    - master
+  except:
+    - schedules
