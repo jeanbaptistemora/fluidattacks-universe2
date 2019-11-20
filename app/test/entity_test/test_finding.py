@@ -22,7 +22,7 @@ class FindingTests(TestCase):
     def test_delete_finding(self):
         query = '''
           mutation {
-            deleteFinding(findingId: "560175507", justification: FINDING_CHANGED) {
+            deleteFinding(findingId: "560175507", justification: NOT_REQUIRED) {
               success
             }
           }
