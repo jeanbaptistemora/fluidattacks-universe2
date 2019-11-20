@@ -46,6 +46,7 @@ in +Fluid Attacks+ office.
 . By *6:00 PM* of each training day,
 you must have sent at least one accepted-into-master +MR+,
 or a standard progress report if the +MR+ has been rejected.
+You can fill your standard progress report through [inner]#link:https://fluidattacks.com/forms/avance[This link]#.
 . You may then continue training and reporting your work time,
 done outside of the office,
 from a location of your choice,
