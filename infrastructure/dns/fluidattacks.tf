@@ -147,14 +147,6 @@ resource "aws_route53_record" "vault" {
   records = ["fluidattacks.com"]
 }
 
-resource "aws_route53_record" "wire-gitlab-bot" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "wire-gitlab-bot.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["fluidattacks.com"]
-}
-
 resource "aws_route53_record" "www" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "www.${aws_route53_zone.fs_maindomain.name}"
@@ -184,23 +176,7 @@ resource "aws_route53_record" "mattermost" {
   name    = "chat.${aws_route53_zone.fs_maindomain.name}"
   type    = "CNAME"
   ttl     = "300"
-  records = ["pokac7.stackhero-network.com"]
-}
-
-resource "aws_route53_record" "mattermost_dkim" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "dkim._domainkey.chat.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["dkim._domainkey.pokac7.stackhero-network.com"]
-}
-
-resource "aws_route53_record" "mattermost_dmarc" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "_dmarc.chat.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["_dmarc.stackhero-network.com"]
+  records = ["fluidattacks.com"]
 }
 
 # MX Records
