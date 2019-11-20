@@ -7,9 +7,8 @@ stages:
   - post-deploy
 
 deps-mobile:
-  tags:
-    - mobile
   stage: deps-base
+  tags: [mobile]
   image: fluidattacks/alpine-kaniko:latest
   script:
     - ./ci-scripts/jobs/deps-mobile.sh
@@ -31,6 +30,7 @@ deps-development:
 
 test-terraform:
   stage: test
+  tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/test-terraform.sh
@@ -87,12 +87,11 @@ test-app:
 
 asserts-static:
   stage: test
+  tags: [mobile]
   needs: [deps-development]
   image:
     name: fluidattacks/break-build
     entrypoint: [""]
-  tags:
-    - mobile
   before_script:
     - docker pull fluidattacks/break-build
   script:
@@ -106,6 +105,7 @@ asserts-static:
 
 commitlint:
   stage: test
+  tags: [autoscaling]
   image: starefossen/ruby-node:2-10
   script:
     - npm install --unsafe-perm
@@ -113,6 +113,7 @@ commitlint:
 
 build-terraform:
   stage: build
+  tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/build-terraform.sh
@@ -146,6 +147,7 @@ build-bot:
 
 danger:
   stage: mr-check
+  tags: [autoscaling]
   image: fluidattacks/danger-ruby
   dependencies:
     - test-terraform
@@ -156,6 +158,7 @@ danger:
 
 coverage-report:
   stage: mr-check
+  tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   dependencies:
     - test-app
@@ -171,6 +174,7 @@ coverage-report:
 
 ephemeral-app:
   stage: deploy
+  tags: [autoscaling]
   needs: [build-app,deps-development]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
@@ -186,6 +190,7 @@ ephemeral-app:
 
 stop-ephemeral-app:
   stage: deploy
+  tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   environment:
     name: review/$CI_COMMIT_REF_SLUG
@@ -199,6 +204,7 @@ stop-ephemeral-app:
 
 deploy-k8s:
   stage: deploy
+  tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   environment:
     name: "production"
@@ -210,9 +216,8 @@ deploy-k8s:
     - master
 
 deploy-mobile:
-  tags:
-    - mobile
   stage: deploy
+  tags: [mobile]
   needs: [deps-mobile]
   image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:master
   script:
@@ -234,6 +239,7 @@ deploy-mobile:
 
 test-driver-dev:
   stage: post-deploy
+  tags: [autoscaling]
   needs: [ephemeral-app]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
@@ -253,6 +259,7 @@ test-driver-dev:
 
 test-driver-prod:
   stage: post-deploy
+  tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:master
   script:
     - . ci-scripts/helpers/others.sh && vault_login
@@ -271,11 +278,10 @@ test-driver-prod:
 
 asserts-dynamic:
   stage: post-deploy
+  tags: [mobile]
   image:
     name: fluidattacks/break-build
     entrypoint: [""]
-  tags:
-    - mobile
   before_script:
     - docker pull fluidattacks/break-build
   script:
@@ -289,6 +295,7 @@ asserts-dynamic:
 
 new-version-mail:
   stage: post-deploy
+  tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   dependencies:
     - build-app
@@ -303,6 +310,7 @@ new-version-mail:
 
 clean-registry-caches:
   stage: post-deploy
+  tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - . ci-scripts/helpers/others.sh && vault_login
