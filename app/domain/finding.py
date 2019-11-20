@@ -562,9 +562,9 @@ def reject_draft(draft_id, reviewer_email):
             tzn = pytz.timezone(settings.TIME_ZONE)
             rejection_date = datetime.now(tz=tzn).today()
             rejection_date = rejection_date.strftime('%Y-%m-%d %H:%M:%S')
-            history[-1].update({
-                'review_date': rejection_date,
-                'reviewer': reviewer_email,
+            history.append({
+                'date': rejection_date,
+                'analyst': reviewer_email,
                 'status': 'REJECTED'
             })
 
@@ -618,9 +618,9 @@ def delete_finding(finding_id, project_name, justification, context):
         tzn = pytz.timezone(settings.TIME_ZONE)
         delete_date = datetime.now(tz=tzn).today()
         delete_date = delete_date.strftime('%Y-%m-%d %H:%M:%S')
-        submission_history[-1].update({
+        submission_history.append({
             'status': 'DELETED',
-            'deletion_date': delete_date,
+            'date': delete_date,
             'justification': justification,
             'analyst': util.get_jwt_content(context)['user_email'],
         })
@@ -656,9 +656,9 @@ def approve_draft(draft_id, reviewer_email):
                 release_date = datetime.now(tz=tzn).today()
                 release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
                 history = draft_data.get('submissionHistory', [{}])
-                history[-1].update({
-                    'review_date': release_date,
-                    'reviewer': reviewer_email,
+                history.append({
+                    'date': release_date,
+                    'analyst': reviewer_email,
                     'status': 'APPROVED'
                 })
 
@@ -762,7 +762,7 @@ def create_draft(info, project_name, title, **kwargs):
     user_data = util.get_jwt_content(info.context)
     analyst_email = user_data['user_email']
     submission_history = {'analyst': analyst_email,
-                          'creation_date': creation_date,
+                          'date': creation_date,
                           'status': 'CREATED'}
     if util.is_api_token(user_data):
         submission_history.update({
@@ -839,7 +839,7 @@ def submit_draft(finding_id, analyst_email):
                 history = finding.get('submissionHistory', [])
                 history.append({
                     'analyst': analyst_email,
-                    'report_date': report_date,
+                    'date': report_date,
                     'status': 'SUBMITTED'
                 })
 
