@@ -833,7 +833,9 @@ def submit_draft(finding_id, analyst_email):
             has_vulns = vuln_domain.list_vulnerabilities([finding_id])
 
             if all([has_evidence, has_severity, has_vulns]):
-                report_date = submission_history[0].get('creation_date')
+                tzn = pytz.timezone(settings.TIME_ZONE)
+                report_date = datetime.now(tz=tzn).today()
+                report_date = report_date.strftime('%Y-%m-%d %H:%M:%S')
                 history = finding.get('submissionHistory', [])
                 history.append({
                     'analyst': analyst_email,
