@@ -6,6 +6,14 @@ variable "region" {
 }
 
 #
+# Constants
+#
+
+variable "autoscaling_ci_s3_cache_bucket" {
+  default = "autoscaling-ci-cache"
+}
+
+#
 # Reused infrastructure from other services
 #
 
