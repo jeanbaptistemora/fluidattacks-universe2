@@ -194,7 +194,8 @@ class UpdateRepositories(Mutation):
             resources.send_mail(project_name,
                                 user_email,
                                 json_data,
-                                'activated' if repo_list[cont]['historic_state'][-1]['state'] == 'ACTIVE'
+                                'activated'
+                                if repo_list[cont]['historic_state'][-1]['state'] == 'ACTIVE'
                                 else 'deactivated',
                                 'repository')
             success = True

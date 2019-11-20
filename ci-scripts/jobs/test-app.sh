@@ -1,14 +1,6 @@
 #!/usr/bin/env bash
 
-# Runs linters and unit tests on app
-
-# Linters
-run_lint () {
-    RETVAL=0
-    prospector -F -s high -u django -i node_modules app/ || RETVAL=1 &
-    prospector -F -s veryhigh -u django -i node_modules fluidintegrates/ || RETVAL=1 &
-    return $RETVAL
-}
+# Runs unit tests on app
 
 provision_mock () {
     service redis-server start
@@ -59,6 +51,5 @@ run_unit_test () {
     return $RETVAL
 }
 
-run_lint || exit 1
 provision_mock
 run_unit_test || exit 1
