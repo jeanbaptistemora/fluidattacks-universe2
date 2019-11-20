@@ -43,8 +43,27 @@ data "aws_iam_policy_document" "cloudfront_s3_access" {
       "s3:GetObject"
     ]
     resources = [
-      "${aws_s3_bucket.fi_evidences_bucket.arn}/*",
       "${aws_s3_bucket.fi_resources_bucket.arn}/*"
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = [
+        aws_cloudfront_origin_access_identity.cloudfront_identity.iam_arn
+      ]
+    }
+  }
+}
+
+data "aws_iam_policy_document" "cloudfront_s3_evidences_access" {
+  statement {
+    sid       = "CloudFrontAccess"
+    effect    = "Allow"
+    actions   = [
+      "s3:GetObject"
+    ]
+    resources = [
+      "${aws_s3_bucket.fi_evidences_bucket.arn}/*"
     ]
 
     principals {
@@ -58,7 +77,7 @@ data "aws_iam_policy_document" "cloudfront_s3_access" {
 
 resource "aws_s3_bucket_policy" "fi_evidences_bucket_policy" {
   bucket = aws_s3_bucket.fi_evidences_bucket.id
-  policy = data.aws_iam_policy_document.cloudfront_s3_access.json
+  policy = data.aws_iam_policy_document.cloudfront_s3_evidences_access.json
 }
 
 resource "aws_s3_bucket_policy" "fi_resources_bucket_policy" {
