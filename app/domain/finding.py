@@ -631,9 +631,8 @@ def delete_finding(finding_id, project_name, justification, context):
         if success:
             justification_dict = {
                 'DUPLICATED': 'It is duplicated',
-                'CHANGE_EVIDENCE': 'Change of evidence',
-                'FINDING_CHANGED': 'Finding has changed',
-                'NOT_VULNERABILITY': 'It is not a Vulnerability',
+                'FALSE_POSITIVE': 'It is a false positive',
+                'NOT_REQUIRED': 'Finding not required',
             }
             send_finding_delete_mail(
                 finding_id, finding_data['finding'], project_name,

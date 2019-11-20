@@ -772,9 +772,8 @@ class DeleteFinding(Mutation):
         justification = Argument(
             Enum('DeleteFindingJustification', [
                 ('DUPLICATED', 'DUPLICATED'),
-                ('CHANGE_EVIDENCE', 'CHANGE_EVIDENCE'),
-                ('FINDING_CHANGED', 'FINDING_CHANGED'),
-                ('NOT_VULNERABILITY', 'NOT_VULNERABILITY')]), required=True)
+                ('FALSE_POSITIVE', 'FALSE_POSITIVE'),
+                ('NOT_REQUIRED', 'NOT_REQUIRED')]), required=True)
     success = Boolean()
 
     @require_login

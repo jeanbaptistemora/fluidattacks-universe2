@@ -8,6 +8,7 @@ const enTranslations: dict = {
   },
   delete_vulns: {
     not_success: "Vulnerability could not be eliminated",
+    reporting_error: "Error while reporting",
     title: "Delete Vulnerability",
   },
   forms: {
@@ -214,10 +215,9 @@ const enTranslations: dict = {
     delete: {
       justif: {
         duplicated: "It is duplicated",
-        evidence_change: "Change of evidence",
-        finding_change: "Finding has changed",
+        false_positive: "It is a false positive",
         label: "Justification",
-        not_vuln: "It is not a Vulnerability",
+        not_required: "Finding not required",
       },
       title: "Delete Finding",
     },
