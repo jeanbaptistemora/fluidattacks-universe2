@@ -50,9 +50,9 @@ try:
     BREAK_BUILD_TRIGGER_REF = os.environ['BREAK_BUILD_TRIGGER_REF']
     BREAK_BUILD_TRIGGER_TOKEN = os.environ['BREAK_BUILD_TRIGGER_TOKEN']
 
-    #not secrets but must be environ vars
+    # not secrets but must be environ vars
     FI_AWS_REDSHIFT_PORT = 5439
-    FI_AWS_S3_BUCKET = 'fluidintegrates.fluidattacks.com'
+    FI_AWS_S3_BUCKET = 'fluidintegrates.evidences'
     FI_AWS_S3_RESOURCES_BUCKET = 'fluidintegrates.resources'
 except KeyError as e:
     print("Environment variable " + e.args[0] + " doesn't exist")

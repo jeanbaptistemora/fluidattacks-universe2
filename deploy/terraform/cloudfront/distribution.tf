@@ -19,8 +19,45 @@ resource "aws_cloudfront_distribution" "fi_resources_cloudfront" {
     }
   }
 
+  origin {
+    origin_id   = "S3-fluidintegrates.evidences"
+    domain_name = aws_s3_bucket.fi_evidences_bucket.bucket_domain_name
+
+    s3_origin_config {
+      origin_access_identity = aws_cloudfront_origin_access_identity.cloudfront_identity.cloudfront_access_identity_path
+    }
+  }
+
   default_cache_behavior {
     target_origin_id       = "S3-fluidintegrates.resources"
+    compress               = true
+    viewer_protocol_policy = "redirect-to-https"
+    smooth_streaming       = false
+
+    allowed_methods = [
+      "GET",
+      "HEAD"
+    ]
+    cached_methods  = [
+      "GET",
+      "HEAD"
+    ]
+    trusted_signers = [
+      "self"
+    ]
+
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward    = "none"
+      }
+    }
+  }
+
+  ordered_cache_behavior {
+    path_pattern           = "/evidences/*"
+    target_origin_id       = "S3-fluidintegrates.evidences"
     compress               = true
     viewer_protocol_policy = "redirect-to-https"
     smooth_streaming       = false
