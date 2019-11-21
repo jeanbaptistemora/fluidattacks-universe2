@@ -820,3 +820,29 @@ autoscaling-ci-terraform-apply:
     - master
   except:
     - schedules
+
+ecr-terraform-lint:
+  stage: tests
+  image: registry.gitlab.com/fluidattacks/serves:builder
+  script:
+    - ./ci-scripts/jobs/ecr-terraform-lint.sh
+  except:
+    - schedules
+
+ecr-terraform-plan:
+  stage: tests
+  image: registry.gitlab.com/fluidattacks/serves:builder
+  script:
+    - ./ci-scripts/jobs/ecr-terraform-plan.sh
+  except:
+    - schedules
+
+ecr-terraform-apply:
+  stage: deploy
+  image: registry.gitlab.com/fluidattacks/serves:builder
+  script:
+    - ./ci-scripts/jobs/ecr-terraform-apply.sh
+  only:
+    - master
+  except:
+    - schedules
