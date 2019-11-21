@@ -56,7 +56,7 @@ resource "aws_cloudfront_distribution" "fi_resources_cloudfront" {
   }
 
   ordered_cache_behavior {
-    path_pattern           = "/evidences/*"
+    path_pattern           = "/*/*/*"
     target_origin_id       = "S3-fluidintegrates.evidences"
     compress               = true
     viewer_protocol_policy = "redirect-to-https"

@@ -22,7 +22,7 @@ def _batch_load_fn(event_ids):
             context=event.get('context', ''),
             detail=event.get('detail', ''),
             event_date=event.get('event_date', ''),
-            evidence_file=event.get('evidence', ''),
+            evidence_file=event.get('evidence_file', ''),
             event_status=event.get('event_status', ''),
             event_type=event.get('event_type', ''),
             evidence=event.get('evidence', ''),

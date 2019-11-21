@@ -9,12 +9,13 @@ from django.conf import settings
 import rollbar
 
 from __init__ import (
-    FI_MAIL_CONTINUOUS, FI_MAIL_PRODUCTION, FI_MAIL_PROJECTS, FI_MAIL_REPLYERS
+    FI_CLOUDFRONT_RESOURCES_DOMAIN, FI_MAIL_CONTINUOUS, FI_MAIL_PRODUCTION,
+    FI_MAIL_PROJECTS, FI_MAIL_REPLYERS
 )
 from app import util
 from app.dal import integrates_dal, event as event_dal, project as project_dal
 from app.dal.helpers.formstack import FormstackAPI
-from app.domain import comment as comment_domain
+from app.domain import comment as comment_domain, resources as resources_domain
 from app.dto.eventuality import EventDTO, migrate_event
 from app.exceptions import EventNotFound, InvalidFileSize, InvalidFileType
 from app.mailer import send_mail_comment, send_mail_new_event
@@ -228,3 +229,12 @@ def add_comment(content, event_id, parent, user_info):
         _send_comment_email(content, event_id, parent, user_info)
 
     return success
+
+
+def get_evidence_link(event_id, file_name):
+    project_name = get_event(event_id).get('project_name')
+    file_url = f'{project_name}/{event_id}/{file_name}'
+    minutes_until_expire = 1.0 / 6
+
+    return resources_domain.sign_url(
+        FI_CLOUDFRONT_RESOURCES_DOMAIN, file_url, minutes_until_expire)

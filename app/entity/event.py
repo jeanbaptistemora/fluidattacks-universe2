@@ -319,3 +319,32 @@ class UpdateEventEvidence(Mutation):
                 f'Security: Attempted to update evidence in event {event_id}')
 
         return UpdateEventEvidence(success=success)
+
+
+class DownloadEventFile(Mutation):
+    """ Generate url for the requested evidence file """
+    class Arguments():
+        event_id = String()
+        file_name = String()
+    success = Boolean()
+    url = String()
+
+    @staticmethod
+    @require_login
+    @require_role(['analyst', 'customer', 'admin'])
+    @require_event_access
+    def mutate(_, info, event_id, file_name):
+        success = False
+        signed_url = event_domain.get_evidence_link(event_id, file_name)
+
+        if signed_url:
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Downloaded file in event {event_id} succesfully')
+            success = True
+        else:
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Attempted to download file in event {event_id}')
+
+        return DownloadEventFile(success=success, url=signed_url)
