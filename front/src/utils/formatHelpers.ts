@@ -413,12 +413,12 @@ export const formatDrafts: ((dataset: IDraftsDataset) => IDraftsDataset) =
       SUBMITTED: "search_findings.draft_status.submitted",
     };
     const reportDate: string = draft.reportDate.split(" ")[0];
-    const currentStatus: string = translate.t(status[draft.currentStatus]);
+    const currentState: string = translate.t(status[draft.currentState]);
     const type: string = translate.t(typeParameters[draft.type]);
     const isExploitable: string = translate.t(Boolean(draft.isExploitable)
       ? "project.findings.boolean.True" : "project.findings.boolean.False");
 
-    return { ...draft, reportDate, type, isExploitable, currentStatus };
+    return { ...draft, reportDate, type, isExploitable, currentState };
   });
 
 export const handleErrors: ((errorText: string, errors: readonly GraphQLError[]) => void) =

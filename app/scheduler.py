@@ -420,8 +420,8 @@ def get_new_releases():
                     project_domain.list_drafts(project))
                 for finding in finding_requests:
                     if 'releaseDate' not in finding:
-                        submission = finding.get('submissionHistory')
-                        status = submission[-1].get('status')
+                        submission = finding.get('historicState')
+                        status = submission[-1].get('state')
                         category = ('unsubmitted' if status in ('CREATED', 'REJECTED')
                                     else 'unreleased')
                         email_context[category].append({

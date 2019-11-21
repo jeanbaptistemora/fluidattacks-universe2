@@ -40,7 +40,7 @@ describe("ProjectDraftsView", () => {
             __typename: "Project",
             drafts: [{
               __typename: "Finding",
-              currentStatus: "",
+              currentState: "",
               description: "Xcross site scripting - login.",
               id: "507046047",
               isExploitable: true,

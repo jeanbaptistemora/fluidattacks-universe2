@@ -10,7 +10,7 @@ export const GET_FINDING_HEADER: DocumentNode = gql`
       releaseDate
       reportDate
       title
-      submissionHistory @include(if: $submissionField)
+      historicState @include(if: $submissionField)
     }
   }
 `;

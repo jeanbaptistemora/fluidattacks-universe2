@@ -31,15 +31,13 @@ export interface IHeaderQueryResult {
   finding: {
     analyst?: string;
     closedVulns: number;
+    historicState: Array<{
+      analyst: string; date: string; state: string;
+    }>;
     id: string;
     openVulns: number;
     releaseDate: string;
     reportDate: string;
-    submissionHistory: Array<{
-      analyst: string; creation_date?: string;
-      report_date?: string; review_date?: string;
-      reviewer?: string; status?: string;
-    }>;
     title: string;
   };
 }

@@ -3,7 +3,7 @@ import { RouteComponentProps } from "react-router";
 export interface IProjectDraftsAttr {
   project: {
     drafts: Array<{
-      currentStatus: string;
+      currentState: string;
       description: string;
       id: string;
       isExploitable: string;

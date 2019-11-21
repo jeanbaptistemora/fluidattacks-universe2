@@ -14,7 +14,7 @@ export const GET_DRAFTS: DocumentNode = gql`
         openVulnerabilities
         isExploitable
         releaseDate
-        currentStatus
+        currentState
       }
     }
   }

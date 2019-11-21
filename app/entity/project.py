@@ -105,7 +105,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         findings_loader = info.context.loaders['finding']
         self.findings = findings_loader.load_many(finding_ids).then(
             lambda findings: [finding for finding in findings
-                              if finding.current_status != 'DELETED'])
+                              if finding.current_state != 'DELETED'])
 
         return self.findings
 
@@ -172,7 +172,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         self.max_severity = findings_loader.load_many(finding_ids).then(
             lambda findings: max([
                 finding.severity_score for finding in findings
-                if finding.current_status != 'DELETED'])
+                if finding.current_state != 'DELETED'])
             if findings else 0)
 
         return self.max_severity
@@ -203,7 +203,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         findings_loader = info.context.loaders['finding']
         findings = findings_loader.load_many(finding_ids).then(
             lambda findings: [finding for finding in findings
-                              if finding.current_status != 'DELETED'])
+                              if finding.current_state != 'DELETED'])
         self.total_findings = findings.then(len)
 
         return self.total_findings
@@ -300,7 +300,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         findings_loader = info.context.loaders['finding']
         self.drafts = findings_loader.load_many(finding_ids).then(
             lambda drafts: [draft for draft in drafts
-                            if draft.current_status != 'DELETED'])
+                            if draft.current_state != 'DELETED'])
 
         return self.drafts
 

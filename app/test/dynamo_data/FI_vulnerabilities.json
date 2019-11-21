@@ -1273,7 +1273,7 @@
                               "S" : "DELETED"
                            },
                            "justification" : {
-                              "S" : "NOT_VULNERABILITY"
+                              "S" : "FALSE_POSITIVE"
                            }
                         }
                      }

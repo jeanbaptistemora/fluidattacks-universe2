@@ -553,8 +553,8 @@ def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_nam
 
 def reject_draft(draft_id, reviewer_email):
     draft_data = get_finding(draft_id)
-    history = draft_data.get('submissionHistory', [{}])
-    status = history[-1].get('status')
+    history = draft_data.get('historicState', [{}])
+    status = history[-1].get('state')
     success = False
 
     if 'releaseDate' not in draft_data:
@@ -565,12 +565,12 @@ def reject_draft(draft_id, reviewer_email):
             history.append({
                 'date': rejection_date,
                 'analyst': reviewer_email,
-                'status': 'REJECTED'
+                'state': 'REJECTED'
             })
 
             success = finding_dal.update(draft_id, {
                 'release_date': None,
-                'submission_history': history
+                'historic_state': history
             })
             if success:
                 send_draft_reject_mail(
@@ -611,21 +611,21 @@ def filter_deleted_findings(findings_ids):
 
 def delete_finding(finding_id, project_name, justification, context):
     finding_data = get_finding(finding_id)
-    submission_history = finding_data.get('submissionHistory', [{}])
+    submission_history = finding_data.get('historicState', [{}])
     success = False
 
-    if submission_history[-1].get('status') != 'DELETED':
+    if submission_history[-1].get('state') != 'DELETED':
         tzn = pytz.timezone(settings.TIME_ZONE)
         delete_date = datetime.now(tz=tzn).today()
         delete_date = delete_date.strftime('%Y-%m-%d %H:%M:%S')
         submission_history.append({
-            'status': 'DELETED',
+            'state': 'DELETED',
             'date': delete_date,
             'justification': justification,
             'analyst': util.get_jwt_content(context)['user_email'],
         })
         success = finding_dal.update(finding_id, {
-            'submission_history': submission_history
+            'historic_state': submission_history
         })
 
         if success:
@@ -643,29 +643,29 @@ def delete_finding(finding_id, project_name, justification, context):
 
 def approve_draft(draft_id, reviewer_email):
     draft_data = get_finding(draft_id)
-    submission_history = draft_data.get('submissionHistory')
+    submission_history = draft_data.get('historicState')
     release_date = None
     success = False
 
     if 'releaseDate' not in draft_data and \
-       submission_history[-1].get('status') != 'DELETED':
+       submission_history[-1].get('state') != 'DELETED':
         has_vulns = vuln_domain.list_vulnerabilities([draft_id])
         if has_vulns:
             if 'reportDate' in draft_data:
                 tzn = pytz.timezone(settings.TIME_ZONE)
                 release_date = datetime.now(tz=tzn).today()
                 release_date = release_date.strftime('%Y-%m-%d %H:%M:%S')
-                history = draft_data.get('submissionHistory', [{}])
+                history = draft_data.get('historicState', [{}])
                 history.append({
                     'date': release_date,
                     'analyst': reviewer_email,
-                    'status': 'APPROVED'
+                    'state': 'APPROVED'
                 })
 
                 success = finding_dal.update(draft_id, {
                     'lastVulnerability': release_date,
                     'releaseDate': release_date,
-                    'submission_history': history
+                    'historic_state': history
                 })
             else:
                 raise NotSubmitted()
@@ -763,7 +763,7 @@ def create_draft(info, project_name, title, **kwargs):
     analyst_email = user_data['user_email']
     submission_history = {'analyst': analyst_email,
                           'date': creation_date,
-                          'status': 'CREATED'}
+                          'state': 'CREATED'}
     if util.is_api_token(user_data):
         submission_history.update({
             'analyst': f'api-{analyst_email}',
@@ -787,7 +787,7 @@ def create_draft(info, project_name, title, **kwargs):
         'files': [],
         'finding': title,
         'report_date': creation_date,
-        'submission_history': [submission_history]
+        'historic_state': [submission_history]
     })
 
     return finding_dal.create(finding_id, project_name, finding_attrs)
@@ -819,11 +819,11 @@ def send_new_draft_mail(
 def submit_draft(finding_id, analyst_email):
     success = False
     finding = get_finding(finding_id)
-    submission_history = finding.get('submissionHistory')
+    submission_history = finding.get('historicState')
 
     if 'releaseDate' not in finding and \
-       submission_history[-1].get('status') != 'DELETED':
-        is_submitted = submission_history[-1].get('status') == 'SUBMITTED'
+       submission_history[-1].get('state') != 'DELETED':
+        is_submitted = submission_history[-1].get('state') == 'SUBMITTED'
         if not is_submitted:
             evidence_list = [finding['evidence'].get(ev_name)
                              for ev_name in finding['evidence']]
@@ -836,16 +836,16 @@ def submit_draft(finding_id, analyst_email):
                 tzn = pytz.timezone(settings.TIME_ZONE)
                 report_date = datetime.now(tz=tzn).today()
                 report_date = report_date.strftime('%Y-%m-%d %H:%M:%S')
-                history = finding.get('submissionHistory', [])
+                history = finding.get('historicState', [])
                 history.append({
                     'analyst': analyst_email,
                     'date': report_date,
-                    'status': 'SUBMITTED'
+                    'state': 'SUBMITTED'
                 })
 
                 success = finding_dal.update(finding_id, {
                     'report_date': report_date,
-                    'submission_history': history
+                    'historic_state': history
                 })
                 if success:
                     send_new_draft_mail(analyst_email,
@@ -929,4 +929,4 @@ def validate_finding(finding_id=0, finding=None):
     if not finding:
         finding = finding_dal.get_finding(finding_id)
     return finding.get(
-        'submission_history', [{}])[-1].get('status', '') != 'DELETED'
+        'historic_state', [{}])[-1].get('state', '') != 'DELETED'

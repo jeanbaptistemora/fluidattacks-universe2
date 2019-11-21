@@ -42,7 +42,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     comments = List(Comment)
     compromised_attributes = String()
     compromised_records = Int()
-    current_status = String()
+    current_state = String()
     cvss_version = String()
     cwe_url = String()
     description = String()
@@ -65,7 +65,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     severity = GenericScalar()
     severity_score = Float()
     state = String()
-    submission_history = List(GenericScalar)
+    historic_state = List(GenericScalar)
     threat = String()
     title = String()
     tracking = List(GenericScalar)
@@ -210,10 +210,10 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
     @require_role(['analyst', 'admin'])
     @get_entity_cache
-    def resolve_submission_history(self, info):
+    def resolve_historic_state(self, info):
         """ Resolve submission history of a draft """
         del info
-        return self.submission_history
+        return self.historic_state
 
     @require_role(['analyst', 'admin'])
     @get_entity_cache
@@ -375,10 +375,10 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.acceptance_date
 
-    def resolve_current_status(self, info):
+    def resolve_current_state(self, info):
         """Resolve vulnerabilities attribute."""
         del info
-        return self.current_status
+        return self.current_state
 
 
 class RemoveEvidence(Mutation):
