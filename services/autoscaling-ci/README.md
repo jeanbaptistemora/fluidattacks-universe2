@@ -25,7 +25,6 @@ MaxBuilds  = Builds count after which machine will be removed
 # Rules
 
 0. The **gitlab-runner** goal is to keep `limit <= concurrent + idle`
-0. Therefore you should set it so `limit > concurrent + idle`
 0. Set IdleCount to the max number of parallel jobs run in an Integration pipeline
 0. set the spot instance purchase to the maximum alive time
 
@@ -34,7 +33,7 @@ and just control limit and idle
 
 # Docker in Docker
 
-To enable it append the following in the **config.toml*
+To enable it append the following in the *config.toml*
 
 ```toml
 # ...
@@ -59,7 +58,7 @@ and kill the machine.
 
 # SPOT instances
 
-To enable it append the following in the **config.toml*
+To enable it append the following in the *config.toml*
 
 ```toml
 # ...
