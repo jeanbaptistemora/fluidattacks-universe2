@@ -16,6 +16,7 @@ deps-mobile:
 
 deps-production:
   stage: deps-base
+  tags: [autoscaling-large]
   image: fluidattacks/alpine-kaniko:latest
   script:
     - ./ci-scripts/jobs/deps-production.sh
@@ -23,6 +24,7 @@ deps-production:
 
 deps-development:
   stage: deps-base
+  tags: [autoscaling-large]
   image: fluidattacks/alpine-kaniko:latest
   script:
     - ./ci-scripts/jobs/deps-development.sh
@@ -46,6 +48,7 @@ test-terraform:
 
 test-front:
   stage: test
+  tags: [autoscaling-large]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/test-front.sh
@@ -61,6 +64,7 @@ test-front:
 
 test-mobile:
   stage: test
+  tags: [autoscaling-large]
   needs: [deps-mobile]
   image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:master
   script:
@@ -69,6 +73,7 @@ test-mobile:
 
 test-app:
   stage: test
+  tags: [autoscaling-large]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - . ci-scripts/helpers/others.sh && vault_login
@@ -87,6 +92,7 @@ test-app:
 
 lint-app:
   stage: test
+  tags: [autoscaling-large]
   needs: [deps-development]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
@@ -135,6 +141,7 @@ build-terraform:
 
 build-app:
   stage: build
+  tags: [autoscaling-large]
   needs: [deps-development]
   image:
     name: gcr.io/kaniko-project/executor:debug
@@ -143,13 +150,14 @@ build-app:
     - sh ci-scripts/jobs/build-app.sh
   retry: 1
   artifacts:
-    expire_in: 30m
+    expire_in: 1 day
     paths:
       - version.txt
     when: on_success
 
 build-bot:
   stage: build
+  tags: [autoscaling-large]
   needs: [deps-development]
   image:
     name: gcr.io/kaniko-project/executor:debug
