@@ -4,6 +4,7 @@
 
 # standard imports
 import csv
+import os
 import time
 import json
 import functools
@@ -83,12 +84,13 @@ def get_aws_client(service: str,
     """
     final_kwargs = {'region_name': 'us-east-1'}
     final_kwargs.update(**kwargs)
-
     return boto3.client(
         service,
         aws_access_key_id=key_id,
         aws_secret_access_key=secret,
-        **final_kwargs)
+        endpoint_url=os.environ.get(
+            f'AWS_${service.upper()}_ENDPOINT_URL', None),
+        ** final_kwargs)
 
 
 @retry_on_errors
