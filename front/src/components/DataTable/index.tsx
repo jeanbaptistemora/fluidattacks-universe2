@@ -150,14 +150,14 @@ const changeFormatter: ((value: string, row: { [key: string]: string }, key: IHe
   };
 
   return (
-      <BootstrapSwitchButton
-        onChange={handleOnChange}
-        checked={!("state" in row) || row.state !== "INACTIVE"}
-        onstyle="danger"
-        onlabel="Active"
-        offlabel="Inactive"
-        style="btn-block"
-      />
+    <BootstrapSwitchButton
+      onChange={handleOnChange}
+      checked={!("state" in row) || row.state !== "INACTIVE"}
+      onstyle="danger"
+      onlabel="Active"
+      offlabel="Inactive"
+      style="btn-block"
+    />
     );
   };
 

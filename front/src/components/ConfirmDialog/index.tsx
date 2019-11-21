@@ -35,10 +35,10 @@ type IConfirmDialogProps = IConfirmDialogBaseProps & (IConfirmDialogStateProps &
 
 export const confirmDialog: React.FC<IConfirmDialogProps> = (props: IConfirmDialogProps): JSX.Element => {
   const handleClose: (() => void) = (): void => {
-    props.onClose();
     if (props.onNotProceed !== undefined) {
       props.onNotProceed();
     }
+    props.onClose();
   };
   const handleProceed: (() => void) = (): void => {
     props.onProceed();

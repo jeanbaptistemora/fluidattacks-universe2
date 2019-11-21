@@ -30,7 +30,7 @@ import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
 import { ADD_ENVS_MUTATION, ADD_REPOS_MUTATION, ADD_TAGS_MUTATION, GET_ENVIRONMENTS, GET_REPOSITORIES,
   GET_TAGS, REMOVE_ENV_MUTATION, REMOVE_TAG_MUTATION, UPDATE_REPO_MUTATION } from "./queries";
-import { IAddEnvAttr, IAddReposAttr, IAddTagsAttr, IEnvironmentsAttr, IProjectTagsAttr, IRemoveEnvAttr,
+import { IAddEnvAttr, IAddReposAttr, IAddTagsAttr, IEnvironmentsAttr, IHistoricState, IProjectTagsAttr, IRemoveEnvAttr,
   IRemoveTagsAttr, IRepositoriesAttr, IResourcesAttr, IResourcesViewBaseProps, IResourcesViewDispatchProps,
   IResourcesViewProps, IResourcesViewStateProps, IUpdateRepoAttr } from "./types";
 
@@ -371,6 +371,7 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
             hidePreloader();
             let repos: IRepositoriesAttr[] = JSON.parse(data.resources.repositories);
             repos = repos.map((repo: IRepositoriesAttr) => {
+              repo.state = "ACTIVE";
               if ("historic_state" in repo) {
                 repo.state = repo.historic_state[repo.historic_state.length - 1].state;
               }
@@ -381,8 +382,6 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
             const handleMtUpdateRepoRes: ((mtResult: IUpdateRepoAttr) => void) = (mtResult: IUpdateRepoAttr): void => {
               if (!_.isUndefined(mtResult)) {
                 if (mtResult.updateRepositories.success) {
-                  refetch()
-                    .catch();
                   hidePreloader();
                   mixpanel.track(
                     "RemoveProjectRepo",
@@ -450,19 +449,11 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                             if ((auxRepo.state === "INACTIVE" && button.classList.contains("on")) ||
                                 (auxRepo.state === "ACTIVE" && button.classList.contains("off"))) {
                               if (button.classList.contains("off")) {
-                                button.classList.remove("off");
-                                button.classList.remove("btn-light");
-                                button.classList.remove("btn-block");
-                                button.classList.add("on");
-                                button.classList.add("btn-danger");
-                                button.classList.add("btn-block");
+                                button.classList.replace("off", "on");
+                                button.classList.replace("btn-light", "btn-danger");
                               } else {
-                                button.classList.remove("on");
-                                button.classList.remove("btn-danger");
-                                button.classList.remove("btn-block");
-                                button.classList.add("off");
-                                button.classList.add("btn-light");
-                                button.classList.add("btn-block");
+                                button.classList.replace("on", "off");
+                                button.classList.replace("btn-danger", "btn-light");
                               }
                             }
                             break;
@@ -473,6 +464,10 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                       const handleUpdateRepoStateClick: (() => void) = (): void => {
                         updateRepositories({ variables: { projectName, repoData: JSON.stringify(auxRepo)} })
                           .catch();
+                        if (auxRepo !== undefined) {
+                          auxRepo.state = auxRepo.state === "INACTIVE" ? "ACTIVE" : "INACTIVE";
+                        }
+                        changeSwitchButtonStatus();
                       };
 
                       const handleUpdateRepoStateClickRevert: (() => void) = (): void => {
@@ -482,10 +477,16 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                       const handleUpdateRepo: ((repoInfo: { [key: string]: string } | undefined) => void) =
                       (repoInfo: { [key: string]: string } | undefined): void => {
                         if (repoInfo !== undefined) {
+                          let repoLastState: string = repoInfo.state;
+                          if ("historic_state" in repoInfo) {
+                            repoLastState = (
+                              repoInfo.historic_state[repoInfo.historic_state.length - 1] as unknown as IHistoricState)
+                              .state;
+                          }
                           const repoUpdated: {[value: string]: string | null} = {
                             branch: repoInfo.branch,
                             protocol: repoInfo.protocol,
-                            state: repoInfo.state,
+                            state: repoLastState,
                             urlRepo: repoInfo.urlRepo,
                           };
                           auxRepo = repoUpdated;
