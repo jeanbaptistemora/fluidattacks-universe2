@@ -19,14 +19,14 @@ deps_mobile() {
     'mobile/package.json'
     'mobile/Gemfile'
     'deploy/containers/deps-mobile/Dockerfile'
-    'ci-scripts/jobs/deps-mobile.sh'
+    # 'ci-scripts/jobs/deps-mobile.sh'
   )
 
   if check_file_changed "${FILES[@]}" \
     || [ $SCHEDULE ]; then
       kaniko_build \
         "$NAME" \
-        eph=false \
+        eph=true \
         cache=true
   else
     echo "No relevant files for $NAME were modified. Skipping build."
