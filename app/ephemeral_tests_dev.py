@@ -1,4 +1,5 @@
 import os
+import shutil
 import tarfile
 import time
 import unittest
@@ -6,8 +7,7 @@ import unittest
 import boto3
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -18,23 +18,28 @@ class ViewTestCase(unittest.TestCase):
 
     def setUp(self):
         s3_bucket = 'fluidintegrates.resources'
-        profile_path = os.path.join(os.getcwd(), 'selenium_profile.default')
+        profile_path = '/root/.config/google-chrome/Default'
         if not os.path.exists(profile_path):
             session = boto3.Session(
                 aws_access_key_id=os.environ['FI_AWS_S3_ACCESS_KEY'],
                 aws_secret_access_key=os.environ['FI_AWS_S3_SECRET_KEY'])
             s3_sess = session.resource('s3')
             s3_sess.Bucket(s3_bucket).download_file(
-                'selenium/selenium_profile.tar.gz', 'profile.tar.gz')
+                'selenium/chrome-selenium-profile.tar.gz', 'profile.tar.gz')
             with tarfile.open('profile.tar.gz') as tar:
                 tar.extractall()
+            profile_src = os.getcwd() + '/Default'
+            profile_dest = '/root/.config/google-chrome/Default'
+            shutil.move(profile_src, profile_dest)
         options = Options()
-        profile = FirefoxProfile(profile_path)
+        options.add_argument('--user-data-dir=/root/.config/google-chrome')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-setuid-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
         options.headless = True
         self.delay = 20
-        self.selenium = webdriver.Firefox(
-            firefox_profile=profile,
-            options=options)
+        self.selenium = webdriver.Chrome('/usr/bin/chromedriver',
+                                         options=options)
         self.branch = os.environ['CI_COMMIT_REF_NAME']
         if self.branch == 'master':
             self.url = 'https://fluidattacks.com/integrates'

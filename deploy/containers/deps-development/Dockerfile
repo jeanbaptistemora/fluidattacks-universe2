@@ -4,7 +4,9 @@ ARG CI_COMMIT_REF_NAME
 
 ARG VAULT_URL='https://releases.hashicorp.com/vault/0.11.6/vault_0.11.6_linux_amd64.zip'
 ARG VAULTENV_URL='https://github.com/channable/vaultenv/releases/download/v0.11.0/vaultenv-v0.11.0-linux-musl'
-ARG GECKO_DRIVER_URL='https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz'
+ARG GECKO_DRIVER_URL='https://chromedriver.storage.googleapis.com/78.0.3904.105/chromedriver_linux64.zip'
+ARG GOOGLE_CHROME_URL='https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
+ARG CHROME_SIGNING_KEY='https://dl.google.com/linux/linux_signing_key.pub'
 ARG DYNAMODB_LOCAL_URL='https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.tar.gz'
 ARG PIP_REQUIREMENTS_DEV='deploy/containers/deps-development/requirements.txt'
 ARG PIP_REQUIREMENTS_PROD='deploy/containers/deps-production/requirements.txt'
@@ -24,7 +26,6 @@ RUN mkdir -p /usr/share/man/man1 \
     build-essential \
     ca-certificates \
     libpq-dev \
-    firefox-esr \
     jq \
     ruby-dev \
     wget \
@@ -41,16 +42,26 @@ RUN mkdir -p /usr/share/man/man1 \
     git \
     libmagic1 \
     default-libmysqlclient-dev \
-    firefox-esr=68.2.0esr* \
+    xdg-utils \
+    lsb-release \
+    libxss1 \
+    libappindicator3-1 \
+    fonts-liberation \
+    gnupg2 \
+  && wget -q -O - "$CHROME_SIGNING_KEY" | sudo apt-key add - \
+  && curl -Lo google-chrome.deb "$GOOGLE_CHROME_URL" \
+    && dpkg -i google-chrome.deb \
+    && rm google-chrome.deb \
   && curl -LsSo vault.zip "$VAULT_URL" \
     && unzip vault.zip \
     && mv vault /usr/local/bin \
     && rm vault.zip \
   && curl "$VAULTENV_URL" -LsSo /usr/local/bin/vaultenv  \
     && chmod 0755  /usr/local/bin/vaultenv \
-  && curl -Lo geckodriver.tar.gz "$GECKO_DRIVER_URL" \
-    && tar xzf geckodriver.tar.gz -C /usr/local/bin \
-    && rm geckodriver.tar.gz \
+  && curl -Lo chromedriver.zip "$GECKO_DRIVER_URL" \
+    && unzip chromedriver.zip \
+    && mv chromedriver /usr/bin \
+    && rm chromedriver.zip \
   && curl -Lo dynamodb_local.tar.gz "$DYNAMODB_LOCAL_URL" \
     && mkdir -p /usr/local/lib/dynamodb-local \
     && tar xzf dynamodb_local.tar.gz -C /usr/local/lib/dynamodb-local \
