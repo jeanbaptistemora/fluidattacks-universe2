@@ -5,7 +5,6 @@
 """Views and services for FluidIntegrates."""
 
 import os
-import re
 import sys
 import time
 from datetime import datetime, timedelta
@@ -28,7 +27,6 @@ from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 )
 from app import util
-from app.dal.helpers.drive import DriveAPI
 from app.dal import integrates_dal
 from app.decorators import authenticate, authorize, cache_content
 from app.domain import (
@@ -269,13 +267,7 @@ def pdf_evidences(findings):
                     evidence['id'].split('/')[2])
                 evidence['name'] = 'image::../images/' + \
                     evidence['id'].split('/')[2] + '[align="center"]'
-        else:
-            evidence_set = util.get_evidence_set(finding)
-            finding['evidence_set'] = evidence_set
-            for evidence in evidence_set:
-                DriveAPI().download_images(evidence['id'])
-                evidence['name'] = 'image::../images/' + \
-                    evidence['id'] + '.png[align="center"]'
+
     return findings
 
 
@@ -360,8 +352,7 @@ def get_evidence(request, project, evidence_type, findingid, fileid):
                                    'error', request)
             return HttpResponse("Error - Unsent image ID",
                                 content_type="text/html")
-        project = project.lower()
-        key_list = key_existing_list(project + "/" + findingid + "/" + fileid)
+        key_list = key_existing_list(f'{project.lower()}/{findingid}/{fileid}')
         if key_list:
             for k in key_list:
                 start = k.find(findingid) + len(findingid)
@@ -371,20 +362,12 @@ def get_evidence(request, project, evidence_type, findingid, fileid):
                 CLIENT_S3.download_file(BUCKET_S3, k, localtmp)
                 return retrieve_image(request, localtmp)
         else:
-            if not re.match("[a-zA-Z0-9_-]{20,}", fileid):
-                rollbar.report_message('Error: \
-Invalid evidence image ID format', 'error', request)
-                return HttpResponse("Error - ID with wrong format",
-                                    content_type="text/html")
-            else:
-                drive_api = DriveAPI()
-                evidence_img = drive_api.download(fileid)
-                return retrieve_image(request, evidence_img)
+            return util.response([], 'Access denied or evidence not found', True)
     else:
         util.cloudwatch_log(
             request,
             'Security: Attempted to retrieve evidence without permission')
-        return util.response([], 'Access denied', True)
+        return util.response([], 'Access denied or evidence not found', True)
 
 
 @condition(etag_func=util.calculate_etag)

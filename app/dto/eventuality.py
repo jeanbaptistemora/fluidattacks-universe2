@@ -12,7 +12,6 @@ from django.conf import settings
 from magic import Magic
 from botocore.exceptions import ClientError
 from __init__ import FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
-from app.dal.helpers.drive import DriveAPI
 from ..dal import integrates_dal
 from ..utils import forms
 from .. import util
@@ -204,60 +203,7 @@ def migrate_event(event):
                         if event.get(util.snakecase_to_camelcase(k))}
     response = integrates_dal.add_multiple_attributes_dynamo(
         'fi_events', primary_keys, event_attributes)
-    migrate_event_files(event)
     return response
-
-
-def migrate_event_files(event):
-    """Migrate event files to s3."""
-    project_name = event.get('projectName').lower()
-    event_id = event.get('id')
-    evidence_id = event.get('evidence')
-    evidence_file = event.get('evidenceFile')
-    files = [
-        {'id': evidence_id,
-            'file_type': {'image/jpeg': '.jpeg',
-                          'image/gif': '.gif',
-                          'image/png': '.png'}},
-        {'id': evidence_file,
-            'file_type': {'application/zip': '.zip',
-                          'text/plain': '.csv',
-                          'text/csv': '.csv',
-                          'application/pdf': '.pdf',
-                          'application/vnd.ms-office': '.xls'}}
-    ]
-    for curr_file in files:
-        if curr_file.get('id'):
-            file_name = '{project_name}/{event_id}/{file_id}'.format(
-                project_name=project_name,
-                event_id=event_id,
-                file_id=curr_file['id'])
-            folder = util.list_s3_objects(CLIENT_S3, BUCKET_S3, file_name)
-            migrate_event_files_aux(curr_file, file_name, folder)
-        else:
-            # Event does not have evidences
-            pass
-
-
-def migrate_event_files_aux(curr_file, file_name, folder):
-    """Migrate event files auxiliar."""
-    if folder:
-        # File exist in s3
-        pass
-    else:
-        fileroute = '/tmp/:id.tmp'.replace(':id', curr_file['id'])
-        if os.path.exists(fileroute):
-            send_file_to_s3(file_name, curr_file)
-        else:
-            drive_api = DriveAPI()
-            file_download_route = drive_api.download(
-                curr_file['id'])
-            if file_download_route:
-                send_file_to_s3(file_name, curr_file)
-            else:
-                rollbar.report_message(
-                    'Error: An error occurred downloading \
-                    file from Drive', 'error')
 
 
 def send_file_to_s3(file_name, evidence):

@@ -15,7 +15,6 @@ shared-local-instance.db
 .bundle
 Gemfile.lock
 vendor
-config/drive_authorization.json
 app/assets/node_modules
 app/assets/package-lock.json
 deploy/containers/.vault.txt
@@ -24,8 +23,6 @@ deploy/.terraform
 deploy/terraform.tfstate
 *.envrc
 env.list
-config/drive_client_secret.json
-config/drive_client.json
 .torus.json
 .vscode/
 
