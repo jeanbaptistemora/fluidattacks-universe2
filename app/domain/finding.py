@@ -807,7 +807,7 @@ def send_new_draft_mail(
         'finding_url': base_url + '/project/{project!s}/drafts/{id!s}'
                                   '/description'.format(
                                       project=project_name, id=finding_id),
-        'project_name': project_name
+        'project': project_name
     }
     email_send_thread = threading.Thread(
         name='New draft email thread',
