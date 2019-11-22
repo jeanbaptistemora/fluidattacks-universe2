@@ -24,12 +24,12 @@ describe("Indicator Graph", () => {
         "Open",
       ],
     };
-    const wrapper: ShallowWrapper = shallow((
+    const wrapper: ShallowWrapper = shallow(
       <IndicatorGraph
         data={data}
         name="Unit header"
-      />
-    ));
+      />,
+    );
     expect(wrapper.contains(<h3>Unit header</h3>))
       .toBeTruthy();
   });

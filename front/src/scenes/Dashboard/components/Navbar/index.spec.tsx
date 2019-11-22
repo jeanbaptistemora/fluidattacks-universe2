@@ -52,9 +52,9 @@ describe("Navbar", () => {
         url: "",
       },
     };
-    const wrapper: ShallowWrapper = shallow((
-      <NavbarComponent {...mockProps}/>
-    ));
+    const wrapper: ShallowWrapper = shallow(
+      <NavbarComponent {...mockProps}/>,
+    );
     expect(wrapper.contains(
       <BreadcrumbItem active={false}>
         <Link to="/home">
