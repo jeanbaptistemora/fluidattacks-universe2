@@ -131,6 +131,36 @@ const containsRepeatedEnvs: ((currEnv: IEnvironmentsAttr[], environments: IEnvir
     return containsRepeated;
   };
 
+const changeSwitchButtonState: ((button: Element) => void) = (button: Element): void => {
+  if (button.classList.contains("off")) {
+    button.classList.replace("off", "on");
+    button.classList.replace("btn-light", "btn-danger");
+  } else {
+    button.classList.replace("on", "off");
+    button.classList.replace("btn-danger", "btn-light");
+  }
+};
+
+const findSwitchButton: ((urlRepoId: string) => Element | undefined) = (urlRepoId: string): Element | undefined => {
+  const statesHTMLCol: HTMLCollectionOf<Element> = document.getElementsByClassName("switch");
+  const states: Element[] = Array.prototype.slice.call(statesHTMLCol);
+  for (const state of states) {
+    const button: Element = state;
+    let urlRepo: HTMLElement | null = button.parentElement;
+    for (let c: number = 0; c < 2; c++) {
+      if (urlRepo !== null) {
+        urlRepo = urlRepo.previousSibling as HTMLElement;
+      }
+    }
+
+    if (urlRepo !== null && urlRepo.innerHTML === urlRepoId) {
+      return button;
+    }
+  }
+
+  return undefined;
+};
+
 const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IResourcesViewProps): JSX.Element => {
   const handleOpenTagsModal: (() => void) = (): void => { props.onOpenTagsModal(); };
   const handleCloseTagsModal: (() => void) = (): void => { props.onCloseTagsModal(); };
@@ -435,28 +465,12 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                       }
 
                       const changeSwitchButtonStatus: (() => void) = (): void => {
-                        const statesHTMLCol: HTMLCollectionOf<Element> = document.getElementsByClassName("switch");
-                        const states: Element[] = Array.prototype.slice.call(statesHTMLCol);
-                        for (const state of states) {
-                          const button: Element = state;
-                          let urlRepo: HTMLElement | null = button.parentElement;
-                          for (let c: number = 0; c < 2; c++) {
-                            if (urlRepo !== null) {
-                              urlRepo = urlRepo.previousSibling as HTMLElement;
-                            }
-                          }
-                          if (urlRepo !== null && auxRepo !== undefined && urlRepo.innerHTML === auxRepo.urlRepo) {
-                            if ((auxRepo.state === "INACTIVE" && button.classList.contains("on")) ||
-                                (auxRepo.state === "ACTIVE" && button.classList.contains("off"))) {
-                              if (button.classList.contains("off")) {
-                                button.classList.replace("off", "on");
-                                button.classList.replace("btn-light", "btn-danger");
-                              } else {
-                                button.classList.replace("on", "off");
-                                button.classList.replace("btn-danger", "btn-light");
-                              }
-                            }
-                            break;
+                        if (auxRepo !== undefined && auxRepo.urlRepo !== null) {
+                          const button: Element | undefined = findSwitchButton(auxRepo.urlRepo);
+                          if (button !== undefined &&
+                            ((auxRepo.state === "INACTIVE" && button.classList.contains("on")) ||
+                             (auxRepo.state === "ACTIVE" && button.classList.contains("off")))) {
+                            changeSwitchButtonState(button);
                           }
                         }
                       };
