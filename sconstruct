@@ -23,7 +23,9 @@ for var in (
         'AWS_ACCESS_KEY_ID',
         'AWS_SECRET_ACCESS_KEY',
 	    'GOOGLE_APPLICATION_CREDENTIALS_CONTENT',
-        'CODECOV_TOKEN',):
+        'CODECOV_TOKEN',
+        'LOCALSTACK_API_KEY',
+        ):
     try:
         env['ENV'][var] = os.environ[var]
     except KeyError:

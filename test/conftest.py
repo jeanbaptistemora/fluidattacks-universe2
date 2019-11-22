@@ -59,6 +59,9 @@ MOCKS = [
         'ssl:weak': {'443/tcp': 443},
         'tcp:hard': {'443/tcp': 443},
         'tcp:weak': {'80/tcp': 80},
+        'aws:weak': {
+            '8080/tcp': 8080,
+            }
     }
 ]
 
@@ -70,9 +73,14 @@ POST_COMMANDS = {
              --command "ALTER USER postgres WITH PASSWORD 'postgres'"
         """,
     ],
-    'mssql:weak': ['./scripts/commands.sh',],
-    'mssql:hard': ['./scripts/commands.sh',],
+    'mssql:weak': ['./scripts/commands.sh', ],
+    'mssql:hard': ['./scripts/commands.sh', ],
+    'aws:weak': ['bash /scripts/commands.sh'],
+}
 
+
+ENVS = {
+    'aws:weak': [f'LOCALSTACK_API_KEY={os.environ["LOCALSTACK_API_KEY"]}']
 }
 
 
@@ -81,6 +89,12 @@ def get_mock_name(mock: str) -> str:
     branch = os.environ.get('CI_COMMIT_REF_NAME', 'test')
     mock_name = f'{mock.replace(":", "_")}_{branch}'
     return mock_name
+
+
+def get_mock_key(mock_name: str):
+    """Get mock key."""
+    mock = mock_name.split('_')
+    return ':'.join(mock[0:2])
 
 
 def get_container_ip(cont: Container) -> str:
@@ -127,7 +141,10 @@ def start_container(image: str, mock_name: str) -> None:
     except docker.errors.NotFound:
         try:
             print(f'Start fresh container: {mock_name}')
-            CLIENT.containers.run(image, name=mock_name, tty=True, detach=True)
+            mock_key = get_mock_key(mock_name)
+            CLIENT.containers.run(
+                image, name=mock_name, tty=True, detach=True,
+                environment=ENVS[mock_key] if mock_key in ENVS.keys() else [])
         except docker.errors.APIError as exc:
             print(f'Start container failed: {mock_name}')
             pytest.fail(str(exc))
