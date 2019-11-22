@@ -689,6 +689,8 @@ def get_findings(finding_ids):
     """Retrieves all attributes for the requested findings"""
     findings = [get_finding(finding_id) for finding_id in finding_ids
                 if validate_finding(finding_id=finding_id)]
+    if not findings:
+        raise FindingNotFound()
     return findings
 
 
