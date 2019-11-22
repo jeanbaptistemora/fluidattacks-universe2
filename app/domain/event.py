@@ -80,26 +80,32 @@ def get_event_project_name(event_id):
 def update_evidence(event_id, evidence_type, file):
     success = False
 
-    if evidence_type == 'IMAGE':
+    event = get_event(event_id)
+    project_name = event.get('project_name')
+    file_name = file.name.replace(' ', '_').replace('-', '_')
+    evidence_id = f'{project_name}-{event_id}-{file_name}'
+    full_name = f'{project_name}/{event_id}/{evidence_id}'
+
+    if event_dal.save_evidence(file, full_name):
+        success = event_dal.update(event_id, {evidence_type: evidence_id})
+
+    return success
+
+
+def validate_evidence(evidence_type, file):
+    success = False
+
+    if evidence_type == 'evidence':
         allowed_mimes = ['image/gif', 'image/png']
-        attribute = 'evidence'
     else:
         allowed_mimes = [
             'application/pdf', 'application/zip', 'text/csv', 'text/plain']
-        attribute = 'evidence_file'
 
     if util.assert_uploaded_file_mime(file, allowed_mimes):
         mib = 1048576
 
         if file.size < 10 * mib:
-            event = get_event(event_id)
-            project_name = event.get('project_name')
-            file_name = file.name.replace(' ', '_').replace('-', '_')
-            evidence_id = f'{project_name}-{event_id}-{file_name}'
-            full_name = f'{project_name}/{event_id}/{evidence_id}'
-
-            if event_dal.save_evidence(file, full_name):
-                success = event_dal.update(event_id, {attribute: evidence_id})
+            success = True
         else:
             raise InvalidFileSize()
     else:
@@ -160,12 +166,26 @@ def create_event(analyst_email, project_name, file=None, image=None, **kwargs):
         event_attrs['affected_components'] = '\n'.join(
             list(set(event_attrs['affected_components'])))
 
-    success = event_dal.create(event_id, project_name, event_attrs)
-    if success:
-        if file:
-            update_evidence(event_id, 'FILE', file)
-        if image:
-            update_evidence(event_id, 'IMAGE', image)
+    files = [file, image]
+    if any(files):
+        if file and image:
+            valid = validate_evidence('evidence_file', file) \
+                and validate_evidence('evidence', image)
+        elif file:
+            valid = validate_evidence('evidence_file', file)
+        elif image:
+            valid = validate_evidence('evidence', image)
+
+        if valid:
+            success = event_dal.create(event_id, project_name, event_attrs)
+            if success:
+                if file:
+                    update_evidence(event_id, 'evidence_file', file)
+                if image:
+                    update_evidence(event_id, 'evidence', image)
+
+    else:
+        success = event_dal.create(event_id, project_name, event_attrs)
 
         _send_new_event_mail(
             analyst_email, event_id, project_name, subscription,

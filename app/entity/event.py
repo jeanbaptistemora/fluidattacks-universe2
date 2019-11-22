@@ -296,8 +296,8 @@ class UpdateEventEvidence(Mutation):
         event_id = String(required=True)
         evidence_type = Argument(
             Enum('EventEvidenceType', [
-                ('IMAGE', 'IMAGE'),
-                ('FILE', 'FILE')
+                ('IMAGE', 'evidence'),
+                ('FILE', 'evidence_file')
             ]), required=True)
         file = Upload(required=True)
     success = Boolean()
@@ -307,7 +307,10 @@ class UpdateEventEvidence(Mutation):
     @require_role(['analyst', 'admin'])
     @require_event_access
     def mutate(_, info, event_id, evidence_type, file):
-        success = event_domain.update_evidence(event_id, evidence_type, file)
+        success = False
+        if event_domain.validate_evidence(evidence_type, file):
+            success = event_domain.update_evidence(
+                event_id, evidence_type, file)
         if success:
             util.invalidate_cache(event_id)
             util.cloudwatch_log(
