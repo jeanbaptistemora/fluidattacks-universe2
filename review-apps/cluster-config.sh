@@ -99,8 +99,8 @@ else
 fi
 
 # Check secret to pass env variables to container
-export VAULT_HOST_B64="$(echo -n ${VAULT_HOST} | base64)"
-export VAULT_TOKEN_B64="$(echo -n ${VAULT_TOKEN} | base64)"
+export VAULT_HOST_B64="$(echo -n $VAULT_HOST | base64)"
+export VAULT_TOKEN_B64="$(echo -n $VAULT_TOKEN | base64)"
 export DATE="$(date)"
 replace_env_variables variables.yaml ingress.yaml deploy-integrates.yaml
 kubectl apply -f variables.yaml

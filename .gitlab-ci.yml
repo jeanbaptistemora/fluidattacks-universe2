@@ -66,7 +66,7 @@ test-mobile:
   stage: test
   tags: [autoscaling-large]
   needs: [deps-mobile]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:$CI_COMMIT_REF_NAME
+  image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:master
   script:
     - ./ci-scripts/jobs/test-mobile.sh
   interruptible: true

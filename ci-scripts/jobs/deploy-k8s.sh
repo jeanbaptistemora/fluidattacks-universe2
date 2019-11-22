@@ -78,9 +78,10 @@ deploy_k8s() {
   local B64_VAULT_TOKEN
   local CONFIG
 
-  K8S_CONTEXT=$(kubectl config current-context)
-  B64_VAULT_HOST=$(echo -n "$VAULT_HOST" | base64)
-  B64_VAULT_TOKEN=$(echo -n "$VAULT_TOKEN" | base64)
+  K8S_CONTEXT="$(kubectl config current-context)"
+  B64_VAULT_HOST="$(echo -n $VAULT_HOST | base64)"
+  B64_VAULT_TOKEN="$(echo -n $VAULT_TOKEN | base64)"
+
   CONFIG='deploy/integrates-k8s.yaml'
 
   kubectl config set-context "$K8S_CONTEXT" --namespace serves

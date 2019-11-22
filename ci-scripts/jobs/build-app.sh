@@ -40,8 +40,6 @@ build_app() {
     --build-arg CI_COMMIT_REF_NAME="$CI_COMMIT_REF_NAME" \
     --build-arg CI_PROJECT_ID="$CI_PROJECT_ID" \
     --build-arg CI_REPOSITORY_URL="$CI_REPOSITORY_URL" \
-    --build-arg FI_DRIVE_AUTHORIZATION="$FI_DRIVE_AUTHORIZATION" \
-    --build-arg FI_DRIVE_AUTHORIZATION_CLIENT="$FI_DRIVE_AUTHORIZATION_CLIENT" \
     --build-arg ENV_NAME="$ENV_NAME" \
     --build-arg SSL_CERT="$FI_SSL_CERT" \
     --build-arg SSL_KEY="$FI_SSL_KEY" \

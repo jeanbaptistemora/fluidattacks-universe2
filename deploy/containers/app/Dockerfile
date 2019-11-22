@@ -7,8 +7,6 @@ ARG CI_API_V4_URL
 ARG CI_COMMIT_REF_NAME
 ARG CI_PROJECT_ID
 ARG ENV_NAME
-ARG FI_DRIVE_AUTHORIZATION
-ARG FI_DRIVE_AUTHORIZATION_CLIENT
 ARG SSL_CERT
 ARG SSL_KEY
 ARG VERSION
@@ -42,9 +40,6 @@ RUN mkdir app/documentator/images \
   && chmod -R 0744 app/documentator \
   && chown -R www-data:www-data app/techdoc \
   && chmod -R 0744 app/techdoc
-
-# Set up Drive authentication
-RUN python3 deploy/containers/common/vars/render.py $ENV_NAME
 
 # Set up apache
 RUN chown -R www-data:www-data . \

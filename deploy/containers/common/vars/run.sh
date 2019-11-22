@@ -5,12 +5,17 @@ set -e
 
 env | egrep 'VAULT.*'  >> /etc/environment
 if [[ x"$FI_ENVIRONMENT" = x"development" ]]; then
-    aws configure set aws_access_key_id ${FI_AWS_DYNAMODB_ACCESS_KEY}
-    aws configure set aws_secret_access_key ${FI_AWS_DYNAMODB_SECRET_KEY}
+    aws configure set aws_access_key_id $FI_AWS_DYNAMODB_ACCESS_KEY
+    aws configure set aws_secret_access_key $FI_AWS_DYNAMODB_SECRET_KEY
     aws configure set region us-east-1
 fi
 
 if [ "$1" = 'app' ]; then
+  if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
+    python3 deploy/containers/common/vars/render.py production
+  else
+    python3 deploy/containers/common/vars/render.py development
+  fi
   ./manage.py collectstatic --no-input
   a2ensite integrates-ssl.conf
   a2ensite 000-default.conf
