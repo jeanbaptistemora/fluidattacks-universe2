@@ -29,17 +29,16 @@ def get_event_comments(finding_id, user_role):
 
 
 def fill_comment_data(user_role, data):
+    fullname = (data['fullname']
+                if user_role in ['admin', 'analyst']
+                or user_domain.get_data(data['email'], 'role') == 'customer'
+                else 'Hacker ' + hashlib.sha256(data['fullname'].encode())
+                .hexdigest()[-4:].upper()) if 'fullname' in data else data['email']
     return {
         'content': data['content'],
         'created': util.format_comment_date(data['created']),
         'email': data['email'],
-        'fullname':
-            (data['fullname']
-                if user_role in ['admin', 'analyst']
-                or user_domain.get_data(data['email'], 'role') == 'customer'
-                else "Hacker " + hashlib.sha256(data['fullname'].encode())
-                .hexdigest()[-4:].upper())
-            if 'fullname' in data else data['email'],
+        'fullname': fullname,
         'id': int(data['user_id']),
         'modified': util.format_comment_date(data['modified']),
         'parent': int(data['parent'])}
