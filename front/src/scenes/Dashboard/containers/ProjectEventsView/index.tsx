@@ -2,6 +2,8 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
+import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -18,7 +20,8 @@ import { formatEvents, handleGraphQLErrors } from "../../../../utils/formatHelpe
 import {
   checkboxField, dateTimeField, dropdownField, fileInputField, textAreaField, textField,
 } from "../../../../utils/forms/fields";
-import { msgSuccess } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { numeric, required, someRequired, validDatetime } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
@@ -94,7 +97,7 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
             return <React.Fragment />;
           }
           if (!_.isUndefined(data)) {
-            const handleMutationResult: ((result: { createEvent: { success: boolean } }) => void) = (
+            const handleCreationResult: ((result: { createEvent: { success: boolean } }) => void) = (
               result: { createEvent: { success: boolean } },
             ): void => {
               if (result.createEvent.success) {
@@ -106,6 +109,26 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                 refetch()
                   .catch();
               }
+            };
+
+            const handleCreationError: ((creationError: ApolloError) => void) = (creationError: ApolloError): void => {
+              hidePreloader();
+              creationError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+                switch (message) {
+                  case "Exception - Invalid File Size":
+                    msgError(translate.t("proj_alerts.file_size"));
+                    break;
+                  case "Exception - Invalid File Type: EVENT_IMAGE":
+                    msgError(translate.t("project.events.form.wrong_image_type"));
+                    break;
+                  case "Exception - Invalid File Type: EVENT_FILE":
+                    msgError(translate.t("project.events.form.wrong_file_type"));
+                    break;
+                  default:
+                    msgError(translate.t("proj_alerts.error_textsad"));
+                    rollbar.error("An error occurred updating event evidence", creationError);
+                }
+              });
             };
 
             return (
@@ -127,8 +150,12 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                   onClose={closeNewEventModal}
                   open={isEventModalOpen}
                 >
-                  <Mutation mutation={CREATE_EVENT_MUTATION} onCompleted={handleMutationResult}>
-                    {(createEvent: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
+                  <Mutation
+                    mutation={CREATE_EVENT_MUTATION}
+                    onCompleted={handleCreationResult}
+                    onError={handleCreationError}
+                  >
+                    {(createEvent: MutationFn, mtResult: MutationResult): React.ReactNode => {
                       interface IFormValues {
                         accessibility: { [key: string]: boolean };
                         affectedComponents: { [key: string]: boolean };
@@ -429,7 +456,7 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                                 <Button bsStyle="success" onClick={closeNewEventModal}>
                                   {translate.t("confirmmodal.cancel")}
                                 </Button>
-                                <Button bsStyle="success" type="submit" disabled={pristine || submitting}>
+                                <Button bsStyle="success" type="submit" disabled={pristine || mtResult.loading}>
                                   {translate.t("confirmmodal.proceed")}
                                 </Button>
                               </ButtonToolbar>

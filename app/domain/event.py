@@ -97,19 +97,19 @@ def validate_evidence(evidence_type, file):
 
     if evidence_type == 'evidence':
         allowed_mimes = ['image/gif', 'image/png']
+        if not util.assert_uploaded_file_mime(file, allowed_mimes):
+            raise InvalidFileType('EVENT_IMAGE')
     else:
         allowed_mimes = [
             'application/pdf', 'application/zip', 'text/csv', 'text/plain']
+        if not util.assert_uploaded_file_mime(file, allowed_mimes):
+            raise InvalidFileType('EVENT_FILE')
 
-    if util.assert_uploaded_file_mime(file, allowed_mimes):
-        mib = 1048576
-
-        if file.size < 10 * mib:
-            success = True
-        else:
-            raise InvalidFileSize()
+    mib = 1048576
+    if file.size < 10 * mib:
+        success = True
     else:
-        raise InvalidFileType()
+        raise InvalidFileSize()
 
     return success
 

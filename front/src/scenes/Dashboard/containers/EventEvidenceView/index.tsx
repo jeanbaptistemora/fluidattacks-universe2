@@ -3,6 +3,8 @@
  * Disabling this rule is necessary for accessing render props from
  * apollo components
  */
+import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { Mutation, MutationFn, Query, QueryResult } from "react-apollo";
@@ -12,6 +14,8 @@ import { RouteComponentProps } from "react-router";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
+import { msgError } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
 import style from "./index.css";
@@ -50,11 +54,6 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
       <Query query={GET_EVENT_EVIDENCES} variables={{ eventId }}>
         {({ data, loading, refetch }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || loading) { return <React.Fragment />; }
-          const handleMutationResult: (() => void) = (): void => {
-            hidePreloader();
-            refetch()
-              .catch();
-          };
 
           const renderLightbox: (() => JSX.Element) = (): JSX.Element => {
             const adjustZoom: (() => void) = (): void => {
@@ -77,43 +76,71 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
             );
           };
 
+          const handleUpdateResult: (() => void) = (): void => {
+            hidePreloader();
+            refetch()
+              .catch();
+          };
+          const handleUpdateError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
+            hidePreloader();
+            updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+              switch (message) {
+                case "Exception - Invalid File Size":
+                  msgError(translate.t("proj_alerts.file_size"));
+                  break;
+                case "Exception - Invalid File Type: EVENT_IMAGE":
+                  msgError(translate.t("project.events.form.wrong_image_type"));
+                  break;
+                case "Exception - Invalid File Type: EVENT_FILE":
+                  msgError(translate.t("project.events.form.wrong_file_type"));
+                  break;
+                default:
+                  msgError(translate.t("proj_alerts.error_textsad"));
+                  rollbar.error("An error occurred updating event evidence", updateError);
+              }
+            });
+          };
+
           return (
             <React.Fragment>
-              <Mutation mutation={UPDATE_EVIDENCE_MUTATION} onCompleted={handleMutationResult}>
-                {(updateEvidence: MutationFn): React.ReactNode => {
-                  const handleUpdate: ((values: { evidence_filename: FileList }) => void) = (
-                    values: { evidence_filename: FileList },
-                  ): void => {
-                    showPreloader();
-                    updateEvidence({ variables: { eventId, evidenceType: "IMAGE", file: values.evidence_filename[0] } })
-                      .catch();
-                    setEditing(false);
-                  };
+              {_.isEmpty(data.event.evidence) && !isEditing ? (
+                <div className={style.noData}>
+                  <Glyphicon glyph="picture" />
+                  <p>{translate.t("project.events.evidence.no_data")}</p>
+                </div>
+              ) : undefined}
+              {!_.isEmpty(data.event.evidence) || isEditing
+                ? <Mutation
+                  mutation={UPDATE_EVIDENCE_MUTATION}
+                  onCompleted={handleUpdateResult}
+                  onError={handleUpdateError}
+                >
+                  {(updateEvidence: MutationFn): React.ReactNode => {
+                    const handleUpdate: ((values: { evidence_filename: FileList }) => void) = (
+                      values: { evidence_filename: FileList },
+                    ): void => {
+                      showPreloader();
+                      updateEvidence({
+                        variables: { eventId, evidenceType: "IMAGE", file: values.evidence_filename[0] },
+                      })
+                        .catch();
+                      setEditing(false);
+                    };
 
-                  return (
-                    <React.Fragment>
-                      {_.isEmpty(data.event.evidence) && !isEditing
-                        ? (
-                          <div className={style.noData}>
-                            <Glyphicon glyph="picture" />
-                            <p>{translate.t("project.events.evidence.no_data")}</p>
-                          </div>
-                        )
-                        : (
-                          <EvidenceImage
-                            description="Evidence"
-                            isDescriptionEditable={false}
-                            isEditing={isEditing}
-                            name="evidence"
-                            onClick={openImage}
-                            onUpdate={handleUpdate}
-                            url={_.isEmpty(data.event.evidence) ? emptyImage : `${baseUrl}/${data.event.evidence}`}
-                          />
-                        )}
-                    </React.Fragment>
-                  );
-                }}
-              </Mutation>
+                    return (
+                      <EvidenceImage
+                        description="Evidence"
+                        isDescriptionEditable={false}
+                        isEditing={isEditing}
+                        name="evidence"
+                        onClick={openImage}
+                        onUpdate={handleUpdate}
+                        url={_.isEmpty(data.event.evidence) ? emptyImage : `${baseUrl}/${data.event.evidence}`}
+                      />
+                    );
+                  }}
+                </Mutation>
+                : undefined}
               {isImageOpen ? renderLightbox() : undefined}
             </React.Fragment>
           );

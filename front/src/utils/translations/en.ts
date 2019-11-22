@@ -158,6 +158,8 @@ const enTranslations: dict = {
           toe_change: "Client approves ToE change",
           toe_differs: "ToE differs from approved",
         },
+        wrong_file_type: "Evidence files must be .pdf, .zip or .csv",
+        wrong_image_type: "Evidence images must be .png or .gif",
       },
       new: "New Event",
       success_create: "Event created successfully",

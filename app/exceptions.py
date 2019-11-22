@@ -75,9 +75,11 @@ class InvalidExpirationTime(Exception):
 
 class InvalidFileType(Exception):
     """Exception to control file type."""
-    def __init__(self):
+    def __init__(self, detail=''):
         """ Constructor """
         msg = 'Exception - Invalid File Type'
+        if detail:
+            msg += f': {detail}'
         super(InvalidFileType, self).__init__(msg)
 
 
