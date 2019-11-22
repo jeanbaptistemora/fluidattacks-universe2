@@ -2,12 +2,6 @@
 
 image: "${CI_REGISTRY_IMAGE}:builder"
 
-variables:
-  DOCKER_DRIVER: overlay2
-
-services:
-  - docker:dind
-
 stages:
   - build
   - test
@@ -27,8 +21,7 @@ stages:
 
 build:
   stage: build
-  tags:
-    - private-cluster
+  tags: [autoscaling-large]
   <<: *kaniko_config
   services: []
   script:
@@ -51,8 +44,7 @@ build:
 commitlint:
   image: starefossen/ruby-node:2-10
   stage: test
-  tags:
-    - private-cluster
+  tags: [autoscaling]
   before_script:
     - npm install --unsafe-perm
   script:
@@ -64,8 +56,7 @@ commitlint:
 
 lint:
   stage: test
-  tags:
-    - private-cluster
+  tags: [autoscaling-large]
   script:
     - scons lint
     - overcommit -s && overcommit -s pre-commit && overcommit -r
@@ -76,8 +67,7 @@ lint:
 
 bandit:
   stage: test
-  tags:
-    - private-cluster
+  tags: [autoscaling]
   script:
     - scons bandit
   except:
@@ -87,8 +77,9 @@ bandit:
 
 test:
   stage: test
-  tags:
-    - private
+  tags: [private]
+  services:
+    - docker:dind
   script:
     - scons test
     - cp build/coverage/results.xml coverage.xml
@@ -105,8 +96,7 @@ test:
 
 fluidasserts:
   stage: test
-  tags:
-    - private-cluster
+  tags: [autoscaling-large]
   variables:
     FA_STRICT: "false"
   script:
@@ -119,8 +109,7 @@ fluidasserts:
 
 coverage-report:
   stage: before-mr
-  tags:
-    - private-cluster
+  tags: [autoscaling]
   variables:
     GITLAB_API: "${CI_API_V4_URL}"
     PROJECT_ID: "${CI_PROJECT_ID}"
@@ -136,8 +125,9 @@ coverage-report:
   interruptible: true
 
 danger:
-  stage: at-mr
   image: fluidattacks/danger-ruby
+  stage: at-mr
+  tags: [autoscaling]
   only:
     - merge_requests
   variables:
@@ -152,8 +142,7 @@ danger:
 
 deploy:
   stage: deploy
-  tags:
-    - private-cluster
+  tags: [autoscaling]
   script:
     - scons dist
     - scons deploy
@@ -170,8 +159,7 @@ deploy:
 
 pages:
   stage: deploy
-  tags:
-    - private-cluster
+  tags: [autoscaling]
   script:
     - scons sphinxdoc
   artifacts:
@@ -188,8 +176,7 @@ pages:
 
 push-container:
   stage: deploy
-  tags:
-    - private-cluster
+  tags: [autoscaling-large]
   <<: *kaniko_config
   services: []
   dependencies: []
@@ -205,6 +192,8 @@ push-container:
         --dockerfile Dockerfile.runner
         --target light
         --verbosity warn
+        --cache=true
+        --cache-repo "${CI_REGISTRY_IMAGE}/runner-cache"
     - /kaniko/executor
         --build-arg BUILDER_IMAGE="${CI_REGISTRY_IMAGE}:builder"
         --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
@@ -216,6 +205,8 @@ push-container:
         --dockerfile Dockerfile.runner
         --target full
         --verbosity warn
+        --cache=true
+        --cache-repo "${CI_REGISTRY_IMAGE}/runner-cache"
   only:
     - master
   except:
