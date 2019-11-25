@@ -142,8 +142,7 @@ def _send_new_event_mail(analyst, event_id, project, subscription, event_type):
 
 
 def create_event(analyst_email, project_name, file=None, image=None, **kwargs):
-    last_fs_id = 550000000
-    event_id = str(random.randint(last_fs_id, 1000000000))
+    event_id = str(random.randint(10000000, 170000000))
 
     tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')

@@ -1,4 +1,5 @@
 import React from "react";
+import { Col, Row } from "react-bootstrap";
 import { Redirect, Route, Switch } from "react-router";
 import { NavLink } from "react-router-dom";
 import { default as Frame } from "../../../../components/Frame";
@@ -11,7 +12,22 @@ const formsView: React.FC = (): JSX.Element => {
   );
 
   const eventForm: (() => JSX.Element) = (): JSX.Element => (
-    <Frame src="https://fluidsignal.formstack.com/forms/eventualidad" height={3000} id="ifrmEvents" />
+    <Row>
+      <Col xs={12} md={12} sm={12} style={{ textAlign: "center" }}>
+        <h3>There is a new way to report events!</h3>
+        <br />
+        <p>
+          Read more details at&nbsp;
+          <a
+            href="https://community.fluidattacks.com/tags/integrates"
+            rel="noopener"
+            target="_blank"
+          >
+            Fluid Attacks's community
+          </a>
+        </p>
+      </Col>
+    </Row>
   );
 
   return (

@@ -242,7 +242,7 @@ class CreateEvent(Mutation):
 
     @staticmethod
     @require_login
-    @require_role(['analyst', 'admin'])
+    @require_role(['analyst', 'admin', 'customeradminfluid'])
     @require_project_access
     def mutate(_, info, project_name, image=None, file=None, **kwargs):
         analyst_email = util.get_jwt_content(info.context)['user_email']

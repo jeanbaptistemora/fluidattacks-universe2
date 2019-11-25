@@ -133,12 +133,14 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
               });
             };
 
+            const { userEmail, userRole } = (window as typeof window & { userEmail: string; userRole: string });
+
             return (
               <React.StrictMode>
                 <Row>
                   <Col md={2} mdOffset={5}>
                     <ButtonToolbar>
-                      {(window as typeof window & { userRole: string }).userRole === "admin"
+                      {_.includes(["admin", "analyst"], userRole) || _.endsWith(userEmail, "@fluidattacks.com")
                         ? <Button onClick={openNewEventModal}>
                           <Glyphicon glyph="plus" />&nbsp;{translate.t("project.events.new")}
                         </Button>
