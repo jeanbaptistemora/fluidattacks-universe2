@@ -665,7 +665,7 @@ const enTranslations: dict = {
     },
   },
   sidebar: {
-    forms: "Formstack",
+    forms: "Forms",
     reports: "Reports",
     token: "Token",
   },
