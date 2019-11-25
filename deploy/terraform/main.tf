@@ -27,3 +27,6 @@ module "cloudfront" {
   evidences_bucket_name = var.aws_s3_evidences_bucket
 }
 
+module "sqs" {
+  source = "./sqs"
+}
