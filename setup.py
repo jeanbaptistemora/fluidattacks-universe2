@@ -87,6 +87,7 @@ setup(
         'gitpython==3.0.4',            # fluidasserts.proto.git
         'google-api-python-client==1.7.11',     # fluidasserts.cloud.gcp
         'google-auth-httplib2==0.0.3',    # fluidasserts.cloud.gcp
+        'kubernetes==10.0.1',          # fluidasserts.cloud.kubernetes
         'ldap3==2.6.1',                  # fluidasserts.proto.ldap
         'mixpanel==4.5.0',             # fluidasserts.utils.decorators
         'mysql-connector==2.2.9',      # fluidasserts.db.mysql_db
