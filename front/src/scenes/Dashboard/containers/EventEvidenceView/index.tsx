@@ -17,6 +17,7 @@ import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
+import { validEventImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
 import style from "./index.css";
 import { GET_EVENT_EVIDENCES, UPDATE_EVIDENCE_MUTATION } from "./queries";
@@ -136,6 +137,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                         onClick={openImage}
                         onUpdate={handleUpdate}
                         url={_.isEmpty(data.event.evidence) ? emptyImage : `${baseUrl}/${data.event.evidence}`}
+                        validate={validEventImage}
                       />
                     );
                   }}

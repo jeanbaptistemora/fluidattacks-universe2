@@ -23,7 +23,9 @@ import {
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { numeric, required, someRequired, validDatetime } from "../../../../utils/validations";
+import {
+  numeric, required, someRequired, validDatetime, validEventFile, validEventImage,
+} from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
 import { IEventsAttr, IEventViewBaseProps } from "./types";
@@ -437,6 +439,7 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                                       component={fileInputField}
                                       id="image"
                                       name="image"
+                                      validate={validEventImage}
                                     />
                                   </FormGroup>
                                 </Col>
@@ -448,6 +451,7 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                                       component={fileInputField}
                                       id="file"
                                       name="file"
+                                      validate={validEventFile}
                                     />
                                   </FormGroup>
                                 </Col>

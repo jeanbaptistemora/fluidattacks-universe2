@@ -4,7 +4,7 @@
  */
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { Field, InjectedFormProps } from "redux-form";
+import { Field, InjectedFormProps, Validator } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { fileInputField, textAreaField } from "../../../../utils/forms/fields";
@@ -19,6 +19,7 @@ interface IEvidenceImageProps {
   isEditing: boolean;
   name: string;
   url: string;
+  validate?: Validator | Validator[];
   onClick(): void;
   onUpdate(values: {}): void;
 }
@@ -43,6 +44,7 @@ const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvide
             id={props.name}
             component={fileInputField}
             accept="image/x-png,image/gif"
+            validate={props.validate}
           />
           {props.isDescriptionEditable ? renderDescriptionField(props.name) : <p>{props.description}</p>}
           <Button bsStyle="success" block={true} type="submit" disabled={pristine || submitting}>

@@ -55,6 +55,20 @@ export const validDatetime: ConfiguredValidator = (value?: Moment | string): str
   moment.isMoment(value) ? undefined : translate.t("validations.datetime")
 );
 
+export const validEventFile: ConfiguredValidator = (value?: FileList): string | undefined => (
+  _.isUndefined(value) || _.isEmpty(value)
+    ? undefined
+    : _.includes(["application/pdf", "application/zip", "text/csv", "text/plain"], value[0].type)
+      ? undefined : translate.t("project.events.form.wrong_file_type")
+);
+
+export const validEventImage: ConfiguredValidator = (value?: FileList): string | undefined => (
+  _.isUndefined(value) || _.isEmpty(value)
+    ? undefined
+    : _.includes(["image/gif", "image/png"], value[0].type)
+      ? undefined : translate.t("project.events.form.wrong_image_type")
+);
+
 export const evidenceHasValidType: ((file: File, evidenceType: number) => boolean) = (
   file: File, evidenceType: number,
 ): boolean => {

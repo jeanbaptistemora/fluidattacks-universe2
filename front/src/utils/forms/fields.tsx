@@ -129,7 +129,7 @@ export const fileInputField: React.FC<CustomFieldProps> = (fieldProps: CustomFie
   const selectedFile: FileList = fieldProps.input.value;
 
   return (
-    <FormGroup controlId={fieldProps.id} className={style.text_center}>
+    <FormGroup controlId={fieldProps.id}>
       <InputGroup>
         <FormControl
           target={fieldProps.target}
@@ -147,6 +147,7 @@ export const fileInputField: React.FC<CustomFieldProps> = (fieldProps: CustomFie
           </strong>
         </ControlLabel>
       </InputGroup>
+      {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
     </FormGroup>
   );
 };
