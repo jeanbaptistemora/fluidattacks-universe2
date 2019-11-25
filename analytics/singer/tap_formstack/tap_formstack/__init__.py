@@ -213,10 +213,12 @@ def write_schema__denest(schema: JSON, data: JSON, nesting_type: str) -> None:
     name = data["label"]
     value = data["value"]
     if isinstance(value, str):
+        value = str(value).lower()
         padded_name = f"{nesting_type}[{name}][{value}]"
         schema["schema"]["properties"][padded_name] = map_ttype("string")
     else:
         for inner_name in value:
+            inner_name = str(inner_name).lower()
             padded_name = f"{nesting_type}[{name}][{inner_name}]"
             schema["schema"]["properties"][padded_name] = map_ttype("string")
 
