@@ -30,7 +30,7 @@ import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
 import { ADD_ENVS_MUTATION, ADD_REPOS_MUTATION, ADD_TAGS_MUTATION, GET_ENVIRONMENTS, GET_REPOSITORIES,
   GET_TAGS, REMOVE_ENV_MUTATION, REMOVE_TAG_MUTATION, UPDATE_REPO_MUTATION } from "./queries";
-import { IAddEnvAttr, IAddReposAttr, IAddTagsAttr, IEnvironmentsAttr, IHistoricState, IProjectTagsAttr, IRemoveEnvAttr,
+import { IAddEnvAttr, IAddReposAttr, IAddTagsAttr, IEnvironmentsAttr, IProjectTagsAttr, IRemoveEnvAttr,
   IRemoveTagsAttr, IRepositoriesAttr, IResourcesAttr, IResourcesViewBaseProps, IResourcesViewDispatchProps,
   IResourcesViewProps, IResourcesViewStateProps, IUpdateRepoAttr } from "./types";
 
@@ -131,8 +131,11 @@ const containsRepeatedEnvs: ((currEnv: IEnvironmentsAttr[], environments: IEnvir
     return containsRepeated;
   };
 
+const getSwitchButtonState: ((button: Element) => boolean) = (button: Element): boolean =>
+  button.classList.contains("on");
+
 const changeSwitchButtonState: ((button: Element) => void) = (button: Element): void => {
-  if (button.classList.contains("off")) {
+  if (!getSwitchButtonState(button)) {
     button.classList.replace("off", "on");
     button.classList.replace("btn-light", "btn-danger");
   } else {
@@ -492,10 +495,9 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                       (repoInfo: { [key: string]: string } | undefined): void => {
                         if (repoInfo !== undefined) {
                           let repoLastState: string = repoInfo.state;
-                          if ("historic_state" in repoInfo) {
-                            repoLastState = (
-                              repoInfo.historic_state[repoInfo.historic_state.length - 1] as unknown as IHistoricState)
-                              .state;
+                          const button: Element | undefined = findSwitchButton(repoInfo.urlRepo);
+                          if (button !== undefined) {
+                            repoLastState = getSwitchButtonState(button) ? "ACTIVE" : "INACTIVE";
                           }
                           const repoUpdated: {[value: string]: string | null} = {
                             branch: repoInfo.branch,
