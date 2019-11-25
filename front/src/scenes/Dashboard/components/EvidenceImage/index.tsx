@@ -14,11 +14,12 @@ import { GenericForm } from "../GenericForm";
 import style from "./index.css";
 
 interface IEvidenceImageProps {
+  acceptedMimes?: string;
+  content: string | JSX.Element;
   description: string;
   isDescriptionEditable: boolean;
   isEditing: boolean;
   name: string;
-  url: string;
   validate?: Validator | Validator[];
   onClick(): void;
   onUpdate(values: {}): void;
@@ -43,7 +44,7 @@ const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvide
             name={`${props.name}_filename`}
             id={props.name}
             component={fileInputField}
-            accept="image/x-png,image/gif"
+            accept={props.acceptedMimes}
             validate={props.validate}
           />
           {props.isDescriptionEditable ? renderDescriptionField(props.name) : <p>{props.description}</p>}
@@ -65,7 +66,9 @@ export const evidenceImage: React.FC<IEvidenceImageProps> = (props: IEvidenceIma
       <Col md={4} sm={6} xs={12}>
         <div>
           <div className={style.imgContainer}>
-            <img src={props.url} className={style.img} onClick={handleClick} />
+            {typeof (props.content) === "string"
+              ? <img src={props.content} className={style.img} onClick={handleClick} />
+              : React.cloneElement(props.content, { className: style.img, onClick: handleClick })}
           </div>
           <div className={style.description}>
             <Row>

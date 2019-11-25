@@ -17,19 +17,16 @@ import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { validEventImage } from "../../../../utils/validations";
+import { validEventFile, validEventImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
 import style from "./index.css";
-import { GET_EVENT_EVIDENCES, UPDATE_EVIDENCE_MUTATION } from "./queries";
+import { DOWNLOAD_FILE_MUTATION, GET_EVENT_EVIDENCES, UPDATE_EVIDENCE_MUTATION } from "./queries";
 
 type EventEvidenceProps = RouteComponentProps<{ eventId: string; projectName: string }>;
 
 const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): JSX.Element => {
   const { eventId } = props.match.params;
 
-  const emptyImage: string = (
-    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
-  );
   const [isEditing, setEditing] = React.useState(false);
   const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };
 
@@ -104,7 +101,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
 
           return (
             <React.Fragment>
-              {_.isEmpty(data.event.evidence) && !isEditing ? (
+              {_.isEmpty(data.event.evidence) && _.isEmpty(data.event.evidenceFile) && !isEditing ? (
                 <div className={style.noData}>
                   <Glyphicon glyph="picture" />
                   <p>{translate.t("project.events.evidence.no_data")}</p>
@@ -130,15 +127,70 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
 
                     return (
                       <EvidenceImage
+                        acceptedMimes="image/png,image/gif"
+                        content={_.isEmpty(data.event.evidence) ? <div /> : `${baseUrl}/${data.event.evidence}`}
                         description="Evidence"
                         isDescriptionEditable={false}
                         isEditing={isEditing}
                         name="evidence"
                         onClick={openImage}
                         onUpdate={handleUpdate}
-                        url={_.isEmpty(data.event.evidence) ? emptyImage : `${baseUrl}/${data.event.evidence}`}
                         validate={validEventImage}
                       />
+                    );
+                  }}
+                </Mutation>
+                : undefined}
+              {!_.isEmpty(data.event.evidenceFile) || isEditing
+                ? <Mutation
+                  mutation={UPDATE_EVIDENCE_MUTATION}
+                  onCompleted={handleUpdateResult}
+                  onError={handleUpdateError}
+                >
+                  {(updateEvidence: MutationFn): React.ReactNode => {
+                    const handleUpdate: ((values: { file_filename: FileList }) => void) = (
+                      values: { file_filename: FileList },
+                    ): void => {
+                      showPreloader();
+                      updateEvidence({
+                        variables: { eventId, evidenceType: "FILE", file: values.file_filename[0] },
+                      })
+                        .catch();
+                      setEditing(false);
+                    };
+
+                    const handleDownload: ((downloadData: { downloadEventFile: { url: string } }) => void) = (
+                      downloadData: { downloadEventFile: { url: string } },
+                    ): void => {
+                      const newTab: Window | null = window.open(downloadData.downloadEventFile.url);
+                      (newTab as Window).opener = undefined;
+                    };
+
+                    return (
+                      <Mutation mutation={DOWNLOAD_FILE_MUTATION} onCompleted={handleDownload}>
+                        {(downloadEvidence: MutationFn): React.ReactNode => {
+                          const handleClick: (() => void) = (): void => {
+                            if (!isEditing) {
+                              downloadEvidence({ variables: { eventId, fileName: data.event.evidenceFile } })
+                                .catch();
+                            }
+                          };
+
+                          return (
+                            <EvidenceImage
+                              acceptedMimes="application/pdf,application/zip,text/csv,text/plain"
+                              content={<Glyphicon glyph="file" />}
+                              description="File"
+                              isDescriptionEditable={false}
+                              isEditing={isEditing}
+                              name="file"
+                              onClick={handleClick}
+                              onUpdate={handleUpdate}
+                              validate={validEventFile}
+                            />
+                          );
+                        }}
+                      </Mutation>
                     );
                   }}
                 </Mutation>

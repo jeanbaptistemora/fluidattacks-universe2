@@ -22,7 +22,7 @@ describe("Evidence image", () => {
         description={"Test evidence"}
         isDescriptionEditable={false}
         isEditing={false}
-        url={"https://fluidattacks.com/test.png"}
+        content="https://fluidattacks.com/test.png"
         onClick={functionMock}
         onUpdate={functionMock}
       />,
@@ -39,7 +39,7 @@ describe("Evidence image", () => {
         description={"Test evidence"}
         isDescriptionEditable={false}
         isEditing={false}
-        url={"https://fluidattacks.com/test.png"}
+        content={"https://fluidattacks.com/test.png"}
         onClick={functionMock}
         onUpdate={functionMock}
       />,

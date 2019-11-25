@@ -96,8 +96,6 @@ const renderImages: ((props: IEvidenceViewProps) => JSX.Element) =
   (props: IEvidenceViewProps): JSX.Element => {
     let findingBaseUrl: string;
     findingBaseUrl = `${window.location.href.split("dashboard#!/")[0]}${window.location.href.split("dashboard#!/")[1]}`;
-    let emptyImage: string;
-    emptyImage = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
     const evidenceImages: IEvidenceViewProps["images"] = props.images.filter(
       (image: IEvidenceViewProps["images"][0]) => props.isEditing ? true : !_.isEmpty(image.url),
     );
@@ -114,12 +112,13 @@ const renderImages: ((props: IEvidenceViewProps) => JSX.Element) =
 
           return (
             <EvidenceImage
+              acceptedMimes="image/png,image/gif"
               key={index}
               name={`evidence${index}`}
               description={image.description}
               isDescriptionEditable={index > 1}
               isEditing={props.isEditing}
-              url={_.isEmpty(image.url) ? `data:image/png;base64,${emptyImage}` : `${findingBaseUrl}/${image.url}`}
+              content={_.isEmpty(image.url) ? <div/> : `${findingBaseUrl}/${image.url}`}
               onClick={handleClick}
               onUpdate={handleUpdate}
             />
