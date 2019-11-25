@@ -9,6 +9,27 @@
       },
       "Type": "AWS::RDS::DBCluster"
     },
+    "dynamoDBTable1": {
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "columnA",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": [
+          {
+            "AttributeName": "columnA",
+            "KeyType": "HASH"
+          }
+        ],
+        "PointInTimeRecoverySpecification": {
+          "PointInTimeRecoveryEnabled": "true"
+        }
+      },
+      "Type": "AWS::DynamoDB::Table"
+    },
     "ec2Volume1": {
       "Properties": {
         "AvailabilityZone": "us-east-1"

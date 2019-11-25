@@ -9,6 +9,7 @@ import troposphere.ec2
 import troposphere.iam
 import troposphere.kms
 import troposphere.rds
+import troposphere.dynamodb
 import troposphere.secretsmanager
 
 
@@ -227,6 +228,29 @@ ec2_instance = troposphere.ec2.Instance(
     title='ec2instance1',
     IamInstanceProfile='iamInstanceProfile1',
 )
+dynamodb_table = troposphere.dynamodb.Table(
+    title='dynamoDBTable1',
+    AttributeDefinitions=[
+        troposphere.dynamodb.AttributeDefinition(
+            title='attributeDefinition1',
+            AttributeName='columnA',
+            AttributeType='S',
+        ),
+    ],
+    KeySchema=[
+        troposphere.dynamodb.KeySchema(
+            title='keySchema1',
+            AttributeName='columnA',
+            KeyType='HASH',
+        ),
+    ],
+    BillingMode='PAY_PER_REQUEST',
+    PointInTimeRecoverySpecification=\
+        troposphere.dynamodb.PointInTimeRecoverySpecification(
+            title='pointInTimeRecoverySpecification1',
+            PointInTimeRecoveryEnabled=True,
+        ),
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(cluster)
@@ -239,6 +263,7 @@ template.add_resource(security_group)
 template.add_resource(ec2_volume)
 template.add_resource(ec2_volume2)
 template.add_resource(ec2_instance)
+template.add_resource(dynamodb_table)
 write_template(template)
 
 #
@@ -528,6 +553,47 @@ ec2_volume = troposphere.ec2.Volume(
 ec2_instance = troposphere.ec2.Instance(
     title='ec2instance1',
 )
+dynamodb_table = troposphere.dynamodb.Table(
+    title='dynamoDBTable1',
+    AttributeDefinitions=[
+        troposphere.dynamodb.AttributeDefinition(
+            title='attributeDefinition1',
+            AttributeName='columnA',
+            AttributeType='S',
+        ),
+    ],
+    KeySchema=[
+        troposphere.dynamodb.KeySchema(
+            title='keySchema1',
+            AttributeName='columnA',
+            KeyType='HASH',
+        ),
+    ],
+    BillingMode='PAY_PER_REQUEST',
+    PointInTimeRecoverySpecification=\
+        troposphere.dynamodb.PointInTimeRecoverySpecification(
+            title='pointInTimeRecoverySpecification1',
+            PointInTimeRecoveryEnabled=False,
+        ),
+)
+dynamodb_table2 = troposphere.dynamodb.Table(
+    title='dynamoDBTable2',
+    AttributeDefinitions=[
+        troposphere.dynamodb.AttributeDefinition(
+            title='attributeDefinition2',
+            AttributeName='columnA',
+            AttributeType='S',
+        ),
+    ],
+    KeySchema=[
+        troposphere.dynamodb.KeySchema(
+            title='keySchema2',
+            AttributeName='columnA',
+            KeyType='HASH',
+        ),
+    ],
+    BillingMode='PAY_PER_REQUEST',
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(secret2)
@@ -543,4 +609,6 @@ template.add_resource(security_group_ingress)
 template.add_resource(security_group_egress)
 template.add_resource(ec2_volume)
 template.add_resource(ec2_instance)
+template.add_resource(dynamodb_table)
+template.add_resource(dynamodb_table2)
 write_template(template)

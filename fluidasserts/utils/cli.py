@@ -687,6 +687,9 @@ def exec_cloudformation_package(
             ec2.has_unencrypted_volumes('__path__')
             ec2.has_not_an_iam_instance_profile('__path__')
             """,
+        ('dynamodb', 'DynamoDB (NoSQL Database Service)'): """
+            dynamodb.has_not_point_in_time_recovery('__path__')
+            """,
         ('iam', 'IAM (Identity and Access Management)'): """
             iam.is_managed_policy_miss_configured('__path__')
             iam.is_policy_miss_configured('__path__')
