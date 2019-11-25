@@ -11,13 +11,7 @@ from app.api.schema import SCHEMA
 
 class EventTests(TestCase):
 
-    def test_get_event(self):
-        """Check for eventuality"""
-        query = '''{
-            event(identifier:"418900971"){
-                detail
-            }
-        }'''
+    def _get_result(self, query, testing_client):
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
         middleware.process_request(request)
@@ -35,7 +29,20 @@ class EventTests(TestCase):
             key=settings.JWT_SECRET,
         )
         request.loaders = {'event': EventLoader()}
-        result = dict(SCHEMA.execute(query, context_value=request).data)
+        if testing_client:
+
+            return testing_client.execute(query, context=request)
+
+        return dict(SCHEMA.execute(query, context_value=request).data)
+
+    def test_get_event(self):
+        """Check for eventuality"""
+        query = '''{
+            event(identifier:"418900971"){
+                detail
+            }
+        }'''
+        result = self._get_result(query, False)
         if 'event' in list(result.keys()):
             detail = dict(result['event'])['detail']
             assert detail == 'Integrates unit test'
@@ -50,24 +57,7 @@ class EventTests(TestCase):
                 }
             }
         }'''
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        request.loaders = {'event': EventLoader()}
-        result = dict(SCHEMA.execute(query, context_value=request).data)
+        result = self._get_result(query, False)
         assert 'events' in result['project']
         detail = dict(result['project']['events'][0])['detail']
         assert len(detail) >= 1
@@ -96,23 +86,6 @@ class EventTests(TestCase):
         }
         '''
         testing_client = Client(SCHEMA)
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        request.loaders = {'event': EventLoader()}
-        result = testing_client.execute(query, context=request)
+        result = self._get_result(query, testing_client)
         assert 'errors' not in result
         assert result['data']['updateEvent']['event']['eventStatus'] == 'SOLVED'
