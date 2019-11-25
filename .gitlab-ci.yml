@@ -1,5 +1,6 @@
 stages:
   - deps-base
+  - deps
   - test
   - build
   - mr-check
@@ -14,8 +15,17 @@ deps-mobile:
     - ./ci-scripts/jobs/deps-mobile.sh
   interruptible: true
 
-deps-production:
+deps-base:
   stage: deps-base
+  tags: [autoscaling-large]
+  image: fluidattacks/alpine-kaniko:latest
+  script:
+    - ./ci-scripts/jobs/deps-base.sh
+  interruptible: true
+
+deps-production:
+  stage: deps
+  needs: [deps-base]
   tags: [autoscaling-large]
   image: fluidattacks/alpine-kaniko:latest
   script:
@@ -23,7 +33,8 @@ deps-production:
   interruptible: true
 
 deps-development:
-  stage: deps-base
+  stage: deps
+  needs: [deps-base]
   tags: [autoscaling-large]
   image: fluidattacks/alpine-kaniko:latest
   script:

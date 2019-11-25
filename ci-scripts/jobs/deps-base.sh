@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-deps_production() {
+deps_base() {
 
   # Builds container if any of the specified files
   # was modified
@@ -13,30 +13,27 @@ deps_production() {
 
   local NAME
 
-  NAME='deps-production'
+  NAME='deps-base'
   FILES=(
-    'front/package.json'
-    'deploy/containers/deps-production/Dockerfile'
-    'deploy/containers/deps-production/requirements.txt'
-    'ci-scripts/jobs/deps-production.sh'
+    'deploy/containers/deps-base/Dockerfile'
+    'ci-scripts/jobs/deps-base.sh'
   )
   FOLDERS=(
       'ci-scripts/helpers/'
   )
   if check_folder_changed "${FOLDERS[@]}" \
      || check_file_changed "${FILES[@]}" \
-     || docker_tag_not_exists deps-production $CI_COMMIT_REF_NAME \
-     || container_image_differs deps-production $CI_COMMIT_REF_NAME \
+     || docker_tag_not_exists deps-base $CI_COMMIT_REF_NAME \
+     || container_image_differs deps-base $CI_COMMIT_REF_NAME \
      || [ $SCHEDULE ]; then
 	  kaniko_build \
 	    "$NAME" \
 	    eph=true \
-	    cache=true \
-	    --build-arg CI_COMMIT_REF_NAME="$CI_COMMIT_REF_NAME"
+	    cache=true
   else
       echo "No relevant files for $NAME were modified. Skipping build."
   fi
 
 }
 
-deps_production
+deps_base
