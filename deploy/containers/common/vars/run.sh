@@ -12,6 +12,11 @@ fi
 
 if [ "$1" = 'app' ]; then
   if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
+      ./manage.py crontab add
+    crontab -l >> /tmp/mycron
+    sed -i 's|/usr/bin|vaultenv /usr/bin|g' /tmp/mycron
+    crontab /tmp/mycron
+    service cron start
     python3 deploy/containers/common/vars/render.py production
   else
     python3 deploy/containers/common/vars/render.py development
@@ -28,14 +33,7 @@ if [ "$1" = 'app' ]; then
   fi
   /usr/sbin/apache2ctl -D FOREGROUND
 elif [ "$1" = 'bot' ]; then
-  if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
-    ./manage.py crontab add
-    crontab -l >> /tmp/mycron
-    sed -i 's|/usr/bin|vaultenv /usr/bin|g' /tmp/mycron
-    crontab /tmp/mycron
-    service cron start
-  fi
-  ./manage.py bot
+  true
 else
   echo 'Only app and bot args allowed for $1'
   exit 1
