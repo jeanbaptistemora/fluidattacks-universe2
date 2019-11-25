@@ -55,8 +55,7 @@ RUN mkdir -p /usr/share/man/man1 \
 
 COPY "$PIP_REQUIREMENTS_DEV" /tmp/reqs_dev.txt
 COPY "$PIP_REQUIREMENTS_PROD" /tmp/reqs_prod.txt
-RUN pip3 install -U setuptools==41.4.0 \
-  && pip3 install --no-cache-dir -r /tmp/reqs_prod.txt \
+RUN pip3 install --no-cache-dir -r /tmp/reqs_prod.txt \
   && pip3 install --no-cache-dir -r /tmp/reqs_dev.txt
 
 # npm deps. node_modules folders are stored in /npm-deps,
@@ -72,6 +71,4 @@ RUN npm install -g secure-spreadsheet@0.1.0 \
   && npm install --prefix /tmp/front --only=production \
   && npm install --prefix /tmp/front --only=development \
   && npm cache clean --force \
-  && mv /tmp/front/node_modules /npm-deps/front/ \
-  && apt -y autoremove \
-  && rm -rf /tmp/*
+  && mv /tmp/front/node_modules /npm-deps/front/

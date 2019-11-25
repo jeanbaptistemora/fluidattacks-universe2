@@ -49,6 +49,7 @@ RUN curl -sL "$NODE_URL" | bash - \
     eventmachine \
     em-http-request \
     fluent-plugin-rewrite-tag-filter \
+  && pip3 install -U setuptools==41.4.0 \
   && apt -y autoremove \
   && rm -rf \
     /var/lib/apt/lists/* \
