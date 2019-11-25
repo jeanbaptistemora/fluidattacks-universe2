@@ -6,6 +6,7 @@ import os
 import textwrap
 import troposphere
 import troposphere.ec2
+import troposphere.fsx
 import troposphere.iam
 import troposphere.kms
 import troposphere.rds
@@ -251,6 +252,17 @@ dynamodb_table = troposphere.dynamodb.Table(
             PointInTimeRecoveryEnabled=True,
         ),
 )
+fsx_filesystem = troposphere.fsx.FileSystem(
+    title='fileSystem1',
+    FileSystemType='LUSTRE',
+    SubnetIds=[
+        'sn-123',
+    ],
+    LustreConfiguration=troposphere.fsx.LustreConfiguration(
+        title='lustreConfiguration',
+    ),
+    KmsKeyId='kms-123',
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(cluster)
@@ -264,6 +276,7 @@ template.add_resource(ec2_volume)
 template.add_resource(ec2_volume2)
 template.add_resource(ec2_instance)
 template.add_resource(dynamodb_table)
+template.add_resource(fsx_filesystem)
 write_template(template)
 
 #
@@ -594,6 +607,16 @@ dynamodb_table2 = troposphere.dynamodb.Table(
     ],
     BillingMode='PAY_PER_REQUEST',
 )
+fsx_filesystem = troposphere.fsx.FileSystem(
+    title='fileSystem1',
+    FileSystemType='LUSTRE',
+    SubnetIds=[
+        'sn-123',
+    ],
+    LustreConfiguration=troposphere.fsx.LustreConfiguration(
+        title='lustreConfiguration',
+    )
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(secret2)
@@ -611,4 +634,5 @@ template.add_resource(ec2_volume)
 template.add_resource(ec2_instance)
 template.add_resource(dynamodb_table)
 template.add_resource(dynamodb_table2)
+template.add_resource(fsx_filesystem)
 write_template(template)

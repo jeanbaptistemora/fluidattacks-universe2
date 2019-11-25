@@ -31,6 +31,14 @@ Resources:
     Properties:
       IamInstanceProfile: iamInstanceProfile1
     Type: AWS::EC2::Instance
+  fileSystem1:
+    Properties:
+      FileSystemType: LUSTRE
+      KmsKeyId: kms-123
+      LustreConfiguration: {}
+      SubnetIds:
+        - sn-123
+    Type: AWS::FSx::FileSystem
   instance1:
     Properties:
       BackupRetentionPeriod: '32'

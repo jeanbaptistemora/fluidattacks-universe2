@@ -690,6 +690,9 @@ def exec_cloudformation_package(
         ('dynamodb', 'DynamoDB (NoSQL Database Service)'): """
             dynamodb.has_not_point_in_time_recovery('__path__')
             """,
+        ('fsx', 'FSx (Amazon FSx file systems)'): """
+            fsx.has_unencrypted_volumes('__path__')
+            """,
         ('iam', 'IAM (Identity and Access Management)'): """
             iam.is_managed_policy_miss_configured('__path__')
             iam.is_policy_miss_configured('__path__')
