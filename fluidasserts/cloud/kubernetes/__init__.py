@@ -11,9 +11,9 @@ from fluidasserts import Unit, OPEN, CLOSED
 from kubernetes.client import Configuration  # noqa
 
 
-def _get_result_as_tuple(*, host: str, objects: str,
-                         msg_open: str, msg_closed: str,
-                         vulns: List[str], safes: List[str]) -> tuple:
+def _get_result_as_tuple(*, host: str, objects: str, msg_open: str,
+                         msg_closed: str, vulns: List[str],
+                         safes: List[str]) -> tuple:
     """Return the tuple version of the Result object."""
     if host.endswith('/'):
         host = host[:-1]
@@ -36,12 +36,10 @@ def _get_result_as_tuple(*, host: str, objects: str,
     return CLOSED, f'No {objects} found to check', vuln_units, safe_units
 
 
-def _get_config(*,
-                host: str = None,
+def _get_config(host: str = None,
                 api_key: str = None,
                 username: str = None,
                 password: str = None,
-                ssl_ca_cert=None,
                 **kwargs):
     """
     Configure connection to the Kubernetes API server.
@@ -52,7 +50,6 @@ def _get_config(*,
     :param api_key: API Key to make requests.
     :param username: Username of account.
     :param password: Password of account.
-    :ssl_ca_cert: Path of SSL CA certificate file.
 
     :rtype: :class:`kubernetes.client.Configuration`
     """
@@ -62,8 +59,9 @@ def _get_config(*,
     configuration.password = password
     configuration.api_key['authorization'] = api_key
     configuration.api_key_prefix['authorization'] = 'Bearer'
-    configuration.ssl_ca_cert = ssl_ca_cert
-    for key, value in kwargs['kwargs'].items():  # noqa
-        configuration.key = value
+    configuration.verify_ssl = False
+
+    for key, value in kwargs.items():
+        setattr(configuration, key, value)
 
     return configuration
