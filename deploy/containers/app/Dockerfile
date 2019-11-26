@@ -61,9 +61,7 @@ RUN cp -a /npm-deps/front/node_modules front/ \
 RUN sed -i "s/env#/${ENV_NAME}#/g" env.vars
 
 # Clean container
-RUN apt remove --purge -y \
-    cron \
-  && apt -y autoremove \
+RUN apt -y autoremove \
   && rm -rf /tmp/*
 
 EXPOSE 443 24224

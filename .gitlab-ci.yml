@@ -9,7 +9,7 @@ stages:
 
 deps-mobile:
   stage: deps-base
-  tags: [autoscaling-ci-privileged]
+  tags: [autoscaling-large]
   image: fluidattacks/alpine-kaniko:latest
   script:
     - ./ci-scripts/jobs/deps-mobile.sh
@@ -117,7 +117,7 @@ lint-app:
 
 asserts-static:
   stage: test
-  tags: [autoscaling-ci-privileged]
+  tags: [autoscaling-large]
   needs: [deps-development]
   image:
     name: fluidattacks/break-build
@@ -310,7 +310,7 @@ test-driver-prod:
 
 asserts-dynamic:
   stage: post-deploy
-  tags: [autoscaling-ci-privileged]
+  tags: [autoscaling-large]
   image:
     name: fluidattacks/break-build
     entrypoint: [""]
