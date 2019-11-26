@@ -117,7 +117,7 @@ lint-app:
 
 asserts-static:
   stage: test
-  tags: [autoscaling-large]
+  tags: [mobile]
   needs: [deps-development]
   image:
     name: fluidattacks/break-build
@@ -310,7 +310,7 @@ test-driver-prod:
 
 asserts-dynamic:
   stage: post-deploy
-  tags: [autoscaling-large]
+  tags: [mobile]
   image:
     name: fluidattacks/break-build
     entrypoint: [""]
