@@ -91,6 +91,7 @@ stages:
       - $FLAG_SYNC_ZOHO
 
 build_builder:
+  tags: [autoscaling]
   stage: deps
   <<: *kaniko_config
   script:
@@ -102,6 +103,7 @@ build_builder:
   <<: *except_analytics
 
 test_code:
+  tags: [autoscaling]
   stage: tests
   script:
     - ./check-changed.sh
@@ -109,6 +111,7 @@ test_code:
     - master
 
 commitlint:
+  tags: [autoscaling]
   stage: tests
   image: starefossen/ruby-node:2-10
   before_script:
@@ -120,6 +123,7 @@ commitlint:
     - schedules
 
 test_terraform:
+  tags: [autoscaling]
   stage: tests
   <<: *vault_login
   script:
@@ -130,18 +134,21 @@ test_terraform:
     - master
 
 build_exams:
+  tags: [autoscaling]
   stage: build
   <<: *kaniko_vault_config
   <<: *kaniko_build_template
   <<: *except_analytics
 
 build_vpn:
+  tags: [autoscaling]
   stage: build
   <<: *kaniko_vault_config
   <<: *kaniko_build_template
   <<: *except_analytics
 
 danger:
+  tags: [autoscaling]
   stage: mr-check
   image: fluidattacks/danger-ruby
   only:
@@ -157,6 +164,7 @@ danger:
     - danger --verbose --fail-on-errors=true
 
 deploy_infra:
+  tags: [autoscaling]
   stage: deploy
   <<: *vault_login
   script:
@@ -176,6 +184,7 @@ deploy_infra:
     - schedules
 
 new_version_mail:
+  tags: [autoscaling]
   stage: postdeploy
   <<: *vault_login
   script:
@@ -192,6 +201,7 @@ new_version_mail:
     - schedules
 
 fluidasserts_post:
+  tags: [autoscaling]
   stage: postdeploy
   image: fluidattacks/asserts
   script:
@@ -202,6 +212,7 @@ fluidasserts_post:
     - schedules
 
 change_keys:
+  tags: [autoscaling]
   stage: rotation
   <<: *vault_login
   script:
@@ -245,6 +256,7 @@ change_keys:
   when: always
 
 vault_backup:
+  tags: [autoscaling]
   stage: backup
   script:
     - aws s3 cp
@@ -275,6 +287,7 @@ vault_backup:
   <<: *except_analytics
 
 formstack_backup:
+  tags: [autoscaling]
   stage: backup
   <<: *vault_login
   script:
@@ -287,24 +300,8 @@ formstack_backup:
   <<: *only_schedules
   <<: *except_analytics
 
-sync_currencies:
-  stage: analytics
-  <<: *vault_login
-  script:
-    - pip3 install
-        analytics/singer/tap_currencyconverterapi
-        analytics/singer/target_redshift
-    - tap-currencyconverterapi > /currencies.singer
-    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
-    - cat /currencies.singer |
-        target-redshift --auth /target_secret.json --drop-schema --schema-name "currencies"
-    - rm -fr /target_secret.json
-  <<: *only_schedules
-  only:
-    variables:
-      - $FLAG_SYNC_CURRENCIES
-
 sync_formstack:
+  tags: [autoscaling]
   stage: analytics
   <<: *vault_login
   script:
@@ -326,6 +323,7 @@ sync_formstack:
       - $FLAG_SYNC_FORMSTACK
 
 sync_awsdynamodb:
+  tags: [autoscaling]
   stage: analytics
   <<: *vault_login
   script:
@@ -350,6 +348,7 @@ sync_awsdynamodb:
       - $FLAG_SYNC_AWSDYNAMODB
 
 sync_timedoctor:
+  tags: [autoscaling]
   stage: analytics
   <<: *vault_login
   script:
@@ -381,6 +380,7 @@ sync_timedoctor:
       - $FLAG_SYNC_TIMEDOCTOR
 
 sync_git:
+  tags: [autoscaling-large]
   stage: analytics
   <<: *vault_login
   script:
@@ -400,6 +400,7 @@ sync_git:
       - $FLAG_SYNC_GIT
 
 sync_mandrill:
+  tags: [autoscaling]
   stage: analytics
   <<: *vault_login
   script:
@@ -420,6 +421,7 @@ sync_mandrill:
       - $FLAG_SYNC_MANDRILL
 
 sync_infrastructure:
+  tags: [autoscaling]
   stage: analytics
   <<: *vault_login
   script:
@@ -440,6 +442,7 @@ sync_infrastructure:
       - $FLAG_SYNC_INFRASTRUCTURE
 
 build_ms_sql_server:
+  tags: [autoscaling]
   stage: deps
   <<: *kaniko_config
   script:
@@ -457,6 +460,7 @@ build_ms_sql_server:
       - $FLAG_CONT_MS_SQL_SERVER
 
 sync_ms_sql_server_erp:
+  tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/serves:ms_sql_server
   stage: analytics
   <<: *vault_login
@@ -483,6 +487,7 @@ sync_ms_sql_server_erp:
       - $FLAG_SYNC_MS_SQL_SERVER_ERP
 
 sync_ringcentral:
+  tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/serves:ms_sql_server
   stage: analytics
   <<: *vault_login
@@ -503,31 +508,8 @@ sync_ringcentral:
     variables:
       - $FLAG_SYNC_RINGCENTRAL
 
-sync_salesforce:
-  stage: analytics
-  <<: *vault_login
-  script:
-    - pip3 install
-        boto3
-        tap_salesforce
-        analytics/singer/target_redshift
-    - echo '{ "AWS_ACCESS_KEY_ID":"'$(vault read -field=aws_s3_access_key secret/serves)'",
-              "AWS_SECRET_ACCESS_KEY":"'$(vault read -field=aws_s3_secret_key secret/serves)'",
-              "AWS_DEFAULT_REGION":"'$(vault read -field=aws_s3_default_region secret/serves)'"}' > /s3_auth.json
-    - echo "$(vault read -field=analytics_s3_conf_salesforce secret/serves)" > /s3_files.json
-    - echo "$(vault read -field=analytics_auth_salesforce secret/serves)" > /tap_secret.json
-    - echo "$(vault read -field=analytics_auth_redshift   secret/serves)" > /target_secret.json
-    - analytics/download_from_aws_sss.py -auth /s3_auth.json -conf /s3_files.json
-    - tap-salesforce --config /tap_secret.json --properties /tap_config.json > .singer
-    - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "salesforce"
-  after_script:
-    - rm -rf /s3_auth.json /s3_files.json /tap_secret.json /target_secret.json
-  <<: *only_schedules
-  only:
-    variables:
-      - $FLAG_SYNC_SALESFORCE
-
 sync_intercom:
+  tags: [autoscaling]
   stage: analytics
   <<: *vault_login
   script:
@@ -548,6 +530,7 @@ sync_intercom:
       - $FLAG_SYNC_INTERCOM
 
 sync_gitlab:
+  tags: [autoscaling]
   stage: analytics
   <<: *vault_login
   script:
@@ -575,6 +558,7 @@ sync_gitlab:
       - $FLAG_SYNC_GITLAB
 
 sync_continuous:
+  tags: [autoscaling]
   stage: analytics
   <<: *vault_login
   script:
@@ -601,6 +585,7 @@ sync_continuous:
       - $FLAG_SYNC_CONTINUOUS
 
 analytics_refresh_token_timedoctor:
+  tags: [autoscaling]
   stage: analytics
   <<: *vault_login
   script:
@@ -611,6 +596,7 @@ analytics_refresh_token_timedoctor:
       - $FLAG_REFRESH_TOKENS
 
 sync_zoho:
+  tags: [autoscaling]
   stage: analytics
   <<: *vault_vars
   before_script:
@@ -645,6 +631,7 @@ sync_zoho:
       - $FLAG_SYNC_ZOHO
 
 .eks-initial-setup:
+  tags: [autoscaling]
   stage: eks-initial-setup
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -656,6 +643,7 @@ sync_zoho:
     - schedules
 
 .eks-terraform-apply:
+  tags: [autoscaling]
   stage: deploy
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -666,6 +654,7 @@ sync_zoho:
     - schedules
 
 eks-terraform-lint:
+  tags: [autoscaling]
   stage: tests
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -674,6 +663,7 @@ eks-terraform-lint:
     - schedules
 
 eks-terraform-plan:
+  tags: [autoscaling]
   stage: tests
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -682,6 +672,7 @@ eks-terraform-plan:
     - schedules
 
 terraform-states-bucket:
+  tags: [autoscaling]
   stage: terraform-backend
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -692,6 +683,7 @@ terraform-states-bucket:
     - schedules
 
 sops-terraform-lint:
+  tags: [autoscaling]
   stage: tests
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -700,6 +692,7 @@ sops-terraform-lint:
     - schedules
 
 sops-terraform-plan:
+  tags: [autoscaling]
   stage: tests
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -708,6 +701,7 @@ sops-terraform-plan:
     - schedules
 
 sops-terraform-apply:
+  tags: [autoscaling]
   stage: deploy
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -718,6 +712,7 @@ sops-terraform-apply:
     - schedules
 
 aws-sso-terraform-lint:
+  tags: [autoscaling]
   stage: tests
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -726,6 +721,7 @@ aws-sso-terraform-lint:
     - schedules
 
 aws-sso-terraform-plan:
+  tags: [autoscaling]
   stage: tests
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -734,6 +730,7 @@ aws-sso-terraform-plan:
     - schedules
 
 aws-sso-terraform-apply:
+  tags: [autoscaling]
   stage: deploy
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -744,6 +741,7 @@ aws-sso-terraform-apply:
     - schedules
 
 break-build-terraform-apply:
+  tags: [autoscaling]
   stage: deploy
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -754,6 +752,7 @@ break-build-terraform-apply:
     - schedules
 
 break-build-terraform-lint:
+  tags: [autoscaling]
   stage: tests
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -762,6 +761,7 @@ break-build-terraform-lint:
     - schedules
 
 break-build-terraform-plan:
+  tags: [autoscaling]
   stage: tests
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -770,6 +770,7 @@ break-build-terraform-plan:
     - schedules
 
 user-provision-integrates-terraform-lint:
+  tags: [autoscaling]
   stage: tests
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -778,6 +779,7 @@ user-provision-integrates-terraform-lint:
     - schedules
 
 user-provision-integrates-terraform-plan:
+  tags: [autoscaling]
   stage: tests
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -786,6 +788,7 @@ user-provision-integrates-terraform-plan:
     - schedules
 
 user-provision-integrates-terraform-apply:
+  tags: [autoscaling]
   stage: deploy
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -796,6 +799,7 @@ user-provision-integrates-terraform-apply:
     - schedules
 
 autoscaling-ci-terraform-lint:
+  tags: [autoscaling]
   stage: tests
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -804,6 +808,7 @@ autoscaling-ci-terraform-lint:
     - schedules
 
 autoscaling-ci-terraform-plan:
+  tags: [autoscaling]
   stage: tests
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
@@ -812,6 +817,7 @@ autoscaling-ci-terraform-plan:
     - schedules
 
 autoscaling-ci-terraform-apply:
+  tags: [autoscaling]
   stage: deploy
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
