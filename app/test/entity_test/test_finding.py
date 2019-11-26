@@ -19,7 +19,7 @@ from app.exceptions import FindingNotFound
 
 class FindingTests(TestCase):
 
-    def _get_result(self, query, testing_client, REQUEST_LOADERS):
+    def _get_result(self, query, testing_client, request_loaders):
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
         middleware.process_request(request)
@@ -36,7 +36,7 @@ class FindingTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        request.loaders = REQUEST_LOADERS
+        request.loaders = request_loaders
         if testing_client:
 
             return testing_client.execute(query, context=request)
@@ -52,8 +52,8 @@ class FindingTests(TestCase):
           }
         '''
         testing_client = Client(SCHEMA)
-        REQUEST_LOADERS = {'finding': FindingLoader()}
-        result = self._get_result(query, testing_client, REQUEST_LOADERS)
+        request_loaders = {'finding': FindingLoader()}
+        result = self._get_result(query, testing_client, request_loaders)
         assert 'errors' not in result
         assert result['data']['deleteFinding']['success']
         with pytest.raises(FindingNotFound):
@@ -74,11 +74,11 @@ class FindingTests(TestCase):
             }
           }
         }'''
-        REQUEST_LOADERS = {
+        request_loaders = {
             'finding': FindingLoader(),
             'vulnerability': VulnerabilityLoader()
         }
-        result = self._get_result(query, False, REQUEST_LOADERS)
+        result = self._get_result(query, False, request_loaders)
         assert not result.errors
         assert result.data.get('finding')['id'] == '422286126'
         test_data = OrderedDict([
@@ -146,8 +146,8 @@ class FindingTests(TestCase):
                 }
         '''
         testing_client = Client(SCHEMA)
-        REQUEST_LOADERS = {'finding': FindingLoader()}
-        result = self._get_result(query, testing_client, REQUEST_LOADERS)
+        request_loaders = {'finding': FindingLoader()}
+        result = self._get_result(query, testing_client, request_loaders)
         assert 'errors' not in result
         assert result['data']['updateDescription']['success']
 
@@ -182,8 +182,8 @@ class FindingTests(TestCase):
                 }
         '''
         testing_client = Client(SCHEMA)
-        REQUEST_LOADERS = {'finding': FindingLoader()}
-        result = self._get_result(query, testing_client, REQUEST_LOADERS)
+        request_loaders = {'finding': FindingLoader()}
+        result = self._get_result(query, testing_client, request_loaders)
         assert 'errors' not in result
         assert result['data']['updateSeverity']['success']
 
@@ -245,10 +245,10 @@ class FindingTests(TestCase):
                 }
         '''
         testing_client = Client(SCHEMA)
-        REQUEST_LOADERS = {
+        request_loaders = {
             'finding': FindingLoader(),
             'vulnerability': VulnerabilityLoader()}
-        result = self._get_result(query, testing_client, REQUEST_LOADERS)
+        result = self._get_result(query, testing_client, request_loaders)
         assert 'errors' not in result
         assert result['data']['updateTreatment']['success']
 
@@ -271,9 +271,9 @@ class FindingTests(TestCase):
                 }
         '''
         testing_client = Client(SCHEMA)
-        REQUEST_LOADERS = {
+        request_loaders = {
             'finding': FindingLoader(),
             'vulnerability': VulnerabilityLoader()}
-        result = self._get_result(query, testing_client, REQUEST_LOADERS)
+        result = self._get_result(query, testing_client, request_loaders)
         assert 'errors' not in result
         assert result['data']['updateTreatment']['success']

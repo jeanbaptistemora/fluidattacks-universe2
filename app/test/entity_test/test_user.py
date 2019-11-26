@@ -16,8 +16,28 @@ from app.api.schema import SCHEMA
 
 class UserTests(TestCase):
 
-    def test_grant_user_access(self):
+    def _get_result(self, query):
         testing_client = Client(SCHEMA)
+        request = RequestFactory().get('/')
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+        request.session['username'] = 'unittest'
+        request.session['company'] = 'unittest'
+        request.session['role'] = 'admin'
+        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
+            {
+                'user_email': 'unittest',
+                'user_role': 'admin',
+                'company': 'unittest'
+            },
+            algorithm='HS512',
+            key=settings.JWT_SECRET,
+        )
+
+        return testing_client.execute(query, context=request)
+
+    def test_grant_user_access(self):
         query = '''
             mutation {
                 grantUserAccess (
@@ -40,23 +60,7 @@ class UserTests(TestCase):
                 }
             }
         '''
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        result = testing_client.execute(query, context=request)
+        result = self._get_result(query)
         assert 'errors' not in result
         assert 'success' in result['data']['grantUserAccess']
 
@@ -71,24 +75,7 @@ class UserTests(TestCase):
                 }
             }
         '''
-        testing_client = Client(SCHEMA)
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        result = testing_client.execute(query, context=request)
+        result = self._get_result(query)
         assert 'errors' not in result
         assert 'user' in result['data']
 
@@ -115,29 +102,11 @@ class UserTests(TestCase):
                 }
             }
         '''
-        testing_client = Client(SCHEMA)
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        result = testing_client.execute(query, context=request)
+        result = self._get_result(query)
         assert 'errors' not in result
         assert 'success' in result['data']['grantUserAccess']
 
     def test_remove_user(self):
-        testing_client = Client(SCHEMA)
         query = '''
             mutation {
               removeUserAccess (
@@ -150,28 +119,11 @@ class UserTests(TestCase):
                 }
             }
         '''
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        result = testing_client.execute(query, context=request)
+        result = self._get_result(query)
         assert 'errors' not in result
         assert 'success' in result['data']['removeUserAccess']
 
     def test_edit_user(self):
-        testing_client = Client(SCHEMA)
         query = '''
             mutation {
               editUser (
@@ -185,23 +137,7 @@ class UserTests(TestCase):
                 }
             }
         '''
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        result = testing_client.execute(query, context=request)
+        result = self._get_result(query)
         assert 'errors' not in result
         assert 'success' in result['data']['editUser']
 
