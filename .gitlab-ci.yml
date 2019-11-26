@@ -77,7 +77,7 @@ bandit:
 
 test:
   stage: test
-  tags: [private]
+  tags: [autoscaling-large]
   services:
     - docker:dind
   script:
