@@ -267,6 +267,16 @@ fsx_filesystem = troposphere.fsx.FileSystem(
 cloudfront_distribution = troposphere.cloudfront.Distribution(
     title='distribution1',
     DistributionConfig=troposphere.cloudfront.DistributionConfig(
+        CacheBehaviors=[
+            troposphere.cloudfront.CacheBehavior(
+                ForwardedValues=troposphere.cloudfront.ForwardedValues(
+                    QueryString=False,
+                ),
+                TargetOriginId='target-origin-id',
+                ViewerProtocolPolicy='redirect-to-https',
+                PathPattern='test',
+            ),
+        ],
         DefaultCacheBehavior=troposphere.cloudfront.DefaultCacheBehavior(
             ForwardedValues=troposphere.cloudfront.ForwardedValues(
                 QueryString=False,
@@ -650,12 +660,22 @@ fsx_filesystem = troposphere.fsx.FileSystem(
 cloudfront_distribution = troposphere.cloudfront.Distribution(
     title='distribution1',
     DistributionConfig=troposphere.cloudfront.DistributionConfig(
+        CacheBehaviors=[
+            troposphere.cloudfront.CacheBehavior(
+                ForwardedValues=troposphere.cloudfront.ForwardedValues(
+                    QueryString=False,
+                ),
+                TargetOriginId='target-origin-id',
+                ViewerProtocolPolicy='allow-all',
+                PathPattern='test',
+            ),
+        ],
         DefaultCacheBehavior=troposphere.cloudfront.DefaultCacheBehavior(
             ForwardedValues=troposphere.cloudfront.ForwardedValues(
                 QueryString=False,
             ),
             TargetOriginId='target-origin-id',
-            ViewerProtocolPolicy='redirect-to-https',
+            ViewerProtocolPolicy='allow-all',
         ),
         Enabled=True,
         Origins=[

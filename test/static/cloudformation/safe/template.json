@@ -12,6 +12,16 @@
     "distribution1": {
       "Properties": {
         "DistributionConfig": {
+          "CacheBehaviors": [
+            {
+              "ForwardedValues": {
+                "QueryString": "false"
+              },
+              "PathPattern": "test",
+              "TargetOriginId": "target-origin-id",
+              "ViewerProtocolPolicy": "redirect-to-https"
+            }
+          ],
           "DefaultCacheBehavior": {
             "ForwardedValues": {
               "QueryString": "false"

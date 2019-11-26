@@ -18,11 +18,17 @@ Resources:
   distribution1:
     Properties:
       DistributionConfig:
+        CacheBehaviors:
+          - ForwardedValues:
+              QueryString: 'false'
+            PathPattern: test
+            TargetOriginId: target-origin-id
+            ViewerProtocolPolicy: allow-all
         DefaultCacheBehavior:
           ForwardedValues:
             QueryString: 'false'
           TargetOriginId: target-origin-id
-          ViewerProtocolPolicy: redirect-to-https
+          ViewerProtocolPolicy: allow-all
         Enabled: 'true'
         Origins:
           - CustomOriginConfig:

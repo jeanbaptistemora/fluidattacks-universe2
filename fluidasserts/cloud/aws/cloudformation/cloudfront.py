@@ -13,7 +13,7 @@ from fluidasserts.cloud.aws.cloudformation import (
 from fluidasserts.utils.decorators import api, unknown_if
 
 
-def _index(dictionary: dict, indexes: List[Any], default: Any) -> Any:
+def _index(dictionary: dict, indexes: List[Any], default: Any = None) -> Any:
     """Safely Index a dictionary over indexes without KeyError opportunity."""
     if len(indexes) < 2:
         raise AssertionError('indexes length must be >= two')
@@ -22,6 +22,69 @@ def _index(dictionary: dict, indexes: List[Any], default: Any) -> Any:
         result = result.get(index, {})
     result = result.get(indexes[-1], default)
     return result
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def serves_content_over_http(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if ``Distributions`` are serving content over HTTP.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if **ViewerProtocolPolicy** attribute is set
+                to **allow-all**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    vulnerable_protocol_policy = ('allow-all',)
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::CloudFront::Distribution',
+            ],
+            exclude=exclude):
+        found_issues: list = []
+
+        protocol_policy = _index(
+            dictionary=res_props,
+            indexes=(
+                'DistributionConfig',
+                'DefaultCacheBehavior',
+                'ViewerProtocolPolicy'))
+        if any(map(protocol_policy.__eq__, vulnerable_protocol_policy)):
+            found_issues.append(('DefaultCacheBehavior', protocol_policy))
+
+        for cache_behavior in _index(
+                dictionary=res_props,
+                indexes=(
+                    'DistributionConfig',
+                    'CacheBehaviors',
+                ),
+                default=[]):
+            protocol_policy = cache_behavior.get('ViewerProtocolPolicy')
+            if any(map(protocol_policy.__eq__, vulnerable_protocol_policy)):
+                found_issues.append(('CacheBehaviors', protocol_policy))
+
+        for cache, policy in found_issues:
+            vulnerabilities.append(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=(f'AWS::CloudFront::Distribution'
+                            f'/DistributionConfig'
+                            f'/{cache}'
+                            f'/ViewerProtocolPolicy'
+                            f'/{policy}'),
+                    identifier=res_name,
+                    reason='allows HTTP traffic'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='Distributions serve content over HTTP',
+        msg_closed='Distributions serve content over HTTPs')
 
 
 @api(risk=MEDIUM, kind=SAST)
