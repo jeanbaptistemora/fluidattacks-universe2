@@ -91,6 +91,7 @@ interface Filter<Type extends TODO = TODO> {
 
 interface FilterProps<Type extends TODO> {
     getFilter?(filter: FilterFunction<Type>): TODO;
+    onFilter?(filterVal: string): TODO;
     defaultValue?: Type
     placeholder?: string
     className?: string
