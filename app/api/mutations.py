@@ -3,6 +3,7 @@ from app.entity.login import AcceptLegal
 from app.entity.resource import (
     AddRepositories, UpdateRepositories,
     AddEnvironments, RemoveEnvironments,
+    AddResources, UpdateResources,
     AddFiles, RemoveFiles, DownloadFile
 )
 from app.entity.user import (
@@ -43,6 +44,8 @@ class Mutations(ObjectType):
     updateRepositories = UpdateRepositories.Field()
     addEnvironments = AddEnvironments.Field()
     removeEnvironments = RemoveEnvironments.Field()
+    addResources = AddResources.Field()
+    updateResources = UpdateResources.Field()
     addFiles = AddFiles.Field()
     removeFiles = RemoveFiles.Field()
     downloadFile = DownloadFile.Field()

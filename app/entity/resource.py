@@ -75,6 +75,163 @@ class Resource(ObjectType):
         return self.files
 
 
+class AddResources(Mutation):
+    """Add resources (repositories + environments) to a given project."""
+
+    class Arguments():
+        resource_data = JSONString()
+        project_name = String()
+        res_type = String()
+    resources = Field(Resource)
+    success = Boolean()
+
+    @require_login
+    @require_role(['customer'])
+    @require_project_access
+    def mutate(self, info, resource_data, project_name, res_type):
+        project_name = project_name.lower()
+        success = False
+        user_email = util.get_jwt_content(info.context)['user_email']
+        if res_type == 'repository':
+            res_id = 'urlRepo'
+            res_name = 'repositories'
+        elif res_type == 'environment':
+            res_id = 'urlEnv'
+            res_name = 'environments'
+        json_data = []
+        for res in resource_data:
+            if res_id in res:
+                new_state = {
+                    'user': user_email,
+                    'date': util.format_comment_date(
+                        datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
+                    'state': 'ACTIVE'
+                }
+                if res_type == 'repository':
+                    res_object = {
+                        'urlRepo': res.get('urlRepo'),
+                        'branch': res.get('branch'),
+                        'protocol': res.get('protocol'),
+                        'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3],
+                        'historic_state': [new_state],
+                    }
+                elif res_type == 'environment':
+                    res_object = {
+                        'urlEnv': res.get('urlEnv'),
+                        'historic_state': [new_state],
+                    }
+                json_data.append(res_object)
+            else:
+                rollbar.report_message('Error: \
+An error occurred adding repository', 'error', info.context)
+        add_repo = integrates_dal.add_list_resource_dynamo(
+            'FI_projects',
+            'project_name',
+            project_name,
+            json_data,
+            res_name
+        )
+        if add_repo:
+            resources.send_mail(project_name,
+                                user_email,
+                                json_data,
+                                'added',
+                                res_type)
+            success = True
+        else:
+            rollbar.report_message('Error: \
+An error occurred adding resource', 'error', info.context)
+        if success:
+            util.invalidate_cache(project_name)
+            util.cloudwatch_log(info.context, 'Security: Added resources to \
+                {project} project succesfully'.format(project=project_name))
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to add resources \
+                from {project} project'.format(project=project_name))
+        ret = AddResources(success=success,
+                           resources=Resource(project_name))
+        return ret
+
+
+class UpdateResources(Mutation):
+    """Remove resources (repositories + environments) of a given project."""
+
+    class Arguments():
+        resource_data = JSONString()
+        project_name = String()
+        res_type = String()
+    resources = Field(Resource)
+    success = Boolean()
+
+    @require_login
+    @require_role(['customer'])
+    @require_project_access
+    def mutate(self, info, resource_data, project_name, res_type):
+        project_name = project_name.lower()
+        success = False
+        if res_type == 'repository':
+            resource_url = resource_data.get('urlRepo')
+            res_list = \
+                integrates_dal.get_project_dynamo(project_name)[0]['repositories']
+            res_id = 'urlRepo'
+            res_name = 'repositories'
+        elif res_type == 'environment':
+            resource_url = resource_data.get('urlEnv')
+            res_list = \
+                integrates_dal.get_project_dynamo(project_name)[0]['environments']
+            res_id = 'urlEnv'
+            res_name = 'environments'
+        cont = 0
+        json_data = []
+        user_email = util.get_jwt_content(info.context)['user_email']
+        while len(res_list) > cont:
+            if res_id in res_list[cont] and res_list[cont][res_id] == resource_url:
+                new_state = {
+                    'user': user_email,
+                    'date': util.format_comment_date(
+                        datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
+                    'state': 'INACTIVE'
+                }
+                if 'historic_state' in res_list[cont]:
+                    if not res_list[cont]['historic_state'][-1]['state'] == 'ACTIVE':
+                        new_state['state'] = 'ACTIVE'
+                    res_list[cont]['historic_state'].append(new_state)
+                else:
+                    res_list[cont]['historic_state'] = [new_state]
+
+                json_data = [res_list[cont]]
+                break
+            cont += 1
+        update_res = integrates_dal.update_list_resource_dynamo(
+            'FI_projects',
+            ['project_name', project_name],
+            res_list,
+            res_name,
+            integrates_dal.get_data_dynamo('FI_projects', 'project_name', project_name.lower()))
+        if update_res:
+            resources.send_mail(project_name,
+                                user_email,
+                                json_data,
+                                'activated'
+                                if res_list[cont]['historic_state'][-1]['state'] == 'ACTIVE'
+                                else 'deactivated',
+                                res_type)
+            success = True
+        else:
+            rollbar.report_message('Error: \
+An error occurred removing repository', 'error', info.context)
+        if success:
+            util.invalidate_cache(project_name)
+            util.cloudwatch_log(info.context, 'Security: Removed repositories from \
+                {project} project succesfully'.format(project=project_name))
+        else:
+            util.cloudwatch_log(info.context, 'Security: Attempted to remove repositories \
+                from {project} project'.format(project=project_name))
+        ret = UpdateResources(success=success,
+                              resources=Resource(project_name))
+        return ret
+
+
 class AddRepositories(Mutation):
     """Add repositories to a given project."""
 
