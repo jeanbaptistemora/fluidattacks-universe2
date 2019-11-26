@@ -260,7 +260,7 @@ deploy-mobile:
 
 test-driver-dev:
   stage: post-deploy
-  tags: [autoscaling]
+  tags: [autoscaling-large]
   needs: [ephemeral-app]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
@@ -280,7 +280,7 @@ test-driver-dev:
 
 test-driver-prod:
   stage: post-deploy
-  tags: [autoscaling]
+  tags: [autoscaling-large]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:master
   script:
     - . ci-scripts/helpers/others.sh && vault_login
