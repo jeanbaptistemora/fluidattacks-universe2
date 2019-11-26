@@ -11,6 +11,7 @@ import troposphere.iam
 import troposphere.kms
 import troposphere.rds
 import troposphere.dynamodb
+import troposphere.cloudfront
 import troposphere.secretsmanager
 
 
@@ -263,6 +264,34 @@ fsx_filesystem = troposphere.fsx.FileSystem(
     ),
     KmsKeyId='kms-123',
 )
+cloudfront_distribution = troposphere.cloudfront.Distribution(
+    title='distribution1',
+    DistributionConfig=troposphere.cloudfront.DistributionConfig(
+        DefaultCacheBehavior=troposphere.cloudfront.DefaultCacheBehavior(
+            ForwardedValues=troposphere.cloudfront.ForwardedValues(
+                QueryString=False,
+            ),
+            TargetOriginId='target-origin-id',
+            ViewerProtocolPolicy='redirect-to-https',
+        ),
+        Enabled=True,
+        Origins=[
+            troposphere.cloudfront.Origin(
+                DomainName='domain-name',
+                Id='id',
+                CustomOriginConfig=troposphere.cloudfront.CustomOriginConfig(
+                    OriginProtocolPolicy='https-only',
+                    OriginSSLProtocols=[
+                        'TLSv1.2',
+                    ],
+                ),
+            ),
+        ],
+        ViewerCertificate=troposphere.cloudfront.ViewerCertificate(
+            MinimumProtocolVersion='TLSv1.2_2018',
+        ),
+    ),
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(cluster)
@@ -277,6 +306,7 @@ template.add_resource(ec2_volume2)
 template.add_resource(ec2_instance)
 template.add_resource(dynamodb_table)
 template.add_resource(fsx_filesystem)
+template.add_resource(cloudfront_distribution)
 write_template(template)
 
 #
@@ -617,6 +647,34 @@ fsx_filesystem = troposphere.fsx.FileSystem(
         title='lustreConfiguration',
     )
 )
+cloudfront_distribution = troposphere.cloudfront.Distribution(
+    title='distribution1',
+    DistributionConfig=troposphere.cloudfront.DistributionConfig(
+        DefaultCacheBehavior=troposphere.cloudfront.DefaultCacheBehavior(
+            ForwardedValues=troposphere.cloudfront.ForwardedValues(
+                QueryString=False,
+            ),
+            TargetOriginId='target-origin-id',
+            ViewerProtocolPolicy='redirect-to-https',
+        ),
+        Enabled=True,
+        Origins=[
+            troposphere.cloudfront.Origin(
+                DomainName='domain-name',
+                Id='id',
+                CustomOriginConfig=troposphere.cloudfront.CustomOriginConfig(
+                    OriginProtocolPolicy='https-only',
+                    OriginSSLProtocols=[
+                        'SSLv3',
+                    ],
+                ),
+            ),
+        ],
+        ViewerCertificate=troposphere.cloudfront.ViewerCertificate(
+            MinimumProtocolVersion='TLSv1.1_2016',
+        ),
+    ),
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(secret2)
@@ -635,4 +693,5 @@ template.add_resource(ec2_instance)
 template.add_resource(dynamodb_table)
 template.add_resource(dynamodb_table2)
 template.add_resource(fsx_filesystem)
+template.add_resource(cloudfront_distribution)
 write_template(template)

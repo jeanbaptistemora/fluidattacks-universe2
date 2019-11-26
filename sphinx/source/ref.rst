@@ -7,7 +7,7 @@ Reference
 :ref:`modindex`
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 10
    :caption: Packages:
    :name: api-toc
 

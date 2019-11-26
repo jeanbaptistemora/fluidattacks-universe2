@@ -15,6 +15,25 @@ Resources:
           - 0
       Engine: postgres
     Type: AWS::RDS::DBCluster
+  distribution1:
+    Properties:
+      DistributionConfig:
+        DefaultCacheBehavior:
+          ForwardedValues:
+            QueryString: 'false'
+          TargetOriginId: target-origin-id
+          ViewerProtocolPolicy: redirect-to-https
+        Enabled: 'true'
+        Origins:
+          - CustomOriginConfig:
+              OriginProtocolPolicy: https-only
+              OriginSSLProtocols:
+                - SSLv3
+            DomainName: domain-name
+            Id: id
+        ViewerCertificate:
+          MinimumProtocolVersion: TLSv1.1_2016
+    Type: AWS::CloudFront::Distribution
   dynamoDBTable1:
     Properties:
       AttributeDefinitions:

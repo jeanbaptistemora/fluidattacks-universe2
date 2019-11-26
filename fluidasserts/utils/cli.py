@@ -687,6 +687,9 @@ def exec_cloudformation_package(
             ec2.has_unencrypted_volumes('__path__')
             ec2.has_not_an_iam_instance_profile('__path__')
             """,
+        ('cloudfront', 'CloudFront (Content Delivery Network)'): """
+            cloudfront.serves_content_over_insecure_protocols('__path__')
+            """,
         ('dynamodb', 'DynamoDB (NoSQL Database Service)'): """
             dynamodb.has_not_point_in_time_recovery('__path__')
             """,
