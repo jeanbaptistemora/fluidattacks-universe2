@@ -1,0 +1,28 @@
+:local .tableHeader {
+  background-color: #898787;
+  border: none;
+  color: white;
+  text-align: center !important;
+  white-space: unset !important;
+}
+
+:local .tableHeader>thead>tr>th {
+  text-align: center !important;
+  white-space: unset !important;
+  font-weight: 400;
+}
+
+:local .tableBody>tbody>tr {
+  cursor: pointer;
+}
+
+:local .tableBody>tbody>tr>td {
+  vertical-align: middle;
+}
+
+:local .label {
+  border-radius: 0;
+  font-size: 90%;
+  font-weight: bold;
+  padding: 4px 7px;
+}

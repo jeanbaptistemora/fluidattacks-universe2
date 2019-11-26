@@ -61,7 +61,7 @@ type onTableChange = (type: TableChangeType, event: TableChangeNewState) => TODO
 interface TableChangeNewState {
     page?: number;
     sizePerPage?: number;
-    filters?: Filter<any>[];
+    filters?: { [dataField: string] : Filter<any>; };
     sortField?: string;
     sortOrder?: SortOrder;
     data?: RowT[]
@@ -75,7 +75,6 @@ interface Sorted {
     defaultField?: string;
     order?: string;
 }
-
 
 interface FilterOptions {
     page: number;
@@ -128,6 +127,7 @@ interface NumberFilterProps extends FilterProps<TODO> {
 }
 
 interface RemoteProps {
+    cellEdit?: boolean;
     filter?: boolean;
     pagination?: boolean;
     sort?: boolean;
@@ -145,11 +145,12 @@ type FilterFunction<Type extends TODO> = (val: Type) => TODO
 type FilterVal = string | TODO;
 
 type FilterType = 'TEXT' | TODO;
+interface ComparatorTypes {
+    LIKE: 'LIKE'; EQ: '='; NE: '!='; GT: '>'; GE: '>='; LT: '<'; LE: '<=';
+}
 declare enum PredefinedComparatorTypes { LIKE = 'LIKE', EQ = '=', NE = '!=', GT = '>', GE = '>=', LT = '<', LE = '<=' }
 
-type PredefinedComparators = {
-    [type in PredefinedComparatorTypes]: TODO;
-};
+type PredefinedComparators = typeof PredefinedComparatorTypes;
 
 // EDITOR
 
@@ -173,14 +174,18 @@ interface ExpandRowOptions { renderer: (row: any) => JSX.Element, showExpandColu
 
 
 declare module 'react-bootstrap-table-next' {
+    import { ReactElement } from "react";
 
-    export default class BootstrapTable<FieldIds extends string> extends React.Component<BootstrapTableProps<FieldIds>, TODO> {
+    export default class BootstrapTable extends React.Component<BootstrapTableProps, TODO> {
     }
-    export interface BootstrapTableProps<fieldIds extends string = string> extends PaginationProps {
+
+    export interface BootstrapTableProps extends PaginationProps {
         keyField: string;
-        columns: Column<fieldIds>[];
-        data: RowT<fieldIds>[];
+        columns: Column[];
+        data: TODO[];
+        hover?: boolean;
         remote?: boolean | RemoteProps;
+        bordered?: boolean;
         bootstrap4?: boolean
         noDataIndication?(): JSX.Element;
         loading?: boolean;
@@ -191,20 +196,24 @@ declare module 'react-bootstrap-table-next' {
         filter?: FilterProps<TODO>;
         pagination?: Pagination;
         onTableChange?: onTableChange;
-
-
+        rowClasses?: string;
         selectRow?: SelectRowOptions
         expandRow?: ExpandRowOptions
     }
 
-    export interface Column<FieldId extends string = string> {
-        dataField: FieldId;
+    export interface Column {
+        align?: string;
+        dataField: string;
         text: string;
-        isDummyField?: boolean
-        hidden?: boolean
+        classes?: string;
+        headerClasses?: string;
+        hidden?: boolean;
+        isDummyField?: boolean;
         sort?: boolean;
-        formatter?: (cell: TODO, row: TODO, rowIndex: number, formatExtraData: any) => string
         filter?: TODO;
+        formatExtraData?: TODO;
+        formatter?: (cell: TODO, row: TODO, rowIndex: number, formatExtraData: any) => string | ReactElement<any>
+        headerStyle?: (colum: TODO, colIndex: number) => any
         sortFunc?<T>(a: T, b: T, order: 'asc' | 'desc', rowA: Row, rowB: Row): number
         filterValue?<T>(cell: T, row: TODO): any
     }
