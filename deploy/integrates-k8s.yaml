@@ -85,4 +85,4 @@ spec:
   - port: 80
     targetPort: 80
   selector:
-  app: integrates-app
+    app: integrates-app
