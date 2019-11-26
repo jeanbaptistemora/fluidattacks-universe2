@@ -16,6 +16,11 @@ test_terraform() {
   export AWS_SECRET_ACCESS_KEY
   export TF_VAR_aws_s3_evidences_bucket
   export TF_VAR_aws_s3_resources_bucket
+  export TF_VAR_dev_aws_access_key
+  export TF_VAR_dev_aws_secret_key
+
+  TF_VAR_dev_aws_access_key="$DEV_AWS_ACCESS_KEY_ID"
+  TF_VAR_dev_aws_secret_key="$DEV_AWS_SECRET_ACCESS_KEY"
 
   AWS_ACCESS_KEY_ID="$(
     vault read -field=aws_terraform_access_key secret/integrates/$ENV_NAME
@@ -31,6 +36,14 @@ test_terraform() {
   )"
 
   cd deploy/terraform || return 1
+  terraform init --backend-config="bucket=$FS_S3_BUCKET"
+  terraform validate
+  terraform plan -refresh=true -out=plan
+  terraform show -no-color plan > plan.txt
+  mv plan.txt "$CI_PROJECT_DIR"
+  rm plan
+  cd "$CI_PROJECT_DIR" || return 1
+  cd deploy/sops/terraform || return 1
   terraform init --backend-config="bucket=$FS_S3_BUCKET"
   terraform validate
   terraform plan -refresh=true -out=plan

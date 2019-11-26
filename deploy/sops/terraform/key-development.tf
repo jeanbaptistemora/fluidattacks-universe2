@@ -95,6 +95,6 @@ resource "aws_kms_key" "integrates-dev-key" {
 }
 
 resource "aws_kms_alias" "integrates-dev" {
-  name          = "alias/integrates-dev"
+  name          = "alias/integrates-dev-kms"
   target_key_id = aws_kms_key.integrates-dev-key.key_id
 }
