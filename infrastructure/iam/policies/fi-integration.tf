@@ -208,7 +208,7 @@ data "aws_iam_policy_document" "integrates-terraform" {
     sid       = "AnalysisQueue"
     effect    = "Allow"
     actions   = ["sqs:*"]
-    resources = ["arn:aws:sqs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:fi_binaryalert*"]
+    resources = ["*"]
   }
 }
 
