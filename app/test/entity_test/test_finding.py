@@ -19,15 +19,7 @@ from app.exceptions import FindingNotFound
 
 class FindingTests(TestCase):
 
-    def test_delete_finding(self):
-        query = '''
-          mutation {
-            deleteFinding(findingId: "560175507", justification: NOT_REQUIRED) {
-              success
-            }
-          }
-        '''
-        testing_client = Client(SCHEMA)
+    def _get_result(self, query, testing_client, REQUEST_LOADERS):
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
         middleware.process_request(request)
@@ -44,8 +36,24 @@ class FindingTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        request.loaders = {'finding': FindingLoader()}
-        result = testing_client.execute(query, context=request)
+        request.loaders = REQUEST_LOADERS
+        if testing_client:
+
+            return testing_client.execute(query, context=request)
+
+        return SCHEMA.execute(query, context=request)
+
+    def test_delete_finding(self):
+        query = '''
+          mutation {
+            deleteFinding(findingId: "560175507", justification: NOT_REQUIRED) {
+              success
+            }
+          }
+        '''
+        testing_client = Client(SCHEMA)
+        REQUEST_LOADERS = {'finding': FindingLoader()}
+        result = self._get_result(query, testing_client, REQUEST_LOADERS)
         assert 'errors' not in result
         assert result['data']['deleteFinding']['success']
         with pytest.raises(FindingNotFound):
@@ -66,27 +74,11 @@ class FindingTests(TestCase):
             }
           }
         }'''
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        request.loaders = {
+        REQUEST_LOADERS = {
             'finding': FindingLoader(),
             'vulnerability': VulnerabilityLoader()
         }
-        result = SCHEMA.execute(query, context=request)
+        result = self._get_result(query, False, REQUEST_LOADERS)
         assert not result.errors
         assert result.data.get('finding')['id'] == '422286126'
         test_data = OrderedDict([
@@ -154,24 +146,8 @@ class FindingTests(TestCase):
                 }
         '''
         testing_client = Client(SCHEMA)
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        request.loaders = {'finding': FindingLoader()}
-        result = testing_client.execute(query, context=request)
+        REQUEST_LOADERS = {'finding': FindingLoader()}
+        result = self._get_result(query, testing_client, REQUEST_LOADERS)
         assert 'errors' not in result
         assert result['data']['updateDescription']['success']
 
@@ -206,24 +182,8 @@ class FindingTests(TestCase):
                 }
         '''
         testing_client = Client(SCHEMA)
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        request.loaders = {'finding': FindingLoader()}
-        result = testing_client.execute(query, context=request)
+        REQUEST_LOADERS = {'finding': FindingLoader()}
+        result = self._get_result(query, testing_client, REQUEST_LOADERS)
         assert 'errors' not in result
         assert result['data']['updateSeverity']['success']
 
@@ -285,26 +245,10 @@ class FindingTests(TestCase):
                 }
         '''
         testing_client = Client(SCHEMA)
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        request.loaders = {
+        REQUEST_LOADERS = {
             'finding': FindingLoader(),
             'vulnerability': VulnerabilityLoader()}
-        result = testing_client.execute(query, context=request)
+        result = self._get_result(query, testing_client, REQUEST_LOADERS)
         assert 'errors' not in result
         assert result['data']['updateTreatment']['success']
 
@@ -327,25 +271,9 @@ class FindingTests(TestCase):
                 }
         '''
         testing_client = Client(SCHEMA)
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        request.loaders = {
+        REQUEST_LOADERS = {
             'finding': FindingLoader(),
             'vulnerability': VulnerabilityLoader()}
-        result = testing_client.execute(query, context=request)
+        result = self._get_result(query, testing_client, REQUEST_LOADERS)
         assert 'errors' not in result
         assert result['data']['updateTreatment']['success']
