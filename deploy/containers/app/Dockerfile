@@ -67,4 +67,4 @@ RUN apt -y autoremove \
 EXPOSE 443 24224
 
 # Start integrates
-CMD vaultenv ./deploy/containers/common/vars/run.sh app
+CMD vaultenv ./deploy/containers/common/vars/run.sh

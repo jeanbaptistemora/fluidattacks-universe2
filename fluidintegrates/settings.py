@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     'django_crontab',
     'analytical',
     'django_intercom',
-    'app.slackbot',
     'graphene_django',
 ]
 

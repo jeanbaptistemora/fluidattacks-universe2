@@ -5,17 +5,7 @@ undo_rollout() {
   # Undo an Integrates rollout
 
   set -e
-
-  if [[ "$1" == 'app' ]]; then
-    kubectl rollout undo deploy/integrates-app
-    return 0
-  elif [[ "$1" == 'bot' ]]; then
-    kubectl rollout undo deploy/integrates-bot
-    return 0
-  else
-    echo 'Only app and bot params accepted'
-  fi
-  return 1
+  kubectl rollout undo deploy/integrates-app
 }
 
 deploy_newrelic() {
@@ -102,12 +92,7 @@ deploy_k8s() {
   kubectl apply -f "$CONFIG"
 
   if ! kubectl rollout status deploy/integrates-app --timeout=8m; then
-    undo_rollout app
-    return 1
-  fi
-
-  if ! kubectl rollout status deploy/integrates-bot --timeout=5m; then
-    undo_rollout bot
+    undo_rollout
     return 1
   fi
 
