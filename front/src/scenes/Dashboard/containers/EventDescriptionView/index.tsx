@@ -109,6 +109,7 @@ const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
       <Col md={12} sm={12} xs={12}>
       {isManager ?
       <Row className={style.rowSeparation} style={{marginBottom: "15px"}}>
+        {props.eventData.eventStatus === "CLOSED" ? undefined :
         <Col md={3} mdOffset={8} sm={12} xs={12}>
           <Button
             bsStyle="primary"
@@ -120,6 +121,7 @@ const renderEventFields: ((props: IEventDescriptionViewProps) => JSX.Element) =
             <FluidIcon icon="edit" /> {translate.t("search_findings.tab_severity.editable")}
           </Button>
         </Col>
+        }
       </Row>
       : undefined}
       <Row style={{marginBottom: "15px"}}>

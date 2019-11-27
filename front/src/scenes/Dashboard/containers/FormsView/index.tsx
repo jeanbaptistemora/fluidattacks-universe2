@@ -19,7 +19,7 @@ const formsView: React.FC = (): JSX.Element => {
         <p>
           Read more details at&nbsp;
           <a
-            href="https://community.fluidattacks.com/tags/integrates"
+            href="https://community.fluidattacks.com/t/event-report-from-integrates/558"
             rel="noopener"
             target="_blank"
           >

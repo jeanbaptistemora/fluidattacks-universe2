@@ -38,17 +38,6 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
 
   return (
     <React.StrictMode>
-      <Row>
-        <Col md={2} mdOffset={10} xs={12} sm={12}>
-          {_.includes(["admin", "analyst"], (window as typeof window & { userRole: string }).userRole)
-            ? (
-              <Button block={true} onClick={handleEditClick}>
-                <FluidIcon icon="edit" />&nbsp;{translate.t("project.events.evidence.edit")}
-              </Button>
-            )
-            : undefined}
-        </Col>
-      </Row>
       <Query query={GET_EVENT_EVIDENCES} variables={{ eventId }}>
         {({ data, loading, refetch }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || loading) { return <React.Fragment />; }
@@ -99,8 +88,23 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
             });
           };
 
+          const { userRole } = (window as typeof window & { userRole: string });
+          const canEdit: boolean = _.includes(["admin", "analyst"], userRole)
+            && data.event.eventStatus !== "CLOSED";
+
           return (
             <React.Fragment>
+              <Row>
+                <Col md={2} mdOffset={10} xs={12} sm={12}>
+                  {canEdit
+                    ? (
+                      <Button block={true} onClick={handleEditClick}>
+                        <FluidIcon icon="edit" />&nbsp;{translate.t("project.events.evidence.edit")}
+                      </Button>
+                    )
+                    : undefined}
+                </Col>
+              </Row>
               {_.isEmpty(data.event.evidence) && _.isEmpty(data.event.evidenceFile) && !isEditing ? (
                 <div className={style.noData}>
                   <Glyphicon glyph="picture" />

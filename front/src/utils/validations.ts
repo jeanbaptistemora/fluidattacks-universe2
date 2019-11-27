@@ -2,13 +2,12 @@ import _ from "lodash";
 import moment, { Moment } from "moment";
 import { Validator } from "redux-form";
 import {
-  ConfigurableValidator, ConfiguredValidator, hasLengthGreaterThan, isAlphaNumeric, isNumeric, isRequired,
-  matchesPattern,
+  hasLengthGreaterThan, isAlphaNumeric, isNumeric, isRequired, matchesPattern,
 } from "revalidate";
 import { msgError } from "./notifications";
 import translate from "./translations/translate";
 
-export const required: ConfiguredValidator = isRequired({
+export const required: Validator = isRequired({
   message: translate.t("validations.required"),
 });
 
@@ -29,45 +28,51 @@ export const someRequired: Validator = (
   return isValid ? undefined : translate.t("validations.some_required");
 };
 
-export const numberBetween: ((min: number, max: number) => ((value: number) => string | undefined)) =
-  (min: number, max: number): ((value: number) => string | undefined) =>
+export const numberBetween: ((min: number, max: number) => Validator) =
+  (min: number, max: number): Validator =>
     (value: number): string | undefined =>
       value < min || value > max ? translate.t("validations.between", { min, max }) : undefined;
 
-export const minLength: ((min: number) => ConfigurableValidator) = (min: number): ConfigurableValidator =>
+export const minLength: ((min: number) => Validator) = (min: number): Validator =>
   hasLengthGreaterThan(min - 1)({ message: translate.t("validations.minLength", { count: min }) });
 
-export const numeric: ConfiguredValidator = isNumeric({
+export const numeric: Validator = isNumeric({
   message: translate.t("validations.numeric"),
 });
 
-export const alphaNumeric: ConfiguredValidator = isAlphaNumeric({
+export const alphaNumeric: Validator = isAlphaNumeric({
   message: translate.t("validations.alphanumeric"),
 });
 
-export const validEmail: ConfiguredValidator = matchesPattern(
+export const validEmail: Validator = matchesPattern(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
 )({
   message: translate.t("validations.email"),
 });
 
-export const validDatetime: ConfiguredValidator = (value?: Moment | string): string | undefined => (
+export const validDatetime: Validator = (value?: Moment | string): string | undefined => (
   moment.isMoment(value) ? undefined : translate.t("validations.datetime")
 );
 
-export const validEventFile: ConfiguredValidator = (value?: FileList): string | undefined => (
+export const validEventFile: Validator = (value?: FileList): string | undefined => (
   _.isUndefined(value) || _.isEmpty(value)
     ? undefined
     : _.includes(["application/pdf", "application/zip", "text/csv", "text/plain"], value[0].type)
       ? undefined : translate.t("project.events.form.wrong_file_type")
 );
 
-export const validEventImage: ConfiguredValidator = (value?: FileList): string | undefined => (
+export const validEventImage: Validator = (value?: FileList): string | undefined => (
   _.isUndefined(value) || _.isEmpty(value)
     ? undefined
     : _.includes(["image/gif", "image/png"], value[0].type)
       ? undefined : translate.t("project.events.form.wrong_image_type")
 );
+
+export const dateTimeBeforeToday: Validator = (date: Moment): string | undefined => {
+  const today: Moment = moment();
+
+  return date.isSameOrBefore(today) ? undefined : translate.t("validations.greater_date");
+};
 
 export const evidenceHasValidType: ((file: File, evidenceType: number) => boolean) = (
   file: File, evidenceType: number,

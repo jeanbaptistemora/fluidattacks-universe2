@@ -24,7 +24,7 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import {
-  numeric, required, someRequired, validDatetime, validEventFile, validEventImage,
+  dateTimeBeforeToday, numeric, required, someRequired, validDatetime, validEventFile, validEventImage,
 } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
@@ -202,7 +202,7 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
                                     <Field
                                       component={dateTimeField}
                                       name="eventDate"
-                                      validate={[required, validDatetime]}
+                                      validate={[required, validDatetime, dateTimeBeforeToday]}
                                     />
                                   </FormGroup>
                                 </Col>
