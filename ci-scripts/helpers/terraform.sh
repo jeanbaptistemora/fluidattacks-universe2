@@ -72,3 +72,31 @@ run_terraform() {
 
   cd "$STARTING_DIR" || return 1
 }
+
+lint_terraform() {
+
+  # run tflint on terraform folder
+  # lint_terraform <dir> <bucket>
+  # Example:
+  # lint_terraform services/eks-cluster/terraform fluidattacks-terraform-states
+
+  set -e
+
+  local STARTING_DIR
+
+  STARTING_DIR=$(pwd)
+
+  local TARGET_DIR
+  local BUCKET
+
+  TARGET_DIR="$1"
+  BUCKET="$2"
+
+  init_terraform "$TARGET_DIR" "$BUCKET"
+
+  cd "$TARGET_DIR" || return 1
+
+  tflint
+
+  cd "$STARTING_DIR" || return 1
+}

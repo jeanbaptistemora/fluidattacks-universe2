@@ -10,6 +10,7 @@ ARG DYNAMODB_LOCAL_URL='https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamo
 ARG PIP_REQUIREMENTS_DEV='deploy/containers/deps-development/requirements.txt'
 ARG PIP_REQUIREMENTS_PROD='deploy/containers/deps-production/requirements.txt'
 ARG TERRAFORM_URL='https://releases.hashicorp.com/terraform/0.12.16/terraform_0.12.16_linux_amd64.zip'
+ARG TERRAFORM_LINT='https://github.com/wata727/tflint/releases/download/v0.12.1/tflint_linux_amd64.zip'
 ARG KUBECTL_URL='https://storage.googleapis.com/kubernetes-release/release/v1.16.2/bin/linux/amd64/kubectl'
 
 RUN mkdir -p /usr/share/man/man1 \
@@ -44,6 +45,10 @@ RUN mkdir -p /usr/share/man/man1 \
   && curl -o terraform.zip "$TERRAFORM_URL" \
     && unzip terraform.zip \
     && rm terraform.zip \
+  && curl -Lo tflint.zip "$TERRAFORM_LINT" \
+    && unzip tflint.zip \
+    && rm tflint.zip \
+    && mv tflint /usr/local/bin/ \
     && mv terraform /usr/local/bin/terraform \
   && curl -o kubectl "$KUBECTL_URL" \
     && chmod +x kubectl \
