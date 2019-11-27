@@ -7,6 +7,7 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from graphene.test import Client
 from jose import jwt
+from .test_me import Request
 
 from app.entity.user import (validate_email_address,
                              validate_field,
@@ -16,28 +17,8 @@ from app.api.schema import SCHEMA
 
 class UserTests(TestCase):
 
-    def _get_result(self, query):
-        testing_client = Client(SCHEMA)
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-
-        return testing_client.execute(query, context=request)
-
     def test_grant_user_access(self):
+        testing_client = Client(SCHEMA)
         query = '''
             mutation {
                 grantUserAccess (
@@ -60,11 +41,13 @@ class UserTests(TestCase):
                 }
             }
         '''
-        result = self._get_result(query)
+        request = Request().get_request()
+        result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert 'success' in result['data']['grantUserAccess']
 
     def test_get_user(self):
+        testing_client = Client(SCHEMA)
         query = '''
             query {
                 user(projectName: "unittesting",
@@ -75,11 +58,13 @@ class UserTests(TestCase):
                 }
             }
         '''
-        result = self._get_result(query)
+        request = Request().get_request()
+        result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert 'user' in result['data']
 
     def test_add_user(self):
+        testing_client = Client(SCHEMA)
         query = '''
             mutation {
               grantUserAccess (
@@ -102,11 +87,13 @@ class UserTests(TestCase):
                 }
             }
         '''
-        result = self._get_result(query)
+        request = Request().get_request()
+        result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert 'success' in result['data']['grantUserAccess']
 
     def test_remove_user(self):
+        testing_client = Client(SCHEMA)
         query = '''
             mutation {
               removeUserAccess (
@@ -119,11 +106,13 @@ class UserTests(TestCase):
                 }
             }
         '''
-        result = self._get_result(query)
+        request = Request().get_request()
+        result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert 'success' in result['data']['removeUserAccess']
 
     def test_edit_user(self):
+        testing_client = Client(SCHEMA)
         query = '''
             mutation {
               editUser (
@@ -137,7 +126,8 @@ class UserTests(TestCase):
                 }
             }
         '''
-        result = self._get_result(query)
+        request = Request().get_request()
+        result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert 'success' in result['data']['editUser']
 

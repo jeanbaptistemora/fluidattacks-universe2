@@ -10,10 +10,9 @@ from jose import jwt
 from app.api.schema import SCHEMA
 
 
-class MeTests(TestCase):
+class Request:
 
-    def _get_result(self, query):
-        testing_client = Client(SCHEMA)
+    def get_request(self):
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
         middleware.process_request(request)
@@ -31,7 +30,10 @@ class MeTests(TestCase):
             key=settings.JWT_SECRET,
         )
 
-        return testing_client.execute(query, context=request)
+        return request
+
+
+class MeTests(TestCase):
 
     def test_get_me(self):
         query = '''
@@ -44,7 +46,9 @@ class MeTests(TestCase):
               }
             }
         '''
-        result = self._get_result(query)
+        testing_client = Client(SCHEMA)
+        request = Request().get_request()
+        result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert 'projects' in result['data']['me']
 
@@ -56,6 +60,8 @@ class MeTests(TestCase):
               }
             }
         '''
-        result = self._get_result(query)
+        testing_client = Client(SCHEMA)
+        request = Request().get_request()
+        result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert result['data']['acceptLegal']['success']
