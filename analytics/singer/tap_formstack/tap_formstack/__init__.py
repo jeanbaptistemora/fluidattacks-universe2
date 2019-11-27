@@ -213,13 +213,11 @@ def write_schema__denest(schema: JSON, data: JSON, nesting_type: str) -> None:
     name = data["label"]
     value = data["value"]
     if isinstance(value, str):
-        value = str(value).lower()
-        padded_name = f"{nesting_type}[{name}][{value}]"
+        padded_name = f"{nesting_type}[{name}][{value}]".lower()
         schema["schema"]["properties"][padded_name] = map_ttype("string")
     else:
         for inner_name in value:
-            inner_name = str(inner_name).lower()
-            padded_name = f"{nesting_type}[{name}][{inner_name}]"
+            padded_name = f"{nesting_type}[{name}][{inner_name}]".lower()
             schema["schema"]["properties"][padded_name] = map_ttype("string")
 
 
@@ -293,13 +291,11 @@ def write_records__checkbox(record: JSON, data: JSON) -> None:
     name: str = data["label"]
     value: Any = data["value"]
     if isinstance(value, str):
-        value = str(value).lower()
-        padded_name: str = f"checkbox[{name}][{value}]"
+        padded_name: str = f"checkbox[{name}][{value}]".lower()
         record["record"][padded_name] = "selected"
     elif isinstance(value, list):
         for inner_name in value:
-            inner_name = str(inner_name).lower()
-            padded_name = f"checkbox[{name}][{inner_name}]"
+            padded_name = f"checkbox[{name}][{inner_name}]".lower()
             record["record"][padded_name] = "selected"
 
 
@@ -308,13 +304,11 @@ def write_records__matrix(record: JSON, data: JSON) -> None:
     name: str = data["label"]
     value: Any = data["value"]
     if isinstance(value, str):
-        value = str(value).lower()
-        padded_name: str = f"matrix[{name}][{value}]"
+        padded_name: str = f"matrix[{name}][{value}]".lower()
         record["record"][padded_name] = value
     elif isinstance(value, dict):
         for inner_name in value:
-            inner_name = str(inner_name).lower()
-            padded_name = f"matrix[{name}][{inner_name}]"
+            padded_name = f"matrix[{name}][{inner_name}]".lower()
             record["record"][padded_name] = value[inner_name]
 
 
