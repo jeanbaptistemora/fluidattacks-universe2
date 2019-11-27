@@ -88,4 +88,4 @@ class EventTests(TestCase):
         testing_client = Client(SCHEMA)
         result = self._get_result(query, testing_client)
         assert 'errors' not in result
-        assert result['data']['updateEvent']['event']['eventStatus'] == 'SOLVED'
+        assert result['data']['updateEvent']['event']['eventStatus'] == 'CLOSED'

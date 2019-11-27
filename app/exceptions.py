@@ -223,3 +223,12 @@ class EventNotFound(Exception):
         """ Constructor """
         msg = 'Exception - Event not found'
         super(EventNotFound, self).__init__(msg)
+
+
+class EventAlreadyClosed(Exception):
+    """Exception to control event updates"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - The event has already been closed'
+        super(EventAlreadyClosed, self).__init__(msg)

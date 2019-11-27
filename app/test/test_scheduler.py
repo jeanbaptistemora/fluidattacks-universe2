@@ -42,8 +42,18 @@ class SchedulerTests(TestCase):
         assert test_data == expected_output
 
     def test_is_a_unsolved_event(self):
-        dumb_unsolved_event = {'id': 'testid', 'event_status': 'UNSOLVED'}
-        dumb_solved_event = {'id': 'testid', 'event_status': 'SOLVED'}
+        dumb_unsolved_event = {
+            'id': 'testid',
+            'historic_state': [{'state': 'OPEN'}, {'state': 'CREATED'}]
+        }
+        dumb_solved_event = {
+            'id': 'testid',
+            'historic_state': [
+                {'state': 'OPEN'},
+                {'state': 'CREATED'},
+                {'state': 'CLOSED'}
+            ]
+        }
         assert is_a_unsolved_event(dumb_unsolved_event)
         assert not is_a_unsolved_event(dumb_solved_event)
 
@@ -68,7 +78,7 @@ class SchedulerTests(TestCase):
         test_data = get_unsolved_events(project_name)
         assert isinstance(test_data, list)
         assert isinstance(test_data[0], dict)
-        assert test_data[0]['event_id'] == '538745942'
+        assert test_data[0]['event_id'] == '418900971'
 
     def test_extract_info_from_event_dict(self):
         dumb_event_dict = {

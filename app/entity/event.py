@@ -2,6 +2,7 @@ from graphene import (
     Argument, Boolean, DateTime, Enum, Field, Int, List, Mutation, ObjectType,
     String
 )
+from graphene.types.generic import GenericScalar
 from graphene_file_upload.scalars import Upload
 
 from app import util
@@ -26,6 +27,7 @@ class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     event_type = String()
     event_date = String()
     event_status = String()
+    historic_state = List(GenericScalar)
     affectation = String()
     accessibility = String()
     affected_components = String()
@@ -96,6 +98,11 @@ class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.event_status
 
+    def resolve_historic_state(self, info):
+        """ Resolve historic state attribute """
+        del info
+        return self.historic_state
+
     def resolve_affectation(self, info):
         """ Resolve affectation attribute """
         del info
@@ -141,7 +148,9 @@ class UpdateEvent(Mutation):
     @require_role(['analyst', 'admin'])
     @require_event_access
     def mutate(_, info, event_id, affectation):
-        success = event_domain.update_event(event_id, affectation, info)
+        analyst_email = util.get_jwt_content(info.context)['user_email']
+        success = event_domain.update_event(
+            event_id, affectation, analyst_email)
         if success:
             project_name = event_domain.get_event_project_name(event_id)
             util.invalidate_cache(event_id)

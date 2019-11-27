@@ -46,7 +46,7 @@ def remove_fluid_from_recipients(emails):
 
 
 def is_a_unsolved_event(event):
-    return event.get('event_status') == 'UNSOLVED'
+    return event.get('historic_state', [{}])[-1].get('state', '') == 'CREATED'
 
 
 def get_unsolved_events(project):

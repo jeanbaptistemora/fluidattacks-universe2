@@ -6,8 +6,6 @@ from datetime import datetime
 import pytz
 from django.conf import settings
 
-import rollbar
-
 from __init__ import (
     FI_CLOUDFRONT_RESOURCES_DOMAIN, FI_MAIL_CONTINUOUS, FI_MAIL_PRODUCTION,
     FI_MAIL_PROJECTS, FI_MAIL_REPLYERS
@@ -17,50 +15,33 @@ from app.dal import integrates_dal, event as event_dal, project as project_dal
 from app.dal.helpers.formstack import FormstackAPI
 from app.domain import comment as comment_domain, resources as resources_domain
 from app.dto.eventuality import EventDTO, migrate_event
-from app.exceptions import EventNotFound, InvalidFileSize, InvalidFileType
+from app.exceptions import (
+    EventAlreadyClosed, EventNotFound, InvalidDate, InvalidFileSize,
+    InvalidFileType
+)
 from app.mailer import send_mail_comment, send_mail_new_event
 
 
-def update_event(event_id, affectation, info):
+def update_event(event_id, affectation, analyst_email):
     """Update an event associated to a project."""
-    request = info.context
-    event_data = {}
-    has_error = False
-    updated = False
-    if affectation.isdigit():
-        if int(affectation) >= 0:
-            event_data['event_status'] = 'SOLVED'
-        else:
-            rollbar.report_message(
-                'Error: Affectation can not be a negative number', 'error',
-                request)
-            has_error = True
-    else:
-        rollbar.report_message(
-            'Error: Affectation must be a number', 'error', request)
-        has_error = True
-    if has_error:
-        # Couldn't update the eventuality because it has error
-        pass
-    else:
-        event_data['affectation'] = affectation
-        primary_keys = ['event_id', event_id]
-        table_name = 'fi_events'
-        closer = util.get_jwt_content(info.context)['user_email']
-        event_data['closer'] = closer
-        event_migrated = integrates_dal.add_multiple_attributes_dynamo(
-            table_name, primary_keys, event_data)
-        if event_migrated:
-            updated = True
-        else:
-            rollbar.report_message(
-                'Error: An error ocurred updating event', 'error', request)
-            has_error = True
-    if has_error and not updated:
-        resp = False
-    else:
-        resp = True
-    return resp
+    event = get_event(event_id)
+    success = False
+
+    if event.get('historic_state')[-1].get('state') == 'CLOSED':
+        raise EventAlreadyClosed()
+
+    tzn = pytz.timezone(settings.TIME_ZONE)
+    today = datetime.now(tz=tzn).today()
+    history = event.get('historic_state')
+    history.append({
+        'affectation': affectation,
+        'analyst': analyst_email,
+        'date': today.strftime('%Y-%m-%d %H:%M:%S'),
+        'state': 'CLOSED'
+    })
+    success = event_dal.update(event_id, {'historic_state': history})
+
+    return success
 
 
 def get_event_project_name(event_id):
@@ -78,9 +59,12 @@ def get_event_project_name(event_id):
 
 
 def update_evidence(event_id, evidence_type, file):
+    event = get_event(event_id)
     success = False
 
-    event = get_event(event_id)
+    if event.get('historic_state')[-1].get('state') == 'CLOSED':
+        raise EventAlreadyClosed()
+
     project_name = event.get('project_name')
     file_name = file.name.replace(' ', '_').replace('-', '_')
     evidence_id = f'{project_name}-{event_id}-{file_name}'
@@ -145,12 +129,16 @@ def create_event(analyst_email, project_name, file=None, image=None, **kwargs):
     event_id = str(random.randint(10000000, 170000000))
 
     tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    today = datetime.now(tz=tzn).today()
+
     project = integrates_dal.get_project_attributes_dynamo(
         project_name, ['companies', 'type'])
     subscription = project.get('type', '')
 
     event_attrs = kwargs.copy()
+    if event_attrs['event_date'] > today:
+        raise InvalidDate()
+
     event_attrs.update({
         'accessibility': ' '.join(list(set(event_attrs['accessibility']))),
         'affectation': 0,
@@ -158,7 +146,20 @@ def create_event(analyst_email, project_name, file=None, image=None, **kwargs):
         'client': project.get('companies', [''])[0],
         'event_date': event_attrs['event_date'].strftime('%Y-%m-%d %H:%M:%S'),
         'event_status': 'UNSOLVED',
-        'report_date': today,
+        'historic_state': [
+            {
+                'analyst': analyst_email,
+                'date': event_attrs['event_date'].strftime(
+                    '%Y-%m-%d %H:%M:%S'),
+                'state': 'OPEN'
+            },
+            {
+                'analyst': analyst_email,
+                'date': today.strftime('%Y-%m-%d %H:%M:%S'),
+                'state': 'CREATED'
+            }
+        ],
+        'report_date': today.strftime('%Y-%m-%d %H:%M:%S'),
         'subscription': subscription.upper()
     })
     if 'affected_components' in event_attrs:
@@ -175,17 +176,18 @@ def create_event(analyst_email, project_name, file=None, image=None, **kwargs):
         elif image:
             valid = validate_evidence('evidence', image)
 
-        if valid:
-            success = event_dal.create(event_id, project_name, event_attrs)
-            if success:
-                if file:
-                    update_evidence(event_id, 'evidence_file', file)
-                if image:
-                    update_evidence(event_id, 'evidence', image)
+        if valid and event_dal.create(event_id, project_name, event_attrs):
+            if file:
+                update_evidence(event_id, 'evidence_file', file)
+            if image:
+                update_evidence(event_id, 'evidence', image)
+            success = True
+            _send_new_event_mail(
+                analyst_email, event_id, project_name, subscription,
+                event_attrs['event_type'])
 
     else:
         success = event_dal.create(event_id, project_name, event_attrs)
-
         _send_new_event_mail(
             analyst_email, event_id, project_name, subscription,
             event_attrs['event_type'])
