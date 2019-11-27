@@ -29,11 +29,11 @@ import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/inde
 import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptionsModal/index";
 import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
-import { ADD_ENVS_MUTATION, ADD_RESOURCE_MUTATION, ADD_TAGS_MUTATION, GET_ENVIRONMENTS, GET_REPOSITORIES,
-  GET_TAGS, REMOVE_ENV_MUTATION, REMOVE_TAG_MUTATION, UPDATE_RESOURCE_MUTATION } from "./queries";
-import { IAddEnvAttr, IAddReposAttr, IAddTagsAttr, IEnvironmentsAttr, IProjectTagsAttr, IRemoveEnvAttr,
+import { ADD_RESOURCE_MUTATION, ADD_TAGS_MUTATION, GET_ENVIRONMENTS, GET_REPOSITORIES,
+  GET_TAGS, REMOVE_TAG_MUTATION, UPDATE_RESOURCE_MUTATION } from "./queries";
+import { IAddEnvAttr, IAddReposAttr, IAddTagsAttr, IEnvironmentsAttr, IProjectTagsAttr,
   IRemoveTagsAttr, IRepositoriesAttr, IResourcesAttr, IResourcesViewBaseProps, IResourcesViewDispatchProps,
-  IResourcesViewProps, IResourcesViewStateProps, IUpdateRepoAttr } from "./types";
+  IResourcesViewProps, IResourcesViewStateProps, IUpdateEnvAttr, IUpdateRepoAttr } from "./types";
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IResourcesViewProps, {}>({
   componentDidMount(): void {
@@ -46,15 +46,6 @@ const enhance: InferableComponentEnhancer<{}> = lifecycle<IResourcesViewProps, {
     this.props.onLoad();
   },
 });
-
-const getSelectedRow: ((tableId: string) => HTMLTableRowElement | undefined) =
-  (tableId: string): HTMLTableRowElement | undefined => {
-    const selectedQry: NodeListOf<Element> = document.querySelectorAll(`#${tableId} tr input:checked`);
-    const selectedRow: HTMLTableRowElement | null | undefined =
-      _.isEmpty(selectedQry) ? undefined : selectedQry[0].closest("tr");
-
-    return selectedRow === undefined || selectedRow === null ? undefined : selectedRow;
-  };
 
 const handleSaveFiles: ((files: IResourcesViewProps["files"], props: IResourcesViewProps) => void) =
   (files: IResourcesViewProps["files"], props: IResourcesViewProps): void => {
@@ -145,19 +136,20 @@ const changeSwitchButtonState: ((button: Element) => void) = (button: Element): 
   }
 };
 
-const findSwitchButton: ((urlRepoId: string) => Element | undefined) = (urlRepoId: string): Element | undefined => {
+const findSwitchButton: ((rowId: string, resType: string) => Element | undefined) =
+  (rowId: string, resType: string): Element | undefined => {
+  const resTypeInt: number = resType === "repository" ? 2 : 1;
   const statesHTMLCol: HTMLCollectionOf<Element> = document.getElementsByClassName("switch");
   const states: Element[] = Array.prototype.slice.call(statesHTMLCol);
   for (const state of states) {
     const button: Element = state;
-    let urlRepo: HTMLElement | null = button.parentElement;
-    for (let c: number = 0; c < 2; c++) {
-      if (urlRepo !== null) {
-        urlRepo = urlRepo.previousSibling as HTMLElement;
+    let id: HTMLElement | null = button.parentElement;
+    for (let c: number = 0; c < resTypeInt; c++) {
+      if (id !== null) {
+        id = id.previousSibling as HTMLElement;
       }
     }
-
-    if (urlRepo !== null && urlRepo.innerHTML === urlRepoId) {
+    if (id !== null && id.innerHTML === rowId) {
       return button;
     }
   }
@@ -471,7 +463,7 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
 
                       const changeSwitchButtonStatus: (() => void) = (): void => {
                         if (auxRepo !== undefined && auxRepo.urlRepo !== null) {
-                          const button: Element | undefined = findSwitchButton(auxRepo.urlRepo);
+                          const button: Element | undefined = findSwitchButton(auxRepo.urlRepo, "repository");
                           if (button !== undefined &&
                             ((auxRepo.state === "INACTIVE" && button.classList.contains("on")) ||
                              (auxRepo.state === "ACTIVE" && button.classList.contains("off")))) {
@@ -501,7 +493,7 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                       (repoInfo: { [key: string]: string } | undefined): void => {
                         if (repoInfo !== undefined) {
                           let repoLastState: string = repoInfo.state;
-                          const button: Element | undefined = findSwitchButton(repoInfo.urlRepo);
+                          const button: Element | undefined = findSwitchButton(repoInfo.urlRepo, "repository");
                           if (button !== undefined) {
                             repoLastState = getSwitchButtonState(button) ? "ACTIVE" : "INACTIVE";
                           }
@@ -666,14 +658,21 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
           }
           if (!_.isUndefined(data)) {
             hidePreloader();
-            const envDataset: IEnvironmentsAttr[] = JSON.parse(data.resources.environments);
+            let envs: IEnvironmentsAttr[] = JSON.parse(data.resources.environments);
+            envs = envs.map((env: IEnvironmentsAttr) => {
+              env.state = "ACTIVE";
+              if ("historic_state" in env) {
+                env.state = env.historic_state[env.historic_state.length - 1].state;
+              }
 
-            const handleMtRemoveEnvRes: ((mtResult: IRemoveEnvAttr) => void) = (mtResult: IRemoveEnvAttr): void => {
+              return env;
+            });
+            const envDataset: IEnvironmentsAttr[] = envs;
+
+            const handleMtUpdateEnvRes: ((mtResult: IUpdateEnvAttr) => void) = (mtResult: IUpdateEnvAttr): void => {
               if (!_.isUndefined(mtResult)) {
-                if (mtResult.removeEnvironments.success) {
+                if (mtResult.updateResources.success) {
                   hidePreloader();
-                  refetch()
-                      .catch();
                   mixpanel.track(
                     "RemoveProjectEnv",
                     {
@@ -681,7 +680,7 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                       User: (window as Window & { userName: string }).userName,
                     });
                   msgSuccess(
-                    translate.t("search_findings.tab_resources.success_remove"),
+                    translate.t("search_findings.tab_resources.success_change"),
                     translate.t("search_findings.tab_users.title_success"),
                   );
                 }
@@ -690,7 +689,7 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
 
             const handleMtAddEnvsRes: ((mtResult: IAddEnvAttr) => void) = (mtResult: IAddEnvAttr): void => {
               if (!_.isUndefined(mtResult)) {
-                if (mtResult.addEnvironments.success) {
+                if (mtResult.addResources.success) {
                   refetch()
                     .catch();
                   handleCloseEnvModalClick();
@@ -708,98 +707,135 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                 }
               }
             };
+            let auxEnv: {[value: string]: string | null} | undefined;
 
             return (
               <React.Fragment>
-                <hr/>
-                <Row>
-                  <Col md={12} sm={12}>
-                    <DataTable
-                      dataset={envDataset}
-                      enableRowSelection={true}
-                      exportCsv={true}
-                      search={true}
-                      selectionMode="radio"
-                      headers={[
-                        {
-                          dataField: "urlEnv",
-                          header: translate.t("search_findings.environment_table.environment"),
-                          isDate: false,
-                          isStatus: false,
-                          wrapped: true,
-                        },
-                      ]}
-                      id="tblEnvironments"
-                      pageSize={15}
-                      title={translate.t("search_findings.tab_resources.environments_title")}
-                    />
-                  </Col>
-                  <Col md={12}>
-                    <br />
-                    <Col mdOffset={4} md={2} sm={6}>
-                      <Button
-                        id="addEnvironment"
-                        block={true}
-                        bsStyle="primary"
-                        onClick={handleAddEnvClick}
-                      >
-                        <Glyphicon glyph="plus"/>&nbsp;
-                        {translate.t("search_findings.tab_resources.add_repository")}
-                      </Button>
-                    </Col>
-                    <Mutation mutation={REMOVE_ENV_MUTATION} onCompleted={handleMtRemoveEnvRes}>
-                      { (removeEnvironments: MutationFn<IRemoveEnvAttr, {envData: string; projectName: string}>,
-                         mutationRes: MutationResult): React.ReactNode => {
-                          if (mutationRes.loading) {
-                            showPreloader();
-                          }
-                          if (!_.isUndefined(mutationRes.error)) {
-                            hidePreloader();
-                            handleGraphQLErrors("An error occurred removing environments", mutationRes.error);
+                <Mutation mutation={UPDATE_RESOURCE_MUTATION} onCompleted={handleMtUpdateEnvRes}>
+                  { (updateResources: MutationFn<IUpdateEnvAttr,
+                    {projectName: string; resData: string; resType: string}>,
+                     mutationRes: MutationResult): React.ReactNode => {
+                      if (mutationRes.loading) {
+                        showPreloader();
+                      }
+                      if (!_.isUndefined(mutationRes.error)) {
+                        hidePreloader();
+                        handleGraphQLErrors("An error occurred removing environments", mutationRes.error);
 
-                            return <React.Fragment/>;
-                          }
+                        return <React.Fragment/>;
+                      }
 
-                          const handleRemoveEnv: (() => void) = (): void => {
-                            const selectedRow: HTMLTableRowElement | undefined = getSelectedRow("tblEnvironments");
-                            if (selectedRow === undefined) {
-                              msgError(translate.t("search_findings.tab_resources.no_selection"));
-                            } else {
-                              const env: string | null = selectedRow.children[1].textContent;
-                              const envRemoved: {[value: string]: string | null} = {
-                                urlEnv: env,
-                              };
-                              removeEnvironments({ variables: { projectName, envData: JSON.stringify(envRemoved)} })
-                                .catch();
-                            }
+                      const changeSwitchButtonStatus: (() => void) = (): void => {
+                        if (auxEnv !== undefined && auxEnv.urlEnv !== null) {
+                          const button: Element | undefined = findSwitchButton(auxEnv.urlEnv, "environment");
+                          if (button !== undefined &&
+                            ((auxEnv.state === "INACTIVE" && button.classList.contains("on")) ||
+                              (auxEnv.state === "ACTIVE" && button.classList.contains("off")))) {
+                            changeSwitchButtonState(button);
+                          }
+                        }
+                      };
+
+                      const handleUpdateEnvStateClick: (() => void) = (): void => {
+                        updateResources({ variables: { projectName,
+                                                       resData: JSON.stringify(auxEnv),
+                                                       resType: "environment"} })
+                          .catch();
+                        if (auxEnv !== undefined) {
+                          auxEnv.state = auxEnv.state === "INACTIVE" ? "ACTIVE" : "INACTIVE";
+                        }
+                        changeSwitchButtonStatus();
+                      };
+
+                      const handleUpdateEnvStateClickRevert: (() => void) = (): void => {
+                        changeSwitchButtonStatus();
+                      };
+
+                      const handleUpdateEnv: ((envInfo: { [key: string]: string } | undefined) => void) =
+                      (envInfo: { [key: string]: string } | undefined): void => {
+                        if (envInfo !== undefined) {
+                          let envLastState: string = envInfo.state;
+                          const button: Element | undefined = findSwitchButton(envInfo.urlEnv, "environment");
+                          if (button !== undefined) {
+                            envLastState = getSwitchButtonState(button) ? "ACTIVE" : "INACTIVE";
+                          }
+                          const envUpdated: {[value: string]: string | null} = {
+                            state: envLastState,
+                            urlEnv: envInfo.urlEnv,
                           };
+                          auxEnv = envUpdated;
+                          props.onOpenChangeEnvStateModal();
+                        }
+                      };
 
-                          return (
-                            <Col md={2} sm={6}>
-                              <Button
-                                id="removeEnvironment"
-                                block={true}
-                                bsStyle="primary"
-                                onClick={handleRemoveEnv}
-                              >
-                                <Glyphicon glyph="minus"/>&nbsp;
-                                {translate.t("search_findings.tab_resources.remove_repository")}
-                              </Button>
-                            </Col>
-                          );
-                        }}
-                    </Mutation>
-                  </Col>
-                  <Col md={12}>
-                    <br />
-                    <label style={{fontSize: "15px"}}>
-                      <b>{translate.t("search_findings.tab_resources.total_envs")}</b>
-                      {envDataset.length}
-                    </label>
-                  </Col>
-                </Row>
-                <Mutation mutation={ADD_ENVS_MUTATION} onCompleted={handleMtAddEnvsRes}>
-                  { (addEnvironments: MutationFn<IAddEnvAttr, {envData: string; projectName: string}>,
+                      return (
+                        <React.Fragment>
+                        <Row>
+                          <Col md={12} sm={12}>
+                            <DataTable
+                              dataset={envDataset}
+                              selectionMode="radio"
+                              enableRowSelection={false}
+                              exportCsv={true}
+                              search={true}
+                              headers={[
+                                {
+                                  dataField: "urlEnv",
+                                  header: translate.t("search_findings.environment_table.environment"),
+                                  isDate: false,
+                                  isStatus: false,
+                                  wrapped: true,
+                                },
+                                {
+                                  changeFunction: handleUpdateEnv,
+                                  dataField: "projectName",
+                                  header: "State",
+                                  isDate: false,
+                                  isStatus: false,
+                                  width: "12%",
+                                  wrapped: true,
+                                },
+                              ]}
+                              id="tblRepositories"
+                              pageSize={15}
+                              title={translate.t("search_findings.tab_resources.environments_title")}
+                            />
+                          </Col>
+                          <Col md={12}>
+                          <br />
+                          <Col mdOffset={4} md={2} sm={6}>
+                            <Button
+                              id="addEnvironment"
+                              block={true}
+                              bsStyle="primary"
+                              onClick={handleAddEnvClick}
+                            >
+                              <Glyphicon glyph="plus"/>&nbsp;
+                              {translate.t("search_findings.tab_resources.add_repository")}
+                            </Button>
+                          </Col>
+                          </Col>
+                          <Col md={12}>
+                            <br />
+                            <label style={{fontSize: "15px"}}>
+                              <b>{translate.t("search_findings.tab_resources.total_envs")}</b>
+                              {envDataset.length}
+                            </label>
+                          </Col>
+                        </Row>
+                        <ConfirmDialog
+                          name="openChangeEnvStateModal"
+                          onProceed={handleUpdateEnvStateClick}
+                          onNotProceed={handleUpdateEnvStateClickRevert}
+                          title="Environment change state"
+                          closeOnProceed={true}
+                        />
+                        </React.Fragment>
+                      );
+                    }}
+                </Mutation>
+                <Mutation mutation={ADD_RESOURCE_MUTATION} onCompleted={handleMtAddEnvsRes}>
+                  { (addResources: MutationFn<IAddEnvAttr, {projectName: string; resData: string; resType: string}>,
                      mutationRes: MutationResult): React.ReactNode => {
                       if (mutationRes.loading) {
                         showPreloader();
@@ -816,8 +852,10 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                           if (containsRepeatedEnvs(values.resources, envDataset)) {
                             msgError(translate.t("search_findings.tab_resources.repeated_item"));
                           } else {
-                            addEnvironments({
-                              variables: { projectName, envData: JSON.stringify(values.resources)},
+                            addResources({
+                              variables: { projectName,
+                                           resData: JSON.stringify(values.resources),
+                                           resType: "environment"},
                               },
                             )
                               .catch();
@@ -990,6 +1028,7 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
       onLoad: (): void => {
         dispatch(actions.loadResources(projectName));
       },
+      onOpenChangeEnvStateModal: (): void => { dispatch(openConfirmDialog("openChangeEnvStateModal")); },
       onOpenChangeRepoStateModal: (): void => { dispatch(openConfirmDialog("openChangeRepoStateModal")); },
       onOpenEnvsModal: (): void => { dispatch(actions.openAddEnvModal()); },
       onOpenFilesModal: (): void => { dispatch(actions.openAddFilesModal()); },

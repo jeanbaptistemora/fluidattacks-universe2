@@ -74,11 +74,13 @@ export interface IAddReposAttr {
 }
 
 export interface IEnvironmentsAttr {
+  historic_state: IHistoricState[];
+  state: string;
   urlEnv: string;
 }
 
-export interface IRemoveEnvAttr {
-  removeEnvironments: {
+export interface IUpdateEnvAttr {
+  updateResources: {
     resources: {
       environments: string;
     };
@@ -87,7 +89,7 @@ export interface IRemoveEnvAttr {
 }
 
 export interface IAddEnvAttr {
-  addEnvironments: {
+  addResources: {
     resources: {
       environments: string;
     };
@@ -108,6 +110,7 @@ export interface IResourcesViewDispatchProps {
   onDeleteFile(fileName: string): void;
   onDownloadFile(fileName: string): void;
   onLoad(): void;
+  onOpenChangeEnvStateModal(): void;
   onOpenChangeRepoStateModal(): void;
   onOpenEnvsModal(): void;
   onOpenFilesModal(): void;
