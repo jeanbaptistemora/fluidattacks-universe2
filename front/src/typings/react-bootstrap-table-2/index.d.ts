@@ -32,11 +32,16 @@ interface PaginationProps {
     onSizePerPageChange?: (sizePerPage: number, page: number) => number;
     paginationTotalRenderer?: (from: number, to: number, size: number) => TODO;
 
-    sizePerPageRenderer?: SizePerPageRenderer;
+    sizePerPageRenderer?: (options: SizePerPageRenderer) => TODO;
     handleNextPage?: (event: { page: number, onPageChange: () => void }) => void
     handlePrevPage?: (event: { page: number, onPageChange: () => void }) => void
     handleSizePerPage?: (event: { page: number, onSizePerPageChange: () => void },
         newSizePerPage: number) => void;
+}
+
+interface OptionPaginationProps {
+    page: number;
+    text: string,
 }
 
 type PaginationProvider = React.Component<{
@@ -50,11 +55,10 @@ type PaginationProvider = React.Component<{
 interface PaginationTableProps extends TODO {
 }
 
-interface SizePerPageRenderer {
-    options: TODO[];
-    currSizePerPage: number;
-    onSizePerPageChange: TODO;
-}
+type SizePerPageRenderer = {options: OptionPaginationProps[], currSizePerPage: number, onSizePerPageChange: onSizePerPageChange};
+
+type onSizePerPageChange = (sizePerPage: number, page?: number) => number
+
 
 type onTableChange = (type: TableChangeType, event: TableChangeNewState) => TODO;
 
@@ -91,7 +95,8 @@ interface Filter<Type extends TODO = TODO> {
 
 interface FilterProps<Type extends TODO> {
     getFilter?(filter: FilterFunction<Type>): TODO;
-    onFilter?(filterVal: string): TODO;
+    onFilter?(filterVal: string, data: any): TODO;
+    onInput?(e:TODO, value: string): TODO;
     defaultValue?: Type
     placeholder?: string
     className?: string
@@ -213,7 +218,7 @@ declare module 'react-bootstrap-table-next' {
         sort?: boolean;
         filter?: TODO;
         formatExtraData?: TODO;
-        formatter?: (cell: TODO, row: TODO, rowIndex: number, formatExtraData: any) => string | ReactElement<any>
+        formatter?: (cell: TODO, row: TODO, rowIndex: number, formatExtraData: any) => string | ReactElement | undefined
         headerStyle?: (colum: TODO, colIndex: number) => any
         sortFunc?<T>(a: T, b: T, order: 'asc' | 'desc', rowA: Row, rowB: Row): number
         filterValue?<T>(cell: T, row: TODO): any

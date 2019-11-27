@@ -2,6 +2,7 @@
  * NO-ANY: Disabling this rule is necessary because the dataset
  * array may contain different types since this is a generic component
  */
+import { ReactElement } from "react";
 
 export interface ITableProps {
   bodyContainer?: string;
@@ -28,8 +29,6 @@ export interface IHeader {
   dataField: string;
   filter?: any;
   header: string;
-  isDate: boolean;
-  isStatus: boolean;
   visible?: boolean;
   width?: string;
   wrapped?: boolean;
@@ -37,4 +36,5 @@ export interface IHeader {
   approveFunction?(arg1: { [key: string]: string } | undefined): void;
   changeFunction?(arg1: { [key: string]: string } | undefined): void;
   deleteFunction?(arg1: { [key: string]: string } | undefined): void;
+  formatter?(value: string, row: any, rowIndex: number, formatExtraData: any): string | ReactElement;
 }
