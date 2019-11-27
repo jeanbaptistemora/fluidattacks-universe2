@@ -10,6 +10,7 @@ resource "aws_sqs_queue_policy" "integrates-queue-policy" {
       "Effect": "Allow",
       "Principal": "*",
       "Action": [
+        "SQS:SendMessage",
         "SQS:DeleteMessage",
         "SQS:GetQueueAttributes",
         "SQS:ReceiveMessage"
