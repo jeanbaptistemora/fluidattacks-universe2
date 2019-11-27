@@ -11,7 +11,6 @@ from django.conf import settings
 
 from __init__ import FI_MAIL_REPLYERS
 from app.dal import integrates_dal, project as project_dal
-from app.dal.helpers.formstack import FormstackAPI
 from app.domain import comment as comment_domain
 from app.domain import finding as finding_domain
 from app.domain import vulnerability as vuln_domain
@@ -333,13 +332,7 @@ def list_findings(project_name):
 
 def list_events(project_name):
     """ Returns the list of event ids associated with the project"""
-    api = FormstackAPI()
-    submissions = api.get_eventualities(project_name)['submissions']
-    events = [submission['id'] for submission in submissions]
-    dyn_events = project_dal.list_events(project_name)
-    events += [event_id for event_id in dyn_events if event_id not in events]
-
-    return events
+    return project_dal.list_events(project_name)
 
 
 def get_finding_project_name(finding_id):

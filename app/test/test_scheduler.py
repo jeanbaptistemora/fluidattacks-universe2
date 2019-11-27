@@ -78,7 +78,7 @@ class SchedulerTests(TestCase):
         test_data = get_unsolved_events(project_name)
         assert isinstance(test_data, list)
         assert isinstance(test_data[0], dict)
-        assert test_data[0]['event_id'] == '418900971'
+        assert test_data[0]['event_id'] == '540462628'
 
     def test_extract_info_from_event_dict(self):
         dumb_event_dict = {
