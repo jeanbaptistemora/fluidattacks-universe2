@@ -4,6 +4,9 @@
     "Even though it will work, try to only merge forms with the same schema"
   ],
   "alias": {
+    "aplicacion uno": "aplicacion",
+    "aplicacion": "aplicacion",
+
     "periodo uno": "periodo",
     "periodo dos": "periodo",
     "historia laboral": "periodo"
