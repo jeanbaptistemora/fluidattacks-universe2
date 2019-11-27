@@ -234,3 +234,36 @@ app_version () {
   MINUTES=$(minutes_of_month)
   echo "$(date +%y.%m.)${MINUTES}"
 }
+
+aws_login() {
+  # Log in to aws
+
+  set -Eeuo pipefail
+
+  vault_login
+
+  export TF_VAR_dev_aws_access_key
+  export TF_VAR_dev_aws_secret_key
+  export TF_VAR_aws_s3_evidences_bucket
+  export TF_VAR_aws_s3_resources_bucket
+
+  TF_VAR_dev_aws_access_key="$DEV_AWS_ACCESS_KEY_ID"
+  TF_VAR_dev_aws_secret_key="$DEV_AWS_SECRET_ACCESS_KEY"
+
+  AWS_ACCESS_KEY_ID="$(
+    vault read -field=aws_terraform_access_key secret/integrates/$ENV_NAME
+  )"
+  AWS_SECRET_ACCESS_KEY="$(
+    vault read -field=aws_terraform_secret_key secret/integrates/$ENV_NAME
+  )"
+  TF_VAR_aws_s3_evidences_bucket=$(
+    vault read -field=aws_s3_evidences_bucket secret/integrates/$ENV_NAME
+  )
+  TF_VAR_aws_s3_resources_bucket="$(
+    vault read -field=aws_s3_resources_bucket secret/integrates/$ENV_NAME
+  )"
+
+  aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
+  aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
+
+}

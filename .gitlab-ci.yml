@@ -1,6 +1,7 @@
 stages:
   - deps-base
   - deps
+  - infra
   - test
   - build
   - mr-check
@@ -41,12 +42,12 @@ deps-development:
     - ./ci-scripts/jobs/deps-development.sh
   interruptible: true
 
-test-terraform:
+plan-terraform-resources:
   stage: test
   tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
-    - ./ci-scripts/jobs/test-terraform.sh
+    - ./ci-scripts/jobs/plan-terraform-resources.sh
   artifacts:
     paths:
       - plan.txt
@@ -171,7 +172,8 @@ danger:
   tags: [autoscaling]
   image: fluidattacks/danger-ruby
   dependencies:
-    - test-terraform
+    - plan-terraform-resources
+    - plan-terraform-sops
   script:
     - ./ci-scripts/jobs/danger.sh
   only:
@@ -338,3 +340,14 @@ clean-registry-caches:
     - vaultenv ./ci-scripts/jobs/clean-registry-caches.sh
   only:
     - schedules
+
+plan-terraform-sops:
+  stage: test
+  tags: [autoscaling]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - ./ci-scripts/jobs/plan-terraform-sops.sh
+  only:
+    - branches
+    - merge_requests
+  interruptible: true
