@@ -13,9 +13,9 @@ fi
 if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
     ./manage.py crontab add
 crontab -l >> /tmp/mycron
-sed -i 's|/usr/bin|vaultenv /usr/bin|g' /tmp/mycron
+sed -i 's|/usr/bin|/usr/local/bin/vaultenv /usr/bin|g' /tmp/mycron
 crontab /tmp/mycron
-service cron start
+service cron restart
 python3 deploy/containers/common/vars/render.py production
 else
 python3 deploy/containers/common/vars/render.py development
