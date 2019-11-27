@@ -166,6 +166,21 @@ build-app:
       - version.txt
     when: on_success
 
+
+build-lambdas:
+  stage: build
+  tags: [autoscaling]
+  needs: [deps-development]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - ./ci-scripts/jobs/build-lambdas.sh
+  retry: 1
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - lambda/packages/
+    when: on_success
+
 danger:
   stage: mr-check
   tags: [autoscaling]

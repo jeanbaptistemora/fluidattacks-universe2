@@ -26,6 +26,8 @@ RUN mkdir -p /usr/share/man/man1 \
     libxss1 \
     libappindicator3-1 \
     fonts-liberation \
+    zip \
+    python3-venv \
   && wget -q -O - "$CHROME_SIGNING_KEY" | sudo apt-key add - \
   && curl -Lo google-chrome.deb "$GOOGLE_CHROME_URL" \
     && dpkg -i google-chrome.deb \

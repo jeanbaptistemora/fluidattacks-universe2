@@ -6,6 +6,7 @@ import os
 import mandrill
 
 
+# pylint: disable=unused-argument
 def send_mail_new_vulnerabilities(event, context):
     """Lambda code."""
     template_name = 'newvulnerabilitiesintegrates'
