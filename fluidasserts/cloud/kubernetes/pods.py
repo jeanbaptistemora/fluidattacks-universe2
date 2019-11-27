@@ -7,11 +7,11 @@ from urllib3.exceptions import MaxRetryError
 # local imports
 from fluidasserts import DAST, MEDIUM
 from fluidasserts.utils.decorators import api, unknown_if
-from fluidasserts.cloud.kubernetes import _get_result_as_tuple, _get_config
+from fluidasserts.cloud.kubernetes import _get_result_as_tuple, \
+    _get_api_instance, run_function
 
 # 3rd party imports
 from kubernetes.client.rest import ApiException  # noqa
-from kubernetes import client  # noqa
 
 
 def _get_pod_security_policies(host: str = None,
@@ -20,15 +20,12 @@ def _get_pod_security_policies(host: str = None,
                                password: str = None,
                                **kwargs):
     """Get pod policies for all namespaces."""
-    api_instance = client.PolicyV1beta1Api(
-        client.ApiClient(
-            _get_config(host, api_key, username, password, **kwargs)))
-    try:
-        api_response = api_instance.list_pod_security_policy(
-            _request_timeout=5)
-    except (ApiException, MaxRetryError) as exc:
-        raise exc
-    return api_response
+    api_instance = _get_api_instance('PolicyV1beta1Api',
+                                     host, api_key,
+                                     username,
+                                     password,
+                                     **kwargs)
+    return run_function(api_instance, 'list_pod_security_policy')
 
 
 @api(risk=MEDIUM, kind=DAST)

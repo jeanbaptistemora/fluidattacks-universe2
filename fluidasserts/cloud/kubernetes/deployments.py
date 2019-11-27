@@ -2,12 +2,13 @@
 """Kubernetes cloud checks deployments."""
 
 # standard imports
-# None
+from urllib3.exceptions import MaxRetryError
 
 # local imports
 from fluidasserts import DAST, MEDIUM
 from fluidasserts.utils.decorators import api, unknown_if
-from fluidasserts.cloud.kubernetes import _get_result_as_tuple, _get_config
+from fluidasserts.cloud.kubernetes import _get_result_as_tuple, \
+    _get_api_instance, run_function
 
 # 3rd party imports
 from kubernetes.client.rest import ApiException  # noqa
@@ -15,7 +16,7 @@ from kubernetes import client  # noqa
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(ApiException)
+@unknown_if(ApiException, MaxRetryError)
 def runs_one_replica_per_deployment(*,
                                     host: str = None,
                                     api_key: str = None,
@@ -42,10 +43,13 @@ def runs_one_replica_per_deployment(*,
     msg_closed: str = 'Deployments run more than one replica.'
     vulns, safes = [], []
 
-    api_instance = client.AppsV1Api(client.ApiClient(_get_config(
-        host, api_key, username, password, **kwargs)))
-
-    api_response = api_instance.list_deployment_for_all_namespaces()
+    api_instance = _get_api_instance('AppsV1Api',
+                                     host, api_key,
+                                     username,
+                                     password,
+                                     **kwargs)
+    api_response = run_function(
+        api_instance, 'list_deployment_for_all_namespaces')
     for deployment in api_response.items:
         (safes if deployment.status.replicas > 1 else vulns).append(
             (deployment.metadata.self_link,

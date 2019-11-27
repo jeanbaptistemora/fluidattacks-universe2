@@ -3,12 +3,15 @@
 
 # standard imports
 from typing import List
+from urllib3.exceptions import MaxRetryError
+
+# 3rd party imports
+from kubernetes import client
+from kubernetes.client import Configuration  # noqa
+from kubernetes.client.rest import ApiException
 
 # local imports
 from fluidasserts import Unit, OPEN, CLOSED
-
-# 3rd party imports
-from kubernetes.client import Configuration  # noqa
 
 
 def _get_result_as_tuple(*, host: str, objects: str, msg_open: str,
@@ -65,3 +68,40 @@ def _get_config(host: str = None,
         setattr(configuration, key, value)
 
     return configuration
+
+
+def _get_api_instance(api: str,
+                      host: str = None,
+                      api_key: str = None,
+                      username: str = None,
+                      password: str = None,
+                      **kwargs):
+    """
+    Create an instance of the api version provided to make requests.
+
+    Can use API Key or Username and Password.
+
+    :param host: URL of the API server.
+    :param api_key: API Key to make requests.
+    :param username: Username of account.
+    :param password: Password of account.
+    """
+    api_to_call = getattr(client, api)
+    return api_to_call(client.ApiClient(_get_config(
+        host, api_key, username, password, **kwargs)))
+
+
+def run_function(api_instance: object,
+                 func: str,
+                 **kwargs):
+    """
+    Run the function provided for the API instance provided.
+
+    :param api_instance: API version instance.
+    :param func: API method to call.
+    """
+    method_to_call = getattr(api_instance, func)
+    try:
+        return method_to_call(_request_timeout=5, **kwargs)
+    except (ApiException, MaxRetryError) as exc:
+        raise exc
