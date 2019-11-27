@@ -343,6 +343,23 @@
                            "branch" : {
                               "S" : "master"
                            },
+                           "historic_state" : { 
+                              "L" : [
+                                 { 
+                                    "M" : {
+                                       "date" : {
+                                          "S" : "2019-11-27 13:40"
+                                       },
+                                       "state" : {
+                                          "S" : "INACTIVE"
+                                       },
+                                       "user" : {
+                                          "S" : "unittest@fluidattacks.com"
+                                       }
+                                    }
+                                 }
+                              ]
+                           },
                            "urlRepo" : {
                               "S" : "https://gitlab.com/fluidsignal/integrates"
                            }
@@ -353,6 +370,23 @@
                            "branch" : {
                               "S" : "master"
                            },
+                           "historic_state" : { 
+                              "L" : [
+                                 { 
+                                    "M" : {
+                                       "date" : {
+                                          "S" : "2019-11-27 13:40"
+                                       },
+                                       "state" : {
+                                          "S" : "ACTIVE"
+                                       },
+                                       "user" : {
+                                          "S" : "unittest@fluidattacks.com"
+                                       }
+                                    }
+                                 }
+                              ]
+                           },
                            "urlRepo" : {
                               "S" : "https://someoneatfluid.integrates.env.fluidattacks.com/index"
                            }
@@ -362,6 +396,36 @@
                         "M" : {
                            "branch" : {
                               "S" : "master"
+                           },
+                           "historic_state" : { 
+                              "L" : [
+                                 { 
+                                    "M" : {
+                                       "date" : {
+                                          "S" : "2019-11-27 13:40"
+                                       },
+                                       "state" : {
+                                          "S" : "ACTIVE"
+                                       },
+                                       "user" : {
+                                          "S" : "unittest@fluidattacks.com"
+                                       }
+                                    }
+                                 },
+                                 { 
+                                    "M" : {
+                                       "date" : {
+                                          "S" : "2019-11-27 15:40"
+                                       },
+                                       "state" : {
+                                          "S" : "INACTIVE"
+                                       },
+                                       "user" : {
+                                          "S" : "unittest@fluidattacks.com"
+                                       }
+                                    }
+                                 }
+                              ]
                            },
                            "protocol" : {
                               "S" : "SSH"
@@ -435,8 +499,75 @@
                   "L" : [
                      {
                         "M" : {
+                           "historic_state" : { 
+                              "L" : [
+                                 { 
+                                    "M" : {
+                                       "date" : {
+                                          "S" : "2019-11-27 13:40"
+                                       },
+                                       "state" : {
+                                          "S" : "INACTIVE"
+                                       },
+                                       "user" : {
+                                          "S" : "unittest@fluidattacks.com"
+                                       }
+                                    }
+                                 }
+                              ]
+                           },
                            "urlEnv" : {
                               "S" : "https://someoneatfluid.integrates.env."
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "historic_state" : { 
+                              "L" : [
+                                 { 
+                                    "M" : {
+                                       "date" : {
+                                          "S" : "2019-11-27 13:40"
+                                       },
+                                       "state" : {
+                                          "S" : "ACTIVE"
+                                       },
+                                       "user" : {
+                                          "S" : "unittest@fluidattacks.com"
+                                       }
+                                    }
+                                 },
+                                 { 
+                                    "M" : {
+                                       "date" : {
+                                          "S" : "2019-11-27 13:43"
+                                       },
+                                       "state" : {
+                                          "S" : "INACTIVE"
+                                       },
+                                       "user" : {
+                                          "S" : "unittest@fluidattacks.com"
+                                       }
+                                    }
+                                 },
+                                 { 
+                                    "M" : {
+                                       "date" : {
+                                          "S" : "2019-11-27 13:49"
+                                       },
+                                       "state" : {
+                                          "S" : "ACTIVE"
+                                       },
+                                       "user" : {
+                                          "S" : "unittest@fluidattacks.com"
+                                       }
+                                    }
+                                 }
+                              ]
+                           },
+                           "urlEnv" : {
+                              "S" : "https://someoneatfluid2.integrates.env."
                            }
                         }
                      },
@@ -449,6 +580,23 @@
                      },
                      {
                         "M" : {
+                           "historic_state" : { 
+                              "L" : [
+                                 { 
+                                    "M" : {
+                                       "date" : {
+                                          "S" : "2019-11-27 13:40"
+                                       },
+                                       "state" : {
+                                          "S" : "INACTIVE"
+                                       },
+                                       "user" : {
+                                          "S" : "unittest@fluidattacks.com"
+                                       }
+                                    }
+                                 }
+                              ]
+                           },
                            "uploadDate" : {
                               "S" : "2019-10-29 13:40"
                            },
@@ -1601,6 +1749,23 @@
                  "L" : [
                     {
                        "M" : {
+                           "historic_state" : {
+                              "L" : [
+                                 { 
+                                    "M" : {
+                                       "date" : {
+                                          "S" : "2019-11-27 13:40"
+                                       },
+                                       "state" : {
+                                          "S" : "ACTIVE"
+                                       },
+                                       "user" : {
+                                          "S" : "unittest@fluidattacks.com"
+                                       }
+                                    }
+                                 }
+                              ]
+                           },
                           "urlEnv" : {
                              "S" : "https://someoneatfluid.integrates.env."
                           }
@@ -1615,6 +1780,23 @@
                     },
                     {
                        "M" : {
+                           "historic_state" : {
+                              "L" : [
+                                 { 
+                                    "M" : {
+                                       "date" : {
+                                          "S" : "2019-11-27 13:40"
+                                       },
+                                       "state" : {
+                                          "S" : "INACTIVE"
+                                       },
+                                       "user" : {
+                                          "S" : "unittest@fluidattacks.com"
+                                       }
+                                    }
+                                 }
+                              ]
+                           },
                           "uploadDate" : {
                              "S" : "2019-10-29 13:40"
                           },
