@@ -15,14 +15,7 @@ from app.api.schema import SCHEMA
 
 class ResourceTests(TestCase):
 
-    def test_get_resources(self):
-        """ Check for project resources """
-        query = '''{
-          resources(projectName: "unittesting"){
-            repositories
-            environments
-          }
-        }'''
+    def _get_result(self, query, testing_client):
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
         middleware.process_request(request)
@@ -40,6 +33,23 @@ class ResourceTests(TestCase):
             key=settings.JWT_SECRET,
         )
         result = SCHEMA.execute(query, context=request)
+        result_empty = SCHEMA.execute(query, context=request)
+
+        if testing_client:
+
+            return testing_client.execute(query, context=request)
+
+        return [result, result_empty]
+
+    def test_get_resources(self):
+        """ Check for project resources """
+        query = '''{
+          resources(projectName: "unittesting"){
+            repositories
+            environments
+          }
+        }'''
+        result, _ = self._get_result(query, False)
         assert not result.errors
         assert 'https://gitlab.com/fluidsignal/engineering/' in \
                result.data.get('resources')['repositories']
@@ -82,24 +92,7 @@ class ResourceTests(TestCase):
             '$repos', json.dumps(repos_to_add).replace('"', '\\"'))
         query_empty = query_empty.replace(
             '$envs', json.dumps(envs_to_add).replace('"', '\\"'))
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        result = SCHEMA.execute(query, context=request)
-        result_empty = SCHEMA.execute(query, context=request)
+        result, result_empty = self._get_result(query, False)
         assert not result.errors
         assert result.data.get('addRepositories')['success']
         assert result.data.get('addEnvironments')['success']
@@ -138,23 +131,7 @@ class ResourceTests(TestCase):
         query += '''
         }'''
 
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        result = SCHEMA.execute(query, context=request)
+        result, _ = self._get_result(query, False)
         assert not result.errors
         assert len([result.data.get(value)['success']
                for value in result.data if 'Rep' in value]) > 0
@@ -221,23 +198,7 @@ class ResourceTests(TestCase):
             }
         '''
         testing_client = Client(SCHEMA)
-        request = RequestFactory().get('/')
-        middleware = SessionMiddleware()
-        middleware.process_request(request)
-        request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
-        request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
-            {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
-            },
-            algorithm='HS512',
-            key=settings.JWT_SECRET,
-        )
-        result = testing_client.execute(query, context=request)
+        result = self._get_result(query, testing_client)
         assert 'errors' not in result
         assert result['data']['downloadFile']['success']
         assert 'url' in result['data']['downloadFile']
