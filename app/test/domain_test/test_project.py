@@ -189,7 +189,7 @@ class ProjectTest(TestCase):
         test_data = get_mean_remediate(open_finding)
         current_day = datetime.now(tz=timezone('America/Bogota')).date()
         expected_output = Decimal(round(int(
-            int((current_day - datetime(2019, 2, 17).date()).days) * 2
+            int((current_day - datetime(2019, 2, 19).date()).days) * 2
             + int((current_day - datetime(2019, 2, 18).date()).days) * 2
             + int((current_day - datetime(2018, 12, 17).date()).days))
             / 7.0)).quantize(Decimal('0.1'))
