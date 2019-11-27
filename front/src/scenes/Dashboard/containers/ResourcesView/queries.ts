@@ -53,12 +53,12 @@ export const GET_REPOSITORIES: DocumentNode = gql`
   }
   `;
 
-export const UPDATE_REPO_MUTATION: DocumentNode = gql`
-  mutation UpdateRepoMutation($projectName: String!, $repoData: JSONString!, ) {
-    updateRepositories (
-      repositoryData: $repoData,
-      projectName: $projectName
-    ) {
+export const UPDATE_RESOURCE_MUTATION: DocumentNode = gql`
+  mutation UpdateResourceMutation($projectName: String!, $resData: JSONString!, $resType: String!) {
+    updateResources (
+      resourceData: $resData,
+      projectName: $projectName,
+      resType: $resType) {
       success
       resources {
         repositories
@@ -67,11 +67,12 @@ export const UPDATE_REPO_MUTATION: DocumentNode = gql`
   }
   `;
 
-export const ADD_REPOS_MUTATION: DocumentNode = gql`
-  mutation AddReposMutation($projectName: String!, $repoData: JSONString!) {
-    addRepositories (
-      resourcesData: $repoData,
-      projectName: $projectName) {
+export const ADD_RESOURCE_MUTATION: DocumentNode = gql`
+  mutation AddResourceMutation($projectName: String!, $resData: JSONString!, $resType: String!) {
+    addResources (
+      resourceData: $resData,
+      projectName: $projectName,
+      resType: $resType) {
       success
       resources {
         repositories

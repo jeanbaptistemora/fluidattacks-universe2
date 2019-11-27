@@ -56,7 +56,7 @@ export interface IResourcesAttr {
 }
 
 export interface IUpdateRepoAttr {
-  updateRepositories: {
+  updateResources: {
     resources: {
       repositories: string;
     };
@@ -65,7 +65,7 @@ export interface IUpdateRepoAttr {
 }
 
 export interface IAddReposAttr {
-  addRepositories: {
+  addResources: {
     resources: {
       repositories: string;
     };

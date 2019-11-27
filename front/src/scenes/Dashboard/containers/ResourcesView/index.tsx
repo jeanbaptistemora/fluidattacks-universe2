@@ -1,7 +1,8 @@
-/* tslint:disable:jsx-no-multiline-js
+/* tslint:disable:jsx-no-multiline-js max-file-line-count
  *
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
+ * MAX-FILE-LINE-COUNT: this file exceeds by 22 the maximum of 1000 lines
  */
 import { NetworkStatus } from "apollo-client";
 import _ from "lodash";
@@ -28,8 +29,8 @@ import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/inde
 import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptionsModal/index";
 import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
-import { ADD_ENVS_MUTATION, ADD_REPOS_MUTATION, ADD_TAGS_MUTATION, GET_ENVIRONMENTS, GET_REPOSITORIES,
-  GET_TAGS, REMOVE_ENV_MUTATION, REMOVE_TAG_MUTATION, UPDATE_REPO_MUTATION } from "./queries";
+import { ADD_ENVS_MUTATION, ADD_RESOURCE_MUTATION, ADD_TAGS_MUTATION, GET_ENVIRONMENTS, GET_REPOSITORIES,
+  GET_TAGS, REMOVE_ENV_MUTATION, REMOVE_TAG_MUTATION, UPDATE_RESOURCE_MUTATION } from "./queries";
 import { IAddEnvAttr, IAddReposAttr, IAddTagsAttr, IEnvironmentsAttr, IProjectTagsAttr, IRemoveEnvAttr,
   IRemoveTagsAttr, IRepositoriesAttr, IResourcesAttr, IResourcesViewBaseProps, IResourcesViewDispatchProps,
   IResourcesViewProps, IResourcesViewStateProps, IUpdateRepoAttr } from "./types";
@@ -414,7 +415,7 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
             const repoDataset: IRepositoriesAttr[] = repos;
             const handleMtUpdateRepoRes: ((mtResult: IUpdateRepoAttr) => void) = (mtResult: IUpdateRepoAttr): void => {
               if (!_.isUndefined(mtResult)) {
-                if (mtResult.updateRepositories.success) {
+                if (mtResult.updateResources.success) {
                   hidePreloader();
                   mixpanel.track(
                     "RemoveProjectRepo",
@@ -432,7 +433,7 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
 
             const handleMtAddReposRes: ((mtResult: IAddReposAttr) => void) = (mtResult: IAddReposAttr): void => {
               if (!_.isUndefined(mtResult)) {
-                if (mtResult.addRepositories.success) {
+                if (mtResult.addResources.success) {
                   refetch()
                     .catch();
                   handleCloseReposModalClick();
@@ -454,8 +455,9 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
 
             return (
               <React.Fragment>
-              <Mutation mutation={UPDATE_REPO_MUTATION} onCompleted={handleMtUpdateRepoRes}>
-                  { (updateRepositories: MutationFn<IUpdateRepoAttr, {projectName: string; repoData: string}>,
+              <Mutation mutation={UPDATE_RESOURCE_MUTATION} onCompleted={handleMtUpdateRepoRes}>
+                  { (updateRepositories: MutationFn<IUpdateRepoAttr,
+                    {projectName: string; resData: string; resType: string}>,
                      mutationRes: MutationResult): React.ReactNode => {
                       if (mutationRes.loading) {
                         showPreloader();
@@ -479,7 +481,11 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                       };
 
                       const handleUpdateRepoStateClick: (() => void) = (): void => {
-                        updateRepositories({ variables: { projectName, repoData: JSON.stringify(auxRepo)} })
+                        updateRepositories({ variables: {
+                          projectName,
+                          resData: JSON.stringify(auxRepo),
+                          resType: "repository"}},
+                        )
                           .catch();
                         if (auxRepo !== undefined) {
                           auxRepo.state = auxRepo.state === "INACTIVE" ? "ACTIVE" : "INACTIVE";
@@ -593,8 +599,8 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                       </React.Fragment>);
                     }}
                 </Mutation>
-                <Mutation mutation={ADD_REPOS_MUTATION} onCompleted={handleMtAddReposRes}>
-                { (addRepositories: MutationFn<IAddReposAttr, {projectName: string; repoData: string}>,
+                <Mutation mutation={ADD_RESOURCE_MUTATION} onCompleted={handleMtAddReposRes}>
+                { (addRepositories: MutationFn<IAddReposAttr, {projectName: string; resData: string; resType: string}>,
                    mutationRes: MutationResult): React.ReactNode => {
                     if (mutationRes.loading) {
                       showPreloader();
@@ -611,9 +617,10 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                         if (containsRepeatedRepos(values.resources, repoDataset)) {
                           msgError(translate.t("search_findings.tab_resources.repeated_item"));
                         } else {
-                          addRepositories({
-                            variables: { projectName, repoData: JSON.stringify(values.resources)},
-                            },
+                          addRepositories({variables: {
+                            projectName,
+                            resData: JSON.stringify(values.resources),
+                            resType: "repository"}},
                           )
                             .catch();
                         }
