@@ -649,7 +649,7 @@ def main():  # noqa
         dest='conf',
         type=argparse.FileType('r'))
     group.add_argument(
-        '-d', '--disc',
+        '-d', '--discover',
         help='Runs the script in discovery mode',
         dest='discovery_mode',
         action='store_true',
