@@ -210,6 +210,13 @@ data "aws_iam_policy_document" "integrates-terraform" {
     actions   = ["sqs:*"]
     resources = ["*"]
   }
+
+  statement {
+    sid       = "LambdaFunctions"
+    effect    = "Allow"
+    actions   = ["lambda:*"]
+    resources = ["arn:aws:lambda:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:function:integrates-*"]
+  }
 }
 
 resource "aws_iam_policy" "integrates-terraform" {
