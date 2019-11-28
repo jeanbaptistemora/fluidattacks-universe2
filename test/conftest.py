@@ -18,7 +18,7 @@ import wait
 from docker.models.containers import Image, Container
 
 # local imports
-from test.mock import graphqlserver
+from test.mock import graphql_server
 from test.mock import httpserver
 from test.mock import sip
 from test.mock import camera_hard
@@ -200,48 +200,22 @@ def stop_container(mock_name: str, remove: bool = False) -> None:
 
 
 @pytest.fixture(scope='session', autouse=True)
-def mock_sip(request):
-    """Start SIP mock endpoints."""
-    prcs = Process(target=sip.start, name='MockSIPServer')
-    prcs.daemon = True
-    prcs.start()
-    time.sleep(1)
-
-
-@pytest.fixture(scope='session', autouse=True)
-def mock_http(request):
-    """Start HTTP mocks."""
-    prcs = Process(target=httpserver.start, name='MockHTTPServer')
-    prcs.daemon = True
-    prcs.start()
-    time.sleep(1)
-
-
-@pytest.fixture(scope='session', autouse=True)
-def mock_camera_weak(request):
-    """Start camera mocks."""
-    prcs = Process(target=camera_weak.start, name='MockCameraWeakServer')
-    prcs.daemon = True
-    prcs.start()
-    time.sleep(1)
-
-
-@pytest.fixture(scope='session', autouse=True)
-def mock_camera_hard(request):
-    """Start camera mocks."""
-    prcs = Process(target=camera_hard.start, name='MockCameraHardServer')
-    prcs.daemon = True
-    prcs.start()
-    time.sleep(1)
-
-
-@pytest.fixture(scope='session', autouse=True)
-def mock_graphql(request):
-    """Start and stop the Graphql server."""
-    prcs = Process(target=graphqlserver.start, name='GraphQL Mock Server')
-    prcs.daemon = True
-    prcs.start()
-    time.sleep(1.0)
+def flask_mocks(request):
+    """Start mocks based on the Flask Framework."""
+    processes = []
+    mocks = [
+        (sip.start, 'MockSIPServer'),
+        (httpserver.start, 'MockHTTPServer'),
+        (camera_weak.start, 'MockCameraWeakServer'),
+        (camera_hard.start, 'MockCameraHardServer'),
+        (graphql_server.start, 'MockGraphQLServer'),
+    ]
+    for target, name in mocks:
+        process = Process(target=target, name=name)
+        process.daemon = True
+        process.start()
+        processes.append(process)
+    time.sleep(10.0)
 
 
 @pytest.fixture(scope='session', autouse=True)
