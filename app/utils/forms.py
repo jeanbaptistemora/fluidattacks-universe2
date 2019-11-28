@@ -16,18 +16,6 @@ def dict_concatenation(dict_1, dict_2):
     return dict_1_copy
 
 
-def drive_url_filter(drive):
-    """ Gets ID of the drive image """
-    if drive.find("s3.amazonaws.com") != -1:
-        new_url = drive.split("/")[5]
-        return new_url
-    if drive.find("id=") != -1:
-        new_url = drive.split("id=")[1]
-        if new_url.find("&") != -1:
-            return new_url.split("&")[0]
-    return drive
-
-
 def remove_standard_keys(dictionary):
     return {dictionary['field']: dictionary['value']}
 
@@ -36,11 +24,6 @@ def merge_dicts_list_into_dict(dicts_list):
     dicts_without_standard_keys = [remove_standard_keys(x)
                                    for x in dicts_list]
     return reduce(dict_concatenation, dicts_without_standard_keys)
-
-
-def create_dict(remission_submission):
-    remission_dict = merge_dicts_list_into_dict(remission_submission["data"])
-    return remission_dict
 
 
 def is_exploitable(explotability, version):
@@ -55,13 +38,6 @@ def is_exploitable(explotability, version):
         else:
             exploitable = 'No'
     return exploitable
-
-
-def to_formstack(data):
-    new_data = dict()
-    for key, value in list(data.items()):
-        new_data["field_" + str(key)] = value
-    return new_data
 
 
 def round_date(date):

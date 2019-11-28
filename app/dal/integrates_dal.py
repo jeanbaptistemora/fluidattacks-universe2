@@ -915,41 +915,6 @@ def get_project_attributes_dynamo(project_name, data_attributes):
         'FI_projects', {'project_name': project_name}, data_attributes)
 
 
-def get_event_dynamo(event_id):
-    """ Get an event. """
-    table = DYNAMODB_RESOURCE.Table('fi_events')
-    hash_key = 'event_id'
-    key_exp = Key(hash_key).eq(event_id)
-    response = table.query(KeyConditionExpression=key_exp)
-    items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = table.query(
-                KeyConditionExpression=key_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
-    return items
-
-
-def get_event_attributes_dynamo(event_id, data_attributes):
-    """ Get a group of attributes of a event. """
-    table = DYNAMODB_RESOURCE.Table('fi_events')
-    try:
-        response = table.get_item(
-            Key={
-                'event_id': event_id
-            },
-            ProjectionExpression=data_attributes
-        )
-        items = response.get('Item')
-    except ClientError:
-        rollbar.report_exc_info()
-        items = {}
-    return items
-
-
 def update_item_list_dynamo(
         primary_keys, attr_name, index, field, field_value):
     """update list attribute in a table."""
@@ -1052,38 +1017,6 @@ def get_findings_released_dynamo(project, data_attr=''):
     findings = get_findings_data_dynamo(filtering_exp, data_attr)
     findings_released = [i for i in findings if util.validate_release_date(i)]
     return findings_released
-
-
-def get_events():
-    """Get all the events."""
-    filter_key = 'event_id'
-    table = DYNAMODB_RESOURCE.Table('fi_events')
-    filtering_exp = Attr(filter_key).exists()
-    response = table.scan(FilterExpression=filtering_exp)
-    items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = table.scan(
-                FilterExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
-    return items
-
-
-def get_event_project(event_id):
-    """Get project associated to a event."""
-    table = DYNAMODB_RESOURCE.Table('fi_events')
-    response = table.get_item(
-        Key={
-            'event_id': event_id
-        },
-        AttributesToGet=['project_name']
-    )
-    item = response.get('Item').get('project_name') if 'Item' in response else None
-
-    return item
 
 
 def delete_item(table_name, primary_keys):

@@ -87,15 +87,6 @@ def ord_asc_by_criticidad(data):
     return data
 
 
-def drive_url_filter(drive):
-    """ Gets the ID of an image stored on Google Drive """
-    if drive.find("id=") != -1:
-        new_url = drive.split("id=")[1]
-        if new_url.find("&") != -1:
-            return new_url.split("&")[0]
-    return drive
-
-
 def get_evidence_set(finding):
     evidence_set = []
     if "evidence_route_1" in finding and "evidence_description_1" in finding:
