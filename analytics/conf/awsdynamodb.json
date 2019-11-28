@@ -246,15 +246,13 @@
         "closer": "string",
         "context": "string",
         "detail": "string",
-        "event_date": "date-time",
         "event_id": "string",
-        "event_status": "string",
         "event_type": "string",
         "evidence": "string",
         "evidence_file": "string",
+        "historic_state": "list<dict>",
         "hours_before_blocking": "number",
         "project_name": "string",
-        "report_date": "date-time",
         "subscription": "string"
       }
     },
