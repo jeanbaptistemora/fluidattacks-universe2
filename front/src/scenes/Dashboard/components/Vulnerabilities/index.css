@@ -2,3 +2,23 @@
 	color: #555555;
 	font-weight: bold;
 }
+
+:local .filter_input {
+	border: none !important;
+	box-shadow: none !important;
+}
+
+:local .tableHeader {
+	background-color: white;
+	color: #555555;
+	padding: 2px 3px !important;
+	white-space: unset !important;
+	text-align: left !important;
+}
+
+:local .tableBody > td {
+	white-space: unset !important;
+	padding: 2px 3px !important;
+	word-break: break-all;
+	border: none !important;
+}

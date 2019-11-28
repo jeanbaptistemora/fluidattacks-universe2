@@ -12,13 +12,14 @@ import mixpanel from "mixpanel-browser";
 import React, { useState } from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
-import { DataAlignType } from "react-bootstrap-table";
 import { AnyAction } from "redux";
 import { submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { Button } from "../../../../components/Button/index";
 import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
-import { IHeader } from "../../../../components/DataTable/index";
+import { DataTableNext } from "../../../../components/DataTableNext";
+import { approveFormatter, deleteFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
+import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
@@ -34,7 +35,6 @@ import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
 import { deleteVulnerabilityModal as DeleteVulnerabilityModal } from "../DeleteVulnerability/index";
 import { IDeleteVulnAttr } from "../DeleteVulnerability/types";
 import { GenericForm } from "../GenericForm";
-import { default as SimpleTable } from "../SimpleTable/index";
 import style from "./index.css";
 import { APPROVE_VULN_MUTATION, GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
 import { IApproveVulnAttr, IUpdateVulnTreatment, IVulnerabilitiesViewProps, IVulnsAttr, IVulnType } from "./types";
@@ -351,8 +351,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   mixpanel.track(
                     "DeleteVulnerability",
                     {
-                      Organization: (window as Window & { userOrganization: string }).userOrganization,
-                      User: (window as Window & { userName: string }).userName,
+                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+                      User: (window as typeof window & { userName: string }).userName,
                     });
                   msgSuccess(
                     translate.t("search_findings.tab_description.vulnDeleted"),
@@ -377,8 +377,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   mixpanel.track(
                     "ApproveVulnerability",
                     {
-                      Organization: (window as Window & { userOrganization: string }).userOrganization,
-                      User: (window as Window & { userName: string }).userName,
+                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+                      User: (window as typeof window & { userName: string }).userName,
                     });
                   msgSuccess(
                     translate.t("search_findings.tab_description.vuln_approval"),
@@ -397,8 +397,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   mixpanel.track(
                     "UpdatedTreatmentVulnerabilities",
                     {
-                      Organization: (window as Window & { userOrganization: string }).userOrganization,
-                      User: (window as Window & { userName: string }).userName,
+                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+                      User: (window as typeof window & { userName: string }).userName,
                     });
                   msgSuccess(
                     translate.t("search_findings.tab_description.update_vulnerabilities"),
@@ -409,85 +409,67 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             };
             const inputsHeader: IHeader[] = [
             {
-              align: "left" as DataAlignType,
+              align: "left",
               dataField: "where",
               header: "URL",
-              isDate: false,
-              isStatus: false,
               width: "60%",
               wrapped: true,
             },
             {
-              align: "left" as DataAlignType,
+              align: "left",
               dataField: "specific",
               header: translate.t("search_findings.tab_description.field"),
-              isDate: false,
-              isStatus: false,
               width: "20%",
               wrapped: true,
             },
             {
-              align: "left" as DataAlignType,
+              align: "left",
               dataField: "treatment",
               header: translate.t("search_findings.tab_description.treatment.title"),
-              isDate: false,
-              isStatus: false,
               visible: false,
               width: "20%",
             }];
             const linesHeader: IHeader[] = [
               {
-                align: "left" as DataAlignType,
+                align: "left",
                 dataField: "where",
                 header: translate.t("search_findings.tab_description.path"),
-                isDate: false,
-                isStatus: false,
                 width: "60%",
                 wrapped: true,
               },
               {
-                align: "left" as DataAlignType,
+                align: "left",
                 dataField: "specific",
                 header: translate.t("search_findings.tab_description.line", {count: 1}),
-                isDate: false,
-                isStatus: false,
                 width: "20%",
                 wrapped: true,
               },
               {
-                align: "left" as DataAlignType,
+                align: "left",
                 dataField: "treatment",
                 header: translate.t("search_findings.tab_description.treatment.title"),
-                isDate: false,
-                isStatus: false,
                 visible: false,
                 width: "20%",
               }];
             const portsHeader: IHeader[] = [
               {
-                align: "left" as DataAlignType,
+                align: "left",
                 dataField: "where",
                 header: "Host",
-                isDate: false,
-                isStatus: false,
                 width: "60%",
                 wrapped: true,
               },
               {
-                align: "left" as DataAlignType,
+                align: "left",
                 dataField: "specific",
                 header: translate.t("search_findings.tab_description.port", {count: 1}),
-                isDate: false,
-                isStatus: false,
                 width: "20%",
                 wrapped: true,
               },
               {
-                align: "left" as DataAlignType,
+                align: "left",
                 dataField: "treatment",
                 header: translate.t("search_findings.tab_description.treatment.title"),
-                isDate: false,
-                isStatus: false,
                 visible: false,
                 width: "20%",
               }];
@@ -499,55 +481,46 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
 
             if (props.editMode && isAnalystorAdmin) {
               inputsHeader.push({
-                          align: "center" as DataAlignType,
+                          align: "center",
                           dataField: "id",
                           deleteFunction: handleDeleteVulnerability,
+                          formatter: deleteFormatter,
                           header: translate.t("search_findings.tab_description.action"),
-                          isDate: false,
-                          isStatus: false,
                           width: "10%",
                         });
               linesHeader.push({
-                          align: "center" as DataAlignType,
+                          align: "center",
                           dataField: "id",
                           deleteFunction: handleDeleteVulnerability,
+                          formatter: deleteFormatter,
                           header: translate.t("search_findings.tab_description.action"),
-                          isDate: false,
-                          isStatus: false,
                           width: "10%",
                         });
               portsHeader.push({
-                          align: "center" as DataAlignType,
+                          align: "center",
                           dataField: "id",
                           deleteFunction: handleDeleteVulnerability,
+                          formatter: deleteFormatter,
                           header: translate.t("search_findings.tab_description.action"),
-                          isDate: false,
-                          isStatus: false,
                           width: "10%",
                         });
             } else if (getAnalyst) {
               inputsHeader.push({
-                align: "left" as DataAlignType,
+                align: "left",
                 dataField: "lastAnalyst",
                 header: translate.t("search_findings.tab_description.analyst"),
-                isDate: false,
-                isStatus: false,
                 width: "30%",
               });
               linesHeader.push({
-                align: "left" as DataAlignType,
+                align: "left",
                 dataField: "lastAnalyst",
                 header: translate.t("search_findings.tab_description.analyst"),
-                isDate: false,
-                isStatus: false,
                 width: "30%",
               });
               portsHeader.push({
-                align: "left" as DataAlignType,
+                align: "left",
                 dataField: "lastAnalyst",
                 header: translate.t("search_findings.tab_description.analyst"),
-                isDate: false,
-                isStatus: false,
                 width: "30%",
               });
             } else if (shouldGroup) {
@@ -663,71 +636,70 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
 
                 const pendingsHeader: IHeader[] = [
                   {
-                    align: "left" as DataAlignType,
+                    align: "left",
                     dataField: "where",
                     header: "Where",
-                    isDate: false,
-                    isStatus: false,
                     width: "50%",
                     wrapped: true,
                   },
                   {
-                    align: "left" as DataAlignType,
+                    align: "left",
                     dataField: "specific",
                     header: translate.t("search_findings.tab_description.field"),
-                    isDate: false,
-                    isStatus: false,
                     width: "15%",
                     wrapped: true,
                   },
                   {
-                    align: "left" as DataAlignType,
+                    align: "left",
                     dataField: "currentState",
+                    formatter: statusFormatter,
                     header: translate.t("search_findings.tab_description.state"),
-                    isDate: false,
-                    isStatus: true,
                     width: "15%",
                     wrapped: true,
                   },
                   {
-                    align: "left" as DataAlignType,
+                    align: "left",
                     dataField: "isNew",
                     header: translate.t("search_findings.tab_description.is_new"),
-                    isDate: false,
-                    isStatus: false,
                     width: "12%",
                     wrapped: true,
                   }];
                 if (getAnalyst) {
                   pendingsHeader.push({
-                    align: "left" as DataAlignType,
+                    align: "left",
                     dataField: "analyst",
                     header: translate.t("search_findings.tab_description.analyst"),
-                    isDate: false,
-                    isStatus: false,
                     width: "38%",
                   });
                 }
                 if (_.isEqual(props.editModePending, true)) {
                   pendingsHeader.push({
-                    align: "center" as DataAlignType,
+                    align: "center",
                     approveFunction: handleApproveVulnerability,
                     dataField: "id",
+                    formatter: approveFormatter,
                     header: translate.t("search_findings.tab_description.approve"),
-                    isDate: false,
-                    isStatus: false,
                     width: "12%",
                   });
                   pendingsHeader.push({
-                    align: "center" as DataAlignType,
+                    align: "center",
                     dataField: "id",
                     deleteFunction: handleRejectVulnerability,
+                    formatter: deleteFormatter,
                     header: translate.t("search_findings.tab_description.delete"),
-                    isDate: false,
-                    isStatus: false,
                     width: "12%",
                   });
                   }
+                const selectionMode: SelectRowOptions = {
+                  clickToSelect: true,
+                  mode: "checkbox",
+                };
+                const remote: RemoteProps = {
+                  cellEdit: false,
+                  filter: false,
+                  pagination: false,
+                  sort: false,
+                };
 
                 return (
                     <React.StrictMode>
@@ -736,21 +708,24 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                             <label className={style.vuln_title}>
                               {translate.t("search_findings.tab_description.inputs")}
                             </label>
-                            <SimpleTable
+                            <DataTableNext
                               id="inputsVulns"
+                              bordered={false}
                               dataset={formattedDataInputs}
                               exportCsv={false}
                               headers={inputsHeader}
                               onClickRow={undefined}
+                              remote={remote}
                               pageSize={10}
                               search={false}
                               enableRowSelection={
                                 ((isEditable ? true : false) && _.includes([], props.userRole))
                               }
                               title=""
-                              selectionMode="checkbox"
+                              selectionMode={selectionMode}
+                              tableBody={style.tableBody}
+                              tableHeader={style.tableHeader}
                             />
-                            <br/>
                           </React.Fragment>
                         : undefined
                       }
@@ -759,21 +734,24 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                             <label className={style.vuln_title}>
                               {translate.t("search_findings.tab_description.line", {count: 2})}
                             </label>
-                            <SimpleTable
+                            <DataTableNext
                               id="linesVulns"
+                              bordered={false}
                               dataset={formattedDataLines}
                               exportCsv={false}
                               headers={linesHeader}
                               onClickRow={undefined}
+                              remote={remote}
                               pageSize={10}
                               search={false}
                               enableRowSelection={
                                 ((isEditable ? true : false) && _.includes([], props.userRole))
                               }
                               title=""
-                              selectionMode="checkbox"
+                              selectionMode={selectionMode}
+                              tableBody={style.tableBody}
+                              tableHeader={style.tableHeader}
                             />
-                            <br/>
                           </React.Fragment>
                         : undefined
                       }
@@ -782,39 +760,45 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                             <label className={style.vuln_title}>
                               {translate.t("search_findings.tab_description.port", {count: 2})}
                             </label>
-                            <SimpleTable
+                            <DataTableNext
                               id="portsVulns"
+                              bordered={false}
                               dataset={formattedDataPorts}
                               exportCsv={false}
                               headers={portsHeader}
                               onClickRow={undefined}
+                              remote={remote}
                               pageSize={10}
                               search={false}
                               enableRowSelection={
                                 ((isEditable ? true : false) && _.includes([], props.userRole))
                               }
                               title=""
-                              selectionMode="checkbox"
+                              selectionMode={selectionMode}
+                              tableBody={style.tableBody}
+                              tableHeader={style.tableHeader}
                             />
-                            <br/>
                           </React.Fragment>
                         : undefined
                       }
                       { dataPendingVulns.length > 0 ?
                       <React.Fragment>
-                        <SimpleTable
+                        <DataTableNext
                           id="pendingVulns"
+                          bordered={false}
                           dataset={formattedDataPendingVulns}
                           exportCsv={false}
                           headers={pendingsHeader}
                           onClickRow={undefined}
+                          remote={remote}
                           pageSize={10}
                           search={false}
                           enableRowSelection={false}
                           title=""
-                          selectionMode="checkbox"
+                          selectionMode={selectionMode}
+                          tableBody={style.tableBody}
+                          tableHeader={style.tableHeader}
                         />
-                        <br/>
                         {_.includes(["admin", "analyst"], props.userRole) ?
                         <ButtonToolbar className="pull-right">
                           <Button onClick={openApproveConfirm}>
