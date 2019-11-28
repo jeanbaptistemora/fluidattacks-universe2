@@ -2,6 +2,7 @@ stages:
   - deps-base
   - deps
   - test
+  - build-lambdas
   - build
   - mr-check
   - deploy
@@ -168,7 +169,7 @@ build-app:
 
 
 build-lambdas:
-  stage: build
+  stage: build-lambdas
   tags: [autoscaling]
   needs: [deps-development]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME

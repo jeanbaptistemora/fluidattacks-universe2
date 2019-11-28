@@ -3,7 +3,6 @@
 # Lambda package builder
 
 build_lambda() {
-    set -x
     LAMBDA_FUNCTION=$1
     CURR_PATH=${PWD}/lambda
 

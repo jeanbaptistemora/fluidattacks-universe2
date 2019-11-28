@@ -30,3 +30,8 @@ module "cloudfront" {
 module "sqs" {
   source = "./sqs"
 }
+
+
+module "lambda" {
+  source = "./lambda"
+}
