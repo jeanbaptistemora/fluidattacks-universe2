@@ -1,7 +1,6 @@
 from graphene import ObjectType
 from app.entity.login import AcceptLegal
 from app.entity.resource import (
-    AddRepositories, UpdateRepositories,
     AddResources, UpdateResources,
     AddFiles, RemoveFiles, DownloadFile
 )
@@ -39,8 +38,6 @@ class Mutations(ObjectType):
     updateAccessToken = UpdateAccessToken.Field()
     invalidateAccessToken = InvalidateAccessToken.Field()
 
-    addRepositories = AddRepositories.Field()
-    updateRepositories = UpdateRepositories.Field()
     addResources = AddResources.Field()
     updateResources = UpdateResources.Field()
     addFiles = AddFiles.Field()

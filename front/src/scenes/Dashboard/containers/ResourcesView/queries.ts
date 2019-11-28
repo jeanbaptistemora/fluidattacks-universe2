@@ -88,30 +88,3 @@ query GetEnvironmentsQuery($projectName: String!) {
   }
 }
 `;
-
-export const REMOVE_ENV_MUTATION: DocumentNode = gql`
-  mutation RemoveEnvMutation($projectName: String!, $envData: JSONString!, ) {
-    removeEnvironments (
-      repositoryData: $envData,
-      projectName: $projectName
-    ) {
-      success
-      resources {
-        environments
-      }
-    }
-  }
-  `;
-
-export const ADD_ENVS_MUTATION: DocumentNode = gql`
-  mutation AddEnvsMutation($projectName: String!, $envData: JSONString!) {
-    addEnvironments (
-      resourcesData: $envData,
-      projectName: $projectName) {
-      success
-      resources {
-        repositories
-      }
-    }
-  }
-  `;
