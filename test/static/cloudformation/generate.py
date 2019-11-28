@@ -235,6 +235,7 @@ ec2_launch_template = troposphere.ec2.LaunchTemplate(
 )
 ec2_instance = troposphere.ec2.Instance(
     title='ec2instance1',
+    DisableApiTermination=True,
     IamInstanceProfile='iamInstanceProfile1',
     LaunchTemplate=troposphere.ec2.LaunchTemplateSpecification(
         LaunchTemplateId=troposphere.Ref(ec2_launch_template),
@@ -630,6 +631,7 @@ ec2_launch_template2 = troposphere.ec2.LaunchTemplate(
 )
 ec2_instance = troposphere.ec2.Instance(
     title='ec2instance1',
+    DisableApiTermination=False,
     LaunchTemplate=troposphere.ec2.LaunchTemplateSpecification(
         LaunchTemplateId=troposphere.Ref(ec2_launch_template),
         LaunchTemplateName='launchTemplate',

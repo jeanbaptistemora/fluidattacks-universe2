@@ -68,7 +68,7 @@ def test_has_not_termination_protection():
     """test ec2.has_not_termination_protection."""
     result = ec2.has_not_termination_protection(VULN)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 2
+    assert result.get_vulns_number() == 2 * 3
     assert ec2.has_not_termination_protection(SAFE).is_closed()
     assert ec2.has_not_termination_protection(NOT_EXISTS).is_unknown()
 

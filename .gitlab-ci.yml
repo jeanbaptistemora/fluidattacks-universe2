@@ -77,7 +77,7 @@ bandit:
 
 test:
   stage: test
-  tags: [autoscaling-large]
+  tags: [autoscaling-jumbo]
   services:
     - docker:dind
   script:

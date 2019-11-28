@@ -110,6 +110,7 @@
     },
     "ec2instance1": {
       "Properties": {
+        "DisableApiTermination": "false",
         "LaunchTemplate": {
           "LaunchTemplateId": {
             "Ref": "launchTemplate"

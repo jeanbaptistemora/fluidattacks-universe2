@@ -393,6 +393,28 @@ def has_not_termination_protection(
                     identifier=res_name,
                     reason='has not disabled api termination'))
 
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::EC2::Instance',
+            ],
+            exclude=exclude):
+        disable_api_termination = res_props.get('DisableApiTermination', False)
+
+        with contextlib.suppress(CloudFormationInvalidTypeError):
+            disable_api_termination = \
+                helper.to_boolean(disable_api_termination)
+
+        if not disable_api_termination:
+            vulnerabilities.append(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=('AWS::EC2::Instance/'
+                            'DisableApiTermination/'
+                            f'{disable_api_termination}'),
+                    identifier=res_name,
+                    reason='has not disabled api termination'))
+
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
         msg_open='EC2 Launch Templates have API termination enabled',
