@@ -76,7 +76,7 @@ test-front:
 
 test-mobile:
   stage: test
-  tags: [mobile]
+  tags: [autoscaling-large]
   needs: [deps-mobile]
   image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:master
   script:
@@ -118,7 +118,7 @@ lint-app:
 
 asserts-static:
   stage: test
-  tags: [mobile]
+  tags: [autoscaling]
   needs: [deps-development]
   image:
     name: fluidattacks/break-build
@@ -129,7 +129,9 @@ asserts-static:
     - bash <(docker run fluidattacks/break-build
               --static
               --id ${BREAK_BUILD_ID}
-              --secret ${BREAK_BUILD_SECRET}) || true
+              --secret ${BREAK_BUILD_SECRET}
+              --gitlab-docker-socket-binding
+             ) || true
   except:
     - master
   interruptible: true
@@ -255,7 +257,7 @@ deploy-k8s:
 
 deploy-mobile:
   stage: deploy
-  tags: [mobile]
+  tags: [autoscaling-large]
   needs: [deps-mobile]
   image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:master
   script:
@@ -316,7 +318,7 @@ test-driver-prod:
 
 asserts-dynamic:
   stage: post-deploy
-  tags: [mobile]
+  tags: [autoscaling]
   image:
     name: fluidattacks/break-build
     entrypoint: [""]
@@ -326,7 +328,9 @@ asserts-dynamic:
     - bash <(docker run fluidattacks/break-build
               --dynamic
               --id ${BREAK_BUILD_ID}
-              --secret ${BREAK_BUILD_SECRET}) || true
+              --secret ${BREAK_BUILD_SECRET}
+              --gitlab-docker-socket-binding
+             ) || true
   only:
     - master
   interruptible: true
