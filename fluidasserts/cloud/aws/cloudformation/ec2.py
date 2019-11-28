@@ -15,6 +15,7 @@ from fluidasserts import SAST, LOW, MEDIUM
 from fluidasserts.helper import aws as helper
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
+    _index,
     _get_result_as_tuple,
     CloudFormationInvalidTypeError,
 )
@@ -327,16 +328,71 @@ def has_not_an_iam_instance_profile(
                 'AWS::EC2::Instance',
             ],
             exclude=exclude):
-        with contextlib.suppress(CloudFormationInvalidTypeError):
-            if 'IamInstanceProfile' not in res_props:
-                vulnerabilities.append(
-                    Vulnerability(
-                        path=yaml_path,
-                        entity='AWS::EC2::Instance/IamInstanceProfile',
-                        identifier=res_name,
-                        reason='is not present'))
+
+        if 'IamInstanceProfile' not in res_props:
+            vulnerabilities.append(
+                Vulnerability(
+                    path=yaml_path,
+                    entity='AWS::EC2::Instance/IamInstanceProfile',
+                    identifier=res_name,
+                    reason='is not present'))
 
     return _get_result_as_tuple(
         vulnerabilities=vulnerabilities,
         msg_open='EC2 instances have not an IamInstanceProfile set',
         msg_closed='EC2 instances have an IamInstanceProfile set')
+
+
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_not_termination_protection(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Verify if ``EC2::LaunchTemplate`` has not deletion protection enabled.
+
+    By default EC2 Instances can be terminated using the Amazon EC2 console,
+    CLI, or API
+
+    This is not desirable, as terminated instances are deleted from the account
+    automatically after some time. Or allows personal to take-down the service
+    without intention.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if the instance has not the **DisableApiTermination**
+                parameter set to **true**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::EC2::LaunchTemplate',
+            ],
+            exclude=exclude):
+        disable_api_termination = _index(
+            dictionary=res_props,
+            indexes=('LaunchTemplateData', 'DisableApiTermination'),
+            default=False)
+
+        with contextlib.suppress(CloudFormationInvalidTypeError):
+            disable_api_termination = \
+                helper.to_boolean(disable_api_termination)
+
+        if not disable_api_termination:
+            vulnerabilities.append(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=('AWS::EC2::LaunchTemplate/'
+                            'LaunchTemplateData/'
+                            'DisableApiTermination/'
+                            f'{disable_api_termination}'),
+                    identifier=res_name,
+                    reason='has not disabled api termination'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='EC2 Launch Templates have API termination enabled',
+        msg_closed='EC2 Launch Templates have API termination disabled')

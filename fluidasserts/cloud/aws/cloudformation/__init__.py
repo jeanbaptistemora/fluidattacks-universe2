@@ -6,7 +6,7 @@ stelligent/cfn_nag/master/LICENSE.md>`_
 """
 
 # standard imports
-from typing import List, NamedTuple
+from typing import Any, List, NamedTuple
 
 # local imports
 from fluidasserts import Unit, OPEN, CLOSED
@@ -18,6 +18,17 @@ Vulnerability = NamedTuple('Vulnerability', [
     ('identifier', str),
     ('reason', str),
 ])
+
+
+def _index(dictionary: dict, indexes: List[Any], default: Any = None) -> Any:
+    """Safely Index a dictionary over indexes without KeyError opportunity."""
+    if len(indexes) < 2:
+        raise AssertionError('indexes length must be >= two')
+    result = dictionary.get(indexes[0], {})
+    for index in indexes[1:-1]:
+        result = result.get(index, {})
+    result = result.get(indexes[-1], default)
+    return result
 
 
 def _get_result_as_tuple(*,

@@ -93,7 +93,19 @@
     },
     "ec2instance1": {
       "Properties": {
-        "IamInstanceProfile": "iamInstanceProfile1"
+        "IamInstanceProfile": "iamInstanceProfile1",
+        "LaunchTemplate": {
+          "LaunchTemplateId": {
+            "Ref": "launchTemplate"
+          },
+          "LaunchTemplateName": "launchTemplate",
+          "Version": {
+            "Fn::GetAtt": [
+              "launchTemplate",
+              "LatestVersionNumber"
+            ]
+          }
+        }
       },
       "Type": "AWS::EC2::Instance"
     },
@@ -126,6 +138,15 @@
         "KeyPolicy": {}
       },
       "Type": "AWS::KMS::Key"
+    },
+    "launchTemplate": {
+      "Properties": {
+        "LaunchTemplateData": {
+          "DisableApiTermination": "true"
+        },
+        "LaunchTemplateName": "launchTemplate"
+      },
+      "Type": "AWS::EC2::LaunchTemplate"
     },
     "mangedPolicy1": {
       "Properties": {

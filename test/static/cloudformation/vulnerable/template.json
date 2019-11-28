@@ -109,6 +109,20 @@
       "Type": "AWS::EC2::Volume"
     },
     "ec2instance1": {
+      "Properties": {
+        "LaunchTemplate": {
+          "LaunchTemplateId": {
+            "Ref": "launchTemplate"
+          },
+          "LaunchTemplateName": "launchTemplate",
+          "Version": {
+            "Fn::GetAtt": [
+              "launchTemplate",
+              "LatestVersionNumber"
+            ]
+          }
+        }
+      },
       "Type": "AWS::EC2::Instance"
     },
     "fileSystem1": {
@@ -139,6 +153,21 @@
         "KeyPolicy": {}
       },
       "Type": "AWS::KMS::Key"
+    },
+    "launchTemplate": {
+      "Properties": {
+        "LaunchTemplateData": {
+          "DisableApiTermination": "false"
+        },
+        "LaunchTemplateName": "launchTemplate"
+      },
+      "Type": "AWS::EC2::LaunchTemplate"
+    },
+    "launchTemplate2": {
+      "Properties": {
+        "LaunchTemplateName": "launchTemplate2"
+      },
+      "Type": "AWS::EC2::LaunchTemplate"
     },
     "mangedPolicy1": {
       "Properties": {

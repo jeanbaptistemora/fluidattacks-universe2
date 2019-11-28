@@ -226,9 +226,21 @@ ec2_volume2 = troposphere.ec2.Volume(
     AvailabilityZone='us-east-1',
     Encrypted=troposphere.Join('', ['tr', 'ue']),
 )
+ec2_launch_template = troposphere.ec2.LaunchTemplate(
+    title='launchTemplate',
+    LaunchTemplateName='launchTemplate',
+    LaunchTemplateData=troposphere.ec2.LaunchTemplateData(
+        DisableApiTermination=True,
+    )
+)
 ec2_instance = troposphere.ec2.Instance(
     title='ec2instance1',
     IamInstanceProfile='iamInstanceProfile1',
+    LaunchTemplate=troposphere.ec2.LaunchTemplateSpecification(
+        LaunchTemplateId=troposphere.Ref(ec2_launch_template),
+        LaunchTemplateName='launchTemplate',
+        Version=troposphere.GetAtt('launchTemplate', 'LatestVersionNumber'),
+    ),
 )
 dynamodb_table = troposphere.dynamodb.Table(
     title='dynamoDBTable1',
@@ -314,6 +326,7 @@ template.add_resource(security_group)
 template.add_resource(ec2_volume)
 template.add_resource(ec2_volume2)
 template.add_resource(ec2_instance)
+template.add_resource(ec2_launch_template)
 template.add_resource(dynamodb_table)
 template.add_resource(fsx_filesystem)
 template.add_resource(cloudfront_distribution)
@@ -603,8 +616,24 @@ ec2_volume = troposphere.ec2.Volume(
     AvailabilityZone='us-east-1',
     Encrypted='false',
 )
+ec2_launch_template = troposphere.ec2.LaunchTemplate(
+    title='launchTemplate',
+    LaunchTemplateName='launchTemplate',
+    LaunchTemplateData=troposphere.ec2.LaunchTemplateData(
+        DisableApiTermination=False,
+    )
+)
+ec2_launch_template2 = troposphere.ec2.LaunchTemplate(
+    title='launchTemplate2',
+    LaunchTemplateName='launchTemplate2',
+)
 ec2_instance = troposphere.ec2.Instance(
     title='ec2instance1',
+    LaunchTemplate=troposphere.ec2.LaunchTemplateSpecification(
+        LaunchTemplateId=troposphere.Ref(ec2_launch_template),
+        LaunchTemplateName='launchTemplate',
+        Version=troposphere.GetAtt('launchTemplate', 'LatestVersionNumber'),
+    ),
 )
 dynamodb_table = troposphere.dynamodb.Table(
     title='dynamoDBTable1',
@@ -710,6 +739,8 @@ template.add_resource(security_group_ingress)
 template.add_resource(security_group_egress)
 template.add_resource(ec2_volume)
 template.add_resource(ec2_instance)
+template.add_resource(ec2_launch_template)
+template.add_resource(ec2_launch_template2)
 template.add_resource(dynamodb_table)
 template.add_resource(dynamodb_table2)
 template.add_resource(fsx_filesystem)

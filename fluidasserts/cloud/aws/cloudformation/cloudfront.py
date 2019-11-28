@@ -1,27 +1,17 @@
 """AWS CloudFormation checks for ``CloudFront`` (Content Delivery Network)."""
 
 # Standard imports
-from typing import Any, List, Optional
+from typing import List, Optional
 
 # Local imports
 from fluidasserts import SAST, MEDIUM
 from fluidasserts.helper import aws as helper
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
+    _index,
     _get_result_as_tuple,
 )
 from fluidasserts.utils.decorators import api, unknown_if
-
-
-def _index(dictionary: dict, indexes: List[Any], default: Any = None) -> Any:
-    """Safely Index a dictionary over indexes without KeyError opportunity."""
-    if len(indexes) < 2:
-        raise AssertionError('indexes length must be >= two')
-    result = dictionary.get(indexes[0], {})
-    for index in indexes[1:-1]:
-        result = result.get(index, {})
-    result = result.get(indexes[-1], default)
-    return result
 
 
 @api(risk=MEDIUM, kind=SAST)
