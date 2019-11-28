@@ -351,11 +351,12 @@ def has_not_termination_protection(
     Verify if ``EC2::LaunchTemplate`` has not deletion protection enabled.
 
     By default EC2 Instances can be terminated using the Amazon EC2 console,
-    CLI, or API
+    CLI, or API.
 
     This is not desirable, as terminated instances are deleted from the account
-    automatically after some time. Or allows personal to take-down the service
-    without intention.
+    automatically after some time,
+    personal may take-down the service without intention,
+    and volumes attached to the instance may be lost and therefore wiped.
 
     :param path: Location of CloudFormation's template file.
     :param exclude: Paths that contains any string from this list are ignored.
@@ -396,3 +397,60 @@ def has_not_termination_protection(
         vulnerabilities=vulnerabilities,
         msg_open='EC2 Launch Templates have API termination enabled',
         msg_closed='EC2 Launch Templates have API termination disabled')
+
+
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_terminate_shutdown_behavior(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Verify if ``EC2::LaunchTemplate`` has **Terminate** as Shutdown Behavior.
+
+    By default EC2 Instances can be terminated using the shutdown command,
+    from the underlying operative system.
+
+    This is not desirable, as terminated instances are deleted from the account
+    automatically after some time,
+    personal may take-down the service without intention,
+    and volumes attached to the instance may be lost and therefore wiped.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if the instance has not the
+                **InstanceInitiatedShutdownBehavior** attribute set to
+                **terminate**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::EC2::LaunchTemplate',
+            ],
+            exclude=exclude):
+        initiated_sd_behavior = _index(
+            dictionary=res_props,
+            indexes=(
+                'LaunchTemplateData',
+                'InstanceInitiatedShutdownBehavior'),
+            default='stop')
+
+        if str(initiated_sd_behavior).lower() == 'terminate':
+            vulnerabilities.append(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=('AWS::EC2::LaunchTemplate/'
+                            'LaunchTemplateData/'
+                            'InstanceInitiatedShutdownBehavior/'
+                            f'{initiated_sd_behavior}'),
+                    identifier=res_name,
+                    reason='has -terminate- as shutdown behavior'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open=('EC2 Launch Templates allows the shutdown command to'
+                  ' terminate the instance'),
+        msg_closed=('EC2 Launch Templates disallow the shutdown command to'
+                    ' terminate the instance'))

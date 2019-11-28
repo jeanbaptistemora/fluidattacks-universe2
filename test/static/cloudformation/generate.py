@@ -621,6 +621,7 @@ ec2_launch_template = troposphere.ec2.LaunchTemplate(
     LaunchTemplateName='launchTemplate',
     LaunchTemplateData=troposphere.ec2.LaunchTemplateData(
         DisableApiTermination=False,
+        InstanceInitiatedShutdownBehavior='terminate',
     )
 )
 ec2_launch_template2 = troposphere.ec2.LaunchTemplate(

@@ -157,7 +157,8 @@
     "launchTemplate": {
       "Properties": {
         "LaunchTemplateData": {
-          "DisableApiTermination": "false"
+          "DisableApiTermination": "false",
+          "InstanceInitiatedShutdownBehavior": "terminate"
         },
         "LaunchTemplateName": "launchTemplate"
       },

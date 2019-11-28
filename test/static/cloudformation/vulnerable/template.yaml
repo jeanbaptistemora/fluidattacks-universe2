@@ -104,6 +104,7 @@ Resources:
     Properties:
       LaunchTemplateData:
         DisableApiTermination: 'false'
+        InstanceInitiatedShutdownBehavior: terminate
       LaunchTemplateName: launchTemplate
     Type: AWS::EC2::LaunchTemplate
   launchTemplate2:
