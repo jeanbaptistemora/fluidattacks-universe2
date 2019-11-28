@@ -665,6 +665,7 @@ def approve_draft(draft_id, reviewer_email):
                 success = finding_dal.update(draft_id, {
                     'lastVulnerability': release_date,
                     'releaseDate': release_date,
+                    'treatment': 'NEW',
                     'historic_state': history
                 })
             else:

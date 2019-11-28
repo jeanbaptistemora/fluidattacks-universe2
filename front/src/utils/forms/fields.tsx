@@ -186,7 +186,7 @@ export const dateField: React.FC<CustomFieldProps> =
 
 export const dateTimeField: React.FC<CustomFieldProps> = (fieldProps: CustomFieldProps): JSX.Element => (
   <React.Fragment>
-    <Datetime inputProps={{ className: style.formControl }} utc={true} {...fieldProps.input} />
+    <Datetime inputProps={{ className: style.formControl }} utc={false} {...fieldProps.input} />
     {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
   </React.Fragment>
 );

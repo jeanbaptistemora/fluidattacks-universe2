@@ -136,7 +136,7 @@ def create_event(analyst_email, project_name, file=None, image=None, **kwargs):
     subscription = project.get('type', '')
 
     event_attrs = kwargs.copy()
-    if event_attrs['event_date'] > today:
+    if event_attrs['event_date'].astimezone(tzn).replace(tzinfo=None) > today:
         raise InvalidDate()
 
     event_attrs.update({
