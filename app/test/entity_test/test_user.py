@@ -7,7 +7,7 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from graphene.test import Client
 from jose import jwt
-from .test_me import Request
+from .test_utils import Request
 
 from app.entity.user import (validate_email_address,
                              validate_field,
@@ -41,7 +41,12 @@ class UserTests(TestCase):
                 }
             }
         '''
-        request = Request().get_request()
+        request = Request().get_request({
+            'username': 'unittest',
+            'company': 'unittest',
+            'role': 'admin',
+            'useremail': 'unittest'
+        })
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert 'success' in result['data']['grantUserAccess']
@@ -58,13 +63,24 @@ class UserTests(TestCase):
                 }
             }
         '''
-        request = Request().get_request()
+        request = Request().get_request({
+            'username': 'unittest',
+            'company': 'unittest',
+            'role': 'admin',
+            'useremail': 'unittest'
+        })
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert 'user' in result['data']
 
     def test_add_user(self):
         testing_client = Client(SCHEMA)
+        request = Request().get_request({
+            'username': 'unittest',
+            'company': 'unittest',
+            'role': 'admin',
+            'useremail': 'unittest'
+        })
         query = '''
             mutation {
               grantUserAccess (
@@ -87,13 +103,18 @@ class UserTests(TestCase):
                 }
             }
         '''
-        request = Request().get_request()
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert 'success' in result['data']['grantUserAccess']
 
     def test_remove_user(self):
         testing_client = Client(SCHEMA)
+        request = Request().get_request({
+            'username': 'unittest',
+            'company': 'unittest',
+            'role': 'admin',
+            'useremail': 'unittest'
+        })
         query = '''
             mutation {
               removeUserAccess (
@@ -106,13 +127,18 @@ class UserTests(TestCase):
                 }
             }
         '''
-        request = Request().get_request()
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert 'success' in result['data']['removeUserAccess']
 
     def test_edit_user(self):
         testing_client = Client(SCHEMA)
+        request = Request().get_request({
+            'username': 'unittest',
+            'company': 'unittest',
+            'role': 'admin',
+            'useremail': 'unittest'
+        })
         query = '''
             mutation {
               editUser (
@@ -126,7 +152,6 @@ class UserTests(TestCase):
                 }
             }
         '''
-        request = Request().get_request()
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
         assert 'success' in result['data']['editUser']
