@@ -384,6 +384,8 @@ lint-terraform-sops:
     - ./ci-scripts/jobs/lint-terraform-sops.sh
   only:
     - branches
+  except:
+    - master
   interruptible: true
 
 lint-terraform-resources:
@@ -395,4 +397,6 @@ lint-terraform-resources:
     - ./ci-scripts/jobs/lint-terraform-resources.sh
   only:
     - branches
+  except:
+    - master
   interruptible: true

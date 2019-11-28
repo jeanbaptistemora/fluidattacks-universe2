@@ -238,7 +238,7 @@ app_version () {
 aws_login() {
   # Log in to aws
 
-  set -Eeuo pipefail
+  set -e
 
   vault_login
 
