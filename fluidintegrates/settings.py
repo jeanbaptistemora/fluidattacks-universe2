@@ -26,8 +26,6 @@ from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, \
     FI_ROLLBAR_ACCESS_TOKEN, FI_ENVIRONMENT, FI_JWT_SECRET, \
     FI_JWT_SECRET_API, FI_REDIS_SERVER
 
-from .production import FIELDS_EVENT, EV_URL
-
 sys.path.append('/usr/src/app')
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,8 +38,6 @@ newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 from boto3.session import Session  # noqa: E402
 import rollbar  # noqa: E402
 
-FIELDS_EVENT = FIELDS_EVENT  # lgtm [py/redundant-assignment]
-EV_URL = EV_URL  # lgtm [py/redundant-assignment]
 SECRET_KEY = FI_DJANGO_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
