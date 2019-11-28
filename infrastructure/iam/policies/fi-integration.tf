@@ -194,7 +194,10 @@ data "aws_iam_policy_document" "integrates-terraform" {
     sid       = "FunctionLogs"
     effect    = "Allow"
     actions   = ["logs:*"]
-    resources = ["arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/fi_binaryalert*"]
+    resources = [
+        "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/fi_binaryalert*",
+        "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/integrates-*"
+        ]
   }
 
   statement {
