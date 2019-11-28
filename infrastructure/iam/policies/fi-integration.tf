@@ -123,7 +123,9 @@ data "aws_iam_policy_document" "integrates-terraform" {
     ]
     resources = [
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/fi_binaryalert*",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/fi_binaryalert*"
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/fi_binaryalert*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/integrates-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-*"
     ]
   }
 
