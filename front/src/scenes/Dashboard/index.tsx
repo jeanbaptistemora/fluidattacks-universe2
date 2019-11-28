@@ -16,7 +16,6 @@ import { Navbar } from "./components/Navbar/index";
 import { Sidebar } from "./components/Sidebar";
 import { EventContent } from "./containers/EventContent/index";
 import FindingContent from "./containers/FindingContent/index";
-import { FormsView } from "./containers/FormsView";
 import HomeView from "./containers/HomeView";
 import ProjectContent from "./containers/ProjectContent/index";
 import { ReportsView } from "./containers/ReportsView";
@@ -34,7 +33,7 @@ interface IDashboardDispatchProps {
 }
 
 type IDashboardProps = IDashboardBaseProps &
-(IDashboardStateProps & IDashboardDispatchProps & IDashboardViewStateProps);
+  (IDashboardStateProps & IDashboardDispatchProps & IDashboardViewStateProps);
 
 const dashboard: React.FC<IDashboardProps> = (props: IDashboardProps): JSX.Element => {
   const handleSidebarLogoutClick: (() => void) = (): void => { props.onLogout(); };
@@ -55,7 +54,6 @@ const dashboard: React.FC<IDashboardProps> = (props: IDashboardProps): JSX.Eleme
             <Navbar />
             <Switch>
               <Route path="/home" exact={true} component={HomeView} />
-              <Route path="/forms" component={FormsView} />
               <Route path="/reports" component={ReportsView} />
               <Route path="/project/:projectName/events/:eventId(\d+)" component={EventContent} />
               <Route path="/project/:projectName/:type(findings|drafts)/:findingId(\d+)" component={FindingContent} />
@@ -78,9 +76,9 @@ const dashboard: React.FC<IDashboardProps> = (props: IDashboardProps): JSX.Eleme
 
 interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IDashboardViewStateProps, IDashboardBaseProps, IState> =
-(state: IState): IDashboardViewStateProps => ({
-  open: state.dashboard.updateAccessTokenModal.open,
-});
+  (state: IState): IDashboardViewStateProps => ({
+    open: state.dashboard.updateAccessTokenModal.open,
+  });
 
 const mapDispatchToProps: MapDispatchToProps<IDashboardDispatchProps, IDashboardBaseProps> =
   (dispatch: ThunkDispatcher): IDashboardDispatchProps => ({
