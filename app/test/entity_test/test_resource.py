@@ -20,14 +20,14 @@ class ResourceTests(TestCase):
         middleware = SessionMiddleware()
         middleware.process_request(request)
         request.session.save()
-        request.session['username'] = 'unittest'
-        request.session['company'] = 'unittest'
-        request.session['role'] = 'admin'
+        request.session['username'] = 'user'
+        request.session['company'] = 'fluid'
+        request.session['role'] = 'customer'
         request.COOKIES[settings.JWT_COOKIE_NAME] = jwt.encode(
             {
-                'user_email': 'unittest',
-                'user_role': 'admin',
-                'company': 'unittest'
+                'user_email': 'integratesuser@gmail.com',
+                'user_role': 'customer',
+                'company': 'fluid'
             },
             algorithm='HS512',
             key=settings.JWT_SECRET,
@@ -59,28 +59,28 @@ class ResourceTests(TestCase):
     def test_add_resources(self):
         """ Check for add project resources"""
         repos_to_add = [
-            {'branch': 'master',
-             'protocol': 'HTTP',
-             'urlRepo': 'https://gitlab.com/fluidsignal/unittest'}
+            {'branch': 'master', 'urlRepo': 'https://gitlab.com/fluidsignal/unittest'}
         ]
         envs_to_add = [
-            {'urlEnv': 'https://unittesting.fluidattacks.com/'},
+            {'urlEnv': 'https://unittesting.fluidattacks.com/'}
         ]
         query = '''mutation {
-          addRepositories(
-            projectName: "unittesting", resourcesData: "$repos") {
+          addRepository: addResources(
+            projectName: "unittesting", resourceData: "$repos", resType: "repository") {
             success
           }
-          addEnvironments(projectName: "unittesting", resourcesData: "$envs") {
+          addEnvironment: addResources(
+            projectName: "unittesting", resourceData: "$envs", resType: "environment") {
             success
           }
         }'''
         query_empty = '''mutation {
-          addRepositories(
-            projectName: "oneshottest", resourcesData: "$repos") {
+          addRepository: addResources(
+            projectName: "oneshottest", resourceData: "$repos", resType: "repository") {
             success
           }
-          addEnvironments(projectName: "oneshottest", resourcesData: "$envs") {
+          addEnvironment: addResources(
+            projectName: "oneshottest", resourceData: "$envs", resType: "environment") {
             success
           }
         }'''
@@ -94,40 +94,51 @@ class ResourceTests(TestCase):
             '$envs', json.dumps(envs_to_add).replace('"', '\\"'))
         result, result_empty = self._get_result(query, False)
         assert not result.errors
-        assert result.data.get('addRepositories')['success']
-        assert result.data.get('addEnvironments')['success']
+        assert len([result.data.get(value)['success']
+               for value in result.data if 'Rep' in value]) > 0
+        assert len([result.data.get(value)['success']
+               for value in result.data if 'Env' in value]) > 0
         assert not result_empty.errors
-        assert result_empty.data.get('addRepositories')['success']
-        assert result_empty.data.get('addEnvironments')['success']
+        assert len([result_empty.data.get(value)['success']
+               for value in result.data if 'Rep' in value]) > 0
+        assert len([result_empty.data.get(value)['success']
+               for value in result.data if 'Env' in value]) > 0
+
 
     def test_update_resources(self):
         """ Check for update project resources """
         repos_to_update = [
-            {'branch': 'master', 'urlRepo': 'https://gitlab.com/fluidsignal/unittest'},
-            {'branch': 'master', 'urlRepo': 'https://gitlab.com/fluidsignal/engineering/'}
+            ['unittesting', {'branch': 'master', 'urlRepo': 'https://gitlab.com/fluidsignal/unittest'}],
+            ['unittesting', {'branch': 'master', 'urlRepo': 'https://gitlab.com/fluidsignal/engineering/'}],
+            ['oneshottest', {'branch': 'master', 'urlRepo': 'https://gitlab.com/fluidsignal/integrates'}],
+            ['oneshottest', {'branch': 'master', 'urlRepo': 'git@gitlab.com:fluidattacks/integrates.git'}]
         ]
-        envs_to_remove = [
-            {'urlEnv': 'https://unittesting.fluidattacks.com/'}
+        envs_to_update = [
+            ['unittesting', {'urlEnv': 'https://someoneatfluid.integrates.env.'}],
+            ['unittesting', {'urlEnv': 'https://someoneatfluid.integrates.env.'}],
+            ['unittesting', {'urlEnv': 'https://fluidattacks.com/'}]
         ]
 
         query = '''mutation{'''
-        for c, env in enumerate(envs_to_remove):
+        for c, env in enumerate(envs_to_update):
             query += '''
-            removeEnvironment'''+str(c+1)+''': removeEnvironments(
-                projectName: "unittesting", repositoryData: "$env"){
+            updateEnvironment'''+str(c+1)+''': updateResources(
+                projectName: "$proj", resourceData: "$env", resType: "environment"){
                 success
               }'''
             query = query.replace(
-                '$env', json.dumps(env).replace('"', '\\"'))
+                '$env', json.dumps(env[1]).replace('"', '\\"'))
+            query = query.replace('$proj', env[0])
 
         for c, repo in enumerate(repos_to_update):
             query += '''
-            updateRepository'''+str(c+1)+''': updateRepositories(
-                projectName: "unittesting", repositoryData: "$repo"){
+            updateRepository'''+str(c+1)+''': updateResources(
+                projectName: "$proj", resourceData: "$repo", resType: "repository"){
                 success
               }'''
             query = query.replace(
-                '$repo', json.dumps(repo).replace('"', '\\"'))
+                '$repo', json.dumps(repo[1]).replace('"', '\\"'))
+            query = query.replace('$proj', repo[0])
         query += '''
         }'''
 

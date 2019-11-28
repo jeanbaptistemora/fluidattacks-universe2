@@ -1687,6 +1687,19 @@
                                           "S" : "unittest@fluidattacks.com"
                                        }
                                     }
+                                 },
+                                 { 
+                                    "M" : {
+                                       "date" : {
+                                          "S" : "2019-10-29 13:48"
+                                       },
+                                       "state" : {
+                                          "S" : "INACTIVE"
+                                       },
+                                       "user" : {
+                                          "S" : "unittest@fluidattacks.com"
+                                       }
+                                    }
                                  }
                               ]
                            },
