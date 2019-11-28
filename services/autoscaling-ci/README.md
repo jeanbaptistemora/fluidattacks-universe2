@@ -1,9 +1,10 @@
 # Setting up the Bastion
 
-0. Launch a very **small EC2 instance**
-0. install **docker**
-0. install **docker-machine**
-0. install **gitlab-runner** (it's in ubuntu's apt)
+0. Launch a **t3.small EC2 instance** with
+   **ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-20191002 (ami-04b9e92b5572fa0d1)** AMI
+0. install **docker** (https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+0. install **docker-machine** (https://docs.docker.com/machine/install-machine/)
+0. install **gitlab-runner** (https://docs.gitlab.com/runner/install/linux-repository.html)
 0. take the **autoscaling-ci** user credentials (ID and Secret)
 0. replace all **----REPLACE-ME----** parts in the local *config.toml*
    that you'll find in this directory
@@ -40,7 +41,13 @@ To enable it append the following in the *config.toml*
 [runners.docker]
   # ...
   privileged = true
-  volumes = ["/var/run/docker.sock:/var/run/docker.sock"]
+  volumes = [
+    # Let the job's Docker see the job's cloned repository which is in Host's filesystem
+    "/builds:/builds",
+    # Let the job's Docker use the Daemon of the Host
+    #   because the job's Docker does not have the hardware, the Host does
+    "/var/run/docker.sock:/var/run/docker.sock"
+  ]
 ```
 
 And for security reasons:
@@ -52,9 +59,36 @@ And for security reasons:
   MaxBuilds = 1
 ```
 
+# IO1 Volumes
+
+To enable it append the following in the *config.toml*
+
+```toml
+# ...
+[runners.machine]
+  # ...
+  MachineOptions = [
+    # ...
+    "amazonec2-volume-type=io1",
+    "amazonec2-volume-iops=800",  # At much 50 times root-size GiB
+    "amazonec2-root-size=16"
+    # ...
+  ]
+```
+
 **MaxBuilds** 1 will make the gitlab-runner start the machine,
 run 1 job,
 and kill the machine.
+
+Overwrite the docker-machine binary in the Bastion with:
+
+https://github.com/kamadorueda/machine/blob/master/bin/docker-machine
+
+If you need to perform more changes,
+clone the official repository,
+make changes
+install Moby dev environment (go, compilers and docker)
+and run 'make build' to compile your modified binary
 
 # SPOT instances
 

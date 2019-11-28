@@ -1,5 +1,5 @@
 concurrent = 1000
-check_interval = 5
+check_interval = 2
 
 [session_server]
   session_timeout = 1800
@@ -13,8 +13,12 @@ check_interval = 5
   [runners.custom_build_dir]
   [runners.docker]
     tls_verify = false
-    image = "debian:stable"
-    privileged = false
+    image = "docker"
+    privileged = true
+    volumes = [
+      "/builds:/builds",
+      "/var/run/docker.sock:/var/run/docker.sock"
+    ]
     disable_entrypoint_overwrite = false
     oom_kill_disable = false
     disable_cache = true
@@ -30,9 +34,9 @@ check_interval = 5
       BucketName = "autoscaling-ci-cache"
       BucketLocation = "us-east-1"
   [runners.machine]
-    IdleCount = 10
-    IdleTime = 300
-    MaxBuilds = 128
+    IdleCount = 16
+    IdleTime = 0
+    MaxBuilds = 1
     MachineDriver = "amazonec2"
     MachineName = "autoscaling-ci-%s"
     MachineOptions = [
@@ -43,11 +47,15 @@ check_interval = 5
       "amazonec2-subnet-id=subnet-6a606433",
       "amazonec2-zone=a",
       "amazonec2-use-private-address=true",
+      "amazonec2-use-ebs-optimized-instance=true",
       "amazonec2-security-group=AutoscalingCISecurityGroup",
+      "amazonec2-ami=ami-075b5fce6712726ed",
       "amazonec2-instance-type=t3.nano",
-      "amazonec2-root-size=8"
+      "amazonec2-volume-type=gp2",
+      "amazonec2-root-size=16"
     ]
     OffPeakPeriods = [
+      "* * 18-23 * * mon-fri *",
       "* * 0-6 * * mon-fri *",
       "* * * * * sat,sun *"
     ]
@@ -64,8 +72,12 @@ check_interval = 5
   [runners.custom_build_dir]
   [runners.docker]
     tls_verify = false
-    image = "debian:stable"
-    privileged = false
+    image = "docker"
+    privileged = true
+    volumes = [
+      "/builds:/builds",
+      "/var/run/docker.sock:/var/run/docker.sock"
+    ]
     disable_entrypoint_overwrite = false
     oom_kill_disable = false
     disable_cache = true
@@ -81,9 +93,9 @@ check_interval = 5
       BucketName = "autoscaling-ci-cache"
       BucketLocation = "us-east-1"
   [runners.machine]
-    IdleCount = 2
-    IdleTime = 300
-    MaxBuilds = 128
+    IdleCount = 8
+    IdleTime = 0
+    MaxBuilds = 1
     MachineDriver = "amazonec2"
     MachineName = "autoscaling-large-ci-%s"
     MachineOptions = [
@@ -94,8 +106,11 @@ check_interval = 5
       "amazonec2-subnet-id=subnet-6a606433",
       "amazonec2-zone=a",
       "amazonec2-use-private-address=true",
+      "amazonec2-use-ebs-optimized-instance=true",
       "amazonec2-security-group=AutoscalingCISecurityGroup",
+      "amazonec2-ami=ami-075b5fce6712726ed",
       "amazonec2-instance-type=t3.large",
+      "amazonec2-volume-type=gp2",
       "amazonec2-root-size=64"
     ]
     OffPeakPeriods = [
