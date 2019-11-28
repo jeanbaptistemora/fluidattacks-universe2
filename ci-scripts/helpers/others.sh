@@ -250,6 +250,12 @@ aws_login() {
   TF_VAR_dev_aws_access_key="$DEV_AWS_ACCESS_KEY_ID"
   TF_VAR_dev_aws_secret_key="$DEV_AWS_SECRET_ACCESS_KEY"
 
+  if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
+    ENV_NAME='production'
+  else
+    ENV_NAME='development'
+  fi
+
   AWS_ACCESS_KEY_ID="$(
     vault read -field=aws_terraform_access_key secret/integrates/$ENV_NAME
   )"
