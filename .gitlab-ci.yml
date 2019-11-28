@@ -367,15 +367,6 @@ plan-terraform-sops:
     - merge_requests
   interruptible: true
 
-apply-terraform-sops:
-  stage: build
-  tags: [autoscaling]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - ./ci-scripts/jobs/apply-terraform-sops.sh
-  only:
-    - master
-
 lint-terraform-sops:
   stage: test
   tags: [autoscaling]

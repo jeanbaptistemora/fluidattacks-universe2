@@ -47,11 +47,11 @@ RUN mkdir -p /usr/share/man/man1 \
   && curl -o terraform.zip "$TERRAFORM_URL" \
     && unzip terraform.zip \
     && rm terraform.zip \
+    && mv terraform /usr/local/bin/terraform \
   && curl -Lo tflint.zip "$TERRAFORM_LINT" \
     && unzip tflint.zip \
     && rm tflint.zip \
     && mv tflint /usr/local/bin/ \
-    && mv terraform /usr/local/bin/terraform \
   && curl -o kubectl "$KUBECTL_URL" \
     && chmod +x kubectl \
     && mv kubectl /usr/local/bin/kubectl \
