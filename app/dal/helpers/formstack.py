@@ -4,8 +4,7 @@
 import json
 import random
 import requests
-# pylint: disable=F0401
-from django.conf import settings
+
 from django.views.decorators.cache import cache_control
 from retrying import retry
 import rollbar
@@ -22,12 +21,6 @@ class FormstackAPI():
 
     headers_config = {}
     SUBMISSION_URL = "https://www.formstack.com/api/v2/submission/:id.json"
-    # Project information URL
-    IN_URL = "https://www.formstack.com/api/v2/form/2696665/submission.json"
-    # Eventuality URL
-    EV_URL = settings.EV_URL
-    # Close finding URL
-    CL_URL = "https://www.formstack.com/api/v2/form/2264008/submission.json"
 
     def __init__(self):
         """ Constructor. """
@@ -112,21 +105,6 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
         next_index = random.randint(0, len(self.token_list) - 1)
         self.current_token = self.token_list[next_index]
 
-    def delete_submission(self, submission_id):
-        """ Delete a submission by ID. """
-        data = {'id': submission_id}
-        url = self.SUBMISSION_URL.replace(":id", submission_id)
-        return self.request("DELETE", url, data=data)
-
-    def get_eventualities(self, project):
-        """ Get the eventualities by project name. """
-        search_field = settings.FIELDS_EVENT['PROJECT_NAME']
-        data = {'search_field_1': search_field,
-                'search_value_1': project,
-                'page': 1,
-                'per_page': 50}
-        return self.requests_per_page("GET", self.EV_URL, data=data)
-
     @cache_control(max_age=600)
     def get_submission(self, submission_id):
         """ Get a submission by ID. """
@@ -140,8 +118,3 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
                 'page': 1,
                 'per_page': 50}
         return self.requests_per_page("GET", remission.URL, data=data)
-
-    def update(self, request_id, data_dto):
-        """ Update a record in formstack. """
-        url = self.SUBMISSION_URL.replace(":id", request_id)
-        return self.request("PUT", url, data=data_dto)

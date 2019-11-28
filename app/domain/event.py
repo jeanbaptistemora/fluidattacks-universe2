@@ -12,9 +12,7 @@ from __init__ import (
 )
 from app import util
 from app.dal import integrates_dal, event as event_dal, project as project_dal
-from app.dal.helpers.formstack import FormstackAPI
 from app.domain import comment as comment_domain, resources as resources_domain
-from app.dto.eventuality import EventDTO
 from app.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidDate, InvalidFileSize,
     InvalidFileType
@@ -42,20 +40,6 @@ def update_event(event_id, affectation, analyst_email):
     success = event_dal.update(event_id, {'historic_state': history})
 
     return success
-
-
-def get_event_project_name(event_id):
-    """Get the name of the project of a finding."""
-    project = integrates_dal.get_event_project(event_id)
-    if not project:
-        api = FormstackAPI()
-        evt_dto = EventDTO()
-        event_data = evt_dto.parse(event_id, api.get_submission(event_id))
-        project = event_data.get('projectName', '')
-    else:
-        # Project exist in dynamo
-        pass
-    return project
 
 
 def update_evidence(event_id, evidence_type, file):

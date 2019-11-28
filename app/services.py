@@ -1,14 +1,13 @@
 """ FluidIntegrates services definition """
 
-import rollbar
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from app import util
 from app.dal import integrates_dal, project as project_dal
-from app.dal.helpers.formstack import FormstackAPI
-from app.domain import finding as finding_domain, user as user_domain
-from app.dto.eventuality import EventDTO
+from app.domain import (
+    event as event_domain, finding as finding_domain, user as user_domain
+)
 
 
 @csrf_exempt
@@ -52,22 +51,10 @@ def has_access_to_event(user, event_id, role):
     if role == 'admin':
         has_access = True
     else:
-        project = integrates_dal.get_event_project(event_id)
+        finding = event_domain.get_event(event_id)
+        has_access = has_access_to_project(
+            user, finding.get('project_name'), role)
 
-        if project:
-            has_access = has_access_to_project(user, project, role)
-        else:
-            api = FormstackAPI()
-            evt_dto = EventDTO()
-            event_data = evt_dto.parse(event_id, api.get_submission(event_id))
-            project = event_data.get('projectName', '')
-            if project:
-                has_access = has_access_to_project(user, project, role)
-            else:
-                rollbar.report_message(
-                    'Error: Event {event_id} does not have project'.format(
-                        event_id=event_id),
-                    'error')
     return has_access
 
 

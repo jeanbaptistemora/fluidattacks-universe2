@@ -152,7 +152,7 @@ class UpdateEvent(Mutation):
         success = event_domain.update_event(
             event_id, affectation, analyst_email)
         if success:
-            project_name = event_domain.get_event_project_name(event_id)
+            project_name = event_domain.get_event(event_id).get('project_name')
             util.invalidate_cache(event_id)
             util.invalidate_cache(project_name)
         events_loader = info.context.loaders['event']
