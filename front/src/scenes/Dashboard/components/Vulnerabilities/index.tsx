@@ -12,9 +12,12 @@ import mixpanel from "mixpanel-browser";
 import React, { useState } from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
-import { AnyAction } from "redux";
+import { Comparator, textFilter } from "react-bootstrap-table2-filter";
+import { InferableComponentEnhancer, lifecycle } from "recompose";
+import { AnyAction, Reducer } from "redux";
 import { submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
+import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
 import { DataTableNext } from "../../../../components/DataTableNext";
@@ -26,6 +29,7 @@ import store from "../../../../store/index";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
+import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import { isValidVulnsFile } from "../../../../utils/validations";
 import * as actions from "../../actions";
@@ -35,6 +39,7 @@ import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
 import { deleteVulnerabilityModal as DeleteVulnerabilityModal } from "../DeleteVulnerability/index";
 import { IDeleteVulnAttr } from "../DeleteVulnerability/types";
 import { GenericForm } from "../GenericForm";
+import { changeFilterValues } from "./actions";
 import style from "./index.css";
 import { APPROVE_VULN_MUTATION, GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
 import { IApproveVulnAttr, IUpdateVulnTreatment, IVulnerabilitiesViewProps, IVulnsAttr, IVulnType } from "./types";
@@ -262,6 +267,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     const [modalHidden, setModalHidden] = useState(false);
     const [deleteVulnModal, setDeleteVulnModal] = useState(false);
     const [vulnerabilityId, setVulnerabilityId] = useState("");
+    const [filterValueInputs, setFilterValueInputs] = useState("");
+    const [filterValueLines, setFilterValueLines] = useState("");
+    const [filterValuePorts, setFilterValuePorts] = useState("");
 
     if (!_.isUndefined(props.descriptParam)) {
       props.descriptParam.formValues.treatment = props.descriptParam.formValues.treatmentVuln;
@@ -311,11 +319,22 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
       }
     };
 
+    const handleGetVulnerabilities: ((data: IVulnsAttr) => void) = (data: IVulnsAttr): void => {
+      if (!_.isUndefined(data)) {
+        if (props.vulnerabilities !== undefined) {
+          setFilterValueInputs(props.vulnerabilities.filters.filterInputs);
+          setFilterValueLines(props.vulnerabilities.filters.filterLines);
+          setFilterValuePorts(props.vulnerabilities.filters.filterPorts);
+        }
+      }
+    };
+
     return(
     <Query
       query={GET_VULNERABILITIES}
       variables={{ identifier: props.findingId, analystField: isAnalystorAdmin }}
       notifyOnNetworkStatusChange={true}
+      onCompleted={handleGetVulnerabilities}
     >
       {
         ({loading, error, data, refetch, networkStatus}: QueryResult<IVulnsAttr>): React.ReactNode => {
@@ -407,10 +426,69 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 }
               }
             };
+            const onFilterInputs: ((filterVal: string) => void) = (filterVal: string): void => {
+              if (props.vulnerabilities !== undefined && filterValueInputs !== filterVal) {
+                setFilterValueInputs(filterVal);
+                const newValues: {} = {...props.vulnerabilities.filters, filterInputs: filterVal};
+                store.dispatch(changeFilterValues(newValues));
+              }
+            };
+            const clearFilterInputs: ((eventInput: any) => void) = (eventInput: any): void => {
+              const inputValue: any = document.getElementById(eventInput.target.id);
+              if (inputValue.value.length === 0) {
+                if (props.vulnerabilities !== undefined && filterValueInputs !== "") {
+                  const newValues: {} = {...props.vulnerabilities.filters, filterInputs: ""};
+                  store.dispatch(changeFilterValues(newValues));
+                }
+              }
+            };
+            const onFilterLines: ((filterVal: string) => void) = (filterVal: string): void => {
+              if (props.vulnerabilities !== undefined && filterValueLines !== filterVal) {
+                setFilterValueLines(filterVal);
+                const newValues: {} = {...props.vulnerabilities.filters, filterLines: filterVal};
+                store.dispatch(changeFilterValues(newValues));
+              }
+            };
+            const clearFilterLines: ((eventLine: any) => void) = (eventLine: any): void => {
+              const inputValue: any = document.getElementById(eventLine.target.id);
+              if (inputValue.value.length === 0) {
+                if (props.vulnerabilities !== undefined && filterValueLines !== "") {
+                  const newValues: {} = {...props.vulnerabilities.filters, filterLines: ""};
+                  store.dispatch(changeFilterValues(newValues));
+                }
+              }
+            };
+            const onFilterPorts: ((filterVal: string) => void) = (filterVal: string): void => {
+              if (props.vulnerabilities !== undefined && filterValuePorts !== filterVal) {
+                setFilterValuePorts(filterVal);
+                const newValues: {} = {...props.vulnerabilities.filters, filterPorts: filterVal};
+                store.dispatch(changeFilterValues(newValues));
+              }
+            };
+            const clearFilterPorts: ((eventPort: any) => void) = (eventPort: any): void => {
+              const inputValue: any = document.getElementById(eventPort.target.id);
+              if (inputValue.value.length === 0) {
+                if (props.vulnerabilities !== undefined && filterValuePorts !== "") {
+                  const newValues: {} = {...props.vulnerabilities.filters, filterPorts: ""};
+                  store.dispatch(changeFilterValues(newValues));
+                }
+              }
+            };
+            const columnFilter: TextFilterProps = {
+              className: style.filter_input,
+              comparator: Comparator.LIKE,
+              delay: 1000,
+            };
             const inputsHeader: IHeader[] = [
             {
               align: "left",
               dataField: "where",
+              filter: textFilter({
+                ...columnFilter,
+                defaultValue: props.vulnerabilities !== undefined ? filterValueInputs : "",
+                onFilter: onFilterInputs,
+                onInput: clearFilterInputs,
+              }),
               header: "URL",
               width: "60%",
               wrapped: true,
@@ -433,6 +511,12 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               {
                 align: "left",
                 dataField: "where",
+                filter: textFilter({
+                  ...columnFilter,
+                  defaultValue: props.vulnerabilities !== undefined ? filterValueLines : "",
+                  onFilter: onFilterLines,
+                  onInput: clearFilterLines,
+                }),
                 header: translate.t("search_findings.tab_description.path"),
                 width: "60%",
                 wrapped: true,
@@ -455,6 +539,12 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               {
                 align: "left",
                 dataField: "where",
+                filter: textFilter({
+                  ...columnFilter,
+                  defaultValue: props.vulnerabilities !== undefined ? filterValuePorts : "",
+                  onFilter: onFilterPorts,
+                  onInput: clearFilterPorts,
+                }),
                 header: "Host",
                 width: "60%",
                 wrapped: true,
@@ -927,4 +1017,15 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     );
   };
 
-export { vulnsViewComponent as VulnerabilitiesView };
+const enhance: InferableComponentEnhancer<{}> = lifecycle<IVulnerabilitiesViewProps, {}>({});
+
+const vulnerabilitiesView: React.ComponentType<IVulnerabilitiesViewProps> = reduxWrapper(
+  enhance(vulnsViewComponent) as React.FunctionComponent<IVulnerabilitiesViewProps>,
+  (state: StateType<Reducer>): IVulnerabilitiesViewProps => ({
+    ...state,
+    vulnerabilities: state.dashboard.vulnerabilities,
+  }),
+);
+
+// tslint:disable-next-line: max-file-line-count
+export { vulnerabilitiesView as VulnerabilitiesView };

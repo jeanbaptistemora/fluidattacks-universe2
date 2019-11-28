@@ -1,6 +1,7 @@
 import _ from "lodash";
 import * as actions from "./actions";
 import * as actionType from "./actionTypes";
+import * as vulnerabilitiesActions from "./components/Vulnerabilities/actionTypes";
 import { IDescriptionViewProps } from "./containers/DescriptionView";
 import * as descriptionActions from "./containers/DescriptionView/actionTypes";
 import * as eventDescriptionActions from "./containers/EventDescriptionView/actionTypes";
@@ -81,6 +82,14 @@ export interface IDashboardState {
       initialValues: {};
       open: boolean;
       type: "add" | "edit";
+    };
+  };
+  vulnerabilities: {
+    filters: {
+      filterInputs: string;
+      filterLines: string;
+      filterPending: string;
+      filterPorts: string;
     };
   };
 }
@@ -207,11 +216,29 @@ const initialState: IDashboardState = {
       type: "add",
     },
   },
+  vulnerabilities: {
+    filters: {
+      filterInputs: "",
+      filterLines: "",
+      filterPending: "",
+      filterPorts: "",
+    },
+  },
 };
 
 const actionMap: {
   [key: string]: ((arg1: IDashboardState, arg2: actions.IActionStructure) => IDashboardState);
 } = {};
+
+actionMap[vulnerabilitiesActions.CHANGE_FILTERS] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    vulnerabilities: {
+      ...state.vulnerabilities,
+      filters: action.payload.filters,
+    },
+  });
 
 actionMap[eventDescriptionActions.LOAD_EVENT] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>

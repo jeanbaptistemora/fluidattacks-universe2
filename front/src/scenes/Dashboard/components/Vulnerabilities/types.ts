@@ -50,6 +50,14 @@ export interface IVulnerabilitiesViewProps {
   separatedRow?: boolean;
   state: string;
   userRole: string;
+  vulnerabilities?: {
+    filters: {
+      filterInputs: string;
+      filterLines: string;
+      filterPending: string;
+      filterPorts: string;
+    };
+  };
 }
 
 export type IVulnType = (IVulnsAttr["finding"]["pendingVulns"] | IVulnsAttr["finding"]["inputsVulns"] |
