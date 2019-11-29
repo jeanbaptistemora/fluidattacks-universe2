@@ -269,13 +269,12 @@ def get_new_vulnerabilities():
                 'error', payload_data=locals())
             raise
         if context['updated_findings']:
-            mail_to = prepare_mail_recipients(project)
+            mail_to = prepare_mail_recipients()
             send_mail_new_vulnerabilities(mail_to, context)
 
 
-def prepare_mail_recipients(project):
-    mail_to = project_domain.get_users(project)
-    mail_to.append(FI_MAIL_CONTINUOUS)
+def prepare_mail_recipients():
+    mail_to = FI_MAIL_REVIEWERS.split(',')
     return mail_to
 
 

@@ -1,9 +1,13 @@
 from html import escape
+import json
 
-import mandrill
+import boto3
+import botocore
 import rollbar
 
-from __init__ import FI_MANDRILL_API_KEY, FI_TEST_PROJECTS
+from __init__ import (FI_MANDRILL_API_KEY, FI_TEST_PROJECTS,
+                      FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY,
+                      SQS_QUEUE_URL)
 from app.domain import user as user_domain
 
 
@@ -12,6 +16,7 @@ VERIFY_TAG = ['verify']
 COMMENTS_TAG = ['comments']
 VULNERABILITIES_TAG = ['vulnerabilities']
 GENERAL_TAG = ['general']
+QUEUE_URL = SQS_QUEUE_URL
 
 
 def _escape_context(context):
@@ -60,13 +65,15 @@ def _get_recipient_first_name(email):
     return first_name
 
 
+# pylint: disable=too-many-locals
 def _send_mail(template_name, email_to, context, tags):
     project = context.get('project', '').lower()
     test_proj_list = FI_TEST_PROJECTS.split(',')
+    sqs = boto3.client('sqs', aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
+                       aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY)
     no_test_context = _remove_test_projects(context, test_proj_list)
     new_context = _escape_context(no_test_context)
     if project not in test_proj_list:
-        mandrill_client = mandrill.Mandrill(API_KEY)
         message = {
             'to': [],
             'global_merge_vars': [],
@@ -85,9 +92,19 @@ def _send_mail(template_name, email_to, context, tags):
             )
         message['tags'] = tags
         try:
-            mandrill_client.messages.send_template(template_name, [], message)
-        except mandrill.Error(Exception):
-            rollbar.report_message(Exception.message)
+            sqs_message = {
+                'message': message,
+                'api_key': API_KEY
+            }
+            sqs.send_message(
+                QueueUrl=QUEUE_URL,
+                MessageBody=json.dumps(sqs_message),
+                MessageGroupId=template_name,
+                MessageDeduplicationId=project
+            )
+        except (botocore.vendored.requests.exceptions.ConnectionError,
+                botocore.exceptions.ClientError) as exc:
+            rollbar.report_message(exc.message)
     else:
         # Mail should not be sent if is a test project
         pass
