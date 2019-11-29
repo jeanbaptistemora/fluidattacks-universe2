@@ -6,13 +6,15 @@ of Formstack Tokens necessary to communicate with the API
 """
 
 import os
+import sys
 import time
 from datetime import datetime, timedelta
+
 from selenium import webdriver
 from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.common.exceptions import TimeoutException
 
 NUM_TOKENS = 12
@@ -32,16 +34,19 @@ def browser_initialize(url):
     browser.get(url)
     return browser
 
+
 def browser_get_api_page():
     """
     Navigates to the Formstack API page
     """
+    redirect_path = '/account/dashboard'
     browser = browser_initialize(
-        'https://www.formstack.com/admin/user/login?redirect=/account/dashboard')
+        f'https://www.formstack.com/admin/user/login?redirect={redirect_path}')
     browser_login(browser, 'email', 'password', 'submit')
     open_formstack_profile_menu(browser)
     browser_navigate_link(browser, 'API')
     return browser
+
 
 def browser_login(browser, login_id, pass_id, submit_id):
     """
@@ -59,6 +64,7 @@ def browser_login(browser, login_id, pass_id, submit_id):
     browser_write_element_by_id(browser, pass_id, fs_pass)
     browser.find_element_by_id(submit_id).click()
 
+
 def browser_formstack_logout(browser):
     """
     Finish the browser session with Formstack
@@ -68,8 +74,9 @@ def browser_formstack_logout(browser):
     time.sleep(5)
     browser.refresh()
     open_formstack_profile_menu(browser)
-    browser_navigate_link(browser, 'Logout')
+    browser_navigate_xpath(browser, '//span[contains(text(),\'Log Out\')]')
     browser.close()
+
 
 def browser_navigate_link(browser, link_text):
     """
@@ -79,8 +86,10 @@ def browser_navigate_link(browser, link_text):
     :param browser: Selenium object that contains the session information
     :param link_text: Text of an HTML link element
     """
-    WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.LINK_TEXT, link_text)))
+    WebDriverWait(browser, 10).until(
+        ec.presence_of_element_located((By.LINK_TEXT, link_text)))
     browser.find_element_by_link_text(link_text).click()
+
 
 def browser_navigate_xpath(browser, xpath):
     """
@@ -94,7 +103,8 @@ def browser_navigate_xpath(browser, xpath):
     attempts = 0
     while not success and attempts < 120:
         try:
-            WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, xpath)))
+            WebDriverWait(browser, 10).until(
+                ec.presence_of_element_located((By.XPATH, xpath)))
             browser.find_element_by_xpath(xpath).click()
             success = True
         except TimeoutException:
@@ -102,6 +112,7 @@ def browser_navigate_xpath(browser, xpath):
             browser.implicitly_wait(10)
     if not success:
         raise TimeoutException
+
 
 def browser_write_element_by_id(browser, elem_id, text):
     """
@@ -114,6 +125,7 @@ def browser_write_element_by_id(browser, elem_id, text):
     field = browser.find_element_by_id(elem_id)
     field.clear()
     field.send_keys(text)
+
 
 def create_token(browser, num):
     """
@@ -130,8 +142,10 @@ def create_token(browser, num):
     browser_write_element_by_id(browser, 'name', token_name)
     browser_write_element_by_id(browser, 'redirect_uri', redirect_uri)
     browser_write_element_by_id(browser, 'description', description)
-    browser.find_element_by_xpath('//input[@value=\"Create Application\"]').click()
+    browser.find_element_by_xpath(
+        '//input[@value=\"Create Application\"]').click()
     return get_token(browser, token_name)
+
 
 def delete_formstack_tokens():
     """
@@ -142,6 +156,7 @@ def delete_formstack_tokens():
         delete_token(browser, token)
     browser_formstack_logout(browser)
     print('Tokens erased successfully!')
+
 
 def delete_token(browser, num):
     """
@@ -154,8 +169,9 @@ def delete_token(browser, num):
     token_name = 'Integrates' + str(num) + '.' + yesterday_date
     browser_navigate_link(browser, token_name)
     browser_navigate_link(browser, 'Delete')
-    WebDriverWait(browser, 10).until(EC.alert_is_present())
+    WebDriverWait(browser, 10).until(ec.alert_is_present())
     Alert(browser).accept()
+
 
 def generate_formstack_tokens():
     """
@@ -166,6 +182,7 @@ def generate_formstack_tokens():
     browser_formstack_logout(browser)
     return ','.join(map(str, tokens))
 
+
 def get_token(browser, name):
     """
     Gets the value of a Formstack token by its name
@@ -173,10 +190,12 @@ def get_token(browser, name):
     :param browser: Selenium object that contains the session information
     :param name: Token name
     """
-    WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.LINK_TEXT, name)))
+    WebDriverWait(browser, 10).until(
+        ec.presence_of_element_located((By.LINK_TEXT, name)))
     href = browser.find_element_by_link_text(name).get_attribute('href')
     token_id = href.split('/')[-1]
     return browser.find_element_by_id('app-token-' + token_id).text
+
 
 def open_formstack_profile_menu(browser):
     """
@@ -184,11 +203,20 @@ def open_formstack_profile_menu(browser):
 
     :param browser: Selenium object that contains the session information
     """
-    xpath = '//a[@aria-label=\"Account Menu\"]'
-    WebDriverWait(browser, 10).until(EC.invisibility_of_element_located((By.ID, 'message')))
+    xpath = '//div[contains(@class,\'avatarContainer\')]'
+    WebDriverWait(browser, 10).until(
+        ec.invisibility_of_element_located((By.ID, 'message')))
     browser.find_element_by_xpath(xpath).click()
 
 
 if __name__ == '__main__':
-    FORMSTACK_TOKENS = generate_formstack_tokens()
-    print(FORMSTACK_TOKENS)
+    if len(sys.argv) == 2:
+        if sys.argv[1] == 'generate':
+            FORMSTACK_TOKENS = generate_formstack_tokens()
+            print(FORMSTACK_TOKENS)
+        elif sys.argv[1] == 'delete':
+            delete_formstack_tokens()
+        else:
+            print('Unknown argument')
+    else:
+        print('Argument \'generate\' or \'delete\' must be specified')
