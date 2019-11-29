@@ -12,7 +12,7 @@ import { NavLink } from "react-router-dom";
 import translate from "../../../../utils/translations/translate";
 import { EventHeader } from "../../components/EventHeader";
 import { EventCommentsView } from "../EventCommentsView";
-import { eventDescriptionView as EventDescriptionView } from "../EventDescriptionView/index";
+import { EventDescriptionView } from "../EventDescriptionView/newIndex";
 import { EventEvidenceView } from "../EventEvidenceView";
 import style from "../FindingContent/index.css";
 import { GET_EVENT_HEADER } from "./queries";
