@@ -11,7 +11,7 @@ autoscaling_ci_terraform_apply() {
 
   run_terraform \
     services/autoscaling-ci/terraform \
-    fluidattacks-terraform-states \
+    fluidattacks-terraform-states-prod \
     apply
 }
 

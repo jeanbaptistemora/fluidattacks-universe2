@@ -17,7 +17,7 @@ break_build_terraform_plan() {
 
   run_terraform \
     services/break-build/terraform \
-    fluidattacks-terraform-states \
+    fluidattacks-terraform-states-prod \
     plan
 }
 

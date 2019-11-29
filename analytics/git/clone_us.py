@@ -35,7 +35,7 @@ def main():
             'autonomicmind/default',
             'autonomicmind/training',
             'fluidattacks/web',
-            'fluidattacks/default',
+            'fluidattacks/public',
             'fluidattacks/asserts',
             'fluidattacks/writeups',
             'fluidattacks/integrates',

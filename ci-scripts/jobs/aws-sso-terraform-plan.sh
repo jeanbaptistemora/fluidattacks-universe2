@@ -11,7 +11,7 @@ aws_sso_terraform_plan() {
 
   run_terraform \
     services/aws-sso/terraform \
-    fluidattacks-terraform-states \
+    fluidattacks-terraform-states-prod \
     plan
 
 }

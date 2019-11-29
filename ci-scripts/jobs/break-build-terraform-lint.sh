@@ -11,7 +11,7 @@ break_build_terraform_lint() {
 
   lint_terraform \
     services/break-build/terraform \
-    fluidattacks-terraform-states
+    fluidattacks-terraform-states-prod
 }
 
 break_build_terraform_lint

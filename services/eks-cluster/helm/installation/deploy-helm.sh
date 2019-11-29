@@ -60,7 +60,7 @@ install_helm() {
   TILLER_KEY='/tmp/tiller.key'
   CA_CERT='/tmp/ca.cert'
 
-  kubectl_login services/eks-cluster/terraform fluidattacks-terraform-states
+  kubectl_login services/eks-cluster/terraform fluidattacks-terraform-states-prod
 
   # Create tiller service account
   kubectl apply -f services/eks-cluster/helm/installation/sa-tiller.yaml

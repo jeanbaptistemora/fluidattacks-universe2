@@ -11,7 +11,7 @@ eks_terraform_plan() {
 
   run_terraform \
     services/eks-cluster/terraform \
-    fluidattacks-terraform-states \
+    fluidattacks-terraform-states-prod \
     plan
 
 }

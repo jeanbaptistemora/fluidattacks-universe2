@@ -17,7 +17,7 @@ break_build_terraform_apply() {
 
   run_terraform \
     services/break-build/terraform \
-    fluidattacks-terraform-states \
+    fluidattacks-terraform-states-prod \
     apply
 }
 

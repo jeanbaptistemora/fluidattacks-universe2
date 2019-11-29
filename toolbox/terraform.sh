@@ -5,7 +5,7 @@ init_terraform() {
   # This function  initializes a terraform folder
   # init_terraform <dir> <bucket>
   # Example:
-  # init_terraform services/eks-cluster/terraform fluidattacks-terraform-states
+  # init_terraform services/eks-cluster/terraform fluidattacks-terraform-states-prod
 
   set -e
 
@@ -36,7 +36,7 @@ lint_terraform() {
   # run tflint on terraform folder
   # lint_terraform <dir> <bucket>
   # Example:
-  # lint_terraform services/eks-cluster/terraform fluidattacks-terraform-states
+  # lint_terraform services/eks-cluster/terraform fluidattacks-terraform-states-prod
 
   set -e
 
@@ -65,7 +65,7 @@ run_terraform() {
   # plan_terraform <dir> <bucket> <command>
   # Example:
   # plan_terraform \
-  #   services/eks-cluster/terraform fluidattacks-terraform-states apply
+  #   services/eks-cluster/terraform fluidattacks-terraform-states-prod apply
 
   set -e
 

@@ -11,7 +11,7 @@ user_provision_integrates_terraform_lint() {
 
   lint_terraform \
     services/user-provision/integrates/terraform \
-    fluidattacks-terraform-states
+    fluidattacks-terraform-states-prod
 
 }
 

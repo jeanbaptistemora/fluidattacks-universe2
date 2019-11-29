@@ -9,7 +9,7 @@ kubectl_setup() {
   . toolbox/others.sh
 
   # Login to cluster
-  kubectl_login services/eks-cluster/terraform fluidattacks-terraform-states
+  kubectl_login services/eks-cluster/terraform fluidattacks-terraform-states-prod
 
   # Create cluster namespaces
   kubectl apply -f services/eks-cluster/kubectl-setup/namespaces.yaml

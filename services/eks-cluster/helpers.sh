@@ -5,7 +5,7 @@ get_cluster_name() {
   # Get the name of a running cluster
   # get_cluster_name <dir> <bucket>
   # Example:
-  # get_cluster_name services/eks-cluster/terraform fluidattacks-terraform-states
+  # get_cluster_name services/eks-cluster/terraform fluidattacks-terraform-states-prod
 
   set -e
 
@@ -37,7 +37,7 @@ kubectl_login() {
   # Log in to a cluster for using kubectl
   # kubectl_login <dir> <bucket>
   # Example:
-  # kubectl_login services/eks-cluster/terraform fluidattacks-terraform-states
+  # kubectl_login services/eks-cluster/terraform fluidattacks-terraform-states-prod
 
   set -e
 

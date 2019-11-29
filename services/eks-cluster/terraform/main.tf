@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "fluidattacks-terraform-states"
+    bucket  = "fluidattacks-terraform-states-prod"
     key     = "eks.tfstate"
     region  = "us-east-1"
     encrypt = true
@@ -10,8 +10,8 @@ terraform {
 provider "aws" {
   access_key = var.aws_access_key
   secret_key = var.aws_secret_key
-  version = ">= 2.11"
-  region  = var.region
+  version    = ">= 2.11"
+  region     = var.region
 }
 
 provider "random" {
@@ -47,10 +47,10 @@ module "eks" {
 
   worker_groups = [
     {
-      name                          = "conventional-workers"
-      instance_type                 = "t3.small"
-      asg_max_size                  = 2
-      asg_desired_capacity          = 2
+      name                 = "conventional-workers"
+      instance_type        = "t3.small"
+      asg_max_size         = 2
+      asg_desired_capacity = 2
       tags = [{
         key                 = "Name"
         value               = "eks-conventional-worker"

@@ -11,7 +11,7 @@ sops_terraform_apply() {
 
   run_terraform \
     services/sops/terraform \
-    fluidattacks-terraform-states \
+    fluidattacks-terraform-states-prod \
     apply
 
 }

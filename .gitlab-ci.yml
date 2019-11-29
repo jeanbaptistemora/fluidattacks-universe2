@@ -188,7 +188,7 @@ new_version_mail:
   stage: postdeploy
   <<: *vault_login
   script:
-    - curl -Lo mail.py https://gitlab.com/fluidattacks/default/raw/master/shared-scripts/mail.py
+    - curl -Lo mail.py https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/mail.py
     - "echo \"send_mail('new_version',
         MANDRILL_EMAIL_TO,
         context={'project': PROJECT, 'project_url': '${CI_PROJECT_URL}',
@@ -538,8 +538,8 @@ sync_gitlab:
     - export GITLAB_PASS="$(vault read -field=analytics_gitlab_token secret/serves)"
     - GITLAB_PROJECTS=(
         "autonomicmind/default" "autonomicmind/training"
-        "fluidattacks/continuous" "fluidattacks/default"
-        "fluidattacks/serves" "fluidattacks/asserts" "fluidattacks/default"
+        "fluidattacks/continuous" "fluidattacks/public"
+        "fluidattacks/serves" "fluidattacks/asserts" "fluidattacks/public"
         "fluidattacks/integrates" "fluidattacks/web" "fluidattacks/writeups")
     - for project in ${GITLAB_PROJECTS[*]}; do
         ./analytics/singer/streamer_gitlab.py "${project}" >> .jsonstream;
