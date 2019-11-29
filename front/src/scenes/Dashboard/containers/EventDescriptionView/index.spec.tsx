@@ -6,7 +6,7 @@ import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 import { RouteComponentProps } from "react-router";
-import { EventDescriptionView } from "./newIndex";
+import { EventDescriptionView } from "./index";
 import { GET_EVENT_DESCRIPTION } from "./queries";
 
 configure({ adapter: new ReactSixteenAdapter() });
