@@ -64,6 +64,11 @@ Resources:
           Fn::GetAtt:
             - launchTemplate
             - LatestVersionNumber
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: 'false'
+          DeviceIndex: 0
+      SecurityGroups:
+        - security-group-test
     Type: AWS::EC2::Instance
   fileSystem1:
     Properties:
@@ -92,6 +97,8 @@ Resources:
     Properties:
       LaunchTemplateData:
         DisableApiTermination: 'true'
+        SecurityGroups:
+          - security-group-test
       LaunchTemplateName: launchTemplate
     Type: AWS::EC2::LaunchTemplate
   mangedPolicy1:

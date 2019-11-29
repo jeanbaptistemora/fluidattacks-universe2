@@ -231,7 +231,10 @@ ec2_launch_template = troposphere.ec2.LaunchTemplate(
     LaunchTemplateName='launchTemplate',
     LaunchTemplateData=troposphere.ec2.LaunchTemplateData(
         DisableApiTermination=True,
-    )
+        SecurityGroups=[
+            'security-group-test',
+        ],
+    ),
 )
 ec2_instance = troposphere.ec2.Instance(
     title='ec2instance1',
@@ -247,6 +250,9 @@ ec2_instance = troposphere.ec2.Instance(
             DeviceIndex=0,
             AssociatePublicIpAddress=False,
         ),
+    ],
+    SecurityGroups=[
+        'security-group-test',
     ],
 )
 dynamodb_table = troposphere.dynamodb.Table(

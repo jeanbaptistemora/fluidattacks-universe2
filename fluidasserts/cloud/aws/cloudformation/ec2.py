@@ -348,7 +348,7 @@ def has_not_an_iam_instance_profile(
 def has_not_termination_protection(
         path: str, exclude: Optional[List[str]] = None) -> tuple:
     """
-    Verify if ``EC2::LaunchTemplate`` has not deletion protection enabled.
+    Verify if ``EC2`` has not deletion protection enabled.
 
     By default EC2 Instances can be terminated using the Amazon EC2 console,
     CLI, or API.
@@ -521,3 +521,80 @@ def is_associate_public_ip_address_enabled(
         vulnerabilities=vulnerabilities,
         msg_open='EC2 instances will be launched with public ip addresses',
         msg_closed='EC2 instances won\'t be launched with public ip addresses')
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def uses_default_security_group(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Verify if ``EC2`` have not **Security Groups** explicitely set.
+
+    By default EC2 Instances that do not specify
+    **SecurityGroups** or **SecurityGroupIds** are launched with the default
+    security group (allow all).
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if the instance has not the **SecurityGroups** or
+                **SecurityGroupIds** parameters set.
+                (Either in the **LaunchTemplate** or in the
+                **Instance** entities)
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::EC2::LaunchTemplate',
+            ],
+            exclude=exclude):
+        launch_template_sgs = _index(
+            dictionary=res_props,
+            indexes=('LaunchTemplateData', 'SecurityGroups'))
+        launch_template_sgs_ids = _index(
+            dictionary=res_props,
+            indexes=('LaunchTemplateData', 'SecurityGroupIds'))
+
+        if launch_template_sgs or launch_template_sgs_ids:
+            # Not vulnerable
+            continue
+
+        vulnerabilities.append(
+            Vulnerability(
+                path=yaml_path,
+                entity=('AWS::EC2::LaunchTemplate/'
+                        'LaunchTemplateData/'
+                        'SecurityGroups(Ids)'),
+                identifier=res_name,
+                reason='is empty, and therefore uses default security group'))
+
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::EC2::Instance',
+            ],
+            exclude=exclude):
+        instance_sgs = res_props.get('SecurityGroups')
+        instance_sgs_ids = res_props.get('SecurityGroupIds')
+
+        if instance_sgs or instance_sgs_ids:
+            # Not vulnerable
+            continue
+
+        vulnerabilities.append(
+            Vulnerability(
+                path=yaml_path,
+                entity=('AWS::EC2::Instance/'
+                        'SecurityGroups(Ids)'),
+                identifier=res_name,
+                reason='is empty, and therefore uses default security group'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open=('EC2 Instances or Launch Templates are using the default'
+                  ' security group'),
+        msg_closed=('EC2 Instances or Launch Templates are not using the '
+                    'default security group'))
