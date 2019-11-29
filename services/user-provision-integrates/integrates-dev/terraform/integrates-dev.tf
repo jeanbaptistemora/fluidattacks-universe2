@@ -11,7 +11,8 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     effect = "Allow"
     actions = [
       "s3:GetObject",
-      "s3:PutObject"
+      "s3:PutObject",
+      "s3:ListObjects"
     ]
     resources = [
       "arn:aws:s3:::fluidattacks-terraform-states-dev/user-provision-integrates.tfstate"
