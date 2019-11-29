@@ -7,6 +7,7 @@ import threading
 import urllib.request
 import urllib.parse
 import urllib.error
+import rollbar
 
 from botocore import signers
 from cryptography.hazmat.backends import default_backend
@@ -105,6 +106,44 @@ def validate_file_size(uploaded_file, file_size):
     if uploaded_file.size > file_size * mib:
         raise InvalidFileSize()
     return True
+
+
+def create_resource(res_data, project_name, res_type, user_email):
+    project_name = project_name.lower()
+    if res_type == 'repository':
+        res_id = 'urlRepo'
+        res_name = 'repositories'
+    elif res_type == 'environment':
+        res_id = 'urlEnv'
+        res_name = 'environments'
+    json_data = []
+    for res in res_data:
+        if res_id in res:
+            new_state = {
+                'user': user_email,
+                'date': util.format_comment_date(
+                    datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
+                'state': 'ACTIVE'
+            }
+            if res_type == 'repository':
+                res_object = {
+                    'urlRepo': res.get('urlRepo'),
+                    'branch': res.get('branch'),
+                    'protocol': res.get('protocol'),
+                    'uploadDate': str(
+                        datetime.datetime.now().replace(second=0, microsecond=0))[:-3],
+                    'historic_state': [new_state],
+                }
+            elif res_type == 'environment':
+                res_object = {
+                    'urlEnv': res.get('urlEnv'),
+                    'historic_state': [new_state],
+                }
+            json_data.append(res_object)
+        else:
+            rollbar.report_message('Error: \
+An error occurred adding repository', 'error')
+    return resources_dal.create(res_data, project_name, res_name)
 
 
 def update_resource(res_data, project_name, res_type, user_email):

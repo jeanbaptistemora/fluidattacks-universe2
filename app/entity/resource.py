@@ -89,52 +89,13 @@ class AddResources(Mutation):
     @require_role(['customer'])
     @require_project_access
     def mutate(self, info, resource_data, project_name, res_type):
-        project_name = project_name.lower()
         success = False
         user_email = util.get_jwt_content(info.context)['user_email']
-        if res_type == 'repository':
-            res_id = 'urlRepo'
-            res_name = 'repositories'
-        elif res_type == 'environment':
-            res_id = 'urlEnv'
-            res_name = 'environments'
-        json_data = []
-        for res in resource_data:
-            if res_id in res:
-                new_state = {
-                    'user': user_email,
-                    'date': util.format_comment_date(
-                        datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
-                    'state': 'ACTIVE'
-                }
-                if res_type == 'repository':
-                    res_object = {
-                        'urlRepo': res.get('urlRepo'),
-                        'branch': res.get('branch'),
-                        'protocol': res.get('protocol'),
-                        'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3],
-                        'historic_state': [new_state],
-                    }
-                elif res_type == 'environment':
-                    res_object = {
-                        'urlEnv': res.get('urlEnv'),
-                        'historic_state': [new_state],
-                    }
-                json_data.append(res_object)
-            else:
-                rollbar.report_message('Error: \
-An error occurred adding repository', 'error', info.context)
-        add_repo = integrates_dal.add_list_resource_dynamo(
-            'FI_projects',
-            'project_name',
-            project_name,
-            json_data,
-            res_name
-        )
-        if add_repo:
+        add_res = resources.create_resource(resource_data, project_name, res_type, user_email)
+        if add_res:
             resources.send_mail(project_name,
                                 user_email,
-                                json_data,
+                                resource_data,
                                 'added',
                                 res_type)
             success = True
