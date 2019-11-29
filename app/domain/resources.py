@@ -13,10 +13,12 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import asymmetric, hashes, serialization
 
 from __init__ import FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY
+from app.dal import integrates_dal
 from app.dal import resources as resources_dal
 from app.domain import project as project_domain, user as user_domain
 from app.exceptions import ErrorUploadingFileS3, InvalidFileSize
 from app.mailer import send_mail_resources
+from app import util
 
 
 def rsa_signer(message):
@@ -103,3 +105,38 @@ def validate_file_size(uploaded_file, file_size):
     if uploaded_file.size > file_size * mib:
         raise InvalidFileSize()
     return True
+
+
+def update_resource(res_data, project_name, res_type, user_email):
+    project_name = project_name.lower()
+    if res_type == 'repository':
+        resource_url = res_data.get('urlRepo')
+        res_list = \
+            integrates_dal.get_project_dynamo(project_name)[0]['repositories']
+        res_id = 'urlRepo'
+        res_name = 'repositories'
+    elif res_type == 'environment':
+        resource_url = res_data.get('urlEnv')
+        res_list = \
+            integrates_dal.get_project_dynamo(project_name)[0]['environments']
+        res_id = 'urlEnv'
+        res_name = 'environments'
+    cont = 0
+    while len(res_list) > cont:
+        if res_id in res_list[cont] and res_list[cont][res_id] == resource_url:
+            new_state = {
+                'user': user_email,
+                'date': util.format_comment_date(
+                    datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
+                'state': 'INACTIVE'
+            }
+            if 'historic_state' in res_list[cont]:
+                if not res_list[cont]['historic_state'][-1]['state'] == 'ACTIVE':
+                    new_state['state'] = 'ACTIVE'
+                res_list[cont]['historic_state'].append(new_state)
+            else:
+                res_list[cont]['historic_state'] = [new_state]
+
+            break
+        cont += 1
+    return resources_dal.update(res_list, project_name, res_name)
