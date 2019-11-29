@@ -46,6 +46,7 @@ stages:
   <<: *kaniko_config
 
 builder:
+  tags: [autoscaling]
   stage: build
   <<: *kaniko_config
   script:
@@ -59,6 +60,7 @@ builder:
         --destination "${CI_REGISTRY_IMAGE}:base"
 
 content:
+  tags: [autoscaling]
   stage: check
   script:
     - pre-commit run --all-files
@@ -69,6 +71,7 @@ content:
     - master
 
 pelican:
+  tags: [autoscaling-large]
   stage: check
   <<: *kaniko_fa_default_registry_config
   script:
@@ -102,6 +105,7 @@ pelican:
     - master
 
 commitlint:
+  tags: [autoscaling]
   stage: check
   image: starefossen/ruby-node:2-10
   before_script:
@@ -112,6 +116,7 @@ commitlint:
     - master
 
 review-web:
+  tags: [autoscaling]
   stage: review
   <<: *fa_default_registry_vars
   image: registry.gitlab.com/fluidattacks/web:base
@@ -125,6 +130,7 @@ review-web:
     - master
 
 stop-review:
+  tags: [autoscaling]
   stage: review
   image: registry.gitlab.com/fluidattacks/web:base
   variables:
@@ -151,6 +157,7 @@ stop-review:
     - master
 
 mr-test:
+  tags: [autoscaling]
   stage: mr-check
   image: registry.gitlab.com/fluidattacks/web:base
   only:
@@ -161,6 +168,7 @@ mr-test:
     ./ci-scripts/check-branch.sh
 
 danger:
+  tags: [autoscaling]
   stage: mr-check
   image: fluidattacks/danger-ruby
   only:
@@ -176,6 +184,7 @@ danger:
     - danger --verbose --fail-on-errors=true
 
 deploy:
+  tags: [autoscaling]
   stage: deployment
   <<: *vault_login
   script:
@@ -206,6 +215,7 @@ deploy:
     - master
 
 new_version_mail:
+  tags: [autoscaling]
   stage: postdeploy
   image: registry.gitlab.com/fluidattacks/web:base
   <<: *vault_login
