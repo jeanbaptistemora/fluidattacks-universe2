@@ -242,6 +242,12 @@ ec2_instance = troposphere.ec2.Instance(
         LaunchTemplateName='launchTemplate',
         Version=troposphere.GetAtt('launchTemplate', 'LatestVersionNumber'),
     ),
+    NetworkInterfaces=[
+        troposphere.ec2.NetworkInterfaceProperty(
+            DeviceIndex=0,
+            AssociatePublicIpAddress=False,
+        ),
+    ],
 )
 dynamodb_table = troposphere.dynamodb.Table(
     title='dynamoDBTable1',
@@ -637,6 +643,12 @@ ec2_instance = troposphere.ec2.Instance(
         LaunchTemplateName='launchTemplate',
         Version=troposphere.GetAtt('launchTemplate', 'LatestVersionNumber'),
     ),
+    NetworkInterfaces=[
+        troposphere.ec2.NetworkInterfaceProperty(
+            DeviceIndex=0,
+            AssociatePublicIpAddress=True,
+        ),
+    ],
 )
 dynamodb_table = troposphere.dynamodb.Table(
     title='dynamoDBTable1',

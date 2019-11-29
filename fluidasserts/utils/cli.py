@@ -688,6 +688,7 @@ def exec_cloudformation_package(
             ec2.has_not_an_iam_instance_profile('__path__')
             ec2.has_not_termination_protection('__path__')
             ec2.has_terminate_shutdown_behavior('__path__')
+            ec2.is_associate_public_ip_address_enabled('__path__')
             """,
         ('cloudfront', 'CloudFront (Content Delivery Network)'): """
             cloudfront.serves_content_over_http('__path__')
