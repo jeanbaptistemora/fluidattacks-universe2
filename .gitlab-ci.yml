@@ -172,7 +172,7 @@ deploy_infra:
         s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
         $HOME/.kube/config || echo "No Kubernetes configuration file found"
     - sed -i 's/plan/apply\ -auto-approve/g' infrastructure/terraform.sh
-    - vaultenv infrastructure/terraform.sh deployment
+    - ./infrastructure/terraform.sh deployment
   after_script:
     - aws s3 cp
         $HOME/.kube/config
@@ -635,7 +635,7 @@ sync_zoho:
   image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - . toolbox/others.sh && vault_login
-    - vaultenv ./ci-scripts/jobs/eks-initial-setup.sh
+    - ./ci-scripts/jobs/eks-initial-setup.sh
   only:
     - master
   except:
