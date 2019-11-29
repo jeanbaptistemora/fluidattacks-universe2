@@ -672,7 +672,7 @@ const enTranslations: dict = {
     token: "Token",
   },
   update_access_token: {
-    access_token: "Access Token",
+    access_token: "Personal Access Token",
     close: "Close",
     copy: {
       copy: "Copy",
@@ -683,7 +683,7 @@ const enTranslations: dict = {
     delete: "Token invalidated successfully",
     expiration_time: "Expiration Date",
     invalid_exp_time: "Expiration time must be minor than six month and greater than current date",
-    invalidate: "Cancel Current Token",
+    invalidate: "Revoke Current Token",
     invalidated: "Invalidated Token",
     message: "Please save this access token in a safe location. You will not be able to see it again after closing " +
     "this dialog.",
