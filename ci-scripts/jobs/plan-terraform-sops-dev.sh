@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-build_sops_terraform_dev() {
+plan_terraform_sops_dev() {
 
   # Validates terraform plan
 
@@ -11,9 +11,9 @@ build_sops_terraform_dev() {
 
   run_terraform \
     deploy/sops/terraform \
-    fluidattacks-terraform-states \
+    fluidattacks-terraform-states-dev \
     plan
 
 }
 
-build_sops_terraform_dev
+plan_terraform_sops_dev

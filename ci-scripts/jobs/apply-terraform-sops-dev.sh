@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-apply_terraform_sops() {
+apply_terraform_sops_dev() {
 
   # Builds terraform plan
 
@@ -11,8 +11,8 @@ apply_terraform_sops() {
 
   run_terraform \
     deploy/sops/terraform \
-    fluidattacks-terraform-states \
+    fluidattacks-terraform-states-dev \
     apply
 }
 
-apply_terraform_sops
+apply_terraform_sops_dev

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-lint_terraform_sops() {
+lint_terraform_sops_dev() {
 
   # Does terraform lint
 
@@ -10,8 +10,8 @@ lint_terraform_sops() {
 
   lint_terraform \
     deploy/sops/terraform \
-    fluidattacks-terraform-states
+    fluidattacks-terraform-states-dev
 
 }
 
-lint_terraform_sops
+lint_terraform_sops_dev

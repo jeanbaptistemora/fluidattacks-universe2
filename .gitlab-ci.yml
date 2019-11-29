@@ -190,7 +190,7 @@ danger:
   image: fluidattacks/danger-ruby
   dependencies:
     - plan-terraform-resources
-    - plan-terraform-sops
+    - plan-terraform-sops-dev
   script:
     - ./ci-scripts/jobs/danger.sh
   only:
@@ -360,24 +360,24 @@ clean-registry-caches:
   only:
     - schedules
 
-plan-terraform-sops:
+plan-terraform-sops-dev:
   stage: test
   tags: [autoscaling]
   needs: [deps-development]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
-    - ./ci-scripts/jobs/plan-terraform-sops.sh
+    - ./ci-scripts/jobs/plan-terraform-sops-dev.sh
   only:
     - branches
   interruptible: true
 
-lint-terraform-sops:
+lint-terraform-sops-dev:
   stage: test
   tags: [autoscaling]
   needs: [deps-development]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
-    - ./ci-scripts/jobs/lint-terraform-sops.sh
+    - ./ci-scripts/jobs/lint-terraform-sops-dev.sh
   only:
     - branches
   except:
@@ -396,3 +396,12 @@ lint-terraform-resources:
   except:
     - master
   interruptible: true
+
+apply-terraform-sops-dev:
+  stage: build
+  tags: [autoscaling]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - ./ci-scripts/jobs/apply-terraform-sops-dev.sh
+  only:
+    - master

@@ -11,7 +11,7 @@ apply_terraform_resources() {
 
   run_terraform \
     deploy/terraform \
-    fluidattacks-terraform-states \
+    fluidattacks-terraform-states-prod \
     apply
 }
 

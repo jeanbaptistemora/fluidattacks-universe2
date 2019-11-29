@@ -10,7 +10,7 @@ lint_terraform_resources() {
 
   lint_terraform \
     deploy/terraform \
-    fluidattacks-terraform-states
+    fluidattacks-terraform-states-prod
 
 }
 
