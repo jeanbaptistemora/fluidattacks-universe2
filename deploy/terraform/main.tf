@@ -6,6 +6,10 @@ variable "aws_s3_resources_bucket" {
   type = string
 }
 
+variable "sqs_id" {
+    type = string
+}
+
 terraform {
   backend "s3" {
     key     = "integrates.tfstate"
@@ -31,7 +35,7 @@ module "sqs" {
   source = "./sqs"
 }
 
-
 module "lambda" {
   source = "./lambda"
+  sqs_id = module.sqs.sqs_id
 }

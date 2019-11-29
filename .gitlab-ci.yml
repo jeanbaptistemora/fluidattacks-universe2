@@ -45,6 +45,7 @@ deps-development:
 plan-terraform-resources:
   stage: test
   tags: [autoscaling]
+  needs: [deps-development]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/plan-terraform-resources.sh
@@ -55,7 +56,6 @@ plan-terraform-resources:
     when: on_success
   only:
     - branches
-    - merge_requests
   interruptible: true
 
 test-front:
@@ -363,12 +363,12 @@ clean-registry-caches:
 plan-terraform-sops:
   stage: test
   tags: [autoscaling]
+  needs: [deps-development]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/plan-terraform-sops.sh
   only:
     - branches
-    - merge_requests
   interruptible: true
 
 lint-terraform-sops:

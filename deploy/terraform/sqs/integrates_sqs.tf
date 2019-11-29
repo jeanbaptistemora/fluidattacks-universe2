@@ -11,3 +11,7 @@ resource "aws_sqs_queue" "integrates-queue" {
     Pry = "Integrates"
   }
 }
+
+output "sqs_id" {
+  value = aws_sqs_queue.integrates-queue.arn
+}
