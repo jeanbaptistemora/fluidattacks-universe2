@@ -1,7 +1,7 @@
 import io
 import random
 import threading
-from datetime import datetime, timedelta
+from datetime import datetime
 from decimal import Decimal
 from time import time
 
@@ -23,7 +23,7 @@ from app.domain import (
 )
 from app.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
-    InvalidDate, InvalidDateFormat, NotSubmitted, InvalidFileSize
+    NotSubmitted, InvalidFileSize
 )
 from app.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
@@ -398,31 +398,8 @@ def update_treatment_in_vuln(finding_id, updated_values):
 
 
 def update_treatment(finding_id, updated_values):
-    updated_values['external_bts'] = updated_values.get('bts_url')
-    date = datetime.now() + timedelta(days=180)
-    del updated_values['bts_url']
-
-    if updated_values['treatment'] == 'NEW':
-        updated_values['acceptance_date'] = ''
-    if updated_values['treatment'] == 'ACCEPTED':
-        if updated_values.get('acceptance_date') == '':
-            max_date = date.strftime('%Y-%m-%d %H:%M:%S')
-            updated_values['acceptance_date'] = max_date
-        date_value = updated_values['acceptance_date']
-        is_valid_date = util.is_valid_format(date_value)
-        if is_valid_date is False:
-            raise InvalidDateFormat()
-        if updated_values.get('acceptance_date'):
-            today_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            date_size = updated_values['acceptance_date'].split(' ')
-            if len(date_size) == 1:
-                updated_values['acceptance_date'] += ' ' + datetime.now().strftime('%H:%M:%S')
-            if updated_values.get('acceptance_date') <= today_date:
-                raise InvalidDate()
-            if updated_values.get('acceptance_date') > date.strftime('%Y-%m-%d %H:%M:%S'):
-                raise InvalidDate()
-
-    return validate_update_treatment(finding_id, updated_values)
+    valid_update_values = util.update_treatment_values(updated_values)
+    return validate_update_treatment(finding_id, valid_update_values)
 
 
 def validate_update_treatment(finding_id, updated_values):
