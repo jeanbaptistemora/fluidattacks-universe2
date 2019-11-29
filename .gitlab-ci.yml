@@ -23,7 +23,7 @@ stages:
     CI_REGISTRY_USER: "${GITLAB_USER}"
     CI_REGISTRY_PASSWORD: "${GITLAB_PASS}"
     CI_REGISTRY_EMAIL: "${GITLAB_EMAIL}"
-    CI_REGISTRY_IMAGE: "${CI_REGISTRY}/fluidsignal/default/web"
+    CI_REGISTRY_IMAGE: "${CI_REGISTRY}/fluidattacks/web"
 
 .vault_login: &vault_login
   <<: *vault_vars
@@ -222,7 +222,7 @@ new_version_mail:
   script:
     - export MANDRILL_APIKEY=$(vault read -field=mandrill_apikey secret/web)
     - export MANDRILL_EMAIL_TO=$(vault read -field=mandrill_email_to secret/web)
-    - curl -Lo mail.py https://gitlab.com/fluidattacks/default/raw/master/shared-scripts/mail.py
+    - curl -Lo mail.py https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/mail.py
     - "echo \"send_mail('new_version',
         MANDRILL_EMAIL_TO,
         context={'project': PROJECT, 'project_url': 'https://fluidattacks.com',

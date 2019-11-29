@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: registry.gitlab.com/fluidsignal/default/web/review:$CI_COMMIT_REF_SLUG
+        image: registry.gitlab.com/fluidattacks/web/review:$CI_COMMIT_REF_SLUG
         imagePullPolicy: Always
         ports:
         - containerPort: 80
