@@ -6,3 +6,7 @@
 :local .title {
   text-align: right;
 }
+
+:local .horizontalRow {
+  margin-bottom: 15px;
+}

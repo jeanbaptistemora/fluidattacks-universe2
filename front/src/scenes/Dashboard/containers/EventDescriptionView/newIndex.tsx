@@ -18,7 +18,7 @@ import { EditableField } from "../../components/EditableField";
 import { GenericForm } from "../../components/GenericForm";
 import { GET_EVENT_DESCRIPTION, UPDATE_DESCRIPTION_MUTATION } from "./queries";
 
-type EventDescriptionProps = RouteComponentProps<{ eventId: string; projectName: string }>;
+type EventDescriptionProps = RouteComponentProps<{ eventId: string }>;
 
 const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescriptionProps): JSX.Element => {
   const { eventId } = props.match.params;

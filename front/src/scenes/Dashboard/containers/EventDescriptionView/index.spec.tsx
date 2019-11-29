@@ -1,51 +1,71 @@
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
+// tslint:disable-next-line: no-import-side-effect
+import "isomorphic-fetch";
 import * as React from "react";
-import { Provider } from "react-redux";
-import store from "../../../../store/index";
-import { eventDescriptionView as EventDescriptionView, IEventDescriptionViewProps } from "./index";
+// tslint:disable-next-line: no-submodule-imports
+import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
+import { RouteComponentProps } from "react-router";
+import { EventDescriptionView } from "./newIndex";
+import { GET_EVENT_DESCRIPTION } from "./queries";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
-const functionMock: (() => JSX.Element) = (): JSX.Element => <div />;
-
 describe("EventDescriptionView", () => {
 
-  const mockProps: IEventDescriptionViewProps = {
-    eventData: {
-      accessibility: "Repositorio",
-      affectation: "0",
-      affectedComponents: "",
-      analyst: "user@test.com",
-      client: "TEST",
-      clientProject: "TEST",
-      detail: "This is a test",
-      eventDate: "2018-10-17 00:00:00",
-      eventStatus: "SOLVED",
-      eventType: "AUTHORIZATION_SPECIAL_ATTACK",
-      evidence: "00000000012dsasdf",
-      id: "463457733",
-      projectName: "TEST",
-    },
-    eventId: "463457733",
-    formValues: {
-      editEvent: {
-        values: {
-          accessibility: "",
-        },
+  const mockProps: RouteComponentProps<{ eventId: string }> = {
+    history: {
+      action: "PUSH",
+      block: (): (() => void) => (): void => undefined,
+      createHref: (): string => "",
+      go: (): void => undefined,
+      goBack: (): void => undefined,
+      goForward: (): void => undefined,
+      length: 1,
+      listen: (): (() => void) => (): void => undefined,
+      location: {
+        hash: "",
+        pathname: "/",
+        search: "",
+        state: {},
       },
+      push: (): void => undefined,
+      replace: (): void => undefined,
     },
-    isActiveTab: true,
-    isEditable: false,
+    location: {
+      hash: "",
+      pathname: "/",
+      search: "",
+      state: {},
+    },
     match: {
       isExact: true,
-      params: {eventId: "463457733"},
+      params: { eventId: "413372600" },
       path: "/",
       url: "",
     },
-    urlDescription: functionMock,
-    urlEvidence: functionMock,
   };
+
+  const mocks: ReadonlyArray<MockedResponse> = [
+    {
+      request: {
+        query: GET_EVENT_DESCRIPTION,
+      },
+      result: {
+        data: {
+          event: {
+            __typename: "Event",
+            accessibility: "Repository",
+            affectation: "1",
+            affectedComponents: "",
+            analyst: "unittest@fluidattacks.com",
+            client: "Test",
+            detail: "Something happened",
+            id: "413372600",
+          },
+        },
+      },
+    }];
 
   it("should return a fuction", () => {
     expect(typeof (EventDescriptionView))
@@ -54,9 +74,9 @@ describe("EventDescriptionView", () => {
 
   it("should render a component", async () => {
     const wrapper: ShallowWrapper = shallow(
-      <Provider store={store}>
+      <MockedProvider mocks={mocks} addTypename={true}>
         <EventDescriptionView {...mockProps} />
-      </Provider>,
+      </MockedProvider>,
     );
     expect(wrapper)
       .toHaveLength(1);
