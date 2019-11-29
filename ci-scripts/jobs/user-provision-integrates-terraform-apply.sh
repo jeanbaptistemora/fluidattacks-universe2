@@ -2,7 +2,7 @@
 
 user_provision_integrates_terraform_apply() {
 
-  # Deploy user-provision/integrates-user infra using terraform
+  # Deploy user-provision-integrates/integrates-dev infra using terraform
 
   set -e
 
@@ -10,7 +10,7 @@ user_provision_integrates_terraform_apply() {
   . toolbox/terraform.sh
 
   run_terraform \
-    services/user-provision/integrates/terraform \
+    services/user-provision-integrates/integrates-dev/terraform \
     fluidattacks-terraform-states-prod \
     apply
 

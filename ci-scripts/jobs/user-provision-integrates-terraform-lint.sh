@@ -2,7 +2,7 @@
 
 user_provision_integrates_terraform_lint() {
 
-  # Run tflint on user-provision/integrates-user terraform folder
+  # Run tflint on user-provision-integrates/integrates-dev terraform folder
 
   set -e
 
@@ -10,7 +10,7 @@ user_provision_integrates_terraform_lint() {
   . toolbox/terraform.sh
 
   lint_terraform \
-    services/user-provision/integrates/terraform \
+    services/user-provision-integrates/integrates-dev/terraform \
     fluidattacks-terraform-states-prod
 
 }
