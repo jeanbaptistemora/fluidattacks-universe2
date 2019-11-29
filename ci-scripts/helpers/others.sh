@@ -179,7 +179,7 @@ commitlint_conf () {
   RULES_NAME='commitlint.config.js'
   PARSER_NAME='parser-preset.js'
   BRANCH='master'
-  BASE_URL="https://gitlab.com/fluidattacks/default/raw/$BRANCH/commitlint-configs/others"
+  BASE_URL="https://gitlab.com/fluidattacks/public/raw/$BRANCH/commitlint-configs/others"
 
   RULES_URL="$BASE_URL/$RULES_NAME"
   PARSER_URL="$BASE_URL/$PARSER_NAME"
