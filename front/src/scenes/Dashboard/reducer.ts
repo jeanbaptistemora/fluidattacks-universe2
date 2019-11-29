@@ -4,8 +4,6 @@ import * as actionType from "./actionTypes";
 import * as vulnerabilitiesActions from "./components/Vulnerabilities/actionTypes";
 import { IDescriptionViewProps } from "./containers/DescriptionView";
 import * as descriptionActions from "./containers/DescriptionView/actionTypes";
-import * as eventDescriptionActions from "./containers/EventDescriptionView/actionTypes";
-import { IEventDescriptionViewProps } from "./containers/EventDescriptionView/index";
 import { IEvidenceViewProps } from "./containers/EvidenceView";
 import * as evidenceActions from "./containers/EvidenceView/actionTypes";
 import * as exploitActions from "./containers/ExploitView/actionTypes";
@@ -24,7 +22,6 @@ import { ITrackingViewProps } from "./containers/TrackingView/index";
 export interface IDashboardState {
   confirmDialog: {[name: string]: { isOpen: boolean }};
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
-  eventDescription: Pick<IEventDescriptionViewProps, "isEditable" | "eventData" >;
   evidence: Pick<IEvidenceViewProps, "currentIndex" | "images" | "isImageOpen" | "isEditing">;
   exploit: {
     code: string;
@@ -129,24 +126,6 @@ const initialState: IDashboardState = {
     isEditing: false,
     isRemediationOpen : false,
   },
-  eventDescription: {
-    eventData: {
-      accessibility: "",
-      affectation: "",
-      affectedComponents: "",
-      analyst: "",
-      client: "",
-      clientProject: "",
-      detail: "",
-      eventDate: "",
-      eventStatus: "",
-      eventType: "",
-      evidence: "",
-      id: "",
-      projectName: "",
-    },
-    isEditable: false,
-  },
   evidence: {
     currentIndex: 0,
     images: [],
@@ -239,33 +218,6 @@ actionMap[vulnerabilitiesActions.CHANGE_FILTERS] =
       filters: action.payload.filters,
     },
   });
-
-actionMap[eventDescriptionActions.LOAD_EVENT] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    eventDescription: {
-      ...state.eventDescription,
-      eventData: action.payload.event,
-    },
-  });
-
-actionMap[eventDescriptionActions.CHANGE_EVENT_EDITABLE] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    eventDescription: {
-      ...state.eventDescription,
-      isEditable: !state.eventDescription.isEditable,
-    },
-  });
-
-actionMap[eventDescriptionActions.CLEAR_EVENT_STATE] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-    ({
-      ...state,
-      eventDescription: initialState.eventDescription,
-    });
 
 actionMap[resourcesActions.LOAD_RESOURCES] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
