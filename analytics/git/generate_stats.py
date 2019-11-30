@@ -7,6 +7,7 @@ from typing import List
 
 from generate_config import FLUID_SUBS, get_repos_and_branches
 
+
 def main():  # noqa
     """Usual entry point."""
     stats = {}
@@ -28,33 +29,34 @@ def main():  # noqa
             stats[subs_name][status].append(repo_name)
 
     # print the ones that were not cloned completely
-    message: List[str] = []
-    message_errors: List[str] = []
+    messages: List[str] = []
+    error_messages: List[str] = []
 
-    send_errors: bool = False
     for subs in sorted(stats):
         subs_cloned_repos = stats[subs].get('CLONED', [])
         subs_error_repos = stats[subs].get('ERROR', [])
         subs_cloned_repos_count: float = float(len(subs_cloned_repos))
-        subs_error_repos_count = len(subs_error_repos)
+        subs_error_repos_count: float = float(len(subs_error_repos))
         subs_total_repos_count: float = \
             subs_cloned_repos_count + subs_error_repos_count
 
         if subs_error_repos:
-            message.append('{:^22s} {:>3.0f}/{:>3.0f}'.format(
+            messages.append('  - {:^22s} {:>3.0f}/{:>3.0f}'.format(
                 subs, subs_cloned_repos_count, subs_total_repos_count))
 
-        if subs_error_repos:
-            send_errors = True
             if subs_cloned_repos:
-                message_errors.append(f'  `{subs}`')
+                error_messages.append(f'  {subs}')
                 for repo in subs_error_repos:
-                    message_errors.append(f'> {repo}')
+                    error_messages.append(f'    - {repo}')
 
-    if send_errors:
-        message_errors_str = ','.join(map(str, message_errors))
-        print('Git pipeline errors', message_errors_str)
-    print('Git pipeline summary', message)
+    print('Git pipeline summary:')
+    for message in messages:
+        print(message)
+
+    if messages:
+        print('Git pipeline errors:')
+        for message_error in error_messages:
+            print(message_error)
 
 
 if __name__ == '__main__':
