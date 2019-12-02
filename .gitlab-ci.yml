@@ -183,18 +183,11 @@ deploy_infra:
   except:
     - schedules
 
-new_version_mail:
+new-version-mail:
   tags: [autoscaling]
   stage: postdeploy
-  <<: *vault_login
   script:
-    - curl -Lo mail.py https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/mail.py
-    - "echo \"send_mail('new_version',
-        MANDRILL_EMAIL_TO,
-        context={'project': PROJECT, 'project_url': '${CI_PROJECT_URL}',
-          'version': _get_version_date(), 'message': _get_message()},
-        tags=['general'])\" >> mail.py"
-    - vaultenv -- python3 mail.py
+    - ./ci-scripts/jobs/new-version-mail.sh
   only:
     - master
   except:
@@ -211,7 +204,7 @@ fluidasserts_post:
   except:
     - schedules
 
-change_keys:
+change-keys:
   tags: [autoscaling]
   stage: rotation
   <<: *vault_login
