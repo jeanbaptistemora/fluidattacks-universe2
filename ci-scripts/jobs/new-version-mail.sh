@@ -20,14 +20,16 @@ new_version_mail() {
     MANDRILL_APIKEY \
     MANDRILL_EMAIL_TO
 
-  curl -Lo "$SOURCE_FILE" 'https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/mail.py'
+  curl -Lo \
+    "$SOURCE_FILE" \
+    'https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/mail.py'
 
   echo "send_mail('new_version', MANDRILL_EMAIL_TO,
     context={'project': PROJECT, 'project_url': '$CI_PROJECT_URL',
       'version': _get_version_date(), 'message': _get_message()},
-    tags=['general'])" >> mail.py
+    tags=['general'])" >> "$SOURCE_FILE"
 
-  ./mail.py
+  python3 "$SOURCE_FILE"
 }
 
 new_version_mail
