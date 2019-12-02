@@ -1,4 +1,4 @@
-const enTranslations: dict = {
+const enTranslations: Dictionary = {
   confirmmodal: {
     cancel: "Cancel",
     message: "Are you sure?",

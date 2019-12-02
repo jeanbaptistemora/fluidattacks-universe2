@@ -1,3 +1,5 @@
+type Dictionary<T = {}> = { [key: string]: T };
+
 declare module '*.css';
 
 //Typings for img files
@@ -7,5 +9,3 @@ declare module "*.png" {
 }
 
 declare module "*.svg" { const value: any; export = value; }
-
-type dict = { [value: string]: string | dict };

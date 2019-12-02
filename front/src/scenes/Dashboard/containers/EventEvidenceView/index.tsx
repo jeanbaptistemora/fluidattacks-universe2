@@ -22,7 +22,7 @@ import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/i
 import style from "./index.css";
 import { DOWNLOAD_FILE_MUTATION, GET_EVENT_EVIDENCES, UPDATE_EVIDENCE_MUTATION } from "./queries";
 
-type EventEvidenceProps = RouteComponentProps<{ eventId: string; projectName: string }>;
+type EventEvidenceProps = RouteComponentProps<{ eventId: string }>;
 
 const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): JSX.Element => {
   const { eventId } = props.match.params;
