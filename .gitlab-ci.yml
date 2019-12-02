@@ -204,45 +204,29 @@ fluidasserts_post:
   except:
     - schedules
 
-change-keys:
+change-keys-aws:
   tags: [autoscaling]
   stage: rotation
-  <<: *vault_login
   script:
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
-        $HOME/.kube/config
-    - cd infrastructure
-    - source vault-wrapper.sh
-    - vault_generate_aws_keys integrates-cloudwatch
-    - vault_generate_aws_keys integrates-dynamodb
-    - vault_generate_aws_keys integrates-s3
-    - vault_generate_aws_keys integrates-terraform
-    - vault_generate_aws_keys web-s3
-    - NEW_JWT_SECRET=$(head -c 32 /dev/urandom | base64)
-    - vault_update_variables integrates/development jwt_secret $NEW_JWT_SECRET
-    - vault_update_variables integrates/production jwt_secret $NEW_JWT_SECRET
-    - export FORMSTACK_EMAIL="$(vault read -field=formstack_email
-        secret/serves)"
-    - export FORMSTACK_PASS="$(vault read -field=formstack_pass
-        secret/serves)"
-    - FORMSTACK_TOKENS=`./rotate_fs_keys.py generate`
-    - vault_update_variables integrates/development
-        formstack_tokens "$FORMSTACK_TOKENS"
-    - vault_update_variables integrates/production
-        formstack_tokens "$FORMSTACK_TOKENS"
-    - export INTEGRATES_VAULT_TOKEN=$(curl --request POST
-        --data '{"role_id":"'"$INTEGRATES_PROD_ROLE_ID"'","secret_id":"'"$INTEGRATES_PROD_SECRET_ID"'"}'
-        "https://$VAULT_S3_BUCKET.com/v1/auth/approle/login" |
-        jq -r '.auth.client_token')
-    - sed -i 's/$FI_VAULT_HOST/'"$(echo -n $VAULT_HOST | base64)"'/;
-        s/$FI_VAULT_TOKEN/'"$(echo -n $INTEGRATES_VAULT_TOKEN | base64)"'/'
-        eks/manifests/deployments/integrates-app.yaml
-    - sed -i 's/$DATE/'"$(date)"'/' eks/manifests/deployments/*.yaml
-    - kubectl apply -f eks/manifests/deployments/integrates-app.yaml
-    - kubectl rollout status deploy/integrates-app --timeout=5m ||
-        { kubectl rollout undo deploy/integrates-app && exit 1; }
-    - python3 ./rotate_fs_keys.py delete
+    ./ci-scripts/jobs/change-keys-aws.sh
+  <<: *only_schedules
+  <<: *except_analytics
+  when: always
+
+change-keys-formstack:
+  tags: [autoscaling]
+  stage: rotation
+  script:
+    ./ci-scripts/jobs/change-keys-formstack.sh
+  <<: *only_schedules
+  <<: *except_analytics
+  when: always
+
+change-keys-integrates-jwt:
+  tags: [autoscaling]
+  stage: rotation
+  script:
+    ./ci-scripts/jobs/change-keys-integrates-jwt.sh
   <<: *only_schedules
   <<: *except_analytics
   when: always
