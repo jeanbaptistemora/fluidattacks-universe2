@@ -714,6 +714,7 @@ def exec_cloudformation_package(
             rds.has_not_automated_backups('__path__')
             rds.has_unencrypted_storage('__path__')
             rds.is_publicly_accessible('__path__')
+            rds.has_not_termination_protection('__path__')
             """,
         ('secretsmanager', 'Secrets Manager'): """
             secretsmanager.insecure_generate_secret_string('__path__')

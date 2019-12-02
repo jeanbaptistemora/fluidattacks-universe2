@@ -4,6 +4,7 @@
     "cluster1": {
       "Properties": {
         "BackupRetentionPeriod": 32,
+        "DeletionProtection": "true",
         "Engine": "postgres",
         "StorageEncrypted": "true"
       },
@@ -134,6 +135,7 @@
       "Properties": {
         "BackupRetentionPeriod": "32",
         "DBInstanceClass": "t2.micro",
+        "DeletionProtection": "true",
         "Engine": "postgres",
         "MasterUserPassword": "pass",
         "MasterUsername": "user",

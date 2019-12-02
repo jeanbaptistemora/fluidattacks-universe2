@@ -4,6 +4,7 @@
     "cluster1": {
       "Properties": {
         "BackupRetentionPeriod": 0,
+        "DeletionProtection": "false",
         "Engine": "postgres",
         "StorageEncrypted": "false"
       },

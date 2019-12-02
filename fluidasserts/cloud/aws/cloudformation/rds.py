@@ -10,7 +10,7 @@ import contextlib
 from typing import List, Optional
 
 # Local imports
-from fluidasserts import SAST, MEDIUM
+from fluidasserts import SAST, LOW, MEDIUM
 from fluidasserts.helper import aws as helper
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
@@ -154,3 +154,56 @@ def is_publicly_accessible(
         vulnerabilities=vulnerabilities,
         msg_open='RDS instances are publicly accessible',
         msg_closed='RDS instances are not publicly accessible')
+
+
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_not_termination_protection(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if ``RDS`` clusters and instances have termination protection.
+
+    By default RDS Clusters and Instances can be terminated using the
+    Amazon EC2 console, CLI, or API.
+
+    This is not desirable if the termination is done unintentionally
+    because DB Snapshots and Automated Backups are deleted
+    automatically after some time (or immediately in some cases)
+    which make cause data lost and service interruption.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if the instance or cluster have not the
+                **DeletionProtection** parameter set to **true**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::RDS::DBInstance',
+                'AWS::RDS::DBCluster',
+            ],
+            exclude=exclude):
+        res_type = res_props['../Type']
+        deletion_protection: bool = res_props.get('DeletionProtection', False)
+
+        with contextlib.suppress(CloudFormationInvalidTypeError):
+            deletion_protection = helper.to_boolean(deletion_protection)
+
+        if not deletion_protection:
+            vulnerabilities.append(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=(f'{res_type}/'
+                            f'DeletionProtection/'
+                            f'{deletion_protection}'),
+                    identifier=res_name,
+                    reason='has not deletion protection'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='RDS instances or clusters have not deletion protection',
+        msg_closed='RDS instances or clusters have deletion protection')

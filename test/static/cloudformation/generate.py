@@ -120,13 +120,14 @@ secret = troposphere.secretsmanager.Secret(
         RequireEachIncludedType='true',
     ),
 )
-cluster = troposphere.rds.DBCluster(
+rds_cluster = troposphere.rds.DBCluster(
     title='cluster1',
     Engine='postgres',
     StorageEncrypted=True,
     BackupRetentionPeriod=32,
+    DeletionProtection='true',
 )
-instance = troposphere.rds.DBInstance(
+rds_instance = troposphere.rds.DBInstance(
     title='instance1',
     DBInstanceClass='t2.micro',
     Engine='postgres',
@@ -135,6 +136,7 @@ instance = troposphere.rds.DBInstance(
     StorageEncrypted=True,
     BackupRetentionPeriod='32',
     PubliclyAccessible='false',
+    DeletionProtection=True,
 )
 policy = troposphere.iam.PolicyType(
     title='policy1',
@@ -329,8 +331,8 @@ cloudfront_distribution = troposphere.cloudfront.Distribution(
 )
 template.add_resource(role)
 template.add_resource(secret)
-template.add_resource(cluster)
-template.add_resource(instance)
+template.add_resource(rds_cluster)
+template.add_resource(rds_instance)
 template.add_resource(policy)
 template.add_resource(managed_policy)
 template.add_resource(user)
@@ -450,19 +452,20 @@ secret = troposphere.secretsmanager.Secret(
 secret2 = troposphere.secretsmanager.Secret(
     title='secret2',
 )
-cluster = troposphere.rds.DBCluster(
+rds_cluster = troposphere.rds.DBCluster(
     title='cluster1',
     Engine='postgres',
     StorageEncrypted=False,
     # Disables automated back-ups
     BackupRetentionPeriod=0,
+    DeletionProtection='false',
 )
 cluster2 = troposphere.rds.DBCluster(
     title='cluster2',
     Engine='postgres',
     BackupRetentionPeriod=troposphere.If('prod', 32, 0),
 )
-instance = troposphere.rds.DBInstance(
+rds_instance = troposphere.rds.DBInstance(
     title='instance1',
     DBInstanceClass='t2.micro',
     Engine='postgres',
@@ -748,9 +751,9 @@ cloudfront_distribution = troposphere.cloudfront.Distribution(
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(secret2)
-template.add_resource(cluster)
+template.add_resource(rds_cluster)
 template.add_resource(cluster2)
-template.add_resource(instance)
+template.add_resource(rds_instance)
 template.add_resource(policy)
 template.add_resource(managed_policy)
 template.add_resource(user)
