@@ -156,6 +156,10 @@ Resources:
             Version: '2012-10-17'
           PolicyName: policy1
     Type: AWS::IAM::Role
+  s3Bucket:
+    Properties:
+      AccessControl: Private
+    Type: AWS::S3::Bucket
   secret1:
     Properties:
       GenerateSecretString:

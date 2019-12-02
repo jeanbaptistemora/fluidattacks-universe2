@@ -716,6 +716,9 @@ def exec_cloudformation_package(
             rds.is_publicly_accessible('__path__')
             rds.has_not_termination_protection('__path__')
             """,
+        ('s3', 'Simple Storage Service'): """
+            s3.has_not_private_access_control('__path__')
+            """,
         ('secretsmanager', 'Secrets Manager'): """
             secretsmanager.insecure_generate_secret_string('__path__')
             """,

@@ -316,6 +316,12 @@
       },
       "Type": "AWS::IAM::Role"
     },
+    "s3Bucket": {
+      "Properties": {
+        "AccessControl": "PublicReadWrite"
+      },
+      "Type": "AWS::S3::Bucket"
+    },
     "secret1": {
       "Properties": {
         "GenerateSecretString": {

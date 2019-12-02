@@ -5,6 +5,7 @@
 import os
 import textwrap
 import troposphere
+import troposphere.s3
 import troposphere.ec2
 import troposphere.fsx
 import troposphere.iam
@@ -329,6 +330,10 @@ cloudfront_distribution = troposphere.cloudfront.Distribution(
         ),
     ),
 )
+s3_bucket = troposphere.s3.Bucket(
+    title='s3Bucket',
+    AccessControl='Private',
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(rds_cluster)
@@ -345,6 +350,7 @@ template.add_resource(ec2_launch_template)
 template.add_resource(dynamodb_table)
 template.add_resource(fsx_filesystem)
 template.add_resource(cloudfront_distribution)
+template.add_resource(s3_bucket)
 write_template(template)
 
 #
@@ -748,6 +754,10 @@ cloudfront_distribution = troposphere.cloudfront.Distribution(
         ),
     ),
 )
+s3_bucket = troposphere.s3.Bucket(
+    title='s3Bucket',
+    AccessControl='PublicReadWrite',
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(secret2)
@@ -769,4 +779,5 @@ template.add_resource(dynamodb_table)
 template.add_resource(dynamodb_table2)
 template.add_resource(fsx_filesystem)
 template.add_resource(cloudfront_distribution)
+template.add_resource(s3_bucket)
 write_template(template)
