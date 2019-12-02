@@ -10,12 +10,27 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
   statement {
     effect = "Allow"
     actions = [
+      "s3:GetBucketLocation",
+      "s3:ListAllMyBuckets"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    effect    = "Allow"
+    actions   = ["s3:ListBucket"]
+    resources = ["arn:aws:s3:::fluidattacks-terraform-states-dev"]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
       "s3:GetObject",
       "s3:PutObject",
       "s3:ListObjects"
     ]
     resources = [
-      "arn:aws:s3:::fluidattacks-terraform-states-dev/integrates-dev*"
+      "arn:aws:s3:::fluidattacks-terraform-states-dev/integrates-dev-*"
     ]
   }
 
