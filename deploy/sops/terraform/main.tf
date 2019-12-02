@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
-    bucket  = "fluidattacks-terraform-states"
-    key     = "integrates-sops.tfstate"
+    bucket  = "fluidattacks-terraform-states-dev"
+    key     = "integrates-dev-sops.tfstate"
     region  = "us-east-1"
     encrypt = true
   }
