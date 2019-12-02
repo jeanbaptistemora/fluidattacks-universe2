@@ -125,11 +125,8 @@ def create_event(analyst_email, project_name, file=None, image=None, **kwargs):
 
     event_attrs.update({
         'accessibility': ' '.join(list(set(event_attrs['accessibility']))),
-        'affectation': 0,
         'analyst': analyst_email,
         'client': project.get('companies', [''])[0],
-        'event_date': event_attrs['event_date'].strftime('%Y-%m-%d %H:%M:%S'),
-        'event_status': 'UNSOLVED',
         'historic_state': [
             {
                 'analyst': analyst_email,
@@ -143,7 +140,6 @@ def create_event(analyst_email, project_name, file=None, image=None, **kwargs):
                 'state': 'CREATED'
             }
         ],
-        'report_date': today.strftime('%Y-%m-%d %H:%M:%S'),
         'subscription': subscription.upper()
     })
     if 'affected_components' in event_attrs:
