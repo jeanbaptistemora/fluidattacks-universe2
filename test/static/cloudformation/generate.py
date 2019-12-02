@@ -14,6 +14,7 @@ import troposphere.rds
 import troposphere.dynamodb
 import troposphere.cloudfront
 import troposphere.elasticloadbalancing
+import troposphere.elasticloadbalancingv2
 import troposphere.secretsmanager
 
 
@@ -348,6 +349,21 @@ elb_entity = troposphere.elasticloadbalancing.LoadBalancer(
         ),
     ],
 )
+elb2_entity = troposphere.elasticloadbalancingv2.LoadBalancer(
+    title='elasticLoadBalancerV2',
+    LoadBalancerAttributes=[
+        troposphere.elasticloadbalancingv2.LoadBalancerAttributes(
+            Key='deletion_protection.enabled',
+            Value='true',
+        ),
+    ],
+    SubnetMappings=[
+        troposphere.elasticloadbalancingv2.SubnetMapping(
+            AllocationId='mock',
+            SubnetId='mock',
+        ),
+    ]
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(rds_cluster)
@@ -366,6 +382,7 @@ template.add_resource(fsx_filesystem)
 template.add_resource(cloudfront_distribution)
 template.add_resource(s3_bucket)
 template.add_resource(elb_entity)
+template.add_resource(elb2_entity)
 write_template(template)
 
 #
@@ -786,6 +803,21 @@ elb_entity = troposphere.elasticloadbalancing.LoadBalancer(
         ),
     ],
 )
+elb2_entity = troposphere.elasticloadbalancingv2.LoadBalancer(
+    title='elasticLoadBalancerV2',
+    LoadBalancerAttributes=[
+        troposphere.elasticloadbalancingv2.LoadBalancerAttributes(
+            Key='deletion_protection.enabled',
+            Value='false',
+        ),
+    ],
+    SubnetMappings=[
+        troposphere.elasticloadbalancingv2.SubnetMapping(
+            AllocationId='mock',
+            SubnetId='mock',
+        ),
+    ]
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(secret2)
@@ -809,4 +841,5 @@ template.add_resource(fsx_filesystem)
 template.add_resource(cloudfront_distribution)
 template.add_resource(s3_bucket)
 template.add_resource(elb_entity)
+template.add_resource(elb2_entity)
 write_template(template)

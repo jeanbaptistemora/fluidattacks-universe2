@@ -698,6 +698,9 @@ def exec_cloudformation_package(
         ('elb', 'ELB (Elastic Load Balancing)'): """
             elb.has_access_logging_disabled('__path__')
             """,
+        ('elb2', 'ELBv2 (Elastic Load Balancing v2)'): """
+            elb2.has_not_deletion_protection('__path__')
+            """,
         ('dynamodb', 'DynamoDB (NoSQL Database Service)'): """
             dynamodb.has_not_point_in_time_recovery('__path__')
             """,

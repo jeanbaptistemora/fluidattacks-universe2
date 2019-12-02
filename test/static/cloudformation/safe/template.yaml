@@ -80,6 +80,15 @@ Resources:
           LoadBalancerPort: 443
           Protocol: HTTPS
     Type: AWS::ElasticLoadBalancing::LoadBalancer
+  elasticLoadBalancerV2:
+    Properties:
+      LoadBalancerAttributes:
+        - Key: deletion_protection.enabled
+          Value: 'true'
+      SubnetMappings:
+        - AllocationId: mock
+          SubnetId: mock
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
   fileSystem1:
     Properties:
       FileSystemType: LUSTRE
