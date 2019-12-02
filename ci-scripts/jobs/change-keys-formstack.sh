@@ -18,7 +18,7 @@ change_keys_formstack() {
     FORMSTACK_EMAIL \
     FORMSTACK_PASS
 
-  FORMSTACK_TOKENS=$(./ci-scripts/helpers/rotate_fs_keys.py)
+  FORMSTACK_TOKENS="$(./ci-scripts/helpers/rotate_fs_keys.py)"
 
   vault_update_variables integrates/development
     formstack_tokens "$FORMSTACK_TOKENS"
