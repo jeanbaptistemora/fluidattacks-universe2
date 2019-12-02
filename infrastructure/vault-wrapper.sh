@@ -89,28 +89,28 @@ function vault_generate_aws_keys() {
   rm aws-keys.json
   if [ "$project" = "integrates" ]; then
     echo-green "Updating ${aws_service^} variables in ${project^}..."
-    vault_update_variables "$project/development" "$access_key_name" "$access_key" \
-      "$secret_key_name" "$secret_key"
-    vault_update_variables "$project/production" "$access_key_name" "$access_key" \
-      "$secret_key_name" "$secret_key"
+    vault_update_variables "$project/development" "$access_key_name=$access_key" \
+      "$secret_key_name=$secret_key"
+    vault_update_variables "$project/production" "$access_key_name=$access_key" \
+      "$secret_key_name=$secret_key"
     if [ "$aws_service" = "dynamodb" ]; then
       echo-green "Updating ${aws_service^} variables in Continuous..."
-      vault_update_variables "continuous/tools" "$access_key_name" "$access_key" \
-        "$secret_key_name" "$secret_key"
+      vault_update_variables "continuous/tools" "$access_key_name=$access_key" \
+        "$secret_key_name=$secret_key"
 
       echo-green "Updating ${aws_service^} variables in Serves..."
-      vault_update_variables "serves" "$access_key_name" "$access_key" \
-        "$secret_key_name" "$secret_key"
+      vault_update_variables "serves" "$access_key_name=$access_key" \
+        "$secret_key_name=$secret_key"
     fi
     if [ "$aws_service" = "s3" ]; then
       echo-green "Updating ${aws_service^} variables in Serves..."
-      vault_update_variables "serves" "$access_key_name" "$access_key" \
-        "$secret_key_name" "$secret_key"
+      vault_update_variables "serves" "$access_key_name=$access_key" \
+        "$secret_key_name=$secret_key"
     fi
   else
     echo-green "Updating ${aws_service^} variables in ${project^}..."
-    vault_update_variables "$project" "$access_key_name" "$access_key" \
-      "$secret_key_name" "$secret_key"
+    vault_update_variables "$project" "$access_key_name=$access_key" \
+      "$secret_key_name=$secret_key"
   fi
 }
 
@@ -139,17 +139,16 @@ function vault_remove_policy() {
 }
 
 function vault_update_variables() {
-  local secret_path="secret/${1}"
+  local secret_path="secret/$1"
   shift 1
-  vault read -format=json "${secret_path}" | jq '.data' > vars.json
-  for args in "$@"; do
-    var="$1"
-    value="$2"
-    shift 2 || break
-    cat vars.json | vault_update_value "${var}" "${value}" > vars_tmp.json
+  vault read -format=json "$secret_path" | jq '.data' > vars.json
+  for VAR in "$@"; do
+    NAME="$(echo $VAR | cut -d= -f1)"
+    VALUE="$(echo $VAR | cut -d= -f2)"
+    cat vars.json | vault_update_value "$NAME" "$VALUE" > vars_tmp.json
     mv vars_tmp.json vars.json
   done
-  vault write "${secret_path}" @vars.json
+  vault write "$secret_path" @vars.json
   rm vars.json
 }
 
@@ -264,7 +263,7 @@ if [[ "$*" =~ (-h|help|--help|usage) ]]; then
   10. vault_update_variables: Overwrite the value of existing variables.
 
      usage:
-       vault_update_variables path var_name1 var_value1 var_name2 var_value2 ...
+       vault_update_variables path var_name1=var_value1 var_name2=var_value2 ...
 
      params:
        - path: Path in Vault where the variables are going to be overwritten. The prefix "secret/" should not be included.

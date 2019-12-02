@@ -21,12 +21,13 @@ deploy_integrates() {
     | jq -r '.auth.client_token')"
 
   sed -i "s/\$FI_VAULT_HOST/$(echo -n $VAULT_HOST | base64)/g" \
-    eks/manifests/deployments/integrates-app.yaml
+    infrastructure/eks/manifests/deployments/integrates-app.yaml
   sed -i "s/\$FI_VAULT_TOKEN/$(echo -n $INTEGRATES_VAULT_TOKEN | base64)/g" \
-    eks/manifests/deployments/integrates-app.yaml
-  sed -i "s/\$DATE/$(date)/g" eks/manifests/deployments/*.yaml
+    infrastructure/eks/manifests/deployments/integrates-app.yaml
+  sed -i "s/\$DATE/$(date)/g" \
+    infrastructure/eks/manifests/deployments/*.yaml
 
-  kubectl apply -f eks/manifests/deployments/integrates-app.yaml
+  kubectl apply -f infrastructure/eks/manifests/deployments/integrates-app.yaml
 
   kubectl rollout status deploy/integrates-app --timeout=5m \
     || { kubectl rollout undo deploy/integrates-app && exit 1; }

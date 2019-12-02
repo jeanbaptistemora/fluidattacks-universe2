@@ -115,8 +115,7 @@ def timedoctor_start() -> bool:
     run_command((f"source './infrastructure/vault-wrapper.sh';"
                  f"vault_update_variables"
                  f"  serves"
-                 f"  'analytics_auth_timedoctor'"
-                 f"  '{new_values}'"),
+                 f"  'analytics_auth_timedoctor={new_values}'"),
                 raise_on_errors=True,
                 raise_msg=f'unable to update using vault-wrapper')
     return True
@@ -132,8 +131,7 @@ def timedoctor_update(json_str: str) -> bool:
     run_command((f"source './infrastructure/vault-wrapper.sh';"
                  f"vault_update_variables"
                  f"  serves"
-                 f"  'analytics_auth_timedoctor'"
-                 f"  '{new_values}'"),
+                 f"  'analytics_auth_timedoctor={new_values}'"),
                 raise_on_errors=True,
                 raise_msg=f'unable to update using vault-wrapper')
     return True
@@ -159,8 +157,7 @@ def timedoctor_refresh() -> bool:
     run_command((f"source './infrastructure/vault-wrapper.sh';"
                  f"vault_update_variables"
                  f"  serves"
-                 f"  'analytics_auth_timedoctor'"
-                 f"  '{new_values}'"),
+                 f"  'analytics_auth_timedoctor={new_values}'"),
                 raise_on_errors=True,
                 raise_msg=f'unable to update using vault-wrapper')
 

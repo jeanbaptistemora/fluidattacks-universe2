@@ -10,6 +10,7 @@ change_keys_formstack() {
   . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/sops-source/sops.sh)
   . toolbox/others.sh
   . ci-scripts/helpers/others.sh
+  . infrastructure/vault-wrapper.sh
 
   vault_login
 
@@ -23,10 +24,12 @@ change_keys_formstack() {
 
   FORMSTACK_TOKENS="$(./ci-scripts/helpers/rotate_fs_keys.py)"
 
-  vault_update_variables integrates/development
-    formstack_tokens "$FORMSTACK_TOKENS"
-  vault_update_variables integrates/production
-    formstack_tokens "$FORMSTACK_TOKENS"
+  vault_update_variables \
+    integrates/development \
+    "formstack_tokens=$FORMSTACK_TOKENS"
+  vault_update_variables \
+    integrates/production \
+    "formstack_tokens=$FORMSTACK_TOKENS"
 
   python3 ci-scripts/helpers/rotate_fs_keys.py delete
 
