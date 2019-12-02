@@ -20,5 +20,5 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "integrates-lambda-logs" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-  role       = "${aws_iam_role.integrates-lambdas.name}"
+  role       = aws_iam_role.integrates-lambdas.name
 }
