@@ -547,8 +547,7 @@ def deletion_of_finished_project():
         days_to_send = [6]
         days_to_delete = 7
     projects = project_domain.get_active_projects()
-    return [deletion(x[0], days_to_send, days_to_delete)
-            for x in projects]
+    return [deletion(x, days_to_send, days_to_delete) for x in projects]
 
 
 def get_project_indicators(project):
