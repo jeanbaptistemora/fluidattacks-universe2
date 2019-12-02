@@ -98,6 +98,10 @@ describe("Resources view", () => {
       },
       result: {
         data: {
+          me: {
+            __typename: "Me",
+            role: "customer",
+          },
           resources: {
             __typename: "Resource",
             repositories: JSON.stringify([{

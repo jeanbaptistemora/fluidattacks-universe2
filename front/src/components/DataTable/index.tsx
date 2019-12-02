@@ -77,10 +77,12 @@ const statusFormatter: ((value: string) => ReactElement<Label>) =
     switch (value) {
       case "Closed":
       case "Solved":
+      case "Active":
         bgColor = "#31c0be";
         break;
       case "Open":
       case "Unsolved":
+      case "Inactive":
         bgColor = "#f22";
         break;
       case "Partially closed":
@@ -152,7 +154,7 @@ const changeFormatter: ((value: string, row: { [key: string]: string }, key: IHe
   return (
     <BootstrapSwitchButton
       onChange={handleOnChange}
-      checked={!("state" in row) || row.state !== "INACTIVE"}
+      checked={!("state" in row) || row.state !== "Inactive"}
       onstyle="danger"
       onlabel="Active"
       offlabel="Inactive"

@@ -157,6 +157,8 @@ const findSwitchButton: ((rowId: string, resType: string) => Element | undefined
   return undefined;
 };
 
+let currUserRole: string = "";
+
 const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IResourcesViewProps): JSX.Element => {
   const handleOpenTagsModal: (() => void) = (): void => { props.onOpenTagsModal(); };
   const handleCloseTagsModal: (() => void) = (): void => { props.onCloseTagsModal(); };
@@ -371,7 +373,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
   );
 };
 
-const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
+const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
   (props: IResourcesViewProps): JSX.Element => {
     const handleAddRepoClick: (() => void) = (): void => { props.onOpenReposModal(); };
     const handleCloseReposModalClick: (() => void) = (): void => { props.onCloseReposModal(); };
@@ -395,12 +397,17 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
           }
           if (!_.isUndefined(data)) {
             hidePreloader();
+            if (data.me !== undefined) {
+              currUserRole = data.me.role;
+            }
             let repos: IRepositoriesAttr[] = JSON.parse(data.resources.repositories);
             repos = repos.map((repo: IRepositoriesAttr) => {
               repo.state = "ACTIVE";
               if ("historic_state" in repo) {
                 repo.state = repo.historic_state[repo.historic_state.length - 1].state;
               }
+              repo.state = repo.state.charAt(0) + repo.state.slice(1)
+                                                            .toLowerCase();
 
               return repo;
             });
@@ -544,11 +551,12 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                                   wrapped: true,
                                 },
                                 {
-                                  changeFunction: handleUpdateRepo,
-                                  dataField: "projectName",
-                                  header: "State",
+                                  align: "center",
+                                  changeFunction: currUserRole === "customer" ? handleUpdateRepo : undefined,
+                                  dataField: "state",
+                                  header: translate.t("search_findings.repositories_table.state"),
                                   isDate: false,
-                                  isStatus: false,
+                                  isStatus: currUserRole === "customer" ? false : true,
                                   width: "12%",
                                   wrapped: true,
                                 },
@@ -562,6 +570,7 @@ const renderRespositories: ((props: IResourcesViewProps) => JSX.Element) =
                             <br />
                             <Col mdOffset={4} md={2} sm={6}>
                               <Button
+                                disabled={currUserRole === "customer" ? false : true}
                                 id="addRepository"
                                 block={true}
                                 bsStyle="primary"
@@ -664,6 +673,8 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
               if ("historic_state" in env) {
                 env.state = env.historic_state[env.historic_state.length - 1].state;
               }
+              env.state = env.state.charAt(0) + env.state.slice(1)
+                                                         .toLowerCase();
 
               return env;
             });
@@ -787,11 +798,12 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                                   wrapped: true,
                                 },
                                 {
-                                  changeFunction: handleUpdateEnv,
-                                  dataField: "projectName",
-                                  header: "State",
+                                  align: "center",
+                                  changeFunction: currUserRole === "customer" ? handleUpdateEnv : undefined,
+                                  dataField: "state",
+                                  header: translate.t("search_findings.repositories_table.state"),
                                   isDate: false,
-                                  isStatus: false,
+                                  isStatus: currUserRole === "customer" ? false : true,
                                   width: "12%",
                                   wrapped: true,
                                 },
@@ -805,6 +817,7 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                           <br />
                           <Col mdOffset={4} md={2} sm={6}>
                             <Button
+                              disabled={currUserRole === "customer" ? false : true}
                               id="addEnvironment"
                               block={true}
                               bsStyle="primary"
@@ -992,7 +1005,7 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
   (
   <React.StrictMode>
     <div id="resources" className="tab-pane cont active">
-      {renderRespositories(props)}
+      {renderRepositories(props)}
       {renderEnvironments(props)}
       {renderFiles(props)}
       {renderTagsView(props)}
