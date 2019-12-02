@@ -528,6 +528,53 @@ def get_data_dynamo_filter(table_name, filter_exp, data_attr=''):
     return items
 
 
+def add_list_resource_dynamo(table_name, primary_name_key, primary_key, data, attr_name):
+    """Adding list attribute in a table."""
+    table = DYNAMODB_RESOURCE.Table(table_name)
+    item = get_data_dynamo(table_name, primary_name_key, primary_key)
+    primary_key = primary_key.lower()
+    try:
+        if not item:
+            response = table.put_item(
+                Item={
+                    primary_name_key: primary_key,
+                    attr_name: data,
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        else:
+            if attr_name not in item[0]:
+                table.update_item(
+                    Key={
+                        primary_name_key: primary_key,
+                    },
+                    UpdateExpression='SET #attrName = :val1',
+                    ExpressionAttributeNames={
+                        '#attrName': attr_name
+                    },
+                    ExpressionAttributeValues={
+                        ':val1': []
+                    }
+                )
+            update_response = table.update_item(
+                Key={
+                    primary_name_key: primary_key,
+                },
+                UpdateExpression='SET #attrName = list_append(#attrName, :val1)',
+                ExpressionAttributeNames={
+                    '#attrName': attr_name
+                },
+                ExpressionAttributeValues={
+                    ':val1': data
+                }
+            )
+            resp = update_response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError:
+        rollbar.report_exc_info()
+        resp = False
+    return resp
+
+
 def remove_list_resource_dynamo(
         table_name, primary_name_key, primary_key, attr_name, index):
     """Remove list attribute in a table."""
