@@ -210,8 +210,25 @@ describe("Resources view", () => {
       </Provider>,
     );
     await wait(0);
+    wrapper.update();
+    const onerow: ReactWrapper = wrapper
+                                 .find("BootstrapTable")
+                                 .find("tbody")
+                                 .find("TableRow")
+                                 .find("TableColumn");
+    const statuschecked: boolean | undefined = wrapper
+                                               .find("BootstrapTable")
+                                               .find("tbody")
+                                               .find("TableColumn")
+                                               .at(1)
+                                               .find("n")
+                                               .prop("checked");
     expect(wrapper)
       .toHaveLength(1);
+    expect(onerow)
+      .toHaveLength(2);
+    expect(statuschecked)
+      .toEqual(true || false);
   });
 
   it("should render a error in component", async () => {
