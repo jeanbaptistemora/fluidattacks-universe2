@@ -66,9 +66,9 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/upstream-vhost: "fluidattacks.gitlab.io"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    nginx.ingress.kubernetes.io/proxy-redirect-from: //fluidattacks.gitlab.io/default/
+    nginx.ingress.kubernetes.io/proxy-redirect-from: //fluidattacks.gitlab.io/public/
     nginx.ingress.kubernetes.io/proxy-redirect-to: /training/
-    nginx.ingress.kubernetes.io/rewrite-target: /default$1
+    nginx.ingress.kubernetes.io/rewrite-target: /public$1
     nginx.ingress.kubernetes.io/configuration-snippet: |
 
       more_set_headers "Content-Security-Policy: ${CSP};";
