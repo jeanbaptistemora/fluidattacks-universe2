@@ -8,8 +8,10 @@ deploy_integrates() {
 
   export INTEGRATES_VAULT_TOKEN
 
+  vault_login
+
   aws s3 cp \
-    "s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig" \
+    "s3://servestf/terraform/kubeconfig" \
     "$HOME/.kube/config"
 
   INTEGRATES_VAULT_TOKEN="$(curl \
@@ -28,5 +30,30 @@ deploy_integrates() {
 
   kubectl rollout status deploy/integrates-app --timeout=5m \
     || { kubectl rollout undo deploy/integrates-app && exit 1; }
+}
 
+vault_login() {
+
+  # Log in to vault
+
+  set -Eeuo pipefail
+
+  export VAULT_ADDR
+  export VAULT_HOST
+  export VAULT_PORT
+  export ROLE_ID
+  export SECRET_ID
+  export VAULTENV_SECRETS_FILE
+  export VAULT_TOKEN
+
+  VAULT_ADDR='https://vault.fluidattacks.com'
+  VAULT_HOST='vault.fluidattacks.com'
+  VALUE_PORT='443'
+  ROLE_ID="$SERVES_ROLE_ID"
+  SECRET_ID="$SERVES_SECRET_ID"
+  VAULTENV_SECRETS_FILE='env.vars'
+
+  VAULT_TOKEN="$(vault write \
+    -field=token auth/approle/login role_id=$ROLE_ID secret_id=$SECRET_ID \
+  )"
 }

@@ -9,6 +9,9 @@ change_keys_formstack() {
   # Import functions
   . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/sops-source/sops.sh)
   . toolbox/others.sh
+  . ci-scripts/helpers/others.sh
+
+  vault_login
 
   local FORMSTACK_TOKENS
 
@@ -26,6 +29,8 @@ change_keys_formstack() {
     formstack_tokens "$FORMSTACK_TOKENS"
 
   python3 ci-scripts/helpers/rotate_fs_keys.py delete
+
+  deploy_integrates
 }
 
 change_keys_formstack
