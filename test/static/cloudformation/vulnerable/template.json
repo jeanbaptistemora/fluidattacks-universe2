@@ -133,6 +133,21 @@
       },
       "Type": "AWS::EC2::Instance"
     },
+    "elasticLoadBalancer": {
+      "Properties": {
+        "AccessLoggingPolicy": {
+          "Enabled": false
+        },
+        "Listeners": [
+          {
+            "InstancePort": 443,
+            "LoadBalancerPort": 443,
+            "Protocol": "HTTPS"
+          }
+        ]
+      },
+      "Type": "AWS::ElasticLoadBalancing::LoadBalancer"
+    },
     "fileSystem1": {
       "Properties": {
         "FileSystemType": "LUSTRE",

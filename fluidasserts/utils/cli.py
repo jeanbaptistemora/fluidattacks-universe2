@@ -695,6 +695,9 @@ def exec_cloudformation_package(
             cloudfront.serves_content_over_http('__path__')
             cloudfront.serves_content_over_insecure_protocols('__path__')
             """,
+        ('elb', 'ELB (Elastic Load Balancing)'): """
+            elb.has_access_logging_disabled('__path__')
+            """,
         ('dynamodb', 'DynamoDB (NoSQL Database Service)'): """
             dynamodb.has_not_point_in_time_recovery('__path__')
             """,

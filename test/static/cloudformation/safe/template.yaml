@@ -71,6 +71,15 @@ Resources:
       SecurityGroups:
         - security-group-test
     Type: AWS::EC2::Instance
+  elasticLoadBalancer:
+    Properties:
+      AccessLoggingPolicy:
+        Enabled: true
+      Listeners:
+        - InstancePort: 443
+          LoadBalancerPort: 443
+          Protocol: HTTPS
+    Type: AWS::ElasticLoadBalancing::LoadBalancer
   fileSystem1:
     Properties:
       FileSystemType: LUSTRE

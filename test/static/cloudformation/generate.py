@@ -13,6 +13,7 @@ import troposphere.kms
 import troposphere.rds
 import troposphere.dynamodb
 import troposphere.cloudfront
+import troposphere.elasticloadbalancing
 import troposphere.secretsmanager
 
 
@@ -334,6 +335,19 @@ s3_bucket = troposphere.s3.Bucket(
     title='s3Bucket',
     AccessControl='Private',
 )
+elb_entity = troposphere.elasticloadbalancing.LoadBalancer(
+    title='elasticLoadBalancer',
+    AccessLoggingPolicy=troposphere.elasticloadbalancing.AccessLoggingPolicy(
+        Enabled=True,
+    ),
+    Listeners=[
+        troposphere.elasticloadbalancing.Listener(
+            InstancePort=443,
+            LoadBalancerPort=443,
+            Protocol='HTTPS',
+        ),
+    ],
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(rds_cluster)
@@ -351,6 +365,7 @@ template.add_resource(dynamodb_table)
 template.add_resource(fsx_filesystem)
 template.add_resource(cloudfront_distribution)
 template.add_resource(s3_bucket)
+template.add_resource(elb_entity)
 write_template(template)
 
 #
@@ -758,6 +773,19 @@ s3_bucket = troposphere.s3.Bucket(
     title='s3Bucket',
     AccessControl='PublicReadWrite',
 )
+elb_entity = troposphere.elasticloadbalancing.LoadBalancer(
+    title='elasticLoadBalancer',
+    AccessLoggingPolicy=troposphere.elasticloadbalancing.AccessLoggingPolicy(
+        Enabled=False,
+    ),
+    Listeners=[
+        troposphere.elasticloadbalancing.Listener(
+            InstancePort=443,
+            LoadBalancerPort=443,
+            Protocol='HTTPS',
+        ),
+    ],
+)
 template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(secret2)
@@ -780,4 +808,5 @@ template.add_resource(dynamodb_table2)
 template.add_resource(fsx_filesystem)
 template.add_resource(cloudfront_distribution)
 template.add_resource(s3_bucket)
+template.add_resource(elb_entity)
 write_template(template)
