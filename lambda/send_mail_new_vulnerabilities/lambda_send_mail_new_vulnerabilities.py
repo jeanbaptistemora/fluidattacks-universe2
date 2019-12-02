@@ -8,9 +8,8 @@ import mandrill
 # pylint: disable=unused-argument
 def send_mail_new_vulnerabilities(event, context):
     """Lambda code."""
-    template_name = 'newvulnerabilitiesintegrates'
-
     record = event['Records'][0]
+    template_name = record['attributes']['MessageGroupId']
     body = json.loads(record['body'])
 
     message = body['message']

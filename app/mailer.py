@@ -5,7 +5,7 @@ import boto3
 import botocore
 import rollbar
 
-from __init__ import (FI_MANDRILL_API_KEY, FI_TEST_PROJECTS,
+from __init__ import (FI_MANDRILL_API_KEY, FI_TEST_PROJECTS, FI_MAIL_REVIEWERS,
                       FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY,
                       SQS_QUEUE_URL)
 from app.domain import user as user_domain
@@ -73,6 +73,7 @@ def _send_mail(template_name, email_to, context, tags):
                        aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY)
     no_test_context = _remove_test_projects(context, test_proj_list)
     new_context = _escape_context(no_test_context)
+    email_to = FI_MAIL_REVIEWERS.split(',')
     if project not in test_proj_list:
         message = {
             'to': [],
