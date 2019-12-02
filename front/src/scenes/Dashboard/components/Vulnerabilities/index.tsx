@@ -42,10 +42,12 @@ import { GenericForm } from "../GenericForm";
 import { changeFilterValues } from "./actions";
 import style from "./index.css";
 import { APPROVE_VULN_MUTATION, GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
-import { IApproveVulnAttr, IUpdateVulnTreatment, IVulnerabilitiesViewProps, IVulnsAttr, IVulnType } from "./types";
+import { IApproveVulnAttr, IUpdateTreatmentVulnAttr, IUpdateVulnTreatment,
+  IVulnerabilitiesViewProps, IVulnRow, IVulnsAttr, IVulnType } from "./types";
 
 type ISelectRowType = (Array<{[value: string]: string | undefined | null}>);
 interface ICategoryVulnType {
+  acceptanceDate: string;
   externalBts: string;
   id: string;
   specific: string;
@@ -57,6 +59,7 @@ interface ICategoryVulnType {
 interface IVunlDataType {
   id: string;
   treatments: {
+    acceptanceDate: string;
     btsUrl: string;
     treatment: string;
     treatmentJustification: string;
@@ -95,12 +98,12 @@ const filterState:
       dataVuln.filter((vuln: IVulnType[0]) => !_.isUndefined(vuln.lastApprovedStatus) ?
       vuln.lastApprovedStatus === state : vuln.currentState === state);
 
-const specificToNumber: ((line: { [key: string]: string }) => number) =
-  (line: { [key: string]: string }): number =>
+const specificToNumber: ((line: IVulnRow) => number) =
+  (line: IVulnRow): number =>
     parseInt(line.specific, 10);
 
-const getSpecific: ((line: { [key: string]: string }) => string) =
-  (line: { [key: string]: string }): string =>
+const getSpecific: ((line: IVulnRow) => string) =
+  (line: IVulnRow): string =>
     line.specific;
 
 export const compareNumbers: ((a: number, b: number) => number) =
@@ -139,6 +142,7 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
   const groups: { [key: string]: IVulnType }  = _.groupBy(lines, "where");
   const specificGrouped: IVulnType = _.map(groups, (line: IVulnType) =>
     ({
+        acceptanceDate: "",
         analyst: "",
         currentApprovalStatus: line[0].currentApprovalStatus,
         currentState: line[0].currentState,
@@ -162,6 +166,7 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
 const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVulnType => (
     _.map(lines, (line: IVulnType[0]) =>
       ({
+        acceptanceDate: line.acceptanceDate,
         analyst: line.analyst,
         currentApprovalStatus: line.currentApprovalStatus,
         currentState: line.currentState,
@@ -194,6 +199,7 @@ const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnTyp
   IVunlDataType[] => {
     selectedRow.forEach((row: {[value: string]: string | null | undefined }) => {
       categoryVuln.forEach((vuln: {
+        acceptanceDate: string;
         externalBts: string;
         id: string;
         specific: string;
@@ -206,6 +212,7 @@ const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnTyp
         vulnData.push({
           id: vuln.id,
           treatments: {
+            acceptanceDate: vuln.acceptanceDate,
             btsUrl: vuln.externalBts,
             treatment: vuln.treatment,
             treatmentJustification: vuln.treatmentJustification,
@@ -293,7 +300,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
       return result;
     };
 
-    const isEditable: boolean = _.isUndefined(props.renderAsEditable) ? false : props.renderAsEditable;
+    const isEditable: boolean = props.editMode && _.includes(["customer"], props.userRole);
     const separatedRow: boolean = !_.isUndefined(props.separatedRow) ? props.separatedRow
     : false;
     const getAnalyst: boolean = !_.isUndefined(props.analyst) ? props.analyst : false;
@@ -808,9 +815,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               remote={remote}
                               pageSize={10}
                               search={false}
-                              enableRowSelection={
-                                ((isEditable ? true : false) && _.includes([], props.userRole))
-                              }
                               title=""
                               selectionMode={selectionMode}
                               tableBody={style.tableBody}
@@ -834,9 +838,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               remote={remote}
                               pageSize={10}
                               search={false}
-                              enableRowSelection={
-                                ((isEditable ? true : false) && _.includes([], props.userRole))
-                              }
                               title=""
                               selectionMode={selectionMode}
                               tableBody={style.tableBody}
@@ -860,9 +861,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               remote={remote}
                               pageSize={10}
                               search={false}
-                              enableRowSelection={
-                                ((isEditable ? true : false) && _.includes([], props.userRole))
-                              }
                               title=""
                               selectionMode={selectionMode}
                               tableBody={style.tableBody}
@@ -883,9 +881,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                           remote={remote}
                           pageSize={10}
                           search={false}
-                          enableRowSelection={false}
                           title=""
-                          selectionMode={selectionMode}
                           tableBody={style.tableBody}
                           tableHeader={style.tableHeader}
                         />
@@ -922,10 +918,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       />
 
                       <Mutation mutation={UPDATE_TREATMENT_MUTATION} onCompleted={handleMtUpdateTreatmentVulnRes}>
-                        { (updateTreatmentVuln: MutationFn<IUpdateVulnTreatment, {
-                         data: {btsUrl: string; findingId: string; treatment: string; treatmentJustification: string;
-                                treatmentManager: string; vulnerabilities: string[]; };
-                         findingId: string; }>,
+                        { (updateTreatmentVuln: MutationFn<IUpdateVulnTreatment, IUpdateTreatmentVulnAttr>,
                            mutationResVuln: MutationResult): React.ReactNode => {
                             if (mutationResVuln.loading) {showPreloader(); }
                             if (!_.isUndefined(mutationResVuln.error)) {
@@ -939,22 +932,21 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
 
                             const handleUpdateTreatmentVuln: ((dataTreatment: IDescriptionViewProps["dataset"])
                               => void) = (dataTreatment: IDescriptionViewProps["dataset"]): void => {
-                              const selectedQry: Array<NodeListOf<Element>> = getSelectQryTable().selectedQeryArray;
-                              if (selectedQry.length === 0) {
-                                  msgError(translate.t("search_findings.tab_resources.no_selection"));
+                                if (vulnsSelected.length === 0) {
+                                    msgError(translate.t("search_findings.tab_resources.no_selection"));
                                 } else {
-
-                                    updateTreatmentVuln({variables: { data: {btsUrl: dataTreatment.btsUrl,
-                                                                             findingId: data.finding.id,
-                                                                             treatment: dataTreatment.treatment,
-                                                                             treatmentJustification:
-                                                                             dataTreatment.treatmentJustification,
-                                                                             treatmentManager:
-                                                                             dataTreatment.treatmentManager,
-                                                                             vulnerabilities: vulnsSelected },
-                                                                      findingId: data.finding.id}})
-                                    .catch();
-                                  }
+                                  updateTreatmentVuln({variables: {
+                                    acceptanceDate: dataTreatment.acceptanceDate,
+                                    btsUrl: dataTreatment.btsUrl,
+                                    findingId: data.finding.id,
+                                    treatment: dataTreatment.treatment,
+                                    treatmentJustification: !_.isUndefined(dataTreatment.treatmentJustification) ?
+                                    dataTreatment.treatmentJustification : "",
+                                    treatmentManager: dataTreatment.treatmentManager,
+                                    vulnerabilities: vulnsSelected,
+                                  }})
+                                  .catch();
+                                }
                             };
                             const handleEditTreatment: (() => void) = (): void => {
                               store.dispatch(submit("editTreatmentVulnerability"));
@@ -968,9 +960,22 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                             return (
                               <Modal
                                 open={modalHidden}
-                                footer={undefined}
+                                footer={
+                                  <ButtonToolbar className="pull-right">
+                                    <Button onClick={handleCloseTableSetClick}>
+                                      {translate.t("project.findings.report.modal_close")}
+                                    </Button>
+                                    <Button
+                                      bsStyle="primary"
+                                      onClick={handleEditTreatment}
+                                    >
+                                      {translate.t("confirmmodal.proceed")}
+                                    </Button>
+                                  </ButtonToolbar>
+                                }
                                 headerTitle={translate.t("search_findings.tab_description.editVuln")}
                               >
+                              {modalHidden ?
                               <GenericForm
                                 name="editTreatmentVulnerability"
                                 onSubmit={handleUpdateTreatment}
@@ -982,26 +987,13 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                                 {!_.isUndefined(props.descriptParam) ?
                                 TreatmentFieldsView(props.descriptParam)
                                 : undefined}
-                                  <ButtonToolbar className="pull-right">
-                                    <Button
-                                      bsStyle="primary"
-                                      onClick={handleEditTreatment}
-                                    >
-                                      {translate.t("confirmmodal.proceed")}
-                                    </Button>
-                                    <Button onClick={handleCloseTableSetClick}>
-                                      {translate.t("project.findings.report.modal_close")}
-                                    </Button>
-                                  </ButtonToolbar>
                               </GenericForm>
+                              : undefined}
                               </Modal>
                             );
                         }}
                       </Mutation>
-                      {props.editMode && _.includes(["customer"], props.userRole)
-                        ? renderButtonUpdateVuln()
-                        : undefined
-                      }
+                      {isEditable ? renderButtonUpdateVuln() : undefined}
                       {props.editMode && _.includes(["admin", "analyst"], props.userRole)
                         ? renderButtonBar(props)
                         : undefined

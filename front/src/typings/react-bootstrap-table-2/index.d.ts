@@ -175,7 +175,14 @@ type Overlay = TODO
 
 // SELECT AND EXPAND
 
-interface SelectRowOptions { mode: 'checkbox', clickToSelect: boolean }
+interface SelectRowOptions { 
+    mode: 'checkbox',
+    clickToSelect: boolean,
+    hideSelectColumn?: boolean,
+    onSelect?: (row: any, isSelect: boolean) => void,
+    onSelectAll?: (isSelect: boolean, rows: any) => void,
+}
+
 interface ExpandRowOptions { renderer: (row: any) => JSX.Element, showExpandColumn?: boolean }
 
 

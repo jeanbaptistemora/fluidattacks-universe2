@@ -30,7 +30,6 @@ describe("Data table next", () => {
       <DataTableNext
         id="testTable"
         bordered={false}
-        enableRowSelection={false}
         dataset={data}
         exportCsv={false}
         remote={remote}
@@ -73,7 +72,6 @@ describe("Data table next", () => {
       <DataTableNext
         id="testTable"
         bordered={false}
-        enableRowSelection={false}
         dataset={data}
         exportCsv={false}
         remote={remote}
@@ -121,7 +119,6 @@ describe("Data table next", () => {
       <DataTableNext
         id="testTable"
         bordered={false}
-        enableRowSelection={false}
         dataset={data}
         exportCsv={false}
         remote={remote}
@@ -164,7 +161,6 @@ describe("Data table next", () => {
       <DataTableNext
         id="testTable"
         bordered={false}
-        enableRowSelection={false}
         dataset={data}
         exportCsv={false}
         remote={remote}

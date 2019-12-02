@@ -8,7 +8,6 @@ export interface ITableProps {
   bodyContainer?: string;
   bordered: boolean;
   dataset: any[];
-  enableRowSelection: boolean;
   exportCsv: boolean;
   headerContainer?: string;
   headers: IHeader[];

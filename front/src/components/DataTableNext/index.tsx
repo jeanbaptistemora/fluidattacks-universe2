@@ -137,7 +137,6 @@ export const dataTableNext: React.FunctionComponent<ITableProps> = (props: ITabl
 
 dataTableNext.defaultProps = {
   bodyContainer: undefined,
-  enableRowSelection: false,
   exportCsv: false,
   headerContainer: undefined,
   headers: [],

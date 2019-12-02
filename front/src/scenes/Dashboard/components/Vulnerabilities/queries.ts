@@ -35,6 +35,7 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
     currentState
     id
     findingId
+    acceptanceDate
     treatment
     treatmentManager
     treatmentJustification
@@ -45,11 +46,17 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
   `;
 
 export const UPDATE_TREATMENT_MUTATION: DocumentNode = gql`
-  mutation UpdateTreatmentMutation( $data: GenericScalar!, $findingId: String! ) {
+  mutation UpdateTreatmentMutation($acceptanceDate: String, $btsUrl: String, $findingId: String!, $treatment: String!,
+    $treatmentManager: String, $treatmentJustification: String!, $vulnerabilities: [String]! ) {
     updateTreatmentVuln (
-      data: $data,
-      findingId: $findingId
-    ){
+      acceptanceDate: $acceptanceDate,
+      btsUrl: $btsUrl,
+      findingId: $findingId,
+      treatment: $treatment,
+      treatmentManager: $treatmentManager,
+      treatmentJustification: $treatmentJustification,
+      vulnerabilities: $vulnerabilities
+    ) {
       success
     }
   }
