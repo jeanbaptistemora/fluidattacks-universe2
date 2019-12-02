@@ -70,7 +70,8 @@ def _send_mail(template_name, email_to, context, tags):
     project = context.get('project', '').lower()
     test_proj_list = FI_TEST_PROJECTS.split(',')
     sqs = boto3.client('sqs', aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
-                       aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY)
+                       aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
+                       region_name='us-east-1')
     no_test_context = _remove_test_projects(context, test_proj_list)
     new_context = _escape_context(no_test_context)
     email_to = FI_MAIL_REVIEWERS.split(',')
