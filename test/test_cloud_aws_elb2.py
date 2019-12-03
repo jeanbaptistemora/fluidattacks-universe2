@@ -36,10 +36,26 @@ def test_has_not_deletion_protection_open():
         AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_has_access_logging_disabled_open():
+    """Test elb2.has_access_logging_disabled."""
+    assert elb2.has_access_logging_disabled(
+        AWS_ACCESS_KEY_ID,
+        AWS_SECRET_ACCESS_KEY).is_open()
+
+
 def test_has_not_deletion_protection_unknown():
     """Test elb2.has_not_deletion_protection."""
     with no_connection():
         assert elb2.has_not_deletion_protection(
+            AWS_ACCESS_KEY_ID,
+            AWS_SECRET_ACCESS_KEY_BAD,
+            retry=False).is_unknown()
+
+
+def test_has_access_logging_disabled_unknown():
+    """Test elb2.has_access_logging_disabled."""
+    with no_connection():
+        assert elb2.has_access_logging_disabled(
             AWS_ACCESS_KEY_ID,
             AWS_SECRET_ACCESS_KEY_BAD,
             retry=False).is_unknown()

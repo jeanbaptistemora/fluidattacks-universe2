@@ -621,6 +621,7 @@ def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
             ec2.vpcs_without_flowlog('{key}', '{secret}')
             """,
         ('elb2', 'Elastic Load Balancer version 2'): """
+            elb2.has_access_logging_disabled('{key}', '{secret}')
             elb2.has_not_deletion_protection('{key}', '{secret}')
             """,
         ('generic', 'Generic'): """
