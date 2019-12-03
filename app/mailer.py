@@ -97,11 +97,12 @@ def _send_mail(template_name, email_to, context, tags):
                 'message': message,
                 'api_key': API_KEY
             }
+            dedup_id = project if project else 'newuser'
             sqs.send_message(
                 QueueUrl=QUEUE_URL,
                 MessageBody=json.dumps(sqs_message),
                 MessageGroupId=template_name,
-                MessageDeduplicationId=project
+                MessageDeduplicationId=dedup_id
             )
         except (botocore.vendored.requests.exceptions.ConnectionError,
                 botocore.exceptions.ClientError) as exc:
