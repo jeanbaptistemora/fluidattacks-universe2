@@ -262,20 +262,6 @@ vault_backup:
   <<: *only_schedules
   <<: *except_analytics
 
-formstack_backup:
-  tags: [autoscaling-large]
-  stage: backup
-  <<: *vault_login
-  script:
-    - pip3 install boto3
-    - export FORMSTACK_EMAIL="$(vault read -field=formstack_email
-        secret/serves)"
-    - export FORMSTACK_PASS="$(vault read -field=formstack_pass
-        secret/serves)"
-    - ./infrastructure/fs_backup.py
-  <<: *only_schedules
-  <<: *except_analytics
-
 sync_formstack:
   tags: [autoscaling]
   stage: analytics
