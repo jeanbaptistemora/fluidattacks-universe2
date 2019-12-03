@@ -15,6 +15,52 @@ from fluidasserts.utils.decorators import api, unknown_if
 
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
+def has_access_logging_disabled(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if ``LoadBalancers`` have **access_logs.s3.enabled** set to **true**.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if *access_logs.s3.enabled** attribute in the
+                **LoadBalancerAttributes** section is not set or **false**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::ElasticLoadBalancingV2::LoadBalancer',
+            ],
+            exclude=exclude):
+        for attribute in res_props.get('LoadBalancerAttributes', [{
+                'Key': 'access_logs.s3.enabled',
+                'Value': 'false'}]):
+            key = attribute.get('Key', 'default')
+            if key == 'access_logs.s3.enabled':
+                access_logs = attribute.get('Value', 'false')
+
+        if access_logs == 'false':
+            vulnerabilities.append(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=(f'AWS::ElasticLoadBalancingV2::LoadBalancer'
+                            f'/LoadBalancerAttributes',
+                            f'/access_logs.s3.enabled',
+                            f'/{access_logs}'),
+                    identifier=res_name,
+                    reason='has access logging disabled'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='Elastic Load Balancers have access logging disabled',
+        msg_closed='Elastic Load Balancers have have access logging enabled')
+
+
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
 def has_not_deletion_protection(
         path: str, exclude: Optional[List[str]] = None) -> tuple:
     """

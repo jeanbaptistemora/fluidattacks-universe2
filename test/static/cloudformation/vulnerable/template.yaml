@@ -97,6 +97,8 @@ Resources:
       LoadBalancerAttributes:
         - Key: deletion_protection.enabled
           Value: 'false'
+        - Key: access_logs.s3.enabled
+          Value: 'false'
       SubnetMappings:
         - AllocationId: mock
           SubnetId: mock

@@ -356,6 +356,10 @@ elb2_entity = troposphere.elasticloadbalancingv2.LoadBalancer(
             Key='deletion_protection.enabled',
             Value='true',
         ),
+        troposphere.elasticloadbalancingv2.LoadBalancerAttributes(
+            Key='access_logs.s3.enabled',
+            Value='true',
+        ),
     ],
     SubnetMappings=[
         troposphere.elasticloadbalancingv2.SubnetMapping(
@@ -808,6 +812,10 @@ elb2_entity = troposphere.elasticloadbalancingv2.LoadBalancer(
     LoadBalancerAttributes=[
         troposphere.elasticloadbalancingv2.LoadBalancerAttributes(
             Key='deletion_protection.enabled',
+            Value='false',
+        ),
+        troposphere.elasticloadbalancingv2.LoadBalancerAttributes(
+            Key='access_logs.s3.enabled',
             Value='false',
         ),
     ],
