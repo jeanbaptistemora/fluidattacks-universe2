@@ -620,6 +620,9 @@ def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
             ec2.seggroup_allows_anyone_to_admin_ports('{key}', '{secret}')
             ec2.vpcs_without_flowlog('{key}', '{secret}')
             """,
+        ('elb2', 'Elastic Load Balancer version 2'): """
+            elb2.has_not_deletion_protection('{key}', '{secret}')
+            """,
         ('generic', 'Generic'): """
             generic.are_valid_credentials('{key}', '{secret}')
             """,
