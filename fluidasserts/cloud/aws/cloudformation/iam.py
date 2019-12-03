@@ -8,6 +8,7 @@ stelligent/cfn_nag/master/LICENSE.md>`_
 # Standard imports
 import re
 from typing import Any, List, Optional, Pattern
+from contextlib import suppress
 
 # Local imports
 from fluidasserts import SAST, MEDIUM
@@ -15,6 +16,7 @@ from fluidasserts.helper import aws as helper
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
     _get_result_as_tuple,
+    services
 )
 from fluidasserts.utils.decorators import api, unknown_if
 
@@ -22,6 +24,58 @@ from fluidasserts.utils.decorators import api, unknown_if
 def _force_list(obj: Any) -> List[Any]:
     """Wrap the element in a list, or if list, leave it intact."""
     return obj if isinstance(obj, list) else [obj]
+
+
+def _policy_actions_has_privilege(action, privilege) -> bool:
+    """Check if an action have a privilege."""
+    write_actions: dict = services.ACTIONS
+    susses = False
+    with suppress(KeyError):
+        if action == '*':
+            susses = True
+        else:
+            actions = []
+            for act in _force_list(action):
+                serv, act = act.split(':')
+                if act.startswith('*'):
+                    actions.append(True)
+                else:
+                    act = act[:act.index('*')] if act.endswith('*') else act
+                    actions.append(
+                        act in write_actions.get(serv, {})[privilege])
+            susses = any(actions)
+    return susses
+
+
+def _resource_all(resource):
+    susses = False
+    if isinstance(resource, list):
+        aux = []
+        for i in resource:
+            aux.append(_resource_all(i))
+        susses = any(aux)
+    elif isinstance(resource, str):
+        susses = resource == '*'
+    else:
+        susses = any([_resource_all(i) for i in dict(resource).values()])
+
+    return susses
+
+
+def _policy_statement_privilege(statement, effect: str, action: str):
+    """
+    Check if a statement of a policy allow an action in all resources.
+
+    :param statemet: policy statement.
+    :param effect: (Allow | Deny)
+    :param action: (read | list | write | tagging | permissions_management)
+    """
+    writes = []
+    for sts in _force_list(statement):
+        if sts['Effect'] == effect and 'Resource' in sts and _resource_all(
+                sts['Resource']):
+            writes.append(_policy_actions_has_privilege(sts['Action'], action))
+    return any(writes)
 
 
 @api(risk=MEDIUM, kind=SAST)  # noqa: MC0001

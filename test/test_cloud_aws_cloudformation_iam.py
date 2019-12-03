@@ -44,3 +44,25 @@ def test_missing_role_based_security():
     assert result.get_vulns_number() == 2 * 1
     assert iam.missing_role_based_security(SAFE).is_closed()
     assert iam.missing_role_based_security(NOT_EXISTS).is_unknown()
+
+
+def test_policy_statement_privilege():
+    """test iam._policy_statements_privilege."""
+    assert not iam._policy_statement_privilege(
+        {
+            'Effect': 'Allow',
+            'Action': ['rds:DescribeAccountAttributes'],
+            'Resource': '*'
+        }, 'Allow', 'write')
+    assert not iam._policy_statement_privilege(
+        {
+            'Effect': 'Allow',
+            'Action': ['rds:DescribeAccountAttributes*'],
+            'Resource': '*'
+        }, 'Allow', 'write')
+    assert iam._policy_statement_privilege(
+        {
+            'Effect': 'Allow',
+            'Action': ['rds:*AccountAttributes'],
+            'Resource': '*'
+        }, 'Allow', 'write')
