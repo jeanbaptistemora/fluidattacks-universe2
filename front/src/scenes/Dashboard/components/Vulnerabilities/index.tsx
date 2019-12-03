@@ -50,7 +50,9 @@ interface ICategoryVulnType {
   acceptanceDate: string;
   externalBts: string;
   id: string;
+  severity: string;
   specific: string;
+  tag: string;
   treatment: string;
   treatmentJustification: string;
   treatmentManager: string;
@@ -61,6 +63,8 @@ interface IVunlDataType {
   treatments: {
     acceptanceDate: string;
     btsUrl: string;
+    severity: string;
+    tag: string;
     treatment: string;
     treatmentJustification: string;
     treatmentManager: string;
@@ -151,8 +155,10 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
         isNew: line[0].isNew,
         lastAnalyst: "",
         lastApprovedStatus: line[0].lastApprovedStatus,
+        severity: "",
         specific: line[0].vulnType === "inputs" ? line.map(getSpecific)
           .join(", ") : groupValues(line.map(specificToNumber)),
+        tag: "",
         treatment: line[0].treatment,
         treatmentJustification: line[0].treatmentJustification,
         treatmentManager: line[0].treatmentManager,
@@ -177,7 +183,9 @@ const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType)
         translate.t("search_findings.tab_description.old"),
         lastAnalyst: "",
         lastApprovedStatus: line.lastApprovedStatus,
+        severity: line.severity,
         specific: line.specific,
+        tag: line.tag,
         treatment: line.treatment,
         treatmentJustification: line.treatmentJustification,
         treatmentManager: line.treatmentManager,
@@ -202,7 +210,9 @@ const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnTyp
         acceptanceDate: string;
         externalBts: string;
         id: string;
+        severity: string;
         specific: string;
+        tag: string;
         treatment: string;
         treatmentJustification: string;
         treatmentManager: string;
@@ -214,6 +224,8 @@ const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnTyp
           treatments: {
             acceptanceDate: vuln.acceptanceDate,
             btsUrl: vuln.externalBts,
+            severity: vuln.severity,
+            tag: vuln.tag,
             treatment: vuln.treatment,
             treatmentJustification: vuln.treatmentJustification,
             treatmentManager: vuln.treatmentManager,
@@ -939,9 +951,10 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                                     acceptanceDate: dataTreatment.acceptanceDate,
                                     btsUrl: dataTreatment.btsUrl,
                                     findingId: data.finding.id,
+                                    severity: dataTreatment.severity,
+                                    tag: dataTreatment.tag,
                                     treatment: dataTreatment.treatment,
-                                    treatmentJustification: !_.isUndefined(dataTreatment.treatmentJustification) ?
-                                    dataTreatment.treatmentJustification : "",
+                                    treatmentJustification: dataTreatment.treatmentJustification,
                                     treatmentManager: dataTreatment.treatmentManager,
                                     vulnerabilities: vulnsSelected,
                                   }})

@@ -48,8 +48,10 @@ export interface IDescriptionViewProps {
     requirements: string;
     risk: string;
     scenario: string;
+    severity?: string;
     state: string;
     subscription: string;
+    tag?: string;
     threat: string;
     title: string;
     treatment: string;
