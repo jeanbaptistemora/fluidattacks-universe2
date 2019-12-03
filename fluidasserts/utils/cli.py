@@ -642,6 +642,14 @@ def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
             """,
         ('rds', 'RDS'): """
             rds.has_public_instances('{key}', '{secret}')
+            rds.is_cluster_not_inside_a_database_subnet_group(
+                '{key}', '{secret}')
+            rds.is_instance_not_inside_a_database_subnet_group(
+                '{key}', '{secret}')
+            rds.has_encryption_disabled('{key}', '{secret}')
+            rds.has_public_snapshots('{key}', '{secret}')
+            rds.not_uses_iam_authentication('{key}', '{secret}')
+            rds.unrestricted_db_security_groups('{key}', '{secret}')
             """,
         ('redshift', 'RedShift'): """
             redshift.has_public_clusters('{key}', '{secret}')

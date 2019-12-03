@@ -84,3 +84,29 @@ def test_instance_public_close():
     with no_connection():
         assert not rds.has_public_instances(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False)
+
+
+def test_is_instance_not_inside_a_database_subnet_group_closed():
+    """Test rds.is_instance_not_inside_a_database_subnet_group."""
+    assert rds.is_instance_not_inside_a_database_subnet_group(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_closed()
+
+
+def test_is_cluster_not_inside_a_database_subnet_group_closed():
+    """Test rds.is_cluster_not_inside_a_database_subnet_group."""
+    assert rds.is_cluster_not_inside_a_database_subnet_group(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_closed()
+
+
+def test_is_instance_not_inside_a_database_subnet_group_unknown():
+    """Test rds.is_instance_not_inside_a_database_subnet_group."""
+    with no_connection():
+        assert rds.is_instance_not_inside_a_database_subnet_group(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False).is_unknown()
+
+
+def test_is_cluster_not_inside_a_database_subnet_group_unknown():
+    """Test rds.is_cluster_not_inside_a_database_subnet_group."""
+    with no_connection():
+        assert rds.is_cluster_not_inside_a_database_subnet_group(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False).is_unknown()

@@ -48,6 +48,76 @@ def has_public_instances(key_id: str, secret: str,
         vulns=vulns, safes=safes)
 
 
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def is_cluster_not_inside_a_database_subnet_group(key_id: str, secret: str,
+                                                  retry: bool = True) -> tuple:
+    """
+    Check if Database clusters are inside a DB Subnet Group.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    clusters = aws.run_boto3_func(key_id=key_id,
+                                  secret=secret,
+                                  service='rds',
+                                  func='describe_db_clusters',
+                                  param='DBClusters',
+                                  retry=retry)
+
+    msg_open: str = 'RDS clusters are not inside a database subnet group'
+    msg_closed: str = 'RDS clusters are inside a database subnet group'
+
+    vulns, safes = [], []
+
+    if clusters:
+        for cluster in clusters:
+            cluster_arn = cluster['DBClusterArn']
+            (vulns if 'DBSubnetGroup' not in cluster else safes).append(
+                (cluster_arn, 'must be inside a database subnet group'))
+
+    return _get_result_as_tuple(
+        service='RDS', objects='clusters',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def is_instance_not_inside_a_database_subnet_group(key_id: str, secret: str,
+                                                   retry: bool = True
+                                                   ) -> tuple:
+    """
+    Check if Database Instances are inside a DB Subnet Group.
+
+    :param key_id: AWS Key Id
+    :param secret: AWS Key Secret
+    """
+    instances = aws.run_boto3_func(key_id=key_id,
+                                   secret=secret,
+                                   service='rds',
+                                   func='describe_db_instances',
+                                   param='DBInstances',
+                                   retry=retry)
+
+    msg_open: str = 'RDS instances are not inside a database subnet group'
+    msg_closed: str = 'RDS instances are inside a database subnet group'
+
+    vulns, safes = [], []
+
+    if instances:
+        for instance in instances:
+            instance_arn = instance['DBInstanceArn']
+
+            (vulns if 'DBSubnetGroup' not in instance else safes).append(
+                (instance_arn, 'must be inside a database subnet group'))
+
+    return _get_result_as_tuple(
+        service='RDS', objects='instances',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)
+
+
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def has_encryption_disabled(key_id: str, secret: str,
