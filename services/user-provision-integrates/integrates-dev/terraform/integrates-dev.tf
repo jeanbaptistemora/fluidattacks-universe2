@@ -1,6 +1,14 @@
 data "aws_iam_policy_document" "integrates-dev-policy-data" {
   statement {
     effect  = "Allow"
+    actions = ["kms:CreateKey"]
+    resources = [
+      "*"
+    ]
+  }
+
+  statement {
+    effect  = "Allow"
     actions = ["kms:*"]
     resources = [
       "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/integrates-dev-*"
