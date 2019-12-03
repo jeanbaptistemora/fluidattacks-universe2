@@ -1,7 +1,12 @@
 data "aws_iam_policy_document" "integrates-dev-policy-data" {
   statement {
-    effect  = "Allow"
-    actions = ["kms:CreateKey"]
+    effect = "Allow"
+    actions = [
+      "kms:CreateKey",
+      "kms:ListAliases",
+      "kms:CreateAlias",
+      "kms:UpdateAlias"
+    ]
     resources = [
       "*"
     ]
