@@ -75,3 +75,12 @@ def test_has_wildcard_resource_on_write_action():
     assert result.get_vulns_number() == 2 * 2
     assert iam.has_wildcard_resource_on_write_action(NOT_EXISTS).is_unknown()
     assert iam.has_wildcard_resource_on_write_action(SAFE).is_closed()
+
+
+def test_has_privileges_over_iam():
+    """test iam.has_wildcard_resource_on_write_action."""
+    result = iam.has_privileges_over_iam(VULN)
+    assert result.is_open()
+    assert result.get_vulns_number() == 2 * 1
+    assert iam.has_privileges_over_iam(NOT_EXISTS).is_unknown()
+    assert iam.has_privileges_over_iam(SAFE).is_closed()

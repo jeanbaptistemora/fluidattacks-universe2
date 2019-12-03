@@ -511,6 +511,11 @@ role = troposphere.iam.Role(
                     },
                     {
                         'Effect': 'Allow',
+                        'Action': 'iam:ListUsers',
+                        'Resource': '*',
+                    },
+                    {
+                        'Effect': 'Allow',
                         'Action': 'ecr:*',
                         'Resource': '*',
                     },

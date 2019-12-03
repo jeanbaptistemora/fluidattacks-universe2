@@ -352,6 +352,11 @@
                   ]
                 },
                 {
+                  "Action": "iam:ListUsers",
+                  "Effect": "Allow",
+                  "Resource": "*"
+                },
+                {
                   "Action": "ecr:*",
                   "Effect": "Allow",
                   "Resource": "*"

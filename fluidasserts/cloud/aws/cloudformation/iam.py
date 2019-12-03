@@ -78,6 +78,27 @@ def _policy_statement_privilege(statement, effect: str, action: str):
     return any(writes)
 
 
+def _service_is_present_action(action: str, service: str) -> bool:
+    """Check if a service is present in an action."""
+    susses = False
+    with suppress(KeyError):
+        if isinstance(action, list):
+            susses = service in [act.split(':')[0] for act in action]
+        elif action == '*':
+            susses = True
+        else:
+            susses = action.split(':')[0] == service
+    return susses
+
+
+def _service_is_present_statement(statement: str, effect: str):
+    return any([
+        sts['Effect'] == effect
+        and _service_is_present_action(sts['Action'], 'iam')
+        if 'Action' in sts else False for sts in statement
+    ])
+
+
 @api(risk=MEDIUM, kind=SAST)  # noqa: MC0001
 @unknown_if(FileNotFoundError)
 def is_role_over_privileged(
@@ -455,3 +476,63 @@ def has_wildcard_resource_on_write_action(
         vulnerabilities=vulnerabilities,
         msg_open='Write actions are allowed for all resources.',
         msg_closed='Write actions are not allowed for all resources.')
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_privileges_over_iam(path: str,
+                            exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if a policy documents has privileges over iam.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if any policy documents has privileges over iam.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::IAM::Role',
+                'AWS::IAM::ManagedPolicy',
+            ],
+            exclude=exclude):
+        type_ = res_props['../Type']
+        vulnerable_entities: List[str] = []
+        if res_props.get('PolicyDocument', []):
+            policy = res_props['PolicyDocument']
+            if _service_is_present_statement(policy['Statement'], 'Allow'):
+                type_name = res_props['../Type'].split('::')[-1]
+                try:
+                    name = res_props[f'{type_name}Name']
+                    entity = name if isinstance(name, str) else res_name
+                except KeyError:
+                    entity = res_name
+                reason = 'has privileges over iam.'
+                vulnerable_entities.append((entity, reason))
+
+        if res_props.get('Policies', []):
+            for policy in res_props['Policies']:
+                with suppress(KeyError):
+                    if _service_is_present_statement(
+                            policy['PolicyDocument']['Statement'], 'Allow'):
+                        name = policy['PolicyName']
+                        entity = name if isinstance(name, str) else res_name
+                        reason = 'has privileges over iam.'
+                        vulnerable_entities.append((entity, reason))
+
+        if vulnerable_entities:
+            vulnerabilities.extend(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=f'{type_}/{entity}',
+                    identifier=res_name,
+                    reason=reason) for entity, reason in vulnerable_entities)
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='Policies have privileges over iam.',
+        msg_closed='Policies have no privileges over iam.')
