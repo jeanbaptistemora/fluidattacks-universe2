@@ -193,6 +193,18 @@ Resources:
             NotAction: []
           - Effect: Allow
             NotPrincipal: []
+          - Action:
+              - rds:StopDBCluster
+            Effect: Allow
+            Resource: '*'
+          - Action:
+              - ec2:*KeyPair
+            Effect: Allow
+            Resource: '*'
+          - Action:
+              - ec2:*
+            Effect: Allow
+            Resource: '*'
         Version: '2012-10-17'
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AdministratorAccess

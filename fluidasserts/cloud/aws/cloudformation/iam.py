@@ -389,3 +389,69 @@ def missing_role_based_security(
         vulnerabilities=vulnerabilities,
         msg_open='IAM User is not assigned permissions through a role',
         msg_closed='IAM User is assigned permissions through a role')
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_wildcard_resource_on_write_action(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if write actions are allowed on all resources.
+
+    Do not allow ``"Resource": "*"`` to have write actions.
+
+    :param path: Location of CloudFormation's template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+
+    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+            starting_path=path,
+            resource_types=[
+                'AWS::IAM::Role',
+                'AWS::IAM::ManagedPolicy',
+            ],
+            exclude=exclude):
+        vulnerable_entities: List[str] = []
+        type_ = res_props['../Type']
+
+        if res_props.get('PolicyDocument', []):
+            policy = res_props['PolicyDocument']
+            if _policy_statement_privilege(policy['Statement'], 'Allow',
+                                           'write'):
+                type_name = res_props['../Type'].split('::')[-1]
+                try:
+                    name = res_props[f'{type_name}Name']
+                    entity = name if isinstance(name, str) else res_name
+                except KeyError:
+                    entity = res_name
+                reason = 'allows write actions on a wildcard resource.'
+                vulnerable_entities.append((entity, reason))
+
+        if res_props.get('Policies', []):
+            for policy in res_props['Policies']:
+                with suppress(KeyError):
+                    if _policy_statement_privilege(
+                            policy['PolicyDocument']['Statement'], 'Allow',
+                            'write'):
+                        name = policy['PolicyName']
+                        entity = name if isinstance(name, str) else res_name
+                        reason = 'allows write actions on a wildcard resource.'
+                        vulnerable_entities.append((entity, reason))
+
+        if vulnerable_entities:
+            vulnerabilities.extend(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=f'{type_}/{entity}',
+                    identifier=res_name,
+                    reason=reason) for entity, reason in vulnerable_entities)
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='Write actions are allowed for all resources.',
+        msg_closed='Write actions are not allowed for all resources.')

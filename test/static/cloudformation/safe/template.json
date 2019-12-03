@@ -263,6 +263,33 @@
               "Resource": [
                 "*"
               ]
+            },
+            {
+              "Action": [
+                "rds:DeleteDBCluster"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                "arn:aws:rds:*:*:db/*"
+              ]
+            },
+            {
+              "Action": [
+                "rds:*"
+              ],
+              "Effect": "Deny",
+              "Resource": [
+                "*"
+              ]
+            },
+            {
+              "Action": [
+                "rds:DescribeAccountAttributes*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                "*"
+              ]
             }
           ],
           "Version": "2012-10-17"

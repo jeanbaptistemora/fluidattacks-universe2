@@ -14,7 +14,7 @@ def test_is_role_over_privileged():
     """test iam.is_role_over_privileged."""
     result = iam.is_role_over_privileged(VULN)
     assert result.is_open()
-    assert result.get_vulns_number() == 2 * 8
+    assert result.get_vulns_number() == 2 * 9
     assert iam.is_role_over_privileged(SAFE).is_closed()
     assert iam.is_role_over_privileged(NOT_EXISTS).is_unknown()
 
@@ -66,3 +66,12 @@ def test_policy_statement_privilege():
             'Action': ['rds:*AccountAttributes'],
             'Resource': '*'
         }, 'Allow', 'write')
+
+
+def test_has_wildcard_resource_on_write_action():
+    """test iam.has_wildcard_resource_on_write_action."""
+    result = iam.has_wildcard_resource_on_write_action(VULN)
+    assert result.is_open()
+    assert result.get_vulns_number() == 2 * 2
+    assert iam.has_wildcard_resource_on_write_action(NOT_EXISTS).is_unknown()
+    assert iam.has_wildcard_resource_on_write_action(SAFE).is_closed()

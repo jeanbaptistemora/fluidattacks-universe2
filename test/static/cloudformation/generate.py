@@ -71,6 +71,33 @@ role = troposphere.iam.Role(
             #   permissions
             # F6: IAM role should not allow Allow+NotPrincipal in its trust
             #   policy
+            {
+                'Effect': 'Allow',
+                'Action': [
+                    'rds:DeleteDBCluster',
+                ],
+                'Resource': [
+                    'arn:aws:rds:*:*:db/*',
+                ],
+            },
+            {
+                'Effect': 'Deny',
+                'Action': [
+                    'rds:*',
+                ],
+                'Resource': [
+                    '*',
+                ],
+            },
+            {
+                'Effect': 'Allow',
+                'Action': [
+                    'rds:DescribeAccountAttributes*',
+                ],
+                'Resource': [
+                    '*',
+                ],
+            },
         ],
     },
     ManagedPolicyArns=[
@@ -286,10 +313,9 @@ dynamodb_table = troposphere.dynamodb.Table(
         ),
     ],
     BillingMode='PAY_PER_REQUEST',
-    PointInTimeRecoverySpecification=\
-        troposphere.dynamodb.PointInTimeRecoverySpecification(
-            title='pointInTimeRecoverySpecification1',
-            PointInTimeRecoveryEnabled=True,
+    PointInTimeRecoverySpecification=troposphere.dynamodb.PointInTimeRecoverySpecification(
+        title='pointInTimeRecoverySpecification1',
+        PointInTimeRecoveryEnabled=True,
         ),
 )
 fsx_filesystem = troposphere.fsx.FileSystem(
@@ -433,6 +459,27 @@ role = troposphere.iam.Role(
                 'Effect': 'Allow',
                 'NotPrincipal': [
                 ],
+            },
+            {
+                'Effect': 'Allow',
+                'Action': [
+                    'rds:StopDBCluster',
+                ],
+                'Resource': '*',
+            },
+            {
+                'Effect': 'Allow',
+                'Action': [
+                    'ec2:*KeyPair',
+                ],
+                'Resource': '*',
+            },
+            {
+                'Effect': 'Allow',
+                'Action': [
+                    'ec2:*',
+                ],
+                'Resource': '*',
             },
         ],
     },
@@ -727,10 +774,9 @@ dynamodb_table = troposphere.dynamodb.Table(
         ),
     ],
     BillingMode='PAY_PER_REQUEST',
-    PointInTimeRecoverySpecification=\
-        troposphere.dynamodb.PointInTimeRecoverySpecification(
-            title='pointInTimeRecoverySpecification1',
-            PointInTimeRecoveryEnabled=False,
+    PointInTimeRecoverySpecification=troposphere.dynamodb.PointInTimeRecoverySpecification(
+        title='pointInTimeRecoverySpecification1',
+        PointInTimeRecoveryEnabled=False,
         ),
 )
 dynamodb_table2 = troposphere.dynamodb.Table(
