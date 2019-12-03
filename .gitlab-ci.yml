@@ -213,15 +213,6 @@ change-keys-aws:
   <<: *except_analytics
   when: always
 
-change-keys-formstack:
-  tags: [autoscaling]
-  stage: rotation
-  script:
-    ./ci-scripts/jobs/change-keys-formstack.sh
-  <<: *only_schedules
-  <<: *except_analytics
-  when: always
-
 change-keys-integrates-jwt:
   tags: [autoscaling]
   stage: rotation
