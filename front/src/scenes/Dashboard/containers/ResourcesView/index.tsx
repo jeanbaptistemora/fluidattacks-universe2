@@ -247,7 +247,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                   <Col md={12} sm={12}>
                     <DataTable
                       dataset={tagsDataset}
-                      enableRowSelection={true}
+                      enableRowSelection={currUserRole === "customer"}
                       exportCsv={false}
                       search={false}
                       headers={[
@@ -267,10 +267,16 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                   <Col md={12}>
                     <br />
                     <Col mdOffset={4} md={2} sm={6}>
-                      <Button id="addTag" block={true} bsStyle="primary" onClick={handleOpenTagsModal}>
+                      {currUserRole === "customer" ?
+                      <Button
+                        id="addTag"
+                        block={true}
+                        bsStyle="primary"
+                        onClick={handleOpenTagsModal}
+                      >
                         <Glyphicon glyph="plus" />&nbsp;
                         {translate.t("search_findings.tab_resources.add_repository")}
-                      </Button>
+                      </Button> : undefined}
                     </Col>
                     <Mutation mutation={REMOVE_TAG_MUTATION} onCompleted={handleMtRemoveTagRes}>
                       { (removeTag: MutationFn<IRemoveTagsAttr, {projectName: string; tagToRemove: string}>,
@@ -307,6 +313,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
 
                           return (
                             <Col md={2} sm={6}>
+                              {currUserRole === "customer" ?
                               <Button
                                 id="removeTag"
                                 block={true}
@@ -315,7 +322,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                               >
                                 <Glyphicon glyph="minus" />&nbsp;
                                 {translate.t("search_findings.tab_resources.remove_repository")}
-                              </Button>
+                              </Button> : undefined}
                             </Col>
                           );
                       }}
@@ -569,8 +576,8 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                           <Col md={12}>
                             <br />
                             <Col mdOffset={4} md={2} sm={6}>
+                              {currUserRole === "customer" ?
                               <Button
-                                disabled={currUserRole === "customer" ? false : true}
                                 id="addRepository"
                                 block={true}
                                 bsStyle="primary"
@@ -578,7 +585,7 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                               >
                                 <Glyphicon glyph="plus"/>&nbsp;
                                 {translate.t("search_findings.tab_resources.add_repository")}
-                              </Button>
+                              </Button> : undefined}
                               </Col>
                           </Col>
                           <Col md={12}>
@@ -816,8 +823,8 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                           <Col md={12}>
                           <br />
                           <Col mdOffset={4} md={2} sm={6}>
+                            {currUserRole === "customer" ?
                             <Button
-                              disabled={currUserRole === "customer" ? false : true}
                               id="addEnvironment"
                               block={true}
                               bsStyle="primary"
@@ -825,7 +832,7 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                             >
                               <Glyphicon glyph="plus"/>&nbsp;
                               {translate.t("search_findings.tab_resources.add_repository")}
-                            </Button>
+                            </Button> : undefined}
                           </Col>
                           </Col>
                           <Col md={12}>
@@ -962,6 +969,7 @@ const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
           <Col md={12}>
             <br />
             <Col mdOffset={5} md={2} sm={6}>
+              {currUserRole === "customer" ?
               <Button
                 id="addFile"
                 block={true}
@@ -970,7 +978,7 @@ const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
               >
                 <Glyphicon glyph="plus"/>&nbsp;
                 {translate.t("search_findings.tab_resources.add_repository")}
-              </Button>
+              </Button> : undefined}
             </Col>
           </Col>
           <Col md={12}>
