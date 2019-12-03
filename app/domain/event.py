@@ -142,12 +142,12 @@ def create_event(analyst_email, project_name, file=None, image=None, **kwargs):
         ],
         'subscription': subscription.upper()
     })
+    del event_attrs['event_date']
     if 'affected_components' in event_attrs:
         event_attrs['affected_components'] = '\n'.join(
             list(set(event_attrs['affected_components'])))
 
-    files = [file, image]
-    if any(files):
+    if any([file, image]):
         if file and image:
             valid = validate_evidence('evidence_file', file) \
                 and validate_evidence('evidence', image)
