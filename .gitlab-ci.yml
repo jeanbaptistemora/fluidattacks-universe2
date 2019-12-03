@@ -262,80 +262,34 @@ vault_backup:
   <<: *only_schedules
   <<: *except_analytics
 
-sync_formstack:
+analytics-sync-formstack:
   tags: [autoscaling]
   stage: analytics
   <<: *vault_login
   script:
-    - mkdir /logs
-    - analytics/set-aws-cli.sh
-    - pip3 install
-        analytics/singer/tap_formstack
-        analytics/singer/target_redshift
-    - echo "$(vault read -field=analytics_auth_formstack secret/serves)" > /tap_secret.json
-    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
-    - tap-formstack --auth /tap_secret.json --conf analytics/conf/formstack.json > .singer
-    - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "formstack"
-    - aws s3 cp /logs s3://fluidanalytics/formstack --recursive
-  after_script:
-    - rm -fr /tap_secret.json /target_secret.json ~/.aws
+    - ./ci-scripts/jobs/analytics-sync-formstack.sh
   <<: *only_schedules
   only:
     variables:
       - $FLAG_SYNC_FORMSTACK
 
-sync_awsdynamodb:
+analytics-sync-dynamodb:
   tags: [autoscaling-large]
   stage: analytics
   <<: *vault_login
   script:
-    - mkdir /logs
-    - pip3 install
-        analytics/singer/tap_awsdynamodb
-        analytics/singer/target_redshift
-    - echo '{ "AWS_ACCESS_KEY_ID":"'$(vault read
-        -field=aws_dynamodb_access_key secret/serves)'",
-              "AWS_SECRET_ACCESS_KEY":"'$(vault read
-        -field=aws_dynamodb_secret_key secret/serves)'",
-              "AWS_DEFAULT_REGION":"'$(vault read
-        -field=aws_dynamodb_default_region secret/serves)'"}' > /tap_secret.json
-    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
-    - tap-awsdynamodb --auth /tap_secret.json --conf analytics/conf/awsdynamodb.json > .singer
-    - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "dynamodb"
-  after_script:
-    - rm -fr /tap_secret.json /target_secret.json
+    - ./ci-scripts/jobs/analytics-sync-dynamodb.sh
   <<: *only_schedules
   only:
     variables:
       - $FLAG_SYNC_AWSDYNAMODB
 
-sync_timedoctor:
+analytics-sync-timedoctor:
   tags: [autoscaling]
   stage: analytics
   <<: *vault_login
   script:
-    - mkdir /logs
-    - pip3 install
-        boto3
-        analytics/singer/tap_timedoctor
-        analytics/singer/target_redshift
-    - echo '{ "AWS_ACCESS_KEY_ID":"'$(vault read
-        -field=aws_s3_access_key secret/serves)'",
-              "AWS_SECRET_ACCESS_KEY":"'$(vault read
-        -field=aws_s3_secret_key secret/serves)'",
-              "AWS_DEFAULT_REGION":"'$(vault read
-        -field=aws_s3_default_region secret/serves)'"}' > /s3_auth.json
-    - echo "$(vault read -field=analytics_s3_cache_timedoctor secret/serves)" > /s3_files.json
-    - echo "$(vault read -field=analytics_auth_timedoctor secret/serves)" > /tap_secret.json
-    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
-    - python3 analytics/download_from_aws_sss.py -auth /s3_auth.json -conf /s3_files.json
-    - cat timedoctor.worklogs.2013-01-01.2018-12-31.singer > timedoctor.singer
-    - cat timedoctor.computer_activity.2018-01-01.2018-12-31.singer >> timedoctor.singer
-    - tap-timedoctor --auth /tap_secret.json >> timedoctor.singer
-    - cat timedoctor.singer |
-        target-redshift --auth /target_secret.json --drop-schema --schema-name "timedoctor"
-  after_script:
-    - rm -fr /s3_auth.json /s3_files.json /tap_secret.json /target_secret.json
+    - ./ci-scripts/jobs/analytics-sync-timedoctor.sh
   <<: *only_schedules
   only:
     variables:
