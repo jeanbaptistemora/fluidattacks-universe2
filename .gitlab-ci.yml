@@ -351,72 +351,32 @@ build_ms_sql_server:
     variables:
       - $FLAG_CONT_MS_SQL_SERVER
 
-sync_ringcentral:
+analytics-sync-ringcentral:
   tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/serves:ms_sql_server
   stage: analytics
-  <<: *vault_login
   script:
-    - pip3 install
-        analytics/singer/streamer_ringcentral
-        analytics/singer/tap_json
-        analytics/singer/target_redshift
-    - echo "$(vault read -field=analytics_auth_ringcentral secret/serves)" > /stream_secret.json
-    - echo "$(vault read -field=analytics_auth_redshift    secret/serves)" > /target_secret.json
-    - streamer-ringcentral --auth /stream_secret.json --sync-user --sync-calls > .jsonstream
-    - cat .jsonstream | tap-json > .singer
-    - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "ringcentral"
-  after_script:
-    - rm -rf /stream_secret.json /target_secret.json
+    - ./ci-scripts/jobs/analytics-sync-ringcentral.sh
   <<: *only_schedules
   only:
     variables:
       - $FLAG_SYNC_RINGCENTRAL
 
-sync_intercom:
+analytics-sync-intercom:
   tags: [autoscaling]
   stage: analytics
-  <<: *vault_login
   script:
-    - pip3 install
-        analytics/singer/streamer_intercom
-        analytics/singer/tap_json
-        analytics/singer/target_redshift
-    - echo "$(vault read -field=analytics_auth_intercom secret/serves)" > /stream_secret.json
-    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
-    - streamer-intercom --auth /stream_secret.json > .jsonstream
-    - cat .jsonstream | tap-json --enable-timestamps > .singer
-    - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "intercom"
-  after_script:
-    - rm -rf /stream_secret.json /target_secret.json
+    - ./ci-scripts/jobs/analytics-sync-intercom.sh
   <<: *only_schedules
   only:
     variables:
       - $FLAG_SYNC_INTERCOM
 
-sync_gitlab:
+analytics-sync-gitlab:
   tags: [autoscaling]
   stage: analytics
-  <<: *vault_login
   script:
-    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
-    - export GITLAB_PASS="$(vault read -field=analytics_gitlab_token secret/serves)"
-    - GITLAB_PROJECTS=(
-        "autonomicmind/default" "autonomicmind/training"
-        "fluidattacks/continuous" "fluidattacks/public"
-        "fluidattacks/serves" "fluidattacks/asserts" "fluidattacks/public"
-        "fluidattacks/integrates" "fluidattacks/web" "fluidattacks/writeups")
-    - for project in ${GITLAB_PROJECTS[*]}; do
-        ./analytics/singer/streamer_gitlab.py "${project}" >> .jsonstream;
-      done
-    - pip3 install
-        analytics/singer/tap_json
-        analytics/singer/target_redshift
-    - cat .jsonstream | tap-json > .singer
-    - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "gitlab-ci"
-  after_script:
-    - unset GITLAB_PASS
-    - rm -rf /target_secret.json
+    - ./ci-scripts/jobs/analytics-sync-gitlab.sh
   <<: *only_schedules
   only:
     variables:
