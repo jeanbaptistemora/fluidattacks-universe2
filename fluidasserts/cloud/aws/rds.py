@@ -326,3 +326,45 @@ def unrestricted_db_security_groups(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_not_deletion_protection(key_id: str, secret: str,
+                                retry: bool = True) -> tuple:
+    """
+    Check if the database instances are not protected against deletion.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are instances no protected.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Instances are not protected against deletion.'
+    msg_closed: str = 'Instances are protected against deletion.'
+
+    vulns, safes = [], []
+
+    instances = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='rds',
+        func='describe_db_instances',
+        param='DBInstances',
+        retry=retry)
+
+    for instance in instances:
+        (vulns if not instance['DeletionProtection'] else safes).append(
+            (instance['DBInstanceArn'],
+             'must enable deletion protection.'))
+    return _get_result_as_tuple(
+        service='RDS',
+        objects='Instances',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

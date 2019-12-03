@@ -70,6 +70,12 @@ def test_unrestricted_db_security_groups_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_has_not_deletion_protection_open():
+    """Search DB instances that do not have enable deletion protection."""
+    assert rds.has_not_deletion_protection(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #
