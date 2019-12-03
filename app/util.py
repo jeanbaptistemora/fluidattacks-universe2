@@ -438,15 +438,15 @@ def update_treatment_values(updated_values):
         if updated_values.get('acceptance_date') == '':
             max_date = date.strftime('%Y-%m-%d %H:%M:%S')
             updated_values['acceptance_date'] = max_date
+        date_size = updated_values['acceptance_date'].split(' ')
+        if len(date_size) == 1:
+            updated_values['acceptance_date'] += ' ' + datetime.now().strftime('%H:%M:%S')
         date_value = updated_values['acceptance_date']
         is_valid_date = is_valid_format(date_value)
         if is_valid_date is False:
             raise InvalidDateFormat()
         if updated_values.get('acceptance_date'):
             today_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            date_size = updated_values['acceptance_date'].split(' ')
-            if len(date_size) == 1:
-                updated_values['acceptance_date'] += ' ' + datetime.now().strftime('%H:%M:%S')
             if updated_values.get('acceptance_date') <= today_date:
                 raise InvalidDate()
             if updated_values.get('acceptance_date') > date.strftime('%Y-%m-%d %H:%M:%S'):
