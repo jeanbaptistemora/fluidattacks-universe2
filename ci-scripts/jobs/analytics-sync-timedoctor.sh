@@ -25,9 +25,12 @@ analytics_sync_timedoctor() {
   echo "$analytics_auth_formstack" > /tap_secret.json
   echo "$analytics_auth_redshift" > /target_secret.json
 
-  tap-formstack --auth /tap_secret.json --conf analytics/conf/formstack.json > .singer
+  tap-formstack \
+    --auth /tap_secret.json --conf analytics/conf/formstack.json > .singer
 
-  cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name 'formstack'
+  cat .singer | \
+    target-redshift \
+    --auth /target_secret.json --drop-schema --schema-name 'formstack'
 
   aws s3 cp /logs s3://fluidanalytics/formstack --recursive
   rm -fr /tap_secret.json /target_secret.json ~/.aws

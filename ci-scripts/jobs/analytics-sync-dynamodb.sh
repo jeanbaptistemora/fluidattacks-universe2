@@ -31,9 +31,12 @@ analytics_sync_dynamodb() {
 
   echo "$analytics_auth_redshift" > /target_secret.json
 
-  tap-awsdynamodb --auth /tap_secret.json --conf analytics/conf/awsdynamodb.json > .singer
+  tap-awsdynamodb \
+    --auth /tap_secret.json --conf analytics/conf/awsdynamodb.json > .singer
 
-  cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name 'dynamodb'
+  cat .singer | \
+    target-redshift \
+    --auth /target_secret.json --drop-schema --schema-name 'dynamodb'
 
   rm -rf /tap_secret.json /target_secret.json
 }

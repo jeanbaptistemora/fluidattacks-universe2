@@ -256,7 +256,6 @@ vault_backup:
 analytics-sync-formstack:
   tags: [autoscaling]
   stage: analytics
-  <<: *vault_login
   script:
     - ./ci-scripts/jobs/analytics-sync-formstack.sh
   <<: *only_schedules
@@ -267,7 +266,6 @@ analytics-sync-formstack:
 analytics-sync-dynamodb:
   tags: [autoscaling-large]
   stage: analytics
-  <<: *vault_login
   script:
     - ./ci-scripts/jobs/analytics-sync-dynamodb.sh
   <<: *only_schedules
@@ -278,7 +276,6 @@ analytics-sync-dynamodb:
 analytics-sync-timedoctor:
   tags: [autoscaling]
   stage: analytics
-  <<: *vault_login
   script:
     - ./ci-scripts/jobs/analytics-sync-timedoctor.sh
   <<: *only_schedules
@@ -305,47 +302,36 @@ sync_git:
     variables:
       - $FLAG_SYNC_GIT
 
-sync_mandrill:
+analytics-sync-mandrill:
   tags: [autoscaling]
   stage: analytics
-  <<: *vault_login
   script:
-    - pip3 install
-        analytics/singer/streamer_mandrill
-        analytics/singer/tap_json
-        analytics/singer/target_redshift
-    - echo "$(vault read -field=analytics_auth_mandrill secret/serves)" > /stream_secret.json
-    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
-    - streamer-mandrill --auth /stream_secret.json > mandrill.jsonstream
-    - cat mandrill.jsonstream | tap-json --date-formats "%Y-%m-%d %H:%M:%S,%Y-%m-%d %H:%M:%S.%f" > mandrill.singer
-    - cat mandrill.singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "mandrill"
-  after_script:
-    - rm -rf /stream_secret.json /target_secret.json
+    - ./ci-scripts/jobs/analytics-sync-mandrill.sh
   <<: *only_schedules
   only:
     variables:
       - $FLAG_SYNC_MANDRILL
 
-sync_infrastructure:
+analytics-sync-infrastructure:
   tags: [autoscaling]
   stage: analytics
-  <<: *vault_login
   script:
-    - pip3 install
-        analytics/singer/streamer_infrastructure
-        analytics/singer/tap_json
-        analytics/singer/target_redshift
-    - echo "$(vault read -field=analytics_auth_infra secret/serves)" > /stream_secret.json
-    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
-    - streamer-infrastructure --auth /stream_secret.json > infra.jsonstream
-    - cat infra.jsonstream | tap-json > infra.singer
-    - cat infra.singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "infrastructure"
-  after_script:
-    - rm -rf /stream_secret.json /target_secret.json
+    - ./ci-scripts/jobs/analytics-sync-infrastructure.sh
   <<: *only_schedules
   only:
     variables:
       - $FLAG_SYNC_INFRASTRUCTURE
+
+analytics-sync-ms-sql-server-erp:
+  tags: [autoscaling]
+  image: registry.gitlab.com/fluidattacks/serves:ms_sql_server
+  stage: analytics
+  script:
+    - ./ci-scripts/jobs/analytics-sync-ms-sql-server-erp.sh
+  <<: *only_schedules
+  only:
+    variables:
+      - $FLAG_SYNC_MS_SQL_SERVER_ERP
 
 build_ms_sql_server:
   tags: [autoscaling-large]
@@ -364,33 +350,6 @@ build_ms_sql_server:
   only:
     variables:
       - $FLAG_CONT_MS_SQL_SERVER
-
-sync_ms_sql_server_erp:
-  tags: [autoscaling]
-  image: registry.gitlab.com/fluidattacks/serves:ms_sql_server
-  stage: analytics
-  <<: *vault_login
-  script:
-    - pip3 install
-        pyodbc
-        analytics/singer/tap_json
-        analytics/singer/target_redshift
-    - echo "$(vault read -field=analytics_auth_ms_sql_server_erp secret/serves)" > /convert_secret.json
-    - mkdir csv
-    - analytics/singer/converter_mssqlserver_csv.py --auth /convert_secret.json --output-dir csv
-    - for csv_path in csv/*.csv; do
-        echo "$csv_path";
-        analytics/singer/streamer_csv.py "$csv_path" >> .jsonstream;
-      done
-    - cat .jsonstream | tap-json > .singer
-    - echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
-    - cat .singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "erp"
-  after_script:
-    - rm -rf /convert_secret.json /target_secret.json
-  <<: *only_schedules
-  only:
-    variables:
-      - $FLAG_SYNC_MS_SQL_SERVER_ERP
 
 sync_ringcentral:
   tags: [autoscaling]
