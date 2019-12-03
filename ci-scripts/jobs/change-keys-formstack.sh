@@ -22,7 +22,7 @@ change_keys_formstack() {
     FORMSTACK_EMAIL \
     FORMSTACK_PASS
 
-  FORMSTACK_TOKENS="$(./ci-scripts/helpers/rotate_fs_keys.py)"
+  FORMSTACK_TOKENS="$(./infrastructure/rotate_fs_keys.py generate)"
 
   vault_update_variables \
     integrates/development \
@@ -31,7 +31,7 @@ change_keys_formstack() {
     integrates/production \
     "formstack_tokens=$FORMSTACK_TOKENS"
 
-  python3 ci-scripts/helpers/rotate_fs_keys.py delete
+  ./infrastructure/rotate_fs_keys.py delete
 
   deploy_integrates
 }
