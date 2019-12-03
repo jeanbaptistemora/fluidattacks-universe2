@@ -2,7 +2,7 @@
 
 analytics_sync_infrastructure() {
 
-  # Sync analytics with formstack
+  # Sync analytics with infrastructure
 
   set -Eeuo pipefail
 

@@ -2,7 +2,7 @@
 
 analytics_sync_ringcentral() {
 
-  # Sync analytics with formstack
+  # Sync analytics with RingCentral
 
   set -Eeuo pipefail
 

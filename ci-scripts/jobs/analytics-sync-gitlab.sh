@@ -2,7 +2,7 @@
 
 analytics_sync_intercom() {
 
-  # Sync analytics with formstack
+  # Sync analytics with Gitlab
 
   set -Eeuo pipefail
 

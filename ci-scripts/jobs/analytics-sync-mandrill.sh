@@ -2,7 +2,7 @@
 
 analytics_sync_mandrill() {
 
-  # Sync analytics with formstack
+  # Sync analytics with Mandrill
 
   set -Eeuo pipefail
 

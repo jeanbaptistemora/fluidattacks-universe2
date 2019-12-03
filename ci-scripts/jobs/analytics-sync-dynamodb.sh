@@ -2,7 +2,7 @@
 
 analytics_sync_dynamodb() {
 
-  # Sync analytics with formstack
+  # Sync analytics with dynamodb
 
   set -Eeuo pipefail
 

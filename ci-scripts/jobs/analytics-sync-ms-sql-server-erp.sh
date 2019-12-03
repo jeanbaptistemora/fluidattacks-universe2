@@ -2,7 +2,7 @@
 
 analytics_sync_infrastructure() {
 
-  # Sync analytics with formstack
+  # Sync analytics with ERP
 
   set -Eeuo pipefail
 

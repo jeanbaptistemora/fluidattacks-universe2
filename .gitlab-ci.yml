@@ -382,28 +382,11 @@ analytics-sync-gitlab:
     variables:
       - $FLAG_SYNC_GITLAB
 
-sync_continuous:
+analytics-sync-continuous:
   tags: [autoscaling]
   stage: analytics
-  <<: *vault_login
   script:
-    - pip3 install
-        analytics/singer/tap_json
-        analytics/singer/target_redshift
-    - cd analytics/continuous
-    - GITLAB_USER=$(vault read -field=analytics_gitlab_user secret/serves)
-    - GITLAB_PASS=$(vault read -field=analytics_gitlab_token secret/serves)
-    - vault read -field=analytics_auth_redshift secret/serves > /target_secret.json
-    - git clone --depth 1 --single-branch
-        https://${GITLAB_USER}:${GITLAB_PASS}@gitlab.com/fluidattacks/continuous.git
-    - ./streamer_toe.py > .jsonstream
-    - cat .jsonstream | tap-json > .singer
-    - cat .singer | target-redshift --auth /target_secret.json
-                                    --drop-schema
-                                    --schema-name continuous_toe
-  after_script:
-    - unset GITLAB_USER GITLAB_PASS
-    - rm -rf /target_secret.json
+    - ./ci-scripts/jobs/analytics-sync-continuous.sh
   <<: *only_schedules
   only:
     variables:
@@ -420,36 +403,11 @@ analytics_refresh_token_timedoctor:
     variables:
       - $FLAG_REFRESH_TOKENS
 
-sync_zoho:
+analytics-sync-zoho:
   tags: [autoscaling]
   stage: analytics
-  <<: *vault_vars
-  before_script:
-    - *vault_get_token
-    - set -ETeumo pipefail
   script:
-    - pip3 install --upgrade requests
-    - email="$(vault read -field=analytics_zoho_email secret/serves)"
-    - token="$(vault read -field=analytics_zoho_token secret/serves)"
-    - space="$(vault read -field=analytics_zoho_space secret/serves)"
-    - vault read -field=analytics_auth_redshift secret/serves > secret.json
-    - vault read -field=analytics_zoho_tables secret/serves | while read -r table;
-        do
-          ./analytics/singer/converter_zoho_csv.py
-            --email "${email}" --token "${token}"
-            --space "${space}" --table "${table}" --target "${table}" &&
-          ./analytics/singer/streamer_csv.py "${table}" >> .jsonstream;
-        done
-    - pip3 install
-        analytics/singer/tap_json
-        analytics/singer/target_redshift
-    - cat .jsonstream | tap-json --date-formats '%Y-%m-%d %H:%M:%S' > .singer
-    - cat .singer | target-redshift --schema-name "zoho"
-                                    --auth secret.json
-                                    --drop-schema
-  after_script:
-    - rm -rf secret.json
-    - unset email token space
+    - ./ci-scripts/jobs/analytics-sync-zoho.sh
   <<: *only_schedules
   only:
     variables:

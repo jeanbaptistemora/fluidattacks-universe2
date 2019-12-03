@@ -2,7 +2,7 @@
 
 analytics_sync_timedoctor() {
 
-  # Sync analytics with formstack
+  # Sync analytics with Timedoctor
 
   set -Eeuo pipefail
 
