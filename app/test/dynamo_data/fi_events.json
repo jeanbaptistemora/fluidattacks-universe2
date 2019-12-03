@@ -226,6 +226,19 @@
                               "S": "CLOSED"
                            }
                         }
+                     },
+                     {
+                        "M": {
+                           "analyst": {
+                              "S": "unittest@fluidattacks.com"
+                           },
+                           "date": {
+                              "S": "2019-04-11 13:37:00"
+                           },
+                           "state": {
+                              "S": "SOLVED"
+                           }
+                        }
                      }
                   ]
                },
@@ -321,6 +334,19 @@
                            },
                            "state": {
                               "S": "CLOSED"
+                           }
+                        }
+                     },
+                     {
+                        "M": {
+                           "analyst": {
+                              "S": "unittest@fluidattacks.com"
+                           },
+                           "date": {
+                              "S": "2018-12-26 13:37:00"
+                           },
+                           "state": {
+                              "S": "SOLVED"
                            }
                         }
                      }

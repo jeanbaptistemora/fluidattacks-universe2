@@ -5,18 +5,20 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
-import { ButtonToolbar, Col, Row } from "react-bootstrap";
+import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
-import { InjectedFormProps } from "redux-form";
+import { Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
+import { Modal } from "../../../../components/Modal";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
-import { textField } from "../../../../utils/forms/fields";
+import { dateTimeField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { numeric, required } from "../../../../utils/validations";
+import { dateTimeBeforeToday, numeric, required, validDatetime } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import { GenericForm } from "../../components/GenericForm";
-import { GET_EVENT_DESCRIPTION, UPDATE_DESCRIPTION_MUTATION } from "./queries";
+import { GET_EVENT_HEADER } from "../EventContent/queries";
+import { GET_EVENT_DESCRIPTION, SOLVE_EVENT_MUTATION, UPDATE_DESCRIPTION_MUTATION } from "./queries";
 
 type EventDescriptionProps = RouteComponentProps<{ eventId: string }>;
 
@@ -26,8 +28,17 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
     userName: string; userOrganization: string; userRole: string;
   });
 
+  const canEdit: boolean = false;
   const [isEditing, setEditing] = React.useState(false);
   const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };
+
+  const [isSolvingModalOpen, setSolvingModalOpen] = React.useState(false);
+  const openSolvingModal: (() => void) = (): void => {
+    setSolvingModalOpen(true);
+  };
+  const closeSolvingModal: (() => void) = (): void => {
+    setSolvingModalOpen(false);
+  };
 
   const onMount: (() => void) = (): void => {
     mixpanel.track("EventDescription", { Organization: userOrganization, User: userName });
@@ -46,10 +57,70 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
               .catch();
           };
 
-          const canEdit: boolean = _.includes(["admin", "analyst"], userRole) && data.event.eventStatus !== "CLOSED";
+          const canSolve: boolean = _.includes(["admin", "analyst"], userRole) && data.event.eventStatus !== "SOLVED";
 
           return (
             <React.Fragment>
+              <Modal
+                footer={<div />}
+                headerTitle={translate.t("search_findings.tab_severity.solve")}
+                open={isSolvingModalOpen}
+              >
+                <Mutation
+                  mutation={SOLVE_EVENT_MUTATION}
+                  onCompleted={handleUpdateResult}
+                  refetchQueries={[{ query: GET_EVENT_HEADER, variables: { eventId } }]}
+                >
+                  {(solveEvent: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
+                    const handleSubmit: ((values: {}) => void) = (values: {}): void => {
+                      showPreloader();
+                      solveEvent({ variables: { eventId, ...values } })
+                        .catch();
+                      closeSolvingModal();
+                    };
+
+                    return (
+                      <GenericForm name="solveEvent" onSubmit={handleSubmit}>
+                        {({ pristine }: InjectedFormProps): React.ReactNode => (
+                          <React.Fragment>
+                            <Row>
+                              <Col md={6}>
+                                <FormGroup>
+                                  <ControlLabel>{translate.t("project.events.form.date")}</ControlLabel>
+                                  <Field
+                                    component={dateTimeField}
+                                    name="date"
+                                    validate={[required, validDatetime, dateTimeBeforeToday]}
+                                  />
+                                </FormGroup>
+                              </Col>
+                              <Col md={6}>
+                                <FormGroup>
+                                  <ControlLabel>{translate.t("search_findings.tab_events.affectation")}</ControlLabel>
+                                  <Field
+                                    component={textField}
+                                    name="affectation"
+                                    type="text"
+                                    validate={[required, numeric]}
+                                  />
+                                </FormGroup>
+                              </Col>
+                            </Row>
+                            <ButtonToolbar className="pull-right">
+                              <Button bsStyle="success" onClick={closeSolvingModal}>
+                                {translate.t("confirmmodal.cancel")}
+                              </Button>
+                              <Button bsStyle="success" type="submit" disabled={pristine || submitting}>
+                                {translate.t("confirmmodal.proceed")}
+                              </Button>
+                            </ButtonToolbar>
+                          </React.Fragment>
+                        )}
+                      </GenericForm>
+                    );
+                  }}
+                </Mutation>
+              </Modal>
               <Mutation mutation={UPDATE_DESCRIPTION_MUTATION} onCompleted={handleUpdateResult}>
                 {(updateDescription: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
                   const handleSubmit: ((values: { [key: string]: string }) => void) = (
@@ -67,6 +138,11 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                         <React.Fragment>
                           <Row>
                             <ButtonToolbar className="pull-right">
+                              {canSolve ? (
+                                <Button onClick={openSolvingModal}>
+                                  <FluidIcon icon="verified" />&nbsp;{translate.t("search_findings.tab_severity.solve")}
+                                </Button>
+                              ) : undefined}
                               {isEditing ? (
                                 <Button disabled={pristine || submitting} type="submit">
                                   <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_severity.update")}
@@ -122,9 +198,8 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                                 currentValue={_.isEmpty(data.event.affectation) ? "-" : data.event.affectation}
                                 label={translate.t("search_findings.tab_events.affectation")}
                                 name="affectation"
-                                renderAsEditable={isEditing}
+                                renderAsEditable={false}
                                 type="text"
-                                validate={[numeric, required]}
                               />
                             </Col>
                           </Row>

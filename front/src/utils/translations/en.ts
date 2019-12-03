@@ -600,6 +600,7 @@ const enTranslations: Dictionary = {
         changed: "Changed",
         unchanged: "Unchanged",
       },
+      solve: "Mark as solved",
       tab_title: "Severity",
       update: "Update",
       user_interaction: "User Interaction",

@@ -161,6 +161,35 @@ class UpdateEvent(Mutation):
         return ret
 
 
+class SolveEvent(Mutation):
+    """ Marks an event as solved """
+    class Arguments():
+        event_id = String(required=True)
+        affectation = Int(required=True)
+        date = DateTime(required=True)
+    success = Boolean()
+
+    @staticmethod
+    @require_login
+    @require_role(['admin', 'analyst'])
+    @require_event_access
+    def mutate(_, info, event_id, affectation, date):
+        analyst_email = util.get_jwt_content(info.context)['user_email']
+        success = event_domain.solve_event(
+            event_id, affectation, analyst_email, date)
+        if success:
+            project_name = event_domain.get_event(event_id).get('project_name')
+            util.invalidate_cache(event_id)
+            util.invalidate_cache(project_name)
+            util.cloudwatch_log(
+                info.context, f'Security: Solved event {event_id} succesfully')
+        else:
+            util.cloudwatch_log(
+                info.context, f'Security: Attempted to solve event {event_id}')
+
+        return SolveEvent(success=success)
+
+
 class CreateEvent(Mutation):
     """Creates a new event"""
 

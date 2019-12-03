@@ -24,7 +24,7 @@ from app.entity.project import (
     RemoveAllProjectAccess
 )
 from app.entity.event import (
-    AddEventComment, CreateEvent, DownloadEventFile, UpdateEvent,
+    AddEventComment, CreateEvent, DownloadEventFile, SolveEvent, UpdateEvent,
     UpdateEventEvidence
 )
 from app.entity.me import SignIn, UpdateAccessToken, InvalidateAccessToken
@@ -81,6 +81,7 @@ class Mutations(ObjectType):
     download_event_file = DownloadEventFile.Field()
     update_event = UpdateEvent.Field()
     update_event_evidence = UpdateEventEvidence.Field()
+    solve_event = SolveEvent.Field()
 
     removeTag = RemoveTag.Field()
     addTags = AddTags.Field()

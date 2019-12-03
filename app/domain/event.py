@@ -42,6 +42,35 @@ def update_event(event_id, affectation, analyst_email):
     return success
 
 
+def solve_event(event_id, affectation, analyst_email, date):
+    event = get_event(event_id)
+    success = False
+
+    if event.get('historic_state')[-1].get('state') == 'CLOSED':
+        raise EventAlreadyClosed()
+
+    tzn = pytz.timezone(settings.TIME_ZONE)
+    today = datetime.now(tz=tzn).today()
+    history = event.get('historic_state')
+    history += [
+        {
+            'analyst': analyst_email,
+            'date': date.strftime('%Y-%m-%d %H:%M:%S'),
+            'state': 'CLOSED'
+        },
+        {
+            'affectation': affectation,
+            'analyst': analyst_email,
+            'date': today.strftime('%Y-%m-%d %H:%M:%S'),
+            'state': 'SOLVED'
+        }
+    ]
+
+    success = event_dal.update(event_id, {'historic_state': history})
+
+    return success
+
+
 def update_evidence(event_id, evidence_type, file):
     event = get_event(event_id)
     success = False

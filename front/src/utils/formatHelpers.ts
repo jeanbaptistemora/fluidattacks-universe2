@@ -302,8 +302,8 @@ export const castEventType: ((field: string) => string) = (field: string): strin
 
 export const castEventStatus: ((field: string) => string) = (field: string): string => {
   const eventStatus: {[value: string]: string} = {
-    CLOSED: "search_findings.tab_events.status_values.solve",
     CREATED: "search_findings.tab_events.status_values.unsolve",
+    SOLVED: "search_findings.tab_events.status_values.solve",
   };
 
   return eventStatus[field];
