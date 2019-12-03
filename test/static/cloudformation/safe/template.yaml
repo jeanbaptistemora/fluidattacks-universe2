@@ -3,6 +3,8 @@ Resources:
   cluster1:
     Properties:
       BackupRetentionPeriod: 32
+      DBSubnetGroupName:
+        Ref: DbSubnetGroup
       DeletionProtection: 'true'
       Engine: postgres
       StorageEncrypted: 'true'
@@ -102,7 +104,9 @@ Resources:
   instance1:
     Properties:
       BackupRetentionPeriod: '32'
-      DBInstanceClass: t2.micro
+      DBInstanceClass: t3.nano
+      DBSubnetGroupName:
+        Ref: DbSubnetGroup
       DeletionProtection: 'true'
       Engine: postgres
       MasterUserPassword: pass

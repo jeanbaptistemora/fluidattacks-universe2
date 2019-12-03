@@ -721,6 +721,7 @@ def exec_cloudformation_package(
             rds.has_not_automated_backups('__path__')
             rds.has_unencrypted_storage('__path__')
             rds.is_publicly_accessible('__path__')
+            rds.is_not_inside_a_database_subnet_group('__path__')
             rds.has_not_termination_protection('__path__')
             """,
         ('s3', 'Simple Storage Service'): """

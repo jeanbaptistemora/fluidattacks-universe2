@@ -113,7 +113,7 @@ Resources:
   instance1:
     Properties:
       BackupRetentionPeriod: '0'
-      DBInstanceClass: t2.micro
+      DBInstanceClass: t3.nano
       Engine: postgres
       MasterUserPassword: pass
       MasterUsername: user

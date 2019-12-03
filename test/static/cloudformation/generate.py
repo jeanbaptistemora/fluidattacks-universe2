@@ -123,16 +123,25 @@ secret = troposphere.secretsmanager.Secret(
         RequireEachIncludedType='true',
     ),
 )
+rds_db_subnet_group = troposphere.rds.DBSubnetGroup(
+    title='DbSubnetGroup',
+    DBSubnetGroupDescription='DbSubnetGroupDescription',
+    SubnetIds=[
+        'sn-123',
+    ],
+)
 rds_cluster = troposphere.rds.DBCluster(
     title='cluster1',
     Engine='postgres',
     StorageEncrypted=True,
     BackupRetentionPeriod=32,
     DeletionProtection='true',
+    DBSubnetGroupName=troposphere.Ref(rds_db_subnet_group),
 )
 rds_instance = troposphere.rds.DBInstance(
     title='instance1',
-    DBInstanceClass='t2.micro',
+    DBInstanceClass='t3.nano',
+    DBSubnetGroupName=troposphere.Ref(rds_db_subnet_group),
     Engine='postgres',
     MasterUsername='user',
     MasterUserPassword='pass',
@@ -502,14 +511,14 @@ rds_cluster = troposphere.rds.DBCluster(
     BackupRetentionPeriod=0,
     DeletionProtection='false',
 )
-cluster2 = troposphere.rds.DBCluster(
+rds_cluster2 = troposphere.rds.DBCluster(
     title='cluster2',
     Engine='postgres',
     BackupRetentionPeriod=troposphere.If('prod', 32, 0),
 )
 rds_instance = troposphere.rds.DBInstance(
     title='instance1',
-    DBInstanceClass='t2.micro',
+    DBInstanceClass='t3.nano',
     Engine='postgres',
     MasterUsername='user',
     MasterUserPassword='pass',
@@ -830,7 +839,7 @@ template.add_resource(role)
 template.add_resource(secret)
 template.add_resource(secret2)
 template.add_resource(rds_cluster)
-template.add_resource(cluster2)
+template.add_resource(rds_cluster2)
 template.add_resource(rds_instance)
 template.add_resource(policy)
 template.add_resource(managed_policy)
