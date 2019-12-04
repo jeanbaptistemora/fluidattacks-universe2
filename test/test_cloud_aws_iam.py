@@ -105,6 +105,12 @@ def test_mfa_disabled_for_users_with_console_password_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_has_wildcard_resource_on_write_action_open():
+    """Search iam policies with wildcard resources in write actions."""
+    assert iam.has_wildcard_resource_on_write_action(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #

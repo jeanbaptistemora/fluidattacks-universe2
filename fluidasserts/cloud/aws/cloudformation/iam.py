@@ -91,10 +91,10 @@ def _service_is_present_action(action: str, service: str) -> bool:
     return susses
 
 
-def _service_is_present_statement(statement: str, effect: str):
+def _service_is_present_statement(statement: str, effect: str, service: str):
     return any([
         sts['Effect'] == effect
-        and _service_is_present_action(sts['Action'], 'iam')
+        and _service_is_present_action(sts['Action'], service)
         if 'Action' in sts else False for sts in statement
     ])
 
@@ -504,7 +504,8 @@ def has_privileges_over_iam(path: str,
         vulnerable_entities: List[str] = []
         if res_props.get('PolicyDocument', []):
             policy = res_props['PolicyDocument']
-            if _service_is_present_statement(policy['Statement'], 'Allow'):
+            if _service_is_present_statement(policy['Statement'], 'Allow',
+                                             'iam'):
                 type_name = res_props['../Type'].split('::')[-1]
                 try:
                     name = res_props[f'{type_name}Name']
@@ -518,7 +519,8 @@ def has_privileges_over_iam(path: str,
             for policy in res_props['Policies']:
                 with suppress(KeyError):
                     if _service_is_present_statement(
-                            policy['PolicyDocument']['Statement'], 'Allow'):
+                            policy['PolicyDocument']['Statement'], 'Allow',
+                            'iam'):
                         name = policy['PolicyName']
                         entity = name if isinstance(name, str) else res_name
                         reason = 'has privileges over iam.'

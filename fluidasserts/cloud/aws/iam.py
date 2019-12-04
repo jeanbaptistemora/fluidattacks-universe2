@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=too-many-lines
 
 """AWS cloud checks (IAM)."""
 
@@ -17,6 +18,9 @@ from fluidasserts import DAST, LOW, MEDIUM, HIGH
 from fluidasserts.helper import aws
 from fluidasserts.cloud.aws import _get_result_as_tuple
 from fluidasserts.utils.decorators import api, unknown_if
+from fluidasserts.cloud.aws.cloudformation.iam import (
+    _policy_statement_privilege
+)
 
 
 def _any_to_list(_input):
@@ -936,6 +940,64 @@ def has_old_ssh_public_keys(key_id: str, secret: str,
     return _get_result_as_tuple(
         service='IAM',
         objects='Users',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_wildcard_resource_on_write_action(key_id: str,
+                                          secret: str,
+                                          retry: bool = True) -> tuple:
+    """
+    Check if write actions are allowed on all resources.
+
+    Do not allow ``"Resource": "*"`` to have write actions.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are IAM polices with wildcard resource in
+                write actions.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+
+    """
+    msg_open = 'Write actions are allowed for all resources.'
+    msg_closed = 'Write actions are not allowed for all resources.'
+    vulns, safes = [], []
+
+    policies = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='iam',
+        func='list_policies',
+        retry=retry)['Policies']
+
+    for policy in policies:
+        policy_version = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='iam',
+            func='get_policy_version',
+            param='PolicyVersion',
+            PolicyArn=policy['Arn'],
+            VersionId=policy['DefaultVersionId'],
+            retry=retry)
+        vulnerable = _policy_statement_privilege(
+            policy_version['Document']['Statement'], 'Allow', 'write')
+
+        (vulns if vulnerable else safes).append(
+            (policy['Arn'],
+             'access to only the necessary resources should be allowed.'))
+
+    return _get_result_as_tuple(
+        service='IAM',
+        objects='Policies',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
