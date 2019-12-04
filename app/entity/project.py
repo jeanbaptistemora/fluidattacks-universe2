@@ -397,7 +397,7 @@ class RemoveTag(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['analyst', 'customer', 'admin'])
+    @require_role(['customer'])
     @require_project_access
     def mutate(self, info, project_name, tag):
         success = False
@@ -433,7 +433,7 @@ class AddTags(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['analyst', 'customer', 'admin'])
+    @require_role(['customer'])
     @require_project_access
     def mutate(self, info, project_name, tags):
         success = False
