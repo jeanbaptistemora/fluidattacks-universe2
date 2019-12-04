@@ -1,7 +1,7 @@
 image: registry.gitlab.com/fluidattacks/serves:builder
 
 stages:
-  - deps
+  - dependencies
   - analytics
   - terraform-backend
   - tests
@@ -89,16 +89,12 @@ stages:
       - $FLAG_SYNC_CONTINUOUS
       - $FLAG_SYNC_ZOHO
 
-build_builder:
+build-builder:
+  image: docker:19
   tags: [autoscaling]
-  stage: deps
-  <<: *kaniko_config
+  stage: dependencies
   script:
-    - /kaniko/executor
-        --context "${CI_PROJECT_DIR}/containers/builder/"
-        --dockerfile "${CI_PROJECT_DIR}/containers/builder/Dockerfile"
-        --destination "${CI_REGISTRY_IMAGE}:builder"
-  <<: *only_schedules
+    - ./ci-scripts/jobs/build-builder.sh
   <<: *except_analytics
 
 test_code:
@@ -325,7 +321,7 @@ analytics-sync-ms-sql-server-erp:
 
 build_ms_sql_server:
   tags: [autoscaling-large]
-  stage: deps
+  stage: dependencies
   <<: *kaniko_config
   script:
     - export CONT="ms_sql_server"
