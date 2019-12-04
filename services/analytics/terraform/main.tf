@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket  = "fluidattacks-terraform-states-prod"
-    key     = "autoscaling-ci.tfstate"
+    key     = "analytics.tfstate"
     region  = "us-east-1"
     encrypt = true
   }
