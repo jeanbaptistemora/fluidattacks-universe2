@@ -135,6 +135,13 @@ def test_has_instances_using_iam_access_keys_open():
                                              ).is_open()
 
 
+def test_has_not_deletion_protection_open():
+    """Search instances that do not have enable deletion protection."""
+    assert ec2.has_not_deletion_protection(AWS_ACCESS_KEY_ID,
+                                           AWS_SECRET_ACCESS_KEY
+                                           ).is_open()
+
+
 #
 # Closing tests
 #

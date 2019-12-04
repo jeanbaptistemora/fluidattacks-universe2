@@ -351,7 +351,7 @@ def has_instances_using_unapproved_amis(key_id: str,
             param='Images',
             retry=retry,
             ImageIds=[instance['ImageId']])
-        (vulns if 'ImageOwnerAlias' in images[0].keys()
+        (vulns if images and 'ImageOwnerAlias' in images[0].keys()
          and images[0]['ImageOwnerAlias'] != 'amazon' else safes).append(
              (instance['InstanceId'],
               'Base image must be approved by Amazon.'))
@@ -791,6 +791,66 @@ def has_publicly_shared_amis(key_id: str, secret: str,
     return _get_result_as_tuple(
         service='EC2',
         objects='AMIS',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_not_deletion_protection(key_id: str, secret: str,
+                                retry: bool = True) -> tuple:
+    """
+    Verify if EC2 instance has not deletion protection enabled.
+
+    By default EC2 Instances can be terminated using the Amazon EC2 console,
+    CLI, or API.
+
+    This is not desirable, as terminated instances are deleted from the account
+    automatically after some time,
+    personal may take-down the service without intention,
+    and volumes attached to the instance may be lost and therefore wiped.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if the instance has not the **DisableApiTermination**
+                parameter set to **true**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'EC2 instances has API termination enabled.'
+    msg_closed: str = 'EC2 instances has API termination disabled.'
+    vulns, safes = [], []
+
+    instances = map(lambda x: x['Instances'],
+                    aws.run_boto3_func(
+                        key_id=key_id,
+                        secret=secret,
+                        service='ec2',
+                        func='describe_instances',
+                        param='Reservations',
+                        retry=retry))
+
+    for instance in _flatten(list(instances)):
+        disable_api_termination = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='ec2',
+            func='describe_instance_attribute',
+            param='DisableApiTermination',
+            Attribute='disableApiTermination',
+            InstanceId=instance['InstanceId'],
+            retry=retry)['Value']
+        (vulns if not disable_api_termination else safes).append(
+            (instance['InstanceId'], 'must disabled api termination.'))
+
+    return _get_result_as_tuple(
+        service='EC2',
+        objects='Instances',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
