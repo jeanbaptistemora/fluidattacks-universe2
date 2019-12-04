@@ -2,8 +2,7 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { RouteComponentProps } from "react-router";
-import { InferableComponentEnhancer, lifecycle } from "recompose";
-import { comments as Comments, ICommentStructure } from "../../components/Comments/index";
+import { Comments, ICommentStructure } from "../../components/Comments/index";
 import * as actions from "./actions";
 
 type ICommentsViewProps = RouteComponentProps<{ findingId: string; type: string }>;
@@ -11,18 +10,15 @@ type ICommentsViewProps = RouteComponentProps<{ findingId: string; type: string 
 export type loadCallback = ((comments: ICommentStructure[]) => void);
 export type postCallback = ((comments: ICommentStructure) => void);
 
-const enhance: InferableComponentEnhancer<{}> = lifecycle<ICommentsViewProps, {}>({
-  componentDidMount(): void {
-    const { type } = this.props.match.params;
-    mixpanel.track(type === "comments" ? "FindingComments" : "FindingObservations", {
-      Organization: (window as Window & { userOrganization: string }).userOrganization,
-      User: (window as Window & { userName: string }).userName,
-    });
-  },
-});
-
 const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): JSX.Element => {
   const { findingId, type } = props.match.params;
+  const onMount: (() => void) = (): void => {
+    mixpanel.track(type === "comments" ? "FindingComments" : "FindingObservations", {
+      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+      User: (window as typeof window & { userName: string }).userName,
+    });
+  };
+  React.useEffect(onMount, []);
 
   const handleLoad: ((callbackFn: loadCallback) => void) = (callbackFn: loadCallback): void => {
     actions.loadComments(findingId, type, callbackFn);
@@ -41,6 +37,4 @@ const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): 
   );
 };
 
-const commentsComponent: React.ComponentType<ICommentsViewProps> = enhance(commentsView);
-
-export { commentsComponent as CommentsView };
+export { commentsView as CommentsView };

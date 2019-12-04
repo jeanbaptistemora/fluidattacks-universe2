@@ -10,9 +10,8 @@ import "jquery-comments_brainkit";
  * to display properly even if some of them are overridden later
  */
 import "jquery-comments_brainkit/css/jquery-comments.css";
-import mixpanel from "mixpanel-browser";
 import React from "react";
-import { InferableComponentEnhancer, lifecycle } from "recompose";
+
 export interface ICommentStructure {
   content: string;
   created: string;
@@ -33,8 +32,7 @@ export interface ICommentsProps {
 const initializeComments: ((props: ICommentsProps) => void) = (props: ICommentsProps): void => {
   const { onLoad, onPostComment } = props;
 
-  ($(`#${props.id}`) as JQuery & { comments({}: object): void })
-  .comments({
+  ($(`#${props.id}`) as JQuery & { comments({ }: object): void }).comments({
     defaultNavigationSortKey: "oldest",
     enableAttachments: false,
     enableEditing: false,
@@ -48,30 +46,17 @@ const initializeComments: ((props: ICommentsProps) => void) = (props: ICommentsP
   });
 };
 
-const enhance: InferableComponentEnhancer<{}> =
-  lifecycle<ICommentsProps, {}>({
-    componentDidMount(): void {
-      mixpanel.track(
-        "ProjectComments",
-        {
-          Organization: (window as Window & { userOrganization: string }).userOrganization,
-          User: (window as Window & { userName: string }).userName,
-        });
-      const props: ICommentsProps = this.props;
-      initializeComments(props);
-    },
-    componentDidUpdate(previousProps: ICommentsProps): void {
-      const props: ICommentsProps = this.props;
-      if (previousProps.id !== props.id) {
-        initializeComments(props);
-      }
-    },
-  });
+const comments: React.FC<ICommentsProps> = (props: ICommentsProps): JSX.Element => {
+  const onMount: (() => void) = (): void => {
+    initializeComments(props);
+  };
+  React.useEffect(onMount, [props.id]);
 
-export const component: React.FC<ICommentsProps> = (props: ICommentsProps): JSX.Element => (
-  <React.StrictMode>
-    <div id={props.id} />
-  </React.StrictMode>
-);
+  return (
+    <React.StrictMode>
+      <div id={props.id} />
+    </React.StrictMode>
+  );
+};
 
-export const comments: React.FC<ICommentsProps> = enhance(component) as React.FC<ICommentsProps>;
+export { comments as Comments };

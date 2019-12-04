@@ -1,6 +1,6 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
-import { comments as Comments, ICommentStructure } from "../../components/Comments/index";
+import { Comments, ICommentStructure } from "../../components/Comments/index";
 import { loadComments, postComment } from "./actions";
 
 type IProjectCommentsViewProps = RouteComponentProps<{ projectName: string }>;

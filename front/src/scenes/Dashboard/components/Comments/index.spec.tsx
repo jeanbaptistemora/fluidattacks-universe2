@@ -1,7 +1,7 @@
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
-import { component as Comments } from "./index";
+import { Comments } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
