@@ -75,7 +75,7 @@ build_container() {
 
   # Log in to Gitlab Registry
   echo "$CI_REGISTRY_PASSWORD" \
-  | docker login registry.gitlab.com -u "$CI_REGISTRY_USER" --password-stdin
+    | docker login registry.gitlab.com -u "$CI_REGISTRY_USER" --password-stdin
 
   if docker pull "$REGISTRY_PATH"; then
     docker build \

@@ -1,5 +1,3 @@
-image: registry.gitlab.com/fluidattacks/serves:builder
-
 stages:
   - dependencies
   - analytics
@@ -98,6 +96,7 @@ build-builder:
   <<: *except_analytics
 
 test_code:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
   script:
@@ -106,6 +105,7 @@ test_code:
     - master
 
 commitlint:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
   image: starefossen/ruby-node:2-10
@@ -118,6 +118,7 @@ commitlint:
     - schedules
 
 test_terraform:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
   <<: *vault_login
@@ -143,9 +144,9 @@ build_vpn:
   <<: *except_analytics
 
 danger:
+  image: fluidattacks/danger-ruby
   tags: [autoscaling]
   stage: mr-check
-  image: fluidattacks/danger-ruby
   only:
     - merge_requests
   variables:
@@ -159,6 +160,7 @@ danger:
     - danger --verbose --fail-on-errors=true
 
 deploy_infra:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: deploy
   <<: *vault_login
@@ -179,6 +181,7 @@ deploy_infra:
     - schedules
 
 new-version-mail:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: postdeploy
   script:
@@ -200,6 +203,7 @@ fluidasserts_post:
     - schedules
 
 change-keys-aws:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: rotation
   script:
@@ -209,6 +213,7 @@ change-keys-aws:
   when: always
 
 change-keys-integrates-jwt:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: rotation
   script:
@@ -218,6 +223,7 @@ change-keys-integrates-jwt:
   when: always
 
 vault_backup:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: rotation
   script:
@@ -249,6 +255,7 @@ vault_backup:
   <<: *except_analytics
 
 analytics-sync-formstack:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: analytics
   script:
@@ -259,6 +266,7 @@ analytics-sync-formstack:
       - $FLAG_SYNC_FORMSTACK
 
 analytics-sync-dynamodb:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling-large]
   stage: analytics
   script:
@@ -269,6 +277,7 @@ analytics-sync-dynamodb:
       - $FLAG_SYNC_AWSDYNAMODB
 
 analytics-sync-timedoctor:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: analytics
   script:
@@ -279,6 +288,7 @@ analytics-sync-timedoctor:
       - $FLAG_SYNC_TIMEDOCTOR
 
 analytics-sync-git:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling-large]
   stage: analytics
   script:
@@ -289,6 +299,7 @@ analytics-sync-git:
       - $FLAG_SYNC_GIT
 
 analytics-sync-mandrill:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: analytics
   script:
@@ -299,6 +310,7 @@ analytics-sync-mandrill:
       - $FLAG_SYNC_MANDRILL
 
 analytics-sync-infrastructure:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: analytics
   script:
@@ -309,8 +321,8 @@ analytics-sync-infrastructure:
       - $FLAG_SYNC_INFRASTRUCTURE
 
 analytics-sync-ms-sql-server-erp:
-  tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/serves:ms_sql_server
+  tags: [autoscaling]
   stage: analytics
   script:
     - ./ci-scripts/jobs/analytics-sync-ms-sql-server-erp.sh
@@ -320,6 +332,7 @@ analytics-sync-ms-sql-server-erp:
       - $FLAG_SYNC_MS_SQL_SERVER_ERP
 
 build_ms_sql_server:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling-large]
   stage: dependencies
   <<: *kaniko_config
@@ -338,8 +351,8 @@ build_ms_sql_server:
       - $FLAG_CONT_MS_SQL_SERVER
 
 analytics-sync-ringcentral:
-  tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/serves:ms_sql_server
+  tags: [autoscaling]
   stage: analytics
   script:
     - ./ci-scripts/jobs/analytics-sync-ringcentral.sh
@@ -349,6 +362,7 @@ analytics-sync-ringcentral:
       - $FLAG_SYNC_RINGCENTRAL
 
 analytics-sync-intercom:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: analytics
   script:
@@ -359,6 +373,7 @@ analytics-sync-intercom:
       - $FLAG_SYNC_INTERCOM
 
 analytics-sync-gitlab:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling-large]
   stage: analytics
   script:
@@ -369,6 +384,7 @@ analytics-sync-gitlab:
       - $FLAG_SYNC_GITLAB
 
 analytics-sync-continuous:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: analytics
   script:
@@ -379,6 +395,7 @@ analytics-sync-continuous:
       - $FLAG_SYNC_CONTINUOUS
 
 analytics-refresh-token-timedoctor:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: analytics
   script:
@@ -389,6 +406,7 @@ analytics-refresh-token-timedoctor:
       - $FLAG_REFRESH_TOKENS
 
 analytics-sync-zoho:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: analytics
   script:
@@ -399,9 +417,9 @@ analytics-sync-zoho:
       - $FLAG_SYNC_ZOHO
 
 .eks-initial-setup:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: eks-initial-setup
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - . toolbox/others.sh && vault_login
     - ./ci-scripts/jobs/eks-initial-setup.sh
@@ -411,9 +429,9 @@ analytics-sync-zoho:
     - schedules
 
 .eks-terraform-apply:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: deploy
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/eks-terraform-apply.sh
   only:
@@ -422,27 +440,27 @@ analytics-sync-zoho:
     - schedules
 
 eks-terraform-lint:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/eks-terraform-lint.sh
   except:
     - schedules
 
 eks-terraform-plan:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/eks-terraform-plan.sh
   except:
     - schedules
 
 terraform-states-bucket:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: terraform-backend
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/terraform-states-bucket.sh
   only:
@@ -451,27 +469,27 @@ terraform-states-bucket:
     - schedules
 
 sops-terraform-lint:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/sops-terraform-lint.sh
   except:
     - schedules
 
 sops-terraform-plan:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/sops-terraform-plan.sh
   except:
     - schedules
 
 sops-terraform-apply:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: deploy
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/sops-terraform-apply.sh
   only:
@@ -480,27 +498,27 @@ sops-terraform-apply:
     - schedules
 
 aws-sso-terraform-lint:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/aws-sso-terraform-lint.sh
   except:
     - schedules
 
 aws-sso-terraform-plan:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/aws-sso-terraform-plan.sh
   except:
     - schedules
 
 aws-sso-terraform-apply:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: deploy
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/aws-sso-terraform-apply.sh
   only:
@@ -509,9 +527,9 @@ aws-sso-terraform-apply:
     - schedules
 
 break-build-terraform-apply:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: deploy
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/break-build-terraform-apply.sh
   only:
@@ -520,45 +538,45 @@ break-build-terraform-apply:
     - schedules
 
 break-build-terraform-lint:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/break-build-terraform-lint.sh
   except:
     - schedules
 
 break-build-terraform-plan:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/break-build-terraform-plan.sh
   except:
     - schedules
 
 user-provision-integrates-terraform-lint:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/user-provision-integrates-terraform-lint.sh
   except:
     - schedules
 
 user-provision-integrates-terraform-plan:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/user-provision-integrates-terraform-plan.sh
   except:
     - schedules
 
 user-provision-integrates-terraform-apply:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: deploy
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/user-provision-integrates-terraform-apply.sh
   only:
@@ -567,27 +585,27 @@ user-provision-integrates-terraform-apply:
     - schedules
 
 autoscaling-ci-terraform-lint:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/autoscaling-ci-terraform-lint.sh
   except:
     - schedules
 
 autoscaling-ci-terraform-plan:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/autoscaling-ci-terraform-plan.sh
   except:
     - schedules
 
 autoscaling-ci-terraform-apply:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: deploy
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/autoscaling-ci-terraform-apply.sh
   only:
@@ -596,27 +614,27 @@ autoscaling-ci-terraform-apply:
     - schedules
 
 analytics-terraform-lint:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/analytics-terraform-lint.sh
   except:
     - schedules
 
 analytics-terraform-plan:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/analytics-terraform-plan.sh
   except:
     - schedules
 
 analytics-terraform-apply:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: deploy
-  image: registry.gitlab.com/fluidattacks/serves:builder
   script:
     - ./ci-scripts/jobs/analytics-terraform-apply.sh
   only:
