@@ -235,20 +235,17 @@ app_version () {
   echo "$(date +%y.%m.)${MINUTES}"
 }
 
-aws_login() {
-  # Log in to aws
+aws_login_resources() {
+  # Log in to aws for resources
 
   set -e
 
   vault_login
 
-  export TF_VAR_dev_aws_access_key
-  export TF_VAR_dev_aws_secret_key
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
   export TF_VAR_aws_s3_evidences_bucket
   export TF_VAR_aws_s3_resources_bucket
-
-  TF_VAR_dev_aws_access_key="$DEV_AWS_ACCESS_KEY_ID"
-  TF_VAR_dev_aws_secret_key="$DEV_AWS_SECRET_ACCESS_KEY"
 
   if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
     ENV_NAME='production'
@@ -269,7 +266,19 @@ aws_login() {
     vault read -field=aws_s3_resources_bucket secret/integrates/$ENV_NAME
   )"
 
-  aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
-  aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
+}
 
+aws_login_sops() {
+    # Log in to aws for resources
+
+  set -e
+
+  export TF_VAR_dev_aws_access_key
+  export TF_VAR_dev_aws_secret_key
+
+  TF_VAR_dev_aws_access_key="$DEV_AWS_ACCESS_KEY_ID"
+  TF_VAR_dev_aws_secret_key="$DEV_AWS_SECRET_ACCESS_KEY"
+
+  aws configure set aws_access_key_id "$TF_VAR_dev_aws_access_key"
+  aws configure set aws_secret_access_key "$TF_VAR_dev_aws_secret_key"
 }

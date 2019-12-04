@@ -22,11 +22,15 @@ init_terraform() {
   TARGET_DIR="$1"
   BUCKET="$2"
 
- aws_login
+  if [ "$TARGET_DIR" = 'deploy/sops/terraform' ]; then
+    aws_login_sops
+  else
+    aws_login_resources
+  fi
 
   cd "$TARGET_DIR" || return 1
 
-  terraform init --backend-config="bucket=$FS_S3_BUCKET"
+  terraform init --backend-config="bucket=$BUCKET"
 
   cd "$STARTING_DIR" || return 1
 }
