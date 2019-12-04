@@ -91,6 +91,12 @@ const enTranslations: Dictionary = {
       title_success: "Success",
     },
     events: {
+      description: {
+        solved: {
+          affectation: "Affectation (hours)",
+          date: "Resolution date",
+        },
+      },
       evidence: {
         edit: "Edit",
         no_data: "There are no evidences",

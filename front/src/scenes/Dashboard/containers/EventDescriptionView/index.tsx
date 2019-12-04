@@ -86,7 +86,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                             <Row>
                               <Col md={6}>
                                 <FormGroup>
-                                  <ControlLabel>{translate.t("project.events.form.date")}</ControlLabel>
+                                  <ControlLabel>{translate.t("project.events.description.solved.date")}</ControlLabel>
                                   <Field
                                     component={dateTimeField}
                                     name="date"
@@ -96,11 +96,13 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                               </Col>
                               <Col md={6}>
                                 <FormGroup>
-                                  <ControlLabel>{translate.t("search_findings.tab_events.affectation")}</ControlLabel>
+                                  <ControlLabel>
+                                    {translate.t("project.events.description.solved.affectation")}
+                                  </ControlLabel>
                                   <Field
                                     component={textField}
                                     name="affectation"
-                                    type="text"
+                                    type="number"
                                     validate={[required, numeric]}
                                   />
                                 </FormGroup>
