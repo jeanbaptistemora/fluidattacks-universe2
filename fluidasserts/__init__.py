@@ -183,21 +183,28 @@ METHOD_STATS_OWNER = 'global'
 def method_stats_set_owner(owner: str) -> bool:
     """Set the current owner of METHOD_STATS."""
     # pylint: disable=global-statement
-    global METHOD_STATS_OWNER
+    global METHOD_STATS, METHOD_STATS_OWNER
     METHOD_STATS_OWNER = owner.replace(':', '')
+
+    if METHOD_STATS_OWNER not in METHOD_STATS:
+        METHOD_STATS[METHOD_STATS_OWNER] = {}
     return True
 
 
 def method_stats_parse_stats() -> dict:
     """Return a nice looking METHOD_STATS."""
-    method_stats = {
-        owner: {
-            method: "{} open, {} closed, {} unknown".format(
-                res[OPEN], res[CLOSED], res[UNKNOWN])
-            for method, res in methods.items()
+    method_stats = [
+        {
+            owner: {
+                method: (
+                    f'{res[OPEN]} open, '
+                    f'{res[CLOSED]} closed, '
+                    f'{res[UNKNOWN]} unknown')
+                for method, res in methods.items()
+            }
         }
         for owner, methods in METHOD_STATS.items()
-    }
+    ]
     return method_stats
 
 

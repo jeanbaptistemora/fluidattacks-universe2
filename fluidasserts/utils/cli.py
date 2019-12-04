@@ -1019,7 +1019,7 @@ def get_argparser():
     return argparser
 
 
-def main():
+def main():  # noqa: MC0001
     """Run CLI."""
     # On Windows this will filter ANSI escape sequences out of any text sent
     #   to stdout or stderr, and replace them with equivalent Win32 calls.
@@ -1090,6 +1090,11 @@ def main():
             'risk': get_risk_levels(parsed),
         }
     }
+
+    if args.exploits:
+        final_message['summary']['exploits'] = {
+            'total': len(args.exploits),
+        }
 
     message = yaml.safe_dump(final_message,
                              default_flow_style=False,
