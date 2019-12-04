@@ -34,7 +34,8 @@ analytics_sync_zoho() {
 
   echo "$analytics_auth_redshift" > secret.json
 
-  for table in "$analytics_zoho_tables"; do
+  echo -e "$analytics_zoho_tables" | while read -r table
+  do
     ./analytics/singer/converter_zoho_csv.py \
       --email "$email" --token "$token" \
       --space "$space" --table "$table" --target "$table" && \
