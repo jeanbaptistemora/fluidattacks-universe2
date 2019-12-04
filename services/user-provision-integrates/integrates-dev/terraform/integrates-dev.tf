@@ -43,7 +43,7 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
       "s3:ListObjects"
     ]
     resources = [
-      "arn:aws:s3:::fluidattacks-terraform-states-dev"
+      "arn:aws:s3:::fluidattacks-terraform-states-dev/*"
     ]
   }
 
