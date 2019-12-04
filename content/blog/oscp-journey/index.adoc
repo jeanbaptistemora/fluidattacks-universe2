@@ -4,7 +4,7 @@
 :subtitle: The meaning of Try Harder
 :tags: challenge, ethical hacking, pentesting, security, training, exploit
 :image: cover.png
-:alt: Man siting facing laptop. Photo by Clint Patterson on Unsplash: https://unsplash.com/photos/dYEuFB8KQJk
+:alt: Man sitting facing laptop. Photo by Clint Patterson on Unsplash: https://unsplash.com/photos/dYEuFB8KQJk
 :description: The OSCP exam is one of the hardest certifications for pentesters out there. Many people take this exam to test their pentesting abilities and most of them don’t pass it in the first attempt. Here I will show you how I prepared myself and how you can obtain the certification too.
 :keywords: Bussiness, Information, Security, Protection, Hacking, Best Practices
 :author: Jonathan Armas
@@ -52,7 +52,7 @@ Furthermore, there you can practice the _gaining access_ phase
 and your privilege escalation strategies with multiple operating systems
 and vulnerabilities that resemble the ones in real life scenarios.
 You would be surprised by how many times
-I’ve encountered the vulnerability on +hackthebox+ first
+I’ve encountered a vulnerability on +hackthebox+ first
 and then on a real life service.
 The tools and resources that I got the most from for privilege escalation were:
 
@@ -123,8 +123,9 @@ and watch movies and series that you left behind while studying.
 == The exam
 
 The task is to gain administrative access
-to the machines in the network, there are 5 machines
-and each is worth a certain number of points if you complete it
+to the machines in the network.
+There are 5 machines,
+each is worth a certain number of points if you complete it
 and you need at least +70+ points to pass the exam.
 The machine points are distributed as:
 
@@ -205,8 +206,8 @@ so I needed to redo all the machines
 to get all of my evidences (*DON’T DO THIS*).
 The next day I did my technical documentation,
 the advice here is to put everything that you did
-from the _scanning_ phase up to the _privilege escalation_ phase,
-also if you modified an exploit (even if is only one line)
+from the _scanning_ phase up to the _privilege escalation_ phase.
+Also, if you modified an exploit (even if is only one line)
 put it on the report and mark what you modified.
 Then it was only a matter of waiting for the response.
 
@@ -219,12 +220,12 @@ The steps previous to the lab are going to help you
 to get the most out of the course
 and to have your own routine when it comes to doing a penetration test.
 The _enumeration_ and _scanning_ phases
-are the most important ones in the whole process,
-you can spend hours going through rabbit holes
-if you do not do this step properly
+are the most important ones in the whole process
+as you can spend hours going through rabbit holes
+if you do not do this step properly,
 so be sure that you dominate yours.
 A mental toughness is needed to pass this test
 so be prepared to think quickly and creatively,
-daisy chaining vulnerabilities and to rest when it is needed.
+daisy chaining vulnerabilities and rest when it is needed.
 The discord groups of +hackthebox+ and +OFFSEC+ are at your disposal
-to solve your questions or give hints where you need them, so try harder.
+to solve your questions or give you hints where you need them, so try harder.
