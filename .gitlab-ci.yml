@@ -1,9 +1,8 @@
 stages:
-  - dependencies
+  - build
   - analytics
   - terraform-backend
   - tests
-  - build
   - mr-check
   - deploy
   - eks-initial-setup
@@ -90,7 +89,7 @@ stages:
 build-builder:
   image: docker:19
   tags: [autoscaling]
-  stage: dependencies
+  stage: build
   script:
     - ./ci-scripts/jobs/build-builder.sh
   <<: *except_analytics
@@ -99,16 +98,17 @@ test_code:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
+  needs: [build-builder]
   script:
     - ./check-changed.sh
   except:
     - master
 
 commitlint:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  image: starefossen/ruby-node:2-10
   tags: [autoscaling]
   stage: tests
-  image: starefossen/ruby-node:2-10
+  needs: [build-builder]
   before_script:
     - npm install --unsafe-perm
   script:
@@ -121,6 +121,7 @@ test_terraform:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
+  needs: [build-builder]
   <<: *vault_login
   script:
     - ./infrastructure/terraform.sh
@@ -334,7 +335,7 @@ analytics-sync-ms-sql-server-erp:
 build_ms_sql_server:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling-large]
-  stage: dependencies
+  stage: build
   <<: *kaniko_config
   script:
     - export CONT="ms_sql_server"
@@ -443,6 +444,7 @@ eks-terraform-lint:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
+  needs: [build-builder]
   script:
     - ./ci-scripts/jobs/eks-terraform-lint.sh
   except:
@@ -452,6 +454,7 @@ eks-terraform-plan:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
+  needs: [build-builder]
   script:
     - ./ci-scripts/jobs/eks-terraform-plan.sh
   except:
@@ -472,6 +475,7 @@ sops-terraform-lint:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
+  needs: [build-builder]
   script:
     - ./ci-scripts/jobs/sops-terraform-lint.sh
   except:
@@ -481,6 +485,7 @@ sops-terraform-plan:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
+  needs: [build-builder]
   script:
     - ./ci-scripts/jobs/sops-terraform-plan.sh
   except:
@@ -501,6 +506,7 @@ aws-sso-terraform-lint:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
+  needs: [build-builder]
   script:
     - ./ci-scripts/jobs/aws-sso-terraform-lint.sh
   except:
@@ -510,6 +516,7 @@ aws-sso-terraform-plan:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
+  needs: [build-builder]
   script:
     - ./ci-scripts/jobs/aws-sso-terraform-plan.sh
   except:
@@ -541,6 +548,7 @@ break-build-terraform-lint:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
+  needs: [build-builder]
   script:
     - ./ci-scripts/jobs/break-build-terraform-lint.sh
   except:
@@ -550,6 +558,7 @@ break-build-terraform-plan:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
+  needs: [build-builder]
   script:
     - ./ci-scripts/jobs/break-build-terraform-plan.sh
   except:
@@ -559,6 +568,7 @@ user-provision-integrates-terraform-lint:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
+  needs: [build-builder]
   script:
     - ./ci-scripts/jobs/user-provision-integrates-terraform-lint.sh
   except:
@@ -568,6 +578,7 @@ user-provision-integrates-terraform-plan:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
+  needs: [build-builder]
   script:
     - ./ci-scripts/jobs/user-provision-integrates-terraform-plan.sh
   except:
@@ -588,6 +599,7 @@ autoscaling-ci-terraform-lint:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
+  needs: [build-builder]
   script:
     - ./ci-scripts/jobs/autoscaling-ci-terraform-lint.sh
   except:
@@ -597,6 +609,7 @@ autoscaling-ci-terraform-plan:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
+  needs: [build-builder]
   script:
     - ./ci-scripts/jobs/autoscaling-ci-terraform-plan.sh
   except:
@@ -617,6 +630,7 @@ analytics-terraform-lint:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
+  needs: [build-builder]
   script:
     - ./ci-scripts/jobs/analytics-terraform-lint.sh
   except:
@@ -626,6 +640,7 @@ analytics-terraform-plan:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: tests
+  needs: [build-builder]
   script:
     - ./ci-scripts/jobs/analytics-terraform-plan.sh
   except:
