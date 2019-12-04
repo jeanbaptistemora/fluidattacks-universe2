@@ -5,7 +5,7 @@ set -ev
 apt-get update
 
 # set AWS CLI
-mkdir ~/.aws
+mkdir -p ~/.aws
 apt-get install -y awscli
 
 # Import functions

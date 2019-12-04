@@ -363,7 +363,7 @@ analytics-sync-intercom:
       - $FLAG_SYNC_INTERCOM
 
 analytics-sync-gitlab:
-  tags: [autoscaling]
+  tags: [autoscaling-large]
   stage: analytics
   script:
     - ./ci-scripts/jobs/analytics-sync-gitlab.sh

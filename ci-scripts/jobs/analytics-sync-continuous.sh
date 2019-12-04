@@ -21,7 +21,7 @@ analytics_sync_continuous() {
     analytics_auth_redshift
 
   pip3 install \
-    analytics/singer/tap_json
+    analytics/singer/tap_json \
     analytics/singer/target_redshift
 
   cd analytics/continuous
