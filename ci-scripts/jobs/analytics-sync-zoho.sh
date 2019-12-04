@@ -24,7 +24,7 @@ analytics_sync_zoho() {
     analytics_zoho_tables
 
   pip3 install --upgrade requests
-  pip3 install
+  pip3 install \
     analytics/singer/tap_json \
     analytics/singer/target_redshift
 
