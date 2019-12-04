@@ -12,7 +12,7 @@ import { change, Field, InjectedFormProps, reset } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
-import globalStyle from "../../../../styles/global.css";
+import { default as globalStyle } from "../../../../styles/global.css";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { dateField, textAreaField } from "../../../../utils/forms/fields";

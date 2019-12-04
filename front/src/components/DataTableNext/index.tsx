@@ -10,8 +10,8 @@ import BootstrapTable, { Column } from "react-bootstrap-table-next";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import filterFactory from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import globalStyle from "../../styles/global.css";
-import style from "./index.css";
+import { default as globalStyle } from "../../styles/global.css";
+import { default as style } from "./index.css";
 import { IHeader, ITableProps } from "./types";
 
 const handleFormatter: ((value: string, row: { [key: string]: string }, rowIndex: number, key: IHeader)

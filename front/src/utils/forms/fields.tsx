@@ -18,7 +18,7 @@ import "react-datetime/css/react-datetime.css";
 // @ts-ignore
 import ReactPhoneInput from "react-phone-input-2";
 import { WrappedFieldProps } from "redux-form";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 type CustomFieldProps = WrappedFieldProps & FormControlProps;
 

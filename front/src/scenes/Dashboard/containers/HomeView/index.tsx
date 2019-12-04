@@ -18,7 +18,7 @@ import translate from "../../../../utils/translations/translate";
 import { ProjectBox } from "../../components/ProjectBox";
 import { IDashboardState } from "../../reducer";
 import { changeProjectsDisplay, ThunkDispatcher } from "./actions";
-import style from "./index.css";
+import { default as style } from "./index.css";
 import { PROJECTS_QUERY } from "./queries";
 import { IHomeViewBaseProps, IHomeViewDispatchProps, IHomeViewProps,
   IHomeViewStateProps, IState, IUserAttr } from "./types";

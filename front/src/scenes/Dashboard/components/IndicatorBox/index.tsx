@@ -6,7 +6,7 @@ import _ from "lodash";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { FluidIcon } from "../../../../components/FluidIcon/index";
-import style from "./index.css";
+import { default as style } from "./index.css";
 /**
  * Indicator's Box properties
  */

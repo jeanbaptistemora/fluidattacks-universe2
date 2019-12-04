@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 interface INotificationProps {
     text: string;

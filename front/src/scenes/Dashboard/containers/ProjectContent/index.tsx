@@ -14,7 +14,7 @@ import ProjectFindingsView from "../ProjectFindingsView/index";
 import ProjectUsersView from "../ProjectUsersView/index";
 import ProjectResourcesView from "../ResourcesView/index";
 import { clearProjectState, loadProjectData, ThunkDispatcher } from "./actions";
-import style from "./index.css";
+import { default as style } from "./index.css";
 import {
   IProjectContentBaseProps, IProjectContentDispatchProps, IProjectContentProps,
   IProjectContentStateProps,

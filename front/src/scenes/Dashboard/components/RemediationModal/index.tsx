@@ -15,7 +15,7 @@ import { ConfigurableValidator } from "revalidate";
 import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
-import globalStyle from "../../../../styles/global.css";
+import { default as globalStyle } from "../../../../styles/global.css";
 import { textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { minLength, required } from "../../../../utils/validations";

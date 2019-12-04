@@ -11,7 +11,7 @@ import { fileInputField, textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 interface IEvidenceImageProps {
   acceptedMimes?: string;

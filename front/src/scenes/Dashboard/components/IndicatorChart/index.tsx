@@ -3,7 +3,7 @@ import { LegendProps } from "@nivo/legends";
 import { LineDatum, LineSerieData, ResponsiveLine } from "@nivo/line";
 import React from "react";
 import translate from "../../../../utils/translations/translate";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 /**
  * Indicator's Chart properties

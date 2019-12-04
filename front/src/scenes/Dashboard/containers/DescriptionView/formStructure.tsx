@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
-import globalStyle from "../../../../styles/global.css";
+import { default as globalStyle } from "../../../../styles/global.css";
 import {
   formatCweUrl,
   formatDropdownField,

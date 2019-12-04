@@ -36,7 +36,7 @@ import { trackingView as TrackingView } from "../TrackingView/index";
 import {
   approveDraft, clearFindingState, deleteFinding, loadFindingData, rejectDraft, ThunkDispatcher,
 } from "./actions";
-import style from "./index.css";
+import { default as style } from "./index.css";
 import { GET_FINDING_HEADER, SUBMIT_DRAFT_MUTATION } from "./queries";
 import {
   IFindingContentBaseProps, IFindingContentDispatchProps, IFindingContentProps,

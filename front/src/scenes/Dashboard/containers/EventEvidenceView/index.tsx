@@ -19,7 +19,7 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { validEventFile, validEventImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
-import style from "./index.css";
+import { default as style } from "./index.css";
 import { DOWNLOAD_FILE_MUTATION, GET_EVENT_EVIDENCES, UPDATE_EVIDENCE_MUTATION } from "./queries";
 
 type EventEvidenceProps = RouteComponentProps<{ eventId: string }>;

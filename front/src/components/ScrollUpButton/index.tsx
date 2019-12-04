@@ -6,7 +6,7 @@ import React from "react";
  */
 // @ts-ignore
 import ScrollUp from "react-scroll-up";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 interface IScrollUPButtonProps {
   visibleAt: number;

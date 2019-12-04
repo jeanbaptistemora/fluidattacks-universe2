@@ -2,7 +2,7 @@ import { ChartData } from "chart.js";
 import React from "react";
 import { Col } from "react-bootstrap";
 import { Doughnut } from "react-chartjs-2";
-import style from "./index.css";
+import { default as style } from "./index.css";
 /**
  * Indicator's Doughnut Graph properties
  */

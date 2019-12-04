@@ -10,7 +10,7 @@ import { textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { alphaNumeric } from "../../../../utils/validations";
 import { GenericForm } from "../GenericForm";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteComponentProps): JSX.Element => {
   const pathData: string[] = props.location.pathname.split("/")

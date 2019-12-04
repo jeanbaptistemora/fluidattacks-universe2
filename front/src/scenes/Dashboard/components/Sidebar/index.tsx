@@ -4,7 +4,7 @@ import { slide as BurgerMenu } from "react-burger-menu";
 import Media from "react-media";
 import { default as logo } from "../../../../resources/integrates.png";
 import translate from "../../../../utils/translations/translate";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 interface ISidebarProps {
   onLogoutClick(): void;

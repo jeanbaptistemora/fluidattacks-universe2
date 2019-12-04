@@ -93,7 +93,7 @@
     "redux-thunk": "2.3.0",
     "revalidate": "1.2.0",
     "rollbar": "2.4.7",
-    "typed-css-modules": "0.3.5",
+    "typed-css-modules": "0.6.3",
     "typesafe-actions": "2.0.4",
     "typescript": "3.4.5",
     "uglifyjs-webpack-plugin": "1.2.7",
@@ -122,9 +122,9 @@
   "scripts": {
     "audit": "npm set audit-level high && npm config set audit-level high && npm audit",
     "build:development": "npm run css && webpack --hide-modules --config webpack.dev.config.js",
-    "build:production": "webpack --hide-modules --config webpack.prod.config.js",
+    "build:production": "npm run css && webpack --hide-modules --config webpack.prod.config.js",
     "css": "tcm src/ --silent",
-    "lint": "tslint -p tsconfig.json -t codeFrame",
-    "test": "tsc -p tsconfig.json --noEmit && npm run css && ./runTests.sh"
+    "lint": "npm run css && tsc -p tsconfig.json && tslint -p tsconfig.json -t codeFrame",
+    "test": "npm run css && jest --detectOpenHandles"
   }
 }

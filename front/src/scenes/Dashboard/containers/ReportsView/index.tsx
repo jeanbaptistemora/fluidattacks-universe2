@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 const reportsView: React.FC<RouteComponentProps> = (props: RouteComponentProps): JSX.Element => {
   const handleDownloadClick: (() => void) = (): void => { window.location.assign("/integrates/complete_report"); };

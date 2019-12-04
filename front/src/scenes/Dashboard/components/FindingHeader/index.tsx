@@ -7,7 +7,7 @@ import { default as failIcon } from "../../../../resources/fail.svg";
 import { default as okIcon } from "../../../../resources/ok.svg";
 import { default as vulnerabilitiesIcon } from "../../../../resources/vulnerabilities.svg";
 import translate from "../../../../utils/translations/translate";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 interface IFindingHeaderProps {
   openVulns: number;

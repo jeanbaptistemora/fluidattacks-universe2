@@ -28,7 +28,7 @@ import { required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import { GenericForm } from "../../components/GenericForm/index";
 import * as actions from "./actions";
-import style from "./index.css";
+import { default as style } from "./index.css";
 import { GET_SEVERITY, UPDATE_SEVERITY_MUTATION } from "./queries";
 import { ISeverityAttr, ISeverityField, ISeverityViewProps, IUpdateSeverityAttr } from "./types";
 

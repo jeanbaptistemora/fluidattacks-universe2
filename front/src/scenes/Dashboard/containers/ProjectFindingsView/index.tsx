@@ -19,7 +19,7 @@ import { formatFindings, handleGraphQLErrors } from "../../../../utils/formatHel
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
 import { closeReportsModal, openReportsModal, ThunkDispatcher } from "./actions";
-import style from "./index.css";
+import { default as style } from "./index.css";
 import { GET_FINDINGS } from "./queries";
 import { IProjectFindingsAttr, IProjectFindingsBaseProps, IProjectFindingsDispatchProps, IProjectFindingsProps,
   IProjectFindingsStateProps } from "./types";

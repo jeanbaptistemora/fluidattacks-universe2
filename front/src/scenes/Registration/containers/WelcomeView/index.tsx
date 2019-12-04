@@ -14,12 +14,12 @@ import { Button } from "../../../../components/Button";
 // @ts-ignore Disable next line is necessary to run the unit tests
 import { default as logo } from "../../../../resources/logo.png";
 import store from "../../../../store/index";
-import globalStyle from "../../../../styles/global.css";
+import { default as globalStyle } from "../../../../styles/global.css";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import * as actions from "../../actions";
 import { compulsoryNotice as CompulsoryNotice } from "../../components/CompulsoryNotice";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 export interface IWelcomeViewProps {
   email: string;

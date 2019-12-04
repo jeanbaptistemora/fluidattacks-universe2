@@ -43,7 +43,7 @@ import { default as vectorNetworkIcon } from "../../resources/vector_network.svg
 import { default as vectorPhysicalIcon } from "../../resources/vector_physical.svg";
 import { default as verifiedIcon } from "../../resources/verified.svg";
 import { default as vulnerabilitiesIcon } from "../../resources/vulnerabilities.svg";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 interface IFluidIconProps {
   height?: string;

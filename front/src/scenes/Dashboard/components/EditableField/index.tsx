@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { BaseFieldProps, Field } from "redux-form";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 type EditableFieldProps = BaseFieldProps & {
   alignField?: string;

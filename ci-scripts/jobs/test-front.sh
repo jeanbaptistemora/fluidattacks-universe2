@@ -10,18 +10,14 @@ test_front() {
   cd front/ || return 1
   npm install --unsafe-perm
 
-  npm set audit-level high
-  npm config set audit-level high
-  npm audit
+  npm run audit
 
   # Linters
-  npx tslint -p tsconfig.json -t codeFrame
+  npm run lint
 
   # Unit tests
-  npx tsc -p tsconfig.json --noEmit
-  npx tcm src/ --silent
   set -o pipefail
-  npx jest --detectOpenHandles
+  npm test
   mv coverage/lcov.info coverage.lcov
   rm -r coverage
 

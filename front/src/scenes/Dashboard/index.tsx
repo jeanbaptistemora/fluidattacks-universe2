@@ -19,7 +19,7 @@ import FindingContent from "./containers/FindingContent/index";
 import HomeView from "./containers/HomeView";
 import ProjectContent from "./containers/ProjectContent/index";
 import { ReportsView } from "./containers/ReportsView";
-import style from "./index.css";
+import { default as style } from "./index.css";
 import { IDashboardState } from "./reducer";
 
 type IDashboardBaseProps = RouteComponentProps;

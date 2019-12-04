@@ -2,7 +2,7 @@ import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
 import { Preloader } from "./index";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 configure({ adapter: new ReactSixteenAdapter() });
 

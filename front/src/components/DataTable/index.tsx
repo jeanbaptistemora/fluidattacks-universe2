@@ -24,11 +24,11 @@ import {
  * to display properly even if some of them are overridden later
  */
 import "react-bootstrap-table/dist/react-bootstrap-table.min.css";
-import globalStyle from "../../styles/global.css";
+import { default as globalStyle } from "../../styles/global.css";
 import translate from "../../utils/translations/translate";
 import { Button } from "../Button";
 import { FluidIcon } from "../FluidIcon";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 export interface ITableProps {
   bodyContainer?: string;

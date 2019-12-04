@@ -21,7 +21,7 @@ import { focusError } from "../../../../utils/forms/events";
 import { dropdownField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 export interface IAddRepositoriesModalProps {
   isOpen: boolean;

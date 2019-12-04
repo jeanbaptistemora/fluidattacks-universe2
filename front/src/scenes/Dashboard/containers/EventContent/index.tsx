@@ -14,7 +14,7 @@ import { EventHeader } from "../../components/EventHeader";
 import { EventCommentsView } from "../EventCommentsView";
 import { EventDescriptionView } from "../EventDescriptionView/index";
 import { EventEvidenceView } from "../EventEvidenceView";
-import style from "../FindingContent/index.css";
+import { default as style } from "../FindingContent/index.css";
 import { GET_EVENT_HEADER } from "./queries";
 
 type EventContentProps = RouteComponentProps<{ eventId: string; projectName: string }>;

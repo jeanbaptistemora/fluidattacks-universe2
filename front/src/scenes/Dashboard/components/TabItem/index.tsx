@@ -1,6 +1,6 @@
 import React from "react";
 import { LinkProps, NavLink } from "react-router-dom";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 interface ITabItemProps extends LinkProps {
   icon: JSX.Element;

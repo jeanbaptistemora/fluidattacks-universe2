@@ -6,7 +6,7 @@ import _ from "lodash";
 import React, { useState } from "react";
 import { ControlLabel, FormControl, FormGroup, Glyphicon, InputGroup, Row } from "react-bootstrap";
 import translate from "../../../../utils/translations/translate";
-import style from "./index.css";
+import { default as style } from "./index.css";
 /**
  * File Input properties
  */

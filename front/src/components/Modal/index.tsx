@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 export interface IModalProps {
   children?: React.ReactNode;

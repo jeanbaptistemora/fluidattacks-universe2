@@ -6,7 +6,7 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { dataTable as DataTable, ITableProps } from "../../../../components/DataTable/index";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 const simpleTable: React.FunctionComponent<ITableProps> =
   (props: ITableProps): JSX.Element => (

@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 interface IProjectBoxProps {
   description: string;

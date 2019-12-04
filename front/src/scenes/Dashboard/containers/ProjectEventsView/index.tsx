@@ -14,7 +14,7 @@ import { Field, FormSection, formValueSelector, InjectedFormProps } from "redux-
 import { Button } from "../../../../components/Button";
 import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
 import { Modal } from "../../../../components/Modal";
-import globalStyle from "../../../../styles/global.css";
+import { default as globalStyle } from "../../../../styles/global.css";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { formatEvents, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import {

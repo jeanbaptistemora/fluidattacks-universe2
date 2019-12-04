@@ -6,7 +6,7 @@ import FontAwesome from "react-fontawesome";
 import NotificationSystem from "react-notification-system";
 // @ts-ignore Disable next line is necessary to run the unit tests
 import { default as logo } from "../../../../resources/logo.png";
-import style from "./index.css";
+import { default as style } from "./index.css";
 
 interface ILoginState {
   azureBtn: string;

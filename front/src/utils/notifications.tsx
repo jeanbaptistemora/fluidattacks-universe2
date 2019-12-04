@@ -1,7 +1,7 @@
 import React from "react";
 import { Slide, toast } from "react-toastify";
 import { Notification } from "../components/Notification";
-import style from "../components/Notification/index.css";
+import { default as style } from "../components/Notification/index.css";
 
 export const msgSuccess: ((text: string, title: string) => void) = (text: string, title: string): void => {
   toast.success(<Notification title={title} text={text} />, { transition: Slide, className: style.success });

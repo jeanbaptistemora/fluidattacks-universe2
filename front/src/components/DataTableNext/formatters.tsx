@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { Label } from "react-bootstrap";
 import { FluidIcon } from "../FluidIcon";
-import style from "./index.css";
+import { default as style } from "./index.css";
 import { IHeader } from "./types";
 
 export const statusFormatter: ((value: string) => ReactElement<Label>) =

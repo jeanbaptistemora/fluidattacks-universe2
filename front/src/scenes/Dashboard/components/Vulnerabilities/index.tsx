@@ -40,7 +40,7 @@ import { deleteVulnerabilityModal as DeleteVulnerabilityModal } from "../DeleteV
 import { IDeleteVulnAttr } from "../DeleteVulnerability/types";
 import { GenericForm } from "../GenericForm";
 import { changeFilterValues } from "./actions";
-import style from "./index.css";
+import { default as style } from "./index.css";
 import { APPROVE_VULN_MUTATION, GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
 import { IApproveVulnAttr, IUpdateTreatmentVulnAttr, IUpdateVulnTreatment,
   IVulnerabilitiesViewProps, IVulnRow, IVulnsAttr, IVulnType } from "./types";
