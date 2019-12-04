@@ -855,3 +855,68 @@ def has_not_deletion_protection(key_id: str, secret: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_terminate_shutdown_behavior(key_id: str,
+                                    secret: str,
+                                    retry: bool = True) -> tuple:
+    """
+    Verify if ``EC2::instance`` has **Terminate** as Shutdown Behavior.
+
+    By default EC2 Instances can be terminated using the shutdown command,
+    from the underlying operative system.
+
+    This is not desirable, as terminated instances are deleted from the account
+    automatically after some time,
+    personal may take-down the service without intention,
+    and volumes attached to the instance may be lost and therefore wiped.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if the instance has not the
+                **InstanceInitiatedShutdownBehavior** attribute set to
+                **terminate**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = \
+        'EC2 instances allows the shutdown command to terminate the instance'
+    msg_closed: str = ('EC2 instances disallow the shutdown command to'
+                       ' terminate the instance')
+    vulns, safes = [], []
+
+    instances = map(lambda x: x['Instances'],
+                    aws.run_boto3_func(
+                        key_id=key_id,
+                        secret=secret,
+                        service='ec2',
+                        func='describe_instances',
+                        param='Reservations',
+                        retry=retry))
+
+    for instance in _flatten(list(instances)):
+        shutdown_behavior = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='ec2',
+            func='describe_instance_attribute',
+            param='InstanceInitiatedShutdownBehavior',
+            Attribute='instanceInitiatedShutdownBehavior',
+            InstanceId=instance['InstanceId'],
+            retry=retry)['Value']
+        (vulns if shutdown_behavior == 'terminate' else safes).append(
+            (instance['InstanceId'],
+             'do not set terminate as shutdown behavior'))
+
+    return _get_result_as_tuple(
+        service='EC2',
+        objects='Instances',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

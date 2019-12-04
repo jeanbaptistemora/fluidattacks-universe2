@@ -142,6 +142,13 @@ def test_has_not_deletion_protection_open():
                                            ).is_open()
 
 
+def test_has_terminate_shutdown_behavior_open():
+    """Search instances that has terminate as shutdown behavior."""
+    assert ec2.has_terminate_shutdown_behavior(AWS_ACCESS_KEY_ID,
+                                               AWS_SECRET_ACCESS_KEY
+                                               ).is_open()
+
+
 #
 # Closing tests
 #
