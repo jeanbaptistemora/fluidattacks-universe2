@@ -17,7 +17,7 @@ import { formatDrafts, handleGraphQLErrors } from "../../../../utils/formatHelpe
 import { autocompleteTextField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
-import { required } from "../../../../utils/validations";
+import { required, validDraftTitle } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { CREATE_DRAFT_MUTATION, GET_DRAFTS } from "./queries";
 import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "./types";
@@ -181,7 +181,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                                     name="title"
                                     suggestions={titleSuggestions}
                                     type="text"
-                                    validate={[required]}
+                                    validate={[required, validDraftTitle]}
                                   />
                                 </Col>
                               </Row>

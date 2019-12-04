@@ -50,6 +50,15 @@ export const validEmail: Validator = matchesPattern(
   message: translate.t("validations.email"),
 });
 
+export const validDraftTitle: ((title: string) => string | undefined) = (title: string): string | undefined => {
+  if (/^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+/g.test(title)) {
+
+    return undefined;
+  }
+
+  return translate.t("validations.drafTitle");
+};
+
 export const validDatetime: Validator = (value?: Moment | string): string | undefined => (
   moment.isMoment(value) ? undefined : translate.t("validations.datetime")
 );

@@ -9,7 +9,7 @@ import {
 } from "../../../../utils/formatHelpers";
 import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { numeric, required } from "../../../../utils/validations";
+import { numeric, required, validDraftTitle } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import TreatmentFieldsView from "../../components/treatmentFields";
 import { VulnerabilitiesView } from "../../components/Vulnerabilities";
@@ -64,7 +64,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             name="title"
             renderAsEditable={props.isEditing}
             type="text"
-            validate={[required]}
+            validate={[required, validDraftTitle]}
             visible={props.isEditing && _.includes(["admin", "analyst"], props.userRole)}
           />
         </Col>
