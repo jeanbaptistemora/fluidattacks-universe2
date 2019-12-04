@@ -165,7 +165,7 @@ class AddFiles(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['analyst', 'customer', 'admin'])
+    @require_role(['customer'])
     @require_project_access
     def mutate(self, info, **parameters):
         success = False
@@ -240,7 +240,7 @@ class RemoveFiles(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['analyst', 'customer', 'admin'])
+    @require_role(['customer'])
     @require_project_access
     def mutate(self, info, files_data, project_name):
         success = False

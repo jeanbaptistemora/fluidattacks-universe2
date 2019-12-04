@@ -997,6 +997,7 @@ const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
           uploadProgress={props.uploadProgress}
         />
         <FileOptionsModal
+          canRemove={currUserRole === "customer" ? true : false}
           fileName={props.optionsModal.rowInfo.fileName}
           isOpen={props.optionsModal.open}
           onClose={handleCloseOptionsModalClick}

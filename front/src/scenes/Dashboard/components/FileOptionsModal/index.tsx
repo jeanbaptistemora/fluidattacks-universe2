@@ -19,6 +19,7 @@ import { focusError } from "../../../../utils/forms/events";
 import translate from "../../../../utils/translations/translate";
 
 export interface IFileOptionsModalProps {
+  canRemove: boolean;
   fileName: string;
   isOpen: boolean;
   onClose(): void;
@@ -42,6 +43,7 @@ const renderFilesFields: ((props: formProps) => JSX.Element) =
             <Col md={12}>
               <br />
               <Col md={4} mdOffset={2} sm={6}>
+                {props.canRemove ?
                 <Button
                   id="removeFiles"
                   block={true}
@@ -50,7 +52,7 @@ const renderFilesFields: ((props: formProps) => JSX.Element) =
                 >
                   <Glyphicon glyph="minus"/>&nbsp;
                   {translate.t("search_findings.tab_resources.remove_repository")}
-                </Button>
+                </Button> : undefined}
               </Col>
               <Col md={4} sm={6}>
                 <Button

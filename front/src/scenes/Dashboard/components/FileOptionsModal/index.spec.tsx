@@ -15,6 +15,7 @@ describe("Add resources modal", () => {
   const wrapper: ShallowWrapper = shallow(
     <Provider store={store}>
       <FileOptionsModal
+        canRemove={true}
         fileName=""
         isOpen={true}
         onClose={functionMock}
