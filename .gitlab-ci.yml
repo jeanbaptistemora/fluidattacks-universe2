@@ -11,7 +11,6 @@ stages:
   - eks-initial-setup
   - postdeploy
   - rotation
-  - backup
 
 .vault_vars: &vault_vars
   variables:
@@ -224,7 +223,7 @@ change-keys-integrates-jwt:
 
 vault_backup:
   tags: [autoscaling]
-  stage: backup
+  stage: rotation
   script:
     - aws s3 cp
         s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
@@ -283,20 +282,11 @@ analytics-sync-timedoctor:
     variables:
       - $FLAG_SYNC_TIMEDOCTOR
 
-sync_git:
+analytics-sync-git:
   tags: [autoscaling-large]
   stage: analytics
-  <<: *vault_login
   script:
-    - analytics/git/set_dependencies.sh
-    - python3 analytics/git/clone_us.py 2>&1 | aws s3 cp - s3://fluidanalytics/clone_us.log
-    - python3 analytics/git/clone_them.py 2>&1 | tee clone_them.log | aws s3 cp - s3://fluidanalytics/clone_them.log
-    - python3 analytics/git/generate_stats.py || true
-    - python3 analytics/git/generate_config.py 2>&1 | aws s3 cp - s3://fluidanalytics/generate_config.log
-    - analytics/git/sync_forked.sh
-    - analytics/git/taint_all.sh
-  after_script:
-    - rm -fr ~/.aws
+    - ./ci-scripts/jobs/analytics-sync-git.sh
   <<: *only_schedules
   only:
     variables:
@@ -392,12 +382,11 @@ analytics-sync-continuous:
     variables:
       - $FLAG_SYNC_CONTINUOUS
 
-analytics_refresh_token_timedoctor:
+analytics-refresh-token-timedoctor:
   tags: [autoscaling]
   stage: analytics
-  <<: *vault_login
   script:
-    - ./analytics/auth_helper.py --timedoctor-refresh
+    - ./ci-scripts/jobs/analytics-refresh-token-timedoctor.sh
   <<: *only_schedules
   only:
     variables:

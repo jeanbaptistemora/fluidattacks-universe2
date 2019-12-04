@@ -5,10 +5,8 @@ import os
 from multiprocessing import cpu_count
 from multiprocessing.pool import Pool
 
-USER = os.popen(
-    f'vault read -field=analytics_gitlab_user secret/serves').read()
-TOKEN = os.popen(
-    f'vault read -field=analytics_gitlab_token secret/serves').read()
+USER = os.environ['analytics_gitlab_user']
+TOKEN = os.environ['analytics_gitlab_token']
 
 
 def clone(repo) -> None:

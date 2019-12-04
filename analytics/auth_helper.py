@@ -5,6 +5,7 @@
 import json
 import argparse
 import subprocess
+import os
 
 import urllib3
 
@@ -31,15 +32,6 @@ def run_command(cmd: str, raise_on_errors=True, raise_msg=''):
     if raise_on_errors and proc.returncode:
         raise Exception(f'CRITICAL: A command failed to run: {raise_msg}')
     return proc.returncode, stdout, stderr
-
-
-def get_from_vault(key: str) -> str:
-    """Get a key from vault."""
-    _, stdout, _ = run_command(
-        f'vault read -field={key} secret/serves',
-        raise_on_errors=True,
-        raise_msg=f'unable to get {key} from vault')
-    return stdout
 
 
 def get_from_url(method: str, resource: str, **kwargs) -> tuple:
@@ -90,7 +82,7 @@ def timedoctor_refresh_url(
 
 def timedoctor_start() -> bool:
     """Scrip to refresh the timedoctor token."""
-    timedoctor = json.loads(get_from_vault('analytics_auth_timedoctor'))
+    timedoctor = json.loads(os.environ['analytics_auth_timedoctor'])
 
     print(timedoctor_initial_url_1(
         client_id=timedoctor['client_id'],
@@ -123,7 +115,7 @@ def timedoctor_start() -> bool:
 
 def timedoctor_update(json_str: str) -> bool:
     """Just put in vault this values."""
-    timedoctor = json.loads(get_from_vault('analytics_auth_timedoctor'))
+    timedoctor = json.loads(os.environ['analytics_auth_timedoctor'])
 
     # Put it on vault, tokens are issued with 2 hours of duration
     new_values = json.dumps(
@@ -140,7 +132,7 @@ def timedoctor_update(json_str: str) -> bool:
 def timedoctor_refresh() -> bool:
     """Scrip to refresh the timedoctor token."""
     # Get the current values
-    timedoctor = json.loads(get_from_vault('analytics_auth_timedoctor'))
+    timedoctor = json.loads(os.environ['analytics_auth_timedoctor'])
 
     # Get the new token
     new_timedoctor = json.loads(get_from_url(

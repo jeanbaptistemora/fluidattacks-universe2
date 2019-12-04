@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 
-echo "$(vault read -field=analytics_auth_redshift secret/serves)" > /target_secret.json
+# Import functions
+. <(curl -s https://gitlab.com/fluidattacks/public/raw/master/sops-source/sops.sh)
+. toolbox/others.sh
+
+aws_login
+
+sops_env secrets-production.yaml default \
+  analytics_auth_redshift
+
+echo "$analytics_auth_redshift" > /target_secret.json
 
 for fork in {1..32}; do
   ( tap-git \
