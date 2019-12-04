@@ -1,5 +1,5 @@
 from graphene import (
-    Argument, Boolean, DateTime, Enum, Field, Int, List, Mutation, ObjectType,
+    Argument, Boolean, DateTime, Enum, Int, List, Mutation, ObjectType,
     String
 )
 from graphene.types.generic import GenericScalar
@@ -139,26 +139,23 @@ class UpdateEvent(Mutation):
 
     class Arguments():
         event_id = String(required=True)
-        affectation = String(required=True)
     success = Boolean()
-    event = Field(Event)
 
     @staticmethod
     @require_login
     @require_role(['analyst', 'admin'])
     @require_event_access
-    def mutate(_, info, event_id, affectation):
-        analyst_email = util.get_jwt_content(info.context)['user_email']
-        success = event_domain.update_event(
-            event_id, affectation, analyst_email)
+    def mutate(_, info, event_id, **kwargs):
+        success = event_domain.update_event(event_id, **kwargs)
         if success:
             project_name = event_domain.get_event(event_id).get('project_name')
             util.invalidate_cache(event_id)
             util.invalidate_cache(project_name)
-        events_loader = info.context.loaders['event']
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Updated event {event_id} succesfully')
 
-        ret = UpdateEvent(success=success, event=events_loader.load(event_id))
-        return ret
+        return UpdateEvent(success=success)
 
 
 class SolveEvent(Mutation):
@@ -365,8 +362,8 @@ class UpdateEventEvidence(Mutation):
 class DownloadEventFile(Mutation):
     """ Generate url for the requested evidence file """
     class Arguments():
-        event_id = String()
-        file_name = String()
+        event_id = String(required=True)
+        file_name = String(required=True)
     success = Boolean()
     url = String()
 

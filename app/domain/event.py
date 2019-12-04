@@ -20,7 +20,7 @@ from app.exceptions import (
 from app.mailer import send_mail_comment, send_mail_new_event
 
 
-def update_event(event_id, affectation, analyst_email):
+def update_event(event_id, **kwargs):
     """Update an event associated to a project."""
     event = get_event(event_id)
     success = False
@@ -28,16 +28,7 @@ def update_event(event_id, affectation, analyst_email):
     if event.get('historic_state')[-1].get('state') == 'CLOSED':
         raise EventAlreadyClosed()
 
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).today()
-    history = event.get('historic_state')
-    history.append({
-        'affectation': affectation,
-        'analyst': analyst_email,
-        'date': today.strftime('%Y-%m-%d %H:%M:%S'),
-        'state': 'CLOSED'
-    })
-    success = event_dal.update(event_id, {'historic_state': history})
+    success = event_dal.update(event_id, kwargs)
 
     return success
 

@@ -8,6 +8,7 @@ from .test_utils import Request
 
 from app.api.dataloaders.event import EventLoader
 from app.api.schema import SCHEMA
+from app.domain import event as event_domain
 
 
 class EventTests(TestCase):
@@ -53,37 +54,27 @@ class EventTests(TestCase):
         detail = dict(result['project']['events'][0])['detail']
         assert len(detail) >= 1
 
-    def test_update_event(self):
+    def test_solve_event(self):
         request = Request().get_request({
             'username': 'unittest',
             'company': 'unittest',
             'role': 'admin',
             'useremail': 'unittest'
         })
-        request.loaders = {'event': EventLoader()}
         query = '''
         mutation {
-          updateEvent(eventId: "418900971", affectation: "0"){
+          solveEvent(
+            eventId: "418900971",
+            affectation: 0,
+            date: "2019-12-02T05:00:00.000Z"
+          ) {
             success
-              event {
-                accessibility,
-                affectation,
-                affectedComponents,
-                analyst,
-                client,
-                clientProject,
-                eventDate,
-                detail,
-                evidence,
-                id,
-                projectName,
-                eventStatus,
-                eventType
-            }
           }
         }
         '''
         testing_client = Client(SCHEMA)
         result = testing_client.execute(query, context=request)
         assert 'errors' not in result
-        assert result['data']['updateEvent']['event']['eventStatus'] == 'CLOSED'
+        assert result['data']['solveEvent']['success']
+        event = event_domain.get_event('418900971')
+        assert event['historic_state'][-1]['state'] == 'SOLVED'
