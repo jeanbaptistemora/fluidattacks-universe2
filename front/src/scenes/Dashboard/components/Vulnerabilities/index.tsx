@@ -6,7 +6,7 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code that defines the headers of the table
 */
-import { NetworkStatus } from "apollo-client";
+import { ApolloError, NetworkStatus } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React, { useState } from "react";
@@ -34,7 +34,7 @@ import translate from "../../../../utils/translations/translate";
 import { isValidVulnsFile } from "../../../../utils/validations";
 import * as actions from "../../actions";
 import { FileInput } from "../../components/FileInput/index";
-import { TreatmentFieldsView } from "../../components/treatmentFields";
+import TreatmentFieldsView from "../../components/treatmentFields";
 import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
 import { deleteVulnerabilityModal as DeleteVulnerabilityModal } from "../DeleteVulnerability/index";
 import { IDeleteVulnAttr } from "../DeleteVulnerability/types";
@@ -290,9 +290,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     const [filterValueLines, setFilterValueLines] = useState("");
     const [filterValuePorts, setFilterValuePorts] = useState("");
 
-    if (!_.isUndefined(props.descriptParam)) {
-      props.descriptParam.formValues.treatment = props.descriptParam.formValues.treatmentVuln;
-    }
     const isAnalystorAdmin: boolean = _.includes(["analyst", "admin"], props.userRole);
 
     const getSelectQryTable: () => {selectedQeryArray: Array<NodeListOf<Element>> } = ():
@@ -311,8 +308,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
 
       return result;
     };
-
-    const isEditable: boolean = props.editMode && _.includes(["customer"], props.userRole);
+    const isEditable: boolean = props.editMode && _.includes(["customer", "customeradmin"], props.userRole);
     const separatedRow: boolean = !_.isUndefined(props.separatedRow) ? props.separatedRow
     : false;
     const getAnalyst: boolean = !_.isUndefined(props.analyst) ? props.analyst : false;
@@ -425,6 +421,11 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               }
             };
 
+            const handleUpdateTreatError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
+              hidePreloader();
+              msgError(translate.t("proj_alerts.error_textsad"));
+
+            };
             const handleMtUpdateTreatmentVulnRes: ((mtResult: IUpdateVulnTreatment) => void) =
             (mtResult: IUpdateVulnTreatment): void => {
               if (!_.isUndefined(mtResult)) {
@@ -678,10 +679,15 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   vulnerabilities: vulnsId,
                 };
                 if (!_.isUndefined(props.descriptParam)) {
-                  props.descriptParam.dataset.treatment = vulns[0].treatments.treatment.toUpperCase();
-                  props.descriptParam.dataset.treatmentJustification = vulns[0].treatments.treatmentJustification;
-                  props.descriptParam.dataset.treatmentManager = vulns[0].treatments.treatmentManager;
-                  props.descriptParam.dataset.btsUrl = vulns[0].treatments.btsUrl;
+                  if (modalHidden) {
+                    props.descriptParam.dataset.severity = vulns[0].treatments.severity;
+                    props.descriptParam.dataset.tag = vulns[0].treatments.tag;
+                    props.descriptParam.dataset.acceptanceDate = vulns[0].treatments.acceptanceDate;
+                    props.descriptParam.dataset.treatment = vulns[0].treatments.treatment.toUpperCase();
+                    props.descriptParam.dataset.treatmentJustification = vulns[0].treatments.treatmentJustification;
+                    props.descriptParam.dataset.treatmentManager = vulns[0].treatments.treatmentManager;
+                    props.descriptParam.dataset.btsUrl = vulns[0].treatments.btsUrl;
+                  }
                 }
               }
 
@@ -929,18 +935,14 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                         onDeleteVulnRes={handleMtDeleteVulnRes}
                       />
 
-                      <Mutation mutation={UPDATE_TREATMENT_MUTATION} onCompleted={handleMtUpdateTreatmentVulnRes}>
+                      <Mutation
+                        mutation={UPDATE_TREATMENT_MUTATION}
+                        onCompleted={handleMtUpdateTreatmentVulnRes}
+                        onError={handleUpdateTreatError}
+                      >
                         { (updateTreatmentVuln: MutationFn<IUpdateVulnTreatment, IUpdateTreatmentVulnAttr>,
                            mutationResVuln: MutationResult): React.ReactNode => {
                             if (mutationResVuln.loading) {showPreloader(); }
-                            if (!_.isUndefined(mutationResVuln.error)) {
-                              hidePreloader();
-                              handleGraphQLErrors("An error occurred updating vulnerabilities",
-                                                  mutationResVuln.error);
-                              location.reload();
-
-                              return <React.Fragment/>;
-                            }
 
                             const handleUpdateTreatmentVuln: ((dataTreatment: IDescriptionViewProps["dataset"])
                               => void) = (dataTreatment: IDescriptionViewProps["dataset"]): void => {
@@ -998,7 +1000,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                                 }
                               >
                                 {!_.isUndefined(props.descriptParam) ?
-                                TreatmentFieldsView(props.descriptParam)
+                                <TreatmentFieldsView isTreatmentModal={true} {...props.descriptParam} />
                                 : undefined}
                               </GenericForm>
                               : undefined}

@@ -319,8 +319,10 @@ const enTranslations: Dictionary = {
         unauth_inter: "Unauthorized Internet user",
         unauth_intra: "Unauthorized Intranet user",
       },
+      severity: "Severity",
       state: "State",
       tab_title: "Description",
+      tag: "Tag",
       threat: "Threat",
       title: "Title",
       treatment: {

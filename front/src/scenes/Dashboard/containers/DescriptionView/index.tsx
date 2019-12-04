@@ -67,6 +67,7 @@ export interface IDescriptionViewProps {
   };
   isEditing: boolean;
   isRemediationOpen: boolean;
+  isTreatmentModal: boolean;
   projectName: string;
   userRole: string;
 }

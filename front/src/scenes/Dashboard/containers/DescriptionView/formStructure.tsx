@@ -11,7 +11,7 @@ import { dropdownField, textAreaField, textField } from "../../../../utils/forms
 import translate from "../../../../utils/translations/translate";
 import { numeric, required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
-import { TreatmentFieldsView } from "../../components/treatmentFields";
+import TreatmentFieldsView from "../../components/treatmentFields";
 import { VulnerabilitiesView } from "../../components/Vulnerabilities";
 import { IDescriptionViewProps } from "./index";
 
@@ -23,6 +23,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
   (props.isEditing && _.includes(["admin", "analyst"], props.userRole));
 
   const validateEmptyField: boolean = !props.isEditing || canEditDescription;
+  const validRole: boolean = _.includes(["admin", "analyst", "customer", "customeradmin"], props.userRole);
 
   return (
     <React.Fragment>
@@ -162,7 +163,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
           <FormGroup>
             <ControlLabel><b>{translate.t("search_findings.tab_description.where")}</b></ControlLabel><br />
             <VulnerabilitiesView
-              editMode={props.isEditing && _.includes(["admin", "analyst", "customer"], props.userRole)}
+              editMode={props.isEditing && validRole}
               findingId={props.findingId}
               state="open"
               userRole={props.userRole}
@@ -292,11 +293,12 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
 
 export const renderFormFields: renderFormFieldsFn = (props: IDescriptionViewProps): JSX.Element => {
   const canEditTreatment: boolean = _.includes(["customer", "customeradmin"], props.userRole);
+  const shouldRenderEditable: boolean = !props.isEditing || (props.isEditing && canEditTreatment);
 
   return (
     <React.Fragment>
       {renderDescriptionFields(props)}
-      {!props.isEditing || (props.isEditing && canEditTreatment) ? TreatmentFieldsView(props) : undefined}
+      {shouldRenderEditable ? <TreatmentFieldsView isTreatmentModal={false} {...props}/> : undefined}
     </React.Fragment>
   );
 };
