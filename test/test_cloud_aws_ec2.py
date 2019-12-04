@@ -149,6 +149,13 @@ def test_has_terminate_shutdown_behavior_open():
                                                ).is_open()
 
 
+def test_has_associate_public_ip_address_open():
+    """Search instances with associated public IPs."""
+    assert ec2.has_associate_public_ip_address(AWS_ACCESS_KEY_ID,
+                                               AWS_SECRET_ACCESS_KEY
+                                               ).is_open()
+
+
 #
 # Closing tests
 #

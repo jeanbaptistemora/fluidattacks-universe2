@@ -920,3 +920,49 @@ def has_terminate_shutdown_behavior(key_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_associate_public_ip_address(key_id: str,
+                                    secret: str,
+                                    retry: bool = True) -> tuple:
+    """
+    Check if ``EC2::Instance`` has associated public IP address.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are instances with associated public IPs.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'EC2 instances has associated public ip addresses.'
+    msg_closed: str = 'EC2 instances has not associated public ip addresses.'
+    vulns, safes = [], []
+
+    instances = map(lambda x: x['Instances'],
+                    aws.run_boto3_func(
+                        key_id=key_id,
+                        secret=secret,
+                        service='ec2',
+                        func='describe_instances',
+                        param='Reservations',
+                        retry=retry))
+
+    for instance in _flatten(list(instances)):
+        for interface in instance['NetworkInterfaces']:
+            (vulns if 'Association' in interface
+             and interface['Association']['PublicIp'] else safes).append(
+                 (instance['InstanceId'],
+                  'do not associate public IP addresses.'))
+
+    return _get_result_as_tuple(
+        service='EC2',
+        objects='Instances',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
