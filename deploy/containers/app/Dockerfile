@@ -43,7 +43,6 @@ RUN mkdir app/documentator/images \
 
 # Set up apache
 RUN chown -R www-data:www-data . \
-  && a2dismod -f deflate \
   && a2enmod ssl \
   && echo "$SSL_CERT" | base64 -di > /etc/ssl/certs/fluidla.crt \
   && mkdir /etc/ssl/private \

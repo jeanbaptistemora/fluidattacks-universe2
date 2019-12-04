@@ -5,6 +5,7 @@ cryptography==2.8
 django==2.2.8
 django-analytical==2.5.0
 django-crontab==0.7.1
+django-debreach==2.0.1
 django-intercom==0.1.3
 django-redis==4.10.0
 django-redis-sessions==0.6.1
