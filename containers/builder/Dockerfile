@@ -66,6 +66,7 @@ RUN pip3 install \
     requests==2.20.1 \
     urllib3==1.25.3 \
     yq==2.9.2 \
+    ruamel.yaml==0.16.5 \
     awscli==1.16.55
 
 CMD ["bash"]

@@ -10,10 +10,12 @@ break_build_terraform_apply() {
   . toolbox/terraform.sh
   . toolbox/others.sh
   . services/break-build/helpers.sh
+  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/sops-source/sops.sh)
 
   aws_login
 
-  set_subscriptions_terraform_variable
+  set_terraform_var_break_build_projects
+  set_terraform_var_break_build_project_peers
 
   run_terraform \
     services/break-build/terraform \

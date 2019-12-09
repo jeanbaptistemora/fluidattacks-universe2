@@ -28,7 +28,7 @@ get_active_and_suspended_subscriptions(){
   echo $SUBSCRIPTIONS
 }
 
-set_subscriptions_terraform_variable(){
+set_terraform_var_break_build_projects(){
 
   # Set a terraform map variable with found subscriptions
   # As specified in:
@@ -50,4 +50,28 @@ set_subscriptions_terraform_variable(){
   TF_VAR_break_build_projects="$TF_VAR_break_build_projects]"
 
   echo $TF_VAR_break_build_projects
+}
+
+set_terraform_var_break_build_project_peers() {
+
+  # Set a terraform map variable with related subscriptions
+  # As specified in:
+  # https://www.terraform.io/docs/commands/environment-variables.html
+
+  set -Eeuo pipefail
+
+  sops_env secrets-production.yaml default \
+    analytics_gitlab_user \
+    analytics_gitlab_token
+
+  git clone --depth 1 --single-branch \
+    "https://${analytics_gitlab_user}:${analytics_gitlab_token}@gitlab.com/fluidattacks/continuous.git"
+
+  export TF_VAR_break_build_project_allies
+
+  pushd ./continuous
+  TF_VAR_break_build_project_allies=$(./tools3/generate_terraform_subscription_allies.py)
+  popd
+
+  echo "${TF_VAR_break_build_project_allies}"
 }
