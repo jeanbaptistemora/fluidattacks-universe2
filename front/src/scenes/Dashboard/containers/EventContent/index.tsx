@@ -17,7 +17,7 @@ import { EventEvidenceView } from "../EventEvidenceView";
 import { default as style } from "../FindingContent/index.css";
 import { GET_EVENT_HEADER } from "./queries";
 
-type EventContentProps = RouteComponentProps<{ eventId: string; projectName: string }>;
+type EventContentProps = RouteComponentProps<{ eventId: string }>;
 
 const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JSX.Element => {
   const { eventId } = props.match.params;

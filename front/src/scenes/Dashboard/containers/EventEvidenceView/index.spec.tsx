@@ -6,6 +6,8 @@ import _ from "lodash";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
+// tslint:disable-next-line: no-submodule-imports
+import { act } from "react-dom/test-utils";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
 import { EventEvidenceView } from "./index";
@@ -64,7 +66,7 @@ describe("EventEvidenceView", () => {
         <EventEvidenceView {...mockProps} />
       </MockedProvider>,
     );
-    await wait(0);
+    await act(async () => { await wait(0); });
     expect(wrapper)
       .toHaveLength(1);
   });
@@ -91,8 +93,7 @@ describe("EventEvidenceView", () => {
         <EventEvidenceView {...mockProps} />
       </MockedProvider>,
     );
-    await wait(0);
-    wrapper.update();
+    await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.text())
       .toContain("There are no evidences");
   });
@@ -119,8 +120,7 @@ describe("EventEvidenceView", () => {
         <EventEvidenceView {...mockProps} />
       </MockedProvider>,
     );
-    await wait(0);
-    wrapper.update();
+    await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.containsMatchingElement(<img />))
       .toBe(true);
     expect(wrapper.containsMatchingElement(<p>File</p>))
@@ -149,11 +149,10 @@ describe("EventEvidenceView", () => {
         <EventEvidenceView {...mockProps} />
       </MockedProvider>,
     );
-    await wait(0);
-    wrapper.update();
+    await act(async () => { await wait(0); wrapper.update(); });
     wrapper.find("img")
       .simulate("click");
-    wrapper.update();
+    await act(async () => { wrapper.update(); });
     expect(wrapper.find("ReactImageLightbox"))
       .toHaveLength(1);
   });
@@ -181,8 +180,7 @@ describe("EventEvidenceView", () => {
         <EventEvidenceView {...mockProps} />
       </MockedProvider>,
     );
-    await wait(0);
-    wrapper.update();
+    await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper
       .find("Button")
       .filterWhere((button: ReactWrapper): boolean => _.includes(button.text(), "Edit")))

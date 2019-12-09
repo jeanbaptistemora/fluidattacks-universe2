@@ -6,27 +6,20 @@ import "isomorphic-fetch";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
+// tslint:disable-next-line: no-submodule-imports
+import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
+import { RouteComponentProps } from "react-router";
 import wait from "waait";
 import store from "../../../../store/index";
 import { ProjectEventsView } from "./index";
 import { GET_EVENTS } from "./queries";
-import { IEventsViewProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
-const functionMock: (() => JSX.Element) = (): JSX.Element => <div />;
-
 describe("EventsView", () => {
 
-  const mockProps: IEventsViewProps = {
-    eventsDataset: [{
-      detail: "Test description",
-      eventDate: "2018-10-17 00:00:00",
-      eventStatus: "SOLVED",
-      eventType: "AUTHORIZATION_SPECIAL_ATTACK",
-      id: "463457733",
-    }],
+  const mockProps: RouteComponentProps<{ projectName: string }> = {
     history: {
       action: "PUSH",
       block: (): (() => void) => (): void => undefined,
@@ -36,29 +29,17 @@ describe("EventsView", () => {
       goForward: (): void => undefined,
       length: 1,
       listen: (): (() => void) => (): void => undefined,
-      location: {
-        hash: "",
-        pathname: "/",
-        search: "",
-        state: {},
-      },
+      location: { hash: "", pathname: "/", search: "", state: {} },
       push: (): void => undefined,
       replace: (): void => undefined,
     },
-    location: {
-      hash: "",
-      pathname: "/",
-      search: "",
-      state: {},
-    },
+    location: { hash: "", pathname: "/", search: "", state: {} },
     match: {
       isExact: true,
-      params: {projectName: "TEST"},
+      params: { projectName: "unittesting" },
       path: "/",
       url: "",
     },
-    onClickRow: functionMock,
-    projectName: "TEST",
   };
 
   const mocks: ReadonlyArray<MockedResponse> = [
@@ -72,9 +53,7 @@ describe("EventsView", () => {
       result: {
         data: {
           project: {
-            __typename: "Project",
             events: [{
-              __typename: "Events",
               detail: "Test description",
               eventDate: "2018-10-17 00:00:00",
               eventStatus: "SOLVED",
@@ -85,7 +64,7 @@ describe("EventsView", () => {
           },
         },
       },
-  }];
+    }];
 
   const mockError: ReadonlyArray<MockedResponse> = [
     {
@@ -98,7 +77,7 @@ describe("EventsView", () => {
       result: {
         errors: [new GraphQLError("Access denied")],
       },
-  }];
+    }];
 
   it("should return a fuction", () => {
     expect(typeof (ProjectEventsView))
@@ -108,12 +87,12 @@ describe("EventsView", () => {
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mockError} addTypename={true}>
+        <MockedProvider mocks={mockError} addTypename={false}>
           <ProjectEventsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
-    await wait(0);
+    await act(async () => { await wait(0); });
     expect(wrapper)
       .toHaveLength(1);
   });
@@ -121,12 +100,12 @@ describe("EventsView", () => {
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={true}>
+        <MockedProvider mocks={mocks} addTypename={false}>
           <ProjectEventsView {...mockProps} />
         </MockedProvider>
       </Provider>,
     );
-    await wait(0);
+    await act(async () => { await wait(0); });
     expect(wrapper)
       .toHaveLength(1);
   });

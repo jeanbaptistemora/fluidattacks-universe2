@@ -10,6 +10,7 @@ import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Glyphicon, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { RouteComponentProps } from "react-router";
 import { Field, FormSection, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
@@ -28,7 +29,6 @@ import {
 } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
-import { IEventsAttr, IEventViewBaseProps } from "./types";
 
 const tableHeaders: IHeader[] = [
   {
@@ -52,9 +52,12 @@ const tableHeaders: IHeader[] = [
     isStatus: true, width: "13%", wrapped: true,
   },
 ];
-const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: IEventViewBaseProps): JSX.Element => {
+
+type EventsViewProps = RouteComponentProps<{ projectName: string }>;
+
+const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: EventsViewProps): JSX.Element => {
   const { projectName } = props.match.params;
-  const handleQryResult: ((qrResult: IEventsAttr) => void) = (): void => {
+  const handleQryResult: (() => void) = (): void => {
     mixpanel.track("ProjectEvents", {
       Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
@@ -86,7 +89,7 @@ const projectEventsView: React.FunctionComponent<IEventViewBaseProps> = (props: 
   return (
     <Query query={GET_EVENTS} variables={{ projectName }} onCompleted={handleQryResult}>
       {
-        ({ data, error, loading, refetch }: QueryResult<IEventsAttr>): React.ReactNode => {
+        ({ data, error, loading, refetch }: QueryResult): React.ReactNode => {
           if (loading) {
             showPreloader();
 
