@@ -48,9 +48,23 @@ def test_privilege_escalation_open():
         api_key=KUBERNETES_API_TOKEN).is_open()
 
 
+def test_run_containers_as_root_user_open():
+    """Search containers running as root user."""
+    assert pods.run_containers_as_root_user(
+        host=KUBERNETES_API_SERVER,
+        api_key=KUBERNETES_API_TOKEN).is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_run_containers_as_root_user_closed():
+    """Search containers running as root user."""
+    assert pods.run_containers_as_root_user(
+        host=BAD_KUBERNETES_API_SERVER,
+        api_key=BAD_KUBERNETES_API_SERVER).is_unknown()
 
 
 def test_privilege_escalation_closed():

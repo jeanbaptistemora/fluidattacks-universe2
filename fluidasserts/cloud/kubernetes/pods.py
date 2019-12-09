@@ -205,3 +205,57 @@ def privilege_escalation(*,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ApiException, MaxRetryError)
+def run_containers_as_root_user(*,
+                                host: str = None,
+                                api_key: str = None,
+                                username: str = None,
+                                password: str = None,
+                                **kwargs):
+    """
+    Check if pod security policies allow containers to run as root user.
+
+    :param host: URL of the API server.
+    :param api_key: API Key to make requests.
+    :param username: Username of account.
+    :param password: Password of account.
+
+    :returns: - ``OPEN`` if there are pod security policies that allow
+                containers to run as root.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = \
+        'Pod Security Policies that allow containers to run as root.'
+    msg_closed: str = \
+        'Pod Security Policies that do not allow containers to run as root.'
+    vulns, safes = [], []
+
+    pod_security_policies = _get_pod_security_policies(host, api_key, username,
+                                                       password, **kwargs)
+
+    for policy in pod_security_policies.items:
+        if policy.spec.run_as_user.ranges:
+            vulnerable = any(
+                list(
+                    map(lambda r: 0 in range(r.min, r.max + 1),
+                        policy.spec.run_as_user.ranges)))
+        else:
+            vulnerable = policy.spec.run_as_user.rule != 'MustRunAsNonRoot'
+
+        (vulns if vulnerable else safes).append(
+            (policy.metadata.self_link,
+             'allow containers to run as root.'))
+
+    return _get_result_as_tuple(
+        host=host,
+        objects='Pods',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
