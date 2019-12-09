@@ -68,3 +68,49 @@ def undefined_pod_security_policies(*,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ApiException, MaxRetryError)
+def privileged_containers(*,
+                          host: str = None,
+                          api_key: str = None,
+                          username: str = None,
+                          password: str = None,
+                          **kwargs):
+    """
+    Check if Pod Security Policies allow pods run in privileged mode.
+
+    :param host: URL of the API server.
+    :param api_key: API Key to make requests.
+    :param username: Username of account.
+    :param password: Password of account.
+
+    :returns: - ``OPEN`` if there are pod security policies that allow pods
+                run in privileged mode.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = \
+        'Pod Security Policies allow pods to run in privileged mode.'
+    msg_closed: str = \
+        'Pod Security Policies do not allow pods to run in privileged mode.'
+    vulns, safes = [], []
+
+    pod_security_policies = _get_pod_security_policies(host, api_key, username,
+                                                       password, **kwargs)
+
+    for policy in pod_security_policies.items:
+        (vulns if policy.spec.privileged else safes).append(
+            (policy.metadata.self_link,
+             'pods are allowed to run in privileged mode.'))
+
+    return _get_result_as_tuple(
+        host=host,
+        objects='Pods',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

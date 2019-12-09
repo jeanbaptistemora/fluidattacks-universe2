@@ -27,6 +27,13 @@ def test_runs_one_replica_per_deployment_open():
         api_key=KUBERNETES_API_TOKEN).is_open()
 
 
+def test_privileged_containers_open():
+    """Search privileged containers."""
+    assert pods.privileged_containers(
+        host=KUBERNETES_API_SERVER,
+        api_key=KUBERNETES_API_TOKEN).is_open()
+
+
 #
 # Closing tests
 #
