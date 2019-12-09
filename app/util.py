@@ -430,12 +430,13 @@ def break_build_trigger_deployment(project_name):
 def update_treatment_values(updated_values):
     updated_values['external_bts'] = updated_values.get('bts_url')
     date = datetime.now() + timedelta(days=180)
-    del updated_values['bts_url']
+    if updated_values.get('bts_url'):
+        del updated_values['bts_url']
 
     if updated_values['treatment'] == 'NEW':
         updated_values['acceptance_date'] = ''
     if updated_values['treatment'] == 'ACCEPTED':
-        if updated_values.get('acceptance_date') == '':
+        if updated_values.get('acceptance_date', '') == '':
             max_date = date.strftime('%Y-%m-%d %H:%M:%S')
             updated_values['acceptance_date'] = max_date
         date_size = updated_values['acceptance_date'].split(' ')

@@ -19,7 +19,7 @@
             "S": "IN PROGRESS"
           },
           "treatment_manager": {
-            "S": "unittest@fluidattacks.com"
+            "S": "integratesuser@gmail.com"
           },
           "finding_id": {
             "S": "457497316"
@@ -119,13 +119,7 @@
                   "S" : "123345"
                },
                "treatment" : {
-                  "S" : "Accepted"
-               },
-               "treatment_justification" : {
-                  "S" : "Poner  hallazgo en accepted"
-               },
-               "treatment_manager" : {
-                  "S" : "unittest@fluidattacks.com"
+                  "S" : "NEW"
                },
                "vuln_type" : {
                   "S" : "lines"
@@ -897,10 +891,10 @@
                   "S" : "IN PROGRESS"
                },
                "treatment_justification" : {
-                  "S" : "Test 123"
+                  "S" : "This is a treatment justification test"
                },
                "treatment_manager" : {
-                  "S" : "unittest@fluidattacks.com"
+                  "S" : "integratesuser@gmail.com"
                },
                "vuln_type" : {
                   "S" : "inputs"
@@ -950,7 +944,7 @@
                   "S" : "This is a treatment justification test"
                },
                "treatment_manager" : {
-                  "S" : "unittest"
+                  "S" : "integratesuser@gmail.com"
                },
                "vuln_type" : {
                   "S" : "lines"
@@ -1013,7 +1007,7 @@
                   "S" : "This is a treatment justification test"
                },
                "treatment_manager" : {
-                  "S" : "unittest"
+                  "S" : "integratesuser@gmail.com"
                },
                "vuln_type" : {
                   "S" : "lines"
@@ -1063,7 +1057,7 @@
                   "S" : "This is a treatment justification test"
                },
                "treatment_manager" : {
-                  "S" : "unittest"
+                  "S" : "integratesuser@gmail.com"
                },
                "vuln_type" : {
                   "S" : "lines"
@@ -1113,7 +1107,7 @@
                   "S" : "This is a treatment justification test"
                },
                "treatment_manager" : {
-                  "S" : "unittest"
+                  "S" : "integratesuser@gmail.com"
                },
                "vuln_type" : {
                   "S" : "lines"
@@ -1176,7 +1170,7 @@
                   "S" : "This is a treatment justification test"
                },
                "treatment_manager" : {
-                  "S" : "unittest"
+                  "S" : "integratesuser@gmail.com"
                },
                "vuln_type" : {
                   "S" : "lines"

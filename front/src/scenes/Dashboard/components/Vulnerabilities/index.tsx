@@ -35,6 +35,7 @@ import { isValidVulnsFile } from "../../../../utils/validations";
 import * as actions from "../../actions";
 import { FileInput } from "../../components/FileInput/index";
 import TreatmentFieldsView from "../../components/treatmentFields";
+import * as actionTypes from "../../containers/DescriptionView/actionTypes";
 import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
 import { deleteVulnerabilityModal as DeleteVulnerabilityModal } from "../DeleteVulnerability/index";
 import { IDeleteVulnAttr } from "../DeleteVulnerability/types";
@@ -289,6 +290,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     const [filterValueInputs, setFilterValueInputs] = useState("");
     const [filterValueLines, setFilterValueLines] = useState("");
     const [filterValuePorts, setFilterValuePorts] = useState("");
+    const emptyArray: string[] = [];
+    const [arraySelectedRows, setArraySelectedRows] = useState(emptyArray);
+    const [originalProps, setOriginalProps] = useState();
 
     const isAnalystorAdmin: boolean = _.includes(["analyst", "admin"], props.userRole);
 
@@ -320,6 +324,14 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
 
     const handleCloseTableSetClick: () => void = (): void => {
       setModalHidden(false);
+      if (!_.isUndefined(props.descriptParam)) {
+        store.dispatch({
+          payload: {
+            descriptionData: {...originalProps},
+          },
+          type: actionTypes.LOAD_DESCRIPTION,
+        });
+      }
     };
 
     const handleCloseDeleteVulnModal: (() => void) = (): void => {
@@ -640,18 +652,27 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             }
 
             const renderButtonUpdateVuln: (() => JSX.Element) =
-              (): JSX.Element =>
-                (
+            (): JSX.Element => {
+              if (_.isUndefined(originalProps) && !_.isUndefined(props.descriptParam)) {
+                setOriginalProps({treatmentManager: props.descriptParam.dataset.treatmentManager});
+              }
+
+              return (
                   <React.Fragment>
                     <Row>
-                      <Col mdOffset={5} md={4} hidden={true}>
-                        <Button bsStyle="warning" onClick={handleOpenVulnSetClick}>
+                      <Col mdOffset={5} md={4}>
+                        <Button
+                          bsStyle="warning"
+                          onClick={handleOpenVulnSetClick}
+                          disabled={!(arraySelectedRows.length > 0)}
+                        >
                           <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editVuln")}
                         </Button>
                       </Col>
                     </Row><br/>
                 </React.Fragment>
-              );
+            );
+            };
 
             const calculateRowsSelected: () => {oneRowSelected: boolean; vulnerabilities: string []} =
             (): {oneRowSelected: boolean; vulnerabilities: string []}  => {
@@ -680,13 +701,11 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 };
                 if (!_.isUndefined(props.descriptParam)) {
                   if (modalHidden) {
-                    props.descriptParam.dataset.severity = vulns[0].treatments.severity;
+                    props.descriptParam.formValues.treatmentVuln = props.descriptParam.dataset.treatment.toUpperCase();
+                    props.descriptParam.dataset.severity = !_.isEqual(vulns[0].treatments.severity, "-1") ?
+                    vulns[0].treatments.severity : "";
                     props.descriptParam.dataset.tag = vulns[0].treatments.tag;
-                    props.descriptParam.dataset.acceptanceDate = vulns[0].treatments.acceptanceDate;
-                    props.descriptParam.dataset.treatment = vulns[0].treatments.treatment.toUpperCase();
-                    props.descriptParam.dataset.treatmentJustification = vulns[0].treatments.treatmentJustification;
                     props.descriptParam.dataset.treatmentManager = vulns[0].treatments.treatmentManager;
-                    props.descriptParam.dataset.btsUrl = vulns[0].treatments.btsUrl;
                   }
                 }
               }
@@ -805,9 +824,34 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     width: "12%",
                   });
                   }
+                const handleOnSelect: ((row: IVulnRow, isSelect: boolean) => void) =
+                (row: IVulnRow, isSelect: boolean): void => {
+                  if (isSelect) {
+                    const newSet: Set<string> = new Set([...arraySelectedRows, row.id]);
+                    setArraySelectedRows(Array.from(newSet));
+                  } else {
+                    const newSet: Set<string> = new Set(arraySelectedRows.filter((rowId: string) => rowId !== row.id));
+                    setArraySelectedRows(Array.from(newSet));
+                  }
+                };
+                const handleOnSelectAll: ((isSelect: boolean, rows: IVulnRow[]) => void) =
+                (isSelect: boolean, rows: IVulnRow[]): void => {
+                  const newIds: string[] = rows.map((row: IVulnRow) => row.id);
+                  if (isSelect) {
+                    const newSet: Set<string> = new Set([...arraySelectedRows, ...newIds]);
+                    setArraySelectedRows(Array.from(newSet));
+                  } else {
+                    const newSet: Set<string> = new Set(arraySelectedRows);
+                    newIds.forEach((deleteRowId: string) => newSet.delete(deleteRowId));
+                    setArraySelectedRows(Array.from(newSet));
+                  }
+                };
                 const selectionMode: SelectRowOptions = {
-                  clickToSelect: true,
+                  clickToSelect: false,
+                  hideSelectColumn: !isEditable,
                   mode: "checkbox",
+                  onSelect: handleOnSelect,
+                  onSelectAll: handleOnSelectAll,
                 };
                 const remote: RemoteProps = {
                   cellEdit: false,
@@ -953,7 +997,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                                     acceptanceDate: dataTreatment.acceptanceDate,
                                     btsUrl: dataTreatment.btsUrl,
                                     findingId: data.finding.id,
-                                    severity: dataTreatment.severity,
+                                    severity: !_.isEmpty(dataTreatment.severity) ? dataTreatment.severity : "-1",
                                     tag: dataTreatment.tag,
                                     treatment: dataTreatment.treatment,
                                     treatmentJustification: dataTreatment.treatmentJustification,

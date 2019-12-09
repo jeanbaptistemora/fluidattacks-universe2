@@ -534,7 +534,7 @@
             "N": "0"
           },
           "treatment_manager": {
-            "S": "unittest"
+            "S": "integratesuser@gmail.com"
           },
           "subscription": {
             "S": "CONTINUOUS"
@@ -1712,7 +1712,7 @@
             "N": "0"
           },
           "treatment_manager": {
-            "S": "unittest"
+            "S": "integratesuser@gmail.com"
           },
           "subscription": {
             "S": "ONESHOT"
@@ -2020,7 +2020,7 @@
             "N": "0"
           },
           "treatment_manager": {
-            "S": "unittest@fluidattacks.com"
+            "S": "integratesuser@gmail.com"
           },
           "subscription": {
             "S": "ONESHOT"

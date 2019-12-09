@@ -232,3 +232,12 @@ class EventAlreadyClosed(Exception):
         """ Constructor """
         msg = 'Exception - The event has already been closed'
         super(EventAlreadyClosed, self).__init__(msg)
+
+
+class InvalidSeverity(Exception):
+    """Exception to control severity value"""
+
+    def __init__(self, fields):
+        """ Constructor """
+        msg = f'Exception - Severity value must be between {fields[0]} and {fields[1]}'
+        super(InvalidSeverity, self).__init__(msg)

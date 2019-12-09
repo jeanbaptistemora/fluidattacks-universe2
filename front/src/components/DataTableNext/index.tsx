@@ -109,6 +109,7 @@ const renderTable: ((props: ITableProps, dataset: Array<{}>) => JSX.Element) =
           pagination={isPaginationEnable ? paginationFactory(paginationOptions) : undefined}
           remote={props.remote}
           rowClasses={props.tableBody === undefined ? style.tableBody : props.tableBody}
+          selectRow={props.selectionMode}
         />
       </div>
     );

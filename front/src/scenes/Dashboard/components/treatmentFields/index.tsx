@@ -6,7 +6,7 @@ import { default as globalStyle } from "../../../../styles/global.css";
 import { formatDropdownField } from "../../../../utils/formatHelpers";
 import { dateField, dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { isLowerDate, isValidDate, numeric, required } from "../../../../utils/validations";
+import { isLowerDate, isValidDate, isValidVulnSeverity, numeric, required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
 
@@ -44,8 +44,8 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
             label={translate.t("search_findings.tab_description.severity")}
             name="severity"
             renderAsEditable={props.isEditing}
-            type="text"
-            validate={[numeric]}
+            type="number"
+            validate={[isValidVulnSeverity, numeric]}
           />
         </Col>
       </React.Fragment>
@@ -98,7 +98,7 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
             name="btsUrl"
             renderAsEditable={isEditable}
             type="text"
-            visible={!props.isEditing && hasBts || (props.isEditing)}
+            visible={hasBts || (props.isEditing && !props.isTreatmentModal)}
           />
         </Col>
       </Row>

@@ -59,6 +59,18 @@ export const validDraftTitle: ((title: string) => string | undefined) = (title: 
   return translate.t("validations.drafTitle");
 };
 
+export const isValidVulnSeverity: Validator = (value: string): string | undefined => {
+  const min: number = 0;
+  const max: number = 1000000000;
+  if (_.isUndefined(isNumeric({message: translate.t("validations.numeric")}, value))) {
+    const severityBetween: ((value: number) => string | undefined) = numberBetween(min, max);
+
+    return severityBetween(Number(value));
+  }
+
+  return translate.t("validations.between", { min, max });
+};
+
 export const validDatetime: Validator = (value?: Moment | string): string | undefined => (
   moment.isMoment(value) ? undefined : translate.t("validations.datetime")
 );
