@@ -1,6 +1,7 @@
 """Domain functions for projects."""
 
 
+from collections import namedtuple
 import threading
 import re
 from datetime import datetime
@@ -10,6 +11,7 @@ import pytz
 from django.conf import settings
 
 from __init__ import FI_MAIL_REPLYERS
+from app import util
 from app.dal import integrates_dal, project as project_dal
 from app.domain import comment as comment_domain
 from app.domain import finding as finding_domain
@@ -79,6 +81,47 @@ def create_project(**kwargs):
     else:
         raise InvalidParameter()
     return resp
+
+
+def remove_project(project_name):
+    """Delete project information."""
+    project = project_name.lower()
+    are_users_removed = remove_all_users_access(project)
+    are_findings_masked = [
+        finding_domain.mask_finding(finding_id)
+        for finding_id in list_findings(project)]
+    if are_findings_masked == []:
+        are_findings_masked = True
+    is_project_finished = integrates_dal.update_attribute_dynamo(
+        'FI_projects',
+        ['project_name', project],
+        'project_status', 'FINISHED')
+    util.invalidate_cache(project)
+    Status = namedtuple('Status', 'are_findings_masked are_users_removed is_project_finished')
+    return Status(are_findings_masked, are_users_removed, is_project_finished)
+
+
+def remove_all_users_access(project):
+    """Remove user access to project."""
+    user_active = get_users(project)
+    user_suspended = get_users(project, active=False)
+    all_users = user_active + user_suspended
+    are_users_removed = True
+    for user in all_users:
+        is_user_removed = remove_user_access(project, user)
+        if is_user_removed:
+            are_users_removed = True
+        else:
+            are_users_removed = False
+            break
+    return are_users_removed
+
+
+def remove_user_access(project, user_email):
+    """Remove user access to project."""
+    integrates_dal.remove_role_to_project_dynamo(
+        project, user_email, 'customeradmin')
+    return integrates_dal.remove_project_access_dynamo(user_email, project)
 
 
 def validate_tags(tags):

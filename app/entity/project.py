@@ -346,6 +346,32 @@ class CreateProject(Mutation):
         return CreateProject(success=success)
 
 
+class RemoveProject(Mutation):
+    """ Remove project """
+
+    class Arguments():
+        project_name = String(required=True)
+    success = Boolean()
+    findings_masked = Boolean()
+    users_removed = Boolean()
+    project_finished = Boolean()
+
+    @require_login
+    @require_role(['admin', 'customeradminfluid'])
+    def mutate(self, info, project_name):
+        result = project_domain.remove_project(project_name)
+        success = all(list(result))
+        if success:
+            project = project_name.lower()
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Removed project {project} succesfully')
+        return RemoveProject(success=success,
+                             findings_masked=result.are_findings_masked,
+                             users_removed=result.are_users_removed,
+                             project_finished=result.is_project_finished)
+
+
 class AddProjectComment(Mutation):
     """ Add comment to project """
 

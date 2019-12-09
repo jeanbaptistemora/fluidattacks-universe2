@@ -20,7 +20,7 @@ from app.entity.finding import (
     DeleteFinding, ApproveDraft, CreateDraft, SubmitDraft
 )
 from app.entity.project import (
-    AddProjectComment, CreateProject, RemoveTag, AddTags, AddAllProjectAccess,
+    AddProjectComment, CreateProject, RemoveProject, RemoveTag, AddTags, AddAllProjectAccess,
     RemoveAllProjectAccess
 )
 from app.entity.event import (
@@ -63,6 +63,7 @@ class Mutations(ObjectType):
     removeAllProjectAccess = RemoveAllProjectAccess.Field()
     addProjectComment = AddProjectComment.Field()
     createProject = CreateProject.Field()
+    removeProject = RemoveProject.Field()
     addFindingComment = AddFindingComment.Field()
 
     verifyFinding = VerifyFinding.Field()
