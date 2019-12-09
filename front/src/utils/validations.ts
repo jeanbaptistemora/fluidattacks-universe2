@@ -56,7 +56,7 @@ export const validDraftTitle: ((title: string) => string | undefined) = (title: 
     return undefined;
   }
 
-  return translate.t("validations.drafTitle");
+  return translate.t("validations.draftTitle");
 };
 
 export const isValidVulnSeverity: Validator = (value: string): string | undefined => {

@@ -1,4 +1,5 @@
 import io
+import re
 import random
 import threading
 from datetime import datetime
@@ -23,7 +24,7 @@ from app.domain import (
 )
 from app.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
-    NotSubmitted, InvalidFileSize
+    NotSubmitted, InvalidFileSize, InvalidDraftTitle
 )
 from app.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
@@ -357,11 +358,15 @@ def update_description(finding_id, updated_values):
 
     updated_values = {util.camelcase_to_snakecase(k): updated_values.get(k)
                       for k in updated_values}
-    return integrates_dal.update_mult_attrs_dynamo(
-        'FI_findings',
-        {'finding_id': finding_id},
-        updated_values
-    )
+
+    if re.search(r'^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+', updated_values['finding']):
+
+        return integrates_dal.update_mult_attrs_dynamo(
+            'FI_findings',
+            {'finding_id': finding_id},
+            updated_values
+        )
+    raise InvalidDraftTitle()
 
 
 def send_accepted_email(finding_id, user_email, justification):
@@ -770,7 +775,10 @@ def create_draft(info, project_name, title, **kwargs):
         'historic_state': [submission_history]
     })
 
-    return finding_dal.create(finding_id, project_name, finding_attrs)
+    if re.search(r'^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+', title):
+
+        return finding_dal.create(finding_id, project_name, finding_attrs)
+    raise InvalidDraftTitle()
 
 
 def send_new_draft_mail(

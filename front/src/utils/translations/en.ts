@@ -705,7 +705,7 @@ const enTranslations: Dictionary = {
     alphanumeric: "Only alphanumeric characters",
     between: "This value must be between {{min}} and {{max}}",
     datetime: "The datetime format is not valid",
-    drafTitle: "The title format is not valid",
+    draftTitle: "The title format is not valid",
     email: "The email format is not valid",
     file_size: "The file size must be less than {{count}}MB",
     greater_date: "The date must be today or before",

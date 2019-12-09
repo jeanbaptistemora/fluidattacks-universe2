@@ -198,6 +198,15 @@ class IncompleteDraft(Exception):
         super(IncompleteDraft, self).__init__(msg)
 
 
+class InvalidDraftTitle(Exception):
+    """Exception to control draft titles"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - The inserted title is invalid'
+        super(InvalidDraftTitle, self).__init__(msg)
+
+
 class InvalidDateFormat(Exception):
     """Exception to control the date format inserted in an Accepted finding"""
 
