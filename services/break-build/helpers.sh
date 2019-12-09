@@ -13,9 +13,14 @@ get_active_and_suspended_subscriptions(){
   SCAN_JSON=$(aws dynamodb scan \
     --table-name 'FI_projects' \
     --filter-expression \
-      'project_status = :active OR project_status = :suspended' \
+      '(project_status = :active OR project_status = :suspended)
+        AND #type = :continuous' \
+    --expression-attribute-names \
+      '{"#type":"type"}' \
     --expression-attribute-values \
-      '{":active": {"S":"ACTIVE"}, ":suspended": {"S":"SUSPENDED"}}' \
+      '{":active": {"S":"ACTIVE"},
+        ":suspended": {"S":"SUSPENDED"},
+        ":continuous": {"S":"continuous"}}' \
     --projection-expression 'project_name')
 
   SUBSCRIPTIONS=$(echo $SCAN_JSON | jq -r '.Items | .[].project_name.S')
