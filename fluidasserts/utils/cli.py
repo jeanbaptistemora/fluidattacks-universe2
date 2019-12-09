@@ -646,10 +646,8 @@ def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
             """,
         ('rds', 'RDS'): """
             rds.has_public_instances('{key}', '{secret}')
-            rds.is_cluster_not_inside_a_database_subnet_group(
-                '{key}', '{secret}')
-            rds.is_instance_not_inside_a_database_subnet_group(
-                '{key}', '{secret}')
+            rds.is_cluster_not_inside_a_db_subnet_group('{key}', '{secret}')
+            rds.is_instance_not_inside_a_db_subnet_group('{key}', '{secret}')
             rds.has_encryption_disabled('{key}', '{secret}')
             rds.has_public_snapshots('{key}', '{secret}')
             rds.not_uses_iam_authentication('{key}', '{secret}')
@@ -733,7 +731,7 @@ def exec_cloudformation_package(
             rds.has_not_automated_backups('__path__')
             rds.has_unencrypted_storage('__path__')
             rds.is_publicly_accessible('__path__')
-            rds.is_not_inside_a_database_subnet_group('__path__')
+            rds.is_not_inside_a_db_subnet_group('__path__')
             rds.has_not_termination_protection('__path__')
             """,
         ('s3', 'Simple Storage Service'): """

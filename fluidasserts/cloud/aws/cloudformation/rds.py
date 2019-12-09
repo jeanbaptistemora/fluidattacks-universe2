@@ -158,7 +158,7 @@ def is_publicly_accessible(
 
 @api(risk=MEDIUM, kind=SAST)
 @unknown_if(FileNotFoundError)
-def is_not_inside_a_database_subnet_group(
+def is_not_inside_a_db_subnet_group(
         path: str, exclude: Optional[List[str]] = None) -> tuple:
     """
     Check if ``DBInstance`` or ``DBCluster`` are not inside a DB Subnet Group.

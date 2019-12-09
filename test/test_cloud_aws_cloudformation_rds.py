@@ -37,13 +37,13 @@ def test_is_publicly_accessible():
     assert rds.is_publicly_accessible(NOT_EXISTS).is_unknown()
 
 
-def test_is_not_inside_a_database_subnet_group():
-    """test rds.is_not_inside_a_database_subnet_group."""
-    result = rds.is_not_inside_a_database_subnet_group(VULN)
+def test_is_not_inside_a_db_subnet_group():
+    """test rds.is_not_inside_a_db_subnet_group."""
+    result = rds.is_not_inside_a_db_subnet_group(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == 2 * 3
-    assert rds.is_not_inside_a_database_subnet_group(SAFE).is_closed()
-    assert rds.is_not_inside_a_database_subnet_group(NOT_EXISTS).is_unknown()
+    assert rds.is_not_inside_a_db_subnet_group(SAFE).is_closed()
+    assert rds.is_not_inside_a_db_subnet_group(NOT_EXISTS).is_unknown()
 
 
 def test_has_not_termination_protection():

@@ -50,8 +50,8 @@ def has_public_instances(key_id: str, secret: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def is_cluster_not_inside_a_database_subnet_group(key_id: str, secret: str,
-                                                  retry: bool = True) -> tuple:
+def is_cluster_not_inside_a_db_subnet_group(key_id: str, secret: str,
+                                            retry: bool = True) -> tuple:
     """
     Check if Database clusters are inside a DB Subnet Group.
 
@@ -84,9 +84,8 @@ def is_cluster_not_inside_a_database_subnet_group(key_id: str, secret: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def is_instance_not_inside_a_database_subnet_group(key_id: str, secret: str,
-                                                   retry: bool = True
-                                                   ) -> tuple:
+def is_instance_not_inside_a_db_subnet_group(key_id: str, secret: str,
+                                             retry: bool = True) -> tuple:
     """
     Check if Database Instances are inside a DB Subnet Group.
 
