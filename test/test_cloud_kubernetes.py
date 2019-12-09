@@ -34,9 +34,30 @@ def test_privileged_containers_open():
         api_key=KUBERNETES_API_TOKEN).is_open()
 
 
+def test_write_root_file_system_open():
+    """Search containers that write in root file system."""
+    assert pods.write_root_file_system(
+        host=KUBERNETES_API_SERVER,
+        api_key=KUBERNETES_API_TOKEN).is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_write_root_file_system_closed():
+    """Search containers that write in root file system."""
+    assert pods.write_root_file_system(
+        host=BAD_KUBERNETES_API_SERVER,
+        api_key=BAD_KUBERNETES_API_SERVER).is_unknown()
+
+
+def test_privileged_containers_close():
+    """Search privileged containers."""
+    assert pods.privileged_containers(
+        host=BAD_KUBERNETES_API_SERVER,
+        api_key=BAD_KUBERNETES_API_SERVER).is_unknown()
 
 
 def test_undefined_pod_security_policies_closed():
