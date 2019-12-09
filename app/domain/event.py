@@ -25,7 +25,7 @@ def update_event(event_id, **kwargs):
     event = get_event(event_id)
     success = False
 
-    if event.get('historic_state')[-1].get('state') == 'CLOSED':
+    if event.get('historic_state')[-1].get('state') == 'SOLVED':
         raise EventAlreadyClosed()
 
     success = event_dal.update(event_id, kwargs)
@@ -37,7 +37,7 @@ def solve_event(event_id, affectation, analyst_email, date):
     event = get_event(event_id)
     success = False
 
-    if event.get('historic_state')[-1].get('state') == 'CLOSED':
+    if event.get('historic_state')[-1].get('state') == 'SOLVED':
         raise EventAlreadyClosed()
 
     tzn = pytz.timezone(settings.TIME_ZONE)
@@ -66,7 +66,7 @@ def update_evidence(event_id, evidence_type, file):
     event = get_event(event_id)
     success = False
 
-    if event.get('historic_state')[-1].get('state') == 'CLOSED':
+    if event.get('historic_state')[-1].get('state') == 'SOLVED':
         raise EventAlreadyClosed()
 
     project_name = event.get('project_name')
