@@ -15,9 +15,10 @@ resource "aws_iam_policy" "break-build-policies" {
         "ecr:BatchGetImage",
         "ecr:GetDownloadUrlForLayer"
       ],
-      "Resource": [
-        "arn:aws:ecr:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:repository/break-build-${each.value}"
-      ]
+      "Resource": ${jsonencode([
+        for subs in lookup(var.break_build_project_allies, each.value, [each.value]):
+        "arn:aws:ecr:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:repository/break-build-${subs}"
+      ])}
     },
     {
       "Sid": "s3WriteLogs",
