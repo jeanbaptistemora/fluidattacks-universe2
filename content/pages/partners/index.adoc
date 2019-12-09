@@ -163,6 +163,6 @@ a|image::zenda-logo.png[alt="Logo Zenda",link="http://www.zenda.pe/"]
 
 |====
 
-If you agree with the [button]#link:terms/[terms]#
+If you agree with the [inner]#link:terms/[terms]#
 of our general partner agreement, and would like to become a partner,
-please submit the following contact [button]#link:../contact-us/[form]#.
+please submit the following contact [inner]#link:../contact-us/[form]#.

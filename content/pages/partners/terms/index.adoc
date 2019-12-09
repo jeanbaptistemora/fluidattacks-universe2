@@ -102,4 +102,4 @@ that day and proceeds to make the payment.
 the same clauses apply if +Fluid Attacks+ successfully sells the PARTNER.
 
 . For more information, please check our
-[button]#link:https://fluid.attach.io/BJR19jw4X[partnership agreement]#.
+[inner]#link:https://fluidattacks.docsend.com/view/5fqdzxz[partnership agreement]#.
