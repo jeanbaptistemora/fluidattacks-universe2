@@ -2,7 +2,7 @@ build_builder() {
 
   # Build serves builder
 
-  set -euov pipefail
+  set -Eeuo pipefail
 
   # Import functions
   . ci-scripts/helpers/others.sh

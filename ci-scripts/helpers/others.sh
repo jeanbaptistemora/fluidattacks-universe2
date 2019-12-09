@@ -73,6 +73,8 @@ build_container() {
   REGISTRY_PATH="$1"
   DOCKERFILE_PATH="$2"
 
+  shift 2
+
   # Log in to Gitlab Registry
   echo "$CI_REGISTRY_PASSWORD" \
     | docker login registry.gitlab.com -u "$CI_REGISTRY_USER" --password-stdin
@@ -80,10 +82,12 @@ build_container() {
   if docker pull "$REGISTRY_PATH"; then
     docker build \
       --cache-from "$REGISTRY_PATH" \
-      -t "$REGISTRY_PATH" "$DOCKERFILE_PATH"
+      -t "$REGISTRY_PATH" "$DOCKERFILE_PATH" \
+      "$@"
   else
     docker build \
-      -t "$REGISTRY_PATH" "$DOCKERFILE_PATH"
+      -t "$REGISTRY_PATH" "$DOCKERFILE_PATH" \
+      "$@"
   fi
 
   docker push "$REGISTRY_PATH"

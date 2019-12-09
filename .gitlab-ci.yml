@@ -87,11 +87,27 @@ stages:
       - $FLAG_SYNC_ZOHO
 
 build-builder:
-  image: docker:19
+  image: fluidattacks/docker-bash:latest
   tags: [autoscaling]
   stage: build
   script:
     - ./ci-scripts/jobs/build-builder.sh
+  <<: *except_analytics
+
+build-exams:
+  image: fluidattacks/docker-bash:latest
+  tags: [autoscaling]
+  stage: build
+  script:
+    - ./ci-scripts/jobs/build-exams.sh
+  <<: *except_analytics
+
+build-vpn:
+  image: fluidattacks/docker-bash:latest
+  tags: [autoscaling]
+  stage: build
+  script:
+    - ./ci-scripts/jobs/build-vpn.sh
   <<: *except_analytics
 
 test_code:
@@ -129,20 +145,6 @@ test_terraform:
     - rm infrastructure/*.xml
   except:
     - master
-
-build_exams:
-  tags: [autoscaling]
-  stage: build
-  <<: *kaniko_vault_config
-  <<: *kaniko_build_template
-  <<: *except_analytics
-
-build_vpn:
-  tags: [autoscaling]
-  stage: build
-  <<: *kaniko_vault_config
-  <<: *kaniko_build_template
-  <<: *except_analytics
 
 danger:
   image: fluidattacks/danger-ruby

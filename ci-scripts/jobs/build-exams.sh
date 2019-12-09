@@ -2,14 +2,22 @@ build_exams() {
 
   # Build exams container
 
-  set -euov pipefail
+  set -Eeuo pipefail
 
   # Import functions
+  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/sops-source/sops.sh)
+  . toolbox/others.sh
   . ci-scripts/helpers/others.sh
+
+  aws_login
+
+  sops_env secrets-production.yaml default \
+    ANSIBLE_VAULT
 
   build_container \
     "registry.gitlab.com/fluidattacks/serves/exams:$CI_COMMIT_REF_NAME" \
-    containers/exams
+    containers/exams \
+    --build-arg ANSIBLE_VAULT="$ANSIBLE_VAULT"
 }
 
 build_exams
