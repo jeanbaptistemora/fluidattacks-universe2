@@ -656,3 +656,23 @@ analytics-terraform-apply:
     - master
   except:
     - schedules
+
+integrates-prod-terraform-lint:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: tests
+  needs: [build-builder]
+  script:
+    - ./ci-scripts/jobs/integrates-prod-terraform-lint.sh
+  except:
+    - schedules
+
+integrates-prod-terraform-plan:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: tests
+  needs: [build-builder]
+  script:
+    - ./ci-scripts/jobs/integrates-prod-terraform-plan.sh
+  except:
+    - schedules
