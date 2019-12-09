@@ -61,7 +61,7 @@ resource "aws_iam_policy" "break-build-admin-policy" {
   path        = "/asserts/"
   description = "Policy to administrate the Break Build service"
 
-  policy = "${data.aws_iam_policy_document.break-build-admin-data.json}"
+  policy = data.aws_iam_policy_document.break-build-admin-data.json
 }
 
 resource "aws_iam_user" "break-build-admin-user" {
@@ -70,6 +70,6 @@ resource "aws_iam_user" "break-build-admin-user" {
 }
 
 resource "aws_iam_user_policy_attachment" "attach-break-build-admin-policy" {
-  policy_arn = "${aws_iam_policy.break-build-admin-policy.arn}"
-  user       = "${aws_iam_user.break-build-admin-user.name}"
+  policy_arn = aws_iam_policy.break-build-admin-policy.arn
+  user       = aws_iam_user.break-build-admin-user.name
 }
