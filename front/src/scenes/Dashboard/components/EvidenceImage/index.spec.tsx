@@ -1,12 +1,11 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
+import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
-import { Row } from "react-bootstrap";
+import { Provider } from "react-redux";
+import store from "../../../../store";
 import { evidenceImage as EvidenceImage } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
-
-const functionMock: (() => void) = (): void => undefined;
 
 describe("Evidence image", () => {
 
@@ -23,8 +22,8 @@ describe("Evidence image", () => {
         isDescriptionEditable={false}
         isEditing={false}
         content="https://fluidattacks.com/test.png"
-        onClick={functionMock}
-        onUpdate={functionMock}
+        onClick={jest.fn()}
+        onUpdate={jest.fn()}
       />,
     );
 
@@ -40,27 +39,64 @@ describe("Evidence image", () => {
         isDescriptionEditable={false}
         isEditing={false}
         content={"https://fluidattacks.com/test.png"}
-        onClick={functionMock}
-        onUpdate={functionMock}
+        onClick={jest.fn()}
+        onUpdate={jest.fn()}
       />,
     );
 
-    expect(wrapper.contains(
-      <div className="description">
-        <Row componentClass="div">
-          <label>
-            <b>
-              Detail
-            </b>
-          </label>
-        </Row>
-        <Row componentClass="div">
-          <p>
-            Test evidence
-          </p>
-        </Row>
-      </div>,
-    ))
-      .toBeTruthy();
+    expect(wrapper.containsMatchingElement(<p>Test evidence</p>))
+      .toBe(true);
+  });
+
+  it("should render as editable", () => {
+    const wrapper: ShallowWrapper = shallow(
+      <EvidenceImage
+        name="evidence1"
+        description="Test evidence"
+        isDescriptionEditable={true}
+        isEditing={true}
+        content="https://fluidattacks.com/test.png"
+        onClick={jest.fn()}
+        onUpdate={jest.fn()}
+      />,
+    );
+    expect(wrapper.find("genericForm")
+      .find({ name: "evidence1" }))
+      .toHaveLength(1);
+  });
+
+  it("should execute callbacks", () => {
+    const handleClick: jest.Mock = jest.fn();
+    const handleUpdate: jest.Mock = jest.fn();
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <EvidenceImage
+          name="evidence1"
+          description="Test evidence"
+          isDescriptionEditable={true}
+          isEditing={true}
+          content="https://fluidattacks.com/test.png"
+          onClick={handleClick}
+          onUpdate={handleUpdate}
+        />
+      </Provider>,
+    );
+
+    const submitButton: ReactWrapper = wrapper.find("button")
+      .find({ type: "submit" })
+      .at(0);
+    expect(submitButton.prop<boolean>("disabled"))
+      .toBe(true);
+    wrapper.find("textarea")
+      .find({ name: "evidence1_description" })
+      .simulate("change", { target: { value: "New description" } });
+    wrapper.find("form")
+      .simulate("submit");
+    expect(handleUpdate)
+      .toHaveBeenCalled();
+    wrapper.find("img")
+      .simulate("click");
+    expect(handleClick)
+      .toHaveBeenCalled();
   });
 });
