@@ -1,9 +1,10 @@
 """Send new vulnerabilities mail lambda function."""
+# pylint: disable=import-error
+# pylint: disable=unused-argument
 import json
 import mandrill
 
 
-# pylint: disable=unused-argument
 def send_mail_new_vulnerabilities(event, context):
     """Lambda code."""
     try:

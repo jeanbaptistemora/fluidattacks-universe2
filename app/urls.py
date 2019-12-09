@@ -5,8 +5,8 @@ from django.conf.urls import (
 )
 from django.views.decorators.csrf import csrf_exempt
 
+from api.view import APIView
 from app import services, views
-from app.api.view import APIView
 from app.decorators import verify_csrf
 
 # pylint: disable=pointless-statement

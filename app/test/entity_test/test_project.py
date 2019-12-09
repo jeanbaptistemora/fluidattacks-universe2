@@ -7,8 +7,8 @@ from django.conf import settings
 from graphene.test import Client
 from jose import jwt
 
-from app.api.dataloaders.finding import FindingLoader
-from app.api.schema import SCHEMA
+from api.dataloaders.finding import FindingLoader
+from api.schema import SCHEMA
 
 
 class ProjectEntityTests(TestCase):

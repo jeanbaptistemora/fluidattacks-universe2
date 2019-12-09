@@ -9,6 +9,7 @@ ARG CHROME_SIGNING_KEY='https://dl.google.com/linux/linux_signing_key.pub'
 ARG DYNAMODB_LOCAL_URL='https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.tar.gz'
 ARG PIP_REQUIREMENTS_DEV='deploy/containers/deps-development/requirements.txt'
 ARG PIP_REQUIREMENTS_PROD='deploy/containers/deps-production/requirements.txt'
+ARG PIP_REQUIREMENTS_PROD_LOCAL='deploy/containers/deps-production/requirements_local.txt'
 ARG TERRAFORM_URL='https://releases.hashicorp.com/terraform/0.12.16/terraform_0.12.16_linux_amd64.zip'
 ARG TERRAFORM_LINT='https://github.com/wata727/tflint/releases/download/v0.12.1/tflint_linux_amd64.zip'
 ARG KUBECTL_URL='https://storage.googleapis.com/kubernetes-release/release/v1.16.2/bin/linux/amd64/kubectl'
@@ -26,8 +27,6 @@ RUN mkdir -p /usr/share/man/man1 \
     libxss1 \
     libappindicator3-1 \
     fonts-liberation \
-    zip \
-    python3-venv \
   && wget -q -O - "$CHROME_SIGNING_KEY" | sudo apt-key add - \
   && curl -Lo google-chrome.deb "$GOOGLE_CHROME_URL" \
     && dpkg -i google-chrome.deb \
@@ -79,3 +78,10 @@ RUN npm install -g secure-spreadsheet@0.1.0 \
   && npm install --prefix /tmp/front --only=development \
   && npm cache clean --force \
   && mv /tmp/front/node_modules /npm-deps/front/
+
+
+# local apps
+COPY "$PIP_REQUIREMENTS_PROD_LOCAL" /tmp/reqs_prod_local.txt
+COPY django-apps/packages/* django-apps/packages/
+RUN pip3 install --no-cache-dir --no-index \
+    --find-links=django-apps/packages/ -r /tmp/reqs_prod_local.txt

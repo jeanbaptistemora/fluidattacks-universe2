@@ -27,6 +27,7 @@ RUN apt install -yo DPkg::Options::='--force-confnew' --no-install-recommends \
     python3 \
     python3-dev \
     python3-pip \
+    python3-venv \
     redis \
     sudo \
     apache2 \
@@ -35,8 +36,8 @@ RUN apt install -yo DPkg::Options::='--force-confnew' --no-install-recommends \
     libmagic1 \
     ruby \
     ruby-dev \
-    libpq-dev
-
+    libpq-dev \
+    zip
 # external deps
 RUN curl -sL "$NODE_URL" | bash - \
     && apt install -y --no-install-recommends nodejs \

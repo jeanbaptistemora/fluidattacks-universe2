@@ -1,8 +1,8 @@
 stages:
   - deps-base
+  - build-apps
   - deps
   - test
-  - build-lambdas
   - build
   - mr-check
   - deploy
@@ -24,9 +24,37 @@ deps-base:
     - ./ci-scripts/jobs/deps-base.sh
   interruptible: true
 
+django-apps:
+  stage: build-apps
+  needs: [deps-base]
+  tags: [autoscaling]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-base:$CI_COMMIT_REF_NAME
+  script:
+    - ./ci-scripts/jobs/build-django-apps.sh
+  interruptible: true
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - django-apps/packages/
+    when: on_success
+
+build-lambdas:
+    stage: build-apps
+    needs: [deps-base]
+    tags: [autoscaling]
+    image: registry.gitlab.com/fluidattacks/integrates/deps-base:$CI_COMMIT_REF_NAME
+    script:
+        - ./ci-scripts/jobs/build-lambdas.sh
+    retry: 1
+    artifacts:
+        expire_in: 1 day
+        paths:
+        - lambda/packages/
+        when: on_success
+
 deps-production:
   stage: deps
-  needs: [deps-base]
+  needs: [deps-base,django-apps]
   tags: [autoscaling-large]
   image: fluidattacks/alpine-kaniko:latest
   script:
@@ -35,7 +63,7 @@ deps-production:
 
 deps-development:
   stage: deps
-  needs: [deps-base]
+  needs: [deps-base,django-apps]
   tags: [autoscaling-large]
   image: fluidattacks/alpine-kaniko:latest
   script:
@@ -167,21 +195,6 @@ build-app:
     expire_in: 1 day
     paths:
       - version.txt
-    when: on_success
-
-
-build-lambdas:
-  stage: build-lambdas
-  tags: [autoscaling]
-  needs: [deps-development]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - ./ci-scripts/jobs/build-lambdas.sh
-  retry: 1
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - lambda/packages/
     when: on_success
 
 danger:

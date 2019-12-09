@@ -4,7 +4,7 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from jose import jwt
 
-from app.api.schema import SCHEMA
+from api.schema import SCHEMA
 
 
 class AlertTests(TestCase):

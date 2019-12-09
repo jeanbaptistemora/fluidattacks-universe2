@@ -12,7 +12,7 @@ from .test_utils import Request
 from app.entity.user import (validate_email_address,
                              validate_field,
                              validate_phone_field)
-from app.api.schema import SCHEMA
+from api.schema import SCHEMA
 
 
 class UserTests(TestCase):
