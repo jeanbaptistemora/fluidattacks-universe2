@@ -41,9 +41,23 @@ def test_write_root_file_system_open():
         api_key=KUBERNETES_API_TOKEN).is_open()
 
 
+def test_privilege_escalation_open():
+    """Search containers with privilege escalation."""
+    assert pods.privilege_escalation(
+        host=KUBERNETES_API_SERVER,
+        api_key=KUBERNETES_API_TOKEN).is_open()
+
+
 #
 # Closing tests
 #
+
+
+def test_privilege_escalation_closed():
+    """Search containers with privilege escalation."""
+    assert pods.privilege_escalation(
+        host=BAD_KUBERNETES_API_SERVER,
+        api_key=BAD_KUBERNETES_API_SERVER).is_unknown()
 
 
 def test_write_root_file_system_closed():
