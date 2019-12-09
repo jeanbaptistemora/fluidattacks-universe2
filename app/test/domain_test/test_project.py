@@ -1,9 +1,9 @@
 from decimal import Decimal
-import pytest
-from pytz import timezone
 from datetime import datetime
 
 from django.test import TestCase
+from pytz import timezone
+from freezegun import freeze_time
 
 from app.domain.project import (
     get_email_recipients, validate_tags, validate_project, get_vulnerabilities,
@@ -177,6 +177,7 @@ class ProjectTest(TestCase):
         test_data = get_open_vulnerability_date(closed_vulnerability)
         assert test_data is None
 
+    @freeze_time("2019-12-01")
     def test_get_mean_remediate(self):
         open_vuln_finding = ['463558592']
         open_finding = [
@@ -187,12 +188,7 @@ class ProjectTest(TestCase):
             for finding_id in open_vuln_finding]
 
         test_data = get_mean_remediate(open_finding)
-        current_day = datetime.now(tz=timezone('America/Bogota')).date()
-        expected_output = Decimal(round(int(
-            int((current_day - datetime(2019, 2, 19).date()).days) * 2
-            + int((current_day - datetime(2019, 2, 18).date()).days) * 2
-            + int((current_day - datetime(2018, 12, 17).date()).days))
-            / 7.0)).quantize(Decimal('0.1'))
+        expected_output = Decimal('212.0')
         assert test_data == expected_output
 
         closed_vuln_finding = ['457497316']
