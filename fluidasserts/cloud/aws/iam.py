@@ -19,7 +19,7 @@ from fluidasserts.helper import aws
 from fluidasserts.cloud.aws import _get_result_as_tuple
 from fluidasserts.utils.decorators import api, unknown_if
 from fluidasserts.cloud.aws.cloudformation.iam import (
-    _policy_statement_privilege
+    _policy_statement_privilege, _service_is_present_statement
 )
 
 
@@ -995,6 +995,54 @@ def has_wildcard_resource_on_write_action(key_id: str,
             (policy['Arn'],
              'access to only the necessary resources should be allowed.'))
 
+    return _get_result_as_tuple(
+        service='IAM',
+        objects='Policies',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_privileges_over_iam(key_id: str, secret: str,
+                            retry: bool = True) -> tuple:
+    """
+    Check if a policy documents has privileges over iam.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if any policy documents has privileges over iam.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+
+    """
+    msg_open = 'Policies have privileges over iam.'
+    msg_closed = 'Policies have no privileges over iam.'
+    vulns, safes = [], []
+    policies = aws.run_boto3_func(
+        key_id=key_id, secret=secret, service='iam',
+        func='list_policies')['Policies']
+
+    for policy in policies:
+        policy_version = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='iam',
+            func='get_policy_version',
+            param='PolicyVersion',
+            PolicyArn=policy['Arn'],
+            VersionId=policy['DefaultVersionId'],
+            retry=retry)
+
+        vulnerable = _service_is_present_statement(
+            policy_version['Document']['Statement'], 'Allow', 'iam')
+        (vulns if vulnerable else safes).append(
+            (policy['Arn'], 'has privileges over iam.'))
     return _get_result_as_tuple(
         service='IAM',
         objects='Policies',

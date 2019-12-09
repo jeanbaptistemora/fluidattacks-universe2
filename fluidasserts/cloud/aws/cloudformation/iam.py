@@ -95,7 +95,7 @@ def _service_is_present_statement(statement: str, effect: str, service: str):
     return any([
         sts['Effect'] == effect
         and _service_is_present_action(sts['Action'], service)
-        if 'Action' in sts else False for sts in statement
+        if 'Action' in sts else False for sts in _force_list(statement)
     ])
 
 

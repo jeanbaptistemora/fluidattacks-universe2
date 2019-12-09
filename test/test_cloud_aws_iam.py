@@ -111,6 +111,12 @@ def test_has_wildcard_resource_on_write_action_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_has_privileges_over_iam_open():
+    """Search iam policies with privileges over iam."""
+    assert iam.has_privileges_over_iam(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #
