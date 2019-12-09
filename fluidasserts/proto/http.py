@@ -4,6 +4,7 @@
 
 # standard imports
 import re
+from time import sleep
 from copy import deepcopy
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Set, Tuple, Union
@@ -1452,8 +1453,16 @@ def is_date_unsyncd(url: str, *args, **kwargs) -> tuple:
     server_date = datetime.strptime(
         session.response.headers['Date'], '%a, %d %b %Y %H:%M:%S GMT')
 
-    ntpclient = ntplib.NTPClient()
-    response = ntpclient.request('pool.ntp.org', port=123, version=3)
+    for _ in range(5):
+        try:
+            ntpclient = ntplib.NTPClient()
+            response = ntpclient.request('pool.ntp.org', port=123, version=3)
+        except ntplib.NTPException:
+            # Let's retry the request
+            sleep(1.0)
+        else:
+            # Success, stop retrying
+            break
     ntp_date = datetime.fromtimestamp(response.tx_time, tz=timezone('GMT'))
     ntp_ts = datetime.utcfromtimestamp(ntp_date.timestamp()).timestamp()
 
