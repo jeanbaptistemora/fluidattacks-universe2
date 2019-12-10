@@ -16,6 +16,13 @@ analytics_sync_git() {
     analytics_gitlab_user \
     analytics_gitlab_token
 
+  # Vault login
+  curl --request POST \
+       --silent \
+       --data '{"role_id":"'"${SERVES_ROLE_ID}"'",
+                "secret_id":"'"${SERVES_SECRET_ID}"'"}' \
+    "${VAULT_ADDR}/v1/auth/approle/login" | jq -r '.auth.client_token' > ~/.vault-token
+
   ./analytics/git/set_dependencies.sh
   python3 analytics/git/clone_us.py 2>&1 \
     | aws s3 cp - s3://fluidanalytics/clone_us.log
