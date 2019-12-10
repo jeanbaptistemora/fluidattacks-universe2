@@ -111,6 +111,14 @@ const getSpecific: ((line: IVulnRow) => string) =
   (line: IVulnRow): string =>
     line.specific;
 
+const getSeverity: ((line: IVulnRow) => string) =
+  (line: IVulnRow): string =>
+    !_.isEqual(line.severity, "-1") ? line.severity : "";
+
+const getTag: ((line: IVulnRow) => string) =
+  (line: IVulnRow): string =>
+    line.tag;
+
 export const compareNumbers: ((a: number, b: number) => number) =
   (a: number, b: number): number =>
     a - b;
@@ -156,10 +164,12 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
         isNew: line[0].isNew,
         lastAnalyst: "",
         lastApprovedStatus: line[0].lastApprovedStatus,
-        severity: "",
+        severity: line.map(getSeverity)
+          .join(", "),
         specific: line[0].vulnType === "inputs" ? line.map(getSpecific)
           .join(", ") : groupValues(line.map(specificToNumber)),
-        tag: "",
+        tag: Array.from(new Set(line.map(getTag)))
+          .join(", "),
         treatment: line[0].treatment,
         treatmentJustification: line[0].treatmentJustification,
         treatmentManager: line[0].treatmentManager,
@@ -184,7 +194,7 @@ const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType)
         translate.t("search_findings.tab_description.old"),
         lastAnalyst: "",
         lastApprovedStatus: line.lastApprovedStatus,
-        severity: line.severity,
+        severity: getSeverity(line),
         specific: line.specific,
         tag: line.tag,
         treatment: line.treatment,
@@ -380,10 +390,12 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
           if (!_.isUndefined(data)) {
             hidePreloader();
 
-            const dataInputs: IVulnsAttr["finding"]["inputsVulns"] = filterState(
-              data.finding.inputsVulns, props.state);
-            const dataLines: IVulnsAttr["finding"]["linesVulns"] = filterState(data.finding.linesVulns, props.state);
-            const dataPorts: IVulnsAttr["finding"]["portsVulns"] = filterState(data.finding.portsVulns, props.state);
+            const dataInputs: IVulnsAttr["finding"]["inputsVulns"] = newVulnerabilities(filterState(
+              data.finding.inputsVulns, props.state));
+            const dataLines: IVulnsAttr["finding"]["linesVulns"] = newVulnerabilities(filterState(
+              data.finding.linesVulns, props.state));
+            const dataPorts: IVulnsAttr["finding"]["portsVulns"] = newVulnerabilities(filterState(
+              data.finding.portsVulns, props.state));
             const dataPendingVulns: IVulnsAttr["finding"]["pendingVulns"] = newVulnerabilities(filterApprovalStatus(
               data.finding.pendingVulns, props.state));
 
@@ -531,13 +543,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               header: translate.t("search_findings.tab_description.field"),
               width: "20%",
               wrapped: true,
-            },
-            {
-              align: "left",
-              dataField: "treatment",
-              header: translate.t("search_findings.tab_description.treatment.title"),
-              visible: false,
-              width: "20%",
             }];
             const linesHeader: IHeader[] = [
               {
@@ -559,13 +564,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 header: translate.t("search_findings.tab_description.line", {count: 1}),
                 width: "20%",
                 wrapped: true,
-              },
-              {
-                align: "left",
-                dataField: "treatment",
-                header: translate.t("search_findings.tab_description.treatment.title"),
-                visible: false,
-                width: "20%",
               }];
             const portsHeader: IHeader[] = [
               {
@@ -587,19 +585,84 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 header: translate.t("search_findings.tab_description.port", {count: 1}),
                 width: "20%",
                 wrapped: true,
-              },
-              {
-                align: "left",
-                dataField: "treatment",
-                header: translate.t("search_findings.tab_description.treatment.title"),
-                visible: false,
-                width: "20%",
               }];
 
             let formattedDataLines: IVulnsAttr["finding"]["linesVulns"] = dataLines;
             let formattedDataPorts: IVulnsAttr["finding"]["portsVulns"] = dataPorts;
             let formattedDataInputs: IVulnsAttr["finding"]["inputsVulns"] = dataInputs;
             const formattedDataPendingVulns: IVulnsAttr["finding"]["pendingVulns"] = dataPendingVulns;
+
+            if (props.state !== "PENDING") {
+              inputsHeader.push(
+                {
+                  align: "left",
+                  dataField: "tag",
+                  header: translate.t("search_findings.tab_description.tag"),
+                  visible: true,
+                  width: "20%",
+                },
+                {
+                  align: "left",
+                  dataField: "severity",
+                  header: translate.t("search_findings.tab_description.severity"),
+                  visible: true,
+                  width: "20%",
+                },
+                {
+                  align: "left",
+                  dataField: "treatmentManager",
+                  header: translate.t("search_findings.tab_description.treatment_mgr"),
+                  visible: true,
+                  width: "35%",
+                },
+              );
+              linesHeader.push(
+                {
+                  align: "left",
+                  dataField: "tag",
+                  header: translate.t("search_findings.tab_description.tag"),
+                  visible: true,
+                  width: "20%",
+                },
+                {
+                  align: "left",
+                  dataField: "severity",
+                  header: translate.t("search_findings.tab_description.severity"),
+                  visible: true,
+                  width: "20%",
+                },
+                {
+                  align: "left",
+                  dataField: "treatmentManager",
+                  header: translate.t("search_findings.tab_description.treatment_mgr"),
+                  visible: true,
+                  width: "35%",
+                },
+              );
+              portsHeader.push(
+                {
+                  align: "left",
+                  dataField: "tag",
+                  header: translate.t("search_findings.tab_description.tag"),
+                  visible: true,
+                  width: "20%",
+                },
+                {
+                  align: "left",
+                  dataField: "severity",
+                  header: translate.t("search_findings.tab_description.severity"),
+                  visible: true,
+                  width: "20%",
+                },
+                {
+                  align: "left",
+                  dataField: "treatmentManager",
+                  header: translate.t("search_findings.tab_description.treatment_mgr"),
+                  visible: true,
+                  width: "35%",
+                },
+              );
+            }
 
             if (props.editMode && isAnalystorAdmin) {
               inputsHeader.push({
