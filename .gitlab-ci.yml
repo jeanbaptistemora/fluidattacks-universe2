@@ -678,3 +678,14 @@ integrates-prod-terraform-plan:
     - ./ci-scripts/jobs/integrates-prod-terraform-plan.sh
   except:
     - schedules
+
+integrates-prod-terraform-apply:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: deploy
+  script:
+    - ./ci-scripts/jobs/integrates-prod-terraform-apply.sh
+  only:
+    - master
+  except:
+    - schedules
