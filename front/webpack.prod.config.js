@@ -1,6 +1,6 @@
 /* Webpack plugins */
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 let CommonConfig = require('./webpack.common.config');
 
 /* Webpack production configs definition */
@@ -14,5 +14,9 @@ module.exports = {
   stats: {
     children: false,
     warnings: false
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
   }
 }
