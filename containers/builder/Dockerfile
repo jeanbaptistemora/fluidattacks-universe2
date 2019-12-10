@@ -25,7 +25,8 @@ RUN apt update \
     python3-pip \
     python3-setuptools \
     unzip \
-    wget
+    wget \
+    ssh
 
 # External deps
 RUN wget -O terraform.zip "$URL_TERRAFORM" \
