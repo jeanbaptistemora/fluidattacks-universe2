@@ -197,12 +197,10 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.evidence
 
-    @get_entity_cache
     def resolve_comments(self, info):
         """ Resolve comments attribute """
         user_data = util.get_jwt_content(info.context)
         curr_user_role = get_user_role(user_data)
-
         self.comments = [Comment(**comment)
                          for comment in comment_domain.get_comments(
                              self.id, curr_user_role)]
@@ -216,12 +214,10 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         return self.historic_state
 
     @require_role(['analyst', 'admin'])
-    @get_entity_cache
     def resolve_observations(self, info):
         """ Resolve observations attribute """
         user_data = util.get_jwt_content(info.context)
         curr_user_role = get_user_role(user_data)
-
         self.observations = [Comment(**obs)
                              for obs in comment_domain.get_observations(
                                  self.id, curr_user_role)]

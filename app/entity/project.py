@@ -24,6 +24,7 @@ from app.domain import (
 from app.entity.comment import Comment
 from app.entity.event import Event
 from app.entity.finding import Finding
+from app.services import get_user_role
 from app.entity.user import User
 
 
@@ -261,9 +262,11 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
     @require_role(['analyst', 'customer', 'admin'])
     def resolve_comments(self, info):
+        user_data = util.get_jwt_content(info.context)
+        curr_user_role = get_user_role(user_data)
         self.comments = [
             Comment(**comment) for comment in project_domain.list_comments(
-                self.name, util.get_jwt_content(info.context)['user_role'])]
+                self.name, curr_user_role)]
 
         return self.comments
 
