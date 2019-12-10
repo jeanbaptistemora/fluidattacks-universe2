@@ -19,7 +19,7 @@ analytics_sync_formstack() {
   mkdir /logs
   pip3 install \
     boto3 \
-    analytics/singer/tap_formstack
+    analytics/singer/tap_formstack \
     analytics/singer/target_redshift
 
   echo "$analytics_auth_formstack" > /tap_secret.json
