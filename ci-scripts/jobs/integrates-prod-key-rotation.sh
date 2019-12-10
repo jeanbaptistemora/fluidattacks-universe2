@@ -5,6 +5,9 @@ integrates_prod_key_rotation() {
 
   set -Eeuo pipefail
 
+  local INTEGRATES_REPO_ID
+  INTEGRATES_REPO_ID=4620828
+
   # Import functions
   . toolbox/terraform.sh
   . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/gitlab-variables.sh)
@@ -16,8 +19,8 @@ integrates_prod_key_rotation() {
 
   VAR_KEY="$(terraform output integrates-prod-secret-key-id)"
   VAR_SECRET="$(terraform output integrates-prod-secret-key)"
-  set_project_variable "$GITLAB_API_TOKEN" 4620828 DEV_AWS_ACCESS_KEY_ID "$VAR_KEY" true false
-  set_project_variable "$GITLAB_API_TOKEN" 4620828 DEV_AWS_SECRET_ACCESS_KEY "$VAR_SECRET" true false
+  set_project_variable "$GITLAB_API_TOKEN" "$INTEGRATES_REPO_ID" DEV_AWS_ACCESS_KEY_ID "$VAR_KEY" true false
+  set_project_variable "$GITLAB_API_TOKEN" "$INTEGRATES_REPO_ID" DEV_AWS_SECRET_ACCESS_KEY "$VAR_SECRET" true false
 
 }
 
