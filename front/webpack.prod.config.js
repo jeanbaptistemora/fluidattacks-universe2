@@ -5,7 +5,6 @@ let CommonConfig = require('./webpack.common.config');
 
 /* Webpack production configs definition */
 CommonConfig.plugins = CommonConfig.plugins.concat([
-  new UglifyJsPlugin({ parallel: true }),
   new OptimizeCssAssetsPlugin()
 ]);
 
