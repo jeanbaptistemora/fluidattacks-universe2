@@ -165,10 +165,12 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
         lastAnalyst: "",
         lastApprovedStatus: line[0].lastApprovedStatus,
         severity: line.map(getSeverity)
+          .filter(Boolean)
           .join(", "),
         specific: line[0].vulnType === "inputs" ? line.map(getSpecific)
           .join(", ") : groupValues(line.map(specificToNumber)),
         tag: Array.from(new Set(line.map(getTag)))
+          .filter(Boolean)
           .join(", "),
         treatment: line[0].treatment,
         treatmentJustification: line[0].treatmentJustification,
