@@ -96,3 +96,37 @@ run_terraform() {
 
   cd "$STARTING_DIR" || return 1
 }
+
+taint_terraform() {
+
+  # Run terraform taint to mark as taint necessary resources
+  # Example:
+  # terraform taint aws_security_group.allow_all
+  # The resource aws_security_group.allow_all in the module root has been marked as tainted.
+
+  set -Eeuo pipefail
+
+  local STARTING_DIR
+
+  STARTING_DIR="$(pwd)"
+
+  local TARGET_DIR
+  local BUCKET
+  local MARKED_VALUE
+
+  TARGET_DIR="$1"
+  BUCKET="$2"
+  MARKED_VALUE="$3"
+
+  init_terraform "$TARGET_DIR" "$BUCKET"
+
+  cd "$TARGET_DIR" || return 1
+
+  terraform taint "$MARKED_VALUE"
+  run_terraform \
+    "$TARGET_DIR" \
+    "$BUCKET" \
+    apply
+
+  cd "$STARTING_DIR" || return 1
+}

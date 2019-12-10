@@ -4,7 +4,7 @@ user_provision_integrates_terraform_apply() {
 
   # Deploy user-provision-integrates/integrates-dev infra using terraform
 
-  set -e
+  set -Eeuo pipefail
 
   # Import functions
   . toolbox/terraform.sh

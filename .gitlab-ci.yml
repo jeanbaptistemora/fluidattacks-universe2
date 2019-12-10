@@ -689,3 +689,13 @@ integrates-prod-terraform-apply:
     - master
   except:
     - schedules
+
+integrates-prod-key-rotation:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: rotation
+  script:
+    - ./ci-scripts/jobs/integrates-prod-key-rotation.sh
+  <<: *only_schedules
+  <<: *except_analytics
+  when: always
