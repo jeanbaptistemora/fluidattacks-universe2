@@ -140,7 +140,10 @@ def create_event(analyst_email, project_name, file=None, image=None, **kwargs):
     subscription = project.get('type', '')
 
     event_attrs = kwargs.copy()
-    if event_attrs['event_date'].astimezone(tzn).replace(tzinfo=None) > today:
+    event_date = event_attrs['event_date'].astimezone(
+        tzn).replace(tzinfo=None)
+    del event_attrs['event_date']
+    if event_date > today:
         raise InvalidDate()
 
     event_attrs.update({
@@ -150,8 +153,7 @@ def create_event(analyst_email, project_name, file=None, image=None, **kwargs):
         'historic_state': [
             {
                 'analyst': analyst_email,
-                'date': event_attrs['event_date'].strftime(
-                    '%Y-%m-%d %H:%M:%S'),
+                'date': event_date.strftime('%Y-%m-%d %H:%M:%S'),
                 'state': 'OPEN'
             },
             {
@@ -162,7 +164,6 @@ def create_event(analyst_email, project_name, file=None, image=None, **kwargs):
         ],
         'subscription': subscription.upper()
     })
-    del event_attrs['event_date']
     if 'affected_components' in event_attrs:
         event_attrs['affected_components'] = '\n'.join(
             list(set(event_attrs['affected_components'])))
