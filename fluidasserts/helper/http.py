@@ -87,7 +87,8 @@ class HTTPSession():
                  redirect: Optional[bool] = True,
                  timeout: Optional[float] = 10.0,
                  stream: Optional[bool] = False,
-                 request_at_instantiation: bool = True) -> None:
+                 request_at_instantiation: Optional[bool] = True,
+                 **requests_kwargs) -> None:
         """
         Construct method.
 
@@ -110,6 +111,9 @@ class HTTPSession():
                         timeout error.
         :param stream: If ``False``, the response content
                        will be immediately downloaded.
+        :param requests_args: Extra positional keyword arguments that will
+                              be sent to the underlying
+                              :class:`~requests.Request`.
         """
         self.url = url
         self.params = params
@@ -126,6 +130,7 @@ class HTTPSession():
         self.stream = stream
         self.redirect = redirect
         self.timeout = timeout
+        self.requests_kwargs = requests_kwargs
         self._vulns: List[Unit] = []
         self._safes: List[Unit] = []
         self._source: str = None
@@ -181,7 +186,8 @@ class HTTPSession():
                                  headers=self.headers,
                                  stream=self.stream,
                                  allow_redirects=self.redirect,
-                                 timeout=self.timeout)
+                                 timeout=self.timeout,
+                                 **self.requests_kwargs)
         except ConnError.errors as exc:
             raise ConnError(exc)
         except ParameterError.errors as exc:
@@ -197,7 +203,8 @@ class HTTPSession():
                                  headers=self.headers,
                                  stream=self.stream,
                                  allow_redirects=self.redirect,
-                                 timeout=self.timeout)
+                                 timeout=self.timeout,
+                                 **self.requests_kwargs)
         except ConnError.errors as exc:
             raise ConnError(exc)
         except ParameterError.errors as exc:
@@ -213,7 +220,8 @@ class HTTPSession():
                                 headers=self.headers,
                                 stream=self.stream,
                                 allow_redirects=self.redirect,
-                                timeout=self.timeout)
+                                timeout=self.timeout,
+                                **self.requests_kwargs)
         except ConnError.errors as exc:
             raise ConnError(exc)
         except ParameterError.errors as exc:
@@ -231,7 +239,8 @@ class HTTPSession():
                                  files=self.files,
                                  stream=self.stream,
                                  allow_redirects=self.redirect,
-                                 timeout=self.timeout)
+                                 timeout=self.timeout,
+                                 **self.requests_kwargs)
         except ConnError.errors as exc:
             raise ConnError(exc)
         except ParameterError.errors as exc:
@@ -252,7 +261,8 @@ class HTTPSession():
                                     timeout=self.timeout,
                                     allow_redirects=self.redirect,
                                     stream=self.stream,
-                                    verify=False)
+                                    verify=False,
+                                    **self.requests_kwargs)
         except ConnError.errors as exc:
             raise ConnError(exc)
         except ParameterError.errors as exc:
