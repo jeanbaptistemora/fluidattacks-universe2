@@ -6,8 +6,6 @@ import _ from "lodash";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
-// tslint:disable-next-line: no-submodule-imports
-import { act } from "react-dom/test-utils";
 import { MemoryRouter, RouteComponentProps } from "react-router";
 import wait from "waait";
 import { EventContent } from "./index";
@@ -67,7 +65,6 @@ describe("EventContent", () => {
         <EventContent {...mockProps} />
       </MockedProvider>,
     );
-    await act(async () => { await wait(0); });
     expect(wrapper)
       .toHaveLength(1);
   });
@@ -80,7 +77,7 @@ describe("EventContent", () => {
         </MockedProvider>
       </MemoryRouter>,
     );
-    await act(async () => { await wait(0); wrapper.update(); });
+    await wait(0);
     expect(wrapper.text())
       .toContain("Solved");
   });
