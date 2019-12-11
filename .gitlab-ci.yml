@@ -138,7 +138,6 @@ test_terraform:
   tags: [autoscaling]
   stage: tests
   needs: [build-builder]
-  <<: *vault_login
   script:
     - ./infrastructure/terraform.sh
   after_script:
@@ -166,7 +165,6 @@ deploy_infra:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: deploy
-  <<: *vault_login
   script:
     - aws s3 cp
         s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
@@ -424,7 +422,6 @@ analytics-sync-zoho:
   tags: [autoscaling]
   stage: eks-initial-setup
   script:
-    - . toolbox/others.sh && vault_login
     - ./ci-scripts/jobs/eks-initial-setup.sh
   only:
     - master
