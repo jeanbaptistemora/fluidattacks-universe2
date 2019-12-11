@@ -9,58 +9,6 @@ stages:
   - postdeploy
   - rotation
 
-.vault_vars: &vault_vars
-  variables:
-    VAULT_ADDR: "https://${VAULT_S3_BUCKET}.com"
-    VAULT_HOST: "${VAULT_S3_BUCKET}.com"
-    VAULT_PORT: 443
-    ROLE_ID: "${SERVES_ROLE_ID}"
-    SECRET_ID: "${SERVES_SECRET_ID}"
-    VAULTENV_SECRETS_FILE: "${CI_PROJECT_DIR}/env.vars"
-
-.vault_get_token: &vault_get_token |-
-  export VAULT_TOKEN=$( \
-    vault write -field=token auth/approle/login \
-      role_id="${ROLE_ID}" secret_id="${SECRET_ID}" \
-  )
-
-.vault_login: &vault_login
-  <<: *vault_vars
-  before_script:
-    - *vault_get_token
-
-.kaniko_config: &kaniko_config
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [""]
-  before_script:
-    - echo '{"auths":{"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'","password":"'"${CI_REGISTRY_PASSWORD}"'"}}}'
-        > /kaniko/.docker/config.json
-
-.kaniko_vault_config: &kaniko_vault_config
-  <<: *vault_vars
-  <<: *kaniko_config
-  before_script:
-    - wget -O vault.zip https://releases.hashicorp.com/vault/0.11.6/vault_0.11.6_linux_amd64.zip;
-        unzip vault.zip;
-        rm vault.zip;
-        mv vault /busybox/
-    - *vault_get_token
-    - echo '{"auths":{"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'","password":"'"${CI_REGISTRY_PASSWORD}"'"}}}'
-        > /kaniko/.docker/config.json
-
-.kaniko_build_template: &kaniko_build_template
-  script:
-    - export ANSIBLE_VAULT=$(vault read -field=ansible_vault secret/serves)
-    - export APP=${CI_JOB_NAME#*_}
-    - /kaniko/executor
-        --build-arg ANSIBLE_VAULT="${ANSIBLE_VAULT}"
-        --cleanup
-        --context "${CI_PROJECT_DIR}/containers/${APP}/"
-        --dockerfile "${CI_PROJECT_DIR}/containers/${APP}/Dockerfile"
-        --destination "${CI_REGISTRY_IMAGE}/${APP}:${CI_COMMIT_REF_SLUG}"
-        --single-snapshot
-
 .only_schedules: &only_schedules
   only:
     refs:
@@ -70,7 +18,6 @@ stages:
   except:
     variables:
       - $FLAG_REFRESH_TOKENS
-      - $FLAG_CONT_MS_SQL_SERVER
       - $FLAG_SYNC_CURRENCIES
       - $FLAG_SYNC_FORMSTACK
       - $FLAG_SYNC_AWSDYNAMODB
@@ -78,8 +25,6 @@ stages:
       - $FLAG_SYNC_GIT
       - $FLAG_SYNC_MANDRILL
       - $FLAG_SYNC_INFRASTRUCTURE
-      - $FLAG_SYNC_MS_SQL_SERVER_ERP
-      - $FLAG_SYNC_RINGCENTRAL
       - $FLAG_SYNC_SALESFORCE
       - $FLAG_SYNC_INTERCOM
       - $FLAG_SYNC_GITLAB
@@ -320,47 +265,6 @@ analytics-sync-infrastructure:
   only:
     variables:
       - $FLAG_SYNC_INFRASTRUCTURE
-
-analytics-sync-ms-sql-server-erp:
-  image: registry.gitlab.com/fluidattacks/serves:ms_sql_server
-  tags: [autoscaling]
-  stage: analytics
-  script:
-    - ./ci-scripts/jobs/analytics-sync-ms-sql-server-erp.sh
-  <<: *only_schedules
-  only:
-    variables:
-      - $FLAG_SYNC_MS_SQL_SERVER_ERP
-
-build_ms_sql_server:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling-large]
-  stage: build
-  <<: *kaniko_config
-  script:
-    - export CONT="ms_sql_server"
-    - export CONT_DIR="${CI_PROJECT_DIR}/analytics/containers/${CONT}"
-    - cp env.vars "${CONT_DIR}"
-    - /kaniko/executor
-        --cleanup
-        --context "${CONT_DIR}"
-        --dockerfile "${CONT_DIR}/Dockerfile"
-        --destination "${CI_REGISTRY_IMAGE}:${CONT}"
-  <<: *only_schedules
-  only:
-    variables:
-      - $FLAG_CONT_MS_SQL_SERVER
-
-analytics-sync-ringcentral:
-  image: registry.gitlab.com/fluidattacks/serves:ms_sql_server
-  tags: [autoscaling]
-  stage: analytics
-  script:
-    - ./ci-scripts/jobs/analytics-sync-ringcentral.sh
-  <<: *only_schedules
-  only:
-    variables:
-      - $FLAG_SYNC_RINGCENTRAL
 
 analytics-sync-intercom:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
