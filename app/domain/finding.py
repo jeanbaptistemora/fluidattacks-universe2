@@ -369,7 +369,7 @@ def update_description(finding_id, updated_values):
     raise InvalidDraftTitle()
 
 
-def send_accepted_email(finding_id, user_email, justification):
+def send_accepted_email(finding_id, justification):
     finding = get_finding(finding_id)
     project_name = finding.get('projectName')
     finding_name = finding.get('finding')
@@ -379,7 +379,6 @@ def send_accepted_email(finding_id, user_email, justification):
         name='Accepted finding email thread',
         target=send_mail_accepted_finding,
         args=(recipients, {
-            'user_mail': user_email,
             'finding_name': finding_name,
             'finding_id': finding_id,
             'project': project_name.capitalize(),
@@ -416,8 +415,7 @@ def validate_update_treatment(finding_id, updated_values):
     result_update_vuln = update_treatment_in_vuln(finding_id, updated_values)
     if result_update_finding and result_update_vuln:
         if updated_values['treatment'] == 'ACCEPTED':
-            send_accepted_email(finding_id, updated_values.get('treatment_manager'),
-                                updated_values.get('treatment_justification'))
+            send_accepted_email(finding_id, updated_values.get('treatment_justification'))
         return True
     return False
 

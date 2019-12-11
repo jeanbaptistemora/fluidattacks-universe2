@@ -19,12 +19,11 @@ from app.decorators import (
 )
 from app.domain import (
     comment as comment_domain, finding as finding_domain,
-    project as project_domain, user as user_domain,
-    vulnerability as vuln_domain
+    project as project_domain, vulnerability as vuln_domain
 )
 from app.entity.comment import Comment
 from app.entity.vulnerability import Vulnerability
-from app.services import get_user_role, is_customeradmin
+from app.services import get_user_role
 from app.utils import findings as finding_utils
 
 
@@ -71,7 +70,6 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     tracking = List(GenericScalar)
     treatment = String()
     treatment_justification = String()
-    treatment_manager = String()
     type = String()
     vulnerabilities = List(Vulnerability, vuln_type=String(), state=String(),
                            approval_status=String())
@@ -295,11 +293,6 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """ Resolve treatment attribute """
         del info
         return self.treatment
-
-    def resolve_treatment_manager(self, info):
-        """ Resolve treatment_manager attribute """
-        del info
-        return self.treatment_manager
 
     def resolve_treatment_justification(self, info):
         """ Resolve treatment_justification attribute """
@@ -693,7 +686,6 @@ class UpdateTreatment(Mutation):
         bts_url = String()
         finding_id = String(required=True)
         treatment = String(required=True)
-        treatment_manager = String()
         treatment_justification = String(required=True)
     success = Boolean()
     finding = Field(Finding)
@@ -702,35 +694,18 @@ class UpdateTreatment(Mutation):
     @require_role(['customer', 'admin'])
     @require_finding_access
     def mutate(self, info, finding_id, **parameters):
-        user_data = util.get_jwt_content(info.context)
         project_name = finding_domain.get_finding(finding_id)['projectName']
-
-        if parameters['treatment'] == 'IN PROGRESS':
-            if not is_customeradmin(project_name, user_data['user_email']):
-                parameters['treatment_manager'] = user_data['user_email']
-            if parameters.get('treatment_manager'):
-                project_users = project_domain.get_users(project_name)
-                customer_roles = ['customer', 'customeradmin']
-                customer_users = \
-                    [user for user in project_users
-                     if user_domain.get_data(user, 'role') in customer_roles]
-                if parameters.get('treatment_manager') not in customer_users:
-                    raise GraphQLError('Invalid treatment manager')
-            else:
-                raise GraphQLError('Invalid treatment manager')
-        elif parameters['treatment'] == 'ACCEPTED':
-            parameters['treatment_manager'] = user_data['user_email']
         success = finding_domain.update_treatment(finding_id,
                                                   parameters)
         if success:
             util.invalidate_cache(finding_id)
             util.invalidate_cache(project_name)
-            util.cloudwatch_log(info.context, 'Security: Updated treatment in\
-                finding {id} succesfully'.format(id=finding_id))
+            util.cloudwatch_log(info.context, 'Security: Updated treatment in '
+                                f'finding {finding_id} succesfully')
             util.break_build_trigger_deployment(project_name)
         else:
-            util.cloudwatch_log(info.context, 'Security: Attempted to update \
-                treatment in finding {id}'.format(id=finding_id))
+            util.cloudwatch_log(info.context, 'Security: Attempted to update '
+                                f'treatment in finding {finding_id}')
         findings_loader = info.context.loaders['finding']
         ret = UpdateTreatment(
             finding=findings_loader.load(finding_id), success=success)

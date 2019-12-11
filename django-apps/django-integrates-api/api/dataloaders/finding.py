@@ -46,7 +46,6 @@ def _batch_load_fn(finding_ids):
             treatment=finding.get('treatment', ''),
             treatment_justification=finding.get(
                 'treatmentJustification', ''),
-            treatment_manager=finding.get('treatmentManager', ''),
             type=finding.get('findingType', ''),
             historic_state=finding.get('historicState', []),
             current_state=finding.get(

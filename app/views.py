@@ -496,7 +496,7 @@ def generate_complete_report(request):
     row_index = row_offset
     for project in projects:
         findings = integrates_dal.get_findings_released_dynamo(
-            project, 'finding_id, finding, treatment, treatment_manager')
+            project, 'finding_id, finding, treatment')
         for finding in findings:
             vulns = integrates_dal.get_vulnerabilities_dynamo(
                 finding['finding_id'])
@@ -510,7 +510,7 @@ def generate_complete_report(request):
                            id=finding['finding_id']))
                 sheet.cell(row_index, treatment_col, finding['treatment'])
                 sheet.cell(row_index, treatment_mgr_col,
-                           finding.get('treatment_manager', 'Unassigned'))
+                           vuln.get('treatment_manager', 'Unassigned'))
 
                 row_index += 1
 
