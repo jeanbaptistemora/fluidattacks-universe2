@@ -53,7 +53,8 @@ def _has_not_access_control_in_list(
             ],
             exclude=exclude):
         access_control: bool = res_props.get('AccessControl', 'Private')
-
+        if not isinstance(access_control, str):
+            continue
         if access_control in vulnerable_access_controls:
             vulnerabilities.append(
                 Vulnerability(
