@@ -1220,7 +1220,7 @@
                   "S" : "This is a treatment justification test"
                },
                "treatment_manager" : {
-                  "S" : "unittest"
+                  "S" : "integratesuser@gmail.com"
                },
                "vuln_type" : {
                   "S" : "lines"

@@ -38,7 +38,6 @@ class FindingTests(TestCase):
     def test_update_treatment(self):
         finding_id = '463461507'
         values_accepted = {'treatment_justification': 'This is a test treatment justification',
-                           'treatment_manager': 'test@testmail.com',
                            'bts_url': '',
                            'treatment': 'ACCEPTED',
                            'acceptance_date': '2020-03-31 11:43:00'}
@@ -47,7 +46,6 @@ class FindingTests(TestCase):
         date = datetime.now() + timedelta(days=181)
         date = date.strftime('%Y-%m-%d %H:%M:%S')
         values_accepted_date_error = {'treatment_justification': 'This is a test treatment justification',
-                                      'treatment_manager': 'test@testmail.com',
                                       'bts_url': '',
                                       'treatment': 'ACCEPTED',
                                       'acceptance_date': date}
@@ -56,9 +54,8 @@ class FindingTests(TestCase):
         date_future = datetime.now() + timedelta(days=60)
         date_future = date_future.strftime('%Y/%m/%d %H:%M:%S')
         values_accepted_format_error = {'treatment_justification': 'This is a test treatment justification',
-                                 'treatment_manager': 'test@testmail.com',
-                                 'bts_url': '',
-                                 'treatment': 'ACCEPTED',
-                                 'acceptance_date': date_future}
+                                        'bts_url': '',
+                                        'treatment': 'ACCEPTED',
+                                        'acceptance_date': date_future}
         with pytest.raises(InvalidDateFormat):
             assert update_treatment(finding_id, values_accepted_format_error)

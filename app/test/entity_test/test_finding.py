@@ -234,7 +234,6 @@ class FindingTests(TestCase):
                     btsUrl: "",
                     findingId: "463558592",
                     treatment: "ACCEPTED",
-                    treatmentManager: "unittest@test.com",
                     treatmentJustification: "This is a treatment justification test"
                   ) {
                     success
@@ -260,7 +259,6 @@ class FindingTests(TestCase):
                     btsUrl: "",
                     findingId: "436992569",
                     treatment: "NEW",
-                    treatmentManager: "",
                     treatmentJustification: ""
                   ) {
                     success
