@@ -5,3 +5,7 @@ variable "aws_secret_key" {}
 variable "region" {
   default = "us-east-1"
 }
+
+variable "user-name" {
+  default = "integrates-prod"
+}

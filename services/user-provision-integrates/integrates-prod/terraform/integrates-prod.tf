@@ -271,8 +271,8 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
 }
 
 resource "aws_iam_policy" "integrates-prod-policy" {
-  description = "Integrates policy for ${aws_iam_user.integrates-prod.name}"
-  name        = "user-provision-policy-${aws_iam_user.integrates-prod.name}"
+  description = "Integrates policy for ${var.user-name}"
+  name        = "user-provision-policy-${var.user-name}"
   path        = "/user-provision/"
   policy      = data.aws_iam_policy_document.integrates-prod-policy-data.json
 }
@@ -283,10 +283,10 @@ resource "aws_iam_user" "integrates-prod" {
 }
 
 resource "aws_iam_access_key" "integrates-prod-key" {
-  user = aws_iam_user.integrates-prod.name
+  user = var.user-name
 }
 
 resource "aws_iam_user_policy_attachment" "integrates-prod-attach-policy" {
-  user       = aws_iam_user.integrates-prod.name
+  user       = var.user-name
   policy_arn = aws_iam_policy.integrates-prod-policy.arn
 }
