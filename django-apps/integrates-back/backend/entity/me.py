@@ -13,8 +13,8 @@ import rollbar
 from app import util
 from app.dal import integrates_dal
 from app.decorators import require_login
-from app.domain import project as project_domain, user as user_domain
-from app.entity.project import Project
+from backend.domain import project as project_domain, user as user_domain
+from backend.entity.project import Project
 from app.exceptions import InvalidExpirationTime
 from app.services import get_user_role, is_customeradmin
 

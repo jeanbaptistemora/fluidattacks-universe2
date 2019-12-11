@@ -5,10 +5,11 @@ import boto3
 import botocore
 import rollbar
 
+from backend.domain import user as user_domain
+
 from __init__ import (FI_MANDRILL_API_KEY, FI_TEST_PROJECTS,
                       FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY,
                       SQS_QUEUE_URL)
-from app.domain import user as user_domain
 
 
 API_KEY = FI_MANDRILL_API_KEY

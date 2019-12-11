@@ -10,10 +10,10 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from graphene.test import Client
 from jose import jwt
 
-from api.schema import SCHEMA
-from api.dataloaders.finding import FindingLoader
-from api.dataloaders.vulnerability import VulnerabilityLoader
-from app.domain.finding import get_finding
+from backend.api.schema import SCHEMA
+from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.vulnerability import VulnerabilityLoader
+from backend.domain.finding import get_finding
 from app.exceptions import FindingNotFound
 
 

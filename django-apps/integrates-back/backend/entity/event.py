@@ -10,8 +10,8 @@ from app.decorators import (
     get_entity_cache, require_login, require_role, require_event_access,
     require_project_access
 )
-from app.domain import comment as comment_domain, event as event_domain
-from app.entity.comment import Comment
+from backend.domain import comment as comment_domain, event as event_domain
+from backend.entity.comment import Comment
 
 
 class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes

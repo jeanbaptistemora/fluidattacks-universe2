@@ -13,13 +13,13 @@ from graphene_file_upload.scalars import Upload
 from django.conf import settings
 
 from __init__ import FI_CLOUDFRONT_RESOURCES_DOMAIN
-from ..decorators import (
+from app.decorators import (
     require_login, require_role, require_project_access, get_entity_cache
 )
-from .. import util
-from ..dal import integrates_dal
-from ..domain import resources
-from ..exceptions import ErrorUploadingFileS3, InvalidFileSize, InvalidProject
+from app import util
+from app.dal import integrates_dal
+from app.exceptions import ErrorUploadingFileS3, InvalidFileSize, InvalidProject
+from backend.domain import resources
 
 
 INTEGRATES_URL = 'https://fluidattacks.com/integrates/dashboard'

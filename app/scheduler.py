@@ -10,17 +10,18 @@ import rollbar
 from botocore.exceptions import ClientError
 from django.conf import settings
 
+from backend.domain import (
+    finding as finding_domain, project as project_domain,
+    user as user_domain, vulnerability as vuln_domain,
+    event as event_domain
+)
+
 from __init__ import (
     FI_TEST_PROJECTS, FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
 )
 from app import util, views
 from app.dal import integrates_dal
 from app.dal.helpers.formstack import FormstackAPI
-from app.domain import (
-    finding as finding_domain, project as project_domain,
-    user as user_domain, vulnerability as vuln_domain,
-    event as event_domain
-)
 from app.dto import remission
 from app.mailer import (
     send_mail_new_vulnerabilities, send_mail_new_remediated,

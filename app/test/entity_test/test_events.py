@@ -6,9 +6,9 @@ from graphene.test import Client
 from jose import jwt
 from .test_utils import Request
 
-from api.dataloaders.event import EventLoader
-from api.schema import SCHEMA
-from app.domain import event as event_domain
+from backend.api.dataloaders.event import EventLoader
+from backend.api.schema import SCHEMA
+from backend.domain import event as event_domain
 
 
 class EventTests(TestCase):

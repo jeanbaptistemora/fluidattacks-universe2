@@ -1,7 +1,7 @@
 import pytest
 from aniso8601 import parse_datetime
 
-from app.domain import event as event_domain
+from backend.domain import event as event_domain
 from app.exceptions import EventAlreadyClosed
 
 

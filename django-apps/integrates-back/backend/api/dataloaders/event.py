@@ -3,8 +3,8 @@ from collections import defaultdict
 from promise import Promise
 from promise.dataloader import DataLoader
 
-from app.domain import event as event_domain
-from app.entity.event import Event
+from backend.domain import event as event_domain
+from backend.entity.event import Event
 
 
 def _batch_load_fn(event_ids):

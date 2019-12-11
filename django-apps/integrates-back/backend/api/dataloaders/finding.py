@@ -3,8 +3,8 @@ from collections import defaultdict
 from promise import Promise
 from promise.dataloader import DataLoader
 
-from app.domain import finding as finding_domain
-from app.entity.finding import Finding
+from backend.domain import finding as finding_domain
+from backend.entity.finding import Finding
 
 
 def _batch_load_fn(finding_ids):

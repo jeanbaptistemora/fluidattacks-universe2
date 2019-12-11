@@ -5,7 +5,7 @@ from django.test import TestCase
 from pytz import timezone
 from freezegun import freeze_time
 
-from app.domain.project import (
+from backend.domain.project import (
     get_email_recipients, validate_tags, validate_project, get_vulnerabilities,
     get_pending_closing_check, get_last_closing_vuln, get_last_closing_date,
     is_vulnerability_closed, get_max_severity, get_max_open_severity,

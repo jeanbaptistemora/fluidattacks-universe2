@@ -4,7 +4,7 @@ import os
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from app.domain.resources import validate_file_size
+from backend.domain.resources import validate_file_size
 from app.exceptions import InvalidFileSize
 
 

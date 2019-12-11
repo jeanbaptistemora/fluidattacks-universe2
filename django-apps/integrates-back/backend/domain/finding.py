@@ -18,7 +18,7 @@ from __init__ import (
 )
 from app import util
 from app.dal import integrates_dal, finding as finding_dal
-from app.domain import (
+from backend.domain import (
     project as project_domain, user as user_domain,
     vulnerability as vuln_domain
 )

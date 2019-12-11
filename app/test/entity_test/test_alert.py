@@ -3,8 +3,7 @@ from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.conf import settings
 from jose import jwt
-
-from api.schema import SCHEMA
+from backend.api.schema import SCHEMA
 
 
 class AlertTests(TestCase):

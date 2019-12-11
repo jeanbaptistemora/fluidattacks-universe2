@@ -18,6 +18,7 @@ deps_production() {
     'front/package.json'
     'deploy/containers/deps-production/Dockerfile'
     'deploy/containers/deps-production/requirements.txt'
+    'deploy/containers/deps-production/requirements_local.txt'
     'ci-scripts/jobs/deps-production.sh'
   )
   FOLDERS=(

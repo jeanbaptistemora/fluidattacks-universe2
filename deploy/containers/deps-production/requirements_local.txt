@@ -1,1 +1,1 @@
-django-integrates-api
+integrates-back

@@ -1,7 +1,8 @@
 # pylint: disable=relative-beyond-top-level
 
+from backend.domain import user as user_domain
+
 from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS
-from ..domain import user as user_domain
 from ..mailer import send_mail_new_user
 
 

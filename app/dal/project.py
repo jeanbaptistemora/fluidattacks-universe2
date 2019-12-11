@@ -6,11 +6,12 @@ import pytz
 from boto3.dynamodb.conditions import Attr, Key
 from django.conf import settings
 
+from backend.domain import user as user_domain
+
 from app.dal import integrates_dal, user as user_dal
 from app.dal.event import TABLE as EVENTS_TABLE
 from app.dal.finding import TABLE as FINDINGS_TABLE
 from app.dal.helpers.analytics import query
-from app.domain import user as user_domain
 
 
 def get_current_month_information(project_name, query_db):

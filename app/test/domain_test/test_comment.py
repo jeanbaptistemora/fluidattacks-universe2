@@ -2,7 +2,7 @@ import pytest
 
 from django.test import TestCase
 
-import app.domain.comment as comment_domain
+import backend.domain.comment as comment_domain
 
 
 class CommentTests(TestCase):

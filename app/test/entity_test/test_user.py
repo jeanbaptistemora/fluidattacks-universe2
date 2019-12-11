@@ -9,10 +9,10 @@ from graphene.test import Client
 from jose import jwt
 from .test_utils import Request
 
-from app.entity.user import (validate_email_address,
-                             validate_field,
-                             validate_phone_field)
-from api.schema import SCHEMA
+from backend.entity.user import (validate_email_address,
+                                 validate_field,
+                                 validate_phone_field)
+from backend.api.schema import SCHEMA
 
 
 class UserTests(TestCase):

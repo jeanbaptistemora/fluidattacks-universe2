@@ -1,35 +1,35 @@
 from graphene import ObjectType
-from app.entity.login import AcceptLegal
-from app.entity.resource import (
+from backend.entity.login import AcceptLegal
+from backend.entity.resource import (
     AddResources, UpdateResources,
     AddFiles, RemoveFiles, DownloadFile
 )
-from app.entity.user import (
+from backend.entity.user import (
     GrantUserAccess, RemoveUserAccess,
     EditUser
 )
-from app.entity.vulnerability import (
+from backend.entity.vulnerability import (
     UploadFile, DeleteVulnerability,
     UpdateTreatmentVuln, ApproveVulnerability
 )
-from app.entity.finding import (
+from backend.entity.finding import (
     UpdateEvidence, RemoveEvidence, UpdateSeverity,
     UpdateEvidenceDescription,
     AddFindingComment, VerifyFinding, RequestVerification,
     UpdateDescription, UpdateTreatment, RejectDraft,
     DeleteFinding, ApproveDraft, CreateDraft, SubmitDraft
 )
-from app.entity.project import (
+from backend.entity.project import (
     AddProjectComment, CreateProject, RemoveProject, RemoveTag, AddTags, AddAllProjectAccess,
     RemoveAllProjectAccess
 )
-from app.entity.event import (
+from backend.entity.event import (
     AddEventComment, CreateEvent, DownloadEventFile, SolveEvent, UpdateEvent,
     UpdateEventEvidence
 )
-from app.entity.me import SignIn, UpdateAccessToken, InvalidateAccessToken
-from app.entity.alert import SetAlert
-from app.entity.cache import InvalidateCache
+from backend.entity.me import SignIn, UpdateAccessToken, InvalidateAccessToken
+from backend.entity.alert import SetAlert
+from backend.entity.cache import InvalidateCache
 
 
 class Mutations(ObjectType):

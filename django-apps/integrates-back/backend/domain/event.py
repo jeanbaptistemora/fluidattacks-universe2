@@ -12,7 +12,7 @@ from __init__ import (
 )
 from app import util
 from app.dal import integrates_dal, event as event_dal, project as project_dal
-from app.domain import comment as comment_domain, resources as resources_domain
+from backend.domain import comment as comment_domain, resources as resources_domain
 from app.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidDate, InvalidFileSize,
     InvalidFileType

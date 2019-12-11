@@ -1,5 +1,5 @@
 # pylint: disable=relative-beyond-top-level
-from ..domain import user as user_domain
+from backend.domain import user as user_domain
 
 
 # pylint: disable=no-self-use

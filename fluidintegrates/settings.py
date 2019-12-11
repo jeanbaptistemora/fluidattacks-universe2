@@ -64,7 +64,7 @@ INSTALLED_APPS = [
     'analytical',
     'django_intercom',
     'graphene_django',
-    'api'
+    'backend'
 ]
 
 MIDDLEWARE = [

@@ -17,12 +17,12 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
 from app.decorators import require_login, require_role, require_project_access
-from app.domain import project as project_domain, user as user_domain
-from .. import util
-from ..dal import integrates_dal
-from ..services import (
+from backend.domain import project as project_domain, user as user_domain
+from app import util
+from app.dal import integrates_dal
+from app.services import (
     get_user_role, is_customeradmin, has_responsibility, has_phone_number)
-from ..mailer import send_mail_access_granted
+from app.mailer import send_mail_access_granted
 
 
 class User(ObjectType):

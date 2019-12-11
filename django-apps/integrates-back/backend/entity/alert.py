@@ -4,7 +4,7 @@
 from graphene import Boolean, Int, Mutation, ObjectType, String
 from app import util
 from app.decorators import require_login, require_role
-from app.domain import alert as alert_domain
+from backend.domain import alert as alert_domain
 
 
 class Alert(ObjectType):

@@ -2,12 +2,12 @@
 
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+from backend.domain import (
+    event as event_domain, finding as finding_domain, user as user_domain
+)
 
 from app import util
 from app.dal import integrates_dal, project as project_dal
-from app.domain import (
-    event as event_domain, finding as finding_domain, user as user_domain
-)
 
 
 @csrf_exempt

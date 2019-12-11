@@ -6,15 +6,15 @@ from app.decorators import (
     get_cached, require_event_access, require_finding_access,
     require_login, require_project_access, require_role
 )
-from app.domain import project as project_domain
-from app.entity.me import Me
-from app.entity.alert import Alert
-from app.entity.login import Login
-from app.entity.event import Event
-from app.entity.resource import Resource
-from app.entity.user import User
-from app.entity.finding import Finding
-from app.entity.project import Project
+from backend.domain import project as project_domain
+from backend.entity.me import Me
+from backend.entity.alert import Alert
+from backend.entity.login import Login
+from backend.entity.event import Event
+from backend.entity.resource import Resource
+from backend.entity.user import User
+from backend.entity.finding import Finding
+from backend.entity.project import Project
 from app.exceptions import InvalidProject
 
 

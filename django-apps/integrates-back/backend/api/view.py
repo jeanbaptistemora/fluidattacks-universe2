@@ -1,10 +1,10 @@
 from graphene_file_upload.django import FileUploadGraphQLView
 
-from api.dataloaders.event import EventLoader
-from api.dataloaders.finding import FindingLoader
-from api.dataloaders.vulnerability import VulnerabilityLoader
-from api.middleware import ExecutorBackend
-from api.schema import SCHEMA
+from backend.api.dataloaders.event import EventLoader
+from backend.api.dataloaders.finding import FindingLoader
+from backend.api.dataloaders.vulnerability import VulnerabilityLoader
+from backend.api.middleware import ExecutorBackend
+from backend.api.schema import SCHEMA
 
 
 class APIView(FileUploadGraphQLView):

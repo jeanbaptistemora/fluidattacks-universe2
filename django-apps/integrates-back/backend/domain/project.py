@@ -13,9 +13,9 @@ from django.conf import settings
 from __init__ import FI_MAIL_REPLYERS
 from app import util
 from app.dal import integrates_dal, project as project_dal
-from app.domain import comment as comment_domain
-from app.domain import finding as finding_domain
-from app.domain import vulnerability as vuln_domain
+from backend.domain import comment as comment_domain
+from backend.domain import finding as finding_domain
+from backend.domain import vulnerability as vuln_domain
 from app.exceptions import InvalidParameter
 from app.mailer import send_mail_comment
 

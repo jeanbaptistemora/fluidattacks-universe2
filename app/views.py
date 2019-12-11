@@ -23,17 +23,19 @@ from jose import jwt
 from magic import Magic
 from openpyxl import load_workbook
 
+from backend.domain import (
+    finding as finding_domain, project as project_domain, user as user_domain)
+from backend.domain.vulnerability import (
+    group_specific, get_open_vuln_by_type, get_vulnerabilities_by_type
+)
+
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 )
 from app import util
 from app.dal import integrates_dal
 from app.decorators import authenticate, authorize, cache_content
-from app.domain import (
-    finding as finding_domain, project as project_domain, user as user_domain)
-from app.domain.vulnerability import (
-    group_specific, get_open_vuln_by_type, get_vulnerabilities_by_type
-)
+
 from app.documentator.pdf import CreatorPDF
 from app.documentator.secure_pdf import SecurePDF
 from app.documentator.all_vulns import generate_all_vulns_xlsx

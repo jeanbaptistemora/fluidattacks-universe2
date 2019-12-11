@@ -17,12 +17,12 @@ from app.decorators import (
     get_entity_cache, require_finding_access, require_login, require_role,
     require_project_access
 )
-from app.domain import (
+from backend.domain import (
     comment as comment_domain, finding as finding_domain,
     project as project_domain, vulnerability as vuln_domain
 )
-from app.entity.comment import Comment
-from app.entity.vulnerability import Vulnerability
+from backend.entity.comment import Comment
+from backend.entity.vulnerability import Vulnerability
 from app.services import get_user_role
 from app.utils import findings as finding_utils
 

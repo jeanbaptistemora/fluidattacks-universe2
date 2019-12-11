@@ -17,15 +17,15 @@ from app.dal import integrates_dal, project as redshift_dal
 from app.decorators import (
     get_entity_cache, require_login, require_project_access, require_role
 )
-from app.domain import (
+from backend.domain import (
     finding as finding_domain, project as project_domain,
     vulnerability as vuln_domain
 )
-from app.entity.comment import Comment
-from app.entity.event import Event
-from app.entity.finding import Finding
+from backend.entity.comment import Comment
+from backend.entity.event import Event
+from backend.entity.finding import Finding
 from app.services import get_user_role
-from app.entity.user import User
+from backend.entity.user import User
 
 
 class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
