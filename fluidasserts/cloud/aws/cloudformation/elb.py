@@ -51,8 +51,8 @@ def has_access_logging_disabled(
                 Vulnerability(
                     path=yaml_path,
                     entity=(f'AWS::ElasticLoadBalancing::LoadBalancer'
-                            f'/AccessLoggingPolicy',
-                            f'/Enabled',
+                            f'/AccessLoggingPolicy'
+                            f'/Enabled'
                             f'/{is_logging_enabled}'),
                     identifier=res_name,
                     reason='access logging is disabled'))

@@ -689,21 +689,24 @@ def exec_cloudformation_package(
         """)
 
     source: Dict[str, str] = {
-        ('ec2', 'EC2 (Elastic Cloud Compute)'): """
-            ec2.allows_all_outbound_traffic('__path__')
-            ec2.has_unrestricted_cidrs('__path__')
-            ec2.has_unrestricted_ip_protocols('__path__')
-            ec2.has_unrestricted_ports('__path__')
-            ec2.has_unencrypted_volumes('__path__')
-            ec2.has_not_an_iam_instance_profile('__path__')
-            ec2.has_not_termination_protection('__path__')
-            ec2.has_terminate_shutdown_behavior('__path__')
-            ec2.is_associate_public_ip_address_enabled('__path__')
-            ec2.uses_default_security_group('__path__')
-            """,
         ('cloudfront', 'CloudFront (Content Delivery Network)'): """
             cloudfront.serves_content_over_http('__path__')
             cloudfront.serves_content_over_insecure_protocols('__path__')
+            """,
+        ('dynamodb', 'DynamoDB (NoSQL Database Service)'): """
+            dynamodb.has_not_point_in_time_recovery('__path__')
+            """,
+        ('ec2', 'EC2 (Elastic Cloud Compute)'): """
+            ec2.allows_all_outbound_traffic('__path__')
+            ec2.has_not_an_iam_instance_profile('__path__')
+            ec2.has_not_termination_protection('__path__')
+            ec2.has_terminate_shutdown_behavior('__path__')
+            ec2.has_unencrypted_volumes('__path__')
+            ec2.has_unrestricted_cidrs('__path__')
+            ec2.has_unrestricted_ip_protocols('__path__')
+            ec2.has_unrestricted_ports('__path__')
+            ec2.is_associate_public_ip_address_enabled('__path__')
+            ec2.uses_default_security_group('__path__')
             """,
         ('elb', 'ELB (Elastic Load Balancing)'): """
             elb.has_access_logging_disabled('__path__')
@@ -712,13 +715,12 @@ def exec_cloudformation_package(
             elb2.has_access_logging_disabled('__path__')
             elb2.has_not_deletion_protection('__path__')
             """,
-        ('dynamodb', 'DynamoDB (NoSQL Database Service)'): """
-            dynamodb.has_not_point_in_time_recovery('__path__')
-            """,
         ('fsx', 'FSx (Amazon FSx file systems)'): """
             fsx.has_unencrypted_volumes('__path__')
             """,
         ('iam', 'IAM (Identity and Access Management)'): """
+            iam.has_privileges_over_iam('__path__')
+            iam.has_wildcard_resource_on_write_action('__path__')
             iam.is_managed_policy_miss_configured('__path__')
             iam.is_policy_miss_configured('__path__')
             iam.is_role_over_privileged('__path__')
@@ -729,10 +731,10 @@ def exec_cloudformation_package(
             """,
         ('rds', 'RDS (Relational Database Service)'): """
             rds.has_not_automated_backups('__path__')
-            rds.has_unencrypted_storage('__path__')
-            rds.is_publicly_accessible('__path__')
-            rds.is_not_inside_a_db_subnet_group('__path__')
             rds.has_not_termination_protection('__path__')
+            rds.has_unencrypted_storage('__path__')
+            rds.is_not_inside_a_db_subnet_group('__path__')
+            rds.is_publicly_accessible('__path__')
             """,
         ('s3', 'Simple Storage Service'): """
             s3.has_not_private_access_control('__path__')

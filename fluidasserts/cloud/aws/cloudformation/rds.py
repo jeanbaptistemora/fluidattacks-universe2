@@ -47,6 +47,7 @@ def has_unencrypted_storage(
                 'AWS::RDS::DBInstance',
             ],
             exclude=exclude):
+        res_type = res_props['../Type']
         res_storage_encrypted = res_props.get('StorageEncrypted', False)
 
         with contextlib.suppress(CloudFormationInvalidTypeError):
@@ -58,7 +59,7 @@ def has_unencrypted_storage(
             vulnerabilities.append(
                 Vulnerability(
                     path=yaml_path,
-                    entity='AWS::RDS::(DBCluster,DBInstance)',
+                    entity=f'AWS::RDS::{res_type}',
                     identifier=res_name,
                     reason='uses unencrypted storage'))
 

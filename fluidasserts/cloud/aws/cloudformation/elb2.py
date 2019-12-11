@@ -47,8 +47,8 @@ def has_access_logging_disabled(
                 Vulnerability(
                     path=yaml_path,
                     entity=(f'AWS::ElasticLoadBalancingV2::LoadBalancer'
-                            f'/LoadBalancerAttributes',
-                            f'/access_logs.s3.enabled',
+                            f'/LoadBalancerAttributes'
+                            f'/access_logs.s3.enabled'
                             f'/{access_logs}'),
                     identifier=res_name,
                     reason='has access logging disabled'))
@@ -81,6 +81,7 @@ def has_not_deletion_protection(
                 'AWS::ElasticLoadBalancingV2::LoadBalancer',
             ],
             exclude=exclude):
+        deletion_protection = 'false'
         for attribute in res_props.get('LoadBalancerAttributes', [{
                 'Key': 'deletion_protection.enabled',
                 'Value': 'false'}]):
@@ -93,8 +94,8 @@ def has_not_deletion_protection(
                 Vulnerability(
                     path=yaml_path,
                     entity=(f'AWS::ElasticLoadBalancingV2::LoadBalancer'
-                            f'/LoadBalancerAttributes',
-                            f'/deletion_protection.enabled',
+                            f'/LoadBalancerAttributes'
+                            f'/deletion_protection.enabled'
                             f'/{deletion_protection}'),
                     identifier=res_name,
                     reason='has not deletion protection'))
