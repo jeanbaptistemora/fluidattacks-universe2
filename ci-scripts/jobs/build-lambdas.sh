@@ -4,7 +4,8 @@
 
 build_lambda() {
     LAMBDA_FUNCTION=$1
-    CURR_PATH=${PWD}/lambda
+    OLD_PWD=${PWD}
+    CURR_PATH=${OLD_PWD}/lambda
 
     python3 -m venv ${CURR_PATH}/${LAMBDA_FUNCTION}-venv
     cd ${CURR_PATH}/${LAMBDA_FUNCTION}-venv
@@ -17,10 +18,11 @@ build_lambda() {
     cd ${CURR_PATH}/${LAMBDA_FUNCTION}-venv/lib/python3.7/site-packages/
     zip -r9 /tmp/${LAMBDA_FUNCTION}.zip .
     cd ${CURR_PATH}/${LAMBDA_FUNCTION}
-    zip -g /tmp/${LAMBDA_FUNCTION}.zip lambda_${LAMBDA_FUNCTION}.py
+    zip -r -g /tmp/${LAMBDA_FUNCTION}.zip * 
     mv /tmp/${LAMBDA_FUNCTION}.zip ${CURR_PATH}/packages/
-    cd ${CURR_PATH}
+    cd ${OLD_PWD}
 
 }
 
 build_lambda send_mail_new_vulnerabilities
+build_lambda project_to_pdf
