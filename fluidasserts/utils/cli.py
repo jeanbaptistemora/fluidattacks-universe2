@@ -685,72 +685,74 @@ def exec_cloudformation_package(
 
         add_finding('Fluid Asserts - CloudFormation - {title} Module')
 
-        {methods}
+        {method}{method_args}
         """)
 
     source: Dict[str, str] = {
-        ('cloudfront', 'CloudFront (Content Delivery Network)'): """
-            cloudfront.serves_content_over_http('__path__')
-            cloudfront.serves_content_over_insecure_protocols('__path__')
-            """,
-        ('dynamodb', 'DynamoDB (NoSQL Database Service)'): """
-            dynamodb.has_not_point_in_time_recovery('__path__')
-            """,
-        ('ec2', 'EC2 (Elastic Cloud Compute)'): """
-            ec2.allows_all_outbound_traffic('__path__')
-            ec2.has_not_an_iam_instance_profile('__path__')
-            ec2.has_not_termination_protection('__path__')
-            ec2.has_terminate_shutdown_behavior('__path__')
-            ec2.has_unencrypted_volumes('__path__')
-            ec2.has_unrestricted_cidrs('__path__')
-            ec2.has_unrestricted_ip_protocols('__path__')
-            ec2.has_unrestricted_ports('__path__')
-            ec2.is_associate_public_ip_address_enabled('__path__')
-            ec2.uses_default_security_group('__path__')
-            """,
-        ('elb', 'ELB (Elastic Load Balancing)'): """
-            elb.has_access_logging_disabled('__path__')
-            """,
-        ('elb2', 'ELBv2 (Elastic Load Balancing v2)'): """
-            elb2.has_access_logging_disabled('__path__')
-            elb2.has_not_deletion_protection('__path__')
-            """,
-        ('fsx', 'FSx (Amazon FSx file systems)'): """
-            fsx.has_unencrypted_volumes('__path__')
-            """,
-        ('iam', 'IAM (Identity and Access Management)'): """
-            iam.has_privileges_over_iam('__path__')
-            iam.has_wildcard_resource_on_write_action('__path__')
-            iam.is_managed_policy_miss_configured('__path__')
-            iam.is_policy_miss_configured('__path__')
-            iam.is_role_over_privileged('__path__')
-            iam.missing_role_based_security('__path__')
-            """,
-        ('kms', 'KMS (Key Management Service)'): """
-            kms.is_key_rotation_absent_or_disabled('__path__')
-            """,
-        ('rds', 'RDS (Relational Database Service)'): """
-            rds.has_not_automated_backups('__path__')
-            rds.has_not_termination_protection('__path__')
-            rds.has_unencrypted_storage('__path__')
-            rds.is_not_inside_a_db_subnet_group('__path__')
-            rds.is_publicly_accessible('__path__')
-            """,
-        ('s3', 'Simple Storage Service'): """
-            s3.has_not_private_access_control('__path__')
-            """,
-        ('secretsmanager', 'Secrets Manager'): """
-            secretsmanager.insecure_generate_secret_string('__path__')
-            """,
+        ('cloudfront', 'CloudFront (Content Delivery Network)'): [
+            'cloudfront.serves_content_over_http',
+            'cloudfront.serves_content_over_insecure_protocols',
+        ],
+        ('dynamodb', 'DynamoDB (NoSQL Database Service)'): [
+            'dynamodb.has_not_point_in_time_recovery',
+        ],
+        ('ec2', 'EC2 (Elastic Cloud Compute)'): [
+            'ec2.allows_all_outbound_traffic',
+            'ec2.has_not_an_iam_instance_profile',
+            'ec2.has_not_termination_protection',
+            'ec2.has_terminate_shutdown_behavior',
+            'ec2.has_unencrypted_volumes',
+            'ec2.has_unrestricted_cidrs',
+            'ec2.has_unrestricted_ip_protocols',
+            'ec2.has_unrestricted_ports',
+            'ec2.is_associate_public_ip_address_enabled',
+            'ec2.uses_default_security_group',
+        ],
+        ('elb', 'ELB (Elastic Load Balancing)'): [
+            'elb.has_access_logging_disabled',
+        ],
+        ('elb2', 'ELBv2 (Elastic Load Balancing v2)'): [
+            'elb2.has_access_logging_disabled',
+            'elb2.has_not_deletion_protection',
+        ],
+        ('fsx', 'FSx (Amazon FSx file systems)'): [
+            'fsx.has_unencrypted_volumes',
+        ],
+        ('iam', 'IAM (Identity and Access Management)'): [
+            'iam.has_privileges_over_iam',
+            'iam.has_wildcard_resource_on_write_action',
+            'iam.is_managed_policy_miss_configured',
+            'iam.is_policy_miss_configured',
+            'iam.is_role_over_privileged',
+            'iam.missing_role_based_security',
+        ],
+        ('kms', 'KMS (Key Management Service)'): [
+            'kms.is_key_rotation_absent_or_disabled',
+        ],
+        ('rds', 'RDS (Relational Database Service)'): [
+            'rds.has_not_automated_backups',
+            'rds.has_not_termination_protection',
+            'rds.has_unencrypted_storage',
+            'rds.is_not_inside_a_db_subnet_group',
+            'rds.is_publicly_accessible',
+        ],
+        ('s3', 'Simple Storage Service'): [
+            's3.has_not_private_access_control',
+        ],
+        ('secretsmanager', 'Secrets Manager'): [
+            'secretsmanager.insecure_generate_secret_string',
+        ],
     }
 
     exploits = [
         (module[1], template.format(
             title=module[1],
             module=module[0],
-            methods=textwrap.dedent(methods.replace('__path__', path))))
+            method=method,
+            method_args=f'("{path}")'))
         for path in paths
-        for module, methods in source.items()]
+        for module, methods in source.items()
+        for method in methods]
 
     return exec_exploits(exploit_contents=exploits,
                          enable_multiprocessing=enable_multiprocessing)
