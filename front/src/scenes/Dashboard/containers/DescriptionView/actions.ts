@@ -81,7 +81,6 @@ export const loadDescription: ThunkActionStructure<void> =
           cweUrl
           btsUrl
           treatment
-          treatmentManager
           treatmentJustification
           risk
           type
@@ -272,14 +271,12 @@ export const updateTreatment: ThunkActionStructure<void> =
           btsUrl: ${JSON.stringify(values.btsUrl)},
           findingId: "${findingId}",
           treatment: "${values.treatment}",
-          treatmentManager: "${values.treatmentManager}",
           treatmentJustification: ${JSON.stringify(values.treatmentJustification)},
           acceptanceDate: "${values.acceptanceDate}",
         ) {
           finding {
             btsUrl
             treatment
-            treatmentManager
             treatmentJustification
             acceptanceDate
           }

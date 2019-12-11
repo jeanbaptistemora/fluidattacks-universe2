@@ -119,6 +119,10 @@ const getTag: ((line: IVulnRow) => string) =
   (line: IVulnRow): string =>
     line.tag;
 
+const getTreatmentManager: ((line: IVulnRow) => string) =
+  (line: IVulnRow): string =>
+    line.treatmentManager;
+
 export const compareNumbers: ((a: number, b: number) => number) =
   (a: number, b: number): number =>
     a - b;
@@ -174,7 +178,9 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
           .join(", "),
         treatment: line[0].treatment,
         treatmentJustification: line[0].treatmentJustification,
-        treatmentManager: line[0].treatmentManager,
+        treatmentManager: Array.from(new Set(line.map(getTreatmentManager)))
+          .filter(Boolean)
+          .join(", "),
         vulnType: line[0].vulnType,
         where: line[0].where,
     }));

@@ -16,8 +16,7 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
     const formTreatmentValue: string = !_.isUndefined(props.formValues.treatmentVuln) ?
     props.formValues.treatmentVuln : props.formValues.treatment;
     const hasBts: boolean = !_.isEmpty(props.dataset.btsUrl);
-    const isNotEditable: boolean = props.isEditing &&
-    (props.userRole === "customer" && formTreatmentValue === "IN PROGRESS");
+    const isNotEditable: boolean = props.isEditing && props.userRole === "customer";
     const changeRender: boolean = props.isEditing && (formTreatmentValue === "IN PROGRESS" ||
     formTreatmentValue === "ACCEPTED");
     const shouldRender: boolean = !props.isEditing && (formTreatmentValue === "IN PROGRESS" ||
@@ -70,7 +69,7 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
             <option value="IN PROGRESS">{translate.t("search_findings.tab_description.treatment.in_progress")}</option>
           </EditableField>
         </Col>
-        {shouldRenderField ?
+        {shouldRenderField && props.isTreatmentModal ?
           <Col md={6} sm={12} xs={12}>
             <EditableField
               component={dropdownField/* tslint:disable-next-line jsx-no-multiline-js */}
