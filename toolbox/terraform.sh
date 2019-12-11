@@ -123,10 +123,31 @@ taint_terraform() {
   cd "$TARGET_DIR" || return 1
 
   terraform taint "$MARKED_VALUE"
-  run_terraform \
-    "$TARGET_DIR" \
-    "$BUCKET" \
-    apply
+
+  cd "$STARTING_DIR" || return 1
+}
+
+output_terraform() {
+
+  # Run terraform output to show resources values specified in outputs.tf
+  # Example:
+  # If an IAM user is created by a resource called "user-example" and it's
+  # Defined in outputs.tf as "user-example-key-id", run this command
+  # terraform output user-example-key-id
+
+  local TARGET_DIR
+  local BUCKET
+  local OUTPUT_VALUE
+
+  TARGET_DIR="$1"
+  BUCKET="$2"
+  OUTPUT_VALUE="$3"
+
+  init_terraform "$TARGET_DIR" "$BUCKET"
+
+  cd "$TARGET_DIR" || return 1
+
+  terraform output "$OUTPUT_VALUE"
 
   cd "$STARTING_DIR" || return 1
 }
