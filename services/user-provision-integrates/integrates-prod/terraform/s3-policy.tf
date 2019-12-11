@@ -8,6 +8,18 @@ data "aws_iam_policy_document" "integrates-prod-s3-policy-data" {
       "arn:aws:s3:::fi.binaryalert*"
     ]
   }
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+      "s3:ListBucket",
+      "s3:GetObject"
+    ]
+    resources = [
+      "arn:aws:s3:::servestf/integrates.tfstate",
+      "arn:aws:s3:::servestf"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "integrates-prod-s3-policy" {
