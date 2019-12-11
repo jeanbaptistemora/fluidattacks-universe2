@@ -1,4 +1,4 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
+import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 // tslint:disable-next-line: no-import-side-effect
 import "isomorphic-fetch";
@@ -8,7 +8,7 @@ import * as React from "react";
 import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
-import { RouteComponentProps } from "react-router";
+import { MemoryRouter, RouteComponentProps } from "react-router";
 import wait from "waait";
 import { EventContent } from "./index";
 import { GET_EVENT_HEADER } from "./queries";
@@ -70,5 +70,18 @@ describe("EventContent", () => {
     await act(async () => { await wait(0); });
     expect(wrapper)
       .toHaveLength(1);
+  });
+
+  it("should render header component", async () => {
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/TEST/events/413372600/description"]}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <EventContent {...mockProps} />
+        </MockedProvider>
+      </MemoryRouter>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(wrapper.text())
+      .toContain("Solved");
   });
 });
