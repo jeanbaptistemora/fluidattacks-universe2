@@ -192,6 +192,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
             self.exploit = ''
         return self.exploit
 
+    @get_entity_cache
     def resolve_evidence(self, info):
         """ Resolve evidence attribute """
         del info
