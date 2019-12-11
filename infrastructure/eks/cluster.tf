@@ -13,8 +13,8 @@ resource "aws_eks_cluster" "k8s_cluster" {
   }
 
   depends_on = [
-    "aws_iam_role_policy_attachment.k8s_master_policy_1",
-    "aws_iam_role_policy_attachment.k8s_master_policy_2",
+    aws_iam_role_policy_attachment.k8s_master_policy_1,
+    aws_iam_role_policy_attachment.k8s_master_policy_2,
   ]
 }
 

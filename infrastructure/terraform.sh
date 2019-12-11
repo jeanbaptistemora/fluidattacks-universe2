@@ -66,6 +66,7 @@ sops_env secrets-production.yaml default \
   TF_VAR_dbPass \
   TF_VAR_dbSnapId \
   TF_VAR_dbUser \
+  TF_VAR_engineVersion \
   FLUIDATTACKS_TLS_CERT \
   FLUID_TLS_KEY \
   FA_RUNNER_TOKEN \

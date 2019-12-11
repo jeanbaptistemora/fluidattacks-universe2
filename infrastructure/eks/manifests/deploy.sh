@@ -270,7 +270,7 @@ sed 's/$PROJECT/integrates/g' review-apps/env-template.yaml | kubectl apply -f -
 install_amazon_vpc_plugin
 kubectl apply -f review-apps/network-policies.yaml
 
-
+VAULT_HOST='vault.fluidattacks.com'
 DATE="$(date)"
 FI_VAULT_HOST="$(echo -n ${VAULT_HOST} | base64)"
 FI_VAULT_TOKEN="$(get_vault_approle_token ${INTEGRATES_PROD_ROLE_ID} \
