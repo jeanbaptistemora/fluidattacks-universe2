@@ -157,7 +157,8 @@ const findSwitchButton: ((rowId: string, resType: string) => Element | undefined
   return undefined;
 };
 
-let currUserRole: string = "";
+let currUserRole: string = "customer";
+const allowedRoles: string[] = ["customer"];
 
 const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IResourcesViewProps): JSX.Element => {
   const handleOpenTagsModal: (() => void) = (): void => { props.onOpenTagsModal(); };
@@ -247,7 +248,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                   <Col md={12} sm={12}>
                     <DataTable
                       dataset={tagsDataset}
-                      enableRowSelection={currUserRole === "customer"}
+                      enableRowSelection={allowedRoles.includes(currUserRole)}
                       exportCsv={false}
                       search={false}
                       headers={[
@@ -267,7 +268,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                   <Col md={12}>
                     <br />
                     <Col mdOffset={4} md={2} sm={6}>
-                      {currUserRole === "customer" ?
+                      {allowedRoles.includes(currUserRole) ?
                       <Button
                         id="addTag"
                         block={true}
@@ -313,7 +314,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
 
                           return (
                             <Col md={2} sm={6}>
-                              {currUserRole === "customer" ?
+                              {allowedRoles.includes(currUserRole) ?
                               <Button
                                 id="removeTag"
                                 block={true}
@@ -407,6 +408,7 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
             if (data.me !== undefined) {
               currUserRole = data.me.role;
             }
+
             let repos: IRepositoriesAttr[] = JSON.parse(data.resources.repositories);
             repos = repos.map((repo: IRepositoriesAttr) => {
               repo.state = "ACTIVE";
@@ -559,11 +561,11 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                                 },
                                 {
                                   align: "center",
-                                  changeFunction: currUserRole === "customer" ? handleUpdateRepo : undefined,
+                                  changeFunction: allowedRoles.includes(currUserRole) ? handleUpdateRepo : undefined,
                                   dataField: "state",
                                   header: translate.t("search_findings.repositories_table.state"),
                                   isDate: false,
-                                  isStatus: currUserRole === "customer" ? false : true,
+                                  isStatus: allowedRoles.includes(currUserRole) ? false : true,
                                   width: "12%",
                                   wrapped: true,
                                 },
@@ -576,7 +578,7 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                           <Col md={12}>
                             <br />
                             <Col mdOffset={4} md={2} sm={6}>
-                              {currUserRole === "customer" ?
+                              {allowedRoles.includes(currUserRole) ?
                               <Button
                                 id="addRepository"
                                 block={true}
@@ -806,11 +808,11 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                                 },
                                 {
                                   align: "center",
-                                  changeFunction: currUserRole === "customer" ? handleUpdateEnv : undefined,
+                                  changeFunction: allowedRoles.includes(currUserRole) ? handleUpdateEnv : undefined,
                                   dataField: "state",
                                   header: translate.t("search_findings.repositories_table.state"),
                                   isDate: false,
-                                  isStatus: currUserRole === "customer" ? false : true,
+                                  isStatus: allowedRoles.includes(currUserRole) ? false : true,
                                   width: "12%",
                                   wrapped: true,
                                 },
@@ -823,7 +825,7 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                           <Col md={12}>
                           <br />
                           <Col mdOffset={4} md={2} sm={6}>
-                            {currUserRole === "customer" ?
+                            {allowedRoles.includes(currUserRole) ?
                             <Button
                               id="addEnvironment"
                               block={true}
@@ -969,7 +971,7 @@ const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
           <Col md={12}>
             <br />
             <Col mdOffset={5} md={2} sm={6}>
-              {currUserRole === "customer" ?
+              {allowedRoles.includes(currUserRole) ?
               <Button
                 id="addFile"
                 block={true}
@@ -997,7 +999,7 @@ const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
           uploadProgress={props.uploadProgress}
         />
         <FileOptionsModal
-          canRemove={currUserRole === "customer" ? true : false}
+          canRemove={allowedRoles.includes(currUserRole) ? true : false}
           fileName={props.optionsModal.rowInfo.fileName}
           isOpen={props.optionsModal.open}
           onClose={handleCloseOptionsModalClick}
