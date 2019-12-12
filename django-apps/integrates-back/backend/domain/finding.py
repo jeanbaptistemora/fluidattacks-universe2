@@ -26,7 +26,7 @@ from app.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
     NotSubmitted, InvalidFileSize, InvalidDraftTitle
 )
-from app.mailer import (
+from backend.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
     send_mail_accepted_finding, send_mail_reject_draft,
     send_mail_delete_finding, send_mail_new_draft

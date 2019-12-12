@@ -17,7 +17,7 @@ from backend.domain import comment as comment_domain
 from backend.domain import finding as finding_domain
 from backend.domain import vulnerability as vuln_domain
 from app.exceptions import InvalidParameter
-from app.mailer import send_mail_comment
+from backend.mailer import send_mail_comment
 
 
 def get_email_recipients(project_name):

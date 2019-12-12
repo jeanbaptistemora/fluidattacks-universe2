@@ -18,7 +18,7 @@ from app.dal import integrates_dal
 from app.dal import resources as resources_dal
 from backend.domain import project as project_domain, user as user_domain
 from app.exceptions import ErrorUploadingFileS3, InvalidFileSize
-from app.mailer import send_mail_resources
+from backend.mailer import send_mail_resources
 from app import util
 
 

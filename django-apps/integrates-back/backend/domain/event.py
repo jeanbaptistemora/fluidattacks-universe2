@@ -17,7 +17,7 @@ from app.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidDate, InvalidFileSize,
     InvalidFileType
 )
-from app.mailer import send_mail_comment, send_mail_new_event
+from backend.mailer import send_mail_comment, send_mail_new_event
 
 
 def update_event(event_id, **kwargs):

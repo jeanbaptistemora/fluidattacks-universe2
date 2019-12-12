@@ -1,9 +1,9 @@
 # pylint: disable=relative-beyond-top-level
 
 from backend.domain import user as user_domain
+from backend.mailer import send_mail_new_user
 
 from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS
-from ..mailer import send_mail_new_user
 
 
 # pylint: disable=keyword-arg-before-vararg

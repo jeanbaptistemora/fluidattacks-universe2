@@ -23,6 +23,7 @@ deps_production() {
   )
   FOLDERS=(
       'ci-scripts/helpers/'
+      'django-apps/'
   )
   if check_folder_changed "${FOLDERS[@]}" \
      || check_file_changed "${FILES[@]}" \

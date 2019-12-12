@@ -22,7 +22,7 @@ from app import util
 from app.dal import integrates_dal
 from app.services import (
     get_user_role, is_customeradmin, has_responsibility, has_phone_number)
-from app.mailer import send_mail_access_granted
+from backend.mailer import send_mail_access_granted
 
 
 class User(ObjectType):
