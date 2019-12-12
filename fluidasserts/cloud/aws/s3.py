@@ -5,8 +5,13 @@
 # standard imports
 from contextlib import suppress
 import json
+from typing import List
+
 # 3rd party imports
-from botocore.exceptions import BotoCoreError
+import boto3
+from botocore import UNSIGNED
+from botocore.client import Config
+from botocore.exceptions import BotoCoreError, ClientError
 from botocore.vendored.requests.exceptions import RequestException
 
 # local imports
@@ -203,8 +208,11 @@ def buckets_allow_unauthorized_public_access(key_id: str,
         vulnerable = []
         for policy in bucket_policies:
             with suppress(KeyError):
-                vulnerable.append(policy['Effect'] == 'Allow'
-                                  and policy['Principal'] == '*')
+                if policy['Effect'] == 'Allow':
+                    if isinstance(policy['Principal'], dict):
+                        vulnerable.append('*' in policy['Principal'].values())
+                    else:
+                        vulnerable.append(policy['Principal'] == '*')
 
         (vulns if any(vulnerable) else safes).append(
             (bucket_name, ('Policies should not allow unauthorized access,'
@@ -349,3 +357,34 @@ def has_disabled_server_side_encryption(key_id: str, secret: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def bucket_objects_can_be_listed(bucket_names: List[str]):
+    """
+    Check if a S3 bucket objects can be listed by everyon.
+
+    This check works without aws access keys.
+
+    :param bucket_name: name of the s3 bucket.
+    """
+    msg_open: str = 'Bucket objects can be listed by eveyon.'
+    msg_closed: str = 'Bucket objects can not be listed by eveyon.'
+
+    vulns, safes = [], []
+    s3_client = boto3.client('s3', config=Config(signature_version=UNSIGNED))
+    for bucket in bucket_names:
+        try:
+            _ = s3_client.list_objects_v2(Bucket=bucket, MaxKeys=10)
+            vulns.append((bucket, 'objects can be listed.'))
+        except ClientError as exc:
+            if exc.response['Error']['Code'] == 'AccessDenied':
+                safes.append((bucket, 'objects can be listed.'))
+            else:
+                raise BotoCoreError
+
+    return _get_result_as_tuple(
+        service='S3', objects='buckets',
+        msg_open=msg_open, msg_closed=msg_closed,
+        vulns=vulns, safes=safes)

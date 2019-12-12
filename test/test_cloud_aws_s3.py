@@ -11,6 +11,7 @@ from contextlib import contextmanager
 
 # local imports
 from fluidasserts.cloud.aws import s3
+from fluidasserts.helper import aws
 
 
 # Constants
@@ -34,6 +35,16 @@ def no_connection():
     finally:
         os.environ.pop('HTTP_PROXY', None)
         os.environ.pop('HTTPS_PROXY', None)
+
+
+def _get_bucket_names(key_id: str, secret: str):
+    buckets = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='s3',
+        func='list_buckets',
+        param='Buckets')
+    return list(map(lambda x: x['Name'], buckets))
 
 
 #
@@ -76,6 +87,12 @@ def test_has_disabled_server_side_encryption_open():
     """Search S3 buckets with server side encryption disabled."""
     assert s3.has_disabled_server_side_encryption(
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
+def test_bucket_objects_can_be_listed_open():
+    """Search S3 buckets that can be listed."""
+    assert s3.bucket_objects_can_be_listed(_get_bucket_names(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)).is_open()
 
 
 #
