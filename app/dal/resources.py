@@ -76,6 +76,30 @@ def create(res_data, project_name, res_type):
     return resp
 
 
+def remove(project_name, res_type, index):
+    table = TABLE
+    table_name = 'FI_projects'
+    primary_name_key = 'project_name'
+    primary_key = project_name
+    attr_name = res_type
+    table = DYNAMODB_RESOURCE.Table(table_name)
+    try:
+        response = table.update_item(
+            Key={
+                primary_name_key: primary_key.lower(),
+            },
+            UpdateExpression='REMOVE #attrName[' + str(index) + ']',
+            ExpressionAttributeNames={
+                '#attrName': attr_name
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
+
+
 def update(res_data, project_name, res_type):
     table = TABLE
     table_name = 'FI_projects'

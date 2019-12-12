@@ -4,10 +4,8 @@
 # Disabling this rule is necessary for importing modules beyond the top level
 # directory.
 
-from datetime import datetime
 import rollbar
 from mixpanel import Mixpanel
-from graphql import GraphQLError
 from graphene import ObjectType, JSONString, Mutation, String, Boolean, Field
 from graphene_file_upload.scalars import Upload
 from django.conf import settings
@@ -18,8 +16,8 @@ from app.decorators import (
 )
 from app import util
 from app.dal import integrates_dal
-from app.exceptions import ErrorUploadingFileS3, InvalidFileSize, InvalidProject
 from backend.domain import resources
+from app.exceptions import InvalidProject
 
 
 INTEGRATES_URL = 'https://fluidattacks.com/integrates/dashboard'
@@ -169,56 +167,25 @@ class AddFiles(Mutation):
     @require_project_access
     def mutate(self, info, **parameters):
         success = False
-        json_data = []
         files_data = parameters['files_data']
-        project_name = parameters['project_name'].lower()
-        user_email = util.get_jwt_content(info.context)['user_email']
-        for file_info in files_data:
-            json_data.append({
-                'fileName': file_info.get('fileName'),
-                'description': file_info.get('description'),
-                'uploadDate': str(datetime.now().replace(second=0, microsecond=0))[:-3],
-                'uploader': user_email,
-            })
         uploaded_file = info.context.FILES['1']
-        file_id = '{project}/{file_name}'.format(
-            project=project_name,
-            file_name=uploaded_file
-        )
-        try:
-            file_size = 100
-            resources.validate_file_size(uploaded_file, file_size)
-        except InvalidFileSize:
-            raise GraphQLError('File exceeds the size limits')
-        files = integrates_dal.get_project_attributes_dynamo(project_name, ['files'])
-        project_files = files.get('files')
-        if project_files:
-            contains_repeated = [f.get('fileName')
-                                 for f in project_files
-                                 if f.get('fileName') == uploaded_file.name]
-            if contains_repeated:
-                raise GraphQLError('File already exist')
+        project_name = parameters['project_name']
+        user_email = util.get_jwt_content(info.context)['user_email']
+        add_file = resources.create_file(files_data,
+                                         uploaded_file,
+                                         project_name,
+                                         user_email)
+        if add_file:
+            resources.send_mail(project_name,
+                                user_email,
+                                files_data,
+                                'added',
+                                'file')
+
+            success = True
         else:
-            # Project doesn't have files
-            pass
-        if util.is_valid_file_name(uploaded_file):
-            try:
-                resources.save_file(uploaded_file, file_id)
-                integrates_dal.add_list_resource_dynamo(
-                    'FI_projects',
-                    'project_name',
-                    project_name,
-                    json_data,
-                    'files'
-                )
-                resources.send_mail(project_name,
-                                    user_email,
-                                    json_data,
-                                    'added',
-                                    'file')
-                success = True
-            except ErrorUploadingFileS3:
-                raise GraphQLError('Error uploading file')
+            rollbar.report_message('Error: \
+An error occurred uploading file', 'error', info.context)
         if success:
             util.invalidate_cache(project_name)
             util.cloudwatch_log(info.context, 'Security: Added evidence files to \
@@ -245,36 +212,12 @@ class RemoveFiles(Mutation):
     def mutate(self, info, files_data, project_name):
         success = False
         file_name = files_data.get('fileName')
-        file_list = \
-            integrates_dal.get_project_dynamo(project_name)[0]['files']
-        index = -1
-        cont = 0
-        user_email = util.get_jwt_content(info.context)['user_email']
-
-        while index < 0 and len(file_list) > cont:
-            if file_list[cont]['fileName'] == file_name:
-                index = cont
-                json_data = [file_list[cont]]
-            else:
-                index = -1
-            cont += 1
-        if index >= 0:
-            file_url = '{project}/{file_name}'.format(
-                project=project_name.lower(),
-                file_name=file_name
-            )
-            success = resources.remove_file(file_url)
-            integrates_dal.remove_list_resource_dynamo(
-                'FI_projects',
-                'project_name',
-                project_name,
-                'files',
-                index)
-            resources.send_mail(project_name,
-                                user_email,
-                                json_data,
-                                'removed',
-                                'file')
+        remove_file = resources.remove_file(file_name, project_name)
+        if remove_file:
+            success = True
+        else:
+            rollbar.report_message('Error: \
+An error occurred removing file', 'error', info.context)
         if success:
             util.invalidate_cache(project_name)
             util.cloudwatch_log(info.context, 'Security: Removed Files from \
@@ -282,7 +225,6 @@ class RemoveFiles(Mutation):
         else:
             util.cloudwatch_log(info.context, 'Security: Attempted to remove files \
                 from {project} project'.format(project=project_name))
-
         ret = RemoveFiles(success=success, resources=Resource(project_name))
         return ret
 

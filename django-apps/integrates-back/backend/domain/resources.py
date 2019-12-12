@@ -51,7 +51,7 @@ def save_file(upload, fileurl):
     return success
 
 
-def remove_file(file_name):
+def remove_file_(file_name):
     success = resources_dal.remove_file(file_name)
 
     return success
@@ -106,6 +106,68 @@ def validate_file_size(uploaded_file, file_size):
     if uploaded_file.size > file_size * mib:
         raise InvalidFileSize()
     return True
+
+
+def create_file(files_data, uploaded_file, project_name, user_email):
+    project_name = project_name.lower()
+    json_data = []
+    for file_info in files_data:
+        json_data.append({
+            'fileName': file_info.get('fileName'),
+            'description': file_info.get('description'),
+            'uploadDate': str(datetime.datetime.now().replace(second=0, microsecond=0))[:-3],
+            'uploader': user_email,
+        })
+    file_id = '{project}/{file_name}'.format(
+        project=project_name,
+        file_name=uploaded_file
+    )
+    try:
+        file_size = 100
+        validate_file_size(uploaded_file, file_size)
+    except InvalidFileSize:
+        rollbar.report_message('Error: \
+File exceeds size limit', 'error')
+    files = integrates_dal.get_project_attributes_dynamo(project_name, ['files'])
+    project_files = files.get('files')
+    if project_files:
+        contains_repeated = [f.get('fileName')
+                             for f in project_files
+                             if f.get('fileName') == uploaded_file.name]
+        if contains_repeated:
+            rollbar.report_message('Error: \
+File already exists', 'error')
+    else:
+        # Project doesn't have files
+        pass
+    if util.is_valid_file_name(uploaded_file):
+        return (
+            resources_dal.save_file(uploaded_file, file_id)
+            and resources_dal.create(json_data, project_name, 'files'))
+    return False
+
+
+def remove_file(file_name, project_name):
+    project_name = project_name.lower()
+    file_list = \
+        integrates_dal.get_project_dynamo(project_name)[0]['files']
+    index = -1
+    cont = 0
+    while index < 0 and len(file_list) > cont:
+        if file_list[cont]['fileName'] == file_name:
+            index = cont
+        else:
+            index = -1
+        cont += 1
+    if index >= 0:
+        file_url = '{project}/{file_name}'.format(
+            project=project_name.lower(),
+            file_name=file_name
+        )
+        return (
+            resources_dal.remove_file(file_url)
+            and resources_dal.remove(project_name, 'files', index))
+    return False
 
 
 def create_resource(res_data, project_name, res_type, user_email):
