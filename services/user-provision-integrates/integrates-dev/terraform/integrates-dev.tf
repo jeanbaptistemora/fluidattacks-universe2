@@ -46,11 +46,22 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
       "arn:aws:s3:::fluidattacks-terraform-states-dev/*"
     ]
   }
-
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+      "s3:ListBucket",
+      "s3:GetObject"
+    ]
+    resources = [
+      "arn:aws:s3:::servestf/integrates.tfstate",
+      "arn:aws:s3:::servestf"
+    ]
+  }
 }
 
 resource "aws_iam_user" "integrates-dev" {
-  name = "integrates-dev"
+  name = var.user-name
   path = "/user-provision/"
 }
 
@@ -59,13 +70,13 @@ resource "aws_iam_access_key" "integrates-dev-key" {
 }
 
 resource "aws_iam_policy" "integrates-dev-policy" {
-  description = "Integrates policy for ${aws_iam_user.integrates-dev.name}"
-  name        = "user-provision-policy-${aws_iam_user.integrates-dev.name}"
+  description = "Integrates policy for ${var.user-name}"
+  name        = "user-provision-policy-${var.user-name}"
   path        = "/user-provision/"
   policy      = data.aws_iam_policy_document.integrates-dev-policy-data.json
 }
 
 resource "aws_iam_user_policy_attachment" "integrates-dev-attach-policy" {
-  user       = aws_iam_user.integrates-dev.name
+  user       = var.user-name
   policy_arn = aws_iam_policy.integrates-dev-policy.arn
 }
