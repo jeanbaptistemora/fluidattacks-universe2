@@ -3,6 +3,7 @@ image: registry.gitlab.com/fluidattacks/web:base
 stages:
   - build
   - check
+  - break-build
   - review
   - mr-check
   - deployment
@@ -233,3 +234,42 @@ new_version_mail:
     - master
   except:
     - schedules
+
+asserts-static:
+  stage: break-build
+  tags: [autoscaling]
+  needs: [pelican]
+  image:
+    name: fluidattacks/break-build
+    entrypoint: [""]
+  before_script:
+    - docker pull fluidattacks/break-build
+  script:
+    - bash <(docker run fluidattacks/break-build
+              --static
+              --id ${BREAK_BUILD_ID}
+              --secret ${BREAK_BUILD_SECRET}
+              --gitlab-docker-socket-binding
+             ) || true
+  except:
+    - master
+  interruptible: true
+
+asserts-dynamic:
+  stage: postdeploy
+  tags: [autoscaling]
+  image:
+    name: fluidattacks/break-build
+    entrypoint: [""]
+  before_script:
+    - docker pull fluidattacks/break-build
+  script:
+    - bash <(docker run fluidattacks/break-build
+              --dynamic
+              --id ${BREAK_BUILD_ID}
+              --secret ${BREAK_BUILD_SECRET}
+              --gitlab-docker-socket-binding
+             ) || true
+  only:
+    - master
+  interruptible: true
