@@ -138,6 +138,9 @@ output_terraform() {
   local TARGET_DIR
   local BUCKET
   local OUTPUT_VALUE
+  local STARTING_DIR
+
+  STARTING_DIR="$(pwd)"
 
   TARGET_DIR="$1"
   BUCKET="$2"
