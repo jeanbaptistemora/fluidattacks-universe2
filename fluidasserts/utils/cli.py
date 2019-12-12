@@ -612,13 +612,42 @@ def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
             cloudtrail.is_trail_bucket_public('{key}', '{secret}')
             cloudtrail.trails_not_multiregion('{key}', '{secret}')
             """,
+        ('dynamodb', 'DynamoDB'): """
+            dynamodb.encrypted_with_aws_master_keys('{key}', '{secret}')
+            dynamodb.has_disabled_continuous_backups('{key}', '{secret}')
+            """,
         ('ec2', 'EC2'): """
             ec2.default_seggroup_allows_all_traffic('{key}', '{secret}')
+            ec2.has_associate_public_ip_address('{key}', '{secret}')
+            ec2.has_default_security_groups_in_use('{key}', '{secret}')
+            ec2.has_insecure_port_range_in_security_group('{key}', '{secret}')
+            ec2.has_instances_using_iam_roles('{key}', '{secret}')
+            ec2.has_instances_using_unapproved_amis('{key}', '{secret}')
+            ec2.has_not_deletion_protection('{key}', '{secret}')
+            ec2.has_security_groups_ip_ranges_in_rfc1918('{key}', '{secret}')
+            ec2.has_terminate_shutdown_behavior('{key}', '{secret}')
+            ec2.has_unencrypted_amis('{key}', '{secret}')
+            ec2.has_publicly_shared_amis('{key}', '{secret}')
             ec2.has_unencrypted_snapshots('{key}', '{secret}')
             ec2.has_unencrypted_volumes('{key}', '{secret}')
+            ec2.has_unrestricted_dns_access('{key}', '{secret}')
+            ec2.has_unrestricted_ftp_access('{key}', '{secret}')
+            ec2.has_unused_ec2_key_pairs('{key}', '{secret}')
             ec2.has_unused_seggroups('{key}', '{secret}')
             ec2.seggroup_allows_anyone_to_admin_ports('{key}', '{secret}')
             ec2.vpcs_without_flowlog('{key}', '{secret}')
+            """,
+        ('ecs', 'Elastic Container Service'): """
+            ecs.has_not_resources_usage_limits('{key}', '{secret}')
+            ecs.no_iam_role_for_tasks('{key}', '{secret}')
+            ecs.run_containers_as_root_user('{key}', '{secret}')
+            ecs.write_root_file_system('{key}', '{secret}')
+            ecs.write_volumes('{key}', '{secret}')
+            """,
+        ('eks', 'Elastic Kubernetes Service'): """
+            eks.allows_insecure_inbound_traffic('{key}', '{secret}')
+            eks.has_disable_cluster_logging('{key}', '{secret}')
+            eks.has_endpoints_publicly_accessible('{key}', '{secret}')
             """,
         ('elb2', 'Elastic Load Balancer version 2'): """
             elb2.has_access_logging_disabled('{key}', '{secret}')
@@ -628,11 +657,19 @@ def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
             generic.are_valid_credentials('{key}', '{secret}')
             """,
         ('iam', 'IAM'): """
+            iam.group_with_inline_policies('{key}', '{secret}')
             iam.has_mfa_disabled('{key}', '{secret}')
             iam.has_not_support_role('{key}', '{secret}')
+            iam.has_old_ssh_public_keys('{key}', '{secret}')
+            iam.has_permissive_role_policies('{key}', '{secret}')
+            iam.has_privileges_over_iam('{key}', '{secret}')
+            iam.has_root_active_signing_certificates('{key}', '{secret}')
+            iam.has_wildcard_resource_on_write_action('{key}', '{secret}')
             iam.have_full_access_policies('{key}', '{secret}')
             iam.have_old_access_keys('{key}', '{secret}')
             iam.have_old_creds_enabled('{key}', '{secret}')
+            iam.mfa_disabled_for_users_with_console_password('{key}',
+                                                             '{secret}')
             iam.min_password_len_unsafe('{key}', '{secret}')
             iam.not_requires_lowercase('{key}', '{secret}')
             iam.not_requires_numbers('{key}', '{secret}')
@@ -643,8 +680,14 @@ def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
             iam.policies_attached_to_users('{key}', '{secret}')
             iam.root_has_access_keys('{key}', '{secret}')
             iam.root_without_mfa('{key}', '{secret}')
+            iam.users_with_password_and_access_keys('{key}', '{secret}')
+            """,
+        ('kms', 'Key Management Service'): """
+            kms.has_key_rotation_disabled('{key}', '{secret}')
+            kms.has_master_keys_exposed_to_everyone('{key}', '{secret}')
             """,
         ('rds', 'RDS'): """
+            rds.has_not_deletion_protection('{key}', '{secret}')
             rds.has_public_instances('{key}', '{secret}')
             rds.is_cluster_not_inside_a_db_subnet_group('{key}', '{secret}')
             rds.is_instance_not_inside_a_db_subnet_group('{key}', '{secret}')
@@ -657,9 +700,18 @@ def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
             redshift.has_public_clusters('{key}', '{secret}')
             """,
         ('s3', 'S3'): """
+            s3.buckets_allow_unauthorized_public_access('{key}', '{secret}')
+            s3.has_buckets_without_default_encryption('{key}', '{secret}')
+            s3.has_disabled_server_side_encryption('{key}', '{secret}')
+            s3.has_insecure_transport('{key}', '{secret}')
             s3.has_public_buckets('{key}', '{secret}')
             s3.has_server_access_logging_disabled('{key}', '{secret}')
             """,
+        ('secretsmanager', 'Secrets Manager'): """
+            secretsmanager.has_automatic_rotation_disabled('{key}', '{secret}')
+            secretsmanager.secrets_encrypted_with_default_keys('{key}',
+                                                               '{secret}')
+            """
     }
 
     exploits = [
