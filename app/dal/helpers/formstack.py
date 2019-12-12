@@ -5,7 +5,6 @@ import json
 import random
 import requests
 
-from django.views.decorators.cache import cache_control
 from retrying import retry
 import rollbar
 
@@ -104,12 +103,6 @@ AppleWebKit/537.36 (KHTML, like Gecko) FLUIDIntegrates/1.0'
     def refresh_token(self):
         next_index = random.randint(0, len(self.token_list) - 1)
         self.current_token = self.token_list[next_index]
-
-    @cache_control(max_age=600)
-    def get_submission(self, submission_id):
-        """ Get a submission by ID. """
-        url = self.SUBMISSION_URL.replace(":id", submission_id)
-        return self.request("GET", url)
 
     def get_remmisions(self, project):
         """ Get the remissions of a project by its name. """

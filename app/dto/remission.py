@@ -37,10 +37,6 @@ def create_dict(remission_submission):
     return parse(remission_submission, remission_dict)
 
 
-def get_lastest(remissions_list):
-    return max(remissions_list, key=lambda x: x['TIMESTAMP'])
-
-
 def days_until_now(date):
     delta_until_now = datetime.now() - forms.string_to_date(date)
     return forms.round_date(delta_until_now)
