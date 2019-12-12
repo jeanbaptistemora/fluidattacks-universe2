@@ -24,9 +24,9 @@ deps_development() {
   )
   FOLDERS=(
       'ci-scripts/helpers/'
-      'django-apps/'
   )
-  if check_folder_changed "${FOLDERS[@]}" \
+  if [ x"$CI_COMMIT_REF_NAME" = x"master" ] \
+     || check_folder_changed "${FOLDERS[@]}" \
      || check_file_changed "${FILES[@]}" \
      || docker_tag_not_exists deps-development $CI_COMMIT_REF_NAME \
      || container_image_differs deps-development $CI_COMMIT_REF_NAME \

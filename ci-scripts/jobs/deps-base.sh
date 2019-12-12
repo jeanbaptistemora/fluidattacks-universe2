@@ -21,7 +21,8 @@ deps_base() {
   FOLDERS=(
       'ci-scripts/helpers/'
   )
-  if check_folder_changed "${FOLDERS[@]}" \
+  if [ x"$CI_COMMIT_REF_NAME" = x"master" ] \
+     || check_folder_changed "${FOLDERS[@]}" \
      || check_file_changed "${FILES[@]}" \
      || docker_tag_not_exists deps-base $CI_COMMIT_REF_NAME \
      || container_image_differs deps-base $CI_COMMIT_REF_NAME \
