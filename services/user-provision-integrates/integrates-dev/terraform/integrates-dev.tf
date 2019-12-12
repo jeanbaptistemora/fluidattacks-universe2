@@ -44,11 +44,27 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     ]
     resources = [
       "arn:aws:s3:::fluidattacks-terraform-states-dev/*",
-      "arn:aws:s3:::fluidintegrates*/*",
-      "arn:aws:s3:::fluidintegrates*",
-      "arn:aws:s3:::fi.binaryalert*",
+    ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+      "s3:ListBucket",
+      "s3:GetObject"
+    ]
+    resources = [
       "arn:aws:s3:::servestf/integrates.tfstate",
       "arn:aws:s3:::servestf"
+    ]
+  }
+  statement {
+    effect  = "Allow"
+    actions = ["s3:*"]
+    resources = [
+      "arn:aws:s3:::fluidintegrates*/*",
+      "arn:aws:s3:::fluidintegrates*",
+      "arn:aws:s3:::fi.binaryalert*"
     ]
   }
 }
