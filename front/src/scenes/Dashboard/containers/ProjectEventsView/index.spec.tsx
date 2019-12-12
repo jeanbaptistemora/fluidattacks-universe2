@@ -3,6 +3,7 @@ import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { GraphQLError } from "graphql";
 // tslint:disable-next-line: no-import-side-effect
 import "isomorphic-fetch";
+import _ from "lodash";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
@@ -47,7 +48,7 @@ describe("EventsView", () => {
       request: {
         query: GET_EVENTS,
         variables: {
-          projectName: "TEST",
+          projectName: "unittesting",
         },
       },
       result: {
@@ -59,7 +60,7 @@ describe("EventsView", () => {
               eventStatus: "SOLVED",
               eventType: "AUTHORIZATION_SPECIAL_ATTACK",
               id: "463457733",
-              projectName: "TEST",
+              projectName: "unittesting",
             }],
           },
         },
@@ -71,7 +72,7 @@ describe("EventsView", () => {
       request: {
         query: GET_EVENTS,
         variables: {
-          projectName: "TEST",
+          projectName: "unittesting",
         },
       },
       result: {
@@ -92,9 +93,10 @@ describe("EventsView", () => {
         </MockedProvider>
       </Provider>,
     );
-    await act(async () => { await wait(0); });
-    expect(wrapper)
-      .toHaveLength(1);
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(wrapper.find("Query")
+      .children())
+      .toHaveLength(0);
   });
 
   it("should render a component", async () => {
@@ -105,8 +107,49 @@ describe("EventsView", () => {
         </MockedProvider>
       </Provider>,
     );
-    await act(async () => { await wait(0); });
     expect(wrapper)
       .toHaveLength(1);
+  });
+
+  it("should render events table", async () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <ProjectEventsView {...mockProps} />
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(wrapper.find("table"))
+      .toHaveLength(2);
+    expect(wrapper
+      .find("td")
+      .filterWhere((td: ReactWrapper) => _.includes(td.text(), "Authorization for special attack")))
+      .toHaveLength(1);
+    expect(wrapper
+      .find("td")
+      .filterWhere((td: ReactWrapper) =>
+        td.containsMatchingElement(<span style={{ backgroundColor: "#31c0be" }}>Solved</span>)))
+      .toHaveLength(1);
+  });
+
+  it("should render new event modal", async () => {
+    (window as typeof window & { userRole: string }).userRole = "analyst";
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <ProjectEventsView {...mockProps} />
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const newButton: ReactWrapper = wrapper
+      .find("Button")
+      .filterWhere((button: ReactWrapper) => _.includes(button.text(), "New Event"));
+    expect(newButton)
+      .toHaveLength(1);
+    newButton.simulate("click");
+    expect(wrapper.containsMatchingElement(<h4>New Event</h4>))
+      .toBe(true);
   });
 });

@@ -11,7 +11,7 @@ import { act } from "react-dom/test-utils";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
 import { EventEvidenceView } from "./index";
-import { GET_EVENT_EVIDENCES } from "./queries";
+import { DOWNLOAD_FILE_MUTATION, GET_EVENT_EVIDENCES } from "./queries";
 
 configure({ adapter: new ReactSixteenAdapter() });
 describe("EventEvidenceView", () => {
@@ -185,5 +185,56 @@ describe("EventEvidenceView", () => {
       .find("Button")
       .filterWhere((button: ReactWrapper): boolean => _.includes(button.text(), "Edit")))
       .toHaveLength(0);
+  });
+
+  it("should open file link", async () => {
+    const mocks: ReadonlyArray<MockedResponse> = [
+      {
+        request: {
+          query: GET_EVENT_EVIDENCES,
+          variables: { eventId: "413372600" },
+        },
+        result: {
+          data: {
+            event: {
+              eventStatus: "CLOSED",
+              evidence: "",
+              evidenceFile: "some_file.pdf",
+              id: "413372600",
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: DOWNLOAD_FILE_MUTATION,
+          variables: { eventId: "413372600", fileName: "some_file.pdf" },
+        },
+        result: {
+          data: {
+            downloadEventFile: {
+              success: true,
+              url: "https://cloudfront/some_file.pdf",
+            },
+          },
+        },
+      },
+    ];
+
+    const onOpenLink: jest.Mock = jest.fn()
+      .mockReturnValue({ opener: undefined });
+    (window as { open: ((url: string) => { opener: undefined }) }).open = onOpenLink;
+    const wrapper: ReactWrapper = mount(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <EventEvidenceView {...mockProps} />
+      </MockedProvider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    wrapper.find("span")
+      .find({ className: "img glyphicon glyphicon-file" })
+      .simulate("click");
+    await act(async () => { await wait(0); });
+    expect(onOpenLink)
+      .toHaveBeenCalledWith("https://cloudfront/some_file.pdf");
   });
 });
