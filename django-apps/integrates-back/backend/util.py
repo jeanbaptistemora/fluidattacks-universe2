@@ -24,15 +24,14 @@ from django.core.files.uploadedfile import (
 )
 from django.core.cache import cache
 from jose import jwt, JWTError
-# pylint: disable=relative-beyond-top-level
+from backend.exceptions import (InvalidAuthorization, InvalidDate,
+                                InvalidDateFormat)
 from __init__ import (
     FI_ENVIRONMENT,
     BREAK_BUILD_TRIGGER_URL,
     BREAK_BUILD_TRIGGER_REF,
     BREAK_BUILD_TRIGGER_TOKEN
 )
-from app.exceptions import InvalidAuthorization, InvalidDate, InvalidDateFormat
-
 
 logging.config.dictConfig(settings.LOGGING)
 LOGGER = logging.getLogger(__name__)

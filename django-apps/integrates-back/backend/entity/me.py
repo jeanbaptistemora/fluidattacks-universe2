@@ -13,11 +13,11 @@ import rollbar
 from backend.decorators import require_login
 from backend.domain import project as project_domain, user as user_domain
 from backend.entity.project import Project
+from backend.exceptions import InvalidExpirationTime
 from backend.services import get_user_role, is_customeradmin
 
 from backend import util
 from app.dal import integrates_dal
-from app.exceptions import InvalidExpirationTime
 
 from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 

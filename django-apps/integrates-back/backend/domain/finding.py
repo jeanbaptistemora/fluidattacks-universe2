@@ -24,11 +24,11 @@ from backend.mailer import (
 )
 
 from backend import util
-from app.dal import integrates_dal, finding as finding_dal, project as project_dal
-from app.exceptions import (
+from backend.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
     NotSubmitted, InvalidFileSize, InvalidDraftTitle
 )
+from app.dal import integrates_dal, finding as finding_dal, project as project_dal
 from app.utils import cvss, notifications, findings as finding_utils
 
 from __init__ import (

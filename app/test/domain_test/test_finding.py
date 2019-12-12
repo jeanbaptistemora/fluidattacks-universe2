@@ -7,7 +7,7 @@ from backend.domain.finding import (
     get_email_recipients, get_age_finding,
     get_tracking_vulnerabilities, get_findings, update_treatment)
 from app.dal.vulnerability import get_vulnerabilities
-from app.exceptions import (InvalidDateFormat, InvalidDate)
+from backend.exceptions import (InvalidDateFormat, InvalidDate)
 
 
 class FindingTests(TestCase):

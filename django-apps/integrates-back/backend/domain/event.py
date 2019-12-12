@@ -7,6 +7,10 @@ import pytz
 from django.conf import settings
 
 from backend.domain import comment as comment_domain, resources as resources_domain
+from backend.exceptions import (
+    EventAlreadyClosed, EventNotFound, InvalidDate, InvalidFileSize,
+    InvalidFileType
+)
 from backend.mailer import send_mail_comment, send_mail_new_event
 from backend import util
 
@@ -16,11 +20,6 @@ from __init__ import (
 )
 
 from app.dal import integrates_dal, event as event_dal, project as project_dal
-
-from app.exceptions import (
-    EventAlreadyClosed, EventNotFound, InvalidDate, InvalidFileSize,
-    InvalidFileType
-)
 
 
 def update_event(event_id, **kwargs):

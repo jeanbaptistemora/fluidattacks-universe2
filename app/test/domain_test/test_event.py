@@ -2,7 +2,7 @@ import pytest
 from aniso8601 import parse_datetime
 
 from backend.domain import event as event_domain
-from app.exceptions import EventAlreadyClosed
+from backend.exceptions import EventAlreadyClosed
 
 
 def test_get_event():

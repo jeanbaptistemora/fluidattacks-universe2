@@ -16,7 +16,7 @@ from backend.entity.finding import Finding
 from backend.entity.project import Project
 
 from backend import util
-from app.exceptions import InvalidProject
+from backend.exceptions import InvalidProject
 
 
 class Query(ObjectType):

@@ -2,7 +2,7 @@ from django.conf import settings
 from graphql.backend.core import GraphQLCoreBackend
 from graphql.language.ast import FragmentDefinition, FragmentSpread
 
-from app.exceptions import QueryDepthExceeded
+from backend.exceptions import QueryDepthExceeded
 
 
 def _get_depth(selection_set, fragments, depth_level=0):

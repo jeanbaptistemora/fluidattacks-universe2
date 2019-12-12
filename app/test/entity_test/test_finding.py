@@ -14,7 +14,7 @@ from backend.api.schema import SCHEMA
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.dataloaders.vulnerability import VulnerabilityLoader
 from backend.domain.finding import get_finding
-from app.exceptions import FindingNotFound
+from backend.exceptions import FindingNotFound
 
 
 class FindingTests(TestCase):
