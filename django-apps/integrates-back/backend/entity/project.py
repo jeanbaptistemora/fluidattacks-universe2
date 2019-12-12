@@ -12,9 +12,7 @@ from graphene import (
 )
 from graphene.types.generic import GenericScalar
 
-from app import util
-from app.dal import integrates_dal, project as redshift_dal
-from app.decorators import (
+from backend.decorators import (
     get_entity_cache, require_login, require_project_access, require_role
 )
 from backend.domain import (
@@ -24,8 +22,11 @@ from backend.domain import (
 from backend.entity.comment import Comment
 from backend.entity.event import Event
 from backend.entity.finding import Finding
-from app.services import get_user_role
+from backend.services import get_user_role
 from backend.entity.user import User
+
+from app import util
+from app.dal import integrates_dal, project as redshift_dal
 
 
 class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes

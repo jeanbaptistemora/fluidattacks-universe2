@@ -4,14 +4,13 @@ from graphene import (
 )
 from graphene.types.generic import GenericScalar
 from graphene_file_upload.scalars import Upload
-
-from app import util
-from app.decorators import (
+from backend.domain import comment as comment_domain, event as event_domain
+from backend.entity.comment import Comment
+from backend.decorators import (
     get_entity_cache, require_login, require_role, require_event_access,
     require_project_access
 )
-from backend.domain import comment as comment_domain, event as event_domain
-from backend.entity.comment import Comment
+from app import util
 
 
 class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes

@@ -10,15 +10,15 @@ from graphene import ObjectType, JSONString, Mutation, String, Boolean, Field
 from graphene_file_upload.scalars import Upload
 from django.conf import settings
 
-from __init__ import FI_CLOUDFRONT_RESOURCES_DOMAIN
-from app.decorators import (
+
+from backend.decorators import (
     require_login, require_role, require_project_access, get_entity_cache
 )
+from backend.domain import resources
+
 from app import util
 from app.dal import integrates_dal
-from backend.domain import resources
 from app.exceptions import InvalidProject
-
 
 INTEGRATES_URL = 'https://fluidattacks.com/integrates/dashboard'
 

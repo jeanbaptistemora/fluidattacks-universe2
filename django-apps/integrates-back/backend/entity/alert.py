@@ -2,9 +2,10 @@
 # pylint: disable=F0401
 # pylint: disable=super-init-not-called
 from graphene import Boolean, Int, Mutation, ObjectType, String
-from app import util
-from app.decorators import require_login, require_role
+from backend.decorators import require_login, require_role
 from backend.domain import alert as alert_domain
+
+from app import util
 
 
 class Alert(ObjectType):

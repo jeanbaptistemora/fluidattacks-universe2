@@ -10,13 +10,14 @@ from graphql import GraphQLError
 from jose import jwt
 import rollbar
 
-from app import util
-from app.dal import integrates_dal
-from app.decorators import require_login
+from backend.decorators import require_login
 from backend.domain import project as project_domain, user as user_domain
 from backend.entity.project import Project
+from backend.services import get_user_role, is_customeradmin
+
+from app import util
+from app.dal import integrates_dal
 from app.exceptions import InvalidExpirationTime
-from app.services import get_user_role, is_customeradmin
 
 from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 

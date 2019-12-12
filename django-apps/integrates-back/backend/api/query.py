@@ -1,8 +1,7 @@
 # pylint: disable=no-self-use
 from graphene import Field, List, ObjectType, String
 
-from app import util
-from app.decorators import (
+from backend.decorators import (
     get_cached, require_event_access, require_finding_access,
     require_login, require_project_access, require_role
 )
@@ -15,6 +14,8 @@ from backend.entity.resource import Resource
 from backend.entity.user import User
 from backend.entity.finding import Finding
 from backend.entity.project import Project
+
+from app import util
 from app.exceptions import InvalidProject
 
 

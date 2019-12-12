@@ -16,13 +16,14 @@ from graphql import GraphQLError
 from promise import Promise
 from rediscluster.nodemanager import RedisClusterException
 
-from app import util
-from app.exceptions import InvalidAuthorization
-from app.services import (
+from backend.services import (
     get_user_role, has_access_to_project, has_access_to_finding,
     has_access_to_event, has_valid_access_token, is_customeradmin,
     project_exists
 )
+
+from app import util
+from app.exceptions import InvalidAuthorization
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 

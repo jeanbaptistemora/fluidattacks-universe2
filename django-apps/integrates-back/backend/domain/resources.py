@@ -13,13 +13,16 @@ from botocore import signers
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import asymmetric, hashes, serialization
 
-from __init__ import FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY, FI_CLOUDFRONT_RESOURCES_DOMAIN
+from backend.domain import project as project_domain, user as user_domain
+from backend.mailer import send_mail_resources
+
+from __init__ import (FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY,
+                      FI_CLOUDFRONT_RESOURCES_DOMAIN)
+from app import util
 from app.dal import integrates_dal
 from app.dal import resources as resources_dal
-from backend.domain import project as project_domain, user as user_domain
-from app.exceptions import ErrorUploadingFileS3, InvalidFileSize
-from backend.mailer import send_mail_resources
-from app import util
+
+from app.exceptions import InvalidFileSize
 
 
 def rsa_signer(message):

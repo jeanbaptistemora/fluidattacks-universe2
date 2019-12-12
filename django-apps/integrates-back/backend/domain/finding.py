@@ -13,25 +13,28 @@ from django.core.files.base import ContentFile
 from graphql import GraphQLError
 from i18n import t
 
-from __init__ import (
-    FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS, FI_MAIL_REPLYERS
-)
-from app import util
-from app.dal import integrates_dal, finding as finding_dal
 from backend.domain import (
     project as project_domain, user as user_domain,
     vulnerability as vuln_domain
 )
-from app.exceptions import (
-    AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
-    NotSubmitted, InvalidFileSize, InvalidDraftTitle
-)
+
 from backend.mailer import (
     send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
     send_mail_accepted_finding, send_mail_reject_draft,
     send_mail_delete_finding, send_mail_new_draft
 )
+
+from app import util
+from app.dal import integrates_dal, finding as finding_dal
+from app.exceptions import (
+    AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
+    NotSubmitted, InvalidFileSize, InvalidDraftTitle
+)
 from app.utils import cvss, notifications, findings as finding_utils
+
+from __init__ import (
+    FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS, FI_MAIL_REPLYERS
+)
 
 
 def save_file_url(finding_id, field_name, file_url):

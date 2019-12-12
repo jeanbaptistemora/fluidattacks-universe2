@@ -6,18 +6,20 @@ from datetime import datetime
 import pytz
 from django.conf import settings
 
+from backend.domain import comment as comment_domain, resources as resources_domain
+from backend.mailer import send_mail_comment, send_mail_new_event
+
 from __init__ import (
     FI_CLOUDFRONT_RESOURCES_DOMAIN, FI_MAIL_CONTINUOUS, FI_MAIL_PRODUCTION,
     FI_MAIL_PROJECTS, FI_MAIL_REPLYERS
 )
 from app import util
 from app.dal import integrates_dal, event as event_dal, project as project_dal
-from backend.domain import comment as comment_domain, resources as resources_domain
+
 from app.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidDate, InvalidFileSize,
     InvalidFileType
 )
-from backend.mailer import send_mail_comment, send_mail_new_event
 
 
 def update_event(event_id, **kwargs):

@@ -10,10 +10,7 @@ from graphene import (
 )
 from graphene.types.generic import GenericScalar
 from graphene_file_upload.scalars import Upload
-
-from app import util
-from app.dal import integrates_dal
-from app.decorators import (
+from backend.decorators import (
     get_entity_cache, require_finding_access, require_login, require_role,
     require_project_access
 )
@@ -23,7 +20,10 @@ from backend.domain import (
 )
 from backend.entity.comment import Comment
 from backend.entity.vulnerability import Vulnerability
-from app.services import get_user_role
+from backend.services import get_user_role
+
+from app import util
+from app.dal import integrates_dal
 from app.utils import findings as finding_utils
 
 

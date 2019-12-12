@@ -5,10 +5,11 @@ from django.conf.urls import (
 )
 from django.views.decorators.csrf import csrf_exempt
 
+from backend import services
 from backend.api.view import APIView
+from backend.decorators import verify_csrf
 
-from app import services, views
-from app.decorators import verify_csrf
+from app import views
 
 # pylint: disable=pointless-statement
 handler400, handler403, handler404, handler500

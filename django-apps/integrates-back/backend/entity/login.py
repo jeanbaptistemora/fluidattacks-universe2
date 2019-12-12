@@ -2,6 +2,7 @@ from graphene import Boolean, ObjectType, Mutation
 
 # pylint: disable=no-self-use
 # pylint: disable=super-init-not-called
+# pylint: disable=cyclic-import
 # pylint: disable=F0401
 from backend.domain import user as user_domain
 from app.util import get_jwt_content

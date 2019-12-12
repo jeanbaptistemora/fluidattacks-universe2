@@ -5,9 +5,10 @@ from time import time
 import pytz
 from django.conf import settings
 
+from backend.domain import user as user_domain
+
 from app import util
 from app.dal import comment as comment_dal
-from backend.domain import user as user_domain
 
 
 def _get_comments(comment_type, finding_id, user_role):

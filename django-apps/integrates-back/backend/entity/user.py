@@ -16,13 +16,14 @@ from graphql.error import GraphQLError
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
-from app.decorators import require_login, require_role, require_project_access
+from backend.decorators import require_login, require_role, require_project_access
 from backend.domain import project as project_domain, user as user_domain
-from app import util
-from app.dal import integrates_dal
-from app.services import (
+from backend.services import (
     get_user_role, is_customeradmin, has_responsibility, has_phone_number)
 from backend.mailer import send_mail_access_granted
+
+from app import util
+from app.dal import integrates_dal
 
 
 class User(ObjectType):

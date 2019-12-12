@@ -15,20 +15,20 @@ from backend.domain import (
     user as user_domain, vulnerability as vuln_domain,
     event as event_domain
 )
-
-from __init__ import (
-    FI_TEST_PROJECTS, FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
-)
-from app import util, views
-from app.dal import integrates_dal
-from app.dal.helpers.formstack import FormstackAPI
-from app.dto import remission
 from backend.mailer import (
     send_mail_new_vulnerabilities, send_mail_new_remediated,
     send_mail_new_releases, send_mail_unsolved_events,
     send_mail_project_deletion
 )
 
+from app import util, views
+from app.dal import integrates_dal
+from app.dal.helpers.formstack import FormstackAPI
+from app.dto import remission
+
+from __init__ import (
+    FI_TEST_PROJECTS, FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
+)
 
 logging.config.dictConfig(settings.LOGGING)
 LOGGER = logging.getLogger(__name__)
