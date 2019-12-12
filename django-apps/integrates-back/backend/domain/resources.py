@@ -13,7 +13,7 @@ from botocore import signers
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import asymmetric, hashes, serialization
 
-from __init__ import FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY
+from __init__ import FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY, FI_CLOUDFRONT_RESOURCES_DOMAIN
 from app.dal import integrates_dal
 from app.dal import resources as resources_dal
 from backend.domain import project as project_domain, user as user_domain
@@ -41,20 +41,6 @@ def sign_url(domain, file_name, expire_mins):
     signed_url = cloudfront_signer.generate_presigned_url(
         url, date_less_than=expire_date)
     return signed_url
-
-
-def save_file(upload, fileurl):
-    success = resources_dal.save_file(upload, fileurl)
-    if not success:
-        raise ErrorUploadingFileS3()
-
-    return success
-
-
-def remove_file_(file_name):
-    success = resources_dal.remove_file(file_name)
-
-    return success
 
 
 def format_resource(resource_list, resource_type):
@@ -168,6 +154,14 @@ def remove_file(file_name, project_name):
             resources_dal.remove_file(file_url)
             and resources_dal.remove(project_name, 'files', index))
     return False
+
+
+def download_file(file_info, project_name):
+    project_name = project_name.lower()
+    file_url = project_name + "/" + file_info
+    minutes_until_expire = 1.0 / 6
+    return sign_url(FI_CLOUDFRONT_RESOURCES_DOMAIN,
+                    file_url, minutes_until_expire)
 
 
 def create_resource(res_data, project_name, res_type, user_email):

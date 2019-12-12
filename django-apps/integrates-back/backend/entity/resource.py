@@ -212,8 +212,14 @@ class RemoveFiles(Mutation):
     def mutate(self, info, files_data, project_name):
         success = False
         file_name = files_data.get('fileName')
+        user_email = util.get_jwt_content(info.context)['user_email']
         remove_file = resources.remove_file(file_name, project_name)
         if remove_file:
+            resources.send_mail(project_name,
+                                user_email,
+                                files_data,
+                                'removed',
+                                'file')
             success = True
         else:
             rollbar.report_message('Error: \
@@ -245,10 +251,7 @@ class DownloadFile(Mutation):
         file_info = parameters['files_data']
         project_name = parameters['project_name'].lower()
         user_email = util.get_jwt_content(info.context)['user_email']
-        file_url = project_name + "/" + file_info
-        minutes_until_expire = 1.0 / 6
-        signed_url = resources.sign_url(FI_CLOUDFRONT_RESOURCES_DOMAIN,
-                                        file_url, minutes_until_expire)
+        signed_url = resources.download_file(file_info, project_name)
         if signed_url:
             msg = 'Security: Downloaded file {file_name} in project {project} succesfully'\
                 .format(project=project_name, file_name=parameters['files_data'])
