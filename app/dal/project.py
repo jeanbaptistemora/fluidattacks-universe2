@@ -153,7 +153,7 @@ def get_description(project):
     return project_description
 
 
-def get_users(project, active):
+def get_users(project, active=True):
     """Get users of a project."""
     project_name = project.lower()
     filtering_exp = Key('project_name').eq(project_name)
