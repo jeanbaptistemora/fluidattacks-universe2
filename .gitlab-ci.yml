@@ -600,3 +600,42 @@ integrates-prod-key-rotation:
   <<: *only_schedules
   <<: *except_analytics
   when: always
+
+asserts-static:
+  stage: tests
+  tags: [autoscaling]
+  needs: [build-builder]
+  image:
+    name: fluidattacks/break-build
+    entrypoint: [""]
+  before_script:
+    - docker pull fluidattacks/break-build
+  script:
+    - bash <(docker run fluidattacks/break-build
+              --static
+              --id ${BREAK_BUILD_ID}
+              --secret ${BREAK_BUILD_SECRET}
+              --gitlab-docker-socket-binding
+             ) || true
+  except:
+    - master
+  interruptible: true
+
+asserts-dynamic:
+  stage: postdeploy
+  tags: [autoscaling]
+  image:
+    name: fluidattacks/break-build
+    entrypoint: [""]
+  before_script:
+    - docker pull fluidattacks/break-build
+  script:
+    - bash <(docker run fluidattacks/break-build
+              --dynamic
+              --id ${BREAK_BUILD_ID}
+              --secret ${BREAK_BUILD_SECRET}
+              --gitlab-docker-socket-binding
+             ) || true
+  only:
+    - master
+  interruptible: true
