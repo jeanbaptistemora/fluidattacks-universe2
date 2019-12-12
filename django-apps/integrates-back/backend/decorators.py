@@ -22,7 +22,7 @@ from backend.services import (
     project_exists
 )
 
-from app import util
+from backend import util
 from app.exceptions import InvalidAuthorization
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)

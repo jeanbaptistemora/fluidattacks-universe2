@@ -66,3 +66,6 @@ parser-preset.js
 # Terraform
 .terraform/
 *.tfstate
+
+# Setuptools
+django-apps/**/*.egg-info

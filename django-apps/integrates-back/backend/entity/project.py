@@ -25,7 +25,7 @@ from backend.entity.finding import Finding
 from backend.services import get_user_role
 from backend.entity.user import User
 
-from app import util
+from backend import util
 from app.dal import integrates_dal, project as redshift_dal
 
 

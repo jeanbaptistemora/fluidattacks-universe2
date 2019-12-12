@@ -31,7 +31,7 @@ from __init__ import (
     BREAK_BUILD_TRIGGER_REF,
     BREAK_BUILD_TRIGGER_TOKEN
 )
-from .exceptions import InvalidAuthorization, InvalidDate, InvalidDateFormat
+from app.exceptions import InvalidAuthorization, InvalidDate, InvalidDateFormat
 
 
 logging.config.dictConfig(settings.LOGGING)

@@ -3,7 +3,7 @@ from datetime import timedelta
 from django.conf import settings
 from django.test import TestCase
 
-from app.util import (
+from backend.util import (
     calculate_hash_token, is_valid_expiration_time, verificate_hash_token)
 
 AGE_WEEKS = 27  # invalid expiration time

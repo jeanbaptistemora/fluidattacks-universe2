@@ -2,7 +2,7 @@ import re
 from graphene import Boolean, Mutation, String
 from backend.decorators import require_login, require_role
 
-from app import util
+from backend import util
 
 
 class InvalidateCache(Mutation):

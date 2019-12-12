@@ -6,7 +6,7 @@ from backend.domain import (
     event as event_domain, finding as finding_domain, user as user_domain
 )
 
-from app import util
+from backend import util
 from app.dal import integrates_dal, project as project_dal
 
 

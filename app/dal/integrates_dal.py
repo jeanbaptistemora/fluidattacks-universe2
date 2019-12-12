@@ -5,7 +5,7 @@ from botocore.exceptions import ClientError
 # pylint: disable=relative-beyond-top-level
 import rollbar
 
-from app import util
+from backend import util
 from app.dal import project as project_dal
 from app.dal.helpers import dynamodb
 from ..utils import forms

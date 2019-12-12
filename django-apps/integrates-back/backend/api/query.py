@@ -15,7 +15,7 @@ from backend.entity.user import User
 from backend.entity.finding import Finding
 from backend.entity.project import Project
 
-from app import util
+from backend import util
 from app.exceptions import InvalidProject
 
 

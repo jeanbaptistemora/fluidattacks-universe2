@@ -22,7 +22,7 @@ from backend.entity.comment import Comment
 from backend.entity.vulnerability import Vulnerability
 from backend.services import get_user_role
 
-from app import util
+from backend import util
 from app.dal import integrates_dal
 from app.utils import findings as finding_utils
 

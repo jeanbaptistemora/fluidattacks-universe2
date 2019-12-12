@@ -7,7 +7,7 @@ from django.conf import settings
 
 from backend.domain import user as user_domain
 
-from app import util
+from backend import util
 from app.dal import comment as comment_dal
 
 

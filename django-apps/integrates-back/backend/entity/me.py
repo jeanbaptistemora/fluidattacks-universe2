@@ -15,7 +15,7 @@ from backend.domain import project as project_domain, user as user_domain
 from backend.entity.project import Project
 from backend.services import get_user_role, is_customeradmin
 
-from app import util
+from backend import util
 from app.dal import integrates_dal
 from app.exceptions import InvalidExpirationTime
 

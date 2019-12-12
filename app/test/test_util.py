@@ -13,12 +13,14 @@ from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 )
 import json
-from app.dal.finding import get_finding
-from app.util import (
+
+from backend.util import (
     response, is_name, is_numeric, ord_asc_by_criticidad, user_email_filter,
     assert_file_mime, has_release, get_last_vuln, validate_release_date,
-    validate_future_releases, get_jwt_content, list_s3_objects, replace_all, 
+    validate_future_releases, get_jwt_content, list_s3_objects, replace_all,
     list_to_dict, camelcase_to_snakecase, is_valid_file_name, is_valid_format)
+
+from app.dal.finding import get_finding
 
 
 class UtilTests(TestCase):
@@ -65,7 +67,7 @@ class UtilTests(TestCase):
         emails = ['test@test.com', 'test@fluidattacks.com', 'test2@test.test']
         fluid_user = 'test@fluidattacks.com'
         external_user = 'test@external.com'
-        
+
         test_data = user_email_filter(emails, fluid_user)
         expected_output = emails
         assert test_data == expected_output

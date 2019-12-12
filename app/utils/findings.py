@@ -6,7 +6,8 @@ import rollbar
 from backports import csv
 from magic import Magic
 
-from app import util
+from backend import util
+
 from app.dal import finding as finding_dal
 from app.utils import cvss, forms as forms_utils
 

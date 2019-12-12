@@ -23,7 +23,7 @@ from backend.mailer import (
     send_mail_delete_finding, send_mail_new_draft
 )
 
-from app import util
+from backend import util
 from app.dal import integrates_dal, finding as finding_dal, project as project_dal
 from app.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,

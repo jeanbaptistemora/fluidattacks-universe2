@@ -5,7 +5,7 @@ from graphene import Boolean, Int, Mutation, ObjectType, String
 from backend.decorators import require_login, require_role
 from backend.domain import alert as alert_domain
 
-from app import util
+from backend import util
 
 
 class Alert(ObjectType):

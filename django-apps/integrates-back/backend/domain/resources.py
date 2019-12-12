@@ -15,10 +15,11 @@ from cryptography.hazmat.primitives import asymmetric, hashes, serialization
 
 from backend.domain import project as project_domain, user as user_domain
 from backend.mailer import send_mail_resources
+from backend import util
 
 from __init__ import (FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY,
                       FI_CLOUDFRONT_RESOURCES_DOMAIN)
-from app import util
+
 from app.dal import integrates_dal
 from app.dal import resources as resources_dal
 

@@ -10,7 +10,7 @@ from backend.decorators import (
     get_entity_cache, require_login, require_role, require_event_access,
     require_project_access
 )
-from app import util
+from backend import util
 
 
 class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes

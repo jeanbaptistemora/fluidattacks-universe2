@@ -20,7 +20,7 @@ from backend.mailer import (
     send_mail_new_releases, send_mail_unsolved_events
 )
 
-from app import util
+from backend import util
 from app.dal import integrates_dal
 
 from __init__ import (

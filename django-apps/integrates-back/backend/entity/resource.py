@@ -16,7 +16,7 @@ from backend.decorators import (
 )
 from backend.domain import resources
 
-from app import util
+from backend import util
 from app.dal import integrates_dal
 from app.exceptions import InvalidProject
 
