@@ -1,4 +1,3 @@
-import hashlib
 from datetime import datetime
 from time import time
 
@@ -30,15 +29,17 @@ def get_event_comments(finding_id, user_role):
 
 
 def get_fullname(user_role, data):
+    comment_user_name = 'Hacker'
     if 'fullname' not in data:
-
-        return data['email']
-
-    return (data['fullname']
-            if user_role in ['admin', 'analyst']
-            or user_domain.get_data(data['email'], 'role') == 'customer'
-            else 'Hacker ' + hashlib.sha256(data['fullname'].encode())
-            .hexdigest()[-4:].upper())
+        comment_user_name = data['email']
+    elif (user_role in ['admin', 'analyst'] or
+          user_domain.get_data(data['email'], 'role') in ['customer', 'customeradmin']):
+        comment_user_name = data['fullname']
+    else:
+        user_company = user_domain.get_data(data['email'], 'company')
+        if user_company:
+            comment_user_name = 'Hacker at ' + user_company.capitalize()
+    return comment_user_name
 
 
 def fill_comment_data(user_role, data):
