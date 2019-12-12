@@ -156,6 +156,13 @@ def test_has_associate_public_ip_address_open():
                                                ).is_open()
 
 
+def test_has_open_all_ports_to_the_public_open():
+    """Search security groups that open all ports to the public."""
+    assert ec2.has_open_all_ports_to_the_public(AWS_ACCESS_KEY_ID,
+                                                AWS_SECRET_ACCESS_KEY
+                                                ).is_open()
+
+
 #
 # Closing tests
 #

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+# pylint: disable=too-many-lines
+
 """AWS cloud checks (EC2)."""
 
 # std imports
@@ -10,7 +12,7 @@ from botocore.exceptions import BotoCoreError
 from botocore.vendored.requests.exceptions import RequestException
 
 # local imports
-from fluidasserts import DAST, LOW, MEDIUM
+from fluidasserts import DAST, LOW, MEDIUM, HIGH
 from fluidasserts.helper import aws
 from fluidasserts.cloud.aws import _get_result_as_tuple
 from fluidasserts.utils.decorators import api, unknown_if
@@ -962,6 +964,59 @@ def has_associate_public_ip_address(key_id: str,
     return _get_result_as_tuple(
         service='EC2',
         objects='Instances',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_open_all_ports_to_the_public(key_id: str,
+                                     secret: str,
+                                     retry: bool = True):
+    """
+    Check if security groups has all ports or protocols open to the public.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are security groups that has all ports open
+                to the all public.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    security_groups = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='ec2',
+        func='describe_security_groups',
+        param='SecurityGroups',
+        retry=retry)
+    msg_open: str = 'Security groups has all ports open to the pubic.'
+    msg_closed: str = 'Security groups do not has all ports open to the pubic.'
+    vulns, safes = [], []
+    for group in security_groups:
+        vulnerable = []
+        for rule in group['IpPermissions']:
+            ip_permissions = group['IpPermissions'] + \
+                group['IpPermissionsEgress']
+            is_public: bool = any(ip_range['CidrIp'] == '0.0.0.0/0'
+                                  for ip_permission in ip_permissions
+                                  for ip_range in ip_permission['IpRanges'])
+            if is_public:
+                with suppress(KeyError):
+                    vulnerable.append(rule['FromPort'] == 0
+                                      and rule['ToPort'] == 65535)
+
+        (vulns if any(vulnerable) else safes).append(
+            (group['GroupId'], 'do not open all ports to the public.'))
+
+    return _get_result_as_tuple(
+        service='EC2',
+        objects='Security Groups',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
