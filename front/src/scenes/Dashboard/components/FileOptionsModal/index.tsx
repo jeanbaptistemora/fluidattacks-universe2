@@ -42,8 +42,8 @@ const renderFilesFields: ((props: formProps) => JSX.Element) =
             </Col>
             <Col md={12}>
               <br />
+              {props.canRemove ?
               <Col md={4} mdOffset={2} sm={6}>
-                {props.canRemove ?
                 <Button
                   id="removeFiles"
                   block={true}
@@ -52,8 +52,8 @@ const renderFilesFields: ((props: formProps) => JSX.Element) =
                 >
                   <Glyphicon glyph="minus"/>&nbsp;
                   {translate.t("search_findings.tab_resources.remove_repository")}
-                </Button> : undefined}
-              </Col>
+                </Button>
+              </Col> : <Col md={2} mdOffset={2} sm={4} />}
               <Col md={4} sm={6}>
                 <Button
                   id="downloadFile"
