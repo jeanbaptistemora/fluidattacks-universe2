@@ -5,7 +5,7 @@ build_builder() {
   set -Eeuo pipefail
 
   # Import functions
-  . ci-scripts/helpers/others.sh
+  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/build-container.sh)
 
   build_container \
     "registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME" \
