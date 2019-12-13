@@ -28,8 +28,9 @@ from backend.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
     NotSubmitted, InvalidFileSize, InvalidDraftTitle
 )
+from backend.utils import cvss, notifications, findings as finding_utils
+
 from app.dal import integrates_dal, finding as finding_dal, project as project_dal
-from app.utils import cvss, notifications, findings as finding_utils
 
 from __init__ import (
     FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS, FI_MAIL_REPLYERS

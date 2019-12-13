@@ -3,7 +3,7 @@ from collections import OrderedDict
 
 from django.test import TestCase
 
-from app.utils.findings import (
+from backend.utils.findings import (
     _get_evidence, _download_evidence_file, get_records_from_file,
     get_exploit_from_file, format_data
 )
@@ -17,7 +17,7 @@ class FindingsTests(TestCase):
         item = [
             {'description': 'desc', 'file_url': 'test.png', 'name': 'test_name'},
             {'description': 'des2', 'file_url': 'test2.png', 'name':  'test_name_2'}]
-        
+
         test_data = _get_evidence(name, item)
         expected_output = {
             'description': 'desc', 'url': 'test.png'

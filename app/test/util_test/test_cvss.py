@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from django.test import TestCase
 
-from app.utils import cvss, findings as finding_utils
+from backend.utils import cvss, findings as finding_utils
 
 
 class CvssTests(TestCase):

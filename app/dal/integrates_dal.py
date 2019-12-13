@@ -2,14 +2,13 @@
 
 from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
-# pylint: disable=relative-beyond-top-level
 import rollbar
 
 from backend import util
+from backend.utils import forms
+
 from app.dal import project as project_dal
 from app.dal.helpers import dynamodb
-from ..utils import forms
-
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
 

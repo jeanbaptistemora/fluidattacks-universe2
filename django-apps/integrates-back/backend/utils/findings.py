@@ -7,9 +7,9 @@ from backports import csv
 from magic import Magic
 
 from backend import util
+from backend.utils import cvss, forms as forms_utils
 
 from app.dal import finding as finding_dal
-from app.utils import cvss, forms as forms_utils
 
 
 CVSS_PARAMETERS = {

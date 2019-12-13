@@ -1,7 +1,9 @@
-from app.utils.forms import (
+from datetime import datetime
+
+from backend.utils.forms import (
     dict_concatenation, is_exploitable, string_to_date,
 )
-from datetime import datetime
+
 from django.test import TestCase
 from numpy import arange
 
