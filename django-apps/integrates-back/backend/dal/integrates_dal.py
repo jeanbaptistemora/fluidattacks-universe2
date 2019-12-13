@@ -7,7 +7,6 @@ import rollbar
 from backend import util
 from backend.utils import forms
 
-from backend.dal import project as project_dal
 from backend.dal.helpers import dynamodb
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
@@ -58,12 +57,20 @@ def get_company_alert_dynamo(company_name, project_name):
     return items
 
 
+def attribute_exists(table_name, primary_key, data):
+    return get_table_attributes_dynamo(
+        table_name, primary_key, data)
+
+
 def set_company_alert_dynamo(message, company_name, project_name):
     """ Create, update or activate an alert for a company. """
     project_name = project_name.lower()
     company_name = company_name.lower()
+    primary_key = {'project_name': project_name}
+    project_exists = attribute_exists(
+        'FI_projects', primary_key, ['project_name'])
     resp = False
-    if project_name == 'all' or project_dal.exists(project_name):
+    if project_name == 'all' or project_exists:
         table = DYNAMODB_RESOURCE.Table('FI_alerts_by_company')
         item = get_company_alert_dynamo(company_name, project_name)
         if item == []:

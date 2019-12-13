@@ -202,15 +202,9 @@ def remove_all_project_access(project):
 
 
 def exists(project_name):
-    project_exists = integrates_dal.get_project_attributes_dynamo(
-        project_name.lower(), ['project_name'])
-    resp = False
-    if project_exists and project_exists.get('project_name', ''):
-        resp = True
-    else:
-        # project not found
-        pass
-    return resp
+    primary_key = {'project_name': project_name.lower()}
+    return integrates_dal.attribute_exists(
+        'FI_projects', primary_key, ['project_name'])
 
 
 def list_project_managers(project_name):
