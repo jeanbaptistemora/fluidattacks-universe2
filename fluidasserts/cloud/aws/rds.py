@@ -7,7 +7,7 @@ from botocore.exceptions import BotoCoreError
 from botocore.vendored.requests.exceptions import RequestException
 
 # local imports
-from fluidasserts import DAST, HIGH, MEDIUM
+from fluidasserts import DAST, HIGH, MEDIUM, LOW
 from fluidasserts.helper import aws
 from fluidasserts.cloud.aws import _get_result_as_tuple
 from fluidasserts.utils.decorators import api, unknown_if
@@ -360,6 +360,48 @@ def has_not_deletion_protection(key_id: str, secret: str,
         (vulns if not instance['DeletionProtection'] else safes).append(
             (instance['DBInstanceArn'],
              'must enable deletion protection.'))
+    return _get_result_as_tuple(
+        service='RDS',
+        objects='Instances',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_disabled_automatic_backups(key_id: str,
+                                   secret: str,
+                                   retry: bool = True) -> tuple:
+    """
+    Check if the database instances has disabled automatic backups.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are instances with automatic backup disabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Instances has automatic backups disabled.'
+    msg_closed: str = 'Instances has automatic backups enabled.'
+
+    vulns, safes = [], []
+
+    instances = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='rds',
+        func='describe_db_instances',
+        param='DBInstances',
+        retry=retry)
+
+    for instance in instances:
+        (vulns if instance['BackupRetentionPeriod'] == 0 else safes).append(
+            (instance['DBInstanceArn'], 'must enable automatic backups.'))
     return _get_result_as_tuple(
         service='RDS',
         objects='Instances',

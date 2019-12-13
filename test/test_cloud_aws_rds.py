@@ -77,6 +77,12 @@ def test_has_not_deletion_protection_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_has_disabled_automatic_backups_open():
+    """Search DB instances with automatic backups disabled."""
+    assert rds.has_disabled_automatic_backups(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #
