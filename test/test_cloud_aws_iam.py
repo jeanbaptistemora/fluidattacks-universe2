@@ -117,6 +117,12 @@ def test_has_privileges_over_iam_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_users_with_multiple_access_keys_open():
+    """Search users with multiples access keys."""
+    assert iam.users_with_multiple_access_keys(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #

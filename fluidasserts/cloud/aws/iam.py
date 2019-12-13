@@ -1050,3 +1050,58 @@ def has_privileges_over_iam(key_id: str, secret: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def users_with_multiple_access_keys(key_id: str,
+                                    secret: str,
+                                    retry: bool = True) -> tuple:
+    """
+    Check if there are users with multiple access keys.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are users with multiple access keys.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulns, safes = [], []
+
+    msg_open: str = 'Users have multiple access keys.'
+    msg_closed: str = 'Users have only one access keys.'
+
+    users = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='iam',
+        func='list_users',
+        param='Users',
+        retry=retry)
+
+    for user in users:
+        access_keys = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='iam',
+            func='list_access_keys',
+            param='AccessKeyMetadata',
+            retry=retry,
+            UserName=user['UserName'])
+        access_keys_activated = list(filter(lambda y: y == 'Active', list(
+            map(lambda x: x['Status'], access_keys))))
+
+        (vulns if len(access_keys_activated) > 1 else safes).append(
+            (user['Arn'],
+             'user must have only one access key.'))
+
+    return _get_result_as_tuple(
+        service='IAM',
+        objects='Users',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
