@@ -1079,6 +1079,6 @@ def egx100_creds_ok():
 def start():
     """Inicia el servidor de pruebas."""
     try:
-        APP.run()
+        APP.run(port=5000)
     except OSError:
         pass

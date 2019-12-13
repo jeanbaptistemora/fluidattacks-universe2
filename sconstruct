@@ -38,6 +38,8 @@ if 'VERBOSE' in os.environ:
     env['ENV']['VERBOSE'] = os.environ['VERBOSE']
 if 'CIRCLECI' in os.environ:
     env['ENV']['CIRCLECI'] = os.environ['CIRCLECI']
+if 'ASSERTS_MODULE' in os.environ:
+    env['ENV']['ASSERTS_MODULE'] = os.environ['ASSERTS_MODULE']
 
 #
 # Variables que se definen aqui para todos los entornos

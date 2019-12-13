@@ -75,17 +75,19 @@ bandit:
     - schedules
   interruptible: true
 
-test:
+.test-template: &test-template
   stage: test
-  tags: [autoscaling-jumbo]
+  tags: [autoscaling-large]
   services:
     - docker:dind
+  before_script:
+    - export ASSERTS_MODULE=${CI_JOB_NAME#*-}
   script:
     - scons test
     - cp build/coverage/results.xml coverage.xml
     - cp build/coverage/html/index.html coverage.html
   artifacts:
-    name: "coverage_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
+    name: "coverage_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}_${ASSERTS_MODULE}"
     paths:
       - coverage.xml
       - coverage.html
@@ -93,6 +95,39 @@ test:
     - master
     - schedules
   interruptible: true
+
+test-cloud:
+  <<: *test-template
+
+test-db:
+  <<: *test-template
+
+test-format:
+  <<: *test-template
+
+test-helper:
+  <<: *test-template
+
+test-iot:
+  <<: *test-template
+
+test-lang:
+  <<: *test-template
+
+test-ot:
+  <<: *test-template
+
+test-proto:
+  <<: *test-template
+
+test-sca:
+  <<: *test-template
+
+test-syst:
+  <<: *test-template
+
+test-utils:
+  <<: *test-template
 
 fluidasserts:
   stage: test
@@ -107,7 +142,7 @@ fluidasserts:
     - schedules
   interruptible: true
 
-coverage-report:
+.coverage-report:
   stage: before-mr
   tags: [autoscaling]
   variables:

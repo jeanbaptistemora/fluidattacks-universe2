@@ -30,7 +30,7 @@ CLIENT = docker.from_env()
 
 FLASK_MOCKS = [
     (sip_server.start, 'MockSIPServer', ['proto', 'iot']),
-    (http_server.start, 'MockHTTPServer', ['proto', 'iot']),
+    (http_server.start, 'MockHTTPServer', ['format', 'ot', 'proto']),
     (graphql_server.start, 'MockGraphQLServer', ['proto']),
     (camera_weak.start, 'MockCameraWeakServer', ['iot']),
     (camera_hard.start, 'MockCameraHardServer', ['iot']),
@@ -50,11 +50,11 @@ MOCKS = [
         },
         'mysql_db:weak': {
             'expose': {'3306/tcp': 3306},
-            'asserts_modules': ['syst']
+            'asserts_modules': ['db', 'syst']
         },
         'mysql_os:hard': {
             'expose': {'22/tcp': 22},
-            'asserts_modules': ['syst']
+            'asserts_modules': ['db', 'syst']
         },
         'smb:weak': {
             'expose': {'139/tcp': 139},
@@ -69,7 +69,7 @@ MOCKS = [
     {
         'bwapp': {
             'expose': {'80/tcp': 80},
-            'asserts_modules': ['proto']
+            'asserts_modules': ['helper', 'proto']
         },
         'dns:hard': {
             'expose': {'53/tcp': 53,'53/udp': 53},
@@ -105,11 +105,11 @@ MOCKS = [
         },
         'os:hard': {
             'expose': {'22/tcp': 22},
-            'asserts_modules': ['syst']
+            'asserts_modules': ['proto', 'syst']
         },
         'os:weak': {
             'expose': {'22/tcp': 22},
-            'asserts_modules': ['syst']
+            'asserts_modules': ['proto', 'syst']
         },
         'postgresql:hard': {
             'expose': {'5432/tcp': 5432},
@@ -129,7 +129,7 @@ MOCKS = [
         },
         'ssl:hard': {
             'expose': {'443/tcp': 443},
-            'asserts_modules': ['proto']
+            'asserts_modules': ['format', 'proto']
         },
         'ssl:hard_tlsv13': {
             'expose': {'443/tcp': 443},
@@ -137,7 +137,7 @@ MOCKS = [
         },
         'ssl:weak': {
             'expose': {'443/tcp': 443},
-            'asserts_modules': ['proto']
+            'asserts_modules': ['format', 'proto']
         },
         'tcp:hard': {
             'expose': {'443/tcp': 443},
