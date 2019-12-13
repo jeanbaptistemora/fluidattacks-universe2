@@ -300,7 +300,6 @@ test-driver-dev:
     - vaultenv ./ci-scripts/jobs/test-driver.sh
   parallel: 5
   retry: 1
-  allow_failure: true
   artifacts:
     name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
@@ -319,7 +318,6 @@ test-driver-prod:
     - vaultenv ./ci-scripts/jobs/test-driver.sh
   parallel: 5
   retry: 1
-  allow_failure: true
   artifacts:
     name: "regression_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
