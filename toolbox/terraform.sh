@@ -146,7 +146,7 @@ output_terraform() {
   BUCKET="$2"
   OUTPUT_VALUE="$3"
 
-  init_terraform "$TARGET_DIR" "$BUCKET"
+  init_terraform "$TARGET_DIR" "$BUCKET" > dev/null
 
   cd "$TARGET_DIR" || return 1
 
