@@ -1,6 +1,8 @@
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
+// tslint:disable-next-line: no-submodule-imports
+import { MockedProvider } from "react-apollo/test-utils";
 import { RouteComponentProps } from "react-router";
 import { CommentsView } from "./index";
 
@@ -33,20 +35,24 @@ describe("Finding comments view", () => {
 
   it("should render a comment view", () => {
     const wrapper: ShallowWrapper = shallow(
-      <CommentsView {...routePropsMock} />,
+      <MockedProvider mocks={[]} addTypename={true}>
+        <CommentsView {...routePropsMock} />
+      </MockedProvider>,
     );
-    expect(wrapper.html())
-      .toEqual('<div id="finding-comments"></div>');
+    expect(wrapper)
+      .toHaveLength(1);
   });
 
   it("should render an observation view", () => {
     const wrapper: ShallowWrapper = shallow(
-      <CommentsView
-        {...routePropsMock}
-        match={{ ...routePropsMock.match, params: { findingId: "422286126", type: "observations" } }}
-      />,
+      <MockedProvider mocks={[]} addTypename={true}>
+        <CommentsView
+          {...routePropsMock}
+          match={{ ...routePropsMock.match, params: { findingId: "422286126", type: "observations" } }}
+        />
+      </MockedProvider>,
     );
-    expect(wrapper.html())
-      .toEqual('<div id="finding-observations"></div>');
+    expect(wrapper)
+      .toHaveLength(1);
   });
 });
