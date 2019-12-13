@@ -201,7 +201,7 @@ def create_resource(res_data, project_name, res_type, user_email):
         else:
             rollbar.report_message('Error: \
 An error occurred adding repository', 'error')
-    return resources_dal.create(res_data, project_name, res_name)
+    return resources_dal.create(json_data, project_name, res_name)
 
 
 def update_resource(res_data, project_name, res_type, user_email):
