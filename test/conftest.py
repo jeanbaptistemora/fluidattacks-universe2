@@ -42,111 +42,110 @@ MOCKS = [
     {
         'dns:weak': {
             'expose': {'53/tcp': 53,'53/udp': 53},
-            'asserts_modules': []
+            'asserts_modules': ['proto']
         },
         'ftp:weak': {
             'expose': {'21/tcp': 21},
-            'asserts_modules': []
+            'asserts_modules': ['proto']
         },
         'mysql_db:weak': {
             'expose': {'3306/tcp': 3306},
-            'asserts_modules': []
+            'asserts_modules': ['syst']
         },
         'mysql_os:hard': {
             'expose': {'22/tcp': 22},
-            'asserts_modules': []
+            'asserts_modules': ['syst']
         },
         'smb:weak': {
             'expose': {'139/tcp': 139},
-            'asserts_modules': []
+            'asserts_modules': ['proto']
         },
         'smtp:weak': {
             'expose': {'25/tcp': 25},
-            'asserts_modules': []
+            'asserts_modules': ['proto']
         },
-
     },
     # Some of these are built in top of the previous ones
     {
         'bwapp': {
             'expose': {'80/tcp': 80},
-            'asserts_modules': []
+            'asserts_modules': ['proto']
         },
         'dns:hard': {
             'expose': {'53/tcp': 53,'53/udp': 53},
-            'asserts_modules': []
+            'asserts_modules': ['proto']
         },
         'ftp:hard': {
             'expose': {'21/tcp': 21},
-            'asserts_modules': []
+            'asserts_modules': ['proto']
         },
         'ldap:hard': {
             'expose': {'389/tcp': 389},
-            'asserts_modules': []
+            'asserts_modules': ['proto']
         },
         'ldap:weak': {
             'expose': {'389/tcp': 389},
-            'asserts_modules': []
+            'asserts_modules': ['proto']
         },
         'mysql_db:hard': {
             'expose': {'3306/tcp': 3306},
-            'asserts_modules': []
+            'asserts_modules': ['db']
         },
         'mysql_os:weak': {
             'expose': {'22/tcp': 22},
-            'asserts_modules': []
+            'asserts_modules': ['syst']
         },
         'mssql:weak': {
             'expose': {'1432/tcp': 1432},
-            'asserts_modules': []
+            'asserts_modules': ['db']
         },
         'mssql:hard': {
             'expose': {'1433/tcp': 1433},
-            'asserts_modules': []
+            'asserts_modules': ['db']
         },
         'os:hard': {
             'expose': {'22/tcp': 22},
-            'asserts_modules': []
+            'asserts_modules': ['syst']
         },
         'os:weak': {
             'expose': {'22/tcp': 22},
-            'asserts_modules': []
+            'asserts_modules': ['syst']
         },
         'postgresql:hard': {
             'expose': {'5432/tcp': 5432},
-            'asserts_modules': []
+            'asserts_modules': ['db']
         },
         'postgresql:weak': {
             'expose': {'5432/tcp': 5432},
-            'asserts_modules': []
+            'asserts_modules': ['db']
         },
         'smb:hard': {
             'expose': {'139/tcp': 139},
-            'asserts_modules': []
+            'asserts_modules': ['proto']
         },
         'smtp:hard': {
             'expose': {'25/tcp': 25},
-            'asserts_modules': []
+            'asserts_modules': ['proto']
         },
         'ssl:hard': {
             'expose': {'443/tcp': 443},
-            'asserts_modules': []
+            'asserts_modules': ['proto']
         },
         'ssl:hard_tlsv13': {
             'expose': {'443/tcp': 443},
-            'asserts_modules': []
+            'asserts_modules': ['proto']
         },
         'ssl:weak': {
             'expose': {'443/tcp': 443},
-            'asserts_modules': []
+            'asserts_modules': ['proto']
         },
         'tcp:hard': {
             'expose': {'443/tcp': 443},
-            'asserts_modules': []
+            'asserts_modules': ['proto']
         },
         'tcp:weak': {
             'expose': {'80/tcp': 80},
-            'asserts_modules': []
+            'asserts_modules': ['proto']
         },
     }
 ]
@@ -184,6 +183,13 @@ def pytest_runtest_setup(item):
             if item.config.getoption('--asserts-module') not in modules:
                 pytest.skip(
                     f'Test requires pytest --asserts-module in {modules}')
+
+
+def should_run_mock(current_module: str, modules_where_should_run) -> bool:
+    """Return True if given the context module this mock should be started."""
+    if current_module == 'all':
+        return True
+    return current_module in modules_where_should_run
 
 
 def get_mock_name(mock: str) -> str:
@@ -315,15 +321,13 @@ def flask_mocks(request):
     asserts_module = \
         request.config.getoption('--asserts-module', default='all')
     processes = []
-    for target, name, asserts_modules in FLASK_MOCKS:
-        if asserts_module != 'all' \
-                and asserts_module not in asserts_modules:
-            # The current module do not need this mock started
-            continue
-        process = Process(target=target, name=name)
-        process.daemon = True
-        process.start()
-        processes.append(process)
+    for target, name, modules_where_should_run in FLASK_MOCKS:
+        if should_run_mock(current_module=asserts_module,
+                           modules_where_should_run=modules_where_should_run):
+            process = Process(target=target, name=name)
+            process.daemon = True
+            process.start()
+            processes.append(process)
     time.sleep(10.0)
 
 
@@ -345,8 +349,17 @@ def clone_test_repositories(request):
 @pytest.fixture()
 def run_mocks(request):
     """Run mock with given parameters."""
+    asserts_module = \
+        request.config.getoption('--asserts-module', default='all')
     with Pool(processes=cpu_count()) as workers:
         for mocks in MOCKS:
+            mocks = {
+                mock: config
+                for mock, config in mocks.items()
+                if should_run_mock(
+                    current_module=asserts_module,
+                    modules_where_should_run=config['asserts_modules'])
+            }
             workers.map(create_container, tuple(mocks.keys()), 1)
             workers.starmap(open_ports, tuple(mocks.items()), 1)
 
@@ -354,8 +367,17 @@ def run_mocks(request):
 @pytest.fixture()
 def stop_mocks(request):
     """Stop mocks mock with given parameters."""
+    asserts_module = \
+        request.config.getoption('--asserts-module', default='all')
     with Pool(processes=cpu_count()) as workers:
         for mocks in MOCKS:
+            mocks = {
+                mock: config
+                for mock, config in mocks.items()
+                if should_run_mock(
+                    current_module=asserts_module,
+                    modules_where_should_run=config['asserts_modules'])
+            }
             mock_names: tuple = tuple(map(get_mock_name, mocks.keys()))
             workers.map(stop_container, mock_names, 1)
 
