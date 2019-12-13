@@ -5,7 +5,7 @@
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.db
+pytestmark = pytest.mark.asserts_module('db')
 
 # local imports
 from fluidasserts.db import mssql

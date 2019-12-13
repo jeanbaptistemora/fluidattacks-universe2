@@ -9,7 +9,7 @@ import datetime
 # 3rd party imports
 from jwt import encode
 import pytest
-pytestmark = pytest.mark.format
+pytestmark = pytest.mark.asserts_module('format')
 
 # local imports
 from fluidasserts.format import jwt

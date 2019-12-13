@@ -27,38 +27,118 @@ from test.mock import camera_weak
 # Constants
 CLIENT = docker.from_env()
 
+
 MOCKS = [
     # These need to be built first
     {
-        'dns:weak': {'53/tcp': 53, '53/udp': 53},
-        'ftp:weak': {'21/tcp': 21},
-        'mysql_db:weak': {'3306/tcp': 3306},
-        'mysql_os:hard': {'22/tcp': 22},
-        'smb:weak': {'139/tcp': 139},
-        'smtp:weak': {'25/tcp': 25},
+        'dns:weak': {
+            'expose': {'53/tcp': 53,'53/udp': 53},
+            'fixtures': []
+        },
+        'ftp:weak': {
+            'expose': {'21/tcp': 21},
+            'fixtures': []
+        },
+        'mysql_db:weak': {
+            'expose': {'3306/tcp': 3306},
+            'fixtures': []
+        },
+        'mysql_os:hard': {
+            'expose': {'22/tcp': 22},
+            'fixtures': []
+        },
+        'smb:weak': {
+            'expose': {'139/tcp': 139},
+            'fixtures': []
+        },
+        'smtp:weak': {
+            'expose': {'25/tcp': 25},
+            'fixtures': []
+        },
+
     },
     # Some of these are built in top of the previous ones
     {
-        'bwapp': {'80/tcp': 80},
-        'dns:hard': {'53/tcp': 53, '53/udp': 53},
-        'ftp:hard': {'21/tcp': 21},
-        'ldap:hard': {'389/tcp': 389},
-        'ldap:weak': {'389/tcp': 389},
-        'mysql_db:hard': {'3306/tcp': 3306},
-        'mysql_os:weak': {'22/tcp': 22},
-        'mssql:weak': {'1432/tcp': 1432},
-        'mssql:hard': {'1433/tcp': 1433},
-        'os:hard': {'22/tcp': 22},
-        'os:weak': {'22/tcp': 22},
-        'postgresql:hard': {'5432/tcp': 5432},
-        'postgresql:weak': {'5432/tcp': 5432},
-        'smb:hard': {'139/tcp': 139},
-        'smtp:hard': {'25/tcp': 25},
-        'ssl:hard': {'443/tcp': 443},
-        'ssl:hard_tlsv13': {'443/tcp': 443},
-        'ssl:weak': {'443/tcp': 443},
-        'tcp:hard': {'443/tcp': 443},
-        'tcp:weak': {'80/tcp': 80},
+        'bwapp': {
+            'expose': {'80/tcp': 80},
+            'fixtures': []
+        },
+        'dns:hard': {
+            'expose': {'53/tcp': 53,'53/udp': 53},
+            'fixtures': []
+        },
+        'ftp:hard': {
+            'expose': {'21/tcp': 21},
+            'fixtures': []
+        },
+        'ldap:hard': {
+            'expose': {'389/tcp': 389},
+            'fixtures': []
+        },
+        'ldap:weak': {
+            'expose': {'389/tcp': 389},
+            'fixtures': []
+        },
+        'mysql_db:hard': {
+            'expose': {'3306/tcp': 3306},
+            'fixtures': []
+        },
+        'mysql_os:weak': {
+            'expose': {'22/tcp': 22},
+            'fixtures': []
+        },
+        'mssql:weak': {
+            'expose': {'1432/tcp': 1432},
+            'fixtures': []
+        },
+        'mssql:hard': {
+            'expose': {'1433/tcp': 1433},
+            'fixtures': []
+        },
+        'os:hard': {
+            'expose': {'22/tcp': 22},
+            'fixtures': []
+        },
+        'os:weak': {
+            'expose': {'22/tcp': 22},
+            'fixtures': []
+        },
+        'postgresql:hard': {
+            'expose': {'5432/tcp': 5432},
+            'fixtures': []
+        },
+        'postgresql:weak': {
+            'expose': {'5432/tcp': 5432},
+            'fixtures': []
+        },
+        'smb:hard': {
+            'expose': {'139/tcp': 139},
+            'fixtures': []
+        },
+        'smtp:hard': {
+            'expose': {'25/tcp': 25},
+            'fixtures': []
+        },
+        'ssl:hard': {
+            'expose': {'443/tcp': 443},
+            'fixtures': []
+        },
+        'ssl:hard_tlsv13': {
+            'expose': {'443/tcp': 443},
+            'fixtures': []
+        },
+        'ssl:weak': {
+            'expose': {'443/tcp': 443},
+            'fixtures': []
+        },
+        'tcp:hard': {
+            'expose': {'443/tcp': 443},
+            'fixtures': []
+        },
+        'tcp:weak': {
+            'expose': {'80/tcp': 80},
+            'fixtures': []
+        },
     }
 ]
 
@@ -74,6 +154,27 @@ POST_COMMANDS = {
     'mssql:hard': ['./scripts/commands.sh',],
 
 }
+
+
+def pytest_addoption(parser):
+    """Add an option to the CLI of pytest to indicate what tests to run."""
+    parser.addoption(
+        '--asserts-module',
+        action='store',
+        metavar='ASSERTS_MODULE',
+        help='only run tests matching for the provided Asserts Module',
+    )
+
+
+def pytest_runtest_setup(item):
+    """Skip the tests that are not part of the --asserts-module option."""
+    modules = \
+        [mark.args[0] for mark in item.iter_markers(name='asserts_module')]
+    if modules:
+        if item.config.getoption('--asserts-module', default='all') != 'all':
+            if item.config.getoption('--asserts-module') not in modules:
+                pytest.skip(
+                    f'Test requires pytest --asserts-module in {modules}')
 
 
 def get_mock_name(mock: str) -> str:
@@ -178,11 +279,11 @@ def create_container(mock: str) -> None:
     exec_extra_commands(mock, mock_name)
 
 
-def open_ports(mock: str, port_mapping) -> None:
+def open_ports(mock: str, config) -> None:
     """Open the TCP ports needed for a container."""
     ip = get_container_ip(CLIENT.containers.get(get_mock_name(mock)))
-    for value in port_mapping.values():
-        wait.tcp.open(value, ip, timeout=30)
+    for port_mapping in config['expose'].values():
+        wait.tcp.open(port_mapping, ip, timeout=30)
 
 
 def stop_container(mock_name: str, remove: bool = False) -> None:

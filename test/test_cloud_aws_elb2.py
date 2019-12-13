@@ -6,7 +6,7 @@ from contextlib import contextmanager
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.cloud
+pytestmark = pytest.mark.asserts_module('cloud')
 
 # local imports
 from fluidasserts.cloud.aws import elb2

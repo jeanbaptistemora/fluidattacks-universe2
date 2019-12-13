@@ -6,7 +6,7 @@
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.lang
+pytestmark = pytest.mark.asserts_module('lang')
 
 # local imports
 from fluidasserts.lang import core

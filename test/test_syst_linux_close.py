@@ -11,7 +11,7 @@ from __future__ import print_function
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.syst
+pytestmark = pytest.mark.asserts_module('syst')
 
 # local imports
 from fluidasserts.syst import linux

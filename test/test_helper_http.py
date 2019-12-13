@@ -7,7 +7,7 @@ import os
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.helper
+pytestmark = pytest.mark.asserts_module('helper')
 
 # local imports
 from fluidasserts.helper.http import WebBot

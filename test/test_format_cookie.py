@@ -11,7 +11,7 @@ from __future__ import print_function
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.format
+pytestmark = pytest.mark.asserts_module('format')
 
 # local imports
 from fluidasserts.format import cookie

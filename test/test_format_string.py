@@ -11,7 +11,7 @@ strings se encuentra adecuadamente implementado.
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.format
+pytestmark = pytest.mark.asserts_module('format')
 
 # local imports
 from fluidasserts.format import string

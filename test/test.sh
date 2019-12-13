@@ -14,7 +14,8 @@ commands() {
     --dist=loadscope \
     --max-worker-restart=16 \
     --random-order-bucket=global \
-    --cov-branch
+    --cov-branch \
+    --asserts-module all
 }
 
 commands_post() {

@@ -5,7 +5,7 @@ from fluidasserts.cloud.aws.cloudformation import s3
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.cloud
+pytestmark = pytest.mark.asserts_module('cloud')
 
 # Constants
 SAFE: str = 'test/static/cloudformation/safe'

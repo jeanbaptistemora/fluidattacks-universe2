@@ -8,7 +8,7 @@ from contextlib import contextmanager
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.utils
+pytestmark = pytest.mark.asserts_module('utils')
 
 # local imports
 from fluidasserts.utils import tracking

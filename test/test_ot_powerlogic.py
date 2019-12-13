@@ -7,7 +7,7 @@
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.ot
+pytestmark = pytest.mark.asserts_module('ot')
 
 # local imports
 from fluidasserts.ot import powerlogic
