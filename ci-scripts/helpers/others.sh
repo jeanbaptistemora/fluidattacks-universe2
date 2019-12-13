@@ -269,16 +269,27 @@ aws_login_resources() {
 }
 
 aws_login_sops() {
-    # Log in to aws for resources
+
+  # Log in to aws for resources
 
   set -e
 
-  export TF_VAR_dev_aws_access_key
-  export TF_VAR_dev_aws_secret_key
+  export TF_VAR_aws_access_key
+  export TF_VAR_aws_secret_key
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
 
-  TF_VAR_dev_aws_access_key="$DEV_AWS_ACCESS_KEY_ID"
-  TF_VAR_dev_aws_secret_key="$DEV_AWS_SECRET_ACCESS_KEY"
+  if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
+    AWS_ACCESS_KEY_ID="$PROD_AWS_ACCESS_KEY_ID"
+    AWS_SECRET_ACCESS_KEY="$PROD_AWS_SECRET_ACCESS_KEY"
+  else
+    AWS_ACCESS_KEY_ID="$DEV_AWS_ACCESS_KEY_ID"
+    AWS_SECRET_ACCESS_KEY="$DEV_AWS_SECRET_ACCESS_KEY"
+  fi
 
-  aws configure set aws_access_key_id "$TF_VAR_dev_aws_access_key"
-  aws configure set aws_secret_access_key "$TF_VAR_dev_aws_secret_key"
+  TF_VAR_aws_access_key="$AWS_ACCESS_KEY_ID"
+  TF_VAR_aws_secret_key="$AWS_SECRET_ACCESS_KEY"
+
+  aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
+  aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
 }

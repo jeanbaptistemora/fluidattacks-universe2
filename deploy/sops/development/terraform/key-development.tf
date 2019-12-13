@@ -88,7 +88,7 @@ data "aws_iam_policy_document" "integrates-dev-key" {
 }
 
 resource "aws_kms_key" "integrates-dev-key" {
-  description             = "production kms key for integrates dev."
+  description             = "kms key for integrates dev."
   policy                  = data.aws_iam_policy_document.integrates-dev-key.json
   deletion_window_in_days = 10
   is_enabled              = true

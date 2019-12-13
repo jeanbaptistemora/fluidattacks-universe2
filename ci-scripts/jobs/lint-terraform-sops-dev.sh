@@ -9,7 +9,7 @@ lint_terraform_sops_dev() {
   . ci-scripts/helpers/terraform.sh
 
   lint_terraform \
-    deploy/sops/terraform \
+    deploy/sops/development/terraform \
     fluidattacks-terraform-states-dev
 
 }

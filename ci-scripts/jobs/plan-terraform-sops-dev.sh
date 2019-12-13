@@ -10,7 +10,7 @@ plan_terraform_sops_dev() {
   . ci-scripts/helpers/terraform.sh
 
   run_terraform \
-    deploy/sops/terraform \
+    deploy/sops/development/terraform \
     fluidattacks-terraform-states-dev \
     plan
 
