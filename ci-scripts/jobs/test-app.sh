@@ -36,6 +36,7 @@ run_unit_test () {
     --maxfail=20 \
     --cov=fluidintegrates \
     --cov=app \
+    --cov=/usr/local/lib/python$(python3 -c "import sys;print(f'{sys.version_info.major}.{sys.version_info.minor}')")/dist-packages/backend/ \
     --cov-report term \
     --cov-report html:build/coverage/html \
     --cov-report xml:build/coverage/results.xml \
