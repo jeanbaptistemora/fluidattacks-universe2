@@ -382,6 +382,17 @@ plan-terraform-sops-dev:
     - branches
   interruptible: true
 
+plan-terraform-sops-prod:
+  stage: test
+  tags: [autoscaling]
+  needs: [deps-development]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - ./ci-scripts/jobs/plan-terraform-sops-prod.sh
+  only:
+    - master
+  interruptible: true
+
 lint-terraform-sops-dev:
   stage: test
   tags: [autoscaling]
@@ -392,6 +403,17 @@ lint-terraform-sops-dev:
   only:
     - branches
   except:
+    - master
+  interruptible: true
+
+lint-terraform-sops-prod:
+  stage: test
+  tags: [autoscaling]
+  needs: [deps-development]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - ./ci-scripts/jobs/lint-terraform-sops-prod.sh
+  only:
     - master
   interruptible: true
 
@@ -414,5 +436,14 @@ apply-terraform-sops-dev:
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/apply-terraform-sops-dev.sh
+  only:
+    - master
+
+apply-terraform-sops-prod:
+  stage: build
+  tags: [autoscaling]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - ./ci-scripts/jobs/apply-terraform-sops-prod.sh
   only:
     - master
