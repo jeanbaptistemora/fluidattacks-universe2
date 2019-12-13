@@ -9,6 +9,8 @@ HTML se encuentra adecuadamente implementado.
 # standard imports
 
 # 3rd party imports
+import pytest
+pytestmark = pytest.mark.lang
 
 # local imports
 from fluidasserts.lang import html

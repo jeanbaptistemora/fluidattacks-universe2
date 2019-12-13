@@ -6,7 +6,8 @@
 # None
 
 # 3rd party imports
-# None
+import pytest
+pytestmark = pytest.mark.ot
 
 # local imports
 from fluidasserts.ot import powerlogic

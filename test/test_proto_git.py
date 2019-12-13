@@ -6,7 +6,8 @@
 # None
 
 # 3rd party imports
-# None
+import pytest
+pytestmark = pytest.mark.proto
 
 # local imports
 from fluidasserts.proto import git

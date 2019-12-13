@@ -11,6 +11,7 @@ from __future__ import print_function
 
 # 3rd party imports
 import pytest
+pytestmark = pytest.mark.format
 
 # local imports
 from fluidasserts.format import x509

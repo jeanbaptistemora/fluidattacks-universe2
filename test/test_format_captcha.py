@@ -6,7 +6,8 @@
 # None
 
 # 3rd party imports
-# None
+import pytest
+pytestmark = pytest.mark.format
 
 # local imports
 from fluidasserts.format import captcha

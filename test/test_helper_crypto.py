@@ -9,6 +9,7 @@ from typing import Any, Dict
 # Third parties libraries
 import yaml
 import pytest
+pytestmark = pytest.mark.helper
 
 # local imports
 from fluidasserts.helper import crypto

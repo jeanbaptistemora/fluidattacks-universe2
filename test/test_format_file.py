@@ -4,6 +4,10 @@
 
 # standard imports
 
+# 3rd party imports
+import pytest
+pytestmark = pytest.mark.format
+
 # local imports
 from fluidasserts.format import file
 

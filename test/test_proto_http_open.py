@@ -8,6 +8,7 @@ HTTP se encuentra adecuadamente implementado.
 
 # 3rd party imports
 import pytest
+pytestmark = pytest.mark.proto
 
 # local imports
 from fluidasserts.helper import http as helper

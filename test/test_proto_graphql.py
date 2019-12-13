@@ -4,6 +4,8 @@
 import textwrap
 
 # 3rd party imports
+import pytest
+pytestmark = pytest.mark.proto
 
 # local imports
 from fluidasserts.proto import graphql

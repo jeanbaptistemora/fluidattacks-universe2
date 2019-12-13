@@ -6,7 +6,8 @@
 # None
 
 # 3rd party imports
-# None
+import pytest
+pytestmark = pytest.mark.iot
 
 # local imports
 from fluidasserts.iot import phone

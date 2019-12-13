@@ -6,7 +6,8 @@
 import asyncio
 
 # 3rd party imports
-# None
+import pytest
+pytestmark = pytest.mark.utils
 
 # local imports
 from fluidasserts.utils import generic

@@ -7,7 +7,8 @@ from time import perf_counter
 from contextlib import contextmanager
 
 # 3rd party imports
-# None
+import pytest
+pytestmark = pytest.mark.lang
 
 # local imports
 from fluidasserts.lang import core, java

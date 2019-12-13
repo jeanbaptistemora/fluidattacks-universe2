@@ -8,7 +8,8 @@ import tempfile
 from contextlib import contextmanager
 
 # 3rd party imports
-# None
+import pytest
+pytestmark = pytest.mark.cloud
 
 # local imports
 from fluidasserts.cloud.gcp import iam

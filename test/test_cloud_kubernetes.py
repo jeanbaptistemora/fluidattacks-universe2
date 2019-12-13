@@ -4,7 +4,8 @@
 import os
 
 # 3rd party imports
-# None
+import pytest
+pytestmark = pytest.mark.cloud
 
 # local imports
 from fluidasserts.cloud.kubernetes import deployments, pods

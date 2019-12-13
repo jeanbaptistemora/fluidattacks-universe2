@@ -7,7 +7,8 @@ import os
 import contextlib
 
 # 3rd party imports
-# None
+import pytest
+pytestmark = pytest.mark.sca
 
 # local imports
 from fluidasserts.sca import bower

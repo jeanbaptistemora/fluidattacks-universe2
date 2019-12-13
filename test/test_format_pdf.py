@@ -14,7 +14,8 @@ PDF.
 # none
 
 # 3rd party imports
-# none
+import pytest
+pytestmark = pytest.mark.format
 
 # local imports
 from fluidasserts.format import pdf

@@ -6,7 +6,8 @@
 # None
 
 # 3rd party imports
-# None
+import pytest
+pytestmark = pytest.mark.lang
 
 # local imports
 from fluidasserts.lang import docker

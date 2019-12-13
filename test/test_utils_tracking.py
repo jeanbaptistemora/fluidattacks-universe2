@@ -7,6 +7,8 @@ import os
 from contextlib import contextmanager
 
 # 3rd party imports
+import pytest
+pytestmark = pytest.mark.utils
 
 # local imports
 from fluidasserts.utils import tracking

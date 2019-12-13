@@ -3,6 +3,9 @@
 # local imports
 from fluidasserts.cloud.aws.cloudformation import ec2
 
+# 3rd party imports
+import pytest
+pytestmark = pytest.mark.cloud
 
 # Constants
 SAFE: str = 'test/static/cloudformation/safe'

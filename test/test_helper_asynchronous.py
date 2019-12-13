@@ -7,6 +7,8 @@ import asyncio
 
 # third party imports
 import aiohttp
+import pytest
+pytestmark = pytest.mark.helper
 
 # local imports
 from fluidasserts.helper import asynchronous
