@@ -192,7 +192,7 @@ def credentials_report(
 def get_bucket_public_grants(bucket, grants):
     """Check if there are public grants in dict."""
     public_acl = 'http://acs.amazonaws.com/groups/global/AllUsers'
-    perms = ['READ', 'WRITE']
+    perms = ['READ', 'WRITE', 'FULL_CONTROL']
     public_buckets = {}
     for grant in grants:
         for (key, val) in grant.items():

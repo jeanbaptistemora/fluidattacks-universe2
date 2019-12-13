@@ -95,6 +95,12 @@ def test_bucket_objects_can_be_listed_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)).is_open()
 
 
+def test_buckets_has_permissive_acl_permissions_open():
+    """Search S3 buckets with permissive ACL permissions."""
+    assert s3.buckets_has_permissive_acl_permissions(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #

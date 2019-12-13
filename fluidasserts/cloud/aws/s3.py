@@ -388,3 +388,69 @@ def bucket_objects_can_be_listed(bucket_names: List[str]):
         service='S3', objects='buckets',
         msg_open=msg_open, msg_closed=msg_closed,
         vulns=vulns, safes=safes)
+
+
+@api(risk=HIGH, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def buckets_has_permissive_acl_permissions(key_id: str,
+                                           secret: str,
+                                           retry: bool = True):
+    """
+    Check if S3 buckets allow global write, delete, or read ACL permissions.
+
+    Disable global all users policies on all S3 buckets and ensure both the
+    bucket ACL is configured with least privileges.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+    :returns: - ``OPEN`` if there are buckets with global ACL permission.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'S3 buckets allow all ACL permissions.'
+    msg_closed: str = 'S3 buckets do not allow all ACL permissions.'
+    vulns, safes = [], []
+
+    buckets = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='s3',
+        func='list_buckets',
+        retry=retry)
+    for bucket_name in map(lambda x: x['Name'], buckets['Buckets']):
+        try:
+            bucket_grants = aws.run_boto3_func(
+                key_id=key_id,
+                secret=secret,
+                service='s3',
+                func='get_bucket_acl',
+                param='Grants',
+                Bucket=bucket_name,
+                retry=retry,
+                retry_times=3)
+            vulnerable = []
+            public_grants = aws.get_bucket_public_grants(
+                bucket_name, bucket_grants)
+            for acl in bucket_grants:
+                if public_grants:
+                    vulnerable.append('FULL_CONTROL' in public_grants)
+                elif acl['Grantee']['Type'] == 'Group':
+                    vulnerable.append(acl['Permission'] == 'FULL_CONTROL')
+                elif acl['Grantee']['ID'] == buckets['Owner']['ID']:
+                    vulnerable.append(False)
+                else:
+                    vulnerable.append(acl['Permission'] == 'FULL_CONTROL')
+            (vulns if any(vulnerable) else safes).append(
+                (bucket_name, 'do not allow all ACL permmissions.'))
+        except aws.ClientErr:
+            continue
+
+    return _get_result_as_tuple(
+        service='S3',
+        objects='Buckets',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
