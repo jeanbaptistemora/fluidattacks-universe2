@@ -2,8 +2,8 @@ stages:
   - deps-base
   - build-apps
   - deps
-  - test
   - build
+  - test
   - mr-check
   - deploy
   - post-deploy
@@ -54,7 +54,7 @@ build-lambdas:
 
 deps-production:
   stage: deps
-  needs: [deps-base,django-apps]
+  needs: [deps-base]
   tags: [autoscaling-large]
   image: fluidattacks/alpine-kaniko:latest
   script:
@@ -63,12 +63,28 @@ deps-production:
 
 deps-development:
   stage: deps
-  needs: [deps-base,django-apps]
+  needs: [deps-base]
   tags: [autoscaling-large]
   image: fluidattacks/alpine-kaniko:latest
   script:
     - ./ci-scripts/jobs/deps-development.sh
   interruptible: true
+
+build-app:
+  stage: build
+  tags: [autoscaling-large]
+  needs: [deps-development,django-apps]
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - sh ci-scripts/jobs/build-app.sh
+  retry: 1
+  artifacts:
+    expire_in: 1 day
+    paths:
+    - version.txt
+    when: on_success
 
 plan-terraform-resources:
   stage: test
@@ -114,7 +130,7 @@ test-mobile:
 test-app:
   stage: test
   tags: [autoscaling-large]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
   script:
     - . ci-scripts/helpers/others.sh && vault_login
     - vaultenv ./ci-scripts/jobs/test-app.sh
@@ -133,8 +149,8 @@ test-app:
 lint-app:
   stage: test
   tags: [autoscaling-large]
-  needs: [deps-development]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  needs: [build-app]
+  image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
   script:
     - . ci-scripts/helpers/others.sh && vault_login
     - vaultenv ./ci-scripts/jobs/lint-app.sh
@@ -181,22 +197,6 @@ apply-terraform-resources:
   only:
     - master
 
-build-app:
-  stage: build
-  tags: [autoscaling-large]
-  needs: [deps-development]
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [""]
-  script:
-    - sh ci-scripts/jobs/build-app.sh
-  retry: 1
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - version.txt
-    when: on_success
-
 danger:
   stage: mr-check
   tags: [autoscaling]
@@ -228,7 +228,7 @@ coverage-report:
 ephemeral-app:
   stage: deploy
   tags: [autoscaling]
-  needs: [build-app,deps-development]
+  needs: [build-app]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - . ci-scripts/helpers/others.sh && vault_login
@@ -244,7 +244,7 @@ ephemeral-app:
 stop-ephemeral-app:
   stage: deploy
   tags: [autoscaling]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
   environment:
     name: review/$CI_COMMIT_REF_SLUG
     action: stop
@@ -294,7 +294,7 @@ test-driver-dev:
   stage: post-deploy
   tags: [autoscaling-large]
   needs: [ephemeral-app]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
   script:
     - . ci-scripts/helpers/others.sh && vault_login
     - vaultenv ./ci-scripts/jobs/test-driver.sh

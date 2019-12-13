@@ -10,6 +10,7 @@ ARG ENV_NAME
 ARG SSL_CERT
 ARG SSL_KEY
 ARG VERSION
+ARG PIP_REQUIREMENTS_PROD_LOCAL='deploy/containers/deps-production/requirements_local.txt'
 
 ENV CI_COMMIT_REF_NAME $CI_COMMIT_REF_NAME
 ENV FI_VERSION $VERSION
@@ -29,20 +30,16 @@ RUN rm -r /var/www/html \
   && mv deploy/containers/common/vars/fluent.conf /etc/td-agent/td-agent.conf \
   && mv deploy/containers/common/vars/td-agent /etc/init.d/td-agent \
     && chmod 0755 /etc/init.d/td-agent \
-  && mv deploy/containers/common/vars/out_rollbar.rb /etc/td-agent/plugin/
-
-# Set up documentator
-RUN mkdir app/documentator/images \
+  && mv deploy/containers/common/vars/out_rollbar.rb /etc/td-agent/plugin/ \
+  && mkdir app/documentator/images \
   && mkdir app/documentator/tpls \
   && mkdir app/documentator/results \
   && mkdir app/techdoc/results \
   && chown -R www-data:www-data app/documentator \
   && chmod -R 0744 app/documentator \
   && chown -R www-data:www-data app/techdoc \
-  && chmod -R 0744 app/techdoc
-
-# Set up apache
-RUN chown -R www-data:www-data . \
+  && chmod -R 0744 app/techdoc \
+  && chown -R www-data:www-data . \
   && a2enmod ssl \
   && echo "$SSL_CERT" | base64 -di > /etc/ssl/certs/fluidla.crt \
   && mkdir /etc/ssl/private \
@@ -56,11 +53,13 @@ RUN cp -a /npm-deps/front/node_modules front/ \
   && sed -i "s/integrates_version/v. $FI_VERSION/g" app/assets/dashboard/app-bundle.min.js \
   && rm -rf front/node_modules
 
-# Set prod or dev envars
-RUN sed -i "s/env#/${ENV_NAME}#/g" env.vars
-
-# Clean container
-RUN apt -y autoremove \
+# local apps
+COPY "$PIP_REQUIREMENTS_PROD_LOCAL" /tmp/reqs_prod_local.txt
+COPY django-apps/packages/* django-apps/packages/
+RUN sed -i "s/env#/${ENV_NAME}#/g" env.vars \
+  && pip3 install --no-cache-dir --no-index \
+    --find-links=django-apps/packages/ -r /tmp/reqs_prod_local.txt \
+  && apt -y autoremove \
   && rm -rf /tmp/*
 
 EXPOSE 443 24224
