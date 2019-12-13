@@ -43,7 +43,7 @@ run_unit_test () {
     --cov-report annotate:build/coverage/annotate \
     --basetemp=build/test \
     --junitxml=build/test/results.xml \
-    app/test/
+    test/
     RETVAL=$?
     cp -a build/coverage/results.xml "$CI_PROJECT_DIR/coverage.xml"
 

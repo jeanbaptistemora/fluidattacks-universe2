@@ -15,7 +15,7 @@ test_driver() {
     --basetemp=build/test \
     --test-group-count "${CI_NODE_TOTAL}" \
     --test-group "${CI_NODE_INDEX}" \
-    app/ephemeral_tests.py
+    ephemeral_tests.py
 }
 
 test_driver
