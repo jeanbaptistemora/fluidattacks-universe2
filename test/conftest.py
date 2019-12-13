@@ -18,9 +18,9 @@ import wait
 from docker.models.containers import Image, Container
 
 # local imports
+from test.mock import sip_server
+from test.mock import http_server
 from test.mock import graphql_server
-from test.mock import httpserver
-from test.mock import sip
 from test.mock import camera_hard
 from test.mock import camera_weak
 
@@ -28,32 +28,41 @@ from test.mock import camera_weak
 CLIENT = docker.from_env()
 
 
+FLASK_MOCKS = [
+    (sip_server.start, 'MockSIPServer', ['proto', 'iot']),
+    (http_server.start, 'MockHTTPServer', ['proto', 'iot']),
+    (graphql_server.start, 'MockGraphQLServer', ['proto']),
+    (camera_weak.start, 'MockCameraWeakServer', ['iot']),
+    (camera_hard.start, 'MockCameraHardServer', ['iot']),
+]
+
+
 MOCKS = [
     # These need to be built first
     {
         'dns:weak': {
             'expose': {'53/tcp': 53,'53/udp': 53},
-            'fixtures': []
+            'asserts_modules': []
         },
         'ftp:weak': {
             'expose': {'21/tcp': 21},
-            'fixtures': []
+            'asserts_modules': []
         },
         'mysql_db:weak': {
             'expose': {'3306/tcp': 3306},
-            'fixtures': []
+            'asserts_modules': []
         },
         'mysql_os:hard': {
             'expose': {'22/tcp': 22},
-            'fixtures': []
+            'asserts_modules': []
         },
         'smb:weak': {
             'expose': {'139/tcp': 139},
-            'fixtures': []
+            'asserts_modules': []
         },
         'smtp:weak': {
             'expose': {'25/tcp': 25},
-            'fixtures': []
+            'asserts_modules': []
         },
 
     },
@@ -61,83 +70,83 @@ MOCKS = [
     {
         'bwapp': {
             'expose': {'80/tcp': 80},
-            'fixtures': []
+            'asserts_modules': []
         },
         'dns:hard': {
             'expose': {'53/tcp': 53,'53/udp': 53},
-            'fixtures': []
+            'asserts_modules': []
         },
         'ftp:hard': {
             'expose': {'21/tcp': 21},
-            'fixtures': []
+            'asserts_modules': []
         },
         'ldap:hard': {
             'expose': {'389/tcp': 389},
-            'fixtures': []
+            'asserts_modules': []
         },
         'ldap:weak': {
             'expose': {'389/tcp': 389},
-            'fixtures': []
+            'asserts_modules': []
         },
         'mysql_db:hard': {
             'expose': {'3306/tcp': 3306},
-            'fixtures': []
+            'asserts_modules': []
         },
         'mysql_os:weak': {
             'expose': {'22/tcp': 22},
-            'fixtures': []
+            'asserts_modules': []
         },
         'mssql:weak': {
             'expose': {'1432/tcp': 1432},
-            'fixtures': []
+            'asserts_modules': []
         },
         'mssql:hard': {
             'expose': {'1433/tcp': 1433},
-            'fixtures': []
+            'asserts_modules': []
         },
         'os:hard': {
             'expose': {'22/tcp': 22},
-            'fixtures': []
+            'asserts_modules': []
         },
         'os:weak': {
             'expose': {'22/tcp': 22},
-            'fixtures': []
+            'asserts_modules': []
         },
         'postgresql:hard': {
             'expose': {'5432/tcp': 5432},
-            'fixtures': []
+            'asserts_modules': []
         },
         'postgresql:weak': {
             'expose': {'5432/tcp': 5432},
-            'fixtures': []
+            'asserts_modules': []
         },
         'smb:hard': {
             'expose': {'139/tcp': 139},
-            'fixtures': []
+            'asserts_modules': []
         },
         'smtp:hard': {
             'expose': {'25/tcp': 25},
-            'fixtures': []
+            'asserts_modules': []
         },
         'ssl:hard': {
             'expose': {'443/tcp': 443},
-            'fixtures': []
+            'asserts_modules': []
         },
         'ssl:hard_tlsv13': {
             'expose': {'443/tcp': 443},
-            'fixtures': []
+            'asserts_modules': []
         },
         'ssl:weak': {
             'expose': {'443/tcp': 443},
-            'fixtures': []
+            'asserts_modules': []
         },
         'tcp:hard': {
             'expose': {'443/tcp': 443},
-            'fixtures': []
+            'asserts_modules': []
         },
         'tcp:weak': {
             'expose': {'80/tcp': 80},
-            'fixtures': []
+            'asserts_modules': []
         },
     }
 ]
@@ -303,15 +312,14 @@ def stop_container(mock_name: str, remove: bool = False) -> None:
 @pytest.fixture(scope='session', autouse=True)
 def flask_mocks(request):
     """Start mocks based on the Flask Framework."""
+    asserts_module = \
+        request.config.getoption('--asserts-module', default='all')
     processes = []
-    mocks = [
-        (sip.start, 'MockSIPServer'),
-        (httpserver.start, 'MockHTTPServer'),
-        (camera_weak.start, 'MockCameraWeakServer'),
-        (camera_hard.start, 'MockCameraHardServer'),
-        (graphql_server.start, 'MockGraphQLServer'),
-    ]
-    for target, name in mocks:
+    for target, name, asserts_modules in FLASK_MOCKS:
+        if asserts_module != 'all' \
+                and asserts_module not in asserts_modules:
+            # The current module do not need this mock started
+            continue
         process = Process(target=target, name=name)
         process.daemon = True
         process.start()
