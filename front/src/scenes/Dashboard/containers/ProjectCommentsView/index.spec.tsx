@@ -1,16 +1,35 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
+import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
-import React from "react";
+// tslint:disable-next-line: no-import-side-effect
+import "isomorphic-fetch";
+import { default as $ } from "jquery";
+import _ from "lodash";
+import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
-import { MockedProvider } from "react-apollo/test-utils";
+import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
+// tslint:disable-next-line: no-submodule-imports
+import { act } from "react-dom/test-utils";
 import { RouteComponentProps } from "react-router";
+import wait from "waait";
 import { ProjectCommentsView } from "./index";
+import { GET_PROJECT_COMMENTS } from "./queries";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
-describe("Project comments view", (): void => {
+jest.mock("jquery-comments_brainkit", () => jest.requireActual("jquery-comments_brainkit")($));
 
-  const routePropsMock: RouteComponentProps<{ projectName: string }> = {
+describe("ProjectCommentsView", () => {
+  let container: HTMLDivElement | undefined;
+  beforeEach(() => {
+    container = document.createElement("div");
+    document.body.appendChild(container);
+  });
+  afterEach(() => {
+    document.body.removeChild((container as HTMLDivElement));
+    container = undefined;
+  });
+
+  const mockProps: RouteComponentProps<{ projectName: string }> = {
     history: {
       action: "PUSH",
       block: (): (() => void) => (): void => undefined,
@@ -25,31 +44,90 @@ describe("Project comments view", (): void => {
       replace: (): void => undefined,
     },
     location: { hash: "", pathname: "/", search: "", state: {} },
-    match: { isExact: true, params: { projectName: "TEST" }, path: "/", url: "" },
+    match: {
+      isExact: true,
+      params: { projectName: "unittesting" },
+      path: "/",
+      url: "",
+    },
   };
 
-  it("should return a function", (): void => {
+  const mocks: ReadonlyArray<MockedResponse> = [{
+    request: {
+      query: GET_PROJECT_COMMENTS,
+      variables: { projectName: "unittesting" },
+    },
+    result: {
+      data: {
+        project: {
+          comments: [{
+            content: "Hello world",
+            created: "2019/12/04 08:13:53",
+            email: "unittest@fluidattacks.com",
+            fullname: "Test User",
+            id: "1337260012345",
+            modified: "2019/12/04 08:13:53",
+            parent: "0",
+          }],
+          name: "unittesting",
+        },
+      },
+    },
+  }];
+
+  it("should return a fuction", () => {
     expect(typeof (ProjectCommentsView))
       .toEqual("function");
   });
 
-  it("should contain the component", (): void => {
-    const wrapper: ShallowWrapper = shallow(
-      <MockedProvider mocks={[]} addTypename={false}>
-        <ProjectCommentsView {...routePropsMock} />
+  it("should render a component", async () => {
+    const wrapper: ReactWrapper = mount(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <ProjectCommentsView {...mockProps} />
       </MockedProvider>,
-    );
-    expect(wrapper.find("projectCommentsView"))
-      .toBeTruthy();
-  });
-
-  it("should render", (): void => {
-    const wrapper: ShallowWrapper = shallow(
-      <MockedProvider mocks={[]} addTypename={false}>
-        <ProjectCommentsView {...routePropsMock} />
-      </MockedProvider>,
-    );
+      { attachTo: container });
+    await act(async () => { await wait(0); });
     expect(wrapper)
       .toHaveLength(1);
+  });
+
+  it("should render empty UI", async () => {
+    const emptyMocks: ReadonlyArray<MockedResponse> = [{
+      request: {
+        query: GET_PROJECT_COMMENTS,
+        variables: { projectName: "unittesting" },
+      },
+      result: {
+        data: {
+          project: {
+            comments: [],
+            name: "unittesting",
+          },
+        },
+      },
+    }];
+    const wrapper: ReactWrapper = mount(
+      <MockedProvider mocks={emptyMocks} addTypename={false}>
+        <ProjectCommentsView {...mockProps} />
+      </MockedProvider>,
+      { attachTo: container });
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(wrapper.text())
+      .toContain("No comments");
+  });
+
+  it("should render comment", async () => {
+    const wrapper: ReactWrapper = mount(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <ProjectCommentsView {...mockProps} />
+      </MockedProvider>,
+      { attachTo: container });
+    await act(async () => { await wait(0); wrapper.update(); });
+    const commentElement: ReactWrapper = wrapper.find("div")
+      .find({ id: "project-comments" });
+    expect(commentElement)
+      .toHaveLength(1);
+    expect(wrapper.text())
+      .toContain("Hello world");
   });
 });
