@@ -8,13 +8,10 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Mutation, MutationFn, Query, QueryResult } from "react-apollo";
 import { RouteComponentProps } from "react-router";
-import { Comments, ICommentStructure } from "../../components/Comments/index";
+import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
 import { ADD_FINDING_COMMENT, GET_FINDING_COMMENTS, GET_FINDING_OBSERVATIONS } from "./queries";
 
 type ICommentsViewProps = RouteComponentProps<{ findingId: string; type: string }>;
-
-export type loadCallback = ((comments: ICommentStructure[]) => void);
-export type postCallback = ((comments: ICommentStructure) => void);
 
 const commentsView: React.FC<ICommentsViewProps> = (props: ICommentsViewProps): JSX.Element => {
   const { findingId, type } = props.match.params;

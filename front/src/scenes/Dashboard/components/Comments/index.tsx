@@ -23,6 +23,9 @@ export interface ICommentStructure {
   parent: number;
 }
 
+export type loadCallback = ((comments: ICommentStructure[]) => void);
+export type postCallback = ((comments: ICommentStructure) => void);
+
 export interface ICommentsProps {
   id: string;
   onLoad(callbackFn: ((comments: ICommentStructure[]) => void)): void;
@@ -32,7 +35,7 @@ export interface ICommentsProps {
 const initializeComments: ((props: ICommentsProps) => void) = (props: ICommentsProps): void => {
   const { onLoad, onPostComment } = props;
 
-  ($(`#${props.id}`) as JQuery & { comments({ }: object): void }).comments({
+  ($(`#${props.id}`) as JQuery & { comments(options: Dictionary): void }).comments({
     defaultNavigationSortKey: "oldest",
     enableAttachments: false,
     enableEditing: false,

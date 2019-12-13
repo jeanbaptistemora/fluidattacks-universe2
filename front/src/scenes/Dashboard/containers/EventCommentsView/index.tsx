@@ -7,8 +7,7 @@ import _ from "lodash";
 import React from "react";
 import { Mutation, MutationFn, Query, QueryResult } from "react-apollo";
 import { RouteComponentProps } from "react-router";
-import { Comments, ICommentStructure } from "../../components/Comments/index";
-import { loadCallback, postCallback } from "../CommentsView";
+import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
 import { ADD_EVENT_COMMENT, GET_EVENT_COMMENTS } from "./queries";
 
 type EventCommentsProps = RouteComponentProps<{ eventId: string }>;

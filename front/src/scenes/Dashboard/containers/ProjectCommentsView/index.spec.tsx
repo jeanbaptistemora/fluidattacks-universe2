@@ -1,6 +1,8 @@
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
+// tslint:disable-next-line: no-submodule-imports
+import { MockedProvider } from "react-apollo/test-utils";
 import { RouteComponentProps } from "react-router";
 import { ProjectCommentsView } from "./index";
 
@@ -33,7 +35,9 @@ describe("Project comments view", (): void => {
 
   it("should contain the component", (): void => {
     const wrapper: ShallowWrapper = shallow(
-      <ProjectCommentsView {...routePropsMock} />,
+      <MockedProvider mocks={[]} addTypename={false}>
+        <ProjectCommentsView {...routePropsMock} />
+      </MockedProvider>,
     );
     expect(wrapper.find("projectCommentsView"))
       .toBeTruthy();
@@ -41,7 +45,9 @@ describe("Project comments view", (): void => {
 
   it("should render", (): void => {
     const wrapper: ShallowWrapper = shallow(
-      <ProjectCommentsView {...routePropsMock} />,
+      <MockedProvider mocks={[]} addTypename={false}>
+        <ProjectCommentsView {...routePropsMock} />
+      </MockedProvider>,
     );
     expect(wrapper)
       .toHaveLength(1);

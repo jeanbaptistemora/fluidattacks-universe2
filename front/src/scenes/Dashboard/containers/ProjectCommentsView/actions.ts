@@ -3,8 +3,7 @@ import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
-import { ICommentStructure } from "../../components/Comments";
-import { loadCallback, postCallback } from "./index";
+import { ICommentStructure, loadCallback, postCallback } from "../../components/Comments";
 
 export const loadComments: ((projectName: string, callbackFn: loadCallback) => void) = (
   projectName: string, callbackFn: loadCallback,

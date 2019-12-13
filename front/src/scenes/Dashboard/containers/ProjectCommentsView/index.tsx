@@ -1,27 +1,75 @@
+/* tslint:disable:jsx-no-multiline-js
+ *
+ * Disabling this rule is necessary for accessing render props from
+ * apollo components
+ */
+import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import React from "react";
+import { Mutation, MutationFn, Query, QueryResult } from "react-apollo";
 import { RouteComponentProps } from "react-router";
-import { Comments, ICommentStructure } from "../../components/Comments/index";
-import { loadComments, postComment } from "./actions";
+import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
+import { ADD_PROJECT_COMMENT, GET_PROJECT_COMMENTS } from "./queries";
 
 type IProjectCommentsViewProps = RouteComponentProps<{ projectName: string }>;
-export type loadCallback = ((comments: ICommentStructure[]) => void);
-export type postCallback = ((comments: ICommentStructure) => void);
 
 const projectCommentsView: React.FC<IProjectCommentsViewProps> = (props: IProjectCommentsViewProps): JSX.Element => {
   const { projectName } = props.match.params;
-  const handleLoad: ((callbackFn: loadCallback) => void) = (callbackFn: loadCallback): void => {
-    loadComments(projectName, callbackFn);
+  const onMount: (() => void) = (): void => {
+    mixpanel.track("ProjectComments", {
+      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+      User: (window as typeof window & { userName: string }).userName,
+    });
   };
-
-  const handlePost: ((comment: ICommentStructure, callbackFn: postCallback) => void) = (
-    comment: ICommentStructure, callbackFn: postCallback,
-  ): void => {
-    postComment(projectName, comment, callbackFn);
-  };
+  React.useEffect(onMount, []);
 
   return (
     <React.StrictMode>
-      <Comments id="project-comments" onLoad={handleLoad} onPostComment={handlePost} />
+      <Query fetchPolicy="network-only" query={GET_PROJECT_COMMENTS} variables={{ projectName }}>
+        {({ data, loading }: QueryResult): JSX.Element => {
+          if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+          const getData: ((callback: loadCallback) => void) = (
+            callbackFn: (data: ICommentStructure[]) => void,
+          ): void => {
+            callbackFn(data.project.comments.map((comment: ICommentStructure) => ({
+              ...comment,
+              created_by_current_user: comment.email === (window as typeof window & { userEmail: string }).userEmail,
+              id: Number(comment.id),
+              parent: Number(comment.parent),
+            })));
+          };
+
+          return (
+            <Mutation mutation={ADD_PROJECT_COMMENT}>
+              {(addComment: MutationFn): React.ReactNode => {
+                const handlePost: ((comment: ICommentStructure, callbackFn: postCallback) => void) = (
+                  comment: ICommentStructure, callbackFn: postCallback,
+                ): void => {
+                  interface IMutationResult {
+                    data: {
+                      addProjectComment: {
+                        commentId: string;
+                        success: boolean;
+                      };
+                    };
+                  }
+
+                  addComment({ variables: { projectName, ...comment } })
+                    .then((mtResult: void | {}): void => {
+                      const result: IMutationResult["data"] = (mtResult as IMutationResult).data;
+                      if (result.addProjectComment.success) {
+                        callbackFn({ ...comment, id: Number(result.addProjectComment.commentId) });
+                      }
+                    })
+                    .catch();
+                };
+
+                return (<Comments id="project-comments" onLoad={getData} onPostComment={handlePost} />);
+              }}
+            </Mutation>
+          );
+        }}
+      </Query>
     </React.StrictMode>
   );
 };
