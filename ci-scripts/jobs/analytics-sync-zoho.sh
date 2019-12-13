@@ -7,7 +7,7 @@ analytics_sync_zoho() {
   set -Eeuo pipefail
 
   # Import functions
-  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/sops-source/sops.sh)
+  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
   . toolbox/others.sh
 
   local email

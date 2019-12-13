@@ -5,7 +5,7 @@ kubectl_setup() {
   # Set initial configuration for eks cluster
 
   # Import functions
-  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/sops-source/sops.sh)
+  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
   . services/eks-cluster/helpers.sh
   . toolbox/others.sh
 

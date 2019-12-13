@@ -10,7 +10,7 @@ break_build_terraform_plan() {
   . toolbox/terraform.sh
   . toolbox/others.sh
   . services/break-build/helpers.sh
-  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/sops-source/sops.sh)
+  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
 
   aws_login
 
