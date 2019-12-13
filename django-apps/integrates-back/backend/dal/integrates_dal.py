@@ -7,8 +7,8 @@ import rollbar
 from backend import util
 from backend.utils import forms
 
-from app.dal import project as project_dal
-from app.dal.helpers import dynamodb
+from backend.dal import project as project_dal
+from backend.dal.helpers import dynamodb
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
 

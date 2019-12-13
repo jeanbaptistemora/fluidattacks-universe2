@@ -24,7 +24,7 @@ from backend.entity.vulnerability import Vulnerability
 from backend.services import get_user_role
 from backend.utils import findings as finding_utils
 
-from app.dal import integrates_dal
+from backend.dal import integrates_dal
 
 
 class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes

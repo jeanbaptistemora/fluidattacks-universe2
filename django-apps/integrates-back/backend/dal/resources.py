@@ -1,11 +1,9 @@
-
-# pylint:disable=relative-import
 from botocore.exceptions import ClientError
 import rollbar
-from __init__ import FI_AWS_S3_RESOURCES_BUCKET
-from app.dal.helpers import dynamodb, s3
-from app.dal import integrates_dal
+from backend.dal.helpers import dynamodb, s3
+from backend.dal import integrates_dal
 
+from __init__ import FI_AWS_S3_RESOURCES_BUCKET
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')

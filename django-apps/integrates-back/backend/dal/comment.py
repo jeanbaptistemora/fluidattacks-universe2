@@ -4,7 +4,7 @@ import rollbar
 from boto3.dynamodb.conditions import Attr, Key
 from botocore.exceptions import ClientError
 
-from app.dal.helpers import dynamodb
+from backend.dal.helpers import dynamodb
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
 TABLE = DYNAMODB_RESOURCE.Table('FI_comments')

@@ -26,7 +26,7 @@ from backend.services import get_user_role
 from backend.entity.user import User
 
 from backend import util
-from app.dal import integrates_dal, project as redshift_dal
+from backend.dal import integrates_dal, project as redshift_dal
 
 
 class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes

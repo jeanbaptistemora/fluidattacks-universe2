@@ -1,5 +1,3 @@
-# pylint: disable=relative-beyond-top-level
-
 from backend.domain import user as user_domain
 from backend.mailer import send_mail_new_user
 

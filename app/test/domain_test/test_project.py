@@ -12,7 +12,7 @@ from backend.domain.project import (
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
     is_finding_in_drafts, list_drafts, list_comments, get_active_projects,
     list_findings, get_finding_project_name)
-from app.dal.integrates_dal import DYNAMODB_RESOURCE, get_vulnerability_dynamo
+from backend.dal.integrates_dal import DYNAMODB_RESOURCE, get_vulnerability_dynamo
 
 
 class ProjectTest(TestCase):

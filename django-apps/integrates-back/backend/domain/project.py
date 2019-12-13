@@ -10,6 +10,7 @@ import pytz
 
 from django.conf import settings
 
+from backend.dal import integrates_dal, project as project_dal
 from backend.domain import comment as comment_domain
 from backend.domain import finding as finding_domain
 from backend.domain import vulnerability as vuln_domain
@@ -18,8 +19,6 @@ from backend.mailer import send_mail_comment
 from backend import util
 
 from __init__ import FI_MAIL_REPLYERS
-
-from app.dal import integrates_dal, project as project_dal
 
 
 def get_email_recipients(project_name):

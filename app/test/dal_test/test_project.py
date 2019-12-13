@@ -1,7 +1,7 @@
 import pytest
 from django.test import TestCase
 
-from app.dal.project import get_current_month_information
+from backend.dal.project import get_current_month_information
 
 
 class ProjectTests(TestCase):

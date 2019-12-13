@@ -1,6 +1,6 @@
 
 from boto3.dynamodb.conditions import Attr
-from app.dal import integrates_dal
+from backend.dal import integrates_dal
 
 
 TABLE = 'FI_users'

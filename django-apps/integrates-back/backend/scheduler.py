@@ -21,7 +21,7 @@ from backend.mailer import (
 )
 
 from backend import util
-from app.dal import integrates_dal
+from backend.dal import integrates_dal
 
 from __init__ import (
     FI_TEST_PROJECTS, FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS

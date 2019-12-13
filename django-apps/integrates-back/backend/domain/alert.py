@@ -1,4 +1,4 @@
-from app.dal import integrates_dal
+from backend.dal import integrates_dal
 
 
 def get_company_alert(company, project_name):

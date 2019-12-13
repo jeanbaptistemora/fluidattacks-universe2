@@ -7,7 +7,7 @@ from backend.domain import (
 )
 
 from backend import util
-from app.dal import integrates_dal, project as project_dal
+from backend.dal import integrates_dal, project as project_dal
 
 
 @csrf_exempt

@@ -3,10 +3,8 @@
 import rollbar
 from botocore.exceptions import ClientError
 
-# pylint:disable=relative-import
+from backend.dal.helpers import s3, dynamodb
 from __init__ import FI_AWS_S3_BUCKET
-from app.dal.helpers import s3, dynamodb
-
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
 TABLE = DYNAMODB_RESOURCE.Table('FI_findings')

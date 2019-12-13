@@ -9,9 +9,9 @@ from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from jose import jwt
 
-from app.dal.finding import get_finding
-from app.dal.integrates_dal import get_findings_released_dynamo
-from app.dal.vulnerability import get_vulnerabilities
+from backend.dal.finding import get_finding
+from backend.dal.integrates_dal import get_findings_released_dynamo
+from backend.dal.vulnerability import get_vulnerabilities
 from backend.scheduler import (
     is_not_a_fluidattacks_email, remove_fluid_from_recipients,
     is_a_unsolved_event, get_unsolved_events,

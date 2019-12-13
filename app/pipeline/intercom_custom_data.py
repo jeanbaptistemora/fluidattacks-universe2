@@ -1,4 +1,3 @@
-# pylint: disable=relative-beyond-top-level
 from backend.domain import user as user_domain
 
 

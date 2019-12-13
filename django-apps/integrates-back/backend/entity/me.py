@@ -17,7 +17,7 @@ from backend.exceptions import InvalidExpirationTime
 from backend.services import get_user_role, is_customeradmin
 
 from backend import util
-from app.dal import integrates_dal
+from backend.dal import integrates_dal
 
 from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 

@@ -20,7 +20,7 @@ from backend.util import (
     validate_future_releases, get_jwt_content, list_s3_objects, replace_all,
     list_to_dict, camelcase_to_snakecase, is_valid_file_name, is_valid_format)
 
-from app.dal.finding import get_finding
+from backend.dal.finding import get_finding
 
 
 class UtilTests(TestCase):

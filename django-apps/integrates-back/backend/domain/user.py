@@ -1,7 +1,7 @@
 from datetime import datetime
 import pytz
 from django.conf import settings
-from app.dal import user as user_dal
+from backend.dal import user as user_dal
 
 
 def add_phone_to_user(email, phone):

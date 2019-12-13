@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 """ Class to secure a PDF of findings. """
-# pylint: disable=relative-beyond-top-level
-# Disabling this rule is necessary for importing modules beyond the top level
-# directory.
 import time
 import os
 from PyPDF2 import PdfFileWriter, PdfFileReader
-from ..dal import integrates_dal
+from backend.dal import integrates_dal
 
 
 class SecurePDF():

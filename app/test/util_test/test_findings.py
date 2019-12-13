@@ -7,7 +7,7 @@ from backend.utils.findings import (
     _get_evidence, _download_evidence_file, get_records_from_file,
     get_exploit_from_file, format_data
 )
-from app.dal.finding import get_finding
+from backend.dal.finding import get_finding
 
 
 class FindingsTests(TestCase):

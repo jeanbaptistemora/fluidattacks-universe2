@@ -7,7 +7,7 @@ from django.conf import settings
 from backend.domain import user as user_domain
 
 from backend import util
-from app.dal import comment as comment_dal
+from backend.dal import comment as comment_dal
 
 
 def _get_comments(comment_type, finding_id, user_role):

@@ -1,9 +1,5 @@
 # pylint: disable=no-self-use
 # pylint: disable=super-init-not-called
-# pylint: disable=relative-beyond-top-level
-# Disabling this rule is necessary for importing modules beyond the top level
-# directory.
-
 import rollbar
 from mixpanel import Mixpanel
 from graphene import ObjectType, JSONString, Mutation, String, Boolean, Field
@@ -18,7 +14,7 @@ from backend.domain import resources
 from backend.exceptions import InvalidProject
 from backend import util
 
-from app.dal import integrates_dal
+from backend.dal import integrates_dal
 
 INTEGRATES_URL = 'https://fluidattacks.com/integrates/dashboard'
 

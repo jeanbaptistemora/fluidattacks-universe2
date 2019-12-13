@@ -2,10 +2,9 @@
 
 import rollbar
 from botocore.exceptions import ClientError
+from backend.dal.helpers import dynamodb, s3
 
 from __init__ import FI_AWS_S3_BUCKET
-from app.dal.helpers import dynamodb, s3
-
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
 TABLE = DYNAMODB_RESOURCE.Table('fi_events')

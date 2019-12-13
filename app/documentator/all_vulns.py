@@ -5,10 +5,10 @@
 import hashlib
 from openpyxl import Workbook
 
-from __init__ import FI_TEST_PROJECTS
+from backend.dal import integrates_dal
+from backend.dal.project import get_all_projects
 
-from app.dal import integrates_dal
-from app.dal.project import get_all_projects
+from __init__ import FI_TEST_PROJECTS
 
 TEST_PROJECTS = FI_TEST_PROJECTS.split(',')
 

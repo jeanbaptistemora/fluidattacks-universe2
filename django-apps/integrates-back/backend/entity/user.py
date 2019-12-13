@@ -1,8 +1,5 @@
 # pylint: disable=no-self-use
 # pylint: disable=super-init-not-called
-# pylint: disable=relative-beyond-top-level
-# Disabling this rule is necessary for importing modules beyond the top level
-# directory.
 # pylint: disable=too-many-instance-attributes
 # Disabling this rule is necessary to have more than 7 instance attributes
 
@@ -23,7 +20,7 @@ from backend.services import (
 from backend.mailer import send_mail_access_granted
 
 from backend import util
-from app.dal import integrates_dal
+from backend.dal import integrates_dal
 
 
 class User(ObjectType):

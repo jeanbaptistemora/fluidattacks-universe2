@@ -1,7 +1,7 @@
 from exponent_server_sdk import PushClient, PushMessage
 from i18n import t
 
-from app.dal import integrates_dal
+from backend.dal import integrates_dal
 
 
 def notify_mobile(recipients, title, message):

@@ -30,6 +30,7 @@ from backend.domain.vulnerability import (
     group_specific, get_open_vuln_by_type, get_vulnerabilities_by_type
 )
 from backend.decorators import authenticate, authorize, cache_content
+from backend.dal import integrates_dal
 from backend.services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
 )
@@ -38,8 +39,6 @@ from backend.utils import reports
 from __init__ import (
     FI_AWS_S3_ACCESS_KEY, FI_AWS_S3_SECRET_KEY, FI_AWS_S3_BUCKET
 )
-
-from app.dal import integrates_dal
 
 from app.documentator.pdf import CreatorPDF
 from app.documentator.secure_pdf import SecurePDF
