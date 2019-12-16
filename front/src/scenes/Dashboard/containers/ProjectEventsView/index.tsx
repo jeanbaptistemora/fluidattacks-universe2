@@ -25,7 +25,7 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import {
-  dateTimeBeforeToday, numeric, required, someRequired, validDatetime, validEventFile, validEventImage,
+  dateTimeBeforeToday, numeric, required, someRequired, validDatetime, validEventFile, validEvidenceImage,
 } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
@@ -444,7 +444,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                                       component={fileInputField}
                                       id="image"
                                       name="image"
-                                      validate={validEventImage}
+                                      validate={validEvidenceImage}
                                     />
                                   </FormGroup>
                                 </Col>

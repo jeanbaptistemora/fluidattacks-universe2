@@ -23,7 +23,7 @@ import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
-import { validEventFile, validEventImage } from "../../../../utils/validations";
+import { validEventFile, validEvidenceImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
 import { default as style } from "./index.css";
 import { DOWNLOAD_FILE_MUTATION, GET_EVENT_EVIDENCES, UPDATE_EVIDENCE_MUTATION } from "./queries";
@@ -145,7 +145,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                         name="evidence"
                         onClick={openImage}
                         onUpdate={handleUpdate}
-                        validate={validEventImage}
+                        validate={validEvidenceImage}
                       />
                     );
                   }}

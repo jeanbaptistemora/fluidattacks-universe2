@@ -21,6 +21,7 @@ from backend.domain import (
 )
 from backend.entity.comment import Comment
 from backend.entity.vulnerability import Vulnerability
+from backend.exceptions import InvalidFileSize, InvalidFileType
 from backend.services import get_user_role
 from backend.utils import findings as finding_utils
 
@@ -428,7 +429,7 @@ class UpdateEvidence(Mutation):
                                     'Security: Attempted to upload evidence file \
                                         heavier than allowed in {project} project'
                                         .format(project=project_name))
-                raise GraphQLError('File exceeds the size limits')
+                raise InvalidFileSize()
             fieldname = [
                 'animation',
                 'exploitation',
@@ -450,7 +451,7 @@ class UpdateEvidence(Mutation):
                                 'Security: Attempted to upload evidence file with a \
                                     non-allowed format in {project} project'
                                     .format(project=project_name))
-            raise GraphQLError('Extension not allowed')
+            raise InvalidFileType()
         findings_loader = info.context.loaders['finding']
         ret = UpdateEvidence(
             finding=findings_loader.load(finding_id), success=success)

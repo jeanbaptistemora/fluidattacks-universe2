@@ -62,7 +62,7 @@ export const validDraftTitle: ((title: string) => string | undefined) = (title: 
 export const isValidVulnSeverity: Validator = (value: string): string | undefined => {
   const min: number = 0;
   const max: number = 1000000000;
-  if (_.isUndefined(isNumeric({message: translate.t("validations.numeric")}, value))) {
+  if (_.isUndefined(isNumeric({ message: translate.t("validations.numeric") }, value))) {
     const severityBetween: ((value: number) => string | undefined) = numberBetween(min, max);
 
     return severityBetween(Number(value));
@@ -82,7 +82,7 @@ export const validEventFile: Validator = (value?: FileList): string | undefined 
       ? undefined : translate.t("project.events.form.wrong_file_type")
 );
 
-export const validEventImage: Validator = (value?: FileList): string | undefined => (
+export const validEvidenceImage: Validator = (value?: FileList): string | undefined => (
   _.isUndefined(value) || _.isEmpty(value)
     ? undefined
     : _.includes(["image/gif", "image/png"], value[0].type)

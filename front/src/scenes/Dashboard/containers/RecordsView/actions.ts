@@ -118,10 +118,10 @@ export const updateRecords: ((findingId: string) => ThunkResult<void>) = (findin
           const { errors } = error.response.data;
 
           switch (errors[0].message) {
-            case "File exceeds the size limits":
+            case "Exception - Invalid File Size":
               msgError(translate.t("proj_alerts.file_size"));
               break;
-            case "Extension not allowed":
+            case "Exception - Invalid File Type":
               msgError(translate.t("proj_alerts.file_type_wrong"));
               break;
             case "Wrong file structure":

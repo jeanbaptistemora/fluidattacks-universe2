@@ -176,6 +176,10 @@ const enTranslations: Dictionary = {
         False: "No",
         True: "Yes",
       },
+      evidence: {
+        edit: "Edit",
+        no_data: "There are no evidences",
+      },
       exportCsv: "Export to CSV",
       help_label: "Click on a finding to see more details",
       remediated: {

@@ -27,7 +27,7 @@ import { GenericForm } from "../../components/GenericForm";
 import { IDashboardState } from "../../reducer";
 import { CommentsView } from "../CommentsView/index";
 import { descriptionView as DescriptionView } from "../DescriptionView/index";
-import { evidenceView as EvidenceView } from "../EvidenceView/index";
+import { EvidenceView } from "../EvidenceView/newIndex";
 import { ExploitView } from "../ExploitView/index";
 import { loadProjectData } from "../ProjectContent/actions";
 import { RecordsView } from "../RecordsView/index";
@@ -69,10 +69,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
 
   const renderSeverity: (() => JSX.Element) = (): JSX.Element => (
     <SeverityView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />
-  );
-
-  const renderEvidence: (() => JSX.Element) = (): JSX.Element => (
-    <EvidenceView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />
   );
 
   const renderTracking: (() => JSX.Element) = (): JSX.Element => (
@@ -221,7 +217,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                 <Switch>
                   <Route path={`${props.match.path}/description`} render={renderDescription} exact={true} />
                   <Route path={`${props.match.path}/severity`} render={renderSeverity} exact={true} />
-                  <Route path={`${props.match.path}/evidence`} render={renderEvidence} exact={true} />
+                  <Route path={`${props.match.path}/evidence`} component={EvidenceView} exact={true} />
                   <Route path={`${props.match.path}/exploit`} component={ExploitView} exact={true} />
                   <Route path={`${props.match.path}/tracking`} render={renderTracking} exact={true} />
                   <Route path={`${props.match.path}/records`} component={RecordsView} exact={true} />

@@ -3,7 +3,10 @@
  * Disabling this rule is necessary for accessing render props from
  * apollo components
  */
+import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Mutation, MutationFn, Query, QueryResult } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
@@ -18,7 +21,10 @@ import { RouteComponentProps } from "react-router";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
+import { msgError } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
+import { validEvidenceImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
 import styles from "./index.css";
 import { GET_FINDING_EVIDENCES, UPDATE_DESCRIPTION_MUTATION, UPDATE_EVIDENCE_MUTATION } from "./queries";
@@ -27,6 +33,14 @@ type EventEvidenceProps = RouteComponentProps<{ findingId: string }>;
 
 const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): JSX.Element => {
   const { findingId } = props.match.params;
+
+  const onMount: (() => void) = (): void => {
+    mixpanel.track("FindingEvidence", {
+      Organization: (window as Window & { userOrganization: string }).userOrganization,
+      User: (window as Window & { userName: string }).userName,
+    });
+  };
+  React.useEffect(onMount, []);
 
   const [isEditing, setEditing] = React.useState(false);
   const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };
@@ -91,6 +105,22 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
             refetch()
               .catch();
           };
+          const handleUpdateError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
+            hidePreloader();
+            updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+              switch (message) {
+                case "Exception - Invalid File Size":
+                  msgError(translate.t("proj_alerts.file_size"));
+                  break;
+                case "Exception - Invalid File Type":
+                  msgError(translate.t("project.events.form.wrong_image_type"));
+                  break;
+                default:
+                  msgError(translate.t("proj_alerts.error_textsad"));
+                  rollbar.error("An error occurred updating event evidence", updateError);
+              }
+            });
+          };
 
           const { userRole } = (window as typeof window & { userRole: string });
           const canEdit: boolean = _.includes(["admin", "analyst"], userRole);
@@ -116,22 +146,26 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                 : evidenceImages.map((evidence: IEvidenceItem, index: number): JSX.Element => (
                   <Mutation mutation={UPDATE_DESCRIPTION_MUTATION} onCompleted={handleUpdateResult}>
                     {(updateDescription: MutationFn): React.ReactNode => (
-                      <Mutation mutation={UPDATE_EVIDENCE_MUTATION}>
+                      <Mutation mutation={UPDATE_EVIDENCE_MUTATION} onError={handleUpdateError}>
                         {(updateEvidence: MutationFn): React.ReactNode => {
 
                           const handleUpdate: ((values: { description: string; filename: FileList }) => void) = (
                             values: { description: string; filename: FileList },
                           ): void => {
-                            showPreloader();
                             setEditing(false);
 
-                            if (_.isUndefined(values.filename) && !_.isEmpty(evidenceImages[index].url)) {
-                              updateDescription({
-                                variables: {
-                                  description: values.description, field: `evidence${index}_description`, findingId,
-                                },
-                              })
-                                .catch();
+                            if (_.isUndefined(values.filename)) {
+                              if (_.isEmpty(evidenceImages[index].url)) {
+                                msgError(translate.t("proj_alerts.no_file_selected"));
+                              } else {
+                                showPreloader();
+                                updateDescription({
+                                  variables: {
+                                    description: values.description, field: `evidence${index}_description`, findingId,
+                                  },
+                                })
+                                  .catch();
+                              }
                             } else {
                               updateEvidence({
                                 variables: { evidenceId: index, file: values.filename[0], findingId },
@@ -174,6 +208,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                               name={`evidence${index}`}
                               onClick={openImage}
                               onUpdate={handleUpdate}
+                              validate={validEvidenceImage}
                             />
                           );
                         }}
