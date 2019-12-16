@@ -25,10 +25,12 @@ interface IConfirmDialogDispatchProps {
 interface IConfirmDialogBaseProps {
   children?: React.ReactNode;
   closeOnProceed?: boolean;
+  message?: string;
   name: string;
+  onlyProceed?: boolean;
   title: string;
   onNotProceed?(): void;
-  onProceed(): void;
+  onProceed?(): void;
 }
 
 type IConfirmDialogProps = IConfirmDialogBaseProps & (IConfirmDialogStateProps & IConfirmDialogDispatchProps);
@@ -41,7 +43,9 @@ export const confirmDialog: React.FC<IConfirmDialogProps> = (props: IConfirmDial
     props.onClose();
   };
   const handleProceed: (() => void) = (): void => {
-    props.onProceed();
+    if (props.onProceed !== undefined) {
+      props.onProceed();
+    }
     if (props.closeOnProceed === true) {
       props.onClose();
     }
@@ -54,9 +58,10 @@ export const confirmDialog: React.FC<IConfirmDialogProps> = (props: IConfirmDial
         open={props.isOpen}
         footer={
           <ButtonToolbar className="pull-right">
-            <Button onClick={handleClose}>
-              {translate.t("confirmmodal.cancel")}
-            </Button>
+            {props.onlyProceed === undefined ?
+              <Button onClick={handleClose}>
+                {translate.t("confirmmodal.cancel")}
+              </Button> : undefined}
             <Button
               bsStyle="primary"
               onClick={handleProceed}
@@ -68,7 +73,7 @@ export const confirmDialog: React.FC<IConfirmDialogProps> = (props: IConfirmDial
       >
         <Row>
           <Col md={12}>
-            <p>{translate.t("confirmmodal.message")}</p>
+            <p>{props.message === undefined ? translate.t("confirmmodal.message") : props.message}</p>
             {props.children}
           </Col>
         </Row>

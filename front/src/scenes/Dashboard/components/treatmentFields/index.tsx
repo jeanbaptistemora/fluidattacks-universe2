@@ -1,29 +1,37 @@
 import _ from "lodash";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Checkbox, Col, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
+import { ConfirmDialog } from "../../../../components/ConfirmDialog";
+import store from "../../../../store/index";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { formatDropdownField } from "../../../../utils/formatHelpers";
 import { dateField, dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { isLowerDate, isValidDate, isValidVulnSeverity, numeric, required } from "../../../../utils/validations";
+import { openConfirmDialog } from "../../actions";
 import { EditableField } from "../../components/EditableField";
 import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
 
 type renderFormFieldsFn = ((props: IDescriptionViewProps) => JSX.Element);
+const openDialog: (() => void) = (): void => {
+  store.dispatch(openConfirmDialog("advertisement"));
+};
 
 const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): JSX.Element => {
     const formTreatmentValue: string = !_.isUndefined(props.formValues.treatmentVuln) ?
     props.formValues.treatmentVuln : props.formValues.treatment;
     const hasBts: boolean = !_.isEmpty(props.dataset.btsUrl);
     const isNotEditable: boolean = props.isEditing && props.userRole === "customer";
+    const treatmentAccepted: boolean = formTreatmentValue === "ACCEPTED";
     const changeRender: boolean = props.isEditing && (formTreatmentValue === "IN PROGRESS" ||
-    formTreatmentValue === "ACCEPTED");
+    treatmentAccepted);
     const shouldRender: boolean = !props.isEditing && (formTreatmentValue === "IN PROGRESS" ||
     props.dataset.treatment === "ACCEPTED");
     const isEditable: boolean = props.isEditing && !props.isTreatmentModal;
     const shouldRenderField: boolean = shouldRender || changeRender;
 
+    /* tslint:disable-next-line cyclomatic-complexity Necessary because this function has a complexity of 21 > 20 */
     const renderVulnFields: (() => JSX.Element) = (): JSX.Element => (
       <React.Fragment>
         <Col md={6} sm={12} xs={12}>
@@ -53,7 +61,7 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
     return(
     <React.Fragment>
       <Row>
-        <Col md={6} sm={12} xs={12}>
+        <Col md={6} sm={8} xs={12}>
           <EditableField
             component={dropdownField}
             currentValue={translate.t(formatDropdownField(props.dataset.treatment))}
@@ -69,15 +77,33 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
             <option value="IN PROGRESS">{translate.t("search_findings.tab_description.treatment.in_progress")}</option>
           </EditableField>
         </Col>
+        {/* tslint:disable-next-line jsx-no-multiline-js Necessary for conditionals into JSX Elements */}
+        {treatmentAccepted ?
+          <Col md={6} sm={4} xs={4} hidden={true}>
+            <Checkbox
+              checked={false}
+              onClick={openDialog}
+            >
+              {translate.t("search_findings.tab_description.checkbox_accepted")}
+            </Checkbox>
+          </Col>
+          : undefined}
+        <ConfirmDialog
+          closeOnProceed={true}
+          name="advertisement"
+          message={translate.t("search_findings.tab_description.approval_message")}
+          onlyProceed={true}
+          title={translate.t("search_findings.tab_description.approval_title")}
+        />
         {shouldRenderField && props.isTreatmentModal ?
           <Col md={6} sm={12} xs={12}>
             <EditableField
               component={dropdownField/* tslint:disable-next-line jsx-no-multiline-js */}
-              currentValue={formTreatmentValue === "ACCEPTED" || isNotEditable ? !props.isEditing ?
+              currentValue={treatmentAccepted || isNotEditable ? !props.isEditing ?
                 props.dataset.treatmentManager : props.currentUserEmail : props.dataset.treatmentManager}
               label={translate.t("search_findings.tab_description.treatment_mgr")}
               name={"treatmentManager"/* tslint:disable-next-line jsx-no-multiline-js */}
-              renderAsEditable={props.userRole === "customeradmin" && formTreatmentValue !== "ACCEPTED" ?
+              renderAsEditable={props.userRole === "customeradmin" && !treatmentAccepted ?
                 props.isEditing : false}
               type="text"
               validate={[...formTreatmentValue === "IN PROGRESS" ? [required] : []]}
@@ -126,7 +152,7 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
               renderAsEditable={isEditable}
               type="date"
               validate={[isValidDate, isLowerDate]}
-              visible={(formTreatmentValue === "ACCEPTED")}
+              visible={(treatmentAccepted)}
             />
           </Col>
         </Row>
