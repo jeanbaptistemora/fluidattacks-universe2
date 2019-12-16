@@ -69,3 +69,5 @@ parser-preset.js
 
 # Setuptools
 django-apps/**/*.egg-info
+django-apps/**/build
+django-apps/**/dist
