@@ -1,30 +1,139 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
+import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
-import React from "react";
-import { component as EvidenceView } from "./index";
+// tslint:disable-next-line: no-import-side-effect
+import "isomorphic-fetch";
+import _ from "lodash";
+import * as React from "react";
+// tslint:disable-next-line: no-submodule-imports
+import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
+// tslint:disable-next-line: no-submodule-imports
+import { act } from "react-dom/test-utils";
+import { RouteComponentProps } from "react-router";
+import wait from "waait";
+import { EvidenceView } from "./newIndex";
+import { GET_FINDING_EVIDENCES } from "./queries";
 
 configure({ adapter: new ReactSixteenAdapter() });
+describe("FindingEvidenceView", () => {
 
-describe("Evidence view", () => {
+  const mockProps: RouteComponentProps<{ findingId: string }> = {
+    history: {
+      action: "PUSH",
+      block: (): (() => void) => (): void => undefined,
+      createHref: (): string => "",
+      go: (): void => undefined,
+      goBack: (): void => undefined,
+      goForward: (): void => undefined,
+      length: 1,
+      listen: (): (() => void) => (): void => undefined,
+      location: { hash: "", pathname: "/", search: "", state: {} },
+      push: (): void => undefined,
+      replace: (): void => undefined,
+    },
+    location: { hash: "", pathname: "/", search: "", state: {} },
+    match: {
+      isExact: true,
+      params: { findingId: "413372600" },
+      path: "/",
+      url: "",
+    },
+  };
 
-  it("should return a function", () => {
+  const mocks: ReadonlyArray<MockedResponse> = [{
+    request: {
+      query: GET_FINDING_EVIDENCES,
+      variables: { findingId: "413372600" },
+    },
+    result: {
+      data: {
+        finding: {
+          evidence: {
+            animation: { description: "", url: "some_file.gif" },
+            evidence1: { description: "", url: "" },
+            evidence2: { description: "", url: "" },
+            evidence3: { description: "", url: "" },
+            evidence4: { description: "", url: "" },
+            evidence5: { description: "", url: "" },
+            exploitation: { description: "", url: "" },
+          },
+          id: "413372600",
+        },
+      },
+    },
+  }];
+
+  it("should return a fuction", () => {
     expect(typeof (EvidenceView))
       .toEqual("function");
   });
 
-  it("should render lightbox", () => {
-    const wrapper: ShallowWrapper = shallow(
-      <EvidenceView
-        canEdit={true}
-        currentIndex={0}
-        findingId="438679960"
-        images={[{ description: "Test evidence", url: "https://test.com/test.png" }]}
-        isEditing={false}
-        isImageOpen={true}
-      />,
+  it("should render a component", async () => {
+    const wrapper: ReactWrapper = mount(
+      <MockedProvider mocks={[]} addTypename={false}>
+        <EvidenceView {...mockProps} />
+      </MockedProvider>,
     );
+    await act(async () => { await wait(0); });
+    expect(wrapper)
+      .toHaveLength(1);
+  });
 
-    expect(wrapper.find("ReactImageLightbox").length)
-      .toEqual(1);
+  it("should render empty UI", async () => {
+    const emptyMocks: ReadonlyArray<MockedResponse> = [{
+      request: {
+        query: GET_FINDING_EVIDENCES,
+        variables: { findingId: "413372600" },
+      },
+      result: {
+        data: {
+          finding: {
+            evidence: {
+              animation: { description: "", url: "" },
+              evidence1: { description: "", url: "" },
+              evidence2: { description: "", url: "" },
+              evidence3: { description: "", url: "" },
+              evidence4: { description: "", url: "" },
+              evidence5: { description: "", url: "" },
+              exploitation: { description: "", url: "" },
+            },
+            id: "413372600",
+          },
+        },
+      },
+    }];
+    const wrapper: ReactWrapper = mount(
+      <MockedProvider mocks={emptyMocks} addTypename={false}>
+        <EvidenceView {...mockProps} />
+      </MockedProvider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(wrapper.text())
+      .toContain("There are no evidences");
+  });
+
+  it("should render image", async () => {
+    const wrapper: ReactWrapper = mount(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <EvidenceView {...mockProps} />
+      </MockedProvider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(wrapper.containsMatchingElement(<img />))
+      .toBe(true);
+  });
+
+  it("should render image lightbox", async () => {
+    const wrapper: ReactWrapper = mount(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <EvidenceView {...mockProps} />
+      </MockedProvider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    wrapper.find("img")
+      .at(0)
+      .simulate("click");
+    await act(async () => { wrapper.update(); });
+    expect(wrapper.find("ReactImageLightbox"))
+      .toHaveLength(1);
   });
 });
