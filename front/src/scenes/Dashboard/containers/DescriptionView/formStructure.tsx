@@ -4,7 +4,6 @@ import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { default as globalStyle } from "../../../../styles/global.css";
 import {
   formatCweUrl,
-  formatDropdownField,
   formatFindingType,
 } from "../../../../utils/formatHelpers";
 import { dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
@@ -67,67 +66,6 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
             validate={[required, validDraftTitle]}
             visible={props.isEditing && _.includes(["admin", "analyst"], props.userRole)}
           />
-        </Col>
-      </Row>
-      <Row>
-        <Col md={6} sm={12} xs={12}>
-          <EditableField
-            component={dropdownField}
-            currentValue={translate.t(formatDropdownField(props.dataset.scenario))}
-            label={translate.t("search_findings.tab_description.scenario.title")}
-            name="scenario"
-            renderAsEditable={props.isEditing}
-            validate={[required]}
-            visible={validateEmptyField}
-          >
-            <option value="" selected={true} />
-            <option value="ANONYMOUS_INTERNET">
-              {translate.t("search_findings.tab_description.scenario.anon_inter")}
-            </option>
-            <option value="ANONYMOUS_INTRANET">
-              {translate.t("search_findings.tab_description.scenario.anon_intra")}
-            </option>
-            <option value="AUTHORIZED_USER_EXTRANET">
-              {translate.t("search_findings.tab_description.scenario.auth_extra")}
-            </option>
-            <option value="UNAUTHORIZED_USER_EXTRANET">
-              {translate.t("search_findings.tab_description.scenario.unauth_extra")}
-            </option>
-            <option value="AUTHORIZED_USER_INTERNET">
-              {translate.t("search_findings.tab_description.scenario.auth_inter")}
-            </option>
-            <option value="UNAUTHORIZED_USER_INTERNET">
-              {translate.t("search_findings.tab_description.scenario.unauth_inter")}
-            </option>
-            <option value="AUTHORIZED_USER_INTRANET">
-              {translate.t("search_findings.tab_description.scenario.auth_intra")}
-            </option>
-            <option value="UNAUTHORIZED_USER_INTRANET">
-              {translate.t("search_findings.tab_description.scenario.unauth_intra")}
-            </option>
-          </EditableField>
-        </Col>
-        <Col md={6} sm={12} xs={12}>
-          <EditableField
-            component={dropdownField}
-            currentValue={translate.t(formatDropdownField(props.dataset.actor))}
-            label={translate.t("search_findings.tab_description.actor.title")}
-            name="actor"
-            renderAsEditable={props.isEditing}
-            validate={[required]}
-            visible={validateEmptyField}
-          >
-            <option value="" selected={true} />
-            <option value="ANYONE_INTERNET">{translate.t("search_findings.tab_description.actor.any_internet")}</option>
-            <option value="ANY_CUSTOMER">{translate.t("search_findings.tab_description.actor.any_customer")}</option>
-            <option value="SOME_CUSTOMERS">{translate.t("search_findings.tab_description.actor.some_customer")}</option>
-            <option value="ANYONE_WORKSTATION">
-              {translate.t("search_findings.tab_description.actor.any_station")}
-            </option>
-            <option value="ANY_EMPLOYEE">{translate.t("search_findings.tab_description.actor.any_employee")}</option>
-            <option value="SOME_EMPLOYEES">{translate.t("search_findings.tab_description.actor.some_employee")}</option>
-            <option value="ONE_EMPLOYEE">{translate.t("search_findings.tab_description.actor.one_employee")}</option>
-          </EditableField>
         </Col>
       </Row>
       <Row>
