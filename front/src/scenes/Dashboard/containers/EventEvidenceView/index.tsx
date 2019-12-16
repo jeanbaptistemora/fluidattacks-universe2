@@ -10,6 +10,12 @@ import React from "react";
 import { Mutation, MutationFn, Query, QueryResult } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import Lightbox from "react-image-lightbox";
+/* tslint:disable-next-line:no-import-side-effect no-submodule-imports
+ * Disabling this two rules is necessary for
+ * allowing the import of default styles that ReactImageLightbox needs
+ * to display properly even if some of them are overridden later
+ */
+import "react-image-lightbox/style.css";
 import { RouteComponentProps } from "react-router";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
@@ -118,12 +124,12 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                   onError={handleUpdateError}
                 >
                   {(updateEvidence: MutationFn): React.ReactNode => {
-                    const handleUpdate: ((values: { evidence_filename: FileList }) => void) = (
-                      values: { evidence_filename: FileList },
+                    const handleUpdate: ((values: { filename: FileList }) => void) = (
+                      values: { filename: FileList },
                     ): void => {
                       showPreloader();
                       updateEvidence({
-                        variables: { eventId, evidenceType: "IMAGE", file: values.evidence_filename[0] },
+                        variables: { eventId, evidenceType: "IMAGE", file: values.filename[0] },
                       })
                         .catch();
                       setEditing(false);
@@ -152,12 +158,12 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                   onError={handleUpdateError}
                 >
                   {(updateEvidence: MutationFn): React.ReactNode => {
-                    const handleUpdate: ((values: { file_filename: FileList }) => void) = (
-                      values: { file_filename: FileList },
+                    const handleUpdate: ((values: { filename: FileList }) => void) = (
+                      values: { filename: FileList },
                     ): void => {
                       showPreloader();
                       updateEvidence({
-                        variables: { eventId, evidenceType: "FILE", file: values.file_filename[0] },
+                        variables: { eventId, evidenceType: "FILE", file: values.filename[0] },
                       })
                         .catch();
                       setEditing(false);

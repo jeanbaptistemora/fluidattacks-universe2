@@ -25,10 +25,6 @@ interface IEvidenceImageProps {
   onUpdate(values: {}): void;
 }
 
-const renderDescriptionField: ((name: string) => JSX.Element) = (name: string): JSX.Element => (
-  <Field name={`${name}_description`} component={textAreaField} validate={[required]} />
-);
-
 const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvidenceImageProps): JSX.Element => {
   const handleSubmit: ((values: {}) => void) = (values: {}): void => { props.onUpdate(values); };
 
@@ -36,18 +32,20 @@ const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvide
     <GenericForm
       name={props.name}
       onSubmit={handleSubmit}
-      initialValues={{ [`${props.name}_description`]: props.description }}
+      initialValues={{ description: props.description }}
     >
       {({ pristine, submitting }: InjectedFormProps): JSX.Element => (
         <React.Fragment>
           <Field
-            name={`${props.name}_filename`}
+            name="filename"
             id={props.name}
             component={fileInputField}
             accept={props.acceptedMimes}
             validate={props.validate}
           />
-          {props.isDescriptionEditable ? renderDescriptionField(props.name) : <p>{props.description}</p>}
+          {props.isDescriptionEditable
+            ? <Field name="description" component={textAreaField} validate={[required]} />
+            : <p>{props.description}</p>}
           <Button bsStyle="success" block={true} type="submit" disabled={pristine || submitting}>
             <FluidIcon icon="loading" />
             &nbsp;{translate.t("search_findings.tab_evidence.update")}

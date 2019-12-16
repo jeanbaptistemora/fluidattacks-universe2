@@ -88,7 +88,7 @@ describe("Evidence image", () => {
     expect(submitButton.prop<boolean>("disabled"))
       .toBe(true);
     wrapper.find("textarea")
-      .find({ name: "evidence1_description" })
+      .find({ name: "description" })
       .simulate("change", { target: { value: "New description" } });
     wrapper.find("form")
       .simulate("submit");
