@@ -15,7 +15,8 @@ data "aws_iam_policy_document" "integrates-prod-kms-policy-data" {
     effect  = "Allow"
     actions = ["kms:*"]
     resources = [
-      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/fi_binaryalert*"
+      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/fi_binaryalert*",
+      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/integrates-prod-*"
     ]
   }
 }
