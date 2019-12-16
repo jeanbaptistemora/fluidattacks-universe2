@@ -34,6 +34,12 @@ def test_network_acls_allow_all_ingress_traffic_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_network_acls_allow_all_egress_traffic_open():
+    """Search network ACLs that allow all egress traffic."""
+    assert vpc.network_acls_allow_all_egress_traffic(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #
@@ -41,4 +47,10 @@ def test_network_acls_allow_all_ingress_traffic_open():
 def test_network_acls_allow_all_ingress_traffic_closed():
     """Search network ACLs that allow all ingress traffic."""
     assert vpc.network_acls_allow_all_ingress_traffic(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_BAD).is_unknown()
+
+
+def test_network_acls_allow_all_ingress_egress_closed():
+    """Search network ACLs that allow all egress traffic."""
+    assert vpc.network_acls_allow_all_egress_traffic(
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_BAD).is_unknown()

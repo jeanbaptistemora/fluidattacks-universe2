@@ -40,8 +40,10 @@ def _network_acls_allow_all_traffic(network_acls: dict, direction: str,
     egress = bool(direction == 'egress')
     success = []
     for rule in network_acls:
-        egress = list(filter(lambda x: egress == x['Egress'], rule['Entries']))
-        if egress and _acl_rule_is_public(egress[0], False, action):
+        egress_rules = list(
+            filter(lambda x: egress == x['Egress'], rule['Entries']))
+        if egress_rules and _acl_rule_is_public(egress_rules[0], egress,
+                                                action):
             success.append(rule['NetworkAclId'])
     return success
 
@@ -64,9 +66,9 @@ def network_acls_allow_all_ingress_traffic(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    msg_open: str = 'Network ACLs allow all ingress traffic foll al ports.'
+    msg_open: str = 'Network ACLs allow all ingress traffic for all ports.'
     msg_closed: str = \
-        'Network ACLs do not allow all ingress traffic foll al ports.'
+        'Network ACLs do not allow all ingress traffic for all ports.'
     vulns, safes = [], []
 
     network_acls = aws.run_boto3_func(
@@ -82,6 +84,53 @@ def network_acls_allow_all_ingress_traffic(key_id: str,
     safe_ids = set(map(lambda x: x['NetworkAclId'],
                        network_acls)) - set(vuln_ids)
     message = 'do not allow all ingress traffic for all ports.'
+    safes = [(i, message) for i in safe_ids]
+    vulns = [(i, message) for i in vuln_ids]
+
+    return _get_result_as_tuple(
+        service='VPC',
+        objects='Network ACLs',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def network_acls_allow_all_egress_traffic(key_id: str,
+                                          secret: str,
+                                          retry: bool = True) -> tuple:
+    """
+    Check if network ACLs allow all egress traffic for all ports.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are network ACLs that allow all
+                egress traffic.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Network ACLs allow all egress traffic for all ports.'
+    msg_closed: str = \
+        'Network ACLs do not allow all egress traffic for all ports.'
+    vulns, safes = [], []
+
+    network_acls = aws.run_boto3_func(key_id=key_id,
+                                      secret=secret,
+                                      service='ec2',
+                                      func='describe_network_acls',
+                                      param='NetworkAcls',
+                                      retry=retry)
+
+    vuln_ids = _network_acls_allow_all_traffic(
+        network_acls, 'egress', 'allow')
+    safe_ids = set(
+        map(lambda x: x['NetworkAclId'], network_acls)) - set(vuln_ids)
+    message = 'do not allow all egress traffic for all ports.'
     safes = [(i, message) for i in safe_ids]
     vulns = [(i, message) for i in vuln_ids]
 
