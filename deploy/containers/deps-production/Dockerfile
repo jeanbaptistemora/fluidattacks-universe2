@@ -9,7 +9,7 @@ COPY "$PIP_REQUIREMENTS" /tmp
 COPY "$PATCHES/enable_redis_cluster_sessions.diff" /tmp
 RUN pip3 install --no-cache-dir -r /tmp/requirements.txt \
   && cat /tmp/enable_redis_cluster_sessions.diff \
-    | patch -d /usr/local/lib/python3.7/dist-packages/redis_sessions -p1
+  | patch -d /usr/local/lib/python3.7/dist-packages/redis_sessions -p1
 
 # npm deps. node_modules folders are stored in /npm-deps
 # make sure to copy them to the required folder if needed.
@@ -19,3 +19,5 @@ RUN npm install -g secure-spreadsheet@0.1.0 \
   && npm install --prefix /tmp/front --only=production \
   && npm cache clean --force \
   && mv /tmp/front/node_modules /npm-deps/front/
+
+CMD ["bash"]

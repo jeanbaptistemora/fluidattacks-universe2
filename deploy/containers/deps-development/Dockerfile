@@ -77,3 +77,5 @@ RUN npm install -g secure-spreadsheet@0.1.0 \
   && npm install --prefix /tmp/front --only=development \
   && npm cache clean --force \
   && mv /tmp/front/node_modules /npm-deps/front/
+
+CMD ["bash"]
