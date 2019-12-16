@@ -58,3 +58,16 @@ def test_clusters_public_close():
     with no_connection():
         assert redshift.has_public_clusters(
             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False).is_unknown()
+
+
+def test_has_encryption_disabled_close():
+    """Search Redshift clusters with encryption disabled."""
+    assert redshift.has_encryption_disabled(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_closed()
+
+    assert redshift.has_encryption_disabled(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_BAD, retry=False).is_unknown()
+
+    with no_connection():
+        assert redshift.has_encryption_disabled(
+            AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, retry=False).is_unknown()

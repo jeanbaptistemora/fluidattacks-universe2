@@ -45,3 +45,46 @@ def has_public_clusters(key_id: str, secret: str, retry: bool = True) -> tuple:
         service='RedShift', objects='clusters',
         msg_open=msg_open, msg_closed=msg_closed,
         vulns=vulns, safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def has_encryption_disabled(key_id: str,
+                            secret: str,
+                            retry: bool = True) -> tuple:
+    """
+    Check if Redshift clusters has encryption disabled.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are clusters with encryption disabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    clusters = aws.run_boto3_func(key_id=key_id,
+                                  secret=secret,
+                                  service='redshift',
+                                  func='describe_clusters',
+                                  param='Clusters',
+                                  retry=retry)
+
+    msg_open: str = 'Redshift clusters has encryption disabled.'
+    msg_closed: str = 'Redshift clusters has encryption enabled.'
+
+    vulns, safes = [], []
+
+    for cluster in clusters:
+        cluster_id = cluster['ClusterIdentifier']
+        (vulns if not cluster['Encrypted'] else safes).append(
+            (cluster_id, 'must has encryption enabled.'))
+
+    return _get_result_as_tuple(
+        service='RedShift',
+        objects='clusters',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
