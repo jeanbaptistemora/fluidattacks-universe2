@@ -10,11 +10,13 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
+import { selectFilter } from "react-bootstrap-table2-filter";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button/index";
 import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
-import { dataTable as DataTable } from "../../../../components/DataTable/index";
+import { DataTableNext } from "../../../../components/DataTableNext";
+import { changeFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
@@ -109,6 +111,12 @@ const containsRepeatedRepos: ((currRepo: IRepositoriesAttr[], repos: IRepositori
 
     return containsRepeated;
   };
+
+const selectOptions: optionSelectFilterProps[] = [
+  {value: "Active", label: "Active"},
+  {value: "Inactive", label: "Inactive"},
+];
+const clearSelection: string = "_CLEAR_";
 
 const containsRepeatedEnvs: ((currEnv: IEnvironmentsAttr[], environments: IEnvironmentsAttr[]) => boolean) =
   (currEnv: IEnvironmentsAttr[], environments: IEnvironmentsAttr[]): boolean => {
@@ -246,23 +254,27 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                 <hr/>
                 <Row>
                   <Col md={12} sm={12}>
-                    <DataTable
+                    <DataTableNext
+                      bordered={true}
                       dataset={tagsDataset}
-                      enableRowSelection={allowedRoles.includes(currUserRole)}
                       exportCsv={false}
                       search={false}
                       headers={[
                         {
                           dataField: "tagName",
                           header: translate.t("search_findings.tab_resources.tags_title"),
-                          isDate: false,
-                          isStatus: false,
                         },
                       ]}
                       id="tblTags"
                       pageSize={15}
+                      remote={false}
+                      striped={true}
+                      selectionMode={{
+                        clickToSelect: allowedRoles.includes(currUserRole),
+                        hideSelectColumn: !allowedRoles.includes(currUserRole),
+                        mode: "radio",
+                      }}
                       title={translate.t("search_findings.tab_resources.tags_title")}
-                      selectionMode="radio"
                     />
                   </Col>
                   <Col md={12}>
@@ -383,6 +395,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
 
 const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
   (props: IResourcesViewProps): JSX.Element => {
+    const [filterValueRepositories, setFilterValueRepositories] = React.useState(props.filters.stateRepositories);
     const handleAddRepoClick: (() => void) = (): void => { props.onOpenReposModal(); };
     const handleCloseReposModalClick: (() => void) = (): void => { props.onCloseReposModal(); };
     const projectName: string = props.match.params.projectName;
@@ -424,6 +437,8 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
             const handleMtUpdateRepoRes: ((mtResult: IUpdateRepoAttr) => void) = (mtResult: IUpdateRepoAttr): void => {
               if (!_.isUndefined(mtResult)) {
                 if (mtResult.updateResources.success) {
+                  refetch()
+                    .catch();
                   hidePreloader();
                   mixpanel.track(
                     "RemoveProjectRepo",
@@ -524,38 +539,51 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                         }
                       };
 
+                      const onFilterInputs: ((filterVal: string) => void) = (filterVal: string): void => {
+                        if (filterValueRepositories !== filterVal && clearSelection !== filterValueRepositories) {
+                          setFilterValueRepositories(filterVal);
+                          const newValues: {} = {...props.filters, stateRepositories: filterVal};
+                          props.onFilter(newValues);
+                        }
+                      };
+
+                      const clearFilterInputs: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
+                      (eventInput: React.FormEvent<HTMLInputElement>): void => {
+                        const inputValue: string = eventInput.currentTarget.value;
+                        if (inputValue.length === 0) {
+                          if (filterValueRepositories !== "") {
+                            setFilterValueRepositories(clearSelection);
+                            const newValues: {} = {...props.filters, stateRepositories: ""};
+                            props.onFilter(newValues);
+                          }
+                        }
+                      };
+
                       return(
                         <React.Fragment>
                         <Row>
                           <Col md={12} sm={12}>
-                            <DataTable
+                            <DataTableNext
+                              bordered={true}
                               dataset={repoDataset}
-                              selectionMode="radio"
-                              enableRowSelection={false}
                               exportCsv={true}
                               search={true}
                               headers={[
                                 {
                                   dataField: "protocol",
                                   header: translate.t("search_findings.repositories_table.protocol"),
-                                  isDate: false,
-                                  isStatus: false,
                                   width: "14%",
                                   wrapped: true,
                                 },
                                 {
                                   dataField: "urlRepo",
                                   header: translate.t("search_findings.repositories_table.repository"),
-                                  isDate: false,
-                                  isStatus: false,
                                   width: "56%",
                                   wrapped: true,
                                 },
                                 {
                                   dataField: "branch",
                                   header: translate.t("search_findings.repositories_table.branch"),
-                                  isDate: false,
-                                  isStatus: false,
                                   width: "18%",
                                   wrapped: true,
                                 },
@@ -563,15 +591,22 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                                   align: "center",
                                   changeFunction: allowedRoles.includes(currUserRole) ? handleUpdateRepo : undefined,
                                   dataField: "state",
+                                  filter: selectFilter({
+                                    defaultValue: filterValueRepositories,
+                                    onFilter: onFilterInputs,
+                                    onInput: clearFilterInputs,
+                                    options: selectOptions,
+                                  }),
+                                  formatter: allowedRoles.includes(currUserRole) ? changeFormatter : statusFormatter,
                                   header: translate.t("search_findings.repositories_table.state"),
-                                  isDate: false,
-                                  isStatus: allowedRoles.includes(currUserRole) ? false : true,
                                   width: "12%",
                                   wrapped: true,
                                 },
                               ]}
                               id="tblRepositories"
                               pageSize={15}
+                              remote={false}
+                              striped={true}
                               title={translate.t("search_findings.tab_resources.repositories_title")}
                             />
                           </Col>
@@ -654,6 +689,7 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
 
 const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
   (props: IResourcesViewProps): JSX.Element => {
+    const [filterValueEnvironments, setFilterValueEnvironments] = React.useState(props.filters.stateEnvironments);
     const handleAddEnvClick: (() => void) = (): void => { props.onOpenEnvsModal(); };
     const handleCloseEnvModalClick: (() => void) = (): void => { props.onCloseEnvsModal(); };
     const projectName: string = props.match.params.projectName;
@@ -692,6 +728,8 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
             const handleMtUpdateEnvRes: ((mtResult: IUpdateEnvAttr) => void) = (mtResult: IUpdateEnvAttr): void => {
               if (!_.isUndefined(mtResult)) {
                 if (mtResult.updateResources.success) {
+                  refetch()
+                    .catch();
                   hidePreloader();
                   mixpanel.track(
                     "RemoveProjectEnv",
@@ -787,38 +825,61 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                           props.onOpenChangeEnvStateModal();
                         }
                       };
+                      const onFilterInputs: ((filterVal: string) => void) = (filterVal: string): void => {
+                        if (filterValueEnvironments !== filterVal && clearSelection !== filterValueEnvironments) {
+                          setFilterValueEnvironments(filterVal);
+                          const newValues: {} = {...props.filters, stateEnvironments: filterVal};
+                          props.onFilter(newValues);
+                        }
+                      };
+
+                      const clearFilterInputs: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
+                      (eventInput: React.FormEvent<HTMLInputElement>): void => {
+                        const inputValue: string = eventInput.currentTarget.value;
+                        if (inputValue.length === 0) {
+                          if (filterValueEnvironments !== "") {
+                            setFilterValueEnvironments(clearSelection);
+                            const newValues: {} = {...props.filters, stateEnvironments: ""};
+                            props.onFilter(newValues);
+                          }
+                        }
+                      };
 
                       return (
                         <React.Fragment>
                         <Row>
                           <Col md={12} sm={12}>
-                            <DataTable
+                            <DataTableNext
+                              bordered={true}
                               dataset={envDataset}
-                              selectionMode="radio"
-                              enableRowSelection={false}
                               exportCsv={true}
                               search={true}
                               headers={[
                                 {
                                   dataField: "urlEnv",
                                   header: translate.t("search_findings.environment_table.environment"),
-                                  isDate: false,
-                                  isStatus: false,
                                   wrapped: true,
                                 },
                                 {
                                   align: "center",
                                   changeFunction: allowedRoles.includes(currUserRole) ? handleUpdateEnv : undefined,
                                   dataField: "state",
+                                  filter: selectFilter({
+                                    defaultValue: filterValueEnvironments,
+                                    onFilter: onFilterInputs,
+                                    onInput: clearFilterInputs,
+                                    options: selectOptions,
+                                  }),
+                                  formatter: allowedRoles.includes(currUserRole) ? changeFormatter : statusFormatter,
                                   header: translate.t("search_findings.repositories_table.state"),
-                                  isDate: false,
-                                  isStatus: allowedRoles.includes(currUserRole) ? false : true,
                                   width: "12%",
                                   wrapped: true,
                                 },
                               ]}
                               id="tblRepositories"
                               pageSize={15}
+                              remote={false}
+                              striped={true}
                               title={translate.t("search_findings.tab_resources.environments_title")}
                             />
                           </Col>
@@ -930,41 +991,36 @@ const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
         <hr/>
         <Row>
           <Col md={12} sm={12}>
-            <DataTable
+            <DataTableNext
+              bordered={true}
               dataset={props.files}
-              onClickRow={handleFileRowClick}
-              selectionMode="radio"
-              enableRowSelection={false}
               exportCsv={false}
               search={true}
               headers={[
                 {
                   dataField: "fileName",
                   header: translate.t("search_findings.files_table.file"),
-                  isDate: false,
-                  isStatus: false,
                   width: "25%",
                   wrapped: true,
                 },
                 {
                   dataField: "description",
                   header: translate.t("search_findings.files_table.description"),
-                  isDate: false,
-                  isStatus: false,
                   width: "50%",
                   wrapped: true,
                 },
                 {
                   dataField: "uploadDate",
                   header: translate.t("search_findings.files_table.upload_date"),
-                  isDate: false,
-                  isStatus: false,
                   width: "25%",
                   wrapped: true,
                 },
               ]}
               id="tblFiles"
               pageSize={15}
+              remote={false}
+              rowEvents={{onClick: handleFileRowClick}}
+              striped={true}
               title={translate.t("search_findings.tab_resources.files_title")}
             />
           </Col>
@@ -1030,6 +1086,7 @@ const mapStateToProps: MapStateToProps<IResourcesViewStateProps, IResourcesViewB
     envModal: state.dashboard.resources.envModal,
     files: state.dashboard.resources.files,
     filesModal: state.dashboard.resources.filesModal,
+    filters: state.dashboard.resources.filters,
     optionsModal: state.dashboard.resources.optionsModal,
     reposModal: state.dashboard.resources.reposModal,
     showUploadProgress: state.dashboard.resources.showUploadProgress,
@@ -1049,6 +1106,7 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
       onCloseTagsModal: (): void => { dispatch(actions.closeTagsModal()); },
       onDeleteFile: (fileName: string): void => { dispatch(actions.deleteFile(projectName, fileName)); },
       onDownloadFile: (fileName: string): void => { dispatch(actions.downloadFile(projectName, fileName)); },
+      onFilter: (newValues: {}): void => {dispatch(actions.changeFilterValues(newValues)); },
       onLoad: (): void => {
         dispatch(actions.loadResources(projectName));
       },

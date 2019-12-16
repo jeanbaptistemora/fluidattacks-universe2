@@ -47,6 +47,15 @@ export const loadResources: ((projectName: string) => ThunkResult<void>) =
         });
     };
 
+export const changeFilterValues: ((newValues: {}) => IActionStructure) = (newValues: {}): IActionStructure => ({
+    payload: {
+      filters: {
+        ...newValues,
+      },
+    },
+    type: actionTypes.CHANGE_FILTERS,
+  });
+
 export const openAddEnvModal: (() => IActionStructure) =
   (): IActionStructure => ({
     payload: undefined,

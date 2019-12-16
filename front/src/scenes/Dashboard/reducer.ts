@@ -52,6 +52,10 @@ export interface IDashboardState {
     filesModal: {
       open: boolean;
     };
+    filters: {
+      stateEnvironments: string;
+      stateRepositories: string;
+    };
     optionsModal: {
       open: boolean;
       rowInfo: { fileName: string };
@@ -161,6 +165,10 @@ const initialState: IDashboardState = {
     filesModal: {
       open: false,
     },
+    filters: {
+      stateEnvironments: "",
+      stateRepositories: "",
+    },
     optionsModal: {
       open: false,
       rowInfo: {fileName: ""},
@@ -215,6 +223,16 @@ actionMap[vulnerabilitiesActions.CHANGE_FILTERS] =
     ...state,
     vulnerabilities: {
       ...state.vulnerabilities,
+      filters: action.payload.filters,
+    },
+  });
+
+actionMap[resourcesActions.CHANGE_FILTERS] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    resources: {
+      ...state.resources,
       filters: action.payload.filters,
     },
   });
@@ -654,7 +672,12 @@ actionMap[projectActions.LOAD_PROJECT] =
 actionMap[projectActions.CLEAR_PROJECT_STATE] = (state: IDashboardState): IDashboardState => ({
   ...state,
   findings: initialState.findings,
-  resources: initialState.resources,
+  resources: {
+    ...initialState.resources,
+    filters: {
+      ...state.resources.filters,
+    },
+  },
   users: initialState.users,
 });
 

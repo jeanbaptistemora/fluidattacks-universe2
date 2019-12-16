@@ -18,3 +18,4 @@ export const OPEN_OPTIONS_MODAL: string = "dashboard/resources/options_modal/ope
 export const CLOSE_OPTIONS_MODAL: string = "dashboard/resources/options_modal/close";
 export const UPDATE_UPLOAD_PROGRESS: string = "dashboard/resources/add_modal/upload_progress";
 export const SHOW_UPLOAD_PROGRESS: string = "dashboard/resources/add_modal/show_upload_progress";
+export const CHANGE_FILTERS: string = "dashboard/resources/filter/change";

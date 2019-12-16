@@ -31,6 +31,10 @@ describe("Resources view", () => {
     filesModal: {
       open: false,
     },
+    filters: {
+      stateEnvironments: "",
+      stateRepositories: "",
+    },
     match: {
       isExact: true,
       params: {projectName: "TEST"},
@@ -44,6 +48,7 @@ describe("Resources view", () => {
     onCloseTagsModal: functionMock,
     onDeleteFile: functionMock,
     onDownloadFile: functionMock,
+    onFilter: functionMock,
     onLoad: functionMock,
     onOpenChangeEnvStateModal: functionMock,
     onOpenChangeRepoStateModal: functionMock,
@@ -178,20 +183,19 @@ describe("Resources view", () => {
     wrapper.update();
     const onerow: ReactWrapper = wrapper
                                  .find("BootstrapTable")
-                                 .find("tbody")
-                                 .find("TableRow")
-                                 .find("TableColumn");
+                                 .find("RowPureContent")
+                                 .find("Cell");
     const statuschecked: boolean | undefined = wrapper
                                                .find("BootstrapTable")
-                                               .find("tbody")
-                                               .find("TableColumn")
+                                               .find("RowPureContent")
+                                               .find("Cell")
                                                .at(3)
                                                .find("n")
                                                .prop("checked");
     const protocol: string = wrapper
                             .find("BootstrapTable")
-                            .find("tbody")
-                            .find("TableColumn")
+                            .find("RowPureContent")
+                            .find("Cell")
                             .at(0)
                             .find("td")
                             .text();
@@ -217,13 +221,12 @@ describe("Resources view", () => {
     wrapper.update();
     const onerow: ReactWrapper = wrapper
                                  .find("BootstrapTable")
-                                 .find("tbody")
-                                 .find("TableRow")
-                                 .find("TableColumn");
+                                 .find("RowPureContent")
+                                 .find("Cell");
     const statuschecked: boolean | undefined = wrapper
                                                .find("BootstrapTable")
-                                               .find("tbody")
-                                               .find("TableColumn")
+                                               .find("RowPureContent")
+                                               .find("Cell")
                                                .at(1)
                                                .find("n")
                                                .prop("checked");

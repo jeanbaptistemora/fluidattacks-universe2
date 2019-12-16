@@ -112,6 +112,7 @@ export interface IResourcesViewDispatchProps {
   onCloseTagsModal(): void;
   onDeleteFile(fileName: string): void;
   onDownloadFile(fileName: string): void;
+  onFilter(newValues: {}): void;
   onLoad(): void;
   onOpenChangeEnvStateModal(): void;
   onOpenChangeRepoStateModal(): void;
