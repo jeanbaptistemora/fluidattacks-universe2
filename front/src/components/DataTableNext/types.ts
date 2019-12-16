@@ -13,9 +13,11 @@ export interface ITableProps {
   headers: IHeader[];
   id: string;
   pageSize: number;
-  remote: RemoteProps;
-  search?: boolean;
+  remote: RemoteProps | boolean;
+  rowEvents?: {};
+  search: boolean;
   selectionMode?: SelectRowOptions;
+  striped?: boolean;
   tableBody?: string;
   tableHeader?: string;
   title?: string;

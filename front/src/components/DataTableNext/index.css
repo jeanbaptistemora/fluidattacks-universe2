@@ -2,21 +2,19 @@
   background-color: #898787;
   border: none;
   color: white;
-  text-align: center !important;
-  white-space: unset !important;
 }
 
-:local .tableHeader>thead>tr>th {
+:local .tableHeader > th {
   text-align: center !important;
   white-space: unset !important;
   font-weight: 400;
 }
 
-:local .tableBody>tbody>tr {
+:local .tableBody {
   cursor: pointer;
 }
 
-:local .tableBody>tbody>tr>td {
+:local .tableBody > td{
   vertical-align: middle;
 }
 
@@ -25,4 +23,14 @@
   font-size: 90%;
   font-weight: bold;
   padding: 4px 7px;
+}
+
+:local .searchBar {
+  composes: formControl from '../../utils/forms/index.css';
+  height: 30px;
+}
+
+:local .exportCsv {
+  composes: button from '../Button/index.css';
+  margin-bottom: 5px;
 }

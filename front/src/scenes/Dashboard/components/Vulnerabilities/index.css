@@ -11,6 +11,9 @@
 :local .tableHeader {
 	background-color: white;
 	color: #555555;
+}
+
+:local .tableHeader > th {
 	padding: 2px 3px !important;
 	white-space: unset !important;
 	text-align: left !important;

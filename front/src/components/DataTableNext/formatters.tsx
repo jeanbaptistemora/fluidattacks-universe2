@@ -1,3 +1,4 @@
+import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import React, { ReactElement } from "react";
 import { Label } from "react-bootstrap";
 import { FluidIcon } from "../FluidIcon";
@@ -11,10 +12,12 @@ export const statusFormatter: ((value: string) => ReactElement<Label>) =
     switch (value) {
       case "Closed":
       case "Solved":
+      case "Active":
         bgColor = "#31c0be";
         break;
       case "Open":
       case "Unsolved":
+      case "Inactive":
         bgColor = "#f22";
         break;
       case "Partially closed":
@@ -70,6 +73,27 @@ export const approveFormatter: ((value: string, row: { [key: string]: string }, 
       <a onClick={handleApproveFormatter}>
         <FluidIcon icon="verified" width="20px" height="20px" />
       </a>
+    );
+  };
+
+export const changeFormatter: ((value: string, row: { [key: string]: string }, rowIndex: number, key: IHeader)
+=> JSX.Element) =
+  (value: string, row: { [key: string]: string }, rowIndex: number, key: IHeader): JSX.Element => {
+  const handleOnChange: (() => void) = (): void => {
+    if (key.changeFunction !== undefined) {
+      key.changeFunction(row);
+    }
+  };
+
+  return (
+    <BootstrapSwitchButton
+      onChange={handleOnChange}
+      checked={!("state" in row) || row.state !== "Inactive"}
+      onstyle="danger"
+      onlabel="Active"
+      offlabel="Inactive"
+      style="btn-block"
+    />
     );
   };
 

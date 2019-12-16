@@ -118,8 +118,9 @@ interface DateFilterProps extends FilterProps<TODO> {
     defaultValue?: { date: Date, comparator: PredefinedComparatorTypes }
 }
 
+interface optionSelectFilterProps { value: string | number, label: string }
 interface SelectFilterProps extends FilterProps<TODO> {
-    options?: { value: string | number, label: string }[] | string[];
+    options?: optionSelectFilterProps[] | string[];
     withoutEmptyOption?: boolean;
 }
 
@@ -176,7 +177,7 @@ type Overlay = TODO
 // SELECT AND EXPAND
 
 interface SelectRowOptions { 
-    mode: 'checkbox',
+    mode: 'checkbox' | 'radio',
     clickToSelect: boolean,
     hideSelectColumn?: boolean,
     onSelect?: (row: any, isSelect: boolean) => void,
@@ -196,6 +197,7 @@ declare module 'react-bootstrap-table-next' {
         keyField: string;
         columns: Column[];
         data: TODO[];
+        headerClasses?: string;
         hover?: boolean;
         remote?: boolean | RemoteProps;
         bordered?: boolean;
@@ -210,6 +212,8 @@ declare module 'react-bootstrap-table-next' {
         pagination?: Pagination;
         onTableChange?: onTableChange;
         rowClasses?: string;
+        rowEvents?: {};
+        rowStyle?: {};
         selectRow?: SelectRowOptions
         expandRow?: ExpandRowOptions
     }
@@ -251,6 +255,49 @@ declare module "react-bootstrap-table2-paginator" {
     export default function paginationFactory(options?: PaginationProps): Pagination;
 }
 
+
 declare module "react-bootstrap-table2-overlay" {
     export default function overlayFactory(props?: OverlayOptions): Overlay;
+}
+
+declare module "react-bootstrap-table2-toolkit" {
+    import { ReactElement } from "react";
+    import { Column } from "react-bootstrap-table-next";
+
+    interface BaseProps {
+        columns: Column[];
+        data: Array<{}>;
+        keyField: string;
+    }
+    interface CsvProps {
+        onExport?(): void;
+    }
+    export interface ToolkitProviderProps {
+        baseProps: BaseProps;
+        columnToggleProps?: TODO;
+        csvProps: CsvProps;
+        searchProps: SearchProps;
+    }
+    interface CSVExportProps {
+        children?: {} | Array<{}>;
+        className?: string;
+        style?: {};
+    }
+    interface SearchFieldProps {
+        className?: string;
+        placeholder?: string;
+    }
+    interface SearchProps {
+        searchText?: string;
+        onClear?(): void;
+        onSearch?(): void;
+    }
+
+    export class Search {
+        static SearchBar(props: SearchProps | SearchFieldProps): ReactElement;
+    }
+    export class CSVExport {
+        static ExportCSVButton(props: CSVExportProps | CsvProps): ReactElement;
+    }
+    export default class ToolkitProvider extends React.Component<TODO, TODO> { }
 }

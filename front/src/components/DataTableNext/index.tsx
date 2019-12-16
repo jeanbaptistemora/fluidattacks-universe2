@@ -1,6 +1,6 @@
 import _ from "lodash";
 import React, { ReactElement } from "react";
-import { DropdownButton, MenuItem } from "react-bootstrap";
+import { Col, DropdownButton, MenuItem, Row } from "react-bootstrap";
 import BootstrapTable, { Column } from "react-bootstrap-table-next";
 /* tslint:disable-next-line:no-import-side-effect no-submodule-imports
 * Disabling this two rules is necessary for
@@ -10,7 +10,12 @@ import BootstrapTable, { Column } from "react-bootstrap-table-next";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import filterFactory from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import ToolkitProvider, { CSVExport, Search, ToolkitProviderProps } from "react-bootstrap-table2-toolkit";
+// tslint:disable-next-line:no-import-side-effect no-submodule-imports
+import "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css";
 import { default as globalStyle } from "../../styles/global.css";
+import translate from "../../utils/translations/translate";
+import { FluidIcon } from "../FluidIcon";
 import { default as style } from "./index.css";
 import { IHeader, ITableProps } from "./types";
 
@@ -22,8 +27,8 @@ const handleFormatter: ((value: string, row: { [key: string]: string }, rowIndex
   }
 };
 
-const renderGivenHeaders: ((arg1: IHeader[], columnHeaderStyle?: string) => Column[]) =
-  (headers: IHeader[], columnHeaderStyle?: string): Column[] => (headers.map((key: IHeader) => {
+const renderGivenHeaders: ((arg1: IHeader[]) => Column[]) =
+  (headers: IHeader[]): Column[] => (headers.map((key: IHeader) => {
     const isFormatter: boolean = key.formatter !== undefined;
 
     return {
@@ -32,8 +37,10 @@ const renderGivenHeaders: ((arg1: IHeader[], columnHeaderStyle?: string) => Colu
       filter: key.filter,
       formatExtraData: key,
       formatter: isFormatter ? handleFormatter : undefined,
-      headerClasses: columnHeaderStyle,
-      headerStyle: (): {} => ({ width: key.width }),
+      headerStyle: (): {} => ({
+        whiteSpace: key.wrapped === undefined ? "nowrap" : key.wrapped ? "unset" : "nowrap",
+        width: key.width,
+      }),
       hidden: (key.visible) === undefined ? key.visible : !key.visible,
       sort: true,
       text: key.header,
@@ -57,12 +64,24 @@ const renderDynamicHeaders: ((arg1: string[]) => Column[]) =
 const renderHeaders: ((arg1: ITableProps) => Column[]) =
   (props: ITableProps): Column[] => (
     props.headers.length > 0 ?
-    renderGivenHeaders(props.headers, props.tableHeader) :
+    renderGivenHeaders(props.headers) :
     renderDynamicHeaders(Object.keys(props.dataset[0]))
   );
 
-const renderTable: ((props: ITableProps, dataset: Array<{}>) => JSX.Element) =
-  (props: ITableProps, dataset: Array<{}>): JSX.Element => {
+const renderExportCsvButton: ((toolkitProps: ToolkitProviderProps) => JSX.Element) =
+(toolkitProps: ToolkitProviderProps): JSX.Element => {
+  const { ExportCSVButton } = CSVExport;
+
+  return (
+    <ExportCSVButton {...toolkitProps.csvProps} className={style.exportCsv}>
+      <FluidIcon icon="export" />
+      &nbsp;{translate.t("project.findings.exportCsv")}
+    </ExportCSVButton>
+  );
+};
+
+const renderTable: ((toolkitProps: ToolkitProviderProps, props: ITableProps, dataset: Array<{}>) => JSX.Element) =
+  (toolkitProps: ToolkitProviderProps, props: ITableProps, dataset: Array<{}>): JSX.Element => {
 
     const sizePerPageRenderer: ((renderer: SizePerPageRenderer) => JSX.Element) =
     (renderer: SizePerPageRenderer): JSX.Element => {
@@ -94,26 +113,51 @@ const renderTable: ((props: ITableProps, dataset: Array<{}>) => JSX.Element) =
       }
     };
     const isPaginationEnable: boolean = !_.isEmpty(dataset) && dataset.length > props.pageSize;
+    const { SearchBar } = Search;
 
     return (
       <div>
-        {_.isEmpty(props.title) ? undefined : <h3 className={globalStyle.title}>{props.title}</h3>}
+        <Row>
+          <Col lg={8} md={6} sm={6} xs={6}>
+          {props.exportCsv ? renderExportCsvButton(toolkitProps) : undefined}
+          </Col>
+          <Col lg={4} md={6} sm={6} xs={6}>
+            {props.search ? <SearchBar {...toolkitProps.searchProps} className={style.searchBar} /> : undefined}
+          </Col>
+        </Row>
         <BootstrapTable
+          {...toolkitProps.baseProps}
           bordered={props.bordered}
-          data={dataset}
-          keyField={!_.isEmpty(dataset) && dataset.length > 0 ? "uniqueId" : "_"}
-          columns={renderHeaders(props)}
           filter={filterFactory()}
+          headerClasses={props.tableHeader === undefined ? style.tableHeader : props.tableHeader}
           hover={true}
           onTableChange={handleTableChange}
           pagination={isPaginationEnable ? paginationFactory(paginationOptions) : undefined}
           remote={props.remote}
           rowClasses={props.tableBody === undefined ? style.tableBody : props.tableBody}
+          rowEvents={props.rowEvents}
           selectRow={props.selectionMode}
+          striped={props.striped}
         />
       </div>
     );
   };
+
+const renderToolKitProvider: ((props: ITableProps, dataset: Array<{}>) => JSX.Element) =
+  (props: ITableProps, dataset: Array<{}>): JSX.Element => (
+    <div>
+    {_.isEmpty(props.title) ? undefined : <h3 className={globalStyle.title}>{props.title}</h3>}
+    <ToolkitProvider
+      keyField={!_.isEmpty(dataset) && dataset.length > 0 ? "uniqueId" : "_"}
+      data={dataset}
+      columns={renderHeaders(props)}
+      search={props.search}
+      exportCSV={props.exportCsv}
+    >
+      {(toolkitProps: ToolkitProviderProps): JSX.Element => renderTable(toolkitProps, props, dataset)}
+    </ToolkitProvider>
+    </div>
+  );
 
 export const dataTableNext: React.FunctionComponent<ITableProps> = (props: ITableProps): JSX.Element => {
   let dataset: Array<{}>;
@@ -130,7 +174,7 @@ export const dataTableNext: React.FunctionComponent<ITableProps> = (props: ITabl
   return (
     <React.StrictMode>
       <div id={props.id}>
-        {_.isEmpty(dataset) && _.isEmpty(props.headers) ? <div/> : renderTable(props, dataset)}
+        {_.isEmpty(dataset) && _.isEmpty(props.headers) ? <div/> : renderToolKitProvider(props, dataset)}
       </div>
     </React.StrictMode>
   );
