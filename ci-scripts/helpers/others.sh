@@ -272,7 +272,7 @@ aws_login_sops() {
 
   # Log in to aws for resources
 
-  set -Eeuo pipefail
+  set -e # -Eeuo restriction temporary disable until figureout why it's causing failures
 
   local USER
 
