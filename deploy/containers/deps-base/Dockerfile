@@ -55,3 +55,5 @@ RUN curl -sL "$NODE_URL" | bash - \
   && rm -rf \
     /var/lib/apt/lists/* \
     /tmp/*
+
+CMD ["bash"]

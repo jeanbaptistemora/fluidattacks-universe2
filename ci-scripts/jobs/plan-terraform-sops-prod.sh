@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-plan_terraform_sops_production() {
+plan_terraform_sops_prod() {
 
   # Validates terraform plan
 

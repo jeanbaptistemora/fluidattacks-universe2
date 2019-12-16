@@ -11,7 +11,7 @@ plan_terraform_resources() {
 
   run_terraform \
     deploy/terraform \
-    $FS_S3_BUCKET \
+    "$FS_S3_BUCKET" \
     resources \
     plan
 }
