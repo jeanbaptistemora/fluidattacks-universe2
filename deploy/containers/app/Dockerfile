@@ -42,7 +42,6 @@ RUN rm -r /var/www/html \
   && chown -R www-data:www-data . \
   && a2enmod ssl \
   && echo "$SSL_CERT" | base64 -di > /etc/ssl/certs/fluidla.crt \
-  && mkdir /etc/ssl/private \
   && echo "$SSL_KEY" | base64 -di > /etc/ssl/private/fluidla.key \
   && echo "ServerTokens Prod" >> /etc/apache2/apache2.conf \
   && echo "ServerSignature Off" >> /etc/apache2/apache2.conf

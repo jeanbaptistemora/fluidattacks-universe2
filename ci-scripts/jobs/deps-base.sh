@@ -8,6 +8,7 @@ deps_base() {
   set -e
 
   # import functions
+  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/build-container.sh)
   . ci-scripts/helpers/check-changed.sh
   . ci-scripts/helpers/others.sh
 
@@ -27,10 +28,9 @@ deps_base() {
      || docker_tag_not_exists deps-base $CI_COMMIT_REF_NAME \
      || container_image_differs deps-base $CI_COMMIT_REF_NAME \
      || [ $SCHEDULE ]; then
-	  kaniko_build \
-	    "$NAME" \
-	    eph=true \
-	    cache=true
+    build_container \
+      "registry.gitlab.com/fluidattacks/integrates/$NAME:$CI_COMMIT_REF_NAME" \
+      deploy/containers/deps-base
   else
       echo "No relevant files for $NAME were modified. Skipping build."
   fi

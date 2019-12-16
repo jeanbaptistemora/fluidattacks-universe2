@@ -18,8 +18,8 @@ deps-mobile:
 
 deps-base:
   stage: deps-base
-  tags: [autoscaling-large]
-  image: fluidattacks/alpine-kaniko:latest
+  tags: [autoscaling]
+  image: fluidattacks/docker-bash:latest
   script:
     - ./ci-scripts/jobs/deps-base.sh
   interruptible: true
