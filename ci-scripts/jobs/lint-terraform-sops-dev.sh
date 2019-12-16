@@ -10,7 +10,8 @@ lint_terraform_sops_dev() {
 
   lint_terraform \
     deploy/sops/development/terraform \
-    fluidattacks-terraform-states-dev
+    fluidattacks-terraform-states-dev \
+    development
 
 }
 

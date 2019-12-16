@@ -12,6 +12,7 @@ plan_terraform_sops_production() {
   run_terraform \
     deploy/sops/production/terraform \
     fluidattacks-terraform-states-prod \
+    production \
     plan
 
 }

@@ -18,14 +18,16 @@ init_terraform() {
 
   local TARGET_DIR
   local BUCKET
+  local USER
 
   TARGET_DIR="$1"
   BUCKET="$2"
+  USER="$3"
 
   if [ "$TARGET_DIR" = 'deploy/terraform' ]; then
     aws_login_resources
   else
-    aws_login_sops
+    aws_login_sops "$USER"
   fi
 
   cd "$TARGET_DIR" || return 1
@@ -52,12 +54,14 @@ run_terraform() {
   local TARGET_DIR
   local BUCKET
   local COMMAND
+  local USER
 
   TARGET_DIR="$1"
   BUCKET="$2"
-  COMMAND="$3"
+  USER="$3"
+  COMMAND="$4"
 
-  init_terraform "$TARGET_DIR" "$BUCKET"
+  init_terraform "$TARGET_DIR" "$BUCKET" "$USER"
 
   cd "$TARGET_DIR" || return 1
 
@@ -92,11 +96,13 @@ lint_terraform() {
 
   local TARGET_DIR
   local BUCKET
+  local USER
 
   TARGET_DIR="$1"
   BUCKET="$2"
+  USER="$3"
 
-  init_terraform "$TARGET_DIR" "$BUCKET"
+  init_terraform "$TARGET_DIR" "$BUCKET" "$USER"
 
   cd "$TARGET_DIR" || return 1
 

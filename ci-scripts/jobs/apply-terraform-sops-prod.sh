@@ -12,6 +12,7 @@ apply_terraform_sops_prod() {
   run_terraform \
     deploy/sops/production/terraform \
     fluidattacks-terraform-states-prod \
+    production \
     apply
 }
 

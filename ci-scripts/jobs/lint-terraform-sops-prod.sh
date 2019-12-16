@@ -10,7 +10,8 @@ lint_terraform_sops_prod() {
 
   lint_terraform \
     deploy/sops/production/terraform \
-    fluidattacks-terraform-states-prod
+    fluidattacks-terraform-states-prod \
+    production
 
 }
 

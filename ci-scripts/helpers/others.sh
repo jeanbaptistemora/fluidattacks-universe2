@@ -272,19 +272,31 @@ aws_login_sops() {
 
   # Log in to aws for resources
 
-  set -e
+  set -Eeuo pipefail
+
+  local USER
+
+  USER="$1"
 
   export TF_VAR_aws_access_key
   export TF_VAR_aws_secret_key
   export AWS_ACCESS_KEY_ID
   export AWS_SECRET_ACCESS_KEY
 
-  if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
-    AWS_ACCESS_KEY_ID="$PROD_AWS_ACCESS_KEY_ID"
-    AWS_SECRET_ACCESS_KEY="$PROD_AWS_SECRET_ACCESS_KEY"
-  else
+  if [ "$USER"  == 'production' ]; then
+    if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
+      AWS_ACCESS_KEY_ID="$PROD_AWS_ACCESS_KEY_ID"
+      AWS_SECRET_ACCESS_KEY="$PROD_AWS_SECRET_ACCESS_KEY"
+    else
+      echo 'Not enough permissions for logging in as production'
+      return 1
+    fi
+  elif [ "$USER" == 'development' ]; then
     AWS_ACCESS_KEY_ID="$DEV_AWS_ACCESS_KEY_ID"
     AWS_SECRET_ACCESS_KEY="$DEV_AWS_SECRET_ACCESS_KEY"
+  else
+    echo 'No valid user was provided'
+    return 1
   fi
 
   TF_VAR_aws_access_key="$AWS_ACCESS_KEY_ID"

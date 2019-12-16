@@ -12,6 +12,7 @@ plan_terraform_sops_dev() {
   run_terraform \
     deploy/sops/development/terraform \
     fluidattacks-terraform-states-dev \
+    development \
     plan
 
 }
