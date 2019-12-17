@@ -4,7 +4,7 @@ plan_terraform_sops_dev() {
 
   # Validates terraform plan
 
-  set -e
+  set -Eeuo pipefail
 
   # import functions
   . ci-scripts/helpers/terraform.sh

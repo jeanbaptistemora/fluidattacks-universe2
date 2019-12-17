@@ -1,10 +1,10 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 apply_terraform_sops_dev() {
 
   # Builds terraform plan
 
-  set -e
+  set -Eeuo pipefail
 
   # import functions
   . ci-scripts/helpers/terraform.sh

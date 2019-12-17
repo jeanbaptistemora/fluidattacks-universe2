@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 reg_repo_id() {
 
@@ -238,7 +238,7 @@ app_version () {
 aws_login_resources() {
   # Log in to aws for resources
 
-  set -e
+  set -Eeuo pipefail
 
   vault_login
 
@@ -247,7 +247,7 @@ aws_login_resources() {
   export TF_VAR_aws_s3_evidences_bucket
   export TF_VAR_aws_s3_resources_bucket
 
-  if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
+  if [ "$CI_COMMIT_REF_NAME" == 'master' ]; then
     ENV_NAME='production'
   else
     ENV_NAME='development'
@@ -272,7 +272,7 @@ aws_login_sops() {
 
   # Log in to aws for resources
 
-  set -e # -Eeuo restriction temporary disable until figureout why it's causing failures
+  set -Eeuo pipefail
 
   local USER
 
@@ -284,7 +284,7 @@ aws_login_sops() {
   export AWS_SECRET_ACCESS_KEY
 
   if [ "$USER"  == 'production' ]; then
-    if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
+    if [ "$CI_COMMIT_REF_NAME" == 'master' ]; then
       AWS_ACCESS_KEY_ID="$PROD_AWS_ACCESS_KEY_ID"
       AWS_SECRET_ACCESS_KEY="$PROD_AWS_SECRET_ACCESS_KEY"
     else

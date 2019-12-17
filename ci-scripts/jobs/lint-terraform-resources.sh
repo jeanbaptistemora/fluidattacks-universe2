@@ -4,7 +4,7 @@ lint_terraform_resources() {
 
   # Does terraform lint
 
-  set -e
+  set -Eeuo pipefail
 
   . ci-scripts/helpers/terraform.sh
 
