@@ -213,7 +213,7 @@ class RemoveFiles(Mutation):
         if remove_file:
             resources.send_mail(project_name,
                                 user_email,
-                                files_data,
+                                [files_data],
                                 'removed',
                                 'file')
             success = True

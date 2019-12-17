@@ -979,7 +979,8 @@ const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
     const handleDownloadFileClick: (() => void) = (): void => {
       props.onDownloadFile(props.optionsModal.rowInfo.fileName);
     };
-    const handleFileRowClick: ((row: string) => void) = (row: string): void => { props.onOpenOptionsModal(row); };
+    const handleFileRowClick: ((event: React.FormEvent<HTMLButtonElement>, row: string) => void) =
+    (event: React.FormEvent<HTMLButtonElement>, row: string): void => { props.onOpenOptionsModal(row); };
 
     const handleAddFile: ((values: IResourcesViewProps["files"][0]) => void) = (
       values: IResourcesViewProps["files"][0]): void => {
