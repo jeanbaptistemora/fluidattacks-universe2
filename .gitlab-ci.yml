@@ -591,6 +591,37 @@ integrates-prod-terraform-apply:
   except:
     - schedules
 
+fluid-vpc-terraform-lint:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: test
+  needs: [build-builder]
+  script:
+    - ./ci-scripts/jobs/fluid-vpc-terraform-lint.sh
+  except:
+    - schedules
+
+fluid-vpc-terraform-plan:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: test
+  needs: [build-builder]
+  script:
+    - ./ci-scripts/jobs/fluid-vpc-terraform-plan.sh
+  except:
+    - schedules
+
+fluid-vpc-terraform-apply:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: deploy
+  script:
+    - ./ci-scripts/jobs/fluid-vpc-terraform-apply.sh
+  only:
+    - master
+  except:
+    - schedules
+
 integrates-prod-key-rotation:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
