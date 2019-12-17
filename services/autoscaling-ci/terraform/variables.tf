@@ -18,5 +18,5 @@ variable "autoscaling_ci_s3_cache_bucket" {
 #
 
 variable "autostaling_ci_vpc_id" {
-  default = "vpc-53ea4637"
+  default = "vpc-0ea1c7bd6be683d2d"
 }
