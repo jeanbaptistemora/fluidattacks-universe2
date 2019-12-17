@@ -10,7 +10,6 @@ deps_base() {
   # import functions
   . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/build-container.sh)
   . ci-scripts/helpers/check-changed.sh
-  . ci-scripts/helpers/others.sh
 
   local NAME
 
@@ -30,7 +29,7 @@ deps_base() {
      || [ $SCHEDULE ]; then
     build_container \
       "registry.gitlab.com/fluidattacks/integrates/$NAME:$CI_COMMIT_REF_NAME" \
-      deploy/containers/deps-base
+      "deploy/containers/$NAME"
   else
       echo "No relevant files for $NAME were modified. Skipping build."
   fi

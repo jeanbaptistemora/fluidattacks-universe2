@@ -2,12 +2,9 @@ ARG CI_COMMIT_REF_NAME
 
 FROM registry.gitlab.com/fluidattacks/integrates/deps-base:$CI_COMMIT_REF_NAME
 
-ARG PATCHES='deploy/containers/deps-production'
-ARG PIP_REQUIREMENTS='deploy/containers/deps-production/requirements.txt'
-
-COPY "$PIP_REQUIREMENTS" /tmp
-COPY "$PATCHES/enable_redis_cluster_sessions.diff" /tmp
-RUN pip3 install --no-cache-dir -r /tmp/requirements.txt \
+COPY requirements-production.txt /tmp
+COPY enable_redis_cluster_sessions.diff /tmp
+RUN pip3 install --no-cache-dir -r /tmp/requirements-production.txt \
   && cat /tmp/enable_redis_cluster_sessions.diff \
     | patch -d /usr/local/lib/python3.7/dist-packages/redis_sessions -p1
 
