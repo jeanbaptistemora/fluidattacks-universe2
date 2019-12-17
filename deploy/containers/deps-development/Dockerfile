@@ -7,6 +7,8 @@ ARG GECKO_DRIVER_URL='https://chromedriver.storage.googleapis.com/78.0.3904.105/
 ARG GOOGLE_CHROME_URL='https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
 ARG CHROME_SIGNING_KEY='https://dl.google.com/linux/linux_signing_key.pub'
 ARG DYNAMODB_LOCAL_URL='https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.tar.gz'
+ARG PIP_REQUIREMENTS_DEV='deploy/containers/deps-development/requirements.txt'
+ARG PIP_REQUIREMENTS_PROD='deploy/containers/deps-production/requirements.txt'
 ARG TERRAFORM_URL='https://releases.hashicorp.com/terraform/0.12.17/terraform_0.12.17_linux_amd64.zip'
 ARG TERRAFORM_LINT='https://github.com/wata727/tflint/releases/download/v0.12.1/tflint_linux_amd64.zip'
 ARG KUBECTL_URL='https://storage.googleapis.com/kubernetes-release/release/v1.16.2/bin/linux/amd64/kubectl'
@@ -56,8 +58,8 @@ RUN mkdir -p /usr/share/man/man1 \
   && a2enmod rewrite \
   && a2enmod substitute
 
-COPY requirements-development.txt /tmp/reqs_dev.txt
-COPY requirements-production.txt /tmp/reqs_prod.txt
+COPY "$PIP_REQUIREMENTS_DEV" /tmp/reqs_dev.txt
+COPY "$PIP_REQUIREMENTS_PROD" /tmp/reqs_prod.txt
 RUN pip3 install --no-cache-dir -r /tmp/reqs_prod.txt \
   && pip3 install --no-cache-dir -r /tmp/reqs_dev.txt
 
@@ -68,7 +70,7 @@ RUN pip3 install --no-cache-dir -r /tmp/reqs_prod.txt \
 # on top of it and finally, the new node_modules is moved to
 # /npm-deps again
 
-ADD package.json /tmp/front/package.json
+ADD front/package.json /tmp/front/package.json
 RUN npm install -g secure-spreadsheet@0.1.0 \
   && mkdir -p /npm-deps/front \
   && npm install --prefix /tmp/front --only=production \

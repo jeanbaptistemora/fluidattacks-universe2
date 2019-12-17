@@ -30,12 +30,10 @@ deps_production() {
      || docker_tag_not_exists deps-production $CI_COMMIT_REF_NAME \
      || container_image_differs deps-production $CI_COMMIT_REF_NAME \
      || [ $SCHEDULE ]; then
-    cp -r \
-      front/ \
-      deploy/containers/deps-production/
     build_container \
       "registry.gitlab.com/fluidattacks/integrates/$NAME:$CI_COMMIT_REF_NAME" \
-      "deploy/containers/$NAME" \
+      "$CI_PROJECT_DIR" \
+      -f "deploy/containers/$NAME/Dockerfile" \
     	--build-arg CI_COMMIT_REF_NAME="$CI_COMMIT_REF_NAME"
   else
       echo "No relevant files for $NAME were modified. Skipping build."
