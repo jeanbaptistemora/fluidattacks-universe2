@@ -55,7 +55,7 @@ build-lambdas:
 deps-production:
   stage: deps
   needs: [deps-base]
-  tags: [autoscaling-large]
+  tags: [autoscaling]
   image: fluidattacks/docker-bash:latest
   script:
     - ./ci-scripts/jobs/deps-production.sh
@@ -64,7 +64,7 @@ deps-production:
 deps-development:
   stage: deps
   needs: [deps-base]
-  tags: [autoscaling-large]
+  tags: [autoscaling]
   image: fluidattacks/docker-bash:latest
   script:
     - ./ci-scripts/jobs/deps-development.sh
@@ -72,13 +72,11 @@ deps-development:
 
 build-app:
   stage: build
-  tags: [autoscaling-large]
   needs: [deps-development,django-apps]
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [""]
+  tags: [autoscaling-large]
+  image: fluidattacks/docker-bash:latest
   script:
-    - sh ci-scripts/jobs/build-app.sh
+    - ./ci-scripts/jobs/build-app.sh
   retry: 1
   artifacts:
     expire_in: 1 day
