@@ -4,7 +4,6 @@ import * as actionType from "./actionTypes";
 import * as vulnerabilitiesActions from "./components/Vulnerabilities/actionTypes";
 import { IDescriptionViewProps } from "./containers/DescriptionView";
 import * as descriptionActions from "./containers/DescriptionView/actionTypes";
-import * as evidenceActions from "./containers/EvidenceView/actionTypes";
 import * as exploitActions from "./containers/ExploitView/actionTypes";
 import * as findingActions from "./containers/FindingContent/actionTypes";
 import * as homeActions from "./containers/HomeView/actionTypes";
@@ -528,64 +527,6 @@ actionMap[exploitActions.EDIT_EXPLOIT] =
       ...state.exploit,
       isEditing: !state.exploit.isEditing,
     },
-  });
-
-actionMap[evidenceActions.OPEN_EVIDENCE] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    evidence: {
-      ...state.evidence,
-      currentIndex: action.payload.imgIndex,
-      isImageOpen: true,
-    },
-  });
-
-actionMap[evidenceActions.CLOSE_EVIDENCE] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    evidence: {
-      ...state.evidence,
-      isImageOpen: false,
-    },
-  });
-
-actionMap[evidenceActions.MOVE_EVIDENCE] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    evidence: {
-      ...state.evidence,
-      currentIndex: action.payload.index,
-    },
-  });
-
-actionMap[evidenceActions.EDIT_EVIDENCE] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    evidence: {
-      ...state.evidence,
-      isEditing: action.payload.value,
-    },
-  });
-
-actionMap[evidenceActions.LOAD_EVIDENCE] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    evidence: {
-      ...state.evidence,
-      images: action.payload.images,
-    },
-  });
-
-actionMap[evidenceActions.CLEAR_EVIDENCE] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    evidence: initialState.evidence,
   });
 
 actionMap[descriptionActions.LOAD_DESCRIPTION] =

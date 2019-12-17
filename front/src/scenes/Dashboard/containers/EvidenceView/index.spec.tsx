@@ -10,7 +10,7 @@ import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 import { act } from "react-dom/test-utils";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
-import { EvidenceView } from "./newIndex";
+import { EvidenceView } from "./index";
 import { GET_FINDING_EVIDENCES } from "./queries";
 
 configure({ adapter: new ReactSixteenAdapter() });

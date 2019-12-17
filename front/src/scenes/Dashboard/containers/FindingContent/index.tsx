@@ -27,7 +27,7 @@ import { GenericForm } from "../../components/GenericForm";
 import { IDashboardState } from "../../reducer";
 import { CommentsView } from "../CommentsView/index";
 import { descriptionView as DescriptionView } from "../DescriptionView/index";
-import { EvidenceView } from "../EvidenceView/newIndex";
+import { EvidenceView } from "../EvidenceView/index";
 import { ExploitView } from "../ExploitView/index";
 import { loadProjectData } from "../ProjectContent/actions";
 import { RecordsView } from "../RecordsView/index";
