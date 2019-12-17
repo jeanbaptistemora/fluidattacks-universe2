@@ -1,6 +1,8 @@
 /* Webpack plugins */
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const path = require("path");
+const bucketName = 'fluidintegrates.static';
+const branchName = process.env.CI_COMMIT_REF_NAME || 'master';
 
 /* Webpack common module definition */
 module.exports = {
@@ -29,7 +31,7 @@ module.exports = {
         options: {
           name: '[hash].[ext]',
           outputPath: 'img/',
-          publicPath: 'assets/dashboard/img/'
+          publicPath: `https://s3.amazonaws.com/${bucketName}.${branchName}/assets/dashboard/img/`
         }
       }]
     }, {

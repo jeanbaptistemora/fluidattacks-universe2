@@ -36,6 +36,7 @@ newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 
 # Initialization of another modules must be after New Relic init
 from boto3.session import Session  # noqa: E402
+from botocore.exceptions import ClientError  # noqa: E402
 import rollbar  # noqa: E402
 
 SECRET_KEY = FI_DJANGO_SECRET_KEY
@@ -64,6 +65,7 @@ INSTALLED_APPS = [
     'analytical',
     'django_intercom',
     'graphene_django',
+    'storages',
     'backend'
 ]
 
@@ -234,17 +236,46 @@ LOGGING = {
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 MEDIA_ROOT = ''
 MEDIA_URL = ''
-STATIC_ROOT = 'app/assets/'
-STATIC_URL = '/assets/'
+AWS_AUTO_CREATE_BUCKET = True
+CI_COMMIT_REF_NAME = os.environ['CI_COMMIT_REF_NAME']
+STATIC_BUCKET_NAME = 'fluidintegrates.static'
+AWS_STORAGE_BUCKET_NAME = f'{STATIC_BUCKET_NAME}.{CI_COMMIT_REF_NAME}'
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'assets'
+AWS_QUERYSTRING_AUTH = False
+STATIC_URL = f'https://s3.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/'
+AWS_DEFAULT_ACL = 'public-read'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+CORS_CONFIGURATION = {
+    'CORSRules': [{
+        'AllowedHeaders': ['*'],
+        'AllowedMethods': ['GET', 'PUT', 'POST', 'HEAD'],
+        'AllowedOrigins': ['https://*.fluidattacks.com'],
+        'ExposeHeaders': ['GET', 'PUT', 'POST', 'HEAD'],
+        'MaxAgeSeconds': 3000
+    }]
+}
+S3_CLIENT = BOTO3_SESSION.client('s3')
+try:
+    S3_CLIENT.get_bucket_cors(Bucket=AWS_STORAGE_BUCKET_NAME)
+except ClientError as exc:
+    if exc.response['Error']['Code'] == 'NoSuchCORSConfiguration':
+        S3_CLIENT.put_bucket_cors(Bucket=AWS_STORAGE_BUCKET_NAME,
+                                  CORSConfiguration=CORS_CONFIGURATION)
+    else:
+        raise
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
 STATICFILES_DIRS = [
-    ('app', os.path.join(STATIC_ROOT, 'app')),
-    ('dashboard', os.path.join(STATIC_ROOT, 'dashboard')),
-    ('img', os.path.join(STATIC_ROOT, 'img')),
+    ('app', os.path.join(BASE_DIR, 'app', 'assets', 'app')),
+    ('dashboard', os.path.join(BASE_DIR, 'app', 'assets', 'dashboard')),
+    ('img', os.path.join(BASE_DIR, 'app', 'assets', 'img')),
 ]
 
 CRONJOBS = [

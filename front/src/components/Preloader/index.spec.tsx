@@ -1,6 +1,7 @@
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
+import { default as loadingAnim } from "../../resources/loading.gif";
 import { Preloader } from "./index";
 import { default as style } from "./index.css";
 
@@ -20,7 +21,7 @@ describe("Preloader", () => {
     const element: JSX.Element = (
       <div id="full_loader" className={style.loader}>
         <img
-          src="assets/img/loading.gif"
+          src={loadingAnim}
           width="100"
           height="100"
         />

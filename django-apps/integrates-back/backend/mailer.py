@@ -5,7 +5,6 @@ import boto3
 import botocore
 import rollbar
 
-from backend import util
 from backend.domain import user as user_domain
 
 from __init__ import (FI_MANDRILL_API_KEY, FI_TEST_PROJECTS,
@@ -100,20 +99,18 @@ def _send_mail(template_name, email_to, context, tags):
                 'api_key': API_KEY
             }
             dedup_id = project if project else 'newuser'
-            util.cloudwatch_log('mailer',
-                                (f'sending mail: {json.dumps(sqs_message)}'
-                                 'MessageGroupId={template_name}'
-                                 'MessageDeduplicationId={dedup_id}'))
+            rollbar.report_message((f'sending mail: {json.dumps(sqs_message)}'
+                                    'MessageGroupId={template_name}'
+                                    'MessageDeduplicationId={dedup_id}'))
             sqs.send_message(
                 QueueUrl=QUEUE_URL,
                 MessageBody=json.dumps(sqs_message),
                 MessageGroupId=template_name,
                 MessageDeduplicationId=dedup_id
             )
-            util.cloudwatch_log('mailer',
-                                (f'mail sent: {json.dumps(sqs_message)}'
-                                 'MessageGroupId={template_name}'
-                                 'MessageDeduplicationId={dedup_id}'))
+            rollbar.report_message((f'mail sent: {json.dumps(sqs_message)}'
+                                    'MessageGroupId={template_name}'
+                                    'MessageDeduplicationId={dedup_id}'))
         except (botocore.vendored.requests.exceptions.ConnectionError,
                 botocore.exceptions.ClientError) as exc:
             rollbar.report_message(exc.message)
