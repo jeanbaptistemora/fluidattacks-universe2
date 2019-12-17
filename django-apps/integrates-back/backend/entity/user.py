@@ -16,7 +16,10 @@ from django.core.validators import validate_email
 from backend.decorators import require_login, require_role, require_project_access
 from backend.domain import project as project_domain, user as user_domain
 from backend.services import (
-    get_user_role, is_customeradmin, has_responsibility, has_phone_number)
+    get_user_role, is_customeradmin, has_responsibility, has_phone_number,
+    has_access_to_project
+)
+from backend.exceptions import UserNotFound
 from backend.mailer import send_mail_access_granted
 
 from backend import util
@@ -34,7 +37,7 @@ class User(ObjectType):
     last_login = String()
     list_projects = List(String)
 
-    def __init__(self, project_name, user_email):
+    def __init__(self, project_name, user_email, role=None):
         self.email = user_email
         self.role = ''
         self.responsibility = ''
@@ -82,6 +85,18 @@ class User(ObjectType):
             self.role = 'customer'
         else:
             self.role = user_role
+
+        if project_name and role:
+            if role == 'admin':
+                has_access = has_access_to_project(
+                    user_email, project_name, self.role)
+            else:
+                has_access = user_domain.get_project_access(
+                    user_email, project_name)
+
+            if not user_domain.get_data(user_email, 'email') or \
+               not has_access:
+                raise UserNotFound()
 
     def resolve_email(self, info):
         """ Resolve user email """

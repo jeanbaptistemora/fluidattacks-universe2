@@ -15,6 +15,7 @@ from backend.entity.user import User
 from backend.entity.finding import Finding
 from backend.entity.project import Project
 
+from backend import services
 from backend import util
 from backend.exceptions import InvalidProject
 
@@ -95,13 +96,13 @@ class Query(ObjectType):
         return Resource(project_name)
 
     @require_login
-    @require_role(['analyst', 'customeradmin', 'admin'])
+    @require_role(['customeradmin', 'admin'])
     @require_project_access
     @get_cached
     def resolve_user(self, info, project_name, user_email):
         """ Resolve for user data """
-        del info
-        return User(project_name, user_email)
+        role = services.get_user_role(util.get_jwt_content(info.context))
+        return User(project_name, user_email, role=role)
 
     @require_login
     @require_role(['admin', 'customeradminfluid'])

@@ -243,6 +243,15 @@ class EventAlreadyClosed(Exception):
         super(EventAlreadyClosed, self).__init__(msg)
 
 
+class UserNotFound(Exception):
+    """Exception to control user search"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - User not Found'
+        super(UserNotFound, self).__init__(msg)
+
+
 class InvalidSeverity(Exception):
     """Exception to control severity value"""
 
