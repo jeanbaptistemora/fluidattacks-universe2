@@ -418,7 +418,12 @@ def validate_update_treatment(finding_id, updated_values):
     result_update_vuln = update_treatment_in_vuln(finding_id, updated_values)
     if result_update_finding and result_update_vuln:
         if updated_values['treatment'] == 'ACCEPTED':
-            send_accepted_email(finding_id, updated_values.get('treatment_justification'))
+            send_accepted_email(finding_id,
+                                updated_values.get('treatment_justification'))
+        if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
+            send_accepted_email(finding_id,
+                                'Treatment state approval is pending for finding '
+                                + get_finding(finding_id).get('finding'))
         return True
     return False
 

@@ -19,8 +19,11 @@ const openDialog: (() => void) = (): void => {
 };
 
 const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): JSX.Element => {
-    const formTreatmentValue: string = !_.isUndefined(props.formValues.treatmentVuln) ?
+    let formTreatmentValue: string = !_.isUndefined(props.formValues.treatmentVuln) ?
     props.formValues.treatmentVuln : props.formValues.treatment;
+    if (formTreatmentValue === "ACCEPTED_UNDEFINED") {
+      formTreatmentValue = "ACCEPTED";
+    }
     const hasBts: boolean = !_.isEmpty(props.dataset.btsUrl);
     const isNotEditable: boolean = props.isEditing && props.userRole === "customer";
     const treatmentAccepted: boolean = formTreatmentValue === "ACCEPTED";
@@ -64,14 +67,13 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
         <Col md={6} sm={8} xs={12}>
           <EditableField
             component={dropdownField}
-            currentValue={translate.t(formatDropdownField(props.dataset.treatment))}
+            currentValue={translate.t(formatDropdownField(formTreatmentValue))}
             label={translate.t("search_findings.tab_description.treatment.title")}
             name="treatment"
             renderAsEditable={isEditable}
             type="text"
             validate={[required]}
           >
-            <option value="" selected={true} />
             <option value="ACCEPTED">{translate.t("search_findings.tab_description.treatment.accepted")}</option>
             <option value="NEW">{translate.t("search_findings.tab_description.treatment.new")}</option>
             <option value="IN PROGRESS">{translate.t("search_findings.tab_description.treatment.in_progress")}</option>

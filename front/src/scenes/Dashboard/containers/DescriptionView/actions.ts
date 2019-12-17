@@ -266,11 +266,15 @@ export const updateTreatment: ThunkActionStructure<void> =
   (findingId: string, values: IDescriptionViewProps["dataset"]): ThunkAction<void, {}, {}, IActionStructure> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
+      let treatment: string = values.treatment;
+      if (treatment === "ACCEPTED") {
+        treatment = "ACCEPTED_UNDEFINED";
+      }
       gQry = `mutation {
         updateTreatment(
           btsUrl: ${JSON.stringify(values.btsUrl)},
           findingId: "${findingId}",
-          treatment: "${values.treatment}",
+          treatment: "${treatment}",
           treatmentJustification: ${JSON.stringify(values.treatmentJustification)},
           acceptanceDate: "${values.acceptanceDate}",
         ) {
