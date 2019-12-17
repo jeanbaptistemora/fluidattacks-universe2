@@ -46,6 +46,12 @@ def test_vpc_endpoints_exposed_open():
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
 
 
+def test_vpc_flow_logs_disabled_open():
+    """Search VPCs with flow logs disabled."""
+    assert vpc.vpc_flow_logs_disabled(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY).is_open()
+
+
 #
 # Closing tests
 #
@@ -66,4 +72,10 @@ def test_network_acls_allow_all_ingress_egress_closed():
 def test_vpc_endpoints_exposed_closed():
     """Search VPC endpoints exposed."""
     assert vpc.vpc_endpoints_exposed(
+        AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_BAD).is_unknown()
+
+
+def test_vpc_flow_logs_disabled_closed():
+    """Search VPCs with flow logs disabled."""
+    assert vpc.vpc_flow_logs_disabled(
         AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY_BAD).is_unknown()

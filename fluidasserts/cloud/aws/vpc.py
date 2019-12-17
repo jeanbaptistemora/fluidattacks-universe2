@@ -9,7 +9,7 @@ from botocore.exceptions import BotoCoreError
 from botocore.vendored.requests.exceptions import RequestException
 
 # local imports
-from fluidasserts import DAST, MEDIUM
+from fluidasserts import DAST, MEDIUM, LOW
 from fluidasserts.helper import aws
 from fluidasserts.cloud.aws import _get_result_as_tuple
 from fluidasserts.utils.decorators import api, unknown_if
@@ -188,6 +188,54 @@ def vpc_endpoints_exposed(key_id: str, secret: str,
     return _get_result_as_tuple(
         service='VPC',
         objects='Endpoints',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def vpc_flow_logs_disabled(key_id: str, secret: str,
+                           retry: bool = True) -> tuple:
+    """
+    Check if the VPCs has flow logs disabled.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are VPC whit flow logs disabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'VPCs has flow logs disabled.'
+    msg_closed: str = 'VPCs has flow logs enabled.'
+    vulns, safes = [], []
+    vpcs = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='ec2',
+        func='describe_vpcs',
+        param='Vpcs',
+        retry=retry)
+    for vpc in vpcs:
+        filters = [{'Name': 'resource-id', 'Values': [vpc['VpcId']]}]
+        flow_logs = aws.run_boto3_func(
+            key_id=key_id,
+            secret=secret,
+            service='ec2',
+            func='describe_flow_logs',
+            param='FlowLogs',
+            retry=retry,
+            Filters=filters)
+        (vulns if not flow_logs else safes).append(
+            (vpc['VpcId'], 'must enable flow logs.'))
+
+    return _get_result_as_tuple(
+        service='VPC',
+        objects='VPCs',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
