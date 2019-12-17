@@ -4,7 +4,6 @@ import * as actionType from "./actionTypes";
 import * as vulnerabilitiesActions from "./components/Vulnerabilities/actionTypes";
 import { IDescriptionViewProps } from "./containers/DescriptionView";
 import * as descriptionActions from "./containers/DescriptionView/actionTypes";
-import { IEvidenceViewProps } from "./containers/EvidenceView";
 import * as evidenceActions from "./containers/EvidenceView/actionTypes";
 import * as exploitActions from "./containers/ExploitView/actionTypes";
 import * as findingActions from "./containers/FindingContent/actionTypes";
@@ -22,7 +21,7 @@ import { ITrackingViewProps } from "./containers/TrackingView/index";
 export interface IDashboardState {
   confirmDialog: {[name: string]: { isOpen: boolean }};
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
-  evidence: Pick<IEvidenceViewProps, "currentIndex" | "images" | "isImageOpen" | "isEditing">;
+  evidence: { currentIndex: number; images: []; isEditing: boolean; isImageOpen: boolean };
   exploit: {
     code: string;
     isEditing: boolean;
