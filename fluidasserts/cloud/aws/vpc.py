@@ -1,6 +1,7 @@
 """AWS cloud checks (VPC)."""
 
 # standard imports
+import json
 from typing import List
 
 # 3rd party imports
@@ -137,6 +138,56 @@ def network_acls_allow_all_egress_traffic(key_id: str,
     return _get_result_as_tuple(
         service='VPC',
         objects='Network ACLs',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(BotoCoreError, RequestException)
+def vpc_endpoints_exposed(key_id: str, secret: str,
+                          retry: bool = True) -> tuple:
+    """
+    Check if any user or IAM service can access the VPC endpoint.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if there are VPC endpoints accessible by any IAM
+                user or service.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'VPC endpoints are accessible by any IAM user or service.'
+    msg_closed: str = \
+        'VPC endpoints are not accessible to any IAM user or service.'
+    vulns, safes = [], []
+    vpc_endpoints = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='ec2',
+        func='describe_vpc_endpoints',
+        param='VpcEndpoints',
+        retry=retry)
+    for endpoint in vpc_endpoints:
+        if endpoint['VpcEndpointType'] != 'Interface':
+            policy_document = json.loads(endpoint['PolicyDocument'])
+            vulnerable = [
+                sts['Principal'] in ['*', {
+                    'AWS': '*'
+                }] and 'Condition' not in sts.keys()
+                for sts in policy_document['Statement']
+            ]
+            (vulns if any(vulnerable) else safes).append(
+                (vpc_endpoints[0]['VpcEndpointId'],
+                 'do not allow access to any IAM user or service.'))
+
+    return _get_result_as_tuple(
+        service='VPC',
+        objects='Endpoints',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
