@@ -1,7 +1,7 @@
-import pytest
-
+import os
 from collections import OrderedDict
 
+import pytest
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -106,9 +106,12 @@ class FindingTests(TestCase):
                 }
         '''
         testing_client = Client(SCHEMA)
-        uploaded_file = SimpleUploadedFile('testFile.gif',
-                                           b'file_content',
-                                           content_type='animation/gif')
+        filename = os.path.dirname(os.path.abspath(__file__))
+        filename = os.path.join(filename, '../mock/test-anim.gif')
+        with open(filename, 'rb') as test_file:
+            uploaded_file = SimpleUploadedFile(name=test_file.name,
+                                               content=test_file.read(),
+                                               content_type='image/gif')
         request = RequestFactory().get('/')
         middleware = SessionMiddleware()
         middleware.process_request(request)

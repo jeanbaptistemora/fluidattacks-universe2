@@ -26,11 +26,13 @@ from backend.mailer import (
 from backend import util
 from backend.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
-    NotSubmitted, InvalidFileSize, InvalidDraftTitle
+    NotSubmitted, InvalidFileSize, InvalidFileType, InvalidDraftTitle
 )
 from backend.utils import cvss, notifications, findings as finding_utils
 
-from backend.dal import integrates_dal, finding as finding_dal, project as project_dal
+from backend.dal import (
+    integrates_dal, finding as finding_dal, project as project_dal
+)
 
 from __init__ import (
     FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS, FI_MAIL_REPLYERS
@@ -703,44 +705,73 @@ def append_records_to_file(records, new_file):
     return content_file
 
 
-def save_evidence(evidence_name, finding_id, project_name, uploaded_file):
-    full_name = '{proj}/{fin}/{proj}-{fin}-{name}'.format(
-        fin=finding_id,
-        name=uploaded_file.name.replace(' ', '_').replace('-', '_'),
-        proj=project_name)
+def update_evidence(finding_id, evidence_type, file):
 
-    if evidence_name == 'fileRecords':
-        old_file = integrates_dal.get_finding_attributes_dynamo(finding_id, ['files'])
-        old_file_name = next((
-            item['file_url'] for item in old_file['files'] if item['name'] == 'fileRecords'), '')
+    finding = get_finding(finding_id)
+    files = finding.get('files', [])
+    project_name = finding['projectName']
+    success = False
+
+    if evidence_type == 'fileRecords':
+        old_file_name = next((item['file_url']
+                              for item in files
+                              if item['name'] == 'fileRecords'), '')
         if old_file_name != '':
             old_records = finding_utils.get_records_from_file(
                 project_name, finding_id, old_file_name)
             if old_records:
-                uploaded_file = append_records_to_file(old_records, uploaded_file)
-                uploaded_file.open()
-    success = finding_dal.save_evidence(uploaded_file, full_name)
-    if success:
-        file_name = full_name.split('/')[2]
-        save_file_url(finding_id, evidence_name, file_name)
+                file = append_records_to_file(old_records, file)
+                file.open()
+
+    evidence_id = f'{project_name}-{finding_id}-{evidence_type}'
+    full_name = f'{project_name}/{finding_id}/{evidence_id}'
+
+    if finding_dal.save_evidence(file, full_name):
+        evidence = next((item
+                         for item in files
+                         if item['name'] == evidence_type), [])
+        if evidence:
+            index = files.index(evidence)
+            files[index].update({'file_url': evidence_id})
+        else:
+            files.append({'name': evidence_type, 'file_url': evidence_id})
+        success = finding_dal.update(finding_id, {'files': files})
+
+    return success
+
+
+def update_evidence_description(finding_id, evidence_type, description):
+    finding = get_finding(finding_id)
+    files = finding.get('files', [])
+    success = False
+
+    evidence = next((item
+                     for item in files
+                     if item['name'] == evidence_type), [])
+    if evidence:
+        index = files.index(evidence)
+        files[index].update({'description': description})
+        success = finding_dal.update(finding_id, {'files': files})
+
     return success
 
 
 def remove_evidence(evidence_name, finding_id, project_name):
-    if evidence_name == 'fileRecords':
-        old_file = integrates_dal.get_finding_attributes_dynamo(finding_id, ['files'])
-        old_file_name = next((
-            item['file_url'] for item in old_file['files'] if item['name'] == 'fileRecords'), '')
-        full_name = '{proj}/{fin}/{proj}-{fin}-{name}'.format(
-            fin=finding_id,
-            name=old_file_name.split('-')[-1],
-            proj=project_name)
-        success = finding_dal.save_evidence(ContentFile(b''), full_name)
-        if success:
-            file_name = old_file_name
-            save_file_url(finding_id, evidence_name, file_name)
-        return success
-    return False
+    finding = get_finding(finding_id)
+    files = finding.get('files', [])
+    success = False
+
+    evidence = next((item for item in files
+                     if item['name'] == evidence_name), '')
+    evidence_id = evidence['file_url']
+    full_name = f'{project_name}/{finding_id}/{evidence_id}'
+
+    if finding_dal.remove_evidence(full_name):
+        index = files.index(evidence)
+        del files[index]
+        success = finding_dal.update(finding_id, {'files': files})
+
+    return success
 
 
 def create_draft(info, project_name, title, **kwargs):
@@ -900,22 +931,36 @@ def mask_finding(finding_id):
     return success
 
 
-def evidence_exceeds_size(uploaded_file, evidence_type, context):
+def validate_evidence(evidence_id, file):
     evidence = list(range(7))
     exploit = 7
     records = 8
     mib = 1048576
-    if evidence_type in evidence:
-        size = uploaded_file.size > 10 * mib
-    elif evidence_type == exploit:
-        size = uploaded_file.size > 1 * mib
-    elif evidence_type == records:
-        size = uploaded_file.size > 1 * mib
-    else:
-        util.cloudwatch_log(context, 'Security: \
-Attempted to upload an unknown type of evidence')
-        raise InvalidFileSize()
-    return size
+    success = False
+
+    if evidence_id in evidence:
+        allowed_mimes = ['image/gif', 'image/png']
+        if not util.assert_uploaded_file_mime(file, allowed_mimes):
+            raise InvalidFileType()
+        if file.size > 10 * mib:
+            raise InvalidFileSize()
+        success = True
+    elif evidence_id == exploit:
+        allowed_mimes = ['text/x-python', 'text/plain']
+        if not util.assert_uploaded_file_mime(file, allowed_mimes):
+            raise InvalidFileType()
+        if file.size > 1 * mib:
+            raise InvalidFileSize()
+        success = True
+    elif evidence_id == records:
+        allowed_mimes = ['text/csv', 'text/plain']
+        if not util.assert_uploaded_file_mime(file, allowed_mimes):
+            raise InvalidFileType()
+        if file.size > 1 * mib:
+            raise InvalidFileSize()
+        success = True
+
+    return success
 
 
 def validate_finding(finding_id=0, finding=None):

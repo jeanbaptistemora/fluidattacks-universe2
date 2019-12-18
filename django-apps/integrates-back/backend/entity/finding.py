@@ -21,7 +21,6 @@ from backend.domain import (
 )
 from backend.entity.comment import Comment
 from backend.entity.vulnerability import Vulnerability
-from backend.exceptions import InvalidFileSize, InvalidFileType
 from backend.services import get_user_role
 from backend.utils import findings as finding_utils
 
@@ -415,22 +414,8 @@ class UpdateEvidence(Mutation):
         del file
         success = False
         uploaded_file = info.context.FILES['1']
-        project_name = finding_domain.get_finding(finding_id)['projectName']
-        if util.assert_uploaded_file_mime(uploaded_file,
-                                          ['image/gif',
-                                           'image/png',
-                                           'text/x-python',
-                                           'text/x-objective-c',
-                                           'text/x-c',
-                                           'text/plain',
-                                           'text/html']):
-            if finding_domain.evidence_exceeds_size(uploaded_file,
-                                                    int(evidence_id), info.context):
-                util.cloudwatch_log(info.context,
-                                    'Security: Attempted to upload evidence file \
-                                        heavier than allowed in {project} project'
-                                        .format(project=project_name))
-                raise InvalidFileSize()
+
+        if finding_domain.validate_evidence(int(evidence_id), uploaded_file):
             fieldname = [
                 'animation',
                 'exploitation',
@@ -442,17 +427,18 @@ class UpdateEvidence(Mutation):
                 'exploit',
                 'fileRecords'
             ]
-            success = finding_domain.save_evidence(
-                fieldname[int(evidence_id)], finding_id, project_name,
-                uploaded_file)
-            if success:
-                util.invalidate_cache(finding_id)
+            success = finding_domain.update_evidence(
+                finding_id, fieldname[int(evidence_id)], uploaded_file)
+        if success:
+            util.invalidate_cache(finding_id)
+            util.cloudwatch_log(info.context,
+                                'Security: Updated evidence in finding '
+                                f'{finding_id} succesfully')
         else:
             util.cloudwatch_log(info.context,
-                                'Security: Attempted to upload evidence file with a \
-                                    non-allowed format in {project} project'
-                                    .format(project=project_name))
-            raise InvalidFileType()
+                                'Security: Attempted to update evidence in '
+                                f'finding {finding_id}')
+
         findings_loader = info.context.loaders['finding']
         ret = UpdateEvidence(
             finding=findings_loader.load(finding_id), success=success)
@@ -482,11 +468,8 @@ class UpdateEvidenceDescription(Mutation):
                 'evidence5_description': 'evidence_route_4',
                 'evidence6_description': 'evidence_route_5',
             }
-            success = finding_domain.add_file_attribute(
-                finding_id,
-                description_parse[field],
-                'description',
-                description)
+            success = finding_domain.update_evidence_description(
+                finding_id, description_parse[field], description)
             if success:
                 util.invalidate_cache(finding_id)
                 util.cloudwatch_log(info.context, 'Security: Evidence description \

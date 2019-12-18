@@ -3,7 +3,7 @@
  * Disabling this rule is necessary for accessing render props from
  * apollo components
  */
-import { ApolloError } from "apollo-client";
+import { ApolloError, NetworkStatus } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
@@ -55,9 +55,9 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
 
   return (
     <React.StrictMode>
-      <Query query={GET_FINDING_EVIDENCES} variables={{ findingId }}>
-        {({ data, loading, refetch }: QueryResult): JSX.Element => {
-          if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+      <Query query={GET_FINDING_EVIDENCES} variables={{ findingId }} notifyOnNetworkStatusChange={true}>
+        {({ data, loading, refetch, networkStatus }: QueryResult): JSX.Element => {
+          if (_.isUndefined(data) || loading || networkStatus === NetworkStatus.refetch) { return <React.Fragment />; }
 
           interface IEvidenceItem { description: string; url: string; }
           const {
@@ -175,8 +175,8 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                                   hidePreloader();
                                   const { success } = (mtResult as IMutationResult).data.updateEvidence;
                                   if (success) {
+                                    showPreloader();
                                     if (index > 1) {
-                                      showPreloader();
                                       updateDescription({
                                         variables: {
                                           description: values.description,
