@@ -27,7 +27,7 @@ build_app() {
   FI_VERSION=$(app_version)
   echo -n "$FI_VERSION" > version.txt
 
-  # Build container using kaniko
+  # Build container
   build_container \
     "registry.gitlab.com/fluidattacks/integrates/$NAME:$CI_COMMIT_REF_NAME" \
     "$CI_PROJECT_DIR" \

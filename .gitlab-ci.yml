@@ -11,7 +11,7 @@ stages:
 deps-mobile:
   stage: deps-base
   tags: [autoscaling-large]
-  image: fluidattacks/alpine-kaniko:latest
+  image: fluidattacks/docker-bash:latest
   script:
     - ./ci-scripts/jobs/deps-mobile.sh
   interruptible: true
@@ -120,7 +120,7 @@ test-mobile:
   stage: test
   tags: [autoscaling-large]
   needs: [deps-mobile]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:master
+  image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/test-mobile.sh
   interruptible: true
@@ -270,7 +270,7 @@ deploy-mobile:
   stage: deploy
   tags: [autoscaling-large]
   needs: [deps-mobile]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:master
+  image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:$CI_COMMIT_REF_NAME
   script:
     - . ci-scripts/helpers/others.sh && vault_login
     - vaultenv ./ci-scripts/jobs/deploy-mobile.sh
@@ -280,6 +280,7 @@ deploy-mobile:
 
 .deploy-playstore:
   stage: deploy
+  image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:$CI_COMMIT_REF_NAME
   dependencies:
     - deps-mobile
   script:

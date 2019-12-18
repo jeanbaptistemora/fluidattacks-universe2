@@ -28,63 +28,6 @@ delete_reg_repo() {
   curl --request DELETE --header "PRIVATE-TOKEN: $GITLAB_API_TOKEN" "$DELETE_URL"
 }
 
-kaniko_login() {
-  echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\
-    \"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-}
-
-kaniko_build() {
-
-  # Build a Dockerfile using kaniko.
-  # Pushes ephemeral images for devs if eph=true.
-  # Uses cache if cache=true.
-  # Additional kaniko parameters can be added if needed.
-  # Example: kaniko_build mobile eph=false cache=true --build-arg VERSION='1.2'
-
-  set -e
-
-  TARGET="$1"
-  USE_EPH="$2"
-  USE_CACHE="$3"
-  shift 3
-
-  # Set cache parameter based on USE_EPH
-  echo "Option: \"$USE_EPH\" specified."
-  if [ "$USE_EPH" = 'eph=true' ]; then
-    SET_EPH="--destination $CI_REGISTRY_IMAGE/$TARGET:$CI_COMMIT_REF_NAME"
-  elif [ "$USE_EPH" = 'eph=false' ]; then
-    if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
-      SET_EPH="--destination $CI_REGISTRY_IMAGE/$TARGET:$CI_COMMIT_REF_NAME"
-    else
-      SET_EPH='--no-push'
-    fi
-  else
-    echo 'Error. Either eph=true or eph=false must be specified for $2.'
-    return 1
-  fi
-
-  # Set destination parameter based on USE_CACHE
-  echo "Option: \"$USE_CACHE\" specified."
-  if [ "$USE_CACHE" = 'cache=true' ]; then
-    SET_CACHE="--cache=true --cache-repo $CI_REGISTRY_IMAGE/$TARGET/cache"
-  elif [ "$USE_CACHE" = 'cache=false' ]; then
-    echo 'Not using cache.'
-  else
-    echo 'Error. Either cache=true or cache=false must be specified for $3.'
-    return 1
-  fi
-
-  kaniko_login
-
-  /kaniko/executor \
-    --cleanup \
-    --context "$CI_PROJECT_DIR" \
-    --dockerfile "deploy/containers/$TARGET/Dockerfile" \
-    $SET_EPH \
-    $SET_CACHE \
-    --snapshotMode time "$@"
-}
-
 vault_install() {
 
   # Install vault in $1
