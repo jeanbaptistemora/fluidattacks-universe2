@@ -252,7 +252,7 @@ CORS_CONFIGURATION = {
     'CORSRules': [{
         'AllowedHeaders': ['*'],
         'AllowedMethods': ['GET', 'PUT', 'POST', 'HEAD'],
-        'AllowedOrigins': ['https://*.fluidattacks.com'],
+        'AllowedOrigins': ['https://*fluidattacks.com'],
         'ExposeHeaders': ['GET', 'PUT', 'POST', 'HEAD'],
         'MaxAgeSeconds': 3000
     }]
@@ -264,8 +264,6 @@ except ClientError as exc:
     if exc.response['Error']['Code'] == 'NoSuchCORSConfiguration':
         S3_CLIENT.put_bucket_cors(Bucket=AWS_STORAGE_BUCKET_NAME,
                                   CORSConfiguration=CORS_CONFIGURATION)
-    else:
-        raise
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
