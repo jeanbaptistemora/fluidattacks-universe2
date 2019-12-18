@@ -24,11 +24,7 @@ init_terraform() {
   BUCKET="$2"
   USER="$3"
 
-  if [ "$TARGET_DIR" = 'deploy/terraform' ]; then
-    aws_login_resources
-  else
-    aws_login_sops "$USER"
-  fi
+  aws_login "$USER"
 
   cd "$TARGET_DIR" || return 1
 

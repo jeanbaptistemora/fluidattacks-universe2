@@ -178,40 +178,7 @@ app_version () {
   echo "$(date +%y.%m.)${MINUTES}"
 }
 
-aws_login_resources() {
-  # Log in to aws for resources
-
-  set -Eeuo pipefail
-
-  vault_login
-
-  export AWS_ACCESS_KEY_ID
-  export AWS_SECRET_ACCESS_KEY
-  export TF_VAR_aws_s3_evidences_bucket
-  export TF_VAR_aws_s3_resources_bucket
-
-  if [ "$CI_COMMIT_REF_NAME" == 'master' ]; then
-    ENV_NAME='production'
-  else
-    ENV_NAME='development'
-  fi
-
-  AWS_ACCESS_KEY_ID="$(
-    vault read -field=aws_terraform_access_key secret/integrates/$ENV_NAME
-  )"
-  AWS_SECRET_ACCESS_KEY="$(
-    vault read -field=aws_terraform_secret_key secret/integrates/$ENV_NAME
-  )"
-  TF_VAR_aws_s3_evidences_bucket=$(
-    vault read -field=aws_s3_evidences_bucket secret/integrates/$ENV_NAME
-  )
-  TF_VAR_aws_s3_resources_bucket="$(
-    vault read -field=aws_s3_resources_bucket secret/integrates/$ENV_NAME
-  )"
-
-}
-
-aws_login_sops() {
+aws_login() {
 
   # Log in to aws for resources
 

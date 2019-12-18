@@ -1,13 +1,15 @@
 variable "aws_s3_evidences_bucket" {
-  type = string
+  type    = string
+  default = "fluidintegrates.evidences"
 }
 
 variable "aws_s3_resources_bucket" {
-  type = string
+  type    = string
+  default = "fluidintegrates.resources"
 }
 
 variable "sqs_id" {
-    type = string
+  type = string
 }
 
 terraform {
@@ -26,8 +28,8 @@ module "dynamodb" {
 }
 
 module "cloudfront" {
-  source      = "./cloudfront"
-  bucket_name = var.aws_s3_resources_bucket
+  source                = "./cloudfront"
+  bucket_name           = var.aws_s3_resources_bucket
   evidences_bucket_name = var.aws_s3_evidences_bucket
 }
 

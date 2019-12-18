@@ -3,6 +3,7 @@ FROM debian:buster-slim
 ARG NODE_URL='https://deb.nodesource.com/setup_10.x'
 ARG VAULTENV_URL='https://github.com/channable/vaultenv/releases/download/v0.11.0/vaultenv-v0.11.0-linux-musl'
 ARG TREASUREDATA_URL='https://toolbelt.treasuredata.com/sh/install-debian-stretch-td-agent2.sh'
+ARG URL_SOPS='https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0.linux'
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=America/Bogota
@@ -37,7 +38,8 @@ RUN apt install -yo DPkg::Options::='--force-confnew' --no-install-recommends \
     ruby \
     ruby-dev \
     libpq-dev \
-    zip
+    zip \
+    jq
 # external deps
 RUN curl -sL "$NODE_URL" | bash - \
     && apt install -y --no-install-recommends nodejs \
@@ -54,6 +56,15 @@ RUN curl -sL "$NODE_URL" | bash - \
   && apt -y autoremove \
   && rm -rf \
     /var/lib/apt/lists/* \
-    /tmp/*
+    /tmp/* \
+  && curl -o sops "$URL_SOPS" \
+    && chmod +x sops \
+    && mv sops /usr/local/bin/
+
+# Python deps
+RUN pip3 install \
+  awscli \
+  yq
+
 
 CMD ["bash"]
