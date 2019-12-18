@@ -12,6 +12,7 @@ metadata:
       set $CSP '';
       set $CSP "${CSP} script-src 'self' 'unsafe-inline' 'unsafe-eval'";
       set $CSP '${CSP} *.cloudflare.com';    # Integrates libraries
+      set $CSP '${CSP} *.amazonaws.com';     # CDN
       set $CSP '${CSP} *.cloudfront.net';    # RDS Station
       set $CSP '${CSP} *.jsdelivr.net';      # iFrame Resizer
       set $CSP '${CSP} *.mxpnl.com';         # Tracking
