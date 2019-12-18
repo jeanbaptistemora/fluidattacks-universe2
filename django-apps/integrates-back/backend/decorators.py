@@ -292,7 +292,7 @@ def get_cached(func):
     @functools.wraps(func)
     def decorated(*args, **kwargs):
         """Get cached response from function if it exists."""
-        uniq_id = "_".join([str(kwargs[x])[:12] for x in kwargs])
+        uniq_id = "_".join([str(kwargs[x])[:24] for x in kwargs])
         key_name = func.__name__ + '_' + uniq_id
         key_name = key_name.lower()
         try:
