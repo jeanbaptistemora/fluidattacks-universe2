@@ -26,7 +26,11 @@ for var in (
 	    'GOOGLE_APPLICATION_CREDENTIALS_CONTENT',
         'CODECOV_TOKEN',
         'KUBERNETES_API_SERVER',
-        'KUBERNETES_API_TOKEN',):
+        'KUBERNETES_API_TOKEN',
+        'AZURE_SUBSCRIPTION_ID',
+        'AZURE_CLIENT_ID',
+        'AZURE_CLIENT_SECRET',
+        'AZURE_TENANT_ID',):
     try:
         env['ENV'][var] = os.environ[var]
     except KeyError:
