@@ -4,7 +4,6 @@ import * as actionType from "./actionTypes";
 import * as vulnerabilitiesActions from "./components/Vulnerabilities/actionTypes";
 import { IDescriptionViewProps } from "./containers/DescriptionView";
 import * as descriptionActions from "./containers/DescriptionView/actionTypes";
-import * as exploitActions from "./containers/ExploitView/actionTypes";
 import * as findingActions from "./containers/FindingContent/actionTypes";
 import * as homeActions from "./containers/HomeView/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
@@ -21,10 +20,6 @@ export interface IDashboardState {
   confirmDialog: {[name: string]: { isOpen: boolean }};
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
   evidence: { currentIndex: number; images: []; isEditing: boolean; isImageOpen: boolean };
-  exploit: {
-    code: string;
-    isEditing: boolean;
-  };
   finding: {
     alert?: string;
     closedVulns: number;
@@ -144,10 +139,6 @@ const initialState: IDashboardState = {
     images: [],
     isEditing: false,
     isImageOpen: false,
-  },
-  exploit: {
-    code: "",
-    isEditing: false,
   },
   finding: {
     alert: undefined,
@@ -551,26 +542,6 @@ actionMap[actionType.CLOSE_CONFIRM_DIALOG] =
       },
     });
 
-actionMap[exploitActions.LOAD_EXPLOIT] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    exploit: {
-      ...state.exploit,
-      code: action.payload.code,
-    },
-  });
-
-actionMap[exploitActions.EDIT_EXPLOIT] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    exploit: {
-      ...state.exploit,
-      isEditing: !state.exploit.isEditing,
-    },
-  });
-
 actionMap[descriptionActions.LOAD_DESCRIPTION] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
@@ -629,7 +600,6 @@ actionMap[findingActions.CLEAR_FINDING_STATE] =
       ...state,
       description: initialState.description,
       evidence: initialState.evidence,
-      exploit: initialState.exploit,
       finding: initialState.finding,
       records: initialState.records,
       severity: initialState.severity,
