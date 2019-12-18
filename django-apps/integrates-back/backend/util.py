@@ -452,6 +452,10 @@ def update_treatment_values(updated_values):
                 raise InvalidDate()
     if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
         updated_values['acceptation_approval'] = 'PENDING'
+        today = datetime.now()
+        days = [
+            today + timedelta(x + 1) for x in range((today + timedelta(days=5) - today).days)]
+        weekend_days = sum(1 for day in days if day.weekday() >= 5)
         updated_values['acceptance_date'] = (
-            datetime.now() + timedelta(days=5)).strftime('%Y-%m-%d %H:%M:%S')
+            datetime.now() + timedelta(days=5 + weekend_days)).strftime('%Y-%m-%d %H:%M:%S')
     return updated_values
