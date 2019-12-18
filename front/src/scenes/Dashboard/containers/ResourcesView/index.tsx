@@ -169,6 +169,7 @@ let currUserRole: string = "customer";
 const allowedRoles: string[] = ["customer"];
 
 const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IResourcesViewProps): JSX.Element => {
+  const [sortValueTags, setSortValueTags] = React.useState(props.defaultSort.tags);
   const handleOpenTagsModal: (() => void) = (): void => { props.onOpenTagsModal(); };
   const handleCloseTagsModal: (() => void) = (): void => { props.onCloseTagsModal(); };
   const projectName: string = props.match.params.projectName;
@@ -248,6 +249,13 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                 }
               }
             };
+            const onSortStateTags: ((dataField: string, order: SortOrder) => void) =
+            (dataField: string, order: SortOrder): void => {
+              const newSorted: Sorted = {dataField,  order};
+              setSortValueTags(newSorted);
+              const newValues: {} = {...props.defaultSort, tags: newSorted};
+              props.onSort(newValues);
+            };
 
             return (
               <React.Fragment>
@@ -257,12 +265,14 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                     <DataTableNext
                       bordered={true}
                       dataset={tagsDataset}
+                      defaultSorted={sortValueTags}
                       exportCsv={false}
                       search={false}
                       headers={[
                         {
                           dataField: "tagName",
                           header: translate.t("search_findings.tab_resources.tags_title"),
+                          onSort: onSortStateTags,
                         },
                       ]}
                       id="tblTags"
@@ -396,6 +406,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
 const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
   (props: IResourcesViewProps): JSX.Element => {
     const [filterValueRepositories, setFilterValueRepositories] = React.useState(props.filters.stateRepositories);
+    const [sortValueRepositories, setSortValueRepositories] = React.useState(props.defaultSort.repositories);
     const handleAddRepoClick: (() => void) = (): void => { props.onOpenReposModal(); };
     const handleCloseReposModalClick: (() => void) = (): void => { props.onCloseReposModal(); };
     const projectName: string = props.match.params.projectName;
@@ -539,6 +550,14 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                         }
                       };
 
+                      const onSortStateRepositories: ((dataField: string, order: SortOrder) => void) =
+                      (dataField: string, order: SortOrder): void => {
+                        const newSorted: Sorted = {dataField,  order};
+                        setSortValueRepositories(newSorted);
+                        const newValues: {} = {...props.defaultSort, repositories: newSorted};
+                        props.onSort(newValues);
+                      };
+
                       const onFilterInputs: ((filterVal: string) => void) = (filterVal: string): void => {
                         if (filterValueRepositories !== filterVal && clearSelection !== filterValueRepositories) {
                           setFilterValueRepositories(filterVal);
@@ -566,24 +585,28 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                             <DataTableNext
                               bordered={true}
                               dataset={repoDataset}
+                              defaultSorted={sortValueRepositories}
                               exportCsv={true}
                               search={true}
                               headers={[
                                 {
                                   dataField: "protocol",
                                   header: translate.t("search_findings.repositories_table.protocol"),
+                                  onSort: onSortStateRepositories,
                                   width: "14%",
                                   wrapped: true,
                                 },
                                 {
                                   dataField: "urlRepo",
                                   header: translate.t("search_findings.repositories_table.repository"),
+                                  onSort: onSortStateRepositories,
                                   width: "56%",
                                   wrapped: true,
                                 },
                                 {
                                   dataField: "branch",
                                   header: translate.t("search_findings.repositories_table.branch"),
+                                  onSort: onSortStateRepositories,
                                   width: "18%",
                                   wrapped: true,
                                 },
@@ -599,6 +622,7 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                                   }),
                                   formatter: allowedRoles.includes(currUserRole) ? changeFormatter : statusFormatter,
                                   header: translate.t("search_findings.repositories_table.state"),
+                                  onSort: onSortStateRepositories,
                                   width: "12%",
                                   wrapped: true,
                                 },
@@ -690,6 +714,7 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
 const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
   (props: IResourcesViewProps): JSX.Element => {
     const [filterValueEnvironments, setFilterValueEnvironments] = React.useState(props.filters.stateEnvironments);
+    const [sortValueEnvironments, setSortValueEnvironments] = React.useState(props.defaultSort.environments);
     const handleAddEnvClick: (() => void) = (): void => { props.onOpenEnvsModal(); };
     const handleCloseEnvModalClick: (() => void) = (): void => { props.onCloseEnvsModal(); };
     const projectName: string = props.match.params.projectName;
@@ -825,6 +850,13 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                           props.onOpenChangeEnvStateModal();
                         }
                       };
+                      const onSortStateEnviroments: ((dataField: string, order: SortOrder) => void) =
+                      (dataField: string, order: SortOrder): void => {
+                        const newSorted: Sorted = {dataField,  order};
+                        setSortValueEnvironments(newSorted);
+                        const newValues: {} = {...props.defaultSort, environments: newSorted};
+                        props.onSort(newValues);
+                      };
                       const onFilterInputs: ((filterVal: string) => void) = (filterVal: string): void => {
                         if (filterValueEnvironments !== filterVal && clearSelection !== filterValueEnvironments) {
                           setFilterValueEnvironments(filterVal);
@@ -852,12 +884,14 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                             <DataTableNext
                               bordered={true}
                               dataset={envDataset}
+                              defaultSorted={sortValueEnvironments}
                               exportCsv={true}
                               search={true}
                               headers={[
                                 {
                                   dataField: "urlEnv",
                                   header: translate.t("search_findings.environment_table.environment"),
+                                  onSort: onSortStateEnviroments,
                                   wrapped: true,
                                 },
                                 {
@@ -872,6 +906,7 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                                   }),
                                   formatter: allowedRoles.includes(currUserRole) ? changeFormatter : statusFormatter,
                                   header: translate.t("search_findings.repositories_table.state"),
+                                  onSort: onSortStateEnviroments,
                                   width: "12%",
                                   wrapped: true,
                                 },
@@ -964,6 +999,7 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
 
 const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
   (props: IResourcesViewProps): JSX.Element => {
+    const [sortValueFiles, setSortValueFiles] = React.useState(props.defaultSort.files);
     const handleAddFileClick: (() => void) = (): void => { props.onOpenFilesModal(); };
     const handleCloseFilesModalClick: (() => void) = (): void => { props.onCloseFilesModal(); };
     const handleCloseOptionsModalClick: (() => void) = (): void => { props.onCloseOptionsModal(); };
@@ -986,6 +1022,13 @@ const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
       values: IResourcesViewProps["files"][0]): void => {
       handleSaveFiles([{ description: values.description, fileName: "", uploadDate: "" }], props);
     };
+    const onSortStateFiles: ((dataField: string, order: SortOrder) => void) =
+    (dataField: string, order: SortOrder): void => {
+      const newSorted: Sorted = {dataField,  order};
+      setSortValueFiles(newSorted);
+      const newValues: {} = {...props.defaultSort, files: newSorted};
+      props.onSort(newValues);
+    };
 
     return (
       <React.Fragment>
@@ -995,24 +1038,28 @@ const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
             <DataTableNext
               bordered={true}
               dataset={props.files}
+              defaultSorted={sortValueFiles}
               exportCsv={false}
               search={true}
               headers={[
                 {
                   dataField: "fileName",
                   header: translate.t("search_findings.files_table.file"),
+                  onSort: onSortStateFiles,
                   width: "25%",
                   wrapped: true,
                 },
                 {
                   dataField: "description",
                   header: translate.t("search_findings.files_table.description"),
+                  onSort: onSortStateFiles,
                   width: "50%",
                   wrapped: true,
                 },
                 {
                   dataField: "uploadDate",
                   header: translate.t("search_findings.files_table.upload_date"),
+                  onSort: onSortStateFiles,
                   width: "25%",
                   wrapped: true,
                 },
@@ -1084,6 +1131,7 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
 interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IResourcesViewStateProps, IResourcesViewBaseProps, IState> =
   (state: IState): IResourcesViewStateProps => ({
+    defaultSort: state.dashboard.resources.defaultSort,
     envModal: state.dashboard.resources.envModal,
     files: state.dashboard.resources.files,
     filesModal: state.dashboard.resources.filesModal,
@@ -1119,6 +1167,7 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
       onOpenReposModal: (): void => { dispatch(actions.openAddRepoModal()); },
       onOpenTagsModal: (): void => { dispatch(actions.openTagsModal()); },
       onSaveFiles: (files: IResourcesViewProps["files"]): void => { dispatch(actions.saveFiles(projectName, files)); },
+      onSort: (newValues: {}): void => {dispatch(actions.changeSortedValues(newValues)); },
     });
   };
 

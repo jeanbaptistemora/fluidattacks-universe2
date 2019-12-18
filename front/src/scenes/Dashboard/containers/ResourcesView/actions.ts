@@ -55,6 +55,14 @@ export const changeFilterValues: ((newValues: {}) => IActionStructure) = (newVal
     },
     type: actionTypes.CHANGE_FILTERS,
   });
+export const changeSortedValues: ((newValues: {}) => IActionStructure) = (newValues: {}): IActionStructure => ({
+    payload: {
+      defaultSort: {
+        ...newValues,
+      },
+    },
+    type: actionTypes.CHANGE_SORTED,
+  });
 
 export const openAddEnvModal: (() => IActionStructure) =
   (): IActionStructure => ({

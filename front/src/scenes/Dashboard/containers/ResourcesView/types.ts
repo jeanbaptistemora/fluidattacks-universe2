@@ -122,6 +122,7 @@ export interface IResourcesViewDispatchProps {
   onOpenReposModal(): void;
   onOpenTagsModal(): void;
   onSaveFiles(files: IResourcesViewStateProps["files"]): void;
+  onSort(newValues: {}): void;
 }
 
 export type IResourcesViewProps = IResourcesViewBaseProps & (IResourcesViewStateProps & IResourcesViewDispatchProps);

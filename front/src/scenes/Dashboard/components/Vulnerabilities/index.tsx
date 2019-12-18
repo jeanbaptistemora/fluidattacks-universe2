@@ -40,7 +40,7 @@ import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
 import { deleteVulnerabilityModal as DeleteVulnerabilityModal } from "../DeleteVulnerability/index";
 import { IDeleteVulnAttr } from "../DeleteVulnerability/types";
 import { GenericForm } from "../GenericForm";
-import { changeFilterValues } from "./actions";
+import { changeFilterValues, changeSortValues } from "./actions";
 import { default as style } from "./index.css";
 import { APPROVE_VULN_MUTATION, GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
 import { IApproveVulnAttr, IUpdateTreatmentVulnAttr, IUpdateVulnTreatment,
@@ -308,11 +308,21 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     const [filterValueInputs, setFilterValueInputs] = useState("");
     const [filterValueLines, setFilterValueLines] = useState("");
     const [filterValuePorts, setFilterValuePorts] = useState("");
+    const [sortValueInputs, setSortValueInputs] = useState({});
+    const [sortValueLines, setSortValueLines] = useState({});
+    const [sortValuePorts, setSortValuePorts] = useState({});
+    const [valueSortChanged, setValueSort] = useState(false);
     const emptyArray: string[] = [];
     const [arraySelectedRows, setArraySelectedRows] = useState(emptyArray);
     const [originalProps, setOriginalProps] = useState();
 
     const isAnalystorAdmin: boolean = _.includes(["analyst", "admin"], props.userRole);
+    if (!valueSortChanged && props.vulnerabilities !== undefined) {
+      setValueSort(true);
+      setSortValueInputs(props.vulnerabilities.sorts.sortInputs);
+      setSortValueLines(props.vulnerabilities.sorts.sortLines);
+      setSortValuePorts(props.vulnerabilities.sorts.sortPorts);
+    }
 
     const getSelectQryTable: () => {selectedQeryArray: Array<NodeListOf<Element>> } = ():
       { selectedQeryArray: Array<NodeListOf<Element>> } => {
@@ -478,6 +488,15 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 }
               }
             };
+            const onSortInputs: ((dataField: string, order: SortOrder) => void) =
+            (dataField: string, order: SortOrder): void => {
+              if (props.vulnerabilities !== undefined) {
+                const newSorted: Sorted = {dataField,  order};
+                setSortValueInputs(newSorted);
+                const newValues: {} = {...props.vulnerabilities.sorts, sortInputs: newSorted};
+                store.dispatch(changeSortValues(newValues));
+              }
+            };
             const onFilterInputs: ((filterVal: string) => void) = (filterVal: string): void => {
               if (props.vulnerabilities !== undefined && filterValueInputs !== filterVal) {
                 setFilterValueInputs(filterVal);
@@ -494,6 +513,15 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 }
               }
             };
+            const onSortLines: ((dataField: string, order: SortOrder) => void) =
+            (dataField: string, order: SortOrder): void => {
+              if (props.vulnerabilities !== undefined) {
+                const newSorted: Sorted = {dataField,  order};
+                setSortValueLines(newSorted);
+                const newValues: {} = {...props.vulnerabilities.sorts, sortLines: newSorted};
+                store.dispatch(changeSortValues(newValues));
+              }
+            };
             const onFilterLines: ((filterVal: string) => void) = (filterVal: string): void => {
               if (props.vulnerabilities !== undefined && filterValueLines !== filterVal) {
                 setFilterValueLines(filterVal);
@@ -508,6 +536,15 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   const newValues: {} = {...props.vulnerabilities.filters, filterLines: ""};
                   store.dispatch(changeFilterValues(newValues));
                 }
+              }
+            };
+            const onSortPorts: ((dataField: string, order: SortOrder) => void) =
+            (dataField: string, order: SortOrder): void => {
+              if (props.vulnerabilities !== undefined) {
+                const newSorted: Sorted = {dataField,  order};
+                setSortValuePorts(newSorted);
+                const newValues: {} = {...props.vulnerabilities.sorts, sortPorts: newSorted};
+                store.dispatch(changeSortValues(newValues));
               }
             };
             const onFilterPorts: ((filterVal: string) => void) = (filterVal: string): void => {
@@ -542,6 +579,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 onInput: clearFilterInputs,
               }),
               header: "URL",
+              onSort: onSortInputs,
               width: "60%",
               wrapped: true,
             },
@@ -549,6 +587,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               align: "left",
               dataField: "specific",
               header: translate.t("search_findings.tab_description.field"),
+              onSort: onSortInputs,
               width: "20%",
               wrapped: true,
             }];
@@ -563,6 +602,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   onInput: clearFilterLines,
                 }),
                 header: translate.t("search_findings.tab_description.path"),
+                onSort: onSortLines,
                 width: "60%",
                 wrapped: true,
               },
@@ -570,6 +610,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 align: "left",
                 dataField: "specific",
                 header: translate.t("search_findings.tab_description.line", {count: 1}),
+                onSort: onSortLines,
                 width: "20%",
                 wrapped: true,
               }];
@@ -584,6 +625,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   onInput: clearFilterPorts,
                 }),
                 header: "Host",
+                onSort: onSortPorts,
                 width: "60%",
                 wrapped: true,
               },
@@ -591,6 +633,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 align: "left",
                 dataField: "specific",
                 header: translate.t("search_findings.tab_description.port", {count: 1}),
+                onSort: onSortPorts,
                 width: "20%",
                 wrapped: true,
               }];
@@ -606,6 +649,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   align: "left",
                   dataField: "tag",
                   header: translate.t("search_findings.tab_description.tag"),
+                  onSort: onSortInputs,
                   visible: true,
                   width: "20%",
                 },
@@ -613,6 +657,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   align: "left",
                   dataField: "severity",
                   header: translate.t("search_findings.tab_description.severity"),
+                  onSort: onSortInputs,
                   visible: true,
                   width: "20%",
                 },
@@ -620,6 +665,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   align: "left",
                   dataField: "treatmentManager",
                   header: translate.t("search_findings.tab_description.treatment_mgr"),
+                  onSort: onSortInputs,
                   visible: true,
                   width: "35%",
                 },
@@ -629,6 +675,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   align: "left",
                   dataField: "tag",
                   header: translate.t("search_findings.tab_description.tag"),
+                  onSort: onSortLines,
                   visible: true,
                   width: "20%",
                 },
@@ -636,6 +683,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   align: "left",
                   dataField: "severity",
                   header: translate.t("search_findings.tab_description.severity"),
+                  onSort: onSortLines,
                   visible: true,
                   width: "20%",
                 },
@@ -643,6 +691,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   align: "left",
                   dataField: "treatmentManager",
                   header: translate.t("search_findings.tab_description.treatment_mgr"),
+                  onSort: onSortLines,
                   visible: true,
                   width: "35%",
                 },
@@ -652,6 +701,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   align: "left",
                   dataField: "tag",
                   header: translate.t("search_findings.tab_description.tag"),
+                  onSort: onSortPorts,
                   visible: true,
                   width: "20%",
                 },
@@ -659,6 +709,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   align: "left",
                   dataField: "severity",
                   header: translate.t("search_findings.tab_description.severity"),
+                  onSort: onSortPorts,
                   visible: true,
                   width: "20%",
                 },
@@ -666,6 +717,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   align: "left",
                   dataField: "treatmentManager",
                   header: translate.t("search_findings.tab_description.treatment_mgr"),
+                  onSort: onSortPorts,
                   visible: true,
                   width: "35%",
                 },
@@ -942,6 +994,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               id="inputsVulns"
                               bordered={false}
                               dataset={formattedDataInputs}
+                              defaultSorted={sortValueInputs}
                               exportCsv={false}
                               headers={inputsHeader}
                               onClickRow={undefined}
@@ -965,6 +1018,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               id="linesVulns"
                               bordered={false}
                               dataset={formattedDataLines}
+                              defaultSorted={sortValueLines}
                               exportCsv={false}
                               headers={linesHeader}
                               onClickRow={undefined}
@@ -988,6 +1042,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               id="portsVulns"
                               bordered={false}
                               dataset={formattedDataPorts}
+                              defaultSorted={!_.isEmpty(sortValuePorts) ? sortValuePorts : undefined}
                               exportCsv={false}
                               headers={portsHeader}
                               onClickRow={undefined}

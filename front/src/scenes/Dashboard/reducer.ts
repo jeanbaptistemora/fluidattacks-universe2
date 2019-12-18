@@ -43,6 +43,12 @@ export interface IDashboardState {
     isEditing: boolean;
   };
   resources: {
+    defaultSort: {
+      environments: {};
+      files: {};
+      repositories: {};
+      tags: {};
+    };
     envModal: {
       open: boolean;
     };
@@ -89,6 +95,11 @@ export interface IDashboardState {
       filterLines: string;
       filterPending: string;
       filterPorts: string;
+    };
+    sorts: {
+      sortInputs: {};
+      sortLines: {};
+      sortPorts: {};
     };
   };
 }
@@ -156,6 +167,12 @@ const initialState: IDashboardState = {
     isEditing: false,
   },
   resources: {
+    defaultSort: {
+      environments: {},
+      files: {},
+      repositories: {},
+      tags: {},
+    },
     envModal: {
       open: false,
     },
@@ -208,6 +225,11 @@ const initialState: IDashboardState = {
       filterPending: "",
       filterPorts: "",
     },
+    sorts: {
+      sortInputs: {},
+      sortLines: {},
+      sortPorts: {},
+    },
   },
 };
 
@@ -225,6 +247,16 @@ actionMap[vulnerabilitiesActions.CHANGE_FILTERS] =
     },
   });
 
+actionMap[vulnerabilitiesActions.CHANGE_SORTS] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    vulnerabilities: {
+      ...state.vulnerabilities,
+      sorts: action.payload.sorts,
+    },
+  });
+
 actionMap[resourcesActions.CHANGE_FILTERS] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
@@ -232,6 +264,16 @@ actionMap[resourcesActions.CHANGE_FILTERS] =
     resources: {
       ...state.resources,
       filters: action.payload.filters,
+    },
+  });
+
+actionMap[resourcesActions.CHANGE_SORTED] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
+  ({
+    ...state,
+    resources: {
+      ...state.resources,
+      defaultSort: action.payload.defaultSort,
     },
   });
 
@@ -614,6 +656,9 @@ actionMap[projectActions.CLEAR_PROJECT_STATE] = (state: IDashboardState): IDashb
   findings: initialState.findings,
   resources: {
     ...initialState.resources,
+    defaultSort: {
+      ...state.resources.defaultSort,
+    },
     filters: {
       ...state.resources.filters,
     },

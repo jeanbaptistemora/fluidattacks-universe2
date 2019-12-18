@@ -20,6 +20,12 @@ const functionMock: (() => void) = (): void => undefined;
 describe("Resources view", () => {
 
   const mockProps: IResourcesViewProps = {
+    defaultSort: {
+      environments: {},
+      files: {},
+      repositories: {},
+      tags: {},
+    },
     envModal: {
       open: false,
     },
@@ -58,6 +64,7 @@ describe("Resources view", () => {
     onOpenReposModal: functionMock,
     onOpenTagsModal: functionMock,
     onSaveFiles: functionMock,
+    onSort: functionMock,
     optionsModal: {
       open: false,
       rowInfo: { fileName: "fileTest"},

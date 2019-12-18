@@ -1,4 +1,5 @@
 import { IDescriptionViewProps } from "../../containers/DescriptionView";
+import { IDashboardState } from "../../reducer";
 
 export interface IVulnsAttr {
   finding: {
@@ -46,14 +47,7 @@ export interface IVulnerabilitiesViewProps {
   separatedRow?: boolean;
   state: string;
   userRole: string;
-  vulnerabilities?: {
-    filters: {
-      filterInputs: string;
-      filterLines: string;
-      filterPending: string;
-      filterPorts: string;
-    };
-  };
+  vulnerabilities?: IDashboardState["vulnerabilities"];
 }
 
 export type IVulnType = (IVulnsAttr["finding"]["pendingVulns"] | IVulnsAttr["finding"]["inputsVulns"] |
