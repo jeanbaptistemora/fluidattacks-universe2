@@ -447,8 +447,11 @@ def update_treatment_values(updated_values):
             raise InvalidDateFormat()
         if updated_values.get('acceptance_date'):
             today_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            if updated_values.get('acceptance_date') <= today_date:
+            if updated_values.get('acceptance_date') <= today_date \
+               or updated_values.get('acceptance_date') > date.strftime('%Y-%m-%d %H:%M:%S'):
                 raise InvalidDate()
-            if updated_values.get('acceptance_date') > date.strftime('%Y-%m-%d %H:%M:%S'):
-                raise InvalidDate()
+    if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
+        updated_values['acceptation_approval'] = 'PENDING'
+        updated_values['acceptance_date'] = (
+            datetime.now() + timedelta(days=5)).strftime('%Y-%m-%d %H:%M:%S')
     return updated_values

@@ -32,6 +32,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     """Finding Class."""
 
     acceptance_date = String()
+    acceptation_approval = String()
     actor = String()
     affected_systems = String()
     age = Int()
