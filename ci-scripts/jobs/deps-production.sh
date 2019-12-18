@@ -32,7 +32,7 @@ deps_production() {
      || [ $SCHEDULE ]; then
     build_container \
       "registry.gitlab.com/fluidattacks/integrates/$NAME:$CI_COMMIT_REF_NAME" \
-      "$CI_PROJECT_DIR" \
+      "$CI_PROJECT_DIR" --no-cache \
       -f "deploy/containers/$NAME/Dockerfile" \
     	--build-arg CI_COMMIT_REF_NAME="$CI_COMMIT_REF_NAME"
   else
