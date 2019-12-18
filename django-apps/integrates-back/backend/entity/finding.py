@@ -593,6 +593,28 @@ class VerifyFinding(Mutation):
         return ret
 
 
+class ApproveAcceptation(Mutation):
+    """ Approve acceptation """
+    class Arguments():
+        finding_id = String(required=True)
+        observations = String(required=True)
+        project_name = String(required=True)
+    success = Boolean()
+
+    @require_login
+    @require_role(['customeradmin'])
+    @require_finding_access
+    def mutate(self, info, finding_id, observations, project_name):
+        success = finding_domain.approve_acceptation(finding_id, observations)
+        if success:
+            util.invalidate_cache(finding_id)
+            util.invalidate_cache(project_name)
+            util.cloudwatch_log(info.context, 'Security: Verified a request '
+                                f'in finding_id: {finding_id}')
+        ret = ApproveAcceptation(success=success)
+        return ret
+
+
 class RequestVerification(Mutation):
     """ Request verification """
     class Arguments():

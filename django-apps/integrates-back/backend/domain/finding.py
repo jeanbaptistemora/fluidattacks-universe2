@@ -276,6 +276,18 @@ def send_remediation_email(user_email, finding_id, finding_name,
     email_send_thread.start()
 
 
+def approve_acceptation(finding_id, observations):
+    tzn = pytz.timezone(settings.TIME_ZONE)
+    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    return (
+        finding_dal.update(finding_id, {
+            'acceptation_approval': 'APPROVED',
+            'treatment': 'ACCEPTED',
+            'observations': observations,
+            'acceptance_date': today})
+    )
+
+
 def request_verification(finding_id, user_email, user_fullname, justification):
     finding = get_finding(finding_id)
     project_name = finding.get('projectName')
