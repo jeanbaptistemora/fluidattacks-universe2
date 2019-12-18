@@ -29,7 +29,7 @@ const indicatorChart: React.FunctionComponent<IChartProps> =
             },
             {
                 color: style.styleColorClosed,
-                data: props.dataChart[2],
+                data: props.dataChart[1],
                 id: translate.t("search_findings.tab_indicators.data_chart_closed"),
             },
         ];
