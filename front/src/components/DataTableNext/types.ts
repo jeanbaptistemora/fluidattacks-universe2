@@ -8,6 +8,7 @@ export interface ITableProps {
   bodyContainer?: string;
   bordered: boolean;
   dataset: any[];
+  defaultSorted?: Sorted;
   exportCsv: boolean;
   headerContainer?: string;
   headers: IHeader[];
@@ -38,4 +39,5 @@ export interface IHeader {
   changeFunction?(arg1: { [key: string]: string } | undefined): void;
   deleteFunction?(arg1: { [key: string]: string } | undefined): void;
   formatter?(value: string, row: any, rowIndex: number, formatExtraData: any): string | ReactElement;
+  onSort?(dataField: string, order: SortOrder): void;
 }

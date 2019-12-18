@@ -30,6 +30,12 @@ const handleFormatter: ((value: string, row: { [key: string]: string }, rowIndex
 const renderGivenHeaders: ((arg1: IHeader[]) => Column[]) =
   (headers: IHeader[]): Column[] => (headers.map((key: IHeader) => {
     const isFormatter: boolean = key.formatter !== undefined;
+    const handleSort: ((dataField: string, order: SortOrder) => void) =
+    (dataField: string, order: SortOrder): void => {
+      if (key.onSort !== undefined) {
+        key.onSort(dataField, order);
+      }
+    };
 
     return {
       align: key.align,
@@ -42,6 +48,7 @@ const renderGivenHeaders: ((arg1: IHeader[]) => Column[]) =
         width: key.width,
       }),
       hidden: (key.visible) === undefined ? key.visible : !key.visible,
+      onSort: handleSort,
       sort: true,
       text: key.header,
     };
@@ -128,6 +135,7 @@ const renderTable: ((toolkitProps: ToolkitProviderProps, props: ITableProps, dat
         <BootstrapTable
           {...toolkitProps.baseProps}
           bordered={props.bordered}
+          defaultSorted={!_.isUndefined(props.defaultSorted) ? [props.defaultSorted] : undefined}
           filter={filterFactory()}
           headerClasses={props.tableHeader === undefined ? style.tableHeader : props.tableHeader}
           hover={true}

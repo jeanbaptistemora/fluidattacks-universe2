@@ -73,11 +73,11 @@ interface TableChangeNewState {
 
 type TableChangeType = 'filter' | 'pagination' | 'sort'
 
-type SortOrder = 'asc' | 'desc' | TODO;
+type SortOrder = 'asc' | 'desc';
 
 interface Sorted {
-    defaultField?: string;
-    order?: string;
+    dataField?: string;
+    order?: SortOrder;
 }
 
 interface FilterOptions {
@@ -233,6 +233,7 @@ declare module 'react-bootstrap-table-next' {
         headerStyle?: (colum: TODO, colIndex: number) => any
         sortFunc?<T>(a: T, b: T, order: 'asc' | 'desc', rowA: Row, rowB: Row): number
         filterValue?<T>(cell: T, row: TODO): any
+        onSort?(dataField: string, order: SortOrder): void
     }
 
     export type Row = RowT
