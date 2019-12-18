@@ -18,6 +18,7 @@ of the screen
         cssmenu.prepend('<div class="menu-button db dn-l relative minh-nav z-1 bb b--white bw2"></div>');
         $(this).find(".menu-button").on('click', function(){
           $(this).toggleClass('menu-opened');
+          $("div.montsy > div.login").toggleClass('dn');
           var mainmenu = $(this).next('ul');
           mainmenu.toggleClass('m-opened');
         });
