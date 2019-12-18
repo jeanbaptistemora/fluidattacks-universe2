@@ -12,6 +12,7 @@ from django.conf import settings
 from django.core.files.base import ContentFile
 from graphql import GraphQLError
 from i18n import t
+from magic import Magic
 
 from backend.domain import (
     user as user_domain, vulnerability as vuln_domain
@@ -37,41 +38,6 @@ from backend.dal import (
 from __init__ import (
     FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS, FI_MAIL_REPLYERS
 )
-
-
-def save_file_url(finding_id, field_name, file_url):
-    return add_file_attribute(finding_id, field_name, 'file_url', file_url)
-
-
-def add_file_attribute(finding_id, file_name, file_attr, file_attr_value):
-    attr_name = 'files'
-    files = integrates_dal.get_finding_attributes_dynamo(finding_id, [attr_name])
-    index = 0
-    response = False
-    primary_keys = ['finding_id', finding_id]
-    if files and files.get(attr_name):
-        for file_obj in files.get(attr_name):
-            if file_obj.get('name') == file_name:
-                response = integrates_dal.update_item_list_dynamo(
-                    primary_keys, attr_name, index, file_attr, file_attr_value)
-                break
-            else:
-                response = False
-            index += 1
-    else:
-        response = False
-    if response:
-        is_url_saved = True
-    else:
-        file_data = []
-        file_data.append({'name': file_name, file_attr: file_attr_value})
-        is_url_saved = integrates_dal.add_list_resource_dynamo(
-            'FI_findings',
-            'finding_id',
-            finding_id,
-            file_data,
-            attr_name)
-    return is_url_saved
 
 
 def remove_repeated(vulnerabilities):
@@ -723,7 +689,15 @@ def update_evidence(finding_id, evidence_type, file):
                 file = append_records_to_file(old_records, file)
                 file.open()
 
-    evidence_id = f'{project_name}-{finding_id}-{evidence_type}'
+    ext = {
+        'image/gif': 'gif',
+        'image/png': 'png',
+        'text/x-python': 'exp',
+        'text/csv': 'csv',
+        'text/plain': 'txt'
+    }
+    mime = Magic(mime=True).from_buffer(file.file.getvalue())
+    evidence_id = f'{project_name}-{finding_id}-{evidence_type}.{ext[mime]}'
     full_name = f'{project_name}/{finding_id}/{evidence_id}'
 
     if finding_dal.save_evidence(file, full_name):

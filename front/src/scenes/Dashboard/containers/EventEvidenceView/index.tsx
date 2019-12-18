@@ -3,7 +3,7 @@
  * Disabling this rule is necessary for accessing render props from
  * apollo components
  */
-import { ApolloError } from "apollo-client";
+import { ApolloError, NetworkStatus } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
@@ -44,9 +44,9 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
 
   return (
     <React.StrictMode>
-      <Query query={GET_EVENT_EVIDENCES} variables={{ eventId }}>
-        {({ data, loading, refetch }: QueryResult): JSX.Element => {
-          if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+      <Query query={GET_EVENT_EVIDENCES} variables={{ eventId }} notifyOnNetworkStatusChange={true}>
+        {({ data, loading, refetch, networkStatus }: QueryResult): JSX.Element => {
+          if (_.isUndefined(data) || loading || networkStatus === NetworkStatus.refetch) { return <React.Fragment />; }
 
           const renderLightbox: (() => JSX.Element) = (): JSX.Element => {
             const adjustZoom: (() => void) = (): void => {

@@ -5,6 +5,7 @@ from datetime import datetime
 
 import pytz
 from django.conf import settings
+from magic import Magic
 
 from backend import util
 from backend.dal import integrates_dal, event as event_dal, project as project_dal
@@ -71,8 +72,16 @@ def update_evidence(event_id, evidence_type, file):
         raise EventAlreadyClosed()
 
     project_name = event.get('project_name')
-    file_name = file.name.replace(' ', '_').replace('-', '_')
-    evidence_id = f'{project_name}-{event_id}-{file_name}'
+    ext = {
+        'image/gif': 'gif',
+        'image/png': 'png',
+        'application/pdf': 'pdf',
+        'application/zip': 'zip',
+        'text/csv': 'csv',
+        'text/plain': 'txt'
+    }
+    mime = Magic(mime=True).from_buffer(file.file.getvalue())
+    evidence_id = f'{project_name}-{event_id}-{evidence_type}.{ext[mime]}'
     full_name = f'{project_name}/{event_id}/{evidence_id}'
 
     if event_dal.save_evidence(file, full_name):
