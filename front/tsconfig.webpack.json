@@ -1,6 +1,9 @@
 {
+  "compilerOptions": {
+    "noEmit": false
+  },
   "extends": "./tsconfig.json",
   "exclude": [
-    "./src/**/*.spec.tsx"
+    "*.spec.tsx"
   ]
 }

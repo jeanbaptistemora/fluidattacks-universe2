@@ -1,4 +1,4 @@
-let CommonConfig = require('./webpack.common.config');
+let CommonConfig = require('./old.common.config');
 const webpack = require('webpack');
 
 /* Webpack development configs definition */
@@ -9,6 +9,6 @@ CommonConfig.plugins = CommonConfig.plugins.concat([
 module.exports = {
   ...CommonConfig,
   optimization: {
-     minimize: false
+    minimize: false
   }
 }

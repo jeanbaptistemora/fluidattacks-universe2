@@ -1,23 +1,21 @@
 {
   "compilerOptions": {
-    "strict": true,
-    "target": "es5",
-    "module": "commonjs",
     "allowJs": false,
-    "outDir": "./src",
-    "noEmit": true,
-    "noImplicitAny": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "lib": ["dom", "es5", "es2015.promise", "esnext"]
+    "lib": [
+      "dom",
+      "es2018"
+    ],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2019"
   },
-  "include": [
-    "./src/**/*"
-  ],
   "exclude": [
-    "./node_modules/**",
-    "./src/**/*.css.d.ts",
-    "./src/**/*.js",
-    "./src/**/*.css"
+    "node_modules"
   ]
 }
