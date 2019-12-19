@@ -3,7 +3,7 @@
 """Fluid Asserts Azure cloud package."""
 
 # standard imports
-from typing import List
+from typing import List, Callable
 
 # 3rd party imports
 from azure.common.credentials import ServicePrincipalCredentials
@@ -42,3 +42,13 @@ def _get_credentials(client_id: str, secret: str,
                      tenant: str) -> ServicePrincipalCredentials:
     return ServicePrincipalCredentials(
         client_id=client_id, secret=secret, tenant=tenant)
+
+
+def _attr_checker(object_, rules: dict):
+    success = []
+    for key, value in rules.items():
+        if isinstance(value, Callable):
+            success.append(value(getattr(object_, key, None)))
+        else:
+            success.append(getattr(object_, key, None) in value)
+    return success

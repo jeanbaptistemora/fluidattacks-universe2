@@ -21,7 +21,7 @@ ENV KUBERNETES_API_TOKEN="value"
 ENV AZURE_SUBSCRIPTION_ID="value"
 ENV AZURE_CLIENT_ID="value"
 ENV AZURE_CLIENT_SECRET="value"
-ENV AZURE_TENANT_ID'="value"
+ENV AZURE_TENANT_ID="value"
 
 RUN git clone --depth 1 \
         -b "${CI_COMMIT_REF_NAME}" "${CI_REPOSITORY_URL}" /home/asserts \
