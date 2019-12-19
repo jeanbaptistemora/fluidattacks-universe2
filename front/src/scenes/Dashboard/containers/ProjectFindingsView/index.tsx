@@ -12,7 +12,9 @@ import FontAwesome from "react-fontawesome";
 import { Trans } from "react-i18next";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { Button } from "../../../../components/Button";
-import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
+import { statusFormatter } from "../../../../components/DataTableNext/formatters";
+import { DataTableNext } from "../../../../components/DataTableNext/index";
+import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal/index";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { formatFindings, handleGraphQLErrors } from "../../../../utils/formatHelpers";
@@ -84,7 +86,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     </ButtonToolbar>
   );
 
-  const goToFinding: ((rowInfo: { id: string }) => void) = (rowInfo: { id: string }): void => {
+  const goToFinding: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) =
+  (event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }): void => {
     mixpanel.track(
       "ReadFinding",
       {
@@ -107,48 +110,48 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const tableHeaders: IHeader[] = [
     {
       align: "center", dataField: "age", header: "Age (days)",
-      isDate: false, isStatus: false, visible: checkedItems.age, width: "5%",
+      visible: checkedItems.age, width: "5%",
     },
     {
       align: "center", dataField: "lastVulnerability", header: "Last report (days)",
-      isDate: false, isStatus: false, visible: checkedItems.lastVulnerability,
+      visible: checkedItems.lastVulnerability,
       width: "5%",
     },
     {
       align: "center", dataField: "title", header: "Title",
-      isDate: false, isStatus: false, visible: checkedItems.title, width: "11%", wrapped: true,
+      visible: checkedItems.title, width: "11%", wrapped: true,
     },
     {
       align: "center", dataField: "description", header: "Description",
-      isDate: false, isStatus: false, visible: checkedItems.description, width: "16%", wrapped: true,
+      visible: checkedItems.description, width: "16%", wrapped: true,
     },
     {
       align: "center", dataField: "severityScore", header: "Severity",
-      isDate: false, isStatus: false, visible: checkedItems.severityScore, width: "6%",
+      visible: checkedItems.severityScore, width: "6%",
     },
     {
       align: "center", dataField: "openVulnerabilities", header: "Open Vulns.",
-      isDate: false, isStatus: false, visible: checkedItems.openVulnerabilities, width: "6%",
+      visible: checkedItems.openVulnerabilities, width: "6%",
     },
     {
-      align: "center", dataField: "state", header: "Status", isDate: false,
-      isStatus: true, visible: checkedItems.state, width: "7%",
+      align: "center", dataField: "state", formatter: statusFormatter, header: "Status",
+      visible: checkedItems.state, width: "7%",
     },
     {
       align: "center", dataField: "treatment", header: "Treatment",
-      isDate: false, isStatus: false, visible: checkedItems.treatment, width: "8%",
+      visible: checkedItems.treatment, width: "8%",
     },
     {
       align: "center", dataField: "remediated", header: "Verification",
-      isDate: false, isStatus: false, visible: checkedItems.remediated, width: "8%",
+      visible: checkedItems.remediated, width: "8%",
     },
     {
       align: "center", dataField: "isExploitable", header: "Exploitable",
-      isDate: false, isStatus: false, visible: checkedItems.isExploitable, width: "8%",
+      visible: checkedItems.isExploitable, width: "8%",
     },
     {
       align: "center", dataField: "where", header: "Where",
-      isDate: false, isStatus: false, visible: checkedItems.where, width: "8%", wrapped: true,
+      visible: checkedItems.where, width: "8%", wrapped: true,
     },
   ];
 
@@ -189,16 +192,17 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                   </Col>
                 </Row>
                 <p>{translate.t("project.findings.help_label")}</p>
-                <DataTable
+                <DataTableNext
+                  bordered={true}
                   dataset={formatFindings(data.project.findings)}
-                  enableRowSelection={false}
                   exportCsv={true}
                   headers={tableHeaders}
                   id="tblFindings"
-                  onClickRow={goToFinding}
                   pageSize={15}
+                  remote={false}
+                  rowEvents={{onClick: goToFinding}}
                   search={true}
-                  selectionMode="none"
+                  striped={true}
                 />
                 <Modal
                   open={hidden}

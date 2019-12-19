@@ -10,6 +10,8 @@ import BootstrapTable, { Column } from "react-bootstrap-table-next";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import filterFactory from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
+// tslint:disable-next-line:no-import-side-effect no-submodule-imports
+import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 import ToolkitProvider, { CSVExport, Search, ToolkitProviderProps } from "react-bootstrap-table2-toolkit";
 // tslint:disable-next-line:no-import-side-effect no-submodule-imports
 import "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css";
@@ -121,6 +123,7 @@ const renderTable: ((toolkitProps: ToolkitProviderProps, props: ITableProps, dat
     };
     const isPaginationEnable: boolean = !_.isEmpty(dataset) && dataset.length > props.pageSize;
     const { SearchBar } = Search;
+    const handleNoData: (() => string) = (): string => (translate.t("no_data_indication"));
 
     return (
       <div>
@@ -140,6 +143,7 @@ const renderTable: ((toolkitProps: ToolkitProviderProps, props: ITableProps, dat
           headerClasses={props.tableHeader === undefined ? style.tableHeader : props.tableHeader}
           hover={true}
           onTableChange={handleTableChange}
+          noDataIndication={handleNoData}
           pagination={isPaginationEnable ? paginationFactory(paginationOptions) : undefined}
           remote={props.remote}
           rowClasses={props.tableBody === undefined ? style.tableBody : props.tableBody}

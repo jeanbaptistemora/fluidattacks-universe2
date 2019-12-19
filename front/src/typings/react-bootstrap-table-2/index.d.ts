@@ -202,7 +202,7 @@ declare module 'react-bootstrap-table-next' {
         remote?: boolean | RemoteProps;
         bordered?: boolean;
         bootstrap4?: boolean
-        noDataIndication?(): JSX.Element;
+        noDataIndication?(): JSX.Element | string;
         loading?: boolean;
         overlay?: Overlay;
         caption?: string | JSX.Element

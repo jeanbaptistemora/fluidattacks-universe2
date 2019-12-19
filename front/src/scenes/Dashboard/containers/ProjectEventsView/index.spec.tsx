@@ -121,7 +121,7 @@ describe("EventsView", () => {
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.find("table"))
-      .toHaveLength(2);
+      .toHaveLength(1);
     expect(wrapper
       .find("td")
       .filterWhere((td: ReactWrapper) => _.includes(td.text(), "Authorization for special attack")))

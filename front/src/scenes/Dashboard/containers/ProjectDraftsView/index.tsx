@@ -10,7 +10,9 @@ import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
-import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
+import { statusFormatter } from "../../../../components/DataTableNext/formatters";
+import { DataTableNext } from "../../../../components/DataTableNext/index";
+import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { formatDrafts, handleGraphQLErrors } from "../../../../utils/formatHelpers";
@@ -23,25 +25,25 @@ import { CREATE_DRAFT_MUTATION, GET_DRAFTS } from "./queries";
 import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "./types";
 
 const tableHeaders: IHeader[] = [
-  { align: "center", dataField: "reportDate", header: "Date", isDate: false, isStatus: false, width: "10%" },
-  { align: "center", dataField: "type", header: "Type", isDate: false, isStatus: false, width: "8%" },
-  { align: "center", dataField: "title", header: "Title", isDate: false, isStatus: false, wrapped: true, width: "18%" },
+  { align: "center", dataField: "reportDate", header: "Date", width: "10%" },
+  { align: "center", dataField: "type", header: "Type", width: "8%" },
+  { align: "center", dataField: "title", header: "Title", wrapped: true, width: "18%" },
   {
-    align: "center", dataField: "description", header: "Description", isDate: false, isStatus: false, width: "30%",
+    align: "center", dataField: "description", header: "Description", width: "30%",
     wrapped: true,
   },
-  { align: "center", dataField: "severityScore", header: "Severity", isDate: false, isStatus: false, width: "8%" },
+  { align: "center", dataField: "severityScore", header: "Severity", width: "8%" },
   {
-    align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", isDate: false, isStatus: false,
-    width: "6%",
+    align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", width: "6%",
   },
-  { align: "center", dataField: "currentState", header: "State", isDate: false, isStatus: true, width: "10%" },
+  { align: "center", dataField: "currentState", formatter: statusFormatter, header: "State", width: "10%" },
 ];
 
 const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDraftsBaseProps): JSX.Element => {
   const { projectName } = props.match.params;
 
-  const goToFinding: ((rowInfo: { id: string }) => void) = (rowInfo: { id: string }): void => {
+  const goToFinding: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) =
+  (event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }): void => {
     mixpanel.track("ReadDraft", {
       Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
@@ -202,16 +204,17 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                   </Mutation>
                 </Modal>
                 <p>{translate.t("project.findings.help_label")}</p>
-                <DataTable
+                <DataTableNext
+                  bordered={true}
                   dataset={formatDrafts(data.project.drafts)}
-                  enableRowSelection={false}
                   exportCsv={true}
                   headers={tableHeaders}
                   id="tblDrafts"
-                  onClickRow={goToFinding}
                   pageSize={15}
+                  remote={false}
+                  rowEvents={{onClick: goToFinding}}
                   search={true}
-                  selectionMode="none"
+                  striped={true}
                 />
               </React.StrictMode>
             );

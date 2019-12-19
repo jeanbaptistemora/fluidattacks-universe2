@@ -1,4 +1,4 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
+import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
 import { RouteComponentProps } from "react-router";
@@ -37,7 +37,7 @@ describe("Records view", () => {
   });
 
   it("should render a component", (): void => {
-    const wrapper: ShallowWrapper = shallow(
+    const wrapper: ReactWrapper = mount(
       <RecordsView
         dataset={dataset}
         isEditing={false}
@@ -49,13 +49,11 @@ describe("Records view", () => {
         {...routePropsMock}
       />,
     );
-    const table: ShallowWrapper = wrapper.find({ id: "tblRecords" })
-      .dive()
-      .find("BootstrapTable");
+    const table: ReactWrapper = wrapper.find("BootstrapTable");
     expect(table)
       .toHaveLength(1);
-    expect(table.find("TableHeaderColumn").length)
-      .toEqual(Object.keys(dataset[0]).length);
+    expect(table.find("HeaderCell"))
+      .toHaveLength(Object.keys(dataset[0]).length - 1);
   });
 
   it("should render as editable", (): void => {

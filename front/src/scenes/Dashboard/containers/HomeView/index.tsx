@@ -11,7 +11,8 @@ import {
   ButtonToolbar, Col, Glyphicon, Row, ToggleButton, ToggleButtonGroup,
 } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
-import { dataTable as DataTable, IHeader } from "../../../../components/DataTable";
+import { DataTableNext } from "../../../../components/DataTableNext/index";
+import { IHeader } from "../../../../components/DataTableNext/types";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
@@ -37,27 +38,28 @@ const renderProjectsGrid: ((props: IUserAttr["me"]) => JSX.Element[]) =
       ));
 
 const tableHeaders: IHeader[] = [
-  { dataField: "name", header: "Project Name", isDate: false, isStatus: false },
-  { dataField: "description", header: "Description", isDate: false, isStatus: false },
+  { dataField: "name", header: "Project Name" },
+  { dataField: "description", header: "Description" },
 ];
 
-const handleRowClick: ((rowInfo: { name: string }) => void) = (rowInfo: { name: string }): void => {
+const handleRowClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) =
+(event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }): void => {
   goToProject(rowInfo.name);
 };
 
 const renderProjectsTable: ((props: IUserAttr["me"]) => JSX.Element) =
   (props: IUserAttr["me"]): JSX.Element => (
     <React.Fragment>
-      <DataTable
+      <DataTableNext
+        bordered={true}
         dataset={props.projects}
-        enableRowSelection={false}
         exportCsv={false}
         headers={tableHeaders}
         id="tblProjects"
-        onClickRow={handleRowClick}
         pageSize={15}
+        remote={false}
+        rowEvents={{onClick: handleRowClick}}
         search={true}
-        selectionMode="none"
       />
       <br />
     </React.Fragment>

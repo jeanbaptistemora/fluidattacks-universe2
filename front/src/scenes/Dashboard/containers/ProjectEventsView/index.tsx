@@ -13,7 +13,9 @@ import { useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { Field, FormSection, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
-import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
+import { statusFormatter } from "../../../../components/DataTableNext/formatters";
+import { DataTableNext } from "../../../../components/DataTableNext/index";
+import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
@@ -32,24 +34,24 @@ import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
 
 const tableHeaders: IHeader[] = [
   {
-    align: "center", dataField: "id", header: translate.t("search_findings.tab_events.id"), isDate: false,
-    isStatus: false, width: "12%", wrapped: true,
+    align: "center", dataField: "id", header: translate.t("search_findings.tab_events.id"),
+    width: "12%", wrapped: true,
   },
   {
-    align: "center", dataField: "eventDate", header: translate.t("search_findings.tab_events.date"), isDate: false,
-    isStatus: false, width: "15%", wrapped: true,
+    align: "center", dataField: "eventDate", header: translate.t("search_findings.tab_events.date"),
+    width: "15%", wrapped: true,
   },
   {
-    align: "center", dataField: "detail", header: translate.t("search_findings.tab_events.description"), isDate: false,
-    isStatus: false, width: "45%", wrapped: true,
+    align: "center", dataField: "detail", header: translate.t("search_findings.tab_events.description"),
+    width: "45%", wrapped: true,
   },
   {
-    align: "center", dataField: "eventType", header: translate.t("search_findings.tab_events.type"), isDate: false,
-    isStatus: false, width: "25%", wrapped: true,
+    align: "center", dataField: "eventType", header: translate.t("search_findings.tab_events.type"),
+    width: "25%", wrapped: true,
   },
   {
-    align: "center", dataField: "eventStatus", header: translate.t("search_findings.tab_events.status"), isDate: false,
-    isStatus: true, width: "13%", wrapped: true,
+    align: "center", dataField: "eventStatus", formatter: statusFormatter,
+    header: translate.t("search_findings.tab_events.status"), width: "13%", wrapped: true,
   },
 ];
 
@@ -65,7 +67,8 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
     hidePreloader();
   };
 
-  const goToEvent: ((rowInfo: { id: string }) => void) = (rowInfo: { id: string }): void => {
+  const goToEvent: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) =
+  (event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }): void => {
     mixpanel.track("ReadEvent", {
       Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
@@ -477,17 +480,17 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                   </Mutation>
                 </Modal>
                 <p>{translate.t("search_findings.tab_events.table_advice")}</p>
-                <DataTable
+                <DataTableNext
+                  bordered={true}
                   dataset={formatEvents(data.project.events)}
-                  enableRowSelection={false}
                   exportCsv={true}
-                  onClickRow={goToEvent}
                   search={true}
                   headers={tableHeaders}
                   id="tblEvents"
                   pageSize={15}
+                  remote={false}
+                  rowEvents={{onClick: goToEvent}}
                   title=""
-                  selectionMode="none"
                 />
               </React.StrictMode>
             );

@@ -47,6 +47,7 @@ const enTranslations: Dictionary = {
     breadcrumbRoot: "My Projects",
     searchPlaceholder: "Project Name",
   },
+  no_data_indication: "There is no data to display",
   proj_alerts: {
     access_denied: "Access denied or project not found",
     draft_already_approved: "This finding was already approved",

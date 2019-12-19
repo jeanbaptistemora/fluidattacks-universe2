@@ -6,7 +6,7 @@ import { connect, ConnectedComponent, MapDispatchToProps, MapStateToProps } from
 import { RouteComponentProps } from "react-router";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button/index";
-import { dataTable as DataTable } from "../../../../components/DataTable/index";
+import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import translate from "../../../../utils/translations/translate";
 import { isValidEvidenceFile } from "../../../../utils/validations";
@@ -127,15 +127,16 @@ const renderEditPanel: ((arg1: IRecordsViewProps) => JSX.Element) = (props: IRec
 };
 
 const renderTable: ((arg1: object[]) => JSX.Element) = (dataset: object[]): JSX.Element => (
-    <DataTable
+    <DataTableNext
+      bordered={true}
       dataset={dataset}
-      enableRowSelection={false}
       exportCsv={false}
       headers={[]}
       id="tblRecords"
       pageSize={15}
+      remote={false}
+      search={false}
       title=""
-      selectionMode="none"
     />
 );
 
