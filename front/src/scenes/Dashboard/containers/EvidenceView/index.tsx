@@ -117,7 +117,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                   break;
                 default:
                   msgError(translate.t("proj_alerts.error_textsad"));
-                  rollbar.error("An error occurred updating event evidence", updateError);
+                  rollbar.error("An error occurred updating finding evidence", updateError);
               }
             });
           };
