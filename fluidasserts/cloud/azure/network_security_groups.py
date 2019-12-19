@@ -212,3 +212,54 @@ def has_admin_ports_open_to_the_public(client_id: str, secret: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_insecure_port_ranges(client_id: str,
+                             secret: str,
+                             tenant: str,
+                             subscription_id: str) -> Tuple:
+    """
+    Check if security groups implement range of ports to allow inbound traffic.
+
+    Establishing a range of ports within security groups is not a good
+    practice, because attackers can use port scanners to identify what services
+    are running in instances.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+
+    :returns: - ``OPEN`` if the there are network security groups that
+                implements a range of ports.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Network security groups have port ranges established.'
+    msg_closed: str = \
+        'Network security groups do not have port ranges established.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    network = NetworkManagementClient(credentials, subscription_id)
+    security_groups = network.network_security_groups.list_all()
+    rules = {
+        'destination_port_range': lambda x: len(x) > 1,
+        'destination_port_ranges': lambda x: any([i in x for i in ['*', '-']])
+    }
+    for group in security_groups:
+        allow_rules = list(
+            filter(lambda r: r.access == 'Allow' and r.direction == 'Inbound',
+                   group.security_rules))
+        vulnerable = any([any(_attr_checker(i, rules)) for i in allow_rules])
+        (vulns if vulnerable else safes).append(
+            (group.id, 'should not implement a range of ports.'))
+
+    return _get_result_as_tuple(
+        objects='Network security groups',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

@@ -48,6 +48,13 @@ def test_has_admin_ports_open_to_the_public_open():
         AZURE_SUBSCRIPTION_ID).is_open()
 
 
+def test_has_insecure_port_ranges_open():
+    """Search security groups that implements a range of ports."""
+    assert network_security_groups.has_insecure_port_ranges(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_open()
+
+
 #
 # Closing tests
 #
@@ -70,5 +77,12 @@ def test_has_open_all_ports_to_the_public_closed():
 def test_has_admin_ports_open_to_the_public_closed():
     """Search security groups that have open admin ports to the public."""
     assert network_security_groups.has_admin_ports_open_to_the_public(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_has_insecure_port_ranges_closed():
+    """Search security groups that implements a range of ports."""
+    assert network_security_groups.has_insecure_port_ranges(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()
