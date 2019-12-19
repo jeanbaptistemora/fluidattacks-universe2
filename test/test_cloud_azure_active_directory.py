@@ -16,6 +16,7 @@ from fluidasserts.cloud.azure import active_directory
 AZURE_SUBSCRIPTION_ID = os.environ['AZURE_SUBSCRIPTION_ID']
 AZURE_CLIENT_ID = os.environ['AZURE_CLIENT_ID']
 AZURE_CLIENT_SECRET = os.environ['AZURE_CLIENT_SECRET']
+AZURE_CLIENT_SECRET_BAD = 'some_value'
 AZURE_TENANT_ID = os.environ['AZURE_TENANT_ID']
 
 
@@ -29,7 +30,7 @@ AZURE_TENANT_ID = os.environ['AZURE_TENANT_ID']
 #
 
 def test_are_valid_credentials_open():
-    """Searc groups that allow all inbound traffic."""
+    """Check if given credentials are working."""
     assert active_directory.are_valid_credentials(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID).is_open()
 
