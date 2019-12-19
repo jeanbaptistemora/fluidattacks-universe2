@@ -1,31 +1,38 @@
 #!/usr/bin/env bash
 
-reg_repo_id() {
+reg_registry_id() {
 
-  # Get the id of a gitlab registry repo
+  # Get the id of a gitlab registry
+  # e.g reg_registry_id deps-base
 
   set -e
 
+  local REGISTRY_NAME
+  local INTEGRATES_ID
+  local CHECK_URL
+
+  REGISTRY_NAME="$1"
   INTEGRATES_ID='4620828'
   CHECK_URL="https://gitlab.com/api/v4/projects/$INTEGRATES_ID/registry/repositories"
 
-  wget -O - "$CHECK_URL" 2> /dev/null | jq ".[] | select (.name == \"$1\") | .id"
+  wget -O - "$CHECK_URL" 2> /dev/null | jq ".[] | select (.name == \"$REGISTRY_NAME\") | .id"
 }
 
-delete_reg_repo() {
+reg_registry_delete() {
 
-  # Delete registry repo
-  # Example: delete_reg_repo deps-production/cache
+  # Delete registry
+  # e.g: reg_registry_delete deps-production TOKEN
 
   set -e
 
-  REPO_NAME="$1"
+  REGISTRY_NAME="$1"
+  TOKEN="$2"
 
   INTEGRATES_ID='4620828'
-  REPO_ID=$(reg_repo_id "$REPO_NAME")
-  DELETE_URL="https://gitlab.com/api/v4/projects/4620828/registry/repositories/$REPO_ID"
+  REGISTRY_ID=$(reg_registry_id "$REGISTRY_NAME")
+  DELETE_URL="https://gitlab.com/api/v4/projects/4620828/registry/repositories/$REGISTRY_ID"
 
-  curl --request DELETE --header "PRIVATE-TOKEN: $GITLAB_API_TOKEN" "$DELETE_URL"
+  curl --request DELETE --header "PRIVATE-TOKEN: $TOKEN" "$DELETE_URL"
 }
 
 vault_install() {

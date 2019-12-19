@@ -364,8 +364,7 @@ clean-registry-caches:
   tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
-    - . ci-scripts/helpers/others.sh && vault_login
-    - vaultenv ./ci-scripts/jobs/clean-registry-caches.sh
+    - ./ci-scripts/jobs/clean-registry-caches.sh
   only:
     - schedules
 
