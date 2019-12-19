@@ -9,6 +9,7 @@
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
+import { Mutation, MutationFn, MutationResult } from "react-apollo";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction, Reducer } from "redux";
@@ -19,6 +20,9 @@ import { Button } from "../../../../components/Button/index";
 import { ConfirmDialog } from "../../../../components/ConfirmDialog";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
+import { hidePreloader, showPreloader } from "../../../../utils/apollo";
+import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import { openConfirmDialog } from "../../actions";
@@ -26,6 +30,8 @@ import { GenericForm } from "../../components/GenericForm/index";
 import { remediationModal as RemediationModal } from "../../components/RemediationModal/index";
 import * as actions from "./actions";
 import { renderFormFields } from "./formStructure";
+import { APPROVE_ACCEPTATION } from "./queries";
+import { IAcceptationApprovalAttrs } from "./types";
 
 export interface IDescriptionViewProps {
   currentUserEmail: string;
@@ -204,46 +210,97 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
     </React.Fragment>
   );
 
-export const component: React.FC<IDescriptionViewProps> =
-  (props: IDescriptionViewProps): JSX.Element => (
-    <React.StrictMode>
-      <Row>
-        <React.Fragment>
-          {renderForm(props)}
-          <RemediationModal
-            additionalInfo={
-              remediationType === "approve_acceptation" ?
-              `${props.dataset.compromisedRecords} vulnerabilities will be assumed`
-              : undefined
-            }
-            isOpen={props.isRemediationOpen}
-            message={
-              remediationType === "request_verification" ?
-              translate.t("search_findings.tab_description.remediation_modal.justification")
-              : translate.t("search_findings.tab_description.remediation_modal.observations")
-            }
-            onClose={(): void => { store.dispatch(actions.closeRemediationMdl()); }}
-            onSubmit={(values: { treatmentJustification: string }): void => {
-              const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-                store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-              );
-              thunkDispatch(actions.requestVerification(props.findingId, values.treatmentJustification));
-            }}
-          />
-          <ConfirmDialog
-            name="confirmVerify"
-            title={translate.t("confirmmodal.title_generic")}
-            onProceed={(): void => {
-              const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-                store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-              );
-              thunkDispatch(actions.verifyFinding(props.findingId));
-            }}
-          />
-        </React.Fragment>
-      </Row>
-    </React.StrictMode>
-  );
+export const component: ((props: IDescriptionViewProps) => JSX.Element) =
+  (props: IDescriptionViewProps): JSX.Element => {
+
+    const handleMtApproveAcceptation: ((mtResult: IAcceptationApprovalAttrs) => void) =
+      (mtResult: IAcceptationApprovalAttrs): void => {
+      if (!_.isUndefined(mtResult)) {
+        if (mtResult.approveAcceptation.success) {
+          mixpanel.track(
+            "ApproveAcceptation",
+            {
+              Organization: (window as Window & { userOrganization: string }).userOrganization,
+              User: (window as Window & { userName: string }).userName,
+            });
+          msgSuccess(
+            translate.t("proj_alerts.verified_success"),
+            translate.t("proj_alerts.updated_title"),
+          );
+        }
+      }
+    };
+
+    return(
+      <Mutation mutation={APPROVE_ACCEPTATION} onCompleted={handleMtApproveAcceptation}>
+        { (approveAcceptation: MutationFn<IAcceptationApprovalAttrs, {
+            findingId: string; observations: string; projectName: string; }>,
+           mutationRes: MutationResult): React.ReactNode => {
+          if (mutationRes.loading) {
+            showPreloader();
+          }
+          if (!_.isUndefined(mutationRes.error)) {
+            hidePreloader();
+            handleGraphQLErrors("An error occurred approving acceptation", mutationRes.error);
+
+            return <React.Fragment/>;
+          }
+
+          const handleApproveAcceptation: ((observations: string) => void) =
+            (observations: string): void => {
+            approveAcceptation({ variables: { findingId: props.findingId,
+                                              observations,
+                                              projectName: props.projectName }})
+              .catch();
+          };
+
+          return(
+            <React.StrictMode>
+              <Row>
+                <React.Fragment>
+                  {renderForm(props)}
+                  <RemediationModal
+                    additionalInfo={
+                      remediationType === "approve_acceptation" ?
+                      `${props.dataset.compromisedRecords} vulnerabilities will be assumed`
+                      : undefined
+                    }
+                    isOpen={props.isRemediationOpen}
+                    message={
+                      remediationType === "request_verification" ?
+                      translate.t("search_findings.tab_description.remediation_modal.justification")
+                      : translate.t("search_findings.tab_description.remediation_modal.observations")
+                    }
+                    onClose={(): void => { store.dispatch(actions.closeRemediationMdl()); }}
+                    onSubmit={(values: { treatmentJustification: string }): void => {
+                      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+                        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+                      );
+                      if (remediationType === "request_verification") {
+                        thunkDispatch(actions.requestVerification(props.findingId, values.treatmentJustification));
+                      } else {
+                        handleApproveAcceptation(values.treatmentJustification);
+                      }
+                    }}
+                  />
+                  <ConfirmDialog
+                    name="confirmVerify"
+                    title={translate.t("confirmmodal.title_generic")}
+                    onProceed={(): void => {
+                      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+                        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+                      );
+                      thunkDispatch(actions.verifyFinding(props.findingId));
+                    }}
+                  />
+                </React.Fragment>
+              </Row>
+            </React.StrictMode>
+          );
+        }}
+      </Mutation>
+    );
+  };
 
 const fieldSelector: ((state: {}, ...fields: string[]) => string) = formValueSelector("editDescription");
 const fieldSelectorVuln: ((state: {}, ...fields: string[]) => string) = formValueSelector("editTreatmentVulnerability");
