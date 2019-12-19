@@ -3,7 +3,8 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
-import { ApolloClient, ApolloQueryResult, NetworkStatus } from "apollo-client";
+import { ApolloClient, ApolloError, ApolloQueryResult, NetworkStatus } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { ApolloConsumer } from "react-apollo";
@@ -15,6 +16,7 @@ import store from "../../../../../store/index";
 import { hidePreloader, showPreloader } from "../../../../../utils/apollo";
 import { handleErrors } from "../../../../../utils/formatHelpers";
 import { dropdownField, phoneNumberField, textField } from "../../../../../utils/forms/fields";
+import { msgError } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
 import { required, validEmail } from "../../../../../utils/validations";
 import { GenericForm } from "../../../components/GenericForm/index";
@@ -69,7 +71,14 @@ const loadAutofillData: (
           change("responsibility", data.user.responsibility);
         }
       })
-      .catch();
+      .catch((errors: ApolloError) => {
+        errors.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+          if (message !== "Exception - User not Found") {
+            msgError("An error occurred getting user information for autofill");
+          }
+        });
+        hidePreloader();
+      });
     }
   };
 

@@ -11,7 +11,8 @@ import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { Button } from "../../../../components/Button/index";
-import { dataTable as DataTable, IHeader } from "../../../../components/DataTable/index";
+import { DataTableNext } from "../../../../components/DataTableNext/index";
+import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { formatUserlist, handleGraphQLErrors } from "../../../../utils/formatHelpers";
@@ -50,66 +51,58 @@ const tableHeaders: IHeader[] = [
   {
     dataField: "email",
     header: translate.t("search_findings.users_table.usermail"),
-    isDate: false,
-    isStatus: false,
     width: "27%",
   },
   {
     dataField: "role",
     header: translate.t("search_findings.users_table.userRole"),
-    isDate: false,
-    isStatus: false,
-    width: "8%",
+    width: "12%",
   },
   {
     dataField: "responsibility",
     header: translate.t("search_findings.users_table.userResponsibility"),
-    isDate: false,
-    isStatus: false,
     width: "12%",
   },
   {
     dataField: "phoneNumber",
     header: translate.t("search_findings.users_table.phoneNumber"),
-    isDate: false,
-    isStatus: false,
-    width: "10%",
+    width: "13%",
   },
   {
     dataField: "organization",
     header: translate.t("search_findings.users_table.userOrganization"),
-    isDate: false,
-    isStatus: false,
-    width: "10%",
+    width: "12%",
   },
   {
     dataField: "firstLogin",
     header: translate.t("search_findings.users_table.firstlogin"),
-    isDate: false,
-    isStatus: false,
     width: "12%",
   },
   {
     dataField: "lastLogin",
     header: translate.t("search_findings.users_table.lastlogin"),
-    isDate: false,
-    isStatus: false,
     width: "12%",
   },
 ];
 
 const renderUsersTable: ((userList: IUsersAttr["project"]["users"], userRole: string) => JSX.Element) =
   (userList: IUsersAttr["project"]["users"], userRole: string): JSX.Element => (
-    <DataTable
+    <DataTableNext
       id="tblUsers"
+      bordered={true}
       dataset={userList}
       exportCsv={true}
       headers={tableHeaders}
       pageSize={15}
+      remote={false}
       search={true}
-      enableRowSelection={userRole === "admin" || userRole === "customeradmin"}
+      striped={true}
       title=""
-      selectionMode="radio"
+      selectionMode={{
+        clickToSelect: true,
+        hideSelectColumn: !(userRole === "admin" || userRole === "customeradmin"),
+        mode: "radio",
+      }}
     />
   );
 
