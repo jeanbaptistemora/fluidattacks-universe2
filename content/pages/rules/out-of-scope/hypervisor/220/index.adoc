@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to the definition and management of hypervisors and virtual machines. This requirement establishes the importance of defining the profiles of the machines to be monitored by the hypervisor.
 :keywords: Profiles, Application, Hypervisor, Security, Requirement, Machine
 :rules: yes
+:extended: yes
 
 = REQ.220 Manage machine profiles
 

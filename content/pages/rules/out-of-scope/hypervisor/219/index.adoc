@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to the definition and management of hypervisors and virtual machines. This requirement establishes the importance of managing hypervisors and virtual environments through software management tools.
 :keywords: Software, Security, Hypervisor, Machine, Virtualization, Management
 :rules: yes
+:extended: yes
 
 = REQ.219 Manage hypervisors through software
 

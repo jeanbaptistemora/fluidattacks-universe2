@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to the definition and management of logs in the organization. This requirement establishes the importance of generating alarms when a security event is registered in the system logs.
 :keywords: Register, Log, Event, Security, Information, Alarm.
 :rules: yes
+:extended: yes
 
 = REQ.086 Generate alarms on security events
 

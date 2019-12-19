@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to the definition and management of resources in the organization. This requirement establishes the importance of generating alerts in systems when resources exceed a threshold value previously defined.
 :keywords: Requirement, Threshold, State, Security, Resources, Alert.
 :rules: yes
+:extended: yes
 
 = REQ.287 Generate alerts in resources
 

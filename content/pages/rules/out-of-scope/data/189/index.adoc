@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to the definition and management of data access in the organization.  This requirement establishes the importance of specifying the purpose  of personal data collection in order to fulfil all legal requirements
 :keywords: Requirement, Security, Data, Privileges, System, Database
 :rules: yes
+:extended: yes
 
 = REQ.189 Specify the purpose of data collection
 

@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to data management in the organization. This requirement establishes the importance of defining the frequency period for the backup process of the information stored on every system.
 :keywords: Requirement, Security, Information, Backup, Documentation, Frequency
 :rules: yes
+:extended: yes
 
 = REQ.179 Define backup frequency
 

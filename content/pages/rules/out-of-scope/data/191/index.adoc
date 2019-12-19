@@ -3,6 +3,7 @@
 :description: This document contains the details of the security requirements related to the definition and management of sensitive data in the organization. This requirement establishes the importance of protecting sensitive data with the maximum security level defined in the system.
 :keywords: Requirement, Security, System, Protection, Personal Data, User
 :rules: yes
+:extended: yes
 
 = REQ.191 Protect data with maximum level
 
