@@ -20,6 +20,8 @@ if(!userEmail.includes('fluidattacks.com')) {
       name: userName,
       properties: {
         company: userOrganization
-      }
+      },
+      recurringPeriod: 7776000,
+      initialDelay: 0,
     });
 }
