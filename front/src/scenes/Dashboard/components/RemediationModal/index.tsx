@@ -21,7 +21,9 @@ import translate from "../../../../utils/translations/translate";
 import { minLength, required } from "../../../../utils/validations";
 
 export interface IAddRemediationProps {
+  additionalInfo?: string;
   isOpen: boolean;
+  message: string;
   onClose(): void;
   onSubmit(values: {}): void;
 }
@@ -49,7 +51,7 @@ const renderFields: ((props: formProps) => JSX.Element) = (props: formProps): JS
       <FormGroup>
         <ControlLabel>
           <label style={{ color: "#f22" }}>* </label>
-          {translate.t("search_findings.tab_description.remediation_modal.justification")}
+          {props.message}
         </ControlLabel>
         <Field
           name="treatmentJustification"
@@ -62,6 +64,7 @@ const renderFields: ((props: formProps) => JSX.Element) = (props: formProps): JS
           rows="6"
         />
       </FormGroup>
+      {props.additionalInfo}
       <br />
       {renderFooter(props)}
     </form>

@@ -16,6 +16,7 @@ describe("Remediation modal", () => {
     <Provider store={store}>
       <RemediationModal
         isOpen={true}
+        message="test"
         onClose={functionMock}
         onSubmit={functionMock}
       />

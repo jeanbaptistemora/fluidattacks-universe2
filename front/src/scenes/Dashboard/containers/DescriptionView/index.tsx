@@ -72,6 +72,8 @@ export interface IDescriptionViewProps {
   userRole: string;
 }
 
+let remediationType: string = "request_verification";
+
 const enhance: InferableComponentEnhancer<{}> =
   lifecycle({
     componentWillUnmount(): void { store.dispatch(actions.clearDescription()); },
@@ -103,6 +105,11 @@ const renderMarkVerifiedBtn: (() => JSX.Element) = (): JSX.Element => {
 
 const renderRequestVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
   (props: IDescriptionViewProps): JSX.Element => {
+    const handleClick: (() => void) = (): void => {
+      remediationType = "request_verification";
+      store.dispatch(actions.openRemediationMdl());
+    };
+
     const canRequestVerification: boolean =
       props.dataset.state === "open"
       && _.includes(["CONTINUOUS", "continuous", "Continua", "Concurrente", "Si"], props.dataset.subscription)
@@ -112,12 +119,29 @@ const renderRequestVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
       <Button
         bsStyle="success"
         disabled={!canRequestVerification}
-        onClick={(): void => { store.dispatch(actions.openRemediationMdl()); }}
+        onClick={handleClick}
       >
         <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.request_verify")}
       </Button>
     );
   };
+
+const renderApproveAcceptationBtn: (() => JSX.Element) = (): JSX.Element => {
+  const handleClick: (() => void) = (): void => {
+    remediationType = "approve_acceptation";
+    store.dispatch(actions.openRemediationMdl());
+  };
+
+  return (
+    <Button
+      hidden={true}
+      bsStyle="success"
+      onClick={handleClick}
+    >
+      <FluidIcon icon="verified" /> Approve Acceptation
+    </Button>
+  );
+};
 
 const renderUpdateBtn: (() => JSX.Element) = (): JSX.Element => (
   <Button bsStyle="success" onClick={(): void => { store.dispatch(submit("editDescription")); }}>
@@ -129,6 +153,8 @@ const renderActionButtons: ((props: IDescriptionViewProps) => JSX.Element) =
   (props: IDescriptionViewProps): JSX.Element => (
     <React.Fragment>
       <ButtonToolbar className="pull-right">
+        {_.includes(["customeradmin"], props.userRole)
+          ? renderApproveAcceptationBtn() : undefined}
         {_.includes(["admin", "analyst"], props.userRole) && props.dataset.remediated
           ? renderMarkVerifiedBtn() : undefined}
         {_.includes(["admin", "customer", "customeradmin"], props.userRole)
@@ -185,7 +211,17 @@ export const component: React.FC<IDescriptionViewProps> =
         <React.Fragment>
           {renderForm(props)}
           <RemediationModal
+            additionalInfo={
+              remediationType === "approve_acceptation" ?
+              `${props.dataset.compromisedRecords} vulnerabilities will be assumed`
+              : undefined
+            }
             isOpen={props.isRemediationOpen}
+            message={
+              remediationType === "request_verification" ?
+              translate.t("search_findings.tab_description.remediation_modal.justification")
+              : translate.t("search_findings.tab_description.remediation_modal.observations")
+            }
             onClose={(): void => { store.dispatch(actions.closeRemediationMdl()); }}
             onSubmit={(values: { treatmentJustification: string }): void => {
               const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (

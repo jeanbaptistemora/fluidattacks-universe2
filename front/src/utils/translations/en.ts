@@ -319,6 +319,7 @@ const enTranslations: Dictionary = {
       recommendation: "Recommendation",
       remediation_modal: {
         justification: "Which was the applied solution?",
+        observations: "What observations do you have?",
         title: "Finding remediated",
       },
       request_verify: "Request verification",
