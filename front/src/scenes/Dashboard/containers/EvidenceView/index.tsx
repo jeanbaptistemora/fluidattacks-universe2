@@ -20,13 +20,13 @@ import "react-image-lightbox/style.css";
 import { RouteComponentProps } from "react-router";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
+import { default as globalStyle } from "../../../../styles/global.css";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { validEvidenceImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
-import styles from "./index.css";
 import { GET_FINDING_EVIDENCES, UPDATE_DESCRIPTION_MUTATION, UPDATE_EVIDENCE_MUTATION } from "./queries";
 
 type EventEvidenceProps = RouteComponentProps<{ findingId: string }>;
@@ -138,7 +138,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
               </Row>
               {_.isEmpty(evidenceImages) && !isEditing
                 ? (
-                  <div className={styles.noData}>
+                  <div className={globalStyle.noData}>
                     <Glyphicon glyph="picture" />
                     <p>{translate.t("project.findings.evidence.no_data")}</p>
                   </div>

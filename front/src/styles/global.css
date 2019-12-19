@@ -153,3 +153,13 @@ label {
   resize: none;
   min-height: 100px !important;
 }
+
+:local .noData {
+  color: lightgray;
+  font-size: 40px;
+  text-align: center;
+}
+
+:local .noData span {
+  font-size: 80px;
+}

@@ -89,6 +89,22 @@ export const validEvidenceImage: Validator = (value?: FileList): string | undefi
       ? undefined : translate.t("project.events.form.wrong_image_type")
 );
 
+export const validExploitFile: Validator = (value?: FileList): string | undefined => {
+  let errorMsg: string | undefined;
+
+  if (_.isUndefined(value) || _.isEmpty(value)) {
+    errorMsg = undefined;
+  } else {
+    const splittedName: string[] = value[0].name.split(".");
+    const extension: string = splittedName.length > 1 ? splittedName.slice(-1)[0] : "";
+    errorMsg = (value[0].type === "text/x-python" || extension === "exp")
+      ? undefined
+      : translate.t("proj_alerts.file_type_py");
+  }
+
+  return errorMsg;
+};
+
 export const dateTimeBeforeToday: Validator = (date: Moment): string | undefined => {
   const today: Moment = moment();
 

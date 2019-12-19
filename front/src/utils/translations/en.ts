@@ -180,6 +180,9 @@ const enTranslations: Dictionary = {
         edit: "Edit",
         no_data: "There are no evidences",
       },
+      exploit: {
+        no_data: "There is no exploit",
+      },
       exportCsv: "Export to CSV",
       help_label: "Click on a finding to see more details",
       remediated: {

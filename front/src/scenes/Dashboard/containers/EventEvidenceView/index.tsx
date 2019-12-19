@@ -19,13 +19,13 @@ import "react-image-lightbox/style.css";
 import { RouteComponentProps } from "react-router";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
+import { default as globalStyle } from "../../../../styles/global.css";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { validEventFile, validEvidenceImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
-import { default as style } from "./index.css";
 import { DOWNLOAD_FILE_MUTATION, GET_EVENT_EVIDENCES, UPDATE_EVIDENCE_MUTATION } from "./queries";
 
 type EventEvidenceProps = RouteComponentProps<{ eventId: string }>;
@@ -112,7 +112,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                 </Col>
               </Row>
               {_.isEmpty(data.event.evidence) && _.isEmpty(data.event.evidenceFile) && !isEditing ? (
-                <div className={style.noData}>
+                <div className={globalStyle.noData}>
                   <Glyphicon glyph="picture" />
                   <p>{translate.t("project.events.evidence.no_data")}</p>
                 </div>
