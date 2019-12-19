@@ -3,11 +3,13 @@
 # Runs unit tests on app
 
 provision_mock () {
+
+    # Import functions
+    . ci-scripts/helpers/others.sh
+
     service redis-server start
 
-    aws configure set aws_access_key_id ${FI_AWS_DYNAMODB_ACCESS_KEY}
-    aws configure set aws_secret_access_key ${FI_AWS_DYNAMODB_SECRET_KEY}
-    aws configure set region us-east-1
+    aws_login development
 
     java -Djava.library.path=/usr/local/lib/dynamodb-local/DynamoDBLocal_lib \
         -jar /usr/local/lib/dynamodb-local/DynamoDBLocal.jar \
