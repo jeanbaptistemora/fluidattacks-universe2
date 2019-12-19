@@ -32,6 +32,8 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
     acceptance_date = String()
     acceptation_approval = String()
+    acceptation_justification = String()
+    accepted_user = String()
     actor = String()
     affected_systems = String()
     age = Int()
@@ -605,7 +607,9 @@ class ApproveAcceptation(Mutation):
     @require_role(['customeradmin'])
     @require_finding_access
     def mutate(self, info, finding_id, observations, project_name):
-        success = finding_domain.approve_acceptation(finding_id, observations)
+        user_info = util.get_jwt_content(info.context)
+        user_mail = user_info['user_email']
+        success = finding_domain.approve_acceptation(finding_id, observations, user_mail)
         if success:
             util.invalidate_cache(finding_id)
             util.invalidate_cache(project_name)

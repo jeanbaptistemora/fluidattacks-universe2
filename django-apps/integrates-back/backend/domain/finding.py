@@ -276,7 +276,7 @@ def send_remediation_email(user_email, finding_id, finding_name,
     email_send_thread.start()
 
 
-def approve_acceptation(finding_id, observations):
+def approve_acceptation(finding_id, observations, user_mail):
     tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     return (
@@ -284,7 +284,9 @@ def approve_acceptation(finding_id, observations):
             'acceptation_approval': 'APPROVED',
             'treatment': 'ACCEPTED',
             'observations': observations,
-            'acceptance_date': today})
+            'acceptance_date': today,
+            'acceptation_justification': observations,
+            'acceptation_user': user_mail})
     )
 
 
