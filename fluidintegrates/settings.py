@@ -247,7 +247,7 @@ AWS_LOCATION = 'assets'
 AWS_QUERYSTRING_AUTH = False
 if FI_ENVIRONMENT == 'production':
     AWS_S3_CUSTOM_DOMAIN = 'd1l3f50ot7vyg9.cloudfront.net'
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 else:
     STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'
 
