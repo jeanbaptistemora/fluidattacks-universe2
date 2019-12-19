@@ -99,20 +99,22 @@ def _send_mail(template_name, email_to, context, tags):
                 'api_key': API_KEY
             }
             dedup_id = project if project else 'newuser'
-            rollbar.report_message((f'sending mail: {json.dumps(sqs_message)}'
-                                    'MessageGroupId={template_name}'
-                                    'MessageDeduplicationId={dedup_id}'),
-                                   'debug')
+            rollbar.report_message(
+                (f'sending mail: {json.dumps(sqs_message["message"])}'
+                 f'MessageGroupId={template_name}'
+                 f'MessageDeduplicationId={dedup_id}'),
+                'debug')
             sqs.send_message(
                 QueueUrl=QUEUE_URL,
                 MessageBody=json.dumps(sqs_message),
                 MessageGroupId=template_name,
                 MessageDeduplicationId=dedup_id
             )
-            rollbar.report_message((f'mail sent: {json.dumps(sqs_message)}'
-                                    'MessageGroupId={template_name}'
-                                    'MessageDeduplicationId={dedup_id}'),
-                                   'debug')
+            rollbar.report_message(
+                (f'mail sent: {json.dumps(sqs_message["message"])}'
+                 f'MessageGroupId={template_name}'
+                 f'MessageDeduplicationId={dedup_id}'),
+                'debug')
         except (botocore.vendored.requests.exceptions.ConnectionError,
                 botocore.exceptions.ClientError) as exc:
             rollbar.report_message(exc.message)
