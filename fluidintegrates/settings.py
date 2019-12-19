@@ -245,7 +245,12 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 AWS_LOCATION = 'assets'
 AWS_QUERYSTRING_AUTH = False
-STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'
+if FI_ENVIRONMENT == 'production':
+    AWS_S3_CUSTOM_DOMAIN = 'd1l3f50ot7vyg9.cloudfront.net'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}'
+else:
+    STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'
+
 AWS_DEFAULT_ACL = 'public-read'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 CORS_CONFIGURATION = {
