@@ -199,7 +199,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
 
                           return (
                             <EvidenceImage
-                              acceptedMimes="image/png,image/gif"
+                              acceptedMimes="image/jpeg,image/gif,image/png"
                               content={_.isEmpty(evidence.url) ? <div /> : `${baseUrl}/${evidence.url}`}
                               description={evidence.description}
                               isDescriptionEditable={index > 1}
