@@ -85,7 +85,7 @@ export const validEventFile: Validator = (value?: FileList): string | undefined 
 export const validEvidenceImage: Validator = (value?: FileList): string | undefined => (
   _.isUndefined(value) || _.isEmpty(value)
     ? undefined
-    : _.includes(["image/gif", "image/png"], value[0].type)
+    : _.includes(["image/gif", "image/jpeg", "image/png"], value[0].type)
       ? undefined : translate.t("project.events.form.wrong_image_type")
 );
 

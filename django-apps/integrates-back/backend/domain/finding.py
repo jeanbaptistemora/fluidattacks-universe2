@@ -701,15 +701,19 @@ def update_evidence(finding_id, evidence_type, file):
                 file = append_records_to_file(old_records, file)
                 file.open()
 
-    ext = {
-        'image/gif': 'gif',
-        'image/png': 'png',
-        'text/x-python': 'exp',
-        'text/csv': 'csv',
-        'text/plain': 'txt'
-    }
-    mime = Magic(mime=True).from_buffer(file.file.getvalue())
-    evidence_id = f'{project_name}-{finding_id}-{evidence_type}.{ext[mime]}'
+    try:
+        mime = Magic(mime=True).from_buffer(file.file.getvalue())
+        extension = {
+            'image/gif': '.gif',
+            'image/jpeg': '.jpg',
+            'image/png': '.png',
+            'text/x-python': '.exp',
+            'text/csv': '.csv',
+            'text/plain': '.txt'
+        }[mime]
+    except AttributeError:
+        extension = ''
+    evidence_id = f'{project_name}-{finding_id}-{evidence_type}{extension}'
     full_name = f'{project_name}/{finding_id}/{evidence_id}'
 
     if finding_dal.save_evidence(file, full_name):
@@ -925,7 +929,7 @@ def validate_evidence(evidence_id, file):
     success = False
 
     if evidence_id in evidence:
-        allowed_mimes = ['image/gif', 'image/png']
+        allowed_mimes = ['image/gif', 'image/jpeg', 'image/png']
         if not util.assert_uploaded_file_mime(file, allowed_mimes):
             raise InvalidFileType()
         if file.size > 10 * mib:

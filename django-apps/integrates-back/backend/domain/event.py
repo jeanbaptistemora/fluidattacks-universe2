@@ -72,16 +72,19 @@ def update_evidence(event_id, evidence_type, file):
         raise EventAlreadyClosed()
 
     project_name = event.get('project_name')
-    ext = {
-        'image/gif': 'gif',
-        'image/png': 'png',
-        'application/pdf': 'pdf',
-        'application/zip': 'zip',
-        'text/csv': 'csv',
-        'text/plain': 'txt'
-    }
-    mime = Magic(mime=True).from_buffer(file.file.getvalue())
-    evidence_id = f'{project_name}-{event_id}-{evidence_type}.{ext[mime]}'
+    try:
+        mime = Magic(mime=True).from_buffer(file.file.getvalue())
+        extension = {
+            'image/gif': '.gif',
+            'image/png': '.png',
+            'application/pdf': '.pdf',
+            'application/zip': '.zip',
+            'text/csv': '.csv',
+            'text/plain': '.txt'
+        }[mime]
+    except AttributeError:
+        extension = ''
+    evidence_id = f'{project_name}-{event_id}-{evidence_type}{extension}'
     full_name = f'{project_name}/{event_id}/{evidence_id}'
 
     if event_dal.save_evidence(file, full_name):
@@ -94,7 +97,7 @@ def validate_evidence(evidence_type, file):
     success = False
 
     if evidence_type == 'evidence':
-        allowed_mimes = ['image/gif', 'image/png']
+        allowed_mimes = ['image/gif', 'image/jpeg', 'image/png']
         if not util.assert_uploaded_file_mime(file, allowed_mimes):
             raise InvalidFileType('EVENT_IMAGE')
     else:
