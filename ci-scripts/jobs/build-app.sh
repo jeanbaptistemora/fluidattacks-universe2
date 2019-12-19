@@ -5,23 +5,34 @@ build_app() {
   # Builds app container for either production or ephemeral app
 
   set -e
+  local ENV_NAME
 
   # import functions
   . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/build-container.sh)
+  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/sops-source/sops.sh)
   . ci-scripts/helpers/others.sh
 
-  vault_install /usr/bin/
-  vault_login
+  if [ "$CI_COMMIT_REF_NAME" == 'master' ]; then
+    ENV_NAME="production"
+  else
+    ENV_NAME="development"
+  fi
+
+  aws_login "$ENV_NAME"
+
+  sops_env "secrets-$ENV_NAME.yaml" default \
+  SSL_KEY \
+  SSL_CERT \
+  DRIVE_AUTHORIZATION \
+  DRIVE_AUTHORIZATION_CLIENT
 
   # Set necessary envars
   local NAME
-  export FI_DRIVE_AUTHORIZATION
-  export FI_DRIVE_AUTHORIZATION_CLIENT
-  export FI_SSL_KEY
-  export FI_SSL_CERT
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
+
   NAME='app'
-  FI_SSL_KEY=$(vault read -field=ssl_key secret/integrates/$ENV_NAME)
-  FI_SSL_CERT=$(vault read -field=ssl_cert secret/integrates/$ENV_NAME)
+
 
   # Get version
   FI_VERSION=$(app_version)
@@ -37,8 +48,8 @@ build_app() {
     --build-arg CI_PROJECT_ID="$CI_PROJECT_ID" \
     --build-arg CI_REPOSITORY_URL="$CI_REPOSITORY_URL" \
     --build-arg ENV_NAME="$ENV_NAME" \
-    --build-arg SSL_CERT="$FI_SSL_CERT" \
-    --build-arg SSL_KEY="$FI_SSL_KEY" \
+    --build-arg SSL_CERT="$SSL_CERT" \
+    --build-arg SSL_KEY="$SSL_KEY" \
     --build-arg VERSION="$FI_VERSION"
 }
 
