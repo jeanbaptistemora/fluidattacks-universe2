@@ -48,7 +48,32 @@ def _attr_checker(object_, rules: dict):
     success = []
     for key, value in rules.items():
         if isinstance(value, Callable):
-            success.append(value(getattr(object_, key, None)))
+            success.append(value(getattr(object_, key, '')))
         else:
-            success.append(getattr(object_, key, None) in value)
+            success.append(getattr(object_, key, '') in value)
     return success
+
+
+def _port_in_range(port, range_):
+    success = False
+    port = str(port)
+    if isinstance(range_, list):
+        success = any([_port_in_range(port, range__) for range__ in range_])
+    elif '*' in range_:
+        success = True
+    elif port in range_:
+        success = True
+    elif '-' in range_:
+        ran = range_.split('-')
+        success = int(port) in range(int(ran[0]), int(ran[1]))
+    return success
+
+
+def _flatten(elements, aux_list=None):
+    aux_list = aux_list if aux_list is not None else []
+    for i in elements:
+        if isinstance(i, list):
+            _flatten(i, aux_list)
+        else:
+            aux_list.append(i)
+    return aux_list

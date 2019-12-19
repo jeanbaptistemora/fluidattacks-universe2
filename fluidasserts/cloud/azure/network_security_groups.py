@@ -12,8 +12,8 @@ from azure.mgmt.network import NetworkManagementClient
 # local imports
 from fluidasserts import DAST, MEDIUM
 from fluidasserts.utils.decorators import api, unknown_if
-from fluidasserts.cloud.azure import (
-    _get_result_as_tuple, _get_credentials, _attr_checker)
+from fluidasserts.cloud.azure import (_get_result_as_tuple, _get_credentials,
+                                      _attr_checker, _port_in_range, _flatten)
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -107,6 +107,104 @@ def has_open_all_ports_to_the_public(client_id: str, secret: str, tenant: str,
         vulnerable = any([all(_attr_checker(i, rules)) for i in allow_rules])
         (vulns if vulnerable else safes).append(
             (group.id, 'do not open all ports to the public.'))
+
+    return _get_result_as_tuple(
+        objects='Network security groups',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_admin_ports_open_to_the_public(client_id: str, secret: str,
+                                       tenant: str,
+                                       subscription_id: str) -> Tuple:
+    """
+    Check if security groups has all ports or protocols open to the public.
+
+    Admin Ports.
+        - 20        ``FTP``.
+        - 21        ``FTP``.
+        - 22        ``SSH``.
+        - 53        ``DNS``.
+        - 445       ``CIFS``.
+        - 1521      ``Oracle``.
+        - 2438      ``Oracle``.
+        - 3306      ``MySQL``.
+        - 3389      ``RDP``.
+        - 5432      ``Postgres``.
+        - 6379      ``Redis``.
+        - 7199      ``Cassandra``.
+        - 8111      ``DAX``.
+        - 8888      ``Cassandra``.
+        - 9160      ``Cassandra``.
+        - 11211     ``Memcached``.
+        - 27017     ``Mongo DB``.
+        - 445       ``CIFS``.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if there are network security groups that has all
+                ports open to the all public.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    admin_ports = {
+        20,  # FTP
+        21,  # FTP
+        22,  # SSH
+        53,  # DNS
+        445,  # CIFS
+        1521,  # Oracle
+        2438,  # Oracle
+        3306,  # MySQL
+        3389,  # RDP
+        5432,  # Postgres
+        6379,  # Redis
+        7199,  # Cassandra
+        8111,  # DAX
+        8888,  # Cassandra
+        9160,  # Cassandra
+        11211,  # Memcached
+        27017,  # MongoDB
+        445,  # CIFS
+    }
+    msg_open: str = \
+        'Network security groups allow the public access to admin_ports.'
+    msg_closed: str = ('Network security groups do not allow the'
+                       ' public access to admin_ports.')
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    network = NetworkManagementClient(credentials, subscription_id)
+    security_groups = network.network_security_groups.list_all()
+    rules = {
+        'source_address_prefix': ['*'],
+        'provisioning_state': ['Succeeded'],
+        'access': 'Allow',
+        'direction': 'Inbound'
+    }
+    for group in security_groups:
+        allow_rules = list(
+            filter(lambda r: _attr_checker(r, rules), group.security_rules))
+        vulnerable = _flatten(list(
+            map(lambda rul: list(
+                map(lambda port:
+                    _port_in_range(port,
+                                   _flatten(
+                                       [rul.destination_port_range,
+                                        rul.destination_port_ranges])),
+                    admin_ports)), allow_rules)))
+
+        (vulns if any(vulnerable) else safes).append(
+            (group.id, 'do not allow public access to any admin_port.'))
 
     return _get_result_as_tuple(
         objects='Network security groups',
