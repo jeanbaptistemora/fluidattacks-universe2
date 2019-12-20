@@ -97,8 +97,6 @@ plan-terraform-resources:
       - plan.txt
     expire_in: 1h
     when: on_success
-  only:
-    - branches
   interruptible: true
 
 test-front:
@@ -374,8 +372,6 @@ plan-terraform-sops-dev:
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/plan-terraform-sops-dev.sh
-  only:
-    - branches
   interruptible: true
 
 plan-terraform-sops-prod:
@@ -396,10 +392,6 @@ lint-terraform-sops-dev:
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/lint-terraform-sops-dev.sh
-  only:
-    - branches
-  except:
-    - master
   interruptible: true
 
 lint-terraform-sops-prod:
@@ -420,10 +412,6 @@ lint-terraform-resources:
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/lint-terraform-resources.sh
-  only:
-    - branches
-  except:
-    - master
   interruptible: true
 
 apply-terraform-sops-dev:
