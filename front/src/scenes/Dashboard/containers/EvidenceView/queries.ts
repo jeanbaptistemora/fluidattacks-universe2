@@ -25,3 +25,11 @@ export const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
     }
   }
 `;
+
+export const REMOVE_EVIDENCE_MUTATION: DocumentNode = gql`
+  mutation RemoveEvidenceMutation($evidenceId: String!, $findingId: String!) {
+    removeEvidence(evidenceId: $evidenceId, findingId: $findingId) {
+      success
+    }
+  }
+`;

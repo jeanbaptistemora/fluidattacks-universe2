@@ -939,7 +939,7 @@ def validate_evidence(evidence_id, file):
             raise InvalidFileSize()
         success = True
     elif evidence_id == exploit:
-        allowed_mimes = ['application/x-empty', 'text/x-python', 'text/plain']
+        allowed_mimes = ['text/x-python', 'text/plain']
         if not util.assert_uploaded_file_mime(file, allowed_mimes):
             raise InvalidFileType()
         if file.size > 1 * mib:

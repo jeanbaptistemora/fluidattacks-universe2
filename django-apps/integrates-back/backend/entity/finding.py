@@ -387,11 +387,24 @@ class RemoveEvidence(Mutation):
     @require_role(['analyst', 'admin'])
     @require_finding_access
     def mutate(self, info, evidence_id, finding_id):
-        del evidence_id
         project_name = finding_domain.get_finding(finding_id)['projectName']
+        fieldname = [
+            'animation',
+            'exploitation',
+            'evidence_route_1',
+            'evidence_route_2',
+            'evidence_route_3',
+            'evidence_route_4',
+            'evidence_route_5',
+            'exploit',
+            'fileRecords'
+        ]
         success = finding_domain.remove_evidence(
-            'fileRecords', finding_id, project_name)
+            fieldname[int(evidence_id)], finding_id, project_name)
         if success:
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Removed evidence in finding {finding_id}')
             util.invalidate_cache(finding_id)
         findings_loader = info.context.loaders['finding']
         ret = UpdateEvidence(

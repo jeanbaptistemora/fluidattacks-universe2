@@ -97,7 +97,7 @@ export const validExploitFile: Validator = (value?: FileList): string | undefine
   } else {
     const splittedName: string[] = value[0].name.split(".");
     const extension: string = splittedName.length > 1 ? splittedName.slice(-1)[0] : "";
-    errorMsg = (value[0].type === "text/x-python" || extension === "exp")
+    errorMsg = _.includes(["exp", "py"], extension)
       ? undefined
       : translate.t("proj_alerts.file_type_py");
   }
