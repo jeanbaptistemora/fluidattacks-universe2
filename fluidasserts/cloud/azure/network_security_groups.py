@@ -263,3 +263,46 @@ def has_insecure_port_ranges(client_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_flow_logs_disabled(client_id: str, secret: str, tenant: str,
+                           subscription_id: str) -> Tuple:
+    """
+    Check if Network security groups has flow logs disabled.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if there are network security groups that
+                has flow logs disabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Network security groups has flow logs disabled.'
+    msg_closed: str = 'Network security groups has flow logs enabled.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    network = NetworkManagementClient(credentials, subscription_id)
+    security_groups = network.network_security_groups.list_all()
+    for group in security_groups:
+        flow_status = network.network_watchers.get_flow_log_status(
+            resource_group_name='NetworkWatcherRG',
+            network_watcher_name='NetworkWatcher_eastus',
+            target_resource_id=group.id).result()
+
+        (vulns if not flow_status.enabled else safes).append(
+            (group.id, 'must enable flow logs.'))
+
+    return _get_result_as_tuple(
+        objects='Network security groups',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

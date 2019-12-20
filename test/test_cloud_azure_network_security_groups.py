@@ -55,6 +55,13 @@ def test_has_insecure_port_ranges_open():
         AZURE_SUBSCRIPTION_ID).is_open()
 
 
+def test_has_flow_logs_disabled_open():
+    """Search security groups that has flow logs disabled."""
+    assert network_security_groups.has_flow_logs_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_open()
+
+
 #
 # Closing tests
 #
@@ -84,5 +91,12 @@ def test_has_admin_ports_open_to_the_public_closed():
 def test_has_insecure_port_ranges_closed():
     """Search security groups that implements a range of ports."""
     assert network_security_groups.has_insecure_port_ranges(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_has_flow_logs_disabled_closed():
+    """Search security groups that has flow logs disabled."""
+    assert network_security_groups.has_flow_logs_disabled(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()
