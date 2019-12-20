@@ -51,7 +51,7 @@ spec:
             command:
               - sh
               - -ce
-              - "curl -sS http://localhost | grep 'FluidIntegrates'"
+              - "curl -k -sS https://localhost | grep 'FluidIntegrates'"
           initialDelaySeconds: 20
           periodSeconds: 5
           successThreshold: 3
