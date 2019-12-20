@@ -91,3 +91,47 @@ def has_data_disk_encryption_disabled(client_id: str, secret: str, tenant: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def have_automatic_updates_disabled(client_id: str, secret: str, tenant: str,
+                                    subscription_id: str) -> Tuple:
+    """
+    Check if Virtual Machines have disabled automatic updates.
+
+    This check only apply for windows machines.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if there are Virtual Machines that has automatic
+                updates disabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Virtual machines have automatic updates disabled.'
+    msg_closed: str = 'Virtual machines have automatic updates enabled.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+
+    virtual_machines = ComputeManagementClient(
+        credentials, subscription_id).virtual_machines.list_all()
+
+    for machine in virtual_machines:
+        if machine.os_profile.windows_configuration:
+            config = machine.os_profile.windows_configuration
+            (vulns if not config.enable_automatic_updates else safes).append(
+                (machine.id, 'enable automatic updates.'))
+
+    return _get_result_as_tuple(
+        objects='Virtual Machines',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

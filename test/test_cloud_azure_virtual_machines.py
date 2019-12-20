@@ -60,3 +60,13 @@ def test_has_data_disk_encryption_disabled_closed():
     assert virtual_machines.has_os_disk_encryption_disabled(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_have_automatichave_automatic_updates_disabled_closed():
+    """Search Data Disks that do no have encryption enable."""
+    assert virtual_machines.have_automatic_updates_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_closed()
+    assert virtual_machines.have_automatic_updates_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
