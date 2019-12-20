@@ -8,15 +8,17 @@ new_version_mail() {
 
   # Import functions
   . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
-  . toolbox/others.sh
+  . ci-scripts/helpers/sops.sh
 
   local SOURCE_FILE
+  local ENV_NAME
 
   SOURCE_FILE="$(mktemp /tmp/XXXXXXXXXX)"
+  ENV_NAME='production'
 
-  aws_login
+  aws_login "$ENV_NAME"
 
-  sops_env secrets-production.yaml default \
+  sops_env "secrets-$ENV_NAME.yaml" default \
     MANDRILL_APIKEY \
     MANDRILL_EMAIL_TO
 
@@ -30,6 +32,8 @@ new_version_mail() {
     tags=['general'])" >> "$SOURCE_FILE"
 
   python3 "$SOURCE_FILE"
+
+  rm "$SOURCE_FILE"
 }
 
 new_version_mail

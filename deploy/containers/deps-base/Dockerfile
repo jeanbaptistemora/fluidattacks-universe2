@@ -57,7 +57,7 @@ RUN curl -sL "$NODE_URL" | bash - \
   && rm -rf \
     /var/lib/apt/lists/* \
     /tmp/* \
-  && curl -o sops "$URL_SOPS" \
+  && curl -LsSo sops "$URL_SOPS" \
     && chmod +x sops \
     && mv sops /usr/local/bin/
 

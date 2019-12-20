@@ -5,7 +5,8 @@ stages:
   - build
   - test
   - mr-check
-  - deploy
+  - deploy-infra
+  - deploy-app
   - post-deploy
 
 deps-mobile:
@@ -186,8 +187,9 @@ commitlint:
     - ./ci-scripts/jobs/commitlint.sh
 
 apply-terraform-resources:
-  stage: build
+  stage: deploy-infra
   tags: [autoscaling]
+  needs: [plan-terraform-resources, lint-terraform-resources]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/apply-terraform-resources.sh
@@ -214,8 +216,7 @@ coverage-report:
     - test-app
     - test-front
   script:
-    - . ci-scripts/helpers/others.sh && vault_login
-    - vaultenv ./run_codecov.sh
+    - ./ci-scripts/jobs/coverage-report.sh
   retry: 1
   only:
     - merge_requests
@@ -223,7 +224,7 @@ coverage-report:
     - master
 
 ephemeral-app:
-  stage: deploy
+  stage: deploy-app
   tags: [autoscaling]
   needs: [build-app]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
@@ -239,7 +240,7 @@ ephemeral-app:
     - master
 
 stop-ephemeral-app:
-  stage: deploy
+  stage: deploy-app
   tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
   environment:
@@ -253,7 +254,7 @@ stop-ephemeral-app:
     - master
 
 deploy-k8s:
-  stage: deploy
+  stage: deploy-app
   tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   environment:
@@ -266,7 +267,7 @@ deploy-k8s:
     - master
 
 deploy-mobile:
-  stage: deploy
+  stage: deploy-app
   tags: [autoscaling-large]
   needs: [deps-mobile]
   image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:$CI_COMMIT_REF_NAME
@@ -278,7 +279,7 @@ deploy-mobile:
     url: "https://expo.io/@developmentatfluid/integrates?release-channel=$CI_COMMIT_REF_NAME"
 
 .deploy-playstore:
-  stage: deploy
+  stage: deploy-app
   image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:$CI_COMMIT_REF_NAME
   dependencies:
     - deps-mobile
@@ -426,8 +427,9 @@ lint-terraform-resources:
   interruptible: true
 
 apply-terraform-sops-dev:
-  stage: build
+  stage: deploy-infra
   tags: [autoscaling]
+  needs: [plan-terraform-sops-dev, lint-terraform-sops-dev]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/apply-terraform-sops-dev.sh
@@ -435,8 +437,9 @@ apply-terraform-sops-dev:
     - master
 
 apply-terraform-sops-prod:
-  stage: build
+  stage: deploy-infra
   tags: [autoscaling]
+  needs: [plan-terraform-sops-prod, lint-terraform-sops-prod]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/apply-terraform-sops-prod.sh
