@@ -50,16 +50,6 @@ export const statusFormatter: ((value: string) => ReactElement<Label>) =
     );
 };
 
-export const dateFormatter: ((value: string) => string) =
-  (value: string): string => {
-  if (value.indexOf(":") !== -1) {
-
-    return value.split(" ")[0];
-  }
-
-  return value;
-};
-
 export const approveFormatter: ((value: string, row: { [key: string]: string }, rowIndex: number, key: IHeader)
 => JSX.Element) =
   (value: string, row: { [key: string]: string }, rowIndex: number, key: IHeader): JSX.Element => {

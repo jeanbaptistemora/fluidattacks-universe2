@@ -192,23 +192,4 @@ export const dataTableNext: React.FunctionComponent<ITableProps> = (props: ITabl
   );
 };
 
-dataTableNext.defaultProps = {
-  bodyContainer: undefined,
-  exportCsv: false,
-  headerContainer: undefined,
-  headers: [],
-  onClickRow: (arg1: string): void => undefined,
-  onTableChange: (type: TableChangeType, newState: TableChangeNewState): void => undefined,
-  pageSize: 25,
-  remote: {
-    cellEdit: false,
-    filter: true,
-    pagination: false,
-    sort: false,
-  },
-  search: false,
-  tableBody: undefined,
-  tableHeader: undefined,
-};
-
 export { dataTableNext as DataTableNext };
