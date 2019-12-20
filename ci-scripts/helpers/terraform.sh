@@ -10,7 +10,7 @@ init_terraform() {
   set -e
 
   # Import functions
-  . ci-scripts/helpers/others.sh
+  . ci-scripts/helpers/sops.sh
 
   local STARTING_DIR
 

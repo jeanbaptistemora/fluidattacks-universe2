@@ -5,12 +5,17 @@ build_app() {
   # Builds app container for either production or ephemeral app
 
   set -e
-  local ENV_NAME
 
   # import functions
   . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/build-container.sh)
   . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/sops-source/sops.sh)
   . ci-scripts/helpers/others.sh
+  . ci-scripts/helpers/sops.sh
+
+  # Set necessary env vars
+
+  local ENV_NAME
+  local NAME
 
   if [ "$CI_COMMIT_REF_NAME" == 'master' ]; then
     ENV_NAME="production"
@@ -21,18 +26,12 @@ build_app() {
   aws_login "$ENV_NAME"
 
   sops_env "secrets-$ENV_NAME.yaml" default \
-  SSL_KEY \
-  SSL_CERT \
-  DRIVE_AUTHORIZATION \
-  DRIVE_AUTHORIZATION_CLIENT
-
-  # Set necessary envars
-  local NAME
-  export AWS_ACCESS_KEY_ID
-  export AWS_SECRET_ACCESS_KEY
+    SSL_KEY \
+    SSL_CERT \
+    DRIVE_AUTHORIZATION \
+    DRIVE_AUTHORIZATION_CLIENT
 
   NAME='app'
-
 
   # Get version
   FI_VERSION=$(app_version)

@@ -5,7 +5,7 @@
 provision_mock () {
 
     # Import functions
-    . ci-scripts/helpers/others.sh
+    . ci-scripts/helpers/sops.sh
 
     service redis-server start
 

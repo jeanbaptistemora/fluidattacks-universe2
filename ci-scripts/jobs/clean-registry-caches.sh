@@ -27,6 +27,7 @@ clean_registry_caches() {
     # Import functions
     . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/sops-source/sops.sh)
     . ci-scripts/helpers/others.sh
+    . ci-scripts/helpers/sops.sh
 
     # Set necessary envars
     local ENV_NAME
