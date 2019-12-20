@@ -12,7 +12,6 @@
     "url": "https://gitlab.com/fluidattacks/integrates/issues"
   },
   "dependencies": {
-    "@babel/types": "7.6.1",
     "@nivo/axes": "0.59.0",
     "@nivo/legends": "0.59.0",
     "@nivo/line": "0.59.0",
@@ -23,7 +22,6 @@
     "@types/lodash": "4.14.136",
     "@types/mini-css-extract-plugin": "0.8.0",
     "@types/mixpanel-browser": "2.23.0",
-    "@types/node-fetch": "2.3.7",
     "@types/optimize-css-assets-webpack-plugin": "5.0.1",
     "@types/react": "16.9.11",
     "@types/react-bootstrap": "0.32.19",
@@ -50,8 +48,8 @@
     "bootstrap": "4.3.1",
     "bootstrap-switch-button-react": "1.1.0",
     "chart.js": "2.7.2",
-    "css-loader": "1.0.0",
-    "file-loader": "1.1.11",
+    "css-loader": "3.4.0",
+    "file-loader": "5.0.2",
     "font-awesome": "4.7.0",
     "graphql": "14.2.1",
     "graphql-tag": "2.10.1",
@@ -101,7 +99,6 @@
     "typed-css-modules": "0.6.3",
     "typesafe-actions": "2.0.4",
     "typescript": "3.4.5",
-    "url-loader": "1.0.1",
     "webpack": "4.41.4",
     "webpack-cli": "3.3.10"
   },
@@ -118,7 +115,6 @@
     "isomorphic-fetch": "2.2.1",
     "jest": "24.8.0",
     "jest-canvas-mock": "2.1.0",
-    "jsdom": "12.2.0",
     "open": "7.0.0",
     "ts-jest": "24.0.2",
     "tslint": "5.10.0",
