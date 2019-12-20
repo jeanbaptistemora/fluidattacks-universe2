@@ -37,6 +37,7 @@ app/assets/dashboard/*
 env-dev.vars
 local-test.sh
 local-linting.sh
+webpack-stats.json
 
 # mobile
 mobile/node_modules/**/*

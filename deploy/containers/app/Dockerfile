@@ -48,7 +48,7 @@ RUN rm -r /var/www/html \
 
 # Compile front
 RUN cp -a /npm-deps/front/node_modules front/ \
-  && npm run --prefix front/ build:$ENV_NAME \
+  && npm run --prefix front/ build \
   && sed -i "s/integrates_version/v. $FI_VERSION/g" app/assets/dashboard/app-bundle.min.js \
   && rm -rf front/node_modules
 

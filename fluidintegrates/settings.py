@@ -66,7 +66,8 @@ INSTALLED_APPS = [
     'django_intercom',
     'graphene_django',
     'storages',
-    'backend'
+    'webpack_loader',
+    'backend',
 ]
 
 MIDDLEWARE = [

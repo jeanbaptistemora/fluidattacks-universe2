@@ -81,5 +81,7 @@ export const commonConfig: webpack.Configuration = {
   },
   stats: {
     children: false,
+    colors: true,
+    modules: false,
   },
 };
