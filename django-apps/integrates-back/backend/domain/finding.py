@@ -749,8 +749,9 @@ def update_evidence_description(finding_id, evidence_type, description):
     return success
 
 
-def remove_evidence(evidence_name, finding_id, project_name):
+def remove_evidence(evidence_name, finding_id):
     finding = get_finding(finding_id)
+    project_name = finding['projectName']
     files = finding.get('files', [])
     success = False
 

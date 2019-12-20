@@ -19,19 +19,21 @@ interface IEvidenceImageProps {
   description: string;
   isDescriptionEditable: boolean;
   isEditing: boolean;
+  isRemovable?: boolean;
   name: string;
   validate?: Validator | Validator[];
   onClick(): void;
+  onDelete?(): void;
   onUpdate(values: {}): void;
 }
 
 const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvidenceImageProps): JSX.Element => {
-  const handleSubmit: ((values: {}) => void) = (values: {}): void => { props.onUpdate(values); };
+  const { onDelete, onUpdate } = props;
 
   return (
     <GenericForm
       name={props.name}
-      onSubmit={handleSubmit}
+      onSubmit={onUpdate}
       initialValues={{ description: props.description }}
     >
       {({ pristine, submitting }: InjectedFormProps): JSX.Element => (
@@ -50,6 +52,12 @@ const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvide
             <FluidIcon icon="loading" />
             &nbsp;{translate.t("search_findings.tab_evidence.update")}
           </Button>
+          {props.isRemovable === true
+            ? <Button bsStyle="success" block={true} onClick={onDelete}>
+              <FluidIcon icon="delete" />
+              &nbsp;{translate.t("search_findings.tab_evidence.remove")}
+            </Button>
+            : undefined}
         </React.Fragment>
       )}
     </GenericForm>

@@ -27,7 +27,9 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { validEvidenceImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
-import { GET_FINDING_EVIDENCES, UPDATE_DESCRIPTION_MUTATION, UPDATE_EVIDENCE_MUTATION } from "./queries";
+import {
+  GET_FINDING_EVIDENCES, REMOVE_EVIDENCE_MUTATION, UPDATE_DESCRIPTION_MUTATION, UPDATE_EVIDENCE_MUTATION,
+} from "./queries";
 
 type EventEvidenceProps = RouteComponentProps<{ findingId: string }>;
 
@@ -195,21 +197,42 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                             }
                           };
 
-                          const openImage: (() => void) = (): void => { if (!isEditing) { setLightboxIndex(index); } };
-
                           return (
-                            <EvidenceImage
-                              acceptedMimes="image/jpeg,image/gif,image/png"
-                              content={_.isEmpty(evidence.url) ? <div /> : `${baseUrl}/${evidence.url}`}
-                              description={evidence.description}
-                              isDescriptionEditable={index > 1}
-                              isEditing={isEditing}
-                              key={index}
-                              name={`evidence${index}`}
-                              onClick={openImage}
-                              onUpdate={handleUpdate}
-                              validate={validEvidenceImage}
-                            />
+                            <Mutation mutation={REMOVE_EVIDENCE_MUTATION} onCompleted={handleUpdateResult}>
+                              {(removeImage: MutationFn): React.ReactNode => {
+                                const handleRemove: (() => void) = (): void => {
+                                  mixpanel.track("RemoveEvidence", {
+                                    Organization: (window as Window & { userOrganization: string }).userOrganization,
+                                    User: (window as Window & { userName: string }).userName,
+                                  });
+                                  setEditing(false);
+                                  showPreloader();
+                                  removeImage({ variables: { evidenceId: index, findingId } })
+                                    .catch();
+                                };
+
+                                const openImage: (() => void) = (): void => {
+                                  if (!isEditing) { setLightboxIndex(index); }
+                                };
+
+                                return (
+                                  <EvidenceImage
+                                    acceptedMimes="image/jpeg,image/gif,image/png"
+                                    content={_.isEmpty(evidence.url) ? <div /> : `${baseUrl}/${evidence.url}`}
+                                    description={evidence.description}
+                                    isDescriptionEditable={index > 1}
+                                    isEditing={isEditing}
+                                    isRemovable={!_.isEmpty(evidence.url)}
+                                    key={index}
+                                    name={`evidence${index}`}
+                                    onClick={openImage}
+                                    onDelete={handleRemove}
+                                    onUpdate={handleUpdate}
+                                    validate={validEvidenceImage}
+                                  />
+                                );
+                              }}
+                            </Mutation>
                           );
                         }}
                       </Mutation>
