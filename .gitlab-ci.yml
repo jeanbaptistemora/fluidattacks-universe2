@@ -351,9 +351,7 @@ new-version-mail:
   dependencies:
     - build-app
   script:
-    - . ci-scripts/helpers/others.sh && vault_login
-    - export DJANGO_SETTINGS_MODULE=fluidintegrates.settings
-    - vaultenv python3 integrates_version.py
+    - ./ci-scripts/jobs/new-version-mail.sh
   only:
     - master
   except:
