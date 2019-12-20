@@ -85,13 +85,13 @@ export const loadDescription: ThunkActionStructure<void> =
           risk
           type
           acceptanceDate
+          acceptationApproval
         }
       }`;
 
       new Xhr().request(gQry, "An error occurred getting finding description")
         .then((response: AxiosResponse) => {
           const { data } = response.data;
-
           dispatch<IActionStructure>({
             payload: {
               descriptionData: { ...data.finding, ...data.project },
@@ -267,8 +267,10 @@ export const updateTreatment: ThunkActionStructure<void> =
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
       let treatment: string = values.treatment;
+      let accAppr: string = values.acceptationApproval;
       if (treatment === "ACCEPTED") {
         treatment = "ACCEPTED_UNDEFINED";
+        accAppr = "PENDING";
       }
       gQry = `mutation {
         updateTreatment(
@@ -277,6 +279,7 @@ export const updateTreatment: ThunkActionStructure<void> =
           treatment: "${treatment}",
           treatmentJustification: ${JSON.stringify(values.treatmentJustification)},
           acceptanceDate: "${values.acceptanceDate}",
+          acceptationApproval: "${accAppr}"
         ) {
           finding {
             btsUrl

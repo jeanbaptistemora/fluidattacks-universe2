@@ -104,6 +104,7 @@ const initialState: IDashboardState = {
   description: {
     dataset: {
       acceptanceDate: "",
+      acceptationApproval: "",
       actor: "",
       affectedSystems: "",
       analyst: "",

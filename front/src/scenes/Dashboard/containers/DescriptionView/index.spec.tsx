@@ -20,6 +20,7 @@ describe("DescriptionView", () => {
     currentUserEmail: "user@test.com",
     dataset: {
       acceptanceDate: "",
+      acceptationApproval: "",
       actor: "ANYONE_INTERNET",
       affectedSystems: "",
       analyst: "",

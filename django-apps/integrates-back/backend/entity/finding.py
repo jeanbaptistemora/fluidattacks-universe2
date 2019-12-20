@@ -368,6 +368,18 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.acceptance_date
 
+    def resolve_acceptation_approval(self, info):
+        del info
+        return self.acceptation_approval
+
+    def resolve_accepted_user(self, info):
+        del info
+        return self.accepted_user
+
+    def resolve_acceptation_justification(self, info):
+        del info
+        return self.acceptation_justification
+
     def resolve_current_state(self, info):
         """Resolve vulnerabilities attribute."""
         del info
@@ -710,6 +722,7 @@ class UpdateTreatment(Mutation):
         finding_id = String(required=True)
         treatment = String(required=True)
         treatment_justification = String(required=True)
+        acceptation_approval = String()
     success = Boolean()
     finding = Field(Finding)
 

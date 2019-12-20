@@ -37,6 +37,7 @@ export interface IDescriptionViewProps {
   currentUserEmail: string;
   dataset: {
     acceptanceDate: string;
+    acceptationApproval: string;
     actor: string;
     affectedSystems: string;
     analyst: string;
