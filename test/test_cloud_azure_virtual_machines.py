@@ -36,6 +36,13 @@ def test_has_os_disk_encryption_disabled_open():
         AZURE_SUBSCRIPTION_ID).is_open()
 
 
+def test_has_data_disk_encryption_disabled_open():
+    """Search Data Disks that do no have encryption enable."""
+    assert virtual_machines.has_data_disk_encryption_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_open()
+
+
 #
 # Closing tests
 #
@@ -43,6 +50,13 @@ def test_has_os_disk_encryption_disabled_open():
 
 def test_has_os_disk_encryption_disabled_closed():
     """Search OS Disks that do no have encryption enable."""
+    assert virtual_machines.has_os_disk_encryption_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_has_data_disk_encryption_disabled_closed():
+    """Search Data Disks that do no have encryption enable."""
     assert virtual_machines.has_os_disk_encryption_disabled(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()
