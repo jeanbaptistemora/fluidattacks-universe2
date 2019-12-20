@@ -25,7 +25,7 @@ from backend.entity.project import (
 )
 from backend.entity.event import (
     AddEventComment, CreateEvent, DownloadEventFile, SolveEvent, UpdateEvent,
-    UpdateEventEvidence
+    UpdateEventEvidence, RemoveEventEvidence
 )
 from backend.entity.me import SignIn, UpdateAccessToken, InvalidateAccessToken
 from backend.entity.alert import SetAlert
@@ -83,6 +83,7 @@ class Mutations(ObjectType):
     download_event_file = DownloadEventFile.Field()
     update_event = UpdateEvent.Field()
     update_event_evidence = UpdateEventEvidence.Field()
+    remove_event_evidence = RemoveEventEvidence.Field()
     solve_event = SolveEvent.Field()
 
     removeTag = RemoveTag.Field()

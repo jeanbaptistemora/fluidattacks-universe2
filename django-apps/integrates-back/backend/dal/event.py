@@ -65,3 +65,7 @@ def save_evidence(file_object, file_name):
     success = s3.upload_memory_file(FI_AWS_S3_BUCKET, file_object, file_name)
 
     return success
+
+
+def remove_evidence(file_name):
+    return s3.remove_file(FI_AWS_S3_BUCKET, file_name)

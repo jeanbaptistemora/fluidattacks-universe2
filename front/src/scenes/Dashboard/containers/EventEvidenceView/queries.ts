@@ -28,3 +28,11 @@ export const UPDATE_EVIDENCE_MUTATION: DocumentNode = gql`
     }
   }
 `;
+
+export const REMOVE_EVIDENCE_MUTATION: DocumentNode = gql`
+  mutation RemoveEvidenceMutation($eventId: String!, $evidenceType: EventEvidenceType!) {
+    removeEventEvidence(eventId: $eventId, evidenceType: $evidenceType) {
+      success
+    }
+  }
+`;

@@ -323,16 +323,17 @@ class AddEventComment(Mutation):
         return AddEventComment(success=success, comment_id=comment_id)
 
 
+class EventEvidenceType(Enum):
+    IMAGE = 'evidence'
+    FILE = 'evidence_file'
+
+
 class UpdateEventEvidence(Mutation):
     """Attaches a file as the event evidence """
 
     class Arguments():
         event_id = String(required=True)
-        evidence_type = Argument(
-            Enum('EventEvidenceType', [
-                ('IMAGE', 'evidence'),
-                ('FILE', 'evidence_file')
-            ]), required=True)
+        evidence_type = Argument(EventEvidenceType, required=True)
         file = Upload(required=True)
     success = Boolean()
 
@@ -385,3 +386,26 @@ class DownloadEventFile(Mutation):
                 f'Security: Attempted to download file in event {event_id}')
 
         return DownloadEventFile(success=success, url=signed_url)
+
+
+class RemoveEventEvidence(Mutation):
+    """ Remove evidence files """
+
+    class Arguments():
+        event_id = String(required=True)
+        evidence_type = Argument(EventEvidenceType, required=True)
+    success = Boolean()
+
+    @staticmethod
+    @require_login
+    @require_role(['analyst', 'admin'])
+    @require_event_access
+    def mutate(_, info, event_id, evidence_type):
+        success = event_domain.remove_evidence(evidence_type, event_id)
+        if success:
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Removed evidence in event {event_id}')
+            util.invalidate_cache(event_id)
+
+        return RemoveEventEvidence(success=success)

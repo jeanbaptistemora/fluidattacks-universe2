@@ -26,7 +26,9 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { validEventFile, validEvidenceImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
-import { DOWNLOAD_FILE_MUTATION, GET_EVENT_EVIDENCES, UPDATE_EVIDENCE_MUTATION } from "./queries";
+import {
+  DOWNLOAD_FILE_MUTATION, GET_EVENT_EVIDENCES, REMOVE_EVIDENCE_MUTATION, UPDATE_EVIDENCE_MUTATION,
+} from "./queries";
 
 type EventEvidenceProps = RouteComponentProps<{ eventId: string }>;
 
@@ -136,17 +138,32 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                     };
 
                     return (
-                      <EvidenceImage
-                        acceptedMimes="image/jpeg,image/gif,image/png"
-                        content={_.isEmpty(data.event.evidence) ? <div /> : `${baseUrl}/${data.event.evidence}`}
-                        description="Evidence"
-                        isDescriptionEditable={false}
-                        isEditing={isEditing}
-                        name="evidence"
-                        onClick={openImage}
-                        onUpdate={handleUpdate}
-                        validate={validEvidenceImage}
-                      />
+                      <Mutation mutation={REMOVE_EVIDENCE_MUTATION} onCompleted={handleUpdateResult}>
+                        {(removeImage: MutationFn): React.ReactNode => {
+                          const handleRemove: (() => void) = (): void => {
+                            showPreloader();
+                            removeImage({ variables: { eventId, evidenceType: "IMAGE" } })
+                              .catch();
+                            setEditing(false);
+                          };
+
+                          return (
+                            <EvidenceImage
+                              acceptedMimes="image/jpeg,image/gif,image/png"
+                              content={_.isEmpty(data.event.evidence) ? <div /> : `${baseUrl}/${data.event.evidence}`}
+                              description="Evidence"
+                              isDescriptionEditable={false}
+                              isEditing={isEditing}
+                              isRemovable={!_.isEmpty(data.event.evidence)}
+                              name="evidence"
+                              onClick={openImage}
+                              onDelete={handleRemove}
+                              onUpdate={handleUpdate}
+                              validate={validEvidenceImage}
+                            />
+                          );
+                        }}
+                      </Mutation>
                     );
                   }}
                 </Mutation>
@@ -187,17 +204,32 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                           };
 
                           return (
-                            <EvidenceImage
-                              acceptedMimes="application/pdf,application/zip,text/csv,text/plain"
-                              content={<Glyphicon glyph="file" />}
-                              description="File"
-                              isDescriptionEditable={false}
-                              isEditing={isEditing}
-                              name="file"
-                              onClick={handleClick}
-                              onUpdate={handleUpdate}
-                              validate={validEventFile}
-                            />
+                            <Mutation mutation={REMOVE_EVIDENCE_MUTATION} onCompleted={handleUpdateResult}>
+                              {(removeFile: MutationFn): React.ReactNode => {
+                                const handleRemove: (() => void) = (): void => {
+                                  showPreloader();
+                                  removeFile({ variables: { eventId, evidenceType: "FILE" } })
+                                    .catch();
+                                  setEditing(false);
+                                };
+
+                                return (
+                                  <EvidenceImage
+                                    acceptedMimes="application/pdf,application/zip,text/csv,text/plain"
+                                    content={<Glyphicon glyph="file" />}
+                                    description="File"
+                                    isDescriptionEditable={false}
+                                    isEditing={isEditing}
+                                    isRemovable={!_.isEmpty(data.event.evidenceFile)}
+                                    name="file"
+                                    onClick={handleClick}
+                                    onDelete={handleRemove}
+                                    onUpdate={handleUpdate}
+                                    validate={validEventFile}
+                                  />
+                                );
+                              }}
+                            </Mutation>
                           );
                         }}
                       </Mutation>

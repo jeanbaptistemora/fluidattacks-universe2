@@ -266,3 +266,15 @@ def get_evidence_link(event_id, file_name):
 
     return resources_domain.sign_url(
         FI_CLOUDFRONT_RESOURCES_DOMAIN, file_url, minutes_until_expire)
+
+
+def remove_evidence(evidence_type, event_id):
+    finding = get_event(event_id)
+    project_name = finding['project_name']
+    success = False
+
+    full_name = f'{project_name}/{event_id}/{finding[evidence_type]}'
+    if event_dal.remove_evidence(full_name):
+        success = event_dal.update(event_id, {evidence_type: None})
+
+    return success
