@@ -160,7 +160,7 @@ const renderActionButtons: ((props: IDescriptionViewProps) => JSX.Element) =
   (props: IDescriptionViewProps): JSX.Element => (
     <React.Fragment>
       <ButtonToolbar className="pull-right">
-        {_.includes(["customeradmin"], props.userRole)
+        {_.includes(["customeradmin"], props.userRole) && props.dataset.acceptationApproval === "PENDING"
           ? renderApproveAcceptationBtn() : undefined}
         {_.includes(["admin", "analyst"], props.userRole) && props.dataset.remediated
           ? renderMarkVerifiedBtn() : undefined}
