@@ -4,7 +4,7 @@ undo_rollout() {
 
   # Undo an Integrates rollout
 
-  set -Eeuo pipefail
+  set -e
   kubectl rollout undo deploy/integrates-app
 }
 
@@ -13,7 +13,7 @@ deploy_newrelic() {
   # Script to save a deployment record in New Relic
   # Reference: https://rpm.newrelic.com/api/explore/application_deployments/create
 
-  set -Eeuo pipefail
+  set -e
 
   local ENV_NAME
   local NEW_RELIC_URL
@@ -57,7 +57,7 @@ deploy_k8s() {
 
   # Deploy new Integrates version to production
 
-  set -Eeuo pipefail
+  set -e
 
   # Import functions
   . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
