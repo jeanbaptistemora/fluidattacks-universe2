@@ -270,8 +270,7 @@ deploy-mobile:
   needs: [deps-mobile]
   image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:$CI_COMMIT_REF_NAME
   script:
-    - . ci-scripts/helpers/others.sh && vault_login
-    - vaultenv ./ci-scripts/jobs/deploy-mobile.sh
+    - ./ci-scripts/jobs/deploy-mobile.sh
   environment:
     name: "mobile-review/$CI_COMMIT_REF_NAME"
     url: "https://expo.io/@developmentatfluid/integrates?release-channel=$CI_COMMIT_REF_NAME"

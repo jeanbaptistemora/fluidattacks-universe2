@@ -7,13 +7,30 @@ publish_ota() {
   set -e
 
   # Import functions
+  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/sops-source/sops.sh)
   . ci-scripts/helpers/others.sh
+  . ci-scripts/helpers/sops.sh
+
+  local ENV_NAME
+
+  if [ "$CI_COMMIT_REF_NAME" == 'master' ]; then
+    ENV_NAME='production'
+  else
+    ENV_NAME='development'
+  fi
+
+  aws_login "$ENV_NAME"
+  sops_env default \
+  EXPO_USER \
+  EXPO_PASS \
+  GOOGLE_SERVICES_APP \
+  ROLLBAR_ACCESS_TOKEN
 
   cd mobile || return 1
 
   # Prepare Expo
-  npx expo login -u "$FI_EXPO_USERNAME" -p "$FI_EXPO_PASSWORD"
-  echo "$FI_GOOGLE_SERVICES_APP" > google-services.json
+  npx expo login -u "$EXPO_USER" -p "$EXPO_PASS"
+  echo "$GOOGLE_SERVICES_APP" > google-services.json
   DEVELOPER_ENV=${CI_COMMIT_REF_NAME:-"local"}
 
   # Publish
