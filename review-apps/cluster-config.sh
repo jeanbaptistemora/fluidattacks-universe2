@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # This scripts manages the deployment of the Review Apps,
 # which allow to view a live site through a public IP with the
 # changes introduced by the developer, before accepting changes into
@@ -38,10 +37,8 @@ function issue_domain_certificate() {
     echo "No previous Let's Encrypt account found."
   kubectl delete certificate "${certificate}" ||
     echo "No previous certificate found."
-  echo-blue "Generating dynamic AWS credentials..."
-  vault read -format=json aws/creds/integrates-review > review.json
-  export RA_ACCESS_KEY="$(cat review.json | jq -r '.data.access_key')"
-  export RA_SECRET_KEY="$(cat review.json | jq -r '.data.secret_key')"
+  export RA_ACCESS_KEY="$AWS_ACCESS_KEY_ID"
+  export RA_SECRET_KEY="$AWS_SECRET_ACCESS_KEY"
   rm review.json
   sleep 15
   echo "Creating secret with AWS credentials..."
@@ -77,7 +74,14 @@ function validate_domain_certificate() {
   fi
 }
 
-cd review-apps/
+export ENV_NAME
+
+ENV_NAME='development'
+
+# Import functions
+. ci-scripts/helpers/sops.sh
+
+aws_login "$ENV_NAME"
 
 # Set namespace preference for kubectl commands
 echo-blue "Setting namespace preferences..."
@@ -85,32 +89,24 @@ kubectl config set-context \
   "$(kubectl config current-context)" --namespace="$CI_PROJECT_NAME"
 
 # Check resources to enable TLS communication
-validate_domain_certificate tls.yaml
-
-# Check secret to pull images from Gitlab Registry and set if not present
-if find_resource secret gitlab-reg; then
-  echo-blue "Access to Gitlab Registry already configured."
-else
-  echo-blue "Creating secret to access Gitlab Registry..."
-  kubectl create secret docker-registry gitlab-reg \
-    --docker-server="${CI_REGISTRY}" \
-    --docker-username="${GITLAB_USER}" --docker-password="${GITLAB_PASS}" \
-    --docker-email="${GITLAB_EMAIL}"
-fi
+validate_domain_certificate review-apps/tls.yaml
 
 # Check secret to pass env variables to container
-export VAULT_HOST_B64="$(echo -n $VAULT_HOST | base64)"
-export VAULT_TOKEN_B64="$(echo -n $VAULT_TOKEN | base64)"
 export DATE="$(date)"
-replace_env_variables variables.yaml ingress.yaml deploy-integrates.yaml
-kubectl apply -f variables.yaml
-kubectl apply -f ingress.yaml
+export B64_AWS_ACCESS_KEY_ID="$(echo -n $AWS_ACCESS_KEY_ID | base64)"
+export B64_AWS_SECRET_ACCESS_KEY="$(echo -n $AWS_SECRET_ACCESS_KEY | base64)"
+replace_env_variables \
+  review-apps/variables.yaml \
+  review-apps/ingress.yaml \
+  review-apps/deploy-integrates.yaml
+kubectl apply -f review-apps/variables.yaml
+kubectl apply -f review-apps/ingress.yaml
 
 # Deploy pod and service
 echo "Deploying latest image..."
-kubectl apply -f deploy-integrates.yaml
+kubectl apply -f review-apps/deploy-integrates.yaml
 kubectl rollout status "deploy/review-${CI_COMMIT_REF_SLUG}" --timeout=5m ||
   { echo-blue "Review environment failed to deploy" && exit 1; }
 
 # Erase file with keys
-rm variables.yaml
+rm review-apps/variables.yaml

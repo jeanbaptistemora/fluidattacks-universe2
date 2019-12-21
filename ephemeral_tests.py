@@ -21,8 +21,8 @@ class ViewTestCase(unittest.TestCase):
         profile_path = '/root/.config/google-chrome/Default'
         if not os.path.exists(profile_path):
             session = boto3.Session(
-                aws_access_key_id=os.environ['FI_AWS_S3_ACCESS_KEY'],
-                aws_secret_access_key=os.environ['FI_AWS_S3_SECRET_KEY'])
+                aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
+                aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'])
             s3_sess = session.resource('s3')
             s3_sess.Bucket(s3_bucket).download_file(
                 'selenium/chrome-selenium-profile.tar.gz', 'profile.tar.gz')

@@ -36,7 +36,7 @@ spec:
             value: "$DATE"
         envFrom:
           - secretRef:
-              name: env-secret
+              name: env-secret-$CI_COMMIT_REF_SLUG
         ports:
         - containerPort: 443
         readinessProbe:

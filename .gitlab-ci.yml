@@ -129,8 +129,7 @@ test-app:
   tags: [autoscaling-large]
   image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
   script:
-    - . ci-scripts/helpers/others.sh && vault_login
-    - vaultenv ./ci-scripts/jobs/test-app.sh
+    - ./ci-scripts/jobs/test-app.sh
   artifacts:
     name: "coverage_xml_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA:0:8}"
     paths:
@@ -227,8 +226,7 @@ ephemeral-app:
   needs: [build-app]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
-    - . ci-scripts/helpers/others.sh && vault_login
-    - vaultenv review-apps/cluster-config.sh
+    - ./review-apps/cluster-config.sh
   retry: 1
   environment:
     name: "review/$CI_COMMIT_REF_SLUG"
@@ -259,8 +257,7 @@ deploy-k8s:
     name: "production"
     url: "https://fluidattacks.com/integrates"
   script:
-    - . ci-scripts/helpers/others.sh && vault_login
-    - vaultenv ./ci-scripts/jobs/deploy-k8s.sh
+    - ./ci-scripts/jobs/deploy-k8s.sh
   only:
     - master
 
@@ -292,8 +289,7 @@ test-driver-dev:
   needs: [ephemeral-app]
   image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
   script:
-    - . ci-scripts/helpers/others.sh && vault_login
-    - vaultenv ./ci-scripts/jobs/test-driver.sh
+    - ./ci-scripts/jobs/test-driver.sh
   parallel: 5
   retry: 1
   artifacts:
@@ -310,8 +306,7 @@ test-driver-prod:
   tags: [autoscaling-large]
   image: registry.gitlab.com/fluidattacks/integrates/app:master
   script:
-    - . ci-scripts/helpers/others.sh && vault_login
-    - vaultenv ./ci-scripts/jobs/test-driver.sh
+    - ./ci-scripts/jobs/test-driver.sh
   parallel: 5
   retry: 1
   artifacts:

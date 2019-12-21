@@ -7,9 +7,13 @@ provision_mock () {
     # Import functions
     . ci-scripts/helpers/sops.sh
 
+    local ENV_NAME='development'
+
     service redis-server start
 
-    aws_login development
+    aws_login "$ENV_NAME"
+
+    sops_vars "$ENV_NAME"
 
     java -Djava.library.path=/usr/local/lib/dynamodb-local/DynamoDBLocal_lib \
         -jar /usr/local/lib/dynamodb-local/DynamoDBLocal.jar \

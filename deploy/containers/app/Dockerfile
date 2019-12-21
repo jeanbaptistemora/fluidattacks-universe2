@@ -64,4 +64,4 @@ RUN sed -i "s/env#/${ENV_NAME}#/g" env.vars \
 EXPOSE 443 24224
 
 # Start integrates
-CMD vaultenv ./deploy/containers/common/vars/run.sh
+CMD ./deploy/containers/common/vars/run.sh
