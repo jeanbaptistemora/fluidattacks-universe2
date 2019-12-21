@@ -111,16 +111,8 @@ deploy_infra:
   tags: [autoscaling]
   stage: deploy
   script:
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
-        $HOME/.kube/config || echo "No Kubernetes configuration file found"
     - sed -i 's/plan/apply\ -auto-approve/g' infrastructure/terraform.sh
     - ./infrastructure/terraform.sh deployment
-  after_script:
-    - aws s3 cp
-        $HOME/.kube/config
-        s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
-    - rm infrastructure/*.xml
   only:
     - master
   except:
@@ -164,6 +156,16 @@ change-keys-integrates-jwt:
   stage: rotation
   script:
     ./ci-scripts/jobs/change-keys-integrates-jwt.sh
+  <<: *only_schedules
+  <<: *except_analytics
+  when: always
+
+change-keys-aws-integrates-prod:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: rotation
+  script:
+    - ./ci-scripts/jobs/change-keys-aws-integrates-prod.sh
   <<: *only_schedules
   <<: *except_analytics
   when: always
@@ -621,16 +623,6 @@ fluid-vpc-terraform-apply:
     - master
   except:
     - schedules
-
-integrates-prod-key-rotation:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: rotation
-  script:
-    - ./ci-scripts/jobs/integrates-prod-key-rotation.sh
-  <<: *only_schedules
-  <<: *except_analytics
-  when: always
 
 asserts-static:
   stage: test

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-integrates_prod_key_rotation() {
+change_keys_aws_integrates_prod() {
+
   # Script to rotate integrates-prod access key
 
   set -Eeuo pipefail
@@ -37,4 +38,4 @@ integrates_prod_key_rotation() {
   deploy_integrates
 }
 
-integrates_prod_key_rotation
+change_keys_aws_integrates_prod

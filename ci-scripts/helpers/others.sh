@@ -30,6 +30,9 @@ deploy_integrates() {
   sed -i "s/\$DATE/$(date)/g" \
     infrastructure/eks/manifests/deployments/*.yaml
 
+  aws eks update-kubeconfig --name FluidServes --region us-east-1
+  kubectl config set-context "$(kubectl config current-context)" --namespace serves
+
   kubectl apply -f infrastructure/eks/manifests/deployments/integrates-app.yaml
 
   kubectl rollout status deploy/integrates-app --timeout=5m \
