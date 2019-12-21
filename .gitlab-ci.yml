@@ -113,11 +113,6 @@ deploy_infra:
   script:
     - sed -i 's/plan/apply\ -auto-approve/g' infrastructure/terraform.sh
     - ./infrastructure/terraform.sh deployment
-  after_script:
-    - aws s3 cp
-        $HOME/.kube/config
-        s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
-    - rm infrastructure/*.xml
   only:
     - master
   except:
