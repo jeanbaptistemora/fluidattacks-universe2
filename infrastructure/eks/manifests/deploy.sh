@@ -183,6 +183,7 @@ function wait_elb_initialization() {
   echo-blue 'Load Balancer is ready to receive requests.'
 }
 
+. ci-scripts/helpers/others.sh
 
 cd eks/manifests/
 
@@ -279,8 +280,11 @@ export DATE
 export FI_VAULT_HOST
 export FI_VAULT_TOKEN
 
+cd "$CI_PROJECT_DIR"
+deploy_integrates
+cd infrastructure/eks/manifests
+
 deploy_application deployments/exams.yaml
-deploy_application deployments/integrates-app.yaml
 deploy_application deployments/vpn.yaml
 deploy_application daemonsets/newrelic-infra.yaml
 

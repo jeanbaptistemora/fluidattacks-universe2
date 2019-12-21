@@ -4,7 +4,7 @@ deploy_integrates() {
 
   # deploy a new integrates version
 
-  set -Eeuo pipefail
+  set -e
 
   # Import functions
   . toolbox/terraform.sh
@@ -40,7 +40,7 @@ vault_login() {
 
   # Log in to vault
 
-  set -Eeuo pipefail
+  set -e
 
   export VAULT_ADDR
   export VAULT_HOST

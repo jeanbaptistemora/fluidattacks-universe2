@@ -111,9 +111,6 @@ deploy_infra:
   tags: [autoscaling]
   stage: deploy
   script:
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
-        $HOME/.kube/config || echo "No Kubernetes configuration file found"
     - sed -i 's/plan/apply\ -auto-approve/g' infrastructure/terraform.sh
     - ./infrastructure/terraform.sh deployment
   after_script:
