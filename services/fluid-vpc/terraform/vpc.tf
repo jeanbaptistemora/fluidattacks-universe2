@@ -1,5 +1,5 @@
 resource "aws_vpc" "fluid-vpc" {
-  cidr_block       = "192.168.0.0/16"
+  cidr_block = "192.168.0.0/16"
   tags = {
     Name = "fluid-vpc"
   }

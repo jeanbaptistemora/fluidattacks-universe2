@@ -6,23 +6,26 @@ deploy_integrates() {
 
   set -Eeuo pipefail
 
-  export INTEGRATES_VAULT_TOKEN
+  # Import functions
+  . toolbox/terraform.sh
 
-  vault_login
+  local TERRAFORM_DIR
+  local BUCKET
+  local TMP_AWS_ACCESS_KEY_ID
+  local TMP_AWS_SECRET_ACCESS_KEY
+  local B64_AWS_ACCESS_KEY_ID
+  local B64_AWS_SECRET_ACCESS_KEY
 
-  aws s3 cp \
-    "s3://servestf/terraform/kubeconfig" \
-    "$HOME/.kube/config"
+  BUCKET="fluidattacks-terraform-states-prod"
+  TERRAFORM_DIR="services/user-provision-integrates/integrates-prod/terraform"
+  TMP_AWS_ACCESS_KEY_ID="$(output_terraform $TERRAFORM_DIR $BUCKET integrates-prod-secret-key-id)"
+  TMP_AWS_SECRET_ACCESS_KEY="$(output_terraform $TERRAFORM_DIR $BUCKET integrates-prod-secret-key)"
+  B64_AWS_ACCESS_KEY_ID="$(echo -n $TMP_AWS_ACCESS_KEY_ID | base64)"
+  B64_AWS_SECRET_ACCESS_KEY="$(echo -n $TMP_AWS_SECRET_ACCESS_KEY | base64)"
 
-  INTEGRATES_VAULT_TOKEN="$(curl \
-    --request POST \
-    --data "{\"role_id\":\"$INTEGRATES_PROD_ROLE_ID\",\"secret_id\":\"$INTEGRATES_PROD_SECRET_ID\"}" \
-    "https://vault.fluidattacks.com/v1/auth/approle/login" \
-    | jq -r '.auth.client_token')"
-
-  sed -i "s/\$FI_VAULT_HOST/$(echo -n $VAULT_HOST | base64)/g" \
+  sed -i "s/\$B64_AWS_ACCESS_KEY_ID/$B64_AWS_ACCESS_KEY_ID/g" \
     infrastructure/eks/manifests/deployments/integrates-app.yaml
-  sed -i "s/\$FI_VAULT_TOKEN/$(echo -n $INTEGRATES_VAULT_TOKEN | base64)/g" \
+  sed -i "s/\$B64_AWS_SECRET_ACCESS_KEY/$B64_AWS_SECRET_ACCESS_KEY/g" \
     infrastructure/eks/manifests/deployments/integrates-app.yaml
   sed -i "s/\$DATE/$(date)/g" \
     infrastructure/eks/manifests/deployments/*.yaml
