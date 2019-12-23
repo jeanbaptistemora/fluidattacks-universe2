@@ -8,7 +8,7 @@ import { default as globalStyle } from "../../../../styles/global.css";
 import { formatDropdownField } from "../../../../utils/formatHelpers";
 import { dateField, dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { isLowerDate, isValidDate, isValidVulnSeverity, numeric, required } from "../../../../utils/validations";
+import { isLowerOrEqualDate, isValidDate, isValidVulnSeverity, numeric, required } from "../../../../utils/validations";
 import { openConfirmDialog } from "../../actions";
 import { EditableField } from "../../components/EditableField";
 import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
@@ -153,7 +153,7 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
               name="acceptanceDate"
               renderAsEditable={isEditable}
               type="date"
-              validate={[isValidDate, isLowerDate]}
+              validate={[isValidDate, isLowerOrEqualDate]}
               visible={(treatmentAccepted)}
             />
           </Col>

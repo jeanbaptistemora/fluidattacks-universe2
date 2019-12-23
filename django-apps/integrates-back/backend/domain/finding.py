@@ -284,7 +284,7 @@ def handle_acceptation(finding_id, observations, user_mail, response):
             'acceptation_approval': response,
             'treatment': 'ACCEPTED' if response == 'APPROVED' else 'REJECTED',
             'observations': observations,
-            'acceptance_date': today,
+            'acceptance_date': today if response == 'APPROVED' else '-',
             'acceptation_justification': observations,
             'acceptation_user': user_mail})
     )
