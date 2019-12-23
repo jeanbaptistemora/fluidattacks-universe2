@@ -98,3 +98,44 @@ def has_insecure_transport(client_id: str, secret: str, tenant: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def blob_containers_are_public(client_id: str, secret: str, tenant: str,
+                               subscription_id: str) -> Tuple:
+    """
+    Check if Blob containers are publicly accessible.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if there are blob containers publicly accessible.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Blob containres are publicly accessible.'
+    msg_closed: str = 'Blob containers are private.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    storage = StorageManagementClient(credentials, subscription_id)
+    storage_accounts = storage.storage_accounts.list()
+    for account in storage_accounts:
+        group_name = account.id.split('/')[4]
+        blob_containers = storage.blob_containers.list(group_name,
+                                                       account.name).value
+        for container in blob_containers:
+            (vulns if container.public_access != 'None' else safes).append(
+                (container.id, 'does not allow public access to containers.'))
+
+    return _get_result_as_tuple(
+        objects='Storage accounts',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
