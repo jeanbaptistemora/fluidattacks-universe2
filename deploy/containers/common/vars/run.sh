@@ -26,7 +26,6 @@ if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
     service cron restart
 fi
 
-python3 deploy/containers/common/vars/render.py "$ENV_NAME"
 ./manage.py collectstatic --no-input
 /etc/init.d/td-agent restart
 

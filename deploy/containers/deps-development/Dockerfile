@@ -52,11 +52,7 @@ RUN mkdir -p /usr/share/man/man1 \
     && mv tflint /usr/local/bin/ \
   && curl -o kubectl "$KUBECTL_URL" \
     && chmod +x kubectl \
-    && mv kubectl /usr/local/bin/kubectl \
-  && a2enmod proxy \
-  && a2enmod proxy_http \
-  && a2enmod rewrite \
-  && a2enmod substitute
+    && mv kubectl /usr/local/bin/kubectl
 
 COPY "$PIP_REQUIREMENTS_DEV" /tmp/reqs_dev.txt
 COPY "$PIP_REQUIREMENTS_PROD" /tmp/reqs_prod.txt

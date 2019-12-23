@@ -24,7 +24,7 @@ WORKDIR /usr/src/app
 COPY . .
 
 # Replace td-agent configurations
-RUN rm -r /var/www/html \
+RUN rm -rf /var/www/html \
   && rm -f /etc/td-agent/td-agent.conf \
   && rm -f /etc/init.d/td-agent \
   && mv deploy/containers/common/vars/fluent.conf /etc/td-agent/td-agent.conf \
@@ -35,16 +35,8 @@ RUN rm -r /var/www/html \
   && mkdir app/documentator/tpls \
   && mkdir app/documentator/results \
   && mkdir app/techdoc/results \
-  && chown -R www-data:www-data app/documentator \
-  && chmod -R 0744 app/documentator \
-  && chown -R www-data:www-data app/techdoc \
-  && chmod -R 0744 app/techdoc \
-  && chown -R www-data:www-data . \
-  && a2enmod ssl \
   && echo "$SSL_CERT" | base64 -di > /etc/ssl/certs/fluidla.crt \
-  && echo "$SSL_KEY" | base64 -di > /etc/ssl/private/fluidla.key \
-  && echo "ServerTokens Prod" >> /etc/apache2/apache2.conf \
-  && echo "ServerSignature Off" >> /etc/apache2/apache2.conf
+  && echo "$SSL_KEY" | base64 -di > /etc/ssl/private/fluidla.key
 
 # Compile front
 RUN cp -a /npm-deps/front/node_modules front/ \
@@ -61,7 +53,7 @@ RUN sed -i "s/env#/${ENV_NAME}#/g" env.vars \
   && apt -y autoremove \
   && rm -rf /tmp/*
 
-EXPOSE 443 24224
+EXPOSE 80 24224
 
 # Start integrates
 CMD ./deploy/containers/common/vars/run.sh

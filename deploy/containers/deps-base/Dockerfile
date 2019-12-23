@@ -31,9 +31,7 @@ RUN apt install -yo DPkg::Options::='--force-confnew' --no-install-recommends \
     python3-venv \
     redis \
     sudo \
-    apache2 \
     cron \
-    libapache2-mod-wsgi-py3 \
     libmagic1 \
     ruby \
     ruby-dev \
@@ -65,6 +63,5 @@ RUN curl -sL "$NODE_URL" | bash - \
 RUN pip3 install \
   awscli \
   yq
-
 
 CMD ["bash"]
