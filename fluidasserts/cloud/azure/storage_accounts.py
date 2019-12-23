@@ -139,3 +139,43 @@ def blob_containers_are_public(client_id: str, secret: str, tenant: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def allow_access_from_all_networks(client_id: str, secret: str, tenant: str,
+                                   subscription_id: str) -> Tuple:
+    """
+    Check if Storage accounts allow access from all networks.
+
+    Ensures that Storage Account access is restricted to trusted networks.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if there are storage accounts that allow access from
+                all networks.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Storage accounts allow access from all networks.'
+    msg_closed: str = \
+        'Storage accounts restrict access only to trusted networks.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    storage_accounts = StorageManagementClient(
+        credentials, subscription_id).storage_accounts.list()
+    for account in storage_accounts:
+        (vulns if account.network_rule_set.default_action == 'Allow' else
+         safes).append((account.id, 'allow access only to trusted networks.'))
+    return _get_result_as_tuple(
+        objects='Storage accounts',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

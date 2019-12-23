@@ -50,6 +50,13 @@ def test_blob_containers_are_public_open():
         AZURE_SUBSCRIPTION_ID).is_open()
 
 
+def test_allow_access_from_all_networks_open():
+    """Search storage accounts that allow access from all networks."""
+    assert storage_accounts.allow_access_from_all_networks(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_open()
+
+
 #
 # Closing tests
 #
@@ -72,5 +79,12 @@ def test_has_insecure_transport_closed():
 def test_blob_containers_are_public_closed():
     """Search Blob containers that are publicly accessible."""
     assert storage_accounts.blob_containers_are_public(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_allow_access_from_all_networks_closed():
+    """Search storage accounts that allow access from all networks."""
+    assert storage_accounts.allow_access_from_all_networks(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()
