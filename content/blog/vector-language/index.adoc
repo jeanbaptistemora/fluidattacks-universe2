@@ -112,39 +112,39 @@ Words are nothing but labels for things.
 as arbitrary as "zapato" to describe something
 used to cover your foot.
 It might as well be called "34", why not?
-Do that for every word, and you got yourself
+Do that for every word, and you've got yourself
 a _categorical_ encoding.
 In reality, it's not that arbitrary.
 You start with a piece of text
 (resp. code, in all future iterations
-when it says _text_ that can be done for code and
+when it says _text_ that can be done for code;
 will be discussed in an upcoming article)
 called a _corpus_, which is what you will train on.
-Take as universe all the words occuring in the corpus,
+Take as a universe all the words occurring in the corpus,
 and assign numbers to each of those from 1 to the size of the corpus.
-Thus a sentence is encoded as the vector made out of
+Thus, a sentence is encoded as the vector made out of
 each word's label.
-So if our corpus is "A cat is on the roof. A dog is too'
+So, if our corpus is "A cat is on the roof. A dog is, too'
 The encoding of the first sentence could be <1, 2, 3, 4, 5, 6>
 and of the second, <1, 7, 3, 8>.
 For simple sentences of the form "A x is on y",
-it's not terrible, but you can imagine that this scheme
+it's not unmanageable, but you can imagine that this scheme
 gets out of control very fast as the corpus size increases.
 A related encoding is one-hot encoding.
 The same labels we assigned before are now positions in an 8-dimensional vector.
-Thus the first sentence is encoded as
+Thus, the first sentence is encoded as
 <1, 1, 1, 1, 1, 1, 0, 0, 0, 0>
 and the second as
 <1, 0, 1, 0, 0, 0, 0, 0, 1, 1>.
 We can also count repetitions here.
-We see several problems in these kinds of encondings.
-In one-hot, order is lost,
+We see several problems with these kinds of encondings.
+In one-hot, the order is lost,
 and the vectors would become too sparse for large corpora.
 A pro: all vectors are the same size,
 which is not true for categorical encoding.
-So we would also like vectors that are of the same size,m
+So, we would also like vectors that are of the same size, m
 for the sake of comparison, and hopefully,
-which are not too high dimensional.
+which are not too high-dimensional.
 
 A common saying is that deep learning
 (essentially, neural networks with many layers),
