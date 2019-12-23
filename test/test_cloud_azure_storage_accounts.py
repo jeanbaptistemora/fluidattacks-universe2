@@ -36,6 +36,13 @@ def test_use_microsoft_managed_keys_open():
         AZURE_SUBSCRIPTION_ID).is_open()
 
 
+def test_has_insecure_transport_open():
+    """Search Storage Accouts endpoints that allow insecure transport."""
+    assert storage_accounts.has_insecure_transport(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_open()
+
+
 #
 # Closing tests
 #
@@ -44,5 +51,12 @@ def test_use_microsoft_managed_keys_open():
 def test_use_microsoft_managed_keys_closed():
     """Search Storage Accouts that use keys managed by Microsoft."""
     assert storage_accounts.use_microsoft_managed_keys(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_has_insecure_transport_closed():
+    """Search Storage Accouts endpoints that allow insecure transport."""
+    assert storage_accounts.has_insecure_transport(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()
