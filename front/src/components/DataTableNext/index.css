@@ -1,3 +1,9 @@
+:local .tableHeader > th, .tableBody > td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 :local .tableHeader {
   background-color: #898787;
   border: none;
@@ -14,7 +20,7 @@
   cursor: pointer;
 }
 
-:local .tableBody > td{
+:local .tableBody > td {
   vertical-align: middle;
 }
 

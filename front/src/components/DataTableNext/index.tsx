@@ -52,6 +52,9 @@ const renderGivenHeaders: ((arg1: IHeader[]) => Column[]) =
       hidden: (key.visible) === undefined ? key.visible : !key.visible,
       onSort: handleSort,
       sort: true,
+      style: (): {} => ({
+        whiteSpace: key.wrapped === undefined ? "nowrap" : key.wrapped ? "unset" : "nowrap",
+      }),
       text: key.header,
     };
   })
