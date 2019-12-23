@@ -94,8 +94,8 @@ image::vector-relations.png[Relations between words as difference vectors]
 Not only can we capture male-female relations
 using word embeddings,
 but also other kind of relations
-such as present-past tense,
-and notice how the difference vector
+such as present-past tense.
+Notice how the difference vector
 between a country's vector and its capital's vector
 is, in almost every case,
 a horizontal one.
