@@ -1,8 +1,9 @@
 export interface IAcceptationApprovalAttrs {
-  approveAcceptation: {
+  handleAcceptation: {
     findingId: string;
     observations: string;
     projectName: string;
+    response: string;
     success: boolean;
   };
 }

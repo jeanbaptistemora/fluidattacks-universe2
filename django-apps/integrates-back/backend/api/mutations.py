@@ -15,7 +15,7 @@ from backend.entity.vulnerability import (
 from backend.entity.finding import (
     UpdateEvidence, RemoveEvidence, UpdateSeverity,
     UpdateEvidenceDescription,
-    AddFindingComment, VerifyFinding, ApproveAcceptation, RequestVerification,
+    AddFindingComment, VerifyFinding, HandleAcceptation, RequestVerification,
     UpdateDescription, UpdateTreatment, RejectDraft,
     DeleteFinding, ApproveDraft, CreateDraft, SubmitDraft
 )
@@ -67,7 +67,7 @@ class Mutations(ObjectType):
     addFindingComment = AddFindingComment.Field()
 
     verifyFinding = VerifyFinding.Field()
-    approveAcceptation = ApproveAcceptation.Field()
+    handleAcceptation = HandleAcceptation.Field()
     requestVerification = RequestVerification.Field()
     updateDescription = UpdateDescription.Field()
     updateTreatment = UpdateTreatment.Field()

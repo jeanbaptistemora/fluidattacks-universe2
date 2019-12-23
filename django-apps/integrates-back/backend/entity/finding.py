@@ -619,27 +619,32 @@ class VerifyFinding(Mutation):
         return ret
 
 
-class ApproveAcceptation(Mutation):
-    """ Approve acceptation """
+class HandleAcceptation(Mutation):
+    """ Approve or reject acceptation request """
     class Arguments():
         finding_id = String(required=True)
         observations = String(required=True)
         project_name = String(required=True)
+        response = String(required=True)
     success = Boolean()
 
     @require_login
     @require_role(['customeradmin'])
     @require_finding_access
-    def mutate(self, info, finding_id, observations, project_name):
+    def mutate(self, info, **parameters):
         user_info = util.get_jwt_content(info.context)
         user_mail = user_info['user_email']
-        success = finding_domain.approve_acceptation(finding_id, observations, user_mail)
+        finding_id = parameters.get('finding_id')
+        success = finding_domain.handle_acceptation(finding_id,
+                                                    parameters.get('observations'),
+                                                    user_mail,
+                                                    parameters.get('response'))
         if success:
             util.invalidate_cache(finding_id)
-            util.invalidate_cache(project_name)
+            util.invalidate_cache(parameters.get('project_name'))
             util.cloudwatch_log(info.context, 'Security: Verified a request '
                                 f'in finding_id: {finding_id}')
-        ret = ApproveAcceptation(success=success)
+        ret = HandleAcceptation(success=success)
         return ret
 
 

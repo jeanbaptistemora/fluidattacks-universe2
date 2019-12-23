@@ -30,7 +30,7 @@ import { GenericForm } from "../../components/GenericForm/index";
 import { remediationModal as RemediationModal } from "../../components/RemediationModal/index";
 import * as actions from "./actions";
 import { renderFormFields } from "./formStructure";
-import { APPROVE_ACCEPTATION } from "./queries";
+import { HANDLE_ACCEPTATION } from "./queries";
 import { IAcceptationApprovalAttrs } from "./types";
 
 export interface IDescriptionViewProps {
@@ -133,20 +133,33 @@ const renderRequestVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
     );
   };
 
-const renderApproveAcceptationBtn: (() => JSX.Element) = (): JSX.Element => {
-  const handleClick: (() => void) = (): void => {
+const renderAcceptationBtns: (() => JSX.Element) = (): JSX.Element => {
+  const handleRejectClick: (() => void) = (): void => {
+    remediationType = "reject_acceptation";
+    store.dispatch(actions.openRemediationMdl());
+  };
+  const handleApproveClick: (() => void) = (): void => {
     remediationType = "approve_acceptation";
     store.dispatch(actions.openRemediationMdl());
   };
 
   return (
-    <Button
-      hidden={true}
-      bsStyle="success"
-      onClick={handleClick}
-    >
-      <FluidIcon icon="verified" /> Approve Acceptation
-    </Button>
+    <React.Fragment>
+      <Button
+        hidden={true}
+        bsStyle="success"
+        onClick={handleRejectClick}
+      >
+        <FluidIcon icon="verified" /> Reject Acceptation
+      </Button>
+      <Button
+        hidden={true}
+        bsStyle="success"
+        onClick={handleApproveClick}
+      >
+        <FluidIcon icon="verified" /> Approve Acceptation
+      </Button>
+    </React.Fragment>
   );
 };
 
@@ -161,7 +174,7 @@ const renderActionButtons: ((props: IDescriptionViewProps) => JSX.Element) =
     <React.Fragment>
       <ButtonToolbar className="pull-right">
         {_.includes(["customeradmin"], props.userRole) && props.dataset.acceptationApproval === "PENDING"
-          ? renderApproveAcceptationBtn() : undefined}
+          ? renderAcceptationBtns() : undefined}
         {_.includes(["admin", "analyst"], props.userRole) && props.dataset.remediated
           ? renderMarkVerifiedBtn() : undefined}
         {_.includes(["admin", "customer", "customeradmin"], props.userRole)
@@ -214,18 +227,18 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
 export const component: ((props: IDescriptionViewProps) => JSX.Element) =
   (props: IDescriptionViewProps): JSX.Element => {
 
-    const handleMtApproveAcceptation: ((mtResult: IAcceptationApprovalAttrs) => void) =
+    const handleMtResolveAcceptation: ((mtResult: IAcceptationApprovalAttrs) => void) =
       (mtResult: IAcceptationApprovalAttrs): void => {
       if (!_.isUndefined(mtResult)) {
-        if (mtResult.approveAcceptation.success) {
+        if (mtResult.handleAcceptation.success) {
           mixpanel.track(
-            "ApproveAcceptation",
+            "HandleAcceptation",
             {
               Organization: (window as Window & { userOrganization: string }).userOrganization,
               User: (window as Window & { userName: string }).userName,
             });
           msgSuccess(
-            translate.t("proj_alerts.verified_success"),
+            translate.t("proj_alerts.acceptation_resolved"),
             translate.t("proj_alerts.updated_title"),
           );
         }
@@ -233,9 +246,9 @@ export const component: ((props: IDescriptionViewProps) => JSX.Element) =
     };
 
     return(
-      <Mutation mutation={APPROVE_ACCEPTATION} onCompleted={handleMtApproveAcceptation}>
+      <Mutation mutation={HANDLE_ACCEPTATION} onCompleted={handleMtResolveAcceptation}>
         { (approveAcceptation: MutationFn<IAcceptationApprovalAttrs, {
-            findingId: string; observations: string; projectName: string; }>,
+            findingId: string; observations: string; projectName: string; response: string; }>,
            mutationRes: MutationResult): React.ReactNode => {
           if (mutationRes.loading) {
             showPreloader();
@@ -247,11 +260,12 @@ export const component: ((props: IDescriptionViewProps) => JSX.Element) =
             return <React.Fragment/>;
           }
 
-          const handleApproveAcceptation: ((observations: string) => void) =
-            (observations: string): void => {
+          const handleResolveAcceptation: ((observations: string, response: string) => void) =
+            (observations: string, response: string): void => {
             approveAcceptation({ variables: { findingId: props.findingId,
                                               observations,
-                                              projectName: props.projectName }})
+                                              projectName: props.projectName,
+                                              response }})
               .catch();
           };
 
@@ -280,8 +294,10 @@ export const component: ((props: IDescriptionViewProps) => JSX.Element) =
                       if (remediationType === "request_verification") {
                         thunkDispatch(actions.requestVerification(props.findingId, values.treatmentJustification));
                       } else {
-                        handleApproveAcceptation(values.treatmentJustification);
+                        const response: string = remediationType === "approve_acceptation" ? "APPROVED" : "REJECTED";
+                        handleResolveAcceptation(values.treatmentJustification, response);
                       }
+                      store.dispatch(actions.closeRemediationMdl());
                     }}
                   />
                   <ConfirmDialog

@@ -49,6 +49,7 @@ const enTranslations: Dictionary = {
   },
   no_data_indication: "There is no data to display",
   proj_alerts: {
+    acceptation_resolved: "Acceptation has been resolved",
     access_denied: "Access denied or project not found",
     draft_already_approved: "This finding was already approved",
     draft_without_vulns: "This finding can not been approved without vulnerabilities",
@@ -347,6 +348,7 @@ const enTranslations: Dictionary = {
         accepted: "Accepted",
         in_progress: "In progress",
         new: "New",
+        rejected: "Rejected",
         title: "Treatment",
       },
       treatment_just: "Treatment justification",

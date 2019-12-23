@@ -349,6 +349,7 @@ export const formatDropdownField: ((field: string) => string) = (field: string):
     "INFRASTRUCTURE": "search_findings.tab_description.ambit.infra",
     "NEW": "search_findings.tab_description.treatment.new",
     "ONE_EMPLOYEE": "search_findings.tab_description.actor.one_employee",
+    "REJECTED": "search_findings.tab_description.treatment.rejected",
     "SOME_CUSTOMERS": "search_findings.tab_description.actor.some_customer",
     "SOME_EMPLOYEES": "search_findings.tab_description.actor.some_employee",
     "SOURCE_CODE": "search_findings.tab_description.ambit.sourcecode",
