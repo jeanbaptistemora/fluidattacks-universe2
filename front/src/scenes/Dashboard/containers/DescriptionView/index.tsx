@@ -150,14 +150,14 @@ const renderAcceptationBtns: (() => JSX.Element) = (): JSX.Element => {
         bsStyle="success"
         onClick={handleRejectClick}
       >
-        <FluidIcon icon="verified" /> Reject Acceptation
+        <FluidIcon icon="verified" />{translate.t("search_findings.acceptation_buttons.approve")}
       </Button>
       <Button
         hidden={true}
         bsStyle="success"
         onClick={handleApproveClick}
       >
-        <FluidIcon icon="verified" /> Approve Acceptation
+        <FluidIcon icon="verified" />{translate.t("search_findings.acceptation_buttons.reject")}
       </Button>
     </React.Fragment>
   );
@@ -247,7 +247,7 @@ export const component: ((props: IDescriptionViewProps) => JSX.Element) =
 
     return(
       <Mutation mutation={HANDLE_ACCEPTATION} onCompleted={handleMtResolveAcceptation}>
-        { (approveAcceptation: MutationFn<IAcceptationApprovalAttrs, {
+        { (handleAcceptation: MutationFn<IAcceptationApprovalAttrs, {
             findingId: string; observations: string; projectName: string; response: string; }>,
            mutationRes: MutationResult): React.ReactNode => {
           if (mutationRes.loading) {
@@ -262,11 +262,12 @@ export const component: ((props: IDescriptionViewProps) => JSX.Element) =
 
           const handleResolveAcceptation: ((observations: string, response: string) => void) =
             (observations: string, response: string): void => {
-            approveAcceptation({ variables: { findingId: props.findingId,
-                                              observations,
-                                              projectName: props.projectName,
-                                              response }})
+            handleAcceptation({ variables: { findingId: props.findingId,
+                                             observations,
+                                             projectName: props.projectName,
+                                             response }})
               .catch();
+            props.dataset.acceptationApproval = response;
           };
 
           return(

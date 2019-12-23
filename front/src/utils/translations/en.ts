@@ -225,6 +225,10 @@ const enTranslations: Dictionary = {
       "administrator to get access.",
   },
   search_findings: {
+    acceptation_buttons: {
+      approve: "Approve Acceptation",
+      reject: "Reject Acceptation",
+    },
     alert: {
       attention: "Attention",
     },
