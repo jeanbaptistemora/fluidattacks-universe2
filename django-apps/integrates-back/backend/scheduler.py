@@ -508,10 +508,11 @@ def reset_expired_accepted_findings():
 
     for project in projects:
         findings = finding_domain.get_findings(
-            project_domain.list_findings(project))
+            finding_domain.filter_deleted_findings(
+                project_domain.list_findings(project)))
         for finding in findings:
             finding_id = finding.get('findingId')
-            date = finding.get('acceptanceDate')
-            if date <= today:
+            date = finding.get('acceptanceDate', today)
+            if date < today:
                 treatment = {'treatment': 'NEW'}
                 finding_domain.update_treatment(finding_id, treatment)
