@@ -49,16 +49,16 @@ vector representation step.
 
 However, for the task of representing code
 in a way that is useful for machine learning techniques,
-there is not much to find in the literature,
-except for a couple of well-known techiques,
+there is not much in the literature,
+except for a couple of well-known techniques,
 one of which is +code2vec+.
 In turn, this is based on +word2vec+,
 which is a model for learning vector representations of words.
-In order to understand vector representations of code,
+To understand vector representations of code,
 one must first understand the analogous for natural language,
-since that might be easier to grasp and visualize,
-as, no matter how good of a coder you are,
-natural language is, well, more _natural_,
+since that might be easier to grasp and visualize
+because no matter how good of a coder you are,
+natural language is more _natural_
 to understand.
 
 Much like code, natural language is not a good fit
