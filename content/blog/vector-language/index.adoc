@@ -118,7 +118,7 @@ In reality, it's not that arbitrary.
 You start with a piece of text
 (resp. code, in all future iterations
 when it says _text_ that can be done for code;
-will be discussed in an upcoming article)
+this will be discussed in an upcoming article)
 called a _corpus_, which is what you will train on.
 Take as a universe all the words occurring in the corpus,
 and assign numbers to each of those from 1 to the size of the corpus.
