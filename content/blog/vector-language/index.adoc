@@ -55,7 +55,7 @@ one of which is +code2vec+.
 In turn, this is based on +word2vec+,
 which is a model for learning vector representations of words.
 To understand vector representations of code,
-one must first understand the analogous for natural language,
+we must first understand the analogous for natural language,
 since that might be easier to grasp and visualize
 because no matter how good of a coder you are,
 natural language is more _natural_
@@ -147,30 +147,30 @@ for the sake of comparison, and hopefully,
 which are not too high-dimensional.
 
 A common saying is that deep learning
-(essentially, neural networks with many layers),
-which has proved the most successful approach
-to hard problems such as image recoginition,
-language translation and speech-to-text,
-is really, at is heart, all about representation learning,
-which is exactly what we need.
-The thing is that these representations are usually internal
-to the network, and end-users only see the results
-("This is a 99% a cat. But you'll never know how I know",
-or for us, "This code is 98% likely to contain a vulnerability").
+(essentially, neural networks with many layers)
+which has proved to be the most successful approach
+to difficult problems such as image recognition,
+language translation, and speech-to-text,
+is really all about representation learning.
+This is exactly what we need.
+The thing is, these representations are usually internal
+to the network, and end-users only see the results.
+For example: "This is 99% a cat. But you'll never know how I know",
+or for us, "This code is 98% likely to contain a vulnerability".
 The genius idea in +Word2Vec+ was to make up a network
 for a totally unrelated task, and _ignore_ the results,
-focusing instead in the intermediate representations
+focusing instead on the intermediate representations
 created by the network in the hidden layer.
-By the way, the model is a simple three-layer network
+By the way, the model is a simple 3-layer network
 with the task of predicting either a word from its neighbors,
-which is known as the continuous bag-of-words model,
+known as the continuous bag-of-words model,
 or the opposite: given a word, predict one of its neighbors,
-which is known as the skipgram model.
+known as the skipgram model.
 Following the example above,
 'on' should be predicted from 'cat is the roof',
 and backwards in the skipgram model.
 So we make up a simple 3-layered neural network,
-and train it on pairs of (word, neighbor)
+and train it on (word, neighbor) pairs,
 such as (on, cat), and (on, the):
 
 .Example Word2Vec network, created with link:https://ronxin.github.io/wevi/[wevi].
