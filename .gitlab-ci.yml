@@ -304,8 +304,9 @@ test-driver-dev:
 test-driver-prod:
   stage: post-deploy
   tags: [autoscaling-large]
-  image: registry.gitlab.com/fluidattacks/integrates/app:master
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:master
   script:
+    - pip3 install -U django-apps/packages/*.zip
     - ./ci-scripts/jobs/test-driver.sh
   parallel: 5
   retry: 1
@@ -344,7 +345,8 @@ new-version-mail:
   dependencies:
     - build-app
   script:
-    - pip3 install -U gitpython && ./ci-scripts/jobs/new-version-mail.sh
+    - pip3 install -U gitpython mandrill
+    - ./ci-scripts/jobs/new-version-mail.sh
   only:
     - master
   except:
