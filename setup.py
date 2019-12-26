@@ -72,6 +72,8 @@ setup(
         'aiohttp==3.6.2',              # fluidasserts
         'androguard==3.3.5',           # fluidasserts.format.apk
         'azure==4.0.0',                # fluidasserts.cloud.azure
+        'azure-identity==1.1.0',       # fluidasserts.cloud.azure.key_vaults
+        'azure-keyvault-keys==4.0.0',  # fluidasserts.cloud.azure.key_vaults
         'bandit==1.6.2',               # fluidasserts.lang.python
         'bcrypt==3.1.7',               # fluidasserts.proto.ssl
         'beautifulsoup4==4.8.1',       # fluidasserts.helper.http_helper
