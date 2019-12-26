@@ -86,7 +86,7 @@ along with the users' login information:
 .Tainted!
 image::../fuzzy-bugs-online/scr-succesful-sqli.png[bWAPP SQLi]
 
-The user input has became _tainted_,
+The user input has become _tainted_,
 and hence the +SQL+ query is now taintedas well.
 In the context of taint checking
 the +$title+ input above is called a _source_,
