@@ -345,7 +345,7 @@ new-version-mail:
   dependencies:
     - build-app
   script:
-    - pip3 install -U gitpython mandrill
+    - pip3 install -U gitpython wheel mandrill-really-maintained
     - ./ci-scripts/jobs/new-version-mail.sh
   only:
     - master
