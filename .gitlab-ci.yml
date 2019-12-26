@@ -344,7 +344,7 @@ new-version-mail:
   dependencies:
     - build-app
   script:
-    - ./ci-scripts/jobs/new-version-mail.sh
+    - pip3 install -U gitpython && ./ci-scripts/jobs/new-version-mail.sh
   only:
     - master
   except:
