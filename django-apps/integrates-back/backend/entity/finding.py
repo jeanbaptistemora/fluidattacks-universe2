@@ -33,7 +33,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     acceptance_date = String()
     acceptation_approval = String()
     acceptation_justification = String()
-    accepted_user = String()
+    acceptation_user = String()
     actor = String()
     affected_systems = String()
     age = Int()
@@ -372,9 +372,9 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.acceptation_approval
 
-    def resolve_accepted_user(self, info):
+    def resolve_acceptation_user(self, info):
         del info
-        return self.accepted_user
+        return self.acceptation_user
 
     def resolve_acceptation_justification(self, info):
         del info

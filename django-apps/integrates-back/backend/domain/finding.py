@@ -281,7 +281,7 @@ def handle_acceptation(finding_id, observations, user_mail, response):
     return (
         finding_dal.update(finding_id, {
             'acceptation_approval': response,
-            'treatment': 'ACCEPTED' if response == 'APPROVED' else 'REJECTED',
+            'treatment': 'ACCEPTED' if response == 'APPROVED' else 'NEW',
             'observations': observations,
             'acceptance_date': today if response == 'APPROVED' else '-',
             'acceptation_justification': observations,

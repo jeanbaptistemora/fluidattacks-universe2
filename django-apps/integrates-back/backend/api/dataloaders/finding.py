@@ -16,7 +16,7 @@ def _batch_load_fn(finding_ids):
             acceptance_date=finding.get('acceptanceDate', ''),
             acceptation_approval=finding.get('acceptationApproval', ''),
             acceptation_justification=finding.get('acceptationJustification', ''),
-            accepted_user=finding.get('acceptedUser', ''),
+            acceptation_user=finding.get('acceptationUser', ''),
             actor=finding.get('actor', ''),
             affected_systems=finding.get('affectedSystems', ''),
             age=finding.get('age', 0),
