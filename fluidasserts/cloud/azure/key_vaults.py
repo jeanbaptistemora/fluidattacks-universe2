@@ -17,7 +17,8 @@ from azure.keyvault.keys import KeyClient
 # local imports
 from fluidasserts import DAST, MEDIUM
 from fluidasserts.utils.decorators import api, unknown_if
-from fluidasserts.cloud.azure import (_get_result_as_tuple, _get_credentials)
+from fluidasserts.cloud.azure import (
+    _get_result_as_tuple, _get_credentials, _attr_checker)
 
 
 @api(risk=MEDIUM, kind=DAST)
@@ -64,6 +65,62 @@ def has_key_expiration_disabled(client_id: str, secret: str, tenant: str,
 
     return _get_result_as_tuple(
         objects='Keys',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError, KeyVaultErrorException)
+def entities_have_all_access(client_id: str, secret: str, tenant: str,
+                             subscription_id: str) -> Tuple:
+    """
+    Check if users, groups and applications can perform all management actions.
+
+    Grant access to users, groups and applications in a specific area in order
+    to preserve the principle of least privilege.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` If there are users, groups and applications that can
+                perform all management actions.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = \
+        'Users, groups and applications can perform all management actions.'
+    msg_closed: str = ('Users, groups and applications can not perform all'
+                       ' management actions.')
+    vulns, safes = [], []
+
+    rules = {'certificates': lambda x: len(x) == 16,
+             'keys': lambda x: len(x) == 16,
+             'secrets': lambda x: len(x) == 8}
+
+    credentials = _get_credentials(client_id, secret, tenant)
+
+    key_vault_client = KeyVaultManagementClient(credentials, subscription_id)
+    key_vaults = key_vault_client.vaults.list()
+
+    for vault in key_vaults:
+        group_name = vault.id.split('/')[4]
+        vault = key_vault_client.vaults.get(group_name, vault.name)
+        vulnerable = []
+
+        for policy in vault.properties.access_policies:
+            vulnerable.append(any(_attr_checker(policy.permissions, rules)))
+
+        (vulns if any(vulnerable) else safes).append(
+            (vault.id, 'allow only the required actions.'))
+
+    return _get_result_as_tuple(
+        objects='Key Vaults',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
