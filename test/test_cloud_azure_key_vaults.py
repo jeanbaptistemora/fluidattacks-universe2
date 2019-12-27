@@ -43,6 +43,13 @@ def test_entities_have_all_access_open():
         AZURE_SUBSCRIPTION_ID).is_open()
 
 
+def test_has_secret_expiration_disabled_open():
+    """Search secrets that do not have a set expiration time."""
+    assert key_vaults.has_secret_expiration_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_open()
+
+
 #
 # Closing tests
 #
@@ -58,5 +65,12 @@ def test_has_key_expiration_disabled_closed():
 def test_entities_have_all_access_closed():
     """Search Key Vaults that allow all management actions."""
     assert key_vaults.entities_have_all_access(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_has_secret_expiration_disabled_closed():
+    """Search secrets that do not have a set expiration time."""
+    assert key_vaults.has_secret_expiration_disabled(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()
