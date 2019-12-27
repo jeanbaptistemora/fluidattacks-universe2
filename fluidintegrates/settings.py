@@ -243,7 +243,7 @@ CI_COMMIT_REF_NAME = os.environ['CI_COMMIT_REF_NAME']
 STATIC_BUCKET_NAME = 'fluidintegrates-static'
 AWS_STORAGE_BUCKET_NAME = f'{STATIC_BUCKET_NAME}-{CI_COMMIT_REF_NAME}'
 AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
+    'CacheControl': 'max-age=2400',
 }
 AWS_LOCATION = 'assets'
 AWS_QUERYSTRING_AUTH = False
