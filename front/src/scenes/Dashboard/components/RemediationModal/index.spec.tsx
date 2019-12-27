@@ -19,6 +19,7 @@ describe("Remediation modal", () => {
         message="test"
         onClose={functionMock}
         onSubmit={functionMock}
+        title="title"
       />
     </Provider>,
   );

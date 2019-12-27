@@ -49,7 +49,8 @@ const enTranslations: Dictionary = {
   },
   no_data_indication: "There is no data to display",
   proj_alerts: {
-    acceptation_resolved: "Acceptation has been resolved",
+    acceptation_approved: "Indefinite acceptation has been approved",
+    acceptation_rejected: "Indefinite acceptation has been rejected",
     access_denied: "Access denied or project not found",
     draft_already_approved: "This finding was already approved",
     draft_without_vulns: "This finding can not been approved without vulnerabilities",
@@ -280,6 +281,8 @@ const enTranslations: Dictionary = {
     },
     tab_description: {
       acceptance_date: "Accepted until",
+      acceptation_justification: "Acceptation Justification",
+      acceptation_user: "Acceptation User",
       action: "Action",
       actor: {
         any_customer: "Any customer of the organization",
@@ -293,7 +296,7 @@ const enTranslations: Dictionary = {
       },
       affected_systems: "Affected systems",
       analyst: "Analyst",
-      approval_message: "Remember that this action requires approval",
+      approval_message: "Remember that the indefinite acceptation of a finding requires the approval of a manager",
       approval_title: "Confirmation",
       approve: "Approve",
       approve_all: "Approve All",
@@ -326,7 +329,8 @@ const enTranslations: Dictionary = {
       remediation_modal: {
         justification: "Which was the applied solution?",
         observations: "What observations do you have?",
-        title: "Finding remediated",
+        title_observations: "Observations",
+        title_request: "Justification",
       },
       request_verify: "Request verification",
       requirements: "Requirements",
@@ -350,6 +354,7 @@ const enTranslations: Dictionary = {
       title: "Title",
       treatment: {
         accepted: "Accepted",
+        accepted_undefined: "Indefinitely accepted",
         in_progress: "In progress",
         new: "New",
         rejected: "Rejected",

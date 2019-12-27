@@ -183,7 +183,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
         </Col>
       </Row>
       <Row>
-         {/* tslint:disable-next-line jsx-no-multiline-js Necessary for validate conditional */}
+        {/* tslint:disable-next-line jsx-no-multiline-js Necessary for validate conditional */}
         {(!_.isEmpty(props.dataset.compromisedAttributes) && !props.isEditing) || canEditDescription ?
         <Col md={6} sm={12} xs={12}>
           <EditableField
@@ -225,6 +225,34 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
           />
         </Col>
       </Row>
+      {/* tslint:disable-next-line jsx-no-multiline-js Necessary for validate conditional */}
+      {props.dataset.acceptationApproval === "APPROVED" && props.dataset.treatment === "ACCEPTED" ?
+      <React.Fragment>
+      <Row>
+        <Col md={12} sm={12} xs={12}>
+          <EditableField
+            component={textField}
+            currentValue={props.dataset.acceptationJustification}
+            label={translate.t("search_findings.tab_description.acceptation_justification")}
+            name="acceptationJustification"
+            renderAsEditable={false}
+            type="text"
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6} sm={12} xs={12}>
+          <EditableField
+            component={textField}
+            currentValue={props.dataset.acceptationUser}
+            label={translate.t("search_findings.tab_description.acceptation_user")}
+            name="acceptationUser"
+            renderAsEditable={false}
+            type="text"
+          />
+        </Col>
+      </Row>
+    </React.Fragment> : undefined}
     </React.Fragment>
   );
 };

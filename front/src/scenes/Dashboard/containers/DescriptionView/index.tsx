@@ -38,6 +38,8 @@ export interface IDescriptionViewProps {
   dataset: {
     acceptanceDate: string;
     acceptationApproval: string;
+    acceptationJustification: string;
+    acceptationUser: string;
     actor: string;
     affectedSystems: string;
     analyst: string;
@@ -45,6 +47,7 @@ export interface IDescriptionViewProps {
     btsUrl: string;
     clientCode: string;
     clientProject: string;
+    closedVulnerabilities: string;
     compromisedAttributes: string;
     compromisedRecords: string;
     cweUrl: string;
@@ -148,26 +151,34 @@ const renderAcceptationBtns: (() => JSX.Element) = (): JSX.Element => {
       <Button
         hidden={true}
         bsStyle="success"
-        onClick={handleRejectClick}
+        onClick={handleApproveClick}
       >
         <FluidIcon icon="verified" />{translate.t("search_findings.acceptation_buttons.approve")}
       </Button>
       <Button
         hidden={true}
         bsStyle="success"
-        onClick={handleApproveClick}
+        onClick={handleRejectClick}
       >
-        <FluidIcon icon="verified" />{translate.t("search_findings.acceptation_buttons.reject")}
+        <FluidIcon icon="fail" />{translate.t("search_findings.acceptation_buttons.reject")}
       </Button>
     </React.Fragment>
   );
 };
 
-const renderUpdateBtn: (() => JSX.Element) = (): JSX.Element => (
-  <Button bsStyle="success" onClick={(): void => { store.dispatch(submit("editDescription")); }}>
-    <FluidIcon icon="loading" /> {translate.t("search_findings.tab_description.update")}
-  </Button>
-);
+const renderUpdateBtn: ((currTreatment: string) => JSX.Element) = (currTreatment: string): JSX.Element => {
+  const handleOnClick: (() => void) = (): void => {
+    store.dispatch(submit("editDescription"));
+  };
+
+  return (
+    <React.Fragment>
+      <Button bsStyle="success" onClick={handleOnClick}>
+        <FluidIcon icon="loading" /> {translate.t("search_findings.tab_description.update")}
+      </Button>
+    </React.Fragment>
+  );
+};
 
 const renderActionButtons: ((props: IDescriptionViewProps) => JSX.Element) =
   (props: IDescriptionViewProps): JSX.Element => (
@@ -179,7 +190,7 @@ const renderActionButtons: ((props: IDescriptionViewProps) => JSX.Element) =
           ? renderMarkVerifiedBtn() : undefined}
         {_.includes(["admin", "customer", "customeradmin"], props.userRole)
           ? renderRequestVerifiyBtn(props) : undefined}
-        {props.isEditing ? renderUpdateBtn() : undefined}
+        {props.isEditing ? renderUpdateBtn(props.dataset.treatment) : undefined}
         <Button bsStyle="primary" onClick={(): void => { store.dispatch(actions.editDescription()); }}>
           <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editable")}
         </Button>
@@ -202,6 +213,7 @@ const updateDescription: ((values: IDescriptionViewProps["dataset"], userRole: s
         });
       thunkDispatch(actions.updateDescription(findingId, values));
     } else {
+      renderUpdateBtn(values.treatment);
       thunkDispatch(actions.updateTreatment(findingId, values));
     }
   };
@@ -215,12 +227,22 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
           name="editDescription"
           initialValues={props.dataset}
           onSubmit={(values: IDescriptionViewProps["dataset"]): void => {
+            if (values.treatment === "ACCEPTED_UNDEFINED") {
+              store.dispatch(openConfirmDialog("approvalWarning"));
+            }
             updateDescription(values, props.userRole, props.findingId);
           }}
         >
           {renderFormFields(props)}
         </GenericForm>
       </Col>
+      <ConfirmDialog
+        closeOnProceed={true}
+        name="approvalWarning"
+        message={translate.t("search_findings.tab_description.approval_message")}
+        onlyProceed={true}
+        title={translate.t("search_findings.tab_description.approval_title")}
+      />
     </React.Fragment>
   );
 
@@ -238,7 +260,8 @@ export const component: ((props: IDescriptionViewProps) => JSX.Element) =
               User: (window as Window & { userName: string }).userName,
             });
           msgSuccess(
-            translate.t("proj_alerts.acceptation_resolved"),
+            props.dataset.acceptationApproval === "APPROVED" ?
+            translate.t("proj_alerts.acceptation_approved") : translate.t("proj_alerts.acceptation_rejected"),
             translate.t("proj_alerts.updated_title"),
           );
         }
@@ -278,7 +301,7 @@ export const component: ((props: IDescriptionViewProps) => JSX.Element) =
                   <RemediationModal
                     additionalInfo={
                       remediationType === "approve_acceptation" ?
-                      `${props.dataset.compromisedRecords} vulnerabilities will be assumed`
+                      `${props.dataset.closedVulnerabilities} vulnerabilities will be assumed`
                       : undefined
                     }
                     isOpen={props.isRemediationOpen}
@@ -300,6 +323,11 @@ export const component: ((props: IDescriptionViewProps) => JSX.Element) =
                       }
                       store.dispatch(actions.closeRemediationMdl());
                     }}
+                    title={
+                      remediationType === "request_verification" ?
+                      translate.t("search_findings.tab_description.remediation_modal.title_request")
+                      : translate.t("search_findings.tab_description.remediation_modal.title_observations")
+                    }
                   />
                   <ConfirmDialog
                     name="confirmVerify"

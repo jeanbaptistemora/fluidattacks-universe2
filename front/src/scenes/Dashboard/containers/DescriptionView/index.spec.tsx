@@ -21,6 +21,8 @@ describe("DescriptionView", () => {
     dataset: {
       acceptanceDate: "",
       acceptationApproval: "",
+      acceptationJustification: "",
+      acceptationUser: "",
       actor: "ANYONE_INTERNET",
       affectedSystems: "",
       analyst: "",
@@ -28,6 +30,7 @@ describe("DescriptionView", () => {
       btsUrl: "http://test.html",
       clientCode: "TEST",
       clientProject: "TEST",
+      closedVulnerabilities: "0",
       compromisedAttributes: "",
       compromisedRecords: "0",
       cweUrl: "http://test.html",

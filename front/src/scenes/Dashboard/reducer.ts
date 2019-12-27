@@ -105,6 +105,8 @@ const initialState: IDashboardState = {
     dataset: {
       acceptanceDate: "",
       acceptationApproval: "",
+      acceptationJustification: "",
+      acceptationUser: "",
       actor: "",
       affectedSystems: "",
       analyst: "",
@@ -112,6 +114,7 @@ const initialState: IDashboardState = {
       btsUrl: "",
       clientCode: "",
       clientProject: "",
+      closedVulnerabilities: "",
       compromisedAttributes: "",
       compromisedRecords: "",
       cweUrl: "",

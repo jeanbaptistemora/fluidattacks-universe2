@@ -1,32 +1,23 @@
 import _ from "lodash";
 import React from "react";
-import { Checkbox, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
-import { ConfirmDialog } from "../../../../components/ConfirmDialog";
-import store from "../../../../store/index";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { formatDropdownField } from "../../../../utils/formatHelpers";
 import { dateField, dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { isLowerOrEqualDate, isValidDate, isValidVulnSeverity, numeric, required } from "../../../../utils/validations";
-import { openConfirmDialog } from "../../actions";
 import { EditableField } from "../../components/EditableField";
 import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
 
 type renderFormFieldsFn = ((props: IDescriptionViewProps) => JSX.Element);
-const openDialog: (() => void) = (): void => {
-  store.dispatch(openConfirmDialog("advertisement"));
-};
 
 const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): JSX.Element => {
-    let formTreatmentValue: string = !_.isUndefined(props.formValues.treatmentVuln) ?
+    const formTreatmentValue: string = !_.isUndefined(props.formValues.treatmentVuln) ?
     props.formValues.treatmentVuln : props.formValues.treatment;
-    if (formTreatmentValue === "ACCEPTED_UNDEFINED") {
-      formTreatmentValue = "ACCEPTED";
-    }
     const hasBts: boolean = !_.isEmpty(props.dataset.btsUrl);
     const isNotEditable: boolean = props.isEditing && props.userRole === "customer";
-    const treatmentAccepted: boolean = formTreatmentValue === "ACCEPTED";
+    const treatmentAccepted: boolean = _.includes(["ACCEPTED", "ACCEPTED_UNDEFINED"], formTreatmentValue);
     const changeRender: boolean = props.isEditing && (formTreatmentValue === "IN PROGRESS" ||
     treatmentAccepted);
     const shouldRender: boolean = !props.isEditing && (formTreatmentValue === "IN PROGRESS" ||
@@ -80,27 +71,8 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
             <option hidden={true} value="ACCEPTED_UNDEFINED">
               {translate.t("search_findings.tab_description.treatment.accepted_undefined")}
             </option>
-
           </EditableField>
         </Col>
-        {/* tslint:disable-next-line jsx-no-multiline-js Necessary for conditionals into JSX Elements */}
-        {treatmentAccepted ?
-          <Col md={6} sm={4} xs={4} hidden={true}>
-            <Checkbox
-              checked={false}
-              onClick={openDialog}
-            >
-              {translate.t("search_findings.tab_description.checkbox_accepted")}
-            </Checkbox>
-          </Col>
-          : undefined}
-        <ConfirmDialog
-          closeOnProceed={true}
-          name="advertisement"
-          message={translate.t("search_findings.tab_description.approval_message")}
-          onlyProceed={true}
-          title={translate.t("search_findings.tab_description.approval_title")}
-        />
         {shouldRenderField && props.isTreatmentModal ?
           <Col md={6} sm={12} xs={12}>
             <EditableField
@@ -148,6 +120,8 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
             />
           </Col>
         </Row>
+        {/* tslint:disable-next-line jsx-no-multiline-js Necessary for mapping users into JSX Elements */}
+        {formTreatmentValue !== "ACCEPTED_UNDEFINED" ?
         <Row>
           <Col md={4} sm={12} xs={12}>
             <EditableField
@@ -158,10 +132,10 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
               renderAsEditable={isEditable}
               type="date"
               validate={[isValidDate, isLowerOrEqualDate]}
-              visible={(treatmentAccepted)}
+              visible={treatmentAccepted}
             />
           </Col>
-        </Row>
+        </Row> : undefined}
         <Row>
           {props.isTreatmentModal ? renderVulnFields() : undefined}
         </Row>

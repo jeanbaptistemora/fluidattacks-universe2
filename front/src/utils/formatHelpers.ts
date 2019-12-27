@@ -334,6 +334,7 @@ export const formatCweUrl: ((cweId: string) => string) = (cweId: string): string
 export const formatDropdownField: ((field: string) => string) = (field: string): string => {
   const translationParameters: {[value: string]: string} = {
     "ACCEPTED": "search_findings.tab_description.treatment.accepted",
+    "ACCEPTED_UNDEFINED": "search_findings.tab_description.treatment.accepted_undefined",
     "ANONYMOUS_INTERNET": "search_findings.tab_description.scenario.anon_inter",
     "ANONYMOUS_INTRANET": "search_findings.tab_description.scenario.anon_intra",
     "ANYONE_INTERNET": "search_findings.tab_description.actor.any_internet",
@@ -375,6 +376,8 @@ export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
       "-": (finding.state === "closed") ? "-" : "-",
       "ACCEPTED": (finding.state === "open")
         ? "search_findings.tab_description.treatment.accepted" : "-",
+      "ACCEPTED_UNDEFINED": (finding.state === "open")
+        ? "search_findings.tab_description.treatment.accepted_undefined" : "-",
       "IN PROGRESS": (finding.state === "open")
         ? "search_findings.tab_description.treatment.in_progress" : "-",
       "NEW": (finding.state === "open")

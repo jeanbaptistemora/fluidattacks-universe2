@@ -24,6 +24,7 @@ export interface IAddRemediationProps {
   additionalInfo?: string;
   isOpen: boolean;
   message: string;
+  title: string;
   onClose(): void;
   onSubmit(values: {}): void;
 }
@@ -87,7 +88,7 @@ export const remediationModal: React.FC<IAddRemediationProps> =
       <Provider store={store}>
         <Modal
           open={props.isOpen}
-          headerTitle={translate.t("search_findings.tab_description.remediation_modal.title")}
+          headerTitle={props.title}
           content={<Form {...props} />}
           footer={<div />}
         />

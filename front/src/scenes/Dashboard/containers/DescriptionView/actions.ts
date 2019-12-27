@@ -86,6 +86,9 @@ export const loadDescription: ThunkActionStructure<void> =
           type
           acceptanceDate
           acceptationApproval
+          acceptationJustification
+          acceptationUser
+          closedVulnerabilities
         }
       }`;
 
