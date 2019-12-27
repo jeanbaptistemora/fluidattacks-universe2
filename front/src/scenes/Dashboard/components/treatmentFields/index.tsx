@@ -74,9 +74,13 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
             type="text"
             validate={[required]}
           >
-            <option value="ACCEPTED">{translate.t("search_findings.tab_description.treatment.accepted")}</option>
             <option value="NEW">{translate.t("search_findings.tab_description.treatment.new")}</option>
             <option value="IN PROGRESS">{translate.t("search_findings.tab_description.treatment.in_progress")}</option>
+            <option value="ACCEPTED">{translate.t("search_findings.tab_description.treatment.accepted")}</option>
+            <option hidden={true} value="ACCEPTED_UNDEFINED">
+              {translate.t("search_findings.tab_description.treatment.accepted_undefined")}
+            </option>
+
           </EditableField>
         </Col>
         {/* tslint:disable-next-line jsx-no-multiline-js Necessary for conditionals into JSX Elements */}
