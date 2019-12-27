@@ -7,7 +7,7 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React, { useState } from "react";
 import { Query, QueryResult } from "react-apollo";
-import { ButtonToolbar, Checkbox, Col, Glyphicon, Row } from "react-bootstrap";
+import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import FontAwesome from "react-fontawesome";
 import { Trans } from "react-i18next";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
@@ -55,30 +55,16 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     where: false,
   });
 
-  const handleChange: (event: React.FormEvent<Checkbox>) => void = (event: React.FormEvent<Checkbox>): void => {
-    const target: HTMLInputElement = event.target as HTMLInputElement;
+  const handleChange: (columnName: string) => void = (columnName: string): void => {
     setCheckedItems({
       ...checkedItems,
-      [target.name]: target.checked,
+      [columnName]: !checkedItems[columnName],
     });
+    localStorage.setItem("tableSet", JSON.stringify({
+      ...checkedItems,
+      [columnName]: !checkedItems[columnName],
+    }));
   };
-
-  const [hidden, setHidden] = useState(false);
-
-  const handleOpenTableSetClick: () => void = (): void => {
-    setHidden(true);
-  };
-
-  const handleCloseTableSetClick: () => void = (): void => {
-    localStorage.setItem("tableSet", JSON.stringify(checkedItems));
-    setHidden(false);
-  };
-
-  const tableModalFooter: JSX.Element = (
-    <ButtonToolbar className="pull-right">
-      <Button onClick={handleCloseTableSetClick}>{translate.t("project.findings.report.modal_close")}</Button>
-    </ButtonToolbar>
-  );
 
   const modalFooter: JSX.Element = (
     <ButtonToolbar className="pull-right">
@@ -175,53 +161,27 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
             return (
               <React.StrictMode>
                 <Row>
-                  <Col md={12} >
-                      <Col mdOffset={2} md={4} sm={6}>
-                        <ButtonToolbar className={style.tableBtn}>
-                          <Button onClick={handleOpenTableSetClick}>
-                            <Glyphicon glyph="glyphicon glyphicon-cog" />&nbsp;
-                            {translate.t("project.findings.tableSet.btn")}
-                          </Button>
-                        </ButtonToolbar>
-                      </Col>
-                    <Col  md={3} sm={6}>
-                      <ButtonToolbar className={style.reportsBtn}>
-                        <Button onClick={handleOpenReportsClick}>{translate.t("project.findings.report.btn")}</Button>
-                      </ButtonToolbar>
-                    </Col>
+                  <Col md={2} mdOffset={5}>
+                    <ButtonToolbar className={style.reportsBtn}>
+                      <Button onClick={handleOpenReportsClick}>{translate.t("project.findings.report.btn")}</Button>
+                    </ButtonToolbar>
                   </Col>
                 </Row>
                 <p>{translate.t("project.findings.help_label")}</p>
                 <DataTableNext
                   bordered={true}
+                  columnToggle={true}
                   dataset={formatFindings(data.project.findings)}
                   exportCsv={true}
                   headers={tableHeaders}
                   id="tblFindings"
                   pageSize={15}
+                  onColumnToggle={handleChange}
                   remote={false}
                   rowEvents={{onClick: goToFinding}}
                   search={true}
                   striped={true}
                 />
-                <Modal
-                  open={hidden}
-                  footer={tableModalFooter}
-                  headerTitle={translate.t("project.findings.tableSet.modal_title")}
-                >
-                  <Col mdOffset={5} className={style.tableModalContainer}>
-                    {tableHeaders.map((item: IHeader) => (
-                      <div>
-                        <Checkbox
-                          name={item.dataField}
-                          checked={item.visible}
-                          onChange={handleChange}
-                        >{item.header}
-                        </Checkbox>
-                      </div>
-                    ))}
-                  </Col>
-                </Modal>
                 <Modal
                   open={props.reportsModal.isOpen}
                   footer={modalFooter}
