@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'graphene_django',
     'storages',
     'webpack_loader',
+    'channels',
     'backend',
 ]
 
@@ -105,7 +106,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'fluidintegrates.wsgi.application'
+ASGI_APPLICATION = 'fluidintegrates.asgi.application'
 
 
 # Database
