@@ -3,10 +3,12 @@
  * array may contain different types since this is a generic component
  */
 import { ReactElement } from "react";
+import { ColumnToggleProps } from "react-bootstrap-table2-toolkit";
 
 export interface ITableProps {
   bodyContainer?: string;
   bordered: boolean;
+  columnToggle?: boolean;
   dataset: any[];
   defaultSorted?: Sorted;
   exportCsv: boolean;
@@ -23,6 +25,7 @@ export interface ITableProps {
   tableHeader?: string;
   title?: string;
   onClickRow?(arg1: string | {} | undefined): void;
+  onColumnToggle?(arg1: string): void;
   onTableChange?(type: TableChangeType, newState: TableChangeNewState): void;
 }
 
@@ -40,4 +43,9 @@ export interface IHeader {
   deleteFunction?(arg1: { [key: string]: string } | undefined): void;
   formatter?(value: string, row: any, rowIndex: number, formatExtraData: any): string | ReactElement;
   onSort?(dataField: string, order: SortOrder): void;
+}
+
+export interface ICustomToggle {
+  propsTable: ITableProps;
+  propsToggle: ColumnToggleProps;
 }

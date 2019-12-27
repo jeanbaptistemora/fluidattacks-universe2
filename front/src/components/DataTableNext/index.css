@@ -40,3 +40,7 @@
   composes: button from '../Button/index.css';
   margin-bottom: 5px;
 }
+
+:local .tableModalContainer {
+  text-align: left;
+}

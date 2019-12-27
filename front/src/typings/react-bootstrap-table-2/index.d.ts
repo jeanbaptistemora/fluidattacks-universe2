@@ -274,9 +274,20 @@ declare module "react-bootstrap-table2-toolkit" {
     interface CsvProps {
         onExport?(): void;
     }
+    export interface ColumnToggle extends Column {
+        toggle?: boolean;
+    };
+    interface ColumnToggleProps {
+        btnClassName?: string;
+        className?: string;
+        columns: Column[];
+        contextual?: string;
+        onColumnToggle(dataField: string): void;
+        toggles: Dictionary<string, boolean>;
+    }
     export interface ToolkitProviderProps {
         baseProps: BaseProps;
-        columnToggleProps?: TODO;
+        columnToggleProps: ColumnToggleProps;
         csvProps: CsvProps;
         searchProps: SearchProps;
     }
@@ -293,6 +304,9 @@ declare module "react-bootstrap-table2-toolkit" {
         searchText?: string;
         onClear?(): void;
         onSearch?(): void;
+    }
+    export class ColumnToggle {
+        static ToggleList(props: ColumnToggleProps): ReactElement;
     }
 
     export class Search {
