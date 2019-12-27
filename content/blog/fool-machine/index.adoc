@@ -22,7 +22,7 @@ They solve classification and other learning tasks with great accuracy.
 However, they are not flawless and might misclassify certain inputs.
 No problem, some error is expected.
 But what if you could give it two inputs
-that are virtually the identical,
+that are virtually identical,
 but you get different outputs?
 Worse, what if one is correctly classified
 but the other has been manipulated so that
@@ -141,7 +141,8 @@ what we want to fake.
 Now, according to the formula in figure 3 above,
 we should add a small fraction of the
 sign of the gradient, until we achieve the result.
-The result should be that the confidence in the prediction is at least 95%.
+The result should be that the confidence
+in the prediction becomes at least 95%.
 
 [source,python]
 ----
