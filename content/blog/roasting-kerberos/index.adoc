@@ -16,12 +16,12 @@
 = Roasting Kerberos
 
 +Kerberos+ is a protocol developed by link:http://web.mit.edu/kerberos/[MIT]
-used to authenticate network services
-Kerberos is built using secret-key cryptography
+used to authenticate network services.
+It is built using secret-key cryptography
 and uses a trusted third-party server
 called +Authentication Server+.
-This protocol authenticates users and services using tickets,
-when a client logs in their identity
+This protocol authenticates users and services using tickets.
+When a client logs in their identity
 is authenticated via the +Authentication Server+ (+AS+).
 The AS then forwards the username to a +Key Distribution Center+ (+KDC+)
 that issues a +Ticket-Granting Ticket+ (+TGT+).
@@ -33,7 +33,7 @@ This is how Kerberos protocol works:
 This request is built using the machine computer time
 and encrypting it with the user's password hash.
 . Because the AD (Active Directory) has the user's password
-it can decrypt the request. The server then can verify
+it can decrypt the request. The server can then verify
 the user's authentication data and respond back
 to the client with a TGT and a session key for the TGT.
 . Because the user now has a valid TGT for the domain,
@@ -130,7 +130,7 @@ Now we can set up our attacking machine.
 Here we are using link:https://www.kali.org/[Kali Linux] with +Vagrant+ too,
 but you can use whatever +OS+ you prefer.
 
-This are the tools that we are going to use:
+These are the tools that we are going to use:
 
 * link:https://nmap.org/[nmap]
 * link:http://netcat.sourceforge.net/[netcat]
@@ -234,7 +234,7 @@ $ smbmap -u kertest -p 'SuperSecure@123!!!' -H 192.168.56.2 -d sky.net
         SYSVOL                                                  READ ONLY
 ----
 
-As we can see, is a valid domain user,
+As we can see, our user is a valid domain user,
 but has no permissions on the server
 
 == Kerberoasting
@@ -337,7 +337,7 @@ Here is the exploitation process.
 There is no easy solution because this attack
 exploits the same legitimate protocol Kerberos uses.
 Any user in the domain can exploit this vulnerability
-and is only a question of time before they crack the credentials.
+and it is only a matter of time before they crack the credentials.
 
 The way to mitigate this
 is by having and using a strong credential policy.
