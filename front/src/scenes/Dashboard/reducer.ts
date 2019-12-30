@@ -31,7 +31,10 @@ export interface IDashboardState {
   findings: {
     defaultSort: {};
     filters: {
+      exploitable: string;
+      status: string;
       title: string;
+      verification: string;
       where: string;
     };
     reportsModal: {
@@ -160,7 +163,10 @@ const initialState: IDashboardState = {
   findings: {
     defaultSort: {},
     filters: {
+      exploitable: "",
+      status: "",
       title: "",
+      verification: "",
       where: "",
     },
     reportsModal: {

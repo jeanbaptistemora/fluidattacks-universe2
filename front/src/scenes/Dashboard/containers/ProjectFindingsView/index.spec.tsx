@@ -22,7 +22,10 @@ describe("ProjectFindingsView", () => {
   const propsMock: IProjectFindingsProps = {
     defaultSort: {},
     filters: {
+      exploitable: "",
+      status: "",
       title: "",
+      verification: "",
       where: "",
     },
     match: {

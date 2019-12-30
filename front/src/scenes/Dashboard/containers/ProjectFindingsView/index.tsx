@@ -8,7 +8,7 @@ import mixpanel from "mixpanel-browser";
 import React, { useState } from "react";
 import { Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
-import { textFilter } from "react-bootstrap-table2-filter";
+import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import FontAwesome from "react-fontawesome";
 import { Trans } from "react-i18next";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
@@ -56,9 +56,26 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     treatment: true,
     where: false,
   });
+  const [filterValueExploitable, setFilterValueExploitable] = React.useState(props.filters.exploitable);
+  const [filterValueStatus, setFilterValueStatus] = React.useState(props.filters.status);
   const [filterValueTitle, setFilterValueTitle] = React.useState(props.filters.title);
+  const [filterValueVerification, setFilterValueVerification] = React.useState(props.filters.verification);
   const [filterValueWhere, setFilterValueWhere] = React.useState(props.filters.where);
   const [sortValue, setSortValue] = React.useState(props.defaultSort);
+
+  const clearSelection: string = "_CLEAR_";
+  const selectOptionsExploitable: optionSelectFilterProps[] = [
+    {value: "Yes", label: "Yes"},
+    {value: "No", label: "No"},
+  ];
+  const selectOptionsStatus: optionSelectFilterProps[] = [
+    {value: "Open", label: "Open"},
+    {value: "Closed", label: "Closed"},
+  ];
+  const selectOptionsVerification: optionSelectFilterProps[] = [
+    {value: "Pending", label: "Pending"},
+    {value: "-", label: "-"},
+  ];
 
   const handleChange: (columnName: string) => void = (columnName: string): void => {
     setCheckedItems({
@@ -112,10 +129,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const clearFilterTitle: ((event: React.FormEvent<HTMLInputElement>) => void) =
   (event: React.FormEvent<HTMLInputElement>): void => {
     const inputValue: string = event.currentTarget.value;
-    if (inputValue.length === 0) {
-      if (filterValueTitle !== "") {
-        props.onFilter({...props.filters, title: ""});
-      }
+    if (inputValue.length === 0 && filterValueTitle !== "") {
+      props.onFilter({...props.filters, title: ""});
     }
   };
   const onFilterWhere: ((filterVal: string) => void) = (filterVal: string): void => {
@@ -127,10 +142,53 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const clearFilterWhere: ((event: React.FormEvent<HTMLInputElement>) => void) =
   (event: React.FormEvent<HTMLInputElement>): void => {
     const inputValue: string = event.currentTarget.value;
-    if (inputValue.length === 0) {
-      if (filterValueWhere !== "") {
-        props.onFilter({...props.filters, where: ""});
-      }
+    if (inputValue.length === 0 && filterValueWhere !== "") {
+      props.onFilter({...props.filters, where: ""});
+    }
+  };
+  const onFilterExploitable: ((filterVal: string) => void) = (filterVal: string): void => {
+    if (filterValueExploitable !== filterVal && clearSelection !== filterValueExploitable) {
+      setFilterValueExploitable(filterVal);
+      props.onFilter({...props.filters, exploitable: filterVal});
+    }
+  };
+
+  const clearFilterExploitable: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
+  (eventInput: React.FormEvent<HTMLInputElement>): void => {
+    const inputValue: string = eventInput.currentTarget.value;
+    if (inputValue.length === 0 && filterValueExploitable !== "") {
+      setFilterValueExploitable(clearSelection);
+      props.onFilter({...props.filters, exploitable: ""});
+    }
+  };
+  const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
+    if (filterValueStatus !== filterVal && clearSelection !== filterValueStatus) {
+      setFilterValueStatus(filterVal);
+      props.onFilter({...props.filters, status: filterVal});
+    }
+  };
+
+  const clearFilterStatus: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
+  (eventInput: React.FormEvent<HTMLInputElement>): void => {
+    const inputValue: string = eventInput.currentTarget.value;
+    if (inputValue.length === 0 && filterValueStatus !== "") {
+      setFilterValueStatus(clearSelection);
+      props.onFilter({...props.filters, status: ""});
+    }
+  };
+  const onFilterVerification: ((filterVal: string) => void) = (filterVal: string): void => {
+    if (filterValueVerification !== filterVal && clearSelection !== filterValueVerification) {
+      setFilterValueVerification(filterVal);
+      props.onFilter({...props.filters, verification: filterVal});
+    }
+  };
+
+  const clearFilterVerification: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
+  (eventInput: React.FormEvent<HTMLInputElement>): void => {
+    const inputValue: string = eventInput.currentTarget.value;
+    if (inputValue.length === 0 && filterValueVerification !== "") {
+      setFilterValueVerification(clearSelection);
+      props.onFilter({...props.filters, verification: ""});
     }
   };
 
@@ -166,20 +224,38 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       visible: checkedItems.openVulnerabilities, width: "6%",
     },
     {
-      align: "center", dataField: "state", formatter: statusFormatter, header: "Status", onSort: onSortState,
-      visible: checkedItems.state, width: "7%",
+      align: "center", dataField: "state",
+      filter: selectFilter({
+        defaultValue: filterValueStatus,
+        onFilter: onFilterStatus,
+        onInput: clearFilterStatus,
+        options: selectOptionsStatus,
+      }),
+      formatter: statusFormatter, header: "Status", onSort: onSortState, visible: checkedItems.state, width: "7%",
     },
     {
       align: "center", dataField: "treatment", header: "Treatment", onSort: onSortState,
       visible: checkedItems.treatment, width: "8%", wrapped: true,
     },
     {
-      align: "center", dataField: "remediated", header: "Verification", onSort: onSortState,
-      visible: checkedItems.remediated, width: "8%",
+      align: "center", dataField: "remediated",
+      filter: selectFilter({
+        defaultValue: filterValueVerification,
+        onFilter: onFilterVerification,
+        onInput: clearFilterVerification,
+        options: selectOptionsVerification,
+      }),
+      header: "Verification", onSort: onSortState, visible: checkedItems.remediated, width: "8%",
     },
     {
-      align: "center", dataField: "isExploitable", header: "Exploitable", onSort: onSortState,
-      visible: checkedItems.isExploitable, width: "8%",
+      align: "center", dataField: "isExploitable",
+      filter: selectFilter({
+        defaultValue: filterValueExploitable,
+        onFilter: onFilterExploitable,
+        onInput: clearFilterExploitable,
+        options: selectOptionsExploitable,
+      }),
+      header: "Exploitable", onSort: onSortState, visible: checkedItems.isExploitable, width: "8%",
     },
     {
       align: "center", dataField: "where",
