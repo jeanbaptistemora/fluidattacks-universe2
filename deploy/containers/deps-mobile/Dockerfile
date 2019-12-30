@@ -1,5 +1,6 @@
 FROM debian:buster-slim
 
+ARG NODE_URL='https://deb.nodesource.com/setup_10.x'
 ARG VAULT_URL='https://releases.hashicorp.com/vault/0.11.6/vault_0.11.6_linux_amd64.zip'
 ARG VAULTENV_URL='https://github.com/channable/vaultenv/releases/download/v0.11.0/vaultenv-v0.11.0-linux-musl'
 
@@ -10,8 +11,6 @@ RUN echo 'deb http://ftp.us.debian.org/debian unstable main' \
   && apt update \
   && apt install -y \
     openjdk-8-jdk-headless \
-    nodejs \
-    npm \
     rsync \
     unzip \
     curl \
@@ -20,7 +19,9 @@ RUN echo 'deb http://ftp.us.debian.org/debian unstable main' \
     ruby-full
 
 # External dependencies
-RUN curl -LsSo vault.zip "$VAULT_URL" \
+RUN curl -sL "$NODE_URL" | bash - \
+    && apt install -y --no-install-recommends nodejs \
+  && curl -LsSo vault.zip "$VAULT_URL" \
     && unzip vault.zip \
     && mv vault /usr/local/bin \
     && rm vault.zip \
