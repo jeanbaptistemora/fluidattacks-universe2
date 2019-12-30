@@ -5,7 +5,7 @@
 :tags: machine learning, vulnerability, code
 :image: cover.png
 :alt: Git. Photo by Yancy Min on Unsplash: https://unsplash.com/photos/842ofHC6MaI/
-:description: Deepcode is a new player in machine learning for the vulnerability discovery field. It has a lot of potentials to find bugs in your code by learning from the abundant sources of high-quality code available in Github. Let's see how it works and if it delivers.
+:description: In the field of vulnerability discovery, Deepcode is a new player in machine learning. It has a lot of potential for success in identifying bugs in your code by learning from the abundant sources of high-quality code available in Github. In this blog, we'll see how it works and if it delivers.
 :keywords: Machine learning, Vulnerability, Open Source, Deep learning, Lint, Bug
 :author: Rafael Ballestas
 :writer: raballestasr
@@ -27,35 +27,33 @@ be it [inner]#link:../deep-hacking[deep learning]#,
 [inner]#link:../natural-code[natural language processing]#, or
 [inner]#link:../anomaly-serial-killer-doll[anomaly detection]#.
 
-In this article we present a new player in the field:
+In this article we present a new player in the field,
 link:https://www.deepcode.ai/[DeepCode],
 a system that has exactly this purpose,
 combining +ML+ with data flow analysis,
 namely in the form of taint analysis.
 
-Taint analysis can come in dynamic and static flavors,
-and be performed at the source and binary levels,
-but either way the goal is the same.
+Taint analysis can come in dynamic and static forms
+and can be performed at the source and binary levels,
+but either way, the goal is the same.
 Start by looking at where input comes from and
 is controlled by the user,
-e.g. a web app field to perform a search.
+for example, a web app search field.
 These are named _sources_ in this context.
 Then, continue to follow the thread to
 where it gets used by the system
 in a security-critical fashion,
-e.g. using that info to query a database,
+as in using that info to query a database,
 to continue with the previous example.
 These points are called _sinks_.
 
 .Taint analysis diagram via link:http://web.cs.iastate.edu/~weile/cs513x/5.TaintAnalysis1.pdf[Coseinc].
 image::taint-analysis.png[Taint analysis diagram]
 
-Along the way,
-data should face a serious dose
-of input sanitization or validation,
-in the case of a secure application.
+Along the way in the case of a secure application,
+data should encounter significant input sanitization or validation.
 These are called _sanitizers_ in the taint analysis context.
-However, it is frequent to see that it does not,
+However, frequently this does not happen,
 and thus vulnerabilities arise.
 
 Traditional taint analysis tools,
@@ -63,55 +61,52 @@ however, usually present high false positive rates,
 as is the case with
 link:https://github.com/openstack/bandit[Bandit] and
 link:https://github.com/python-security/pyt[Pyt]
-(see some criticism
+(see some critique
 link:https://smarketshq.com/avoiding-injection-with-taint-analysis-1e55429e207b[here]).
 
-+DeepCode+ aims to iron out the wrinkles
-in these taint analysis tools by learning from
-the vast amounts of freely available,
-high-quality code that lives in open repositories
++DeepCode's+ purpose is to
+remove minor difficulties these taint analysis tools may have.
++DeepCode+ does this by learning from the vast quantity
+of freely-available, high-quality code in open repositories
 such as link:https://github.com/[Github],
-a situation dubbed "Big Code".
-The tool is easy to use and free for open-source projects,
-which has the added advantage of also learning
-from the user's code,
-the suggestions made by the tool,
-and the user's feedback as well
-(accepting or not the suggestion,
-_how_ they fix them, etc).
+a circumstance then dubbed "Big Code".
+The tool is easy and free to use.
+This provides the added advantage
+of also learning from the user’s code,
+the suggestions made by the tool, and the user’s feedback
+(accepting suggestions,
+_how_ to fix them, etc).
 
 Another problem with taint analysis is that
-sources, sinks and sanitizers need to be specified by hand,
-which is obviously impractical for large scale projects.
+sources, sinks, and sanitizers need to be specified by hand,
+which is extremely impractical for large-scale projects.
 This is another area where +ML+ helps +DeepCode+,
-but, of course, the secret sauce is not available
-for further peeking.
+but how is that done?
 
 +DeepCode+ has been called
-link:https://app.grammarly.com/[Grammarly] for code,
-claims to achieve 90% precision,
-understand the _intent_ behind the code,
-find twice as many issues as other tools,
-and critical issues at that,
-like +XSS+, +SQL+ injection and path traversal,
-which typical static analysis tools do not.
-Also, it claims to be easy to use,
+link:https://app.grammarly.com/[Grammarly] for code.
+It claims to be 90% accurate,
+and that it understands the _intent_ behind the code.
+It also claims to find twice as many critical issues
+(+XSS+, +SQL+ injection and path traversal, etc.)
+which is something typical static analysis tools do not.
+Moreover, it claims to be easy to use,
 requiring no configuration at all.
 
-The tool is certainly friendly.
+The tool is friendly.
 You need only point it to your repository
 and give the appropriate permissions,
-and then it will show you a dashboard
-with all the issues found.
+and then it will show a dashboard
+with the issues found.
 Here is one for link:https://github.com/eclipse/che[Eclipse Che Cloud IDE]:
 
 .Security issues dashboard for Eclipse Che, adapted from link:https://www.deepcode.ai/app/gh/eclipse/che/5be0e29f11fdef73ed4a3da5fe61e3cc0eb3e875/_/dashboard/[DeepCode demo].
 image::che-dashboard.png[Dashboard for Eclipse Che]
 
-Here we can see three instances of a possible
+Here we see three instances of a possible
 path traversal vulnerability.
 In the full dashboard,
-we can also see how they also report
+we also see how they report
 an insecure +HTTPS+ channel,
 a Server Side Request Forgery (+SSRF+),
 a Cross Site Scripting (+XSS+) vulnerability,
@@ -139,7 +134,7 @@ lines of code?
 Let us try something different.
 Let us take one of the many
 Vulnerable by Design (+VbD+) applications
-we use for training purposes in our
+we use for training purposes in
 link:https://gitlab.com/fluidattacks/writeups[Writeups],
 and see how many vulnerabilities come up
 by running +DeepCode+ on them.
@@ -160,7 +155,7 @@ For +DSVW+, which is a single +Python+ file
 under 100 lines of code,
 but still ridden with vulnerabilities,
 +DeepCode+ reports zero issues.
-Perhaps it does not work as well in such tiny projects.
+Perhaps it does not work as well on such tiny projects.
 
 .Zero issues in DSVW.
 image::dsvw-dashboard.png[Dashboard for DSVW]
@@ -168,7 +163,7 @@ image::dsvw-dashboard.png[Dashboard for DSVW]
 This is, to say the least, disappointing,
 since that +DSVW+ has no less than 26 different
 _kinds_ of vulnerabilities, as per its +README+.
-In link:https://gitlab.com/fluidattacks/writeups/tree/master/vbd/dsvw/[Writeups]
+In link:https://gitlab.com/fluidattacks/writeups/tree/master/vbd/dsvw/[Writeups],
 three of those have been manually explored and exploited.
 
 Maybe it's a problem with having so few lines of code,
@@ -180,10 +175,10 @@ link:https://www.owasp.org/index.php/Top_10-2017_Top_10[+OWASP+ Top 10 vulnerabi
 
 This time around,
 +DeepCode+ found 9 issues.
-Out of those, take 3 which come from +ESLint+,
-and let us consider the other 6.
-2 +API+ misuses, which are basically "use arrows instead of functions".
-4 are security vulnerabilities,
+Of those, take out the 3 which come from +ESLint+,
+and let's consider the other 6;
+2 are +API+ misuses, which are basically "use arrows instead of functions"
+and 4 are security vulnerabilities,
 and pretty serious ones at that:
 
 * Code Injection via +eval+ function in calculator module.
@@ -214,7 +209,7 @@ on manual testing vs the +LGTM+
 [inner]#link:../oracle-code[code-as-data]# tool in there, too,
 where it is quite clear that tool misses most of the vulnerabilities as well.
 
-OK, now for a more realistic test,
+Now for a more realistic test,
 let's try running +DeepCode+ on some of our own repos, namely,
 [inner]#link:../../products/integrates[Integrates]#,
 our platform for vulnerability centralization and management and
@@ -240,9 +235,9 @@ image:reports.py.png[Command Injection in Integrates?]
 However, the suggestion to sanitize the input
 via +subprocess.call()+ is not bad.
 Who knows if +Integrates+
-will later have user configurable passwords for reports?
-Or what if a _different_ vulnerability enables an attacker
-to change this parameter?
+will later have user-configurable passwords for reports,
+or a _different_ vulnerability enables an attacker
+to change this parameter.
 
 The other security issue
 is in the +PDF+ report generation,
@@ -269,20 +264,20 @@ will be taken care of.
 
 ''''
 
-Once again, this confirms the other _mantra_
+Once again, this confirms our other _mantra_
 we have held in this
-[inner]#link:../tags/machine-learning[Machine Learning (+ML+) series]#,
-but also
+[inner]#link:../tags/machine-learning[Machine Learning (+ML+) series]#
+and also
 [inner]#link:../replaced-machines/[elsewhere]#
-[inner]#link:../../services/differentiators/#method[in the]#
-[inner]#link:../importance-pentesting/[site]#.
-Automated tools,
+[inner]#link:../../services/differentiators/#method[on our]#
+[inner]#link:../importance-pentesting/[website]#.
+While automated tools,
 even +ML+-powered ones,
-while they might have the potential to do
-what a human could not in a thousand years
+may have the potential to do
+what a human could not do
 in terms of repetitions and scalability,
-do not have, as of yet, the malice and creativity
-which we do to find critical and interesting
+as of yet, they do not have the malice or creativity
+which humans have in finding critical and interesting
 security vulnerabilities.
 
 == References
