@@ -47,11 +47,11 @@ export interface IDescriptionViewProps {
     btsUrl: string;
     clientCode: string;
     clientProject: string;
-    closedVulnerabilities: string;
     compromisedAttributes: string;
     compromisedRecords: string;
     cweUrl: string;
     description: string;
+    openVulnerabilities: string;
     recommendation: string;
     releaseDate: string;
     remediated: boolean;
@@ -301,7 +301,7 @@ export const component: ((props: IDescriptionViewProps) => JSX.Element) =
                   <RemediationModal
                     additionalInfo={
                       remediationType === "approve_acceptation" ?
-                      `${props.dataset.closedVulnerabilities} vulnerabilities will be assumed`
+                      `${props.dataset.openVulnerabilities} vulnerabilities will be assumed`
                       : undefined
                     }
                     isOpen={props.isRemediationOpen}
