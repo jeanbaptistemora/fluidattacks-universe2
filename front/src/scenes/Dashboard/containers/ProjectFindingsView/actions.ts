@@ -16,6 +16,15 @@ export const closeReportsModal: (() => IActionStructure) = (): IActionStructure 
   type: actionTypes.CLOSE_REPORTS_MODAL,
 });
 
+export const changeFilterValues: ((newValues: {}) => IActionStructure) = (newValues: {}): IActionStructure => ({
+  payload: {
+    filters: {
+      ...newValues,
+    },
+  },
+  type: actionTypes.CHANGE_FILTER,
+});
+
 export const changeSortedValues: ((newValues: {}) => IActionStructure) = (newValues: {}): IActionStructure => ({
   payload: {
     defaultSort: newValues,

@@ -20,7 +20,11 @@ const functionMock: (() => void) = (): void => undefined;
 describe("ProjectFindingsView", () => {
 
   const propsMock: IProjectFindingsProps = {
-    defaultSort: "",
+    defaultSort: {},
+    filters: {
+      title: "",
+      where: "",
+    },
     match: {
       isExact: true,
       params: {projectName: "TEST"},
@@ -28,7 +32,9 @@ describe("ProjectFindingsView", () => {
       url: "",
     },
     onCloseReportsModal: functionMock,
+    onFilter: functionMock,
     onOpenReportsModal: functionMock,
+    onSort: functionMock,
     reportsModal: {
       isOpen: false,
     },

@@ -30,6 +30,10 @@ export interface IDashboardState {
   };
   findings: {
     defaultSort: {};
+    filters: {
+      title: string;
+      where: string;
+    };
     reportsModal: {
       isOpen: boolean;
     };
@@ -155,6 +159,10 @@ const initialState: IDashboardState = {
   },
   findings: {
     defaultSort: {},
+    filters: {
+      title: "",
+      where: "",
+    },
     reportsModal: {
       isOpen: false,
     },
@@ -632,6 +640,9 @@ actionMap[projectActions.CLEAR_PROJECT_STATE] = (state: IDashboardState): IDashb
   findings: {
     ...initialState.findings,
     defaultSort: state.findings.defaultSort,
+    filters: {
+      ...state.findings.filters,
+    },
   },
   resources: {
     ...initialState.resources,
@@ -654,6 +665,15 @@ actionMap[findingsActions.OPEN_REPORTS_MODAL] = (state: IDashboardState): IDashb
     },
   },
 });
+
+actionMap[findingsActions.CHANGE_FILTER] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
+    ...state,
+    findings: {
+      ...state.findings,
+      filters: action.payload.filters,
+    },
+  });
 
 actionMap[findingsActions.CHANGE_SORTED] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({

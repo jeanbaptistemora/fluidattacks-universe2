@@ -8,6 +8,7 @@ import mixpanel from "mixpanel-browser";
 import React, { useState } from "react";
 import { Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
+import { textFilter } from "react-bootstrap-table2-filter";
 import FontAwesome from "react-fontawesome";
 import { Trans } from "react-i18next";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
@@ -20,7 +21,8 @@ import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { formatFindings, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
-import { changeSortedValues, closeReportsModal, openReportsModal, ThunkDispatcher } from "./actions";
+import { changeFilterValues, changeSortedValues, closeReportsModal, openReportsModal,
+  ThunkDispatcher } from "./actions";
 import { default as style } from "./index.css";
 import { GET_FINDINGS } from "./queries";
 import { IProjectFindingsAttr, IProjectFindingsBaseProps, IProjectFindingsDispatchProps, IProjectFindingsProps,
@@ -54,6 +56,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     treatment: true,
     where: false,
   });
+  const [filterValueTitle, setFilterValueTitle] = React.useState(props.filters.title);
+  const [filterValueWhere, setFilterValueWhere] = React.useState(props.filters.where);
   const [sortValue, setSortValue] = React.useState(props.defaultSort);
 
   const handleChange: (columnName: string) => void = (columnName: string): void => {
@@ -97,8 +101,37 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   (dataField: string, order: SortOrder): void => {
     const newSorted: Sorted = {dataField,  order};
     setSortValue(newSorted);
-    const newValues: {} = newSorted;
-    props.onSort(newValues);
+    props.onSort(newSorted);
+  };
+  const onFilterTitle: ((filterVal: string) => void) = (filterVal: string): void => {
+    if (filterValueTitle !== filterVal) {
+      setFilterValueTitle(filterVal);
+      props.onFilter({...props.filters, title: filterVal});
+    }
+  };
+  const clearFilterTitle: ((event: React.FormEvent<HTMLInputElement>) => void) =
+  (event: React.FormEvent<HTMLInputElement>): void => {
+    const inputValue: string = event.currentTarget.value;
+    if (inputValue.length === 0) {
+      if (filterValueTitle !== "") {
+        props.onFilter({...props.filters, title: ""});
+      }
+    }
+  };
+  const onFilterWhere: ((filterVal: string) => void) = (filterVal: string): void => {
+    if (filterValueWhere !== filterVal) {
+      setFilterValueWhere(filterVal);
+      props.onFilter({...props.filters, where: filterVal});
+    }
+  };
+  const clearFilterWhere: ((event: React.FormEvent<HTMLInputElement>) => void) =
+  (event: React.FormEvent<HTMLInputElement>): void => {
+    const inputValue: string = event.currentTarget.value;
+    if (inputValue.length === 0) {
+      if (filterValueWhere !== "") {
+        props.onFilter({...props.filters, where: ""});
+      }
+    }
   };
 
   const tableHeaders: IHeader[] = [
@@ -111,8 +144,14 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       visible: checkedItems.lastVulnerability, width: "5%",
     },
     {
-      align: "center", dataField: "title", header: "Title", onSort: onSortState,
-      visible: checkedItems.title, width: "11%", wrapped: true,
+      align: "center", dataField: "title",
+      filter: textFilter({
+        defaultValue: filterValueTitle,
+        delay: 1000,
+        onFilter: onFilterTitle,
+        onInput: clearFilterTitle,
+      }),
+      header: "Title", onSort: onSortState, visible: checkedItems.title, width: "11%", wrapped: true,
     },
     {
       align: "center", dataField: "description", header: "Description", onSort: onSortState,
@@ -143,8 +182,14 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       visible: checkedItems.isExploitable, width: "8%",
     },
     {
-      align: "center", dataField: "where", header: "Where", onSort: onSortState,
-      visible: checkedItems.where, width: "8%", wrapped: true,
+      align: "center", dataField: "where",
+      filter: textFilter({
+        defaultValue: filterValueWhere,
+        delay: 1000,
+        onFilter: onFilterWhere,
+        onInput: clearFilterWhere,
+      }),
+      header: "Where", onSort: onSortState, visible: checkedItems.where, width: "8%", wrapped: true,
     },
   ];
 
@@ -238,6 +283,7 @@ const mapDispatchToProps: MapDispatchToProps<IProjectFindingsDispatchProps, IPro
   (dispatch: ThunkDispatcher, ownProps: IProjectFindingsBaseProps): IProjectFindingsDispatchProps =>
     ({
       onCloseReportsModal: (): void => { dispatch(closeReportsModal()); },
+      onFilter: (newValues: {}): void => { dispatch(changeFilterValues(newValues)); },
       onOpenReportsModal: (): void => { dispatch(openReportsModal()); },
       onSort: (newValues: {}): void => { dispatch(changeSortedValues(newValues)); },
     });
