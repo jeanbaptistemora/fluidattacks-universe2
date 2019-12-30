@@ -20,6 +20,7 @@ const functionMock: (() => void) = (): void => undefined;
 describe("ProjectFindingsView", () => {
 
   const propsMock: IProjectFindingsProps = {
+    defaultSort: "",
     match: {
       isExact: true,
       params: {projectName: "TEST"},

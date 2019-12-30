@@ -8,6 +8,7 @@ export type IProjectFindingsStateProps = IDashboardState["findings"];
 export interface IProjectFindingsDispatchProps {
   onCloseReportsModal(): void;
   onOpenReportsModal(): void;
+  onSort(newValues: {}): void;
 }
 
 export interface IProjectFindingsAttr {

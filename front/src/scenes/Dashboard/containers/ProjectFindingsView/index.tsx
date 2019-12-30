@@ -20,7 +20,7 @@ import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { formatFindings, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
-import { closeReportsModal, openReportsModal, ThunkDispatcher } from "./actions";
+import { changeSortedValues, closeReportsModal, openReportsModal, ThunkDispatcher } from "./actions";
 import { default as style } from "./index.css";
 import { GET_FINDINGS } from "./queries";
 import { IProjectFindingsAttr, IProjectFindingsBaseProps, IProjectFindingsDispatchProps, IProjectFindingsProps,
@@ -54,6 +54,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     treatment: true,
     where: false,
   });
+  const [sortValue, setSortValue] = React.useState(props.defaultSort);
 
   const handleChange: (columnName: string) => void = (columnName: string): void => {
     setCheckedItems({
@@ -77,8 +78,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     mixpanel.track(
       "ReadFinding",
       {
-        Organization: (window as Window & { userOrganization: string }).userOrganization,
-        User: (window as Window & { userName: string }).userName,
+        Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+        User: (window as typeof window & { userName: string }).userName,
       });
     location.hash = `#!/project/${projectName}/findings/${rowInfo.id}/description`;
   };
@@ -87,56 +88,62 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     mixpanel.track(
       "ProjectFindings",
       {
-        Organization: (window as Window & { userOrganization: string }).userOrganization,
-        User: (window as Window & { userName: string }).userName,
+        Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+        User: (window as typeof window & { userName: string }).userName,
       });
     hidePreloader();
+  };
+  const onSortState: ((dataField: string, order: SortOrder) => void) =
+  (dataField: string, order: SortOrder): void => {
+    const newSorted: Sorted = {dataField,  order};
+    setSortValue(newSorted);
+    const newValues: {} = newSorted;
+    props.onSort(newValues);
   };
 
   const tableHeaders: IHeader[] = [
     {
-      align: "center", dataField: "age", header: "Age (days)",
+      align: "center", dataField: "age", header: "Age (days)", onSort: onSortState,
       visible: checkedItems.age, width: "5%",
     },
     {
-      align: "center", dataField: "lastVulnerability", header: "Last report (days)",
-      visible: checkedItems.lastVulnerability,
-      width: "5%",
+      align: "center", dataField: "lastVulnerability", header: "Last report (days)", onSort: onSortState,
+      visible: checkedItems.lastVulnerability, width: "5%",
     },
     {
-      align: "center", dataField: "title", header: "Title",
+      align: "center", dataField: "title", header: "Title", onSort: onSortState,
       visible: checkedItems.title, width: "11%", wrapped: true,
     },
     {
-      align: "center", dataField: "description", header: "Description",
+      align: "center", dataField: "description", header: "Description", onSort: onSortState,
       visible: checkedItems.description, width: "16%", wrapped: true,
     },
     {
-      align: "center", dataField: "severityScore", header: "Severity",
+      align: "center", dataField: "severityScore", header: "Severity", onSort: onSortState,
       visible: checkedItems.severityScore, width: "6%",
     },
     {
-      align: "center", dataField: "openVulnerabilities", header: "Open Vulns.",
+      align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", onSort: onSortState,
       visible: checkedItems.openVulnerabilities, width: "6%",
     },
     {
-      align: "center", dataField: "state", formatter: statusFormatter, header: "Status",
+      align: "center", dataField: "state", formatter: statusFormatter, header: "Status", onSort: onSortState,
       visible: checkedItems.state, width: "7%",
     },
     {
-      align: "center", dataField: "treatment", header: "Treatment",
+      align: "center", dataField: "treatment", header: "Treatment", onSort: onSortState,
       visible: checkedItems.treatment, width: "8%", wrapped: true,
     },
     {
-      align: "center", dataField: "remediated", header: "Verification",
+      align: "center", dataField: "remediated", header: "Verification", onSort: onSortState,
       visible: checkedItems.remediated, width: "8%",
     },
     {
-      align: "center", dataField: "isExploitable", header: "Exploitable",
+      align: "center", dataField: "isExploitable", header: "Exploitable", onSort: onSortState,
       visible: checkedItems.isExploitable, width: "8%",
     },
     {
-      align: "center", dataField: "where", header: "Where",
+      align: "center", dataField: "where", header: "Where", onSort: onSortState,
       visible: checkedItems.where, width: "8%", wrapped: true,
     },
   ];
@@ -172,6 +179,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                   bordered={true}
                   columnToggle={true}
                   dataset={formatFindings(data.project.findings)}
+                  defaultSorted={sortValue}
                   exportCsv={true}
                   headers={tableHeaders}
                   id="tblFindings"
@@ -231,6 +239,7 @@ const mapDispatchToProps: MapDispatchToProps<IProjectFindingsDispatchProps, IPro
     ({
       onCloseReportsModal: (): void => { dispatch(closeReportsModal()); },
       onOpenReportsModal: (): void => { dispatch(openReportsModal()); },
+      onSort: (newValues: {}): void => { dispatch(changeSortedValues(newValues)); },
     });
 
 export = connect(mapStateToProps, mapDispatchToProps)(projectFindingsView);
