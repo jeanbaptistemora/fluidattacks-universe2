@@ -87,11 +87,12 @@ but how is that done?
 link:https://app.grammarly.com/[Grammarly] for code.
 It claims to be 90% accurate,
 and that it understands the _intent_ behind the code.
-It also claims to find twice as many critical issues
+It also claims to find twice as many issues as other tools,
+even some critical ones
 (+XSS+, +SQL+ injection and path traversal, etc.)
 which is something typical static analysis tools do not.
 Moreover, it claims to be easy to use,
-requiring no configuration at all.
+requiring no configuration.
 
 The tool is friendly.
 You need only point it to your repository
@@ -110,7 +111,7 @@ we also see how they report
 an insecure +HTTPS+ channel,
 a Server Side Request Forgery (+SSRF+),
 a Cross Site Scripting (+XSS+) vulnerability,
-an a header that leaks technical information
+and a header that leaks technical information
 (+X-Powered-By+).
 And that's only the issues tagged as "security".
 There are also +API+ misuse issues,
@@ -131,7 +132,6 @@ in a project with more than
 link:https://api.codetabs.com/v1/loc?github=eclipse/che[300,000]
 lines of code?
 
-Let us try something different.
 Let us take one of the many
 Vulnerable by Design (+VbD+) applications
 we use for training purposes in
