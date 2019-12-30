@@ -68,10 +68,10 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                       &nbsp;{translate.t("project.tabs.events")}
                     </NavLink>
                   </li>
-                  <li id="resourcesTab" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`${props.match.url}/resources`}>
-                      <i className="icon pe-7s-box1" />
-                      &nbsp;{translate.t("project.tabs.resources")}
+                  <li id="commentsTab" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`${props.match.url}/comments`}>
+                      <i className="icon pe-7s-comment" />
+                      &nbsp;{translate.t("project.tabs.comments")}
                     </NavLink>
                   </li>
                   {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
@@ -83,10 +83,10 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                       </NavLink>
                     </li>
                     : undefined}
-                  <li id="commentsTab" className={style.tab}>
-                    <NavLink activeClassName={style.active} to={`${props.match.url}/comments`}>
-                      <i className="icon pe-7s-comment" />
-                      &nbsp;{translate.t("project.tabs.comments")}
+                  <li id="resourcesTab" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`${props.match.url}/resources`}>
+                      <i className="icon pe-7s-box1" />
+                      &nbsp;{translate.t("project.tabs.resources")}
                     </NavLink>
                   </li>
                 </ul>

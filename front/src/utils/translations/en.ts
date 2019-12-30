@@ -213,7 +213,7 @@ const enTranslations: Dictionary = {
       events: "Events",
       findings: "Findings",
       indicators: "Indicators",
-      resources: "Resources",
+      resources: "Settings",
       users: "Users",
     },
   },
