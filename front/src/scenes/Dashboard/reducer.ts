@@ -17,6 +17,7 @@ import * as trackingActions from "./containers/TrackingView/actionTypes";
 import { ITrackingViewProps } from "./containers/TrackingView/index";
 
 export interface IDashboardState {
+  addUserModal: { addUserOpen: boolean };
   confirmDialog: {[name: string]: { isOpen: boolean }};
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
   evidence: { currentIndex: number; images: []; isEditing: boolean; isImageOpen: boolean };
@@ -108,6 +109,7 @@ export interface IDashboardState {
 }
 
 const initialState: IDashboardState = {
+  addUserModal: { addUserOpen: false },
   confirmDialog: {},
   description: {
     dataset: {
@@ -528,6 +530,22 @@ actionMap[actionType.OPEN_CONFIRM_DIALOG] =
         },
       },
     });
+
+actionMap[actionType.OPEN_ADD_USER_MODAL] = (state: IDashboardState): IDashboardState =>
+({
+  ...state,
+  addUserModal: {
+    addUserOpen: true,
+  },
+});
+
+actionMap[actionType.CLOSE_ADD_USER_MODAL] = (state: IDashboardState): IDashboardState =>
+({
+  ...state,
+  addUserModal: {
+    addUserOpen: false,
+  },
+});
 
 actionMap[actionType.OPEN_ACCESS_TOKEN_MODAL] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>

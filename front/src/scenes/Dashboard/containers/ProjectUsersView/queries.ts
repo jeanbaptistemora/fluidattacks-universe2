@@ -34,8 +34,8 @@ export const ADD_USER_MUTATION: DocumentNode = gql`
     $email: String!,
     $organization: String!,
     $phoneNumber: String!,
-    $projectName: String!,
-    $responsibility: String!,
+    $projectName: String,
+    $responsibility: String,
     $role: String!
     ) {
     grantUserAccess (

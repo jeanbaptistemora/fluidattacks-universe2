@@ -53,7 +53,7 @@ const loadAutofillData: (
       showPreloader();
       client.query({
         query: GET_USERS,
-        variables: { projectName: props.projectName, userEmail: email },
+        variables: { projectName: props.projectName !== undefined ? props.projectName : "-", userEmail: email },
       })
       .then(({loading, errors, data, networkStatus}: ApolloQueryResult<IUserDataAttr>) => {
         const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
@@ -127,19 +127,21 @@ const renderFormContent: ((props: IAddUserModalProps) => JSX.Element) =
               {props.userRole === "customeradmin" ? renderManagerRoles : undefined}
             </Field>
           </FormGroup>
-          <FormGroup>
-            <ControlLabel>
-              {requiredIndicator}
-              {translate.t("search_findings.tab_users.user_responsibility")}
-            </ControlLabel>
-            <Field
-              name="responsibility"
-              component={textField}
-              type="text"
-              placeholder={translate.t("search_findings.tab_users.responsibility_placeholder")}
-              validate={[required]}
-            />
-          </FormGroup>
+          {props.projectName !== undefined ?
+            <FormGroup>
+              <ControlLabel>
+                {requiredIndicator}
+                {translate.t("search_findings.tab_users.user_responsibility")}
+              </ControlLabel>
+              <Field
+                name="responsibility"
+                component={textField}
+                type="text"
+                placeholder={translate.t("search_findings.tab_users.responsibility_placeholder")}
+                validate={[required]}
+              />
+            </FormGroup>
+          : undefined}
           <FormGroup>
             <ControlLabel>{requiredIndicator}{translate.t("search_findings.tab_users.phone_number")}</ControlLabel>
             <Field name="phoneNumber" component={phoneNumberField} type="text" validate={[required]}/>
@@ -158,9 +160,10 @@ const renderFormContent: ((props: IAddUserModalProps) => JSX.Element) =
   };
 
 export const addUserModal: ((props: IAddUserModalProps) => JSX.Element) = (props: IAddUserModalProps): JSX.Element => {
-  const title: string = props.type === "add"
+  let title: string = props.type === "add"
   ? translate.t("search_findings.tab_users.title")
   : translate.t("search_findings.tab_users.edit_user_title");
+  title = props.projectName === undefined ? translate.t("sidebar.user") : title;
 
   return (
     <React.StrictMode>

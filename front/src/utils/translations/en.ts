@@ -702,6 +702,10 @@ const enTranslations: Dictionary = {
     forms: "Formstack",
     reports: "Reports",
     token: "Token",
+    user: "Add User",
+    userModal: {
+      success: "{{email}} was added successfully",
+    },
   },
   update_access_token: {
     access_token: "Personal Access Token",

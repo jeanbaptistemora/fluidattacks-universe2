@@ -144,10 +144,10 @@ class GrantUserAccess(Mutation):
 
     class Arguments():
         project_name = String()
-        email = String()
-        organization = String()
+        email = String(required=True)
+        organization = String(required=True)
         responsibility = String()
-        role = String()
+        role = String(required=True)
         phone_number = String()
 
     granted_user = Field(User)
@@ -164,7 +164,7 @@ class GrantUserAccess(Mutation):
         new_user_data = {
             'email': query_args.get('email'),
             'organization': query_args.get('organization'),
-            'responsibility': query_args.get('responsibility'),
+            'responsibility': query_args.get('responsibility', '-'),
             'role': query_args.get('role'),
             'phone_number': query_args.get('phone_number')
         }
@@ -247,7 +247,7 @@ def create_new_user(context, new_user_data, project_name):
             email, organization.lower(), 'company')
     elif user_domain.is_registered(email):
         user_domain.assign_role(email, role)
-    if responsibility and len(responsibility) <= 50:
+    if project_name and responsibility and len(responsibility) <= 50:
         integrates_dal.add_project_access_dynamo(email, project_name,
                                                  'responsibility',
                                                  responsibility)
@@ -260,10 +260,10 @@ def create_new_user(context, new_user_data, project_name):
         )
     if phone_number and phone_number[1:].isdigit():
         user_domain.add_phone_to_user(email, phone_number)
-    if role == 'customeradmin':
+    if project_name and role == 'customeradmin':
         integrates_dal.add_user_to_project_dynamo(project_name.lower(),
                                                   email.lower(), role)
-    if user_domain.update_project_access(email, project_name, True):
+    if project_name and user_domain.update_project_access(email, project_name, True):
         description = project_domain.get_description(project_name.lower())
         project_url = \
             'https://fluidattacks.com/integrates/dashboard#!/project/' \
@@ -274,6 +274,17 @@ def create_new_user(context, new_user_data, project_name):
             'project': project_name,
             'project_description': description,
             'project_url': project_url,
+        }
+        email_send_thread = \
+            threading.Thread(name='Access granted email thread',
+                             target=send_mail_access_granted,
+                             args=(mail_to, context,))
+        email_send_thread.start()
+        success = True
+    if not project_name:
+        mail_to = [email]
+        context = {
+            'admin': email,
         }
         email_send_thread = \
             threading.Thread(name='Access granted email thread',

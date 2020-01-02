@@ -9,7 +9,7 @@ export interface IUserDataAttr {
 export interface IAddUserModalProps {
   initialValues: {};
   open: boolean;
-  projectName: string;
+  projectName?: string;
   type: "add" | "edit";
   userRole: string;
   onClose(): void;

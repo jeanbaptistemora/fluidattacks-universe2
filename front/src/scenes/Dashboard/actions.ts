@@ -98,12 +98,22 @@ export const closeConfirmDialog: ((dialogName: string) => IActionStructure) =
     type: actionType.CLOSE_CONFIRM_DIALOG,
   });
 
-export const openUpdateAccessToken: (() => IActionStructure) =
+export const closeAddUserModal: (() => IActionStructure) =
   (): IActionStructure => ({
-    type: actionType.OPEN_ACCESS_TOKEN_MODAL,
+    type: actionType.CLOSE_ADD_USER_MODAL,
   });
 
 export const closeUpdateAccessToken: (() => IActionStructure) =
   (): IActionStructure => ({
     type: actionType.CLOSE_ACCESS_TOKEN_MODAL,
+  });
+
+export const openAddUserModal: (() => IActionStructure) =
+  (): IActionStructure => ({
+    type: actionType.OPEN_ADD_USER_MODAL,
+  });
+
+export const openUpdateAccessToken: (() => IActionStructure) =
+  (): IActionStructure => ({
+    type: actionType.OPEN_ACCESS_TOKEN_MODAL,
   });
