@@ -5,7 +5,7 @@
 :tags: business, ethical hacking, risk
 :image: cover.png
 :alt: Choices. Photo by Nathan Dumlao on Unsplash: https://unsplash.com/photos/pMW4jzELQCw
-:description: A comparison of risk indicators used in quantitative finance. Most of them have been discussed earlier in the blog, such as VaR, tVaR and LEC. We also introduce the ALE, and compare them all giving their respective pros and cons. In the end, it is a matter of choice or we can just use them all.
+:description: This blog compares risk indicators used in quantitative finance. Most of them have been discussed earlier in previous blogs, such as VaR, tVaR and LEC. We also introduce the ALE, and compare them all giving their respective pros and cons. In the end, it is a matter of choice or we can just use them all.
 :keywords: Risk, Probability, Choice, Measure, Quantify, Indicator
 :author: Rafael Ballestas
 :writer: raballestasr
@@ -15,27 +15,25 @@
 :source-highlighter: pygments
 
 
-= Risk indicator roundup
+= Risk Indicator Roundup
 
 What is the best risk indicator?
 Bottom line: there is no "best", only different approaches to the same thing.
 Ultimately, it's up to you.
 Here we will show the pros and cons of each
-so you can make an informed decision
-(about that which will guide your informed decisions,
-if you allow the _inception_ reference).
+risk indicator so you can make an informed decision.
 
 == VaR
 
 [inner]#link:../para-bellum/[Recall]# that Value at Risk (+VaR+)
 measures the worst-case scenario in an uncertain return
-by telling us beyond how much our losses
-will most likely _not_ go,
+by telling us  the endpoint beyond
+which our losses will likely not go,
 up to a certain degree of confidence,
 in a definite period of time.
 Thus a daily 1% `VaR` of $10 million means
-that the probability that you will lose more than
-ten million is 1%, which is the same as saying
+the probability that you will lose more than
+$10 million is 1%, which is the same as saying
 that you are 99% confident that the losses
 will not exceed $10 million.
 
@@ -44,53 +42,55 @@ Pros:
 * Gives a good idea of how much to save in order
   to avoid bankruptcy in most (95%) cases.
 
-* It is a well established standard,
+* Is a well-established standard,
   used by most banks and a requirement
-  as per international banking regulations.
+  per international banking regulations.
 
 Cons:
 
 * Says nothing about what might happen beyond the threshold.
 
-* In fact, being a single number, its expressiveness
+* Is a single number, therefore, its expressiveness
   is rather narrow. It says nothing about what happens
   elsewhere with the distribution of returns.
 
 
 == tVaR
 
-While the +VaR+ gives a worst case with a certain confidence,
+While the +VaR+ gives a worst-case scenario
+with a certain confidence,
 what if that confidence is broken, i.e.,
 the `VaR` is breached? What can we expect?
-That's precisely the answer the
+That's precisely the
 _tail_ value at risk tries to answer.
 By using the [inner]#link:../great-expectations/[expected value]#
 of a [inner]#link:../updating-belief/#mathematical-interlude[conditional probability]#,
 it gives us, in a single number,
-what would be expected in case that the dreaded worst case scenario occurs.
+what would be expected if a worst-case scenario occurs.
 
-No better way to summarize both `VaR` and `tVaR` than
-does this plot by link:http://www.nematrian.com/TailValueAtRisk[Nematrian]:
+There is no better way than this plot by
+link:http://www.nematrian.com/TailValueAtRisk[Nematrian]
+to summarize both `VaR` and `tVaR`.
 
 .(t)VaR illustration
 image::../para-bellum/tvar.png[(t)VaR illustration]
 
 Pros:
 
-* Prepares you for the worst of the worst
+* Prepares you for the worst of the worst.
 
-* Single number, easy to compare or monitor over time
+* Single number, easy to compare or monitor over time.
 
 Cons:
 
-* Not too easy to compute (involves an integral).
+* Not easy to compute (involves an integral).
 
-* Can be overly pessimistic, thus
+* Results can be overly pessimistic, thus
   impeding you from seeing the other side of the coin.
 
 == ALE
 
-OK, this is a new one. Not all that new, though.
+This is a relatively new one.
 Remember we discussed Return on Control (`ROC`)
 to decide whether investing in a given defense is worth the hassle?
 
@@ -103,28 +103,28 @@ Both were obtained by "averaging out", i.e.
 finding the [inner]#link:../great-expectations/[expected value]# of
 a simulated distribution for the loss.
 
-The Annualized Loss Expectancy (+ALE+) is related to such a computation,
-in that it is also obtained from a couple of expected, estimated values,
-namely, the expected number of ocurrences of an event in a year
-(the Annualized Rate of Occurrence, +ARO+),
+The Annualized Loss Expectancy (+ALE+) is related to such a computation
+in that it is also obtained from a couple of expected, estimated values.
+These estimated values are the expected number of ocurrences of an event
+in a year (the Annualized Rate of Occurrence, +ARO+),
 and the expected loss for a single ocurrence
 (Single Loss Expectancy, +SLE+).
 Thus, total = reps x single.
-Too many acronyms for not too much content:
+Too many acronyms for too little content:
 
-.You don't want to ask Chandler about his Annual Net Usage Statitics!
+.You don't want to ask Chandler about his Annual Net Usage Statistics!
 image::wenus.png[Acronyms joke]
 
-The +ARO+ can be estimated by experts.
-Suppose that it is known that a data breach will most likely occur
-at least once in 10 years,
-the +ARO+ for such an event is 1/10 = 0.1 events per year.
+Experts can estimate the ARO.
+Suppose it is known that a data breach will most likely occur
+at least once in 10 years.
+The +ARO+ for such an event is 1/10 = 0.1 events per year.
 The +SLE+ is to be estimated by your own experts.
 How much would such a breach cost you?
 Say, $100 million. Then the loss expected in every one of
-those years is 0.1x100 = 10 million.
-However this rate will be fixed for each of the next ten years.
-It is static and unlikely to be true,
+those years is 0.1x100 = $10 million.
+However, this rate will be fixed for each of the next ten years.
+It is static and unlikely to be true
 since risks and threats change daily.
 
 Pros:
@@ -141,31 +141,31 @@ Cons:
 
 == LEC
 
-This is a decidedly different one,
+The loss exceedance curve is a decidedly different one,
 and one of our favorites at that.
-The loss exceedance curve.
 We have already discussed it at length
 in our
 [inner]#link:../quantifying-risk[introduction to quantitative risk]#,
 our general [inner]#link:../monetizing-vulnerabilities[Monte Carlo simulation article]#,
-and gave an implementation in [inner]#link:../quantitative-python[Quantitative Python]#.
-In a nutshell, it is a graph that tells you
-the probability of losing a given amount or more,
+and gave an example
+of implementing in [inner]#link:../quantitative-python[Quantitative Python]#.
+In a nutshell, it's a graph that tells you
+the probability of losing a given amount or more of money,
 for any amount in a range.
 It's like having all possible values-at-risk
 for all confidence levels.
-We believe the graph speaks for itself:
+We believe the graph speaks for itself.
 
 .Loss Exceedance Curve from link:https://www.howtomeasureanything.com/cybersecurity/[Hubbard et al.]
 image::../monetizing-vulnerabilities/simple-lec.png[Loss Exceedance Curve]
 
 Pros:
 
-* All the information you could want about losses, in a single plot.
+* All the information you could want about losses in a single plot.
 
-* Since it is a visual tool, that aids in considering
-  a range of risk to take, especially when combined with
-  residual risk and risk tolerance curves.
+* Since it's a visual tool it's helpful
+when you're considering a range of risks you're willing to take,
+especially when it's combined with residual risk and risk tolerance curves.
 
 Cons:
 
@@ -184,18 +184,18 @@ all in a single chart.
 
 For ease of use, we'd say +ALE+ is the winner.
 However, we wouldn't expect its predictions to be the most accurate of the lot.
-Also, its time period (year) might be too much for
+Also, its time period (one year) might be too much for
 the fast-paced market we currently live in.
 If you have to choose one single-number indicator,
-we would recommend to go for the +VaR+,
-as do international banking regulations
-(link:https://www.investopedia.com/terms/b/baselii.asp[Basel II]),
+we would recommend using +VaR+,
+wich international banking regulations
+(link:https://www.investopedia.com/terms/b/baselii.asp[Basel II]) use,
 since the +tVaR+ might be a tad too extreme.
 
 In the end, it's your choice.
-Or there might not be any choice to make at all:
-who says you cannot use them all at once?
-If well done, they should not be contradictory, but complimentary.
+Or there might not be any choice to make at all.
+Who says you cannot use them all at once?
+If done well, they should not be contradictory, but complimentary.
 Find out all you can about your investment,
-use all the tools at hand, and you might well be making
-the best decision in terms of risk vs gain.
+use all the tools at hand, and then make the best decision possible
+in terms of risk vs gain.
