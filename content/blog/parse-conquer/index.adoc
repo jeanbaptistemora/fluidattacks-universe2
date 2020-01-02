@@ -5,7 +5,7 @@
 :tags: software, security, code
 :image: cover.png
 :alt: Parsing code. Photo by Markus Spiske on Unsplash: https://unsplash.com/photos/hvSr_CVecVI
-:description: Why Asserts uses parser combinators as its main static code analysis tool? Asserts is our vulnerability closure checker engine, which tests whether vulnerabilities found manually are still open. Many of those functions test for poor programming practices, with aid of parser combinators.
+:description: Why does Asserts use parser combinators as its main static code analysis tool? Asserts is our vulnerability closure checker engine, which tests whether vulnerabilities found manually are still open. Many of those functions test for poor programming practices with the aid of parser combinators.
 :keywords: Parsing, Asserts, Combinators, Regex, Vulnerability, Pyparsing
 :author: Rafael Ballestas
 :writer: raballestasr
@@ -17,12 +17,12 @@
 
 = Parse and Conquer
 
-As you might have noticed, at `Fluid Attacks`
+As you might have noticed at `Fluid Attacks`
 we like [inner]#link:../pars-orationis-secura/[parser combinators]#,
 [inner]#link:../why-we-go-functional[functional programming]#,
-and, of course, [inner]#link:../tags/python/[Python]#.
+and of course, [inner]#link:../tags/python/[Python]#.
 In the parser article,
-I showed you the essentials of `Pyparsing` and
+we showed you the essentials of `Pyparsing` and
 we also showed how to leverage its power
 to find `SQL` injections in a `PHP` application.
 Here we will extend those essentials to show you
@@ -31,36 +31,35 @@ how we use parser combinators in
 our vulnerability closure checker engine.
 Feel free to refer to that article
 for more details on how `Pyparsing` works,
-though I'll try my best to leave no keyword used here
-without explanation.
+though I'll try my best to explain every keyword used here.
 
-Parser combinators are particularly useful when
-the expressions to be analyzed are complex.
+Parser combinators are particularly useful
+analyzing complex expressions.
 You don't really need parser combinators to break up email addresses
 into usernames and domains.
 For that, a regular expression will suffice.
 However, when what you need to do is more involved,
-such as looking for `SQL` injections,
+such as looking for `SQL` injections
 or analyzing source code for poor programming practices
-as per our [inner]#link:../../rules/[Rules]#
+per our [inner]#link:../../rules/[Rules]#
 and recommendations,
-parsers are our tool of choice.
-This is one of the tasks at which `Asserts` excels,
-determine whether a vulnerability,
-found by one of our analysts in the source code,
-is still open by deeply searching in it,
+then parsers are our tool of choice.
+This is one of the tasks at which `Asserts` excels.
+Determine whether a vulnerability that has been
+found in the source code by one of our analysts
+is still open by doing a deep search within it
 with the aid of parser combinators.
-Let us see how that works.
+Let's see how that works.
 
 Suppose an analyst was auditing some `Java` source code
 and found out that it uses the insecure `DES` cipher
 to mask the information of a bank transaction
 in the file `transactions.java`.
-`DES` is insecure due to its small 56-bit key size,
+`DES` is insecure due to its small 56-bit key size
 which could theoretically be brute-forced in 6 minutes.
 In order to report the vulnerability,
-they would write a script that automatically checks
-if the vulnerability is still there:
+they could write a script that automatically checks
+if the vulnerability is still there.
 
 .Asserts script `expl.py` to check DES usage
 [source,python]
@@ -72,13 +71,13 @@ java.uses_des_algorithm(FILE)
 ----
 
 Simple, right?
-Just running that script tells you whether the inscure `DES` algorithm
+Just running that script tells you whether or not the insecure `DES` algorithm
 is used in that particular file.
-Or you can even point it at an entire directory,
+Or you can even point it at an entire directory
 and `Asserts` will test every `Java` source file for `DES` usage.
-But what's behind the curtains?
+But what's behind the curtain?
 Since `Asserts` is now open-source,
-anyone can actually check out what this function does:
+anyone can actually check out what this function does.
 
 .java.py. See link:https://gitlab.com/fluidattacks/asserts/blob/master/fluidasserts/lang/java.py#L395[Gitlab] for rest of code.
 [source,python,linenums]
@@ -134,17 +133,16 @@ def uses_des_algorithm(java_dest: str, exclude: list = None) -> bool:
     return result
 ----
 
-Notice how, in the first few lines above (17-22),
+Notice how, in the first few lines (17-22)above,
 the parser `instance_des` is built from smaller parsers
 such as `tk_mess_dig`, which matches the single keyword "Cipher",
 but also any variations in case, should they happen.
-Hence, `CaselessKeyword`.
-`Literal` forgoes any such assumption:
-if its double quotes, they must be there, exactly.
+`CaselessKeyword`. `Literal` does not make any such assumption:
+if its double quotes, they must be there.
 `Pyparsing` also takes care of handling white space
 by overloading the `+` operator to mean
-"followed, possibly with some whitespace in between".
-Building a regex to match the same would be perhaps
+"followed possibly with some whitespace in between".
+Building a regex to match the same thing would be perhaps
 more compact, but never as readable or maintainable.
 This is one of the many advantages of
 parser combinators over regular expressions.
@@ -164,23 +162,26 @@ hence `Asserts` will `show_open` a message like this:
 image::asserts-open-msg.png["Asserts open vulnerability message"]
 
 Otherwise it shows a similar message,
-only with less alarming colors.
+only with fewer alarming colors.
 
 So, what does the `lang` module do with the combined parsers and the file?
-More parsing!
-It tests whether the path is a single file or a directory,
-whether it has the correct extension,
-but really all the meat is in the `_get_match_lines_` method.
-It parses the text in the given source code file,
+More parsing.
+It tests whether the path is a single file or a directory
+whether or not it has the correct extension,
+but really all the most important stuff
+is in the `_get_match_lines_` method.
+It parses the text in the given source code file
 to find out if those lines are comments, i.e., not functional code,
 so as to skip them.
 In the future, `Asserts` will be able to use
-this comment-code discrimination in order to find
-lines of code which were commented out and later abandoned,
-which might pose the risk of unpredictable behavior in the application
-if carelessly uncommented, depending on who has access to the code.
+this comment-code discrimination to find
+lines of code which were commented out and later abandoned.
+This would be important because these commented-out lines of code
+might exhibit unpredictable behavior in the application
+if they were carelessly uncommented,
+depending on who has access to the code.
 
-.From `fluidasserts.helper.lang` module. See full code on link:https://gitlab.com/fluidattacks/asserts/blob/master/fluidasserts/helper/lang.py[Gitlab].
+.From `fluidasserts.helper.lang` module. See full code in link:https://gitlab.com/fluidattacks/asserts/blob/master/fluidasserts/helper/lang.py[Gitlab].
 [source,python,linenums]
 ----
 def _get_match_lines(grammar: ParserElement, code_file: str,  # noqa
@@ -237,33 +238,34 @@ def _get_match_lines(grammar: ParserElement, code_file: str,  # noqa
 
 After testing if the code we're looking at is functional or not,
 it is simply a matter of invoking the `searchString` method
-from `PyParsing`, which, as its name implies,
+from `PyParsing`, which as its name implies,
 searches the given string for matches of the given parser.
 The module has a few more tricks up its sleeve,
 such as turning the parsing search results into pretty strings
 and parsing chunks of lines of code.
-All that, again, with the help of parser combinators.
+All that again with the help of parser combinators.
 
-The most important takeaway from looking at the source code,
-and what lies behind it, of this single function,
+The most important takeaway from looking at this
+single function's source code,
+and what lies behind it,
 is that using parser combinators in +Asserts+
 allows us not only to have readable, maintainable code
-for our own use and of others,
+for our own use and the use of others
 but also for this code to be easily _extensible_ and _reusable_.
-+PyParsing+, due to its object-oriented interface,
-its clear naming conventions,
-and the fact that coding parsers in it
-is just _pythonic_,
-allows our team to write and rewrite
-static code analysis tools that change as do its users' needs.
+Due to its object-oriented interface,
+clear naming conventions,
+and that coding parsers in it
+are just _pythonic_,
++PyParsing+ allows our team to write and rewrite
+static code analysis tools that will change along with its users' needs.
 
-That just wouldn't be possible with regular expressions.
+That wouldn't be possible with regular expressions.
 Regexes must be tailor-made, carefully designed
 with one specific objective in mind. One application.
 So that regex that might search for conditionals
-without default actions in `Javascript` is bound to be
+without default actions in `Javascript`, will be
 useless for the same purpose in a different language.
-Such is not the case with parser combinators,
+Such is not the case with parser combinators
 as most code is easily modified or reusable.
 Also, nesting searches as we did above
 (parsing before parsing to know if we're inside a block comment)
@@ -284,5 +286,5 @@ or impossible to maintain.
 
 . [[r1]] link:https://fluidattacks.gitlab.io/asserts/[`Asserts`] documentation.
 
-. [[r2]] McGuire, Paul (2008). 'Getting started with pyparsing'.
-O'Reilly shortcuts.
+. [[r2]] McGuire, Paul (2008). 'Getting Started with Pyparsing'.
+O'Reilly Short Cuts.
