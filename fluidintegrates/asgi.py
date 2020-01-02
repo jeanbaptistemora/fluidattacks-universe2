@@ -1,22 +1,9 @@
-"""
-ASGI config for fluidintegrates project.
-
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.10/howto/deployment/asgi/
-"""
+"""ASGI config for fluidintegrates project."""
 
 import os
 
 import django
 import newrelic.agent
-
-
-# pylint: disable=unused-argument
-def convert_to_web_transaction(*args, **kwargs):
-    newrelic.agent.set_background_task(False)
-
 
 from django.conf import settings  # noqa: E402
 
@@ -26,15 +13,34 @@ django.setup()
 NEW_RELIC_CONF_FILE = os.path.join(settings.BASE_DIR, 'newrelic.ini')
 newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
 
-import django.core.handlers.base as handlers  # noqa: E402
-newrelic.agent.wrap_pre_function(handlers, 'BaseHandler.get_response',
-                                 convert_to_web_transaction)
-newrelic.agent.wrap_background_task(handlers, 'BaseHandler.get_response')
-
+from channels.http import AsgiHandler  # noqa: E402
 from channels.routing import ProtocolTypeRouter  # noqa: E402
+
+
+# pylint: disable=too-few-public-methods
+class AsgiHandlerWithNewrelic(AsgiHandler):
+    def get_response(self, request):
+        headers = None
+        if "headers" in request.scope and isinstance(request.scope["headers"],
+                                                     dict):
+            headers = request.scope['headers']
+
+        # https://docs.newrelic.com/docs/agents/python-agent/python-agent-api/webtransaction
+        # instance of channels/handler.py `AsgiRequest`
+        get_response_custom = newrelic.agent.WebTransactionWrapper(
+            super().get_response,
+            scheme=request.scheme,
+            host=request.get_host(),
+            port=request.get_port(),
+            request_method=request.method,
+            request_path=request.path,
+            query_string=request.META.get('QUERY_STRING'),
+            headers=headers
+        )
+        return get_response_custom(request)
 
 
 # pylint: disable=invalid-name
 application = ProtocolTypeRouter({
-    # Empty for now (http->django views is added by default)
+    "http": AsgiHandlerWithNewrelic
 })
