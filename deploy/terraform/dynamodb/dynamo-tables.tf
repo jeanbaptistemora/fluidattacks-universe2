@@ -155,6 +155,21 @@ resource "aws_dynamodb_table" "users" {
   }
 }
 
+resource "aws_dynamodb_table" "project_names" {
+  name           = "fi_project_names"
+  billing_mode   = "PAY_PER_REQUEST"
+  hash_key       = "project_name"
+
+  attribute {
+    name = "project_name"
+    type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+}
+
 resource "aws_dynamodb_table" "project_access" {
   name           = "FI_project_access"
   billing_mode   = "PAY_PER_REQUEST"
