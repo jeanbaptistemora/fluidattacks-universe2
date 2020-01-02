@@ -94,6 +94,12 @@ aws dynamodb create-table --endpoint-url http://localhost:8022 \
     AttributeName=UUID,KeyType=RANGE \
 --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
 
+aws dynamodb create-table --endpoint-url http://localhost:8022 \
+--table-name fi_project_names \
+--attribute-definitions AttributeName=project_name,AttributeType=S \
+--key-schema AttributeName=project_name,KeyType=HASH \
+--provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
+
 for mock_file in test/dynamo_data/*.json; do
     aws dynamodb batch-write-item --endpoint-url http://localhost:8022 \
     --request-items file://${mock_file}

@@ -1,0 +1,31 @@
+{
+  "fi_project_names" : [
+    {
+      "PutRequest" : {
+        "Item" : {
+          "project_name" : {
+            "S" : "nameone"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest" : {
+        "Item" : {
+          "project_name" : {
+            "S" : "nametwo"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest" : {
+        "Item" : {
+          "project_name" : {
+            "S" : "namethree"
+          }
+        }
+      }
+    }
+  ]
+}
