@@ -5,7 +5,7 @@
 :tags: machine learning, security, code
 :image: cover.png
 :alt: Photo by Franck V. on Unsplash: https://unsplash.com/photos/_E1PQXKUkMw
-:description: An overview of word2vec, a method to obtain vectors to represent natural language in a way that is suitable for machine learning algorithms. This method inspired code2vec, which is used to represent code as vectors, our goal. To understand the latter one must first understand the former.
+:description: This blog is an overview of word2vec, a method to obtain vectors to represent natural language in a way that is suitable for machine learning algorithms. This method inspired code2vec, which is used to represent code as vectors, our goal. To understand the latter one must first understand the former.
 :keywords: Machine learning, Neural Network, Encoding, Parsing, Classifier, Vulnerability
 :author: Rafael Ballestas
 :writer: raballestasr
@@ -15,7 +15,7 @@
 :source-highlighter: pygments
 
 
-= The vectors of language
+= The Vectors of Language
 
 Recall that in previous iterations
 we described the required steps for our code classifier to work,
@@ -30,20 +30,20 @@ which can be roughly summarized as:
 It wouldn't be an overstatement to say that,
 out of all of these,
 probably the hardest and most delicate step
-is that of representing code as vectors.
-Why? Because it is the least understood of them:
-there are tens of helpers to handle data gathering,
+is representing code as vectors.
+Why? Because it is the one least understood.
+There are numerous helpers to handle data gathering,
 even at large scale.
 Neural networks,
 or in general machine learning algorithms for classification? Done.
 The infrastructure and working environment
-are also already there: Amazon Sagemaker has it all.
+are also already there. Amazon Sagemaker has it all.
 Also, as is the case with any machine learning system,
 the quality of predictions will be determined
 by the quality of the training data:
 gargabe in, garbage out.
 Thus, we must be particularly careful with
-the input we will give our classifier,
+the input we give our classifier,
 which will be the output of this earlier
 vector representation step.
 
@@ -71,7 +71,7 @@ This is particularly clear in methods such as
 and
 [inner]#link:../crash-course-machine-learning/#k-means-clustering[K-means clustering]#,
 which are easy to visualize
-(when the data is two dimensional or reduced to that):
+when the data is two dimensional or reduced to that.
 
 .Support Vector Machine example
 image::../crash-course-machine-learning/svm.png[Support Vector Machine example]
@@ -85,8 +85,8 @@ The classic example of this is called
 which is another way of saying that the vector from
 man to woman is very similar to the one
 from king to queen, which makes sense.
-Thus also the vector from man to king
-is almost parallel to the one from woman to queen:
+therefore, the vector from man to king
+is almost parallel to the one from woman to queen.
 
 .Relations between words as difference vectors, via link:https://blog.aylien.com/word-embeddings-and-their-challenges/[Aylien].
 image::vector-relations.png[Relations between words as difference vectors]
@@ -176,28 +176,29 @@ such as (on, cat), and (on, the):
 .Example Word2Vec network, created with link:https://ronxin.github.io/wevi/[wevi].
 image::word2vec-network.png[Example Word2Vec network]
 
-Here we trained a network with queen-king examples
-in order to obtain the infamous "King - Man + Woman = Queen" analogy
-using the link:https://ronxin.github.io/wevi/[wevi] tool by Xin Rong (Kudos!).
+Here, we trained a network with queen-king examples
+to obtain the infamous "King - Man + Woman = Queen" analogy
+using the link:https://ronxin.github.io/wevi/[wevi] tool by Xin Rong (kudos!).
 In the state above, the network predicts from "man",
 with highest likelihood, "George",
 which is the only man name in the set. Makes sense.
 In that image, red means a higher activation level between the neurons
-and blue higher inhibition.
+and blue a higher inhibition.
 We also obtain a visualization of the vectors obtained
-from the hidden-layer intermediate representation,
-which is what we're after anyway:
+from the hidden-layer intermediate representation
+which is what we're after anyway.
 
 .Example Word2Vec vectors, created with link:https://ronxin.github.io/wevi/[wevi].
 image::vectors.png[Example Word2Vec vectors]
 
-There it is! In the image,
-please ignore the orange (input) dots and focus on the blue ones,
+There it is! In the image
+please ignore the orange input dots and focus on the blue ones,
 which are the vector representations of the words we came for.
-Notice how 'man' and 'woman' are essentially in the first quadrant
+Notice how 'man' and 'woman' are in the first quadrant
 while the titles 'queen' and 'king' are in the fourth.
 Other words are clustered around the origin,
-probably because there is not much information about them in the training data.
+probably because there is not enough information
+in the training data to place them elsewhere.
 
 ''''
 
