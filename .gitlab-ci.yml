@@ -71,7 +71,7 @@ deps-development:
     - ./ci-scripts/jobs/deps-development.sh
   interruptible: true
 
-build-app:
+build-back:
   stage: build
   needs: [deps-development,django-apps]
   tags: [autoscaling-large]
@@ -83,6 +83,20 @@ build-app:
     expire_in: 1 day
     paths:
     - version.txt
+    when: on_success
+
+build-front:
+  stage: build
+  needs: [deps-development,django-apps]
+  tags: [autoscaling-large]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - ./ci-scripts/jobs/build-front.sh
+  retry: 1
+  artifacts:
+    expire_in: 1 day
+    paths:
+    - app/assets/
     when: on_success
 
 plan-terraform-resources:
@@ -124,7 +138,7 @@ test-mobile:
     - ./ci-scripts/jobs/test-mobile.sh
   interruptible: true
 
-test-app:
+test-back:
   stage: test
   tags: [autoscaling-large]
   image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
@@ -142,10 +156,10 @@ test-app:
     - master
   interruptible: true
 
-lint-app:
+lint-back:
   stage: test
   tags: [autoscaling]
-  needs: [build-app]
+  needs: [build-back]
   image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/lint-app.sh
@@ -210,7 +224,7 @@ coverage-report:
   tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   dependencies:
-    - test-app
+    - test-back
     - test-front
   script:
     - ./ci-scripts/jobs/coverage-report.sh
@@ -220,10 +234,10 @@ coverage-report:
   except:
     - master
 
-ephemeral-app:
+deploy-back-ephemeral:
   stage: deploy-app
   tags: [autoscaling]
-  needs: [build-app]
+  needs: [build-back]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./review-apps/cluster-config.sh
@@ -249,7 +263,15 @@ stop-ephemeral-app:
   except:
     - master
 
-deploy-k8s:
+deploy-front:
+  stage: deploy-app
+  tags: [autoscaling]
+  needs: [build-front]
+  image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
+  script:
+    - ./ci-scripts/jobs/deploy-front.sh
+
+deploy-back:
   stage: deploy-app
   tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
@@ -286,7 +308,7 @@ deploy-mobile:
 test-driver-dev:
   stage: post-deploy
   tags: [autoscaling-large]
-  needs: [ephemeral-app]
+  needs: [deploy-back-ephemeral]
   image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/test-driver.sh
@@ -343,7 +365,7 @@ new-version-mail:
   tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
   dependencies:
-    - build-app
+    - build-back
   script:
     - pip3 install -U gitpython wheel mandrill-really-maintained
     - ./ci-scripts/jobs/new-version-mail.sh

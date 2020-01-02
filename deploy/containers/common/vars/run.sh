@@ -26,7 +26,6 @@ if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
     service cron restart
 fi
 
-./manage.py collectstatic --no-input
 /etc/init.d/td-agent restart
 
 if [[ "$ENV_NAME" = "development" ]]; then

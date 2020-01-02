@@ -38,12 +38,6 @@ RUN rm -rf /var/www/html \
   && echo "$SSL_CERT" | base64 -di > /etc/ssl/certs/fluidla.crt \
   && echo "$SSL_KEY" | base64 -di > /etc/ssl/private/fluidla.key
 
-# Compile front
-RUN cp -a /npm-deps/front/node_modules front/ \
-  && npm run --prefix front/ build \
-  && sed -i "s/integrates_version/v. $FI_VERSION/g" app/assets/dashboard/app-bundle.min.js \
-  && rm -rf front/node_modules
-
 # local apps
 COPY "$PIP_REQUIREMENTS_PROD_LOCAL" /tmp/reqs_prod_local.txt
 COPY django-apps/packages/* django-apps/packages/
