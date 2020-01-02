@@ -14,6 +14,7 @@ from backend.entity.resource import Resource
 from backend.entity.user import User
 from backend.entity.finding import Finding
 from backend.entity.project import Project
+from backend.entity.internal_project import InternalProject
 
 from backend import services
 from backend import util
@@ -31,6 +32,8 @@ class Query(ObjectType):
     events = List(Event, project_name=String(required=True))
 
     finding = Field(Finding, identifier=String(required=True))
+
+    internal_project_names = Field(InternalProject)
 
     login = Field(Login)
 
@@ -122,6 +125,13 @@ class Query(ObjectType):
                                 'succesfully'.format(project=project_name))
             return Project(project_name)
         raise InvalidProject()
+
+    @require_login
+    @require_role(['admin'])
+    def resolve_internal_project_names(self, info):
+        """Resolve for internal project names"""
+        del info
+        return InternalProject()
 
     @require_login
     def resolve_me(self, info):

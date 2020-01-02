@@ -514,15 +514,17 @@ def get_data_dynamo(table_name, primary_name_key, primary_key):
     return items
 
 
-def get_data_dynamo_filter(table_name, filter_exp, data_attr=''):
+def get_data_dynamo_filter(table_name, filter_exp='', data_attr=''):
     """Get atributes data."""
     table = DYNAMODB_RESOURCE.Table(table_name)
-    scan_attrs = {'FilterExpression': filter_exp}
+    scan_attrs = {}
     if data_attr:
         scan_attrs['ProjectionExpression'] = data_attr
     else:
         # ProjectionExpression not especified
         pass
+    if filter_exp:
+        scan_attrs['FilterExpression'] = filter_exp
 
     response = table.scan(**scan_attrs)
     items = response['Items']
