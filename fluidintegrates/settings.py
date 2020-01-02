@@ -9,14 +9,17 @@ https://docs.djangoproject.com/en/1.10/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
-# pylint: disable=relative-beyond-top-level
 
 import os
 import subprocess
 import sys
 
-import newrelic.agent
 import i18n
+
+from boto3.session import Session
+from botocore.exceptions import ClientError
+
+import rollbar
 
 from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, \
     FI_DB_HOST, FI_AWS_CLOUDWATCH_ACCESS_KEY, FI_AWS_CLOUDWATCH_SECRET_KEY, \
@@ -29,15 +32,6 @@ from __init__ import FI_DJANGO_SECRET_KEY, FI_DB_USER, FI_DB_PASSWD, \
 sys.path.append('/usr/src/app')
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Init New Relic agent
-NEW_RELIC_CONF_FILE = os.path.join(BASE_DIR, 'newrelic.ini')
-newrelic.agent.initialize(NEW_RELIC_CONF_FILE)
-
-# Initialization of another modules must be after New Relic init
-from boto3.session import Session  # noqa: E402
-from botocore.exceptions import ClientError  # noqa: E402
-import rollbar  # noqa: E402
 
 SECRET_KEY = FI_DJANGO_SECRET_KEY
 
