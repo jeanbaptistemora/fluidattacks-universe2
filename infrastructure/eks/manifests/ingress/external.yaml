@@ -17,7 +17,7 @@ metadata:
         nginx.ingress.kubernetes.io/upstream-vhost: "usa.fluidattacks.com"
         nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         nginx.ingress.kubernetes.io/proxy-redirect-from: //usa.fluidattacks.com/
-        nginx.ingress.kubernetes.io/proxy-redirect-to: /usa/
+        nginx.ingress.kubernetes.io/proxy-redirect-to: /
 spec:
     tls:
         - hosts:
@@ -51,7 +51,7 @@ metadata:
         nginx.ingress.kubernetes.io/upstream-vhost: "thanks.fluidattacks.com"
         nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         nginx.ingress.kubernetes.io/proxy-redirect-from: //thanks.fluidattacks.com/
-        nginx.ingress.kubernetes.io/proxy-redirect-to: /thanks/
+        nginx.ingress.kubernetes.io/proxy-redirect-to: /
 spec:
     tls:
     - hosts:
