@@ -22,6 +22,7 @@ sops_vars "$ENV_NAME"
 if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
     ./manage.py crontab add
     crontab -l >> /tmp/mycron
+    sed -i 's|/usr/bin/python3|cd /usr/src/app \&\& source /usr/src/app/ci-scripts/helpers/sops.sh \&\& sops_vars production \&\& /usr/bin/python3|g' /tmp/mycron
     crontab /tmp/mycron
     service cron restart
 fi
