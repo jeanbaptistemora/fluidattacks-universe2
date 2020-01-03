@@ -7,6 +7,7 @@ import * as descriptionActions from "./containers/DescriptionView/actionTypes";
 import * as findingActions from "./containers/FindingContent/actionTypes";
 import * as homeActions from "./containers/HomeView/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
+import * as eventsActions from "./containers/ProjectEventsView/actions";
 import * as findingsActions from "./containers/ProjectFindingsView/actionTypes";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 import * as recordsActions from "./containers/RecordsView/actionTypes";
@@ -20,6 +21,12 @@ export interface IDashboardState {
   addUserModal: { addUserOpen: boolean };
   confirmDialog: {[name: string]: { isOpen: boolean }};
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
+  events: {
+    defaultSort: Sorted;
+    filters: {
+      status: string;
+    };
+  };
   evidence: { currentIndex: number; images: []; isEditing: boolean; isImageOpen: boolean };
   finding: {
     alert?: string;
@@ -147,6 +154,15 @@ const initialState: IDashboardState = {
     },
     isEditing: false,
     isRemediationOpen : false,
+  },
+  events: {
+    defaultSort: {
+      dataField: "eventDate",
+      order: "desc",
+    },
+    filters: {
+      status: "",
+    },
   },
   evidence: {
     currentIndex: 0,
@@ -286,6 +302,23 @@ actionMap[resourcesActions.CHANGE_SORTED] =
     ...state,
     resources: {
       ...state.resources,
+      defaultSort: action.payload.defaultSort,
+    },
+  });
+
+actionMap[eventsActions.CHANGE_FILTER] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
+    ...state,
+    events: {
+      ...state.events,
+      filters: action.payload.filters,
+    },
+  });
+actionMap[eventsActions.CHANGE_SORTS] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
+    ...state,
+    events: {
+      ...state.events,
       defaultSort: action.payload.defaultSort,
     },
   });
