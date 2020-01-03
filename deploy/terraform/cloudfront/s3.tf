@@ -22,6 +22,10 @@ resource "aws_s3_bucket" "fi_evidences_bucket" {
   bucket = var.evidences_bucket_name
   acl    = "private"
 
+  versioning {
+    enabled = true
+  }
+
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
