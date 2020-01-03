@@ -131,6 +131,23 @@
           "severity_scope": {
             "N": "0"
           },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-01-03 12:46:10"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  },
+                  "user": {
+                    "S": "unittest@fluidattacks.com"
+                  }
+                }
+              }
+            ]
+          },
           "treatment": {
             "S": "NEW"
           },
@@ -520,6 +537,26 @@
           },
           "severity_scope": {
             "N": "0"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-01-03 12:46:10"
+                  },
+                  "justification": {
+                    "S": "test justification"
+                  },
+                  "treatment": {
+                    "S": "IN PROGRESS"
+                  },
+                  "user": {
+                    "S": "unittest@fluidattacks.com"
+                  }
+                }
+              }
+            ]
           },
           "treatment": {
             "S": "IN PROGRESS"
@@ -977,6 +1014,23 @@
           "severity_scope": {
             "N": "1"
           },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-01-03 12:46:10"
+                  },
+                  "treatment": {
+                    "S": "NEW"
+                  },
+                  "user": {
+                    "S": "unittest@fluidattacks.com"
+                  }
+                }
+              }
+            ]
+          },
           "treatment": {
             "S": "NEW"
           },
@@ -1267,6 +1321,29 @@
           },
           "severity_scope": {
             "N": "0"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "acceptance_date": {
+                    "S": "2020-01-06 12:46:10"
+                  },
+                  "date": {
+                    "S": "2020-01-03 12:46:10"
+                  },
+                  "justification": {
+                    "S": "test justification"
+                  },
+                  "treatment": {
+                    "S": "ACCEPTED"
+                  },
+                  "user": {
+                    "S": "unittest@fluidattacks.com"
+                  }
+                }
+              }
+            ]
           },
           "treatment": {
             "S": "ACCEPTED"
@@ -1702,6 +1779,29 @@
           "severity_scope": {
             "N": "0"
           },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "acceptance_date": {
+                    "S": "2020-01-06 12:46:10"
+                  },
+                  "date": {
+                    "S": "2020-01-03 12:46:10"
+                  },
+                  "justification": {
+                    "S": "test justification"
+                  },
+                  "treatment": {
+                    "S": "ACCEPTED"
+                  },
+                  "user": {
+                    "S": "unittest@fluidattacks.com"
+                  }
+                }
+              }
+            ]
+          },
           "treatment": {
             "S": "ACCEPTED"
           },
@@ -2009,6 +2109,26 @@
           },
           "exploitability": {
             "N": "0.94"
+          },
+          "historic_treatment": {
+            "L": [
+              {
+                "M": {
+                  "date": {
+                    "S": "2020-01-03 12:46:10"
+                  },
+                  "justification": {
+                    "S": "test justification"
+                  },
+                  "treatment": {
+                    "S": "IN PROGRESS"
+                  },
+                  "user": {
+                    "S": "unittest@fluidattacks.com"
+                  }
+                }
+              }
+            ]
           },
           "treatment": {
             "S": "IN PROGRESS"
