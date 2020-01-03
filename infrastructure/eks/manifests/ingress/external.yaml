@@ -184,3 +184,74 @@ spec:
           serviceName: web
           servicePort: 80
         path: /(.*)?
+---
+kind: Service
+apiVersion: v1
+metadata:
+    name: usa
+    namespace: serves
+spec:
+    type: ExternalName
+    externalName: usa.fluidattacks.com
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+    name: usa
+    namespace: serves
+    annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/upstream-vhost: "usa.fluidattacks.com"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/server-snippet: |
+        proxy_ssl_name usa.fluidattacks.com;
+        proxy_ssl_server_name on;
+spec:
+    tls:
+    - hosts:
+    - fluidattacks.com
+    secretName: fluidattacks-cert
+    rules:
+    - host: fluidattacks.com
+    http:
+        paths:
+        - backend:
+            serviceName: usa
+            servicePort: 443
+        path: /usa(.*)
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+    name: thanks
+    namespace: serves
+spec:
+    type: ExternalName
+    externalName: thanks.fluidattacks.com
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+    name: thanks
+    namespace: serves
+    annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/upstream-vhost: "thanks.fluidattacks.com"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/server-snippet: |
+        proxy_ssl_name thanks.fluidattacks.com;
+        proxy_ssl_server_name on;
+spec:
+    tls:
+    - hosts:
+    - fluidattacks.com
+    secretName: fluidattacks-cert
+    rules:
+    - host: fluidattacks.com
+    http:
+        paths:
+        - backend:
+            serviceName: thanks
+            servicePort: 443
+        path: /thanks(.*)
