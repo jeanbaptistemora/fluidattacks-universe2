@@ -25,7 +25,9 @@ export interface IDashboardState {
     defaultSort: Sorted;
     filters: {
       status: string;
+      type: string;
     };
+    typeOptions: optionSelectFilterProps[];
   };
   evidence: { currentIndex: number; images: []; isEditing: boolean; isImageOpen: boolean };
   finding: {
@@ -162,7 +164,9 @@ const initialState: IDashboardState = {
     },
     filters: {
       status: "",
+      type: "",
     },
+    typeOptions: [],
   },
   evidence: {
     currentIndex: 0,
@@ -320,6 +324,15 @@ actionMap[eventsActions.CHANGE_SORTS] =
     events: {
       ...state.events,
       defaultSort: action.payload.defaultSort,
+    },
+  });
+
+actionMap[eventsActions.CHANGE_TYPE_OPTION] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
+    ...state,
+    events: {
+      ...state.events,
+      typeOptions: action.payload.typeOptions,
     },
   });
 

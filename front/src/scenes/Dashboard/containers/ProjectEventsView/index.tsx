@@ -21,7 +21,7 @@ import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
-import { formatEvents, handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { castEventType, formatEvents, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import {
   checkboxField, dateTimeField, dropdownField, fileInputField, textAreaField, textField,
 } from "../../../../utils/forms/fields";
@@ -33,7 +33,7 @@ import {
 } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { IDashboardState } from "../../reducer";
-import { changeFilterValues, changeSortValues } from "./actions";
+import { changeFilterValues, changeSortValues, changeTypeOptionValues } from "./actions";
 import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
 
 type EventsViewProps = RouteComponentProps<{ projectName: string }>;
@@ -44,12 +44,49 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
     (state: IState): IDashboardState["events"] => state.dashboard.events);
   const [sortValue, setSortValue] = React.useState(events.defaultSort);
   const [filterValueStatus, setFilterValueStatus] = React.useState(events.filters.status);
+  const [filterValueType, setFilterValueType] = React.useState(events.filters.type);
   const dispatch: Dispatch = useDispatch();
   const clearSelection: string = "_CLEAR_";
   const selectOptionsStatus: optionSelectFilterProps[] = [
     {value: "Solved", label: "Solved"},
     {value: "Unsolved", label: "Unsolved"},
   ];
+  const selectOptionType: optionSelectFilterProps[] = [
+    {
+      label: translate.t("project.events.form.type.special_attack"),
+      value: translate.t(castEventType("AUTHORIZATION_SPECIAL_ATTACK")),
+    },
+    {
+      label: translate.t("project.events.form.type.toe_change"),
+      value: translate.t(castEventType("CLIENT_APPROVES_CHANGE_TOE")),
+    },
+    {
+      label: translate.t(castEventType("CLIENT_DETECTS_ATTACK")),
+      value: translate.t(castEventType("CLIENT_DETECTS_ATTACK")),
+    },
+    {
+      label: translate.t("project.events.form.type.suspends_project"),
+      value: translate.t(castEventType("CLIENT_EXPLICITLY_SUSPENDS_PROJECT")),
+    },
+    {
+      label: translate.t("project.events.form.type.high_availability"),
+      value: translate.t(castEventType("HIGH_AVAILABILITY_APPROVAL")),
+    },
+    {
+      label: translate.t("project.events.form.type.missing_supplies"),
+      value: translate.t(castEventType("INCORRECT_MISSING_SUPPLIES")),
+    },
+    {
+      label: translate.t("project.events.form.type.toe_differs"),
+      value: translate.t(castEventType("TOE_DIFFERS_APPROVED")),
+    },
+    {
+      label: translate.t("project.events.form.other"),
+      value: translate.t(castEventType("OTHER")),
+    },
+  ];
+  const [optionType, setOptionType] = React.useState(!_.isEmpty(events.typeOptions) ?
+    events.typeOptions : selectOptionType);
 
   const onSortState: ((dataField: string, order: SortOrder) => void) =
   (dataField: string, order: SortOrder): void => {
@@ -73,6 +110,20 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
       dispatch(changeFilterValues({...events.filters, status: ""}));
     }
   };
+  const onFilterType: ((filterVal: string) => void) = (filterVal: string): void => {
+    if (filterValueType !== filterVal && clearSelection !== filterValueType) {
+      setFilterValueType(filterVal);
+      dispatch(changeFilterValues({...events.filters, type: filterVal}));
+    }
+  };
+  const clearFilterType: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
+  (eventInput: React.FormEvent<HTMLInputElement>): void => {
+    const inputValue: string = eventInput.currentTarget.value;
+    if (inputValue.length === 0 && filterValueType !== "") {
+      setFilterValueType(clearSelection);
+      dispatch(changeFilterValues({...events.filters, type: ""}));
+    }
+  };
 
   const tableHeaders: IHeader[] = [
     {
@@ -88,8 +139,14 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
       onSort: onSortState, width: "45%", wrapped: true,
     },
     {
-      align: "center", dataField: "eventType", header: translate.t("search_findings.tab_events.type"),
-      onSort: onSortState, width: "25%", wrapped: true,
+      align: "center", dataField: "eventType",
+      filter: selectFilter({
+        defaultValue: filterValueType,
+        onFilter: onFilterType,
+        onInput: clearFilterType,
+        options: optionType,
+      }),
+      header: translate.t("search_findings.tab_events.type"), onSort: onSortState, width: "25%", wrapped: true,
     },
     {
       align: "center", dataField: "eventStatus",
@@ -104,7 +161,15 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
     },
   ];
   const { projectName } = props.match.params;
-  const handleQryResult: (() => void) = (): void => {
+  interface IEventsDataset { project: { events: Array<{ eventType: string }>}; }
+  const handleQryResult: ((data: IEventsDataset) => void) = (data: IEventsDataset): void => {
+    let eventOptions: string[] = Array.from(new Set(data.project.events.map(
+      (event: { eventType: string }) => event.eventType)));
+    eventOptions = eventOptions.map((option: string) => translate.t(castEventType(option)));
+    const filterOptions: optionSelectFilterProps[] = optionType.filter(
+      (option: optionSelectFilterProps) => (_.includes(eventOptions, option.value)));
+    setOptionType(filterOptions);
+    dispatch(changeTypeOptionValues(filterOptions));
     mixpanel.track("ProjectEvents", {
       Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
@@ -135,7 +200,12 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
   const eventType: string = useSelector((state: {}) => selector(state, "eventType"));
 
   return (
-    <Query query={GET_EVENTS} variables={{ projectName }} onCompleted={handleQryResult}>
+    <Query
+      query={GET_EVENTS}
+      notifyOnNetworkStatusChange={true}
+      variables={{ projectName }}
+      onCompleted={handleQryResult}
+    >
       {
         ({ data, error, loading, refetch }: QueryResult): React.ReactNode => {
           if (loading) {
