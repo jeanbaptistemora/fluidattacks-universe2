@@ -112,7 +112,15 @@ ARTRULES = {
     # Check that articles have alt description for their featured images
     "pcregrep -L  '^:alt:' ":
     "The articles must have the \"alt\" metadata set "
-    "for their representative image."
+    "for their representative image.",
+
+    # Check that every .adoc has source defined
+    "pcregrep -L '^:source:' ":
+    "The attribute \"source\" must be defined. ",
+
+    # Check that source content is from unsplash
+    "pcregrep -n '(?<=^:source: )((?!https://unsplash).*$)'":
+    "The cover image is not from unsplash, check \"source\". "
 }
 
 #General Checks
