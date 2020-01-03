@@ -7,3 +7,12 @@ export interface IAcceptationApprovalAttrs {
     success: boolean;
   };
 }
+
+export interface IHistoricTreatment {
+  acceptanceDate?: string;
+  acceptanceStatus?: string;
+  date: string;
+  justification?: string;
+  treatment: string;
+  user: string;
+}

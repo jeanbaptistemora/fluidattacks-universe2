@@ -23,6 +23,7 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
 
   const validateEmptyField: boolean = !props.isEditing || canEditDescription;
   const validRole: boolean = _.includes(["admin", "analyst", "customer", "customeradmin"], props.userRole);
+  const nTreatmentState: number = props.dataset.historicTreatment.length;
 
   return (
     <React.Fragment>
@@ -226,15 +227,16 @@ const renderDescriptionFields: renderFormFieldsFn = (props: IDescriptionViewProp
         </Col>
       </Row>
       {/* tslint:disable-next-line jsx-no-multiline-js Necessary for validate conditional */}
-      {props.dataset.acceptationApproval === "APPROVED" && props.dataset.treatment === "ACCEPTED" ?
+      {props.dataset.acceptationApproval === "APPROVED"
+      && props.dataset.historicTreatment[nTreatmentState - 1].treatment === "ACCEPTED" ?
       <React.Fragment>
       <Row>
         <Col md={12} sm={12} xs={12}>
           <EditableField
             component={textField}
-            currentValue={props.dataset.acceptationJustification}
+            currentValue={props.dataset.justification}
             label={translate.t("search_findings.tab_description.acceptation_justification")}
-            name="acceptationJustification"
+            name="justification"
             renderAsEditable={false}
             type="text"
           />

@@ -124,7 +124,6 @@ const initialState: IDashboardState = {
     dataset: {
       acceptanceDate: "",
       acceptationApproval: "",
-      acceptationJustification: "",
       acceptationUser: "",
       actor: "",
       affectedSystems: "",
@@ -137,6 +136,8 @@ const initialState: IDashboardState = {
       compromisedRecords: "",
       cweUrl: "",
       description: "",
+      historicTreatment: [{date: "", treatment: "", user: ""}],
+      justification: "",
       openVulnerabilities: "",
       recommendation: "",
       releaseDate: "",
@@ -149,7 +150,6 @@ const initialState: IDashboardState = {
       threat: "",
       title: "",
       treatment: "",
-      treatmentJustification: "",
       treatmentManager: "",
       type: "",
       userEmails: [{ email: "" }],
@@ -318,6 +318,7 @@ actionMap[eventsActions.CHANGE_FILTER] =
       filters: action.payload.filters,
     },
   });
+
 actionMap[eventsActions.CHANGE_SORTS] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
     ...state,

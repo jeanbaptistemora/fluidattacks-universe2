@@ -31,14 +31,13 @@ import { remediationModal as RemediationModal } from "../../components/Remediati
 import * as actions from "./actions";
 import { renderFormFields } from "./formStructure";
 import { HANDLE_ACCEPTATION } from "./queries";
-import { IAcceptationApprovalAttrs } from "./types";
+import { IAcceptationApprovalAttrs, IHistoricTreatment } from "./types";
 
 export interface IDescriptionViewProps {
   currentUserEmail: string;
   dataset: {
     acceptanceDate: string;
     acceptationApproval: string;
-    acceptationJustification: string;
     acceptationUser: string;
     actor: string;
     affectedSystems: string;
@@ -51,6 +50,8 @@ export interface IDescriptionViewProps {
     compromisedRecords: string;
     cweUrl: string;
     description: string;
+    historicTreatment: IHistoricTreatment[];
+    justification: string;
     openVulnerabilities: string;
     recommendation: string;
     releaseDate: string;
@@ -65,7 +66,6 @@ export interface IDescriptionViewProps {
     threat: string;
     title: string;
     treatment: string;
-    treatmentJustification: string;
     treatmentManager: string;
     type: string;
     userEmails: Array<{ email: string }>;
@@ -184,13 +184,15 @@ const renderActionButtons: ((props: IDescriptionViewProps) => JSX.Element) =
   (props: IDescriptionViewProps): JSX.Element => (
     <React.Fragment>
       <ButtonToolbar className="pull-right">
-        {_.includes(["customeradmin"], props.userRole) && props.dataset.acceptationApproval === "PENDING"
+        {_.includes(["customeradmin"], props.userRole) && props.dataset.acceptationApproval === "SUBMITTED"
           ? renderAcceptationBtns() : undefined}
         {_.includes(["admin", "analyst"], props.userRole) && props.dataset.remediated
           ? renderMarkVerifiedBtn() : undefined}
         {_.includes(["admin", "customer", "customeradmin"], props.userRole)
           ? renderRequestVerifiyBtn(props) : undefined}
-        {props.isEditing ? renderUpdateBtn(props.dataset.treatment) : undefined}
+        {props.isEditing ?
+          renderUpdateBtn(props.dataset.historicTreatment[props.dataset.historicTreatment.length - 1].treatment)
+          : undefined}
         <Button bsStyle="primary" onClick={(): void => { store.dispatch(actions.editDescription()); }}>
           <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editable")}
         </Button>
@@ -213,7 +215,7 @@ const updateDescription: ((values: IDescriptionViewProps["dataset"], userRole: s
         });
       thunkDispatch(actions.updateDescription(findingId, values));
     } else {
-      renderUpdateBtn(values.treatment);
+      renderUpdateBtn(values.historicTreatment[values.historicTreatment.length - 1].treatment);
       thunkDispatch(actions.updateTreatment(findingId, values));
     }
   };
@@ -227,7 +229,7 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
           name="editDescription"
           initialValues={props.dataset}
           onSubmit={(values: IDescriptionViewProps["dataset"]): void => {
-            if (values.treatment === "ACCEPTED_UNDEFINED") {
+            if (values.historicTreatment[values.historicTreatment.length - 1].treatment === "ACCEPTED_UNDEFINED") {
               store.dispatch(openConfirmDialog("approvalWarning"));
             }
             updateDescription(values, props.userRole, props.findingId);

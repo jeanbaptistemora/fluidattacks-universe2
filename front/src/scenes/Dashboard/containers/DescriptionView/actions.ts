@@ -80,21 +80,29 @@ export const loadDescription: ThunkActionStructure<void> =
           compromisedRecords
           cweUrl
           btsUrl
-          treatment
-          treatmentJustification
           risk
           type
-          acceptanceDate
-          acceptationApproval
-          acceptationJustification
-          acceptationUser
           openVulnerabilities
+          historicTreatment
         }
       }`;
 
       new Xhr().request(gQry, "An error occurred getting finding description")
         .then((response: AxiosResponse) => {
           const { data } = response.data;
+          data.finding.acceptanceDate = "-";
+          if ("acceptance_date" in data.finding.historicTreatment[data.finding.historicTreatment.length - 1]) {
+            data.finding.acceptanceDate = data.finding.historicTreatment[
+              data.finding.historicTreatment.length - 1].acceptance_date;
+          }
+          if ("acceptance_status" in data.finding.historicTreatment[data.finding.historicTreatment.length - 1]) {
+            data.finding.acceptationApproval = data.finding.historicTreatment[
+              data.finding.historicTreatment.length - 1].acceptance_status;
+          }
+          data.finding.treatment = data.finding.historicTreatment[
+            data.finding.historicTreatment.length - 1].treatment;
+          data.finding.justification = data.finding.historicTreatment[
+            data.finding.historicTreatment.length - 1].justification;
           dispatch<IActionStructure>({
             payload: {
               descriptionData: { ...data.finding, ...data.project },
@@ -239,7 +247,6 @@ export const updateDescription: ThunkActionStructure<void> =
         .then((response: AxiosResponse) => {
           const { data } = response.data;
           if (data.updateDescription.success) {
-
             dispatch<IActionStructure>({
               payload: {
                 descriptionData: data.updateDescription.finding,
@@ -273,22 +280,19 @@ export const updateTreatment: ThunkActionStructure<void> =
       let accAppr: string = values.acceptationApproval;
       accAppr = "";
       if (treatment === "ACCEPTED_UNDEFINED") {
-        accAppr = "PENDING";
+        accAppr = "SUBMITTED";
       }
       gQry = `mutation {
         updateTreatment(
           btsUrl: ${JSON.stringify(values.btsUrl)},
           findingId: "${findingId}",
           treatment: "${treatment}",
-          treatmentJustification: ${JSON.stringify(values.treatmentJustification)},
-          acceptanceDate: "${values.acceptanceDate}",
-          acceptationApproval: "${accAppr}"
+          justification: ${JSON.stringify(values.justification)},
+          acceptanceStatus: "${accAppr}"
         ) {
           finding {
             btsUrl
-            treatment
-            treatmentJustification
-            acceptanceDate
+            historicTreatment
           }
           success
         }
@@ -297,7 +301,6 @@ export const updateTreatment: ThunkActionStructure<void> =
       new Xhr().request(gQry, "An error occurred updating finding description")
         .then((response: AxiosResponse) => {
           const { data } = response.data;
-
           if (data.updateTreatment.success) {
             dispatch<IActionStructure>({
               payload: {
@@ -317,7 +320,6 @@ export const updateTreatment: ThunkActionStructure<void> =
         .catch((error: AxiosError) => {
           if (error.response !== undefined) {
             const { errors } = error.response.data;
-
             if (errors[0].message === "Invalid treatment manager") {
               msgError(translate.t("proj_alerts.invalid_treatment_mgr"));
             } else {

@@ -14,12 +14,12 @@ export const GET_FINDINGS: DocumentNode = gql`
         severityScore
         openVulnerabilities
         state
-        treatment
         isExploitable
         remediated
         vulnerabilities(state: "open") {
           where
         }
+        historicTreatment
       }
     }
   }`;

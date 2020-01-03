@@ -233,15 +233,15 @@ class FindingTests(TestCase):
         query = '''
                 mutation {
                   updateTreatment (
-                    acceptanceDate: "",
                     btsUrl: "",
                     findingId: "463558592",
                     treatment: "ACCEPTED",
-                    treatmentJustification: "This is a treatment justification test"
+                    justification: "This is a treatment justification test"
                   ) {
                     success
                     finding {
-                      treatment
+                      btsUrl
+                      historicTreatment
                     }
                   }
                 }
@@ -258,15 +258,15 @@ class FindingTests(TestCase):
         query = '''
                 mutation {
                   updateTreatment (
-                    acceptanceDate: "",
                     btsUrl: "",
                     findingId: "436992569",
                     treatment: "NEW",
-                    treatmentJustification: ""
+                    justification: ""
                   ) {
                     success
                     finding {
-                      treatment
+                      btsUrl
+                      historicTreatment
                     }
                   }
                 }

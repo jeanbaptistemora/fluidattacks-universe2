@@ -30,10 +30,6 @@ from backend.dal import integrates_dal
 class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     """Finding Class."""
 
-    acceptance_date = String()
-    acceptation_approval = String()
-    acceptation_justification = String()
-    acceptation_user = String()
     actor = String()
     affected_systems = String()
     age = Int()
@@ -68,11 +64,10 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     severity_score = Float()
     state = String()
     historic_state = List(GenericScalar)
+    historic_treatment = List(GenericScalar)
     threat = String()
     title = String()
     tracking = List(GenericScalar)
-    treatment = String()
-    treatment_justification = String()
     type = String()
     vulnerabilities = List(Vulnerability, vuln_type=String(), state=String(),
                            approval_status=String())
@@ -291,17 +286,6 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.bts_url
 
-    @get_entity_cache
-    def resolve_treatment(self, info):
-        """ Resolve treatment attribute """
-        del info
-        return self.treatment
-
-    def resolve_treatment_justification(self, info):
-        """ Resolve treatment_justification attribute """
-        del info
-        return self.treatment_justification
-
     def resolve_risk(self, info):
         """ Resolve risk attribute """
         del info
@@ -363,22 +347,9 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.analyst
 
-    def resolve_acceptance_date(self, info):
-        """ Resolve acceptance_date attribute """
+    def resolve_historic_treatment(self, info):
         del info
-        return self.acceptance_date
-
-    def resolve_acceptation_approval(self, info):
-        del info
-        return self.acceptation_approval
-
-    def resolve_acceptation_user(self, info):
-        del info
-        return self.acceptation_user
-
-    def resolve_acceptation_justification(self, info):
-        del info
-        return self.acceptation_justification
+        return self.historic_treatment
 
     def resolve_current_state(self, info):
         """Resolve vulnerabilities attribute."""
@@ -726,8 +697,8 @@ class UpdateTreatment(Mutation):
         bts_url = String()
         finding_id = String(required=True)
         treatment = String(required=True)
-        treatment_justification = String(required=True)
-        acceptation_approval = String()
+        justification = String(required=True)
+        acceptance_status = String()
     success = Boolean()
     finding = Field(Finding)
 
@@ -736,8 +707,8 @@ class UpdateTreatment(Mutation):
     @require_finding_access
     def mutate(self, info, finding_id, **parameters):
         project_name = finding_domain.get_finding(finding_id)['projectName']
-        success = finding_domain.update_treatment(finding_id,
-                                                  parameters)
+        user_mail = util.get_jwt_content(info.context)['user_email']
+        success = finding_domain.update_treatment(finding_id, parameters, user_mail)
         if success:
             util.invalidate_cache(finding_id)
             util.invalidate_cache(project_name)

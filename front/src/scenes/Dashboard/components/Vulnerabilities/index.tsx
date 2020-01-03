@@ -1126,7 +1126,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                                     severity: !_.isEmpty(dataTreatment.severity) ? dataTreatment.severity : "-1",
                                     tag: dataTreatment.tag,
                                     treatment: dataTreatment.treatment,
-                                    treatmentJustification: dataTreatment.treatmentJustification,
+                                    treatmentJustification: dataTreatment.justification,
                                     treatmentManager: dataTreatment.treatmentManager,
                                     vulnerabilities: vulnsSelected,
                                   }})

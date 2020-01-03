@@ -276,17 +276,18 @@ def send_remediation_email(user_email, finding_id, finding_name,
 
 
 def handle_acceptation(finding_id, observations, user_mail, response):
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
-    return (
-        finding_dal.update(finding_id, {
-            'acceptation_approval': response,
-            'treatment': 'ACCEPTED' if response == 'APPROVED' else 'NEW',
-            'observations': observations,
-            'acceptance_date': today if response == 'APPROVED' else '-',
-            'acceptation_justification': observations,
-            'acceptation_user': user_mail})
-    )
+    new_state = {
+        'acceptance_status': response,
+        'treatment': 'ACCEPTED_UNDEFINED',
+        'justification': observations,
+        'user': user_mail,
+    }
+    historic_treatment = [new_state]
+    if response == 'REJECTED':
+        tzn = pytz.timezone(settings.TIME_ZONE)
+        today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+        historic_treatment.append({'treatment': 'NEW', 'date': today})
+    return finding_dal.update(finding_id, {'historic_treatment': historic_treatment})
 
 
 def request_verification(finding_id, user_email, user_fullname, justification):
@@ -385,22 +386,46 @@ def update_treatment_in_vuln(finding_id, updated_values):
     return True
 
 
-def update_treatment(finding_id, updated_values):
+def update_treatment(finding_id, updated_values, user_mail):
     valid_update_values = util.update_treatment_values(updated_values)
-    return validate_update_treatment(finding_id, valid_update_values)
+    return validate_update_treatment(finding_id, valid_update_values, user_mail)
 
 
-def validate_update_treatment(finding_id, updated_values):
+def validate_update_treatment(finding_id, updated_values, user_mail):
+    new_treatment = updated_values['treatment']
+    new_state = {
+        'user': user_mail,
+        'treatment': new_treatment
+    }
+    if new_treatment != 'NEW':
+        new_state['justification'] = updated_values['justification']
+    if new_treatment != 'ACCEPTED_UNDEFINED':
+        tzn = pytz.timezone(settings.TIME_ZONE)
+        today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+        new_state['date'] = today
+        if new_treatment == 'ACCEPTED':
+            new_state['acceptance_date'] = updated_values['acceptance_date']
+    else:
+        new_state['acceptance_status'] = updated_values['acceptance_status']
+    if get_finding(finding_id).get('historicTreatment'):
+        historic_treatment = get_finding(finding_id).get('historicTreatment')
+        historic_treatment.append(new_state)
+    else:
+        historic_treatment = [new_state]
+    new_state = {
+        'external_bts': updated_values['external_bts'],
+        'historic_treatment': historic_treatment
+    }
     result_update_finding = integrates_dal.update_mult_attrs_dynamo(
         'FI_findings',
         {'finding_id': finding_id},
-        updated_values
+        new_state
     )
-    result_update_vuln = update_treatment_in_vuln(finding_id, updated_values)
+    result_update_vuln = update_treatment_in_vuln(finding_id, new_state)
     if result_update_finding and result_update_vuln:
         if updated_values['treatment'] == 'ACCEPTED':
             send_accepted_email(finding_id,
-                                updated_values.get('treatment_justification'))
+                                updated_values.get('justification'))
         if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
             send_accepted_email(finding_id,
                                 'Treatment state approval is pending for finding '
@@ -892,7 +917,7 @@ def mask_finding(finding_id):
     attrs_to_mask = [
         'affected_systems', 'attack_vector_desc', 'effect_solution',
         'related_findings', 'risk', 'threat', 'treatment',
-        'treatment_justification', 'treatment_manager', 'vulnerability'
+        'treatment_manager', 'vulnerability'
     ]
     finding_result = finding_dal.update(finding_id, {
         attr: 'Masked' for attr in attrs_to_mask

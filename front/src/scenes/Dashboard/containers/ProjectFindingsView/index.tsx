@@ -25,8 +25,8 @@ import { changeFilterValues, changeSortedValues, closeReportsModal, openReportsM
   ThunkDispatcher } from "./actions";
 import { default as style } from "./index.css";
 import { GET_FINDINGS } from "./queries";
-import { IProjectFindingsAttr, IProjectFindingsBaseProps, IProjectFindingsDispatchProps, IProjectFindingsProps,
-  IProjectFindingsStateProps } from "./types";
+import { IFindingAttr, IProjectFindingsAttr, IProjectFindingsBaseProps, IProjectFindingsDispatchProps,
+  IProjectFindingsProps, IProjectFindingsStateProps } from "./types";
 
 const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFindingsProps): JSX.Element => {
   const { projectName } = props.match.params;
@@ -62,8 +62,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const [filterValueVerification, setFilterValueVerification] = React.useState(props.filters.verification);
   const [filterValueWhere, setFilterValueWhere] = React.useState(props.filters.where);
   const [sortValue, setSortValue] = React.useState(props.defaultSort);
-
   const clearSelection: string = "_CLEAR_";
+
   const selectOptionsExploitable: optionSelectFilterProps[] = [
     {value: "Yes", label: "Yes"},
     {value: "No", label: "No"},
@@ -189,6 +189,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     if (inputValue.length === 0 && filterValueVerification !== "") {
       setFilterValueVerification(clearSelection);
       props.onFilter({...props.filters, verification: ""});
+
     }
   };
 
@@ -285,6 +286,13 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
             return <React.Fragment/>;
           }
           if (!_.isUndefined(data)) {
+            data.project.findings = data.project.findings.map((finding: IFindingAttr) => {
+              if (finding.historicTreatment.length > 0) {
+                finding.treatment = finding.historicTreatment[finding.historicTreatment.length - 1].treatment;
+              }
+
+              return finding;
+            });
 
             return (
               <React.StrictMode>

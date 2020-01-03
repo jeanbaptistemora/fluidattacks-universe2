@@ -110,9 +110,9 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
             <EditableField
               className={globalStyle.noResize}
               component={textAreaField}
-              currentValue={props.dataset.treatmentJustification}
+              currentValue={props.dataset.justification}
               label={translate.t("search_findings.tab_description.treatment_just")}
-              name="treatmentJustification"
+              name="justification"
               renderAsEditable={isEditable}
               type="text"
               validate={[required]}
@@ -126,7 +126,7 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
           <Col md={4} sm={12} xs={12}>
             <EditableField
               component={dateField}
-              currentValue={props.dataset.acceptanceDate.split(" ")[0]}
+              currentValue={props.dataset.acceptanceDate === "-" ? "-" : props.dataset.acceptanceDate.split(" ")[0]}
               label={translate.t("search_findings.tab_description.acceptance_date")}
               name="acceptanceDate"
               renderAsEditable={isEditable}

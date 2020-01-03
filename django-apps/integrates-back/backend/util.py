@@ -451,7 +451,7 @@ def update_treatment_values(updated_values):
                or updated_values.get('acceptance_date') > date.strftime('%Y-%m-%d %H:%M:%S'):
                 raise InvalidDate()
     if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
-        updated_values['acceptation_approval'] = 'PENDING'
+        updated_values['acceptation_approval'] = 'SUBMITTED'
         today = datetime.now()
         days = [
             today + timedelta(x + 1) for x in range((today + timedelta(days=5) - today).days)]

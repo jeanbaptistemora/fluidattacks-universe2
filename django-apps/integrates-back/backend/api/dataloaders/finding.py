@@ -13,10 +13,6 @@ def _batch_load_fn(finding_ids):
 
     for finding in finding_domain.get_findings(finding_ids):
         findings[finding['findingId']] = Finding(
-            acceptance_date=finding.get('acceptanceDate', ''),
-            acceptation_approval=finding.get('acceptationApproval', ''),
-            acceptation_justification=finding.get('acceptationJustification', ''),
-            acceptation_user=finding.get('acceptationUser', ''),
             actor=finding.get('actor', ''),
             affected_systems=finding.get('affectedSystems', ''),
             age=finding.get('age', 0),
@@ -46,11 +42,9 @@ def _batch_load_fn(finding_ids):
             severity_score=finding.get('severityCvss', 0.0),
             threat=finding.get('threat', ''),
             title=finding.get('finding', ''),
-            treatment=finding.get('treatment', ''),
-            treatment_justification=finding.get(
-                'treatmentJustification', ''),
             type=finding.get('findingType', ''),
             historic_state=finding.get('historicState', []),
+            historic_treatment=finding.get('historicTreatment', []),
             current_state=finding.get(
                 'historicState', [{}])[-1].get('state', '')
         )
