@@ -827,7 +827,10 @@ def create_draft(info, project_name, title, **kwargs):
         'files': [],
         'finding': title,
         'report_date': creation_date,
-        'historic_state': [submission_history]
+        'historic_state': [submission_history],
+        'historic_treatment': [{'treatment': 'NEW',
+                                'date': creation_date,
+                                'user': analyst_email}]
     })
 
     if re.search(r'^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+', title):
