@@ -105,6 +105,14 @@ or the link:http://asciidoctor.org/docs/asciidoc-recommended-practices/#one-sent
 . All documents must include at least
 one image related to the topic being presented.
 
+. All documents covers must be from
+link:https://unsplash.com/[unsplash].
+
+. All documents must include at least one image
+from link:https://unsplash.com/[unsplash] and
+ideally another graphic reference (it can be from
+link:https://unsplash.com/[unsplash] or any other webpage).
+
 . Use free professional images from
 link:https://unsplash.com/[unsplash].
 
@@ -246,6 +254,9 @@ scholarship, experience, role (if it applies).
 | +:about2:+ | No | Yes
 | Additional information about the author:
 likes, interests, links to personal blogs or profiles.
+
+| +:source:+ | No | Yes
+| Link to the cover image from link:https://unsplash.com/[unsplash].
 
 |===
 
