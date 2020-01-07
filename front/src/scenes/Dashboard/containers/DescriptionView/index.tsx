@@ -293,6 +293,7 @@ export const component: ((props: IDescriptionViewProps) => JSX.Element) =
                                              response }})
               .catch();
             props.dataset.acceptationApproval = response;
+            props.dataset.acceptationUser = props.currentUserEmail;
           };
 
           return(

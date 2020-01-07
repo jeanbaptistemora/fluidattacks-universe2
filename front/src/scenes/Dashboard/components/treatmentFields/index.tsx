@@ -24,6 +24,8 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
     props.dataset.treatment === "ACCEPTED");
     const isEditable: boolean = props.isEditing && !props.isTreatmentModal;
     const shouldRenderField: boolean = shouldRender || changeRender;
+    const isUndefined: boolean = formTreatmentValue === "ACCEPTED_UNDEFINED";
+    const isApproved: boolean = isUndefined ? (props.dataset.acceptationApproval === "APPROVED") : false;
 
     /* tslint:disable-next-line cyclomatic-complexity Necessary because this function has a complexity of 21 > 20 */
     const renderVulnFields: (() => JSX.Element) = (): JSX.Element => (
@@ -57,8 +59,10 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
       <Row>
         <Col md={6} sm={8} xs={12}>
           <EditableField
-            component={dropdownField}
-            currentValue={translate.t(formatDropdownField(formTreatmentValue))}
+            component={dropdownField/* tslint:disable-next-line jsx-no-multiline-js */}
+            currentValue={translate.t(formatDropdownField(formTreatmentValue)) +
+              (isUndefined && !isApproved ?
+                translate.t("search_findings.tab_description.treatment.pending_approval") : "")}
             label={translate.t("search_findings.tab_description.treatment.title")}
             name="treatment"
             renderAsEditable={isEditable}
@@ -73,6 +77,19 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
             </option>
           </EditableField>
         </Col>
+        {/* tslint:disable-next-line jsx-no-multiline-js Necessary for handling approved undefined treatment */}
+        {isApproved ?
+          <Col md={6} sm={8} xs={12}>
+            <EditableField
+              component={dropdownField}
+              currentValue={props.dataset.acceptationUser}
+              label={translate.t("search_findings.tab_description.treatment.approved_by")}
+              name="acceptationUser"
+              renderAsEditable={false}
+              type="text"
+            />
+          </Col>
+        : undefined}
         {shouldRenderField && props.isTreatmentModal ?
           <Col md={6} sm={12} xs={12}>
             <EditableField
@@ -120,7 +137,7 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
             />
           </Col>
         </Row>
-        {/* tslint:disable-next-line jsx-no-multiline-js Necessary for mapping users into JSX Elements */}
+        {/* tslint:disable-next-line jsx-no-multiline-js Necessary for hidding date when treatment is undefined */}
         {formTreatmentValue !== "ACCEPTED_UNDEFINED" ?
         <Row>
           <Col md={4} sm={12} xs={12}>

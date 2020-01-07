@@ -355,8 +355,10 @@ const enTranslations: Dictionary = {
       treatment: {
         accepted: "Accepted",
         accepted_undefined: "Indefinitely accepted",
+        approved_by: "Approved by",
         in_progress: "In progress",
         new: "New",
+        pending_approval: " (Pending approval)",
         rejected: "Rejected",
         title: "Treatment",
       },

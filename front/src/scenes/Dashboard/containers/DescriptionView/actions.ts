@@ -107,6 +107,10 @@ export const loadDescription: ThunkActionStructure<void> =
             data.finding.justification = data.finding.historicTreatment[
               data.finding.historicTreatment.length - 1].justification;
           }
+          if ("user" in data.finding.historicTreatment[data.finding.historicTreatment.length - 1]) {
+            data.finding.acceptationUser = data.finding.historicTreatment[
+              data.finding.historicTreatment.length - 1].user;
+          }
           dispatch<IActionStructure>({
             payload: {
               descriptionData: { ...data.finding, ...data.project },
