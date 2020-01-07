@@ -23,6 +23,7 @@ describe("ProjectFindingsView", () => {
     defaultSort: {},
     filters: {
       exploitable: "",
+      severity: "",
       status: "",
       title: "",
       verification: "",

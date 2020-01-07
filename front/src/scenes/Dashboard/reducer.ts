@@ -42,6 +42,7 @@ export interface IDashboardState {
     defaultSort: {};
     filters: {
       exploitable: string;
+      severity: string;
       status: string;
       title: string;
       verification: string;
@@ -186,6 +187,7 @@ const initialState: IDashboardState = {
     defaultSort: {},
     filters: {
       exploitable: "",
+      severity: "",
       status: "",
       title: "",
       verification: "",

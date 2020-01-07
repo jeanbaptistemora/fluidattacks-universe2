@@ -57,6 +57,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     where: false,
   });
   const [filterValueExploitable, setFilterValueExploitable] = React.useState(props.filters.exploitable);
+  const [filterValueSeverity, setFilterValueSeverity] = React.useState(props.filters.severity);
   const [filterValueStatus, setFilterValueStatus] = React.useState(props.filters.status);
   const [filterValueTitle, setFilterValueTitle] = React.useState(props.filters.title);
   const [filterValueVerification, setFilterValueVerification] = React.useState(props.filters.verification);
@@ -75,6 +76,20 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const selectOptionsVerification: optionSelectFilterProps[] = [
     {value: "Pending", label: "Pending"},
     {value: "-", label: "-"},
+  ];
+  const selectOptionsSeverity: optionSelectFilterProps[] = [
+    {value: "None", label: "None"},
+    {value: "Low", label: "Low"},
+    {value: "Medium", label: "Medium"},
+    {value: "High", label: "High"},
+    {value: "Critical", label: "Critical"},
+  ];
+  const restrictionSeverity: Array<{restriction: number[]; value: string}> = [
+    {restriction: [0, 0], value: "None"},
+    {restriction: [0.1, 3.9], value: "Low"},
+    {restriction: [4, 6.9], value: "Medium"},
+    {restriction: [7, 8.9], value: "High"},
+    {restriction: [9, 10], value: "Critical"},
   ];
 
   const handleChange: (columnName: string) => void = (columnName: string): void => {
@@ -192,6 +207,27 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
 
     }
   };
+  const onFilterSeverity: ((filterVal: string, data: IFindingAttr[]) => IFindingAttr[]) =
+  (filterVal: string, data: IFindingAttr[]): IFindingAttr[] => {
+    const restrictions: number[] = restrictionSeverity.filter((option: {restriction: number[]; value: string}) => (
+      option.value === filterVal))[0].restriction;
+    if (filterValueSeverity !== filterVal && clearSelection !== filterValueSeverity) {
+      setFilterValueSeverity(filterVal);
+      props.onFilter({...props.filters, severity: filterVal});
+    }
+
+    return data.filter((row: IFindingAttr) => (
+      row.severityScore >= restrictions[0] && row.severityScore <= restrictions[1]));
+  };
+
+  const clearFilterSeverity: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
+  (eventInput: React.FormEvent<HTMLInputElement>): void => {
+    const inputValue: string = eventInput.currentTarget.value;
+    if (inputValue.length === 0 && filterValueSeverity !== "") {
+      setFilterValueSeverity(clearSelection);
+      props.onFilter({...props.filters, severity: ""});
+    }
+  };
 
   const tableHeaders: IHeader[] = [
     {
@@ -217,8 +253,14 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       visible: checkedItems.description, width: "16%", wrapped: true,
     },
     {
-      align: "center", dataField: "severityScore", header: "Severity", onSort: onSortState,
-      visible: checkedItems.severityScore, width: "6%",
+      align: "center", dataField: "severityScore",
+      filter: selectFilter({
+        defaultValue: filterValueSeverity,
+        onFilter: onFilterSeverity,
+        onInput: clearFilterSeverity,
+        options: selectOptionsSeverity,
+      }),
+      header: "Severity", onSort: onSortState, visible: checkedItems.severityScore, width: "6%",
     },
     {
       align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", onSort: onSortState,
