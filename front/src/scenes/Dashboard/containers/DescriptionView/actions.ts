@@ -99,10 +99,14 @@ export const loadDescription: ThunkActionStructure<void> =
             data.finding.acceptationApproval = data.finding.historicTreatment[
               data.finding.historicTreatment.length - 1].acceptance_status;
           }
-          data.finding.treatment = data.finding.historicTreatment[
-            data.finding.historicTreatment.length - 1].treatment;
-          data.finding.justification = data.finding.historicTreatment[
-            data.finding.historicTreatment.length - 1].justification;
+          if ("treatment" in data.finding.historicTreatment[data.finding.historicTreatment.length - 1]) {
+            data.finding.treatment = data.finding.historicTreatment[
+              data.finding.historicTreatment.length - 1].treatment;
+          }
+          if ("justification" in data.finding.historicTreatment[data.finding.historicTreatment.length - 1]) {
+            data.finding.justification = data.finding.historicTreatment[
+              data.finding.historicTreatment.length - 1].justification;
+          }
           dispatch<IActionStructure>({
             payload: {
               descriptionData: { ...data.finding, ...data.project },
