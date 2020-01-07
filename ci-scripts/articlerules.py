@@ -40,24 +40,24 @@ def artchecker(path, exit_code):
             message = tag+" does not match any valid tag in tags list file."
             error_print(path, '', message)
             exit_code = 1
-    # Temporary disabled to add source metadata in articles
+
     # Check that every article has a proper Word Count and LIX metrics:
-    # os.system("sh exttxt.sh "+path+" >> temp.txt")
-    # word_count = os.popen("style temp.txt | pcregrep -o '[0-9]+ words,'\
-    #                | tr -d [[:alpha:]][[:punct:]][[:blank:]]").read()
-    # lix = os.popen("style temp.txt | pcregrep -o 'Lix: [0-9]+'\
-    #                | tr -d [[:alpha:]][[:punct:]][[:blank:]]").read()
-    # os.system("rm -rf temp.txt")
+    os.system("sh exttxt.sh "+path+" >> temp.txt")
+    word_count = os.popen("style temp.txt | pcregrep -o '[0-9]+ words,'\
+                   | tr -d [[:alpha:]][[:punct:]][[:blank:]]").read()
+    lix = os.popen("style temp.txt | pcregrep -o 'Lix: [0-9]+'\
+                   | tr -d [[:alpha:]][[:punct:]][[:blank:]]").read()
+    os.system("rm -rf temp.txt")
 
-    # if int(lix) >= 50:
-    #     message = "LIX must be lower than 50"
-    #     error_print(path, "Current LIX: "+lix, message)
-    #     exit_code = 1
+    if int(lix) >= 50:
+        message = "LIX must be lower than 50"
+        error_print(path, "Current LIX: "+lix, message)
+        exit_code = 1
 
-    # if not 800 <= int(word_count) <= 1200:
-    #     message = "Word count must be in range [800-1200]"
-    #     error_print(path, "Current Word Count: "+word_count, message)
-    #     exit_code = 1
+    if not 800 <= int(word_count) <= 1200:
+        message = "Word count must be in range [800-1200]"
+        error_print(path, "Current Word Count: "+word_count, message)
+        exit_code = 1
 
     #  Many other repetitive checks:
     for check, errmessage in ARTRULES.items():
