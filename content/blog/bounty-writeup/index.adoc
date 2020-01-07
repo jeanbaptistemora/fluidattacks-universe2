@@ -12,13 +12,14 @@
 :name: Jonathan Armas
 :about1: Systems Engineer, Security+
 :about2: "Be formless, shapeless like water" Bruce Lee
+:source: https://unsplash.com/photos/NctO2nqkWCY
 
 = Bounty Writeup
 
 == Scanning Phase
 
 First, we check the IP of the
-https://www.hackthebox.eu/home/machines/profile/142[Bounty]
+link:https://www.hackthebox.eu/home/machines/profile/142[Bounty]
 machine and try a +ping+
 to see if we have access.
 

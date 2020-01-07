@@ -4,7 +4,7 @@
 :subtitle: Using WS-Security to secure  your web apps
 :tags: web, security, information
 :image: cover.png
-:alt: Line of Lego stormtroopers with one facing the opposite direction
+:alt: Chess piece different from the others
 :description: In this article we present a secured way to exchange information between different web services using the realms of the Web Service Federation (WSF). WSF provides several mechanisms to ensure a secure message exchange such as WS Trust encapsulation mechanism to define a trusty token.
 :keywords: Web Service, Security, Information, Message exchange, Application, WS Federation.
 :author: Juan Aguirre
@@ -12,6 +12,7 @@
 :name: Juan Esteban Aguirre González
 :about1: Computer Engineer
 :about2: Netflix and hack.
+:source: https://unsplash.com/photos/G1yhU1Ej-9A
 
 = Conserving your identity
 
@@ -129,12 +130,12 @@ important step in defining a comprehensive Web services security strategy.
 
 . Goodner, M., Hondo, M., Nadalin, A., McIntosh, M., & Schmidt, D.
 (2007, May 28). Understanding WS-Federation. Retrieved May 2, 2017, from
-https://msdn.microsoft.com/en-us/library/bb498017.aspx
+link:https://msdn.microsoft.com/en-us/library/bb498017.aspx[Understanding WS-Federation]
 
 . International Business Machines Corporation. (2007, April 1). Federation of
 Identities in a Web Services World. Retrieved May 2, 2017, from
-https://msdn.microsoft.com/en-us/library/ms951235.aspx
+link:https://msdn.microsoft.com/en-us/library/ms951235.aspx[Federation of Identities in a Web Services World]
 
 . WS-Tust. (2012, April 25). OASIS Standard incorporating Approved Errata 01.
 Retrieved May 2, 2017, from
-http://docs.oasis-open.org/ws-sx/ws-trust/v1.4/ws-trust.html
+link:http://docs.oasis-open.org/ws-sx/ws-trust/v1.4/ws-trust.html[WS-Trust 1.4]

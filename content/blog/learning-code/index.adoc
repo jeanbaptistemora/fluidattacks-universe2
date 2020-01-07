@@ -12,6 +12,7 @@
 :name: Julian Arango
 :about1: Behavioral strategist
 :about2: Data scientist in training.
+:source: https://unsplash.com/photos/pMnw5BSZYsA
 
 = Learning how to code
 

@@ -4,7 +4,7 @@
 :category: philosophy
 :tags: business, ethical hacking, risk
 :image: cover.png
-:alt: Monetizing risk. Photo by rawpixel on Unsplash: https://unsplash.com/photos/5IiH_UVYdp0
+:alt: Numbers notes on Unsplash: https://unsplash.com/photos/aG-pvyMsbis
 :description: How to use calibrated estimates to run a Monte Carlo simulation to obtain the expected losses and the loss exceedance curve for a particular risk or the whole organization in a particular time frame, from a high level, i.e. without the technical details.
 :keywords: Risk, Probability, Impact, Measure, Quantify, Security
 :author: Rafael Ballestas
@@ -13,6 +13,7 @@
 :about1: Mathematician
 :about2: with an itch for CS
 :source-highlighter: pygments
+:source: https://unsplash.com/photos/aG-pvyMsbis
 
 = Monetizing vulnerabilities
 
@@ -82,7 +83,7 @@ The most popular distribution for modeling is
 the _normal_ distribution, a.k.a. the Gaussian bell:
 
 .Effect of the mean parameter on the normal distribution
-image::https://www.maplesoft.com/view.aspx?SI=7169/Univariate_Bivariate_Normal_Distributions_20.gif[Normal distributions]
+image::normal-distribution.png[Normal distributions]
 
 However it always allows room for negative values,
 no matter how much you push the mean parameter
@@ -92,7 +93,7 @@ is the _log-normal_ family of distributions,
 the distribution of the logarithm of a normally distributed variable.
 
 .Lognormal distributions. Via link:https://commons.wikimedia.org/wiki/File:PDF-log_normal_distributions.svg[Wikimedia].
-image::https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/PDF-log_normal_distributions.svg/600px-PDF-log_normal_distributions.svg.png[3 lognormal curves]
+image::lognormal-curves.png[3 lognormal curves]
 
 Plus, it has the advantage of being a little skewed
 towards the lower values,

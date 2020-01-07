@@ -4,7 +4,7 @@
 :subtitle: Functional programming in JavaScript
 :tags: application, functional, javascript, eslint
 :image: cover.png
-:alt: A man with a functional JavaScript t-shirt
+:alt: Cup with message in front of screen with code
 :description: What are the new trends in the JavaScript world. First steps in functional JavaScript. Recommendations for the migration from any paradigm to functional. How to use eslint and its plugin for checking functional code. Functional JavaScript: fleeting fashion or imminent future?
 :keywords: Functional paradigm, Object-oriented, Linter, Multiparadigm application, Eslint, Programming future.
 :author: Oswaldo Parada
@@ -12,6 +12,7 @@
 :name: Oswaldo José Parada Cuadros
 :about1: Mechanical Engineer
 :about2: Family, friends and little details. There is the answer.
+:source: https://unsplash.com/photos/vc3iVL_znJ8
 
 = Functional Fashion in JavaScript
 

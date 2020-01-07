@@ -13,6 +13,7 @@
 :about1: Mathematician
 :about2: with an itch for CS
 :source-highlighter: pygments
+:source: https://unsplash.com/photos/Tv5AK37PVlA
 
 = Fuzzy bugs online
 

@@ -12,6 +12,7 @@
 :name: Julian Arango
 :about1: Behavioral strategist
 :about2: Data scientist in training.
+:source: https://unsplash.com/photos/0lrJo37r6Nk
 
 = HealthTech Protection
 

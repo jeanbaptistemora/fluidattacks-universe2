@@ -4,7 +4,7 @@
 :category: interview
 :tags: security, machine learning, testing
 :image: cover.png
-:alt: Yellow police line tape on Unsplash: https://unsplash.com/photos/jM6Y2nhsAtk
+:alt: Purple and pink plasma ball on Unsplash: https://unsplash.com/photos/jM6Y2nhsAtk
 :description: We spoke to Andrés Gómez, Ph.D. (c) at Goethe University. His research focuses on protecting a computer grid supporting physics experiments at the Large Hadron Collider (LHC) in Switzerland. Why did we choose this topic? It was not the topic, but the man. Andrés is a former Fluid Attacks member.
 :keywords: CERN, Hacking, Security, Interview, LHC, Machine Learning
 :author: Julian Arango
@@ -12,6 +12,7 @@
 :name: Julian Arango
 :about1: Behavioral strategist
 :about2: Data scientist in training.
+:source: https://unsplash.com/photos/jM6Y2nhsAtk
 
 = Preventing Hacks at CERN
 
