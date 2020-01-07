@@ -4,7 +4,7 @@
 :subtitle: Functional coding in Python
 :tags: application, functional, python, multiparadigm
 :image: cover.png
-:alt: Swiss army knives with Python logo
+:alt: Swiss army knive
 :description: An introduction to the essential aspects of functional programming in Python. Benefits of functional Python. How to start the migration to functional paradigm. What are the most used functional libraries. A reflexion on why focus our efforts in create functional code.
 :keywords: Functional paradigm, Object-oriented, Stateless, Multiparadigm application, Python, Programming future.
 :author: Oswaldo Parada
@@ -12,6 +12,7 @@
 :name: Oswaldo José Parada Cuadros
 :about1: Mechanical Engineer
 :about2: Family, friends and little details. There is the answer.
+:source: https://unsplash.com/photos/Y23XUEvgVVE
 
 = Road to Functional Python
 

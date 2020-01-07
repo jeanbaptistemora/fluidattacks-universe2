@@ -4,7 +4,7 @@
 :category: attacks
 :tags: ssl, flaw, cbc
 :image: cover.png
-:alt: The Treacherous POODLE
+:alt: Unknown person below lights
 :description: Exploiting an SSL/TLS flaw that creates a fallback on TLS usage to SSL 3.0, taking an advantage on missused CBC-MAC algorithm while padding the variable-length messages, allowing an attacker to perform a Man-in-The-Middle Attack to steal the user cookies.
 :keywords: SSL, CBC, MAC, Padding, Flaw, Exploit
 :author: Daniel Yepes
@@ -13,6 +13,7 @@
 :about1: -
 :about2: "If the doors of perception were cleansed everything would appear to man as it is, Infinite." William Blake.
 :source-highlighter: pygments
+:source: https://unsplash.com/photos/S2qA7JhjI6Y
 
 = The Treacherous POODLE
 

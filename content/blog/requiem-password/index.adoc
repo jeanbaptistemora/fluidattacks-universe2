@@ -4,7 +4,7 @@
 :category: identity
 :tags: password, credential, security
 :image: cover.png
-:alt: Weak bicycle lock with words
+:alt: Rusty lock
 :description: A comparison between having weak or complicated passwords that expire periodically versus having a single strong passphrase, possibly used in conjunction with password managers. We also discuss the memorability of complicated passwords vs randomly generated passphrases with diceware.
 :keywords: Passphrase, Password, Security, Cracking, Policy, Diceware
 :author: Rafael Ballestas
@@ -12,6 +12,7 @@
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS
+:source: https://unsplash.com/photos/8B0SIUBeE0g
 
 = Requiem for a p455w0rD
 

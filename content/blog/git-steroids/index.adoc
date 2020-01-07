@@ -4,7 +4,7 @@
 :category: documentation
 :tags: git, software, documentation, standard, engineering, business, linters
 :image: cover.png
-:alt: Git On Steroids
+:alt: Computer with do what is great sign.
 :description: Learn why it is important and how to define a Git commit message syntax and use real-time commit message linters to improve your Git history, reduce documentation and set the foundations to implement Data Analytics processes in your Git repositories.
 :keywords: Git, Standardization, Commitlint, Data Analytics, Efective Logging, Documentation
 :author: Daniel Salazar
@@ -12,6 +12,7 @@
 :name: Daniel Salazar
 :about1: Software Engineer
 :about2: “An intellectual says a simple thing in a hard way. An artist says a hard thing in a simple way.” Charles Bukowski
+:source: https://unsplash.com/photos/5Xwaj9gaR0g
 
 = Git on steroids
 

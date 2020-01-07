@@ -4,7 +4,7 @@
 :category: philosophy
 :tags: business, ethical hacking, risk
 :image: cover.png
-:alt: Risky poker move. Credits: https://unsplash.com/photos/5jkCyS8HOCY
+:alt: Risky poker move. Credits: https://unsplash.com/photos/vBpd607jLXs
 :description: A survey of probabilistic methods that can be applied to quantify cybersecurity risk in terms of probabilities, confidence intervals, dollars, and cents. We discuss why we (wrongly) believe these methods do not apply, and the kind of results that can be achieved by using them.
 :keywords: Risk, Probability, Impact, Measure, Quantify, Security
 :author: Rafael Ballestas
@@ -13,6 +13,7 @@
 :about1: Mathematician
 :about2: with an itch for CS
 :source-highlighter: pygments
+:source: https://unsplash.com/photos/vBpd607jLXs
 
 = Quantifying risk
 

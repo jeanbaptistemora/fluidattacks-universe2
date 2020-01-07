@@ -4,7 +4,7 @@
 :category: attacks
 :tags: vulnerability, bug, openssl
 :image: cover.png
-:alt: heartbleed official logo
+:alt: Computer showing a pirate flag
 :description: Heartbleed is the result of a buggy implementation of the TLS protocol on OpenSSL. It tempted to be a serious threat by leaking private information without any discretion. Multiple services and devices were affected across all the world due to the popularity of OpenSSL.
 :keywords: TLS, HeartBeat, HeartBleed, OpenSSL, Vulnerability, Bug
 :author: Daniel Yepes
@@ -13,6 +13,7 @@
 :about1: -
 :about2: "If the doors of perception were cleansed everything would appear to man as it is, Infinite." William Blake.
 :source-highlighter: pygments
+:source: https://unsplash.com/photos/JJPqavJBy_k
 
 
 = My heart bleeds (but not for you)

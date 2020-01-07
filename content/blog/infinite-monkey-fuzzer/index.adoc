@@ -4,7 +4,7 @@
 :subtitle: Fuzz testing using American Fuzzy Lop
 :tags: fuzzing, application, hacking
 :image: cover.png
-:alt: Infinite Monkey Theorem
+:alt: Monkey staring
 :description: How to perform basic fuzz attacks on desktop linux C applications using American Fuzzy Lop. We discuss pros and cons of C fuzzing, reproduce the discovery of a libpng bug wherein optipng crashes if given with a low bit depth png file with high palette number.
 :keywords: Fuzzing, Attack, Vulnerability, Security, Application, Hacking
 :author: Rafael Ballestas
@@ -13,6 +13,7 @@
 :about1: Mathematician
 :about2: with an itch for CS
 :source-highlighter: pygments
+:source: https://unsplash.com/photos/xSM7msizIQI
 
 = The infinite monkey fuzzer
 

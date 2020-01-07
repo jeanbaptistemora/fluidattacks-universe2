@@ -12,6 +12,7 @@
 :name: Alejandro Herrera
 :about1: Tourism Business Administrator
 :about2: Passionate about programming
+:source: https://unsplash.com/photos/RnCPiXixooY
 
 = Do we need a Purple Team?
 

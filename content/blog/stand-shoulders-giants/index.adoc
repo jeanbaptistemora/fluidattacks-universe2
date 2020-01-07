@@ -4,7 +4,7 @@
 :subtitle: About software composition analysis
 :tags: testing, dependency, vulnerability
 :image: cover.png
-:alt: Orion carrying Cedalion
+:alt: Man standing in mountain
 :description: A discussion of OWASP top 10 - A9: Using components with known vulnerabilities, in particular free and open software libraries. Comparison with the marketing buzzword Software Composition Analysis. A survey of free tools to do it yourself. Also an apology of free software in component analysis.
 :keywords: Software composition, Analysis, Dependency, Vulnerability, Linux, Foss.
 :author: Rafael Ballestas
@@ -12,6 +12,7 @@
 :name: Rafael Ballestas
 :about1: Mathematician
 :about2: with an itch for CS
+:source: https://unsplash.com/photos/exKQ01AmzNA
 
 = Stand on the shoulders of giants
 

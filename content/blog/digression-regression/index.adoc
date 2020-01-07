@@ -4,7 +4,7 @@
 :category: machine-learning
 :tags: machine learning, python, code
 :image: cover.png
-:alt: Data and regression line, crop.
+:alt: Computer showing a graph
 :description: In this blog, we begin to tackle the question of why vectors are the most appropriate representation for data as input to machine learning algorithms. We also present the scikit-learn API by means of simple linear regression, i.e., finding the line that best fits the data.
 :keywords: Machine learning, Linear Regression, Python, Algorithm, Prediction, Regression
 :author: Rafael Ballestas
@@ -13,6 +13,7 @@
 :about1: Mathematician
 :about2: with an itch for CS
 :source-highlighter: pygments
+:source: https://unsplash.com/photos/hpjSkU2UYSU
 
 = Digression to Regression
 

@@ -4,7 +4,7 @@
 :subtitle: Solving Yashira hash challenge 3
 :tags: password, security, challenge
 :image: cover.png
-:alt: Magnifying glass finding password in a set of binary data
+:alt: Code with hashed data on the side
 :description: Hash algorithms are often used to secure sensible data. Despite this measure can add extra layers of protection, hash algorithms can be cracked by using huge databases with hashed common words, so it's important to know how to properly secure your data before storing.
 :keywords: Hash, Security, Password, SHA , MD5, HMAC.
 :author: Jonathan Armas
@@ -12,6 +12,7 @@
 :name: Jonathan Armas
 :about1: Computer Engineer, Security+
 :about2: "Be formless, shapeless like water" Bruce Lee
+:source: https://unsplash.com/photos/zvHhKiVuR9M
 
 = Storing passwords safely
 

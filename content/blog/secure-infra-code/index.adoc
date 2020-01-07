@@ -4,7 +4,7 @@
 :subtitle: The weakest link in security is not the technology.
 :tags: protect, information, business, cloud, security, flaw
 :image: cover.png
-:alt: Born into cloud
+:alt: Lock on a fence
 :description: Infrastructure as code is one of the easiest and scalable ways to take advantage of cloud computing. Here we want to help you to secure your deployments and avoid some common mistakes that we see on each day, with examples and simple solutions that will take your infrastructure to the next level.
 :keywords: Cloud, Information, Security, Protection, Hacking, Best Practices
 :author: Jonathan Armas
@@ -12,6 +12,7 @@
 :name: Jonathan Armas
 :about1: Systems Engineer, Security+
 :about2: "Be formless, shapeless like water" Bruce Lee
+:source: https://unsplash.com/photos/BJHN6Do8kjQ
 
 = Secure Cloud as Code
 

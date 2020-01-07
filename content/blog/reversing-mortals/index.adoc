@@ -4,7 +4,7 @@
 :subtitle: Solving Yoire crackme average challenge
 :tags: revert, challenge, engineering
 :image: cover.png
-:alt: Yellow puzzle missing one piece, shown in red
+:alt: Wrong red piece in white puzzle
 :description: The world of hacking is pretty extense and it's difficult to know where to start. In this article we provide a first approach of one of the most common hacking applications: reverse engineering by solving a simple but educational cracking challenge using OllyDBG.
 :keywords: Reversing, Reverse Engineering, Debugger, OllyDBG, Hacking, Assembler.
 :author: Juan Aguirre
@@ -12,6 +12,7 @@
 :name: Juan Esteban Aguirre González
 :about1: Computer Engineer
 :about2: Netflix and hack.
+:source: https://unsplash.com/photos/5siQcvSxCP8
 
 = Reversing for mortals
 

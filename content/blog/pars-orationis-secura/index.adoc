@@ -4,7 +4,7 @@
 :category: attacks
 :tags: detect, injection, scanner
 :image: cover.png
-:alt: Python proofreading a document
+:alt: Person holding sticky note
 :description: How to use Python and pyparsing to parse application code in order to find SQL injections in bWAPP. A SQL injection is defined as a SQL query with concatenations to PHP variables or function calls. The parser detects most of the SQL injections despite its limitations, and no false positives.
 :keywords: Attack, Detection, Parser, Python, Injection, BWAPP
 :author: Rafael Ballestas
@@ -13,6 +13,7 @@
 :about1: Mathematician
 :about2: with an itch for CS
 :source-highlighter: pygments
+:source: https://unsplash.com/photos/D9Zow2REm8U
 
 = Pars orationis non est secura
 

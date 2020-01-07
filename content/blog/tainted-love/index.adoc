@@ -4,7 +4,7 @@
 :category: attacks
 :tags: vulnerability, code, discovery
 :image: cover.png
-:alt: Syringe ready to inject bad stuff. Credit: https://pixabay.com/es/photos/jeringa-healthcare-aguja-medicina-417786/
+:alt: Person using a Syringe filled with bad stuff
 :description: This blog provides a brief description of static and dynamic taint analysis or taint checking. Essentially, you can't let unsanitized user input from a source arrive at a security-critical sink without passing through sanitization. Taint checkers make sure that happens.
 :keywords: Taint analysis, Security, Injection, Bug, Vulnerability, Flow
 :author: Rafael Ballestas
@@ -13,6 +13,7 @@
 :about1: Mathematician
 :about2: with an itch for CS
 :source-highlighter: pygments
+:source: https://unsplash.com/photos/55HNtDVObk8
 
 
 = Tainted love

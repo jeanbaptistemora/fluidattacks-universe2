@@ -12,6 +12,7 @@
 :name: Oscar Uribe
 :about1: Software and Computer Engineering undergrad student
 :about2: "Behind every successful Coder there is an even more successful De-coder to understand that code." Anonymous
+:source: https://unsplash.com/photos/1K6IQsQbizI
 
 = Vulnerabilities in Deep Learning
 
