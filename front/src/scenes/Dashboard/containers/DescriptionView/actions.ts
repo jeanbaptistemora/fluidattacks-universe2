@@ -90,26 +90,22 @@ export const loadDescription: ThunkActionStructure<void> =
       new Xhr().request(gQry, "An error occurred getting finding description")
         .then((response: AxiosResponse) => {
           const { data } = response.data;
+          const nStates: number = data.finding.historicTreatment.length;
           data.finding.acceptanceDate = "-";
-          if ("acceptance_date" in data.finding.historicTreatment[data.finding.historicTreatment.length - 1]) {
-            data.finding.acceptanceDate = data.finding.historicTreatment[
-              data.finding.historicTreatment.length - 1].acceptance_date;
+          if ("acceptance_date" in data.finding.historicTreatment[nStates - 1]) {
+            data.finding.acceptanceDate = data.finding.historicTreatment[nStates - 1].acceptance_date;
           }
-          if ("acceptance_status" in data.finding.historicTreatment[data.finding.historicTreatment.length - 1]) {
-            data.finding.acceptationApproval = data.finding.historicTreatment[
-              data.finding.historicTreatment.length - 1].acceptance_status;
+          if ("acceptance_status" in data.finding.historicTreatment[nStates - 1]) {
+            data.finding.acceptationApproval = data.finding.historicTreatment[nStates - 1].acceptance_status;
           }
-          if ("treatment" in data.finding.historicTreatment[data.finding.historicTreatment.length - 1]) {
-            data.finding.treatment = data.finding.historicTreatment[
-              data.finding.historicTreatment.length - 1].treatment;
+          if ("treatment" in data.finding.historicTreatment[nStates - 1]) {
+            data.finding.treatment = data.finding.historicTreatment[nStates - 1].treatment;
           }
-          if ("justification" in data.finding.historicTreatment[data.finding.historicTreatment.length - 1]) {
-            data.finding.justification = data.finding.historicTreatment[
-              data.finding.historicTreatment.length - 1].justification;
+          if ("justification" in data.finding.historicTreatment[nStates - 1]) {
+            data.finding.justification = data.finding.historicTreatment[nStates - 1].justification;
           }
-          if ("user" in data.finding.historicTreatment[data.finding.historicTreatment.length - 1]) {
-            data.finding.acceptationUser = data.finding.historicTreatment[
-              data.finding.historicTreatment.length - 1].user;
+          if ("user" in data.finding.historicTreatment[nStates - 1]) {
+            data.finding.acceptationUser = data.finding.historicTreatment[nStates - 1].user;
           }
           dispatch<IActionStructure>({
             payload: {
@@ -310,6 +306,23 @@ export const updateTreatment: ThunkActionStructure<void> =
         .then((response: AxiosResponse) => {
           const { data } = response.data;
           if (data.updateTreatment.success) {
+            const nStates: number = data.updateTreatment.finding.historicTreatment.length;
+            if ("treatment" in data.updateTreatment.finding.historicTreatment[nStates - 1]) {
+              data.updateTreatment.finding.treatment =
+                data.updateTreatment.finding.historicTreatment[nStates - 1].treatment;
+            }
+            if ("acceptance_date" in data.updateTreatment.finding.historicTreatment[nStates - 1]) {
+              data.updateTreatment.finding.acceptanceDate =
+                data.updateTreatment.finding.historicTreatment[nStates - 1].acceptance_date;
+            }
+            if ("acceptance_status" in data.updateTreatment.finding.historicTreatment[nStates - 1]) {
+              data.updateTreatment.finding.acceptationApproval =
+                data.updateTreatment.finding.historicTreatment[nStates - 1].acceptance_status;
+            }
+            if ("justification" in data.updateTreatment.finding.historicTreatment[nStates - 1]) {
+              data.updateTreatment.finding.justification =
+                data.updateTreatment.finding.historicTreatment[nStates - 1].justification;
+            }
             dispatch<IActionStructure>({
               payload: {
                 descriptionData: data.updateTreatment.finding,
