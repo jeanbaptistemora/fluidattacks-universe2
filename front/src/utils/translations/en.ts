@@ -260,8 +260,9 @@ const enTranslations: Dictionary = {
     finding_deleted: "Finding {{findingId}} has been deleted",
     finding_rejected: "Finding {{findingId}} has been rejected",
     high_severity: "High",
-    low_severity: "Tolerable",
-    medium_severity: "Moderate",
+    low_severity: "Low",
+    medium_severity: "Medium",
+    none_severity: "None",
     openVulnsLabel: "Open vulnerabilities",
     reportDateLabel: "Report date",
     repositories_table: {
