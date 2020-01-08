@@ -8,6 +8,7 @@ from typing import Tuple
 # 3rd party imports
 from msrest.exceptions import AuthenticationError, ClientException
 from azure.mgmt.storage import StorageManagementClient
+from azure.storage.file import FileService
 
 # local imports
 from fluidasserts import DAST, MEDIUM
@@ -175,6 +176,58 @@ def allow_access_from_all_networks(client_id: str, secret: str, tenant: str,
          safes).append((account.id, 'allow access only to trusted networks.'))
     return _get_result_as_tuple(
         objects='Storage accounts',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def file_shares_has_global_acl_permissions(client_id: str,
+                                           secret: str,
+                                           tenant: str,
+                                           subscription_id: str) -> Tuple:
+    """
+    Check if File Shares allow full write, delete, or read ACL permissions.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if there are File Shares that allow global ACL
+                permissions.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = \
+        'File Shares allow full write, delete, or read ACL permissions.'
+    msg_closed: str = 'File Shares do not allow global ACL permissions.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    storage = StorageManagementClient(credentials, subscription_id)
+    storage_accounts = storage.storage_accounts
+
+    for account in storage_accounts.list():
+        group_name = account.id.split('/')[4]
+        keys = storage_accounts.list_keys(group_name, account.name)
+
+        file_service = FileService(
+            account_name=account.name, account_key=keys.keys[0].value)
+        for shared in file_service.list_shares().items:
+            acls: dict = file_service.get_share_acl(share_name=shared.name)
+            success = any(
+                list(map(lambda acl: len(acl.permission) == 5, acls.values())))
+            (vulns if success else safes).append(
+                (f'/{account.primary_endpoints.file}{shared.name}',
+                 'do not allow global ACL permissions.'))
+
+    return _get_result_as_tuple(
+        objects='File shares',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,

@@ -57,6 +57,13 @@ def test_allow_access_from_all_networks_open():
         AZURE_SUBSCRIPTION_ID).is_open()
 
 
+def test_file_shares_has_global_acl_permissions_open():
+    """Search File Shares that allow global ACL permissions."""
+    assert storage_accounts.file_shares_has_global_acl_permissions(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_open()
+
+
 #
 # Closing tests
 #
@@ -86,5 +93,12 @@ def test_blob_containers_are_public_closed():
 def test_allow_access_from_all_networks_closed():
     """Search storage accounts that allow access from all networks."""
     assert storage_accounts.allow_access_from_all_networks(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_file_shares_has_global_acl_permissions_closed():
+    """Search File Shares that allow global ACL permissions."""
+    assert storage_accounts.file_shares_has_global_acl_permissions(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()
