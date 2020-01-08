@@ -7,6 +7,13 @@ module.exports = {
     "text",
     "lcov"
   ],
+  globals: {
+    'ts-jest': {
+      tsConfig: {
+        allowJs: true,
+      }
+    }
+  },
   moduleNameMapper: {
     "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
     "\\.(css|less)$": "identity-obj-proxy"
@@ -19,10 +26,10 @@ module.exports = {
     "<rootDir>/setup.ts"
   ],
   transform: {
-    "^.+\\.tsx?$": "ts-jest"
+    "^.+\\.(j|t)sx?$": "ts-jest"
   },
   transformIgnorePatterns: [
-    "node_modules/*"
+    "node_modules/(?!react-syntax-highlighter/.*)"
   ],
   verbose: true
 };
