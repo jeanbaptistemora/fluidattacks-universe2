@@ -221,32 +221,42 @@ const updateDescription: ((values: IDescriptionViewProps["dataset"], userRole: s
   };
 
 const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
-  (props: IDescriptionViewProps): JSX.Element => (
-    <React.Fragment>
-      <Col md={12} sm={12} xs={12}>
-        <Row>{renderActionButtons(props)}</Row>
-        <GenericForm
-          name="editDescription"
-          initialValues={props.dataset}
-          onSubmit={(values: IDescriptionViewProps["dataset"]): void => {
-            if (values.historicTreatment[values.historicTreatment.length - 1].treatment === "ACCEPTED_UNDEFINED") {
-              store.dispatch(openConfirmDialog("approvalWarning"));
-            }
-            updateDescription(values, props.userRole, props.findingId);
-          }}
-        >
-          {renderFormFields(props)}
-        </GenericForm>
-      </Col>
-      <ConfirmDialog
-        closeOnProceed={true}
-        name="approvalWarning"
-        message={translate.t("search_findings.tab_description.approval_message")}
-        onlyProceed={true}
-        title={translate.t("search_findings.tab_description.approval_title")}
-      />
-    </React.Fragment>
-  );
+  (props: IDescriptionViewProps): JSX.Element => {
+    let openDialog: boolean = true;
+    const onProceedDialog: (() => void) = (): void => {
+      openDialog = false;
+      store.dispatch(submit("editDescription"));
+    };
+
+    return (
+      <React.Fragment>
+        <Col md={12} sm={12} xs={12}>
+          <Row>{renderActionButtons(props)}</Row>
+          <GenericForm
+            name="editDescription"
+            initialValues={props.dataset}
+            onSubmit={(values: IDescriptionViewProps["dataset"]): void => {
+              if (props.formValues.treatment === "ACCEPTED_UNDEFINED" && openDialog) {
+                store.dispatch(openConfirmDialog("approvalWarning"));
+              } else {
+                openDialog = !openDialog ? true : false;
+                updateDescription(values, props.userRole, props.findingId);
+              }
+            }}
+          >
+            {renderFormFields(props)}
+          </GenericForm>
+        </Col>
+        <ConfirmDialog
+          closeOnProceed={true}
+          name="approvalWarning"
+          message={translate.t("search_findings.tab_description.approval_message")}
+          onProceed={onProceedDialog}
+          title={translate.t("search_findings.tab_description.approval_title")}
+        />
+      </React.Fragment>
+    );
+  };
 
 export const component: ((props: IDescriptionViewProps) => JSX.Element) =
   (props: IDescriptionViewProps): JSX.Element => {

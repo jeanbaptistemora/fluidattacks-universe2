@@ -21,7 +21,7 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
     const changeRender: boolean = props.isEditing && (formTreatmentValue === "IN PROGRESS" ||
     treatmentAccepted);
     const shouldRender: boolean = !props.isEditing && (formTreatmentValue === "IN PROGRESS" ||
-    props.dataset.treatment === "ACCEPTED");
+    formTreatmentValue === "ACCEPTED_UNDEFINED" || props.dataset.treatment === "ACCEPTED");
     const isEditable: boolean = props.isEditing && !props.isTreatmentModal;
     const shouldRenderField: boolean = shouldRender || changeRender;
     const isUndefined: boolean = formTreatmentValue === "ACCEPTED_UNDEFINED";
