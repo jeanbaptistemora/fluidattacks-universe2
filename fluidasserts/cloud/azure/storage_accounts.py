@@ -232,3 +232,52 @@ def file_shares_has_global_acl_permissions(client_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def file_shares_acl_permissions_do_not_expire(client_id: str, secret: str,
+                                              tenant: str,
+                                              subscription_id: str) -> Tuple:
+    """
+    Check if the ACL permissions of the File shares do not expire.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if there are ACL permissions that do not expire.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'The ACL permissions of the File Shares do not expire.'
+    msg_closed: str = 'The ACL permissions of the File Shares expire.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    storage = StorageManagementClient(credentials, subscription_id)
+    storage_accounts = storage.storage_accounts
+
+    for account in storage_accounts.list():
+        group_name = account.id.split('/')[4]
+        keys = storage_accounts.list_keys(group_name, account.name)
+
+        file_service = FileService(
+            account_name=account.name, account_key=keys.keys[0].value)
+        for shared in file_service.list_shares().items:
+            acls: dict = file_service.get_share_acl(share_name=shared.name)
+            success = any(
+                list(map(lambda acl: acl.expiry is None, acls.values())))
+            (vulns if success else safes).append(
+                (f'/{account.primary_endpoints.file}{shared.name}',
+                 'set an expiration time.'))
+
+    return _get_result_as_tuple(
+        objects='File shares',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

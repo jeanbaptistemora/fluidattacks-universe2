@@ -64,6 +64,13 @@ def test_file_shares_has_global_acl_permissions_open():
         AZURE_SUBSCRIPTION_ID).is_open()
 
 
+def test_file_shares_acl_permissions_do_not_expire_open():
+    """Search ACL permissions that do not expire."""
+    assert storage_accounts.file_shares_acl_permissions_do_not_expire(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_open()
+
+
 #
 # Closing tests
 #
@@ -100,5 +107,12 @@ def test_allow_access_from_all_networks_closed():
 def test_file_shares_has_global_acl_permissions_closed():
     """Search File Shares that allow global ACL permissions."""
     assert storage_accounts.file_shares_has_global_acl_permissions(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_file_shares_acl_permissions_do_not_expire_closed():
+    """Search ACL permissions that do not expire."""
+    assert storage_accounts.file_shares_acl_permissions_do_not_expire(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()
