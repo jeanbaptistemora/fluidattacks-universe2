@@ -1,5 +1,6 @@
 #!/bin/bash
 
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 JOB_ID=$1
 LOG_FILE=$(mktemp)
 LOG_LEVEL="info"
