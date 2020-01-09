@@ -41,7 +41,7 @@ are also already there. Amazon Sagemaker has it all.
 Also, as is the case with any machine learning system,
 the quality of predictions will be determined
 by the quality of the training data:
-gargabe in, garbage out.
+garbage in, garbage out.
 Thus, we must be particularly careful with
 the input we give our classifier,
 which will be the output of this earlier
