@@ -107,8 +107,7 @@ without compromising sensitive information.
 Whenever findings allow it, infrastructure gets infected
 with malicious files in order to get additional information,
 infect servers and verify network controls.
-We use +Shells+ and  our customized cyberweapon
-[button]#link:../../products/commands/[Commands]#
+We use +Shells+ and cyberweapons
 with previous customer authorization.
 
 a|image::infection.svg[alt="Skull symbol in front of a computer"]

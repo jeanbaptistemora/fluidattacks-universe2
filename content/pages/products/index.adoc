@@ -1,5 +1,5 @@
 :slug: products/
-:description: The purpose of this page is to present the products offered by Fluid Attacks, which focus on helping customers in the security testing process, aiming to improve their experience and allowing us to keep close contact with them. Our star products are Integrates, Asserts and Commands.
+:description: The purpose of this page is to present the products offered by Fluid Attacks, which focus on helping customers in the security testing process, aiming to improve their experience and allowing us to keep close contact with them. Our star products are Integrates and Asserts.
 :keywords: Fluid Attacks, Products, Ethical Hacking, Pentesting, Security, Information.
 :caption:
 
@@ -37,14 +37,6 @@ and what is going to be considered a vulnerability.
 Click [inner]#link:rules/[here]# for more information.
 
 a|image::rules.svg[Checklist]
-
-a|image::commands.svg[Command Line Interface]
-
-2+a|== link:commands/[Commands]
-
-Cyberweapon developed entirely by us for in-depth penetration of work stations
-and critical servers during +pen tests+.
-Click [inner]#link:commands/[here]# for more information.
 
 |====
 

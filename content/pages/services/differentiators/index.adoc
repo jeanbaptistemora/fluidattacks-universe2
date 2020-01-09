@@ -258,10 +258,8 @@ but it's not able to correlate them.
 a|==== Infection
 | {yes} In our [button]#link:../../services/one-shot-hacking/[One shot hacking]#
 service we infect stations and critical servers
-using our custom cyberweapon
-[button]#link:../../products/commands/[Commands]#
-link:../one-shot-hacking/#infection[^22^].
-| {no} Don't infect or dispose of custom cyberweapons.
+using cyberweapons.
+| {no} Don't infect or dispose of cyberweapons.
 
 a|==== Compromised Records
 a|{yes} After discovering a vulnerability and exploiting it,

@@ -92,10 +92,7 @@ a|{yes} Environments:
 a|==== Infection
 | {no} Environments are not infected with cyberweapons.
 | {yes} Work stations and critical servers
-are infected with our custom cyberweapon: +
-{sp} +
-[button]#link:../../products/commands/[Commands]#
-link:../one-shot-hacking/#infection[^7^]
+are infected with cyberweapons.
 
 a|==== Remediation percentage
 | {yes} Up to +100%+ of reported vulnerabilities can,
