@@ -728,6 +728,83 @@ def exec_aws_package(credentials: List[str], enable_multiprocessing: bool):
                          enable_multiprocessing=enable_multiprocessing)
 
 
+def exec_azure_package(credentials, enable_multiprocessing: bool):
+    """Execute generic methods from the Azure package."""
+    template = textwrap.dedent("""
+        from fluidasserts.cloud.azure import {module}
+        from fluidasserts.utils.generic import add_finding
+
+        add_finding('Fluid Asserts - Azure - {title} Module')
+
+        {methods}
+        """)
+
+    source: Dict[str, str] = {
+        ('key_vaults', 'Key vaults'):
+        """
+            key_vaults.entities_have_all_access(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            key_vaults.has_key_expiration_disabled(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            key_vaults.has_secret_expiration_disabled(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            """,
+        ('network_security_groups', 'Network security groups'):
+        """
+            network_security_groups.allow_all_ingress_traffic(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            network_security_groups.has_admin_ports_open_to_the_public(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            network_security_groups.has_flow_logs_disabled(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            network_security_groups.has_insecure_port_ranges(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            network_security_groups.has_open_all_ports_to_the_public(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            """,
+        ('storage_accounts', 'Storage accounts'):
+        """
+            storage_accounts.allow_access_from_all_networks(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            storage_accounts.blob_containers_are_public(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            storage_accounts.file_shares_acl_permissions_do_not_expire(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            storage_accounts.file_shares_has_global_acl_permissions(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            storage_accounts.has_insecure_transport(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            storage_accounts.use_microsoft_managed_keys(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            """,
+        ('virtual_machines', 'Virtual machines'):
+        """
+            virtual_machines.has_data_disk_encryption_disabled(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            virtual_machines.has_os_disk_encryption_disabled(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            virtual_machines.have_automatic_updates_disabled(
+                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
+            """,
+    }
+    exploits = [(module[1],
+                 template.format(
+                     title=module[1],
+                     module=module[0],
+                     methods=textwrap.dedent(
+                         methods.format(
+                             subscription_id=credential.split(':')[0],
+                             client_id=credential.split(':')[1],
+                             secret=credential.split(':')[2],
+                             tenant=credential.split(':')[3]))))
+                for credential in credentials
+                for module, methods in source.items()]
+
+    return exec_exploits(
+        exploit_contents=exploits,
+        enable_multiprocessing=enable_multiprocessing)
+
+
 def exec_cloudformation_package(
         paths: List[str], enable_multiprocessing: bool):
     """Execute generic methods from the CloudFormation package."""
@@ -995,6 +1072,8 @@ def get_content(args):
     if args.cloudformation:
         content += exec_cloudformation_package(
             args.cloudformation, args.multiprocessing)
+    if args.azure:
+        content += exec_azure_package(args.azure, args.multiprocessing)
     if args.exploits:
         content += exec_exploits(exploit_paths=args.exploits,
                                  enable_multiprocessing=args.multiprocessing)
@@ -1064,10 +1143,16 @@ def get_argparser():
                            metavar='AWS_ACCESS_KEY_ID:AWS_SECRET_ACCESS_KEY',
                            help=('perform AWS checks using the given '
                                  'credentials'))
+    argparser.add_argument('--azure', nargs='+',
+                           metavar=('AZURE_SUBSCRIPTION_ID:AZURE_CLIENT_ID:'
+                                    'AZURE_CLIENT_SECRET:AZURE_TENANT_ID'),
+                           help=('perform Azure checks using the given '
+                                 'credentials'))
     argparser.add_argument('--cloudformation', nargs='+', metavar='FILE/DIR',
                            help=('perform AWS checks over CloudFormation '
                                  'templates starting recursively from '
                                  'FILE/DIR'))
+
     argparser.add_argument('exploits', nargs='*', help='exploits to execute')
 
     return argparser
@@ -1092,7 +1177,8 @@ def main():  # noqa: MC0001
                 args.exploits,
                 args.http,
                 args.lang,
-                args.ssl)):
+                args.ssl,
+                args.azure)):
         argparser.print_help()
         exit_asserts('config-error')
 

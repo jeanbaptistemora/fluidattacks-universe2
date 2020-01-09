@@ -148,6 +148,24 @@ def test_cli_aws():
             cli.RICH_EXIT_CODES[x] for x in ('open', 'closed', 'unknown'))
 
 
+def test_cli_azure():
+    """Run CLI azure subparser."""
+    os.environ['FA_STRICT'] = 'true'
+    os.environ['FA_NOTRACK'] = 'true'
+    subscription_id = os.environ['AZURE_SUBSCRIPTION_ID']
+    client_id = os.environ['AZURE_CLIENT_ID']
+    client_secret = os.environ['AZURE_CLIENT_SECRET']
+    client_tenant = os.environ['AZURE_TENANT_ID']
+    testargs = ["asserts", "-eec", "-mp", "--azure",
+                (f'{subscription_id}:{client_id}:'
+                 f'{client_secret}:{client_tenant}')]
+    with patch.object(sys, 'argv', testargs):
+        with pytest.raises(SystemExit) as exc:
+            cli.main()
+        assert exc.value.code in (
+            cli.RICH_EXIT_CODES[x] for x in ('open', 'closed', 'unknown'))
+
+
 def test_cli_aws_cloudformation():
     """Run CLI aws option."""
     os.environ['FA_STRICT'] = 'true'
