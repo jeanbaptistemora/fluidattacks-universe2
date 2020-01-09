@@ -25,6 +25,8 @@ if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
     sed -i 's|/usr/bin/python3 /usr/src/app/manage.py crontab run|/usr/src/app/deploy/containers/common/vars/run_cron.sh|g' /tmp/mycron
     crontab /tmp/mycron
     service cron restart
+
+    env | grep -e ^AWS -e ^CI_COMMIT_REF_NAME | sed -e 's/^/export /g' >> /root/.profile
 fi
 
 /etc/init.d/td-agent restart
