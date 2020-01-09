@@ -409,7 +409,14 @@ def validate_update_treatment(finding_id, updated_values, user_mail):
         new_state['acceptance_status'] = updated_values['acceptance_status']
     if get_finding(finding_id).get('historicTreatment'):
         historic_treatment = get_finding(finding_id).get('historicTreatment')
-        historic_treatment.append(new_state)
+        last_values = [value for key, value in historic_treatment[-1].items() if 'date' not in key]
+        new_values = [value for key, value in new_state.items() if 'date' not in key]
+        if sorted(last_values) != sorted(new_values):
+            historic_treatment.append(new_state)
+        elif get_finding(finding_id).get('externalBts') == updated_values['external_bts'] or \
+            (not get_finding(finding_id).get('externalBts') and
+             updated_values['external_bts'] == ''):
+            return False
     else:
         historic_treatment = [new_state]
     new_state = {

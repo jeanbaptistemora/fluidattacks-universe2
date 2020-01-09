@@ -334,6 +334,8 @@ export const updateTreatment: ThunkActionStructure<void> =
               translate.t("proj_alerts.updated_title"),
             );
             dispatch<IActionStructure>(editDescription());
+          } else if (values.historicTreatment.length === data.updateTreatment.finding.historicTreatment.length) {
+            msgError(translate.t("proj_alerts.repeated_values"));
           } else {
             msgError(translate.t("proj_alerts.error_textsad"));
           }
