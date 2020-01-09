@@ -8,6 +8,9 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
+import { selectFilter } from "react-bootstrap-table2-filter";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "redux";
 import { Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { statusFormatter } from "../../../../components/DataTableNext/formatters";
@@ -21,23 +24,10 @@ import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { required, validDraftTitle } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
+import { IDashboardState } from "../../reducer";
+import { changeFilterValues } from "./actions";
 import { CREATE_DRAFT_MUTATION, GET_DRAFTS } from "./queries";
 import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "./types";
-
-const tableHeaders: IHeader[] = [
-  { align: "center", dataField: "reportDate", header: "Date", width: "10%" },
-  { align: "center", dataField: "type", header: "Type", width: "8%" },
-  { align: "center", dataField: "title", header: "Title", wrapped: true, width: "18%" },
-  {
-    align: "center", dataField: "description", header: "Description", width: "30%",
-    wrapped: true,
-  },
-  { align: "center", dataField: "severityScore", header: "Severity", width: "8%" },
-  {
-    align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", width: "6%",
-  },
-  { align: "center", dataField: "currentState", formatter: statusFormatter, header: "State", width: "10%" },
-];
 
 const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDraftsBaseProps): JSX.Element => {
   const { projectName } = props.match.params;
@@ -58,8 +48,13 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
     });
     hidePreloader();
   };
+  const drafts: IDashboardState["drafts"] = useSelector(
+    (state: { dashboard: IDashboardState }): IDashboardState["drafts"] => state.dashboard.drafts);
 
   const [isDraftModalOpen, setDraftModalOpen] = React.useState(false);
+  const [filterValueStatus, setFilterValueStatus] = React.useState(drafts.filters.status);
+  const dispatch: Dispatch = useDispatch();
+  const clearSelection: string = "_CLEAR_";
 
   const openNewDraftModal: (() => void) = (): void => {
     setDraftModalOpen(true);
@@ -68,6 +63,47 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
   const closeNewDraftModal: (() => void) = (): void => {
     setDraftModalOpen(false);
   };
+  const selectOptionsStatus: optionSelectFilterProps[] = [
+    {value: "Created", label: "Created"},
+    {value: "Submitted", label: "Submitted"},
+    {value: "Rejected", label: "Rejected"},
+  ];
+  const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
+    if (filterValueStatus !== filterVal && clearSelection !== filterValueStatus) {
+      setFilterValueStatus(filterVal);
+      dispatch(changeFilterValues({...drafts.filters, status: filterVal}));
+    }
+  };
+  const clearFilterStatus: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
+  (eventInput: React.FormEvent<HTMLInputElement>): void => {
+    const inputValue: string = eventInput.currentTarget.value;
+    if (inputValue.length === 0 && filterValueStatus !== "") {
+      setFilterValueStatus(clearSelection);
+      dispatch(changeFilterValues({...drafts.filters, status: ""}));
+    }
+  };
+
+  const tableHeaders: IHeader[] = [
+    { align: "center", dataField: "reportDate", header: "Date", width: "10%" },
+    { align: "center", dataField: "type", header: "Type", width: "8%" },
+    { align: "center", dataField: "title", header: "Title", wrapped: true, width: "18%" },
+    {
+      align: "center", dataField: "description", header: "Description", width: "30%",
+      wrapped: true,
+    },
+    { align: "center", dataField: "severityScore", header: "Severity", width: "8%" },
+    {
+      align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", width: "6%",
+    },
+    { align: "center", dataField: "currentState",
+      filter: selectFilter({
+        defaultValue: filterValueStatus,
+        onFilter: onFilterStatus,
+        onInput: clearFilterStatus,
+        options: selectOptionsStatus,
+      }),
+      formatter: statusFormatter, header: "State", width: "10%" },
+  ];
 
   interface ISuggestion {
     cwe: string;

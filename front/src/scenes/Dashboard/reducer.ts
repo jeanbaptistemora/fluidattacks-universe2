@@ -7,6 +7,7 @@ import * as descriptionActions from "./containers/DescriptionView/actionTypes";
 import * as findingActions from "./containers/FindingContent/actionTypes";
 import * as homeActions from "./containers/HomeView/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
+import * as draftsActions from "./containers/ProjectDraftsView/actions";
 import * as eventsActions from "./containers/ProjectEventsView/actions";
 import * as findingsActions from "./containers/ProjectFindingsView/actionTypes";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
@@ -21,6 +22,11 @@ export interface IDashboardState {
   addUserModal: { addUserOpen: boolean };
   confirmDialog: {[name: string]: { isOpen: boolean }};
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
+  drafts: {
+    filters: {
+      status: string;
+    };
+  };
   events: {
     defaultSort: Sorted;
     filters: {
@@ -157,6 +163,11 @@ const initialState: IDashboardState = {
     },
     isEditing: false,
     isRemediationOpen : false,
+  },
+  drafts: {
+    filters: {
+      status: "",
+    },
   },
   events: {
     defaultSort: {
@@ -336,6 +347,15 @@ actionMap[eventsActions.CHANGE_TYPE_OPTION] =
     events: {
       ...state.events,
       typeOptions: action.payload.typeOptions,
+    },
+  });
+
+actionMap[draftsActions.CHANGE_FILTER] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
+    ...state,
+    drafts: {
+      ...state.drafts,
+      filters: action.payload.filters,
     },
   });
 
