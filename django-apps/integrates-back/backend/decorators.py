@@ -36,7 +36,7 @@ def authenticate(func):
             return HttpResponse('Unauthorized \
             <script>var getUrl=window.location.hash.substr(1); \
             localStorage.setItem("url_inicio",getUrl); \
-            location = "/index"; </script>')
+            location = "/integrates/index"; </script>')
         return func(*args, **kwargs)
     return authenticate_and_call
 
@@ -55,7 +55,7 @@ def authorize(roles):
                 return HttpResponse('<script> \
                                var getUrl=window.location.hash.substr(1); \
                   localStorage.setItem("url_inicio",getUrl); \
-                  location = "/index" ; </script>')
+                  location = "/integrates/index" ; </script>')
 
             return func(*args, **kwargs)
         return authorize_and_call

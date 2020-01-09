@@ -25,7 +25,7 @@ const app: React.FC = (): JSX.Element => (
           <Provider store={store}>
             <React.Fragment>
               <Switch>
-                <Route path="/registration" extact={true} component={Registration} />
+                <Route path="/registration" component={Registration} />
                 <Route path="/dashboard" component={Dashboard} />
               </Switch>
             <Preloader />

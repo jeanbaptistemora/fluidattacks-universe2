@@ -106,7 +106,7 @@ def app(request):
         )
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
-        return redirect('/error500')
+        return redirect('/integrates/error500')
     return response
 
 
@@ -139,7 +139,7 @@ def logout(request):
     except KeyError:
         rollbar.report_exc_info(sys.exc_info(), request)
 
-    response = redirect("/index")
+    response = redirect("/integrates/index")
     response.delete_cookie(settings.JWT_COOKIE_NAME)
     return response
 

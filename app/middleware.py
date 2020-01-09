@@ -14,8 +14,8 @@ class SocialAuthException(SocialAuthExceptionMiddleware):
                 return HttpResponse('<script> \
                     localStorage.setItem("showAlreadyLoggedin","1"); \
                     if (location.origin.indexOf("://fluidattacks.com") === -1) { \
-                        location = "/registration"; \
+                        location = "/integrates/registration"; \
                     }else{ location = "/integrates/registration"; } </script>')
-            return redirect("/index")
+            return redirect("/integrates/index")
         return super(SocialAuthException, self).process_exception(request,
                                                                   exception)

@@ -22,7 +22,7 @@ export const commonConfig: webpack.Configuration = {
             options: {
               name: "[hash].[ext]",
               outputPath: "img/",
-              publicPath: `https://${bucketName}-${branchName}.s3.amazonaws.com/assets/dashboard/img/`,
+              publicPath: `https://${bucketName}-${branchName}.s3.amazonaws.com/integrates/assets/dashboard/img/`,
             },
           },
         ],

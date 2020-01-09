@@ -239,7 +239,7 @@ AWS_STORAGE_BUCKET_NAME = f'{STATIC_BUCKET_NAME}-{CI_COMMIT_REF_NAME}'
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=0',
 }
-AWS_LOCATION = 'assets'
+AWS_LOCATION = 'integrates/assets'
 AWS_QUERYSTRING_AUTH = False
 if FI_ENVIRONMENT == 'production':
     AWS_S3_CUSTOM_DOMAIN = 'd1l3f50ot7vyg9.cloudfront.net'
@@ -408,18 +408,18 @@ INTERCOM_CUSTOM_DATA_CLASSES = [
 SLACK_BOT_TOKEN = FI_SLACK_BOT_TOKEN
 
 if DEBUG:
-    SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/registration'
-    SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/registration'
+    SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/integrates/registration'
+    SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/integrates/registration'
 else:
     SOCIAL_AUTH_LOGIN_REDIRECT_URL = \
         'https://fluidattacks.com/integrates/registration'
     SOCIAL_AUTH_NEW_USER_REDIRECT_URL = \
         'https://fluidattacks.com/integrates/registration'
 
-SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/index'
-SOCIAL_AUTH_INACTIVE_USER_URL = '/index'
-SOCIAL_AUTH_LOGIN_URL = '/index'
-SOCIAL_AUTH_LOGIN_ERROR_URL = '/index'
+SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/integrates/index'
+SOCIAL_AUTH_INACTIVE_USER_URL = '/integrates/index'
+SOCIAL_AUTH_LOGIN_URL = '/integrates/index'
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/integrates/index'
 
 # Google OAuth2
 SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True

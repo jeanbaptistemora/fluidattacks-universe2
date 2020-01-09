@@ -15,7 +15,7 @@ metadata:
       gzip "off";
     nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
     nginx.ingress.kubernetes.io/app-root: /integrates
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   tls:
   - hosts:
@@ -28,15 +28,11 @@ spec:
       - backend:
           serviceName: service-$CI_COMMIT_REF_SLUG
           servicePort: 80
-        path: /integrates(.*)
+        path: /integrates(/|$)(.*)
       - backend:
           serviceName: service-$CI_COMMIT_REF_SLUG
           servicePort: 80
-        path: /(assets.*|oauth.*|index.*|registration.*|silk.*|errors.*)
-      - backend:
-          serviceName: service-$CI_COMMIT_REF_SLUG
-          servicePort: 80
-        path: /dynamo_shell(.*)
+        path: /(assets.*|oauth.*|index.*|registration.*|silk.*|errors.*)(.*)
       - backend:
           serviceName: service-$CI_COMMIT_REF_SLUG
           servicePort: 80
