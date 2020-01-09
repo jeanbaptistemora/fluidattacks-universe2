@@ -45,6 +45,7 @@ import { default as style } from "./index.css";
 import { APPROVE_VULN_MUTATION, GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
 import { IApproveVulnAttr, IUpdateTreatmentVulnAttr, IUpdateVulnTreatment,
   IVulnerabilitiesViewProps, IVulnRow, IVulnsAttr, IVulnType } from "./types";
+import { UploadVulnerabilites } from "./uploadFile";
 
 type ISelectRowType = (Array<{[value: string]: string | undefined | null}>);
 interface ICategoryVulnType {
@@ -1180,7 +1181,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                       </Mutation>
                       {isEditable ? renderButtonUpdateVuln() : undefined}
                       {props.editMode && _.includes(["admin", "analyst"], props.userRole)
-                        ? renderButtonBar(props)
+                        ? <UploadVulnerabilites {...props} />
                         : undefined
                       }
                     </React.StrictMode>

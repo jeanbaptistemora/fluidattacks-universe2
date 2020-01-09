@@ -26,6 +26,12 @@ export interface IApproveVulnAttr {
   };
 }
 
+export interface IUploadVulnerabilitiesResult {
+  uploadFile: {
+    success: boolean;
+  };
+}
+
 export interface IUpdateTreatmentVulnAttr {
   acceptanceDate: string; btsUrl: string; findingId: string; severity?: string; tag?: string; treatment: string;
   treatmentJustification: string; treatmentManager: string; vulnerabilities: string[];

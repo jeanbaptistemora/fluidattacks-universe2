@@ -9,9 +9,10 @@ import _ from "lodash";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
-import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
+import { connect, MapDispatchToProps, MapStateToProps, useDispatch } from "react-redux";
 import { NavLink, Redirect, Route, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
+import { Dispatch } from "redux";
 import { Field, submit } from "redux-form";
 import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
@@ -36,6 +37,7 @@ import { trackingView as TrackingView } from "../TrackingView/index";
 import {
   approveDraft, clearFindingState, deleteFinding, loadFindingData, rejectDraft, ThunkDispatcher,
 } from "./actions";
+import * as actionTypes from "./actionTypes";
 import { default as style } from "./index.css";
 import { GET_FINDING_HEADER, SUBMIT_DRAFT_MUTATION } from "./queries";
 import {
@@ -85,6 +87,19 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   const handleDelete: ((values: { justification: string }) => void) = (values: { justification: string }): void => {
     props.onDelete(values.justification);
   };
+  const dispatch: Dispatch = useDispatch();
+  const handleResult: ((result: IHeaderQueryResult) => void) = (result: IHeaderQueryResult): void => {
+    dispatch({
+      payload: {
+        closedVulns: result.finding.closedVulns,
+        openVulns: result.finding.openVulns,
+        reportDate: result.finding.releaseDate.split(" ")[0],
+        status: result.finding.state,
+        title: result.finding.title,
+      },
+      type: actionTypes.LOAD_FINDING,
+    });
+  };
 
   return (
     <React.StrictMode>
@@ -93,7 +108,11 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           <Col md={12} sm={12}>
             <React.Fragment>
               {props.alert === undefined ? undefined : <AlertBox message={props.alert} />}
-              <Query query={GET_FINDING_HEADER} variables={{ findingId, submissionField: canGetHistoricState }}>
+              <Query
+                query={GET_FINDING_HEADER}
+                onCompleted={handleResult}
+                variables={{ findingId, submissionField: canGetHistoricState }}
+              >
                 {({ data, loading, refetch }: QueryResult<IHeaderQueryResult>): JSX.Element => {
                   if (_.isUndefined(data) || loading) { return <React.Fragment />; }
 

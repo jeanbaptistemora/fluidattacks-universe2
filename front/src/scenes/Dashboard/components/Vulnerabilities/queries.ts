@@ -78,3 +78,10 @@ export const APPROVE_VULN_MUTATION: DocumentNode = gql`
     }
   }
   `;
+
+export const UPLOAD_VULNERABILITIES: DocumentNode = gql`
+mutation UploadVulnerabilites ($file: Upload!, $findingId: String!){
+  uploadFile(findingId: $findingId, file: $file) {
+    success
+  }
+}`;

@@ -38,6 +38,7 @@ export interface IHeaderQueryResult {
     openVulns: number;
     releaseDate: string;
     reportDate: string;
+    state: "open" | "closed" | "default";
     title: string;
   };
 }

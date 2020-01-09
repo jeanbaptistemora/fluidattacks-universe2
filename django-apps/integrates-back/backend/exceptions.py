@@ -42,8 +42,7 @@ class InvalidRange(Exception):
     """Exception to control valid range in vulnerabilities."""
     def __init__(self, expr=''):
         """ Constructor """
-        msg = '{{"msg": "Exception - \
-            Error in range limit numbers", {expr}}}'.format(expr=expr)
+        msg = f'{{"msg": "Exception - Error in range limit numbers", {expr}}}'
         super(InvalidRange, self).__init__(msg)
 
 
