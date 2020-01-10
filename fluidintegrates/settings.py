@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
-    'sslserver',
     'django_crontab',
     'analytical',
     'django_intercom',
