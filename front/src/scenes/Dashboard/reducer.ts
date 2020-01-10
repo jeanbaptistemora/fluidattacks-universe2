@@ -23,6 +23,7 @@ export interface IDashboardState {
   confirmDialog: {[name: string]: { isOpen: boolean }};
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
   drafts: {
+    defaultSort: {};
     filters: {
       status: string;
     };
@@ -165,6 +166,7 @@ const initialState: IDashboardState = {
     isRemediationOpen : false,
   },
   drafts: {
+    defaultSort: {},
     filters: {
       status: "",
     },
@@ -356,6 +358,15 @@ actionMap[draftsActions.CHANGE_FILTER] =
     drafts: {
       ...state.drafts,
       filters: action.payload.filters,
+    },
+  });
+
+actionMap[draftsActions.CHANGE_SORTS] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
+    ...state,
+    drafts: {
+      ...state.drafts,
+      defaultSort: action.payload.defaultSort,
     },
   });
 

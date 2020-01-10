@@ -25,7 +25,7 @@ import translate from "../../../../utils/translations/translate";
 import { required, validDraftTitle } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
 import { IDashboardState } from "../../reducer";
-import { changeFilterValues } from "./actions";
+import { changeFilterValues, changeSortValues } from "./actions";
 import { CREATE_DRAFT_MUTATION, GET_DRAFTS } from "./queries";
 import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "./types";
 
@@ -50,9 +50,9 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
   };
   const drafts: IDashboardState["drafts"] = useSelector(
     (state: { dashboard: IDashboardState }): IDashboardState["drafts"] => state.dashboard.drafts);
-
   const [isDraftModalOpen, setDraftModalOpen] = React.useState(false);
   const [filterValueStatus, setFilterValueStatus] = React.useState(drafts.filters.status);
+  const [sortValue, setSortValue] = React.useState(drafts.defaultSort);
   const dispatch: Dispatch = useDispatch();
   const clearSelection: string = "_CLEAR_";
 
@@ -62,6 +62,14 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
 
   const closeNewDraftModal: (() => void) = (): void => {
     setDraftModalOpen(false);
+  };
+  const onSortState: ((dataField: string, order: SortOrder) => void) =
+  (dataField: string, order: SortOrder): void => {
+    const newSorted: Sorted = {dataField,  order};
+    if (!_.isEqual(newSorted, sortValue)) {
+      setSortValue(newSorted);
+      dispatch(changeSortValues(newSorted));
+    }
   };
   const selectOptionsStatus: optionSelectFilterProps[] = [
     {value: "Created", label: "Created"},
@@ -84,16 +92,16 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
   };
 
   const tableHeaders: IHeader[] = [
-    { align: "center", dataField: "reportDate", header: "Date", width: "10%" },
-    { align: "center", dataField: "type", header: "Type", width: "8%" },
-    { align: "center", dataField: "title", header: "Title", wrapped: true, width: "18%" },
+    { align: "center", dataField: "reportDate", header: "Date", onSort: onSortState, width: "10%" },
+    { align: "center", dataField: "type", header: "Type", onSort: onSortState, width: "8%" },
+    { align: "center", dataField: "title", header: "Title", onSort: onSortState, wrapped: true, width: "18%" },
     {
-      align: "center", dataField: "description", header: "Description", width: "30%",
+      align: "center", dataField: "description", header: "Description", onSort: onSortState, width: "30%",
       wrapped: true,
     },
-    { align: "center", dataField: "severityScore", header: "Severity", width: "8%" },
+    { align: "center", dataField: "severityScore", header: "Severity", onSort: onSortState, width: "8%" },
     {
-      align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", width: "6%",
+      align: "center", dataField: "openVulnerabilities", header: "Open Vulns.", onSort: onSortState, width: "6%",
     },
     { align: "center", dataField: "currentState",
       filter: selectFilter({
@@ -102,7 +110,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
         onInput: clearFilterStatus,
         options: selectOptionsStatus,
       }),
-      formatter: statusFormatter, header: "State", width: "10%" },
+      formatter: statusFormatter, header: "State", onSort: onSortState, width: "10%" },
   ];
 
   interface ISuggestion {
@@ -243,6 +251,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                 <DataTableNext
                   bordered={true}
                   dataset={formatDrafts(data.project.drafts)}
+                  defaultSorted={sortValue}
                   exportCsv={true}
                   headers={tableHeaders}
                   id="tblDrafts"
