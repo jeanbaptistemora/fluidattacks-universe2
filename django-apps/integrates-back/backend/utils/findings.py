@@ -25,7 +25,7 @@ CVSS_PARAMETERS = {
         'mod_impact_factor_1': 0.915, 'mod_impact_factor_2': 6.42,
         'mod_impact_factor_3': 7.52, 'mod_impact_factor_4': 0.029,
         'mod_impact_factor_5': 3.25, 'mod_impact_factor_6': 0.02,
-        'mod_impact_factor_7': 15
+        'mod_impact_factor_7': 13, 'mod_impact_factor_8': 0.9731
     }
 }
 

@@ -59,16 +59,16 @@ def _calc_cvss2_environment(severity, parameters):
 
 def _calc_cvss3_basescore(severity, parameters):
     """Calculate cvss v3 base score attribute."""
-    isc_base = 1 - ((1 - severity['confidentialityImpact']) *
-                    (1 - severity['integrityImpact']) *
-                    (1 - severity['availabilityImpact']))
+    iss = 1 - ((1 - severity['confidentialityImpact']) *
+               (1 - severity['integrityImpact']) *
+               (1 - severity['availabilityImpact']))
     if severity['severityScope']:
         impact = ((parameters['impact_factor_2'] *
-                  (isc_base - parameters['impact_factor_3'])) -
+                  (iss - parameters['impact_factor_3'])) -
                   (parameters['impact_factor_4'] *
-                  (isc_base - parameters['impact_factor_5'])**parameters['impact_factor_6']))
+                  (iss - parameters['impact_factor_5'])**parameters['impact_factor_6']))
     else:
-        impact = parameters['impact_factor_1'] * isc_base
+        impact = parameters['impact_factor_1'] * iss
     exploitability = (parameters['exploitability_factor_1'] *
                       severity['attackVector'] * severity['attackComplexity'] *
                       severity['privilegesRequired'] * severity['userInteraction'])
@@ -99,19 +99,19 @@ def _calc_cvss3_environment(severity, parameters):
     mi_conf = severity['modifiedConfidentialityImpact']
     mi_integ = severity['modifiedIntegrityImpact']
     mi_avail = severity['modifiedAvailabilityImpact']
-    isc_modified = \
+    miss = \
         min(1 - (1 - mi_conf * severity['confidentialityRequirement']) *
                 (1 - mi_integ * severity['integrityRequirement']) *
                 (1 - mi_avail * severity['availabilityRequirement']),
             parameters['mod_impact_factor_1'])
     if severity['modifiedSeverityScope']:
         impact = ((parameters['mod_impact_factor_3'] *
-                  (isc_modified - parameters['mod_impact_factor_4'])) -
+                  (miss - parameters['mod_impact_factor_4'])) -
                   (parameters['mod_impact_factor_5'] *
-                  (isc_modified - parameters['mod_impact_factor_6']) **
-                  parameters['mod_impact_factor_7']))
+                  ((miss * parameters['mod_impact_factor_8']) -
+                   parameters['mod_impact_factor_6'])**parameters['mod_impact_factor_7']))
     else:
-        impact = (parameters['mod_impact_factor_2'] * isc_modified)
+        impact = (parameters['mod_impact_factor_2'] * miss)
     exploitability = (parameters['exploitability_factor_1'] *
                       severity['modifiedAttackVector'] *
                       severity['modifiedAttackComplexity'] *
