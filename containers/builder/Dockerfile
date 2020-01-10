@@ -3,8 +3,8 @@ FROM debian:buster-slim
 ENV LC_ALL=C.UTF-8
 ENV PYTHONIOENCODING=utf8
 
-ARG URL_TERRAFORM='https://releases.hashicorp.com/terraform/0.12.18/terraform_0.12.18_linux_amd64.zip'
-ARG URL_TFLINT='https://github.com/terraform-linters/tflint/releases/download/v0.13.1/tflint_linux_amd64.zip'
+ARG URL_TERRAFORM='https://releases.hashicorp.com/terraform/0.12.19/terraform_0.12.19_linux_amd64.zip'
+ARG URL_TFLINT='https://github.com/terraform-linters/tflint/releases/download/v0.13.4/tflint_linux_amd64.zip'
 ARG URL_HEPTIO_AUTH='https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.3.0/heptio-authenticator-aws_0.3.0_linux_amd64'
 ARG URL_AWS_IAM_AUTH='https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/aws-iam-authenticator'
 ARG URL_HELM='https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz'
