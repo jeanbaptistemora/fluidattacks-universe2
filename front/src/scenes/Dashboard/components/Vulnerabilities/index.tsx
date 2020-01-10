@@ -14,9 +14,8 @@ import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { Comparator, textFilter } from "react-bootstrap-table2-filter";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
-import { AnyAction, Reducer } from "redux";
+import { Reducer } from "redux";
 import { submit } from "redux-form";
-import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
@@ -31,9 +30,7 @@ import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
-import { isValidVulnsFile } from "../../../../utils/validations";
 import * as actions from "../../actions";
-import { FileInput } from "../../components/FileInput/index";
 import TreatmentFieldsView from "../../components/treatmentFields";
 import * as actionTypes from "../../containers/DescriptionView/actionTypes";
 import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
@@ -213,15 +210,6 @@ const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType)
         where: line.where,
       })));
 
-const updateVulnerabilities: ((findingId: string) => void) = (findingId: string): void => {
-  if (isValidVulnsFile("#vulnerabilities")) {
-    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-    );
-    thunkDispatch(actions.updateVulnerabilities(findingId));
-  }
-};
-
 const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnType[], vulnData: IVunlDataType[]) =>
   IVunlDataType[] = (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnType[], vulnData: IVunlDataType[]):
   IVunlDataType[] => {
@@ -271,34 +259,6 @@ const getVulnInfo: (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICat
   });
 
   return arrayVulnInfo;
-  };
-
-export const renderButtonBar: ((props: IVulnerabilitiesViewProps) => JSX.Element) =
-  (props: IVulnerabilitiesViewProps): JSX.Element => {
-    let baseUrl: string; baseUrl = `${window.location.href.split("/dashboard#!")[0]}`;
-    const handleUploadVulnerabilities: (() => void) = (): void => {
-      updateVulnerabilities(props.findingId);
-    };
-
-    return (
-      <React.Fragment>
-        <Row>
-          <Col md={4} sm={12}>
-            <Button bsStyle="warning" href={`${baseUrl}/${props.findingId}/download_vulnerabilities`}>
-              <FluidIcon icon="export" /> {translate.t("search_findings.tab_description.download_vulnerabilities")}
-            </Button>
-          </Col>
-          <Col md={5} sm={12}>
-            <FileInput icon="search" id="vulnerabilities" type=".yaml, .yml" visible={true} />
-          </Col>
-          <Col md={3} sm={12}>
-            <Button bsStyle="success" onClick={handleUploadVulnerabilities}>
-              <FluidIcon icon="import" /> {translate.t("search_findings.tab_description.update_vulnerabilities")}
-            </Button>
-          </Col>
-        </Row>
-      </React.Fragment>
-    );
   };
 
 const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
