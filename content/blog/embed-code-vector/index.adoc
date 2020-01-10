@@ -1,5 +1,5 @@
 :slug: embed-code-vector/
-:date: 2019-01-10
+:date: 2020-01-10
 :subtitle: Vector representations of code
 :category: machine-learning
 :tags: machine learning, security, code
