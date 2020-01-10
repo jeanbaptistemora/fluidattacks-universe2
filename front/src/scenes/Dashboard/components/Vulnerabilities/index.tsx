@@ -198,7 +198,7 @@ const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType)
         isNew: _.isEmpty(line.lastApprovedStatus) ?
         translate.t("search_findings.tab_description.new") :
         translate.t("search_findings.tab_description.old"),
-        lastAnalyst: "",
+        lastAnalyst: line.lastAnalyst,
         lastApprovedStatus: line.lastApprovedStatus,
         severity: getSeverity(line),
         specific: line.specific,
