@@ -8,9 +8,8 @@ run_cron() {
     cd /usr/src/app
     source ci-scripts/helpers/sops.sh
     sops_vars production
-    /usr/bin/python3 /usr/src/app/manage.py crontab run ${JOB_ID}
 
-    if [ $? ]; then
+    if /usr/bin/python3 /usr/src/app/manage.py crontab run ${JOB_ID}; then
         LOG_LEVEL="info"
         LOG_CONTENT="Cron job ${JOB_ID} ran successfully"
     else
