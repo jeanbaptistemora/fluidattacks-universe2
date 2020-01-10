@@ -87,8 +87,7 @@ def has_responsibility(project, email):
         if 'responsibility' in data:
             user_resp = data["responsibility"]
             break
-        else:
-            user_resp = "-"
+        user_resp = "-"
     return user_resp
 
 

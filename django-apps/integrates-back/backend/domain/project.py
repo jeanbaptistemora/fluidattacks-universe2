@@ -413,4 +413,4 @@ def get_managers(project_name):
     is_admin = project[0].get('customeradmin')
     if is_admin is None:
         is_admin = ''
-    return [x for x in is_admin]
+    return is_admin

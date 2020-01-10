@@ -226,7 +226,7 @@ def get_events(event_ids):
 def _send_comment_email(content, event_id, parent, user_info):
     event = get_event(event_id)
     project_name = event.get('project_name')
-    recipients = [user for user in project_dal.get_users(project_name, True)]
+    recipients = project_dal.get_users(project_name, True)
     recipients += FI_MAIL_REPLYERS.split(',')
 
     email_context = {
