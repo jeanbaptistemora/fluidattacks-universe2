@@ -31,18 +31,19 @@ which we actually used in our
 [inner]#link:../vulnerability-classifier[first classifier attempt]#.
 We also took a glimpse at the state of the art
 in vector representation of language,
-which is base on neural networks,
-called +code2vec+.
+which is based on neural networks,
+called +word2vec+.
 
-Recall that +word2vec+ is a neural network
-which attempts to predict neighboring words from the central word.
-This dataset is made up from a corpus,
+Recall that this is a neural network
+which attempts to predict neighboring words
+from the central word.
+Its dataset is made up from a corpus,
 and the results will be very dependent on
 the sense of this text.
 While the task is certainly useful,
 we don't care so much about the predictions,
 but rather about the weights which make up the network,
-which in turn give us an intermediate representation.
+which give us an intermediate representation.
 These are the vectors we are looking for
 to represent each word:
 
@@ -71,7 +72,7 @@ as lower-dimensional vectors,
 while still retaining most of the useful information contained in it.
 Before that, most methods relied
 on matrix decompositions,
-but such methods tend to be computationally expensive and not scalable,
+but these tend to be computationally expensive and not scalable,
 thus not fit for representation of large codebases or natural language corpora.
 
 Keeping these two neural network based ideas, namely
@@ -89,15 +90,17 @@ In what form?
 That's where the waters get a little murky,
 since there are so many ways to structure code,
 and so many representations to extract from it.
-One that our readers might already be familiar with are
-the Abstract Syntax Tree, Version Control (+git+) history, the
-[inner]#link:../exploit-code-graph[Control flow and program dependece graphs]#.
+Our readers might already be familiar with
+the Abstract Syntax Tree, Version Control (v.g., +git+) history and the
+[inner]#link:../exploit-code-graph[Control flow and program dependence graphs]#.
 One can even simply choose not to represent anything:
-consider the code as sequence of words without exploiting its syntax,
+consider the code as sequence of words
+without exploiting its syntax,
 and represent them as bags of words,
-as we did in our previous run.
+as we did in our
+[inner]#link:../vulnerability-classifier[previous run]#.
 One could also look at the
-[inner]#../machine-learning-hack/#other-approaches[meta-code]#:
+[inner]#link:../machine-learning-hack/#other-approaches[meta-code]#:
 metrics such as modified lines per commit,
 code churn, cyclomatic complexity,
 all of those could be thought of as possible candidates
@@ -122,7 +125,7 @@ If the body is `return input1 + input2`,
 it would seem obvious to a human
 to call that function `add` or even `give_sum`.
 However, this is not the case,
-as there are developers which give strange names
+as there are developers who give strange names
 to their identifiers and methods,
 such as `perform_binary_operation1`.
 Maybe to make their code
@@ -144,10 +147,10 @@ unlike most other seen here so far,
 the layers are the arrows,
 thus the objects are the intermediate products
 obtained after passing through the layers.
-Of course, we will be most interesting in the green circles
+Of course, we will be most interested in the green circles
 above, which are the code vectors we are looking for,
 and not so much in the final predictions.
-No that the task of predicting function names is uninteresting,
+Not that the task of predicting function names is uninteresting,
 but it is not related to our interests.
 We only want the code vectors in order to pass them on to our classifier
 to determine the likelihood of containing security vulnerabilities.
