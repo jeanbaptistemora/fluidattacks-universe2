@@ -201,6 +201,27 @@ def enable_win_colors():
                                                       wrap=True)
 
 
+def warn_python_version():
+    """Check the interpreter version and emit a warning in case of mismatch."""
+    suggested_versions: List[Tuple[int, int]] = [
+        (3, 7),
+        (3, 8),
+    ]
+
+    version_info = sys.version_info
+    v_minor: int = version_info.minor
+    v_major: int = version_info.major
+
+    if (v_major, v_minor) not in suggested_versions:
+        print(textwrap.dedent(f"""
+        # Warning!! You are running Asserts in python{v_major}.{v_minor}
+        #   some functionality may not work!!
+        #
+        #   suggested versions are:"""[1:]))
+        for major, minor in suggested_versions:
+            print(f'#     - python{major}.{minor}')
+
+
 def colorize_text(message, without_color=False):
     """Print colorized text content."""
     if without_color:
@@ -1169,6 +1190,7 @@ def main():  # noqa: MC0001
 
     # Print the Fluid Asserts banner
     show_banner(args)
+    warn_python_version()
 
     if not any((args.apk,
                 args.aws,
