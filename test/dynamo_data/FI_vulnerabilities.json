@@ -1114,6 +1114,16 @@
                },
                "where" : {
                   "S" : "path/to/file4.ext"
+               },
+               "tag" : {
+                  "L": [
+                     {
+                        "S": "test1"
+                     },
+                     {
+                        "S": "test2"
+                     }
+                  ]
                }
             }
          }
