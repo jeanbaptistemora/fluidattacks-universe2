@@ -5,7 +5,7 @@ import os
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('cloud')
+pytestmark = pytest.mark.asserts_module('cloud.kubernetes')
 
 # local imports
 from fluidasserts.cloud.kubernetes import deployments, pods

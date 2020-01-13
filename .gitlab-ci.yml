@@ -96,6 +96,21 @@ bandit:
     - schedules
   interruptible: true
 
+test-cloud.aws.api:
+  <<: *test-template
+
+test-cloud.aws.cloudformation:
+  <<: *test-template
+
+test-cloud.azure:
+  <<: *test-template
+
+test-cloud.gcp:
+  <<: *test-template
+
+test-cloud.kubernetes:
+  <<: *test-template
+
 test-cloud:
   <<: *test-template
 

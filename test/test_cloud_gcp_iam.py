@@ -9,7 +9,7 @@ from contextlib import contextmanager
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('cloud')
+pytestmark = pytest.mark.asserts_module('cloud.gcp')
 
 # local imports
 from fluidasserts.cloud.gcp import iam

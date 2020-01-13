@@ -7,7 +7,7 @@ import os
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('cloud')
+pytestmark = pytest.mark.asserts_module('cloud.azure')
 
 # local imports
 
