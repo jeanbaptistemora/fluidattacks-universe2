@@ -38,5 +38,5 @@ resource "aws_iam_policy" "kms-admin" {
   path        = "/"
   description = "Full permissions over KMS"
 
-  policy = "${data.aws_iam_policy_document.kms-admin.json}"
+  policy = data.aws_iam_policy_document.kms-admin.json
 }
