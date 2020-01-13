@@ -95,7 +95,7 @@ setup(
         'kubernetes==10.0.1',          # fluidasserts.cloud.kubernetes
         'ldap3==2.6.1',                  # fluidasserts.proto.ldap
         'mixpanel==4.5.0',             # fluidasserts.utils.decorators
-        'mysql-connector==2.2.9',      # fluidasserts.db.mysql_db
+        'mysql-connector-python==8.0.19',  # fluidasserts.db.mysql_db
         'names==0.3.0',                # fluidasserts.helper.http
         'ntplib==0.3.3',               # fluidasserts.proto.http
         'oyaml==0.9',                  # fluidasserts
