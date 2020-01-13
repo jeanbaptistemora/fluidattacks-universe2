@@ -6,7 +6,7 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code that defines the headers of the table
 */
-import { ApolloError, NetworkStatus } from "apollo-client";
+import { NetworkStatus } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React, { useState } from "react";
@@ -15,7 +15,6 @@ import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { Comparator, textFilter } from "react-bootstrap-table2-filter";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Reducer } from "redux";
-import { submit } from "redux-form";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
@@ -23,7 +22,6 @@ import { DataTableNext } from "../../../../components/DataTableNext";
 import { approveFormatter, deleteFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
@@ -31,17 +29,16 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import * as actions from "../../actions";
-import TreatmentFieldsView from "../../components/treatmentFields";
 import * as actionTypes from "../../containers/DescriptionView/actionTypes";
-import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
 import { deleteVulnerabilityModal as DeleteVulnerabilityModal } from "../DeleteVulnerability/index";
 import { IDeleteVulnAttr } from "../DeleteVulnerability/types";
-import { GenericForm } from "../GenericForm";
 import { changeFilterValues, changeSortValues } from "./actions";
 import { default as style } from "./index.css";
-import { APPROVE_VULN_MUTATION, GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
-import { IApproveVulnAttr, IUpdateTreatmentVulnAttr, IUpdateVulnTreatment,
-  IVulnerabilitiesViewProps, IVulnRow, IVulnsAttr, IVulnType } from "./types";
+import { APPROVE_VULN_MUTATION, GET_VULNERABILITIES } from "./queries";
+import {
+  IApproveVulnAttr, IVulnerabilitiesViewProps, IVulnRow, IVulnsAttr, IVulnType,
+} from "./types";
+import { UpdateTreatmentModal } from "./updateTreatment";
 import { UploadVulnerabilites } from "./uploadFile";
 
 type ISelectRowType = (Array<{[value: string]: string | undefined | null}>);
@@ -424,31 +421,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               }
             };
 
-            const handleUpdateTreatError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
-              hidePreloader();
-              msgError(translate.t("proj_alerts.error_textsad"));
-
-            };
-            const handleMtUpdateTreatmentVulnRes: ((mtResult: IUpdateVulnTreatment) => void) =
-            (mtResult: IUpdateVulnTreatment): void => {
-              if (!_.isUndefined(mtResult)) {
-                if (mtResult.updateTreatmentVuln.success) {
-                  refetch()
-                    .catch();
-                  hidePreloader();
-                  mixpanel.track(
-                    "UpdatedTreatmentVulnerabilities",
-                    {
-                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
-                      User: (window as typeof window & { userName: string }).userName,
-                    });
-                  msgSuccess(
-                    translate.t("search_findings.tab_description.update_vulnerabilities"),
-                    translate.t("proj_alerts.title_success"));
-                  handleCloseTableSetClick();
-                }
-              }
-            };
             const onSortInputs: ((dataField: string, order: SortOrder) => void) =
             (dataField: string, order: SortOrder): void => {
               if (props.vulnerabilities !== undefined) {
@@ -1065,80 +1037,15 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                         onClose={handleCloseDeleteVulnModal}
                         onDeleteVulnRes={handleMtDeleteVulnRes}
                       />
-
-                      <Mutation
-                        mutation={UPDATE_TREATMENT_MUTATION}
-                        onCompleted={handleMtUpdateTreatmentVulnRes}
-                        onError={handleUpdateTreatError}
-                      >
-                        { (updateTreatmentVuln: MutationFn<IUpdateVulnTreatment, IUpdateTreatmentVulnAttr>,
-                           mutationResVuln: MutationResult): React.ReactNode => {
-                            if (mutationResVuln.loading) {showPreloader(); }
-
-                            const handleUpdateTreatmentVuln: ((dataTreatment: IDescriptionViewProps["dataset"])
-                              => void) = (dataTreatment: IDescriptionViewProps["dataset"]): void => {
-                                if (vulnsSelected.length === 0) {
-                                    msgError(translate.t("search_findings.tab_resources.no_selection"));
-                                } else {
-                                  updateTreatmentVuln({variables: {
-                                    acceptanceDate: dataTreatment.acceptanceDate,
-                                    btsUrl: dataTreatment.btsUrl,
-                                    findingId: data.finding.id,
-                                    severity: !_.isEmpty(dataTreatment.severity) ? dataTreatment.severity : "-1",
-                                    tag: dataTreatment.tag,
-                                    treatment: dataTreatment.treatment,
-                                    treatmentJustification: dataTreatment.justification,
-                                    treatmentManager: dataTreatment.treatmentManager,
-                                    vulnerabilities: vulnsSelected,
-                                  }})
-                                  .catch();
-                                }
-                            };
-                            const handleEditTreatment: (() => void) = (): void => {
-                              store.dispatch(submit("editTreatmentVulnerability"));
-                            };
-
-                            const handleUpdateTreatment: ((values: IDescriptionViewProps["dataset"]) => void) =
-                            (values: IDescriptionViewProps["dataset"]): void => {
-                              handleUpdateTreatmentVuln(values);
-                            };
-
-                            return (
-                              <Modal
-                                open={modalHidden}
-                                footer={
-                                  <ButtonToolbar className="pull-right">
-                                    <Button onClick={handleCloseTableSetClick}>
-                                      {translate.t("project.findings.report.modal_close")}
-                                    </Button>
-                                    <Button
-                                      bsStyle="primary"
-                                      onClick={handleEditTreatment}
-                                    >
-                                      {translate.t("confirmmodal.proceed")}
-                                    </Button>
-                                  </ButtonToolbar>
-                                }
-                                headerTitle={translate.t("search_findings.tab_description.editVuln")}
-                              >
-                              {modalHidden ?
-                              <GenericForm
-                                name="editTreatmentVulnerability"
-                                onSubmit={handleUpdateTreatment}
-                                initialValues={
-                                  numberRowSelected ? (!_.isUndefined(props.descriptParam) ?
-                                  props.descriptParam.dataset : undefined) : undefined
-                                }
-                              >
-                                {!_.isUndefined(props.descriptParam) ?
-                                <TreatmentFieldsView isTreatmentModal={true} {...props.descriptParam} />
-                                : undefined}
-                              </GenericForm>
-                              : undefined}
-                              </Modal>
-                            );
-                        }}
-                      </Mutation>
+                      <UpdateTreatmentModal
+                        descriptParam={props.descriptParam}
+                        findingId={props.findingId}
+                        isOpen={modalHidden}
+                        numberRowSelected={numberRowSelected}
+                        userRole={props.userRole}
+                        vulnsSelected={vulnsSelected}
+                        handleCloseModal={handleCloseTableSetClick}
+                      />
                       {isEditable ? renderButtonUpdateVuln() : undefined}
                       {props.editMode && _.includes(["admin", "analyst"], props.userRole)
                         ? <UploadVulnerabilites {...props} />
