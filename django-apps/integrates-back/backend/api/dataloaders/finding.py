@@ -21,7 +21,7 @@ def _batch_load_fn(finding_ids):
             bts_url=finding.get('externalBts', ''),
             compromised_attributes=finding.get('compromisedAttrs', ''),
             compromised_records=finding.get('recordsNumber', 0),
-            cvss_version=finding.get('cvssVersion', '3'),
+            cvss_version=finding.get('cvssVersion', '3.1'),
             cwe_url=finding.get('cwe', ''),
             description=finding.get('vulnerability', ''),
             evidence=finding.get('evidence', {}),

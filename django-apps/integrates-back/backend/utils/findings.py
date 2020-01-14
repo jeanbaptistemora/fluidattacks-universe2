@@ -17,7 +17,7 @@ CVSS_PARAMETERS = {
         'bs_factor_1': 0.6, 'bs_factor_2': 0.4, 'bs_factor_3': 1.5,
         'impact_factor': 10.41, 'exploitability_factor': 20
     },
-    '3': {
+    '3.1': {
         'impact_factor_1': 6.42, 'impact_factor_2': 7.52,
         'impact_factor_3': 0.029, 'impact_factor_4': 3.25,
         'impact_factor_5': 0.02, 'impact_factor_6': 15,
@@ -131,16 +131,16 @@ def format_data(finding):
               'confidentialityImpact', 'confidentialityRequirement',
               'exploitability', 'findingDistribution', 'integrityImpact',
               'integrityRequirement', 'resolutionLevel'],
-        '3': ['attackComplexity', 'attackVector', 'availabilityImpact',
-              'availabilityRequirement', 'confidentialityImpact',
-              'confidentialityRequirement', 'exploitability',
-              'integrityImpact', 'integrityRequirement',
-              'modifiedAttackComplexity', 'modifiedAttackVector',
-              'modifiedAvailabilityImpact', 'modifiedConfidentialityImpact',
-              'modifiedIntegrityImpact', 'modifiedPrivilegesRequired',
-              'modifiedUserInteraction', 'modifiedSeverityScope',
-              'privilegesRequired', 'remediationLevel', 'reportConfidence',
-              'severityScope', 'userInteraction']
+        '3.1': ['attackComplexity', 'attackVector', 'availabilityImpact',
+                'availabilityRequirement', 'confidentialityImpact',
+                'confidentialityRequirement', 'exploitability',
+                'integrityImpact', 'integrityRequirement',
+                'modifiedAttackComplexity', 'modifiedAttackVector',
+                'modifiedAvailabilityImpact', 'modifiedConfidentialityImpact',
+                'modifiedIntegrityImpact', 'modifiedPrivilegesRequired',
+                'modifiedUserInteraction', 'modifiedSeverityScope',
+                'privilegesRequired', 'remediationLevel', 'reportConfidence',
+                'severityScope', 'userInteraction']
     }
     finding['severity'] = {
         field: float(finding.get(field, 0))

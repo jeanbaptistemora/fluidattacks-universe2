@@ -21,7 +21,7 @@ class FormsTests(TestCase):
         assert test_data == expected_output
 
     def test_is_exploitable(self):
-        version = '3'
+        version = '3.1'
         for exploitability in arange(0.0, 0.96, 0.2):
             assert is_exploitable(exploitability, version) == 'No'
         for exploitability in arange(0.97, 2, 0.3):

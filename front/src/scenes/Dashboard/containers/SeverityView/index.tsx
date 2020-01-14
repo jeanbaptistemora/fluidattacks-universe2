@@ -183,7 +183,7 @@ const renderSeverityFields: ((props: ISeverityViewProps, data: ISeverityAttr) =>
           ))}
         </EditableField>
       </Row>
-      { cvssVersion === "3" && props.isEditing
+      { cvssVersion === "3.1" && props.isEditing
         ?
         <React.Fragment>
           {renderEnvironmentFields(props, data)}

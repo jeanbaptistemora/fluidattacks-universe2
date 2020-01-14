@@ -446,7 +446,7 @@ def save_severity(finding):
     primary_keys = ['finding_id', str(finding['id'])]
     cvss_version = finding.get('cvssVersion', '')
     cvss_parameters = finding_utils.CVSS_PARAMETERS[cvss_version]
-    if cvss_version == '3':
+    if cvss_version == '3.1':
         severity_fields = ['attackVector', 'attackComplexity',
                            'privilegesRequired', 'userInteraction',
                            'severityScope', 'confidentialityImpact',
@@ -829,7 +829,7 @@ def create_draft(info, project_name, title, **kwargs):
     finding_attrs = kwargs.copy()
     finding_attrs.update({
         'analyst': analyst_email,
-        'cvss_version': '3',
+        'cvss_version': '3.1',
         'exploitability': 0,
         'files': [],
         'finding': title,

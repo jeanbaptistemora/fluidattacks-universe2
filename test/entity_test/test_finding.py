@@ -163,7 +163,7 @@ class FindingTests(TestCase):
             attackComplexity: 0.77, attackVector: 0.62,
             availabilityImpact: "0", availabilityRequirement: "1",
             confidentialityImpact: "0", confidentialityRequirement: "1",
-            cvssVersion: "3", exploitability: 0.91, id: "422286126",
+            cvssVersion: "3.1", exploitability: 0.91, id: "422286126",
             integrityImpact: "0.22", integrityRequirement: "1",
             modifiedAttackComplexity: 0.77, modifiedAttackVector: 0.62,
             modifiedAvailabilityImpact: "0",

@@ -332,7 +332,7 @@ class CreatorPDF():
 
 def get_access_vector(finding):
     """ Get metrics based on cvss version. """
-    if finding.get('cvssVersion') == '3':
+    if finding.get('cvssVersion') == '3.1':
         severity = get_severity('attackVector', finding['attackVector'])
     else:
         severity = get_severity('accessVector', finding['accessVector'])

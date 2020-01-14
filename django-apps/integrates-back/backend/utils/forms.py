@@ -27,7 +27,7 @@ def merge_dicts_list_into_dict(dicts_list):
 
 
 def is_exploitable(explotability, version):
-    if version == '3':
+    if version == '3.1':
         if explotability >= 0.97:
             exploitable = 'Si'
         else:

@@ -145,7 +145,7 @@ def get_f_impact(impact):
 
 def calculate_cvss_temporal(severity, basescore, version):
     """Calculate cvss temporal attribute."""
-    if version == '3':
+    if version == '3.1':
         cvss_temporal = _calc_cvss3_temporal(severity, basescore)
     else:
         cvss_temporal = _calc_cvss2_temporal(severity, basescore)
@@ -154,7 +154,7 @@ def calculate_cvss_temporal(severity, basescore, version):
 
 def calculate_cvss_basescore(severity, parameters, version):
     """Calculate cvss base score attribute."""
-    if version == '3':
+    if version == '3.1':
         cvss_basescore = _calc_cvss3_basescore(severity, parameters)
     else:
         cvss_basescore = _calc_cvss2_basescore(severity, parameters)
@@ -163,7 +163,7 @@ def calculate_cvss_basescore(severity, parameters, version):
 
 def calculate_cvss_environment(severity, parameters, version):
     """Calculate cvss environment attribute."""
-    if version == '3':
+    if version == '3.1':
         cvss_environment = _calc_cvss3_environment(severity, parameters)
     else:
         cvss_environment = _calc_cvss2_environment(severity, parameters)
