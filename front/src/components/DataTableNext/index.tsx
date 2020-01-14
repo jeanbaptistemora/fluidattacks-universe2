@@ -39,8 +39,8 @@ const handleFormatter: ((value: string, row: { [key: string]: string }, rowIndex
   }
 };
 
-const renderGivenHeaders: ((arg1: IHeader[]) => Column[]) =
-  (headers: IHeader[]): Column[] => (headers.map((key: IHeader) => {
+const renderGivenHeaders: ((arg1: IHeader[], isFilterEnabled: boolean) => Column[]) =
+  (headers: IHeader[], isFilterEnabled: boolean): Column[] => (headers.map((key: IHeader) => {
     const isFormatter: boolean = key.formatter !== undefined;
     const handleSort: ((dataField: string, order: SortOrder) => void) =
     (dataField: string, order: SortOrder): void => {
@@ -52,7 +52,7 @@ const renderGivenHeaders: ((arg1: IHeader[]) => Column[]) =
     return {
       align: key.align,
       dataField: key.dataField,
-      filter: key.filter,
+      filter: isFilterEnabled ? key.filter : undefined,
       formatExtraData: key,
       formatter: isFormatter ? handleFormatter : undefined,
       headerStyle: (): {} => ({
@@ -86,7 +86,7 @@ const renderDynamicHeaders: ((arg1: string[]) => Column[]) =
 const renderHeaders: ((arg1: ITableProps) => Column[]) =
   (props: ITableProps): Column[] => (
     props.headers.length > 0 ?
-    renderGivenHeaders(props.headers) :
+    renderGivenHeaders(props.headers, !_.isUndefined(props.isFilterEnabled) ? props.isFilterEnabled : true) :
     renderDynamicHeaders(Object.keys(props.dataset[0]))
   );
 
@@ -202,22 +202,41 @@ const renderTable: ((toolkitProps: ToolkitProviderProps, props: ITableProps, dat
         props.onTableChange(type, newState);
       }
     };
+    const enableFilter: (() => JSX.Element) = (): JSX.Element => {
+      const isEnableFilter: boolean = !_.isUndefined(props.isFilterEnabled) ? props.isFilterEnabled : true;
+      const handleUpdateEnableFilter: (() => void) = (): void => {
+        if (props.onUpdateEnableFilter !== undefined) {
+          props.onUpdateEnableFilter();
+        }
+      };
+
+      return (
+        <Button onClick={handleUpdateEnableFilter} active={!isEnableFilter}>
+          {isEnableFilter ? <Glyphicon glyph="minus"/> : <Glyphicon glyph="plus"/>}&nbsp;
+          {isEnableFilter ? translate.t("dataTableNext.filterEnabled") : translate.t("dataTableNext.filterDisabled")}
+        </Button>
+      );
+    };
     const isPaginationEnable: boolean = !_.isEmpty(dataset) && dataset.length > props.pageSize;
     const { SearchBar } = Search;
-    const handleNoData: (() => string) = (): string => (translate.t("no_data_indication"));
+    const handleNoData: (() => string) = (): string => (translate.t("dataTableNext.noDataIndication"));
     const columnToggle: boolean = !_.isUndefined(props.columnToggle) ? props.columnToggle : false;
+    const displayEnableFilter: boolean = !_.isUndefined(props.isFilterEnabled) ? true : false;
 
     return (
       <div>
         <Row>
-          <Col lg={4} md={4} sm={6} xs={6}>
+          <Col lg={3} md={3} sm={6} xs={12}>
           {props.exportCsv ? renderExportCsvButton(toolkitProps) : undefined}
           </Col>
-          <Col lg={4} md={4} sm={6} xs={12}>
+          <Col lg={3} md={3} sm={6} xs={12}>
             {columnToggle ? <CustomToggleList propsToggle={toolkitProps.columnToggleProps} propsTable={props} />
              : undefined}
           </Col>
-          <Col lg={4} md={4} sm={6} xs={12}>
+          <Col lg={3} md={3} sm={6} xs={12}>
+            {displayEnableFilter ? enableFilter() : undefined}
+          </Col>
+          <Col lg={3} md={3} sm={6} xs={12}>
             {props.search ? <SearchBar {...toolkitProps.searchProps} className={style.searchBar} /> : undefined}
           </Col>
         </Row>

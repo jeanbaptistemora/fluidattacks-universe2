@@ -15,6 +15,7 @@ export interface ITableProps {
   headerContainer?: string;
   headers: IHeader[];
   id: string;
+  isFilterEnabled?: boolean;
   pageSize: number;
   remote: RemoteProps | boolean;
   rowEvents?: {};
@@ -27,6 +28,7 @@ export interface ITableProps {
   onClickRow?(arg1: string | {} | undefined): void;
   onColumnToggle?(arg1: string): void;
   onTableChange?(type: TableChangeType, newState: TableChangeNewState): void;
+  onUpdateEnableFilter?(): void;
 }
 
 export interface IHeader {

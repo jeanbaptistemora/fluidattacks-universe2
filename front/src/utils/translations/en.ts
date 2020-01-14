@@ -6,6 +6,11 @@ const enTranslations: Dictionary = {
     title_cvssv2: "Update CVSSv2",
     title_generic: "Confirm action",
   },
+  dataTableNext: {
+    filterDisabled: "Display filters",
+    filterEnabled: "Hide filters",
+    noDataIndication: "There is no data to display",
+  },
   delete_vulns: {
     not_success: "Vulnerability could not be eliminated",
     reporting_error: "Error while reporting",
@@ -47,7 +52,6 @@ const enTranslations: Dictionary = {
     breadcrumbRoot: "My Projects",
     searchPlaceholder: "Project Name",
   },
-  no_data_indication: "There is no data to display",
   proj_alerts: {
     acceptation_approved: "Indefinite acceptation has been approved",
     acceptation_rejected: "Indefinite acceptation has been rejected",
