@@ -1,4 +1,4 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
+import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { GraphQLError } from "graphql";
 // tslint:disable-next-line: no-import-side-effect
@@ -6,9 +6,13 @@ import "isomorphic-fetch";
 import React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
+import { Provider } from "react-redux";
 import wait from "waait";
+import store from "../../../../store";
 import { compareNumbers, VulnerabilitiesView } from "./index";
-import { GET_VULNERABILITIES } from "./queries";
+import { GET_VULNERABILITIES, UPDATE_TREATMENT_MUTATION } from "./queries";
+import { IUpdateVulnTreatment } from "./types";
+import { UpdateTreatmentModal } from "./updateTreatment";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
@@ -144,6 +148,48 @@ describe("Vulnerabilities view", () => {
     await wait(0);
     expect(wrapper.find("Query"))
       .toBeTruthy();
+  });
+
+  it("should render update treatment", () => {
+    const handleOnClose: jest.Mock = jest.fn();
+    const updateTreatment: IUpdateVulnTreatment = { updateTreatmentVuln : { success: true } };
+    const mocksMutation: MockedResponse[] = [{
+      request: {
+        query: UPDATE_TREATMENT_MUTATION,
+        variables: {
+          acceptanceDate: undefined, btsUrl: undefined, findingId: "", severity: "-1", tag: undefined,
+          treatment: undefined, treatmentJustification: undefined, treatmentManager: undefined, vulnerabilities: [""],
+        },
+      },
+      result: { data: updateTreatment},
+    }];
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocksMutation} addTypename={false}>
+          <UpdateTreatmentModal
+            descriptParam={undefined}
+            findingId=""
+            isOpen={true}
+            numberRowSelected={false}
+            userRole="analyst"
+            vulnsSelected={[""]}
+            handleCloseModal={handleOnClose}
+          />
+        </MockedProvider>
+      </Provider>,
+    );
+    const closeButton: ReactWrapper = wrapper
+      .find("Button")
+      .filterWhere((element: ReactWrapper) => element.contains("Close"));
+    closeButton.simulate("click");
+    const proceedButton: ReactWrapper = wrapper
+    .find("Button")
+    .filterWhere((element: ReactWrapper) => element.contains("Proceed"));
+    proceedButton.simulate("click");
+    expect(wrapper)
+      .toHaveLength(1);
+    expect(handleOnClose.mock.calls.length)
+      .toEqual(1);
   });
 
   it("should subtract 10 - 5", async () => {
