@@ -160,7 +160,7 @@ const renderSeverityFields: ((props: ISeverityViewProps, data: ISeverityAttr) =>
           visible={props.isEditing}
         >
           <option value="" selected={true} />
-          <option value="3">3</option>
+          <option value="3.1">3.1</option>
         </EditableField>
       </Row>
       {renderCVSSFields(props, data)}
