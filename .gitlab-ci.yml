@@ -305,7 +305,7 @@ deploy-mobile:
   only:
     - master
 
-test-driver-dev:
+.test-driver-dev:
   stage: post-deploy
   tags: [autoscaling-large]
   needs: [deploy-back-ephemeral]
@@ -323,7 +323,7 @@ test-driver-dev:
     - master
   interruptible: true
 
-test-driver-prod:
+.test-driver-prod:
   stage: post-deploy
   tags: [autoscaling-large]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:master
