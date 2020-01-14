@@ -1,0 +1,47 @@
+{% extends "page.html" %}
+
+{% block meta %}
+  <meta name="description"
+        content="{{ page.description }}">
+  <meta name="keywords"
+        content="{{ page.keywords }}">
+{% endblock meta %}
+
+{% block content %}
+  <div class="divpage">
+    <article class="ma-auto tl mw8">
+      <h1 class="tc pb4">
+        {{ page.title }}
+      </h1>
+      {{ page.content }}
+      {% for faqpage in pages if faqpage.faq %}
+      {% if loop.first %}
+      <a class="defends-category bg-white bb b--light-silver flex black w-100 pointer ttc">
+        <h2 class="w6">
+          {{ faqpage.category|replace('-', ' ') }}
+        </h2>
+      </a>
+      {% set cat = faqpage.category %}
+      <div class="defendspanel overflow-hidden bg-white mb2">
+        {{ faqpage.content }}
+      </div>
+      {% else %}
+      {% if faqpage.category != loop.previtem.category %}
+      <a class="defends-category bg-white bb b--light-silver flex black w-100 pointer ttc">
+        <h2 class="w6 tj">
+          {{ faqpage.category|replace('-', ' ') }}
+        </h2>
+      </a>
+      {% set cat = faqpage.category %}
+      <div class="defendspanel overflow-hidden bg-white mb2">
+        {{ faqpage.content }}
+      </div>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+      {% assets filters="uglifyjs", output="static/js/defends.min.js", "js/defends.js" %}
+        <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+      {% endassets %}
+    </article>
+  </div>
+{% endblock content %}
