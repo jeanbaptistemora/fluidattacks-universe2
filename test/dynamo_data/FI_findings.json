@@ -218,7 +218,7 @@
             "S": "308"
           },
           "cvss_version": {
-            "S": "3"
+            "S": "3.1"
           },
           "lastVulnerability": {
             "S": "2019-09-20 00:00:00"
@@ -275,7 +275,7 @@
             "S": "89"
           },
           "cvss_version": {
-            "S": "3"
+            "S": "3.1"
           },
           "historic_state": {
             "L": [
@@ -625,7 +625,7 @@
             "S": "200"
           },
           "cvss_version": {
-            "S": "3"
+            "S": "3.1"
           },
           "lastVulnerability": {
             "S": "2018-11-20"
@@ -778,7 +778,7 @@
             "S": "94"
           },
           "cvss_version": {
-            "S": "3"
+            "S": "3.1"
           },
           "cvss_env": {
             "N": "0.0"
@@ -1107,7 +1107,7 @@
             "S": "None"
           },
           "cvss_version": {
-            "S": "3"
+            "S": "3.1"
           },
           "lastVulnerability": {
             "S": "2019-09-20 13:14:58"
@@ -1415,7 +1415,7 @@
             "S": "200"
           },
           "cvss_version": {
-            "S": "3"
+            "S": "3.1"
           },
           "lastVulnerability": {
             "S": "2019-09-23 09:38:44"
@@ -1603,7 +1603,7 @@
             "S": "200"
           },
           "cvss_version": {
-            "S": "3"
+            "S": "3.1"
           },
           "confidentiality_requirement": {
             "N": "1.5"
@@ -1863,7 +1863,7 @@
             "S": "200"
           },
           "cvss_version": {
-            "S": "3"
+            "S": "3.1"
           },
           "lastVulnerability": {
             "S": "2018-12-17 00:00:00"
@@ -1923,7 +1923,7 @@
             "S": "400"
           },
           "cvss_version": {
-            "S": "3"
+            "S": "3.1"
           },
           "historic_state": {
             "L": [
@@ -2188,7 +2188,7 @@
             "S": "None"
           },
           "cvss_version": {
-            "S": "3"
+            "S": "3.1"
           },
           "lastVulnerability": {
             "S": "2018-11-27 00:00:00"
