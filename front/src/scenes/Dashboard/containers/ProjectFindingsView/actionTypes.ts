@@ -8,4 +8,5 @@
 export const OPEN_REPORTS_MODAL: string = "dashboard/project/findings/reports/open";
 export const CLOSE_REPORTS_MODAL: string = "dashboard/project/findings/reports/close";
 export const CHANGE_FILTER: string = "dashboard/project/findings/filter/change";
+export const CHANGE_IS_FILTER: string = "dashboard/project/findings/isfilter/change";
 export const CHANGE_SORTED: string = "dashboard/project/findings/sorted/change";

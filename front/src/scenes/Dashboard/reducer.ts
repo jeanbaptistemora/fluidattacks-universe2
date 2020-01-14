@@ -52,9 +52,11 @@ export interface IDashboardState {
       severity: string;
       status: string;
       title: string;
+      treatment: string;
       verification: string;
       where: string;
     };
+    isFilterEnabled: boolean;
     reportsModal: {
       isOpen: boolean;
     };
@@ -203,9 +205,11 @@ const initialState: IDashboardState = {
       severity: "",
       status: "",
       title: "",
+      treatment: "",
       verification: "",
       where: "",
     },
+    isFilterEnabled: false,
     reportsModal: {
       isOpen: false,
     },
@@ -747,6 +751,7 @@ actionMap[projectActions.CLEAR_PROJECT_STATE] = (state: IDashboardState): IDashb
     filters: {
       ...state.findings.filters,
     },
+    isFilterEnabled: state.findings.isFilterEnabled,
   },
   resources: {
     ...initialState.resources,
@@ -776,6 +781,15 @@ actionMap[findingsActions.CHANGE_FILTER] =
     findings: {
       ...state.findings,
       filters: action.payload.filters,
+    },
+  });
+
+actionMap[findingsActions.CHANGE_IS_FILTER] =
+  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
+    ...state,
+    findings: {
+      ...state.findings,
+      isFilterEnabled: action.payload.isFilterEnabled,
     },
   });
 

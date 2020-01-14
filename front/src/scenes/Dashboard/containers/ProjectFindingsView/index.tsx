@@ -17,16 +17,21 @@ import { statusFormatter } from "../../../../components/DataTableNext/formatters
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal/index";
+import store from "../../../../store";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { formatFindings, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
-import { changeFilterValues, changeSortedValues, closeReportsModal, openReportsModal,
-  ThunkDispatcher } from "./actions";
+import {
+  changeFilterValues, changeIsFilterEnableValue, changeSortedValues, closeReportsModal, openReportsModal,
+  ThunkDispatcher,
+} from "./actions";
 import { default as style } from "./index.css";
 import { GET_FINDINGS } from "./queries";
-import { IFindingAttr, IProjectFindingsAttr, IProjectFindingsBaseProps, IProjectFindingsDispatchProps,
-  IProjectFindingsProps, IProjectFindingsStateProps } from "./types";
+import {
+  IFindingAttr, IProjectFindingsAttr, IProjectFindingsBaseProps, IProjectFindingsDispatchProps, IProjectFindingsProps,
+  IProjectFindingsStateProps,
+} from "./types";
 
 const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFindingsProps): JSX.Element => {
   const { projectName } = props.match.params;
@@ -56,10 +61,12 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     treatment: true,
     where: false,
   });
+  const [isFilterEnable, setFilterEnable] = React.useState(props.isFilterEnabled);
   const [filterValueExploitable, setFilterValueExploitable] = React.useState(props.filters.exploitable);
   const [filterValueSeverity, setFilterValueSeverity] = React.useState(props.filters.severity);
   const [filterValueStatus, setFilterValueStatus] = React.useState(props.filters.status);
   const [filterValueTitle, setFilterValueTitle] = React.useState(props.filters.title);
+  const [filterValueTreatment, setFilterValueTreatment] = React.useState(props.filters.treatment);
   const [filterValueVerification, setFilterValueVerification] = React.useState(props.filters.verification);
   const [filterValueWhere, setFilterValueWhere] = React.useState(props.filters.where);
   const [sortValue, setSortValue] = React.useState(props.defaultSort);
@@ -72,6 +79,12 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const selectOptionsStatus: optionSelectFilterProps[] = [
     {value: "Open", label: "Open"},
     {value: "Closed", label: "Closed"},
+  ];
+  const selectOptionsTreatment: optionSelectFilterProps[] = [
+    {value: "Accepted", label: "Accepted"},
+    {value: "In progress", label: "In progress"},
+    {value: "New", label: "New"},
+    {value: "-", label: "-"},
   ];
   const selectOptionsVerification: optionSelectFilterProps[] = [
     {value: "Pending", label: "Pending"},
@@ -91,7 +104,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     {restriction: [7, 8.9], value: "High"},
     {restriction: [9, 10], value: "Critical"},
   ];
-
   const handleChange: (columnName: string) => void = (columnName: string): void => {
     setCheckedItems({
       ...checkedItems,
@@ -101,6 +113,10 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       ...checkedItems,
       [columnName]: !checkedItems[columnName],
     }));
+  };
+  const handleUpdateFilter: () => void = (): void => {
+    store.dispatch(changeIsFilterEnableValue(!isFilterEnable));
+    setFilterEnable(!isFilterEnable);
   };
 
   const modalFooter: JSX.Element = (
@@ -197,6 +213,21 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       props.onFilter({...props.filters, verification: filterVal});
     }
   };
+  const clearFilterTreatment: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
+  (eventInput: React.FormEvent<HTMLInputElement>): void => {
+    const inputValue: string = eventInput.currentTarget.value;
+    if (inputValue.length === 0 && filterValueTreatment !== "") {
+      setFilterValueTreatment(clearSelection);
+      props.onFilter({...props.filters, treatment: ""});
+    }
+  };
+  const onFilterTreatment: ((filterVal: string) => void) =
+  (filterVal: string): void => {
+    if (filterValueTreatment !== filterVal && clearSelection !== filterValueTreatment) {
+      setFilterValueTreatment(filterVal);
+      props.onFilter({...props.filters, treatment: filterVal});
+    }
+  };
 
   const clearFilterVerification: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
   (eventInput: React.FormEvent<HTMLInputElement>): void => {
@@ -277,8 +308,14 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       formatter: statusFormatter, header: "Status", onSort: onSortState, visible: checkedItems.state, width: "7%",
     },
     {
-      align: "center", dataField: "treatment", header: "Treatment", onSort: onSortState,
-      visible: checkedItems.treatment, width: "8%", wrapped: true,
+      align: "center", dataField: "treatment",
+      filter: selectFilter({
+        defaultValue: filterValueTreatment,
+        onFilter: onFilterTreatment,
+        onInput: clearFilterTreatment,
+        options: selectOptionsTreatment,
+      }),
+      header: "Treatment", onSort: onSortState, visible: checkedItems.treatment, width: "8%",
     },
     {
       align: "center", dataField: "remediated",
@@ -354,8 +391,10 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                   exportCsv={true}
                   headers={tableHeaders}
                   id="tblFindings"
+                  isFilterEnabled={isFilterEnable}
                   pageSize={15}
                   onColumnToggle={handleChange}
+                  onUpdateEnableFilter={handleUpdateFilter}
                   remote={false}
                   rowEvents={{onClick: goToFinding}}
                   search={true}

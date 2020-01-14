@@ -26,9 +26,11 @@ describe("ProjectFindingsView", () => {
       severity: "",
       status: "",
       title: "",
+      treatment: "",
       verification: "",
       where: "",
     },
+    isFilterEnabled: false,
     match: {
       isExact: true,
       params: {projectName: "TEST"},

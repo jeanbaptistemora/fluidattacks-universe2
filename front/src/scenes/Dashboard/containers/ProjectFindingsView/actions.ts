@@ -25,6 +25,14 @@ export const changeFilterValues: ((newValues: {}) => IActionStructure) = (newVal
   type: actionTypes.CHANGE_FILTER,
 });
 
+export const changeIsFilterEnableValue: ((newValues: boolean) => IActionStructure) =
+(newValues: boolean): IActionStructure => ({
+  payload: {
+    isFilterEnabled: newValues,
+  },
+  type: actionTypes.CHANGE_IS_FILTER,
+});
+
 export const changeSortedValues: ((newValues: {}) => IActionStructure) = (newValues: {}): IActionStructure => ({
   payload: {
     defaultSort: newValues,
