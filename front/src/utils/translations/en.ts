@@ -23,6 +23,14 @@ const enTranslations: Dictionary = {
     progress: "Progress",
   },
   home: {
+    newProject: {
+      company: "Company",
+      description: "Description",
+      name: "Project Name",
+      new: "New Project",
+      success: "Project created successfully",
+      titleSuccess: "Success",
+    },
     title: "My Projects",
   },
   legalNotice: {

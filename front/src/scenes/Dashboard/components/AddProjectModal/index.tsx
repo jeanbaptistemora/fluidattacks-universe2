@@ -1,0 +1,149 @@
+/* tslint:disable:jsx-no-multiline-js
+ * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
+ * readability of the code in graphql queries
+ */
+import { ApolloError } from "apollo-client";
+import _ from "lodash";
+import React from "react";
+import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
+import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
+import { change, Field, InjectedFormProps } from "redux-form";
+import { Button } from "../../../../components/Button";
+import { Modal } from "../../../../components/Modal/index";
+import store from "../../../../store";
+import { hidePreloader, showPreloader } from "../../../../utils/apollo";
+import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { textField } from "../../../../utils/forms/fields";
+import { msgSuccess } from "../../../../utils/notifications";
+import translate from "../../../../utils/translations/translate";
+import { required } from "../../../../utils/validations";
+import { GenericForm } from "../../components/GenericForm";
+import { PROJECTS_QUERY } from "../../containers/HomeView/queries";
+import { CREATE_PROJECT_MUTATION, PROJECTS_NAME_QUERY } from "./queries";
+import { IAddProjectModal, IProjectName } from "./types";
+
+const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAddProjectModal): JSX.Element => {
+  const { userOrganization, userRole } = (window as typeof window & { userOrganization: string; userRole: string });
+  const [projectName, setProjectName] = React.useState("");
+  const isAdmin: boolean  = _.includes(["admin"], userRole);
+  const closeNewProjectModal: (() => void) = (): void => { props.onClose(); };
+  const handleProjectNameError: ((error: ApolloError) => void) = (error: ApolloError): void => {
+    closeNewProjectModal();
+    hidePreloader();
+    handleGraphQLErrors("An error occurred getting project name", error);
+  };
+  const handleProjectNameResult: ((qrResult: IProjectName) => void) = (qrResult: IProjectName): void => {
+    if (!_.isUndefined(qrResult)) {
+      store.dispatch(change("newProject", "name", qrResult.internalProjectNames.projectName));
+      setProjectName(qrResult.internalProjectNames.projectName);
+      hidePreloader();
+    }
+  };
+
+  return (
+    <React.StrictMode>
+      <Modal
+        footer={<div />}
+        headerTitle={translate.t("home.newProject.new")}
+        onClose={closeNewProjectModal}
+        open={props.isOpen}
+      >
+        <Query
+          query={PROJECTS_NAME_QUERY}
+          fetchPolicy="network-only"
+          onCompleted={handleProjectNameResult}
+          onError={handleProjectNameError}
+        >
+          {({loading}: QueryResult<IProjectName>): React.ReactNode => {
+            if (loading) { showPreloader(); }
+            const handleMutationResult: ((result: { createProject: { success: boolean } }) => void) = (
+              result: { createProject: { success: boolean } },
+            ): void => {
+              if (result.createProject.success) {
+                closeNewProjectModal();
+                msgSuccess(
+                  translate.t("home.newProject.success"),
+                  translate.t("home.newProject.titleSuccess"),
+                );
+              }
+            };
+
+            return (
+              <Mutation
+                mutation={CREATE_PROJECT_MUTATION}
+                onCompleted={handleMutationResult}
+                refetchQueries={[{ query: PROJECTS_QUERY}]}
+              >
+                {(createProject: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
+                  if (!isAdmin) { store.dispatch(change("newProject", "company", userOrganization)); }
+
+                  const handleSubmit: ((values: { company: string; description: string }) => void) =
+                  (values: { company: string; description: string }): void => {
+                    const companies: string[] = isAdmin ? values.company.split(",") : [userOrganization];
+                    createProject({ variables: {
+                      companies, description: values.description, projectName,
+                    }})
+                    .catch();
+                  };
+
+                  return (
+                    <GenericForm name="newProject" onSubmit={handleSubmit}>
+                      {({ pristine }: InjectedFormProps): JSX.Element => (
+                        <React.Fragment>
+                          <Row>
+                            <Col md={12} sm={12}>
+                              <FormGroup>
+                                <ControlLabel>{translate.t("home.newProject.company")}</ControlLabel>
+                                <Field
+                                  component={textField}
+                                  disabled={!isAdmin}
+                                  name="company"
+                                  type="text"
+                                  validate={[required]}
+                                />
+                              </FormGroup>
+                              <FormGroup>
+                                <ControlLabel>{translate.t("home.newProject.name")}</ControlLabel>
+                                <Field
+                                  component={textField}
+                                  disabled={true}
+                                  name="name"
+                                  type="text"
+                                  validate={[required]}
+                                />
+                              </FormGroup>
+                              <FormGroup>
+                                <ControlLabel>{translate.t("home.newProject.description")}</ControlLabel>
+                                <Field
+                                  component={textField}
+                                  name="description"
+                                  type="text"
+                                  validate={[required]}
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                          <br />
+                          <ButtonToolbar className="pull-right">
+                            <Button bsStyle="success" onClick={closeNewProjectModal}>
+                              {translate.t("confirmmodal.cancel")}
+                            </Button>
+                            <Button bsStyle="success" type="submit" disabled={pristine || submitting}>
+                              {translate.t("confirmmodal.proceed")}
+                            </Button>
+                          </ButtonToolbar>
+                        </React.Fragment>
+                      )}
+                    </GenericForm>
+                  );
+                }}
+              </Mutation>
+            );
+        }}
+        </Query>
+      </Modal>
+    </React.StrictMode>
+  );
+};
+
+export { addProjectModal as AddProjectModal };
