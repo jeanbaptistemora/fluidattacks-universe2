@@ -313,6 +313,7 @@ const enTranslations: Dictionary = {
       compromised_attrs: "Compromised attributes",
       compromised_records: "Compromised records",
       delete: "Delete",
+      deleteTags: "Delete Tags",
       delete_all: "Delete All",
       delete_all_vulns: "Delete all pending vulnerabilities",
       description: "Description",

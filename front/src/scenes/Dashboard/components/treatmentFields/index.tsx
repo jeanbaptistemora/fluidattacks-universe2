@@ -1,7 +1,8 @@
 import _ from "lodash";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Glyphicon, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
+import { Button } from "../../../../components/Button/index";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { formatDropdownField } from "../../../../utils/formatHelpers";
 import { dateField, dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
@@ -10,9 +11,10 @@ import { isLowerOrEqualDate, isValidDate, isValidVulnSeverity, numeric, required
 import { EditableField } from "../../components/EditableField";
 import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
 
-type renderFormFieldsFn = ((props: IDescriptionViewProps) => JSX.Element);
+type renderFormFieldsFn = ((props: IDescriptionViewProps & { onDeleteTag?(): void }) => JSX.Element);
 
-const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): JSX.Element => {
+const treatmentFieldsView: renderFormFieldsFn =
+  (props: IDescriptionViewProps & { onDeleteTag?(): void }): JSX.Element => {
     const formTreatmentValue: string = !_.isUndefined(props.formValues.treatmentVuln) ?
     props.formValues.treatmentVuln : props.formValues.treatment;
     const hasBts: boolean = !_.isEmpty(props.dataset.btsUrl);
@@ -26,31 +28,49 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
     const shouldRenderField: boolean = shouldRender || changeRender;
     const isUndefined: boolean = formTreatmentValue === "ACCEPTED_UNDEFINED";
     const isApproved: boolean = isUndefined ? (props.dataset.acceptationApproval === "APPROVED") : false;
+    const handleVulnFied: (() => void) = (): void => {
+      if (props.onDeleteTag !== undefined) {
+        props.onDeleteTag();
+      }
+    };
 
     /* tslint:disable-next-line cyclomatic-complexity Necessary because this function has a complexity of 21 > 20 */
     const renderVulnFields: (() => JSX.Element) = (): JSX.Element => (
       <React.Fragment>
-        <Col md={6} sm={12} xs={12}>
-          <EditableField
-            component={textField}
-            currentValue={!_.isUndefined(props.dataset.tag) ? props.dataset.tag : ""}
-            label={translate.t("search_findings.tab_description.tag")}
-            name="tag"
-            renderAsEditable={props.isEditing}
-            type="text"
-          />
-        </Col>
-        <Col md={6} sm={12} xs={12}>
-          <EditableField
-            component={textField}
-            currentValue={!_.isUndefined(props.dataset.severity) ? props.dataset.severity : ""}
-            label={translate.t("search_findings.tab_description.severity")}
-            name="severity"
-            renderAsEditable={props.isEditing}
-            type="number"
-            validate={[isValidVulnSeverity, numeric]}
-          />
-        </Col>
+        <Row>
+          <Col md={6} sm={12} xs={12}>
+            <EditableField
+              component={textField}
+              currentValue={!_.isUndefined(props.dataset.tag) ? props.dataset.tag : ""}
+              label={translate.t("search_findings.tab_description.tag")}
+              name="tag"
+              renderAsEditable={props.isEditing}
+              type="text"
+            />
+          </Col>
+          <Col md={6} sm={12} xs={12}>
+            <EditableField
+              component={textField}
+              currentValue={!_.isUndefined(props.dataset.severity) ? props.dataset.severity : ""}
+              label={translate.t("search_findings.tab_description.severity")}
+              name="severity"
+              renderAsEditable={props.isEditing}
+              type="number"
+              validate={[isValidVulnSeverity, numeric]}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6} sm={12} xs={12}>
+            <Button
+              bsStyle="primary"
+              onClick={handleVulnFied}
+            >
+              <Glyphicon glyph="minus" />&nbsp;
+              {translate.t("search_findings.tab_description.deleteTags")}
+            </Button>
+          </Col>
+        </Row>
       </React.Fragment>
     );
 
@@ -153,9 +173,7 @@ const treatmentFieldsView: renderFormFieldsFn = (props: IDescriptionViewProps): 
             />
           </Col>
         </Row> : undefined}
-        <Row>
-          {props.isTreatmentModal ? renderVulnFields() : undefined}
-        </Row>
+        {props.isTreatmentModal ? renderVulnFields() : undefined}
     </React.Fragment>
     );
   };

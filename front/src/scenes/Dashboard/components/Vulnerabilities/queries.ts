@@ -49,7 +49,7 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
 
 export const UPDATE_TREATMENT_MUTATION: DocumentNode = gql`
   mutation UpdateTreatmentMutation($acceptanceDate: String, $btsUrl: String, $findingId: String!, $treatment: String,
-    $treatmentManager: String, $treatmentJustification: String, $vulnerabilities: [String]! $severity: Int,
+    $treatmentManager: String, $treatmentJustification: String, $vulnerabilities: [String]!, $severity: Int,
     $tag: String ) {
     updateTreatmentVuln (
       acceptanceDate: $acceptanceDate,
@@ -82,6 +82,13 @@ export const APPROVE_VULN_MUTATION: DocumentNode = gql`
 export const UPLOAD_VULNERABILITIES: DocumentNode = gql`
 mutation UploadVulnerabilites ($file: Upload!, $findingId: String!){
   uploadFile(findingId: $findingId, file: $file) {
+    success
+  }
+}`;
+
+export const DELETE_TAGS_MUTATION: DocumentNode = gql`
+mutation DeleteTagsVuln ($findingId: String!, $vulnerabilities: [String]!){
+  deleteTags(findingId: $findingId, vulnerabilities: $vulnerabilities) {
     success
   }
 }`;

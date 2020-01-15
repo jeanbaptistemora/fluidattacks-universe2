@@ -43,6 +43,16 @@ export interface IUpdateVulnTreatment {
   };
 }
 
+export interface IDeleteTagResult {
+  deleteTags: {
+    success: boolean;
+  };
+}
+
+export interface IDeleteTagAttr {
+  findingId: string; vulnerabilities: string[];
+}
+
 export interface IVulnerabilitiesViewProps {
   analyst?: boolean;
   descriptParam?: IDescriptionViewProps;
