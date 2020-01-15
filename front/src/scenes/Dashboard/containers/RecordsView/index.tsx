@@ -4,7 +4,6 @@ import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { connect, ConnectedComponent, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
@@ -27,18 +26,6 @@ interface IRecordsViewDispatchProps {
 
 type IRecordsViewProps = IRecordsViewBaseProps & (IRecordsViewStateProps & IRecordsViewDispatchProps);
 
-const enhance: InferableComponentEnhancer<{}> = lifecycle<IRecordsViewProps, {}>({
-  componentDidMount(): void {
-    mixpanel.track(
-      "FindingRecords",
-      {
-        Organization: (window as Window & { userOrganization: string }).userOrganization,
-        User: (window as Window & { userName: string }).userName,
-      });
-    this.props.onLoad();
-  },
-});
-
 const renderUploadField: ((arg1: IRecordsViewProps) => JSX.Element) = (props: IRecordsViewProps): JSX.Element => {
   const handleUpdateClick: (() => void) = (): void => {
     if (isValidEvidenceFile("#evidence8")) {
@@ -51,17 +38,17 @@ const renderUploadField: ((arg1: IRecordsViewProps) => JSX.Element) = (props: IR
   };
 
   return (
-  <Row>
-    <Col md={4} mdOffset={6} xs={12} sm={12}>
-      <div>
-        <FileInput
-          icon="search"
-          id="evidence8"
-          type=".csv"
-          visible={true}
-        />
-      </div>
-    </Col>
+    <Row>
+      <Col md={4} mdOffset={6} xs={12} sm={12}>
+        <div>
+          <FileInput
+            icon="search"
+            id="evidence8"
+            type=".csv"
+            visible={true}
+          />
+        </div>
+      </Col>
       <Col sm={2}>
         <Button
           bsStyle="primary"
@@ -86,8 +73,8 @@ const renderRemoveField: ((arg1: IRecordsViewProps) => JSX.Element) = (props: IR
   };
 
   return (
-  <Row>
-    <Col md={4} mdOffset={6} xs={12} sm={12} />
+    <Row>
+      <Col md={4} mdOffset={6} xs={12} sm={12} />
       <Col sm={2}>
         <Button
           bsStyle="primary"
@@ -126,30 +113,36 @@ const renderEditPanel: ((arg1: IRecordsViewProps) => JSX.Element) = (props: IRec
   );
 };
 
-const renderTable: ((arg1: object[]) => JSX.Element) = (dataset: object[]): JSX.Element => (
-    <DataTableNext
-      bordered={true}
-      dataset={dataset}
-      exportCsv={false}
-      headers={[]}
-      id="tblRecords"
-      pageSize={15}
-      remote={false}
-      search={false}
-      title=""
-    />
-);
+export const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX.Element => {
+  const onMount: (() => void) = (): void => {
+    mixpanel.track("FindingRecords", {
+      Organization: (window as Window & { userOrganization: string }).userOrganization,
+      User: (window as Window & { userName: string }).userName,
+    });
+    props.onLoad();
+  };
+  React.useEffect(onMount, []);
 
-export const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX.Element => (
+  return (
     <React.StrictMode>
       <Row>
         {_.includes(["admin", "analyst"], props.userRole) ? renderEditPanel(props) : undefined}
       </Row>
       <Row>
-        {renderTable(props.dataset)}
+        <DataTableNext
+          bordered={true}
+          dataset={props.dataset}
+          exportCsv={false}
+          headers={[]}
+          id="tblRecords"
+          pageSize={15}
+          remote={false}
+          search={false}
+        />
       </Row>
     </React.StrictMode>
-);
+  );
+};
 
 interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IRecordsViewStateProps, IRecordsViewBaseProps, IState> =
@@ -171,6 +164,6 @@ const mapDispatchToProps: MapDispatchToProps<IRecordsViewDispatchProps, IRecords
   };
 
 const connectedRecordsView: ConnectedComponent<React.ComponentType<IRecordsViewProps>, IRecordsViewBaseProps> =
-  connect(mapStateToProps, mapDispatchToProps)(enhance(recordsView));
+  connect(mapStateToProps, mapDispatchToProps)(recordsView);
 
 export { connectedRecordsView as RecordsView };
