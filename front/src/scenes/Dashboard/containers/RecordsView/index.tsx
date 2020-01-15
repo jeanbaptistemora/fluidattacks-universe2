@@ -1,6 +1,12 @@
+/* tslint:disable:jsx-no-multiline-js
+ *
+ * Disabling this rule is necessary for accessing render props from
+ * apollo components
+ */
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
+import { Query, QueryResult } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { connect, ConnectedComponent, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
@@ -11,15 +17,14 @@ import translate from "../../../../utils/translations/translate";
 import { isValidEvidenceFile } from "../../../../utils/validations";
 import { FileInput } from "../../components/FileInput/index";
 import { IDashboardState } from "../../reducer";
-import { editRecords, loadRecords, removeRecords, ThunkDispatcher, updateRecords } from "./actions";
+import { removeRecords, ThunkDispatcher, updateRecords } from "./actions";
+import { GET_FINDING_RECORDS } from "./queries";
 
 type IRecordsViewBaseProps = Pick<RouteComponentProps<{ findingId: string }>, "match">;
 
 type IRecordsViewStateProps = IDashboardState["records"] & { userRole: string };
 
 interface IRecordsViewDispatchProps {
-  onEdit(): void;
-  onLoad(): void;
   onRemove(): void;
   onUpdate(): void;
 }
@@ -89,57 +94,55 @@ const renderRemoveField: ((arg1: IRecordsViewProps) => JSX.Element) = (props: IR
   );
 };
 
-const renderEditPanel: ((arg1: IRecordsViewProps) => JSX.Element) = (props: IRecordsViewProps): JSX.Element => {
-  const handleEditClick: (() => void) = (): void => { props.onEdit(); };
-
-  return (
-    <React.Fragment>
-      <Row>
-        <Col md={2} mdOffset={10} xs={12} sm={12}>
-          <Button
-            bsStyle="primary"
-            block={true}
-            onClick={handleEditClick}
-          >
-            <FluidIcon icon="edit" />
-            &nbsp;{translate.t("search_findings.tab_evidence.editable")}
-          </Button>
-        </Col>
-      </Row>
-      <br />
-      {props.isEditing ? renderUploadField(props) : undefined}
-      {props.isEditing && props.dataset.length > 0 ? renderRemoveField(props) : undefined}
-    </React.Fragment>
-  );
-};
-
 export const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX.Element => {
+  const { findingId } = props.match.params;
+
   const onMount: (() => void) = (): void => {
     mixpanel.track("FindingRecords", {
       Organization: (window as Window & { userOrganization: string }).userOrganization,
       User: (window as Window & { userName: string }).userName,
     });
-    props.onLoad();
   };
   React.useEffect(onMount, []);
 
+  const [isEditing, setEditing] = React.useState(false);
+  const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };
+
   return (
     <React.StrictMode>
-      <Row>
-        {_.includes(["admin", "analyst"], props.userRole) ? renderEditPanel(props) : undefined}
-      </Row>
-      <Row>
-        <DataTableNext
-          bordered={true}
-          dataset={props.dataset}
-          exportCsv={false}
-          headers={[]}
-          id="tblRecords"
-          pageSize={15}
-          remote={false}
-          search={false}
-        />
-      </Row>
+      <Query query={GET_FINDING_RECORDS} variables={{ findingId }}>
+        {({ data, loading }: QueryResult): JSX.Element => {
+          if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+
+          return (
+            <React.Fragment>
+              <Row>
+                <Col md={2} mdOffset={10} xs={12} sm={12}>
+                  <Button bsStyle="primary" block={true} onClick={handleEditClick}>
+                    <FluidIcon icon="edit" />
+                    &nbsp;{translate.t("search_findings.tab_evidence.editable")}
+                  </Button>
+                </Col>
+              </Row>
+              <br />
+              {isEditing ? renderUploadField(props) : undefined}
+              {isEditing && JSON.parse(data.finding.records).length > 0 ? renderRemoveField(props) : undefined}
+              <Row>
+                <DataTableNext
+                  bordered={true}
+                  dataset={JSON.parse(data.finding.records)}
+                  exportCsv={false}
+                  headers={[]}
+                  id="tblRecords"
+                  pageSize={15}
+                  remote={false}
+                  search={false}
+                />
+              </Row>
+            </React.Fragment>
+          );
+        }}
+      </Query>
     </React.StrictMode>
   );
 };
@@ -156,8 +159,6 @@ const mapDispatchToProps: MapDispatchToProps<IRecordsViewDispatchProps, IRecords
     const { findingId } = ownProps.match.params;
 
     return ({
-      onEdit: (): void => { dispatch(editRecords()); },
-      onLoad: (): void => { dispatch(loadRecords(findingId)); },
       onRemove: (): void => { dispatch(removeRecords(findingId)); },
       onUpdate: (): void => { dispatch(updateRecords(findingId)); },
     });

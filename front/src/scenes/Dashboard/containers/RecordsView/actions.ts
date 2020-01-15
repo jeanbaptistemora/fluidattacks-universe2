@@ -64,14 +64,11 @@ export const removeRecords: ((findingId: string) => ThunkResult<void>) = (findin
       .then((response: AxiosResponse) => {
         const { data } = response.data;
         if (data.removeEvidence.success) {
-          dispatch({
-            payload: { records: JSON.parse(data.removeEvidence.finding.records) },
-            type: actionTypes.LOAD_RECORDS,
-          });
           msgSuccess(
             translate.t("proj_alerts.records_removed"),
             translate.t("search_findings.tab_users.title_success"),
           );
+          location.reload();
         } else {
           msgError(translate.t("proj_alerts.error_textsad"));
         }
@@ -101,14 +98,11 @@ export const updateRecords: ((findingId: string) => ThunkResult<void>) = (findin
       .then((response: AxiosResponse) => {
         const { data } = response.data;
         if (data.updateEvidence.success) {
-          dispatch({
-            payload: { records: JSON.parse(data.updateEvidence.finding.records) },
-            type: actionTypes.LOAD_RECORDS,
-          });
           msgSuccess(
             translate.t("proj_alerts.file_updated"),
             translate.t("search_findings.tab_users.title_success"),
           );
+          location.reload();
         } else {
           msgError(translate.t("proj_alerts.error_textsad"));
         }
