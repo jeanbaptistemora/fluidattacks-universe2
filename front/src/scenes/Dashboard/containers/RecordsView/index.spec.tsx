@@ -1,5 +1,7 @@
 import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
+// tslint:disable-next-line: no-import-side-effect
+import "isomorphic-fetch";
 import React from "react";
 import { RouteComponentProps } from "react-router";
 import { recordsView as RecordsView } from "./index";
@@ -39,11 +41,7 @@ describe.skip("Records view", () => {
   it("should render a component", (): void => {
     const wrapper: ReactWrapper = mount(
       <RecordsView
-        dataset={dataset}
-        isEditing={false}
         onRemove={jest.fn()}
-        onUpdate={jest.fn()}
-        userRole="analyst"
         {...routePropsMock}
       />,
     );
@@ -59,11 +57,7 @@ describe.skip("Records view", () => {
 
     const wrapper: ShallowWrapper = shallow(
       <RecordsView
-        dataset={dataset}
-        isEditing={false}
         onRemove={jest.fn()}
-        onUpdate={jest.fn()}
-        userRole="analyst"
         {...routePropsMock}
       />,
     );
@@ -80,11 +74,7 @@ describe.skip("Records view", () => {
   it("should render as readonly", (): void => {
     const wrapper: ShallowWrapper = shallow(
       <RecordsView
-        dataset={dataset}
-        isEditing={false}
         onRemove={jest.fn()}
-        onUpdate={jest.fn()}
-        userRole="customer"
         {...routePropsMock}
       />,
     );
@@ -97,11 +87,7 @@ describe.skip("Records view", () => {
   it("should render upload field", (): void => {
     const wrapper: ShallowWrapper = shallow(
       <RecordsView
-        dataset={dataset}
-        isEditing={true}
         onRemove={jest.fn()}
-        onUpdate={jest.fn()}
-        userRole="analyst"
         {...routePropsMock}
       />,
     );
@@ -114,11 +100,7 @@ describe.skip("Records view", () => {
   it("should render remove field", (): void => {
     const wrapper: ShallowWrapper = shallow(
       <RecordsView
-        dataset={dataset}
-        isEditing={true}
         onRemove={jest.fn()}
-        onUpdate={jest.fn()}
-        userRole="analyst"
         {...routePropsMock}
       />,
     );
@@ -132,11 +114,7 @@ describe.skip("Records view", () => {
 
     const wrapper: ShallowWrapper = shallow(
       <RecordsView
-        dataset={dataset}
-        isEditing={false}
         onRemove={jest.fn()}
-        onUpdate={jest.fn()}
-        userRole="analyst"
         {...routePropsMock}
       />,
     );

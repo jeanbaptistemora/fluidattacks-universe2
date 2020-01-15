@@ -105,6 +105,13 @@ export const validExploitFile: Validator = (value?: FileList): string | undefine
   return errorMsg;
 };
 
+export const validRecordsFile: Validator = (value?: FileList): string | undefined => (
+  _.isUndefined(value) || _.isEmpty(value)
+    ? undefined
+    : _.includes(["text/csv", "text/plain"], value[0].type)
+      ? undefined : translate.t("proj_alerts.file_type_wrong")
+);
+
 export const dateTimeBeforeToday: Validator = (date: Moment): string | undefined => {
   const today: Moment = moment();
 
