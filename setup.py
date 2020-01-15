@@ -78,18 +78,18 @@ setup(
         'azure-storage-file-share==12.0.0',  # fluidasserts.cloud.azure.storage_accounts
         'bandit==1.6.2',               # fluidasserts.lang.python
         'bcrypt==3.1.7',               # fluidasserts.proto.ssl
-        'beautifulsoup4==4.8.1',       # fluidasserts.helper.http_helper
+        'beautifulsoup4==4.8.2',       # fluidasserts.helper.http_helper
         'boto3==1.10.17',              # fluidasserts.cloud.aws
-        'certifi==2019.9.11',          # fluidasserts.proto.ssl
+        'certifi==2019.11.28',         # fluidasserts.proto.ssl
         'cffi==1.13.2',                # fluidasserts.proto.ssl
-        'colorama==0.4.1',             # logging
+        'colorama==0.4.3',             # logging
         'configobj==5.0.6',            # fluidasserts
-        'cfn_flip==1.2.2',             # fluidasserts.helper.cloudformation
+        'cfn-flip==1.2.2',             # fluidasserts.helper.cloudformation
         'cryptography==2.8',           # fluidasserts.proto.ssl
         'cython==0.29.14',             # fluidasserts.db.mssql
         'defusedxml==0.6.0',           # fluidasserts.sca
         'dnspython==1.16.0',           # fluidasserts.proto.dns
-        'gitpython==3.0.4',            # fluidasserts.proto.git
+        'gitpython==3.0.5',            # fluidasserts.proto.git
         'google-api-python-client==1.7.11',     # fluidasserts.cloud.gcp
         'google-auth-httplib2==0.0.3',    # fluidasserts.cloud.gcp
         'kubernetes==10.0.1',          # fluidasserts.cloud.kubernetes
@@ -99,19 +99,19 @@ setup(
         'names==0.3.0',                # fluidasserts.helper.http
         'ntplib==0.3.3',               # fluidasserts.proto.http
         'oyaml==0.9',                  # fluidasserts
-        'paramiko==2.6.0',             # fluidasserts.helper.ssh_helper
+        'paramiko==2.7.1',             # fluidasserts.helper.ssh_helper
         'pillow==6.2.1',               # fluidasserts.format.captcha
         'psycopg2==2.8.4',             # fluidasserts.db.postgresql
-        'pyopenssl==19.0.0',           # fluidasserts.proto.ssl
+        'pyopenssl==19.1.0',           # fluidasserts.proto.ssl
         'pycrypto==2.6.1; platform_system == "Linux"',
-        'pygments==2.4.2',             # fluidasserts
+        'pygments==2.5.2',             # fluidasserts
         'pyjks==19.0.0',               # fluidasserts.format.jks
         'pyjwt==1.7.1',                # fluidasserts.format.jwt
         'pymssql==2.1.4',              # fluidasserts.db.mssql
         'pynacl==1.3.0',               # fluidasserts.proto.ssl
-        'pyparsing==2.4.5',            # fluidasserts.lang
+        'pyparsing==2.4.6',            # fluidasserts.lang
         'pypdf2==1.26.0',              # fluidasserts.format.pdf
-        'pysmb==1.1.27',               # fluidasserts.proto.smb
+        'pysmb==1.1.28',               # fluidasserts.proto.smb
         'pytesseract==0.3.0',          # fluidasserts.format.captcha
         'python-dateutil==2.8.1',      # fluidasserts.cloud.aws
         'python-magic==0.4.15',        # fluidasserts.format.file
