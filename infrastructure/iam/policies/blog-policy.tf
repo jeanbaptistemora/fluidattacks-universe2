@@ -12,7 +12,6 @@ data "aws_iam_policy_document" "blog-policy" {
   }
 }
 
-
 resource "aws_iam_policy" "Blog_IAM_Policy" {
   name        = "Blog_IAM_Policy"
   path        = "/"

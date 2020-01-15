@@ -14,13 +14,8 @@ resource "aws_iam_account_password_policy" "strict" {
   require_uppercase_characters   = true
 }
 
-module "roles" {
-  source     = "./roles"
-}
-
 module "policies" {
   source             = "./policies"
   fsBucket           = "${var.fsBucket}"
   fwBucket           = "${var.fwBucket}"
-  ssofinance         = "${module.roles.ssofinance}"
 }
