@@ -445,6 +445,8 @@ export const handleErrors: ((errorText: string, errors: readonly GraphQLError[])
         msgError(translate.t("project.drafts.error_submit", {
           missingFields: err.message.split("fields: ")[1],
         }));
+      } else if (_.includes(err.message, "Exception - Currently you cannot create projects")) {
+        msgError(translate.t("home.newProject.noProjectName"));
       } else {
         msgError(translate.t("proj_alerts.error_textsad"));
         rollbar.error(errorText, err);

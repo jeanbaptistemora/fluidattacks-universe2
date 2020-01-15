@@ -126,6 +126,14 @@ class InvalidParameter(Exception):
         super(InvalidParameter, self).__init__(msg)
 
 
+class EmptyPoolProjectName(Exception):
+    """Exception to control an empty pool of project name"""
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Currently you cannot create projects'
+        super(EmptyPoolProjectName, self).__init__(msg)
+
+
 class InvalidSpecific(Exception):
     """Exception to control valid specific value in vulnerabilities."""
     def __init__(self):

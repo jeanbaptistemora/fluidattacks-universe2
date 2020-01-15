@@ -28,6 +28,7 @@ const enTranslations: Dictionary = {
       description: "Description",
       name: "Project Name",
       new: "New Project",
+      noProjectName: "Currently you cannot create projects",
       success: "Project created successfully",
       titleSuccess: "Success",
     },
