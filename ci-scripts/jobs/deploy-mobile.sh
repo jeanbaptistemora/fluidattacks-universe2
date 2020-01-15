@@ -7,7 +7,7 @@ publish_ota() {
   set -e
 
   # Import functions
-  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/sops-source/sops.sh)
+  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
   . ci-scripts/helpers/others.sh
   . ci-scripts/helpers/sops.sh
 

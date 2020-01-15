@@ -8,7 +8,7 @@ build_app() {
 
   # import functions
   . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/build-container.sh)
-  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/sops-source/sops.sh)
+  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
   . ci-scripts/helpers/others.sh
   . ci-scripts/helpers/sops.sh
 
