@@ -20,7 +20,10 @@ data "aws_iam_policy_document" "integrates-dev-key" {
     effect = "Allow"
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-dev"]
+      identifiers = [
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-dev"
+      ]
     }
     actions = [
       "kms:Create*",
@@ -48,7 +51,10 @@ data "aws_iam_policy_document" "integrates-dev-key" {
     effect = "Allow"
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-dev"]
+      identifiers = [
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-dev"
+      ]
     }
     actions = [
       "kms:Encrypt",
@@ -67,7 +73,10 @@ data "aws_iam_policy_document" "integrates-dev-key" {
     effect = "Allow"
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-dev"]
+      identifiers = [
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-dev",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-dev"
+      ]
     }
     actions = [
       "kms:CreateGrant",
