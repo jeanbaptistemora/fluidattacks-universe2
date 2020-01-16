@@ -11,7 +11,6 @@ import * as draftsActions from "./containers/ProjectDraftsView/actions";
 import * as eventsActions from "./containers/ProjectEventsView/actions";
 import * as findingsActions from "./containers/ProjectFindingsView/actionTypes";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
-import * as recordsActions from "./containers/RecordsView/actionTypes";
 import * as resourcesActions from "./containers/ResourcesView/actionTypes";
 import * as severityActions from "./containers/SeverityView/actionTypes";
 import { ISeverityViewProps } from "./containers/SeverityView/types";
@@ -550,26 +549,6 @@ actionMap[usersActions.CLOSE_USERS_MDL] =
     users: {
       ...state.users,
       addModal: initialState.users.addModal,
-    },
-  });
-
-actionMap[recordsActions.EDIT_RECORDS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    records: {
-      ...state.records,
-      isEditing: !state.records.isEditing,
-    },
-  });
-
-actionMap[recordsActions.LOAD_RECORDS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    records: {
-      ...state.records,
-      dataset: action.payload.records,
     },
   });
 
