@@ -55,3 +55,45 @@ def has_authentication_disabled(client_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_client_certificates_disabled(client_id: str, secret: str, tenant: str,
+                                     subscription_id: str) -> Tuple:
+    """
+    Check if the client certificates are disabled for App Services.
+
+    Enabling Client Certificates will block all clients that do not have a
+    valid certificate from accessing the app.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if there are App Services that not have client
+                 certificates enabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = \
+        'Application services do not have client certificates enabled.'
+    msg_closed: str = 'Application services have client certificates enabled.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    webapps = WebSiteManagementClient(credentials, subscription_id).web_apps
+
+    for web in webapps.list():
+        (vulns if not web.client_cert_enabled else safes).append(
+            (web.id, 'enable App Service client certificates.'))
+
+    return _get_result_as_tuple(
+        objects='App Services',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
