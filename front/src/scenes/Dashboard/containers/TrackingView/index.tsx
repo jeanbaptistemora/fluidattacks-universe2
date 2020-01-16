@@ -16,25 +16,24 @@ import { StateType } from "typesafe-actions";
 import store from "../../../../store/index";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
+import { TrackingItem } from "../../components/TrackingItem";
 import { VulnerabilitiesView } from "../../components/Vulnerabilities/index";
 import * as actions from "./actions";
 import { default as style } from "./index.css";
 
 export interface ITrackingViewProps {
-  closings: closing[];
+  closings: IClosing[];
   findingId: string;
   userRole: string;
 }
 
-interface IClosing {
+export interface IClosing {
   closed: number;
   cycle: number;
   date: string;
   effectiveness: number;
   open: number;
 }
-
-export declare type closing = IClosing;
 
 const mapStateToProps: ((arg1: StateType<Reducer>) => ITrackingViewProps) =
   (state: StateType<Reducer>): ITrackingViewProps =>
@@ -114,57 +113,24 @@ export const trackingViewComponent: React.FunctionComponent<ITrackingViewProps> 
               </Row>
             </Col>
           </Row>
-          { props.closings.length > 0
-            ? <Row>
-              <Col mdOffset={3} md={9} sm={12}>
-                <ul className={style.timelineContainer}>
-                  <li
-                    key={0}
-                    className={`${style.timelineItem} ${props.closings[0].effectiveness === 100 ?
-                      style.timelineItemGreen : style.timelineItemRed}`}
-                  >
-                    <div className={style.timelineDate}>
-                      <span>
-                        {props.closings[0].date}
-                      </span>
-                    </div>
-                    <div className={style.timelineContent}>
-                        <p>
-                          {translate.t("search_findings.tab_tracking.founded")},
-                            {translate.t("search_findings.tab_tracking.open")}: {props.closings[0].open},
-                            {translate.t("search_findings.tab_tracking.closed")}: {props.closings[0].closed}
-                          </p>
-                    </div>
-                  </li>
-                  {props.closings
-                    .filter((_0: { closed: number; cycle: number; effectiveness: number; open: number },
-                             index: number) => index > 0)
-                    .map((item: closing) =>
-                    <li
-                      key={item.cycle}
-                      className={`${style.timelineItem} ${item.effectiveness === 100 ?
-                        style.timelineItemGreen : style.timelineItemRed}`}
-                    >
-                      <div className={style.timelineDate}>
-                        <span>
-                          {item.date}
-                        </span>
-                      </div>
-                      <div className={style.timelineContent}>
-                          <p>
-                            {translate.t("search_findings.tab_tracking.cycle")}: {item.cycle},
-                              {translate.t("search_findings.tab_tracking.open")}: {item.open},
-                              {translate.t("search_findings.tab_tracking.closed")}: {item.closed},
-                              {translate.t("search_findings.tab_tracking.effectiveness")}: {item.effectiveness}%
-                          </p>
-                      </div>
-                    </li>,
-                  )}
-                </ul>
-              </Col>
-            </Row>
-          : undefined
-        }
+        <Row>
+          <Col mdOffset={3} md={9} sm={12}>
+            <ul className={style.timelineContainer}>
+              {props.closings.map((closing: IClosing, index: number): JSX.Element => (
+                <TrackingItem
+                  closed={closing.closed}
+                  date={closing.date}
+                  effectiveness={closing.effectiveness}
+                  key={index}
+                  open={closing.open}
+                  title={index > 0
+                    ? `${translate.t("search_findings.tab_tracking.cycle")}: ${closing.cycle}`
+                    : translate.t("search_findings.tab_tracking.founded")}
+                />
+              ))}
+            </ul>
+          </Col>
+        </Row>
       </React.Fragment>
     </React.StrictMode>
 );

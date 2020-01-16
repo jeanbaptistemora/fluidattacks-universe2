@@ -11,7 +11,7 @@ import wait from "waait";
 import store from "../../../../store/index";
 import { GET_VULNERABILITIES } from "../../components/Vulnerabilities/queries";
 import {
-  closing,
+  IClosing,
   trackingViewComponent as TrackingView,
 } from "./index";
 
@@ -72,7 +72,7 @@ describe("Tracking view", () => {
     },
   ];
 
-  const testClosings: closing[] = [{
+  const testClosings: IClosing[] = [{
     closed: 0,
     cycle: 0,
     date: "2018-10-10",
