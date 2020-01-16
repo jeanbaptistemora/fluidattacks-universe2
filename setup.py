@@ -100,6 +100,7 @@ setup(
         'google-auth-httplib2==0.0.3',    # fluidasserts.cloud.gcp
         'kubernetes==10.0.1',          # fluidasserts.cloud.kubernetes
         'ldap3==2.6.1',                  # fluidasserts.proto.ldap
+        'mitmproxy==5.0.1',            # fluidasserts.helper.proxy
         'mixpanel==4.5.0',             # fluidasserts.utils.decorators
         'mysql-connector-python==8.0.19',  # fluidasserts.db.mysql_db
         'names==0.3.0',                # fluidasserts.helper.http
