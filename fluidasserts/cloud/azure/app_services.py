@@ -97,3 +97,44 @@ def has_client_certificates_disabled(client_id: str, secret: str, tenant: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_https_only_disabled(client_id: str, secret: str, tenant: str,
+                            subscription_id: str) -> Tuple:
+    """
+    Check if HTTPS only is disabled for App Services.
+
+    Enabling HTTPS Only traffic will redirect all non-secure HTTP requests to
+    HTTPS. HTTPS uses the SSL/TLS protocol to provide a secure connection.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if there are App Services that not have HTTPS only
+                 enabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Application services do not have HTTPS only enabled.'
+    msg_closed: str = 'Application services have HTTPS only enabled.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    webapps = WebSiteManagementClient(credentials, subscription_id).web_apps
+
+    for web in webapps.list():
+        (vulns if not web.https_only else safes).append(
+            (web.id, 'enable HTTPS only.'))
+
+    return _get_result_as_tuple(
+        objects='App Services',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
