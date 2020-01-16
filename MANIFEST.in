@@ -1,16 +1,15 @@
-# excluir por defecto todos los archivos
+# Exclude everything by default
 global-exclude *
 
-# debe incluir el setup.py para que funcione el instalador
+# Include the installer
 include setup.py
 
-# incluir explicitamente solo los archivos python de src
+# Include Python source files
 recursive-include fluidasserts *.py
 recursive-include fluidasserts/static *.lst
 
-# incluir los archivos de configuracion del software
+# Include configuration files
 include conf/README.rst
-include LOCAL-VERSION
 
-# excluir modulo que envia email cuando hay nueva version
-exclude send_mail.py
+# Include test folder
+graft test

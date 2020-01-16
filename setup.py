@@ -35,11 +35,8 @@ setup(
     project_urls={
       'Documentation': 'https://fluidattacks.gitlab.io/asserts/',
     },
-    package_data={
-      'fluidasserts': [
-        'conf/conf.cfg',
-        'conf/conf.spec',
-      ],
+    package_dir={
+        'fluidasserts': 'fluidasserts',
     },
     author='Fluid Attacks Engineering Team',
     author_email='engineering@fluidattacks.com',
@@ -59,9 +56,6 @@ setup(
         'fluidasserts.syst',
         'fluidasserts.utils',
     ],
-    package_dir={
-        'fluidasserts': 'fluidasserts',
-    },
     classifiers=[
         'Environment :: Console',
         'Topic :: Security',
