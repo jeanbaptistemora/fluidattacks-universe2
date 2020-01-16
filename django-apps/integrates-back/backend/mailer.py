@@ -1,14 +1,16 @@
 from html import escape
 import json
+import threading
 
 import boto3
 import botocore
 import rollbar
 
 from backend.domain import user as user_domain
+from backend.dal import project as project_dal
 
-from __init__ import (FI_MANDRILL_API_KEY, FI_TEST_PROJECTS,
-                      FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY,
+from __init__ import (FI_MAIL_REPLYERS, FI_MAIL_REVIEWERS, FI_MANDRILL_API_KEY,
+                      FI_TEST_PROJECTS, FI_AWS_DYNAMODB_ACCESS_KEY, FI_AWS_DYNAMODB_SECRET_KEY,
                       SQS_QUEUE_URL)
 
 
@@ -117,6 +119,89 @@ def _send_mail(template_name, email_to, context, tags):
     else:
         # Mail should not be sent if is a test project
         pass
+
+
+def send_comment_mail(comment_data, entity_name, user_mail, comment_type='', entity=''):
+    parent = comment_data['parent']
+    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
+    email_context = {
+        'user_email': user_mail,
+        'comment': comment_data['content'].replace('\n', ' '),
+        'comment_type': comment_type,
+        'parent': parent,
+    }
+    if entity_name == 'finding':
+        finding = entity
+        project_name = finding.get('projectName')
+        recipients = get_email_recipients(finding.get('projectName'), comment_type)
+
+        is_draft = 'releaseDate' in finding
+        email_context['finding_id'] = finding.get('id')
+        email_context['finding_name'] = finding.get('finding')
+        comment_url = (
+            base_url +
+            '/project/{project}/{finding_type}/{id}/{comment_type}s'.format(
+                comment_type=comment_type,
+                finding_type='findings' if is_draft else 'drafts',
+                id=entity.get('id'),
+                project=project_name))
+
+    elif entity_name == 'event':
+        event = entity
+        event_id = event.get('event_id')
+        project_name = event.get('project_name')
+        recipients = project_dal.get_users(project_name, True)
+        email_context['finding_id'] = event_id
+        email_context['finding_name'] = f'Event #{event_id}'
+        comment_url = (
+            'https://fluidattacks.com/integrates/dashboard#!/'
+            f'project/{project_name}/events/{event_id}/comments')
+
+    elif entity_name == 'project':
+        project_name = entity
+        recipients = get_email_recipients(project_name, True)
+        comment_url = (
+            base_url + '/project/{project!s}/comments'.format(project=project_name))
+
+    email_context['comment_url'] = comment_url
+    email_context['project'] = project_name
+
+    recipients_customers = [
+        recipient for recipient in recipients
+        if user_domain.get_data(recipient, 'role') in ['customer', 'customeradmin']]
+    recipients_not_customers = [
+        recipient for recipient in recipients
+        if user_domain.get_data(recipient, 'role') not in ['customer', 'customeradmin']]
+
+    email_context_customers = email_context
+    email_context_customers['user_email'] = \
+        'Hacker at ' + user_domain.get_data(user_mail, 'company').capitalize()
+
+    email_send_thread = threading.Thread(
+        name='New {} email thread'.format(entity_name),
+        target=send_mail_comment,
+        args=([recipients_not_customers, recipients_customers],
+              [email_context, email_context_customers]))
+    email_send_thread.start()
+
+
+def get_email_recipients(project_name, comment_type):
+    project_users = project_dal.get_users(project_name)
+    recipients = []
+
+    if comment_type == 'observation':
+        approvers = FI_MAIL_REVIEWERS.split(',')
+        analysts = [user for user in project_users
+                    if user_domain.get_data(user, 'role') == 'analyst']
+
+        recipients += approvers
+        recipients += analysts
+    else:
+        recipients = project_users
+        replyers = FI_MAIL_REPLYERS.split(',')
+        recipients += replyers
+
+    return recipients
 
 
 def send_mail_new_draft(email_to, context):

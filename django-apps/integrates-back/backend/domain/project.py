@@ -2,7 +2,6 @@
 
 
 from collections import namedtuple
-import threading
 import re
 from datetime import datetime
 from decimal import Decimal
@@ -15,7 +14,7 @@ from backend.domain import comment as comment_domain
 from backend.domain import finding as finding_domain
 from backend.domain import vulnerability as vuln_domain
 from backend.exceptions import InvalidParameter
-from backend.mailer import send_mail_comment
+from backend.mailer import send_comment_mail
 from backend import util
 
 from __init__ import FI_MAIL_REPLYERS
@@ -30,32 +29,9 @@ def get_email_recipients(project_name):
     return recipients
 
 
-def send_comment_mail(project_name, email, comment_data):
-    """Send a mail in a project."""
-    parent = comment_data['parent']
-    recipients = get_email_recipients(project_name)
-    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
-    mail_context = {
-        'project': project_name,
-        'user_email': email,
-        'comment_type': 'project',
-        'parent': parent,
-        'comment': comment_data['content'].replace('\n', ' '),
-        'comment_url':
-            base_url + '/project/{project!s}/comments'
-        .format(project=project_name)
-    }
-    email_send_thread = threading.Thread(
-        name='New project email thread',
-        target=send_mail_comment,
-        args=(recipients,
-              mail_context))
-    email_send_thread.start()
-
-
 def add_comment(project_name, email, comment_data):
     """Add comment in a project."""
-    send_comment_mail(project_name, email, comment_data)
+    send_comment_mail(comment_data, 'project', email, 'project', project_name)
     return integrates_dal.add_project_comment_dynamo(project_name,
                                                      email,
                                                      comment_data)

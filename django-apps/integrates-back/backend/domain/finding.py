@@ -19,10 +19,11 @@ from backend.domain import (
 )
 
 from backend.mailer import (
-    send_mail_comment, send_mail_verified_finding, send_mail_remediate_finding,
+    send_mail_verified_finding, send_mail_remediate_finding,
     send_mail_accepted_finding, send_mail_reject_draft,
     send_mail_delete_finding, send_mail_new_draft
 )
+from backend.mailer import send_comment_mail
 
 from backend import util
 from backend.exceptions import (
@@ -139,44 +140,15 @@ def get_email_recipients(project_name, comment_type):
     return recipients
 
 
-def send_comment_mail(user_email, comment_data, finding_id):
-    comment_type = comment_data['comment_type']
-    finding = get_finding(finding_id)
-    recipients = get_email_recipients(finding.get('projectName'), comment_type)
-
-    is_draft = 'releaseDate' in finding
-    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
-    email_context = {
-        'project': finding.get('projectName'),
-        'finding_name': finding.get('finding'),
-        'user_email': user_email,
-        'finding_id': finding_id,
-        'comment': comment_data['content'].replace('\n', ' '),
-        'comment_type': comment_type,
-        'parent': comment_data['parent'],
-        'comment_url':
-            base_url
-            + '/project/{project}/{finding_type}/{id}/{comment_type}s'.format(
-            comment_type=comment_type,
-            finding_type='findings' if is_draft else 'drafts',
-            id=finding_id,
-            project=finding.get('projectName'))
-    }
-
-    email_send_thread = threading.Thread(
-        name='New {} email thread'.format(comment_type),
-        target=send_mail_comment,
-        args=(recipients, email_context))
-    email_send_thread.start()
-
-
 def add_comment(user_email, comment_data, finding_id, is_remediation_comment):
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     comment_data['created'] = current_time
     comment_data['modified'] = current_time
 
     if not is_remediation_comment:
-        send_comment_mail(user_email, comment_data, finding_id)
+        send_comment_mail(
+            comment_data, 'finding', user_email, comment_data['comment_type'],
+            get_finding(finding_id))
 
     return integrates_dal.add_finding_comment_dynamo(int(finding_id),
                                                      user_email, comment_data)

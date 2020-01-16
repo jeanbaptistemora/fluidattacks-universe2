@@ -14,11 +14,11 @@ from backend.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidDate, InvalidFileSize,
     InvalidFileType
 )
-from backend.mailer import send_mail_comment, send_mail_new_event
+from backend.mailer import send_comment_mail, send_mail_new_event
 
 from __init__ import (
-    FI_CLOUDFRONT_RESOURCES_DOMAIN, FI_MAIL_CONTINUOUS, FI_MAIL_PRODUCTION,
-    FI_MAIL_PROJECTS, FI_MAIL_REPLYERS
+    FI_CLOUDFRONT_RESOURCES_DOMAIN, FI_MAIL_CONTINUOUS,
+    FI_MAIL_PRODUCTION, FI_MAIL_PROJECTS
 )
 
 
@@ -223,38 +223,13 @@ def get_events(event_ids):
     return events
 
 
-def _send_comment_email(content, event_id, parent, user_info):
-    event = get_event(event_id)
-    project_name = event.get('project_name')
-    recipients = project_dal.get_users(project_name, True)
-    recipients += FI_MAIL_REPLYERS.split(',')
-
-    email_context = {
-        'comment': content.replace('\n', ' '),
-        'comment_type': 'event',
-        'comment_url': (
-            'https://fluidattacks.com/integrates/dashboard#!/'
-            f'project/{project_name}/events/{event_id}/comments'),
-        'finding_id': event_id,
-        'finding_name': f'Event #{event_id}',
-        'parent': parent,
-        'project': project_name,
-        'user_email': user_info['user_email']
-    }
-
-    email_send_thread = threading.Thread(
-        name='Event comment email thread',
-        target=send_mail_comment,
-        args=(recipients, email_context))
-    email_send_thread.start()
-
-
 def add_comment(content, event_id, parent, user_info):
     success = comment_domain.create(
         'event', content, event_id, parent, user_info)
-
+    comment_data = {'parent': int(parent), 'content': content}
     if success:
-        _send_comment_email(content, event_id, parent, user_info)
+        send_comment_mail(
+            comment_data, 'event', user_info['user_email'], 'event', get_event(event_id))
 
     return success
 
