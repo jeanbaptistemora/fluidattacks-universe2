@@ -23,7 +23,9 @@
       </a>
       {% set cat = faqpage.category %}
       <div class="defendspanel overflow-hidden bg-white mb2">
-        {{ faqpage.content }}
+        <div class="pl4-l">
+          {{ faqpage.content }}
+        </div>
       </div>
       {% else %}
       {% if faqpage.category != loop.previtem.category %}
@@ -34,12 +36,14 @@
       </a>
       {% set cat = faqpage.category %}
       <div class="defendspanel overflow-hidden bg-white mb2">
-        {{ faqpage.content }}
+        <div class="pl4-l">
+          {{ faqpage.content }}
+        </div>
       </div>
       {% endif %}
       {% endif %}
       {% endfor %}
-      {% assets filters="uglifyjs", output="static/js/defends.min.js", "js/defends.js" %}
+      {% assets filters="uglifyjs", output="static/js/faq.min.js", "js/defends.js" %}
         <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
       {% endassets %}
     </article>
