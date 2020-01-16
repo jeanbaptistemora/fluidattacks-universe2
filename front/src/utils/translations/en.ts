@@ -202,6 +202,9 @@ const enTranslations: Dictionary = {
       },
       exportCsv: "Export to CSV",
       help_label: "Click on a finding to see more details",
+      records: {
+        no_data: "There are no records",
+      },
       remediated: {
         False: "-",
         True: "Pending",

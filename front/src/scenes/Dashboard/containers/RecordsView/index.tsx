@@ -10,12 +10,12 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, FormGroup, Glyphicon, Row } from "react-bootstrap";
-import { connect, ConnectedComponent, MapDispatchToProps } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
+import { default as globalStyle } from "../../../../styles/global.css";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { fileInputField } from "../../../../utils/forms/fields";
 import { msgError } from "../../../../utils/notifications";
@@ -23,43 +23,10 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { required, validRecordsFile } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
-import { UPDATE_EVIDENCE_MUTATION } from "../EvidenceView/queries";
-import { removeRecords, ThunkDispatcher } from "./actions";
+import { REMOVE_EVIDENCE_MUTATION, UPDATE_EVIDENCE_MUTATION } from "../EvidenceView/queries";
 import { GET_FINDING_RECORDS } from "./queries";
 
-type IRecordsViewBaseProps = Pick<RouteComponentProps<{ findingId: string }>, "match">;
-
-interface IRecordsViewDispatchProps {
-  onRemove(): void;
-}
-
-type IRecordsViewProps = IRecordsViewBaseProps & IRecordsViewDispatchProps;
-
-const renderRemoveField: ((arg1: IRecordsViewProps) => JSX.Element) = (props: IRecordsViewProps): JSX.Element => {
-  const handleRemoveClick: (() => void) = (): void => {
-    mixpanel.track("RemoveRecords", {
-      Organization: (window as Window & { userOrganization: string }).userOrganization,
-      User: (window as Window & { userName: string }).userName,
-    });
-    props.onRemove();
-  };
-
-  return (
-    <Row>
-      <Col md={4} mdOffset={6} xs={12} sm={12} />
-      <Col sm={2}>
-        <Button
-          bsStyle="primary"
-          block={true}
-          onClick={handleRemoveClick}
-        >
-          <FluidIcon icon="delete" />
-          &nbsp;{translate.t("search_findings.tab_evidence.remove")}
-        </Button>
-      </Col>
-    </Row>
-  );
-};
+type IRecordsViewProps = RouteComponentProps<{ findingId: string }>;
 
 export const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX.Element => {
   const { findingId } = props.match.params;
@@ -164,18 +131,51 @@ export const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProp
                   }}
                 </Mutation>
               ) : undefined}
-              {isEditing && JSON.parse(data.finding.records).length > 0 ? renderRemoveField(props) : undefined}
+              {isEditing && !_.isEmpty(JSON.parse(data.finding.records)) ? (
+                <Mutation mutation={REMOVE_EVIDENCE_MUTATION} onCompleted={handleUpdateResult}>
+                  {(removeRecords: MutationFn, removeRes: MutationResult): React.ReactNode => {
+                    const handleRemoveClick: (() => void) = (): void => {
+                      mixpanel.track("RemoveRecords", {
+                        Organization: (window as Window & { userOrganization: string }).userOrganization,
+                        User: (window as Window & { userName: string }).userName,
+                      });
+                      setEditing(false);
+                      showPreloader();
+                      removeRecords({ variables: { evidenceId: "8", findingId } })
+                        .catch();
+                    };
+
+                    return (
+                      <Row>
+                        <Col md={2} mdOffset={10}>
+                          <Button onClick={handleRemoveClick} block={true} disabled={removeRes.loading}>
+                            <FluidIcon icon="delete" />
+                            &nbsp;{translate.t("search_findings.tab_evidence.remove")}
+                          </Button>
+                        </Col>
+                      </Row>
+                    );
+                  }}
+                </Mutation>
+              ) : undefined}
               <Row>
-                <DataTableNext
-                  bordered={true}
-                  dataset={JSON.parse(data.finding.records)}
-                  exportCsv={false}
-                  headers={[]}
-                  id="tblRecords"
-                  pageSize={15}
-                  remote={false}
-                  search={false}
-                />
+                {_.isEmpty(JSON.parse(data.finding.records)) ? (
+                  <div className={globalStyle.noData}>
+                    <Glyphicon glyph="list" />
+                    <p>{translate.t("project.findings.records.no_data")}</p>
+                  </div>
+                ) : (
+                    <DataTableNext
+                      bordered={true}
+                      dataset={JSON.parse(data.finding.records)}
+                      exportCsv={false}
+                      headers={[]}
+                      id="tblRecords"
+                      pageSize={15}
+                      remote={false}
+                      search={false}
+                    />
+                  )}
               </Row>
             </React.Fragment>
           );
@@ -185,16 +185,4 @@ export const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProp
   );
 };
 
-const mapDispatchToProps: MapDispatchToProps<IRecordsViewDispatchProps, IRecordsViewBaseProps> =
-  (dispatch: ThunkDispatcher, ownProps: IRecordsViewBaseProps): IRecordsViewDispatchProps => {
-    const { findingId } = ownProps.match.params;
-
-    return ({
-      onRemove: (): void => { dispatch(removeRecords(findingId)); },
-    });
-  };
-
-const connectedRecordsView: ConnectedComponent<React.ComponentType<IRecordsViewProps>, IRecordsViewBaseProps> =
-  connect(undefined, mapDispatchToProps)(recordsView);
-
-export { connectedRecordsView as RecordsView };
+export { recordsView as RecordsView };

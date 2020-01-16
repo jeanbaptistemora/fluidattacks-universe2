@@ -41,7 +41,6 @@ describe.skip("Records view", () => {
   it("should render a component", (): void => {
     const wrapper: ReactWrapper = mount(
       <RecordsView
-        onRemove={jest.fn()}
         {...routePropsMock}
       />,
     );
@@ -57,7 +56,6 @@ describe.skip("Records view", () => {
 
     const wrapper: ShallowWrapper = shallow(
       <RecordsView
-        onRemove={jest.fn()}
         {...routePropsMock}
       />,
     );
@@ -74,7 +72,6 @@ describe.skip("Records view", () => {
   it("should render as readonly", (): void => {
     const wrapper: ShallowWrapper = shallow(
       <RecordsView
-        onRemove={jest.fn()}
         {...routePropsMock}
       />,
     );
@@ -87,7 +84,6 @@ describe.skip("Records view", () => {
   it("should render upload field", (): void => {
     const wrapper: ShallowWrapper = shallow(
       <RecordsView
-        onRemove={jest.fn()}
         {...routePropsMock}
       />,
     );
@@ -100,7 +96,6 @@ describe.skip("Records view", () => {
   it("should render remove field", (): void => {
     const wrapper: ShallowWrapper = shallow(
       <RecordsView
-        onRemove={jest.fn()}
         {...routePropsMock}
       />,
     );
@@ -114,7 +109,6 @@ describe.skip("Records view", () => {
 
     const wrapper: ShallowWrapper = shallow(
       <RecordsView
-        onRemove={jest.fn()}
         {...routePropsMock}
       />,
     );
