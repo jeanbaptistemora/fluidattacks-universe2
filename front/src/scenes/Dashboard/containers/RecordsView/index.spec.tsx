@@ -1,14 +1,22 @@
-import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
+import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 // tslint:disable-next-line: no-import-side-effect
 import "isomorphic-fetch";
 import React from "react";
+// tslint:disable-next-line: no-submodule-imports
+import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
+// tslint:disable-next-line: no-submodule-imports
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
+import wait from "waait";
+import store from "../../../../store";
 import { recordsView as RecordsView } from "./index";
+import { GET_FINDING_RECORDS } from "./queries";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
-describe.skip("Records view", () => {
+describe("FindingRecordsView", () => {
 
   const routePropsMock: RouteComponentProps<{ findingId: string }> = {
     history: {
@@ -28,98 +36,117 @@ describe.skip("Records view", () => {
     match: { isExact: true, params: { findingId: "422286126" }, path: "/", url: "" },
   };
 
-  const dataset: object[] = [
-    { Character: "Cobra Commander", Genre: "action", Release: "2013", Title: "G.I. Joe: Retaliation" },
-    { Character: "Tony Stark", Genre: "action", Release: "2008", Title: "Iron Man" },
-  ];
+  const mocks: ReadonlyArray<MockedResponse> = [{
+    request: {
+      query: GET_FINDING_RECORDS,
+      variables: { findingId: "422286126" },
+    },
+    result: {
+      data: {
+        finding: {
+          id: "422286126",
+          records: JSON.stringify([
+            { Character: "Cobra Commander", Genre: "action", Release: "2013", Title: "G.I. Joe: Retaliation" },
+            { Character: "Tony Stark", Genre: "action", Release: "2008", Title: "Iron Man" },
+          ]),
+        },
+      },
+    },
+  }];
 
   it("should return a function", (): void => {
     expect(typeof (RecordsView))
       .toEqual("function");
   });
 
-  it("should render a component", (): void => {
+  it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
-      <RecordsView
-        {...routePropsMock}
-      />,
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <RecordsView {...routePropsMock} />
+      </MockedProvider>,
     );
+    await act(async () => { await wait(0); wrapper.update(); });
     const table: ReactWrapper = wrapper.find("BootstrapTable");
     expect(table)
       .toHaveLength(1);
     expect(table.find("HeaderCell"))
-      .toHaveLength(Object.keys(dataset[0]).length - 1);
+      .toHaveLength(4);
   });
 
-  it("should render as editable", (): void => {
-    const handleEditClick: jest.Mock = jest.fn();
-
-    const wrapper: ShallowWrapper = shallow(
-      <RecordsView
-        {...routePropsMock}
-      />,
+  it("should render as editable", async () => {
+    (window as typeof window & { userRole: string }).userRole = "analyst";
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <RecordsView {...routePropsMock} />
+        </MockedProvider>
+      </Provider>,
     );
-    const editButton: ShallowWrapper = wrapper.find("button")
-      .findWhere((element: ShallowWrapper) => element.contains("Edit"))
+    await act(async () => { await wait(0); wrapper.update(); });
+    const editButton: ReactWrapper = wrapper.find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Edit"))
       .at(0);
     expect(editButton)
       .toHaveLength(1);
     editButton.simulate("click");
-    expect(handleEditClick.mock.calls.length)
-      .toEqual(1);
+    expect(wrapper.contains("Update"))
+      .toBe(true);
   });
 
-  it("should render as readonly", (): void => {
-    const wrapper: ShallowWrapper = shallow(
-      <RecordsView
-        {...routePropsMock}
-      />,
+  it("should render as readonly", async () => {
+    (window as typeof window & { userRole: string }).userRole = "customer";
+    const wrapper: ReactWrapper = mount(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <RecordsView {...routePropsMock} />
+      </MockedProvider>,
     );
-    expect(wrapper.find("button")
-      .findWhere((element: ShallowWrapper) => element.contains("Edit"))
-      .at(0))
-      .toHaveLength(0);
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(wrapper.contains("Edit"))
+      .toBe(false);
   });
 
-  it("should render upload field", (): void => {
-    const wrapper: ShallowWrapper = shallow(
-      <RecordsView
-        {...routePropsMock}
-      />,
+  it("should render delete button", async () => {
+    (window as typeof window & { userRole: string }).userRole = "analyst";
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <RecordsView {...routePropsMock} />
+        </MockedProvider>
+      </Provider>,
     );
-    expect(wrapper.find("button")
-      .findWhere((element: ShallowWrapper) => element.contains("Update"))
-      .at(0))
+    await act(async () => { await wait(0); wrapper.update(); });
+    const editButton: ReactWrapper = wrapper.find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Edit"))
+      .at(0);
+    expect(editButton)
       .toHaveLength(1);
+    editButton.simulate("click");
+    expect(wrapper.contains("Delete"))
+      .toBe(true);
   });
 
-  it("should render remove field", (): void => {
-    const wrapper: ShallowWrapper = shallow(
-      <RecordsView
-        {...routePropsMock}
-      />,
+  it("should render empty UI", async () => {
+    const emptyMocks: ReadonlyArray<MockedResponse> = [{
+      request: {
+        query: GET_FINDING_RECORDS,
+        variables: { findingId: "422286126" },
+      },
+      result: {
+        data: {
+          finding: {
+            id: "422286126",
+            records: "[]",
+          },
+        },
+      },
+    }];
+    const wrapper: ReactWrapper = mount(
+      <MockedProvider mocks={emptyMocks} addTypename={false}>
+        <RecordsView {...routePropsMock} />
+      </MockedProvider>,
     );
-    expect(wrapper.find("button")
-      .findWhere((element: ShallowWrapper) => element.contains("Delete"))
-      .at(0))
-      .toHaveLength(1);
-  });
-
-  it("should change edit mode", (): void => {
-
-    const wrapper: ShallowWrapper = shallow(
-      <RecordsView
-        {...routePropsMock}
-      />,
-    );
-    expect(wrapper.find("button")
-      .findWhere((element: ShallowWrapper) => element.contains("Update"))
-      .at(0))
-      .toHaveLength(0);
-    wrapper.setProps({ isEditing: true });
-    expect(wrapper.find("button")
-      .findWhere((element: ShallowWrapper) => element.contains("Update"))
-      .at(0))
-      .toHaveLength(1);
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(wrapper.text())
+      .toContain("There are no records");
   });
 });
