@@ -1,5 +1,5 @@
 resource "aws_iam_user" "integrates-prod" {
-  name = "integrates-prod"
+  name = var.user-name
   path = "/user-provision/"
 }
 
