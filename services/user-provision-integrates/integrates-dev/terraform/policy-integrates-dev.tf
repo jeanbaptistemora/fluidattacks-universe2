@@ -13,28 +13,16 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
   statement {
     effect = "Allow"
     actions = [
-      "s3:GetObject",
       "s3:PutObject",
-      "s3:ListObjects"
+      "s3:ListBucket",
+      "s3:GetObject"
     ]
     resources = [
-      "arn:aws:s3:::fluidattacks-terraform-states-dev/*",
       "arn:aws:s3:::servestf/integrates.tfstate",
-      "arn:aws:s3:::servestf"
+      "arn:aws:s3:::servestf",
+      "arn:aws:s3:::fluidattacks-terraform-states-dev",
+      "arn:aws:s3:::fluidattacks-terraform-states-dev/*"
     ]
-  }
-  statement {
-    effect = "Allow"
-    actions = [
-      "s3:GetBucketLocation",
-      "s3:ListAllMyBuckets"
-    ]
-    resources = ["*"]
-  }
-  statement {
-    effect    = "Allow"
-    actions   = ["s3:ListBucket"]
-    resources = ["arn:aws:s3:::fluidattacks-terraform-states-dev"]
   }
 
   # IAM
@@ -97,19 +85,22 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
   statement {
     effect = "Allow"
     actions = [
+      "kms:UntagResource",
+      "kms:TagResource",
+      "kms:List*",
+      "kms:Get*",
+      "kms:Describe*",
       "kms:CreateKey",
-      "kms:ListAliases",
       "kms:CreateAlias",
       "kms:UpdateAlias"
     ]
-    resources = [
-      "*"
-    ]
+    resources = ["*"]
   }
   statement {
     effect  = "Allow"
     actions = ["kms:*"]
     resources = [
+      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/fi_binaryalert*",
       "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/integrates-dev-*"
     ]
   }

@@ -20,18 +20,8 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     resources = [
       "arn:aws:s3:::servestf/integrates.tfstate",
       "arn:aws:s3:::servestf",
-      "arn:aws:s3:::fluidattacks-terraform-states-prod"
-    ]
-  }
-  statement {
-    effect = "Allow"
-    actions = [
-      "s3:GetObject",
-      "s3:PutObject",
-      "s3:ListObjects"
-    ]
-    resources = [
-      "arn:aws:s3:::fluidattacks-terraform-states-prod/*",
+      "arn:aws:s3:::fluidattacks-terraform-states-prod",
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/*"
     ]
   }
 
@@ -100,7 +90,9 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "kms:List*",
       "kms:Get*",
       "kms:Describe*",
-      "kms:CreateKey"
+      "kms:CreateKey",
+      "kms:CreateAlias",
+      "kms:UpdateAlias"
     ]
     resources = ["*"]
   }

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-user_provision_integrates_terraform_plan() {
+user_provision_integrates_dev_terraform_plan() {
 
   # Plan user-provision-integrates/integrates-dev infra using terraform
 
@@ -16,4 +16,4 @@ user_provision_integrates_terraform_plan() {
 
 }
 
-user_provision_integrates_terraform_plan
+user_provision_integrates_dev_terraform_plan

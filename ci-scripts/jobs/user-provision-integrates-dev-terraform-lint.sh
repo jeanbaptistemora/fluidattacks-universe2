@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-user_provision_integrates_terraform_lint() {
+user_provision_integrates_dev_terraform_lint() {
 
   # Run tflint on user-provision-integrates/integrates-dev terraform folder
 
@@ -15,4 +15,4 @@ user_provision_integrates_terraform_lint() {
 
 }
 
-user_provision_integrates_terraform_lint
+user_provision_integrates_dev_terraform_lint

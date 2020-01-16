@@ -469,32 +469,63 @@ break-build-terraform-plan:
   except:
     - schedules
 
-user-provision-integrates-terraform-lint:
+user-provision-integrates-prod-terraform-lint:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/user-provision-integrates-terraform-lint.sh
+    - ./ci-scripts/jobs/user-provision-integrates-prod-terraform-lint.sh
   except:
     - schedules
 
-user-provision-integrates-terraform-plan:
+user-provision-integrates-prod-terraform-plan:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/user-provision-integrates-terraform-plan.sh
+    - ./ci-scripts/jobs/user-provision-integrates-prod-terraform-plan.sh
   except:
     - schedules
 
-user-provision-integrates-terraform-apply:
+user-provision-integrates-prod-terraform-apply:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: deploy
   script:
-    - ./ci-scripts/jobs/user-provision-integrates-terraform-apply.sh
+    - ./ci-scripts/jobs/user-provision-integrates-prod-terraform-apply.sh
+  only:
+    - master
+  except:
+    - schedules
+
+user-provision-integrates-dev-terraform-lint:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: test
+  needs: [build-builder]
+  script:
+    - ./ci-scripts/jobs/user-provision-integrates-dev-terraform-lint.sh
+  except:
+    - schedules
+
+user-provision-integrates-dev-terraform-plan:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: test
+  needs: [build-builder]
+  script:
+    - ./ci-scripts/jobs/user-provision-integrates-dev-terraform-plan.sh
+  except:
+    - schedules
+
+user-provision-integrates-dev-terraform-apply:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: deploy
+  script:
+    - ./ci-scripts/jobs/user-provision-integrates-dev-terraform-apply.sh
   only:
     - master
   except:
@@ -557,37 +588,6 @@ analytics-terraform-apply:
   stage: deploy
   script:
     - ./ci-scripts/jobs/analytics-terraform-apply.sh
-  only:
-    - master
-  except:
-    - schedules
-
-integrates-prod-terraform-lint:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - ./ci-scripts/jobs/integrates-prod-terraform-lint.sh
-  except:
-    - schedules
-
-integrates-prod-terraform-plan:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - ./ci-scripts/jobs/integrates-prod-terraform-plan.sh
-  except:
-    - schedules
-
-integrates-prod-terraform-apply:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: deploy
-  script:
-    - ./ci-scripts/jobs/integrates-prod-terraform-apply.sh
   only:
     - master
   except:

@@ -13,7 +13,7 @@ resource "aws_iam_role_policy_attachment" "integrates-dev-dynamo-full-access" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
 }
 
-resource "aws_iam_role_policy_attachment" "integrates-dev-cloudwatch-actions" {
+resource "aws_iam_role_policy_attachment" "integrates-dev" {
   role       = aws_iam_role.integrates-dev.name
   policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/integrates-dev-policy"
 }

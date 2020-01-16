@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-integrates_prod_terraform_apply() {
+user_provision_integrates_prod_terraform_apply() {
 
-  # Deploy user-provision-integrates/integrates-dev infra using terraform
+  # Deploy user-provision-integrates/integrates-prod infra using terraform
 
   set -e
 
@@ -16,4 +16,4 @@ integrates_prod_terraform_apply() {
 
 }
 
-integrates_prod_terraform_apply
+user_provision_integrates_prod_terraform_apply

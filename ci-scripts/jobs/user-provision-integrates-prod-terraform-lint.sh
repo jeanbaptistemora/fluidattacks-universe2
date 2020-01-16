@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-integrates_prod_terraform_lint() {
+user_provision_integrates_prod_terraform_lint() {
 
-  # Run tflint on sops terraform folder
+  # Run tflint on user-provision/integrates-prod/terraform folder
 
   set -e
 
@@ -15,4 +15,4 @@ integrates_prod_terraform_lint() {
 
 }
 
-integrates_prod_terraform_lint
+user_provision_integrates_prod_terraform_lint
