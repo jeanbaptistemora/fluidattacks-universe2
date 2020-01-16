@@ -1,27 +1,21 @@
-/* tslint:disable jsx-no-multiline-js
- * Disabling this rule is necessary for the sake of readability
- * of the code that renders the timeline items
+/* tslint:disable:jsx-no-multiline-js
+ *
+ * Disabling this rule is necessary for accessing render props from
+ * apollo components
  */
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
-import React, { ComponentType } from "react";
+import React from "react";
+import { Query, QueryResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
-import { AnyAction, Reducer } from "redux";
-import { ThunkDispatch } from "redux-thunk";
-import { StateType } from "typesafe-actions";
-import store from "../../../../store/index";
-import reduxWrapper from "../../../../utils/reduxWrapper";
+import { RouteComponentProps } from "react-router";
 import translate from "../../../../utils/translations/translate";
 import { TrackingItem } from "../../components/TrackingItem";
 import { VulnerabilitiesView } from "../../components/Vulnerabilities/index";
-import * as actions from "./actions";
 import { default as style } from "./index.css";
+import { GET_FINDING_TRACKING } from "./queries";
 
-export interface ITrackingViewProps {
-  closings: IClosing[];
-  findingId: string;
-  userRole: string;
-}
+type TrackingViewProps = RouteComponentProps<{ findingId: string }>;
 
 export interface IClosing {
   closed: number;
@@ -31,59 +25,59 @@ export interface IClosing {
   open: number;
 }
 
-const mapStateToProps: ((arg1: StateType<Reducer>) => ITrackingViewProps) =
-  (state: StateType<Reducer>): ITrackingViewProps =>
-  ({
-    ...state,
-    closings: state.dashboard.tracking.closings,
-  });
+export const trackingView: React.FC<TrackingViewProps> = (props: TrackingViewProps): JSX.Element => {
+  const { findingId } = props.match.params;
 
-export const trackingViewComponent: React.FC<ITrackingViewProps> = (props: ITrackingViewProps): JSX.Element => {
   const onMount: (() => void) = (): void => {
     mixpanel.track("FindingTracking", {
       Organization: (window as Window & { userOrganization: string }).userOrganization,
       User: (window as Window & { userName: string }).userName,
     });
-    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-    );
-    thunkDispatch(actions.loadTracking(props.findingId));
   };
   React.useEffect(onMount, []);
 
+  const { userRole } = (window as typeof window & { userRole: string });
+
   return (
     <React.StrictMode>
+      <Query query={GET_FINDING_TRACKING} variables={{ findingId }}>
+        {({ data, loading }: QueryResult): JSX.Element => {
+          if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+
+          return (
         <React.Fragment>
           <Row>
             <Col md={12}>
-              { _.includes(["admin", "analyst"], props.userRole) ?
+              {_.includes(["admin", "analyst"], userRole) ?
               <Row>
                 <Col md={2} className={style.text_right}>
-                  <label className={style.track_title}>{translate.t("search_findings.tab_tracking.pending")}</label>
+                  <label className={style.track_title}>
+                    {translate.t("search_findings.tab_tracking.pending")}
+                  </label>
                 </Col>
                 <Col md={10}>
                   <VulnerabilitiesView
-                    analyst={_.includes(["admin", "analyst"], props.userRole)}
+                    analyst={_.includes(["admin", "analyst"], userRole)}
                     editMode={false}
                     editModePending={true}
-                    state={"PENDING"}
-                    findingId={props.findingId}
-                    userRole={props.userRole}
+                    state="PENDING"
+                    findingId={findingId}
+                    userRole={userRole}
                   />
                 </Col>
               </Row>
-              : undefined }
+                : undefined}
               <Row>
                 <Col md={2} className={style.text_right}>
                   <label className={style.track_title}>{translate.t("search_findings.tab_tracking.open")}</label>
                 </Col>
                 <Col md={10}>
                   <VulnerabilitiesView
-                    analyst={_.includes(["admin", "analyst"], props.userRole)}
+                    analyst={_.includes(["admin", "analyst"], userRole)}
                     editMode={false}
-                    findingId={props.findingId}
-                    state={"open"}
-                    userRole={props.userRole}
+                    findingId={findingId}
+                    state="open"
+                    userRole={userRole}
                   />
                 </Col>
               </Row>
@@ -93,11 +87,11 @@ export const trackingViewComponent: React.FC<ITrackingViewProps> = (props: ITrac
                 </Col>
                 <Col md={10}>
                   <VulnerabilitiesView
-                    analyst={_.includes(["admin", "analyst"], props.userRole)}
+                    analyst={_.includes(["admin", "analyst"], userRole)}
                     editMode={false}
-                    findingId={props.findingId}
-                    state={"closed"}
-                    userRole={props.userRole}
+                    findingId={findingId}
+                    state="closed"
+                    userRole={userRole}
                   />
                 </Col>
               </Row>
@@ -106,12 +100,12 @@ export const trackingViewComponent: React.FC<ITrackingViewProps> = (props: ITrac
         <Row>
           <Col mdOffset={3} md={9} sm={12}>
             <ul className={style.timelineContainer}>
-              {props.closings.map((closing: IClosing, index: number): JSX.Element => (
+              {data.finding.tracking.map((closing: IClosing, index: number): JSX.Element => (
                 <TrackingItem
                   closed={closing.closed}
+                  cycle={closing.cycle}
                   date={closing.date}
                   effectiveness={closing.effectiveness}
-                  isRoot={index === 0}
                   key={index}
                   open={closing.open}
                 />
@@ -119,13 +113,12 @@ export const trackingViewComponent: React.FC<ITrackingViewProps> = (props: ITrac
             </ul>
           </Col>
         </Row>
-      </React.Fragment>
+        </React.Fragment>
+          );
+        }}
+      </Query>
     </React.StrictMode>
   );
 };
 
-export const trackingView: ComponentType<ITrackingViewProps> = reduxWrapper
-(
-  trackingViewComponent,
-  mapStateToProps,
-);
+export { trackingView as TrackingView };

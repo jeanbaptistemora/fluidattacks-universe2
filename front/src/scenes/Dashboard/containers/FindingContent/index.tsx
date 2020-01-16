@@ -33,7 +33,7 @@ import { ExploitView } from "../ExploitView/index";
 import { loadProjectData } from "../ProjectContent/actions";
 import { RecordsView } from "../RecordsView/index";
 import { severityView as SeverityView } from "../SeverityView/index";
-import { trackingView as TrackingView } from "../TrackingView/index";
+import { TrackingView } from "../TrackingView/index";
 import {
   approveDraft, clearFindingState, deleteFinding, loadFindingData, rejectDraft, ThunkDispatcher,
 } from "./actions";
@@ -71,10 +71,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
 
   const renderSeverity: (() => JSX.Element) = (): JSX.Element => (
     <SeverityView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />
-  );
-
-  const renderTracking: (() => JSX.Element) = (): JSX.Element => (
-    <TrackingView findingId={findingId} hasNewVulnerabilities={true} userRole={userRole} {...reduxProps} />
   );
 
   const canGetHistoricState: boolean = _.includes(["analyst", "admin"], props.userRole);
@@ -238,7 +234,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                   <Route path={`${props.match.path}/severity`} render={renderSeverity} exact={true} />
                   <Route path={`${props.match.path}/evidence`} component={EvidenceView} exact={true} />
                   <Route path={`${props.match.path}/exploit`} component={ExploitView} exact={true} />
-                  <Route path={`${props.match.path}/tracking`} render={renderTracking} exact={true} />
+                  <Route path={`${props.match.path}/tracking`} component={TrackingView} exact={true} />
                   <Route path={`${props.match.path}/records`} component={RecordsView} exact={true} />
                   <Route
                     path={`${props.match.path}/:type(comments|observations)`}

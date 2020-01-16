@@ -14,8 +14,6 @@ import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 import * as resourcesActions from "./containers/ResourcesView/actionTypes";
 import * as severityActions from "./containers/SeverityView/actionTypes";
 import { ISeverityViewProps } from "./containers/SeverityView/types";
-import * as trackingActions from "./containers/TrackingView/actionTypes";
-import { ITrackingViewProps } from "./containers/TrackingView/index";
 
 export interface IDashboardState {
   addUserModal: { addUserOpen: boolean };
@@ -98,7 +96,6 @@ export interface IDashboardState {
       open: boolean;
     };
   };
-  tracking: Pick<ITrackingViewProps, "closings">;
   updateAccessTokenModal: { open: boolean };
   user: {
     displayPreference: "grid" | "list";
@@ -253,9 +250,6 @@ const initialState: IDashboardState = {
     tagsModal: {
       open: false,
     },
-  },
-  tracking: {
-    closings: [],
   },
   updateAccessTokenModal: { open: false },
   user: {
@@ -552,15 +546,6 @@ actionMap[usersActions.CLOSE_USERS_MDL] =
     },
   });
 
-actionMap[trackingActions.LOAD_TRACKING] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    tracking: {
-      closings: action.payload.closings,
-    },
-  });
-
 actionMap[severityActions.EDIT_SEVERITY] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
@@ -704,7 +689,6 @@ actionMap[findingActions.CLEAR_FINDING_STATE] =
       finding: initialState.finding,
       records: initialState.records,
       severity: initialState.severity,
-      tracking: initialState.tracking,
     });
 
 actionMap[findingActions.UPDATE_FINDING_HEADER] =
