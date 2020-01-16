@@ -6,10 +6,6 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React, { ComponentType } from "react";
 import { Col, Row } from "react-bootstrap";
-import {
-  InferableComponentEnhancer,
-  lifecycle,
-} from "recompose";
 import { AnyAction, Reducer } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
@@ -42,26 +38,20 @@ const mapStateToProps: ((arg1: StateType<Reducer>) => ITrackingViewProps) =
     closings: state.dashboard.tracking.closings,
   });
 
-const enhance: InferableComponentEnhancer<{}> =
-lifecycle({
-  componentDidMount(): void {
-    mixpanel.track(
-      "FindingTracking",
-      {
-        Organization: (window as Window & { userOrganization: string }).userOrganization,
-        User: (window as Window & { userName: string }).userName,
-      });
-    const { findingId } = this.props as ITrackingViewProps;
+export const trackingViewComponent: React.FC<ITrackingViewProps> = (props: ITrackingViewProps): JSX.Element => {
+  const onMount: (() => void) = (): void => {
+    mixpanel.track("FindingTracking", {
+      Organization: (window as Window & { userOrganization: string }).userOrganization,
+      User: (window as Window & { userName: string }).userName,
+    });
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
       store.dispatch as ThunkDispatch<{}, {}, AnyAction>
     );
+    thunkDispatch(actions.loadTracking(props.findingId));
+  };
+  React.useEffect(onMount, []);
 
-    thunkDispatch(actions.loadTracking(findingId));
-  },
-});
-
-export const trackingViewComponent: React.FunctionComponent<ITrackingViewProps> =
-  (props: ITrackingViewProps): JSX.Element => (
+  return (
     <React.StrictMode>
         <React.Fragment>
           <Row>
@@ -121,11 +111,9 @@ export const trackingViewComponent: React.FunctionComponent<ITrackingViewProps> 
                   closed={closing.closed}
                   date={closing.date}
                   effectiveness={closing.effectiveness}
+                  isRoot={index === 0}
                   key={index}
                   open={closing.open}
-                  title={index > 0
-                    ? `${translate.t("search_findings.tab_tracking.cycle")}: ${closing.cycle}`
-                    : translate.t("search_findings.tab_tracking.founded")}
                 />
               ))}
             </ul>
@@ -133,10 +121,11 @@ export const trackingViewComponent: React.FunctionComponent<ITrackingViewProps> 
         </Row>
       </React.Fragment>
     </React.StrictMode>
-);
+  );
+};
 
 export const trackingView: ComponentType<ITrackingViewProps> = reduxWrapper
 (
-  enhance(trackingViewComponent) as React.FunctionComponent<ITrackingViewProps>,
+  trackingViewComponent,
   mapStateToProps,
 );

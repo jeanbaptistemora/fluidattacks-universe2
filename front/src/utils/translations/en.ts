@@ -671,7 +671,7 @@ const enTranslations: Dictionary = {
       closed: "Closed",
       cycle: "Cycle",
       effectiveness: "Effectiveness",
-      founded: "Found",
+      found: "Found",
       open: "Open",
       pending: "Pending",
       tab_title: "Tracking",
