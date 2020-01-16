@@ -32,8 +32,15 @@ setup(
     long_description=_get_readme(),
     version=_get_version(),
     url='https://fluidattacks.com/web/products/asserts',
-    project_urls={'Documentation': 'https://fluidattacks.gitlab.io/asserts/'},
-    package_data={'': ['conf/conf.cfg', 'conf/conf.spec']},
+    project_urls={
+      'Documentation': 'https://fluidattacks.gitlab.io/asserts/',
+    },
+    package_data={
+      'fluidasserts': [
+        'conf/conf.cfg',
+        'conf/conf.spec',
+      ],
+    },
     author='Fluid Attacks Engineering Team',
     author_email='engineering@fluidattacks.com',
     packages=[
@@ -71,10 +78,15 @@ setup(
     install_requires=[
         'aiohttp==3.6.2',              # fluidasserts
         'androguard==3.3.5',           # fluidasserts.format.apk
-        'azure==4.0.0',                # fluidasserts.cloud.azure
         'azure-identity==1.1.0',       # fluidasserts.cloud.azure.key_vaults
         'azure-keyvault-keys==4.0.0',  # fluidasserts.cloud.azure.key_vaults
         'azure-keyvault-secrets==4.0.0',  # fluidasserts.cloud.azure.key_vaults
+        'azure-mgmt-compute==10.0.0',  # fluidasserts.cloud.azure
+        'azure-mgmt-keyvault==2.0.0',  # fluidasserts.cloud.azure
+        'azure-mgmt-network==8.0.0',   # fluidasserts.cloud.azure
+        'azure-mgmt-storage==7.1.0',   # fluidasserts.cloud.azure
+        'azure-mgmt-web==0.44.0',      # fluidasserts.cloud.azure.app_services
+        'azure-storage-file==2.1.0',   # fluidasserts.cloud.azure
         'azure-storage-file-share==12.0.0',  # fluidasserts.cloud.azure.storage_accounts
         'bandit==1.6.2',               # fluidasserts.lang.python
         'bcrypt==3.1.7',               # fluidasserts.proto.ssl
@@ -103,7 +115,6 @@ setup(
         'pillow==6.2.1',               # fluidasserts.format.captcha
         'psycopg2==2.8.4',             # fluidasserts.db.postgresql
         'pyopenssl==19.1.0',           # fluidasserts.proto.ssl
-        'pycrypto==2.6.1; platform_system == "Linux"',
         'pygments==2.5.2',             # fluidasserts
         'pyjks==19.0.0',               # fluidasserts.format.jks
         'pyjwt==1.7.1',                # fluidasserts.format.jwt

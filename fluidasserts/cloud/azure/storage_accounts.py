@@ -129,7 +129,7 @@ def blob_containers_are_public(client_id: str, secret: str, tenant: str,
     for account in storage_accounts:
         group_name = account.id.split('/')[4]
         blob_containers = storage.blob_containers.list(group_name,
-                                                       account.name).value
+                                                       account.name)
         for container in blob_containers:
             (vulns if container.public_access != 'None' else safes).append(
                 (container.id, 'does not allow public access to containers.'))
