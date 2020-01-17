@@ -229,8 +229,12 @@ def send_mail_remediate_finding(email_to, context):
 
 def send_mail_comment(email_to, context):
     _send_mail('new-comment',
-               email_to,
-               context=context,
+               email_to[0],
+               context=context[0],
+               tags=COMMENTS_TAG)
+    _send_mail('new-comment',
+               email_to[1],
+               context=context[1],
                tags=COMMENTS_TAG)
 
 
