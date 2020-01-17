@@ -475,7 +475,8 @@ user-provision-integrates-prod-terraform-lint:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/user-provision-integrates-prod-terraform-lint.sh
+    - . ci-scripts/jobs/user-provision-integrates-prod.sh
+    - user_provision_integrates_prod_terraform_lint
   except:
     - schedules
 
@@ -485,7 +486,8 @@ user-provision-integrates-prod-terraform-plan:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/user-provision-integrates-prod-terraform-plan.sh
+    - . ci-scripts/jobs/user-provision-integrates-prod.sh
+    - user_provision_integrates_prod_terraform_plan
   except:
     - schedules
 
@@ -494,7 +496,8 @@ user-provision-integrates-prod-terraform-apply:
   tags: [autoscaling]
   stage: deploy
   script:
-    - ./ci-scripts/jobs/user-provision-integrates-prod-terraform-apply.sh
+    - . ci-scripts/jobs/user-provision-integrates-prod.sh
+    - user_provision_integrates_prod_terraform_apply
   only:
     - master
   except:
@@ -506,7 +509,8 @@ user-provision-integrates-dev-terraform-lint:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/user-provision-integrates-dev-terraform-lint.sh
+    - . ci-scripts/jobs/user-provision-integrates-dev.sh
+    - user_provision_integrates_dev_terraform_lint
   except:
     - schedules
 
@@ -516,7 +520,8 @@ user-provision-integrates-dev-terraform-plan:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/user-provision-integrates-dev-terraform-plan.sh
+    - . ci-scripts/jobs/user-provision-integrates-dev.sh
+    - user_provision_integrates_dev_terraform_plan
   except:
     - schedules
 
@@ -525,7 +530,8 @@ user-provision-integrates-dev-terraform-apply:
   tags: [autoscaling]
   stage: deploy
   script:
-    - ./ci-scripts/jobs/user-provision-integrates-dev-terraform-apply.sh
+    - . ci-scripts/jobs/user-provision-integrates-dev.sh
+    - user_provision_integrates_dev_terraform_apply
   only:
     - master
   except:
