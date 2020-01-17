@@ -16,7 +16,7 @@ for (i = 0; i < defendscat.length; i++) {
     if (defendspanel.style.maxHeight){
       defendspanel.style.maxHeight = null;
     } else {
-      defendspanel.style.maxHeight = defendspanel.scrollHeight + "px";
+      defendspanel.style.maxHeight = "fit-content";
     }
   });
 }
@@ -32,7 +32,7 @@ $(document).ready(function () {
     if (defendspanel.style.maxHeight){
       defendspanel.style.maxHeight = null;
     } else {
-      defendspanel.style.maxHeight = defendspanel.scrollHeight + "px";
+      defendspanel.style.maxHeight = "fit-content";
     }
   }
 });
