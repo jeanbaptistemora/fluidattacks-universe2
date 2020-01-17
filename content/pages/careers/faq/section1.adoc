@@ -6,161 +6,187 @@
 
 = Before Entering
 
-=== Applied to Applicants
+==== 1. I already applied in a job portal.
 
-[qanda]
+*Why haven't I been invited to the process?*
 
-*I already applied in a job portal.*::
-*Why haven't I been invited to the process?*::
-  After you apply to a vacancy
-  listed on any of the portals we are registered in,
-  it takes from +1+ to +2+ days for us to identify potential candidates,
-  classify them, and send invitations via email.
-  If you apply and have not received an invitation
-  or other notification after 2 consecutive business days,
-  and you believe your profile fits the vacancy,
-  send us an email query at careers@autonomicmind.com.
+After you apply to a vacancy
+listed on any of the portals we are registered in,
+it takes from +1+ to +2+ days for us to identify potential candidates,
+classify them, and send invitations via email.
+If you apply and have not received an invitation
+or other notification after 2 consecutive business days,
+and you believe your profile fits the vacancy,
+send us an email query at careers@autonomicmind.com.
 
-*The test application won't allow me to exit Moodle. What should I do?*::
-  If you already finished the exam,
-  click the button located on the lower right side of the screen to exit.
-  If this doesn’t work, try restarting your machine.
-  Don’t worry, you have already sent the test
-  and there won’t be any data loss.
+==== 2. The test application won't allow me to exit Moodle. What should I do?
 
-*I don't have a RUT. How can I complete the third party form?*::
-  On the link:http://www.dian.gov.co/contenidos/servicios/rut.html[+DIAN+ webpage]
-  you can find out how to get your +RUT+, or how to update it,
-  if you already have one.
+If you already finished the exam,
+click the button located on the lower right side of the screen to exit.
+If this doesn’t work, try restarting your machine.
+Don’t worry, you have already sent the test
+and there won’t be any data loss.
 
-*I don’t know what vacancy I applied for. How can I find out?*::
-  Ask us via email at careers@autonomicmind.com.
+==== 3. I don't have a RUT. How can I complete the third party form?
 
-*If I already applied for a specific vacancy, can I apply again*::
-*using the same application but for different vacancies?*::
-  Yes. If it has not been more than six months,
-  you can send us an email at career@autonomicmind.com
-  telling us you want to apply for a different vacancy
-  using your original application.
-  If it has been more than six months since your last application
-  you cannot use your original application;
-  you must apply again starting at the beginning.
+On the link:http://www.dian.gov.co/contenidos/servicios/rut.html[+DIAN+ webpage]
+you can find out how to get your +RUT+, or how to update it,
+if you already have one.
 
-*Can I apply for two different vacancies at the same time?*::
-  Yes. You can apply for as many vacancies as you believe you qualify for;
-  just send us an email via careers@autonomicmind.com
-  telling us which vacancies you want to apply for.
+==== 4. I don’t know what vacancy I applied for. How can I find out?
 
-*What experience should I already have in order to apply for vacancies?*::
-  You don’t need to have any experience.
-  What is essential is the ability to do research,
-  solve issues, and be capable of teaching yourself.
+Ask us via email at careers@autonomicmind.com.
 
-*What do I need to know to apply for vacancies?*::
-  We look for talented people with great potential and flexibility.
-  It doesn’t matter what your career currently is
-  or if you haven’t graduated yet.
-  What matters is your ability to adapt and follow our philosophy and values.
-  It is preferable if you have experience with programming languages,
-  but it is not mandatory.
-  We value your ability to successfully address a problem,
-  more than your professional degrees.
-  Our selection process is designed to encourage you
-  to acquire knowledge yourself and then use it to problem-solve.
+==== 5. If I already applied for a specific vacancy, can I apply again?
 
-*Does the company offer on-the-job training?*::
-  At +Fluid Attacks+ we do not require work experience,
-  nor do we certify the knowledge you acquire while working with us.
-  We do not offer on-the-job training.
-  It is up to you to acquire the knowledge you may need
-  and have the ability and the capability to overcome technical challenges
-  and successfully complete the immersion stages.
-  We evaluate all your abilities, including the attitude,
-  perseverance, and productivity you exhibit during the selection process
-  since all of these are necessary for any role in our organization.
+*Using the same application but for different vacancies?*
 
-*The application test doesn’t work. What should I do?*::
-  Try executing the test as an administrator.
-  If the problem persists,
-  you should try accessing the test from a different computer.
-  If you still have problems send us an email via careers@autonomicmind.com.
+Yes. If it has not been more than six months,
+you can send us an email at career@autonomicmind.com
+telling us you want to apply for a different vacancy
+using your original application.
+If it has been more than six months since your last application
+you cannot use your original application;
+you must apply again starting at the beginning.
 
-*I didn’t receive the attached file for data analysis. How do I get it?*::
-  Try downloading the file from [inner]#link:../non-technical-challenges/hallazgos-open-data.tar.bz2[here]#.
+==== 6. Can I apply for two different vacancies at the same time?
 
-*I ran out of time for the test. Can I get more time?*::
-   If you have a valid reason
-   (application lockouts, unexpected restarts, connection issues),
-   send us an email at careers@autonomicmind.com
-   explaining what happened
-   and we will tell you how to proceed.
+Yes. You can apply for as many vacancies as you believe you qualify for;
+just send us an email via careers@autonomicmind.com
+telling us which vacancies you want to apply for.
 
-*I couldn’t send my data analysis. What should I do?*::
-  If you believe you have a valid reason
-  for not meeting the data analysis deadline,
-  send us an email at careers@autonomicmind.com
-  telling us why you didn't meet it,
-  and ask for a new delivery date.
+==== 7. What experience should I already have in order to apply for vacancies?
 
-*What should I put in my portfolio?*::
-  You can find instructions and
-  advice for creating your portfolio [inner]#link:../portfolio/[here]#.
+You don’t need to have any experience.
+What is essential is the ability to do research,
+solve issues, and be capable of teaching yourself.
 
-*I do not have a VISA. What should I put in that field?*::
-  This field is not mandatory.
-  Do not fill it in if you don’t have a +VISA+.
+==== 8. What do I need to know to apply for vacancies?
 
-*What should I do after I've finished the character test?*::
- Once the character test is completed,
- you will receive your test results within minutes.
- While you wait, we suggest you go to the next stage
- and begin the knowledge test.
+We look for talented people with great potential and flexibility.
+It doesn’t matter what your career currently is
+or if you haven’t graduated yet.
+What matters is your ability to adapt and follow our philosophy and values.
+It is preferable if you have experience with programming languages,
+but it is not mandatory.
+We value your ability to successfully address a problem,
+more than your professional degrees.
+Our selection process is designed to encourage you
+to acquire knowledge yourself and then use it to problem-solve.
 
-*Do I have to take the polygraph test?*::
-  In most cases, this test is not mandatory during the selection process.
-  However, since our business is information security,
-  it may be necessary for you to take this test
-  depending on the position you are applying for.
+==== 9. Does the company offer on-the-job training?
 
-*Do I have to take the Gallup test?*::
-  This test is only required in certain cases.
-  Please notify us via email when you reach this stage,
-  and we will tell you whether or not you need to take it.
+At +Fluid Attacks+ we do not require work experience,
+nor do we certify the knowledge you acquire while working with us.
+We do not offer on-the-job training.
+It is up to you to acquire the knowledge you may need
+and have the ability and the capability to overcome technical challenges
+and successfully complete the immersion stages.
+We evaluate all your abilities, including the attitude,
+perseverance, and productivity you exhibit during the selection process
+since all of these are necessary for any role in our organization.
 
-*Does this process perform a risk analysis with my data?*::
-  Yes, in the stage before hiring,
-  confirmation is made on the central risk
-  concerning any of your candidate data.
+==== 10. The application test doesn’t work. What should I do?
 
-*I haven’t notified my current employer that I am applying for a job*::
-*with another company. Is the reverse references stage mandatory?*::
-  Because this is an advanced stage in the selection process,
-  yes, it is mandatory.
+Try executing the test as an administrator.
+If the problem persists,
+you should try accessing the test from a different computer.
+If you still have problems send us an email via careers@autonomicmind.com.
 
-*I’m very shy when presenting in public.*::
-*Is it mandatory to do the audition?*::
-  During the selection process this stage is optional.
-  However, if you work at +Fluid Attacks+,
-  we expect you to have excellent communication skills,
-  regardless of the position you are hired for.
+==== 11. I didn’t receive the attached file for data analysis. How do I get it?
 
-*Is it mandatory to complete all of the stages in the process?*::
-  Not necessarily.
-  It depends on the vacancy you applied for and your selection process.
-  We will tell you how to proceed,
-  and as always, if you have any questions, contact us.
+Try downloading the file from [inner]#link:../non-technical-challenges/hallazgos-open-data.tar.bz2[here]#.
 
-*What does "offer validity time" mean?*::
-  It is the length of time +Fluid Attacks+
-  will hold open a job offer made to a specific candidate.
-  If during this time the candidate does not respond
-  with explicit and written acceptance of the job offer,
-  the offer will become invalid.
-  Another candidate will then be offered the job.
-  This allows us to fill vacancies as soon as possible.
+==== 12. I ran out of time for the test. Can I get more time?
 
-*If I do not accept the offer, what happens to my immersion process?*::
-  Your immersion process ends immediately.
-  +Fluid Attacks+ will remove access to all training systems
-  and notify you of the total work hours
-  to be put on your monthly time-worked invoice.
+If you have a valid reason
+(application lockouts, unexpected restarts, connection issues),
+send us an email at careers@autonomicmind.com
+explaining what happened
+and we will tell you how to proceed.
+
+==== 13. I couldn’t send my data analysis. What should I do?
+
+If you believe you have a valid reason
+for not meeting the data analysis deadline,
+send us an email at careers@autonomicmind.com
+telling us why you didn't meet it,
+and ask for a new delivery date.
+
+==== 14. What should I put in my portfolio?
+
+You can find instructions and
+advice for creating your portfolio [inner]#link:../portfolio/[here]#.
+
+==== 15. I do not have a VISA. What should I put in that field?
+
+This field is not mandatory.
+Do not fill it in if you don’t have a +VISA+.
+
+==== 16. What should I do after I've finished the character test?
+
+Once the character test is completed,
+you will receive your test results within minutes.
+While you wait, we suggest you go to the next stage
+and begin the knowledge test.
+
+==== 17. Do I have to take the polygraph test?
+
+In most cases, this test is not mandatory during the selection process.
+However, since our business is information security,
+it may be necessary for you to take this test
+depending on the position you are applying for.
+
+==== 18. Do I have to take the Gallup test?
+
+This test is only required in certain cases.
+Please notify us via email when you reach this stage,
+and we will tell you whether or not you need to take it.
+
+==== 19. Does this process perform a risk analysis with my data?
+
+Yes, in the stage before hiring,
+confirmation is made on the central risk
+concerning any of your candidate data.
+
+==== 20. I haven’t notified my current employer that I am applying for a job
+
+*with another company. Is the reverse references stage mandatory?*
+
+Because this is an advanced stage in the selection process,
+yes, it is mandatory.
+
+==== 21. I’m very shy when presenting in public.
+
+*Is it mandatory to do the audition?*
+
+During the selection process this stage is optional.
+However, if you work at +Fluid Attacks+,
+we expect you to have excellent communication skills,
+regardless of the position you are hired for.
+
+==== 22. Is it mandatory to complete all of the stages in the process?
+
+Not necessarily.
+
+It depends on the vacancy you applied for and your selection process.
+We will tell you how to proceed,
+and as always, if you have any questions, contact us.
+
+==== 23. What does offer validity time mean?
+
+It is the length of time +Fluid Attacks+
+will hold open a job offer made to a specific candidate.
+If during this time the candidate does not respond
+with explicit and written acceptance of the job offer,
+the offer will become invalid.
+Another candidate will then be offered the job.
+This allows us to fill vacancies as soon as possible.
+
+==== 24. If I do not accept the offer, what happens to my immersion process?
+
+Your immersion process ends immediately.
+
++Fluid Attacks+ will remove access to all training systems
+and notify you of the total work hours
+to be put on your monthly time-worked invoice.
