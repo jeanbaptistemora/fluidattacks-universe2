@@ -182,3 +182,47 @@ def has_identity_disabled(client_id: str, secret: str, tenant: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def use_insecure_tls_version(client_id: str, secret: str, tenant: str,
+                             subscription_id: str) -> Tuple:
+    """
+    Check if App Services use an insecure version of TLS.
+
+    App Services currently allows web apps to use TLS versions 1.0, 1.1 and
+    1.2. It is highly recommended to use the latest TLS 1.2 version for web app
+    TLS connections.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if there are App Services that use an insecure a
+                 insecure version of TLS.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Application services use an insecure version of TLS.'
+    msg_closed: str = 'Application services use a secure version of TLS.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    webapps = WebSiteManagementClient(credentials, subscription_id).web_apps
+
+    for web in webapps.list():
+        group_name = web.id.split('/')[4]
+        config = webapps.get_configuration(group_name, web.name)
+        (vulns if config.min_tls_version != '1.2' else safes).append(
+            (web.id, 'set the minimum TLS version to 1.2'))
+
+    return _get_result_as_tuple(
+        objects='App Services',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
