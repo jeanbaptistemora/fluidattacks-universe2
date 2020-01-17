@@ -110,4 +110,24 @@ describe("HomeView", () => {
     expect(wrapper)
       .toHaveLength(1);
   });
+  it("should render a component with new project button", () => {
+    (window as typeof window & { userRole: string }).userRole = "admin";
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocks} addTypename={true}>
+          <HomeView {...mockProps} />
+        </MockedProvider>
+      </Provider>,
+    );
+    const displayList: ReactWrapper = wrapper.find("input[value=\"list\"]");
+    displayList.simulate("change", { target: { checked: true } });
+    const projectButton: ReactWrapper = wrapper
+      .find("Button")
+      .filterWhere((element: ReactWrapper) => element.contains("New Project"));
+    projectButton.simulate("click");
+    expect(projectButton)
+      .toHaveLength(1);
+    expect(wrapper)
+      .toHaveLength(1);
+  });
 });
