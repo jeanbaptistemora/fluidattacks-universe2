@@ -58,10 +58,6 @@ export interface IDashboardState {
       isOpen: boolean;
     };
   };
-  records: {
-    dataset: object[];
-    isEditing: boolean;
-  };
   resources: {
     defaultSort: {
       environments: {};
@@ -209,10 +205,6 @@ const initialState: IDashboardState = {
     reportsModal: {
       isOpen: false,
     },
-  },
-  records: {
-    dataset: [],
-    isEditing: false,
   },
   resources: {
     defaultSort: {
@@ -685,9 +677,7 @@ actionMap[findingActions.CLEAR_FINDING_STATE] =
     ({
       ...state,
       description: initialState.description,
-      evidence: initialState.evidence,
       finding: initialState.finding,
-      records: initialState.records,
       severity: initialState.severity,
     });
 

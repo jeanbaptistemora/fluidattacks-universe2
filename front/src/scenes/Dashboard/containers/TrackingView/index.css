@@ -23,66 +23,6 @@
   margin-left: -1px;
 }
 
-:local .timelineItem {
-  text-align: left !important;
-  position: relative;
-  padding-left: 190px;
-  list-style: none;
-}
-
-:local .timelineItem:before {
-  content: '';
-  position: absolute;
-  top: 34.5px;
-  left: 162px;
-  border: 2px solid #cccccc;
-  width: 16px;
-  height: 16px;
-  background-color: #ededed;
-  border-radius: 50px;
-}
-
-:local .timelineItemRed:before {
-  border-color: #ef6262;
-}
-:local .timelineItemGreen:before {
-  border-color: #7ACCBE;
-}
-
-:local .timelineDate {
-  position: absolute;
-  display: block;
-  left: 0;
-  top: 34px;
-  width: 145px;
-  text-align: right;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-:local .timelineContent {
-  position: relative;
-  background-color: #ffffff;
-  padding: 28px 25px 0px 5px;
-  border-radius: 3px;
-  min-height: 70px;
-}
-
-:local .timelineContent:before {
-  content: "";
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: #fff;
-  -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-       -o-transform: rotate(45deg);
-          transform: rotate(45deg);
-  top: 37.5px;
-  left: -5px;
-}
-
 :local .track_title {
   color: #555555;
   font-weight: bold;

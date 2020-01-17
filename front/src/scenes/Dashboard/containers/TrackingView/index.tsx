@@ -25,7 +25,7 @@ export interface IClosing {
   open: number;
 }
 
-export const trackingView: React.FC<TrackingViewProps> = (props: TrackingViewProps): JSX.Element => {
+const trackingView: React.FC<TrackingViewProps> = (props: TrackingViewProps): JSX.Element => {
   const { findingId } = props.match.params;
 
   const onMount: (() => void) = (): void => {

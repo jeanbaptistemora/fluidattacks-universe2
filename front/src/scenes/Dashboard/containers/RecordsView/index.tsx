@@ -28,7 +28,7 @@ import { GET_FINDING_RECORDS } from "./queries";
 
 type IRecordsViewProps = RouteComponentProps<{ findingId: string }>;
 
-export const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX.Element => {
+const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX.Element => {
   const { findingId } = props.match.params;
 
   const onMount: (() => void) = (): void => {

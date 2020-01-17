@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
 import store from "../../../../store";
-import { recordsView as RecordsView } from "./index";
+import { RecordsView } from "./index";
 import { GET_FINDING_RECORDS } from "./queries";
 
 configure({ adapter: new ReactSixteenAdapter() });
