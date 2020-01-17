@@ -13,7 +13,7 @@ $('.accordion-item-title').on('click', function() {
         $( "h4" ).addClass("accordion-item-title db pv3 link black hover-red pointer black");
 
         // Section content
-        $( ".sect3 > div" ).addClass("accordion-content bb b--black-20 pl3-l");
+        $( ".sect3 > div" ).addClass("accordion-content b--black-20 pl3-l");
 
         $( ".accordion-item-title").click(function() {
             $(this).nextAll( ".accordion-content" ).toggle( "active" );
