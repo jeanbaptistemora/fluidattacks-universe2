@@ -7,7 +7,6 @@ import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 import { Provider } from "react-redux";
-import wait from "waait";
 import store from "../../../../store/index";
 import HomeView from "./index";
 import { PROJECTS_QUERY } from "./queries";
@@ -88,7 +87,7 @@ describe("HomeView", () => {
       .toEqual("object");
   });
 
-  it("should render an error in component", async () => {
+  it("should render an error in component", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mockError} addTypename={true}>
@@ -96,12 +95,11 @@ describe("HomeView", () => {
         </MockedProvider>
       </Provider>,
     );
-    await wait(0);
     expect(wrapper)
       .toHaveLength(1);
   });
 
-  it("should render a component", async () => {
+  it("should render a component", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={true}>
@@ -109,7 +107,6 @@ describe("HomeView", () => {
         </MockedProvider>
       </Provider>,
     );
-    await wait(0);
     expect(wrapper)
       .toHaveLength(1);
   });

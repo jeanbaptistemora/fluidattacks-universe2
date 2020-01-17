@@ -7,7 +7,6 @@ import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 import { Provider } from "react-redux";
-import wait from "waait";
 import store from "../../../../store/index";
 import { ProjectDraftsView } from "./index";
 import { GET_DRAFTS } from "./queries";
@@ -74,7 +73,7 @@ describe("ProjectDraftsView", () => {
       .toEqual("function");
   });
 
-  it("should render a component", async () => {
+  it("should render a component", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={true}>
@@ -82,12 +81,11 @@ describe("ProjectDraftsView", () => {
         </MockedProvider>
       </Provider>,
     );
-    await wait(0);
     expect(wrapper)
       .toHaveLength(1);
   });
 
-  it("should render an error in component", async () => {
+  it("should render an error in component", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mockError} addTypename={true}>
@@ -95,12 +93,11 @@ describe("ProjectDraftsView", () => {
         </MockedProvider>
       </Provider>,
     );
-    await wait(0);
     expect(wrapper)
       .toHaveLength(1);
   });
 
-  it("should render a component", async () => {
+  it("should render a component", () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocks} addTypename={true}>
@@ -108,7 +105,6 @@ describe("ProjectDraftsView", () => {
         </MockedProvider>
       </Provider>,
     );
-    await wait(0);
     expect(wrapper)
       .toHaveLength(1);
   });
