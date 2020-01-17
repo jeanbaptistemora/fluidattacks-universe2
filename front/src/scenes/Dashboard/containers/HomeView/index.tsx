@@ -11,11 +11,13 @@ import {
   ButtonToolbar, Col, Glyphicon, Row, ToggleButton, ToggleButtonGroup,
 } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
+import { Button } from "../../../../components/Button";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
+import { AddProjectModal } from "../../components/AddProjectModal";
 import { ProjectBox } from "../../components/ProjectBox";
 import { IDashboardState } from "../../reducer";
 import { changeProjectsDisplay, ThunkDispatcher } from "./actions";
@@ -66,16 +68,24 @@ const renderProjectsTable: ((props: IUserAttr["me"]) => JSX.Element) =
   );
 
 const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element => {
+  const { userRole } = (window as typeof window & { userRole: string });
+  const [isProjectModalOpen, setProjectModalOpen] = React.useState(false);
   const handleDisplayChange: ((value: {}) => void) = (value: {}): void => {
     props.onDisplayChange(value as IDashboardState["user"]["displayPreference"]);
+  };
+  const openNewProjectModal: (() => void) = (): void => {
+    setProjectModalOpen(true);
+  };
+  const closeNewProjectModal: (() => void) = (): void => {
+    setProjectModalOpen(false);
   };
 
   const handleQryResult: ((qrResult: IUserAttr) => void) = (qrResult: IUserAttr): void => {
     mixpanel.track(
       "ProjectHome",
       {
-        Organization: (window as Window & { userOrganization: string }).userOrganization,
-        User: (window as Window & { userName: string }).userName,
+        Organization: (window as typeof window & { userOrganization: string }). userOrganization,
+        User: (window as typeof window & { userName: string }).userName,
       });
     hidePreloader();
   };
@@ -102,9 +112,19 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
             </ButtonToolbar>
           </Col>
         </Row>
+        {_.includes(["admin"], userRole) ?
+          <Row>
+            <Col md={2} mdOffset={5}>
+              <ButtonToolbar>
+                <Button onClick={openNewProjectModal}>
+                  <Glyphicon glyph="plus" />&nbsp;{translate.t("home.newProject.new")}
+                </Button>
+              </ButtonToolbar>
+            </Col>
+          </Row>
+        : undefined}
         <Query query={PROJECTS_QUERY} onCompleted={handleQryResult}>
-          {
-            ({loading, error, data}: QueryResult<IUserAttr>): React.ReactNode => {
+          {({loading, error, data}: QueryResult<IUserAttr>): React.ReactNode => {
               if (loading) {
                 showPreloader();
 
@@ -130,6 +150,9 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
                         }
                       </Row>
                     </Col>
+                    {_.includes(["admin"], userRole) ?
+                      <AddProjectModal isOpen={isProjectModalOpen} onClose={closeNewProjectModal} />
+                      : undefined}
                   </Row>
                 );
               }

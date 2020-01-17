@@ -126,6 +126,14 @@ class InvalidParameter(Exception):
         super(InvalidParameter, self).__init__(msg)
 
 
+class InvalidProjectName(Exception):
+    """Exception to control invalid project name"""
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Error invalid project name'
+        super(InvalidProjectName, self).__init__(msg)
+
+
 class EmptyPoolProjectName(Exception):
     """Exception to control an empty pool of project name"""
     def __init__(self):

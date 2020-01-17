@@ -335,15 +335,19 @@ class CreateProject(Mutation):
         project_name = String(required=True)
         subscription = Argument(Enum('Subscription', [
             ('Continuous', 'continuous'), ('Oneshot', 'oneshot')]),
-            required=True)
+            required=False)
     success = Boolean()
 
     @require_login
     @require_role(['admin', 'customeradminfluid'])
     def mutate(self, info, **kwargs):
-        success = project_domain.create_project(**kwargs)
+        user_data = util.get_jwt_content(info.context)
+        user_role = get_user_role(user_data)
+        success = project_domain.create_project(
+            user_data['user_email'], user_role, **kwargs)
         if success:
             project = kwargs.get('project_name').lower()
+            util.invalidate_cache(user_data['user_email'])
             util.cloudwatch_log(
                 info.context,
                 f'Security: Created project {project} succesfully')

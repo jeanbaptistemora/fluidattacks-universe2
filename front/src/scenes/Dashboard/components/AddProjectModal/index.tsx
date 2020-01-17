@@ -67,11 +67,16 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                 );
               }
             };
+            const handleCreateError: ((error: ApolloError) => void) = (error: ApolloError): void => {
+              hidePreloader();
+              handleGraphQLErrors("An error occurred adding a project", error);
+            };
 
             return (
               <Mutation
                 mutation={CREATE_PROJECT_MUTATION}
                 onCompleted={handleMutationResult}
+                onError={handleCreateError}
                 refetchQueries={[{ query: PROJECTS_QUERY}]}
               >
                 {(createProject: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {

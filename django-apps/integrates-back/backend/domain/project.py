@@ -9,11 +9,14 @@ import pytz
 
 from django.conf import settings
 
-from backend.dal import integrates_dal, project as project_dal
+from backend.dal import (
+    integrates_dal, internal_project as internal_project_dal,
+    project as project_dal
+)
 from backend.domain import comment as comment_domain
-from backend.domain import finding as finding_domain
+from backend.domain import finding as finding_domain, user as user_domain
 from backend.domain import vulnerability as vuln_domain
-from backend.exceptions import InvalidParameter
+from backend.exceptions import InvalidParameter, InvalidProjectName
 from backend.mailer import send_comment_mail
 from backend import util
 
@@ -37,16 +40,24 @@ def add_comment(project_name, email, comment_data):
                                                      comment_data)
 
 
-def create_project(**kwargs):
-    companies = [company.lower() for company in kwargs.get('companies')]
+def create_project(user_email, user_role, **kwargs):
+    is_user_admin = user_role == 'admin'
+    if is_user_admin:
+        companies = [company.lower() for company in kwargs.get('companies')]
+    else:
+        companies = [user_domain.get_data(user_email, 'company')]
     description = kwargs.get('description')
     project_name = kwargs.get('project_name').lower()
-    subscription = kwargs.get('subscription').lower()
+    if kwargs.get('subscription') and is_user_admin:
+        subscription = kwargs.get('subscription')
+    else:
+        subscription = 'continuous'
     resp = False
     if not (not description.strip() or not project_name.strip() or
        not all([company.strip() for company in companies]) or
        not companies):
-        if not project_dal.exists(project_name):
+        if not project_dal.exists(project_name) and \
+           internal_project_dal.exists(project_name):
             project = {
                 'project_name': project_name,
                 'description': description,
@@ -55,6 +66,19 @@ def create_project(**kwargs):
                 'project_status': 'ACTIVE'
             }
             resp = integrates_dal.add_project_dynamo(project)
+            if resp:
+                remove_project_name = internal_project_dal.remove_project_name(
+                    project_name)
+                if is_user_admin:
+                    resp = all([remove_project_name])
+                else:
+                    add_user_access = user_domain.update_project_access(
+                        user_email, project_name, True)
+                    add_user_manager = integrates_dal.add_user_to_project_dynamo(
+                        project_name.lower(), user_email.lower(), 'customeradmin')
+                    resp = all([remove_project_name, add_user_access, add_user_manager])
+        else:
+            raise InvalidProjectName()
     else:
         raise InvalidParameter()
     return resp

@@ -447,6 +447,8 @@ export const handleErrors: ((errorText: string, errors: readonly GraphQLError[])
         }));
       } else if (_.includes(err.message, "Exception - Currently you cannot create projects")) {
         msgError(translate.t("home.newProject.noProjectName"));
+      } else if (_.includes(err.message, "Exception - Error invalid project name")) {
+        msgError(translate.t("home.newProject.invalidProject"));
       } else {
         msgError(translate.t("proj_alerts.error_textsad"));
         rollbar.error(errorText, err);
