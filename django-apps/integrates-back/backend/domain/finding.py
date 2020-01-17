@@ -19,8 +19,6 @@ from backend.domain import (
 )
 
 from backend.mailer import (
-    send_mail_verified_finding, send_mail_remediate_finding,
-    send_mail_accepted_finding, send_mail_reject_draft,
     send_mail_delete_finding, send_mail_new_draft
 )
 from backend.mailer import send_comment_mail
@@ -154,25 +152,6 @@ def add_comment(user_email, comment_data, finding_id, is_remediation_comment):
                                                      user_email, comment_data)
 
 
-def send_finding_verified_email(finding_id, finding_name, project_name):
-    recipients = project_dal.get_users(project_name)
-
-    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
-    email_send_thread = threading.Thread(
-        name='Verified finding email thread',
-        target=send_mail_verified_finding,
-        args=(recipients, {
-            'project': project_name,
-            'finding_name': finding_name,
-            'finding_url':
-                base_url + '/project/{project!s}/{finding!s}/tracking'
-            .format(project=project_name, finding=finding_id),
-            'finding_id': finding_id
-        }))
-
-    email_send_thread.start()
-
-
 def get_age_finding(act_finding):
     """Get days since the vulnerabilities was release"""
     today = datetime.now()
@@ -211,7 +190,7 @@ def verify_finding(finding_id, user_email):
 
     if success:
         vuln_domain.update_vulnerabilities_date(user_email, finding_id)
-        send_finding_verified_email(finding_id, finding_name, project_name)
+        finding_utils.send_finding_verified_email(finding_id, finding_name, project_name)
         project_users = project_dal.get_users(project_name)
         notifications.notify_mobile(
             project_users,
@@ -223,28 +202,6 @@ def verify_finding(finding_id, user_email):
             'Error: An error occurred verifying the finding', 'error')
 
     return success
-
-
-def send_remediation_email(user_email, finding_id, finding_name,
-                           project_name, justification):
-    recipients = project_dal.get_users(project_name)
-
-    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
-    email_send_thread = threading.Thread(
-        name='Remediate finding email thread',
-        target=send_mail_remediate_finding,
-        args=(recipients, {
-            'project': project_name.lower(),
-            'finding_name': finding_name,
-            'finding_url':
-                base_url + '/project/{project!s}/{finding!s}/description'
-            .format(project=project_name, finding=finding_id),
-            'finding_id': finding_id,
-            'user_email': user_email,
-            'solution_description': justification
-        }))
-
-    email_send_thread.start()
 
 
 def handle_acceptation(finding_id, observations, user_mail, response):
@@ -284,8 +241,8 @@ def request_verification(finding_id, user_email, user_fullname, justification):
             finding_id=finding_id,
             is_remediation_comment=True
         )
-        send_remediation_email(user_email, finding_id, finding_name,
-                               project_name, justification)
+        finding_utils.send_remediation_email(
+            user_email, finding_id, finding_name, project_name, justification)
         project_users = project_dal.get_users(project_name)
         notifications.notify_mobile(
             project_users,
@@ -326,25 +283,6 @@ def update_description(finding_id, updated_values):
     raise InvalidDraftTitle()
 
 
-def send_accepted_email(finding_id, justification):
-    finding = get_finding(finding_id)
-    project_name = finding.get('projectName')
-    finding_name = finding.get('finding')
-    recipients = project_dal.get_users(project_name)
-
-    email_send_thread = threading.Thread(
-        name='Accepted finding email thread',
-        target=send_mail_accepted_finding,
-        args=(recipients, {
-            'finding_name': finding_name,
-            'finding_id': finding_id,
-            'project': project_name.capitalize(),
-            'justification': justification,
-        }))
-
-    email_send_thread.start()
-
-
 def update_treatment_in_vuln(finding_id, updated_values):
     vulns = integrates_dal.get_vulnerabilities_dynamo(finding_id)
     for vuln in vulns:
@@ -369,6 +307,7 @@ def validate_update_treatment(finding_id, updated_values, user_mail):
         'user': user_mail,
         'treatment': new_treatment
     }
+    finding = get_finding(finding_id)
     if new_treatment != 'NEW':
         new_state['justification'] = updated_values['justification']
     if new_treatment != 'ACCEPTED_UNDEFINED':
@@ -379,14 +318,14 @@ def validate_update_treatment(finding_id, updated_values, user_mail):
             new_state['acceptance_date'] = updated_values['acceptance_date']
     else:
         new_state['acceptance_status'] = updated_values['acceptance_status']
-    if get_finding(finding_id).get('historicTreatment'):
-        historic_treatment = get_finding(finding_id).get('historicTreatment')
+    if finding.get('historicTreatment'):
+        historic_treatment = finding.get('historicTreatment')
         last_values = [value for key, value in historic_treatment[-1].items() if 'date' not in key]
         new_values = [value for key, value in new_state.items() if 'date' not in key]
         if sorted(last_values) != sorted(new_values):
             historic_treatment.append(new_state)
-        elif get_finding(finding_id).get('externalBts') == updated_values['external_bts'] or \
-            (not get_finding(finding_id).get('externalBts') and
+        elif finding.get('externalBts') == updated_values['external_bts'] or \
+            (not finding.get('externalBts') and
              updated_values['external_bts'] == ''):
             return False
     else:
@@ -403,12 +342,12 @@ def validate_update_treatment(finding_id, updated_values, user_mail):
     result_update_vuln = update_treatment_in_vuln(finding_id, new_state)
     if result_update_finding and result_update_vuln:
         if updated_values['treatment'] == 'ACCEPTED':
-            send_accepted_email(finding_id,
-                                updated_values.get('justification'))
+            finding_utils.send_accepted_email(
+                finding, updated_values.get('justification'))
         if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
-            send_accepted_email(finding_id,
-                                'Treatment state approval is pending for finding '
-                                + get_finding(finding_id).get('finding'))
+            finding_utils.send_accepted_email(finding,
+                                              'Treatment state approval is pending for finding '
+                                              + finding.get('finding'))
         return True
     return False
 
@@ -503,27 +442,6 @@ def delete_all_evidences_s3(finding_id, project, context):
     return is_evidence_deleted
 
 
-def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_name, reviewer_email):
-    recipients = FI_MAIL_REVIEWERS.split(',')
-    recipients.append(discoverer_email)
-
-    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
-    email_context = {
-        'admin_mail': reviewer_email,
-        'analyst_mail': discoverer_email,
-        'draft_url': '{}/project/{}/drafts/{}/description'.format(
-            base_url, project_name, draft_id),
-        'finding_id': draft_id,
-        'finding_name': finding_name,
-        'project': project_name
-    }
-    email_send_thread = threading.Thread(
-        name='Reject draft email thread',
-        target=send_mail_reject_draft,
-        args=(recipients, email_context))
-    email_send_thread.start()
-
-
 def reject_draft(draft_id, reviewer_email):
     draft_data = get_finding(draft_id)
     history = draft_data.get('historicState', [{}])
@@ -546,7 +464,7 @@ def reject_draft(draft_id, reviewer_email):
                 'historic_state': history
             })
             if success:
-                send_draft_reject_mail(
+                finding_utils.send_draft_reject_mail(
                     draft_id, draft_data['projectName'], draft_data['analyst'],
                     draft_data['finding'], reviewer_email)
         else:

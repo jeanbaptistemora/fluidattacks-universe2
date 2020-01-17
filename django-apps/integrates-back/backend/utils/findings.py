@@ -2,6 +2,7 @@ import datetime
 import io
 import itertools
 
+import threading
 import rollbar
 from backports import csv
 from magic import Magic
@@ -9,7 +10,14 @@ from magic import Magic
 from backend import util
 from backend.utils import cvss, forms as forms_utils
 
-from backend.dal import finding as finding_dal
+from backend.dal import finding as finding_dal, project as project_dal
+from backend.mailer import (
+    send_mail_verified_finding, send_mail_remediate_finding,
+    send_mail_accepted_finding, send_mail_reject_draft
+)
+from __init__ import (
+    FI_MAIL_REVIEWERS
+)
 
 
 CVSS_PARAMETERS = {
@@ -153,3 +161,83 @@ def format_data(finding):
         finding['severity'], base_score, finding['cvssVersion'])
 
     return finding
+
+
+def send_finding_verified_email(finding_id, finding_name, project_name):
+    recipients = project_dal.get_users(project_name)
+
+    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
+    email_send_thread = threading.Thread(
+        name='Verified finding email thread',
+        target=send_mail_verified_finding,
+        args=(recipients, {
+            'project': project_name,
+            'finding_name': finding_name,
+            'finding_url':
+                base_url + '/project/{project!s}/{finding!s}/tracking'
+            .format(project=project_name, finding=finding_id),
+            'finding_id': finding_id
+        }))
+
+    email_send_thread.start()
+
+
+def send_remediation_email(user_email, finding_id, finding_name,
+                           project_name, justification):
+    recipients = project_dal.get_users(project_name)
+    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
+    email_send_thread = threading.Thread(
+        name='Remediate finding email thread',
+        target=send_mail_remediate_finding,
+        args=(recipients, {
+            'project': project_name.lower(),
+            'finding_name': finding_name,
+            'finding_url':
+                base_url + '/project/{project!s}/{finding!s}/description'
+            .format(project=project_name, finding=finding_id),
+            'finding_id': finding_id,
+            'user_email': user_email,
+            'solution_description': justification
+        }))
+
+    email_send_thread.start()
+
+
+def send_accepted_email(finding, justification):
+    project_name = finding.get('projectName')
+    finding_name = finding.get('finding')
+    recipients = project_dal.get_users(project_name)
+
+    email_send_thread = threading.Thread(
+        name='Accepted finding email thread',
+        target=send_mail_accepted_finding,
+        args=(recipients, {
+            'finding_name': finding_name,
+            'finding_id': finding.get('finding_id'),
+            'project': project_name.capitalize(),
+            'justification': justification,
+            'user_email': finding.get('analyst')
+        }))
+
+    email_send_thread.start()
+
+
+def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_name, reviewer_email):
+    recipients = FI_MAIL_REVIEWERS.split(',')
+    recipients.append(discoverer_email)
+    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
+    email_context = {
+        'admin_mail': reviewer_email,
+        'analyst_mail': discoverer_email,
+        'draft_url': '{}/project/{}/drafts/{}/description'.format(
+            base_url, project_name, draft_id),
+        'finding_id': draft_id,
+        'finding_name': finding_name,
+        'project': project_name
+    }
+    email_send_thread = threading.Thread(
+        name='Reject draft email thread',
+        target=send_mail_reject_draft,
+        args=(recipients, email_context))
+
+    email_send_thread.start()
