@@ -9,10 +9,7 @@ import pytz
 
 from django.conf import settings
 
-from backend.dal import (
-    integrates_dal, internal_project as internal_project_dal,
-    project as project_dal
-)
+from backend.dal import integrates_dal, project as project_dal
 from backend.domain import comment as comment_domain
 from backend.domain import finding as finding_domain, user as user_domain
 from backend.domain import vulnerability as vuln_domain
@@ -56,8 +53,7 @@ def create_project(user_email, user_role, **kwargs):
     if not (not description.strip() or not project_name.strip() or
        not all([company.strip() for company in companies]) or
        not companies):
-        if not project_dal.exists(project_name) and \
-           internal_project_dal.exists(project_name):
+        if not project_dal.exists(project_name):
             project = {
                 'project_name': project_name,
                 'description': description,
@@ -67,16 +63,12 @@ def create_project(user_email, user_role, **kwargs):
             }
             resp = integrates_dal.add_project_dynamo(project)
             if resp:
-                remove_project_name = internal_project_dal.remove_project_name(
-                    project_name)
-                if is_user_admin:
-                    resp = all([remove_project_name])
-                else:
+                if not is_user_admin:
                     add_user_access = user_domain.update_project_access(
                         user_email, project_name, True)
                     add_user_manager = integrates_dal.add_user_to_project_dynamo(
                         project_name.lower(), user_email.lower(), 'customeradmin')
-                    resp = all([remove_project_name, add_user_access, add_user_manager])
+                    resp = all([add_user_access, add_user_manager])
         else:
             raise InvalidProjectName()
     else:
