@@ -50,6 +50,13 @@ def test_has_https_only_disabled_open():
         AZURE_SUBSCRIPTION_ID).is_open()
 
 
+def test_has_identity_disabled_open():
+    """Search App Services that have managed identity disabled."""
+    assert app_services.has_identity_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_open()
+
+
 #
 # Closing tests
 #
@@ -72,5 +79,12 @@ def test_has_client_certificates_disabled_closed():
 def test_has_https_only_disabled_closed():
     """Search App Services that have https only disabled."""
     assert app_services.has_https_only_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_has_identity_disabled_closed():
+    """Search App Services that have managed identity disabled."""
+    assert app_services.has_identity_disabled(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()

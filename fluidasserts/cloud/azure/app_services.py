@@ -138,3 +138,47 @@ def has_https_only_disabled(client_id: str, secret: str, tenant: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_identity_disabled(client_id: str, secret: str, tenant: str,
+                          subscription_id: str) -> Tuple:
+    """
+    Check if managed identity is disabled for App Services.
+
+    Managed identities for Azure resources provides Azure services with a
+    managed identity in Azure AD which can be used to authenticate to any
+    service that supports Azure AD authentication, without having to include
+    any credentials in code.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if there are App Services that not have managed
+                 identity enabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = \
+        'Application services do not have managed identity enabled.'
+    msg_closed: str = 'Application services have managed identity enabled.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    webapps = WebSiteManagementClient(credentials, subscription_id).web_apps
+
+    for web in webapps.list():
+        (vulns if not web.identity else safes).append(
+            (web.id, 'enable managed identity for App Services.'))
+
+    return _get_result_as_tuple(
+        objects='App Services',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
