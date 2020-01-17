@@ -435,6 +435,231 @@
                }
             }
          }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "action_after_blocking" : {
+                  "S" : "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
+               },
+               "action_before_blocking" : {
+                  "S" : "TEST_OTHER_PART_TOE"
+               },
+               "analyst" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "client" : {
+                  "S" : "Fluid"
+               },
+               "client_project" : {
+                  "S" : "oneshottest"
+               },
+               "closer" : {
+                  "S" : "unittest"
+               },
+               "context" : {
+                  "S" : "FLUID"
+               },
+               "detail" : {
+                  "S" : "Oneshot event test"
+               },
+               "event_id" : {
+                  "S" : "418900978"
+               },
+               "historic_state": {
+                  "L": [
+                     {
+                        "M": {
+                           "analyst": {
+                              "S": "unittest@fluidattacks.com"
+                           },
+                           "date": {
+                              "S": "2019-01-02 07:00:00"
+                           },
+                           "state": {
+                              "S": "OPEN"
+                           }
+                        }
+                     },
+                     {
+                        "M": {
+                           "analyst": {
+                              "S": "unittest@fluidattacks.com"
+                           },
+                           "date": {
+                              "S": "2019-01-02 14:40:05"
+                           },
+                           "state": {
+                              "S": "CREATED"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "event_type" : {
+                  "S" : "OTHER"
+               },
+               "hours_before_blocking" : {
+                  "S" : "1"
+               },
+               "project_name" : {
+                  "S" : "oneshottest"
+               },
+               "subscription" : {
+                  "S" : "ONESHOT"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "action_after_blocking" : {
+                  "S" : "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
+               },
+               "action_before_blocking" : {
+                  "S" : "TEST_OTHER_PART_TOE"
+               },
+               "analyst" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "client" : {
+                  "S" : "Fluid"
+               },
+               "client_project" : {
+                  "S" : "oneshottest"
+               },
+               "closer" : {
+                  "S" : "unittest"
+               },
+               "context" : {
+                  "S" : "FLUID"
+               },
+               "detail" : {
+                  "S" : "Oneshot event test 2"
+               },
+               "event_id" : {
+                  "S" : "418900979"
+               },
+               "historic_state": {
+                  "L": [
+                     {
+                        "M": {
+                           "analyst": {
+                              "S": "unittest@fluidattacks.com"
+                           },
+                           "date": {
+                              "S": "2019-01-03 07:01:55"
+                           },
+                           "state": {
+                              "S": "CLOSED"
+                           }
+                        }
+                     },
+                     {
+                        "M": {
+                           "analyst": {
+                              "S": "unittest@fluidattacks.com"
+                           },
+                           "date": {
+                              "S": "2019-01-03 15:24:25"
+                           },
+                           "state": {
+                              "S": "SOLVED"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "event_type" : {
+                  "S" : "OTHER"
+               },
+               "hours_before_blocking" : {
+                  "S" : "2"
+               },
+               "project_name" : {
+                  "S" : "oneshottest"
+               },
+               "subscription" : {
+                  "S" : "ONESHOT"
+               }
+            }
+         }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "action_after_blocking" : {
+                  "S" : "EXECUTE_OTHER_PROJECT_SAME_CLIENT"
+               },
+               "action_before_blocking" : {
+                  "S" : "TEST_OTHER_PART_TOE"
+               },
+               "analyst" : {
+                  "S" : "unittest@fluidattacks.com"
+               },
+               "client" : {
+                  "S" : "Fluid"
+               },
+               "client_project" : {
+                  "S" : "continuoustesting"
+               },
+               "closer" : {
+                  "S" : "unittest"
+               },
+               "context" : {
+                  "S" : "FLUID"
+               },
+               "detail" : {
+                  "S" : "Continuoustest event test"
+               },
+               "event_id" : {
+                  "S" : "418900923"
+               },
+               "historic_state": {
+                  "L": [
+                     {
+                        "M": {
+                           "analyst": {
+                              "S": "unittest@fluidattacks.com"
+                           },
+                           "date": {
+                              "S": "2018-01-03 07:01:55"
+                           },
+                           "state": {
+                              "S": "CLOSED"
+                           }
+                        }
+                     },
+                     {
+                        "M": {
+                           "analyst": {
+                              "S": "unittest@fluidattacks.com"
+                           },
+                           "date": {
+                              "S": "2018-01-03 15:24:25"
+                           },
+                           "state": {
+                              "S": "SOLVED"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "event_type" : {
+                  "S" : "OTHER"
+               },
+               "hours_before_blocking" : {
+                  "S" : "2"
+               },
+               "project_name" : {
+                  "S" : "continuoustesting"
+               },
+               "subscription" : {
+                  "S" : "ONESHOT"
+               }
+            }
+         }
       }
    ]
 }
