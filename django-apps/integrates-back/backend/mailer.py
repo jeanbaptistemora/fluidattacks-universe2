@@ -173,7 +173,7 @@ def send_comment_mail(comment_data, entity_name, user_mail, comment_type='', ent
         recipient for recipient in recipients
         if user_domain.get_data(recipient, 'role') not in ['customer', 'customeradmin']]
 
-    email_context_customers = email_context
+    email_context_customers = email_context.copy()
     email_context_customers['user_email'] = \
         'Hacker at ' + user_domain.get_data(user_mail, 'company').capitalize()
 
