@@ -281,3 +281,48 @@ def file_shares_acl_permissions_do_not_expire(client_id: str, secret: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_blob_container_mutability(client_id: str, secret: str, tenant: str,
+                                  subscription_id: str) -> Tuple:
+    """
+    Check if blob containers do not have an immutability policy.
+
+    Immutable storage helps store data securely by protecting critical data
+    against deletion.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if there are blob containers that do not have an
+                 immutability policy.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Blob containers do not have an immutability policy.'
+    msg_closed: str = 'Blob containers have an immutability policy.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    storage = StorageManagementClient(credentials, subscription_id)
+    storage_accounts = storage.storage_accounts.list()
+    for account in storage_accounts:
+        group_name = account.id.split('/')[4]
+        blob_containers = storage.blob_containers.list(group_name,
+                                                       account.name)
+        for container in blob_containers:
+            (vulns if not container.has_immutability_policy else safes).append(
+                (container.id, 'enable a data immutability policy.'))
+
+    return _get_result_as_tuple(
+        objects='Storage accounts',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

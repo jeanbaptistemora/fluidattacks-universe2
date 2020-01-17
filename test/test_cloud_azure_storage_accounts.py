@@ -71,6 +71,13 @@ def test_file_shares_acl_permissions_do_not_expire_open():
         AZURE_SUBSCRIPTION_ID).is_open()
 
 
+def test_has_blob_container_mutability_open():
+    """Search Blob container that do not have an immutability policy."""
+    assert storage_accounts.has_blob_container_mutability(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_open()
+
+
 #
 # Closing tests
 #
@@ -114,5 +121,12 @@ def test_file_shares_has_global_acl_permissions_closed():
 def test_file_shares_acl_permissions_do_not_expire_closed():
     """Search ACL permissions that do not expire."""
     assert storage_accounts.file_shares_acl_permissions_do_not_expire(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_has_blob_container_mutability_closed():
+    """Search Blob container that do not have an immutability policy."""
+    assert storage_accounts.has_blob_container_mutability(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()
