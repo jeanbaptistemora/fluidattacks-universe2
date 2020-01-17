@@ -57,6 +57,9 @@ export const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProp
             hidePreloader();
             updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
               switch (message) {
+                case "Wrong file structure":
+                  msgError(translate.t("proj_alerts.invalid_structure"));
+                  break;
                 case "Exception - Invalid File Size":
                   msgError(translate.t("proj_alerts.file_size"));
                   break;
