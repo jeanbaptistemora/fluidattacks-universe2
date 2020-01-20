@@ -77,6 +77,17 @@ const treatmentFieldsView: renderFormFieldsFn =
     return(
     <React.Fragment>
       <Row>
+        <Col md={12} sm={12} xs={12}>
+          <EditableField
+            component={textField}
+            currentValue={props.dataset.btsUrl}
+            label={translate.t("search_findings.tab_description.bts")}
+            name="btsUrl"
+            renderAsEditable={isEditable}
+            type="text"
+            visible={hasBts || (props.isEditing && !props.isTreatmentModal)}
+          />
+        </Col>
         <Col md={6} sm={8} xs={12}>
           <EditableField
             component={dropdownField/* tslint:disable-next-line jsx-no-multiline-js */}
@@ -130,17 +141,6 @@ const treatmentFieldsView: renderFormFieldsFn =
             </EditableField>
           </Col>
         : undefined}
-        <Col md={12} sm={12} xs={12}>
-          <EditableField
-            component={textField}
-            currentValue={props.dataset.btsUrl}
-            label={translate.t("search_findings.tab_description.bts")}
-            name="btsUrl"
-            renderAsEditable={isEditable}
-            type="text"
-            visible={hasBts || (props.isEditing && !props.isTreatmentModal)}
-          />
-        </Col>
       </Row>
         <Row>
           <Col md={12} sm={12} xs={12}>
