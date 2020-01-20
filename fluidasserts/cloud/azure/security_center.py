@@ -59,3 +59,52 @@ def has_admin_security_alerts_disabled(client_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_high_security_alerts_disabled(client_id: str,
+                                      secret: str,
+                                      tenant: str,
+                                      subscription_id: str,
+                                      region: str = 'east-us') -> Tuple:
+    """
+    Check if high security alerts are disabled.
+
+    Enabling high severity alerts ensures that microsoft alerts for potential
+    security issues are sent and allows for quick mitigation of the associated
+    risks.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if high security alerts are disabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'High security alerts are disabled.'
+    msg_closed: str = 'High security alerts are enabled.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    center = SecurityCenter(credentials, subscription_id,
+                            region).security_contacts
+
+    for contact in center.list():
+        (vulns if contact.alert_notifications == 'Off' else
+         safes).append((contact.id, 'enable high security alerts.'))
+
+    if not safes:
+        vulns.append((f'subscriptions/{subscription_id}',
+                      'configure security alerts.'))
+
+    return _get_result_as_tuple(
+        objects='Security center',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

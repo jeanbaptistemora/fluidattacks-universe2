@@ -35,6 +35,13 @@ def test_has_admin_security_alerts_disabled_open():
         AZURE_SUBSCRIPTION_ID).is_open()
 
 
+def test_has_high_security_alerts_disabled_open():
+    """Search subscriptions that do not have high security alerts enabled."""
+    assert security_center.has_high_security_alerts_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_open()
+
+
 #
 # Closing tests
 #
@@ -43,5 +50,12 @@ def test_has_admin_security_alerts_disabled_open():
 def test_has_admin_security_alerts_disabled_closed():
     """Search subscriptions that do not have security alerts configured."""
     assert security_center.has_admin_security_alerts_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_has_high_security_alerts_disabled_closed():
+    """Search subscriptions that do not have high security alerts enabled."""
+    assert security_center.has_high_security_alerts_disabled(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()
