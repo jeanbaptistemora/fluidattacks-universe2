@@ -160,7 +160,7 @@ const renderAcceptationBtns: (() => JSX.Element) = (): JSX.Element => {
         bsStyle="success"
         onClick={handleRejectClick}
       >
-        <FluidIcon icon="fail" />{translate.t("search_findings.acceptation_buttons.reject")}
+        {translate.t("search_findings.acceptation_buttons.reject")}
       </Button>
     </React.Fragment>
   );
