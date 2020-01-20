@@ -4,14 +4,6 @@ export type IFindingContentBaseProps = Pick<RouteComponentProps<{ findingId: str
 
 export interface IFindingContentStateProps {
   alert?: string;
-  header: {
-    closedVulns: number;
-    openVulns: number;
-    reportDate: string;
-    severity: number;
-    status: "open" | "closed" | "default";
-  };
-  title: string;
   userRole: string;
 }
 
@@ -38,6 +30,7 @@ export interface IHeaderQueryResult {
     openVulns: number;
     releaseDate: string;
     reportDate: string;
+    severityScore: number;
     state: "open" | "closed" | "default";
     title: string;
   };

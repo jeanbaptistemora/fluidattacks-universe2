@@ -9,9 +9,8 @@ export const GET_FINDING_HEADER: DocumentNode = gql`
       openVulns: openVulnerabilities
       releaseDate
       reportDate
-      severity
+      severityScore
       state
-      cvssVersion
       title
       historicState @include(if: $submissionField)
     }

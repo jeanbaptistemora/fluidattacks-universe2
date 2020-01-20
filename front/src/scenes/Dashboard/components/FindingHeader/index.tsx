@@ -32,8 +32,11 @@ const statusConfigs: { [level: string]: { icon: string; text: string } } = {
 
 const findingHeader: React.FC<IFindingHeaderProps> = (props: IFindingHeaderProps): JSX.Element => {
   const severityLevel: "CRITICAL" | "HIGH" | "MED" | "LOW" | "NONE" =
-    props.severity >= 9 ? "CRITICAL" : props.severity > 6.9 ? "HIGH" : props.severity > 3.9 ? "MED" :
-    props.severity >= 0.1 ? "LOW" : "NONE";
+    props.severity >= 9 ? "CRITICAL"
+      : props.severity > 6.9 ? "HIGH"
+        : props.severity > 3.9 ? "MED"
+          : props.severity >= 0.1 ? "LOW"
+            : "NONE";
   const { color: severityColor, text: severityText } = severityConfigs[severityLevel];
   const { icon: statusIcon, text: statusText } = statusConfigs[props.status];
   const severityStyles: ProgressbarClasses = {
@@ -103,7 +106,5 @@ const findingHeader: React.FC<IFindingHeaderProps> = (props: IFindingHeaderProps
     </React.StrictMode>
   );
 };
-
-findingHeader.defaultProps = { severity: 0 };
 
 export { findingHeader as FindingHeader };

@@ -9,10 +9,9 @@ import _ from "lodash";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
-import { connect, MapDispatchToProps, MapStateToProps, useDispatch } from "react-redux";
+import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { NavLink, Redirect, Route, Switch } from "react-router-dom";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
-import { Dispatch } from "redux";
 import { Field, submit } from "redux-form";
 import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
@@ -31,13 +30,13 @@ import { descriptionView as DescriptionView } from "../DescriptionView/index";
 import { EvidenceView } from "../EvidenceView/index";
 import { ExploitView } from "../ExploitView/index";
 import { loadProjectData } from "../ProjectContent/actions";
+import { GET_PROJECT_ALERT } from "../ProjectContent/queries";
 import { RecordsView } from "../RecordsView/index";
 import { severityView as SeverityView } from "../SeverityView/index";
 import { TrackingView } from "../TrackingView/index";
 import {
-  approveDraft, clearFindingState, deleteFinding, loadFindingData, rejectDraft, ThunkDispatcher,
+  approveDraft, clearFindingState, deleteFinding, rejectDraft, ThunkDispatcher,
 } from "./actions";
-import * as actionTypes from "./actionTypes";
 import { default as style } from "./index.css";
 import { GET_FINDING_HEADER, SUBMIT_DRAFT_MUTATION } from "./queries";
 import {
@@ -83,19 +82,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   const handleDelete: ((values: { justification: string }) => void) = (values: { justification: string }): void => {
     props.onDelete(values.justification);
   };
-  const dispatch: Dispatch = useDispatch();
-  const handleResult: ((result: IHeaderQueryResult) => void) = (result: IHeaderQueryResult): void => {
-    dispatch({
-      payload: {
-        closedVulns: result.finding.closedVulns,
-        openVulns: result.finding.openVulns,
-        reportDate: result.finding.releaseDate.split(" ")[0],
-        status: result.finding.state,
-        title: result.finding.title,
-      },
-      type: actionTypes.LOAD_FINDING,
-    });
-  };
+  const { userOrganization } = window as Window & { userOrganization: string };
 
   return (
     <React.StrictMode>
@@ -103,12 +90,14 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
         <Row>
           <Col md={12} sm={12}>
             <React.Fragment>
-              {props.alert === undefined ? undefined : <AlertBox message={props.alert} />}
-              <Query
-                query={GET_FINDING_HEADER}
-                onCompleted={handleResult}
-                variables={{ findingId, submissionField: canGetHistoricState }}
-              >
+              <Query query={GET_PROJECT_ALERT} variables={{ projectName, organization: userOrganization }}>
+                {({ data, loading }: QueryResult): JSX.Element => {
+                  if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+
+                  return data.alert.status === 1 ? <AlertBox message={data.alert.message} /> : <React.Fragment />;
+                }}
+              </Query>
+              <Query query={GET_FINDING_HEADER} variables={{ findingId, submissionField: canGetHistoricState }}>
                 {({ data, loading, refetch }: QueryResult<IHeaderQueryResult>): JSX.Element => {
                   if (_.isUndefined(data) || loading) { return <React.Fragment />; }
 
@@ -135,6 +124,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                     (data.finding.historicState.slice(-1)[0].state === "SUBMITTED") : false;
 
                   return (
+                    <React.Fragment>
                     <Row>
                       <Col md={8}>
                         <h2>{data.finding.title}</h2>
@@ -167,12 +157,14 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                         </Mutation>
                       </Col>
                     </Row>
-                  );
-                }}
-              </Query>
               <hr />
               <div className={style.stickyContainer}>
-                <FindingHeader {...props.header} />
+                        <FindingHeader
+                          openVulns={data.finding.openVulns}
+                          reportDate={data.finding.releaseDate.split(" ")[0]}
+                          severity={data.finding.severityScore}
+                          status={data.finding.state}
+                        />
                 <ul className={style.tabsContainer}>
                   <li id="infoItem" className={style.tab}>
                     <NavLink activeClassName={style.active} to={`${props.match.url}/description`}>
@@ -216,7 +208,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                       &nbsp;{translate.t("search_findings.tab_comments.tab_title")}
                     </NavLink>
                   </li>
-                  {/*tslint:disable-next-line:jsx-no-multiline-js Necessary for allowing conditional rendering here*/}
                   {_.includes(["admin", "analyst"], userRole) ?
                     <li id="observationsItem" className={style.tab}>
                       <NavLink activeClassName={style.active} to={`${props.match.url}/observations`}>
@@ -227,7 +218,10 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                     : undefined}
                 </ul>
               </div>
-
+                    </React.Fragment>
+                  );
+                }}
+              </Query>
               <div className={style.tabContent}>
                 <Switch>
                   <Route path={`${props.match.path}/description`} render={renderDescription} exact={true} />
@@ -280,30 +274,18 @@ interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IFindingContentStateProps, IFindingContentBaseProps, IState> =
   (state: IState): IFindingContentStateProps => ({
     alert: state.dashboard.finding.alert,
-    header: {
-      closedVulns: state.dashboard.finding.closedVulns,
-      openVulns: state.dashboard.finding.openVulns,
-      reportDate: state.dashboard.finding.reportDate,
-      severity: state.dashboard.severity.severity,
-      status: state.dashboard.finding.status,
-    },
-    title: state.dashboard.finding.title,
     userRole: state.dashboard.user.role,
   });
 
 const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFindingContentBaseProps> =
   (dispatch: ThunkDispatcher, ownProps: IFindingContentBaseProps): IFindingContentDispatchProps => {
     const { findingId, projectName } = ownProps.match.params;
-    const organization: string = (window as typeof window & { Organization: string }).Organization;
 
     return ({
       onApprove: (): void => { dispatch(approveDraft(findingId)); },
       onConfirmDelete: (): void => { dispatch(submit("deleteFinding")); },
       onDelete: (justification: string): void => { dispatch(deleteFinding(findingId, projectName, justification)); },
-      onLoad: (): void => {
-        dispatch(loadProjectData(projectName));
-        dispatch(loadFindingData(findingId, projectName, organization));
-      },
+      onLoad: (): void => { dispatch(loadProjectData(projectName)); },
       onReject: (): void => { dispatch(rejectDraft(findingId, projectName)); },
       onUnmount: (): void => { dispatch(clearFindingState()); },
       openApproveConfirm: (): void => { dispatch(openConfirmDialog("confirmApproveDraft")); },

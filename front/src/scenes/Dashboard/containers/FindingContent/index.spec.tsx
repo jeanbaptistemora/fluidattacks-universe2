@@ -21,13 +21,6 @@ const functionMock: (() => void) = (): void => undefined;
 describe("FindingContent", () => {
 
   const mockProps: IFindingContentProps = {
-    header: {
-      closedVulns: 2,
-      openVulns: 1,
-      reportDate: "2018-10-17 00:00:00",
-      severity: 3,
-      status: "open",
-    },
     match: {
       isExact: true,
       params: { findingId: "438679960", projectName: "TEST" },
@@ -43,7 +36,6 @@ describe("FindingContent", () => {
     openApproveConfirm: functionMock,
     openDeleteConfirm: functionMock,
     openRejectConfirm: functionMock,
-    title: "FIN.S.0001. Finding test",
     userRole: "customer",
   };
 
