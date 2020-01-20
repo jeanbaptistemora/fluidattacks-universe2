@@ -69,6 +69,7 @@ MIDDLEWARE = [
     'debreach.middleware.RandomCommentMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -342,7 +343,9 @@ SESSION_COOKIE_NAME = "Integratesv3"
 SESSION_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SAMESITE_KEYS = {SESSION_COOKIE_NAME, JWT_COOKIE_NAME}
 SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_AGE = 40 * 60
+SESSION_COOKIE_AGE = 8 * 60 * 60  # 8 hours
+SESSION_EXPIRE_SECONDS = 10 * 60  # 10 minutes
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 CSRF_COOKIE_SECURE = True
 CLUSTER_SESSION = True
 
