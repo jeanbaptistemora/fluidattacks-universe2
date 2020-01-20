@@ -211,7 +211,8 @@ def handle_acceptation(finding_id, observations, user_mail, response):
         'justification': observations,
         'user': user_mail,
     }
-    historic_treatment = [new_state]
+    historic_treatment = get_finding(finding_id).get('historicTreatment')
+    historic_treatment.append(new_state)
     if response == 'REJECTED':
         tzn = pytz.timezone(settings.TIME_ZONE)
         today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
