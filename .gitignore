@@ -50,3 +50,6 @@ parser-preset.js
 public/
 sphinx/source/*.rst
 sphinx/source/example/*.out
+
+# Jetbrains IDEs
+.idea/

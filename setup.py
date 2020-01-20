@@ -109,6 +109,7 @@ setup(
         'paramiko==2.7.1',             # fluidasserts.helper.ssh_helper
         'pillow==6.2.1',               # fluidasserts.format.captcha
         'psycopg2==2.8.4',             # fluidasserts.db.postgresql
+        'pyhcl==0.4.0',                # fluidasserts.cloud.aws.terraform
         'pyopenssl==19.1.0',           # fluidasserts.proto.ssl
         'pygments==2.5.2',             # fluidasserts
         'pyjks==19.0.0',               # fluidasserts.format.jks
