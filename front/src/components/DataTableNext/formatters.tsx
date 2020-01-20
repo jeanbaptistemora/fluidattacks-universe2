@@ -1,6 +1,7 @@
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
 import React, { ReactElement } from "react";
-import { Label } from "react-bootstrap";
+import { Col, Label, Row } from "react-bootstrap";
+import translate from "../../utils/translations/translate";
 import { FluidIcon } from "../FluidIcon";
 import { default as style } from "./index.css";
 import { IHeader } from "./types";
@@ -102,3 +103,29 @@ export const deleteFormatter: ((value: string, row: { [key: string]: string }, r
       </a>
     );
   };
+
+export const limitFormatter: ((value: string) => JSX.Element) = (value: string): JSX.Element => {
+  const valueArray: string[] = value.split(",")
+    .map((element: string) => element.trim());
+  const newValue: string = valueArray.slice(0, 15)
+    .join(", ");
+
+  const renderMore: (() => JSX.Element | undefined) = (): JSX.Element | undefined => {
+    if (valueArray.length > 15) {
+      return (
+        <Col sm={12} className={style.limitFormatter}>
+          {translate.t("dataTableNext.more")}
+        </Col>
+      );
+    }
+  };
+
+  return(
+    <Row className={style.limitFormatter}>
+      <Col sm={12} className={style.limitFormatter}>
+        <p className={style.limitFormatter}>{newValue}</p>
+      </Col>
+      {renderMore()}
+    </Row>
+  );
+};

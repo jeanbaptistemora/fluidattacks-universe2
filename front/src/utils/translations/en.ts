@@ -9,6 +9,7 @@ const enTranslations: Dictionary = {
   dataTableNext: {
     filterDisabled: "Display filters",
     filterEnabled: "Hide filters",
+    more: "--More--",
     noDataIndication: "There is no data to display",
   },
   delete_vulns: {

@@ -44,3 +44,9 @@
 :local .tableModalContainer {
   text-align: left;
 }
+
+:local .limitFormatter {
+  overflow: inherit;
+  text-overflow: inherit;
+  white-space: inherit;
+}

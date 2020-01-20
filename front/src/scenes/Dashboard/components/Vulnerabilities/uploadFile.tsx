@@ -17,6 +17,7 @@ import translate from "../../../../utils/translations/translate";
 import { isValidVulnsFile } from "../../../../utils/validations";
 import * as actionsDescription from "../../containers/DescriptionView/actions";
 import { GET_FINDING_HEADER } from "../../containers/FindingContent/queries";
+import { GET_FINDINGS } from "../../containers/ProjectFindingsView/queries";
 import { FileInput } from "../FileInput";
 import { GET_VULNERABILITIES, UPLOAD_VULNERABILITIES } from "./queries";
 import { IUploadVulnerabilitiesResult, IVulnerabilitiesViewProps } from "./types";
@@ -25,6 +26,7 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
 (props: IVulnerabilitiesViewProps): JSX.Element => {
   const baseUrl: string = `${window.location.href.split("/dashboard#!")[0]}`;
   const canGetHistoricState: boolean = _.includes(["analyst", "admin"], props.userRole);
+  const projectName: string = !_.isUndefined(props.descriptParam) ? props.descriptParam.projectName : "";
 
   const handleUploadResult: ((mtResult: IUploadVulnerabilitiesResult) => void) =
   (mtResult: IUploadVulnerabilitiesResult): void => {
@@ -91,7 +93,8 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
       refetchQueries={[{ query: GET_VULNERABILITIES, variables: { analystField: canGetHistoricState,
                                                                   identifier: props.findingId } },
                        { query: GET_FINDING_HEADER, variables: { findingId: props.findingId,
-                                                                 submissionField: canGetHistoricState } }]}
+                                                                 submissionField: canGetHistoricState } },
+                       { query: GET_FINDINGS, variables: { projectName } }]}
     >
     {(uploadVulnerability: MutationFn,
       mutationResult: MutationResult): React.ReactNode => {

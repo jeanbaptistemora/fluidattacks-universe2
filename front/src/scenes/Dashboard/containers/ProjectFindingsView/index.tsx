@@ -13,7 +13,7 @@ import FontAwesome from "react-fontawesome";
 import { Trans } from "react-i18next";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { Button } from "../../../../components/Button";
-import { statusFormatter } from "../../../../components/DataTableNext/formatters";
+import { limitFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal/index";
@@ -345,7 +345,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
         onFilter: onFilterWhere,
         onInput: clearFilterWhere,
       }),
-      header: "Where", onSort: onSortState, visible: checkedItems.where, width: "8%", wrapped: true,
+      formatter: limitFormatter, header: "Where", onSort: onSortState, visible: checkedItems.where, width: "8%",
+      wrapped: true,
     },
   ];
 
