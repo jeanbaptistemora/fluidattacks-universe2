@@ -11,7 +11,6 @@ import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-
 import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { NavLink, Redirect, Route, Switch } from "react-router-dom";
-import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Field, submit } from "redux-form";
 import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
@@ -47,13 +46,16 @@ import {
 // tslint:disable-next-line:no-any Allows to render containers without specifying values for their redux-supplied props
 const reduxProps: any = {};
 
-const enhance: InferableComponentEnhancer<{}> = lifecycle<IFindingContentProps, {}>({
-  componentDidMount(): void { this.props.onLoad(); },
-  componentWillUnmount(): void { this.props.onUnmount(); },
-});
-
 const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
+
+  const onMount: (() => void) = (): (() => void) => {
+    props.onLoad();
+
+    return (): void => { props.onUnmount(); };
+  };
+  React.useEffect(onMount, []);
+
   const userRole: string =
     _.isEmpty(props.userRole) ? (window as typeof window & { userRole: string }).userRole : props.userRole;
   const currentUserEmail: string = (window as typeof window & { userEmail: string }).userEmail;
@@ -273,7 +275,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
 interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IFindingContentStateProps, IFindingContentBaseProps, IState> =
   (state: IState): IFindingContentStateProps => ({
-    alert: state.dashboard.finding.alert,
     userRole: state.dashboard.user.role,
   });
 
@@ -294,4 +295,4 @@ const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFind
     });
   };
 
-export = connect(mapStateToProps, mapDispatchToProps)(enhance(findingContent));
+export = connect(mapStateToProps, mapDispatchToProps)(findingContent);

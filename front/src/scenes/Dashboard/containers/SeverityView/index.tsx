@@ -27,6 +27,7 @@ import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import { GenericForm } from "../../components/GenericForm/index";
+import { GET_FINDING_HEADER } from "../FindingContent/queries";
 import * as actions from "./actions";
 import { default as style } from "./index.css";
 import { GET_SEVERITY, UPDATE_SEVERITY_MUTATION } from "./queries";
@@ -275,9 +276,19 @@ export const component: React.FC<ISeverityViewProps> =
                     }
                   }
                 };
+                const canGetHistoricState: boolean = _.includes(
+                  ["analyst", "admin"],
+                  (window as Window & { userRole: string }).userRole);
 
                 return (
-                  <Mutation mutation={UPDATE_SEVERITY_MUTATION} onCompleted={handleMtUpdateSeverityRes}>
+                  <Mutation
+                    mutation={UPDATE_SEVERITY_MUTATION}
+                    onCompleted={handleMtUpdateSeverityRes}
+                    refetchQueries={[{
+                      query: GET_FINDING_HEADER,
+                      variables: { findingId: props.findingId, submissionField: canGetHistoricState },
+                    }]}
+                  >
                   { (updateSeverity: MutationFn<IUpdateSeverityAttr, {
                     data: { attackComplexity: string; attackVector: string; availabilityImpact: string;
                             availabilityRequirement: string; confidentialityImpact: string;
