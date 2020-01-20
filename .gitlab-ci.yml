@@ -328,7 +328,8 @@ analytics-sync-zoho:
   tags: [autoscaling]
   stage: eks-initial-setup
   script:
-    - ./ci-scripts/jobs/eks-initial-setup.sh
+    - . ci-scripts/jobs/eks.sh
+    - eks_initial_setup
   only:
     - master
   except:
@@ -339,7 +340,8 @@ analytics-sync-zoho:
   tags: [autoscaling]
   stage: deploy
   script:
-    - ./ci-scripts/jobs/eks-terraform-apply.sh
+    - . ci-scripts/jobs/eks.sh
+    - eks_terraform_apply
   only:
     - master
   except:
@@ -351,7 +353,8 @@ eks-terraform-lint:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/eks-terraform-lint.sh
+    - . ci-scripts/jobs/eks.sh
+    - eks_terraform_lint
   except:
     - schedules
 
@@ -361,7 +364,8 @@ eks-terraform-plan:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/eks-terraform-plan.sh
+    - . ci-scripts/jobs/eks.sh
+    - eks_terraform_plan
   except:
     - schedules
 
@@ -382,7 +386,8 @@ sops-terraform-lint:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/sops-terraform-lint.sh
+    - . ci-scripts/jobs/sops.sh
+    - sops_terraform_lint
   except:
     - schedules
 
@@ -392,7 +397,8 @@ sops-terraform-plan:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/sops-terraform-plan.sh
+    - . ci-scripts/jobs/sops.sh
+    - sops_terraform_plan
   except:
     - schedules
 
@@ -401,7 +407,8 @@ sops-terraform-apply:
   tags: [autoscaling]
   stage: deploy
   script:
-    - ./ci-scripts/jobs/sops-terraform-apply.sh
+    - . ci-scripts/jobs/sops.sh
+    - sops_terraform_apply
   only:
     - master
   except:
@@ -413,7 +420,8 @@ aws-sso-terraform-lint:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/aws-sso-terraform-lint.sh
+    - . ci-scripts/jobs/aws-sso.sh
+    - aws_sso_terraform_lint
   except:
     - schedules
 
@@ -423,7 +431,8 @@ aws-sso-terraform-plan:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/aws-sso-terraform-plan.sh
+    - . ci-scripts/jobs/aws-sso.sh
+    - aws_sso_terraform_plan
   except:
     - schedules
 
@@ -432,7 +441,8 @@ aws-sso-terraform-apply:
   tags: [autoscaling]
   stage: deploy
   script:
-    - ./ci-scripts/jobs/aws-sso-terraform-apply.sh
+    - . ci-scripts/jobs/aws-sso.sh
+    - aws_sso_terraform_apply
   only:
     - master
   except:
@@ -443,7 +453,8 @@ break-build-terraform-apply:
   tags: [autoscaling]
   stage: deploy
   script:
-    - ./ci-scripts/jobs/break-build-terraform-apply.sh
+    - . ci-scripts/jobs/break-build.sh
+    - break_build_terraform_apply
   only:
     - master
   except:
@@ -455,7 +466,8 @@ break-build-terraform-lint:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/break-build-terraform-lint.sh
+    - . ci-scripts/jobs/break-build.sh
+    - break_build_terraform_lint
   except:
     - schedules
 
@@ -465,7 +477,8 @@ break-build-terraform-plan:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/break-build-terraform-plan.sh
+    - . ci-scripts/jobs/break-build.sh
+    - break_build_terraform_plan
   except:
     - schedules
 
@@ -543,7 +556,8 @@ autoscaling-ci-terraform-lint:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/autoscaling-ci-terraform-lint.sh
+    - . ci-scripts/jobs/autoscaling-ci.sh
+    - autoscaling_ci_terraform_lint
   except:
     - schedules
 
@@ -553,7 +567,8 @@ autoscaling-ci-terraform-plan:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/autoscaling-ci-terraform-plan.sh
+    - . ci-scripts/jobs/autoscaling-ci.sh
+    - autoscaling_ci_terraform_plan
   except:
     - schedules
 
@@ -562,7 +577,8 @@ autoscaling-ci-terraform-apply:
   tags: [autoscaling]
   stage: deploy
   script:
-    - ./ci-scripts/jobs/autoscaling-ci-terraform-apply.sh
+    - . ci-scripts/jobs/autoscaling-ci.sh
+    - autoscaling_ci_terraform_apply
   only:
     - master
   except:
@@ -574,7 +590,8 @@ analytics-terraform-lint:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/analytics-terraform-lint.sh
+    - . ci-scripts/jobs/analytics.sh
+    - analytics_terraform_lint
   except:
     - schedules
 
@@ -584,7 +601,8 @@ analytics-terraform-plan:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/analytics-terraform-plan.sh
+    - . ci-scripts/jobs/analytics.sh
+    - analytics_terraform_plan
   except:
     - schedules
 
@@ -593,7 +611,8 @@ analytics-terraform-apply:
   tags: [autoscaling]
   stage: deploy
   script:
-    - ./ci-scripts/jobs/analytics-terraform-apply.sh
+    - . ci-scripts/jobs/analytics.sh
+    - analytics_terraform_apply
   only:
     - master
   except:
@@ -605,7 +624,8 @@ fluid-vpc-terraform-lint:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/fluid-vpc-terraform-lint.sh
+    - . ci-scripts/jobs/fluid-vpc.sh
+    - fluid_vpc_terraform_lint
   except:
     - schedules
 
@@ -615,7 +635,8 @@ fluid-vpc-terraform-plan:
   stage: test
   needs: [build-builder]
   script:
-    - ./ci-scripts/jobs/fluid-vpc-terraform-plan.sh
+    - . ci-scripts/jobs/fluid-vpc.sh
+    - fluid_vpc_terraform_plan
   except:
     - schedules
 
@@ -624,7 +645,8 @@ fluid-vpc-terraform-apply:
   tags: [autoscaling]
   stage: deploy
   script:
-    - ./ci-scripts/jobs/fluid-vpc-terraform-apply.sh
+    - . ci-scripts/jobs/fluid-vpc.sh
+    - fluid_vpc_terraform_apply
   only:
     - master
   except:
