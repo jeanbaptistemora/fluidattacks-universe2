@@ -79,6 +79,7 @@ setup(
         'azure-mgmt-keyvault==2.0.0',  # fluidasserts.cloud.azure
         'azure-mgmt-network==8.0.0',   # fluidasserts.cloud.azure
         'azure-mgmt-security==0.3.0',  # fluidasserts.cloud.azure
+        'azure-mgmt-resource==7.0.0',  # fluidasserts.cloud.azure
         'azure-mgmt-storage==7.1.0',   # fluidasserts.cloud.azure
         'azure-mgmt-web==0.44.0',      # fluidasserts.cloud.azure.app_services
         'azure-storage-file==2.1.0',   # fluidasserts.cloud.azure
