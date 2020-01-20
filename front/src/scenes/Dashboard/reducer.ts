@@ -33,15 +33,6 @@ export interface IDashboardState {
     };
     typeOptions: optionSelectFilterProps[];
   };
-  evidence: { currentIndex: number; images: []; isEditing: boolean; isImageOpen: boolean };
-  finding: {
-    alert?: string;
-    closedVulns: number;
-    openVulns: number;
-    reportDate: string;
-    status: "open" | "closed" | "default";
-    title: string;
-  };
   findings: {
     defaultSort: {};
     filters: {
@@ -175,20 +166,6 @@ const initialState: IDashboardState = {
       type: "",
     },
     typeOptions: [],
-  },
-  evidence: {
-    currentIndex: 0,
-    images: [],
-    isEditing: false,
-    isImageOpen: false,
-  },
-  finding: {
-    alert: undefined,
-    closedVulns: 0,
-    openVulns: 0,
-    reportDate: "-",
-    status: "default",
-    title: "",
   },
   findings: {
     defaultSort: {},
@@ -665,27 +642,13 @@ actionMap[descriptionActions.CLEAR_EVIDENCE] =
       description: initialState.description,
     });
 
-actionMap[findingActions.LOAD_FINDING] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-    ({
-      ...state,
-      finding: action.payload,
-    });
-
 actionMap[findingActions.CLEAR_FINDING_STATE] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
     ({
       ...state,
       description: initialState.description,
-      finding: initialState.finding,
       severity: initialState.severity,
     });
-
-actionMap[findingActions.UPDATE_FINDING_HEADER] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
-    ...state,
-    finding: { ...state.finding, ...action.payload },
-  });
 
 actionMap[projectActions.LOAD_PROJECT] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({

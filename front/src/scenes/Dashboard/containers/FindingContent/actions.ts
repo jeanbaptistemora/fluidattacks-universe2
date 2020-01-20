@@ -5,7 +5,6 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
 import { closeConfirmDialog } from "../../actions";
-import { calcCVSS } from "../SeverityView/actions";
 import * as actionTypes from "./actionTypes";
 
 export interface IActionStructure {
@@ -16,52 +15,6 @@ export interface IActionStructure {
 export type ThunkDispatcher = ThunkDispatch<{}, undefined, IActionStructure>;
 
 type ThunkResult<T> = ThunkAction<T, {}, undefined, IActionStructure>;
-
-export const loadFindingData: ((findingId: string, projectName: string, organization: string) => ThunkResult<void>) =
-  (findingId: string, projectName: string, organization: string): ThunkResult<void> =>
-    (dispatch: ThunkDispatcher): void => {
-      let gQry: string; gQry = `{
-        alert(projectName: "${projectName}", organization: "${organization}") {
-          message
-          status
-        }
-        finding(identifier: "${findingId}") {
-          title
-          severity
-          state
-          openVulnerabilities
-          releaseDate
-          cvssVersion
-          closedVulnerabilities
-        }
-      }`;
-
-      new Xhr().request(gQry, "An error occurred getting finding header data")
-        .then((response: AxiosResponse) => {
-          const { data } = response.data;
-
-          dispatch({
-            payload: {
-              alert: data.alert.status === 1 ? data.alert.message : undefined,
-              closedVulns: data.finding.closedVulnerabilities,
-              openVulns: data.finding.openVulnerabilities,
-              reportDate: data.finding.releaseDate.split(" ")[0],
-              status: data.finding.state,
-              title: data.finding.title,
-            },
-            type: actionTypes.LOAD_FINDING,
-          });
-          dispatch(calcCVSS(data.finding.severity, data.finding.cvssVersion));
-        })
-        .catch((error: AxiosError) => {
-          if (error.response !== undefined) {
-            const { errors } = error.response.data;
-
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error(error.message, errors);
-          }
-        });
-    };
 
 export const rejectDraft: ((draftId: string, projectName: string) => ThunkResult<void>) =
   (draftId: string, projectName: string): ThunkResult<void> =>
@@ -146,10 +99,7 @@ export const approveDraft: ((draftId: string) => ThunkResult<void>) =
           const { data } = response.data;
 
           if (data.approveDraft.success) {
-            dispatch({
-              payload: { reportDate: data.approveDraft.releaseDate.split(" ")[0] },
-              type: actionTypes.UPDATE_FINDING_HEADER,
-            });
+            location.reload();
             msgSuccess(translate.t("search_findings.draft_approved"), translate.t("proj_alerts.title_success"));
           }
         })
