@@ -194,6 +194,8 @@ deploy:
   stage: deploy
   tags: [autoscaling]
   script:
+    - version=$(./deploy/get_version.py)
+    - sed -i "s/_get_version(),/'${version}',/g" setup.py
     - scons dist
     - scons deploy
     - mkdir -p dist && cp -a build/dist/*.zip dist/
