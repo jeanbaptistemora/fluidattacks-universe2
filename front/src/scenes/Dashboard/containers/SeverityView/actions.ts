@@ -22,14 +22,14 @@ export const calcPrivilegesRequired: ((privileges: string, scope: string) => num
 
 export const calcCVSSv3: ((data: ISeverityAttr["finding"]["severity"]) => number) =
   (data: ISeverityAttr["finding"]["severity"]): number => {
-    let BASESCORE_FACTOR: number; BASESCORE_FACTOR = 1.08;
-    let IMPACT_FACTOR_1: number; IMPACT_FACTOR_1 = 6.42;
-    let IMPACT_FACTOR_2: number; IMPACT_FACTOR_2 = 7.52;
-    let IMPACT_FACTOR_3: number; IMPACT_FACTOR_3 = 0.029;
-    let IMPACT_FACTOR_4: number; IMPACT_FACTOR_4 = 3.25;
-    let IMPACT_FACTOR_5: number; IMPACT_FACTOR_5 = 0.02;
-    let IMPACT_FACTOR_6: number; IMPACT_FACTOR_6 = 15;
-    let EXPLOITABILITY_FACTOR_1: number; EXPLOITABILITY_FACTOR_1 = 8.22;
+    const BASESCORE_FACTOR: number = 1.08;
+    const IMPACT_FACTOR_1: number = 6.42;
+    const IMPACT_FACTOR_2: number = 7.52;
+    const IMPACT_FACTOR_3: number = 0.029;
+    const IMPACT_FACTOR_4: number = 3.25;
+    const IMPACT_FACTOR_5: number = 0.02;
+    const IMPACT_FACTOR_6: number = 15;
+    const EXPLOITABILITY_FACTOR_1: number = 8.22;
 
     const impCon: number = parseFloat(data.confidentialityImpact);
     const impInt: number = parseFloat(data.integrityImpact);
@@ -54,8 +54,8 @@ export const calcCVSSv3: ((data: ISeverityAttr["finding"]["severity"]) => number
     const basescore: number = (impact <= 0)
       ? 0
       : ((sevScope === 1)
-          ? Math.ceil(Math.min(BASESCORE_FACTOR * (impact + exploitability), 10) * 10) / 10
-          : Math.ceil(Math.min(impact + exploitability, 10) * 10) / 10);
+        ? Math.ceil(Math.min(BASESCORE_FACTOR * (impact + exploitability), 10) * 10) / 10
+        : Math.ceil(Math.min(impact + exploitability, 10) * 10) / 10);
 
     const temporal: number = Math.ceil(basescore * explo * remLev * repConf * 10) / 10;
 

@@ -12,8 +12,6 @@ import * as eventsActions from "./containers/ProjectEventsView/actions";
 import * as findingsActions from "./containers/ProjectFindingsView/actionTypes";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 import * as resourcesActions from "./containers/ResourcesView/actionTypes";
-import * as severityActions from "./containers/SeverityView/actionTypes";
-import { ISeverityViewProps } from "./containers/SeverityView/types";
 
 export interface IDashboardState {
   addUserModal: { addUserOpen: boolean };
@@ -77,7 +75,6 @@ export interface IDashboardState {
     showUploadProgress: boolean;
     uploadProgress: number;
   };
-  severity: Pick<ISeverityViewProps, "isEditing" | "severity">;
   tags: {
     tagsModal: {
       open: boolean;
@@ -210,10 +207,6 @@ const initialState: IDashboardState = {
     },
     showUploadProgress: false,
     uploadProgress: 0,
-  },
-  severity: {
-    isEditing: false,
-    severity: 0,
   },
   tags: {
     tagsModal: {
@@ -515,26 +508,6 @@ actionMap[usersActions.CLOSE_USERS_MDL] =
     },
   });
 
-actionMap[severityActions.EDIT_SEVERITY] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    severity: {
-      ...state.severity,
-      isEditing: !state.severity.isEditing,
-    },
-  });
-
-actionMap[severityActions.CALC_CVSS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    severity: {
-      ...state.severity,
-      severity: action.payload.temporal,
-    },
-  });
-
 actionMap[actionType.OPEN_CONFIRM_DIALOG] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
     ({
@@ -647,7 +620,6 @@ actionMap[findingActions.CLEAR_FINDING_STATE] =
     ({
       ...state,
       description: initialState.description,
-      severity: initialState.severity,
     });
 
 actionMap[projectActions.LOAD_PROJECT] =
