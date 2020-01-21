@@ -239,7 +239,7 @@ def get_new_vulnerabilities():
     rollbar.report_message(
         'Warning: Function to get new vulnerabilities is running', 'warning')
     projects = project_domain.get_active_projects()
-    fin_attrs = 'finding_id, treatment, project_name, finding'
+    fin_attrs = 'finding_id, historic_treatment, project_name, finding'
     for project in projects:
         context = {'updated_findings': list(), 'no_treatment_findings': list()}
         try:
@@ -318,11 +318,12 @@ def format_vulnerabilities(delta, act_finding):
 
 def create_msj_finding_pending(act_finding):
     """Validate if a finding has treatment."""
+    historic_treatment = act_finding.get('historic_treatment', [{}])
     open_vulns = [
         vuln for vuln in vuln_domain.get_vulnerabilities(
             act_finding['finding_id'])
         if vuln['current_state'] == 'open']
-    if act_finding.get('treatment', 'NEW') == 'NEW' and open_vulns:
+    if historic_treatment[-1].get('treatment', 'NEW') == 'NEW' and open_vulns:
         days = finding_domain.get_age_finding(act_finding)
         finding_name = act_finding['finding'] + ' -' + \
             str(days) + ' day(s)-'
@@ -512,7 +513,8 @@ def reset_expired_accepted_findings():
                 project_domain.list_findings(project)))
         for finding in findings:
             finding_id = finding.get('findingId')
-            date = finding.get('acceptanceDate', today)
-            if date < today:
-                updated_values = {'treatment': 'NEW', 'bts_url': 'test'}
+            historic_treatment = finding.get('historicTreatment', [{}])
+            if historic_treatment[-1].get('acceptance_date', today) < today:
+                updated_values = {'treatment': 'NEW', 'bts_url': finding.get('externalBts', '')}
                 finding_domain.update_treatment(finding_id, updated_values, '')
+                util.invalidate_cache(finding_id)
