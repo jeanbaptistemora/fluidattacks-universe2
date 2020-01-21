@@ -1,20 +1,4 @@
-import * as actionTypes from "./actionTypes";
 import { ISeverityAttr } from "./types";
-
-export interface IActionStructure {
-  /* tslint:disable-next-line:no-any
-   * Disabling this rule is necessary because the payload
-   * type may differ between actions
-   */
-  payload: any;
-  type: string;
-}
-
-export const editSeverity: (() => IActionStructure) =
-  (): IActionStructure => ({
-    payload: undefined,
-    type: actionTypes.EDIT_SEVERITY,
-  });
 
 export const calcPrivilegesRequired: ((privileges: string, scope: string) => number) =
   (privileges: string, scope: string): number => {
@@ -77,18 +61,3 @@ export const calcCVSSv3: ((data: ISeverityAttr["finding"]["severity"]) => number
 
     return isNaN(temporal) ? 0 : temporal;
   };
-
-export const calcCVSS:
-((data: ISeverityAttr["finding"]["severity"], cvssVersion: ISeverityAttr["finding"]["cvssVersion"])
-    => IActionStructure) =
-  (data: ISeverityAttr["finding"]["severity"], cvssVersion: ISeverityAttr["finding"]["cvssVersion"]):
-    IActionStructure => {
-    const temporal: number = calcCVSSv3(data);
-
-    return ({
-    payload: {
-      temporal: temporal.toFixed(1),
-    },
-    type: actionTypes.CALC_CVSS,
-  });
-};
