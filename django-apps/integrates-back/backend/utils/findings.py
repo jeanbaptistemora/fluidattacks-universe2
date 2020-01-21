@@ -12,11 +12,11 @@ from backend.utils import cvss, forms as forms_utils
 
 from backend.dal import finding as finding_dal, project as project_dal
 from backend.mailer import (
-    send_mail_verified_finding, send_mail_remediate_finding,
-    send_mail_accepted_finding, send_mail_reject_draft
+    send_mail_verified_finding, send_mail_remediate_finding, send_mail_delete_finding,
+    send_mail_accepted_finding, send_mail_reject_draft, send_mail_new_draft
 )
 from __init__ import (
-    FI_MAIL_REVIEWERS
+    FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
 )
 
 
@@ -182,6 +182,25 @@ def send_finding_verified_email(finding_id, finding_name, project_name):
     email_send_thread.start()
 
 
+def send_finding_delete_mail(finding_id, finding_name, project_name,
+                             discoverer_email, justification):
+    recipients = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
+    approvers = FI_MAIL_REVIEWERS.split(',')
+    recipients.extend(approvers)
+
+    email_send_thread = threading.Thread(
+        name='Delete finding email thread',
+        target=send_mail_delete_finding,
+        args=(recipients, {
+            'mail_analista': discoverer_email,
+            'name_finding': finding_name,
+            'id_finding': finding_id,
+            'description': justification,
+            'project': project_name,
+        }))
+    email_send_thread.start()
+
+
 def send_remediation_email(user_email, finding_id, finding_name,
                            project_name, justification):
     recipients = project_dal.get_users(project_name)
@@ -240,4 +259,25 @@ def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_nam
         target=send_mail_reject_draft,
         args=(recipients, email_context))
 
+    email_send_thread.start()
+
+
+def send_new_draft_mail(analyst_email, finding_id, finding_title, project_name):
+    recipients = FI_MAIL_REVIEWERS.split(',')
+    recipients += project_dal.list_internal_managers(project_name)
+
+    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
+    email_context = {
+        'analyst_email': analyst_email,
+        'finding_id': finding_id,
+        'finding_name': finding_title,
+        'finding_url': base_url + '/project/{project!s}/drafts/{id!s}'
+                                  '/description'.format(
+                                      project=project_name, id=finding_id),
+        'project': project_name
+    }
+    email_send_thread = threading.Thread(
+        name='New draft email thread',
+        target=send_mail_new_draft,
+        args=(recipients, email_context))
     email_send_thread.start()

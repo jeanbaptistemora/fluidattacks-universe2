@@ -1,7 +1,6 @@
 import io
 import re
 import random
-import threading
 from datetime import datetime
 from decimal import Decimal
 from time import time
@@ -15,12 +14,9 @@ from i18n import t
 from magic import Magic
 
 from backend.domain import (
-    user as user_domain, vulnerability as vuln_domain
+    vulnerability as vuln_domain
 )
 
-from backend.mailer import (
-    send_mail_delete_finding, send_mail_new_draft
-)
 from backend.mailer import send_comment_mail
 
 from backend import util
@@ -32,10 +28,6 @@ from backend.utils import cvss, notifications, findings as finding_utils
 
 from backend.dal import (
     integrates_dal, finding as finding_dal, project as project_dal
-)
-
-from __init__ import (
-    FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS, FI_MAIL_REPLYERS
 )
 
 
@@ -117,25 +109,6 @@ def filter_evidence_filename(evidence_files, name):
     evidence_info = [evidence for evidence in evidence_files
                      if evidence['name'] == name]
     return evidence_info[0].get('file_url', '') if evidence_info else ''
-
-
-def get_email_recipients(project_name, comment_type):
-    project_users = project_dal.get_users(project_name)
-    recipients = []
-
-    if comment_type == 'observation':
-        approvers = FI_MAIL_REVIEWERS.split(',')
-        analysts = [user for user in project_users
-                    if user_domain.get_data(user, 'role') == 'analyst']
-
-        recipients += approvers
-        recipients += analysts
-    else:
-        recipients = project_users
-        replyers = FI_MAIL_REPLYERS.split(',')
-        recipients += replyers
-
-    return recipients
 
 
 def add_comment(user_email, comment_data, finding_id, is_remediation_comment):
@@ -476,26 +449,6 @@ def reject_draft(draft_id, reviewer_email):
     return success
 
 
-def send_finding_delete_mail(
-    finding_id, finding_name, project_name, discoverer_email, justification
-):
-    recipients = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
-    approvers = FI_MAIL_REVIEWERS.split(',')
-    recipients.extend(approvers)
-
-    email_send_thread = threading.Thread(
-        name='Delete finding email thread',
-        target=send_mail_delete_finding,
-        args=(recipients, {
-            'mail_analista': discoverer_email,
-            'name_finding': finding_name,
-            'id_finding': finding_id,
-            'description': justification,
-            'project': project_name,
-        }))
-    email_send_thread.start()
-
-
 def filter_deleted_findings(findings_ids):
     return [finding_id for finding_id in findings_ids
             if validate_finding(finding_id)]
@@ -526,7 +479,7 @@ def delete_finding(finding_id, project_name, justification, context):
                 'FALSE_POSITIVE': 'It is a false positive',
                 'NOT_REQUIRED': 'Finding not required',
             }
-            send_finding_delete_mail(
+            finding_utils.send_finding_delete_mail(
                 finding_id, finding_data['finding'], project_name,
                 finding_data['analyst'], justification_dict[justification])
 
@@ -737,29 +690,6 @@ def create_draft(info, project_name, title, **kwargs):
     raise InvalidDraftTitle()
 
 
-def send_new_draft_mail(
-    analyst_email, finding_id, finding_title, project_name
-):
-    recipients = FI_MAIL_REVIEWERS.split(',')
-    recipients += project_dal.list_internal_managers(project_name)
-
-    base_url = 'https://fluidattacks.com/integrates/dashboard#!'
-    email_context = {
-        'analyst_email': analyst_email,
-        'finding_id': finding_id,
-        'finding_name': finding_title,
-        'finding_url': base_url + '/project/{project!s}/drafts/{id!s}'
-                                  '/description'.format(
-                                      project=project_name, id=finding_id),
-        'project': project_name
-    }
-    email_send_thread = threading.Thread(
-        name='New draft email thread',
-        target=send_mail_new_draft,
-        args=(recipients, email_context))
-    email_send_thread.start()
-
-
 def submit_draft(finding_id, analyst_email):
     success = False
     finding = get_finding(finding_id)
@@ -792,10 +722,10 @@ def submit_draft(finding_id, analyst_email):
                     'historic_state': history
                 })
                 if success:
-                    send_new_draft_mail(analyst_email,
-                                        finding_id,
-                                        finding.get('finding'),
-                                        finding.get('projectName'))
+                    finding_utils.send_new_draft_mail(analyst_email,
+                                                      finding_id,
+                                                      finding.get('finding'),
+                                                      finding.get('projectName'))
             else:
                 required_fields = {
                     'evidence': has_evidence,
