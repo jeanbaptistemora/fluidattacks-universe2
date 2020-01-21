@@ -6,6 +6,8 @@ import "isomorphic-fetch";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
+// tslint:disable-next-line: no-submodule-imports
+import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
@@ -46,7 +48,6 @@ describe("SeverityView", () => {
       result: {
         data: {
           finding: {
-            __typename: "Finding",
             cvssVersion: "3",
             id: "468603225",
             severity: {
@@ -76,7 +77,7 @@ describe("SeverityView", () => {
           },
         },
       },
-  }];
+    }];
 
   const mockError: ReadonlyArray<MockedResponse> = [
     {
@@ -100,7 +101,7 @@ describe("SeverityView", () => {
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mocks} addTypename={true}>
+        <MockedProvider mocks={mocks} addTypename={false}>
           <SeverityView {...mockProps} />
         </MockedProvider>
       </Provider>,
@@ -108,12 +109,14 @@ describe("SeverityView", () => {
     await wait(0);
     expect(wrapper)
       .toHaveLength(1);
+    expect(wrapper.text())
+      .toContain("1 | High: Exploit is not required or it can be automated");
   });
 
   it("should render an error in component", async () => {
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
-        <MockedProvider mocks={mockError} addTypename={true}>
+        <MockedProvider mocks={mockError} addTypename={false}>
           <SeverityView {...mockProps} />
         </MockedProvider>
       </Provider>,
@@ -123,4 +126,41 @@ describe("SeverityView", () => {
       .toHaveLength(1);
   });
 
+  it("should render as editable", async () => {
+    (window as typeof window & { userRole: string }).userRole = "analyst";
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <SeverityView {...mockProps} />
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const editButton: ReactWrapper = wrapper.find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Edit"))
+      .at(0);
+    expect(editButton)
+      .toHaveLength(1);
+    editButton.simulate("click");
+    await act(async () => { wrapper.update(); });
+    expect(wrapper.text())
+      .toContain("Update");
+  });
+
+  it("should render as readonly", async () => {
+    (window as typeof window & { userRole: string }).userRole = "customer";
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <SeverityView {...mockProps} />
+        </MockedProvider>
+      </Provider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const editButton: ReactWrapper = wrapper.find("button")
+      .findWhere((element: ReactWrapper) => element.contains("Edit"))
+      .at(0);
+    expect(editButton)
+      .toHaveLength(0);
+  });
 });
