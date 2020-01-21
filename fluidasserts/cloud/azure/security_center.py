@@ -183,3 +183,47 @@ def has_blob_encryption_monitor_disabled(
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_disk_encryption_monitor_disabled(
+        client_id: str,
+        secret: str,
+        tenant: str,
+        subscription_id: str) -> Tuple:
+    """
+    Check if Disk encryption monitor is disabled.
+
+    When this setting is enabled, Security Center audits disk encryption in all
+    virtual machines to enhance data at rest protection.
+
+    Display name: Disk encryption should be applied on virtual machines.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if Disk encryption monitor is disabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Disk encryption monitor is disabled.'
+    msg_closed: str = 'Disk encryption monitor is enabled.'
+    vulns, safes = _has_monitoring_param_value(
+        client_id, secret, tenant, subscription_id,
+        'diskEncryptionMonitoringEffect', 'Disabled')
+
+    message = 'enable Disk encryption monitor.'
+    vulns = list(map(lambda x: (x, message), vulns))
+    safes = list(map(lambda x: (x, message), safes))
+
+    return _get_result_as_tuple(
+        objects='Security center',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

@@ -49,6 +49,13 @@ def test_has_blob_encryption_monitor_disabled_open():
         AZURE_SUBSCRIPTION_ID).is_open()
 
 
+def test_has_disk_encryption_monitor_disabled_open():
+    """Search subscriptions that have disk encryption monitor disabled."""
+    assert security_center.has_disk_encryption_monitor_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_open()
+
+
 #
 # Closing tests
 #
@@ -71,5 +78,12 @@ def test_has_high_security_alerts_disabled_closed():
 def test_has_blob_encryption_monitor_disabled_closed():
     """Search subscriptions that have blob encryption monitor disabled."""
     assert security_center.has_blob_encryption_monitor_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_has_disk_encryption_monitor_disabled_closed():
+    """Search subscriptions that have disk encryption monitor disabled."""
+    assert security_center.has_disk_encryption_monitor_disabled(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()
