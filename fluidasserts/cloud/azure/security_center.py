@@ -4,6 +4,7 @@
 
 # standar imports
 from typing import Tuple
+from itertools import repeat
 
 # 3rd party imports
 from msrest.exceptions import AuthenticationError, ClientException
@@ -174,8 +175,8 @@ def has_blob_encryption_monitor_disabled(
         'storageEncryptionMonitoringEffect', 'Disabled')
 
     message = 'enable Blob Storage Encryption monitoring.'
-    vulns = list(map(lambda x: (x, message), vulns))
-    safes = list(map(lambda x: (x, message), safes))
+    vulns = list(zip(vulns, repeat(message)))
+    safes = list(zip(safes, repeat(message)))
 
     return _get_result_as_tuple(
         objects='Security center',
@@ -218,8 +219,52 @@ def has_disk_encryption_monitor_disabled(
         'diskEncryptionMonitoringEffect', 'Disabled')
 
     message = 'enable Disk encryption monitor.'
-    vulns = list(map(lambda x: (x, message), vulns))
-    safes = list(map(lambda x: (x, message), safes))
+    vulns = list(zip(vulns, repeat(message)))
+    safes = list(zip(safes, repeat(message)))
+
+    return _get_result_as_tuple(
+        objects='Security center',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_api_endpoint_monitor_disabled(
+        client_id: str,
+        secret: str,
+        tenant: str,
+        subscription_id: str) -> Tuple:
+    """
+    Check if API endpoint monitor is disabled.
+
+    When this setting is enabled, Security Center audits disk encryption in all
+    virtual machines to enhance data at rest protection.
+
+    Display name: Monitor missing Endpoint Protection in Azure Security Center.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if API endpoint monitor is disabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'API endpoint monitor is disabled.'
+    msg_closed: str = 'API endpoint monitor is enabled.'
+    vulns, safes = _has_monitoring_param_value(
+        client_id, secret, tenant, subscription_id,
+        'endpointProtectionMonitoringEffect', 'Disabled')
+
+    message = 'enable API endpoint monitor.'
+    vulns = list(zip(vulns, repeat(message)))
+    safes = list(zip(safes, repeat(message)))
 
     return _get_result_as_tuple(
         objects='Security center',
