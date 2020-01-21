@@ -176,7 +176,7 @@ class ViewTestCase(unittest.TestCase):
             selenium, self.delay).until(
                 expected.presence_of_element_located(
                     (By.XPATH,
-                     "//*[contains(text(), 'CVSS v3 Temporal')]")))
+                     "//*[contains(text(), 'Confidentiality Impact')]")))
 
         time.sleep(3)
         selenium.save_screenshot(SCR_PATH + '06-04-severity.png')

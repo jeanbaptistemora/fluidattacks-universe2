@@ -1,9 +1,7 @@
-/* tslint:disable jsx-no-lambda number-literal-format jsx-no-multiline-js
- * JSX-NO-LAMBDA: Disabling this rule is necessary for the sake of simplicity and
- * readability of the code that binds click events
+/* tslint:disable:jsx-no-multiline-js
  *
- * JSX-NO-MULTILINE-JS: necessary for the sake of readability of the code that dynamically renders fields
- * as input or <p> depending on their state
+ * Disabling this rule is necessary for accessing render props from
+ * apollo components
  */
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
@@ -175,10 +173,6 @@ const renderSeverityFields: ((props: ISeverityViewProps, data: ISeverityAttr) =>
         </React.Fragment>
         : undefined
       }
-      <Row className={style.row}>
-        <Col md={3} xs={12} sm={12} className={style.title}><label><b>CVSS v3 Temporal</b></label></Col>
-        <Col md={9} xs={12} sm={12} className={style.desc}><p>{props.severity}</p></Col>
-      </Row>
     </React.Fragment>
   );
 };
@@ -198,10 +192,7 @@ export const component: React.FC<ISeverityViewProps> = (props: ISeverityViewProp
     <React.StrictMode>
       <Row>
         <Col md={12} sm={12} xs={12}>
-          <Query
-            query={GET_SEVERITY}
-            variables={{ identifier: props.findingId }}
-          >
+          <Query query={GET_SEVERITY} variables={{ identifier: props.findingId }}>
             {({ client, data, loading, refetch }: QueryResult<ISeverityAttr>): React.ReactNode => {
               if (_.isUndefined(data) || loading) { return <React.Fragment />; }
 
@@ -220,12 +211,10 @@ export const component: React.FC<ISeverityViewProps> = (props: ISeverityViewProp
                         .catch();
                       hidePreloader();
                       msgSuccess(translate.t("proj_alerts.updated"), translate.t("proj_alerts.updated_title"));
-                      mixpanel.track(
-                        "UpdateSeverity",
-                        {
-                          Organization: (window as Window & { userOrganization: string }).userOrganization,
-                          User: (window as Window & { userName: string }).userName,
-                        });
+                      mixpanel.track("UpdateSeverity", {
+                        Organization: (window as Window & { userOrganization: string }).userOrganization,
+                        User: (window as Window & { userName: string }).userName,
+                      });
                     }
                   }
                 };
@@ -253,73 +242,38 @@ export const component: React.FC<ISeverityViewProps> = (props: ISeverityViewProp
                       variables: { findingId: props.findingId, submissionField: canEdit },
                     }]}
                   >
-                  { (updateSeverity: MutationFn<IUpdateSeverityAttr, {
-                    data: { attackComplexity: string; attackVector: string; availabilityImpact: string;
-                            availabilityRequirement: string; confidentialityImpact: string;
-                            confidentialityRequirement: string; cvssVersion: string; exploitability: string; id: string;
-                            integrityImpact: string; integrityRequirement: string; modifiedAttackComplexity: string;
-                            modifiedAttackVector: string; modifiedAvailabilityImpact: string;
-                            modifiedConfidentialityImpact: string; modifiedIntegrityImpact: string;
-                            modifiedPrivilegesRequired: string; modifiedSeverityScope: string;
-                            modifiedUserInteraction: string; privilegesRequired: string; remediationLevel: string;
-                            reportConfidence: string; severity: string; severityScope: string; userInteraction: string;
-                          };
-                    findingId: string; }>,
-                     mutationRes: MutationResult): React.ReactNode => {
+                    {(updateSeverity: MutationFn, mutationRes: MutationResult): React.ReactNode => {
                       if (mutationRes.loading) {
                         showPreloader();
                       }
 
-                      const handleUpdateSeverity: (
-                        (values: ISeverityAttr["finding"]["severity"] & { cvssVersion: string }) => void) =
-                        (values: ISeverityAttr["finding"]["severity"] & { cvssVersion: string }): void => {
-                          setEditing(false);
-                          showPreloader();
-                          updateSeverity({
-                            variables: {
-                              data: {
-                                attackComplexity: values.attackComplexity, attackVector: values.attackVector,
-                                availabilityImpact: values.availabilityImpact,
-                                availabilityRequirement: values.availabilityRequirement,
-                                confidentialityImpact: values.confidentialityImpact,
-                                confidentialityRequirement: values.confidentialityRequirement,
-                                cvssVersion: values.cvssVersion, exploitability: values.exploitability,
-                                id: props.findingId, integrityImpact: values.integrityImpact,
-                                integrityRequirement: values.integrityRequirement,
-                                modifiedAttackComplexity: values.modifiedAttackComplexity,
-                                modifiedAttackVector: values.modifiedAttackVector,
-                                modifiedAvailabilityImpact: values.modifiedAvailabilityImpact,
-                                modifiedConfidentialityImpact: values.modifiedConfidentialityImpact,
-                                modifiedIntegrityImpact: values.modifiedIntegrityImpact,
-                                modifiedPrivilegesRequired: values.modifiedPrivilegesRequired,
-                                modifiedSeverityScope: values.modifiedSeverityScope,
-                                modifiedUserInteraction: values.modifiedUserInteraction,
-                                privilegesRequired: values.privilegesRequired,
-                                remediationLevel: values.remediationLevel, reportConfidence: values.reportConfidence,
-                                severity: String(props.severity), severityScope: values.severityScope,
-                                userInteraction: values.userInteraction,
-                              },
-                              findingId: props.findingId,
-                              },
-                            },
-                          )
-                            .catch();
-                        };
+                      const handleUpdateSeverity: ((values: {}) => void) = (values: {}): void => {
+                        setEditing(false);
+                        showPreloader();
+                        updateSeverity({
+                          variables: { data: { ...values, id: props.findingId }, findingId: props.findingId },
+                        })
+                          .catch();
+                      };
+
+                      const handleFormChange: ((values: ISeverityAttr["finding"]["severity"]) => void) = (
+                        values: ISeverityAttr["finding"]["severity"],
+                      ): void => {
+                        const severityScore: string = actions.calcCVSSv3(values)
+                          .toFixed(1);
+                        client.writeData({
+                          data: {
+                            finding: { id: props.findingId, severityScore, __typename: "Finding" },
+                          },
+                        });
+                      };
 
                       return (
                         <GenericForm
                           name="editSeverity"
                           initialValues={{ ...data.finding.severity, ...{ cvssVersion: data.finding.cvssVersion } }}
                           onSubmit={handleUpdateSeverity}
-                          onChange={(values: ISeverityAttr["finding"]["severity"]): void => {
-                            const severityScore: string = actions.calcCVSSv3(values)
-                              .toFixed(1);
-                            client.writeData({
-                              data: {
-                                finding: { id: props.findingId, severityScore, __typename: "Finding" },
-                              },
-                            });
-                          }}
+                          onChange={handleFormChange}
                         >
                           {({ pristine }: InjectedFormProps): React.ReactNode => (
                             <React.Fragment>
