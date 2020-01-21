@@ -15,6 +15,7 @@ import yaml
 import boto3
 import botocore
 import cfn_tools
+import hcl
 
 # local imports
 from fluidasserts.utils.generic import get_paths
@@ -23,6 +24,10 @@ from fluidasserts.cloud.aws.cloudformation import (
     CloudFormationInvalidTypeError,
     CloudFormationInvalidTemplateError,
 )
+from fluidasserts.cloud.aws.terraform import (
+    TerraformError,
+    TerraformInvalidTemplateError,
+)
 
 # Constants
 Template = Dict[str, Any]
@@ -30,6 +35,7 @@ TemplatePath = str
 ResourceName = str
 ResourceProperties = Dict[str, Any]
 CLOUDFORMATION_EXTENSIONS = ('.yml', '.yaml', '.json', '.template')
+TERRAFORM_EXTENSIONS = ('.tf',)
 
 
 class ConnError(botocore.vendored.requests.exceptions.ConnectionError):
@@ -224,7 +230,7 @@ def is_scalar(obj: Any) -> bool:
     return isinstance(obj, (bool, int, float, str))
 
 
-def load_template(template_path: str) -> Template:
+def load_cfn_template(template_path: str) -> Template:
     """Return the CloudFormation content of the template on `template_path`."""
     with open(
             template_path,
@@ -252,7 +258,24 @@ def load_template(template_path: str) -> Template:
     raise CloudFormationInvalidTemplateError(str(error_list))
 
 
-def iterate_resources_in_template(
+def load_tf_template(template_path: str) -> Template:
+    """Return the Terraform content of the template on `template_path`."""
+    with open(
+            template_path,
+            encoding='utf-8',
+            errors='replace') as template_handle:
+
+        try:
+            contents = hcl.load(template_handle)
+        except ValueError as exc:
+            raise TerraformInvalidTemplateError(str(exc))
+        else:
+            if isinstance(contents, dict) and contents.get('resource'):
+                return contents
+            raise TerraformInvalidTemplateError('Not a Terraform Template')
+
+
+def iterate_rsrcs_in_cfn_template(
         starting_path: str,
         resource_types: list,
         exclude: list = None,
@@ -265,7 +288,7 @@ def iterate_resources_in_template(
             exclude=exclude,
             endswith=CLOUDFORMATION_EXTENSIONS):
         try:
-            template: Template = load_template(template_path)
+            template: Template = load_cfn_template(template_path)
             for res_name, res_data in template.get('Resources', {}).items():
                 if res_name.startswith('Fn::') \
                         or res_name.startswith('!') \
@@ -277,5 +300,31 @@ def iterate_resources_in_template(
 
                 yield template_path, res_name, res_properties
         except CloudFormationError as exc:
+            if not ignore_errors:
+                raise exc
+
+
+def iterate_rsrcs_in_tf_template(
+        starting_path: str,
+        resource_types: list,
+        exclude: list = None,
+        ignore_errors: bool = True) -> Iterator[
+            Tuple[TemplatePath, ResourceName, ResourceProperties]]:
+    """Yield resources of the provided types."""
+    exclude = tuple(exclude or [])
+    for template_path in get_paths(
+            starting_path,
+            exclude=exclude,
+            endswith=TERRAFORM_EXTENSIONS):
+        try:
+            template: Template = load_tf_template(template_path)
+            resources = template.get('resource', {})
+            for res_type in resource_types:
+                for res_name, res_data in resources.get(res_type).items():
+                    res_properties = res_data
+                    res_properties['type'] = res_type
+
+                    yield template_path, res_name, res_properties
+        except TerraformError as exc:
             if not ignore_errors:
                 raise exc

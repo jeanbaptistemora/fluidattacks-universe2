@@ -29,7 +29,7 @@ def has_access_logging_disabled(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::ElasticLoadBalancingV2::LoadBalancer',
@@ -75,7 +75,7 @@ def has_not_deletion_protection(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::ElasticLoadBalancingV2::LoadBalancer',

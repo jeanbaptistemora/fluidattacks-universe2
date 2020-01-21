@@ -130,7 +130,7 @@ def is_role_over_privileged(
     vulnerabilities: list = []
     wildcard_action: Pattern = re.compile(r'^(\*)|(\w+:\*)$')
     wildcard_resource: Pattern = re.compile(r'^(\*)$')
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::IAM::Role',
@@ -228,7 +228,7 @@ def _is_generic_policy_miss_configured(  # noqa: MC0001
     vulnerabilities: list = []
     wildcard_action: Pattern = re.compile(r'^(\*)|(\w+:\*)$')
     wildcard_resource: Pattern = re.compile(r'^(\*)$')
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 f'AWS::IAM::{resource}',
@@ -376,7 +376,7 @@ def missing_role_based_security(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::IAM::User',
@@ -430,7 +430,7 @@ def has_wildcard_resource_on_write_action(
     """
     vulnerabilities: list = []
 
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::IAM::Role',
@@ -493,7 +493,7 @@ def has_privileges_over_iam(path: str,
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::IAM::Role',

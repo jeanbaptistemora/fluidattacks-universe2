@@ -31,7 +31,7 @@ def serves_content_over_http(
     """
     vulnerabilities: list = []
     vulnerable_protocol_policy = ('allow-all',)
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::CloudFront::Distribution',
@@ -110,7 +110,7 @@ def serves_content_over_insecure_protocols(
         ('SSLv3', 'TLSv1', 'TLSv1.1')
     vulnerable_min_prot_versions = \
         ('SSLv3', 'TLSv1', 'TLSv1_2016', 'TLSv1.1_2016')
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::CloudFront::Distribution',

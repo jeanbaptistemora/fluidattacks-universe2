@@ -46,7 +46,7 @@ def _has_not_access_control_in_list(
     vulnerable_access_controls = ACCESS_CONTROLS - safe_access_controls
 
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::S3::Bucket',

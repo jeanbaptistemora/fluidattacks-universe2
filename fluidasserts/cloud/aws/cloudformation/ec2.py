@@ -25,7 +25,7 @@ from fluidasserts.utils.decorators import api, unknown_if
 def _iterate_security_group_rules(
         path: str, exclude: Optional[List[str]] = None):
     """Iterate over the different security groups entities in the template."""
-    for yaml_path, sg_name, sg_props in helper.iterate_resources_in_template(
+    for yaml_path, sg_name, sg_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::EC2::SecurityGroup',
@@ -37,7 +37,7 @@ def _iterate_security_group_rules(
                 sg_path = f'{sg_type}/{sg_flow}'
                 yield yaml_path, sg_name, sg_rule, sg_path, sg_flow
 
-    for yaml_path, sg_name, sg_rule in helper.iterate_resources_in_template(
+    for yaml_path, sg_name, sg_rule in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::EC2::SecurityGroupEgress',
@@ -76,7 +76,7 @@ def allows_all_outbound_traffic(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::EC2::SecurityGroup',
@@ -273,7 +273,7 @@ def has_unencrypted_volumes(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::EC2::Volume',
@@ -322,7 +322,7 @@ def has_not_an_iam_instance_profile(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::EC2::Instance',
@@ -367,7 +367,7 @@ def has_not_termination_protection(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::EC2::LaunchTemplate',
@@ -393,7 +393,7 @@ def has_not_termination_protection(
                     identifier=res_name,
                     reason='has not disabled api termination'))
 
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::EC2::Instance',
@@ -446,7 +446,7 @@ def has_terminate_shutdown_behavior(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::EC2::LaunchTemplate',
@@ -494,7 +494,7 @@ def is_associate_public_ip_address_enabled(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::EC2::Instance',
@@ -545,7 +545,7 @@ def uses_default_security_group(
     :rtype: :class:`fluidasserts.Result`
     """
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::EC2::LaunchTemplate',
@@ -571,7 +571,7 @@ def uses_default_security_group(
                 identifier=res_name,
                 reason='is empty, and therefore uses default security group'))
 
-    for yaml_path, res_name, res_props in helper.iterate_resources_in_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
             starting_path=path,
             resource_types=[
                 'AWS::EC2::Instance',
