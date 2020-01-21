@@ -117,7 +117,7 @@ chosen by the +code2vec+ authors.
 More specifically,
 they sample some paths in the +AST+ at random.
 The labels in the training phase,
-what would be the prediction targets later,
+which would be the prediction targets later,
 are the function names.
 The objective is to predict meaningful function names
 from the function's content.
@@ -167,7 +167,7 @@ If that sounds interesting, stay tuned to our blog.
 
 == References
 
-. [[r1]] U. Alon, M. Zilberstein, O. Levy, E. Yahav.
+. [[r1]] U. Alon, M. Zilberstein, O. Levy, and E. Yahav.
 link:https://urialon.cswp.cs.technion.ac.il/wp-content/uploads/sites/83/2018/12/code2vec-popl19.pdf[code2vec: Learning Distributed Representations of Code]
 Proc. ACM Program. Lang., Vol. 3, No. POPL, Article 40. January 2019.
 
