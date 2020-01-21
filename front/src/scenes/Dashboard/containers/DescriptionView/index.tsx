@@ -224,7 +224,7 @@ const updateDescription: ((values: IDescriptionViewProps["dataset"], userRole: s
 
 const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
   (props: IDescriptionViewProps): JSX.Element => {
-    let openDialog: boolean = _.includes(["customer"], props.userRole);
+    let openDialog: boolean = _.includes(["customer", "customeradmin", "admin"], props.userRole);
     const onProceedDialog: (() => void) = (): void => {
       openDialog = false;
       store.dispatch(submit("editDescription"));
