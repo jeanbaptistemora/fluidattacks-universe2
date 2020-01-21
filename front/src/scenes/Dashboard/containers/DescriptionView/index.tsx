@@ -13,7 +13,7 @@ import { Mutation, MutationFn, MutationResult } from "react-apollo";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction, Reducer } from "redux";
-import { formValueSelector, submit } from "redux-form";
+import { formValueSelector, InjectedFormProps, submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
@@ -83,6 +83,7 @@ export interface IDescriptionViewProps {
 }
 
 let remediationType: string = "request_verification";
+let canUpdate: boolean = false;
 
 const enhance: InferableComponentEnhancer<{}> =
   lifecycle({
@@ -173,7 +174,7 @@ const renderUpdateBtn: ((currTreatment: string) => JSX.Element) = (currTreatment
 
   return (
     <React.Fragment>
-      <Button bsStyle="success" onClick={handleOnClick}>
+      <Button bsStyle="success" onClick={handleOnClick} disabled={canUpdate}>
         <FluidIcon icon="loading" /> {translate.t("search_findings.tab_description.update")}
       </Button>
     </React.Fragment>
@@ -232,7 +233,6 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
     return (
       <React.Fragment>
         <Col md={12} sm={12} xs={12}>
-          <Row>{renderActionButtons(props)}</Row>
           <GenericForm
             name="editDescription"
             initialValues={props.dataset}
@@ -245,9 +245,17 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
               }
             }}
           >
-            {renderFormFields(props)}
+            {({ pristine }: InjectedFormProps): React.ReactNode => {
+              canUpdate = pristine;
+
+              return(
+                <React.Fragment>
+                  {renderActionButtons(props)}
+                  {renderFormFields(props)}
+                </React.Fragment>);
+            }}
           </GenericForm>
-        </Col>
+          </Col>
         <ConfirmDialog
           closeOnProceed={true}
           name="approvalWarning"

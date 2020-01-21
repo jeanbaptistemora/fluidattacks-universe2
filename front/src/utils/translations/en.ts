@@ -91,7 +91,6 @@ const enTranslations: Dictionary = {
     port_value: "Port value should be between 0 and 65535.",
     range_error: "Range limits are wrong.",
     records_removed: "Records have been removed successfully",
-    repeated_values: "Submitted values are repeated",
     title_success: "Congratulations",
     updated: "Updated",
     updated_title: "Correct!",
