@@ -161,6 +161,17 @@ change-keys-aws-integrates-prod:
   <<: *except_analytics
   when: always
 
+change-keys-aws-integrates-dev:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: rotation
+  script:
+    - . ci-scripts/jobs/user-provision-integrates-dev.sh
+    - user_provision_integrates_dev_rotate_aws
+  <<: *only_schedules
+  <<: *except_analytics
+  when: always
+
 change-keys-aws-continuous-prod:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
