@@ -606,6 +606,12 @@ class HandleAcceptation(Mutation):
         user_info = util.get_jwt_content(info.context)
         user_mail = user_info['user_email']
         finding_id = parameters.get('finding_id')
+        historic_treatment = finding_domain.get_finding(finding_id).get('historicTreatment')
+        if historic_treatment[-1]['acceptance_status'] != 'SUBMITTED':
+            raise GraphQLError(
+                'It cant be approved/rejected a finding' +
+                'definite assumption without being requested')
+
         success = finding_domain.handle_acceptation(finding_id,
                                                     parameters.get('observations'),
                                                     user_mail,
