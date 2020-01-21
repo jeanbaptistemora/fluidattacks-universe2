@@ -102,6 +102,9 @@ test-cloud.aws.api:
 test-cloud.aws.cloudformation:
   <<: *test-template
 
+test-cloud.aws.terraform:
+  <<: *test-template
+
 test-cloud.azure:
   <<: *test-template
 
