@@ -70,10 +70,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
     />
   );
 
-  const renderSeverity: (() => JSX.Element) = (): JSX.Element => (
-    <SeverityView findingId={findingId} canEdit={_.includes(["admin", "analyst"], userRole)} {...reduxProps} />
-  );
-
   const canGetHistoricState: boolean = _.includes(["analyst", "admin"], props.userRole);
   const handleApprove: (() => void) = (): void => { props.onApprove(); };
   const handleReject: (() => void) = (): void => { props.onReject(); };
@@ -227,7 +223,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
               <div className={style.tabContent}>
                 <Switch>
                   <Route path={`${props.match.path}/description`} render={renderDescription} exact={true} />
-                  <Route path={`${props.match.path}/severity`} render={renderSeverity} exact={true} />
+                  <Route path={`${props.match.path}/severity`} component={SeverityView} exact={true} />
                   <Route path={`${props.match.path}/evidence`} component={EvidenceView} exact={true} />
                   <Route path={`${props.match.path}/exploit`} component={ExploitView} exact={true} />
                   <Route path={`${props.match.path}/tracking`} component={TrackingView} exact={true} />

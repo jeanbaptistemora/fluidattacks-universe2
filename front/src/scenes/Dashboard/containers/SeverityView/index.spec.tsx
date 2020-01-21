@@ -7,30 +7,32 @@ import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 import { Provider } from "react-redux";
+import { RouteComponentProps } from "react-router";
 import wait from "waait";
 import store from "../../../../store/index";
 import { SeverityView } from "./index";
 import { GET_SEVERITY } from "./queries";
-import { ISeverityViewProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
 describe("SeverityView", () => {
 
-  const mockProps: ISeverityViewProps = {
-    canEdit: false,
-    findingId: "438679960",
-    formValues: {
-      editSeverity: {
-        values: {
-          cvssVersion: "3",
-          modifiedSeverityScope: "0.0",
-          severityScope: "1.0",
-        },
-      },
+  const mockProps: RouteComponentProps<{ findingId: string }> = {
+    history: {
+      action: "PUSH",
+      block: (): (() => void) => (): void => undefined,
+      createHref: (): string => "",
+      go: (): void => undefined,
+      goBack: (): void => undefined,
+      goForward: (): void => undefined,
+      length: 1,
+      listen: (): (() => void) => (): void => undefined,
+      location: { hash: "", pathname: "/", search: "", state: {} },
+      push: (): void => undefined,
+      replace: (): void => undefined,
     },
-    isEditing: false,
-    severity: 3.5,
+    location: { hash: "", pathname: "/", search: "", state: {} },
+    match: { isExact: true, params: { findingId: "438679960" }, path: "/", url: "" },
   };
 
   const mocks: ReadonlyArray<MockedResponse> = [

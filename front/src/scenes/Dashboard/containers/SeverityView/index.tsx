@@ -9,6 +9,7 @@ import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { RouteComponentProps } from "react-router";
 import { formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
@@ -24,9 +25,13 @@ import { GET_FINDING_HEADER } from "../FindingContent/queries";
 import * as actions from "./actions";
 import { default as style } from "./index.css";
 import { GET_SEVERITY, UPDATE_SEVERITY_MUTATION } from "./queries";
-import { ISeverityAttr, ISeverityField, ISeverityViewProps, IUpdateSeverityAttr } from "./types";
+import { ISeverityAttr, ISeverityField, IUpdateSeverityAttr } from "./types";
 
-const severityView: React.FC<ISeverityViewProps> = (props: ISeverityViewProps): JSX.Element => {
+type SeverityViewProps = RouteComponentProps<{ findingId: string }>;
+
+const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JSX.Element => {
+  const { findingId } = props.match.params;
+
   const onMount: (() => void) = (): void => {
     mixpanel.track("FindingSeverity", {
       Organization: (window as Window & { userOrganization: string }).userOrganization,
@@ -45,7 +50,7 @@ const severityView: React.FC<ISeverityViewProps> = (props: ISeverityViewProps): 
     <React.StrictMode>
       <Row>
         <Col md={12} sm={12} xs={12}>
-          <Query query={GET_SEVERITY} variables={{ identifier: props.findingId }}>
+          <Query query={GET_SEVERITY} variables={{ identifier: findingId }}>
             {({ client, data, loading, refetch }: QueryResult<ISeverityAttr>): React.ReactNode => {
               if (_.isUndefined(data) || loading) { return <React.Fragment />; }
 
@@ -53,7 +58,7 @@ const severityView: React.FC<ISeverityViewProps> = (props: ISeverityViewProps): 
                 setEditing(!isEditing);
                 const severityScore: string = actions.calcCVSSv3(data.finding.severity)
                   .toFixed(1);
-                client.writeData({ data: { finding: { id: props.findingId, severityScore, __typename: "Finding" } } });
+                client.writeData({ data: { finding: { id: findingId, severityScore, __typename: "Finding" } } });
               };
 
               const handleMtUpdateSeverityRes: ((mtResult: IUpdateSeverityAttr) => void) =
@@ -90,10 +95,7 @@ const severityView: React.FC<ISeverityViewProps> = (props: ISeverityViewProps): 
                   <Mutation
                     mutation={UPDATE_SEVERITY_MUTATION}
                     onCompleted={handleMtUpdateSeverityRes}
-                    refetchQueries={[{
-                      query: GET_FINDING_HEADER,
-                      variables: { findingId: props.findingId, submissionField: canEdit },
-                    }]}
+                    refetchQueries={[{ query: GET_FINDING_HEADER, variables: { findingId, submissionField: canEdit } }]}
                   >
                     {(updateSeverity: MutationFn, mutationRes: MutationResult): React.ReactNode => {
                       if (mutationRes.loading) {
@@ -103,9 +105,7 @@ const severityView: React.FC<ISeverityViewProps> = (props: ISeverityViewProps): 
                       const handleUpdateSeverity: ((values: {}) => void) = (values: {}): void => {
                         setEditing(false);
                         showPreloader();
-                        updateSeverity({
-                          variables: { data: { ...values, id: props.findingId }, findingId: props.findingId },
-                        })
+                        updateSeverity({ variables: { data: { ...values, id: findingId }, findingId } })
                           .catch();
                       };
 
@@ -116,7 +116,7 @@ const severityView: React.FC<ISeverityViewProps> = (props: ISeverityViewProps): 
                           .toFixed(1);
                         client.writeData({
                           data: {
-                            finding: { id: props.findingId, severityScore, __typename: "Finding" },
+                            finding: { id: findingId, severityScore, __typename: "Finding" },
                           },
                         });
                       };
