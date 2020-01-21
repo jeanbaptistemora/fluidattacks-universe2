@@ -273,7 +273,6 @@ def cache_content(func):
         if kwargs:
             uniq_id += '_'.join([str(kwargs[x]) for x in kwargs])
         key_name = func.__name__ + '_' + uniq_id
-        key_name = key_name.lower()
         try:
             ret = cache.get(key_name)
             if ret:
