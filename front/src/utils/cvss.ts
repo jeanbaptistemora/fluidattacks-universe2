@@ -1,4 +1,4 @@
-import { ISeverityAttr } from "./types";
+import { ISeverityAttr } from "../scenes/Dashboard/containers/SeverityView/types";
 
 export const calcPrivilegesRequired: ((privileges: string, scope: string) => number) =
   (privileges: string, scope: string): number => {

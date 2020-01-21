@@ -14,6 +14,7 @@ import { formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
+import { calcCVSSv3 } from "../../../../utils/cvss";
 import { castFieldsCVSS3 } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
@@ -22,7 +23,6 @@ import { required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
 import { GenericForm } from "../../components/GenericForm/index";
 import { GET_FINDING_HEADER } from "../FindingContent/queries";
-import * as actions from "./actions";
 import { default as style } from "./index.css";
 import { GET_SEVERITY, UPDATE_SEVERITY_MUTATION } from "./queries";
 import { ISeverityAttr, ISeverityField, IUpdateSeverityAttr } from "./types";
@@ -56,7 +56,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
 
               const handleEditClick: (() => void) = (): void => {
                 setEditing(!isEditing);
-                const severityScore: string = actions.calcCVSSv3(data.finding.severity)
+                const severityScore: string = calcCVSSv3(data.finding.severity)
                   .toFixed(1);
                 client.writeData({ data: { finding: { id: findingId, severityScore, __typename: "Finding" } } });
               };
@@ -112,7 +112,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                       const handleFormChange: ((values: ISeverityAttr["finding"]["severity"]) => void) = (
                         values: ISeverityAttr["finding"]["severity"],
                       ): void => {
-                        const severityScore: string = actions.calcCVSSv3(values)
+                        const severityScore: string = calcCVSSv3(values)
                           .toFixed(1);
                         client.writeData({
                           data: {
