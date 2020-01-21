@@ -80,6 +80,7 @@ const enTranslations: Dictionary = {
     file_type_yaml: "The file must be .yaml or .yml type",
     file_updated: "File Updated ;)",
     invalid: "is invalid",
+    invalid_date: "The date must be minor than six month and greater than current date",
     invalid_schema: "Uploaded file does not match with the schema",
     invalid_specific: "Invalid field/line/port",
     invalid_structure: "Provided file has wrong structure",

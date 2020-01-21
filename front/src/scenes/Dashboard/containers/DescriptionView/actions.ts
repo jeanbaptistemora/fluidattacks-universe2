@@ -292,6 +292,7 @@ export const updateTreatment: ThunkActionStructure<void> =
           findingId: "${findingId}",
           treatment: "${treatment}",
           justification: ${JSON.stringify(values.justification)},
+          acceptanceDate: "${values.acceptanceDate}",
           acceptanceStatus: "${accAppr}"
         ) {
           finding {
@@ -343,6 +344,8 @@ export const updateTreatment: ThunkActionStructure<void> =
             const { errors } = error.response.data;
             if (errors[0].message === "Invalid treatment manager") {
               msgError(translate.t("proj_alerts.invalid_treatment_mgr"));
+            } else if (errors[0].message === "Exception - The inserted date is invalid") {
+              msgError(translate.t("proj_alerts.invalid_date"));
             } else {
               msgError(translate.t("proj_alerts.error_textsad"));
               rollbar.error(error.message, errors);

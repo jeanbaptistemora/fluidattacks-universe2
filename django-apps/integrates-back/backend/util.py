@@ -427,7 +427,7 @@ def break_build_trigger_deployment(project_name):
 
 
 def update_treatment_values(updated_values):
-    updated_values['external_bts'] = updated_values.get('bts_url')
+    updated_values['external_bts'] = updated_values.get('bts_url', '')
     date = datetime.now() + timedelta(days=180)
     if updated_values.get('bts_url'):
         del updated_values['bts_url']
