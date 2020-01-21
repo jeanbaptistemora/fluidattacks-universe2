@@ -12,7 +12,7 @@ from azure.mgmt.security import SecurityCenter
 from azure.mgmt.resource import PolicyClient
 
 # local imports
-from fluidasserts import DAST, MEDIUM
+from fluidasserts import DAST, MEDIUM, LOW
 from fluidasserts.utils.decorators import api, unknown_if
 from fluidasserts.cloud.azure import _get_result_as_tuple, _get_credentials
 
@@ -263,6 +263,50 @@ def has_api_endpoint_monitor_disabled(
         'endpointProtectionMonitoringEffect', 'Disabled')
 
     message = 'enable API endpoint monitor.'
+    vulns = list(zip(vulns, repeat(message)))
+    safes = list(zip(safes, repeat(message)))
+
+    return _get_result_as_tuple(
+        objects='Security center',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_system_updates_monitor_disabled(
+        client_id: str,
+        secret: str,
+        tenant: str,
+        subscription_id: str) -> Tuple:
+    """
+    Check if System updates monitor is disabled.
+
+    When this setting is enabled, Security Center will audit virtual machines
+    for pending OS or system updates.
+
+    Display name: System updates should be installed on your machines.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if System updates monitor is disabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'System updates monitor is disabled.'
+    msg_closed: str = 'System updates monitor is enabled.'
+    vulns, safes = _has_monitoring_param_value(
+        client_id, secret, tenant, subscription_id,
+        'systemUpdatesMonitoringEffect', 'Disabled')
+
+    message = 'enable System updates monitor.'
     vulns = list(zip(vulns, repeat(message)))
     safes = list(zip(safes, repeat(message)))
 
