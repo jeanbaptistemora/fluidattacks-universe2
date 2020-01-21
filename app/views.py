@@ -18,7 +18,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache, cache_control
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods, condition
+from django.views.decorators.http import require_http_methods
 from jose import jwt
 from magic import Magic
 from openpyxl import load_workbook
@@ -108,24 +108,6 @@ def app(request):
         rollbar.report_exc_info(sys.exc_info(), request)
         return redirect('/integrates/error500')
     return response
-
-
-@cache_control(private=True, max_age=3600)
-@csrf_exempt
-@authorize(['analyst', 'customer', 'customeradmin', 'admin'])
-def dashboard(request):
-    "View of control panel for authenticated users"
-    try:
-        parameters = {
-            'username': request.session['username'],
-            'company': request.session['company'],
-            'last_login': request.session['last_login']
-        }
-        user_domain.update_last_login(request.session['username'])
-    except KeyError:
-        rollbar.report_exc_info(sys.exc_info(), request)
-        return redirect('/error500')
-    return render(request, "dashboard.html", parameters)
 
 
 @csrf_exempt
@@ -372,7 +354,6 @@ def get_evidence(request, project, evidence_type, findingid, fileid):
         return util.response([], 'Access denied or evidence not found', True)
 
 
-@condition(etag_func=util.calculate_etag)
 def retrieve_image(request, img_file):
     if util.assert_file_mime(img_file, ["image/png", "image/jpeg",
                                         "image/gif"]):
