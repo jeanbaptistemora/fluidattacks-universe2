@@ -302,7 +302,10 @@ def validate_update_treatment(finding_id, updated_values, user_mail):
     if historic_treatment:
         last_values = [value for key, value in historic_treatment[-1].items() if key != 'date']
         new_values = [value for key, value in new_state.items() if key != 'date']
-        if sorted(last_values) != sorted(new_values):
+        date_change = 'acceptance_date' in historic_treatment[-1] and \
+            historic_treatment[-1]['acceptance_date'].split(' ')[0] != \
+            updated_values['acceptance_date'].split(' ')[0]
+        if sorted(last_values) != sorted(new_values) or date_change:
             historic_treatment.append(new_state)
         elif finding.get('externalBts') == updated_values['external_bts'] or \
             (not finding.get('externalBts') and
