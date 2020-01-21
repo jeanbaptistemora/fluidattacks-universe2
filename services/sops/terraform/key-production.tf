@@ -20,7 +20,10 @@ data "aws_iam_policy_document" "key-serves-production" {
     effect = "Allow"
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF"]
+      identifiers = [
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/serves-admin"
+      ]
     }
     actions = [
       "kms:Create*",
@@ -48,7 +51,10 @@ data "aws_iam_policy_document" "key-serves-production" {
     effect = "Allow"
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF"]
+      identifiers = [
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/serves-admin"
+      ]
     }
     actions = [
       "kms:Encrypt",
@@ -67,7 +73,10 @@ data "aws_iam_policy_document" "key-serves-production" {
     effect = "Allow"
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF"]
+      identifiers = [
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/serves-admin"
+      ]
     }
     actions = [
       "kms:CreateGrant",
