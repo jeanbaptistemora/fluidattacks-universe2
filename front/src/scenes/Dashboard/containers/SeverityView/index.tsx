@@ -5,21 +5,18 @@
  * JSX-NO-MULTILINE-JS: necessary for the sake of readability of the code that dynamically renders fields
  * as input or <p> depending on their state
  */
-import { NetworkStatus } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
 import { Reducer } from "redux";
-import { formValueSelector, submit } from "redux-form";
+import { formValueSelector, InjectedFormProps } from "redux-form";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import store from "../../../../store/index";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
-import { castEnvironmentCVSS3Fields, castFieldsCVSS3, castPrivileges,
-  handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { castEnvironmentCVSS3Fields, castFieldsCVSS3, castPrivileges } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
@@ -32,38 +29,6 @@ import * as actions from "./actions";
 import { default as style } from "./index.css";
 import { GET_SEVERITY, UPDATE_SEVERITY_MUTATION } from "./queries";
 import { ISeverityAttr, ISeverityField, ISeverityViewProps, IUpdateSeverityAttr } from "./types";
-
-const renderEditPanel: ((arg1: ISeverityViewProps, data: ISeverityAttr) => JSX.Element) =
-(props: ISeverityViewProps, data: ISeverityAttr): JSX.Element => (
-  <Row>
-    <Row>
-      <Col md={2} mdOffset={10} xs={12} sm={12}>
-        <Button
-          bsStyle="primary"
-          block={true}
-          onClick={(): void => {
-            store.dispatch(actions.editSeverity());
-            store.dispatch(actions.calcCVSS(data.finding.severity, data.finding.cvssVersion));
-          }}
-        >
-          <FluidIcon icon="edit" /> {translate.t("search_findings.tab_severity.editable")}
-        </Button>
-      </Col>
-    </Row>
-    <br />
-    {props.isEditing
-      ?
-      <Row>
-        <Col md={2} mdOffset={10} xs={12} sm={12}>
-          <Button bsStyle="success" block={true} type="submit" onClick={(): void => { submit("editSeverity"); }}>
-            <FluidIcon icon="loading" /> {translate.t("search_findings.tab_severity.update")}
-          </Button>
-        </Col>
-      </Row>
-      : undefined
-    }
-  </Row>
-);
 
 const renderCVSSFields: ((props: ISeverityViewProps, data: ISeverityAttr) => JSX.Element[]) =
   (props: ISeverityViewProps, data: ISeverityAttr): JSX.Element[] =>
@@ -148,7 +113,6 @@ const renderSeverityFields: ((props: ISeverityViewProps, data: ISeverityAttr) =>
 
   return (
     <React.Fragment>
-      {props.canEdit ? renderEditPanel(props, data) : undefined}
       <Row className={style.row}>
         <EditableField
           alignField="horizontal"
@@ -219,44 +183,36 @@ const renderSeverityFields: ((props: ISeverityViewProps, data: ISeverityAttr) =>
   );
 };
 
-const handleQryResult: ((qrResult: ISeverityAttr) => void) = (qrResult: ISeverityAttr): void => {
-  mixpanel.track(
-    "FindingSeverity",
-    {
+export const component: React.FC<ISeverityViewProps> = (props: ISeverityViewProps): JSX.Element => {
+  const onMount: (() => void) = (): void => {
+    mixpanel.track("FindingSeverity", {
       Organization: (window as Window & { userOrganization: string }).userOrganization,
       User: (window as Window & { userName: string }).userName,
     });
-  hidePreloader();
-};
+  };
+  React.useEffect(onMount, []);
 
-export const component: React.FC<ISeverityViewProps> =
-  (props: ISeverityViewProps): JSX.Element => (
+  const [isEditing, setEditing] = React.useState(false);
+
+  return (
     <React.StrictMode>
       <Row>
         <Col md={12} sm={12} xs={12}>
           <Query
             query={GET_SEVERITY}
             variables={{ identifier: props.findingId }}
-            notifyOnNetworkStatusChange={true}
-            onCompleted={handleQryResult}
           >
-          {
-            ({loading, error, data, refetch, networkStatus}: QueryResult<ISeverityAttr>): React.ReactNode => {
-              const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
-              if (loading || isRefetching) {
-                showPreloader();
+            {({ client, data, loading, refetch }: QueryResult<ISeverityAttr>): React.ReactNode => {
+              if (_.isUndefined(data) || loading) { return <React.Fragment />; }
 
-                return <React.Fragment/>;
-              }
-              if (!_.isUndefined(error)) {
-                hidePreloader();
-                handleGraphQLErrors("An error occurred getting severity", error);
+              const handleEditClick: (() => void) = (): void => {
+                setEditing(!isEditing);
+                const severityScore: string = actions.calcCVSSv3(data.finding.severity)
+                  .toFixed(1);
+                client.writeData({ data: { finding: { id: props.findingId, severityScore, __typename: "Finding" } } });
+              };
 
-                return <React.Fragment/>;
-              }
-              if (!_.isUndefined(data)) {
-
-                const handleMtUpdateSeverityRes: ((mtResult: IUpdateSeverityAttr) => void) =
+              const handleMtUpdateSeverityRes: ((mtResult: IUpdateSeverityAttr) => void) =
                 (mtResult: IUpdateSeverityAttr): void => {
                   if (!_.isUndefined(mtResult)) {
                     if (mtResult.updateSeverity.success) {
@@ -264,9 +220,6 @@ export const component: React.FC<ISeverityViewProps> =
                         .catch();
                       hidePreloader();
                       msgSuccess(translate.t("proj_alerts.updated"), translate.t("proj_alerts.updated_title"));
-                      store.dispatch(actions.calcCVSS(mtResult.updateSeverity.finding.severity,
-                                                      mtResult.updateSeverity.finding.cvssVersion));
-                      store.dispatch(actions.editSeverity());
                       mixpanel.track(
                         "UpdateSeverity",
                         {
@@ -276,17 +229,28 @@ export const component: React.FC<ISeverityViewProps> =
                     }
                   }
                 };
-                const canGetHistoricState: boolean = _.includes(
-                  ["analyst", "admin"],
-                  (window as Window & { userRole: string }).userRole);
 
-                return (
+              const { userRole } = (window as typeof window & { userRole: string });
+              const canEdit: boolean = _.includes(["admin", "analyst"], userRole);
+
+              return (
+                <React.Fragment>
+                  <Row>
+                    <Col md={2} mdOffset={10}>
+                      {canEdit ? (
+                        <Button block={true} onClick={handleEditClick}>
+                          <FluidIcon icon="edit" />&nbsp;{translate.t("search_findings.tab_severity.editable")}
+                        </Button>
+                      ) : undefined}
+                    </Col>
+                  </Row>
+                  <br />
                   <Mutation
                     mutation={UPDATE_SEVERITY_MUTATION}
                     onCompleted={handleMtUpdateSeverityRes}
                     refetchQueries={[{
                       query: GET_FINDING_HEADER,
-                      variables: { findingId: props.findingId, submissionField: canGetHistoricState },
+                      variables: { findingId: props.findingId, submissionField: canEdit },
                     }]}
                   >
                   { (updateSeverity: MutationFn<IUpdateSeverityAttr, {
@@ -305,16 +269,12 @@ export const component: React.FC<ISeverityViewProps> =
                       if (mutationRes.loading) {
                         showPreloader();
                       }
-                      if (!_.isUndefined(mutationRes.error)) {
-                        hidePreloader();
-                        handleGraphQLErrors("An error occurred updating severity", mutationRes.error);
-
-                        return <React.Fragment/>;
-                      }
 
                       const handleUpdateSeverity: (
                         (values: ISeverityAttr["finding"]["severity"] & { cvssVersion: string }) => void) =
                         (values: ISeverityAttr["finding"]["severity"] & { cvssVersion: string }): void => {
+                          setEditing(false);
+                          showPreloader();
                           updateSeverity({
                             variables: {
                               data: {
@@ -349,26 +309,45 @@ export const component: React.FC<ISeverityViewProps> =
                       return (
                         <GenericForm
                           name="editSeverity"
-                          initialValues={{...data.finding.severity, ...{cvssVersion: data.finding.cvssVersion}}}
+                          initialValues={{ ...data.finding.severity, ...{ cvssVersion: data.finding.cvssVersion } }}
                           onSubmit={handleUpdateSeverity}
-                          onChange={(values: ISeverityAttr["finding"]["severity"] & {cvssVersion: string}): void => {
-                                store.dispatch(actions.calcCVSS(
-                                  values as ISeverityAttr["finding"]["severity"], values.cvssVersion));
-                              }}
+                          onChange={(values: ISeverityAttr["finding"]["severity"]): void => {
+                            const severityScore: string = actions.calcCVSSv3(values)
+                              .toFixed(1);
+                            client.writeData({
+                              data: {
+                                finding: { id: props.findingId, severityScore, __typename: "Finding" },
+                              },
+                            });
+                          }}
                         >
-                          {renderSeverityFields(props, data)}
+                          {({ pristine }: InjectedFormProps): React.ReactNode => (
+                            <React.Fragment>
+                              {isEditing ? (
+                                <Row>
+                                  <Col md={2} mdOffset={10}>
+                                    <Button type="submit" block={true} disabled={pristine || mutationRes.loading}>
+                                      <FluidIcon icon="loading" /> {translate.t("search_findings.tab_severity.update")}
+                                    </Button>
+                                  </Col>
+                                </Row>
+                              ) : undefined}
+                              {renderSeverityFields({ ...props, isEditing }, data)}
+                            </React.Fragment>
+                          )}
                         </GenericForm>
                       );
-                     }}
+                    }}
                   </Mutation>
-                );
-              }
+                </React.Fragment>
+              );
             }}
           </Query>
         </Col>
       </Row>
     </React.StrictMode>
   );
+};
 
 const fieldSelector: ((state: {}, ...fields: string[]) => string) = formValueSelector("editSeverity");
 

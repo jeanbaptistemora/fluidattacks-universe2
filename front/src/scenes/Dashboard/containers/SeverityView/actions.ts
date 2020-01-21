@@ -75,7 +75,7 @@ export const calcCVSSv3: ((data: ISeverityAttr["finding"]["severity"]) => number
 
     const temporal: number = Math.ceil(basescore * explo * remLev * repConf * 10) / 10;
 
-    return temporal;
+    return isNaN(temporal) ? 0 : temporal;
   };
 
 export const calcCVSS:
