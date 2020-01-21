@@ -132,7 +132,8 @@ def get_accepted_vulns(findings_released, vulns, first_day, last_day):
     """Get all vulnerabilities accepted by time range"""
     accepted = 0
     for finding in findings_released:
-        if finding['treatment'] == 'ACCEPTED':
+        historic_treatment = finding.get('historic_treatment', [{}])
+        if historic_treatment[-1].get('treatment') == 'ACCEPTED':
             for vuln in vulns:
                 accepted += get_by_time_range(finding, vuln, first_day, last_day)
     return accepted
@@ -463,7 +464,7 @@ def send_unsolved_to_all():
 
 def get_project_indicators(project):
     findings = integrates_dal.get_findings_released_dynamo(
-        project, 'finding_id, treatment, cvss_temporal')
+        project, 'finding_id, historic_treatment, cvss_temporal')
     indicators = {
         'last_closing_date': project_domain.get_last_closing_vuln(findings),
         'mean_remediate': project_domain.get_mean_remediate(findings),

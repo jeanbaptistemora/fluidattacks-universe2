@@ -306,12 +306,13 @@ def get_total_treatment(findings):
     in_progress_vuln = 0
     undefined_treatment = 0
     for finding in findings:
+        fin_treatment = finding.get('historic_treatment', [{}])[-1].get('treatment')
         if finding_domain.validate_finding(finding['finding_id']):
             open_vulns = total_vulnerabilities(
                 finding['finding_id']).get('openVulnerabilities')
-            if finding.get('treatment') == 'ACCEPTED':
+            if fin_treatment == 'ACCEPTED':
                 accepted_vuln += open_vulns
-            elif finding.get('treatment') == 'IN PROGRESS':
+            elif fin_treatment == 'IN PROGRESS':
                 in_progress_vuln += open_vulns
             else:
                 undefined_treatment += open_vulns
