@@ -22,7 +22,7 @@ from backend.mailer import send_comment_mail
 from backend import util
 from backend.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
-    NotSubmitted, InvalidFileSize, InvalidFileType, InvalidDraftTitle
+    NotSubmitted, InvalidFileSize, InvalidFileType, InvalidDraftTitle, SameValues
 )
 from backend.utils import cvss, notifications, findings as finding_utils
 
@@ -258,13 +258,18 @@ def update_description(finding_id, updated_values):
 
 
 def update_treatment_in_vuln(finding_id, updated_values):
+    new_values = {
+        'treatment': updated_values.get('treatment', ''),
+        'treatment_justification': updated_values.get('justification', ''),
+        'acceptance_date': updated_values.get('acceptance_date', ''),
+    }
     vulns = integrates_dal.get_vulnerabilities_dynamo(finding_id)
     for vuln in vulns:
         result_update_treatment = \
             integrates_dal.update_mult_attrs_dynamo('FI_vulnerabilities',
                                                     {'finding_id': finding_id,
                                                      'UUID': vuln['UUID']},
-                                                    updated_values)
+                                                    new_values)
         if not result_update_treatment:
             return False
     return True
@@ -276,32 +281,33 @@ def update_treatment(finding_id, updated_values, user_mail):
 
 
 def validate_update_treatment(finding_id, updated_values, user_mail):
+    success = False
     new_treatment = updated_values['treatment']
+    tzn = pytz.timezone(settings.TIME_ZONE)
+    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+    finding = get_finding(finding_id)
+    historic_treatment = finding.get('historicTreatment', [])
     new_state = {
-        'user': user_mail,
+        'date': today,
         'treatment': new_treatment
     }
-    finding = get_finding(finding_id)
+    if user_mail:
+        new_state['user'] = user_mail
     if new_treatment != 'NEW':
         new_state['justification'] = updated_values['justification']
-    if new_treatment != 'ACCEPTED_UNDEFINED':
-        tzn = pytz.timezone(settings.TIME_ZONE)
-        today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
-        new_state['date'] = today
-        if new_treatment == 'ACCEPTED':
-            new_state['acceptance_date'] = updated_values['acceptance_date']
-    else:
+    if new_treatment in ['ACCEPTED_UNDEFINED', 'ACCEPTED']:
+        new_state['acceptance_date'] = updated_values['acceptance_date']
+    if new_treatment == 'ACCEPTED_UNDEFINED':
         new_state['acceptance_status'] = updated_values['acceptance_status']
-    if finding.get('historicTreatment'):
-        historic_treatment = finding.get('historicTreatment')
-        last_values = [value for key, value in historic_treatment[-1].items() if 'date' not in key]
-        new_values = [value for key, value in new_state.items() if 'date' not in key]
+    if historic_treatment:
+        last_values = [value for key, value in historic_treatment[-1].items() if key != 'date']
+        new_values = [value for key, value in new_state.items() if key != 'date']
         if sorted(last_values) != sorted(new_values):
             historic_treatment.append(new_state)
         elif finding.get('externalBts') == updated_values['external_bts'] or \
             (not finding.get('externalBts') and
-             updated_values['external_bts'] == ''):
-            return False
+                updated_values['external_bts'] == ''):
+            raise SameValues()
     else:
         historic_treatment = [new_state]
     new_state = {
@@ -313,17 +319,21 @@ def validate_update_treatment(finding_id, updated_values, user_mail):
         {'finding_id': finding_id},
         new_state
     )
-    result_update_vuln = update_treatment_in_vuln(finding_id, new_state)
+    result_update_vuln = update_treatment_in_vuln(finding_id, historic_treatment[-1])
     if result_update_finding and result_update_vuln:
-        if updated_values['treatment'] == 'ACCEPTED':
-            finding_utils.send_accepted_email(
-                finding, updated_values.get('justification'))
-        if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
-            finding_utils.send_accepted_email(finding,
-                                              'Treatment state approval is pending for finding '
-                                              + finding.get('finding'))
-        return True
-    return False
+        should_send_mail(finding, updated_values)
+        success = True
+    return success
+
+
+def should_send_mail(finding, updated_values):
+    if updated_values['treatment'] == 'ACCEPTED':
+        finding_utils.send_accepted_email(
+            finding, updated_values.get('justification'))
+    if updated_values['treatment'] == 'ACCEPTED_UNDEFINED':
+        finding_utils.send_accepted_email(finding,
+                                          'Treatment state approval is pending for finding '
+                                          + finding.get('finding'))
 
 
 def save_severity(finding):

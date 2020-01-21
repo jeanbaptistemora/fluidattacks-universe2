@@ -274,3 +274,11 @@ class InvalidSeverity(Exception):
         """ Constructor """
         msg = f'Exception - Severity value must be between {fields[0]} and {fields[1]}'
         super(InvalidSeverity, self).__init__(msg)
+
+
+class SameValues(Exception):
+    """Exception to control save values updating treatment"""
+
+    def __init__(self):
+        msg = 'Exception - Same values'
+        super(SameValues, self).__init__(msg)
