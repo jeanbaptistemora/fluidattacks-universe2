@@ -1,4 +1,0 @@
-//Hide info of no checked inputs
-.accordion-item h4:not(:active) ~ .accordion-content {
-  display: none;
-}

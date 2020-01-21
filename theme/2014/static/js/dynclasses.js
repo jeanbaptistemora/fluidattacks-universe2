@@ -66,5 +66,14 @@ Tachyons classes on dynamically generated content
     //Definitions:
     $( ".hdlist1" ).addClass("f4 b");
 
+    // ulist elements
+    // Add style to ulist
+    $( ".ulist" ).addClass("mt3 pl3")
+
+    // Add style to ulist items in ul elements
+    $( ".ulist > li > p" ).addClass("mt3")
+
+    // Add style to ulist items in div elements
+    $( ".ulist > ul > li > p" ).addClass("mt3")
   });
 })(jQuery);

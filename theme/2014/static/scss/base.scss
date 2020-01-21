@@ -70,9 +70,10 @@ $codeyellow: rgba(230, 219, 116, 1);
 .ptdemo { padding-top: 6rem; }
 .rep-bd { border: .063rem solid $fluid-light-gray; }
 .rep-shadow { box-shadow: -.188rem -.125rem .3rem $fluid-light-gray; }
-.wr-bdr {   border-bottom-right-radius: .938rem; }
-.wr-bdl {  border-top-left-radius: .938rem; }
+.wr-bdr { border-bottom-right-radius: .938rem; }
+.wr-bdl { border-top-left-radius: .938rem; }
 .wr-sz { height: 5.625rem; width: 5.625rem; }
+.accordion-item h4:not(:active) ~ .accordion-content { display: none; }
 
 // Tachyons custom responsive classes
 
@@ -220,15 +221,6 @@ ul {
 
   li {
     margin-top: -10px;
-  }
-}
-
-.ulist {
-  margin-top: 15px;
-  padding-left: 20px;
-
-  p {
-    margin-top: 15px;
   }
 }
 
