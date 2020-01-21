@@ -77,6 +77,13 @@ def test_has_vm_vulnerabilities_monitor_disabled_open():
         AZURE_SUBSCRIPTION_ID).is_open()
 
 
+def test_has_security_configuration_monitor_disabled_open():
+    """Search subscriptions that have security config monitor disabled."""
+    assert security_center.has_security_configuration_monitor_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_open()
+
+
 #
 # Closing tests
 #
@@ -127,5 +134,12 @@ def test_has_system_updates_monitor_disabled_closed():
 def test_has_vm_vulnerabilities_monitor_disabled_closed():
     """Search subscriptions that have VM vulnerabilities monitor disabled."""
     assert security_center.has_vm_vulnerabilities_monitor_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_has_security_configuration_monitor_disabled_closed():
+    """Search subscriptions that have security config monitor disabled."""
+    assert security_center.has_security_configuration_monitor_disabled(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()

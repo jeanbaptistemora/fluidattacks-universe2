@@ -361,3 +361,48 @@ def has_vm_vulnerabilities_monitor_disabled(
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_security_configuration_monitor_disabled(
+        client_id: str,
+        secret: str,
+        tenant: str,
+        subscription_id: str) -> Tuple:
+    """
+    Check if System security configuration monitor is disabled.
+
+    When this setting is enabled, Security Center will monitor virtual machines
+    for security configurations.
+
+    Display name: Vulnerabilities in security configuration on your machines
+    should be remediated.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if System security configuration monitor is disabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'System security configuration monitor is disabled.'
+    msg_closed: str = 'System security configuration monitor is enabled.'
+    vulns, safes = _has_monitoring_param_value(
+        client_id, secret, tenant, subscription_id,
+        'systemConfigurationsMonitoringEffect', 'Disabled')
+
+    message = 'enable System security configuration monitor.'
+    vulns = list(zip(vulns, repeat(message)))
+    safes = list(zip(safes, repeat(message)))
+
+    return _get_result_as_tuple(
+        objects='Security center',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
