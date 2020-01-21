@@ -8,16 +8,14 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
-import { Reducer } from "redux";
+import { useSelector } from "react-redux";
 import { formValueSelector, InjectedFormProps } from "redux-form";
-import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
-import { castEnvironmentCVSS3Fields, castFieldsCVSS3, castPrivileges } from "../../../../utils/formatHelpers";
+import { castFieldsCVSS3, castPrivileges } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
-import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
@@ -30,7 +28,7 @@ import { ISeverityAttr, ISeverityField, ISeverityViewProps, IUpdateSeverityAttr 
 
 const renderCVSSFields: ((props: ISeverityViewProps, data: ISeverityAttr) => JSX.Element[]) =
   (props: ISeverityViewProps, data: ISeverityAttr): JSX.Element[] =>
-  castFieldsCVSS3(data.finding.severity)
+  []
         .map((field: ISeverityField, index: number) => {
         const value: string = field.currentValue;
         const text: string = field.options[value];
@@ -60,7 +58,7 @@ const renderCVSSFields: ((props: ISeverityViewProps, data: ISeverityAttr) => JSX
 
 const renderEnvironmentFields: ((props: ISeverityViewProps, data: ISeverityAttr) => JSX.Element[]) =
   (props: ISeverityViewProps,  data: ISeverityAttr): JSX.Element[] =>
-  castEnvironmentCVSS3Fields(data.finding.severity)
+  []
         .map((field: ISeverityField, index: number) => {
         const value: string = field.currentValue;
         const text: string = field.options[value];
@@ -89,7 +87,7 @@ const renderEnvironmentFields: ((props: ISeverityViewProps, data: ISeverityAttr)
         );
       });
 
-const renderSeverityFields: ((props: ISeverityViewProps, data: ISeverityAttr) => JSX.Element) =
+export const renderSeverityFields: ((props: ISeverityViewProps, data: ISeverityAttr) => JSX.Element) =
 (props: ISeverityViewProps, data: ISeverityAttr): JSX.Element => {
   const cvssVersion: string = (props.isEditing)
     ? props.formValues.editSeverity.values.cvssVersion
@@ -177,7 +175,7 @@ const renderSeverityFields: ((props: ISeverityViewProps, data: ISeverityAttr) =>
   );
 };
 
-export const component: React.FC<ISeverityViewProps> = (props: ISeverityViewProps): JSX.Element => {
+const severityView: React.FC<ISeverityViewProps> = (props: ISeverityViewProps): JSX.Element => {
   const onMount: (() => void) = (): void => {
     mixpanel.track("FindingSeverity", {
       Organization: (window as Window & { userOrganization: string }).userOrganization,
@@ -187,6 +185,10 @@ export const component: React.FC<ISeverityViewProps> = (props: ISeverityViewProp
   React.useEffect(onMount, []);
 
   const [isEditing, setEditing] = React.useState(false);
+
+  const selector: (state: {}, ...field: string[]) => Dictionary<string> = formValueSelector("editSeverity");
+  const formValues: Dictionary<string> = useSelector((state: {}) => selector(
+    state, "cvssVersion", "severityScope", "modifiedSeverityScope"));
 
   return (
     <React.StrictMode>
@@ -271,7 +273,7 @@ export const component: React.FC<ISeverityViewProps> = (props: ISeverityViewProp
                       return (
                         <GenericForm
                           name="editSeverity"
-                          initialValues={{ ...data.finding.severity, ...{ cvssVersion: data.finding.cvssVersion } }}
+                          initialValues={{ ...data.finding.severity, cvssVersion: data.finding.cvssVersion }}
                           onSubmit={handleUpdateSeverity}
                           onChange={handleFormChange}
                         >
@@ -286,7 +288,41 @@ export const component: React.FC<ISeverityViewProps> = (props: ISeverityViewProp
                                   </Col>
                                 </Row>
                               ) : undefined}
-                              {renderSeverityFields({ ...props, isEditing }, data)}
+                              <Row className={style.row}>
+                                <EditableField
+                                  alignField="horizontal"
+                                  component={dropdownField}
+                                  currentValue={data.finding.cvssVersion}
+                                  label={translate.t("search_findings.tab_severity.cvss_version")}
+                                  name="cvssVersion"
+                                  renderAsEditable={isEditing}
+                                  validate={[required]}
+                                  visible={isEditing}
+                                >
+                                  <option value="" selected={true} />
+                                  <option value="3.1">3.1</option>
+                                </EditableField>
+                              </Row>
+                              {castFieldsCVSS3(data.finding.severity, isEditing, formValues)
+                                .map((field: ISeverityField, index: number) => (
+                                  <Row className={style.row} key={index}>
+                                    <EditableField
+                                      alignField="horizontal"
+                                      component={dropdownField}
+                                      currentValue={
+                                        `${field.currentValue} | ${translate.t(field.options[field.currentValue])}`}
+                                      label={field.title}
+                                      name={field.name}
+                                      renderAsEditable={isEditing}
+                                      validate={[required]}
+                                    >
+                                      <option value="" selected={true} />
+                                      {_.map(field.options, (text: string, value: string) => (
+                                        <option value={value}>{translate.t(text)}</option>
+                                      ))}
+                                    </EditableField>
+                                  </Row>
+                                ))}
                             </React.Fragment>
                           )}
                         </GenericForm>
@@ -303,21 +339,4 @@ export const component: React.FC<ISeverityViewProps> = (props: ISeverityViewProp
   );
 };
 
-const fieldSelector: ((state: {}, ...fields: string[]) => string) = formValueSelector("editSeverity");
-
-export const severityView: React.ComponentType<ISeverityViewProps> = reduxWrapper(
-  component,
-  (state: StateType<Reducer>): ISeverityViewProps => ({
-    ...state.dashboard.severity,
-    formValues: {
-      editSeverity: {
-        values: {
-          cvssVersion: fieldSelector(state, "cvssVersion"),
-          modifiedSeverityScope: fieldSelector(state, "modifiedSeverityScope"),
-          severityScope: fieldSelector(state, "severityScope"),
-        },
-      },
-    },
-    isMdlConfirmOpen: state.dashboard.isMdlConfirmOpen,
-  }),
-);
+export { severityView as SeverityView };

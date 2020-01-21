@@ -45,8 +45,33 @@ export const formatUserlist:
   return { ...user, role, lastLogin, firstLogin };
 });
 
-export const castFieldsCVSS3: ((dataset: ISeverityAttr["finding"]["severity"]) => ISeverityField[]) =
-  (dataset: ISeverityAttr["finding"]["severity"]): ISeverityField[] => {
+export const castPrivileges: ((scope: string) => Dictionary<string>) = (scope: string): Dictionary<string> => {
+  const privilegesRequiredScope: {[value: string]: string} = {
+    0.85: "search_findings.tab_severity.privileges_required_options.none",
+    0.68: "search_findings.tab_severity.privileges_required_options.low",
+    0.5: "search_findings.tab_severity.privileges_required_options.high",
+  };
+  const privilegesRequiredNoScope: {[value: string]: string} = {
+    0.85: "search_findings.tab_severity.privileges_required_options.none",
+    0.62: "search_findings.tab_severity.privileges_required_options.low",
+    0.27: "search_findings.tab_severity.privileges_required_options.high",
+  };
+  const privilegesOptions: {[value: string]: string} = (parseInt(scope, 10) === 1)
+    ? privilegesRequiredScope
+    : privilegesRequiredNoScope;
+
+  return privilegesOptions;
+};
+
+export const castFieldsCVSS3: ((
+  dataset: ISeverityAttr["finding"]["severity"],
+  isEditing: boolean,
+  formValues: Dictionary<string>) => ISeverityField[]
+) = (
+  dataset: ISeverityAttr["finding"]["severity"],
+  isEditing: boolean,
+  formValues: Dictionary<string>,
+): ISeverityField[] => {
 
   const attackVector: {[value: string]: string} = {
     0.85: "search_findings.tab_severity.attack_vector_options.network",
@@ -108,7 +133,7 @@ export const castFieldsCVSS3: ((dataset: ISeverityAttr["finding"]["severity"]) =
     0.92: "search_findings.tab_severity.report_confidence_options.unknown",
   };
 
-  const fields: ISeverityField[] = [
+  let fields: ISeverityField[] = [
     {
       currentValue: dataset.attackVector, name: "attackVector",
       options: attackVector,
@@ -159,53 +184,12 @@ export const castFieldsCVSS3: ((dataset: ISeverityAttr["finding"]["severity"]) =
       options: reportConfidence,
       title: translate.t("search_findings.tab_severity.report_confidence"),
     },
+    {
+      currentValue: dataset.privilegesRequired, name: "privilegesRequired",
+      options: castPrivileges(formValues.severityScope),
+      title: translate.t("search_findings.tab_severity.privileges_required"),
+    },
   ];
-
-  return fields;
-};
-
-export const castEnvironmentCVSS3Fields: ((dataset: ISeverityAttr["finding"]["severity"]) => ISeverityField[]) =
-  (dataset: ISeverityAttr["finding"]["severity"]): ISeverityField[] => {
-
-  const attackVector: {[value: string]: string} = {
-    0.85: "search_findings.tab_severity.attack_vector_options.network",
-    0.62: "search_findings.tab_severity.attack_vector_options.adjacent",
-    0.55: "search_findings.tab_severity.attack_vector_options.local",
-    0.2: "search_findings.tab_severity.attack_vector_options.physical",
-  };
-
-  const attackComplexity: {[value: string]: string} = {
-    0.77: "search_findings.tab_severity.attack_complexity_options.low",
-    0.44: "search_findings.tab_severity.attack_complexity_options.high",
-  };
-
-  const userInteraction: {[value: string]: string} = {
-    0.85: "search_findings.tab_severity.user_interaction_options.none",
-    0.62: "search_findings.tab_severity.user_interaction_options.required",
-  };
-
-  const severityScope: {[value: string]: string} = {
-    0: "search_findings.tab_severity.severity_scope_options.unchanged",
-    1: "search_findings.tab_severity.severity_scope_options.changed",
-  };
-
-  const confidentialityImpact: {[value: string]: string} = {
-    0: "search_findings.tab_severity.confidentiality_impact_options.none",
-    0.22: "search_findings.tab_severity.confidentiality_impact_options.low",
-    0.56: "search_findings.tab_severity.confidentiality_impact_options.high",
-  };
-
-  const integrityImpact: {[value: string]: string} = {
-    0: "search_findings.tab_severity.integrity_impact_options.none",
-    0.22: "search_findings.tab_severity.integrity_impact_options.low",
-    0.56: "search_findings.tab_severity.integrity_impact_options.high",
-  };
-
-  const availabilityImpact: {[value: string]: string} = {
-    0: "search_findings.tab_severity.availability_impact_options.none",
-    0.22: "search_findings.tab_severity.availability_impact_options.low",
-    0.56: "search_findings.tab_severity.availability_impact_options.high",
-  };
 
   const confidentialityRequirement: {[value: string]: string} = {
     1.5: "search_findings.tab_severity.confidentiality_requirement_options.high",
@@ -225,7 +209,7 @@ export const castEnvironmentCVSS3Fields: ((dataset: ISeverityAttr["finding"]["se
     0.5: "search_findings.tab_severity.availability_requirement_options.low",
   };
 
-  const fields: ISeverityField[] = [
+  const environmentFields: ISeverityField[] = [
     {
       currentValue: dataset.confidentialityRequirement, name: "confidentialityRequirement",
       options: confidentialityRequirement,
@@ -278,6 +262,16 @@ export const castEnvironmentCVSS3Fields: ((dataset: ISeverityAttr["finding"]["se
     },
   ];
 
+  if (isEditing && formValues.cvssVersion === "3.1") {
+    fields = fields.concat([
+      ...environmentFields,
+      {
+        currentValue: dataset.modifiedPrivilegesRequired, name: "modifiedPrivilegesRequired",
+        options: castPrivileges(formValues.modifiedSeverityScope),
+        title: translate.t("search_findings.tab_severity.modified_privileges_required"),
+      }]);
+  }
+
   return fields;
 };
 
@@ -306,26 +300,6 @@ export const castEventStatus: ((field: string) => string) = (field: string): str
   };
 
   return eventStatus[field];
-};
-
-export const castPrivileges:
-((scope: string) => {[value: string]: string}) =
-  (scope: string): {[value: string]: string} => {
-    const privilegesRequiredScope: {[value: string]: string} = {
-      0.85: "search_findings.tab_severity.privileges_required_options.none",
-      0.68: "search_findings.tab_severity.privileges_required_options.low",
-      0.5: "search_findings.tab_severity.privileges_required_options.high",
-    };
-    const privilegesRequiredNoScope: {[value: string]: string} = {
-      0.85: "search_findings.tab_severity.privileges_required_options.none",
-      0.62: "search_findings.tab_severity.privileges_required_options.low",
-      0.27: "search_findings.tab_severity.privileges_required_options.high",
-    };
-    const privilegesOptions: {[value: string]: string} = (parseInt(scope, 10) === 1)
-      ? privilegesRequiredScope
-      : privilegesRequiredNoScope;
-
-    return privilegesOptions;
 };
 
 export const formatCweUrl: ((cweId: string) => string) = (cweId: string): string =>

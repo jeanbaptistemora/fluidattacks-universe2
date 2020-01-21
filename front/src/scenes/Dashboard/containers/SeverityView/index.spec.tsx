@@ -9,7 +9,7 @@ import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../store/index";
-import { severityView as SeverityView } from "./index";
+import { SeverityView } from "./index";
 import { GET_SEVERITY } from "./queries";
 import { ISeverityViewProps } from "./types";
 

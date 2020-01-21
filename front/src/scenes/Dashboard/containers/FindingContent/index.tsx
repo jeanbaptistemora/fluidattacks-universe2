@@ -31,7 +31,7 @@ import { ExploitView } from "../ExploitView/index";
 import { loadProjectData } from "../ProjectContent/actions";
 import { GET_PROJECT_ALERT } from "../ProjectContent/queries";
 import { RecordsView } from "../RecordsView/index";
-import { severityView as SeverityView } from "../SeverityView/index";
+import { SeverityView } from "../SeverityView/index";
 import { TrackingView } from "../TrackingView/index";
 import {
   approveDraft, clearFindingState, deleteFinding, rejectDraft, ThunkDispatcher,
