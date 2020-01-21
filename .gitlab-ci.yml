@@ -140,16 +140,6 @@ fluidasserts_post:
   except:
     - schedules
 
-change-keys-aws:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: rotation
-  script:
-    ./ci-scripts/jobs/change-keys-aws.sh
-  <<: *only_schedules
-  <<: *except_analytics
-  when: always
-
 change-keys-integrates-jwt:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
@@ -165,7 +155,19 @@ change-keys-aws-integrates-prod:
   tags: [autoscaling]
   stage: rotation
   script:
-    - ./ci-scripts/jobs/change-keys-aws-integrates-prod.sh
+    - . ci-scripts/jobs/user-provision-integrates-prod.sh
+    - user_provision_integrates_prod_rotate_aws
+  <<: *only_schedules
+  <<: *except_analytics
+  when: always
+
+change-keys-aws-continuous-prod:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: rotation
+  script:
+    - . ci-scripts/jobs/user-provision-continuous-prod.sh
+    - user_provision_continuous_prod_rotate_aws
   <<: *only_schedules
   <<: *except_analytics
   when: always
