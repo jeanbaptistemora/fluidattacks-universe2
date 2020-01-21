@@ -68,6 +68,11 @@ $codeyellow: rgba(230, 219, 116, 1);
 .w-maxcontent { width: max-content; }
 .mt8 { margin-top: 20rem; }
 .ptdemo { padding-top: 6rem; }
+.rep-bd { border: .063rem solid $fluid-light-gray; }
+.rep-shadow { box-shadow: -.188rem -.125rem .3rem $fluid-light-gray; }
+.wr-bdr {   border-bottom-right-radius: .938rem; }
+.wr-bdl {  border-top-left-radius: .938rem; }
+.wr-sz { height: 5.625rem; width: 5.625rem; }
 
 // Tachyons custom responsive classes
 
