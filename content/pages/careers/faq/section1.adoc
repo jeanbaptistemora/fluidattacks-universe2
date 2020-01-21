@@ -10,13 +10,13 @@
 
 *Why haven't I been invited to the process?*
 
-After you apply to a vacancy
+After you apply to a position
 listed on any of the portals we are registered in,
 it takes from +1+ to +2+ days for us to identify potential candidates,
 classify them, and send invitations via email.
 If you apply and have not received an invitation
 or other notification after 2 consecutive business days,
-and you believe your profile fits the vacancy,
+and you believe your profile fits the position,
 send us an email query at careers@autonomicmind.com.
 
 ==== 2. The test application won't allow me to exit Moodle. What should I do?
@@ -33,35 +33,35 @@ On the link:http://www.dian.gov.co/contenidos/servicios/rut.html[+DIAN+ webpage]
 you can find out how to get your +RUT+, or how to update it,
 if you already have one.
 
-==== 4. I don’t know what vacancy I applied for. How can I find out?
+==== 4. I don’t know what position I applied for. How can I find out?
 
 Ask us via email at careers@autonomicmind.com.
 
-==== 5. If I already applied for a specific vacancy, can I apply again?
+==== 5. If I already applied for a specific position, can I apply again?
 
-*Using the same application but for different vacancies?*
+*Using the same application but for different positions?*
 
 Yes. If it has not been more than six months,
 you can send us an email at career@autonomicmind.com
-telling us you want to apply for a different vacancy
+telling us you want to apply for a different position
 using your original application.
 If it has been more than six months since your last application
 you cannot use your original application;
 you must apply again starting at the beginning.
 
-==== 6. Can I apply for two different vacancies at the same time?
+==== 6. Can I apply for two different positions at the same time?
 
-Yes. You can apply for as many vacancies as you believe you qualify for;
+Yes. You can apply for as many positions as you believe you qualify for;
 just send us an email via careers@autonomicmind.com
-telling us which vacancies you want to apply for.
+telling us which positions you want to apply for.
 
-==== 7. What experience should I already have in order to apply for vacancies?
+==== 7. What experience should I already have in order to apply for positions?
 
 You don’t need to have any experience.
 What is essential is the ability to do research,
 solve issues, and be capable of teaching yourself.
 
-==== 8. What do I need to know to apply for vacancies?
+==== 8. What do I need to know to apply for positions?
 
 We look for talented people with great potential and flexibility.
 It doesn’t matter what your career currently is
@@ -169,7 +169,7 @@ regardless of the position you are hired for.
 
 Not necessarily.
 
-It depends on the vacancy you applied for and your selection process.
+It depends on the position you applied for and your selection process.
 We will tell you how to proceed,
 and as always, if you have any questions, contact us.
 
@@ -181,7 +181,7 @@ If during this time the candidate does not respond
 with explicit and written acceptance of the job offer,
 the offer will become invalid.
 Another candidate will then be offered the job.
-This allows us to fill vacancies as soon as possible.
+This allows us to fill positions as soon as possible.
 
 ==== 24. If I do not accept the offer, what happens to my immersion process?
 
