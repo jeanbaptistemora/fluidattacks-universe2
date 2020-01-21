@@ -22,6 +22,35 @@ In Windows:
 
 Now you're ready to begin :doc:`testing<usage>` vulnerabilities' closure.
 
+-----------------------------------------------
+Installing with `Nix <https://nixos.org/nix/>`_
+-----------------------------------------------
+
+We are at the `Official Nixpkgs collection <https://github.com/NixOS/nixpkgs>`_.
+
+#. Install **Nix** as explained `here <https://nixos.org/nix/download.html>`_.:
+
+   On most systems it's enough to run:
+
+   .. code-block:: bash
+
+      $ curl https://nixos.org/nix/install | sh
+#. Add the **NixOS** channel:
+
+   .. code-block:: bash
+
+      $ nix-channel --add https://nixos.org/channels/nixos-unstable
+#. Install **fluidasserts**:
+
+   .. code-block:: bash
+
+      $ nix-env -i fluidasserts
+#. Get into a shell with **fluidasserts**!
+
+   .. code-block:: bash
+
+      $ nix-shell -p fluidasserts
+
 -------------------------
 Inside a Docker container
 -------------------------
