@@ -88,7 +88,17 @@ lint:
     - schedules
   interruptible: true
 
-lint_code:
+lint_nix_code:
+  <<: *with_nix
+  stage: test
+  <<: *in_dev_branch
+
+lint_python_code_bandit:
+  <<: *with_nix
+  stage: test
+  <<: *in_dev_branch
+
+lint_shell_code:
   <<: *with_nix
   stage: test
   <<: *in_dev_branch
@@ -97,16 +107,6 @@ populate_caches:
   <<: *with_nix
   stage: deploy
   <<: *in_prod_branch
-
-bandit:
-  stage: test
-  tags: [autoscaling]
-  script:
-    - scons bandit
-  except:
-    - master
-    - schedules
-  interruptible: true
 
 .test-template: &test-template
   stage: test

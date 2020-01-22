@@ -56,3 +56,6 @@ sphinx/source/example/*.out
 
 # Direnv
 .envrc
+
+# Nix
+.tmp

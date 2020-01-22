@@ -86,7 +86,9 @@ function set_environment_info {
 
   test "${current_job}" = '__undefined__' \
     && CURRENT_JOBS=(
-      'lint_code'
+      'lint_nix_code'
+      'lint_python_code_bandit'
+      'lint_shell_code'
     ) \
     || CURRENT_JOBS=(
       "${current_job}"
@@ -128,17 +130,27 @@ function push_to_cachix {
 # Gitlab Jobs
 #
 
-function job_lint_code {
+function job_lint_nix_code {
   use_cachix_if_dev_branch
-
   execute lintNixCode
-  execute lintShellCode
+}
+
+function job_lint_python_code_bandit {
+  use_cachix_if_dev_branch
+  execute lintPythonCodeBandit
+}
+
+function job_lint_shell_code {
+  use_cachix_if_dev_branch
+  execute lintPythonCodeBandit
 }
 
 function job_populate_caches {
   # Execute the 'populate_caches' job in the .gitlab-ci.yml
   (
-    job_lint_code
+    job_lint_nix_code
+    job_lint_python_code_bandit
+    job_lint_shell_code
   ) | push_to_cachix
 }
 

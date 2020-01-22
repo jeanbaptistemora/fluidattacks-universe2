@@ -15,7 +15,6 @@ rec {
   ]);
 
   # Repository files
-  srcFluidasserts = ../fluidasserts;
   srcBuildConfPylintrc = ../build-src/conf/pylintrc;
   srcBuildPythonRequirementsLint = ../build-src/python-requirements/lint.lst;
   srcBuildSh = ../build.sh;
@@ -24,6 +23,7 @@ rec {
     name = "envrc.public";
     path = ../.envrc.public;
   };
+  srcFluidasserts = ../fluidasserts;
 
   lintNixCode = pkgs.stdenv.mkDerivation rec {
     name = "lintNixCode";
@@ -34,6 +34,17 @@ rec {
     inherit srcBuildSrc;
     buildInputs = with pkgs; [ nix-linter ];
     builder = ./builders/lint-nix-code.sh;
+  };
+
+  lintPythonCodeBandit = pkgs.stdenv.mkDerivation rec {
+    name = "lintPythonCodeBandit";
+    description = ''
+      Run bandit in fluidasserts code.
+    '';
+    inherit genericDirs genericShellOptions;
+    inherit srcFluidasserts;
+    buildInputs = with pkgs; with python3Packages; [ bandit ];
+    builder = ./builders/lint-python-code-bandit.sh;
   };
 
   lintShellCode = pkgs.stdenv.mkDerivation rec {
