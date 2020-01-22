@@ -406,3 +406,53 @@ def has_security_configuration_monitor_disabled(
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_security_contacts_disabled(client_id: str,
+                                   secret: str,
+                                   tenant: str,
+                                   subscription_id: str,
+                                   region: str = 'east-us') -> Tuple:
+    """
+    Check if security contact phone number and email address are set.
+
+    Setting security contacts ensures that any security incidents detected by
+    Azure are sent to a security team equipped to handle the incident.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if security contact phone number and email address are
+                 not set.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = \
+        'Security contact phone number and email address are not set.'
+    msg_closed: str = \
+        'Security contact phone number and email address are set.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    center = SecurityCenter(credentials, subscription_id,
+                            region).security_contacts
+
+    for contact in center.list():
+        (vulns if not contact.email and not contact.phone else
+         safes).append((f'subscriptions/{subscription_id}',
+                        'set a contact email or phone number.'))
+    if not safes:
+        vulns.append((f'subscriptions/{subscription_id}',
+                      'configure security alerts.'))
+    return _get_result_as_tuple(
+        objects='Security center',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
