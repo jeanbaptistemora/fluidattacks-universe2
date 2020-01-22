@@ -20,7 +20,6 @@ import { RouteComponentProps } from "react-router";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { default as globalStyle } from "../../../../styles/global.css";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -72,12 +71,10 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
           };
 
           const handleUpdateResult: (() => void) = (): void => {
-            hidePreloader();
             refetch()
               .catch();
           };
           const handleUpdateError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
-            hidePreloader();
             updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
               switch (message) {
                 case "Exception - Invalid File Size":
@@ -129,7 +126,6 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                     const handleUpdate: ((values: { filename: FileList }) => void) = (
                       values: { filename: FileList },
                     ): void => {
-                      showPreloader();
                       updateEvidence({
                         variables: { eventId, evidenceType: "IMAGE", file: values.filename[0] },
                       })
@@ -141,7 +137,6 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                       <Mutation mutation={REMOVE_EVIDENCE_MUTATION} onCompleted={handleUpdateResult}>
                         {(removeImage: MutationFn): React.ReactNode => {
                           const handleRemove: (() => void) = (): void => {
-                            showPreloader();
                             removeImage({ variables: { eventId, evidenceType: "IMAGE" } })
                               .catch();
                             setEditing(false);
@@ -178,7 +173,6 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                     const handleUpdate: ((values: { filename: FileList }) => void) = (
                       values: { filename: FileList },
                     ): void => {
-                      showPreloader();
                       updateEvidence({
                         variables: { eventId, evidenceType: "FILE", file: values.filename[0] },
                       })
@@ -207,7 +201,6 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                             <Mutation mutation={REMOVE_EVIDENCE_MUTATION} onCompleted={handleUpdateResult}>
                               {(removeFile: MutationFn): React.ReactNode => {
                                 const handleRemove: (() => void) = (): void => {
-                                  showPreloader();
                                   removeFile({ variables: { eventId, evidenceType: "FILE" } })
                                     .catch();
                                   setEditing(false);

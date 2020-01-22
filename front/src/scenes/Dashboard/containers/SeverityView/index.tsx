@@ -13,7 +13,6 @@ import { RouteComponentProps } from "react-router";
 import { formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { calcCVSSv3 } from "../../../../utils/cvss";
 import { castFieldsCVSS3 } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
@@ -67,7 +66,6 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                     if (mtResult.updateSeverity.success) {
                       refetch()
                         .catch();
-                      hidePreloader();
                       msgSuccess(translate.t("proj_alerts.updated"), translate.t("proj_alerts.updated_title"));
                       mixpanel.track("UpdateSeverity", {
                         Organization: (window as Window & { userOrganization: string }).userOrganization,
@@ -98,13 +96,8 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                     refetchQueries={[{ query: GET_FINDING_HEADER, variables: { findingId, submissionField: canEdit } }]}
                   >
                     {(updateSeverity: MutationFn, mutationRes: MutationResult): React.ReactNode => {
-                      if (mutationRes.loading) {
-                        showPreloader();
-                      }
-
                       const handleUpdateSeverity: ((values: {}) => void) = (values: {}): void => {
                         setEditing(false);
-                        showPreloader();
                         updateSeverity({ variables: { data: { ...values, id: findingId }, findingId } })
                           .catch();
                       };

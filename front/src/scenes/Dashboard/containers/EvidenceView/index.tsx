@@ -21,7 +21,6 @@ import { RouteComponentProps } from "react-router";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { default as globalStyle } from "../../../../styles/global.css";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -103,12 +102,10 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
           };
 
           const handleUpdateResult: (() => void) = (): void => {
-            hidePreloader();
             refetch()
               .catch();
           };
           const handleUpdateError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
-            hidePreloader();
             updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
               switch (message) {
                 case "Exception - Invalid File Size":
@@ -160,7 +157,6 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                               if (_.isEmpty(evidenceImages[index].url)) {
                                 msgError(translate.t("proj_alerts.no_file_selected"));
                               } else {
-                                showPreloader();
                                 updateDescription({
                                   variables: {
                                     description: values.description, field: `evidence${index}_description`, findingId,
@@ -174,10 +170,8 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                               })
                                 .then((mtResult: void | {}): void => {
                                   interface IMutationResult { data: { updateEvidence: { success: boolean } }; }
-                                  hidePreloader();
                                   const { success } = (mtResult as IMutationResult).data.updateEvidence;
                                   if (success) {
-                                    showPreloader();
                                     if (index > 1) {
                                       updateDescription({
                                         variables: {
@@ -206,7 +200,6 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                                     User: (window as Window & { userName: string }).userName,
                                   });
                                   setEditing(false);
-                                  showPreloader();
                                   removeImage({ variables: { evidenceId: index, findingId } })
                                     .catch();
                                 };

@@ -16,7 +16,6 @@ import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { default as globalStyle } from "../../../../styles/global.css";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { fileInputField } from "../../../../utils/forms/fields";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -49,12 +48,10 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
           if (_.isUndefined(data) || loading) { return <React.Fragment />; }
 
           const handleUpdateResult: (() => void) = (): void => {
-            hidePreloader();
             refetch()
               .catch();
           };
           const handleUpdateError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
-            hidePreloader();
             updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
               switch (message) {
                 case "Wrong file structure":
@@ -99,7 +96,6 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                       values: { filename: FileList },
                     ): void => {
                       setEditing(false);
-                      showPreloader();
                       updateRecords({ variables: { evidenceId: "8", file: values.filename[0], findingId } })
                         .catch();
                     };
@@ -143,7 +139,6 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                         User: (window as Window & { userName: string }).userName,
                       });
                       setEditing(false);
-                      showPreloader();
                       removeRecords({ variables: { evidenceId: "8", findingId } })
                         .catch();
                     };

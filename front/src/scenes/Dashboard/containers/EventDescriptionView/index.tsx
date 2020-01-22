@@ -11,7 +11,6 @@ import { Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { Modal } from "../../../../components/Modal";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { dateTimeField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { dateTimeBeforeToday, numeric, required, validDatetime } from "../../../../utils/validations";
@@ -52,7 +51,6 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
           if (_.isUndefined(data) || loading) { return <React.Fragment />; }
 
           const handleUpdateResult: (() => void) = (): void => {
-            hidePreloader();
             refetch()
               .catch();
           };
@@ -73,7 +71,6 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                 >
                   {(solveEvent: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
                     const handleSubmit: ((values: {}) => void) = (values: {}): void => {
-                      showPreloader();
                       solveEvent({ variables: { eventId, ...values } })
                         .catch();
                       closeSolvingModal();
@@ -128,7 +125,6 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                   const handleSubmit: ((values: { [key: string]: string }) => void) = (
                     values: { [key: string]: string },
                   ): void => {
-                    showPreloader();
                     updateDescription({ variables: { eventId, ...values } })
                       .catch();
                     setEditing(false);

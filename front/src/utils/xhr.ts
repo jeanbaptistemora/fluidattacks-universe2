@@ -64,18 +64,6 @@ class Xhr {
      return cookieValue;
    }
 
- /**
-  * Hide preloader animation
-  * function hidePreloader
-  * return {void}
-  */
-  public hidePreloader = (): void => {
-     const preloaderElement: HTMLElement | null = document.getElementById("full_loader");
-     if (preloaderElement !== null) {
-       preloaderElement.style.display = "none";
-     }
-   }
-
   /**
    * Perform axios (ajax) request against GraphQL endpoint
    */
@@ -106,18 +94,6 @@ class Xhr {
     return url === origin || url.slice(0, origin.length + 1) === `${origin}/` ||
           (url === srOrigin || url.slice(0, srOrigin.length + 1) ===
           `${srOrigin}/`) || !(/^(\/\/|http:|https:).*/).test(url);
-  }
-
-  /**
-   * Show preloader animation
-   * function showPreloader
-   * return {void}
-   */
-  public showPreloader = (): void => {
-    const preloaderElement: HTMLElement | null = document.getElementById("full_loader");
-    if (preloaderElement !== null) {
-      preloaderElement.style.display = "block";
-    }
   }
 
   /**
