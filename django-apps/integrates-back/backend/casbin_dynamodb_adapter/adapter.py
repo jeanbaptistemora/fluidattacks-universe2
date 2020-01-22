@@ -1,6 +1,7 @@
 """Casbin DynamoDB Adapter."""
 
 import logging
+import uuid
 
 from botocore.exceptions import ClientError
 from casbin import persist
@@ -72,9 +73,9 @@ class Adapter(persist.Adapter):
             persist.load_policy_line(str(rule), model)
 
     def _save_policy_line(self, ptype, rule):
-        line = {'ptype': ptype}
+        line = {'id': str(uuid.uuid4()), 'ptype': ptype}
         for counter, value in enumerate(rule):
-            setattr(line, f'v{counter}', value)
+            line[f'v{counter}'] = value
         table = DYNAMODB_RESOURCE.Table(self.table_name)
         table.put_item(Item=line)
 
