@@ -31,3 +31,7 @@ resource "aws_instance" "i-0d1583d0c02a9bb47" {
     Name    = "aws.ec2_unencrypted"
   }
 }
+
+resource "aws_ebs_encryption_by_default" "example" {
+  enabled = true
+}
