@@ -232,7 +232,7 @@ class FindingTests(TestCase):
     def test_update_treatment_accepted(self):
         query = '''
                 mutation {
-                  updateTreatment (
+                  updateClientDescription (
                     btsUrl: "",
                     findingId: "463558592",
                     treatment: "ACCEPTED",
@@ -252,12 +252,12 @@ class FindingTests(TestCase):
             'vulnerability': VulnerabilityLoader()}
         result = self._get_result(query, testing_client, request_loaders)
         assert 'errors' not in result
-        assert result['data']['updateTreatment']['success']
+        assert result['data']['updateClientDescription']['success']
 
     def test_update_treatment_new(self):
         query = '''
                 mutation {
-                  updateTreatment (
+                  updateClientDescription (
                     btsUrl: "",
                     findingId: "436992569",
                     treatment: "NEW",
@@ -277,4 +277,4 @@ class FindingTests(TestCase):
             'vulnerability': VulnerabilityLoader()}
         result = self._get_result(query, testing_client, request_loaders)
         assert 'errors' not in result
-        assert result['data']['updateTreatment']['success']
+        assert result['data']['updateClientDescription']['success']

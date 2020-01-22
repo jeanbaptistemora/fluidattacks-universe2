@@ -696,7 +696,7 @@ class UpdateDescription(Mutation):
         return ret
 
 
-class UpdateTreatment(Mutation):
+class UpdateClientDescription(Mutation):
     """ Update treatment of a finding """
     class Arguments():
         acceptance_date = String()
@@ -725,7 +725,7 @@ class UpdateTreatment(Mutation):
             util.cloudwatch_log(info.context, 'Security: Attempted to update '
                                 f'treatment in finding {finding_id}')
         findings_loader = info.context.loaders['finding']
-        ret = UpdateTreatment(
+        ret = UpdateClientDescription(
             finding=findings_loader.load(finding_id), success=success)
         return ret
 

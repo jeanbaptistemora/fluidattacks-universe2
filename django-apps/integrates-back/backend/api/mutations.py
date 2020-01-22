@@ -16,7 +16,7 @@ from backend.entity.finding import (
     UpdateEvidence, RemoveEvidence, UpdateSeverity,
     UpdateEvidenceDescription,
     AddFindingComment, VerifyFinding, HandleAcceptation, RequestVerification,
-    UpdateDescription, UpdateTreatment, RejectDraft,
+    UpdateClientDescription, UpdateDescription, RejectDraft,
     DeleteFinding, ApproveDraft, CreateDraft, SubmitDraft
 )
 from backend.entity.project import (
@@ -71,7 +71,7 @@ class Mutations(ObjectType):
     handleAcceptation = HandleAcceptation.Field()
     requestVerification = RequestVerification.Field()
     updateDescription = UpdateDescription.Field()
-    updateTreatment = UpdateTreatment.Field()
+    updateClientDescription = UpdateClientDescription.Field()
 
     approveDraft = ApproveDraft.Field()
     create_draft = CreateDraft.Field()

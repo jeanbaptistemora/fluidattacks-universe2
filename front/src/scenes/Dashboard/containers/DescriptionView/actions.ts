@@ -276,7 +276,7 @@ export const updateDescription: ThunkActionStructure<void> =
         });
     };
 
-export const updateTreatment: ThunkActionStructure<void> =
+export const updateClientDescription: ThunkActionStructure<void> =
   (findingId: string, values: IDescriptionViewProps["dataset"]): ThunkAction<void, {}, {}, IActionStructure> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
@@ -287,7 +287,7 @@ export const updateTreatment: ThunkActionStructure<void> =
         accAppr = "SUBMITTED";
       }
       gQry = `mutation {
-        updateTreatment(
+        updateClientDescription(
           btsUrl: ${JSON.stringify(values.btsUrl)},
           findingId: "${findingId}",
           treatment: "${treatment}",
@@ -306,27 +306,33 @@ export const updateTreatment: ThunkActionStructure<void> =
       new Xhr().request(gQry, "An error occurred updating finding description")
         .then((response: AxiosResponse) => {
           const { data } = response.data;
-          if (data.updateTreatment.success) {
-            const nStates: number = data.updateTreatment.finding.historicTreatment.length;
-            if ("treatment" in data.updateTreatment.finding.historicTreatment[nStates - 1]) {
-              data.updateTreatment.finding.treatment =
-                data.updateTreatment.finding.historicTreatment[nStates - 1].treatment;
+          if (data.updateClientDescription.success) {
+            const nStates: number = data.updateClientDescription.finding.historicTreatment.length;
+            if ("treatment" in data.updateClientDescription.finding
+                                                           .historicTreatment[nStates - 1]) {
+              data.updateClientDescription.finding.treatment =
+                data.updateClientDescription.finding.historicTreatment[nStates - 1].treatment;
             }
-            if ("acceptance_date" in data.updateTreatment.finding.historicTreatment[nStates - 1]) {
-              data.updateTreatment.finding.acceptanceDate =
-                data.updateTreatment.finding.historicTreatment[nStates - 1].acceptance_date.split(" ")[0];
+            if ("acceptance_date" in data.updateClientDescription.finding
+                                         .historicTreatment[nStates - 1]) {
+              data.updateClientDescription.finding.acceptanceDate =
+                data.updateClientDescription.finding.historicTreatment[nStates - 1]
+                .acceptance_date.split(" ")[0];
             }
-            if ("acceptance_status" in data.updateTreatment.finding.historicTreatment[nStates - 1]) {
-              data.updateTreatment.finding.acceptationApproval =
-                data.updateTreatment.finding.historicTreatment[nStates - 1].acceptance_status;
+            if ("acceptance_status" in data.updateClientDescription
+                                           .finding.historicTreatment[nStates - 1]) {
+              data.updateClientDescription.finding.acceptationApproval =
+                data.updateClientDescription.finding
+                                            .historicTreatment[nStates - 1].acceptance_status;
             }
-            if ("justification" in data.updateTreatment.finding.historicTreatment[nStates - 1]) {
-              data.updateTreatment.finding.justification =
-                data.updateTreatment.finding.historicTreatment[nStates - 1].justification;
+            if ("justification" in data.updateClientDescription.finding
+                                                               .historicTreatment[nStates - 1]) {
+              data.updateClientDescription.finding.justification =
+                data.updateClientDescription.finding.historicTreatment[nStates - 1].justification;
             }
             dispatch<IActionStructure>({
               payload: {
-                descriptionData: data.updateTreatment.finding,
+                descriptionData: data.updateClientDescription.finding,
               },
               type: actionTypes.LOAD_DESCRIPTION,
             });

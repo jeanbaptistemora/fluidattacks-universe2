@@ -218,7 +218,7 @@ const updateDescription: ((values: IDescriptionViewProps["dataset"], userRole: s
       thunkDispatch(actions.updateDescription(findingId, values));
     } else {
       renderUpdateBtn(values.historicTreatment[values.historicTreatment.length - 1].treatment);
-      thunkDispatch(actions.updateTreatment(findingId, values));
+      thunkDispatch(actions.updateClientDescription(findingId, values));
     }
   };
 
