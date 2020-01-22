@@ -22,7 +22,7 @@ from backend.mailer import send_comment_mail
 from backend import util
 from backend.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
-    NotSubmitted, InvalidFileSize, InvalidFileType, InvalidDraftTitle, SameValues
+    NotSubmitted, InvalidFileSize, InvalidFileType, InvalidDraftTitle
 )
 from backend.utils import cvss, notifications, findings as finding_utils
 
@@ -275,12 +275,17 @@ def update_treatment_in_vuln(finding_id, updated_values):
     return True
 
 
-def update_treatment(finding_id, updated_values, user_mail):
+def update_client_description(finding_id, updated_values, user_mail):
+    success_external_bts = finding_dal.update(
+        finding_id,
+        {'external_bts': updated_values['bts_url'] if updated_values['bts_url'] else None}
+    )
     valid_update_values = util.update_treatment_values(updated_values)
-    return validate_update_treatment(finding_id, valid_update_values, user_mail)
+    success_treatment = update_treatment(finding_id, valid_update_values, user_mail)
+    return success_treatment and success_external_bts
 
 
-def validate_update_treatment(finding_id, updated_values, user_mail):
+def update_treatment(finding_id, updated_values, user_mail):
     success = False
     new_treatment = updated_values['treatment']
     tzn = pytz.timezone(settings.TIME_ZONE)
@@ -307,20 +312,11 @@ def validate_update_treatment(finding_id, updated_values, user_mail):
             updated_values['acceptance_date'].split(' ')[0]
         if sorted(last_values) != sorted(new_values) or date_change:
             historic_treatment.append(new_state)
-        elif finding.get('externalBts') == updated_values['external_bts'] or \
-            (not finding.get('externalBts') and
-                updated_values['external_bts'] == ''):
-            raise SameValues()
     else:
         historic_treatment = [new_state]
-    new_state = {
-        'external_bts': updated_values['external_bts'],
-        'historic_treatment': historic_treatment
-    }
-    result_update_finding = integrates_dal.update_mult_attrs_dynamo(
-        'FI_findings',
-        {'finding_id': finding_id},
-        new_state
+    result_update_finding = finding_dal.update(
+        finding_id,
+        {'historic_treatment': historic_treatment}
     )
     result_update_vuln = update_treatment_in_vuln(finding_id, historic_treatment[-1])
     if result_update_finding and result_update_vuln:

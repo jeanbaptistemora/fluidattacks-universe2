@@ -714,7 +714,7 @@ class UpdateClientDescription(Mutation):
     def mutate(self, info, finding_id, **parameters):
         project_name = finding_domain.get_finding(finding_id)['projectName']
         user_mail = util.get_jwt_content(info.context)['user_email']
-        success = finding_domain.update_treatment(finding_id, parameters, user_mail)
+        success = finding_domain.update_client_description(finding_id, parameters, user_mail)
         if success:
             util.invalidate_cache(finding_id)
             util.invalidate_cache(project_name)
