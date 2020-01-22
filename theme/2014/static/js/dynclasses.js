@@ -75,5 +75,14 @@ Tachyons classes on dynamically generated content
 
     // Add style to ulist items in div elements
     $( ".ulist > ul > li > p" ).addClass("mt3")
+
+    // Add style to fluid-qanda
+    $( ".fluid-qanda > ol > li" ).addClass("i list")
+
+    // Add style to imageblock and videoblock elements
+    $( ".imageblock, .videoblock" ).addClass("ma3 tc")
+
+    // Add style to listingblock and literalblock
+    $( ".listingblock, .literalblock" ).addClass("mv3 mh0")
   });
 })(jQuery);

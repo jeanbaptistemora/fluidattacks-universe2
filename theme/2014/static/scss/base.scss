@@ -119,14 +119,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   width: 100%;
 }
 
-.list-title {
-  background-color: $white;
-  border-top: 3px solid $darkblue;
-  margin: 10px 20px 0;
-  padding: 20px;
-  width: auto;
-}
-
 h1 {
   @include hn;
   font-size: 34px;
@@ -160,26 +152,6 @@ a {
     &:hover {
       color: $lightblue;
     }
-  }
-}
-
-.listingblock,
-.literalblock {
-  margin: 15px 0;
-}
-
-
-.imageblock,
-.videoblock {
-  margin: 15px 0;
-  text-align: center;
-}
-
-.fluid-qanda {
-  li,
-  ol {
-    font-style: italic;
-    list-style-type: none;
   }
 }
 
@@ -222,10 +194,6 @@ ul {
   li {
     margin-top: -10px;
   }
-}
-
-.hrcoments {
-  border-top: 3px solid $darkblue;
 }
 
 .anchor-sign {
