@@ -105,12 +105,21 @@ export const validExploitFile: Validator = (value?: FileList): string | undefine
   return errorMsg;
 };
 
-export const validRecordsFile: Validator = (value?: FileList): string | undefined => (
-  _.isUndefined(value) || _.isEmpty(value)
-    ? undefined
-    : _.includes(["text/csv", "text/plain"], value[0].type)
-      ? undefined : translate.t("proj_alerts.file_type_wrong")
-);
+export const validRecordsFile: Validator = (value?: FileList): string | undefined => {
+  let errorMsg: string | undefined;
+
+  if (_.isUndefined(value) || _.isEmpty(value)) {
+    errorMsg = undefined;
+  } else {
+    const splittedName: string[] = value[0].name.split(".");
+    const extension: string = splittedName.length > 1 ? splittedName.slice(-1)[0] : "";
+    errorMsg = extension === "csv"
+      ? undefined
+      : translate.t("proj_alerts.file_type_wrong");
+  }
+
+  return errorMsg;
+};
 
 export const dateTimeBeforeToday: Validator = (date: Moment): string | undefined => {
   const today: Moment = moment();
