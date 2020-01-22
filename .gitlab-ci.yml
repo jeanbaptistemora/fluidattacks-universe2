@@ -172,6 +172,17 @@ change-keys-aws-integrates-dev:
   <<: *except_analytics
   when: always
 
+change-keys-aws-continuous-dev:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: rotation
+  script:
+    - . ci-scripts/jobs/user-provision-continuous-dev.sh
+    - user_provision_continuous_dev_rotate_aws
+  <<: *only_schedules
+  <<: *except_analytics
+  when: always
+
 change-keys-aws-continuous-prod:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
@@ -558,6 +569,40 @@ user-provision-integrates-dev-terraform-apply:
   script:
     - . ci-scripts/jobs/user-provision-integrates-dev.sh
     - user_provision_integrates_dev_terraform_apply
+  only:
+    - master
+  except:
+    - schedules
+
+user-provision-continuous-dev-terraform-lint:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: test
+  needs: [build-builder]
+  script:
+    - . ci-scripts/jobs/user-provision-continuous-dev.sh
+    - user_provision_continuous_dev_terraform_lint
+  except:
+    - schedules
+
+user-provision-continuous-dev-terraform-plan:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: test
+  needs: [build-builder]
+  script:
+    - . ci-scripts/jobs/user-provision-continuous-dev.sh
+    - user_provision_continuous_dev_terraform_plan
+  except:
+    - schedules
+
+user-provision-continuous-dev-terraform-apply:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: deploy
+  script:
+    - . ci-scripts/jobs/user-provision-continuous-dev.sh
+    - user_provision_continuous_dev_terraform_apply
   only:
     - master
   except:
