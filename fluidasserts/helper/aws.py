@@ -320,7 +320,7 @@ def iterate_rsrcs_in_tf_template(
             template: Template = load_tf_template(template_path)
             resources = template.get('resource', {})
             for res_type in resource_types:
-                for res_name, res_data in resources.get(res_type).items():
+                for res_name, res_data in resources.get(res_type, {}).items():
                     res_properties = res_data
                     res_properties['type'] = res_type
 
