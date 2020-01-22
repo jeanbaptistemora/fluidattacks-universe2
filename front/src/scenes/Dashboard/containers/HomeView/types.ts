@@ -11,15 +11,12 @@ export interface IHomeViewDispatchProps {
   onDisplayChange(value: IDashboardState["user"]["displayPreference"]): void;
 }
 
-export type IHomeViewProps = IHomeViewBaseProps & (IHomeViewStateProps & IHomeViewDispatchProps);
+export type IHomeViewProps = RouteComponentProps;
 
 export interface IState { dashboard: IDashboardState; }
 
 export interface IUserAttr {
-    me: {
-        projects: Array<{
-            description: string;
-            name: string;
-        }>;
-    };
+  me: {
+    projects: Array<{ description: string; name: string }>;
+  };
 }

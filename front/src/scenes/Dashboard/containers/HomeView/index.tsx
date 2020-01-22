@@ -10,34 +10,19 @@ import { Query, QueryResult } from "react-apollo";
 import {
   ButtonToolbar, Col, Glyphicon, Row, ToggleButton, ToggleButtonGroup,
 } from "react-bootstrap";
-import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { Button } from "../../../../components/Button";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
-import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { AddProjectModal } from "../../components/AddProjectModal";
 import { ProjectBox } from "../../components/ProjectBox";
-import { IDashboardState } from "../../reducer";
-import { changeProjectsDisplay, ThunkDispatcher } from "./actions";
 import { default as style } from "./index.css";
 import { PROJECTS_QUERY } from "./queries";
-import { IHomeViewBaseProps, IHomeViewDispatchProps, IHomeViewProps,
-  IHomeViewStateProps, IState, IUserAttr } from "./types";
+import { IHomeViewProps, IUserAttr } from "./types";
 
 const goToProject: ((projectName: string) => void) = (projectName: string): void => {
-  location.hash = `#!/project/${projectName}/indicators`;
+  location.hash = `#!/project/${projectName.toUpperCase()}/indicators`;
 };
-
-const renderProjectsGrid: ((props: IUserAttr["me"]) => JSX.Element[]) =
-  (props: IUserAttr["me"]): JSX.Element[] =>
-    props.projects.map((project: IUserAttr["me"]["projects"][0]) =>
-      (
-        <Col md={3}>
-          <ProjectBox name={project.name} description={project.description} onClick={goToProject} />
-        </Col>
-      ));
 
 const tableHeaders: IHeader[] = [
   { dataField: "name", header: "Project Name" },
@@ -45,49 +30,31 @@ const tableHeaders: IHeader[] = [
 ];
 
 const handleRowClick: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }) => void) =
-(event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }): void => {
-  goToProject(rowInfo.name);
-};
-
-const renderProjectsTable: ((props: IUserAttr["me"]) => JSX.Element) =
-  (props: IUserAttr["me"]): JSX.Element => (
-    <React.Fragment>
-      <DataTableNext
-        bordered={true}
-        dataset={props.projects}
-        exportCsv={false}
-        headers={tableHeaders}
-        id="tblProjects"
-        pageSize={15}
-        remote={false}
-        rowEvents={{onClick: handleRowClick}}
-        search={true}
-      />
-      <br />
-    </React.Fragment>
-  );
-
-const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element => {
-  const { userRole } = (window as typeof window & { userRole: string });
-  const [isProjectModalOpen, setProjectModalOpen] = React.useState(false);
-  const handleDisplayChange: ((value: {}) => void) = (value: {}): void => {
-    props.onDisplayChange(value as IDashboardState["user"]["displayPreference"]);
+  (event: React.FormEvent<HTMLButtonElement>, rowInfo: { name: string }): void => {
+    goToProject(rowInfo.name);
   };
+
+const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
+  const onMount: (() => void) = (): void => {
+    mixpanel.track("ProjectHome", {
+      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+      User: (window as typeof window & { userName: string }).userName,
+    });
+  };
+  React.useEffect(onMount, []);
+
+  const [display, setDisplay] = React.useState(_.get(localStorage, "projectsDisplay", "grid"));
+  const handleDisplayChange: ((value: string) => void) = (value: string): void => {
+    setDisplay(value);
+    localStorage.setItem("projectsDisplay", value);
+  };
+
+  const [isProjectModalOpen, setProjectModalOpen] = React.useState(false);
   const openNewProjectModal: (() => void) = (): void => {
     setProjectModalOpen(true);
   };
   const closeNewProjectModal: (() => void) = (): void => {
     setProjectModalOpen(false);
-  };
-
-  const handleQryResult: ((qrResult: IUserAttr) => void) = (qrResult: IUserAttr): void => {
-    mixpanel.track(
-      "ProjectHome",
-      {
-        Organization: (window as typeof window & { userOrganization: string }). userOrganization,
-        User: (window as typeof window & { userName: string }).userName,
-      });
-    hidePreloader();
   };
 
   return (
@@ -104,7 +71,7 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
                 name="displayOptions"
                 onChange={handleDisplayChange}
                 type="radio"
-                value={props.displayPreference}
+                value={display}
               >
                 <ToggleButton value="grid"><Glyphicon glyph="th" /></ToggleButton>
                 <ToggleButton value="list"><Glyphicon glyph="th-list" /></ToggleButton>
@@ -112,7 +79,7 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
             </ButtonToolbar>
           </Col>
         </Row>
-        {_.includes(["admin"], userRole) ?
+        {_.includes(["admin"], (window as typeof window & { userRole: string }).userRole) ?
           <Row>
             <Col md={2} mdOffset={5}>
               <ButtonToolbar>
@@ -122,58 +89,49 @@ const homeView: React.FC<IHomeViewProps> = (props: IHomeViewProps): JSX.Element 
               </ButtonToolbar>
             </Col>
           </Row>
-        : undefined}
-        <Query query={PROJECTS_QUERY} onCompleted={handleQryResult}>
-          {({loading, error, data}: QueryResult<IUserAttr>): React.ReactNode => {
-              if (loading) {
-                showPreloader();
+          : undefined}
+        <Query query={PROJECTS_QUERY}>
+          {({ loading, data }: QueryResult<IUserAttr>): React.ReactNode => {
+            if (_.isUndefined(data) || loading) { return <React.Fragment />; }
 
-                return <React.Fragment/>;
-              }
-              if (!_.isUndefined(error)) {
-                hidePreloader();
-                handleGraphQLErrors("An error occurred getting project list", error);
-
-                return <React.Fragment/>;
-              }
-              if (!_.isUndefined(data)) {
-                data.me.projects = data.me.projects.map((project: { description: string; name: string }) => ({
-                  ...project, name: project.name.toUpperCase(),
-                }));
-
-                return (
-                  <Row>
-                    <Col md={12}>
-                      <Row className={style.content}>
-                        {props.displayPreference === "grid"
-                          ? renderProjectsGrid(data.me) : renderProjectsTable(data.me)
-                        }
-                      </Row>
-                    </Col>
-                    {_.includes(["admin"], userRole) ?
-                      <AddProjectModal isOpen={isProjectModalOpen} onClose={closeNewProjectModal} />
-                      : undefined}
+            return (
+              <Row>
+                <Col md={12}>
+                  <Row className={style.content}>
+                    {display === "grid"
+                      ? data.me.projects.map((project: IUserAttr["me"]["projects"][0], index: number): JSX.Element => (
+                        <Col md={3} key={index}>
+                          <ProjectBox
+                            name={project.name.toUpperCase()}
+                            description={project.description}
+                            onClick={goToProject}
+                          />
+                        </Col>
+                      ))
+                      : (
+                        <DataTableNext
+                          bordered={true}
+                          dataset={data.me.projects}
+                          exportCsv={false}
+                          headers={tableHeaders}
+                          id="tblProjects"
+                          pageSize={15}
+                          remote={false}
+                          rowEvents={{ onClick: handleRowClick }}
+                          search={true}
+                        />
+                      )}
                   </Row>
-                );
-              }
-            }}
+                </Col>
+                <AddProjectModal isOpen={isProjectModalOpen} onClose={closeNewProjectModal} />
+              </Row>
+            );
+
+          }}
         </Query>
       </div>
     </React.StrictMode>
   );
 };
 
-const mapStateToProps: MapStateToProps<IHomeViewStateProps, IHomeViewBaseProps, IState> =
-  (state: IState): IHomeViewStateProps => ({
-    displayPreference: state.dashboard.user.displayPreference,
-  });
-
-const mapDispatchToProps: MapDispatchToProps<IHomeViewDispatchProps, IHomeViewBaseProps> =
-  (dispatch: ThunkDispatcher): IHomeViewDispatchProps => ({
-    onDisplayChange: (value: IDashboardState["user"]["displayPreference"]): void => {
-      dispatch(changeProjectsDisplay(value));
-      localStorage.setItem("projectsDisplay", value);
-    },
-  });
-
-export = connect(mapStateToProps, mapDispatchToProps)(homeView);
+export { homeView as HomeView };

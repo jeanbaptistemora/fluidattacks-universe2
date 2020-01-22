@@ -23,7 +23,7 @@ import { Navbar } from "./components/Navbar/index";
 import { Sidebar } from "./components/Sidebar";
 import { EventContent } from "./containers/EventContent/index";
 import FindingContent from "./containers/FindingContent/index";
-import HomeView from "./containers/HomeView";
+import { HomeView } from "./containers/HomeView";
 import ProjectContent from "./containers/ProjectContent/index";
 import { addUserModal as AddUserModal } from "./containers/ProjectUsersView/AddUserModal/index";
 import { ADD_USER_MUTATION } from "./containers/ProjectUsersView/queries";

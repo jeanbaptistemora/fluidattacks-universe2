@@ -8,18 +8,15 @@ import * as React from "react";
 import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 import { Provider } from "react-redux";
 import store from "../../../../store/index";
-import HomeView from "./index";
+import { HomeView } from "./index";
 import { PROJECTS_QUERY } from "./queries";
 import { IHomeViewProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
-const functionMock: (() => JSX.Element) = (): JSX.Element => <div />;
-
 describe("HomeView", () => {
 
   const mockProps: IHomeViewProps = {
-    displayPreference: "grid",
     history: {
       action: "PUSH",
       block: (): (() => void) => (): void => undefined,
@@ -46,11 +43,10 @@ describe("HomeView", () => {
     },
     match: {
       isExact: true,
-      params: {projectName: "TEST"},
+      params: { projectName: "TEST" },
       path: "/",
       url: "",
     },
-    onDisplayChange: functionMock,
   };
 
   const mocks: ReadonlyArray<MockedResponse> = [
@@ -70,7 +66,7 @@ describe("HomeView", () => {
           },
         },
       },
-  }];
+    }];
 
   const mockError: ReadonlyArray<MockedResponse> = [
     {
@@ -80,11 +76,11 @@ describe("HomeView", () => {
       result: {
         errors: [new GraphQLError("Access denied")],
       },
-  }];
+    }];
 
   it("should return an object", () => {
     expect(typeof (HomeView))
-      .toEqual("object");
+      .toEqual("function");
   });
 
   it("should render an error in component", () => {
