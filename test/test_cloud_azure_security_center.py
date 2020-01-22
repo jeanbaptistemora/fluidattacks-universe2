@@ -91,6 +91,13 @@ def test_has_security_contacts_disabled_open():
         AZURE_SUBSCRIPTION_ID).is_open()
 
 
+def test_has_auto_provisioning_disabled_open():
+    """Search subscriptions that have autoprovisioning disabled."""
+    assert security_center.has_auto_provisioning_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_open()
+
+
 #
 # Closing tests
 #
@@ -155,5 +162,12 @@ def test_has_security_configuration_monitor_disabled_closed():
 def test_has_security_contacts_disabled_closed():
     """Search subscriptions that do not have security contacts."""
     assert security_center.has_security_contacts_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_has_auto_provisioning_disabled_closed():
+    """Search subscriptions that have autoprovisioning disabled."""
+    assert security_center.has_auto_provisioning_disabled(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()

@@ -456,3 +456,53 @@ def has_security_contacts_disabled(client_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_auto_provisioning_disabled(client_id: str,
+                                   secret: str,
+                                   tenant: str,
+                                   subscription_id: str,
+                                   region: str = 'east-us') -> Tuple:
+    """
+    Check if automatic provisioning of the monitoring agent is disabled.
+
+    The Microsoft Monitoring Agent scans for various security-related
+    configurations and events such as system updates, OS vulnerabilities, and
+    endpoint protection and provides alerts.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if automatic provisioning of the monitoring agent is
+                 disabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = \
+        'Automatic provisioning of the monitoring agent is disabled.'
+    msg_closed: str = \
+        'Automatic provisioning of the monitoring agent is enabled.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    center = SecurityCenter(credentials, subscription_id,
+                            region).auto_provisioning_settings
+
+    vulnerable = []
+    for prov in center.list():
+        vulnerable.append(not prov.auto_provision == 'Off')
+    (vulns if not any(vulnerable) else safes).append(
+        (f'subscriptions/{subscription_id}', 'enable automatic provisioning.'))
+
+    return _get_result_as_tuple(
+        objects='Security center',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
