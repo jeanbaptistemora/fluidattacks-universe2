@@ -1,6 +1,7 @@
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ApolloProvider } from "react-apollo";
+import { ApolloNetworkStatusProvider, useApolloNetworkStatus } from "react-apollo-network-status";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -17,6 +18,17 @@ import { default as Registration } from "./scenes/Registration";
 import store from "./store/index";
 import { client } from "./utils/apollo";
 
+const globalPreloader: React.FC = (): JSX.Element => {
+  const status: { numPendingMutations: number; numPendingQueries: number } = useApolloNetworkStatus();
+  const isLoading: boolean = status.numPendingQueries > 0 || status.numPendingMutations > 0;
+
+  return (
+    <React.StrictMode>
+      {isLoading ? <Preloader /> : undefined}
+    </React.StrictMode>
+  );
+};
+
 const app: React.FC = (): JSX.Element => (
   <React.StrictMode>
     <BrowserRouter basename="/integrates">
@@ -24,11 +36,13 @@ const app: React.FC = (): JSX.Element => (
         <ApolloProvider client={client}>
           <Provider store={store}>
             <React.Fragment>
-              <Switch>
-                <Route path="/registration" component={Registration} />
-                <Route path="/dashboard" component={Dashboard} />
-              </Switch>
-            <Preloader />
+              <ApolloNetworkStatusProvider client={client}>
+                <Switch>
+                  <Route path="/registration" component={Registration} />
+                  <Route path="/dashboard" component={Dashboard} />
+                </Switch>
+                {React.createElement(globalPreloader)}
+              </ApolloNetworkStatusProvider>
             </React.Fragment>
           </Provider>
         </ApolloProvider>

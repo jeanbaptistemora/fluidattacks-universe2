@@ -401,9 +401,7 @@ export const formatDrafts: ((dataset: IDraftsDataset) => IDraftsDataset) =
 export const handleErrors: ((errorText: string, errors: readonly GraphQLError[]) => void) =
   (errorText: string, errors: readonly GraphQLError[]): void => {
     errors.map((err: GraphQLError) => {
-      if (_.includes(["Login required", "Exception - Invalid Authorization"], err.message)) {
-        location.assign("/integrates/logout");
-      } else if (_.includes(
+      if (_.includes(
         ["Access denied", "Exception - Project does not exist", "Exception - Finding not found"],
         err.message)) {
         msgError(translate.t("proj_alerts.access_denied"));

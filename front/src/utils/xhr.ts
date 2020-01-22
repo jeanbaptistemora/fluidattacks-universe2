@@ -161,7 +161,6 @@ class Xhr {
   private readonly executeRequest:
   ((arg1: {}, arg2: string, callbackFn?: ((progress: number) => void)) => Promise<any>) =
     async (payload: {}, errorText: string, callbackFn?: ((progress: number) => void)) => {
-    this.showPreloader();
 
     const config: AxiosRequestConfig = {
       onUploadProgress: (progressEvent: {loaded: number; total: number}): void => {
@@ -176,13 +175,11 @@ class Xhr {
     config,
     )
     .then((response: AxiosResponse) => {
-      this.hidePreloader();
       const { data, errors } = response.data;
       if (_.isNil(data)) {
         location.reload();
       } else {
         if (errors) {
-         this.hidePreloader();
          const { message } = errors[0];
 
          if (_.includes(["Login required", "Exception - Invalid Authorization"], message)) {
