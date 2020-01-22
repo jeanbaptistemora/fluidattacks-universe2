@@ -93,7 +93,7 @@ export const loadDescription: ThunkActionStructure<void> =
           const nStates: number = data.finding.historicTreatment.length;
           data.finding.acceptanceDate = "-";
           if ("acceptance_date" in data.finding.historicTreatment[nStates - 1]) {
-            data.finding.acceptanceDate = data.finding.historicTreatment[nStates - 1].acceptance_date;
+            data.finding.acceptanceDate = data.finding.historicTreatment[nStates - 1].acceptance_date.split(" ")[0];
           }
           if ("acceptance_status" in data.finding.historicTreatment[nStates - 1]) {
             data.finding.acceptationApproval = data.finding.historicTreatment[nStates - 1].acceptance_status;
@@ -314,7 +314,7 @@ export const updateTreatment: ThunkActionStructure<void> =
             }
             if ("acceptance_date" in data.updateTreatment.finding.historicTreatment[nStates - 1]) {
               data.updateTreatment.finding.acceptanceDate =
-                data.updateTreatment.finding.historicTreatment[nStates - 1].acceptance_date;
+                data.updateTreatment.finding.historicTreatment[nStates - 1].acceptance_date.split(" ")[0];
             }
             if ("acceptance_status" in data.updateTreatment.finding.historicTreatment[nStates - 1]) {
               data.updateTreatment.finding.acceptationApproval =

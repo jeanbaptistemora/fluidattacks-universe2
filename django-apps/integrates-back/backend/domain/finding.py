@@ -300,8 +300,8 @@ def validate_update_treatment(finding_id, updated_values, user_mail):
     if new_treatment == 'ACCEPTED_UNDEFINED':
         new_state['acceptance_status'] = updated_values['acceptance_status']
     if historic_treatment:
-        last_values = [value for key, value in historic_treatment[-1].items() if key != 'date']
-        new_values = [value for key, value in new_state.items() if key != 'date']
+        last_values = [value for key, value in historic_treatment[-1].items() if 'date' not in key]
+        new_values = [value for key, value in new_state.items() if 'date' not in key]
         date_change = 'acceptance_date' in historic_treatment[-1] and \
             historic_treatment[-1]['acceptance_date'].split(' ')[0] != \
             updated_values['acceptance_date'].split(' ')[0]
