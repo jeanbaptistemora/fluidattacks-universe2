@@ -135,3 +135,48 @@ def have_automatic_updates_disabled(client_id: str, secret: str, tenant: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_identity_disabled(client_id: str, secret: str, tenant: str,
+                          subscription_id: str) -> Tuple:
+    """
+    Check if managed identity is disabled for Virtual Machines.
+
+    Managed identities for Azure resources provides Azure services with a
+    managed identity in Azure AD which can be used to authenticate to any
+    service that supports Azure AD authentication, without having to include
+    any credentials in code.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if there are Virtual Machines that not have managed
+                 identity enabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = \
+        'Virtual Machines do not have managed identity enabled.'
+    msg_closed: str = 'Virtual Machines have managed identity enabled.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    virtual_machines = ComputeManagementClient(
+        credentials, subscription_id).virtual_machines.list_all()
+
+    for virtual_m in virtual_machines:
+        (vulns if not virtual_m.identity else safes).append(
+            (virtual_m.id, 'enable managed identity for Virtual Machines.'))
+
+    return _get_result_as_tuple(
+        objects='Virtual Machines.',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
