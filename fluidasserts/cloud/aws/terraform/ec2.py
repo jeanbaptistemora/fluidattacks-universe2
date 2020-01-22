@@ -13,6 +13,15 @@ from fluidasserts.cloud.aws.terraform import (
 from fluidasserts.utils.decorators import api, unknown_if
 
 
+def _dict_to_list(_input):
+    """Convert anything to list."""
+    if isinstance(_input, (dict, str)):
+        res = [_input]
+    else:
+        res = list(_input)
+    return res
+
+
 @api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
 def has_unencrypted_volumes(
@@ -30,13 +39,14 @@ def has_unencrypted_volumes(
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
+    vulns: list = []
     for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
             starting_path=path,
             resource_types=[
                 'aws_instance',
             ],
             exclude=exclude):
-        vulns = _get_unencrypted_vulns(res_name, res_props, yaml_path)
+        vulns += _get_unencrypted_vulns(res_name, res_props, yaml_path)
     return _get_result_as_tuple(
         vulnerabilities=vulns,
         msg_open='EC2 volumes are not encrypted',
@@ -47,20 +57,15 @@ def _get_unencrypted_vulns(res_name, res_props, yaml_path):
     vulnerabilities: list = []
     for vol_type in ['root_block_device', 'ebs_block_device']:
         if vol_type in res_props:
-            if isinstance(res_props.get(vol_type), dict):
-                volumes = [res_props.get(vol_type)]
-            else:
-                volumes = res_props.get(vol_type)
+            volumes = _dict_to_list(res_props.get(vol_type))
             for volume in volumes:
-                if 'device_name' not in volume:
-                    volume['device_name'] = 'unnamed'
-                if 'encrypted' in volume:
-                    if not helper.to_boolean(volume['encrypted']):
-                        vulnerabilities.append(
-                            Vulnerability(
-                                path=yaml_path,
-                                entity=vol_type,
-                                identifier=res_name + '.' +
-                                volume['device_name'],
-                                reason='is not encrypted'))
+                vol_name = volume.get('device_name', 'unnamed')
+                if not helper.to_boolean(volume.get('encrypted', False)):
+                    vulnerabilities.append(
+                        Vulnerability(
+                            path=yaml_path,
+                            entity=vol_type,
+                            identifier=res_name + '.' +
+                            vol_name,
+                            reason='is not encrypted'))
     return vulnerabilities
