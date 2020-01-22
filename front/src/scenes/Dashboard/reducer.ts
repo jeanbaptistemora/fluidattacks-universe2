@@ -5,7 +5,6 @@ import * as vulnerabilitiesActions from "./components/Vulnerabilities/actionType
 import { IDescriptionViewProps } from "./containers/DescriptionView";
 import * as descriptionActions from "./containers/DescriptionView/actionTypes";
 import * as findingActions from "./containers/FindingContent/actionTypes";
-import * as homeActions from "./containers/HomeView/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
 import * as draftsActions from "./containers/ProjectDraftsView/actions";
 import * as eventsActions from "./containers/ProjectEventsView/actions";
@@ -82,7 +81,6 @@ export interface IDashboardState {
   };
   updateAccessTokenModal: { open: boolean };
   user: {
-    displayPreference: "grid" | "list";
     role: string;
   };
   users: {
@@ -215,7 +213,6 @@ const initialState: IDashboardState = {
   },
   updateAccessTokenModal: { open: false },
   user: {
-    displayPreference: _.get(localStorage, "projectsDisplay", "grid"),
     role: "",
   },
   users: {
@@ -699,15 +696,6 @@ actionMap[findingsActions.CLOSE_REPORTS_MODAL] = (state: IDashboardState): IDash
     },
   },
 });
-
-actionMap[homeActions.CHANGE_PROJECTS_DISPLAY] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
-    ...state,
-    user: {
-      ...state.user,
-      displayPreference: action.payload.value,
-    },
-  });
 
 type DashboardReducer = ((
   arg1: IDashboardState | undefined,
