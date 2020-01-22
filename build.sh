@@ -30,33 +30,26 @@ function execute_and_link {
     ./build-src/main.nix
 }
 
-function ensure_nix {
+function ensure_dependencies {
   # Make sure that nix is installed
   echo ---
   nix --version \
-    && return 0 \
     || (
       echo 'Please install nix: $ curl https://nixos.org/nix/install | sh'
       return 1
     )
-}
 
-function ensure_cachix {
-  # Make sure that cachix is installed
-  echo ---
-  (nix-env -q | grep cachix) \
-    || nix-env -iA cachix -f https://cachix.org/api/v1/install
-}
-
-function ensure_git {
   # Make sure that git is installed
-  echo ---
   git --version \
-    && return 0 \
     || (
       echo 'Please install git'
       return 1
     )
+
+  # Make sure that cachix is installed
+  (nix-env -q | grep 'cachix') \
+    || nix-env -iA 'cachix' -f 'https://cachix.org/api/v1/install'
+
 }
 
 function set_cachix_authtoken {
@@ -95,11 +88,11 @@ function set_environment_info {
     )
 
   echo ---
+  echo "branch:      ${CURRENT_BRANCH}"
+  echo "jobs to run: ${CURRENT_JOBS[*]}"
+  echo ---
   echo 'sourcing: .envrc.public'
   source .envrc.public
-  echo ---
-  echo "branch: ${CURRENT_BRANCH}"
-  echo "jobs:   ${CURRENT_JOBS[*]}"
 }
 
 function set_ephemeral_git {
@@ -194,14 +187,11 @@ function cli {
 }
 
 function main {
-  # Ensure dependencies
-  ensure_nix
-  ensure_git
-  ensure_cachix
+  ensure_dependencies
 
-  set_cachix_authtoken
-  set_environment_info
   set_ephemeral_git
+  set_environment_info
+  set_cachix_authtoken
 
   # Execute the respective job functions
   for job_name in "${CURRENT_JOBS[@]}"
