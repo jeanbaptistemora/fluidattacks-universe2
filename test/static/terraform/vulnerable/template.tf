@@ -35,3 +35,24 @@ resource "aws_instance" "i-0d1583d0c02a9bb47" {
 resource "aws_ebs_encryption_by_default" "example" {
   enabled = false
 }
+
+resource "aws_security_group" "allow_tls" {
+  name        = "allow_tls"
+  description = "Allow TLS inbound traffic"
+  vpc_id      = "someid"
+
+  ingress {
+    # TLS (change to whatever ports you need)
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    # Please restrict your ingress to only necessary IPs and ports.
+    # Opening to 0.0.0.0/0 can lead to security vulnerabilities.
+    cidr_blocks = "192.168.1.0/24"# add a CIDR block here
+  }
+
+  tags = {
+    method  = "aws.terraform.ec2.allows_all_outbound_traffic"
+    Name    = "aws.terraform.allows_all_outbound_traffic"
+  }
+}
