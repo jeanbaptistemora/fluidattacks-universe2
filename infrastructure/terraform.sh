@@ -100,7 +100,7 @@ fi
 
 # Run Terraform Plan for AWS DNS infrastructure
 echo 'fiS3Arn = '"$(aws iam list-users | jq '.Users[].Arn' | \
-  egrep 'integrates-s3' | head -n 1)" >> dns/terraform.tfvars
+  egrep 'integrates-prod' | head -n 1)" >> dns/terraform.tfvars
 terraform output dbEndpoint >> dns/terraform.tfvars
 terraform output fwBucket >> dns/terraform.tfvars
 terraform output fiBucket >> dns/terraform.tfvars
