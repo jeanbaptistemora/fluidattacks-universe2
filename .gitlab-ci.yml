@@ -19,6 +19,29 @@ stages:
               '"'"${DOCKER_HUB_URL}"'":{"auth":"'${DOCKER_HUB_AUTH}'"}}}' >
           /kaniko/.docker/config.json
 
+.in_dev_branch: &in_dev_branch
+  except:
+    refs:
+      - master
+      - triggers
+      - schedules
+
+.in_prod_branch: &in_prod_branch
+  only:
+    refs:
+      - master
+  except:
+    refs:
+      - triggers
+      - schedules
+
+.with_nix: &with_nix
+  tags: [autoscaling-large]
+  image: fluidattacks/nix
+  script:
+    - ./build.sh
+  interruptible: true
+
 build:
   stage: build
   tags: [autoscaling-large]
@@ -64,6 +87,16 @@ lint:
     - master
     - schedules
   interruptible: true
+
+lint_code:
+  <<: *with_nix
+  stage: test
+  <<: *in_dev_branch
+
+populate_caches:
+  <<: *with_nix
+  stage: deploy
+  <<: *in_prod_branch
 
 bandit:
   stage: test
