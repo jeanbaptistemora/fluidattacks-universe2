@@ -297,14 +297,3 @@ export const isLowerDate: Validator = (value: string): string | undefined => {
     return undefined;
   }
 };
-
-export const isLowerOrEqualDate: Validator = (value: string): string | undefined => {
-  let date: Date; date = new Date(value);
-  let today: Date; today = new Date();
-
-  if (date.toLocaleDateString() < today.toLocaleDateString()) {
-    return translate.t("validations.lower_date");
-  } else {
-    return undefined;
-  }
-};
