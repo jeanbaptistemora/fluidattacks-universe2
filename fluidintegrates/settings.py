@@ -75,7 +75,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
-    'app.middleware.SocialAuthException'
+    'app.middleware.SocialAuthException',
+    'backend.casbin_middleware.middleware.CasbinMiddleware'
 ]
 
 ROOT_URLCONF = 'fluidintegrates.urls'

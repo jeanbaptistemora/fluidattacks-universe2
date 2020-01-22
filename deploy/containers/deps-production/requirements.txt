@@ -1,6 +1,7 @@
 backports.csv==1.0.7
 boto3==1.10.50
 botocore==1.13.50
+casbin==0.8.3
 channels==2.4.0
 cryptography==2.8
 django==3.0.2
