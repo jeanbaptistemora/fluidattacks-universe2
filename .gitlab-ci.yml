@@ -194,6 +194,17 @@ change-keys-aws-continuous-prod:
   <<: *except_analytics
   when: always
 
+change-keys-aws-web-prod:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: rotation
+  script:
+    - . ci-scripts/jobs/user-provision-web-prod.sh
+    - user_provision_web_prod_rotate_aws
+  <<: *only_schedules
+  <<: *except_analytics
+  when: always
+
 vault_backup:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
@@ -637,6 +648,40 @@ user-provision-continuous-prod-terraform-apply:
   script:
     - . ci-scripts/jobs/user-provision-continuous-prod.sh
     - user_provision_continuous_prod_terraform_apply
+  only:
+    - master
+  except:
+    - schedules
+
+user-provision-web-prod-terraform-lint:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: test
+  needs: [build-builder]
+  script:
+    - . ci-scripts/jobs/user-provision-web-prod.sh
+    - user_provision_web_prod_terraform_lint
+  except:
+    - schedules
+
+user-provision-web-prod-terraform-plan:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: test
+  needs: [build-builder]
+  script:
+    - . ci-scripts/jobs/user-provision-web-prod.sh
+    - user_provision_web_prod_terraform_plan
+  except:
+    - schedules
+
+user-provision-web-prod-terraform-apply:
+  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
+  tags: [autoscaling]
+  stage: deploy
+  script:
+    - . ci-scripts/jobs/user-provision-web-prod.sh
+    - user_provision_webprod_prod_terraform_apply
   only:
     - master
   except:
