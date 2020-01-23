@@ -28,23 +28,23 @@ Installing with `Nix <https://nixos.org/nix/>`_
 
 We are at the `Official Nixpkgs collection <https://github.com/NixOS/nixpkgs>`_.
 
-#. Install **Nix** as explained `here <https://nixos.org/nix/download.html>`_.:
+#. Install **Nix** as explained `here <https://nixos.org/nix/download.html>`_.
 
    On most systems it's enough to run:
 
    .. code-block:: bash
 
       $ curl https://nixos.org/nix/install | sh
-#. Add the **NixOS** channel:
-
-   .. code-block:: bash
-
-      $ nix-channel --add https://nixos.org/channels/nixos-unstable
 #. Install **fluidasserts**:
 
    .. code-block:: bash
 
-      $ nix-env -i fluidasserts
+      $ nix-env -i fluidasserts -f https://github.com/NixOS/nixpkgs/archive/master.tar.gz
+#. (Optional) Update **fluidasserts**:
+
+   .. code-block:: bash
+
+      $ nix-env -u fluidasserts -f https://github.com/NixOS/nixpkgs/archive/master.tar.gz
 #. Get into a shell with **fluidasserts**!
 
    .. code-block:: bash
