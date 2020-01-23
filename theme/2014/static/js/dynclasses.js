@@ -84,5 +84,14 @@ Tachyons classes on dynamically generated content
 
     // Add style to listingblock and literalblock
     $( ".listingblock, .literalblock" ).addClass("mv3 mh0")
+
+    // Add style for images
+    $( "img" ).addClass("mw-100 v-mid")
+
+    // Add style to title classes
+    $( ".title" ).addClass("f5-l f6 t-grey")
+
+    // Add style to col-lg-8 and col-md-10 classes
+    $( ".col-lg-8, .col-md-10" ).addClass("tc w-100")
   });
 })(jQuery);

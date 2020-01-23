@@ -54,6 +54,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .c-codepink { color: $codepink; }
 .c-codelightred { color: $codelightred; }
 .c-codeyellow { color: $codeyellow; }
+.t-grey { color: $darkgray; }
 .grayscale { filter: grayscale(100);}
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-fluid-bk { &:hover { color: $fluid-black;} }
@@ -74,6 +75,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .wr-bdl { border-top-left-radius: .938rem; }
 .wr-sz { height: 5.625rem; width: 5.625rem; }
 .accordion-item h4:not(:active) ~ .accordion-content { display: none; }
+.ch-w { max-width: 95ch; }
 
 // Tachyons custom responsive classes
 
@@ -111,12 +113,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   p {
     margin: 10px 0;
   }
-}
-
-.col-lg-8,
-.col-md-10 {
-  text-align: center;
-  width: 100%;
 }
 
 h1 {
@@ -172,11 +168,6 @@ p {
   }
 }
 
-img {
-  max-width: 100%;
-  vertical-align: middle;
-}
-
 table {
   border-collapse: collapse;
   display: block;
@@ -217,10 +208,6 @@ ul {
   .anchor {
     top: -50vh;
   }
-}
-
-.tfoot {
-  font-weight: bold;
 }
 
 .frame-topbot {
@@ -337,22 +324,6 @@ ul {
   }
 }
 
-.title {
-  color: $darkgray;
-  font-size: 16px;
-}
-
-.dlist {
-  dt {
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  p {
-    margin-top: 0;
-  }
-}
-
 .tb-fluid {
   th {
     background-color: $darkblue;
@@ -374,12 +345,6 @@ ul {
     border-color: $white;
   }
 }
-
-.post-heading {
-  margin: auto;
-  max-width: 95ch;
-}
-
 
 .tooltip {
 
@@ -471,10 +436,6 @@ ul {
 
   h4 {
     font-size: 21px;
-  }
-
-  .title {
-    font-size: 18px;
   }
 
   .olist {
