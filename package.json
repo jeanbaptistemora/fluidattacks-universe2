@@ -7,9 +7,6 @@
     "example": "example",
     "test": "test"
   },
-  "scripts": {
-    "postinstall": "./ci-scripts/commitlint-conf.sh"
-  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@gitlab.com/fluidattacks/asserts.git"
@@ -21,7 +18,7 @@
   },
   "homepage": "https://gitlab.com/fluidattacks/asserts#readme",
   "devDependencies": {
-    "@commitlint/cli": "7.6.0",
+    "@commitlint/cli": "8.3.5",
     "@commitlint/config-conventional": "7.6.0",
     "husky": "1.2.1"
   },

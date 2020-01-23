@@ -56,12 +56,25 @@ rec {
     name = "git";
     path = ../.git;
   };
+  srcDotGitShallow = pkgs.stdenv.mkDerivation rec {
+    name = "srcDotGitShallow";
+    inherit genericDirs genericShellOptions;
+    inherit srcGitLastCommitMsg;
+    buildInputs = with pkgs; [ git ];
+    builder = ./builders/src-dot-git-shallow.sh;
+  };
+  srcDotMailmap = builtins.path {
+    name = "mailmap";
+    path = ../.mailmap;
+  };
   srcEnvrcPublic = builtins.path {
     name = "envrc.public";
     path = ../.envrc.public;
   };
   srcFluidasserts = ../fluidasserts;
+  srcGitLastCommitMsg = ../.tmp/git-last-commit-msg;
   srcManifestIn = ../MANIFEST.in;
+  srcPackageDotJson = ../package.json;
   srcSetupPy = ../setup.py;
   srcSphinx = ../sphinx;
   srcTest = ../test;
@@ -85,7 +98,7 @@ rec {
     '';
     inherit genericDirs genericShellOptions;
     inherit pyPkgFluidasserts pyPkgGitFame pyPkgSphinx;
-    inherit srcDeploy srcDotGit srcFluidasserts srcSphinx;
+    inherit srcDeploy srcDotGit srcDotMailmap srcFluidasserts srcSphinx;
     buildInputs = with pkgs; [
       perl
     ] ++ fluidassertsDeps;
@@ -155,5 +168,35 @@ rec {
     inherit srcBuildSh srcBuildSrc srcEnvrcPublic;
     buildInputs = with pkgs; [ shellcheck ];
     builder = ./builders/lint-shell-code.sh;
+  };
+
+  nodePkgCommitlint = pkgs.stdenv.mkDerivation rec {
+    name = "nodePkgCommitlint";
+    description = ''
+      NodeJS package for Commitlint.
+    '';
+    inherit genericDirs genericShellOptions;
+    inherit srcPackageDotJson;
+    buildInputs = with pkgs; [
+      cacert
+      curl
+      nodejs
+    ];
+    builder = ./builders/node-pkg-commitlint.sh;
+  };
+
+  testCommitMessage = pkgs.stdenv.mkDerivation rec {
+    name = "testCommitMessage";
+    description = ''
+      Test the last commit message to ensure an standard format.
+    '';
+    inherit genericDirs genericShellOptions;
+    inherit srcDotGitShallow;
+    inherit nodePkgCommitlint;
+    buildInputs = with pkgs; [
+      git
+      nodejs
+    ];
+    builder = ./builders/test-commit-message.sh;
   };
 }

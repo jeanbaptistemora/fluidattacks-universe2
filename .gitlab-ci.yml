@@ -8,6 +8,7 @@ stages:
   - before-mr
   - at-mr
   - deploy
+  - deploy-pypi
 
 .kaniko_config: &kaniko_config
   image:
@@ -64,19 +65,6 @@ build:
     - schedules
   interruptible: true
 
-commitlint:
-  image: starefossen/ruby-node:2-10
-  stage: test
-  tags: [autoscaling]
-  before_script:
-    - npm install --unsafe-perm
-  script:
-    - ./ci-scripts/commitlint-checks.sh
-  except:
-    - master
-    - schedules
-  interruptible: true
-
 lint:
   stage: test
   tags: [autoscaling-large]
@@ -89,18 +77,6 @@ lint:
   interruptible: true
 
 demo_fluidasserts_output:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: test
-
-doc:
-  <<: *with_nix
-  <<: *in_prod_branch
-  stage: deploy
-  artifacts:
-    paths: [public/]
-
-doc_test:
   <<: *with_nix
   <<: *in_dev_branch
   stage: test
@@ -120,10 +96,27 @@ lint_shell_code:
   <<: *in_dev_branch
   stage: test
 
+pages:
+  <<: *with_nix
+  <<: *in_prod_branch
+  stage: deploy
+  artifacts:
+    paths: [public/]
+
 populate_caches:
   <<: *with_nix
   <<: *in_prod_branch
   stage: deploy
+
+test_commit_message:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
+test_doc:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
 
 .test-template: &test-template
   stage: test
@@ -226,12 +219,13 @@ danger:
     - export CI_MERGE_REQUEST_ID=$(git ls-remote -q origin merge-requests\*\head
       | grep ${CI_COMMIT_SHA}
       | sed 's/.*refs\/merge-requests\/\([0-9]*\)\/head/\1/g')
+    - ./ci-scripts/commitlint-conf.sh
     - npm install --unsafe-perm
   script:
     - danger --verbose --fail-on-errors=true
 
-deploy:
-  stage: deploy
+push-pypi:
+  stage: deploy-pypi
   tags: [autoscaling]
   script:
     - version=$(./deploy/get_version.py)

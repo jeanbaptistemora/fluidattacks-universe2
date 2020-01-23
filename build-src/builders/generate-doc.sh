@@ -9,6 +9,8 @@ cp -r --no-preserve=mode,ownership \
 cp -r --no-preserve=mode,ownership \
   "${srcDotGit}" root/src/repo/.git
 cp -r --no-preserve=mode,ownership \
+  "${srcDotMailmap}" root/src/repo/.mailmap
+cp -r --no-preserve=mode,ownership \
   "${srcFluidasserts}" root/src/repo/fluidasserts
 cp -r --no-preserve=mode,ownership \
   "${srcSphinx}" root/src/repo/sphinx
@@ -62,6 +64,7 @@ function generate_credits {
 
   if test "${current_branch}" == "master"
   then
+    echo 'running git-fame... this may take a loooong time'
     git-fame \
         -C \
         --log=ERROR \

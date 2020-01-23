@@ -6,7 +6,7 @@ source ./build-src/include/generic/shell-options.sh
 # Functions
 #
 
-function execute {
+function build {
   # Build a derivation from the provided expression without creating a symlink
   nix-build \
       --attr "${1}" \
@@ -18,7 +18,7 @@ function execute {
     ./build-src/main.nix
 }
 
-function execute_and_link {
+function build_and_link {
   # Build a derivation from the provided expression and create a symlink to the nix store
   nix-build \
       --attr "${1}" \
@@ -82,6 +82,7 @@ function set_environment_info {
       'lint_nix_code'
       'lint_python_code_bandit'
       'lint_shell_code'
+      'test_commit_message'
       'demo_fluidasserts_output'
     ) \
     || CURRENT_JOBS=(
@@ -116,7 +117,7 @@ function use_cachix_if_dev_branch {
 }
 
 function push_to_cachix {
-  # Pipe an execute to this function in order to populate the cache
+  # Pipe a build to this function in order to populate the cache
   cachix push --compression-level 9 "${CACHIX_CACHE_NAME}"
 }
 
@@ -126,29 +127,29 @@ function push_to_cachix {
 
 function job_demo_fluidasserts_output {
   use_cachix_if_dev_branch
-  execute demoFluidassertsOutput
+  build demoFluidassertsOutput
 }
 
 function job_lint_nix_code {
   use_cachix_if_dev_branch
-  execute lintNixCode
+  build lintNixCode
 }
 
 function job_lint_python_code_bandit {
   use_cachix_if_dev_branch
-  execute lintPythonCodeBandit
+  build lintPythonCodeBandit
 }
 
 function job_lint_shell_code {
   use_cachix_if_dev_branch
-  execute lintPythonCodeBandit
+  build lintPythonCodeBandit
 }
 
-function job_doc {
+function job_pages {
   # Build our hosted GitLab Pages
   use_cachix
 
-  execute_and_link generateDoc doc-result
+  build_and_link generateDoc doc-result
 
   ./build-src/shell.sh -c 'rm -rf public; mkdir public'
   ./build-src/shell.sh -c 'cp -r --no-preserve=mode,ownership doc-result/* public'
@@ -157,22 +158,29 @@ function job_doc {
   rm -f doc-result
 }
 
-function job_doc_test {
-  job_doc
-}
-
 function job_populate_caches {
   use_cachix_if_dev_branch
 
-  # Execute the 'populate_caches' job in the .gitlab-ci.yml
   (
+    job_demo_fluidasserts_output
     job_lint_nix_code
     job_lint_python_code_bandit
     job_lint_shell_code
-    execute pyPkgFluidasserts
-    execute pyPkgGitFame
-    execute pyPkgSphinx
+    job_test_commit_message
+    build nodePkgCommitlint
+    build pyPkgFluidasserts
+    build pyPkgGitFame
+    build pyPkgSphinx
   ) | push_to_cachix
+}
+
+function job_test_commit_message {
+  use_cachix_if_dev_branch
+  build testCommitMessage
+}
+
+function job_test_doc {
+  job_pages
 }
 
 function cli {
@@ -221,7 +229,7 @@ function main {
   set_environment_info
   set_cachix_authtoken
 
-  # Execute the respective job functions
+  # Run the respective job functions
   for job_name in "${CURRENT_JOBS[@]}"
   do
     echo ---
