@@ -180,3 +180,51 @@ def has_unrestricted_ip_protocols(
                   'with unrestricted IP protocols'),
         msg_closed=('EC2 security groups do not have ingress/egress rules '
                     'with unrestricted IP protocols'))
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_unrestricted_ports(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Avoid ``aws_security_group`` ingress/egress rules with port ranges.
+
+    The following checks are performed:
+
+    * W27 Security Groups found ingress with port range
+        instead of just a single port
+    * W29 Security Groups found egress with port range
+        instead of just a single port
+
+    :param path: Location of Terraform template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
+            starting_path=path,
+            resource_types=[
+                'aws_security_group',
+                'aws_security_group_rule'
+            ],
+            exclude=exclude):
+        rules = _tipify_rules(res_props)
+        for rule in rules:
+            from_port, to_port = rule.get("from_port"), (rule.get("to_port"))
+            if int(from_port) < int(to_port):
+                vuln = Vulnerability(
+                    path=yaml_path,
+                    entity=f'{rule.get("type")}/from_port->to_port/'
+                           f'{from_port}->{to_port}',
+                    identifier=res_name,
+                    reason='Grants access over a port range')
+                vulnerabilities.append(vuln)
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open=('EC2 security groups have ingress/egress rules '
+                  'that allow access over a range of ports'),
+        msg_closed=('EC2 security groups have ingress/egress rules '
+                    'that allow access over single ports'))

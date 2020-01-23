@@ -52,7 +52,7 @@ resource "aws_security_group" "allow_tls" {
   }
 
   egress {
-    from_port       = 80
+    from_port       = 8080
     to_port         = 8080
     protocol        = "udp"
     cidr_blocks     = ["192.168.1.0/24"]
@@ -68,8 +68,8 @@ resource "aws_security_group" "allow_tls" {
 resource "aws_security_group_rule" "allow_all" {
   security_group_id = "sg-123456"
   type            = "ingress"
-  from_port       = 0
-  to_port         = 65535
+  from_port       = 443
+  to_port         = 443
   protocol        = "tcp"
   cidr_blocks = "192.168.1.0/24"
   prefix_list_ids = ["pl-12c4e678"]
