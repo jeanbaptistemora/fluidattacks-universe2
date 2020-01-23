@@ -88,25 +88,32 @@ lint:
     - schedules
   interruptible: true
 
+doc:
+  <<: *with_nix
+  <<: *in_prod_branch
+  stage: deploy
+  artifacts:
+    paths: [public/]
+
 lint_nix_code:
   <<: *with_nix
-  stage: test
   <<: *in_dev_branch
+  stage: test
 
 lint_python_code_bandit:
   <<: *with_nix
-  stage: test
   <<: *in_dev_branch
+  stage: test
 
 lint_shell_code:
   <<: *with_nix
-  stage: test
   <<: *in_dev_branch
+  stage: test
 
 populate_caches:
   <<: *with_nix
-  stage: deploy
   <<: *in_prod_branch
+  stage: deploy
 
 .test-template: &test-template
   stage: test
@@ -235,23 +242,6 @@ deploy:
     - scons dist
     - scons deploy
     - mkdir -p dist && cp -a build/dist/*.zip dist/
-  only:
-    - master
-  except:
-    - schedules
-  retry:
-    max: 2
-    when:
-      - runner_system_failure
-  interruptible: true
-
-pages:
-  stage: deploy
-  tags: [autoscaling]
-  script:
-    - scons sphinxdoc
-  artifacts:
-    paths: [public/]
   only:
     - master
   except:

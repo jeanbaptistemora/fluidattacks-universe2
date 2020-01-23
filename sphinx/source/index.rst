@@ -12,9 +12,9 @@
    dev
    credits
 
-========================================
+=========================================
 Welcome to Fluid Asserts's documentation!
-========================================
+=========================================
 
 ``Fluid Asserts`` is an engine
 to automate the closing of security findings

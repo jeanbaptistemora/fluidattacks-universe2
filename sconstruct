@@ -116,15 +116,6 @@ env.Command(
 )
 env.Alias('codecov', codecov_results)
 
-# Builder para sphinx
-sphinx_results = ['#build/sphinxdoc/index.html']
-env.Command(
-    source=[source_files],
-    action=['tox -c conf/tox.ini -e pages'],
-    target=sphinx_results,
-)
-env.Alias('sphinxdoc', sphinx_results)
-
 #
 # Scripts Subordinados
 #

@@ -138,6 +138,19 @@ function job_lint_shell_code {
   execute lintPythonCodeBandit
 }
 
+function job_doc {
+  # Build our hosted GitLab Pages
+  use_cachix
+
+  execute_and_link generateDoc doc-result
+
+  ./build-src/shell.sh -c 'rm -rf public; mkdir public'
+  ./build-src/shell.sh -c 'cp -r --no-preserve=mode,ownership doc-result/* public'
+
+  echo 'Check the docs at public/index.html!'
+  rm -f doc-result
+}
+
 function job_populate_caches {
   # Execute the 'populate_caches' job in the .gitlab-ci.yml
   (

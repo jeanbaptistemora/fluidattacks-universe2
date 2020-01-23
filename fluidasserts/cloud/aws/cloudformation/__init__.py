@@ -2,7 +2,7 @@
 Fluid Asserts AWS cloud package.
 
 Some rules were taken from `CFN_NAG <https://github.com/
-stelligent/cfn_nag/master/LICENSE.md>`_
+stelligent/cfn_nag/blob/master/LICENSE.md>`_
 """
 
 # standard imports

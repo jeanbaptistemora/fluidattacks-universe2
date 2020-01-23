@@ -1,9 +1,9 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 striprun() {
-    $1 "$2" |
-    perl -pe 's/\e([^\[\]]|\[.*?[a-zA-Z]|\].*?\a)//g' |
-    tee "$2".out
+    $1 "$2" \
+      | perl -pe 's/\e([^\[\]]|\[.*?[a-zA-Z]|\].*?\a)//g' \
+      | tee "$2".out
 }
 
 # Setup the exploits environment
@@ -59,8 +59,7 @@ mkdir -p public/
 # Generate e: separate page per module f: overwrite M: module doc first
 sphinx-apidoc -efM fluidasserts -o sphinx/source
 # Get version from build/dist zip
-VER=$(find /builds/fluidsignal/asserts/build/dist/ -type f -printf '%f' | \
-      sed 's_fluidasserts-\|.zip__g')
+VER=$(python3 ./deploy/get_version.py)
 CHECKS=$(grep -rIE '@(track|api)' fluidasserts/ | wc -l)
 sed -i "s/<CHECKS>/$CHECKS/" sphinx/source/index.rst
 sphinx-build -D version="v.$VER" -D release="v.$VER" \

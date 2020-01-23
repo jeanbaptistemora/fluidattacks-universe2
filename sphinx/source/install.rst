@@ -82,9 +82,9 @@ the directory where your exploits live into the container: ::
 .. literalinclude:: example/qstart-sqli-open.exp.out
    :language: yaml
 
------------------------------------------------
+------------------------------------------------
 Inside your CI (Continuous Integration) pipeline
------------------------------------------------
+------------------------------------------------
 
 If you have an application subscribed to our
 Continuous Hacking Service
@@ -297,9 +297,9 @@ during the ``asserts-post-ephemeral`` stage.
 Otherwise, everything else is the same,
 just like staging environments mirror production environments.
 
-_______________
+____________________________
 Just after pushing your code
-_______________
+____________________________
 
 We can start catching bugs even only with the source code:
 
