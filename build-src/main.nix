@@ -50,6 +50,8 @@ rec {
   srcBuildPythonRequirementsLint = ../build-src/python-requirements/lint.lst;
   srcBuildSh = ../build.sh;
   srcBuildSrc = ../build-src;
+  srcBuildSrcConfigPylintrc = ../build-src/config/pylintrc;
+  srcBuildSrcPythonRequirementsLint = ../build-src/python-requirements/lint.lst;
   srcConfReadmeRst = ../conf/README.rst;
   srcDeploy = ../deploy;
   srcDotGit = builtins.path {
@@ -126,6 +128,17 @@ rec {
     builder = ./builders/py-pkg-git-fame.sh;
   };
 
+  pyPkgGroupLinters = pkgs.stdenv.mkDerivation rec {
+    name = "pyPkgGroupLinters";
+    description = ''
+      Group of Python packages used to lint Fluidasserts.
+    '';
+    inherit genericDirs genericShellOptions;
+    inherit srcBuildSrcPythonRequirementsLint;
+    buildInputs = basicPythonEnv;
+    builder = ./builders/py-pkg-group-linters.sh;
+  };
+
   pyPkgSphinx = pkgs.stdenv.mkDerivation rec {
     name = "pyPkgSphinx";
     description = ''
@@ -135,6 +148,36 @@ rec {
     inherit pyPkgFluidasserts;
     buildInputs = basicPythonEnv;
     builder = ./builders/py-pkg-sphinx.sh;
+  };
+
+  lintFluidassertsCode = pkgs.stdenv.mkDerivation rec {
+    name = "lintFluidassertsCode";
+    description = ''
+      Lint Fluidasserts code.
+    '';
+    inherit genericDirs genericShellOptions;
+    inherit pyPkgFluidasserts pyPkgGroupLinters;
+    inherit srcBuildSrcConfigPylintrc srcFluidasserts;
+    buildInputs = [
+      pyPkgGroupLinters.buildInputs
+      pyPkgFluidasserts.buildInputs
+    ];
+    builder = ./builders/lint-fluidasserts-code.sh;
+  };
+
+  lintFluidassertsTestCode = pkgs.stdenv.mkDerivation rec {
+    name = "lintFluidassertsTestCode";
+    description = ''
+      Lint Fluidasserts test code.
+    '';
+    inherit genericDirs genericShellOptions;
+    inherit pyPkgFluidasserts pyPkgGroupLinters;
+    inherit srcBuildSrcConfigPylintrc srcTest;
+    buildInputs = [
+      pyPkgGroupLinters.buildInputs
+      pyPkgFluidasserts.buildInputs
+    ];
+    builder = ./builders/lint-fluidasserts-test-code.sh;
   };
 
   lintNixCode = pkgs.stdenv.mkDerivation rec {
@@ -148,17 +191,6 @@ rec {
     builder = ./builders/lint-nix-code.sh;
   };
 
-  lintPythonCodeBandit = pkgs.stdenv.mkDerivation rec {
-    name = "lintPythonCodeBandit";
-    description = ''
-      Run bandit in fluidasserts code.
-    '';
-    inherit genericDirs genericShellOptions;
-    inherit srcFluidasserts;
-    buildInputs = with pkgs; with python3Packages; [ bandit ];
-    builder = ./builders/lint-python-code-bandit.sh;
-  };
-
   lintShellCode = pkgs.stdenv.mkDerivation rec {
     name = "lintShellCode";
     description = ''
@@ -168,6 +200,17 @@ rec {
     inherit srcBuildSh srcBuildSrc srcEnvrcPublic;
     buildInputs = with pkgs; [ shellcheck ];
     builder = ./builders/lint-shell-code.sh;
+  };
+
+  lintWithBandit = pkgs.stdenv.mkDerivation rec {
+    name = "lintWithBandit";
+    description = ''
+      Run bandit in fluidasserts code.
+    '';
+    inherit genericDirs genericShellOptions;
+    inherit srcFluidasserts;
+    buildInputs = with _pythonPackages; [ bandit ];
+    builder = ./builders/lint-with-bandit.sh;
   };
 
   nodePkgCommitlint = pkgs.stdenv.mkDerivation rec {

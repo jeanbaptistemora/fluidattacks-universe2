@@ -69,7 +69,6 @@ lint:
   stage: test
   tags: [autoscaling-large]
   script:
-    - scons lint
     - overcommit -s && overcommit -s pre-commit && overcommit -r
   except:
     - master
@@ -81,17 +80,27 @@ demo_fluidasserts_output:
   <<: *in_dev_branch
   stage: test
 
+lint_fluidasserts_code:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
+lint_fluidasserts_test_code:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
 lint_nix_code:
   <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
-lint_python_code_bandit:
+lint_shell_code:
   <<: *with_nix
   <<: *in_dev_branch
   stage: test
 
-lint_shell_code:
+lint_with_bandit:
   <<: *with_nix
   <<: *in_dev_branch
   stage: test

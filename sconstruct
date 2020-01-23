@@ -97,16 +97,6 @@ env.Append(BUILDERS = {'BDist' : bdist_builder})
 bdist_run = env.BDist(target=bdist_results, source=bdist_needs)
 env.Alias('bdist', bdist_results)
 
-
-# Builder para pylint
-pylint_results = ['#build/lint/pylint.txt']
-env.Command(
-    source=[source_files, test_files, '#conf/pylintrc'],
-    action=['tox -c conf/tox.ini -e lint'],
-    target=pylint_results,
-)
-env.Alias('pylint', pylint_results)
-
 # Run codecov
 codecov_results = ['#build/codecov/codecov.txt']
 env.Command(
@@ -131,7 +121,6 @@ SConscript('#test/sconscript', exports=['env', 'source_files', 'deps_results'])
 #
 env.Alias('dist', [sdist_results,
                    bdist_results])
-env.Alias('lint', [pylint_results])
 
 # Solo construccion explicita
 Default(None)

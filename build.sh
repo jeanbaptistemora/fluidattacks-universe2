@@ -79,9 +79,11 @@ function set_environment_info {
 
   test "${current_job}" = '__undefined__' \
     && CURRENT_JOBS=(
+      'lint_fluidasserts_code'
+      'lint_fluidasserts_test_code'
       'lint_nix_code'
-      'lint_python_code_bandit'
       'lint_shell_code'
+      'lint_with_bandit'
       'test_commit_message'
       'demo_fluidasserts_output'
     ) \
@@ -130,19 +132,29 @@ function job_demo_fluidasserts_output {
   build demoFluidassertsOutput
 }
 
+function job_lint_fluidasserts_code {
+  use_cachix_if_dev_branch
+  build lintFluidassertsCode
+}
+
+function job_lint_fluidasserts_test_code {
+  use_cachix_if_dev_branch
+  build lintFluidassertsTestCode
+}
+
 function job_lint_nix_code {
   use_cachix_if_dev_branch
   build lintNixCode
 }
 
-function job_lint_python_code_bandit {
-  use_cachix_if_dev_branch
-  build lintPythonCodeBandit
-}
-
 function job_lint_shell_code {
   use_cachix_if_dev_branch
-  build lintPythonCodeBandit
+  build lintShellCode
+}
+
+function job_lint_with_bandit {
+  use_cachix_if_dev_branch
+  build lintWithBandit
 }
 
 function job_pages {
@@ -163,13 +175,16 @@ function job_populate_caches {
 
   (
     job_demo_fluidasserts_output
+    job_lint_fluidasserts_code
+    job_lint_fluidasserts_test_code
     job_lint_nix_code
-    job_lint_python_code_bandit
     job_lint_shell_code
+    job_lint_with_bandit
     job_test_commit_message
     build nodePkgCommitlint
     build pyPkgFluidasserts
     build pyPkgGitFame
+    build pyPkgGroupLinters
     build pyPkgSphinx
   ) | push_to_cachix
 }

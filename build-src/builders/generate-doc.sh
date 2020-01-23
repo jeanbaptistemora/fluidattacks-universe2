@@ -62,7 +62,7 @@ function generate_credits {
 
   current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo 'master')
 
-  if test "${current_branch}" == "master"
+  if test "${current_branch}" = "master"
   then
     echo 'running git-fame... this may take a loooong time'
     git-fame \

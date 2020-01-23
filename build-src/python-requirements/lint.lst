@@ -1,11 +1,11 @@
-autopep8==1.4.4
-hacking==1.1.0
+autopep8==1.5
+hacking==2.0.0
 mccabe==0.6.1
 pdoc==0.3.2
 pep8==1.7.1
-pre-commit==1.20.0
+pre-commit==1.21.0
 prospector[with_everything]==1.2.0
-pydocstyle==4.0.1
+pydocstyle==5.0.2
 pyflakes==2.1.1
 pylint==2.4.4
 pyroma==2.6
