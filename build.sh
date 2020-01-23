@@ -82,6 +82,7 @@ function set_environment_info {
       'lint_nix_code'
       'lint_python_code_bandit'
       'lint_shell_code'
+      'demo_fluidasserts_output'
     ) \
     || CURRENT_JOBS=(
       "${current_job}"
@@ -122,6 +123,11 @@ function push_to_cachix {
 #
 # Gitlab Jobs
 #
+
+function job_demo_fluidasserts_output {
+  use_cachix_if_dev_branch
+  execute demoFluidassertsOutput
+}
 
 function job_lint_nix_code {
   use_cachix_if_dev_branch

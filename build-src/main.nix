@@ -66,6 +66,18 @@ rec {
   srcSphinx = ../sphinx;
   srcTest = ../test;
 
+  demoFluidassertsOutput = pkgs.stdenv.mkDerivation rec {
+    name = "demoFluidassertsOutput";
+    description = ''
+      Execute fluidasserts over a demo exploit to see the output.
+    '';
+    inherit genericDirs genericShellOptions;
+    inherit pyPkgFluidasserts;
+    inherit srcFluidasserts srcTest;
+    buildInputs = fluidassertsDeps;
+    builder = ./builders/demo-fluidasserts-output.sh;
+  };
+
   generateDoc = pkgs.stdenv.mkDerivation rec {
     name = "generateDoc";
     description = ''

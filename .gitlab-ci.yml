@@ -88,6 +88,11 @@ lint:
     - schedules
   interruptible: true
 
+demo_fluidasserts_output:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
 doc:
   <<: *with_nix
   <<: *in_prod_branch
@@ -191,19 +196,6 @@ test-syst:
 
 test-utils:
   <<: *test-template
-
-fluidasserts:
-  stage: test
-  tags: [autoscaling-large]
-  variables:
-    FA_STRICT: "false"
-  script:
-    - pip3 install .
-    - asserts -o deploy/container/exploit.py
-  except:
-    - master
-    - schedules
-  interruptible: true
 
 .coverage-report:
   stage: before-mr
