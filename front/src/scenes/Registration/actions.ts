@@ -60,37 +60,3 @@ export const acceptLegal: ThunkActionStructure =
       }
     });
 };
-
-export const loadAuthorization: ThunkActionStructure =
-  (): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
-    let gQry: string; gQry = `{
-      me {
-        authorized
-        remember
-      }
-    }`;
-    new Xhr().request(gQry, "An error ocurred resolving user authorization")
-      .then((response: AxiosResponse) => {
-        const { data } = response.data;
-
-        dispatch<IActionStructure>({
-          payload: {
-            isAuthorized: data.me.authorized,
-            isRememberEnabled: data.me.remember,
-          },
-          type: actionType.LOAD_AUTHORIZATION,
-        });
-
-        if (data.me.remember) {
-          loadDashboard();
-        }
-      })
-      .catch((error: AxiosError) => {
-        if (error.response !== undefined) {
-          const { errors } = error.response.data;
-
-          msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error(error.message, errors);
-        }
-      });
-  };

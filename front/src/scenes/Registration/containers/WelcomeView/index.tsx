@@ -1,11 +1,14 @@
-/* tslint:disable jsx-no-lambda
- * Disabling this rule is necessary for the sake of simplicity and
- * readability of the code that binds click events
+/* tslint:disable:jsx-no-multiline-js
+ *
+ * Disabling this rule is necessary for accessing render props from
+ * apollo components
  */
 
 import _ from "lodash";
 import React, { ComponentType } from "react";
+import { Query, QueryResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 import { AnyAction, Reducer } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
@@ -19,16 +22,13 @@ import translate from "../../../../utils/translations/translate";
 import * as actions from "../../actions";
 import { compulsoryNotice as CompulsoryNotice } from "../../components/CompulsoryNotice";
 import { default as style } from "./index.css";
+import { GET_USER_AUTHORIZATION } from "./queries";
 
 export interface IWelcomeViewProps {
-  email: string;
-  isAuthorized: boolean | undefined;
-  isRememberEnabled: boolean;
   legalNotice: {
     open: boolean;
     rememberDecision: boolean;
   };
-  username: string;
 }
 
 const acceptLegal: ((rememberValue: boolean) => void) = (rememberValue: boolean): void => {
@@ -39,20 +39,22 @@ const acceptLegal: ((rememberValue: boolean) => void) = (rememberValue: boolean)
   thunkDispatch(actions.acceptLegal(rememberValue));
 };
 
-const renderLegalNotice: ((props: IWelcomeViewProps) => JSX.Element) = (props: IWelcomeViewProps): JSX.Element =>
+const renderLegalNotice: ((props: IWelcomeViewProps) => JSX.Element) = (props: IWelcomeViewProps): JSX.Element => {
+  const handleCheck: (() => void) = (): void => { store.dispatch(actions.checkRemember()); };
 
-  props.isRememberEnabled ? <div /> : (
+  return (
     <React.Fragment>
       <CompulsoryNotice
         content={translate.t("legalNotice.description")}
         id="legalNotice"
         onAccept={acceptLegal}
-        onCheckRemember={(): void => { store.dispatch(actions.checkRemember()); }}
+        onCheckRemember={handleCheck}
         open={props.legalNotice.open}
         rememberDecision={props.legalNotice.rememberDecision}
       />
     </React.Fragment>
   );
+};
 
 const renderUnauthorized: (() => JSX.Element) = (): JSX.Element => {
   const handleLogoutClick: (() => void) = (): void => { location.assign("/integrates/logout"); };
@@ -72,12 +74,6 @@ const renderUnauthorized: (() => JSX.Element) = (): JSX.Element => {
     </React.Fragment>
   );
 };
-
-const renderModalIfAuthorized: ((props: IWelcomeViewProps) => JSX.Element) =
-  (props: IWelcomeViewProps): JSX.Element =>
-    props.isAuthorized === true
-      ? renderLegalNotice(props)
-      : renderUnauthorized();
 
 const renderAlreadyLoggedIn: ((email: string) => JSX.Element) =
   (email: string): JSX.Element => (
@@ -104,14 +100,11 @@ export const component: React.FC<IWelcomeViewProps> = (props: IWelcomeViewProps)
   const onMount: (() => void) = (): void => {
     if (localStorage.getItem("showAlreadyLoggedin") === "1") {
       localStorage.removeItem("showAlreadyLoggedin");
-    } else {
-      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-      );
-      thunkDispatch(actions.loadAuthorization());
     }
   };
   React.useEffect(onMount, []);
+
+  const { userEmail, userName } = window as typeof window & Dictionary<string>;
 
   return (
     <React.StrictMode>
@@ -119,10 +112,28 @@ export const component: React.FC<IWelcomeViewProps> = (props: IWelcomeViewProps)
         <div className={style.content}>
           <div style={{ paddingBottom: "50px" }}>
             <img style={{ paddingBottom: "30px" }} src={logo} alt="logo" /><br />
-            <h1>{translate.t("registration.greeting")} {props.username}!</h1>
+            <h1>{translate.t("registration.greeting")} {userName}!</h1>
           </div>
-          {localStorage.getItem("showAlreadyLoggedin") === "1" ? renderAlreadyLoggedIn(props.email) : undefined}
-          {_.isUndefined(props.isAuthorized) ? undefined : renderModalIfAuthorized(props)}
+          {localStorage.getItem("showAlreadyLoggedin") === "1"
+            ? renderAlreadyLoggedIn(userEmail)
+            :
+            <Query query={GET_USER_AUTHORIZATION} fetchPolicy="network-only">
+              {({ data, loading }: QueryResult): JSX.Element => {
+                if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+
+                return (
+                  <React.Fragment>
+                    {data.me.authorized
+                      ? data.me.remember
+                        ? <Redirect to="/dashboard" />
+                        : renderLegalNotice(props)
+                      : renderUnauthorized()
+                    }
+                  </React.Fragment>
+                );
+              }}
+            </Query>
+          }
         </div>
       </div>
     </React.StrictMode>
@@ -132,9 +143,6 @@ export const component: React.FC<IWelcomeViewProps> = (props: IWelcomeViewProps)
 export const welcomeView: ComponentType<IWelcomeViewProps> = reduxWrapper(
   component,
   (state: StateType<Reducer>): Partial<IWelcomeViewProps> => ({
-    ...state.registration.welcomeView,
-    email: (window as Window & { userEmail: string }).userEmail,
     legalNotice: state.registration.legalNotice,
-    username: (window as Window & { userName: string }).userName,
   }),
 );
