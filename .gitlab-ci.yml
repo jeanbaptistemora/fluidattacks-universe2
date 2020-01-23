@@ -65,16 +65,6 @@ build:
     - schedules
   interruptible: true
 
-lint:
-  stage: test
-  tags: [autoscaling-large]
-  script:
-    - overcommit -s && overcommit -s pre-commit && overcommit -r
-  except:
-    - master
-    - schedules
-  interruptible: true
-
 demo_fluidasserts_output:
   <<: *with_nix
   <<: *in_dev_branch

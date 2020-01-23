@@ -109,7 +109,7 @@ def _build_client_hello(tls_ver: str) -> List:
     :return: A List with the corresponding hex codes.
     """
     ssl_version_mapping = {
-        'SSLv3':   0x00,
+        'SSLv3': 0x00,
         'TLSv1.0': 0x01,
         'TLSv1.1': 0x02,
         'TLSv1.2': 0x03
@@ -172,7 +172,7 @@ def _build_freak_client_hello(tls_ver: str) -> List:
     :return: A List with the corresponding hex codes.
     """
     ssl_version_mapping = {
-        'SSLv3':   0x00,
+        'SSLv3': 0x00,
         'TLSv1.0': 0x01,
         'TLSv1.1': 0x02,
         'TLSv1.2': 0x03
@@ -225,7 +225,7 @@ def _build_heartbeat(tls_ver: str) -> List:
     :return: A List with the corresponding hex codes.
     """
     ssl_version_mapping = {
-        'SSLv3':   0x00,
+        'SSLv3': 0x00,
         'TLSv1.0': 0x01,
         'TLSv1.1': 0x02,
         'TLSv1.2': 0x03

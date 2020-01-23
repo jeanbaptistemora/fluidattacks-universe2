@@ -69,6 +69,14 @@ rec {
     name = "mailmap";
     path = ../.mailmap;
   };
+  srcDotOvercommit = builtins.path {
+    name = "overcommit.yaml";
+    path = ../.overcommit.yml;
+  };
+  srcDotPreCommitConfig = builtins.path {
+    name = "pre-commit-config.yaml";
+    path = ../.pre-commit-config.yaml;
+  };
   srcEnvrcPublic = builtins.path {
     name = "envrc.public";
     path = ../.envrc.public;
@@ -157,8 +165,11 @@ rec {
     '';
     inherit genericDirs genericShellOptions;
     inherit pyPkgFluidasserts pyPkgGroupLinters;
-    inherit srcBuildSrcConfigPylintrc srcFluidasserts;
+    inherit srcBuildSrcConfigPylintrc srcDotGitShallow srcDotOvercommit;
+    inherit srcDotPreCommitConfig srcFluidasserts ;
     buildInputs = [
+      pkgs.haskellPackages.hadolint
+      pkgs.overcommit
       pyPkgGroupLinters.buildInputs
       pyPkgFluidasserts.buildInputs
     ];
@@ -172,8 +183,11 @@ rec {
     '';
     inherit genericDirs genericShellOptions;
     inherit pyPkgFluidasserts pyPkgGroupLinters;
-    inherit srcBuildSrcConfigPylintrc srcTest;
+    inherit srcBuildSrcConfigPylintrc srcDotGitShallow srcDotOvercommit;
+    inherit srcDotPreCommitConfig srcTest;
     buildInputs = [
+      pkgs.haskellPackages.hadolint
+      pkgs.overcommit
       pyPkgGroupLinters.buildInputs
       pyPkgFluidasserts.buildInputs
     ];

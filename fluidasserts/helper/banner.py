@@ -14,15 +14,15 @@ from typing import Optional
 
 # 3rd party imports
 import certifi
+import six
 
 # local imports
 from fluidasserts.helper import http
 
 
+@six.add_metaclass(ABCMeta)
 class Service():
     """Abstract class of service."""
-
-    __metaclass__ = ABCMeta
 
     def __init__(self, port: int, is_active: bool,
                  is_ssl: bool, payload=None) -> None:

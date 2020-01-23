@@ -117,9 +117,9 @@ CommitMsg:
 # created.
 PreCommit:
   AuthorName:
-    enabled: false
+    enabled: true
   AuthorEmail:
-    enabled: false
+    enabled: true
 
   ALL:
     problem_on_unmodified_line: report
@@ -237,6 +237,8 @@ PreCommit:
     on_warn: fail
     description: 'Analyze with flake8'
     required_executable: 'flake8'
+    flags:
+      - '--ignore=H238,H301,H306,H404,H405,W503,W504'
     install_command: 'pip install flake8'
     include: '**/*.py'
 
@@ -260,10 +262,12 @@ PreCommit:
     exclude:
       - '**/*.patch'
 
-  LineEndings:
-    description: 'Check line endings'
-    enabled: false
-    eol: "\n"
+  Hadolint:
+    enabled: true
+    description: 'Analyze with hadolint'
+    required_executable: 'hadolint'
+    include:
+      - '**/Dockerfile*'
 
   YamlLint:
     enabled: true

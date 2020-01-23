@@ -12,7 +12,6 @@ from fluidasserts.cloud.kubernetes import _get_result_as_tuple, \
 
 # 3rd party imports
 from kubernetes.client.rest import ApiException  # noqa
-from kubernetes import client  # noqa
 
 
 @api(risk=MEDIUM, kind=DAST)

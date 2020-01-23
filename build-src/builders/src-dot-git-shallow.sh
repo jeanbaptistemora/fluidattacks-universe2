@@ -7,7 +7,7 @@ source "${genericDirs}"
 cd root/src/repo
 
 git init
-git config user.name "nixatfluid"
+git config user.name "Nix Builder"
 git config user.email "nix@fluidattacks.com"
 git commit --allow-empty -m "$(cat "${srcGitLastCommitMsg}")"
 
