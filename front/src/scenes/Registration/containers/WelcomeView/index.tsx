@@ -6,7 +6,6 @@
 import _ from "lodash";
 import React, { ComponentType } from "react";
 import { Col, Row } from "react-bootstrap";
-import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction, Reducer } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
@@ -31,20 +30,6 @@ export interface IWelcomeViewProps {
   };
   username: string;
 }
-
-const enhance: InferableComponentEnhancer<{}> =
-  lifecycle({
-    componentDidMount(): void {
-      if (localStorage.getItem("showAlreadyLoggedin") === "1") {
-        localStorage.removeItem("showAlreadyLoggedin");
-      } else {
-        const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-          store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-        );
-        thunkDispatch(actions.loadAuthorization());
-      }
-    },
-  });
 
 const acceptLegal: ((rememberValue: boolean) => void) = (rememberValue: boolean): void => {
   const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
@@ -115,8 +100,20 @@ const renderAlreadyLoggedIn: ((email: string) => JSX.Element) =
     </React.Fragment>
   );
 
-export const component: React.FC<IWelcomeViewProps> =
-  (props: IWelcomeViewProps): JSX.Element => (
+export const component: React.FC<IWelcomeViewProps> = (props: IWelcomeViewProps): JSX.Element => {
+  const onMount: (() => void) = (): void => {
+    if (localStorage.getItem("showAlreadyLoggedin") === "1") {
+      localStorage.removeItem("showAlreadyLoggedin");
+    } else {
+      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+      );
+      thunkDispatch(actions.loadAuthorization());
+    }
+  };
+  React.useEffect(onMount, []);
+
+  return (
     <React.StrictMode>
       <div className={`${style.container} ${globalStyle.lightFg}`}>
         <div className={style.content}>
@@ -130,9 +127,10 @@ export const component: React.FC<IWelcomeViewProps> =
       </div>
     </React.StrictMode>
   );
+};
 
 export const welcomeView: ComponentType<IWelcomeViewProps> = reduxWrapper(
-  enhance(component) as React.FC<IWelcomeViewProps>,
+  component,
   (state: StateType<Reducer>): Partial<IWelcomeViewProps> => ({
     ...state.registration.welcomeView,
     email: (window as Window & { userEmail: string }).userEmail,
