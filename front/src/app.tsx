@@ -52,5 +52,12 @@ const app: React.FC = (): JSX.Element => (
   </React.StrictMode>
 );
 
+type HMRModule = NodeModule & { hot?: { accept(): void } };
+
+const extendedModule: HMRModule = (module as HMRModule);
+if (extendedModule.hot !== undefined) {
+  extendedModule.hot.accept();
+}
+
 mixpanel.init("7a7ceb75ff1eed29f976310933d1cc3e");
 ReactDOM.render(React.createElement(app), document.getElementById("root"));
