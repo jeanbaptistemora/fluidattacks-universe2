@@ -33,7 +33,7 @@ setup(
     version=_get_version(),
     url='https://fluidattacks.com/web/products/asserts',
     project_urls={
-      'Documentation': 'https://fluidattacks.gitlab.io/asserts/',
+        'Documentation': 'https://fluidattacks.gitlab.io/asserts/',
     },
     package_dir={
         'fluidasserts': 'fluidasserts',
@@ -81,6 +81,7 @@ setup(
         'azure-mgmt-security==0.*',  # fluidasserts.cloud.azure
         'azure-mgmt-resource==7.*',  # fluidasserts.cloud.azure
         'azure-mgmt-storage==7.*',   # fluidasserts.cloud.azure
+        'azure-mgmt-sql==0.16.*',    # fluidasserts.cloud.azure.sqlserver
         'azure-mgmt-web==0.*',       # fluidasserts.cloud.azure.app_services
         'azure-storage-file==2.*',   # fluidasserts.cloud.azure
         'azure-storage-file-share==12.*',  # fluidasserts.cloud.azure.storage_accounts
