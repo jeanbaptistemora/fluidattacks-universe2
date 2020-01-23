@@ -987,8 +987,8 @@ def has_xsleak_by_frames_discrepancy(url_a: str,
     Check if a view is vulnerable to a XSLeak by counting the number of frames.
 
     See: `CWE-204 <https://cwe.mitre.org/data/definitions/204.html`_.
-    See: `Browser Side Channels research <https://github.com/xsleaks/
-    xsleaks/wiki/Browser-Side-Channels#frame-count>`_.
+    See: `Browser Side Channels research <https://github.com/xsleaks/xsleaks/
+      wiki/Browser-Side-Channels#frame-count>`_.
     See: `Real life exploitation <https://www.imperva.com/blog/
     mapping-communication-between-facebook-accounts
     -using-a-browser-based-side-channel-attack/>`_.
@@ -1632,7 +1632,8 @@ def has_sqli_time(url_safe: str,
     Suggestions:
     ============
 
-    * Use a `sleep <https://cutt.ly/deiKvd1>`_ method in your attack.
+    * Use a `sleep <https://owasp.org/www-community/attacks/SQL_Injection>`_
+      method in your attack.
     * Use this method with stable connection network, a slow connection can
       generate a False Positive.
 

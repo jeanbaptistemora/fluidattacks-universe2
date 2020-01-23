@@ -4,7 +4,7 @@ from fluidasserts.helper import crypto
 # Decrypt the yaml file
 
 secrets = crypto.DecryptedYAML(key_b64=environ['yaml_key_b64'],
-                               encrypted_yaml_path='/resources/secrets.yml')
+                               encrypted_yaml_path='./resources/secrets.yml')
 
 # Use in your exploits as the original dictionary
 

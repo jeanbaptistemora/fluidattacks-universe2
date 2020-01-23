@@ -86,10 +86,10 @@ and the tools \
 `dodgy <https://github.com/landscapeio/dodgy>`_, \
 `mccabe <https://pypi.org/project/mccabe/>`_, and \
 `pep8 <https://pypi.org/project/pep8/>`_ (via \
-`Prospector <https://prospector.landscape.io/en/master/>`_, \
+`Prospector <https://pypi.org/project/prospector/>`_, \
 in highest strictness).
 It is recommended to install and
-use `overcommit <https://github.com/brigade/overcommit>`_
+use `overcommit <https://github.com/sds/overcommit>`_
 locally before committing.
 
 --------------
@@ -283,23 +283,23 @@ The following pages contain some ideas
 to keep in mind when developing ``Fluid Asserts``:
 
 * https://haacked.com/archive/2007/09/21/unit-testing-security-example.aspx/
-* https://www.owasp.org/index.php/OWASP_Secure_TDD_Project
+* https://wiki.owasp.org/index.php/OWASP_Secure_TDD_Project
 * https://dadario.com.br/security-unit-tests-are-important/
 * https://owasp.blogspot.com/2012/08/owasp-xelenium-security-unit-tests.html
 * https://www.owasp.org/images/9/99/AutomatedSecurityTestingofWebApplications-StephendeVries.pdf
 * https://www.owasp.org/images/6/62/OWASPAppSecEU2006_SecurityTestingthruAutomatedSWTests.ppt
 * https://spring.io/blog/2014/05/07/preview-spring-security-test-method-security
-* http://www.agiletestingframework.com/atf/testing/security-testing/
-* http://blogs.adobe.com/security/2014/07/overview-of-behavior-driven-development.html
+* https://www.adapttransformation.com/devops-toolchain/test/testing/security-testing/
+* https://blogs.adobe.com/security/2014/07/overview-of-behavior-driven-development.html
 * https://www.hugeinc.com/work
 * https://wiki.mozilla.org/Security/Projects/Minion
 * https://devops.com/automated-security-testing-continuous-delivery-pipeline/
-* https://www.continuumsecurity.net/bdd-security/
-* http://blog.joda.org/2004/11/testing-security-permission_5894.html
+* https://iriusrisk.com/open-source/
+* https://blog.joda.org/2004/11/testing-security-permission_5894.html
 * https://www.ibm.com/developerworks/java/library/j-fuzztest/index.html
 * https://howtodoinjava.com/junit/how-to-unit-test-spring-security-authentication-with-junit/
-* https://blog.box.com/blog/a-baseline-approach-to-security-testing/
-* http://morelia.readthedocs.io/en/latest/gherkin.html#gherkin
+* https://blog.box.com/a-baseline-approach-to-security-testing
+* https://morelia.readthedocs.io/en/latest/gherkin.html#gherkin
 * https://dzone.com/articles/making-web-secure-one-unit
 * https://www.linkedin.com/in/stephen-de-vries-4185a8
 * https://www.slideshare.net/StephendeVries2/automating-security-tests-for-continuous-integration
@@ -307,5 +307,5 @@ to keep in mind when developing ``Fluid Asserts``:
 * http://lettuce.it/tutorial/simple.html
 * https://aws.amazon.com/blogs/developer/devops-meets-security-security-testing-your-aws-application-part-i-unit-testing/
 * https://github.com/OWASP/OWASP-Testing-Guide/blob/master/2-Introduction/2.5%20Security%20Tests%20Integrated%20in%20Development%20and%20Testing%20Workflows.md
-* https://hiptest.com/docs/writing-scenarios-with-gherkin-syntax/
-* http://www.arachni-scanner.com/screenshots/web-user-interface/
+* https://support.smartbear.com/cucumberstudio/docs/bdd/write-gherkin-scenarios.html
+* https://www.arachni-scanner.com/screenshots/web-user-interface/

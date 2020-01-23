@@ -32,9 +32,7 @@ def allows_insecure_inbound_traffic(key_id: str,
     :param key_id: AWS Key Id.
     :param secret: AWS Key Secret.
     :param client_kwargs: boto3 client `kwargs <https://boto3.amazonaws.com/
-    v1/documentation/api/latest/reference/core/session.html#boto3.session.
-    Session.client>`_
-
+      v1/documentation/api/latest/guide/session.html>`_.
     :returns: - ``OPEN`` if there are unencrypted AMIs.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
@@ -112,9 +110,7 @@ def has_endpoints_publicly_accessible(key_id: str,
     :param key_id: AWS Key Id.
     :param secret: AWS Key Secret.
     :param client_kwargs: boto3 client `kwargs <https://boto3.amazonaws.com/
-    v1/documentation/api/latest/reference/core/session.html#boto3.session.
-    Session.client>`_
-
+      v1/documentation/api/latest/guide/session.html>`_.
     :returns: - ``OPEN`` if there is a public Kubernetes API server.
                 accessible.
               - ``UNKNOWN`` on errors.
@@ -177,6 +173,8 @@ def has_disable_cluster_logging(key_id: str,
 
     :param key_id: AWS Key Id.
     :param secret: AWS Key Secret.
+    :param client_kwargs: boto3 client `kwargs <https://boto3.amazonaws.com/
+      v1/documentation/api/latest/guide/session.html>`_.
     :returns: - ``OPEN`` if there are EKS Clusters with control plane logging
                 disabled.
                 Encryption enabled.

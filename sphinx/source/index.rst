@@ -22,7 +22,7 @@ over execution environments.
 ``Asserts`` performs Dynamic and Static
 Application Security Testing
 (`DAST <https://www.techopedia.com/definition/30958/dynamic-application-security-testing-dast>`_ and
-`SAST <https://www.owasp.org/index.php/Source_Code_Analysis_Tools>`_) and
+`SAST <https://owasp.org/www-community/Source_Code_Analysis_Tools>`_) and
 dynamic testing of many protocols (DXST).
 
 .. image:: _static/asserts.png

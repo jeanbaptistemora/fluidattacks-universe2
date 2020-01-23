@@ -607,8 +607,8 @@ def has_permissive_role_policies(key_id: str, secret: str,
 
     See https://cwe.mitre.org/data/definitions/250.html
 
-    See `IAM Best Practices <https://docs.aws.amazon.com/es_es/IAM/latest/
-    UserGuide /best-practices.html#grant-least-privilege>`_
+    See `IAM Best Practices <https://docs.aws.amazon.com/IAM/latest/UserGuide/
+      best-practices.html#grant-least-privilege>`_
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret

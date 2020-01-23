@@ -473,8 +473,8 @@ def has_instances_using_iam_roles(key_id: str, secret: str,
     your EC2 instances. With IAM roles you can avoid sharing long-term
     credentials and protect your instances from unauthorized access.
 
-    See https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/iam-roles
-    -for-amazon-ec2.html
+    See https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/
+    iam-roles-for-amazon-ec2.html
 
     :param key_id: AWS Key Id.
     :param secret: AWS Key Secret.

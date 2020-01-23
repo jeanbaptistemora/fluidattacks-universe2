@@ -95,6 +95,11 @@ doc:
   artifacts:
     paths: [public/]
 
+doc_test:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
 lint_nix_code:
   <<: *with_nix
   <<: *in_dev_branch

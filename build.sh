@@ -104,7 +104,7 @@ function set_ephemeral_git {
 
 function use_cachix {
   # Set the current system to use the cache
-  cachix use "${CACHIX_CACHE_NAME}"
+  cachix use "${CACHIX_CACHE_NAME}" 1>&2
 }
 
 function use_cachix_if_dev_branch {
@@ -151,12 +151,21 @@ function job_doc {
   rm -f doc-result
 }
 
+function job_doc_test {
+  job_doc
+}
+
 function job_populate_caches {
+  use_cachix_if_dev_branch
+
   # Execute the 'populate_caches' job in the .gitlab-ci.yml
   (
     job_lint_nix_code
     job_lint_python_code_bandit
     job_lint_shell_code
+    execute pyPkgFluidasserts
+    execute pyPkgGitFame
+    execute pyPkgSphinx
   ) | push_to_cachix
 }
 

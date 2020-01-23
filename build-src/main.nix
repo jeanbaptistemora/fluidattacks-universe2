@@ -39,8 +39,10 @@ rec {
     xmlsec
     zlib
 
-    # pythonPackages
-    _pythonPackages.brotli
+    # Python Packages
+    #   this is required because this packages depend on shared objects libraries
+    _pythonPackages.brotli        # libstdc++.so.6
+    _pythonPackages.python_magic  # libmagic.so.1
   ] ++ basicPythonEnv;
 
   # Repository files
