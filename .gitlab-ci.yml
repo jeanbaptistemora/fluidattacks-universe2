@@ -681,7 +681,7 @@ user-provision-web-prod-terraform-apply:
   stage: deploy
   script:
     - . ci-scripts/jobs/user-provision-web-prod.sh
-    - user_provision_webprod_prod_terraform_apply
+    - user_provision_web_prod_terraform_apply
   only:
     - master
   except:
