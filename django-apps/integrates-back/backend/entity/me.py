@@ -24,8 +24,10 @@ from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 
 class Me(ObjectType):
     access_token = String()
-    role = String(project_name=String(required=False))
+    authorized = Boolean()
     projects = List(Project)
+    remember = Boolean()
+    role = String(project_name=String(required=False))
 
     def __init__(self):
         super(Me, self).__init__()
@@ -66,6 +68,23 @@ class Me(ObjectType):
         self.access_token = json.dumps(access_token_dict)
 
         return self.access_token
+
+    def resolve_authorized(self, info):
+        """ Resolve user authorization """
+        jwt_content = util.get_jwt_content(info.context)
+        user_email = jwt_content.get('user_email')
+        self.authorized = user_domain.is_registered(user_email)
+
+        return self.authorized
+
+    def resolve_remember(self, info):
+        """ Resolve remember preference """
+        jwt_content = util.get_jwt_content(info.context)
+        user_email = jwt_content.get('user_email')
+        user_info = user_domain.get_data(user_email, 'legal_remember')
+        self.remember = user_info if user_info else False
+
+        return self.remember
 
 
 class SignIn(Mutation):
@@ -202,3 +221,22 @@ class InvalidateAccessToken(Mutation):
                 .format(email=user_info['user_email']))
 
         return InvalidateAccessToken(success)
+
+
+class AcceptLegal(Mutation):
+    class Arguments():
+        remember = Boolean()
+    success = Boolean()
+
+    @staticmethod
+    def mutate(_, info, remember):
+        user_email = util.get_jwt_content(info.context)['user_email']
+        is_registered = user_domain.is_registered(user_email)
+
+        if is_registered:
+            user_domain.update_legal_remember(user_email, remember)
+            success = True
+        else:
+            success = False
+
+        return AcceptLegal(success=success)

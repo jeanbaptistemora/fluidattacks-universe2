@@ -64,7 +64,7 @@ export const acceptLegal: ThunkActionStructure =
 export const loadAuthorization: ThunkActionStructure =
   (): ThunkAction<void, {}, {}, Action> => (dispatch: ThunkDispatcher): void => {
     let gQry: string; gQry = `{
-      login {
+      me {
         authorized
         remember
       }
@@ -75,13 +75,13 @@ export const loadAuthorization: ThunkActionStructure =
 
         dispatch<IActionStructure>({
           payload: {
-            isAuthorized: data.login.authorized,
-            isRememberEnabled: data.login.remember,
+            isAuthorized: data.me.authorized,
+            isRememberEnabled: data.me.remember,
           },
           type: actionType.LOAD_AUTHORIZATION,
         });
 
-        if (data.login.remember) {
+        if (data.me.remember) {
           loadDashboard();
         }
       })

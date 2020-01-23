@@ -1,5 +1,5 @@
 from graphene import ObjectType
-from backend.entity.login import AcceptLegal
+
 from backend.entity.resource import (
     AddResources, UpdateResources,
     AddFiles, RemoveFiles, DownloadFile
@@ -27,7 +27,9 @@ from backend.entity.event import (
     AddEventComment, CreateEvent, DownloadEventFile, SolveEvent, UpdateEvent,
     UpdateEventEvidence, RemoveEventEvidence
 )
-from backend.entity.me import SignIn, UpdateAccessToken, InvalidateAccessToken
+from backend.entity.me import (
+    AcceptLegal, SignIn, UpdateAccessToken, InvalidateAccessToken
+)
 from backend.entity.alert import SetAlert
 from backend.entity.cache import InvalidateCache
 

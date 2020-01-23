@@ -8,7 +8,6 @@ from backend.decorators import (
 from backend.domain import project as project_domain
 from backend.entity.me import Me
 from backend.entity.alert import Alert
-from backend.entity.login import Login
 from backend.entity.event import Event
 from backend.entity.resource import Resource
 from backend.entity.user import User
@@ -34,8 +33,6 @@ class Query(ObjectType):
     finding = Field(Finding, identifier=String(required=True))
 
     internal_project_names = Field(InternalProject)
-
-    login = Field(Login)
 
     resources = Field(Resource, project_name=String(required=True))
 
@@ -83,11 +80,6 @@ class Query(ObjectType):
         findings_loader = info.context.loaders['finding']
 
         return findings_loader.load(identifier)
-
-    def resolve_login(self, info):
-        """ Resolve for login info """
-        user_email = util.get_jwt_content(info.context)['user_email']
-        return Login(user_email)
 
     @require_login
     @require_role(['analyst', 'customer', 'admin'])
