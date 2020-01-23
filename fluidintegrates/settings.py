@@ -75,8 +75,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
-    'app.middleware.SocialAuthException',
-    'backend.casbin_middleware.middleware.CasbinMiddleware'
+    'app.middleware.SocialAuthException'
 ]
 
 ROOT_URLCONF = 'fluidintegrates.urls'
@@ -438,3 +437,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = FI_GOOGLE_OAUTH2_SECRET  # noqa
 # Azure OAuth2
 SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = FI_AZUREAD_OAUTH2_KEY
 SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = FI_AZUREAD_OAUTH2_SECRET  # noqa
+
+
+CASBIN_POLICY_MODEL_FILE = \
+    os.path.join(BASE_DIR, 'integrates_authz_model.conf')

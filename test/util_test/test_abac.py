@@ -1,45 +1,10 @@
-import os
-
 import casbin
 from django.conf import settings
 from django.test import TestCase
 
-from backend.casbin_dynamodb_adapter import Adapter
-from backend.dal.helpers import dynamodb
-
-
-def get_fixture(path):
-    dir_path = os.path.split(os.path.realpath(__file__))[0] + "/"
-    return os.path.abspath(dir_path + path)
-
 
 def get_enforcer():
-    adapter = Adapter()
-
-    dynamodb_resource = dynamodb.DYNAMODB_RESOURCE
-
-    table = dynamodb_resource.Table(adapter.table_name)
-    table.put_item(
-        Item={
-            'id': '1',
-            'ptype': 'p',
-            'v0': 'hacker@fluidattacks.com',
-            'v1': '/integrates/registration',
-            'v2': 'GET',
-        }
-    )
-
-    table.put_item(
-        Item={
-            'id': '2',
-            'ptype': 'p',
-            'v0': 'anonymous',
-            'v1': '/integrates/registration',
-            'v2': 'GET',
-        }
-    )
-
-    return casbin.Enforcer(get_fixture('../../integrates_authz_model.conf'), adapter)
+    return casbin.Enforcer(settings.CASBIN_POLICY_MODEL_FILE)
 
 
 class AbacTest(TestCase):
@@ -47,36 +12,38 @@ class AbacTest(TestCase):
     def test_enforcer_basic(self):
         enfor = get_enforcer()
 
-        self.assertTrue(enfor.enforce('hacker@fluidattacks.com',
-                                      '/integrates/registration', 'GET'))
-        self.assertTrue(enfor.enforce('hacker@fluidattacks.com',
-                                      '/integrates/registration', 'POST'))
+        class TestItem:
+            pass
 
-    def test_add_policy(self):
-        enfor = get_enforcer()
+        sub1 = TestItem()
+        sub1.username = ''
 
-        res = enfor.add_permission_for_user('newuser@fluidattacks.com',
-                                            '/integrates/*', 'GET')
-        self.assertTrue(res)
+        sub2 = TestItem()
+        sub2.username = 'someone'
 
-    def test_save_policy(self):
-        enfor = get_enforcer()
+        obj = '/integrates/registration'
 
-        model = enfor.get_model()
-        model.clear_policy()
+        self.assertFalse(enfor.enforce(sub1, obj))
+        self.assertTrue(enfor.enforce(sub2, obj))
 
-        model.add_policy('p', 'p',
-                         ['newuser2@fluidattacks.com', '/integrates/*', 'GET'])
+        sub3 = TestItem()
+        sub3.username = 'someone'
+        sub3.role = 'customer'
 
-        adapter = enfor.get_adapter()
-        self.assertTrue(adapter.save_policy(model))
+        should_deny = (
+            '/integrates/export_all_vulnerabilities',
+            '/integrates/12312313/download_vulnerabilities'
+        )
 
-    def test_remove_policy(self):
-        enfor = get_enforcer()
-        res = enfor.add_permission_for_user('newuser3@fluidattacks.com',
-                                            '/integrates/*', 'GET')
-        self.assertTrue(res)
+        should_allow = (
+            '/integrates/registration',
+            '/integrates/dashboard',
+            '/integrates/xls/',
+            '/integrates/pdf/',
+        )
 
-        res = enfor.delete_permission_for_user('newuser3@fluidattacks.com',
-                                               '/integrates/*', 'GET')
-        self.assertTrue(res)
+        for url in should_deny:
+            self.assertFalse(enfor.enforce(sub3, url))
+
+        for url in should_allow:
+            self.assertTrue(enfor.enforce(sub3, url))

@@ -5,6 +5,7 @@
 import functools
 import re
 
+import casbin
 import rollbar
 from django.conf import settings
 from django.core.cache import cache
@@ -32,7 +33,9 @@ def authenticate(func):
     @functools.wraps(func)
     def authenticate_and_call(*args, **kwargs):
         request = args[0]
-        if "username" not in request.session or request.session["username"] is None:
+        enforcer = casbin.Enforcer(settings.CASBIN_POLICY_MODEL_FILE,
+                                   enable_log=True)
+        if not enforcer.enforce(request.session, request.path):
             return HttpResponse('Unauthorized \
             <script>var getUrl=window.location.hash.substr(1); \
             localStorage.setItem("url_inicio",getUrl); \
@@ -41,25 +44,16 @@ def authenticate(func):
     return authenticate_and_call
 
 
-def authorize(roles):
-    def wrapper(func):
-        @functools.wraps(func)
-        def authorize_and_call(*args, **kwargs):
-            request = args[0]
-            # Verify role if the user is logged in
-            if 'username' in request.session and request.session['registered']:
-                if request.session['role'] not in roles:
-                    return util.response([], 'Access denied', True)
-            else:
-                # The user is not even authenticated. Redirect to login
-                return HttpResponse('<script> \
-                               var getUrl=window.location.hash.substr(1); \
-                  localStorage.setItem("url_inicio",getUrl); \
-                  location = "/integrates/index" ; </script>')
-
-            return func(*args, **kwargs)
-        return authorize_and_call
-    return wrapper
+def authorize(func):
+    @functools.wraps(func)
+    def authorize_and_call(*args, **kwargs):
+        request = args[0]
+        enforcer = casbin.Enforcer(settings.CASBIN_POLICY_MODEL_FILE,
+                                   enable_log=True)
+        if not enforcer.enforce(request.session, request.path):
+            return util.response([], 'Access denied', True)
+        return func(*args, **kwargs)
+    return authorize_and_call
 
 
 # Access control decorators for GraphQL
