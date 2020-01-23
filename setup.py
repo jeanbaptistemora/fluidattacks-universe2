@@ -72,22 +72,22 @@ setup(
     install_requires=[
         'aiohttp==3.6.2',              # fluidasserts
         'androguard==3.3.5',           # fluidasserts.format.apk
-        'azure-identity==1.1.0',       # fluidasserts.cloud.azure.key_vaults
-        'azure-keyvault-keys==4.0.0',  # fluidasserts.cloud.azure.key_vaults
-        'azure-keyvault-secrets==4.0.0',  # fluidasserts.cloud.azure.key_vaults
-        'azure-mgmt-compute==10.0.0',  # fluidasserts.cloud.azure
-        'azure-mgmt-keyvault==2.0.0',  # fluidasserts.cloud.azure
-        'azure-mgmt-network==8.0.0',   # fluidasserts.cloud.azure
-        'azure-mgmt-security==0.3.0',  # fluidasserts.cloud.azure
-        'azure-mgmt-resource==7.0.0',  # fluidasserts.cloud.azure
-        'azure-mgmt-storage==7.1.0',   # fluidasserts.cloud.azure
-        'azure-mgmt-web==0.44.0',      # fluidasserts.cloud.azure.app_services
-        'azure-storage-file==2.1.0',   # fluidasserts.cloud.azure
-        'azure-storage-file-share==12.0.0',  # fluidasserts.cloud.azure.storage_accounts
+        'azure-identity==1.*',       # fluidasserts.cloud.azure.key_vaults
+        'azure-keyvault-keys==4.*',  # fluidasserts.cloud.azure.key_vaults
+        'azure-keyvault-secrets==4.*',  # fluidasserts.cloud.azure.key_vaults
+        'azure-mgmt-compute==10.*',  # fluidasserts.cloud.azure
+        'azure-mgmt-keyvault==2.*',  # fluidasserts.cloud.azure
+        'azure-mgmt-network==8.*',   # fluidasserts.cloud.azure
+        'azure-mgmt-security==0.*',  # fluidasserts.cloud.azure
+        'azure-mgmt-resource==7.*',  # fluidasserts.cloud.azure
+        'azure-mgmt-storage==7.*',   # fluidasserts.cloud.azure
+        'azure-mgmt-web==0.*',       # fluidasserts.cloud.azure.app_services
+        'azure-storage-file==2.*',   # fluidasserts.cloud.azure
+        'azure-storage-file-share==12.*',  # fluidasserts.cloud.azure.storage_accounts
         'bandit==1.6.2',               # fluidasserts.lang.python
         'bcrypt==3.1.7',               # fluidasserts.proto.ssl
         'beautifulsoup4==4.8.2',       # fluidasserts.helper.http_helper
-        'boto3==1.10.17',              # fluidasserts.cloud.aws
+        'boto3==1.11.7',               # fluidasserts.cloud.aws
         'certifi==2019.11.28',         # fluidasserts.proto.ssl
         'cffi==1.13.2',                # fluidasserts.proto.ssl
         'colorama==0.4.3',             # logging
@@ -109,7 +109,7 @@ setup(
         'ntplib==0.3.3',               # fluidasserts.proto.http
         'oyaml==0.9',                  # fluidasserts
         'paramiko==2.7.1',             # fluidasserts.helper.ssh_helper
-        'pillow==6.2.1',               # fluidasserts.format.captcha
+        'pillow==7.0.0',               # fluidasserts.format.captcha
         'psycopg2==2.8.4',             # fluidasserts.db.postgresql
         'pyhcl==0.4.0',                # fluidasserts.cloud.aws.terraform
         'pyopenssl==19.1.0',           # fluidasserts.proto.ssl
@@ -121,7 +121,7 @@ setup(
         'pyparsing==2.4.6',            # fluidasserts.lang
         'pypdf2==1.26.0',              # fluidasserts.format.pdf
         'pysmb==1.1.28',               # fluidasserts.proto.smb
-        'pytesseract==0.3.0',          # fluidasserts.format.captcha
+        'pytesseract==0.3.1',          # fluidasserts.format.captcha
         'python-dateutil==2.8.1',      # fluidasserts.cloud.aws
         'python-magic==0.4.15',        # fluidasserts.format.file
         'pytz==2019.3',                # fluidasserts.proto.http
@@ -129,8 +129,8 @@ setup(
         'requests==2.22.0',            # fluidasserts.proto.http
         'requirements-detector==0.6',  # fluidasserts.sca
         'selenium==3.141.0',           # fluidasserts.helper.http
-        'tlslite-ng==0.8.0-alpha29',   # fluidasserts.proto.ssl
-        'typed-ast==1.4.0',            # fluidasserts
+        'tlslite-ng==0.8.0-alpha36',   # fluidasserts.proto.ssl
+        'typed-ast==1.4.1',            # fluidasserts
         'viewstate==0.4.3',            # fluidasserts.proto.http
     ],
     include_package_data=True,         # files to include in MANIFEST.in
