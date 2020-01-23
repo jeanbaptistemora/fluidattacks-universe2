@@ -8,6 +8,7 @@ from typing import Tuple
 # 3rd party imports
 from msrest.exceptions import AuthenticationError, ClientException
 from azure.mgmt.compute import ComputeManagementClient
+from azure.mgmt.network import NetworkManagementClient
 
 # local imports
 from fluidasserts import DAST, MEDIUM
@@ -176,6 +177,60 @@ def has_identity_disabled(client_id: str, secret: str, tenant: str,
 
     return _get_result_as_tuple(
         objects='Virtual Machines.',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_associate_public_ip_address(client_id: str, secret: str, tenant: str,
+                                    subscription_id: str) -> Tuple:
+    """
+    Check if Virtual Machines has associated a public IP address.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if there are VMs that have associated a pulbic IP
+                 address.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Virtual machines have associated a public IP address.'
+    msg_closed: str = \
+        'Virtual machines do not have an associated a public IP address.'
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    virtual_machines = ComputeManagementClient(
+        credentials, subscription_id).virtual_machines.list_all()
+
+    network = NetworkManagementClient(credentials,
+                                      subscription_id).network_interfaces
+
+    for virtual_m in virtual_machines:
+        vulnerable = []
+        for interface in virtual_m.network_profile.network_interfaces:
+            group_name: str = interface.id.split('/')[4]
+            interface_name = interface.id.split('/')[-1]
+            interface = network.get(group_name.lower(), interface_name)
+            has_public = any(
+                list(
+                    map(lambda x: x.public_ip_address is not None,
+                        interface.ip_configurations)))
+            vulnerable.append(has_public)
+
+        (vulns if any(vulnerable) else safes).append(
+            (virtual_m.id, 'do not associate a public IP addresses.'))
+
+    return _get_result_as_tuple(
+        objects='Virtual Machines',
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
