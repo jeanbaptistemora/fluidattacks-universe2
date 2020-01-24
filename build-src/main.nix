@@ -52,6 +52,7 @@ rec {
   srcBuildSrc = ../build-src;
   srcBuildSrcConfigPylintrc = ../build-src/config/pylintrc;
   srcBuildSrcPythonRequirementsLint = ../build-src/python-requirements/lint.lst;
+  srcBuildSrcPythonRequirementsTest = ../build-src/python-requirements/test.lst;
   srcConfReadmeRst = ../conf/README.rst;
   srcDeploy = ../deploy;
   srcDotGit = builtins.path {
@@ -85,6 +86,7 @@ rec {
   srcGitLastCommitMsg = ../.tmp/git-last-commit-msg;
   srcManifestIn = ../MANIFEST.in;
   srcPackageDotJson = ../package.json;
+  srcSetupCfg = ../setup.cfg;
   srcSetupPy = ../setup.py;
   srcSphinx = ../sphinx;
   srcTest = ../test;
@@ -148,15 +150,26 @@ rec {
     builder = ./builders/py-pkg-git-fame.sh;
   };
 
-  pyPkgGroupLinters = pkgs.stdenv.mkDerivation rec {
-    name = "pyPkgGroupLinters";
+  pyPkgGroupLint = pkgs.stdenv.mkDerivation rec {
+    name = "pyPkgGroupLint";
     description = ''
       Group of Python packages used to lint Fluidasserts.
     '';
     inherit genericDirs genericShellOptions;
     inherit srcBuildSrcPythonRequirementsLint;
     buildInputs = basicPythonEnv;
-    builder = ./builders/py-pkg-group-linters.sh;
+    builder = ./builders/py-pkg-group-lint.sh;
+  };
+
+  pyPkgGroupTest = pkgs.stdenv.mkDerivation rec {
+    name = "pyPkgGroupTest";
+    description = ''
+      Group of Python packages used to test Fluidasserts.
+    '';
+    inherit genericDirs genericShellOptions;
+    inherit srcBuildSrcPythonRequirementsTest;
+    buildInputs = basicPythonEnv;
+    builder = ./builders/py-pkg-group-test.sh;
   };
 
   pyPkgSphinx = pkgs.stdenv.mkDerivation rec {
@@ -176,13 +189,13 @@ rec {
       Lint Fluidasserts code.
     '';
     inherit genericDirs genericShellOptions;
-    inherit pyPkgFluidasserts pyPkgGroupLinters;
+    inherit pyPkgFluidasserts pyPkgGroupLint;
     inherit srcBuildSrcConfigPylintrc srcDotGitShallow srcDotOvercommit;
     inherit srcDotPreCommitConfig srcFluidasserts ;
     buildInputs = [
       pkgs.haskellPackages.hadolint
       pkgs.overcommit
-      pyPkgGroupLinters.buildInputs
+      pyPkgGroupLint.buildInputs
       pyPkgFluidasserts.buildInputs
     ];
     builder = ./builders/lint-fluidasserts-code.sh;
@@ -194,13 +207,13 @@ rec {
       Lint Fluidasserts test code.
     '';
     inherit genericDirs genericShellOptions;
-    inherit pyPkgFluidasserts pyPkgGroupLinters;
+    inherit pyPkgFluidasserts pyPkgGroupLint;
     inherit srcBuildSrcConfigPylintrc srcDotGitShallow srcDotOvercommit;
     inherit srcDotPreCommitConfig srcTest;
     buildInputs = [
       pkgs.haskellPackages.hadolint
       pkgs.overcommit
-      pyPkgGroupLinters.buildInputs
+      pyPkgGroupLint.buildInputs
       pyPkgFluidasserts.buildInputs
     ];
     builder = ./builders/lint-fluidasserts-test-code.sh;
@@ -268,4 +281,93 @@ rec {
     ];
     builder = ./builders/test-commit-message.sh;
   };
+
+  testerFluidasserts =
+    testGroupName:
+      pkgs.stdenv.mkDerivation rec {
+        name = testGroupName;
+        inherit genericDirs genericShellOptions;
+        inherit srcFluidasserts srcSetupCfg srcTest;
+        inherit pyPkgFluidasserts pyPkgGroupTest;
+        inherit testGroupName;
+        buildInputs = [
+          pkgs.gnupg
+          pyPkgFluidasserts.buildInputs
+          pyPkgGroupTest.buildInputs
+        ];
+        # Encrypting:
+        #   echo "${ENCRYPTION_KEY}" \
+        #     | gpg --symmetric \
+        #           --cipher-algo AES256 \
+        #           --digest-algo SHA512 \
+        #           --passphrase-fd 0 \
+        #           --armor \
+        #           --batch \
+        #           --yes \
+        #         secrets.sh
+        # Decrypting:
+        #   echo "${ENCRYPTION_KEY}" \
+        #     | gpg --batch \
+        #           --passphrase-fd 0 \
+        #           --output 'secrets.sh' \
+        #           --decrypt 'secrets.sh.asc'
+        envVarsEncrypted = ../secrets.sh.asc;
+        builder = ./builders/tester-fluidasserts.sh;
+        runner = ./builders/tester-fluidasserts-runner-script.sh;
+      };
+
+  testFluidassertsAll =
+    testerFluidasserts "all";
+
+  testFluidassertsCloud =
+    testerFluidasserts "cloud";
+
+  testFluidassertsCloudAwsApi =
+    testerFluidasserts "cloud.aws.api";
+
+  testFluidassertsCloudAwsCloudformation =
+    testerFluidasserts "cloud.aws.cloudformation";
+
+  testFluidassertsCloudAwsTerraform =
+    testerFluidasserts "cloud.aws.terraform";
+
+  testFluidassertsCloudAzure =
+    testerFluidasserts "cloud.azure";
+
+  testFluidassertsCloudGcp =
+    testerFluidasserts "cloud.gcp";
+
+  testFluidassertsCloudKubernetes =
+    testerFluidasserts "cloud.kubernetes";
+
+  testFluidassertsDb =
+    testerFluidasserts "db";
+
+  testFluidassertsFormat =
+    testerFluidasserts "format";
+
+  testFluidassertsHelper =
+    testerFluidasserts "helper";
+
+  testFluidassertsIot =
+    testerFluidasserts "iot";
+
+  testFluidassertsLang =
+    testerFluidasserts "lang";
+
+  testFluidassertsOt =
+    testerFluidasserts "ot";
+
+  testFluidassertsProto =
+    testerFluidasserts "proto";
+
+  testFluidassertsSca =
+    testerFluidasserts "sca";
+
+  testFluidassertsSyst =
+    testerFluidasserts "syst";
+
+  testFluidassertsUtils =
+    testerFluidasserts "utils";
+
 }

@@ -8,26 +8,39 @@ source ./build-src/include/generic/shell-options.sh
 
 function build {
   # Build a derivation from the provided expression without creating a symlink
+  local derivation_name="${1}"
   nix-build \
-      --attr "${1}" \
+      --attr "${derivation_name}" \
       --cores 0 \
       --max-jobs auto \
       --no-out-link \
       --option restrict-eval false \
       --option sandbox false \
+      --show-trace \
     ./build-src/main.nix
 }
 
 function build_and_link {
   # Build a derivation from the provided expression and create a symlink to the nix store
+  local derivation_name="${1}"
+  local derivation_output_name="${2}"
+
   nix-build \
-      --attr "${1}" \
+      --attr "${derivation_name}" \
       --cores 0 \
       --max-jobs auto \
-      --out-link "${2:-nix-result}" \
+      --out-link "${derivation_output_name}" \
       --option restrict-eval false \
       --option sandbox false \
+      --show-trace \
     ./build-src/main.nix
+}
+
+function build_and_link_x {
+  local derivation_name="${1}"
+  local derivation_output_name="${2}"
+  build_and_link "${derivation_name}" "${derivation_output_name}"
+  chmod +x "${derivation_output_name}"
 }
 
 function ensure_dependencies {
@@ -185,7 +198,8 @@ function job_populate_caches {
     build nodePkgCommitlint
     build pyPkgFluidasserts
     build pyPkgGitFame
-    build pyPkgGroupLinters
+    build pyPkgGroupLint
+    build pyPkgGroupTest
     build pyPkgSphinx
   ) | push_to_cachix
 }

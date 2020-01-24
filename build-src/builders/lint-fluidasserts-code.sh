@@ -16,7 +16,7 @@ cp -r --no-preserve=mode,ownership \
 cp -r --no-preserve=mode,ownership \
   "${pyPkgFluidasserts}"/* root/python
 cp -r --no-preserve=mode,ownership \
-  "${pyPkgGroupLinters}"/* root/python
+  "${pyPkgGroupLint}"/* root/python
 
 chmod +x root/python/site-packages/bin/flake8
 chmod +x root/python/site-packages/bin/mypy

@@ -10,7 +10,7 @@ test/times
 log.asserts
 
 # Python bytecode
-*.py[cod]
+*.py[cdeo]
 __pycache__/
 
 # Vim cache
@@ -59,3 +59,5 @@ sphinx/source/example/*.out
 
 # Nix
 .tmp
+ephemeral-test-runner*
+secrets.sh
