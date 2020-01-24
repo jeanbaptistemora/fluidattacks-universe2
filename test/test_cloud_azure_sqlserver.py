@@ -34,6 +34,14 @@ def test_has_advanced_data_security_disabled_open():
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_open()
 
+
+def test_has_ad_administration_disabled_open():
+    """Search SQL servers that have Active Dierectory admin disabled."""
+    assert sqlserver.has_ad_administration_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_open()
+
+
 #
 # Closed tests
 #
@@ -42,5 +50,12 @@ def test_has_advanced_data_security_disabled_open():
 def test_has_advanced_data_security_disabled_closed():
     """Search SQL servers that have advance data security disabled."""
     assert sqlserver.has_advanced_data_security_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_has_ad_administration_disabled_closed():
+    """Search SQL servers that have Active Dierectory admin disabled."""
+    assert sqlserver.has_ad_administration_disabled(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()
