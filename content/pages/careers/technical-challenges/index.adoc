@@ -215,6 +215,6 @@ and start posting your solutions. Good luck!
 
 == 10. keywords
 
-. +ToE+: link:https://docs.marklogic.com/6.0/guide/cc/toe[Target Of Evaluation]
+. +ToE+: link:https://csrc.nist.gov/glossary/term/target-of-evaluation[Target Of Evaluation]
 . +VBD+: Vulnerable by design
 . +CTF+: link:https://ctftime.org/ctf-wtf/[Capture The Flag]
