@@ -174,9 +174,9 @@ def send_comment_mail(comment_data, entity_name, user_mail, comment_type='', ent
         if user_domain.get_data(recipient, 'role') not in ['customer', 'customeradmin']]
 
     email_context_customers = email_context.copy()
-    email_context_customers['user_email'] = \
-        'Hacker at ' + user_domain.get_data(user_mail, 'company').capitalize()
-
+    if user_domain.get_data(user_mail, 'role') not in ['customer', 'customeradmin']:
+        email_context_customers['user_email'] = \
+            'Hacker at ' + user_domain.get_data(user_mail, 'company').capitalize()
     email_send_thread = threading.Thread(
         name='New {} email thread'.format(entity_name),
         target=send_mail_comment,
