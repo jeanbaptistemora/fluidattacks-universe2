@@ -113,3 +113,53 @@ def has_ad_administration_disabled(client_id: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def allow_public_access(client_id: str, secret: str, tenant: str,
+                        subscription_id: str) -> Tuple:
+    """
+    Check if SQL Servers are publicly accessible.
+
+    Unless there is a specific business requirement, SQL Server instances
+    should not have a public endpoint.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if there are SQL servers publicly accessible.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'SQL Servers are publicly accessible.'
+    msg_closed: str = 'SQL Servers are not publicly accessible.'
+
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    client = SqlManagementClient(credentials, subscription_id)
+
+    for serve in client.servers.list():
+        group_name = serve.id.split('/')[4]
+        server_name = serve.id.split('/')[-1]
+        rules = list(
+            client.firewall_rules.list_by_server(group_name, server_name))
+        vulnerable = any(
+            list(
+                map(lambda x: '0.0.0.0' in [x.end_ip_address,  # nosec
+                                            x.start_ip_address],
+                    rules)))
+        (vulns if vulnerable else safes).append(
+            (serve.id, 'do not allow public access.'))
+
+    return _get_result_as_tuple(
+        objects='Sql Servers',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

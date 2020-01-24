@@ -42,6 +42,13 @@ def test_has_ad_administration_disabled_open():
         AZURE_SUBSCRIPTION_ID).is_open()
 
 
+def test_allow_public_access_open():
+    """Search SQL servers that allow public access."""
+    assert sqlserver.allow_public_access(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_open()
+
+
 #
 # Closed tests
 #
@@ -57,5 +64,12 @@ def test_has_advanced_data_security_disabled_closed():
 def test_has_ad_administration_disabled_closed():
     """Search SQL servers that have Active Dierectory admin disabled."""
     assert sqlserver.has_ad_administration_disabled(
+        AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
+        AZURE_SUBSCRIPTION_ID).is_unknown()
+
+
+def test_allow_public_access_closed():
+    """Search SQL servers that allow public access."""
+    assert sqlserver.allow_public_access(
         AZURE_CLIENT_ID, AZURE_CLIENT_SECRET_BAD, AZURE_TENANT_ID,
         AZURE_SUBSCRIPTION_ID).is_unknown()
