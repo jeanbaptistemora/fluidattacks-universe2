@@ -213,7 +213,7 @@ def has_unrestricted_ports(
             exclude=exclude):
         rules = _tipify_rules(res_props)
         for rule in rules:
-            from_port, to_port = rule.get("from_port"), (rule.get("to_port"))
+            from_port, to_port = rule.get("from_port"), rule.get("to_port")
             if int(from_port) < int(to_port):
                 vuln = Vulnerability(
                     path=yaml_path,
