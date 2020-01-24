@@ -67,7 +67,7 @@
         </h2>
       </a>
       {% set cat = defendspage.category %}
-      <div class="defendspanel overflow-hidden bg-white mb2">
+      <div class="defendspanel overflow-hidden bg-white mb2 pl4-l">
         {% for defendsarticle in pages if defendsarticle.defends and defendsarticle.category == cat%}
           <a class="c-fluid-bk hv-fluid-dkred"
              href="../{{ defendsarticle.slug }}">
@@ -85,7 +85,7 @@
           </h2>
         </a>
         {% set cat = defendspage.category %}
-        <div class="defendspanel overflow-hidden bg-white mb2">
+        <div class="defendspanel overflow-hidden bg-white mb2 pl4-l">
           {% for defendsarticle in pages if defendsarticle.defends and defendsarticle.category == cat%}
             <a class="c-fluid-bk hv-fluid-dkred"
                href="../{{ defendsarticle.slug }}">

@@ -98,13 +98,6 @@ $codeyellow: rgba(230, 219, 116, 1);
 }
 // End Tachyons
 
-@mixin hn {
-  font-family: 'Montserrat';
-  font-weight: bold;
-  line-height: 1;
-  margin: 20px 0 10px;
-}
-
 @mixin cell($padding) {
   border: 1px solid $fluid-gray;
   font-size: 21px;
@@ -113,26 +106,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   p {
     margin: 10px 0;
   }
-}
-
-h1 {
-  @include hn;
-  font-size: 34px;
-}
-
-h2 {
-  @include hn;
-  font-size: 30px;
-}
-
-h3 {
-  @include hn;
-  font-size: 24px;
-}
-
-h4 {
-  @include hn;
-  font-size: 18px;
 }
 
 a {

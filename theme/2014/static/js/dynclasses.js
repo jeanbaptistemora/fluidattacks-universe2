@@ -99,5 +99,8 @@ Tachyons classes on dynamically generated content
 
     // Add custom style for table-responsive
     $( ".tb-responsive > td, th" ).addClass("ma0 db")
+
+    // Add custom styles to titles
+    $( "h1, h2, h3, h4" ).addClass("montsy b lh-solid mt3 mh0 mb2")
   });
 })(jQuery);
