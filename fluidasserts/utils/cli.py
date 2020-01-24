@@ -908,6 +908,47 @@ def exec_cloudformation_package(
                          enable_multiprocessing=enable_multiprocessing)
 
 
+def exec_terraform_package(
+        paths: List[str], enable_multiprocessing: bool):
+    """Execute generic methods from the Terraform package."""
+    template = textwrap.dedent("""
+        from fluidasserts.cloud.aws.terraform import {module}
+        from fluidasserts.utils.generic import add_finding
+
+        add_finding('Fluid Asserts - Terraform - {title} Module')
+
+        {method}{method_args}
+        """)
+
+    source: Dict[str, str] = {
+        ('ec2', 'EC2 (Elastic Cloud Compute)'): [
+            'ec2.allows_all_outbound_traffic',
+            'ec2.has_unencrypted_volumes',
+            'ec2.has_unrestricted_ip_protocols',
+            'ec2.has_unrestricted_ports',
+        ],
+        ('iam', 'IAM (Identity and Access Management)'): [
+            'iam.is_policy_miss_configured',
+        ],
+        ('rds', 'RDS (Relational Database Service)'): [
+            'rds.has_not_termination_protection',
+        ],
+    }
+
+    exploits = [
+        (module[1], template.format(
+            title=module[1],
+            module=module[0],
+            method=method,
+            method_args=f'("{path}")'))
+        for path in paths
+        for module, methods in source.items()
+        for method in methods]
+
+    return exec_exploits(exploit_contents=exploits,
+                         enable_multiprocessing=enable_multiprocessing)
+
+
 def exec_apk_package(apks):
     """Execute generic checks of APK module."""
     template = textwrap.dedent("""\
@@ -1075,7 +1116,7 @@ def exec_exploits(
         exit_asserts('exploit-not-found')
 
 
-def get_content(args):
+def get_content(args):  # noqa: MC0001
     """Get raw content according to args parameter."""
     content = ''
     if args.http:
@@ -1093,6 +1134,9 @@ def get_content(args):
     if args.cloudformation:
         content += exec_cloudformation_package(
             args.cloudformation, args.multiprocessing)
+    if args.terraform:
+        content += exec_terraform_package(
+            args.terraform, args.multiprocessing)
     if args.azure:
         content += exec_azure_package(args.azure, args.multiprocessing)
     if args.exploits:
@@ -1173,6 +1217,10 @@ def get_argparser():
                            help=('perform AWS checks over CloudFormation '
                                  'templates starting recursively from '
                                  'FILE/DIR'))
+    argparser.add_argument('--terraform', nargs='+', metavar='FILE/DIR',
+                           help=('perform AWS checks over Terraform '
+                                 'templates starting recursively from '
+                                 'FILE/DIR'))
 
     argparser.add_argument('exploits', nargs='*', help='exploits to execute')
 
@@ -1195,6 +1243,7 @@ def main():  # noqa: MC0001
     if not any((args.apk,
                 args.aws,
                 args.cloudformation,
+                args.terraform,
                 args.dns,
                 args.exploits,
                 args.http,

@@ -45,6 +45,7 @@ setup(
         'fluidasserts.cloud',
         'fluidasserts.cloud.aws',
         'fluidasserts.cloud.aws.cloudformation',
+        'fluidasserts.cloud.aws.terraform',
         'fluidasserts.db',
         'fluidasserts.format',
         'fluidasserts.helper',
