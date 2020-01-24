@@ -16,6 +16,7 @@ from django.views.decorators.csrf import csrf_protect
 from graphql import GraphQLError
 from promise import Promise
 from rediscluster.nodemanager import RedisClusterException
+from simpleeval import AttributeDoesNotExist
 
 from backend.services import (
     get_user_role, has_access_to_project, has_access_to_finding,
@@ -33,13 +34,18 @@ def authenticate(func):
     @functools.wraps(func)
     def authenticate_and_call(*args, **kwargs):
         request = args[0]
-        enforcer = casbin.Enforcer(settings.CASBIN_POLICY_MODEL_FILE,
-                                   enable_log=True)
-        if not enforcer.enforce(request.session, request.path):
-            return HttpResponse('Unauthorized \
-            <script>var getUrl=window.location.hash.substr(1); \
-            localStorage.setItem("url_inicio",getUrl); \
-            location = "/integrates/index"; </script>')
+        error = HttpResponse('Unauthorized \
+                    <script>var getUrl=window.location.hash.substr(1); \
+                    localStorage.setItem("url_inicio",getUrl); \
+                    location = "/integrates/index"; </script>')
+
+        try:
+            enforcer = casbin.Enforcer(settings.CASBIN_POLICY_MODEL_FILE,
+                                       enable_log=True)
+            if not enforcer.enforce(request.session, request.path):
+                return error
+        except AttributeDoesNotExist:
+            return error
         return func(*args, **kwargs)
     return authenticate_and_call
 
@@ -48,10 +54,16 @@ def authorize(func):
     @functools.wraps(func)
     def authorize_and_call(*args, **kwargs):
         request = args[0]
-        enforcer = casbin.Enforcer(settings.CASBIN_POLICY_MODEL_FILE,
-                                   enable_log=True)
-        if not enforcer.enforce(request.session, request.path):
-            return util.response([], 'Access denied', True)
+        try:
+            enforcer = casbin.Enforcer(settings.CASBIN_POLICY_MODEL_FILE,
+                                       enable_log=True)
+            if not enforcer.enforce(request.session, request.path):
+                return util.response([], 'Access denied', True)
+        except AttributeDoesNotExist:
+            return HttpResponse('Unauthorized \
+            <script>var getUrl=window.location.hash.substr(1); \
+            localStorage.setItem("url_inicio",getUrl); \
+            location = "/integrates/index"; </script>')
         return func(*args, **kwargs)
     return authorize_and_call
 
