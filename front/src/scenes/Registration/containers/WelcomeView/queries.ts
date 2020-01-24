@@ -9,3 +9,11 @@ export const GET_USER_AUTHORIZATION: DocumentNode = gql`
     }
   }
 `;
+
+export const ACCEPT_LEGAL_MUTATION: DocumentNode = gql`
+  mutation AcceptLegalMutation($remember: Boolean!) {
+    acceptLegal(remember: $remember) {
+      success
+    }
+  }
+`;

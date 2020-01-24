@@ -48,7 +48,7 @@
 	<script src="{% static 'app/delighted.js' %}" type="text/javascript"></script>
   </head>
   <body>
-    <div id="root" />
+    <div id="root"></div>
     {% if request.get_host == 'localhost' and request.is_secure %}
       {% render_bundle 'app' 'js' %}
     {% else %}

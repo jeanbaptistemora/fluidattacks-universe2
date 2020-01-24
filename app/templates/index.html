@@ -22,7 +22,7 @@
     <style> body { background-color: #272727; }</style>
   </head>
   <body id="FluidIntegrates">
-    <div id="root" />
+    <div id="root"></div>
     {% if request.get_host == 'localhost' and request.is_secure %}
       {% render_bundle 'login' 'js' %}
     {% else %}

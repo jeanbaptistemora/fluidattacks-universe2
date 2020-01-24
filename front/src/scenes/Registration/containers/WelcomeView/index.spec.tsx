@@ -1,11 +1,31 @@
 import { configure, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
-import { component as WelcomeView } from "./index";
+import { RouteComponentProps } from "react-router-dom";
+import { WelcomeView } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
 describe("Welcome view", () => {
+
+  const routeProps: RouteComponentProps = {
+    history: {
+      action: "PUSH",
+      block: (): (() => void) => (): void => undefined,
+      createHref: (): string => "",
+      go: (): void => undefined,
+      goBack: (): void => undefined,
+      goForward: (): void => undefined,
+      length: 1,
+      listen: (): (() => void) => (): void => undefined,
+      location: { hash: "", pathname: "/", search: "", state: {} },
+      push: (): void => undefined,
+      replace: (): void => undefined,
+    },
+    location: { hash: "", pathname: "/", search: "", state: {} },
+    match: { isExact: true, params: {}, path: "/", url: "" },
+  };
+
   it("should return a function", () => {
     expect(typeof (WelcomeView))
       .toEqual("function");
@@ -14,7 +34,7 @@ describe("Welcome view", () => {
   it("should render", () => {
     const wrapper: ShallowWrapper = shallow(
       <WelcomeView
-        legalNotice={{ open: true, rememberDecision: false }}
+        {...routeProps}
       />,
     );
 
@@ -25,7 +45,7 @@ describe("Welcome view", () => {
   it("should render greetings message", () => {
     const wrapper: ShallowWrapper = shallow(
       <WelcomeView
-        legalNotice={{ open: true, rememberDecision: false }}
+        {...routeProps}
       />,
     );
     expect(wrapper.contains("Hello"))
@@ -35,7 +55,7 @@ describe("Welcome view", () => {
   it.skip("should render unauthorized message", () => {
     const wrapper: ShallowWrapper = shallow(
       <WelcomeView
-        legalNotice={{ open: true, rememberDecision: false }}
+        {...routeProps}
       />,
     );
 
@@ -51,7 +71,7 @@ describe("Welcome view", () => {
   it.skip("should render legal notice", () => {
     const wrapper: ShallowWrapper = shallow(
       <WelcomeView
-        legalNotice={{ open: true, rememberDecision: false }}
+        {...routeProps}
       />,
     );
 

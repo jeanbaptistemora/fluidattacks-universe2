@@ -5,50 +5,19 @@
  */
 
 import _ from "lodash";
-import React, { ComponentType } from "react";
-import { Query, QueryResult } from "react-apollo";
+import React from "react";
+import { Mutation, MutationFn, Query, QueryResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
-import { AnyAction, Reducer } from "redux";
-import { ThunkDispatch } from "redux-thunk";
-import { StateType } from "typesafe-actions";
+import { Redirect, RouteComponentProps } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 import { default as logo } from "../../../../resources/logo.png";
-import store from "../../../../store/index";
 import { default as globalStyle } from "../../../../styles/global.css";
-import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
-import * as actions from "../../actions";
 import { CompulsoryNotice } from "../../components/CompulsoryNotice";
 import { default as style } from "./index.css";
-import { GET_USER_AUTHORIZATION } from "./queries";
+import { ACCEPT_LEGAL_MUTATION, GET_USER_AUTHORIZATION } from "./queries";
 
-export interface IWelcomeViewProps {
-  legalNotice: {
-    open: boolean;
-    rememberDecision: boolean;
-  };
-}
-
-const acceptLegal: ((rememberValue: boolean) => void) = (rememberValue: boolean): void => {
-  const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-    store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-  );
-
-  thunkDispatch(actions.acceptLegal(rememberValue));
-};
-
-const renderLegalNotice: ((props: IWelcomeViewProps) => JSX.Element) = (props: IWelcomeViewProps): JSX.Element => (
-  <div>
-    <React.Fragment>
-      <CompulsoryNotice
-        content={translate.t("legalNotice.description")}
-        onAccept={acceptLegal}
-        open={props.legalNotice.open}
-      />
-    </React.Fragment>
-  </div>
-);
+type WelcomeViewProps = RouteComponentProps;
 
 const renderUnauthorized: (() => JSX.Element) = (): JSX.Element => {
   const handleLogoutClick: (() => void) = (): void => { location.assign("/integrates/logout"); };
@@ -69,34 +38,19 @@ const renderUnauthorized: (() => JSX.Element) = (): JSX.Element => {
   );
 };
 
-const renderAlreadyLoggedIn: ((email: string) => JSX.Element) =
-  (email: string): JSX.Element => (
-    <React.Fragment>
-      <div>
-        <Row style={{ paddingBottom: "20px" }}><h3>{translate.t("registration.logged_in_title")}</h3></Row>
-        <Row>
-          <Col md={12}>
-            <p>{translate.t("registration.logged_in_message")}</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={12}>
-            <Button bsStyle="primary" block={true} onClick={actions.loadDashboard}>
-              {translate.t("registration.continue_btn")} {email}
-            </Button>
-          </Col>
-        </Row>
-      </div>
-    </React.Fragment>
-  );
-
-export const component: React.FC<IWelcomeViewProps> = (props: IWelcomeViewProps): JSX.Element => {
+const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
   const onMount: (() => void) = (): void => {
-    if (localStorage.getItem("showAlreadyLoggedin") === "1") {
-      localStorage.removeItem("showAlreadyLoggedin");
-    }
+    localStorage.removeItem("showAlreadyLoggedin");
+    localStorage.removeItem("url_inicio");
   };
   React.useEffect(onMount, []);
+
+  const [isLegalModalOpen, setLegalModalOpen] = React.useState(true);
+
+  const initialUrl: string = _.get(localStorage, "url_inicio", "!/home");
+  const loadDashboard: (() => void) = (): void => {
+    location.assign(`/dashboard#${initialUrl}`);
+  };
 
   const { userEmail, userName } = window as typeof window & Dictionary<string>;
 
@@ -109,7 +63,22 @@ export const component: React.FC<IWelcomeViewProps> = (props: IWelcomeViewProps)
             <h1>{translate.t("registration.greeting")} {userName}!</h1>
           </div>
           {localStorage.getItem("showAlreadyLoggedin") === "1"
-            ? renderAlreadyLoggedIn(userEmail)
+            ?
+            <div>
+              <Row style={{ paddingBottom: "20px" }}><h3>{translate.t("registration.logged_in_title")}</h3></Row>
+              <Row>
+                <Col md={12}>
+                  <p>{translate.t("registration.logged_in_message")}</p>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12}>
+                  <Button bsStyle="primary" block={true} onClick={loadDashboard}>
+                    {translate.t("registration.continue_btn")} {userEmail}
+                  </Button>
+                </Col>
+              </Row>
+            </div>
             :
             <Query query={GET_USER_AUTHORIZATION} fetchPolicy="network-only">
               {({ data, loading }: QueryResult): JSX.Element => {
@@ -119,8 +88,26 @@ export const component: React.FC<IWelcomeViewProps> = (props: IWelcomeViewProps)
                   <React.Fragment>
                     {data.me.authorized
                       ? data.me.remember
-                        ? <Redirect to="/dashboard" />
-                        : renderLegalNotice(props)
+                        ? <Redirect to={`/dashboard#${initialUrl}`} />
+                        :
+                        <Mutation mutation={ACCEPT_LEGAL_MUTATION} onCompleted={loadDashboard}>
+                          {(acceptLegal: MutationFn): React.ReactNode => {
+
+                            const handleAccept: ((remember: boolean) => void) = (remember: boolean): void => {
+                              setLegalModalOpen(false);
+                              acceptLegal({ variables: { remember } })
+                                .catch();
+                            };
+
+                            return (
+                              <CompulsoryNotice
+                                content={translate.t("legalNotice.description")}
+                                onAccept={handleAccept}
+                                open={isLegalModalOpen}
+                              />
+                            );
+                          }}
+                        </Mutation>
                       : renderUnauthorized()
                     }
                   </React.Fragment>
@@ -134,9 +121,4 @@ export const component: React.FC<IWelcomeViewProps> = (props: IWelcomeViewProps)
   );
 };
 
-export const welcomeView: ComponentType<IWelcomeViewProps> = reduxWrapper(
-  component,
-  (state: StateType<Reducer>): Partial<IWelcomeViewProps> => ({
-    legalNotice: state.registration.legalNotice,
-  }),
-);
+export { welcomeView as WelcomeView };

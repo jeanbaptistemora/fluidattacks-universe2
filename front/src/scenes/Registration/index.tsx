@@ -1,3 +1,3 @@
-import { welcomeView as WelcomeView } from "./containers/WelcomeView";
+import { WelcomeView } from "./containers/WelcomeView";
 
 export = WelcomeView;
