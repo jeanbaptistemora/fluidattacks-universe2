@@ -89,9 +89,15 @@ Tachyons classes on dynamically generated content
     $( "img" ).addClass("mw-100 v-mid")
 
     // Add style to title classes
-    $( ".title" ).addClass("f5-l f6 t-grey")
+    $( ".title" ).addClass("f5-l f6 c-dkgrey")
 
     // Add style to col-lg-8 and col-md-10 classes
     $( ".col-lg-8, .col-md-10" ).addClass("tc w-100")
+
+    // Add style to ol elements
+    $( "ol" ).addClass("pl4 f4")
+
+    // Add custom style for table-responsive
+    $( ".tb-responsive > td, th" ).addClass("ma0 db")
   });
 })(jQuery);

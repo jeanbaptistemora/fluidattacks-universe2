@@ -54,7 +54,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .c-codepink { color: $codepink; }
 .c-codelightred { color: $codelightred; }
 .c-codeyellow { color: $codeyellow; }
-.t-grey { color: $darkgray; }
+.c-dkgrey { color: $darkgray; }
 .grayscale { filter: grayscale(100);}
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-fluid-bk { &:hover { color: $fluid-black;} }
@@ -149,11 +149,6 @@ a {
       color: $lightblue;
     }
   }
-}
-
-ol {
-  font-size: 18px;
-  padding-left: 28px;
 }
 
 p {
@@ -315,14 +310,6 @@ ul {
   }
 }
 //scss-lint:enable NestingDepth
-
-.tb-responsive {
-  td,
-  th {
-    display: block;
-    margin: -1px;
-  }
-}
 
 .tb-fluid {
   th {
