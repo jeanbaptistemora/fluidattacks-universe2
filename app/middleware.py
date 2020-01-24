@@ -13,9 +13,7 @@ class SocialAuthException(SocialAuthExceptionMiddleware):
             if exception_type == "AuthAlreadyAssociated":
                 return HttpResponse('<script> \
                     localStorage.setItem("showAlreadyLoggedin","1"); \
-                    if (location.origin.indexOf("://fluidattacks.com") === -1) { \
-                        location = "/integrates/registration"; \
-                    }else{ location = "/integrates/registration"; } </script>')
+                    location.assign("/integrates/registration");</script>')
             return redirect("/integrates/index")
         return super(SocialAuthException, self).process_exception(request,
                                                                   exception)

@@ -13,14 +13,13 @@ import { AnyAction, Reducer } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button";
-// @ts-ignore Disable next line is necessary to run the unit tests
 import { default as logo } from "../../../../resources/logo.png";
 import store from "../../../../store/index";
 import { default as globalStyle } from "../../../../styles/global.css";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
 import * as actions from "../../actions";
-import { compulsoryNotice as CompulsoryNotice } from "../../components/CompulsoryNotice";
+import { CompulsoryNotice } from "../../components/CompulsoryNotice";
 import { default as style } from "./index.css";
 import { GET_USER_AUTHORIZATION } from "./queries";
 
@@ -39,22 +38,17 @@ const acceptLegal: ((rememberValue: boolean) => void) = (rememberValue: boolean)
   thunkDispatch(actions.acceptLegal(rememberValue));
 };
 
-const renderLegalNotice: ((props: IWelcomeViewProps) => JSX.Element) = (props: IWelcomeViewProps): JSX.Element => {
-  const handleCheck: (() => void) = (): void => { store.dispatch(actions.checkRemember()); };
-
-  return (
+const renderLegalNotice: ((props: IWelcomeViewProps) => JSX.Element) = (props: IWelcomeViewProps): JSX.Element => (
+  <div>
     <React.Fragment>
       <CompulsoryNotice
         content={translate.t("legalNotice.description")}
-        id="legalNotice"
         onAccept={acceptLegal}
-        onCheckRemember={handleCheck}
         open={props.legalNotice.open}
-        rememberDecision={props.legalNotice.rememberDecision}
       />
     </React.Fragment>
-  );
-};
+  </div>
+);
 
 const renderUnauthorized: (() => JSX.Element) = (): JSX.Element => {
   const handleLogoutClick: (() => void) = (): void => { location.assign("/integrates/logout"); };

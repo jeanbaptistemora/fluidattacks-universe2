@@ -1,10 +1,9 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
+import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
-import { IModalProps, Modal } from "../../../../components/Modal/index";
-import {
-  compulsoryNotice as CompulsoryNotice,
-} from "./index";
+import { Provider } from "react-redux";
+import store from "../../../../store";
+import { CompulsoryNotice } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
@@ -18,57 +17,44 @@ describe("Compulsory notice modal", () => {
     const wrapper: ShallowWrapper = shallow(
       <CompulsoryNotice
         content=""
-        id="testModal"
         open={true}
-        rememberDecision={false}
         onAccept={jest.fn()}
-        onCheckRemember={jest.fn()}
       />,
     );
 
-    const component: ShallowWrapper<IModalProps> = wrapper.find(Modal);
-    expect(component)
+    expect(wrapper)
       .toHaveLength(1);
   });
 
-  it("should click checkbox", () => {
-    const handleCheckboxClick: jest.Mock = jest.fn();
+  it("should render checkbox", () => {
     const wrapper: ShallowWrapper = shallow(
       <CompulsoryNotice
         content=""
-        id="testModal"
         open={true}
-        rememberDecision={false}
         onAccept={jest.fn()}
-        onCheckRemember={handleCheckboxClick}
       />,
     );
     const checkbox: ShallowWrapper = wrapper.find("modal")
       .dive()
-      .find("Checkbox");
-    checkbox.simulate("click");
-    expect(handleCheckboxClick.mock.calls.length)
-      .toEqual(1);
+      .find("Field");
+    expect(checkbox)
+      .toHaveLength(1);
   });
 
-  it("should click accept", () => {
+  it("should submit", () => {
     const handleAccept: jest.Mock = jest.fn();
-    const wrapper: ShallowWrapper = shallow(
-      <CompulsoryNotice
-        content=""
-        id="testModal"
-        open={true}
-        rememberDecision={false}
-        onAccept={handleAccept}
-        onCheckRemember={jest.fn()}
-      />,
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <CompulsoryNotice
+          content=""
+          open={true}
+          onAccept={handleAccept}
+        />
+      </Provider>,
     );
-    const acceptBtn: ShallowWrapper = wrapper.find("modal")
-      .dive()
-      .find("button")
-      .filterWhere((element: ShallowWrapper) => element.contains("Accept and continue"))
-      .at(0);
-    acceptBtn.simulate("click");
+    const form: ReactWrapper = wrapper.find("modal")
+      .find("genericForm");
+    form.simulate("submit");
     expect(handleAccept.mock.calls.length)
       .toEqual(1);
   });
