@@ -507,7 +507,6 @@ def reset_expired_accepted_findings():
                            'acceptance date expires is running', 'warning')
     today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     projects = project_domain.get_active_projects()
-
     for project in projects:
         findings = finding_domain.get_findings(
             finding_domain.filter_deleted_findings(
@@ -515,7 +514,11 @@ def reset_expired_accepted_findings():
         for finding in findings:
             finding_id = finding.get('findingId')
             historic_treatment = finding.get('historicTreatment', [{}])
-            if historic_treatment[-1].get('acceptance_date', today) < today:
-                updated_values = {'treatment': 'NEW', 'bts_url': finding.get('externalBts', '')}
+            if historic_treatment[-1].get('acceptance_date', today) < today or \
+                (historic_treatment[-1].get('treatment') == 'ACCEPTED_UNDEFINED' and
+                 historic_treatment[-1].get('acceptance_status') == 'SUBMITTED' and
+                 datetime.strptime(historic_treatment[-1].get('date'), "%Y-%m-%d %H:%M:%S")
+                 + timedelta(days=5) <= datetime.strptime(today, "%Y-%m-%d %H:%M:%S")):
+                updated_values = {'treatment': 'NEW'}
                 finding_domain.update_treatment(finding_id, updated_values, '')
                 util.invalidate_cache(finding_id)
