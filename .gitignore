@@ -60,4 +60,4 @@ sphinx/source/example/*.out
 # Nix
 .tmp
 ephemeral-test-runner*
-secrets.sh
+secrets/development.sh

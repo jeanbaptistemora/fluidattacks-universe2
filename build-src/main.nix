@@ -296,22 +296,16 @@ rec {
           pyPkgGroupTest.buildInputs
         ];
         # Encrypting:
-        #   echo "${ENCRYPTION_KEY}" \
-        #     | gpg --symmetric \
-        #           --cipher-algo AES256 \
-        #           --digest-algo SHA512 \
-        #           --passphrase-fd 0 \
-        #           --armor \
-        #           --batch \
-        #           --yes \
-        #         secrets.sh
-        # Decrypting:
-        #   echo "${ENCRYPTION_KEY}" \
-        #     | gpg --batch \
-        #           --passphrase-fd 0 \
-        #           --output 'secrets.sh' \
-        #           --decrypt 'secrets.sh.asc'
-        envVarsEncrypted = ../secrets.sh.asc;
+        # echo "${ENCRYPTION_KEY}" \
+        #   | gpg --symmetric \
+        #         --cipher-algo AES256 \
+        #         --digest-algo SHA512 \
+        #         --passphrase-fd 0 \
+        #         --armor \
+        #         --batch \
+        #         --yes \
+        #       secrets/development.sh
+        envVarsEncrypted = ../secrets/development.sh.asc;
         builder = ./builders/tester-fluidasserts.sh;
         runner = ./builders/tester-fluidasserts-runner-script.sh;
       };

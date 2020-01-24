@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
 
 source ./build-src/include/generic/shell-options.sh
+source ./build-src/include/constants.sh
+source ./build-src/include/helpers.sh
 
 #
 # Functions
@@ -208,6 +210,45 @@ function job_test_commit_message {
   use_cachix_if_dev_branch
   build testCommitMessage
 }
+
+function job_test_api {
+  # Just execute all markers by calling the respective distpatch functions
+  for marker in "${TEST_MARKERS[@]}"
+  do
+    "job_test_api_${marker}"
+  done
+}
+
+function _job_test_api__generic_dispatcher {
+  local caller_function
+  local runner_name
+  local derivation_name
+
+  # Inspect the stack and get the name of the function that called this function
+  caller_function="${FUNCNAME[1]}"
+
+  # The caller function without the 'job_test_api_' prefix
+  runner_name="${caller_function#job_test_api_}"
+
+  # The caller function but 'TitleCase' instead of 'title_case'
+  derivation_name=$(camel_case_to_title_case "${runner_name}")
+
+  # Add a prefix to make the distintion
+  derivation_name="testFluidasserts${derivation_name}"
+  runner_name="ephemeral-test-runner.${runner_name}"
+
+  # Build the derivation and save the output as an executable file
+  build_and_link_x "${derivation_name}" "${runner_name}"
+
+  # Execute the output of the derivation
+  "./${runner_name}"
+}
+
+# Populate the context with functions for every test marker
+for marker in "${TEST_MARKERS[@]}"
+do
+  eval "function job_test_api_${marker} { _job_test_api__generic_dispatcher; }"
+done
 
 function job_test_doc {
   job_pages

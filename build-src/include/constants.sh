@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 export TEST_MARKERS=(
+  all
   cloud
   cloud_aws_api
   cloud_aws_cloudformation

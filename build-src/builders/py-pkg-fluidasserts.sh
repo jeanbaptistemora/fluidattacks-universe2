@@ -22,6 +22,7 @@ cp -r --no-preserve=mode,ownership \
 
 pip3 install \
     --cache-dir root/python/cache-dir \
+    --disable-pip-version-check \
     --target    root/python/site-packages \
     --upgrade \
   root/src/repo
