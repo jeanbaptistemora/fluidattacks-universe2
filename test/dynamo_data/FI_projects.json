@@ -691,7 +691,7 @@
                   "S" : "unittesting"
                },
                "project_status" : {
-                  "S" : "test"
+                  "S" : "ACTIVE"
                },
                "remediated_over_time" : {
                   "L" : [

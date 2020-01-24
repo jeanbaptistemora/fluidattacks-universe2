@@ -148,9 +148,6 @@
               }
             ]
           },
-          "treatment": {
-            "S": "NEW"
-          },
           "report_level": {
             "S": "GENERAL"
           },
@@ -558,9 +555,6 @@
               }
             ]
           },
-          "treatment": {
-            "S": "IN PROGRESS"
-          },
           "report_level": {
             "S": "GENERAL"
           },
@@ -569,9 +563,6 @@
           },
           "modified_severity_scope": {
             "N": "0"
-          },
-          "treatment_manager": {
-            "S": "integratesuser@gmail.com"
           },
           "subscription": {
             "S": "CONTINUOUS"
@@ -629,9 +620,6 @@
           },
           "lastVulnerability": {
             "S": "2018-11-20"
-          },
-          "treatment_justification": {
-            "S": "This is a treatment justification test"
           },
           "confidentiality_requirement": {
             "N": "1"
@@ -1031,9 +1019,6 @@
               }
             ]
           },
-          "treatment": {
-            "S": "NEW"
-          },
           "report_level": {
             "S": "GENERAL"
           },
@@ -1345,9 +1330,6 @@
               }
             ]
           },
-          "treatment": {
-            "S": "ACCEPTED"
-          },
           "report_level": {
             "S": "2018-12-17 10:58:23"
           },
@@ -1356,9 +1338,6 @@
           },
           "modified_severity_scope": {
             "N": "0"
-          },
-          "treatment_manager": {
-            "S": "test@testmail.com"
           },
           "subscription": {
             "S": "ONESHOT"
@@ -1399,9 +1378,6 @@
           "modified_availability_impact": {
             "N": "0.22"
           },
-          "acceptance_date": {
-            "S": "2020-03-31 11:43:00"
-          },
           "finding_type": {
             "S": "SECURITY"
           },
@@ -1419,9 +1395,6 @@
           },
           "lastVulnerability": {
             "S": "2019-09-23 09:38:44"
-          },
-          "treatment_justification": {
-            "S": "This is a test treatment justification"
           },
           "confidentiality_requirement": {
             "N": "1.5"
@@ -1802,17 +1775,11 @@
               }
             ]
           },
-          "treatment": {
-            "S": "ACCEPTED"
-          },
           "report_level": {
             "S": "GENERAL"
           },
           "modified_severity_scope": {
             "N": "0"
-          },
-          "treatment_manager": {
-            "S": "integratesuser@gmail.com"
           },
           "subscription": {
             "S": "ONESHOT"
@@ -1847,9 +1814,6 @@
           "modified_availability_impact": {
             "N": "0"
           },
-          "acceptance_date": {
-            "S": "2020-04-26 13:40:04"
-          },
           "finding_type": {
             "S": "SECURITY"
           },
@@ -1867,9 +1831,6 @@
           },
           "lastVulnerability": {
             "S": "2018-12-17 00:00:00"
-          },
-          "treatment_justification": {
-            "S": "This is a treatment justification test"
           },
           "confidentiality_requirement": {
             "N": "1"
@@ -2130,17 +2091,11 @@
               }
             ]
           },
-          "treatment": {
-            "S": "IN PROGRESS"
-          },
           "report_level": {
             "S": "GENERAL"
           },
           "modified_severity_scope": {
             "N": "0"
-          },
-          "treatment_manager": {
-            "S": "integratesuser@gmail.com"
           },
           "subscription": {
             "S": "ONESHOT"
@@ -2192,9 +2147,6 @@
           },
           "lastVulnerability": {
             "S": "2018-11-27 00:00:00"
-          },
-          "treatment_justification": {
-            "S": "Hemos decidido asumir el hallazgo para probar si es posible"
           },
           "confidentiality_requirement": {
             "N": "1"
@@ -2367,9 +2319,6 @@
                 }
               }
             ]
-          },
-          "treatment": {
-            "S": "NEW"
           },
           "report_level": {
             "S": "GENERAL"
@@ -2631,9 +2580,6 @@
               }
             ]
           },
-          "treatment": {
-            "S": "IN PROGRESS"
-          },
           "report_level": {
             "S": "GENERAL"
           },
@@ -2884,17 +2830,11 @@
               }
             ]
           },
-          "treatment": {
-            "S": "IN PROGRESS"
-          },
           "report_level": {
             "S": "GENERAL"
           },
           "modified_severity_scope": {
             "N": "0"
-          },
-          "treatment_manager": {
-            "S": "integratesuser@gmail.com"
           },
           "subscription": {
             "S": "ONESHOT"
@@ -2946,9 +2886,6 @@
           },
           "lastVulnerability": {
             "S": "2018-11-29 00:00:00"
-          },
-          "treatment_justification": {
-            "S": "Hemos decidido asumir el hallazgo para probar si es posible"
           },
           "confidentiality_requirement": {
             "N": "1"
