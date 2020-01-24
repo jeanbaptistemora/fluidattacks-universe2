@@ -49,7 +49,7 @@ const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
 
   const initialUrl: string = _.get(localStorage, "url_inicio", "!/home");
   const loadDashboard: (() => void) = (): void => {
-    location.assign(`/dashboard#${initialUrl}`);
+    location.assign(`/integrates/dashboard#${initialUrl}`);
   };
 
   const { userEmail, userName } = window as typeof window & Dictionary<string>;
