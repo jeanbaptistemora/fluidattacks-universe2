@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "integrates-dev-policy-data" {
+data "aws_iam_policy_document" "web-prod-policy-data" {
 
     # S3
   statement {
@@ -16,8 +16,8 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
       "s3:GetObject"
     ]
     resources = [
-      "arn:aws:s3:::fluidattacks-terraform-states-dev",
-      "arn:aws:s3:::fluidattacks-terraform-states-dev/user-provision-web-prod.tfstate"
+      "arn:aws:s3:::fluidattacks-terraform-states-prod",
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/user-provision-web-prod.tfstate"
     ]
   }
 }
@@ -25,7 +25,7 @@ resource "aws_iam_policy" "web-prod-policy" {
   description = "web-prod policy"
   name        = "${var.user-name}-policy"
   path        = "/user-provision/"
-  policy      = data.aws_iam_policy_document.integrates-dev-policy-data.json
+  policy      = data.aws_iam_policy_document.web-prod-policy-data.json
 }
 
 resource "aws_iam_user_policy_attachment" "web-prod-attach-policy" {
