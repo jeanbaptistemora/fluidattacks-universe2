@@ -307,7 +307,8 @@ def update_treatment(finding_id, updated_values, user_mail):
     if historic_treatment:
         last_values = [value for key, value in historic_treatment[-1].items() if 'date' not in key]
         new_values = [value for key, value in new_state.items() if 'date' not in key]
-        date_change = 'acceptance_date' in historic_treatment[-1] and \
+        date_change = 'acceptance_date' in updated_values and \
+            'acceptance_date' in historic_treatment[-1] and \
             historic_treatment[-1]['acceptance_date'].split(' ')[0] != \
             updated_values['acceptance_date'].split(' ')[0]
         if sorted(last_values) != sorted(new_values) or date_change:
