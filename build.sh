@@ -181,6 +181,7 @@ function job_populate_caches {
     job_lint_shell_code
     job_lint_with_bandit
     job_test_commit_message
+    build fluidassertsDependenciesCache
     build nodePkgCommitlint
     build pyPkgFluidasserts
     build pyPkgGitFame

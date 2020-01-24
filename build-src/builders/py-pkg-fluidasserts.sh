@@ -17,6 +17,9 @@ cp -r --no-preserve=mode,ownership \
 cp -r --no-preserve=mode,ownership \
   "${srcTest}" root/src/repo/test
 
+cp -r --no-preserve=mode,ownership \
+  "${fluidassertsDependenciesCache}"/* root/python
+
 pip3 install \
     --cache-dir root/python/cache-dir \
     --target    root/python/site-packages \

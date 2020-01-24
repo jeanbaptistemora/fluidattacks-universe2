@@ -101,6 +101,17 @@ rec {
     builder = ./builders/demo-fluidasserts-output.sh;
   };
 
+  fluidassertsDependenciesCache = pkgs.stdenv.mkDerivation rec {
+    name = "fluidassertsDependenciesCache";
+    description = ''
+      Cache of dependencies to build Fluidasserts.
+    '';
+    inherit genericDirs genericShellOptions;
+    inherit srcSetupPy;
+    buildInputs = fluidassertsDeps;
+    builder = ./builders/fluidasserts-dependencies-cache.sh;
+  };
+
   generateDoc = pkgs.stdenv.mkDerivation rec {
     name = "generateDoc";
     description = ''
@@ -122,6 +133,7 @@ rec {
     '';
     inherit genericDirs genericShellOptions;
     inherit srcConfReadmeRst srcFluidasserts srcManifestIn srcSetupPy srcTest;
+    inherit fluidassertsDependenciesCache;
     buildInputs = fluidassertsDeps;
     builder = ./builders/py-pkg-fluidasserts.sh;
   };
