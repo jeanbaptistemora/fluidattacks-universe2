@@ -78,6 +78,4 @@ user_provision_web_prod_rotate_aws() {
 
   set_project_variable "$GITLAB_API_TOKEN" "$WEB_REPO_ID" AWS_ACCESS_KEY_ID "$VAR_KEY" true true
   set_project_variable "$GITLAB_API_TOKEN" "$WEB_REPO_ID" AWS_SECRET_ACCESS_KEY "$VAR_SECRET" true true
-
-  deploy_web
 }
