@@ -84,8 +84,7 @@ def test_WebBot_login_2(get_mock_ip):
         source_code = bot.get_source()
         assert source_code
 
-@pytest.mark.parametrize('get_mock_ip', ['bwapp'], indirect=True)
-def test_WebBot_login_3(get_mock_ip):
+def test_WebBot_login_3():
     """The goal here is to login to integrates."""
     with WebBot(developer_mode=True) as bot:
         # Visit Integrates

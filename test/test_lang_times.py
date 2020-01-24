@@ -8,7 +8,7 @@ from contextlib import contextmanager
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('lang')
+pytestmark = pytest.mark.asserts_module('lang_times')
 
 # local imports
 from fluidasserts.lang import core, java
@@ -19,7 +19,8 @@ JAVA: str = 'test/times/rxjava/src/main/java/io/reactivex/rxjava3'
 MARKD: str = 'test/times/rxjava/docs'
 
 TIME_ZERO: float = 0.0
-TIME_NOTHING_TESTED: float = 0.1
+# The build system introduce overhead
+TIME_NOTHING_TESTED: float = 1.0
 
 COMMON_TEXT: str = 'a'
 UNCOMMON_TEXT: str = 'abc$%^#def'

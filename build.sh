@@ -13,8 +13,8 @@ function build {
   local derivation_name="${1}"
   nix-build \
       --attr "${derivation_name}" \
-      --cores 0 \
-      --max-jobs auto \
+      --cores "${NIX_BUILD_CORES}" \
+      --max-jobs "${NIX_BUILD_MAX_JOBS}" \
       --no-out-link \
       --option restrict-eval false \
       --option sandbox false \
@@ -29,8 +29,8 @@ function build_and_link {
 
   nix-build \
       --attr "${derivation_name}" \
-      --cores 0 \
-      --max-jobs auto \
+      --cores "${NIX_BUILD_CORES}" \
+      --max-jobs "${NIX_BUILD_MAX_JOBS}" \
       --out-link "${derivation_output_name}" \
       --option restrict-eval false \
       --option sandbox false \
@@ -215,7 +215,7 @@ function job_test_api {
   # Just execute all markers by calling the respective distpatch functions
   for marker in "${TEST_MARKERS[@]}"
   do
-    "job_test_api_${marker}"
+    test "${marker}" = "all" || "job_test_api_${marker}"
   done
 }
 

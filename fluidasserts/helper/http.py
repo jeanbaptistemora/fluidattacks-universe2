@@ -388,18 +388,10 @@ class WebBot():
             to aid in the development of exploits, (it logs to console).
         """
         # Webdriver options
-        webdriver_options = selenium.webdriver.ChromeOptions()
-        webdriver_options.headless = True
-        # set language
-        webdriver_options.add_experimental_option(
-            'prefs', {'intl.accept_languages': 'en,en_US'})
-        # bypass OS security model
-        webdriver_options.add_argument('--no-sandbox')
-        # disable /dev/shm (shared memory) usage
-        webdriver_options.add_argument('--disable-dev-shm-usage')
-
+        webdriver_options = selenium.webdriver.firefox.options.Options()
+        webdriver_options.add_argument("--headless")
         # Webdriver instance
-        self.driver = selenium.webdriver.Chrome(options=webdriver_options)
+        self.driver = selenium.webdriver.Firefox(options=webdriver_options)
         self.driver.implicitly_wait(implicitly_wait)
         self.driver.set_window_size(2560, 1080)
 

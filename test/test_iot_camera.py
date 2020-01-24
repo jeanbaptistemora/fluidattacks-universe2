@@ -24,8 +24,8 @@ HARD_CAMERA: str = 'http://localhost:9002'
 @contextlib.contextmanager
 def no_connection():
     """Proxy something temporarily."""
-    os.environ['HTTP_PROXY'] = '127.0.0.1:8080'
-    os.environ['HTTPS_PROXY'] = '127.0.0.1:8080'
+    os.environ['HTTP_PROXY'] = 'http://127.0.0.1:8080'
+    os.environ['HTTPS_PROXY'] = 'http://127.0.0.1:8080'
     try:
         yield
     finally:

@@ -1,10 +1,13 @@
 # shellcheck shell=bash
 
 source "${stdenv}/setup"
+source "${genericShellOptions}"
 
 cat << EOF >> "${out}"
-export stdenv="${stdenv}"
-export genericDirs="${genericDirs}"
+#! /usr/bin/env bash
+
+source "${genericShellOptions}"
+
 export genericShellOptions="${genericShellOptions}"
 
 export srcFluidasserts="${srcFluidasserts}"

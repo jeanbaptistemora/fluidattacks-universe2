@@ -36,10 +36,17 @@ function commands_pre {
 }
 
 function commands {
+  local test_modules
+
+  mapfile -t test_modules < <(grep -lrP "${fluidassertsModule}" "test/test_"*)
+
+  IFS='\\n' echo "${test_modules[@]}"
+
   pytest \
-    --cov-branch \
-    --asserts-module "${fluidassertsModule}" \
-    --random-order-bucket=global
+      --cov-branch \
+      --asserts-module "${fluidassertsModule}" \
+      --random-order-bucket=global \
+    "${test_modules[@]}"
 }
 
 function commands_post {

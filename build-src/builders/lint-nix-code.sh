@@ -29,7 +29,6 @@ nix-linter \
     --check=UnusedArg \
     --check=UnusedLetBind \
     --check=UpdateEmptySet \
-    --check=AlphabeticalArgs \
     --check=BetaReduction \
     --check=EmptyVariadicParamSet \
     --check=UnneededAntiquote \

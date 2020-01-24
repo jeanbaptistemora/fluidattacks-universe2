@@ -1,5 +1,5 @@
 let
-  pkgs = import ./pkgs.nix;
+  pkgs = import ./pkgs.nix { };
 
   _python = pkgs.python37;
   _pythonPackages = pkgs.python37Packages;
@@ -26,6 +26,7 @@ rec {
     cmake
     freetds
     freetype
+    firefox
     gcc
     git
     lcms2
@@ -36,6 +37,7 @@ rec {
     libxslt
     openssl
     postgresql
+    tesseract
     xmlsec
     zlib
 
@@ -43,6 +45,7 @@ rec {
     #   this is required because this packages depend on shared objects libraries
     _pythonPackages.brotli        # libstdc++.so.6
     _pythonPackages.python_magic  # libmagic.so.1
+    _pythonPackages.selenium      # libX11.so.6
   ] ++ basicPythonEnv;
 
   # Repository files
@@ -134,6 +137,7 @@ rec {
       Python package for Fluidasserts.
     '';
     inherit genericDirs genericShellOptions;
+    inherit srcBuildSh srcBuildSrc;
     inherit srcConfReadmeRst srcFluidasserts srcManifestIn srcSetupPy srcTest;
     inherit fluidassertsDependenciesCache;
     buildInputs = fluidassertsDeps;
@@ -286,12 +290,12 @@ rec {
     testGroupName:
       pkgs.stdenv.mkDerivation rec {
         name = testGroupName;
-        inherit genericDirs genericShellOptions;
+        inherit genericShellOptions;
         inherit srcFluidasserts srcSetupCfg srcTest;
         inherit pyPkgFluidasserts pyPkgGroupTest;
         inherit testGroupName;
+        gpg = pkgs.gnupg;
         buildInputs = [
-          pkgs.gnupg
           pyPkgFluidasserts.buildInputs
           pyPkgGroupTest.buildInputs
         ];
@@ -346,8 +350,38 @@ rec {
   testFluidassertsIot =
     testerFluidasserts "iot";
 
-  testFluidassertsLang =
-    testerFluidasserts "lang";
+  testFluidassertsLangCore =
+    testerFluidasserts "lang_core";
+
+  testFluidassertsLangCsharp =
+    testerFluidasserts "lang_csharp";
+
+  testFluidassertsLangDocker =
+    testerFluidasserts "lang_docker";
+
+  testFluidassertsLangDotnetconfig =
+    testerFluidasserts "lang_dotnetconfig";
+
+  testFluidassertsLangHtml =
+    testerFluidasserts "lang_html";
+
+  testFluidassertsLangJava =
+    testerFluidasserts "lang_java";
+
+  testFluidassertsLangJavascript =
+    testerFluidasserts "lang_javascript";
+
+  testFluidassertsLangPhp =
+    testerFluidasserts "lang_php";
+
+  testFluidassertsLangPython =
+    testerFluidasserts "lang_python";
+
+  testFluidassertsLangRpgle =
+    testerFluidasserts "lang_rpgle";
+
+  testFluidassertsLangTimes =
+    testerFluidasserts "lang_times";
 
   testFluidassertsOt =
     testerFluidasserts "ot";

@@ -11,7 +11,8 @@ recursive-include fluidasserts/static *.lst
 # Include configuration files
 include conf/README.rst
 
-# Include build folder
+# Include build files
+include build.sh
 graft build-src
 
 # Include test folder

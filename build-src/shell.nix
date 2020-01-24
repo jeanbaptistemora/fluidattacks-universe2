@@ -1,5 +1,5 @@
 let
-  pkgs = import ./pkgs.nix;
+  pkgs = import ./pkgs.nix { };
   main = import ./main.nix;
 in
 

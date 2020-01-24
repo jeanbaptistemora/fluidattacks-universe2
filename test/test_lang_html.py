@@ -10,7 +10,7 @@ HTML se encuentra adecuadamente implementado.
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('lang')
+pytestmark = pytest.mark.asserts_module('lang_html')
 
 # local imports
 from fluidasserts.lang import html

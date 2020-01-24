@@ -12,10 +12,8 @@ do
       --cache-dir root/python/cache-dir \
       --target    root/python/site-packages \
       --upgrade \
-    "${dependency}" &
+    "${dependency}"
 done
-
-wait
 
 mkdir "${out}"
 mv root/python/* "${out}"
