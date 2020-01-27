@@ -117,7 +117,9 @@ test_commit_message:
   <<: *in_dev_branch
   stage: test
 
-test_api_cloud_aws_api:
+# For some reason our innovation account is empty!
+#   disabling until we recreate it or found how to revert changes
+.test_api_cloud_aws_api:
   <<: *test_template
 
 test_api_cloud_aws_cloudformation:
