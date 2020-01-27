@@ -300,7 +300,7 @@ def update_treatment(finding_id, updated_values, user_mail):
         new_state['user'] = user_mail
     if new_treatment != 'NEW':
         new_state['justification'] = updated_values['justification']
-        if new_treatment in ['ACCEPTED_UNDEFINED', 'ACCEPTED']:
+        if new_treatment == 'ACCEPTED':
             new_state['acceptance_date'] = updated_values['acceptance_date']
             if new_treatment == 'ACCEPTED_UNDEFINED':
                 new_state['acceptance_status'] = updated_values['acceptance_status']
