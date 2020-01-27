@@ -278,3 +278,51 @@ class FindingTests(TestCase):
         result = self._get_result(query, testing_client, request_loaders)
         assert 'errors' not in result
         assert result['data']['updateClientDescription']['success']
+
+    def test_update_external_bts(self):
+        query_bts = '''
+                mutation {
+                  updateClientDescription (
+                    btsUrl: "new test btsUrl",
+                    findingId: "436992569",
+                    treatment: "NEW",
+                    justification: ""
+                  ) {
+                    success
+                    finding {
+                      btsUrl
+                      historicTreatment
+                    }
+                  }
+                }
+        '''
+        testing_client = Client(SCHEMA)
+        request_loaders = {
+            'finding': FindingLoader(),
+            'vulnerability': VulnerabilityLoader()}
+        result = self._get_result(query_bts, testing_client, request_loaders)
+        assert 'errors' not in result
+        assert result['data']['updateClientDescription']['success']
+        query_bts_empty = '''
+                mutation {
+                  updateClientDescription (
+                    btsUrl: "",
+                    findingId: "436992569",
+                    treatment: "NEW",
+                    justification: ""
+                  ) {
+                    success
+                    finding {
+                      btsUrl
+                      historicTreatment
+                    }
+                  }
+                }
+        '''
+        testing_client = Client(SCHEMA)
+        request_loaders = {
+            'finding': FindingLoader(),
+            'vulnerability': VulnerabilityLoader()}
+        result = self._get_result(query_bts_empty, testing_client, request_loaders)
+        assert 'errors' not in result
+        assert result['data']['updateClientDescription']['success']
