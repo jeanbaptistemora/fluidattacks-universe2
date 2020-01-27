@@ -23,10 +23,14 @@ export const loadResources: ((projectName: string) => ThunkResult<void>) =
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
       gQry = `{
+        project(projectName: "${projectName}"){
+          deletionDate
+          subscription
+        }
         resources (projectName: "${projectName}") {
           files
         }
-    }`;
+      }`;
       new Xhr().request(gQry, "An error occurred getting repositories")
         .then((response: AxiosResponse) => {
           const { data } = response.data;

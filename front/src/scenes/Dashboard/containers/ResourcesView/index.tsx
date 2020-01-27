@@ -9,14 +9,16 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
-import { Col, Glyphicon, Row } from "react-bootstrap";
+import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
+import { Trans } from "react-i18next";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button/index";
 import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
 import { DataTableNext } from "../../../../components/DataTableNext";
 import { changeFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
+import { default as globalStyle } from "../../../../styles/global.css";
 import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
@@ -29,10 +31,13 @@ import { AddFilesModal } from "../../components/AddFilesModal/index";
 import { addRepositoriesModal as AddRepositoriesModal } from "../../components/AddRepositoriesModal/index";
 import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/index";
 import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptionsModal/index";
+import { RemoveProjectModal } from "../../components/RemoveProjectModal";
 import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
-import { ADD_RESOURCE_MUTATION, ADD_TAGS_MUTATION, GET_ENVIRONMENTS, GET_REPOSITORIES,
-  GET_TAGS, REMOVE_TAG_MUTATION, UPDATE_RESOURCE_MUTATION } from "./queries";
+import {
+  ADD_RESOURCE_MUTATION, ADD_TAGS_MUTATION, GET_ENVIRONMENTS, GET_PROJECT_DATA, GET_REPOSITORIES, GET_TAGS,
+  REMOVE_TAG_MUTATION, UPDATE_RESOURCE_MUTATION,
+} from "./queries";
 import { IAddEnvAttr, IAddReposAttr, IAddTagsAttr, IEnvironmentsAttr, IProjectTagsAttr,
   IRemoveTagsAttr, IRepositoriesAttr, IResourcesAttr, IResourcesViewBaseProps, IResourcesViewDispatchProps,
   IResourcesViewProps, IResourcesViewStateProps, IUpdateEnvAttr, IUpdateRepoAttr } from "./types";
@@ -1114,6 +1119,60 @@ const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
       </React.Fragment>
     );
 };
+const renderDeleteBtn: ((props: IResourcesViewProps) => JSX.Element) = (props: IResourcesViewProps): JSX.Element => {
+  const projectName: string = props.match.params.projectName;
+  const [isProjectModalOpen, setProjectModalOpen] = React.useState(false);
+  const openRemoveProjectModal: (() => void) = (): void => {
+    setProjectModalOpen(true);
+  };
+  const closeRemoveProjectModal: (() => void) = (): void => {
+    setProjectModalOpen(false);
+  };
+
+  return (
+    <Query query={GET_PROJECT_DATA} variables={{ projectName }} notifyOnNetworkStatusChange={true}>
+    {
+      ({loading, data}: QueryResult<{ deletionDate: string }>): React.ReactNode => {
+        if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+        if (!_.isUndefined(data) && _.isEmpty(data.deletionDate)) {
+          return (
+            <React.Fragment>
+              <hr/>
+              <Row>
+                <Col md={12}>
+                  <h3 className={globalStyle.title}>{translate.t("search_findings.tab_resources.removeProject")}</h3>
+                </Col>
+                <Col md={12}>
+                  <Trans>
+                    {translate.t("search_findings.tab_resources.warningMessage")}
+                  </Trans>
+                </Col>
+              </Row>
+              <Row>
+                <br />
+                <Col md={12} sm={12}>
+                  <div>
+                    <ButtonToolbar className="pull-left">
+                      <Button onClick={openRemoveProjectModal}>
+                        <Glyphicon glyph="minus" />&nbsp;{translate.t("search_findings.tab_resources.removeProject")}
+                      </Button>
+                    </ButtonToolbar>
+                    <RemoveProjectModal
+                      isOpen={isProjectModalOpen}
+                      onClose={closeRemoveProjectModal}
+                      projectName={projectName.toLowerCase()}
+                    />
+                  </div>
+                </Col>
+              </Row>
+            </React.Fragment>
+          );
+        }
+      }}
+    </Query>
+
+  );
+};
 
 const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
   (props: IResourcesViewProps): JSX.Element =>
@@ -1124,6 +1183,8 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
       {renderEnvironments(props)}
       {renderFiles(props)}
       {renderTagsView(props)}
+      {_.includes(["admin"], (window as typeof window & { userRole: string }).userRole) ? renderDeleteBtn(props)
+        : undefined}
     </div>
   </React.StrictMode>
   );

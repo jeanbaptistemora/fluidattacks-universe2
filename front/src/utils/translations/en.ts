@@ -520,6 +520,8 @@ const enTranslations: Dictionary = {
       total_repos: "Total repositories: ",
       total_tags: "Total tags: ",
       uploading_progress: "Uploading file...",
+      warningMessage: "Deleting the project will remove its findings and related vulnerabilities." +
+        "<br /> Deleted projects cannot be restored.",
     },
     tab_severity: {
       attack_complexity: "Attack Complexity",

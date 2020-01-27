@@ -53,6 +53,9 @@ export const GET_REPOSITORIES: DocumentNode = gql`
     me {
       role
     }
+    project(projectName: $projectName){
+      deletionDate
+    }
   }
   `;
 
@@ -89,5 +92,16 @@ query GetEnvironmentsQuery($projectName: String!) {
   resources (projectName: $projectName) {
     environments
   }
+  project(projectName: $projectName){
+    deletionDate
+  }
 }
+`;
+
+export const GET_PROJECT_DATA: DocumentNode = gql`
+  query GetProjectDataQuery($projectName: String!) {
+    project(projectName: $projectName){
+      deletionDate
+    }
+  }
 `;
