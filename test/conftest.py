@@ -29,9 +29,14 @@ CLIENT = docker.from_env()
 
 
 FLASK_MOCKS = [
-    (sip_server.start, 'MockSIPServer', ['proto', 'iot']),
-    (http_server.start, 'MockHTTPServer', ['format', 'ot', 'proto']),
-    (graphql_server.start, 'MockGraphQLServer', ['proto']),
+    (sip_server.start, 'MockSIPServer', ['iot']),
+    (http_server.start, 'MockHTTPServer', [
+        'format',
+        'ot',
+        'proto_http',
+        'proto_rest',
+    ]),
+    (graphql_server.start, 'MockGraphQLServer', ['proto_graphql']),
     (camera_weak.start, 'MockCameraWeakServer', ['iot']),
     (camera_hard.start, 'MockCameraHardServer', ['iot']),
 ]
@@ -42,11 +47,11 @@ MOCKS = [
     {
         'dns:weak': {
             'expose': {'53/tcp': 53,'53/udp': 53},
-            'asserts_modules': ['proto']
+            'asserts_modules': ['proto_dns']
         },
         'ftp:weak': {
             'expose': {'21/tcp': 21},
-            'asserts_modules': ['proto']
+            'asserts_modules': ['proto_ftp']
         },
         'mysql_db:weak': {
             'expose': {'3306/tcp': 3306},
@@ -58,34 +63,34 @@ MOCKS = [
         },
         'smb:weak': {
             'expose': {'139/tcp': 139},
-            'asserts_modules': ['proto']
+            'asserts_modules': ['proto_smb']
         },
         'smtp:weak': {
             'expose': {'25/tcp': 25},
-            'asserts_modules': ['proto']
+            'asserts_modules': ['proto_smtp']
         },
     },
     # Some of these are built in top of the previous ones
     {
         'bwapp': {
             'expose': {'80/tcp': 80},
-            'asserts_modules': ['helper', 'proto']
+            'asserts_modules': ['helper', 'proto_http']
         },
         'dns:hard': {
             'expose': {'53/tcp': 53,'53/udp': 53},
-            'asserts_modules': ['proto']
+            'asserts_modules': ['proto_dns']
         },
         'ftp:hard': {
             'expose': {'21/tcp': 21},
-            'asserts_modules': ['proto']
+            'asserts_modules': ['proto_ftp']
         },
         'ldap:hard': {
             'expose': {'389/tcp': 389},
-            'asserts_modules': ['proto']
+            'asserts_modules': ['proto_ldap']
         },
         'ldap:weak': {
             'expose': {'389/tcp': 389},
-            'asserts_modules': ['proto']
+            'asserts_modules': ['proto_ldap']
         },
         'mysql_db:hard': {
             'expose': {'3306/tcp': 3306},
@@ -105,11 +110,11 @@ MOCKS = [
         },
         'os:hard': {
             'expose': {'22/tcp': 22},
-            'asserts_modules': ['proto', 'syst']
+            'asserts_modules': ['proto_ssh', 'syst']
         },
         'os:weak': {
             'expose': {'22/tcp': 22},
-            'asserts_modules': ['proto', 'syst']
+            'asserts_modules': ['proto_ssh', 'syst']
         },
         'postgresql:hard': {
             'expose': {'5432/tcp': 5432},
@@ -121,31 +126,31 @@ MOCKS = [
         },
         'smb:hard': {
             'expose': {'139/tcp': 139},
-            'asserts_modules': ['proto']
+            'asserts_modules': ['proto_smb']
         },
         'smtp:hard': {
             'expose': {'25/tcp': 25},
-            'asserts_modules': ['proto']
+            'asserts_modules': ['proto_smtp']
         },
         'ssl:hard': {
             'expose': {'443/tcp': 443},
-            'asserts_modules': ['format', 'proto']
+            'asserts_modules': ['format', 'proto_ssl']
         },
         'ssl:hard_tlsv13': {
             'expose': {'443/tcp': 443},
-            'asserts_modules': ['proto']
+            'asserts_modules': ['proto_ssl']
         },
         'ssl:weak': {
             'expose': {'443/tcp': 443},
-            'asserts_modules': ['format', 'proto']
+            'asserts_modules': ['format', 'proto_ssl']
         },
         'tcp:hard': {
             'expose': {'443/tcp': 443},
-            'asserts_modules': ['proto']
+            'asserts_modules': ['proto_tcp']
         },
         'tcp:weak': {
             'expose': {'80/tcp': 80},
-            'asserts_modules': ['proto']
+            'asserts_modules': ['proto_tcp']
         },
     }
 ]

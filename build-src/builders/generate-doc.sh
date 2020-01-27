@@ -16,7 +16,7 @@ cp -r --no-preserve=mode,ownership \
   "${srcSphinx}" root/src/repo/sphinx
 
 cp -r --no-preserve=mode,ownership \
-  "${pyPkgFluidasserts}/"* root/python
+  "${pyPkgFluidassertsBasic}/"* root/python
 cp -r --no-preserve=mode,ownership \
   "${pyPkgGitFame}/"* root/python
 cp -r --no-preserve=mode,ownership \

@@ -31,7 +31,18 @@ export TEST_MARKERS=(
   lang_rpgle
   lang_times
   ot
-  proto
+  proto_dns
+  proto_ftp
+  proto_git
+  proto_graphql
+  proto_http
+  proto_ldap
+  proto_rest
+  proto_smb
+  proto_smtp
+  proto_ssh
+  proto_ssl
+  proto_tcp
   sca
   syst
   utils

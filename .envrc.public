@@ -1,1 +1,2 @@
 export CACHIX_CACHE_NAME='fluidattacks-asserts'
+export CI_REGISTRY_IMAGE='registry.gitlab.com/fluidattacks/asserts'

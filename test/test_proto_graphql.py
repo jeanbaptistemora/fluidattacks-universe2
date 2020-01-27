@@ -5,7 +5,7 @@ import textwrap
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('proto')
+pytestmark = pytest.mark.asserts_module('proto_graphql')
 
 # local imports
 from fluidasserts.proto import graphql

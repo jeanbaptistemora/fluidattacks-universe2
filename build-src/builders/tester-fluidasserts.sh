@@ -14,7 +14,7 @@ export srcFluidasserts="${srcFluidasserts}"
 export srcSetupCfg="${srcSetupCfg}"
 export srcTest="${srcTest}"
 
-export pyPkgFluidasserts="${pyPkgFluidasserts}"
+export pyPkgFluidassertsBasic="${pyPkgFluidassertsBasic}"
 export pyPkgGroupTest="${pyPkgGroupTest}"
 
 export fluidassertsModule="${testGroupName}"

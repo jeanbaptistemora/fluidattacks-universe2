@@ -14,7 +14,7 @@ cp -r --no-preserve=mode,ownership \
   "${srcFluidasserts}" root/src/repo/fluidasserts
 
 cp -r --no-preserve=mode,ownership \
-  "${pyPkgFluidasserts}"/* root/python
+  "${pyPkgFluidassertsBasic}"/* root/python
 cp -r --no-preserve=mode,ownership \
   "${pyPkgGroupLint}"/* root/python
 

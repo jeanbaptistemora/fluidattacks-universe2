@@ -21,9 +21,9 @@
 
 source "${genericShellOptions}"
 
-PATH="${pyPkgFluidasserts}/site-packages/bin:${PATH}"
+PATH="${pyPkgFluidassertsBasic}/site-packages/bin:${PATH}"
 PATH="${pyPkgGroupTest}/site-packages/bin:${PATH}"
-PYTHONPATH="${PYTHONPATH}:${pyPkgFluidasserts}/site-packages"
+PYTHONPATH="${PYTHONPATH}:${pyPkgFluidassertsBasic}/site-packages"
 PYTHONPATH="${PYTHONPATH}:${pyPkgGroupTest}/site-packages"
 
 function commands_pre {
@@ -59,5 +59,5 @@ function commands_post {
 }
 
 commands_pre
+trap commands_post EXIT
 commands
-commands_post

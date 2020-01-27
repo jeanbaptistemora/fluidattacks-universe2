@@ -16,7 +16,7 @@ VSFTP
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('proto')
+pytestmark = pytest.mark.asserts_module('proto_ftp')
 
 # local imports
 from fluidasserts.proto import ftp

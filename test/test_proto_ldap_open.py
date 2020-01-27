@@ -11,7 +11,7 @@ from __future__ import print_function
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('proto')
+pytestmark = pytest.mark.asserts_module('proto_ldap')
 
 # local imports
 from fluidasserts.proto import ldap

@@ -198,7 +198,7 @@ function job_populate_caches {
     job_test_commit_message
     build fluidassertsDependenciesCache
     build nodePkgCommitlint
-    build pyPkgFluidasserts
+    build pyPkgFluidassertsBasic
     build pyPkgGitFame
     build pyPkgGroupLint
     build pyPkgGroupTest
@@ -221,6 +221,7 @@ function job_test_api {
 
 function _job_test_api__generic_dispatcher {
   local caller_function
+  local runner_file
   local runner_name
   local derivation_name
 
@@ -236,12 +237,12 @@ function _job_test_api__generic_dispatcher {
   # Add a prefix to make the distintion
   derivation_name="testFluidasserts${derivation_name}"
   runner_name="ephemeral-test-runner.${runner_name}"
+  runner_file="${PWD}/${runner_name}"
 
   # Build the derivation and save the output as an executable file
   build_and_link_x "${derivation_name}" "${runner_name}"
 
-  # Execute the output of the derivation
-  "./${runner_name}"
+  "${runner_file}"
 }
 
 # Populate the context with functions for every test marker

@@ -185,7 +185,40 @@ test_api_lang_times:
 test_api_ot:
   <<: *test_template
 
-test_api_proto:
+test_api_proto_dns:
+  <<: *test_template
+
+test_api_proto_ftp:
+  <<: *test_template
+
+test_api_proto_git:
+  <<: *test_template
+
+test_api_proto_graphql:
+  <<: *test_template
+
+test_api_proto_http:
+  <<: *test_template
+
+test_api_proto_ldap:
+  <<: *test_template
+
+test_api_proto_rest:
+  <<: *test_template
+
+test_api_proto_smb:
+  <<: *test_template
+
+test_api_proto_smtp:
+  <<: *test_template
+
+test_api_proto_ssh:
+  <<: *test_template
+
+test_api_proto_ssl:
+  <<: *test_template
+
+test_api_proto_tcp:
   <<: *test_template
 
 test_api_sca:

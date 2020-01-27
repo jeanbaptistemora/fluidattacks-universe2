@@ -100,7 +100,7 @@ rec {
       Execute fluidasserts over a demo exploit to see the output.
     '';
     inherit genericDirs genericShellOptions;
-    inherit pyPkgFluidasserts;
+    inherit pyPkgFluidassertsBasic;
     inherit srcFluidasserts srcTest;
     buildInputs = fluidassertsDeps;
     builder = ./builders/demo-fluidasserts-output.sh;
@@ -123,22 +123,25 @@ rec {
       Build the documentation.
     '';
     inherit genericDirs genericShellOptions;
-    inherit pyPkgFluidasserts pyPkgGitFame pyPkgSphinx;
+    inherit pyPkgFluidassertsBasic pyPkgGitFame pyPkgSphinx;
     inherit srcDeploy srcDotGit srcDotMailmap srcFluidasserts srcSphinx;
     buildInputs = with pkgs; [
       perl
-    ] ++ fluidassertsDeps;
+      fluidassertsDeps
+    ];
     builder = ./builders/generate-doc.sh;
   };
 
-  pyPkgFluidasserts = pkgs.stdenv.mkDerivation rec {
-    name = "pyPkgFluidasserts";
+  pyPkgFluidassertsBasic = pkgs.stdenv.mkDerivation rec {
+    name = "pyPkgFluidassertsBasic";
     description = ''
       Python package for Fluidasserts.
+
+      Not everything needed for a release,
+      but what's needed for development purposes.
     '';
     inherit genericDirs genericShellOptions;
-    inherit srcBuildSh srcBuildSrc;
-    inherit srcConfReadmeRst srcFluidasserts srcManifestIn srcSetupPy srcTest;
+    inherit srcConfReadmeRst srcFluidasserts srcManifestIn srcSetupPy;
     inherit fluidassertsDependenciesCache;
     buildInputs = fluidassertsDeps;
     builder = ./builders/py-pkg-fluidasserts.sh;
@@ -182,7 +185,7 @@ rec {
       Python package for Sphinx, with some extensions.
     '';
     inherit genericDirs genericShellOptions;
-    inherit pyPkgFluidasserts;
+    inherit pyPkgFluidassertsBasic;
     buildInputs = basicPythonEnv;
     builder = ./builders/py-pkg-sphinx.sh;
   };
@@ -193,14 +196,14 @@ rec {
       Lint Fluidasserts code.
     '';
     inherit genericDirs genericShellOptions;
-    inherit pyPkgFluidasserts pyPkgGroupLint;
+    inherit pyPkgFluidassertsBasic pyPkgGroupLint;
     inherit srcBuildSrcConfigPylintrc srcDotGitShallow srcDotOvercommit;
-    inherit srcDotPreCommitConfig srcFluidasserts ;
+    inherit srcDotPreCommitConfig srcFluidasserts;
     buildInputs = [
       pkgs.haskellPackages.hadolint
       pkgs.overcommit
       pyPkgGroupLint.buildInputs
-      pyPkgFluidasserts.buildInputs
+      fluidassertsDeps
     ];
     builder = ./builders/lint-fluidasserts-code.sh;
   };
@@ -211,14 +214,14 @@ rec {
       Lint Fluidasserts test code.
     '';
     inherit genericDirs genericShellOptions;
-    inherit pyPkgFluidasserts pyPkgGroupLint;
+    inherit pyPkgFluidassertsBasic pyPkgGroupLint;
     inherit srcBuildSrcConfigPylintrc srcDotGitShallow srcDotOvercommit;
     inherit srcDotPreCommitConfig srcTest;
     buildInputs = [
       pkgs.haskellPackages.hadolint
       pkgs.overcommit
       pyPkgGroupLint.buildInputs
-      pyPkgFluidasserts.buildInputs
+      fluidassertsDeps
     ];
     builder = ./builders/lint-fluidasserts-test-code.sh;
   };
@@ -292,11 +295,11 @@ rec {
         name = testGroupName;
         inherit genericShellOptions;
         inherit srcFluidasserts srcSetupCfg srcTest;
-        inherit pyPkgFluidasserts pyPkgGroupTest;
+        inherit pyPkgFluidassertsBasic pyPkgGroupTest;
         inherit testGroupName;
         gpg = pkgs.gnupg;
         buildInputs = [
-          pyPkgFluidasserts.buildInputs
+          fluidassertsDeps
           pyPkgGroupTest.buildInputs
         ];
         # Encrypting:
@@ -386,8 +389,41 @@ rec {
   testFluidassertsOt =
     testerFluidasserts "ot";
 
-  testFluidassertsProto =
-    testerFluidasserts "proto";
+  testFluidassertsProtoDns =
+    testerFluidasserts "proto_dns";
+
+  testFluidassertsProtoFtp =
+    testerFluidasserts "proto_ftp";
+
+  testFluidassertsProtoGit =
+    testerFluidasserts "proto_git";
+
+  testFluidassertsProtoGraphql =
+    testerFluidasserts "proto_graphql";
+
+  testFluidassertsProtoHttp =
+    testerFluidasserts "proto_http";
+
+  testFluidassertsProtoLdap =
+    testerFluidasserts "proto_ldap";
+
+  testFluidassertsProtoRest =
+    testerFluidasserts "proto_rest";
+
+  testFluidassertsProtoSmb =
+    testerFluidasserts "proto_smb";
+
+  testFluidassertsProtoSmtp =
+    testerFluidasserts "proto_smtp";
+
+  testFluidassertsProtoSsh =
+    testerFluidasserts "proto_ssh";
+
+  testFluidassertsProtoSsl =
+    testerFluidasserts "proto_ssl";
+
+  testFluidassertsProtoTcp =
+    testerFluidasserts "proto_tcp";
 
   testFluidassertsSca =
     testerFluidasserts "sca";

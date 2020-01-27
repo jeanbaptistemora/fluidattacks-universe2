@@ -8,7 +8,7 @@ HTTP se encuentra adecuadamente implementado.
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('proto')
+pytestmark = pytest.mark.asserts_module('proto_http')
 
 # local imports
 from fluidasserts.helper import http as helper

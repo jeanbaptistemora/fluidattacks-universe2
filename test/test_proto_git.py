@@ -7,7 +7,7 @@
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('proto')
+pytestmark = pytest.mark.asserts_module('proto_git')
 
 # local imports
 from fluidasserts.proto import git

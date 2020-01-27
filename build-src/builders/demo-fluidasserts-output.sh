@@ -10,7 +10,7 @@ cp -r --no-preserve=mode,ownership \
   "${srcTest}" root/src/repo/test
 
 cp -r --no-preserve=mode,ownership \
-  "${pyPkgFluidasserts}/"* root/python
+  "${pyPkgFluidassertsBasic}/"* root/python
 
 chmod +x root/python/site-packages/bin/asserts
 
