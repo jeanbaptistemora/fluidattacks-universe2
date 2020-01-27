@@ -54,7 +54,8 @@ class FindingTests(TestCase):
         values_accepted = {'justification': 'This is a test treatment justification',
                            'bts_url': '',
                            'treatment': 'ACCEPTED'}
-        test_accepted = update_client_description(finding_id, values_accepted, 'unittesting@fluidattacks.com')
+        test_accepted = update_client_description(
+            finding_id, values_accepted, 'unittesting@fluidattacks.com', [True, True])
         assert test_accepted is True
         date = datetime.now() + timedelta(days=181)
         date = date.strftime('%Y-%m-%d %H:%M:%S')
@@ -63,7 +64,8 @@ class FindingTests(TestCase):
                                       'treatment': 'ACCEPTED',
                                       'acceptance_date': date}
         with pytest.raises(InvalidDate):
-            assert update_client_description(finding_id, values_accepted_date_error, 'unittesting@fluidattacks.com')
+            assert update_client_description(
+                finding_id, values_accepted_date_error, 'unittesting@fluidattacks.com', [True, True])
         date_future = datetime.now() + timedelta(days=60)
         date_future = date_future.strftime('%Y/%m/%d %H:%M:%S')
         values_accepted_format_error = {'justification': 'This is a test treatment justification',
@@ -71,4 +73,5 @@ class FindingTests(TestCase):
                                         'treatment': 'ACCEPTED',
                                         'acceptance_date': date_future}
         with pytest.raises(InvalidDateFormat):
-            assert update_client_description(finding_id, values_accepted_format_error, 'unittesting@fluidattacks.com')
+            assert update_client_description(
+                finding_id, values_accepted_format_error, 'unittesting@fluidattacks.com', [True, True])

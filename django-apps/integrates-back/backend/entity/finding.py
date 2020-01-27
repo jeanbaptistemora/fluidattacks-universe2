@@ -1,5 +1,6 @@
 """ GraphQL Entity for Findings """
 # pylint: disable=no-self-use
+from collections import namedtuple
 from time import time
 
 import rollbar
@@ -714,7 +715,6 @@ class UpdateClientDescription(Mutation):
     def mutate(self, info, finding_id, **parameters):
         project_name = finding_domain.get_finding(finding_id)['projectName']
         user_mail = util.get_jwt_content(info.context)['user_email']
-        external_bts = parameters.get('bts_url')
         if parameters.get('acceptance_status') == '':
             del parameters['acceptance_status']
         historic_treatment = finding_domain.get_finding(finding_id)['historicTreatment']
@@ -723,11 +723,18 @@ class UpdateClientDescription(Mutation):
             if key not in ['date', 'user']}
         new_state = {
             key: value for key, value in parameters.items() if key != 'bts_url'}
-        if not finding_domain.compare_historic_treatments(last_state, new_state) and \
-           ('externalBts' in finding_domain.get_finding(finding_id) and
-           external_bts == finding_domain.get_finding(finding_id)['externalBts']):
+        bts_changed, treatment_changed = True, True
+        Status = namedtuple('Status', 'bts_changed treatment_changed')
+        if not finding_domain.compare_historic_treatments(last_state, new_state):
+            treatment_changed = False
+        if ('externalBts' in finding_domain.get_finding(finding_id) and
+           parameters.get('bts_url') == finding_domain.get_finding(finding_id)['externalBts']):
+            bts_changed = False
+        update = Status(bts_changed, treatment_changed)
+        if not any(list(update)):
             raise GraphQLError('It cant be updated a finding with same values it already has')
-        success = finding_domain.update_client_description(finding_id, parameters, user_mail)
+        success = finding_domain.update_client_description(
+            finding_id, parameters, user_mail, update)
         if success:
             util.invalidate_cache(finding_id)
             util.invalidate_cache(project_name)
@@ -738,9 +745,8 @@ class UpdateClientDescription(Mutation):
             util.cloudwatch_log(info.context, 'Security: Attempted to update '
                                 f'treatment in finding {finding_id}')
         findings_loader = info.context.loaders['finding']
-        ret = UpdateClientDescription(
+        return UpdateClientDescription(
             finding=findings_loader.load(finding_id), success=success)
-        return ret
 
 
 class RejectDraft(Mutation):
