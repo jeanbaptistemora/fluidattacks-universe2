@@ -451,3 +451,38 @@ apply-terraform-sops-prod:
     - ./ci-scripts/jobs/apply-terraform-sops-prod.sh
   only:
     - master
+
+aws-sso-terraform-apply:
+  stage: deploy-infra
+  tags: [autoscaling]
+  needs: [aws-sso-terraform-lint, aws-sso-terraform-plan]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - . ci-scripts/jobs/aws-sso.sh
+    - aws_sso_terraform_apply
+  only:
+    - master
+
+aws-sso-terraform-lint:
+  stage: test
+  tags: [autoscaling]
+  needs: [deps-development]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - . ci-scripts/jobs/aws-sso.sh
+    - aws_sso_terraform_lint
+  only:
+    - master
+  interruptible: true
+
+aws-sso-terraform-plan:
+  stage: test
+  tags: [autoscaling]
+  needs: [deps-development]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - . ci-scripts/jobs/aws-sso.sh
+    - aws_sso_terraform_plan
+  only:
+    - master
+  interruptible: true
