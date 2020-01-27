@@ -114,6 +114,10 @@ describe("Resources view", () => {
             __typename: "Me",
             role: "customer",
           },
+          project: {
+            __typename: "Project",
+            deletionDate: "",
+          },
           resources: {
             __typename: "Resource",
             repositories: JSON.stringify([{
@@ -136,6 +140,10 @@ describe("Resources view", () => {
       },
       result: {
         data: {
+          project: {
+            __typename: "Project",
+            deletionDate: "",
+          },
           resources: {
             __typename: "Resource",
             environments: JSON.stringify([{
