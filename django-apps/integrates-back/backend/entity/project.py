@@ -368,7 +368,8 @@ class RemoveProject(Mutation):
     @require_role(['admin', 'customeradminfluid'])
     @require_project_access
     def mutate(self, info, project_name):
-        result = project_domain.remove_project(project_name)
+        user_info = util.get_jwt_content(info.context)
+        result = project_domain.remove_project(project_name, user_info['user_email'])
         success = all(list(result))
         if success:
             project = project_name.lower()

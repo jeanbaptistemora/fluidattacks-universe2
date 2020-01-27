@@ -1150,9 +1150,8 @@ const renderDeleteBtn: ((props: IResourcesViewProps) => JSX.Element) = (props: I
               </Row>
               <Row>
                 <br />
-                <Col md={12} sm={12}>
-                  <div>
-                    <ButtonToolbar className="pull-left">
+                <Col md={2} mdOffset={5}>
+                    <ButtonToolbar>
                       <Button onClick={openRemoveProjectModal}>
                         <Glyphicon glyph="minus" />&nbsp;{translate.t("search_findings.tab_resources.removeProject")}
                       </Button>
@@ -1162,7 +1161,6 @@ const renderDeleteBtn: ((props: IResourcesViewProps) => JSX.Element) = (props: I
                       onClose={closeRemoveProjectModal}
                       projectName={projectName.toLowerCase()}
                     />
-                  </div>
                 </Col>
               </Row>
             </React.Fragment>
