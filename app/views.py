@@ -130,7 +130,7 @@ def logout(request):
 @cache_content
 @never_cache
 @csrf_exempt
-@authorize
+@authorize(['analyst', 'customer', 'admin'])
 def project_to_xls(request, lang, project):
     "Create the technical report"
     username = request.session['username'].split("@")[0]
@@ -186,7 +186,7 @@ def validation_project_to_pdf(request, lang, doctype):
 @cache_content
 @never_cache
 @csrf_exempt
-@authorize
+@authorize(['analyst', 'customer', 'admin'])
 def project_to_pdf(request, lang, project, doctype):
     "Export a project to a PDF"
     assert project.strip()
@@ -324,7 +324,7 @@ def format_release_date(finding):
 @cache_content
 @never_cache
 @csrf_exempt
-@authorize
+@authorize(['analyst', 'customer', 'admin'])
 def get_evidence(request, project, evidence_type, findingid, fileid):
     username = request.session['username']
     role = request.session['role']
@@ -419,7 +419,7 @@ def remove_user_access(project, user_email):
 @never_cache
 @csrf_exempt
 @require_http_methods(["GET"])
-@authorize
+@authorize(['analyst', 'admin'])
 def download_vulnerabilities(request, findingid):
     """Download a file with all the vulnerabilities."""
     if not has_access_to_finding(request.session['username'], findingid,
@@ -514,7 +514,7 @@ def generate_complete_report(request):
 
 @cache_content
 @never_cache
-@authorize
+@authorize(['admin'])
 def export_all_vulnerabilities(request):
     user_data = util.get_jwt_content(request)
     filepath = generate_all_vulns_xlsx(user_data['user_email'])
