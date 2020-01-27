@@ -321,8 +321,9 @@ def update_treatment(finding_id, updated_values, user_mail):
 
 
 def compare_historic_treatments(last_state, new_state):
-    last_values = [value for key, value in last_state.items() if 'date' not in key]
-    new_values = [value for key, value in new_state.items() if 'date' not in key]
+    excluded_attrs = ['date', 'acceptance_date', 'acceptance_status']
+    last_values = [value for key, value in last_state.items() if key not in excluded_attrs]
+    new_values = [value for key, value in new_state.items() if key not in excluded_attrs]
     date_change = 'acceptance_date' in new_state and \
         'acceptance_date' in last_state and \
         last_state['acceptance_date'].split(' ')[0] != \

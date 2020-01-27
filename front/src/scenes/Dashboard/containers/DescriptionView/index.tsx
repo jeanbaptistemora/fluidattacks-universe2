@@ -237,7 +237,8 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
             name="editDescription"
             initialValues={props.dataset}
             onSubmit={(values: IDescriptionViewProps["dataset"]): void => {
-              if (props.formValues.treatment === "ACCEPTED_UNDEFINED" && openDialog) {
+              if (props.formValues.treatment === "ACCEPTED_UNDEFINED" &&
+                  props.dataset.treatment !== "ACCEPTED_UNDEFINED" && openDialog) {
                 store.dispatch(openConfirmDialog("approvalWarning"));
               } else {
                 openDialog = !openDialog ? true : false;
@@ -313,6 +314,7 @@ export const component: ((props: IDescriptionViewProps) => JSX.Element) =
               .catch();
             props.dataset.acceptationApproval = response;
             props.dataset.acceptationUser = props.currentUserEmail;
+            props.dataset.justification = observations;
           };
 
           return(
