@@ -9,3 +9,7 @@ variable "region" {
 variable "user-name" {
   default = "continuous-prod"
 }
+
+variable "break-build-bucket" {
+  default = "break-build-logs"
+}
