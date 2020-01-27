@@ -1,8 +1,17 @@
-import { configure, shallow, ShallowWrapper } from "enzyme";
+import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
+import _ from "lodash";
 import React from "react";
+// tslint:disable-next-line: no-submodule-imports
+import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
+// tslint:disable-next-line: no-submodule-imports
+import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
+import wait from "waait";
+import store from "../../../../store";
 import { WelcomeView } from "./index";
+import { GET_USER_AUTHORIZATION } from "./queries";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
@@ -33,9 +42,7 @@ describe("Welcome view", () => {
 
   it("should render", () => {
     const wrapper: ShallowWrapper = shallow(
-      <WelcomeView
-        {...routeProps}
-      />,
+      <WelcomeView {...routeProps} />,
     );
 
     expect(wrapper)
@@ -43,39 +50,87 @@ describe("Welcome view", () => {
   });
 
   it("should render greetings message", () => {
+    (window as typeof window & { userName: string }).userName = "Test";
     const wrapper: ShallowWrapper = shallow(
-      <WelcomeView
-        {...routeProps}
-      />,
+      <WelcomeView {...routeProps} />,
     );
-    expect(wrapper.contains("Hello"))
-      .toEqual(true);
+    expect(wrapper.text())
+      .toContain("Hello Test!");
   });
 
-  it.skip("should render unauthorized message", () => {
-    const wrapper: ShallowWrapper = shallow(
-      <WelcomeView
-        {...routeProps}
-      />,
-    );
+  it("should render unauthorized message", async () => {
+    const mocks: ReadonlyArray<MockedResponse> = [{
+      request: { query: GET_USER_AUTHORIZATION },
+      result: {
+        data: { me: { authorized: false, remember: false } },
+      },
+    }];
+    const locationMock: jest.Mock = jest.fn();
+    window.location.assign = locationMock;
 
-    expect(wrapper.contains(
-      <p>
-        You do not have authorization for login yet. Please contact Fluid Attacks&#39;s staff or
-        your project administrator to get access.
-      </p>,
-    ))
-      .toEqual(true);
+    const wrapper: ReactWrapper = mount(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <WelcomeView {...routeProps} />
+      </MockedProvider>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(wrapper.text())
+      .toContain("You do not have authorization for login yet");
+    wrapper.find("Button")
+      .filterWhere((btn: ReactWrapper) => btn.contains("Log out"))
+      .simulate("click");
+    expect(locationMock)
+      .toHaveBeenCalledWith("/integrates/logout");
   });
 
-  it.skip("should render legal notice", () => {
-    const wrapper: ShallowWrapper = shallow(
-      <WelcomeView
-        {...routeProps}
-      />,
+  it("should render legal notice", async () => {
+    const mocks: ReadonlyArray<MockedResponse> = [{
+      request: { query: GET_USER_AUTHORIZATION },
+      result: {
+        data: { me: { authorized: true, remember: false } },
+      },
+    }];
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <WelcomeView {...routeProps} />
+        </MockedProvider>
+      </Provider>,
     );
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(wrapper.find("modal")
+      .text())
+      .toContain("Integrates, Copyright (c) 2019 Fluid Attacks");
+  });
 
-    expect(wrapper.find({ id: "legalNotice" }).length)
-      .toEqual(1);
+  it("should render already logged in", () => {
+    localStorage.setItem("showAlreadyLoggedin", "1");
+    const wrapper: ShallowWrapper = shallow(
+      <WelcomeView {...routeProps} />,
+    );
+    expect(wrapper.find("h3")
+      .text())
+      .toContain("You are already logged in");
+  });
+
+  it("should clear localstorage on unmount", () => {
+    const mocks: ReadonlyArray<MockedResponse> = [{
+      request: { query: GET_USER_AUTHORIZATION },
+      result: {
+        data: { me: { authorized: false, remember: false } },
+      },
+    }];
+    localStorage.setItem("showAlreadyLoggedin", "1");
+    localStorage.setItem("url_inicio", "!/project/BWAPP/findings/413372600/comments");
+    const wrapper: ReactWrapper = mount(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <WelcomeView {...routeProps} />
+      </MockedProvider>,
+    );
+    wrapper.unmount();
+    expect(_.get(localStorage, "showAlreadyLoggedin"))
+      .toEqual(undefined);
+    expect(_.get(localStorage, "url_inicio"))
+      .toEqual(undefined);
   });
 });

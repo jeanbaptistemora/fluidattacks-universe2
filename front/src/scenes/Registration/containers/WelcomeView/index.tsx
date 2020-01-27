@@ -39,11 +39,11 @@ const renderUnauthorized: (() => JSX.Element) = (): JSX.Element => {
 };
 
 const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
-  const onMount: (() => void) = (): void => {
+  const onUnmount: (() => () => void) = (): (() => void) => (): void => {
     localStorage.removeItem("showAlreadyLoggedin");
     localStorage.removeItem("url_inicio");
   };
-  React.useEffect(onMount, []);
+  React.useEffect(onUnmount, []);
 
   const [isLegalModalOpen, setLegalModalOpen] = React.useState(true);
 
