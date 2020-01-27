@@ -62,7 +62,7 @@ which one can do with a single command:
 .Asessing +code2vec+ performance
 [source,bash]
 ----
-python code2vec.py --load /path/to/model --test /path/to/data
+$ python code2vec.py --load /path/to/model --test /path/to/data
 ----
 
 Just this step, however,
@@ -105,14 +105,19 @@ out of all the existent vulnerabilites,
 how many are picked up.
 The F1 score aims to combine both the precision and the recall
 and is defined as two times the ratio of their product to their sum
-(F = (2*precision*recall)/(precision + recall)).
+
+["latex","fscore.png",align="center"]
+----
+\huge
+$$ F = 2\,\frac{{\rm precision} \times {\rm recall}}{{\rm precision + recall}} $$
+----
 
 We can also run the model to get predictions.
 We run:
 
 [source,bash]
 ----
-python code2vec.py --load /path/to/model --predict
+$ python code2vec.py --load /path/to/model --predict
 ----
 
 Notice that even loading the model also takes a short while,
@@ -183,7 +188,7 @@ like this:
 
 [source,bash]
 ----
-python3 code2vec.py --load /path/to/model --save_w2v tokens.txt
+$ python3 code2vec.py --load /path/to/model --save_w2v tokens.txt
 ----
 
 These are saved in +word2vec+ format,
@@ -207,7 +212,7 @@ around 2 +GiB+ each.
 
 As it is at the moment,
 +code2vec+ officially supports only +Java+ and +C#+.
-There are third-party extractors for +Python+, +C+, `C++` and +TypeScript+, too.
+There are third-party extractors for +Python+, +C+, +C+++ and +TypeScript+, too.
 That would easily comprise 90% of all of our clients' repositories.
 
 In upcoming articles we will review +code2seq+,
