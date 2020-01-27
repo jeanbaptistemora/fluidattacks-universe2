@@ -1,5 +1,5 @@
 import React from "react";
-import ReactSVG from "react-svg";
+import { ReactSVG } from "react-svg";
 import { default as authorsIcon } from "../../resources/authors.svg";
 import { default as avabilityHighIcon } from "../../resources/availability_high.svg";
 import { default as avabilityLowIcon } from "../../resources/availability_low.svg";
@@ -97,13 +97,19 @@ const getIcon: { [value: string]: string } = {
   vulnerabilities: vulnerabilitiesIcon,
 };
 
-const fluidIcon: React.FunctionComponent<IFluidIconProps> = (props: IFluidIconProps): JSX.Element => (
-  <React.StrictMode>
-    <div className={style.container}>
-      <ReactSVG svgStyle={{ width: props.width, height: props.height }} src={getIcon[props.icon]} />
-    </div>
-  </React.StrictMode>
-);
+const fluidIcon: React.FunctionComponent<IFluidIconProps> = (props: IFluidIconProps): JSX.Element => {
+  const setStyles: ((svg: Element) => void) = (svg: Element): void => {
+    svg.setAttribute("style", `heigth: ${props.height}, width: ${props.width}`);
+  };
+
+  return (
+    <React.StrictMode>
+      <div className={style.container}>
+        <ReactSVG beforeInjection={setStyles} src={getIcon[props.icon]} />
+      </div>
+    </React.StrictMode>
+  );
+};
 
 fluidIcon.defaultProps = {
   height: "16px",

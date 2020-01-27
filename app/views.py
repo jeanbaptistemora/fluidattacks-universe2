@@ -58,7 +58,7 @@ BASE_URL = "https://fluidattacks.com/integrates"
 @never_cache
 def index(request):
     "Login view for unauthenticated users"
-    parameters = {}
+    parameters = {'debug': settings.DEBUG}
     return render(request, "index.html", parameters)
 
 
@@ -81,6 +81,7 @@ def app(request):
     """ App view for authenticated users """
     try:
         parameters = {
+            'debug': settings.DEBUG,
             'username': request.session['username']
         }
         response = render(request, 'app.html', parameters)
