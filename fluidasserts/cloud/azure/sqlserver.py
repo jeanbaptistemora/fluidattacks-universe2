@@ -270,3 +270,51 @@ def use_microsoft_managed_keys(client_id: str, secret: str, tenant: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ClientException, AuthenticationError)
+def has_server_auditing_disabled(client_id: str, secret: str, tenant: str,
+                                 subscription_id: str) -> Tuple:
+    """
+    Check if SQL Server Auditing is disabled for SQL servers.
+
+    Enabling SQL Server Auditing ensures that all activities are being logged
+    properly, including potentially-malicious activity.
+
+    :param client_id: Azure service client_id.
+    :param secret: Azure service secret.
+    :param tenant: Azure service tenant.
+    :param subscription_id: Azure subscription ID.
+
+    :returns: - ``OPEN`` if there are SQL servers that have auditing disabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'SQL Server Auditing is disabled for SQL servers.'
+    msg_closed: str = 'SQL Server Auditing is enabled for SQL servers.'
+
+    vulns, safes = [], []
+
+    credentials = _get_credentials(client_id, secret, tenant)
+    client = SqlManagementClient(credentials, subscription_id)
+
+    for serve in client.servers.list():
+        group_name = serve.id.split('/')[4]
+        server_name = serve.id.split('/')[-1]
+        policies = list(
+            client.server_blob_auditing_policies.list_by_server(
+                group_name, server_name))
+        vulnerable = any(list(map(lambda x: x.state == 'Disabled', policies)))
+
+        (vulns if vulnerable else safes).append(
+            (serve.id, 'enable SQL Server Auditing.'))
+
+    return _get_result_as_tuple(
+        objects='Sql Servers',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
