@@ -18,10 +18,11 @@ from promise import Promise
 from rediscluster.nodemanager import RedisClusterException
 from simpleeval import AttributeDoesNotExist
 
+from backend.domain import (
+    user as user_domain, event as event_domain, finding as finding_domain
+)
 from backend.services import (
-    get_user_role, has_access_to_project, has_access_to_finding,
-    has_access_to_event, has_valid_access_token, is_customeradmin,
-    project_exists
+    get_user_role, has_valid_access_token, is_customeradmin, project_exists
 )
 
 from backend import util
@@ -29,43 +30,42 @@ from backend.exceptions import InvalidAuthorization
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
+ENFORCER = casbin.Enforcer(settings.CASBIN_POLICY_MODEL_FILE,
+                           enable_log=True)
+
 
 def authenticate(func):
     @functools.wraps(func)
     def authenticate_and_call(*args, **kwargs):
         request = args[0]
-        error = HttpResponse('Unauthorized \
-                    <script>var getUrl=window.location.hash.substr(1); \
-                    localStorage.setItem("url_inicio",getUrl); \
-                    location = "/integrates/index"; </script>')
-
-        try:
-            enforcer = casbin.Enforcer(settings.CASBIN_POLICY_MODEL_FILE,
-                                       enable_log=True)
-            if not enforcer.enforce(request.session, request.path):
-                return error
-        except AttributeDoesNotExist:
-            return error
-        return func(*args, **kwargs)
-    return authenticate_and_call
-
-
-def authorize(func):
-    @functools.wraps(func)
-    def authorize_and_call(*args, **kwargs):
-        request = args[0]
-        try:
-            enforcer = casbin.Enforcer(settings.CASBIN_POLICY_MODEL_FILE,
-                                       enable_log=True)
-            if not enforcer.enforce(request.session, request.path):
-                return util.response([], 'Access denied', True)
-        except AttributeDoesNotExist:
+        if "username" not in request.session or request.session["username"] is None:
             return HttpResponse('Unauthorized \
             <script>var getUrl=window.location.hash.substr(1); \
             localStorage.setItem("url_inicio",getUrl); \
             location = "/integrates/index"; </script>')
         return func(*args, **kwargs)
-    return authorize_and_call
+    return authenticate_and_call
+
+
+def authorize(roles):
+    def wrapper(func):
+        @functools.wraps(func)
+        def authorize_and_call(*args, **kwargs):
+            request = args[0]
+            # Verify role if the user is logged in
+            if 'username' in request.session and request.session['registered']:
+                if request.session['role'] not in roles:
+                    return util.response([], 'Access denied', True)
+            else:
+                # The user is not even authenticated. Redirect to login
+                return HttpResponse('<script> \
+                               var getUrl=window.location.hash.substr(1); \
+                  localStorage.setItem("url_inicio",getUrl); \
+                  location = "/integrates/index" ; </script>')
+
+            return func(*args, **kwargs)
+        return authorize_and_call
+    return wrapper
 
 
 # Access control decorators for GraphQL
@@ -184,13 +184,17 @@ def require_project_access(func):
         context = args[1].context
         project_name = kwargs.get('project_name')
         user_data = util.get_jwt_content(context)
-        role = get_user_role(user_data)
-        if project_name:
-            if not has_access_to_project(
-                user_data['user_email'],
-                project_name,
-                role
-            ):
+        user_data['subscribed_projects'] = \
+            user_domain.get_projects(user_data['user_email'])
+        user_data['subscribed_projects'] += \
+            user_domain.get_projects(user_data['user_email'], active=False)
+        user_data['role'] = get_user_role(user_data)
+        if not project_name:
+            rollbar.report_message('Error: Empty fields in project',
+                                   'error', context)
+            raise GraphQLError('Access denied')
+        try:
+            if not ENFORCER.enforce(user_data, project_name.lower()):
                 util.cloudwatch_log(context,
                                     'Security: \
 Attempted to retrieve {project} project info without permission'
@@ -199,10 +203,8 @@ Attempted to retrieve {project} project info without permission'
             util.cloudwatch_log(context,
                                 'Security: Access to {project} project'
                                 .format(project=kwargs.get('project_name')))
-        else:
-            rollbar.report_message('Error: Empty fields in project',
-                                   'error', context)
-
+        except AttributeDoesNotExist:
+            return GraphQLError('Access denied')
         return func(*args, **kwargs)
     return verify_and_call
 
@@ -219,18 +221,25 @@ def require_finding_access(func):
         finding_id = kwargs.get('finding_id') \
             if kwargs.get('identifier') is None else kwargs.get('identifier')
         user_data = util.get_jwt_content(context)
-        role = get_user_role(user_data)
+        user_data['subscribed_projects'] = \
+            user_domain.get_projects(user_data['user_email'])
+        user_data['subscribed_projects'] += \
+            user_domain.get_projects(user_data['user_email'], active=False)
+        user_data['role'] = get_user_role(user_data)
+        finding_project = finding_domain.get_finding(finding_id).get('projectName')
 
         if not re.match('^[0-9]*$', finding_id):
             rollbar.report_message('Error: Invalid finding id format',
                                    'error', context)
             raise GraphQLError('Invalid finding id format')
-        if not has_access_to_finding(user_data['user_email'],
-                                     finding_id, role):
-            util.cloudwatch_log(context,
-                                'Security: \
-Attempted to retrieve finding-related info without permission')
-            raise GraphQLError('Access denied')
+        try:
+            if not ENFORCER.enforce(user_data, finding_project.lower()):
+                util.cloudwatch_log(context,
+                                    'Security: \
+    Attempted to retrieve finding-related info without permission')
+                raise GraphQLError('Access denied')
+        except AttributeDoesNotExist:
+            return GraphQLError('Access denied')
         return func(*args, **kwargs)
     return verify_and_call
 
@@ -247,18 +256,25 @@ def require_event_access(func):
         event_id = kwargs.get('event_id') \
             if kwargs.get('identifier') is None else kwargs.get('identifier')
         user_data = util.get_jwt_content(context)
-        role = get_user_role(user_data)
+        user_data['subscribed_projects'] = \
+            user_domain.get_projects(user_data['user_email'])
+        user_data['subscribed_projects'] += \
+            user_domain.get_projects(user_data['user_email'], active=False)
+        user_data['role'] = get_user_role(user_data)
+        event_project = event_domain.get_event(event_id).get('project_name')
 
         if not re.match('^[0-9]*$', event_id):
             rollbar.report_message('Error: Invalid event id format',
                                    'error', context)
             raise GraphQLError('Invalid event id format')
-        if not has_access_to_event(
-                user_data['user_email'], event_id, role):
-            util.cloudwatch_log(context,
-                                'Security: \
-Attempted to retrieve event-related info without permission')
-            raise GraphQLError('Access denied')
+        try:
+            if not ENFORCER.enforce(user_data, event_project.lower()):
+                util.cloudwatch_log(context,
+                                    'Security: \
+    Attempted to retrieve event-related info without permission')
+                raise GraphQLError('Access denied')
+        except AttributeDoesNotExist:
+            return GraphQLError('Access denied')
         return func(*args, **kwargs)
     return verify_and_call
 
