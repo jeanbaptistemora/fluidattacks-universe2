@@ -34,31 +34,13 @@ stages:
         --data '{"role_id":"'"${ROLE_ID}"'","secret_id":"'"${SECRET_ID}"'"}'
         "${VAULT_API_URL}/auth/approle/login" | jq -r '.auth.client_token')
 
-.kaniko_config: &kaniko_config
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [""]
-  before_script:
-    - echo '{"auths":{"'"${CI_REGISTRY}"'":{"username":"'"${CI_REGISTRY_USER}"'","password":"'"${CI_REGISTRY_PASSWORD}"'"}}}'
-        > /kaniko/.docker/config.json
-
-.kaniko_fa_default_registry_config: &kaniko_fa_default_registry_config
-  <<: *fa_default_registry_vars
-  <<: *kaniko_config
-
 builder:
+  image: fluidattacks/docker-bash:latest
   tags: [autoscaling]
   stage: build
-  <<: *kaniko_config
   script:
-    - /kaniko/executor
-        --verbosity warn
-        --cache=true
-        --cache-repo "${CI_REGISTRY_IMAGE}/cache"
-        --cleanup
-        --context "${CI_PROJECT_DIR}/builder/base/"
-        --dockerfile "${CI_PROJECT_DIR}/builder/base/Dockerfile"
-        --destination "${CI_REGISTRY_IMAGE}:base"
+    - . ci-scripts/build-builder.sh
+    - build_builder
 
 content:
   tags: [autoscaling]
@@ -72,36 +54,12 @@ content:
     - master
 
 pelican:
+  image: fluidattacks/docker-bash:latest
   tags: [autoscaling-large]
   stage: check
-  <<: *kaniko_fa_default_registry_config
   script:
-    - /kaniko/executor
-        --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
-        --build-arg CI_PROJECT_NAME="${CI_PROJECT_NAME}"
-        --build-arg CI_PROJECT_NAMESPACE="${CI_PROJECT_NAMESPACE}"
-        --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
-        --build-arg ENV_DNS="${ENV_DNS}"
-        --build-arg REGISTRY_IMAGE="${CI_REGISTRY_IMAGE}/review"
-        --verbosity warn
-        --cleanup
-        --context "${CI_PROJECT_DIR}/review/"
-        --dockerfile "${CI_PROJECT_DIR}/review/Dockerfile"
-        --destination "${CI_REGISTRY_IMAGE}/review:${CI_COMMIT_REF_SLUG}"
-      ||
-      ( sed -i '/as cache/d; /from=cache/d; s/from=1/from=0/g'  review/Dockerfile &&
-        /kaniko/executor
-          --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
-          --build-arg CI_PROJECT_NAME="${CI_PROJECT_NAME}"
-          --build-arg CI_PROJECT_NAMESPACE="${CI_PROJECT_NAMESPACE}"
-          --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
-          --build-arg ENV_DNS="${ENV_DNS}"
-          --build-arg REGISTRY_IMAGE="${CI_REGISTRY_IMAGE}/review"
-          --verbosity warn
-          --cleanup
-          --context "${CI_PROJECT_DIR}/review/"
-          --dockerfile "${CI_PROJECT_DIR}/review/Dockerfile"
-          --destination "${CI_REGISTRY_IMAGE}/review:${CI_COMMIT_REF_SLUG}" )
+    - . ci-scripts/build-pelican.sh
+    - build_pelican
   except:
     - master
 
