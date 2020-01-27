@@ -2,7 +2,7 @@
 
 aws_sso_terraform_apply() {
 
-  # Plan aws_sso terraform module
+  # Deploy aws-sso terraform module
 
   set -Eeuo pipefail
 
@@ -18,7 +18,7 @@ aws_sso_terraform_apply() {
 
 aws_sso_terraform_lint() {
 
-  # Lint aws_sso terraform module
+  # Lint aws-sso terraform module
 
   set -Eeuo pipefail
 
@@ -33,7 +33,7 @@ aws_sso_terraform_lint() {
 
 aws_sso_terraform_plan() {
 
-  # Plan aws_sso terraform module
+  # Plan aws-sso terraform module
 
   set -Eeuo pipefail
 

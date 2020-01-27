@@ -213,7 +213,7 @@ danger:
   image: fluidattacks/danger-ruby
   dependencies:
     - plan-terraform-resources
-    - plan-terraform-sops-dev
+    - secret-management-dev-terraform-plan
   script:
     - ./ci-scripts/jobs/danger.sh
   only:
@@ -383,46 +383,6 @@ clean-registry-caches:
   only:
     - schedules
 
-plan-terraform-sops-dev:
-  stage: test
-  tags: [autoscaling]
-  needs: [deps-development]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - ./ci-scripts/jobs/plan-terraform-sops-dev.sh
-  interruptible: true
-
-plan-terraform-sops-prod:
-  stage: test
-  tags: [autoscaling]
-  needs: [deps-development]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - ./ci-scripts/jobs/plan-terraform-sops-prod.sh
-  only:
-    - master
-  interruptible: true
-
-lint-terraform-sops-dev:
-  stage: test
-  tags: [autoscaling]
-  needs: [deps-development]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - ./ci-scripts/jobs/lint-terraform-sops-dev.sh
-  interruptible: true
-
-lint-terraform-sops-prod:
-  stage: test
-  tags: [autoscaling]
-  needs: [deps-development]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - ./ci-scripts/jobs/lint-terraform-sops-prod.sh
-  only:
-    - master
-  interruptible: true
-
 lint-terraform-resources:
   stage: test
   tags: [autoscaling]
@@ -432,25 +392,72 @@ lint-terraform-resources:
     - ./ci-scripts/jobs/lint-terraform-resources.sh
   interruptible: true
 
-apply-terraform-sops-dev:
+secret-management-dev-terraform-apply:
   stage: deploy-infra
   tags: [autoscaling]
-  needs: [plan-terraform-sops-dev, lint-terraform-sops-dev]
+  needs: [secret-management-dev-terraform-plan, secret-management-dev-terraform-lint]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
-    - ./ci-scripts/jobs/apply-terraform-sops-dev.sh
+    - . ci-scripts/jobs/secret-management-dev.sh
+    - secret_management_dev_terraform_apply
   only:
     - master
 
-apply-terraform-sops-prod:
-  stage: deploy-infra
+secret-management-dev-terraform-lint:
+  stage: test
   tags: [autoscaling]
-  needs: [plan-terraform-sops-prod, lint-terraform-sops-prod]
+  needs: [deps-development]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
-    - ./ci-scripts/jobs/apply-terraform-sops-prod.sh
+    - . ci-scripts/jobs/secret-management-dev.sh
+    - secret_management_dev_terraform_lint
+  interruptible: true
+
+secret-management-dev-terraform-plan:
+  stage: test
+  tags: [autoscaling]
+  needs: [deps-development]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - . ci-scripts/jobs/secret-management-dev.sh
+    - secret_management_dev_terraform_plan
   only:
     - master
+
+secret-management-prod-terraform-apply:
+  stage: deploy-infra
+  tags: [autoscaling]
+  needs: [secret-management-prod-terraform-plan, secret-management-prod-terraform-lint]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - . ci-scripts/jobs/secret-management-prod.sh
+    - secret_management_prod_terraform_apply
+  only:
+    - master
+
+secret-management-prod-terraform-lint:
+  stage: test
+  tags: [autoscaling]
+  needs: [deps-development]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - . ci-scripts/jobs/secret-management-prod.sh
+    - secret_management_prod_terraform_lint
+  only:
+    - master
+  interruptible: true
+
+secret-management-prod-terraform-plan:
+  stage: test
+  tags: [autoscaling]
+  needs: [deps-development]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - . ci-scripts/jobs/secret-management-prod.sh
+    - secret_management_prod_terraform_plan
+  only:
+    - master
+  interruptible: true
 
 aws-sso-terraform-apply:
   stage: deploy-infra
