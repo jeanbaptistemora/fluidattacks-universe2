@@ -99,20 +99,6 @@ build-front:
     - app/assets/
     when: on_success
 
-plan-terraform-resources:
-  stage: test
-  tags: [autoscaling]
-  needs: [deps-development]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - ./ci-scripts/jobs/plan-terraform-resources.sh
-  artifacts:
-    paths:
-      - plan.txt
-    expire_in: 1h
-    when: on_success
-  interruptible: true
-
 test-front:
   stage: test
   tags: [autoscaling-large]
@@ -197,22 +183,12 @@ commitlint:
     - npm install --unsafe-perm
     - ./ci-scripts/jobs/commitlint.sh
 
-apply-terraform-resources:
-  stage: deploy-infra
-  tags: [autoscaling]
-  needs: [plan-terraform-resources, lint-terraform-resources]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - ./ci-scripts/jobs/apply-terraform-resources.sh
-  only:
-    - master
-
 danger:
   stage: mr-check
   tags: [autoscaling]
   image: fluidattacks/danger-ruby
   dependencies:
-    - plan-terraform-resources
+    - terraform-resources-plan
     - secret-management-dev-terraform-plan
   script:
     - ./ci-scripts/jobs/danger.sh
@@ -383,13 +359,40 @@ clean-registry-caches:
   only:
     - schedules
 
-lint-terraform-resources:
+terraform-resources-apply:
+  stage: deploy-infra
+  tags: [autoscaling]
+  needs: [terraform-resources-plan, terraform-resources-lint]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - . ci-scripts/jobs/terraform-resources.sh
+    - terraform_resources_apply
+  only:
+    - master
+
+terraform-resources-lint:
   stage: test
   tags: [autoscaling]
   needs: [deps-development]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
-    - ./ci-scripts/jobs/lint-terraform-resources.sh
+    - . ci-scripts/jobs/terraform-resources.sh
+    - terraform_resources_lint
+  interruptible: true
+
+terraform-resources-plan:
+  stage: test
+  tags: [autoscaling]
+  needs: [deps-development]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - . ci-scripts/jobs/terraform-resources.sh
+    - terraform_resources_plan
+  artifacts:
+    paths:
+      - plan.txt
+    expire_in: 1h
+    when: on_success
   interruptible: true
 
 secret-management-dev-terraform-apply:
@@ -421,8 +424,7 @@ secret-management-dev-terraform-plan:
   script:
     - . ci-scripts/jobs/secret-management-dev.sh
     - secret_management_dev_terraform_plan
-  only:
-    - master
+  interruptible: true
 
 secret-management-prod-terraform-apply:
   stage: deploy-infra
