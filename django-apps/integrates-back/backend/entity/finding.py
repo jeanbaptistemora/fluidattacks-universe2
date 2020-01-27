@@ -714,6 +714,18 @@ class UpdateClientDescription(Mutation):
     def mutate(self, info, finding_id, **parameters):
         project_name = finding_domain.get_finding(finding_id)['projectName']
         user_mail = util.get_jwt_content(info.context)['user_email']
+        external_bts = parameters.get('bts_url')
+        if parameters.get('acceptance_status') == '':
+            del parameters['acceptance_status']
+        historic_treatment = finding_domain.get_finding(finding_id)['historicTreatment']
+        last_state = {
+            key: value for key, value in historic_treatment[-1].items()
+            if key not in ['date', 'user']}
+        new_state = {
+            key: value for key, value in parameters.items() if key != 'bts_url'}
+        if not finding_domain.compare_historic_treatments(last_state, new_state) and \
+           external_bts == finding_domain.get_finding(finding_id)['externalBts']:
+            raise GraphQLError('It cant be updated a finding with same values it already has')
         success = finding_domain.update_client_description(finding_id, parameters, user_mail)
         if success:
             util.invalidate_cache(finding_id)

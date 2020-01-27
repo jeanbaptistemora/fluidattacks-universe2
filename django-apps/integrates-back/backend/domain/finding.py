@@ -305,13 +305,7 @@ def update_treatment(finding_id, updated_values, user_mail):
     if new_treatment == 'ACCEPTED_UNDEFINED':
         new_state['acceptance_status'] = updated_values['acceptance_status']
     if historic_treatment:
-        last_values = [value for key, value in historic_treatment[-1].items() if 'date' not in key]
-        new_values = [value for key, value in new_state.items() if 'date' not in key]
-        date_change = 'acceptance_date' in updated_values and \
-            'acceptance_date' in historic_treatment[-1] and \
-            historic_treatment[-1]['acceptance_date'].split(' ')[0] != \
-            updated_values['acceptance_date'].split(' ')[0]
-        if sorted(last_values) != sorted(new_values) or date_change:
+        if compare_historic_treatments(historic_treatment[-1], new_state):
             historic_treatment.append(new_state)
     else:
         historic_treatment = [new_state]
@@ -324,6 +318,16 @@ def update_treatment(finding_id, updated_values, user_mail):
         should_send_mail(finding, updated_values)
         success = True
     return success
+
+
+def compare_historic_treatments(last_state, new_state):
+    last_values = [value for key, value in last_state.items() if 'date' not in key]
+    new_values = [value for key, value in new_state.items() if 'date' not in key]
+    date_change = 'acceptance_date' in new_state and \
+        'acceptance_date' in last_state and \
+        last_state['acceptance_date'].split(' ')[0] != \
+        new_state['acceptance_date'].split(' ')[0]
+    return sorted(last_values) != sorted(new_values) or date_change
 
 
 def should_send_mail(finding, updated_values):
