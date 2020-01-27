@@ -41,6 +41,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .sans-pro { font-family: 'Source Sans Pro'; }
 .mono { font-family: 'Overpass Mono', monospace; }
 .mono2 { font-family: monospaced; }
+.c-black { color: $black; }
 .c-fluid-bk { color: $fluid-black; }
 .c-fluid-red { color: $fluid-red; }
 .c-fluid-dkred { color: $fluid-dark-red; }
@@ -378,47 +379,6 @@ ul {
     }
   }
 //scss-lint:enable NestingDepth
-}
-
-@media (min-width: 770px) {
-  h1 {
-    font-size: 42px;
-  }
-
-  h2 {
-    font-size: 34px;
-
-  }
-
-  h3 {
-    font-size: 26px;
-  }
-
-  h4 {
-    font-size: 21px;
-  }
-
-  .olist {
-    ol {
-      font-size: 21px;
-    }
-  }
-
-  p {
-    font-size: 20px;
-  }
-
-  .admonitionblock {
-    .content {
-      font-size: 21px;
-    }
-  }
-}
-
-@media(min-width: 980px) {
-  .at-expanding-share-button-desktop {
-    display: none;
-  }
 }
 
 @media print {

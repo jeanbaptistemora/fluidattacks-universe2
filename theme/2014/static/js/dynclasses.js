@@ -66,41 +66,26 @@ Tachyons classes on dynamically generated content
     //Definitions:
     $( ".hdlist1" ).addClass("f4 b");
 
-    // ulist elements
-    // Add style to ulist
+    // Custom styles
     $( ".ulist" ).addClass("mt3 pl3")
-
-    // Add style to ulist items in ul elements
     $( ".ulist > li > p" ).addClass("mt3")
-
-    // Add style to ulist items in div elements
     $( ".ulist > ul > li > p" ).addClass("mt3")
-
-    // Add style to fluid-qanda
     $( ".fluid-qanda > ol > li" ).addClass("i list")
-
-    // Add style to imageblock and videoblock elements
     $( ".imageblock, .videoblock" ).addClass("ma3 tc")
-
-    // Add style to listingblock and literalblock
     $( ".listingblock, .literalblock" ).addClass("mv3 mh0")
-
-    // Add style for images
     $( "img" ).addClass("mw-100 v-mid")
-
-    // Add style to title classes
     $( ".title" ).addClass("f5-l f6 c-dkgrey")
-
-    // Add style to col-lg-8 and col-md-10 classes
     $( ".col-lg-8, .col-md-10" ).addClass("tc w-100")
-
-    // Add style to ol elements
     $( "ol" ).addClass("pl4 f4")
-
-    // Add custom style for table-responsive
     $( ".tb-responsive > td, th" ).addClass("ma0 db")
-
-    // Add custom styles to titles
     $( "h1, h2, h3, h4" ).addClass("montsy b lh-solid mt3 mh0 mb2")
+    $( "h1" ).addClass("f2-l f3-m")
+    $( "h2" ).addClass("f2-l f3-m")
+    $( "h3" ).addClass("f3-l f4-m")
+    $( "h4" ).addClass("f4-l f5-m")
+    $( "p" ).addClass("f4-l f5-m")
+    $( ".olist > ol" ).addClass("f4-l")
+    $( ".admonitionblock > .content" ).addClass("f4-l f3-m")
+    $( ".at-expanding-share-button-desktop" ).addClass("dn-l")
   });
 })(jQuery);
