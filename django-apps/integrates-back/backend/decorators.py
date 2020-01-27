@@ -18,6 +18,8 @@ from promise import Promise
 from rediscluster.nodemanager import RedisClusterException
 from simpleeval import AttributeDoesNotExist
 
+from backend.dal import integrates_dal
+
 from backend.domain import (
     user as user_domain, event as event_domain, finding as finding_domain
 )
@@ -30,8 +32,11 @@ from backend.exceptions import InvalidAuthorization
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
-ENFORCER = casbin.Enforcer(settings.CASBIN_POLICY_MODEL_FILE,
-                           enable_log=True)
+ENFORCER_BASIC = casbin.Enforcer(settings.CASBIN_BASIC_POLICY_MODEL_FILE,
+                                 enable_log=True)
+
+ENFORCER_PROJECT = casbin.Enforcer(settings.CASBIN_ACTION_POLICY_MODEL_FILE,
+                                   enable_log=True)
 
 
 def authenticate(func):
@@ -145,6 +150,37 @@ Unauthorized role attempted to perform operation')
     return wrapper
 
 
+def new_require_role(func):
+    """
+    Require_role decorator based on Casbin enforcer.
+
+    Verifies that the current user's role is within the specified allowed roles
+    """
+    @functools.wraps(func)
+    def verify_and_call(*args, **kwargs):
+        context = args[1].context
+        user_data = util.get_jwt_content(context)
+        user_data['role'] = get_user_role(user_data)
+        project_name = \
+            kwargs.get('project_name', args[0].name if args[0] else '')
+        project_data = integrates_dal.get_project_dynamo(project_name)
+        action = '{}.{}'.format(func.__module__, func.__name__)
+
+        try:
+            if not ENFORCER_PROJECT.enforce(user_data, project_data, action):
+                util.cloudwatch_log(context,
+                                    'Security: \
+Unauthorized role attempted to perform operation')
+                raise GraphQLError('Access denied')
+        except AttributeDoesNotExist:
+            util.cloudwatch_log(context,
+                                'Security: \
+Unauthorized role attempted to perform operation')
+            raise GraphQLError('Access denied')
+        return func(*args, **kwargs)
+    return verify_and_call
+
+
 def verify_jti(email, context, jti):
     if not has_valid_access_token(email, context, jti):
         raise InvalidAuthorization()
@@ -194,7 +230,7 @@ def require_project_access(func):
                                    'error', context)
             raise GraphQLError('Access denied')
         try:
-            if not ENFORCER.enforce(user_data, project_name.lower()):
+            if not ENFORCER_BASIC.enforce(user_data, project_name.lower()):
                 util.cloudwatch_log(context,
                                     'Security: \
 Attempted to retrieve {project} project info without permission'
@@ -233,7 +269,7 @@ def require_finding_access(func):
                                    'error', context)
             raise GraphQLError('Invalid finding id format')
         try:
-            if not ENFORCER.enforce(user_data, finding_project.lower()):
+            if not ENFORCER_BASIC.enforce(user_data, finding_project.lower()):
                 util.cloudwatch_log(context,
                                     'Security: \
     Attempted to retrieve finding-related info without permission')
@@ -268,7 +304,7 @@ def require_event_access(func):
                                    'error', context)
             raise GraphQLError('Invalid event id format')
         try:
-            if not ENFORCER.enforce(user_data, event_project.lower()):
+            if not ENFORCER_BASIC.enforce(user_data, event_project.lower()):
                 util.cloudwatch_log(context,
                                     'Security: \
     Attempted to retrieve event-related info without permission')

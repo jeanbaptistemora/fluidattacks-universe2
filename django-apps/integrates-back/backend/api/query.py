@@ -3,7 +3,8 @@ from graphene import Field, List, ObjectType, String
 
 from backend.decorators import (
     get_cached, require_event_access, require_finding_access,
-    require_login, require_project_access, require_role
+    require_login, require_project_access, require_role,
+    new_require_role
 )
 from backend.domain import project as project_domain
 from backend.entity.me import Me
@@ -82,7 +83,7 @@ class Query(ObjectType):
         return findings_loader.load(identifier)
 
     @require_login
-    @require_role(['analyst', 'customer', 'admin'])
+    @new_require_role
     @require_project_access
     def resolve_resources(self, info, project_name):
         """ Resolve for project resources """

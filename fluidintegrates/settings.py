@@ -439,5 +439,8 @@ SOCIAL_AUTH_AZUREAD_OAUTH2_KEY = FI_AZUREAD_OAUTH2_KEY
 SOCIAL_AUTH_AZUREAD_OAUTH2_SECRET = FI_AZUREAD_OAUTH2_SECRET  # noqa
 
 
-CASBIN_POLICY_MODEL_FILE = \
-    os.path.join(BASE_DIR, 'integrates_authz_model.conf')
+CASBIN_BASIC_POLICY_MODEL_FILE = \
+    os.path.join(BASE_DIR, 'authz_models', 'basic.conf')
+
+CASBIN_ACTION_POLICY_MODEL_FILE = \
+    os.path.join(BASE_DIR, 'authz_models', 'action.conf')
