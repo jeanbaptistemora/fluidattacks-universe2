@@ -36,6 +36,9 @@ export const numberBetween: ((min: number, max: number) => Validator) =
 export const minLength: ((min: number) => Validator) = (min: number): Validator =>
   hasLengthGreaterThan(min - 1)({ message: translate.t("validations.minLength", { count: min }) });
 
+export const sameValue: ((projectName: string) => Validator) = (projectName: string): Validator =>
+  (value: string): string | undefined => value !== projectName ? translate.t("validations.required") : undefined;
+
 export const numeric: Validator = isNumeric({
   message: translate.t("validations.numeric"),
 });

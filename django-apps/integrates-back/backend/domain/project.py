@@ -79,16 +79,21 @@ def create_project(user_email, user_role, **kwargs):
 def remove_project(project_name):
     """Delete project information."""
     project = project_name.lower()
+    tzn = pytz.timezone(settings.TIME_ZONE)
+    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     are_users_removed = remove_all_users_access(project)
     are_findings_masked = [
         finding_domain.mask_finding(finding_id)
         for finding_id in list_findings(project)]
     if are_findings_masked == []:
         are_findings_masked = True
-    is_project_finished = integrates_dal.update_attribute_dynamo(
-        'FI_projects',
-        ['project_name', project],
-        'project_status', 'FINISHED')
+    data = {
+        'project_status': 'FINISHED',
+        'deletion_date': today
+    }
+    is_project_finished = integrates_dal.update_mult_attrs_dynamo(
+        'FI_projects', {'project_name': project}, data
+    )
     util.invalidate_cache(project)
     Status = namedtuple('Status', 'are_findings_masked are_users_removed is_project_finished')
     return Status(are_findings_masked, are_users_removed, is_project_finished)
