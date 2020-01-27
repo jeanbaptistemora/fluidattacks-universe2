@@ -302,8 +302,8 @@ def update_treatment(finding_id, updated_values, user_mail):
         new_state['justification'] = updated_values['justification']
         if new_treatment == 'ACCEPTED':
             new_state['acceptance_date'] = updated_values['acceptance_date']
-            if new_treatment == 'ACCEPTED_UNDEFINED':
-                new_state['acceptance_status'] = updated_values['acceptance_status']
+        if new_treatment == 'ACCEPTED_UNDEFINED':
+            new_state['acceptance_status'] = updated_values['acceptance_status']
     if historic_treatment:
         if compare_historic_treatments(historic_treatment[-1], new_state):
             historic_treatment.append(new_state)
