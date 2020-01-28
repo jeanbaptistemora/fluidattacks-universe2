@@ -8,8 +8,7 @@ from django.conf import settings
 
 
 from backend.decorators import (
-    require_login, require_role, require_project_access, get_entity_cache,
-    new_require_role
+    require_login, require_project_access, get_entity_cache, new_require_role
 )
 from backend.domain import resources
 from backend.exceptions import InvalidProject
@@ -241,7 +240,7 @@ class DownloadFile(Mutation):
     url = String()
 
     @require_login
-    @require_role(['analyst', 'customer', 'admin'])
+    @new_require_role
     @require_project_access
     def mutate(self, info, **parameters):
         success = False

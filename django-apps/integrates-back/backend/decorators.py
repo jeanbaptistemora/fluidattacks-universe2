@@ -150,6 +150,20 @@ Unauthorized role attempted to perform operation')
     return wrapper
 
 
+def resolve_project_name(kwargs):
+    """Get project name based on args passed."""
+    if 'project_name' in kwargs:
+        project_name = kwargs['project_name']
+    elif 'finding_id' in kwargs:
+        project_name = integrates_dal.get_finding_project(kwargs['finding_id'])
+    elif 'event_id' in kwargs:
+        project_name = \
+            event_domain.get_event(kwargs['event_id']).get('project_name')
+    else:
+        project_name = ''
+    return project_name
+
+
 def new_require_role(func):
     """
     Require_role decorator based on Casbin enforcer.
@@ -161,8 +175,8 @@ def new_require_role(func):
         context = args[1].context
         user_data = util.get_jwt_content(context)
         user_data['role'] = get_user_role(user_data)
-        project_name = \
-            kwargs.get('project_name', args[0].name if args[0] else '')
+
+        project_name = resolve_project_name(kwargs)
         project_data = integrates_dal.get_project_dynamo(project_name)[0]
         action = '{}.{}'.format(func.__module__, func.__qualname__)
         try:
