@@ -8,7 +8,8 @@ from django.conf import settings
 
 
 from backend.decorators import (
-    require_login, require_role, require_project_access, get_entity_cache
+    require_login, require_role, require_project_access, get_entity_cache,
+    new_require_role
 )
 from backend.domain import resources
 from backend.exceptions import InvalidProject
@@ -80,7 +81,7 @@ class AddResources(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['customer'])
+    @new_require_role
     @require_project_access
     def mutate(self, info, resource_data, project_name, res_type):
         success = False
@@ -119,7 +120,7 @@ class UpdateResources(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['customer'])
+    @new_require_role
     @require_project_access
     def mutate(self, info, resource_data, project_name, res_type):
         success = False
@@ -159,7 +160,7 @@ class AddFiles(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['customer'])
+    @new_require_role
     @require_project_access
     def mutate(self, info, **parameters):
         success = False
@@ -203,7 +204,7 @@ class RemoveFiles(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['customer'])
+    @new_require_role
     @require_project_access
     def mutate(self, info, files_data, project_name):
         success = False

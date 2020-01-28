@@ -35,8 +35,8 @@ CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 ENFORCER_BASIC = casbin.Enforcer(settings.CASBIN_BASIC_POLICY_MODEL_FILE,
                                  enable_log=True)
 
-ENFORCER_PROJECT = casbin.Enforcer(settings.CASBIN_ACTION_POLICY_MODEL_FILE,
-                                   enable_log=True)
+ENFORCER_ACTION = casbin.Enforcer(settings.CASBIN_ACTION_POLICY_MODEL_FILE,
+                                  enable_log=True)
 
 
 def authenticate(func):
@@ -163,11 +163,10 @@ def new_require_role(func):
         user_data['role'] = get_user_role(user_data)
         project_name = \
             kwargs.get('project_name', args[0].name if args[0] else '')
-        project_data = integrates_dal.get_project_dynamo(project_name)
-        action = '{}.{}'.format(func.__module__, func.__name__)
-
+        project_data = integrates_dal.get_project_dynamo(project_name)[0]
+        action = '{}.{}'.format(func.__module__, func.__qualname__)
         try:
-            if not ENFORCER_PROJECT.enforce(user_data, project_data, action):
+            if not ENFORCER_ACTION.enforce(user_data, project_data, action):
                 util.cloudwatch_log(context,
                                     'Security: \
 Unauthorized role attempted to perform operation')

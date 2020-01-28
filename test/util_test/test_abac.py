@@ -76,9 +76,14 @@ class BasicAbacTest(TestCase):
 
 class ActionAbacTest(TestCase):
     global_actions = {
-        'backend.api.query.resolve_resources',
-        'backend.api.query.resolve_alert',
-        'backend.api.query.resolve_project',
+        'backend.api.query.Query.resolve_resources',
+        'backend.api.query.Query.resolve_alert',
+        'backend.api.query.Query.resolve_project',
+        'backend.entity.resource.AddResources.mutate',
+        'backend.entity.resource.UpdateResources.mutate',
+        'backend.entity.resource.AddFiles.mutate',
+        'backend.entity.resource.RemoveFiles.mutate',
+        'backend.entity.resource.DownloadFile.mutate',
     }
 
     def test_action_wrong_role(self):
@@ -89,7 +94,7 @@ class ActionAbacTest(TestCase):
             pass
 
         sub = TestItem()
-        sub.user_email = 'someone'
+        sub.user_email = 'someone@guest.com'
         sub.role = 'guest'
         obj = 'unittesting'
         action = 'backend.api.query.resolve_resources'
@@ -99,7 +104,7 @@ class ActionAbacTest(TestCase):
         for action in should_deny:
             self.assertFalse(enfor.enforce(sub, obj, action))
 
-    def test_action_correct_role(self):
+    def test_action_customer_role(self):
         """Tests for an user with a expected role."""
         enfor = get_action_enforcer()
 
@@ -107,10 +112,26 @@ class ActionAbacTest(TestCase):
             pass
 
         sub = TestItem()
-        sub.user_email = 'someone'
+        sub.user_email = 'someone@customer.com'
         sub.role = 'customer'
         obj = 'unittesting'
-        action = 'backend.api.query.resolve_resources'
+
+        should_allow = self.global_actions
+
+        for action in should_allow:
+            self.assertTrue(enfor.enforce(sub, obj, action))
+
+    def test_action_admin_role(self):
+        """Tests for an user with a expected role."""
+        enfor = get_action_enforcer()
+
+        class TestItem:
+            pass
+
+        sub = TestItem()
+        sub.user_email = 'admin@fluidattacks.com'
+        sub.role = 'admin'
+        obj = 'unittesting'
 
         should_allow = self.global_actions
 
