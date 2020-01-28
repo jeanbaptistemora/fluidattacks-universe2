@@ -89,5 +89,8 @@ Tachyons classes on dynamically generated content
     $( ".img-ppl > .content > img" ).addClass("grayscale br-100 w5")
     $( ".admonitionblock > table > tbody > tr > .icon > img" ).addClass("w3")
     $( ".admonitionblock > table > tbody > tr > .content" ).addClass("f5 lh-copy")
+    $( ".tableblock").addClass("mv3 mh2")
+    $( ".tableblock > tbody > tr > td").addClass("ba bc-fluid-gray pa2")
+    $( ".tableblock > tbody > tr > th").addClass("ba bc-fluid-gray pa3 tc")
   });
 })(jQuery);
