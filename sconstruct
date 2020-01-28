@@ -59,7 +59,6 @@ env.SConsignFile('build/decider')
 
 # Codigo fuente
 source_files = Glob('#fluidasserts/*.py')
-test_files = Glob('#test/*.py')
 env.NoClean(source_files)
 
 #
@@ -112,9 +111,6 @@ env.Alias('codecov', codecov_results)
 
 # Phony Targets
 SConscript('#conf/sconscript')
-
-# Pruebas de unidad
-SConscript('#test/sconscript', exports=['env', 'source_files', 'deps_results'])
 
 #
 # Alias Agrupadores
