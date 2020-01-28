@@ -326,9 +326,9 @@ rec {
     inherit genericDirs genericShellOptions;
     inherit srcEnvVarsProdEncrypted;
     inherit buildFluidassertsRelease;
+    gpg = pkgs.gnupg;
     buildInputs = [
       basicPythonEnv
-      pkgs.gnupg
       _pythonPackages.twine
     ];
     builder = ./builders/release-fluidasserts-pypi.sh;
@@ -342,6 +342,7 @@ rec {
     '';
     inherit genericDirs genericShellOptions;
     inherit srcDockerfile srcEnvVarsProdEncrypted;
+    gpg = pkgs.gnupg;
     buildInputs = with pkgs; [
       docker
     ];
@@ -372,9 +373,9 @@ rec {
         inherit srcEnvVarsDevEncrypted srcFluidasserts srcSetupCfg srcTest;
         inherit pyPkgFluidassertsBasic pyPkgGroupTest;
         inherit testGroupName;
+        gpg = pkgs.gnupg;
         buildInputs = [
           fluidassertsDeps
-          pkgs.gnupg
           pyPkgGroupTest.buildInputs
         ];
         builder = ./builders/tester-fluidasserts.sh;

@@ -26,7 +26,7 @@ echo
 echo 'Unencrypting secrets and exporting them to the current context ...'
 source <( \
   echo "\${ENCRYPTION_KEY_PROD}" \
-    | gpg \
+    | ${gpg}/bin/gpg \
       --batch \
       --passphrase-fd 0 \
       --decrypt "${srcEnvVarsProdEncrypted}")
