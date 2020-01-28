@@ -277,12 +277,12 @@ def update_treatment_in_vuln(finding_id, updated_values):
 
 def update_client_description(finding_id, updated_values, user_mail, update):
     success_treatment, success_external_bts = True, True
-    if update[0]:
+    if update.bts_changed:
         success_external_bts = finding_dal.update(
             finding_id,
             {'external_bts': updated_values['bts_url'] if updated_values['bts_url'] else None}
         )
-    if update[1]:
+    if update.treatment_changed:
         valid_update_values = util.update_treatment_values(updated_values)
         success_treatment = update_treatment(finding_id, valid_update_values, user_mail)
     return success_treatment and success_external_bts

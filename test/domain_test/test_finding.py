@@ -1,5 +1,6 @@
 import pytest
 
+from collections import namedtuple
 from django.test import TestCase
 
 from datetime import datetime, timedelta
@@ -50,12 +51,14 @@ class FindingTests(TestCase):
         assert test_new is True
 
     def test_update_client_description(self):
+        Status = namedtuple('Status', 'bts_changed treatment_changed')
+        update = Status(bts_changed=True, treatment_changed=True)
         finding_id = '463461507'
         values_accepted = {'justification': 'This is a test treatment justification',
                            'bts_url': '',
                            'treatment': 'ACCEPTED'}
         test_accepted = update_client_description(
-            finding_id, values_accepted, 'unittesting@fluidattacks.com', [True, True])
+            finding_id, values_accepted, 'unittesting@fluidattacks.com', update)
         assert test_accepted is True
         date = datetime.now() + timedelta(days=181)
         date = date.strftime('%Y-%m-%d %H:%M:%S')
@@ -65,7 +68,7 @@ class FindingTests(TestCase):
                                       'acceptance_date': date}
         with pytest.raises(InvalidDate):
             assert update_client_description(
-                finding_id, values_accepted_date_error, 'unittesting@fluidattacks.com', [True, True])
+                finding_id, values_accepted_date_error, 'unittesting@fluidattacks.com', update)
         date_future = datetime.now() + timedelta(days=60)
         date_future = date_future.strftime('%Y/%m/%d %H:%M:%S')
         values_accepted_format_error = {'justification': 'This is a test treatment justification',
@@ -74,4 +77,4 @@ class FindingTests(TestCase):
                                         'acceptance_date': date_future}
         with pytest.raises(InvalidDateFormat):
             assert update_client_description(
-                finding_id, values_accepted_format_error, 'unittesting@fluidattacks.com', [True, True])
+                finding_id, values_accepted_format_error, 'unittesting@fluidattacks.com', update)

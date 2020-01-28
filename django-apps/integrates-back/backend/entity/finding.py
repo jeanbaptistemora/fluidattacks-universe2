@@ -730,7 +730,7 @@ class UpdateClientDescription(Mutation):
         if ('externalBts' in finding_domain.get_finding(finding_id) and
            parameters.get('bts_url') == finding_domain.get_finding(finding_id)['externalBts']):
             bts_changed = False
-        update = Status(bts_changed, treatment_changed)
+        update = Status(bts_changed=bts_changed, treatment_changed=treatment_changed)
         if not any(list(update)):
             raise GraphQLError('It cant be updated a finding with same values it already has')
         success = finding_domain.update_client_description(
