@@ -201,6 +201,16 @@ rec {
     builder = ./builders/py-pkg-git-fame.sh;
   };
 
+  pyPkgGitPython = pkgs.stdenv.mkDerivation rec {
+    name = "pyPkgGitPython";
+    description = ''
+      Python package for GitPython.
+    '';
+    inherit genericDirs genericShellOptions;
+    buildInputs = basicPythonEnv;
+    builder = ./builders/py-pkg-gitpython.sh;
+  };
+
   pyPkgGroupLint = pkgs.stdenv.mkDerivation rec {
     name = "pyPkgGroupLint";
     description = ''
@@ -221,6 +231,16 @@ rec {
     inherit srcBuildSrcPythonRequirementsTest;
     buildInputs = basicPythonEnv;
     builder = ./builders/py-pkg-group-test.sh;
+  };
+
+  pyPkgMandrill = pkgs.stdenv.mkDerivation rec {
+    name = "pyPkgMandrill";
+    description = ''
+      Python package for Mandrill.
+    '';
+    inherit genericDirs genericShellOptions;
+    buildInputs = basicPythonEnv;
+    builder = ./builders/py-pkg-mandrill.sh;
   };
 
   pyPkgSphinx = pkgs.stdenv.mkDerivation rec {

@@ -10,6 +10,7 @@ stages:
   - deploy
   - release_to_pypi
   - release_to_docker
+  - notify
 
 .kaniko_config: &kaniko_config
   image:
@@ -122,6 +123,11 @@ release_to_docker_hub:
   <<: *with_nix
   <<: *in_prod_branch
   stage: release_to_docker
+
+send_new_version_mail:
+  <<: *with_nix
+  <<: *in_prod_branch
+  stage: notify
 
 test_commit_message:
   <<: *with_nix

@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+#! /usr/bin/env python3
+
 """Send notification email."""
 
 import os
@@ -7,12 +8,9 @@ import glob
 import ntpath
 import mandrill
 
-PROJECT = os.environ['PROJECT']
-PROJECT_URL = os.environ['PROJECT_URL']
+import get_version
 
 MANDRILL_APIKEY = os.environ['MANDRILL_APIKEY']
-MANDRILL_NEW_VERSION_EMAIL_TO = \
-    os.environ['MANDRILL_NEW_VERSION_EMAIL_TO'].split(',')
 
 CI_COMMIT_SHA = os.environ['CI_COMMIT_SHA']
 CI_COMMIT_BEFORE_SHA = os.environ['CI_COMMIT_BEFORE_SHA']
@@ -25,12 +23,6 @@ def _get_message() -> str:
         CI_COMMIT_BEFORE_SHA + '...' + CI_COMMIT_SHA,
         '--pretty=format:<b>%s</b>%n%bCommitted by: %aN%n')
     return message.replace('\n', '<br/>\n')
-
-
-def _get_version() -> str:
-    """Get version of last deploy."""
-    path_zip = glob.glob('build/dist/*.zip')[0]
-    return ntpath.basename(path_zip)[13:-4]
 
 
 def send_mail(template_name: str, email_to, context, tags) -> None:
@@ -50,12 +42,14 @@ def send_mail(template_name: str, email_to, context, tags) -> None:
 
 send_mail(
     template_name='new_version',
-    email_to=MANDRILL_NEW_VERSION_EMAIL_TO,
+    email_to=[
+      'engineering@fluidattacks.com',
+    ],
     context={
-        'project': PROJECT,
-        'version': _get_version(),
+        'project': 'Asserts',
+        'version': get_version.get_version(),
         'message': _get_message(),
-        'project_url': PROJECT_URL,
+        'project_url': 'https://fluidattacks.com/asserts/',
     },
     tags=[
         'general',

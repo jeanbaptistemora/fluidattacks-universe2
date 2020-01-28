@@ -211,8 +211,10 @@ function job_populate_caches {
     build nodePkgCommitlint
     build pyPkgFluidassertsBasic
     build pyPkgGitFame
+    build pyPkgGitPython
     build pyPkgGroupLint
     build pyPkgGroupTest
+    build pyPkgMandrill
     build pyPkgSphinx
   ) | push_to_cachix
 }
@@ -239,6 +241,15 @@ function job_release_to_docker_hub {
 
   build_and_link_x releaseToDockerHub "${runner_name}"
   "${runner_file}"
+}
+
+function job_send_new_version_mail {
+  use_cachix
+
+  ./build-src/shell.sh \
+    --env 'CI_COMMIT_SHA'        "${CI_COMMIT_SHA:-}"        \
+    --env 'CI_COMMIT_BEFORE_SHA' "${CI_COMMIT_BEFORE_SHA:-}" \
+    --send-new-version-mail
 }
 
 function job_test_commit_message {
