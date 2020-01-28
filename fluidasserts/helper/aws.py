@@ -150,6 +150,39 @@ def run_boto3_func(key_id: str,
 
 
 @retry_on_errors
+def assume_role_credential(key_id: str,
+                           secret: str,
+                           role_arn: str,
+                           session_name: str,
+                           external_id: str = None,
+                           retry: bool = True,
+                           boto3_client_kwargs: dict = None,
+                           **kwargs) -> Tuple:
+    """
+    Allow a user to assume an IAM role.
+
+    :param key_id: AWS Key Id.
+    :param secret: AWS Key Secret.
+    :param role_arn: role to assume.
+    :param session_name: name of the new session.
+
+    :rtype: ``(access_key_id, secret_access_key, session_token)``
+    """
+    credentials = run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        service='sts',
+        func='assume_role',
+        param='Credentials',
+        RoleArn=role_arn,
+        ExternalId=external_id,
+        RoleSessionName=session_name,
+        retry=retry)
+    return (credentials['AccessKeyId'], credentials['SecretAccessKey'],
+            credentials['SessionToken'])
+
+
+@retry_on_errors
 def credentials_report(
         key_id: str,
         secret: str,
