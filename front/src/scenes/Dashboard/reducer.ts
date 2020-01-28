@@ -518,42 +518,6 @@ actionMap[actionType.OPEN_CONFIRM_DIALOG] =
       },
     });
 
-actionMap[actionType.OPEN_ADD_USER_MODAL] = (state: IDashboardState): IDashboardState =>
-({
-  ...state,
-  addUserModal: {
-    addUserOpen: true,
-  },
-});
-
-actionMap[actionType.CLOSE_ADD_USER_MODAL] = (state: IDashboardState): IDashboardState =>
-({
-  ...state,
-  addUserModal: {
-    addUserOpen: false,
-  },
-});
-
-actionMap[actionType.OPEN_ACCESS_TOKEN_MODAL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-    ({
-      ...state,
-      updateAccessTokenModal: {
-        ...state.updateAccessTokenModal,
-        open: true,
-      },
-  });
-
-actionMap[actionType.CLOSE_ACCESS_TOKEN_MODAL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-    ({
-      ...state,
-      updateAccessTokenModal: {
-        ...state.updateAccessTokenModal,
-        open: false,
-      },
-    });
-
 actionMap[actionType.CLOSE_CONFIRM_DIALOG] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
     ({

@@ -13,40 +13,33 @@ import { GenericForm } from "../GenericForm";
 import { default as style } from "./index.css";
 
 export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteComponentProps): JSX.Element => {
-  const pathData: string[] = props.location.pathname.split("/")
-  .splice(0 - -1);
   const handleSearchSubmit: ((values: { projectName: string }) => void) = (values: { projectName: string }): void => {
-  const projectName: string = values.projectName.toUpperCase();
-  if (!_.isEmpty(projectName)) { location.hash = `#!/project/${projectName}/indicators`; }
+    const projectName: string = values.projectName.toUpperCase();
+    if (!_.isEmpty(projectName)) { location.hash = `#!/project/${projectName}/indicators`; }
   };
-  const capitalizeWord: ((wordToCapitalize: string) => string) = (wordToCapitalize: string): string =>
-    translate.t(`${wordToCapitalize[0].toUpperCase()}${wordToCapitalize.slice(1)
-      .toLowerCase()}`);
-  const createBreadcrumbItems: ((path: string[]) => JSX.Element[]) = (path: string[]): JSX.Element[] => (
-    path.map((pathDirection: string, index: number) =>
-    path.slice(0, index + 1))
-    .map((subPath: string[], index: number) => index > 0 ?
-  (
-    <BreadcrumbItem key={subPath[subPath.length - 1]}>
-      <Link to={`/${subPath.join("/")}`} >
-        {capitalizeWord(subPath[subPath.length - 1])}
-      </Link>
-    </BreadcrumbItem>
-  ) : (
-    <BreadcrumbItem>
-    <Link to="/home">
-      <b>{translate.t("navbar.breadcrumbRoot")}</b>
-    </Link>
-  </BreadcrumbItem>
-  ))
-  );
+
+  const pathData: string[] = props.location.pathname.split("/")
+    .slice(2);
+  const breadcrumbItems: JSX.Element[] = pathData.map((item: string, index: number) => {
+    const link: string = pathData.slice(0, index + 1)
+      .join("/");
+
+    return (
+      <BreadcrumbItem key={index}>
+        <Link to={`/project/${link}`}>{_.capitalize(item)}</Link>
+      </BreadcrumbItem>
+    );
+  });
 
   return (
     <React.StrictMode>
       <Row className={style.container}>
         <Col md={9} sm={12} xs={12}>
           <Breadcrumb className={style.breadcrumb}>
-            {createBreadcrumbItems(pathData)}
+            <BreadcrumbItem>
+              <Link to="/home"><b>{translate.t("navbar.breadcrumbRoot")}</b></Link>
+            </BreadcrumbItem>
+            {breadcrumbItems}
           </Breadcrumb>
         </Col>
         <Col md={3} sm={12} xs={12}>
@@ -71,4 +64,4 @@ export const navbarComponent: React.FC<RouteComponentProps> = (props: RouteCompo
 
 const navbar: React.ComponentClass = withRouter(navbarComponent);
 
-export {navbar as Navbar };
+export { navbar as Navbar };
