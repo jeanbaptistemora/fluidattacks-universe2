@@ -488,6 +488,7 @@ const enTranslations: Dictionary = {
       base_url_placeholder: "gitlab.com/fluidattacks/integrates.git",
       branch: "Branch",
       branch_placeholder: "master",
+      cannotRemove: "Cannot remove project, permission denied",
       change_state: "Change state",
       description: "Description",
       download: "Download",

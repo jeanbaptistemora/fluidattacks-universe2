@@ -421,6 +421,8 @@ export const handleErrors: ((errorText: string, errors: readonly GraphQLError[])
         msgError(translate.t("home.newProject.noProjectName"));
       } else if (_.includes(err.message, "Exception - Error invalid project name")) {
         msgError(translate.t("home.newProject.invalidProject"));
+      } else if (_.includes(err.message, "Exception - Error permission denied")) {
+        msgError(translate.t("search_findings.tab_resources.cannotRemove"));
       } else {
         msgError(translate.t("proj_alerts.error_textsad"));
         rollbar.error(errorText, err);

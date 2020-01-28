@@ -282,3 +282,11 @@ class SameValues(Exception):
     def __init__(self):
         msg = 'Exception - Same values'
         super(SameValues, self).__init__(msg)
+
+
+class PermissionDenied(Exception):
+    """Exception to control permission"""
+
+    def __init__(self):
+        msg = 'Exception - Error permission denied'
+        super(PermissionDenied, self).__init__(msg)

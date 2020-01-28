@@ -13,7 +13,7 @@ from backend.dal import integrates_dal, project as project_dal
 from backend.domain import comment as comment_domain
 from backend.domain import finding as finding_domain, user as user_domain
 from backend.domain import vulnerability as vuln_domain
-from backend.exceptions import InvalidParameter, InvalidProjectName
+from backend.exceptions import InvalidParameter, InvalidProjectName, PermissionDenied
 from backend.mailer import send_comment_mail
 from backend import util
 
@@ -99,6 +99,8 @@ def remove_project(project_name, user_email):
         )
         util.invalidate_cache(project)
         response = Status(are_findings_masked, are_users_removed, is_project_finished)
+    else:
+        raise PermissionDenied()
     return response
 
 
