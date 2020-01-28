@@ -4,8 +4,10 @@ source "${stdenv}/setup"
 source "${genericShellOptions}"
 source "${genericDirs}"
 
+mkdir root/src/repo/build-src
+
 cp -r --no-preserve=mode,ownership \
-  "${srcDeploy}" root/src/repo/deploy
+  "${srcBuildSrcScripts}" root/src/repo/build-src/scripts
 cp -r --no-preserve=mode,ownership \
   "${srcDotGit}" root/src/repo/.git
 cp -r --no-preserve=mode,ownership \
@@ -56,29 +58,19 @@ function execute_example_exploits {
 }
 
 function generate_credits {
-  local current_branch
-
   echo >> sphinx/source/credits.rst
 
-  current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo 'master')
-
-  if test "${current_branch}" = "master"
-  then
-    echo 'running git-fame... this may take a loooong time'
-    git-fame \
-        -C \
-        --log=ERROR \
-        --silent-progress \
-        --ignore-whitespace \
-        --cost=cocomo \
-      | grep -viE '^total [a-z]+: [0-9]+(\.[0-9]+)?$' \
-      | grep -vP '^\D+?\d+\D+?0' \
-      | grep -vP 'Jane Doe' \
-      | tee -a sphinx/source/credits.rst
-  else
-    echo 'the table of credits will be generated in the master branch!' \
-      | tee -a sphinx/source/credits.rst
-  fi
+  echo 'running git-fame... this may take a loooong time'
+  git-fame \
+      -C \
+      --log=ERROR \
+      --silent-progress \
+      --ignore-whitespace \
+      --cost=cocomo \
+    | grep -viE '^total [a-z]+: [0-9]+(\.[0-9]+)?$' \
+    | grep -vP '^\D+?\d+\D+?0' \
+    | grep -vP 'Jane Doe' \
+    | tee -a sphinx/source/credits.rst
 
   cat sphinx/source/credits.rst.footer >> sphinx/source/credits.rst
 }
@@ -93,7 +85,7 @@ function build_doc {
   # Generate e: separate page per module f: overwrite M: module doc first
   sphinx-apidoc -efM fluidasserts -o sphinx/source
 
-  version=$(python3 ./deploy/get_version.py)
+  version=$(python3 ./build-src/scripts/get_version.py)
   checks_number=$(grep -rIE '@(track|api)' fluidasserts/ | wc -l)
 
   sed -i "s/<CHECKS>/${checks_number}/" sphinx/source/index.rst

@@ -12,16 +12,6 @@ stages:
   - release_to_docker
   - notify
 
-.kaniko_config: &kaniko_config
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [""]
-  before_script:
-    - echo '{"auths":{'
-              '"'"${CI_REGISTRY}"'":{"auth":"'${CI_REGISTRY_AUTH}'"},'
-              '"'"${DOCKER_HUB_URL}"'":{"auth":"'${DOCKER_HUB_AUTH}'"}}}' >
-          /kaniko/.docker/config.json
-
 .in_dev_branch: &in_dev_branch
   except:
     refs:
@@ -49,28 +39,6 @@ stages:
   <<: *with_nix
   <<: *in_dev_branch
   stage: test
-
-build:
-  stage: build
-  tags: [autoscaling-large]
-  <<: *kaniko_config
-  services: []
-  script:
-    - /kaniko/executor
-        --dockerfile Dockerfile.builder
-        --context .
-        --destination "${CI_REGISTRY_IMAGE}:builder"
-        --cache
-        --cache-repo "${CI_REGISTRY_IMAGE}"/builder-cache
-        --cleanup
-        --verbosity warn
-  retry:
-    max: 2
-    when:
-      - runner_system_failure
-  only:
-    - schedules
-  interruptible: true
 
 demo_fluidasserts_output:
   <<: *with_nix
@@ -246,11 +214,6 @@ test_api_syst:
 
 test_api_utils:
   <<: *test_template
-
-test_doc:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: test
 
 danger:
   image: fluidattacks/danger-ruby

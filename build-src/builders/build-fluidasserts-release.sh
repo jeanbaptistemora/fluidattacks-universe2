@@ -4,16 +4,17 @@ source "${stdenv}/setup"
 source "${genericShellOptions}"
 source "${genericDirs}"
 
-mkdir root/src/repo/conf
+mkdir root/src/repo/build-src
+mkdir root/src/repo/build-src/config
 
 cp -r --no-preserve=mode,ownership \
   "${srcBuildSh}" root/src/repo/build.sh
 cp -r --no-preserve=mode,ownership \
   "${srcBuildSrc}" root/src/repo/build-src
 cp -r --no-preserve=mode,ownership \
-  "${srcConfReadmeRst}" root/src/repo/conf/README.rst
+  "${srcBuildSrcConfigReadmeRst}" root/src/repo/build-src/config/README.rst
 cp -r --no-preserve=mode,ownership \
-  "${srcDeployGetVersion}" root/src/repo/get_version.py
+  "${srcBuildSrcScripts}" root/src/repo/build-src/scripts
 cp -r --no-preserve=mode,ownership \
   "${srcFluidasserts}" root/src/repo/fluidasserts
 cp -r --no-preserve=mode,ownership \
@@ -29,7 +30,7 @@ cp -r --no-preserve=mode,ownership \
 pushd root/src/repo
 
 # Patch the version to make it static
-version=$(python3 get_version.py)
+version=$(python3 ./build-src/scripts/get_version.py)
 echo "Version: ${version}"
 sed -i "s/_get_version(),/'${version}',/g" setup.py
 

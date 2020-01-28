@@ -43,15 +43,16 @@ function prepare_environment {
   mkdir -p "${PERSISTENT_DIR}"
 
   # Set the PYTHONPATH to the nix-created environment
-  PYTHONPATH="${pyPkgMandrill}/site-packages:${PYTHONPATH}"
+  PYTHONPATH="${pyPkgFluidassertsBasic}/site-packages:${PYTHONPATH}"
   PYTHONPATH="${pyPkgGitPython}/site-packages:${PYTHONPATH}"
+  PYTHONPATH="${pyPkgMandrill}/site-packages:${PYTHONPATH}"
   PYTHONPATH="${SITE_PACKAGES}:${PYTHONPATH}"
 
   # Set on PATH scripts installed with python
   mkdir "${SITE_PACKAGES}/bin"
-  PATH="${pyPkgMandrill}/site-packages/bin:${PATH}"
-  PATH="${pyPkgGitPython}/site-packages/bin:${PATH}"
+  PATH="${pyPkgFluidassertsBasic}/site-packages/bin:${PATH}"
   PATH="${SITE_PACKAGES}/bin:${PATH}"
+  chmod +x "${pyPkgFluidassertsBasic}/site-packages/bin/asserts"
 }
 
 #

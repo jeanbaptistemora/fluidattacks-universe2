@@ -8,7 +8,7 @@ with main;
 pkgs.stdenv.mkDerivation rec {
   name = "shell";
   inherit genericDirs genericShellOptions;
-  inherit pyPkgMandrill pyPkgGitPython;
+  inherit pyPkgFluidassertsBasic pyPkgMandrill pyPkgGitPython;
   buildInputs = with pkgs; [
     gnupg
     fluidassertsDeps

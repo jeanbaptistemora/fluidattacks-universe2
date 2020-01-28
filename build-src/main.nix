@@ -54,11 +54,10 @@ rec {
   srcBuildSh = ../build.sh;
   srcBuildSrc = ../build-src;
   srcBuildSrcConfigPylintrc = ../build-src/config/pylintrc;
+  srcBuildSrcConfigReadmeRst = ../build-src/config/README.rst;
+  srcBuildSrcScripts = ../build-src/scripts;
   srcBuildSrcPythonRequirementsLint = ../build-src/python-requirements/lint.lst;
   srcBuildSrcPythonRequirementsTest = ../build-src/python-requirements/test.lst;
-  srcConfReadmeRst = ../conf/README.rst;
-  srcDeploy = ../deploy;
-  srcDeployGetVersion = ../deploy/get_version.py;
   srcDockerfile = ../Dockerfile;
   srcDotGit = builtins.path {
     name = "git";
@@ -122,10 +121,10 @@ rec {
       Build fluidasserts binary and source distributions.
     '';
     inherit genericDirs genericShellOptions;
-    inherit srcConfReadmeRst;
     inherit srcBuildSh;
     inherit srcBuildSrc;
-    inherit srcDeployGetVersion;
+    inherit srcBuildSrcConfigReadmeRst;
+    inherit srcBuildSrcScripts;
     inherit srcFluidasserts;
     inherit srcManifestIn;
     inherit srcSetupPy;
@@ -168,7 +167,7 @@ rec {
     '';
     inherit genericDirs genericShellOptions;
     inherit pyPkgFluidassertsBasic pyPkgGitFame pyPkgSphinx;
-    inherit srcDeploy srcDotGit srcDotMailmap srcFluidasserts srcSphinx;
+    inherit srcBuildSrcScripts srcDotGit srcDotMailmap srcFluidasserts srcSphinx;
     buildInputs = with pkgs; [
       perl
       fluidassertsDeps
@@ -185,7 +184,7 @@ rec {
       but what's needed for development purposes.
     '';
     inherit genericDirs genericShellOptions;
-    inherit srcConfReadmeRst srcFluidasserts srcManifestIn srcSetupPy;
+    inherit srcBuildSrcConfigReadmeRst srcFluidasserts srcManifestIn srcSetupPy;
     inherit fluidassertsDependenciesCache;
     buildInputs = fluidassertsDeps;
     builder = ./builders/py-pkg-fluidasserts.sh;

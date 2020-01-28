@@ -149,37 +149,37 @@ function push_to_cachix {
 #
 
 function job_build_fluidasserts_release {
-  use_cachix_if_dev_branch
+  use_cachix
   build_and_link buildFluidassertsRelease result-build_fluidasserts_release
 }
 
 function job_demo_fluidasserts_output {
-  use_cachix_if_dev_branch
+  use_cachix
   build demoFluidassertsOutput
 }
 
 function job_lint_fluidasserts_code {
-  use_cachix_if_dev_branch
+  use_cachix
   build lintFluidassertsCode
 }
 
 function job_lint_fluidasserts_test_code {
-  use_cachix_if_dev_branch
+  use_cachix
   build lintFluidassertsTestCode
 }
 
 function job_lint_nix_code {
-  use_cachix_if_dev_branch
+  use_cachix
   build lintNixCode
 }
 
 function job_lint_shell_code {
-  use_cachix_if_dev_branch
+  use_cachix
   build lintShellCode
 }
 
 function job_lint_with_bandit {
-  use_cachix_if_dev_branch
+  use_cachix
   build lintWithBandit
 }
 
@@ -197,7 +197,7 @@ function job_pages {
 }
 
 function job_populate_caches {
-  use_cachix_if_dev_branch
+  use_cachix
 
   (
     job_demo_fluidasserts_output
@@ -206,7 +206,6 @@ function job_populate_caches {
     job_lint_nix_code
     job_lint_shell_code
     job_lint_with_bandit
-    job_test_commit_message
     build fluidassertsDependenciesCache
     build nodePkgCommitlint
     build pyPkgFluidassertsBasic
@@ -222,7 +221,7 @@ function job_populate_caches {
 function job_release_to_pypi {
   local runner_file
   local runner_name
-  use_cachix_if_dev_branch
+  use_cachix
 
   runner_name='ephemeral-runner.release_to_pypi'
   runner_file="./${runner_name}"
@@ -234,7 +233,7 @@ function job_release_to_pypi {
 function job_release_to_docker_hub {
   local runner_file
   local runner_name
-  use_cachix_if_dev_branch
+  use_cachix
 
   runner_name='ephemeral-runner.release_to_docker_hub'
   runner_file="./${runner_name}"
@@ -253,7 +252,7 @@ function job_send_new_version_mail {
 }
 
 function job_test_commit_message {
-  use_cachix_if_dev_branch
+  use_cachix
   build testCommitMessage
 }
 
@@ -296,10 +295,6 @@ for marker in "${TEST_MARKERS[@]}"
 do
   eval "function job_test_api_${marker} { _job_test_api__generic_dispatcher; }"
 done
-
-function job_test_doc {
-  job_pages
-}
 
 function cli {
   # A small interface to parse arguments like --job and --branch.
