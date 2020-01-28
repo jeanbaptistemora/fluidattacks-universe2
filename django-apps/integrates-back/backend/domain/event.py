@@ -18,7 +18,7 @@ from backend.mailer import send_comment_mail, send_mail_new_event
 
 from __init__ import (
     FI_CLOUDFRONT_RESOURCES_DOMAIN, FI_MAIL_CONTINUOUS,
-    FI_MAIL_PRODUCTION, FI_MAIL_PROJECTS
+    FI_MAIL_PRODUCTION, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
 )
 
 
@@ -126,6 +126,7 @@ def _send_new_event_mail(analyst, event_id, project, subscription, event_type):
                       'CLIENT_CANCELS_PROJECT_MILESTONE',
                       'CLIENT_EXPLICITLY_SUSPENDS_PROJECT']:
         recipients.append(FI_MAIL_PRODUCTION)
+        recipients += FI_MAIL_REVIEWERS.split(',')
 
     email_context = {
         'analyst_email': analyst,
