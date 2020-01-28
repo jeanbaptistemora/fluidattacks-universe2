@@ -13,6 +13,7 @@ import { IDescriptionViewProps } from "../../containers/DescriptionView/index";
 
 type renderFormFieldsFn = ((props: IDescriptionViewProps & { onDeleteTag?(): void }) => JSX.Element);
 
+let dateCheck: boolean = false;
 const treatmentFieldsView: renderFormFieldsFn =
   (props: IDescriptionViewProps & { onDeleteTag?(): void }): JSX.Element => {
     const formTreatmentValue: string = !_.isUndefined(props.formValues.treatmentVuln) ?
@@ -20,6 +21,7 @@ const treatmentFieldsView: renderFormFieldsFn =
     const hasBts: boolean = !_.isEmpty(props.dataset.btsUrl);
     const isNotEditable: boolean = props.isEditing && props.userRole === "customer";
     const treatmentAccepted: boolean = _.includes(["ACCEPTED", "ACCEPTED_UNDEFINED"], formTreatmentValue);
+    dateCheck = treatmentAccepted && props.dataset.treatment !== formTreatmentValue;
     const changeRender: boolean = props.isEditing && (formTreatmentValue === "IN PROGRESS" ||
     treatmentAccepted);
     const shouldRender: boolean = !props.isEditing && (formTreatmentValue === "IN PROGRESS" ||
@@ -32,6 +34,9 @@ const treatmentFieldsView: renderFormFieldsFn =
       if (props.onDeleteTag !== undefined) {
         props.onDeleteTag();
       }
+    };
+    const dateChanged: (() => void) = (): void => {
+      dateCheck = true;
     };
 
     /* tslint:disable-next-line cyclomatic-complexity Necessary because this function has a complexity of 21 > 20 */
@@ -168,7 +173,8 @@ const treatmentFieldsView: renderFormFieldsFn =
               name="acceptanceDate"
               renderAsEditable={isEditable}
               type="date"
-              validate={[isValidDate, isLowerDate]}
+              onChange={dateChanged}
+              validate={dateCheck ? [isValidDate, isLowerDate] : []}
               visible={treatmentAccepted}
             />
           </Col>
