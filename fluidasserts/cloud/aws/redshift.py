@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """AWS cloud checks (Redshift)."""
 
 # 3rd party imports
@@ -15,19 +14,24 @@ from fluidasserts.utils.decorators import api, unknown_if
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_public_clusters(key_id: str, secret: str, retry: bool = True) -> tuple:
+def has_public_clusters(key_id: str,
+                        secret: str,
+                        session_token: str = None,
+                        retry: bool = True) -> tuple:
     """
     Check if Redshift clusters are publicly accessible.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    clusters = aws.run_boto3_func(key_id=key_id,
-                                  secret=secret,
-                                  service='redshift',
-                                  func='describe_clusters',
-                                  param='Clusters',
-                                  retry=retry)
+    clusters = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='redshift',
+        func='describe_clusters',
+        param='Clusters',
+        retry=retry)
 
     msg_open: str = 'Clusters are publicly accessible'
     msg_closed: str = 'Clusters are not publicly accessible'
@@ -42,15 +46,19 @@ def has_public_clusters(key_id: str, secret: str, retry: bool = True) -> tuple:
                 (cluster_id, 'Must not be publicly accessible'))
 
     return _get_result_as_tuple(
-        service='RedShift', objects='clusters',
-        msg_open=msg_open, msg_closed=msg_closed,
-        vulns=vulns, safes=safes)
+        service='RedShift',
+        objects='clusters',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def has_encryption_disabled(key_id: str,
                             secret: str,
+                            session_token: str = None,
                             retry: bool = True) -> tuple:
     """
     Check if Redshift clusters has encryption disabled.
@@ -64,12 +72,14 @@ def has_encryption_disabled(key_id: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    clusters = aws.run_boto3_func(key_id=key_id,
-                                  secret=secret,
-                                  service='redshift',
-                                  func='describe_clusters',
-                                  param='Clusters',
-                                  retry=retry)
+    clusters = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='redshift',
+        func='describe_clusters',
+        param='Clusters',
+        retry=retry)
 
     msg_open: str = 'Redshift clusters has encryption disabled.'
     msg_closed: str = 'Redshift clusters has encryption enabled.'

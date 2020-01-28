@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """AWS cloud checks (RDS)."""
 
 # 3rd party imports
@@ -15,7 +14,9 @@ from fluidasserts.utils.decorators import api, unknown_if
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_public_instances(key_id: str, secret: str,
+def has_public_instances(key_id: str,
+                         secret: str,
+                         session_token: str = None,
                          retry: bool = True) -> tuple:
     """
     Check if RDS DB instances are publicly accessible.
@@ -23,12 +24,14 @@ def has_public_instances(key_id: str, secret: str,
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    instances = aws.run_boto3_func(key_id=key_id,
-                                   secret=secret,
-                                   service='rds',
-                                   func='describe_db_instances',
-                                   param='DBInstances',
-                                   retry=retry)
+    instances = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='rds',
+        func='describe_db_instances',
+        param='DBInstances',
+        retry=retry)
 
     msg_open: str = 'RDS instances are publicly accessible'
     msg_closed: str = 'RDS instances are not publicly accessible'
@@ -43,14 +46,19 @@ def has_public_instances(key_id: str, secret: str,
                 (instance_arn, 'Must not be publicly accessible'))
 
     return _get_result_as_tuple(
-        service='RDS', objects='instances',
-        msg_open=msg_open, msg_closed=msg_closed,
-        vulns=vulns, safes=safes)
+        service='RDS',
+        objects='instances',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def is_cluster_not_inside_a_db_subnet_group(key_id: str, secret: str,
+def is_cluster_not_inside_a_db_subnet_group(key_id: str,
+                                            secret: str,
+                                            session_token: str = None,
                                             retry: bool = True) -> tuple:
     """
     Check if Database clusters are inside a DB Subnet Group.
@@ -58,12 +66,14 @@ def is_cluster_not_inside_a_db_subnet_group(key_id: str, secret: str,
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    clusters = aws.run_boto3_func(key_id=key_id,
-                                  secret=secret,
-                                  service='rds',
-                                  func='describe_db_clusters',
-                                  param='DBClusters',
-                                  retry=retry)
+    clusters = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='rds',
+        func='describe_db_clusters',
+        param='DBClusters',
+        retry=retry)
 
     msg_open: str = 'RDS clusters are not inside a database subnet group'
     msg_closed: str = 'RDS clusters are inside a database subnet group'
@@ -77,14 +87,19 @@ def is_cluster_not_inside_a_db_subnet_group(key_id: str, secret: str,
                 (cluster_arn, 'must be inside a database subnet group'))
 
     return _get_result_as_tuple(
-        service='RDS', objects='clusters',
-        msg_open=msg_open, msg_closed=msg_closed,
-        vulns=vulns, safes=safes)
+        service='RDS',
+        objects='clusters',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def is_instance_not_inside_a_db_subnet_group(key_id: str, secret: str,
+def is_instance_not_inside_a_db_subnet_group(key_id: str,
+                                             secret: str,
+                                             session_token: str = None,
                                              retry: bool = True) -> tuple:
     """
     Check if Database Instances are inside a DB Subnet Group.
@@ -92,12 +107,14 @@ def is_instance_not_inside_a_db_subnet_group(key_id: str, secret: str,
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    instances = aws.run_boto3_func(key_id=key_id,
-                                   secret=secret,
-                                   service='rds',
-                                   func='describe_db_instances',
-                                   param='DBInstances',
-                                   retry=retry)
+    instances = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='rds',
+        func='describe_db_instances',
+        param='DBInstances',
+        retry=retry)
 
     msg_open: str = 'RDS instances are not inside a database subnet group'
     msg_closed: str = 'RDS instances are inside a database subnet group'
@@ -112,14 +129,19 @@ def is_instance_not_inside_a_db_subnet_group(key_id: str, secret: str,
                 (instance_arn, 'must be inside a database subnet group'))
 
     return _get_result_as_tuple(
-        service='RDS', objects='instances',
-        msg_open=msg_open, msg_closed=msg_closed,
-        vulns=vulns, safes=safes)
+        service='RDS',
+        objects='instances',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_encryption_disabled(key_id: str, secret: str,
+def has_encryption_disabled(key_id: str,
+                            secret: str,
+                            session_token: str = None,
                             retry: bool = True) -> tuple:
     """
     Check if the instances have `StorageEncrypted` disabled.
@@ -138,12 +160,14 @@ def has_encryption_disabled(key_id: str, secret: str,
     msg_closed: str = 'The Instances are encrypted.'
 
     vulns, safes = [], []
-    instances = aws.run_boto3_func(key_id=key_id,
-                                   secret=secret,
-                                   service='rds',
-                                   func='describe_db_instances',
-                                   param='DBInstances',
-                                   retry=retry)
+    instances = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='rds',
+        func='describe_db_instances',
+        param='DBInstances',
+        retry=retry)
 
     if instances:
         for instance in instances:
@@ -163,7 +187,9 @@ def has_encryption_disabled(key_id: str, secret: str,
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_public_snapshots(key_id: str, secret: str,
+def has_public_snapshots(key_id: str,
+                         secret: str,
+                         session_token: str = None,
                          retry: bool = True) -> tuple:
     """
     Check for snapshots that allow public access.
@@ -184,6 +210,7 @@ def has_public_snapshots(key_id: str, secret: str,
     snapshots = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
         service='rds',
         func='describe_db_snapshots',
         param='DBSnapshots',
@@ -192,6 +219,7 @@ def has_public_snapshots(key_id: str, secret: str,
         snapshot = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
+            boto3_client_kwargs={'aws_session_token': session_token},
             service='rds',
             func='describe_db_snapshot_attributes',
             param='DBSnapshotAttributesResult',
@@ -217,7 +245,9 @@ def has_public_snapshots(key_id: str, secret: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def not_uses_iam_authentication(key_id: str, secret: str,
+def not_uses_iam_authentication(key_id: str,
+                                secret: str,
+                                session_token: str = None,
                                 retry: bool = True) -> tuple:
     """
     Check if the BD instances are not using IAM database authentication.
@@ -239,6 +269,7 @@ def not_uses_iam_authentication(key_id: str, secret: str,
     instances = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
         service='rds',
         func='describe_db_instances',
         param='DBInstances',
@@ -262,6 +293,7 @@ def not_uses_iam_authentication(key_id: str, secret: str,
 @unknown_if(BotoCoreError, RequestException)
 def unrestricted_db_security_groups(key_id: str,
                                     secret: str,
+                                    session_token: str = None,
                                     retry: bool = True) -> tuple:
     """
     Check if the database security groups allow unrestricted access.
@@ -286,6 +318,7 @@ def unrestricted_db_security_groups(key_id: str,
     instances = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
         service='rds',
         func='describe_db_instances',
         param='DBInstances',
@@ -297,6 +330,7 @@ def unrestricted_db_security_groups(key_id: str,
         security_groups = aws.run_boto3_func(
             key_id,
             secret=secret,
+            boto3_client_kwargs={'aws_session_token': session_token},
             service='ec2',
             func='describe_security_groups',
             param='SecurityGroups',
@@ -329,7 +363,9 @@ def unrestricted_db_security_groups(key_id: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_not_deletion_protection(key_id: str, secret: str,
+def has_not_deletion_protection(key_id: str,
+                                secret: str,
+                                session_token: str = None,
                                 retry: bool = True) -> tuple:
     """
     Check if the database instances are not protected against deletion.
@@ -351,6 +387,7 @@ def has_not_deletion_protection(key_id: str, secret: str,
     instances = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
         service='rds',
         func='describe_db_instances',
         param='DBInstances',
@@ -358,8 +395,7 @@ def has_not_deletion_protection(key_id: str, secret: str,
 
     for instance in instances:
         (vulns if not instance['DeletionProtection'] else safes).append(
-            (instance['DBInstanceArn'],
-             'must enable deletion protection.'))
+            (instance['DBInstanceArn'], 'must enable deletion protection.'))
     return _get_result_as_tuple(
         service='RDS',
         objects='Instances',
@@ -373,6 +409,7 @@ def has_not_deletion_protection(key_id: str, secret: str,
 @unknown_if(BotoCoreError, RequestException)
 def has_disabled_automatic_backups(key_id: str,
                                    secret: str,
+                                   session_token: str = None,
                                    retry: bool = True) -> tuple:
     """
     Check if the database instances has disabled automatic backups.
@@ -394,6 +431,7 @@ def has_disabled_automatic_backups(key_id: str,
     instances = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
         service='rds',
         func='describe_db_instances',
         param='DBInstances',

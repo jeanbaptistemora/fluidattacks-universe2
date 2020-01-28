@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """AWS cloud checks (DynamoDB)."""
 
 # std imports
@@ -18,7 +17,9 @@ from fluidasserts.utils.decorators import api, unknown_if
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def encrypted_with_aws_master_keys(key_id: str, secret: str,
+def encrypted_with_aws_master_keys(key_id: str,
+                                   secret: str,
+                                   session_token: str = None,
                                    retry: bool = True) -> tuple:
     """
     Check if DynamoDB tables are encrypt with AWS-owned Master Keys.
@@ -46,6 +47,7 @@ def encrypted_with_aws_master_keys(key_id: str, secret: str,
     table_names = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
         service='dynamodb',
         func='list_tables',
         param='TableNames',
@@ -55,6 +57,7 @@ def encrypted_with_aws_master_keys(key_id: str, secret: str,
         table = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
+            boto3_client_kwargs={'aws_session_token': session_token},
             service='dynamodb',
             func='describe_table',
             TableName=table,
@@ -82,6 +85,7 @@ def encrypted_with_aws_master_keys(key_id: str, secret: str,
 @unknown_if(BotoCoreError, RequestException)
 def has_disabled_continuous_backups(key_id: str,
                                     secret: str,
+                                    session_token: str = None,
                                     retry: bool = True) -> tuple:
     """
     Check if continuous backups are disabled for Amazon DynamoDB tables.
@@ -104,6 +108,7 @@ def has_disabled_continuous_backups(key_id: str,
     table_names = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
         service='dynamodb',
         func='list_tables',
         param='TableNames',
@@ -113,6 +118,7 @@ def has_disabled_continuous_backups(key_id: str,
         table_backup = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
+            boto3_client_kwargs={'aws_session_token': session_token},
             service='dynamodb',
             func='describe_continuous_backups',
             TableName=table,
@@ -122,6 +128,7 @@ def has_disabled_continuous_backups(key_id: str,
         table = aws.run_boto3_func(
             key_id=key_id,
             secret=secret,
+            boto3_client_kwargs={'aws_session_token': session_token},
             service='dynamodb',
             func='describe_table',
             TableName=table,

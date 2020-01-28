@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """AWS cloud checks (KMS)."""
 
 # std imports
@@ -21,6 +20,7 @@ from fluidasserts.utils.decorators import api, unknown_if
 @unknown_if(BotoCoreError, RequestException)
 def has_master_keys_exposed_to_everyone(key_id: str,
                                         secret: str,
+                                        session_token: str = None,
                                         retry: bool = True) -> tuple:
     """
     Check if Amazon KMS master keys are exposed to everyone.
@@ -44,6 +44,7 @@ def has_master_keys_exposed_to_everyone(key_id: str,
     aliases = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
         service='kms',
         func='list_aliases',
         param='Aliases',
@@ -53,6 +54,7 @@ def has_master_keys_exposed_to_everyone(key_id: str,
             policy_names = aws.run_boto3_func(
                 key_id=key_id,
                 secret=secret,
+                boto3_client_kwargs={'aws_session_token': session_token},
                 service='kms',
                 func='list_key_policies',
                 KeyId=alias['TargetKeyId'],
@@ -65,6 +67,7 @@ def has_master_keys_exposed_to_everyone(key_id: str,
             key_string = aws.run_boto3_func(
                 key_id=key_id,
                 secret=secret,
+                boto3_client_kwargs={'aws_session_token': session_token},
                 service='kms',
                 func='get_key_policy',
                 KeyId=alias['TargetKeyId'],
@@ -93,7 +96,9 @@ def has_master_keys_exposed_to_everyone(key_id: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_key_rotation_disabled(key_id: str, secret: str,
+def has_key_rotation_disabled(key_id: str,
+                              secret: str,
+                              session_token: str = None,
                               retry: bool = True) -> tuple:
     """
     Check if master keys have Key Rotation disabled.
@@ -115,6 +120,7 @@ def has_key_rotation_disabled(key_id: str, secret: str,
     keys = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
         service='kms',
         func='list_keys',
         param='Keys',
@@ -125,6 +131,7 @@ def has_key_rotation_disabled(key_id: str, secret: str,
             key_rotation = aws.run_boto3_func(
                 key_id=key_id,
                 secret=secret,
+                boto3_client_kwargs={'aws_session_token': session_token},
                 service='kms',
                 func='get_key_rotation_status',
                 param='KeyRotationEnabled',

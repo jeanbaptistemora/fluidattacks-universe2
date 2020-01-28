@@ -13,7 +13,9 @@ from fluidasserts.utils.decorators import api, unknown_if
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_access_logging_disabled(key_id: str, secret: str,
+def has_access_logging_disabled(key_id: str,
+                                secret: str,
+                                session_token: str = None,
                                 retry: bool = True) -> tuple:
     """
     Check if ``LoadBalancers`` have **access_logs.s3.enabled** set to **true**.
@@ -21,12 +23,14 @@ def has_access_logging_disabled(key_id: str, secret: str,
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    balancers = aws.run_boto3_func(key_id=key_id,
-                                   secret=secret,
-                                   service='elbv2',
-                                   func='describe_load_balancers',
-                                   param='LoadBalancers',
-                                   retry=retry)
+    balancers = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='elbv2',
+        func='describe_load_balancers',
+        param='LoadBalancers',
+        retry=retry)
 
     msg_open: str = 'ELB Load Balancers have access logging disabled'
     msg_closed: str = 'ELB Load Balancers have access logging enabled'
@@ -40,6 +44,7 @@ def has_access_logging_disabled(key_id: str, secret: str,
             for attrs in aws.run_boto3_func(
                     key_id=key_id,
                     secret=secret,
+                    boto3_client_kwargs={'aws_session_token': session_token},
                     service='elbv2',
                     func='describe_load_balancer_attributes',
                     param='Attributes',
@@ -52,14 +57,19 @@ def has_access_logging_disabled(key_id: str, secret: str,
                          'access_logs.s3.enabled must be enabled'))
 
     return _get_result_as_tuple(
-        service='ELBv2', objects='Load Balancers version 2',
-        msg_open=msg_open, msg_closed=msg_closed,
-        vulns=vulns, safes=safes)
+        service='ELBv2',
+        objects='Load Balancers version 2',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_not_deletion_protection(key_id: str, secret: str,
+def has_not_deletion_protection(key_id: str,
+                                secret: str,
+                                session_token: str = None,
                                 retry: bool = True) -> tuple:
     """
     Check if ``LoadBalancers`` have **Deletion Protection**.
@@ -67,12 +77,14 @@ def has_not_deletion_protection(key_id: str, secret: str,
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    balancers = aws.run_boto3_func(key_id=key_id,
-                                   secret=secret,
-                                   service='elbv2',
-                                   func='describe_load_balancers',
-                                   param='LoadBalancers',
-                                   retry=retry)
+    balancers = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='elbv2',
+        func='describe_load_balancers',
+        param='LoadBalancers',
+        retry=retry)
 
     msg_open: str = 'ELB Load Balancers have not deletion protection'
     msg_closed: str = 'ELB Load Balancers clusters have deletion protection'
@@ -86,6 +98,7 @@ def has_not_deletion_protection(key_id: str, secret: str,
             for attrs in aws.run_boto3_func(
                     key_id=key_id,
                     secret=secret,
+                    boto3_client_kwargs={'aws_session_token': session_token},
                     service='elbv2',
                     func='describe_load_balancer_attributes',
                     param='Attributes',
@@ -98,6 +111,9 @@ def has_not_deletion_protection(key_id: str, secret: str,
                          'deletion_protection.enabled must be enabled'))
 
     return _get_result_as_tuple(
-        service='ELBv2', objects='Load Balancers version 2',
-        msg_open=msg_open, msg_closed=msg_closed,
-        vulns=vulns, safes=safes)
+        service='ELBv2',
+        objects='Load Balancers version 2',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

@@ -151,7 +151,10 @@ def run_boto3_func(key_id: str,
 
 @retry_on_errors
 def credentials_report(
-        key_id: str, secret: str, retry: bool = True) -> Tuple[Dict[str, str]]:
+        key_id: str,
+        secret: str,
+        retry: bool = True,
+        boto3_client_kwargs: dict = None) -> Tuple[Dict[str, str]]:
     """
     Get IAM credentials report.
 
@@ -159,9 +162,11 @@ def credentials_report(
     :param secret: AWS Key Secret
     """
     try:
-        client = get_aws_client(service='iam',
-                                key_id=key_id,
-                                secret=secret)
+        client = get_aws_client(
+            service='iam',
+            key_id=key_id,
+            secret=secret,
+            **(boto3_client_kwargs or {}))
         client.generate_credential_report()
         response = client.get_credential_report()
         users_csv = StringIO(response['Content'].decode())

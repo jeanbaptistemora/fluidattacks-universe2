@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """AWS cloud checks (EKS)."""
 
 # std imports
@@ -20,6 +19,7 @@ from fluidasserts.utils.decorators import api, unknown_if
 @unknown_if(BotoCoreError, RequestException)
 def allows_insecure_inbound_traffic(key_id: str,
                                     secret: str,
+                                    session_token: str = None,
                                     client_kwargs: dict = None,
                                     retry: bool = True) -> tuple:
     """
@@ -43,6 +43,9 @@ def allows_insecure_inbound_traffic(key_id: str,
         'EKS security groups allow access on ports other than TCP port 443.'
     msg_closed: str = 'EKS security groups only allow access by HTTPS.'
     vulns, safes = [], []
+
+    client_kwargs = client_kwargs or {}
+    client_kwargs['aws_session_token'] = session_token
     clusters = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
@@ -99,6 +102,7 @@ def allows_insecure_inbound_traffic(key_id: str,
 @unknown_if(BotoCoreError, RequestException)
 def has_endpoints_publicly_accessible(key_id: str,
                                       secret: str,
+                                      session_token: str = None,
                                       retry: bool = True,
                                       client_kwargs: dict = None) -> tuple:
     """
@@ -125,6 +129,10 @@ def has_endpoints_publicly_accessible(key_id: str,
         'The endpoints of the Kubernetes API server of the EKS'
         ' clusters are not publicly accessible from the Internet')
     vulns, safes = [], []
+
+    client_kwargs = client_kwargs or {}
+    client_kwargs['aws_session_token'] = session_token
+
     clusters = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
@@ -144,10 +152,10 @@ def has_endpoints_publicly_accessible(key_id: str,
             retry=retry,
             name=cluster,
             boto3_client_kwargs=client_kwargs)
-        vulnerable = (cluster_description['resourcesVpcConfig']
-                      ['endpointPrivateAccess'] is False) and (
-                          cluster_description['resourcesVpcConfig']
-                          ['endpointPublicAccess'] is True)
+        vulnerable = (
+            cluster_description['resourcesVpcConfig']['endpointPrivateAccess']
+            is False) and (cluster_description['resourcesVpcConfig']
+                           ['endpointPublicAccess'] is True)
         (vulns if vulnerable else safes).append(
             (cluster_description['arn'],
              ('The API Server must not be publicly accessible, it should only'
@@ -166,6 +174,7 @@ def has_endpoints_publicly_accessible(key_id: str,
 @unknown_if(BotoCoreError, RequestException)
 def has_disable_cluster_logging(key_id: str,
                                 secret: str,
+                                session_token: str = None,
                                 retry: bool = True,
                                 client_kwargs: dict = None) -> tuple:
     """
@@ -186,6 +195,9 @@ def has_disable_cluster_logging(key_id: str,
     msg_open: str = 'EkS clusters have control plane logging disabled.'
     msg_closed: str = 'EkS clusters have control plane logging enabled.'
     vulns, safes = [], []
+
+    client_kwargs = client_kwargs or {}
+    client_kwargs['aws_session_token'] = session_token
 
     clusters = aws.run_boto3_func(
         key_id=key_id,

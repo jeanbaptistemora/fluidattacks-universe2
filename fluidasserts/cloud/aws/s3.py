@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """AWS cloud checks (S3)."""
 
 # standard imports
@@ -23,20 +22,24 @@ from fluidasserts.utils.decorators import api, unknown_if
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_server_access_logging_disabled(
-        key_id: str, secret: str, retry: bool = True) -> tuple:
+def has_server_access_logging_disabled(key_id: str,
+                                       secret: str,
+                                       session_token: str = None,
+                                       retry: bool = True) -> tuple:
     """
     Check if S3 buckets have server access logging enabled.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    buckets = aws.run_boto3_func(key_id=key_id,
-                                 secret=secret,
-                                 service='s3',
-                                 func='list_buckets',
-                                 param='Buckets',
-                                 retry=retry)
+    buckets = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='s3',
+        func='list_buckets',
+        param='Buckets',
+        retry=retry)
 
     msg_open: str = 'Logging is disabled on buckets'
     msg_closed: str = 'Logging is enabled on buckets'
@@ -46,12 +49,14 @@ def has_server_access_logging_disabled(
     if buckets:
         for bucket in buckets:
             bucket_name = bucket['Name']
-            bucket_logging = aws.run_boto3_func(key_id=key_id,
-                                                secret=secret,
-                                                service='s3',
-                                                func='get_bucket_logging',
-                                                Bucket=bucket_name,
-                                                retry=retry)
+            bucket_logging = aws.run_boto3_func(
+                key_id=key_id,
+                secret=secret,
+                boto3_client_kwargs={'aws_session_token': session_token},
+                service='s3',
+                func='get_bucket_logging',
+                Bucket=bucket_name,
+                retry=retry)
 
             bucket_logging_enabled = bool(bucket_logging.get('LoggingEnabled'))
 
@@ -59,27 +64,34 @@ def has_server_access_logging_disabled(
                 (bucket_name, 'Must have logging enabled'))
 
     return _get_result_as_tuple(
-        service='S3', objects='buckets',
-        msg_open=msg_open, msg_closed=msg_closed,
-        vulns=vulns, safes=safes)
+        service='S3',
+        objects='buckets',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_public_buckets(
-        key_id: str, secret: str, retry: bool = True) -> tuple:
+def has_public_buckets(key_id: str,
+                       secret: str,
+                       session_token: str = None,
+                       retry: bool = True) -> tuple:
     """
     Check if S3 buckets have public read access.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    buckets = aws.run_boto3_func(key_id=key_id,
-                                 secret=secret,
-                                 service='s3',
-                                 func='list_buckets',
-                                 param='Buckets',
-                                 retry=retry)
+    buckets = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='s3',
+        func='list_buckets',
+        param='Buckets',
+        retry=retry)
 
     msg_open: str = 'There are public buckets'
     msg_closed: str = 'There are not public buckets'
@@ -89,13 +101,15 @@ def has_public_buckets(
     if buckets:
         for bucket in buckets:
             bucket_name = bucket['Name']
-            bucket_grants = aws.run_boto3_func(key_id=key_id,
-                                               secret=secret,
-                                               service='s3',
-                                               func='get_bucket_acl',
-                                               Bucket=bucket_name,
-                                               param='Grants',
-                                               retry=retry)
+            bucket_grants = aws.run_boto3_func(
+                key_id=key_id,
+                secret=secret,
+                boto3_client_kwargs={'aws_session_token': session_token},
+                service='s3',
+                func='get_bucket_acl',
+                Bucket=bucket_name,
+                param='Grants',
+                retry=retry)
 
             result = aws.get_bucket_public_grants(bucket_name, bucket_grants)
 
@@ -103,15 +117,19 @@ def has_public_buckets(
                 (bucket_name, 'Must not be publicly accessible'))
 
     return _get_result_as_tuple(
-        service='S3', objects='buckets',
-        msg_open=msg_open, msg_closed=msg_closed,
-        vulns=vulns, safes=safes)
+        service='S3',
+        objects='buckets',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def has_buckets_without_default_encryption(key_id: str,
                                            secret: str,
+                                           session_token: str = None,
                                            retry: bool = True) -> tuple:
     """
     Check if Amazon S3 buckets do not have Default Encryption feature enable.
@@ -134,6 +152,7 @@ def has_buckets_without_default_encryption(key_id: str,
     buckets = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
         service='s3',
         func='list_buckets',
         param='Buckets',
@@ -143,6 +162,7 @@ def has_buckets_without_default_encryption(key_id: str,
             aws.run_boto3_func(
                 key_id=key_id,
                 secret=secret,
+                boto3_client_kwargs={'aws_session_token': session_token},
                 service='s3',
                 func='get_bucket_encryption',
                 Bucket=bucket_name,
@@ -165,6 +185,7 @@ def has_buckets_without_default_encryption(key_id: str,
 @unknown_if(BotoCoreError, RequestException)
 def buckets_allow_unauthorized_public_access(key_id: str,
                                              secret: str,
+                                             session_token: str = None,
                                              retry: bool = True) -> tuple:
     """
     Check if S3 buckets allow unauthorized public access via bucket policies.
@@ -186,6 +207,7 @@ def buckets_allow_unauthorized_public_access(key_id: str,
     buckets = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
         service='s3',
         func='list_buckets',
         param='Buckets',
@@ -195,6 +217,7 @@ def buckets_allow_unauthorized_public_access(key_id: str,
             bucket_policy_string = aws.run_boto3_func(
                 key_id=key_id,
                 secret=secret,
+                boto3_client_kwargs={'aws_session_token': session_token},
                 service='s3',
                 func='get_bucket_policy',
                 param='Policy',
@@ -229,7 +252,9 @@ def buckets_allow_unauthorized_public_access(key_id: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_insecure_transport(key_id: str, secret: str,
+def has_insecure_transport(key_id: str,
+                           secret: str,
+                           session_token: str = None,
                            retry: bool = True) -> tuple:
     """
     Check if S3 buckets are protecting data in transit using SSL.
@@ -250,6 +275,7 @@ def has_insecure_transport(key_id: str, secret: str,
     buckets = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
         service='s3',
         func='list_buckets',
         param='Buckets',
@@ -259,6 +285,7 @@ def has_insecure_transport(key_id: str, secret: str,
             bucket_policy_string = aws.run_boto3_func(
                 key_id=key_id,
                 secret=secret,
+                boto3_client_kwargs={'aws_session_token': session_token},
                 service='s3',
                 func='get_bucket_policy',
                 param='Policy',
@@ -298,7 +325,9 @@ def has_insecure_transport(key_id: str, secret: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_disabled_server_side_encryption(key_id: str, secret: str,
+def has_disabled_server_side_encryption(key_id: str,
+                                        secret: str,
+                                        session_token: str = None,
                                         retry: bool = True) -> tuple:
     """
     Check if S3 buckets have Server-Side Encryption disabled.
@@ -319,6 +348,7 @@ def has_disabled_server_side_encryption(key_id: str, secret: str,
     buckets = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
         service='s3',
         func='list_buckets',
         param='Buckets',
@@ -328,6 +358,7 @@ def has_disabled_server_side_encryption(key_id: str, secret: str,
             bucket_policy_string = aws.run_boto3_func(
                 key_id=key_id,
                 secret=secret,
+                boto3_client_kwargs={'aws_session_token': session_token},
                 service='s3',
                 func='get_bucket_policy',
                 param='Policy',
@@ -385,15 +416,19 @@ def bucket_objects_can_be_listed(bucket_names: List[str]):
                 raise BotoCoreError
 
     return _get_result_as_tuple(
-        service='S3', objects='buckets',
-        msg_open=msg_open, msg_closed=msg_closed,
-        vulns=vulns, safes=safes)
+        service='S3',
+        objects='buckets',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def buckets_has_permissive_acl_permissions(key_id: str,
                                            secret: str,
+                                           session_token: str = None,
                                            retry: bool = True):
     """
     Check if S3 buckets allow global write, delete, or read ACL permissions.
@@ -416,6 +451,7 @@ def buckets_has_permissive_acl_permissions(key_id: str,
     buckets = aws.run_boto3_func(
         key_id=key_id,
         secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
         service='s3',
         func='list_buckets',
         retry=retry)
@@ -424,6 +460,7 @@ def buckets_has_permissive_acl_permissions(key_id: str,
             bucket_grants = aws.run_boto3_func(
                 key_id=key_id,
                 secret=secret,
+                boto3_client_kwargs={'aws_session_token': session_token},
                 service='s3',
                 func='get_bucket_acl',
                 param='Grants',

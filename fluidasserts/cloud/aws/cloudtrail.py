@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """AWS cloud checks (CloudTrail)."""
 
 # 3rd party imports
@@ -15,20 +14,24 @@ from fluidasserts.utils.decorators import api, unknown_if
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def trails_not_multiregion(
-        key_id: str, secret: str, retry: bool = True) -> tuple:
+def trails_not_multiregion(key_id: str,
+                           secret: str,
+                           session_token: str = None,
+                           retry: bool = True) -> tuple:
     """
     Check if trails are multiregion.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    trails = aws.run_boto3_func(key_id=key_id,
-                                secret=secret,
-                                service='cloudtrail',
-                                func='describe_trails',
-                                param='trailList',
-                                retry=retry)
+    trails = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='cloudtrail',
+        func='describe_trails',
+        param='trailList',
+        retry=retry)
 
     msg_open: str = 'Trails are not multiregion'
     msg_closed: str = 'All trails are multiregion'
@@ -43,26 +46,34 @@ def trails_not_multiregion(
                 (trail_arn, 'Must be multi-region'))
 
     return _get_result_as_tuple(
-        service='CloudTrail', objects='trails',
-        msg_open=msg_open, msg_closed=msg_closed,
-        vulns=vulns, safes=safes)
+        service='CloudTrail',
+        objects='trails',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def files_not_validated(key_id: str, secret: str, retry: bool = True) -> tuple:
+def files_not_validated(key_id: str,
+                        secret: str,
+                        session_token: str = None,
+                        retry: bool = True) -> tuple:
     """
     Check if trails are multiregion.
 
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    trails = aws.run_boto3_func(key_id=key_id,
-                                secret=secret,
-                                service='cloudtrail',
-                                func='describe_trails',
-                                param='trailList',
-                                retry=retry)
+    trails = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='cloudtrail',
+        func='describe_trails',
+        param='trailList',
+        retry=retry)
 
     msg_open: str = 'File validation is not enabled on trails'
     msg_closed: str = 'File validation is enabled on trails'
@@ -77,14 +88,19 @@ def files_not_validated(key_id: str, secret: str, retry: bool = True) -> tuple:
                 (trail_arn, 'Must have file validation enabled'))
 
     return _get_result_as_tuple(
-        service='CloudTrail', objects='trails',
-        msg_open=msg_open, msg_closed=msg_closed,
-        vulns=vulns, safes=safes)
+        service='CloudTrail',
+        objects='trails',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def is_trail_bucket_public(key_id: str, secret: str,
+def is_trail_bucket_public(key_id: str,
+                           secret: str,
+                           session_token: str = None,
                            retry: bool = True) -> tuple:
     """
     Check if trails buckets are public.
@@ -92,12 +108,14 @@ def is_trail_bucket_public(key_id: str, secret: str,
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    trails = aws.run_boto3_func(key_id=key_id,
-                                secret=secret,
-                                service='cloudtrail',
-                                func='describe_trails',
-                                param='trailList',
-                                retry=retry)
+    trails = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='cloudtrail',
+        func='describe_trails',
+        param='trailList',
+        retry=retry)
 
     msg_open: str = 'Buckets are public'
     msg_closed: str = 'Buckets are not public'
@@ -108,13 +126,15 @@ def is_trail_bucket_public(key_id: str, secret: str,
         for trail in trails:
             trail_arn = trail['TrailARN']
             trail_bucket = trail['S3BucketName']
-            grants = aws.run_boto3_func(key_id=key_id,
-                                        secret=secret,
-                                        service='s3',
-                                        func='get_bucket_acl',
-                                        param='Grants',
-                                        retry=retry,
-                                        Bucket=trail_bucket)
+            grants = aws.run_boto3_func(
+                key_id=key_id,
+                secret=secret,
+                boto3_client_kwargs={'aws_session_token': session_token},
+                service='s3',
+                func='get_bucket_acl',
+                param='Grants',
+                retry=retry,
+                Bucket=trail_bucket)
 
             is_vulnerable = aws.get_bucket_public_grants(trail_bucket, grants)
 
@@ -122,14 +142,19 @@ def is_trail_bucket_public(key_id: str, secret: str,
                 (f'{trail_bucket}@{trail_arn}', 'Bucket must be private'))
 
     return _get_result_as_tuple(
-        service='CloudTrail', objects='trails',
-        msg_open=msg_open, msg_closed=msg_closed,
-        vulns=vulns, safes=safes)
+        service='CloudTrail',
+        objects='trails',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def is_trail_bucket_logging_disabled(key_id: str, secret: str,
+def is_trail_bucket_logging_disabled(key_id: str,
+                                     secret: str,
+                                     session_token: str = None,
                                      retry: bool = True) -> tuple:
     """
     Check if trails bucket logging is enabled.
@@ -137,12 +162,14 @@ def is_trail_bucket_logging_disabled(key_id: str, secret: str,
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    trails = aws.run_boto3_func(key_id=key_id,
-                                secret=secret,
-                                service='cloudtrail',
-                                func='describe_trails',
-                                param='trailList',
-                                retry=retry)
+    trails = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='cloudtrail',
+        func='describe_trails',
+        param='trailList',
+        retry=retry)
 
     msg_open: str = 'Trail buckets have logging disabled'
     msg_closed: str = 'Trail buckets have logging enabled'
@@ -153,25 +180,32 @@ def is_trail_bucket_logging_disabled(key_id: str, secret: str,
         for trail in trails:
             t_arn = trail['TrailARN']
             t_bucket = trail['S3BucketName']
-            logging = aws.run_boto3_func(key_id=key_id,
-                                         secret=secret,
-                                         service='s3',
-                                         func='get_bucket_logging',
-                                         retry=retry,
-                                         Bucket=t_bucket)
+            logging = aws.run_boto3_func(
+                key_id=key_id,
+                secret=secret,
+                boto3_client_kwargs={'aws_session_token': session_token},
+                service='s3',
+                func='get_bucket_logging',
+                retry=retry,
+                Bucket=t_bucket)
 
             (vulns if not logging.get('LoggingEnabled') else safes).append(
                 (f'S3:{t_bucket}@{t_arn}', 'Bucket must have logging enabled'))
 
     return _get_result_as_tuple(
-        service='CloudTrail', objects='trails',
-        msg_open=msg_open, msg_closed=msg_closed,
-        vulns=vulns, safes=safes)
+        service='CloudTrail',
+        objects='trails',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
 
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_unencrypted_logs(key_id: str, secret: str,
+def has_unencrypted_logs(key_id: str,
+                         secret: str,
+                         session_token: str = None,
                          retry: bool = True) -> tuple:
     """
     Check if trail logs are encrypted.
@@ -179,12 +213,14 @@ def has_unencrypted_logs(key_id: str, secret: str,
     :param key_id: AWS Key Id
     :param secret: AWS Key Secret
     """
-    trails = aws.run_boto3_func(key_id=key_id,
-                                secret=secret,
-                                service='cloudtrail',
-                                func='describe_trails',
-                                param='trailList',
-                                retry=retry)
+    trails = aws.run_boto3_func(
+        key_id=key_id,
+        secret=secret,
+        boto3_client_kwargs={'aws_session_token': session_token},
+        service='cloudtrail',
+        func='describe_trails',
+        param='trailList',
+        retry=retry)
 
     msg_open: str = 'Trails logs are not encrypted'
     msg_closed: str = 'KMS key found in trails'
@@ -199,6 +235,9 @@ def has_unencrypted_logs(key_id: str, secret: str,
                 (trail_arn, 'Logs must be encrypted'))
 
     return _get_result_as_tuple(
-        service='CloudTrail', objects='trails',
-        msg_open=msg_open, msg_closed=msg_closed,
-        vulns=vulns, safes=safes)
+        service='CloudTrail',
+        objects='trails',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
