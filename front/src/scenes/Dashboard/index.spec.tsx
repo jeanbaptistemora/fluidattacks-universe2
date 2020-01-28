@@ -6,7 +6,7 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import store from "../../store/index";
-import Dashboard from "./index";
+import { Dashboard } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
@@ -45,9 +45,9 @@ describe("Dashboard", () => {
     },
   };
 
-  it("should return a object", () => {
+  it("should return a function", () => {
     expect(typeof (Dashboard))
-      .toEqual("object");
+      .toEqual("function");
   });
 
   it("should render a component", () => {

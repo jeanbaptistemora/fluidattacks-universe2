@@ -13,7 +13,7 @@ import { ToastContainer } from "react-toastify";
  */
 import "react-toastify/dist/ReactToastify.min.css";
 import { Preloader } from "./components/Preloader";
-import Dashboard from "./scenes/Dashboard";
+import { Dashboard } from "./scenes/Dashboard";
 import { default as Registration } from "./scenes/Registration";
 import store from "./store/index";
 import { client } from "./utils/apollo";
