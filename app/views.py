@@ -21,7 +21,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from jose import jwt
 from magic import Magic
-from openpyxl import load_workbook
+from openpyxl import load_workbook, Workbook
 
 from backend import util
 from backend.domain import (
@@ -30,7 +30,7 @@ from backend.domain.vulnerability import (
     group_specific, get_open_vuln_by_type, get_vulnerabilities_by_type
 )
 from backend.decorators import authenticate, authorize, cache_content
-from backend.dal import integrates_dal
+from backend.dal import integrates_dal, user as user_dal
 from backend.services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
 )
@@ -525,4 +525,41 @@ def export_all_vulnerabilities(request):
                         -officedocument.spreadsheetml.sheet'
         response['Content-Disposition'] = 'inline;filename={filename}'.format(
             filename=filename)
+    return response
+
+
+@cache_content
+@never_cache
+@authorize(['admin'])
+def export_users(request):
+    user_data = util.get_jwt_content(request)
+    book = Workbook()
+    sheet = book.active
+    sheet.append(['full_name', 'user_email'])
+    row_index = 2
+
+    unique_users = []
+    for user in user_dal.get_platform_users():
+        user_email = user['user_email'].lower()
+        if user_email not in unique_users:
+            unique_users.append(user_email)
+
+            name_attrs = user_domain.get_user_attributes(
+                user_email, ['first_name', 'last_name'])
+            full_name = ' '.join(list(name_attrs.values()))
+
+            sheet.cell(row_index, 1, full_name)
+            sheet.cell(row_index, 2, user_email)
+            row_index += 1
+
+    username = user_data['user_email'].split('@')[0].encode('utf8', 'ignore')
+    filepath = f'/tmp/{username}-users.xlsx'
+    filename = os.path.basename(filepath)
+    book.save(filepath)
+
+    with open(filepath, 'rb') as document:
+        response = HttpResponse(document.read())
+        response['Content-Type'] = 'application/vnd.openxmlformats\
+                        -officedocument.spreadsheetml.sheet'
+        response['Content-Disposition'] = f'inline;filename={filename}'
     return response

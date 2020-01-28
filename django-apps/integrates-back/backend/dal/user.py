@@ -1,9 +1,13 @@
 
-from boto3.dynamodb.conditions import Attr
+from boto3.dynamodb.conditions import Attr, Not
 from backend.dal import integrates_dal
+from backend.dal.helpers import dynamodb
 
+from __init__ import FI_TEST_PROJECTS
 
 TABLE = 'FI_users'
+DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
+ACCESS_TABLE = DYNAMODB_RESOURCE.Table('FI_project_access')
 
 
 def get_admins():
@@ -114,3 +118,19 @@ def get_projects(user_email, active):
                              for project in projects
                              if not project.get('has_access', '')]
     return projects_filtered
+
+
+def get_platform_users():
+    filter_exp = Attr('has_access').eq(True) \
+        & Not(Attr('user_email').contains('@fluidattacks.com')) \
+        & Not(Attr('project_name').is_in(FI_TEST_PROJECTS.split(',')))
+
+    response = ACCESS_TABLE.scan(FilterExpression=filter_exp)
+    users = response['Items']
+    while response.get('LastEvaluatedKey'):
+        response = ACCESS_TABLE.scan(
+            FilterExpression=filter_exp,
+            ExclusiveStartKey=response['LastEvaluatedKey'])
+        users += response['Items']
+
+    return users
