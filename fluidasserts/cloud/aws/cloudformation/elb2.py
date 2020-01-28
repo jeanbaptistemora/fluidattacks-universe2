@@ -35,6 +35,7 @@ def has_access_logging_disabled(
                 'AWS::ElasticLoadBalancingV2::LoadBalancer',
             ],
             exclude=exclude):
+        access_logs = 'false'
         for attribute in res_props.get('LoadBalancerAttributes', [{
                 'Key': 'access_logs.s3.enabled',
                 'Value': 'false'}]):
