@@ -8,6 +8,7 @@ test/times
 
 # Log files
 log.asserts
+geckodriver.log
 
 # Python bytecode
 *.py[cdeo]

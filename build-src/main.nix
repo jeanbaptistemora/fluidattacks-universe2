@@ -59,6 +59,7 @@ rec {
   srcConfReadmeRst = ../conf/README.rst;
   srcDeploy = ../deploy;
   srcDeployGetVersion = ../deploy/get_version.py;
+  srcDockerfile = ../Dockerfile;
   srcDotGit = builtins.path {
     name = "git";
     path = ../.git;
@@ -86,9 +87,8 @@ rec {
     name = "envrc.public";
     path = ../.envrc.public;
   };
-  # Encrypting:
   # echo "${ENCRYPTION_KEY}" \
-  #   | gnupg --symmetric \
+  #   | gpg --symmetric \
   #         --cipher-algo AES256 \
   #         --digest-algo SHA512 \
   #         --passphrase-fd 0 \
@@ -97,6 +97,15 @@ rec {
   #         --yes \
   #       secrets/development.sh
   srcEnvVarsDevEncrypted = ../secrets/development.sh.asc;
+  # echo "${ENCRYPTION_KEY_PROD}" \
+  #   | gpg --symmetric \
+  #         --cipher-algo AES256 \
+  #         --digest-algo SHA512 \
+  #         --passphrase-fd 0 \
+  #         --armor \
+  #         --batch \
+  #         --yes \
+  #       secrets/production.sh
   srcEnvVarsProdEncrypted = ../secrets/production.sh.asc;
   srcFluidasserts = ../fluidasserts;
   srcGitLastCommitMsg = ../.tmp/git-last-commit-msg;
@@ -309,10 +318,10 @@ rec {
     builder = ./builders/node-pkg-commitlint.sh;
   };
 
-  releaseFluidassertsPyPi = pkgs.stdenv.mkDerivation rec {
-    name = "releaseFluidassertsPyPi";
+  releaseToPyPi = pkgs.stdenv.mkDerivation rec {
+    name = "releaseToPyPi";
     description = ''
-      Release the last version of Fluidasserts.
+      Release the last version of Fluidasserts to PyPi.
     '';
     inherit genericDirs genericShellOptions;
     inherit srcEnvVarsProdEncrypted;
@@ -324,6 +333,20 @@ rec {
     ];
     builder = ./builders/release-fluidasserts-pypi.sh;
     runner = ./builders/release-fluidasserts-pypi-runner-script.sh;
+  };
+
+  releaseToDockerHub = pkgs.stdenv.mkDerivation rec {
+    name = "releaseToDockerHub";
+    description = ''
+      Release the last version of Fluidasserts to Docker Hub.
+    '';
+    inherit genericDirs genericShellOptions;
+    inherit srcDockerfile srcEnvVarsProdEncrypted;
+    buildInputs = with pkgs; [
+      docker
+    ];
+    builder = ./builders/release-fluidasserts-docker-hub.sh;
+    runner = ./builders/release-fluidasserts-docker-hub-runner-script.sh;
   };
 
   testCommitMessage = pkgs.stdenv.mkDerivation rec {

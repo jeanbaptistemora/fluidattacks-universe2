@@ -12,7 +12,7 @@ export genericShellOptions="${genericShellOptions}"
 
 export srcEnvVarsProdEncrypted="${srcEnvVarsProdEncrypted}"
 
-export buildFluidassertsRelease="${buildFluidassertsRelease}"
+export srcDockerfile="${srcDockerfile}"
 
 echo 'Verifying inputs ...'
 test -n "\${ENCRYPTION_KEY_PROD:-}" \

@@ -211,15 +211,27 @@ function job_populate_caches {
   ) | push_to_cachix
 }
 
-function job_release_fluidasserts_pypi {
+function job_release_to_pypi {
   local runner_file
   local runner_name
   use_cachix_if_dev_branch
 
-  runner_name='ephemeral-runner.release_fluidasserts_pypi'
+  runner_name='ephemeral-runner.release_to_pypi'
   runner_file="./${runner_name}"
 
-  build_and_link_x releaseFluidassertsPyPi "${runner_name}"
+  build_and_link_x releaseToPyPi "${runner_name}"
+  "${runner_file}"
+}
+
+function job_release_to_docker_hub {
+  local runner_file
+  local runner_name
+  use_cachix_if_dev_branch
+
+  runner_name='ephemeral-runner.release_to_docker_hub'
+  runner_file="./${runner_name}"
+
+  build_and_link_x releaseToDockerHub "${runner_name}"
   "${runner_file}"
 }
 

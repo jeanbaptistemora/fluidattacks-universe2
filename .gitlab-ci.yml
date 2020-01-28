@@ -8,7 +8,8 @@ stages:
   - before-mr
   - at-mr
   - deploy
-  - deploy-pypi
+  - release_to_pypi
+  - release_to_docker
 
 .kaniko_config: &kaniko_config
   image:
@@ -112,10 +113,15 @@ populate_caches:
   <<: *in_prod_branch
   stage: deploy
 
-release_fluidasserts_pypi:
+release_to_pypi:
   <<: *with_nix
   <<: *in_prod_branch
-  stage: deploy-pypi
+  stage: release_to_pypi
+
+release_to_docker_hub:
+  <<: *with_nix
+  <<: *in_prod_branch
+  stage: release_to_docker
 
 test_commit_message:
   <<: *with_nix
@@ -256,46 +262,3 @@ danger:
     - npm install --unsafe-perm
   script:
     - danger --verbose --fail-on-errors=true
-
-push-container:
-  stage: deploy
-  tags: [autoscaling-large]
-  <<: *kaniko_config
-  services: []
-  dependencies: []
-  script:
-    - /kaniko/executor
-        --build-arg BUILDER_IMAGE="${CI_REGISTRY_IMAGE}:builder"
-        --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
-        --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
-        --context .
-        --cleanup
-        --destination "${CI_REGISTRY_IMAGE}:runner-light"
-        --destination fluidattacks/asserts:light
-        --dockerfile Dockerfile.runner
-        --target light
-        --verbosity warn
-        --cache=true
-        --cache-repo "${CI_REGISTRY_IMAGE}/runner-cache"
-    - /kaniko/executor
-        --build-arg BUILDER_IMAGE="${CI_REGISTRY_IMAGE}:builder"
-        --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}"
-        --build-arg CI_REPOSITORY_URL="${CI_REPOSITORY_URL}"
-        --context .
-        --cleanup
-        --destination "${CI_REGISTRY_IMAGE}:runner"
-        --destination fluidattacks/asserts
-        --dockerfile Dockerfile.runner
-        --target full
-        --verbosity warn
-        --cache=true
-        --cache-repo "${CI_REGISTRY_IMAGE}/runner-cache"
-  only:
-    - master
-  except:
-    - schedules
-  retry:
-    max: 2
-    when:
-      - runner_system_failure
-  interruptible: true

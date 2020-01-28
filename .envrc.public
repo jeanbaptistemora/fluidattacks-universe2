@@ -1,2 +1,3 @@
 export CACHIX_CACHE_NAME='fluidattacks-asserts'
 export CI_REGISTRY_IMAGE='registry.gitlab.com/fluidattacks/asserts'
+export DOCKER_HUB_URL='https://index.docker.io/v1/'

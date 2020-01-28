@@ -20,7 +20,7 @@ export pyPkgGroupTest="${pyPkgGroupTest}"
 export fluidassertsModule="${testGroupName}"
 
 echo 'Verifying inputs ...'
-test -n "\${ENCRYPTION_KEY}" \
+test -n "\${ENCRYPTION_KEY:-}" \
   && echo '  [OK] development encryption key present' \
   || (
     echo '  [FAIL] development encryption key not present, please export ENCRYPTION_KEY'
