@@ -49,7 +49,7 @@ class Query(ObjectType):
     me = Field(Me)
 
     @require_login
-    @require_role(['analyst', 'customer', 'admin'])
+    @new_require_role
     @require_project_access
     @get_cached
     def resolve_alert(self, info, project_name=None, organization=None):
@@ -107,7 +107,7 @@ class Query(ObjectType):
         return User(None, user_email).list_projects
 
     @require_login
-    @require_role(['analyst', 'customer', 'admin'])
+    @new_require_role
     @require_project_access
     def resolve_project(self, info, project_name):
         """Resolve for projects."""

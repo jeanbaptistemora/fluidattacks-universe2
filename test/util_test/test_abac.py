@@ -77,6 +77,8 @@ class BasicAbacTest(TestCase):
 class ActionAbacTest(TestCase):
     global_actions = {
         'backend.api.query.resolve_resources',
+        'backend.api.query.resolve_alert',
+        'backend.api.query.resolve_project',
     }
 
     def test_action_wrong_role(self):
