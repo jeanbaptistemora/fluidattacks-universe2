@@ -13,15 +13,6 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
     ]
   }
 
-  # IAM
-  statement {
-    effect  = "Allow"
-    actions = ["iam:*"]
-    resources = [
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/continuous-*",
-    ]
-  }
-
   # KMS
   statement {
     effect = "Allow"
