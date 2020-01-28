@@ -238,14 +238,6 @@ ul {
 
 }
 
-.img-ppl {
-  img {
-    border-radius: 50%;
-    filter: grayscale(100%);
-    width: 300px;
-  }
-}
-
 //scss-lint:disable NestingDepth
 .tb-alt {
   display: table;
@@ -314,19 +306,6 @@ ul {
     .tooltip-text {
       visibility: visible;
     }
-  }
-}
-
-.admonitionblock {
-  .icon {
-    img {
-      min-width: 48px;
-    }
-  }
-
-  .content {
-    font-size: 18px;
-    line-height: 29.75px;
   }
 }
 

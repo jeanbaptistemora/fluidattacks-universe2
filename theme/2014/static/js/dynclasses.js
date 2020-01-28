@@ -79,13 +79,15 @@ Tachyons classes on dynamically generated content
     $( "ol" ).addClass("pl4 f4")
     $( ".tb-responsive > td, th" ).addClass("ma0 db")
     $( "h1, h2, h3, h4" ).addClass("montsy b lh-solid mt3 mh0 mb2")
-    $( "h1" ).addClass("f2-l f3-m")
+    $( "h1:not(.post-title)" ).addClass("f2-l f3-m")
     $( "h2" ).addClass("f2-l f3-m")
     $( "h3" ).addClass("f3-l f4-m")
     $( "h4" ).addClass("f4-l f5-m")
     $( "p" ).addClass("f4-l f5-m")
     $( ".olist > ol" ).addClass("f4-l")
-    $( ".admonitionblock > .content" ).addClass("f4-l f3-m")
     $( ".at-expanding-share-button-desktop" ).addClass("dn-l")
+    $( ".img-ppl > .content > img" ).addClass("grayscale br-100 w5")
+    $( ".admonitionblock > table > tbody > tr > .icon > img" ).addClass("w3")
+    $( ".admonitionblock > table > tbody > tr > .content" ).addClass("f5 lh-copy")
   });
 })(jQuery);
