@@ -21,9 +21,9 @@ export fluidassertsModule="${testGroupName}"
 
 echo 'Verifying inputs ...'
 test -n "\${ENCRYPTION_KEY}" \
-  && echo '  [OK] encryption key present' \
+  && echo '  [OK] development encryption key present' \
   || (
-    echo '  [FAIL] encryption key not present, please export ENCRYPTION_KEY'
+    echo '  [FAIL] development encryption key not present, please export ENCRYPTION_KEY'
     exit 1
   )
 echo
@@ -31,17 +31,17 @@ echo
 echo 'Unencrypting secrets and exporting them to the current context ...'
 source <( \
   echo "\${ENCRYPTION_KEY}" \
-    | ${gpg}/bin/gpg \
+    | gpg \
       --batch \
       --passphrase-fd 0 \
-      --decrypt "${envVarsEncrypted}")
+      --decrypt "${srcEnvVarsDevEncrypted}")
 echo
 
 echo "Creating an ephemeral test runner for ${testGroupName} ..."
-cp --force "${runner}" "ephemeral-test-runner"
-chmod +x "ephemeral-test-runner"
+cp --force "${runner}" "ephemeral-runner"
+chmod +x "ephemeral-runner"
 echo
 
 echo "Executing tests for ${testGroupName} ..."
-./ephemeral-test-runner
+./ephemeral-runner
 EOF

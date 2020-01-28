@@ -112,6 +112,11 @@ populate_caches:
   <<: *in_prod_branch
   stage: deploy
 
+release_fluidasserts_pypi:
+  <<: *with_nix
+  <<: *in_prod_branch
+  stage: deploy-pypi
+
 test_commit_message:
   <<: *with_nix
   <<: *in_dev_branch
@@ -251,25 +256,6 @@ danger:
     - npm install --unsafe-perm
   script:
     - danger --verbose --fail-on-errors=true
-
-push-pypi:
-  stage: deploy-pypi
-  tags: [autoscaling]
-  script:
-    - version=$(./deploy/get_version.py)
-    - sed -i "s/_get_version(),/'${version}',/g" setup.py
-    - scons dist
-    - scons deploy
-    - mkdir -p dist && cp -a build/dist/*.zip dist/
-  only:
-    - master
-  except:
-    - schedules
-  retry:
-    max: 2
-    when:
-      - runner_system_failure
-  interruptible: true
 
 push-container:
   stage: deploy

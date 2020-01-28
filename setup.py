@@ -30,6 +30,7 @@ setup(
     name='fluidasserts',
     description='Assertion Library for Security Assumptions',
     long_description=_get_readme(),
+    long_description_content_type='text/x-rst',
     version=_get_version(),
     url='https://fluidattacks.com/web/products/asserts',
     project_urls={

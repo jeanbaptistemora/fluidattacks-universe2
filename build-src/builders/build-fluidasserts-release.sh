@@ -7,11 +7,13 @@ source "${genericDirs}"
 mkdir root/src/repo/conf
 
 cp -r --no-preserve=mode,ownership \
-  "${srcConfReadmeRst}" root/src/repo/conf/README.rst
-cp -r --no-preserve=mode,ownership \
   "${srcBuildSh}" root/src/repo/build.sh
 cp -r --no-preserve=mode,ownership \
   "${srcBuildSrc}" root/src/repo/build-src
+cp -r --no-preserve=mode,ownership \
+  "${srcConfReadmeRst}" root/src/repo/conf/README.rst
+cp -r --no-preserve=mode,ownership \
+  "${srcDeployGetVersion}" root/src/repo/get_version.py
 cp -r --no-preserve=mode,ownership \
   "${srcFluidasserts}" root/src/repo/fluidasserts
 cp -r --no-preserve=mode,ownership \
@@ -26,18 +28,21 @@ cp -r --no-preserve=mode,ownership \
 
 pushd root/src/repo
 
-# Source distribution in ALL formats
-python3 setup.py \
-    sdist \
-  --quiet \
-  --dist-dir 'dist' \
-  --formats=bztar,gztar,xztar,ztar,tar,zip
+# Patch the version to make it static
+version=$(python3 get_version.py)
+echo "Version: ${version}"
+sed -i "s/_get_version(),/'${version}',/g" setup.py
+
+# Source distribution
+#   https://www.python.org/dev/peps/pep-0517/#source-distributions
+#   * They will be gzipped tar archives, with the .tar.gz extension
+python3 setup.py sdist --formats=gztar
 
 # Binary distribution
-python3 setup.py \
-    bdist \
-  --dist-dir 'dist' \
-  --formats=bztar,gztar,xztar,ztar,tar,zip
+#   https://packaging.python.org/specifications/distribution-formats/#binary-distribution-format
+#   The binary distribution format (wheel) is defined in PEP 427.
+#   * A wheel is a ZIP-format archive with a specially formatted file name and the .whl extension.
+python3 setup.py bdist_wheel
 
 ls -1 dist/
 

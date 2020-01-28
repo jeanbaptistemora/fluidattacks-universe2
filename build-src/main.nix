@@ -58,6 +58,7 @@ rec {
   srcBuildSrcPythonRequirementsTest = ../build-src/python-requirements/test.lst;
   srcConfReadmeRst = ../conf/README.rst;
   srcDeploy = ../deploy;
+  srcDeployGetVersion = ../deploy/get_version.py;
   srcDotGit = builtins.path {
     name = "git";
     path = ../.git;
@@ -85,6 +86,18 @@ rec {
     name = "envrc.public";
     path = ../.envrc.public;
   };
+  # Encrypting:
+  # echo "${ENCRYPTION_KEY}" \
+  #   | gnupg --symmetric \
+  #         --cipher-algo AES256 \
+  #         --digest-algo SHA512 \
+  #         --passphrase-fd 0 \
+  #         --armor \
+  #         --batch \
+  #         --yes \
+  #       secrets/development.sh
+  srcEnvVarsDevEncrypted = ../secrets/development.sh.asc;
+  srcEnvVarsProdEncrypted = ../secrets/production.sh.asc;
   srcFluidasserts = ../fluidasserts;
   srcGitLastCommitMsg = ../.tmp/git-last-commit-msg;
   srcManifestIn = ../MANIFEST.in;
@@ -103,6 +116,7 @@ rec {
     inherit srcConfReadmeRst;
     inherit srcBuildSh;
     inherit srcBuildSrc;
+    inherit srcDeployGetVersion;
     inherit srcFluidasserts;
     inherit srcManifestIn;
     inherit srcSetupPy;
@@ -295,6 +309,23 @@ rec {
     builder = ./builders/node-pkg-commitlint.sh;
   };
 
+  releaseFluidassertsPyPi = pkgs.stdenv.mkDerivation rec {
+    name = "releaseFluidassertsPyPi";
+    description = ''
+      Release the last version of Fluidasserts.
+    '';
+    inherit genericDirs genericShellOptions;
+    inherit srcEnvVarsProdEncrypted;
+    inherit buildFluidassertsRelease;
+    buildInputs = [
+      basicPythonEnv
+      pkgs.gnupg
+      _pythonPackages.twine
+    ];
+    builder = ./builders/release-fluidasserts-pypi.sh;
+    runner = ./builders/release-fluidasserts-pypi-runner-script.sh;
+  };
+
   testCommitMessage = pkgs.stdenv.mkDerivation rec {
     name = "testCommitMessage";
     description = ''
@@ -315,25 +346,14 @@ rec {
       pkgs.stdenv.mkDerivation rec {
         name = testGroupName;
         inherit genericShellOptions;
-        inherit srcFluidasserts srcSetupCfg srcTest;
+        inherit srcEnvVarsDevEncrypted srcFluidasserts srcSetupCfg srcTest;
         inherit pyPkgFluidassertsBasic pyPkgGroupTest;
         inherit testGroupName;
-        gpg = pkgs.gnupg;
         buildInputs = [
           fluidassertsDeps
+          pkgs.gnupg
           pyPkgGroupTest.buildInputs
         ];
-        # Encrypting:
-        # echo "${ENCRYPTION_KEY}" \
-        #   | gpg --symmetric \
-        #         --cipher-algo AES256 \
-        #         --digest-algo SHA512 \
-        #         --passphrase-fd 0 \
-        #         --armor \
-        #         --batch \
-        #         --yes \
-        #       secrets/development.sh
-        envVarsEncrypted = ../secrets/development.sh.asc;
         builder = ./builders/tester-fluidasserts.sh;
         runner = ./builders/tester-fluidasserts-runner-script.sh;
       };

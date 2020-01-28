@@ -211,6 +211,18 @@ function job_populate_caches {
   ) | push_to_cachix
 }
 
+function job_release_fluidasserts_pypi {
+  local runner_file
+  local runner_name
+  use_cachix_if_dev_branch
+
+  runner_name='ephemeral-runner.release_fluidasserts_pypi'
+  runner_file="./${runner_name}"
+
+  build_and_link_x releaseFluidassertsPyPi "${runner_name}"
+  "${runner_file}"
+}
+
 function job_test_commit_message {
   use_cachix_if_dev_branch
   build testCommitMessage
@@ -241,7 +253,7 @@ function _job_test_api__generic_dispatcher {
 
   # Add a prefix to make the distintion
   derivation_name="testFluidasserts${derivation_name}"
-  runner_name="ephemeral-test-runner.${runner_name}"
+  runner_name="ephemeral-runner.test_api_${runner_name}"
   runner_file="${PWD}/${runner_name}"
 
   # Build the derivation and save the output as an executable file
