@@ -160,8 +160,17 @@ def resolve_project_name(kwargs):
         project_name = \
             event_domain.get_event(kwargs['event_id']).get('project_name')
     else:
-        project_name = ''
+        project_name = None
     return project_name
+
+
+def resolve_project_data(project_name):
+    """Get project data or mock it if needed."""
+    if project_name:
+        project_data = integrates_dal.get_project_dynamo(project_name)[0]
+    else:
+        project_data = {}
+    return project_data
 
 
 def new_require_role(func):
@@ -175,9 +184,8 @@ def new_require_role(func):
         context = args[1].context
         user_data = util.get_jwt_content(context)
         user_data['role'] = get_user_role(user_data)
-
         project_name = resolve_project_name(kwargs)
-        project_data = integrates_dal.get_project_dynamo(project_name)[0]
+        project_data = resolve_project_data(project_name)
         action = '{}.{}'.format(func.__module__, func.__qualname__)
         try:
             if not ENFORCER_ACTION.enforce(user_data, project_data, action):

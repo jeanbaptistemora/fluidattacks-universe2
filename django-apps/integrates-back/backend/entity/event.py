@@ -8,7 +8,7 @@ from backend.domain import comment as comment_domain, event as event_domain
 from backend.entity.comment import Comment
 from backend.decorators import (
     get_entity_cache, require_login, require_role, require_event_access,
-    require_project_access
+    require_project_access, new_require_role
 )
 from backend import util
 
@@ -142,7 +142,7 @@ class UpdateEvent(Mutation):
 
     @staticmethod
     @require_login
-    @require_role(['analyst', 'admin'])
+    @new_require_role
     @require_event_access
     def mutate(_, info, event_id, **kwargs):
         success = event_domain.update_event(event_id, **kwargs)
@@ -303,7 +303,7 @@ class AddEventComment(Mutation):
 
     @staticmethod
     @require_login
-    @require_role(['analyst', 'customer', 'admin'])
+    @new_require_role
     @require_project_access
     def mutate(_, info, content, event_id, parent):
         user_info = util.get_jwt_content(info.context)
@@ -339,7 +339,7 @@ class UpdateEventEvidence(Mutation):
 
     @staticmethod
     @require_login
-    @require_role(['analyst', 'admin'])
+    @new_require_role
     @require_event_access
     def mutate(_, info, event_id, evidence_type, file):
         success = False
@@ -398,7 +398,7 @@ class RemoveEventEvidence(Mutation):
 
     @staticmethod
     @require_login
-    @require_role(['analyst', 'admin'])
+    @new_require_role
     @require_event_access
     def mutate(_, info, event_id, evidence_type):
         success = event_domain.remove_evidence(evidence_type, event_id)

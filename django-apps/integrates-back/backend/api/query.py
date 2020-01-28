@@ -58,7 +58,7 @@ class Query(ObjectType):
         return Alert(project_name, organization)
 
     @require_login
-    @require_role(['analyst', 'customer', 'admin'])
+    @new_require_role
     @require_event_access
     @get_cached
     def resolve_event(self, info, identifier=None):
@@ -71,7 +71,7 @@ class Query(ObjectType):
         return events_loader.load(identifier)
 
     @require_login
-    @require_role(['analyst', 'customer', 'admin'])
+    @new_require_role
     @require_finding_access
     @get_cached
     def resolve_finding(self, info, identifier=None):

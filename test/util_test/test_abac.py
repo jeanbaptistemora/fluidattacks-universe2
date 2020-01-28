@@ -79,12 +79,24 @@ class ActionAbacTest(TestCase):
         'backend.api.query.Query.resolve_resources',
         'backend.api.query.Query.resolve_alert',
         'backend.api.query.Query.resolve_project',
+        'backend.api.query.Query.resolve_finding',
+        'backend.api.query.Query.resolve_event',
         'backend.entity.resource.AddResources.mutate',
         'backend.entity.resource.UpdateResources.mutate',
         'backend.entity.resource.AddFiles.mutate',
         'backend.entity.resource.RemoveFiles.mutate',
         'backend.entity.resource.DownloadFile.mutate',
         'backend.entity.vulnerability.DeleteVulnerability.mutate',
+        'backend.entity.vulnerability.UploadFile.mutate',
+        'backend.entity.vulnerability.ApproveVulnerability.mutate',
+        'backend.entity.vulnerability.DeleteTags.mutate',
+        'backend.entity.vulnerability.UpdateTreatmentVuln.mutate',
+        'backend.entity.event.AddEventComment.mutate',
+        'backend.entity.event.DownloadEventFile.mutate',
+        'backend.entity.event.UpdateEvent.mutate',
+        'backend.entity.event.SolveEvent.mutate',
+        'backend.entity.event.UpdateEventEvidence.mutate',
+        'backend.entity.event.RemoveEventEvidence.mutate',
     }
 
     def test_action_wrong_role(self):
@@ -121,11 +133,17 @@ class ActionAbacTest(TestCase):
             'backend.api.query.Query.resolve_resources',
             'backend.api.query.Query.resolve_alert',
             'backend.api.query.Query.resolve_project',
+            'backend.api.query.Query.resolve_finding',
+            'backend.api.query.Query.resolve_event',
             'backend.entity.resource.AddResources.mutate',
             'backend.entity.resource.UpdateResources.mutate',
             'backend.entity.resource.AddFiles.mutate',
             'backend.entity.resource.RemoveFiles.mutate',
             'backend.entity.resource.DownloadFile.mutate',
+            'backend.entity.event.AddEventComment.mutate',
+            'backend.entity.event.DownloadEventFile.mutate',
+            'backend.entity.vulnerability.DeleteTags.mutate',
+            'backend.entity.vulnerability.UpdateTreatmentVuln.mutate',
         }
 
         should_deny = self.global_actions - should_allow
@@ -152,7 +170,17 @@ class ActionAbacTest(TestCase):
             'backend.api.query.Query.resolve_resources',
             'backend.api.query.Query.resolve_alert',
             'backend.api.query.Query.resolve_project',
+            'backend.api.query.Query.resolve_finding',
+            'backend.api.query.Query.resolve_event',
             'backend.entity.vulnerability.DeleteVulnerability.mutate',
+            'backend.entity.vulnerability.UploadFile.mutate',
+            'backend.entity.vulnerability.ApproveVulnerability.mutate',
+            'backend.entity.event.AddEventComment.mutate',
+            'backend.entity.event.DownloadEventFile.mutate',
+            'backend.entity.event.UpdateEvent.mutate',
+            'backend.entity.event.SolveEvent.mutate',
+            'backend.entity.event.UpdateEventEvidence.mutate',
+            'backend.entity.event.RemoveEventEvidence.mutate',
         }
 
         should_deny = self.global_actions - should_allow
