@@ -122,8 +122,14 @@ function set_ephemeral_git {
 }
 
 function use_cachix {
-  # Set the current system to use the cache
-  cachix use "${CACHIX_CACHE_NAME}" 1>&2
+  export IS_CACHIX_SET
+
+  # Set the current system to use the cache (if not already set)
+  if test "${IS_CACHIX_SET:-}" = "${NO}"
+  then
+    IS_CACHIX_SET="${YES}"
+    cachix use "${CACHIX_CACHE_NAME}" 1>&2
+  fi
 }
 
 function use_cachix_if_dev_branch {
