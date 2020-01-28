@@ -42,12 +42,12 @@ const enTranslations: Dictionary = {
       tooltip: "Click if you understand and accept the terms above",
     },
     description: "Integrates, Copyright (c) 2019 Fluid Attacks. This platform contains " +
-    "information proprietary of Fluid Attacks. The client is only allowed " +
+    "information property of Fluid Attacks. The client is only allowed " +
     "to use such information for documentation purposes and without disclosing " +
     "its content to third parties because it may contain ideas, concepts, prices " +
-    "and/or structures propriety of Fluid Attacks. Its 'proprietary' " +
-    "classification means that this information will only be used by those who " +
-    "it was meant for. In case of requiring total or partial reproductions it " +
+    "and/or structures property of Fluid Attacks. Its 'proprietary' " +
+    "classification means that this information will only be used by those for " +
+    "whom it was meant. In case of requiring total or partial reproductions they " +
     "must be done with express and written authorization of Fluid Attacks. " +
     "The rules that fundament the classification of information are " +
     "articles 72, Cartagena's agreement 344 of 1.993, article 238 of penal code " +
@@ -67,23 +67,23 @@ const enTranslations: Dictionary = {
     acceptation_approved: "Indefinite acceptation has been approved",
     acceptation_rejected: "Indefinite acceptation has been rejected",
     access_denied: "Access denied or project not found",
-    draft_already_approved: "This finding was already approved",
+    draft_already_approved: "This finding has already been approved",
     draft_without_vulns: "This finding can not been approved without vulnerabilities",
     error_textsad: "There is an error :(",
     file_size: "The file size must be less than 10MB",
     file_size_png: "The image size must be less than 2MB",
     file_size_py: "The file size must be less than 1MB",
-    file_type_csv: "The file must be .csv type",
+    file_type_csv: "The file must have .csv extension",
     file_type_evidence: "The image must be .png or .gif type",
-    file_type_py: "The file must be .py or .exp type",
+    file_type_py: "The file must have .py or .exp extension",
     file_type_wrong: "The file has an unknown or non-allowed format",
     file_type_yaml: "The file must be .yaml or .yml type",
-    file_updated: "File Updated ;)",
+    file_updated: "File updated ;)",
     invalid: "is invalid",
     invalid_date: "The date must be minor than six month and greater than current date",
-    invalid_schema: "Uploaded file does not match with the schema",
+    invalid_schema: "The uploaded file does not match the schema",
     invalid_specific: "Invalid field/line/port",
-    invalid_structure: "Provided file has wrong structure",
+    invalid_structure: "The provided file has a wrong structure",
     invalid_treatment_mgr: "Please select a treatment manager",
     key: "Key",
     no_file_selected: "No file selected",
@@ -100,7 +100,7 @@ const enTranslations: Dictionary = {
   },
   project: {
     drafts: {
-      approve: "Approve Draft",
+      approve: "Approve draft",
       error_submit: "Please provide {{missingFields}} before submitting",
       new: "New Draft",
       reject: "Reject Draft",
@@ -127,9 +127,9 @@ const enTranslations: Dictionary = {
           title: "Accessibility",
         },
         action_after: {
-          other_other: "Excecute other project of a different client",
-          other_same: "Excecute other project of the same client",
-          title: "Action after blocking",
+          other_other: "Excecute another project of a different client",
+          other_same: "Excecute another project of the same client",
+          title: "Action after getting blocked",
           training: "Training",
         },
         action_before: {
@@ -137,10 +137,10 @@ const enTranslations: Dictionary = {
           test_other: "Test other part of ToE",
           title: "Action before blocking",
         },
-        blocking_hours: "Working hours until blocking",
+        blocking_hours: "Working hours until getting blocked",
         components: {
           client_station: "Client's test station",
-          compile_error: "Compile error",
+          compile_error: "Compilation error",
           documentation: "Project documentation",
           fluid_station: "FLUID's test station",
           internet_conn: "Internet connectivity",
@@ -171,7 +171,7 @@ const enTranslations: Dictionary = {
         evidence_file: "Evidence file",
         none: "None",
         other: "Other",
-        responsible: "Responsible (client)",
+        responsible: "Person in charge (client)",
         type: {
           cancel_project: "Client cancels the project / milestone",
           detects_attack: "Client detects the attack",
@@ -181,10 +181,10 @@ const enTranslations: Dictionary = {
           suspends_project: "Client suspends explicitly",
           title: "Type",
           toe_change: "Client approves ToE change",
-          toe_differs: "ToE differs from approved",
+          toe_differs: "ToE different than agreed upon",
         },
-        wrong_file_type: "Evidence files must be .pdf, .zip or .csv",
-        wrong_image_type: "Evidence images must be .png or .gif",
+        wrong_file_type: "Evidence files must have .pdf, .zip or .csv extension",
+        wrong_image_type: "Evidence images must have .png or .gif extension",
       },
       new: "New Event",
       success_create: "Event created successfully",
@@ -216,9 +216,9 @@ const enTranslations: Dictionary = {
         modal_close: "Close",
         modal_title: "Reports",
         tech_description: "Technical reports are protected by <strong>password</strong>. "
-          + "The <strong>password</strong> is the PDF or XLSX report generation date and your username.",
+          + "The <strong>password</strong> is the PDF or XLSX report generation date plus your username.",
         tech_example: "<strong>Example:</strong> someone@fluidattacks.com generates the technical report "
-          + "on 15/03/2019 therefore, the password is 15032019someone",
+          + "on 15/03/2019 then, the password is 15032019someone",
         tech_title: "Technical Reports",
       },
       tableSet: {
@@ -241,7 +241,7 @@ const enTranslations: Dictionary = {
     greeting: "Hello",
     logged_in_message: "Please log out before trying to access with another account.",
     logged_in_title: "You are already logged in",
-    unauthorized: "You do not have authorization for login yet. Please contact Fluid Attacks's staff or your project " +
+    unauthorized: "You are not authorized to log in yet. Please contact Fluid Attacks's staff or your project " +
       "administrator to get access.",
   },
   search_findings: {
@@ -262,7 +262,7 @@ const enTranslations: Dictionary = {
       },
       title: "Delete Finding",
     },
-    draft_approved: "This finding has been approved",
+    draft_approved: "This finding was approved",
     draft_status: {
       created: "Created",
       rejected: "Rejected",
@@ -276,8 +276,8 @@ const enTranslations: Dictionary = {
       file: "File",
       upload_date: "Upload Date",
     },
-    finding_deleted: "Finding {{findingId}} has been deleted",
-    finding_rejected: "Finding {{findingId}} has been rejected",
+    finding_deleted: "Finding {{findingId}} was deleted",
+    finding_rejected: "Finding {{findingId}} was rejected",
     high_severity: "High",
     low_severity: "Low",
     medium_severity: "Medium",
@@ -319,9 +319,9 @@ const enTranslations: Dictionary = {
       approval_message: "Remember that the indefinite acceptation of a finding requires the approval of a manager",
       approval_title: "Confirmation",
       approve: "Approve",
-      approve_all: "Approve All",
+      approve_all: "Approve all",
       approve_all_vulns: "Approve all pending vulnerabilities",
-      attack_vectors: "Attack vectors",
+      attack_vectors: "Impacts",
       bts: "External BTS",
       checkbox_accepted: "Accepted indefinitely",
       compromised_attrs: "Compromised attributes",
@@ -392,7 +392,7 @@ const enTranslations: Dictionary = {
       },
       update: "Update",
       update_vulnerabilities: "Update Vulnerabilities",
-      vulnDeleted: "Vulnerability was deleted of this finding",
+      vulnDeleted: "Vulnerability deleted",
       vuln_approval: "Vulnerability approval status was changed",
       weakness: "Weakness",
       where: "Where",
@@ -426,10 +426,10 @@ const enTranslations: Dictionary = {
         det_attack: "Client detects an attack",
         explic_suspend: "Client explicitly suspends project",
         high_approval: "High availability approval",
-        inacc_ambient: "Inaccessible ambient",
+        inacc_ambient: "Inaccessible environment",
         incor_supplies: "Incorrect or missing supplies",
         other: "Other",
-        toe_differs: "ToE differs from what was approved",
+        toe_differs: "ToE different from what was agreed upon",
         uns_ambient: "Unstable ambient",
       },
     },
@@ -474,7 +474,7 @@ const enTranslations: Dictionary = {
       treatment_accepted: "Accepted",
       treatment_graph: "Treatment",
       treatment_in_progress: "In progress",
-      treatment_no_defined: "No defined",
+      treatment_no_defined: "Not defined",
       undefined_treatment: "Open vulnerabilities with no defined treatment",
     },
     tab_observations: {
@@ -499,7 +499,7 @@ const enTranslations: Dictionary = {
       invalid_chars: "File name has invalid characters.",
       modal_env_title: "Add environment information",
       modal_file_title: "Add file",
-      modal_options_content: "What do you want to do with file ",
+      modal_options_content: "What do you want to do with the file ",
       modal_options_title: "File options",
       modal_repo_title: "Add repository information",
       no_file_upload: "Failed to upload the file",
@@ -508,7 +508,7 @@ const enTranslations: Dictionary = {
       protocol: "Protocol",
       removeProject: "Delete Project",
       remove_repository: "Remove",
-      repeated_item: "One or more items to add already exist.",
+      repeated_item: "One or more items to add exist already.",
       repositories_title: "Repositories",
       repository: "Repository URL",
       ssh: "SSH",
@@ -551,7 +551,7 @@ const enTranslations: Dictionary = {
         none: "None",
       },
       availability_options: {
-        complete: "Complete: There is a total target down",
+        complete: "Complete: There is a completely down target",
         none: "None: There is no impact",
         partial: "Partial: There is intermittency in the access to the target",
       },
@@ -563,15 +563,15 @@ const enTranslations: Dictionary = {
       },
       complexity: "Access Complexity",
       complexity_options: {
-        high_complex: "High: Special conditions are required like administrative access",
+        high_complex: "High: Special conditions such as administrative access are required",
         low_complex: "Low: No special conditions are required",
-        medium_complex: "Medium: Some conditions are required like system access",
+        medium_complex: "Medium: Some conditions such as system access are required",
       },
       confidence: "Confidence Level",
       confidence_options: {
         confirmed: "Confirmed: The vulnerability is recognized by the manufacturer",
         not_confirm: "Not confirmed: There are few sources that recognize vulnerability",
-        not_corrob: "Not corroborared: Vulnerability is recognized by unofficial sources",
+        not_corrob: "Not corroborated: Vulnerability is recognized by unofficial sources",
       },
       confidentiality: "Confidentiality Impact",
       confidentiality_impact: "Confidentiality Impact",
@@ -610,9 +610,9 @@ const enTranslations: Dictionary = {
         none: "None",
       },
       integrity_options: {
-        complete: "Complete: Posibility of modify all target information",
+        complete: "Complete: Posibility to modify all target information",
         none: "None: There is no impact",
-        partial: "Partial: Posibility of modify some target information",
+        partial: "Partial: Posibility to modify some target information",
       },
       integrity_requirement: "Integrity Requirement",
       integrity_requirement_options: {
@@ -745,15 +745,15 @@ const enTranslations: Dictionary = {
       successfully: "Token copied successfully",
     },
     delete: "Token invalidated successfully",
-    expiration_time: "Expiration Date",
+    expiration_time: "Expiration date",
     invalid_exp_time: "Expiration time must be minor than six month and greater than current date",
-    invalidate: "Revoke Current Token",
-    invalidated: "Invalidated Token",
+    invalidate: "Revoke current token",
+    invalidated: "Invalidated token",
     message: "Please save this access token in a safe location. You will not be able to see it again after closing " +
     "this dialog.",
-    success: "Updated Access Token",
+    success: "Updated access token",
     successfully: "Token updated successfully",
-    title: "Update Access Token",
+    title: "Update access token",
     token_created: "Token created at: ",
   },
   validations: {

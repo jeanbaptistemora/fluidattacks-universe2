@@ -75,7 +75,8 @@ describe("Welcome view", () => {
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.text())
-      .toContain("You do not have authorization for login yet");
+      .toContain("You are not authorized to log in yet. Please contact " +
+                 "Fluid Attacks's staff or your project administrator to get access.");
     wrapper.find("Button")
       .filterWhere((btn: ReactWrapper) => btn.contains("Log out"))
       .simulate("click");
