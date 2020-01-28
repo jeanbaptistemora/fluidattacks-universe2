@@ -142,6 +142,11 @@ function push_to_cachix {
 # Gitlab Jobs
 #
 
+function job_build_fluidasserts_release {
+  use_cachix_if_dev_branch
+  build_and_link buildFluidassertsRelease result-build_fluidasserts_release
+}
+
 function job_demo_fluidasserts_output {
   use_cachix_if_dev_branch
   build demoFluidassertsOutput
@@ -176,13 +181,13 @@ function job_pages {
   # Build our hosted GitLab Pages
   use_cachix
 
-  build_and_link generateDoc doc-result
+  build_and_link generateDoc result-pages
 
   ./build-src/shell.sh -c 'rm -rf public; mkdir public'
-  ./build-src/shell.sh -c 'cp -r --no-preserve=mode,ownership doc-result/* public'
+  ./build-src/shell.sh -c 'cp -r --no-preserve=mode,ownership result-pages/* public'
 
   echo 'Check the docs at public/index.html!'
-  rm -f doc-result
+  rm -f result-pages
 }
 
 function job_populate_caches {

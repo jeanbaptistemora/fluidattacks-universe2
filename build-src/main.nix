@@ -94,6 +94,27 @@ rec {
   srcSphinx = ../sphinx;
   srcTest = ../test;
 
+  buildFluidassertsRelease = pkgs.stdenv.mkDerivation rec {
+    name = "buildFluidassertsRelease";
+    description = ''
+      Build fluidasserts binary and source distributions.
+    '';
+    inherit genericDirs genericShellOptions;
+    inherit srcConfReadmeRst;
+    inherit srcBuildSh;
+    inherit srcBuildSrc;
+    inherit srcFluidasserts;
+    inherit srcManifestIn;
+    inherit srcSetupPy;
+    inherit srcTest;
+    inherit fluidassertsDependenciesCache;
+    buildInputs = with pkgs; [
+      fluidassertsDeps
+      ncompress
+    ];
+    builder = ./builders/build-fluidasserts-release.sh;
+  };
+
   demoFluidassertsOutput = pkgs.stdenv.mkDerivation rec {
     name = "demoFluidassertsOutput";
     description = ''

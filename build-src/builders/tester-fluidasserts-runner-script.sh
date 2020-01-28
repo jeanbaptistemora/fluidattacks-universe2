@@ -38,7 +38,7 @@ function commands_pre {
 function commands {
   local test_modules
 
-  mapfile -t test_modules < <(grep -lrP "${fluidassertsModule}" "test/test_"*)
+  mapfile -t test_modules < <(grep -lrP "'${fluidassertsModule}'" "test/test_"*)
 
   IFS='\\n' echo "${test_modules[@]}"
 
