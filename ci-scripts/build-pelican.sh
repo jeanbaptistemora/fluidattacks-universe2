@@ -11,7 +11,7 @@ build_pelican() {
 
   # Build container
   build_container \
-    "registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME" \
+    "${CI_REGISTRY_IMAGE}/review:$CI_COMMIT_REF_SLUG" \
     "$CI_PROJECT_DIR/review/" \
     --build-arg CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}" \
     --build-arg CI_PROJECT_NAME="${CI_PROJECT_NAME}" \
