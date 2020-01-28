@@ -11,7 +11,6 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Mutation, MutationFn, MutationResult } from "react-apollo";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
-import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { AnyAction, Reducer } from "redux";
 import { formValueSelector, InjectedFormProps, submit } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
@@ -84,25 +83,6 @@ export interface IDescriptionViewProps {
 
 let remediationType: string = "request_verification";
 let canUpdate: boolean = false;
-
-const enhance: InferableComponentEnhancer<{}> =
-  lifecycle({
-    componentWillUnmount(): void { store.dispatch(actions.clearDescription()); },
-    componentDidMount(): void {
-      mixpanel.track(
-        "FindingDescription",
-        {
-          Organization: (window as Window & { userOrganization: string }).userOrganization,
-          User: (window as Window & { userName: string }).userName,
-        });
-      const { findingId, projectName, userRole } = this.props as IDescriptionViewProps;
-      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-      );
-
-      thunkDispatch(actions.loadDescription(findingId, projectName, userRole));
-    },
-  });
 
 const renderMarkVerifiedBtn: (() => JSX.Element) = (): JSX.Element => {
   const handleClick: (() => void) = (): void => { store.dispatch(openConfirmDialog("confirmVerify")); };
@@ -268,10 +248,26 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
     );
   };
 
-export const component: ((props: IDescriptionViewProps) => JSX.Element) =
-  (props: IDescriptionViewProps): JSX.Element => {
+const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDescriptionViewProps): JSX.Element => {
 
-    const handleMtResolveAcceptation: ((mtResult: IAcceptationApprovalAttrs) => void) =
+  const onMount: (() => void) = (): (() => void) => {
+    mixpanel.track("FindingDescription", {
+      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+      User: (window as typeof window & { userName: string }).userName,
+    });
+    const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+      store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+    );
+
+    thunkDispatch(actions.loadDescription(props.findingId, props.projectName, props.userRole));
+
+    return (): void => {
+      store.dispatch(actions.clearDescription());
+    };
+  };
+  React.useEffect(onMount, []);
+
+  const handleMtResolveAcceptation: ((mtResult: IAcceptationApprovalAttrs) => void) =
       (mtResult: IAcceptationApprovalAttrs): void => {
       if (!_.isUndefined(mtResult)) {
         if (mtResult.handleAcceptation.success) {
@@ -290,7 +286,7 @@ export const component: ((props: IDescriptionViewProps) => JSX.Element) =
       }
     };
 
-    return(
+  return (
       <Mutation mutation={HANDLE_ACCEPTATION} onCompleted={handleMtResolveAcceptation}>
         { (handleAcceptation: MutationFn<IAcceptationApprovalAttrs, {
             findingId: string; observations: string; projectName: string; response: string; }>,
@@ -376,7 +372,7 @@ const fieldSelector: ((state: {}, ...fields: string[]) => string) = formValueSel
 const fieldSelectorVuln: ((state: {}, ...fields: string[]) => string) = formValueSelector("editTreatmentVulnerability");
 
 export const descriptionView: React.ComponentType<IDescriptionViewProps> = reduxWrapper(
-  enhance(component) as React.FC<IDescriptionViewProps>,
+  component,
   (state: StateType<Reducer>): IDescriptionViewProps => ({
     ...state.dashboard.description,
     formValues: {
