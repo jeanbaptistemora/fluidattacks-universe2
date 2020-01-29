@@ -283,21 +283,21 @@ def update_client_description(finding_id, updated_values, user_mail, update):
             {'external_bts': updated_values['bts_url'] if updated_values['bts_url'] else None}
         )
     if update.treatment_changed:
-        if updated_values['treatment'] == 'ACCEPTED' and updated_values['acceptance_date'] == '-':
-            updated_values['acceptance_date'] = \
-                (datetime.now() + timedelta(days=180)).strftime('%Y-%m-%d %H:%M:%S')
-        valid_update_values = util.update_treatment_values(updated_values)
-        success_treatment = update_treatment(finding_id, valid_update_values, user_mail)
+        success_treatment = update_treatment(finding_id, updated_values, user_mail)
     return success_treatment and success_external_bts
 
 
 def update_treatment(finding_id, updated_values, user_mail):
     success = False
-    new_treatment = updated_values['treatment']
     tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     finding = get_finding(finding_id)
     historic_treatment = finding.get('historicTreatment', [])
+    if updated_values['treatment'] == 'ACCEPTED' and updated_values['acceptance_date'] == '-':
+        updated_values['acceptance_date'] = \
+            (datetime.now() + timedelta(days=180)).strftime('%Y-%m-%d %H:%M:%S')
+    updated_values = util.update_treatment_values(updated_values)
+    new_treatment = updated_values['treatment']
     new_state = {
         'date': today,
         'treatment': new_treatment
