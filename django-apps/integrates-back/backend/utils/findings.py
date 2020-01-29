@@ -226,7 +226,9 @@ def send_accepted_email(finding, justification):
     project_name = finding.get('projectName')
     finding_name = finding.get('finding')
     recipients = project_dal.get_users(project_name)
-
+    treatment = 'Accepted'
+    if finding.get('historicTreatment')[-1]['treatment'] == 'ACCEPTED_UNDEFINED':
+        treatment = 'Indefinitely accepted'
     email_send_thread = threading.Thread(
         name='Accepted finding email thread',
         target=send_mail_accepted_finding,
@@ -235,7 +237,8 @@ def send_accepted_email(finding, justification):
             'finding_id': finding.get('finding_id'),
             'project': project_name.capitalize(),
             'justification': justification,
-            'user_email': finding.get('analyst')
+            'user_email': finding.get('analyst'),
+            'treatment': treatment
         }))
 
     email_send_thread.start()
