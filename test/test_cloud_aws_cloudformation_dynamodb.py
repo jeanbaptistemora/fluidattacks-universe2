@@ -5,7 +5,7 @@ from fluidasserts.cloud.aws.cloudformation import dynamodb
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('cloud.aws.cloudformation')
+pytestmark = pytest.mark.asserts_module('cloud_aws_cloudformation')
 
 # Constants
 SAFE: str = 'test/static/cloudformation/safe'

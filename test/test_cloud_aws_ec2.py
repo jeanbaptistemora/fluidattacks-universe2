@@ -8,7 +8,7 @@ from contextlib import contextmanager
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('cloud.aws.api')
+pytestmark = pytest.mark.asserts_module('cloud_aws_api')
 
 # local imports
 from fluidasserts.cloud.aws import ec2

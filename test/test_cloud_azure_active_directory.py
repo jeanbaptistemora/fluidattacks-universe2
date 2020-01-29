@@ -7,7 +7,7 @@ import os
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('cloud.azure')
+pytestmark = pytest.mark.asserts_module('cloud_azure')
 
 # local imports
 from fluidasserts.cloud.azure import active_directory

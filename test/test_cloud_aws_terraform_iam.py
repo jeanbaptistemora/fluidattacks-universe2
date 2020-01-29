@@ -5,7 +5,7 @@ from fluidasserts.cloud.aws.terraform import iam
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('cloud.aws.terraform')
+pytestmark = pytest.mark.asserts_module('cloud_aws_terraform')
 
 # Constants
 SAFE: str = 'test/static/terraform/safe'
