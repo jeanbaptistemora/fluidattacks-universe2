@@ -67,6 +67,8 @@ Tachyons classes on dynamically generated content
     $( ".hdlist1" ).addClass("f4 b");
 
     // Custom styles
+    $( "ul" ).addClass("pl0");
+    $( "ul:not(.fluid-bullet) > li" ).addClass("nt2");
     $( ".ulist" ).addClass("mt3 pl3");
     $( ".ulist > li > p" ).addClass("mt3");
     $( ".ulist > ul > li > p" ).addClass("mt3");
@@ -89,6 +91,8 @@ Tachyons classes on dynamically generated content
     $( ".img-ppl > .content > img" ).addClass("grayscale br-100 w5");
     $( ".admonitionblock > table > tbody > tr > .icon > img" ).addClass("w3");
     $( ".admonitionblock > table > tbody > tr > .content" ).addClass("f5 lh-copy");
+    $( "table" ).addClass("collapse db overflow-auto")
+    $( "table > tbody > tr > td, th" ).addClass("bg-white")
     $( ".tableblock").addClass("mv3 mh2");
     $( ".tableblock > tbody > tr > td").addClass("ba bc-fluid-gray pa2");
     $( ".tableblock > tbody > tr > th").addClass("ba bc-fluid-gray pa3 tc");
@@ -97,5 +101,8 @@ Tachyons classes on dynamically generated content
     $( ".tb-ppl > tbody > tr > td > div > .sect2 > .paragraph > p").addClass("tc");
     $( ".tb-ppl > tbody > tr > td > div > .sect2 > .imageblock > .content > img").addClass("br-100 grayscale");
     $( ".tb-ppl > tbody > tr > td > div > .sect2 > h3").addClass("tc v-top");
+    $( ".frame-topbot > tbody > tr > td, th" ).removeClass("ba").addClass("bl-hidden br-hidden bt bb");
+    $( ".frame-topbot > tbody > tr > td > div > .sect1 > h2 > a" ).addClass("black");
+    $( ".frame-none > tbody > tr > td, th").removeClass("ba").addClass("ba-hidden");
   });
 })(jQuery);

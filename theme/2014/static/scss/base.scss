@@ -79,6 +79,9 @@ $codeyellow: rgba(230, 219, 116, 1);
 .accordion-item h4:not(:active) ~ .accordion-content { display: none; }
 .ch-w { max-width: 95ch; }
 .anchor-pos { top: -50vh; }
+.bl-hidden { border-left-style: hidden; }
+.ba-hidden { border-style: hidden; }
+
 
 // Tachyons custom responsive classes
 
@@ -129,52 +132,11 @@ p {
   }
 }
 
-table {
-  border-collapse: collapse;
-  display: block;
-  overflow: auto;
-
-  td,
-  th {
-    background-color: $white;
-  }
-}
-
-ul {
-  padding-left: 0;
-
-  li {
-    margin-top: -10px;
-  }
-}
-
 .anchor-sign {
   &::before {
     content: '\0023';
   }
  }
-
-.frame-topbot {
-
-  h2 {
-    a {
-      color: $black;
-    }
-  }
-
-  td,
-  th {
-    border-left-style: hidden;
-    border-right-style: hidden;
-  }
-}
-
-.frame-none {
-  td,
-  th {
-    border-style: hidden;
-  }
-}
 
 .tb-row,
 .tb-col {
