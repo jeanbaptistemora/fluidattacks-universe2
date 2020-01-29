@@ -1,5 +1,4 @@
 {% load static %}
-{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,7 +14,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" type="text/css">
     {% if 'localhost' in request.get_host and debug %}
-      {% render_bundle 'login' 'css' %}
+      <link rel="stylesheet" href="https://localhost:3000/dashboard/login-style.min.css" type="text/css">
     {% else %}
       <link rel="stylesheet" href="{% static 'dashboard/login-style.min.css' %}" type="text/css">
     {% endif %}
@@ -24,7 +23,7 @@
   <body id="FluidIntegrates">
     <div id="root"></div>
     {% if 'localhost' in request.get_host and debug %}
-      {% render_bundle 'login' 'js' %}
+      <script src="https://localhost:3000/dashboard/login-bundle.min.js" type="text/javascript"></script>
     {% else %}
       <script src="{% static 'dashboard/login-bundle.min.js' %}" type="text/javascript"></script>
     {% endif %}

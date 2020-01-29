@@ -60,7 +60,6 @@ INSTALLED_APPS = [
     'django_intercom',
     'graphene_django',
     'storages',
-    'webpack_loader',
     'channels',
     'backend',
 ]
