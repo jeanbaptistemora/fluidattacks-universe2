@@ -34,22 +34,20 @@ function ensure_binary {
 
 function ensure_environment_variable {
   # Make sure that the provided environment var is set
-  local env_var_name
+  if ! _is_var_present "${1}"
+  then
+    echo "INFO: environment variable '${1}' is required"
+    return 1
+  fi
+}
 
+function ensure_environment_variables {
+  # Make sure that the provided environment vars are set
   while test "$#" -gt 0
   do
-    env_var_name="${1}"
-
-    if ! _is_var_present "${env_var_name}"
-    then
-      echo "INFO: environment variable '${env_var_name}' is required"
-      return 1
-    fi
-
+    ensure_environment_variable "${1}"
     shift
   done
-
-  return 0
 }
 
 function execute_on_exit {
