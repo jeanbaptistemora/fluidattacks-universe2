@@ -34,7 +34,7 @@
                   "S" : "oneshottest"
                },
                "project_status" : {
-                  "S" : "test"
+                  "S" : "ACTIVE"
                },
                "remediated_over_time" : {
                   "L" : [
@@ -1872,7 +1872,7 @@
                  "S" : "continuoustesting"
               },
               "project_status" : {
-                 "S" : "test"
+                 "S" : "FINISHED"
               },
               "remediated_over_time" : {
                  "L" : [
@@ -2027,6 +2027,294 @@
               }
            }
         }
-     }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "companies" : {
+                  "L" : [
+                     {
+                        "S" : "FLUID"
+                     }
+                  ]
+               },
+               "customeradmin" : {
+                  "SS" : [
+                     "doesnotexist@fluidattacks.com"
+                  ]
+               },
+               "description" : {
+                  "S" : "Integrates continuous project"
+               },
+               "environments" : {
+                  "L" : [
+                     {
+                        "M" : {
+                            "historic_state" : {
+                               "L" : [
+                                  { 
+                                     "M" : {
+                                        "date" : {
+                                           "S" : "2019-11-27 13:40"
+                                        },
+                                        "state" : {
+                                           "S" : "SUSPENDED"
+                                        },
+                                        "user" : {
+                                           "S" : "unittest@fluidattacks.com"
+                                        }
+                                     }
+                                  }
+                               ]
+                            },
+                           "urlEnv" : {
+                              "S" : "https://someoneatfluid.integrates.env."
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "urlEnv" : {
+                              "S" : "https://fluidattacks.com/"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                            "historic_state" : {
+                               "L" : [
+                                  { 
+                                     "M" : {
+                                        "date" : {
+                                           "S" : "2019-11-27 13:40"
+                                        },
+                                        "state" : {
+                                           "S" : "INACTIVE"
+                                        },
+                                        "user" : {
+                                           "S" : "unittest@fluidattacks.com"
+                                        }
+                                     }
+                                  }
+                               ]
+                            },
+                           "uploadDate" : {
+                              "S" : "2019-10-29 13:40"
+                           },
+                           "urlEnv" : {
+                              "S" : "https://continuous.fluidattacks.com/"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "files" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "shell2"
+                           },
+                           "fileName" : {
+                              "S" : "shell2.exe"
+                           },
+                           "uploadDate" : {
+                              "S" : "2019-04-24 14:59"
+                           },
+                           "uploader" : {
+                              "S" : "unittest@fluidattacks.com"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "description" : {
+                              "S" : "asdasd"
+                           },
+                           "fileName" : {
+                              "S" : "asdasd.py"
+                           },
+                           "uploadDate" : {
+                              "S" : "2019-08-06 14:28"
+                           },
+                           "uploader" : {
+                              "S" : "unittest@fluidattacks.com"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "hasRelease" : {
+                  "BOOL" : true
+               },
+               "last_closing_date" : {
+                  "N" : "23"
+               },
+               "max_open_severity" : {
+                  "N" : "4.9"
+               },
+               "mean_remediate" : {
+                  "N" : "245"
+               },
+               "project_name" : {
+                  "S" : "suspendedtest"
+               },
+               "project_status" : {
+                  "S" : "SUSPENDED"
+               },
+               "remediated_over_time" : {
+                  "L" : [
+                     {
+                        "L" : [
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Sep 24 - 30, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "2"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Oct 8 - 14, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "6"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Aug 26 - Sep 1, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "151"
+                                 }
+                              }
+                           }
+                        ]
+                     },
+                     {
+                        "L" : [
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Sep 24 - 30, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Aug 26 - Sep 1, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "5"
+                                 }
+                              }
+                           }
+                        ]
+                     },
+                     {
+                        "L" : [
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Sep 24 - 30, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           },
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Aug 26 - Sep 1, 2019"
+                                 },
+                                 "y" : {
+                                    "N" : "23"
+                                 }
+                              }
+                           }
+                        ]
+                     },
+                     {
+                        "L" : [
+                           {
+                              "M" : {
+                                 "x" : {
+                                    "S" : "Sep 24 - 30, 2018"
+                                 },
+                                 "y" : {
+                                    "N" : "0"
+                                 }
+                              }
+                           }
+                        ]
+                     }
+                  ]
+               },
+               "repositories" : {
+                  "L" : [
+                     {
+                        "M" : {
+                           "branch" : {
+                              "S" : "master"
+                           },
+                           "urlRepo" : {
+                              "S" : "https://gitlab.com/fluidsignal/engineering/"
+                           }
+                        }
+                     },
+                     {
+                        "M" : {
+                           "branch" : {
+                              "S" : "master"
+                           },
+                           "protocol" : {
+                              "NULL" : true
+                           },
+                           "uploadDate" : {
+                              "S" : "2019-10-29 13:40"
+                           },
+                           "urlRepo" : {
+                              "S" : "https://gitlab.com/fluidsignal/unittest"
+                           }
+                        }
+                     }
+                  ]
+               },
+               "tag" : {
+                  "SS" : [
+                     "test-projects"
+                  ]
+               },
+               "total_treatment" : {
+                  "M" : {
+                     "accepted" : {
+                        "N" : "5"
+                     },
+                     "inProgress" : {
+                        "N" : "58"
+                     },
+                     "undefined" : {
+                        "N" : "65"
+                     }
+                  }
+               },
+               "type" : {
+                  "S" : "continuous"
+               }
+            }
+         }
+      }
    ]
 }

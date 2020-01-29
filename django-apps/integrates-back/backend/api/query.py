@@ -35,6 +35,8 @@ class Query(ObjectType):
 
     internal_project_names = Field(InternalProject)
 
+    alive_projects = List(Project)
+
     resources = Field(Resource, project_name=String(required=True))
 
     user = Field(User, project_name=String(required=True),
@@ -125,6 +127,14 @@ class Query(ObjectType):
         """Resolve for internal project names"""
         del info
         return InternalProject()
+
+    @require_login
+    @new_require_role
+    def resolve_alive_projects(self, info):
+        """Resolve for ACTIVE and SUSPENDED projects"""
+        del info
+        alive_projects = project_domain.get_alive_projects()
+        return [Project(project) for project in alive_projects]
 
     @require_login
     def resolve_me(self, info):

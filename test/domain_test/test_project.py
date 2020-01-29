@@ -11,7 +11,7 @@ from backend.domain.project import (
     is_vulnerability_closed, get_max_severity, get_max_open_severity,
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
     is_finding_in_drafts, list_drafts, list_comments, get_active_projects,
-    list_findings, get_finding_project_name)
+    get_alive_projects, list_findings, get_finding_project_name)
 from backend.dal.integrates_dal import DYNAMODB_RESOURCE, get_vulnerability_dynamo
 
 
@@ -244,6 +244,11 @@ class ProjectTest(TestCase):
     def test_get_active_projects(self):
         test_data = get_active_projects()
         assert test_data is not None
+
+    def test_get_alive_projects(self):
+        test_data = get_alive_projects()
+        expected_output = ['suspendedtest', 'oneshottest', 'unittesting']
+        assert sorted(test_data) == sorted(expected_output)
 
     def test_list_findings(self):
         project_name = 'unittesting'

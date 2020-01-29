@@ -81,6 +81,7 @@ class ActionAbacTest(TestCase):
         'backend.api.query.Query.resolve_project',
         'backend.api.query.Query.resolve_finding',
         'backend.api.query.Query.resolve_event',
+        'backend.api.query.Query.resolve_alive_projects',
         'backend.entity.resource.AddResources.mutate',
         'backend.entity.resource.UpdateResources.mutate',
         'backend.entity.resource.AddFiles.mutate',

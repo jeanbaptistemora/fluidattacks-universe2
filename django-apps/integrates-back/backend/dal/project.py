@@ -59,6 +59,13 @@ def get_active_projects():
     return [prj['project_name'] for prj in projects]
 
 
+def get_alive_projects():
+    """Get active and suspended projects in DynamoDB"""
+    filtering_exp = Attr('project_status').eq('ACTIVE') | Attr('project_status').eq('SUSPENDED')
+    projects = integrates_dal.get_projects_data_dynamo(filtering_exp, 'project_name')
+    return [prj['project_name'] for prj in projects]
+
+
 def list_drafts(project_name):
     key_exp = Key('project_name').eq(project_name)
     tzn = pytz.timezone(settings.TIME_ZONE)
