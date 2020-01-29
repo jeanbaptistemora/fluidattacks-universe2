@@ -26,7 +26,7 @@ let us take a deeper look at how +code2vec+ works.
 Even personality profiles
 can be represented as vectors for data processing,
 and this was done in 1934, by hand!.
-So we certainly should de able to represent
+So we certainly should be able to represent
 pieces of code faithfully as vectors.
 Let us see how that goes.
 
@@ -40,7 +40,8 @@ of objects in their middle layers.
 This is pretty much all the theory one needs to know
 about this useful network as far as embedding is concerned.
 
-In this article we would like to take +code2vec+ for a spin
+In this article,
+we would like to take +code2vec+ for a spin
 and produce some embeddings ourselves.
 Luckily, the authors of +code2vec+ have generously
 given us their code and a tutorial on
@@ -55,7 +56,7 @@ already split into training, testing and validation subsets,
 and pre-trained models both in ready for use
 and trainable versions.
 One can also choose to train a model from scratch.
-Either way, after training,
+Either way, after training (or skipping it),
 what remains is to assess the accuracy of the model,
 which one can do with a single command:
 
@@ -67,9 +68,9 @@ $ python code2vec.py --load /path/to/model --test /path/to/data
 
 Just this step, however,
 takes quite some time on a regular machine.
-Around 20 on mine,
+Around 20 minutes on mine,
 giving a precision of 66%, recall of 53%, and so
-and F1 score of 59%.
+and an F score of 59%.
 Not bad but far from ideal,
 and this is consistent with the published results <<r1, [1]>>.
 
@@ -84,15 +85,20 @@ image::precision-recall.png[Precision and recall]
 
 Suppose the dots are files in a repository.
 Some might actually contain vulnerabilities,
-that is the left half of the circle, labeled "relevant elements" above.
+that is the left half of the rectangle,
+labeled "relevant elements" above.
+
+Ideally, a tool would detect them all, and nothing else.
+
 Our vulnerability classifier, or maybe a human pentester, or any other tool,
 tags as vulnerable those contained in the circle.
 Some right (the true positives) and some wrong (the false positives).
 The files containing vulnerabilities which weren't tagged,
-labeled false negatives above, we like to call them _escapes_,
+labeled false negatives above,
+we like to call them _escapes_,
 those vulnerabilities which resist scrutiny.
-This is actually more dangerous than the false positives,
-since those are the vulnerabilites that ill-intentioned hackers
+These are actually more dangerous than the false positives,
+since they are the ones that black hat hackers
 might take advantage of in the wild.
 But I digress.
 
@@ -112,8 +118,10 @@ and is defined as two times the ratio of their product to their sum
 $$ F = 2\,\frac{{\rm precision} \times {\rm recall}}{{\rm precision + recall}} $$
 ----
 
-We can also run the model to get predictions.
-We run:
+But enough of information retrieval technicalities.
+Back to +code2vec+.
+We can run the model to get predictions.
+We say:
 
 [source,bash]
 ----
@@ -128,23 +136,24 @@ Next, write a function body in the file +Input.java+, such as:
 [source,java]
 ----
 int f(Object target) {
-    int i = 0;
-    for (Object elem: this.elements) {
-        if (elem.equals(target)) {
-            return i;
-        }
-        i++;
+  int i = 0;
+  for (Object elem: this.elements) {
+    if (elem.equals(target)) {
+      return i;
     }
-    return -1;
+    i++;
+  }
+  return -1;
 }
 ----
 
-which clearly traverses an iterable object
+which clearly traverses an iterable object (v.g., a list)
 trying to find the given target, and
 returning its position within the object.
 
-After updating the +Input.java+
-we get the possible function names as predicted by +code2vec+:
+After updating the +Input.java+ file,
+we get the possible function names as predicted by +code2vec+,
+each with their confidence:
 
 [source,bash]
 ----
@@ -167,6 +176,10 @@ All of those names make sense to me!
 +indexOf+ and variations, or even
 +getElementPosition+ would be good names
 for this particular function.
+Remember that this reflects on the training data,
+so if +indexOf+ has the highest probability in the list,
+it must be because the model "remembers"
+a method with similar tokens whose name was +indexOf+.
 
 However, it is much nicer
 to take a look at the
