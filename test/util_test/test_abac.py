@@ -216,6 +216,7 @@ class ActionAbacTest(TestCase):
             'backend.entity.event.SolveEvent.mutate',
             'backend.entity.event.UpdateEventEvidence.mutate',
             'backend.entity.event.RemoveEventEvidence.mutate',
+            'backend.entity.resource.DownloadFile.mutate',
             'backend.entity.finding.Finding.resolve_historic_state',
             'backend.entity.finding.Finding.resolve_observations',
             'backend.entity.finding.Finding.resolve_analyst',
