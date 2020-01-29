@@ -236,7 +236,8 @@ class FindingTests(TestCase):
                     btsUrl: "",
                     findingId: "463558592",
                     treatment: "ACCEPTED",
-                    justification: "This is a treatment justification test"
+                    justification: "This is a treatment justification test",
+                    acceptanceDate: "-"
                   ) {
                     success
                     finding {

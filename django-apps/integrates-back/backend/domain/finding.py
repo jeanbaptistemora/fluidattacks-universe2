@@ -1,7 +1,7 @@
 import io
 import re
 import random
-from datetime import datetime
+from datetime import datetime, timedelta
 from decimal import Decimal
 from time import time
 
@@ -283,6 +283,9 @@ def update_client_description(finding_id, updated_values, user_mail, update):
             {'external_bts': updated_values['bts_url'] if updated_values['bts_url'] else None}
         )
     if update.treatment_changed:
+        if updated_values['treatment'] == 'ACCEPTED' and updated_values['acceptance_date'] == '-':
+            updated_values['acceptance_date'] = \
+                (datetime.now() + timedelta(days=180)).strftime('%Y-%m-%d %H:%M:%S')
         valid_update_values = util.update_treatment_values(updated_values)
         success_treatment = update_treatment(finding_id, valid_update_values, user_mail)
     return success_treatment and success_external_bts

@@ -56,7 +56,8 @@ class FindingTests(TestCase):
         finding_id = '463461507'
         values_accepted = {'justification': 'This is a test treatment justification',
                            'bts_url': '',
-                           'treatment': 'ACCEPTED'}
+                           'treatment': 'ACCEPTED',
+                           'acceptance_date': '-'}
         test_accepted = update_client_description(
             finding_id, values_accepted, 'unittesting@fluidattacks.com', update)
         assert test_accepted is True
