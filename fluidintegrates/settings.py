@@ -37,6 +37,7 @@ SECRET_KEY = FI_DJANGO_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = FI_DEBUG == 'True'
+CI_COMMIT_REF_NAME = os.environ['CI_COMMIT_REF_NAME']
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "fluid.la",
                  "fluidattacks.com", "192.168.200.100.xip.io",
@@ -117,6 +118,7 @@ DATABASES = {
             'sql_mode': 'STRICT_TRANS_TABLES',
         },
         'TEST': {
+            'NAME': f'test_django_{CI_COMMIT_REF_NAME}',
             'CHARSET': 'utf8',
             'COLLATION': 'utf8_general_ci',
         },
@@ -132,6 +134,7 @@ DATABASES = {
             'sql_mode': 'STRICT_TRANS_TABLES',
         },
         'TEST': {
+            'NAME': f'test_integrates_{CI_COMMIT_REF_NAME}',
             'CHARSET': 'utf8',
             'COLLATION': 'utf8_general_ci',
         },
@@ -236,7 +239,6 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 MEDIA_ROOT = ''
 MEDIA_URL = ''
 AWS_AUTO_CREATE_BUCKET = True
-CI_COMMIT_REF_NAME = os.environ['CI_COMMIT_REF_NAME']
 STATIC_BUCKET_NAME = 'fluidintegrates-static'
 AWS_STORAGE_BUCKET_NAME = f'{STATIC_BUCKET_NAME}-{CI_COMMIT_REF_NAME}'
 AWS_S3_OBJECT_PARAMETERS = {
