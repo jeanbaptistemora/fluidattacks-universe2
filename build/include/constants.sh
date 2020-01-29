@@ -5,7 +5,7 @@ export NO='0'
 
 export NIX_BUILD_CORES='0'
 export NIX_BUILD_MAX_JOBS='auto'
-export NIXPKGS_ALLOW_UNFREE="${NO}"
+export NIXPKGS_ALLOW_UNFREE="${YES}"
 
 export TEST_MARKERS=(
   all

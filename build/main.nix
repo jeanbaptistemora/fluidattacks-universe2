@@ -39,6 +39,8 @@ rec {
     libxslt
     openssl
     postgresql
+    unixODBC
+    unixODBCDrivers.msodbcsql17
     tesseract
     xmlsec
     zlib
