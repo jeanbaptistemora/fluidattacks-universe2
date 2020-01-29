@@ -60,6 +60,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .grayscale { filter: grayscale(100);}
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-fluid-bk { &:hover { color: $fluid-black;} }
+.hv-fluid-lb { &:hover { color: $lightblue; }}
 .hideme { visibility: hidden; }
 .fluid-bullet { list-style-image: url('../../images/bullet2.png');}
 .bullet-inside { list-style-position: inside; }
@@ -81,6 +82,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 .anchor-pos { top: -50vh; }
 .bl-hidden { border-left-style: hidden; }
 .ba-hidden { border-style: hidden; }
+.tooltip { &:hover { .tooltip-text { visibility: visible; } } }
+.anchor-sign { &::before { content: '\0023'; } }
 
 
 // Tachyons custom responsive classes
@@ -103,40 +106,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   .h-auto-vl { height: auto; }
 }
 // End Tachyons
-
-a {
-  color: $darkblue;
-
-  &:hover {
-    color: $fluid-dark-red;
-  }
-
-  .tooltip {
-    color: $darkblue;
-
-    &:hover {
-      color: $lightblue;
-    }
-  }
-}
-
-p {
-  font-size: 18px;
-  line-height: 29.75px;
-  margin: 0;
-  text-align: left;
-
-  strong {
-    color: $textblack;
-    font-weight: bold;
-  }
-}
-
-.anchor-sign {
-  &::before {
-    content: '\0023';
-  }
- }
 
 .tb-row,
 .tb-col {
@@ -209,16 +178,6 @@ p {
   td {
     background-color: unset;
     border-color: $white;
-  }
-}
-
-.tooltip {
-
-  &:hover {
-
-    .tooltip-text {
-      visibility: visible;
-    }
   }
 }
 
