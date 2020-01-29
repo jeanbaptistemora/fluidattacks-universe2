@@ -253,28 +253,15 @@ function job_test_api {
 
 function _job_test_api__generic_dispatcher {
   local caller_function
-  local runner_file
-  local runner_name
-  local derivation_name
+  local marker_name
 
   # Inspect the stack and get the name of the function that called this function
   caller_function="${FUNCNAME[1]}"
 
   # The caller function without the 'job_test_api_' prefix
-  runner_name="${caller_function#job_test_api_}"
+  marker_name="${caller_function#job_test_api_}"
 
-  # The caller function but 'TitleCase' instead of 'title_case'
-  derivation_name=$(camel_case_to_title_case "${runner_name}")
-
-  # Add a prefix to make the distintion
-  derivation_name="testFluidasserts${derivation_name}"
-  runner_name="ephemeral-runner.test_api_${runner_name}"
-  runner_file="${PWD}/${runner_name}"
-
-  # Build the derivation and save the output as an executable file
-  build_and_link_x "${derivation_name}" "${runner_name}"
-
-  "${runner_file}"
+  ./build/shell.sh --test-fluidasserts "${marker_name}"
 }
 
 # Populate the context with functions for every test marker

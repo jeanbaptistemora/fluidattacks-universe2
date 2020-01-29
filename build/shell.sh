@@ -33,6 +33,7 @@ function prepare_environment {
   TEMP_FILE=$(mktemp)
   TEMP_DIR=$(mktemp -d)
   SITE_PACKAGES=$(mktemp -d)
+  mkdir "${SITE_PACKAGES}/bin"
 
   # Persistent dir structure where files will be stored.
   #   use these to save things that are expensive to build/fetch
@@ -44,16 +45,18 @@ function prepare_environment {
   mkdir -p "${PERSISTENT_DIR}"
 
   # Set the PYTHONPATH to the nix-created environment
-  PYTHONPATH="${pyPkgFluidassertsBasic}/site-packages:${PYTHONPATH}"
-  PYTHONPATH="${pyPkgGitPython}/site-packages:${PYTHONPATH}"
-  PYTHONPATH="${pyPkgMandrill}/site-packages:${PYTHONPATH}"
-  PYTHONPATH="${SITE_PACKAGES}:${PYTHONPATH}"
+  PYTHONPATH="${PYTHONPATH}:${pyPkgFluidassertsBasic}/site-packages"
+  PYTHONPATH="${PYTHONPATH}:${pyPkgGroupTest}/site-packages"
+  PYTHONPATH="${PYTHONPATH}:${pyPkgGitPython}/site-packages"
+  PYTHONPATH="${PYTHONPATH}:${pyPkgMandrill}/site-packages"
+  PYTHONPATH="${PYTHONPATH}:${SITE_PACKAGES}"
 
   # Set on PATH scripts installed with python
-  mkdir "${SITE_PACKAGES}/bin"
-  PATH="${pyPkgFluidassertsBasic}/site-packages/bin:${PATH}"
-  PATH="${SITE_PACKAGES}/bin:${PATH}"
+  PATH="${PATH}:${pyPkgFluidassertsBasic}/site-packages/bin"
+  PATH="${PATH}:${pyPkgGroupTest}/site-packages/bin"
+  PATH="${PATH}:${SITE_PACKAGES}/bin"
   chmod +x "${pyPkgFluidassertsBasic}/site-packages/bin/asserts"
+  chmod +x "${pyPkgGroupTest}/site-packages/bin/pytest"
 }
 
 #
@@ -63,7 +66,8 @@ function prepare_environment {
 function release_to_docker_hub {
   with_production_secrets
 
-  ensure_environment_variable \
+  ensure_binary 'docker'
+  ensure_environment_variables \
     DOCKER_HUB_URL \
     DOCKER_HUB_USER \
     DOCKER_HUB_PASS
@@ -89,7 +93,7 @@ function release_to_docker_hub {
 function release_to_pypi {
   with_production_secrets
 
-  ensure_environment_variable \
+  ensure_environment_variables \
     TWINE_USERNAME \
     TWINE_PASSWORD \
 
@@ -100,12 +104,55 @@ function release_to_pypi {
 function send_new_version_mail {
   with_production_secrets
 
-  ensure_environment_variable \
+  ensure_environment_variables \
     CI_COMMIT_BEFORE_SHA \
     CI_COMMIT_SHA        \
     MANDRILL_APIKEY      \
 
   ./build/scripts/send_mail.py
+}
+
+function test_fluidasserts {
+  with_development_secrets
+
+  local marker_name="${1}"
+
+  function mocks_ctl {
+    local action="${1}"
+    local marker_name="${2}"
+
+    ensure_binary 'docker'
+
+    pytest \
+        -m "${action}" \
+        --asserts-module "${marker_name}" \
+        --capture=no \
+        --no-cov \
+      "test/test_others_${action}.py"
+  }
+
+  function compute_needed_test_modules_for {
+    grep -lrP "'${1}'" "test/test_"*
+  }
+
+  function execute_tests_for {
+    local marker_name="${1}"
+    local test_modules
+
+    mapfile -t test_modules \
+      < <(compute_needed_test_modules_for "${marker_name}")
+
+    pytest \
+        --cov-branch \
+        --asserts-module "${marker_name}" \
+        --random-order-bucket=global \
+      "${test_modules[@]}"
+  }
+
+                  mocks_ctl prepare  "${marker_name}"
+  execute_on_exit mocks_ctl shutdown "${marker_name}"
+
+  execute_tests_for "${marker_name}"
 }
 
 function cli {

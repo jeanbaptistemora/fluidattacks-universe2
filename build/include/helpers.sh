@@ -26,6 +26,12 @@ function decrypt_and_source {
   echo
 }
 
+function ensure_binary {
+  local location
+  location=$(command -v "${1}")
+  test -x "${location}"
+}
+
 function ensure_environment_variable {
   # Make sure that the provided environment var is set
   local env_var_name
@@ -44,6 +50,13 @@ function ensure_environment_variable {
   done
 
   return 0
+}
+
+function execute_on_exit {
+  # SC2064: Use single quotes, otherwise this expands now rather than when signalled.
+  #   disabled because I actually want it to be expanded now
+  # shellcheck disable=SC2064
+  trap "${*}" EXIT
 }
 
 function with_development_secrets {

@@ -13,6 +13,7 @@ let
 
   propagatedBuildInputs = with main; [
     pyPkgFluidassertsBasic.buildInputs
+    pyPkgGroupTest.buildInputs
     pyPkgMandrill.buildInputs
     pyPkgGitPython.buildInputs
   ];
@@ -23,6 +24,9 @@ with main;
 pkgs.stdenv.mkDerivation rec {
   name = "shell";
   inherit genericDirs genericShellOptions;
-  inherit pyPkgFluidassertsBasic pyPkgMandrill pyPkgGitPython;
+  inherit pyPkgFluidassertsBasic;
+  inherit pyPkgGroupTest;
+  inherit pyPkgMandrill;
+  inherit pyPkgGitPython;
   buildInputs = osPackages ++ pythonPackages ++ propagatedBuildInputs;
 }

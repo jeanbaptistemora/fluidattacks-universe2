@@ -6,7 +6,7 @@
 import pytest
 
 
-@pytest.mark.teardown
-def test_teardown(stop_mocks):
-    """Teardown fixture."""
+@pytest.mark.shutdown
+def test_shutdown(stop_mocks):
+    """Shutdown fixture."""
     assert True
