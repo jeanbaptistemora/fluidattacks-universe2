@@ -304,7 +304,7 @@ class AddEventComment(Mutation):
     @staticmethod
     @require_login
     @new_require_role
-    @require_project_access
+    @require_event_access
     def mutate(_, info, content, event_id, parent):
         user_info = util.get_jwt_content(info.context)
         comment_id, success = event_domain.add_comment(
