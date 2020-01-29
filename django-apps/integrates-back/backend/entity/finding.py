@@ -14,7 +14,7 @@ from graphene_file_upload.scalars import Upload
 from backend import util
 from backend.decorators import (
     get_entity_cache, require_finding_access, require_login, require_role,
-    require_project_access
+    require_project_access, new_require_role
 )
 from backend.domain import (
     comment as comment_domain, finding as finding_domain,
@@ -204,14 +204,14 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
                              self.id, curr_user_role)]
         return self.comments
 
-    @require_role(['analyst', 'admin'])
+    @new_require_role
     @get_entity_cache
     def resolve_historic_state(self, info):
         """ Resolve submission history of a draft """
         del info
         return self.historic_state
 
-    @require_role(['analyst', 'admin'])
+    @new_require_role
     def resolve_observations(self, info):
         """ Resolve observations attribute """
         user_data = util.get_jwt_content(info.context)
@@ -342,7 +342,7 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         del info
         return self.report_date
 
-    @require_role(['analyst', 'admin'])
+    @new_require_role
     def resolve_analyst(self, info):
         """ Resolve analyst attribute """
         del info
@@ -368,7 +368,7 @@ class RemoveEvidence(Mutation):
     finding = Field(Finding)
 
     @require_login
-    @require_role(['analyst', 'admin'])
+    @new_require_role
     @require_finding_access
     def mutate(self, info, evidence_id, finding_id):
         fieldname = [
@@ -406,7 +406,7 @@ class UpdateEvidence(Mutation):
     finding = Field(Finding)
 
     @require_login
-    @require_role(['analyst', 'admin'])
+    @new_require_role
     @require_finding_access
     def mutate(self, info, evidence_id, finding_id, file):
         del file
@@ -454,7 +454,7 @@ class UpdateEvidenceDescription(Mutation):
     finding = Field(Finding)
 
     @require_login
-    @require_role(['analyst', 'admin'])
+    @new_require_role
     @require_finding_access
     def mutate(self, info, finding_id, field, description):
         success = False
@@ -493,7 +493,7 @@ class UpdateSeverity(Mutation):
     finding = Field(Finding)
 
     @require_login
-    @require_role(['analyst', 'admin'])
+    @new_require_role
     @require_finding_access
     def mutate(self, info, **parameters):
         finding_id = parameters.get('finding_id')
@@ -525,7 +525,7 @@ class AddFindingComment(Mutation):
     comment_id = String()
 
     @require_login
-    @require_role(['analyst', 'customer', 'admin'])
+    @new_require_role
     @require_finding_access
     def mutate(self, info, **parameters):
         if parameters.get('type') in ['comment', 'observation']:
@@ -573,7 +573,7 @@ class VerifyFinding(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['analyst', 'admin'])
+    @new_require_role
     @require_finding_access
     def mutate(self, info, finding_id):
         project_name = project_domain.get_finding_project_name(finding_id)
@@ -634,7 +634,7 @@ class RequestVerification(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['customer', 'admin'])
+    @new_require_role
     @require_finding_access
     def mutate(self, info, finding_id, justification):
         project_name = project_domain.get_finding_project_name(finding_id)
@@ -678,7 +678,7 @@ class UpdateDescription(Mutation):
     finding = Field(Finding)
 
     @require_login
-    @require_role(['analyst', 'admin'])
+    @new_require_role
     @require_finding_access
     def mutate(self, info, finding_id, **parameters):
         success = finding_domain.update_description(finding_id, parameters)
@@ -710,7 +710,7 @@ class UpdateClientDescription(Mutation):
     finding = Field(Finding)
 
     @require_login
-    @require_role(['customer', 'admin'])
+    @new_require_role
     @require_finding_access
     def mutate(self, info, finding_id, **parameters):
         project_name = finding_domain.get_finding(finding_id)['projectName']
@@ -755,7 +755,7 @@ class RejectDraft(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['admin', 'analyst'])
+    @new_require_role
     @require_finding_access
     def mutate(self, info, finding_id):
         reviewer_email = util.get_jwt_content(info.context)['user_email']
@@ -786,7 +786,7 @@ class DeleteFinding(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['admin', 'analyst'])
+    @new_require_role
     @require_finding_access
     def mutate(self, info, finding_id, justification):
         project_name = finding_domain.get_finding(finding_id)['projectName']
@@ -813,7 +813,7 @@ class ApproveDraft(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['admin'])
+    @new_require_role
     def mutate(self, info, draft_id):
         reviewer_email = util.get_jwt_content(info.context)['user_email']
         project_name = finding_domain.get_finding(draft_id)['projectName']
@@ -848,7 +848,7 @@ class CreateDraft(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['admin', 'analyst'])
+    @new_require_role
     @require_project_access
     def mutate(self, info, project_name, title, **kwargs):
         success = finding_domain.create_draft(
@@ -867,7 +867,7 @@ class SubmitDraft(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['admin', 'analyst'])
+    @new_require_role
     @require_finding_access
     def mutate(self, info, finding_id):
         analyst_email = util.get_jwt_content(info.context)['user_email']

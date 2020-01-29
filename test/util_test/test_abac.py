@@ -97,6 +97,22 @@ class ActionAbacTest(TestCase):
         'backend.entity.event.SolveEvent.mutate',
         'backend.entity.event.UpdateEventEvidence.mutate',
         'backend.entity.event.RemoveEventEvidence.mutate',
+        'backend.entity.finding.Finding.resolve_historic_state',
+        'backend.entity.finding.Finding.resolve_observations',
+        'backend.entity.finding.Finding.resolve_analyst',
+        'backend.entity.finding.RemoveEvidence.mutate',
+        'backend.entity.finding.UpdateEvidence.mutate',
+        'backend.entity.finding.UpdateEvidenceDescription.mutate',
+        'backend.entity.finding.UpdateSeverity.mutate',
+        'backend.entity.finding.VerifyFinding.mutate',
+        'backend.entity.finding.UpdateDescription.mutate',
+        'backend.entity.finding.UpdateClientDescription.mutate',
+        'backend.entity.finding.RejectDraft.mutate',
+        'backend.entity.finding.DeleteFinding.mutate',
+        'backend.entity.finding.CreateDraft.mutate',
+        'backend.entity.finding.SubmitDraft.mutate',
+        'backend.entity.finding.AddFindingComment.mutate',
+        'backend.entity.finding.RequestVerification.mutate',
     }
 
     def test_action_wrong_role(self):
@@ -144,6 +160,8 @@ class ActionAbacTest(TestCase):
             'backend.entity.event.DownloadEventFile.mutate',
             'backend.entity.vulnerability.DeleteTags.mutate',
             'backend.entity.vulnerability.UpdateTreatmentVuln.mutate',
+            'backend.entity.finding.AddFindingComment.mutate',
+            'backend.entity.finding.RequestVerification.mutate',
         }
 
         should_deny = self.global_actions - should_allow
@@ -181,6 +199,21 @@ class ActionAbacTest(TestCase):
             'backend.entity.event.SolveEvent.mutate',
             'backend.entity.event.UpdateEventEvidence.mutate',
             'backend.entity.event.RemoveEventEvidence.mutate',
+            'backend.entity.finding.Finding.resolve_historic_state',
+            'backend.entity.finding.Finding.resolve_observations',
+            'backend.entity.finding.Finding.resolve_analyst',
+            'backend.entity.finding.RemoveEvidence.mutate',
+            'backend.entity.finding.UpdateEvidence.mutate',
+            'backend.entity.finding.UpdateEvidenceDescription.mutate',
+            'backend.entity.finding.UpdateSeverity.mutate',
+            'backend.entity.finding.VerifyFinding.mutate',
+            'backend.entity.finding.UpdateDescription.mutate',
+            'backend.entity.finding.UpdateClientDescription.mutate',
+            'backend.entity.finding.RejectDraft.mutate',
+            'backend.entity.finding.DeleteFinding.mutate',
+            'backend.entity.finding.CreateDraft.mutate',
+            'backend.entity.finding.SubmitDraft.mutate',
+            'backend.entity.finding.AddFindingComment.mutate',
         }
 
         should_deny = self.global_actions - should_allow

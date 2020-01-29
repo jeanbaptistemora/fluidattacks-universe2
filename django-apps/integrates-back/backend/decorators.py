@@ -156,6 +156,8 @@ def resolve_project_name(kwargs):
         project_name = kwargs['project_name']
     elif 'finding_id' in kwargs:
         project_name = integrates_dal.get_finding_project(kwargs['finding_id'])
+    elif 'draft_id' in kwargs:
+        project_name = integrates_dal.get_finding_project(kwargs['draft_id'])
     elif 'event_id' in kwargs:
         project_name = \
             event_domain.get_event(kwargs['event_id']).get('project_name')
@@ -166,11 +168,8 @@ def resolve_project_name(kwargs):
 
 def resolve_project_data(project_name):
     """Get project data or mock it if needed."""
-    if project_name:
-        project_data = integrates_dal.get_project_dynamo(project_name)[0]
-    else:
-        project_data = {}
-    return project_data
+    return integrates_dal.get_project_dynamo(project_name)[0] \
+        if project_name else {}
 
 
 def new_require_role(func):

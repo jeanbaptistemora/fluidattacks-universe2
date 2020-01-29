@@ -7,8 +7,8 @@ from graphene_file_upload.scalars import Upload
 from backend.domain import comment as comment_domain, event as event_domain
 from backend.entity.comment import Comment
 from backend.decorators import (
-    get_entity_cache, require_login, require_role, require_event_access,
-    require_project_access, new_require_role
+    get_entity_cache, require_login, require_event_access,
+    require_project_access, new_require_role, require_role
 )
 from backend import util
 
@@ -167,7 +167,7 @@ class SolveEvent(Mutation):
 
     @staticmethod
     @require_login
-    @require_role(['admin', 'analyst'])
+    @new_require_role
     @require_event_access
     def mutate(_, info, event_id, affectation, date):
         analyst_email = util.get_jwt_content(info.context)['user_email']
@@ -369,7 +369,7 @@ class DownloadEventFile(Mutation):
 
     @staticmethod
     @require_login
-    @require_role(['analyst', 'customer', 'admin'])
+    @new_require_role
     @require_event_access
     def mutate(_, info, event_id, file_name):
         success = False
