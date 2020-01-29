@@ -67,30 +67,35 @@ Tachyons classes on dynamically generated content
     $( ".hdlist1" ).addClass("f4 b");
 
     // Custom styles
-    $( ".ulist" ).addClass("mt3 pl3")
-    $( ".ulist > li > p" ).addClass("mt3")
-    $( ".ulist > ul > li > p" ).addClass("mt3")
-    $( ".fluid-qanda > ol > li" ).addClass("i list")
-    $( ".imageblock, .videoblock" ).addClass("ma3 tc")
-    $( ".listingblock, .literalblock" ).addClass("mv3 mh0")
-    $( "img" ).addClass("mw-100 v-mid")
-    $( ".title" ).addClass("f5-l f6 c-dkgrey")
-    $( ".col-lg-8, .col-md-10" ).addClass("tc w-100")
-    $( "ol" ).addClass("pl4 f4")
-    $( ".tb-responsive > td, th" ).addClass("ma0 db")
-    $( "h1, h2, h3, h4" ).addClass("montsy b lh-solid mt3 mh0 mb2")
-    $( "h1:not(.post-title)" ).addClass("f2-l f3-m")
-    $( "h2" ).addClass("f2-l f3-m")
-    $( "h3" ).addClass("f3-l f4-m")
-    $( "h4" ).addClass("f4-l f5-m")
-    $( "p" ).addClass("f4-l f5-m")
-    $( ".olist > ol" ).addClass("f4-l")
-    $( ".at-expanding-share-button-desktop" ).addClass("dn-l")
-    $( ".img-ppl > .content > img" ).addClass("grayscale br-100 w5")
-    $( ".admonitionblock > table > tbody > tr > .icon > img" ).addClass("w3")
-    $( ".admonitionblock > table > tbody > tr > .content" ).addClass("f5 lh-copy")
-    $( ".tableblock").addClass("mv3 mh2")
-    $( ".tableblock > tbody > tr > td").addClass("ba bc-fluid-gray pa2")
-    $( ".tableblock > tbody > tr > th").addClass("ba bc-fluid-gray pa3 tc")
+    $( ".ulist" ).addClass("mt3 pl3");
+    $( ".ulist > li > p" ).addClass("mt3");
+    $( ".ulist > ul > li > p" ).addClass("mt3");
+    $( ".fluid-qanda > ol > li" ).addClass("i list");
+    $( ".imageblock, .videoblock" ).addClass("ma3 tc");
+    $( ".listingblock, .literalblock" ).addClass("mv3 mh0");
+    $( "img" ).addClass("mw-100 v-mid");
+    $( ".title" ).addClass("f5-l f6 c-dkgrey");
+    $( ".col-lg-8, .col-md-10" ).addClass("tc w-100");
+    $( "ol" ).addClass("pl4 f4");
+    $( ".tb-responsive > td, th" ).addClass("ma0 db");
+    $( "h1, h2, h3, h4" ).addClass("montsy b lh-solid mt3 mh0 mb2");
+    $( "h1:not(.post-title)" ).addClass("f2-l f3-m");
+    $( "h2" ).addClass("f2-l f3-m");
+    $( "h3" ).addClass("f3-l f4-m");
+    $( "h4" ).addClass("f4-l f5-m");
+    $( "p" ).addClass("f4-l f5-m");
+    $( ".olist > ol" ).addClass("f4-l");
+    $( ".at-expanding-share-button-desktop" ).addClass("dn-l");
+    $( ".img-ppl > .content > img" ).addClass("grayscale br-100 w5");
+    $( ".admonitionblock > table > tbody > tr > .icon > img" ).addClass("w3");
+    $( ".admonitionblock > table > tbody > tr > .content" ).addClass("f5 lh-copy");
+    $( ".tableblock").addClass("mv3 mh2");
+    $( ".tableblock > tbody > tr > td").addClass("ba bc-fluid-gray pa2");
+    $( ".tableblock > tbody > tr > th").addClass("ba bc-fluid-gray pa3 tc");
+    $( ".tb-ppl" ).addClass("dt");
+    $( ".tb-ppl > tbody > tr > td, th").addClass("bn");
+    $( ".tb-ppl > tbody > tr > td > div > .sect2 > .paragraph > p").addClass("tc");
+    $( ".tb-ppl > tbody > tr > td > div > .sect2 > .imageblock > .content > img").addClass("br-100 grayscale");
+    $( ".tb-ppl > tbody > tr > td > div > .sect2 > h3").addClass("tc v-top");
   });
 })(jQuery);

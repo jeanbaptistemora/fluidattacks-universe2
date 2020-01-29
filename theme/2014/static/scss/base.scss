@@ -189,30 +189,6 @@ ul {
   }
 }
 
-.tb-ppl {
-  display: table;
-
-  td,
-  th {
-    border: 0;
-  }
-
-  p {
-    text-align: center;
-  }
-
-  img {
-    border-radius: 50%;
-    filter: grayscale(100%);
-  }
-
-  h3 {
-    text-align: center;
-    vertical-align: top;
-  }
-
-}
-
 //scss-lint:disable NestingDepth
 .tb-alt {
   display: table;
