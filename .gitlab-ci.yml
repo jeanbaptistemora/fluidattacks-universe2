@@ -38,6 +38,8 @@ stages:
 .test_template: &test_template
   <<: *with_nix
   <<: *in_dev_branch
+  before_script:
+    - ./build/scripts/odbc/set.sh
   stage: test
 
 demo_fluidasserts_output:

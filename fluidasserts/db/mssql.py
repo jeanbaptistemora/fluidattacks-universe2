@@ -79,8 +79,11 @@ def database(connection_string: ConnectionString
     username = connection_string.user
     password = connection_string.password
     connection: Connection = pyodbc.connect(
-        ('DRIVER={ODBC Driver 17 for SQL Server};'
-         f'SERVER={server};DATABASE={dbname};UID={username};PWD={password}'))
+        f'DRIVER={{ODBC Driver 17 for SQL Server}};'
+        f'SERVER={server};'
+        f'DATABASE={dbname};'
+        f'UID={username};'
+        f'PWD={password}')
 
     try:
         cursor = connection.cursor()

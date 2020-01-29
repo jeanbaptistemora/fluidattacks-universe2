@@ -255,6 +255,10 @@ function _job_test_api__generic_dispatcher {
   local caller_function
   local marker_name
 
+  echo 'If this is the first time you are running the tests for DB module do:'
+  echo '  $ ./build/scripts/odbc/set.sh'
+  echo
+
   # Inspect the stack and get the name of the function that called this function
   caller_function="${FUNCNAME[1]}"
 
