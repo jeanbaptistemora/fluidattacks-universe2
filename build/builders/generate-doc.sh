@@ -4,10 +4,10 @@ source "${stdenv}/setup"
 source "${genericShellOptions}"
 source "${genericDirs}"
 
-mkdir root/src/repo/build-src
+mkdir root/src/repo/build
 
 cp -r --no-preserve=mode,ownership \
-  "${srcBuildSrcScripts}" root/src/repo/build-src/scripts
+  "${srcBuildScripts}" root/src/repo/build/scripts
 cp -r --no-preserve=mode,ownership \
   "${srcDotGit}" root/src/repo/.git
 cp -r --no-preserve=mode,ownership \
@@ -85,7 +85,7 @@ function build_doc {
   # Generate e: separate page per module f: overwrite M: module doc first
   sphinx-apidoc -efM fluidasserts -o sphinx/source
 
-  version=$(python3 ./build-src/scripts/get_version.py)
+  version=$(python3 ./build/scripts/get_version.py)
   checks_number=$(grep -rIE '@(track|api)' fluidasserts/ | wc -l)
 
   sed -i "s/<CHECKS>/${checks_number}/" sphinx/source/index.rst

@@ -13,7 +13,7 @@
 
 source "${stdenv}/setup"
 source "${genericShellOptions}"
-source ./build-src/include/helpers.sh
+source ./build/include/helpers.sh
 
 function prepare_environment {
   export PATH
@@ -67,7 +67,7 @@ function send_new_version_mail {
     CI_COMMIT_SHA        \
     MANDRILL_APIKEY      \
 
-  ./deploy/send_mail.py
+  ./build/scripts/send_mail.py
 }
 
 function cli {

@@ -7,7 +7,7 @@
 #!   nix-shell --keep DOCKER_HUB_PASS
 #!   nix-shell --keep DOCKER_HUB_URL
 #!   nix-shell --keep DOCKER_HUB_USER
-#!   nix-shell ./build-src/main.nix
+#!   nix-shell ./build/main.nix
 #  shellcheck shell=bash
 
 source "${genericShellOptions}"

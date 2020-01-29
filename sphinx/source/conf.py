@@ -52,7 +52,7 @@ pygments_monkeypatch_style("Fluidattacks", Fluidattacks)
 # -- Project information -----------------------------------------------------
 
 project = 'Fluid Asserts'
-copyright = '2017-2019, Fluid Attacks Engineering Team'
+copyright = '2001-2020, Fluid Attacks Engineering Team'
 author = 'Fluid Attacks Engineering Team'
 
 # The short X.Y version

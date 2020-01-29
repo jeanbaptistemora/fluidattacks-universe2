@@ -5,11 +5,11 @@ source "${genericShellOptions}"
 source "${genericDirs}"
 
 mkdir root/src/repo/conf
-mkdir root/src/repo/build-src
-mkdir root/src/repo/build-src/config
+mkdir root/src/repo/build
+mkdir root/src/repo/build/config
 
 cp -r --no-preserve=mode,ownership \
-  "${srcBuildSrcConfigReadmeRst}" root/src/repo/build-src/config/README.rst
+  "${srcBuildConfigReadmeRst}" root/src/repo/build/config/README.rst
 cp -r --no-preserve=mode,ownership \
   "${srcFluidasserts}" root/src/repo/fluidasserts
 cp -r --no-preserve=mode,ownership \

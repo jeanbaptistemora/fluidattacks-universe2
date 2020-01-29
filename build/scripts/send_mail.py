@@ -21,7 +21,7 @@ def _get_message() -> str:
     repo = git.Repo(os.getcwd())
     message: str = repo.git.log(
         CI_COMMIT_BEFORE_SHA + '...' + CI_COMMIT_SHA,
-        '--pretty=format:<b>%s</b>%n%bCommitted by: %aN%n')
+        '--pretty=format:<b>%s</b>%n%bAuthored by: %aN%n')
     return message.replace('\n', '<br/>\n')
 
 

@@ -13,7 +13,7 @@ from setuptools import setup
 
 def _get_readme():
     """Return fluidasserts readme."""
-    readme_path = 'build-src/config/README.rst'
+    readme_path = 'build/config/README.rst'
     with io.open(readme_path, 'rt', encoding='utf8') as readme_f:
         return readme_f.read()
 

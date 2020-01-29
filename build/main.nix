@@ -49,15 +49,13 @@ rec {
   ] ++ basicPythonEnv;
 
   # Repository files
-  srcBuildConfPylintrc = ../build-src/conf/pylintrc;
-  srcBuildPythonRequirementsLint = ../build-src/python-requirements/lint.lst;
+  srcBuild = ../build;
+  srcBuildConfigPylintrc = ../build/config/pylintrc;
+  srcBuildConfigReadmeRst = ../build/config/README.rst;
+  srcBuildPythonRequirementsLint = ../build/python-requirements/lint.lst;
+  srcBuildPythonRequirementsTest = ../build/python-requirements/test.lst;
   srcBuildSh = ../build.sh;
-  srcBuildSrc = ../build-src;
-  srcBuildSrcConfigPylintrc = ../build-src/config/pylintrc;
-  srcBuildSrcConfigReadmeRst = ../build-src/config/README.rst;
-  srcBuildSrcScripts = ../build-src/scripts;
-  srcBuildSrcPythonRequirementsLint = ../build-src/python-requirements/lint.lst;
-  srcBuildSrcPythonRequirementsTest = ../build-src/python-requirements/test.lst;
+  srcBuildScripts = ../build/scripts;
   srcDockerfile = ../Dockerfile;
   srcDotGit = builtins.path {
     name = "git";
@@ -122,9 +120,9 @@ rec {
     '';
     inherit genericDirs genericShellOptions;
     inherit srcBuildSh;
-    inherit srcBuildSrc;
-    inherit srcBuildSrcConfigReadmeRst;
-    inherit srcBuildSrcScripts;
+    inherit srcBuild;
+    inherit srcBuildConfigReadmeRst;
+    inherit srcBuildScripts;
     inherit srcFluidasserts;
     inherit srcManifestIn;
     inherit srcSetupPy;
@@ -167,7 +165,7 @@ rec {
     '';
     inherit genericDirs genericShellOptions;
     inherit pyPkgFluidassertsBasic pyPkgGitFame pyPkgSphinx;
-    inherit srcBuildSrcScripts srcDotGit srcDotMailmap srcFluidasserts srcSphinx;
+    inherit srcBuildScripts srcDotGit srcDotMailmap srcFluidasserts srcSphinx;
     buildInputs = with pkgs; [
       perl
       fluidassertsDeps
@@ -184,7 +182,7 @@ rec {
       but what's needed for development purposes.
     '';
     inherit genericDirs genericShellOptions;
-    inherit srcBuildSrcConfigReadmeRst srcFluidasserts srcManifestIn srcSetupPy;
+    inherit srcBuildConfigReadmeRst srcFluidasserts srcManifestIn srcSetupPy;
     inherit fluidassertsDependenciesCache;
     buildInputs = fluidassertsDeps;
     builder = ./builders/py-pkg-fluidasserts.sh;
@@ -216,7 +214,7 @@ rec {
       Group of Python packages used to lint Fluidasserts.
     '';
     inherit genericDirs genericShellOptions;
-    inherit srcBuildSrcPythonRequirementsLint;
+    inherit srcBuildPythonRequirementsLint;
     buildInputs = basicPythonEnv;
     builder = ./builders/py-pkg-group-lint.sh;
   };
@@ -227,7 +225,7 @@ rec {
       Group of Python packages used to test Fluidasserts.
     '';
     inherit genericDirs genericShellOptions;
-    inherit srcBuildSrcPythonRequirementsTest;
+    inherit srcBuildPythonRequirementsTest;
     buildInputs = basicPythonEnv;
     builder = ./builders/py-pkg-group-test.sh;
   };
@@ -260,7 +258,7 @@ rec {
     '';
     inherit genericDirs genericShellOptions;
     inherit pyPkgFluidassertsBasic pyPkgGroupLint;
-    inherit srcBuildSrcConfigPylintrc srcDotGitShallow srcDotOvercommit;
+    inherit srcBuildConfigPylintrc srcDotGitShallow srcDotOvercommit;
     inherit srcDotPreCommitConfig srcFluidasserts;
     buildInputs = [
       pkgs.haskellPackages.hadolint
@@ -278,7 +276,7 @@ rec {
     '';
     inherit genericDirs genericShellOptions;
     inherit pyPkgFluidassertsBasic pyPkgGroupLint;
-    inherit srcBuildSrcConfigPylintrc srcDotGitShallow srcDotOvercommit;
+    inherit srcBuildConfigPylintrc srcDotGitShallow srcDotOvercommit;
     inherit srcDotPreCommitConfig srcTest;
     buildInputs = [
       pkgs.haskellPackages.hadolint
@@ -295,7 +293,7 @@ rec {
       Lint Nix(pkgs) code in the repository.
     '';
     inherit genericDirs genericShellOptions;
-    inherit srcBuildSrc;
+    inherit srcBuild;
     buildInputs = with pkgs; [ nix-linter ];
     builder = ./builders/lint-nix-code.sh;
   };
@@ -306,7 +304,7 @@ rec {
       Lint shell code in the repository.
     '';
     inherit genericDirs genericShellOptions;
-    inherit srcBuildSh srcBuildSrc srcEnvrcPublic;
+    inherit srcBuildSh srcBuild srcEnvrcPublic;
     buildInputs = with pkgs; [ shellcheck ];
     builder = ./builders/lint-shell-code.sh;
   };

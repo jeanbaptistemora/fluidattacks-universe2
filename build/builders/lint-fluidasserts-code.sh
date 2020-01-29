@@ -44,7 +44,7 @@ prospector \
     --with-tool pyroma \
     --strictness veryhigh \
     --output-format text \
-    --pylint-config-file="${srcBuildSrcConfigPylintrc}" \
+    --pylint-config-file="${srcBuildConfigPylintrc}" \
   fluidasserts/
 
 echo "${name} succeeded!" > "${out}"

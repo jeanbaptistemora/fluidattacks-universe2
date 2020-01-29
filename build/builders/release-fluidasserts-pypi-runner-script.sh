@@ -7,7 +7,7 @@
 #!   nix-shell --keep buildFluidassertsRelease
 #!   nix-shell --keep TWINE_USERNAME
 #!   nix-shell --keep TWINE_PASSWORD
-#!   nix-shell ./build-src/main.nix
+#!   nix-shell ./build/main.nix
 #  shellcheck shell=bash
 
 source "${genericShellOptions}"

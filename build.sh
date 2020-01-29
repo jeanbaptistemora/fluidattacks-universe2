@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
 
-source ./build-src/include/generic/shell-options.sh
-source ./build-src/include/constants.sh
-source ./build-src/include/helpers.sh
+source ./build/include/generic/shell-options.sh
+source ./build/include/constants.sh
+source ./build/include/helpers.sh
 
 #
 # Functions
@@ -19,7 +19,7 @@ function build {
       --option restrict-eval false \
       --option sandbox false \
       --show-trace \
-    ./build-src/main.nix
+    ./build/main.nix
 }
 
 function build_and_link {
@@ -35,7 +35,7 @@ function build_and_link {
       --option restrict-eval false \
       --option sandbox false \
       --show-trace \
-    ./build-src/main.nix
+    ./build/main.nix
 }
 
 function build_and_link_x {
@@ -189,8 +189,8 @@ function job_pages {
 
   build_and_link generateDoc result-pages
 
-  ./build-src/shell.sh -c 'rm -rf public; mkdir public'
-  ./build-src/shell.sh -c 'cp -r --no-preserve=mode,ownership result-pages/* public'
+  ./build/shell.sh -c 'rm -rf public; mkdir public'
+  ./build/shell.sh -c 'cp -r --no-preserve=mode,ownership result-pages/* public'
 
   echo 'Check the docs at public/index.html!'
   rm -f result-pages
@@ -245,7 +245,7 @@ function job_release_to_docker_hub {
 function job_send_new_version_mail {
   use_cachix
 
-  ./build-src/shell.sh \
+  ./build/shell.sh \
     --env 'CI_COMMIT_SHA'        "${CI_COMMIT_SHA:-}"        \
     --env 'CI_COMMIT_BEFORE_SHA' "${CI_COMMIT_BEFORE_SHA:-}" \
     --send-new-version-mail

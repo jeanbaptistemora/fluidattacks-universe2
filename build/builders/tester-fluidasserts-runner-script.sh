@@ -16,7 +16,7 @@
 #!   nix-shell --keep KUBERNETES_API_TOKEN
 #!   nix-shell --keep WEBBOT_GMAIL_PASS
 #!   nix-shell --keep WEBBOT_GMAIL_USER
-#!   nix-shell ./build-src/main.nix
+#!   nix-shell ./build/main.nix
 #  shellcheck shell=bash
 
 source "${genericShellOptions}"

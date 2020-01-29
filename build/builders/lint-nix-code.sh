@@ -5,11 +5,11 @@ source "${genericShellOptions}"
 source "${genericDirs}"
 
 cp -r --no-preserve=mode,ownership \
-  "${srcBuildSrc}" root/src/repo/build-src
+  "${srcBuild}" root/src/repo/build
 
 cd root/src/repo
 
-path_to_check='build-src'
+path_to_check='build'
 
 echo "Verifying nix code in: ${path_to_check}"
 

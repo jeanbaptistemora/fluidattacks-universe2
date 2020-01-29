@@ -10,7 +10,7 @@ recursive-include fluidasserts/static *.lst
 
 # Include build files
 include build.sh
-graft build-src
+graft build
 
 # Include test folder
 graft test

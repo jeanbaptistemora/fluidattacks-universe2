@@ -8,7 +8,7 @@ pip3 install \
     --cache-dir root/python/cache-dir \
     --target    root/python/site-packages \
     --upgrade \
-    --requirement "${srcBuildSrcPythonRequirementsLint}"
+    --requirement "${srcBuildPythonRequirementsTest}"
 
 mkdir "${out}"
 mv root/python/* "${out}"
