@@ -14,6 +14,7 @@
 source "${stdenv}/setup"
 source "${genericShellOptions}"
 source ./build/include/helpers.sh
+source ./.envrc.public
 
 function prepare_environment {
   export PATH
@@ -58,6 +59,43 @@ function prepare_environment {
 #
 # CLI flags / Gitlab CI jobs
 #
+
+function release_to_docker_hub {
+  with_production_secrets
+
+  ensure_environment_variable \
+    DOCKER_HUB_URL \
+    DOCKER_HUB_USER \
+    DOCKER_HUB_PASS
+
+  docker login "${DOCKER_HUB_URL}" \
+    --username "${DOCKER_HUB_USER}" \
+    --password-stdin \
+    <<< "${DOCKER_HUB_PASS}"
+
+  function build {
+    local image_name="${1}"
+    local target_name="${2}"
+
+    docker build --tag "${image_name}" --target "${target_name}" .
+    docker push "${image_name}"
+  }
+
+  build 'fluidattacks/asserts:light' 'light'
+  build 'fluidattacks/asserts:full'  'full'
+  build 'fluidattacks/asserts'       'full'
+}
+
+function release_to_pypi {
+  with_production_secrets
+
+  ensure_environment_variable \
+    TWINE_USERNAME \
+    TWINE_PASSWORD \
+
+  twine check  './result.build_fluidasserts_release/'*
+  twine upload './result.build_fluidasserts_release/'*
+}
 
 function send_new_version_mail {
   with_production_secrets

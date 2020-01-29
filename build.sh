@@ -150,7 +150,7 @@ function push_to_cachix {
 
 function job_build_fluidasserts_release {
   use_cachix
-  build_and_link buildFluidassertsRelease result-build_fluidasserts_release
+  build_and_link buildFluidassertsRelease result.build_fluidasserts_release
 }
 
 function job_demo_fluidasserts_output {
@@ -187,13 +187,13 @@ function job_pages {
   # Build our hosted GitLab Pages
   use_cachix
 
-  build_and_link generateDoc result-pages
+  build_and_link generateDoc result.pages
 
   ./build/shell.sh -c 'rm -rf public; mkdir public'
-  ./build/shell.sh -c 'cp -r --no-preserve=mode,ownership result-pages/* public'
+  ./build/shell.sh -c 'cp -r --no-preserve=mode,ownership result.pages/* public'
 
   echo 'Check the docs at public/index.html!'
-  rm -f result-pages
+  rm -f result.pages
 }
 
 function job_populate_caches {
@@ -218,28 +218,15 @@ function job_populate_caches {
   ) | push_to_cachix
 }
 
-function job_release_to_pypi {
-  local runner_file
-  local runner_name
+function job_release_to_docker_hub {
   use_cachix
-
-  runner_name='ephemeral-runner.release_to_pypi'
-  runner_file="./${runner_name}"
-
-  build_and_link_x releaseToPyPi "${runner_name}"
-  "${runner_file}"
+  ./build/shell.sh --release-to-docker-hub
 }
 
-function job_release_to_docker_hub {
-  local runner_file
-  local runner_name
+function job_release_to_pypi {
   use_cachix
-
-  runner_name='ephemeral-runner.release_to_docker_hub'
-  runner_file="./${runner_name}"
-
-  build_and_link_x releaseToDockerHub "${runner_name}"
-  "${runner_file}"
+  job_build_fluidasserts_release
+  ./build/shell.sh --release-to-pypi
 }
 
 function job_send_new_version_mail {
@@ -310,18 +297,19 @@ function cli {
       return 0
     elif test "${token}" = '-h' || test "${token}" = '--help'
     then
-      echo "Use:"
-      echo "  ${0} --branch [branch_name]"
-      echo "  ${0} --job    [job_name]"
+      echo "Use of ${0}:"
+      echo "  -b, --branch  [branch_name] simulate being in another branch"
+      echo "  -h, --help                  print this message and exit"
+      echo "  -j, --job     [job_name]    execute a particular job"
       echo
-      echo "List of [job_name]:"
+      echo "Available jobs:"
       set | grep -oP '^job_[a-z_]+' | sed -e 's/job_/  /g;s/_/-/g' | sort
       return 1
-    elif test "${token}" = '--branch'
+    elif test "${token}" = '-b' || test "${token}" = '--branch'
     then
       shift 1 || break
       export CI_COMMIT_REF_NAME="${1}"
-    elif test "${token}" = '--job'
+    elif test "${token}" = '-j' || test "${token}" = '--job'
     then
       shift 1 || break
       # replace dash with underscore

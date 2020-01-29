@@ -22,7 +22,7 @@ function decrypt_and_source {
       --batch \
       --passphrase-fd 0 \
       --decrypt "${encrypted_file}" \
-    < <(echo "${encryption_key}"))
+    <<< "${encryption_key}")
   echo
 }
 

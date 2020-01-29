@@ -1,8 +1,6 @@
 let
   pkgs = import ./pkgs.nix { };
 
-  _python = pkgs.python37;
-  _pythonPackages = pkgs.python37Packages;
 in
 
 rec {
@@ -15,6 +13,10 @@ rec {
     (_pythonPackages.pip)
     (_python.withPackages (ps: with ps; [ cython setuptools wheel ]))
   ];
+
+  # Custom references to python interpreter and packages
+  _python = pkgs.python37;
+  _pythonPackages = pkgs.python37Packages;
 
   # Fluidasserts dependencies
   fluidassertsDeps = with pkgs; [
@@ -333,38 +335,6 @@ rec {
       nodejs
     ];
     builder = ./builders/node-pkg-commitlint.sh;
-  };
-
-  releaseToPyPi = pkgs.stdenv.mkDerivation rec {
-    name = "releaseToPyPi";
-    description = ''
-      Release the last version of Fluidasserts to PyPi.
-    '';
-    inherit genericDirs genericShellOptions;
-    inherit srcEnvVarsProdEncrypted;
-    inherit buildFluidassertsRelease;
-    gpg = pkgs.gnupg;
-    buildInputs = [
-      basicPythonEnv
-      _pythonPackages.twine
-    ];
-    builder = ./builders/release-fluidasserts-pypi.sh;
-    runner = ./builders/release-fluidasserts-pypi-runner-script.sh;
-  };
-
-  releaseToDockerHub = pkgs.stdenv.mkDerivation rec {
-    name = "releaseToDockerHub";
-    description = ''
-      Release the last version of Fluidasserts to Docker Hub.
-    '';
-    inherit genericDirs genericShellOptions;
-    inherit srcDockerfile srcEnvVarsProdEncrypted;
-    gpg = pkgs.gnupg;
-    buildInputs = with pkgs; [
-      docker
-    ];
-    builder = ./builders/release-fluidasserts-docker-hub.sh;
-    runner = ./builders/release-fluidasserts-docker-hub-runner-script.sh;
   };
 
   testCommitMessage = pkgs.stdenv.mkDerivation rec {
