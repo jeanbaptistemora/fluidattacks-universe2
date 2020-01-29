@@ -91,6 +91,8 @@ class ActionAbacTest(TestCase):
         'backend.entity.vulnerability.ApproveVulnerability.mutate',
         'backend.entity.vulnerability.DeleteTags.mutate',
         'backend.entity.vulnerability.UpdateTreatmentVuln.mutate',
+        'backend.entity.vulnerability.Vulnerability.resolve_last_analyst',
+        'backend.entity.vulnerability.Vulnerability.resolve_analyst',
         'backend.entity.event.AddEventComment.mutate',
         'backend.entity.event.DownloadEventFile.mutate',
         'backend.entity.event.UpdateEvent.mutate',
@@ -113,6 +115,14 @@ class ActionAbacTest(TestCase):
         'backend.entity.finding.SubmitDraft.mutate',
         'backend.entity.finding.AddFindingComment.mutate',
         'backend.entity.finding.RequestVerification.mutate',
+        'backend.entity.project.Project.resolve_comments',
+        'backend.entity.project.Project.resolve_events',
+        'backend.entity.project.AddProjectComment.mutate',
+        'backend.entity.project.Project.resolve_drafts',
+        'backend.entity.project.RemoveTag.mutate',
+        'backend.entity.project.AddTags.mutate',
+        'backend.entity.project.AddAllProjectAccess.mutate',
+        'backend.entity.project.RemoveAllProjectAccess.mutate',
     }
 
     def test_action_wrong_role(self):
@@ -162,6 +172,11 @@ class ActionAbacTest(TestCase):
             'backend.entity.vulnerability.UpdateTreatmentVuln.mutate',
             'backend.entity.finding.AddFindingComment.mutate',
             'backend.entity.finding.RequestVerification.mutate',
+            'backend.entity.project.Project.resolve_comments',
+            'backend.entity.project.Project.resolve_events',
+            'backend.entity.project.AddProjectComment.mutate',
+            'backend.entity.project.RemoveTag.mutate',
+            'backend.entity.project.AddTags.mutate',
         }
 
         should_deny = self.global_actions - should_allow
@@ -193,6 +208,8 @@ class ActionAbacTest(TestCase):
             'backend.entity.vulnerability.DeleteVulnerability.mutate',
             'backend.entity.vulnerability.UploadFile.mutate',
             'backend.entity.vulnerability.ApproveVulnerability.mutate',
+            'backend.entity.vulnerability.Vulnerability.resolve_last_analyst',
+            'backend.entity.vulnerability.Vulnerability.resolve_analyst',
             'backend.entity.event.AddEventComment.mutate',
             'backend.entity.event.DownloadEventFile.mutate',
             'backend.entity.event.UpdateEvent.mutate',
@@ -214,6 +231,10 @@ class ActionAbacTest(TestCase):
             'backend.entity.finding.CreateDraft.mutate',
             'backend.entity.finding.SubmitDraft.mutate',
             'backend.entity.finding.AddFindingComment.mutate',
+            'backend.entity.project.Project.resolve_comments',
+            'backend.entity.project.Project.resolve_events',
+            'backend.entity.project.AddProjectComment.mutate',
+            'backend.entity.project.Project.resolve_drafts',
         }
 
         should_deny = self.global_actions - should_allow
