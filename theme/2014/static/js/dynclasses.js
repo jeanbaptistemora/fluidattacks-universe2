@@ -86,16 +86,16 @@ Tachyons classes on dynamically generated content
     $( "h3" ).addClass("f3-l f4-m");
     $( "h4" ).addClass("f4-l f5-m");
     $( "p" ).addClass("f4-l f5-m lh-copy ma0 tl");
-    $( "p > strong" ).addClass("black b")
-    $( "a:not(.c-fluid-red)" ).addClass("c-fluid-dkblue hover-red")
-    $( "a > .tooltip" ).addClass("hv-fluid-lb")
+    $( "p > strong" ).addClass("black b");
+    $( "a:not(.c-fluid-red)" ).addClass("c-fluid-dkblue hover-red");
+    $( "a > .tooltip" ).addClass("hv-fluid-lb");
     $( ".olist > ol" ).addClass("f4-l");
     $( ".at-expanding-share-button-desktop" ).addClass("dn-l");
     $( ".img-ppl > .content > img" ).addClass("grayscale br-100 w5");
     $( ".admonitionblock > table > tbody > tr > .icon > img" ).addClass("w3");
     $( ".admonitionblock > table > tbody > tr > .content" ).addClass("f5 lh-copy");
-    $( "table" ).addClass("collapse db overflow-auto")
-    $( "table > tbody > tr > td, th" ).addClass("bg-white")
+    $( "table" ).addClass("collapse db overflow-auto");
+    $( "table > tbody > tr > td, th" ).addClass("bg-white");
     $( ".tableblock").addClass("mv3 mh2");
     $( ".tableblock > tbody > tr > td").addClass("ba bc-fluid-gray pa2");
     $( ".tableblock > tbody > tr > th").addClass("ba bc-fluid-gray pa3 tc");
