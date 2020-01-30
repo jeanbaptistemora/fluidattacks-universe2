@@ -298,3 +298,12 @@ class PermissionDenied(Exception):
     def __init__(self):
         msg = 'Exception - Error permission denied'
         super(PermissionDenied, self).__init__(msg)
+
+
+class AlreadyPendingDeletion(Exception):
+    """Exception to control pending to delete projects"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - This project has already been deleted or is pending'
+        super(AlreadyPendingDeletion, self).__init__(msg)

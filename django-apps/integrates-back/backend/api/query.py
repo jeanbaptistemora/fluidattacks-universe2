@@ -114,10 +114,10 @@ class Query(ObjectType):
     def resolve_project(self, info, project_name):
         """Resolve for projects."""
         project_name = project_name.lower()
-        if project_domain.validate_project(project_name):
+        user_email = util.get_jwt_content(info.context)['user_email']
+        if project_domain.is_request_deletion_user(project_name, user_email):
             util.cloudwatch_log(info.context,
-                                'Security: Access to project {project} '
-                                'succesfully'.format(project=project_name))
+                                f'Security: Access to project {project_name} succesfully')
             return Project(project_name)
         raise InvalidProject()
 

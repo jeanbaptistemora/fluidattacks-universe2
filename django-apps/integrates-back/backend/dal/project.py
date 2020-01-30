@@ -212,7 +212,7 @@ def remove_all_project_access(project):
 
 def exists(project_name):
     project = project_name.lower()
-    return bool(get_project_attributes(project, ['project_name']))
+    return bool(get_attributes(project, ['project_name']))
 
 
 def list_project_managers(project_name):
@@ -225,12 +225,46 @@ def list_project_managers(project_name):
     return managers
 
 
-def get_project_attributes(project_name, attributes):
-    response = TABLE.get_item(
-        Key={'project_name': project_name},
-        AttributesToGet=attributes
-    )
+def get_attributes(project_name, attributes=None):
+    item_attrs = {
+        'Key': {'project_name': project_name},
+    }
+    if attributes:
+        item_attrs['AttributesToGet'] = attributes
+    response = TABLE.get_item(**item_attrs)
     return response.get('Item', {})
+
+
+def is_alive(project):
+    """Validate if a project exist and is not deleted."""
+    project_name = project.lower()
+    is_valid_project = True
+    if exists(project_name):
+        project_data = get_attributes(
+            project_name.lower(),
+            ['deletion_date', 'project_status']
+        )
+        if project_data.get('project_status') in ['DELETED', 'PENDING_DELETION'] or \
+           project_data.get('deletion_date'):
+            is_valid_project = False
+    else:
+        is_valid_project = False
+    return is_valid_project
+
+
+def is_request_deletion_user(project, user_email):
+    is_user_allowed = False
+    if not is_alive(project):
+        project_data = get_attributes(
+            project.lower(),
+            ['historic_deletion', 'project_status']
+        )
+        historic_deletion = project_data.get('historic_deletion', [{}])
+        if project_data.get('project_status') == 'PENDING_DELETION':
+            is_user_allowed = historic_deletion[-1].get('user') == user_email.lower()
+    else:
+        is_user_allowed = True
+    return is_user_allowed
 
 
 def update(project_name, data):

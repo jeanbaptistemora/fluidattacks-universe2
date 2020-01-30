@@ -3,7 +3,7 @@
 
 from collections import namedtuple
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from decimal import Decimal
 import pytz
 
@@ -13,7 +13,9 @@ from backend.dal import integrates_dal, project as project_dal
 from backend.domain import comment as comment_domain
 from backend.domain import finding as finding_domain, user as user_domain
 from backend.domain import vulnerability as vuln_domain
-from backend.exceptions import InvalidParameter, InvalidProjectName, PermissionDenied
+from backend.exceptions import (
+    AlreadyPendingDeletion, InvalidParameter, InvalidProjectName, PermissionDenied
+)
 from backend.mailer import send_comment_mail
 from backend import util
 
@@ -76,12 +78,46 @@ def create_project(user_email, user_role, **kwargs):
     return resp
 
 
+def get_historic_deletion(project_name):
+    historic_deletion = project_dal.get_attributes(
+        project_name.lower(), ['historic_deletion'])
+    return historic_deletion.get('historic_deletion', [])
+
+
+def request_deletion(project_name, user_email):
+    project = project_name.lower()
+    response = False
+    if user_domain.get_project_access(user_email, project) and project_name == project:
+        data = project_dal.get_attributes(project, ['project_status', 'historic_deletion'])
+        historic_deletion = data.get('historic_deletion', [])
+        if data.get('project_status') not in ['DELETED', 'PENDING_DELETION']:
+            tzn = pytz.timezone(settings.TIME_ZONE)
+            today = datetime.now(tz=tzn).today()
+            deletion_date = (today + timedelta(days=30)).strftime('%Y-%m-%d') + ' 23:59:59'
+            new_state = {
+                'date': today.strftime('%Y-%m-%d %H:%M:%S'),
+                'deletion_date': deletion_date,
+                'user': user_email.lower(),
+            }
+            historic_deletion.append(new_state)
+            new_data = {
+                'historic_deletion': historic_deletion,
+                'project_status': 'PENDING_DELETION'
+            }
+            response = project_dal.update(project, new_data)
+        else:
+            raise AlreadyPendingDeletion()
+    else:
+        raise PermissionDenied()
+    return response
+
+
 def remove_project(project_name, user_email):
     """Delete project information."""
     project = project_name.lower()
     Status = namedtuple('Status', 'are_findings_masked are_users_removed is_project_finished')
     response = Status(False, False, False)
-    if validate_project(project) and user_domain.get_project_access(user_email, project):
+    if is_alive(project) and user_domain.get_project_access(user_email, project):
         tzn = pytz.timezone(settings.TIME_ZONE)
         today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
         are_users_removed = remove_all_users_access(project)
@@ -138,19 +174,12 @@ def validate_tags(tags):
     return tags_validated
 
 
-def validate_project(project):
-    """Validate if a project exist and is not deleted."""
-    project_info = project_dal.get_project_attributes(
-        project, ['project_name', 'deletion_date'])
-    is_valid_project = False
-    if project_info:
-        if project_info.get('deletion_date'):
-            is_valid_project = False
-        else:
-            is_valid_project = True
-    else:
-        is_valid_project = False
-    return is_valid_project
+def is_alive(project):
+    return project_dal.is_alive(project)
+
+
+def is_request_deletion_user(project, user_email):
+    return project_dal.is_request_deletion_user(project, user_email)
 
 
 def total_vulnerabilities(finding_id):

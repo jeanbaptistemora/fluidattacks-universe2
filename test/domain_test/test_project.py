@@ -6,7 +6,7 @@ from pytz import timezone
 from freezegun import freeze_time
 
 from backend.domain.project import (
-    get_email_recipients, validate_tags, validate_project, get_vulnerabilities,
+    get_email_recipients, validate_tags, is_alive, get_vulnerabilities,
     get_pending_closing_check, get_last_closing_vuln, get_last_closing_date,
     is_vulnerability_closed, get_max_severity, get_max_open_severity,
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
@@ -27,9 +27,9 @@ class ProjectTest(TestCase):
         assert validate_tags(['this-tag-is-valid', 'but this is not']) == [
             'this-tag-is-valid']
 
-    def test_validate_project(self):
-        assert validate_project('unittesting')
-        assert not validate_project('unexisting_project')
+    def test_is_alive(self):
+        assert is_alive('unittesting')
+        assert not is_alive('unexisting_project')
 
     def test_get_vulnerabilities(self):
         findings_to_get = ['463558592', '422286126']

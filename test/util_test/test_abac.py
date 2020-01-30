@@ -126,6 +126,7 @@ class ActionAbacTest(TestCase):
         'backend.entity.project.AddAllProjectAccess.mutate',
         'backend.entity.project.RemoveAllProjectAccess.mutate',
         'backend.entity.cache.InvalidateCache.mutate',
+        'backend.entity.project.RequestRemoveProject.mutate',
     }
 
     analyst_allowed_actions = {

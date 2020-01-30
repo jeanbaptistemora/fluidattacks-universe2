@@ -1,7 +1,7 @@
 from datetime import datetime
 import pytz
 from django.conf import settings
-from backend.dal import user as user_dal
+from backend.dal import project as project_dal, user as user_dal
 
 
 def add_phone_to_user(email, phone):
@@ -55,7 +55,10 @@ def get_data(email, attr):
 
 
 def get_projects(user_email, active=True):
-    return user_dal.get_projects(user_email, active)
+    projects = user_dal.get_projects(user_email, active)
+    projects = [project for project in projects
+                if project_dal.is_request_deletion_user(project, user_email)]
+    return projects
 
 
 def get_project_access(email, project_name):

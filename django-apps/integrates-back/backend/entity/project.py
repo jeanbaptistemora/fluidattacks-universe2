@@ -254,12 +254,10 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_deletion_date(self, info):
         """Resolve deletion date attribute."""
         del info
-        project_info = integrates_dal.get_project_attributes_dynamo(
-            self.name, ['deletion_date'])
-        if project_info:
-            self.deletion_date = project_info.get('deletion_date')
-        else:
-            self.deletion_date = ''
+        self.deletion_date = ''
+        historic_deletion = project_domain.get_historic_deletion(self.name)
+        if historic_deletion:
+            self.deletion_date = historic_deletion[-1].get('deletion_date', '')
         return self.deletion_date
 
     @new_require_role
@@ -383,6 +381,28 @@ class RemoveProject(Mutation):
                              project_finished=result.is_project_finished)
 
 
+class RequestRemoveProject(Mutation):
+    """ Request to remove a project """
+
+    class Arguments():
+        project_name = String(required=True)
+    success = Boolean()
+
+    @require_login
+    @new_require_role
+    @require_project_access
+    def mutate(self, info, project_name):
+        user_info = util.get_jwt_content(info.context)
+        success = project_domain.request_deletion(project_name, user_info['user_email'])
+        if success:
+            project = project_name.lower()
+            util.invalidate_cache(project)
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Pending to remove project {project}')
+        return RemoveProject(success=success)
+
+
 class AddProjectComment(Mutation):
     """ Add comment to project """
 
@@ -439,7 +459,7 @@ class RemoveTag(Mutation):
     def mutate(self, info, project_name, tag):
         success = False
         project_name = project_name.lower()
-        if project_domain.validate_project(project_name):
+        if project_domain.is_alive(project_name):
             primary_keys = ['project_name', project_name.lower()]
             table_name = 'FI_projects'
             tag_deleted = integrates_dal.remove_set_element_dynamo(
@@ -475,7 +495,7 @@ class AddTags(Mutation):
     def mutate(self, info, project_name, tags):
         success = False
         project_name = project_name.lower()
-        if project_domain.validate_project(project_name):
+        if project_domain.is_alive(project_name):
             primary_keys = ['project_name', project_name]
             table_name = 'FI_projects'
             if project_domain.validate_tags(tags):
