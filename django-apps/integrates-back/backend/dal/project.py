@@ -244,7 +244,7 @@ def is_alive(project):
             project_name.lower(),
             ['deletion_date', 'project_status']
         )
-        if project_data.get('project_status') in ['DELETED', 'PENDING_DELETION'] or \
+        if project_data.get('project_status') in ['DELETED', 'PENDING_DELETION', 'FINISHED'] or \
            project_data.get('deletion_date'):
             is_valid_project = False
     else:
