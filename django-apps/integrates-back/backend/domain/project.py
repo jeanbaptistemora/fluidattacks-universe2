@@ -94,9 +94,7 @@ def remove_project(project_name, user_email):
             'project_status': 'FINISHED',
             'deletion_date': today
         }
-        is_project_finished = integrates_dal.update_mult_attrs_dynamo(
-            'FI_projects', {'project_name': project}, data
-        )
+        is_project_finished = project_dal.update(project, data)
         util.invalidate_cache(project)
         response = Status(are_findings_masked, are_users_removed, is_project_finished)
     else:
@@ -142,7 +140,7 @@ def validate_tags(tags):
 
 def validate_project(project):
     """Validate if a project exist and is not deleted."""
-    project_info = integrates_dal.get_project_attributes_dynamo(
+    project_info = project_dal.get_project_attributes(
         project, ['project_name', 'deletion_date'])
     is_valid_project = False
     if project_info:

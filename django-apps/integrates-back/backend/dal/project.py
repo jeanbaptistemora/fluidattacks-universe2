@@ -1,17 +1,19 @@
 """DAL functions for projects."""
 
 from datetime import datetime
-
+import rollbar
+from botocore.exceptions import ClientError
 import pytz
 from boto3.dynamodb.conditions import Attr, Key
 from django.conf import settings
 
-from backend.domain import user as user_domain
-
 from backend.dal import integrates_dal, user as user_dal
 from backend.dal.event import TABLE as EVENTS_TABLE
+from backend.dal.helpers import dynamodb
 from backend.dal.finding import TABLE as FINDINGS_TABLE
 from backend.dal.helpers.analytics import query
+DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
+TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 
 
 def get_current_month_information(project_name, query_db):
@@ -209,9 +211,8 @@ def remove_all_project_access(project):
 
 
 def exists(project_name):
-    primary_key = {'project_name': project_name.lower()}
-    return integrates_dal.attribute_exists(
-        'FI_projects', primary_key, ['project_name'])
+    project = project_name.lower()
+    return bool(get_project_attributes(project, ['project_name']))
 
 
 def list_project_managers(project_name):
@@ -220,5 +221,40 @@ def list_project_managers(project_name):
     all_users = users_active + users_inactive
     managers = \
         [user for user in all_users
-         if user_domain.get_data(user, 'role') == 'customeradmin']
+         if user_dal.get_user_attributes(user, ['role']).get('role', '') == 'customeradmin']
     return managers
+
+
+def get_project_attributes(project_name, attributes):
+    response = TABLE.get_item(
+        Key={'project_name': project_name},
+        AttributesToGet=attributes
+    )
+    return response.get('Item', {})
+
+
+def update(project_name, data):
+    success = False
+    try:
+        attrs_to_remove = [attr for attr in data if data[attr] is None]
+        for attr in attrs_to_remove:
+            response = TABLE.update_item(
+                Key={'project_name': project_name},
+                UpdateExpression='REMOVE #attr',
+                ExpressionAttributeNames={'#attr': attr}
+            )
+            success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            del data[attr]
+
+        if data:
+            attributes = ['{attr} = :{attr}'.format(attr=attr) for attr in data]
+            values = {':{}'.format(attr): data[attr] for attr in data}
+
+            response = TABLE.update_item(
+                Key={'project_name': project_name},
+                UpdateExpression='SET {}'.format(','.join(attributes)),
+                ExpressionAttributeValues=values)
+            success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError:
+        rollbar.report_message('Error: Couldn\'nt update project', 'error')
+    return success
