@@ -5,7 +5,6 @@
 import functools
 import re
 
-import casbin
 import rollbar
 from django.conf import settings
 from django.core.cache import cache
@@ -32,11 +31,8 @@ from backend.exceptions import InvalidAuthorization
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
-ENFORCER_BASIC = casbin.Enforcer(settings.CASBIN_BASIC_POLICY_MODEL_FILE,
-                                 enable_log=True)
-
-ENFORCER_ACTION = casbin.Enforcer(settings.CASBIN_ACTION_POLICY_MODEL_FILE,
-                                  enable_log=True)
+ENFORCER_BASIC = getattr(settings, 'ENFORCER_BASIC')
+ENFORCER_ACTION = getattr(settings, 'ENFORCER_ACTION')
 
 
 def authenticate(func):

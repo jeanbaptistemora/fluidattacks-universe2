@@ -18,6 +18,7 @@ import i18n
 
 from boto3.session import Session
 from botocore.exceptions import ClientError
+import casbin
 
 import rollbar
 
@@ -445,3 +446,10 @@ CASBIN_BASIC_POLICY_MODEL_FILE = \
 
 CASBIN_ACTION_POLICY_MODEL_FILE = \
     os.path.join(BASE_DIR, 'authz_models', 'action.conf')
+
+
+ENFORCER_BASIC = casbin.Enforcer(CASBIN_BASIC_POLICY_MODEL_FILE,
+                                 enable_log=True)
+
+ENFORCER_ACTION = casbin.Enforcer(CASBIN_ACTION_POLICY_MODEL_FILE,
+                                  enable_log=True)
