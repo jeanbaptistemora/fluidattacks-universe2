@@ -47,8 +47,8 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
   return (
     <React.StrictMode>
       <Query query={GET_EVENT_DESCRIPTION} variables={{ eventId }}>
-        {({ data, loading, refetch }: QueryResult): JSX.Element => {
-          if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+        {({ data, refetch }: QueryResult): JSX.Element => {
+          if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
           const handleUpdateResult: (() => void) = (): void => {
             refetch()

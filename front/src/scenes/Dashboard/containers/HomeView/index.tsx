@@ -91,8 +91,8 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
           </Row>
           : undefined}
         <Query query={PROJECTS_QUERY}>
-          {({ loading, data }: QueryResult<IUserAttr>): React.ReactNode => {
-            if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+          {({ data }: QueryResult<IUserAttr>): React.ReactNode => {
+            if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
             return (
               <Row>

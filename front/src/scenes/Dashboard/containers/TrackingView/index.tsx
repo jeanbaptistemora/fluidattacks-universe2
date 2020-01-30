@@ -41,8 +41,8 @@ const trackingView: React.FC<TrackingViewProps> = (props: TrackingViewProps): JS
   return (
     <React.StrictMode>
       <Query query={GET_FINDING_TRACKING} variables={{ findingId }}>
-        {({ data, loading }: QueryResult): JSX.Element => {
-          if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+        {({ data }: QueryResult): JSX.Element => {
+          if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
           return (
             <React.Fragment>

@@ -20,7 +20,7 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
 import { default as globalStyle } from "../../../../styles/global.css";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
+import { hidePreloader } from "../../../../utils/apollo";
 import { castEventType, formatEvents, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import {
   checkboxField, dateTimeField, dropdownField, fileInputField, textAreaField, textField,
@@ -202,14 +202,12 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
   return (
     <Query
       query={GET_EVENTS}
-      notifyOnNetworkStatusChange={true}
       variables={{ projectName }}
       onCompleted={handleQryResult}
     >
       {
-        ({ data, error, loading, refetch }: QueryResult): React.ReactNode => {
-          if (loading) {
-            showPreloader();
+        ({ data, error, refetch }: QueryResult): React.ReactNode => {
+          if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment />;
           }

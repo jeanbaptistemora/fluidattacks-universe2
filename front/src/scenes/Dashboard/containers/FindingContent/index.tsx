@@ -89,15 +89,15 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           <Col md={12} sm={12}>
             <React.Fragment>
               <Query query={GET_PROJECT_ALERT} variables={{ projectName, organization: userOrganization }}>
-                {({ data, loading }: QueryResult): JSX.Element => {
-                  if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+                {({ data }: QueryResult): JSX.Element => {
+                  if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
                   return data.alert.status === 1 ? <AlertBox message={data.alert.message} /> : <React.Fragment />;
                 }}
               </Query>
               <Query query={GET_FINDING_HEADER} variables={{ findingId, submissionField: canGetHistoricState }}>
-                {({ data, loading, refetch }: QueryResult<IHeaderQueryResult>): JSX.Element => {
-                  if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+                {({ data, refetch }: QueryResult<IHeaderQueryResult>): JSX.Element => {
+                  if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
                   const handleSubmitError: ((error: ApolloError) => void) = (error: ApolloError): void => {
                     handleGraphQLErrors("An error occurred submitting draft", error);

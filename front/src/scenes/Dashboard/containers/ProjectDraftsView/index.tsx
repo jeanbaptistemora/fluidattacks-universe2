@@ -17,7 +17,7 @@ import { statusFormatter } from "../../../../components/DataTableNext/formatters
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
+import { hidePreloader } from "../../../../utils/apollo";
 import { formatDrafts, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { autocompleteTextField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
@@ -161,9 +161,8 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
   return (
     <Query query={GET_DRAFTS} variables={{ projectName }} onCompleted={handleQryResult}>
       {
-        ({ data, error, loading, refetch }: QueryResult<IProjectDraftsAttr>): React.ReactNode => {
-          if (loading) {
-            showPreloader();
+        ({ data, error, refetch }: QueryResult<IProjectDraftsAttr>): React.ReactNode => {
+          if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment />;
           }

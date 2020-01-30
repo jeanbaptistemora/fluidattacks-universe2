@@ -50,8 +50,8 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
       <Row>
         <Col md={12} sm={12} xs={12}>
           <Query query={GET_SEVERITY} variables={{ identifier: findingId }}>
-            {({ client, data, loading, refetch }: QueryResult<ISeverityAttr>): React.ReactNode => {
-              if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+            {({ client, data, refetch }: QueryResult<ISeverityAttr>): React.ReactNode => {
+              if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
               const handleEditClick: (() => void) = (): void => {
                 setEditing(!isEditing);

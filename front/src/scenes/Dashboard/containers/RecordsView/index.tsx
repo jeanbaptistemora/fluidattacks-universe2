@@ -44,8 +44,8 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
   return (
     <React.StrictMode>
       <Query query={GET_FINDING_RECORDS} variables={{ findingId }}>
-        {({ data, loading, refetch }: QueryResult): JSX.Element => {
-          if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+        {({ data, refetch }: QueryResult): JSX.Element => {
+          if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
           const handleUpdateResult: (() => void) = (): void => {
             refetch()

@@ -4,7 +4,6 @@
   * readability of the code that defines the headers of the table
  * MAX-FILE-LINE-COUNT: this file exceeds by 22 the maximum of 1000 lines
  */
-import { NetworkStatus } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -193,14 +192,11 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
     <Query
       query={GET_TAGS}
       variables={{ projectName }}
-      notifyOnNetworkStatusChange={true}
       onCompleted={handleQryResult}
     >
       {
-        ({loading, error, data, refetch, networkStatus}: QueryResult<IProjectTagsAttr>): React.ReactNode => {
-          const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
-          if (loading || isRefetching) {
-            showPreloader();
+        ({ error, data, refetch }: QueryResult<IProjectTagsAttr>): React.ReactNode => {
+          if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment/>;
           }
@@ -417,12 +413,10 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
     const projectName: string = props.match.params.projectName;
 
     return (
-      <Query query={GET_REPOSITORIES} variables={{ projectName }} notifyOnNetworkStatusChange={true}>
+      <Query query={GET_REPOSITORIES} variables={{ projectName }}>
       {
-        ({loading, error, data, refetch, networkStatus}: QueryResult<IResourcesAttr>): React.ReactNode => {
-          const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
-          if (loading || isRefetching) {
-            showPreloader();
+        ({ error, data, refetch }: QueryResult<IResourcesAttr>): React.ReactNode => {
+          if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment/>;
           }
@@ -725,12 +719,10 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
     const projectName: string = props.match.params.projectName;
 
     return (
-      <Query query={GET_ENVIRONMENTS} variables={{ projectName }} notifyOnNetworkStatusChange={true}>
+      <Query query={GET_ENVIRONMENTS} variables={{ projectName }}>
       {
-        ({loading, error, data, refetch, networkStatus}: QueryResult<IResourcesAttr>): React.ReactNode => {
-          const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
-          if (loading || isRefetching) {
-            showPreloader();
+        ({ error, data, refetch }: QueryResult<IResourcesAttr>): React.ReactNode => {
+          if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment/>;
           }
@@ -1130,10 +1122,10 @@ const renderDeleteBtn: ((props: IResourcesViewProps) => JSX.Element) = (props: I
   };
 
   return (
-    <Query query={GET_PROJECT_DATA} variables={{ projectName }} notifyOnNetworkStatusChange={true}>
+    <Query query={GET_PROJECT_DATA} variables={{ projectName }}>
     {
-      ({loading, data}: QueryResult<{ deletionDate: string }>): React.ReactNode => {
-        if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+      ({ data }: QueryResult<{ deletionDate: string }>): React.ReactNode => {
+        if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
         if (!_.isUndefined(data) && _.isEmpty(data.deletionDate)) {
           return (
             <React.Fragment>

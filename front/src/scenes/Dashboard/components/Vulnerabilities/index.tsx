@@ -6,7 +6,6 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code that defines the headers of the table
 */
-import { NetworkStatus } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React, { useState } from "react";
@@ -346,14 +345,11 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     <Query
       query={GET_VULNERABILITIES}
       variables={{ identifier: props.findingId, analystField: isAnalystorAdmin }}
-      notifyOnNetworkStatusChange={true}
       onCompleted={handleGetVulnerabilities}
     >
       {
-        ({loading, error, data, refetch, networkStatus}: QueryResult<IVulnsAttr>): React.ReactNode => {
-          const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
-          if (loading || isRefetching) {
-            showPreloader();
+        ({ error, data, refetch }: QueryResult<IVulnsAttr>): React.ReactNode => {
+          if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment/>;
           }

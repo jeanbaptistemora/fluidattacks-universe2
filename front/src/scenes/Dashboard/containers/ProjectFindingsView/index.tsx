@@ -18,7 +18,7 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
+import { hidePreloader } from "../../../../utils/apollo";
 import { formatFindings, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
@@ -353,9 +353,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   return (
     <Query query={GET_FINDINGS} variables={{ projectName }} onCompleted={handleQryResult}>
       {
-        ({loading, error, data}: QueryResult<IProjectFindingsAttr>): React.ReactNode => {
-          if (loading) {
-            showPreloader();
+        ({ error, data }: QueryResult<IProjectFindingsAttr>): React.ReactNode => {
+          if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment/>;
           }

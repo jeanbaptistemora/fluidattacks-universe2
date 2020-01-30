@@ -9,7 +9,7 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Query, QueryResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
+import { hidePreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
@@ -78,9 +78,8 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
   return (
     <Query query={GET_INDICATORS} variables={{ projectName }} onCompleted={handleQryResult}>
       {
-        ({ loading, error, data }: QueryResult<IIndicatorsProps>): React.ReactNode => {
-          if (loading) {
-            showPreloader();
+        ({ error, data }: QueryResult<IIndicatorsProps>): React.ReactNode => {
+          if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment />;
           }

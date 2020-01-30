@@ -3,7 +3,6 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code in graphql queries
  */
-import { NetworkStatus } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -211,14 +210,11 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
     <Query
       query={GET_USERS}
       variables={{ projectName }}
-      notifyOnNetworkStatusChange={true}
       onCompleted={handleQryResult}
     >
       {
-        ({loading, error, data, refetch, networkStatus}: QueryResult<IUsersAttr>): React.ReactNode => {
-          const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
-          if (loading || isRefetching) {
-            showPreloader();
+        ({ error, data, refetch }: QueryResult<IUsersAttr>): React.ReactNode => {
+          if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment/>;
           }

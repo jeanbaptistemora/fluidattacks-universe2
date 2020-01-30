@@ -28,8 +28,8 @@ const eventContent: React.FC<EventContentProps> = (props: EventContentProps): JS
         <Row>
           <Col md={12} sm={12}>
             <Query query={GET_EVENT_HEADER} variables={{ eventId }}>
-              {({ data, loading }: QueryResult): JSX.Element => {
-                if (_.isUndefined(data) || loading) { return <React.Fragment />; }
+              {({ data }: QueryResult): JSX.Element => {
+                if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
                 return <EventHeader {...data.event} />;
               }}
