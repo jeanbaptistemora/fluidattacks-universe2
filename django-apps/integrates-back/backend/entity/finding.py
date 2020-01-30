@@ -703,7 +703,12 @@ class UpdateClientDescription(Mutation):
         acceptance_date = String()
         bts_url = String()
         finding_id = String(required=True)
-        treatment = String(required=True)
+        treatment = String(
+            Enum('UpdateClientDescriptionTreatment', [
+                ('NEW', 'NEW'),
+                ('IN PROGRESS', 'IN PROGRESS'),
+                ('ACCEPTED', 'ACCEPTED'),
+                ('ACCEPTED_UNDEFINED', 'ACCEPTED_UNDEFINED')]), required=True)
         justification = String(required=True)
         acceptance_status = String()
     success = Boolean()
