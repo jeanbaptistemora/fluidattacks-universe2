@@ -283,22 +283,6 @@ $codeyellow: rgba(230, 219, 116, 1);
   transition: max-height .2s ease-out;
 }
 
-// Footer custom styles
-.divsocial {
-  img {
-    width: 40px;
-  }
-}
-
-@media (min-width: 780px) {
-  .divlogo {
-
-    img {
-      width: 250px;
-    }
-  }
-}
-
 // Menu custom styles
 @mixin menu-bars {
   content: '';
