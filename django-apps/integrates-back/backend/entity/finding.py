@@ -13,7 +13,7 @@ from graphene.types.generic import GenericScalar
 from graphene_file_upload.scalars import Upload
 from backend import util
 from backend.decorators import (
-    get_entity_cache, require_finding_access, require_login, require_role,
+    get_entity_cache, require_finding_access, require_login,
     require_project_access, new_require_role
 )
 from backend.domain import (
@@ -601,7 +601,7 @@ class HandleAcceptation(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['customeradmin'])
+    @new_require_role
     @require_finding_access
     def mutate(self, info, **parameters):
         user_info = util.get_jwt_content(info.context)

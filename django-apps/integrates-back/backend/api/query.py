@@ -3,8 +3,7 @@ from graphene import Field, List, ObjectType, String
 
 from backend.decorators import (
     get_cached, require_event_access, require_finding_access,
-    require_login, require_project_access, require_role,
-    new_require_role
+    require_login, require_project_access, new_require_role
 )
 from backend.domain import project as project_domain
 from backend.entity.me import Me
@@ -94,7 +93,7 @@ class Query(ObjectType):
         return Resource(project_name)
 
     @require_login
-    @require_role(['customeradmin', 'admin'])
+    @new_require_role
     @require_project_access
     @get_cached
     def resolve_user(self, info, project_name, user_email):
@@ -103,7 +102,7 @@ class Query(ObjectType):
         return User(project_name, user_email, role=role)
 
     @require_login
-    @require_role(['admin', 'customeradminfluid'])
+    @new_require_role
     def resolve_user_list_projects(self, info, user_email):
         del info
         return User(None, user_email).list_projects

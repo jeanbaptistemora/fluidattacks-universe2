@@ -13,7 +13,9 @@ from graphql.error import GraphQLError
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
-from backend.decorators import require_login, require_role, require_project_access
+from backend.decorators import (
+    require_login, require_project_access, new_require_role
+)
 from backend.domain import project as project_domain, user as user_domain
 from backend.services import (
     get_user_role, is_customeradmin, has_responsibility, has_phone_number,
@@ -133,7 +135,7 @@ class User(ObjectType):
         del info
         return self.last_login
 
-    @require_role(['admin', 'customeradminfluid'])
+    @new_require_role
     def resolve_list_projects(self, info):
         del info
         return self.list_projects
@@ -154,7 +156,7 @@ class GrantUserAccess(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['customeradmin', 'admin'])
+    @new_require_role
     @require_project_access
     def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')
@@ -306,7 +308,7 @@ class RemoveUserAccess(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['customeradmin', 'admin'])
+    @new_require_role
     @require_project_access
     def mutate(self, info, project_name, user_email):
         success = False
@@ -343,7 +345,7 @@ class EditUser(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['customeradmin', 'admin'])
+    @new_require_role
     @require_project_access
     def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')

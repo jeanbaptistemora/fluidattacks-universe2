@@ -87,7 +87,7 @@ class UserTests(TestCase):
                 email: "test@test.test",
                 organization: "test",
                 phoneNumber: "7357",
-                projectName: "test",
+                projectName: "unittesting",
                 responsibility: "test",
                   role: "customer") {
                     success

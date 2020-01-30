@@ -2,7 +2,7 @@
 # pylint: disable=F0401
 # pylint: disable=super-init-not-called
 from graphene import Boolean, Int, Mutation, ObjectType, String
-from backend.decorators import require_login, require_role
+from backend.decorators import require_login, new_require_role
 from backend.domain import alert as alert_domain
 
 from backend import util
@@ -59,7 +59,7 @@ class SetAlert(Mutation):
 
     @staticmethod
     @require_login
-    @require_role(['admin', 'customeradminfluid'])
+    @new_require_role
     def mutate(_, info, company, message, project_name):
         success = alert_domain.set_company_alert(
             company, message, project_name)

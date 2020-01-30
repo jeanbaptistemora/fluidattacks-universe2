@@ -182,6 +182,7 @@ def new_require_role(func):
         project_name = resolve_project_name(kwargs)
         project_data = resolve_project_data(project_name)
         action = '{}.{}'.format(func.__module__, func.__qualname__)
+        action = action.replace('.', '_')
         try:
             if not ENFORCER_ACTION.enforce(user_data, project_data, action):
                 util.cloudwatch_log(context,

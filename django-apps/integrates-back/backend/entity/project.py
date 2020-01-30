@@ -13,8 +13,7 @@ from graphene import (
 from graphene.types.generic import GenericScalar
 
 from backend.decorators import (
-    get_entity_cache, require_login, require_project_access, require_role,
-    new_require_role
+    get_entity_cache, require_login, require_project_access, new_require_role
 )
 from backend.domain import (
     finding as finding_domain, project as project_domain,
@@ -293,7 +292,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
         return self.tags
 
-    @require_role(['admin', 'customeradmin'])
+    @new_require_role
     @get_entity_cache
     def resolve_users(self, info):
         """ Resolve project users """
@@ -349,7 +348,7 @@ class CreateProject(Mutation):
     success = Boolean()
 
     @require_login
-    @require_role(['admin', 'customeradminfluid'])
+    @new_require_role
     def mutate(self, info, **kwargs):
         user_data = util.get_jwt_content(info.context)
         user_role = get_user_role(user_data)
@@ -375,7 +374,7 @@ class RemoveProject(Mutation):
     project_finished = Boolean()
 
     @require_login
-    @require_role(['admin', 'customeradminfluid'])
+    @new_require_role
     @require_project_access
     def mutate(self, info, project_name):
         user_info = util.get_jwt_content(info.context)

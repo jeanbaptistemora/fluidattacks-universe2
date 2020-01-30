@@ -76,126 +76,144 @@ class BasicAbacTest(TestCase):
 
 class ActionAbacTest(TestCase):
     global_actions = {
-        'backend.api.query.Query.resolve_resources',
-        'backend.api.query.Query.resolve_alert',
-        'backend.api.query.Query.resolve_project',
-        'backend.api.query.Query.resolve_finding',
-        'backend.api.query.Query.resolve_event',
-        'backend.api.query.Query.resolve_alive_projects',
-        'backend.api.query.Query.resolve_internal_project_names',
-        'backend.entity.resource.AddResources.mutate',
-        'backend.entity.resource.UpdateResources.mutate',
-        'backend.entity.resource.AddFiles.mutate',
-        'backend.entity.resource.RemoveFiles.mutate',
-        'backend.entity.resource.DownloadFile.mutate',
-        'backend.entity.vulnerability.DeleteVulnerability.mutate',
-        'backend.entity.vulnerability.UploadFile.mutate',
-        'backend.entity.vulnerability.ApproveVulnerability.mutate',
-        'backend.entity.vulnerability.DeleteTags.mutate',
-        'backend.entity.vulnerability.UpdateTreatmentVuln.mutate',
-        'backend.entity.vulnerability.Vulnerability.resolve_last_analyst',
-        'backend.entity.vulnerability.Vulnerability.resolve_analyst',
-        'backend.entity.event.AddEventComment.mutate',
-        'backend.entity.event.DownloadEventFile.mutate',
-        'backend.entity.event.UpdateEvent.mutate',
-        'backend.entity.event.SolveEvent.mutate',
-        'backend.entity.event.UpdateEventEvidence.mutate',
-        'backend.entity.event.RemoveEventEvidence.mutate',
-        'backend.entity.finding.Finding.resolve_historic_state',
-        'backend.entity.finding.Finding.resolve_observations',
-        'backend.entity.finding.Finding.resolve_analyst',
-        'backend.entity.finding.RemoveEvidence.mutate',
-        'backend.entity.finding.UpdateEvidence.mutate',
-        'backend.entity.finding.UpdateEvidenceDescription.mutate',
-        'backend.entity.finding.UpdateSeverity.mutate',
-        'backend.entity.finding.VerifyFinding.mutate',
-        'backend.entity.finding.UpdateDescription.mutate',
-        'backend.entity.finding.UpdateClientDescription.mutate',
-        'backend.entity.finding.RejectDraft.mutate',
-        'backend.entity.finding.DeleteFinding.mutate',
-        'backend.entity.finding.CreateDraft.mutate',
-        'backend.entity.finding.SubmitDraft.mutate',
-        'backend.entity.finding.AddFindingComment.mutate',
-        'backend.entity.finding.RequestVerification.mutate',
-        'backend.entity.project.Project.resolve_comments',
-        'backend.entity.project.Project.resolve_events',
-        'backend.entity.project.AddProjectComment.mutate',
-        'backend.entity.project.Project.resolve_drafts',
-        'backend.entity.project.RemoveTag.mutate',
-        'backend.entity.project.AddTags.mutate',
-        'backend.entity.project.AddAllProjectAccess.mutate',
-        'backend.entity.project.RemoveAllProjectAccess.mutate',
-        'backend.entity.cache.InvalidateCache.mutate',
-        'backend.entity.project.RequestRemoveProject.mutate',
-        'backend.entity.project.RejectRemoveProject.mutate',
+        'backend_api_query_Query_resolve_resources',
+        'backend_api_query_Query_resolve_alert',
+        'backend_api_query_Query_resolve_project',
+        'backend_api_query_Query_resolve_finding',
+        'backend_api_query_Query_resolve_event',
+        'backend_api_query_Query_resolve_alive_projects',
+        'backend_api_query_Query_resolve_internal_project_names',
+        'backend_entity_resource_AddResources_mutate',
+        'backend_entity_resource_UpdateResources_mutate',
+        'backend_entity_resource_AddFiles_mutate',
+        'backend_entity_resource_RemoveFiles_mutate',
+        'backend_entity_resource_DownloadFile_mutate',
+        'backend_entity_vulnerability_DeleteVulnerability_mutate',
+        'backend_entity_vulnerability_UploadFile_mutate',
+        'backend_entity_vulnerability_ApproveVulnerability_mutate',
+        'backend_entity_vulnerability_DeleteTags_mutate',
+        'backend_entity_vulnerability_UpdateTreatmentVuln_mutate',
+        'backend_entity_vulnerability_Vulnerability_resolve_last_analyst',
+        'backend_entity_vulnerability_Vulnerability_resolve_analyst',
+        'backend_entity_event_AddEventComment_mutate',
+        'backend_entity_event_DownloadEventFile_mutate',
+        'backend_entity_event_UpdateEvent_mutate',
+        'backend_entity_event_SolveEvent_mutate',
+        'backend_entity_event_UpdateEventEvidence_mutate',
+        'backend_entity_event_RemoveEventEvidence_mutate',
+        'backend_entity_finding_Finding_resolve_historic_state',
+        'backend_entity_finding_Finding_resolve_observations',
+        'backend_entity_finding_Finding_resolve_analyst',
+        'backend_entity_finding_RemoveEvidence_mutate',
+        'backend_entity_finding_UpdateEvidence_mutate',
+        'backend_entity_finding_UpdateEvidenceDescription_mutate',
+        'backend_entity_finding_UpdateSeverity_mutate',
+        'backend_entity_finding_VerifyFinding_mutate',
+        'backend_entity_finding_UpdateDescription_mutate',
+        'backend_entity_finding_UpdateClientDescription_mutate',
+        'backend_entity_finding_RejectDraft_mutate',
+        'backend_entity_finding_DeleteFinding_mutate',
+        'backend_entity_finding_CreateDraft_mutate',
+        'backend_entity_finding_SubmitDraft_mutate',
+        'backend_entity_finding_AddFindingComment_mutate',
+        'backend_entity_finding_RequestVerification_mutate',
+        'backend_entity_project_Project_resolve_comments',
+        'backend_entity_project_Project_resolve_events',
+        'backend_entity_project_AddProjectComment_mutate',
+        'backend_entity_project_Project_resolve_drafts',
+        'backend_entity_project_RemoveTag_mutate',
+        'backend_entity_project_AddTags_mutate',
+        'backend_entity_project_AddAllProjectAccess_mutate',
+        'backend_entity_project_RemoveAllProjectAccess_mutate',
+        'backend_entity_cache_InvalidateCache_mutate',
+        'backend_entity_project_RequestRemoveProject_mutate',
+        'backend_entity_project_RejectRemoveProject_mutate'
     }
 
     analyst_allowed_actions = {
-        'backend.api.query.Query.resolve_resources',
-        'backend.api.query.Query.resolve_alert',
-        'backend.api.query.Query.resolve_project',
-        'backend.api.query.Query.resolve_finding',
-        'backend.api.query.Query.resolve_event',
-        'backend.entity.vulnerability.DeleteVulnerability.mutate',
-        'backend.entity.vulnerability.UploadFile.mutate',
-        'backend.entity.vulnerability.ApproveVulnerability.mutate',
-        'backend.entity.vulnerability.Vulnerability.resolve_last_analyst',
-        'backend.entity.vulnerability.Vulnerability.resolve_analyst',
-        'backend.entity.event.AddEventComment.mutate',
-        'backend.entity.event.DownloadEventFile.mutate',
-        'backend.entity.event.UpdateEvent.mutate',
-        'backend.entity.event.SolveEvent.mutate',
-        'backend.entity.event.UpdateEventEvidence.mutate',
-        'backend.entity.event.RemoveEventEvidence.mutate',
-        'backend.entity.resource.DownloadFile.mutate',
-        'backend.entity.finding.Finding.resolve_historic_state',
-        'backend.entity.finding.Finding.resolve_observations',
-        'backend.entity.finding.Finding.resolve_analyst',
-        'backend.entity.finding.RemoveEvidence.mutate',
-        'backend.entity.finding.UpdateEvidence.mutate',
-        'backend.entity.finding.UpdateEvidenceDescription.mutate',
-        'backend.entity.finding.UpdateSeverity.mutate',
-        'backend.entity.finding.VerifyFinding.mutate',
-        'backend.entity.finding.UpdateDescription.mutate',
-        'backend.entity.finding.RejectDraft.mutate',
-        'backend.entity.finding.DeleteFinding.mutate',
-        'backend.entity.finding.CreateDraft.mutate',
-        'backend.entity.finding.SubmitDraft.mutate',
-        'backend.entity.finding.AddFindingComment.mutate',
-        'backend.entity.project.Project.resolve_comments',
-        'backend.entity.project.Project.resolve_events',
-        'backend.entity.project.AddProjectComment.mutate',
-        'backend.entity.project.Project.resolve_drafts',
-        'backend.entity.cache.InvalidateCache.mutate',
+        'backend_api_query_Query_resolve_resources',
+        'backend_api_query_Query_resolve_alert',
+        'backend_api_query_Query_resolve_project',
+        'backend_api_query_Query_resolve_finding',
+        'backend_api_query_Query_resolve_event',
+        'backend_entity_vulnerability_DeleteVulnerability_mutate',
+        'backend_entity_vulnerability_UploadFile_mutate',
+        'backend_entity_vulnerability_ApproveVulnerability_mutate',
+        'backend_entity_vulnerability_Vulnerability_resolve_last_analyst',
+        'backend_entity_vulnerability_Vulnerability_resolve_analyst',
+        'backend_entity_event_AddEventComment_mutate',
+        'backend_entity_event_DownloadEventFile_mutate',
+        'backend_entity_event_UpdateEvent_mutate',
+        'backend_entity_event_SolveEvent_mutate',
+        'backend_entity_event_UpdateEventEvidence_mutate',
+        'backend_entity_event_RemoveEventEvidence_mutate',
+        'backend_entity_resource_DownloadFile_mutate',
+        'backend_entity_finding_Finding_resolve_historic_state',
+        'backend_entity_finding_Finding_resolve_observations',
+        'backend_entity_finding_Finding_resolve_analyst',
+        'backend_entity_finding_RemoveEvidence_mutate',
+        'backend_entity_finding_UpdateEvidence_mutate',
+        'backend_entity_finding_UpdateEvidenceDescription_mutate',
+        'backend_entity_finding_UpdateSeverity_mutate',
+        'backend_entity_finding_VerifyFinding_mutate',
+        'backend_entity_finding_UpdateDescription_mutate',
+        'backend_entity_finding_RejectDraft_mutate',
+        'backend_entity_finding_DeleteFinding_mutate',
+        'backend_entity_finding_CreateDraft_mutate',
+        'backend_entity_finding_SubmitDraft_mutate',
+        'backend_entity_finding_AddFindingComment_mutate',
+        'backend_entity_project_Project_resolve_comments',
+        'backend_entity_project_Project_resolve_events',
+        'backend_entity_project_AddProjectComment_mutate',
+        'backend_entity_project_Project_resolve_drafts',
+        'backend_entity_cache_InvalidateCache_mutate',
     }
 
     customer_allowed_actions = {
-        'backend.api.query.Query.resolve_resources',
-        'backend.api.query.Query.resolve_alert',
-        'backend.api.query.Query.resolve_project',
-        'backend.api.query.Query.resolve_finding',
-        'backend.api.query.Query.resolve_event',
-        'backend.entity.resource.AddResources.mutate',
-        'backend.entity.resource.UpdateResources.mutate',
-        'backend.entity.resource.AddFiles.mutate',
-        'backend.entity.resource.RemoveFiles.mutate',
-        'backend.entity.resource.DownloadFile.mutate',
-        'backend.entity.event.AddEventComment.mutate',
-        'backend.entity.event.DownloadEventFile.mutate',
-        'backend.entity.vulnerability.DeleteTags.mutate',
-        'backend.entity.vulnerability.UpdateTreatmentVuln.mutate',
-        'backend.entity.finding.AddFindingComment.mutate',
-        'backend.entity.finding.UpdateClientDescription.mutate',
-        'backend.entity.finding.RequestVerification.mutate',
-        'backend.entity.project.Project.resolve_comments',
-        'backend.entity.project.Project.resolve_events',
-        'backend.entity.project.AddProjectComment.mutate',
-        'backend.entity.project.RemoveTag.mutate',
-        'backend.entity.project.AddTags.mutate',
+        'backend_api_query_Query_resolve_resources',
+        'backend_api_query_Query_resolve_alert',
+        'backend_api_query_Query_resolve_project',
+        'backend_api_query_Query_resolve_finding',
+        'backend_api_query_Query_resolve_event',
+        'backend_entity_resource_AddResources_mutate',
+        'backend_entity_resource_UpdateResources_mutate',
+        'backend_entity_resource_AddFiles_mutate',
+        'backend_entity_resource_RemoveFiles_mutate',
+        'backend_entity_resource_DownloadFile_mutate',
+        'backend_entity_event_AddEventComment_mutate',
+        'backend_entity_event_DownloadEventFile_mutate',
+        'backend_entity_vulnerability_DeleteTags_mutate',
+        'backend_entity_vulnerability_UpdateTreatmentVuln_mutate',
+        'backend_entity_finding_AddFindingComment_mutate',
+        'backend_entity_finding_UpdateClientDescription_mutate',
+        'backend_entity_finding_RequestVerification_mutate',
+        'backend_entity_project_Project_resolve_comments',
+        'backend_entity_project_Project_resolve_events',
+        'backend_entity_project_AddProjectComment_mutate',
+        'backend_entity_project_RemoveTag_mutate',
+        'backend_entity_project_AddTags_mutate',
     }
 
-    customeradmin_allowed_actions = set()
+    customeradmin_allowed_actions = {
+        'backend_api_query_Query_resolve_user',
+        'backend_entity_user_GrantUserAccess_mutate',
+        'backend_entity_user_RemoveUserAccess_mutate',
+        'backend_entity_user_EditUser_mutate',
+        'backend_entity_finding_HandleAcceptation_mutate',
+        'backend_entity_project_Project_resolve_users',
+    }
     customeradmin_allowed_actions.update(customer_allowed_actions)
+
+    customeradminfluid_allowed_actions = {
+        'backend_api_query_Query_resolve_user_list_projects',
+        'backend_entity_alert_SetAlert_mutate',
+        'backend_entity_project_CreateProject_mutate',
+        'backend_entity_project_RemoveProject_mutate',
+        'backend_entity_user_User_resolve_list_projects',
+    }
+
+    customeradminfluid_allowed_actions.update(customer_allowed_actions)
+    customeradminfluid_allowed_actions.update(customeradmin_allowed_actions)
 
     def test_action_wrong_role(self):
         """Tests for an user with a wrong role."""
@@ -207,8 +225,12 @@ class ActionAbacTest(TestCase):
         sub = TestItem()
         sub.user_email = 'someone@guest.com'
         sub.role = 'guest'
-        obj = 'unittesting'
-        action = 'backend.api.query.resolve_resources'
+        obj = {
+            'project_name': 'unittesting',
+            'customeradmin': {
+                'admin@customer.com'
+            }
+        }
 
         should_deny = self.global_actions
 
@@ -225,7 +247,12 @@ class ActionAbacTest(TestCase):
         sub = TestItem()
         sub.user_email = 'someone@customer.com'
         sub.role = 'customer'
-        obj = 'unittesting'
+        obj = {
+            'project_name': 'unittesting',
+            'customeradmin': {
+                'admin@customer.com'
+            }
+        }
 
         should_deny = self.global_actions - self.customer_allowed_actions
 
@@ -245,9 +272,41 @@ class ActionAbacTest(TestCase):
         sub = TestItem()
         sub.user_email = 'admin@customer.com'
         sub.role = 'customeradmin'
-        obj = 'unittesting'
+        obj = {
+            'project_name': 'unittesting',
+            'customeradmin': {
+                'admin@customer.com'
+            }
+        }
 
         should_deny = self.global_actions - self.customeradmin_allowed_actions
+
+        for action in self.customeradmin_allowed_actions:
+            self.assertTrue(enfor.enforce(sub, obj, action))
+
+        for action in should_deny:
+            self.assertFalse(enfor.enforce(sub, obj, action))
+
+    def test_action_customeradminfluid_role(self):
+        """Tests for an user with a expected role."""
+        enfor = get_action_enforcer()
+
+        class TestItem:
+            pass
+
+        sub = TestItem()
+        sub.user_email = 'admin@fluidattacks.com'
+        sub.role = 'customeradmin'
+        obj = {
+            'project_name': 'unittesting',
+            'customeradmin': {
+                'admin@customer.com',
+                'admin@fluidattacks.com'
+            }
+        }
+
+        should_deny = \
+            self.global_actions - self.customeradminfluid_allowed_actions
 
         for action in self.customeradmin_allowed_actions:
             self.assertTrue(enfor.enforce(sub, obj, action))
@@ -265,7 +324,12 @@ class ActionAbacTest(TestCase):
         sub = TestItem()
         sub.user_email = 'analyst@fluidattacks.com'
         sub.role = 'analyst'
-        obj = 'unittesting'
+        obj = {
+            'project_name': 'unittesting',
+            'customeradmin': {
+                'admin@customer.com'
+            }
+        }
 
         should_deny = self.global_actions - self.analyst_allowed_actions
 
@@ -285,7 +349,12 @@ class ActionAbacTest(TestCase):
         sub = TestItem()
         sub.user_email = 'admin@fluidattacks.com'
         sub.role = 'admin'
-        obj = 'unittesting'
+        obj = {
+            'project_name': 'unittesting',
+            'customeradmin': {
+                'admin@customer.com',
+            }
+        }
 
         should_allow = self.global_actions
 
