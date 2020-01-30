@@ -87,7 +87,7 @@ Tachyons classes on dynamically generated content
     $( "h4" ).addClass("f4-l f5-m");
     $( "p" ).addClass("f4-l f5-m lh-copy ma0 tl");
     $( "p > strong" ).addClass("black b")
-    $( "a" ).addClass("c-fluid-dkblue hv-fluid-dkred")
+    $( "a:not(.c-fluid-red)" ).addClass("c-fluid-dkblue hover-red")
     $( "a > .tooltip" ).addClass("hv-fluid-lb")
     $( ".olist > ol" ).addClass("f4-l");
     $( ".at-expanding-share-button-desktop" ).addClass("dn-l");
