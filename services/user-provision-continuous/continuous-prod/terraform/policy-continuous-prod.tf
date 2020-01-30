@@ -10,7 +10,8 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
     ]
     resources = [
       "arn:aws:s3:::fluidattacks-terraform-states-prod",
-      "arn:aws:s3:::fluidattacks-terraform-states-prod/continuous-secret-management.tfstate"
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/continuous-secret-management.tfstate",
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/break-build.tfstate"
     ]
   }
 
