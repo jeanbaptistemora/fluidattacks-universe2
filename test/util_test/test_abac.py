@@ -82,6 +82,7 @@ class ActionAbacTest(TestCase):
         'backend.api.query.Query.resolve_finding',
         'backend.api.query.Query.resolve_event',
         'backend.api.query.Query.resolve_alive_projects',
+        'backend.api.query.Query.resolve_internal_project_names',
         'backend.entity.resource.AddResources.mutate',
         'backend.entity.resource.UpdateResources.mutate',
         'backend.entity.resource.AddFiles.mutate',
@@ -124,7 +125,75 @@ class ActionAbacTest(TestCase):
         'backend.entity.project.AddTags.mutate',
         'backend.entity.project.AddAllProjectAccess.mutate',
         'backend.entity.project.RemoveAllProjectAccess.mutate',
+        'backend.entity.cache.InvalidateCache.mutate',
     }
+
+    analyst_allowed_actions = {
+        'backend.api.query.Query.resolve_resources',
+        'backend.api.query.Query.resolve_alert',
+        'backend.api.query.Query.resolve_project',
+        'backend.api.query.Query.resolve_finding',
+        'backend.api.query.Query.resolve_event',
+        'backend.entity.vulnerability.DeleteVulnerability.mutate',
+        'backend.entity.vulnerability.UploadFile.mutate',
+        'backend.entity.vulnerability.ApproveVulnerability.mutate',
+        'backend.entity.vulnerability.Vulnerability.resolve_last_analyst',
+        'backend.entity.vulnerability.Vulnerability.resolve_analyst',
+        'backend.entity.event.AddEventComment.mutate',
+        'backend.entity.event.DownloadEventFile.mutate',
+        'backend.entity.event.UpdateEvent.mutate',
+        'backend.entity.event.SolveEvent.mutate',
+        'backend.entity.event.UpdateEventEvidence.mutate',
+        'backend.entity.event.RemoveEventEvidence.mutate',
+        'backend.entity.resource.DownloadFile.mutate',
+        'backend.entity.finding.Finding.resolve_historic_state',
+        'backend.entity.finding.Finding.resolve_observations',
+        'backend.entity.finding.Finding.resolve_analyst',
+        'backend.entity.finding.RemoveEvidence.mutate',
+        'backend.entity.finding.UpdateEvidence.mutate',
+        'backend.entity.finding.UpdateEvidenceDescription.mutate',
+        'backend.entity.finding.UpdateSeverity.mutate',
+        'backend.entity.finding.VerifyFinding.mutate',
+        'backend.entity.finding.UpdateDescription.mutate',
+        'backend.entity.finding.RejectDraft.mutate',
+        'backend.entity.finding.DeleteFinding.mutate',
+        'backend.entity.finding.CreateDraft.mutate',
+        'backend.entity.finding.SubmitDraft.mutate',
+        'backend.entity.finding.AddFindingComment.mutate',
+        'backend.entity.project.Project.resolve_comments',
+        'backend.entity.project.Project.resolve_events',
+        'backend.entity.project.AddProjectComment.mutate',
+        'backend.entity.project.Project.resolve_drafts',
+        'backend.entity.cache.InvalidateCache.mutate',
+    }
+
+    customer_allowed_actions = {
+        'backend.api.query.Query.resolve_resources',
+        'backend.api.query.Query.resolve_alert',
+        'backend.api.query.Query.resolve_project',
+        'backend.api.query.Query.resolve_finding',
+        'backend.api.query.Query.resolve_event',
+        'backend.entity.resource.AddResources.mutate',
+        'backend.entity.resource.UpdateResources.mutate',
+        'backend.entity.resource.AddFiles.mutate',
+        'backend.entity.resource.RemoveFiles.mutate',
+        'backend.entity.resource.DownloadFile.mutate',
+        'backend.entity.event.AddEventComment.mutate',
+        'backend.entity.event.DownloadEventFile.mutate',
+        'backend.entity.vulnerability.DeleteTags.mutate',
+        'backend.entity.vulnerability.UpdateTreatmentVuln.mutate',
+        'backend.entity.finding.AddFindingComment.mutate',
+        'backend.entity.finding.UpdateClientDescription.mutate',
+        'backend.entity.finding.RequestVerification.mutate',
+        'backend.entity.project.Project.resolve_comments',
+        'backend.entity.project.Project.resolve_events',
+        'backend.entity.project.AddProjectComment.mutate',
+        'backend.entity.project.RemoveTag.mutate',
+        'backend.entity.project.AddTags.mutate',
+    }
+
+    customeradmin_allowed_actions = set()
+    customeradmin_allowed_actions.update(customer_allowed_actions)
 
     def test_action_wrong_role(self):
         """Tests for an user with a wrong role."""
@@ -156,34 +225,29 @@ class ActionAbacTest(TestCase):
         sub.role = 'customer'
         obj = 'unittesting'
 
-        should_allow = {
-            'backend.api.query.Query.resolve_resources',
-            'backend.api.query.Query.resolve_alert',
-            'backend.api.query.Query.resolve_project',
-            'backend.api.query.Query.resolve_finding',
-            'backend.api.query.Query.resolve_event',
-            'backend.entity.resource.AddResources.mutate',
-            'backend.entity.resource.UpdateResources.mutate',
-            'backend.entity.resource.AddFiles.mutate',
-            'backend.entity.resource.RemoveFiles.mutate',
-            'backend.entity.resource.DownloadFile.mutate',
-            'backend.entity.event.AddEventComment.mutate',
-            'backend.entity.event.DownloadEventFile.mutate',
-            'backend.entity.vulnerability.DeleteTags.mutate',
-            'backend.entity.vulnerability.UpdateTreatmentVuln.mutate',
-            'backend.entity.finding.AddFindingComment.mutate',
-            'backend.entity.finding.UpdateClientDescription.mutate',
-            'backend.entity.finding.RequestVerification.mutate',
-            'backend.entity.project.Project.resolve_comments',
-            'backend.entity.project.Project.resolve_events',
-            'backend.entity.project.AddProjectComment.mutate',
-            'backend.entity.project.RemoveTag.mutate',
-            'backend.entity.project.AddTags.mutate',
-        }
+        should_deny = self.global_actions - self.customer_allowed_actions
 
-        should_deny = self.global_actions - should_allow
+        for action in self.customer_allowed_actions:
+            self.assertTrue(enfor.enforce(sub, obj, action))
 
-        for action in should_allow:
+        for action in should_deny:
+            self.assertFalse(enfor.enforce(sub, obj, action))
+
+    def test_action_customeradmin_role(self):
+        """Tests for an user with a expected role."""
+        enfor = get_action_enforcer()
+
+        class TestItem:
+            pass
+
+        sub = TestItem()
+        sub.user_email = 'admin@customer.com'
+        sub.role = 'customeradmin'
+        obj = 'unittesting'
+
+        should_deny = self.global_actions - self.customeradmin_allowed_actions
+
+        for action in self.customeradmin_allowed_actions:
             self.assertTrue(enfor.enforce(sub, obj, action))
 
         for action in should_deny:
@@ -201,47 +265,9 @@ class ActionAbacTest(TestCase):
         sub.role = 'analyst'
         obj = 'unittesting'
 
-        should_allow = {
-            'backend.api.query.Query.resolve_resources',
-            'backend.api.query.Query.resolve_alert',
-            'backend.api.query.Query.resolve_project',
-            'backend.api.query.Query.resolve_finding',
-            'backend.api.query.Query.resolve_event',
-            'backend.entity.vulnerability.DeleteVulnerability.mutate',
-            'backend.entity.vulnerability.UploadFile.mutate',
-            'backend.entity.vulnerability.ApproveVulnerability.mutate',
-            'backend.entity.vulnerability.Vulnerability.resolve_last_analyst',
-            'backend.entity.vulnerability.Vulnerability.resolve_analyst',
-            'backend.entity.event.AddEventComment.mutate',
-            'backend.entity.event.DownloadEventFile.mutate',
-            'backend.entity.event.UpdateEvent.mutate',
-            'backend.entity.event.SolveEvent.mutate',
-            'backend.entity.event.UpdateEventEvidence.mutate',
-            'backend.entity.event.RemoveEventEvidence.mutate',
-            'backend.entity.resource.DownloadFile.mutate',
-            'backend.entity.finding.Finding.resolve_historic_state',
-            'backend.entity.finding.Finding.resolve_observations',
-            'backend.entity.finding.Finding.resolve_analyst',
-            'backend.entity.finding.RemoveEvidence.mutate',
-            'backend.entity.finding.UpdateEvidence.mutate',
-            'backend.entity.finding.UpdateEvidenceDescription.mutate',
-            'backend.entity.finding.UpdateSeverity.mutate',
-            'backend.entity.finding.VerifyFinding.mutate',
-            'backend.entity.finding.UpdateDescription.mutate',
-            'backend.entity.finding.RejectDraft.mutate',
-            'backend.entity.finding.DeleteFinding.mutate',
-            'backend.entity.finding.CreateDraft.mutate',
-            'backend.entity.finding.SubmitDraft.mutate',
-            'backend.entity.finding.AddFindingComment.mutate',
-            'backend.entity.project.Project.resolve_comments',
-            'backend.entity.project.Project.resolve_events',
-            'backend.entity.project.AddProjectComment.mutate',
-            'backend.entity.project.Project.resolve_drafts',
-        }
+        should_deny = self.global_actions - self.analyst_allowed_actions
 
-        should_deny = self.global_actions - should_allow
-
-        for action in should_allow:
+        for action in self.analyst_allowed_actions:
             self.assertTrue(enfor.enforce(sub, obj, action))
 
         for action in should_deny:

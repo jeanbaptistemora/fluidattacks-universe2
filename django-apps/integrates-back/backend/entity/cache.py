@@ -1,6 +1,6 @@
 import re
 from graphene import Boolean, Mutation, String
-from backend.decorators import require_login, require_role
+from backend.decorators import require_login, new_require_role
 
 from backend import util
 
@@ -13,7 +13,7 @@ class InvalidateCache(Mutation):
 
     @staticmethod
     @require_login
-    @require_role(['admin', 'analyst'])
+    @new_require_role
     def mutate(_, info, pattern):
         regex = r'^\w+$'
         if re.match(regex, pattern):

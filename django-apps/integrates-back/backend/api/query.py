@@ -122,7 +122,7 @@ class Query(ObjectType):
         raise InvalidProject()
 
     @require_login
-    @require_role(['admin'])
+    @new_require_role
     def resolve_internal_project_names(self, info):
         """Resolve for internal project names"""
         del info
