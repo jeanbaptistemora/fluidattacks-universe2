@@ -21,7 +21,7 @@ from backend.entity.finding import (
 )
 from backend.entity.project import (
     AddProjectComment, CreateProject, RemoveProject, RemoveTag, AddTags, AddAllProjectAccess,
-    RemoveAllProjectAccess, RequestRemoveProject
+    RemoveAllProjectAccess, RequestRemoveProject, RejectRemoveProject
 )
 from backend.entity.event import (
     AddEventComment, CreateEvent, DownloadEventFile, SolveEvent, UpdateEvent,
@@ -69,6 +69,7 @@ class Mutations(ObjectType):
     removeProject = RemoveProject.Field()
     addFindingComment = AddFindingComment.Field()
     requestRemoveProject = RequestRemoveProject.Field()
+    rejectRemoveProject = RejectRemoveProject.Field()
 
     verifyFinding = VerifyFinding.Field()
     handleAcceptation = HandleAcceptation.Field()

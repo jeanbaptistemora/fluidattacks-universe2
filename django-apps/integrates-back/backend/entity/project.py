@@ -55,6 +55,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     description = String()
     remediated_over_time = String()
     events = List(Event)
+    user_deletion = String()
 
     def __init__(self, project_name, description=''):
         """Class constructor."""
@@ -260,6 +261,16 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
             self.deletion_date = historic_deletion[-1].get('deletion_date', '')
         return self.deletion_date
 
+    @get_entity_cache
+    def resolve_user_deletion(self, info):
+        """Resolve deletion date attribute."""
+        del info
+        self.user_deletion = ''
+        historic_deletion = project_domain.get_historic_deletion(self.name)
+        if historic_deletion and historic_deletion[-1].get('deletion_date'):
+            self.user_deletion = historic_deletion[-1].get('user', '')
+        return self.user_deletion
+
     @new_require_role
     def resolve_comments(self, info):
         user_data = util.get_jwt_content(info.context)
@@ -400,6 +411,28 @@ class RequestRemoveProject(Mutation):
             util.cloudwatch_log(
                 info.context,
                 f'Security: Pending to remove project {project}')
+        return RemoveProject(success=success)
+
+
+class RejectRemoveProject(Mutation):
+    """ Reject pending to remove project """
+
+    class Arguments():
+        project_name = String(required=True)
+    success = Boolean()
+
+    @require_login
+    @new_require_role
+    @require_project_access
+    def mutate(self, info, project_name):
+        user_info = util.get_jwt_content(info.context)
+        success = project_domain.reject_deletion(project_name, user_info['user_email'])
+        if success:
+            project = project_name.lower()
+            util.invalidate_cache(project)
+            util.cloudwatch_log(
+                info.context,
+                f'Security: Reject project {project} deletion succesfully')
         return RemoveProject(success=success)
 
 

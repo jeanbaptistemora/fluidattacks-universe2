@@ -307,3 +307,12 @@ class AlreadyPendingDeletion(Exception):
         """ Constructor """
         msg = 'Exception - This project has already been deleted or is pending'
         super(AlreadyPendingDeletion, self).__init__(msg)
+
+
+class NotPendingDeletion(Exception):
+    """Exception to control not pending to delete projects"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - The project is not pending to delete'
+        super(NotPendingDeletion, self).__init__(msg)

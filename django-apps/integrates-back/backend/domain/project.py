@@ -14,7 +14,8 @@ from backend.domain import comment as comment_domain
 from backend.domain import finding as finding_domain, user as user_domain
 from backend.domain import vulnerability as vuln_domain
 from backend.exceptions import (
-    AlreadyPendingDeletion, InvalidParameter, InvalidProjectName, PermissionDenied
+    AlreadyPendingDeletion, InvalidParameter, InvalidProjectName, NotPendingDeletion,
+    PermissionDenied
 )
 from backend.mailer import send_comment_mail
 from backend import util
@@ -107,6 +108,33 @@ def request_deletion(project_name, user_email):
             response = project_dal.update(project, new_data)
         else:
             raise AlreadyPendingDeletion()
+    else:
+        raise PermissionDenied()
+    return response
+
+
+def reject_deletion(project_name, user_email):
+    response = False
+    project = project_name.lower()
+    if is_request_deletion_user(project, user_email):
+        data = project_dal.get_attributes(project, ['project_status', 'historic_deletion'])
+        historic_deletion = data.get('historic_deletion', [])
+        if data.get('project_status') == 'PENDING_DELETION':
+            tzn = pytz.timezone(settings.TIME_ZONE)
+            today = datetime.now(tz=tzn).today()
+            new_state = {
+                'date': today.strftime('%Y-%m-%d %H:%M:%S'),
+                'user': user_email.lower(),
+                'state': 'REJECTED'
+            }
+            historic_deletion.append(new_state)
+            new_data = {
+                'project_status': 'ACTIVE',
+                'historic_deletion': historic_deletion
+            }
+            response = project_dal.update(project, new_data)
+        else:
+            raise NotPendingDeletion()
     else:
         raise PermissionDenied()
     return response
