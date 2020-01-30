@@ -54,7 +54,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
           const handleUpdateError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
             updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
               switch (message) {
-                case "Wrong file structure":
+                case "Exception - Wrong File Structure":
                   msgError(translate.t("proj_alerts.invalid_structure"));
                   break;
                 case "Exception - Invalid File Size":

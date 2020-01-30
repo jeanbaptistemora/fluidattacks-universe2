@@ -9,7 +9,6 @@ import pytz
 import rollbar
 from django.conf import settings
 from django.core.files.base import ContentFile
-from graphql import GraphQLError
 from i18n import t
 from magic import Magic
 
@@ -22,7 +21,7 @@ from backend.mailer import send_comment_mail
 from backend import util
 from backend.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
-    NotSubmitted, InvalidFileSize, InvalidFileType, InvalidDraftTitle
+    NotSubmitted, InvalidFileSize, InvalidFileStructure, InvalidFileType, InvalidDraftTitle
 )
 from backend.utils import cvss, notifications, findings as finding_utils
 
@@ -536,8 +535,6 @@ def approve_draft(draft_id, reviewer_email):
                 })
             else:
                 raise NotSubmitted()
-        else:
-            raise GraphQLError('CANT_APPROVE_FINDING_WITHOUT_VULNS')
     else:
         raise AlreadyApproved()
     return success, release_date
@@ -573,7 +570,7 @@ def append_records_to_file(records, new_file):
     aux = records_str
     records_str = str(','.join(header)) + r'\n' + aux + str(new_file_records).replace('\'', '')
     if new_file_header != str(','.join(header)):
-        raise GraphQLError('Wrong file structure')
+        raise InvalidFileStructure()
 
     buff = io.BytesIO(records_str.encode('utf-8').decode('unicode_escape').encode('utf-8'))
     content_file = ContentFile(buff.read())

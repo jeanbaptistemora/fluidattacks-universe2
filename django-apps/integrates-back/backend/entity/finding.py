@@ -818,6 +818,10 @@ class ApproveDraft(Mutation):
         reviewer_email = util.get_jwt_content(info.context)['user_email']
         project_name = finding_domain.get_finding(draft_id)['projectName']
 
+        has_vulns = [vuln for vuln in vuln_domain.list_vulnerabilities([draft_id])
+                     if vuln['historic_state'][-1].get('state') != 'DELETED']
+        if not has_vulns:
+            raise GraphQLError('CANT_APPROVE_FINDING_WITHOUT_VULNS')
         success, release_date = finding_domain.approve_draft(
             draft_id, reviewer_email)
         if success:
