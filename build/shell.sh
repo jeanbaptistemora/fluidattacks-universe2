@@ -80,14 +80,18 @@ function release_to_docker_hub {
   function build {
     local image_name="${1}"
     local target_name="${2}"
-
-    docker build --tag "${image_name}" --target "${target_name}" .
+    local file="${3}"
+    docker build --tag "${image_name}" --target "${target_name}" -f "${file}" .
     docker push "${image_name}"
   }
 
-  build 'fluidattacks/asserts:light' 'light'
-  build 'fluidattacks/asserts:full'  'full'
-  build 'fluidattacks/asserts'       'full'
+  build 'fluidattacks/asserts:light' 'light' 'Dockerfile'
+  build 'fluidattacks/asserts:full'  'full'  'Dockerfile'
+  build 'fluidattacks/asserts'       'full'  'Dockerfile'
+
+  build 'fluidattacks/asserts:debian-light' 'light' 'debian.Dockerfile'
+  build 'fluidattacks/asserts:debian-full'  'full'  'debian.Dockerfile'
+  build 'fluidattacks/asserts:debian'       'full'  'debian.Dockerfile'
 }
 
 function release_to_pypi {

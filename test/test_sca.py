@@ -75,7 +75,7 @@ def test_maven_package_has_vulnerabilities_open():
 
 def test_npm_package_has_vulnerabilities_open():
     """Search vulnerabilities."""
-    assert npm.package_has_vulnerabilities('jquery')
+    assert npm.package_has_vulnerabilities('static-eval')
     result = npm.project_has_vulnerabilities(NPM_PROJECT_OPEN)
     assert result.is_open()
     for vuln in result.vulns:
