@@ -122,7 +122,6 @@
     "tslint": "5.10.0",
     "tslint-react": "3.6.0",
     "waait": "1.0.5",
-    "webpack-bundle-tracker": "0.4.3",
     "webpack-dev-server": "3.10.1"
   },
   "scripts": {

@@ -1,5 +1,4 @@
 import webpack from "webpack";
-import { default as BundleTracker } from "webpack-bundle-tracker";
 
 import { commonConfig } from "./webpack.common.config";
 
@@ -26,12 +25,6 @@ const devConfig: webpack.Configuration = {
   plugins: [
     ...commonConfig.plugins as [],
     new webpack.HotModuleReplacementPlugin(),
-    new BundleTracker({
-      filename: "webpack-stats.json",
-      logTime: false,
-      path: "../",
-      publicPath: (commonConfig.output as webpack.Output).publicPath as string,
-    }),
   ],
 };
 
