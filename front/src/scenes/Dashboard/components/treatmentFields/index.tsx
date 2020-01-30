@@ -108,7 +108,7 @@ const treatmentFieldsView: renderFormFieldsFn =
             <option value="NEW">{translate.t("search_findings.tab_description.treatment.new")}</option>
             <option value="IN PROGRESS">{translate.t("search_findings.tab_description.treatment.in_progress")}</option>
             <option value="ACCEPTED">{translate.t("search_findings.tab_description.treatment.accepted")}</option>
-            <option hidden={true} value="ACCEPTED_UNDEFINED">
+            <option value="ACCEPTED_UNDEFINED">
               {translate.t("search_findings.tab_description.treatment.accepted_undefined")}
             </option>
           </EditableField>
