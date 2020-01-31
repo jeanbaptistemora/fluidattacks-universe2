@@ -30,7 +30,10 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
   statement {
     sid = "ecrBreakBuildAdmin"
     effect = "Allow"
-    actions = ["ecr:DescribeRepositories"]
+    actions = [
+      "ecr:DescribeRepositories",
+      "ecr:ListTagsForResource",
+      ]
     resources = [
       "arn:aws:ecr:${var.region}:${data.aws_caller_identity.current.account_id}:repository/break-build-*"
     ]
@@ -39,7 +42,10 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
   # IAM Break Build and AWS SSO role
   statement {
     effect  = "Allow"
-    actions = ["iam:getGetUser"]
+    actions = [
+      "iam:GetUser",
+      "iam:GetPolicy"
+    ]
     resources = [
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/continuous-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/asserts/break-build-*",

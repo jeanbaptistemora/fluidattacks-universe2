@@ -37,7 +37,8 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
       "ecr:InitiateLayerUpload",
       "ecr:UploadLayerPart",
       "ecr:CompleteLayerUpload",
-      "ecr:DescribeRepositories"
+      "ecr:DescribeRepositories",
+      "ecr:ListTagsForResource"
     ]
     resources = [
       "arn:aws:ecr:${var.region}:${data.aws_caller_identity.current.account_id}:repository/break-build-*"
