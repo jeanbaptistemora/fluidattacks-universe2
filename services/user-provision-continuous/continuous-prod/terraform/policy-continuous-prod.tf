@@ -36,10 +36,11 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
       "ecr:BatchCheckLayerAvailability",
       "ecr:InitiateLayerUpload",
       "ecr:UploadLayerPart",
-      "ecr:CompleteLayerUpload"
+      "ecr:CompleteLayerUpload",
+      "ecr:DescribeRepositories"
     ]
     resources = [
-      "arn:aws:ecr:${var.region}:${data.aws_caller_identity.current.account_id}:repository/*"
+      "arn:aws:ecr:${var.region}:${data.aws_caller_identity.current.account_id}:repository/break-build-*"
     ]
   }
 
@@ -68,6 +69,7 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
     actions = ["iam:*"]
     resources = [
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/continuous-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/asserts/break-build-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/asserts/break-build-*"
     ]
   }
