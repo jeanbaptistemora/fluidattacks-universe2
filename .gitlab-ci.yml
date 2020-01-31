@@ -483,40 +483,6 @@ aws-sso-terraform-apply:
   except:
     - schedules
 
-break-build-terraform-apply:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: deploy
-  script:
-    - . ci-scripts/jobs/break-build.sh
-    - break_build_terraform_apply
-  only:
-    - master
-  except:
-    - schedules
-
-break-build-terraform-lint:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - . ci-scripts/jobs/break-build.sh
-    - break_build_terraform_lint
-  except:
-    - schedules
-
-break-build-terraform-plan:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - . ci-scripts/jobs/break-build.sh
-    - break_build_terraform_plan
-  except:
-    - schedules
-
 user-provision-integrates-prod-terraform-lint:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
