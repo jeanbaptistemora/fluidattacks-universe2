@@ -8,7 +8,7 @@ from backend.domain import comment as comment_domain, event as event_domain
 from backend.entity.comment import Comment
 from backend.decorators import (
     get_entity_cache, require_login, require_event_access,
-    require_project_access, new_require_role, require_role
+    require_project_access, new_require_role
 )
 from backend import util
 
@@ -276,7 +276,7 @@ class CreateEvent(Mutation):
 
     @staticmethod
     @require_login
-    @require_role(['analyst', 'admin', 'customeradminfluid'])
+    @new_require_role
     @require_project_access
     def mutate(_, info, project_name, image=None, file=None, **kwargs):
         analyst_email = util.get_jwt_content(info.context)['user_email']

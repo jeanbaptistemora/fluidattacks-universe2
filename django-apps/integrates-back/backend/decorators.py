@@ -9,7 +9,6 @@ import rollbar
 from django.conf import settings
 from django.core.cache import cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
-from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_protect
 from graphql import GraphQLError
@@ -23,7 +22,7 @@ from backend.domain import (
     user as user_domain, event as event_domain, finding as finding_domain
 )
 from backend.services import (
-    get_user_role, has_valid_access_token, is_customeradmin, project_exists
+    get_user_role, has_valid_access_token
 )
 
 from backend import util
@@ -111,44 +110,11 @@ def require_login(func):
     return verify_and_call
 
 
-def require_role(allowed_roles):
-    """
-    Require_role decorator
-
-    Verifies that the current user's role is within the specified allowed roles
-    """
-    def wrapper(func):
-        @functools.wraps(func)
-        def verify_and_call(*args, **kwargs):
-            context = args[1].context
-            user_data = util.get_jwt_content(context)
-            role = get_user_role(user_data)
-            email = user_data['user_email']
-
-            try:
-                if 'customeradmin' in allowed_roles and role == 'customer':
-                    project_name = kwargs.get(
-                        'project_name', args[0].name if args[0] else '')
-                    role_customer_admin(project_name, email)
-                elif 'customeradminfluid' in allowed_roles and \
-                     role == 'customer':
-                    project_name = kwargs.get('project_name', '')
-                    role_customer_admin_fluid(project_name, email)
-                else:
-                    role_allowed(role, allowed_roles)
-            except PermissionDenied:
-                util.cloudwatch_log(context,
-                                    'Security: \
-Unauthorized role attempted to perform operation')
-                raise GraphQLError('Access denied')
-            return func(*args, **kwargs)
-        return verify_and_call
-    return wrapper
-
-
-def resolve_project_name(kwargs):
+def resolve_project_name(args, kwargs):
     """Get project name based on args passed."""
-    if 'project_name' in kwargs:
+    if args[0] and hasattr(args[0], 'name'):
+        project_name = args[0].name
+    elif 'project_name' in kwargs:
         project_name = kwargs['project_name']
     elif 'finding_id' in kwargs:
         project_name = integrates_dal.get_finding_project(kwargs['finding_id'])
@@ -164,8 +130,13 @@ def resolve_project_name(kwargs):
 
 def resolve_project_data(project_name):
     """Get project data or mock it if needed."""
-    return integrates_dal.get_project_dynamo(project_name)[0] \
-        if project_name else {}
+    if project_name:
+        project_data = integrates_dal.get_project_dynamo(project_name)[0]
+        if 'customeradmin' not in project_data:
+            project_data['customeradmin'] = set()
+    else:
+        project_data = {}
+    return project_data
 
 
 def new_require_role(func):
@@ -179,7 +150,7 @@ def new_require_role(func):
         context = args[1].context
         user_data = util.get_jwt_content(context)
         user_data['role'] = get_user_role(user_data)
-        project_name = resolve_project_name(kwargs)
+        project_name = resolve_project_name(args, kwargs)
         project_data = resolve_project_data(project_name)
         action = '{}.{}'.format(func.__module__, func.__qualname__)
         action = action.replace('.', '_')
@@ -201,29 +172,6 @@ Unauthorized role attempted to perform operation')
 def verify_jti(email, context, jti):
     if not has_valid_access_token(email, context, jti):
         raise InvalidAuthorization()
-
-
-def role_allowed(role, allowed_roles):
-    """Is role in allowed_roles."""
-    if role not in allowed_roles:
-        raise PermissionDenied()
-
-
-def role_customer_admin(project_name, email):
-    if not is_customeradmin(project_name, email):
-        raise PermissionDenied()
-
-
-def role_customer_admin_fluid(project_name, email):
-    is_authorized = False
-    if email.lower().endswith('@fluidattacks.com'):
-        if not project_exists(project_name):
-            is_authorized = True
-        elif is_customeradmin(project_name, email):
-            is_authorized = True
-
-    if not is_authorized:
-        raise PermissionDenied()
 
 
 def require_project_access(func):
@@ -327,7 +275,7 @@ def require_event_access(func):
     Attempted to retrieve event-related info without permission')
                 raise GraphQLError('Access denied')
         except AttributeDoesNotExist:
-            return GraphQLError('Access denied')
+            return GraphQLError('Access denied: Missing attributes')
         return func(*args, **kwargs)
     return verify_and_call
 

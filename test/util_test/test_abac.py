@@ -97,6 +97,7 @@ class ActionAbacTest(TestCase):
         'backend_entity_vulnerability_Vulnerability_resolve_analyst',
         'backend_entity_event_AddEventComment_mutate',
         'backend_entity_event_DownloadEventFile_mutate',
+        'backend_entity_event_CreateEvent_mutate',
         'backend_entity_event_UpdateEvent_mutate',
         'backend_entity_event_SolveEvent_mutate',
         'backend_entity_event_UpdateEventEvidence_mutate',
@@ -143,6 +144,7 @@ class ActionAbacTest(TestCase):
         'backend_entity_vulnerability_Vulnerability_resolve_analyst',
         'backend_entity_event_AddEventComment_mutate',
         'backend_entity_event_DownloadEventFile_mutate',
+        'backend_entity_event_CreateEvent_mutate',
         'backend_entity_event_UpdateEvent_mutate',
         'backend_entity_event_SolveEvent_mutate',
         'backend_entity_event_UpdateEventEvidence_mutate',
@@ -207,6 +209,7 @@ class ActionAbacTest(TestCase):
     customeradminfluid_allowed_actions = {
         'backend_api_query_Query_resolve_user_list_projects',
         'backend_entity_alert_SetAlert_mutate',
+        'backend_entity_event_CreateEvent_mutate',
         'backend_entity_project_CreateProject_mutate',
         'backend_entity_project_RemoveProject_mutate',
         'backend_entity_user_User_resolve_list_projects',
