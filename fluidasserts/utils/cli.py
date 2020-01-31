@@ -761,65 +761,83 @@ def exec_azure_package(credentials, enable_multiprocessing: bool):
         """)
 
     source: Dict[str, str] = {
-        ('key_vaults', 'Key vaults'):
-        """
-            key_vaults.entities_have_all_access(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            key_vaults.has_key_expiration_disabled(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            key_vaults.has_secret_expiration_disabled(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            """,
-        ('network_security_groups', 'Network security groups'):
-        """
-            network_security_groups.allow_all_ingress_traffic(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            network_security_groups.has_admin_ports_open_to_the_public(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            network_security_groups.has_flow_logs_disabled(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            network_security_groups.has_insecure_port_ranges(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            network_security_groups.has_open_all_ports_to_the_public(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            """,
-        ('storage_accounts', 'Storage accounts'):
-        """
-            storage_accounts.allow_access_from_all_networks(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            storage_accounts.blob_containers_are_public(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            storage_accounts.file_shares_acl_permissions_do_not_expire(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            storage_accounts.file_shares_has_global_acl_permissions(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            storage_accounts.has_insecure_transport(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            storage_accounts.use_microsoft_managed_keys(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            """,
-        ('virtual_machines', 'Virtual machines'):
-        """
-            virtual_machines.has_data_disk_encryption_disabled(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            virtual_machines.has_os_disk_encryption_disabled(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            virtual_machines.have_automatic_updates_disabled(
-                '{client_id}', '{secret}', '{tenant}', '{subscription_id}')
-            """,
+        ('app_services', 'App Services'): [
+            'has_authentication_disabled',
+            'has_client_certificates_disabled',
+            'has_https_only_disabled',
+            'has_identity_disabled',
+            'use_insecure_tls_version',
+        ],
+        ('key_vaults', 'Key vaults'): [
+            'entities_have_all_access',
+            'has_key_expiration_disabled',
+            'has_secret_expiration_disabled',
+        ],
+        ('network_security_groups', 'Network security groups'): [
+            'allow_all_ingress_traffic',
+            'has_admin_ports_open_to_the_public',
+            'has_flow_logs_disabled',
+            'has_insecure_port_ranges',
+            'has_open_all_ports_to_the_public',
+        ],
+        ('storage_accounts', 'Storage accounts'): [
+            'allow_access_from_all_networks',
+            'blob_containers_are_public',
+            'file_shares_acl_permissions_do_not_expire',
+            'file_shares_has_global_acl_permissions',
+            'has_insecure_transport',
+            'use_microsoft_managed_keys',
+        ],
+        ('security_center', 'Security Center'): [
+            'has_admin_security_alerts_disabled',
+            'has_api_endpoint_monitor_disabled',
+            'has_auto_provisioning_disabled',
+            'has_blob_encryption_monitor_disabled',
+            'has_disk_encryption_monitor_disabled',
+            'has_high_security_alerts_disabled',
+            'has_security_configuration_monitor_disabled',
+            'has_security_contacts_disabled',
+            'has_system_updates_monitor_disabled',
+            'has_vm_vulnerabilities_monitor_disabled',
+        ],
+        ('sqlserver', 'SQLServer'): [
+            'allow_public_access',
+            'has_ad_administration_disabled',
+            'has_advanced_data_security_disabled',
+            'has_server_auditing_disabled',
+            'has_transparent_encryption_disabled',
+            'use_microsoft_managed_keys',
+        ],
+        ('storage_accounts', 'Storage Accounts'): [
+            'allow_access_from_all_networks',
+            'blob_containers_are_public',
+            'file_shares_acl_permissions_do_not_expire',
+            'file_shares_has_global_acl_permissions',
+            'has_blob_container_mutability',
+            'has_insecure_transport',
+            'use_microsoft_managed_keys',
+        ],
+        ('virtual_machines', 'Virtual machines'): [
+            'has_associate_public_ip_address',
+            'has_data_disk_encryption_disabled',
+            'has_identity_disabled',
+            'has_os_disk_encryption_disabled',
+            'have_automatic_updates_disabled',
+        ],
     }
-    exploits = [(module[1],
-                 template.format(
-                     title=module[1],
-                     module=module[0],
-                     methods=textwrap.dedent(
-                         methods.format(
-                             subscription_id=credential.split(':')[0],
-                             client_id=credential.split(':')[1],
-                             secret=credential.split(':')[2],
-                             tenant=credential.split(':')[3]))))
-                for credential in credentials
-                for module, methods in source.items()]
+    exploits = [
+        (
+            module[1],
+            template.format(
+                title=module[1],
+                module=module[0],
+                methods='\n'.join(
+                    [(f"{module[0]}.{x}('{cred.split(':')[1]}',"  # noqa
+                      f"'{cred.split(':')[2]}','{cred.split(':')[3]}',"
+                      f"'{cred.split(':')[0]}')") for x in methods]),
+                # module.method(client_id,secret,tenant,subscription_id)
+            )) for cred in credentials for module, methods in source.items()
+    ]
 
     return exec_exploits(
         exploit_contents=exploits,
