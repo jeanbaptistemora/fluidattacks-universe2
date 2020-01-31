@@ -308,6 +308,7 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
                                              projectName: props.projectName,
                                              response }})
               .catch();
+            props.dataset.treatment = response === "REJECTED" ? "NEW" : "ACCEPTED_UNDEFINED";
             props.dataset.acceptationApproval = response;
             props.dataset.acceptationUser = props.currentUserEmail;
             props.dataset.justification = observations;
