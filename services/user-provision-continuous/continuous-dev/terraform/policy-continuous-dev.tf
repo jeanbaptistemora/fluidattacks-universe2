@@ -10,7 +10,9 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
     resources = [
       "arn:aws:s3:::fluidattacks-terraform-states-prod",
       "arn:aws:s3:::fluidattacks-terraform-states-prod/continuous-secret-management.tfstate",
-      "arn:aws:s3:::fluidattacks-terraform-states-prod/break-build.tfstate"
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/break-build.tfstate",
+      "arn:aws:s3:::break-build-logs",
+      "arn:aws:s3:::break-build-logs/*"
     ]
   }
 
@@ -33,6 +35,7 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
     actions = [
       "ecr:DescribeRepositories",
       "ecr:ListTagsForResource",
+      "ecr:GetLifecyclePolicy"
       ]
     resources = [
       "arn:aws:ecr:${var.region}:${data.aws_caller_identity.current.account_id}:repository/break-build-*"
@@ -44,7 +47,9 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
     effect  = "Allow"
     actions = [
       "iam:GetUser",
-      "iam:GetPolicy"
+      "iam:GetPolicy",
+      "iam:GetPolicyVersion",
+      "iam:ListAttachedUserPolicies"
     ]
     resources = [
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/continuous-*",
