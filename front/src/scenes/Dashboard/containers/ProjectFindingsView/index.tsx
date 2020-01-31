@@ -315,7 +315,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
         onInput: clearFilterTreatment,
         options: selectOptionsTreatment,
       }),
-      header: "Treatment", onSort: onSortState, visible: checkedItems.treatment, width: "8%",
+      header: "Treatment", onSort: onSortState, visible: checkedItems.treatment, width: "8%", wrapped: true,
     },
     {
       align: "center", dataField: "remediated",
