@@ -57,6 +57,7 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
     effect  = "Allow"
     actions = [
       "iam:GetUser",
+      "iam:GetRole",
       "iam:GetPolicy",
       "iam:GetPolicyVersion",
       "iam:ListAttachedUserPolicies"
