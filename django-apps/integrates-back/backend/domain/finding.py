@@ -26,7 +26,8 @@ from backend.exceptions import (
 from backend.utils import cvss, notifications, findings as finding_utils
 
 from backend.dal import (
-    integrates_dal, finding as finding_dal, project as project_dal
+    integrates_dal, finding as finding_dal, project as project_dal,
+    vulnerability as vuln_dal
 )
 
 
@@ -242,33 +243,25 @@ def update_description(finding_id, updated_values):
     del updated_values['title']
     del updated_values['description']
     del updated_values['recommendation']
-
+    updated_values = {key: None if not value else value for key, value in updated_values.items()}
     updated_values = {util.camelcase_to_snakecase(k): updated_values.get(k)
                       for k in updated_values}
 
     if re.search(r'^[A-Z]+\.(H\.|S\.|SH\.)??[0-9]+\. .+', updated_values['finding']):
+        return finding_dal.update(finding_id, updated_values)
 
-        return integrates_dal.update_mult_attrs_dynamo(
-            'FI_findings',
-            {'finding_id': finding_id},
-            updated_values
-        )
     raise InvalidDraftTitle()
 
 
 def update_treatment_in_vuln(finding_id, updated_values):
     new_values = {
         'treatment': updated_values.get('treatment', ''),
-        'treatment_justification': updated_values.get('justification', ''),
-        'acceptance_date': updated_values.get('acceptance_date', ''),
+        'treatment_justification': updated_values.get('justification'),
+        'acceptance_date': updated_values.get('acceptance_date'),
     }
     vulns = integrates_dal.get_vulnerabilities_dynamo(finding_id)
     for vuln in vulns:
-        result_update_treatment = \
-            integrates_dal.update_mult_attrs_dynamo('FI_vulnerabilities',
-                                                    {'finding_id': finding_id,
-                                                     'UUID': vuln['UUID']},
-                                                    new_values)
+        result_update_treatment = vuln_dal.update(finding_id, vuln['UUID'], new_values)
         if not result_update_treatment:
             return False
     return True
