@@ -1128,7 +1128,8 @@ const renderDeleteBtn: ((props: IResourcesViewProps) => JSX.Element) = (props: I
     <Query query={GET_PROJECT_DATA} variables={{ projectName }}>
     {
       ({ data }: QueryResult<IGetProjectData>): React.ReactNode => {
-        if (_.isUndefined(data) || (!_.isUndefined(data) && !_.isEmpty(data.project.deletionDate))) {
+        if (_.isUndefined(data) || _.isEmpty(data)
+        || (!_.isUndefined(data) && !_.isEmpty(data.project.deletionDate))) {
           return <React.Fragment />;
         }
         if (!_.isUndefined(data) && _.isEmpty(data.project.deletionDate)) {
