@@ -1,6 +1,6 @@
 data "aws_iam_policy_document" "continuous-dev-policy-data" {
 
-  # S3 read prod continuous-secret-management tfstate
+  # S3 read continuous prod tfstates
   statement {
     effect = "Allow"
     actions = [
@@ -10,9 +10,19 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
     resources = [
       "arn:aws:s3:::fluidattacks-terraform-states-prod",
       "arn:aws:s3:::fluidattacks-terraform-states-prod/continuous-secret-management.tfstate",
-      "arn:aws:s3:::fluidattacks-terraform-states-prod/break-build.tfstate",
-      "arn:aws:s3:::break-build-logs",
-      "arn:aws:s3:::break-build-logs/*"
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/break-build.tfstate"
+    ]
+  }
+
+  # S3 read break-build-logs bucket configs
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:ListBucket",
+      "s3:Get*"
+    ]
+    resources = [
+      "arn:aws:s3:::break-build-logs"
     ]
   }
 
@@ -28,7 +38,7 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
       ]
   }
 
-  # ECR Break Build
+  # ECR read break-build
   statement {
     sid = "ecrBreakBuildAdmin"
     effect = "Allow"
@@ -42,7 +52,7 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
     ]
   }
 
-  # IAM Break Build and AWS SSO role
+  # IAM read break-build and AWS SSO role
   statement {
     effect  = "Allow"
     actions = [

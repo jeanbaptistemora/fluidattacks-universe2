@@ -11,7 +11,18 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
     resources = [
       "arn:aws:s3:::fluidattacks-terraform-states-prod",
       "arn:aws:s3:::fluidattacks-terraform-states-prod/continuous-secret-management.tfstate",
-      "arn:aws:s3:::fluidattacks-terraform-states-prod/break-build.tfstate",
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/break-build.tfstate"
+    ]
+  }
+
+  # S3 Break Build
+  statement {
+    sid = "s3BreakBuildAdmin"
+    effect = "Allow"
+    actions = [
+      "s3:*"
+    ]
+    resources = [
       "arn:aws:s3:::break-build-logs",
       "arn:aws:s3:::break-build-logs/*"
     ]
@@ -45,25 +56,6 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
     ]
     resources = [
       "arn:aws:ecr:${var.region}:${data.aws_caller_identity.current.account_id}:repository/break-build-*"
-    ]
-  }
-
-  # S3 Break Build
-  statement {
-    sid = "s3BreakBuildAdmin"
-    effect = "Allow"
-    actions = [
-      "s3:HeadBucket",
-      "s3:ListAllMyBuckets",
-      "s3:ListBucket",
-      "s3:CreateBucket",
-      "s3:DeleteBucket",
-      "s3:DeleteObject",
-      "s3:GetObject",
-      "s3:PutObject",
-    ]
-    resources = [
-      "arn:aws:s3:::${var.break-build-bucket}/*"
     ]
   }
 
