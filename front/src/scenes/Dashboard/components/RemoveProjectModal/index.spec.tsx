@@ -8,7 +8,7 @@ import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 import { Provider } from "react-redux";
 import store from "../../../../store";
 import { RemoveProjectModal } from "./index";
-import { REMOVE_PROJECT_MUTATION } from "./queries";
+import { REQUEST_REMOVE_PROJECT_MUTATION } from "./queries";
 import { IRemoveProject } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -17,16 +17,13 @@ describe("RemoveProjectModal component", () => {
   it("should render remove project modal", () => {
     const handleOnClose: jest.Mock = jest.fn();
     const projectName: IRemoveProject = {
-      removeProject: {
-        findingsMasked: true,
-        projectFinished: true,
+      requestRemoveProject: {
         success: true,
-        usersRemoved: true,
       },
     };
     const mocksMutation: MockedResponse[] = [{
         request: {
-          query: REMOVE_PROJECT_MUTATION,
+          query: REQUEST_REMOVE_PROJECT_MUTATION,
         },
         result: {
           data: { projectName },

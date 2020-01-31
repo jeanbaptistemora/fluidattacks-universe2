@@ -41,6 +41,7 @@ describe("ProjectIndicatorsView", () => {
             closedVulnerabilities: 29,
             currentMonthAuthors: 0,
             currentMonthCommits: 0,
+            deletionDate: "",
             lastClosingVuln: 33,
             maxOpenSeverity: 10,
             maxSeverity: 10,
@@ -54,6 +55,7 @@ describe("ProjectIndicatorsView", () => {
               [{y: 0, x: "Jun 10 - 16, 2019"}, {y: 0, x: "Jun 17 - 23, 2019"}]]),
             totalFindings: 4,
             totalTreatment: "{\"inProgress\": 6, \"accepted\": 0, \"undefined\": 21}",
+            userDeletion: "",
           },
           resources: {
             __typename: "Resource",

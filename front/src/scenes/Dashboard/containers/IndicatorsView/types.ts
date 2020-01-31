@@ -7,6 +7,7 @@ export interface IIndicatorsProps {
     closedVulnerabilities: number;
     currentMonthAuthors: number;
     currentMonthCommits: number;
+    deletionDate: string;
     lastClosingVuln: number;
     maxOpenSeverity: number;
     maxSeverity: number;
@@ -16,6 +17,7 @@ export interface IIndicatorsProps {
     remediatedOverTime: string;
     totalFindings: number;
     totalTreatment: string;
+    userDeletion: string;
   };
   resources: {
     repositories: string;
@@ -26,4 +28,10 @@ export interface IGraphData {
   backgroundColor: string[];
   data: number[];
   hoverBackgroundColor: string[];
+}
+
+export interface IRejectRemoveProject {
+  rejectRemoveProject: {
+    success: boolean;
+  };
 }

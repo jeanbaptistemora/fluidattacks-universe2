@@ -100,6 +100,12 @@ export interface IAddEnvAttr {
   };
 }
 
+export interface IGetProjectData {
+  project: {
+    deletionDate: string;
+  };
+}
+
 export type IResourcesViewBaseProps = Pick<RouteComponentProps<{ projectName: string }>, "match">;
 
 export type IResourcesViewStateProps = IDashboardState["resources"] & IDashboardState["tags"];

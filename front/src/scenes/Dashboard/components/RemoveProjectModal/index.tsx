@@ -19,7 +19,7 @@ import translate from "../../../../utils/translations/translate";
 import { required, sameValue } from "../../../../utils/validations";
 import { PROJECTS_QUERY } from "../../containers/HomeView/queries";
 import { GenericForm } from "../GenericForm";
-import { REMOVE_PROJECT_MUTATION } from "./queries";
+import { REQUEST_REMOVE_PROJECT_MUTATION } from "./queries";
 import { IRemoveProject, IRemoveProjectModal } from "./types";
 
 const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
@@ -35,9 +35,8 @@ const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
     const projectNameInput: string = useSelector((state: {}) => selector(state, "projectName"));
     const disableButton: boolean = sameProjectName(projectNameInput);
     const removeProjectResult: ((mtResult: IRemoveProject) => void) = (mtResult: IRemoveProject): void => {
-      if (!_.isUndefined(mtResult) && mtResult.removeProject.success) {
+      if (!_.isUndefined(mtResult) && mtResult.requestRemoveProject.success) {
         location.assign("/integrates/dashboard#!/home");
-        location.reload();
       }
     };
 
@@ -50,7 +49,7 @@ const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
           open={props.isOpen}
         >
           <Mutation
-            mutation={REMOVE_PROJECT_MUTATION}
+            mutation={REQUEST_REMOVE_PROJECT_MUTATION}
             onCompleted={removeProjectResult}
             onError={removeProjectError}
             refetchQueries={[{ query: PROJECTS_QUERY}]}

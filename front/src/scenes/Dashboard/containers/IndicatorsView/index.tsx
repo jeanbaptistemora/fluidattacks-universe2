@@ -4,20 +4,25 @@
   * readability of the code in graphql queries
  */
 import { LineDatum } from "@nivo/line";
+import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Query, QueryResult } from "react-apollo";
-import { Col, Row } from "react-bootstrap";
+import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
+import { ButtonToolbar, Col, Row } from "react-bootstrap";
+import { Trans } from "react-i18next";
+import { Button } from "../../../../components/Button";
+import { Modal } from "../../../../components/Modal";
 import { hidePreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { IndicatorBox } from "../../components/IndicatorBox/index";
 import { IndicatorChart } from "../../components/IndicatorChart";
 import { IndicatorGraph } from "../../components/IndicatorGraph/index";
 import { default as style } from "./index.css";
-import { GET_INDICATORS } from "./queries";
-import { IGraphData, IIndicatorsProps, IIndicatorsViewBaseProps } from "./types";
+import { GET_INDICATORS, REJECT_REMOVE_PROJECT_MUTATION } from "./queries";
+import { IGraphData, IIndicatorsProps, IIndicatorsViewBaseProps, IRejectRemoveProject } from "./types";
 
 const calcPercent: ((value: number, total: number) => number) = (value: number, total: number): number =>
   _.round(value * 100 / total, 1);
@@ -64,13 +69,15 @@ const treatmentGraph: ((props: IIndicatorsProps["project"]) => { [key: string]: 
 
 const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsViewBaseProps): JSX.Element => {
   const projectName: string = props.match.params.projectName;
+  const [openRejectRemoveModal, setOpenRejectRemoveModal] = React.useState(false);
 
   const handleQryResult: ((qrResult: IIndicatorsProps) => void) = (qrResult: IIndicatorsProps): void => {
+    setOpenRejectRemoveModal(!_.isEmpty(qrResult.project.deletionDate));
     mixpanel.track(
       "ProjectIndicator",
       {
-        Organization: (window as Window & { userOrganization: string }).userOrganization,
-        User: (window as Window & { userName: string }).userName,
+        Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+        User: (window as typeof window & { userName: string }).userName,
       });
     hidePreloader();
   };
@@ -78,7 +85,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
   return (
     <Query query={GET_INDICATORS} variables={{ projectName }} onCompleted={handleQryResult}>
       {
-        ({ error, data }: QueryResult<IIndicatorsProps>): React.ReactNode => {
+        ({ error, data, refetch }: QueryResult<IIndicatorsProps>): React.ReactNode => {
           if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment />;
@@ -94,6 +101,24 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
               data.project.openVulnerabilities + data.project.closedVulnerabilities;
             const undefinedTreatment: number = JSON.parse(data.project.totalTreatment).undefined;
             const dataChart: LineDatum[][] = JSON.parse(data.project.remediatedOverTime);
+            const deletionDate: string = data.project.deletionDate;
+            const closeRejectProjectModal: (() => void) = (): void => { setOpenRejectRemoveModal(false); };
+            const rejectDeleteError: ((rejectError: ApolloError) => void) = (rejectError: ApolloError): void => {
+              closeRejectProjectModal();
+              handleGraphQLErrors("An error occurred rejecting project deletion", rejectError);
+            };
+            const rejectDeleteResult: ((result: IRejectRemoveProject) => void) =
+              (result: IRejectRemoveProject): void => {
+                if (result.rejectRemoveProject.success) {
+                  refetch()
+                    .catch();
+                  closeRejectProjectModal();
+                  msgSuccess(
+                    translate.t("search_findings.tab_indicators.success"),
+                    translate.t("home.newProject.titleSuccess"),
+                  );
+                }
+            };
 
             return (
               <React.StrictMode>
@@ -232,6 +257,48 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                     </Col>
                   </Col>
                 </Row>
+                <Modal
+                  footer={<div />}
+                  headerTitle={translate.t("search_findings.tab_indicators.cancelProjectDeletion")}
+                  open={openRejectRemoveModal}
+                >
+                  <Mutation
+                    mutation={REJECT_REMOVE_PROJECT_MUTATION}
+                    onCompleted={rejectDeleteResult}
+                    onError={rejectDeleteError}
+                  >
+                    {(removeProject: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
+                      const handleSubmit: (() => void) = (): void => {
+                        removeProject({ variables: { projectName }})
+                        .catch();
+                      };
+
+                      return (
+                        <React.Fragment>
+                          <Row>
+                            <Col md={12}>
+                              <Trans>
+                                <p>
+                                  {translate.t(
+                                    "search_findings.tab_indicators.projectIsRemoving",
+                                    { deletionDate, userEmail: data.project.userDeletion })}
+                                </p>
+                              </Trans>
+                            </Col>
+                          </Row>
+                          <ButtonToolbar className="pull-right">
+                            <Button bsStyle="default" onClick={closeRejectProjectModal}>
+                              {translate.t("update_access_token.close")}
+                            </Button>
+                            <Button bsStyle="success" type="submit" disabled={submitting} onClick={handleSubmit}>
+                              {translate.t("confirmmodal.proceed")}
+                            </Button>
+                          </ButtonToolbar>
+                        </React.Fragment>
+                      );
+                    }}
+                  </Mutation>
+                </Modal>
               </React.StrictMode>
             );
           }

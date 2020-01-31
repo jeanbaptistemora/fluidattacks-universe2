@@ -5,10 +5,7 @@ export interface IRemoveProjectModal {
 }
 
 export interface IRemoveProject {
-  removeProject: {
-    findingsMasked: boolean;
-    projectFinished: boolean;
+  requestRemoveProject: {
     success: boolean;
-    usersRemoved: boolean;
   };
 }

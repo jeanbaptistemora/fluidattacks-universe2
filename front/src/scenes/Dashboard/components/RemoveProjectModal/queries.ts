@@ -1,17 +1,14 @@
 import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-export const REMOVE_PROJECT_MUTATION: DocumentNode = gql`
-  mutation RemoveProjectMutation(
+export const REQUEST_REMOVE_PROJECT_MUTATION: DocumentNode = gql`
+  mutation RequestRemoveProjectMutation(
     $projectName: String!,
     ) {
-    removeProject(
+    requestRemoveProject(
       projectName: $projectName,
     ) {
-      findingsMasked
-      projectFinished
       success
-      usersRemoved
     }
   }
 `;

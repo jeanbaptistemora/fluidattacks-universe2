@@ -37,9 +37,11 @@ import {
   ADD_RESOURCE_MUTATION, ADD_TAGS_MUTATION, GET_ENVIRONMENTS, GET_PROJECT_DATA, GET_REPOSITORIES, GET_TAGS,
   REMOVE_TAG_MUTATION, UPDATE_RESOURCE_MUTATION,
 } from "./queries";
-import { IAddEnvAttr, IAddReposAttr, IAddTagsAttr, IEnvironmentsAttr, IProjectTagsAttr,
-  IRemoveTagsAttr, IRepositoriesAttr, IResourcesAttr, IResourcesViewBaseProps, IResourcesViewDispatchProps,
-  IResourcesViewProps, IResourcesViewStateProps, IUpdateEnvAttr, IUpdateRepoAttr } from "./types";
+import {
+  IAddEnvAttr, IAddReposAttr, IAddTagsAttr, IEnvironmentsAttr, IGetProjectData, IProjectTagsAttr, IRemoveTagsAttr,
+  IRepositoriesAttr, IResourcesAttr, IResourcesViewBaseProps, IResourcesViewDispatchProps, IResourcesViewProps,
+  IResourcesViewStateProps, IUpdateEnvAttr, IUpdateRepoAttr,
+} from "./types";
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IResourcesViewProps, {}>({
   componentDidMount(): void {
@@ -196,7 +198,8 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
     >
       {
         ({ error, data, refetch }: QueryResult<IProjectTagsAttr>): React.ReactNode => {
-          if (_.isUndefined(data) || _.isEmpty(data)) {
+          if (_.isUndefined(data) || _.isEmpty(data)
+          || (!_.isUndefined(data) && !_.isEmpty(data.project.deletionDate))) {
 
             return <React.Fragment/>;
           }
@@ -1124,9 +1127,11 @@ const renderDeleteBtn: ((props: IResourcesViewProps) => JSX.Element) = (props: I
   return (
     <Query query={GET_PROJECT_DATA} variables={{ projectName }}>
     {
-      ({ data }: QueryResult<{ deletionDate: string }>): React.ReactNode => {
-        if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
-        if (!_.isUndefined(data) && _.isEmpty(data.deletionDate)) {
+      ({ data }: QueryResult<IGetProjectData>): React.ReactNode => {
+        if (_.isUndefined(data) || (!_.isUndefined(data) && !_.isEmpty(data.project.deletionDate))) {
+          return <React.Fragment />;
+        }
+        if (!_.isUndefined(data) && _.isEmpty(data.project.deletionDate)) {
           return (
             <React.Fragment>
               <hr/>
