@@ -447,6 +447,7 @@ const enTranslations: Dictionary = {
     },
     tab_indicators: {
       authors: "Current month authors",
+      cancelDeletion: "Cancel deletion",
       cancelProjectDeletion: "Cancel project deletion",
       closed: "Closed",
       closed_percentage: "Closed vulnerabilities",
@@ -465,8 +466,7 @@ const enTranslations: Dictionary = {
       open: "Open",
       pending_closing_check: "Pending closing verification",
       projectIsRemoving: "This project is expected to be removed on <strong>{{deletionDate}}</strong>" +
-        "<br />Solicited by <strong>{{userEmail}}</strong>" +
-        "<br />Do you want to <strong>CANCEL</strong> this?",
+        "<br />Requested by <strong>{{userEmail}}</strong>",
       project_title: "Project Indicators",
       repositories: "Analyzed Repositories",
       status_graph: "Status",

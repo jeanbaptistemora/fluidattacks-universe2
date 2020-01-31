@@ -286,12 +286,13 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                               </Trans>
                             </Col>
                           </Row>
+                          <br />
                           <ButtonToolbar className="pull-right">
                             <Button bsStyle="default" onClick={closeRejectProjectModal}>
                               {translate.t("update_access_token.close")}
                             </Button>
                             <Button bsStyle="success" type="submit" disabled={submitting} onClick={handleSubmit}>
-                              {translate.t("confirmmodal.proceed")}
+                              {translate.t("search_findings.tab_indicators.cancelDeletion")}
                             </Button>
                           </ButtonToolbar>
                         </React.Fragment>
