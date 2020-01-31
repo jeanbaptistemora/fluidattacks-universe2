@@ -82,7 +82,9 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
       "kms:CreateAlias",
       "kms:UpdateAlias"
     ]
-    resources = ["*"]
+    resources = [
+      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/continuous-*"
+    ]
   }
 
   # KMS FUll permissions over owned KMS keys

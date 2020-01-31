@@ -65,28 +65,14 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
     ]
   }
 
-  # KMS Create Keys
-  statement {
-    effect = "Allow"
-    actions = [
-      "kms:UntagResource",
-      "kms:TagResource",
-      "kms:List*",
-      "kms:Get*",
-      "kms:Describe*",
-      "kms:CreateKey",
-      "kms:CreateAlias",
-      "kms:UpdateAlias"
-    ]
-    resources = ["*"]
-  }
-
   # KMS FUll permissions over owned KMS keys
   statement {
     effect  = "Allow"
-    actions = ["kms:*"]
+    actions = [
+      "kms:*"
+    ]
     resources = [
-      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/continuous-prod-*"
+      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/continuous-*"
     ]
   }
 }
