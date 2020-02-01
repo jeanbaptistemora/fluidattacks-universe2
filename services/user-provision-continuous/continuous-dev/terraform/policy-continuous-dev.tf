@@ -73,17 +73,12 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
   statement {
     effect = "Allow"
     actions = [
-      "kms:UntagResource",
-      "kms:TagResource",
       "kms:List*",
       "kms:Get*",
-      "kms:Describe*",
-      "kms:CreateKey",
-      "kms:CreateAlias",
-      "kms:UpdateAlias"
+      "kms:Describe*"
     ]
     resources = [
-      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/continuous-*"
+      "*"
     ]
   }
 
