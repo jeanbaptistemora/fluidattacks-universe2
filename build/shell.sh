@@ -85,10 +85,6 @@ function release_to_docker_hub {
     docker push "${image_name}"
   }
 
-  build 'fluidattacks/asserts:light' 'light' 'Dockerfile'
-  build 'fluidattacks/asserts:full'  'full'  'Dockerfile'
-  build 'fluidattacks/asserts'       'full'  'Dockerfile'
-
   build 'fluidattacks/asserts:debian-light' 'light' 'debian.Dockerfile'
   build 'fluidattacks/asserts:debian-full'  'full'  'debian.Dockerfile'
   build 'fluidattacks/asserts:debian'       'full'  'debian.Dockerfile'

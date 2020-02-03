@@ -1,8 +1,8 @@
 FROM python:3.7.6-slim-buster AS light
 
 RUN apt update \
-    && apt upgrade \
-    && apt install -u -y \
+    && apt upgrade -y \
+    && apt-get install -u -y \
         unixodbc \
         unixodbc-dev \
         build-essential \
@@ -20,17 +20,10 @@ RUN wget \
 
 RUN pip3 install --upgrade fluidasserts
 
-RUN apt remove --auto-remove  -y \
-        unixodbc-dev \
-        build-essential \
-        libpq-dev \
-        libgssapi-krb5-2 \
-        wget
-
 FROM light as full
 
 # Remember that geckodriver, firefox, and selenium must be compatible
-RUN apt install -y \
+RUN apt-get install -y \
         firefox-esr \
         udev \
         xvfb \
