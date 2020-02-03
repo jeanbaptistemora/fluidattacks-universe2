@@ -6,7 +6,6 @@ resource "aws_instance" "i-0d1583d0c02a9bb47" {
   monitoring                  = false
   key_name                    = "generic_aws_key"
   subnet_id                   = "subnet-00f969b107a8e55b4"
-  vpc_security_group_ids      = ["sg-0f98371a3f6cad87e"]
   associate_public_ip_address = true
   private_ip                  = "10.0.0.44"
   source_dest_check           = true
@@ -286,8 +285,6 @@ resource "aws_launch_template" "foo" {
   }
 
   ram_disk_id = "test"
-
-  vpc_security_group_ids = ["sg-12345678"]
 
   tag_specifications {
     resource_type = "instance"
