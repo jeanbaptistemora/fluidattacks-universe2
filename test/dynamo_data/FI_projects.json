@@ -2315,6 +2315,53 @@
                }
             }
          }
+      },
+      {
+         "PutRequest" : {
+            "Item" : {
+               "companies" : {
+                  "L" : [
+                     {
+                        "S" : "FLUID"
+                     }
+                  ]
+               },
+               "description" : {
+                  "S" : "test project pending to deleted"
+               },
+               "historic_deletion": {
+                  "L": [
+                    {
+                        "M": {
+                           "date": {
+                              "S": "2020-01-01 12:46:10"
+                           },
+                           "deletion_date": {
+                              "S": "2020-01-30 23:59:59"
+                           },
+                           "user": {
+                              "S": "integratesmanager@gmail.com"
+                           }
+                        }
+                    }
+                  ]
+                },
+               "project_name" : {
+                  "S" : "pendingproject"
+               },
+               "project_status" : {
+                  "S" : "PENDING_DELETION"
+               },
+               "tag" : {
+                  "SS" : [
+                     "test-tag"
+                  ]
+               },
+               "type" : {
+                  "S" : "continuous"
+               }
+            }
+         }
       }
    ]
 }

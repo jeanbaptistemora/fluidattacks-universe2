@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+import pytest
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -9,6 +10,8 @@ from jose import jwt
 
 from backend.api.dataloaders.finding import FindingLoader
 from backend.api.schema import SCHEMA
+from backend.exceptions import AlreadyPendingDeletion, NotPendingDeletion, PermissionDenied
+from .test_utils import Request
 
 
 class ProjectEntityTests(TestCase):
@@ -48,3 +51,59 @@ class ProjectEntityTests(TestCase):
         assert 'errors' not in result
         assert result['data']['project']
         assert result['data']['project']['lastClosingVuln'] == 23
+
+    def test_request_remove(self):
+        query = '''
+            mutation {{
+                requestRemoveProject(projectName: "{project_name}") {{
+                    success
+              }}
+            }}
+        '''
+        testing_client = Client(SCHEMA)
+        request = Request().get_request({
+            'username': 'unittest',
+            'company': 'unittest',
+            'role': 'admin',
+            'useremail': 'integratesmanager@gmail.com'
+        })
+        result = testing_client.execute(
+            query.format(project_name='OneshottesT'),
+            context_value=request
+        )
+        assert 'errors' in result
+        assert result['errors'][0]['message'] == str(PermissionDenied())
+        result = testing_client.execute(
+            query.format(project_name='pendingproject'),
+            context_value=request
+        )
+        assert 'errors' in result
+        assert result['errors'][0]['message'] == str(AlreadyPendingDeletion())
+
+    def test_reject_request_remove(self):
+        query = '''
+            mutation {{
+                rejectRemoveProject(projectName: "{project_name}") {{
+                    success
+              }}
+            }}
+        '''
+        testing_client = Client(SCHEMA)
+        request = Request().get_request({
+            'username': 'unittest',
+            'company': 'unittest',
+            'role': 'admin',
+            'useremail': 'integratesmanager@gmail.com'
+        })
+        result = testing_client.execute(
+            query.format(project_name='PendingprojecT'),
+            context_value=request
+        )
+        assert 'errors' in result
+        assert result['errors'][0]['message'] == str(PermissionDenied())
+        result = testing_client.execute(
+            query.format(project_name='unittesting'),
+            context_value=request
+        )
+        assert 'errors' in result
+        assert result['errors'][0]['message'] == str(NotPendingDeletion())
