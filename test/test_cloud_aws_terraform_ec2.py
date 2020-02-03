@@ -56,3 +56,12 @@ def test_has_unrestricted_cidrs():
     assert result.get_vulns_number() == 5
     assert ec2.has_unrestricted_cidrs(SAFE).is_closed()
     assert ec2.has_unrestricted_cidrs(NOT_EXISTS).is_unknown()
+
+
+def test_has_not_an_iam_instance_profile():
+    """test ec2.has_unrestricted_ports."""
+    result = ec2.has_not_an_iam_instance_profile(VULN)
+    assert result.is_open()
+    assert result.get_vulns_number() == 1
+    assert ec2.has_not_an_iam_instance_profile(SAFE).is_closed()
+    assert ec2.has_not_an_iam_instance_profile(NOT_EXISTS).is_unknown()

@@ -11,6 +11,8 @@ resource "aws_instance" "i-0d1583d0c02a9bb47" {
   private_ip                  = "10.0.0.44"
   source_dest_check           = true
 
+  iam_instance_profile = "test_profile"
+
   root_block_device {
     volume_type           = "gp2"
     volume_size           = 20
@@ -167,4 +169,8 @@ resource "aws_rds_cluster" "default" {
   backup_retention_period = 5
   preferred_backup_window = "07:00-09:00"
   deletion_protection  = "true"
+}
+
+resource "aws_iam_instance_profile" "test_profile" {
+  name = "test_profile"
 }

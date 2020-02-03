@@ -302,3 +302,49 @@ def has_unrestricted_cidrs(
         vulnerabilities=vulnerabilities,
         msg_open='EC2 security groups have unrestricted CIDRs',
         msg_closed='EC2 security groups do not have unrestricted CIDRs')
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_not_an_iam_instance_profile(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Verify if ``aws_instance`` uses an iam_instance_profile.
+
+    EC2 instances need credentials to access other AWS services.
+
+    An IAM role attached to the instance provides these credentials in a secure
+    way. With this, you don't have to manage credentials because they are
+    temporarily provided by the IAM Role and are rotated automatically.
+
+    See: https://docs.aws.amazon.com/en_us/AWSEC2/latest/UserGuide
+    /iam-roles-for-amazon-ec2.html
+
+    :param path: Location of Terraform template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if the instance has not attached an
+                iam_instance_profile.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
+            starting_path=path,
+            resource_types=[
+                'aws_instance',
+            ],
+            exclude=exclude):
+
+        if 'iam_instance_profile' not in res_props:
+            vulnerabilities.append(
+                Vulnerability(
+                    path=yaml_path,
+                    entity='aws_instance/iam_instance_profile',
+                    identifier=res_name,
+                    reason='is not present'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='EC2 instances have not an iam_instance_profile set',
+        msg_closed='EC2 instances have an iam_instance_profile set')

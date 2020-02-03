@@ -63,3 +63,6 @@ sphinx/source/example/*.out
 ephemeral-runner*
 secrets/development.sh
 secrets/production.sh
+
+# Build
+ephemeral-test-runner*
