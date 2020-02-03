@@ -35,9 +35,9 @@ def get_email_recipients(project_name):
 def add_comment(project_name, email, comment_data):
     """Add comment in a project."""
     send_comment_mail(comment_data, 'project', email, 'project', project_name)
-    return integrates_dal.add_project_comment_dynamo(project_name,
-                                                     email,
-                                                     comment_data)
+    return project_dal.add_comment(project_name,
+                                   email,
+                                   comment_data)
 
 
 def create_project(user_email, user_role, **kwargs):
@@ -64,7 +64,7 @@ def create_project(user_email, user_role, **kwargs):
                 'type': subscription,
                 'project_status': 'ACTIVE'
             }
-            resp = integrates_dal.add_project_dynamo(project)
+            resp = project_dal.create(project)
             if resp:
                 if not is_user_admin:
                     add_user_access = user_domain.update_project_access(
@@ -239,7 +239,7 @@ def get_vulnerabilities(findings, vuln_type):
 def get_pending_closing_check(project):
     """Check for pending closing checks."""
     pending_closing = len(
-        integrates_dal.get_remediated_project_dynamo(project))
+        project_dal.get_pending_verification_findings(project))
     return pending_closing
 
 
@@ -417,7 +417,7 @@ def list_drafts(project_name):
 
 def list_comments(project_name, user_role):
     comments = [comment_domain.fill_comment_data(user_role, comment)
-                for comment in integrates_dal.get_project_comments_dynamo(project_name)]
+                for comment in project_dal.get_comments(project_name)]
     return comments
 
 

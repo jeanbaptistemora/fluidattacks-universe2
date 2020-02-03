@@ -21,7 +21,7 @@ from backend.mailer import (
 )
 
 from backend import util
-from backend.dal import integrates_dal
+from backend.dal import integrates_dal, project as project_dal
 
 from __init__ import (
     FI_TEST_PROJECTS, FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
@@ -341,7 +341,7 @@ def get_remediated_findings():
     active_projects = project_domain.get_active_projects()
     findings = []
     for project in active_projects:
-        findings += integrates_dal.get_remediated_project_dynamo(project)
+        findings += project_dal.get_pending_verification_findings(project)
 
     if findings:
         try:

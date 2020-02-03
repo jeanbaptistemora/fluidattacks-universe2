@@ -14,6 +14,7 @@ from backend.dal.finding import TABLE as FINDINGS_TABLE
 from backend.dal.helpers.analytics import query
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
+TABLE_COMMENTS = DYNAMODB_RESOURCE.Table('fi_project_comments')
 
 
 def get_current_month_information(project_name, query_db):
@@ -292,3 +293,70 @@ def update(project_name, data):
     except ClientError:
         rollbar.report_message('Error: Couldn\'nt update project', 'error')
     return success
+
+
+def create(project):
+    """Add project to dynamo."""
+    resp = False
+    try:
+        response = TABLE.put_item(Item=project)
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError:
+        rollbar.report_exc_info()
+    return resp
+
+
+def add_comment(project_name, email, comment_data):
+    """ Add a comment in a project. """
+    resp = False
+    try:
+        payload = {
+            'project_name': project_name,
+            'email': email
+        }
+        payload.update(comment_data)
+        response = TABLE_COMMENTS.put_item(
+            Item=payload
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError:
+        rollbar.report_exc_info()
+    return resp
+
+
+def get_pending_verification_findings(project_name):
+    """Gets findings pending for verification"""
+    table = DYNAMODB_RESOURCE.Table('FI_findings')
+    filtering_exp = Attr('project_name').eq(project_name.lower()) \
+        & Attr('verification_request_date').exists() \
+        & Attr('verification_request_date').ne(None)
+    response = table.scan(FilterExpression=filtering_exp)
+    findings = response['Items']
+    while response.get('LastEvaluatedKey'):
+        response = table.scan(
+            FilterExpression=filtering_exp,
+            ExclusiveStartKey=response['LastEvaluatedKey'])
+        findings += response['Items']
+
+    pending_to_verify = [finding for finding in findings
+                         if not finding.get('verification_date')
+                         or finding.get('verification_date')
+                         < finding.get('verification_request_date')]
+    return pending_to_verify
+
+
+def get_comments(project_name):
+    """ Get comments of a project. """
+    filter_key = 'project_name'
+    filtering_exp = Key(filter_key).eq(project_name)
+    response = TABLE_COMMENTS.scan(FilterExpression=filtering_exp)
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = TABLE_COMMENTS.scan(
+                FilterExpression=filtering_exp,
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items

@@ -199,25 +199,6 @@ def get_project_comments_dynamo(project_name):
     return items
 
 
-def add_project_comment_dynamo(project_name, email, comment_data):
-    """ Add a comment in a project. """
-    table = DYNAMODB_RESOURCE.Table('fi_project_comments')
-    try:
-        payload = {
-            'project_name': project_name,
-            'email': email
-        }
-        payload.update(comment_data)
-        response = table.put_item(
-            Item=payload
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
-    except ClientError:
-        rollbar.report_exc_info()
-        return False
-
-
 def delete_comment_dynamo(finding_id, user_id):
     """ Delete a comment in a finding. """
     table = DYNAMODB_RESOURCE.Table('FI_comments')
@@ -233,27 +214,6 @@ def delete_comment_dynamo(finding_id, user_id):
     except ClientError:
         rollbar.report_exc_info()
         return False
-
-
-def get_remediated_project_dynamo(project_name):
-    """Gets findings pending for verification"""
-    table = DYNAMODB_RESOURCE.Table('FI_findings')
-    filtering_exp = Attr('project_name').eq(project_name.lower()) \
-        & Attr('verification_request_date').exists() \
-        & Attr('verification_request_date').ne(None)
-    response = table.scan(FilterExpression=filtering_exp)
-    findings = response['Items']
-    while response.get('LastEvaluatedKey'):
-        response = table.scan(
-            FilterExpression=filtering_exp,
-            ExclusiveStartKey=response['LastEvaluatedKey'])
-        findings += response['Items']
-
-    pending_to_verify = [finding for finding in findings
-                         if not finding.get('verification_date')
-                         or finding.get('verification_date')
-                         < finding.get('verification_request_date')]
-    return pending_to_verify
 
 
 def get_project_dynamo(project):
@@ -273,18 +233,6 @@ def get_project_dynamo(project):
         else:
             break
     return items
-
-
-def add_project_dynamo(project):
-    """Add project to dynamo."""
-    table = DYNAMODB_RESOURCE.Table('FI_projects')
-    try:
-        response = table.put_item(Item=project)
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
-    except ClientError:
-        rollbar.report_exc_info()
-        return False
 
 
 def add_user_to_project_dynamo(project_name, user_email, role):
