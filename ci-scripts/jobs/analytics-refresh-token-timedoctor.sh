@@ -12,7 +12,7 @@ analytics_refresh_token_timedoctor() {
 
   aws_login
 
-  sops_env secrets-production.yaml default \
+  new_sops_env secrets-prod.yaml default \
     analytics_auth_timedoctor
 
   ./analytics/auth_helper.py --timedoctor-refresh

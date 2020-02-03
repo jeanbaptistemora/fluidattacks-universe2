@@ -14,7 +14,7 @@ apt-get install -y awscli
 
 aws_login
 
-sops_env secrets-production.yaml default \
+new_sops_env secrets-prod.yaml default \
   aws_s3_access_key \
   aws_s3_secret_key \
   aws_s3_default_region

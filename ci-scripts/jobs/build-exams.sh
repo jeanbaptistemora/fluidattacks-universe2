@@ -11,7 +11,7 @@ build_exams() {
 
   aws_login
 
-  sops_env secrets-production.yaml default \
+  new_sops_env secrets-prod.yaml default \
     ANSIBLE_VAULT
 
   build_container \

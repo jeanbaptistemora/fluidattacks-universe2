@@ -1,8 +1,0 @@
-[container]
-34.203.27.212
-[container:vars]
-
-# Ansible Variables
-ansible_user = core
-ansible_python_interpreter="/opt/bin/python"
-ansible_ssh_common_args = -i /tmp/FLUIDServes_Dynamic.pem

@@ -59,7 +59,7 @@ aws_login
 aws eks update-kubeconfig --name FluidServes --region us-east-1
 kubectl config set-context "$(kubectl config current-context)" --namespace serves
 
-sops_env secrets-production.yaml default \
+new_sops_env secrets-prod.yaml default \
   ONELOGIN_SSO \
   ONELOGIN_FINANCE_SSO \
   HELM_KEY \

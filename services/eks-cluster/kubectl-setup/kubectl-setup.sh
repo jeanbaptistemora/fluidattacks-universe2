@@ -11,7 +11,7 @@ kubectl_setup() {
 
   # Set envars
   aws_login
-  sops_env secrets-production.yaml default \
+  new_sops_env secrets-prod.yaml default \
     FLUID_TLS_KEY \
     FLUIDATTACKS_TLS_CERT
 

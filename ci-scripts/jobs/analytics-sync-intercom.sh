@@ -12,7 +12,7 @@ analytics_sync_intercom() {
 
   aws_login
 
-  sops_env secrets-production.yaml default \
+  new_sops_env secrets-prod.yaml default \
     analytics_auth_intercom \
     analytics_auth_redshift
 

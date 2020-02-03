@@ -12,7 +12,7 @@ analytics_sync_formstack() {
 
   aws_login
 
-  sops_env secrets-production.yaml default \
+  new_sops_env secrets-prod.yaml default \
     analytics_auth_redshift \
     analytics_auth_formstack
 

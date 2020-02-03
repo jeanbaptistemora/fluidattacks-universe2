@@ -12,7 +12,7 @@ analytics_sync_timedoctor() {
 
   aws_login
 
-  sops_env secrets-production.yaml default \
+  new_sops_env secrets-prod.yaml default \
     analytics_auth_formstack \
     analytics_auth_redshift
 

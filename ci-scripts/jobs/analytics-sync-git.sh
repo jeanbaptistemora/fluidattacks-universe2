@@ -12,7 +12,7 @@ analytics_sync_git() {
 
   aws_login
 
-  sops_env secrets-production.yaml default \
+  new_sops_env secrets-prod.yaml default \
     analytics_gitlab_user \
     analytics_gitlab_token
 

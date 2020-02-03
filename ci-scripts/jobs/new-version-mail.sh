@@ -16,7 +16,7 @@ new_version_mail() {
 
   aws_login
 
-  sops_env secrets-production.yaml default \
+  new_sops_env secrets-prod.yaml default \
     MANDRILL_APIKEY \
     MANDRILL_EMAIL_TO
 
