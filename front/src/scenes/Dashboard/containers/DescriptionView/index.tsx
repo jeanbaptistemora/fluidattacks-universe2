@@ -19,7 +19,6 @@ import { Button } from "../../../../components/Button/index";
 import { ConfirmDialog } from "../../../../components/ConfirmDialog";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
@@ -82,7 +81,6 @@ export interface IDescriptionViewProps {
 }
 
 let remediationType: string = "request_verification";
-let canUpdate: boolean = false;
 
 const renderMarkVerifiedBtn: (() => JSX.Element) = (): JSX.Element => {
   const handleClick: (() => void) = (): void => { store.dispatch(openConfirmDialog("confirmVerify")); };
@@ -147,41 +145,6 @@ const renderAcceptationBtns: (() => JSX.Element) = (): JSX.Element => {
   );
 };
 
-const renderUpdateBtn: ((currTreatment: string) => JSX.Element) = (currTreatment: string): JSX.Element => {
-  const handleOnClick: (() => void) = (): void => {
-    store.dispatch(submit("editDescription"));
-  };
-
-  return (
-    <React.Fragment>
-      <Button bsStyle="success" onClick={handleOnClick} disabled={canUpdate}>
-        <FluidIcon icon="loading" /> {translate.t("search_findings.tab_description.update")}
-      </Button>
-    </React.Fragment>
-  );
-};
-
-const renderActionButtons: ((props: IDescriptionViewProps) => JSX.Element) =
-  (props: IDescriptionViewProps): JSX.Element => (
-    <React.Fragment>
-      <ButtonToolbar className="pull-right">
-        {_.includes(["customeradmin"], props.userRole) && props.dataset.acceptationApproval === "SUBMITTED"
-        && props.dataset.treatment === "ACCEPTED_UNDEFINED"
-          ? renderAcceptationBtns() : undefined}
-        {_.includes(["admin", "analyst"], props.userRole) && props.dataset.remediated
-          ? renderMarkVerifiedBtn() : undefined}
-        {_.includes(["admin", "customer", "customeradmin"], props.userRole)
-          ? renderRequestVerifiyBtn(props) : undefined}
-        {props.isEditing ?
-          renderUpdateBtn(props.dataset.historicTreatment[props.dataset.historicTreatment.length - 1].treatment)
-          : undefined}
-        <Button bsStyle="primary" onClick={(): void => { store.dispatch(actions.editDescription()); }}>
-          <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editable")}
-        </Button>
-      </ButtonToolbar>
-    </React.Fragment>
-  );
-
 const updateDescription: ((values: IDescriptionViewProps["dataset"], userRole: string, findingId: string) => void) =
   (values: IDescriptionViewProps["dataset"], userRole: string, findingId: string): void => {
     const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
@@ -197,7 +160,6 @@ const updateDescription: ((values: IDescriptionViewProps["dataset"], userRole: s
         });
       thunkDispatch(actions.updateDescription(findingId, values));
     } else {
-      renderUpdateBtn(values.historicTreatment[values.historicTreatment.length - 1].treatment);
       thunkDispatch(actions.updateClientDescription(findingId, values));
     }
   };
@@ -218,7 +180,7 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
             initialValues={props.dataset}
             onSubmit={(values: IDescriptionViewProps["dataset"]): void => {
               if (props.formValues.treatment === "ACCEPTED_UNDEFINED" &&
-                  props.dataset.treatment !== "ACCEPTED_UNDEFINED" && openDialog) {
+                props.dataset.treatment !== "ACCEPTED_UNDEFINED" && openDialog) {
                 store.dispatch(openConfirmDialog("approvalWarning"));
               } else {
                 openDialog = !openDialog ? true : false;
@@ -226,15 +188,28 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
               }
             }}
           >
-            {({ pristine }: InjectedFormProps): React.ReactNode => {
-              canUpdate = pristine;
-
-              return(
-                <React.Fragment>
-                  {renderActionButtons(props)}
-                  {renderFormFields(props)}
-                </React.Fragment>);
-            }}
+            {({ pristine }: InjectedFormProps): React.ReactNode => (
+              <React.Fragment>
+                <ButtonToolbar className="pull-right">
+                  {_.includes(["customeradmin"], props.userRole) && props.dataset.acceptationApproval === "SUBMITTED"
+                  && props.dataset.treatment === "ACCEPTED_UNDEFINED"
+                    ? renderAcceptationBtns() : undefined}
+                  {_.includes(["admin", "analyst"], props.userRole) && props.dataset.remediated
+                    ? renderMarkVerifiedBtn() : undefined}
+                  {_.includes(["admin", "customer", "customeradmin"], props.userRole)
+                    ? renderRequestVerifiyBtn(props) : undefined}
+                  {props.isEditing ? (
+                    <Button type="submit" disabled={pristine}>
+                      <FluidIcon icon="loading" /> {translate.t("search_findings.tab_description.update")}
+                    </Button>
+                  ) : undefined}
+                  <Button bsStyle="primary" onClick={(): void => { store.dispatch(actions.editDescription()); }}>
+                    <FluidIcon icon="edit" /> {translate.t("search_findings.tab_description.editable")}
+                  </Button>
+                </ButtonToolbar>
+                {renderFormFields(props)}
+              </React.Fragment>
+            )}
           </GenericForm>
           </Col>
         <ConfirmDialog
@@ -287,15 +262,10 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
     };
 
   return (
+    <React.Fragment>
       <Mutation mutation={HANDLE_ACCEPTATION} onCompleted={handleMtResolveAcceptation}>
-        { (handleAcceptation: MutationFn<IAcceptationApprovalAttrs, {
-            findingId: string; observations: string; projectName: string; response: string; }>,
-           mutationRes: MutationResult): React.ReactNode => {
-          if (mutationRes.loading) {
-            showPreloader();
-          }
+        {(handleAcceptation: MutationFn, mutationRes: MutationResult): React.ReactNode => {
           if (!_.isUndefined(mutationRes.error)) {
-            hidePreloader();
             handleGraphQLErrors("An error occurred approving acceptation", mutationRes.error);
 
             return <React.Fragment/>;
@@ -318,7 +288,6 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
             <React.StrictMode>
               <Row>
                 <React.Fragment>
-                  {renderForm(props)}
                   <RemediationModal
                     additionalInfo={
                       remediationType === "approve_acceptation" ?
@@ -366,8 +335,10 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
           );
         }}
       </Mutation>
-    );
-  };
+      {renderForm(props)}
+    </React.Fragment>
+  );
+};
 
 const fieldSelector: ((state: {}, ...fields: string[]) => string) = formValueSelector("editDescription");
 const fieldSelectorVuln: ((state: {}, ...fields: string[]) => string) = formValueSelector("editTreatmentVulnerability");
