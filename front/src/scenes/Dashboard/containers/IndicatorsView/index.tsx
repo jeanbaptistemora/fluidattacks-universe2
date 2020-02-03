@@ -267,9 +267,9 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                     onCompleted={rejectDeleteResult}
                     onError={rejectDeleteError}
                   >
-                    {(removeProject: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
+                    {(rejectRemoveProject: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
                       const handleSubmit: (() => void) = (): void => {
-                        removeProject({ variables: { projectName }})
+                        rejectRemoveProject({ variables: { projectName: projectName.toLowerCase() }})
                         .catch();
                       };
 

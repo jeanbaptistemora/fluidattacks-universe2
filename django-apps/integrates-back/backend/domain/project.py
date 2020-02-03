@@ -116,7 +116,7 @@ def request_deletion(project_name, user_email):
 def reject_deletion(project_name, user_email):
     response = False
     project = project_name.lower()
-    if is_request_deletion_user(project, user_email):
+    if is_request_deletion_user(project, user_email) and project_name == project:
         data = project_dal.get_attributes(project, ['project_status', 'historic_deletion'])
         historic_deletion = data.get('historic_deletion', [])
         if data.get('project_status') == 'PENDING_DELETION':
