@@ -237,7 +237,7 @@ def send_accepted_email(finding, justification):
             'finding_id': finding.get('finding_id'),
             'project': project_name.capitalize(),
             'justification': justification,
-            'user_email': finding.get('analyst'),
+            'user_email': finding.get('historicTreatment')[-1]['user'],
             'treatment': treatment
         }))
 
