@@ -6,6 +6,8 @@ stelligent/cfn_nag/blob/master/LICENSE.md>`_
 """
 
 # Standard imports
+import ipaddress
+import contextlib
 from typing import List, Optional
 
 # Local imports
@@ -18,7 +20,7 @@ from fluidasserts.cloud.aws.terraform import (
 from fluidasserts.utils.decorators import api, unknown_if
 
 
-def _dict_to_list(_input):
+def _any_to_list(_input):
     """Convert anything to list."""
     if isinstance(_input, (dict, str)):
         res = [_input]
@@ -31,7 +33,7 @@ def _get_unencrypted_vulns(res_name, res_props, yaml_path):
     vulnerabilities: list = []
     for vol_type in ['root_block_device', 'ebs_block_device']:
         if vol_type in res_props:
-            volumes = _dict_to_list(res_props.get(vol_type))
+            volumes = _any_to_list(res_props.get(vol_type))
             for volume in volumes:
                 vol_name = volume.get('device_name', 'unnamed')
                 if not helper.to_boolean(volume.get('encrypted', False)):
@@ -49,7 +51,7 @@ def _tipify_rules(res_props):
     rules: list = []
     if res_props.get('type') == 'aws_security_group':
         for rule_type in ('ingress', 'egress'):
-            for rule in _dict_to_list(res_props.get(rule_type, [])):
+            for rule in _any_to_list(res_props.get(rule_type, [])):
                 rule['type'] = rule_type
                 rules.append(rule)
     else:
@@ -228,3 +230,75 @@ def has_unrestricted_ports(
                   'that allow access over a range of ports'),
         msg_closed=('EC2 security groups have ingress/egress rules '
                     'that allow access over single ports'))
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_unrestricted_cidrs(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if any ``aws_security_group`` has ``0.0.0.0/0`` or ``::/0`` CIDRs.
+
+    The following checks are performed:
+
+    * W2 Security Groups found with cidr open to world on ingress
+    * W5 Security Groups found with cidr open to world on egress
+    * W9 Security Groups found with ingress cidr that is not /32
+
+    :param path: Location of Terraform template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    unrestricted_ipv4 = ipaddress.IPv4Network('0.0.0.0/0')
+    unrestricted_ipv6 = ipaddress.IPv6Network('::/0')
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
+            starting_path=path,
+            resource_types=[
+                'aws_security_group',
+                'aws_security_group_rule'
+            ],
+            exclude=exclude):
+        rules = _tipify_rules(res_props)
+        entities = []
+        for rule in rules:
+            with contextlib.suppress(KeyError,
+                                     ValueError,
+                                     ipaddress.AddressValueError):
+                for ipv4 in _any_to_list(rule['cidr_blocks']):
+                    ipv4_obj = ipaddress.IPv4Network(ipv4, strict=False)
+                    if ipv4_obj == unrestricted_ipv4:
+                        entities.append(
+                            (f'cidr_blocks/{ipv4}', 'must not be 0.0.0.0/0'))
+                    if rule['type'] == 'ingress' \
+                            and ipv4_obj.num_addresses > 1:
+                        entities.append(
+                            (f'cidr_blocks/{ipv4}',
+                             'must use /32 subnet mask'))
+
+                for ipv6 in _any_to_list(rule['ipv6_cidr_blocks']):
+                    ipv6_obj = ipaddress.IPv6Network(ipv6, strict=False)
+                    if ipv6_obj == unrestricted_ipv6:
+                        entities.append(
+                            (f'ipv6_cidr_blocks/{ipv6}', 'must not be ::/0'))
+                    if rule['type'] == 'ingress' \
+                            and ipv6_obj.num_addresses > 1:
+                        entities.append(
+                            (f'ipv6_cidr_blocks/{ipv6}',
+                             'must use /32 subnet mask'))
+
+            vulnerabilities.extend(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=f'{yaml_path}/{entity}',
+                    identifier=res_name,
+                    reason=reason)
+                for entity, reason in entities)
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='EC2 security groups have unrestricted CIDRs',
+        msg_closed='EC2 security groups do not have unrestricted CIDRs')

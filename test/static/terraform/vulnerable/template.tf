@@ -46,9 +46,8 @@ resource "aws_security_group" "allow_tls" {
     from_port   = 443
     to_port     = 446
     protocol    = "-1"
-    # Please restrict your ingress to only necessary IPs and ports.
-    # Opening to 0.0.0.0/0 can lead to security vulnerabilities.
-    cidr_blocks = "192.168.1.0/24"# add a CIDR block here
+    cidr_blocks = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
   }
 
   tags = {
@@ -63,7 +62,7 @@ resource "aws_security_group_rule" "allow_all" {
   from_port       = 0
   to_port         = 65535
   protocol        = "-1"
-  cidr_blocks = "192.168.1.0/24"
+  cidr_blocks = "0.0.0.0/0"
   prefix_list_ids = ["pl-12c4e678"]
 
 }
