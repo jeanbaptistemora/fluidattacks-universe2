@@ -73,3 +73,11 @@ def test_has_not_termination_protection():
     assert result.get_vulns_number() == 2
     assert ec2.has_not_termination_protection(SAFE).is_closed()
     assert ec2.has_not_termination_protection(NOT_EXISTS).is_unknown()
+
+def test_has_terminate_shutdown_behavior():
+    """test ec2.has_terminate_shutdown_behavior."""
+    result = ec2.has_terminate_shutdown_behavior(VULN)
+    assert result.is_open()
+    assert result.get_vulns_number() == 1
+    assert ec2.has_terminate_shutdown_behavior(SAFE).is_closed()
+    assert ec2.has_terminate_shutdown_behavior(NOT_EXISTS).is_unknown()

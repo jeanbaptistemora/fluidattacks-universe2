@@ -214,7 +214,7 @@ resource "aws_launch_template" "foo" {
 
   image_id = "ami-test"
 
-  instance_initiated_shutdown_behavior = "terminate"
+  instance_initiated_shutdown_behavior = "stop"
 
   instance_market_options {
     market_type = "spot"
