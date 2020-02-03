@@ -20,7 +20,7 @@ publish_ota() {
   fi
 
   aws_login "$ENV_NAME"
-  sops_env default \
+  new_sops_env default \
   EXPO_USER \
   EXPO_PASS \
   GOOGLE_SERVICES_APP \

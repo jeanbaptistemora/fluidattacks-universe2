@@ -25,7 +25,7 @@ build_app() {
 
   aws_login "$ENV_NAME"
 
-  sops_env "secrets-$ENV_NAME.yaml" default \
+  new_sops_env "secrets-$ENV_NAME.yaml" default \
     SSL_KEY \
     SSL_CERT \
     DRIVE_AUTHORIZATION \
