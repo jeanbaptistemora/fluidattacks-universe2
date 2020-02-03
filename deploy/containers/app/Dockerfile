@@ -14,7 +14,6 @@ ARG PIP_REQUIREMENTS_PROD_LOCAL='deploy/containers/deps-production/requirements_
 
 ENV CI_COMMIT_REF_NAME $CI_COMMIT_REF_NAME
 ENV FI_VERSION $VERSION
-ENV VAULTENV_SECRETS_FILE /usr/src/app/env.vars
 
 LABEL mantainer="engineering@fluidattacks.com"
 
@@ -41,8 +40,7 @@ RUN rm -rf /var/www/html \
 # local apps
 COPY "$PIP_REQUIREMENTS_PROD_LOCAL" /tmp/reqs_prod_local.txt
 COPY django-apps/packages/* django-apps/packages/
-RUN sed -i "s/env#/${ENV_NAME}#/g" env.vars \
-  && pip3 install --no-cache-dir --no-index \
+RUN pip3 install --no-cache-dir --no-index \
     --find-links=django-apps/packages/ -r /tmp/reqs_prod_local.txt \
   && apt -y autoremove \
   && rm -rf /tmp/*

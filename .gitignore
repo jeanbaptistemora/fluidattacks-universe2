@@ -17,8 +17,6 @@ Gemfile.lock
 vendor
 app/assets/node_modules
 app/assets/package-lock.json
-deploy/containers/.vault.txt
-deploy/containers/integrates/.vault.txt
 deploy/.terraform
 deploy/terraform.tfstate
 *.envrc

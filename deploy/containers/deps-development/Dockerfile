@@ -2,7 +2,6 @@ ARG CI_COMMIT_REF_NAME
 
 FROM registry.gitlab.com/fluidattacks/integrates/deps-base:$CI_COMMIT_REF_NAME
 
-ARG VAULT_URL='https://releases.hashicorp.com/vault/0.11.6/vault_0.11.6_linux_amd64.zip'
 ARG GECKO_DRIVER_URL='https://chromedriver.storage.googleapis.com/78.0.3904.105/chromedriver_linux64.zip'
 ARG GOOGLE_CHROME_URL='https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
 ARG CHROME_SIGNING_KEY='https://dl.google.com/linux/linux_signing_key.pub'
@@ -30,10 +29,6 @@ RUN mkdir -p /usr/share/man/man1 \
   && curl -Lo google-chrome.deb "$GOOGLE_CHROME_URL" \
     && dpkg -i google-chrome.deb \
     && rm google-chrome.deb \
-  && curl -LsSo vault.zip "$VAULT_URL" \
-    && unzip vault.zip \
-    && mv vault /usr/local/bin \
-    && rm vault.zip \
   && curl -Lo chromedriver.zip "$GECKO_DRIVER_URL" \
     && unzip chromedriver.zip \
     && mv chromedriver /usr/bin \
