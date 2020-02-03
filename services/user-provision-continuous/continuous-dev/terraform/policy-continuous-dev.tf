@@ -60,7 +60,8 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
       "iam:GetRole",
       "iam:GetPolicy",
       "iam:GetPolicyVersion",
-      "iam:ListAttachedUserPolicies"
+      "iam:ListAttachedUserPolicies",
+      "iam:ListAttachedRolePolicies"
     ]
     resources = [
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/continuous-*",
