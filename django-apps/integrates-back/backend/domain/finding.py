@@ -754,7 +754,8 @@ def submit_draft(finding_id, analyst_email):
 
 
 def mask_finding(finding_id):
-    finding = get_finding(finding_id)
+    finding = finding_dal.get_finding(finding_id)
+    finding = finding_utils.format_data(finding)
 
     attrs_to_mask = [
         'affected_systems', 'attack_vector_desc', 'effect_solution',

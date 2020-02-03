@@ -151,7 +151,7 @@ def remove_project(project_name, user_email):
         are_users_removed = remove_all_users_access(project)
         are_findings_masked = [
             finding_domain.mask_finding(finding_id)
-            for finding_id in list_findings(project)]
+            for finding_id in list_findings(project) + list_drafts(project)]
         if are_findings_masked == []:
             are_findings_masked = True
         data = {
