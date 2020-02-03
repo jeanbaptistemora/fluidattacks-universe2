@@ -2,7 +2,7 @@ FROM debian:buster-slim
 
 ARG NODE_URL='https://deb.nodesource.com/setup_10.x'
 ARG VAULTENV_URL='https://github.com/channable/vaultenv/releases/download/v0.11.0/vaultenv-v0.11.0-linux-musl'
-ARG TREASUREDATA_URL='https://toolbelt.treasuredata.com/sh/install-debian-stretch-td-agent2.sh'
+ARG TREASUREDATA_URL='https://toolbelt.treasuredata.com/sh/install-debian-stretch-td-agent3.sh'
 ARG URL_SOPS='https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0.linux'
 
 ENV DEBIAN_FRONTEND noninteractive
