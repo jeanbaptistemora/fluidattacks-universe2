@@ -468,3 +468,53 @@ def has_terminate_shutdown_behavior(
                   ' terminate the instance'),
         msg_closed=('EC2 Launch Templates disallow the shutdown command to'
                     ' terminate the instance'))
+
+
+@api(risk=LOW, kind=SAST)
+@unknown_if(FileNotFoundError)
+def is_associate_public_ip_address_enabled(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Verify if ``aws_instance`` has assigned public IPs.
+
+    :param path: Location of Terraform template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if instance's **NetworkInterfaces** attribute has the
+                **AssociatePublicIpAddress** parameter set to **true**.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
+            starting_path=path,
+            resource_types=[
+                'aws_instance',
+                'aws_launch_template'
+            ],
+            exclude=exclude):
+        if res_props['type'] == 'aws_launch_template':
+            public_ip = helper.to_boolean(
+                res_props.get(
+                    'network_interfaces', []).get(
+                        'associate_public_ip_address', False)
+            )
+        else:
+            public_ip = helper.to_boolean(
+                res_props.get('associate_public_ip_address', False)
+            )
+
+        if public_ip:
+            vulnerabilities.append(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=(f'{res_props["type"]}/'
+                            'associate_public_ip_address/'
+                            f'{public_ip}'),
+                    identifier=res_name,
+                    reason='associates public IP on launch'))
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='EC2 instances will be launched with public ip addresses',
+        msg_closed='EC2 instances won\'t be launched with public ip addresses')
