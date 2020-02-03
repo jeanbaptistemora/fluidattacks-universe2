@@ -53,6 +53,7 @@ resource "aws_db_instance" "fluid-database" {
   publicly_accessible       = true
   skip_final_snapshot       = false
   username                  = "${var.dbUser}"
+  ca_cert_identifier        = "rds-ca-2019"
 }
 
 output "endpoint" {
