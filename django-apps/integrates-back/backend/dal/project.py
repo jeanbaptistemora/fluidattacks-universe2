@@ -351,12 +351,9 @@ def get_comments(project_name):
     filtering_exp = Key(filter_key).eq(project_name)
     response = TABLE_COMMENTS.scan(FilterExpression=filtering_exp)
     items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = TABLE_COMMENTS.scan(
-                FilterExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
+    while response.get('LastEvaluatedKey'):
+        response = TABLE_COMMENTS.scan(
+            FilterExpression=filtering_exp,
+            ExclusiveStartKey=response['LastEvaluatedKey'])
+        items += response['Items']
     return items
