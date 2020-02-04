@@ -16,7 +16,7 @@ coverage_report() {
 
   aws_login "$ENV_NAME"
 
-  new_sops_env "secrets-$ENV_NAME.yaml" default \
+  sops_env "secrets-$ENV_NAME.yaml" default \
     CODECOV_TOKEN
 
   codecov "--token=$CODECOV_TOKEN"

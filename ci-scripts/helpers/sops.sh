@@ -50,7 +50,7 @@ sops_vars() {
 
   ENV_NAME="$1"
 
-  new_sops_env "secrets-$ENV_NAME.yaml" default \
+  sops_env "secrets-$ENV_NAME.yaml" default \
     AWS_REDSHIFT_DBNAME \
     AWS_REDSHIFT_HOST \
     AWS_REDSHIFT_PASSWORD \

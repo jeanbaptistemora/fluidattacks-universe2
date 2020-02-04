@@ -36,7 +36,7 @@ clean_registry_caches() {
 
     aws_login "$ENV_NAME"
 
-    new_sops_env "secrets-$ENV_NAME.yaml" default \
+    sops_env "secrets-$ENV_NAME.yaml" default \
       GITLAB_API_TOKEN
 
     # Delete registriess

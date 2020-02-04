@@ -77,7 +77,7 @@ deploy_k8s() {
 
   aws_login "$ENV_NAME"
 
-  new_sops_env "secrets-$ENV_NAME.yaml" default \
+  sops_env "secrets-$ENV_NAME.yaml" default \
     ROLLBAR_TOKEN \
     NEW_RELIC_API_KEY \
     NEW_RELIC_APP_ID
