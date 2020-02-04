@@ -1,11 +1,25 @@
 {
+  "name": "web",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/fluidattacks/web.git"
+  },
+  "author": "development@fluidattacks.com",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://gitlab.com/fluidattacks/web/issues"
+  },
   "dependencies": {
+    "@types/jquery": "3.3.30",
     "bootstrap": "^4.0.0",
     "intl-tel-input": "14.0.10",
     "iframe-resizer": "^3.5.16",
     "jquery": "^3.3.1",
     "owl.carousel2": "^2.2.1",
     "popper.js": "^1.12.9",
+    "typescript": "3.4.5",
     "uglify-js": "^3.3.8"
   }
 }
