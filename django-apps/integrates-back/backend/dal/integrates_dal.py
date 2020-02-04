@@ -620,27 +620,6 @@ def update_in_multikey_table_dynamo(table_name, multiple_keys, attr_name, attr_v
         return False
 
 
-def add_vulnerability_dynamo(table_name, data):
-    """Add vulnerabilities."""
-    table = DYNAMODB_RESOURCE.Table(table_name)
-    try:
-        response = table.put_item(
-            Item={
-                'finding_id': str(data["finding_id"]),
-                'UUID': str(data["UUID"]),
-                'vuln_type': data["vuln_type"],
-                'where': data["where"],
-                'specific': str(data["specific"]),
-                'historic_state': data["historic_state"]
-            }
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
-    except ClientError:
-        rollbar.report_exc_info()
-        return False
-
-
 def get_vulnerabilities_dynamo(finding_id):
     """Get vulnerabilities of a finding."""
     table = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
@@ -689,60 +668,6 @@ def get_vulnerability_dynamo(
         else:
             break
     return items
-
-
-def update_state_dynamo(finding_id, vuln_id, attr_name, attr_value, item):
-    table = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
-    try:
-        if attr_name not in item[0]:
-            table.update_item(
-                Key={
-                    'finding_id': str(finding_id),
-                    'UUID': vuln_id,
-                },
-                UpdateExpression='SET #attrName = :val1',
-                ExpressionAttributeNames={
-                    '#attrName': attr_name
-                },
-                ExpressionAttributeValues={
-                    ':val1': []
-                }
-            )
-        update_response = table.update_item(
-            Key={
-                'finding_id': str(finding_id),
-                'UUID': vuln_id
-            },
-            UpdateExpression='SET #attrName = list_append(#attrName, :val1)',
-            ExpressionAttributeNames={
-                '#attrName': attr_name
-            },
-            ExpressionAttributeValues={
-                ':val1': attr_value
-            }
-        )
-        resp = update_response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
-    except ClientError:
-        rollbar.report_exc_info()
-        return False
-
-
-def delete_vulnerability_dynamo(uuid, finding_id):
-    """Delete a vulnerability of a finding."""
-    table = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
-    try:
-        response = table.delete_item(
-            Key={
-                'UUID': uuid,
-                'finding_id': finding_id
-            }
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
-    except ClientError:
-        rollbar.report_exc_info()
-        return False
 
 
 def get_finding_project(finding_id):
