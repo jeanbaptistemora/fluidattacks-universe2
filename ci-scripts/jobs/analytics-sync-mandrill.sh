@@ -12,7 +12,7 @@ analytics_sync_mandrill() {
 
   aws_login
 
-  new_sops_env secrets-prod.yaml default \
+  sops_env secrets-prod.yaml default \
     analytics_auth_mandrill \
     analytics_auth_redshift
 

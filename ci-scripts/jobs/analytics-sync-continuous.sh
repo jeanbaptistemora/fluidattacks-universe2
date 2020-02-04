@@ -15,7 +15,7 @@ analytics_sync_continuous() {
 
   aws_login
 
-  new_sops_env secrets-prod.yaml default \
+  sops_env secrets-prod.yaml default \
     analytics_gitlab_user \
     analytics_gitlab_token \
     analytics_auth_redshift

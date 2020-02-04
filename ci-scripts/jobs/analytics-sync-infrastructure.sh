@@ -12,7 +12,7 @@ analytics_sync_infrastructure() {
 
   aws_login
 
-  new_sops_env secrets-prod.yaml default \
+  sops_env secrets-prod.yaml default \
     analytics_auth_infra \
     analytics_auth_redshift
 

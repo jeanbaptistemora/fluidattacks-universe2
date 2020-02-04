@@ -15,7 +15,7 @@ analytics_sync_intercom() {
   export GITLAB_PASS
   local GITLAB_PROJECTS
 
-  new_sops_env secrets-prod.yaml default \
+  sops_env secrets-prod.yaml default \
     analytics_gitlab_token \
     analytics_auth_redshift
 

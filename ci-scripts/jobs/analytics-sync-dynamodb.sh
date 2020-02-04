@@ -12,7 +12,7 @@ analytics_sync_dynamodb() {
 
   aws_login
 
-  new_sops_env secrets-prod.yaml default \
+  sops_env secrets-prod.yaml default \
     aws_dynamodb_access_key \
     aws_dynamodb_secret_key \
     aws_dynamodb_default_region \
