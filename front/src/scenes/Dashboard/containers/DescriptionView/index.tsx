@@ -12,18 +12,17 @@ import React from "react";
 import { Mutation, MutationFn, MutationResult } from "react-apollo";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { AnyAction, Reducer } from "redux";
-import { formValueSelector, InjectedFormProps, submit } from "redux-form";
+import { formValueSelector, InjectedFormProps } from "redux-form";
 import { ThunkDispatch } from "redux-thunk";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
-import { ConfirmDialog } from "../../../../components/ConfirmDialog";
 import { FluidIcon } from "../../../../components/FluidIcon";
+import { ConfirmDialog, ConfirmFn } from "../../../../components/NewConfirmDialog";
 import store from "../../../../store/index";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
-import { openConfirmDialog } from "../../actions";
 import { GenericForm } from "../../components/GenericForm/index";
 import { remediationModal as RemediationModal } from "../../components/RemediationModal/index";
 import * as actions from "./actions";
@@ -81,16 +80,6 @@ export interface IDescriptionViewProps {
 }
 
 let remediationType: string = "request_verification";
-
-const renderMarkVerifiedBtn: (() => JSX.Element) = (): JSX.Element => {
-  const handleClick: (() => void) = (): void => { store.dispatch(openConfirmDialog("confirmVerify")); };
-
-  return (
-    <Button bsStyle="warning" onClick={handleClick}>
-      <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.mark_verified")}
-    </Button>
-  );
-};
 
 const renderRequestVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
   (props: IDescriptionViewProps): JSX.Element => {
@@ -164,26 +153,21 @@ const updateDescription: ((values: IDescriptionViewProps["dataset"], userRole: s
     }
   };
 
-const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
-  (props: IDescriptionViewProps): JSX.Element => {
-    let openDialog: boolean = _.includes(["customer", "customeradmin", "admin"], props.userRole);
-    const onProceedDialog: (() => void) = (): void => {
-      openDialog = false;
-      store.dispatch(submit("editDescription"));
-    };
-
-    return (
-      <React.Fragment>
-        <Col md={12} sm={12} xs={12}>
+const renderForm: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDescriptionViewProps): JSX.Element => (
+  <Col md={12} sm={12} xs={12}>
+    <ConfirmDialog
+      message={translate.t("search_findings.tab_description.approval_message")}
+      title={translate.t("search_findings.tab_description.approval_title")}
+    >
+      {(confirmUndefined: ConfirmFn): React.ReactNode => (
           <GenericForm
             name="editDescription"
             initialValues={props.dataset}
             onSubmit={(values: IDescriptionViewProps["dataset"]): void => {
               if (props.formValues.treatment === "ACCEPTED_UNDEFINED" &&
-                props.dataset.treatment !== "ACCEPTED_UNDEFINED" && openDialog) {
-                store.dispatch(openConfirmDialog("approvalWarning"));
+                props.dataset.treatment !== "ACCEPTED_UNDEFINED") {
+                confirmUndefined(() => { updateDescription(values, props.userRole, props.findingId); });
               } else {
-                openDialog = !openDialog ? true : false;
                 updateDescription(values, props.userRole, props.findingId);
               }
             }}
@@ -194,8 +178,25 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
                   {_.includes(["customeradmin"], props.userRole) && props.dataset.acceptationApproval === "SUBMITTED"
                   && props.dataset.treatment === "ACCEPTED_UNDEFINED"
                     ? renderAcceptationBtns() : undefined}
-                  {_.includes(["admin", "analyst"], props.userRole) && props.dataset.remediated
-                    ? renderMarkVerifiedBtn() : undefined}
+                  {_.includes(["admin", "analyst"], props.userRole) && props.dataset.remediated ? (
+                    <ConfirmDialog title={translate.t("confirmmodal.title_generic")}>
+                      {(confirmVerify: ConfirmFn): React.ReactNode => {
+                        const handleClick: (() => void) = (): void => {
+                          const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
+                            store.dispatch as ThunkDispatch<{}, {}, AnyAction>
+                          );
+                          confirmVerify(() => { thunkDispatch(actions.verifyFinding(props.findingId)); });
+                        };
+
+                        return (
+                          <Button bsStyle="warning" onClick={handleClick}>
+                            <FluidIcon icon="verified" />
+                            &nbsp;{translate.t("search_findings.tab_description.mark_verified")}
+                          </Button>
+                        );
+                      }}
+                    </ConfirmDialog>
+                  ) : undefined}
                   {_.includes(["admin", "customer", "customeradmin"], props.userRole)
                     ? renderRequestVerifiyBtn(props) : undefined}
                   {props.isEditing ? (
@@ -211,17 +212,10 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) =
               </React.Fragment>
             )}
           </GenericForm>
-          </Col>
-        <ConfirmDialog
-          closeOnProceed={true}
-          name="approvalWarning"
-          message={translate.t("search_findings.tab_description.approval_message")}
-          onProceed={onProceedDialog}
-          title={translate.t("search_findings.tab_description.approval_title")}
-        />
-      </React.Fragment>
-    );
-  };
+      )}
+    </ConfirmDialog>
+  </Col>
+);
 
 const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDescriptionViewProps): JSX.Element => {
 
@@ -284,7 +278,7 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
             props.dataset.justification = observations;
           };
 
-          return(
+          return (
             <React.StrictMode>
               <Row>
                 <React.Fragment>
@@ -318,16 +312,6 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
                       translate.t("search_findings.tab_description.remediation_modal.title_request")
                       : translate.t("search_findings.tab_description.remediation_modal.title_observations")
                     }
-                  />
-                  <ConfirmDialog
-                    name="confirmVerify"
-                    title={translate.t("confirmmodal.title_generic")}
-                    onProceed={(): void => {
-                      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-                        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-                      );
-                      thunkDispatch(actions.verifyFinding(props.findingId));
-                    }}
                   />
                 </React.Fragment>
               </Row>
