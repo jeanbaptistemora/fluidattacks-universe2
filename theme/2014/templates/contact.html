@@ -87,12 +87,12 @@
             class="c-fluid-red fr fw8 dn">
       {{ gettext('Form-number-not-valid') }}</span>
   </div>
-  {% assets filters="uglifyjs", output="static/js/intlTelInput.min.js", "/app/node_modules/intl-tel-input/build/js/intlTelInput.js" %}
+  {% assets filters="uglifyjs", output="scripts/intlTelInput.min.js", "/app/node_modules/intl-tel-input/build/js/intlTelInput.js" %}
     <script type="text/javascript"
             src="{{ SITEURL }}/{{ ASSET_URL }}">
     </script>
   {% endassets %}
-  {% assets filters="uglifyjs", output="static/js/form.min.js", "js/form.js" %}
+  {% assets filters="uglifyjs", output="scripts/form.min.js", "../scripts/form.js" %}
       <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
   {% endassets %}
   <label for="Subject"

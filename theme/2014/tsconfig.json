@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": false,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": [
       "dom",
@@ -16,6 +17,6 @@
     "node_modules"
   ],
   "include": [
-    "js/*"
+    "scripts/*"
   ]
 }

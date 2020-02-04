@@ -87,7 +87,7 @@
         </div>
       {% endfor %}
     </div>
-      {% assets filters="uglifyjs" , output="static/js/carousel.min.js" , "js/carousel.js"  %}
+      {% assets filters="uglifyjs" , output="scripts/carousel.min.js" , "../scripts/carousel.js"  %}
         <script type="text/javascript"
                 src="{{ SITEURL }}/{{ ASSET_URL }}">
         </script>
