@@ -149,14 +149,15 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                     : undefined }
                     <Query query={GET_ACCESS_TOKEN} fetchPolicy="network-only" onCompleted={handleQryResult}>
                       {({ data, error }: QueryResult<IGetAccessTokenAttr>): React.ReactNode => {
+                        if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
                         if (!_.isUndefined(error)) {
                           handleGraphQLErrors("An error occurred getting access token", error);
 
                           return <React.Fragment/>;
                         }
-                        if (!_.isUndefined(data)) {
-                          const handleMtInvalidateTokenRes: ((mtResult: IInvalidateAccessTokenAttr) => void) =
+
+                        const handleMtInvalidateTokenRes: ((mtResult: IInvalidateAccessTokenAttr) => void) =
                           (mtResult: IInvalidateAccessTokenAttr): void => {
                             if (!_.isUndefined(mtResult)) {
                               if (mtResult.invalidateAccessToken.success) {
@@ -169,12 +170,12 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                               }
                             }
                           };
-                          const handleCloseModal: (() => void) = (): void => {
+                        const handleCloseModal: (() => void) = (): void => {
                             props.onClose();
                             setDateSelectorVisibility(true);
                           };
 
-                          return (
+                        return (
                             <Mutation
                               mutation={INVALIDATE_ACCESS_TOKEN_MUTATION}
                               onCompleted={handleMtInvalidateTokenRes}
@@ -232,7 +233,6 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                               }}
                             </Mutation>
                           );
-                        }
                       }}
                   </Query>
                   </React.Fragment>
