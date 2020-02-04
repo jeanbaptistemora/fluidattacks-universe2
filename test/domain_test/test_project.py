@@ -12,7 +12,8 @@ from backend.domain.project import (
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
     is_finding_in_drafts, list_drafts, list_comments, get_active_projects,
     get_alive_projects, list_findings, get_finding_project_name)
-from backend.dal.integrates_dal import DYNAMODB_RESOURCE, get_vulnerability_dynamo
+from backend.dal.integrates_dal import DYNAMODB_RESOURCE
+import backend.dal.vulnerability as vuln_dal
 
 
 class ProjectTest(TestCase):
@@ -83,7 +84,7 @@ class ProjectTest(TestCase):
             'analyst': 'testanalyst@test.com'
         }
 
-        open_vulnerability = get_vulnerability_dynamo(
+        open_vulnerability = vuln_dal.get(
             finding_id='422286126',
             vuln_type='inputs',
             where='https://example.com',
@@ -113,7 +114,7 @@ class ProjectTest(TestCase):
             'analyst': 'testanalyst@test.com'
         }
 
-        open_vulnerability = get_vulnerability_dynamo(
+        open_vulnerability = vuln_dal.get(
             finding_id='422286126',
             vuln_type='inputs',
             where='https://example.com',
@@ -163,7 +164,7 @@ class ProjectTest(TestCase):
             'analyst': 'testanalyst@test.com'
         }
 
-        open_vulnerability = get_vulnerability_dynamo(
+        open_vulnerability = vuln_dal.get(
             finding_id='422286126',
             vuln_type='inputs',
             where='https://example.com',
