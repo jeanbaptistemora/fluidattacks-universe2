@@ -60,6 +60,7 @@ data "aws_iam_policy_document" "continuous-prod-policy-data" {
     ]
     resources = [
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/continuous-*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/continuous-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/asserts/break-build-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/asserts/break-build-*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/break-build-*"
