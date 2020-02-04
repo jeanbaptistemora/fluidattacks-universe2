@@ -18,7 +18,6 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store";
-import { hidePreloader } from "../../../../utils/apollo";
 import { formatFindings, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
@@ -143,7 +142,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
         Organization: (window as typeof window & { userOrganization: string }).userOrganization,
         User: (window as typeof window & { userName: string }).userName,
       });
-    hidePreloader();
   };
   const onSortState: ((dataField: string, order: SortOrder) => void) =
   (dataField: string, order: SortOrder): void => {
@@ -359,7 +357,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
             return <React.Fragment/>;
           }
           if (!_.isUndefined(error)) {
-            hidePreloader();
             handleGraphQLErrors("An error occurred getting project findings", error);
 
             return <React.Fragment/>;

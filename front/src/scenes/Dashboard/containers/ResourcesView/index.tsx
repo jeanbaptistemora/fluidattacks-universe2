@@ -18,7 +18,6 @@ import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
 import { DataTableNext } from "../../../../components/DataTableNext";
 import { changeFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { default as globalStyle } from "../../../../styles/global.css";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -187,7 +186,6 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
         Organization: (window as Window & { userOrganization: string }).userOrganization,
         User: (window as Window & { userName: string }).userName,
       });
-    hidePreloader();
   };
 
   return (
@@ -204,7 +202,6 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
             return <React.Fragment/>;
           }
           if (!_.isUndefined(error)) {
-            hidePreloader();
             handleGraphQLErrors("An error occurred getting tags", error);
 
             return <React.Fragment/>;
@@ -216,7 +213,6 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
             const handleMtRemoveTagRes: ((mtResult: IRemoveTagsAttr) => void) = (mtResult: IRemoveTagsAttr): void => {
               if (!_.isUndefined(mtResult)) {
                 if (mtResult.removeTag.success) {
-                  hidePreloader();
                   refetch()
                       .catch();
                   mixpanel.track(
@@ -239,7 +235,6 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                   refetch()
                     .catch();
                   handleCloseTagsModal();
-                  hidePreloader();
                   mixpanel.track(
                     "AddProjectTags",
                     {
@@ -308,11 +303,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                     <Mutation mutation={REMOVE_TAG_MUTATION} onCompleted={handleMtRemoveTagRes}>
                       { (removeTag: MutationFn<IRemoveTagsAttr, {projectName: string; tagToRemove: string}>,
                          mutationRes: MutationResult): React.ReactNode => {
-                          if (mutationRes.loading) {
-                            showPreloader();
-                          }
                           if (!_.isUndefined(mutationRes.error)) {
-                            hidePreloader();
                             handleGraphQLErrors("An error occurred removing tags", mutationRes.error);
 
                             return <React.Fragment/>;
@@ -366,11 +357,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                 <Mutation mutation={ADD_TAGS_MUTATION} onCompleted={handleMtAddTagRes}>
                   { (addTags: MutationFn<IAddTagsAttr, {projectName: string; tagsData: string}>,
                      mutationRes: MutationResult): React.ReactNode => {
-                      if (mutationRes.loading) {
-                        showPreloader();
-                      }
                       if (!_.isUndefined(mutationRes.error)) {
-                        hidePreloader();
                         handleGraphQLErrors("An error occurred adding tags", mutationRes.error);
 
                         return <React.Fragment/>;
@@ -424,13 +411,11 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
             return <React.Fragment/>;
           }
           if (!_.isUndefined(error)) {
-            hidePreloader();
             handleGraphQLErrors("An error occurred getting repositories", error);
 
             return <React.Fragment/>;
           }
           if (!_.isUndefined(data)) {
-            hidePreloader();
             if (data.me !== undefined) {
               currUserRole = data.me.role;
             }
@@ -452,7 +437,6 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                 if (mtResult.updateResources.success) {
                   refetch()
                     .catch();
-                  hidePreloader();
                   mixpanel.track(
                     "RemoveProjectRepo",
                     {
@@ -473,7 +457,6 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                   refetch()
                     .catch();
                   handleCloseReposModalClick();
-                  hidePreloader();
                   mixpanel.track(
                     "AddProjectRepo",
                     {
@@ -495,11 +478,7 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                   { (updateRepositories: MutationFn<IUpdateRepoAttr,
                     {projectName: string; resData: string; resType: string}>,
                      mutationRes: MutationResult): React.ReactNode => {
-                      if (mutationRes.loading) {
-                        showPreloader();
-                      }
                       if (!_.isUndefined(mutationRes.error)) {
-                        hidePreloader();
                         handleGraphQLErrors("An error occurred removing repositories", mutationRes.error);
 
                         return <React.Fragment/>;
@@ -673,11 +652,7 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                 <Mutation mutation={ADD_RESOURCE_MUTATION} onCompleted={handleMtAddReposRes}>
                 { (addRepositories: MutationFn<IAddReposAttr, {projectName: string; resData: string; resType: string}>,
                    mutationRes: MutationResult): React.ReactNode => {
-                    if (mutationRes.loading) {
-                      showPreloader();
-                    }
                     if (!_.isUndefined(mutationRes.error)) {
-                      hidePreloader();
                       handleGraphQLErrors("An error occurred adding repositories", mutationRes.error);
 
                       return <React.Fragment/>;
@@ -730,13 +705,11 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
             return <React.Fragment/>;
           }
           if (!_.isUndefined(error)) {
-            hidePreloader();
             handleGraphQLErrors("An error occurred getting environments", error);
 
             return <React.Fragment/>;
           }
           if (!_.isUndefined(data)) {
-            hidePreloader();
             let envs: IEnvironmentsAttr[] = JSON.parse(data.resources.environments);
             envs = envs.map((env: IEnvironmentsAttr) => {
               env.state = "ACTIVE";
@@ -755,7 +728,6 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                 if (mtResult.updateResources.success) {
                   refetch()
                     .catch();
-                  hidePreloader();
                   mixpanel.track(
                     "RemoveProjectEnv",
                     {
@@ -776,7 +748,6 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                   refetch()
                     .catch();
                   handleCloseEnvModalClick();
-                  hidePreloader();
                   mixpanel.track(
                     "AddProjectEnv",
                     {
@@ -798,11 +769,7 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                   { (updateResources: MutationFn<IUpdateEnvAttr,
                     {projectName: string; resData: string; resType: string}>,
                      mutationRes: MutationResult): React.ReactNode => {
-                      if (mutationRes.loading) {
-                        showPreloader();
-                      }
                       if (!_.isUndefined(mutationRes.error)) {
-                        hidePreloader();
                         handleGraphQLErrors("An error occurred removing environments", mutationRes.error);
 
                         return <React.Fragment/>;
@@ -955,11 +922,7 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                 <Mutation mutation={ADD_RESOURCE_MUTATION} onCompleted={handleMtAddEnvsRes}>
                   { (addResources: MutationFn<IAddEnvAttr, {projectName: string; resData: string; resType: string}>,
                      mutationRes: MutationResult): React.ReactNode => {
-                      if (mutationRes.loading) {
-                        showPreloader();
-                      }
                       if (!_.isUndefined(mutationRes.error)) {
-                        hidePreloader();
                         handleGraphQLErrors("An error occurred adding environments", mutationRes.error);
 
                         return <React.Fragment/>;

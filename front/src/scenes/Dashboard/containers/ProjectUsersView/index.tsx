@@ -13,7 +13,6 @@ import { Button } from "../../../../components/Button/index";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { formatUserlist, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -116,7 +115,6 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps, refetch: QueryResult[
     const handleMtRemoveUserRes: ((mtResult: IRemoveUserAttr) => void) = (mtResult: IRemoveUserAttr): void => {
       if (!_.isUndefined(mtResult)) {
         if (mtResult.removeUserAccess.success) {
-          hidePreloader();
           refetch()
             .catch();
           mixpanel.track(
@@ -150,11 +148,7 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps, refetch: QueryResult[
         <Mutation mutation={REMOVE_USER_MUTATION} onCompleted={handleMtRemoveUserRes}>
           { (removeUserAccess: MutationFn<IRemoveUserAttr, {projectName: string; userEmail: string}>,
              mutationRes: MutationResult): React.ReactNode => {
-              if (mutationRes.loading) {
-                showPreloader();
-              }
               if (!_.isUndefined(mutationRes.error)) {
-                hidePreloader();
                 handleGraphQLErrors("An error occurred removing users", mutationRes.error);
 
                 return <React.Fragment/>;
@@ -203,7 +197,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
         Organization: (window as Window & { userOrganization: string }).userOrganization,
         User: (window as Window & { userName: string }).userName,
       });
-    hidePreloader();
   };
 
   return (
@@ -219,7 +212,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
             return <React.Fragment/>;
           }
           if (!_.isUndefined(error)) {
-            hidePreloader();
             handleGraphQLErrors("An error occurred getting project users", error);
 
             return <React.Fragment/>;
@@ -233,7 +225,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                   refetch()
                     .catch();
                   handleCloseUsersModal();
-                  hidePreloader();
                   mixpanel.track(
                     "AddUserAccess",
                     {
@@ -255,7 +246,6 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                   refetch()
                     .catch();
                   handleCloseUsersModal();
-                  hidePreloader();
                   mixpanel.track(
                     "EditUserAccess",
                     {
@@ -293,11 +283,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                         email: string; organization: string; phoneNumber: string;
                         projectName: string; responsibility: string; role: string; }>,
                          mutationRes: MutationResult): React.ReactNode => {
-                          if (mutationRes.loading) {
-                            showPreloader();
-                          }
                           if (!_.isUndefined(mutationRes.error)) {
-                            hidePreloader();
                             handleGraphQLErrors("An error occurred adding user to project", mutationRes.error);
                           }
 
@@ -307,11 +293,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                                 email: string; organization: string; phoneNumber: string;
                                 projectName: string; responsibility: string; role: string; }>,
                                  editMtRes: MutationResult): React.ReactNode => {
-                                  if (editMtRes.loading) {
-                                    showPreloader();
-                                  }
                                   if (!_.isUndefined(editMtRes.error)) {
-                                    hidePreloader();
                                     handleGraphQLErrors("An error occurred adding user to project", editMtRes.error);
                                   }
 

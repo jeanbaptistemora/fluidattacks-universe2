@@ -13,7 +13,6 @@ import { Button } from "../../../../components/Button/index";
 import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store/index";
 import { default as globalStyle } from "../../../../styles/global.css";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { dateField, textAreaField } from "../../../../utils/forms/fields";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
@@ -39,7 +38,6 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
       (mtResult: IUpdateAccessTokenAttr): void => {
         if (!_.isUndefined(mtResult)) {
           if (mtResult.updateAccessToken.success) {
-            hidePreloader();
             setButtonDisable(true);
             setDateSelectorVisibility(false);
             store.dispatch(change("updateAccessToken", "sessionJwt", mtResult.updateAccessToken.sessionJwt));
@@ -54,7 +52,6 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
       const handleMtUpdateTokenErr: ((mtError: ApolloError) => void) =
       (mtResult: ApolloError): void => {
         if (!_.isUndefined(mtResult)) {
-          hidePreloader();
           handleGraphQLErrors("An error occurred adding access token", mtResult);
           store.dispatch(reset("updateAccessToken"));
         }
@@ -68,10 +65,6 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
         >
         { (updateAccessToken: MutationFn<IUpdateAccessTokenAttr, {expirationTime: number}>,
            mutationRes: MutationResult): React.ReactNode => {
-
-            if (mutationRes.loading) {
-              showPreloader();
-            }
 
             const handleUpdateAccessToken: ((values: IAccessTokenAttr) => void) =
               (values: IAccessTokenAttr): void => {
@@ -110,7 +103,6 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
               } else {
                 setButtonDisable(false);
               }
-              hidePreloader();
             };
 
             return (
@@ -156,15 +148,9 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                     </Row>
                     : undefined }
                     <Query query={GET_ACCESS_TOKEN} fetchPolicy="network-only" onCompleted={handleQryResult}>
-                    {
-                      ({loading, error, data}: QueryResult<IGetAccessTokenAttr>): React.ReactNode => {
-                        if (loading) {
-                          showPreloader();
+                      {({ data, error }: QueryResult<IGetAccessTokenAttr>): React.ReactNode => {
 
-                          return <React.Fragment/>;
-                        }
                         if (!_.isUndefined(error)) {
-                          hidePreloader();
                           handleGraphQLErrors("An error occurred getting access token", error);
 
                           return <React.Fragment/>;
@@ -175,7 +161,6 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                             if (!_.isUndefined(mtResult)) {
                               if (mtResult.invalidateAccessToken.success) {
                                 props.onClose();
-                                hidePreloader();
                                 msgSuccess(
                                   translate.t("update_access_token.delete"),
                                   translate.t("update_access_token.invalidated"),
@@ -197,11 +182,7 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                             { (invalidateAccessToken: MutationFn<IInvalidateAccessTokenAttr, {}>,
                                mutationResult: MutationResult): React.ReactNode => {
 
-                                if (mutationResult.loading) {
-                                  showPreloader();
-                                }
                                 if (!_.isUndefined(mutationResult.error)) {
-                                  hidePreloader();
                                   handleGraphQLErrors("An error occurred invalidating access token",
                                                       mutationResult.error);
 

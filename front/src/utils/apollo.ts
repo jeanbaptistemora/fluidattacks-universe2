@@ -25,14 +25,6 @@ const getCookie: (name: string) => string = (name: string): string => {
   return cookieValue;
 };
 
-export const showPreloader: () => void = (): void => {
-  // No longer necessary, will be removed later
-};
-
-export const hidePreloader: () => void = (): void => {
-  // No longer necessary, will be removed later
-};
-
 export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   cache: new InMemoryCache(),
   connectToDevTools: getEnvironment() !== "production",

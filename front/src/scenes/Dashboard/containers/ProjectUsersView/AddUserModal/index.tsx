@@ -3,7 +3,7 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
-import { ApolloClient, ApolloError, ApolloQueryResult, NetworkStatus } from "apollo-client";
+import { ApolloClient, ApolloError, ApolloQueryResult } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
@@ -13,7 +13,6 @@ import { Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../../components/Button/index";
 import { Modal } from "../../../../../components/Modal/index";
 import store from "../../../../../store/index";
-import { hidePreloader, showPreloader } from "../../../../../utils/apollo";
 import { handleErrors } from "../../../../../utils/formatHelpers";
 import { dropdownField, phoneNumberField, textField } from "../../../../../utils/forms/fields";
 import { msgError } from "../../../../../utils/notifications";
@@ -50,22 +49,17 @@ const loadAutofillData: (
     const fieldSelector: ((stateTree: {}, ...fields: string[]) => any) = formValueSelector("addUser");
     const email: string = fieldSelector(store.getState(), "email");
     if (!_.isEmpty(email)) {
-      showPreloader();
       client.query({
+        fetchPolicy: "cache-first",
         query: GET_USERS,
         variables: { projectName: props.projectName !== undefined ? props.projectName : "-", userEmail: email },
       })
-      .then(({loading, errors, data, networkStatus}: ApolloQueryResult<IUserDataAttr>) => {
-        const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
-        if (loading || isRefetching) {
-          showPreloader();
-        }
+      .then(({ data, errors }: ApolloQueryResult<IUserDataAttr>) => {
+
         if (!_.isUndefined(errors)) {
-          hidePreloader();
           handleErrors("An error occurred getting user information for autofill", errors);
         }
         if (!_.isUndefined(data)) {
-          hidePreloader();
           change("organization", data.user.organization);
           change("phoneNumber", data.user.phoneNumber);
           change("responsibility", data.user.responsibility);
@@ -77,7 +71,6 @@ const loadAutofillData: (
             msgError("An error occurred getting user information for autofill");
           }
         });
-        hidePreloader();
       });
     }
   };

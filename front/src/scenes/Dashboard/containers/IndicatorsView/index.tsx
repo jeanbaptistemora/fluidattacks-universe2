@@ -13,7 +13,6 @@ import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { Trans } from "react-i18next";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
-import { hidePreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
@@ -79,7 +78,6 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
         Organization: (window as typeof window & { userOrganization: string }).userOrganization,
         User: (window as typeof window & { userName: string }).userName,
       });
-    hidePreloader();
   };
 
   return (
@@ -91,7 +89,6 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
             return <React.Fragment />;
           }
           if (!_.isUndefined(error)) {
-            hidePreloader();
             handleGraphQLErrors("An error occurred getting indicators", error);
 
             return <React.Fragment />;

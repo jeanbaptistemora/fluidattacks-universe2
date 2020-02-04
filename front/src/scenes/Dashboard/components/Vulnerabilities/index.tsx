@@ -22,7 +22,6 @@ import { approveFormatter, deleteFormatter, statusFormatter } from "../../../../
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
@@ -354,13 +353,11 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             return <React.Fragment/>;
           }
           if (!_.isUndefined(error)) {
-            hidePreloader();
             handleGraphQLErrors("An error occurred getting vulnerabilities", error);
 
             return <React.Fragment/>;
           }
           if (!_.isUndefined(data)) {
-            hidePreloader();
 
             const dataInputs: IVulnsAttr["finding"]["inputsVulns"] = newVulnerabilities(filterState(
               data.finding.inputsVulns, props.state));
@@ -377,7 +374,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   setDeleteVulnModal(false);
                   refetch()
                     .catch();
-                  hidePreloader();
                   mixpanel.track(
                     "DeleteVulnerability",
                     {
@@ -388,7 +384,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     translate.t("search_findings.tab_description.vulnDeleted"),
                     translate.t("proj_alerts.title_success"));
                 } else {
-                  hidePreloader();
                   msgError(
                     translate.t("delete_vulns.not_success"),
                   );
@@ -403,7 +398,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 if (mtResult.approveVulnerability.success) {
                   refetch()
                     .catch();
-                  hidePreloader();
                   mixpanel.track(
                     "ApproveVulnerability",
                     {
@@ -773,11 +767,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               { (approveVulnerability: MutationFn<IApproveVulnAttr, {
                 approvalStatus: boolean; findingId: string; uuid?: string; }>,
                  mutationResult: MutationResult): React.ReactNode => {
-                if (mutationResult.loading) {
-                  showPreloader();
-                }
                 if (!_.isUndefined(mutationResult.error)) {
-                  hidePreloader();
                   handleGraphQLErrors("An error occurred approving vulnerabilities", mutationResult.error);
 
                   return <React.Fragment/>;

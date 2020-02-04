@@ -17,7 +17,6 @@ import { statusFormatter } from "../../../../components/DataTableNext/formatters
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
-import { hidePreloader } from "../../../../utils/apollo";
 import { formatDrafts, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { autocompleteTextField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
@@ -46,7 +45,6 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
       Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,
     });
-    hidePreloader();
   };
   const drafts: IDashboardState["drafts"] = useSelector(
     (state: { dashboard: IDashboardState }): IDashboardState["drafts"] => state.dashboard.drafts);
@@ -167,7 +165,6 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
             return <React.Fragment />;
           }
           if (!_.isUndefined(error)) {
-            hidePreloader();
             handleGraphQLErrors("An error occurred getting project drafts", error);
 
             return <React.Fragment />;

@@ -12,7 +12,6 @@ import { submit } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import store from "../../../../store";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import TreatmentFieldsView from "../../components/treatmentFields";
@@ -35,14 +34,12 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
 (props: IUpdateTreatmentModal): JSX.Element => {
   const canDisplayAnalyst: boolean = _.includes(["analyst", "admin"], props.userRole);
   const handleUpdateTreatError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
-    hidePreloader();
     msgError(translate.t("proj_alerts.error_textsad"));
   };
   const handleClose: (() => void) = (): void => { props.handleCloseModal(); };
   const handleUpdateResult: ((mtResult: IUpdateVulnTreatment) => void) = (mtResult: IUpdateVulnTreatment): void => {
     if (!_.isUndefined(mtResult)) {
       if (mtResult.updateTreatmentVuln.success) {
-        hidePreloader();
         mixpanel.track(
           "UpdatedTreatmentVulnerabilities", {
             Organization: (window as typeof window & { userOrganization: string }).userOrganization,
@@ -66,7 +63,6 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
     >
       {(updateTreatmentVuln: MutationFn<IUpdateVulnTreatment, IUpdateTreatmentVulnAttr>,
         mutationResVuln: MutationResult): React.ReactNode => {
-          if (mutationResVuln.loading) {showPreloader(); }
 
           const handleUpdateTreatmentVuln: ((dataTreatment: IDescriptionViewProps["dataset"]) => void) =
           (dataTreatment: IDescriptionViewProps["dataset"]): void => {
@@ -96,14 +92,12 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
             handleUpdateTreatmentVuln(values);
           };
           const handleDeleteError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
-            hidePreloader();
             msgError(translate.t("proj_alerts.error_textsad"));
           };
           const handleDeleteResult: ((mtResult: IDeleteTagResult) => void) =
           (mtResult: IDeleteTagResult): void => {
             if (!_.isUndefined(mtResult)) {
               if (mtResult.deleteTags.success) {
-                hidePreloader();
                 msgSuccess(
                   translate.t("search_findings.tab_description.update_vulnerabilities"),
                   translate.t("proj_alerts.title_success"));
@@ -122,7 +116,6 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
             >
             {(deleteTagVuln: MutationFn<IDeleteTagResult, IDeleteTagAttr>,
               mutationResult: MutationResult): React.ReactNode => {
-                if (mutationResult.loading) {showPreloader(); }
                 const handleDeleteTag: (() => void) = (): void => {
                   if (props.vulnsSelected.length === 0) {
                     msgError(translate.t("search_findings.tab_resources.no_selection"));

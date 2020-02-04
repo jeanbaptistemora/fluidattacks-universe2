@@ -11,7 +11,6 @@ import { change, Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { textField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
@@ -29,14 +28,12 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
   const closeNewProjectModal: (() => void) = (): void => { props.onClose(); };
   const handleProjectNameError: ((error: ApolloError) => void) = (error: ApolloError): void => {
     closeNewProjectModal();
-    hidePreloader();
     handleGraphQLErrors("An error occurred getting project name", error);
   };
   const handleProjectNameResult: ((qrResult: IProjectName) => void) = (qrResult: IProjectName): void => {
     if (!_.isUndefined(qrResult)) {
       store.dispatch(change("newProject", "name", qrResult.internalProjectNames.projectName));
       setProjectName(qrResult.internalProjectNames.projectName);
-      hidePreloader();
     }
   };
 
@@ -54,8 +51,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
           onCompleted={handleProjectNameResult}
           onError={handleProjectNameError}
         >
-          {({loading}: QueryResult<IProjectName>): React.ReactNode => {
-            if (loading) { showPreloader(); }
+          {({}: QueryResult<IProjectName>): React.ReactNode => {
             const handleMutationResult: ((result: { createProject: { success: boolean } }) => void) = (
               result: { createProject: { success: boolean } },
             ): void => {
@@ -68,7 +64,6 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
               }
             };
             const handleCreateError: ((error: ApolloError) => void) = (error: ApolloError): void => {
-              hidePreloader();
               handleGraphQLErrors("An error occurred adding a project", error);
             };
 

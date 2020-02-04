@@ -10,7 +10,6 @@ import { Col, Row } from "react-bootstrap";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
-import { hidePreloader, showPreloader } from "../../../../utils/apollo";
 import { msgError, msgErrorStick, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
@@ -33,7 +32,6 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
     if (!_.isUndefined(mtResult)) {
       if (mtResult.uploadFile.success) {
         store.dispatch(actionsDescription.editDescription());
-        hidePreloader();
         msgSuccess(
           translate.t("proj_alerts.file_updated"),
           translate.t("proj_alerts.title_success"));
@@ -82,7 +80,6 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
         rollbar.error(message);
       }
     });
-    hidePreloader();
   };
 
   return (
@@ -98,10 +95,6 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
     >
     {(uploadVulnerability: MutationFn,
       mutationResult: MutationResult): React.ReactNode => {
-
-      if (mutationResult.loading) {
-        showPreloader();
-      }
 
       const handleUploadVulnerability: (() => void) = (): void => {
         if (isValidVulnsFile("#vulnerabilities")) {
