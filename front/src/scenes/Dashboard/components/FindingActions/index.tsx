@@ -8,6 +8,8 @@ import React from "react";
 import { ButtonToolbar } from "react-bootstrap";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
+import { ConfirmDialog, ConfirmFn } from "../../../../components/NewConfirmDialog";
+import translate from "../../../../utils/translations/translate";
 
 interface IFindingActionsProps {
   hasSubmission: boolean;
@@ -32,12 +34,28 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
         false : <Button disabled={props.loading} onClick={onSubmit}>Submit</Button>)}
       {_.includes(["admin"], userRole) && props.isDraft ? (
         <React.Fragment>
-          <Button onClick={onApprove} disabled={!canApprove}>
-            <FluidIcon icon="verified" />&nbsp;Approve
-          </Button>
-          <Button onClick={onReject} disabled={!props.hasSubmission}>
-            Reject
-          </Button>
+          <ConfirmDialog title={translate.t("project.drafts.approve")}>
+            {(confirm: ConfirmFn): React.ReactNode => {
+              const handleClick: (() => void) = (): void => { confirm(() => { onApprove(); }); };
+
+              return (
+                <Button onClick={handleClick} disabled={!canApprove}>
+                  <FluidIcon icon="verified" />&nbsp;Approve
+                </Button>
+              );
+            }}
+          </ConfirmDialog>
+          <ConfirmDialog title={translate.t("project.drafts.reject")}>
+            {(confirm: ConfirmFn): React.ReactNode => {
+              const handleClick: (() => void) = (): void => { confirm(() => { onReject(); }); };
+
+              return (
+                <Button onClick={handleClick} disabled={!props.hasSubmission}>
+                  Reject
+                </Button>
+              );
+            }}
+          </ConfirmDialog>
           <Button onClick={onDelete}>
             <FluidIcon icon="delete" />&nbsp;Delete
           </Button>

@@ -8,17 +8,17 @@ import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React from "react";
 import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
-import { Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
+import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { NavLink, Redirect, Route, Switch } from "react-router-dom";
 import { Field, submit } from "redux-form";
-import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
+import { Button } from "../../../../components/Button";
+import { Modal } from "../../../../components/Modal";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
 import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
-import { openConfirmDialog } from "../../actions";
 import { AlertBox } from "../../components/AlertBox";
 import { FindingActions } from "../../components/FindingActions";
 import { FindingHeader } from "../../components/FindingHeader";
@@ -73,14 +73,14 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   const canGetHistoricState: boolean = _.includes(["analyst", "admin"], props.userRole);
   const handleApprove: (() => void) = (): void => { props.onApprove(); };
   const handleReject: (() => void) = (): void => { props.onReject(); };
-  const handleOpenApproveConfirm: (() => void) = (): void => { props.openApproveConfirm(); };
-  const handleOpenDeleteConfirm: (() => void) = (): void => { props.openDeleteConfirm(); };
-  const handleOpenRejectConfirm: (() => void) = (): void => { props.openRejectConfirm(); };
-  const handleConfirmDelete: (() => void) = (): void => { props.onConfirmDelete(); };
+
+  const [isDeleteModalOpen, setDeleteModalOpen] = React.useState(false);
+  const openDeleteModal: (() => void) = (): void => { setDeleteModalOpen(true); };
+  const closeDeleteModal: (() => void) = (): void => { setDeleteModalOpen(false); };
   const handleDelete: ((values: { justification: string }) => void) = (values: { justification: string }): void => {
     props.onDelete(values.justification);
   };
-  const { userOrganization } = window as Window & { userOrganization: string };
+  const { userOrganization } = window as typeof window & { userOrganization: string };
 
   return (
     <React.StrictMode>
@@ -145,9 +145,9 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                                   hasVulns={hasVulns}
                                   hasSubmission={hasSubmission}
                                   loading={submitResult.loading}
-                                  onApprove={handleOpenApproveConfirm}
-                                  onDelete={handleOpenDeleteConfirm}
-                                  onReject={handleOpenRejectConfirm}
+                                  onApprove={handleApprove}
+                                  onDelete={openDeleteModal}
+                                  onReject={handleReject}
                                   onSubmit={handleSubmitClick}
                                 />
                               );
@@ -240,11 +240,10 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           </Col>
         </Row>
       </div>
-      <ConfirmDialog
-        name="confirmDeleteFinding"
-        onProceed={handleConfirmDelete}
-        title={translate.t("search_findings.delete.title")}
-        closeOnProceed={false}
+      <Modal
+        open={isDeleteModalOpen}
+        footer={<div />}
+        headerTitle={translate.t("search_findings.delete.title")}
       >
         <GenericForm name="deleteFinding" onSubmit={handleDelete}>
           <FormGroup>
@@ -256,14 +255,12 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
               <option value="NOT_REQUIRED">{translate.t("search_findings.delete.justif.not_required")}</option>
             </Field>
           </FormGroup>
+          <ButtonToolbar className="pull-right">
+            <Button onClick={closeDeleteModal}>{translate.t("confirmmodal.cancel")}</Button>
+            <Button type="submit">{translate.t("confirmmodal.proceed")}</Button>
+          </ButtonToolbar>
         </GenericForm>
-      </ConfirmDialog>
-      <ConfirmDialog
-        name="confirmApproveDraft"
-        onProceed={handleApprove}
-        title={translate.t("project.drafts.approve")}
-      />
-      <ConfirmDialog name="confirmRejectDraft" onProceed={handleReject} title={translate.t("project.drafts.reject")} />
+      </Modal>
     </React.StrictMode>
   );
 };
@@ -285,9 +282,6 @@ const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFind
       onLoad: (): void => { dispatch(loadProjectData(projectName)); },
       onReject: (): void => { dispatch(rejectDraft(findingId, projectName)); },
       onUnmount: (): void => { dispatch(clearFindingState()); },
-      openApproveConfirm: (): void => { dispatch(openConfirmDialog("confirmApproveDraft")); },
-      openDeleteConfirm: (): void => { dispatch(openConfirmDialog("confirmDeleteFinding")); },
-      openRejectConfirm: (): void => { dispatch(openConfirmDialog("confirmRejectDraft")); },
     });
   };
 

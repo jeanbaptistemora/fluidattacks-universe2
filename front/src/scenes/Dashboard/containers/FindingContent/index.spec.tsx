@@ -33,9 +33,6 @@ describe("FindingContent", () => {
     onLoad: functionMock,
     onReject: functionMock,
     onUnmount: functionMock,
-    openApproveConfirm: functionMock,
-    openDeleteConfirm: functionMock,
-    openRejectConfirm: functionMock,
     userRole: "customer",
   };
 

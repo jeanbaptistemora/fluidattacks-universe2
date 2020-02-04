@@ -14,9 +14,6 @@ export interface IFindingContentDispatchProps {
   onLoad(): void;
   onReject(): void;
   onUnmount(): void;
-  openApproveConfirm(): void;
-  openDeleteConfirm(): void;
-  openRejectConfirm(): void;
 }
 
 export interface IHeaderQueryResult {

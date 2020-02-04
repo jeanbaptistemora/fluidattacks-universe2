@@ -109,7 +109,8 @@ describe("FindingActions", (): void => {
         onSubmit={jest.fn()}
       />,
     );
-    const buttons: ShallowWrapper = wrapper.find("button");
+    const buttons: ShallowWrapper = wrapper.find("ButtonToolbar")
+      .children();
 
     expect(wrapper)
       .toHaveLength(1);
@@ -117,11 +118,17 @@ describe("FindingActions", (): void => {
       .toHaveLength(3);
     expect(buttons
       .at(0)
+      .dive()
+      .children()
+      .at(1)
       .children()
       .at(1)
       .text())
       .toContain("Approve");
     expect(buttons
+      .at(1)
+      .dive()
+      .children()
       .at(1)
       .children()
       .at(0)
@@ -149,8 +156,12 @@ describe("FindingActions", (): void => {
         onSubmit={jest.fn()}
       />,
     );
-    const buttons: ShallowWrapper = wrapper.find("button");
+    const buttons: ShallowWrapper = wrapper.find("ButtonToolbar")
+      .children();
     const approveButton: ShallowWrapper<Button.ButtonProps> = buttons
+      .at(1)
+      .dive()
+      .children()
       .at(1);
 
     expect(wrapper)
