@@ -939,11 +939,20 @@ def exec_terraform_package(
         """)
 
     source: Dict[str, str] = {
+        ('ebs', 'EBS (Elastic Block Storage)'): [
+            'ebs.default_encryption_disabled',
+        ],
         ('ec2', 'EC2 (Elastic Cloud Compute)'): [
             'ec2.allows_all_outbound_traffic',
             'ec2.has_unencrypted_volumes',
             'ec2.has_unrestricted_ip_protocols',
             'ec2.has_unrestricted_ports',
+            'ec2.has_unrestricted_cidrs',
+            'ec2.has_not_an_iam_instance_profile',
+            'ec2.has_not_termination_protection',
+            'ec2.has_terminate_shutdown_behavior',
+            'ec2.is_associate_public_ip_address_enabled',
+            'ec2.uses_default_security_group',
         ],
         ('iam', 'IAM (Identity and Access Management)'): [
             'iam.is_policy_miss_configured',
