@@ -37,13 +37,31 @@ def _has_monitoring_param_value(client_id: str, secret: str, tenant: str,
 
     for policy in policies.list():
         if param_name in policy.parameters:
-            (success if policy.parameters[param_name]['value'] == param_value
-             else fail).append(policy.id)
+            try:
+                (success if policy.
+                 parameters[param_name]['value'] == param_value
+                 else fail).append(policy.id)
+            except TypeError:
+                try:
+                    (success if policy.parameters[param_name].
+                     additional_properties['value'] == param_value
+                     else fail).append(policy.id)
+                except KeyError:
+                    (success if policy.
+                     parameters[param_name].value == param_value
+                     else fail).append(policy.id)
         else:
             pol = policies.get_by_id(policy.policy_definition_id)
-            (success
-             if pol.parameters[param_name]['defaultValue'] == param_value else
-             fail).append(policy.id)
+            try:
+                (success
+                 if pol.parameters[param_name]['defaultValue'] == param_value
+                 else fail).append(policy.id)
+            except TypeError:
+                (success
+                 if pol.parameters[param_name].
+                 additional_properties['defaultValue'] == param_value else
+                 fail).append(policy.id)
+
     return (success, fail)
 
 
