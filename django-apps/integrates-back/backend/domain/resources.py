@@ -1,6 +1,7 @@
 """Domain functions for resources."""
 
 
+from collections import namedtuple
 import base64
 import datetime
 import threading
@@ -14,9 +15,10 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import asymmetric, hashes, serialization
 
 from backend import util
-from backend.dal import integrates_dal
-from backend.dal import resources as resources_dal
-from backend.domain import project as project_domain, user as user_domain
+from backend.dal import (
+    integrates_dal, project as project_dal, resources as resources_dal
+)
+from backend.domain import user as user_domain
 from backend.exceptions import InvalidFileSize
 from backend.mailer import send_mail_resources
 
@@ -62,7 +64,7 @@ def format_resource(resource_list, resource_type):
 
 
 def send_mail(project_name, user_email, resource_list, action, resource_type):
-    mail_to = project_domain.get_users(project_name.lower())
+    mail_to = project_dal.get_users(project_name.lower(), active=True)
     admins = user_domain.get_admins()
     mail_to += admins
     resource_description = format_resource(resource_list, resource_type)
@@ -237,3 +239,35 @@ def update_resource(res_data, project_name, res_type, user_email):
             break
         cont += 1
     return resources_dal.update(res_list, project_name, res_name)
+
+
+def mask(project_name):
+    project_name = project_name.lower()
+    project = project_dal.get_attributes(project_name, ['environments', 'files', 'repositories'])
+    Status = namedtuple(
+        'Status',
+        'are_files_removed files_result environments_result repositories_result'
+    )
+    are_files_removed = all([
+        resources_dal.remove_file(file_name)
+        for file_name in resources_dal.search_file(f'{project_name}/')])
+    files_result = project_dal.update(project_name, {
+        'files': [
+            {'fileName': 'Masked', 'description': 'Masked', 'uploader': 'Masked'}
+            for file_resource in project.get('files', [])
+        ]
+    })
+    environments_result = project_dal.update(project_name, {
+        'environments': [
+            {'urlEnv': 'Masked'}
+            for file_resource in project.get('environments', [])
+        ]
+    })
+    repositories_result = project_dal.update(project_name, {
+        'repositories': [
+            {'protocol': 'Masked', 'urlRepo': 'Masked'}
+            for file_resource in project.get('repositories', [])
+        ]
+    })
+    success = Status(are_files_removed, files_result, environments_result, repositories_result)
+    return success

@@ -10,7 +10,7 @@ import pytz
 from django.conf import settings
 
 from backend.dal import integrates_dal, project as project_dal
-from backend.domain import comment as comment_domain
+from backend.domain import comment as comment_domain, resources as resources_domain
 from backend.domain import finding as finding_domain, user as user_domain
 from backend.domain import vulnerability as vuln_domain
 from backend.exceptions import (
@@ -143,8 +143,11 @@ def reject_deletion(project_name, user_email):
 def remove_project(project_name, user_email):
     """Delete project information."""
     project = project_name.lower()
-    Status = namedtuple('Status', 'are_findings_masked are_users_removed is_project_finished')
-    response = Status(False, False, False)
+    Status = namedtuple(
+        'Status',
+        'are_findings_masked are_users_removed is_project_finished are_resources_removed'
+    )
+    response = Status(False, False, False, False)
     if is_alive(project) and user_domain.get_project_access(user_email, project):
         tzn = pytz.timezone(settings.TIME_ZONE)
         today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
@@ -159,8 +162,11 @@ def remove_project(project_name, user_email):
             'deletion_date': today
         }
         is_project_finished = project_dal.update(project, data)
+        are_resources_removed = all(list(resources_domain.mask(project)))
         util.invalidate_cache(project)
-        response = Status(are_findings_masked, are_users_removed, is_project_finished)
+        response = Status(
+            are_findings_masked, are_users_removed, is_project_finished, are_resources_removed
+        )
     else:
         raise PermissionDenied()
     return response
