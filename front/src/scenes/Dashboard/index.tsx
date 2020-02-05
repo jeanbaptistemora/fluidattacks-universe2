@@ -7,16 +7,13 @@ import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React from "react";
 import { Mutation, MutationFn } from "react-apollo";
-import { useDispatch } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
-import { Dispatch } from "redux";
-import { ConfirmDialog } from "../../components/ConfirmDialog";
+import { ConfirmDialog, ConfirmFn } from "../../components/NewConfirmDialog";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import { handleGraphQLErrors } from "../../utils/formatHelpers";
 import { msgSuccess } from "../../utils/notifications";
 import translate from "../../utils/translations/translate";
-import { openConfirmDialog } from "./actions";
 import { updateAccessTokenModal as UpdateAccessTokenModal } from "./components/AddAccessTokenModal/index";
 import { Navbar } from "./components/Navbar/index";
 import { Sidebar } from "./components/Sidebar";
@@ -41,10 +38,6 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
   const openUserModal: (() => void) = (): void => { setUserModalOpen(true); };
   const closeUserModal: (() => void) = (): void => { setUserModalOpen(false); };
 
-  const dispatch: Dispatch = useDispatch();
-  const openLogoutModal: (() => void) = (): void => { dispatch(openConfirmDialog("confirmLogout")); };
-  const handleLogout: (() => void) = (): void => { location.assign("/integrates/logout"); };
-
   const handleMtAddUserRes: ((mtResult: IAddUserAttr) => void) = (mtResult: IAddUserAttr): void => {
     if (!_.isUndefined(mtResult)) {
       if (mtResult.grantUserAccess.success) {
@@ -67,11 +60,21 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
     <React.StrictMode>
       <HashRouter hashType="hashbang">
         <React.Fragment>
-          <Sidebar
-            onLogoutClick={openLogoutModal}
-            onOpenAccessTokenModal={openTokenModal}
-            onOpenAddUserModal={openUserModal}
-          />
+          <ConfirmDialog title="Logout">
+            {(confirm: ConfirmFn): React.ReactNode => {
+              const handleLogout: (() => void) = (): void => {
+                confirm(() => { location.assign("/integrates/logout"); });
+              };
+
+              return (
+                <Sidebar
+                  onLogoutClick={handleLogout}
+                  onOpenAccessTokenModal={openTokenModal}
+                  onOpenAddUserModal={openUserModal}
+                />
+              );
+            }}
+          </ConfirmDialog>
           <div className={style.container}>
             <Navbar />
             <Switch>
@@ -90,7 +93,6 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
         </React.Fragment>
       </HashRouter>
       <ScrollUpButton visibleAt={400} />
-      <ConfirmDialog name="confirmLogout" onProceed={handleLogout} title="Logout" />
       <UpdateAccessTokenModal open={isTokenModalOpen} onClose={closeTokenModal} />
       <Mutation mutation={ADD_USER_MUTATION} onCompleted={handleMtAddUserRes} onError={handleMtAddUserError}>
         {(grantUserAccess: MutationFn): React.ReactNode => {
