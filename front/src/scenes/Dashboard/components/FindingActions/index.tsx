@@ -7,8 +7,8 @@ import _ from "lodash";
 import React from "react";
 import { ButtonToolbar } from "react-bootstrap";
 import { Button } from "../../../../components/Button";
+import { ConfirmDialog, ConfirmFn } from "../../../../components/ConfirmDialog";
 import { FluidIcon } from "../../../../components/FluidIcon";
-import { ConfirmDialog, ConfirmFn } from "../../../../components/NewConfirmDialog";
 import translate from "../../../../utils/translations/translate";
 
 interface IFindingActionsProps {

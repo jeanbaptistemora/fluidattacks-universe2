@@ -9,7 +9,7 @@ import React from "react";
 import { Mutation, MutationFn } from "react-apollo";
 import { RouteComponentProps } from "react-router";
 import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
-import { ConfirmDialog, ConfirmFn } from "../../components/NewConfirmDialog";
+import { ConfirmDialog, ConfirmFn } from "../../components/ConfirmDialog";
 import { ScrollUpButton } from "../../components/ScrollUpButton";
 import { handleGraphQLErrors } from "../../utils/formatHelpers";
 import { msgSuccess } from "../../utils/notifications";
