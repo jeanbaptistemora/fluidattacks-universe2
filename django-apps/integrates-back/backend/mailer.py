@@ -136,7 +136,7 @@ def send_comment_mail(comment_data, entity_name, user_mail, comment_type='', ent
         recipients = get_email_recipients(finding.get('projectName'), comment_type)
 
         is_draft = 'releaseDate' in finding
-        email_context['finding_id'] = finding.get('id')
+        email_context['finding_id'] = finding.get('findingId')
         email_context['finding_name'] = finding.get('finding')
         comment_url = (
             base_url +
