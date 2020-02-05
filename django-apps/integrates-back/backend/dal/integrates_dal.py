@@ -62,24 +62,6 @@ def add_finding_comment_dynamo(finding_id, email, comment_data):
         return False
 
 
-def get_project_comments_dynamo(project_name):
-    """ Get comments of a project. """
-    table = DYNAMODB_RESOURCE.Table('fi_project_comments')
-    filter_key = 'project_name'
-    filtering_exp = Key(filter_key).eq(project_name)
-    response = table.scan(FilterExpression=filtering_exp)
-    items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = table.scan(
-                FilterExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
-    return items
-
-
 def delete_comment_dynamo(finding_id, user_id):
     """ Delete a comment in a finding. """
     table = DYNAMODB_RESOURCE.Table('FI_comments')
@@ -513,31 +495,6 @@ def get_project_attributes_dynamo(project_name, data_attributes):
         'FI_projects', {'project_name': project_name}, data_attributes)
 
 
-def update_item_list_dynamo(
-        primary_keys, attr_name, index, field, field_value):
-    """update list attribute in a table."""
-    table = DYNAMODB_RESOURCE.Table('FI_findings')
-    try:
-        response = table.update_item(
-            Key={
-                primary_keys[0]: primary_keys[1].lower(),
-            },
-            UpdateExpression='SET #attrName[' + str(index) + '].#field = :field_val',
-            ExpressionAttributeNames={
-                '#attrName': attr_name,
-                '#field': field,
-            },
-            ExpressionAttributeValues={
-                ':field_val': field_value
-            }
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
-    except ClientError:
-        rollbar.report_exc_info()
-        return False
-
-
 def get_findings_data_dynamo(filtering_exp, data_attr=''):
     """Get all the findings of a project."""
     table = DYNAMODB_RESOURCE.Table('FI_findings')
@@ -565,15 +522,6 @@ def get_findings_data_dynamo(filtering_exp, data_attr=''):
                 ExclusiveStartKey=response['LastEvaluatedKey'])
             items += response['Items']
     return items
-
-
-def get_findings_dynamo(project, data_attr=''):
-    """Get all the findings of a project."""
-    project_name = project.lower()
-    filter_key = 'project_name'
-    filtering_exp = Attr(filter_key).eq(project_name)
-    findings = get_findings_data_dynamo(filtering_exp, data_attr)
-    return findings
 
 
 def get_projects_data_dynamo(filtering_exp='', data_attr=''):
