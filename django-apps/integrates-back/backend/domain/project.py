@@ -83,8 +83,8 @@ def add_user(project_name, user_email, role):
     return project_dal.add_user(project_name, user_email, role)
 
 
-def get_pending_projects():
-    return project_dal.get_pending_projects()
+def get_pending_to_delete():
+    return project_dal.get_pending_to_delete()
 
 
 def get_historic_deletion(project_name):

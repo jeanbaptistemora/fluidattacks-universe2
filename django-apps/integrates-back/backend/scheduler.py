@@ -531,7 +531,7 @@ def delete_pending_projects():
     rollbar.report_message('Warning: Function to delete projects if '
                            'deletion_date expires is running', 'warning')
     today = datetime.now()
-    projects = project_domain.get_pending_projects()
+    projects = project_domain.get_pending_to_delete()
     for project in projects:
         historic_deletion = project.get('historic_deletion', [{}])
         last_state = historic_deletion[-1]

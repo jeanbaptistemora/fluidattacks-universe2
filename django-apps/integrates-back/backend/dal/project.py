@@ -424,6 +424,6 @@ def get(project):
     return items
 
 
-def get_pending_projects():
+def get_pending_to_delete():
     filtering_exp = Attr('project_status').eq('PENDING_DELETION')
     return get_filtered_list('project_name, historic_deletion', filtering_exp)
