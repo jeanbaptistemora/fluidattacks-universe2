@@ -1,6 +1,7 @@
 """DAL functions for findings."""
 
 import rollbar
+from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
 from backend.dal.helpers import s3, dynamodb
@@ -8,6 +9,7 @@ from __init__ import FI_AWS_S3_BUCKET
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
 TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
+TABLE_VULNS = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
 
 
 def create(finding_id, project_name, finding_attrs):
@@ -64,6 +66,19 @@ def delete(finding_id):
                                'error', extra_data=ex, payload_data=locals())
 
     return success
+
+
+def get_vulnerabilities(finding_id):
+    """Get vulnerabilities of a finding."""
+    filtering_exp = Key('finding_id').eq(finding_id)
+    response = TABLE_VULNS.query(KeyConditionExpression=filtering_exp)
+    items = response['Items']
+    while response.get('LastEvaluatedKey'):
+        response = TABLE_VULNS.query(
+            KeyConditionExpression=filtering_exp,
+            ExclusiveStartKey=response['LastEvaluatedKey'])
+        items += response['Items']
+    return items
 
 
 def get_finding(finding_id):

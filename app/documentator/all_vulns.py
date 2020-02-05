@@ -5,7 +5,7 @@
 import hashlib
 from openpyxl import Workbook
 
-from backend.dal import integrates_dal
+from backend.dal import integrates_dal, finding as finding_dal
 from backend.dal.project import get_all_projects
 
 from __init__ import FI_TEST_PROJECTS
@@ -133,7 +133,7 @@ def generate_all_vulns_xlsx(user_email):
         else:
             findings = []
         for finding in findings:
-            vulns = integrates_dal.get_vulnerabilities_dynamo(finding['finding_id'])
+            vulns = finding_dal.get_vulnerabilities(finding['finding_id'])
             finding_row = _mask_finding(finding)
             for vuln in vulns:
                 vuln_row = _format_vuln(vuln, finding_row)

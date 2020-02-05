@@ -21,7 +21,7 @@ from backend.mailer import (
 )
 
 from backend import util
-from backend.dal import integrates_dal, project as project_dal
+from backend.dal import integrates_dal, finding as finding_dal, project as project_dal
 
 from __init__ import (
     FI_TEST_PROJECTS, FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
@@ -209,7 +209,7 @@ def get_all_vulns_by_project(findings_released):
     """Get all vulnerabilities by project"""
     vulns = []
     for finding in findings_released:
-        vulns += integrates_dal.get_vulnerabilities_dynamo(finding['finding_id'])
+        vulns += finding_dal.get_vulnerabilities(finding['finding_id'])
     return vulns
 
 
@@ -279,7 +279,7 @@ def prepare_mail_recipients(project):
 
 
 def calculate_vulnerabilities(act_finding):
-    vulns = integrates_dal.get_vulnerabilities_dynamo(act_finding['finding_id'])
+    vulns = finding_dal.get_vulnerabilities(act_finding['finding_id'])
     all_tracking = finding_domain.get_tracking_vulnerabilities(vulns)
     delta_total = 0
     if len(all_tracking) > 1:

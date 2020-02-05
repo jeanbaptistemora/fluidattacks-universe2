@@ -30,7 +30,7 @@ from backend.domain.vulnerability import (
     group_specific, get_open_vuln_by_type, get_vulnerabilities_by_type
 )
 from backend.decorators import authenticate, authorize, cache_content
-from backend.dal import integrates_dal, user as user_dal
+from backend.dal import integrates_dal, finding as finding_dal, user as user_dal
 from backend.services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
 )
@@ -481,8 +481,7 @@ def generate_complete_report(request):
         findings = integrates_dal.get_findings_released_dynamo(
             project, 'finding_id, finding, treatment')
         for finding in findings:
-            vulns = integrates_dal.get_vulnerabilities_dynamo(
-                finding['finding_id'])
+            vulns = finding_dal.get_vulnerabilities(finding['finding_id'])
             for vuln in vulns:
                 sheet.cell(row_index, vuln_where_col, vuln['where'])
                 sheet.cell(row_index, vuln_specific_col, vuln['specific'])

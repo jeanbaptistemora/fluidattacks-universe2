@@ -392,20 +392,6 @@ def update_in_multikey_table_dynamo(table_name, multiple_keys, attr_name, attr_v
         return False
 
 
-def get_vulnerabilities_dynamo(finding_id):
-    """Get vulnerabilities of a finding."""
-    table = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
-    filtering_exp = Key('finding_id').eq(finding_id)
-    response = table.query(KeyConditionExpression=filtering_exp)
-    items = response['Items']
-    while response.get('LastEvaluatedKey'):
-        response = table.query(
-            KeyConditionExpression=filtering_exp,
-            ExclusiveStartKey=response['LastEvaluatedKey'])
-        items += response['Items']
-    return items
-
-
 def get_finding_project(finding_id):
     """ Get project associated to a finding. """
     table = DYNAMODB_RESOURCE.Table('FI_findings')

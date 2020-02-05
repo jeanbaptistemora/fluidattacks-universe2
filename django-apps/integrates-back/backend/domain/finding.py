@@ -259,7 +259,7 @@ def update_treatment_in_vuln(finding_id, updated_values):
         'treatment_justification': updated_values.get('justification'),
         'acceptance_date': updated_values.get('acceptance_date'),
     }
-    vulns = integrates_dal.get_vulnerabilities_dynamo(finding_id)
+    vulns = get_finding_vulnerabilities(finding_id)
     for vuln in vulns:
         result_update_treatment = vuln_dal.update(finding_id, vuln['UUID'], new_values)
         if not result_update_treatment:
@@ -542,6 +542,10 @@ def get_finding(finding_id):
     return finding_utils.format_data(finding)
 
 
+def get_finding_vulnerabilities(finding_id):
+    return finding_dal.get_vulnerabilities(finding_id)
+
+
 def get_findings(finding_ids):
     """Retrieves all attributes for the requested findings"""
     findings = [get_finding(finding_id) for finding_id in finding_ids
@@ -783,7 +787,7 @@ def mask_finding(finding_id):
 
     vulns_result = all([
         vuln_domain.mask_vuln(finding_id, vuln['UUID'])
-        for vuln in vuln_domain.get_vulnerabilities(finding_id)])
+        for vuln in vuln_domain.get_finding_vulnerabilities(finding_id)])
 
     success = all([
         finding_result, evidence_result, comments_result, vulns_result])

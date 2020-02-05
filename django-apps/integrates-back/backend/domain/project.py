@@ -9,7 +9,7 @@ import pytz
 
 from django.conf import settings
 
-from backend.dal import integrates_dal, project as project_dal
+from backend.dal import integrates_dal, finding as finding_dal, project as project_dal
 from backend.domain import comment as comment_domain, resources as resources_domain
 from backend.domain import finding as finding_domain, user as user_domain
 from backend.domain import vulnerability as vuln_domain
@@ -232,7 +232,7 @@ def total_vulnerabilities(finding_id):
     """Get total vulnerabilities in new format."""
     finding = {'openVulnerabilities': 0, 'closedVulnerabilities': 0}
     if finding_domain.validate_finding(finding_id):
-        vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(finding_id)
+        vulnerabilities = finding_dal.get_vulnerabilities(finding_id)
         for vuln in vulnerabilities:
             current_state = vuln_domain.get_last_approved_status(vuln)
             if current_state == 'open':
@@ -266,7 +266,7 @@ def get_last_closing_vuln(findings):
     closing_dates = []
     for fin in findings:
         if finding_domain.validate_finding(fin['finding_id']):
-            vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(
+            vulnerabilities = finding_dal.get_vulnerabilities(
                 fin['finding_id'])
             closing_vuln_date = [get_last_closing_date(vuln)
                                  for vuln in vulnerabilities
@@ -359,8 +359,7 @@ def get_mean_remediate(findings):
     tzn = pytz.timezone('America/Bogota')
     for finding in findings:
         if finding_domain.validate_finding(finding['finding_id']):
-            vulnerabilities = integrates_dal.get_vulnerabilities_dynamo(
-                finding['finding_id'])
+            vulnerabilities = finding_dal.get_vulnerabilities(finding['finding_id'])
             for vuln in vulnerabilities:
                 open_vuln_date = get_open_vulnerability_date(vuln)
                 closed_vuln_date = get_last_closing_date(vuln)
