@@ -14,16 +14,15 @@ import { Trans } from "react-i18next";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button/index";
-import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
 import { DataTableNext } from "../../../../components/DataTableNext";
 import { changeFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
+import { ConfirmDialog, ConfirmFn } from "../../../../components/NewConfirmDialog/index";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidFileName, isValidFileSize } from "../../../../utils/validations";
-import { openConfirmDialog } from "../../actions";
 import { addEnvironmentsModal as AddEnvironmentsModal } from "../../components/AddEnvironmentsModal/index";
 import { AddFilesModal } from "../../components/AddFilesModal/index";
 import { addRepositoriesModal as AddRepositoriesModal } from "../../components/AddRepositoriesModal/index";
@@ -474,6 +473,8 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
 
             return (
               <React.Fragment>
+                <ConfirmDialog title="Repository change state">
+                  {(confirmStateChange: ConfirmFn): React.ReactNode => (
               <Mutation mutation={UPDATE_RESOURCE_MUTATION} onCompleted={handleMtUpdateRepoRes}>
                   { (updateRepositories: MutationFn<IUpdateRepoAttr,
                     {projectName: string; resData: string; resType: string}>,
@@ -495,23 +496,6 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                         }
                       };
 
-                      const handleUpdateRepoStateClick: (() => void) = (): void => {
-                        updateRepositories({ variables: {
-                          projectName,
-                          resData: JSON.stringify(auxRepo),
-                          resType: "repository"}},
-                        )
-                          .catch();
-                        if (auxRepo !== undefined) {
-                          auxRepo.state = auxRepo.state === "INACTIVE" ? "ACTIVE" : "INACTIVE";
-                        }
-                        changeSwitchButtonStatus();
-                      };
-
-                      const handleUpdateRepoStateClickRevert: (() => void) = (): void => {
-                        changeSwitchButtonStatus();
-                      };
-
                       const handleUpdateRepo: ((repoInfo: { [key: string]: string } | undefined) => void) =
                       (repoInfo: { [key: string]: string } | undefined): void => {
                         if (repoInfo !== undefined) {
@@ -521,13 +505,20 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                             repoLastState = getSwitchButtonState(button) ? "ACTIVE" : "INACTIVE";
                           }
                           const repoUpdated: {[value: string]: string | null} = {
-                            branch: repoInfo.branch,
-                            protocol: repoInfo.protocol,
+                            ...repoInfo,
                             state: repoLastState,
-                            urlRepo: repoInfo.urlRepo,
                           };
                           auxRepo = repoUpdated;
-                          props.onOpenChangeRepoStateModal();
+
+                          confirmStateChange(
+                            () => {
+                              updateRepositories({
+                                variables: { projectName, resData: JSON.stringify(auxRepo), resType: "repository" },
+                              })
+                              .catch();
+                            },
+                            changeSwitchButtonStatus,
+                          );
                         }
                       };
 
@@ -638,17 +629,11 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                             </label>
                           </Col>
                         </Row>
-
-                        <ConfirmDialog
-                          name="openChangeRepoStateModal"
-                          onProceed={handleUpdateRepoStateClick}
-                          onNotProceed={handleUpdateRepoStateClickRevert}
-                          title="Repository change state"
-                          closeOnProceed={true}
-                        />
                       </React.Fragment>);
                     }}
                 </Mutation>
+                )}
+                </ConfirmDialog>
                 <Mutation mutation={ADD_RESOURCE_MUTATION} onCompleted={handleMtAddReposRes}>
                 { (addRepositories: MutationFn<IAddReposAttr, {projectName: string; resData: string; resType: string}>,
                    mutationRes: MutationResult): React.ReactNode => {
@@ -765,6 +750,8 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
 
             return (
               <React.Fragment>
+                <ConfirmDialog title="Environment change state">
+                  {(confirmStateChange: ConfirmFn): React.ReactNode => (
                 <Mutation mutation={UPDATE_RESOURCE_MUTATION} onCompleted={handleMtUpdateEnvRes}>
                   { (updateResources: MutationFn<IUpdateEnvAttr,
                     {projectName: string; resData: string; resType: string}>,
@@ -786,21 +773,6 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                         }
                       };
 
-                      const handleUpdateEnvStateClick: (() => void) = (): void => {
-                        updateResources({ variables: { projectName,
-                                                       resData: JSON.stringify(auxEnv),
-                                                       resType: "environment"} })
-                          .catch();
-                        if (auxEnv !== undefined) {
-                          auxEnv.state = auxEnv.state === "INACTIVE" ? "ACTIVE" : "INACTIVE";
-                        }
-                        changeSwitchButtonStatus();
-                      };
-
-                      const handleUpdateEnvStateClickRevert: (() => void) = (): void => {
-                        changeSwitchButtonStatus();
-                      };
-
                       const handleUpdateEnv: ((envInfo: { [key: string]: string } | undefined) => void) =
                       (envInfo: { [key: string]: string } | undefined): void => {
                         if (envInfo !== undefined) {
@@ -810,11 +782,24 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                             envLastState = getSwitchButtonState(button) ? "ACTIVE" : "INACTIVE";
                           }
                           const envUpdated: {[value: string]: string | null} = {
+                            ...envInfo,
                             state: envLastState,
-                            urlEnv: envInfo.urlEnv,
                           };
                           auxEnv = envUpdated;
-                          props.onOpenChangeEnvStateModal();
+
+                          confirmStateChange(
+                            () => {
+                              updateResources({
+                                variables: {
+                                  projectName,
+                                  resData: JSON.stringify(auxEnv),
+                                  resType: "environment",
+                                },
+                              })
+                                .catch();
+                            },
+                            changeSwitchButtonStatus,
+                          );
                         }
                       };
                       const onSortStateEnviroments: ((dataField: string, order: SortOrder) => void) =
@@ -908,17 +893,12 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                             </label>
                           </Col>
                         </Row>
-                        <ConfirmDialog
-                          name="openChangeEnvStateModal"
-                          onProceed={handleUpdateEnvStateClick}
-                          onNotProceed={handleUpdateEnvStateClickRevert}
-                          title="Environment change state"
-                          closeOnProceed={true}
-                        />
                         </React.Fragment>
                       );
                     }}
                 </Mutation>
+                )}
+                </ConfirmDialog>
                 <Mutation mutation={ADD_RESOURCE_MUTATION} onCompleted={handleMtAddEnvsRes}>
                   { (addResources: MutationFn<IAddEnvAttr, {projectName: string; resData: string; resType: string}>,
                      mutationRes: MutationResult): React.ReactNode => {
@@ -1179,8 +1159,6 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
       onLoad: (): void => {
         dispatch(actions.loadResources(projectName));
       },
-      onOpenChangeEnvStateModal: (): void => { dispatch(openConfirmDialog("openChangeEnvStateModal")); },
-      onOpenChangeRepoStateModal: (): void => { dispatch(openConfirmDialog("openChangeRepoStateModal")); },
       onOpenEnvsModal: (): void => { dispatch(actions.openAddEnvModal()); },
       onOpenFilesModal: (): void => { dispatch(actions.openAddFilesModal()); },
       onOpenOptionsModal: (row: string): void => { dispatch(actions.openOptionsModal(row)); },

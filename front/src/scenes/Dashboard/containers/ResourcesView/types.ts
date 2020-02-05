@@ -120,8 +120,6 @@ export interface IResourcesViewDispatchProps {
   onDownloadFile(fileName: string): void;
   onFilter(newValues: {}): void;
   onLoad(): void;
-  onOpenChangeEnvStateModal(): void;
-  onOpenChangeRepoStateModal(): void;
   onOpenEnvsModal(): void;
   onOpenFilesModal(): void;
   onOpenOptionsModal(row: string): void;

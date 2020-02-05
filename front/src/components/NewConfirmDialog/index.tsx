@@ -10,7 +10,7 @@ import translate from "../../utils/translations/translate";
 import { Button } from "../Button/index";
 import { Modal } from "../Modal/index";
 
-export type ConfirmFn = (callback: () => void) => void;
+export type ConfirmFn = (confirmCallback: () => void, cancelCallback?: () => void) => void;
 
 interface IConfirmDialogProps {
   message?: string;
@@ -20,20 +20,25 @@ interface IConfirmDialogProps {
 
 export const confirmDialog: React.FC<IConfirmDialogProps> = (props: IConfirmDialogProps): JSX.Element => {
   const [isOpen, setOpen] = React.useState(false);
-  const [callback, setCallback] = React.useState(() => (): void => undefined);
+  const [confirmCallback, setConfirmCallback] = React.useState(() => (): void => undefined);
+  const [cancelCallback, setCancelCallback] = React.useState(() => (): void => undefined);
 
-  const confirm: (callbackFn: () => void) => void = (callbackFn: () => void): void => {
+  const confirm: ConfirmFn = (confirmFn: () => void, cancelFn?: () => void): void => {
     setOpen(true);
-    setCallback(() => callbackFn);
+    setConfirmCallback(() => confirmFn);
+    if (cancelFn !== undefined) {
+      setCancelCallback(() => cancelFn);
+    }
   };
 
   const handleClose: (() => void) = (): void => {
     setOpen(false);
+    cancelCallback();
   };
 
   const handleProceed: (() => void) = (): void => {
     setOpen(false);
-    callback();
+    confirmCallback();
   };
 
   return (
