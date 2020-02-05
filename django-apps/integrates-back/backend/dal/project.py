@@ -357,3 +357,38 @@ def get_comments(project_name):
             ExclusiveStartKey=response['LastEvaluatedKey'])
         items += response['Items']
     return items
+
+
+def add_user(project_name, user_email, role):
+    """Adding user role in a project."""
+    resp = False
+    item = integrates_dal.get_project_dynamo(project_name)
+    if item == []:
+        try:
+            response = TABLE.put_item(
+                Item={
+                    'project_name': project_name.lower(),
+                    role: set([user_email])
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        except ClientError:
+            rollbar.report_exc_info()
+    else:
+        try:
+            response = TABLE.update_item(
+                Key={
+                    'project_name': project_name.lower(),
+                },
+                UpdateExpression='ADD #rol :val1',
+                ExpressionAttributeNames={
+                    '#rol': role
+                },
+                ExpressionAttributeValues={
+                    ':val1': set([user_email])
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        except ClientError:
+            rollbar.report_exc_info()
+    return resp

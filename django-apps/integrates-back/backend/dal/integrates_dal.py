@@ -116,44 +116,6 @@ def get_project_dynamo(project):
     return items
 
 
-def add_user_to_project_dynamo(project_name, user_email, role):
-    """Adding user role in a project."""
-    table = DYNAMODB_RESOURCE.Table('FI_projects')
-    item = get_project_dynamo(project_name)
-    if item == []:
-        try:
-            response = table.put_item(
-                Item={
-                    'project_name': project_name.lower(),
-                    role: set([user_email])
-                }
-            )
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            return resp
-        except ClientError:
-            rollbar.report_exc_info()
-            return False
-    else:
-        try:
-            response = table.update_item(
-                Key={
-                    'project_name': project_name.lower(),
-                },
-                UpdateExpression='ADD #rol :val1',
-                ExpressionAttributeNames={
-                    '#rol': role
-                },
-                ExpressionAttributeValues={
-                    ':val1': set([user_email])
-                }
-            )
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            return resp
-        except ClientError:
-            rollbar.report_exc_info()
-            return False
-
-
 def remove_role_to_project_dynamo(project_name, user_email, role):
     """Remove user role in a project."""
     table = DYNAMODB_RESOURCE.Table('FI_projects')

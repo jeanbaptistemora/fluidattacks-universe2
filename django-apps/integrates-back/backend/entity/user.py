@@ -263,8 +263,7 @@ def create_new_user(context, new_user_data, project_name):
     if phone_number and phone_number[1:].isdigit():
         user_domain.add_phone_to_user(email, phone_number)
     if project_name and role == 'customeradmin':
-        integrates_dal.add_user_to_project_dynamo(project_name.lower(),
-                                                  email.lower(), role)
+        project_domain.add_user(project_name.lower(), email.lower(), role)
     if project_name and user_domain.update_project_access(email, project_name, True):
         description = project_domain.get_description(project_name.lower())
         project_url = \
@@ -422,7 +421,6 @@ def modify_user_information(context, modified_user_data, project_name):
         )
 
     if role == 'customeradmin':
-        integrates_dal.add_user_to_project_dynamo(project_name.lower(),
-                                                  email.lower(), role)
+        project_domain.add_user(project_name.lower(), email.lower(), role)
     elif is_customeradmin(project_name, email):
         integrates_dal.remove_role_to_project_dynamo(project_name, email, 'customeradmin')
