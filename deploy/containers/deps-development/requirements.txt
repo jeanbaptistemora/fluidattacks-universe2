@@ -1,5 +1,5 @@
 attrs==19.3.0
-awscli==1.16.314
+awscli==1.17.11
 codecov==2.0.15
 freezegun==0.3.12
 gitpython==3.0.5
