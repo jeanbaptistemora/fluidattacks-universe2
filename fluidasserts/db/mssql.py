@@ -10,7 +10,7 @@ import pyodbc
 from pyodbc import Connection, Cursor
 
 # local imports
-from fluidasserts import DAST, HIGH, LOW
+from fluidasserts import DAST, HIGH, LOW, MEDIUM
 from fluidasserts.db import _get_result_as_tuple
 from fluidasserts.utils.decorators import api, unknown_if
 
@@ -25,7 +25,7 @@ ConnectionString = NamedTuple('ConnectionString', [
 
 def _is_auth_error(exception: pyodbc.InterfaceError) -> bool:
     """Return True if the exception is an authentication exception."""
-    return '28000' in exception.args[0]
+    return exception.args[0] == '28000'
 
 
 def _is_xp_cmdshell_error(exception: pyodbc.OperationalError) -> bool:
@@ -225,6 +225,68 @@ def has_text(dbname: str, user: str, password: str, host: str, port: int,
                 break
 
     (vulns if success else safes).append(msg_open if success else msg_closed)
+
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(pyodbc.OperationalError,
+            pyodbc.ProgrammingError,
+            pyodbc.InterfaceError)
+def has_login_password_expiration_disabled(dbname: str,
+                                           user: str,
+                                           password: str,
+                                           host: str,
+                                           port: int) -> Tuple:
+    """
+    Check if login password expiration policy is disabled.
+
+    Unchanged passwords provide a means for compromised passwords to be used
+    for unauthorized access to DBMS accounts over a long period of time.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+
+    :returns: - ``OPEN`` if there are logins that have password expiration
+                 policy disabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port)
+
+    msg_open: str = 'Loggings have password expiration policy disabled.'
+    msg_closed: str = 'Loggings have password expiration policy enabled.'
+
+    try:
+        with database(connection_string) as (_, cursor):
+            cursor.execute("""select name, is_expiration_checked
+                              from master.sys.sql_logins
+                              where type = 'S'""")
+            for row in cursor:
+                value = {}
+                for des_name in enumerate(row.cursor_description):
+                    value[des_name[1][0]] = row[des_name[0]]
+                (vulns if not value['is_expiration_checked'] else
+                 safes).append(f'Login/{value["name"]}')
+    except (pyodbc.ProgrammingError, pyodbc.OperationalError) as exception:
+        allow_exceptions = [_is_permission_error, _is_auth_error]
+        if not any(map(lambda x: x(exception), allow_exceptions)):  # noqa
+            raise exception
 
     return _get_result_as_tuple(
         host=host,

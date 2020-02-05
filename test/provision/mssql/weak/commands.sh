@@ -30,7 +30,7 @@ USE $DB_NAME;
 CREATE USER $DB_USER FOR LOGIN $DB_USER WITH DEFAULT_SCHEMA = $DB_NAME;
 GO"
 
-# Enabled xp_cmdshell
+# Enabled xp_cmdshell check: can_execute_commands
 execute_query "
 -- To allow advanced options to be changed.
 EXEC sp_configure 'show advanced options', 1;
@@ -45,3 +45,43 @@ GO
 RECONFIGURE;
 GO
 "
+
+# Enable ad hoc distributed queries check:
+execute_query "
+sp_configure 'show advanced options', 1;
+RECONFIGURE;
+GO
+sp_configure 'Ad Hoc Distributed Queries', 1;
+RECONFIGURE;
+GO
+
+SELECT a.*
+FROM OPENROWSET('SQLNCLI', 'Server=Seattle1;Trusted_Connection=yes;',
+     'SELECT GroupName, Name, DepartmentID
+      FROM AdventureWorks2012.HumanResources.Department
+      ORDER BY GroupName, Name') AS a;
+GO
+"
+
+# Enable agent xps option
+execute_query "
+sp_configure 'show advanced options', 1;
+GO
+RECONFIGURE WITH OVERRIDE;
+GO
+sp_configure 'Agent XPs', 1;
+GO
+RECONFIGURE WITH OVERRIDE
+GO"
+
+# Enable TRUSTWORTHY
+execute_query "
+ALTER DATABSE $DB_NAME SET TRUSTWORTHY ON"
+
+# Grant permission ALTER ANY DATABASE
+execute_query "
+GRANT ALTER ANY DATABASE TO "
+
+# Disablde password check policy
+execute_query "
+ALTER LOGIN $DB_USER WITH check_policy = OFF"
