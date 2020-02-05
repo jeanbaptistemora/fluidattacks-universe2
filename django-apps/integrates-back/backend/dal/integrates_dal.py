@@ -12,128 +12,9 @@ from backend.dal.helpers import dynamodb
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
 
 
-def get_user_dynamo(email):
-    """ Get legal notice acceptance status """
-    table = DYNAMODB_RESOURCE.Table('FI_users')
-    filter_key = 'email'
-    filtering_exp = Key(filter_key).eq(email)
-    response = table.query(KeyConditionExpression=filtering_exp)
-    items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = table.query(
-                KeyConditionExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
-    return items
-
-
-def get_company_alert_dynamo(company_name, project_name):
-    """ Get alerts of a company. """
-    company_name = company_name.lower()
-    project_name = project_name.lower()
-    table = DYNAMODB_RESOURCE.Table('FI_alerts_by_company')
-    filter_key = 'company_name'
-    filter_sort = 'project_name'
-    if project_name == 'all':
-        filtering_exp = Key(filter_key).eq(company_name)
-        response = table.query(
-            KeyConditionExpression=filtering_exp)
-    else:
-        filtering_exp = Key(filter_key).eq(company_name) & \
-            Key(filter_sort).eq(project_name)
-        response = table.query(KeyConditionExpression=filtering_exp)
-    items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = table.query(
-                KeyConditionExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
-    return items
-
-
 def attribute_exists(table_name, primary_key, data):
     return get_table_attributes_dynamo(
         table_name, primary_key, data)
-
-
-def set_company_alert_dynamo(message, company_name, project_name):
-    """ Create, update or activate an alert for a company. """
-    project_name = project_name.lower()
-    company_name = company_name.lower()
-    primary_key = {'project_name': project_name}
-    project_exists = attribute_exists(
-        'FI_projects', primary_key, ['project_name'])
-    resp = False
-    if project_name == 'all' or project_exists:
-        table = DYNAMODB_RESOURCE.Table('FI_alerts_by_company')
-        item = get_company_alert_dynamo(company_name, project_name)
-        if item == []:
-            try:
-                response = table.put_item(
-                    Item={
-                        'company_name': company_name,
-                        'project_name': project_name,
-                        'message': message,
-                        'status_act': '1',
-                    }
-                )
-                resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            except ClientError:
-                rollbar.report_exc_info()
-        else:
-            for _item in item:
-                try:
-                    response = table.update_item(
-                        Key={
-                            'company_name': _item['company_name'],
-                            'project_name': _item['project_name'],
-                        },
-                        UpdateExpression='SET message = :val1,\
-                            status_act = :val2',
-                        ExpressionAttributeValues={
-                            ':val1': str(message),
-                            ':val2': '1',
-                        }
-                    )
-                except ClientError:
-                    rollbar.report_exc_info()
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    return resp
-
-
-def change_status_comalert_dynamo(message, company_name, project_name):
-    """ Activate or deactivate the alert of a company. """
-    message = message.lower()
-    company_name = company_name.lower()
-    project_name = project_name.lower()
-    table = DYNAMODB_RESOURCE.Table('FI_alerts_by_company')
-    if ((project_name == 'all' and message == 'deactivate') or
-            (project_name != 'all' and message == 'deactivate')):
-        status = '0'
-    else:
-        status = '1'
-    item = get_company_alert_dynamo(company_name, project_name)
-    for _item in item:
-        payload = {'company_name': _item['company_name'],
-                   'project_name': _item['project_name'], }
-        try:
-            table.update_item(
-                Key=payload,
-                UpdateExpression='SET status_act = :val1',
-                ExpressionAttributeValues={
-                    ':val1': status,
-                }
-            )
-        except ClientError:
-            rollbar.report_exc_info()
-            return False
-    return True
 
 
 def get_comments_dynamo(finding_id, comment_type):
@@ -294,40 +175,6 @@ def remove_role_to_project_dynamo(project_name, user_email, role):
     except ClientError:
         rollbar.report_exc_info()
         return False
-
-
-def delete_finding_dynamo(finding_id):
-    """ Delete a finding in DynamoDb."""
-    table = DYNAMODB_RESOURCE.Table('FI_findings')
-    try:
-        response = table.delete_item(
-            Key={
-                'finding_id': finding_id,
-            }
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
-    except ClientError:
-        rollbar.report_exc_info()
-        return False
-
-
-def get_toe_dynamo(project):
-    """ Gets TOE of a proyect. """
-    table = DYNAMODB_RESOURCE.Table('FI_toe')
-    filter_key = 'project'
-    filtering_exp = Key(filter_key).eq(project)
-    response = table.query(KeyConditionExpression=filtering_exp)
-    items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = table.query(
-                KeyConditionExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
-    return items
 
 
 def weekly_report_dynamo(
@@ -631,42 +478,6 @@ def get_vulnerabilities_dynamo(finding_id):
             KeyConditionExpression=filtering_exp,
             ExclusiveStartKey=response['LastEvaluatedKey'])
         items += response['Items']
-    return items
-
-
-def get_vulnerability_dynamo(
-        finding_id, vuln_type="", where="", specific="", uuid=""):
-    """Get a vulnerability."""
-    table = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
-    hash_key = 'finding_id'
-    if finding_id and uuid:
-        range_key = 'UUID'
-        key_exp = Key(hash_key).eq(finding_id) & Key(range_key).eq(uuid)
-        response = table.query(KeyConditionExpression=key_exp)
-    elif finding_id and vuln_type and where and specific:
-        key_exp = Key(hash_key).eq(finding_id)
-        filtering_exp = Attr("vuln_type").eq(vuln_type) & Attr("where").eq(where) \
-            & Attr("specific").eq(str(specific))
-        response = table.query(
-            KeyConditionExpression=key_exp,
-            FilterExpression=filtering_exp)
-    else:
-        response = table.query()
-    items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            if filtering_exp:
-                response = table.query(
-                    KeyConditionExpression=key_exp,
-                    FilterExpression=filtering_exp,
-                    ExclusiveStartKey=response['LastEvaluatedKey'])
-            else:
-                response = table.query(
-                    KeyConditionExpression=key_exp,
-                    ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
     return items
 
 
