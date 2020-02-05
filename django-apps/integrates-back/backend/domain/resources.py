@@ -139,8 +139,7 @@ File already exists', 'error')
 
 def remove_file(file_name, project_name):
     project_name = project_name.lower()
-    file_list = \
-        integrates_dal.get_project_dynamo(project_name)[0]['files']
+    file_list = project_dal.get(project_name)[0]['files']
     index = -1
     cont = 0
     while index < 0 and len(file_list) > cont:
@@ -211,13 +210,13 @@ def update_resource(res_data, project_name, res_type, user_email):
     if res_type == 'repository':
         resource_url = res_data.get('urlRepo')
         res_list = \
-            integrates_dal.get_project_dynamo(project_name)[0]['repositories']
+            project_dal.get(project_name)[0]['repositories']
         res_id = 'urlRepo'
         res_name = 'repositories'
     elif res_type == 'environment':
         resource_url = res_data.get('urlEnv')
         res_list = \
-            integrates_dal.get_project_dynamo(project_name)[0]['environments']
+            project_dal.get(project_name)[0]['environments']
         res_id = 'urlEnv'
         res_name = 'environments'
     cont = 0

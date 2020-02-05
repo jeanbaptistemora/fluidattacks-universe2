@@ -16,7 +16,7 @@ from promise import Promise
 from rediscluster.nodemanager import RedisClusterException
 from simpleeval import AttributeDoesNotExist
 
-from backend.dal import integrates_dal
+from backend.dal import integrates_dal, project as project_dal
 
 from backend.domain import (
     user as user_domain, event as event_domain, finding as finding_domain
@@ -131,7 +131,7 @@ def resolve_project_name(args, kwargs):
 def resolve_project_data(project_name):
     """Get project data or mock it if needed."""
     if project_name:
-        project_data = integrates_dal.get_project_dynamo(project_name)[0]
+        project_data = project_dal.get(project_name)[0]
         if 'customeradmin' not in project_data:
             project_data['customeradmin'] = set()
     else:

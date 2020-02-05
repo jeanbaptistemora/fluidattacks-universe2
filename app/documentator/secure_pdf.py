@@ -3,7 +3,7 @@
 import time
 import os
 from PyPDF2 import PdfFileWriter, PdfFileReader
-from backend.dal import integrates_dal
+from backend.dal import project as project_dal
 
 
 class SecurePDF():
@@ -25,7 +25,7 @@ class SecurePDF():
     def create_full(self, username, basic_pdf_name, project):
         """ Execute the security process in a PDF. """
         self.secure_pdf_username = username
-        project_info = integrates_dal.get_project_dynamo(project.lower())
+        project_info = project_dal.get(project.lower())
         if project_info and project_info[0].get('type') == 'continuous':
             self.secure_pdf_filename = self.lock(basic_pdf_name)
         else:

@@ -478,12 +478,12 @@ def remove_all_project_access(project):
 
 
 def get_project_info(project):
-    project = integrates_dal.get_project_dynamo(project)
+    project = project_dal.get(project)
     return project
 
 
 def get_managers(project_name):
-    project = integrates_dal.get_project_dynamo(project_name)
+    project = project_dal.get(project_name)
     is_admin = project[0].get('customeradmin')
     if is_admin is None:
         is_admin = ''

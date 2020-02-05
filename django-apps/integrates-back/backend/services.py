@@ -60,7 +60,7 @@ def has_access_to_event(user, event_id, role):
 
 def is_customeradmin(project, email):
     """Verify if a user is a customeradmin."""
-    project_data = integrates_dal.get_project_dynamo(project)
+    project_data = project_dal.get(project)
     for data in project_data:
         if data.get('customeradmin') and email.lower() in data['customeradmin']:
             return True

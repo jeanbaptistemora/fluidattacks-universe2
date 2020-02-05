@@ -97,25 +97,6 @@ def delete_comment_dynamo(finding_id, user_id):
         return False
 
 
-def get_project_dynamo(project):
-    """Get a project info."""
-    filter_value = project.lower()
-    table = DYNAMODB_RESOURCE.Table('FI_projects')
-    filter_key = 'project_name'
-    filtering_exp = Key(filter_key).eq(filter_value)
-    response = table.query(KeyConditionExpression=filtering_exp)
-    items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = table.query(
-                KeyConditionExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
-    return items
-
-
 def remove_role_to_project_dynamo(project_name, user_email, role):
     """Remove user role in a project."""
     table = DYNAMODB_RESOURCE.Table('FI_projects')

@@ -362,7 +362,7 @@ def get_comments(project_name):
 def add_user(project_name, user_email, role):
     """Adding user role in a project."""
     resp = False
-    item = integrates_dal.get_project_dynamo(project_name)
+    item = get(project_name)
     if item == []:
         try:
             response = TABLE.put_item(
@@ -392,3 +392,18 @@ def add_user(project_name, user_email, role):
         except ClientError:
             rollbar.report_exc_info()
     return resp
+
+
+def get(project):
+    """Get a project info."""
+    filter_value = project.lower()
+    filter_key = 'project_name'
+    filtering_exp = Key(filter_key).eq(filter_value)
+    response = TABLE.query(KeyConditionExpression=filtering_exp)
+    items = response['Items']
+    while response.get('LastEvaluatedKey'):
+        response = TABLE.query(
+            KeyConditionExpression=filtering_exp,
+            ExclusiveStartKey=response['LastEvaluatedKey'])
+        items += response['Items']
+    return items
