@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . /app
 
-ARG URL_NODESOURCE='https://deb.nodesource.com/setup_9.x'
+ARG URL_NODESOURCE='https://deb.nodesource.com/setup_10.x'
 ARG URL_DEBIAN='https://dl.yarnpkg.com/debian/'
 ARG URL_DEBIAN_PUBKEY='https://dl.yarnpkg.com/debian/pubkey.gpg'
 ARG URL_GETPIP='https://bootstrap.pypa.io/get-pip.py'
