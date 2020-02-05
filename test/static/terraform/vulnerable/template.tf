@@ -389,3 +389,10 @@ resource "aws_elb" "bar" {
     Name = "foobar-terraform-elb"
   }
 }
+
+resource "aws_fsx_windows_file_system" "example" {
+  active_directory_id = "${aws_directory_service_directory.example.id}"
+  storage_capacity    = 300
+  subnet_ids          = ["${aws_subnet.example.id}"]
+  throughput_capacity = 1024
+}
