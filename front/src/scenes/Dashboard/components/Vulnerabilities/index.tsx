@@ -16,17 +16,16 @@ import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Reducer } from "redux";
 import { StateType } from "typesafe-actions";
 import { Button } from "../../../../components/Button/index";
-import { ConfirmDialog } from "../../../../components/ConfirmDialog/index";
 import { DataTableNext } from "../../../../components/DataTableNext";
 import { approveFormatter, deleteFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { FluidIcon } from "../../../../components/FluidIcon";
+import { ConfirmDialog, ConfirmFn } from "../../../../components/NewConfirmDialog/index";
 import store from "../../../../store/index";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
 import translate from "../../../../utils/translations/translate";
-import * as actions from "../../actions";
 import * as actionTypes from "../../containers/DescriptionView/actionTypes";
 import { deleteVulnerabilityModal as DeleteVulnerabilityModal } from "../DeleteVulnerability/index";
 import { IDeleteVulnAttr } from "../DeleteVulnerability/types";
@@ -792,14 +791,6 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     }
                 };
 
-                const openApproveConfirm: (() => void) = (): void => {
-                  store.dispatch(actions.openConfirmDialog("confirmApproveVulns"));
-                };
-
-                const openDeleteConfirm: (() => void) = (): void => {
-                  store.dispatch(actions.openConfirmDialog("confirmDeleteVulns"));
-                };
-
                 const handleApproveAllVulnerabilities: (() => void) = (): void => {
                   approveVulnerability({ variables: {approvalStatus: true, findingId: props.findingId }})
                   .catch();
@@ -993,29 +984,39 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                           tableHeader={style.tableHeader}
                         />
                         {_.includes(["admin", "analyst"], props.userRole) ?
-                        <ButtonToolbar className="pull-right">
-                          <Button onClick={openApproveConfirm}>
-                            <FluidIcon icon="verified" />
-                            {translate.t("search_findings.tab_description.approve_all")}
-                          </Button>
-                          <Button onClick={openDeleteConfirm}>
-                            <FluidIcon icon="delete" />
-                            {translate.t("search_findings.tab_description.delete_all")}
-                          </Button>
-                        </ButtonToolbar>
+                          <ButtonToolbar className="pull-right">
+                            <ConfirmDialog title={translate.t("search_findings.tab_description.approve_all_vulns")}>
+                              {(confirm: ConfirmFn): React.ReactNode => {
+                                const handleClick: (() => void) = (): void => {
+                                  confirm(() => { handleApproveAllVulnerabilities(); });
+                                };
+
+                                return (
+                                  <Button onClick={handleClick}>
+                                    <FluidIcon icon="verified" />
+                                    {translate.t("search_findings.tab_description.approve_all")}
+                                  </Button>
+                                );
+                              }}
+                            </ConfirmDialog>
+                            <ConfirmDialog title={translate.t("search_findings.tab_description.delete_all_vulns")}>
+                              {(confirm: ConfirmFn): React.ReactNode => {
+                                const handleClick: (() => void) = (): void => {
+                                  confirm(() => { handleDeleteAllVulnerabilities(); });
+                                };
+
+                                return (
+                                  <Button onClick={handleClick}>
+                                    <FluidIcon icon="delete" />
+                                    {translate.t("search_findings.tab_description.delete_all")}
+                                  </Button>
+                                );
+                              }}
+                            </ConfirmDialog>
+                          </ButtonToolbar>
                         : undefined}
                       </React.Fragment>
                       : undefined }
-                      <ConfirmDialog
-                        name="confirmDeleteVulns"
-                        onProceed={handleDeleteAllVulnerabilities}
-                        title={translate.t("search_findings.tab_description.delete_all_vulns")}
-                      />
-                      <ConfirmDialog
-                        name="confirmApproveVulns"
-                        onProceed={handleApproveAllVulnerabilities}
-                        title={translate.t("search_findings.tab_description.approve_all_vulns")}
-                      />
                       <DeleteVulnerabilityModal
                         findingId={props.findingId}
                         id={vulnerabilityId}
