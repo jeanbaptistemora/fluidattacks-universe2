@@ -2,7 +2,7 @@ ARG CI_COMMIT_REF_NAME
 
 FROM registry.gitlab.com/fluidattacks/integrates/deps-base:$CI_COMMIT_REF_NAME
 
-ARG GECKO_DRIVER_URL='https://chromedriver.storage.googleapis.com/78.0.3904.105/chromedriver_linux64.zip'
+ARG GECKO_DRIVER_URL='https://chromedriver.storage.googleapis.com/80.0.3987.16/chromedriver_linux64.zip'
 ARG GOOGLE_CHROME_URL='https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
 ARG CHROME_SIGNING_KEY='https://dl.google.com/linux/linux_signing_key.pub'
 ARG DYNAMODB_LOCAL_URL='https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.tar.gz'

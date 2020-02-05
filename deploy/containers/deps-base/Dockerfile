@@ -41,8 +41,8 @@ RUN apt install -yo DPkg::Options::='--force-confnew' --no-install-recommends \
 RUN curl -sL "$NODE_URL" | bash - \
     && apt install -y --no-install-recommends nodejs \
   && curl -L "$TREASUREDATA_URL" | sh \
-  && gem install -N asciidoctor:1.5.8 concurrent-ruby \
-  && gem install -N asciidoctor-pdf:1.5.0.alpha.16 --pre \
+  && gem install -N asciidoctor:2.0.10 concurrent-ruby \
+  && gem install -N asciidoctor-pdf:1.5.0.rc.3 --pre \
   && /usr/sbin/td-agent-gem install \
     eventmachine \
     em-http-request \
