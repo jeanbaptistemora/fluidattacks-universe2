@@ -162,3 +162,18 @@
   background-color: #FF3435;
   color: #FFFFFF;
 }
+
+:local .inputTags {
+  border: 1px solid #ddd;
+  background: #eee;
+  font-size: 12px;
+  display: inline-block;
+  padding: 5px;
+  margin: 0 5px;
+  border-radius: 2px;
+}
+
+:local .tagInput {
+  display: inline-block;
+  width: 50%;
+}

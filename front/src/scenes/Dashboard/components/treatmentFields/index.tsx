@@ -5,7 +5,7 @@ import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button/index";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { formatDropdownField } from "../../../../utils/formatHelpers";
-import { dateField, dropdownField, textAreaField, textField } from "../../../../utils/forms/fields";
+import { dateField, dropdownField, tagInputField, textAreaField, textField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
 import { isLowerDate, isValidDate, isValidVulnSeverity, numeric, required } from "../../../../utils/validations";
 import { EditableField } from "../../components/EditableField";
@@ -43,9 +43,9 @@ const treatmentFieldsView: renderFormFieldsFn =
     const renderVulnFields: (() => JSX.Element) = (): JSX.Element => (
       <React.Fragment>
         <Row>
-          <Col md={6} sm={12} xs={12}>
+          <Col md={12} sm={12} xs={12}>
             <EditableField
-              component={textField}
+              component={tagInputField}
               currentValue={!_.isUndefined(props.dataset.tag) ? props.dataset.tag : ""}
               label={translate.t("search_findings.tab_description.tag")}
               name="tag"

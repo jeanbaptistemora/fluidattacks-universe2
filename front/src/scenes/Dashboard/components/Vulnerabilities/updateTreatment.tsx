@@ -65,7 +65,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
         mutationResVuln: MutationResult): React.ReactNode => {
 
           const handleUpdateTreatmentVuln: ((dataTreatment: IDescriptionViewProps["dataset"]) => void) =
-          (dataTreatment: IDescriptionViewProps["dataset"]): void => {
+            (dataTreatment: IDescriptionViewProps["dataset"]): void => {
               if (props.vulnsSelected.length === 0) {
                 msgError(translate.t("search_findings.tab_resources.no_selection"));
               } else {

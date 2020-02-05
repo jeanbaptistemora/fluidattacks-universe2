@@ -17,6 +17,7 @@ import "react-datetime/css/react-datetime.css";
  */
 // @ts-ignore
 import ReactPhoneInput from "react-phone-input-2";
+import { Tag, WithContext as ReactTags } from "react-tag-input";
 import { WrappedFieldProps } from "redux-form";
 import { default as style } from "./index.css";
 
@@ -88,6 +89,54 @@ export const textField: React.FC<CustomFieldProps> =
       {fieldProps.meta.touched && fieldProps.meta.error ? renderError(fieldProps.meta.error as string) : undefined}
     </div>
   );
+
+export const tagInputField: React.FC<CustomFieldProps> =
+  (fieldProps: CustomFieldProps): JSX.Element => {
+    const tagsEmpty: Tag[] = [];
+    const [tagsInput, setTagsInput] = React.useState(tagsEmpty);
+
+    const onMount: (() => void) = (): void => {
+      const tags: Tag[] = fieldProps.input.value.split(",")
+        .filter((inputTag: string) => !_.isEmpty(inputTag))
+        .map((inputTag: string) => ({id: inputTag.trim(), text: inputTag.trim()}));
+      setTagsInput(tags);
+    };
+    React.useEffect(onMount, []);
+
+    const tagToString: ((tags: Tag[]) => string) = (tags: Tag[]): string => (
+      tags.map((tag: Tag) => tag.text)
+        .join(","));
+
+    const handleAddition: ((tag: Tag) => void) = (tag: Tag): void => {
+      setTagsInput([...tagsInput, tag]);
+      const newTag: string = tagToString([...tagsInput, tag]);
+      fieldProps.input.onChange(newTag);
+      fieldProps.input.value = newTag;
+    };
+    const handleDelete: ((index: number) => void) = (index: number): void => {
+      let newTags: Tag[] = tagsInput;
+      newTags = newTags.filter((tag: Tag, indexFilter: number) => indexFilter !== index);
+      setTagsInput(newTags);
+      const newTag: string = tagToString(newTags);
+      fieldProps.input.onChange(newTag);
+      fieldProps.input.value = newTag;
+    };
+    const commaKeyCodes: number = 188;
+
+    return (
+      <ReactTags
+        allowDragDrop={false}
+        classNames={{tagInputField: style.formControl, tag: style.inputTags, tagInput: style.tagInput}}
+        delimiters={[commaKeyCodes]}
+        handleDelete={handleDelete}
+        handleAddition={handleAddition}
+        inputFieldPosition="inline"
+        name="tags"
+        placeholder=""
+        tags={tagsInput}
+      />
+    );
+  };
 
 export const phoneNumberField: React.FC<CustomFieldProps> =
   (fieldProps: CustomFieldProps): JSX.Element => (
