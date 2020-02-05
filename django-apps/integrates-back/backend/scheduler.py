@@ -524,3 +524,20 @@ def reset_expired_accepted_findings():
                 updated_values = {'treatment': 'NEW'}
                 finding_domain.update_treatment(finding_id, updated_values, '')
                 util.invalidate_cache(finding_id)
+
+
+def delete_pending_projects():
+    """ Delete pending to delete projects """
+    rollbar.report_message('Warning: Function to delete projects if '
+                           'deletion_date expires is running', 'warning')
+    today = datetime.now()
+    projects = project_domain.get_pending_projects()
+    for project in projects:
+        historic_deletion = project.get('historic_deletion', [{}])
+        last_state = historic_deletion[-1]
+        deletion_date = last_state.get(
+            'deletion_date', today.strftime('%Y-%m-%d %H:%M:%S'))
+        deletion_date = datetime.strptime(deletion_date, '%Y-%m-%d %H:%M:%S')
+        if deletion_date < today:
+            project_domain.remove_project(project.get('project_name'), '')
+            util.invalidate_cache(project.get('project_name'))

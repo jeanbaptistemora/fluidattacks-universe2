@@ -236,6 +236,21 @@ def get_attributes(project_name, attributes=None):
     return response.get('Item', {})
 
 
+def get_filtered_list(attributes='', filter_expresion=None):
+    scan_attrs = {}
+    if filter_expresion:
+        scan_attrs['FilterExpression'] = filter_expresion
+    if attributes:
+        scan_attrs['ProjectionExpression'] = attributes
+    response = TABLE.scan(**scan_attrs)
+    projects = response['Items']
+    while response.get('LastEvaluatedKey'):
+        scan_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
+        response = TABLE.scan(**scan_attrs)
+        projects += response['Items']
+    return projects
+
+
 def is_alive(project):
     """Validate if a project exist and is not deleted."""
     project_name = project.lower()
@@ -407,3 +422,8 @@ def get(project):
             ExclusiveStartKey=response['LastEvaluatedKey'])
         items += response['Items']
     return items
+
+
+def get_pending_projects():
+    filtering_exp = Attr('project_status').eq('PENDING_DELETION')
+    return get_filtered_list('project_name, historic_deletion', filtering_exp)

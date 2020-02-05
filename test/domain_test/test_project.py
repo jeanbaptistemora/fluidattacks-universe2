@@ -11,7 +11,8 @@ from backend.domain.project import (
     is_vulnerability_closed, get_max_severity, get_max_open_severity,
     get_open_vulnerability_date, get_mean_remediate, get_total_treatment,
     is_finding_in_drafts, list_drafts, list_comments, get_active_projects,
-    get_alive_projects, list_findings, get_finding_project_name)
+    get_alive_projects, list_findings, get_finding_project_name, get_pending_projects
+)
 from backend.dal.integrates_dal import DYNAMODB_RESOURCE
 import backend.dal.vulnerability as vuln_dal
 
@@ -263,3 +264,9 @@ class ProjectTest(TestCase):
         finding_id = '475041513'
         test_data = get_finding_project_name(finding_id)
         assert test_data == 'unittesting'
+
+    def test_pending_deletion(self):
+        projects = get_pending_projects()
+        projects = [project['project_name'] for project in projects]
+        expected_output = ['pendingproject']
+        assert expected_output == projects

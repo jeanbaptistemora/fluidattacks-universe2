@@ -83,6 +83,10 @@ def add_user(project_name, user_email, role):
     return project_dal.add_user(project_name, user_email, role)
 
 
+def get_pending_projects():
+    return project_dal.get_pending_projects()
+
+
 def get_historic_deletion(project_name):
     historic_deletion = project_dal.get_attributes(
         project_name.lower(), ['historic_deletion'])
@@ -152,7 +156,11 @@ def remove_project(project_name, user_email):
         'are_findings_masked are_users_removed is_project_finished are_resources_removed'
     )
     response = Status(False, False, False, False)
-    if is_alive(project) and user_domain.get_project_access(user_email, project):
+    data = project_dal.get_attributes(project, ['project_status'])
+    validation = False
+    if user_email:
+        validation = is_alive(project) and user_domain.get_project_access(user_email, project)
+    if (not user_email and data.get('project_status') == 'PENDING_DELETION') or validation:
         tzn = pytz.timezone(settings.TIME_ZONE)
         today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
         are_users_removed = remove_all_users_access(project)

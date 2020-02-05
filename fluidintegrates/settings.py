@@ -292,6 +292,7 @@ CRONJOBS = [
         'backend.scheduler.send_unsolved_to_all'),
     ('0 6,13 * * 1-5', 'backend.scheduler.update_indicators'),
     ('0 0 * * *', 'backend.scheduler.reset_expired_accepted_findings'),
+    ('0 0 * * *', 'backend.scheduler.delete_pending_projects'),
 ]
 
 
