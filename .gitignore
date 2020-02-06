@@ -19,3 +19,7 @@ package-lock.json
 # Commitlint
 commitlint.config.js
 parser-preset.js
+
+# Webpack
+*.min.js
+*.min.js.LICENSE
