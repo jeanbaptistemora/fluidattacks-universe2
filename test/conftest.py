@@ -46,7 +46,7 @@ MOCKS = [
     # These need to be built first
     {
         'dns:weak': {
-            'expose': {'53/tcp': 53,'53/udp': 53},
+            'expose': {'53/tcp': 53, '53/udp': 53},
             'asserts_modules': ['proto_dns']
         },
         'ftp:weak': {
@@ -55,11 +55,11 @@ MOCKS = [
         },
         'mysql_db:weak': {
             'expose': {'3306/tcp': 3306},
-            'asserts_modules': ['db', 'syst']
+            'asserts_modules': ['db_mysql', 'syst']
         },
         'mysql_os:hard': {
             'expose': {'22/tcp': 22},
-            'asserts_modules': ['db', 'syst']
+            'asserts_modules': ['db_mysql', 'syst']
         },
         'smb:weak': {
             'expose': {'139/tcp': 139},
@@ -77,7 +77,7 @@ MOCKS = [
             'asserts_modules': ['helper', 'proto_http']
         },
         'dns:hard': {
-            'expose': {'53/tcp': 53,'53/udp': 53},
+            'expose': {'53/tcp': 53, '53/udp': 53},
             'asserts_modules': ['proto_dns']
         },
         'ftp:hard': {
@@ -94,7 +94,7 @@ MOCKS = [
         },
         'mysql_db:hard': {
             'expose': {'3306/tcp': 3306},
-            'asserts_modules': ['db']
+            'asserts_modules': ['db_mysql']
         },
         'mysql_os:weak': {
             'expose': {'22/tcp': 22},
@@ -102,11 +102,11 @@ MOCKS = [
         },
         'mssql:weak': {
             'expose': {'1432/tcp': 1432},
-            'asserts_modules': ['db']
+            'asserts_modules': ['db_mssql']
         },
         'mssql:hard': {
             'expose': {'1433/tcp': 1433},
-            'asserts_modules': ['db']
+            'asserts_modules': ['db_mssql']
         },
         'os:hard': {
             'expose': {'22/tcp': 22},
@@ -118,11 +118,11 @@ MOCKS = [
         },
         'postgresql:hard': {
             'expose': {'5432/tcp': 5432},
-            'asserts_modules': ['db']
+            'asserts_modules': ['db_postgres']
         },
         'postgresql:weak': {
             'expose': {'5432/tcp': 5432},
-            'asserts_modules': ['db']
+            'asserts_modules': ['db_postgres']
         },
         'smb:hard': {
             'expose': {'139/tcp': 139},
@@ -163,8 +163,8 @@ POST_COMMANDS = {
              --command "ALTER USER postgres WITH PASSWORD 'postgres'"
         """,
     ],
-    'mssql:weak': ['./scripts/commands.sh',],
-    'mssql:hard': ['./scripts/commands.sh',],
+    'mssql:weak': ['./scripts/commands.sh', ],
+    'mssql:hard': ['./scripts/commands.sh', ],
 
 }
 

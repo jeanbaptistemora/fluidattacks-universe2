@@ -7,7 +7,7 @@ from __future__ import print_function
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('db')
+pytestmark = pytest.mark.asserts_module('db_mysql')
 
 # local imports
 from fluidasserts.db import mysql

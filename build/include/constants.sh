@@ -15,7 +15,9 @@ export TEST_MARKERS=(
   cloud_azure
   cloud_gcp
   cloud_kubernetes
-  db
+  db_mssql
+  db_mysql
+  db_postgres
   format
   helper
   iot

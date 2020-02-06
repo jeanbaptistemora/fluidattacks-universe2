@@ -124,7 +124,13 @@ test_api_cloud_gcp:
 test_api_cloud_kubernetes:
   <<: *test_template
 
-test_api_db:
+test_api_db_mssql:
+  <<: *test_template
+
+test_api_db_mysql:
+  <<: *test_template
+
+test_api_db_postgres:
   <<: *test_template
 
 test_api_format:

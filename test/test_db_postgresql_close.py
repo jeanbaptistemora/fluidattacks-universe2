@@ -6,7 +6,7 @@
 
 # 3rd party imports
 import pytest
-pytestmark = pytest.mark.asserts_module('db')
+pytestmark = pytest.mark.asserts_module('db_postgres')
 
 # local imports
 from fluidasserts.db import postgresql
