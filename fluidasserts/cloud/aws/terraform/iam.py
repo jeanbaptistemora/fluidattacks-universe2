@@ -131,3 +131,59 @@ def is_policy_miss_configured(
         vulnerabilities=vulnerabilities,
         msg_open=f'IAM Policy is miss configured',
         msg_closed=f'IAM Policy is properly configured')
+
+
+@api(risk=MEDIUM, kind=SAST)
+@unknown_if(FileNotFoundError)
+def has_wildcard_resource_on_write_action(
+        path: str, exclude: Optional[List[str]] = None) -> tuple:
+    """
+    Check if write actions are allowed on all resources.
+
+    Do not allow ``"Resource": "*"`` to have write actions.
+
+    :param path: Location of Terraform template file.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :returns: - ``OPEN`` if any of the referenced rules is not followed.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulnerabilities: list = []
+
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
+            starting_path=path,
+            resource_types=[
+                'aws_iam_role_policy',
+                'aws_iam_group_policy',
+                'aws_iam_policy',
+                'aws_iam_user_policy'
+            ],
+            exclude=exclude):
+        vulnerable_entities: List[str] = []
+        type_ = res_props['type']
+
+        policy = json.loads(res_props.get('policy', '{}'))
+        if helper.policy_statement_privilege(policy['Statement'], 'Allow',
+                                             'write'):
+            type_name = res_props['type'].split('_')[-1]
+            try:
+                name = res_props.get(f'{type_name}Name', res_name)
+                entity = name if isinstance(name, str) else res_name
+            except KeyError:
+                entity = res_name
+            reason = 'allows write actions on a wildcard resource.'
+            vulnerable_entities.append((entity, reason))
+
+        if vulnerable_entities:
+            vulnerabilities.extend(
+                Vulnerability(
+                    path=yaml_path,
+                    entity=f'{type_}/{entity}',
+                    identifier=res_name,
+                    reason=reason) for entity, reason in vulnerable_entities)
+
+    return _get_result_as_tuple(
+        vulnerabilities=vulnerabilities,
+        msg_open='Write actions are allowed for all resources.',
+        msg_closed='Write actions are not allowed for all resources.')

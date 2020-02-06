@@ -153,9 +153,51 @@ resource "aws_iam_role_policy" "policy2" {
 EOF
 }
 
+resource "aws_iam_role_policy" "policy_iam_powers" {
+  name        = "policy_iam_powers"
+  path        = "/"
+  description = "Test policy with IAM powers"
+  role = aws_iam_role.test_role.id
+
+  policy = <<EOF
+{
+"Statement": [
+  {
+    "Action": [
+      "ecr:*"
+    ],
+    "Effect": "Allow",
+    "Resource": [
+      "*"
+    ]
+  },
+  {
+    "Action": "iam:ListUsers",
+    "Effect": "Allow",
+    "Resource": "*"
+  },
+  {
+    "Action": "ecr:*",
+    "Effect": "Allow",
+    "Resource": "*"
+  },
+  {
+    "Effect": "Allow",
+    "NotAction": []
+  },
+  {
+    "Effect": "Allow",
+    "NotResource": []
+  }
+],
+"Version": "2012-10-17"
+}
+EOF
+}
+
 resource "aws_iam_user_policy" "lb_ro" {
   name = "test"
-  user = "${aws_iam_user.lb.name}"
+  user = aws_iam_user.lb.name
 
   policy = <<EOF
 {
@@ -179,7 +221,7 @@ resource "aws_iam_user" "lb" {
 }
 
 resource "aws_iam_access_key" "lb" {
-  user = "${aws_iam_user.lb.name}"
+  user = aws_iam_user.lb.name
 }
 
 resource "aws_db_instance" "default" {
@@ -379,7 +421,7 @@ resource "aws_elb" "bar" {
     interval            = 30
   }
 
-  instances                   = ["${aws_instance.foo.id}"]
+  instances                   = [aws_instance.foo.id]
   cross_zone_load_balancing   = true
   idle_timeout                = 400
   connection_draining         = true
@@ -391,8 +433,8 @@ resource "aws_elb" "bar" {
 }
 
 resource "aws_fsx_windows_file_system" "example" {
-  active_directory_id = "${aws_directory_service_directory.example.id}"
+  active_directory_id = aws_directory_service_directory.example.id
   storage_capacity    = 300
-  subnet_ids          = ["${aws_subnet.example.id}"]
+  subnet_ids          = [aws_subnet.example.id]
   throughput_capacity = 1024
 }

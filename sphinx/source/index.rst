@@ -118,12 +118,12 @@ or just dive into the :doc:`ref`.
 Usage data
 ===========
 
-Fluid Asserts collects some user's data like
+Fluid Asserts collects some user data like
 public IP address, operating system, Python version
 and the name of the checks that you use.
 We do this in order to analyze what are
 the most common platforms and the most used functions.
-This help us to develop more useful tests in a future.
+This helps us develop more useful tests in the future.
 You can disable the gathering of this information
 setting an environment variable named “FA_NOTRACK”
 and setting its value to “true”.
