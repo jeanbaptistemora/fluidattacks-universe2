@@ -261,7 +261,7 @@ export const downloadFile: ((projectName: string, fileToDownload: string) => Thu
               if (data.downloadFile.success) {
                 dispatch(closeOptionsModal());
                 const newTab: Window | null = window.open(data.downloadFile.url);
-                (newTab as Window).opener = undefined;
+                (newTab as typeof window).opener = undefined;
               } else {
                 msgError(translate.t("proj_alerts.error_textsad"));
                 rollbar.error("An error occurred downloading files");

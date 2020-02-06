@@ -29,9 +29,6 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   cache: new InMemoryCache(),
   connectToDevTools: getEnvironment() !== "production",
   defaultOptions: {
-    query: {
-      fetchPolicy: "cache-and-network",
-    },
     watchQuery: {
       fetchPolicy: "cache-and-network",
     },

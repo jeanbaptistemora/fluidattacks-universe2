@@ -50,7 +50,6 @@ const loadAutofillData: (
     const email: string = fieldSelector(store.getState(), "email");
     if (!_.isEmpty(email)) {
       client.query({
-        fetchPolicy: "cache-first",
         query: GET_USERS,
         variables: { projectName: props.projectName !== undefined ? props.projectName : "-", userEmail: email },
       })

@@ -29,12 +29,10 @@ type IRecordsViewProps = RouteComponentProps<{ findingId: string }>;
 
 const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX.Element => {
   const { findingId } = props.match.params;
+  const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
 
   const onMount: (() => void) = (): void => {
-    mixpanel.track("FindingRecords", {
-      Organization: (window as Window & { userOrganization: string }).userOrganization,
-      User: (window as Window & { userName: string }).userName,
-    });
+    mixpanel.track("FindingRecords", { Organization: userOrganization, User: userName });
   };
   React.useEffect(onMount, []);
 
@@ -70,7 +68,6 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
             });
           };
 
-          const { userRole } = (window as typeof window & { userRole: string });
           const canEdit: boolean = _.includes(["admin", "analyst"], userRole);
 
           return (
@@ -134,10 +131,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                 <Mutation mutation={REMOVE_EVIDENCE_MUTATION} onCompleted={handleUpdateResult}>
                   {(removeRecords: MutationFn, removeRes: MutationResult): React.ReactNode => {
                     const handleRemoveClick: (() => void) = (): void => {
-                      mixpanel.track("RemoveRecords", {
-                        Organization: (window as Window & { userOrganization: string }).userOrganization,
-                        User: (window as Window & { userName: string }).userName,
-                      });
+                      mixpanel.track("RemoveRecords", { Organization: userOrganization, User: userName });
                       setEditing(false);
                       removeRecords({ variables: { evidenceId: "8", findingId } })
                         .catch();

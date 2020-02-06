@@ -30,12 +30,10 @@ type SeverityViewProps = RouteComponentProps<{ findingId: string }>;
 
 const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JSX.Element => {
   const { findingId } = props.match.params;
+  const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
 
   const onMount: (() => void) = (): void => {
-    mixpanel.track("FindingSeverity", {
-      Organization: (window as Window & { userOrganization: string }).userOrganization,
-      User: (window as Window & { userName: string }).userName,
-    });
+    mixpanel.track("FindingSeverity", { Organization: userOrganization, User: userName });
   };
   React.useEffect(onMount, []);
 
@@ -67,15 +65,11 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                       refetch()
                         .catch();
                       msgSuccess(translate.t("proj_alerts.updated"), translate.t("proj_alerts.updated_title"));
-                      mixpanel.track("UpdateSeverity", {
-                        Organization: (window as Window & { userOrganization: string }).userOrganization,
-                        User: (window as Window & { userName: string }).userName,
-                      });
+                      mixpanel.track("UpdateSeverity", { Organization: userOrganization, User: userName });
                     }
                   }
                 };
 
-              const { userRole } = (window as typeof window & { userRole: string });
               const canEdit: boolean = _.includes(["admin", "analyst"], userRole);
 
               return (

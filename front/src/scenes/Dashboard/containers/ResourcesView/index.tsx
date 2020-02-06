@@ -46,8 +46,8 @@ const enhance: InferableComponentEnhancer<{}> = lifecycle<IResourcesViewProps, {
     mixpanel.track(
       "ProjectResources",
       {
-        Organization: (window as Window & { userOrganization: string }).userOrganization,
-        User: (window as Window & { userName: string }).userName,
+        Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+        User: (window as typeof window & { userName: string }).userName,
       });
     this.props.onLoad();
   },
@@ -68,8 +68,8 @@ const handleSaveFiles: ((files: IResourcesViewProps["files"], props: IResourcesV
         mixpanel.track(
           "AddProjectFiles",
           {
-            Organization: (window as Window & { userOrganization: string }).userOrganization,
-            User: (window as Window & { userName: string }).userName,
+            Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+            User: (window as typeof window & { userName: string }).userName,
           });
         let containsRepeated: boolean;
         containsRepeated = files.filter(
@@ -182,8 +182,8 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
     mixpanel.track(
       "ProjectTags",
       {
-        Organization: (window as Window & { userOrganization: string }).userOrganization,
-        User: (window as Window & { userName: string }).userName,
+        Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+        User: (window as typeof window & { userName: string }).userName,
       });
   };
 
@@ -217,8 +217,8 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                   mixpanel.track(
                     "RemoveProjectTags",
                     {
-                      Organization: (window as Window & { userOrganization: string }).userOrganization,
-                      User: (window as Window & { userName: string }).userName,
+                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+                      User: (window as typeof window & { userName: string }).userName,
                     });
                   msgSuccess(
                     translate.t("search_findings.tab_resources.success_remove"),
@@ -237,8 +237,8 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                   mixpanel.track(
                     "AddProjectTags",
                     {
-                      Organization: (window as Window & { userOrganization: string }).userOrganization,
-                      User: (window as Window & { userName: string }).userName,
+                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+                      User: (window as typeof window & { userName: string }).userName,
                     });
                   msgSuccess(
                     translate.t("search_findings.tab_resources.success"),
@@ -439,8 +439,8 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                   mixpanel.track(
                     "RemoveProjectRepo",
                     {
-                      Organization: (window as Window & { userOrganization: string }).userOrganization,
-                      User: (window as Window & { userName: string }).userName,
+                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+                      User: (window as typeof window & { userName: string }).userName,
                     });
                   msgSuccess(
                     translate.t("search_findings.tab_resources.success_change"),
@@ -459,8 +459,8 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                   mixpanel.track(
                     "AddProjectRepo",
                     {
-                      Organization: (window as Window & { userOrganization: string }).userOrganization,
-                      User: (window as Window & { userName: string }).userName,
+                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+                      User: (window as typeof window & { userName: string }).userName,
                     });
                   msgSuccess(
                     translate.t("search_findings.tab_resources.success"),
@@ -716,8 +716,8 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                   mixpanel.track(
                     "RemoveProjectEnv",
                     {
-                      Organization: (window as Window & { userOrganization: string }).userOrganization,
-                      User: (window as Window & { userName: string }).userName,
+                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+                      User: (window as typeof window & { userName: string }).userName,
                     });
                   msgSuccess(
                     translate.t("search_findings.tab_resources.success_change"),
@@ -736,8 +736,8 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                   mixpanel.track(
                     "AddProjectEnv",
                     {
-                      Organization: (window as Window & { userOrganization: string }).userOrganization,
-                      User: (window as Window & { userName: string }).userName,
+                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+                      User: (window as typeof window & { userName: string }).userName,
                     });
                   msgSuccess(
                     translate.t("search_findings.tab_resources.success"),
@@ -950,8 +950,8 @@ const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
       mixpanel.track(
         "RemoveProjectFiles",
         {
-          Organization: (window as Window & { userOrganization: string }).userOrganization,
-          User: (window as Window & { userName: string }).userName,
+          Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+          User: (window as typeof window & { userName: string }).userName,
         });
       props.onDeleteFile(props.optionsModal.rowInfo.fileName);
     };

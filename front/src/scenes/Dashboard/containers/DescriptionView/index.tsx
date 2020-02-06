@@ -144,8 +144,8 @@ const updateDescription: ((values: IDescriptionViewProps["dataset"], userRole: s
       mixpanel.track(
         "UpdateFindingDescript",
         {
-          Organization: (window as Window & { userOrganization: string }).userOrganization,
-          User: (window as Window & { userName: string }).userName,
+          Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+          User: (window as typeof window & { userName: string }).userName,
         });
       thunkDispatch(actions.updateDescription(findingId, values));
     } else {
@@ -243,8 +243,8 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
           mixpanel.track(
             "HandleAcceptation",
             {
-              Organization: (window as Window & { userOrganization: string }).userOrganization,
-              User: (window as Window & { userName: string }).userName,
+              Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+              User: (window as typeof window & { userName: string }).userName,
             });
           msgSuccess(
             props.dataset.acceptationApproval === "APPROVED" ?

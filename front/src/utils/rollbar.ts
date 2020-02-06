@@ -1,16 +1,18 @@
 import Rollbar from "rollbar";
 import { getEnvironment } from "./context";
 
+const { userEmail, userName } = window as typeof window & Dictionary<string>;
+
 const config: Rollbar.Configuration = {
     accessToken: "cad6d1f7ecda480ba003e29f0428d44e",
     captureUncaught: true,
     captureUnhandledRejections: true,
-    enabled: true,
+    enabled: getEnvironment() !== "development",
     environment: getEnvironment(),
     payload: {
         person: {
-            id: (window as Window & { userEmail: string }).userEmail,
-            username: (window as Window & { userName: string }).userName,
+            id: userEmail,
+            username: userName,
         },
     },
 };

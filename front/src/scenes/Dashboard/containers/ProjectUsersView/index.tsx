@@ -120,8 +120,8 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps, refetch: QueryResult[
           mixpanel.track(
             "RemoveUserAccess",
             {
-              Organization: (window as Window & { userOrganization: string }).userOrganization,
-              User: (window as Window & { userName: string }).userName,
+              Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+              User: (window as typeof window & { userName: string }).userName,
             });
           msgSuccess(
             `${mtResult.removeUserAccess.removedEmail} ${translate.t("search_findings.tab_users.success_delete")}`,
@@ -194,8 +194,8 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
     mixpanel.track(
       "ProjectUsers",
       {
-        Organization: (window as Window & { userOrganization: string }).userOrganization,
-        User: (window as Window & { userName: string }).userName,
+        Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+        User: (window as typeof window & { userName: string }).userName,
       });
   };
 
@@ -228,8 +228,8 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                   mixpanel.track(
                     "AddUserAccess",
                     {
-                      Organization: (window as Window & { userOrganization: string }).userOrganization,
-                      User: (window as Window & { userName: string }).userName,
+                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+                      User: (window as typeof window & { userName: string }).userName,
                     });
                   msgSuccess(
                     `${mtResult.grantUserAccess.grantedUser.email}
@@ -249,8 +249,8 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                   mixpanel.track(
                     "EditUserAccess",
                     {
-                      Organization: (window as Window & { userOrganization: string }).userOrganization,
-                      User: (window as Window & { userName: string }).userName,
+                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
+                      User: (window as typeof window & { userName: string }).userName,
                     });
                   msgSuccess(
                     translate.t("search_findings.tab_users.success_admin"),
