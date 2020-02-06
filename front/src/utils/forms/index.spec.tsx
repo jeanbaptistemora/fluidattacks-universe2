@@ -6,8 +6,10 @@ import { Field } from "redux-form";
 import { GenericForm } from "../../scenes/Dashboard/components/GenericForm";
 import store from "../../store";
 import { required } from "../validations";
-import { autocompleteTextField, dateField, dropdownField, fileInputField, phoneNumberField, textAreaField,
-  textField } from "./fields";
+import {
+  autocompleteTextField, dateField, dropdownField, fileInputField, phoneNumberField, tagInputField, textAreaField,
+  textField,
+} from "./fields";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
@@ -45,6 +47,11 @@ describe("Form fields", () => {
 
   it("should return a textAreaField function", () => {
     expect(typeof (textAreaField))
+      .toEqual("function");
+  });
+
+  it("should return a tagInputField function", () => {
+    expect(typeof (tagInputField))
       .toEqual("function");
   });
 
@@ -153,6 +160,23 @@ describe("Form fields", () => {
       </Provider>,
     );
     expect(wrapper.find("dateTest"))
+      .toBeTruthy();
+  });
+
+  it("should render tagInputField component", () => {
+    const wrapper: ReactWrapper = mount(
+      <Provider store={store}>
+        <GenericForm name="" onSubmit={jest.fn()}>
+          <Field
+            name="tagInputTest"
+            component={tagInputField}
+            type="text"
+          />
+        </GenericForm>
+      </Provider>,
+    );
+
+    expect(wrapper.find("tagInputTest"))
       .toBeTruthy();
   });
 });
