@@ -134,7 +134,7 @@ def _send_new_event_mail(analyst, event_id, project, subscription, event_type):
         'event_url': (
             'https://fluidattacks.com/integrates/dashboard#!/'
             f'project/{project}/events/{event_id}'),
-        'project_name': project
+        'project': project
     }
     email_send_thread = threading.Thread(
         name='New event email thread',
