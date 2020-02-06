@@ -81,6 +81,17 @@ def get_vulnerabilities(finding_id):
     return items
 
 
+def get_attributes(finding_id, attributes):
+    """ Get a group of attributes of a finding. """
+    item_attrs = {
+        'Key': {'finding_id': finding_id},
+    }
+    if attributes:
+        item_attrs['AttributesToGet'] = attributes
+    response = TABLE.get_item(**item_attrs)
+    return response.get('Item', {})
+
+
 def get_finding(finding_id):
     """ Retrieve all attributes from a finding """
     response = TABLE.get_item(Key={'finding_id': finding_id})

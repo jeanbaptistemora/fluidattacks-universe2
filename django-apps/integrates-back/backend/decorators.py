@@ -16,7 +16,7 @@ from promise import Promise
 from rediscluster.nodemanager import RedisClusterException
 from simpleeval import AttributeDoesNotExist
 
-from backend.dal import integrates_dal, project as project_dal
+from backend.dal import finding as finding_dal, project as project_dal
 
 from backend.domain import (
     user as user_domain, event as event_domain, finding as finding_domain
@@ -117,9 +117,11 @@ def resolve_project_name(args, kwargs):
     elif 'project_name' in kwargs:
         project_name = kwargs['project_name']
     elif 'finding_id' in kwargs:
-        project_name = integrates_dal.get_finding_project(kwargs['finding_id'])
+        project_name = \
+            finding_dal.get_attributes(kwargs['finding_id'], ['project_name']).get('project_name')
     elif 'draft_id' in kwargs:
-        project_name = integrates_dal.get_finding_project(kwargs['draft_id'])
+        project_name = \
+            finding_dal.get_attributes(kwargs['draft_id'], ['project_name']).get('project_name')
     elif 'event_id' in kwargs:
         project_name = \
             event_domain.get_event(kwargs['event_id']).get('project_name')

@@ -546,6 +546,10 @@ def get_vulnerabilities(finding_id):
     return finding_dal.get_vulnerabilities(finding_id)
 
 
+def get_project(finding_id):
+    return finding_dal.get_attributes(finding_id, ['project_name']).get('project_name')
+
+
 def get_findings(finding_ids):
     """Retrieves all attributes for the requested findings"""
     findings = [get_finding(finding_id) for finding_id in finding_ids

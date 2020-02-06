@@ -407,9 +407,7 @@ def get_total_treatment(findings):
 
 
 def is_finding_in_drafts(finding_id):
-    release_date = integrates_dal.get_finding_attributes_dynamo(finding_id,
-                                                                ['releaseDate']
-                                                                )
+    release_date = finding_dal.get_attributes(finding_id, ['releaseDate'])
     retval = False
     if release_date:
         tzn = pytz.timezone('America/Bogota')
@@ -461,7 +459,7 @@ def list_events(project_name):
 
 
 def get_finding_project_name(finding_id):
-    return integrates_dal.get_finding_project(finding_id)
+    return finding_dal.get_attributes(finding_id, ['project_name']).get('project_name')
 
 
 def list_internal_managers(project_name):

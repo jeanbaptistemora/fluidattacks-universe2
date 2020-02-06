@@ -392,20 +392,6 @@ def update_in_multikey_table_dynamo(table_name, multiple_keys, attr_name, attr_v
         return False
 
 
-def get_finding_project(finding_id):
-    """ Get project associated to a finding. """
-    table = DYNAMODB_RESOURCE.Table('FI_findings')
-    response = table.get_item(
-        Key={
-            'finding_id': finding_id
-        },
-        AttributesToGet=['project_name']
-    )
-    item = response.get('Item').get('project_name') if 'Item' in response else None
-
-    return item
-
-
 def add_multiple_attributes_dynamo(table_name, primary_keys, dic_data):
     """Adding multiple attributes to a dynamo table."""
     table = DYNAMODB_RESOURCE.Table(table_name)
@@ -465,13 +451,6 @@ def get_table_attributes_dynamo(table_name, primary_key, data_attributes):
         rollbar.report_exc_info()
         items = {}
     return items if items else {}
-
-
-def get_finding_attributes_dynamo(finding_id, data_attributes):
-    """ Get a group of attributes of a finding. """
-
-    return get_table_attributes_dynamo(
-        'FI_findings', {'finding_id': finding_id}, data_attributes)
 
 
 def get_project_attributes_dynamo(project_name, data_attributes):

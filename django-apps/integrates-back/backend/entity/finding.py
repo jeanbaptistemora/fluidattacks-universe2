@@ -25,8 +25,6 @@ from backend.entity.vulnerability import Vulnerability
 from backend.services import get_user_role
 from backend.utils import findings as finding_utils
 
-from backend.dal import integrates_dal
-
 
 class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     """Finding Class."""
@@ -497,7 +495,7 @@ class UpdateSeverity(Mutation):
     @require_finding_access
     def mutate(self, info, **parameters):
         finding_id = parameters.get('finding_id')
-        project = integrates_dal.get_finding_project(finding_id)
+        project = finding_domain.get_project(finding_id)
         success = False
         success = finding_domain.save_severity(parameters.get('data'))
         findings_loader = info.context.loaders['finding']
