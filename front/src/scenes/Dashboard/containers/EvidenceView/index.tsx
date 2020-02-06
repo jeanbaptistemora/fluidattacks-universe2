@@ -20,6 +20,7 @@ import translate from "../../../../utils/translations/translate";
 import { validEvidenceImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
 import { EvidenceLightbox } from "../../components/EvidenceLightbox";
+import styles from "./index.css";
 import {
   GET_FINDING_EVIDENCES, REMOVE_EVIDENCE_MUTATION, UPDATE_DESCRIPTION_MUTATION, UPDATE_EVIDENCE_MUTATION,
 } from "./queries";
@@ -98,7 +99,8 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                     <p>{translate.t("project.findings.evidence.no_data")}</p>
                   </div>
                 )
-                : evidenceImages.map((evidence: IEvidenceItem, index: number): JSX.Element => (
+                : <Row className={styles.evidenceGrid}>
+                  {evidenceImages.map((evidence: IEvidenceItem, index: number): JSX.Element => (
                   <Mutation mutation={UPDATE_DESCRIPTION_MUTATION} onCompleted={handleUpdateResult}>
                     {(updateDescription: MutationFn): React.ReactNode => (
                       <Mutation mutation={UPDATE_EVIDENCE_MUTATION} onError={handleUpdateError}>
@@ -184,7 +186,8 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                       </Mutation>
                     )}
                   </Mutation>
-                ))
+                  ))}
+                </Row>
               }
               <EvidenceLightbox evidenceImages={evidenceImages} index={lightboxIndex} onChange={setLightboxIndex} />
             </React.Fragment>
