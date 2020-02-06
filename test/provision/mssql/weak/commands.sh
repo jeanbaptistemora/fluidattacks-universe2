@@ -23,14 +23,14 @@ select * from users;
 GO
 "
 
-# create user
+# Create user
 execute_query "
 CREATE LOGIN $DB_USER WITH PASSWORD = \"$DB_PASSWORD\";
 USE $DB_NAME;
 CREATE USER $DB_USER FOR LOGIN $DB_USER WITH DEFAULT_SCHEMA = $DB_NAME;
 GO"
 
-# Enabled xp_cmdshell check: can_execute_commands
+# Enabled xp_cmdshell. check: can_execute_commands
 execute_query "
 -- To allow advanced options to be changed.
 EXEC sp_configure 'show advanced options', 1;
@@ -46,7 +46,7 @@ RECONFIGURE;
 GO
 "
 
-# Enable ad hoc distributed queries check:
+# Enable ad hoc distributed queries check: has_enabled_ad_hoc_queries
 execute_query "
 sp_configure 'show advanced options', 1;
 RECONFIGURE;

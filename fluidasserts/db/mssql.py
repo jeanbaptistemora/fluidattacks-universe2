@@ -43,6 +43,11 @@ def _is_compatibility_error(exception: pyodbc.OperationalError) -> bool:
     return exception.args[0] == 16202
 
 
+def _is_auth_permission_error(exception: pyodbc.Error) -> bool:
+    allow_exceptions = [_is_permission_error, _is_auth_error]
+    return any(map(lambda x: x(exception), allow_exceptions))
+
+
 @contextmanager
 def _execute(connection_string: ConnectionString,
              query: str,
@@ -96,7 +101,7 @@ def database(connection_string: ConnectionString
 
 
 @api(risk=LOW, kind=DAST)
-@unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
+@unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
 def have_access(dbname: str, user: str, password: str, host: str,
                 port: int) -> Tuple:
     """
@@ -140,7 +145,7 @@ def have_access(dbname: str, user: str, password: str, host: str,
 
 
 @api(risk=HIGH, kind=DAST)
-@unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
+@unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
 def can_execute_commands(dbname: str, user: str, password: str, host: str,
                          port: int) -> Tuple:
     """
@@ -186,7 +191,7 @@ def can_execute_commands(dbname: str, user: str, password: str, host: str,
 
 
 @api(risk=HIGH, kind=DAST)
-@unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
+@unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
 def has_text(dbname: str, user: str, password: str, host: str, port: int,
              query: str, expected_text: str) -> Tuple:
     """
@@ -236,9 +241,7 @@ def has_text(dbname: str, user: str, password: str, host: str, port: int,
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(pyodbc.OperationalError,
-            pyodbc.ProgrammingError,
-            pyodbc.InterfaceError)
+@unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
 def has_login_password_expiration_disabled(dbname: str,
                                            user: str,
                                            password: str,
@@ -274,19 +277,79 @@ def has_login_password_expiration_disabled(dbname: str,
 
     try:
         with database(connection_string) as (_, cursor):
-            cursor.execute("""select name, is_expiration_checked
-                              from master.sys.sql_logins
-                              where type = 'S'""")
+            cursor.execute(
+                """select name, is_expiration_checked
+                   from master.sys.sql_logins
+                   where type = 'S'
+                     and name not in ('##MS_PolicyEventProcessingLogin##',
+                     '##MS_PolicyTsqlExecutionLogin##')""")
             for row in cursor:
                 value = {}
                 for des_name in enumerate(row.cursor_description):
                     value[des_name[1][0]] = row[des_name[0]]
                 (vulns if not value['is_expiration_checked'] else
-                 safes).append(f'Login/{value["name"]}')
+                 safes).append(f'master.sys.sql_logins.{value["name"]}')
     except (pyodbc.ProgrammingError, pyodbc.OperationalError) as exception:
-        allow_exceptions = [_is_permission_error, _is_auth_error]
-        if not any(map(lambda x: x(exception), allow_exceptions)):  # noqa
+        if not _is_auth_permission_error(exception):
             raise exception
+
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=HIGH, kind=DAST)
+@unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
+def has_enabled_ad_hoc_queries(dbname: str,
+                               user: str,
+                               password: str,
+                               host: str,
+                               port: int) -> Tuple:
+    """
+    Check if Ad Hoc Distributed Queries option is enabled.
+
+    Ad hoc queries allow undefined access to remote database sources.
+    Access to untrusted databases could result in execution of malicious
+    applications and/or a compromise of local data confidentiality and
+    integrity.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+
+    :returns: - ``OPEN`` if ad hoc distributed queries option is enabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port)
+
+    msg_open: str = 'Ad Hoc distributed queries option is enabled.'
+    msg_closed: str = 'Ad Hoc distributed queries option is disabled.'
+
+    try:
+        with database(connection_string) as (_, cursor):
+            cursor.execute("""select 1
+                              from master.sys.configurations
+                              where lower(name) = 'ad hoc distributed queries'
+                                and (value_in_use = 1 or value = 1)""")
+            (vulns if cursor.fetchone() else safes
+             ).append('must disable ad hoc distributed queries config option')
+
+    except (pyodbc.ProgrammingError, pyodbc.OperationalError) as exc:
+        if not _is_auth_permission_error(exc):
+            raise exc
 
     return _get_result_as_tuple(
         host=host,

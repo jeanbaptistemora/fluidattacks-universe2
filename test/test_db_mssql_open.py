@@ -3,13 +3,12 @@
 
 # standard imports
 
+# local imports
+from fluidasserts.db import mssql
+
 # 3rd party imports
 import pytest
 pytestmark = pytest.mark.asserts_module('db_mssql')
-
-
-# local imports
-from fluidasserts.db import mssql
 
 # Constants
 
@@ -45,4 +44,11 @@ def test_has_text_open(get_mock_ip):
 def test_has_login_password_expiration_disabled_open(get_mock_ip):
     """Test mssql.have_access."""
     assert mssql.has_login_password_expiration_disabled(
+        DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_open()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_weak'], indirect=True)
+def test_has_enabled_ad_hoc_queries_open(get_mock_ip):
+    """Test mssql.has_enabled_ad_hoc_queries."""
+    assert mssql.has_enabled_ad_hoc_queries(
         DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_open()

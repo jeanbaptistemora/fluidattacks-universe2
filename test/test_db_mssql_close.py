@@ -3,12 +3,13 @@
 
 # standard imports
 
+# local imports
+from fluidasserts.db import mssql
+
 # 3rd party imports
 import pytest
 pytestmark = pytest.mark.asserts_module('db_mssql')
 
-# local imports
-from fluidasserts.db import mssql
 
 # Constants
 
@@ -44,7 +45,14 @@ def test_has_text_closed(get_mock_ip):
 def test_has_login_password_expiration_disabled_closed(get_mock_ip):
     """Test mssql.has_login_password_expiration_disabled."""
     assert mssql.has_login_password_expiration_disabled(
-        DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_open()
+        DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_closed()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_has_enabled_ad_hoc_queries_closed(get_mock_ip):
+    """Test mssql.has_enabled_ad_hoc_queries."""
+    assert mssql.has_enabled_ad_hoc_queries(
+        DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_closed()
 
 
 #
@@ -72,3 +80,10 @@ def test_has_login_password_expiration_disabled_unknown(get_mock_ip):
     """Test mssql.has_login_password_expiration_disabled."""
     assert mssql.has_login_password_expiration_disabled(
         DBNAME, ADMIN_USER, WRONG_PASSWORD, '0.0.0.1', PORT).is_unknown()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_has_enabled_ad_hoc_queries_unknown(get_mock_ip):
+    """Test mssql.has_enabled_ad_hoc_queries."""
+    assert mssql.has_enabled_ad_hoc_queries(
+        DBNAME, ADMIN_USER, ADMIN_PASSWORD, '0.0.0.1', PORT).is_unknown()
