@@ -78,9 +78,9 @@ GO"
 execute_query "
 ALTER DATABSE $DB_NAME SET TRUSTWORTHY ON"
 
-# Grant permission ALTER ANY DATABASE
+# Grant permission ALTER ANY DATABASE. check: can_alter_any_database
 execute_query "
-GRANT ALTER ANY DATABASE TO "
+GRANT ALTER ANY DATABASE TO $DB_USER;"
 
 # Disablde password check policy
 execute_query "

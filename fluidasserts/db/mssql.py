@@ -100,6 +100,32 @@ def database(connection_string: ConnectionString
         connection.close()
 
 
+def _check_permission(connection_string: ConnectionString,
+                      permission: str) -> List[str]:
+    """Check if the permission is assigned to any account."""
+    vulns, safes = [], []
+    query = """
+            SELECT who.name, what.permission_name
+            FROM sys.server_permissions what
+                     INNER JOIN sys.server_principals who
+                                ON who.principal_id = what.grantee_principal_id
+            WHERE who.name NOT LIKE '##MS%##'
+              AND who.type_desc <> 'SERVER_ROLE'"""
+    try:
+        with database(connection_string) as (_, cursor):
+            accounts = cursor.execute(query).fetchall()
+            for account in accounts:
+                (vulns
+                 if account.permission_name.lower() == permission.lower() else
+                 safes).append(f'sys.server_principals.{account.name}')
+
+    except (pyodbc.ProgrammingError, pyodbc.OperationalError) as exc:
+        if not _is_auth_permission_error(exc):
+            raise exc
+
+    return (vulns, safes)
+
+
 @api(risk=LOW, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
 def have_access(dbname: str, user: str, password: str, host: str,
@@ -350,6 +376,53 @@ def has_enabled_ad_hoc_queries(dbname: str,
     except (pyodbc.ProgrammingError, pyodbc.OperationalError) as exc:
         if not _is_auth_permission_error(exc):
             raise exc
+
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
+def can_alter_any_database(dbname: str,
+                           user: str,
+                           password: str,
+                           host: str,
+                           port: int) -> Tuple:
+    """
+    Check if any user accounts have access to **ALTER ANY DATABASE**.
+
+    SQL Server's **ALTER ANY DATABASE** permission is a high server-level
+    privilege that must only be granted to individual administration accounts
+    through roles.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+
+    :returns: - ``OPEN`` if there are users that have access to
+                 **ALTER ANY DATABASE**
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port)
+
+    msg_open: str = 'User accounts have access to ALTER ANY DATABASE.'
+    msg_closed: str = 'User accounts do not have access to ALTER ANY DATABASE.'
+
+    vulns, safes = _check_permission(connection_string, 'ALTER ANY DATABASE')
 
     return _get_result_as_tuple(
         host=host,
