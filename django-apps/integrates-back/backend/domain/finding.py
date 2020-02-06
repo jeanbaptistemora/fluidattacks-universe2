@@ -259,6 +259,8 @@ def update_treatment_in_vuln(finding_id, updated_values):
         'treatment_justification': updated_values.get('justification'),
         'acceptance_date': updated_values.get('acceptance_date'),
     }
+    if new_values['treatment'] == 'NEW':
+        new_values['treatment_manager'] = None
     vulns = get_vulnerabilities(finding_id)
     for vuln in vulns:
         result_update_treatment = vuln_dal.update(finding_id, vuln['UUID'], new_values)
