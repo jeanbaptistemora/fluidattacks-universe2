@@ -7,6 +7,7 @@ import _ from "lodash";
 import React from "react";
 import { Mutation, MutationFn, MutationResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
+import { submit } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
@@ -14,7 +15,6 @@ import { msgError, msgErrorStick, msgSuccess } from "../../../../utils/notificat
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidVulnsFile } from "../../../../utils/validations";
-import * as actionsDescription from "../../containers/DescriptionView/actions";
 import { GET_FINDING_HEADER } from "../../containers/FindingContent/queries";
 import { GET_FINDINGS } from "../../containers/ProjectFindingsView/queries";
 import { FileInput } from "../FileInput";
@@ -31,7 +31,7 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
   (mtResult: IUploadVulnerabilitiesResult): void => {
     if (!_.isUndefined(mtResult)) {
       if (mtResult.uploadFile.success) {
-        store.dispatch(actionsDescription.editDescription());
+        store.dispatch(submit("editDescription"));
         msgSuccess(
           translate.t("proj_alerts.file_updated"),
           translate.t("proj_alerts.title_success"));
