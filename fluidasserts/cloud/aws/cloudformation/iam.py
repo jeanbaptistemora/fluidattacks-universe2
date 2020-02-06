@@ -7,7 +7,7 @@ stelligent/cfn_nag/blob/master/LICENSE.md>`_
 
 # Standard imports
 import re
-from typing import Any, List, Optional, Pattern
+from typing import List, Optional, Pattern
 from contextlib import suppress
 
 # Local imports
@@ -16,87 +16,8 @@ from fluidasserts.helper import aws as helper
 from fluidasserts.cloud.aws.cloudformation import (
     Vulnerability,
     _get_result_as_tuple,
-    services
 )
 from fluidasserts.utils.decorators import api, unknown_if
-
-
-def _force_list(obj: Any) -> List[Any]:
-    """Wrap the element in a list, or if list, leave it intact."""
-    return obj if isinstance(obj, list) else [obj]
-
-
-def _policy_actions_has_privilege(action, privilege) -> bool:
-    """Check if an action have a privilege."""
-    write_actions: dict = services.ACTIONS
-    susses = False
-    with suppress(KeyError):
-        if action == '*':
-            susses = True
-        else:
-            actions = []
-            for act in _force_list(action):
-                serv, act = act.split(':')
-                if act.startswith('*'):
-                    actions.append(True)
-                else:
-                    act = act[:act.index('*')] if act.endswith('*') else act
-                    actions.append(
-                        act in write_actions.get(serv, {})[privilege])
-            susses = any(actions)
-    return susses
-
-
-def _resource_all(resource):
-    susses = False
-    if isinstance(resource, list):
-        aux = []
-        for i in resource:
-            aux.append(_resource_all(i))
-        susses = any(aux)
-    elif isinstance(resource, str):
-        susses = resource == '*'
-    else:
-        susses = any([_resource_all(i) for i in dict(resource).values()])
-
-    return susses
-
-
-def _policy_statement_privilege(statement, effect: str, action: str):
-    """
-    Check if a statement of a policy allow an action in all resources.
-
-    :param statemet: policy statement.
-    :param effect: (Allow | Deny)
-    :param action: (read | list | write | tagging | permissions_management)
-    """
-    writes = []
-    for sts in _force_list(statement):
-        if sts['Effect'] == effect and 'Resource' in sts and _resource_all(
-                sts['Resource']):
-            writes.append(_policy_actions_has_privilege(sts['Action'], action))
-    return any(writes)
-
-
-def _service_is_present_action(action: str, service: str) -> bool:
-    """Check if a service is present in an action."""
-    susses = False
-    with suppress(KeyError):
-        if isinstance(action, list):
-            susses = service in [act.split(':')[0] for act in action]
-        elif action == '*':
-            susses = True
-        else:
-            susses = action.split(':')[0] == service
-    return susses
-
-
-def _service_is_present_statement(statement: str, effect: str, service: str):
-    return any([
-        sts['Effect'] == effect
-        and _service_is_present_action(sts['Action'], service)
-        if 'Action' in sts else False for sts in _force_list(statement)
-    ])
 
 
 @api(risk=MEDIUM, kind=SAST)  # noqa: MC0001
@@ -147,7 +68,8 @@ def is_role_over_privileged(
 
         for policy in res_props.get('Policies', []):
             policy_document = policy.get('PolicyDocument', {})
-            for statement in _force_list(policy_document.get('Statement', [])):
+            for statement in helper.force_list(
+                    policy_document.get('Statement', [])):
                 if statement.get('Effect') != 'Allow':
                     continue
 
@@ -161,7 +83,7 @@ def is_role_over_privileged(
                     entity = 'Policies/PolicyDocument/Statement/NotResource'
                     reason = 'avoid security through black listing'
                     vulnerable_entities.append((entity, reason))
-                for action in map(str, _force_list(
+                for action in map(str, helper.force_list(
                         statement.get('Action', []))):
                     # F3: IAM role should not allow * action on its
                     #   permissions policy
@@ -170,7 +92,7 @@ def is_role_over_privileged(
                                   f'/Statement/Action: {action}')
                         reason = 'grants wildcard privileges'
                         vulnerable_entities.append((entity, reason))
-                for resource in map(str, _force_list(
+                for resource in map(str, helper.force_list(
                         statement.get('Resource', []))):
                     # W11: IAM role should not allow * resource on its
                     #   permissions policy
@@ -182,11 +104,11 @@ def is_role_over_privileged(
                         reason = 'grants wildcard privileges'
                         vulnerable_entities.append((entity, reason))
 
-        for statement in _force_list(res_props.get(
+        for statement in helper.force_list(res_props.get(
                 'AssumeRolePolicyDocument', {}).get('Statement', [])):
             if statement.get('Effect') != 'Allow':
                 continue
-            for action in map(str, _force_list(
+            for action in map(str, helper.force_list(
                     statement.get('Action', []))):
                 # F2: IAM role should not allow * action on its trust policy
                 if wildcard_action.match(action):
@@ -237,7 +159,8 @@ def _is_generic_policy_miss_configured(  # noqa: MC0001
         vulnerable_entities: List[str] = []
 
         policy_document = res_props.get('PolicyDocument', {})
-        for statement in _force_list(policy_document.get('Statement', [])):
+        for statement in helper.force_list(
+                policy_document.get('Statement', [])):
             if statement.get('Effect') != 'Allow':
                 continue
 
@@ -253,7 +176,7 @@ def _is_generic_policy_miss_configured(  # noqa: MC0001
                 entity = f'{resource}/PolicyDocument/Statement/NotResource'
                 reason = 'avoid security through black listing'
                 vulnerable_entities.append((entity, reason))
-            for action in map(str, _force_list(
+            for action in map(str, helper.force_list(
                     statement.get('Action', []))):
                 # F4: IAM policy should not allow * action
                 # F5: IAM managed policy should not allow * action
@@ -262,7 +185,7 @@ def _is_generic_policy_miss_configured(  # noqa: MC0001
                               f'/Statement/Action: {action}')
                     reason = 'grants wildcard privileges'
                     vulnerable_entities.append((entity, reason))
-            for _resource in map(str, _force_list(
+            for _resource in map(str, helper.force_list(
                     statement.get('Resource', []))):
                 # W12: IAM policy should not allow * resource
                 # W13: IAM managed policy should not allow * resource
@@ -442,8 +365,8 @@ def has_wildcard_resource_on_write_action(
 
         if res_props.get('PolicyDocument', []):
             policy = res_props['PolicyDocument']
-            if _policy_statement_privilege(policy['Statement'], 'Allow',
-                                           'write'):
+            if helper.policy_statement_privilege(policy['Statement'], 'Allow',
+                                                 'write'):
                 type_name = res_props['../Type'].split('::')[-1]
                 try:
                     name = res_props[f'{type_name}Name']
@@ -456,7 +379,7 @@ def has_wildcard_resource_on_write_action(
         if res_props.get('Policies', []):
             for policy in res_props['Policies']:
                 with suppress(KeyError):
-                    if _policy_statement_privilege(
+                    if helper.policy_statement_privilege(
                             policy['PolicyDocument']['Statement'], 'Allow',
                             'write'):
                         name = policy['PolicyName']
@@ -504,8 +427,8 @@ def has_privileges_over_iam(path: str,
         vulnerable_entities: List[str] = []
         if res_props.get('PolicyDocument', []):
             policy = res_props['PolicyDocument']
-            if _service_is_present_statement(policy['Statement'], 'Allow',
-                                             'iam'):
+            if helper.service_is_present_statement(policy['Statement'],
+                                                   'Allow', 'iam'):
                 type_name = res_props['../Type'].split('::')[-1]
                 try:
                     name = res_props[f'{type_name}Name']
@@ -518,7 +441,7 @@ def has_privileges_over_iam(path: str,
         if res_props.get('Policies', []):
             for policy in res_props['Policies']:
                 with suppress(KeyError):
-                    if _service_is_present_statement(
+                    if helper.service_is_present_statement(
                             policy['PolicyDocument']['Statement'], 'Allow',
                             'iam'):
                         name = policy['PolicyName']

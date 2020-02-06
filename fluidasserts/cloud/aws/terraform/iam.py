@@ -8,7 +8,7 @@ stelligent/cfn_nag/blob/master/LICENSE.md>`_
 # Standard imports
 import re
 import json
-from typing import Any, List, Optional, Pattern
+from typing import List, Optional, Pattern
 
 # Local imports
 from fluidasserts import SAST, MEDIUM
@@ -20,20 +20,14 @@ from fluidasserts.cloud.aws.terraform import (
 from fluidasserts.utils.decorators import api, unknown_if
 
 
-def _force_list(obj: Any) -> List[Any]:
-    """Wrap the element in a list, or if list, leave it intact."""
-    return obj if isinstance(obj, list) else [obj]
-
-
 def _is_generic_policy_miss_configured(  # noqa: MC0001
         policy_document: dict, policy_type: str, path: str, name: str) -> list:
-    """Policy and ManagedPolicy are equal in its PolicyDocument, reuse code."""
     vulnerabilities: list = []
     wildcard_action: Pattern = re.compile(r'^(\*)|(\w+:\*)$')
     wildcard_resource: Pattern = re.compile(r'^(\*)$')
     vulnerable_entities: List[str] = []
 
-    for statement in _force_list(policy_document.get('Statement', [])):
+    for statement in helper.force_list(policy_document.get('Statement', [])):
         if statement.get('Effect') != 'Allow':
             continue
 
@@ -49,7 +43,7 @@ def _is_generic_policy_miss_configured(  # noqa: MC0001
             entity = f'{policy_type}/policy/Statement/NotResource'
             reason = 'avoid security through black listing'
             vulnerable_entities.append((entity, reason))
-        for action in map(str, _force_list(
+        for action in map(str, helper.force_list(
                 statement.get('Action', []))):
             # F4: IAM policy should not allow * action
             # F5: IAM managed policy should not allow * action
@@ -58,7 +52,7 @@ def _is_generic_policy_miss_configured(  # noqa: MC0001
                           f'/Statement/Action: {action}')
                 reason = 'grants wildcard privileges'
                 vulnerable_entities.append((entity, reason))
-        for _resource in map(str, _force_list(
+        for _resource in map(str, helper.force_list(
                 statement.get('Resource', []))):
             # W12: IAM policy should not allow * policy_type
             # W13: IAM managed policy should not allow * policy_type

@@ -14,7 +14,7 @@ NOT_EXISTS: str = 'test/static/terraform/not-exists'
 
 
 def test_is_policy_miss_configured():
-    """test ec2.has_unencrypted_volumes."""
+    """test iam.is_policy_miss_configured."""
     result = iam.is_policy_miss_configured(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == 5

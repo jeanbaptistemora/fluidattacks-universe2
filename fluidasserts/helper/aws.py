@@ -8,7 +8,8 @@ import time
 import json
 import functools
 from io import StringIO
-from typing import Any, Callable, Dict, Iterator, Tuple
+from contextlib import suppress
+from typing import Any, Callable, Dict, Iterator, Tuple, List
 
 # 3rd party imports
 import yaml
@@ -23,6 +24,7 @@ from fluidasserts.cloud.aws.cloudformation import (
     CloudFormationError,
     CloudFormationInvalidTypeError,
     CloudFormationInvalidTemplateError,
+    services,
 )
 from fluidasserts.cloud.aws.terraform import (
     TerraformError,
@@ -366,3 +368,82 @@ def iterate_rsrcs_in_tf_template(
         except TerraformError as exc:
             if not ignore_errors:
                 raise exc
+
+
+def service_is_present_action(action: str, service: str) -> bool:
+    """Check if a service is present in an action."""
+    success = False
+    with suppress(KeyError):
+        if isinstance(action, list):
+            success = service in [act.split(':')[0] for act in action]
+        elif action == '*':
+            success = True
+        else:
+            success = action.split(':')[0] == service
+    return success
+
+
+def service_is_present_statement(statement: str, effect: str, service: str):
+    """Check if a service is present in a statement."""
+    return any([
+        sts['Effect'] == effect
+        and service_is_present_action(sts['Action'], service)
+        if 'Action' in sts else False for sts in force_list(statement)
+    ])
+
+
+def resource_all(resource):
+    """Check if an action is permitted for any resource."""
+    if isinstance(resource, list):
+        aux = []
+        for i in resource:
+            aux.append(resource_all(i))
+        success = any(aux)
+    elif isinstance(resource, str):
+        success = resource == '*'
+    else:
+        success = any([resource_all(i) for i in dict(resource).values()])
+
+    return success
+
+
+def force_list(obj: Any) -> List[Any]:
+    """Wrap the element in a list, or if list, leave it intact."""
+    return obj if isinstance(obj, list) else [obj]
+
+
+def policy_statement_privilege(statement, effect: str, action: str):
+    """
+    Check if a statement of a policy allow an action in all resources.
+
+    :param statemet: policy statement.
+    :param effect: (Allow | Deny)
+    :param action: (read | list | write | tagging | permissions_management)
+    """
+    writes = []
+    for sts in force_list(statement):
+        if sts['Effect'] == effect and 'Resource' in sts and resource_all(
+                sts['Resource']):
+            writes.append(policy_actions_has_privilege(sts['Action'], action))
+    return any(writes)
+
+
+def policy_actions_has_privilege(action, privilege) -> bool:
+    """Check if an action have a privilege."""
+    write_actions: dict = services.ACTIONS
+    success = False
+    with suppress(KeyError):
+        if action == '*':
+            success = True
+        else:
+            actions = []
+            for act in force_list(action):
+                serv, act = act.split(':')
+                if act.startswith('*'):
+                    actions.append(True)
+                else:
+                    act = act[:act.index('*')] if act.endswith('*') else act
+                    actions.append(
+                        act in write_actions.get(serv, {})[privilege])
+            success = any(actions)
+    return success

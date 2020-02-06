@@ -17,8 +17,6 @@ from fluidasserts import DAST, LOW, MEDIUM, HIGH
 from fluidasserts.helper import aws
 from fluidasserts.cloud.aws import _get_result_as_tuple
 from fluidasserts.utils.decorators import api, unknown_if
-from fluidasserts.cloud.aws.cloudformation.iam import (
-    _policy_statement_privilege, _service_is_present_statement)
 
 
 def _any_to_list(_input):
@@ -1127,7 +1125,7 @@ def has_wildcard_resource_on_write_action(key_id: str,
             PolicyArn=policy['Arn'],
             VersionId=policy['DefaultVersionId'],
             retry=retry)
-        vulnerable = _policy_statement_privilege(
+        vulnerable = aws.policy_statement_privilege(
             policy_version['Document']['Statement'], 'Allow', 'write')
 
         (vulns if vulnerable else safes).append(
@@ -1184,7 +1182,7 @@ def has_privileges_over_iam(key_id: str,
             VersionId=policy['DefaultVersionId'],
             retry=retry)
 
-        vulnerable = _service_is_present_statement(
+        vulnerable = aws.service_is_present_statement(
             policy_version['Document']['Statement'], 'Allow', 'iam')
         (vulns if vulnerable else safes).append((policy['Arn'],
                                                  'has privileges over iam.'))
