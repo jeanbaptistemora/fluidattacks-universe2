@@ -9,13 +9,6 @@ import _ from "lodash";
 import React from "react";
 import { Mutation, MutationFn, Query, QueryResult } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
-import Lightbox from "react-image-lightbox";
-/* tslint:disable-next-line:no-import-side-effect no-submodule-imports
- * Disabling this two rules is necessary for
- * allowing the import of default styles that ReactImageLightbox needs
- * to display properly even if some of them are overridden later
- */
-import "react-image-lightbox/style.css";
 import { RouteComponentProps } from "react-router";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
@@ -25,6 +18,7 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { validEventFile, validEvidenceImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
+import { EvidenceLightbox } from "../../components/EvidenceLightbox";
 import {
   DOWNLOAD_FILE_MUTATION, GET_EVENT_EVIDENCES, REMOVE_EVIDENCE_MUTATION, UPDATE_EVIDENCE_MUTATION,
 } from "./queries";
@@ -37,9 +31,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
   const [isEditing, setEditing] = React.useState(false);
   const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };
 
-  const [isImageOpen, setImageOpen] = React.useState(false);
-  const closeImage: (() => void) = (): void => { setImageOpen(false); };
-  const openImage: (() => void) = (): void => { if (!isEditing) { setImageOpen(true); } };
+  const [lightboxIndex, setLightboxIndex] = React.useState(-1);
 
   const baseUrl: string = window.location.href.replace("dashboard#!/", "");
 
@@ -48,27 +40,6 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
       <Query query={GET_EVENT_EVIDENCES} variables={{ eventId }}>
         {({ data, refetch }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
-
-          const renderLightbox: (() => JSX.Element) = (): JSX.Element => {
-            const adjustZoom: (() => void) = (): void => {
-              /**
-               * As a workaround to a bug in this component,
-               * we need trigger the resize event for it to
-               * properly calculate the image scale
-               */
-              setTimeout((): void => { window.dispatchEvent(new Event("resize")); }, 50);
-            };
-
-            return (
-              <Lightbox
-                mainSrc={`${baseUrl}/${data.event.evidence}`}
-                imagePadding={50}
-                onAfterOpen={adjustZoom}
-                onCloseRequest={closeImage}
-                reactModalStyle={{ overlay: { zIndex: "1200" } }}
-              />
-            );
-          };
 
           const handleUpdateResult: (() => void) = (): void => {
             refetch()
@@ -140,6 +111,10 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                             removeImage({ variables: { eventId, evidenceType: "IMAGE" } })
                               .catch();
                             setEditing(false);
+                          };
+
+                          const openImage: (() => void) = (): void => {
+                            if (!isEditing) { setLightboxIndex(0); }
                           };
 
                           return (
@@ -230,7 +205,11 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                   }}
                 </Mutation>
                 : undefined}
-              {isImageOpen ? renderLightbox() : undefined}
+              <EvidenceLightbox
+                evidenceImages={[{ url: data.event.evidence }]}
+                index={lightboxIndex}
+                onChange={setLightboxIndex}
+              />
             </React.Fragment>
           );
         }}

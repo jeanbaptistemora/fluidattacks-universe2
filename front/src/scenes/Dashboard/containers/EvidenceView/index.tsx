@@ -10,13 +10,6 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Mutation, MutationFn, Query, QueryResult } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
-import Lightbox from "react-image-lightbox";
-/* tslint:disable-next-line:no-import-side-effect no-submodule-imports
- * Disabling this two rules is necessary for
- * allowing the import of default styles that ReactImageLightbox needs
- * to display properly even if some of them are overridden later
- */
-import "react-image-lightbox/style.css";
 import { RouteComponentProps } from "react-router";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
@@ -26,6 +19,7 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { validEvidenceImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
+import { EvidenceLightbox } from "../../components/EvidenceLightbox";
 import {
   GET_FINDING_EVIDENCES, REMOVE_EVIDENCE_MUTATION, UPDATE_DESCRIPTION_MUTATION, UPDATE_EVIDENCE_MUTATION,
 } from "./queries";
@@ -34,23 +28,17 @@ type EventEvidenceProps = RouteComponentProps<{ findingId: string }>;
 
 const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): JSX.Element => {
   const { findingId } = props.match.params;
+  const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
 
   const onMount: (() => void) = (): void => {
-    mixpanel.track("FindingEvidence", {
-      Organization: (window as Window & { userOrganization: string }).userOrganization,
-      User: (window as Window & { userName: string }).userName,
-    });
+    mixpanel.track("FindingEvidence", { Organization: userOrganization, User: userName });
   };
   React.useEffect(onMount, []);
 
   const [isEditing, setEditing] = React.useState(false);
   const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };
 
-  const [lightBoxIndex, setLightboxIndex] = React.useState(-1);
-  const closeImage: (() => void) = (): void => {
-    document.body.style.removeProperty("overflow");
-    setLightboxIndex(-1);
-  };
+  const [lightboxIndex, setLightboxIndex] = React.useState(-1);
 
   const baseUrl: string = window.location.href.replace("dashboard#!/", "");
 
@@ -69,37 +57,6 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
             { ...exploitation, description: translate.t("search_findings.tab_evidence.evidence_exploit") },
             evidence1, evidence2, evidence3, evidence4, evidence5,
           ].filter((evidence: IEvidenceItem) => isEditing ? true : !_.isEmpty(evidence.url));
-
-          const renderLightbox: (() => JSX.Element) = (): JSX.Element => {
-            const adjustZoom: (() => void) = (): void => {
-              /**
-               * As a workaround to a bug in this component,
-               * we need trigger the resize event for it to
-               * properly calculate the image scale
-               */
-              setTimeout((): void => { window.dispatchEvent(new Event("resize")); }, 50);
-              document.body.style.overflow = "hidden";
-            };
-            const nextIndex: number = (lightBoxIndex + 1) % evidenceImages.length;
-            const previousIndex: number = (lightBoxIndex + evidenceImages.length - 1) % evidenceImages.length;
-            const moveNext: (() => void) = (): void => { setLightboxIndex(nextIndex); };
-            const movePrevious: (() => void) = (): void => { setLightboxIndex(previousIndex); };
-
-            return (
-              <Lightbox
-                mainSrc={`${baseUrl}/${evidenceImages[lightBoxIndex].url}`}
-                nextSrc={`${baseUrl}/${evidenceImages[nextIndex].url}`}
-                prevSrc={`${baseUrl}/${evidenceImages[previousIndex].url}`}
-                imagePadding={50}
-                imageTitle={evidenceImages[lightBoxIndex].description}
-                onAfterOpen={adjustZoom}
-                onCloseRequest={closeImage}
-                onMoveNextRequest={moveNext}
-                onMovePrevRequest={movePrevious}
-                reactModalStyle={{ overlay: { zIndex: "1200" } }}
-              />
-            );
-          };
 
           const handleUpdateResult: (() => void) = (): void => {
             refetch()
@@ -121,7 +78,6 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
             });
           };
 
-          const { userRole } = (window as typeof window & { userRole: string });
           const canEdit: boolean = _.includes(["admin", "analyst"], userRole);
 
           return (
@@ -195,10 +151,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                             <Mutation mutation={REMOVE_EVIDENCE_MUTATION} onCompleted={handleUpdateResult}>
                               {(removeImage: MutationFn): React.ReactNode => {
                                 const handleRemove: (() => void) = (): void => {
-                                  mixpanel.track("RemoveEvidence", {
-                                    Organization: (window as Window & { userOrganization: string }).userOrganization,
-                                    User: (window as Window & { userName: string }).userName,
-                                  });
+                                  mixpanel.track("RemoveEvidence", { Organization: userOrganization, User: userName });
                                   setEditing(false);
                                   removeImage({ variables: { evidenceId: index, findingId } })
                                     .catch();
@@ -233,7 +186,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                   </Mutation>
                 ))
               }
-              {lightBoxIndex > -1 ? renderLightbox() : undefined}
+              <EvidenceLightbox evidenceImages={evidenceImages} index={lightboxIndex} onChange={setLightboxIndex} />
             </React.Fragment>
           );
         }}
