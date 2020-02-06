@@ -4,7 +4,6 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import Xhr from "../../../../utils/xhr";
-import { closeConfirmDialog } from "../../actions";
 import * as actionTypes from "./actionTypes";
 
 export interface IActionStructure {
@@ -65,7 +64,6 @@ export const deleteFinding: ((findingId: string, projectName: string, justificat
         .then((response: AxiosResponse) => {
           const { data } = response.data;
 
-          dispatch(closeConfirmDialog("confirmDeleteFinding"));
           if (data.deleteFinding.success) {
             msgSuccess(
               translate.t("search_findings.finding_deleted", { findingId }),

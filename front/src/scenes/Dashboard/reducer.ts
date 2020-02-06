@@ -1,6 +1,5 @@
 import _ from "lodash";
 import * as actions from "./actions";
-import * as actionType from "./actionTypes";
 import * as vulnerabilitiesActions from "./components/Vulnerabilities/actionTypes";
 import { IDescriptionViewProps } from "./containers/DescriptionView";
 import * as descriptionActions from "./containers/DescriptionView/actionTypes";
@@ -504,32 +503,6 @@ actionMap[usersActions.CLOSE_USERS_MDL] =
       addModal: initialState.users.addModal,
     },
   });
-
-actionMap[actionType.OPEN_CONFIRM_DIALOG] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-    ({
-      ...state,
-      confirmDialog: {
-        ...state.confirmDialog,
-        [action.payload.dialogName]: {
-          ...state.confirmDialog[action.payload.dialogName],
-          isOpen: true,
-        },
-      },
-    });
-
-actionMap[actionType.CLOSE_CONFIRM_DIALOG] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-    ({
-      ...state,
-      confirmDialog: {
-        ...state.confirmDialog,
-        [action.payload.dialogName]: {
-          ...state.confirmDialog[action.payload.dialogName],
-          isOpen: false,
-        },
-      },
-    });
 
 actionMap[descriptionActions.LOAD_DESCRIPTION] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
