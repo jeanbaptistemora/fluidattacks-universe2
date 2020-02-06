@@ -62,7 +62,7 @@ def get_projects(user_email, active=True):
 
 
 def get_project_access(email, project_name):
-    has_access_attr = user_dal.get_project_access(email, project_name)
+    has_access_attr = project_dal.get_user_access(email, project_name)
     resp = False
     if has_access_attr and has_access_attr[0].get('has_access'):
         resp = True
@@ -125,7 +125,7 @@ def update_last_login(email):
 
 
 def update_project_access(email, project_name, access):
-    return user_dal.update_project_access(email, project_name, access)
+    return project_dal.add_access(email, project_name, 'has_access', access)
 
 
 def update_multiple_user_attributes(email, data_dict):

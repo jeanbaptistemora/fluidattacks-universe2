@@ -7,7 +7,7 @@ from backend.domain import (
 )
 
 from backend import util
-from backend.dal import integrates_dal, project as project_dal
+from backend.dal import project as project_dal
 
 
 @csrf_exempt
@@ -81,7 +81,7 @@ def has_valid_access_token(email, context, jti):
 
 def has_responsibility(project, email):
     """Verify if a user has responsibility."""
-    project_data = integrates_dal.get_project_access_dynamo(email, project)
+    project_data = project_dal.get_user_access(email, project)
     user_resp = "-"
     for data in project_data:
         if 'responsibility' in data:

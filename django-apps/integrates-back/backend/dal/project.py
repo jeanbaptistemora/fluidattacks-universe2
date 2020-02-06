@@ -7,14 +7,16 @@ import pytz
 from boto3.dynamodb.conditions import Attr, Key
 from django.conf import settings
 
-from backend.dal import integrates_dal, user as user_dal
+from backend.dal import integrates_dal
 from backend.dal.event import TABLE as EVENTS_TABLE
 from backend.dal.helpers import dynamodb
 from backend.dal.finding import TABLE as FINDINGS_TABLE
 from backend.dal.helpers.analytics import query
+from backend.dal.user import get_user_attributes
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 TABLE_COMMENTS = DYNAMODB_RESOURCE.Table('fi_project_comments')
+TABLE_ACCESS = DYNAMODB_RESOURCE.Table('FI_project_access')
 
 
 def get_current_month_information(project_name, query_db):
@@ -186,7 +188,7 @@ def add_all_access_to_project(project):
         users_inactive = get_users(project, False)
         all_users = users_active + users_inactive
         users_response = \
-            [user_dal.update_project_access(user, project, True)
+            [add_access(user, project, 'has_access', True)
              for user in all_users]
         resp = all(users_response)
     else:
@@ -202,7 +204,7 @@ def remove_all_project_access(project):
         active = True
         users = get_users(project, active)
         users_response = \
-            [user_dal.update_project_access(user, project, False)
+            [add_access(user, project, 'has_access', True)
              for user in users]
         resp = all(users_response)
     else:
@@ -222,7 +224,7 @@ def list_project_managers(project_name):
     all_users = users_active + users_inactive
     managers = \
         [user for user in all_users
-         if user_dal.get_user_attributes(user, ['role']).get('role', '') == 'customeradmin']
+         if get_user_attributes(user, ['role']).get('role', '') == 'customeradmin']
     return managers
 
 
@@ -427,3 +429,89 @@ def get(project):
 def get_pending_to_delete():
     filtering_exp = Attr('project_status').eq('PENDING_DELETION')
     return get_filtered_list('project_name, historic_deletion', filtering_exp)
+
+
+def get_user_access(user_email, project_name):
+    """Get user access of a project."""
+    user_email = user_email.lower()
+    project_name = project_name.lower()
+    filter_key = 'user_email'
+    filter_sort = 'project_name'
+    filtering_exp = Key(filter_key).eq(user_email) & \
+        Key(filter_sort).eq(project_name)
+    response = TABLE_ACCESS.query(KeyConditionExpression=filtering_exp)
+    items = response['Items']
+    while True:
+        if response.get('LastEvaluatedKey'):
+            response = TABLE_ACCESS.query(
+                KeyConditionExpression=filtering_exp,
+                ExclusiveStartKey=response['LastEvaluatedKey'])
+            items += response['Items']
+        else:
+            break
+    return items
+
+
+def add_access(user_email, project_name, project_attr, attr_value):
+    """Add project access attribute."""
+    item = get_user_access(user_email, project_name)
+    if item == []:
+        try:
+            response = TABLE_ACCESS.put_item(
+                Item={
+                    'user_email': user_email.lower(),
+                    'project_name': project_name.lower(),
+                    project_attr: attr_value
+                }
+            )
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            return resp
+        except ClientError:
+            rollbar.report_exc_info()
+            return False
+    else:
+        return update_access(
+            user_email,
+            project_name,
+            project_attr,
+            attr_value
+        )
+
+
+def remove_access(user_email, project_name):
+    """Remove project access in dynamo."""
+    try:
+        response = TABLE_ACCESS.delete_item(
+            Key={
+                'user_email': user_email.lower(),
+                'project_name': project_name.lower(),
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
+
+
+def update_access(user_email, project_name, project_attr, attr_value):
+    """Update project access attribute."""
+    try:
+        response = TABLE_ACCESS.update_item(
+            Key={
+                'user_email': user_email.lower(),
+                'project_name': project_name.lower(),
+            },
+            UpdateExpression='SET #project_attr = :val1',
+            ExpressionAttributeNames={
+                '#project_attr': project_attr
+            },
+            ExpressionAttributeValues={
+                ':val1': attr_value
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False

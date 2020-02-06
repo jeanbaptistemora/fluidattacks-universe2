@@ -83,6 +83,14 @@ def add_user(project_name, user_email, role):
     return project_dal.add_user(project_name, user_email, role)
 
 
+def add_access(user_email, project_name, project_attr, attr_value):
+    return project_dal.add_access(user_email, project_name, project_attr, attr_value)
+
+
+def remove_access(user_email, project_name):
+    return project_dal.remove_access(user_email, project_name)
+
+
 def get_pending_to_delete():
     return project_dal.get_pending_to_delete()
 
@@ -204,7 +212,7 @@ def remove_user_access(project, user_email):
     """Remove user access to project."""
     integrates_dal.remove_role_to_project_dynamo(
         project, user_email, 'customeradmin')
-    return integrates_dal.remove_project_access_dynamo(user_email, project)
+    return project_dal.remove_access(user_email, project)
 
 
 def validate_tags(tags):

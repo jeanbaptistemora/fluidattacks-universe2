@@ -250,9 +250,7 @@ def create_new_user(context, new_user_data, project_name):
     elif user_domain.is_registered(email):
         user_domain.assign_role(email, role)
     if project_name and responsibility and len(responsibility) <= 50:
-        integrates_dal.add_project_access_dynamo(email, project_name,
-                                                 'responsibility',
-                                                 responsibility)
+        project_domain.add_access(email, project_name, 'responsibility', responsibility)
     else:
         util.cloudwatch_log(
             context,
@@ -314,8 +312,7 @@ class RemoveUserAccess(Mutation):
 
         integrates_dal.remove_role_to_project_dynamo(project_name, user_email,
                                                      'customeradmin')
-        success = integrates_dal.remove_project_access_dynamo(
-            user_email, project_name)
+        success = project_domain.remove_access(user_email, project_name)
         removed_email = user_email if success else None
         if success:
             util.invalidate_cache(project_name)
@@ -402,9 +399,7 @@ def modify_user_information(context, modified_user_data, project_name):
     organization = modified_user_data['organization']
     user_domain.update_user_attribute(email, organization.lower(), 'company')
     if responsibility and len(responsibility) <= 50:
-        integrates_dal.add_project_access_dynamo(email, project_name,
-                                                 'responsibility',
-                                                 responsibility)
+        project_domain.add_access(email, project_name, 'responsibility', responsibility)
     else:
         util.cloudwatch_log(
             context,

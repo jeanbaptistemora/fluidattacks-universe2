@@ -57,10 +57,6 @@ def get_all_users_report(company_name, finish_date):
     return len(users_filtered)
 
 
-def get_project_access(email, project_name):
-    return integrates_dal.get_project_access_dynamo(email, project_name)
-
-
 def get_user_attributes(email, data):
     primary_key = {'email': email.lower()}
     return integrates_dal.get_table_attributes_dynamo(
@@ -92,11 +88,6 @@ def update_multiple_user_attributes(email, data_dict):
     primary_key = ['email', email.lower()]
     return integrates_dal.add_multiple_attributes_dynamo(
         TABLE, primary_key, data_dict)
-
-
-def update_project_access(email, project_name, access):
-    return integrates_dal.add_project_access_dynamo(
-        email, project_name, 'has_access', access)
 
 
 def update_user_attribute(email, data_attribute, name_attribute):

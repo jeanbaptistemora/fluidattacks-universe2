@@ -30,7 +30,10 @@ from backend.domain.vulnerability import (
     group_specific, get_open_vuln_by_type, get_vulnerabilities_by_type
 )
 from backend.decorators import authenticate, authorize, cache_content
-from backend.dal import integrates_dal, finding as finding_dal, user as user_dal
+from backend.dal import (
+    integrates_dal, finding as finding_dal, user as user_dal,
+    project as project_dal
+)
 from backend.services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
 )
@@ -412,7 +415,7 @@ def remove_user_access(project, user_email):
     """Remove user access to project."""
     integrates_dal.remove_role_to_project_dynamo(
         project, user_email, 'customeradmin')
-    return integrates_dal.remove_project_access_dynamo(user_email, project)
+    return project_dal.remove_access(user_email, project)
 
 
 @cache_content
