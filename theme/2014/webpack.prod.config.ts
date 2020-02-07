@@ -24,9 +24,6 @@ const prodConfig: webpack.Configuration = {
         },
       }),
     ],
-    splitChunks: {
-        chunks: "all",
-      },
   },
 };
 

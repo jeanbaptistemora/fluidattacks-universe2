@@ -4,7 +4,6 @@ import webpack from "webpack";
 export const commonConfig: webpack.Configuration = {
   entry: {
     faqContent: "./static/js/faqContent.ts",
-    jquery: "./static/js/jquery.ts",
   },
   module: {
     rules: [

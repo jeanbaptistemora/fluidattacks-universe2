@@ -157,6 +157,9 @@ deploy:
     - for FILE in $(find content/blog content/pages -iname '*.adoc'); do
         sed -i 's#^include::#include::'"${CI_PROJECT_DIR/\/web/}"'#g' ${FILE};
       done
+    - npm --prefix builder/base/ install
+    - cp -a builder/base/node_modules theme/2014/
+    - npm run --prefix builder/base/ build
     - ./build-site.sh
     - ./deploy.sh
     - ./amz-redirect.sh

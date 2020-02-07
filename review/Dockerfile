@@ -23,6 +23,9 @@ RUN pybabel compile --directory theme/2014/translations/ --domain messages \
       sed -i 's#^include::#include::/home#g' $FILE; \
       done \
     && sed -i 's/https:\/\/fluidattacks\.com/https:\/\/'"${CI_PROJECT_NAME}.${ENV_DNS}\/${CI_COMMIT_REF_NAME}"'/g' pelicanconf.py \
+    && npm --prefix builder/base/ install \
+    && cp -a builder/base/node_modules theme/2014/ \
+    && npm run --prefix builder/base/ build \
     && ./build-site.sh \
     && ./html-lint.sh
 
