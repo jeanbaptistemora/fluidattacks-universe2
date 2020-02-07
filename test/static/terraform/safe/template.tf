@@ -357,3 +357,9 @@ resource "aws_fsx_windows_file_system" "example" {
   subnet_ids          = [aws_subnet.example.id]
   throughput_capacity = 1024
 }
+
+resource "aws_kms_key" "a" {
+  description             = "KMS key 1"
+  deletion_window_in_days = 10
+  enable_key_rotation = true
+}
