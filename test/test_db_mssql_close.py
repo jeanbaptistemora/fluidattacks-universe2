@@ -69,6 +69,13 @@ def test_has_password_policy_check_disabled_closed(get_mock_ip):
         DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_closed()
 
 
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_has_xps_option_enabled_closed(get_mock_ip):
+    """Test mssql.has_xps_option_enabled."""
+    assert mssql.has_xps_option_enabled(
+        DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_closed()
+
+
 #
 # UNKNOWN
 #
@@ -114,4 +121,11 @@ def test_can_alter_any_database_unknown(get_mock_ip):
 def test_has_password_policy_check_disabled_unknown(get_mock_ip):
     """Test mssql.has_password_policy_check_disabled."""
     assert mssql.has_password_policy_check_disabled(
+        DBNAME, USER, ADMIN_PASSWORD, '0.0.0.1', PORT).is_unknown()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_has_xps_option_enabled_unknown(get_mock_ip):
+    """Test mssql.has_xps_option_enabled."""
+    assert mssql.has_xps_option_enabled(
         DBNAME, USER, ADMIN_PASSWORD, '0.0.0.1', PORT).is_unknown()

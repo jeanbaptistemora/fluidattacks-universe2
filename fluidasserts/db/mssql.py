@@ -126,6 +126,22 @@ def _check_permission(connection_string: ConnectionString,
     return (vulns, safes)
 
 
+def _check_configuration(connection_string: ConnectionString,
+                         configuration: str) -> bool:
+    """Check if a system configuration option is enabled."""
+    query = f"""SELECT 1
+                FROM master.sys.configurations
+                WHERE lower(name) = '{configuration.lower()}'
+                  AND (value_in_use = 1 or value = 1)"""  # nosec
+    try:
+        with database(connection_string) as (_, cursor):
+            return bool(cursor.execute(query).fetchone())
+
+    except (pyodbc.OperationalError, pyodbc.InterfaceError) as exc:
+        if not _is_permission_error(exc):
+            raise exc
+
+
 @api(risk=LOW, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
 def have_access(dbname: str, user: str, password: str, host: str,
@@ -364,18 +380,9 @@ def has_enabled_ad_hoc_queries(dbname: str,
     msg_open: str = 'Ad Hoc distributed queries option is enabled.'
     msg_closed: str = 'Ad Hoc distributed queries option is disabled.'
 
-    try:
-        with database(connection_string) as (_, cursor):
-            cursor.execute("""select 1
-                              from master.sys.configurations
-                              where lower(name) = 'ad hoc distributed queries'
-                                and (value_in_use = 1 or value = 1)""")
-            (vulns if cursor.fetchone() else safes
-             ).append('must disable ad hoc distributed queries config option')
-
-    except (pyodbc.ProgrammingError, pyodbc.OperationalError) as exc:
-        if not _is_auth_permission_error(exc):
-            raise exc
+    (vulns if _check_configuration(connection_string,
+                                   'ad hoc distributed queries') else
+     safes).append('must disable ad hoc distributed queries config option')
 
     return _get_result_as_tuple(
         host=host,
@@ -484,6 +491,53 @@ def has_password_policy_check_disabled(dbname: str,
     except (pyodbc.InterfaceError, pyodbc.OperationalError) as exc:
         if not _is_auth_permission_error(exc):
             raise exc
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
+def has_xps_option_enabled(dbname: str, user: str, password: str, host: str,
+                           port: int) -> Tuple:
+    """
+    Check if agent XPs option is enabled.
+
+    The Agent XPs are extended stored procedures used by the SQL Server Agent
+    that provide privileged actions that run externally to the DBMS under the
+    security context of the SQL Server Agent service account. If these
+    procedures are available from a database session, an exploit to the SQL
+    Server instance could result in a compromise of the host system and
+    external SQL Server resources.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+
+    :returns: - ``OPEN`` if agent XPs option is enabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port)
+
+    msg_open: str = 'Agent XPs Option is Enabled'
+    msg_closed: str = 'Agent XPs Option is Disabled'
+
+    (vulns if _check_configuration(connection_string, 'agent xps') else
+     safes).append(f'Must disable Agent XPs Option.')
+
     return _get_result_as_tuple(
         host=host,
         port=port,

@@ -85,3 +85,9 @@ GRANT ALTER ANY DATABASE TO $DB_USER;"
 # Disable password check policy. check: has_password_policy_check_disabled
 execute_query "
 ALTER LOGIN $DB_USER WITH check_policy = OFF"
+
+# Enable Agent XPs option. check: has_xps_option_enabled
+execute_query "
+EXEC sp_configure 'show advanced options', 1;
+EXEC sp_configure 'Agent XPs', '1';
+RECONFIGURE WITH OVERRIDE"

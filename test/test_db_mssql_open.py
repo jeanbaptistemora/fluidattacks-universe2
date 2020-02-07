@@ -66,3 +66,10 @@ def test_has_password_policy_check_disabled_open(get_mock_ip):
     """Test mssql.has_password_policy_check_disabled."""
     assert mssql.has_password_policy_check_disabled(
         DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_open()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_weak'], indirect=True)
+def test_has_xps_option_enabled_open(get_mock_ip):
+    """Test mssql.has_xps_option_enabled."""
+    assert mssql.has_xps_option_enabled(
+        DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_open()
