@@ -42,7 +42,7 @@ reputation damage, and indispensable employee training.
 image::ransomsanta.png[ransomsanta]
 
 There was a first ransomware case reported in 1989
-with a trojan called PC Cyborg, or AIDS,
+with a trojan called PC Cyborg, or +AIDS+,
 spread with 5¼ floppy discs to different countries
 and that once installed on victim’s computer,
 according to link:https://www.welivesecurity.com/2015/09/18/evolution-ransomware-pc-cyborg-service-sale/[Mendoza],
@@ -50,9 +50,6 @@ according to link:https://www.welivesecurity.com/2015/09/18/evolution-ransomware
 rendering the system unusable.”
 After that, the software required $189 to be paid
 to regain access to the system.
-
-.on link:https://www.knowbe4.com/aids-trojan[KnowBe4]
-image::aids.png[AIDS]
 
 Almost a decade and a half later,
 with a more developed Internet and cloud computing,
@@ -92,7 +89,9 @@ as “the top three states infected with ransomware.”
 For new tendencies in ransomware look at this link:http://techgenix.com/ransomware-threats-next-level/[post].
 And see also some information that [inner]#link:../cost-cybercrime-i/[Arango]# gave us.
 
-Now, let’s talk about the *procedure* of ransomware attacks,
+== Procedure
+
+Now, let’s talk about the procedure of ransomware attacks,
 mainly oriented to a cryptor ransomware.
 
 There must be an *_infection_* at first,
@@ -129,7 +128,7 @@ The *_backup_* files and folders are then located by ransomware
 from the victim’s computer to prevent restoration processes in the future.
 
 Later it's the *_file encryption_* process of some of the victim's files,
-which loses access to them.
+who loses access to them.
 Those files are mainly documents, spreadsheets, and images
 that for the user or the infected company have a high relevance value,
 and for which attackers can demand a considerable amount of money.
@@ -140,9 +139,8 @@ that is, obtaining passwords and saving files.
 .by link:http://cdn2.hubspot.net/hubfs/241394/Ransomware-Hostage-Rescue-Manual.pdf[KnowBe4]
 image::cita001.png[KnowBe4]
 
-At the end comes the notification for the user
-with the instructions to follow for the ransom *_payment_*
-and the recovery of the files.
+Finally, the victim is notified of the instructions to follow
+for the ransom *_payment_* and the recovery of the files.
 Although it’s not possible to access the encrypted files,
 the system is able to perform the following necessary steps.
 
@@ -156,10 +154,9 @@ Failure to pay at any given time
 may lead to the gradual or immediate removal of the files,
 or to the increase of the ransom.
 
-.As link:https://cybersecurityventures.com/global-ransomware-damage-costs-predicted-to-reach-20-billion-usd-by-2021/[Steve Morgan] said a few months ago
-image::cita002.png[Morgan]
+== Defense
 
-Related to the *defense* we could roughly say things like:
+Related to the defense we could roughly say things like:
 
 If your system is suspected of being infected,
 separate it from others in your network
@@ -183,15 +180,17 @@ If you have them, use backups (copies of your files) to restore the system.
 Or, sadly but effectively, so that no malware remains,
 simply clean out the system storage and reinstall it from scratch.
 
-Oops!, obviously you can pay the ransom, but it's not recommended.
+Oops! Obviously you can pay the ransom, but it's not recommended.
 It doesn't guarantee data recovery,
 and is considered a way to strengthen ransomware business,
 and a boost for future developments and attacks.
 
-.by link:https://www.zdnet.com/article/30-years-of-ransomware-how-one-bizarre-attack-laid-the-foundations-for-the-malware-taking-over-the-world/[Palmer] on ZDNet
-image::cita003.png[Palmer]
+.As link:https://cybersecurityventures.com/global-ransomware-damage-costs-predicted-to-reach-20-billion-usd-by-2021/[Steve Morgan] said a few months ago
+image::cita002.png[Morgan]
 
-From Fluid Attacks, more interested in giving you *prevention* tactics,
+== Prevention
+
+From +Fluid Attacks+, more interested in giving you prevention tactics,
 so that you're prepared for attacks in a world saturated with cybercrime,
 we share the following:
 
@@ -216,7 +215,7 @@ It is vitally important
 that you constantly maintain an _offline_ backup of your files
 so that they are safe whenever you are attacked.
 
-And don't forget that here at Fluid Attacks
+And don't forget that here at +Fluid Attacks+
 we can identify and report
 the vulnerabilities of your organization's systems and networks,
 with our penetration testing service.
