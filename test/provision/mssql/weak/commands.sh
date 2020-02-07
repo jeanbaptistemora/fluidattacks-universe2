@@ -82,6 +82,6 @@ ALTER DATABSE $DB_NAME SET TRUSTWORTHY ON"
 execute_query "
 GRANT ALTER ANY DATABASE TO $DB_USER;"
 
-# Disablde password check policy
+# Disable password check policy. check: has_password_policy_check_disabled
 execute_query "
 ALTER LOGIN $DB_USER WITH check_policy = OFF"

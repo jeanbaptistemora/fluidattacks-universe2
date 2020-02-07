@@ -431,3 +431,63 @@ def can_alter_any_database(dbname: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
+def has_password_policy_check_disabled(dbname: str,
+                                       user: str,
+                                       password: str,
+                                       host: str,
+                                       port: int) -> Tuple:
+    """
+    Check if login passwords are tested for complexity requirements.
+
+    Weak passwords are a primary target for attack to gain unauthorized access
+    to databases and other systems. Where username/password is used for
+    identification and authentication to the database, requiring the use of
+    strong passwords can help prevent simple and more sophisticated methods
+    for guessing.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+
+    :returns: - ``OPEN`` if there are logins that have password policy
+                 complexity check disabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port)
+
+    msg_open: str = \
+        'Passwords are not verified to meet complexity requirements.'
+    msg_closed: str = 'Passwords are verified to meet complexity requirements.'
+
+    try:
+        with database(connection_string) as (_, cursor):
+            cursor.execute("""SELECT is_policy_checked, name FROM
+                              master.sys.sql_logins WHERE type = 'S'
+                              AND name NOT LIKE '##MS%##'""")
+            for data in cursor:
+                (vulns if not data.is_policy_checked else safes).append(
+                    f'master.sys.sql_logins.{data.name}')
+
+    except (pyodbc.InterfaceError, pyodbc.OperationalError) as exc:
+        if not _is_auth_permission_error(exc):
+            raise exc
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
