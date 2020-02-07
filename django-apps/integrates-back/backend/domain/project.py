@@ -48,7 +48,7 @@ def create_project(user_email, user_role, **kwargs):
         companies = [user_domain.get_data(user_email, 'company')]
     description = kwargs.get('description')
     project_name = kwargs.get('project_name').lower()
-    if kwargs.get('subscription') and is_user_admin:
+    if kwargs.get('subscription'):
         subscription = kwargs.get('subscription')
     else:
         subscription = 'continuous'
