@@ -88,6 +88,7 @@ function release_to_docker_hub {
   build 'fluidattacks/asserts:debian-light' 'light' 'debian.Dockerfile'
   build 'fluidattacks/asserts:debian-full'  'full'  'debian.Dockerfile'
   build 'fluidattacks/asserts:debian'       'full'  'debian.Dockerfile'
+  build 'fluidattacks/asserts'       	    'full'  'debian.Dockerfile'
 }
 
 function release_to_pypi {
