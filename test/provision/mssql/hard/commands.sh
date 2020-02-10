@@ -56,3 +56,15 @@ GO
 EXEC sp_configure 'SMO and DMO XPs', '0';
 GO
 RECONFIGURE;"
+
+# Set autoclose ON. check: has_contained_dbs_with_auto_close_enabled
+execute_query "
+CREATE DATABASE test_db_1;
+GO
+EXEC sp_configure 'contained database authentication', 1
+GO
+RECONFIGURE;
+GO
+ALTER DATABASE test_db_1 SET containment = PARTIAL;
+GO
+ALTER DATABASE test_db_1 SET AUTO_CLOSE OFF;"

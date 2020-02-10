@@ -104,3 +104,15 @@ GO
 ALTER ASYMMETRIC KEY asserts_key REMOVE PRIVATE KEY;
 GO
 "
+
+# Set autoclose ON. check: has_contained_dbs_with_auto_close_enabled
+execute_query "
+CREATE DATABASE test_db_1;
+GO
+EXEC sp_configure 'contained database authentication', 1
+GO
+RECONFIGURE;
+GO
+ALTER DATABASE test_db_1 SET containment  = PARTIAL
+GO
+ALTER DATABASE test_db_1 SET AUTO_CLOSE ON"

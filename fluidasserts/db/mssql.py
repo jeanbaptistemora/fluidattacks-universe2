@@ -501,7 +501,7 @@ def has_password_policy_check_disabled(dbname: str,
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
+@unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
 def has_xps_option_enabled(dbname: str, user: str, password: str, host: str,
                            port: int) -> Tuple:
     """
@@ -604,7 +604,7 @@ def has_asymmetric_keys_with_unencrypted_private_keys(dbname: str,
 
 
 @api(risk=MEDIUM, kind=DAST)
-@unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
+@unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
 def has_smo_and_dmo_xps_option_enabled(dbname: str,
                                        user: str,
                                        password: str,
@@ -644,6 +644,62 @@ def has_smo_and_dmo_xps_option_enabled(dbname: str,
     (vulns if _check_configuration(connection_string, 'SMO and DMO XPs') else
      safes).append(f'Must disable SMO and DMO XPs options.')
 
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
+def has_contained_dbs_with_auto_close_enabled(dbname: str,
+                                              user: str,
+                                              password: str,
+                                              host: str,
+                                              port: int) -> Tuple:
+    """
+    Check if there are contained databases that are set to AUTO_CLOSE ON.
+
+    Opening contained databases to authenticate a user consumes additional
+    server resources and may contribute to a denial of service.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+
+    :returns: - ``OPEN`` if there are contained databases that are set to
+                 AUTO_CLOSE ON.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port)
+
+    msg_open: str = 'Contained databases are set to AUTO_CLOSE ON.'
+    msg_closed: str = 'Contained databases are set to AUTO_CLOSE OFF.'
+
+    try:
+        with database(connection_string) as (_, cursor):
+            databases = cursor.execute("""SELECT name, is_auto_close_on
+                   FROM sys.databases
+                   WHERE containment <> 0""").fetchall()
+        for database_ in databases:
+            (vulns if database_.is_auto_close_on else
+             safes).append(f'sys.databases.{database_.name}')
+
+    except (pyodbc.OperationalError, pyodbc.InterfaceError) as exc:
+        if not _is_auth_permission_error(exc):
+            raise exc
     return _get_result_as_tuple(
         host=host,
         port=port,

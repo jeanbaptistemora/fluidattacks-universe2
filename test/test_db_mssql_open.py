@@ -87,3 +87,10 @@ def test_has_smo_and_dmo_xps_option_enabled_open(get_mock_ip):
     """Test mssql.has_smo_and_dmo_xps_option_enabled."""
     assert mssql.has_smo_and_dmo_xps_option_enabled(
         DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_open()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_weak'], indirect=True)
+def test_has_contained_dbs_with_auto_close_enabled_open(get_mock_ip):
+    """Test mssql.has_contained_dbs_with_auto_close_enabled."""
+    assert mssql.has_contained_dbs_with_auto_close_enabled(
+        DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_open()
