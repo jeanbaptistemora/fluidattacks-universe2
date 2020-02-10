@@ -601,3 +601,53 @@ def has_asymmetric_keys_with_unencrypted_private_keys(dbname: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
+def has_smo_and_dmo_xps_option_enabled(dbname: str,
+                                       user: str,
+                                       password: str,
+                                       host: str,
+                                       port: int) -> Tuple:
+    """
+    Check if SMO and DMO XPs options are enabled.
+
+    The SMO and DMO XPs are management object extended stored procedures that
+    provide highly-privileged actions that run externally to the DBMS under
+    the security context of the SQL Server service account. If these procedures
+    are available from a database session, an exploit to the SQL Server
+    instance could result in a compromise of the host system and external SQL
+    Server resources.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+
+    :returns: - ``OPEN`` if SMO and DMO XPs options are enabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port)
+
+    msg_open: str = 'SMO and DMO XPs options are enabled.'
+    msg_closed: str = 'SMO and DMO XPs options are disablede.'
+
+    (vulns if _check_configuration(connection_string, 'SMO and DMO XPs') else
+     safes).append(f'Must disable SMO and DMO XPs options.')
+
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

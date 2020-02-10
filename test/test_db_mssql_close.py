@@ -84,6 +84,12 @@ def test_has_asymmetric_keys_with_unencrypted_private_keys_closed(get_mock_ip):
         DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_closed()
 
 
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_has_smo_and_dmo_xps_option_enabled_closed(get_mock_ip):
+    """Test mssql.has_smo_and_dmo_xps_option_enabled."""
+    assert mssql.has_smo_and_dmo_xps_option_enabled(
+        DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_closed()
+
 #
 # UNKNOWN
 #
@@ -143,4 +149,11 @@ def test_has_xps_option_enabled_unknown(get_mock_ip):
 def test_has_asymmetric_keys_with_unencrypted_private_keys_unknown(get_mock_ip):
     """Test mssql.has_asymmetric_keys_with_unencrypted_private_keys."""
     assert mssql.has_asymmetric_keys_with_unencrypted_private_keys(
+        DBNAME, USER, ADMIN_PASSWORD, BAD_HOST, PORT).is_unknown()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_has_smo_and_dmo_xps_option_enabled_unknown(get_mock_ip):
+    """Test mssql.has_smo_and_dmo_xps_option_enabled."""
+    assert mssql.has_smo_and_dmo_xps_option_enabled(
         DBNAME, USER, ADMIN_PASSWORD, BAD_HOST, PORT).is_unknown()

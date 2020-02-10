@@ -46,3 +46,13 @@ CREATE ASYMMETRIC KEY asserts_key
     ENCRYPTION BY PASSWORD = '5M_~C67k,QNw\uzT';
 GO
 "
+
+# Disbled SMO and DMO XPs option: check: has_smo_and_dmo_xps_option_enabled
+execute_query "
+EXEC sp_configure 'show advanced options', 1;
+GO
+RECONFIGURE;
+GO
+EXEC sp_configure 'SMO and DMO XPs', '0';
+GO
+RECONFIGURE;"
