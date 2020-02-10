@@ -17,7 +17,7 @@ from backend.decorators import (
 )
 from backend.domain import (
     finding as finding_domain, project as project_domain,
-    vulnerability as vuln_domain
+    user as user_domain, vulnerability as vuln_domain
 )
 from backend.entity.comment import Comment
 from backend.entity.event import Event
@@ -300,7 +300,9 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         user_email_list = util.user_email_filter(
             init_email_list, util.get_jwt_content(info.context)['user_email'])
         self.users = [User(self.name, user_email)
-                      for user_email in user_email_list]
+                      for user_email in user_email_list
+                      if user_domain.get_data(user_email, 'role')
+                      in ['customer', 'customeradmin']]
         return self.users
 
     @new_require_role
