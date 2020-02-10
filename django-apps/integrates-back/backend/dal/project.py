@@ -345,8 +345,7 @@ def get_pending_verification_findings(project_name):
     """Gets findings pending for verification"""
     table = DYNAMODB_RESOURCE.Table('FI_findings')
     filtering_exp = Attr('project_name').eq(project_name.lower()) \
-        & Attr('verification_request_date').exists() \
-        & Attr('verification_request_date').ne(None)
+        & Attr('historic_verification').exists()
     response = table.scan(FilterExpression=filtering_exp)
     findings = response['Items']
     while response.get('LastEvaluatedKey'):
@@ -355,10 +354,10 @@ def get_pending_verification_findings(project_name):
             ExclusiveStartKey=response['LastEvaluatedKey'])
         findings += response['Items']
 
-    pending_to_verify = [finding for finding in findings
-                         if not finding.get('verification_date')
-                         or finding.get('verification_date')
-                         < finding.get('verification_request_date')]
+    pending_to_verify = \
+        [finding for finding in findings
+         if finding.get('historic_verification', [{}])[-1].get('status') == 'REQUESTED' and
+         finding.get('historic_state', [{}])[-1].get('state') != 'DELETED']
     return pending_to_verify
 
 

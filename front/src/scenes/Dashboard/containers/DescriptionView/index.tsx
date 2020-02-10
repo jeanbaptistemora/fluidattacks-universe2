@@ -104,6 +104,29 @@ const renderRequestVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
     );
   };
 
+const renderVerifiyBtn: ((props: IDescriptionViewProps) => JSX.Element) =
+  (props: IDescriptionViewProps): JSX.Element => {
+    const handleClick: (() => void) = (): void => {
+      remediationType = "verify_request";
+      store.dispatch(actions.openRemediationMdl());
+    };
+
+    const canVerify: boolean =
+      props.dataset.state === "open"
+      && _.includes(["CONTINUOUS", "continuous", "Continua", "Concurrente", "Si"], props.dataset.subscription)
+      && props.dataset.remediated;
+
+    return (
+      <Button
+        bsStyle="success"
+        hidden={!canVerify}
+        onClick={handleClick}
+      >
+        <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.mark_verified")}
+      </Button>
+    );
+  };
+
 const renderAcceptationBtns: (() => JSX.Element) = (): JSX.Element => {
   const handleRejectClick: (() => void) = (): void => {
     remediationType = "reject_acceptation";
@@ -178,25 +201,8 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDes
                   {_.includes(["customeradmin"], props.userRole) && props.dataset.acceptationApproval === "SUBMITTED"
                   && props.dataset.treatment === "ACCEPTED_UNDEFINED"
                     ? renderAcceptationBtns() : undefined}
-                  {_.includes(["admin", "analyst"], props.userRole) && props.dataset.remediated ? (
-                    <ConfirmDialog title={translate.t("confirmmodal.title_generic")}>
-                      {(confirmVerify: ConfirmFn): React.ReactNode => {
-                        const handleClick: (() => void) = (): void => {
-                          const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-                            store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-                          );
-                          confirmVerify(() => { thunkDispatch(actions.verifyFinding(props.findingId)); });
-                        };
-
-                        return (
-                          <Button bsStyle="warning" onClick={handleClick}>
-                            <FluidIcon icon="verified" />
-                            &nbsp;{translate.t("search_findings.tab_description.mark_verified")}
-                          </Button>
-                        );
-                      }}
-                    </ConfirmDialog>
-                  ) : undefined}
+                  {_.includes(["admin", "analyst"], props.userRole) && props.dataset.remediated
+                    ? renderVerifiyBtn(props) : undefined}
                   {_.includes(["admin", "customer", "customeradmin"], props.userRole)
                     ? renderRequestVerifiyBtn(props) : undefined}
                   {props.isEditing ? (
@@ -301,6 +307,8 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
                       );
                       if (remediationType === "request_verification") {
                         thunkDispatch(actions.requestVerification(props.findingId, values.treatmentJustification));
+                      } else if (remediationType === "verify_request") {
+                        thunkDispatch(actions.verifyFinding(props.findingId, values.treatmentJustification));
                       } else {
                         const response: string = remediationType === "approve_acceptation" ? "APPROVED" : "REJECTED";
                         handleResolveAcceptation(values.treatmentJustification, response);

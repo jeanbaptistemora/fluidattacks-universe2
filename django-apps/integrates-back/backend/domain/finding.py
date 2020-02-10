@@ -153,26 +153,47 @@ def get_tracking_vulnerabilities(vulnerabilities):
     return tracking
 
 
-def verify_finding(finding_id, user_email):
+def verify_finding(finding_id, user_email, justification, user_fullname):
+    success = False
     finding = get_finding(finding_id)
     project_name = finding.get('projectName')
     finding_name = finding.get('finding')
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
-    success = finding_dal.update(finding_id, {'verification_date': today})
+    if finding.get('historicVerification', [{}])[-1].get('status') == 'REQUESTED':
+        historic_verification = finding.get('historicVerification', [])
+        tzn = pytz.timezone(settings.TIME_ZONE)
+        today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+        comment_id = int(round(time() * 1000))
+        new_state = {
+            'date': today,
+            'user': user_email,
+            'status': 'VERIFIED',
+            'comment': comment_id,
+        }
+        comment_data = {
+            'user_id': comment_id,
+            'comment_type': 'comment',
+            'content': justification,
+            'fullname': user_fullname,
+            'parent': historic_verification[-1].get('comment', 0),
+        }
+        historic_verification.append(new_state)
+        add_comment(
+            user_email, comment_data, finding_id, is_remediation_comment=True)
+        success = finding_dal.update(
+            finding_id, {'historic_verification': historic_verification})
 
-    if success:
-        vuln_domain.update_vulnerabilities_date(user_email, finding_id)
-        finding_utils.send_finding_verified_email(finding_id, finding_name, project_name)
-        project_users = project_dal.get_users(project_name)
-        notifications.notify_mobile(
-            project_users,
-            t('notifications.verified.title'),
-            t('notifications.verified.content',
-                finding=finding_name, project=project_name.upper()))
-    else:
-        rollbar.report_message(
-            'Error: An error occurred verifying the finding', 'error')
+        if success:
+            vuln_domain.update_vulnerabilities_date(user_email, finding_id)
+            finding_utils.send_finding_verified_email(finding_id, finding_name, project_name)
+            project_users = project_dal.get_users(project_name)
+            notifications.notify_mobile(
+                project_users,
+                t('notifications.verified.title'),
+                t('notifications.verified.content',
+                    finding=finding_name, project=project_name.upper()))
+        else:
+            rollbar.report_message(
+                'Error: An error occurred verifying the finding', 'error')
 
     return success
 
@@ -197,13 +218,21 @@ def request_verification(finding_id, user_email, user_fullname, justification):
     finding = get_finding(finding_id)
     project_name = finding.get('projectName')
     finding_name = finding.get('finding')
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
-    success = finding_dal.update(finding_id, {
-        'verification_request_date': today})
-    if success:
+    success = False
+    if finding.get('historicVerification', [{}])[-1] != 'REQUESTED':
+        tzn = pytz.timezone(settings.TIME_ZONE)
+        today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
+        historic_verification = finding.get('historicVerification', [])
+        comment_id = int(round(time() * 1000))
+        new_state = {
+            'date': today,
+            'user': user_email,
+            'status': 'REQUESTED',
+            'comment': comment_id,
+        }
+        historic_verification.append(new_state)
         comment_data = {
-            'user_id': int(round(time() * 1000)),
+            'user_id': comment_id,
             'comment_type': 'verification',
             'content': justification,
             'fullname': user_fullname,
@@ -215,17 +244,21 @@ def request_verification(finding_id, user_email, user_fullname, justification):
             finding_id=finding_id,
             is_remediation_comment=True
         )
-        finding_utils.send_remediation_email(
-            user_email, finding_id, finding_name, project_name, justification)
-        project_users = project_dal.get_users(project_name)
-        notifications.notify_mobile(
-            project_users,
-            t('notifications.remediated.title'),
-            t('notifications.remediated.content',
-                finding=finding_name, project=project_name.upper()))
-    else:
-        rollbar.report_message(
-            'Error: An error occurred remediating the finding', 'error')
+        success = finding_dal.update(
+            finding_id, {'historic_verification': historic_verification})
+
+        if success:
+            finding_utils.send_remediation_email(
+                user_email, finding_id, finding_name, project_name, justification)
+            project_users = project_dal.get_users(project_name)
+            notifications.notify_mobile(
+                project_users,
+                t('notifications.remediated.title'),
+                t('notifications.remediated.content',
+                    finding=finding_name, project=project_name.upper()))
+        else:
+            rollbar.report_message(
+                'Error: An error occurred remediating the finding', 'error')
 
     return success
 

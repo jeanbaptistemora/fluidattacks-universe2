@@ -568,17 +568,18 @@ class VerifyFinding(Mutation):
     """ Verify a finding """
     class Arguments():
         finding_id = String(required=True)
+        justification = String(required=True)
     success = Boolean()
 
     @require_login
     @new_require_role
     @require_finding_access
-    def mutate(self, info, finding_id):
+    def mutate(self, info, finding_id, justification):
         project_name = project_domain.get_finding_project_name(finding_id)
-        user_email = util.get_jwt_content(info.context)['user_email']
+        user_info = util.get_jwt_content(info.context)
         success = finding_domain.verify_finding(
-            finding_id=finding_id,
-            user_email=user_email
+            finding_id, user_info['user_email'],
+            justification, str.join(' ', [user_info['first_name'], user_info['last_name']])
         )
         if success:
             util.invalidate_cache(finding_id)

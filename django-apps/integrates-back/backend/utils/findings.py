@@ -1,4 +1,3 @@
-import datetime
 import io
 import itertools
 
@@ -107,17 +106,8 @@ def format_data(finding):
     finding['exploitable'] = forms_utils.is_exploitable(
         float(finding['exploitability']), finding['cvssVersion']) == 'Si'
 
-    def_date = '1900-1-1 0:0:0'
-    ver_date = finding.get('verificationDate') \
-        if finding.get('verificationDate') else def_date
-    ver_date = datetime.datetime.strptime(ver_date, '%Y-%m-%d %H:%M:%S')
-    ver_req_date = finding.get('verificationRequestDate') \
-        if finding.get('verificationRequestDate') else def_date
-    ver_req_date = datetime.datetime.strptime(ver_req_date,
-                                              '%Y-%m-%d %H:%M:%S')
-    finding['remediated'] = (
-        True if ver_req_date != def_date and ver_date == def_date
-        or ver_date < ver_req_date else False)
+    historic_verification = finding.get('historicVerification', [{}])
+    finding['remediated'] = historic_verification[-1].get('status') == 'REQUESTED'
 
     finding['evidence'] = {
         'animation': _get_evidence('animation', finding['files']),

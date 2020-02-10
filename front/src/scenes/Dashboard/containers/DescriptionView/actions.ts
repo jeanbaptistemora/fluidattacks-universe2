@@ -168,11 +168,11 @@ export const requestVerification: ThunkActionStructure<void> =
     };
 
 export const verifyFinding: ThunkActionStructure<void> =
-  (findingId: string): ThunkAction<void, {}, {}, IActionStructure> =>
+  (findingId: string, justification: string): ThunkAction<void, {}, {}, IActionStructure> =>
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
       gQry = `mutation {
-        verifyFinding(findingId: "${findingId}") {
+        verifyFinding(findingId: "${findingId}", justification: "${justification}") {
           success
         }
       }`;
