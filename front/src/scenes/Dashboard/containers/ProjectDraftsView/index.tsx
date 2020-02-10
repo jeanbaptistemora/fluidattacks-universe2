@@ -198,7 +198,6 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                 <Modal
                   footer={<div />}
                   headerTitle={translate.t("project.drafts.new")}
-                  onClose={closeNewDraftModal}
                   open={isDraftModalOpen}
                 >
                   <Mutation mutation={CREATE_DRAFT_MUTATION} onCompleted={handleMutationResult}>

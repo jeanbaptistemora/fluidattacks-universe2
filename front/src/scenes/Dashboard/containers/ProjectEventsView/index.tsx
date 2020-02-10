@@ -266,7 +266,6 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                 <Modal
                   footer={<div />}
                   headerTitle={translate.t("project.events.new")}
-                  onClose={closeNewEventModal}
                   open={isEventModalOpen}
                 >
                   <Mutation
