@@ -382,7 +382,7 @@ analytics-sync-zoho:
   except:
     - schedules
 
-eks-terraform-lint:
+.eks-terraform-lint:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: test
@@ -393,7 +393,7 @@ eks-terraform-lint:
   except:
     - schedules
 
-eks-terraform-plan:
+.eks-terraform-plan:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
   stage: test
