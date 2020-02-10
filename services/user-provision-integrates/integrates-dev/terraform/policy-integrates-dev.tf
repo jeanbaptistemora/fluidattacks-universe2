@@ -24,6 +24,17 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
       "arn:aws:s3:::fluidattacks-terraform-states-dev/*"
     ]
   }
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:ListBucket",
+      "s3:GetObject"
+    ]
+    resources = [
+      "arn:aws:s3:::fluidattacks-terraform-states-prod",
+      "arn:aws:s3:::fluidattacks-terraform-states-prod/*"
+    ]
+  }
 
   # IAM
   statement {
