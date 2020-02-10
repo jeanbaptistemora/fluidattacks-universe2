@@ -101,3 +101,10 @@ def test_can_alter_any_login_open(get_mock_ip):
     """Test mssql.can_alter_any_login."""
     assert mssql.can_alter_any_login(
         DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_open()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_weak'], indirect=True)
+def test_can_control_server_open(get_mock_ip):
+    """Test mssql.can_control_server."""
+    assert mssql.can_control_server(
+        DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_open()

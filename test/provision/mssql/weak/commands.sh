@@ -120,3 +120,7 @@ ALTER DATABASE test_db_1 SET AUTO_CLOSE ON"
 # Grant Alter any login. check: can_alter_any_login
 execute_query "
 GRANT ALTER ANY LOGIN TO $DB_USER"
+
+# Grant Control Server check: can_alter_any_login
+execute_query "
+GRANT CONTROL SERVER TO $DB_USER"
