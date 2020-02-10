@@ -21,7 +21,7 @@ if(!userEmail.includes('fluidattacks.com')) {
       properties: {
         company: userOrganization
       },
-      recurringPeriod: 7776000,
-      initialDelay: 0,
+      recurringPeriod: 2592000,
+      initialDelay: 90,
     });
 }
