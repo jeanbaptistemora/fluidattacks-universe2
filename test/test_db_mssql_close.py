@@ -98,6 +98,13 @@ def test_has_contained_dbs_with_auto_close_enabled_closed(get_mock_ip):
         DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_closed()
 
 
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_can_alter_any_login_closed(get_mock_ip):
+    """Test mssql.can_alter_any_login."""
+    assert mssql.can_alter_any_login(
+        DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_closed()
+
+
 #
 # UNKNOWN
 #
@@ -171,4 +178,11 @@ def test_has_smo_and_dmo_xps_option_enabled_unknown(get_mock_ip):
 def test_has_contained_dbs_with_auto_close_enabled_unknown(get_mock_ip):
     """Test mssql.has_contained_dbs_with_auto_close_enabled."""
     assert mssql.has_contained_dbs_with_auto_close_enabled(
+        DBNAME, USER, ADMIN_PASSWORD, BAD_HOST, PORT).is_unknown()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_can_alter_any_login_unknown(get_mock_ip):
+    """Test mssql.can_alter_any_login."""
+    assert mssql.can_alter_any_login(
         DBNAME, USER, ADMIN_PASSWORD, BAD_HOST, PORT).is_unknown()
