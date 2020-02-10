@@ -794,3 +794,49 @@ def can_control_server(dbname: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(pyodbc.OperationalError, pyodbc.InternalError)
+def can_alter_any_credential(dbname: str,
+                             user: str,
+                             password: str,
+                             host: str,
+                             port: int) -> Tuple:
+    """
+    Check if there are accounts that have permission to Alter any credential.
+
+    SQL Server's 'Alter any credential' permission is a high server-level
+    privilege that must only be granted to individual administration accounts
+    through roles. If any user accounts have direct access to administrative
+    privileges, this access must be removed.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+
+    :returns: - ``OPEN`` if there are accounts that haver permission to alter
+                 any credential.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port)
+
+    msg_open: str = 'Accounts have permission to Alter any credential.'
+    msg_closed: str = \
+        'Accounts do not have permission to Alter any credential.'
+
+    vulns, safes = _check_permission(connection_string, 'Alter Any Credential')
+
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

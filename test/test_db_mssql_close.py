@@ -112,6 +112,13 @@ def test_can_control_server_closed(get_mock_ip):
         DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_closed()
 
 
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_can_alter_any_credential_closed(get_mock_ip):
+    """Test mssql.can_alter_any_credential."""
+    assert mssql.can_alter_any_credential(
+        DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_closed()
+
+
 #
 # UNKNOWN
 #
@@ -199,4 +206,11 @@ def test_can_alter_any_login_unknown(get_mock_ip):
 def test_can_control_server_unknown(get_mock_ip):
     """Test mssql.can_control_server."""
     assert mssql.can_control_server(
+        DBNAME, USER, ADMIN_PASSWORD, BAD_HOST, PORT).is_unknown()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_can_alter_any_credential_unknown(get_mock_ip):
+    """Test mssql.can_alter_any_credential."""
+    assert mssql.can_alter_any_credential(
         DBNAME, USER, ADMIN_PASSWORD, BAD_HOST, PORT).is_unknown()

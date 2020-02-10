@@ -75,16 +75,13 @@ RECONFIGURE WITH OVERRIDE
 GO"
 
 # Enable TRUSTWORTHY
-execute_query "
-ALTER DATABSE $DB_NAME SET TRUSTWORTHY ON"
+execute_query "ALTER DATABSE $DB_NAME SET TRUSTWORTHY ON"
 
 # Grant permission ALTER ANY DATABASE. check: can_alter_any_database
-execute_query "
-GRANT ALTER ANY DATABASE TO $DB_USER;"
+execute_query "GRANT ALTER ANY DATABASE TO $DB_USER;"
 
 # Disable password check policy. check: has_password_policy_check_disabled
-execute_query "
-ALTER LOGIN $DB_USER WITH check_policy = OFF"
+execute_query "ALTER LOGIN $DB_USER WITH check_policy = OFF"
 
 # Enable Agent XPs option. check: has_xps_option_enabled
 execute_query "
@@ -118,9 +115,10 @@ GO
 ALTER DATABASE test_db_1 SET AUTO_CLOSE ON"
 
 # Grant Alter any login. check: can_alter_any_login
-execute_query "
-GRANT ALTER ANY LOGIN TO $DB_USER"
+execute_query "GRANT ALTER ANY LOGIN TO $DB_USER"
 
 # Grant Control Server check: can_alter_any_login
-execute_query "
-GRANT CONTROL SERVER TO $DB_USER"
+execute_query "GRANT CONTROL SERVER TO $DB_USER"
+
+# Grant Control Server check: can_alter_any_login
+execute_query "GRANT ALTER ANY CREDENTIAL TO $DB_USER"
