@@ -1,10 +1,8 @@
 let
   pkgs = import ./pkgs/stable.nix;
 
-  modules = {
-    buildPythonPackage = import ./modules/build-python-package pkgs;
-    envPython = import ./modules/env/python pkgs;
-  };
+  modules.build.pythonPackage = import ./modules/build/python-package pkgs;
+  modules.env.python = import ./modules/env/python pkgs;
 in
   pkgs.stdenv.mkDerivation rec {
     name = "builder";
@@ -15,17 +13,15 @@ in
     srcIncludeHelpers = ./include/helpers.sh;
     srcIncludeJobs = ./include/jobs.sh;
 
-    pyPkgProspector = modules.buildPythonPackage "prospector==1.2.0";
+    pyPkgPrecommit = modules.build.pythonPackage "pre-commit==2.0.1";
+    pyPkgProspector = modules.build.pythonPackage "prospector[with_everything]==1.2.0";
 
-    buildInputsModules = with modules; [
-      envPython
-    ];
-    buildInputsPkgs = with pkgs; [
+    buildInputs = with pkgs; [
       docker
+      git
       hadolint
       nix-linter
-      pre-commit
+      modules.env.python
       shellcheck
     ];
-    buildInputs = buildInputsModules ++ buildInputsPkgs;
   }

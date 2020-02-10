@@ -5,6 +5,35 @@ function prepare_environment_variables {
   && source './.envrc.public'
 }
 
+function prepare_ephemeral_vars {
+  export TEMP_FD
+  export TEMP_FILE
+
+  exec {TEMP_FD}>TEMP_FD
+  TEMP_FILE=$(mktemp)
+}
+
+function prepare_python_packages {
+  export PATH
+  export PYTHONPATH="${PWD}"
+  local pkg
+
+  echo '[INFO] Preparing python packages'
+
+  helper_list_vars_with_regex 'pyPkg[a-zA-Z]+' > "${TEMP_FILE}"
+
+  while read -r pkg
+  do
+    echo "  [${pkg}] ${!pkg}"
+    PATH="${PATH}:${!pkg}/site-packages/bin"
+    PYTHONPATH="${PYTHONPATH}:${!pkg}/site-packages"
+    if test -e "${!pkg}/site-packages/bin"
+    then
+      chmod +x "${!pkg}/site-packages/bin/"*
+    fi
+  done < "${TEMP_FILE}"
+}
+
 function prepare_workdir {
   export WORKDIR
   export PRE_COMMIT_HOME

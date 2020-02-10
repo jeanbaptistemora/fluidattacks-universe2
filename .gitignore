@@ -21,3 +21,4 @@ parser-preset.js
 
 # Build system
 .envrc
+TEMP_FD
