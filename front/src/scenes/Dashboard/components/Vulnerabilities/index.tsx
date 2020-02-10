@@ -578,10 +578,10 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 {
                   align: "left",
                   dataField: "severity",
-                  header: translate.t("search_findings.tab_description.severity"),
+                  header: translate.t("search_findings.tab_description.business_criticality"),
                   onSort: onSortInputs,
                   visible: true,
-                  width: "20%",
+                  width: "25%",
                 },
                 {
                   align: "left",
@@ -589,7 +589,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   header: translate.t("search_findings.tab_description.treatment_mgr"),
                   onSort: onSortInputs,
                   visible: true,
-                  width: "35%",
+                  width: "30%",
                 },
               );
               linesHeader.push(
@@ -604,10 +604,10 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 {
                   align: "left",
                   dataField: "severity",
-                  header: translate.t("search_findings.tab_description.severity"),
+                  header: translate.t("search_findings.tab_description.business_criticality"),
                   onSort: onSortLines,
                   visible: true,
-                  width: "20%",
+                  width: "25%",
                 },
                 {
                   align: "left",
@@ -615,7 +615,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   header: translate.t("search_findings.tab_description.treatment_mgr"),
                   onSort: onSortLines,
                   visible: true,
-                  width: "35%",
+                  width: "30%",
                 },
               );
               portsHeader.push(
@@ -630,10 +630,10 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 {
                   align: "left",
                   dataField: "severity",
-                  header: translate.t("search_findings.tab_description.severity"),
+                  header: translate.t("search_findings.tab_description.business_criticality"),
                   onSort: onSortPorts,
                   visible: true,
-                  width: "20%",
+                  width: "25%",
                 },
                 {
                   align: "left",
@@ -641,7 +641,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                   header: translate.t("search_findings.tab_description.treatment_mgr"),
                   onSort: onSortPorts,
                   visible: true,
-                  width: "35%",
+                  width: "30%",
                 },
               );
             }

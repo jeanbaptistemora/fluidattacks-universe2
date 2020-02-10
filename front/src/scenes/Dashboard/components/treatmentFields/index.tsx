@@ -57,7 +57,7 @@ const treatmentFieldsView: renderFormFieldsFn =
             <EditableField
               component={textField}
               currentValue={!_.isUndefined(props.dataset.severity) ? props.dataset.severity : ""}
-              label={translate.t("search_findings.tab_description.severity")}
+              label={translate.t("search_findings.tab_description.business_criticality")}
               name="severity"
               renderAsEditable={props.isEditing}
               type="number"

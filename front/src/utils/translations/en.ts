@@ -323,6 +323,7 @@ const enTranslations: Dictionary = {
       approve_all_vulns: "Approve all pending vulnerabilities",
       attack_vectors: "Impacts",
       bts: "External BTS",
+      business_criticality: "Business Criticality",
       checkbox_accepted: "Accepted indefinitely",
       compromised_attrs: "Compromised attributes",
       compromised_records: "Compromised records",
@@ -370,7 +371,7 @@ const enTranslations: Dictionary = {
       severity: "Severity",
       state: "State",
       tab_title: "Description",
-      tag: "Tag",
+      tag: "Tags",
       threat: "Threat",
       title: "Title",
       treatment: {
