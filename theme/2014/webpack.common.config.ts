@@ -3,6 +3,7 @@ import webpack from "webpack";
 
 export const commonConfig: webpack.Configuration = {
   entry: {
+    dynClasses: "./static/js/dynClasses.ts",
     faqContent: "./static/js/faqContent.ts",
   },
   module: {

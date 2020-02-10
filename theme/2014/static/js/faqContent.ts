@@ -1,8 +1,6 @@
 import { default as $ } from "jquery";
 
-jQuery(document)
-  // tslint:disable-next-line: deprecation
-  .ready(() => {
+jQuery(() => {
     // Add acordion item class
     $(".sect3")
       .addClass("accordion-item");
