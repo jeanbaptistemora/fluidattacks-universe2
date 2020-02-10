@@ -9,6 +9,7 @@ in
     srcHelpers = ./include/helpers.sh;
 
     buildInputs = with pkgs; [
+      docker
       hadolint
       nix-linter
       shellcheck

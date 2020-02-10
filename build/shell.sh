@@ -1,5 +1,9 @@
 #! /usr/bin/env nix-shell
 #!   nix-shell -i bash
+#!   nix-shell --cores 0
+#!   nix-shell --keep CI_REGISTRY_USER
+#!   nix-shell --keep CI_REGISTRY_PASSWORD
+#!   nix-shell --max-jobs auto
 #!   nix-shell --option restrict-eval false
 #!   nix-shell --option sandbox false
 #!   nix-shell --pure
@@ -12,15 +16,20 @@
 source "${srcGenericShellOptions}"
 source "${srcHelpers}"
 
+function prepare_environment_variables {
+    echo "[INFO] Sourcing .envrc.public" \
+  && source './.envrc.public'
+}
+
 function prepare_workdir {
   export WORKDIR
   export PRE_COMMIT_HOME
 
-  WORKDIR=$(readlink -f "${PWD}/../serves.ephemeral")
-  echo '[INFO] Creating a pristine workdir'
-  rm -rf "${WORKDIR}"
-  echo '[INFO] Adding a pristine workdir'
-  cp -r . "${WORKDIR}"
+    WORKDIR=$(readlink -f "${PWD}/../serves.ephemeral") \
+  && echo '[INFO] Creating a pristine workdir' \
+  && rm -rf "${WORKDIR}" \
+  && echo '[INFO] Adding a pristine workdir' \
+  && cp -r . "${WORKDIR}"
 }
 
 function job_all {
@@ -34,6 +43,22 @@ function job_all {
       || "${function_to_call}" \
       || return 1
   done
+}
+
+function job_deploy_nix_docker_image {
+  local image="${CI_REGISTRY_IMAGE}:nix"
+
+    echo "[INFO] Login in: ${CI_REGISTRY}" \
+  && docker login \
+      --username "${CI_REGISTRY_USER}" \
+      --password "${CI_REGISTRY_PASSWORD}" \
+      "${CI_REGISTRY}" \
+  && echo "[INFO] Pulling: ${image}" \
+  && docker pull "${image}" || true \
+  && echo "[INFO] Building: ${image}" \
+  && docker build --tag "${image}" --file './build/Dockerfile' '.' \
+  && echo "[INFO] Pushing: ${image}" \
+  && docker push "${image}"
 }
 
 function job_lint_build_code {
@@ -62,6 +87,7 @@ function cli {
     return 1
   else
     echo
+    prepare_environment_variables
     prepare_workdir
     echo "[INFO] Executing function: job_${function_to_call}"
     if "job_${function_to_call}"

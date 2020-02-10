@@ -11,11 +11,5 @@ then
   return 1
 fi
 
-# Check that Git is installed
-if ! git --version
-then
-  echo 'Please install git: https://git-scm.com/'
-fi
-
 # Call the nix-shell executor
 ./build/shell.sh "${@}"
