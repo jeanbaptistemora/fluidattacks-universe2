@@ -22,7 +22,7 @@ from backend.domain import (
     user as user_domain, event as event_domain, finding as finding_domain
 )
 from backend.services import (
-    get_user_role, has_valid_access_token
+    get_user_role, has_valid_access_token, project_exists
 )
 
 from backend import util
@@ -133,11 +133,15 @@ def resolve_project_name(args, kwargs):
 def resolve_project_data(project_name):
     """Get project data or mock it if needed."""
     if project_name:
-        project_data = project_dal.get(project_name)[0]
-        if 'customeradmin' not in project_data:
-            project_data['customeradmin'] = set()
+        if not project_exists(project_name):
+            project_data = {}
+        else:
+            project_data = project_dal.get(project_name)[0]
     else:
         project_data = {}
+
+    if 'customeradmin' not in project_data:
+        project_data['customeradmin'] = set()
     return project_data
 
 

@@ -83,6 +83,7 @@ class ActionAbacTest(TestCase):
         'backend_api_query_Query_resolve_event',
         'backend_api_query_Query_resolve_alive_projects',
         'backend_api_query_Query_resolve_internal_project_names',
+        'backend_api_query_Query_resolve_user_list_projects',
         'backend_entity_resource_AddResources_mutate',
         'backend_entity_resource_UpdateResources_mutate',
         'backend_entity_resource_AddFiles_mutate',
@@ -102,6 +103,7 @@ class ActionAbacTest(TestCase):
         'backend_entity_event_SolveEvent_mutate',
         'backend_entity_event_UpdateEventEvidence_mutate',
         'backend_entity_event_RemoveEventEvidence_mutate',
+        'backend_entity_alert_SetAlert_mutate',
         'backend_entity_finding_Finding_resolve_historic_state',
         'backend_entity_finding_Finding_resolve_observations',
         'backend_entity_finding_Finding_resolve_analyst',
@@ -126,9 +128,12 @@ class ActionAbacTest(TestCase):
         'backend_entity_project_AddTags_mutate',
         'backend_entity_project_AddAllProjectAccess_mutate',
         'backend_entity_project_RemoveAllProjectAccess_mutate',
-        'backend_entity_cache_InvalidateCache_mutate',
         'backend_entity_project_RequestRemoveProject_mutate',
-        'backend_entity_project_RejectRemoveProject_mutate'
+        'backend_entity_project_RejectRemoveProject_mutate',
+        'backend_entity_project_RemoveProject_mutate',
+        'backend_entity_user_User_resolve_list_projects',
+        'backend_entity_cache_InvalidateCache_mutate',
+        'backend_entity_project_CreateProject_mutate',
     }
 
     analyst_allowed_actions = {
@@ -210,9 +215,9 @@ class ActionAbacTest(TestCase):
         'backend_api_query_Query_resolve_user_list_projects',
         'backend_entity_alert_SetAlert_mutate',
         'backend_entity_event_CreateEvent_mutate',
-        'backend_entity_project_CreateProject_mutate',
         'backend_entity_project_RemoveProject_mutate',
         'backend_entity_user_User_resolve_list_projects',
+        'backend_entity_project_CreateProject_mutate',
     }
 
     customeradminfluid_allowed_actions.update(customer_allowed_actions)
@@ -311,11 +316,26 @@ class ActionAbacTest(TestCase):
         should_deny = \
             self.global_actions - self.customeradminfluid_allowed_actions
 
-        for action in self.customeradmin_allowed_actions:
+        for action in self.customeradminfluid_allowed_actions:
             self.assertTrue(enfor.enforce(sub, obj, action))
 
         for action in should_deny:
             self.assertFalse(enfor.enforce(sub, obj, action))
+
+    def test_action_create_project(self):
+        """Tests for an user with a expected role."""
+        enfor = get_action_enforcer()
+
+        class TestItem:
+            pass
+
+        sub = TestItem()
+        sub.user_email = 'admin@fluidattacks.com'
+        sub.role = 'customeradmin'
+        obj = {'customeradmin': set()}
+        action = 'backend_entity_project_CreateProject_mutate'
+
+        self.assertTrue(enfor.enforce(sub, obj, action))
 
     def test_action_analyst_role(self):
         """Tests for an user with a expected role."""
