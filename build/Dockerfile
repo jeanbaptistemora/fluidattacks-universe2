@@ -5,6 +5,7 @@ RUN apk add --no-cache \
       git=2.22.2-r0
 
 COPY ./build/include                 /build/include
+COPY ./build/modules                 /build/modules
 COPY ./build/pkgs                    /build/pkgs
 COPY ./build/shell.nix               /build/shell.nix
 
