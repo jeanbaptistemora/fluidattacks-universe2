@@ -545,3 +545,59 @@ def has_xps_option_enabled(dbname: str, user: str, password: str, host: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
+def has_asymmetric_keys_with_unencrypted_private_keys(dbname: str,
+                                                      user: str,
+                                                      password: str,
+                                                      host: str,
+                                                      port: int) -> Tuple:
+    """
+    Check for asymmetric keys with a private key that is not encrypted.
+
+    Encryption is only effective if the encryption method is robust and the
+    keys used to provide the encryption are not easily discovered. Without
+    effective encryption, sensitive data is vulnerable to unauthorized access.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+
+    :returns: - ``OPEN`` if there are asymmetric keys with unencrypted private
+                 keys
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port)
+
+    msg_open: str = 'Asymmetric keys have unencrypted private keys.'
+    msg_closed: str = 'Asymmetric keys have encrypted private keys.'
+
+    try:
+        with database(connection_string) as (_, cursor):
+            keys = cursor.execute("""SELECT name, pvt_key_encryption_type
+                                     FROM sys.asymmetric_keys""").fetchall()
+        for key in keys:
+            (vulns if key.pvt_key_encryption_type == 'NA' else safes).append(
+                f'{dbname}.asymmetric_keys.{key.name}')
+
+    except (pyodbc.OperationalError, pyodbc.InterfaceError) as exc:
+        if not _is_auth_permission_error(exc):
+            raise exc
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

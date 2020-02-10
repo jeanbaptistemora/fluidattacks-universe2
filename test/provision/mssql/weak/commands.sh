@@ -91,3 +91,16 @@ execute_query "
 EXEC sp_configure 'show advanced options', 1;
 EXEC sp_configure 'Agent XPs', '1';
 RECONFIGURE WITH OVERRIDE"
+
+# Create asymmetric key.
+# check: has_asymmetric_keys_with_unencrypted_private_keys
+execute_query "
+USE $DB_NAME;
+GO
+CREATE ASYMMETRIC KEY asserts_key
+    WITH ALGORITHM = RSA_2048
+    ENCRYPTION BY PASSWORD = '5M_~C67k,QNw\uzT';
+GO
+ALTER ASYMMETRIC KEY asserts_key REMOVE PRIVATE KEY;
+GO
+"

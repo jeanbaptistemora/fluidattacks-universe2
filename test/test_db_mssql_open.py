@@ -73,3 +73,10 @@ def test_has_xps_option_enabled_open(get_mock_ip):
     """Test mssql.has_xps_option_enabled."""
     assert mssql.has_xps_option_enabled(
         DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_open()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_weak'], indirect=True)
+def test_has_asymmetric_keys_with_unencrypted_private_keys_open(get_mock_ip):
+    """Test mssql.has_asymmetric_keys_with_unencrypted_private_keys."""
+    assert mssql.has_asymmetric_keys_with_unencrypted_private_keys(
+        DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_open()
