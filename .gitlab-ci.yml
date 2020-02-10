@@ -495,3 +495,24 @@ aws-sso-terraform-plan:
   only:
     - master
   interruptible: true
+
+backup-terraform-apply:
+  stage: deploy-infra
+  tags: [autoscaling]
+  needs: [backup-terraform-test]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - . ci-scripts/jobs/backup.sh
+    - backup_terraform_apply
+  only:
+    - master
+
+backup-terraform-test:
+  stage: test
+  tags: [autoscaling]
+  needs: [deps-development]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - . ci-scripts/jobs/backup.sh
+    - backup_terraform_test
+  interruptible: true
