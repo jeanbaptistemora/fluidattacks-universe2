@@ -36,6 +36,17 @@ function job_all {
   done
 }
 
+function job_lint_build_code {
+      nix-linter --recursive . \
+  && echo '[OK] Nix code is compliant'
+      shellcheck --external-sources build.sh \
+  && find 'build' -name '*.sh' -exec \
+      shellcheck --external-sources --exclude=SC1090,SC2154, {} + \
+  && echo '[OK] Shell code is compliant' \
+  && hadolint build/Dockerfile \
+  && echo '[OK] Dockerfiles are compliant'
+}
+
 function cli {
   local function_to_call
 

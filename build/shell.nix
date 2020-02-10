@@ -9,5 +9,8 @@ in
     srcHelpers = ./include/helpers.sh;
 
     buildInputs = with pkgs; [
+      hadolint
+      nix-linter
+      shellcheck
     ];
   }
