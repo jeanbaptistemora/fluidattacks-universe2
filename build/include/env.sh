@@ -1,5 +1,7 @@
 # shellcheck shell=bash
 
+source "${srcIncludeHelpers}"
+
 function prepare_environment_variables {
     echo "[INFO] Sourcing .envrc.public" \
   && source './.envrc.public'

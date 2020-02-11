@@ -1,5 +1,7 @@
 # shellcheck shell=bash
 
+source "${srcIncludeHelpers}"
+
 function job_all {
   local function_to_call
 
