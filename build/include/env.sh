@@ -8,9 +8,11 @@ function prepare_environment_variables {
 }
 
 function prepare_ephemeral_vars {
+  export MYPY_CACHE_DIR
   export TEMP_FD
   export TEMP_FILE
 
+  MYPY_CACHE_DIR=$(mktemp)
   exec {TEMP_FD}>TEMP_FD
   TEMP_FILE=$(mktemp)
 }

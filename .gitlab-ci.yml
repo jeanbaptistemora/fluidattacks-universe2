@@ -62,12 +62,7 @@ deploy_nix_docker_image:
         bash
   stage: deploy
 
-lint_build_code:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: test
-
-lint_touched_code:
+lint_code:
   <<: *with_nix
   <<: *in_dev_branch
   stage: test
@@ -95,16 +90,6 @@ build-vpn:
   script:
     - ./ci-scripts/jobs/build-vpn.sh
   <<: *except_analytics
-
-test_code:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - ./check-changed.sh
-  except:
-    - master
 
 commitlint:
   image: starefossen/ruby-node:2-10

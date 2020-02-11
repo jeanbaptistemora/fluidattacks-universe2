@@ -31,20 +31,48 @@ function job_deploy_nix_docker_image {
   && docker push "${image}"
 }
 
-function job_lint_build_code {
+function job_lint_code {
+  local path
+  local path_basename
+
+  # SC1090: Can't follow non-constant source. Use a directive to specify location.
+  # SC2016: Expressions don't expand in single quotes, use double quotes for that.
+  # SC2154: var is referenced but not assigned.
+
       nix-linter --recursive . \
   && echo '[OK] Nix code is compliant'
       shellcheck --external-sources build.sh \
-  && find 'build' -name '*.sh' -exec \
-      shellcheck --external-sources --exclude=SC1090,SC2154, {} + \
+  &&  (
+        find '.' -name '*.sh' -exec \
+          shellcheck --external-sources --exclude=SC1090,SC2016,SC2154 {} + \
+        || true
+      ) \
   && echo '[OK] Shell code is compliant' \
   && hadolint build/Dockerfile \
-  && echo '[OK] Dockerfiles are compliant'
-}
-
-function job_lint_touched_code {
-  prospector --profile .prospector.yml .
-
-  helper_list_touched_files_in_last_commit \
-    | xargs pre-commit run --verbose --files
+  && echo '[OK] Dockerfiles are compliant' \
+  && find . -type f -name '*.py' \
+      | (grep -vP './analytics/singer' || cat) \
+      | while read -r path
+        do
+          echo "[INFO] linting python file: ${path}" \
+          && mypy \
+                --ignore-missing-imports \
+                --no-incremental \
+              "${path}" \
+          || return 1
+        done \
+  && pushd analytics/singer \
+    && find "${PWD}" -mindepth 1 -maxdepth 1 -type d \
+      | while read -r path
+        do
+          echo "[INFO] linting python package: ${path}" \
+          && path_basename=$(basename "${path}") \
+          && mypy \
+                --ignore-missing-imports \
+                --no-incremental \
+              "${path_basename}" \
+          || return 1
+        done \
+  && popd \
+  && prospector --profile .prospector.yml .
 }

@@ -14,7 +14,6 @@ in
     srcIncludeHelpers = ./include/helpers.sh;
     srcIncludeJobs = ./include/jobs.sh;
 
-    pyPkgPrecommit = modules.build.pythonPackage "pre-commit==2.0.1";
     pyPkgProspector = modules.build.pythonPackage "prospector[with_everything]==1.2.0";
 
     buildInputs = with pkgs; [
