@@ -52,7 +52,7 @@ class ProjectTest(TestCase):
 
     def test_get_pending_closing_checks(self):
         test_data = get_pending_closing_check('unittesting')
-        expected_output = 0
+        expected_output = 1
         assert test_data == expected_output
 
     def test_get_last_closing_vuln(self):

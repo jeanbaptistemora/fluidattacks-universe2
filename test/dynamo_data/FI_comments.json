@@ -65,6 +65,39 @@
             }
           }
         }
+      },
+      {
+        "PutRequest": {
+          "Item": {
+            "content": {
+              "S": "This is a commenting test of a request verification."
+            },
+            "user_id": {
+              "N": "1558048727999"
+            },
+            "comment_type": {
+              "S": "verification"
+            },
+            "finding_id": {
+              "N": "463558592"
+            },
+            "created": {
+              "S": "2020-01-19 10:41:04"
+            },
+            "parent": {
+              "N": "0"
+            },
+            "email": {
+              "S": "integratesuser@gmail.com"
+            },
+            "fullname": {
+              "S": "user Integrates"
+            },
+            "modified": {
+              "S": "2020-01-19 10:41:04"
+            }
+          }
+        }
       }
    ]
 }
