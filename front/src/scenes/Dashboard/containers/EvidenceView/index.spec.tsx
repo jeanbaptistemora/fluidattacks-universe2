@@ -1,3 +1,4 @@
+import { MockedProvider as MockedHooksProvider } from "@apollo/react-testing";
 import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 // tslint:disable-next-line: no-import-side-effect
@@ -69,9 +70,11 @@ describe("FindingEvidenceView", () => {
 
   it("should render a component", async () => {
     const wrapper: ReactWrapper = mount(
+      <MockedHooksProvider mocks={[]} addTypename={false}><React.Fragment>
       <MockedProvider mocks={[]} addTypename={false}>
         <EvidenceView {...mockProps} />
       </MockedProvider>,
+      </React.Fragment></MockedHooksProvider>,
     );
     await act(async () => { await wait(0); });
     expect(wrapper)
@@ -102,9 +105,11 @@ describe("FindingEvidenceView", () => {
       },
     }];
     const wrapper: ReactWrapper = mount(
+      <MockedHooksProvider mocks={emptyMocks} addTypename={false}><React.Fragment>
       <MockedProvider mocks={emptyMocks} addTypename={false}>
         <EvidenceView {...mockProps} />
       </MockedProvider>,
+      </React.Fragment></MockedHooksProvider>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.text())
@@ -113,9 +118,11 @@ describe("FindingEvidenceView", () => {
 
   it("should render image", async () => {
     const wrapper: ReactWrapper = mount(
+      <MockedHooksProvider mocks={mocks} addTypename={false}><React.Fragment>
       <MockedProvider mocks={mocks} addTypename={false}>
         <EvidenceView {...mockProps} />
       </MockedProvider>,
+      </React.Fragment></MockedHooksProvider>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.containsMatchingElement(<img />))
@@ -124,9 +131,11 @@ describe("FindingEvidenceView", () => {
 
   it("should render image lightbox", async () => {
     const wrapper: ReactWrapper = mount(
+      <MockedHooksProvider mocks={mocks} addTypename={false}><React.Fragment>
       <MockedProvider mocks={mocks} addTypename={false}>
         <EvidenceView {...mockProps} />
       </MockedProvider>,
+      </React.Fragment></MockedHooksProvider>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
     wrapper.find("img")

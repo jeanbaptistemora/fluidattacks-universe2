@@ -3,12 +3,13 @@
  * Disabling this rule is necessary for accessing render props from
  * apollo components
  */
+import { useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Mutation, MutationFn, Query, QueryResult } from "react-apollo";
+import { Mutation, MutationFn } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 import { Button } from "../../../../components/Button";
@@ -30,59 +31,63 @@ type EventEvidenceProps = RouteComponentProps<{ findingId: string }>;
 const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): JSX.Element => {
   const { findingId } = props.match.params;
   const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
+  const baseUrl: string = window.location.href.replace("dashboard#!/", "");
 
+  // Side effects
   const onMount: (() => void) = (): void => {
     mixpanel.track("FindingEvidence", { Organization: userOrganization, User: userName });
   };
   React.useEffect(onMount, []);
 
+  // State management
   const [isEditing, setEditing] = React.useState(false);
   const handleEditClick: (() => void) = (): void => { setEditing(!isEditing); };
 
   const [lightboxIndex, setLightboxIndex] = React.useState(-1);
 
-  const baseUrl: string = window.location.href.replace("dashboard#!/", "");
+  // GraphQL operations
+  const { data, refetch } = useQuery(GET_FINDING_EVIDENCES, { variables: { findingId } });
+  const handleUpdateResult: (() => void) = (): void => {
+    refetch()
+      .catch();
+  };
+  const handleUpdateError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
+      updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        switch (message) {
+          case "Exception - Invalid File Size":
+            msgError(translate.t("proj_alerts.file_size"));
+            break;
+          case "Exception - Invalid File Type":
+            msgError(translate.t("project.events.form.wrong_image_type"));
+            break;
+          default:
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred updating finding evidence", updateError);
+        }
+      });
+  };
+
+  if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
+
+  interface IEvidenceItem { description: string; url: string; }
+  const evidenceImages: Dictionary<IEvidenceItem> = {
+    ...data.finding.evidence,
+    animation: {
+      ...data.finding.evidence.animation,
+      description: translate.t("search_findings.tab_evidence.animation_exploit"),
+    },
+    exploitation: {
+      ...data.finding.evidence.exploitation,
+      description: translate.t("search_findings.tab_evidence.evidence_exploit"),
+    },
+  };
+  const evidenceList: string[] = _.uniq(["animation", "exploitation", ...Object.keys(evidenceImages)])
+    .filter((name: string) => _.isEmpty(evidenceImages[name].url) ? isEditing : true);
+
+  const canEdit: boolean = _.includes(["admin", "analyst"], userRole);
 
   return (
     <React.StrictMode>
-      <Query query={GET_FINDING_EVIDENCES} variables={{ findingId }}>
-        {({ data, refetch }: QueryResult): JSX.Element => {
-          if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
-
-          interface IEvidenceItem { description: string; url: string; }
-          const {
-            animation, exploitation, evidence1, evidence2, evidence3, evidence4, evidence5,
-          } = data.finding.evidence;
-          const evidenceImages: IEvidenceItem[] = [
-            { ...animation, description: translate.t("search_findings.tab_evidence.animation_exploit") },
-            { ...exploitation, description: translate.t("search_findings.tab_evidence.evidence_exploit") },
-            evidence1, evidence2, evidence3, evidence4, evidence5,
-          ].filter((evidence: IEvidenceItem) => isEditing ? true : !_.isEmpty(evidence.url));
-
-          const handleUpdateResult: (() => void) = (): void => {
-            refetch()
-              .catch();
-          };
-          const handleUpdateError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
-            updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-              switch (message) {
-                case "Exception - Invalid File Size":
-                  msgError(translate.t("proj_alerts.file_size"));
-                  break;
-                case "Exception - Invalid File Type":
-                  msgError(translate.t("project.events.form.wrong_image_type"));
-                  break;
-                default:
-                  msgError(translate.t("proj_alerts.error_textsad"));
-                  rollbar.error("An error occurred updating finding evidence", updateError);
-              }
-            });
-          };
-
-          const canEdit: boolean = _.includes(["admin", "analyst"], userRole);
-
-          return (
-            <React.Fragment>
               <Row>
                 <Col md={2} mdOffset={10} xs={12} sm={12}>
                   {canEdit ? (
@@ -92,19 +97,21 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                   ) : undefined}
                 </Col>
               </Row>
-              {_.isEmpty(evidenceImages) && !isEditing
+              {_.isEmpty(evidenceList) && !isEditing
                 ? (
                   <div className={globalStyle.noData}>
                     <Glyphicon glyph="picture" />
                     <p>{translate.t("project.findings.evidence.no_data")}</p>
                   </div>
                 )
-                : <Row className={styles.evidenceGrid}>
-                  {evidenceImages.map((evidence: IEvidenceItem, index: number): JSX.Element => (
+                : (
+                <Row className={styles.evidenceGrid}>
+                {evidenceList.map((name: string, index: number): JSX.Element => (
                   <Mutation mutation={UPDATE_DESCRIPTION_MUTATION} onCompleted={handleUpdateResult}>
                     {(updateDescription: MutationFn): React.ReactNode => (
                       <Mutation mutation={UPDATE_EVIDENCE_MUTATION} onError={handleUpdateError}>
                         {(updateEvidence: MutationFn): React.ReactNode => {
+                          const evidence: IEvidenceItem = evidenceImages[name];
 
                           const handleUpdate: ((values: { description: string; filename: FileList }) => void) = (
                             values: { description: string; filename: FileList },
@@ -112,7 +119,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                             setEditing(false);
 
                             if (_.isUndefined(values.filename)) {
-                              if (_.isEmpty(evidenceImages[index].url)) {
+                              if (_.isEmpty(evidence.url)) {
                                 msgError(translate.t("proj_alerts.no_file_selected"));
                               } else {
                                 updateDescription({
@@ -186,14 +193,14 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                       </Mutation>
                     )}
                   </Mutation>
-                  ))}
-                </Row>
-              }
-              <EvidenceLightbox evidenceImages={evidenceImages} index={lightboxIndex} onChange={setLightboxIndex} />
-            </React.Fragment>
-          );
-        }}
-      </Query>
+                ))}
+              </Row>
+              )}
+      <EvidenceLightbox
+        evidenceImages={evidenceList.map((name: string) => evidenceImages[name])}
+        index={lightboxIndex}
+        onChange={setLightboxIndex}
+      />
     </React.StrictMode>
   );
 };
