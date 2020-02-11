@@ -3,8 +3,18 @@
 source "${srcIncludeHelpers}"
 
 function prepare_environment_variables {
-    echo "[INFO] Sourcing .envrc.public" \
-  && source './.envrc.public'
+  export IS_LOCAL_BUILD
+
+      echo '[INFO] Sourcing .envrc.public' \
+  &&  source './.envrc.public' \
+  &&  if test -n "${GITLAB_CI:-}"
+      then
+            echo '[INFO] In local build system' \
+        && IS_LOCAL_BUILD="${TRUE}"
+      else
+            echo '[INFO] In remote build system' \
+        && IS_LOCAL_BUILD="${FALSE}"
+      fi
 }
 
 function prepare_ephemeral_vars {

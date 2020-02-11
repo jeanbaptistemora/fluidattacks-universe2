@@ -15,6 +15,14 @@ function job_all {
   done
 }
 
+function job_run_break_build_dynamic {
+  helper_run_break_build 'dynamic'
+}
+
+function job_run_break_build_static {
+  helper_run_break_build 'static'
+}
+
 function job_deploy_nix_docker_image {
   local image="${CI_REGISTRY_IMAGE}:nix"
 

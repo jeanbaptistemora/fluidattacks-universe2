@@ -16,6 +16,15 @@ stages:
       - triggers
       - schedules
 
+.in_master_branch: &in_master_branch
+  only:
+    refs:
+      - master
+  except:
+    refs:
+      - triggers
+      - schedules
+
 .in_schedules: &in_schedules
   only:
     refs:
@@ -66,6 +75,16 @@ lint_code:
   <<: *with_nix
   <<: *in_dev_branch
   stage: test
+
+run_break_build_static:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
+run_break_build_dynamic:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: postdeploy
 
 build-builder:
   image: fluidattacks/docker-bash:latest
@@ -780,42 +799,3 @@ fluid-vpc-terraform-apply:
     - master
   except:
     - schedules
-
-asserts-static:
-  stage: test
-  tags: [autoscaling]
-  needs: [build-builder]
-  image:
-    name: fluidattacks/break-build
-    entrypoint: [""]
-  before_script:
-    - docker pull fluidattacks/break-build
-  script:
-    - bash <(docker run fluidattacks/break-build
-              --static
-              --id ${BREAK_BUILD_ID}
-              --secret ${BREAK_BUILD_SECRET}
-              --gitlab-docker-socket-binding
-             ) || true
-  except:
-    - master
-  interruptible: true
-
-asserts-dynamic:
-  stage: postdeploy
-  tags: [autoscaling]
-  image:
-    name: fluidattacks/break-build
-    entrypoint: [""]
-  before_script:
-    - docker pull fluidattacks/break-build
-  script:
-    - bash <(docker run fluidattacks/break-build
-              --dynamic
-              --id ${BREAK_BUILD_ID}
-              --secret ${BREAK_BUILD_SECRET}
-              --gitlab-docker-socket-binding
-             ) || true
-  only:
-    - master
-  interruptible: true

@@ -25,3 +25,26 @@ function helper_list_touched_files_in_last_commit {
         fi
       done
 }
+
+function helper_run_break_build {
+  local kind="${1}"
+
+      docker pull fluidattacks/break-build \
+  &&  if test "${IS_LOCAL_BUILD}"
+      then
+        bash <( \
+          docker run fluidattacks/break-build \
+            "--${kind}" \
+            --id "${BREAK_BUILD_ID}" \
+            --secret "${BREAK_BUILD_SECRET}" \
+            --no-image-rm)
+      else
+        bash <( \
+          docker run fluidattacks/break-build \
+            "--${kind}" \
+            --id "${BREAK_BUILD_ID}" \
+            --secret "${BREAK_BUILD_SECRET}" \
+            --no-image-rm \
+            --gitlab-docker-socket-binding)
+      fi
+}

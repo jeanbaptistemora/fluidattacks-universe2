@@ -23,5 +23,6 @@ in
       nix-linter
       modules.env.python
       shellcheck
+      which
     ];
   }

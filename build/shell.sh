@@ -1,6 +1,10 @@
 #! /usr/bin/env nix-shell
 #!   nix-shell -i bash
 #!   nix-shell --cores 0
+#!   nix-shell --keep BREAK_BUILD_ID
+#!   nix-shell --keep BREAK_BUILD_SECRET
+#!   nix-shell --keep CI_JOB_ID
+#!   nix-shell --keep CI_PROJECT_DIR
 #!   nix-shell --keep CI_REGISTRY_USER
 #!   nix-shell --keep CI_REGISTRY_PASSWORD
 #!   nix-shell --max-jobs auto
