@@ -3,13 +3,12 @@
  * Disabling this rule is necessary for accessing render props from
  * apollo components
  */
-import { useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Mutation, MutationFn } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 import { Button } from "../../../../components/Button";
@@ -47,11 +46,10 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_FINDING_EVIDENCES, { variables: { findingId } });
-  const handleUpdateResult: (() => void) = (): void => {
-    refetch()
-      .catch();
-  };
-  const handleUpdateError: ((updateError: ApolloError) => void) = (updateError: ApolloError): void => {
+  const [removeEvidence] = useMutation(REMOVE_EVIDENCE_MUTATION, { onCompleted: refetch });
+  const [updateDescription] = useMutation(UPDATE_DESCRIPTION_MUTATION, { onCompleted: refetch });
+  const [updateEvidence] = useMutation(UPDATE_EVIDENCE_MUTATION, {
+    onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
           case "Exception - Invalid File Size":
@@ -65,7 +63,8 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
             rollbar.error("An error occurred updating finding evidence", updateError);
         }
       });
-  };
+    },
+  });
 
   if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
@@ -106,11 +105,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                 )
                 : (
                 <Row className={styles.evidenceGrid}>
-                {evidenceList.map((name: string, index: number): JSX.Element => (
-                  <Mutation mutation={UPDATE_DESCRIPTION_MUTATION} onCompleted={handleUpdateResult}>
-                    {(updateDescription: MutationFn): React.ReactNode => (
-                      <Mutation mutation={UPDATE_EVIDENCE_MUTATION} onError={handleUpdateError}>
-                        {(updateEvidence: MutationFn): React.ReactNode => {
+                {evidenceList.map((name: string, index: number): JSX.Element => {
                           const evidence: IEvidenceItem = evidenceImages[name];
 
                           const handleUpdate: ((values: { description: string; filename: FileList }) => void) = (
@@ -156,21 +151,18 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                             }
                           };
 
-                          return (
-                            <Mutation mutation={REMOVE_EVIDENCE_MUTATION} onCompleted={handleUpdateResult}>
-                              {(removeImage: MutationFn): React.ReactNode => {
-                                const handleRemove: (() => void) = (): void => {
+                          const handleRemove: (() => void) = (): void => {
                                   mixpanel.track("RemoveEvidence", { Organization: userOrganization, User: userName });
                                   setEditing(false);
-                                  removeImage({ variables: { evidenceId: index, findingId } })
+                                  removeEvidence({ variables: { evidenceId: index, findingId } })
                                     .catch();
                                 };
 
-                                const openImage: (() => void) = (): void => {
+                          const openImage: (() => void) = (): void => {
                                   if (!isEditing) { setLightboxIndex(index); }
                                 };
 
-                                return (
+                          return (
                                   <EvidenceImage
                                     acceptedMimes="image/jpeg,image/gif,image/png"
                                     content={_.isEmpty(evidence.url) ? <div /> : `${baseUrl}/${evidence.url}`}
@@ -185,15 +177,8 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                                     onUpdate={handleUpdate}
                                     validate={validEvidenceImage}
                                   />
-                                );
-                              }}
-                            </Mutation>
-                          );
-                        }}
-                      </Mutation>
-                    )}
-                  </Mutation>
-                ))}
+                  );
+                })}
               </Row>
               )}
       <EvidenceLightbox
