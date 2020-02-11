@@ -27,10 +27,6 @@ function prepare_python_packages {
     echo "  [${pkg}] ${!pkg}"
     PATH="${PATH}:${!pkg}/site-packages/bin"
     PYTHONPATH="${PYTHONPATH}:${!pkg}/site-packages"
-    if test -e "${!pkg}/site-packages/bin"
-    then
-      chmod +x "${!pkg}/site-packages/bin/"*
-    fi
   done < "${TEMP_FILE}"
 }
 

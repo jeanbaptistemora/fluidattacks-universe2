@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """A simple script to download from AWS S3."""
 
+import sys
 import json
 import argparse
 
@@ -51,7 +52,7 @@ def main():
 
     if not args.auth or not args.conf:
         parser.print_help()
-        exit(1)
+        sys.exit(1)
 
     # load user params
     auth_keys = json.load(args.auth)

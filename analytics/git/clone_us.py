@@ -2,6 +2,7 @@
 """Script to clone our repositories."""
 
 import os
+import sys
 from multiprocessing import cpu_count
 from multiprocessing.pool import Pool
 
@@ -23,7 +24,7 @@ def clone(repo) -> None:
             f'  https://{USER}:{TOKEN}@gitlab.com/{repo}.git \'{dest}\''))
     if status:
         print(f'Clone/update of {repo} exit with status code {status}')
-        exit(status)
+        sys.exit(status)
 
 
 def main():

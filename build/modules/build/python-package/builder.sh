@@ -10,5 +10,10 @@ pip3 install \
     --upgrade \
   "${requirement}"
 
+if test -e "root/python/site-packages/bin"
+then
+  chmod +x "root/python/site-packages/bin/"*
+fi
+
 mkdir "${out}"
 mv root/python/* "${out}"

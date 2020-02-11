@@ -41,6 +41,8 @@ function job_lint_build_code {
 }
 
 function job_lint_touched_code {
+  prospector --profile .prospector.yml .
+
   helper_list_touched_files_in_last_commit \
     | xargs pre-commit run --verbose --files
 }

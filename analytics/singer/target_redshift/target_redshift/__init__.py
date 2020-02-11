@@ -147,7 +147,7 @@ JSON_SCHEMA_TYPES: JSON = {
     ]
 }
 
-# pylint: disable = logging-fstring-interpolation
+# pylint: disable=logging-format-interpolation
 
 
 def str_len(str_obj: str, encoding: str = "utf-8") -> int:
@@ -610,7 +610,7 @@ def validate_schema(validator: JSON_VALIDATOR, schema: JSON) -> None:
     except jsonschema.exceptions.SchemaError as err:
         LOGGER.critical(f"ERROR: schema did not conform to draft 4.")
         LOGGER.critical(err)
-        exit(1)
+        sys.exit(1)
 
 
 def validate_record(validator: JSON_VALIDATOR, record: JSON) -> None:

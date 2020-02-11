@@ -70,7 +70,7 @@ def print_tutorial() -> None:
                 Vacuum tables to improve query performance.
         """
     print(tutorial, sep="\n")
-    exit(1)
+    sys.exit(1)
 
 
 def get_stdout(command: List[str]) -> str:
@@ -659,7 +659,7 @@ def get_credentials() -> JSON:
         credentials: JSON = json.loads(vault_credentials_stdout)
     except json.decoder.JSONDecodeError:
         print("CRIT: Are you logged in vault?")
-        exit(1)
+        sys.exit(1)
     return credentials
 
 
@@ -671,7 +671,7 @@ def get_subs_name(do_print=False) -> str:
             subs_name: str = state_file.read()
     else:
         print("CRIT: You must set the subscription name first.")
-        exit(1)
+        sys.exit(1)
     if do_print:
         print(f"INFO: Working on {subs_name}.")
     return subs_name
@@ -685,7 +685,7 @@ def get_user_name(do_print=False) -> str:
             user_name: str = state_file.read()
     else:
         print("CRIT: You must set the user name first.")
-        exit(1)
+        sys.exit(1)
     if do_print:
         print(f"INFO: Working as {user_name}.")
     return user_name
@@ -841,7 +841,7 @@ def main():
     if main__parse_set(*argv) or \
             main__parse_get(*argv) or \
             main__parse_admin(*argv):
-        exit(0)
+        sys.exit(0)
     else:
         print_tutorial()
 

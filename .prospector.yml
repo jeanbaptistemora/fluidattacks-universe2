@@ -4,9 +4,3 @@ inherits:
 pylint:
   disable:
     - import-error
-
-pyroma:
-  run: true
-
-vulture:
-  run: true

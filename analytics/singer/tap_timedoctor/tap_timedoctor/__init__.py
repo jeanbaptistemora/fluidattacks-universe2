@@ -1,6 +1,7 @@
 """Singer tap for the Timedoctor API."""
 
 import re
+import sys
 import json
 import argparse
 import datetime
@@ -45,7 +46,7 @@ def ensure_200(status_code: int) -> None:
         print(f"INFO: Timedoctor API, ERROR {status_code}")
         print(f"          The service is probably down.")
         print(f"         You should run this script again later.")
-        exit(1)
+        sys.exit(1)
 
 
 def translate_date(date_obj: Any) -> str:

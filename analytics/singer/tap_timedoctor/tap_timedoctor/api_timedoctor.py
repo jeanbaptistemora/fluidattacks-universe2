@@ -1,5 +1,6 @@
 """TimeDoctor API wrapper."""
 
+import sys
 import time
 import urllib.error
 import urllib.request
@@ -51,10 +52,10 @@ class Worker():
             status_code = error.code
             if status_code == 401:
                 print("INFO: Please reauthorize using the refresh token")
-                exit(1)
+                sys.exit(1)
             elif status_code == 403:
                 print("INFO: Unauthorized/Forbidden")
-                exit(1)
+                sys.exit(1)
         except urllib.error.URLError:
             pass
 

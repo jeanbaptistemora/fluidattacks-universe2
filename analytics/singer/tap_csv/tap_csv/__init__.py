@@ -2,6 +2,7 @@
 """
 
 import csv
+import sys
 import json
 import argparse
 
@@ -82,7 +83,7 @@ def main():
 
     if not args.file or not args.name:
         parser.print_help()
-        exit(1)
+        sys.exit(1)
 
     # ==== TAP ================================================================
     # line 1, primary field(s)

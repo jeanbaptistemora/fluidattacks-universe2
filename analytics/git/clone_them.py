@@ -11,6 +11,7 @@ from typing import Tuple
 
 def run_command(cmd: str, cwd: str) -> Tuple[int, str]:
     """Run a command and return exit code and output."""
+    # pylint: disable=subprocess-run-check
     proc = subprocess.run(cmd,
                           cwd=cwd,
                           shell=True,
