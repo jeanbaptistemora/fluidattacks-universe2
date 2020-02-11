@@ -840,3 +840,57 @@ def can_alter_any_credential(dbname: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
+def has_sa_account_login_enabled(dbname: str, user: str, password: str,
+                                 host: str, port: int) -> Tuple:
+    """
+    Check if the sa login account is enabled.
+
+    Enforcing the sa login to be disabled reduces the probability of an
+    attacker executing brute force attacks against a well-known principal.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+
+    :returns: - ``OPEN`` if the sa login account is enabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port)
+
+    msg_open: str = 'SA login account is enabled.'
+    msg_closed: str = 'SA login account is disabled.'
+
+    query = """SELECT 1
+               FROM master.sys.server_principals
+               WHERE sid = 0x01
+                 AND is_disabled = 0"""
+    try:
+        with database(connection_string) as (_, cursor):
+            cursor.execute(query)
+            (vulns if cursor.fetchone() else
+             safes).append(('must disable the sa account because it could be '
+                            'the target of attacks'))
+
+    except (pyodbc.OperationalError, pyodbc.InterfaceError) as exc:
+        if not _is_auth_permission_error(exc):
+            raise exc
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
