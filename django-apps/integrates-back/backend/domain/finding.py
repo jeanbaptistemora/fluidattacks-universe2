@@ -21,7 +21,8 @@ from backend.mailer import send_comment_mail
 from backend import util
 from backend.exceptions import (
     AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
-    NotSubmitted, InvalidFileSize, InvalidFileStructure, InvalidFileType, InvalidDraftTitle
+    NotSubmitted, InvalidFileSize, InvalidFileStructure, InvalidFileType, InvalidDraftTitle,
+    AlreadyRequested, NotVerificationRequested
 )
 from backend.utils import cvss, notifications, findings as finding_utils
 
@@ -194,6 +195,8 @@ def verify_finding(finding_id, user_email, justification, user_fullname):
         else:
             rollbar.report_message(
                 'Error: An error occurred verifying the finding', 'error')
+    else:
+        raise NotVerificationRequested()
 
     return success
 
@@ -219,7 +222,7 @@ def request_verification(finding_id, user_email, user_fullname, justification):
     project_name = finding.get('projectName')
     finding_name = finding.get('finding')
     success = False
-    if finding.get('historicVerification', [{}])[-1] != 'REQUESTED':
+    if finding.get('historicVerification', [{}])[-1].get('status') != 'REQUESTED':
         tzn = pytz.timezone(settings.TIME_ZONE)
         today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
         historic_verification = finding.get('historicVerification', [])
@@ -259,6 +262,8 @@ def request_verification(finding_id, user_email, user_fullname, justification):
         else:
             rollbar.report_message(
                 'Error: An error occurred remediating the finding', 'error')
+    else:
+        raise AlreadyRequested()
 
     return success
 

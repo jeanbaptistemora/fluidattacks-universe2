@@ -88,6 +88,7 @@ const enTranslations: Dictionary = {
     key: "Key",
     no_file_selected: "No file selected",
     no_file_update: "Failed to update the file",
+    no_verification_requested: "No verification requested",
     path_value: "Path value should not use backslash.",
     port_value: "Port value should be between 0 and 65535.",
     range_error: "Range limits are wrong.",

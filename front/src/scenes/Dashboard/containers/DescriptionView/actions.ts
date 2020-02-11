@@ -141,13 +141,13 @@ export const requestVerification: ThunkActionStructure<void> =
         .then((response: AxiosResponse) => {
           const { data } = response.data;
           if (data.requestVerification.success) {
+            dispatch<IActionStructure>(closeRemediationMdl());
             dispatch<IActionStructure>({
               payload: {
                 descriptionData: { remediated: true },
               },
               type: actionTypes.LOAD_DESCRIPTION,
             });
-            dispatch<IActionStructure>(closeRemediationMdl());
             msgSuccess(
               translate.t("proj_alerts.verified_success"),
               translate.t("proj_alerts.updated_title"),
@@ -172,7 +172,7 @@ export const verifyFinding: ThunkActionStructure<void> =
     (dispatch: ThunkDispatcher): void => {
       let gQry: string;
       gQry = `mutation {
-        verifyFinding(findingId: "${findingId}", justification: "${justification}") {
+        verifyFinding(findingId: "${findingId}", justification: ${JSON.stringify(justification)}) {
           success
         }
       }`;
@@ -199,9 +199,12 @@ export const verifyFinding: ThunkActionStructure<void> =
         .catch((error: AxiosError) => {
           if (error.response !== undefined) {
             const { errors } = error.response.data;
-
-            msgError(translate.t("proj_alerts.error_textsad"));
-            rollbar.error(error.message, errors);
+            if (errors[0].message === "Exception - Error verification not requested") {
+              msgError(translate.t("proj_alerts.no_verification_requested"));
+            } else {
+              msgError(translate.t("proj_alerts.error_textsad"));
+              rollbar.error(error.message, errors);
+            }
           }
         });
     };

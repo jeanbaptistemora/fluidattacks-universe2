@@ -316,3 +316,21 @@ class NotPendingDeletion(Exception):
         """ Constructor """
         msg = 'Exception - The project is not pending to delete'
         super(NotPendingDeletion, self).__init__(msg)
+
+
+class AlreadyRequested(Exception):
+    """Exception to control verification already requested"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Request verification already requested'
+        super(AlreadyRequested, self).__init__(msg)
+
+
+class NotVerificationRequested(Exception):
+    """Exception to control finding verification"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Error verification not requested'
+        super(NotVerificationRequested, self).__init__(msg)
