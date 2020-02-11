@@ -5,7 +5,7 @@ function helper_indent_2 {
 }
 
 function helper_list_declared_jobs {
-  declare -F | grep -oP 'job_[a-z_]+' | sort
+  declare -F | grep -oP '(?<=job_)[a-z_]+' | sort
 }
 
 function helper_list_vars_with_regex {

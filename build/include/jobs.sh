@@ -2,19 +2,6 @@
 
 source "${srcIncludeHelpers}"
 
-function job_all {
-  local function_to_call
-
-  # Execute all job functions except this mere one
-  helper_list_declared_jobs | while read -r function_to_call
-  do
-    echo "[INFO] Executing function: ${function_to_call}"
-    test "${function_to_call}" = "job_all" \
-      || "${function_to_call}" \
-      || return 1
-  done
-}
-
 function job_run_break_build_dynamic {
   helper_run_break_build 'dynamic'
 }
@@ -24,17 +11,17 @@ function job_run_break_build_static {
 }
 
 function job_deploy_nix_docker_image {
-  local image="${CI_REGISTRY_IMAGE}:nix"
+  local image="${CI_REGISTRY_IMAGE}:test"
 
     echo "[INFO] Login in: ${CI_REGISTRY}" \
   && docker login \
       --username "${CI_REGISTRY_USER}" \
       --password "${CI_REGISTRY_PASSWORD}" \
       "${CI_REGISTRY}" \
-  && echo "[INFO] Pulling: ${image}" \
-  && docker pull "${image}" || true \
-  && echo "[INFO] Building: ${image}" \
-  && docker build --tag "${image}" --file './build/Dockerfile' '.' \
+  && echo "[INFO] Loading: ${dockerImagesLocalNix}" \
+  && docker load < "${dockerImagesLocalNix}" \
+  && echo "[INFO] Tagging local:test as: ${image}" \
+  && docker tag 'local:nix' "${image}" \
   && echo "[INFO] Pushing: ${image}" \
   && docker push "${image}"
 }

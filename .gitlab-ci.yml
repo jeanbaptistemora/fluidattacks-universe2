@@ -38,7 +38,7 @@ stages:
       - $FLAG_DEPLOY_NIX_DOCKER_IMAGE
 
 .with_nix: &with_nix
-  image: "${CI_REGISTRY_IMAGE}:nix"
+  image: "${CI_REGISTRY_IMAGE}:test"
   tags:
     - autoscaling-large
   script:

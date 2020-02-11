@@ -15,8 +15,16 @@ function cli {
     echo "Use: ./build.sh [job-name]"
     echo
     echo 'List of jobs:'
-    helper_list_declared_jobs | sed -e 's/job_/  * /g'
+    helper_list_declared_jobs | sed -e 's/^/  * /g'
     return 1
+  elif test "${function_to_call}" = 'all'
+  then
+    helper_list_declared_jobs \
+      | while read -r func
+        do
+          echo "[INFO] Executing function: ${func}"
+          cli "${func}" || return 1
+        done
   else
     echo
     prepare_environment_variables

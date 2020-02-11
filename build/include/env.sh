@@ -9,11 +9,11 @@ function prepare_environment_variables {
   &&  source './.envrc.public' \
   &&  if test -n "${GITLAB_CI:-}"
       then
-            echo '[INFO] In local build system' \
-        && IS_LOCAL_BUILD="${TRUE}"
-      else
             echo '[INFO] In remote build system' \
         && IS_LOCAL_BUILD="${FALSE}"
+      else
+            echo '[INFO] In local build system' \
+        && IS_LOCAL_BUILD="${TRUE}"
       fi
 }
 
