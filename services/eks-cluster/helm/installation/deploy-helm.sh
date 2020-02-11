@@ -41,9 +41,6 @@ install_helm() {
   . services/eks-cluster/helpers.sh
   . services/eks-cluster/helm/installation/tls.sh
 
-  local INSTALL_FOLDER
-  local ROLE_TILLER
-  local ROLEBINDING_TILLER
   local TILLER_CERT
   local TILLER_KEY
   local CA_CERT
@@ -53,9 +50,6 @@ install_helm() {
   mv linux-amd64/helm /usr/local/bin/
   rm -rf linux-amd64 helm.tar.gz
 
-  INSTALL_FOLDER='services/eks-cluster/helm/installation'
-  ROLE_TILLER="$INSTALL_FOLDER/role-tiller.yaml"
-  ROLEBINDING_TILLER="$INSTALL_FOLDER/rolebinding-tiller.yaml"
   TILLER_CERT='/tmp/tiller.crt'
   TILLER_KEY='/tmp/tiller.key'
   CA_CERT='/tmp/ca.cert'

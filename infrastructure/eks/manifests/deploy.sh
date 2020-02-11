@@ -28,9 +28,13 @@ function create_kubernetes_namespace() {
 
 function deploy_application() {
   local manifest="${1}"
-  local resource="$(echo ${1} | cut -d/ -f1)"
-  local name="$(echo ${1} | cut -d/ -f2 | cut -d. -f1)"
-  local namespace="$(grep -m1 -Po '(?<=namespace: ).*' ${manifest})"
+  local name
+  local namespace
+  local resource
+
+  name=$(echo "${1}" | cut -d/ -f2 | cut -d. -f1)
+  namespace=$(grep -m1 -Po '(?<=namespace: ).*' "${manifest}")
+  resource=$(echo "${1}" | cut -d/ -f1)
   replace_env_variables "${manifest}"
   kubectl apply -f "${manifest}"
   kubectl rollout status "${resource}/${name}" -n "${namespace}" --timeout=8m ||
@@ -41,11 +45,11 @@ function find_resource() {
   local resource="${1}"
   local regex="${2}"
   shift 2
-  local options="$@"
+  local options="${*}"
   if [ -z "${options}" ]; then
-    kubectl get "${resource}" | egrep "${regex}"
+    kubectl get "${resource}" | grep -E "${regex}"
   else
-    kubectl get "${resource}" | egrep "${regex}" "${options}"
+    kubectl get "${resource}" | grep -E "${regex}" "${options}"
   fi
 }
 
@@ -107,9 +111,13 @@ function install_helm_chart() {
 }
 
 function install_amazon_vpc_plugin() {
-  local curr_version="$(kubectl describe daemonset aws-node \
+  local curr_version
+  local minor_version
+
+  curr_version="$(kubectl describe daemonset aws-node \
     --namespace kube-system | grep Image | cut -d ':' -f 3)"
-  local minor_version="v${AMZ_VPC_PLUGIN_VER::-2}"
+  minor_version="v${AMZ_VPC_PLUGIN_VER::-2}"
+
   if [ "${curr_version}" = "${AMZ_VPC_PLUGIN_VER}" ]; then
     echo-blue "Amazon VPC plugin is up to date"
   else
@@ -121,15 +129,18 @@ function install_amazon_vpc_plugin() {
 # Automate the generation and renewal of TLS certificates for secondary domains
 function issue_secondary_domain_certificates() {
   local manifest="${1}"
-  local tls_manifest="$(echo ${manifest} | cut -d. -f1)-tls.yaml"
+  local tls_manifest
   local secret="${2}"
   local certificate_name="${3}"
-  local secret_age="$(kubectl get secret ${secret} | grep -Po '(?<=\s)[0-9]+d' | sed 's/.$//')"
+  local secret_age
+
+  tls_manifest="$(echo "${manifest}" | cut -d. -f1)-tls.yaml"
+  secret_age="$(kubectl get secret "${secret}" | grep -Po '(?<=\s)[0-9]+d' | sed 's/.$//')"
   if [ -z "${secret_age}" ]; then
     echo-blue "Certificates for secondary domains are valid."
   elif [ "${secret_age}" -gt 80 ] || [[ $(get_changed_files) == *"${manifest}"*  ]]; then
     echo-blue "Issuing TLS certificates for secondary domains..."
-    kubectl delete $(echo "${manifest}" | cut -d. -f1)
+    kubectl delete "$(echo "${manifest}" | cut -d. -f1)"
     kubectl delete secret "${secret}"
     kubectl delete certificate "${certificate_name}"
     sleep 10
@@ -167,13 +178,17 @@ function restore-vault() {
 }
 
 function wait_elb_initialization() {
-  local elb_name="$(get_aws_elb_name)"
-  local elb_status="$(get_aws_elb_status ${elb_name})"
+  local elb_name
+  local elb_status
   local i=0
+
+  elb_name="$(get_aws_elb_name)"
+  elb_status=$(get_aws_elb_status "${elb_name}")
+
   while [[ "${elb_status}" = *"OutOfService"* ]]; do
     echo-blue 'Waiting for Load Balancer to be ready...'
     sleep 10
-    elb_status="$(get_aws_elb_status ${elb_name})"
+    elb_status=$(get_aws_elb_status "${elb_name}")
     i="$((i+1))"
     if [[ "$i" == 10 ]]; then
       echo-blue "Load Balancer failed the Health Checks and is out of service."
@@ -188,7 +203,7 @@ cd eks/manifests/
 
 # Set working namespace to serves to avoid including the flag in every command
 create_kubernetes_namespace serves operations integrates web runners
-kubectl config set-context $(kubectl config current-context) \
+kubectl config set-context "$(kubectl config current-context)" \
   --namespace serves
 
 
@@ -256,7 +271,7 @@ if ! kubectl get secret jfrog-reg --namespace=runners; then
   # Create secret in runners namespace
   kubectl create secret docker-registry jfrog-reg \
     --docker-server="fluid-docker.jfrog.io" --docker-username="$JFROG_USER" \
-    --docker-password="$JFROG_PASS" --docker-email="$JFROG_EMAIL"
+    --docker-password="$JFROG_PASS" --docker-email="$JFROG_EMAIL" \
     --namespace runners
 fi
 
@@ -272,8 +287,8 @@ kubectl apply -f review-apps/network-policies.yaml
 VAULT_HOST='vault.fluidattacks.com'
 DATE="$(date)"
 FI_VAULT_HOST="$(echo -n ${VAULT_HOST} | base64)"
-FI_VAULT_TOKEN="$(get_vault_approle_token ${INTEGRATES_PROD_ROLE_ID} \
-  ${INTEGRATES_PROD_SECRET_ID} ${VAULT_HOST} | tr -d '\n' | base64)"
+FI_VAULT_TOKEN="$(get_vault_approle_token "${INTEGRATES_PROD_ROLE_ID}" \
+  "${INTEGRATES_PROD_SECRET_ID}" ${VAULT_HOST} | tr -d '\n' | base64)"
 export DATE
 export FI_VAULT_HOST
 export FI_VAULT_TOKEN

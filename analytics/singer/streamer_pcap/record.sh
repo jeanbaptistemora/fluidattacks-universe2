@@ -36,7 +36,7 @@ function check_non_root() {
 # Entry point
 echo "Network traffic recorder."
 echo ""
-check_arguments $@
+check_arguments "${@}"
 check_non_root
 
 
@@ -44,7 +44,6 @@ non_root_user="$USER"
 
 name="$(echo "$1" | tr '[:upper:]' '[:lower:]')"
 subs="$(echo "$2" | tr '[:upper:]' '[:lower:]')"
-cidr="$3"
 
 file_dir="/var/tmp/pcap"
 file_date=$(date --utc '+%Y-%m-%dT%H:%M:%SZ')

@@ -31,8 +31,6 @@ generate_csr() {
 
   set -e
 
-  local CERT_INFO
-
   openssl req \
     -key "$1" \
     -new \

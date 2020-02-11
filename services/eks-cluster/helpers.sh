@@ -49,5 +49,5 @@ kubectl_login() {
 
   get_cluster_name "$TARGET_DIR" "$BUCKET"
 
-  aws eks update-kubeconfig --name $CLUSTER_NAME --region us-east-1
+  aws eks update-kubeconfig --name "${CLUSTER_NAME}" --region us-east-1
 }

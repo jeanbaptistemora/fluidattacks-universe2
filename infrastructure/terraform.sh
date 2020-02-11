@@ -89,21 +89,23 @@ tflint
 terraform plan -refresh=true
 
 if [ "$stage" == "deployment" ]; then
-  mkdir -p $(helm home)
-  echo "$HELM_KEY" | base64 -d > $(helm home)/key.pem
-  echo "$HELM_CERT" | base64 -d > $(helm home)/cert.pem
-  echo "$HELM_CA" | base64 -d > $(helm home)/ca.pem
+  mkdir -p "$(helm home)"
+  echo "$HELM_KEY" | base64 -d > "$(helm home)"/key.pem
+  echo "$HELM_CERT" | base64 -d > "$(helm home)"/cert.pem
+  echo "$HELM_CA" | base64 -d > "$(helm home)"/ca.pem
   VAULT_KMS_KEY=$(terraform output vaultKmsKey)
   export VAULT_KMS_KEY
   eks/manifests/deploy.sh
 fi
 
 # Run Terraform Plan for AWS DNS infrastructure
-echo 'fiS3Arn = '"$(aws iam list-users | jq '.Users[].Arn' | \
-  egrep 'integrates-prod' | head -n 1)" >> dns/terraform.tfvars
-terraform output dbEndpoint >> dns/terraform.tfvars
-terraform output fwBucket >> dns/terraform.tfvars
-terraform output fiBucket >> dns/terraform.tfvars
+{
+  echo 'fiS3Arn = '"$(aws iam list-users | jq '.Users[].Arn' | \
+    grep -E 'integrates-prod' | head -n 1)"
+  terraform output dbEndpoint
+  terraform output fwBucket
+  terraform output fiBucket
+} >> dns/terraform.tfvars
 
 cd dns/
 get_nginx_elb

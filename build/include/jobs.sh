@@ -42,11 +42,8 @@ function job_lint_code {
       nix-linter --recursive . \
   && echo '[OK] Nix code is compliant'
       shellcheck --external-sources build.sh \
-  &&  (
-        find '.' -name '*.sh' -exec \
-          shellcheck --external-sources --exclude=SC1090,SC2016,SC2154 {} + \
-        || true
-      ) \
+  && find '.' -name '*.sh' -exec \
+      shellcheck --external-sources --exclude=SC1090,SC2016,SC2154 {} + \
   && echo '[OK] Shell code is compliant' \
   && hadolint build/Dockerfile \
   && echo '[OK] Dockerfiles are compliant' \

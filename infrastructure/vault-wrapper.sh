@@ -39,7 +39,7 @@ function vault_create_variables() {
   if [ -z "$curr_variables" ]; then
     curr_variables='{}'
   fi
-  for args in "$@"; do
+  for _ in "$@"; do
     var="$1"
     value="$2"
     shift 2 || break
@@ -129,7 +129,7 @@ function vault_remove_policy() {
   local email="$1"
   shift 1
   local removed_policies
-  read -r -a removed_policies <<< $(printf '%s ' "$@")
+  read -r -a removed_policies <<< "$(printf '%s ' "$@")"
   curr_policies=$(vault_get_user_policies "$email")
   for policy in "${removed_policies[@]}"; do
     curr_policies="${curr_policies//${policy}, }"
@@ -143,9 +143,11 @@ function vault_update_variables() {
   shift 1
   vault read -format=json "$secret_path" | jq '.data' > vars.json
   for VAR in "$@"; do
-    NAME="$(echo $VAR | cut -d= -f1)"
-    VALUE="$(echo $VAR | cut -d= -f2)"
-    cat vars.json | vault_update_value "$NAME" "$VALUE" > vars_tmp.json
+    NAME="$(echo "${VAR}" | cut -d= -f1)"
+    VALUE="$(echo "${VAR}" | cut -d= -f2)"
+    vault_update_value "$NAME" "$VALUE" \
+      > vars_tmp.json \
+      < vars.json
     mv vars_tmp.json vars.json
   done
   vault write "$secret_path" @vars.json
