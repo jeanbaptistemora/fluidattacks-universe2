@@ -5,7 +5,6 @@ from botocore.exceptions import ClientError
 import rollbar
 
 from backend import util
-from backend.utils import forms
 
 from backend.dal.helpers import dynamodb
 
@@ -298,27 +297,6 @@ def update_in_multikey_table_dynamo(table_name, multiple_keys, attr_name, attr_v
     except ClientError:
         rollbar.report_exc_info()
         return False
-
-
-def add_multiple_attributes_dynamo(table_name, primary_keys, dic_data):
-    """Adding multiple attributes to a dynamo table."""
-    table = DYNAMODB_RESOURCE.Table(table_name)
-    item = get_data_dynamo(table_name, primary_keys[0], primary_keys[1])
-    keys_dic = {str(primary_keys[0]): primary_keys[1]}
-    if item:
-        resp = update_mult_attrs_dynamo(table_name, keys_dic, dic_data)
-    else:
-        try:
-            dic_data_field = {k: dic_data[k] for k in list(dic_data.keys())}
-            attr_to_add = forms.dict_concatenation(keys_dic, dic_data_field)
-            response = table.put_item(
-                Item=attr_to_add
-            )
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        except ClientError:
-            rollbar.report_exc_info()
-            resp = False
-    return resp
 
 
 def update_mult_attrs_dynamo(table_name, primary_keys, dic_data):

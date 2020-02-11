@@ -1,5 +1,7 @@
 
+import rollbar
 from boto3.dynamodb.conditions import Attr, Not
+from botocore.exceptions import ClientError
 from backend.dal import integrates_dal
 from backend.dal.helpers import dynamodb
 
@@ -84,10 +86,35 @@ def remove_user_attribute(email, name_attribute):
         TABLE, primary_key, name_attribute)
 
 
-def update_multiple_user_attributes(email, data_dict):
-    primary_key = ['email', email.lower()]
-    return integrates_dal.add_multiple_attributes_dynamo(
-        TABLE, primary_key, data_dict)
+def update(email, data):
+    success = False
+    primary_key = {'email': email.lower()}
+    table = DYNAMODB_RESOURCE.Table(TABLE)
+    try:
+        attrs_to_remove = [attr for attr in data if data[attr] is None]
+        for attr in attrs_to_remove:
+            response = table.update_item(
+                Key=primary_key,
+                UpdateExpression='REMOVE #attr',
+                ExpressionAttributeNames={'#attr': attr}
+            )
+            success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            del data[attr]
+
+        if data:
+            attributes = ['{attr} = :{attr}'.format(attr=attr) for attr in data]
+            values = {':{}'.format(attr): data[attr] for attr in data}
+
+            response = table.update_item(
+                Key=primary_key,
+                UpdateExpression='SET {}'.format(','.join(attributes)),
+                ExpressionAttributeValues=values)
+            success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError as ex:
+        rollbar.report_message('Error: Couldn\'nt update user',
+                               'error', extra_data=ex, payload_data=locals())
+
+    return success
 
 
 def update_user_attribute(email, data_attribute, name_attribute):

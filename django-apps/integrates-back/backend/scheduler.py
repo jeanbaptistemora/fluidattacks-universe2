@@ -480,13 +480,10 @@ def update_indicators():
     rollbar.report_message(
         'Warning: Function to update indicators in DynamoDB is running', 'warning')
     projects = project_domain.get_active_projects()
-    table_name = 'FI_projects'
     for project in projects:
         indicators = get_project_indicators(project)
-        primary_keys = ['project_name', project]
         try:
-            response = integrates_dal.add_multiple_attributes_dynamo(
-                table_name, primary_keys, indicators)
+            response = project_dal.update(project, indicators)
             if response:
                 util.invalidate_cache(project)
             else:

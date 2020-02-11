@@ -29,11 +29,12 @@ def create(finding_id, project_name, finding_attrs):
 
 def update(finding_id, data):
     success = False
+    primary_keys = {'finding_id': finding_id}
     try:
         attrs_to_remove = [attr for attr in data if data[attr] is None]
         for attr in attrs_to_remove:
             response = TABLE.update_item(
-                Key={'finding_id': finding_id},
+                Key=primary_keys,
                 UpdateExpression='REMOVE #attr',
                 ExpressionAttributeNames={'#attr': attr}
             )
@@ -45,7 +46,7 @@ def update(finding_id, data):
             values = {':{}'.format(attr): data[attr] for attr in data}
 
             response = TABLE.update_item(
-                Key={'finding_id': finding_id},
+                Key=primary_keys,
                 UpdateExpression='SET {}'.format(','.join(attributes)),
                 ExpressionAttributeValues=values)
             success = response['ResponseMetadata']['HTTPStatusCode'] == 200

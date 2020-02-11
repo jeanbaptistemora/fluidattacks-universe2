@@ -376,7 +376,6 @@ def should_send_mail(finding, updated_values):
 
 def save_severity(finding):
     """Organize severity metrics to save in dynamo."""
-    primary_keys = ['finding_id', str(finding['id'])]
     cvss_version = finding.get('cvssVersion', '')
     cvss_parameters = finding_utils.CVSS_PARAMETERS[cvss_version]
     if cvss_version == '3.1':
@@ -424,9 +423,7 @@ def save_severity(finding):
     severity['cvss_env'] = cvss.calculate_cvss_environment(
         unformatted_severity, cvss_parameters, cvss_version)
     severity['cvss_version'] = cvss_version
-    response = \
-        integrates_dal.add_multiple_attributes_dynamo('FI_findings',
-                                                      primary_keys, severity)
+    response = finding_dal.update(finding['id'], severity)
     return response
 
 

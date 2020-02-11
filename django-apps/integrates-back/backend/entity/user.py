@@ -232,16 +232,15 @@ def create_new_user(context, new_user_data, project_name):
         responsibility = new_user_data['responsibility']
         role = new_user_data['role']
         phone_number = new_user_data['phone_number']
-        primary_keys_dynamo = ['email', email.lower()]
     else:
         return False
 
     success = False
 
     if not user_domain.get_data(email, 'email'):
-        integrates_dal.add_multiple_attributes_dynamo(
-            'FI_users', primary_keys_dynamo, {'company': organization.lower(),
-                                              'phone': phone_number})
+        user_domain.update_multiple_user_attributes(
+            email.lower(), {'company': organization.lower(),
+                            'phone': phone_number})
     if not user_domain.is_registered(email):
         user_domain.register(email)
         user_domain.assign_role(email, role)

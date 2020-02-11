@@ -287,11 +287,12 @@ def is_request_deletion_user(project, user_email):
 
 def update(project_name, data):
     success = False
+    primary_keys = {'project_name': project_name}
     try:
         attrs_to_remove = [attr for attr in data if data[attr] is None]
         for attr in attrs_to_remove:
             response = TABLE.update_item(
-                Key={'project_name': project_name},
+                Key=primary_keys,
                 UpdateExpression='REMOVE #attr',
                 ExpressionAttributeNames={'#attr': attr}
             )
@@ -303,7 +304,7 @@ def update(project_name, data):
             values = {':{}'.format(attr): data[attr] for attr in data}
 
             response = TABLE.update_item(
-                Key={'project_name': project_name},
+                Key=primary_keys,
                 UpdateExpression='SET {}'.format(','.join(attributes)),
                 ExpressionAttributeValues=values)
             success = response['ResponseMetadata']['HTTPStatusCode'] == 200

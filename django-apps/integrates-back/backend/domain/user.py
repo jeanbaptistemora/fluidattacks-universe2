@@ -129,7 +129,7 @@ def update_project_access(email, project_name, access):
 
 
 def update_multiple_user_attributes(email, data_dict):
-    return user_dal.update_multiple_user_attributes(email, data_dict)
+    return user_dal.update(email, data_dict)
 
 
 def update_user_attribute(email, data_attr, name_attr):
