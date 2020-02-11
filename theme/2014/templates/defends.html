@@ -98,7 +98,7 @@
       {% endif %}
     {% endif %}
   {% endfor %}
-  {% assets filters="uglifyjs", output="static/js/defends.min.js", "js/defends.js" %}
+  {% assets output="static/js/defends.min.js", "js/defends.min.js" %}
     <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
   {% endassets %}
   </article>

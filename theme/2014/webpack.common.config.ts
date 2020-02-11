@@ -3,6 +3,7 @@ import webpack from "webpack";
 
 export const commonConfig: webpack.Configuration = {
   entry: {
+    defends: "./static/js/defends.ts",
     dynClasses: "./static/js/dynClasses.ts",
     faqContent: "./static/js/faqContent.ts",
   },
