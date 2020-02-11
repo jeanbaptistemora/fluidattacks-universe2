@@ -12,6 +12,7 @@ pip3 install \
     progress \
     termcolor \
     slackclient \
+    continuous-toolbox \
     analytics/singer/tap_git \
     analytics/singer/target_redshift
 

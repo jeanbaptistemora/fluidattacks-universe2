@@ -23,7 +23,7 @@ def run_command(cmd: str, cwd: str) -> Tuple[int, str]:
 
 def clone(subs_path) -> None:
     """Clone a subs_path."""
-    _, output = run_command('../../tools/repo-cloning.py', cwd=subs_path)
+    _, output = run_command('toolbox --repo-cloning', cwd=subs_path)
     print(f'INFO: {subs_path}')
     print(f'      output:')
     print(textwrap.indent(output, ' ' * 16))
