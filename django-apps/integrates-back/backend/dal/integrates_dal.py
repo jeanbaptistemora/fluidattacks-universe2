@@ -211,51 +211,6 @@ def update_attribute_dynamo(table_name, primary_keys, attr_name, attr_value):
         return False
 
 
-def update_in_multikey_table_dynamo(table_name, multiple_keys, attr_name, attr_value):
-    table = DYNAMODB_RESOURCE.Table(table_name)
-    try:
-        update_response = table.update_item(
-            Key=multiple_keys,
-            UpdateExpression='SET #attrName = :val1',
-            ExpressionAttributeNames={
-                '#attrName': attr_name
-            },
-            ExpressionAttributeValues={
-                ':val1': attr_value
-            }
-        )
-        resp = update_response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
-    except ClientError:
-        rollbar.report_exc_info()
-        return False
-
-
-def update_mult_attrs_dynamo(table_name, primary_keys, dic_data):
-    """Updating multiple data to a dynamo table."""
-    table = DYNAMODB_RESOURCE.Table(table_name)
-    try:
-        str_format = '{metric} = :{metric}'
-        empty_values = {k: v for k, v in list(dic_data.items()) if v == ""}
-        for item in empty_values:
-            remove_attr_dynamo(table_name, primary_keys, item)
-            del dic_data[item]
-
-        dic_data_params = [str_format.format(metric=x) for x in list(dic_data.keys())]
-        query_params = 'SET ' + ', '.join(dic_data_params)
-        expression_params = {':' + k: dic_data[k] for k in list(dic_data.keys())}
-        response = table.update_item(
-            Key=primary_keys,
-            UpdateExpression=query_params,
-            ExpressionAttributeValues=expression_params
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    except ClientError:
-        rollbar.report_exc_info()
-        resp = False
-    return resp
-
-
 def get_table_attributes_dynamo(table_name, primary_key, data_attributes):
     """ Get a group of attributes of a table. """
     table = DYNAMODB_RESOURCE.Table(table_name)
