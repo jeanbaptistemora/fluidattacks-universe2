@@ -450,7 +450,7 @@ CASBIN_ACTION_POLICY_MODEL_FILE = \
 
 
 ENFORCER_BASIC = casbin.Enforcer(CASBIN_BASIC_POLICY_MODEL_FILE,
-                                 enable_log=True)
+                                 enable_log=DEBUG)
 
 ENFORCER_ACTION = casbin.Enforcer(CASBIN_ACTION_POLICY_MODEL_FILE,
-                                  enable_log=True)
+                                  enable_log=DEBUG)
