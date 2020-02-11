@@ -18,10 +18,10 @@ deploy_integrates() {
 
   BUCKET="fluidattacks-terraform-states-prod"
   TERRAFORM_DIR="services/user-provision-integrates/integrates-prod/terraform"
-  TMP_AWS_ACCESS_KEY_ID="$(output_terraform $TERRAFORM_DIR $BUCKET integrates-prod-secret-key-id)"
-  TMP_AWS_SECRET_ACCESS_KEY="$(output_terraform $TERRAFORM_DIR $BUCKET integrates-prod-secret-key)"
-  B64_AWS_ACCESS_KEY_ID="$(echo -n $TMP_AWS_ACCESS_KEY_ID | base64)"
-  B64_AWS_SECRET_ACCESS_KEY="$(echo -n $TMP_AWS_SECRET_ACCESS_KEY | base64)"
+  TMP_AWS_ACCESS_KEY_ID="$(output_terraform $TERRAFORM_DIR "${BUCKET}" integrates-prod-secret-key-id)"
+  TMP_AWS_SECRET_ACCESS_KEY="$(output_terraform $TERRAFORM_DIR "${BUCKET}" integrates-prod-secret-key)"
+  B64_AWS_ACCESS_KEY_ID="$(echo -n "$TMP_AWS_ACCESS_KEY_ID" | base64)"
+  B64_AWS_SECRET_ACCESS_KEY="$(echo -n "$TMP_AWS_SECRET_ACCESS_KEY" | base64)"
 
   sed -i "s/\$B64_AWS_ACCESS_KEY_ID/$B64_AWS_ACCESS_KEY_ID/g" \
     infrastructure/eks/manifests/deployments/integrates-app.yaml
@@ -55,12 +55,12 @@ vault_login() {
 
   VAULT_ADDR='https://vault.fluidattacks.com'
   VAULT_HOST='vault.fluidattacks.com'
-  VALUE_PORT='443'
+  VAULT_PORT='443'
   ROLE_ID="$SERVES_ROLE_ID"
   SECRET_ID="$SERVES_SECRET_ID"
   VAULTENV_SECRETS_FILE='env.vars'
 
   VAULT_TOKEN="$(vault write \
-    -field=token auth/approle/login role_id=$ROLE_ID secret_id=$SECRET_ID \
+    -field=token auth/approle/login "role_id=${ROLE_ID}" "secret_id=${SECRET_ID}" \
   )"
 }

@@ -27,7 +27,8 @@ analytics_sync_formstack() {
 
   tap-formstack --auth /tap_secret.json --conf analytics/conf/formstack.json > formstack.singer
 
-  cat formstack.singer | target-redshift --auth /target_secret.json --drop-schema --schema-name "formstack"
+  target-redshift --auth /target_secret.json --drop-schema --schema-name "formstack" \
+    < formstack.singer
 
   rm -fr /tap_secret.json /target_secret.json
 }

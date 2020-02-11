@@ -25,10 +25,10 @@ analytics_sync_infrastructure() {
   echo "$analytics_auth_redshift" > /target_secret.json
 
   streamer-infrastructure --auth /stream_secret.json > infra.jsonstream
-  cat infra.jsonstream | tap-json > infra.singer
-  cat infra.singer | \
-    target-redshift \
-    --auth /target_secret.json --drop-schema --schema-name 'infrastructure'
+  tap-json > infra.singer < infra.jsonstream
+  target-redshift \
+    --auth /target_secret.json --drop-schema --schema-name 'infrastructure' \
+    < infra.singer
   rm -rf /stream_secret.json /target_secret.json
 }
 

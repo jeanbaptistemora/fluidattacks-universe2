@@ -25,10 +25,10 @@ analytics_sync_intercom() {
   echo "$analytics_auth_redshift" > /target_secret.json
 
   streamer-intercom --auth /stream_secret.json > .jsonstream
-  cat .jsonstream | tap-json --enable-timestamps > .singer
-  cat .singer | \
-    target-redshift \
-    --auth /target_secret.json --drop-schema --schema-name 'intercom'
+  tap-json --enable-timestamps > .singer < .jsonstream
+  target-redshift \
+    --auth /target_secret.json --drop-schema --schema-name 'intercom' \
+    < .singer
   rm -rf /stream_secret.json /target_secret.json
 }
 

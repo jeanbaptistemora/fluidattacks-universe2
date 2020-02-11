@@ -25,12 +25,12 @@ analytics_sync_mandrill() {
   echo "$analytics_auth_redshift" > /target_secret.json
 
   streamer-mandrill --auth /stream_secret.json > mandrill.jsonstream
-  cat mandrill.jsonstream \
-    | tap-json --date-formats '%Y-%m-%d %H:%M:%S,%Y-%m-%d %H:%M:%S.%f' \
-    > mandrill.singer
-  cat mandrill.singer \
-    | target-redshift --auth /target_secret.json \
-    --drop-schema --schema-name 'mandrill'
+  tap-json --date-formats '%Y-%m-%d %H:%M:%S,%Y-%m-%d %H:%M:%S.%f' \
+    > mandrill.singer \
+    < mandrill.jsonstream
+  target-redshift --auth /target_secret.json \
+    --drop-schema --schema-name 'mandrill' \
+    < mandrill.singer
   rm -rf /stream_secret.json /target_secret.json
 }
 

@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 build_builder() {
 
   # Build serves builder

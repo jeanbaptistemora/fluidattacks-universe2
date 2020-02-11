@@ -23,20 +23,22 @@ analytics_sync_dynamodb() {
     analytics/singer/tap_awsdynamodb \
     analytics/singer/target_redshift
 
-  echo '{' > /tap_secret.json
-  echo "\"AWS_ACCESS_KEY_ID\":\"$aws_dynamodb_access_key\"," >> /tap_secret.json
-  echo "\"AWS_SECRET_ACCESS_KEY\":\"$aws_dynamodb_secret_key\"," >> /tap_secret.json
-  echo "\"AWS_DEFAULT_REGION\":\"$aws_dynamodb_default_region\"" >> /tap_secret.json
-  echo '}' >> /tap_secret.json
+  {
+    echo '{'
+    echo "\"AWS_ACCESS_KEY_ID\":\"$aws_dynamodb_access_key\","
+    echo "\"AWS_SECRET_ACCESS_KEY\":\"$aws_dynamodb_secret_key\","
+    echo "\"AWS_DEFAULT_REGION\":\"$aws_dynamodb_default_region\""
+    echo '}' >> /tap_secret.json
+  } > /tap_secret.json
 
   echo "$analytics_auth_redshift" > /target_secret.json
 
   tap-awsdynamodb \
     --auth /tap_secret.json --conf analytics/conf/awsdynamodb.json > .singer
 
-  cat .singer | \
-    target-redshift \
-    --auth /target_secret.json --drop-schema --schema-name 'dynamodb'
+  target-redshift \
+    --auth /target_secret.json --drop-schema --schema-name 'dynamodb' \
+    < .singer
 
   rm -rf /tap_secret.json /target_secret.json
 }

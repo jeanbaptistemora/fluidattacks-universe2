@@ -42,10 +42,14 @@ analytics_sync_zoho() {
     ./analytics/singer/streamer_csv.py "$table" >> .jsonstream;
   done
 
-  cat .jsonstream | tap-json --date-formats '%Y-%m-%d %H:%M:%S' > .singer
-  cat .singer | target-redshift --schema-name 'zoho' \
+  tap-json --date-formats '%Y-%m-%d %H:%M:%S' \
+    > .singer \
+    < .jsonstream
+  target-redshift --schema-name 'zoho' \
     --auth secret.json \
-    --drop-schema
+    --drop-schema \
+    < .singer
+
   rm -rf secret.json
   unset email token space
 }

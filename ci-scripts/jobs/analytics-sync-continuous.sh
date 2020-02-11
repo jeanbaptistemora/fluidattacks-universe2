@@ -34,11 +34,12 @@ analytics_sync_continuous() {
     "https://$GITLAB_USER:$GITLAB_PASS@gitlab.com/fluidattacks/continuous.git"
 
   ./streamer_toe.py > .jsonstream
-  cat .jsonstream | tap-json > .singer
-  cat .singer | target-redshift \
+  tap-json > .singer < .jsonstream
+  target-redshift \
     --auth /target_secret.json \
     --drop-schema \
-    --schema-name continuous_toe
+    --schema-name continuous_toe \
+    < .singer
 
   unset GITLAB_USER GITLAB_PASS
   rm -rf /target_secret.json

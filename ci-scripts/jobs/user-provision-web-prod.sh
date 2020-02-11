@@ -73,8 +73,8 @@ user_provision_web_prod_rotate_aws() {
     "$BUCKET" \
     apply
 
-  VAR_KEY="$(output_terraform $TERRAFORM_DIR $BUCKET web-prod-secret-key-id)"
-  VAR_SECRET="$(output_terraform $TERRAFORM_DIR $BUCKET web-prod-secret-key)"
+  VAR_KEY="$(output_terraform $TERRAFORM_DIR "${BUCKET}" web-prod-secret-key-id)"
+  VAR_SECRET="$(output_terraform $TERRAFORM_DIR "${BUCKET}" web-prod-secret-key)"
 
   set_project_variable "$GITLAB_API_TOKEN" "$WEB_REPO_ID" AWS_ACCESS_KEY_ID "$VAR_KEY" true true
   set_project_variable "$GITLAB_API_TOKEN" "$WEB_REPO_ID" AWS_SECRET_ACCESS_KEY "$VAR_SECRET" true true

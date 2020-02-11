@@ -36,10 +36,10 @@ analytics_sync_intercom() {
     ./analytics/singer/streamer_gitlab.py "$project" >> .jsonstream;
   done
 
-  cat .jsonstream | tap-json > .singer
-  cat .singer | \
-    target-redshift \
-    --auth /target_secret.json --drop-schema --schema-name 'gitlab-ci'
+  tap-json > .singer < .jsonstream
+  target-redshift \
+    --auth /target_secret.json --drop-schema --schema-name 'gitlab-ci' \
+    < .singer
   unset GITLAB_PASS
   rm -rf /target_secret.json
 }

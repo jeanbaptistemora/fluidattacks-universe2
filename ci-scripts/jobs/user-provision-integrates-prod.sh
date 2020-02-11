@@ -73,8 +73,8 @@ user_provision_integrates_prod_rotate_aws() {
     "$BUCKET" \
     apply
 
-  VAR_KEY="$(output_terraform $TERRAFORM_DIR $BUCKET integrates-prod-secret-key-id)"
-  VAR_SECRET="$(output_terraform $TERRAFORM_DIR $BUCKET integrates-prod-secret-key)"
+  VAR_KEY="$(output_terraform $TERRAFORM_DIR "${BUCKET}" integrates-prod-secret-key-id)"
+  VAR_SECRET="$(output_terraform $TERRAFORM_DIR "${BUCKET}" integrates-prod-secret-key)"
 
   set_project_variable "$GITLAB_API_TOKEN" "$INTEGRATES_REPO_ID" PROD_AWS_ACCESS_KEY_ID "$VAR_KEY" true false
   set_project_variable "$GITLAB_API_TOKEN" "$INTEGRATES_REPO_ID" PROD_AWS_SECRET_ACCESS_KEY "$VAR_SECRET" true false
