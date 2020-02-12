@@ -116,6 +116,14 @@ MOCKS = [
             'expose': {'22/tcp': 22},
             'asserts_modules': ['proto_ssh', 'syst']
         },
+        'ssh:hard': {
+            'expose': {'22/tcp': 22},
+            'asserts_modules': ['proto_ssh']
+        },
+        'ssh:weak': {
+            'expose': {'22/tcp': 22},
+            'asserts_modules': ['proto_ssh']
+        },
         'postgresql:hard': {
             'expose': {'5432/tcp': 5432},
             'asserts_modules': ['db_postgres']
