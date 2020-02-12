@@ -27,6 +27,7 @@ in rec {
       legacy.kubernetes-helm
       modules.env.python
       nix-linter
+      python.mandrill
       python.prospector
       shellcheck
       terraform
@@ -35,5 +36,6 @@ in rec {
       which
     ];
 
+    python.mandrill = modules.build.pythonPackage "mandrill-really-maintained==1.2.4";
     python.prospector = modules.build.pythonPackage "prospector[with_everything]==1.2.0";
   }

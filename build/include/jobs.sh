@@ -167,3 +167,32 @@ function job_infra_monolith_test {
 function job_infra_monolith_deploy {
   _job_infra_monolith 'deploy'
 }
+
+function job_send_new_version_email {
+  local source_file
+
+      source_file=$(mktemp) \
+  &&  echo '[INFO] Logging in to aws' \
+  &&  aws_login \
+  &&  echo '[INFO] Exporting secrets' \
+  &&  sops_env secrets-prod.yaml default \
+        MANDRILL_APIKEY \
+        MANDRILL_EMAIL_TO \
+  &&  echo '[INFO] Generating script to send the email' \
+  &&  cp "${srcExternalMail}" "${source_file}" \
+  &&  echo "send_mail(
+        'new_version',
+        MANDRILL_EMAIL_TO,
+        context={
+          'project': PROJECT,
+          'project_url': '${CI_PROJECT_URL}',
+          'version': _get_version_date(),
+          'message': _get_message(),
+        },
+        tags=[
+          'general'
+        ])" >> "${source_file}" \
+  &&  cat "${source_file}" \
+  &&  echo '[INFO] Executing' \
+  &&  python "${source_file}"
+}
