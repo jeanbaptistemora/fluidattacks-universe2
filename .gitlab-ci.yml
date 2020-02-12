@@ -30,15 +30,15 @@ stages:
     refs:
       - schedules
 
-.in_schedule_deploy_nix_docker_image: &in_schedule_deploy_nix_docker_image
+.in_schedule_deploy_nix_docker_images: &in_schedule_deploy_nix_docker_images
   only:
     refs:
       - schedules
     variables:
-      - $FLAG_DEPLOY_NIX_DOCKER_IMAGE
+      - $FLAG_DEPLOY_NIX_DOCKER_IMAGES
 
 .with_nix: &with_nix
-  image: "${CI_REGISTRY_IMAGE}:test"
+  image: "${CI_REGISTRY_IMAGE}/builder:nix"
   tags:
     - autoscaling-large
   script:
@@ -62,13 +62,14 @@ stages:
       - $FLAG_SYNC_CONTINUOUS
       - $FLAG_SYNC_ZOHO
 
-deploy_nix_docker_image:
+deploy_nix_docker_images:
   <<: *with_nix
-  <<: *in_schedule_deploy_nix_docker_image
+  <<: *in_schedule_deploy_nix_docker_images
   image: nixos/nix
   before_script:
-    - apk add --no-cache
-        bash
+    - apk add --no-cache bash
+  script:
+    - ./build/modules/docker/build.sh
   stage: deploy
 
 lint_code:

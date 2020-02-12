@@ -32,19 +32,19 @@ function helper_run_break_build {
       docker pull fluidattacks/break-build \
   &&  if test "${IS_LOCAL_BUILD}"
       then
-        bash <( \
-          docker run fluidattacks/break-build \
-            "--${kind}" \
-            --id "${BREAK_BUILD_ID}" \
-            --secret "${BREAK_BUILD_SECRET}" \
-            --no-image-rm)
-      else
-        bash <( \
-          docker run fluidattacks/break-build \
+        docker run fluidattacks/break-build \
             "--${kind}" \
             --id "${BREAK_BUILD_ID}" \
             --secret "${BREAK_BUILD_SECRET}" \
             --no-image-rm \
-            --gitlab-docker-socket-binding)
+          | bash
+      else
+        docker run fluidattacks/break-build \
+            "--${kind}" \
+            --id "${BREAK_BUILD_ID}" \
+            --secret "${BREAK_BUILD_SECRET}" \
+            --no-image-rm \
+            --gitlab-docker-socket-binding \
+          | bash
       fi
 }

@@ -1,11 +1,12 @@
-pkgs:
+let
+  pkgs = import ../../../../../pkgs/stable.nix;
+in
+  pkgs.dockerTools.pullImage {
+    finalImageName = "nixos";
+    finalImageTag = "nix";
 
-pkgs.dockerTools.pullImage {
-  finalImageName = "nix";
-  finalImageTag = "2.3";
+    imageName = "nixos/nix";
+    imageDigest = "sha256:af330838e838cedea2355e7ca267280fc9dd68615888f4e20972ec51beb101d8";
 
-  imageName = "nixos/nix";
-  imageDigest = "sha256:af330838e838cedea2355e7ca267280fc9dd68615888f4e20972ec51beb101d8";
-
-  sha256 = "06sb57h1j20l69k5ypw2bd5amz23braisrjn7q6kad35bl6xpw82";
-}
+    sha256 = "1vynf6w0alx39h75s0a33lcif49j2h9vdhh04ci4aqzyd1jj7hf3";
+  }

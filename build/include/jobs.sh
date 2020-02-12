@@ -10,22 +10,6 @@ function job_run_break_build_static {
   helper_run_break_build 'static'
 }
 
-function job_deploy_nix_docker_image {
-  local image="${CI_REGISTRY_IMAGE}:test"
-
-    echo "[INFO] Login in: ${CI_REGISTRY}" \
-  && docker login \
-      --username "${CI_REGISTRY_USER}" \
-      --password "${CI_REGISTRY_PASSWORD}" \
-      "${CI_REGISTRY}" \
-  && echo "[INFO] Loading: ${dockerImagesLocalNix}" \
-  && docker load < "${dockerImagesLocalNix}" \
-  && echo "[INFO] Tagging local:test as: ${image}" \
-  && docker tag 'local:nix' "${image}" \
-  && echo "[INFO] Pushing: ${image}" \
-  && docker push "${image}"
-}
-
 function job_lint_code {
   local path
   local path_basename
@@ -40,8 +24,6 @@ function job_lint_code {
   && find '.' -name '*.sh' -exec \
       shellcheck --external-sources --exclude=SC1090,SC2016,SC2154 {} + \
   && echo '[OK] Shell code is compliant' \
-  && hadolint build/Dockerfile \
-  && echo '[OK] Dockerfiles are compliant' \
   && find . -type f -name '*.py' \
       | (grep -vP './analytics/singer' || cat) \
       | while read -r path

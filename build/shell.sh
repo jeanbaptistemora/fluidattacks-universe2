@@ -16,5 +16,6 @@
 #  shellcheck shell=bash
 
 source "${srcIncludeCli}"
+source "${srcIncludeGenericShellOptions}"
 
 cli "${@}"
