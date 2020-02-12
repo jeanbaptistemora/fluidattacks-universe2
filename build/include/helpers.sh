@@ -30,23 +30,25 @@ function helper_run_break_build {
   local kind="${1}"
 
       docker pull fluidattacks/break-build \
-  &&  if test "${IS_LOCAL_BUILD}"
-      then
-        docker run fluidattacks/break-build \
-            "--${kind}" \
-            --id "${BREAK_BUILD_ID}" \
-            --secret "${BREAK_BUILD_SECRET}" \
-            --no-image-rm \
-          | bash
-      else
-        docker run fluidattacks/break-build \
-            "--${kind}" \
-            --id "${BREAK_BUILD_ID}" \
-            --secret "${BREAK_BUILD_SECRET}" \
-            --no-image-rm \
-            --gitlab-docker-socket-binding \
-          | bash
-      fi
+  &&  pushd "${STARTDIR}" \
+    &&  if test "${IS_LOCAL_BUILD}"
+        then
+          docker run fluidattacks/break-build \
+              "--${kind}" \
+              --id "${BREAK_BUILD_ID}" \
+              --secret "${BREAK_BUILD_SECRET}" \
+              --no-image-rm \
+            | bash
+        else
+          docker run fluidattacks/break-build \
+              "--${kind}" \
+              --id "${BREAK_BUILD_ID}" \
+              --secret "${BREAK_BUILD_SECRET}" \
+              --no-image-rm \
+              --gitlab-docker-socket-binding \
+            | bash
+        fi \
+  &&  popd
 }
 
 function helper_terraform_apply {
@@ -118,4 +120,41 @@ function helper_terraform_output {
     &&  echo "[INFO] Running terraform output: ${output_name}" \
     &&  terraform output "${output_name}" \
   &&  popd
+}
+
+function helper_user_provision_rotate_keys {
+  local terraform_dir="${1}"
+  local bucket="${2}"
+  local resource_to_taint="${3}"
+  local output_key_id_name="${4}"
+  local output_key_id_value
+  local output_secret_key_name="${5}"
+  local output_secret_key_value
+  local gitlab_repo_id="${6}"
+  local gitlab_key_id_name="${7}"
+  local gitlab_secret_key_name="${8}"
+  local gitlab_masked="${9}"
+  local gitlab_protected="${10}"
+
+      helper_terraform_taint \
+        "${terraform_dir}" \
+        "${bucket}" \
+        "${resource_to_taint}" \
+  &&  helper_terraform_apply \
+        "${terraform_dir}" \
+        "${bucket}" \
+  &&  output_key_id_value=$( \
+        helper_terraform_output \
+          "${terraform_dir}" "${bucket}" "${output_key_id_name}") \
+  &&  output_secret_key_value=$( \
+        helper_terraform_output \
+          "${terraform_dir}" "${bucket}" "${output_secret_key_name}")  \
+  &&  set_project_variable \
+        "${GITLAB_API_TOKEN}" "${gitlab_repo_id}" \
+        "${gitlab_key_id_name}" "${output_key_id_value}" \
+        "${gitlab_protected}" "${gitlab_masked}" \
+  &&  set_project_variable \
+        "${GITLAB_API_TOKEN}" "${gitlab_repo_id}" \
+        "${gitlab_secret_key_name}" "${output_secret_key_value}" \
+        "${gitlab_protected}" "${gitlab_masked}"
 }

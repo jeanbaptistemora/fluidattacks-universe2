@@ -46,14 +46,19 @@ function prepare_python_packages {
 
 function prepare_workdir {
   export WORKDIR
-  export PRE_COMMIT_HOME
+  export STARTDIR="${PWD}"
 
-    WORKDIR=$(readlink -f "${PWD}/../serves.ephemeral") \
-  && echo '[INFO] Creating a pristine workdir' \
-  && rm -rf "${WORKDIR}" \
-  && echo '[INFO] Adding a pristine workdir' \
-  && cp -r . "${WORKDIR}" \
-  && echo '[INFO] Entering the workdir' \
-  && pushd "${WORKDIR}" \
-  || return 1
+      echo '[INFO] Creating a pristine workdir' \
+  &&  WORKDIR=$(mktemp -d) \
+  &&  echo '[INFO] Copying files to workdir' \
+  &&  cp -r . "${WORKDIR}" \
+  &&  echo '[INFO] Entering the workdir' \
+  &&  pushd "${WORKDIR}" \
+  &&  trap 'teardown_workdir' 'EXIT' \
+  ||  return 1
+}
+
+function teardown_workdir {
+      echo "[INFO] Deleting: ${WORKDIR}" \
+  &&  rm -rf "${WORKDIR}"
 }

@@ -37,6 +37,13 @@ stages:
     variables:
       - $FLAG_DEPLOY_NIX_DOCKER_IMAGES
 
+.in_schedule_user_provision_rotate_keys: &in_schedule_user_provision_rotate_keys
+  only:
+    refs:
+      - schedules
+    variables:
+      - $FLAG_USER_PROVISION_ROTATE_KEYS
+
 .with_nix: &with_nix
   image: "${CI_REGISTRY_IMAGE}/builder:nix"
   tags:
@@ -111,6 +118,11 @@ user_provision_continuous_prod_deploy:
   <<: *with_nix
   <<: *in_master_branch
   stage: deploy
+
+user_provision_continuous_prod_rotate_keys:
+  <<: *with_nix
+  <<: *in_schedule_user_provision_rotate_keys
+  stage: rotation
 
 build-builder:
   image: fluidattacks/docker-bash:latest
@@ -215,17 +227,6 @@ change-keys-aws-continuous-dev:
   script:
     - . ci-scripts/jobs/user-provision-continuous-dev.sh
     - user_provision_continuous_dev_rotate_aws
-  <<: *in_schedules
-  <<: *except_analytics
-  when: always
-
-change-keys-aws-continuous-prod:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: rotation
-  script:
-    - . ci-scripts/jobs/user-provision-continuous-prod.sh
-    - user_provision_continuous_prod_rotate_aws
   <<: *in_schedules
   <<: *except_analytics
   when: always

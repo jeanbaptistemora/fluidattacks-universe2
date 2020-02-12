@@ -18,6 +18,7 @@ in rec {
       awscli
       aws-iam-authenticator
       bash
+      curl
       cacert
       docker
       envsubst

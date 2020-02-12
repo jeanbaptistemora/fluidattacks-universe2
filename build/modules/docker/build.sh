@@ -25,7 +25,11 @@ function build_single {
   &&  echo "[INFO] Tagging ${tag} as: ${image}" \
   &&  docker tag "${tag}" "${image}" \
   &&  echo "[INFO] Pushing: ${image}" \
-  &&  docker push "${image}"
+  &&  docker push "${image}" \
+  &&  echo "[INFO] Deleting local copies" \
+  &&  docker image rm "${image}" \
+  &&  docker image rm "${tag}" \
+  &&  rm -f "${target}"
 }
 
 function build_all {

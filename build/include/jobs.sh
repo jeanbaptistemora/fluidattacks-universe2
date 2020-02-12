@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 source "${srcIncludeHelpers}"
+source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 source "${srcDotDotToolboxOthers}"
 
@@ -210,4 +211,29 @@ function job_user_provision_continuous_prod_deploy {
       helper_terraform_apply \
         services/user-provision-continuous/continuous-prod/terraform \
         fluidattacks-terraform-states-prod
+}
+
+function job_user_provision_continuous_prod_rotate_keys {
+  local terraform_dir='services/user-provision-continuous/continuous-prod/terraform'
+  local bucket='fluidattacks-terraform-states-prod'
+  local resource_to_taint='aws_iam_access_key.continuous-prod-key'
+  local output_key_id_name='continuous-prod-secret-key-id'
+  local output_secret_key_name='continuous-prod-secret-key'
+  local gitlab_repo_id='4603023'
+  local gitlab_key_id_name='PROD_AWS_ACCESS_KEY_ID'
+  local gitlab_secret_key_name='PROD_AWS_SECRET_ACCESS_KEY'
+  local gitlab_masked='true'
+  local gitlab_protected='true'
+
+      helper_user_provision_rotate_keys \
+        "${terraform_dir}" \
+        "${bucket}" \
+        "${resource_to_taint}" \
+        "${output_key_id_name}" \
+        "${output_secret_key_name}" \
+        "${gitlab_repo_id}" \
+        "${gitlab_key_id_name}" \
+        "${gitlab_secret_key_name}" \
+        "${gitlab_masked}" \
+        "${gitlab_protected}"
 }
