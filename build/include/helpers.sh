@@ -48,3 +48,74 @@ function helper_run_break_build {
           | bash
       fi
 }
+
+function helper_terraform_apply {
+  local target_dir="${1}"
+  local bucket="${2}"
+
+      helper_terraform_init "${target_dir}" "${bucket}" \
+  &&  pushd "${target_dir}" \
+    &&  echo '[INFO] Running terraform apply' \
+    &&  terraform apply -auto-approve -refresh=true \
+  &&  popd
+}
+
+function helper_terraform_init {
+  local target_dir="${1}"
+  local bucket="${2}"
+
+      source toolbox/others.sh \
+  &&  echo '[INFO] Logging in to aws' \
+  &&  aws_login \
+  &&  pushd "${target_dir}" \
+    &&  echo '[INFO] Running terraform init' \
+    &&  terraform init --backend-config="bucket=${bucket}" \
+  &&  popd
+}
+
+function helper_terraform_lint {
+  local target_dir="${1}"
+  local bucket="${2}"
+
+      helper_terraform_init "${target_dir}" "${bucket}" \
+  &&  pushd "${1}" \
+    &&  echo '[INFO] Running terraform linter' \
+    &&  tflint --deep --module \
+  &&  popd
+}
+
+function helper_terraform_plan {
+  local target_dir="${1}"
+  local bucket="${2}"
+
+      helper_terraform_init "${target_dir}" "${bucket}" \
+  &&  pushd "${target_dir}" \
+    &&  echo '[INFO] Running terraform plan' \
+    &&  terraform plan -refresh=true \
+  &&  popd
+}
+
+function helper_terraform_taint {
+  local target_dir="${1}"
+  local bucket="${2}"
+  local marked_value="${3}"
+
+      helper_terraform_init "${target_dir}" "${bucket}" \
+  &&  pushd "${target_dir}" \
+    &&  terraform refresh \
+    &&  echo "[INFO] Running terraform taint: ${marked_value}" \
+    &&  terraform taint "${marked_value}" \
+  &&  popd
+}
+
+function helper_terraform_output {
+  local target_dir="${1}"
+  local bucket="${2}"
+  local output_name="${3}"
+
+      helper_terraform_init "${target_dir}" "${bucket}" \
+  &&  pushd "${target_dir}" \
+    &&  echo "[INFO] Running terraform output: ${output_name}" \
+    &&  terraform output "${output_name}" \
+  &&  popd
+}

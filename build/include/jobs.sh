@@ -196,3 +196,18 @@ function job_send_new_version_email {
   &&  echo '[INFO] Executing' \
   &&  python "${source_file}"
 }
+
+function job_user_provision_continuous_prod_test {
+      helper_terraform_init \
+        services/user-provision-continuous/continuous-prod/terraform \
+        fluidattacks-terraform-states-prod \
+  &&  helper_terraform_plan \
+        services/user-provision-continuous/continuous-prod/terraform \
+        fluidattacks-terraform-states-prod
+}
+
+function job_user_provision_continuous_prod_deploy {
+      helper_terraform_apply \
+        services/user-provision-continuous/continuous-prod/terraform \
+        fluidattacks-terraform-states-prod
+}

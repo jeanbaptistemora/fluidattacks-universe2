@@ -1,4 +1,4 @@
-# shellcheck shell=bash
+#! /usr/bin/env bash
 
 source ./build/include/generic/shell-options.sh
 

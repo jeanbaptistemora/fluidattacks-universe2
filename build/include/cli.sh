@@ -17,20 +17,23 @@ function cli {
     echo 'List of jobs:'
     helper_list_declared_jobs | sed -e 's/^/  * /g'
     return 1
-  elif test "${function_to_call}" = 'all'
+  fi
+
+  echo
+  prepare_environment_variables
+  prepare_ephemeral_vars
+  prepare_workdir
+  prepare_python_packages
+
+  if test "${function_to_call}" = 'all'
   then
-    helper_list_declared_jobs \
-      | while read -r func
-        do
-          echo "[INFO] Executing function: ${func}"
-          cli "${func}" || return 1
-        done
+        job_lint_code \
+    &&  job_infra_monolith_test \
+    &&  job_run_break_build_static \
+    &&  job_run_break_build_dynamic \
+    &&  job_user_provision_continuous_prod_test \
+
   else
-    echo
-    prepare_environment_variables
-    prepare_ephemeral_vars
-    prepare_workdir
-    prepare_python_packages
     echo "[INFO] Executing function: job_${function_to_call}"
     if "job_${function_to_call}"
     then

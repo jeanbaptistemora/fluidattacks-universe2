@@ -102,6 +102,16 @@ send_new_version_email:
   <<: *in_master_branch
   stage: postdeploy
 
+user_provision_continuous_prod_test:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
+user_provision_continuous_prod_deploy:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy
+
 build-builder:
   image: fluidattacks/docker-bash:latest
   tags: [autoscaling]
@@ -606,40 +616,6 @@ user-provision-continuous-dev-terraform-apply:
   script:
     - . ci-scripts/jobs/user-provision-continuous-dev.sh
     - user_provision_continuous_dev_terraform_apply
-  only:
-    - master
-  except:
-    - schedules
-
-user-provision-continuous-prod-terraform-lint:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - . ci-scripts/jobs/user-provision-continuous-prod.sh
-    - user_provision_continuous_prod_terraform_lint
-  except:
-    - schedules
-
-user-provision-continuous-prod-terraform-plan:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - . ci-scripts/jobs/user-provision-continuous-prod.sh
-    - user_provision_continuous_prod_terraform_plan
-  except:
-    - schedules
-
-user-provision-continuous-prod-terraform-apply:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: deploy
-  script:
-    - . ci-scripts/jobs/user-provision-continuous-prod.sh
-    - user_provision_continuous_prod_terraform_apply
   only:
     - master
   except:
