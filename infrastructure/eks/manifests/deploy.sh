@@ -293,11 +293,10 @@ export DATE
 export FI_VAULT_HOST
 export FI_VAULT_TOKEN
 
-CURR_DIR="$(pwd)"
-cd "$CI_PROJECT_DIR"
-. ci-scripts/helpers/others.sh
-deploy_integrates
-cd "$CURR_DIR"
+pushd ../../../
+  . ci-scripts/helpers/others.sh
+  deploy_integrates
+popd
 
 deploy_application deployments/exams.yaml
 deploy_application deployments/vpn.yaml

@@ -53,15 +53,19 @@ function job_lint_code {
   && prospector --profile .prospector.yml .
 }
 
-function job_test_infra_monolith {
+function _job_infra_monolith {
   export TF_VAR_elbDns
   export TF_VAR_elbZone
+  export VAULT_KMS_KEY
   local elbs_info
   local elbs_names
+  local helm_home
   local jq_query
   local name
   local tags
+  local terraform_state
   local users_integrates
+  local first_argument="${1}"
 
       aws_login \
   &&  aws eks update-kubeconfig \
@@ -93,7 +97,20 @@ function job_test_infra_monolith {
     &&  echo "${ONELOGIN_FINANCE_SSO}" | base64 -d > SSOFinance.xml \
     &&  terraform init --backend-config="bucket=servestf" \
     &&  tflint \
-    &&  terraform plan -refresh=true \
+    &&  terraform_state=$(mktemp) \
+    &&  terraform plan \
+          -out="${terraform_state}" \
+          -refresh=true \
+    &&  if [ "${first_argument}" == "deploy" ]; then
+              terraform apply "${terraform_state}" \
+          &&  helm_home="$(helm home)" \
+          &&  mkdir -p "${helm_home}" \
+          &&  base64 -d > "${helm_home}/key.pem"  <<< "${HELM_KEY}" \
+          &&  base64 -d > "${helm_home}/cert.pem" <<< "${HELM_CERT}" \
+          &&  base64 -d > "${helm_home}/ca.pem"   <<< "${HELM_CA}" \
+          &&  VAULT_KMS_KEY=$(terraform output vaultKmsKey) \
+          &&  eks/manifests/deploy.sh
+        fi \
     &&  {
           users_integrates=$( \
             aws iam list-users \
@@ -132,8 +149,21 @@ function job_test_infra_monolith {
           ) \
       &&  terraform init --backend-config="bucket=servestf" \
       &&  tflint \
-      &&  terraform plan -refresh=true \
+      &&  terraform plan \
+          -out="${terraform_state}" \
+          -refresh=true \
+      &&  if [ "${first_argument}" == "deploy" ]; then
+                terraform apply -auto-approve "${terraform_state}"
+          fi \
    &&  popd \
   &&  popd \
   || return 1
+}
+
+function job_infra_monolith_test {
+  _job_infra_monolith 'test'
+}
+
+function job_infra_monolith_deploy {
+  _job_infra_monolith 'deploy'
 }

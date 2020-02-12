@@ -72,6 +72,16 @@ deploy_nix_docker_images:
     - ./build/modules/docker/build.sh
   stage: deploy
 
+infra_monolith_test:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
+infra_monolith_deploy:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy
+
 lint_code:
   <<: *with_nix
   <<: *in_dev_branch
@@ -86,11 +96,6 @@ run_break_build_dynamic:
   <<: *with_nix
   <<: *in_master_branch
   stage: postdeploy
-
-test_infra_monolith:
-  <<: *with_nix
-  <<: *in_dev_branch
-  stage: test
 
 build-builder:
   image: fluidattacks/docker-bash:latest
@@ -144,18 +149,6 @@ danger:
     - npm install --unsafe-perm
   script:
     - danger --verbose --fail-on-errors=true
-
-deploy_infra:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: deploy
-  script:
-    - sed -i 's/plan/apply\ -auto-approve/g' infrastructure/terraform.sh
-    - ./infrastructure/terraform.sh deployment
-  only:
-    - master
-  except:
-    - schedules
 
 new-version-mail:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
