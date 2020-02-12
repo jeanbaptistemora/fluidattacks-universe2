@@ -3,11 +3,11 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
+import { ApolloConsumer } from "@apollo/react-common";
 import { ApolloClient, ApolloError, ApolloQueryResult } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { ApolloConsumer } from "react-apollo";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { Field, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../../components/Button/index";

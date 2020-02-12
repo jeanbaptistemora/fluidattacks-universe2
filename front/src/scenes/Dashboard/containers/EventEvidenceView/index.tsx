@@ -3,11 +3,12 @@
  * Disabling this rule is necessary for accessing render props from
  * apollo components
  */
+import { MutationFunction, QueryResult } from "@apollo/react-common";
+import { Mutation, Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Mutation, MutationFn, Query, QueryResult } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 import { Button } from "../../../../components/Button";
@@ -93,7 +94,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                   onCompleted={handleUpdateResult}
                   onError={handleUpdateError}
                 >
-                  {(updateEvidence: MutationFn): React.ReactNode => {
+                  {(updateEvidence: MutationFunction): JSX.Element => {
                     const handleUpdate: ((values: { filename: FileList }) => void) = (
                       values: { filename: FileList },
                     ): void => {
@@ -106,7 +107,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
 
                     return (
                       <Mutation mutation={REMOVE_EVIDENCE_MUTATION} onCompleted={handleUpdateResult}>
-                        {(removeImage: MutationFn): React.ReactNode => {
+                        {(removeImage: MutationFunction): JSX.Element => {
                           const handleRemove: (() => void) = (): void => {
                             removeImage({ variables: { eventId, evidenceType: "IMAGE" } })
                               .catch();
@@ -144,7 +145,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                   onCompleted={handleUpdateResult}
                   onError={handleUpdateError}
                 >
-                  {(updateEvidence: MutationFn): React.ReactNode => {
+                  {(updateEvidence: MutationFunction): JSX.Element => {
                     const handleUpdate: ((values: { filename: FileList }) => void) = (
                       values: { filename: FileList },
                     ): void => {
@@ -164,7 +165,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
 
                     return (
                       <Mutation mutation={DOWNLOAD_FILE_MUTATION} onCompleted={handleDownload}>
-                        {(downloadEvidence: MutationFn): React.ReactNode => {
+                        {(downloadEvidence: MutationFunction): JSX.Element => {
                           const handleClick: (() => void) = (): void => {
                             if (!isEditing) {
                               downloadEvidence({ variables: { eventId, fileName: data.event.evidenceFile } })
@@ -174,7 +175,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
 
                           return (
                             <Mutation mutation={REMOVE_EVIDENCE_MUTATION} onCompleted={handleUpdateResult}>
-                              {(removeFile: MutationFn): React.ReactNode => {
+                              {(removeFile: MutationFunction): JSX.Element => {
                                 const handleRemove: (() => void) = (): void => {
                                   removeFile({ variables: { eventId, evidenceType: "FILE" } })
                                     .catch();

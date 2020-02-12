@@ -3,10 +3,11 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code in graphql queries
  */
+import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
+import { Mutation, Query } from "@apollo/react-components";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useDispatch, useSelector } from "react-redux";
@@ -159,7 +160,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
   return (
     <Query query={GET_DRAFTS} variables={{ projectName }} onCompleted={handleQryResult}>
       {
-        ({ data, error, refetch }: QueryResult<IProjectDraftsAttr>): React.ReactNode => {
+        ({ data, error, refetch }: QueryResult<IProjectDraftsAttr>): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment />;
@@ -201,7 +202,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                   open={isDraftModalOpen}
                 >
                   <Mutation mutation={CREATE_DRAFT_MUTATION} onCompleted={handleMutationResult}>
-                    {(createDraft: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
+                    {(createDraft: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
                       const handleSubmit: ((values: { title: string }) => void) = (values: { title: string }): void => {
                         const matchingSuggestion: ISuggestion = suggestions.filter((
                           suggestion: ISuggestion): boolean => suggestion.title === values.title)[0];
@@ -258,7 +259,7 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
                 />
               </React.StrictMode>
             );
-          }
+          } else { return <React.Fragment />; }
         }}
     </Query>
   );

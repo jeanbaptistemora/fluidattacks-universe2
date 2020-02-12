@@ -3,10 +3,11 @@
  * Disabling this rule is necessary for accessing render props from
  * apollo components
  */
+import { MutationFunction } from "@apollo/react-common";
+import { Mutation } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React from "react";
-import { Mutation, MutationFn } from "react-apollo";
 import { RouteComponentProps } from "react-router";
 import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import { ConfirmDialog, ConfirmFn } from "../../components/ConfirmDialog";
@@ -95,7 +96,7 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
       <ScrollUpButton visibleAt={400} />
       <UpdateAccessTokenModal open={isTokenModalOpen} onClose={closeTokenModal} />
       <Mutation mutation={ADD_USER_MUTATION} onCompleted={handleMtAddUserRes} onError={handleMtAddUserError}>
-        {(grantUserAccess: MutationFn): React.ReactNode => {
+        {(grantUserAccess: MutationFunction): JSX.Element => {
           const handleSubmit: ((values: IUserDataAttr) => void) = (values: IUserDataAttr): void => {
             grantUserAccess({ variables: values })
               .catch();

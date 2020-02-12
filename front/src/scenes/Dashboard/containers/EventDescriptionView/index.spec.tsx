@@ -1,11 +1,10 @@
+import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 // tslint:disable-next-line: no-import-side-effect
 import "isomorphic-fetch";
 import _ from "lodash";
 import * as React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";

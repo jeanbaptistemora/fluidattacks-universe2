@@ -1,11 +1,10 @@
+import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { configure, mount, ReactWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import { GraphQLError } from "graphql";
 // tslint:disable-next-line: no-import-side-effect
 import "isomorphic-fetch";
 import * as React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 import { Provider } from "react-redux";
 import store from "../../../../store/index";
 import { HomeView } from "./index";

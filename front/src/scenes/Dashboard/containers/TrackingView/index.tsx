@@ -3,10 +3,11 @@
  * Disabling this rule is necessary for accessing render props from
  * apollo components
  */
+import { QueryResult } from "@apollo/react-common";
+import { Query } from "@apollo/react-components";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Query, QueryResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 import translate from "../../../../utils/translations/translate";

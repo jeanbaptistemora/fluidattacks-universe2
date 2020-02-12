@@ -3,10 +3,11 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code in graphql queries
  */
+import { QueryResult } from "@apollo/react-common";
+import { Query } from "@apollo/react-components";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Query, QueryResult } from "react-apollo";
 import {
   ButtonToolbar, Col, Glyphicon, Row, ToggleButton, ToggleButtonGroup,
 } from "react-bootstrap";
@@ -91,7 +92,7 @@ const homeView: React.FC<IHomeViewProps> = (): JSX.Element => {
           </Row>
           : undefined}
         <Query query={PROJECTS_QUERY}>
-          {({ data }: QueryResult<IUserAttr>): React.ReactNode => {
+          {({ data }: QueryResult<IUserAttr>): JSX.Element => {
             if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
             return (

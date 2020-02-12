@@ -3,11 +3,12 @@
  * Disabling this rule is necessary for accessing render props from
  * apollo components
  */
+import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
+import { Mutation, Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { GenericForm } from "redux-form";
 import { msgError } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
@@ -44,7 +45,7 @@ const treatmentView: React.FC<ITreatmentViewProps> = (props: ITreatmentViewProps
         return (
           <React.Fragment>
             <Mutation mutation={UPDATE_TREATMENT_MUTATION} onError={handleUpdateError}>
-              {(updateTreatment: MutationFn, updateRes: MutationResult): React.ReactNode => {
+              {(updateTreatment: MutationFunction, updateRes: MutationResult): JSX.Element => {
                 const handleSubmit: ((values: Dictionary<string>) => void) = (values: Dictionary<string>): void => {
                   updateTreatment({ variables: {} })
                     .catch();

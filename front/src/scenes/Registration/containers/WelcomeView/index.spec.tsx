@@ -1,9 +1,8 @@
+import { MockedProvider, MockedResponse } from "@apollo/react-testing";
 import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import _ from "lodash";
 import React from "react";
-// tslint:disable-next-line: no-submodule-imports
-import { MockedProvider, MockedResponse } from "react-apollo/test-utils";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";

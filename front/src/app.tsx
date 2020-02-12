@@ -1,7 +1,6 @@
-import { ApolloProvider as ApolloHooksProvider } from "@apollo/react-hooks";
+import { ApolloProvider } from "@apollo/react-hooks";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { ApolloProvider } from "react-apollo";
 import { ApolloNetworkStatusProvider, useApolloNetworkStatus } from "react-apollo-network-status";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -36,15 +35,15 @@ const app: React.FC = (): JSX.Element => (
       <React.Fragment>
         <ApolloProvider client={client}>
           <Provider store={store}>
-            <ApolloHooksProvider client={client}>
-              <ApolloNetworkStatusProvider client={client}>
+            <React.Fragment>
+              <ApolloNetworkStatusProvider>
                 <Switch>
                   <Route path="/registration" component={Registration} />
                   <Route path="/dashboard" component={Dashboard} />
                 </Switch>
                 {React.createElement(globalPreloader)}
               </ApolloNetworkStatusProvider>
-            </ApolloHooksProvider>
+            </React.Fragment>
           </Provider>
         </ApolloProvider>
       </React.Fragment>

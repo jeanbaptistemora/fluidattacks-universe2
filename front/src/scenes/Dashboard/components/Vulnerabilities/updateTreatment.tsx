@@ -2,11 +2,12 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code in graphql queries
  */
+import { MutationFunction } from "@apollo/react-common";
+import { Mutation } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Mutation, MutationFn, MutationResult } from "react-apollo";
 import { ButtonToolbar } from "react-bootstrap";
 import { submit } from "redux-form";
 import { Button } from "../../../../components/Button";
@@ -61,8 +62,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
       refetchQueries={[{ query: GET_VULNERABILITIES,
                          variables: { analystField: canDisplayAnalyst, identifier: props.findingId } }]}
     >
-      {(updateTreatmentVuln: MutationFn<IUpdateVulnTreatment, IUpdateTreatmentVulnAttr>,
-        mutationResVuln: MutationResult): React.ReactNode => {
+      {(updateTreatmentVuln: MutationFunction<IUpdateVulnTreatment, IUpdateTreatmentVulnAttr>): JSX.Element => {
 
           const handleUpdateTreatmentVuln: ((dataTreatment: IDescriptionViewProps["dataset"]) => void) =
             (dataTreatment: IDescriptionViewProps["dataset"]): void => {
@@ -114,8 +114,7 @@ const updateTreatmentModal: ((props: IUpdateTreatmentModal) => JSX.Element) =
               refetchQueries={[{ query: GET_VULNERABILITIES,
                                  variables: { analystField: canDisplayAnalyst, identifier: props.findingId } }]}
             >
-            {(deleteTagVuln: MutationFn<IDeleteTagResult, IDeleteTagAttr>,
-              mutationResult: MutationResult): React.ReactNode => {
+            {(deleteTagVuln: MutationFunction<IDeleteTagResult, IDeleteTagAttr>): JSX.Element => {
                 const handleDeleteTag: (() => void) = (): void => {
                   if (props.vulnsSelected.length === 0) {
                     msgError(translate.t("search_findings.tab_resources.no_selection"));

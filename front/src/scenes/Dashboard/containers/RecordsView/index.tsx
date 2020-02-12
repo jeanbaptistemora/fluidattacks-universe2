@@ -3,12 +3,13 @@
  * Disabling this rule is necessary for accessing render props from
  * apollo components
  */
+import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
+import { Mutation, Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, FormGroup, Glyphicon, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 import { Field, InjectedFormProps } from "redux-form";
@@ -88,7 +89,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                   onCompleted={handleUpdateResult}
                   onError={handleUpdateError}
                 >
-                  {(updateRecords: MutationFn, updateRes: MutationResult): React.ReactNode => {
+                  {(updateRecords: MutationFunction, updateRes: MutationResult): JSX.Element => {
                     const handleSubmit: ((values: { filename: FileList }) => void) = (
                       values: { filename: FileList },
                     ): void => {
@@ -129,7 +130,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
               ) : undefined}
               {isEditing && !_.isEmpty(JSON.parse(data.finding.records)) ? (
                 <Mutation mutation={REMOVE_EVIDENCE_MUTATION} onCompleted={handleUpdateResult}>
-                  {(removeRecords: MutationFn, removeRes: MutationResult): React.ReactNode => {
+                  {(removeRecords: MutationFunction, removeRes: MutationResult): JSX.Element => {
                     const handleRemoveClick: (() => void) = (): void => {
                       mixpanel.track("RemoveRecords", { Organization: userOrganization, User: userName });
                       setEditing(false);

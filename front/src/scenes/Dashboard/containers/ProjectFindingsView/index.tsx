@@ -3,10 +3,11 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code in graphql queries
  */
+import { QueryResult } from "@apollo/react-common";
+import { Query } from "@apollo/react-components";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React, { useState } from "react";
-import { Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import FontAwesome from "react-fontawesome";
@@ -351,7 +352,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   return (
     <Query query={GET_FINDINGS} variables={{ projectName }} onCompleted={handleQryResult}>
       {
-        ({ error, data }: QueryResult<IProjectFindingsAttr>): React.ReactNode => {
+        ({ error, data }: QueryResult<IProjectFindingsAttr>): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment/>;
@@ -429,7 +430,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                 </Modal>
               </React.StrictMode>
             );
-          }
+          } else { return <React.Fragment />; }
         }}
     </Query>
   );

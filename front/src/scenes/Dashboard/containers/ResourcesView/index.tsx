@@ -4,10 +4,11 @@
   * readability of the code that defines the headers of the table
  * MAX-FILE-LINE-COUNT: this file exceeds by 22 the maximum of 1000 lines
  */
+import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
+import { Mutation, Query } from "@apollo/react-components";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { Trans } from "react-i18next";
@@ -194,7 +195,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
       onCompleted={handleQryResult}
     >
       {
-        ({ error, data, refetch }: QueryResult<IProjectTagsAttr>): React.ReactNode => {
+        ({ error, data, refetch }: QueryResult<IProjectTagsAttr>): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)
           || (!_.isUndefined(data) && !_.isEmpty(data.project.deletionDate))) {
 
@@ -300,8 +301,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                       </Button> : undefined}
                     </Col>
                     <Mutation mutation={REMOVE_TAG_MUTATION} onCompleted={handleMtRemoveTagRes}>
-                      { (removeTag: MutationFn<IRemoveTagsAttr, {projectName: string; tagToRemove: string}>,
-                         mutationRes: MutationResult): React.ReactNode => {
+                      {(removeTag: MutationFunction, mutationRes: MutationResult): JSX.Element => {
                           if (!_.isUndefined(mutationRes.error)) {
                             handleGraphQLErrors("An error occurred removing tags", mutationRes.error);
 
@@ -354,8 +354,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                   </Col>
                 </Row>
                 <Mutation mutation={ADD_TAGS_MUTATION} onCompleted={handleMtAddTagRes}>
-                  { (addTags: MutationFn<IAddTagsAttr, {projectName: string; tagsData: string}>,
-                     mutationRes: MutationResult): React.ReactNode => {
+                  {(addTags: MutationFunction, mutationRes: MutationResult): JSX.Element => {
                       if (!_.isUndefined(mutationRes.error)) {
                         handleGraphQLErrors("An error occurred adding tags", mutationRes.error);
 
@@ -387,7 +386,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
                 </Mutation>
               </React.Fragment>
             );
-          }
+          } else { return <React.Fragment />; }
         }}
     </Query>
   );
@@ -404,7 +403,7 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
     return (
       <Query query={GET_REPOSITORIES} variables={{ projectName }}>
       {
-        ({ error, data, refetch }: QueryResult<IResourcesAttr>): React.ReactNode => {
+        ({ error, data, refetch }: QueryResult<IResourcesAttr>): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment/>;
@@ -476,9 +475,9 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                 <ConfirmDialog title="Repository change state">
                   {(confirmStateChange: ConfirmFn): React.ReactNode => (
               <Mutation mutation={UPDATE_RESOURCE_MUTATION} onCompleted={handleMtUpdateRepoRes}>
-                  { (updateRepositories: MutationFn<IUpdateRepoAttr,
+                  { (updateRepositories: MutationFunction<IUpdateRepoAttr,
                     {projectName: string; resData: string; resType: string}>,
-                     mutationRes: MutationResult): React.ReactNode => {
+                     mutationRes: MutationResult): JSX.Element => {
                       if (!_.isUndefined(mutationRes.error)) {
                         handleGraphQLErrors("An error occurred removing repositories", mutationRes.error);
 
@@ -635,8 +634,7 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                 )}
                 </ConfirmDialog>
                 <Mutation mutation={ADD_RESOURCE_MUTATION} onCompleted={handleMtAddReposRes}>
-                { (addRepositories: MutationFn<IAddReposAttr, {projectName: string; resData: string; resType: string}>,
-                   mutationRes: MutationResult): React.ReactNode => {
+                  {(addRepositories: MutationFunction, mutationRes: MutationResult): JSX.Element => {
                     if (!_.isUndefined(mutationRes.error)) {
                       handleGraphQLErrors("An error occurred adding repositories", mutationRes.error);
 
@@ -667,7 +665,7 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
                 }}
               </Mutation>
               </React.Fragment>);
-          }
+          } else { return <React.Fragment />; }
         }}
       </Query>
     );
@@ -684,7 +682,7 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
     return (
       <Query query={GET_ENVIRONMENTS} variables={{ projectName }}>
       {
-        ({ error, data, refetch }: QueryResult<IResourcesAttr>): React.ReactNode => {
+        ({ error, data, refetch }: QueryResult<IResourcesAttr>): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment/>;
@@ -753,9 +751,9 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                 <ConfirmDialog title="Environment change state">
                   {(confirmStateChange: ConfirmFn): React.ReactNode => (
                 <Mutation mutation={UPDATE_RESOURCE_MUTATION} onCompleted={handleMtUpdateEnvRes}>
-                  { (updateResources: MutationFn<IUpdateEnvAttr,
+                  { (updateResources: MutationFunction<IUpdateEnvAttr,
                     {projectName: string; resData: string; resType: string}>,
-                     mutationRes: MutationResult): React.ReactNode => {
+                     mutationRes: MutationResult): JSX.Element => {
                       if (!_.isUndefined(mutationRes.error)) {
                         handleGraphQLErrors("An error occurred removing environments", mutationRes.error);
 
@@ -900,8 +898,7 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                 )}
                 </ConfirmDialog>
                 <Mutation mutation={ADD_RESOURCE_MUTATION} onCompleted={handleMtAddEnvsRes}>
-                  { (addResources: MutationFn<IAddEnvAttr, {projectName: string; resData: string; resType: string}>,
-                     mutationRes: MutationResult): React.ReactNode => {
+                  {(addResources: MutationFunction, mutationRes: MutationResult): JSX.Element => {
                       if (!_.isUndefined(mutationRes.error)) {
                         handleGraphQLErrors("An error occurred adding environments", mutationRes.error);
 
@@ -934,7 +931,7 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
                 </Mutation>
               </React.Fragment>
             );
-          }
+          } else { return <React.Fragment />; }
         }}
       </Query>
     );
@@ -1070,7 +1067,7 @@ const renderDeleteBtn: ((props: IResourcesViewProps) => JSX.Element) = (props: I
   return (
     <Query query={GET_PROJECT_DATA} variables={{ projectName }}>
     {
-      ({ data }: QueryResult<IGetProjectData>): React.ReactNode => {
+      ({ data }: QueryResult<IGetProjectData>): JSX.Element => {
         if (_.isUndefined(data) || _.isEmpty(data)
         || (!_.isUndefined(data) && !_.isEmpty(data.project.deletionDate))) {
           return <React.Fragment />;
@@ -1106,7 +1103,7 @@ const renderDeleteBtn: ((props: IResourcesViewProps) => JSX.Element) = (props: I
               </Row>
             </React.Fragment>
           );
-        }
+        } else { return <React.Fragment />; }
       }}
     </Query>
 

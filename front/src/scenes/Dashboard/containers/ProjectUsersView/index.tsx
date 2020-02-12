@@ -3,10 +3,11 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code in graphql queries
  */
+import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
+import { Mutation, Query } from "@apollo/react-components";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { Button } from "../../../../components/Button/index";
@@ -146,8 +147,7 @@ const renderActionButtons: ((arg1: IProjectUsersViewProps, refetch: QueryResult[
           </Button>
         </Col>
         <Mutation mutation={REMOVE_USER_MUTATION} onCompleted={handleMtRemoveUserRes}>
-          { (removeUserAccess: MutationFn<IRemoveUserAttr, {projectName: string; userEmail: string}>,
-             mutationRes: MutationResult): React.ReactNode => {
+          {(removeUserAccess: MutationFunction, mutationRes: MutationResult): JSX.Element => {
               if (!_.isUndefined(mutationRes.error)) {
                 handleGraphQLErrors("An error occurred removing users", mutationRes.error);
 
@@ -206,7 +206,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
       onCompleted={handleQryResult}
     >
       {
-        ({ error, data, refetch }: QueryResult<IUsersAttr>): React.ReactNode => {
+        ({ error, data, refetch }: QueryResult<IUsersAttr>): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment/>;
@@ -279,20 +279,20 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                     </Col>
                   </Row>
                   <Mutation mutation={ADD_USER_MUTATION} onCompleted={handleMtAddUserRes}>
-                      { (grantUserAccess: MutationFn<IAddUserAttr, {
+                      { (grantUserAccess: MutationFunction<IAddUserAttr, {
                         email: string; organization: string; phoneNumber: string;
                         projectName: string; responsibility: string; role: string; }>,
-                         mutationRes: MutationResult): React.ReactNode => {
+                         mutationRes: MutationResult): JSX.Element => {
                           if (!_.isUndefined(mutationRes.error)) {
                             handleGraphQLErrors("An error occurred adding user to project", mutationRes.error);
                           }
 
                           return (
                             <Mutation mutation={EDIT_USER_MUTATION} onCompleted={handleMtEditUserRes}>
-                              { (editUser: MutationFn<IEditUserAttr, {
+                              { (editUser: MutationFunction<IEditUserAttr, {
                                 email: string; organization: string; phoneNumber: string;
                                 projectName: string; responsibility: string; role: string; }>,
-                                 editMtRes: MutationResult): React.ReactNode => {
+                                 editMtRes: MutationResult): JSX.Element => {
                                   if (!_.isUndefined(editMtRes.error)) {
                                     handleGraphQLErrors("An error occurred adding user to project", editMtRes.error);
                                   }
@@ -345,7 +345,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                 </div>
               </React.StrictMode>
             );
-          }
+          } else { return <React.Fragment/>; }
       }}
     </Query>
   );

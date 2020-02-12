@@ -2,10 +2,11 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code in graphql queries
  */
+import { MutationFunction, MutationResult } from "@apollo/react-common";
+import { Mutation } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React from "react";
-import { Mutation, MutationFn, MutationResult } from "react-apollo";
 import { ButtonToolbar, Col, FormGroup, Row } from "react-bootstrap";
 import { Trans } from "react-i18next";
 import { useSelector } from "react-redux";
@@ -54,7 +55,7 @@ const removeProjectModal: ((props: IRemoveProjectModal) => JSX.Element) =
             onError={removeProjectError}
             refetchQueries={[{ query: PROJECTS_QUERY}]}
           >
-            {(removeProject: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
+            {(removeProject: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
 
               const handleSubmit: ((values: { projectName: string }) => void) =
               (values: { projectName: string }): void => {

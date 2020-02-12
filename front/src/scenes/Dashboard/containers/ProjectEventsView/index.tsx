@@ -2,12 +2,13 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
  */
+import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
+import { Mutation, Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Glyphicon, Row } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { useDispatch, useSelector } from "react-redux";
@@ -204,7 +205,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
       onCompleted={handleQryResult}
     >
       {
-        ({ data, error, refetch }: QueryResult): React.ReactNode => {
+        ({ data, error, refetch }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment />;
@@ -273,7 +274,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                     onCompleted={handleCreationResult}
                     onError={handleCreationError}
                   >
-                    {(createEvent: MutationFn, mtResult: MutationResult): React.ReactNode => {
+                    {(createEvent: MutationFunction, mtResult: MutationResult): JSX.Element => {
                       interface IFormValues {
                         accessibility: { [key: string]: boolean };
                         affectedComponents: { [key: string]: boolean };
@@ -603,7 +604,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
                 />
               </React.StrictMode>
             );
-          }
+          } else { return <React.Fragment />; }
         }}
     </Query>
   );

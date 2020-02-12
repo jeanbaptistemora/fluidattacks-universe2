@@ -3,10 +3,11 @@
  * Disabling this rule is necessary for accessing render props from
  * apollo components
  */
+import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
+import { Mutation, Query } from "@apollo/react-components";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
@@ -48,7 +49,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
       <Row>
         <Col md={12} sm={12} xs={12}>
           <Query query={GET_SEVERITY} variables={{ identifier: findingId }}>
-            {({ client, data, refetch }: QueryResult<ISeverityAttr>): React.ReactNode => {
+            {({ client, data, refetch }: QueryResult<ISeverityAttr>): JSX.Element => {
               if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
               const handleEditClick: (() => void) = (): void => {
@@ -89,7 +90,7 @@ const severityView: React.FC<SeverityViewProps> = (props: SeverityViewProps): JS
                     onCompleted={handleMtUpdateSeverityRes}
                     refetchQueries={[{ query: GET_FINDING_HEADER, variables: { findingId, submissionField: canEdit } }]}
                   >
-                    {(updateSeverity: MutationFn, mutationRes: MutationResult): React.ReactNode => {
+                    {(updateSeverity: MutationFunction, mutationRes: MutationResult): JSX.Element => {
                       const handleUpdateSeverity: ((values: {}) => void) = (values: {}): void => {
                         setEditing(false);
                         updateSeverity({ variables: { data: { ...values, id: findingId }, findingId } })

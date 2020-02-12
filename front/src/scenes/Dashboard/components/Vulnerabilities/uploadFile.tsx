@@ -1,11 +1,12 @@
 /* tslint:disable:jsx-no-multiline-js
  * Disabling this rule is necessary for accessing render props from apollo components
  */
+import { MutationFunction, MutationResult } from "@apollo/react-common";
+import { Mutation } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
-import { Mutation, MutationFn, MutationResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
 import { submit } from "redux-form";
 import { Button } from "../../../../components/Button/index";
@@ -93,8 +94,7 @@ const uploadVulnerabilities: ((props: IVulnerabilitiesViewProps) => JSX.Element)
                                                                  submissionField: canGetHistoricState } },
                        { query: GET_FINDINGS, variables: { projectName } }]}
     >
-    {(uploadVulnerability: MutationFn,
-      mutationResult: MutationResult): React.ReactNode => {
+      {(uploadVulnerability: MutationFunction, mutationResult: MutationResult): JSX.Element => {
 
       const handleUploadVulnerability: (() => void) = (): void => {
         if (isValidVulnsFile("#vulnerabilities")) {

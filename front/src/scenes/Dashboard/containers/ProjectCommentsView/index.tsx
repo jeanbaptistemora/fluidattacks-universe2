@@ -3,10 +3,11 @@
  * Disabling this rule is necessary for accessing render props from
  * apollo components
  */
+import { MutationFunction, QueryResult } from "@apollo/react-common";
+import { Mutation, Query } from "@apollo/react-components";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Mutation, MutationFn, Query, QueryResult } from "react-apollo";
 import { RouteComponentProps } from "react-router";
 import { Comments, ICommentStructure, loadCallback, postCallback } from "../../components/Comments/index";
 import { ADD_PROJECT_COMMENT, GET_PROJECT_COMMENTS } from "./queries";
@@ -41,7 +42,7 @@ const projectCommentsView: React.FC<IProjectCommentsViewProps> = (props: IProjec
 
           return (
             <Mutation mutation={ADD_PROJECT_COMMENT}>
-              {(addComment: MutationFn): React.ReactNode => {
+              {(addComment: MutationFunction): JSX.Element => {
                 const handlePost: ((comment: ICommentStructure, callbackFn: postCallback) => void) = (
                   comment: ICommentStructure, callbackFn: postCallback,
                 ): void => {

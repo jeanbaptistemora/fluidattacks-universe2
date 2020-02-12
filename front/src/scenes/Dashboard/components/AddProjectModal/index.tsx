@@ -2,10 +2,11 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code in graphql queries
  */
+import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
+import { Mutation, Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React from "react";
-import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { change, Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
@@ -51,7 +52,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
           onCompleted={handleProjectNameResult}
           onError={handleProjectNameError}
         >
-          {({}: QueryResult<IProjectName>): React.ReactNode => {
+          {({}: QueryResult<IProjectName>): JSX.Element => {
             const handleMutationResult: ((result: { createProject: { success: boolean } }) => void) = (
               result: { createProject: { success: boolean } },
             ): void => {
@@ -74,7 +75,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
                 onError={handleCreateError}
                 refetchQueries={[{ query: PROJECTS_QUERY}]}
               >
-                {(createProject: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
+                {(createProject: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
                   if (!isAdmin) { store.dispatch(change("newProject", "company", userOrganization)); }
 
                   const handleSubmit: ((values: { company: string; description: string }) => void) =

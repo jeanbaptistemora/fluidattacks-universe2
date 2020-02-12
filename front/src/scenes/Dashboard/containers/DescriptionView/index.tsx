@@ -6,10 +6,11 @@
  * as input or <p> depending on their state
  */
 
+import { MutationFunction, MutationResult } from "@apollo/react-common";
+import { Mutation } from "@apollo/react-components";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Mutation, MutationFn, MutationResult } from "react-apollo";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { AnyAction, Reducer } from "redux";
 import { formValueSelector, InjectedFormProps } from "redux-form";
@@ -264,7 +265,7 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
   return (
     <React.Fragment>
       <Mutation mutation={HANDLE_ACCEPTATION} onCompleted={handleMtResolveAcceptation}>
-        {(handleAcceptation: MutationFn, mutationRes: MutationResult): React.ReactNode => {
+        {(handleAcceptation: MutationFunction, mutationRes: MutationResult): JSX.Element => {
           if (!_.isUndefined(mutationRes.error)) {
             handleGraphQLErrors("An error occurred approving acceptation", mutationRes.error);
 

@@ -1,10 +1,11 @@
 /* tslint:disable:jsx-no-multiline-js
  * Disabling this rule is necessary for accessing render props from apollo components
  */
+import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
+import { Mutation, Query } from "@apollo/react-components";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
 import { Field, InjectedFormProps } from "redux-form";
@@ -69,7 +70,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                   onCompleted={handleUpdateResult}
                   refetchQueries={[{ query: GET_EVENT_HEADER, variables: { eventId } }]}
                 >
-                  {(solveEvent: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
+                  {(solveEvent: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
                     const handleSubmit: ((values: {}) => void) = (values: {}): void => {
                       solveEvent({ variables: { eventId, ...values } })
                         .catch();
@@ -121,7 +122,7 @@ const eventDescriptionView: React.FC<EventDescriptionProps> = (props: EventDescr
                 </Mutation>
               </Modal>
               <Mutation mutation={UPDATE_DESCRIPTION_MUTATION} onCompleted={handleUpdateResult}>
-                {(updateDescription: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
+                {(updateDescription: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
                   const handleSubmit: ((values: { [key: string]: string }) => void) = (
                     values: { [key: string]: string },
                   ): void => {

@@ -2,10 +2,11 @@
  * JSX-NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code that dynamically renders the fields
  */
+import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
+import { Mutation, Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React, { useState } from "react";
-import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, ControlLabel, Row } from "react-bootstrap";
 import { Provider } from "react-redux";
 import { change, Field, InjectedFormProps, reset } from "redux-form";
@@ -63,8 +64,7 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
           onCompleted={handleMtUpdateTokenRes}
           onError={handleMtUpdateTokenErr}
         >
-        { (updateAccessToken: MutationFn<IUpdateAccessTokenAttr, {expirationTime: number}>,
-           mutationRes: MutationResult): React.ReactNode => {
+          {(updateAccessToken: MutationFunction, mutationRes: MutationResult): JSX.Element => {
 
             const handleUpdateAccessToken: ((values: IAccessTokenAttr) => void) =
               (values: IAccessTokenAttr): void => {
@@ -148,7 +148,7 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                     </Row>
                     : undefined }
                     <Query query={GET_ACCESS_TOKEN} fetchPolicy="network-only" onCompleted={handleQryResult}>
-                      {({ data, error }: QueryResult<IGetAccessTokenAttr>): React.ReactNode => {
+                      {({ data, error }: QueryResult<IGetAccessTokenAttr>): JSX.Element => {
                         if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
 
                         if (!_.isUndefined(error)) {
@@ -180,8 +180,8 @@ const renderAccessTokenForm: ((props: IAddAccessTokenModalProps) => JSX.Element)
                               mutation={INVALIDATE_ACCESS_TOKEN_MUTATION}
                               onCompleted={handleMtInvalidateTokenRes}
                             >
-                            { (invalidateAccessToken: MutationFn<IInvalidateAccessTokenAttr, {}>,
-                               mutationResult: MutationResult): React.ReactNode => {
+                            { (invalidateAccessToken: MutationFunction<IInvalidateAccessTokenAttr, {}>,
+                               mutationResult: MutationResult): JSX.Element => {
 
                                 if (!_.isUndefined(mutationResult.error)) {
                                   handleGraphQLErrors("An error occurred invalidating access token",

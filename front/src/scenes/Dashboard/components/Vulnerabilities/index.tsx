@@ -6,10 +6,11 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
  * readability of the code that defines the headers of the table
 */
+import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
+import { Mutation, Query } from "@apollo/react-components";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React, { useState } from "react";
-import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { Comparator, textFilter } from "react-bootstrap-table2-filter";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
@@ -346,7 +347,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
       onCompleted={handleGetVulnerabilities}
     >
       {
-        ({ error, data, refetch }: QueryResult<IVulnsAttr>): React.ReactNode => {
+        ({ error, data, refetch }: QueryResult<IVulnsAttr>): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment/>;
@@ -763,9 +764,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
 
             return (
               <Mutation mutation={APPROVE_VULN_MUTATION} onCompleted={handleMtPendingVulnRes}>
-              { (approveVulnerability: MutationFn<IApproveVulnAttr, {
+              { (approveVulnerability: MutationFunction<IApproveVulnAttr, {
                 approvalStatus: boolean; findingId: string; uuid?: string; }>,
-                 mutationResult: MutationResult): React.ReactNode => {
+                 mutationResult: MutationResult): JSX.Element => {
                 if (!_.isUndefined(mutationResult.error)) {
                   handleGraphQLErrors("An error occurred approving vulnerabilities", mutationResult.error);
 
@@ -1043,7 +1044,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 }}
               </Mutation>
             );
-          }
+          } else { return <React.Fragment />; }
         }}
     </Query>
     );

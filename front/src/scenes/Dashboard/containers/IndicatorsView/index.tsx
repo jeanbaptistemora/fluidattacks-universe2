@@ -3,12 +3,13 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code in graphql queries
  */
+import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
+import { Mutation, Query } from "@apollo/react-components";
 import { LineDatum } from "@nivo/line";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { Trans } from "react-i18next";
 import { Button } from "../../../../components/Button";
@@ -83,7 +84,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
   return (
     <Query query={GET_INDICATORS} variables={{ projectName }} onCompleted={handleQryResult}>
       {
-        ({ error, data, refetch }: QueryResult<IIndicatorsProps>): React.ReactNode => {
+        ({ error, data, refetch }: QueryResult<IIndicatorsProps>): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) {
 
             return <React.Fragment />;
@@ -95,7 +96,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
           }
           if (!_.isUndefined(data)) {
             const totalVulnerabilities: number =
-              data.project.openVulnerabilities + data.project.closedVulnerabilities;
+              _.sum([data.project.openVulnerabilities, data.project.closedVulnerabilities]);
             const undefinedTreatment: number = JSON.parse(data.project.totalTreatment).undefined;
             const dataChart: LineDatum[][] = JSON.parse(data.project.remediatedOverTime);
             const deletionDate: string = data.project.deletionDate;
@@ -264,7 +265,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                     onCompleted={rejectDeleteResult}
                     onError={rejectDeleteError}
                   >
-                    {(rejectRemoveProject: MutationFn, { loading: submitting }: MutationResult): React.ReactNode => {
+                    {(rejectRemoveProject: MutationFunction, { loading: submitting }: MutationResult): JSX.Element => {
                       const handleSubmit: (() => void) = (): void => {
                         rejectRemoveProject({ variables: { projectName: projectName.toLowerCase() }})
                         .catch();
@@ -299,7 +300,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                 </Modal>
               </React.StrictMode>
             );
-          }
+          } else { return <React.Fragment />; }
         }}
     </Query>
   );

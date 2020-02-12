@@ -4,10 +4,11 @@
  * apollo components
  */
 
+import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
+import { Mutation, Query } from "@apollo/react-components";
 import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import React from "react";
-import { Mutation, MutationFn, MutationResult, Query, QueryResult } from "react-apollo";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { NavLink, Redirect, Route, Switch } from "react-router-dom";
@@ -116,7 +117,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                     }
                   };
                   const isDraft: boolean = _.isEmpty(data.finding.releaseDate);
-                  const hasVulns: boolean = data.finding.openVulns + data.finding.closedVulns > 0;
+                  const hasVulns: boolean = _.sum([data.finding.openVulns, data.finding.closedVulns]) > 0;
                   const hasHistory: boolean = _.isEmpty(data.finding.historicState);
                   const hasSubmission: boolean = !hasHistory ?
                     (data.finding.historicState.slice(-1)[0].state === "SUBMITTED") : false;
@@ -133,7 +134,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                             onCompleted={handleSubmitResult}
                             onError={handleSubmitError}
                           >
-                            {(submitDraft: MutationFn, submitResult: MutationResult): JSX.Element => {
+                            {(submitDraft: MutationFunction, submitResult: MutationResult): JSX.Element => {
                               const handleSubmitClick: (() => void) = (): void => {
                                 submitDraft({ variables: { findingId } })
                                   .catch();

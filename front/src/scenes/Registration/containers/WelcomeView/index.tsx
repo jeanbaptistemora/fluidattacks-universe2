@@ -4,9 +4,10 @@
  * apollo components
  */
 
+import { MutationFunction, QueryResult } from "@apollo/react-common";
+import { Mutation, Query } from "@apollo/react-components";
 import _ from "lodash";
 import React from "react";
-import { Mutation, MutationFn, Query, QueryResult } from "react-apollo";
 import { Col, Row } from "react-bootstrap";
 import { Redirect, RouteComponentProps } from "react-router-dom";
 import { Button } from "../../../../components/Button";
@@ -91,7 +92,7 @@ const welcomeView: React.FC<WelcomeViewProps> = (): JSX.Element => {
                         ? <Redirect to={`/dashboard#${initialUrl}`} />
                         :
                         <Mutation mutation={ACCEPT_LEGAL_MUTATION} onCompleted={loadDashboard}>
-                          {(acceptLegal: MutationFn): React.ReactNode => {
+                          {(acceptLegal: MutationFunction): JSX.Element => {
 
                             const handleAccept: ((remember: boolean) => void) = (remember: boolean): void => {
                               setLegalModalOpen(false);
