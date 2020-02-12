@@ -52,5 +52,8 @@ function prepare_workdir {
   && echo '[INFO] Creating a pristine workdir' \
   && rm -rf "${WORKDIR}" \
   && echo '[INFO] Adding a pristine workdir' \
-  && cp -r . "${WORKDIR}"
+  && cp -r . "${WORKDIR}" \
+  && echo '[INFO] Entering the workdir' \
+  && pushd "${WORKDIR}" \
+  || return 1
 }

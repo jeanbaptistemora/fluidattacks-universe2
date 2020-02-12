@@ -1,6 +1,6 @@
 let
   pkgs = import ../../../../../pkgs/stable.nix;
-  modules.build.dependencies = import ../../../../build/dependencies pkgs;
+  modules.build.dependencies = import ../../../../../dependencies pkgs;
 in
   pkgs.dockerTools.buildImage {
     name = "builder";

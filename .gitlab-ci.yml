@@ -87,6 +87,11 @@ run_break_build_dynamic:
   <<: *in_master_branch
   stage: postdeploy
 
+test_infra_monolith:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
 build-builder:
   image: fluidattacks/docker-bash:latest
   tags: [autoscaling]
@@ -123,18 +128,6 @@ commitlint:
   except:
     - master
     - schedules
-
-test_terraform:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - ./infrastructure/terraform.sh
-  after_script:
-    - rm infrastructure/*.xml
-  except:
-    - master
 
 danger:
   image: fluidattacks/danger-ruby

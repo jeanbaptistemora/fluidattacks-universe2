@@ -16,6 +16,6 @@ resource "aws_iam_account_password_policy" "strict" {
 
 module "policies" {
   source             = "./policies"
-  fsBucket           = "${var.fsBucket}"
-  fwBucket           = "${var.fwBucket}"
+  fsBucket           = var.fsBucket
+  fwBucket           = var.fwBucket
 }

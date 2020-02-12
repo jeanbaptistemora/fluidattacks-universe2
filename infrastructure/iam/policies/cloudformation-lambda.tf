@@ -121,5 +121,5 @@ resource "aws_iam_policy" "CloudFormation_Lambda" {
   name        = "CloudFormation_Lambda"
   path        = "/"
   description = "Policy for cloudformation-lambda"
-  policy = "${data.aws_iam_policy_document.cflambda-policy.json}"
+  policy = data.aws_iam_policy_document.cflambda-policy.json
 }

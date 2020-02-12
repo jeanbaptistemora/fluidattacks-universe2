@@ -1,17 +1,25 @@
 pkgs:
 
 let
-  modules.build.pythonPackage = import ../python-package pkgs;
-  modules.env.python = import ../../env/python pkgs;
+  modules.build.pythonPackage = import ../modules/builders/python-package pkgs;
+  modules.env.python = import ../modules/environments/python pkgs;
 in rec {
     all = with pkgs; [
+      awscli
+      aws-iam-authenticator
       bash
+      cacert
       docker
       git
+      jq
+      kubectl
       nix-linter
       modules.env.python
       python.prospector
       shellcheck
+      terraform
+      tflint
+      sops
       which
     ];
 

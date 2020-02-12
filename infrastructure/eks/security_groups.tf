@@ -25,12 +25,10 @@ resource "aws_security_group" "k8s_nodes_sec_group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = "${
-    map(
-     "Name", "Fluid-EKS",
-     "kubernetes.io/cluster/${var.clusterName}", "owned",
-    )
-  }"
+  tags = map(
+    "Name", "Fluid-EKS",
+    "kubernetes.io/cluster/${var.clusterName}", "owned",
+  )
 }
 
 resource "aws_security_group_rule" "k8s_nodes_nodes_rule" {

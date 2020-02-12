@@ -34,7 +34,9 @@ resource "null_resource" "k8s_config" {
     command = "echo \"${local.kubeconfig}\" > \"$HOME/.kube/config\""
   }
 
-  depends_on = ["aws_eks_cluster.k8s_cluster"]
+  depends_on = [
+    aws_eks_cluster.k8s_cluster
+  ]
 }
 
 data "external" "aws_auth" {
@@ -72,8 +74,9 @@ YAML
     command = "sleep 60"
   }
 
-  depends_on = ["null_resource.k8s_config",
-    "aws_autoscaling_group.k8s_nodes_autoscaling"
+  depends_on = [
+    null_resource.k8s_config,
+    aws_autoscaling_group.k8s_nodes_autoscaling
   ]
 }
 
@@ -91,5 +94,7 @@ resource "kubernetes_service_account" "helm" {
     command = "${path.module}/secure-tiller.sh ${kubernetes_service_account.helm.metadata.0.name}"
   }
 
-  depends_on = ["kubernetes_config_map.aws_auth"]
+  depends_on = [
+    kubernetes_config_map.aws_auth
+  ]
 }

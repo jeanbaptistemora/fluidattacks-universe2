@@ -16,12 +16,10 @@ resource "aws_subnet" "k8s_subnets" {
   cidr_block        = cidrsubnet(var.vpcCidr, 2, count.index + 2)
   vpc_id            = var.vpcId
 
-  tags = "${
-    map(
-     "Name", "Fluid-EKS",
-     "kubernetes.io/cluster/${var.clusterName}", "shared",
-    )
-  }"
+  tags = map(
+    "Name", "Fluid-EKS",
+    "kubernetes.io/cluster/${var.clusterName}", "shared",
+  )
 }
 
 resource "aws_subnet" "k8s_subnets_secondary" {
@@ -30,12 +28,10 @@ resource "aws_subnet" "k8s_subnets_secondary" {
   cidr_block        = cidrsubnet(var.vpcSecondaryCidr, 1, count.index)
   vpc_id            = var.vpcId
 
-  tags = "${
-    map(
-     "Name", "Fluid-EKS",
-     "kubernetes.io/cluster/${var.clusterName}", "shared",
-    )
-  }"
+  tags = map(
+    "Name", "Fluid-EKS",
+    "kubernetes.io/cluster/${var.clusterName}", "shared",
+  )
 }
 
 resource "aws_route_table_association" "k8s_routetb_association" {

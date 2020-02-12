@@ -1,6 +1,9 @@
 #! /usr/bin/env nix-shell
 #!   nix-shell -i bash
 #!   nix-shell --cores 0
+#!   nix-shell --keep AWS_ACCESS_KEY_ID
+#!   nix-shell --keep AWS_DEFAULT_REGION
+#!   nix-shell --keep AWS_SECRET_ACCESS_KEY
 #!   nix-shell --keep BREAK_BUILD_ID
 #!   nix-shell --keep BREAK_BUILD_SECRET
 #!   nix-shell --keep CI_JOB_ID

@@ -228,7 +228,7 @@ resource "aws_iam_policy" "integrates-terraform" {
   description = "Policy for Terraform deployments from Integrates"
   name        = "IntegratesTerraform"
   path        = "/"
-  policy      = "${data.aws_iam_policy_document.integrates-terraform.json}"
+  policy      = data.aws_iam_policy_document.integrates-terraform.json
 }
 
 data "aws_iam_policy_document" "fis3integrator-policy" {
@@ -249,5 +249,5 @@ resource "aws_iam_policy" "FI_S3INTEGRATION" {
   path        = "/"
   description = "Policy for FI_S3INTEGRATION"
 
-  policy = "${data.aws_iam_policy_document.fis3integrator-policy.json}"
+  policy = data.aws_iam_policy_document.fis3integrator-policy.json
 }
