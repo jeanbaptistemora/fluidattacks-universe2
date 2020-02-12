@@ -21,5 +21,4 @@ commitlint.config.js
 parser-preset.js
 
 # Webpack
-*.min.js
-*.min.js.LICENSE
+theme/2014/static/js/tmp/

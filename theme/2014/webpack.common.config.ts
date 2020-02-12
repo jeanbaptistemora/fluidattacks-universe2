@@ -25,7 +25,7 @@ export const commonConfig: webpack.Configuration = {
   output: {
     filename: "[name].min.js",
     futureEmitAssets: true,
-    path: path.resolve(__dirname, "./static/js/"),
+    path: path.resolve(__dirname, "./static/js/tmp/"),
   },
   resolve: {
     extensions: [".js", ".ts"],
