@@ -704,7 +704,6 @@ class UpdateClientDescription(Mutation):
         finding_id = String(required=True)
         treatment = String(
             Enum('UpdateClientDescriptionTreatment', [
-                ('NEW', 'NEW'),
                 ('IN PROGRESS', 'IN PROGRESS'),
                 ('ACCEPTED', 'ACCEPTED'),
                 ('ACCEPTED_UNDEFINED', 'ACCEPTED_UNDEFINED')]), required=True)
