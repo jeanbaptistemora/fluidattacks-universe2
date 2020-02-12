@@ -13,7 +13,7 @@ from i18n import t
 from magic import Magic
 
 from backend.domain import (
-    vulnerability as vuln_domain
+    user as user_domain, vulnerability as vuln_domain
 )
 
 from backend.mailer import send_comment_mail
@@ -300,11 +300,20 @@ def update_treatment_in_vuln(finding_id, updated_values):
     if new_values['treatment'] == 'NEW':
         new_values['treatment_manager'] = None
     vulns = get_vulnerabilities(finding_id)
+    resp = True
     for vuln in vulns:
+        if 'treatment_manager' not in [vuln, new_values]:
+            new_values['treatment_manager'] = vuln_domain.set_treatment_manager(
+                new_values['treatment'],
+                updated_values['user'],
+                finding_dal.get_finding(finding_id),
+                user_domain.get_data(updated_values['user'], 'role') == 'customeradmin',
+                updated_values['user']
+            )
         result_update_treatment = vuln_dal.update(finding_id, vuln['UUID'], new_values)
         if not result_update_treatment:
-            return False
-    return True
+            resp = False
+    return resp
 
 
 def update_client_description(finding_id, updated_values, user_mail, update):
