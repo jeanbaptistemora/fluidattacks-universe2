@@ -568,8 +568,8 @@ For +clusters+ we use link:https://aws.amazon.com/en/eks/[+EKS+]
 to avoid the maintenance of complex cluster components.
 We use external services such as link:https://www.okta.com/[+Okta+] for identity federation,
 link:https://rollbar.com/[+Rollbar+] for telemetry,
-link:https://keybase.io/[+Keybase+] for chatops,
-link:https://www.gitprime.com/[+GitPrime+] for productivity analytic,
+link:https://rocket.chat/[+Rocket Chat+] for chatops,
+link:https://www.pluralsight.com/product/flow[+Pluralsight+] for productivity analytic,
 link:https://www.vaultproject.io/[+Vault+] for ephemeral secrets management,
 link:https://helm.sh/[+Helm+] for cluster management,
 link:https://launchdarkly.com/[+Launch Darkly+] for feature flags,
