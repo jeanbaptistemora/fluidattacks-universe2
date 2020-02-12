@@ -15,6 +15,7 @@ describe("Remediation modal", () => {
   const wrapper: ShallowWrapper = shallow(
     <Provider store={store}>
       <RemediationModal
+        isLoading={false}
         isOpen={true}
         message="test"
         onClose={functionMock}

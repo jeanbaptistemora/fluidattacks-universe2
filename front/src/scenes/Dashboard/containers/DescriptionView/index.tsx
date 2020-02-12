@@ -8,6 +8,8 @@
 
 import { MutationFunction, MutationResult } from "@apollo/react-common";
 import { Mutation } from "@apollo/react-components";
+import { useMutation } from "@apollo/react-hooks";
+import { ApolloError } from "apollo-client";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -21,15 +23,19 @@ import { ConfirmDialog, ConfirmFn } from "../../../../components/ConfirmDialog";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import store from "../../../../store/index";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
-import { msgSuccess } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
 import reduxWrapper from "../../../../utils/reduxWrapper";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { GenericForm } from "../../components/GenericForm/index";
 import { remediationModal as RemediationModal } from "../../components/RemediationModal/index";
 import * as actions from "./actions";
+import * as actionTypes from "./actionTypes";
 import { renderFormFields } from "./formStructure";
-import { HANDLE_ACCEPTATION } from "./queries";
-import { IAcceptationApprovalAttrs, IHistoricTreatment } from "./types";
+import { HANDLE_ACCEPTATION, REQUEST_VERIFICATION, VERIFY_FINDING } from "./queries";
+import {
+  IAcceptationApprovalAttrs, IHistoricTreatment, IRequestVerificationResult, IVerifyFindingResult,
+} from "./types";
 
 export interface IDescriptionViewProps {
   currentUserEmail: string;
@@ -243,6 +249,48 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
   };
   React.useEffect(onMount, []);
 
+  const [requestVerification, {loading: submittingRequest}] = useMutation(REQUEST_VERIFICATION, {
+    onCompleted: (data: IRequestVerificationResult): void => {
+      if (data.requestVerification.success) {
+        store.dispatch({
+          payload: {
+            descriptionData: { remediated: true },
+          },
+          type: actionTypes.LOAD_DESCRIPTION,
+        });
+        msgSuccess(
+          translate.t("proj_alerts.verified_success"),
+          translate.t("proj_alerts.updated_title"),
+        );
+      }
+    },
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error(error.message, error);
+    },
+  });
+
+  const [verifyFinding, {loading: submittingVerify}] = useMutation(VERIFY_FINDING, {
+    onCompleted: (data: IVerifyFindingResult): void => {
+      if (data.verifyFinding.success) {
+        store.dispatch({
+          payload: {
+            descriptionData: { remediated: false },
+          },
+          type: actionTypes.LOAD_DESCRIPTION,
+        });
+        msgSuccess(
+          translate.t("proj_alerts.verified_success"),
+          translate.t("proj_alerts.updated_title"),
+        );
+      }
+    },
+    onError: (error: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error(error.message, error);
+    },
+  });
+
   const handleMtResolveAcceptation: ((mtResult: IAcceptationApprovalAttrs) => void) =
       (mtResult: IAcceptationApprovalAttrs): void => {
       if (!_.isUndefined(mtResult)) {
@@ -295,6 +343,7 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
                       `${props.dataset.openVulnerabilities} vulnerabilities will be assumed`
                       : undefined
                     }
+                    isLoading={submittingRequest || submittingVerify}
                     isOpen={props.isRemediationOpen}
                     message={
                       remediationType === "request_verification" ?
@@ -303,13 +352,20 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
                     }
                     onClose={(): void => { store.dispatch(actions.closeRemediationMdl()); }}
                     onSubmit={(values: { treatmentJustification: string }): void => {
-                      const thunkDispatch: ThunkDispatch<{}, {}, AnyAction> = (
-                        store.dispatch as ThunkDispatch<{}, {}, AnyAction>
-                      );
                       if (remediationType === "request_verification") {
-                        thunkDispatch(actions.requestVerification(props.findingId, values.treatmentJustification));
+                        requestVerification({
+                          variables: {
+                            findingId: props.findingId, justification: values.treatmentJustification,
+                          },
+                        })
+                        .catch();
                       } else if (remediationType === "verify_request") {
-                        thunkDispatch(actions.verifyFinding(props.findingId, values.treatmentJustification));
+                        verifyFinding({
+                          variables: {
+                            findingId: props.findingId, justification: values.treatmentJustification,
+                          },
+                        })
+                        .catch();
                       } else {
                         const response: string = remediationType === "approve_acceptation" ? "APPROVED" : "REJECTED";
                         handleResolveAcceptation(values.treatmentJustification, response);

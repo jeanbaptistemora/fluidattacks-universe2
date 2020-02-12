@@ -22,6 +22,7 @@ import { minLength, required } from "../../../../utils/validations";
 
 export interface IAddRemediationProps {
   additionalInfo?: string;
+  isLoading: boolean;
   isOpen: boolean;
   message: string;
   title: string;
@@ -38,7 +39,7 @@ const renderFooter: ((props: formProps) => JSX.Element) =
         <Button bsStyle="default" onClick={(): void => { props.onClose(); }}>
           {translate.t("confirmmodal.cancel")}
         </Button>
-        <Button bsStyle="primary" type="submit" disabled={props.pristine || props.submitting}>
+        <Button bsStyle="primary" type="submit" disabled={props.pristine || props.submitting || props.isLoading}>
           {translate.t("confirmmodal.proceed")}
         </Button>
       </ButtonToolbar>

@@ -16,3 +16,15 @@ export interface IHistoricTreatment {
   treatment: string;
   user: string;
 }
+
+export interface IVerifyFindingResult {
+  verifyFinding: {
+    success: boolean;
+  };
+}
+
+export interface IRequestVerificationResult {
+  requestVerification: {
+    success: boolean;
+  };
+}
