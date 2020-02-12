@@ -9,6 +9,6 @@ resource "aws_backup_plan" "integrates_backup_plan" {
   rule {
     rule_name         = "integrates-backup-rule"
     target_vault_name = aws_backup_vault.backup_vault.name
-    schedule          = "cron(0 12 * * ? *)"
+    schedule          = "cron(0 0 * * ? *)"
   }
 }
