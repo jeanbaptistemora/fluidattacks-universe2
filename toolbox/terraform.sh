@@ -120,9 +120,9 @@ taint_terraform() {
 
   init_terraform "$TARGET_DIR" "$BUCKET"
 
-  terraform refresh
-
   cd "$TARGET_DIR" || return 1
+
+  terraform refresh
 
   terraform taint "$MARKED_VALUE"
 
