@@ -27,8 +27,8 @@ from backend.exceptions import (
 from backend.utils import cvss, notifications, findings as finding_utils
 
 from backend.dal import (
-    integrates_dal, finding as finding_dal, project as project_dal,
-    vulnerability as vuln_dal
+    comment as comment_dal, integrates_dal, finding as finding_dal,
+    project as project_dal, vulnerability as vuln_dal
 )
 
 
@@ -445,7 +445,7 @@ def delete_comment(comment):
 
 def delete_all_comments(finding_id):
     """Delete all comments of a finding."""
-    all_comments = integrates_dal.get_comments_dynamo(int(finding_id), 'comment')
+    all_comments = comment_dal.get_comments(int(finding_id), 'comment')
     comments_deleted = [delete_comment(i) for i in all_comments]
     util.invalidate_cache(finding_id)
     return all(comments_deleted)
@@ -822,7 +822,7 @@ def mask_finding(finding_id):
         ]
     })
 
-    comments = integrates_dal.get_comments_dynamo(int(finding_id), 'comment')
+    comments = comment_dal.get_comments(int(finding_id), 'comment')
     comments_result = all([integrates_dal.delete_comment_dynamo(
         comment['finding_id'], comment['user_id']) for comment in comments])
 
