@@ -221,3 +221,10 @@ def test_has_sa_account_login_enabled_unknown(get_mock_ip):
     """Test mssql.has_sa_account_login_enabled."""
     assert mssql.has_sa_account_login_enabled(
         DBNAME, USER, PASSWORD, BAD_HOST, PORT).is_unknown()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_has_remote_access_option_enabled_unknown(get_mock_ip):
+    """Test mssql.has_remote_access_option_enabled."""
+    assert mssql.has_remote_access_option_enabled(
+        DBNAME, USER, PASSWORD, BAD_HOST, PORT).is_unknown()

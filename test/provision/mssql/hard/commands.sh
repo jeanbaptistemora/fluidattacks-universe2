@@ -68,3 +68,11 @@ GO
 ALTER DATABASE test_db_1 SET containment = PARTIAL;
 GO
 ALTER DATABASE test_db_1 SET AUTO_CLOSE OFF;"
+
+# Disbled remote access. check: has_remote_access_option_enabled
+# Server must be restarted
+execute_query"
+EXEC sp_configure 'remote access', 0 ;
+GO
+RECONFIGURE;
+GO"

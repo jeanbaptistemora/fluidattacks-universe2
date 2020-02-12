@@ -894,3 +894,51 @@ def has_sa_account_login_enabled(dbname: str, user: str, password: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
+def has_remote_access_option_enabled(dbname: str,
+                                     user: str,
+                                     password: str,
+                                     host: str,
+                                     port: int) -> Tuple:
+    """
+    Check if remote access is enabled.
+
+    The remote access option determines if connections to and from other
+    Microsoft SQL Servers are allowed. Remote connections are used to support
+    distributed queries and other data access and command executions across
+    and between remote database hosts. Remote servers and logins that are not
+    properly secured can be used to compromise the server.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+
+    :returns: - ``OPEN`` if remote access is enabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port)
+
+    msg_open: str = 'Remote access is enabled.'
+    msg_closed: str = 'Remote access is disabled.'
+
+    (vulns if _check_configuration(connection_string, 'remote access') else
+     safes).append(f'Must disable the remote access.')
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
