@@ -435,9 +435,7 @@ def save_severity(finding):
 def delete_comment(comment):
     """Delete comment."""
     if comment:
-        finding_id = comment['finding_id']
-        user_id = comment['user_id']
-        response = integrates_dal.delete_comment_dynamo(finding_id, user_id)
+        response = comment_dal.delete(comment['finding_id'], comment['user_id'])
     else:
         response = True
     return response
@@ -445,7 +443,7 @@ def delete_comment(comment):
 
 def delete_all_comments(finding_id):
     """Delete all comments of a finding."""
-    all_comments = comment_dal.get_comments(int(finding_id), 'comment')
+    all_comments = comment_dal.get_comments('comment', int(finding_id))
     comments_deleted = [delete_comment(i) for i in all_comments]
     util.invalidate_cache(finding_id)
     return all(comments_deleted)
@@ -822,9 +820,10 @@ def mask_finding(finding_id):
         ]
     })
 
-    comments = comment_dal.get_comments(int(finding_id), 'comment')
-    comments_result = all([integrates_dal.delete_comment_dynamo(
-        comment['finding_id'], comment['user_id']) for comment in comments])
+    comments = comment_dal.get_comments('comment', int(finding_id))
+    comments_result = all([
+        comment_dal.delete(comment['finding_id'], comment['user_id'])
+        for comment in comments])
 
     vulns_result = all([
         vuln_domain.mask_vuln(finding_id, vuln['UUID'])

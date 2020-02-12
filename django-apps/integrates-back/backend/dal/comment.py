@@ -22,6 +22,21 @@ def create(comment_id, comment_attributes):
     return success
 
 
+def delete(finding_id, user_id):
+    try:
+        response = TABLE.delete_item(
+            Key={
+                'finding_id': finding_id,
+                'user_id': user_id
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+        return resp
+    except ClientError:
+        rollbar.report_exc_info()
+        return False
+
+
 def get_comments(comment_type, finding_id):
     """Get comments of the given finding"""
     key_exp = Key('finding_id').eq(finding_id)

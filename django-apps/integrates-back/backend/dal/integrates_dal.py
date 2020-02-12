@@ -35,23 +35,6 @@ def add_finding_comment_dynamo(finding_id, email, comment_data):
         return False
 
 
-def delete_comment_dynamo(finding_id, user_id):
-    """ Delete a comment in a finding. """
-    table = DYNAMODB_RESOURCE.Table('FI_comments')
-    try:
-        response = table.delete_item(
-            Key={
-                'finding_id': finding_id,
-                'user_id': user_id
-            }
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
-    except ClientError:
-        rollbar.report_exc_info()
-        return False
-
-
 def remove_role_to_project_dynamo(project_name, user_email, role):
     """Remove user role in a project."""
     table = DYNAMODB_RESOURCE.Table('FI_projects')
