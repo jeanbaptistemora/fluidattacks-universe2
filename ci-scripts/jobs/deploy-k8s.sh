@@ -78,7 +78,7 @@ deploy_k8s() {
   aws_login "$ENV_NAME"
 
   sops_env "secrets-$ENV_NAME.yaml" default \
-    ROLLBAR_TOKEN \
+    ROLLBAR_ACCESS_TOKEN \
     NEW_RELIC_API_KEY \
     NEW_RELIC_APP_ID
 
@@ -102,7 +102,7 @@ deploy_k8s() {
   fi
 
   curl https://api.rollbar.com/api/1/deploy/ \
-    -F access_token="$ROLLBAR_TOKEN" \
+    -F access_token="$ROLLBAR_ACCESS_TOKEN" \
     -F environment="$ENV_NAME" \
     -F revision="$CI_COMMIT_SHA" \
     -F local_username="$CI_COMMIT_REF_NAME"
