@@ -18,12 +18,11 @@ from backend import util
 from backend.dal import (
     integrates_dal, project as project_dal, resources as resources_dal
 )
-from backend.domain import user as user_domain
 from backend.exceptions import InvalidFileSize
 from backend.mailer import send_mail_resources
 
 from __init__ import (FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY,
-                      FI_CLOUDFRONT_RESOURCES_DOMAIN)
+                      FI_CLOUDFRONT_RESOURCES_DOMAIN, FI_MAIL_RESOURCERS)
 
 
 def rsa_signer(message):
@@ -64,9 +63,9 @@ def format_resource(resource_list, resource_type):
 
 
 def send_mail(project_name, user_email, resource_list, action, resource_type):
-    mail_to = project_dal.get_users(project_name.lower(), active=True)
-    admins = user_domain.get_admins()
-    mail_to += admins
+    recipients = project_dal.list_project_managers(project_name)
+    recipients.append(user_email)
+    recipients += FI_MAIL_RESOURCERS.split(',')
     resource_description = format_resource(resource_list, resource_type)
     if resource_type == 'repository' and len(resource_list) > 1:
         resource_type = 'repositories'
@@ -87,7 +86,7 @@ def send_mail(project_name, user_email, resource_list, action, resource_type):
     }
     threading.Thread(name='Remove repositories email thread',
                      target=send_mail_resources,
-                     args=(mail_to, context,)).start()
+                     args=(recipients, context,)).start()
 
 
 def validate_file_size(uploaded_file, file_size):
