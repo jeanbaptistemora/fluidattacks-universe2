@@ -152,6 +152,31 @@ function job_infra_aws_sso_deploy {
         fluidattacks-terraform-states-prod
 }
 
+function job_infra_eks_setup {
+      echo '[INFO] This is a work in progress! this may fail' \
+  &&  . services/eks-cluster/kubectl-setup/kubectl-setup.sh \
+  &&  . services/eks-cluster/helm/installation/deploy-helm.sh \
+  &&  kubectl_setup \
+  &&  deploy_helm
+}
+
+function job_infra_eks_test {
+      echo '[INFO] This is a work in progress! this may fail' \
+  &&  helper_terraform_init \
+        services/eks/terraform \
+        fluidattacks-terraform-states-prod \
+  &&  helper_terraform_plan \
+        services/eks/terraform \
+        fluidattacks-terraform-states-prod
+}
+
+function job_infra_eks_deploy {
+      echo '[INFO] This is a work in progress! this may fail' \
+  &&  helper_terraform_apply \
+        services/eks/terraform \
+        fluidattacks-terraform-states-prod
+}
+
 function job_infra_fluid_vpc_test {
       helper_terraform_init \
         services/fluid-vpc/terraform \

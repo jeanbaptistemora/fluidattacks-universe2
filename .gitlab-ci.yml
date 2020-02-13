@@ -110,6 +110,21 @@ infra_aws_sso_deploy:
   <<: *in_master_branch
   stage: deploy
 
+.infra_fluid_eks_test:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
+.infra_fluid_eks_deploy:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy
+
+.infra_fluid_eks_setup:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: eks-initial-setup
+
 infra_fluid_vpc_test:
   <<: *with_nix
   <<: *in_dev_branch
@@ -461,52 +476,6 @@ analytics-sync-zoho:
   only:
     variables:
       - $FLAG_SYNC_ZOHO
-
-.eks-initial-setup:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: eks-initial-setup
-  script:
-    - . ci-scripts/jobs/eks.sh
-    - eks_initial_setup
-  only:
-    - master
-  except:
-    - schedules
-
-.eks-terraform-apply:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: deploy
-  script:
-    - . ci-scripts/jobs/eks.sh
-    - eks_terraform_apply
-  only:
-    - master
-  except:
-    - schedules
-
-.eks-terraform-lint:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - . ci-scripts/jobs/eks.sh
-    - eks_terraform_lint
-  except:
-    - schedules
-
-.eks-terraform-plan:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - . ci-scripts/jobs/eks.sh
-    - eks_terraform_plan
-  except:
-    - schedules
 
 terraform-states-bucket:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
