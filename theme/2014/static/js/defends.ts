@@ -16,7 +16,7 @@ for (i = 0; i < defendscat.length; i += 1) {
     const defendspanel: HTMLElement = (event.currentTarget as HTMLElement).nextElementSibling as HTMLElement;
     // tslint:disable-next-line: strict-boolean-expressions
     defendspanel.style.maxHeight ? defendspanel.style.maxHeight = "" :
-    defendspanel.style.maxHeight = "fit-content";
+    defendspanel.style.maxHeight = "max-content";
   });
 }
 
