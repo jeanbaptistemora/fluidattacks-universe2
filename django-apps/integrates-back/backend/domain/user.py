@@ -6,14 +6,14 @@ from backend.dal import project as project_dal, user as user_dal
 
 def add_phone_to_user(email, phone):
     """ Update user phone number. """
-    return user_dal.update_user_attribute(email, phone, 'phone')
+    return user_dal.update(email, {'phone': phone})
 
 
 def assign_role(email, role):
     if role not in ('analyst', 'customer', 'admin', 'customeradmin'):
         resp = False
     else:
-        resp = update_user_attribute(email, role, 'role')
+        resp = user_dal.update(email, {'role': role})
     return resp
 
 
@@ -93,7 +93,7 @@ def logging_users_report(company_name, init_date, finish_date):
 
 
 def register(email):
-    return user_dal.update_user_attribute(email, True, 'registered')
+    return user_dal.update(email, {'registered': True})
 
 
 def remove_access_token(email):
@@ -107,7 +107,7 @@ def remove_user(email):
 
 def update_legal_remember(email, remember):
     """ Remember legal notice acceptance """
-    return user_dal.update_user_attribute(email, remember, 'legal_remember')
+    return user_dal.update(email, {'legal_remember': remember})
 
 
 def update_access_token(email, token_data):
@@ -117,11 +117,11 @@ def update_access_token(email, token_data):
         'jti': token_data['jti_hashed'],
         'salt': token_data['salt']
     }
-    return user_dal.update_user_attribute(email, access_token, 'access_token')
+    return user_dal.update(email, {'access_token': access_token})
 
 
 def update_last_login(email):
-    return update_user_attribute(str(email), get_current_date(), 'last_login')
+    return user_dal.update(str(email), {'last_login': get_current_date()})
 
 
 def update_project_access(email, project_name, access):
@@ -132,5 +132,9 @@ def update_multiple_user_attributes(email, data_dict):
     return user_dal.update(email, data_dict)
 
 
-def update_user_attribute(email, data_attr, name_attr):
-    return user_dal.update_user_attribute(email, data_attr, name_attr)
+def create(email, data):
+    return user_dal.create(email, data)
+
+
+def update(email, data_attr, name_attr):
+    return user_dal.update(email, {name_attr: data_attr})

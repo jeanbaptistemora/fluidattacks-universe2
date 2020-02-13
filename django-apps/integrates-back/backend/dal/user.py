@@ -86,6 +86,18 @@ def remove_user_attribute(email, name_attribute):
         TABLE, primary_key, name_attribute)
 
 
+def create(email, data):
+    resp = False
+    table = DYNAMODB_RESOURCE.Table(TABLE)
+    try:
+        data.update({'email': email})
+        response = table.put_item(Item=data)
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError:
+        rollbar.report_exc_info()
+    return resp
+
+
 def update(email, data):
     success = False
     primary_key = {'email': email.lower()}
@@ -102,25 +114,25 @@ def update(email, data):
             del data[attr]
 
         if data:
-            attributes = ['{attr} = :{attr}'.format(attr=attr) for attr in data]
-            values = {':{}'.format(attr): data[attr] for attr in data}
-
-            response = table.update_item(
-                Key=primary_key,
-                UpdateExpression='SET {}'.format(','.join(attributes)),
-                ExpressionAttributeValues=values)
-            success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+            for attr in data:
+                response = table.update_item(
+                    Key=primary_key,
+                    UpdateExpression='SET #attrName = :val1',
+                    ExpressionAttributeNames={
+                        '#attrName': attr
+                    },
+                    ExpressionAttributeValues={
+                        ':val1': data[attr]
+                    }
+                )
+                success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+                if not success:
+                    break
     except ClientError as ex:
         rollbar.report_message('Error: Couldn\'nt update user',
                                'error', extra_data=ex, payload_data=locals())
 
     return success
-
-
-def update_user_attribute(email, data_attribute, name_attribute):
-    primary_key = ['email', email.lower()]
-    return integrates_dal.add_attribute_dynamo(
-        TABLE, primary_key, name_attribute, data_attribute)
 
 
 def get_projects(user_email, active):

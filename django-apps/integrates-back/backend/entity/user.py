@@ -175,8 +175,7 @@ class GrantUserAccess(Mutation):
                 and new_user_data['role'] in ['admin', 'analyst', 'customer', 'customeradmin']) \
             or (is_customeradmin(project_name, user_data['user_email'])
                 and new_user_data['role'] in ['customer', 'customeradmin']):
-            if create_new_user(info.context, new_user_data,
-                               project_name):
+            if create_new_user(info.context, new_user_data, project_name):
                 success = True
             else:
                 rollbar.report_message('Error: Couldn\'t grant access to project',
@@ -238,14 +237,13 @@ def create_new_user(context, new_user_data, project_name):
     success = False
 
     if not user_domain.get_data(email, 'email'):
-        user_domain.update_multiple_user_attributes(
+        user_domain.create(
             email.lower(), {'company': organization.lower(),
                             'phone': phone_number})
     if not user_domain.is_registered(email):
         user_domain.register(email)
         user_domain.assign_role(email, role)
-        user_domain.update_user_attribute(
-            email, organization.lower(), 'company')
+        user_domain.update(email, organization.lower(), 'company')
     elif user_domain.is_registered(email):
         user_domain.assign_role(email, role)
     if project_name and responsibility and len(responsibility) <= 50:
@@ -396,7 +394,7 @@ def modify_user_information(context, modified_user_data, project_name):
     responsibility = modified_user_data['responsibility']
     phone = modified_user_data['phone_number']
     organization = modified_user_data['organization']
-    user_domain.update_user_attribute(email, organization.lower(), 'company')
+    user_domain.update(email, organization.lower(), 'company')
     if responsibility and len(responsibility) <= 50:
         project_domain.add_access(email, project_name, 'responsibility', responsibility)
     else:
