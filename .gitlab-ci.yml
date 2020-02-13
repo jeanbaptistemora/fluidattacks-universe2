@@ -140,6 +140,21 @@ user_provision_continuous_prod_rotate_keys:
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
 
+user_provision_integrates_dev_test:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
+user_provision_integrates_dev_deploy:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy
+
+user_provision_integrates_dev_rotate_keys:
+  <<: *with_nix
+  <<: *in_schedule_user_provision_rotate_keys
+  stage: rotation
+
 build-builder:
   image: fluidattacks/docker-bash:latest
   tags: [autoscaling]
@@ -221,17 +236,6 @@ change-keys-aws-integrates-prod:
   script:
     - . ci-scripts/jobs/user-provision-integrates-prod.sh
     - user_provision_integrates_prod_rotate_aws
-  <<: *in_schedules
-  <<: *except_analytics
-  when: always
-
-change-keys-aws-integrates-dev:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: rotation
-  script:
-    - . ci-scripts/jobs/user-provision-integrates-dev.sh
-    - user_provision_integrates_dev_rotate_aws
   <<: *in_schedules
   <<: *except_analytics
   when: always
@@ -554,40 +558,6 @@ user-provision-integrates-prod-terraform-apply:
   script:
     - . ci-scripts/jobs/user-provision-integrates-prod.sh
     - user_provision_integrates_prod_terraform_apply
-  only:
-    - master
-  except:
-    - schedules
-
-user-provision-integrates-dev-terraform-lint:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - . ci-scripts/jobs/user-provision-integrates-dev.sh
-    - user_provision_integrates_dev_terraform_lint
-  except:
-    - schedules
-
-user-provision-integrates-dev-terraform-plan:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - . ci-scripts/jobs/user-provision-integrates-dev.sh
-    - user_provision_integrates_dev_terraform_plan
-  except:
-    - schedules
-
-user-provision-integrates-dev-terraform-apply:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: deploy
-  script:
-    - . ci-scripts/jobs/user-provision-integrates-dev.sh
-    - user_provision_integrates_dev_terraform_apply
   only:
     - master
   except:
