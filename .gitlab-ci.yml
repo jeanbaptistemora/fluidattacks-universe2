@@ -80,6 +80,36 @@ deploy_nix_docker_images:
     - ./build/modules/docker/build.sh
   stage: deploy
 
+infra_analytics_test:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
+infra_analytics_deploy:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy
+
+infra_autoscaling_ci_test:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
+infra_autoscaling_ci_deploy:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy
+
+infra_aws_sso_test:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
+infra_aws_sso_deploy:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy
+
 infra_monolith_test:
   <<: *with_nix
   <<: *in_dev_branch
@@ -498,40 +528,6 @@ sops-terraform-apply:
   script:
     - . ci-scripts/jobs/sops.sh
     - sops_terraform_apply
-  only:
-    - master
-  except:
-    - schedules
-
-analytics-terraform-lint:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - . ci-scripts/jobs/analytics.sh
-    - analytics_terraform_lint
-  except:
-    - schedules
-
-analytics-terraform-plan:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - . ci-scripts/jobs/analytics.sh
-    - analytics_terraform_plan
-  except:
-    - schedules
-
-analytics-terraform-apply:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: deploy
-  script:
-    - . ci-scripts/jobs/analytics.sh
-    - analytics_terraform_apply
   only:
     - master
   except:

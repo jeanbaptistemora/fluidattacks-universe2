@@ -107,6 +107,21 @@ function job_lint_code {
   && prospector --profile .prospector.yml .
 }
 
+function job_infra_analytics_test {
+      helper_terraform_init \
+        services/analytics/terraform \
+        fluidattacks-terraform-states-prod \
+  &&  helper_terraform_plan \
+        services/analytics/terraform \
+        fluidattacks-terraform-states-prod
+}
+
+function job_infra_analytics_deploy {
+      helper_terraform_apply \
+        services/analytics/terraform \
+        fluidattacks-terraform-states-prod
+}
+
 function job_infra_autoscaling_ci_test {
       helper_terraform_init \
         services/autoscaling-ci/terraform \
@@ -119,6 +134,21 @@ function job_infra_autoscaling_ci_test {
 function job_infra_autoscaling_ci_deploy {
       helper_terraform_apply \
         services/autoscaling-ci/terraform \
+        fluidattacks-terraform-states-prod
+}
+
+function job_infra_aws_sso_test {
+      helper_terraform_init \
+        services/aws-sso/terraform \
+        fluidattacks-terraform-states-prod \
+  &&  helper_terraform_plan \
+        services/aws-sso/terraform \
+        fluidattacks-terraform-states-prod
+}
+
+function job_infra_aws_sso_deploy {
+      helper_terraform_apply \
+        services/aws-sso/terraform \
         fluidattacks-terraform-states-prod
 }
 
@@ -235,21 +265,6 @@ function job_infra_monolith_test {
 
 function job_infra_monolith_deploy {
   _job_infra_monolith 'deploy'
-}
-
-function job_infra_aws_sso_test {
-      helper_terraform_init \
-        services/aws-sso/terraform \
-        fluidattacks-terraform-states-prod \
-  &&  helper_terraform_plan \
-        services/aws-sso/terraform \
-        fluidattacks-terraform-states-prod
-}
-
-function job_infra_aws_sso_deploy {
-      helper_terraform_apply \
-        services/aws-sso/terraform \
-        fluidattacks-terraform-states-prod
 }
 
 function job_send_new_version_email {
