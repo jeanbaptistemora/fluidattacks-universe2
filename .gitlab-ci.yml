@@ -503,40 +503,6 @@ sops-terraform-apply:
   except:
     - schedules
 
-aws-sso-terraform-lint:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - . ci-scripts/jobs/aws-sso.sh
-    - aws_sso_terraform_lint
-  except:
-    - schedules
-
-aws-sso-terraform-plan:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - . ci-scripts/jobs/aws-sso.sh
-    - aws_sso_terraform_plan
-  except:
-    - schedules
-
-aws-sso-terraform-apply:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: deploy
-  script:
-    - . ci-scripts/jobs/aws-sso.sh
-    - aws_sso_terraform_apply
-  only:
-    - master
-  except:
-    - schedules
-
 analytics-terraform-lint:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]

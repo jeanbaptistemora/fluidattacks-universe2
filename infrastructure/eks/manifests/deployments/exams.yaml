@@ -4,7 +4,7 @@ metadata:
   name: exams
   namespace: serves
   annotations:
-    kubernetes.io/change-cause: "Exams deployment from Serves on $DATE"
+    kubernetes.io/change-cause: "Exams deployment from Serves on $date"
 spec:
   minReadySeconds: 15
   replicas: 1
@@ -23,7 +23,7 @@ spec:
         imagePullPolicy: Always
         env:
           - name: DEPLOYMENT_DATE
-            value: "$DATE"
+            value: "$date"
         ports:
         - containerPort: 80
         readinessProbe:

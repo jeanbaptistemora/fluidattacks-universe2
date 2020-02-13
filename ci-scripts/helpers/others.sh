@@ -13,21 +13,21 @@ deploy_integrates() {
   local BUCKET
   local TMP_AWS_ACCESS_KEY_ID
   local TMP_AWS_SECRET_ACCESS_KEY
-  local B64_AWS_ACCESS_KEY_ID
-  local B64_AWS_SECRET_ACCESS_KEY
+  local b64_aws_access_key_id
+  local b64_aws_secret_access_key
 
   BUCKET="fluidattacks-terraform-states-prod"
   TERRAFORM_DIR="services/user-provision-integrates/integrates-prod/terraform"
   TMP_AWS_ACCESS_KEY_ID="$(output_terraform $TERRAFORM_DIR "${BUCKET}" integrates-prod-secret-key-id)"
   TMP_AWS_SECRET_ACCESS_KEY="$(output_terraform $TERRAFORM_DIR "${BUCKET}" integrates-prod-secret-key)"
-  B64_AWS_ACCESS_KEY_ID="$(echo -n "$TMP_AWS_ACCESS_KEY_ID" | base64)"
-  B64_AWS_SECRET_ACCESS_KEY="$(echo -n "$TMP_AWS_SECRET_ACCESS_KEY" | base64)"
+  b64_aws_access_key_id="$(echo -n "$TMP_AWS_ACCESS_KEY_ID" | base64)"
+  b64_aws_secret_access_key="$(echo -n "$TMP_AWS_SECRET_ACCESS_KEY" | base64)"
 
-  sed -i "s/\$B64_AWS_ACCESS_KEY_ID/$B64_AWS_ACCESS_KEY_ID/g" \
+  sed -i "s/\$b64_aws_access_key_id/$b64_aws_access_key_id/g" \
     infrastructure/eks/manifests/deployments/integrates-app.yaml
-  sed -i "s/\$B64_AWS_SECRET_ACCESS_KEY/$B64_AWS_SECRET_ACCESS_KEY/g" \
+  sed -i "s/\$b64_aws_secret_access_key/$b64_aws_secret_access_key/g" \
     infrastructure/eks/manifests/deployments/integrates-app.yaml
-  sed -i "s/\$DATE/$(date)/g" \
+  sed -i "s/\$date/$(date)/g" \
     infrastructure/eks/manifests/deployments/*.yaml
 
   aws eks update-kubeconfig --name FluidServes --region us-east-1

@@ -16,7 +16,7 @@ function _job_deploy_integrates {
   local terraform_dir="services/user-provision-integrates/integrates-prod/terraform"
 
       echo '[INFO] Deploying Integrates app: adding date' \
-  &&  sed -i "s/\$DATE/$(date)/g" \
+  &&  sed -i "s/\$date/$(date)/g" \
         infrastructure/eks/manifests/deployments/*.yaml \
   &&  echo '[INFO] Deploying Integrates app: computing AWS keys' \
   &&  temp_aws_access_key_id=$( \
@@ -235,6 +235,21 @@ function job_infra_monolith_test {
 
 function job_infra_monolith_deploy {
   _job_infra_monolith 'deploy'
+}
+
+function job_infra_aws_sso_test {
+      helper_terraform_init \
+        services/aws-sso/terraform \
+        fluidattacks-terraform-states-prod \
+  &&  helper_terraform_plan \
+        services/aws-sso/terraform \
+        fluidattacks-terraform-states-prod
+}
+
+function job_infra_aws_sso_deploy {
+      helper_terraform_apply \
+        services/aws-sso/terraform \
+        fluidattacks-terraform-states-prod
 }
 
 function job_send_new_version_email {

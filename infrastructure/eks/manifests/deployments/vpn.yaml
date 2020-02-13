@@ -4,7 +4,7 @@ metadata:
   name: vpn
   namespace: serves
   annotations:
-    kubernetes.io/change-cause: "VPN deployment from Serves on $DATE"
+    kubernetes.io/change-cause: "VPN deployment from Serves on $date"
 spec:
   minReadySeconds: 5
   replicas: 1
@@ -23,7 +23,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: DEPLOYMENT_DATE
-          value: "$DATE"
+          value: "$date"
         ports:
         - containerPort: 443
         securityContext:
