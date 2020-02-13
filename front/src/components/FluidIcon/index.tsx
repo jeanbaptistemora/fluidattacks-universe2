@@ -99,7 +99,12 @@ const getIcon: { [value: string]: string } = {
 
 const fluidIcon: React.FunctionComponent<IFluidIconProps> = (props: IFluidIconProps): JSX.Element => {
   const setStyles: ((svg: Element) => void) = (svg: Element): void => {
-    svg.setAttribute("style", `heigth: ${props.height}, width: ${props.width}`);
+    if (props.height !== undefined) {
+      svg.setAttribute("heigth", props.height);
+    }
+    if (props.width !== undefined) {
+      svg.setAttribute("width", props.width);
+    }
   };
 
   return (
