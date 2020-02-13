@@ -10,6 +10,7 @@ import { MutationFunction, MutationResult } from "@apollo/react-common";
 import { Mutation } from "@apollo/react-components";
 import { useMutation } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
@@ -265,8 +266,14 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
       }
     },
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
-      rollbar.error(error.message, error);
+      error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        if (message === "Exception - Request verification already requested") {
+          msgError(translate.t("proj_alerts.verification_already_requested"));
+        } else {
+          msgError(translate.t("proj_alerts.error_textsad"));
+          rollbar.error(error.message, error);
+        }
+      });
     },
   });
 
@@ -286,8 +293,14 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
       }
     },
     onError: (error: ApolloError): void => {
-      msgError(translate.t("proj_alerts.error_textsad"));
-      rollbar.error(error.message, error);
+      error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        if (message === "Exception - Error verification not requested") {
+          msgError(translate.t("proj_alerts.no_verification_requested"));
+        } else {
+          msgError(translate.t("proj_alerts.error_textsad"));
+          rollbar.error(error.message, error);
+        }
+      });
     },
   });
 

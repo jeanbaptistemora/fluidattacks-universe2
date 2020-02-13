@@ -97,6 +97,7 @@ const enTranslations: Dictionary = {
     updated: "Updated",
     updated_title: "Correct!",
     value: "Value",
+    verification_already_requested: "Verification already requested",
     verified_success: "This finding was marked as verified.",
   },
   project: {
