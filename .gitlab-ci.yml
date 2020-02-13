@@ -75,7 +75,12 @@ stages:
       - $FLAG_SYNC_CONTINUOUS
       - $FLAG_SYNC_ZOHO
 
-deploy_exams_docker_image:
+deploy_docker_image_exams:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch
+  stage: build
+
+deploy_docker_image_vpn:
   <<: *with_nix
   <<: *in_dev_and_master_branch
   stage: build
@@ -267,14 +272,6 @@ build-builder:
   stage: build
   script:
     - ./ci-scripts/jobs/build-builder.sh
-  <<: *except_analytics
-
-build-vpn:
-  image: fluidattacks/docker-bash:latest
-  tags: [autoscaling]
-  stage: build
-  script:
-    - ./ci-scripts/jobs/build-vpn.sh
   <<: *except_analytics
 
 commitlint:

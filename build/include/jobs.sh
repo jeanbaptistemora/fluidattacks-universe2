@@ -5,10 +5,26 @@ source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 source "${srcDotDotToolboxOthers}"
 
-function job_deploy_exams_docker_image {
+function job_deploy_docker_image_exams {
   local tag="registry.gitlab.com/fluidattacks/serves/exams:${CI_COMMIT_REF_NAME}"
   local context='containers/exams'
   local dockerfile='containers/exams/Dockerfile'
+
+      aws_login \
+  &&  sops_env 'secrets-prod.yaml' 'default' \
+        ANSIBLE_VAULT \
+  &&  build_arg_1='ANSIBLE_VAULT' \
+  &&  helper_docker_build_and_push \
+        "${tag}" \
+        "${context}" \
+        "${dockerfile}" \
+        "${build_arg_1}" "${!build_arg_1}"
+}
+
+function job_deploy_docker_image_vpn {
+  local tag="registry.gitlab.com/fluidattacks/serves/vpn:${CI_COMMIT_REF_NAME}"
+  local context='containers/vpn'
+  local dockerfile='containers/vpn/Dockerfile'
 
       aws_login \
   &&  sops_env 'secrets-prod.yaml' 'default' \
