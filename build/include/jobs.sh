@@ -198,6 +198,46 @@ function job_send_new_version_email {
   &&  python "${source_file}"
 }
 
+function job_user_provision_continuous_dev_test {
+      helper_terraform_init \
+        services/user-provision-continuous/continuous-dev/terraform \
+        fluidattacks-terraform-states-dev \
+  &&  helper_terraform_plan \
+        services/user-provision-continuous/continuous-dev/terraform \
+        fluidattacks-terraform-states-dev
+}
+
+function job_user_provision_continuous_dev_deploy {
+      helper_terraform_apply \
+        services/user-provision-continuous/continuous-dev/terraform \
+        fluidattacks-terraform-states-dev
+}
+
+function job_user_provision_continuous_dev_rotate_keys {
+  local terraform_dir='services/user-provision-continuous/continuous-dev/terraform'
+  local bucket='fluidattacks-terraform-states-dev'
+  local resource_to_taint='aws_iam_access_key.continuous-dev-key'
+  local output_key_id_name='continuous-dev-secret-key-id'
+  local output_secret_key_name='continuous-dev-secret-key'
+  local gitlab_repo_id='4603023'
+  local gitlab_key_id_name='DEV_AWS_ACCESS_KEY_ID'
+  local gitlab_secret_key_name='DEV_AWS_SECRET_ACCESS_KEY'
+  local gitlab_masked='true'
+  local gitlab_protected='false'
+
+      helper_user_provision_rotate_keys \
+        "${terraform_dir}" \
+        "${bucket}" \
+        "${resource_to_taint}" \
+        "${output_key_id_name}" \
+        "${output_secret_key_name}" \
+        "${gitlab_repo_id}" \
+        "${gitlab_key_id_name}" \
+        "${gitlab_secret_key_name}" \
+        "${gitlab_masked}" \
+        "${gitlab_protected}"
+}
+
 function job_user_provision_continuous_prod_test {
       helper_terraform_init \
         services/user-provision-continuous/continuous-prod/terraform \

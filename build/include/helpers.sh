@@ -115,11 +115,11 @@ function helper_terraform_output {
   local bucket="${2}"
   local output_name="${3}"
 
-      helper_terraform_init "${target_dir}" "${bucket}" \
-  &&  pushd "${target_dir}" \
-    &&  echo "[INFO] Running terraform output: ${output_name}" \
+      helper_terraform_init "${target_dir}" "${bucket}" 1>&2 \
+  &&  pushd "${target_dir}" 1>&2 \
+    &&  echo "[INFO] Running terraform output: ${output_name}" 1>&2 \
     &&  terraform output "${output_name}" \
-  &&  popd
+  &&  popd 1>&2
 }
 
 function helper_user_provision_rotate_keys {
