@@ -230,25 +230,6 @@ def delete_item(table_name, primary_keys):
         return False
 
 
-def remove_attr_dynamo(table_name, primary_keys, attr_name):
-    """ Remove given attribute """
-
-    table = DYNAMODB_RESOURCE.Table(table_name)
-    try:
-        response = table.update_item(
-            Key=primary_keys,
-            UpdateExpression='REMOVE #attrName',
-            ExpressionAttributeNames={
-                '#attrName': attr_name
-            }
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
-    except ClientError:
-        rollbar.report_exc_info()
-        return False
-
-
 def remove_set_element_dynamo(table_name, primary_keys, set_name, set_element):
     """Remove a element from a set."""
     table = DYNAMODB_RESOURCE.Table(table_name)

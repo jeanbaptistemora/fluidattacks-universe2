@@ -81,9 +81,7 @@ def remove_user(email):
 
 
 def remove_user_attribute(email, name_attribute):
-    primary_key = {'email': email.lower()}
-    return integrates_dal.remove_attr_dynamo(
-        TABLE, primary_key, name_attribute)
+    return update(email.lower(), {name_attribute: None})
 
 
 def create(email, data):
