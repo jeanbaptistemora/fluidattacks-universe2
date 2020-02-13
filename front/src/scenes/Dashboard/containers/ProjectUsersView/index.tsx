@@ -304,7 +304,7 @@ const projectUsersView: React.FC<IProjectUsersViewProps> = (props: IProjectUsers
                                         variables: {
                                           email: String(values.email),
                                           organization: String(values.organization),
-                                          phoneNumber: String(values.phoneNumber),
+                                          phoneNumber: values.phoneNumber,
                                           projectName,
                                           responsibility: String(values.responsibility),
                                           role: String(values.role),

@@ -135,8 +135,8 @@ const renderFormContent: ((props: IAddUserModalProps) => JSX.Element) =
             </FormGroup>
           : undefined}
           <FormGroup>
-            <ControlLabel>{requiredIndicator}{translate.t("search_findings.tab_users.phone_number")}</ControlLabel>
-            <Field name="phoneNumber" component={phoneNumberField} type="text" validate={[required]}/>
+            <ControlLabel>{translate.t("search_findings.tab_users.phone_number")}</ControlLabel>
+            <Field name="phoneNumber" component={phoneNumberField} type="text"/>
           </FormGroup>
           </Col>
           <Col md={12} sm={12}>

@@ -168,7 +168,7 @@ class GrantUserAccess(Mutation):
             'organization': query_args.get('organization'),
             'responsibility': query_args.get('responsibility', '-'),
             'role': query_args.get('role'),
-            'phone_number': query_args.get('phone_number')
+            'phone_number': query_args.get('phone_number', '')
         }
 
         if (role == 'admin'
