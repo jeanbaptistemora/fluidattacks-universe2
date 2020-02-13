@@ -152,6 +152,21 @@ function job_infra_aws_sso_deploy {
         fluidattacks-terraform-states-prod
 }
 
+function job_infra_fluid_vpc_test {
+      helper_terraform_init \
+        services/fluid-vpc/terraform \
+        fluidattacks-terraform-states-prod \
+  &&  helper_terraform_plan \
+        services/fluid-vpc/terraform \
+        fluidattacks-terraform-states-prod
+}
+
+function job_infra_fluid_vpc_deploy {
+      helper_terraform_apply \
+        services/fluid-vpc/terraform \
+        fluidattacks-terraform-states-prod
+}
+
 function _job_infra_monolith {
   export TF_VAR_elbDns
   export TF_VAR_elbZone

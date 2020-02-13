@@ -110,6 +110,16 @@ infra_aws_sso_deploy:
   <<: *in_master_branch
   stage: deploy
 
+infra_fluid_vpc_test:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
+infra_fluid_vpc_deploy:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy
+
 infra_monolith_test:
   <<: *with_nix
   <<: *in_dev_branch
@@ -504,40 +514,6 @@ terraform-states-bucket:
   stage: terraform-backend
   script:
     - ./ci-scripts/jobs/terraform-states-bucket.sh
-  only:
-    - master
-  except:
-    - schedules
-
-fluid-vpc-terraform-lint:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - . ci-scripts/jobs/fluid-vpc.sh
-    - fluid_vpc_terraform_lint
-  except:
-    - schedules
-
-fluid-vpc-terraform-plan:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - . ci-scripts/jobs/fluid-vpc.sh
-    - fluid_vpc_terraform_plan
-  except:
-    - schedules
-
-fluid-vpc-terraform-apply:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: deploy
-  script:
-    - . ci-scripts/jobs/fluid-vpc.sh
-    - fluid_vpc_terraform_apply
   only:
     - master
   except:
