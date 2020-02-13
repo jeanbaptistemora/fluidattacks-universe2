@@ -16,6 +16,12 @@ stages:
       - triggers
       - schedules
 
+.in_dev_and_master_branch: &in_dev_and_master_branch
+  except:
+    refs:
+      - triggers
+      - schedules
+
 .in_master_branch: &in_master_branch
   only:
     refs:
@@ -68,6 +74,11 @@ stages:
       - $FLAG_SYNC_GITLAB
       - $FLAG_SYNC_CONTINUOUS
       - $FLAG_SYNC_ZOHO
+
+deploy_exams_docker_image:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch
+  stage: build
 
 deploy_nix_docker_images:
   <<: *with_nix
@@ -256,14 +267,6 @@ build-builder:
   stage: build
   script:
     - ./ci-scripts/jobs/build-builder.sh
-  <<: *except_analytics
-
-build-exams:
-  image: fluidattacks/docker-bash:latest
-  tags: [autoscaling]
-  stage: build
-  script:
-    - ./ci-scripts/jobs/build-exams.sh
   <<: *except_analytics
 
 build-vpn:
