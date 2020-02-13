@@ -6,6 +6,7 @@ export const commonConfig: webpack.Configuration = {
     defends: "./static/js/defends.ts",
     dynClasses: "./static/js/dynClasses.ts",
     faqContent: "./static/js/faqContent.ts",
+    rules: "./static/js/rules.ts",
   },
   module: {
     rules: [
