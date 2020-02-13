@@ -45,11 +45,12 @@ function prepare_python_packages {
 }
 
 function prepare_workdir {
-  export WORKDIR
+  export WORKDIR="${PWD}.ephemeral"
   export STARTDIR="${PWD}"
 
       echo '[INFO] Creating a pristine workdir' \
-  &&  WORKDIR=$(mktemp -d) \
+  &&  rm -rf "${WORKDIR}" \
+  &&  mkdir -p "${WORKDIR}" \
   &&  echo '[INFO] Copying files to workdir' \
   &&  cp -r "${STARTDIR}/." "${WORKDIR}" \
   &&  echo '[INFO] Entering the workdir' \

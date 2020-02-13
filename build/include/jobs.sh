@@ -5,6 +5,59 @@ source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 source "${srcDotDotToolboxOthers}"
 
+function _job_deploy_integrates {
+  local bucket="fluidattacks-terraform-states-prod"
+  local b64_aws_access_key_id
+  local b64_aws_secret_access_key
+  local output_key_id_name='integrates-prod-secret-key-id'
+  local output_secret_key_name='integrates-prod-secret-key'
+  local temp_aws_access_key_id
+  local temp_aws_secret_access_key
+  local terraform_dir="services/user-provision-integrates/integrates-prod/terraform"
+
+      echo '[INFO] Deploying Integrates app: adding date' \
+  &&  sed -i "s/\$DATE/$(date)/g" \
+        infrastructure/eks/manifests/deployments/*.yaml \
+  &&  echo '[INFO] Deploying Integrates app: computing AWS keys' \
+  &&  temp_aws_access_key_id=$( \
+        helper_terraform_output \
+          "${terraform_dir}" \
+          "${bucket}" \
+          "${output_key_id_name}") \
+  &&  temp_aws_secret_access_key=$( \
+        helper_terraform_output \
+          "${terraform_dir}" \
+          "${bucket}" \
+          "${output_key_id_name}") \
+  &&  b64_aws_access_key_id=$( \
+        echo -n "${temp_aws_access_key_id}" | base64) \
+  &&  b64_aws_secret_access_key=$( \
+        echo -n "${temp_aws_secret_access_key}" | base64) \
+  &&  echo '[INFO] Deploying Integrates app: adding AWS keys to manifest' \
+  &&  sed -i "s/\$b64_aws_access_key_id/${b64_aws_access_key_id}/g" \
+        infrastructure/eks/manifests/deployments/integrates-app.yaml \
+  &&  sed -i "s/\$b64_aws_secret_access_key/${b64_aws_secret_access_key}/g" \
+        infrastructure/eks/manifests/deployments/integrates-app.yaml \
+  &&  echo '[INFO] Deploying Integrates app: configuring kubeconfig and namespace' \
+  &&  aws eks update-kubeconfig --name 'FluidServes' --region 'us-east-1' \
+  &&  kubectl config \
+        set-context "$(kubectl config current-context)" \
+        --namespace serves \
+  &&  echo '[INFO] Deploying Integrates app: kubectl apply' \
+  &&  kubectl apply \
+        -f infrastructure/eks/manifests/deployments/integrates-app.yaml \
+  &&  if kubectl rollout status deploy/integrates-app --timeout=10m
+      then
+            echo '[INFO] Deploying Integrates app: success' \
+        &&  return 0
+      else
+            echo '[ERROR] Deploying Integrates app: kubectl rollout failed' \
+        &&  echo '[INFO] Deploying Integrates app: undoing deploy' \
+        &&  kubectl rollout undo deploy/integrates-app  \
+        &&  return 1
+      fi
+}
+
 function job_run_break_build_dynamic {
   helper_run_break_build 'dynamic'
 }
@@ -316,4 +369,45 @@ function job_user_provision_integrates_dev_rotate_keys {
         "${gitlab_secret_key_name}" \
         "${gitlab_masked}" \
         "${gitlab_protected}"
+}
+
+function job_user_provision_integrates_prod_test {
+      helper_terraform_init \
+        services/user-provision-integrates/integrates-prod/terraform \
+        fluidattacks-terraform-states-prod \
+  &&  helper_terraform_plan \
+        services/user-provision-integrates/integrates-prod/terraform \
+        fluidattacks-terraform-states-prod
+}
+
+function job_user_provision_integrates_prod_deploy {
+      helper_terraform_apply \
+        services/user-provision-integrates/integrates-prod/terraform \
+        fluidattacks-terraform-states-prod
+}
+
+function job_user_provision_integrates_prod_rotate_keys {
+  local terraform_dir='services/user-provision-integrates/integrates-prod/terraform'
+  local bucket='fluidattacks-terraform-states-prod'
+  local resource_to_taint='aws_iam_access_key.integrates-prod-key'
+  local output_key_id_name='integrates-prod-secret-key-id'
+  local output_secret_key_name='integrates-prod-secret-key'
+  local gitlab_repo_id='4620828'
+  local gitlab_key_id_name='PROD_AWS_ACCESS_KEY_ID'
+  local gitlab_secret_key_name='PROD_AWS_SECRET_ACCESS_KEY'
+  local gitlab_masked='true'
+  local gitlab_protected='true'
+
+      helper_user_provision_rotate_keys \
+        "${terraform_dir}" \
+        "${bucket}" \
+        "${resource_to_taint}" \
+        "${output_key_id_name}" \
+        "${output_secret_key_name}" \
+        "${gitlab_repo_id}" \
+        "${gitlab_key_id_name}" \
+        "${gitlab_secret_key_name}" \
+        "${gitlab_masked}" \
+        "${gitlab_protected}" \
+  &&  _job_deploy_integrates
 }

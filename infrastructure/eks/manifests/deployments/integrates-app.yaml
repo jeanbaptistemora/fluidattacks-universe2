@@ -5,8 +5,8 @@ metadata:
   namespace: serves
 type: Opaque
 data:
-  AWS_ACCESS_KEY_ID: $B64_AWS_ACCESS_KEY_ID
-  AWS_SECRET_ACCESS_KEY: $B64_AWS_SECRET_ACCESS_KEY
+  AWS_ACCESS_KEY_ID: $b64_aws_access_key_id
+  AWS_SECRET_ACCESS_KEY: $b64_aws_secret_access_key
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -14,7 +14,7 @@ metadata:
   name: integrates-app
   namespace: serves
   annotations:
-    kubernetes.io/change-cause: "Integates deployment from Serves on $DATE"
+    kubernetes.io/change-cause: "Integrates deployment from Serves on $date"
 spec:
   replicas: 3
   strategy:
@@ -42,7 +42,7 @@ spec:
               name: integrates-env
         env:
           - name: DEPLOYMENT_DATE
-            value: "$DATE"
+            value: "$date"
         ports:
         - containerPort: 80
         readinessProbe:

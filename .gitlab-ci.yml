@@ -155,6 +155,21 @@ user_provision_integrates_dev_rotate_keys:
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
 
+user_provision_integrates_prod_test:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: test
+
+user_provision_integrates_prod_deploy:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy
+
+user_provision_integrates_prod_rotate_keys:
+  <<: *with_nix
+  <<: *in_schedule_user_provision_rotate_keys
+  stage: rotation
+
 build-builder:
   image: fluidattacks/docker-bash:latest
   tags: [autoscaling]
@@ -225,17 +240,6 @@ change-keys-integrates-jwt:
   stage: rotation
   script:
     ./ci-scripts/jobs/change-keys-integrates-jwt.sh
-  <<: *in_schedules
-  <<: *except_analytics
-  when: always
-
-change-keys-aws-integrates-prod:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: rotation
-  script:
-    - . ci-scripts/jobs/user-provision-integrates-prod.sh
-    - user_provision_integrates_prod_rotate_aws
   <<: *in_schedules
   <<: *except_analytics
   when: always
@@ -524,40 +528,6 @@ aws-sso-terraform-apply:
   script:
     - . ci-scripts/jobs/aws-sso.sh
     - aws_sso_terraform_apply
-  only:
-    - master
-  except:
-    - schedules
-
-user-provision-integrates-prod-terraform-lint:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - . ci-scripts/jobs/user-provision-integrates-prod.sh
-    - user_provision_integrates_prod_terraform_lint
-  except:
-    - schedules
-
-user-provision-integrates-prod-terraform-plan:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: test
-  needs: [build-builder]
-  script:
-    - . ci-scripts/jobs/user-provision-integrates-prod.sh
-    - user_provision_integrates_prod_terraform_plan
-  except:
-    - schedules
-
-user-provision-integrates-prod-terraform-apply:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: deploy
-  script:
-    - . ci-scripts/jobs/user-provision-integrates-prod.sh
-    - user_provision_integrates_prod_terraform_apply
   only:
     - master
   except:
