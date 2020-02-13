@@ -33,10 +33,10 @@ image::lhc.png[Large Hadron Collider, Source: https://commons.wikimedia.org/wiki
 A good friend of ours
 and former +Fluid Attacks+ security engineer,
 has been working in that huge scientific project.
-Andrés (his name), is a final +Ph.D.+ student
+Andrés is a final +Ph.D.+ student
 in Computer Science at the Goethe University in Germany.
 His work has focused on securing the computer grid
-that allow many physicists around the world
+that allows many physicists around the world
 to analyze data on subatomic particle collisions at the +LHC+.
 He has a fantastic record in cybersecurity.
 Before starting his doctoral studies,
@@ -69,7 +69,7 @@ He told us that the +CERN+, owner of the +LHC+,
 is a constant target for cyber attacks
 and that this is not surprising:
 many +CERN+ systems are exposed to the Internet.
-We wanted to know more about +ML+ in his work, so we asked him.
+We wanted to know more about +ML+ in his work...
 
 *_Tell us a bit about how ML contributes to the framework you developed_*::
  “I used two +ML+ models.
@@ -95,7 +95,7 @@ These +ML+ designs,
 capable of detecting security weaknesses and responding
 are seen as an answer for the rampant threats nowadays.
 If you want to dig deeper into Andrés' work,
-link:https://arxiv.org/abs/1801.04179[here is a link] of a recent paper he co-authored.
+link:https://arxiv.org/abs/1801.04179[here is a link] of a recent paper.
 
 .Gomez Ramirez, et. al. (2018) Proposed Arhuaco design architecture.
 image::architecture.png[design architecture]
@@ -137,7 +137,7 @@ As a company focused on proving security in an offensive way,
 Although we haven’t yet got dirty developing +ML+ or +AI+ artifacts,
 is something very likely to happen soon.
 
-*_What threats are worth "having on the radar" ?_*::
+*_What threats are worth "having on the radar"?_*::
 
  “In general, with the rise of +AI+,
  I believe we will start to see more attacks
@@ -147,7 +147,7 @@ is something very likely to happen soon.
  Finally, the leakage of sensitive user data
  is becoming more problematic as time passes on.”
 
-+IoT+ weaknesses and leakage of sensitive information (of course!)
++IoT+ weaknesses and leakage of sensitive information
 are well under our scope.
 We provide [inner]#link:../../services/continuous-hacking/[Continuous hacking]#,
 as well as [inner]#link:../../services/one-shot-hacking/[One-shot hacking]#.
@@ -192,8 +192,6 @@ We want to conclude this post with two quick questions to Andrés:
 and invest in automation.
 They should also invest in research
 to stay relevant in a continuously changing field.”
-
-One last question about his research:
 
 *_Do you expect any further development based on your doctoral thesis?_*::
 
