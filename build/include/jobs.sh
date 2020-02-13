@@ -411,3 +411,43 @@ function job_user_provision_integrates_prod_rotate_keys {
         "${gitlab_protected}" \
   &&  _job_deploy_integrates
 }
+
+function job_user_provision_web_prod_test {
+      helper_terraform_init \
+        services/user-provision-web/web-prod/terraform \
+        fluidattacks-terraform-states-prod \
+  &&  helper_terraform_plan \
+        services/user-provision-web/web-prod/terraform \
+        fluidattacks-terraform-states-prod
+}
+
+function job_user_provision_web_prod_deploy {
+      helper_terraform_apply \
+        services/user-provision-web/web-prod/terraform \
+        fluidattacks-terraform-states-prod
+}
+
+function job_user_provision_web_prod_rotate_keys {
+  local terraform_dir='services/user-provision-web/web-prod/terraform'
+  local bucket='fluidattacks-terraform-states-prod'
+  local resource_to_taint='aws_iam_access_key.web-prod-key'
+  local output_key_id_name='web-prod-secret-key-id'
+  local output_secret_key_name='web-prod-secret-key'
+  local gitlab_repo_id='4649627'
+  local gitlab_key_id_name='PROD_AWS_ACCESS_KEY_ID'
+  local gitlab_secret_key_name='PROD_AWS_SECRET_ACCESS_KEY'
+  local gitlab_masked='true'
+  local gitlab_protected='true'
+
+      helper_user_provision_rotate_keys \
+        "${terraform_dir}" \
+        "${bucket}" \
+        "${resource_to_taint}" \
+        "${output_key_id_name}" \
+        "${output_secret_key_name}" \
+        "${gitlab_repo_id}" \
+        "${gitlab_key_id_name}" \
+        "${gitlab_secret_key_name}" \
+        "${gitlab_masked}" \
+        "${gitlab_protected}"
+}
