@@ -334,3 +334,12 @@ class NotVerificationRequested(Exception):
         """ Constructor """
         msg = 'Exception - Error verification not requested'
         super(NotVerificationRequested, self).__init__(msg)
+
+
+class EvidenceNotFound(Exception):
+    """Exception to control evidence data availability"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Evidence not found'
+        super(EvidenceNotFound, self).__init__(msg)

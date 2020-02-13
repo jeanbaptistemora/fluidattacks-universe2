@@ -12,6 +12,11 @@ TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 TABLE_VULNS = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
 
 
+def _escape_alnum(string):
+    """ Removes non-alphanumeric characters from a string """
+    return ''.join([char for char in string if char.isalnum()])
+
+
 def create(finding_id, project_name, finding_attrs):
     success = False
     try:
@@ -42,14 +47,37 @@ def update(finding_id, data):
             del data[attr]
 
         if data:
-            attributes = ['{attr} = :{attr}'.format(attr=attr) for attr in data]
-            values = {':{}'.format(attr): data[attr] for attr in data}
+            attributes = [f'{attr} = :{_escape_alnum(attr)}' for attr in data]
+            values = {f':{_escape_alnum(attr)}': data[attr] for attr in data}
 
             response = TABLE.update_item(
                 Key=primary_keys,
                 UpdateExpression='SET {}'.format(','.join(attributes)),
                 ExpressionAttributeValues=values)
             success = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError as ex:
+        rollbar.report_message('Error: Couldn\'nt update finding',
+                               'error', extra_data=ex, payload_data=locals())
+
+    return success
+
+
+def list_append(finding_id, attr, data):
+    """
+    Adds elements to the end of a list attribute
+
+    :param finding_id: id of the finding to update
+    :param attr: attribute name
+    :param data: list with the elements to append
+    """
+    success = False
+    primary_keys = {'finding_id': finding_id}
+    try:
+        response = TABLE.update_item(
+            Key=primary_keys,
+            UpdateExpression=f'SET {attr} = list_append({attr}, :data)',
+            ExpressionAttributeValues={':data': data})
+        success = response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError as ex:
         rollbar.report_message('Error: Couldn\'nt update finding',
                                'error', extra_data=ex, payload_data=locals())

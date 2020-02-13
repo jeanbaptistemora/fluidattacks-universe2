@@ -20,9 +20,10 @@ from backend.mailer import send_comment_mail
 
 from backend import util
 from backend.exceptions import (
-    AlreadyApproved, AlreadySubmitted, FindingNotFound, IncompleteDraft,
-    NotSubmitted, InvalidFileSize, InvalidFileStructure, InvalidFileType, InvalidDraftTitle,
-    AlreadyRequested, NotVerificationRequested
+    AlreadyApproved, AlreadyRequested, AlreadySubmitted, EvidenceNotFound,
+    FindingNotFound, IncompleteDraft, InvalidDraftTitle, InvalidFileSize,
+    InvalidFileStructure, InvalidFileType, NotSubmitted,
+    NotVerificationRequested
 )
 from backend.utils import cvss, notifications, findings as finding_utils
 
@@ -663,10 +664,13 @@ def update_evidence(finding_id, evidence_type, file):
                          if item['name'] == evidence_type), [])
         if evidence:
             index = files.index(evidence)
-            files[index].update({'file_url': evidence_id})
+            success = finding_dal.update(
+                finding_id, {f'files[{index}].file_url': evidence_id})
         else:
-            files.append({'name': evidence_type, 'file_url': evidence_id})
-        success = finding_dal.update(finding_id, {'files': files})
+            success = finding_dal.list_append(
+                finding_id,
+                'files',
+                [{'name': evidence_type, 'file_url': evidence_id}])
 
     return success
 
@@ -681,8 +685,10 @@ def update_evidence_description(finding_id, evidence_type, description):
                      if item['name'] == evidence_type), [])
     if evidence:
         index = files.index(evidence)
-        files[index].update({'description': description})
-        success = finding_dal.update(finding_id, {'files': files})
+        success = finding_dal.update(
+            finding_id, {f'files[{index}].description': description})
+    else:
+        raise EvidenceNotFound()
 
     return success
 
