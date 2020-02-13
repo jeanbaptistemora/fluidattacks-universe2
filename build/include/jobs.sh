@@ -107,6 +107,21 @@ function job_lint_code {
   && prospector --profile .prospector.yml .
 }
 
+function job_infra_autoscaling_ci_test {
+      helper_terraform_init \
+        services/autoscaling-ci/terraform \
+        fluidattacks-terraform-states-prod \
+  &&  helper_terraform_plan \
+        services/autoscaling-ci/terraform \
+        fluidattacks-terraform-states-prod
+}
+
+function job_infra_autoscaling_ci_deploy {
+      helper_terraform_apply \
+        services/autoscaling-ci/terraform \
+        fluidattacks-terraform-states-prod
+}
+
 function _job_infra_monolith {
   export TF_VAR_elbDns
   export TF_VAR_elbZone
