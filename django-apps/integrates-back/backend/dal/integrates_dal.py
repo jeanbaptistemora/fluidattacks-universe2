@@ -120,54 +120,6 @@ def get_data_dynamo_filter(table_name, filter_exp='', data_attr=''):
     return items
 
 
-def add_attribute_dynamo(table_name, primary_keys, attr_name, attr_value):
-    """Adding an attribute to a dynamo table."""
-    table = DYNAMODB_RESOURCE.Table(table_name)
-    item = get_data_dynamo(table_name, primary_keys[0], primary_keys[1])
-    if not item:
-        try:
-            response = table.put_item(
-                Item={
-                    primary_keys[0]: primary_keys[1],
-                    attr_name: attr_value
-                }
-            )
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-            return resp
-        except ClientError:
-            rollbar.report_exc_info()
-            return False
-    else:
-        return update_attribute_dynamo(
-            table_name,
-            primary_keys,
-            attr_name,
-            attr_value)
-
-
-def update_attribute_dynamo(table_name, primary_keys, attr_name, attr_value):
-    """Updating an attribute to a dynamo table."""
-    table = DYNAMODB_RESOURCE.Table(table_name)
-    try:
-        response = table.update_item(
-            Key={
-                primary_keys[0]: primary_keys[1],
-            },
-            UpdateExpression='SET #attrName = :val1',
-            ExpressionAttributeNames={
-                '#attrName': attr_name
-            },
-            ExpressionAttributeValues={
-                ':val1': attr_value
-            }
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
-    except ClientError:
-        rollbar.report_exc_info()
-        return False
-
-
 def get_table_attributes_dynamo(table_name, primary_key, data_attributes):
     """ Get a group of attributes of a table. """
     table = DYNAMODB_RESOURCE.Table(table_name)
