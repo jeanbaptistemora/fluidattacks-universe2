@@ -267,6 +267,21 @@ function job_infra_monolith_deploy {
   _job_infra_monolith 'deploy'
 }
 
+function job_infra_sops_test {
+      helper_terraform_init \
+        services/sops/terraform \
+        fluidattacks-terraform-states-prod \
+  &&  helper_terraform_plan \
+        services/sops/terraform \
+        fluidattacks-terraform-states-prod
+}
+
+function job_infra_sops_deploy {
+      helper_terraform_apply \
+        services/sops/terraform \
+        fluidattacks-terraform-states-prod
+}
+
 function job_send_new_version_email {
   local source_file
 
