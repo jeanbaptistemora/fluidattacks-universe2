@@ -1,10 +1,14 @@
 import { default as $ } from "jquery";
+
+import { lineNum } from "./lineNum";
 /*
 This script modifies classes, allowing to include
 Tachyons classes on dynamically generated content
 */
 
 jQuery(() => {
+  // Apply line numbers on code blocks in articles
+  lineNum();
 
   // Monospace
   $(".monospaced")
