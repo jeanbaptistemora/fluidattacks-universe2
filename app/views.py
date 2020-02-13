@@ -384,10 +384,7 @@ def delete_project(project):
     are_findings_masked = [
         finding_domain.mask_finding(finding_id)
         for finding_id in project_domain.list_findings(project)]
-    update_project_state_db = integrates_dal.update_attribute_dynamo(
-        'FI_projects',
-        ['project_name', project],
-        'project_status', 'FINISHED')
+    update_project_state_db = project_domain.update(project, {'project_status': 'FINISHED'})
     is_project_deleted = all([
         are_findings_masked, are_users_removed, update_project_state_db])
     util.invalidate_cache(project)

@@ -434,6 +434,10 @@ def is_finding_in_drafts(finding_id):
     return retval
 
 
+def update(project_name, data):
+    return project_dal.update(project_name, data)
+
+
 def list_drafts(project_name):
     return project_dal.list_drafts(project_name)
 
