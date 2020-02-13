@@ -63,9 +63,9 @@ def format_resource(resource_list, resource_type):
 
 
 def send_mail(project_name, user_email, resource_list, action, resource_type):
-    recipients = project_dal.list_project_managers(project_name)
-    recipients.append(user_email)
-    recipients += FI_MAIL_RESOURCERS.split(',')
+    recipients = set(project_dal.list_project_managers(project_name))
+    recipients.add(user_email)
+    recipients.update(FI_MAIL_RESOURCERS.split(','))
     resource_description = format_resource(resource_list, resource_type)
     if resource_type == 'repository' and len(resource_list) > 1:
         resource_type = 'repositories'
@@ -86,7 +86,7 @@ def send_mail(project_name, user_email, resource_list, action, resource_type):
     }
     threading.Thread(name='Remove repositories email thread',
                      target=send_mail_resources,
-                     args=(recipients, context,)).start()
+                     args=(list(recipients), context,)).start()
 
 
 def validate_file_size(uploaded_file, file_size):
