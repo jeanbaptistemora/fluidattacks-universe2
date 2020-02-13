@@ -16,7 +16,7 @@ function cli {
     echo
     echo 'List of jobs:'
     helper_list_declared_jobs | sed -e 's/^/  * /g'
-    return 1
+    return 0
   fi
 
   echo

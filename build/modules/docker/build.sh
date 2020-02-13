@@ -1,4 +1,7 @@
-#! /usr/bin/env bash
+#! /usr/bin/env nix-shell
+#!   nix-shell -i bash
+#!   nix-shell --packages docker git
+#  shellcheck shell=bash
 
 source ./build/include/generic/shell-options.sh
 

@@ -76,6 +76,7 @@ deploy_nix_docker_images:
   before_script:
     - apk add --no-cache bash
   script:
+    - ./build.sh
     - ./build/modules/docker/build.sh
   stage: deploy
 

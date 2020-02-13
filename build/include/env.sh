@@ -51,7 +51,7 @@ function prepare_workdir {
       echo '[INFO] Creating a pristine workdir' \
   &&  WORKDIR=$(mktemp -d) \
   &&  echo '[INFO] Copying files to workdir' \
-  &&  cp -r . "${WORKDIR}" \
+  &&  cp -r "${STARTDIR}/." "${WORKDIR}" \
   &&  echo '[INFO] Entering the workdir' \
   &&  pushd "${WORKDIR}" \
   &&  trap 'teardown_workdir' 'EXIT' \

@@ -19,7 +19,7 @@ in
     srcIncludeJobs = ./include/jobs.sh;
     srcExternalGitlabVariables = pkgs.fetchurl {
       url = "https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/gitlab-variables.sh";
-      sha256 = "01sixpmsmm0icngsi66mapxz3149km6iif541fj290saq1zdk4g0";
+      sha256 = "13y7xd9n0859lgncljxbkgvdhx9akxflkarcv4klsn9cqz3mgr06";
     };
     srcExternalMail = pkgs.fetchurl {
       url = "https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/mail.py";
