@@ -94,7 +94,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                       values: { filename: FileList },
                     ): void => {
                       setEditing(false);
-                      updateRecords({ variables: { evidenceId: "8", file: values.filename[0], findingId } })
+                      updateRecords({ variables: { evidenceId: "RECORDS", file: values.filename[0], findingId } })
                         .catch();
                     };
 
@@ -134,7 +134,7 @@ const recordsView: React.FC<IRecordsViewProps> = (props: IRecordsViewProps): JSX
                     const handleRemoveClick: (() => void) = (): void => {
                       mixpanel.track("RemoveRecords", { Organization: userOrganization, User: userName });
                       setEditing(false);
-                      removeRecords({ variables: { evidenceId: "8", findingId } })
+                      removeRecords({ variables: { evidenceId: "RECORDS", findingId } })
                         .catch();
                     };
 

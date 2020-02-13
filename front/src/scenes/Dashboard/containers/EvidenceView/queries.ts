@@ -11,7 +11,7 @@ export const GET_FINDING_EVIDENCES: DocumentNode = gql`
 `;
 
 export const UPDATE_EVIDENCE_MUTATION: DocumentNode = gql`
-  mutation UpdateEvidenceMutation($evidenceId: String!, $file: Upload!, $findingId: String!) {
+  mutation UpdateEvidenceMutation($evidenceId: EvidenceType!, $file: Upload!, $findingId: String!) {
     updateEvidence(evidenceId: $evidenceId, file: $file, findingId: $findingId) {
       success
     }
@@ -19,15 +19,17 @@ export const UPDATE_EVIDENCE_MUTATION: DocumentNode = gql`
 `;
 
 export const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
-  mutation UpdateDescriptionMutation($description: String!, $field: String!, $findingId: String!) {
-    updateEvidenceDescription(description: $description, field: $field, findingId: $findingId) {
+  mutation UpdateDescriptionMutation(
+    $description: String!, $evidenceId: EvidenceDescriptionType!, $findingId: String!
+  ) {
+    updateEvidenceDescription(description: $description, evidenceId: $evidenceId, findingId: $findingId) {
       success
     }
   }
 `;
 
 export const REMOVE_EVIDENCE_MUTATION: DocumentNode = gql`
-  mutation RemoveEvidenceMutation($evidenceId: String!, $findingId: String!) {
+  mutation RemoveEvidenceMutation($evidenceId: EvidenceType!, $findingId: String!) {
     removeEvidence(evidenceId: $evidenceId, findingId: $findingId) {
       success
     }

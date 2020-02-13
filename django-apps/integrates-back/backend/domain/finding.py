@@ -852,27 +852,25 @@ def mask_finding(finding_id):
 
 
 def validate_evidence(evidence_id, file):
-    evidence = list(range(7))
-    exploit = 7
-    records = 8
     mib = 1048576
     success = False
 
-    if evidence_id in evidence:
+    if evidence_id in ['animation', 'exploitation'] \
+            or evidence_id.startswith('evidence'):
         allowed_mimes = ['image/gif', 'image/jpeg', 'image/png']
         if not util.assert_uploaded_file_mime(file, allowed_mimes):
             raise InvalidFileType()
         if file.size > 10 * mib:
             raise InvalidFileSize()
         success = True
-    elif evidence_id == exploit:
+    elif evidence_id == 'exploit':
         allowed_mimes = ['text/x-python', 'text/plain']
         if not util.assert_uploaded_file_mime(file, allowed_mimes):
             raise InvalidFileType()
         if file.size > 1 * mib:
             raise InvalidFileSize()
         success = True
-    elif evidence_id == records:
+    elif evidence_id == 'fileRecords':
         allowed_mimes = ['text/csv', 'text/plain']
         if not util.assert_uploaded_file_mime(file, allowed_mimes):
             raise InvalidFileType()

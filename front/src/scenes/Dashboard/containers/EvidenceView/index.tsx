@@ -119,14 +119,14 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                               } else {
                                 updateDescription({
                                   variables: {
-                                    description: values.description, field: `evidence${index}_description`, findingId,
+                                    description: values.description, evidenceId: name.toUpperCase(), findingId,
                                   },
                                 })
                                   .catch();
                               }
                             } else {
                               updateEvidence({
-                                variables: { evidenceId: index, file: values.filename[0], findingId },
+                                variables: { evidenceId: name.toUpperCase(), file: values.filename[0], findingId },
                               })
                                 .then((mtResult: void | {}): void => {
                                   interface IMutationResult { data: { updateEvidence: { success: boolean } }; }
@@ -136,7 +136,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                                       updateDescription({
                                         variables: {
                                           description: values.description,
-                                          field: `evidence${index}_description`,
+                                          evidenceId: name.toUpperCase(),
                                           findingId,
                                         },
                                       })
@@ -154,7 +154,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                           const handleRemove: (() => void) = (): void => {
                                   mixpanel.track("RemoveEvidence", { Organization: userOrganization, User: userName });
                                   setEditing(false);
-                                  removeEvidence({ variables: { evidenceId: index, findingId } })
+                                  removeEvidence({ variables: { evidenceId: name.toUpperCase(), findingId } })
                                     .catch();
                                 };
 

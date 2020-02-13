@@ -356,12 +356,25 @@ class Finding(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         return self.current_state
 
 
+EVIDENCE_TYPE = Enum('EvidenceType', [
+    ('ANIMATION', 'animation'),
+    ('EVIDENCE1', 'evidence_route_1'),
+    ('EVIDENCE2', 'evidence_route_2'),
+    ('EVIDENCE3', 'evidence_route_3'),
+    ('EVIDENCE4', 'evidence_route_4'),
+    ('EVIDENCE5', 'evidence_route_5'),
+    ('EXPLOIT', 'exploit'),
+    ('EXPLOITATION', 'exploitation'),
+    ('RECORDS', 'fileRecords')
+])
+
+
 class RemoveEvidence(Mutation):
     """ Remove evidence files """
 
     class Arguments():
         finding_id = String(required=True)
-        evidence_id = String(required=True)
+        evidence_id = Argument(EVIDENCE_TYPE, required=True)
     success = Boolean()
     finding = Field(Finding)
 
@@ -369,19 +382,8 @@ class RemoveEvidence(Mutation):
     @new_require_role
     @require_finding_access
     def mutate(self, info, evidence_id, finding_id):
-        fieldname = [
-            'animation',
-            'exploitation',
-            'evidence_route_1',
-            'evidence_route_2',
-            'evidence_route_3',
-            'evidence_route_4',
-            'evidence_route_5',
-            'exploit',
-            'fileRecords'
-        ]
-        success = finding_domain.remove_evidence(
-            fieldname[int(evidence_id)], finding_id)
+        success = finding_domain.remove_evidence(evidence_id, finding_id)
+
         if success:
             util.cloudwatch_log(
                 info.context,
@@ -399,32 +401,18 @@ class UpdateEvidence(Mutation):
     class Arguments():
         file = Upload(required=True)
         finding_id = String(required=True)
-        evidence_id = String(required=True)
+        evidence_id = Argument(EVIDENCE_TYPE, required=True)
     success = Boolean()
-    finding = Field(Finding)
 
     @require_login
     @new_require_role
     @require_finding_access
     def mutate(self, info, evidence_id, finding_id, file):
-        del file
         success = False
-        uploaded_file = info.context.FILES['1']
 
-        if finding_domain.validate_evidence(int(evidence_id), uploaded_file):
-            fieldname = [
-                'animation',
-                'exploitation',
-                'evidence_route_1',
-                'evidence_route_2',
-                'evidence_route_3',
-                'evidence_route_4',
-                'evidence_route_5',
-                'exploit',
-                'fileRecords'
-            ]
+        if finding_domain.validate_evidence(evidence_id, file):
             success = finding_domain.update_evidence(
-                finding_id, fieldname[int(evidence_id)], uploaded_file)
+                finding_id, evidence_id, file)
         if success:
             util.invalidate_cache(finding_id)
             util.cloudwatch_log(info.context,
@@ -435,10 +423,7 @@ class UpdateEvidence(Mutation):
                                 'Security: Attempted to update evidence in '
                                 f'finding {finding_id}')
 
-        findings_loader = info.context.loaders['finding']
-        ret = UpdateEvidence(
-            finding=findings_loader.load(finding_id), success=success)
-        return ret
+        return UpdateEvidence(success=success)
 
 
 class UpdateEvidenceDescription(Mutation):
@@ -446,26 +431,25 @@ class UpdateEvidenceDescription(Mutation):
 
     class Arguments():
         description = String(required=True)
+        evidence_id = Argument(
+            Enum('EvidenceDescriptionType', [
+                ('EVIDENCE1', 'evidence_route_1'),
+                ('EVIDENCE2', 'evidence_route_2'),
+                ('EVIDENCE3', 'evidence_route_3'),
+                ('EVIDENCE4', 'evidence_route_4'),
+                ('EVIDENCE5', 'evidence_route_5')
+            ]), required=True)
         finding_id = String(required=True)
-        field = String(required=True)
     success = Boolean()
-    finding = Field(Finding)
 
     @require_login
     @new_require_role
     @require_finding_access
-    def mutate(self, info, finding_id, field, description):
+    def mutate(self, info, finding_id, evidence_id, description):
         success = False
         try:
-            description_parse = {
-                'evidence2_description': 'evidence_route_1',
-                'evidence3_description': 'evidence_route_2',
-                'evidence4_description': 'evidence_route_3',
-                'evidence5_description': 'evidence_route_4',
-                'evidence6_description': 'evidence_route_5',
-            }
             success = finding_domain.update_evidence_description(
-                finding_id, description_parse[field], description)
+                finding_id, evidence_id, description)
             if success:
                 util.invalidate_cache(finding_id)
                 util.cloudwatch_log(info.context, 'Security: Evidence description \
@@ -477,10 +461,7 @@ class UpdateEvidenceDescription(Mutation):
             rollbar.report_message('Error: \
 An error occurred updating evidence description', 'error', info.context)
 
-        findings_loader = info.context.loaders['finding']
-        ret = UpdateEvidenceDescription(
-            finding=findings_loader.load(finding_id), success=success)
-        return ret
+        return UpdateEvidenceDescription(success=success)
 
 
 class UpdateSeverity(Mutation):

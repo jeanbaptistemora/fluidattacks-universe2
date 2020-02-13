@@ -96,16 +96,15 @@ class FindingTests(TestCase):
 
     def test_update_evidence(self):
         query = '''
-                mutation {
-                  updateEvidence (
-                    evidenceId: "0",
-                    findingId: "422286126", file: "") {
-                  success
-                    finding {
-                      evidence
-                    }
-                  }
-                }
+          mutation UpdateEvidenceMutation(
+            $evidenceId: EvidenceType!, $file: Upload!, $findingId: String!
+          ) {
+            updateEvidence(
+              evidenceId: $evidenceId, file: $file, findingId: $findingId
+            ) {
+              success
+            }
+          }
         '''
         testing_client = Client(SCHEMA)
         filename = os.path.dirname(os.path.abspath(__file__))
@@ -130,9 +129,13 @@ class FindingTests(TestCase):
             algorithm='HS512',
             key=settings.JWT_SECRET,
         )
-        request.FILES['1'] = uploaded_file
-        request.loaders = {'finding': FindingLoader()}
-        result = testing_client.execute(query, context=request)
+        variables = {
+            'evidenceId': 'ANIMATION',
+            'file': uploaded_file,
+            'findingId': '422286126'
+        }
+        result = testing_client.execute(
+            query, context=request, variables=variables)
         assert 'errors' not in result
         assert result['data']['updateEvidence']['success']
 
@@ -142,17 +145,13 @@ class FindingTests(TestCase):
                   updateDescription: updateEvidenceDescription (
                     description: "this is a test description",
                     findingId: "422286126",
-                    field: "evidence2_description") {
+                    evidenceId: EVIDENCE2) {
                   success
-                    finding {
-                      evidence
-                    }
                   }
                 }
         '''
         testing_client = Client(SCHEMA)
-        request_loaders = {'finding': FindingLoader()}
-        result = self._get_result(query, testing_client, request_loaders)
+        result = self._get_result(query, testing_client, None)
         assert 'errors' not in result
         assert result['data']['updateDescription']['success']
 
