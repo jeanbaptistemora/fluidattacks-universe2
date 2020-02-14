@@ -11,11 +11,6 @@ from backend.dal.helpers import dynamodb
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
 
 
-def attribute_exists(table_name, primary_key, data):
-    return get_table_attributes_dynamo(
-        table_name, primary_key, data)
-
-
 def add_finding_comment_dynamo(finding_id, email, comment_data):
     """ Add a comment in a finding. """
     table = DYNAMODB_RESOURCE.Table('FI_comments')
@@ -164,32 +159,6 @@ def get_findings_data_dynamo(filtering_exp, data_attr=''):
     return items
 
 
-def get_projects_data_dynamo(filtering_exp='', data_attr=''):
-    """Get project from Dynamodb"""
-    table = DYNAMODB_RESOURCE.Table('FI_projects')
-    scan_attrs = {}
-    if filtering_exp:
-        scan_attrs['FilterExpression'] = filtering_exp
-    else:
-        # FilterExpression not especified
-        pass
-
-    if data_attr:
-        scan_attrs['ProjectionExpression'] = data_attr
-    else:
-        # ProjectionExpression not especified
-        pass
-
-    response = table.scan(**scan_attrs)
-    items = response['Items']
-    while response.get('LastEvaluatedKey'):
-        scan_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
-        response = table.scan(**scan_attrs)
-        items += response['Items']
-
-    return items
-
-
 def get_findings_released_dynamo(project, data_attr=''):
     """Get all the findings that has been released."""
     filter_key = 'project_name'
@@ -203,24 +172,6 @@ def get_findings_released_dynamo(project, data_attr=''):
     findings = get_findings_data_dynamo(filtering_exp, data_attr)
     findings_released = [i for i in findings if util.validate_release_date(i)]
     return findings_released
-
-
-def delete_item(table_name, primary_keys):
-    """ Remove item """
-
-    table = DYNAMODB_RESOURCE.Table(table_name)
-    try:
-        item = table.get_item(Key=primary_keys)
-        resp = False
-        if item.get('Item'):
-            response = table.delete_item(Key=primary_keys)
-            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        else:
-            # item not found
-            pass
-        return resp
-    except ClientError:
-        return False
 
 
 def remove_set_element_dynamo(table_name, primary_keys, set_name, set_element):
