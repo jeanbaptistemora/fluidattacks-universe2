@@ -3,13 +3,10 @@
 , digest
 }:
 
-with import <nixpkgs> { };
-
 let
-  nixpkgs = fetchzip {
+  pkgs = import <nixpkgs> { };
+in
+  pkgs.fetchzip {
     url = "${repo}/archive/${commit}.zip";
     sha256 = digest;
-  };
-in
-
-import nixpkgs { }
+  }

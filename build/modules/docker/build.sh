@@ -46,6 +46,7 @@ function build_all {
         --password "${CI_REGISTRY_PASSWORD}" \
       "${CI_REGISTRY}" \
   &&  find build/modules/docker/images -type f \
+      | sort \
       | while read -r derivation_path
         do
           build_single "${derivation_path}" \

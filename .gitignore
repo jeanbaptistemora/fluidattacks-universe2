@@ -22,4 +22,5 @@ parser-preset.js
 # Build system
 .envrc
 infrastructure/*.xml
+result*
 TEMP_FD
