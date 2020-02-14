@@ -3,13 +3,28 @@ let
 
   modules.build.dependencies =  import ./dependencies pkgs;
 in
+  with modules.build;
+
   pkgs.stdenv.mkDerivation rec {
     name = "builder";
 
-    buildInputs = modules.build.dependencies.all;
+    buildInputs = dependencies.all;
 
-    pyPkgProspector = modules.build.dependencies.python.prospector;
-    pyPkgMandrill = modules.build.dependencies.python.mandrill;
+    pyPkgAnalyticsStreamerInfrastructure = dependencies.python.analytics.singer.streamerInfrastructure;
+    pyPkgAnalyticsStreamerIntercom = dependencies.python.analytics.singer.streamerIntercom;
+    pyPkgAnalyticsStreamerMandrill = dependencies.python.analytics.singer.streamerMandrill;
+    pyPkgAnalyticsStreamerPcap = dependencies.python.analytics.singer.streamerPcap;
+    pyPkgAnalyticsStreamerRingcentral = dependencies.python.analytics.singer.streamerRingcentral;
+    pyPkgAnalyticsTapAwsdynamodb = dependencies.python.analytics.singer.tapAwsdynamodb;
+    pyPkgAnalyticsTapCsv = dependencies.python.analytics.singer.tapCsv;
+    pyPkgAnalyticsTapCurrrencyconverterapi = dependencies.python.analytics.singer.tapCurrrencyconverterapi;
+    pyPkgAnalyticsTapFormstack = dependencies.python.analytics.singer.tapFormstack;
+    pyPkgAnalyticsTapGit = dependencies.python.analytics.singer.tapGit;
+    pyPkgAnalyticsTapJson = dependencies.python.analytics.singer.tapJson;
+    pyPkgAnalyticsTapTimedoctor = dependencies.python.analytics.singer.tapTimedoctor;
+    pyPkgAnalyticsTargetRedshift = dependencies.python.analytics.singer.targetRedshift;
+    pyPkgMandrill = dependencies.python.mandrill;
+    pyPkgProspector = dependencies.python.prospector;
 
     srcEnv = ./include/env.sh;
     srcIncludeCli = ./include/cli.sh;
