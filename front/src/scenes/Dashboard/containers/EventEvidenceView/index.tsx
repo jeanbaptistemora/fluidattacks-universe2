@@ -51,22 +51,22 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
   const [updateEvidence] = useMutation(UPDATE_EVIDENCE_MUTATION, {
     onCompleted: refetch,
     onError: (updateError: ApolloError): void => {
-            updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-              switch (message) {
-                case "Exception - Invalid File Size":
-                  msgError(translate.t("proj_alerts.file_size"));
-                  break;
-                case "Exception - Invalid File Type: EVENT_IMAGE":
-                  msgError(translate.t("project.events.form.wrong_image_type"));
-                  break;
-                case "Exception - Invalid File Type: EVENT_FILE":
-                  msgError(translate.t("project.events.form.wrong_file_type"));
-                  break;
-                default:
-                  msgError(translate.t("proj_alerts.error_textsad"));
-                  rollbar.error("An error occurred updating event evidence", updateError);
-              }
-            });
+      updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        switch (message) {
+          case "Exception - Invalid File Size":
+            msgError(translate.t("proj_alerts.file_size"));
+            break;
+          case "Exception - Invalid File Type: EVENT_IMAGE":
+            msgError(translate.t("project.events.form.wrong_image_type"));
+            break;
+          case "Exception - Invalid File Type: EVENT_FILE":
+            msgError(translate.t("project.events.form.wrong_file_type"));
+            break;
+          default:
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred updating event evidence", updateError);
+        }
+      });
     },
   });
 
@@ -113,60 +113,64 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
 
   return (
     <React.StrictMode>
+      <React.Fragment>
+        <Row>
+          <Col md={2} mdOffset={10} xs={12} sm={12}>
+            {canEdit ? (
+              <Button block={true} onClick={handleEditClick}>
+                <FluidIcon icon="edit" />&nbsp;{translate.t("project.events.evidence.edit")}
+              </Button>
+            ) : undefined}
+          </Col>
+        </Row>
+        {_.isEmpty(data.event.evidence) && _.isEmpty(data.event.evidenceFile) && !isEditing ? (
+          <div className={globalStyle.noData}>
+            <Glyphicon glyph="picture" />
+            <p>{translate.t("project.events.evidence.no_data")}</p>
+          </div>
+        ) : undefined}
+        <React.Fragment>
+          <React.Fragment>
             <React.Fragment>
-              <Row>
-                <Col md={2} mdOffset={10} xs={12} sm={12}>
-                  {canEdit
-                    ? (
-                      <Button block={true} onClick={handleEditClick}>
-                        <FluidIcon icon="edit" />&nbsp;{translate.t("project.events.evidence.edit")}
-                      </Button>
-                    )
-                    : undefined}
-                </Col>
-              </Row>
-              {_.isEmpty(data.event.evidence) && _.isEmpty(data.event.evidenceFile) && !isEditing ? (
-                <div className={globalStyle.noData}>
-                  <Glyphicon glyph="picture" />
-                  <p>{translate.t("project.events.evidence.no_data")}</p>
-                </div>
-              ) : undefined}
               {!_.isEmpty(data.event.evidence) || isEditing ? (
-                            <EvidenceImage
-                              acceptedMimes="image/jpeg,image/gif,image/png"
-                              content={_.isEmpty(data.event.evidence) ? <div /> : `${baseUrl}/${data.event.evidence}`}
-                              description="Evidence"
-                              isDescriptionEditable={false}
-                              isEditing={isEditing}
-                              isRemovable={!_.isEmpty(data.event.evidence)}
-                              name="image"
-                              onClick={openImage}
-                              onDelete={removeImage}
-                              onUpdate={updateImage}
-                              validate={validEvidenceImage}
-                            />
+                <EvidenceImage
+                  acceptedMimes="image/jpeg,image/gif,image/png"
+                  content={_.isEmpty(data.event.evidence) ? <div /> : `${baseUrl}/${data.event.evidence}`}
+                  description="Evidence"
+                  isDescriptionEditable={false}
+                  isEditing={isEditing}
+                  isRemovable={!_.isEmpty(data.event.evidence)}
+                  name="image"
+                  onClick={openImage}
+                  onDelete={removeImage}
+                  onUpdate={updateImage}
+                  validate={validEvidenceImage}
+                />
               ) : undefined}
               {!_.isEmpty(data.event.evidenceFile) || isEditing ? (
-                                  <EvidenceImage
-                                    acceptedMimes="application/pdf,application/zip,text/csv,text/plain"
-                                    content={<Glyphicon glyph="file" />}
-                                    description="File"
-                                    isDescriptionEditable={false}
-                                    isEditing={isEditing}
-                                    isRemovable={!_.isEmpty(data.event.evidenceFile)}
-                                    name="file"
-                                    onClick={handleDownload}
-                                    onDelete={removeFile}
-                                    onUpdate={updateFile}
-                                    validate={validEventFile}
-                                  />
+                <EvidenceImage
+                  acceptedMimes="application/pdf,application/zip,text/csv,text/plain"
+                  content={<Glyphicon glyph="file" />}
+                  description="File"
+                  isDescriptionEditable={false}
+                  isEditing={isEditing}
+                  isRemovable={!_.isEmpty(data.event.evidenceFile)}
+                  name="file"
+                  onClick={handleDownload}
+                  onDelete={removeFile}
+                  onUpdate={updateFile}
+                  validate={validEventFile}
+                />
               ) : undefined}
-              <EvidenceLightbox
-                evidenceImages={[{ url: data.event.evidence }]}
-                index={lightboxIndex}
-                onChange={setLightboxIndex}
-              />
             </React.Fragment>
+          </React.Fragment>
+        </React.Fragment>
+        <EvidenceLightbox
+          evidenceImages={[{ url: data.event.evidence }]}
+          index={lightboxIndex}
+          onChange={setLightboxIndex}
+        />
+      </React.Fragment>
     </React.StrictMode>
   );
 };
