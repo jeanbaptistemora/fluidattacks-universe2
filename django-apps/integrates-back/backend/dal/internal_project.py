@@ -1,6 +1,6 @@
 import rollbar
 from botocore.exceptions import ClientError
-from backend.dal import integrates_dal
+from backend.dal import integrates_dal, project as project_dal
 from backend.dal.helpers import dynamodb
 
 TABLE = 'fi_project_names'
@@ -8,9 +8,7 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
 
 
 def exists(project_name):
-    primary_key = {'project_name': project_name.lower()}
-    return integrates_dal.attribute_exists(
-        TABLE, primary_key, ['project_name'])
+    return project_dal.exists(project_name.lower())
 
 
 def remove_project_name(project_name):

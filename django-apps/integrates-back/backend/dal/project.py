@@ -60,14 +60,14 @@ def get_current_month_commits(project_name):
 def get_active_projects():
     """Get active project in DynamoDB"""
     filtering_exp = Attr('project_status').eq('ACTIVE') & Attr('project_status').exists()
-    projects = integrates_dal.get_projects_data_dynamo(filtering_exp, 'project_name')
+    projects = get_all(filtering_exp, 'project_name')
     return [prj['project_name'] for prj in projects]
 
 
 def get_alive_projects():
     """Get active and suspended projects in DynamoDB"""
     filtering_exp = Attr('project_status').eq('ACTIVE') | Attr('project_status').eq('SUSPENDED')
-    projects = integrates_dal.get_projects_data_dynamo(filtering_exp, 'project_name')
+    projects = get_all(filtering_exp, 'project_name')
     return [prj['project_name'] for prj in projects]
 
 
@@ -148,7 +148,7 @@ def list_internal_managers(project_name):
 
 def get_all_projects():
     """Get all projects in DynamoDB"""
-    projects = integrates_dal.get_projects_data_dynamo(data_attr='')
+    projects = get_all(data_attr='')
     return [prj['project_name'] for prj in projects]
 
 
@@ -422,6 +422,23 @@ def get(project):
             KeyConditionExpression=filtering_exp,
             ExclusiveStartKey=response['LastEvaluatedKey'])
         items += response['Items']
+    return items
+
+
+def get_all(filtering_exp='', data_attr=''):
+    """Get all projects"""
+    scan_attrs = {}
+    if filtering_exp:
+        scan_attrs['FilterExpression'] = filtering_exp
+    if data_attr:
+        scan_attrs['ProjectionExpression'] = data_attr
+    response = TABLE.scan(**scan_attrs)
+    items = response['Items']
+    while response.get('LastEvaluatedKey'):
+        scan_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
+        response = TABLE.scan(**scan_attrs)
+        items += response['Items']
+
     return items
 
 

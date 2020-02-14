@@ -4,7 +4,7 @@ import rollbar
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-from backend.dal import integrates_dal
+from backend.dal import project as project_dal
 from backend.dal.helpers import dynamodb
 
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
@@ -66,9 +66,7 @@ def put(message, company_name, project_name):
     """ Create, update or activate an alert for a company. """
     project_name = project_name.lower()
     company_name = company_name.lower()
-    primary_key = {'project_name': project_name}
-    project_exists = integrates_dal.attribute_exists(
-        'FI_projects', primary_key, ['project_name'])
+    project_exists = project_dal.exists(project_name)
     resp = False
     if project_name == 'all' or project_exists:
         item = get(company_name, project_name)
