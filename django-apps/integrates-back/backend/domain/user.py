@@ -2,6 +2,7 @@ from datetime import datetime
 import pytz
 from django.conf import settings
 from backend.dal import project as project_dal, user as user_dal
+from backend.utils.user import validate_email_address, validate_field, validate_phone_field
 
 
 def add_phone_to_user(email, phone):
@@ -138,3 +139,25 @@ def create(email, data):
 
 def update(email, data_attr, name_attr):
     return user_dal.update(email, {name_attr: data_attr})
+
+
+def create_without_project(user_data):
+    phone_number = ''
+    success = False
+    if (
+        validate_field(user_data.get('organization')) and
+        validate_phone_field(user_data.get('phone_number', '')) and
+        validate_email_address(user_data['email'])
+    ):
+        if not get_data(user_data['email'], 'email'):
+            user_data.update({'registered': True})
+            if user_data.get('phone_number'):
+                phone_number = user_data.get('phone_number')
+                del user_data['phone_number']
+            success = create(
+                user_data['email'].lower(), user_data)
+    if success:
+        if phone_number and phone_number[1:].isdigit():
+            add_phone_to_user(user_data['email'].lower(), phone_number)
+
+    return success

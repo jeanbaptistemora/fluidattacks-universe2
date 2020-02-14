@@ -4,14 +4,10 @@
 # Disabling this rule is necessary to have more than 7 instance attributes
 
 import threading
-import re
 from datetime import datetime
 
 import rollbar
 from graphene import ObjectType, Mutation, String, Boolean, Field, List
-from graphql.error import GraphQLError
-from django.core.exceptions import ValidationError
-from django.core.validators import validate_email
 
 from backend.decorators import (
     require_login, require_project_access, new_require_role
@@ -26,6 +22,7 @@ from backend.mailer import send_mail_access_granted
 
 from backend import util
 from backend.dal import integrates_dal
+from backend.utils.user import validate_email_address, validate_field, validate_phone_field
 
 
 class User(ObjectType):
@@ -141,6 +138,35 @@ class User(ObjectType):
         return self.list_projects
 
 
+class AddUser(Mutation):
+
+    class Arguments():
+        email = String(required=True)
+        organization = String(required=True)
+        role = String(required=True)
+        phone_number = String()
+    success = Boolean()
+    email = String()
+
+    @staticmethod
+    @require_login
+    @new_require_role
+    def mutate(_, info, **parameters):
+        success = user_domain.create_without_project(parameters)
+        if success:
+            email = parameters.get('email', '').lower()
+            util.cloudwatch_log(info.context, f'Security: Add user {email}')
+            mail_to = [email]
+            context = {'admin': email}
+            email_send_thread = threading.Thread(
+                name='Access granted email thread',
+                target=send_mail_access_granted,
+                args=(mail_to, context,)
+            )
+            email_send_thread.start()
+        return AddUser(success=success, email=parameters.get('email', '').lower())
+
+
 class GrantUserAccess(Mutation):
     """Grant access to a given project."""
 
@@ -199,26 +225,6 @@ class GrantUserAccess(Mutation):
         return ret
 
 
-def validate_email_address(email):
-    try:
-        validate_email(email)
-        return True
-    except ValidationError:
-        raise GraphQLError('Exception - Email is not valid')
-
-
-def validate_field(field):
-    if field[0].isalnum() or (field[0] == "-" or field[0] is None):
-        return True
-    raise GraphQLError('Exception - Parameter is not valid')
-
-
-def validate_phone_field(phone_field):
-    if re.match((r'(^\+\d+$)|(^\d+$)|(^$)|(^-$)'), phone_field):
-        return True
-    raise GraphQLError('Exception - Parameter is not valid')
-
-
 def create_new_user(context, new_user_data, project_name):
     analizable_list = list(new_user_data.values())[1:-1]
     if (
@@ -270,17 +276,6 @@ def create_new_user(context, new_user_data, project_name):
             'project': project_name,
             'project_description': description,
             'project_url': project_url,
-        }
-        email_send_thread = \
-            threading.Thread(name='Access granted email thread',
-                             target=send_mail_access_granted,
-                             args=(mail_to, context,))
-        email_send_thread.start()
-        success = True
-    if not project_name:
-        mail_to = [email]
-        context = {
-            'admin': email,
         }
         email_send_thread = \
             threading.Thread(name='Access granted email thread',

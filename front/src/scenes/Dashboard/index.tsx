@@ -23,10 +23,11 @@ import FindingContent from "./containers/FindingContent/index";
 import { HomeView } from "./containers/HomeView";
 import ProjectContent from "./containers/ProjectContent/index";
 import { addUserModal as AddUserModal } from "./containers/ProjectUsersView/AddUserModal/index";
-import { ADD_USER_MUTATION } from "./containers/ProjectUsersView/queries";
-import { IAddUserAttr, IUserDataAttr } from "./containers/ProjectUsersView/types";
+import { IUserDataAttr } from "./containers/ProjectUsersView/types";
 import { ReportsView } from "./containers/ReportsView";
 import { default as style } from "./index.css";
+import { ADD_USER_MUTATION } from "./queries";
+import { IAddUserAttr } from "./types";
 
 type IDashboardProps = RouteComponentProps;
 
@@ -41,10 +42,10 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
 
   const handleMtAddUserRes: ((mtResult: IAddUserAttr) => void) = (mtResult: IAddUserAttr): void => {
     if (!_.isUndefined(mtResult)) {
-      if (mtResult.grantUserAccess.success) {
-        closeTokenModal();
+      if (mtResult.addUser.success) {
+        closeUserModal();
         msgSuccess(
-          translate.t("sidebar.userModal.success", { email: mtResult.grantUserAccess.grantedUser.email }),
+          translate.t("sidebar.userModal.success", { email: mtResult.addUser.email }),
           translate.t("search_findings.tab_users.title_success"),
         );
       }
@@ -96,9 +97,9 @@ const dashboard: React.FC<IDashboardProps> = (): JSX.Element => {
       <ScrollUpButton visibleAt={400} />
       <UpdateAccessTokenModal open={isTokenModalOpen} onClose={closeTokenModal} />
       <Mutation mutation={ADD_USER_MUTATION} onCompleted={handleMtAddUserRes} onError={handleMtAddUserError}>
-        {(grantUserAccess: MutationFunction): JSX.Element => {
+        {(addUser: MutationFunction): JSX.Element => {
           const handleSubmit: ((values: IUserDataAttr) => void) = (values: IUserDataAttr): void => {
-            grantUserAccess({ variables: values })
+            addUser({ variables: values })
               .catch();
           };
 

@@ -30,7 +30,7 @@ export const REMOVE_USER_MUTATION: DocumentNode = gql`
   `;
 
 export const ADD_USER_MUTATION: DocumentNode = gql`
-  mutation AddUserMutation(
+  mutation GrantUserMutation(
     $email: String!,
     $organization: String!,
     $phoneNumber: String,

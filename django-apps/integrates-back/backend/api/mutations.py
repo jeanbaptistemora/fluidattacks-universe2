@@ -6,7 +6,7 @@ from backend.entity.resource import (
 )
 from backend.entity.user import (
     GrantUserAccess, RemoveUserAccess,
-    EditUser
+    EditUser, AddUser
 )
 from backend.entity.vulnerability import (
     UploadFile, DeleteVulnerability, DeleteTags,
@@ -55,6 +55,7 @@ class Mutations(ObjectType):
     grantUserAccess = GrantUserAccess.Field()
     removeUserAccess = RemoveUserAccess.Field()
     editUser = EditUser.Field()
+    addUser = AddUser.Field()
 
     updateEvidence = UpdateEvidence.Field()
     removeEvidence = RemoveEvidence.Field()
