@@ -1,8 +1,7 @@
 stages:
-  - build
-  - analytics
   - terraform-backend
-  - test
+  - build-and-test
+  - analytics
   - mr-check
   - deploy
   - eks-initial-setup
@@ -78,22 +77,22 @@ stages:
 deploy_docker_image_exams:
   <<: *with_nix
   <<: *in_dev_and_master_branch
-  stage: test
+  stage: build-and-test
 
 deploy_docker_image_nix:
   <<: *with_nix
   <<: *in_schedule_deploy_nix_docker_images
-  stage: test
+  stage: build-and-test
 
 deploy_docker_image_vpn:
   <<: *with_nix
   <<: *in_dev_and_master_branch
-  stage: test
+  stage: build-and-test
 
 infra_analytics_test:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test
+  stage: build-and-test
 
 infra_analytics_deploy:
   <<: *with_nix
@@ -103,7 +102,7 @@ infra_analytics_deploy:
 infra_autoscaling_ci_test:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test
+  stage: build-and-test
 
 infra_autoscaling_ci_deploy:
   <<: *with_nix
@@ -113,7 +112,7 @@ infra_autoscaling_ci_deploy:
 infra_aws_sso_test:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test
+  stage: build-and-test
 
 infra_aws_sso_deploy:
   <<: *with_nix
@@ -123,7 +122,7 @@ infra_aws_sso_deploy:
 .infra_fluid_eks_test:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test
+  stage: build-and-test
 
 .infra_fluid_eks_deploy:
   <<: *with_nix
@@ -138,7 +137,7 @@ infra_aws_sso_deploy:
 infra_fluid_vpc_test:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test
+  stage: build-and-test
 
 infra_fluid_vpc_deploy:
   <<: *with_nix
@@ -148,7 +147,7 @@ infra_fluid_vpc_deploy:
 infra_monolith_test:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test
+  stage: build-and-test
 
 infra_monolith_deploy:
   <<: *with_nix
@@ -158,7 +157,7 @@ infra_monolith_deploy:
 infra_sops_test:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test
+  stage: build-and-test
 
 infra_sops_deploy:
   <<: *with_nix
@@ -168,12 +167,12 @@ infra_sops_deploy:
 lint_code:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test
+  stage: build-and-test
 
 run_break_build_static:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test
+  stage: build-and-test
 
 run_break_build_dynamic:
   <<: *with_nix
@@ -183,12 +182,13 @@ run_break_build_dynamic:
 send_new_version_email:
   <<: *with_nix
   <<: *in_master_branch
+  when: always
   stage: postdeploy
 
 user_provision_continuous_dev_test:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test
+  stage: build-and-test
 
 user_provision_continuous_dev_deploy:
   <<: *with_nix
@@ -203,7 +203,7 @@ user_provision_continuous_dev_rotate_keys:
 user_provision_continuous_prod_test:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test
+  stage: build-and-test
 
 user_provision_continuous_prod_deploy:
   <<: *with_nix
@@ -218,7 +218,7 @@ user_provision_continuous_prod_rotate_keys:
 user_provision_integrates_dev_test:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test
+  stage: build-and-test
 
 user_provision_integrates_dev_deploy:
   <<: *with_nix
@@ -233,7 +233,7 @@ user_provision_integrates_dev_rotate_keys:
 user_provision_integrates_prod_test:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test
+  stage: build-and-test
 
 user_provision_integrates_prod_deploy:
   <<: *with_nix
@@ -248,7 +248,7 @@ user_provision_integrates_prod_rotate_keys:
 user_provision_web_prod_test:
   <<: *with_nix
   <<: *in_dev_branch
-  stage: test
+  stage: build-and-test
 
 user_provision_web_prod_deploy:
   <<: *with_nix
@@ -263,7 +263,7 @@ user_provision_web_prod_rotate_keys:
 build-builder:
   image: fluidattacks/docker-bash:latest
   tags: [autoscaling]
-  stage: build
+  stage: build-and-test
   script:
     - ./ci-scripts/jobs/build-builder.sh
   only:
@@ -273,7 +273,7 @@ build-builder:
 commitlint:
   image: starefossen/ruby-node:2-10
   tags: [autoscaling]
-  stage: test
+  stage: build-and-test
   before_script:
     - npm install --unsafe-perm
   script:
