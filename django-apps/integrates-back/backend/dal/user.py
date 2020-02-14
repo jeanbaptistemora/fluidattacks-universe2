@@ -75,11 +75,6 @@ def logging_users_report(company_name, init_date, finish_date):
     return len(users)
 
 
-def remove_user(email):
-    primary_keys = {'email': email.lower()}
-    return integrates_dal.delete_item(TABLE, primary_keys)
-
-
 def remove_user_attribute(email, name_attribute):
     return update(email.lower(), {name_attribute: None})
 
@@ -131,6 +126,21 @@ def update(email, data):
                                'error', extra_data=ex, payload_data=locals())
 
     return success
+
+
+def delete(email):
+    table = DYNAMODB_RESOURCE.Table(TABLE)
+    primary_keys = {'email': email.lower()}
+    resp = False
+    try:
+        item = table.get_item(Key=primary_keys)
+        if item.get('Item'):
+            response = table.delete_item(Key=primary_keys)
+            resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError as ex:
+        rollbar.report_message('Error: Couldn\'nt delete user',
+                               'error', extra_data=ex, payload_data=locals())
+    return resp
 
 
 def get_projects(user_email, active):

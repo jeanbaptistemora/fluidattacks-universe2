@@ -102,7 +102,7 @@ def remove_access_token(email):
 
 
 def remove_user(email):
-    return user_dal.remove_user(email.lower())
+    return user_dal.delete(email.lower())
 
 
 def update_legal_remember(email, remember):
