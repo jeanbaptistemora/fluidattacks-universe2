@@ -7,15 +7,15 @@ replace_env_vars() {
   set -Eeuo pipefail
 
   local FILE
-  local TMP_FILE
+  local TEMP_FILE1
 
   FILE="$1"
-  TMP_FILE="$(mktemp /tmp/XXXXXXXXXX)"
+  TEMP_FILE1="$(mktemp /tmp/XXXXXXXXXX)"
 
   shift 1
 
-  envsubst < "$FILE" > "$TMP_FILE"
-  mv "$TMP_FILE" "$FILE"
+  envsubst < "$FILE" > "$TEMP_FILE1"
+  mv "$TEMP_FILE1" "$FILE"
 }
 
 aws_login() {

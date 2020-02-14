@@ -5,6 +5,36 @@ source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 source "${srcDotDotToolboxOthers}"
 
+function job_analytics_dynamodb {
+      aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        aws_dynamodb_access_key \
+        aws_dynamodb_secret_key \
+        aws_dynamodb_default_region \
+        analytics_auth_redshift \
+  &&  echo '[INFO] Generating secret files' \
+  &&  {
+        echo '{'
+        echo "\"AWS_ACCESS_KEY_ID\":\"${aws_dynamodb_access_key}\","
+        echo "\"AWS_SECRET_ACCESS_KEY\":\"${aws_dynamodb_secret_key}\","
+        echo "\"AWS_DEFAULT_REGION\":\"${aws_dynamodb_default_region}\""
+        echo '}'
+      } > "${TEMP_FILE1}" \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  echo '[INFO] Running tap' \
+  &&  mkdir ./logs \
+  &&  tap-awsdynamodb \
+        --auth "${TEMP_FILE1}" \
+        --conf ./analytics/conf/awsdynamodb.json \
+        | tee .singer \
+  &&  echo '[INFO] Running target' \
+  &&  target-redshift \
+        --auth "${TEMP_FILE2}" \
+        --drop-schema \
+        --schema-name 'dynamodb' \
+        < .singer
+}
+
 function job_analytics_formstack {
       aws_login \
   &&  sops_env secrets-prod.yaml default \
@@ -18,13 +48,13 @@ function job_analytics_formstack {
   &&  tap-formstack \
         --auth "${TEMP_FILE1}" \
         --conf ./analytics/conf/formstack.json \
-        | tee formstack.singer \
+        | tee .singer \
   &&  echo '[INFO] Running target' \
   &&  target-redshift \
         --auth "${TEMP_FILE2}" \
         --drop-schema \
         --schema-name 'formstack' \
-        < formstack.singer
+        < .singer
 }
 
 function job_deploy_docker_image_exams {
@@ -334,24 +364,26 @@ function _job_infra_monolith {
             > "${elbs_info}" \
       &&  elbs_names=$( \
             jq -r '.LoadBalancerDescriptions[].LoadBalancerName' "${elbs_info}") \
-      &&  for name in ${elbs_names}; do
-                tags="$(mktemp)" \
-            &&  aws elb --region 'us-east-1' describe-tags \
-                  --load-balancer-names "${name}" > "${tags}" \
-            &&  if jq -e "${jq_query}" "${tags}"; then
-                      TF_VAR_elbDns=$( \
-                        jq -r ".LoadBalancerDescriptions[] \
-                          | select(.LoadBalancerName == \"${name}\") \
-                            | .DNSName" "${elbs_info}") \
-                  &&  TF_VAR_elbZone=$( \
-                        jq -r ".LoadBalancerDescriptions[] \
-                          | select(.LoadBalancerName == \"${name}\") \
-                            | .CanonicalHostedZoneNameID" "${elbs_info}")
-                fi
-          done || (
-            echo "[ERROR] No nginx production load balancer was found"
-            return 1
-          ) \
+      &&  {
+            for name in ${elbs_names}; do
+                  tags="$(mktemp)" \
+              &&  aws elb --region 'us-east-1' describe-tags \
+                    --load-balancer-names "${name}" > "${tags}" \
+              &&  if jq -e "${jq_query}" "${tags}"; then
+                        TF_VAR_elbDns=$( \
+                          jq -r ".LoadBalancerDescriptions[] \
+                            | select(.LoadBalancerName == \"${name}\") \
+                              | .DNSName" "${elbs_info}") \
+                    &&  TF_VAR_elbZone=$( \
+                          jq -r ".LoadBalancerDescriptions[] \
+                            | select(.LoadBalancerName == \"${name}\") \
+                              | .CanonicalHostedZoneNameID" "${elbs_info}")
+                  fi
+            done || (
+              echo "[ERROR] No nginx production load balancer was found"
+              return 1
+            )
+          } \
       &&  terraform init --backend-config="bucket=servestf" \
       &&  tflint \
       &&  terraform plan \

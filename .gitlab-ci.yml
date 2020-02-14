@@ -40,14 +40,14 @@ stages:
     refs:
       - schedules
     variables:
-      - $FLAG_DEPLOY_NIX_DOCKER_IMAGES
+      - $SCHEDULE_DEPLOY_NIX_DOCKER_IMAGES
 
 .in_schedule_user_provision_rotate_keys: &in_schedule_user_provision_rotate_keys
   only:
     refs:
       - schedules
     variables:
-      - $FLAG_USER_PROVISION_ROTATE_KEYS
+      - $SCHEDULE_USER_PROVISION_ROTATE_KEYS
 
 .with_nix: &with_nix
   image: "${CI_REGISTRY_IMAGE}:nix"
@@ -78,7 +78,14 @@ analytics_formstack:
   stage: analytics
   only:
     refs: [schedules]
-    variables: [$FLAG_ANALYTICS_FORMSTACK]
+    variables: [$SCHEDULE_ANALYTICS_FORMSTACK]
+
+analytics_dynamodb:
+  <<: *with_nix
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_DYNAMODB]
 
 deploy_docker_image_exams:
   <<: *with_nix
@@ -356,17 +363,6 @@ vault_backup:
     - rm credentials
   <<: *in_schedules
   <<: *except_analytics
-
-analytics-sync-dynamodb:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling-large]
-  stage: analytics
-  script:
-    - ./ci-scripts/jobs/analytics-sync-dynamodb.sh
-  <<: *in_schedules
-  only:
-    variables:
-      - $FLAG_SYNC_AWSDYNAMODB
 
 analytics-sync-timedoctor:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
