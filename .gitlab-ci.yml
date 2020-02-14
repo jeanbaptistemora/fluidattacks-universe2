@@ -78,17 +78,17 @@ stages:
 deploy_docker_image_exams:
   <<: *with_nix
   <<: *in_dev_and_master_branch
-  stage: build
+  stage: test
 
 deploy_docker_image_nix:
   <<: *with_nix
   <<: *in_schedule_deploy_nix_docker_images
-  stage: build
+  stage: test
 
 deploy_docker_image_vpn:
   <<: *with_nix
   <<: *in_dev_and_master_branch
-  stage: build
+  stage: test
 
 infra_analytics_test:
   <<: *with_nix
@@ -266,13 +266,14 @@ build-builder:
   stage: build
   script:
     - ./ci-scripts/jobs/build-builder.sh
-  <<: *except_analytics
+  only:
+    refs:
+      - master
 
 commitlint:
   image: starefossen/ruby-node:2-10
   tags: [autoscaling]
   stage: test
-  needs: [build-builder]
   before_script:
     - npm install --unsafe-perm
   script:
