@@ -88,8 +88,8 @@ def database(connection_string: ConnectionString
         f'SERVER={server};'
         f'DATABASE={dbname};'
         f'UID={username};'
-        f'PWD={password}')
-
+        f'PWD={password}',
+        timeout=5)
     try:
         cursor = connection.cursor()
         try:
@@ -117,7 +117,10 @@ def _check_permission(connection_string: ConnectionString,
             for account in accounts:
                 (vulns
                  if account.permission_name.lower() == permission.lower() else
-                 safes).append(f'sys.server_principals.{account.name}')
+                 safes).append(
+                     (f'sys.server_principals.{account.name}',
+                      (f'{permission} permission must only be granted to'
+                       ' individual administration accounts through roles.')))
 
     except (pyodbc.ProgrammingError, pyodbc.OperationalError) as exc:
         if not _is_auth_permission_error(exc):
@@ -175,7 +178,9 @@ def have_access(dbname: str, user: str, password: str, host: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    (vulns if success else safes).append(msg_open if success else msg_closed)
+    (vulns if success else safes).append(
+        ('master',
+         'server database is accessible with given credentials'))
 
     return _get_result_as_tuple(
         host=host,
@@ -205,23 +210,15 @@ def can_execute_commands(dbname: str, user: str, password: str, host: str,
     """
     connection_string: ConnectionString = ConnectionString(
         dbname, user, password, host, port)
-    success: bool = False
     msg_open: str = 'The user can execute OS commands'
     msg_closed: str = 'The user can\'t execute OS commands'
 
-    try:
-        with database(connection_string) as (_, cursor):
-            cursor.execute('EXEC xp_cmdshell \'mkdir test, NO_OUTPUT\'')
-            success = True
-    except pyodbc.OperationalError as exc:
-        if not _is_compatibility_error and not _is_permission_error(
-                exc) and not _is_xp_cmdshell_error(exc):
-            raise exc
-
     vulns: List[str] = []
     safes: List[str] = []
-
-    (vulns if success else safes).append(msg_open if success else msg_closed)
+    (vulns if _check_configuration(connection_string,
+                                   'xp_cmdshell') else
+     safes).append(('master.sys.configuration.xp_cmdshell',
+                    'must disabled procedure xp_cmdshell'))
 
     return _get_result_as_tuple(
         host=host,
@@ -271,7 +268,8 @@ def has_text(dbname: str, user: str, password: str, host: str, port: int,
             if beaked:
                 break
 
-    (vulns if success else safes).append(msg_open if success else msg_closed)
+    (vulns if success else safes).append(
+        (database, msg_open if success else msg_closed))
 
     return _get_result_as_tuple(
         host=host,
@@ -330,7 +328,8 @@ def has_login_password_expiration_disabled(dbname: str,
                 for des_name in enumerate(row.cursor_description):
                     value[des_name[1][0]] = row[des_name[0]]
                 (vulns if not value['is_expiration_checked'] else
-                 safes).append(f'master.sys.sql_logins.{value["name"]}')
+                 safes).append((f'master.sys.sql_logins.{value["name"]}',
+                                'login password must expirate'))
     except (pyodbc.ProgrammingError, pyodbc.OperationalError) as exception:
         if not _is_auth_permission_error(exception):
             raise exception
@@ -382,7 +381,8 @@ def has_enabled_ad_hoc_queries(dbname: str,
 
     (vulns if _check_configuration(connection_string,
                                    'ad hoc distributed queries') else
-     safes).append('must disable ad hoc distributed queries config option')
+     safes).append(('master.sys.configuration.ad hoc distributed queries',
+                    'must disable ad hoc distributed queries config option'))
 
     return _get_result_as_tuple(
         host=host,
@@ -484,9 +484,10 @@ def has_password_policy_check_disabled(dbname: str,
             cursor.execute("""SELECT is_policy_checked, name FROM
                               master.sys.sql_logins WHERE type = 'S'
                               AND name NOT LIKE '##MS%##'""")
-            for data in cursor:
-                (vulns if not data.is_policy_checked else safes).append(
-                    f'master.sys.sql_logins.{data.name}')
+            for login in cursor:
+                (vulns if not login.is_policy_checked else safes).append(
+                    (f'master.sys.sql_logins.{login.name}',
+                     'must enable password policy check'))
 
     except (pyodbc.InterfaceError, pyodbc.OperationalError) as exc:
         if not _is_auth_permission_error(exc):
@@ -536,7 +537,9 @@ def has_xps_option_enabled(dbname: str, user: str, password: str, host: str,
     msg_closed: str = 'Agent XPs Option is Disabled'
 
     (vulns if _check_configuration(connection_string, 'agent xps') else
-     safes).append(f'Must disable Agent XPs Option.')
+     safes).append(
+         ('master.sys.configuration.agent xps',
+          'Must disable Agent XPs Option.'))
 
     return _get_result_as_tuple(
         host=host,
@@ -589,7 +592,8 @@ def has_asymmetric_keys_with_unencrypted_private_keys(dbname: str,
                                      FROM sys.asymmetric_keys""").fetchall()
         for key in keys:
             (vulns if key.pvt_key_encryption_type == 'NA' else safes).append(
-                f'{dbname}.asymmetric_keys.{key.name}')
+                (f'{dbname}.asymmetric_keys.{key.name}',
+                 'must encrypt the private key'))
 
     except (pyodbc.OperationalError, pyodbc.InterfaceError) as exc:
         if not _is_auth_permission_error(exc):
@@ -642,7 +646,9 @@ def has_smo_and_dmo_xps_option_enabled(dbname: str,
     msg_closed: str = 'SMO and DMO XPs options are disablede.'
 
     (vulns if _check_configuration(connection_string, 'SMO and DMO XPs') else
-     safes).append(f'Must disable SMO and DMO XPs options.')
+     safes).append(
+         ('master.sys.configuration.SMO and DMO XPs',
+          f'Must disable SMO and DMO XPs options.'))
 
     return _get_result_as_tuple(
         host=host,
@@ -690,12 +696,14 @@ def has_contained_dbs_with_auto_close_enabled(dbname: str,
 
     try:
         with database(connection_string) as (_, cursor):
-            databases = cursor.execute("""SELECT name, is_auto_close_on
+            databases = cursor.execute(
+                """SELECT name, is_auto_close_on
                    FROM sys.databases
                    WHERE containment <> 0""").fetchall()
         for database_ in databases:
             (vulns if database_.is_auto_close_on else
-             safes).append(f'sys.databases.{database_.name}')
+             safes).append((f'sys.databases.{database_.name}',
+                            'must set AUTO_CLOSE to OFF'))
 
     except (pyodbc.OperationalError, pyodbc.InterfaceError) as exc:
         if not _is_auth_permission_error(exc):
@@ -881,8 +889,10 @@ def has_sa_account_login_enabled(dbname: str, user: str, password: str,
         with database(connection_string) as (_, cursor):
             cursor.execute(query)
             (vulns if cursor.fetchone() else
-             safes).append(('must disable the sa account because it could be '
-                            'the target of attacks'))
+             safes).append(
+                 ('master.sys.server_principals',
+                  ('must disable the sa account because it could be '
+                   'the target of attacks')))
 
     except (pyodbc.OperationalError, pyodbc.InterfaceError) as exc:
         if not _is_auth_permission_error(exc):
@@ -934,7 +944,8 @@ def has_remote_access_option_enabled(dbname: str,
     msg_closed: str = 'Remote access is disabled.'
 
     (vulns if _check_configuration(connection_string, 'remote access') else
-     safes).append(f'Must disable the remote access.')
+     safes).append(('master.sys.configuration.remote access',
+                    f'Must disable the remote access.'))
     return _get_result_as_tuple(
         host=host,
         port=port,

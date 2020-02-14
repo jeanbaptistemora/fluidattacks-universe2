@@ -143,7 +143,8 @@ def have_access(dbname: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    (vulns if success else safes).append(msg_open if success else msg_closed)
+    (vulns if success else safes).append(
+        (dbname, 'database is accessible with given credentials'))
 
     return _get_result_as_tuple(
         host=host,
@@ -190,7 +191,7 @@ def does_not_support_ssl(dbname: str,
     safes: List[str] = []
 
     (safes if supports_ssl else vulns).append(
-        msg_closed if supports_ssl else msg_open)
+        (dbname, 'must enable ssl connections'))
 
     return _get_result_as_tuple(
         host=host,
@@ -235,19 +236,20 @@ def has_not_logging_enabled(dbname: str,
 
     is_safe = _get_var(connection_string, 'logging_collector') == 'on'
     (safes if is_safe else vulns).append(
-        'logging_collector must be set to on')
+        ('pg_settings.logging_collector',
+         'logging_collector must be set to on'))
 
     is_safe = _get_var(connection_string, 'log_statement') == 'all'
     (safes if is_safe else vulns).append(
-        'log_statement must be set to all')
+        ('pg_settings.log_statement', 'log_statement must be set to all'))
 
     is_safe = bool(_get_var(connection_string, 'log_directory'))
     (safes if is_safe else vulns).append(
-        'log_directory must be set')
+        ('pg_settings.log_directory', 'log_directory must be set'))
 
     is_safe = bool(_get_var(connection_string, 'log_filename'))
     (safes if is_safe else vulns).append(
-        'log_filename must be set')
+        ('pg_settings.log_filename', 'log_filename must be set'))
 
     #
     # Below are hardening configurations
@@ -255,18 +257,20 @@ def has_not_logging_enabled(dbname: str,
 
     is_safe = _get_var(connection_string, 'log_checkpoints') == 'on'
     (safes if is_safe else vulns).append(
-        'log_checkpoints must be set to on')
+        ('pg_settings.log_checkpoints', 'log_checkpoints must be set to on'))
 
     # csvlog is just a format, syslog and eventlog have problems
     # use this in conjunction with logging_collector 'on' for a strong setting
     is_safe = 'stderr' in _get_var(connection_string, 'log_destination')
     (safes if is_safe else vulns).append(
-        'log_destination must be set to stderr')
+        ('pg_settings.log_destination',
+         'log_destination must be set to stderr'))
 
     accepted = ('default', 'verbose')
     is_safe = _get_var(connection_string, 'log_error_verbosity') in accepted
     (safes if is_safe else vulns).append(
-        'log_error_verbosity must be set to default or verbose')
+        ('pg_settings.log_error_verbosity',
+         'log_error_verbosity must be set to default or verbose'))
 
     #
     # Repudiation
@@ -274,18 +278,20 @@ def has_not_logging_enabled(dbname: str,
 
     is_safe = _get_var(connection_string, 'log_connections') == 'on'
     (safes if is_safe else vulns).append(
-        'log_connections must be set to on')
+        ('pg_settings.log_connections', 'log_connections must be set to on'))
 
     is_safe = _get_var(connection_string, 'log_disconnections') == 'on'
     (safes if is_safe else vulns).append(
-        'log_disconnections must be set to on')
+        ('pg_settings.log_disconnections',
+         'log_disconnections must be set to on'))
 
     log_line_prefix: str = _get_var(connection_string, 'log_line_prefix')
 
     for prefix in ('%m', '%u', '%d', '%r', '%c'):
         is_safe = prefix in log_line_prefix
         (safes if is_safe else vulns).append(
-            f'log_line_prefix must contain {prefix}')
+            ('pg_settings.log_line_prefix',
+             f'log_line_prefix must contain {prefix}'))
 
     #
     # Performance
@@ -293,11 +299,11 @@ def has_not_logging_enabled(dbname: str,
 
     is_safe = _get_var(connection_string, 'log_duration') == 'on'
     (safes if is_safe else vulns).append(
-        'log_duration must be set to on')
+        ('pg_settings.log_duration', 'log_duration must be set to on'))
 
     is_safe = _get_var(connection_string, 'log_lock_waits') == 'on'
     (safes if is_safe else vulns).append(
-        'log_lock_waits must be set to on')
+        ('pg_settings.log_lock_waits', 'log_lock_waits must be set to on'))
 
     # Disable log_statement_stats
     #   Enable log_executor_stats
@@ -306,23 +312,27 @@ def has_not_logging_enabled(dbname: str,
     # For a detailed log
     is_safe = _get_var(connection_string, 'log_statement_stats') == 'off'
     (safes if is_safe else vulns).append(
-        'log_statement_stats must be set to on')
+        ('pg_settings.log_statement_stats',
+         'log_statement_stats must be set to on'))
 
     is_safe = _get_var(connection_string, 'log_executor_stats') == 'on'
     (safes if is_safe else vulns).append(
-        'log_executor_stats must be set to on')
+        ('pg_settings.log_executor_stats',
+         'log_executor_stats must be set to on'))
 
     is_safe = _get_var(connection_string, 'log_parser_stats') == 'on'
     (safes if is_safe else vulns).append(
-        'log_parser_stats must be set to on')
+        ('pg_settings.log_parser_stats', 'log_parser_stats must be set to on'))
 
     is_safe = _get_var(connection_string, 'log_planner_stats') == 'on'
     (safes if is_safe else vulns).append(
-        'log_planner_stats must be set to on')
+        ('pg_settings.log_planner_stats',
+         'log_planner_stats must be set to on'))
 
     is_safe = _get_var(connection_string, 'log_autovacuum_min_duration') == '0'
     (safes if is_safe else vulns).append(
-        'log_autovacuum_min_duration must be set to 0')
+        ('pg_settings.log_autovacuum_min_duration',
+         'log_autovacuum_min_duration must be set to 0'))
 
     #
     # Logging levels
@@ -330,19 +340,23 @@ def has_not_logging_enabled(dbname: str,
 
     is_safe = _get_var(connection_string, 'log_min_duration_statement') == '0'
     (safes if is_safe else vulns).append(
-        'log_min_duration_statement must be set to 0')
+        ('pg_settings.log_min_duration_statement',
+         'log_min_duration_statement must be set to 0'))
 
     is_safe = _get_var(connection_string, 'log_min_error_statement') == 'error'
     (safes if is_safe else vulns).append(
-        'log_min_error_statement must be set to error')
+        ('pg_settings.log_min_error_statement',
+         'log_min_error_statement must be set to error'))
 
     is_safe = _get_var(connection_string, 'log_min_messages') == 'warning'
     (safes if is_safe else vulns).append(
-        'log_min_messages must be set to warning')
+        ('pg_settings.log_min_messages',
+         'log_min_messages must be set to warning'))
 
     is_safe = _get_var(connection_string, 'log_replication_commands') == 'on'
     (safes if is_safe else vulns).append(
-        'log_replication_commands must be set to on')
+        ('pg_settings.log_replication_commands',
+         'log_replication_commands must be set to on'))
 
     #
     # Avoid overwriting logs !
@@ -350,7 +364,8 @@ def has_not_logging_enabled(dbname: str,
 
     is_safe = _get_var(connection_string, 'log_truncate_on_rotation') == 'off'
     (safes if is_safe else vulns).append(
-        'log_truncate_on_rotation must be set to off')
+        ('pg_settings.log_truncate_on_rotation',
+         'log_truncate_on_rotation must be set to off'))
 
     return _get_result_as_tuple(
         host=host,
@@ -396,10 +411,11 @@ def has_not_data_checksums_enabled(dbname: str,
     safes: List[str] = []
 
     (safes if safe_data_checksums else vulns).append(
-        'data_checksums must be set to on')
+        ('pg_settings.data_checksums', 'data_checksums must be set to on'))
 
     (safes if safe_ignore_checksum_fail else vulns).append(
-        'ignore_checksum_failure must be set to off')
+        ('pg_settings.ignore_checksum_failure',
+         'ignore_checksum_failure must be set to off'))
 
     return _get_result_as_tuple(
         host=host,
@@ -462,16 +478,20 @@ def has_insecure_password_encryption(dbname: str,
     safes: List[str] = []
 
     (vulns if vuln_encryption_1 else safes).append(
-        'password_encryption must not be set to off')
+        ('pg_settings.password_encryption',
+         'password_encryption must not be set to off'))
 
     (vulns if vuln_encryption_2 else safes).append(
-        'password_encryption must not be set to on (alias for md5)')
+        ('pg_settings.password_encryption',
+         'password_encryption must not be set to on (alias for md5)'))
 
     (vulns if vuln_encryption_3 else safes).append(
-        'password_encryption must not be set to md5')
+        ('pg_settings.password_encryption',
+         'password_encryption must not be set to md5'))
 
     (safes if safe_encryption else vulns).append(
-        'password_encryption must be set to scram-sha-256')
+        ('pg_settings.password_encryption',
+         'password_encryption must be set to scram-sha-256'))
 
     return _get_result_as_tuple(
         host=host,
@@ -519,7 +539,7 @@ def has_insecurely_stored_passwords(dbname: str,
         is_safe: bool = any(passwd.lower().startswith(s) for s in safe_digests)
         assertion: str = 'securely' if is_safe else 'insecurely'
         specific: str = f'{usename} user password is {assertion} stored'
-        (safes if is_safe else vulns).append(specific)
+        (safes if is_safe else vulns).append(('pg_shadow.pg_shadow', specific))
 
     return _get_result_as_tuple(
         host=host,
@@ -568,12 +588,13 @@ def has_insecure_file_permissions(dbname: str,
     accepted = ('700', '0700')
     is_safe = _get_var(connection_string, 'data_directory_mode') in accepted
     (safes if is_safe else vulns).append(
-        'data_directory_mode must be set to 0700')
+        ('pg_settings.data_directory_mode',
+         'data_directory_mode must be set to 0700'))
 
     accepted = ('600', '0600')
     is_safe = _get_var(connection_string, 'log_file_mode') in accepted
     (safes if is_safe else vulns).append(
-        'log_file_mode must be set to 0600')
+        ('pg_settings.log_file_mode', 'log_file_mode must be set to 0600'))
 
     return _get_result_as_tuple(
         host=host,
@@ -644,7 +665,8 @@ def allows_too_many_concurrent_connections(dbname: str,
     is_safe: bool = bool(value) and int(value) <= max_connections
 
     (safes if is_safe else vulns).append(
-        f'max_connections must be less than {max_connections}')
+        ('pg_settings.max_connections',
+         f'max_connections must be less than {max_connections}'))
 
     return _get_result_as_tuple(
         host=host,
@@ -748,7 +770,8 @@ def does_not_invalidate_session_ids(dbname: str,
         value = _get_var(connection_string, var_name)
         is_safe = bool(value) and min_value <= int(value) <= max_value
         (safes if is_safe else vulns).append(
-            f'{var_name} must be between {min_value} and {max_value}')
+            ('pg_settings.max_connections', (f'{var_name} must be between'
+                                             f' {min_value} and {max_value}')))
 
     return _get_result_as_tuple(
         host=host,

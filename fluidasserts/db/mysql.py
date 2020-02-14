@@ -92,7 +92,8 @@ def have_access(server: str, username: str, password: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    (vulns if success else safes).append(msg_open if success else msg_closed)
+    (vulns if success else safes).append(
+        ('mysql', 'database is accessible with given credentials'))
 
     return _get_result_as_tuple(
         host=server,
@@ -132,7 +133,7 @@ def test_db_exists(server: str, username: str, password: str,
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        msg_open if vulnerable else msg_closed)
+        ('test', 'must delete database test'))
 
     return _get_result_as_tuple(
         host=server,
@@ -176,7 +177,7 @@ def local_infile_enabled(server: str, username: str, password: str,
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        msg_open if vulnerable else msg_closed)
+        ('@local_infile', '@local_infile must be set to OFF'))
 
     return _get_result_as_tuple(
         host=server,
@@ -219,7 +220,7 @@ def symlinks_enabled(server: str, username: str, password: str,
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        msg_open if vulnerable else msg_closed)
+        ('@have_symlink', '@have_symlink must be set to DISABLED'))
 
     return _get_result_as_tuple(
         host=server,
@@ -263,7 +264,8 @@ def memcached_enabled(server: str, username: str, password: str,
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        msg_open if vulnerable else msg_closed)
+        ('information_schema.plugins',
+         'daemon_memcached plugin must be disabled'))
 
     return _get_result_as_tuple(
         host=server,
@@ -307,7 +309,7 @@ def secure_file_priv_disabled(server: str, username: str,
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        msg_open if vulnerable else msg_closed)
+        ('@secure_file_priv', '@secure_file_priv must be set'))
 
     return _get_result_as_tuple(
         host=server,
@@ -352,7 +354,7 @@ def strict_all_tables_disabled(server: str, username: str,
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        msg_open if vulnerable else msg_closed)
+        ('@sql_mode', '@sql_mode must be set STRICT_ALL_TABLES'))
 
     return _get_result_as_tuple(
         host=server,
@@ -395,7 +397,7 @@ def log_error_disabled(server: str, username: str, password: str,
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        msg_open if vulnerable else msg_closed)
+        ('@log_error', '@log_error must be set'))
 
     return _get_result_as_tuple(
         host=server,
@@ -437,7 +439,8 @@ def logs_on_system_fs(server: str, username: str, password: str,
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        msg_open if vulnerable else msg_closed)
+        ('@@global.log_bin_basename',
+         'Logs must be saved outside filesystems'))
 
     return _get_result_as_tuple(
         host=server,
@@ -480,8 +483,8 @@ def logs_verbosity_low(server: str, username: str, password: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    (safes if is_safe else vulns).append(
-        msg_closed if is_safe else msg_open)
+    (safes if is_safe else vulns).append(('@log_error_verbosity',
+                                          'Log verbosity must be 2 or 3'))
 
     return _get_result_as_tuple(
         host=server,
@@ -527,7 +530,8 @@ def auto_creates_users(server: str, username: str, password: str,
     safes: List[str] = []
 
     (safes if is_safe else vulns).append(
-        msg_closed if is_safe else msg_open)
+        ('[@@global.sql_mode | SELECT @@session.sql_mode]',
+         '[@@global.sql_mode | SELECT @@session.sql_mode] must be set'))
 
     return _get_result_as_tuple(
         host=server,
@@ -559,17 +563,15 @@ def has_users_without_password(server: str, username: str,
     msg_open: str = 'There are users without password on server'
     msg_closed: str = 'All users have passwords on server'
 
-    query: str = """
-        SELECT user FROM mysql.user WHERE password = ''
-        """
-
-    vulnerable: bool = bool(tuple(_execute(connection_string, query)))
+    query: str = "SELECT user, password FROM mysql.user"
 
     vulns: List[str] = []
     safes: List[str] = []
 
-    (vulns if vulnerable else safes).append(
-        msg_open if vulnerable else msg_closed)
+    for user in _execute(connection_string, query):
+        (vulns if not user[1] else safes).append(
+            (f'mysql.user.{user[0]}',
+             f'must set a secure password to {user[0]}'))
 
     return _get_result_as_tuple(
         host=server,
@@ -612,7 +614,8 @@ def password_expiration_unsafe(server: str, username: str,
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        msg_open if vulnerable else msg_closed)
+        ('@default_password_lifetime',
+         '@default_password_lifetime must be set or be less than 90 days'))
 
     return _get_result_as_tuple(
         host=server,
@@ -646,28 +649,22 @@ def password_equals_to_user(server: str, username: str,
     msg_closed: str = 'There are no users whose username is their password'
 
     query: str = """
-        SELECT User, password
-        FROM mysql.user
-        WHERE (
-            password = MD5(%(username)s)
-            or password = SHA1(%(username)s)
-            or password = PASSWORD(%(username)s)
-            or password = ENCRYPT(%(username)s)
-        )
-        """
-    variables: Dict[str, str] = {
-        'username': username
-    }
-
-    # vulnerable if there are returned rows
-    vulnerable: bool = bool(tuple(_execute(connection_string,
-                                           query, variables)))
+                SELECT user,
+                       password,
+                       MD5(user),
+                       SHA1(user),
+                       PASSWORD(user),
+                       ENCRYPT(user)
+                FROM mysql.user"""
 
     vulns: List[str] = []
     safes: List[str] = []
 
-    (vulns if vulnerable else safes).append(
-        msg_open if vulnerable else msg_closed)
+    for user in _execute(connection_string, query):
+        vulnerable = user[1] in user[2:]
+        (vulns if vulnerable else safes).append(
+            (f'mysql.user.{user[0]}',
+             'username and password must be distinct'))
 
     return _get_result_as_tuple(
         host=server,
@@ -699,16 +696,14 @@ def users_have_wildcard_host(server: str, username: str,
     msg_open: str = 'There are users with wildcard hosts'
     msg_closed: str = 'There are not users with wildcard hosts'
 
-    query: str = 'SELECT user FROM mysql.user WHERE host = "%"'
-
-    # vulnerable if there are returned rows
-    vulnerable: bool = bool(tuple(_execute(connection_string, query)))
+    query: str = 'SELECT user, host FROM mysql.user'
 
     vulns: List[str] = []
     safes: List[str] = []
 
-    (vulns if vulnerable else safes).append(
-        msg_open if vulnerable else msg_closed)
+    for user in _execute(connection_string, query):
+        (vulns if user[1] == '%' else safes).append(
+            (f'mysql.user.{user[0]}', 'user must not has access to all hosts'))
 
     return _get_result_as_tuple(
         host=server,
@@ -748,7 +743,7 @@ def not_use_ssl(server: str, username: str, password: str,
     safes: List[str] = []
 
     (vulns if vulnerable else safes).append(
-        msg_open if vulnerable else msg_closed)
+        ('@have_ssl', '@have_ssl must be set ENABLED'))
 
     return _get_result_as_tuple(
         host=server,
@@ -782,23 +777,17 @@ def ssl_unforced(server: str, username: str, password: str,
     msg_open: str = 'Users are not forced to use SSL'
     msg_closed: str = 'Users are forced to use SSL'
 
-    query: str = """
-        SELECT user, ssl_type
-        FROM mysql.user
-        WHERE (
-            NOT HOST IN ("::1", "127.0.0.1", "localhost")
-            AND NOT ssl_type IN ("ANY", "X509", "SPECIFIED")
-        )
-        """
-
-    # vulnerable if there are returned rows
-    vulnerable: bool = bool(tuple(_execute(connection_string, query)))
+    query: str = "SELECT user, host, ssl_type FROM mysql.user"
 
     vulns: List[str] = []
     safes: List[str] = []
 
-    (vulns if vulnerable else safes).append(
-        msg_open if vulnerable else msg_closed)
+    for user in _execute(connection_string, query):
+        vulnerable = user[1] not in (
+            '::1', '127.0.0.1', 'localhost') and user[2] not in ('ANY', 'X509',
+                                                                 'SPECIFIED')
+        (vulns if vulnerable else safes).append(
+            (f'mysql.user.{user[0]}', f'force {user[0]} to use SSL'))
 
     return _get_result_as_tuple(
         host=server,
