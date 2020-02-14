@@ -16,7 +16,7 @@ from typing import Any
 # Type aliases that improve clarity
 JSON = Any
 
-DOMAIN = "/logs/__tap_awsdynamodb."
+DOMAIN = "./logs/__tap_awsdynamodb."
 
 
 def stdout_json_obj(json_obj: JSON) -> None:

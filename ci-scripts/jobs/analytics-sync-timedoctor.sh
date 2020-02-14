@@ -16,7 +16,7 @@ analytics_sync_timedoctor() {
     analytics_auth_formstack \
     analytics_auth_redshift
 
-  mkdir /logs
+  mkdir ./logs
   ./analytics/set-aws-cli.sh
   pip3 install \
     analytics/singer/tap_formstack \
