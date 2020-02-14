@@ -21,6 +21,17 @@ function job_deploy_docker_image_exams {
         "${build_arg_1}" "${!build_arg_1}"
 }
 
+function job_deploy_docker_image_nix {
+  local tag="${CI_REGISTRY_IMAGE}:nix"
+  local context='.'
+  local dockerfile='build/Dockerfile'
+
+  helper_docker_build_and_push \
+    "${tag}" \
+    "${context}" \
+    "${dockerfile}"
+}
+
 function job_deploy_docker_image_vpn {
   local tag="registry.gitlab.com/fluidattacks/serves/vpn:${CI_COMMIT_REF_NAME}"
   local context='containers/vpn'
