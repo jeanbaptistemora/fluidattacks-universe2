@@ -62,7 +62,6 @@ stages:
     variables:
       - $FLAG_REFRESH_TOKENS
       - $FLAG_SYNC_CURRENCIES
-      - $FLAG_SYNC_FORMSTACK
       - $FLAG_SYNC_AWSDYNAMODB
       - $FLAG_SYNC_TIMEDOCTOR
       - $FLAG_SYNC_GIT
@@ -73,6 +72,13 @@ stages:
       - $FLAG_SYNC_GITLAB
       - $FLAG_SYNC_CONTINUOUS
       - $FLAG_SYNC_ZOHO
+
+analytics_formstack:
+  <<: *with_nix
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$FLAG_ANALYTICS_FORMSTACK]
 
 deploy_docker_image_exams:
   <<: *with_nix
@@ -350,17 +356,6 @@ vault_backup:
     - rm credentials
   <<: *in_schedules
   <<: *except_analytics
-
-analytics-sync-formstack:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: analytics
-  script:
-    - ./ci-scripts/jobs/analytics-sync-formstack.sh
-  <<: *in_schedules
-  only:
-    variables:
-      - $FLAG_SYNC_FORMSTACK
 
 analytics-sync-dynamodb:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME

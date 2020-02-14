@@ -20,11 +20,13 @@ function prepare_environment_variables {
 function prepare_ephemeral_vars {
   export MYPY_CACHE_DIR
   export TEMP_FD
-  export TEMP_FILE
+  export TEMP_FILE1
+  export TEMP_FILE2
 
   MYPY_CACHE_DIR=$(mktemp)
   exec {TEMP_FD}>TEMP_FD
-  TEMP_FILE=$(mktemp)
+  TEMP_FILE1=$(mktemp)
+  TEMP_FILE2=$(mktemp)
 }
 
 function prepare_python_packages {
@@ -34,14 +36,14 @@ function prepare_python_packages {
 
   echo '[INFO] Preparing python packages'
 
-  helper_list_vars_with_regex 'pyPkg[a-zA-Z]+' > "${TEMP_FILE}"
+  helper_list_vars_with_regex 'pyPkg[a-zA-Z]+' > "${TEMP_FILE1}"
 
   while read -r pkg
   do
     echo "  [${pkg}] ${!pkg}"
     PATH="${PATH}:${!pkg}/site-packages/bin"
     PYTHONPATH="${PYTHONPATH}:${!pkg}/site-packages"
-  done < "${TEMP_FILE}"
+  done < "${TEMP_FILE1}"
 }
 
 function prepare_workdir {

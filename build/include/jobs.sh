@@ -5,6 +5,28 @@ source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 source "${srcDotDotToolboxOthers}"
 
+function job_analytics_formstack {
+      aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_auth_redshift \
+        analytics_auth_formstack \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_auth_formstack}" > "${TEMP_FILE1}" \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  echo '[INFO] Running tap' \
+  &&  mkdir ./logs \
+  &&  tap-formstack \
+        --auth "${TEMP_FILE1}" \
+        --conf ./analytics/conf/formstack.json \
+        | tee formstack.singer \
+  &&  echo '[INFO] Running target' \
+  &&  target-redshift \
+        --auth "${TEMP_FILE2}" \
+        --drop-schema \
+        --schema-name 'formstack' \
+        < formstack.singer
+}
+
 function job_deploy_docker_image_exams {
   local tag="registry.gitlab.com/fluidattacks/serves/exams:${CI_COMMIT_REF_NAME}"
   local context='containers/exams'
@@ -115,13 +137,14 @@ function job_lint_code {
 
   # SC1090: Can't follow non-constant source. Use a directive to specify location.
   # SC2016: Expressions don't expand in single quotes, use double quotes for that.
+  # SC2153: Possible misspelling: TEMP_FILE2 may not be assigned, but TEMP_FILE1 is.
   # SC2154: var is referenced but not assigned.
 
       nix-linter --recursive . \
   && echo '[OK] Nix code is compliant'
       shellcheck --external-sources build.sh \
   && find '.' -name '*.sh' -exec \
-      shellcheck --external-sources --exclude=SC1090,SC2016,SC2154 {} + \
+      shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154 {} + \
   && echo '[OK] Shell code is compliant' \
   && find . -type f -name '*.py' \
       | (grep -vP './analytics/singer' || cat) \
