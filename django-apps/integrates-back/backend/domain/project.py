@@ -470,6 +470,10 @@ def list_events(project_name):
     return project_dal.list_events(project_name)
 
 
+def get_attributes(project_name, attributes):
+    return project_dal.get_attributes(project_name, attributes)
+
+
 def get_finding_project_name(finding_id):
     return finding_dal.get_attributes(finding_id, ['project_name']).get('project_name')
 

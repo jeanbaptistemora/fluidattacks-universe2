@@ -8,7 +8,7 @@ from django.conf import settings
 from magic import Magic
 
 from backend import util
-from backend.dal import integrates_dal, event as event_dal, project as project_dal
+from backend.dal import event as event_dal, project as project_dal
 from backend.domain import comment as comment_domain, resources as resources_domain
 from backend.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidDate, InvalidFileSize,
@@ -149,8 +149,7 @@ def create_event(analyst_email, project_name, file=None, image=None, **kwargs):
     tzn = pytz.timezone(settings.TIME_ZONE)
     today = datetime.now(tz=tzn).today()
 
-    project = integrates_dal.get_project_attributes_dynamo(
-        project_name, ['companies', 'type'])
+    project = project_dal.get_attributes(project_name, ['companies', 'type'])
     subscription = project.get('type', '')
 
     event_attrs = kwargs.copy()

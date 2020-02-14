@@ -90,8 +90,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_remediated_over_time(self, info):
         "Resolve remediated over time"
         del info
-        remediated_over_time = integrates_dal.get_project_attributes_dynamo(
-            self.name, ['remediated_over_time'])
+        remediated_over_time = project_domain.get_attributes(self.name, ['remediated_over_time'])
         remediate_over_time_decimal = remediated_over_time.get('remediated_over_time', {})
         remediated_twelve_weeks = [lst_rem[-12:] for lst_rem in remediate_over_time_decimal]
         self.remediated_over_time = json.dumps(
@@ -160,8 +159,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_last_closing_vuln(self, info):
         """Resolve days since last closing vuln attribute."""
         del info
-        last_closing_vuln = integrates_dal.get_project_attributes_dynamo(
-            self.name, ['last_closing_date'])
+        last_closing_vuln = project_domain.get_attributes(self.name, ['last_closing_date'])
         self.last_closing_vuln = last_closing_vuln.get('last_closing_date', 0)
         return self.last_closing_vuln
 
@@ -184,8 +182,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_max_open_severity(self, info):
         """Resolve maximum severity in open vulnerability attribute."""
         del info
-        max_open_severity = integrates_dal.get_project_attributes_dynamo(
-            self.name, ['max_open_severity'])
+        max_open_severity = project_domain.get_attributes(self.name, ['max_open_severity'])
         self.max_open_severity = max_open_severity.get('max_open_severity', 0)
         return self.max_open_severity
 
@@ -193,8 +190,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_mean_remediate(self, info):
         """Resolve mean to remediate a vulnerability attribute."""
         del info
-        mean_remediate = integrates_dal.get_project_attributes_dynamo(
-            self.name, ['mean_remediate'])
+        mean_remediate = project_domain.get_attributes(self.name, ['mean_remediate'])
         self.mean_remediate = mean_remediate.get('mean_remediate', 0)
         return self.mean_remediate
 
@@ -215,8 +211,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_total_treatment(self, info):
         """Resolve total treatment attribute."""
         del info
-        total_treatment = integrates_dal.get_project_attributes_dynamo(
-            self.name, ['total_treatment'])
+        total_treatment = project_domain.get_attributes(self.name, ['total_treatment'])
         total_treatment_decimal = total_treatment.get('total_treatment', {})
         self.total_treatment = json.dumps(
             total_treatment_decimal, use_decimal=True)
@@ -242,8 +237,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     def resolve_subscription(self, info):
         """Resolve subscription attribute."""
         del info
-        project_info = integrates_dal.get_project_attributes_dynamo(
-            self.name, ['type'])
+        project_info = project_domain.get_attributes(self.name, ['type'])
         if project_info:
             self.subscription = project_info.get('type', '')
         else:
@@ -285,9 +279,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """ Resolve project tags """
         del info
 
-        project_data = \
-            integrates_dal.get_project_attributes_dynamo(project_name=self.name,
-                                                         data_attributes=['tag'])
+        project_data = project_domain.get_attributes(self.name, ['tag'])
         self.tags = project_data['tag'] if project_data and 'tag' in project_data else []
 
         return self.tags

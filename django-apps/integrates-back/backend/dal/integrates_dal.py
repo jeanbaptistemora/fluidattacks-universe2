@@ -135,13 +135,6 @@ def get_table_attributes_dynamo(table_name, primary_key, data_attributes):
     return items if items else {}
 
 
-def get_project_attributes_dynamo(project_name, data_attributes):
-    """ Get a group of attributes of a project. """
-
-    return get_table_attributes_dynamo(
-        'FI_projects', {'project_name': project_name}, data_attributes)
-
-
 def get_findings_data_dynamo(filtering_exp, data_attr=''):
     """Get all the findings of a project."""
     table = DYNAMODB_RESOURCE.Table('FI_findings')

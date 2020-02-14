@@ -16,7 +16,7 @@ from cryptography.hazmat.primitives import asymmetric, hashes, serialization
 
 from backend import util
 from backend.dal import (
-    integrates_dal, project as project_dal, resources as resources_dal
+    project as project_dal, resources as resources_dal
 )
 from backend.exceptions import InvalidFileSize
 from backend.mailer import send_mail_resources
@@ -117,7 +117,7 @@ def create_file(files_data, uploaded_file, project_name, user_email):
     except InvalidFileSize:
         rollbar.report_message('Error: \
 File exceeds size limit', 'error')
-    files = integrates_dal.get_project_attributes_dynamo(project_name, ['files'])
+    files = project_dal.get_attributes(project_name, ['files'])
     project_files = files.get('files')
     if project_files:
         contains_repeated = [f.get('fileName')

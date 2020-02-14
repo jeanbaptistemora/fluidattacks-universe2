@@ -154,8 +154,7 @@ def get_all_projects():
 
 def get_description(project):
     """ Get the description of a project. """
-    description = integrates_dal.get_project_attributes_dynamo(
-        project, ['description'])
+    description = get_attributes(project, ['description'])
     project_description = ''
     if description:
         project_description = description.get('description')

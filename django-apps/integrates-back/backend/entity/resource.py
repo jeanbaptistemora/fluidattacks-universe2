@@ -10,11 +10,9 @@ from django.conf import settings
 from backend.decorators import (
     require_login, require_project_access, get_entity_cache, new_require_role
 )
-from backend.domain import resources
+from backend.domain import resources, project as project_domain
 from backend.exceptions import InvalidProject
 from backend import util
-
-from backend.dal import integrates_dal
 
 INTEGRATES_URL = 'https://fluidattacks.com/integrates/dashboard'
 
@@ -32,10 +30,9 @@ class Resource(ObjectType):
         self.repositories = []
         self.environments = []
         self.files = []
-        project_exist = integrates_dal.get_project_attributes_dynamo(
-            project_name.lower(), ['project_name'])
+        project_exist = project_domain.get_attributes(project_name.lower(), ['project_name'])
         if project_exist:
-            project_info = integrates_dal.get_project_attributes_dynamo(
+            project_info = project_domain.get_attributes(
                 project_name.lower(), ['repositories', 'environments', 'files'])
             if project_info:
                 self.repositories = project_info.get('repositories', [])
