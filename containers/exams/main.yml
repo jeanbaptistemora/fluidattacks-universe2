@@ -35,7 +35,7 @@
         repo: "git://git.moodle.org/moodle.git"
         depth: 1
         dest: "/var/www/html"
-        version: "MOODLE_36_STABLE"
+        version: "MOODLE_38_STABLE"
 
     - name: Create directory for Moodle data
       file:
