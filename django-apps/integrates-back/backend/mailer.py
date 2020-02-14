@@ -143,7 +143,7 @@ def send_comment_mail(comment_data, entity_name, user_mail, comment_type='', ent
             '/project/{project}/{finding_type}/{id}/{comment_type}s'.format(
                 comment_type=comment_type,
                 finding_type='findings' if is_draft else 'drafts',
-                id=entity.get('id'),
+                id=finding.get('findingId'),
                 project=project_name))
 
     elif entity_name == 'event':
