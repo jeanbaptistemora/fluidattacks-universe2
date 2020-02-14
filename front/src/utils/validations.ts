@@ -11,21 +11,47 @@ export const required: Validator = isRequired({
   message: translate.t("validations.required"),
 });
 
-export const someRequired: Validator = (
-  _0: boolean, allValues: { [key: string]: {} }, _1: {}, name: string,
-): string | undefined => {
-  let isValid: boolean = false;
+const getGroupValues: ((allValues: Dictionary, name: string) => Dictionary) = (
+  allValues: Dictionary, name: string,
+): Dictionary => {
   const fieldId: string[] = name.split(".");
 
   if (fieldId.length > 1) {
     const groupName: string = fieldId[0];
-    const groupValues: { [key: string]: boolean } = allValues[groupName];
-    isValid = _.some(groupValues);
+
+    return allValues[groupName];
   } else {
-    throw new TypeError("Checkbox / Radio must be grouped by a <FormSection> component");
+    throw new TypeError(`Field ${fieldId} must be grouped by a <FormSection> component`);
   }
+};
+
+export const someRequired: Validator = (
+  _0: boolean, allValues: { [key: string]: {} }, _1: {}, name: string,
+): string | undefined => {
+  const groupValues: Dictionary = getGroupValues(allValues, name);
+  const isValid: boolean = _.some(groupValues);
 
   return isValid ? undefined : translate.t("validations.some_required");
+};
+
+export const validEvidenceDescription: Validator = (
+  _0: boolean, allValues: { [key: string]: {} }, _1: {}, name: string,
+): string | undefined => {
+
+  const groupValues: Dictionary = getGroupValues(allValues, name);
+  const hasDescription: boolean = !_.isEmpty(groupValues.description);
+  const hasFileSelected: boolean = !_.isEmpty(groupValues.file as FileList);
+  const hasUrl: boolean = !_.isEmpty(groupValues.url);
+
+  return hasDescription
+    ? hasUrl
+      ? undefined
+      : hasFileSelected
+        ? undefined
+        : translate.t("proj_alerts.no_file_selected")
+    : hasFileSelected
+      ? translate.t("validations.required")
+      : undefined;
 };
 
 export const numberBetween: ((min: number, max: number) => Validator) =
