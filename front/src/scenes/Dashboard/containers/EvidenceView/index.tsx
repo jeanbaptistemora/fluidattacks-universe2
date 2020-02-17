@@ -94,10 +94,13 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
       evidence: IEvidenceItem & { file?: FileList }, key: string): Promise<void> => {
       const { description, file } = evidence;
       const descriptionChanged: boolean = description !== evidenceImages[key].description;
+
       if (file !== undefined) {
         const mtResult: ExecutionResult = await updateEvidence({
-          variables: { evidenceId: key.toUpperCase(), file: file[0], findingId }});
+          variables: { evidenceId: key.toUpperCase(), file: file[0], findingId },
+        });
         const { success } = (mtResult as { data: { updateEvidence: { success: boolean } } }).data.updateEvidence;
+
         if (success && descriptionChanged) {
           await updateDescription({ variables: { description, evidenceId: key.toUpperCase(), findingId } });
         }
@@ -107,8 +110,10 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
         }
       }
     };
+
     Promise.all(_.map(values, updateChanges))
-      .then(() => {refetch()
+      .then(() => {
+        refetch()
           .catch();
       })
       .catch();
@@ -116,63 +121,72 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
 
   return (
     <React.StrictMode>
-              <Row>
-                <Col md={2} mdOffset={10} xs={12} sm={12}>
-                  {canEdit ? (
-                    <Button block={true} onClick={handleEditClick}>
-                      <FluidIcon icon="edit" />&nbsp;{translate.t("project.findings.evidence.edit")}
-                    </Button>
-                  ) : undefined}
-                </Col>
-              </Row>
+      <Row>
+        <Col md={2} mdOffset={10} xs={12} sm={12}>
+          {canEdit ? (
+            <Button block={true} onClick={handleEditClick}>
+              <FluidIcon icon="edit" />&nbsp;{translate.t("project.findings.evidence.edit")}
+            </Button>
+          ) : undefined}
+        </Col>
+      </Row>
       <br />
-              {_.isEmpty(evidenceList) && !isEditing
-                ? (
-                  <div className={globalStyle.noData}>
-                    <Glyphicon glyph="picture" />
-                    <p>{translate.t("project.findings.evidence.no_data")}</p>
-                  </div>
-                )
-                : (
+      {_.isEmpty(evidenceList)
+        ? (
+          <div className={globalStyle.noData}>
+            <Glyphicon glyph="picture" />
+            <p>{translate.t("project.findings.evidence.no_data")}</p>
+          </div>
+        )
+        : (
           <GenericForm name="editEvidences" onSubmit={handleUpdate} initialValues={evidenceImages}>
-            {({ pristine }: InjectedFormProps): JSX.Element => (<React.Fragment>{isEditing ? (<Row>
-              <Col md={2} mdOffset={10}><Button block={true} type="submit" disabled={pristine}>
+            {({ pristine }: InjectedFormProps): JSX.Element => (
+              <React.Fragment>
+                {isEditing ? (
+                  <Row>
+                    <Col md={2} mdOffset={10}>
+                      <Button bsStyle="success" block={true} type="submit" disabled={pristine}>
                         <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_evidence.update")}
-                      </Button></Col></Row>) : undefined}
+                      </Button>
+                    </Col>
+                  </Row>
+                ) : undefined}
                 <Row className={styles.evidenceGrid}>
-                {evidenceList.map((name: string, index: number): JSX.Element => {
-                          const evidence: IEvidenceItem = evidenceImages[name];
+                  {evidenceList.map((name: string, index: number): JSX.Element => {
+                    const evidence: IEvidenceItem = evidenceImages[name];
 
-                          const handleRemove: (() => void) = (): void => {
-                                  mixpanel.track("RemoveEvidence", { Organization: userOrganization, User: userName });
-                                  setEditing(false);
-                                  removeEvidence({ variables: { evidenceId: name.toUpperCase(), findingId } })
-                                    .catch();
-                                };
+                    const handleRemove: (() => void) = (): void => {
+                      mixpanel.track("RemoveEvidence", { Organization: userOrganization, User: userName });
+                      setEditing(false);
+                      removeEvidence({ variables: { evidenceId: name.toUpperCase(), findingId } })
+                        .catch();
+                    };
 
-                          const openImage: (() => void) = (): void => {
-                                  if (!isEditing) { setLightboxIndex(index); }
-                                };
+                    const openImage: (() => void) = (): void => {
+                      if (!isEditing) { setLightboxIndex(index); }
+                    };
 
-                          return (
-                                  <EvidenceImage
-                                    acceptedMimes="image/jpeg,image/gif,image/png"
-                                    content={_.isEmpty(evidence.url) ? <div /> : `${baseUrl}/${evidence.url}`}
-                                    description={evidence.description}
-                                    isDescriptionEditable={index > 1}
-                                    isEditing={isEditing}
-                                    isRemovable={!_.isEmpty(evidence.url)}
-                                    key={index}
-                                    name={name}
-                                    onClick={openImage}
-                                    onDelete={handleRemove}
-                                    validate={validEvidenceImage}
-                                  />
-                  );
-                })}
-              </Row>
-              </React.Fragment>)}</GenericForm>
-              )}
+                    return (
+                      <EvidenceImage
+                        acceptedMimes="image/jpeg,image/gif,image/png"
+                        content={_.isEmpty(evidence.url) ? <div /> : `${baseUrl}/${evidence.url}`}
+                        description={evidence.description}
+                        isDescriptionEditable={index > 1}
+                        isEditing={isEditing}
+                        isRemovable={!_.isEmpty(evidence.url)}
+                        key={index}
+                        name={name}
+                        onClick={openImage}
+                        onDelete={handleRemove}
+                        validate={validEvidenceImage}
+                      />
+                    );
+                  })}
+                </Row>
+              </React.Fragment>
+            )}
+          </GenericForm>
+        )}
       <EvidenceLightbox
         evidenceImages={evidenceList.map((name: string) => evidenceImages[name])}
         index={lightboxIndex}

@@ -29,27 +29,23 @@ const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvide
   const { onDelete } = props;
 
   return (
-    <FormSection
-      name={props.name}
-    >
-        <React.Fragment>
-          <Field
-            name="file"
-            id={props.name}
-            component={fileInputField}
-            accept={props.acceptedMimes}
-            validate={props.validate}
-          />
-          {props.isDescriptionEditable
-            ? <Field name="description" component={textAreaField} validate={validEvidenceDescription}/>
-            : <p>{props.description}</p>}
-          {props.isRemovable === true
-            ? <Button bsStyle="success" block={true} onClick={onDelete}>
-              <FluidIcon icon="delete" />
-              &nbsp;{translate.t("search_findings.tab_evidence.remove")}
-            </Button>
-            : undefined}
-        </React.Fragment>
+    <FormSection name={props.name}>
+      <Field
+        name="file"
+        id={props.name}
+        component={fileInputField}
+        accept={props.acceptedMimes}
+        validate={props.validate}
+      />
+      {props.isDescriptionEditable
+        ? <Field name="description" component={textAreaField} validate={validEvidenceDescription} />
+        : <p>{props.description}</p>}
+      {props.isRemovable === true
+        ? <Button bsStyle="success" block={true} onClick={onDelete}>
+          <FluidIcon icon="delete" />
+          &nbsp;{translate.t("search_findings.tab_evidence.remove")}
+        </Button>
+        : undefined}
     </FormSection>
   );
 };

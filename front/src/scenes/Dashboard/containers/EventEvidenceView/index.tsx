@@ -98,13 +98,15 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
     const updateChanges: ((evidence: { file?: FileList }, key: string) => Promise<void>) = async (
       evidence: { file?: FileList }, key: string): Promise<void> => {
       const { file } = evidence;
+
       if (!_.isUndefined(file)) {
         await updateEvidence({ variables: { eventId, evidenceType: key.toUpperCase(), file: file[0] } });
       }
     };
 
     Promise.all(_.map(values, updateChanges))
-      .then(() => {refetch()
+      .then(() => {
+        refetch()
           .catch();
       })
       .catch();
@@ -131,12 +133,18 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
             <p>{translate.t("project.events.evidence.no_data")}</p>
           </div>
         ) : undefined}
-        <React.Fragment>
-        <GenericForm name="editEvidences" onSubmit={handleUpdate}>{({ pristine }: InjectedFormProps): JSX.Element => (
+        <GenericForm name="editEvidences" onSubmit={handleUpdate}>
+          {({ pristine }: InjectedFormProps): JSX.Element => (
             <React.Fragment>
-              {isEditing ? (<Row><Col md={2} mdOffset={10}><Button block={true} type="submit" disabled={pristine}>
+              {isEditing ? (
+                <Row>
+                  <Col md={2} mdOffset={10}>
+                    <Button bsStyle="success" block={true} type="submit" disabled={pristine}>
                       <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_evidence.update")}
-                    </Button></Col></Row>) : undefined}
+                    </Button>
+                  </Col>
+                </Row>
+              ) : undefined}
               {!_.isEmpty(data.event.evidence) || isEditing ? (
                 <EvidenceImage
                   acceptedMimes="image/jpeg,image/gif,image/png"
@@ -167,7 +175,6 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
               ) : undefined}
             </React.Fragment>
           )}</GenericForm>
-        </React.Fragment>
         <EvidenceLightbox
           evidenceImages={[{ url: data.event.evidence }]}
           index={lightboxIndex}
