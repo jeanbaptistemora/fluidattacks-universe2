@@ -129,3 +129,10 @@ def test_has_remote_access_option_enabled_open(get_mock_ip):
     """Test mssql.has_remote_access_option_enabled."""
     assert mssql.has_remote_access_option_enabled(
         DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_open()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_weak'], indirect=True)
+def test_has_unencrypted_storage_procedures_open(get_mock_ip):
+    """Test mssql.has_unencrypted_storage_procedures."""
+    assert mssql.has_unencrypted_storage_procedures(
+        DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_open()

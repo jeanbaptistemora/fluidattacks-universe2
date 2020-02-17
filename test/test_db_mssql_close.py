@@ -119,6 +119,13 @@ def test_can_alter_any_credential_closed(get_mock_ip):
         DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_closed()
 
 
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_has_unencrypted_storage_procedures_closed(get_mock_ip):
+    """Test mssql.has_unencrypted_storage_procedures."""
+    assert mssql.has_unencrypted_storage_procedures(
+        DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_closed()
+
+
 #
 # UNKNOWN
 #
@@ -227,4 +234,11 @@ def test_has_sa_account_login_enabled_unknown(get_mock_ip):
 def test_has_remote_access_option_enabled_unknown(get_mock_ip):
     """Test mssql.has_remote_access_option_enabled."""
     assert mssql.has_remote_access_option_enabled(
+        DBNAME, USER, PASSWORD, BAD_HOST, PORT).is_unknown()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_has_unencrypted_storage_procedures_unknown(get_mock_ip):
+    """Test mssql.has_unencrypted_storage_procedures."""
+    assert mssql.has_unencrypted_storage_procedures(
         DBNAME, USER, PASSWORD, BAD_HOST, PORT).is_unknown()

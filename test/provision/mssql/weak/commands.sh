@@ -122,3 +122,14 @@ execute_query "GRANT CONTROL SERVER TO $DB_USER"
 
 # Grant Control Server check: can_alter_any_login
 execute_query "GRANT ALTER ANY CREDENTIAL TO $DB_USER"
+
+# Create storated procedure. check: has_unencrypted_storage_procedures
+execute_query "
+USE $DB_NAME
+GO
+CREATE PROCEDURE get_asymmetric_keys
+AS
+BEGIN
+    SELECT name, pvt_key_encryption_type
+    FROM sys.asymmetric_keys
+END"

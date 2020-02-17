@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+# pylint: disable=too-many-lines
 """``Dynamic Application Security Testing`` Suite of Microsoft SQL Server."""
 
 # standard imports
@@ -946,6 +948,65 @@ def has_remote_access_option_enabled(dbname: str,
     (vulns if _check_configuration(connection_string, 'remote access') else
      safes).append(('master.sys.configuration.remote access',
                     f'Must disable the remote access.'))
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
+def has_unencrypted_storage_procedures(dbname: str,
+                                       user: str,
+                                       password: str,
+                                       host: str,
+                                       port: int) -> Tuple:
+    """
+    Check if stored procedures are kept in the database without encryption.
+
+    Protect sensitive code and data used in stored procedures code.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+
+    :returns: - ``OPEN`` if the sa login account is enabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port)
+
+    msg_open: str = 'Stored Procedures are Kept in non Encrypted Format.'
+    msg_closed: str = 'Stored Procedures are Kept in Encrypted Format.'
+
+    query = """SELECT sqlmod.definition, sysobj.name
+               FROM sys.sql_modules AS sqlmod (NOLOCK)
+                        INNER JOIN sys.objects AS sysobj (NOLOCK)
+                                   on sqlmod.object_id = sysobj.object_id
+               WHERE sysobj.type = 'P'
+                 AND sysobj.is_ms_shipped = 0
+               """
+    try:
+        with database(connection_string) as (_, cursor):
+            for procedure in cursor.execute(query).fetchall():
+                (vulns if procedure.definition else
+                 safes).append((f'sys.objects.{procedure.name}',
+                                'must use WITH ENCRYPT option'))
+
+    except (pyodbc.OperationalError, pyodbc.InterfaceError) as exc:
+        if not _is_auth_permission_error(exc):
+            raise exc
     return _get_result_as_tuple(
         host=host,
         port=port,

@@ -76,3 +76,19 @@ EXEC sp_configure 'remote access', 0 ;
 GO
 RECONFIGURE;
 GO"
+
+
+# # Disable sa account. check: has_sa_account_login_enabled
+# execute_query "ALTER LOGIN sa DISABLE;"
+
+# Create storated procedure. check: has_unencrypted_storage_procedures
+execute_query "
+USE $DB_NAME
+GO
+CREATE PROCEDURE get_asymmetric_keys
+    WITH ENCRYPTION
+AS
+BEGIN
+    SELECT name, pvt_key_encryption_type
+    FROM sys.asymmetric_keys
+END"
