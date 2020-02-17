@@ -15,3 +15,16 @@ resource "aws_backup_plan" "integrates_daily_backup_plan" {
     }
   }
 }
+
+resource "aws_backup_plan" "integrates_weekly_backup_plan" {
+  name = "integrates-weekly-backup-plan"
+
+  rule {
+    rule_name         = "integrates-backup-weekly-rule"
+    target_vault_name = aws_backup_vault.backup_vault.name
+    schedule          = "cron(0 6 * * 0 *)"
+    lifecycle {
+      delete_after = 84
+    }
+  }
+}
