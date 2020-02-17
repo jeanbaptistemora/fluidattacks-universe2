@@ -138,6 +138,31 @@ function job_analytics_infrastructure {
         < .singer
 }
 
+function job_analytics_intercom {
+      aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_auth_intercom \
+        analytics_auth_redshift \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_auth_intercom}" > "${TEMP_FILE1}" \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  echo '[INFO] Running streamer' \
+  &&  streamer-intercom \
+        --auth "${TEMP_FILE1}" \
+        > .jsonstream \
+  &&  echo '[INFO] Running tap' \
+  &&  tap-json \
+        --enable-timestamps \
+        > .singer \
+        < .jsonstream \
+  &&  echo '[INFO] Running target' \
+  &&  target-redshift \
+        --auth "${TEMP_FILE2}" \
+        --drop-schema \
+        --schema-name 'intercom' \
+        < .singer
+}
+
 function job_deploy_docker_image_exams {
   local tag="registry.gitlab.com/fluidattacks/serves/exams:${CI_COMMIT_REF_NAME}"
   local context='containers/exams'
