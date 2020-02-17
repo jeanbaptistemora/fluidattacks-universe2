@@ -5,6 +5,34 @@ source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 source "${srcDotDotToolboxOthers}"
 
+function job_analytics_continuous_toe {
+      aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_gitlab_user \
+        analytics_gitlab_token \
+        analytics_auth_redshift \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  pushd analytics/continuous \
+    &&  echo '[INFO] Cloning continuous repository' \
+    &&  git clone --depth 1 --single-branch \
+          "https://${analytics_gitlab_user}:${analytics_gitlab_token}@gitlab.com/fluidattacks/continuous.git" \
+    &&  echo '[INFO] Running streamer' \
+    &&  ./streamer_toe.py \
+          > .jsonstream \
+    &&  echo '[INFO] Running tap' \
+    &&  tap-json  \
+          > .singer \
+          < .jsonstream \
+    &&  echo '[INFO] Running target' \
+    &&  target-redshift \
+          --auth "${TEMP_FILE2}" \
+          --drop-schema \
+          --schema-name 'continuous_toe' \
+          < .singer \
+  && popd
+}
+
 function job_analytics_dynamodb {
       aws_login \
   &&  sops_env secrets-prod.yaml default \

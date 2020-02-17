@@ -78,6 +78,13 @@ analytics_dynamodb:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_DYNAMODB]
 
+analytics_continuous_toe:
+  <<: *with_nix
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_CONTINUOUS_TOE]
+
 analytics_infrastructure:
   <<: *with_nix
   stage: analytics
@@ -398,17 +405,6 @@ analytics-sync-timedoctor:
   only:
     variables:
       - $FLAG_SYNC_TIMEDOCTOR
-
-analytics-sync-continuous:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: analytics
-  script:
-    - ./ci-scripts/jobs/analytics-sync-continuous.sh
-  <<: *in_schedules
-  only:
-    variables:
-      - $FLAG_SYNC_CONTINUOUS
 
 analytics-refresh-token-timedoctor:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
