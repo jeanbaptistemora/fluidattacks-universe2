@@ -543,7 +543,7 @@ def export_users(request):
         if user_email not in unique_users:
             unique_users.append(user_email)
 
-            name_attrs = user_domain.get_user_attributes(
+            name_attrs = user_domain.get_attributes(
                 user_email, ['first_name', 'last_name'])
             full_name = ' '.join(list(name_attrs.values()))
 

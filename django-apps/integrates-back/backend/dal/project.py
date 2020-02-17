@@ -12,7 +12,7 @@ from backend.dal.event import TABLE as EVENTS_TABLE
 from backend.dal.helpers import dynamodb
 from backend.dal.finding import TABLE as FINDINGS_TABLE
 from backend.dal.helpers.analytics import query
-from backend.dal.user import get_user_attributes
+from backend.dal.user import get_attributes as get_user_attributes
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 TABLE_COMMENTS = DYNAMODB_RESOURCE.Table('fi_project_comments')

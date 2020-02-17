@@ -59,10 +59,19 @@ def get_all_users_report(company_name, finish_date):
     return len(users_filtered)
 
 
-def get_user_attributes(email, data):
-    primary_key = {'email': email.lower()}
-    return integrates_dal.get_table_attributes_dynamo(
-        TABLE, primary_key, data)
+def get_attributes(email, attributes):
+    table = DYNAMODB_RESOURCE.Table(TABLE)
+    items = {}
+    try:
+        response = table.get_item(
+            Key={'email': email},
+            AttributesToGet=attributes
+        )
+        items = response.get('Item', {})
+    except ClientError as ex:
+        rollbar.report_message('Error: Couldn\'nt get user attributes',
+                               'error', extra_data=ex, payload_data=locals())
+    return items
 
 
 def logging_users_report(company_name, init_date, finish_date):
@@ -75,7 +84,7 @@ def logging_users_report(company_name, init_date, finish_date):
     return len(users)
 
 
-def remove_user_attribute(email, name_attribute):
+def remove_attribute(email, name_attribute):
     return update(email.lower(), {name_attribute: None})
 
 

@@ -45,7 +45,7 @@ def get_current_date():
 
 
 def get_data(email, attr):
-    data_attr = get_user_attributes(email, [attr])
+    data_attr = get_attributes(email, [attr])
     data = ''
     if data_attr and data_attr.get(attr):
         data = data_attr.get(attr)
@@ -73,13 +73,13 @@ def get_project_access(email, project_name):
     return resp
 
 
-def get_user_attributes(email, data):
+def get_attributes(email, data):
     """ Get attributes of a user. """
-    return user_dal.get_user_attributes(email, data)
+    return user_dal.get_attributes(email, data)
 
 
 def is_registered(email):
-    is_registered_attr = get_user_attributes(email, ['registered'])
+    is_registered_attr = get_attributes(email, ['registered'])
     registered = False
     if is_registered_attr and is_registered_attr.get('registered'):
         registered = True
@@ -99,7 +99,7 @@ def register(email):
 
 def remove_access_token(email):
     """ Remove access token attribute """
-    return user_dal.remove_user_attribute(email, 'access_token')
+    return user_dal.remove_attribute(email, 'access_token')
 
 
 def remove_user(email):
