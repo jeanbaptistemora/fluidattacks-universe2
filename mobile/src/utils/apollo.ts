@@ -15,8 +15,13 @@ export const client: ApolloClient<{}> = new ApolloClient<{}>({
     rollbar.error("Error: An error occurred executing API request", error);
   },
   request: async (operation: Operation): Promise<void> => {
-    const token: string =
-      await SecureStore.getItemAsync("integrates_session") as string;
+    let token: string;
+    try {
+      token = await SecureStore.getItemAsync("integrates_session") as string;
+    } catch (exception) {
+      token = "";
+      await SecureStore.deleteItemAsync("integrates_session");
+    }
 
     operation.setContext({
       headers: {
