@@ -2,6 +2,7 @@ stages:
   - deps-base
   - build-apps
   - deps
+  - rotation
   - build
   - test
   - mr-check
@@ -356,6 +357,15 @@ clean-registry-caches:
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/clean-registry-caches.sh
+  only:
+    - schedules
+
+rotate-jwt-token:
+  stage: rotation
+  tags: [autoscaling]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - ./ci-scripts/jobs/rotate-jwt-token.sh
   only:
     - schedules
 

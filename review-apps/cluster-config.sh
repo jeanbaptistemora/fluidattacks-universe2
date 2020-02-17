@@ -95,6 +95,7 @@ validate_domain_certificate review-apps/tls.yaml
 export DATE="$(date)"
 export B64_AWS_ACCESS_KEY_ID="$(echo -n $AWS_ACCESS_KEY_ID | base64)"
 export B64_AWS_SECRET_ACCESS_KEY="$(echo -n $AWS_SECRET_ACCESS_KEY | base64)"
+export B64_JWT_TOKEN="$(echo -n $JWT_TOKEN | base64)"
 replace_env_variables \
   review-apps/variables.yaml \
   review-apps/ingress.yaml \

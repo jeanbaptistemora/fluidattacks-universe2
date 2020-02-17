@@ -71,6 +71,7 @@ deploy_k8s() {
   local K8S_CONTEXT
   local B64_AWS_ACCESS_KEY_ID
   local B64_AWS_SECRET_ACCESS_KEY
+  local B64_JWT_TOKEN
   local CONFIG
 
   ENV_NAME='production'
@@ -85,6 +86,7 @@ deploy_k8s() {
   K8S_CONTEXT="$(kubectl config current-context)"
   B64_AWS_ACCESS_KEY_ID="$(echo -n $AWS_ACCESS_KEY_ID | base64)"
   B64_AWS_SECRET_ACCESS_KEY="$(echo -n $AWS_SECRET_ACCESS_KEY | base64)"
+  B64_JWT_TOKEN="$(echo -n $JWT_TOKEN | base64)"
 
   CONFIG='deploy/integrates-k8s.yaml'
 
@@ -92,6 +94,7 @@ deploy_k8s() {
 
   sed -i "s/\$B64_AWS_ACCESS_KEY_ID/$B64_AWS_ACCESS_KEY_ID/g" "$CONFIG"
   sed -i "s/\$B64_AWS_SECRET_ACCESS_KEY/$B64_AWS_SECRET_ACCESS_KEY/g" "$CONFIG"
+  sed -i "s/\$B64_JWT_TOKEN/$B64_JWT_TOKEN/g" "$CONFIG"
   sed -i "s/\$DATE/$(date)/g" "$CONFIG"
 
   kubectl apply -f "$CONFIG"
