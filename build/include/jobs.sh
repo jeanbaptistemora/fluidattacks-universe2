@@ -163,6 +163,31 @@ function job_analytics_intercom {
         < .singer
 }
 
+function job_analytics_mandrill {
+      aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_auth_mandrill \
+        analytics_auth_redshift \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_auth_mandrill}" > "${TEMP_FILE1}" \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  echo '[INFO] Running streamer' \
+  &&  streamer-mandrill \
+        --auth "${TEMP_FILE1}" \
+        > .jsonstream \
+  &&  echo '[INFO] Running tap' \
+  &&  tap-json  \
+        --date-formats '%Y-%m-%d %H:%M:%S,%Y-%m-%d %H:%M:%S.%f' \
+        > .singer \
+        < .jsonstream \
+  &&  echo '[INFO] Running target' \
+  &&  target-redshift \
+        --auth "${TEMP_FILE2}" \
+        --drop-schema \
+        --schema-name 'mandrill' \
+        < .singer
+}
+
 function job_deploy_docker_image_exams {
   local tag="registry.gitlab.com/fluidattacks/serves/exams:${CI_COMMIT_REF_NAME}"
   local context='containers/exams'
