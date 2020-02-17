@@ -71,6 +71,8 @@
         "finding_id": "string",
         "finding_type": "string",
         "historic_state": "list<dict>",
+	"historic_treatment": "list<dict>",
+	"historic_verification": "list<dict>",
         "id": "string",
         "integrity_impact": "number",
         "integrity_requirement": "number",
