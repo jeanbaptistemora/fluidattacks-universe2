@@ -17,3 +17,23 @@ resource "aws_backup_selection" "dynamodb_weekly_backup_selection" {
     for table in var.dynamodb-tables : "arn:aws:dynamodb:us-east-1:205810638802:table/${table}"
   ]
 }
+
+resource "aws_backup_selection" "dynamodb_monthly_backup_selection" {
+  iam_role_arn = aws_iam_role.integrates-backup-role.arn
+  name         = "integrates_dynamodb_monthly_backup_selection"
+  plan_id      = aws_backup_plan.integrates_monthly_backup_plan.id
+
+  resources    = [
+    for table in var.dynamodb-tables : "arn:aws:dynamodb:us-east-1:205810638802:table/${table}"
+  ]
+}
+
+resource "aws_backup_selection" "dynamodb_yearly_backup_selection" {
+  iam_role_arn = aws_iam_role.integrates-backup-role.arn
+  name         = "integrates_dynamodb_yearly_backup_selection"
+  plan_id      = aws_backup_plan.integrates_yearly_backup_plan.id
+
+  resources    = [
+    for table in var.dynamodb-tables : "arn:aws:dynamodb:us-east-1:205810638802:table/${table}"
+  ]
+}

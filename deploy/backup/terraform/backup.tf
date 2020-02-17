@@ -22,9 +22,35 @@ resource "aws_backup_plan" "integrates_weekly_backup_plan" {
   rule {
     rule_name         = "integrates-backup-weekly-rule"
     target_vault_name = aws_backup_vault.backup_vault.name
-    schedule          = "cron(0 6 * * 0 *)"
+    schedule          = "cron(30 5 * * SUN *)"
     lifecycle {
       delete_after = 84
+    }
+  }
+}
+
+resource "aws_backup_plan" "integrates_monthly_backup_plan" {
+  name = "integrates-monthly-backup-plan"
+
+  rule {
+    rule_name         = "integrates-backup-monthly-rule"
+    target_vault_name = aws_backup_vault.backup_vault.name
+    schedule          = "cron(0 6 ? * 1#1 *)"
+    lifecycle {
+      delete_after = 1095
+    }
+  }
+}
+
+resource "aws_backup_plan" "integrates_yearly_backup_plan" {
+  name = "integrates-yearly-backup-plan"
+
+  rule {
+    rule_name         = "integrates-backup-yearly-rule"
+    target_vault_name = aws_backup_vault.backup_vault.name
+    schedule          = "cron(30 6 ? JAN 1#1 0 *)"
+    lifecycle {
+      delete_after = 5475
     }
   }
 }
