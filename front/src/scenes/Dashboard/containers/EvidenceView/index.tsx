@@ -5,7 +5,7 @@
  */
 import { ExecutionResult } from "@apollo/react-common";
 import { useMutation, useQuery } from "@apollo/react-hooks";
-import { ApolloError } from "apollo-client";
+import { ApolloError, NetworkStatus } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
@@ -48,10 +48,15 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
   const [lightboxIndex, setLightboxIndex] = React.useState(-1);
 
   // GraphQL operations
-  const { data, refetch } = useQuery(GET_FINDING_EVIDENCES, { variables: { findingId } });
+  const { data, networkStatus, refetch } = useQuery(GET_FINDING_EVIDENCES, {
+    notifyOnNetworkStatusChange: true,
+    variables: { findingId },
+  });
+  const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
+
   const [removeEvidence] = useMutation(REMOVE_EVIDENCE_MUTATION, { onCompleted: refetch });
   const [updateDescription] = useMutation(UPDATE_DESCRIPTION_MUTATION);
-  const [updateEvidence] = useMutation(UPDATE_EVIDENCE_MUTATION, {
+  const [updateEvidence, { loading: updating }] = useMutation(UPDATE_EVIDENCE_MUTATION, {
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
@@ -124,7 +129,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
       <Row>
         <Col md={2} mdOffset={10} xs={12} sm={12}>
           {canEdit ? (
-            <Button block={true} onClick={handleEditClick}>
+            <Button block={true} onClick={handleEditClick} disabled={updating}>
               <FluidIcon icon="edit" />&nbsp;{translate.t("project.findings.evidence.edit")}
             </Button>
           ) : undefined}
@@ -145,7 +150,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                 {isEditing ? (
                   <Row>
                     <Col md={2} mdOffset={10}>
-                      <Button bsStyle="success" block={true} type="submit" disabled={pristine}>
+                      <Button block={true} type="submit" disabled={pristine}>
                         <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_evidence.update")}
                       </Button>
                     </Col>
@@ -166,10 +171,12 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                       if (!isEditing) { setLightboxIndex(index); }
                     };
 
+                    const showEmpty: boolean = _.isEmpty(evidence.url) || isRefetching;
+
                     return (
                       <EvidenceImage
                         acceptedMimes="image/jpeg,image/gif,image/png"
-                        content={_.isEmpty(evidence.url) ? <div /> : `${baseUrl}/${evidence.url}`}
+                        content={showEmpty ? <div /> : `${baseUrl}/${evidence.url}`}
                         description={evidence.description}
                         isDescriptionEditable={index > 1}
                         isEditing={isEditing}

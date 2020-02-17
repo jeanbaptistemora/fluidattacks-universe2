@@ -4,9 +4,10 @@
  * apollo components
  */
 import { useMutation, useQuery } from "@apollo/react-hooks";
-import { ApolloError } from "apollo-client";
+import { ApolloError, NetworkStatus } from "apollo-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
+import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
@@ -29,8 +30,14 @@ type EventEvidenceProps = RouteComponentProps<{ eventId: string }>;
 
 const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): JSX.Element => {
   const { eventId } = props.match.params;
-  const { userRole } = window as typeof window & Dictionary<string>;
+  const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
   const baseUrl: string = window.location.href.replace("dashboard#!/", "");
+
+  // Side effects
+  const onMount: (() => void) = (): void => {
+    mixpanel.track("EventEvidence", { Organization: userOrganization, User: userName });
+  };
+  React.useEffect(onMount, []);
 
   // State management
   const [isEditing, setEditing] = React.useState(false);
@@ -42,7 +49,12 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
   };
 
   // GraphQL operations
-  const { data, refetch } = useQuery(GET_EVENT_EVIDENCES, { variables: { eventId } });
+  const { data, networkStatus, refetch } = useQuery(GET_EVENT_EVIDENCES, {
+    notifyOnNetworkStatusChange: true,
+    variables: { eventId },
+  });
+  const isRefetching: boolean = networkStatus === NetworkStatus.refetch;
+
   const [downloadEvidence] = useMutation(DOWNLOAD_FILE_MUTATION, {
     onCompleted: (downloadData: { downloadEventFile: { url: string } }): void => {
       const newTab: Window | null = window.open(downloadData.downloadEventFile.url);
@@ -50,7 +62,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
     },
   });
   const [removeEvidence] = useMutation(REMOVE_EVIDENCE_MUTATION, { onCompleted: refetch });
-  const [updateEvidence] = useMutation(UPDATE_EVIDENCE_MUTATION, {
+  const [updateEvidence, { loading: updating }] = useMutation(UPDATE_EVIDENCE_MUTATION, {
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
@@ -113,6 +125,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
   };
 
   const canEdit: boolean = _.includes(["admin", "analyst"], userRole) && data.event.eventStatus !== "CLOSED";
+  const showEmpty: boolean = _.isEmpty(data.event.evidence) || isRefetching;
 
   return (
     <React.StrictMode>
@@ -120,7 +133,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
         <Row>
           <Col md={2} mdOffset={10} xs={12} sm={12}>
             {canEdit ? (
-              <Button block={true} onClick={handleEditClick}>
+              <Button block={true} onClick={handleEditClick} disabled={updating}>
                 <FluidIcon icon="edit" />&nbsp;{translate.t("project.events.evidence.edit")}
               </Button>
             ) : undefined}
@@ -139,7 +152,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
               {isEditing ? (
                 <Row>
                   <Col md={2} mdOffset={10}>
-                    <Button bsStyle="success" block={true} type="submit" disabled={pristine}>
+                    <Button block={true} type="submit" disabled={pristine}>
                       <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_evidence.update")}
                     </Button>
                   </Col>
@@ -148,7 +161,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
               {!_.isEmpty(data.event.evidence) || isEditing ? (
                 <EvidenceImage
                   acceptedMimes="image/jpeg,image/gif,image/png"
-                  content={_.isEmpty(data.event.evidence) ? <div /> : `${baseUrl}/${data.event.evidence}`}
+                  content={showEmpty ? <div /> : `${baseUrl}/${data.event.evidence}`}
                   description="Evidence"
                   isDescriptionEditable={false}
                   isEditing={isEditing}
