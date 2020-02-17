@@ -4,6 +4,9 @@ global-exclude *
 # Include the installer
 include setup.py
 
+# Include dependency file
+include requirements.txt
+
 # Include Python source files
 recursive-include fluidasserts *.py
 recursive-include fluidasserts/static *.lst

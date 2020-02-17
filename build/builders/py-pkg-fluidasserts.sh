@@ -20,12 +20,18 @@ cp -r --no-preserve=mode,ownership \
 cp -r --no-preserve=mode,ownership \
   "${fluidassertsDependenciesCache}"/* root/python
 
-pip3 install \
-    --cache-dir root/python/cache-dir \
-    --disable-pip-version-check \
-    --target    root/python/site-packages \
-    --upgrade \
-  root/src/repo
+cp -r root/src/repo/fluidasserts/ root/python/site-packages/
+echo "#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import re
+import sys
+
+from fluidasserts.utils.cli import main
+
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())
+" > root/python/site-packages/bin/asserts
 
 mkdir "${out}"
 mv root/python/* "${out}"

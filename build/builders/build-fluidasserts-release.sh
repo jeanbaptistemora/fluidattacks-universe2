@@ -20,6 +20,8 @@ cp -r --no-preserve=mode,ownership \
 cp -r --no-preserve=mode,ownership \
   "${srcManifestIn}" root/src/repo/MANIFEST.in
 cp -r --no-preserve=mode,ownership \
+  "${srcRequirements}" root/src/repo/requirements.txt
+cp -r --no-preserve=mode,ownership \
   "${srcSetupPy}" root/src/repo/setup.py
 cp -r --no-preserve=mode,ownership \
   "${srcTest}" root/src/repo/test

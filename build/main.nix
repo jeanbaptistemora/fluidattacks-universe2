@@ -112,6 +112,7 @@ rec {
   srcGitLastCommitMsg = ../.tmp/git-last-commit-msg;
   srcManifestIn = ../MANIFEST.in;
   srcPackageDotJson = ../package.json;
+  srcRequirements = ../requirements.txt;
   srcSetupCfg = ../setup.cfg;
   srcSetupPy = ../setup.py;
   srcSphinx = ../sphinx;
@@ -129,6 +130,7 @@ rec {
     inherit srcBuildScripts;
     inherit srcFluidasserts;
     inherit srcManifestIn;
+    inherit srcRequirements;
     inherit srcSetupPy;
     inherit srcTest;
     inherit fluidassertsDependenciesCache;
@@ -158,6 +160,7 @@ rec {
     '';
     inherit genericDirs genericShellOptions;
     inherit srcSetupPy;
+    inherit srcRequirements;
     buildInputs = fluidassertsDeps;
     builder = ./builders/fluidasserts-dependencies-cache.sh;
   };
@@ -186,7 +189,7 @@ rec {
       but what's needed for development purposes.
     '';
     inherit genericDirs genericShellOptions;
-    inherit srcBuildConfigReadmeRst srcFluidasserts srcManifestIn srcSetupPy;
+    inherit srcBuildConfigReadmeRst srcFluidasserts srcManifestIn srcSetupPy srcRequirements;
     inherit fluidassertsDependenciesCache;
     buildInputs = fluidassertsDeps;
     builder = ./builders/py-pkg-fluidasserts.sh;

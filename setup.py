@@ -26,6 +26,14 @@ def _get_version():
     return time.strftime(f'%y.%m.{min_month}')
 
 
+def _get_requirements():
+    """Return fluidasserts requirements."""
+    reqs = []
+    with open('requirements.txt') as file:
+        for line in file.readlines():
+            reqs.append(line.strip())
+
+
 setup(
     name='fluidasserts',
     description='Assertion Library for Security Assumptions',
@@ -71,71 +79,7 @@ setup(
         'Intended Audience :: System Administrators',
         'License :: Other/Proprietary License',
     ],
-    install_requires=[
-        'aiohttp==3.6.2',              # fluidasserts
-        'androguard==3.3.5',           # fluidasserts.format.apk
-        'azure-identity==1.*',       # fluidasserts.cloud.azure.key_vaults
-        'azure-keyvault-keys==4.*',  # fluidasserts.cloud.azure.key_vaults
-        'azure-keyvault-secrets==4.*',  # fluidasserts.cloud.azure.key_vaults
-        'azure-mgmt-compute==10.*',  # fluidasserts.cloud.azure
-        'azure-mgmt-keyvault==2.*',  # fluidasserts.cloud.azure
-        'azure-mgmt-network==9.*',   # fluidasserts.cloud.azure
-        'azure-mgmt-security==0.3.*',  # fluidasserts.cloud.azure
-        'azure-mgmt-resource==8.*',  # fluidasserts.cloud.azure
-        'azure-mgmt-storage==7.*',   # fluidasserts.cloud.azure
-        'azure-mgmt-sql==0.16.*',    # fluidasserts.cloud.azure.sqlserver
-        'azure-mgmt-web==0.44.*',    # fluidasserts.cloud.azure.app_services
-        'azure-storage-file==2.*',   # fluidasserts.cloud.azure
-        'azure-storage-file-share==12.*',  # fluidasserts.cloud.azure.storage_accounts
-        'bandit==1.6.2',               # fluidasserts.lang.python
-        'bcrypt==3.1.7',               # fluidasserts.proto.ssl
-        'beautifulsoup4==4.8.2',       # fluidasserts.helper.http_helper
-        'boto3==1.11.9',               # fluidasserts.cloud.aws
-        'certifi==2019.11.28',         # fluidasserts.proto.ssl
-        'cffi==1.13.2',                # fluidasserts.proto.ssl
-        'colorama==0.4.3',             # logging
-        'configobj==5.0.6',            # fluidasserts
-        'cfn-flip==1.2.2',             # fluidasserts.helper.cloudformation
-        'cryptography==2.8',           # fluidasserts.proto.ssl
-        'cython==0.29.14',             # fluidasserts.db.mssql
-        'defusedxml==0.6.0',           # fluidasserts.sca
-        'dnspython==1.16.0',           # fluidasserts.proto.dns
-        'gitpython==3.0.8',            # fluidasserts.proto.git
-        'google-api-python-client==1.7.11',     # fluidasserts.cloud.gcp
-        'google-auth-httplib2==0.0.3',    # fluidasserts.cloud.gcp
-        'kubernetes==10.0.1',          # fluidasserts.cloud.kubernetes
-        'ldap3==2.6.1',                  # fluidasserts.proto.ldap
-        'mitmproxy==5.0.1',            # fluidasserts.helper.proxy
-        'mixpanel==4.5.0',             # fluidasserts.utils.decorators
-        'mysql-connector-python==8.0.19',  # fluidasserts.db.mysql_db
-        'names==0.3.0',                # fluidasserts.helper.http
-        'ntplib==0.3.3',               # fluidasserts.proto.http
-        'oyaml==0.9',                  # fluidasserts
-        'paramiko==2.7.1',             # fluidasserts.helper.ssh_helper
-        'pillow==7.0.0',               # fluidasserts.format.captcha
-        'psycopg2==2.8.4',             # fluidasserts.db.postgresql
-        'pyhcl==0.4.0',                # fluidasserts.cloud.aws.terraform
-        'pyopenssl==19.1.0',           # fluidasserts.proto.ssl
-        'pygments==2.5.2',             # fluidasserts
-        'pyjks==19.0.0',               # fluidasserts.format.jks
-        'pyjwt==1.7.1',                # fluidasserts.format.jwt
-        'pyodbc==4.0.28',              # fluidasserts.db.mssql
-        'pynacl==1.3.0',               # fluidasserts.proto.ssl
-        'pyparsing==2.4.6',            # fluidasserts.lang
-        'pypdf2==1.26.0',              # fluidasserts.format.pdf
-        'pysmb==1.1.28',               # fluidasserts.proto.smb
-        'pytesseract==0.3.2',          # fluidasserts.format.captcha
-        'python-dateutil==2.8.1',      # fluidasserts.cloud.aws
-        'python-magic==0.4.15',        # fluidasserts.format.file
-        'pytz==2019.3',                # fluidasserts.proto.http
-        'pywinrm==0.4.1',              # fluidasserts.helper.winrm_helper
-        'requests==2.22.0',            # fluidasserts.proto.http
-        'requirements-detector==0.6',  # fluidasserts.sca
-        'selenium==3.141.0',           # fluidasserts.helper.http
-        'tlslite-ng==0.8.0-alpha36',   # fluidasserts.proto.ssl
-        'typed-ast==1.4.1',            # fluidasserts
-        'viewstate==0.4.3',            # fluidasserts.proto.http
-    ],
+    install_requires=_get_requirements(),
     include_package_data=True,         # files to include in MANIFEST.in
     entry_points={
         'console_scripts': [
