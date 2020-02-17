@@ -42,6 +42,13 @@ stages:
     variables:
       - $SCHEDULE_DEPLOY_NIX_DOCKER_IMAGES
 
+.in_schedule_nightly_build: &in_schedule_nightly_build
+  only:
+    refs:
+      - schedules
+    variables:
+      - $SCHEDULE_NIGHTLY_BUILD
+
 .in_schedule_user_provision_rotate_keys: &in_schedule_user_provision_rotate_keys
   only:
     refs:
@@ -56,22 +63,6 @@ stages:
   script:
     - ./build.sh "${CI_JOB_NAME}"
   interruptible: true
-
-.except_analytics: &except_analytics
-  except:
-    variables:
-      - $FLAG_REFRESH_TOKENS
-      - $FLAG_SYNC_CURRENCIES
-      - $FLAG_SYNC_AWSDYNAMODB
-      - $FLAG_SYNC_TIMEDOCTOR
-      - $FLAG_SYNC_GIT
-      - $FLAG_SYNC_MANDRILL
-      - $FLAG_SYNC_INFRASTRUCTURE
-      - $FLAG_SYNC_SALESFORCE
-      - $FLAG_SYNC_INTERCOM
-      - $FLAG_SYNC_GITLAB
-      - $FLAG_SYNC_CONTINUOUS
-      - $FLAG_SYNC_ZOHO
 
 analytics_formstack:
   <<: *with_nix
@@ -328,8 +319,7 @@ change-keys-integrates-jwt:
   stage: rotation
   script:
     ./ci-scripts/jobs/change-keys-integrates-jwt.sh
-  <<: *in_schedules
-  <<: *except_analytics
+  <<: *in_schedule_nightly_build
   when: always
 
 vault_backup:
@@ -361,8 +351,7 @@ vault_backup:
     - kubectl delete secret aws
     - kubectl delete -f backup-operator.yaml
     - rm credentials
-  <<: *in_schedules
-  <<: *except_analytics
+  <<: *in_schedule_nightly_build
 
 analytics-sync-timedoctor:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME

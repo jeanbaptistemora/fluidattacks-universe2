@@ -26,7 +26,7 @@ function job_analytics_dynamodb {
   &&  tap-awsdynamodb \
         --auth "${TEMP_FILE1}" \
         --conf ./analytics/conf/awsdynamodb.json \
-        | tee .singer \
+        > .singer \
   &&  echo '[INFO] Running target' \
   &&  target-redshift \
         --auth "${TEMP_FILE2}" \
