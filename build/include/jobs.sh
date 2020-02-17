@@ -257,6 +257,47 @@ function job_analytics_gitlab {
         < .singer
 }
 
+function job_analytics_zoho {
+  local analytics_zoho_tables=(
+    Candidates
+    Periods
+  )
+
+      aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_zoho_email \
+        analytics_zoho_token \
+        analytics_zoho_space \
+        analytics_auth_redshift \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  echo '[INFO] Running converter and streamer' \
+  &&  for table in "${analytics_zoho_tables[@]}"
+      do
+            echo "  [INFO] Table: ${table}" \
+        &&  ./analytics/singer/converter_zoho_csv.py \
+              --email "${analytics_zoho_email}" \
+              --token "${analytics_zoho_token}" \
+              --space "${analytics_zoho_space}" \
+              --table "${table}" \
+              --target "${table}" \
+        &&  ./analytics/singer/streamer_csv.py "${table}" \
+              >> .jsonstream \
+        || return 1
+      done \
+  &&  echo '[INFO] Running tap' \
+  &&  tap-json  \
+        --date-formats '%Y-%m-%d %H:%M:%S' \
+        > .singer \
+        < .jsonstream \
+  &&  echo '[INFO] Running target' \
+  &&  target-redshift \
+        --auth "${TEMP_FILE2}" \
+        --drop-schema \
+        --schema-name 'zoho' \
+        < .singer
+}
+
 function job_deploy_docker_image_exams {
   local tag="registry.gitlab.com/fluidattacks/serves/exams:${CI_COMMIT_REF_NAME}"
   local context='containers/exams'

@@ -120,6 +120,13 @@ analytics_gitlab:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_GITLAB]
 
+analytics_zoho:
+  <<: *with_nix
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_ZOHO]
+
 deploy_docker_image_exams:
   <<: *with_nix
   <<: *in_dev_and_master_branch
@@ -416,17 +423,6 @@ analytics-refresh-token-timedoctor:
   only:
     variables:
       - $FLAG_REFRESH_TOKENS
-
-analytics-sync-zoho:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: analytics
-  script:
-    - ./ci-scripts/jobs/analytics-sync-zoho.sh
-  <<: *in_schedules
-  only:
-    variables:
-      - $FLAG_SYNC_ZOHO
 
 terraform-states-bucket:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
