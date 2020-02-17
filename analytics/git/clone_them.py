@@ -17,7 +17,8 @@ def run_command(cmd: str, cwd: str) -> Tuple[int, str]:
                           shell=True,
                           stdout=subprocess.PIPE,
                           stderr=subprocess.STDOUT,
-                          universal_newlines=True)
+                          universal_newlines=True,
+                          env=os.environ)
     return proc.returncode, proc.stdout
 
 

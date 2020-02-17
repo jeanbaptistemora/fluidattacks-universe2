@@ -57,6 +57,63 @@ function job_analytics_formstack {
         < .singer
 }
 
+function job_analytics_git {
+  local fork
+  local log_file
+  local num_threads='8'
+  local mock_integrates_api_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.xxx'
+
+      aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_auth_redshift \
+        analytics_gitlab_user \
+        analytics_gitlab_token \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  log_file=$(mktemp) \
+  &&  echo '[INFO] Cloning our own repositories' \
+  &&  python3 analytics/git/clone_us.py \
+        | tee "${log_file}" \
+  &&  echo '[INFO] Cloning our own repositories: uploading log' \
+  &&  aws s3 cp "${log_file}" s3://fluidanalytics/clone_us.log \
+  &&  echo '[INFO] Cloning customer repositories' \
+  &&  \
+      CI=true \
+      DEV_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+      DEV_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+      INTEGRATES_API_TOKEN="${mock_integrates_api_token}" \
+      PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+      PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+      python3 analytics/git/clone_them.py  \
+        | tee "${log_file}" \
+  &&  echo '[INFO] Cloning customer repositories: uploading log' \
+  &&  aws s3 cp "${log_file}" s3://fluidanalytics/clone_them.log \
+  &&  echo '[INFO] Generating stats' \
+  &&  python3 analytics/git/generate_stats.py \
+        || true \
+  &&  echo '[INFO] Generating config' \
+  &&  python3 analytics/git/generate_config.py 2>&1 \
+        | aws s3 cp - s3://fluidanalytics/generate_config.log \
+  &&  echo "[INFO] Running tap in ${num_threads} threads" \
+  &&  for fork in $(seq 1 "${num_threads}")
+      do
+        ( tap-git \
+            --conf /config.json \
+            --with-metrics \
+            --threads 8 \
+            --fork-id "${fork}" > "git_part${fork}" ) &
+      done \
+  &&  wait \
+  &&  echo '[INFO] Running target' \
+  &&  cat git_part* \
+        | target-redshift \
+            --auth /target_secret.json \
+            --drop-schema \
+            --schema-name "git" \
+  &&  echo '[INFO] Tainting ToEs' \
+  &&  ./analytics/git/taint_all.sh
+}
+
 function job_deploy_docker_image_exams {
   local tag="registry.gitlab.com/fluidattacks/serves/exams:${CI_COMMIT_REF_NAME}"
   local context='containers/exams'

@@ -26,5 +26,19 @@ then
   fi
 fi
 
+# Ensure that a required directory is set
+if ! test -e '/git'
+then
+  echo '[INFO] Creating /git'
+  if test -x "$(command -v sudo)"
+  then
+    echo '[INFO] Please allow sudo privileges here'
+    sudo mkdir -p /git
+    sudo chown -R "${USER}" /git
+  else
+    mkdir -p /git
+  fi
+fi
+
 # Call the nix-shell executor
 ./build/shell.sh "${@}"

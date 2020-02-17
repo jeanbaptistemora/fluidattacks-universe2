@@ -36,7 +36,7 @@ function prepare_python_packages {
 
   echo '[INFO] Preparing python packages'
 
-  helper_list_vars_with_regex 'pyPkg[a-zA-Z]+' > "${TEMP_FILE1}"
+  helper_list_vars_with_regex 'pyPkg[a-zA-Z0-9]+' > "${TEMP_FILE1}"
 
   while read -r pkg
   do

@@ -23,8 +23,10 @@ in
     pyPkgAnalyticsTapJson = dependencies.python.analytics.singer.tapJson;
     pyPkgAnalyticsTapTimedoctor = dependencies.python.analytics.singer.tapTimedoctor;
     pyPkgAnalyticsTargetRedshift = dependencies.python.analytics.singer.targetRedshift;
+    pyPkgContinuousToolbox = dependencies.python.continuousToolbox;
     pyPkgMandrill = dependencies.python.mandrill;
     pyPkgProspector = dependencies.python.prospector;
+    pyPkgUrllib3 = dependencies.python.urllib3;
 
     srcEnv = ./include/env.sh;
     srcIncludeCli = ./include/cli.sh;

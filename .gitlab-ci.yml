@@ -78,6 +78,13 @@ analytics_dynamodb:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_DYNAMODB]
 
+analytics_git:
+  <<: *with_nix
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_GIT]
+
 deploy_docker_image_exams:
   <<: *with_nix
   <<: *in_dev_and_master_branch
@@ -363,17 +370,6 @@ analytics-sync-timedoctor:
   only:
     variables:
       - $FLAG_SYNC_TIMEDOCTOR
-
-analytics-sync-git:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling-large]
-  stage: analytics
-  script:
-    - ./ci-scripts/jobs/analytics-sync-git.sh
-  <<: *in_schedules
-  only:
-    variables:
-      - $FLAG_SYNC_GIT
 
 analytics-sync-mandrill:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME

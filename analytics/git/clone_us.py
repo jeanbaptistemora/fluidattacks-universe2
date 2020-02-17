@@ -41,7 +41,7 @@ def main():
             'fluidattacks/bwapp',
             'fluidattacks/serves',
             'fluidattacks/continuous',
-            'fluidsignal/default',
+            'fluidattacks/private',
         ])
 
 

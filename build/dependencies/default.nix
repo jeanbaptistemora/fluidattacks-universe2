@@ -32,6 +32,7 @@ in rec {
       nix
       nix-linter
       nss
+      openssh
       openssl
       python.analytics.singer.streamerInfrastructure
       python.analytics.singer.streamerIntercom
@@ -46,10 +47,13 @@ in rec {
       python.analytics.singer.tapJson
       python.analytics.singer.tapTimedoctor
       python.analytics.singer.targetRedshift
+      python.continuousToolbox
       python.mandrill
       python.prospector
+      python.urllib3
       shellcheck
       sops
+      sudo
       terraform
       tflint
       which
@@ -94,9 +98,15 @@ in rec {
     python.analytics.singer.targetRedshift =
       modules.build.pythonPackageLocal ../../analytics/singer/target_redshift;
 
+    python.continuousToolbox =
+      modules.build.pythonPackage "continuous-toolbox";
+
     python.mandrill =
       modules.build.pythonPackage "mandrill-really-maintained==1.2.4";
 
     python.prospector =
       modules.build.pythonPackage "prospector[with_everything]==1.2.0";
+
+    python.urllib3 =
+      modules.build.pythonPackage "urllib3==1.25.8";
   }
