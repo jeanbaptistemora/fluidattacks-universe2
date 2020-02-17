@@ -352,6 +352,9 @@ export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
         ? "search_findings.tab_description.treatment.accepted" : "-",
       "ACCEPTED_UNDEFINED": (finding.state === "open")
         ? "search_findings.tab_description.treatment.accepted_undefined" : "-",
+      "ACCEPTED_UNDEFINED pending": (finding.state === "open")
+        ? translate.t("search_findings.tab_description.treatment.accepted_undefined") +
+        translate.t("search_findings.tab_description.treatment.pending_approval") : "-",
       "IN PROGRESS": (finding.state === "open")
         ? "search_findings.tab_description.treatment.in_progress" : "-",
       "NEW": (finding.state === "open")

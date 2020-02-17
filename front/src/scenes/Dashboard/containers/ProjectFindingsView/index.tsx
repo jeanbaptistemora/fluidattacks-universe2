@@ -83,6 +83,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const selectOptionsTreatment: optionSelectFilterProps[] = [
     {value: "Accepted", label: "Accepted"},
     {value: "In progress", label: "In progress"},
+    {value: "Indefinitely accepted", label: "Indefinitely accepted"},
+    {value: "Indefinitely accepted (Pending approval)", label: "Indefinitely accepted (Pending approval)"},
     {value: "New", label: "New"},
     {value: "-", label: "-"},
   ];
@@ -366,6 +368,11 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
             data.project.findings = data.project.findings.map((finding: IFindingAttr) => {
               if (finding.historicTreatment.length > 0) {
                 finding.treatment = finding.historicTreatment[finding.historicTreatment.length - 1].treatment;
+                const acceptationApproval: string | undefined =
+                  _.get(finding.historicTreatment[finding.historicTreatment.length - 1], "acceptance_status");
+                if (acceptationApproval !== undefined && acceptationApproval === "SUBMITTED") {
+                  finding.treatment += " pending";
+                }
               }
 
               return finding;
