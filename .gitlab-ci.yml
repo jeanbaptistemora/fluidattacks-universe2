@@ -173,6 +173,18 @@ deploy:
   only:
     - master
 
+.test_infra_secret_management:
+  tags: [autoscaling]
+  stage: check
+  image: registry.gitlab.com/fluidattacks/web:base
+  script:
+    - source ci-scripts/helpers/others.sh
+    - aws_login
+    - pushd secret-management/terraform
+    - terraform init
+    - terraform plan -refresh=true
+    - tflint --deep --module
+
 new_version_mail:
   tags: [autoscaling]
   stage: postdeploy
