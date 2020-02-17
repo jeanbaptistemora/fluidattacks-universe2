@@ -15,7 +15,6 @@ let
     pyPkgFluidassertsBasic.buildInputs
     pyPkgGroupTest.buildInputs
     pyPkgMandrill.buildInputs
-    pyPkgGitPython.buildInputs
   ];
 in
 
@@ -27,6 +26,5 @@ pkgs.stdenv.mkDerivation rec {
   inherit pyPkgFluidassertsBasic;
   inherit pyPkgGroupTest;
   inherit pyPkgMandrill;
-  inherit pyPkgGitPython;
   buildInputs = osPackages ++ pythonPackages ++ propagatedBuildInputs;
 }

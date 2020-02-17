@@ -2,7 +2,6 @@ docker==4.1.0
 flask-graphql==2.0.1
 flask-httpauth==3.3.0
 flask==1.1.1
-gitpython==3.0.5
 graphene==2.1.8
 pytest-cov==2.8.1
 pytest-random-order==1.0.4

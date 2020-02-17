@@ -158,6 +158,7 @@ resource "aws_db_instance" "default" {
   password             = "foobarbaz"
   parameter_group_name = "default.mysql5.7"
   deletion_protection  = "true"
+  storage_encrypted =  true
 }
 
 resource "aws_rds_cluster" "default" {
@@ -171,6 +172,7 @@ resource "aws_rds_cluster" "default" {
   backup_retention_period = 5
   preferred_backup_window = "07:00-09:00"
   deletion_protection  = "true"
+  storage_encrypted =  true
 }
 
 resource "aws_iam_instance_profile" "test_profile" {

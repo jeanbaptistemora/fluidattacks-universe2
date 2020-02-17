@@ -14,9 +14,17 @@ NOT_EXISTS: str = 'test/static/terraform/not-exists'
 
 
 def test_has_not_termination_protection():
-    """test ec2.has_unencrypted_volumes."""
+    """test rds.has_not_termination_protection."""
     result = rds.has_not_termination_protection(VULN)
     assert result.is_open()
     assert result.get_vulns_number() == 2
     assert rds.has_not_termination_protection(SAFE).is_closed()
     assert rds.has_not_termination_protection(NOT_EXISTS).is_unknown()
+
+def test_has_unencrypted_storage():
+    """test rds.has_unencrypted_storage."""
+    result = rds.has_unencrypted_storage(VULN)
+    assert result.is_open()
+    assert result.get_vulns_number() == 2
+    assert rds.has_unencrypted_storage(SAFE).is_closed()
+    assert rds.has_unencrypted_storage(NOT_EXISTS).is_unknown()

@@ -47,7 +47,6 @@ function prepare_environment {
   # Set the PYTHONPATH to the nix-created environment
   PYTHONPATH="${PYTHONPATH}:${pyPkgFluidassertsBasic}/site-packages"
   PYTHONPATH="${PYTHONPATH}:${pyPkgGroupTest}/site-packages"
-  PYTHONPATH="${PYTHONPATH}:${pyPkgGitPython}/site-packages"
   PYTHONPATH="${PYTHONPATH}:${pyPkgMandrill}/site-packages"
   PYTHONPATH="${PYTHONPATH}:${SITE_PACKAGES}"
 

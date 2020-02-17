@@ -100,7 +100,7 @@ setup(
         'cython==0.29.14',             # fluidasserts.db.mssql
         'defusedxml==0.6.0',           # fluidasserts.sca
         'dnspython==1.16.0',           # fluidasserts.proto.dns
-        'gitpython==3.0.5',            # fluidasserts.proto.git
+        'gitpython==3.0.8',            # fluidasserts.proto.git
         'google-api-python-client==1.7.11',     # fluidasserts.cloud.gcp
         'google-auth-httplib2==0.0.3',    # fluidasserts.cloud.gcp
         'kubernetes==10.0.1',          # fluidasserts.cloud.kubernetes
