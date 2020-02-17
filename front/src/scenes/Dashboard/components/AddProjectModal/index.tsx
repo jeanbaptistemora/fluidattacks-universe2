@@ -33,7 +33,7 @@ const addProjectModal: ((props: IAddProjectModal) => JSX.Element) = (props: IAdd
   };
   const handleProjectNameResult: ((qrResult: IProjectName) => void) = (qrResult: IProjectName): void => {
     if (!_.isUndefined(qrResult)) {
-      store.dispatch(change("newProject", "name", qrResult.internalProjectNames.projectName));
+      store.dispatch(change("newProject", "name", qrResult.internalProjectNames.projectName.toUpperCase()));
       setProjectName(qrResult.internalProjectNames.projectName);
     }
   };
