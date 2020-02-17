@@ -52,7 +52,7 @@ Another possibility is to use the snippet's
 Abstract Syntax Tree (+AST+), which,
 incidentally, is what they use in tools such as
 [inner]#link:../embed-code-vector/[+code2vec+]# and
-[inner]#link:../code-translate[+code2seq+].
+[inner]#link:../code-translate/[+code2seq+]#.
 However an issue that we could claim to be present here
 is that code is not just about syntax,
 but it also has rich semantics which could be
@@ -131,7 +131,7 @@ The most eye-opening result is the comparison between
 syntactic and semantic based embeddings:
 
 .Syntactic vs semantic embeddings
-image:syntactic-vs-semantic.png[Syntactic vs semantic embeddings]
+image::syntactic-vs-semantic.png[Syntactic vs semantic embeddings]
 
 Almost 300% better. This makes intuitive sense,
 since considering more information, and
