@@ -78,6 +78,13 @@ analytics_dynamodb:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_DYNAMODB]
 
+analytics_infrastructure:
+  <<: *with_nix
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_INFRASTRUCTURE]
+
 analytics_git:
   <<: *with_nix
   stage: analytics
@@ -381,17 +388,6 @@ analytics-sync-mandrill:
   only:
     variables:
       - $FLAG_SYNC_MANDRILL
-
-analytics-sync-infrastructure:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: analytics
-  script:
-    - ./ci-scripts/jobs/analytics-sync-infrastructure.sh
-  <<: *in_schedules
-  only:
-    variables:
-      - $FLAG_SYNC_INFRASTRUCTURE
 
 analytics-sync-intercom:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME

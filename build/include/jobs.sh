@@ -114,6 +114,30 @@ function job_analytics_git {
   &&  ./analytics/git/taint_all.sh
 }
 
+function job_analytics_infrastructure {
+      aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_auth_infra \
+        analytics_auth_redshift \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_auth_infra}" > "${TEMP_FILE1}" \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  echo '[INFO] Running streamer' \
+  &&  streamer-infrastructure \
+        --auth "${TEMP_FILE1}" \
+        > .jsonstream \
+  &&  echo '[INFO] Running tap' \
+  &&  tap-json \
+        > .singer \
+        < .jsonstream \
+  &&  echo '[INFO] Running target' \
+  &&  target-redshift \
+        --auth "${TEMP_FILE2}" \
+        --drop-schema \
+        --schema-name 'infrastructure' \
+        < .singer
+}
+
 function job_deploy_docker_image_exams {
   local tag="registry.gitlab.com/fluidattacks/serves/exams:${CI_COMMIT_REF_NAME}"
   local context='containers/exams'
