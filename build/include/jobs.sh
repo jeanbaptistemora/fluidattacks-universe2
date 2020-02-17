@@ -188,6 +188,47 @@ function job_analytics_mandrill {
         < .singer
 }
 
+function job_analytics_gitlab {
+  export GITLAB_PASS
+  local project
+  local projects=(
+    'autonomicmind/default'
+    'autonomicmind/training'
+    'fluidattacks/continuous'
+    'fluidattacks/asserts'
+    'fluidattacks/integrates'
+    'fluidattacks/private'
+    'fluidattacks/public'
+    'fluidattacks/serves'
+    'fluidattacks/web'
+    'fluidattacks/writeups'
+  )
+
+      aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_gitlab_token \
+        analytics_auth_redshift \
+  &&  echo '[INFO] Generating secret files' \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
+  &&  echo '[INFO] Running streamer' \
+  &&  for project in "${projects[@]}"
+      do
+        GITLAB_PASS="${analytics_gitlab_token}" \
+        ./analytics/singer/streamer_gitlab.py "${project}" >> .jsonstream \
+            || return 1
+      done \
+  &&  echo '[INFO] Running tap' \
+  &&  tap-json  \
+        > .singer \
+        < .jsonstream \
+  &&  echo '[INFO] Running target' \
+  &&  target-redshift \
+        --auth "${TEMP_FILE2}" \
+        --drop-schema \
+        --schema-name 'gitlab-ci' \
+        < .singer
+}
+
 function job_deploy_docker_image_exams {
   local tag="registry.gitlab.com/fluidattacks/serves/exams:${CI_COMMIT_REF_NAME}"
   local context='containers/exams'

@@ -106,6 +106,13 @@ analytics_mandrill:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_MANDRILL]
 
+analytics_gitlab:
+  <<: *with_nix
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_GITLAB]
+
 deploy_docker_image_exams:
   <<: *with_nix
   <<: *in_dev_and_master_branch
@@ -391,16 +398,6 @@ analytics-sync-timedoctor:
   only:
     variables:
       - $FLAG_SYNC_TIMEDOCTOR
-
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling-large]
-  stage: analytics
-  script:
-    - ./ci-scripts/jobs/analytics-sync-gitlab.sh
-  <<: *in_schedules
-  only:
-    variables:
-      - $FLAG_SYNC_GITLAB
 
 analytics-sync-continuous:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
