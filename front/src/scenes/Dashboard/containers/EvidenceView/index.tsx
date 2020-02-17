@@ -3,6 +3,7 @@
  * Disabling this rule is necessary for accessing render props from
  * apollo components
  */
+import { ExecutionResult } from "@apollo/react-common";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
 import { GraphQLError } from "graphql";
@@ -11,6 +12,7 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
+import { InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { default as globalStyle } from "../../../../styles/global.css";
@@ -20,6 +22,7 @@ import translate from "../../../../utils/translations/translate";
 import { validEvidenceImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
 import { EvidenceLightbox } from "../../components/EvidenceLightbox";
+import { GenericForm } from "../../components/GenericForm";
 import styles from "./index.css";
 import {
   GET_FINDING_EVIDENCES, REMOVE_EVIDENCE_MUTATION, UPDATE_DESCRIPTION_MUTATION, UPDATE_EVIDENCE_MUTATION,
@@ -47,7 +50,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_FINDING_EVIDENCES, { variables: { findingId } });
   const [removeEvidence] = useMutation(REMOVE_EVIDENCE_MUTATION, { onCompleted: refetch });
-  const [updateDescription] = useMutation(UPDATE_DESCRIPTION_MUTATION, { onCompleted: refetch });
+  const [updateDescription] = useMutation(UPDATE_DESCRIPTION_MUTATION);
   const [updateEvidence] = useMutation(UPDATE_EVIDENCE_MUTATION, {
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
@@ -85,6 +88,32 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
 
   const canEdit: boolean = _.includes(["admin", "analyst"], userRole);
 
+  const handleUpdate: ((values: Dictionary<IEvidenceItem>) => void) = (values: Dictionary<IEvidenceItem>): void => {
+    setEditing(false);
+    const updateChanges: ((evidence: IEvidenceItem & { file?: FileList }, key: string) => Promise<void>) = async (
+      evidence: IEvidenceItem & { file?: FileList }, key: string): Promise<void> => {
+      const { description, file } = evidence;
+      const descriptionChanged: boolean = description !== evidenceImages[key].description;
+      if (file !== undefined) {
+        const mtResult: ExecutionResult = await updateEvidence({
+          variables: { evidenceId: key.toUpperCase(), file: file[0], findingId }});
+        const { success } = (mtResult as { data: { updateEvidence: { success: boolean } } }).data.updateEvidence;
+        if (success && descriptionChanged) {
+          await updateDescription({ variables: { description, evidenceId: key.toUpperCase(), findingId } });
+        }
+      } else {
+        if (descriptionChanged) {
+          await updateDescription({ variables: { description, evidenceId: key.toUpperCase(), findingId } });
+        }
+      }
+    };
+    Promise.all(_.map(values, updateChanges))
+      .then(() => {refetch()
+          .catch();
+      })
+      .catch();
+  };
+
   return (
     <React.StrictMode>
               <Row>
@@ -96,6 +125,7 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                   ) : undefined}
                 </Col>
               </Row>
+      <br />
               {_.isEmpty(evidenceList) && !isEditing
                 ? (
                   <div className={globalStyle.noData}>
@@ -104,52 +134,14 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                   </div>
                 )
                 : (
+          <GenericForm name="editEvidences" onSubmit={handleUpdate} initialValues={evidenceImages}>
+            {({ pristine }: InjectedFormProps): JSX.Element => (<React.Fragment>{isEditing ? (<Row>
+              <Col md={2} mdOffset={10}><Button block={true} type="submit" disabled={pristine}>
+                        <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_evidence.update")}
+                      </Button></Col></Row>) : undefined}
                 <Row className={styles.evidenceGrid}>
                 {evidenceList.map((name: string, index: number): JSX.Element => {
                           const evidence: IEvidenceItem = evidenceImages[name];
-
-                          const handleUpdate: ((values: { description: string; filename: FileList }) => void) = (
-                            values: { description: string; filename: FileList },
-                          ): void => {
-                            setEditing(false);
-
-                            if (_.isUndefined(values.filename)) {
-                              if (_.isEmpty(evidence.url)) {
-                                msgError(translate.t("proj_alerts.no_file_selected"));
-                              } else {
-                                updateDescription({
-                                  variables: {
-                                    description: values.description, evidenceId: name.toUpperCase(), findingId,
-                                  },
-                                })
-                                  .catch();
-                              }
-                            } else {
-                              updateEvidence({
-                                variables: { evidenceId: name.toUpperCase(), file: values.filename[0], findingId },
-                              })
-                                .then((mtResult: void | {}): void => {
-                                  interface IMutationResult { data: { updateEvidence: { success: boolean } }; }
-                                  const { success } = (mtResult as IMutationResult).data.updateEvidence;
-                                  if (success) {
-                                    if (index > 1) {
-                                      updateDescription({
-                                        variables: {
-                                          description: values.description,
-                                          evidenceId: name.toUpperCase(),
-                                          findingId,
-                                        },
-                                      })
-                                        .catch();
-                                    } else {
-                                      refetch()
-                                        .catch();
-                                    }
-                                  }
-                                })
-                                .catch();
-                            }
-                          };
 
                           const handleRemove: (() => void) = (): void => {
                                   mixpanel.track("RemoveEvidence", { Organization: userOrganization, User: userName });
@@ -171,15 +163,15 @@ const evidenceView: React.FC<EventEvidenceProps> = (props: EventEvidenceProps): 
                                     isEditing={isEditing}
                                     isRemovable={!_.isEmpty(evidence.url)}
                                     key={index}
-                                    name={`evidence${index}`}
+                                    name={name}
                                     onClick={openImage}
                                     onDelete={handleRemove}
-                                    onUpdate={handleUpdate}
                                     validate={validEvidenceImage}
                                   />
                   );
                 })}
               </Row>
+              </React.Fragment>)}</GenericForm>
               )}
       <EvidenceLightbox
         evidenceImages={evidenceList.map((name: string) => evidenceImages[name])}

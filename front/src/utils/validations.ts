@@ -38,7 +38,7 @@ export const validEvidenceDescription: Validator = (
   _0: boolean, allValues: { [key: string]: {} }, _1: {}, name: string,
 ): string | undefined => {
 
-  const groupValues: Dictionary = getGroupValues(allValues, name);
+  const groupValues: Dictionary = _.isEmpty(allValues) ? {} : getGroupValues(allValues, name);
   const hasDescription: boolean = !_.isEmpty(groupValues.description);
   const hasFileSelected: boolean = !_.isEmpty(groupValues.file as FileList);
   const hasUrl: boolean = !_.isEmpty(groupValues.url);

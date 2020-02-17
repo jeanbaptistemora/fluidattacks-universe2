@@ -10,6 +10,7 @@ import _ from "lodash";
 import React from "react";
 import { Col, Glyphicon, Row } from "react-bootstrap";
 import { RouteComponentProps } from "react-router";
+import { InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { default as globalStyle } from "../../../../styles/global.css";
@@ -19,6 +20,7 @@ import translate from "../../../../utils/translations/translate";
 import { validEventFile, validEvidenceImage } from "../../../../utils/validations";
 import { evidenceImage as EvidenceImage } from "../../components/EvidenceImage/index";
 import { EvidenceLightbox } from "../../components/EvidenceLightbox";
+import { GenericForm } from "../../components/GenericForm";
 import {
   DOWNLOAD_FILE_MUTATION, GET_EVENT_EVIDENCES, REMOVE_EVIDENCE_MUTATION, UPDATE_EVIDENCE_MUTATION,
 } from "./queries";
@@ -49,7 +51,6 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
   });
   const [removeEvidence] = useMutation(REMOVE_EVIDENCE_MUTATION, { onCompleted: refetch });
   const [updateEvidence] = useMutation(UPDATE_EVIDENCE_MUTATION, {
-    onCompleted: refetch,
     onError: (updateError: ApolloError): void => {
       updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
         switch (message) {
@@ -91,21 +92,21 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
       .catch();
   };
 
-  const updateImage: ((values: { filename: FileList }) => void) = (values: { filename: FileList }): void => {
+  const handleUpdate: ((values: {}) => void) = (values: {}): void => {
     setEditing(false);
 
-    updateEvidence({
-      variables: { eventId, evidenceType: "IMAGE", file: values.filename[0] },
-    })
-      .catch();
-  };
+    const updateChanges: ((evidence: { file?: FileList }, key: string) => Promise<void>) = async (
+      evidence: { file?: FileList }, key: string): Promise<void> => {
+      const { file } = evidence;
+      if (!_.isUndefined(file)) {
+        await updateEvidence({ variables: { eventId, evidenceType: key.toUpperCase(), file: file[0] } });
+      }
+    };
 
-  const updateFile: ((values: { filename: FileList }) => void) = (values: { filename: FileList }): void => {
-    setEditing(false);
-
-    updateEvidence({
-      variables: { eventId, evidenceType: "FILE", file: values.filename[0] },
-    })
+    Promise.all(_.map(values, updateChanges))
+      .then(() => {refetch()
+          .catch();
+      })
       .catch();
   };
 
@@ -123,6 +124,7 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
             ) : undefined}
           </Col>
         </Row>
+        <br />
         {_.isEmpty(data.event.evidence) && _.isEmpty(data.event.evidenceFile) && !isEditing ? (
           <div className={globalStyle.noData}>
             <Glyphicon glyph="picture" />
@@ -130,8 +132,11 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
           </div>
         ) : undefined}
         <React.Fragment>
-          <React.Fragment>
+        <GenericForm name="editEvidences" onSubmit={handleUpdate}>{({ pristine }: InjectedFormProps): JSX.Element => (
             <React.Fragment>
+              {isEditing ? (<Row><Col md={2} mdOffset={10}><Button block={true} type="submit" disabled={pristine}>
+                      <FluidIcon icon="loading" />&nbsp;{translate.t("search_findings.tab_evidence.update")}
+                    </Button></Col></Row>) : undefined}
               {!_.isEmpty(data.event.evidence) || isEditing ? (
                 <EvidenceImage
                   acceptedMimes="image/jpeg,image/gif,image/png"
@@ -143,7 +148,6 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                   name="image"
                   onClick={openImage}
                   onDelete={removeImage}
-                  onUpdate={updateImage}
                   validate={validEvidenceImage}
                 />
               ) : undefined}
@@ -158,12 +162,11 @@ const eventEvidenceView: React.FC<EventEvidenceProps> = (props: EventEvidencePro
                   name="file"
                   onClick={handleDownload}
                   onDelete={removeFile}
-                  onUpdate={updateFile}
                   validate={validEventFile}
                 />
               ) : undefined}
             </React.Fragment>
-          </React.Fragment>
+          )}</GenericForm>
         </React.Fragment>
         <EvidenceLightbox
           evidenceImages={[{ url: data.event.evidence }]}

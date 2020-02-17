@@ -7,8 +7,10 @@ import _ from "lodash";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
+import store from "../../../../store";
 import { EvidenceView } from "./index";
 import { GET_FINDING_EVIDENCES } from "./queries";
 
@@ -113,7 +115,7 @@ describe("FindingEvidenceView", () => {
   it("should render image", async () => {
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <EvidenceView {...mockProps} />
+        <Provider store={store}><EvidenceView {...mockProps} /></Provider>
       </MockedProvider>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
@@ -124,7 +126,7 @@ describe("FindingEvidenceView", () => {
   it("should render image lightbox", async () => {
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <EvidenceView {...mockProps} />
+        <Provider store={store}><EvidenceView {...mockProps} /></Provider>
       </MockedProvider>,
     );
     await act(async () => { await wait(0); wrapper.update(); });

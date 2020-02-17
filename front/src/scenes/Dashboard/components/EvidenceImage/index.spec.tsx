@@ -3,6 +3,7 @@ import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import React from "react";
 import { Provider } from "react-redux";
 import store from "../../../../store";
+import { GenericForm } from "../GenericForm";
 import { evidenceImage as EvidenceImage } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -16,6 +17,7 @@ describe("Evidence image", () => {
 
   it("should render img", () => {
     const wrapper: ShallowWrapper = shallow(
+      <Provider store={store}><GenericForm name="editEvidences" onSubmit={jest.fn()}>
       <EvidenceImage
         name={"evidence1"}
         description={"Test evidence"}
@@ -23,16 +25,19 @@ describe("Evidence image", () => {
         isEditing={false}
         content="https://fluidattacks.com/test.png"
         onClick={jest.fn()}
-        onUpdate={jest.fn()}
       />,
+      </GenericForm></Provider>,
     );
+    const component: ShallowWrapper = wrapper.find({ name: "evidence1" })
+      .dive();
 
-    expect(wrapper.find("img").length)
+    expect(component.find("img").length)
       .toEqual(1);
   });
 
   it("should render description", () => {
     const wrapper: ShallowWrapper = shallow(
+      <Provider store={store}><GenericForm name="editEvidences" onSubmit={jest.fn()}>
       <EvidenceImage
         name={"evidence1"}
         description={"Test evidence"}
@@ -40,16 +45,19 @@ describe("Evidence image", () => {
         isEditing={false}
         content={"https://fluidattacks.com/test.png"}
         onClick={jest.fn()}
-        onUpdate={jest.fn()}
       />,
+      </GenericForm></Provider>,
     );
 
-    expect(wrapper.containsMatchingElement(<p>Test evidence</p>))
+    const component: ShallowWrapper = wrapper.find({ name: "evidence1" })
+      .dive();
+    expect(component.containsMatchingElement(<p>Test evidence</p>))
       .toBe(true);
   });
 
   it("should render as editable", () => {
     const wrapper: ShallowWrapper = shallow(
+      <Provider store={store}><GenericForm name="editEvidences" onSubmit={jest.fn()}>
       <EvidenceImage
         name="evidence1"
         description="Test evidence"
@@ -57,8 +65,8 @@ describe("Evidence image", () => {
         isEditing={true}
         content="https://fluidattacks.com/test.png"
         onClick={jest.fn()}
-        onUpdate={jest.fn()}
       />,
+      </GenericForm></Provider>,
     );
     expect(wrapper.find("genericForm")
       .find({ name: "evidence1" }))
@@ -68,8 +76,10 @@ describe("Evidence image", () => {
   it("should execute callbacks", () => {
     const handleClick: jest.Mock = jest.fn();
     const handleUpdate: jest.Mock = jest.fn();
+    const file: File[] = [new File([""], "image.png", { type: "image/png" })];
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
+        <GenericForm name="editEvidences" onSubmit={handleUpdate} initialValues={{ evidence1: { file }}}>
         <EvidenceImage
           name="evidence1"
           description="Test evidence"
@@ -77,24 +87,19 @@ describe("Evidence image", () => {
           isEditing={true}
           content="https://fluidattacks.com/test.png"
           onClick={handleClick}
-          onUpdate={handleUpdate}
         />
+        </GenericForm>
       </Provider>,
     );
 
-    const submitButton: ReactWrapper = wrapper.find("button")
-      .find({ type: "submit" })
-      .at(0);
-    expect(submitButton.prop<boolean>("disabled"))
-      .toBe(true);
-    wrapper.find("textarea")
-      .find({ name: "description" })
+    const component: ReactWrapper = wrapper.find({ name: "evidence1" });
+    component.find("textarea")
       .simulate("change", { target: { value: "New description" } });
     wrapper.find("form")
       .simulate("submit");
     expect(handleUpdate)
       .toHaveBeenCalled();
-    wrapper.find("img")
+    component.find("img")
       .simulate("click");
     expect(handleClick)
       .toHaveBeenCalled();

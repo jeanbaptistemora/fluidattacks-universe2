@@ -4,13 +4,12 @@
  */
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { Field, InjectedFormProps, Validator } from "redux-form";
+import { Field, FormSection, Validator } from "redux-form";
 import { Button } from "../../../../components/Button/index";
 import { FluidIcon } from "../../../../components/FluidIcon";
 import { fileInputField, textAreaField } from "../../../../utils/forms/fields";
 import translate from "../../../../utils/translations/translate";
-import { required } from "../../../../utils/validations";
-import { GenericForm } from "../GenericForm";
+import { validEvidenceDescription } from "../../../../utils/validations";
 import { default as style } from "./index.css";
 
 interface IEvidenceImageProps {
@@ -24,34 +23,26 @@ interface IEvidenceImageProps {
   validate?: Validator | Validator[];
   onClick(): void;
   onDelete?(): void;
-  onUpdate(values: {}): void;
 }
 
 const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvidenceImageProps): JSX.Element => {
-  const { onDelete, onUpdate } = props;
+  const { onDelete } = props;
 
   return (
-    <GenericForm
+    <FormSection
       name={props.name}
-      onSubmit={onUpdate}
-      initialValues={{ description: props.description }}
     >
-      {({ pristine, submitting }: InjectedFormProps): JSX.Element => (
         <React.Fragment>
           <Field
-            name="filename"
+            name="file"
             id={props.name}
             component={fileInputField}
             accept={props.acceptedMimes}
             validate={props.validate}
           />
           {props.isDescriptionEditable
-            ? <Field name="description" component={textAreaField} validate={[required]} />
+            ? <Field name="description" component={textAreaField} validate={validEvidenceDescription}/>
             : <p>{props.description}</p>}
-          <Button bsStyle="success" block={true} type="submit" disabled={pristine || submitting}>
-            <FluidIcon icon="loading" />
-            &nbsp;{translate.t("search_findings.tab_evidence.update")}
-          </Button>
           {props.isRemovable === true
             ? <Button bsStyle="success" block={true} onClick={onDelete}>
               <FluidIcon icon="delete" />
@@ -59,8 +50,7 @@ const renderForm: ((props: IEvidenceImageProps) => JSX.Element) = (props: IEvide
             </Button>
             : undefined}
         </React.Fragment>
-      )}
-    </GenericForm>
+    </FormSection>
   );
 };
 

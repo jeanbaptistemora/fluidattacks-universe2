@@ -7,8 +7,10 @@ import _ from "lodash";
 import * as React from "react";
 // tslint:disable-next-line: no-submodule-imports
 import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import wait from "waait";
+import store from "../../../../store";
 import { EventEvidenceView } from "./index";
 import { DOWNLOAD_FILE_MUTATION, GET_EVENT_EVIDENCES } from "./queries";
 
@@ -89,7 +91,7 @@ describe("EventEvidenceView", () => {
     }];
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <EventEvidenceView {...mockProps} />
+        <Provider store={store}><EventEvidenceView {...mockProps} /></Provider>
       </MockedProvider>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
@@ -116,7 +118,7 @@ describe("EventEvidenceView", () => {
     }];
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <EventEvidenceView {...mockProps} />
+        <Provider store={store}><EventEvidenceView {...mockProps} /></Provider>
       </MockedProvider>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
@@ -145,7 +147,7 @@ describe("EventEvidenceView", () => {
     }];
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <EventEvidenceView {...mockProps} />
+        <Provider store={store}><EventEvidenceView {...mockProps} /></Provider>
       </MockedProvider>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
@@ -176,7 +178,7 @@ describe("EventEvidenceView", () => {
     (window as typeof window & { userRole: string }).userRole = "analyst";
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <EventEvidenceView {...mockProps} />
+        <Provider store={store}><EventEvidenceView {...mockProps} /></Provider>
       </MockedProvider>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
@@ -225,7 +227,7 @@ describe("EventEvidenceView", () => {
     (window as { open: ((url: string) => { opener: undefined }) }).open = onOpenLink;
     const wrapper: ReactWrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <EventEvidenceView {...mockProps} />
+        <Provider store={store}><EventEvidenceView {...mockProps} /></Provider>
       </MockedProvider>,
     );
     await act(async () => { await wait(0); wrapper.update(); });
