@@ -4,18 +4,21 @@ WORKDIR /app
 
 COPY . /app
 
-ARG URL_NODESOURCE='https://deb.nodesource.com/setup_10.x'
 ARG URL_DEBIAN='https://dl.yarnpkg.com/debian/'
 ARG URL_DEBIAN_PUBKEY='https://dl.yarnpkg.com/debian/pubkey.gpg'
 ARG URL_GETPIP='https://bootstrap.pypa.io/get-pip.py'
+ARG URL_JAVA='http://javadl.oracle.com/webapps/download/AutoDL?BundleId=230532_2f38c3b165be4555a1fa6e98c45e0808'
+ARG URL_KUBECTL='https://storage.googleapis.com/kubernetes-release/release/v1.16.2/bin/linux/amd64/kubectl'
+ARG URL_NODESOURCE='https://deb.nodesource.com/setup_10.x'
+ARG URL_PELICAN_PLUGINS='https://github.com/getpelican/pelican-plugins.git'
+ARG URL_PLANTUML='https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/asciidoc-plantuml/plantuml.zip'
+ARG URL_SHELLCHECK='https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz'
+ARG URL_SOPS='https://github.com/mozilla/sops/releases/download/v3.5.0/sops-v3.5.0.linux'
+ARG URL_TERRAFORM='https://releases.hashicorp.com/terraform/0.12.20/terraform_0.12.20_linux_amd64.zip'
+ARG URL_TFLINT='https://github.com/terraform-linters/tflint/releases/download/v0.14.0/tflint_linux_amd64.zip'
 ARG URL_TIDDY='https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb'
 ARG URL_TIPUE='https://github.com/jekylltools/jekyll-tipue-search.git'
 ARG URL_TURN='https://github.com/blasten/turn.js.git'
-ARG URL_PELICAN_PLUGINS='https://github.com/getpelican/pelican-plugins.git'
-ARG URL_PLANTUML='https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/asciidoc-plantuml/plantuml.zip'
-ARG URL_JAVA='http://javadl.oracle.com/webapps/download/AutoDL?BundleId=230532_2f38c3b165be4555a1fa6e98c45e0808'
-ARG URL_SHELLCHECK='https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz'
-ARG URL_KUBECTL='https://storage.googleapis.com/kubernetes-release/release/v1.16.2/bin/linux/amd64/kubectl'
 ARG URL_VAULT='https://releases.hashicorp.com/vault/0.11.5/vault_0.11.5_linux_amd64.zip'
 
 # Install basic dependencies to set the repositories for NodeJS, Yarn and Docker
@@ -73,12 +76,34 @@ RUN apt-get install -qqy --no-install-recommends \
   && yarn install \
   && gem install -N sass
 
+# External dependencies
+RUN curl -LSo vault.zip "$URL_VAULT" \
+        && unzip vault.zip \
+        && mv vault /usr/local/bin \
+        && rm vault.zip \
+    && curl -LSo tidy.deb "$URL_TIDDY" \
+        && dpkg -i tidy.deb \
+    && curl -LSo plantuml.zip "$URL_PLANTUML" \
+        && asciidoc --filter install plantuml.zip /etc/asciidoc/filters/ \
+    && curl -LSo java.tar.gz "$URL_JAVA" \
+        && tar zxvf java.tar.gz \
+    && curl -LSo shellcheck.tar.xz "$URL_SHELLCHECK" \
+        && tar xvf shellcheck.tar.xz \
+        && mv shellcheck-stable/shellcheck /bin/shellcheck \
+    && curl -o kubectl "$URL_KUBECTL" \
+        && chmod +x kubectl \
+        && mv kubectl /usr/local/bin/kubectl \
+    && curl -LSo sops "$URL_SOPS" \
+        && mv sops /usr/local/bin/sops\
+    && curl -LSo terraform.zip "$URL_TERRAFORM" \
+        && unzip terraform.zip \
+        && mv terraform /usr/bin/terraform \
+    && curl -LSo tflint.zip "$URL_TFLINT" \
+        && unzip tflint.zip \
+        && mv tflint /usr/bin/tflint
+
 # Set flag images for IntlTelInput plugin
 RUN sed -i 's#\$flagsImagePath:.*#\$flagsImagePath:\ \"../../images/\";#' node_modules/intl-tel-input/src/css/intlTelInput.scss
-
-# Download and install tidy-html
-RUN curl -LSo tidy.deb "$URL_TIDDY" \
-    && dpkg -i tidy.deb
 
 # Download only the necessary .js to implement TipueSearch plugin, from its repository
 RUN mkdir js \
@@ -116,18 +141,6 @@ RUN mkdir pelican-plugins \
     && git reset --hard 3924d5b \
     && cd /app
 
-# External deps
-RUN curl -LSo plantuml.zip "$URL_PLANTUML" \
-    && asciidoc --filter install plantuml.zip /etc/asciidoc/filters/ \
-  && curl -LSo java.tar.gz "$URL_JAVA" \
-    && tar zxvf java.tar.gz \
-  && curl -LSo shellcheck.tar.xz "$URL_SHELLCHECK" \
-      && tar xvf shellcheck.tar.xz \
-      && mv shellcheck-stable/shellcheck /bin/shellcheck \
-  && curl -o kubectl "$URL_KUBECTL" \
-    && chmod +x kubectl \
-    && mv kubectl /usr/local/bin/kubectl
-
 # Set Pygments as the default source-highlighter
 RUN sed -i 's/source-highlight$/pygments/' /etc/asciidoc/asciidoc.conf && cd /app
 
@@ -147,12 +160,6 @@ RUN head -n -1 /app/asciidoc.conf | tail -n -2 >> /etc/asciidoc/html5.conf \
     && export PATTERN=$(head -n 2 /app/asciidoc.conf | tail -n -1 | sed 's/\\/\\\\/g') \
     && sed -i 's/\[macros\]/\[macros\]\n'"$PATTERN"'/' /etc/asciidoc/asciidoc.conf
 
-# Install Vault
-RUN curl -LSo vault.zip "$URL_VAULT" \
-    && unzip vault.zip \
-    && mv vault /usr/local/bin \
-    && rm vault.zip
-
 # Remove and uninstall all files and dependecies not needed for the generation of the site
 RUN apt-get --purge remove -qqy \
     gcc \
@@ -166,6 +173,8 @@ RUN apt-get --purge remove -qqy \
     Dockerfile \
     package.json \
     java.tar.gz \
+    terraform.zip \
+    tflint.zip \
     js-files.txt \
     plantuml.zip \
     plugin_list.txt \
