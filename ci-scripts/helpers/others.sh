@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Set AWS Keys
+
+aws_login() {
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
+  if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
+    AWS_ACCESS_KEY_ID="$PROD_AWS_ACCESS_KEY_ID"
+    AWS_SECRET_ACCESS_KEY="$PROD_AWS_SECRET_ACCESS_KEY"
+  else
+    AWS_ACCESS_KEY_ID="$DEV_AWS_ACCESS_KEY_ID"
+    AWS_SECRET_ACCESS_KEY="$DEV_AWS_SECRET_ACCESS_KEY"
+  fi
+}
