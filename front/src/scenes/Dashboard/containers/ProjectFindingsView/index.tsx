@@ -19,12 +19,12 @@ import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal/index";
 import store from "../../../../store";
-import { formatFindings, handleGraphQLErrors } from "../../../../utils/formatHelpers";
+import { formatFindings, formatTreatment, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
 import { IDashboardState } from "../../reducer";
 import {
-  changeFilterValues, changeIsFilterEnableValue, changeSortedValues, closeReportsModal, openReportsModal,
-  ThunkDispatcher,
+  changeFilterValues, changeIsFilterEnableValue, changeSortedValues,
+  closeReportsModal, openReportsModal, ThunkDispatcher,
 } from "./actions";
 import { default as style } from "./index.css";
 import { GET_FINDINGS } from "./queries";
@@ -35,7 +35,6 @@ import {
 
 const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFindingsProps): JSX.Element => {
   const { projectName } = props.match.params;
-
   const handleOpenReportsClick: (() => void) = (): void => { props.onOpenReportsModal(); };
   const handleCloseReportsClick: (() => void) = (): void => { props.onCloseReportsModal(); };
   const handleTechPdfClick: (() => void) = (): void => {
@@ -106,6 +105,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     {restriction: [7, 8.9], value: "High"},
     {restriction: [9, 10], value: "Critical"},
   ];
+  const [optionTreatment, setOptionTreatment] = React.useState();
+
   const handleChange: (columnName: string) => void = (columnName: string): void => {
     setCheckedItems({
       ...checkedItems,
@@ -139,6 +140,12 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   };
 
   const handleQryResult: ((qrResult: IProjectFindingsAttr) => void) = (qrResult: IProjectFindingsAttr): void => {
+    let findingOptions: string[] = Array.from(new Set(qrResult.project.findings.map(
+      (finding: { treatment: string }) => finding.treatment)));
+    findingOptions = findingOptions.map((option: string) => translate.t(formatTreatment(option, "open")));
+    const filterOptions: optionSelectFilterProps[] = selectOptionsTreatment.filter(
+      (option: optionSelectFilterProps) => (_.includes(findingOptions, option.value)));
+    setOptionTreatment(filterOptions);
     mixpanel.track(
       "ProjectFindings",
       {
@@ -314,7 +321,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
         defaultValue: filterValueTreatment,
         onFilter: onFilterTreatment,
         onInput: clearFilterTreatment,
-        options: selectOptionsTreatment,
+        options: optionTreatment,
       }),
       header: "Treatment", onSort: onSortState, visible: checkedItems.treatment, width: "8%", wrapped: true,
     },

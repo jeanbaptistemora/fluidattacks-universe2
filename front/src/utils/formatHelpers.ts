@@ -339,6 +339,27 @@ export const formatDropdownField: ((field: string) => string) = (field: string):
 export const formatFindingType: ((type: string) => string) = (type: string): string =>
   _.isEmpty(type) ? "-" : translate.t(`search_findings.tab_description.type.${type.toLowerCase()}`);
 
+export const formatTreatment: ((treatment: string, findingState: string) => string) =
+  (treatment: string, findingState: string): string => {
+    const treatmentParameters: { [value: string]: string } = {
+      "-": (findingState === "closed") ? "-" : "-",
+      "ACCEPTED": (findingState === "open")
+        ? "search_findings.tab_description.treatment.accepted" : "-",
+      "ACCEPTED_UNDEFINED": (findingState === "open")
+        ? "search_findings.tab_description.treatment.accepted_undefined" : "-",
+      "ACCEPTED_UNDEFINED pending": (findingState === "open")
+        ? translate.t("search_findings.tab_description.treatment.accepted_undefined") +
+        translate.t("search_findings.tab_description.treatment.pending_approval") : "-",
+      "IN PROGRESS": (findingState === "open")
+        ? "search_findings.tab_description.treatment.in_progress" : "-",
+      "NEW": (findingState === "open")
+        ? "search_findings.tab_description.treatment.new" : "-",
+    };
+    const treatmentRes: string = translate.t(treatmentParameters[treatment]);
+
+    return treatmentRes;
+  };
+
 type IFindingsDataset = IProjectFindingsAttr["project"]["findings"];
 export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
   (dataset: IFindingsDataset): IFindingsDataset => dataset.map((finding: IFindingsDataset[0]) => {
@@ -346,26 +367,12 @@ export const formatFindings: ((dataset: IFindingsDataset) => IFindingsDataset) =
       closed: "search_findings.status.closed",
       open: "search_findings.status.open",
     };
-    const treatmentParameters: { [value: string]: string } = {
-      "-": (finding.state === "closed") ? "-" : "-",
-      "ACCEPTED": (finding.state === "open")
-        ? "search_findings.tab_description.treatment.accepted" : "-",
-      "ACCEPTED_UNDEFINED": (finding.state === "open")
-        ? "search_findings.tab_description.treatment.accepted_undefined" : "-",
-      "ACCEPTED_UNDEFINED pending": (finding.state === "open")
-        ? translate.t("search_findings.tab_description.treatment.accepted_undefined") +
-        translate.t("search_findings.tab_description.treatment.pending_approval") : "-",
-      "IN PROGRESS": (finding.state === "open")
-        ? "search_findings.tab_description.treatment.in_progress" : "-",
-      "NEW": (finding.state === "open")
-        ? "search_findings.tab_description.treatment.new" : "-",
-    };
     const typeParameters: { [value: string]: string } = {
       HYGIENE: "search_findings.tab_description.type.hygiene",
       SECURITY: "search_findings.tab_description.type.security",
     };
     const state: string = translate.t(stateParameters[finding.state]);
-    const treatment: string = translate.t(treatmentParameters[finding.treatment]);
+    const treatment: string = translate.t(formatTreatment(finding.treatment, finding.state));
     const type: string = translate.t(typeParameters[finding.type]);
     const isExploitable: string = translate.t(Boolean(finding.isExploitable)
       ? "project.findings.boolean.True" : "project.findings.boolean.False");
