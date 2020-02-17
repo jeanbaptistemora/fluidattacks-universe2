@@ -54,6 +54,7 @@ describe("EventsView", () => {
         data: {
           project: {
             events: [{
+              closingDate: "-",
               detail: "Test description",
               eventDate: "2018-10-17 00:00:00",
               eventStatus: "SOLVED",

@@ -406,6 +406,7 @@ const enTranslations: Dictionary = {
       analyst: "Analyst",
       client: "Client",
       client_project: "Client's Project",
+      closing_date: "Closing date",
       comments: "Comments",
       date: "Date",
       description: "Description",

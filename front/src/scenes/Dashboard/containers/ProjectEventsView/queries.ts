@@ -11,6 +11,7 @@ export const GET_EVENTS: DocumentNode = gql`
         projectName
         eventStatus
         eventType
+        closingDate
       }
     }
   }

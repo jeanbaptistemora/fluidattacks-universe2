@@ -128,15 +128,15 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
   const tableHeaders: IHeader[] = [
     {
       align: "center", dataField: "id", header: translate.t("search_findings.tab_events.id"), onSort: onSortState,
-      width: "12%", wrapped: true,
+      width: "8%", wrapped: true,
     },
     {
       align: "center", dataField: "eventDate", header: translate.t("search_findings.tab_events.date"),
-      onSort: onSortState, width: "15%", wrapped: true,
+      onSort: onSortState, width: "13%", wrapped: true,
     },
     {
       align: "center", dataField: "detail", header: translate.t("search_findings.tab_events.description"),
-      onSort: onSortState, width: "45%", wrapped: true,
+      onSort: onSortState, width: "35%", wrapped: true,
     },
     {
       align: "center", dataField: "eventType",
@@ -146,7 +146,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
         onInput: clearFilterType,
         options: optionType,
       }),
-      header: translate.t("search_findings.tab_events.type"), onSort: onSortState, width: "25%", wrapped: true,
+      header: translate.t("search_findings.tab_events.type"), onSort: onSortState, width: "18%", wrapped: true,
     },
     {
       align: "center", dataField: "eventStatus",
@@ -159,6 +159,10 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
       formatter: statusFormatter, header: translate.t("search_findings.tab_events.status"), onSort: onSortState,
       width: "13%", wrapped: true,
     },
+    {
+      align: "center", dataField: "closingDate", header: translate.t("search_findings.tab_events.closing_date"),
+      onSort: onSortState, width: "13%", wrapped: true,
+    },
   ];
   const { projectName } = props.match.params;
   interface IEventsDataset { project: { events: Array<{ eventType: string }>}; }
@@ -166,7 +170,7 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
     let eventOptions: string[] = Array.from(new Set(data.project.events.map(
       (event: { eventType: string }) => event.eventType)));
     eventOptions = eventOptions.map((option: string) => translate.t(castEventType(option)));
-    const filterOptions: optionSelectFilterProps[] = optionType.filter(
+    const filterOptions: optionSelectFilterProps[] = selectOptionType.filter(
       (option: optionSelectFilterProps) => (_.includes(eventOptions, option.value)));
     setOptionType(filterOptions);
     dispatch(changeTypeOptionValues(filterOptions));

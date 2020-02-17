@@ -20,6 +20,7 @@ def _batch_load_fn(event_ids):
             analyst=event.get('analyst', ''),
             client=event.get('client', ''),
             client_project=event.get('client_project', ''),
+            closing_date=event.get('closing_date', '-'),
             context=event.get('context', ''),
             detail=event.get('detail', ''),
             event_date=history[0].get('date', ''),

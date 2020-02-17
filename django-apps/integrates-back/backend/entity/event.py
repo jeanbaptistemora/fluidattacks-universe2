@@ -33,6 +33,7 @@ class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
     context = String()
     subscription = String()
     evidence_file = String()
+    closing_date = String()
 
     def __str__(self):
         return self.id + '_event'
@@ -131,6 +132,11 @@ class Event(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """ Resolve evidence file attribute """
         del info
         return self.evidence_file
+
+    def resolve_closing_date(self, info):
+        """ Resolve closing date attribute """
+        del info
+        return self.closing_date
 
 
 class UpdateEvent(Mutation):

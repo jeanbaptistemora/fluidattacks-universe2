@@ -15,6 +15,7 @@ from backend.exceptions import (
     InvalidFileType
 )
 from backend.mailer import send_comment_mail, send_mail_new_event
+from backend.utils import events as event_utils
 
 from __init__ import (
     FI_CLOUDFRONT_RESOURCES_DOMAIN, FI_MAIL_CONTINUOUS,
@@ -218,7 +219,7 @@ def get_event(event_id):
 
 
 def get_events(event_ids):
-    events = [get_event(event_id) for event_id in event_ids]
+    events = [event_utils.format_data(get_event(event_id)) for event_id in event_ids]
 
     return events
 
