@@ -105,7 +105,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     {restriction: [7, 8.9], value: "High"},
     {restriction: [9, 10], value: "Critical"},
   ];
-  const [optionTreatment, setOptionTreatment] = React.useState();
+  const [optionTreatment, setOptionTreatment] =
+    React.useState<optionSelectFilterProps[]>(selectOptionsTreatment);
 
   const handleChange: (columnName: string) => void = (columnName: string): void => {
     setCheckedItems({
