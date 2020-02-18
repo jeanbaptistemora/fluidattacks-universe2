@@ -1,5 +1,6 @@
 terraform {
   backend "s3" {
+    bucket  = "servestf"
     key     = "dns.tfstate"
     region  = "us-east-1"
     encrypt = true

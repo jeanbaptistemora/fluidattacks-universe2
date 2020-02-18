@@ -35,10 +35,10 @@ function cli {
     &&  job_run_break_build_dynamic \
     &&  job_user_provision_continuous_prod_test \
     &&  job_user_provision_continuous_dev_test \
-    &&  job_user_provision_continuous_prod_test \
-    &&  job_user_provision_integrates_dev_test \
     &&  job_user_provision_integrates_prod_test \
+    &&  job_user_provision_integrates_dev_test \
     &&  job_user_provision_web_prod_test \
+    && job_user_provision_web_dev_test \
 
   else
     echo "[INFO] Executing function: job_${function_to_call}"

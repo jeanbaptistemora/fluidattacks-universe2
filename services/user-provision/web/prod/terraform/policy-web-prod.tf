@@ -18,9 +18,9 @@ data "aws_iam_policy_document" "web-prod-policy-data" {
       "s3:GetObject"
     ]
     resources = [
-      "arn:aws:s3:::fluidattacks-terraform-states-prod",
+      "arn:aws:s3:::fluidattacks-terraform-states-*",
       "arn:aws:s3:::fluidattacks-terraform-states-prod/web-secret-management.tfstate",
-      "arn:aws:s3:::fluidattacks-terraform-states-prod/user-provision-web-*.tfstate",
+      "arn:aws:s3:::fluidattacks-terraform-states-*/user-provision-web-*.tfstate",
     ]
   }
 

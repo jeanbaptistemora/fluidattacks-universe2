@@ -342,7 +342,6 @@ function job_deploy_docker_image_vpn {
 }
 
 function _job_deploy_integrates {
-  local bucket="fluidattacks-terraform-states-prod"
   local b64_aws_access_key_id
   local b64_aws_secret_access_key
   local output_key_id_name='integrates-prod-secret-key-id'
@@ -358,12 +357,10 @@ function _job_deploy_integrates {
   &&  temp_aws_access_key_id=$( \
         helper_terraform_output \
           "${terraform_dir}" \
-          "${bucket}" \
           "${output_key_id_name}") \
   &&  temp_aws_secret_access_key=$( \
         helper_terraform_output \
           "${terraform_dir}" \
-          "${bucket}" \
           "${output_key_id_name}") \
   &&  b64_aws_access_key_id=$( \
         echo -n "${temp_aws_access_key_id}" | base64) \
@@ -447,46 +444,37 @@ function job_lint_code {
 function job_infra_analytics_test {
       helper_terraform_init \
         services/analytics/terraform \
-        fluidattacks-terraform-states-prod \
   &&  helper_terraform_plan \
-        services/analytics/terraform \
-        fluidattacks-terraform-states-prod
+        services/analytics/terraform
 }
 
 function job_infra_analytics_deploy {
       helper_terraform_apply \
-        services/analytics/terraform \
-        fluidattacks-terraform-states-prod
+        services/analytics/terraform
 }
 
 function job_infra_autoscaling_ci_test {
       helper_terraform_init \
         services/autoscaling-ci/terraform \
-        fluidattacks-terraform-states-prod \
   &&  helper_terraform_plan \
-        services/autoscaling-ci/terraform \
-        fluidattacks-terraform-states-prod
+        services/autoscaling-ci/terraform
 }
 
 function job_infra_autoscaling_ci_deploy {
       helper_terraform_apply \
-        services/autoscaling-ci/terraform \
-        fluidattacks-terraform-states-prod
+        services/autoscaling-ci/terraform
 }
 
 function job_infra_aws_sso_test {
       helper_terraform_init \
         services/aws-sso/terraform \
-        fluidattacks-terraform-states-prod \
   &&  helper_terraform_plan \
-        services/aws-sso/terraform \
-        fluidattacks-terraform-states-prod
+        services/aws-sso/terraform
 }
 
 function job_infra_aws_sso_deploy {
       helper_terraform_apply \
-        services/aws-sso/terraform \
-        fluidattacks-terraform-states-prod
+        services/aws-sso/terraform
 }
 
 function job_infra_eks_setup {
@@ -501,32 +489,26 @@ function job_infra_eks_test {
       echo '[INFO] This is a work in progress! this may fail' \
   &&  helper_terraform_init \
         services/eks/terraform \
-        fluidattacks-terraform-states-prod \
   &&  helper_terraform_plan \
-        services/eks/terraform \
-        fluidattacks-terraform-states-prod
+        services/eks/terraform
 }
 
 function job_infra_eks_deploy {
       echo '[INFO] This is a work in progress! this may fail' \
   &&  helper_terraform_apply \
-        services/eks/terraform \
-        fluidattacks-terraform-states-prod
+        services/eks/terraform
 }
 
 function job_infra_fluid_vpc_test {
       helper_terraform_init \
         services/fluid-vpc/terraform \
-        fluidattacks-terraform-states-prod \
   &&  helper_terraform_plan \
-        services/fluid-vpc/terraform \
-        fluidattacks-terraform-states-prod
+        services/fluid-vpc/terraform
 }
 
 function job_infra_fluid_vpc_deploy {
       helper_terraform_apply \
-        services/fluid-vpc/terraform \
-        fluidattacks-terraform-states-prod
+        services/fluid-vpc/terraform
 }
 
 function _job_infra_monolith {
@@ -571,7 +553,7 @@ function _job_infra_monolith {
   &&  pushd infrastructure/ \
     &&  echo "${ONELOGIN_SSO}" | base64 -d > SSO.xml \
     &&  echo "${ONELOGIN_FINANCE_SSO}" | base64 -d > SSOFinance.xml \
-    &&  terraform init --backend-config="bucket=servestf" \
+    &&  terraform init \
     &&  tflint \
     &&  terraform_state=$(mktemp) \
     &&  terraform plan \
@@ -625,7 +607,7 @@ function _job_infra_monolith {
               return 1
             )
           } \
-      &&  terraform init --backend-config="bucket=servestf" \
+      &&  terraform init \
       &&  tflint \
       &&  terraform plan \
           -out="${terraform_state}" \
@@ -649,16 +631,13 @@ function job_infra_monolith_deploy {
 function job_infra_sops_test {
       helper_terraform_init \
         services/sops/terraform \
-        fluidattacks-terraform-states-prod \
   &&  helper_terraform_plan \
-        services/sops/terraform \
-        fluidattacks-terraform-states-prod
+        services/sops/terraform
 }
 
 function job_infra_sops_deploy {
       helper_terraform_apply \
-        services/sops/terraform \
-        fluidattacks-terraform-states-prod
+        services/sops/terraform
 }
 
 function job_send_new_version_email {
@@ -693,21 +672,17 @@ function job_send_new_version_email {
 function job_user_provision_continuous_dev_test {
       helper_terraform_init \
         services/user-provision/continuous/dev/terraform \
-        fluidattacks-terraform-states-dev \
   &&  helper_terraform_plan \
-        services/user-provision/continuous/dev/terraform \
-        fluidattacks-terraform-states-dev
+        services/user-provision/continuous/dev/terraform
 }
 
 function job_user_provision_continuous_dev_deploy {
       helper_terraform_apply \
-        services/user-provision/continuous/dev/terraform \
-        fluidattacks-terraform-states-dev
+        services/user-provision/continuous/dev/terraform
 }
 
 function job_user_provision_continuous_dev_rotate_keys {
   local terraform_dir='services/user-provision/continuous/dev/terraform'
-  local bucket='fluidattacks-terraform-states-dev'
   local resource_to_taint='aws_iam_access_key.continuous-dev-key'
   local output_key_id_name='continuous-dev-secret-key-id'
   local output_secret_key_name='continuous-dev-secret-key'
@@ -719,7 +694,6 @@ function job_user_provision_continuous_dev_rotate_keys {
 
       helper_user_provision_rotate_keys \
         "${terraform_dir}" \
-        "${bucket}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
         "${output_secret_key_name}" \
@@ -733,21 +707,17 @@ function job_user_provision_continuous_dev_rotate_keys {
 function job_user_provision_continuous_prod_test {
       helper_terraform_init \
         services/user-provision/continuous/prod/terraform \
-        fluidattacks-terraform-states-prod \
   &&  helper_terraform_plan \
-        services/user-provision/continuous/prod/terraform \
-        fluidattacks-terraform-states-prod
+        services/user-provision/continuous/prod/terraform
 }
 
 function job_user_provision_continuous_prod_deploy {
       helper_terraform_apply \
-        services/user-provision/continuous/prod/terraform \
-        fluidattacks-terraform-states-prod
+        services/user-provision/continuous/prod/terraform
 }
 
 function job_user_provision_continuous_prod_rotate_keys {
   local terraform_dir='services/user-provision/continuous/prod/terraform'
-  local bucket='fluidattacks-terraform-states-prod'
   local resource_to_taint='aws_iam_access_key.continuous-prod-key'
   local output_key_id_name='continuous-prod-secret-key-id'
   local output_secret_key_name='continuous-prod-secret-key'
@@ -759,7 +729,6 @@ function job_user_provision_continuous_prod_rotate_keys {
 
       helper_user_provision_rotate_keys \
         "${terraform_dir}" \
-        "${bucket}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
         "${output_secret_key_name}" \
@@ -773,21 +742,17 @@ function job_user_provision_continuous_prod_rotate_keys {
 function job_user_provision_integrates_dev_test {
       helper_terraform_init \
         services/user-provision/integrates/dev/terraform \
-        fluidattacks-terraform-states-prod \
   &&  helper_terraform_plan \
-        services/user-provision/integrates/dev/terraform \
-        fluidattacks-terraform-states-prod
+        services/user-provision/integrates/dev/terraform
 }
 
 function job_user_provision_integrates_dev_deploy {
       helper_terraform_apply \
-        services/user-provision/integrates/dev/terraform \
-        fluidattacks-terraform-states-prod
+        services/user-provision/integrates/dev/terraform
 }
 
 function job_user_provision_integrates_dev_rotate_keys {
   local terraform_dir='services/user-provision/integrates/dev/terraform'
-  local bucket='fluidattacks-terraform-states-prod'
   local resource_to_taint='aws_iam_access_key.integrates-dev-key'
   local output_key_id_name='integrates-dev-secret-key-id'
   local output_secret_key_name='integrates-dev-secret-key'
@@ -799,7 +764,6 @@ function job_user_provision_integrates_dev_rotate_keys {
 
       helper_user_provision_rotate_keys \
         "${terraform_dir}" \
-        "${bucket}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
         "${output_secret_key_name}" \
@@ -813,21 +777,17 @@ function job_user_provision_integrates_dev_rotate_keys {
 function job_user_provision_integrates_prod_test {
       helper_terraform_init \
         services/user-provision/integrates/prod/terraform \
-        fluidattacks-terraform-states-prod \
   &&  helper_terraform_plan \
-        services/user-provision/integrates/prod/terraform \
-        fluidattacks-terraform-states-prod
+        services/user-provision/integrates/prod/terraform
 }
 
 function job_user_provision_integrates_prod_deploy {
       helper_terraform_apply \
-        services/user-provision/integrates/prod/terraform \
-        fluidattacks-terraform-states-prod
+        services/user-provision/integrates/prod/terraform
 }
 
 function job_user_provision_integrates_prod_rotate_keys {
   local terraform_dir='services/user-provision/integrates/prod/terraform'
-  local bucket='fluidattacks-terraform-states-prod'
   local resource_to_taint='aws_iam_access_key.integrates-prod-key'
   local output_key_id_name='integrates-prod-secret-key-id'
   local output_secret_key_name='integrates-prod-secret-key'
@@ -839,7 +799,6 @@ function job_user_provision_integrates_prod_rotate_keys {
 
       helper_user_provision_rotate_keys \
         "${terraform_dir}" \
-        "${bucket}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
         "${output_secret_key_name}" \
@@ -851,24 +810,55 @@ function job_user_provision_integrates_prod_rotate_keys {
   &&  _job_deploy_integrates
 }
 
+function job_user_provision_web_dev_test {
+      helper_terraform_init \
+        services/user-provision/web/dev/terraform \
+  &&  helper_terraform_plan \
+        services/user-provision/web/dev/terraform
+}
+
+function job_user_provision_web_dev_deploy {
+      helper_terraform_apply \
+        services/user-provision/web/dev/terraform
+}
+
+function job_user_provision_web_dev_rotate_keys {
+  local terraform_dir='services/user-provision/web/dev/terraform'
+  local resource_to_taint='aws_iam_access_key.web-dev-key'
+  local output_key_id_name='web-dev-secret-key-id'
+  local output_secret_key_name='web-dev-secret-key'
+  local gitlab_repo_id='4649627'
+  local gitlab_key_id_name='DEV_AWS_ACCESS_KEY_ID'
+  local gitlab_secret_key_name='DEV_AWS_SECRET_ACCESS_KEY'
+  local gitlab_masked='true'
+  local gitlab_protected='true'
+
+      helper_user_provision_rotate_keys \
+        "${terraform_dir}" \
+        "${resource_to_taint}" \
+        "${output_key_id_name}" \
+        "${output_secret_key_name}" \
+        "${gitlab_repo_id}" \
+        "${gitlab_key_id_name}" \
+        "${gitlab_secret_key_name}" \
+        "${gitlab_masked}" \
+        "${gitlab_protected}"
+}
+
 function job_user_provision_web_prod_test {
       helper_terraform_init \
         services/user-provision/web/prod/terraform \
-        fluidattacks-terraform-states-prod \
   &&  helper_terraform_plan \
-        services/user-provision/web/prod/terraform \
-        fluidattacks-terraform-states-prod
+        services/user-provision/web/prod/terraform
 }
 
 function job_user_provision_web_prod_deploy {
       helper_terraform_apply \
-        services/user-provision/web/prod/terraform \
-        fluidattacks-terraform-states-prod
+        services/user-provision/web/prod/terraform
 }
 
 function job_user_provision_web_prod_rotate_keys {
   local terraform_dir='services/user-provision/web/prod/terraform'
-  local bucket='fluidattacks-terraform-states-prod'
   local resource_to_taint='aws_iam_access_key.web-prod-key'
   local output_key_id_name='web-prod-secret-key-id'
   local output_secret_key_name='web-prod-secret-key'
@@ -880,7 +870,6 @@ function job_user_provision_web_prod_rotate_keys {
 
       helper_user_provision_rotate_keys \
         "${terraform_dir}" \
-        "${bucket}" \
         "${resource_to_taint}" \
         "${output_key_id_name}" \
         "${output_secret_key_name}" \

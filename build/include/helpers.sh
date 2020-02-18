@@ -4,6 +4,12 @@ function helper_indent_2 {
   sed 's/^/  /g'
 }
 
+function helper_aws_login {
+      echo '[INFO] Logging into AWS' \
+  &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
+  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}"
+}
+
 function helper_docker_build_and_push {
   local tag="${1}"
   local context="${2}"
@@ -72,107 +78,113 @@ function helper_run_break_build {
               --gitlab-docker-socket-binding \
             | bash
         fi \
-  &&  popd
+  &&  popd \
+  || return 1
+}
+
+function helper_terraform_login {
+  export TF_VAR_aws_access_key
+  export TF_VAR_aws_secret_key
+
+      helper_aws_login \
+  &&  echo '[INFO] Logging into Terraform' \
+  &&  TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}" \
+  &&  TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}"
 }
 
 function helper_terraform_apply {
   local target_dir="${1}"
-  local bucket="${2}"
 
-      helper_terraform_init "${target_dir}" "${bucket}" \
+      helper_terraform_init "${target_dir}" \
   &&  pushd "${target_dir}" \
     &&  echo '[INFO] Running terraform apply' \
     &&  terraform apply -auto-approve -refresh=true \
-  &&  popd
+  &&  popd \
+  || return 1
 }
 
 function helper_terraform_init {
   local target_dir="${1}"
-  local bucket="${2}"
 
-      source toolbox/others.sh \
-  &&  echo '[INFO] Logging in to aws' \
-  &&  aws_login \
+      helper_terraform_login \
   &&  pushd "${target_dir}" \
     &&  echo '[INFO] Running terraform init' \
-    &&  terraform init --backend-config="bucket=${bucket}" \
-  &&  popd
+    &&  terraform init \
+  &&  popd \
+  || return 1
 }
 
 function helper_terraform_lint {
   local target_dir="${1}"
-  local bucket="${2}"
 
-      helper_terraform_init "${target_dir}" "${bucket}" \
+      helper_terraform_init "${target_dir}" \
   &&  pushd "${1}" \
     &&  echo '[INFO] Running terraform linter' \
     &&  tflint --deep --module \
-  &&  popd
+  &&  popd \
+  || return 1
 }
 
 function helper_terraform_plan {
   local target_dir="${1}"
-  local bucket="${2}"
 
-      helper_terraform_init "${target_dir}" "${bucket}" \
+      helper_terraform_init "${target_dir}" \
   &&  pushd "${target_dir}" \
     &&  echo '[INFO] Running terraform plan' \
     &&  terraform plan -refresh=true \
-  &&  popd
+  &&  popd \
+  || return 1
 }
 
 function helper_terraform_taint {
   local target_dir="${1}"
-  local bucket="${2}"
-  local marked_value="${3}"
+  local marked_value="${2}"
 
-      helper_terraform_init "${target_dir}" "${bucket}" \
+      helper_terraform_init "${target_dir}" \
   &&  pushd "${target_dir}" \
     &&  terraform refresh \
     &&  echo "[INFO] Running terraform taint: ${marked_value}" \
     &&  terraform taint "${marked_value}" \
-  &&  popd
+  &&  popd \
+  || return 1
 }
 
 function helper_terraform_output {
   local target_dir="${1}"
-  local bucket="${2}"
-  local output_name="${3}"
+  local output_name="${2}"
 
-      helper_terraform_init "${target_dir}" "${bucket}" 1>&2 \
+      helper_terraform_init "${target_dir}" 1>&2 \
   &&  pushd "${target_dir}" 1>&2 \
     &&  echo "[INFO] Running terraform output: ${output_name}" 1>&2 \
     &&  terraform output "${output_name}" \
-  &&  popd 1>&2
+  &&  popd 1>&2 \
+  || return 1
 }
 
 function helper_user_provision_rotate_keys {
   local terraform_dir="${1}"
-  local bucket="${2}"
-  local resource_to_taint="${3}"
-  local output_key_id_name="${4}"
+  local resource_to_taint="${2}"
+  local output_key_id_name="${3}"
   local output_key_id_value
-  local output_secret_key_name="${5}"
+  local output_secret_key_name="${4}"
   local output_secret_key_value
-  local gitlab_repo_id="${6}"
-  local gitlab_key_id_name="${7}"
-  local gitlab_secret_key_name="${8}"
-  local gitlab_masked="${9}"
-  local gitlab_protected="${10}"
+  local gitlab_repo_id="${5}"
+  local gitlab_key_id_name="${6}"
+  local gitlab_secret_key_name="${7}"
+  local gitlab_masked="${8}"
+  local gitlab_protected="${9}"
 
       helper_terraform_taint \
         "${terraform_dir}" \
-        "${bucket}" \
         "${resource_to_taint}" \
   &&  helper_terraform_apply \
         "${terraform_dir}" \
-        "${bucket}" \
   &&  output_key_id_value=$( \
         helper_terraform_output \
-          "${terraform_dir}" "${bucket}" "${output_key_id_name}") \
+          "${terraform_dir}" "${output_key_id_name}") \
   &&  output_secret_key_value=$( \
         helper_terraform_output \
-          "${terraform_dir}" "${bucket}" "${output_secret_key_name}")  \
+          "${terraform_dir}" "${output_secret_key_name}")  \
   &&  set_project_variable \
         "${GITLAB_API_TOKEN}" "${gitlab_repo_id}" \
         "${gitlab_key_id_name}" "${output_key_id_value}" \
