@@ -185,6 +185,19 @@ test_infra_secret_management:
     - terraform plan -refresh=true
     - tflint --deep --module
 
+apply_infra_secret_management:
+  tags: [autoscaling]
+  stage: deployment
+  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
+  script:
+    - source ci-scripts/helpers/others.sh
+    - terraform_login
+    - pushd secret-management/terraform
+    - terraform init
+    - terraform apply -auto-approve -refresh=true
+  only:
+    - master
+
 new_version_mail:
   tags: [autoscaling]
   stage: postdeploy
