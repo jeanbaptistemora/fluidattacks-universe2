@@ -1,9 +1,12 @@
-data "aws_iam_policy_document" "web-prod-policy-data" {
+data "aws_iam_policy_document" "web-dev-policy-data" {
 
   # S3 web bucket
   statement {
     effect  = "Allow"
-    actions = ["s3:*"]
+    actions = [
+      "s3:ListBucket",
+      "s3:Get*"
+    ]
     resources = [
       "arn:aws:s3:::web.fluidattacks.com/*"
     ]
@@ -13,7 +16,6 @@ data "aws_iam_policy_document" "web-prod-policy-data" {
   statement {
     effect = "Allow"
     actions = [
-      "s3:PutObject",
       "s3:ListBucket",
       "s3:GetObject"
     ]
@@ -24,11 +26,16 @@ data "aws_iam_policy_document" "web-prod-policy-data" {
     ]
   }
 
-  # IAM full permissions over owned users, roles and policies
+  # IAM read over owned users, roles and policies
   statement {
     effect  = "Allow"
     actions = [
-      "iam:*"
+      "iam:GetUser",
+      "iam:GetRole",
+      "iam:GetPolicy",
+      "iam:GetPolicyVersion",
+      "iam:ListAttachedUserPolicies",
+      "iam:ListAttachedRolePolicies"
     ]
     resources = [
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/web-*",
@@ -38,18 +45,13 @@ data "aws_iam_policy_document" "web-prod-policy-data" {
     ]
   }
 
-  # KMS create Keys
+  # KMS read keys
   statement {
     effect = "Allow"
     actions = [
-      "kms:UntagResource",
-      "kms:TagResource",
       "kms:List*",
       "kms:Get*",
-      "kms:Describe*",
-      "kms:CreateKey",
-      "kms:CreateAlias",
-      "kms:UpdateAlias"
+      "kms:Describe*"
     ]
     resources = [
       "*"
@@ -63,19 +65,18 @@ data "aws_iam_policy_document" "web-prod-policy-data" {
       "kms:*"
     ]
     resources = [
-      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/web-*"
+      "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/web-dev-*"
     ]
   }
 }
-
-resource "aws_iam_policy" "web-prod-policy" {
-  description = "web-prod policy"
+resource "aws_iam_policy" "web-dev-policy" {
+  description = "web-dev policy"
   name        = "${var.user-name}-policy"
   path        = "/user-provision/"
-  policy      = data.aws_iam_policy_document.web-prod-policy-data.json
+  policy      = data.aws_iam_policy_document.web-dev-policy-data.json
 }
 
-resource "aws_iam_user_policy_attachment" "web-prod-attach-policy" {
+resource "aws_iam_user_policy_attachment" "web-dev-attach-policy" {
   user       = var.user-name
-  policy_arn = aws_iam_policy.web-prod-policy.arn
+  policy_arn = aws_iam_policy.web-dev-policy.arn
 }
