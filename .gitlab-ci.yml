@@ -362,15 +362,6 @@ fluidasserts_post:
   except:
     - schedules
 
-change-keys-integrates-jwt:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: rotation
-  script:
-    ./ci-scripts/jobs/change-keys-integrates-jwt.sh
-  <<: *in_schedule_nightly_build
-  when: always
-
 vault_backup:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]

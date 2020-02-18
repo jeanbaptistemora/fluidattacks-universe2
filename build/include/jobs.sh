@@ -76,7 +76,7 @@ function job_analytics_formstack {
   &&  tap-formstack \
         --auth "${TEMP_FILE1}" \
         --conf ./analytics/conf/formstack.json \
-        | tee .singer \
+        > .singer \
   &&  echo '[INFO] Running target' \
   &&  target-redshift \
         --auth "${TEMP_FILE2}" \
