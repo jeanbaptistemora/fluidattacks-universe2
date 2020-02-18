@@ -298,6 +298,21 @@ user_provision_integrates_prod_rotate_keys:
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
 
+user_provision_web_dev_test:
+  <<: *with_nix
+  <<: *in_dev_branch
+  stage: build-and-test
+
+user_provision_web_dev_deploy:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy
+
+user_provision_web_dev_rotate_keys:
+  <<: *with_nix
+  <<: *in_schedule_user_provision_rotate_keys
+  stage: rotation
+
 user_provision_web_prod_test:
   <<: *with_nix
   <<: *in_dev_branch
