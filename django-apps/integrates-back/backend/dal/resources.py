@@ -1,7 +1,7 @@
 from botocore.exceptions import ClientError
 import rollbar
 from backend.dal.helpers import dynamodb, s3
-from backend.dal import integrates_dal
+from backend.dal import project as project_dal
 
 from __init__ import FI_AWS_S3_RESOURCES_BUCKET
 
@@ -26,11 +26,10 @@ def remove_file(file_name):
 
 def create(res_data, project_name, res_type):
     table = TABLE
-    table_name = 'FI_projects'
     primary_name_key = 'project_name'
     primary_key = project_name
     attr_name = res_type
-    item = integrates_dal.get_data_dynamo(table_name, primary_name_key, primary_key)
+    item = project_dal.get(project_name)
     primary_key = primary_key.lower()
     try:
         if not item:
@@ -100,10 +99,9 @@ def remove(project_name, res_type, index):
 
 def update(res_data, project_name, res_type):
     table = TABLE
-    table_name = 'FI_projects'
     primary_keys = ['project_name', project_name]
     attr_name = res_type
-    item = integrates_dal.get_data_dynamo(table_name, primary_keys[0], primary_keys[1])
+    item = project_dal.get(project_name)
     try:
         if attr_name not in item[0]:
             table.update_item(

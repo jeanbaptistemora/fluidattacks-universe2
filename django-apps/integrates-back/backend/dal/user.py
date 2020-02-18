@@ -1,6 +1,6 @@
 
 import rollbar
-from boto3.dynamodb.conditions import Attr, Not
+from boto3.dynamodb.conditions import Attr, Key, Not
 from botocore.exceptions import ClientError
 from backend.dal import integrates_dal
 from backend.dal.helpers import dynamodb
@@ -154,8 +154,14 @@ def delete(email):
 
 def get_projects(user_email, active):
     """ Get projects of a user """
-    projects = integrates_dal.get_data_dynamo(
-        'FI_project_access', 'user_email', user_email.lower())
+    filtering_exp = Key('user_email').eq(user_email.lower())
+    response = ACCESS_TABLE.query(KeyConditionExpression=filtering_exp)
+    projects = response['Items']
+    while response.get('LastEvaluatedKey'):
+        response = ACCESS_TABLE.query(
+            KeyConditionExpression=filtering_exp,
+            ExclusiveStartKey=response['LastEvaluatedKey'])
+        projects += response['Items']
     if active:
         projects_filtered = [project.get('project_name')
                              for project in projects
