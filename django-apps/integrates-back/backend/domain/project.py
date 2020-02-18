@@ -434,6 +434,14 @@ def is_finding_in_drafts(finding_id):
     return retval
 
 
+def get_current_month_authors(project_name):
+    return project_dal.get_current_month_authors(project_name)
+
+
+def get_current_month_commits(project_name):
+    return project_dal.get_current_month_commits(project_name)
+
+
 def update(project_name, data):
     return project_dal.update(project_name, data)
 

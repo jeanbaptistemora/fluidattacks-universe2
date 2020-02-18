@@ -26,7 +26,6 @@ from backend.services import get_user_role
 from backend.entity.user import User
 
 from backend import util
-from backend.dal import project as redshift_dal
 
 
 class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
@@ -222,7 +221,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """Resolve current month authors attribute."""
         del info
         self.current_month_authors = \
-            redshift_dal.get_current_month_authors(self.name)
+            project_domain.get_current_month_authors(self.name)
         return self.current_month_authors
 
     @get_entity_cache
@@ -230,7 +229,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
         """Resolve current month commits attribute."""
         del info
         self.current_month_commits = \
-            redshift_dal.get_current_month_commits(self.name)
+            project_domain.get_current_month_commits(self.name)
         return self.current_month_commits
 
     @get_entity_cache
