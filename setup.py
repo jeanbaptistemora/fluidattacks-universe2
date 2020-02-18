@@ -28,10 +28,8 @@ def _get_version():
 
 def _get_requirements():
     """Return fluidasserts requirements."""
-    reqs = []
     with open('requirements.txt') as file:
-        for line in file.readlines():
-            reqs.append(line.strip())
+        return [line.strip() for line in file]
 
 
 setup(
