@@ -41,16 +41,3 @@ resource "aws_backup_plan" "integrates_monthly_backup_plan" {
     }
   }
 }
-
-resource "aws_backup_plan" "integrates_yearly_backup_plan" {
-  name = "integrates-yearly-backup-plan"
-
-  rule {
-    rule_name         = "integrates-backup-yearly-rule"
-    target_vault_name = aws_backup_vault.backup_vault.name
-    schedule          = "cron(30 6 ? JAN 1#1 0 *)"
-    lifecycle {
-      delete_after = 5475
-    }
-  }
-}
