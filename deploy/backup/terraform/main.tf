@@ -13,8 +13,3 @@ provider "aws" {
   version    = ">= 2.11"
   region     = var.region
 }
-
-resource "aws_backup_vault" "backup_vault" {
-  name        = "integrates-backup-vault"
-  kms_key_arn = "arn:aws:kms:us-east-1:205810638802:key/d33073aa-19f8-4390-afa1-abcda2be27d7"
-}

@@ -33,5 +33,5 @@ variable "dynamodb-tables" {
     "FI_users",
     "FI_vulnerabilities",
     "FI_weekly_report",
-    ]
+  ]
 }
