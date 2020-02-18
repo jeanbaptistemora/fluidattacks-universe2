@@ -22,7 +22,7 @@ resource "aws_backup_plan" "integrates_weekly_backup_plan" {
   rule {
     rule_name         = "integrates-backup-weekly-rule"
     target_vault_name = aws_backup_vault.backup_vault.name
-    schedule          = "cron(30 5 * * SUN *)"
+    schedule          = "cron(30 5 ? * 6 *)"
     lifecycle {
       delete_after = 84
     }
