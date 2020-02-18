@@ -17,7 +17,7 @@ deploy_integrates() {
   local b64_aws_secret_access_key
 
   BUCKET="fluidattacks-terraform-states-prod"
-  TERRAFORM_DIR="services/user-provision-integrates/integrates-prod/terraform"
+  TERRAFORM_DIR="services/user-provision/integrates/prod/terraform"
   TMP_AWS_ACCESS_KEY_ID="$(output_terraform $TERRAFORM_DIR "${BUCKET}" integrates-prod-secret-key-id)"
   TMP_AWS_SECRET_ACCESS_KEY="$(output_terraform $TERRAFORM_DIR "${BUCKET}" integrates-prod-secret-key)"
   b64_aws_access_key_id="$(echo -n "$TMP_AWS_ACCESS_KEY_ID" | base64)"
