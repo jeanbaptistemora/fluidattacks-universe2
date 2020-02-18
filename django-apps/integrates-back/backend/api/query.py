@@ -117,7 +117,9 @@ class Query(ObjectType):
         if project_domain.is_request_deletion_user(project_name, user_email):
             util.cloudwatch_log(info.context,
                                 f'Security: Access to project {project_name} succesfully')
-            return Project(project_name)
+            return Project(
+                project_name,
+                description=project_domain.get_description(project_name))
         raise InvalidProject()
 
     @require_login
