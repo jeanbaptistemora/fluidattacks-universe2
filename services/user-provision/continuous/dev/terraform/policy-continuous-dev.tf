@@ -95,6 +95,18 @@ data "aws_iam_policy_document" "continuous-dev-policy-data" {
       "arn:aws:kms:${var.region}:${data.aws_caller_identity.current.account_id}:alias/continuous-dev-*"
     ]
   }
+
+  # DynamoDB
+  statement {
+    effect = "Allow"
+    actions = [
+      "dynamodb:Describe*",
+      "dynamodb:List*"
+    ]
+    resources = [
+      "arn:aws:dynamodb:${var.region}:${data.aws_caller_identity.current.account_id}:table/bb_*",
+    ]
+  }
 }
 
 resource "aws_iam_policy" "continuous-dev-policy" {
