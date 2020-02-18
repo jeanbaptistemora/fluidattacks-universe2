@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# Set AWS Keys
-
 aws_login() {
   export AWS_ACCESS_KEY_ID
   export AWS_SECRET_ACCESS_KEY
@@ -12,4 +10,14 @@ aws_login() {
     AWS_ACCESS_KEY_ID="$DEV_AWS_ACCESS_KEY_ID"
     AWS_SECRET_ACCESS_KEY="$DEV_AWS_SECRET_ACCESS_KEY"
   fi
+}
+
+terraform_login() {
+  export TF_VAR_aws_access_key
+  export TF_VAR_aws_secret_key
+
+  aws_login
+
+  TF_VAR_aws_access_key="$AWS_ACCESS_KEY_ID"
+  TF_VAR_aws_secret_key="$AWS_SECRET_ACCESS_KEY"
 }

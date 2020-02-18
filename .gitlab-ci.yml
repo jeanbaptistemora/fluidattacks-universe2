@@ -173,13 +173,13 @@ deploy:
   only:
     - master
 
-.test_infra_secret_management:
+test_infra_secret_management:
   tags: [autoscaling]
   stage: check
-  image: registry.gitlab.com/fluidattacks/web:base
+  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
     - source ci-scripts/helpers/others.sh
-    - aws_login
+    - terraform_login
     - pushd secret-management/terraform
     - terraform init
     - terraform plan -refresh=true

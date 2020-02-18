@@ -94,6 +94,7 @@ RUN curl -LSo vault.zip "$URL_VAULT" \
         && chmod +x kubectl \
         && mv kubectl /usr/local/bin/kubectl \
     && curl -LSo sops "$URL_SOPS" \
+        && chmod +x sops \
         && mv sops /usr/local/bin/sops\
     && curl -LSo terraform.zip "$URL_TERRAFORM" \
         && unzip terraform.zip \
