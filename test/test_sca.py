@@ -93,7 +93,7 @@ def test_nuget_package_has_vulnerabilities_open():
 
 def test_pypi_package_has_vulnerabilities_open():
     """Search vulnerabilities."""
-    assert pypi.package_has_vulnerabilities('django', '1.11')
+    assert pypi.package_has_vulnerabilities('django', '3.0')
     assert pypi.project_has_vulnerabilities(PYPI_PROJECT)
 
 

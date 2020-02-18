@@ -20,8 +20,7 @@ GO
 INSERT INTO users VALUES ('user1', 'fluidasserts123.');
 GO
 select * from users;
-GO
-"
+GO"
 
 # Create user
 execute_query "
@@ -43,8 +42,7 @@ EXEC sp_configure 'xp_cmdshell', 1;
 GO
 -- To update the currently configured value for this feature.
 RECONFIGURE;
-GO
-"
+GO"
 
 # Enable ad hoc distributed queries check: has_enabled_ad_hoc_queries
 execute_query "
@@ -60,8 +58,7 @@ FROM OPENROWSET('SQLNCLI', 'Server=Seattle1;Trusted_Connection=yes;',
      'SELECT GroupName, Name, DepartmentID
       FROM AdventureWorks2012.HumanResources.Department
       ORDER BY GroupName, Name') AS a;
-GO
-"
+GO"
 
 # Enable agent xps option
 execute_query "
@@ -99,8 +96,7 @@ CREATE ASYMMETRIC KEY asserts_key
     ENCRYPTION BY PASSWORD = '5M_~C67k,QNw\uzT';
 GO
 ALTER ASYMMETRIC KEY asserts_key REMOVE PRIVATE KEY;
-GO
-"
+GO"
 
 # Set autoclose ON. check: has_contained_dbs_with_auto_close_enabled
 execute_query "
@@ -133,3 +129,6 @@ BEGIN
     SELECT name, pvt_key_encryption_type
     FROM sys.asymmetric_keys
 END"
+
+# Grant permission SHUTDOWN. check: can_shutdown_server
+execute_query "GRANT SHUTDOWN TO $DB_USER;"

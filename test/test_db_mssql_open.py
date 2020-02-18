@@ -136,3 +136,10 @@ def test_has_unencrypted_storage_procedures_open(get_mock_ip):
     """Test mssql.has_unencrypted_storage_procedures."""
     assert mssql.has_unencrypted_storage_procedures(
         DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_open()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_weak'], indirect=True)
+def test_can_shutdown_server_open(get_mock_ip):
+    """Test mssql.can_shutdown_server."""
+    assert mssql.can_shutdown_server(
+        DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_open()
