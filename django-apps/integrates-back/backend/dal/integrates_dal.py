@@ -115,21 +115,6 @@ def get_data_dynamo_filter(table_name, filter_exp='', data_attr=''):
     return items
 
 
-def get_table_attributes_dynamo(table_name, primary_key, data_attributes):
-    """ Get a group of attributes of a table. """
-    table = DYNAMODB_RESOURCE.Table(table_name)
-    try:
-        response = table.get_item(
-            Key=primary_key,
-            AttributesToGet=data_attributes
-        )
-        items = response.get('Item')
-    except ClientError:
-        rollbar.report_exc_info()
-        items = {}
-    return items if items else {}
-
-
 def get_findings_data_dynamo(filtering_exp, data_attr=''):
     """Get all the findings of a project."""
     table = DYNAMODB_RESOURCE.Table('FI_findings')
