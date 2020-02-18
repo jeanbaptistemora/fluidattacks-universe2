@@ -26,7 +26,7 @@ from backend.services import get_user_role
 from backend.entity.user import User
 
 from backend import util
-from backend.dal import integrates_dal, project as redshift_dal
+from backend.dal import project as redshift_dal
 
 
 class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
@@ -486,10 +486,11 @@ class RemoveTag(Mutation):
         success = False
         project_name = project_name.lower()
         if project_domain.is_alive(project_name):
-            primary_keys = ['project_name', project_name.lower()]
-            table_name = 'FI_projects'
-            tag_deleted = integrates_dal.remove_set_element_dynamo(
-                table_name, primary_keys, 'tag', tag)
+            project_tags = project_domain.get_attributes(project_name, ['tag'])
+            project_tags.get('tag').remove(tag)
+            if project_tags.get('tag') == set():
+                project_tags['tag'] = None
+            tag_deleted = project_domain.update(project_name, project_tags)
             if tag_deleted:
                 success = True
             else:
@@ -522,11 +523,13 @@ class AddTags(Mutation):
         success = False
         project_name = project_name.lower()
         if project_domain.is_alive(project_name):
-            primary_keys = ['project_name', project_name]
-            table_name = 'FI_projects'
             if project_domain.validate_tags(tags):
-                tags_added = integrates_dal.add_set_element_dynamo(
-                    table_name, primary_keys, 'tag', tags)
+                project_tags = project_domain.get_attributes(project_name, ['tag'])
+                if not project_tags:
+                    project_tags = {'tag': set(tag for tag in tags)}
+                else:
+                    project_tags.get('tag').update(tags)
+                tags_added = project_domain.update(project_name, project_tags)
                 if tags_added:
                     success = True
                 else:

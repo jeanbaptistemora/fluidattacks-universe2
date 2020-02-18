@@ -159,29 +159,6 @@ def get_findings_released_dynamo(project, data_attr=''):
     return findings_released
 
 
-def remove_set_element_dynamo(table_name, primary_keys, set_name, set_element):
-    """Remove a element from a set."""
-    table = DYNAMODB_RESOURCE.Table(table_name)
-    try:
-        response = table.update_item(
-            Key={
-                primary_keys[0]: primary_keys[1].lower(),
-            },
-            UpdateExpression='DELETE #name :val1',
-            ExpressionAttributeNames={
-                '#name': set_name
-            },
-            ExpressionAttributeValues={
-                ':val1': set([set_element])
-            }
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-    except ClientError:
-        rollbar.report_exc_info()
-        resp = False
-    return resp
-
-
 def add_set_element_dynamo(table_name, primary_keys, set_name, set_values):
     """Adding elements to a set."""
     table = DYNAMODB_RESOURCE.Table(table_name)
