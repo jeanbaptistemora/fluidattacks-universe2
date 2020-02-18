@@ -126,16 +126,16 @@ function job_analytics_git {
   &&  for fork in $(seq 1 "${num_threads}")
       do
         ( tap-git \
-            --conf /config.json \
+            --conf './config.json' \
             --with-metrics \
-            --threads 8 \
+            --threads "${num_threads}" \
             --fork-id "${fork}" > "git_part${fork}" ) &
       done \
   &&  wait \
   &&  echo '[INFO] Running target' \
   &&  cat git_part* \
         | target-redshift \
-            --auth /target_secret.json \
+            --auth "${TEMP_FILE2}" \
             --drop-schema \
             --schema-name "git" \
   &&  echo '[INFO] Tainting ToEs' \

@@ -13,7 +13,8 @@ in
       srcIncludeGenericDirStructure = ../../../include/generic/dir-structure.sh;
 
       builder = ./builder.sh;
-      buildInputs = [
+      buildInputs = with pkgs; [
         envPython
+        postgresql
       ];
     }

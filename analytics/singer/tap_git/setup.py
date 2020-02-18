@@ -37,7 +37,7 @@ setuptools.setup(
     zip_safe=True,
 
     install_requires=[
-        "gitpython"
+        "gitpython==3.0.8"
     ],
 
     entry_points="""

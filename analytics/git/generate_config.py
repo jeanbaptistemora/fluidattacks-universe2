@@ -96,7 +96,7 @@ def main():
                 print(textwrap.indent(
                     json.dumps(branches[subs_name], indent=2), ' ' * 8))
 
-    with open(f'/config.json', 'w') as file:
+    with open(f'./config.json', 'w') as file:
         json.dump(config, file, indent=2)
 
     print(json.dumps(config, indent=2))

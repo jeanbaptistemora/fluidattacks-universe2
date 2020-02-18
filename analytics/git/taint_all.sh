@@ -5,7 +5,7 @@ continuous_path="/git/fluidattacks/continuous"
 
 # /config.json: A list of JSON with subscription, repository, location and branches
 output=$( \
-  jq -r ".[]|.location" < /config.json \
+  jq -r ".[]|.location" < ./config.json \
     | sed -E 's/(\/git)\/(.*?)\/(.*)/\2 \1\/\2\/\3/g')
 
 # push every repo to the database

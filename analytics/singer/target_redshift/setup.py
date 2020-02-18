@@ -25,8 +25,8 @@ setuptools.setup(
     python_requires=">=3.6",
 
     install_requires=[
-        "jsonschema",
-        "psycopg2-binary"
+        "jsonschema==3.2.0",
+        "psycopg2==2.8.4"
     ],
 
     entry_points="""
