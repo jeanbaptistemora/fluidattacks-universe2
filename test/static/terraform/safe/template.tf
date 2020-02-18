@@ -159,6 +159,7 @@ resource "aws_db_instance" "default" {
   parameter_group_name = "default.mysql5.7"
   deletion_protection  = "true"
   storage_encrypted =  true
+  db_subnet_group_name = 'db_subnet'
 }
 
 resource "aws_rds_cluster" "default" {
@@ -173,6 +174,7 @@ resource "aws_rds_cluster" "default" {
   preferred_backup_window = "07:00-09:00"
   deletion_protection  = "true"
   storage_encrypted =  true
+  db_subnet_group_name = 'db_subnet'
 }
 
 resource "aws_iam_instance_profile" "test_profile" {
