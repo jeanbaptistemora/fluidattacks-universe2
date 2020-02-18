@@ -194,3 +194,22 @@ function helper_user_provision_rotate_keys {
         "${gitlab_secret_key_name}" "${output_secret_key_value}" \
         "${gitlab_protected}" "${gitlab_masked}"
 }
+
+function helper_deploy_integrates {
+  local integrates_id
+
+  . toolbox/others.sh
+  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
+
+      aws_login \
+  &&  integrates_id='4620828' \
+  &&  sops_env \
+        secrets-prod.yaml \
+        default \
+        INTEGRATES_PIPELINE_TOKEN \
+  &&  curl \
+        -X POST \
+        -F token="${INTEGRATES_PIPELINE_TOKEN}" \
+        -F ref=master \
+        "https://gitlab.com/api/v4/projects/${integrates_id}/trigger/pipeline"
+}
