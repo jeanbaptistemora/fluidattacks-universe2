@@ -57,7 +57,7 @@ link:https://www.linkedin.com/in/vladimir-villa-g%C3%B3mez-31a23b5/[LinkedIn]
 a|=== Mauricio Gómez
 image::mgomez.png[alt="Mauricio Gómez", width=100 ]
 Management Team +
-link:https://www.linkedin.com/in/mauricio-gomez-arango-52157b33/[LinkedIn]
+link:https://www.linkedin.com/in/mgomezarango/[LinkedIn]
 
 a|=== link:ccarrasco/[Carolina Carrasco]
 image::ccarrasco.png[alt="Carolina Carrasco", width=100 ]
