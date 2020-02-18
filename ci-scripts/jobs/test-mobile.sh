@@ -8,14 +8,11 @@ test_mobile() {
 
   cp -a /usr/src/app/node_modules mobile/
   cd mobile/ || return 1
-  npm install
-
   # Linters
-  npx tslint -p tsconfig.json -t codeFrame
+  npm run lint
 
   # Unit tests
-  npx tsc -p tsconfig.json
-  npx jest
+  npm test
 
   cd "$CI_PROJECT_DIR" || return 1
 }

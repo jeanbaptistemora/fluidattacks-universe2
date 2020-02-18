@@ -20,17 +20,23 @@ publish_ota() {
   fi
 
   aws_login "$ENV_NAME"
-  sops_env default \
+  sops_env "secrets-$ENV_NAME.yaml" default \
   EXPO_USER \
   EXPO_PASS \
-  GOOGLE_SERVICES_APP \
   ROLLBAR_ACCESS_TOKEN
+
+  sops \
+    --aws-profile default \
+    --decrypt \
+    --extract "[\"GOOGLE_SERVICES_APP\"]" \
+    --output mobile/google-services.json \
+    --output-type json \
+    "secrets-$ENV_NAME.yaml"
 
   cd mobile || return 1
 
   # Prepare Expo
   npx expo login -u "$EXPO_USER" -p "$EXPO_PASS"
-  echo "$GOOGLE_SERVICES_APP" > google-services.json
   DEVELOPER_ENV=${CI_COMMIT_REF_NAME:-"local"}
 
   # Publish
@@ -44,7 +50,7 @@ publish_ota() {
     --release-channel "$DEVELOPER_ENV" \
     --non-interactive
 
-  if [ "$FI_ROLLBAR_ENVIRONMENT" = 'production' ]; then
+  if [ "$ENV_NAME" = 'production' ]; then
     curl https://api.rollbar.com/api/1/deploy/ \
       -F access_token="$ROLLBAR_ACCESS_TOKEN" \
       -F environment='mobile-production' \

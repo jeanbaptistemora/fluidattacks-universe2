@@ -54,8 +54,7 @@
     "@types/recompose": "0.30.6",
     "babel-preset-expo": "5.2.0",
     "bunyan": "1.8.12",
-    "expo-cli": "2.21.2",
-    "gulp-cli": "2.2.0",
+    "expo-cli": "3.13.1",
     "hoist-non-react-statics": "3.3.0",
     "jest": "24.8.0",
     "jest-expo": "33.0.2",
@@ -63,7 +62,7 @@
     "ts-jest": "24.0.2",
     "tslint": "5.18.0",
     "tslint-react": "4.0.0",
-    "turtle-cli": "0.8.7",
+    "turtle-cli": "0.13.9",
     "typescript": "3.5.3",
     "waait": "1.0.5"
   }
