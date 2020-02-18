@@ -247,6 +247,7 @@ resource "aws_db_instance" "default" {
   password             = "foobarbaz"
   parameter_group_name = "default.mysql5.7"
   storage_encrypted =  false
+  backup_retention_period = 0
 }
 
 resource "aws_rds_cluster" "default" {
@@ -257,7 +258,7 @@ resource "aws_rds_cluster" "default" {
   database_name           = "mydb"
   master_username         = "foo"
   master_password         = "bar"
-  backup_retention_period = 5
+  backup_retention_period = 0
   preferred_backup_window = "07:00-09:00"
   deletion_protection  = "false"
 }

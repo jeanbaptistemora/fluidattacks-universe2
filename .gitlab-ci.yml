@@ -45,6 +45,8 @@ stages:
 build_fluidasserts_release:
   <<: *with_nix
   <<: *in_dev_branch
+  artifacts:
+    paths: [result.build_fluidasserts_release/]
   stage: test
 
 demo_fluidasserts_output:
