@@ -75,7 +75,7 @@ deps-development:
 build-back:
   stage: build
   needs: [deps-development,django-apps]
-  tags: [autoscaling-large]
+  tags: [autoscaling]
   image: fluidattacks/docker-bash:latest
   script:
     - ./ci-scripts/jobs/build-app.sh
@@ -89,7 +89,7 @@ build-back:
 build-front:
   stage: build
   needs: [deps-development,django-apps]
-  tags: [autoscaling-large]
+  tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/build-front.sh
@@ -102,7 +102,7 @@ build-front:
 
 test-front:
   stage: test
-  tags: [autoscaling-large]
+  tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/test-front.sh
@@ -118,7 +118,7 @@ test-front:
 
 test-mobile:
   stage: test
-  tags: [autoscaling-large]
+  tags: [autoscaling]
   needs: [deps-mobile]
   image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:$CI_COMMIT_REF_NAME
   script:
@@ -127,7 +127,7 @@ test-mobile:
 
 test-back:
   stage: test
-  tags: [autoscaling-large]
+  tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/test-app.sh
@@ -262,7 +262,7 @@ deploy-back:
 
 deploy-mobile:
   stage: deploy-app
-  tags: [autoscaling-large]
+  tags: [autoscaling]
   needs: [deps-mobile]
   image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:$CI_COMMIT_REF_NAME
   script:
@@ -284,7 +284,7 @@ deploy-mobile:
 
 test-driver-dev:
   stage: post-deploy
-  tags: [autoscaling-large]
+  tags: [autoscaling]
   needs: [deploy-back-ephemeral]
   image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
   script:
@@ -302,7 +302,7 @@ test-driver-dev:
 
 test-driver-prod:
   stage: post-deploy
-  tags: [autoscaling-large]
+  tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:master
   script:
     - pip3 install -U django-apps/packages/*.zip
