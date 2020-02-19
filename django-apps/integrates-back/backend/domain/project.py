@@ -9,7 +9,7 @@ import pytz
 
 from django.conf import settings
 
-from backend.dal import integrates_dal, finding as finding_dal, project as project_dal
+from backend.dal import finding as finding_dal, project as project_dal
 from backend.domain import comment as comment_domain, resources as resources_domain
 from backend.domain import finding as finding_domain, user as user_domain
 from backend.domain import vulnerability as vuln_domain
@@ -199,7 +199,7 @@ def remove_all_users_access(project):
     all_users = user_active + user_suspended
     are_users_removed = True
     for user in all_users:
-        is_user_removed = remove_user_access(project, user)
+        is_user_removed = remove_user_access(project, user, 'customeradmin')
         if is_user_removed:
             are_users_removed = True
         else:
@@ -208,10 +208,9 @@ def remove_all_users_access(project):
     return are_users_removed
 
 
-def remove_user_access(project, user_email):
+def remove_user_access(project, user_email, role):
     """Remove user access to project."""
-    integrates_dal.remove_role_to_project_dynamo(
-        project, user_email, 'customeradmin')
+    project_dal.remove_user_role(project, user_email, role)
     return project_dal.remove_access(user_email, project)
 
 

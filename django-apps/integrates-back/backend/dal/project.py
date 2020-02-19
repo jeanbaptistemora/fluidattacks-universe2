@@ -324,6 +324,28 @@ def create(project):
     return resp
 
 
+def remove_user_role(project_name, user_email, role):
+    """Remove user role in a project."""
+    resp = False
+    try:
+        response = TABLE.update_item(
+            Key={
+                'project_name': project_name.lower(),
+            },
+            UpdateExpression='DELETE #rol :val1',
+            ExpressionAttributeNames={
+                '#rol': role
+            },
+            ExpressionAttributeValues={
+                ':val1': set([user_email])
+            }
+        )
+        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
+    except ClientError:
+        rollbar.report_exc_info()
+    return resp
+
+
 def add_comment(project_name, email, comment_data):
     """ Add a comment in a project. """
     resp = False

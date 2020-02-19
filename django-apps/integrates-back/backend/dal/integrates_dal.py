@@ -1,5 +1,4 @@
 
-from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 import rollbar
 

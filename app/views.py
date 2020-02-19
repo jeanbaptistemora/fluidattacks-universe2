@@ -31,8 +31,7 @@ from backend.domain.vulnerability import (
 )
 from backend.decorators import authenticate, authorize, cache_content
 from backend.dal import (
-    integrates_dal, finding as finding_dal, user as user_dal,
-    project as project_dal
+    finding as finding_dal, user as user_dal
 )
 from backend.services import (
     has_access_to_project, has_access_to_finding, has_access_to_event
@@ -396,20 +395,13 @@ def remove_all_users_access(project):
     all_users = user_active + user_suspended
     are_users_removed = True
     for user in all_users:
-        is_user_removed = remove_user_access(project, user)
+        is_user_removed = project_domain.remove_user_access(project, user, 'customeradmin')
         if is_user_removed:
             are_users_removed = True
         else:
             are_users_removed = False
             break
     return are_users_removed
-
-
-def remove_user_access(project, user_email):
-    """Remove user access to project."""
-    integrates_dal.remove_role_to_project_dynamo(
-        project, user_email, 'customeradmin')
-    return project_dal.remove_access(user_email, project)
 
 
 @cache_content

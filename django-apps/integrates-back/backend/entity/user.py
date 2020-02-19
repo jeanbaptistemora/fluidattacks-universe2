@@ -21,7 +21,6 @@ from backend.exceptions import UserNotFound
 from backend.mailer import send_mail_access_granted
 
 from backend import util
-from backend.dal import integrates_dal
 from backend.utils.user import validate_email_address, validate_field, validate_phone_field
 
 
@@ -302,8 +301,7 @@ class RemoveUserAccess(Mutation):
     def mutate(self, info, project_name, user_email):
         success = False
 
-        integrates_dal.remove_role_to_project_dynamo(project_name, user_email,
-                                                     'customeradmin')
+        project_domain.remove_user_access(project_name, user_email, 'customeradmin')
         success = project_domain.remove_access(user_email, project_name)
         removed_email = user_email if success else None
         if success:
@@ -410,4 +408,4 @@ def modify_user_information(context, modified_user_data, project_name):
     if role == 'customeradmin':
         project_domain.add_user(project_name.lower(), email.lower(), role)
     elif is_customeradmin(project_name, email):
-        integrates_dal.remove_role_to_project_dynamo(project_name, email, 'customeradmin')
+        project_domain.remove_user_access(project_name, email, 'customeradmin')
