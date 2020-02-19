@@ -570,7 +570,7 @@ We use external services such as link:https://www.okta.com/[+Okta+] for identity
 link:https://rollbar.com/[+Rollbar+] for telemetry,
 link:https://rocket.chat/[+Rocket Chat+] for chatops,
 link:https://www.pluralsight.com/product/flow[+Pluralsight+] for productivity analytic,
-link:https://www.vaultproject.io/[+Vault+] for ephemeral secrets management,
+link:https://github.com/mozilla/sops[+Mozilla SOPS+] for secrets management,
 link:https://helm.sh/[+Helm+] for cluster management,
 link:https://launchdarkly.com/[+Launch Darkly+] for feature flags,
 link:https://portswigger.net/burp[+Burp+] for web attacks,

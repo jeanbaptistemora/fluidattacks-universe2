@@ -1,4 +1,4 @@
-awscli==1.14.64
+awscli==1.17.9
 Babel==2.5.3
 beautifulsoup4==4.6.0
 cssmin==0.2.0

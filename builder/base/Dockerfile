@@ -19,7 +19,6 @@ ARG URL_TFLINT='https://github.com/terraform-linters/tflint/releases/download/v0
 ARG URL_TIDDY='https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb'
 ARG URL_TIPUE='https://github.com/jekylltools/jekyll-tipue-search.git'
 ARG URL_TURN='https://github.com/blasten/turn.js.git'
-ARG URL_VAULT='https://releases.hashicorp.com/vault/0.11.5/vault_0.11.5_linux_amd64.zip'
 
 # Install basic dependencies to set the repositories for NodeJS, Yarn and Docker
 RUN apt-get update -qq \
@@ -77,11 +76,7 @@ RUN apt-get install -qqy --no-install-recommends \
   && gem install -N sass
 
 # External dependencies
-RUN curl -LSo vault.zip "$URL_VAULT" \
-        && unzip vault.zip \
-        && mv vault /usr/local/bin \
-        && rm vault.zip \
-    && curl -LSo tidy.deb "$URL_TIDDY" \
+RUN curl -LSo tidy.deb "$URL_TIDDY" \
         && dpkg -i tidy.deb \
     && curl -LSo plantuml.zip "$URL_PLANTUML" \
         && asciidoc --filter install plantuml.zip /etc/asciidoc/filters/ \
