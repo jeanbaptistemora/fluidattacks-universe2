@@ -1,4 +1,4 @@
-"""AWS CloudFormation checks for ``S3`` (Simple Storage Service)."""
+"""AWS Terraform checks for ``S3`` (Simple Storage Service)."""
 
 # Standard imports
 from typing import List, Optional, Set
@@ -6,7 +6,7 @@ from typing import List, Optional, Set
 # Local imports
 from fluidasserts import SAST, HIGH
 from fluidasserts.helper import aws as helper
-from fluidasserts.cloud.aws.cloudformation import (
+from fluidasserts.cloud.aws.terraform import (
     Vulnerability,
     _get_result_as_tuple,
 )
@@ -15,13 +15,13 @@ from fluidasserts.utils.decorators import api, unknown_if
 
 #: A set of available S3 Access Controls
 ACCESS_CONTROLS = {
-    'Private',
-    'PublicRead',
-    'PublicReadWrite',
-    'AuthenticatedRead',
-    'BucketOwnerRead',
-    'BucketOwnerFullControl',
-    'LogDeliveryWrite',
+    'private',
+    'public-read',
+    'public-read-write',
+    'authenticated-read',
+    'bucket-owner-read',
+    'bucket-owner-full-control',
+    'log-delivery-write',
 }
 
 
@@ -38,21 +38,19 @@ def _has_not_access_control_in_list(
     vulnerable_access_controls = ACCESS_CONTROLS - safe_access_controls
 
     vulnerabilities: list = []
-    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_cfn_template(
+    for yaml_path, res_name, res_props in helper.iterate_rsrcs_in_tf_template(
             starting_path=path,
             resource_types=[
-                'AWS::S3::Bucket',
+                'aws_s3_bucket',
             ],
             exclude=exclude):
-        access_control: bool = res_props.get('AccessControl', 'Private')
-        if not isinstance(access_control, str):
-            continue
+        access_control: bool = res_props.get('acl', "private")
         if access_control in vulnerable_access_controls:
             vulnerabilities.append(
                 Vulnerability(
                     path=yaml_path,
-                    entity=(f'AWS::S3::Bucket/'
-                            f'AccessControl/'
+                    entity=(f'{res_props["type"]}/'
+                            f'acl/'
                             f'{access_control}'),
                     identifier=res_name,
                     reason=vulnerability_reason))
@@ -68,14 +66,14 @@ def _has_not_access_control_in_list(
 def has_not_private_access_control(
         path: str, exclude: Optional[List[str]] = None) -> tuple:
     """
-    Check if ``S3::Bucket`` has an **AccessControl** that is not **Private**.
+    Check if ``aws_s3_bucket`` has an **acl** that is not **private**.
 
-    :param path: Location of CloudFormation's template file.
+    :param path: Location of Terraform template file.
     :param exclude: Paths that contains any string from this list are ignored.
-    :returns: - ``OPEN`` if the **S3 Bucket** has the **AccessControl**
-                attribute set to **PublicRead**, **PublicReadWrite**,
-                **AuthenticatedRead**, **BucketOwnerRead**,
-                **BucketOwnerFullControl**, or **LogDeliveryWrite**.
+    :returns: - ``OPEN`` if the **S3 Bucket** has the **acl**
+                attribute set to **public-read**, **pulblic-read-write**,
+                **authenticated-read**, **bucket-owner-read**,
+                **bucket-owner-full-control**, or **log-delivery-write**.
               - ``UNKNOWN`` on errors.
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
@@ -86,7 +84,7 @@ def has_not_private_access_control(
         msg_closed='S3 Bucket has Private Access Control',
         vulnerability_reason='is not Private',
         safe_access_controls={
-            'Private',
+            'private',
         },
         exclude=exclude,
     )

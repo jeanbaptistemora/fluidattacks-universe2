@@ -9,7 +9,7 @@ import json
 import functools
 from io import StringIO
 from contextlib import suppress
-from typing import Any, Callable, Dict, Iterator, Tuple, List
+from typing import Any, Callable, Dict, Iterator, Tuple, List, Set, NoReturn
 
 # 3rd party imports
 import yaml
@@ -97,6 +97,15 @@ def get_aws_client(service: str,
         aws_access_key_id=key_id,
         aws_secret_access_key=secret,
         **final_kwargs)
+
+
+def validate_access_controls(access_controls: Set[str],
+                             valid_controls: Set[str]) -> NoReturn:
+    """Validate that the provided acl is recognized by Terraform."""
+    invalid_access_controls = access_controls - valid_controls
+    if invalid_access_controls:
+        raise AssertionError(
+            f'Invalid Access Controls detected: {invalid_access_controls}')
 
 
 @retry_on_errors
