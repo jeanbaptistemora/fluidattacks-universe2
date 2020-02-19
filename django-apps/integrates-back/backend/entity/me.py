@@ -17,7 +17,7 @@ from backend.exceptions import InvalidExpirationTime
 from backend.services import get_user_role, is_customeradmin
 
 from backend import util
-from backend.dal import integrates_dal
+from backend.dal import user as user_dal
 
 from __init__ import FI_GOOGLE_OAUTH2_KEY_ANDROID, FI_GOOGLE_OAUTH2_KEY_IOS
 
@@ -122,9 +122,7 @@ class SignIn(Mutation):
                 email = user_info['email']
                 authorized = user_domain.is_registered(email)
                 if push_token:
-                    integrates_dal.add_set_element_dynamo(
-                        'FI_users', ['email', email],
-                        'devices_to_notify', [push_token])
+                    user_dal.update(email, {'devices_to_notify': set(push_token)})
                 session_jwt = jwt.encode(
                     {
                         'user_email': email,
