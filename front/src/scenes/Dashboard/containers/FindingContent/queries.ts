@@ -24,3 +24,11 @@ export const SUBMIT_DRAFT_MUTATION: DocumentNode = gql`
     }
   }
 `;
+
+export const APPROVE_DRAFT_MUTATION: DocumentNode = gql`
+  mutation ApproveDraftMutation($findingId: String!) {
+    approveDraft(draftId: $findingId) {
+      success
+    }
+  }
+`;

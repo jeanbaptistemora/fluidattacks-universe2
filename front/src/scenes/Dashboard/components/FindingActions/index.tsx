@@ -30,8 +30,9 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
 
   return (
     <ButtonToolbar className="pull-right">
-      {!props.isDraft ? false : (props.hasSubmission ?
-        false : <Button disabled={props.loading} onClick={onSubmit}>Submit</Button>)}
+      {props.isDraft && !props.hasSubmission
+        ? <Button disabled={props.loading} onClick={onSubmit}>Submit</Button>
+        : undefined}
       {_.includes(["admin"], userRole) && props.isDraft ? (
         <React.Fragment>
           <ConfirmDialog title={translate.t("project.drafts.approve")}>
@@ -39,7 +40,7 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
               const handleClick: (() => void) = (): void => { confirm(() => { onApprove(); }); };
 
               return (
-                <Button onClick={handleClick} disabled={!canApprove}>
+                <Button onClick={handleClick} disabled={!canApprove || props.loading}>
                   <FluidIcon icon="verified" />&nbsp;Approve
                 </Button>
               );

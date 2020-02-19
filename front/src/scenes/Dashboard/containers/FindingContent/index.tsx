@@ -36,10 +36,10 @@ import { RecordsView } from "../RecordsView/index";
 import { SeverityView } from "../SeverityView/index";
 import { TrackingView } from "../TrackingView/index";
 import {
-  approveDraft, clearFindingState, deleteFinding, rejectDraft, ThunkDispatcher,
+  clearFindingState, deleteFinding, rejectDraft, ThunkDispatcher,
 } from "./actions";
 import { default as style } from "./index.css";
-import { GET_FINDING_HEADER, SUBMIT_DRAFT_MUTATION } from "./queries";
+import { APPROVE_DRAFT_MUTATION, GET_FINDING_HEADER, SUBMIT_DRAFT_MUTATION } from "./queries";
 import {
   IFindingContentBaseProps, IFindingContentDispatchProps, IFindingContentProps,
   IFindingContentStateProps, IHeaderQueryResult,
@@ -72,7 +72,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
 
   // State management
   const canGetHistoricState: boolean = _.includes(["analyst", "admin"], props.userRole);
-  const handleApprove: (() => void) = (): void => { props.onApprove(); };
   const handleReject: (() => void) = (): void => { props.onReject(); };
 
   const [isDeleteModalOpen, setDeleteModalOpen] = React.useState(false);
@@ -110,9 +109,45 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           msgError(translate.t("project.drafts.error_submit", {
             missingFields: message.split("fields: ")[1],
           }));
+        } else if (message === "Exception - This draft has already been approved") {
+          msgError(translate.t("proj_alerts.draft_already_approved"));
+          headerRefetch()
+            .catch();
         } else {
           msgError(translate.t("proj_alerts.error_textsad"));
-          rollbar.error("An error occurred updating event evidence", submitError);
+          rollbar.error("An error occurred submitting draft", submitError);
+        }
+      });
+    },
+    variables: { findingId },
+  });
+
+  const [approveDraft, { loading: approving }] = useMutation(
+    APPROVE_DRAFT_MUTATION, {
+    onCompleted: (result: { approveDraft: { success: boolean } }): void => {
+      if (result.approveDraft.success) {
+        msgSuccess(
+          translate.t("search_findings.draft_approved"),
+          translate.t("project.drafts.title_success"),
+        );
+        headerRefetch()
+          .catch();
+      }
+    },
+    onError: (approveError: ApolloError): void => {
+      approveError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        switch (message) {
+          case "Exception - This draft has already been approved":
+            msgError(translate.t("proj_alerts.draft_already_approved"));
+            headerRefetch()
+              .catch();
+            break;
+          case "CANT_APPROVE_FINDING_WITHOUT_VULNS":
+            msgError(translate.t("proj_alerts.draft_without_vulns"));
+            break;
+          default:
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred approving draft", approveError);
         }
       });
     },
@@ -147,8 +182,8 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                                   isDraft={isDraft}
                                   hasVulns={hasVulns}
                                   hasSubmission={hasSubmission}
-                                  loading={submitting}
-                                  onApprove={handleApprove}
+                                  loading={approving || submitting}
+                                  onApprove={approveDraft}
                                   onDelete={openDeleteModal}
                                   onReject={handleReject}
                                   onSubmit={submitDraft}
@@ -273,7 +308,6 @@ const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFind
     const { findingId, projectName } = ownProps.match.params;
 
     return ({
-      onApprove: (): void => { dispatch(approveDraft(findingId)); },
       onConfirmDelete: (): void => { dispatch(submit("deleteFinding")); },
       onDelete: (justification: string): void => { dispatch(deleteFinding(findingId, projectName, justification)); },
       onLoad: (): void => { dispatch(loadProjectData(projectName)); },
