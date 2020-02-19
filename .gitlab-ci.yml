@@ -58,8 +58,7 @@ stages:
 
 .with_nix: &with_nix
   image: "${CI_REGISTRY_IMAGE}:nix"
-  tags:
-    - autoscaling-large
+  tags: [autoscaling]
   script:
     - ./build.sh "${CI_JOB_NAME}"
   interruptible: true
@@ -101,6 +100,7 @@ analytics_intercom:
 
 analytics_git:
   <<: *with_nix
+  tags: [autoscaling-large]
   stage: analytics
   only:
     refs: [schedules]
