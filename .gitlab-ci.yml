@@ -38,7 +38,7 @@ content:
 
 pelican:
   image: fluidattacks/docker-bash:latest
-  tags: [autoscaling-large]
+  tags: [autoscaling]
   stage: check
   script:
     - . ci-scripts/build-pelican.sh
