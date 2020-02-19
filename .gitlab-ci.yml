@@ -101,7 +101,7 @@ stop-review:
 mr-test:
   tags: [autoscaling]
   stage: mr-check
-  image: registry.gitlab.com/fluidattacks/web:base
+  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   only:
     - merge_requests
   variables:
