@@ -61,7 +61,7 @@ review-web:
   tags: [autoscaling]
   stage: review
   <<: *fa_default_registry_vars
-  image: registry.gitlab.com/fluidattacks/web:base
+  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
     - ./review/cluster-config.sh
   environment:
@@ -74,7 +74,7 @@ review-web:
 stop-review:
   tags: [autoscaling]
   stage: review
-  image: registry.gitlab.com/fluidattacks/web:base
+  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   variables:
     GIT_STRATEGY: none
   script:
