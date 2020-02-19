@@ -369,6 +369,18 @@ rotate-jwt-token:
   only:
     - schedules
 
+renew-review-certificate:
+  stage: post-deploy
+  tags: [autoscaling]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - ./ci-scripts/jobs/renew-review-certificate.sh
+  environment:
+    name: "review/renew-review-cert"
+    auto_stop_in: 1 hour
+  only:
+    - schedules
+
 terraform-resources-apply:
   stage: deploy-infra
   tags: [autoscaling]
