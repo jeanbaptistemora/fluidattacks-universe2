@@ -4,9 +4,10 @@
  * apollo components
  */
 
-import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
-import { Mutation, Query } from "@apollo/react-components";
+import { QueryResult } from "@apollo/react-common";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
@@ -15,9 +16,9 @@ import { NavLink, Redirect, Route, Switch } from "react-router-dom";
 import { Field, submit } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
-import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { dropdownField } from "../../../../utils/forms/fields";
-import { msgSuccess } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { required } from "../../../../utils/validations";
 import { AlertBox } from "../../components/AlertBox";
@@ -49,7 +50,9 @@ const reduxProps: any = {};
 
 const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
+  const { userEmail, userOrganization, userRole } = window as typeof window & Dictionary<string>;
 
+  // Side effects
   const onMount: (() => void) = (): (() => void) => {
     props.onLoad();
 
@@ -57,20 +60,17 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   };
   React.useEffect(onMount, []);
 
-  const userRole: string =
-    _.isEmpty(props.userRole) ? (window as typeof window & { userRole: string }).userRole : props.userRole;
-  const currentUserEmail: string = (window as typeof window & { userEmail: string }).userEmail;
-
   const renderDescription: (() => JSX.Element) = (): JSX.Element => (
     <DescriptionView
       findingId={findingId}
       projectName={projectName}
-      userRole={userRole}
-      currentUserEmail={currentUserEmail}
+      userRole={_.isEmpty(props.userRole) ? userRole : props.userRole}
+      currentUserEmail={userEmail}
       {...reduxProps}
     />
   );
 
+  // State management
   const canGetHistoricState: boolean = _.includes(["analyst", "admin"], props.userRole);
   const handleApprove: (() => void) = (): void => { props.onApprove(); };
   const handleReject: (() => void) = (): void => { props.onReject(); };
@@ -81,7 +81,52 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   const handleDelete: ((values: { justification: string }) => void) = (values: { justification: string }): void => {
     props.onDelete(values.justification);
   };
-  const { userOrganization } = window as typeof window & { userOrganization: string };
+
+  // GraphQL operations
+  const { data: alertData }: QueryResult = useQuery(
+    GET_PROJECT_ALERT, {
+    variables: { projectName, organization: userOrganization },
+  });
+  const { data: headerData, refetch: headerRefetch }: QueryResult<IHeaderQueryResult> = useQuery(
+    GET_FINDING_HEADER, {
+    variables: { findingId, submissionField: canGetHistoricState },
+  });
+
+  const [submitDraft, { loading: submitting }] = useMutation(
+    SUBMIT_DRAFT_MUTATION, {
+    onCompleted: (result: { submitDraft: { success: boolean } }): void => {
+      if (result.submitDraft.success) {
+        msgSuccess(
+          translate.t("project.drafts.success_submit"),
+          translate.t("project.drafts.title_success"),
+        );
+        headerRefetch()
+          .catch();
+      }
+    },
+    onError: (submitError: ApolloError): void => {
+      submitError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        if (_.includes(message, "Exception - This draft has missing fields")) {
+          msgError(translate.t("project.drafts.error_submit", {
+            missingFields: message.split("fields: ")[1],
+          }));
+        } else {
+          msgError(translate.t("proj_alerts.error_textsad"));
+          rollbar.error("An error occurred updating event evidence", submitError);
+        }
+      });
+    },
+    variables: { findingId },
+  });
+
+  if (_.isUndefined(headerData) || _.isEmpty(headerData)) { return <React.Fragment />; }
+
+  const isDraft: boolean = _.isEmpty(headerData.finding.releaseDate);
+  const hasVulns: boolean = _.sum([headerData.finding.openVulns, headerData.finding.closedVulns]) > 0;
+  const hasHistory: boolean = !_.isEmpty(headerData.finding.historicState);
+  const hasSubmission: boolean = hasHistory
+    ? headerData.finding.historicState.slice(-1)[0].state === "SUBMITTED"
+    : false;
 
   return (
     <React.StrictMode>
@@ -89,80 +134,34 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
         <Row>
           <Col md={12} sm={12}>
             <React.Fragment>
-              <Query query={GET_PROJECT_ALERT} variables={{ projectName, organization: userOrganization }}>
-                {({ data }: QueryResult): JSX.Element => {
-                  if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
-
-                  return data.alert.status === 1 ? <AlertBox message={data.alert.message} /> : <React.Fragment />;
-                }}
-              </Query>
-              <Query query={GET_FINDING_HEADER} variables={{ findingId, submissionField: canGetHistoricState }}>
-                {({ data, refetch }: QueryResult<IHeaderQueryResult>): JSX.Element => {
-                  if (_.isUndefined(data) || _.isEmpty(data)) { return <React.Fragment />; }
-
-                  const handleSubmitError: ((error: ApolloError) => void) = (error: ApolloError): void => {
-                    handleGraphQLErrors("An error occurred submitting draft", error);
-                  };
-
-                  const handleSubmitResult: ((result: { submitDraft: { success: boolean } }) => void) = (
-                    result: { submitDraft: { success: boolean } },
-                  ): void => {
-                    if (result.submitDraft.success) {
-                      msgSuccess(
-                        translate.t("project.drafts.success_submit"),
-                        translate.t("project.drafts.title_success"),
-                      );
-                      refetch()
-                        .catch();
-                    }
-                  };
-                  const isDraft: boolean = _.isEmpty(data.finding.releaseDate);
-                  const hasVulns: boolean = _.sum([data.finding.openVulns, data.finding.closedVulns]) > 0;
-                  const hasHistory: boolean = _.isEmpty(data.finding.historicState);
-                  const hasSubmission: boolean = !hasHistory ?
-                    (data.finding.historicState.slice(-1)[0].state === "SUBMITTED") : false;
-
-                  return (
+              {_.isUndefined(alertData) || _.isEmpty(alertData) || alertData.alert.status === 0
+                ? <React.Fragment />
+                : <AlertBox message={alertData.alert.message} />}
                     <React.Fragment>
                       <Row>
                         <Col md={8}>
-                          <h2>{data.finding.title}</h2>
+                          <h2>{headerData.finding.title}</h2>
                         </Col>
                         <Col>
-                          <Mutation
-                            mutation={SUBMIT_DRAFT_MUTATION}
-                            onCompleted={handleSubmitResult}
-                            onError={handleSubmitError}
-                          >
-                            {(submitDraft: MutationFunction, submitResult: MutationResult): JSX.Element => {
-                              const handleSubmitClick: (() => void) = (): void => {
-                                submitDraft({ variables: { findingId } })
-                                  .catch();
-                              };
-
-                              return (
                                 <FindingActions
                                   isDraft={isDraft}
                                   hasVulns={hasVulns}
                                   hasSubmission={hasSubmission}
-                                  loading={submitResult.loading}
+                                  loading={submitting}
                                   onApprove={handleApprove}
                                   onDelete={openDeleteModal}
                                   onReject={handleReject}
-                                  onSubmit={handleSubmitClick}
+                                  onSubmit={submitDraft}
                                 />
-                              );
-                            }}
-                          </Mutation>
                         </Col>
                       </Row>
                       <hr />
                       <div className={style.stickyContainer}>
                         <FindingHeader
-                          openVulns={data.finding.openVulns}
-                          reportDate={data.finding.releaseDate.split(" ")[0]}
-                          severity={data.finding.severityScore}
-                          status={data.finding.state}
+                          openVulns={headerData.finding.openVulns}
+                          reportDate={headerData.finding.releaseDate.split(" ")[0]}
+                          severity={headerData.finding.severityScore}
+                          status={headerData.finding.state}
                         />
                         <ul className={style.tabsContainer}>
                           <li id="infoItem" className={style.tab}>
@@ -218,9 +217,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                         </ul>
                       </div>
                     </React.Fragment>
-                  );
-                }}
-              </Query>
               <div className={style.tabContent}>
                 <Switch>
                   <Route path={`${props.match.path}/description`} render={renderDescription} exact={true} />
