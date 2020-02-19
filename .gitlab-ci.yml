@@ -29,7 +29,7 @@ stages:
       - schedules
 
 .with_nix: &with_nix
-  tags: [autoscaling-large]
+  tags: [autoscaling]
   image: fluidattacks/nix
   script:
     - ./build.sh
@@ -142,6 +142,7 @@ test_api_db_postgres:
 
 test_api_format:
   <<: *test_template
+  tags: [autoscaling-large]
 
 test_api_helper:
   <<: *test_template
