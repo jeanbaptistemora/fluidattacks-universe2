@@ -478,7 +478,7 @@ def generate_complete_report(request):
 
     row_index = row_offset
     for project in projects:
-        findings = integrates_dal.get_findings_released_dynamo(
+        findings = project_domain.get_released_findings(
             project, 'finding_id, finding, treatment')
         for finding in findings:
             vulns = finding_dal.get_vulnerabilities(finding['finding_id'])

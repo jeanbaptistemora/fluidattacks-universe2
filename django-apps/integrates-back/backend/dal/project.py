@@ -7,6 +7,7 @@ import pytz
 from boto3.dynamodb.conditions import Attr, Key
 from django.conf import settings
 
+from backend import util
 from backend.dal import integrates_dal
 from backend.dal.event import TABLE as EVENTS_TABLE
 from backend.dal.helpers import dynamodb
@@ -359,6 +360,27 @@ def get_pending_verification_findings(project_name):
          if finding.get('historic_verification', [{}])[-1].get('status') == 'REQUESTED' and
          finding.get('historic_state', [{}])[-1].get('state') != 'DELETED']
     return pending_to_verify
+
+
+def get_released_findings(project_name, attrs=''):
+    """Get all the findings that has been released."""
+    table = DYNAMODB_RESOURCE.Table('FI_findings')
+    project_name = project_name.lower()
+    filtering_exp = Attr('project_name').eq(project_name) & Attr('releaseDate').exists()
+    if attrs and 'releaseDate' not in attrs:
+        attrs += ', releaseDate'
+    scan_attrs = {}
+    scan_attrs['FilterExpression'] = filtering_exp
+    if attrs:
+        scan_attrs['ProjectionExpression'] = attrs
+    response = table.scan(**scan_attrs)
+    findings = response['Items']
+    while response.get('LastEvaluatedKey'):
+        scan_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
+        response = table.scan(**scan_attrs)
+        findings += response['Items']
+    findings_released = [finding for finding in findings if util.validate_release_date(finding)]
+    return findings_released
 
 
 def get_comments(project_name):

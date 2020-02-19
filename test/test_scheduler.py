@@ -10,7 +10,7 @@ from django.contrib.sessions.middleware import SessionMiddleware
 from jose import jwt
 
 from backend.dal.finding import get_finding
-from backend.dal.integrates_dal import get_findings_released_dynamo
+from backend.domain.project import get_released_findings
 from backend.dal.vulnerability import get_vulnerabilities
 from backend.scheduler import (
     is_not_a_fluidattacks_email, remove_fluid_from_recipients,
@@ -96,7 +96,7 @@ class SchedulerTests(TestCase):
         assert test_data == expected_output
 
     def test_get_status_vulns_by_time_range(self):
-        released_findings = get_findings_released_dynamo('UNITTESTING')
+        released_findings = get_released_findings('UNITTESTING')
         first_day = '2019-01-01 12:00:00'
         last_day = '2019-06-30 23:59:59'
         vulns = get_all_vulns_by_project(released_findings)
@@ -113,7 +113,7 @@ class SchedulerTests(TestCase):
         assert test_data == expected_output
 
     def test_get_accepted_vulns(self):
-        released_findings = get_findings_released_dynamo('UNITTESTING')
+        released_findings = get_released_findings('UNITTESTING')
         first_day = '2019-01-01 12:00:00'
         last_day = '2019-06-30 23:59:59'
         vulns = get_all_vulns_by_project(released_findings)
@@ -160,7 +160,7 @@ class SchedulerTests(TestCase):
         assert test_data == expected_output
 
     def test_get_all_vulns_by_project(self):
-        all_registers = get_findings_released_dynamo('UNITTESTING')
+        all_registers = get_released_findings('UNITTESTING')
         test_data = get_all_vulns_by_project(all_registers)
         assert isinstance(test_data, list)
         for item in test_data:

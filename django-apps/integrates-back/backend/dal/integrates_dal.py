@@ -1,10 +1,8 @@
 # pylint: disable=too-many-lines
 
-from boto3.dynamodb.conditions import Key, Attr
+from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 import rollbar
-
-from backend import util
 
 from backend.dal.helpers import dynamodb
 
@@ -113,47 +111,3 @@ def get_data_dynamo_filter(table_name, filter_exp='', data_attr=''):
         items += response['Items']
 
     return items
-
-
-def get_findings_data_dynamo(filtering_exp, data_attr=''):
-    """Get all the findings of a project."""
-    table = DYNAMODB_RESOURCE.Table('FI_findings')
-    if data_attr:
-        response = table.scan(
-            FilterExpression=filtering_exp,
-            ProjectionExpression=data_attr)
-        items = response['Items']
-        while True:
-            if response.get('LastEvaluatedKey'):
-                response = table.scan(
-                    FilterExpression=filtering_exp,
-                    ProjectionExpression=data_attr,
-                    ExclusiveStartKey=response['LastEvaluatedKey'])
-                items += response['Items']
-            else:
-                break
-    else:
-        response = table.scan(
-            FilterExpression=filtering_exp)
-        items = response['Items']
-        while response.get('LastEvaluatedKey'):
-            response = table.scan(
-                FilterExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-    return items
-
-
-def get_findings_released_dynamo(project, data_attr=''):
-    """Get all the findings that has been released."""
-    filter_key = 'project_name'
-    project_name = project.lower()
-    filtering_exp = Attr(filter_key).eq(project_name) & Attr('releaseDate').exists()
-    if data_attr and 'releaseDate' not in data_attr:
-        data_attr += ', releaseDate'
-    else:
-        # By default it return all the attributes
-        pass
-    findings = get_findings_data_dynamo(filtering_exp, data_attr)
-    findings_released = [i for i in findings if util.validate_release_date(i)]
-    return findings_released

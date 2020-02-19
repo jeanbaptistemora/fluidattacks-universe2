@@ -5,8 +5,7 @@
 import hashlib
 from openpyxl import Workbook
 
-from backend.dal import integrates_dal, finding as finding_dal
-from backend.dal.project import get_all_projects
+from backend.dal import finding as finding_dal, project as project_dal
 
 from __init__ import FI_TEST_PROJECTS
 
@@ -122,14 +121,14 @@ def fill_sheet(sheet, finding_row, vuln_row, row_index):
 
 
 def generate_all_vulns_xlsx(user_email):
-    projects = get_all_projects()
+    projects = project_dal.get_all()
     book = Workbook()
     sheet = book.active
     sheet.append(COLUMNS_FINS + COLUMNS_VULNS)
     row_index = 2
     for project in projects:
         if project not in TEST_PROJECTS:
-            findings = integrates_dal.get_findings_released_dynamo(project)
+            findings = project_dal.get_released_findings(project)
         else:
             findings = []
         for finding in findings:

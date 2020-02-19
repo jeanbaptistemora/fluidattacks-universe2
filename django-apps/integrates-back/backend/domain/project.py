@@ -269,6 +269,10 @@ def get_pending_closing_check(project):
     return pending_closing
 
 
+def get_released_findings(project_name, attrs=''):
+    return project_dal.get_released_findings(project_name, attrs)
+
+
 def get_last_closing_vuln(findings):
     """Get day since last vulnerability closing."""
     closing_dates = []

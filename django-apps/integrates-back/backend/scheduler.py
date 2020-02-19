@@ -163,7 +163,7 @@ def create_register_by_week(project):
     closed = 0
     found = 0
     all_registers = OrderedDict()
-    findings_released = integrates_dal.get_findings_released_dynamo(project)
+    findings_released = project_domain.get_released_findings(project)
     vulns = get_all_vulns_by_project(findings_released)
     if vulns:
         first_day, last_day = get_first_week_dates(vulns)
@@ -244,7 +244,7 @@ def get_new_vulnerabilities():
     for project in projects:
         context = {'updated_findings': list(), 'no_treatment_findings': list()}
         try:
-            finding_requests = integrates_dal.get_findings_released_dynamo(project, fin_attrs)
+            finding_requests = project_domain.get_released_findings(project, fin_attrs)
             for act_finding in finding_requests:
                 finding_url = get_finding_url(act_finding)
                 msj_finding_pending = \
@@ -463,7 +463,7 @@ def send_unsolved_to_all():
 
 
 def get_project_indicators(project):
-    findings = integrates_dal.get_findings_released_dynamo(
+    findings = project_domain.get_released_findings(
         project, 'finding_id, historic_treatment, cvss_temporal')
     indicators = {
         'last_closing_date': project_domain.get_last_closing_vuln(findings),
