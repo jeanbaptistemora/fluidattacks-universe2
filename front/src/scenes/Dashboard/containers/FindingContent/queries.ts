@@ -32,3 +32,11 @@ export const APPROVE_DRAFT_MUTATION: DocumentNode = gql`
     }
   }
 `;
+
+export const REJECT_DRAFT_MUTATION: DocumentNode = gql`
+  mutation SubmitDraftMutation($findingId: String!) {
+    rejectDraft(findingId: $findingId) {
+      success
+    }
+  }
+`;

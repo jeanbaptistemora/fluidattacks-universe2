@@ -51,7 +51,7 @@ const findingActions: React.FC<IFindingActionsProps> = (props: IFindingActionsPr
               const handleClick: (() => void) = (): void => { confirm(() => { onReject(); }); };
 
               return (
-                <Button onClick={handleClick} disabled={!props.hasSubmission}>
+                <Button onClick={handleClick} disabled={!props.hasSubmission || props.loading}>
                   Reject
                 </Button>
               );

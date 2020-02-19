@@ -68,6 +68,8 @@ const enTranslations: Dictionary = {
     acceptation_rejected: "Indefinite acceptation has been rejected",
     access_denied: "Access denied or project not found",
     draft_already_approved: "This finding has already been approved",
+    draft_already_submitted: "This finding has already been submitted",
+    draft_not_submitted: "This finding has not been submitted yet or it might've been rejected by someone else",
     draft_without_vulns: "This finding can not been approved without vulnerabilities",
     error_textsad: "There is an error :(",
     file_size: "The file size must be less than 10MB",

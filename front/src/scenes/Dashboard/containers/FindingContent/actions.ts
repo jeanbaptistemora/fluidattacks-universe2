@@ -15,42 +15,6 @@ export type ThunkDispatcher = ThunkDispatch<{}, undefined, IActionStructure>;
 
 type ThunkResult<T> = ThunkAction<T, {}, undefined, IActionStructure>;
 
-export const rejectDraft: ((draftId: string, projectName: string) => ThunkResult<void>) =
-  (draftId: string, projectName: string): ThunkResult<void> =>
-    (_0: ThunkDispatcher): void => {
-      let gQry: string; gQry = `mutation {
-        rejectDraft(findingId: "${draftId}") {
-          success
-        }
-      }`;
-
-      new Xhr().request(gQry, "An error occurred rejecting draft")
-        .then((response: AxiosResponse) => {
-          const { data } = response.data;
-
-          if (data.rejectDraft.success) {
-            msgSuccess(
-              translate.t("search_findings.finding_rejected", { findingId: draftId }),
-              translate.t("proj_alerts.title_success"));
-            location.reload();
-          }
-        })
-        .catch((error: AxiosError) => {
-          if (error.response !== undefined) {
-            const { errors } = error.response.data;
-
-            switch (errors[0].message) {
-              case "Exception - This draft has already been approved":
-                msgError(translate.t("proj_alerts.draft_already_approved"));
-                break;
-              default:
-                msgError(translate.t("proj_alerts.error_textsad"));
-                rollbar.error(error.message, errors);
-            }
-          }
-        });
-    };
-
 export const deleteFinding: ((findingId: string, projectName: string, justification: string) => ThunkResult<void>) =
   (findingId: string, projectName: string, justification: string): ThunkResult<void> =>
     (dispatch: ThunkDispatcher): void => {

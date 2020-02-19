@@ -13,7 +13,7 @@ import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { NavLink, Redirect, Route, Switch } from "react-router-dom";
-import { Field, submit } from "redux-form";
+import { Field } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { Modal } from "../../../../components/Modal";
 import { dropdownField } from "../../../../utils/forms/fields";
@@ -36,10 +36,12 @@ import { RecordsView } from "../RecordsView/index";
 import { SeverityView } from "../SeverityView/index";
 import { TrackingView } from "../TrackingView/index";
 import {
-  clearFindingState, deleteFinding, rejectDraft, ThunkDispatcher,
+  clearFindingState, deleteFinding, ThunkDispatcher,
 } from "./actions";
 import { default as style } from "./index.css";
-import { APPROVE_DRAFT_MUTATION, GET_FINDING_HEADER, SUBMIT_DRAFT_MUTATION } from "./queries";
+import {
+  APPROVE_DRAFT_MUTATION, GET_FINDING_HEADER, REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION,
+} from "./queries";
 import {
   IFindingContentBaseProps, IFindingContentDispatchProps, IFindingContentProps,
   IFindingContentStateProps, IHeaderQueryResult,
@@ -71,9 +73,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   );
 
   // State management
-  const canGetHistoricState: boolean = _.includes(["analyst", "admin"], props.userRole);
-  const handleReject: (() => void) = (): void => { props.onReject(); };
-
   const [isDeleteModalOpen, setDeleteModalOpen] = React.useState(false);
   const openDeleteModal: (() => void) = (): void => { setDeleteModalOpen(true); };
   const closeDeleteModal: (() => void) = (): void => { setDeleteModalOpen(false); };
@@ -86,6 +85,8 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
     GET_PROJECT_ALERT, {
     variables: { projectName, organization: userOrganization },
   });
+
+  const canGetHistoricState: boolean = _.includes(["analyst", "admin"], props.userRole);
   const { data: headerData, refetch: headerRefetch }: QueryResult<IHeaderQueryResult> = useQuery(
     GET_FINDING_HEADER, {
     variables: { findingId, submissionField: canGetHistoricState },
@@ -109,6 +110,10 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
           msgError(translate.t("project.drafts.error_submit", {
             missingFields: message.split("fields: ")[1],
           }));
+        } else if (message === "Exception - This draft has already been submitted") {
+          msgError(translate.t("proj_alerts.draft_already_submitted"));
+          headerRefetch()
+            .catch();
         } else if (message === "Exception - This draft has already been approved") {
           msgError(translate.t("proj_alerts.draft_already_approved"));
           headerRefetch()
@@ -142,12 +147,51 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
             headerRefetch()
               .catch();
             break;
+          case "Exception - The draft has not been submitted yet":
+            msgError(translate.t("proj_alerts.draft_not_submitted"));
+            headerRefetch()
+              .catch();
+            break;
           case "CANT_APPROVE_FINDING_WITHOUT_VULNS":
             msgError(translate.t("proj_alerts.draft_without_vulns"));
             break;
           default:
             msgError(translate.t("proj_alerts.error_textsad"));
             rollbar.error("An error occurred approving draft", approveError);
+        }
+      });
+    },
+    variables: { findingId },
+  });
+
+  const [rejectDraft, { loading: rejecting }] = useMutation(
+    REJECT_DRAFT_MUTATION, {
+    onCompleted: (result: { rejectDraft: { success: boolean } }): void => {
+      if (result.rejectDraft.success) {
+        msgSuccess(
+          translate.t("search_findings.finding_rejected", { findingId }),
+          translate.t("project.drafts.title_success"),
+        );
+        headerRefetch()
+          .catch();
+      }
+    },
+    onError: (rejectError: ApolloError): void => {
+      rejectError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        switch (message) {
+          case "Exception - This draft has already been approved":
+            msgError(translate.t("proj_alerts.draft_already_approved"));
+            headerRefetch()
+              .catch();
+            break;
+          case "Exception - The draft has not been submitted yet":
+            msgError(translate.t("proj_alerts.draft_not_submitted"));
+            headerRefetch()
+              .catch();
+            break;
+          default:
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred rejecting draft", rejectError);
         }
       });
     },
@@ -182,10 +226,10 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                                   isDraft={isDraft}
                                   hasVulns={hasVulns}
                                   hasSubmission={hasSubmission}
-                                  loading={approving || submitting}
+                                  loading={approving || rejecting || submitting}
                                   onApprove={approveDraft}
                                   onDelete={openDeleteModal}
-                                  onReject={handleReject}
+                                  onReject={rejectDraft}
                                   onSubmit={submitDraft}
                                 />
                         </Col>
@@ -308,10 +352,8 @@ const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFind
     const { findingId, projectName } = ownProps.match.params;
 
     return ({
-      onConfirmDelete: (): void => { dispatch(submit("deleteFinding")); },
       onDelete: (justification: string): void => { dispatch(deleteFinding(findingId, projectName, justification)); },
       onLoad: (): void => { dispatch(loadProjectData(projectName)); },
-      onReject: (): void => { dispatch(rejectDraft(findingId, projectName)); },
       onUnmount: (): void => { dispatch(clearFindingState()); },
     });
   };

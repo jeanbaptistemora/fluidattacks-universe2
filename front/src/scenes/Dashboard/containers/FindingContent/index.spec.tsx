@@ -26,10 +26,8 @@ describe("FindingContent", () => {
       path: "/",
       url: "",
     },
-    onConfirmDelete: functionMock,
     onDelete: functionMock,
     onLoad: functionMock,
-    onReject: functionMock,
     onUnmount: functionMock,
     userRole: "customer",
   };
