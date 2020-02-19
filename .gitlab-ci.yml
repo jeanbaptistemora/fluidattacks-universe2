@@ -262,7 +262,7 @@ deploy-back:
 
 deploy-mobile:
   stage: deploy-app
-  tags: [autoscaling]
+  tags: [autoscaling-large]
   needs: [deps-mobile]
   image: registry.gitlab.com/fluidattacks/integrates/deps-mobile:$CI_COMMIT_REF_NAME
   script:
