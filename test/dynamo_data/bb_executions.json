@@ -1,0 +1,219 @@
+{
+    "bb_executions": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "log": {
+                        "S": "#\n# >>> Decrypting exploits and secrets\n#\n#   gpg: directory '/root/.gnupg' created\n#   gpg: keybox '/root/.gnupg/pubring.kbx' created\n#   gpg: AES256 encrypted data\n#   gpg: encrypted with 1 passphrase\n#\n# >>> Extracting exploits\n#\n# >>> Running Fluid Asserts:\n#\n\n#     ________      _     __   ___                        __\n#    / ____/ /_  __(_)___/ /  /   |  _____________  _____/ /______\n#   / /_  / / / / / / __  /  / /| | / ___/ ___/ _ \\/ ___/ __/ ___/\n#  / __/ / / /_/ / / /_/ /  / ___ |(__  |__  )  __/ /  / /_(__  )\n# /_/   /_/\\__,_/_/\\__,_/  /_/  |_/____/____/\\___/_/   \\__/____/\n#\n# v. 20.2.26999\n#  ___\n# | >>|> fluid\n# |___|  attacks, we hack your software\n#\n---\nfinding: CAPEC.242. Code Injection\n---\nfinding: FIN.S.0026. Enumeracion de Usuarios\n---\nfinding: FIN.H.0043. Cabeceras de seguridad HTTP no establecidas\n---\nfinding: FIN.S.0052. Algoritmo de cifrado inseguro\n---\nfinding: FIN.H.0062. Sesiones concurrentes\n---\nfinding: FIN.H.0064. P\u00e9rdida de trazabilidad\n---\nfinding: FIN.H.0071. C\u00f3digo ofuscado de forma insegura\n---\nfinding: FIN.S.0075. Acceso no autorizado a archivos\n---\nfinding: FIN.S.0075. Acceso no autorizado a archivos\n---\nfinding: FIN.S.0076. Manejo inseguro de sesi\u00f3n\n---\nmethod level stats:\n- CAPEC.242. Code Injection:\n    fluidasserts.utils.generic -> check_function: 0 open, 0 closed, 1 unknown\n- FIN.S.0026. Enumeracion de Usuarios:\n    fluidasserts.utils.generic -> check_function: 0 open, 0 closed, 1 unknown\n- FIN.H.0043. Cabeceras de seguridad HTTP no establecidas:\n    fluidasserts.proto.http -> is_header_access_control_allow_origin_missing: 0 open,\n      0 closed, 1 unknown\n    fluidasserts.proto.http -> is_header_cache_control_missing: 0 open, 0 closed,\n      1 unknown\n    fluidasserts.proto.http -> is_header_content_security_policy_missing: 0 open,\n      0 closed, 1 unknown\n    fluidasserts.proto.http -> is_header_content_type_missing: 0 open, 0 closed, 1\n      unknown\n    fluidasserts.proto.http -> is_header_expires_missing: 0 open, 0 closed, 1 unknown\n    fluidasserts.proto.http -> is_header_hsts_missing: 0 open, 0 closed, 1 unknown\n    fluidasserts.proto.http -> is_header_pragma_missing: 0 open, 0 closed, 1 unknown\n    fluidasserts.proto.http -> is_header_server_present: 0 open, 0 closed, 1 unknown\n    fluidasserts.proto.http -> is_header_x_frame_options_missing: 0 open, 0 closed,\n      1 unknown\n- FIN.S.0052. Algoritmo de cifrado inseguro:\n    fluidasserts.proto.ssl -> is_sslv3_enabled: 0 open, 0 closed, 1 unknown\n    fluidasserts.proto.ssl -> is_tlsv1_enabled: 0 open, 0 closed, 1 unknown\n- FIN.H.0062. Sesiones concurrentes:\n    fluidasserts.utils.generic -> check_function: 0 open, 0 closed, 1 unknown\n- FIN.H.0064. P\u00e9rdida de trazabilidad:\n    fluidasserts.utils.generic -> check_function: 0 open, 0 closed, 1 unknown\n- FIN.H.0071. C\u00f3digo ofuscado de forma insegura:\n    fluidasserts.proto.http -> has_text: 0 open, 0 closed, 1 unknown\n- FIN.S.0075. Acceso no autorizado a archivos:\n    fluidasserts.proto.http -> has_text: 0 open, 0 closed, 2 unknown\n- FIN.S.0076. Manejo inseguro de sesi\u00f3n:\n    fluidasserts.proto.http -> has_not_text: 0 open, 0 closed, 1 unknown\n---\nsummary:\n  test time: 141.1110 seconds\n  checks:\n    total: 19 (100%)\n    errors: 0 (0.00%)\n    unknown: 19 (100.00%)\n    closed: 0 (0.00%)\n    opened: 0 (0.00%)\n  risk:\n    high: 0 (0%)\n    medium: 0 (0%)\n    low: 0 (0%)\n  exploits:\n    total: 10\n#\n# >>> Running Fluid Asserts on non-automatizable findings\n\n#     ________      _     __   ___                        __\n#    / ____/ /_  __(_)___/ /  /   |  _____________  _____/ /______\n#   / /_  / / / / / / __  /  / /| | / ___/ ___/ _ \\/ ___/ __/ ___/\n#  / __/ / / /_/ / / /_/ /  / ___ |(__  |__  )  __/ /  / /_(__  )\n# /_/   /_/\\__,_/_/\\__,_/  /_/  |_/____/____/\\___/_/   \\__/____/\n#\n# v. 20.2.26999\n#  ___\n# | >>|> fluid\n# |___|  attacks, we hack your software\n#\n---\nfinding: CAPEC.242. Code Injection\n---\nfinding: FIN.S.0002. Denegaci\u00f3n de servicio asim\u00e9trica\n---\nfinding: FIN.S.0007. Cross site request forgery\n---\nfinding: FIN.S.0010. Cross site scripting almacenado\n---\nfinding: FIN.S.0032. Suplantaci\u00f3n de usuario\n---\nfinding: FIN.S.0055. Configuraci\u00f3n insegura del servicio  Reverse Tabnabbing\n---\nfinding: FIN.S.0063. Falta de validaci\u00f3n de datos  desbordamiento\n---\nfinding: FIN.S.0068. Tiempo l\u00edmite de inactividad inseguro\n---\nmethod level stats:\n- CAPEC.242. Code Injection:\n    fluidasserts.utils.generic -> check_function: 0 open, 1 closed, 0 unknown\n- FIN.S.0002. Denegaci\u00f3n de servicio asim\u00e9trica:\n    fluidasserts.utils.generic -> check_function: 0 open, 1 closed, 0 unknown\n- FIN.S.0007. Cross site request forgery:\n    fluidasserts.utils.generic -> check_function: 0 open, 1 closed, 0 unknown\n- FIN.S.0010. Cross site scripting almacenado:\n    fluidasserts.utils.generic -> check_function: 0 open, 1 closed, 0 unknown\n- FIN.S.0032. Suplantaci\u00f3n de usuario:\n    fluidasserts.utils.generic -> check_function: 0 open, 1 closed, 0 unknown\n- FIN.S.0055. Configuraci\u00f3n insegura del servicio  Reverse Tabnabbing:\n    fluidasserts.utils.generic -> check_function: 0 open, 1 closed, 0 unknown\n- FIN.S.0063. Falta de validaci\u00f3n de datos  desbordamiento:\n    fluidasserts.utils.generic -> check_function: 0 open, 1 closed, 0 unknown\n- FIN.S.0068. Tiempo l\u00edmite de inactividad inseguro:\n    fluidasserts.utils.generic -> check_function: 0 open, 1 closed, 0 unknown\n---\nsummary:\n  test time: 0.1923 seconds\n  checks:\n    total: 8 (100%)\n    errors: 0 (0.00%)\n    unknown: 0 (0.00%)\n    closed: 8 (100.00%)\n    opened: 0 (0.00%)\n  risk:\n    high: 0 (0%)\n    medium: 0 (0%)\n    low: 0 (0%)\n  exploits:\n    total: 8\n#\n# >>> Running Fluid Asserts on accepted findings\n#       This is informative, this will not break your build\n#\n\n#     ________      _     __   ___                        __\n#    / ____/ /_  __(_)___/ /  /   |  _____________  _____/ /______\n#   / /_  / / / / / / __  /  / /| | / ___/ ___/ _ \\/ ___/ __/ ___/\n#  / __/ / / /_/ / / /_/ /  / ___ |(__  |__  )  __/ /  / /_(__  )\n# /_/   /_/\\__,_/_/\\__,_/  /_/  |_/____/____/\\___/_/   \\__/____/\n#\n# v. 20.2.26999\n#  ___\n# | >>|> fluid\n# |___|  attacks, we hack your software\n#\n---\nfinding: FIN.S.0002. Denegaci\u00f3n de servicio asim\u00e9trica  Cerrar sesi\u00f3n\n---\ncheck: fluidasserts.utils.generic -> check_function\ndescription: Run arbitrary code and return results in Asserts format.\nstatus: OPEN\nvulnerabilities:\n- where: Custom function call\n  specific: Check was found open\ntest_kind: Generic\nrisk: low\n---\nfinding: FIN.S.0006. Ausencia o evasi\u00f3n de autenticaci\u00f3n\n---\ncheck: fluidasserts.utils.generic -> check_function\ndescription: Run arbitrary code and return results in Asserts format.\nstatus: OPEN\nvulnerabilities:\n- where: Custom function call\n  specific: Check was found open\ntest_kind: Generic\nrisk: low\n---\nfinding: FIN.S.0006. Ausencia o evasion de autenticacion\n---\nfinding: FIN.S.0012. Acceso a recursos protegidos sin autenticaci\u00f3n\n---\ncheck: fluidasserts.utils.generic -> check_function\ndescription: Run arbitrary code and return results in Asserts format.\nstatus: OPEN\nvulnerabilities:\n- where: Custom function call\n  specific: Check was found open\ntest_kind: Generic\nrisk: low\n---\nfinding: FIN.S.0012. Acceso a recursos protegidos sin autenticacion - Jfrog\n---\ncheck: fluidasserts.proto.http -> has_text\ndescription: Check if a bad text is present in URL response.\nstatus: OPEN\nvulnerabilities:\n- where: https://test.com/test\n  specific: HTTP/Implementation\ntest_kind: DAST\nrisk: low\n---\nfinding: FIN.S.0012. Acceso a recursos protegidos sin autenticaci\u00f3n - Jfrog\n---\ncheck: fluidasserts.proto.http -> has_text\ndescription: Check if a bad text is present in URL response.\nstatus: OPEN\nvulnerabilities:\n- where: https://test.com/test\n  specific: HTTP/Implementation\ntest_kind: DAST\nrisk: low\n---\nfinding: FIN.S.0012. Acceso a recursos protegidos sin autenticacion\n  Console\n---\nfinding: FIN.S.0013. Referencia insegura a objetos\n---\nfinding: FIN.S.0014. Funcionalidad insegura - Control sesiones concurrentes\n---\nfinding: FIN.S.0014. Funcionalidad insegura  Salida del Sistema\n---\ncheck: fluidasserts.utils.generic -> check_function\ndescription: Run arbitrary code and return results in Asserts format.\nstatus: OPEN\nvulnerabilities:\n- where: Custom function call\n  specific: Check was found open\ntest_kind: Generic\nrisk: low\n---\nfinding: FIN.S.0014. Funcionalidad insegura  Diario\n---\ncheck: fluidasserts.utils.generic -> check_function\ndescription: Run arbitrary code and return results in Asserts format.\nstatus: OPEN\nvulnerabilities:\n- where: Custom function call\n  specific: Check was found open\ntest_kind: Generic\nrisk: low\n---\nfinding: FIN.S.0014. Funcionalidad insegura  M\u00faltiples Usuarios\n---\ncheck: fluidasserts.utils.generic -> check_function\ndescription: Run arbitrary code and return results in Asserts format.\nstatus: OPEN\nvulnerabilities:\n- where: Custom function call\n  specific: Check was found open\ntest_kind: Generic\nrisk: low\n---\nfinding: FIN.S.0022. Uso de canal inseguro\n---\nfinding: FIN.S.0024. Acceso no restringido entre segmentos de red\n---\nfinding: FIN.S.0026. Enumeraci\u00f3n de usuarios\n---\nfinding: FIN.H.0037. Fuga de informaci\u00f3n t\u00e9cnica\n---\nfinding: FIN.S.0042. Cookies generadas de forma insegura\n---\nfinding: FIN.H.0043. Cabeceras de seguridad HTTP no establecidas\n---\nfinding: FIN.S.0047. Enumeracion automatica de informacion\n---\nfinding: FIN.S.0055. Configuraci\u00f3n insegura del servicio  Doble Autorizaci\u00f3n\n---\ncheck: fluidasserts.utils.generic -> check_function\ndescription: Run arbitrary code and return results in Asserts format.\nstatus: OPEN\nvulnerabilities:\n- where: Custom function call\n  specific: Check was found open\ntest_kind: Generic\nrisk: low\n---\nfinding: FIN.S.0063. Falta de validaci\u00f3n de datos\n---\ncheck: fluidasserts.utils.generic -> check_function\ndescription: Run arbitrary code and return results in Asserts format.\nstatus: OPEN\nvulnerabilities:\n- where: Custom function call\n  specific: Check was found open\ntest_kind: Generic\nrisk: low\n---\nfinding: FIN.S.0068. Tiempo l\u00edmite de inactividad inseguro\n---\ncheck: fluidasserts.utils.generic -> check_function\ndescription: Run arbitrary code and return results in Asserts format.\nstatus: OPEN\nvulnerabilities:\n- where: Custom function call\n  specific: Check was found open\ntest_kind: Generic\nrisk: low\n---\nfinding: FIN.H.0071. C\u00f3digo ofuscado de forma insegura\n---\nmethod level stats:\n- FIN.S.0002. Denegaci\u00f3n de servicio asim\u00e9trica  Cerrar sesi\u00f3n:\n    fluidasserts.utils.generic -> check_function: 1 open, 0 closed, 0 unknown\n- FIN.S.0006. Ausencia o evasi\u00f3n de autenticaci\u00f3n:\n    fluidasserts.utils.generic -> check_function: 1 open, 0 closed, 0 unknown\n- FIN.S.0006. Ausencia o evasion de autenticacion:\n    fluidasserts.proto.http -> has_not_text: 0 open, 0 closed, 1 unknown\n- FIN.S.0012. Acceso a recursos protegidos sin autenticaci\u00f3n:\n    fluidasserts.utils.generic -> check_function: 1 open, 0 closed, 0 unknown\n- FIN.S.0012. Acceso a recursos protegidos sin autenticacion - Jfrog:\n    fluidasserts.proto.http -> has_text: 1 open, 0 closed, 0 unknown\n- FIN.S.0012. Acceso a recursos protegidos sin autenticaci\u00f3n - Jfrog:\n    fluidasserts.proto.http -> has_text: 1 open, 0 closed, 0 unknown\n- FIN.S.0012. Acceso a recursos protegidos sin autenticacion:\n    fluidasserts.proto.http -> has_text: 0 open, 0 closed, 15 unknown\n- FIN.S.0013. Referencia insegura a objetos:\n    fluidasserts.proto.http -> is_resource_accessible: 0 open, 0 closed, 1 unknown\n- FIN.S.0014. Funcionalidad insegura - Control sesiones concurrentes:\n    fluidasserts.utils.generic -> check_function: 0 open, 0 closed, 1 unknown\n- FIN.S.0014. Funcionalidad insegura  Salida del Sistema:\n    fluidasserts.utils.generic -> check_function: 1 open, 0 closed, 0 unknown\n- FIN.S.0014. Funcionalidad insegura:\n    fluidasserts.utils.generic -> check_function: 1 open, 0 closed, 0 unknown\n- FIN.S.0014. Funcionalidad insegura  M\u00faltiples Usuarios:\n    fluidasserts.utils.generic -> check_function: 1 open, 0 closed, 0 unknown\n- FIN.S.0022. Uso de canal inseguro:\n    fluidasserts.proto.http -> is_not_https_required: 0 open, 0 closed, 1 unknown\n- FIN.S.0024. Acceso no restringido entre segmentos de red:\n    fluidasserts.proto.tcp -> is_port_open: 0 open, 1 closed, 0 unknown\n- FIN.S.0026. Enumeraci\u00f3n de usuarios:\n    fluidasserts.proto.http -> has_text: 0 open, 0 closed, 1 unknown\n- FIN.H.0037. Fuga de informaci\u00f3n t\u00e9cnica:\n    fluidasserts.proto.http -> has_multiple_text: 0 open, 0 closed, 1 unknown\n- FIN.S.0042. Cookies generadas de forma insegura:\n    fluidasserts.format.cookie -> has_not_secure_set: 0 open, 0 closed, 1 unknown\n- FIN.H.0043. Cabeceras de seguridad HTTP no establecidas:\n    fluidasserts.proto.http -> is_header_access_control_allow_origin_missing: 0 open,\n      0 closed, 1 unknown\n- FIN.S.0047. Enumeracion automatica de informacion:\n    fluidasserts.proto.http -> has_multiple_text: 0 open, 0 closed, 1 unknown\n- FIN.S.0055. Configuraci\u00f3n insegura del servicio  Doble Autorizaci\u00f3n:\n    fluidasserts.utils.generic -> check_function: 1 open, 0 closed, 0 unknown\n- FIN.S.0063. Falta de validaci\u00f3n de datos:\n    fluidasserts.utils.generic -> check_function: 1 open, 0 closed, 0 unknown\n- FIN.S.0068. Tiempo l\u00edmite de inactividad inseguro:\n    fluidasserts.utils.generic -> check_function: 1 open, 0 closed, 0 unknown\n- FIN.H.0071. C\u00f3digo ofuscado de forma insegura:\n    fluidasserts.proto.http -> has_text: 0 open, 0 closed, 1 unknown\n---\nsummary:\n  test time: 190.1978 seconds\n  checks:\n    total: 37 (100%)\n    errors: 0 (0.00%)\n    unknown: 25 (67.57%)\n    closed: 1 (2.70%)\n    opened: 11 (29.73%)\n  risk:\n    high: 0 (0.00%)\n    medium: 0 (0.00%)\n    low: 11 (100.00%)\n  exploits:\n    total: 23\n#\n# >>> Finishing with exit code 0\n#\n# >>> Uploading logs to S3\n          },"
+                    },
+                    "date": {
+                        "S": "2020-02-19T19:31:18.000000+0000"
+                    },
+                    "kind": {
+                        "S": "dynamic"
+                    },
+                    "execution_id": {
+                        "S": "33e5d863252940edbfb144ede56d56cf"
+                    },
+                    "subscription": {
+                        "S": "unittesting"
+                    },
+                    "git_origin": {
+                        "S": "unable to retrieve"
+                    },
+                    "git_branch": {
+                        "S": "unable to retrieve"
+                    },
+                    "vulnerabilities": {
+                        "M": {
+                            "accepted_exploits": {
+                                "L": [
+                                    {
+                                        "M": {
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "where": {
+                                                "S": "HTTP/Implementation"
+                                            },
+                                            "who": {
+                                                "S": "https://test.com/test"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "kind": {
+                                                "S": "DAST"
+                                            },
+                                            "where": {
+                                                "S": "HTTP/Implementation"
+                                            },
+                                            "who": {
+                                                "S": "https://test.com/test"
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "vulnerability_count_mocked_exploits": {
+                                "N": "0"
+                            },
+                            "vulnerability_count_exploits": {
+                                "N": "0"
+                            },
+                            "vulnerability_count_accepted_exploits": {
+                                "N": "2"
+                            },
+                            "exploits": {
+                                "L": []
+                            },
+                            "mocked_exploits": {
+                                "L": []
+                            }
+                        }
+                    },
+                    "exit_code": {
+                        "S": "0"
+                    },
+                    "git_repo": {
+                        "S": "unable to retrieve"
+                    },
+                    "strictness": {
+                        "S": "strict"
+                    },
+                    "git_commit": {
+                        "S": "unable to retrieve"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "log": {
+                        "S": "# \n# >>> Decrypting exploits and secrets\n# \n#   gpg: directory '/root/.gnupg' created\n#   gpg: keybox '/root/.gnupg/pubring.kbx' created\n#   gpg: AES256 encrypted data\n#   gpg: encrypted with 1 passphrase\n# \n# >>> Extracting exploits\n# \n# >>> Running Fluid Asserts:\n# \n\n#     ________      _     __   ___                        __\n#    / ____/ /_  __(_)___/ /  /   |  _____________  _____/ /______\n#   / /_  / / / / / / __  /  / /| | / ___/ ___/ _ \\/ ___/ __/ ___/\n#  / __/ / / /_/ / / /_/ /  / ___ |(__  |__  )  __/ /  / /_(__  )\n# /_/   /_/\\__,_/_/\\__,_/  /_/  |_/____/____/\\___/_/   \\__/____/\n#\n# v. 20.2.26999\n#  ___\n# | >>|> fluid\n# |___|  attacks, we hack your software\n#\n---\nfinding: '[Skipped] FIN.S.0008 (it does not apply to this repo)'\n---\nfinding: '[Skipped] FIN.S.0016 (it does not apply to this repo)'\n---\nfinding: FIN.S.0028. Archivos temporales inseguros\n---\nfinding: '[Skipped] FIN.S.0034 (it does not apply to this repo)'\n---\nfinding: FIN.S.0052. Algoritmo de cifrado inseguro\n---\nfinding: FIN.H.0061. Errores sin trazabilidad\n---\nfinding: FIN.0073. Condicionales sin opcion por defecto\n---\nfinding: '[Skipped] FIN.0073 (it does not apply to this repo)'\n---\nmethod level stats:\n- '[Skipped] FIN.S.0008 (it does not apply to this repo)': {}\n- '[Skipped] FIN.S.0016 (it does not apply to this repo)': {}\n- FIN.S.0028. Archivos temporales inseguros:\n    fluidasserts.lang.core -> file_exists: 0 open, 1 closed, 0 unknown\n- '[Skipped] FIN.S.0034 (it does not apply to this repo)': {}\n- FIN.S.0052. Algoritmo de cifrado inseguro:\n    fluidasserts.lang.csharp -> uses_sha1_hash: 0 open, 1 closed, 0 unknown\n- FIN.H.0061. Errores sin trazabilidad:\n    fluidasserts.lang.csharp -> swallows_exceptions: 0 open, 1 closed, 0 unknown\n- FIN.0073. Condicionales sin opcion por defecto: {}\n- '[Skipped] FIN.0073 (it does not apply to this repo)': {}\n---\nsummary:\n  test time: 0.6227 seconds\n  checks:\n    total: 3 (100%)\n    errors: 0 (0.00%)\n    unknown: 0 (0.00%)\n    closed: 3 (100.00%)\n    opened: 0 (0.00%)\n  risk:\n    high: 0 (0%)\n    medium: 0 (0%)\n    low: 0 (0%)\n  exploits:\n    total: 7\n# \n# >>> Running Fluid Asserts on accepted findings\n#       This is informative, this will not break your build\n# \n\n#     ________      _     __   ___                        __\n#    / ____/ /_  __(_)___/ /  /   |  _____________  _____/ /______\n#   / /_  / / / / / / __  /  / /| | / ___/ ___/ _ \\/ ___/ __/ ___/\n#  / __/ / / /_/ / / /_/ /  / ___ |(__  |__  )  __/ /  / /_(__  )\n# /_/   /_/\\__,_/_/\\__,_/  /_/  |_/____/____/\\___/_/   \\__/____/\n#\n# v. 20.2.26999\n#  ___\n# | >>|> fluid\n# |___|  attacks, we hack your software\n#\n---\nfinding: FIN.S.0001. Inyecci\u00f3n SQL\n---\ncheck: fluidasserts.lang.core -> has_any_text\ndescription: Check if any on a list of bad text is present in given source file.\nstatus: OPEN\nvulnerabilities:\n- where: folder/folder/file1.cs\n  specific: '55'\ntest_kind: SAST\nrisk: low\n---\nfinding: 'skipped in this repo: FIN.S.0006. Ausencia o evasion de autenticacion'\n---\nfinding: FIN.S.0011. Uso de componentes con vulnerabilidades conocidas\n---\ncheck: fluidasserts.lang.core -> has_any_text\ndescription: Check if any on a list of bad text is present in given source file.\nstatus: OPEN\nvulnerabilities:\n- where: folder/folder/file2.cs\n  specific: '3'\ntest_kind: SAST\nrisk: low\n---\nfinding: FIN.S.0020. Ausencia de cifradode informacion confidencial\n---\ncheck: fluidasserts.lang.core -> has_any_text\ndescription: Check if any on a list of bad text is present in given source file.\nstatus: OPEN\nvulnerabilities:\n- where: folder/folder/file3.cs\n  specific: 8, 9\ntest_kind: SAST\nrisk: low\n---\nfinding: '[Skipped] FIN.S.0038 (it does not apply to this repo)'\n---\nfinding: '[Skipped] FIN.S.0042 (it does not apply to this repo)'\n---\nfinding: FIN.H.0058.  Depuracion habilitada en produccion\n---\ncheck: fluidasserts.lang.core -> has_any_text\ndescription: Check if any on a list of bad text is present in given source file.\nstatus: OPEN\nvulnerabilities:\n- where: folder/folder/file4.cs\n  specific: '10'\ntest_kind: SAST\nrisk: low\n---\nfinding: '[Skipped] FIN.H.0060 (it does not apply to this repo)'\n---\nfinding: '[Skipped] FIN.S.0063 (it does not apply to this repo)'\n---\nfinding: FIN.H.0074. Codigo funcional comentado\n---\nfinding: '[Skipped] FIN.H.0074 (it does not apply to this repo)'\n---\nfinding: '[Skipped] FIN.H.0079 (it does not apply to this repo)'\n---\nmethod level stats:\n- FIN.S.0001. Inyecci\u00f3n SQL:\n    fluidasserts.lang.core -> has_any_text: 1 open, 0 closed, 0 unknown\n- skipped in this repo FIN.S.0006. Ausencia o evasion de autenticacion: {}\n- FIN.S.0011. Uso de componentes con vulnerabilidades conocidas:\n    fluidasserts.lang.core -> has_any_text: 1 open, 0 closed, 0 unknown\n- FIN.S.0020. Ausencia de cifradode informacion confidencial:\n    fluidasserts.lang.core -> has_any_text: 1 open, 0 closed, 0 unknown\n- '[Skipped] FIN.S.0038 (it does not apply to this repo)': {}\n- '[Skipped] FIN.S.0042 (it does not apply to this repo)': {}\n- FIN.H.0058.  Depuracion habilitada en produccion:\n    fluidasserts.lang.core -> has_any_text: 1 open, 0 closed, 0 unknown\n- '[Skipped] FIN.H.0060 (it does not apply to this repo)': {}\n- '[Skipped] FIN.S.0063 (it does not apply to this repo)': {}\n- FIN.H.0074. Codigo funcional comentado: {}\n- '[Skipped] FIN.H.0074 (it does not apply to this repo)': {}\n- '[Skipped] FIN.H.0079 (it does not apply to this repo)': {}\n---\nsummary:\n  test time: 0.3911 seconds\n  checks:\n    total: 4 (100%)\n    errors: 0 (0.00%)\n    unknown: 0 (0.00%)\n    closed: 0 (0.00%)\n    opened: 4 (100.00%)\n  risk:\n    high: 0 (0.00%)\n    medium: 0 (0.00%)\n    low: 4 (100.00%)\n  exploits:\n    total: 11\n# \n# >>> Finishing with exit code 0\n# \n# >>> Uploading logs to S3\n\n"
+                    },
+                    "date": {
+                        "S": "2020-02-19T19:04:33.000000+0000"
+                    },
+                    "kind": {
+                        "S": "static"
+                    },
+                    "execution_id": {
+                        "S": "a125217504d447ada2b81da3e4bdab0e"
+                    },
+                    "subscription": {
+                        "S": "unittesting"
+                    },
+                    "git_origin": {
+                        "S": "https://test.com/test"
+                    },
+                    "git_branch": {
+                        "S": "unable to retrieve"
+                    },
+                    "vulnerabilities": {
+                        "M": {
+                            "accepted_exploits": {
+                                "L": [
+                                    {
+                                        "M": {
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "where": {
+                                                "S": "55"
+                                            },
+                                            "who": {
+                                                "S": "Repository/folder/folder/file.cs"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "where": {
+                                                "S": "3"
+                                            },
+                                            "who": {
+                                                "S": "Repository/folder/folder/file2.cs"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "where": {
+                                                "S": "8"
+                                            },
+                                            "who": {
+                                                "S": "Repository/folder/folder/file3.cs"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "where": {
+                                                "S": "9"
+                                            },
+                                            "who": {
+                                                "S": "Repository/folder/folder/file3.cs"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "M": {
+                                            "kind": {
+                                                "S": "SAST"
+                                            },
+                                            "where": {
+                                                "S": "10"
+                                            },
+                                            "who": {
+                                                "S": "Repository/folder/folder/file4.cs"
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "vulnerability_count_mocked_exploits": {
+                                "N": "0"
+                            },
+                            "vulnerability_count_exploits": {
+                                "N": "0"
+                            },
+                            "vulnerability_count_accepted_exploits": {
+                                "N": "5"
+                            },
+                            "exploits": {
+                                "L": []
+                            },
+                            "mocked_exploits": {
+                                "L": []
+                            }
+                        }
+                    },
+                    "exit_code": {
+                        "S": "0"
+                    },
+                    "git_repo": {
+                        "S": "Repository"
+                    },
+                    "strictness": {
+                        "S": "strict"
+                    },
+                    "git_commit": {
+                        "S": "23c3c76e7fe3bf9f2838f66e7b34c1358db2ff41"
+                    }
+                }
+            }
+        }
+    ]
+}

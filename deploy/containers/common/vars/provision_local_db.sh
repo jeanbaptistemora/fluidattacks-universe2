@@ -100,6 +100,20 @@ aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --key-schema AttributeName=project_name,KeyType=HASH \
 --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
 
+aws dynamodb create-table \
+    --endpoint-url \
+        http://localhost:8022 \
+    --table-name \
+        bb_executions \
+    --attribute-definitions \
+        AttributeName=subscription,AttributeType=S \
+        AttributeName=execution_id,AttributeType=S \
+    --key-schema \
+        AttributeName=subscription,KeyType=HASH \
+        AttributeName=execution_id,KeyType=RANGE \
+    --provisioned-throughput \
+        ReadCapacityUnits=1,WriteCapacityUnits=1
+
 for mock_file in test/dynamo_data/*.json; do
     aws dynamodb batch-write-item --endpoint-url http://localhost:8022 \
     --request-items file://${mock_file}
