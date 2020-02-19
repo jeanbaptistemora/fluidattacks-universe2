@@ -127,6 +127,7 @@ danger:
 deploy:
   tags: [autoscaling]
   stage: deployment
+  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
     - if curl --fail -Lo artifacts.zip
         "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/jobs/artifacts/${CI_COMMIT_REF_NAME}/download?job=${CI_JOB_NAME}&job_token=${CI_JOB_TOKEN}"; then
@@ -182,7 +183,7 @@ apply_infra_secret_management:
 new_version_mail:
   tags: [autoscaling]
   stage: postdeploy
-  image: registry.gitlab.com/fluidattacks/web:base
+  image: registry.gitlab.com/fluidattacks/web/builder:$CI_COMMIT_REF_NAME
   script:
     - source ci-scripts/helpers/others.sh
     - source <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
