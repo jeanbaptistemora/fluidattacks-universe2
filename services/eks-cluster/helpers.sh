@@ -9,9 +9,6 @@ get_cluster_name() {
 
   set -e
 
-  # Import functions
-  . toolbox/terraform.sh
-
   local STARTING_DIR
 
   STARTING_DIR=$(pwd)

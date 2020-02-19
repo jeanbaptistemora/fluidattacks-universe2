@@ -781,7 +781,7 @@ function job_user_provision_web_dev_rotate_keys {
   local gitlab_key_id_name='DEV_AWS_ACCESS_KEY_ID'
   local gitlab_secret_key_name='DEV_AWS_SECRET_ACCESS_KEY'
   local gitlab_masked='true'
-  local gitlab_protected='true'
+  local gitlab_protected='false'
 
       helper_user_provision_rotate_keys \
         "${terraform_dir}" \

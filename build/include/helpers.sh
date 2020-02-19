@@ -1,5 +1,9 @@
 # shellcheck shell=bash
 
+source "${srcExternalGitlabVariables}"
+source "${srcExternalSops}"
+source "${srcDotDotToolboxOthers}"
+
 function helper_indent_2 {
   sed 's/^/  /g'
 }
@@ -196,13 +200,9 @@ function helper_user_provision_rotate_keys {
 }
 
 function helper_deploy_integrates {
-  local integrates_id
-
-  . toolbox/others.sh
-  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
+  local integrates_id='4620828'
 
       aws_login \
-  &&  integrates_id='4620828' \
   &&  sops_env \
         secrets-prod.yaml \
         default \

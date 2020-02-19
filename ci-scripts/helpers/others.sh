@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 
 deploy_integrates() {
-  local integrates_id
+  local integrates_id='4620828'
 
   . toolbox/others.sh
   . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
 
       aws_login \
-  &&  integrates_id='4620828' \
   &&  sops_env secrets-prod.yaml default INTEGRATES_PIPELINE_TOKEN \
   &&  curl \
         -X POST \
