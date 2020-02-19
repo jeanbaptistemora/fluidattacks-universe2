@@ -71,25 +71,6 @@ def weekly_report_dynamo(
         return False
 
 
-def get_data_dynamo(table_name, primary_name_key, primary_key):
-    """Get atributes data."""
-    table = DYNAMODB_RESOURCE.Table(table_name)
-    primary_key = primary_key.lower()
-    filter_key = primary_name_key
-    filtering_exp = Key(filter_key).eq(primary_key)
-    response = table.query(KeyConditionExpression=filtering_exp)
-    items = response['Items']
-    while True:
-        if response.get('LastEvaluatedKey'):
-            response = table.query(
-                KeyConditionExpression=filtering_exp,
-                ExclusiveStartKey=response['LastEvaluatedKey'])
-            items += response['Items']
-        else:
-            break
-    return items
-
-
 def get_data_dynamo_filter(table_name, filter_exp='', data_attr=''):
     """Get atributes data."""
     table = DYNAMODB_RESOURCE.Table(table_name)

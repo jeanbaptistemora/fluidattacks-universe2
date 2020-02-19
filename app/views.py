@@ -304,10 +304,7 @@ def format_where(where, vulnerabilities):
 
 
 def format_release_date(finding):
-    primary_keys = ["finding_id", finding["id"]]
-    table_name = "FI_findings"
-    finding_dynamo = integrates_dal.get_data_dynamo(
-        table_name, primary_keys[0], primary_keys[1])
+    finding_dynamo = finding_domain.get_finding(finding['findingId'])
     if finding_dynamo:
         if finding_dynamo[0].get("releaseDate"):
             finding["releaseDate"] = finding_dynamo[0].get("releaseDate")
