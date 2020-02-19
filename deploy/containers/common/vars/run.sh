@@ -26,7 +26,9 @@ if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
     crontab /tmp/mycron
     service cron restart
 
-    env | grep -e ^AWS -e ^CI_COMMIT_REF_NAME | sed -e 's/^/export /g' >> /root/.profile
+    echo "export AWS_ACCESS_KEY_ID=\"$AWS_ACCESS_KEY_ID\"" >> /root/.profile
+    echo "export AWS_SECRET_ACCESS_KEY=\"$AWS_SECRET_ACCESS_KEY\"" >> /root/.profile
+    echo "export CI_COMMIT_REF_NAME=\"$CI_COMMIT_REF_NAME\"" >> /root/.profile
 fi
 
 /etc/init.d/td-agent restart
