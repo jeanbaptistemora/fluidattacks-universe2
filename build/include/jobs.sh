@@ -4,7 +4,7 @@ source "${srcIncludeHelpers}"
 source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 
-function job_run_dynamodb_local {
+function job_serve_dynamodb_local {
   local port=8022
 
       echo '[INFO] Launching DynamoDB local' \
@@ -24,4 +24,10 @@ function job_run_dynamodb_local {
   &&  echo "[INFO] DynamoDB is ready and listening on port ${port}!" \
   &&  echo "[INFO] Hit Ctrl+C to exit" \
   &&  fg %1
+}
+
+function job_serve_front {
+      pushd front \
+    &&  npm start \
+  &&  popd
 }

@@ -10,6 +10,7 @@ in
     customPkgs.python
     pkgs.awscli
     pkgs.git
+    pkgs.nodejs
     pkgs.openjdk
     pkgs.unzip
   ]
