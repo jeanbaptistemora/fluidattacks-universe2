@@ -30,7 +30,8 @@ function job_serve_dynamodb_local {
 
 function job_serve_front {
       pushd front \
-    &&  npm start \
+    &&  npm install \
+    &&  npx ts-node devserver.ts \
   &&  popd
 }
 
@@ -42,25 +43,13 @@ function job_serve_redis {
 }
 
 function job_serve_back_dev {
-  export JWT_TOKEN
-  export AWS_ACCESS_KEY_ID
-  export AWS_SECRET_ACCESS_KEY
-  export AWS_DEFAULT_REGION
   local app='fluidintegrates.asgi:application'
   local host='0.0.0.0'
   local port='8080'
   local root_path='/integrates'
   local workers='4'
 
-      JWT_TOKEN=$(helper_get_gitlab_var JWT_TOKEN) \
-  &&  AWS_ACCESS_KEY_ID=$(helper_get_gitlab_var DEV_AWS_ACCESS_KEY_ID) \
-  &&  AWS_SECRET_ACCESS_KEY=$(helper_get_gitlab_var DEV_AWS_SECRET_ACCESS_KEY) \
-  &&  AWS_DEFAULT_REGION='us-east-1' \
-  &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
-  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}" \
-  &&  aws configure set region 'us-east-1' \
-  &&  echo '[INFO] Exporting development secrets' \
-  &&  sops_vars development \
+      helper_set_dev_secrets \
   &&  echo "[INFO] Serving back on port ${port}" \
   &&  uvicorn \
         --host="${host}" \
@@ -70,4 +59,31 @@ function job_serve_back_dev {
         --ssl-keyfile="${srcDerivationsCerts}/fluidla.key" \
         --workers="${workers}" \
         "${app}"
+}
+
+function job_lint_back {
+      prospector -F -s high -u django -i node_modules app \
+  &&  prospector -F -s high -u django -i node_modules django-apps \
+  &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
+  &&  prospector -F -s veryhigh lambda
+}
+
+function job_test_back {
+      echo '[INFO] Remember to restart the DynamoDB database on each execution' \
+  &&  helper_set_dev_secrets \
+  &&  pytest \
+        -n auto \
+        --ds=fluidintegrates.settings \
+        --dist=loadscope \
+        --verbose \
+        --maxfail=20 \
+        --cov=fluidintegrates \
+        --cov=app \
+        --cov="${pyPkgIntegratesBack}/site-packages/back-end" \
+        --cov-report term \
+        --cov-report html:build/coverage/html \
+        --cov-report xml:build/coverage/results.xml \
+        --cov-report annotate:build/coverage/annotate \
+        --disable-warnings \
+        test/
 }
