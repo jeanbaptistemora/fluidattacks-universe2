@@ -153,11 +153,11 @@ msgstr "We hack your software"
 
 #: templates/base.html:121
 msgid "Header-title-2"
-msgstr "Zero false positives"
+msgstr "PENTEST"
 
 #: templates/base.html:122
 msgid "Header-msg"
-msgstr "Expert intelligence + effective automation"
+msgstr "FOR YOUR SOFTWARE DEVELOPMENT CYCLE"
 
 #: templates/base.html:124
 msgid "Header-item-1"

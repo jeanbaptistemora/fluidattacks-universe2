@@ -18,6 +18,8 @@ $blue: rgba(83, 150, 234, 1);
 $blue2: rgba(25, 116, 186, 1);
 $middleblack: rgba(85, 85, 85, 1);
 $greenyellow: rgba(173, 255, 47, 1);
+$button-hover: rgba(255, 52, 53, 1);
+$button-red: rgba(191, 38, 38, 1);
 //Monokai theme colors
 $codeblack: rgba(39, 40, 43, 1);
 $codebrown: rgba(117, 113, 94, 1);
@@ -45,6 +47,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 .w-32 { width: 32%; }
 .montsy { font-family: 'Montserrat'; }
 .sans-pro { font-family: 'Source Sans Pro'; }
+.roboto { font-family: 'Roboto', sans-serif; }
+.neue { font-family: neue-haas-grotesk-display, sans-serif; }
 .mono { font-family: 'Overpass Mono', monospace; }
 .mono2 { font-family: monospaced; }
 .c-black { color: $black; }
@@ -70,13 +74,14 @@ $codeyellow: rgba(230, 219, 116, 1);
 .fluid-bullet { list-style-image: url('../../images/bullet2.png');}
 .bullet-inside { list-style-position: inside; }
 .h-banner { height: 15em; }
-.w-banner { width: 20em; }
+.w-banner { width: 30em; }
 .minh-nav { min-height: 5em; }
 .h-search { height: 2.5em; }
 .w6 { width: 19em; }
 .w-maxcontent { width: max-content; }
 .mt8 { margin-top: 20rem; }
-.ptdemo { padding-top: 6rem; }
+.demobt { background-color: $button-red;
+  &:hover { background-color: $button-hover;} }
 .rep-bd { border: .063rem solid $fluid-light-gray; }
 .rep-shadow { box-shadow: -.188rem -.125rem .3rem $fluid-light-gray; }
 .wr-bdr { border-bottom-right-radius: .938rem; }
@@ -89,6 +94,9 @@ $codeyellow: rgba(230, 219, 116, 1);
 .ba-hidden { border-style: hidden; }
 .tooltip { &:hover { .tooltip-text { visibility: visible; } } }
 .anchor-sign { &::before { content: '\0023'; } }
+.banner-bg { background-image: url('../../images/cover-main.png'); }
+.banner-title { background-image: url('../../images/pentest.svg'); }
+.b-max { font-weight: 999; }
 
 
 // Tachyons custom responsive classes
