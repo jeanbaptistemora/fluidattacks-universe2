@@ -8,7 +8,6 @@ from boto3.dynamodb.conditions import Attr, Key
 from django.conf import settings
 
 from backend import util
-from backend.dal import integrates_dal
 from backend.dal.event import TABLE as EVENTS_TABLE
 from backend.dal.helpers import dynamodb
 from backend.dal.finding import TABLE as FINDINGS_TABLE

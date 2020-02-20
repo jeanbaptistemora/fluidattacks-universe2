@@ -26,29 +26,6 @@ def add_finding_comment_dynamo(finding_id, email, comment_data):
         return False
 
 
-def remove_role_to_project_dynamo(project_name, user_email, role):
-    """Remove user role in a project."""
-    table = DYNAMODB_RESOURCE.Table('FI_projects')
-    try:
-        response = table.update_item(
-            Key={
-                'project_name': project_name.lower(),
-            },
-            UpdateExpression='DELETE #rol :val1',
-            ExpressionAttributeNames={
-                '#rol': role
-            },
-            ExpressionAttributeValues={
-                ':val1': set([user_email])
-            }
-        )
-        resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
-    except ClientError:
-        rollbar.report_exc_info()
-        return False
-
-
 def weekly_report_dynamo(
         init_date, finish_date, registered_users, logged_users, companies):
     """ Save the number of registered and logged users weekly. """
@@ -68,25 +45,3 @@ def weekly_report_dynamo(
     except ClientError:
         rollbar.report_exc_info()
         return False
-
-
-def get_data_dynamo_filter(table_name, filter_exp='', data_attr=''):
-    """Get atributes data."""
-    table = DYNAMODB_RESOURCE.Table(table_name)
-    scan_attrs = {}
-    if data_attr:
-        scan_attrs['ProjectionExpression'] = data_attr
-    else:
-        # ProjectionExpression not especified
-        pass
-    if filter_exp:
-        scan_attrs['FilterExpression'] = filter_exp
-
-    response = table.scan(**scan_attrs)
-    items = response['Items']
-    while response.get('LastEvaluatedKey'):
-        scan_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
-        response = table.scan(**scan_attrs)
-        items += response['Items']
-
-    return items

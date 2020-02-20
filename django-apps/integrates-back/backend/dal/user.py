@@ -2,7 +2,6 @@
 import rollbar
 from boto3.dynamodb.conditions import Attr, Key, Not
 from botocore.exceptions import ClientError
-from backend.dal import integrates_dal
 from backend.dal.helpers import dynamodb
 
 from __init__ import FI_TEST_PROJECTS

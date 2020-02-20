@@ -1,6 +1,6 @@
 import rollbar
 from botocore.exceptions import ClientError
-from backend.dal import integrates_dal, project as project_dal
+from backend.dal import project as project_dal
 from backend.dal.helpers import dynamodb
 
 TABLE = 'fi_project_names'
