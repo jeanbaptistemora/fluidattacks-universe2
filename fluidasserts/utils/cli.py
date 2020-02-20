@@ -954,11 +954,28 @@ def exec_terraform_package(
             'ec2.is_associate_public_ip_address_enabled',
             'ec2.uses_default_security_group',
         ],
+        ('elb', 'ELB (Elastic Load Balancer)'): [
+            'elb.has_access_logging_disabled',
+        ],
+        ('fsx', 'FSx (Amazon FSx file systems)'): [
+            'fsx.has_unencrypted_volumes',
+        ],
         ('iam', 'IAM (Identity and Access Management)'): [
             'iam.is_policy_miss_configured',
+            'iam.has_wildcard_resource_on_write_action'
+        ],
+        ('kms', 'KMS (Key Management Service)'): [
+            'kms.is_key_rotation_absent_or_disabled',
         ],
         ('rds', 'RDS (Relational Database Service)'): [
             'rds.has_not_termination_protection',
+            'rds.has_unencrypted_storage',
+            'rds.has_not_automated_backups',
+            'rds.is_publicly_accessible',
+            'rds.is_not_inside_a_db_subnet_group',
+        ],
+        ('s3', 'S3 (Simple Storage Service)'): [
+            's3.has_not_private_access_control',
         ],
     }
 
