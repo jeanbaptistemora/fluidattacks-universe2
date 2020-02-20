@@ -8,6 +8,7 @@ from backend.decorators import (
 from backend.domain import project as project_domain
 from backend.entity.me import Me
 from backend.entity.alert import Alert
+from backend.entity.break_build import BreakBuildExecutions
 from backend.entity.event import Event
 from backend.entity.resource import Resource
 from backend.entity.user import User
@@ -46,6 +47,9 @@ class Query(ObjectType):
 
     project = Field(Project, project_name=String(required=True))
 
+    break_build_executions = Field(BreakBuildExecutions,
+                                   project_name=String(required=True))
+
     # pylint: disable=invalid-name
     me = Field(Me)
 
@@ -57,6 +61,15 @@ class Query(ObjectType):
         """ Resolve for alert """
         del info
         return Alert(project_name, organization)
+
+    @require_login
+    @new_require_role
+    @require_project_access
+    def resolve_break_build_executions(self, info, project_name):
+        """Resolve for break build execution."""
+        del info
+        project_name = project_name.lower()
+        return BreakBuildExecutions(project_name)
 
     @require_login
     @new_require_role
