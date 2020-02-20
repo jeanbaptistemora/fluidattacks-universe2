@@ -8,7 +8,6 @@ export interface IFindingContentStateProps {
 }
 
 export interface IFindingContentDispatchProps {
-  onDelete(justification: string): void;
   onLoad(): void;
   onUnmount(): void;
 }

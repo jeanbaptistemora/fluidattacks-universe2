@@ -36,11 +36,11 @@ import { RecordsView } from "../RecordsView/index";
 import { SeverityView } from "../SeverityView/index";
 import { TrackingView } from "../TrackingView/index";
 import {
-  clearFindingState, deleteFinding, ThunkDispatcher,
+  clearFindingState, ThunkDispatcher,
 } from "./actions";
 import { default as style } from "./index.css";
 import {
-  APPROVE_DRAFT_MUTATION, GET_FINDING_HEADER, REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION,
+  APPROVE_DRAFT_MUTATION, DELETE_FINDING_MUTATION, GET_FINDING_HEADER, REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION,
 } from "./queries";
 import {
   IFindingContentBaseProps, IFindingContentDispatchProps, IFindingContentProps,
@@ -76,9 +76,6 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   const [isDeleteModalOpen, setDeleteModalOpen] = React.useState(false);
   const openDeleteModal: (() => void) = (): void => { setDeleteModalOpen(true); };
   const closeDeleteModal: (() => void) = (): void => { setDeleteModalOpen(false); };
-  const handleDelete: ((values: { justification: string }) => void) = (values: { justification: string }): void => {
-    props.onDelete(values.justification);
-  };
 
   // GraphQL operations
   const { data: alertData }: QueryResult = useQuery(
@@ -198,6 +195,28 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
     variables: { findingId },
   });
 
+  const [deleteFinding, { loading: deleting }] = useMutation(
+    DELETE_FINDING_MUTATION, {
+    onCompleted: (result: { deleteFinding: { success: boolean } }): void => {
+      if (result.deleteFinding.success) {
+        msgSuccess(
+          translate.t("search_findings.finding_deleted", { findingId }),
+          translate.t("project.drafts.title_success"),
+        );
+        location.hash = `#!/project/${projectName}/findings`;
+      }
+    },
+    onError: (rejectError: ApolloError): void => {
+      msgError(translate.t("proj_alerts.error_textsad"));
+      rollbar.error("An error occurred deleting finding", rejectError);
+    },
+  });
+
+  const handleDelete: ((values: { justification: string }) => void) = (values: { justification: string }): void => {
+    deleteFinding({ variables: { findingId, justification: values.justification } })
+      .catch();
+  };
+
   if (_.isUndefined(headerData) || _.isEmpty(headerData)) { return <React.Fragment />; }
 
   const isDraft: boolean = _.isEmpty(headerData.finding.releaseDate);
@@ -226,7 +245,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
                                   isDraft={isDraft}
                                   hasVulns={hasVulns}
                                   hasSubmission={hasSubmission}
-                                  loading={approving || rejecting || submitting}
+                                  loading={approving || deleting || rejecting || submitting}
                                   onApprove={approveDraft}
                                   onDelete={openDeleteModal}
                                   onReject={rejectDraft}
@@ -349,10 +368,9 @@ const mapStateToProps: MapStateToProps<IFindingContentStateProps, IFindingConten
 
 const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFindingContentBaseProps> =
   (dispatch: ThunkDispatcher, ownProps: IFindingContentBaseProps): IFindingContentDispatchProps => {
-    const { findingId, projectName } = ownProps.match.params;
+    const { projectName } = ownProps.match.params;
 
     return ({
-      onDelete: (justification: string): void => { dispatch(deleteFinding(findingId, projectName, justification)); },
       onLoad: (): void => { dispatch(loadProjectData(projectName)); },
       onUnmount: (): void => { dispatch(clearFindingState()); },
     });

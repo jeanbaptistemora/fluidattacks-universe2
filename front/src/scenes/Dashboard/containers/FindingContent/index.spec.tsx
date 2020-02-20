@@ -26,7 +26,6 @@ describe("FindingContent", () => {
       path: "/",
       url: "",
     },
-    onDelete: functionMock,
     onLoad: functionMock,
     onUnmount: functionMock,
     userRole: "customer",
