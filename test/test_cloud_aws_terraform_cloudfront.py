@@ -20,3 +20,12 @@ def test_serves_content_over_http():
     assert result.get_vulns_number() == 3
     assert cloudfront.serves_content_over_http(SAFE).is_closed()
     assert cloudfront.serves_content_over_http(NOT_EXISTS).is_unknown()
+
+
+def test_serves_content_over_insecure_protocols():
+    """test cloudfront.serves_content_over_insecure_protocols."""
+    result = cloudfront.serves_content_over_insecure_protocols(VULN)
+    assert result.is_open()
+    assert result.get_vulns_number() == 2
+    assert cloudfront.serves_content_over_insecure_protocols(SAFE).is_closed()
+    assert cloudfront.serves_content_over_insecure_protocols(NOT_EXISTS).is_unknown()

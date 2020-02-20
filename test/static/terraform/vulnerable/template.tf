@@ -347,8 +347,11 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     domain_name = "${aws_s3_bucket.b.bucket_regional_domain_name}"
     origin_id   = "${local.s3_origin_id}"
 
-    s3_origin_config {
-      origin_access_identity = "origin-access-identity/cloudfront/ABCDEFG1234567"
+    custom_origin_config {
+      origin_protocol_policy = "http-only"
+      http_port              = "80"
+      https_port             = "443"
+      origin_ssl_protocols   = ["TLSv1"]
     }
   }
 
@@ -443,7 +446,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    cloudfront_default_certificate = false
+    minimum_protocol_version = "TLSv1"
   }
 }
 
