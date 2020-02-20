@@ -186,6 +186,13 @@ resource "aws_dynamodb_table" "project_access" {
     type = "S"
   }
 
+  global_secondary_index {
+    name               = "project_access_users"
+    hash_key           = "project_name"
+    projection_type    = "INCLUDE"
+    non_key_attributes = ["has_access", "project_name", "responsibility"]
+  }
+
   point_in_time_recovery {
     enabled = true
   }

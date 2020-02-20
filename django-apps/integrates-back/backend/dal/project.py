@@ -167,12 +167,19 @@ def get_description(project):
 def get_users(project, active=True):
     """Get users of a project."""
     project_name = project.lower()
-    filtering_exp = Key('project_name').eq(project_name)
-    response = TABLE_ACCESS.scan(FilterExpression=filtering_exp)
+    key_condition = Key('project_name').eq(project_name)
+    projection_expression = 'user_email, has_access, project_name, responsibility'
+    response = TABLE_ACCESS.query(
+        IndexName='project_access_users',
+        KeyConditionExpression=key_condition,
+        ProjectionExpression=projection_expression
+    )
     users = response['Items']
     while response.get('LastEvaluatedKey'):
-        response = TABLE_ACCESS.scan(
-            FilterExpression=filtering_exp,
+        response = TABLE_ACCESS.query(
+            IndexName='project_access_users',
+            KeyConditionExpression=key_condition,
+            ProjectionExpression=projection_expression,
             ExclusiveStartKey=response['LastEvaluatedKey']
         )
         users += response['Items']

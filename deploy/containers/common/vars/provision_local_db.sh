@@ -54,6 +54,10 @@ aws dynamodb create-table --endpoint-url http://localhost:8022 \
 --key-schema \
     AttributeName=user_email,KeyType=HASH \
     AttributeName=project_name,KeyType=RANGE \
+--global-secondary-indexes \
+    IndexName=project_access_users,\
+KeySchema=["{AttributeName=project_name,KeyType=HASH}"],\
+Projection="{ProjectionType=KEYS_ONLY}",ProvisionedThroughput="{ReadCapacityUnits=10,WriteCapacityUnits=10}" \
 --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
 
 aws dynamodb create-table --endpoint-url http://localhost:8022 \
