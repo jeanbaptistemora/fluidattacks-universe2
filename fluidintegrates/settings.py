@@ -44,7 +44,11 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", "fluid.la",
                  "fluidattacks.com", "192.168.200.100.xip.io",
                  "192.168.200.100", ".integrates.env.fluidattacks.com"]
 
-ALLOWED_HOSTS += subprocess.check_output(['hostname', '-i']).strip().split()
+if DEBUG:
+    # Needed for mobile development so it can connect through LAN
+    LOCAL_IPS = subprocess.check_output(
+        ['/bin/hostname', '--all-ip-addresses'], encoding='UTF-8')
+    ALLOWED_HOSTS += LOCAL_IPS.strip().split()
 
 # Application definition
 
