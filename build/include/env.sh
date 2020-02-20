@@ -45,3 +45,11 @@ function prepare_python_packages {
     PYTHONPATH="${PYTHONPATH}:${!pkg}/site-packages"
   done < "${TEMP_FILE1}"
 }
+
+function prepare_dynamodb_local {
+      echo '[INFO] Unzipping DynamoDB local' \
+  &&  mkdir -p './.DynamoDB' \
+  &&  pushd './.DynamoDB' \
+    &&  unzip -u "${srcExternalDynamoDbLocal}" \
+  && popd
+}

@@ -8,5 +8,8 @@ let
 in
   [
     customPkgs.python
+    pkgs.awscli
     pkgs.git
+    pkgs.openjdk
+    pkgs.unzip
   ]
