@@ -343,3 +343,21 @@ class EvidenceNotFound(Exception):
         """ Constructor """
         msg = 'Exception - Evidence not found'
         super(EvidenceNotFound, self).__init__(msg)
+
+
+class VulnAlreadyClosed(Exception):
+    """Exception to control vulnerability updates"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - The vulnerability has already been closed'
+        super(VulnAlreadyClosed, self).__init__(msg)
+
+
+class VulnNotFound(Exception):
+    """Exception to control vulnerability data availability"""
+
+    def __init__(self):
+        """ Constructor """
+        msg = 'Exception - Vulnerability not found'
+        super(VulnNotFound, self).__init__(msg)
