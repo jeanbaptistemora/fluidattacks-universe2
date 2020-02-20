@@ -411,11 +411,7 @@ export const formatDrafts: ((dataset: IDraftsDataset) => IDraftsDataset) =
 export const handleErrors: ((errorText: string, errors: readonly GraphQLError[]) => void) =
   (errorText: string, errors: readonly GraphQLError[]): void => {
     errors.map((err: GraphQLError) => {
-      if (_.includes(
-        ["Access denied", "Exception - Project does not exist", "Exception - Finding not found"],
-        err.message)) {
-        msgError(translate.t("proj_alerts.access_denied"));
-      } else if (_.includes("Error in file", err.message)) {
+      if (_.includes("Error in file", err.message)) {
         msgError(translate.t("search_findings.tab_description.errorFileVuln"));
       } else if (_.includes("Exception - Email is not valid", err.message)) {
         msgError(translate.t("validations.email"));

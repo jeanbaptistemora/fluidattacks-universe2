@@ -6,6 +6,8 @@ import { createUploadLink } from "apollo-upload-client";
 import { GraphQLError } from "graphql";
 import _ from "lodash";
 import { getEnvironment } from "./context";
+import { msgError } from "./notifications";
+import translate from "./translations/translate";
 
 const getCookie: (name: string) => string = (name: string): string => {
   let cookieValue: string;
@@ -34,7 +36,7 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
     },
   },
   link: ApolloLink.from([
-    onError(({ graphQLErrors, networkError }: ErrorResponse): void => {
+    onError(({ graphQLErrors, networkError, response }: ErrorResponse): void => {
       if (networkError !== undefined) {
         const { statusCode } = (networkError as { statusCode: number });
 
@@ -46,6 +48,15 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
         graphQLErrors.forEach(({ message }: GraphQLError) => {
           if (_.includes(["Login required", "Exception - Invalid Authorization"], message)) {
             location.assign("/integrates/logout");
+          } else if (_.includes(
+            ["Access denied", "Exception - Project does not exist", "Exception - Finding not found"],
+            message)
+          ) {
+            if (response !== undefined) {
+              response.data = undefined;
+              response.errors = undefined;
+            }
+            msgError(translate.t("proj_alerts.access_denied"));
           }
         });
       }
