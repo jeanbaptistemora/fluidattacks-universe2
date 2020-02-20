@@ -377,37 +377,6 @@ fluidasserts_post:
   except:
     - schedules
 
-vault_backup:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: rotation
-  script:
-    - aws s3 cp
-        s3://$FS_S3_BUCKET_NAME/terraform/kubeconfig
-        $HOME/.kube/config
-    - cd infrastructure/eks/manifests/vault/
-    - kubectl apply -f backup-operator.yaml
-    - kubectl rollout status deploy/vault-etcd-operator-etcd-backup-operator
-    - envsubst < credentials > creds
-        && mv creds credentials
-    - envsubst < config > conf
-        && mv conf config
-    - kubectl create secret generic aws
-        --from-file=credentials
-        --from-file=config
-    - export DATE=$(date +%Y-%m-%d)
-    - envsubst < backup.yaml > backup
-        && mv backup backup.yaml
-    - kubectl apply -f backup.yaml
-    - while ! aws s3 ls s3://$VAULT_S3_BUCKET | grep backup-$(date +%Y-%m-%d);
-        do sleep 2;
-      done
-    - kubectl delete -f backup.yaml
-    - kubectl delete secret aws
-    - kubectl delete -f backup-operator.yaml
-    - rm credentials
-  <<: *in_schedule_nightly_build
-
 analytics-sync-timedoctor:
   image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
   tags: [autoscaling]
