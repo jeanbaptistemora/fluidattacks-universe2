@@ -64,7 +64,7 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
     variables: { projectName, organization: userOrganization },
   });
 
-  const canGetHistoricState: boolean = _.includes(["analyst", "admin"], props.userRole);
+  const canGetHistoricState: boolean = _.includes(["analyst", "admin"], userRole);
   const { data: headerData, refetch: headerRefetch }: QueryResult<IHeaderQueryResult> = useQuery(
     GET_FINDING_HEADER, {
     variables: { findingId, submissionField: canGetHistoricState },

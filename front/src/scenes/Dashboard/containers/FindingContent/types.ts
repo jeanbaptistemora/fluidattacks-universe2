@@ -1,16 +1,6 @@
 import { RouteComponentProps } from "react-router";
 
-export type IFindingContentBaseProps = Pick<RouteComponentProps<{ findingId: string; projectName: string }>, "match">;
-
-export interface IFindingContentStateProps {
-  alert?: string;
-  userRole: string;
-}
-
-export interface IFindingContentDispatchProps {
-  onLoad(): void;
-  onUnmount(): void;
-}
+export type IFindingContentProps = RouteComponentProps<{ findingId: string; projectName: string }>;
 
 export interface IHeaderQueryResult {
   finding: {
@@ -28,6 +18,3 @@ export interface IHeaderQueryResult {
     title: string;
   };
 }
-
-export type IFindingContentProps = IFindingContentBaseProps &
-  (IFindingContentStateProps & IFindingContentDispatchProps);

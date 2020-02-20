@@ -15,20 +15,29 @@ import { IFindingContentProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
-const functionMock: (() => void) = (): void => undefined;
-
 describe("FindingContent", () => {
 
   const mockProps: IFindingContentProps = {
+    history: {
+      action: "PUSH",
+      block: (): (() => void) => (): void => undefined,
+      createHref: (): string => "",
+      go: (): void => undefined,
+      goBack: (): void => undefined,
+      goForward: (): void => undefined,
+      length: 1,
+      listen: (): (() => void) => (): void => undefined,
+      location: { hash: "", pathname: "/", search: "", state: {} },
+      push: (): void => undefined,
+      replace: (): void => undefined,
+    },
+    location: { hash: "", pathname: "/", search: "", state: {} },
     match: {
       isExact: true,
-      params: { findingId: "438679960", projectName: "TEST" },
+      params: { findingId: "438679960", projectName: "unittesting" },
       path: "/",
       url: "",
     },
-    onLoad: functionMock,
-    onUnmount: functionMock,
-    userRole: "customer",
   };
 
   const mocks: ReadonlyArray<MockedResponse> = [
