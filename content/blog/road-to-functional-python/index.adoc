@@ -21,8 +21,7 @@ than having a hobby that we are passionate about,
 that makes us feel in love all the time
 and makes us want to return to it.
 Better, the results obtained while practicing your hobby,
-without any intention,
-becomes a global phenomenon,
+without any intention, becomes a global phenomenon,
 used by large and small companies
 becoming in the source of income for many.
 This is how Python came about,
@@ -41,7 +40,7 @@ Before starting, I must warn you that this trip is not for beginners.
 You will not be able to face functional Python
 and survive if you do not know the basic Python.
 If this is your case, do not feel bad,
-you can not walk if you don't even know how to stand,
+you can't walk if you don't even know how to stand,
 so go and scrape your knees in a Python playground.
 Also, get some context by reading
 [button]#link:/web/blog/why-we-go-functional/[Why we go functional?]#,
@@ -62,7 +61,6 @@ procedural, functional, among others.
 There are also libraries with functional features
 such as link:https://docs.python.org/2/library/itertools.html[+itertools+] or
 link:https://docs.python.org/2/library/functools.html[+functools+]
-(of which we will go into details later)
 that are included in the basic installation.
 
 == First baby steps
@@ -70,9 +68,9 @@ that are included in the basic installation.
 One of the main characteristics of the functional paradigm
 is the possibility to have methods that receive or return code.
 This is difficult to understand in some languages
-but in Python, things are easier, for example:
+but in Python things are easier, for example:
 
-.First approximation for basic operations in functional Python.
+.First approximation for basic operations in functional Python
 [source, python]
 ----
 def calc (f, x, y):
@@ -95,17 +93,17 @@ in the functional paradigm is that
 there are no iterative cycles,
 so if you have ever programmed in some object-oriented language
 you maybe think that without iterative cycles
-you can not do much or
-you can not generate short and clean code.
+you can't do much or
+you can't generate short and clean code.
 You are right, partially.
-The functional paradigm does not have something
+The functional paradigm doesn't have something
 like a +for+ or a +while+ loop,
 but it does have functions that
 can replace the behavior of the loops.
 
 Below is a classic example of iterative loops in Python:
 
-.[[increment-example]]Increment in list elements example.
+.[[increment-example]]Increment in list elements example
 [source, python]
 ----
 integer_list = [7, 8, 9]
@@ -126,7 +124,7 @@ If we want to do that in a functional way
 then we can use +map+, a method that applies
 a custom function to all the elements of a list.
 
-.Increment in list elements with _map_.
+.Increment in list elements with _map_
 [source, python]
 ----
 integer_list = [7, 8, 9]
@@ -142,7 +140,7 @@ which creates a new list with the elements
 that return true when certain function
 is applied to a list, for example:
 
-._Filter_ method example.
+._Filter_ method example
 [source, python]
 ----
 integer_list = [7, 8, 9]
@@ -154,25 +152,23 @@ filter(lambda x: greater_than(x, 7), integer_list) # [8, 9]
 ----
 
 These are really useful and simple functions to start coding
-but sadly, also have some limitations (maybe you noticed them),
-for example, functions to apply to the lists can not
+but sadly also have some limitations,
+for example, functions to apply to the lists cannot
 have more than one input argument.
 This is not a problem.
 Soon we will study even more powerful functional methods.
 
 == Take a break
 
-How do you feel until now?
 You've come a long way, congratulations!
-You have almost all the knowledge to enter
-the big leagues of the big leagues,
+You have almost all the knowledge to enter the big leagues,
 you just have to learn something else:
 Lambda expressions, described as one line functions
-(perhaps you know them in other languages as _anonymous functions_).
+(_anonymous functions_ in other languages).
 Below we rewrite the <<increment-example, increment in list elements example>>
 using lambda expressions.
 
-.Increment in list elements with lambda expression.
+.Increment in list elements with lambda expression
 [source, python]
 ----
 integer_list = [7, 8, 9]
@@ -194,7 +190,7 @@ but now they come with the whole family and on steroids.
 
 Some of the representative methods of this library are:
 
-.Example of some itertools methods.
+.Example of some itertools methods
 [source, python]
 ----
 import itertools
@@ -237,9 +233,8 @@ and functions that create functions,
 currying allows a partially execution of a function,
 making runtime more efficient by avoiding the calculation
 of every operation from the beginning.
-Below is an example of the purpose of currying.
 
-.Example of currying in Python.
+.Example of currying in Python
 [source, python]
 ----
 def curried_product (a):
@@ -258,21 +253,15 @@ mult(4)
 
 == Learning to fly
 
-How about taking our trip to the next level?
-We will learn something more sophisticated
+Now we'll learn something more sophisticated
 and exclusive than all of the above.
-I will teach you
-link:https://docs.python.org/2/library/functools.html[+functools+],
+I will teach you link:https://docs.python.org/2/library/functools.html[+functools+],
 a module with higher-level functions,
-created with the specific purpose
-of making Python more functional.
-This module, like
-link:https://docs.python.org/2/library/itertools.html[+itertools+],
+created with the specific purpose of making Python more functional.
+This module, like link:https://docs.python.org/2/library/itertools.html[+itertools+],
 is in the core of Python.
 
-Some examples of how to use it:
-
-.Example of some functools methods.
+.Example of some functools methods
 [source, python]
 ----
 import functools
@@ -302,9 +291,7 @@ bar.__doc__  # 'This is a foo attribute'
 
 You can even find fantastic external libraries
 that will help you to raise your code to a higher functional level.
-Some of these external libraries are
-link:https://pypi.org/project/PyMonad/[+PyMonad+]
-and link:https://pydash.readthedocs.io/en/latest/[+Pydash+].
+Some of them are link:https://pypi.org/project/PyMonad/[+PyMonad+] and link:https://pydash.readthedocs.io/en/latest/[+Pydash+].
 
 == Limit is in your mind
 
@@ -316,8 +303,8 @@ Python is a powerful language driven
 by thousands of people around the world
 who use their free time to create
 and improve code for all of us to use.
-That's why, daily, the limitations of Python
-are disappearing, leaving the limits only in our mind.
+That's why, daily, the limitations of Python are disappearing,
+leaving the limits only in our mind.
 
 .What some developers think about multiparadigm coding.
 image::python-meme.png["Meme about functional Python"]
@@ -330,24 +317,22 @@ we are afraid of the new
 but from time to time there are some specimens
 who open their minds and take risks,
 those are who drive humanity to a superior level.
-Why not take the risk using functional Python then? Nothing to lose.
-We actually take the risk with functional Python
+Why not take the risk using functional Python then?
+We actually took the risk with functional Python
 and the result was one of our most awesome and acclaimed products:
 [button]#link:https://fluidattacks.com/asserts/[Asserts]#.
 
 == Conclusions
 
-Python is, without doubt, a very useful language
+Python is a very useful language
 that collects the best of different worlds.
-Due to its multiparadigm nature, it is not a problem
-if we experiment with different paradigms in the same code
+Due to its multiparadigm nature, it's not a problem
+if we experiment with different paradigms in the same code,
 and for that reason we should not limit ourselves to just one.
-Each paradigm has advantages
-and disadvantages compared to the others.
+Each paradigm has advantages and disadvantages.
 
-Possibly your code in Python is object oriented
-and that's fine, it is a great opportunity
-to analyze your code and see what you can transform
+Possibly your code in Python is object oriented and that's fine,
+it's a great opportunity to analyze your code and see what you can transform
 or create with any of the tools that
 you have seen here or that you can learn by yourself.
 I already told you, the limit is in your mind.
@@ -357,6 +342,6 @@ and change a bit the way you see the world
 and the way you solve problems.
 Nothing more grateful than a good code.
 A code that over the years continues efficient
-and useful, that does not lose validity.
+and useful, that doesn't lose validity.
 Our advice is to take a deep breath
 and get on the road to functional Python.
