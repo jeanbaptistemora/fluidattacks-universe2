@@ -68,7 +68,6 @@ Requisitos para lanzar el ambiente desde GitlabCI:
   * Variable de serves GL_GROUP con el nombre del grupo de Gitlab donde estan los proyectos y variables globales antes mencionadas
   * Variable en serves FI_SSH_KEY de prueba, solo se necesita para realizar el test de terraform
   * Variables de serves DOCKER_PASS y DOCKER_USER con credenciales para el registry de Gitlab
-  * Variable VAULT para la credencial del ansible-vault
   * Variables del texto de los archivos XML de los SSO para admin (SSO_XML) y finance (SSO_FINANCE_XML)
   * ARN del snapshot de la base de datos en la variable de serves SNAP_ID
 

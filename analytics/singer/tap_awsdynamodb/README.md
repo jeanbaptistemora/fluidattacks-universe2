@@ -23,11 +23,11 @@ python3 -m pip install --user .
 rm -rf /logs/*
 
 echo '{ "AWS_ACCESS_KEY_ID":"'$( \
-        vault read -field=aws_dynamodb_access_key secret/serves \
+        sops --aws-profile default -d --extract '["aws_dynamodb_access_key"]' secrets-prod.yaml \
      )'", "AWS_SECRET_ACCESS_KEY":"'$( \
-        vault read -field=aws_dynamodb_secret_key secret/serves \
+        sops --aws-profile default -d --extract '["aws_dynamodb_secret_key"]' secrets-prod.yaml \
      )'", "AWS_DEFAULT_REGION":"'$( \
-        vault read -field=aws_dynamodb_default_region secret/serves \
+        sops --aws-profile default -d --extract '["aws_dynamodb_default_region"]' secrets-prod.yaml \
     )'"}' > /tap_secret.json
 
 tap-awsdynamodb \
