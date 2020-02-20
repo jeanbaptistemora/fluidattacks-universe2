@@ -216,86 +216,84 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
               {_.isUndefined(alertData) || _.isEmpty(alertData) || alertData.alert.status === 0
                 ? <React.Fragment />
                 : <AlertBox message={alertData.alert.message} />}
-                    <React.Fragment>
-                      <Row>
-                        <Col md={8}>
-                          <h2>{headerData.finding.title}</h2>
-                        </Col>
-                        <Col>
-                                <FindingActions
-                                  isDraft={isDraft}
-                                  hasVulns={hasVulns}
-                                  hasSubmission={hasSubmission}
-                                  loading={approving || deleting || rejecting || submitting}
-                                  onApprove={approveDraft}
-                                  onDelete={openDeleteModal}
-                                  onReject={rejectDraft}
-                                  onSubmit={submitDraft}
-                                />
-                        </Col>
-                      </Row>
-                      <hr />
-                      <div className={style.stickyContainer}>
-                        <FindingHeader
-                          openVulns={headerData.finding.openVulns}
-                          reportDate={headerData.finding.releaseDate.split(" ")[0]}
-                          severity={headerData.finding.severityScore}
-                          status={headerData.finding.state}
-                        />
-                        <ul className={style.tabsContainer}>
-                          <li id="infoItem" className={style.tab}>
-                            <NavLink activeClassName={style.active} to={`${props.match.url}/description`}>
-                              <i className="icon pe-7s-note2" />
-                              &nbsp;{translate.t("search_findings.tab_description.tab_title")}
-                            </NavLink>
-                          </li>
-                          <li id="cssv2Item" className={style.tab}>
-                            <NavLink activeClassName={style.active} to={`${props.match.url}/severity`}>
-                              <i className="icon pe-7s-calculator" />
-                              &nbsp;{translate.t("search_findings.tab_severity.tab_title")}
-                            </NavLink>
-                          </li>
-                          <li id="evidenceItem" className={style.tab}>
-                            <NavLink activeClassName={style.active} to={`${props.match.url}/evidence`}>
-                              <i className="icon pe-7s-photo" />
-                              &nbsp;{translate.t("search_findings.tab_evidence.tab_title")}
-                            </NavLink>
-                          </li>
-                          <li id="exploitItem" className={style.tab}>
-                            <NavLink activeClassName={style.active} to={`${props.match.url}/exploit`}>
-                              <i className="icon pe-7s-file" />
-                              &nbsp;{translate.t("search_findings.tab_exploit.tab_title")}
-                            </NavLink>
-                          </li>
-                          <li id="trackingItem" className={style.tab}>
-                            <NavLink activeClassName={style.active} to={`${props.match.url}/tracking`}>
-                              <i className="icon pe-7s-graph1" />
-                              &nbsp;{translate.t("search_findings.tab_tracking.tab_title")}
-                            </NavLink>
-                          </li>
-                          <li id="recordsItem" className={style.tab}>
-                            <NavLink activeClassName={style.active} to={`${props.match.url}/records`}>
-                              <i className="icon pe-7s-notebook" />
-                              &nbsp;{translate.t("search_findings.tab_records.tab_title")}
-                            </NavLink>
-                          </li>
-                          <li id="commentItem" className={style.tab}>
-                            <NavLink activeClassName={style.active} to={`${props.match.url}/comments`}>
-                              <i className="icon pe-7s-comment" />
-                              &nbsp;{translate.t("search_findings.tab_comments.tab_title")}
-                            </NavLink>
-                          </li>
-                          {_.includes(["admin", "analyst"], userRole) ?
-                            <li id="observationsItem" className={style.tab}>
-                              <NavLink activeClassName={style.active} to={`${props.match.url}/observations`}>
-                                <i className="icon pe-7s-note" />
-                                &nbsp;{translate.t("search_findings.tab_observations.tab_title")}
-                              </NavLink>
-                            </li>
-                            : undefined}
-                        </ul>
-                      </div>
-                    </React.Fragment>
+              <Row>
+                <Col md={8}>
+                  <h2>{headerData.finding.title}</h2>
+                </Col>
+                <Col>
+                  <FindingActions
+                    isDraft={isDraft}
+                    hasVulns={hasVulns}
+                    hasSubmission={hasSubmission}
+                    loading={approving || deleting || rejecting || submitting}
+                    onApprove={approveDraft}
+                    onDelete={openDeleteModal}
+                    onReject={rejectDraft}
+                    onSubmit={submitDraft}
+                  />
+                </Col>
+              </Row>
+              <hr />
+              <div className={style.stickyContainer}>
+                <FindingHeader
+                  openVulns={headerData.finding.openVulns}
+                  reportDate={headerData.finding.releaseDate.split(" ")[0]}
+                  severity={headerData.finding.severityScore}
+                  status={headerData.finding.state}
+                />
+                <ul className={style.tabsContainer}>
+                  <li id="infoItem" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`${props.match.url}/description`}>
+                      <i className="icon pe-7s-note2" />
+                      &nbsp;{translate.t("search_findings.tab_description.tab_title")}
+                    </NavLink>
+                  </li>
+                  <li id="cssv2Item" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`${props.match.url}/severity`}>
+                      <i className="icon pe-7s-calculator" />
+                      &nbsp;{translate.t("search_findings.tab_severity.tab_title")}
+                    </NavLink>
+                  </li>
+                  <li id="evidenceItem" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`${props.match.url}/evidence`}>
+                      <i className="icon pe-7s-photo" />
+                      &nbsp;{translate.t("search_findings.tab_evidence.tab_title")}
+                    </NavLink>
+                  </li>
+                  <li id="exploitItem" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`${props.match.url}/exploit`}>
+                      <i className="icon pe-7s-file" />
+                      &nbsp;{translate.t("search_findings.tab_exploit.tab_title")}
+                    </NavLink>
+                  </li>
+                  <li id="trackingItem" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`${props.match.url}/tracking`}>
+                      <i className="icon pe-7s-graph1" />
+                      &nbsp;{translate.t("search_findings.tab_tracking.tab_title")}
+                    </NavLink>
+                  </li>
+                  <li id="recordsItem" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`${props.match.url}/records`}>
+                      <i className="icon pe-7s-notebook" />
+                      &nbsp;{translate.t("search_findings.tab_records.tab_title")}
+                    </NavLink>
+                  </li>
+                  <li id="commentItem" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`${props.match.url}/comments`}>
+                      <i className="icon pe-7s-comment" />
+                      &nbsp;{translate.t("search_findings.tab_comments.tab_title")}
+                    </NavLink>
+                  </li>
+                  {_.includes(["admin", "analyst"], userRole) ?
+                    <li id="observationsItem" className={style.tab}>
+                      <NavLink activeClassName={style.active} to={`${props.match.url}/observations`}>
+                        <i className="icon pe-7s-note" />
+                        &nbsp;{translate.t("search_findings.tab_observations.tab_title")}
+                      </NavLink>
+                    </li>
+                    : undefined}
+                </ul>
+              </div>
               <div className={style.tabContent}>
                 <Switch>
                   <Route path={`${props.match.path}/description`} render={renderDescription} exact={true} />
