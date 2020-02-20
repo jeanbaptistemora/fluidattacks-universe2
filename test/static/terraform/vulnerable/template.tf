@@ -86,9 +86,9 @@ resource "aws_iam_policy" "policy1" {
       ]
     },
     {
-      "Action": "ecr:*",
+      "Action": "logs:*",
       "Effect": "Allow",
-      "Resource": "*"
+      "Resource": "arn:aws:logs:*:*:*:*"
     },
     {
       "Effect": "Allow",

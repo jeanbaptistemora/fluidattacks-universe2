@@ -24,7 +24,7 @@ def _is_generic_policy_miss_configured(  # noqa: MC0001
         policy_document: dict, policy_type: str, path: str, name: str) -> list:
     vulnerabilities: list = []
     wildcard_action: Pattern = re.compile(r'^(\*)|(\w+:\*)$')
-    wildcard_resource: Pattern = re.compile(r'^(\*)$')
+    wildcard_resource: Pattern = re.compile(r'^(((\w|\*)+:)*\*)$')
     vulnerable_entities: List[str] = []
 
     for statement in helper.force_list(policy_document.get('Statement', [])):
