@@ -202,29 +202,14 @@ and vanity metrics that might screw you up eventually.
 
 == References
 
-. [[r1]] Cain, D. M., Loewenstein, G., & Moore, D. A. (2005).
-link:https://www.andrew.cmu.edu/user/gl20/GeorgeLoewenstein/Papers_files/pdf/dirtclean.pdf[The dirt on coming clean:
-Perverse effects of disclosing conflicts of interest.]
-The Journal of Legal Studies, 34(1), 1-25.
+. [[r1]] link:https://www.andrew.cmu.edu/user/gl20/GeorgeLoewenstein/Papers_files/pdf/dirtclean.pdf[Cain, D. M., Loewenstein, G., & Moore, D. A. (2005)].
 
-. [[r2]] Cain, D. M., Loewenstein, G., & Moore, D. A. (2010).
-link:https://www.cmu.edu/dietrich/sds/docs/loewenstein/WhenSunLightFails.pdf[When sunlight fails to disinfect: Understanding
-the perverse effects of disclosing conflicts of interest. ]
-Journal of Consumer Research, 37(5), 836-857.
+. [[r2]] link:https://www.cmu.edu/dietrich/sds/docs/loewenstein/WhenSunLightFails.pdf[Cain, D. M., Loewenstein, G., & Moore, D. A. (2010)].
 
-. [[r3]] Loewenstein, G., Sah, S., & Cain, D. M. (2012).
-link:https://www.cmu.edu/dietrich/sds/docs/loewenstein/UnintendedConsq.pdf[The unintended consequences of conflict of interest disclosure.]
-JAMA, 307(7), 669-670.
+. [[r3]] link:https://www.cmu.edu/dietrich/sds/docs/loewenstein/UnintendedConsq.pdf[Loewenstein, G., Sah, S., & Cain, D. M. (2012)].
 
-. [[r4]] Milkman, K. L., Chugh, D., & Bazerman, M. H. (2009).
-link:https://static1.squarespace.com/static/5353b838e4b0e68461b517cf/t/538504d1e4b01dc8cdbaead5/1401226449434/how-can-decision-making-be-improved.pdf[How can decision making be improved? ]
-Perspectives on Psychological Science, 4(4), 379-383.
+. [[r4]] link:https://static1.squarespace.com/static/5353b838e4b0e68461b517cf/t/538504d1e4b01dc8cdbaead5/1401226449434/how-can-decision-making-be-improved.pdf[Milkman, K. L., Chugh, D., & Bazerman, M. H. (2009)].
 
-. [[r5]] Moore, D. A., & Loewenstein, G. (2004).
-link:https://www.andrew.cmu.edu/user/gl20/GeorgeLoewenstein/Papers_files/pdf/Self-IntAutoPsychConflictInt.pdf[Self-interest, automaticity, and the psychology of conflict of interest.]
-Social Justice Research, 17(2), 189-202.
+. [[r5]] link:https://www.andrew.cmu.edu/user/gl20/GeorgeLoewenstein/Papers_files/pdf/Self-IntAutoPsychConflictInt.pdf[Moore, D. A., & Loewenstein, G. (2004)].
 
-. [[r6]] Moore, D. A., Tetlock, P. E., Tanlu, L., & Bazerman, M. H. (2006).
-link:http://faculty.haas.berkeley.edu/tetlock/pdfsnewones/2006%20auditorsmooreetalpiece.pdf[Conflicts of interest and the case of auditor independence:
-moral seduction and strategic issue cycling.]
-Academy of Management Review, 31(1), 10-29.
+. [[r6]] link:http://faculty.haas.berkeley.edu/tetlock/pdfsnewones/2006%20auditorsmooreetalpiece.pdf[Moore, D. A., Tetlock, P. E., Tanlu, L., & Bazerman, M. H. (2006)].
