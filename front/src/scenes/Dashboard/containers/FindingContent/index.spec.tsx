@@ -1,16 +1,17 @@
 import { MockedProvider, MockedResponse } from "@apollo/react-testing";
-import { configure, shallow, ShallowWrapper } from "enzyme";
+import { configure, mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import ReactSixteenAdapter from "enzyme-adapter-react-16";
-import { GraphQLError } from "graphql";
 // tslint:disable-next-line: no-import-side-effect
 import "isomorphic-fetch";
 import * as React from "react";
+// tslint:disable-next-line: no-submodule-imports
+import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
-import store from "../../../../store/index";
-import { GET_VULNERABILITIES } from "../../components/Vulnerabilities/queries";
+import store from "../../../../store";
 import { FindingContent } from "./index";
+import { GET_FINDING_HEADER } from "./queries";
 import { IFindingContentProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -34,7 +35,7 @@ describe("FindingContent", () => {
     location: { hash: "", pathname: "/", search: "", state: {} },
     match: {
       isExact: true,
-      params: { findingId: "438679960", projectName: "unittesting" },
+      params: { findingId: "438679960", projectName: "TEST" },
       path: "/",
       url: "",
     },
@@ -43,46 +44,32 @@ describe("FindingContent", () => {
   const mocks: ReadonlyArray<MockedResponse> = [
     {
       request: {
-        query: GET_VULNERABILITIES,
+        query: GET_FINDING_HEADER,
         variables: {
-          identifier: "438679960",
+          findingId: "438679960",
+          submissionField: true,
         },
       },
       result: {
         data: {
           finding: {
-            __typename: "Finding",
+            closedVulns: 0,
+            historicState: [
+              {
+                analyst: "someone@fluidattacks.com",
+                date: "2019-10-31 10:00:53",
+                state: "CREATED",
+              },
+            ],
             id: "438679960",
-            inputsVulns: [{
-              __typename: "Vulnerability",
-              currentState: "open",
-              findingId: "438679960",
-              id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
-              specific: "email",
-              treatment: "New",
-              vulnType: "inputs",
-              where: "https://example.com/contact",
-            }],
-            linesVulns: [],
-            portsVulns: [],
-            releaseDate: "2019-03-12 00:00:00",
-            success: true,
+            openVulns: 3,
+            releaseDate: "2018-12-04 09:04:13",
+            reportDate: "2017-12-04 09:04:13",
+            severityScore: 2.6,
+            state: "open",
+            title: "FIN.S.0050. Weak passwords discovered",
           },
         },
-      },
-    },
-  ];
-
-  const mockError: ReadonlyArray<MockedResponse> = [
-    {
-      request: {
-        query: GET_VULNERABILITIES,
-        variables: {
-          identifier: "438679960",
-        },
-      },
-      result: {
-        errors: [new GraphQLError("Access denied")],
       },
     },
   ];
@@ -92,33 +79,30 @@ describe("FindingContent", () => {
       .toEqual("function");
   });
 
-  it("should render an error in component", async () => {
+  it("should render a component", async () => {
     const wrapper: ShallowWrapper = shallow(
-      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
-        <Provider store={store}>
-          <MockedProvider mocks={mockError} addTypename={true}>
-            <FindingContent {...mockProps} />
-          </MockedProvider>
-        </Provider>
-      </MemoryRouter>,
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <FindingContent {...mockProps} />
+      </MockedProvider>,
     );
     await wait(0);
     expect(wrapper)
       .toHaveLength(1);
   });
 
-  it("should render a component", async () => {
-    const wrapper: ShallowWrapper = shallow(
+  it("should render header", async () => {
+    (window as typeof window & { userRole: string }).userRole = "analyst";
+    const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={true}>
+          <MockedProvider mocks={mocks} addTypename={false}>
             <FindingContent {...mockProps} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
     );
-    await wait(0);
-    expect(wrapper)
-      .toHaveLength(1);
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(wrapper.text())
+      .toContain("FIN.S.0050. Weak passwords discovered");
   });
 });
