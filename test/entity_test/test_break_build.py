@@ -55,3 +55,34 @@ class BreakBuildExecutionsTests(TestCase):
         assert not result.get('errors')
         assert result['data']['breakBuildExecutions']['projectName'] \
             == valid_project_name
+
+    def test_executions(self):
+        project_name = 'unittesting'
+        query = """
+          query {
+            breakBuildExecutions(
+                projectName: "unittesting",
+                fromDate: "2020-02-01T00:00:00Z",
+                toDate: "2020-02-28T23:59:59Z"
+            ) {
+              executions {
+                projectName
+                identifier
+                date
+              }
+            }
+          }
+        """
+        testing_client = Client(SCHEMA)
+        result = self._get_result(query, testing_client)
+        executions = result['data']['breakBuildExecutions']['executions']
+
+        assert not result.get('errors')
+
+        assert executions[0]['projectName'] == project_name
+        assert executions[0]['identifier'] == '33e5d863252940edbfb144ede56d56cf'
+        assert executions[0]['date'] == '2020-02-19T19:31:18+00:00'
+
+        assert executions[1]['projectName'] == project_name
+        assert executions[1]['identifier'] == 'a125217504d447ada2b81da3e4bdab0e'
+        assert executions[1]['date'] == '2020-02-19T19:04:33+00:00'

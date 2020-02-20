@@ -31,7 +31,7 @@ function job_serve_dynamodb_local {
 function job_serve_front {
       pushd front \
     &&  npm install \
-    &&  npx ts-node devserver.ts \
+    &&  npm start \
   &&  popd
 }
 

@@ -2,7 +2,7 @@
 """ FluidIntegrates auxiliar functions. """
 
 import collections
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import binascii
 import logging
 import logging.config
@@ -113,6 +113,14 @@ def get_evidence_set(finding):
             "explanation": finding["evidence_description_5"].capitalize()
         })
     return evidence_set
+
+
+def get_current_time_minus_delta(*, weeks: int) -> datetime:
+    """ Return a customized no-naive date n weeks back to the past """
+    now = datetime.utcnow()
+    now_minus_delta = now - timedelta(weeks=weeks)
+    now_minus_delta = now_minus_delta.replace(tzinfo=timezone.utc)
+    return now_minus_delta
 
 
 def user_email_filter(emails, actual_user):

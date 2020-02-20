@@ -1,6 +1,12 @@
 # pylint: disable=no-self-use
-from graphene import Field, List, ObjectType, String
 
+# Standard Library
+from datetime import datetime
+
+# Third party libraries
+from graphene import Field, List, ObjectType, String, DateTime
+
+# Local libraries
 from backend.decorators import (
     get_cached, require_event_access, require_finding_access,
     require_login, require_project_access, new_require_role
@@ -48,7 +54,9 @@ class Query(ObjectType):
     project = Field(Project, project_name=String(required=True))
 
     break_build_executions = Field(BreakBuildExecutions,
-                                   project_name=String(required=True))
+                                   project_name=String(required=True),
+                                   from_date=DateTime(required=False),
+                                   to_date=DateTime(required=False))
 
     # pylint: disable=invalid-name
     me = Field(Me)
@@ -65,11 +73,15 @@ class Query(ObjectType):
     @require_login
     @new_require_role
     @require_project_access
-    def resolve_break_build_executions(self, info, project_name):
+    def resolve_break_build_executions(
+            self, info,
+            project_name: str,
+            from_date: datetime = None,
+            to_date: datetime = None):
         """Resolve for break build execution."""
         del info
         project_name = project_name.lower()
-        return BreakBuildExecutions(project_name)
+        return BreakBuildExecutions(project_name, from_date, to_date)
 
     @require_login
     @new_require_role
