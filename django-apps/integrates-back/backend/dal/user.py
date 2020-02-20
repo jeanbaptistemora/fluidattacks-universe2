@@ -14,13 +14,13 @@ ACCESS_TABLE = DYNAMODB_RESOURCE.Table('FI_project_access')
 
 def get_admins():
     filter_exp = Attr('role').exists() & Attr('role').eq('admin')
-    admins = integrates_dal.get_data_dynamo_filter(TABLE, filter_exp)
+    admins = get_all(filter_exp)
     return [user.get('email') for user in admins]
 
 
 def get_all_companies():
     filter_exp = Attr('company').exists()
-    users = integrates_dal.get_data_dynamo_filter(TABLE, filter_exp)
+    users = get_all(filter_exp)
     companies = [user.get('company').strip().upper() for user in users]
     return list(set(companies))
 
@@ -30,7 +30,7 @@ def get_all_inactive_users(final_date):
         Attr('registered').eq(False) & \
         (Attr('last_login').not_exists() |
          (Attr('last_login').exists() & Attr('last_login').lte(final_date)))
-    users = integrates_dal.get_data_dynamo_filter(TABLE, filtering_exp)
+    users = get_all(filtering_exp)
     users_data = [user.get('email') for user in users]
     return users_data
 
@@ -39,24 +39,38 @@ def get_all_users(company_name):
     filter_exp = Attr('company').exists() & \
         Attr('company').eq(company_name) & Attr('registered').exists() & \
         Attr('registered').eq(True)
-    users = integrates_dal.get_data_dynamo_filter(TABLE, filter_exp)
+    users = get_all(filter_exp)
     return len(users)
 
 
 def get_all_users_report(company_name, finish_date):
     filter_exp = Attr('has_access').exists() & Attr('has_access').eq(True)
     attribute = 'user_email'
-    project_access = integrates_dal.get_data_dynamo_filter(
-        'FI_project_access', filter_exp, data_attr=attribute)
+    project_access = get_all(filter_exp, data_attr=attribute)
     project_users = {user.get('user_email') for user in project_access}
     filter_exp = Attr('date_joined').lte(finish_date) & \
         Attr('registered').eq(True) & Attr('company').ne(company_name)
     attribute = 'email'
-    users = integrates_dal.get_data_dynamo_filter(
-        TABLE, filter_exp, data_attr=attribute)
+    users = get_all(filter_exp, data_attr=attribute)
     users = [user.get('email') for user in users]
     users_filtered = project_users.intersection(users)
     return len(users_filtered)
+
+
+def get_all(filter_exp, data_attr=''):
+    table = DYNAMODB_RESOURCE.Table(TABLE)
+    scan_attrs = {}
+    scan_attrs['FilterExpression'] = filter_exp
+    if data_attr:
+        scan_attrs['ProjectionExpression'] = data_attr
+    response = table.scan(**scan_attrs)
+    items = response['Items']
+    while response.get('LastEvaluatedKey'):
+        scan_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
+        response = table.scan(**scan_attrs)
+        items += response['Items']
+
+    return items
 
 
 def get_attributes(email, attributes):
@@ -80,7 +94,7 @@ def logging_users_report(company_name, init_date, finish_date):
         Attr('last_login').gte(init_date) & \
         Attr('registered').exists() & Attr('registered').eq(True) & \
         Attr('company').exists() & Attr('company').ne(company_name.lower())
-    users = integrates_dal.get_data_dynamo_filter(TABLE, filter_exp)
+    users = get_all(filter_exp)
     return len(users)
 
 

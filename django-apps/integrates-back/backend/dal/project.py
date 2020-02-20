@@ -169,8 +169,14 @@ def get_users(project, active=True):
     """Get users of a project."""
     project_name = project.lower()
     filtering_exp = Key('project_name').eq(project_name)
-    users = integrates_dal.get_data_dynamo_filter(
-        'FI_project_access', filtering_exp)
+    response = TABLE_ACCESS.scan(FilterExpression=filtering_exp)
+    users = response['Items']
+    while response.get('LastEvaluatedKey'):
+        response = TABLE_ACCESS.scan(
+            FilterExpression=filtering_exp,
+            ExclusiveStartKey=response['LastEvaluatedKey']
+        )
+        users += response['Items']
     if active:
         users_filtered = [user.get('user_email') for user in users
                           if user.get('has_access', '')]

@@ -27,6 +27,11 @@ def remove_project_name(project_name):
 
 
 def get_all_project_names():
-    names = [project['project_name']
-             for project in integrates_dal.get_data_dynamo_filter(TABLE)]
+    table = DYNAMODB_RESOURCE.Table(TABLE)
+    response = table.scan({})
+    projects = response['Items']
+    while response.get('LastEvaluatedKey'):
+        response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
+        projects += response['Items']
+    names = [project['project_name'] for project in projects]
     return names
