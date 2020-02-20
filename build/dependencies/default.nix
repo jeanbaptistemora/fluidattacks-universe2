@@ -12,5 +12,6 @@ in
     pkgs.git
     pkgs.nodejs
     pkgs.openjdk
+    pkgs.redis
     pkgs.unzip
   ]

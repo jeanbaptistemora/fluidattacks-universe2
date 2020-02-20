@@ -31,3 +31,10 @@ function job_serve_front {
     &&  npm start \
   &&  popd
 }
+
+function job_serve_redis {
+  local port=6379
+
+      echo "[INFO] Serving redis on port ${port}" \
+  &&  redis-server --port "${port}"
+}
