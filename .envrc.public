@@ -1,0 +1,19 @@
+# shellcheck shell=bash
+
+export CI_COMMIT_BEFORE_SHA
+export CI_COMMIT_REF_NAME
+export CI_COMMIT_SHA
+export CI_PROJECT_NAME='integrates'
+export CI_PROJECT_NAMESPACE='fluidattacks'
+export CI_PROJECT_URL="https://gitlab.com/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}"
+export CI_REGISTRY='registry.gitlab.com'
+export CI_REGISTRY_IMAGE="${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}"
+export FALSE=''
+export TRUE='true'
+
+test -n "${CI_COMMIT_BEFORE_SHA:-}" \
+  || CI_COMMIT_BEFORE_SHA=$(git log -n 1 --format=%H HEAD~1)
+test -n "${CI_COMMIT_REF_NAME:-}" \
+  || CI_COMMIT_REF_NAME=$(git rev-parse --abbrev-ref HEAD)
+test -n "${CI_COMMIT_SHA:-}" \
+  || CI_COMMIT_SHA=$(git log -n 1 --format=%H HEAD)
