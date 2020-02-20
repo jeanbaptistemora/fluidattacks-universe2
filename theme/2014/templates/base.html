@@ -112,10 +112,6 @@
       <!-- Custom Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:300,700|Source+Sans+Pro:300|Overpass+Mono"
               rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700"
-              rel="stylesheet">
-        <link href="https://use.typekit.net/qt13fqb.css"
-              rel="stylesheet">
 
       <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
       <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -174,29 +170,43 @@
     <!-- Navigation -->
       {% include "navigationbar.html" %}
       {% block header %}
-      <div class="self-center banner-bg vh-100 bg-center">
-        <div class="ba1 mb3 relative dt-ns mt0-ns pr3-ns pl3-ns pt3 ma-auto pt6">
-          <!-- Banner title and text -->
-          <div class="pl5-l pt5 pt4-l pr4-l w-50 fl">
-            <img class="top-2 pt5 w-banner"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pentest.svg"
-            alt="{{ gettext('Header-title-2') }}">
-            <p class="c-fluid-bk roboto b f3-ns nt1">{{ gettext('Header-msg') }}</p>
-            <!-- Get a Demo button -->
-            <span class="fl br2 demobt pv2 ph4 white b roboto pointer"
-                onclick="window.location='{{ SITEURL }}/services/'">
-                Learn more
-            </span>
-            <!-- End Demo button -->
-          </div>
+        <div class="pt4 pb4 bg-fluid-black h-banner h-banner-l">
           <!-- Banner Image-->
-          <div class="w-50 pl6-l pl4-mfl fr">
-            <img class="top-2 pt5 w-banner"
-            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/turbine-main.png"
-            alt="{{ gettext('Header-img-alt') }}">
+          <div class="w-50 pl6-l pl4-m bg-fluid-black fl">
+            <a href="{{ SITEURL }}/">
+              <img class="top-2 pt5 w-banner"
+                   src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/banner.png"
+                   alt="{{ gettext('Header-img-alt') }}">
+            </a>
+          </div>
+          <!-- Banner title and text -->
+          <div class="pl5-l pt5 pt4-l pr4-l w-50 fl bg-fluid-black">
+            <span class="c-fluid-red b montsy pt3 pt0-l f2-l f3-m f4">{{ gettext('Header-title-2') }}</span>
+            <p class="white f4-l f4-m f6">{{ gettext('Header-msg') }}</p>
+            <ul class="tl fluid-bullet dn dib-l">
+            <li class="f5 white montsy mt1 mb1" >{{ gettext('Header-item-1') }}</li>
+            <li class="f5 white montsy mt1 mb1" >SAST - DAST - IAST - SCA - DevSecOps</li>
+            <li class="f5 white montsy mt1 mb1" >{{ gettext('Header-item-3') }}</li>
+            </ul>
           </div>
         </div>
-      </div>
+        <!-- Contact persistent mobile button -->
+        <div class="w3 h3 fixed z-4 top-2 mt8 bn br2 bg-white-80 dn-l"
+             onclick="window.location='{{ SITEURL }}/contact-us/'">
+             <img class="ph3 pt2 grow-large"
+                  src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/contact-us.png"
+                  alt="Contact logo">
+             <strong class="f7 pl1">Contact Us</strong>
+        </div>
+        <!-- End contact button -->
+        <!-- Get a Demo fixed button -->
+          <div class="absolute rotate-270 right-0 ptdemo mt5 fixed dn db-l z-5">
+            <span class="br4 bg-fluid-red pb4 pt3 ph3 white b montsy pl3 pointer"
+                  onclick="window.location='{{ SITEURL }}/contact-us/'">
+                  GET A DEMO
+            </span>
+          </div>
+        <!-- End Demo button -->
       {% endblock header %}
     <!-- Main Content -->
       <div class="contbody">

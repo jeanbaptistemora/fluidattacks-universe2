@@ -141,7 +141,7 @@ jQuery(() => {
     .addClass("f3-l f4-m");
   $("h4")
     .addClass("f4-l f5-m");
-  $("p:not(.roboto)")
+  $("p")
     .addClass("f4-l f5-m lh-copy ma0 tl");
   $("p > strong")
     .addClass("black b");
