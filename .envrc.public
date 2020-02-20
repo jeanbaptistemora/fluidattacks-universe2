@@ -3,12 +3,14 @@
 export CI_COMMIT_BEFORE_SHA
 export CI_COMMIT_REF_NAME
 export CI_COMMIT_SHA
+export CI_PROJECT_ID='4620828'
 export CI_PROJECT_NAME='integrates'
 export CI_PROJECT_NAMESPACE='fluidattacks'
 export CI_PROJECT_URL="https://gitlab.com/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}"
 export CI_REGISTRY='registry.gitlab.com'
 export CI_REGISTRY_IMAGE="${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}"
 export FALSE=''
+export GITLAB_API_URL="https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/variables"
 export TRUE='true'
 
 test -n "${CI_COMMIT_BEFORE_SHA:-}" \

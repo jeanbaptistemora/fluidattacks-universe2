@@ -3,6 +3,7 @@
 source "${srcIncludeHelpers}"
 
 function prepare_environment_variables {
+  export IS_NIX='true'
   export IS_LOCAL_BUILD
 
       echo '[INFO] Sourcing .envrc.public' \
@@ -31,7 +32,7 @@ function prepare_ephemeral_vars {
 
 function prepare_python_packages {
   export PATH
-  export PYTHONPATH="${PWD}"
+  export PYTHONPATH
   local pkg
 
   echo '[INFO] Preparing python packages'

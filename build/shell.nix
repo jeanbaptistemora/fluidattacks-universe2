@@ -1,11 +1,24 @@
 let
   pkgs = import ./pkgs/stable.nix;
+  builders.pythonPackage = import ./builders/python-package pkgs;
+  builders.pythonPackageLocal = import ./builders/python-package-local pkgs;
+  builders.pythonRequirements = import ./builders/python-requirements pkgs;
 in
   pkgs.stdenv.mkDerivation rec {
     name = "builder";
 
     buildInputs = import ./dependencies pkgs;
 
+    pyPkgIntegratesBack =
+      builders.pythonPackageLocal ../django-apps/integrates-back;
+    pyPkgReqsDevelopment =
+      builders.pythonRequirements ../deploy/containers/deps-development/requirements.txt;
+    pyPkgReqsProduction =
+      builders.pythonRequirements ../deploy/containers/deps-production/requirements.txt;
+    pyPkgUvicorn =
+      builders.pythonPackage "uvicorn==0.11.3";
+
+    srcCiScriptsHelpersSops = ../ci-scripts/helpers/sops.sh;
     srcEnv = ./include/env.sh;
     srcIncludeCli = ./include/cli.sh;
     srcIncludeGenericShellOptions = ./include/generic/shell-options.sh;

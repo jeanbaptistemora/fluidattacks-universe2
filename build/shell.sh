@@ -5,6 +5,7 @@
 #!   nix-shell --keep CI_PROJECT_DIR
 #!   nix-shell --keep CI_REGISTRY_USER
 #!   nix-shell --keep CI_REGISTRY_PASSWORD
+#!   nix-shell --keep GITLAB_TOKEN
 #!   nix-shell --max-jobs auto
 #!   nix-shell --option restrict-eval false
 #!   nix-shell --option sandbox false

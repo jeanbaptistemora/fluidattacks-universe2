@@ -9,9 +9,14 @@ in
   [
     customPkgs.python
     pkgs.awscli
+    pkgs.cacert
+    pkgs.curl
     pkgs.git
+    pkgs.hostname
+    pkgs.jq
     pkgs.nodejs
     pkgs.openjdk
     pkgs.redis
+    pkgs.sops
     pkgs.unzip
   ]

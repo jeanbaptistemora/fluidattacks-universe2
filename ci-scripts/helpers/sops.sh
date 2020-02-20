@@ -39,12 +39,17 @@ aws_login() {
 }
 
 sops_vars() {
+  local tmp_file
   # Set necessary vars for integrates
 
   set -Eeuo pipefail
 
+  tmp_file=$(mktemp)
+
   # Import functions
-  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
+  curl -s 'https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh' \
+    > "${tmp_file}"
+  source "${tmp_file}"
 
   local ENV_NAME
 

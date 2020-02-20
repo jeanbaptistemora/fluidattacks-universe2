@@ -5,14 +5,16 @@ let
 in
   path:
     pkgs.stdenv.mkDerivation rec {
-      name = "python-package-local";
+      name = "python-requirements";
       inherit path;
 
       srcIncludeGenericShellOptions = ../../include/generic/shell-options.sh;
       srcIncludeGenericDirStructure = ../../include/generic/dir-structure.sh;
 
       builder = ./builder.sh;
-      buildInputs = [
+      propagatedBuildInputs = [
         customPkgs.python
+        pkgs.libmysqlclient
+        pkgs.postgresql
       ];
     }

@@ -25,6 +25,7 @@ function cli {
   prepare_environment_variables
   prepare_ephemeral_vars
   prepare_dynamodb_local
+  prepare_python_packages
 
   echo "[INFO] Executing function: job_${function_to_call}"
   if "job_${function_to_call}"

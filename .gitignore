@@ -72,5 +72,6 @@ django-apps/**/build
 django-apps/**/dist
 
 # Build system
+/dump.rdb
 /TEMP_FD
 /.DynamoDB

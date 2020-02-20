@@ -9,8 +9,8 @@ in
       name = stringToDerivationName requirement;
       inherit requirement;
 
-      srcIncludeGenericShellOptions = ../../../include/generic/shell-options.sh;
-      srcIncludeGenericDirStructure = ../../../include/generic/dir-structure.sh;
+      srcIncludeGenericShellOptions = ../../include/generic/shell-options.sh;
+      srcIncludeGenericDirStructure = ../../include/generic/dir-structure.sh;
 
       builder = ./builder.sh;
       buildInputs = [

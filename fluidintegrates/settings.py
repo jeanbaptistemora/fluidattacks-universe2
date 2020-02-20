@@ -44,7 +44,7 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", "fluid.la",
                  "fluidattacks.com", "192.168.200.100.xip.io",
                  "192.168.200.100", ".integrates.env.fluidattacks.com"]
 
-ALLOWED_HOSTS += subprocess.check_output(['hostname', '-I']).strip().split()
+ALLOWED_HOSTS += subprocess.check_output(['hostname', '-i']).strip().split()
 
 # Application definition
 
