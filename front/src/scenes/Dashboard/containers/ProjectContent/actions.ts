@@ -11,9 +11,9 @@ export interface IActionStructure {
   type: string;
 }
 
-export type ThunkDispatcher = ThunkDispatch<{}, undefined, IActionStructure>;
+export type ThunkDispatcher = ThunkDispatch<{}, {}, IActionStructure>;
 
-type ThunkResult<T> = ThunkAction<T, {}, undefined, IActionStructure>;
+type ThunkResult<T> = ThunkAction<T, {}, {}, IActionStructure>;
 
 export const clearProjectState: (() => IActionStructure) = (): IActionStructure => ({
   type: actionTypes.CLEAR_PROJECT_STATE,

@@ -3,7 +3,6 @@ import * as actions from "./actions";
 import * as vulnerabilitiesActions from "./components/Vulnerabilities/actionTypes";
 import { IDescriptionViewProps } from "./containers/DescriptionView";
 import * as descriptionActions from "./containers/DescriptionView/actionTypes";
-import * as findingActions from "./containers/FindingContent/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
 import * as draftsActions from "./containers/ProjectDraftsView/actions";
 import * as eventsActions from "./containers/ProjectEventsView/actions";
@@ -542,14 +541,7 @@ actionMap[descriptionActions.CLOSE_REMEDIATION_MDL] =
     },
   });
 
-actionMap[descriptionActions.CLEAR_EVIDENCE] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-    ({
-      ...state,
-      description: initialState.description,
-    });
-
-actionMap[findingActions.CLEAR_FINDING_STATE] =
+actionMap[descriptionActions.CLEAR_DESCRIPTION] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
     ({
       ...state,

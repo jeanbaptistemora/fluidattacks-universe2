@@ -16,7 +16,6 @@ configure({ adapter: new ReactSixteenAdapter() });
 describe("DescriptionView", () => {
 
   const mockProps: IDescriptionViewProps = {
-    currentUserEmail: "user@test.com",
     dataset: {
       acceptanceDate: "",
       acceptationApproval: "",

@@ -30,6 +30,7 @@ import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { GenericForm } from "../../components/GenericForm/index";
 import { remediationModal as RemediationModal } from "../../components/RemediationModal/index";
+import { loadProjectData } from "../ProjectContent/actions";
 import * as actions from "./actions";
 import * as actionTypes from "./actionTypes";
 import { renderFormFields } from "./formStructure";
@@ -39,7 +40,6 @@ import {
 } from "./types";
 
 export interface IDescriptionViewProps {
-  currentUserEmail: string;
   dataset: {
     acceptanceDate: string;
     acceptationApproval: string;
@@ -232,6 +232,7 @@ const renderForm: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDes
 );
 
 const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDescriptionViewProps): JSX.Element => {
+  const { userEmail } = window as typeof window & Dictionary<string>;
 
   const onMount: (() => void) = (): (() => void) => {
     mixpanel.track("FindingDescription", {
@@ -242,6 +243,7 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
       store.dispatch as ThunkDispatch<{}, {}, AnyAction>
     );
 
+    thunkDispatch(loadProjectData(props.projectName));
     thunkDispatch(actions.loadDescription(props.findingId, props.projectName, props.userRole));
 
     return (): void => {
@@ -342,7 +344,7 @@ const component: ((props: IDescriptionViewProps) => JSX.Element) = (props: IDesc
               .catch();
             props.dataset.treatment = response === "REJECTED" ? "NEW" : "ACCEPTED_UNDEFINED";
             props.dataset.acceptationApproval = response;
-            props.dataset.acceptationUser = props.currentUserEmail;
+            props.dataset.acceptationUser = userEmail;
             props.dataset.justification = observations;
           };
 
@@ -414,5 +416,6 @@ export const descriptionView: React.ComponentType<IDescriptionViewProps> = redux
       treatmentVuln: fieldSelectorVuln(state, "treatment"),
     },
     isMdlConfirmOpen: state.dashboard.isMdlConfirmOpen,
+    userRole: state.dashboard.user.role,
   }),
 );

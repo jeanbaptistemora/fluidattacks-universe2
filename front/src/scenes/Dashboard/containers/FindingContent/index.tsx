@@ -11,7 +11,6 @@ import { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Row } from "react-bootstrap";
-import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { NavLink, Redirect, Route, Switch } from "react-router-dom";
 import { Field } from "redux-form";
 import { Button } from "../../../../components/Button";
@@ -25,49 +24,31 @@ import { AlertBox } from "../../components/AlertBox";
 import { FindingActions } from "../../components/FindingActions";
 import { FindingHeader } from "../../components/FindingHeader";
 import { GenericForm } from "../../components/GenericForm";
-import { IDashboardState } from "../../reducer";
 import { CommentsView } from "../CommentsView/index";
 import { descriptionView as DescriptionView } from "../DescriptionView/index";
 import { EvidenceView } from "../EvidenceView/index";
 import { ExploitView } from "../ExploitView/index";
-import { loadProjectData } from "../ProjectContent/actions";
 import { GET_PROJECT_ALERT } from "../ProjectContent/queries";
 import { RecordsView } from "../RecordsView/index";
 import { SeverityView } from "../SeverityView/index";
 import { TrackingView } from "../TrackingView/index";
-import {
-  clearFindingState, ThunkDispatcher,
-} from "./actions";
 import { default as style } from "./index.css";
 import {
   APPROVE_DRAFT_MUTATION, DELETE_FINDING_MUTATION, GET_FINDING_HEADER, REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION,
 } from "./queries";
-import {
-  IFindingContentBaseProps, IFindingContentDispatchProps, IFindingContentProps,
-  IFindingContentStateProps, IHeaderQueryResult,
-} from "./types";
+import { IFindingContentProps, IHeaderQueryResult } from "./types";
 
 // tslint:disable-next-line:no-any Allows to render containers without specifying values for their redux-supplied props
 const reduxProps: any = {};
 
 const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentProps): JSX.Element => {
   const { findingId, projectName } = props.match.params;
-  const { userEmail, userOrganization, userRole } = window as typeof window & Dictionary<string>;
-
-  // Side effects
-  const onMount: (() => void) = (): (() => void) => {
-    props.onLoad();
-
-    return (): void => { props.onUnmount(); };
-  };
-  React.useEffect(onMount, []);
+  const { userOrganization, userRole } = window as typeof window & Dictionary<string>;
 
   const renderDescription: (() => JSX.Element) = (): JSX.Element => (
     <DescriptionView
       findingId={findingId}
       projectName={projectName}
-      userRole={_.isEmpty(props.userRole) ? userRole : props.userRole}
-      currentUserEmail={userEmail}
       {...reduxProps}
     />
   );
@@ -360,20 +341,4 @@ const findingContent: React.FC<IFindingContentProps> = (props: IFindingContentPr
   );
 };
 
-interface IState { dashboard: IDashboardState; }
-const mapStateToProps: MapStateToProps<IFindingContentStateProps, IFindingContentBaseProps, IState> =
-  (state: IState): IFindingContentStateProps => ({
-    userRole: state.dashboard.user.role,
-  });
-
-const mapDispatchToProps: MapDispatchToProps<IFindingContentDispatchProps, IFindingContentBaseProps> =
-  (dispatch: ThunkDispatcher, ownProps: IFindingContentBaseProps): IFindingContentDispatchProps => {
-    const { projectName } = ownProps.match.params;
-
-    return ({
-      onLoad: (): void => { dispatch(loadProjectData(projectName)); },
-      onUnmount: (): void => { dispatch(clearFindingState()); },
-    });
-  };
-
-export = connect(mapStateToProps, mapDispatchToProps)(findingContent);
+export { findingContent as FindingContent };

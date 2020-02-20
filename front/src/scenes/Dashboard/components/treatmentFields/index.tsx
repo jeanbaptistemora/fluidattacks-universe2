@@ -38,6 +38,7 @@ const treatmentFieldsView: renderFormFieldsFn =
     const dateChanged: (() => void) = (): void => {
       dateCheck = true;
     };
+    const { userEmail } = window as typeof window & Dictionary<string>;
 
     /* tslint:disable-next-line cyclomatic-complexity Necessary because this function has a complexity of 21 > 20 */
     const renderVulnFields: (() => JSX.Element) = (): JSX.Element => (
@@ -130,7 +131,7 @@ const treatmentFieldsView: renderFormFieldsFn =
             <EditableField
               component={dropdownField/* tslint:disable-next-line jsx-no-multiline-js */}
               currentValue={treatmentAccepted || isNotEditable ? !props.isEditing ?
-                props.dataset.treatmentManager : props.currentUserEmail : props.dataset.treatmentManager}
+                props.dataset.treatmentManager : userEmail : props.dataset.treatmentManager}
               label={translate.t("search_findings.tab_description.treatment_mgr")}
               name={"treatmentManager"/* tslint:disable-next-line jsx-no-multiline-js */}
               renderAsEditable={props.userRole === "customeradmin" && !treatmentAccepted ?

@@ -10,7 +10,7 @@ import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 import store from "../../../../store/index";
 import { GET_VULNERABILITIES } from "../../components/Vulnerabilities/queries";
-import FindingContent from "./index";
+import { FindingContent } from "./index";
 import { IFindingContentProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -80,7 +80,7 @@ describe("FindingContent", () => {
 
   it("should return a object", () => {
     expect(typeof (FindingContent))
-      .toEqual("object");
+      .toEqual("function");
   });
 
   it("should render an error in component", async () => {

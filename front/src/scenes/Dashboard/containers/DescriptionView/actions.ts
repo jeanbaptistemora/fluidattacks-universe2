@@ -46,7 +46,7 @@ export const closeRemediationMdl: (() => IActionStructure) =
 export const clearDescription: (() => IActionStructure) =
   (): IActionStructure => ({
     payload: undefined,
-    type: actionTypes.CLEAR_EVIDENCE,
+    type: actionTypes.CLEAR_DESCRIPTION,
   });
 
 export const loadDescription: ThunkActionStructure<void> =

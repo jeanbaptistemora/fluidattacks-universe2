@@ -6,7 +6,7 @@
  * View: https://github.com/palantir/tslint/issues/711
  */
 export const LOAD_DESCRIPTION: string = "dashboard/finding/description/load";
-export const CLEAR_EVIDENCE: string = "dashboard/finding/description/clear";
+export const CLEAR_DESCRIPTION: string = "dashboard/finding/description/clear";
 export const EDIT_DESCRIPTION: string = "dashboard/finding/description/edit";
 export const OPEN_REMEDIATION_MDL: string = "dashboard/finding/description/remediation/open";
 export const CLOSE_REMEDIATION_MDL: string = "dashboard/finding/description/remediation/close";
