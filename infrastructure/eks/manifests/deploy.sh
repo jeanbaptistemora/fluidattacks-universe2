@@ -71,14 +71,6 @@ function get_changed_files() {
     | grep -Po '(?<=(M|A)\t).*'
 }
 
-function get_vault_approle_token() {
-  local role_id="${1}"
-  local secret_id="${2}"
-  local url="https://${3}/v1/auth/approle/login"
-  local data='{"role_id":"'"${role_id}"'","secret_id":"'"${secret_id}"'"}'
-  curl --request POST --data "${data}" "${url}" | jq -r '.auth.client_token'
-}
-
 function install_helm_chart() {
   local chart="${1}"
   local name="${2}"
@@ -153,30 +145,6 @@ function issue_secondary_domain_certificates() {
   kubectl apply -f "${manifest}"
 }
 
-function restore-vault() {
-  kubectl apply -f restore-operator.yaml
-  kubectl rollout status deploy/vault-etcd-operator-etcd-restore-operator
-  echo-blue "Restoring Vault..."
-  DATE="$(date +%Y-%m-%d)"
-  export DATE
-  replace_env_variables restore.yaml credentials config
-  kubectl create secret generic aws --from-file=credentials --from-file=config
-  kubectl apply -f restore.yaml
-  sleep 10
-  until [ "$(find_resource pods '^etcd.*1/1' -c)" = 3 ]; do
-    echo-blue "Uploading backup to Etcd cluster..."
-    sleep 10
-  done
-  kubectl delete pods -l app=vault
-  kubectl delete secret aws
-  kubectl delete -f restore.yaml
-  kubectl delete -f restore-operator.yaml
-  until find_resource pods '^vault-[0-9].*3/3' -q; do
-    echo-blue "Restoring Vault deployment..."
-    sleep 10
-  done
-}
-
 function wait_elb_initialization() {
   local elb_name
   local elb_status
@@ -214,7 +182,6 @@ helm repo add banzaicloud http://kubernetes-charts.banzaicloud.com/branch/master
 helm repo update
 
 install_helm_chart stable/nginx-ingress controller serves nginx.yaml 0.24.1
-install_helm_chart banzaicloud/vault-operator vault serves vault-operator.yaml 0.4.15
 install_helm_chart stable/kube-state-metrics kube-metrics operations metrics.yaml 1.4.0
 
 # Install helm chart for cert-manager, CRDs and labeling is required
@@ -223,25 +190,6 @@ kubectl apply -f \
 kubectl label namespace \
   operations certmanager.k8s.io/disable-validation="true" --overwrite
 install_helm_chart jetstack/cert-manager cert-manager operations cert-manager.yaml v0.9.1
-
-if find_resource pods '^vault-[0-9].*3/3' -q; then
-  echo-blue "Vault already deployed and initialized."
-else
-  cd vault/
-  kubectl delete vault --all
-  echo-blue "Deploying Vault cluster..."
-  sleep 10
-  replace_env_variables vault.yaml
-  kubectl apply -f vault.yaml
-  until [ "$(find_resource pods '^etcd.*1/1' -c)" = 3 ]; do
-    echo-blue "Initializing pods..."
-    sleep 10
-  done
-  restore-vault
-  echo-blue "Vault successfully restored!"
-  cd ../
-fi
-
 
 # Set TLS certificates for the main domains and automatically issue valid
 # certificates for the secondary domains using Cert-Manager and ACME protocol
@@ -285,15 +233,6 @@ sed 's/$PROJECT/integrates/g' review-apps/env-template.yaml | kubectl apply -f -
 # and define policies
 install_amazon_vpc_plugin
 kubectl apply -f review-apps/network-policies.yaml
-
-VAULT_HOST='vault.fluidattacks.com'
-DATE="$(date)"
-FI_VAULT_HOST="$(echo -n ${VAULT_HOST} | base64)"
-FI_VAULT_TOKEN="$(get_vault_approle_token "${INTEGRATES_PROD_ROLE_ID}" \
-  "${INTEGRATES_PROD_SECRET_ID}" ${VAULT_HOST} | tr -d '\n' | base64)"
-export DATE
-export FI_VAULT_HOST
-export FI_VAULT_TOKEN
 
 pushd ../../../
   . ci-scripts/helpers/others.sh
