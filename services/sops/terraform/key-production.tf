@@ -99,7 +99,7 @@ data "aws_iam_policy_document" "key-serves-production" {
 resource "aws_kms_key" "key-serves-production" {
   description             = "production kms key for serves."
   policy                  = data.aws_iam_policy_document.key-serves-production.json
-  deletion_window_in_days = 10
+  deletion_window_in_days = 30
   is_enabled              = true
 }
 

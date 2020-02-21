@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "key_access_policy" {
 
 resource "aws_kms_key" "vault_encryption_key" {
   description             = "Key used to encrypt and store Vault unseal key"
-  deletion_window_in_days = 7
+  deletion_window_in_days = 30
   policy = data.aws_iam_policy_document.key_access_policy.json
 
   tags = {
