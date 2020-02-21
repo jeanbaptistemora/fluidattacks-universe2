@@ -1059,3 +1059,56 @@ def can_shutdown_server(dbname: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
+def sa_account_has_not_been_renamed(dbname: str,
+                                    user: str,
+                                    password: str,
+                                    host: str,
+                                    port: int) -> Tuple:
+    """
+    Check if the SA account has not been renamed.
+
+    Enforcing the sa login to be disabled or rename reduces the probability of
+    an attacker executing brute force attacks against a well-known principal.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+
+    :returns: - ``OPEN`` if the sa login account is enabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port)
+
+    msg_open: str = 'SA login account has not been renamed.'
+    msg_closed: str = 'SA login account has been renamed.'
+
+    query = "SELECT 1 FROM master.dbo.syslogins WHERE name = 'sa'"
+    try:
+        with database(connection_string) as (_, cursor):
+            cursor.execute(query)
+            (vulns if cursor.fetchone() else safes).append(
+                ('master.dbo.syslogins.sa', 'must disabled sa login'))
+
+    except (pyodbc.OperationalError, pyodbc.InterfaceError) as exc:
+        if not _is_auth_permission_error(exc):
+            raise exc
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
