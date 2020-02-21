@@ -18,107 +18,103 @@
 
 We talk a lot about the advantages of extreme connectivity
 and availability of information,
-but so little about how our company’s, client's,
+but so little about how our company's, client's,
 or even our own personal data is secure.
 Here we want to guide you about some management policies
 we suggest that you could take in advance
 to be able to answer with high precision how secure your information is,
-how effective your defense measurements are;
-also what could happen if you don’t apply these policies.
+how effective your defense measurements are,
+and also what could happen if you don't apply these policies.
+
 From our experience, we know that company heads usually assume that
 "buying more technology" should solve all their security problems.
 Such a solution is, in fact, the main cause of the issue,
-because poorly implemented, built
-and/or configured technology is the source of all vulnerabilities.
+because poorly implemented, built or configured technology
+is the source of all vulnerabilities.
 
 For modern companies, protecting their information by making it inaccessible,
 hiding it or keeping it on paper is not a viable option anymore.
 In a world where digital transformation is the norm,
-exposing more information for and to the client is a must.
+exposing more information to the client is a must.
 The benefits of this transformation
 go from improving times and transaction costs,
 to the rising of service windows and client satisfaction.
 Operations that were only possible on site during office hours
 are now 24 hours a day, 7 days a week, all year long.
 
-On the other hand, these benefits bring new dangers
-that we never imagined before:
+However, these benefits bring new possible dangers:
 Can the buyer modify the product price before paying for it?
 Can an employee know the salary changes of his coworkers?
 Can board minutes be read by members of the labor union?
 Can a guest get network administrator passwords?
-From an outside cafeteria, could someone connect to the enterprise network,
-turn on a mic on the manager’s computer
-and listen to conversations? Can a client modify the web page of my company?
+Can someone connect to the enterprise network,
+turn on a mic on the manager's computer,
+and listen to conversations?
+Can a client modify the website of my company?
 Can I check the medical record of another person from the internet?
-Is it possible to deny the transaction service
-of a financial entity from my personal computer?
 
-== Securing Your Organization
+== Securing your organization
 
-The question “how secure is my organization?”
+The question “how secure is my organization”
 is answered by doing real (well meant) attacks;
 this goes by many names:
 ethical hacking, penetration tests, and red teaming, among others.
-Regardless of how we name them and their technical differences,
-the first policy we recommend is:
+The first policy we recommend is:
 
 . *Continuous attacks* on your organization,
 in order to find vulnerabilities that allow malicious attackers
 to take control of your information.
 Continuous means that these exercises must be performed
 with a specific frequency (quarterly, biannual, etc.) and must be immovable.
-When this policy isn’t clear, organizations tend to stop further attacks
-after the first exercise with the excuse of being unable
+When this policy isn't clear, organizations tend to stop further attacks
+with the excuse of being unable
 to fix the vulnerabilities found on the previous cycle.
-It’s not necessary to argue about the naivety of this way of thinking.
-Once your organization’s policies evolve
+Once your organization's policies evolve
 into periodic exercises of continuous attacks,
-the next policy is to do them quietly and unexpectedly, ergo,
+the next policy is to do them quietly and unexpectedly.
 
-. *Zero knowledge* attacks.
+. *Zero knowledge attacks*.
 It makes no sense that the ones who attack (red team)
 perform the test when the defenders (blue team)
-are aware of the time and place of these intrusions,
-in the same way, it is absurd for red team members to report advances
+are aware of the time and place of these intrusions.
+It's absurd for red team members to report advances
 or ask for permission (in the scope of these attacks) from blue team members,
 someone within the organization that could have links
 with defense software/hardware vendors or bosses that might be compromised.
 In order to know with certainty the security level of your company,
-these exercises must be as close to reality as possible,
-and in real life a malicious attacker will not notify when,
-how and where it might attack,
-what techniques they are/will be using,
+these exercises must be as close to reality as possible.
+In real life a malicious attacker will not notify when,
+how and where he might attack,
+what techniques he might be using,
 what the penetration level is,
-what machines are owned by the attacker and what information was disclosed.
+what machines he owns, and what information has been disclosed.
 Because of this, we must maintain a minimum privilege
 information disclosure about the test,
 it should be only known by the minimum quantity of personnel.
-This policy is known as zero knowledge policy.
+This is known as zero knowledge policy.
 +
-.Security Exercises: Red team vs Blue Team
+.Security Exercises: Red team vs Blue team
 image::red-blue.png[width=500, alt="Red team vs blue team"]
 +
-This policy implies
-that the ones responsible for the security of the organizations
-shouldn’t be the ones who organize and coordinate an ethical hacking test,
+This policy implies that
+the ones responsible for the security of the organizations
+shouldn't be the ones who organize and coordinate an ethical hacking test,
 given the tendency that, with the information of the attack,
 they prepare for it unrealistically,
 limit the scope of the attack to strong zones
 and filter critical vulnerabilities to their managers
 to avoid risking their current positions.
-Even though it’s now a trend to have Purple Teams,
+Even though it's now a trend to have Purple Teams,
 a combination of attackers and defenders,
 we should define our objective clearly:
-knowing precisely my security level.
-The existence of these mixed team creates the possibility
-of polluting the test results because this team creates a conflict of interest
-on the organizational design of the company.
-+
+knowing precisely the security level.
+The existence of these mixed teams creates the possibility
+of polluting test results because these teams create conflict of interest
+on the organizational design of the company. +
 Proceeding with the last policy brings an outstanding advantage:
 knowing the real detection and reaction skills of your organization
 in the event of an attack.
-If the blue team doesn’t know if the attacker is a “white hat” hacker
+If the blue team doesn't know if the attacker is a “white hat” hacker
 (the ones on red teams are these type of hackers)
 or a “black hat” hacker (a malicious one),
 they will always be in a state of alert,
@@ -127,10 +123,10 @@ blocking, reporting, incident handling, etc.
 This is our third policy:
 
 . *React until the end* to every detection,
-without taking into account the hacker’s intentions.
-This approach keeps the incident response engine oiled
-and well maintained, allows to test the quality of the hired red team,
-measures the efficiency of your investments on defense
+without taking into account the hacker's intentions.
+This approach keeps the incident response engine oiled and well maintained,
+allows to test the quality of the hired red team,
+measures the efficiency of your investments on defense,
 and finally helps you to achieve cost reductions
 or apply penalties that, after some frequency,
 make the attacking exercise pay for itself.
@@ -138,8 +134,7 @@ make the attacking exercise pay for itself.
 .Continuous protection of business information
 image::protect.png[width=500, alt="Information protection"]
 +
-The direct implication of the last two policies:
-zero knowledge and react until the end, is our next policy:
+The direct implication of the last two policies is our next policy:
 
 . *Total intrusion:* The red team must have a complete authorization on paper,
 email and all forms of legal protection,
@@ -148,12 +143,12 @@ to do any offensive tactic, i.e., get any information, modify any data,
 access any workstation, shut any service down,
 all should be allowed to ensure maximum criticity
 and compromising the security on the highest level.
-If this policy isn’t in place, the red team that you hired
+If this policy isn't in place, the red team that you hired
 will have their hands tied and not be allowed to find real vulnerabilities,
 explore real paths that a malicious attacker might walk
 and show you your real security flaws.
 In the end, if on the ethical hacking tests
-they don’t find anything significant,
+they don't find anything significant,
 it surely will be due to the limitations that you imposed on the red team,
 and your doubts on whether your security is real or fake will rise.
 As a final point, we want to invite you to one of the most forgotten aspects
@@ -165,13 +160,13 @@ what is most important?, most of the time the answer will be both.
 But if you ask:
 Will you shut down your servers given the presence of an attacker?
 Saying yes to that question puts confidentiality above availability,
-the answer that you will find is that they’d rather maintain their servers on
+the answer that you will find is that they'd rather maintain their servers on
 and try to deal with the attacker.
 For most organizations, it is common to have availability
 higher than confidentiality and integrity in the precedence list.
 It is paradoxical that, even though availability
 is the most important of the triad,
-they won’t authorize red teams to test +DoS+
+they won't authorize red teams to test +DoS+
 (denial of service) attacks survival rate.
 The invitation in this case is:
 turn your restrictions into encouragement to attack to the red team,
@@ -181,7 +176,7 @@ how vulnerable your company is to a malicious attacker.
 == Conclusion
 
 With these simple policies, *continuous attacks*, *zero knowledge*,
-*react until the end*, *total intrusion* and coherence,
+*react until the end*, *total intrusion* and *coherence*,
 you can know how secure your systems really are,
 improve your security at vertiginous rates
 and save money by not buying technologies
