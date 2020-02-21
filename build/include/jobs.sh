@@ -829,3 +829,35 @@ function job_user_provision_web_prod_rotate_keys {
         "${gitlab_masked}" \
         "${gitlab_protected}"
 }
+
+function _job_terraform_states_bucket {
+  export TF_VAR_aws_access_key="${AWS_ACCESS_KEY_ID}"
+  export TF_VAR_aws_secret_key="${AWS_SECRET_ACCESS_KEY}"
+  local bucket="${1}"
+  local sse_config
+
+  if aws s3api list-buckets --query 'Buckets[].Name' | grep -q "${bucket}"
+  then
+        echo "[INFO] Bucket already exists: ${bucket}"
+  else
+        echo "[INFO] Creating bucket: ${bucket}" \
+    &&  sse_config='{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}' \
+    &&  aws s3api create-bucket \
+          --bucket "${bucket}" \
+          --region 'us-east-1' \
+          --acl 'private' \
+    &&  echo '[INFO] Activating versioning' \
+    &&  aws s3api put-bucket-versioning \
+          --bucket "${bucket}" \
+          --versioning-configuration Status=Enabled \
+    &&  echo '[INFO] Activating server side encryption' \
+        aws s3api put-bucket-encryption \
+          --bucket "$1" \
+          --server-side-encryption-configuration "$sse_config"
+  fi
+}
+
+function job_terraform_states_bucket {
+      _job_terraform_states_bucket 'fluidattacks-terraform-states-prod' \
+  &&  _job_terraform_states_bucket 'fluidattacks-terraform-states-dev'
+}

@@ -328,6 +328,11 @@ user_provision_web_prod_rotate_keys:
   <<: *in_schedule_user_provision_rotate_keys
   stage: rotation
 
+terraform_states_bucket:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: terraform-backend
+
 build-builder:
   image: fluidattacks/docker-bash:latest
   tags: [autoscaling]
@@ -398,14 +403,3 @@ analytics-refresh-token-timedoctor:
   only:
     variables:
       - $FLAG_REFRESH_TOKENS
-
-terraform-states-bucket:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: terraform-backend
-  script:
-    - ./ci-scripts/jobs/terraform-states-bucket.sh
-  only:
-    - master
-  except:
-    - schedules
