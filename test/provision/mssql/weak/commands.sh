@@ -71,8 +71,6 @@ GO
 RECONFIGURE WITH OVERRIDE
 GO"
 
-# Enable TRUSTWORTHY
-execute_query "ALTER DATABSE $DB_NAME SET TRUSTWORTHY ON"
 
 # Grant permission ALTER ANY DATABASE. check: can_alter_any_database
 execute_query "GRANT ALTER ANY DATABASE TO $DB_USER;"
@@ -109,6 +107,10 @@ GO
 ALTER DATABASE test_db_1 SET containment  = PARTIAL
 GO
 ALTER DATABASE test_db_1 SET AUTO_CLOSE ON"
+
+# Enable TRUSTWORTHY. check: has_trustworthy_status_on
+# Server must be restarted
+execute_query "ALTER DATABSE test_db_1 SET TRUSTWORTHY ON"
 
 # Grant Alter any login. check: can_alter_any_login
 execute_query "GRANT ALTER ANY LOGIN TO $DB_USER"

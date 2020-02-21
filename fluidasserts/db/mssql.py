@@ -1161,3 +1161,60 @@ def has_clr_option_enabled(dbname: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
+def has_trustworthy_status_on(dbname: str,
+                              user: str,
+                              password: str,
+                              host: str,
+                              port: int) -> Tuple:
+    """
+    Check the status of database TRUSTWORTHY.
+
+    The TRUSTWORTHY database setting restricts access to database resources by
+    databases that contain assemblies with the EXTERNAL_ACCESS or UNSAFE
+    permission settings and modules that use impersonation of accounts assigned
+    elevated privileges.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+
+    :returns: - ``OPEN`` if there are databases that have TRUSTWORTHY status
+                 on.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port)
+
+    msg_open: str = 'TRUSTWORTHY status on.'
+    msg_closed: str = 'TRUSTWORTHY status off.'
+
+    try:
+        with database(connection_string) as (_, cursor):
+            cursor.execute("""select * from master.sys.databases
+                              where lower(name) <> 'msdb'""")
+            for data in cursor:
+                (vulns if data.is_trustworthy_on else safes).append(
+                    (f'master.sys.databases.{data.name}',
+                     'must turn off the TRUSTWORTHY option'))
+    except (pyodbc.ProgrammingError, pyodbc.OperationalError) as exc:
+        if not _is_auth_permission_error(exc):
+            raise exc
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
