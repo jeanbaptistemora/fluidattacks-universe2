@@ -75,5 +75,5 @@ django-apps/**/dist
 /build/coverage
 /dump.rdb
 /TEMP_FD
-/.coverage
+/.coverage*
 /.DynamoDB

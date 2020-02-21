@@ -19,10 +19,10 @@
                         "S": "unittesting"
                     },
                     "git_origin": {
-                        "S": "unable to retrieve"
+                        "S": "http://test.com"
                     },
                     "git_branch": {
-                        "S": "unable to retrieve"
+                        "S": "master"
                     },
                     "vulnerabilities": {
                         "M": {
@@ -77,13 +77,13 @@
                         "S": "0"
                     },
                     "git_repo": {
-                        "S": "unable to retrieve"
+                        "S": "Repository"
                     },
                     "strictness": {
                         "S": "strict"
                     },
                     "git_commit": {
-                        "S": "unable to retrieve"
+                        "S": "6e7b34c1358db2ff4123c3c76e7fe3bf9f2838f6"
                     }
                 }
             }
@@ -110,7 +110,7 @@
                         "S": "https://test.com/test"
                     },
                     "git_branch": {
-                        "S": "unable to retrieve"
+                        "S": "awesomeFeature"
                     },
                     "vulnerabilities": {
                         "M": {

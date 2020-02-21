@@ -3,12 +3,15 @@ from datetime import datetime
 
 # Third party libraries
 from graphene import DateTime, List, ObjectType, String
+from graphene.types.generic import GenericScalar
 
 # Local libraries
 from backend.util import get_current_time_minus_delta
 from backend.dal import break_build as break_build_dal
+from backend.utils import break_build as break_build_utils
 
 # pylint: disable=super-init-not-called
+# pylint: disable=too-many-instance-attributes
 
 # Constants
 DYNAMO_DB_DATE_FORMAT = '%Y-%m-%dT%H:%M:%S.%f%z'
@@ -19,33 +22,46 @@ class BreakBuildExecution(ObjectType):
     project_name = String()
     identifier = String()
     date = DateTime()
+    exit_code = String()
+    git_branch = String()
+    git_commit = String()
+    git_origin = String()
+    git_repo = String()
+    kind = String()
+    log = String()
+    strictness = String()
+    vulnerabilities = GenericScalar()
 
     def __init__(self, *,
                  subscription: str,
                  execution_id: str,
                  date: datetime,
+                 exit_code: str,
+                 git_branch: str,
+                 git_commit: str,
+                 git_origin: str,
+                 git_repo: str,
+                 kind: str,
+                 log: str,
+                 strictness: str,
+                 vulnerabilities: dict,
                  **_):
         self.project_name: str = subscription
         self.identifier: str = execution_id
         self.date: datetime = datetime.strptime(date, DYNAMO_DB_DATE_FORMAT)
+        self.exit_code: str = exit_code
+        self.git_branch: str = git_branch
+        self.git_commit: str = git_commit
+        self.git_origin: str = git_origin
+        self.git_repo: str = git_repo
+        self.kind: str = kind
+        self.log: str = log
+        self.strictness: str = strictness
+        self.vulnerabilities: dict = \
+            break_build_utils.transform_to_json(vulnerabilities)
 
     def __str__(self):
         return f'BreakBuildExecution({self.project_name}, {self.identifier})'
-
-    def resolve_project_name(self, info):
-        """ Resolve project_name """
-        del info
-        return self.project_name
-
-    def resolve_identifier(self, info):
-        """ Resolve identifier """
-        del info
-        return self.identifier
-
-    def resolve_date(self, info):
-        """ Resolve date """
-        del info
-        return self.date
 
 
 class BreakBuildExecutions(ObjectType):

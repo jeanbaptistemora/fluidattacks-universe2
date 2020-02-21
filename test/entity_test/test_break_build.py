@@ -69,6 +69,15 @@ class BreakBuildExecutionsTests(TestCase):
                 projectName
                 identifier
                 date
+                exitCode
+                gitBranch
+                gitCommit
+                gitOrigin
+                gitRepo
+                kind
+                log
+                strictness
+                vulnerabilities
               }
             }
           }
@@ -82,7 +91,78 @@ class BreakBuildExecutionsTests(TestCase):
         assert executions[0]['projectName'] == project_name
         assert executions[0]['identifier'] == '33e5d863252940edbfb144ede56d56cf'
         assert executions[0]['date'] == '2020-02-19T19:31:18+00:00'
+        assert executions[0]['exitCode'] == '0'
+        assert executions[0]['gitBranch'] == 'master'
+        assert executions[0]['gitCommit'] == '6e7b34c1358db2ff4123c3c76e7fe3bf9f2838f6'
+        assert executions[0]['gitOrigin'] == 'http://test.com'
+        assert executions[0]['gitRepo'] == 'Repository'
+        assert executions[0]['kind'] == 'dynamic'
+        assert len(executions[0]['log']) > 100
+        assert isinstance(executions[0]['log'], str)
+        assert executions[0]['strictness'] == 'strict'
+        assert executions[0]['vulnerabilities'] == {
+            "accepted_exploits": [
+              {
+                "kind": "DAST",
+                "where": "HTTP/Implementation",
+                "who": "https://test.com/test"
+              },
+              {
+                "kind": "DAST",
+                "where": "HTTP/Implementation",
+                "who": "https://test.com/test"
+              }
+            ],
+            "vulnerability_count_mocked_exploits": 0,
+            "vulnerability_count_exploits": 0,
+            "vulnerability_count_accepted_exploits": 2,
+            "exploits": [],
+            "mocked_exploits": []
+          }
 
         assert executions[1]['projectName'] == project_name
         assert executions[1]['identifier'] == 'a125217504d447ada2b81da3e4bdab0e'
         assert executions[1]['date'] == '2020-02-19T19:04:33+00:00'
+        assert executions[1]['exitCode'] == '0'
+        assert executions[1]['gitBranch'] == 'awesomeFeature'
+        assert executions[1]['gitCommit'] == '23c3c76e7fe3bf9f2838f66e7b34c1358db2ff41'
+        assert executions[1]['gitOrigin'] == 'https://test.com/test'
+        assert executions[1]['gitRepo'] == 'Repository'
+        assert executions[1]['kind'] == 'static'
+        assert len(executions[1]['log']) > 100
+        assert isinstance(executions[1]['log'], str)
+        assert executions[1]['strictness'] == 'strict'
+        assert executions[1]['vulnerabilities'] == {
+            "accepted_exploits": [
+              {
+                "kind": "SAST",
+                "where": "55",
+                "who": "Repository/folder/folder/file.cs"
+              },
+              {
+                "kind": "SAST",
+                "where": "3",
+                "who": "Repository/folder/folder/file2.cs"
+              },
+              {
+                "kind": "SAST",
+                "where": "8",
+                "who": "Repository/folder/folder/file3.cs"
+              },
+              {
+                "kind": "SAST",
+                "where": "9",
+                "who": "Repository/folder/folder/file3.cs"
+              },
+              {
+                "kind": "SAST",
+                "where": "10",
+                "who": "Repository/folder/folder/file4.cs"
+              }
+            ],
+            "vulnerability_count_mocked_exploits": 0,
+            "vulnerability_count_exploits": 0,
+            "vulnerability_count_accepted_exploits": 5,
+            "exploits": [],
+            "mocked_exploits": []
+          }
