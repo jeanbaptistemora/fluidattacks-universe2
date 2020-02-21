@@ -2,19 +2,65 @@
 from datetime import datetime
 
 # Third party libraries
-from graphene import DateTime, List, ObjectType, String
-from graphene.types.generic import GenericScalar
+from graphene import DateTime, Int, Field, List, ObjectType, String
 
 # Local libraries
 from backend.util import get_current_time_minus_delta
 from backend.dal import break_build as break_build_dal
-from backend.utils import break_build as break_build_utils
 
 # pylint: disable=super-init-not-called
 # pylint: disable=too-many-instance-attributes
 
 # Constants
 DYNAMO_DB_DATE_FORMAT = '%Y-%m-%dT%H:%M:%S.%f%z'
+
+
+class ExploitResult(ObjectType):
+    """ GraphQL Entity to represent the result of an exploit """
+    kind = String()
+    where = String()
+    who = String()
+
+    def __init__(self, *,
+                 kind: str,
+                 who: str,
+                 where: str,
+                 **_):
+        self.kind: str = kind
+        self.where: str = where
+        self.who: str = who
+
+
+class Vulnerabilities(ObjectType):
+    """ GraphQL Entity for the vulnerabilities found in the logs """
+    exploits = List(ExploitResult)
+    mocked_exploits = List(ExploitResult)
+    accepted_exploits = List(ExploitResult)
+    num_of_vulnerabilities_in_exploits = Int()
+    num_of_vulnerabilities_in_mocked_exploits = Int()
+    num_of_vulnerabilities_in_accepted_exploits = Int()
+
+    def __init__(self, *,
+                 exploits: list,
+                 mocked_exploits: list,
+                 accepted_exploits: list,
+                 vulnerability_count_exploits: int,
+                 vulnerability_count_mocked_exploits: int,
+                 vulnerability_count_accepted_exploits: int,
+                 **_):
+        self.exploits: list = \
+            [ExploitResult(**args) for args in exploits]
+        self.mocked_exploits: list = \
+            [ExploitResult(**args) for args in mocked_exploits]
+        self.accepted_exploits: list = \
+            [ExploitResult(**args) for args in accepted_exploits]
+
+        self.num_of_vulnerabilities_in_exploits: int = \
+            vulnerability_count_exploits
+        self.num_of_vulnerabilities_in_mocked_exploits: int = \
+            vulnerability_count_mocked_exploits
+        self.num_of_vulnerabilities_in_accepted_exploits: int = \
+            vulnerability_count_accepted_exploits
 
 
 class BreakBuildExecution(ObjectType):
@@ -30,7 +76,7 @@ class BreakBuildExecution(ObjectType):
     kind = String()
     log = String()
     strictness = String()
-    vulnerabilities = GenericScalar()
+    vulnerabilities = Field(Vulnerabilities)
 
     def __init__(self, *,
                  subscription: str,
@@ -57,8 +103,8 @@ class BreakBuildExecution(ObjectType):
         self.kind: str = kind
         self.log: str = log
         self.strictness: str = strictness
-        self.vulnerabilities: dict = \
-            break_build_utils.transform_to_json(vulnerabilities)
+        self.vulnerabilities: Vulnerabilities = \
+            Vulnerabilities(**vulnerabilities)
 
     def __str__(self):
         return f'BreakBuildExecution({self.project_name}, {self.identifier})'

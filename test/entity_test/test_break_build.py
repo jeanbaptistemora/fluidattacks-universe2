@@ -77,7 +77,26 @@ class BreakBuildExecutionsTests(TestCase):
                 kind
                 log
                 strictness
-                vulnerabilities
+                vulnerabilities {
+                  exploits {
+                    kind
+                    who
+                    where
+                  }
+                  mockedExploits {
+                    kind
+                    who
+                    where
+                  }
+                  acceptedExploits {
+                    kind
+                    who
+                    where
+                  }
+                  numOfVulnerabilitiesInExploits
+                  numOfVulnerabilitiesInMockedExploits
+                  numOfVulnerabilitiesInAcceptedExploits
+                }
               }
             }
           }
@@ -101,24 +120,24 @@ class BreakBuildExecutionsTests(TestCase):
         assert isinstance(executions[0]['log'], str)
         assert executions[0]['strictness'] == 'strict'
         assert executions[0]['vulnerabilities'] == {
-            "accepted_exploits": [
-              {
-                "kind": "DAST",
-                "where": "HTTP/Implementation",
-                "who": "https://test.com/test"
-              },
-              {
-                "kind": "DAST",
-                "where": "HTTP/Implementation",
-                "who": "https://test.com/test"
-              }
-            ],
-            "vulnerability_count_mocked_exploits": 0,
-            "vulnerability_count_exploits": 0,
-            "vulnerability_count_accepted_exploits": 2,
             "exploits": [],
-            "mocked_exploits": []
-          }
+            "mockedExploits": [],
+            "acceptedExploits": [
+                {
+                    "kind": "DAST",
+                    "who": "https://test.com/test",
+                    "where": "HTTP/Implementation"
+                },
+                {
+                    "kind": "DAST",
+                    "who": "https://test.com/test",
+                    "where": "HTTP/Implementation"
+                }
+            ],
+            "numOfVulnerabilitiesInExploits": 0,
+            "numOfVulnerabilitiesInMockedExploits": 0,
+            "numOfVulnerabilitiesInAcceptedExploits": 2
+        }
 
         assert executions[1]['projectName'] == project_name
         assert executions[1]['identifier'] == 'a125217504d447ada2b81da3e4bdab0e'
@@ -133,36 +152,36 @@ class BreakBuildExecutionsTests(TestCase):
         assert isinstance(executions[1]['log'], str)
         assert executions[1]['strictness'] == 'strict'
         assert executions[1]['vulnerabilities'] == {
-            "accepted_exploits": [
-              {
-                "kind": "SAST",
-                "where": "55",
-                "who": "Repository/folder/folder/file.cs"
-              },
-              {
-                "kind": "SAST",
-                "where": "3",
-                "who": "Repository/folder/folder/file2.cs"
-              },
-              {
-                "kind": "SAST",
-                "where": "8",
-                "who": "Repository/folder/folder/file3.cs"
-              },
-              {
-                "kind": "SAST",
-                "where": "9",
-                "who": "Repository/folder/folder/file3.cs"
-              },
-              {
-                "kind": "SAST",
-                "where": "10",
-                "who": "Repository/folder/folder/file4.cs"
-              }
-            ],
-            "vulnerability_count_mocked_exploits": 0,
-            "vulnerability_count_exploits": 0,
-            "vulnerability_count_accepted_exploits": 5,
             "exploits": [],
-            "mocked_exploits": []
-          }
+            "mockedExploits": [],
+            "acceptedExploits": [
+                {
+                    "kind": "SAST",
+                    "who": "Repository/folder/folder/file.cs",
+                    "where": "55"
+                },
+                {
+                    "kind": "SAST",
+                    "who": "Repository/folder/folder/file2.cs",
+                    "where": "3"
+                },
+                {
+                    "kind": "SAST",
+                    "who": "Repository/folder/folder/file3.cs",
+                    "where": "8"
+                },
+                {
+                    "kind": "SAST",
+                    "who": "Repository/folder/folder/file3.cs",
+                    "where": "9"
+                },
+                {
+                    "kind": "SAST",
+                    "who": "Repository/folder/folder/file4.cs",
+                    "where": "10"
+                }
+            ],
+            "numOfVulnerabilitiesInExploits": 0,
+            "numOfVulnerabilitiesInMockedExploits": 0,
+            "numOfVulnerabilitiesInAcceptedExploits": 5
+        }
