@@ -14,7 +14,7 @@ import store from "../../../../store";
 import { msgError } from "../../../../utils/notifications";
 import { GET_PROJECT_ALERT } from "../ProjectContent/queries";
 import { FindingContent } from "./index";
-import { GET_FINDING_HEADER, SUBMIT_DRAFT_MUTATION } from "./queries";
+import { APPROVE_DRAFT_MUTATION, GET_FINDING_HEADER, SUBMIT_DRAFT_MUTATION } from "./queries";
 import { IFindingContentProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -120,6 +120,29 @@ describe("FindingContent", () => {
     },
   };
 
+  type resultType = Dictionary<{ finding: { historicState: Dictionary[] } }>;
+  const result: resultType = draftMock.result as resultType;
+  const submittedDraftMock: Readonly<MockedResponse> = {
+    ...draftMock,
+    result: {
+      ...draftMock.result,
+      data: {
+        ...result.data,
+        finding: {
+          ...result.data.finding,
+          historicState: [
+            ...result.data.finding.historicState,
+            {
+              analyst: "someone@fluidattacks.com",
+              date: "2019-10-31 11:30:00",
+              state: "SUBMITTED",
+            },
+          ],
+        },
+      },
+    },
+  };
+
   const alertMock: Readonly<MockedResponse> = {
     request: {
       query: GET_PROJECT_ALERT,
@@ -133,22 +156,6 @@ describe("FindingContent", () => {
         alert: {
           message: "Hello world",
           status: 1,
-        },
-      },
-    },
-  };
-
-  const submitMutationMock: Readonly<MockedResponse> = {
-    request: {
-      query: SUBMIT_DRAFT_MUTATION,
-      variables: {
-        findingId: "438679960",
-      },
-    },
-    result: {
-      data: {
-        submitDraft: {
-          success: true,
         },
       },
     },
@@ -243,24 +250,17 @@ describe("FindingContent", () => {
   });
 
   it("should submit draft", async () => {
-    type resultType = Dictionary<{ finding: { historicState: Dictionary[] } }>;
-    const result: resultType = draftMock.result as resultType;
-    const submittedDraftMock: Readonly<MockedResponse> = {
-      ...draftMock,
+    const submitMutationMock: Readonly<MockedResponse> = {
+      request: {
+        query: SUBMIT_DRAFT_MUTATION,
+        variables: {
+          findingId: "438679960",
+        },
+      },
       result: {
-        ...draftMock.result,
         data: {
-          ...result.data,
-          finding: {
-            ...result.data.finding,
-            historicState: [
-              ...result.data.finding.historicState,
-              {
-                analyst: "someone@fluidattacks.com",
-                date: "2019-10-31 11:30:00",
-                state: "SUBMITTED",
-              },
-            ],
+          submitDraft: {
+            success: true,
           },
         },
       },
@@ -327,7 +327,109 @@ describe("FindingContent", () => {
       .filterWhere((element: ReactWrapper) => element.text()
         .includes("Submit"));
     submitButton.simulate("click");
+    await act(async () => { await wait(0); });
+    expect(msgError)
+      .toHaveBeenCalled();
+  });
+
+  it("should approve draft", async () => {
+    const approveMutationMock: Readonly<MockedResponse> = {
+      request: {
+        query: APPROVE_DRAFT_MUTATION,
+        variables: {
+          findingId: "438679960",
+        },
+      },
+      result: {
+        data: {
+          approveDraft: {
+            success: true,
+          },
+        },
+      },
+    };
+    (window as typeof window & { userRole: string }).userRole = "admin";
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={[submittedDraftMock, approveMutationMock, findingMock]} addTypename={false}>
+            <FindingContent {...mockProps} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
+    );
     await act(async () => { await wait(0); wrapper.update(); });
+    let approveButton: ReactWrapper = wrapper.find("ButtonToolbar")
+      .at(0)
+      .find("Button")
+      .filterWhere((element: ReactWrapper) => element.text()
+        .includes("Approve"));
+    approveButton.simulate("click");
+    await act(async () => { wrapper.update(); });
+    const confirmDialog: ReactWrapper = wrapper.find("findingActions")
+      .find("Modal")
+      .at(0);
+    expect(confirmDialog)
+      .toHaveLength(1);
+    const proceedButton: ReactWrapper = confirmDialog
+      .find("Button")
+      .at(1);
+    proceedButton.simulate("click");
+    await act(async () => { await wait(50); wrapper.update(); });
+    approveButton = wrapper.find("ButtonToolbar")
+      .at(0)
+      .find("Button")
+      .filterWhere((element: ReactWrapper) => element.text()
+        .includes("Approve"));
+    expect(approveButton)
+      .toHaveLength(0);
+  });
+
+  it("should handle approval errors", async () => {
+    const approveErrorMock: Readonly<MockedResponse> = {
+      request: {
+        query: APPROVE_DRAFT_MUTATION,
+        variables: {
+          findingId: "438679960",
+        },
+      },
+      result: {
+        errors: [
+          new GraphQLError("Exception - This draft has already been approved"),
+          new GraphQLError("Exception - The draft has not been submitted yet"),
+          new GraphQLError("CANT_APPROVE_FINDING_WITHOUT_VULNS"),
+          new GraphQLError("Unexpected error"),
+        ],
+      },
+    };
+    (window as typeof window & { userRole: string }).userRole = "admin";
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={[submittedDraftMock, approveErrorMock, findingMock]} addTypename={false}>
+            <FindingContent {...mockProps} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const approveButton: ReactWrapper = wrapper.find("ButtonToolbar")
+      .at(0)
+      .find("Button")
+      .filterWhere((element: ReactWrapper) => element.text()
+        .includes("Approve"));
+    approveButton.simulate("click");
+    await act(async () => { wrapper.update(); });
+    const confirmDialog: ReactWrapper = wrapper.find("findingActions")
+      .find("Modal")
+      .at(0);
+    expect(confirmDialog)
+      .toHaveLength(1);
+    const proceedButton: ReactWrapper = confirmDialog
+      .find("Button")
+      .at(1);
+    proceedButton.simulate("click");
+    await act(async () => { await wait(0); });
     expect(msgError)
       .toHaveBeenCalled();
   });
