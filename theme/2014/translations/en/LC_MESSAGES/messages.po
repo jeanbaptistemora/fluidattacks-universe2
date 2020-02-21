@@ -159,6 +159,10 @@ msgstr "Zero false positives"
 msgid "Header-msg"
 msgstr "Expert intelligence + effective automation"
 
+#: templates/new-base.html:122
+msgid "New-Header-msg"
+msgstr "FOR YOUR SOFTWARE DEVELOPMENT PROCESS"
+
 #: templates/base.html:124
 msgid "Header-item-1"
 msgstr "Comprehensive security testing at DevOps speed"

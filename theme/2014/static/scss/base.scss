@@ -18,6 +18,8 @@ $blue: rgba(83, 150, 234, 1);
 $blue2: rgba(25, 116, 186, 1);
 $middleblack: rgba(85, 85, 85, 1);
 $greenyellow: rgba(173, 255, 47, 1);
+$button-hover: rgba(255, 52, 53, 1);
+$button-red: rgba(191, 38, 38, 1);
 //Monokai theme colors
 $codeblack: rgba(39, 40, 43, 1);
 $codebrown: rgba(117, 113, 94, 1);
@@ -45,6 +47,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 .w-32 { width: 32%; }
 .montsy { font-family: 'Montserrat'; }
 .sans-pro { font-family: 'Source Sans Pro'; }
+.roboto { font-family: 'Roboto', sans-serif; }
+.neue { font-family: neue-haas-grotesk-display, sans-serif; }
 .mono { font-family: 'Overpass Mono', monospace; }
 .mono2 { font-family: monospaced; }
 .c-black { color: $black; }
@@ -76,6 +80,10 @@ $codeyellow: rgba(230, 219, 116, 1);
 .w6 { width: 19em; }
 .w-maxcontent { width: max-content; }
 .mt8 { margin-top: 20rem; }
+.bannerbt { background-color: $button-red;
+  &:hover { background-color: $button-hover;} }
+.bt-pd { padding: .625rem 2.5rem; }
+.bt-trans { transition: all .3s ease;}
 .ptdemo { padding-top: 6rem; }
 .rep-bd { border: .063rem solid $fluid-light-gray; }
 .rep-shadow { box-shadow: -.188rem -.125rem .3rem $fluid-light-gray; }
@@ -89,6 +97,10 @@ $codeyellow: rgba(230, 219, 116, 1);
 .ba-hidden { border-style: hidden; }
 .tooltip { &:hover { .tooltip-text { visibility: visible; } } }
 .anchor-sign { &::before { content: '\0023'; } }
+.banner-bg { background-image: url('../../images/cover-main.png'); }
+.banner-title { background-image: url('../../images/pentest.svg'); }
+.b-max { font-weight: 999; }
+.nb-6 { margin-bottom: -6rem;}
 
 
 // Tachyons custom responsive classes
@@ -104,11 +116,13 @@ $codeyellow: rgba(230, 219, 116, 1);
   .h-banner-l { height: 20em; }
   .three-columns-l { column-count: 3; }
   .hover-white-l { &:hover { color: $white; }}
+  .new-banner { width: 40em; }
 }
 
 //Very large screens
 @media screen and (min-width: 150em) {
   .h-auto-vl { height: auto; }
+  .new-banner { width: 40em; }
 }
 // End Tachyons
 

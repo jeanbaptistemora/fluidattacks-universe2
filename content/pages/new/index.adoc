@@ -1,0 +1,6 @@
+:slug: new/
+:description: Fluid Attacks is a company focused on information security, ethical hacking, penetration testing and vulnerabilities detection in applications. The purpose of this page is to present additional information about the location of Fluid Attacks offices in Colombia and USA.
+:keywords: Fluid Attacks, New, Office, HQ, HeadQuarters, Contact.
+:template: new-landing
+
+= New

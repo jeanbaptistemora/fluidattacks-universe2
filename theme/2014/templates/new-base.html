@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}"
+      class="sans-pro">
+  <head>
+    {% block head %}
+      <meta http-equiv="Content-type"
+            content="text/html"
+            charset="utf-8">
+      <meta http-equiv="X-UA-Compatible"
+            content="IE=edge">
+      <meta name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+      <!-- Meta Description -->
+        {% block meta %}{% endblock meta %}
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async
+                src="https://www.googletagmanager.com/gtag/js?id=UA-22974464-4">
+        </script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-22974464-4');
+        </script>
+      <!-- End Google Analytics -->
+      <!-- MixPanel -->
+        {% assets filters="uglifyjs", output="static/js/mixpanel.min.js", "js/mixpanel.js", "js/mixPanelDashboard.js" %}
+          <script type="text/javascript"
+                  src="{{ SITEURL }}/{{ ASSET_URL }}">
+          </script>
+        {% endassets %}
+      <!-- End MixPanel -->
+
+      {% if GOOGLE_SITE_VERIFICATION %}
+        <meta name="google-site-verification"
+              content="{{ GOOGLE_SITE_VERIFICATION }}">
+      {% endif %}
+      <title>{% block title %}{% endblock title %}</title>
+      {% block canonical %}{% endblock canonical %}
+      {% block language %}{% endblock language %}
+      <link rel="shortcut icon"
+            type="image/x-icon"
+            href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/favicon.png"
+            sizes="16x16" />
+      <link rel="icon"
+            type="image/x-icon"
+            href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/favicon.png"
+            sizes="16x16" />
+      <link rel="apple-touch-icon-precomposed"
+            href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/favicon.png" />
+      {% for name,link in SOCIAL if name in ['rss', 'rss-square'] %}
+        <link href="{{ link }}"
+              type="application/atom+xml"
+              rel="alternate"
+              title="{{ SITENAME }} Full Atom Feed" />
+      {% else %}
+        {% if FEED_ALL_ATOM %}
+          <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}"
+                type="application/atom+xml"
+                rel="alternate"
+                title="{{ SITENAME }} Full Atom Feed" />
+        {% endif %}
+        {% if FEED_ALL_RSS %}
+          <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}"
+                type="application/rss+xml"
+                rel="alternate"
+                title="{{ SITENAME }} Full RSS Feed" />
+        {% endif %}
+        {% if FEED_ATOM %}
+          <link href="{{ FEED_DOMAIN }}/{{ FEED_ATOM }}"
+                type="application/atom+xml"
+                rel="alternate"
+                title="{{ SITENAME }} Atom Feed" />
+        {% endif %}
+        {% if FEED_RSS %}
+          <link href="{{ FEED_DOMAIN }}/{{ FEED_RSS }}"
+                type="application/rss+xml"
+                rel="alternate"
+                title="{{ SITENAME }} RSS Feed" />
+        {% endif %}
+        {% if CATEGORY_FEED_ATOM and category %}
+          <link href="{{ FEED_DOMAIN }}/{{ CATEGORY_FEED_ATOM|format(category.slug) }}"
+                type="application/atom+xml"
+                rel="alternate"
+                title="{{ SITENAME }} Categories Atom Feed" />
+        {% endif %}
+        {% if CATEGORY_FEED_RSS and category %}
+          <link href="{{ FEED_DOMAIN }}/{{ CATEGORY_FEED_RSS|format(category.slug) }}"
+                type="application/rss+xml"
+                rel="alternate"
+                title="{{ SITENAME }} Categories RSS Feed" />
+        {% endif %}
+        {% if TAG_FEED_ATOM and tag %}
+          <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_ATOM|format(tag.slug) }}"
+                type="application/atom+xml"
+                rel="alternate"
+                title="{{ SITENAME }} Tags Atom Feed" />
+        {% endif %}
+        {% if TAG_FEED_RSS and tag %}
+          <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_RSS|format(tag.slug) }}"
+                type="application/rss+xml"
+                rel="alternate"
+                title="{{ SITENAME }} Tags RSS Feed" />
+        {% endif %}
+      {% endfor %}
+      <!-- Compress and Minify CSS files and bundle from SASS files -->
+        {% assets filters="scss, cssmin", output="static/css/theme.min.css", "scss/base.scss", "scss/tipuesearch.scss", "/app/node_modules/intl-tel-input/src/css/intlTelInput.scss" , "/app/node_modules/owl.carousel2/src/scss/owl.carousel.scss" , "/app/node_modules/owl.carousel2/src/scss/owl.theme.default.scss" %}
+          <link rel="stylesheet"
+                type="text/css"
+                href="{{ SITEURL }}/{{ ASSET_URL }}">
+        {% endassets %}
+      <!-- Custom Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,700|Source+Sans+Pro:300|Overpass+Mono"
+              rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700"
+              rel="stylesheet">
+        <link href="https://use.typekit.net/qt13fqb.css"
+              rel="stylesheet">
+
+      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    {% endblock head %}
+    {% block opengraph %}
+      {% for admin in FACEBOOK_ADMINS %}
+        <meta property="fb:admins"
+              content="{{ admin }}" >
+      {% endfor %}
+      {% for LOC in LOCALE %}
+        <meta property="og:locale"
+              content="{{ LOC }}">
+      {% endfor %}
+      <meta property="og:site_name"
+            content="{{ SITENAME }}">
+    {% endblock opengraph %}
+    {% block twitter_card %}
+      {% for name,link in SOCIAL if name in ['twitter'] %}
+        <meta name="twitter:card"
+              content="summary_large_image">
+        <meta name="twitter:site"
+              content="@{{ link|replace('http://', 'https://')|replace('https://twitter.com/', '') }}">
+        <meta name="twitter:title"
+              content="{{ SITENAME }}">
+        <meta name="twitter:description"
+              content="{{ SITESUBTITLE|default('View the blog.') }}">
+        {% if HEADER_COVER %}
+          <meta name="twitter:image"
+                content="{{ SITEURL }}/{{ HEADER_COVER }}">
+        {% else %}
+          <meta name="twitter:image"
+                content="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/post-bg.jpg">
+        {% endif %}
+      {% endfor %}
+    {% endblock twitter_card %}
+  </head>
+  <body class="bg-white ma0 lh-copy">
+    <!-- Mixpanel Event -->
+      <script>
+        mixPanelDashboard.trackPageView ("Page View", document.title, window.location.pathname);
+      </script>
+    <!-- End Mixpanel Event -->
+      {% assets output="static/js/dynClasses.min.js", "js/tmp/dynClasses.min.js" %}
+        <script type="text/javascript"
+                src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+      {% endassets %}
+    <!-- Navigation -->
+      {% block header %}
+      <div class="flex-ns flex-wrap-ns justify-between-m banner-bg vh-100 cover">
+        <div class="ba1 mb3 relative dt-ns mt0-ns pr3-ns pl3-ns pt3 ma-auto pt6">
+          <!-- Banner Image-->
+          <div class="relative db-ns mt0-ns new-banner w-75-m pr3-ns pl3-ns pt3 ma-auto fr nb-6">
+            <img class="top-2 new-banner"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/turbine-main.png"
+            alt="{{ gettext('Header-img-alt') }}">
+          </div>
+          <!-- Banner title and text -->
+          <div class="mb3 relative db-ns mt0-ns new-banner w-75-m pr3-ns pl3-ns pt3 ma-auto fl">
+            <img class="top-2 new-banner pt6"
+            src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pentest.svg"
+            alt="{{ gettext('Header-title-2') }}">
+            <p class="c-fluid-bk roboto b f3-ns mt2">{{ gettext('New-Header-msg') }}</p>
+            <!-- Get a Demo button -->
+            <span class="fl br2 bannerbt bt-pd bt-trans white b roboto pointer mt2"
+                onclick="window.location='{{ SITEURL }}/services/'">
+                Learn more
+            </span>
+            <!-- End Demo button -->
+          </div>
+        </div>
+      </div>
+      {% endblock header %}
+    <!-- Main Content -->
+      <div class="contbody">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            {% block breadcrumb %}{% endblock breadcrumb%}
+            {% block content %}{% endblock content %}
+          </div>
+        </div>
+      </div>
+    <!-- Google Structured Data -->
+      <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "Organization",
+          "url": "https://fluidattacks.com",
+          "logo": "{{ SITEURL }}/theme/images/fluid-logo.png",
+          "contactPoint": [{
+            "@type": "ContactPoint",
+            "telephone": "+57-4-444-2637",
+            "contactType": "customer service",
+            "areaServed": "CO",
+            "availableLanguage": ["Spanish", "English"]
+          },{
+            "@type": "ContactPoint",
+            "telephone": "+57-1-466-1673",
+            "contactType": "customer service",
+            "areaServed": "CO",
+            "availableLanguage": ["Spanish", "English"]
+          },{
+            "@type": "ContactPoint",
+            "telephone": "+57-314-878-1246",
+            "contactType": "customer service",
+            "areaServed": "CO",
+            "availableLanguage": ["Spanish", "English"]
+          },{
+            "@type": "ContactPoint",
+            "telephone": "+1-919-208-8180",
+            "contactType": "customer service",
+            "areaServed": "US",
+            "availableLanguage": ["Spanish", "English"]
+          }]
+        }
+      </script>
+      <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "ProfessionalService",
+          "name": "{{ AUTHOR }}",
+          "image": "{{ SITEURL }}/theme/images/fluid-logo.png",
+          "@id": "",
+          "url": "https://fludiattacks.com",
+          "telephone": "+57 (4) 444-26-37",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Calle 7 Sur #42-70",
+            "addressLocality": "Medellin",
+            "postalCode": "050022",
+            "addressCountry": "CO"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 6.197490999999999,
+            "longitude": -75.5733826
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday"
+            ],
+          "opens": "8:00",
+          "closes": "18:00"
+          }
+        }
+      </script>
+      <!-- Rocketchat live Chat -->
+      <div>
+      <!-- Start of Rocket.Chat Livechat Script -->
+          <script type="text/javascript">
+              (function(w, d, s, u) {
+                  w.RocketChat = function(c) { w.RocketChat._.push(c) }; w.RocketChat._ = []; w.RocketChat.url = u;
+                  var h = d.getElementsByTagName(s)[0], j = d.createElement(s);
+                  j.async = true; j.src = 'https://fluidattacks.rocket.chat/livechat/rocketchat-livechat.min.js?_=201903270000';
+                  h.parentNode.insertBefore(j, h);
+              })(window, document, 'script', 'https://fluidattacks.rocket.chat/livechat');
+          </script>
+      <!-- End of Rocket.Chat Livechat Script -->
+      </div>
+    <!-- Footer -->
+      {% include 'footer.html' %}
+    <!-- RDStation -->
+      <script type="text/javascript"
+              async
+              src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/587d2441-4eaa-4f2e-b96b-b0a5dcb3fcf3-loader.js" >
+      </script>
+  </body>
+</html>
