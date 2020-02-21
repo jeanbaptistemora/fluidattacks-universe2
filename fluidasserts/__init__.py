@@ -440,7 +440,7 @@ def _get_result_as_tuple_host_port(*,
         f'{protocol}://{auth_str}' +
         ('@' if auth_str else str()) +
         f'{host}:{port}' +
-        f'/{extra}' if extra else str())
+        (f'/{extra}' if extra else str()))
 
     unit: Unit = Unit(where=where,
                       specific=[msg_open if open_if else msg_closed],

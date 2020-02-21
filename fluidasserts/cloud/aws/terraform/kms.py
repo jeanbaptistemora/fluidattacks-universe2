@@ -9,7 +9,7 @@ stelligent/cfn_nag/blob/master/LICENSE.md>`_
 from typing import List, Optional
 
 # Local imports
-from fluidasserts import SAST, MEDIUM
+from fluidasserts import SAST, MEDIUM, LOW
 from fluidasserts.helper import aws as helper
 from fluidasserts.cloud.aws.terraform import (
     Vulnerability,
@@ -63,7 +63,7 @@ def is_key_rotation_absent_or_disabled(
         msg_closed='enable_key_rotation is enabled on KMS Key')
 
 
-@api(risk=MEDIUM, kind=SAST)
+@api(risk=LOW, kind=SAST)
 @unknown_if(FileNotFoundError)
 def is_deletion_window_misconfigured(
         path: str, exclude: Optional[List[str]] = None) -> tuple:

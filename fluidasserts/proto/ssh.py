@@ -109,8 +109,7 @@ def has_user_enumeration(host: str, user_list: list,
         protocol='SSH', host=host, port=port,
         msg_open='Has user enumeration',
         msg_closed='Does not have user enumeration',
-        open_if=result,
-        auth=(user_list, fake_users))
+        open_if=result,)
 
 
 @api(risk=MEDIUM, kind=DAST)
