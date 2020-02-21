@@ -132,3 +132,10 @@ END"
 
 # Grant permission SHUTDOWN. check: can_shutdown_server
 execute_query "GRANT SHUTDOWN TO $DB_USER;"
+
+# Enable clr enabled. check: has_clr_option_enabled
+execute_query "
+sp_configure 'clr enabled', 1;
+GO
+RECONFIGURE WITH OVERRIDE;
+GO"

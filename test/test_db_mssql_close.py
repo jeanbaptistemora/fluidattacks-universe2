@@ -133,6 +133,13 @@ def test_can_shutdown_server_closed(get_mock_ip):
         DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_closed()
 
 
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_has_clr_option_enabled_closed(get_mock_ip):
+    """Test mssql.has_clr_option_enabled."""
+    assert mssql.has_clr_option_enabled(
+        DBNAME, ADMIN_USER, ADMIN_PASSWORD, get_mock_ip, PORT).is_closed()
+
+
 #
 # UNKNOWN
 #
@@ -262,4 +269,11 @@ def test_can_shutdown_server_unknown(get_mock_ip):
 def test_sa_account_has_not_been_renamed_unknown(get_mock_ip):
     """Test mssql.sa_account_has_not_been_renamed."""
     assert mssql.sa_account_has_not_been_renamed(
+        DBNAME, USER, PASSWORD, BAD_HOST, PORT).is_unknown()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mssql_hard'], indirect=True)
+def test_has_clr_option_enabled_unknown(get_mock_ip):
+    """Test mssql.has_clr_option_enabled."""
+    assert mssql.has_clr_option_enabled(
         DBNAME, USER, PASSWORD, BAD_HOST, PORT).is_unknown()

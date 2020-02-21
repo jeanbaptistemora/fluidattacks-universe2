@@ -1112,3 +1112,52 @@ def sa_account_has_not_been_renamed(dbname: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
+def has_clr_option_enabled(dbname: str,
+                           user: str,
+                           password: str,
+                           host: str,
+                           port: int) -> Tuple:
+    """
+    Check if CLR option is enabled enabled.
+
+    The clr_enabled parameter configures SQL Server to allow or disallow use of
+    Command Language Runtime objects. CLR objects is managed code that
+    integrates with the .NET Framework. This is a more secure method than
+    external stored procedures, although it still contains some risk.
+
+    :param dbname: database name.
+    :param user: username with access permissions to the database.
+    :param password: database password.
+    :param host: database ip.
+    :param port: database port.
+
+    :returns: - ``OPEN`` if CLR option is enabled.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    connection_string: ConnectionString = ConnectionString(
+        dbname, user, password, host, port)
+
+    msg_open: str = 'CLR option is enabled.'
+    msg_closed: str = 'CLR option is disabled.'
+
+    (vulns if _check_configuration(connection_string, 'clr enabled') else
+     safes).append(
+         ('master.sys.configuration.clr enabled', 'Must disable CLR option.'))
+
+    return _get_result_as_tuple(
+        host=host,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
