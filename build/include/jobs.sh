@@ -528,7 +528,6 @@ function _job_infra_monolith {
           echo "fiS3Arn = ${users_integrates}"
           terraform output 'dbEndpoint'
           terraform output 'fwBucket'
-          terraform output 'fiBucket'
         } >> dns/terraform.tfvars \
     &&  pushd dns/ \
       &&  elbs_info="$(mktemp)" \

@@ -41,18 +41,6 @@ function deploy_application() {
     { kubectl rollout undo "${resource}/${name}" -n "${namespace}" && exit 1; }
 }
 
-function find_resource() {
-  local resource="${1}"
-  local regex="${2}"
-  shift 2
-  local options="${*}"
-  if [ -z "${options}" ]; then
-    kubectl get "${resource}" | grep -E "${regex}"
-  else
-    kubectl get "${resource}" | grep -E "${regex}" "${options}"
-  fi
-}
-
 function get_aws_elb_name() {
   aws elb describe-load-balancers | \
     jq -r '.LoadBalancerDescriptions[].LoadBalancerName'
@@ -213,16 +201,6 @@ if ! kubectl get secret gitlab-reg; then
     --docker-password="$DOCKER_PASS" --docker-email="$DOCKER_EMAIL" \
   # Copy secret to runners namespace
   kubectl get secret gitlab-reg --export -o yaml | kubectl apply --namespace=runners -f -
-fi
-
-# Provide information to access Jfrog Container Registry and pull images
-if ! kubectl get secret jfrog-reg --namespace=runners; then
-  echo "Creating secret to access JFrog Registry..."
-  # Create secret in runners namespace
-  kubectl create secret docker-registry jfrog-reg \
-    --docker-server="fluid-docker.jfrog.io" --docker-username="$JFROG_USER" \
-    --docker-password="$JFROG_PASS" --docker-email="$JFROG_EMAIL" \
-    --namespace runners
 fi
 
 # Prepare environments for Review Apps

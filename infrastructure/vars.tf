@@ -8,7 +8,6 @@ variable "dbRegion" {}
 # S3 vars
 variable "fsBucket" {}
 variable "fwBucket" {}
-variable "fiBucket" {}
 variable "vaultBucket" {}
 
 #EC2 vars

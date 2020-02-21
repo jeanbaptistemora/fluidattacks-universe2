@@ -40,7 +40,6 @@ Requisitos para lanzar el ambiente desde maquina local:
   ```
   bucket = "PERSISTENT_BUCKET_NAME"
   webBucket="WEB_BUCKET_NAME"
-  fiBucket="INTEGRATES_BUCKET_NAME"
   db_id = "ARN"
 
   ```

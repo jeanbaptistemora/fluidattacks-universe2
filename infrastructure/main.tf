@@ -17,7 +17,6 @@ provider "aws" {
 module "bucket" {
   source                               = "./bucket"
   region                               = var.region
-  fiBucket                             = var.fiBucket
   fsBucket                             = var.fsBucket
   fwBucket                             = var.fwBucket
 }
@@ -73,10 +72,6 @@ output "dbEndpoint" {
 
 output "fwBucket" {
   value = "fwBucket=\"${module.bucket.webName}\""
-}
-
-output "fiBucket" {
-  value = "fiBucket=\"${module.bucket.fiName}\""
 }
 
 # Create ElastiCache Redis Cluster

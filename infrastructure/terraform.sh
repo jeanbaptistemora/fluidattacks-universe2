@@ -104,7 +104,6 @@ fi
     grep -E 'integrates-prod' | head -n 1)"
   terraform output dbEndpoint
   terraform output fwBucket
-  terraform output fiBucket
 } >> dns/terraform.tfvars
 
 cd dns/
