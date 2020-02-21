@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 import store from "../../../../store";
+import { GET_PROJECT_ALERT } from "../ProjectContent/queries";
 import { FindingContent } from "./index";
 import { GET_FINDING_HEADER } from "./queries";
 import { IFindingContentProps } from "./types";
@@ -41,7 +42,7 @@ describe("FindingContent", () => {
     },
   };
 
-  const mocks: ReadonlyArray<MockedResponse> = [
+  const findingMock: Readonly<MockedResponse> = (
     {
       request: {
         query: GET_FINDING_HEADER,
@@ -60,6 +61,11 @@ describe("FindingContent", () => {
                 date: "2019-10-31 10:00:53",
                 state: "CREATED",
               },
+              {
+                analyst: "approver@fluidattacks.com",
+                date: "2019-10-31 12:00:00",
+                state: "APPROVED",
+              },
             ],
             id: "438679960",
             openVulns: 3,
@@ -71,8 +77,57 @@ describe("FindingContent", () => {
           },
         },
       },
+    }
+  );
+
+  const draftMock: Readonly<MockedResponse> = {
+    request: {
+      query: GET_FINDING_HEADER,
+      variables: {
+        findingId: "438679960",
+        submissionField: true,
+      },
     },
-  ];
+    result: {
+      data: {
+        finding: {
+          closedVulns: 0,
+          historicState: [
+            {
+              analyst: "someone@fluidattacks.com",
+              date: "2019-10-31 10:00:53",
+              state: "CREATED",
+            },
+          ],
+          id: "438679960",
+          openVulns: 3,
+          releaseDate: "",
+          reportDate: "2017-12-04 09:04:13",
+          severityScore: 2.6,
+          state: "open",
+          title: "FIN.S.0050. Weak passwords discovered",
+        },
+      },
+    },
+  };
+
+  const alertMock: Readonly<MockedResponse> = {
+    request: {
+      query: GET_PROJECT_ALERT,
+      variables: {
+        organization: "Fluid",
+        projectName: "TEST",
+      },
+    },
+    result: {
+      data: {
+        alert: {
+          message: "Hello world",
+          status: 1,
+        },
+      },
+    },
+  };
 
   it("should return a object", () => {
     expect(typeof (FindingContent))
@@ -81,11 +136,11 @@ describe("FindingContent", () => {
 
   it("should render a component", async () => {
     const wrapper: ShallowWrapper = shallow(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={[findingMock]} addTypename={false}>
         <FindingContent {...mockProps} />
       </MockedProvider>,
     );
-    await wait(0);
+    await act(async () => { await wait(0); });
     expect(wrapper)
       .toHaveLength(1);
   });
@@ -95,7 +150,7 @@ describe("FindingContent", () => {
     const wrapper: ReactWrapper = mount(
       <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
         <Provider store={store}>
-          <MockedProvider mocks={mocks} addTypename={false}>
+          <MockedProvider mocks={[findingMock]} addTypename={false}>
             <FindingContent {...mockProps} />
           </MockedProvider>
         </Provider>
@@ -104,5 +159,78 @@ describe("FindingContent", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     expect(wrapper.text())
       .toContain("FIN.S.0050. Weak passwords discovered");
+  });
+
+  it("should render unsubmitted draft actions", async () => {
+    (window as typeof window & { userRole: string }).userRole = "analyst";
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={[draftMock]} addTypename={false}>
+            <FindingContent {...mockProps} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const submitButton: ReactWrapper = wrapper.find("ButtonToolbar")
+      .at(0)
+      .find("Button")
+      .filterWhere((element: ReactWrapper) => element.text()
+        .includes("Submit"));
+    expect(submitButton)
+      .toHaveLength(1);
+  });
+
+  it("should prompt delete justification", async () => {
+    (window as typeof window & { userRole: string }).userRole = "analyst";
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={[findingMock]} addTypename={false}>
+            <FindingContent {...mockProps} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const deleteButton: ReactWrapper = wrapper.find("button")
+      .at(0);
+    expect(deleteButton)
+      .toHaveLength(1);
+    deleteButton.simulate("click");
+    expect(wrapper.text())
+      .toContain("Delete Finding");
+    await act(async () => { wrapper.update(); });
+    expect(wrapper.text())
+      .toContain("It is a false positive");
+    const cancelButton: ReactWrapper = wrapper.find("Modal")
+      .find("button")
+      .at(0);
+    expect(cancelButton)
+      .toHaveLength(1);
+    cancelButton.simulate("click");
+    await act(async () => { wrapper.update(); });
+    expect(wrapper.find("Modal")
+      .at(0)
+      .prop("show"))
+      .toEqual(false);
+  });
+
+  it("should render alert", async () => {
+    (window as typeof window & { userRole: string }).userRole = "analyst";
+    (window as typeof window & { userOrganization: string }).userOrganization = "Fluid";
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={[findingMock, alertMock]} addTypename={false}>
+            <FindingContent {...mockProps} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(wrapper.text())
+      .toContain("Hello world");
   });
 });
