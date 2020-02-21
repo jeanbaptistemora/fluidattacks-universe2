@@ -378,24 +378,23 @@ def add_comment(project_name, email, comment_data):
 
 def get_pending_verification_findings(project_name):
     """Gets findings pending for verification"""
-    table = DYNAMODB_RESOURCE.Table('FI_findings')
     key_expression = Key('project_name').eq(project_name.lower())
-    filtering_exp = Attr('project_name').eq(project_name.lower()) \
-        & Attr('historic_verification').exists()
-    response = table.scan(
-        FilterExpression=filtering_exp,
-        IndexName='project_findings',
-        KeyConditionExpression=key_expression)
+    query_attrs = {
+        'IndexName': 'project_findings',
+        'KeyConditionExpression': key_expression,
+        'ProjectionExpression': 'finding_id'
+    }
+    response = FINDINGS_TABLE.query(**query_attrs)
     findings = response['Items']
     while response.get('LastEvaluatedKey'):
-        response = table.scan(
-            FilterExpression=filtering_exp,
-            ExclusiveStartKey=response['LastEvaluatedKey'])
+        response['ExclusiveStartKey'] = response['LastEvaluatedKey']
+        response = FINDINGS_TABLE.query(**query_attrs)
         findings += response['Items']
-
+    findings = [get_finding(finding.get('finding_id')) for finding in findings]
     pending_to_verify = \
         [finding for finding in findings
-         if finding.get('historic_verification', [{}])[-1].get('status') == 'REQUESTED' and
+         if 'historic_verification' in finding and
+         finding.get('historic_verification', [{}])[-1].get('status') == 'REQUESTED' and
          finding.get('historic_state', [{}])[-1].get('state') != 'DELETED']
     return pending_to_verify
 
@@ -404,38 +403,35 @@ def get_released_findings(project_name, attrs=''):
     """Get all the findings that has been released."""
     key_expression = Key('project_name').eq(project_name.lower())
     filtering_exp = Attr('releaseDate').exists()
+    query_attrs = {
+        'FilterExpression': filtering_exp,
+        'IndexName': 'project_findings',
+        'KeyConditionExpression': key_expression
+    }
     if attrs and 'releaseDate' not in attrs:
-        attrs += ', releaseDate'
+        query_attrs['ProjectionExpression'] = attrs + ', releaseDate'
     if not attrs:
-        attrs = 'finding_id'
-    response = FINDINGS_TABLE.query(
-        FilterExpression=filtering_exp,
-        IndexName='project_findings',
-        KeyConditionExpression=key_expression,
-        ProjectionExpression=attrs)
+        query_attrs['ProjectionExpression'] = 'finding_id'
+    response = FINDINGS_TABLE.query(**query_attrs)
     findings = response.get('Items', [])
     while response.get('LastEvaluatedKey'):
-        response = FINDINGS_TABLE.query(
-            ExclusiveStartKey=response['LastEvaluatedKey'],
-            FilterExpression=filtering_exp,
-            IndexName='project_findings',
-            KeyConditionExpression=key_expression,
-            ProjectionExpression=attrs)
+        query_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
+        response = FINDINGS_TABLE.query(**query_attrs)
         findings += response.get('Items', [])
     findings = [get_finding(finding.get('finding_id')) for finding in findings]
-    findings_released = [get_finding(finding.get('finding_id')) for finding in findings if util.validate_release_date(finding)]
+    findings_released = [get_finding(finding.get('finding_id'))
+                         for finding in findings if util.validate_release_date(finding)]
     return findings_released
 
 
 def get_comments(project_name):
     """ Get comments of a project. """
-    filter_key = 'project_name'
-    filtering_exp = Key(filter_key).eq(project_name)
-    response = TABLE_COMMENTS.scan(FilterExpression=filtering_exp)
+    key_expression = Key('project_name').eq(project_name)
+    response = TABLE_COMMENTS.query(KeyConditionExpression=key_expression)
     items = response['Items']
     while response.get('LastEvaluatedKey'):
-        response = TABLE_COMMENTS.scan(
-            FilterExpression=filtering_exp,
+        response = TABLE_COMMENTS.query(
+            KeyConditionExpression=key_expression,
             ExclusiveStartKey=response['LastEvaluatedKey'])
         items += response['Items']
     return items
