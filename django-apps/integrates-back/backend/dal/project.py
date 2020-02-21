@@ -10,7 +10,7 @@ from django.conf import settings
 from backend import util
 from backend.dal.event import TABLE as EVENTS_TABLE
 from backend.dal.helpers import dynamodb
-from backend.dal.finding import TABLE as FINDINGS_TABLE
+from backend.dal.finding import get_finding, TABLE as FINDINGS_TABLE
 from backend.dal.helpers.analytics import query
 from backend.dal.user import get_attributes as get_user_attributes
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
@@ -379,9 +379,13 @@ def add_comment(project_name, email, comment_data):
 def get_pending_verification_findings(project_name):
     """Gets findings pending for verification"""
     table = DYNAMODB_RESOURCE.Table('FI_findings')
+    key_expression = Key('project_name').eq(project_name.lower())
     filtering_exp = Attr('project_name').eq(project_name.lower()) \
         & Attr('historic_verification').exists()
-    response = table.scan(FilterExpression=filtering_exp)
+    response = table.scan(
+        FilterExpression=filtering_exp,
+        IndexName='project_findings',
+        KeyConditionExpression=key_expression)
     findings = response['Items']
     while response.get('LastEvaluatedKey'):
         response = table.scan(
@@ -398,22 +402,28 @@ def get_pending_verification_findings(project_name):
 
 def get_released_findings(project_name, attrs=''):
     """Get all the findings that has been released."""
-    table = DYNAMODB_RESOURCE.Table('FI_findings')
-    project_name = project_name.lower()
-    filtering_exp = Attr('project_name').eq(project_name) & Attr('releaseDate').exists()
+    key_expression = Key('project_name').eq(project_name.lower())
+    filtering_exp = Attr('releaseDate').exists()
     if attrs and 'releaseDate' not in attrs:
         attrs += ', releaseDate'
-    scan_attrs = {}
-    scan_attrs['FilterExpression'] = filtering_exp
-    if attrs:
-        scan_attrs['ProjectionExpression'] = attrs
-    response = table.scan(**scan_attrs)
-    findings = response['Items']
+    if not attrs:
+        attrs = 'finding_id'
+    response = FINDINGS_TABLE.query(
+        FilterExpression=filtering_exp,
+        IndexName='project_findings',
+        KeyConditionExpression=key_expression,
+        ProjectionExpression=attrs)
+    findings = response.get('Items', [])
     while response.get('LastEvaluatedKey'):
-        scan_attrs['ExclusiveStartKey'] = response['LastEvaluatedKey']
-        response = table.scan(**scan_attrs)
-        findings += response['Items']
-    findings_released = [finding for finding in findings if util.validate_release_date(finding)]
+        response = FINDINGS_TABLE.query(
+            ExclusiveStartKey=response['LastEvaluatedKey'],
+            FilterExpression=filtering_exp,
+            IndexName='project_findings',
+            KeyConditionExpression=key_expression,
+            ProjectionExpression=attrs)
+        findings += response.get('Items', [])
+    findings = [get_finding(finding.get('finding_id')) for finding in findings]
+    findings_released = [get_finding(finding.get('finding_id')) for finding in findings if util.validate_release_date(finding)]
     return findings_released
 
 
