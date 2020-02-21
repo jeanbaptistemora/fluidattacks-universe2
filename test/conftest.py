@@ -173,6 +173,7 @@ POST_COMMANDS = {
     ],
     'mssql:weak': ['./scripts/commands.sh', ],
     'mssql:hard': ['./scripts/commands.sh', ],
+    'mysql_db:weak': ['./scripts/commands.sh', ],
 
 }
 

@@ -162,3 +162,12 @@ def test_ssl_forced_close(get_mock_ip):
     """Check if MySQL users forced to use SSL."""
     # assert not mysql_db.ssl_unforced(get_mock_ip, ADMIN_USER, ADMIN_PASS)
     assert not mysql.ssl_unforced(NON_EXISTANT, ADMIN_USER, ADMIN_PASS)
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mysql_db_hard'], indirect=True)
+def test_old_passwords_enabled_close(get_mock_ip):
+    """Check if old_passwords option is enabled."""
+    assert mysql.old_passwords_enabled(
+        get_mock_ip, ADMIN_USER, ADMIN_PASS).is_closed()
+    assert mysql.old_passwords_enabled(
+        NON_EXISTANT, ADMIN_USER, ADMIN_PASS).is_unknown()

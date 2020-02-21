@@ -796,3 +796,54 @@ def ssl_unforced(server: str, username: str, password: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(mysql.connector.Error)
+def old_passwords_enabled(server: str,
+                          username: str,
+                          password: str,
+                          port: int = 3306) -> tuple:
+    """
+    Check if 'old_passwords' option is set to ON.
+
+    This configuration parameter forces use of an older insecure password
+    hashing method. Utilizing stronger hashing algorithms helps protect the
+    confidentiality of authentication credentials.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if variable **old_passwords** is set to **ON**.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    connection_string = ConnectionString(username, password, server, port)
+
+    msg_open: str = 'Parameter "old_passwords" is ON on server'
+    msg_closed: str = 'Parameter "old_passwords" is OFF on server'
+
+    query: str = """
+        SELECT 1 FROM dual
+        WHERE @@global.old_passwords = 1
+        """
+
+    vulnerable = any(
+        list(
+            map(lambda row: row == (1, ), _execute(connection_string, query))))
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (vulns if vulnerable else safes).append(('@@global.old_passwords',
+                                             'Must turn OFF old_passwords'))
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)

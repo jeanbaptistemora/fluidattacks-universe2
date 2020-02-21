@@ -12,7 +12,6 @@ pytestmark = pytest.mark.asserts_module('db_mysql')
 # local imports
 from fluidasserts.db import mysql
 
-
 # Constants
 
 ADMIN_USER = 'root'
@@ -107,3 +106,9 @@ def test_uses_ssl_open(get_mock_ip):
 def test_ssl_forced_open(get_mock_ip):
     """Check if MySQL users forced to use SSL."""
     assert mysql.ssl_unforced(get_mock_ip, ADMIN_USER, ADMIN_PASS)
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mysql_db_weak'], indirect=True)
+def test_old_passwords_enabled_open(get_mock_ip):
+    """Check if old_passwords option is enabled."""
+    assert mysql.old_passwords_enabled(get_mock_ip, ADMIN_USER, ADMIN_PASS)
