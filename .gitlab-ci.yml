@@ -333,16 +333,6 @@ terraform_states_bucket:
   <<: *in_master_branch
   stage: terraform-backend
 
-build-builder:
-  image: fluidattacks/docker-bash:latest
-  tags: [autoscaling]
-  stage: build-and-test
-  script:
-    - ./ci-scripts/jobs/build-builder.sh
-  only:
-    refs:
-      - master
-
 commitlint:
   image: starefossen/ruby-node:2-10
   tags: [autoscaling]
@@ -381,25 +371,3 @@ fluidasserts_post:
     - master
   except:
     - schedules
-
-analytics-sync-timedoctor:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: analytics
-  script:
-    - ./ci-scripts/jobs/analytics-sync-timedoctor.sh
-  <<: *in_schedules
-  only:
-    variables:
-      - $FLAG_SYNC_TIMEDOCTOR
-
-analytics-refresh-token-timedoctor:
-  image: registry.gitlab.com/fluidattacks/serves/builder:$CI_COMMIT_REF_NAME
-  tags: [autoscaling]
-  stage: analytics
-  script:
-    - ./ci-scripts/jobs/analytics-refresh-token-timedoctor.sh
-  <<: *in_schedules
-  only:
-    variables:
-      - $FLAG_REFRESH_TOKENS
