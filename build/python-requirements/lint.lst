@@ -5,7 +5,7 @@ mccabe==0.6.1
 pdoc==0.3.2
 pep257==0.7.0
 pep8==1.7.1
-pre-commit==2.0.0
+pre-commit==2.1.0
 prospector[with_everything]==1.2.0
 pydocstyle==5.0.2
 pyflakes==2.1.1
