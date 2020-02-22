@@ -11,6 +11,12 @@ aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
 aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
 aws configure set region us-east-1
 
+system_vars() {
+  for var in ${@}; do
+    echo "export ${var}=\"${!var}\"" >> /root/.profile
+  done
+}
+
 if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
   ENV_NAME='production'
 else
@@ -26,9 +32,11 @@ if [ "$CI_COMMIT_REF_NAME" = 'master' ]; then
     crontab /tmp/mycron
     service cron restart
 
-    echo "export AWS_ACCESS_KEY_ID=\"$AWS_ACCESS_KEY_ID\"" >> /root/.profile
-    echo "export AWS_SECRET_ACCESS_KEY=\"$AWS_SECRET_ACCESS_KEY\"" >> /root/.profile
-    echo "export CI_COMMIT_REF_NAME=\"$CI_COMMIT_REF_NAME\"" >> /root/.profile
+    system_vars \
+      AWS_ACCESS_KEY_ID \
+      AWS_SECRET_ACCESS_KEY \
+      CI_COMMIT_REF_NAME \
+      JWT_TOKEN
 fi
 
 /etc/init.d/td-agent restart
