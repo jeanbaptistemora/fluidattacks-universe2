@@ -44,6 +44,9 @@ export interface IDashboardState {
       isOpen: boolean;
     };
   };
+  forces: {
+    defaultSort: Sorted;
+  };
   resources: {
     defaultSort: {
       environments: {};
@@ -175,6 +178,9 @@ const initialState: IDashboardState = {
     reportsModal: {
       isOpen: false,
     },
+  },
+  forces: {
+    defaultSort: {},
   },
   resources: {
     defaultSort: {

@@ -11,6 +11,7 @@ import { ProjectCommentsView } from "../ProjectCommentsView/index";
 import { ProjectDraftsView } from "../ProjectDraftsView";
 import { ProjectEventsView } from "../ProjectEventsView/index";
 import ProjectFindingsView from "../ProjectFindingsView/index";
+import { ProjectForcesView } from "../ProjectForcesView";
 import ProjectUsersView from "../ProjectUsersView/index";
 import ProjectResourcesView from "../ResourcesView/index";
 import { clearProjectState, loadProjectData, ThunkDispatcher } from "./actions";
@@ -62,6 +63,12 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                       </NavLink>
                     </li>
                     : undefined}
+                  <li id="forcesTab" className={style.tab}>
+                    <NavLink activeClassName={style.active} to={`${props.match.url}/forces`}>
+                      <i className="icon pe-7s-light" />
+                      &nbsp;{translate.t("project.tabs.forces")}
+                    </NavLink>
+                  </li>
                   <li id="eventsTab" className={style.tab}>
                     <NavLink activeClassName={style.active} to={`${props.match.url}/events`}>
                       <i className="icon pe-7s-star" />
@@ -97,6 +104,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
                   <Route path={`${props.match.path}/indicators`} component={ProjectIndicatorsView} exact={true} />
                   <Route path={`${props.match.path}/findings`} component={ProjectFindingsView} exact={true} />
                   <Route path={`${props.match.path}/drafts`} component={ProjectDraftsView} exact={true} />
+                  <Route path={`${props.match.path}/forces`} component={ProjectForcesView} exact={true} />
                   <Route path={`${props.match.path}/events`} component={ProjectEventsView} exact={true} />
                   <Route path={`${props.match.path}/resources`} component={ProjectResourcesView} exact={true} />
                   <Route path={`${props.match.path}/users`} component={ProjectUsersView} exact={true} />
