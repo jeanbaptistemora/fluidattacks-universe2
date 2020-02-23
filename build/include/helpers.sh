@@ -209,7 +209,8 @@ function helper_deploy_integrates {
         INTEGRATES_PIPELINE_TOKEN \
   &&  curl \
         -X POST \
-        -F token="${INTEGRATES_PIPELINE_TOKEN}" \
-        -F ref=master \
+        -H "Content-Type: application/json" \
+        -d '{"token":"'"${INTEGRATES_PIPELINE_TOKEN}"'", "ref":"master", "variables": {"TRIGGER_MASTER": "1"}}' \
+
         "https://gitlab.com/api/v4/projects/${integrates_id}/trigger/pipeline"
 }
