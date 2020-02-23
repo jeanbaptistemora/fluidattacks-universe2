@@ -25,7 +25,7 @@ deploy_newrelic() {
   NEW_RELIC_URL='https://api.newrelic.com/v2/applications'
   COMMITTER_EMAIL=$(git log -1 --pretty=format:'%ce')
 
-  if [ "$SCHEDULE" = '0' ]; then
+  if [ "$TRIGGER_MASTER" = '1' ]; then
     LAST_COMMITS_MASTER=$(
       git log HEAD~1..HEAD --pretty=format:'%s'
     )
@@ -57,8 +57,8 @@ deploy_k8s() {
 
   # Deploy new Integrates version to production
 
-  if [ -z "$SCHEDULE" ]; then
-    export SCHEDULE="1"
+  if [ -z "$TRIGGER_MASTER" ]; then
+    export TRIGGER_MASTER="0"
   fi
 
   set -Eeuo pipefail
