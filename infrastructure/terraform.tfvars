@@ -4,7 +4,7 @@ sNetRegion = "us-east-1b"
 dbRegion   = "us-east-1"
 
 #EC2 Vars
-clusterInstanceType = "m5.xlarge"
+clusterInstanceType = "m5a.large"
 
 # S3 vars
 fsBucket    = "servestf"
