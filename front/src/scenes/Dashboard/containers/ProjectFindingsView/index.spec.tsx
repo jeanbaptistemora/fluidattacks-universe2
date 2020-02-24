@@ -8,40 +8,34 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import wait from "waait";
 import store from "../../../../store/index";
-import ProjectFindingsView from "./index";
+import { ProjectFindingsView } from "./index";
 import { GET_FINDINGS } from "./queries";
 import { IProjectFindingsProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
-const functionMock: (() => void) = (): void => undefined;
-
 describe("ProjectFindingsView", () => {
 
   const propsMock: IProjectFindingsProps = {
-    defaultSort: {},
-    filters: {
-      exploitable: "",
-      severity: "",
-      status: "",
-      title: "",
-      treatment: "",
-      verification: "",
-      where: "",
+    history: {
+      action: "PUSH",
+      block: (): (() => void) => (): void => undefined,
+      createHref: (): string => "",
+      go: (): void => undefined,
+      goBack: (): void => undefined,
+      goForward: (): void => undefined,
+      length: 1,
+      listen: (): (() => void) => (): void => undefined,
+      location: { hash: "", pathname: "/", search: "", state: {} },
+      push: (): void => undefined,
+      replace: (): void => undefined,
     },
-    isFilterEnabled: false,
+    location: { hash: "", pathname: "/", search: "", state: {} },
     match: {
       isExact: true,
-      params: {projectName: "TEST"},
+      params: { projectName: "TEST" },
       path: "/",
       url: "",
-    },
-    onCloseReportsModal: functionMock,
-    onFilter: functionMock,
-    onOpenReportsModal: functionMock,
-    onSort: functionMock,
-    reportsModal: {
-      isOpen: false,
     },
   };
 
@@ -93,9 +87,9 @@ describe("ProjectFindingsView", () => {
     },
   ];
 
-  it("should return a object", () => {
+  it("should return a function", () => {
     expect(typeof (ProjectFindingsView))
-      .toEqual("object");
+      .toEqual("function");
   });
 
   it("should render a component", async () => {

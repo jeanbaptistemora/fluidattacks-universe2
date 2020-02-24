@@ -7,47 +7,43 @@ import { QueryResult } from "@apollo/react-common";
 import { Query } from "@apollo/react-components";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
-import React, { useState } from "react";
+import React from "react";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
 import { selectFilter, textFilter } from "react-bootstrap-table2-filter";
 import FontAwesome from "react-fontawesome";
 import { Trans } from "react-i18next";
-import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { Button } from "../../../../components/Button";
 import { limitFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { DataTableNext } from "../../../../components/DataTableNext/index";
 import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal/index";
-import store from "../../../../store";
 import { formatFindings, formatTreatment, handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
-import { IDashboardState } from "../../reducer";
-import {
-  changeFilterValues, changeIsFilterEnableValue, changeSortedValues,
-  closeReportsModal, openReportsModal, ThunkDispatcher,
-} from "./actions";
 import { default as style } from "./index.css";
 import { GET_FINDINGS } from "./queries";
-import {
-  IFindingAttr, IProjectFindingsAttr, IProjectFindingsBaseProps, IProjectFindingsDispatchProps, IProjectFindingsProps,
-  IProjectFindingsStateProps,
-} from "./types";
+import { IFindingAttr, IProjectFindingsAttr, IProjectFindingsProps } from "./types";
 
 const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFindingsProps): JSX.Element => {
   const { projectName } = props.match.params;
-  const handleOpenReportsClick: (() => void) = (): void => { props.onOpenReportsModal(); };
-  const handleCloseReportsClick: (() => void) = (): void => { props.onCloseReportsModal(); };
+  const { userName, userOrganization } = window as typeof window & Dictionary<string>;
+
+  // State management
+  const [isReportsModalOpen, setReportsModalOpen] = React.useState(false);
+  const openReportsModal: (() => void) = (): void => { setReportsModalOpen(true); };
+  const closeReportsModal: (() => void) = (): void => { setReportsModalOpen(false); };
+
   const handleTechPdfClick: (() => void) = (): void => {
-    window.open(`/integrates/pdf/en/project/${projectName}/tech/`, "_blank");
+    const newTab: Window | null = window.open(`/integrates/pdf/en/project/${projectName}/tech/`, "_blank");
+    (newTab as Window).opener = undefined;
   };
   const handleTechXlsClick: (() => void) = (): void => {
-    window.open(`/integrates/xls/en/project/${projectName}`, "_blank");
+    const newTab: Window | null = window.open(`/integrates/xls/en/project/${projectName}`, "_blank");
+    (newTab as Window).opener = undefined;
   };
 
   const tableSetStorage: (string | null) = localStorage.getItem("tableSet");
 
-  const [checkedItems, setCheckedItems] = tableSetStorage !== null ? useState(JSON.parse(tableSetStorage)) :
-    useState({
+  const [checkedItems, setCheckedItems] = React.useState(tableSetStorage !== null ? JSON.parse(tableSetStorage) : {
     age: false,
     description: true,
     isExploitable: true,
@@ -60,15 +56,15 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     treatment: true,
     where: false,
   });
-  const [isFilterEnable, setFilterEnable] = React.useState(props.isFilterEnabled);
-  const [filterValueExploitable, setFilterValueExploitable] = React.useState(props.filters.exploitable);
-  const [filterValueSeverity, setFilterValueSeverity] = React.useState(props.filters.severity);
-  const [filterValueStatus, setFilterValueStatus] = React.useState(props.filters.status);
-  const [filterValueTitle, setFilterValueTitle] = React.useState(props.filters.title);
-  const [filterValueTreatment, setFilterValueTreatment] = React.useState(props.filters.treatment);
-  const [filterValueVerification, setFilterValueVerification] = React.useState(props.filters.verification);
-  const [filterValueWhere, setFilterValueWhere] = React.useState(props.filters.where);
-  const [sortValue, setSortValue] = React.useState(props.defaultSort);
+  const [isFilterEnabled, setFilterEnabled] = React.useState(false);
+  const [filterValueExploitable, setFilterValueExploitable] = React.useState("");
+  const [filterValueSeverity, setFilterValueSeverity] = React.useState("");
+  const [filterValueStatus, setFilterValueStatus] = React.useState("");
+  const [filterValueTitle, setFilterValueTitle] = React.useState("");
+  const [filterValueTreatment, setFilterValueTreatment] = React.useState("");
+  const [filterValueVerification, setFilterValueVerification] = React.useState("");
+  const [filterValueWhere, setFilterValueWhere] = React.useState("");
+  const [sortValue, setSortValue] = React.useState({});
   const clearSelection: string = "_CLEAR_";
 
   const selectOptionsExploitable: optionSelectFilterProps[] = [
@@ -119,24 +115,12 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     }));
   };
   const handleUpdateFilter: () => void = (): void => {
-    store.dispatch(changeIsFilterEnableValue(!isFilterEnable));
-    setFilterEnable(!isFilterEnable);
+    setFilterEnabled(!isFilterEnabled);
   };
-
-  const modalFooter: JSX.Element = (
-    <ButtonToolbar className="pull-right">
-      <Button onClick={handleCloseReportsClick}>{translate.t("project.findings.report.modal_close")}</Button>
-    </ButtonToolbar>
-  );
 
   const goToFinding: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) =
   (event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }): void => {
-    mixpanel.track(
-      "ReadFinding",
-      {
-        Organization: (window as typeof window & { userOrganization: string }).userOrganization,
-        User: (window as typeof window & { userName: string }).userName,
-      });
+    mixpanel.track("ReadFinding", { Organization: userOrganization, User: userName });
     location.hash = `#!/project/${projectName}/findings/${rowInfo.id}/description`;
   };
 
@@ -147,49 +131,40 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     const filterOptions: optionSelectFilterProps[] = selectOptionsTreatment.filter(
       (option: optionSelectFilterProps) => (_.includes(findingOptions, option.value)));
     setOptionTreatment(filterOptions);
-    mixpanel.track(
-      "ProjectFindings",
-      {
-        Organization: (window as typeof window & { userOrganization: string }).userOrganization,
-        User: (window as typeof window & { userName: string }).userName,
-      });
+    mixpanel.track("ProjectFindings", { Organization: userOrganization, User: userName });
   };
   const onSortState: ((dataField: string, order: SortOrder) => void) =
   (dataField: string, order: SortOrder): void => {
-    const newSorted: Sorted = {dataField,  order};
+    const newSorted: Sorted = { dataField, order};
     setSortValue(newSorted);
-    props.onSort(newSorted);
   };
   const onFilterTitle: ((filterVal: string) => void) = (filterVal: string): void => {
     if (filterValueTitle !== filterVal) {
       setFilterValueTitle(filterVal);
-      props.onFilter({...props.filters, title: filterVal});
     }
   };
   const clearFilterTitle: ((event: React.FormEvent<HTMLInputElement>) => void) =
   (event: React.FormEvent<HTMLInputElement>): void => {
     const inputValue: string = event.currentTarget.value;
     if (inputValue.length === 0 && filterValueTitle !== "") {
-      props.onFilter({...props.filters, title: ""});
+      setFilterValueTitle("");
     }
   };
   const onFilterWhere: ((filterVal: string) => void) = (filterVal: string): void => {
     if (filterValueWhere !== filterVal) {
       setFilterValueWhere(filterVal);
-      props.onFilter({...props.filters, where: filterVal});
     }
   };
   const clearFilterWhere: ((event: React.FormEvent<HTMLInputElement>) => void) =
   (event: React.FormEvent<HTMLInputElement>): void => {
     const inputValue: string = event.currentTarget.value;
     if (inputValue.length === 0 && filterValueWhere !== "") {
-      props.onFilter({...props.filters, where: ""});
+      setFilterValueWhere("");
     }
   };
   const onFilterExploitable: ((filterVal: string) => void) = (filterVal: string): void => {
     if (filterValueExploitable !== filterVal && clearSelection !== filterValueExploitable) {
       setFilterValueExploitable(filterVal);
-      props.onFilter({...props.filters, exploitable: filterVal});
     }
   };
 
@@ -198,13 +173,11 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     const inputValue: string = eventInput.currentTarget.value;
     if (inputValue.length === 0 && filterValueExploitable !== "") {
       setFilterValueExploitable(clearSelection);
-      props.onFilter({...props.filters, exploitable: ""});
     }
   };
   const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
     if (filterValueStatus !== filterVal && clearSelection !== filterValueStatus) {
       setFilterValueStatus(filterVal);
-      props.onFilter({...props.filters, status: filterVal});
     }
   };
 
@@ -213,13 +186,11 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     const inputValue: string = eventInput.currentTarget.value;
     if (inputValue.length === 0 && filterValueStatus !== "") {
       setFilterValueStatus(clearSelection);
-      props.onFilter({...props.filters, status: ""});
     }
   };
   const onFilterVerification: ((filterVal: string) => void) = (filterVal: string): void => {
     if (filterValueVerification !== filterVal && clearSelection !== filterValueVerification) {
       setFilterValueVerification(filterVal);
-      props.onFilter({...props.filters, verification: filterVal});
     }
   };
   const clearFilterTreatment: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
@@ -227,14 +198,12 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     const inputValue: string = eventInput.currentTarget.value;
     if (inputValue.length === 0 && filterValueTreatment !== "") {
       setFilterValueTreatment(clearSelection);
-      props.onFilter({...props.filters, treatment: ""});
     }
   };
   const onFilterTreatment: ((filterVal: string) => void) =
   (filterVal: string): void => {
     if (filterValueTreatment !== filterVal && clearSelection !== filterValueTreatment) {
       setFilterValueTreatment(filterVal);
-      props.onFilter({...props.filters, treatment: filterVal});
     }
   };
 
@@ -243,7 +212,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     const inputValue: string = eventInput.currentTarget.value;
     if (inputValue.length === 0 && filterValueVerification !== "") {
       setFilterValueVerification(clearSelection);
-      props.onFilter({...props.filters, verification: ""});
 
     }
   };
@@ -253,7 +221,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
       option.value === filterVal))[0].restriction;
     if (filterValueSeverity !== filterVal && clearSelection !== filterValueSeverity) {
       setFilterValueSeverity(filterVal);
-      props.onFilter({...props.filters, severity: filterVal});
     }
 
     return data.filter((row: IFindingAttr) => (
@@ -265,7 +232,6 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     const inputValue: string = eventInput.currentTarget.value;
     if (inputValue.length === 0 && filterValueSeverity !== "") {
       setFilterValueSeverity(clearSelection);
-      props.onFilter({...props.filters, severity: ""});
     }
   };
 
@@ -391,7 +357,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                 <Row>
                   <Col md={2} mdOffset={5}>
                     <ButtonToolbar className={style.reportsBtn}>
-                      <Button onClick={handleOpenReportsClick}>{translate.t("project.findings.report.btn")}</Button>
+                      <Button onClick={openReportsModal}>{translate.t("project.findings.report.btn")}</Button>
                     </ButtonToolbar>
                   </Col>
                 </Row>
@@ -404,7 +370,7 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                   exportCsv={true}
                   headers={tableHeaders}
                   id="tblFindings"
-                  isFilterEnabled={isFilterEnable}
+                  isFilterEnabled={isFilterEnabled}
                   pageSize={15}
                   onColumnToggle={handleChange}
                   onUpdateEnableFilter={handleUpdateFilter}
@@ -414,8 +380,8 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                   striped={true}
                 />
                 <Modal
-                  open={props.reportsModal.isOpen}
-                  footer={modalFooter}
+                  open={isReportsModalOpen}
+                  footer={<div />}
                   headerTitle={translate.t("project.findings.report.modal_title")}
                 >
                   <Row className={style.modalContainer}>
@@ -442,6 +408,11 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
                       </Row>
                     </Col>
                   </Row>
+                  <ButtonToolbar className="pull-right">
+                    <Button onClick={closeReportsModal}>
+                      {translate.t("project.findings.report.modal_close")}
+                    </Button>
+                  </ButtonToolbar>
                 </Modal>
               </React.StrictMode>
             );
@@ -451,19 +422,4 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   );
 };
 
-interface IState { dashboard: IDashboardState; }
-const mapStateToProps: MapStateToProps<IProjectFindingsStateProps, IProjectFindingsBaseProps, IState> =
-  (state: IState): IProjectFindingsStateProps => ({
-    ...state.dashboard.findings,
-  });
-
-const mapDispatchToProps: MapDispatchToProps<IProjectFindingsDispatchProps, IProjectFindingsBaseProps> =
-  (dispatch: ThunkDispatcher, ownProps: IProjectFindingsBaseProps): IProjectFindingsDispatchProps =>
-    ({
-      onCloseReportsModal: (): void => { dispatch(closeReportsModal()); },
-      onFilter: (newValues: {}): void => { dispatch(changeFilterValues(newValues)); },
-      onOpenReportsModal: (): void => { dispatch(openReportsModal()); },
-      onSort: (newValues: {}): void => { dispatch(changeSortedValues(newValues)); },
-    });
-
-export = connect(mapStateToProps, mapDispatchToProps)(projectFindingsView);
+export { projectFindingsView as ProjectFindingsView };
