@@ -22,11 +22,13 @@ function prepare_ephemeral_vars {
   export TEMP_FD
   export TEMP_FILE1
   export TEMP_FILE2
+  export TEMP_FILE3
 
   MYPY_CACHE_DIR=$(mktemp)
   exec {TEMP_FD}>TEMP_FD
   TEMP_FILE1=$(mktemp)
   TEMP_FILE2=$(mktemp)
+  TEMP_FILE3=$(mktemp)
 }
 
 function prepare_python_packages {

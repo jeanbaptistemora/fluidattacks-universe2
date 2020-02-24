@@ -36,16 +36,16 @@ function job_analytics_continuous_toe {
 function job_analytics_dynamodb {
       aws_login \
   &&  sops_env secrets-prod.yaml default \
-        aws_dynamodb_access_key \
-        aws_dynamodb_secret_key \
-        aws_dynamodb_default_region \
+        analytics_aws_access_key \
+        analytics_aws_secret_key \
+        analytics_aws_default_region \
         analytics_auth_redshift \
   &&  echo '[INFO] Generating secret files' \
   &&  {
         echo '{'
-        echo "\"AWS_ACCESS_KEY_ID\":\"${aws_dynamodb_access_key}\","
-        echo "\"AWS_SECRET_ACCESS_KEY\":\"${aws_dynamodb_secret_key}\","
-        echo "\"AWS_DEFAULT_REGION\":\"${aws_dynamodb_default_region}\""
+        echo "\"AWS_ACCESS_KEY_ID\":\"${analytics_aws_access_key}\","
+        echo "\"AWS_SECRET_ACCESS_KEY\":\"${analytics_aws_secret_key}\","
+        echo "\"AWS_DEFAULT_REGION\":\"${analytics_aws_default_region}\""
         echo '}'
       } > "${TEMP_FILE1}" \
   &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE2}" \
@@ -280,6 +280,53 @@ function job_analytics_timedoctor_refresh_token {
   &&  echo '[INFO] Updating token...' \
   &&  ./analytics/auth_helper.py --timedoctor-refresh \
   &&  echo '[INFO] Done! Token created at GitLab/serves env vars'
+}
+
+function job_analytics_timedoctor {
+  export analytics_auth_timedoctor
+
+      aws_login \
+  &&  mkdir ./logs \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_aws_access_key \
+        analytics_aws_secret_key \
+        analytics_aws_default_region \
+        analytics_auth_redshift \
+        analytics_gitlab_token \
+        analytics_s3_cache_timedoctor \
+  &&  analytics_auth_timedoctor=$( \
+        helper_get_gitlab_var \
+          'analytics_auth_timedoctor' \
+          "${analytics_gitlab_token}") \
+  &&  echo '[INFO] Generating secret files' \
+  &&  {
+        echo '{'
+        echo "\"AWS_ACCESS_KEY_ID\":\"${analytics_aws_access_key}\","
+        echo "\"AWS_SECRET_ACCESS_KEY\":\"${analytics_aws_secret_key}\","
+        echo "\"AWS_DEFAULT_REGION\":\"${analytics_aws_default_region}\""
+        echo '}'
+      } > "${TEMP_FILE1}" \
+  &&  echo "${analytics_s3_cache_timedoctor}" > ./s3_files.json \
+  &&  echo "${analytics_auth_timedoctor}" > "${TEMP_FILE2}" \
+  &&  echo "${analytics_auth_redshift}" > "${TEMP_FILE3}" \
+  &&  echo '[INFO] Downloading backups from S3' \
+  &&  python3 analytics/download_from_aws_sss.py \
+        -auth "${TEMP_FILE1}" \
+        -conf './s3_files.json' \
+  &&  cat 'timedoctor.worklogs.2013-01-01.2018-12-31.singer' \
+        > .singer \
+  &&  cat 'timedoctor.computer_activity.2018-01-01.2018-12-31.singer' \
+        >> .singer \
+  &&  echo '[INFO] Running tap' \
+  &&  tap-timedoctor \
+        --auth "${TEMP_FILE2}" \
+        >> .singer \
+  &&  echo '[INFO] Running target' \
+  &&  target-redshift \
+        --auth "${TEMP_FILE3}" \
+        --drop-schema \
+        --schema-name 'timedoctor' \
+        < .singer
 }
 
 function job_analytics_zoho {

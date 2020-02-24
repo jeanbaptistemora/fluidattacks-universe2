@@ -1,6 +1,17 @@
 data "aws_iam_policy_document" "analytics_policy_document_data" {
 
   statement {
+    sid = "AnalyticsS3"
+    effect = "Allow"
+    actions = [
+      "s3:*",
+    ]
+    resources = [
+      "arn:aws:s3:::fluidanalytics/*"
+    ]
+  }
+
+  statement {
     sid = "AnalyticsReadDynamoDB"
     effect = "Allow"
     actions = [

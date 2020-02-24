@@ -120,6 +120,20 @@ analytics_gitlab:
     refs: [schedules]
     variables: [$SCHEDULE_ANALYTICS_GITLAB]
 
+analytics_timedoctor:
+  <<: *with_nix
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_TIMEDOCTOR]
+
+analytics_timedoctor_refresh_token:
+  <<: *with_nix
+  stage: analytics
+  only:
+    refs: [schedules]
+    variables: [$SCHEDULE_ANALYTICS_TIMEDOCTOR_REFRESH_TOKEN]
+
 analytics_zoho:
   <<: *with_nix
   stage: analytics
