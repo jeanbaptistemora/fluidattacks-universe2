@@ -14,7 +14,7 @@ import store from "../../../../store";
 import { msgError } from "../../../../utils/notifications";
 import { GET_PROJECT_ALERT } from "../ProjectContent/queries";
 import { FindingContent } from "./index";
-import { APPROVE_DRAFT_MUTATION, GET_FINDING_HEADER, SUBMIT_DRAFT_MUTATION } from "./queries";
+import { APPROVE_DRAFT_MUTATION, GET_FINDING_HEADER, REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION } from "./queries";
 import { IFindingContentProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -423,6 +423,107 @@ describe("FindingContent", () => {
     const confirmDialog: ReactWrapper = wrapper.find("findingActions")
       .find("Modal")
       .at(0);
+    expect(confirmDialog)
+      .toHaveLength(1);
+    const proceedButton: ReactWrapper = confirmDialog
+      .find("Button")
+      .at(1);
+    proceedButton.simulate("click");
+    await act(async () => { await wait(0); });
+    expect(msgError)
+      .toHaveBeenCalled();
+  });
+
+  it("should reject draft", async () => {
+    const rejectMutationMock: Readonly<MockedResponse> = {
+      request: {
+        query: REJECT_DRAFT_MUTATION,
+        variables: {
+          findingId: "438679960",
+        },
+      },
+      result: {
+        data: {
+          rejectDraft: {
+            success: true,
+          },
+        },
+      },
+    };
+    (window as typeof window & { userRole: string }).userRole = "admin";
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={[submittedDraftMock, rejectMutationMock, findingMock]} addTypename={false}>
+            <FindingContent {...mockProps} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    let rejectButton: ReactWrapper = wrapper.find("ButtonToolbar")
+      .at(0)
+      .find("Button")
+      .filterWhere((element: ReactWrapper) => element.text()
+        .includes("Reject"));
+    rejectButton.simulate("click");
+    await act(async () => { wrapper.update(); });
+    const confirmDialog: ReactWrapper = wrapper.find("findingActions")
+      .find("Modal")
+      .at(2);
+    expect(confirmDialog)
+      .toHaveLength(1);
+    const proceedButton: ReactWrapper = confirmDialog
+      .find("Button")
+      .at(1);
+    proceedButton.simulate("click");
+    await act(async () => { await wait(50); wrapper.update(); });
+    rejectButton = wrapper.find("ButtonToolbar")
+      .at(0)
+      .find("Button")
+      .filterWhere((element: ReactWrapper) => element.text()
+        .includes("Reject"));
+    expect(rejectButton)
+      .toHaveLength(0);
+  });
+
+  it("should handle rejection errors", async () => {
+    const rejectErrorMock: Readonly<MockedResponse> = {
+      request: {
+        query: REJECT_DRAFT_MUTATION,
+        variables: {
+          findingId: "438679960",
+        },
+      },
+      result: {
+        errors: [
+          new GraphQLError("Exception - This draft has already been approved"),
+          new GraphQLError("Exception - The draft has not been submitted yet"),
+          new GraphQLError("Unexpected error"),
+        ],
+      },
+    };
+    (window as typeof window & { userRole: string }).userRole = "admin";
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={[submittedDraftMock, rejectErrorMock, findingMock]} addTypename={false}>
+            <FindingContent {...mockProps} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const rejectButton: ReactWrapper = wrapper.find("ButtonToolbar")
+      .at(0)
+      .find("Button")
+      .filterWhere((element: ReactWrapper) => element.text()
+        .includes("Reject"));
+    rejectButton.simulate("click");
+    await act(async () => { wrapper.update(); });
+    const confirmDialog: ReactWrapper = wrapper.find("findingActions")
+      .find("Modal")
+      .at(2);
     expect(confirmDialog)
       .toHaveLength(1);
     const proceedButton: ReactWrapper = confirmDialog
