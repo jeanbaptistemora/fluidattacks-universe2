@@ -180,7 +180,10 @@ const initialState: IDashboardState = {
     },
   },
   forces: {
-    defaultSort: {},
+    defaultSort: {
+      dataField: "date",
+      order: "desc",
+    },
   },
   resources: {
     defaultSort: {

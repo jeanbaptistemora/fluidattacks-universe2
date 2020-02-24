@@ -33,12 +33,12 @@ type ForcesViewProps = RouteComponentProps<{ projectName: string }>;
 const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: ForcesViewProps): JSX.Element => {
 
   interface IState { dashboard: IDashboardState; }
-  const events: IDashboardState["events"] = useSelector(
-    (state: IState): IDashboardState["events"] => state.dashboard.events);
+  const forces: IDashboardState["forces"] = useSelector(
+    (state: IState): IDashboardState["forces"] => state.dashboard.forces);
 
   // States
   const [currentRowIndex, updateRowIndex] = React.useState(0);
-  const [sortValue, setSortValue] = React.useState(events.defaultSort);
+  const [sortValue, setSortValue] = React.useState(forces.defaultSort);
   const [isExecutionDetailsModalOpen, setExecutionDetailsModalOpen] = React.useState(false);
 
   const dispatch: Dispatch = useDispatch();
