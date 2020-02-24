@@ -1,4 +1,7 @@
 
+# disable MyPy due to error "boto module has no attribute client"
+#  type: ignore
+
 import os
 
 import boto3

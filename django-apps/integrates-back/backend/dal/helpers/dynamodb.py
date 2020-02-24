@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# disable MyPy due to error "boto module has no attribute client, resource"
+#  type: ignore
+
 """Functions to connect to dynamodb database."""
 
 import boto3
