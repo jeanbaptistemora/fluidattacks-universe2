@@ -6,11 +6,11 @@
 from __future__ import print_function
 
 # 3rd party imports
+from fluidasserts.db import mysql
 import pytest
 pytestmark = pytest.mark.asserts_module('db_mysql')
 
 # local imports
-from fluidasserts.db import mysql
 
 
 # Constants
@@ -170,4 +170,13 @@ def test_old_passwords_enabled_close(get_mock_ip):
     assert mysql.old_passwords_enabled(
         get_mock_ip, ADMIN_USER, ADMIN_PASS).is_closed()
     assert mysql.old_passwords_enabled(
+        NON_EXISTANT, ADMIN_USER, ADMIN_PASS).is_unknown()
+
+
+@pytest.mark.parametrize('get_mock_ip', ['mysql_db_hard'], indirect=True)
+def test_has_unnamed_users_close(get_mock_ip):
+    """Check if there are unnamed users."""
+    assert mysql.has_unnamed_users(
+        get_mock_ip, ADMIN_USER, ADMIN_PASS).is_closed()
+    assert mysql.has_unnamed_users(
         NON_EXISTANT, ADMIN_USER, ADMIN_PASS).is_unknown()

@@ -847,3 +847,56 @@ def old_passwords_enabled(server: str,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(mysql.connector.Error)
+def has_unnamed_users(server: str,
+                      username: str,
+                      password: str,
+                      port: int = 3306) -> tuple:
+    """
+    Check for unnamed users.
+
+    Anonymous accounts are users with no name (''). They allow for default
+    logins and their permissions can sometimes be used by other users.
+    Avoiding the use of anonymous accounts ensures that only trusted principals
+    are capable of interacting with MySQL.
+
+    :param server: database server's host or IP address.
+    :param username: username with access permissions to the database.
+    :param password: database password.
+    :param port: database port.
+    :returns: - ``OPEN`` if there are unnamed users.
+              - ``UNKNOWN`` on errors,
+              - ``CLOSED`` otherwise.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    connection_string = ConnectionString(username, password, server, port)
+
+    msg_open: str = 'There are unnamed users.'
+    msg_closed: str = 'There are no unnamed users.'
+
+    query: str = """
+        SELECT 1
+        FROM mysql.user
+        WHERE user = '';
+        """
+
+    vulnerable = any(
+        list(
+            map(lambda row: row == (1, ), _execute(connection_string, query))))
+
+    vulns: List[str] = []
+    safes: List[str] = []
+
+    (vulns if vulnerable else safes).append(
+        ('mysql.user', 'Must set user names for unnamed users'))
+
+    return _get_result_as_tuple(
+        host=server,
+        port=port,
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
