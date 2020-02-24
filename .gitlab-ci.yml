@@ -135,6 +135,7 @@ deploy_docker_image_exams:
 deploy_docker_image_nix:
   <<: *with_nix
   <<: *in_schedule_deploy_nix_docker_images
+  tags: [autoscaling-large]
   stage: build-and-test
 
 deploy_docker_image_vpn:
