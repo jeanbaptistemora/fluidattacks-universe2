@@ -9,41 +9,7 @@ import * as resourcesActions from "./containers/ResourcesView/actionTypes";
 
 export interface IDashboardState {
   addUserModal: { addUserOpen: boolean };
-  confirmDialog: {[name: string]: { isOpen: boolean }};
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
-  drafts: {
-    defaultSort: {};
-    filters: {
-      status: string;
-    };
-  };
-  events: {
-    defaultSort: Sorted;
-    filters: {
-      status: string;
-      type: string;
-    };
-    typeOptions: optionSelectFilterProps[];
-  };
-  findings: {
-    defaultSort: {};
-    filters: {
-      exploitable: string;
-      severity: string;
-      status: string;
-      title: string;
-      treatment: string;
-      verification: string;
-      where: string;
-    };
-    isFilterEnabled: boolean;
-    reportsModal: {
-      isOpen: boolean;
-    };
-  };
-  forces: {
-    defaultSort: Sorted;
-  };
   resources: {
     defaultSort: {
       environments: {};
@@ -105,7 +71,6 @@ export interface IDashboardState {
 
 const initialState: IDashboardState = {
   addUserModal: { addUserOpen: false },
-  confirmDialog: {},
   description: {
     dataset: {
       acceptanceDate: "",
@@ -142,45 +107,6 @@ const initialState: IDashboardState = {
     },
     isEditing: false,
     isRemediationOpen : false,
-  },
-  drafts: {
-    defaultSort: {},
-    filters: {
-      status: "",
-    },
-  },
-  events: {
-    defaultSort: {
-      dataField: "eventDate",
-      order: "desc",
-    },
-    filters: {
-      status: "",
-      type: "",
-    },
-    typeOptions: [],
-  },
-  findings: {
-    defaultSort: {},
-    filters: {
-      exploitable: "",
-      severity: "",
-      status: "",
-      title: "",
-      treatment: "",
-      verification: "",
-      where: "",
-    },
-    isFilterEnabled: false,
-    reportsModal: {
-      isOpen: false,
-    },
-  },
-  forces: {
-    defaultSort: {
-      dataField: "date",
-      order: "desc",
-    },
   },
   resources: {
     defaultSort: {
@@ -520,14 +446,6 @@ actionMap[projectActions.LOAD_PROJECT] =
 
 actionMap[projectActions.CLEAR_PROJECT_STATE] = (state: IDashboardState): IDashboardState => ({
   ...state,
-  findings: {
-    ...initialState.findings,
-    defaultSort: state.findings.defaultSort,
-    filters: {
-      ...state.findings.filters,
-    },
-    isFilterEnabled: state.findings.isFilterEnabled,
-  },
   resources: {
     ...initialState.resources,
     defaultSort: {
