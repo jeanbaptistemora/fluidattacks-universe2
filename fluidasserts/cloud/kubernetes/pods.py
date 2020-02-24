@@ -354,3 +354,52 @@ def has_no_cpu_usage_limits(*,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(ApiException, MaxRetryError)
+def has_no_memory_requests_usage_limit(*,
+                                       host: str = None,
+                                       api_key: str = None,
+                                       username: str = None,
+                                       password: str = None,
+                                       **kwargs):
+    """
+    Check if the pod containers do not have a memory requests usage limit.
+
+    Enforcing memory requests aids a fair balancing of resources across the
+    cluster.
+
+    :param host: URL of the API server.
+    :param api_key: API Key to make requests.
+    :param username: Username of account.
+    :param password: Password of account.
+
+    :returns: - ``OPEN`` if there are pods that do not have a memory requests
+                 usage limits.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Pods do not set memory requests usage limits.'
+    msg_closed: str = 'Pods set memory requests usage limits.'
+    vulns, safes = [], []
+
+    api_instance = _get_api_instance('CoreV1Api', host, api_key, username,
+                                     password, **kwargs)
+    pods = run_function(api_instance, 'list_pod_for_all_namespaces').items
+    for pod in filter(lambda x: x.metadata.namespace != 'kube-system', pods):
+        for container in pod.spec.containers:
+            limits = container.resources.requests
+            (vulns if not limits or not limits.get('memory', None) else
+             safes).append((f'{pod.metadata.self_link}',
+                            'Must set memory requests usage limits'))
+
+    return _get_result_as_tuple(
+        host=host,
+        objects='Pods',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
