@@ -1,3 +1,7 @@
+# disable MyPy due to error alert for outer __init__ attributes,
+# which are all required by Graphene ObjectType
+#  type: ignore
+
 # Standard library
 from datetime import datetime
 
