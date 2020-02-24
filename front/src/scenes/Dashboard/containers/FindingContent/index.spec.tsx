@@ -11,10 +11,12 @@ import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import wait from "waait";
 import store from "../../../../store";
-import { msgError } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
 import { GET_PROJECT_ALERT } from "../ProjectContent/queries";
 import { FindingContent } from "./index";
-import { APPROVE_DRAFT_MUTATION, GET_FINDING_HEADER, REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION } from "./queries";
+import {
+  APPROVE_DRAFT_MUTATION, DELETE_FINDING_MUTATION, GET_FINDING_HEADER, REJECT_DRAFT_MUTATION, SUBMIT_DRAFT_MUTATION,
+} from "./queries";
 import { IFindingContentProps } from "./types";
 
 configure({ adapter: new ReactSixteenAdapter() });
@@ -22,6 +24,7 @@ configure({ adapter: new ReactSixteenAdapter() });
 jest.mock("../../../../utils/notifications", () => {
   const mockedNotifications: Dictionary = jest.requireActual("../../../../utils/notifications");
   mockedNotifications.msgError = jest.fn();
+  mockedNotifications.msgSuccess = jest.fn();
 
   return mockedNotifications;
 });
@@ -530,6 +533,94 @@ describe("FindingContent", () => {
       .find("Button")
       .at(1);
     proceedButton.simulate("click");
+    await act(async () => { await wait(0); });
+    expect(msgError)
+      .toHaveBeenCalled();
+  });
+
+  it("should delete finding", async () => {
+    const deleteMutationMock: Readonly<MockedResponse> = {
+      request: {
+        query: DELETE_FINDING_MUTATION,
+        variables: {
+          findingId: "438679960",
+          justification: "DUPLICATED",
+        },
+      },
+      result: {
+        data: {
+          deleteFinding: {
+            success: true,
+          },
+        },
+      },
+    };
+    (window as typeof window & { userRole: string }).userRole = "analyst";
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={[findingMock, deleteMutationMock]} addTypename={false}>
+            <FindingContent {...mockProps} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const deleteButton: ReactWrapper = wrapper.find("button")
+      .at(0);
+    expect(deleteButton)
+      .toHaveLength(1);
+    deleteButton.simulate("click");
+    await act(async () => { wrapper.update(); });
+    wrapper.find("select")
+      .simulate("change", { target: { value: "DUPLICATED" } });
+    const justificationForm: ReactWrapper = wrapper.find("genericForm")
+      .find({ name: "deleteFinding" });
+    justificationForm.simulate("submit");
+    await act(async () => { await wait(0); wrapper.update(); });
+    expect(msgSuccess)
+      .toHaveBeenCalled();
+    expect(window.location.hash)
+      .toEqual("#!/project/TEST/findings");
+  });
+
+  it("should handle deletion errors", async () => {
+    const deleteMutationMock: Readonly<MockedResponse> = {
+      request: {
+        query: DELETE_FINDING_MUTATION,
+        variables: {
+          findingId: "438679960",
+          justification: "DUPLICATED",
+        },
+      },
+      result: {
+        errors: [
+          new GraphQLError("Unexpected error"),
+        ],
+      },
+    };
+    (window as typeof window & { userRole: string }).userRole = "analyst";
+    const wrapper: ReactWrapper = mount(
+      <MemoryRouter initialEntries={["/project/TEST/findings/438679960/description"]}>
+        <Provider store={store}>
+          <MockedProvider mocks={[findingMock, deleteMutationMock]} addTypename={false}>
+            <FindingContent {...mockProps} />
+          </MockedProvider>
+        </Provider>
+      </MemoryRouter>,
+    );
+    await act(async () => { await wait(0); wrapper.update(); });
+    const deleteButton: ReactWrapper = wrapper.find("button")
+      .at(0);
+    expect(deleteButton)
+      .toHaveLength(1);
+    deleteButton.simulate("click");
+    await act(async () => { wrapper.update(); });
+    wrapper.find("select")
+      .simulate("change", { target: { value: "DUPLICATED" } });
+    const justificationForm: ReactWrapper = wrapper.find("genericForm")
+      .find({ name: "deleteFinding" });
+    justificationForm.simulate("submit");
     await act(async () => { await wait(0); });
     expect(msgError)
       .toHaveBeenCalled();
