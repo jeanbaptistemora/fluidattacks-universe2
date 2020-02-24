@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Test module for fluidasserts.cloud.kubernetes."""
 # standard imports
+from fluidasserts.cloud.kubernetes import deployments, pods
 import os
 
 # 3rd party imports
@@ -8,7 +9,6 @@ import pytest
 pytestmark = pytest.mark.asserts_module('cloud_kubernetes')
 
 # local imports
-from fluidasserts.cloud.kubernetes import deployments, pods
 
 KUBERNETES_API_SERVER = os.environ['KUBERNETES_API_SERVER']
 KUBERNETES_API_TOKEN = os.environ['KUBERNETES_API_TOKEN']
@@ -63,6 +63,13 @@ def test_has_no_memory_usage_limits_open():
         api_key=KUBERNETES_API_TOKEN).is_open()
 
 
+def test_has_no_cpu_usage_limits_open():
+    """Search containers that do not have CPU usage limits."""
+    assert pods.has_no_cpu_usage_limits(
+        host=KUBERNETES_API_SERVER,
+        api_key=KUBERNETES_API_TOKEN).is_open()
+
+
 #
 # Closing tests
 #
@@ -108,5 +115,12 @@ def test_undefined_pod_security_policies_closed():
 def test_has_no_memory_usage_limits_close():
     """Search containers that do not have memory usage limits."""
     assert pods.has_no_memory_usage_limits(
+        host=BAD_KUBERNETES_API_SERVER,
+        api_key=BAD_KUBERNETES_API_SERVER).is_unknown()
+
+
+def test_has_no_cpu_usage_limits_close():
+    """Search containers that do not have CPU usage limits."""
+    assert pods.has_no_cpu_usage_limits(
         host=BAD_KUBERNETES_API_SERVER,
         api_key=BAD_KUBERNETES_API_SERVER).is_unknown()
