@@ -68,38 +68,38 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   const clearSelection: string = "_CLEAR_";
 
   const selectOptionsExploitable: optionSelectFilterProps[] = [
-    {value: "Yes", label: "Yes"},
-    {value: "No", label: "No"},
+    { value: "Yes", label: "Yes" },
+    { value: "No", label: "No" },
   ];
   const selectOptionsStatus: optionSelectFilterProps[] = [
-    {value: "Open", label: "Open"},
-    {value: "Closed", label: "Closed"},
+    { value: "Open", label: "Open" },
+    { value: "Closed", label: "Closed" },
   ];
   const selectOptionsTreatment: optionSelectFilterProps[] = [
-    {value: "Accepted", label: "Accepted"},
-    {value: "In progress", label: "In progress"},
-    {value: "Indefinitely accepted", label: "Indefinitely accepted"},
-    {value: "Indefinitely accepted (Pending approval)", label: "Indefinitely accepted (Pending approval)"},
-    {value: "New", label: "New"},
-    {value: "-", label: "-"},
+    { value: "Accepted", label: "Accepted" },
+    { value: "In progress", label: "In progress" },
+    { value: "Indefinitely accepted", label: "Indefinitely accepted" },
+    { value: "Indefinitely accepted (Pending approval)", label: "Indefinitely accepted (Pending approval)" },
+    { value: "New", label: "New" },
+    { value: "-", label: "-" },
   ];
   const selectOptionsVerification: optionSelectFilterProps[] = [
-    {value: "Pending", label: "Pending"},
-    {value: "-", label: "-"},
+    { value: "Pending", label: "Pending" },
+    { value: "-", label: "-" },
   ];
   const selectOptionsSeverity: optionSelectFilterProps[] = [
-    {value: "None", label: "None"},
-    {value: "Low", label: "Low"},
-    {value: "Medium", label: "Medium"},
-    {value: "High", label: "High"},
-    {value: "Critical", label: "Critical"},
+    { value: "None", label: "None" },
+    { value: "Low", label: "Low" },
+    { value: "Medium", label: "Medium" },
+    { value: "High", label: "High" },
+    { value: "Critical", label: "Critical" },
   ];
-  const restrictionSeverity: Array<{restriction: number[]; value: string}> = [
-    {restriction: [0, 0], value: "None"},
-    {restriction: [0.1, 3.9], value: "Low"},
-    {restriction: [4, 6.9], value: "Medium"},
-    {restriction: [7, 8.9], value: "High"},
-    {restriction: [9, 10], value: "Critical"},
+  const restrictionSeverity: Array<{ restriction: number[]; value: string }> = [
+    { restriction: [0, 0], value: "None" },
+    { restriction: [0.1, 3.9], value: "Low" },
+    { restriction: [4, 6.9], value: "Medium" },
+    { restriction: [7, 8.9], value: "High" },
+    { restriction: [9, 10], value: "Critical" },
   ];
   const [optionTreatment, setOptionTreatment] =
     React.useState<optionSelectFilterProps[]>(selectOptionsTreatment);
@@ -119,10 +119,10 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   };
 
   const goToFinding: ((event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }) => void) =
-  (event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }): void => {
-    mixpanel.track("ReadFinding", { Organization: userOrganization, User: userName });
-    location.hash = `#!/project/${projectName}/findings/${rowInfo.id}/description`;
-  };
+    (event: React.FormEvent<HTMLButtonElement>, rowInfo: { id: string }): void => {
+      mixpanel.track("ReadFinding", { Organization: userOrganization, User: userName });
+      location.hash = `#!/project/${projectName}/findings/${rowInfo.id}/description`;
+    };
 
   const handleQryResult: ((qrResult: IProjectFindingsAttr) => void) = (qrResult: IProjectFindingsAttr): void => {
     let findingOptions: string[] = Array.from(new Set(qrResult.project.findings.map(
@@ -134,34 +134,34 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
     mixpanel.track("ProjectFindings", { Organization: userOrganization, User: userName });
   };
   const onSortState: ((dataField: string, order: SortOrder) => void) =
-  (dataField: string, order: SortOrder): void => {
-    const newSorted: Sorted = { dataField, order};
-    setSortValue(newSorted);
-  };
+    (dataField: string, order: SortOrder): void => {
+      const newSorted: Sorted = { dataField, order };
+      setSortValue(newSorted);
+    };
   const onFilterTitle: ((filterVal: string) => void) = (filterVal: string): void => {
     if (filterValueTitle !== filterVal) {
       setFilterValueTitle(filterVal);
     }
   };
   const clearFilterTitle: ((event: React.FormEvent<HTMLInputElement>) => void) =
-  (event: React.FormEvent<HTMLInputElement>): void => {
-    const inputValue: string = event.currentTarget.value;
-    if (inputValue.length === 0 && filterValueTitle !== "") {
-      setFilterValueTitle("");
-    }
-  };
+    (event: React.FormEvent<HTMLInputElement>): void => {
+      const inputValue: string = event.currentTarget.value;
+      if (inputValue.length === 0 && filterValueTitle !== "") {
+        setFilterValueTitle("");
+      }
+    };
   const onFilterWhere: ((filterVal: string) => void) = (filterVal: string): void => {
     if (filterValueWhere !== filterVal) {
       setFilterValueWhere(filterVal);
     }
   };
   const clearFilterWhere: ((event: React.FormEvent<HTMLInputElement>) => void) =
-  (event: React.FormEvent<HTMLInputElement>): void => {
-    const inputValue: string = event.currentTarget.value;
-    if (inputValue.length === 0 && filterValueWhere !== "") {
-      setFilterValueWhere("");
-    }
-  };
+    (event: React.FormEvent<HTMLInputElement>): void => {
+      const inputValue: string = event.currentTarget.value;
+      if (inputValue.length === 0 && filterValueWhere !== "") {
+        setFilterValueWhere("");
+      }
+    };
   const onFilterExploitable: ((filterVal: string) => void) = (filterVal: string): void => {
     if (filterValueExploitable !== filterVal && clearSelection !== filterValueExploitable) {
       setFilterValueExploitable(filterVal);
@@ -169,12 +169,12 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   };
 
   const clearFilterExploitable: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
-  (eventInput: React.FormEvent<HTMLInputElement>): void => {
-    const inputValue: string = eventInput.currentTarget.value;
-    if (inputValue.length === 0 && filterValueExploitable !== "") {
-      setFilterValueExploitable(clearSelection);
-    }
-  };
+    (eventInput: React.FormEvent<HTMLInputElement>): void => {
+      const inputValue: string = eventInput.currentTarget.value;
+      if (inputValue.length === 0 && filterValueExploitable !== "") {
+        setFilterValueExploitable(clearSelection);
+      }
+    };
   const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
     if (filterValueStatus !== filterVal && clearSelection !== filterValueStatus) {
       setFilterValueStatus(filterVal);
@@ -182,58 +182,58 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
   };
 
   const clearFilterStatus: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
-  (eventInput: React.FormEvent<HTMLInputElement>): void => {
-    const inputValue: string = eventInput.currentTarget.value;
-    if (inputValue.length === 0 && filterValueStatus !== "") {
-      setFilterValueStatus(clearSelection);
-    }
-  };
+    (eventInput: React.FormEvent<HTMLInputElement>): void => {
+      const inputValue: string = eventInput.currentTarget.value;
+      if (inputValue.length === 0 && filterValueStatus !== "") {
+        setFilterValueStatus(clearSelection);
+      }
+    };
   const onFilterVerification: ((filterVal: string) => void) = (filterVal: string): void => {
     if (filterValueVerification !== filterVal && clearSelection !== filterValueVerification) {
       setFilterValueVerification(filterVal);
     }
   };
   const clearFilterTreatment: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
-  (eventInput: React.FormEvent<HTMLInputElement>): void => {
-    const inputValue: string = eventInput.currentTarget.value;
-    if (inputValue.length === 0 && filterValueTreatment !== "") {
-      setFilterValueTreatment(clearSelection);
-    }
-  };
+    (eventInput: React.FormEvent<HTMLInputElement>): void => {
+      const inputValue: string = eventInput.currentTarget.value;
+      if (inputValue.length === 0 && filterValueTreatment !== "") {
+        setFilterValueTreatment(clearSelection);
+      }
+    };
   const onFilterTreatment: ((filterVal: string) => void) =
-  (filterVal: string): void => {
-    if (filterValueTreatment !== filterVal && clearSelection !== filterValueTreatment) {
-      setFilterValueTreatment(filterVal);
-    }
-  };
+    (filterVal: string): void => {
+      if (filterValueTreatment !== filterVal && clearSelection !== filterValueTreatment) {
+        setFilterValueTreatment(filterVal);
+      }
+    };
 
   const clearFilterVerification: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
-  (eventInput: React.FormEvent<HTMLInputElement>): void => {
-    const inputValue: string = eventInput.currentTarget.value;
-    if (inputValue.length === 0 && filterValueVerification !== "") {
-      setFilterValueVerification(clearSelection);
+    (eventInput: React.FormEvent<HTMLInputElement>): void => {
+      const inputValue: string = eventInput.currentTarget.value;
+      if (inputValue.length === 0 && filterValueVerification !== "") {
+        setFilterValueVerification(clearSelection);
 
-    }
-  };
+      }
+    };
   const onFilterSeverity: ((filterVal: string, data: IFindingAttr[]) => IFindingAttr[]) =
-  (filterVal: string, data: IFindingAttr[]): IFindingAttr[] => {
-    const restrictions: number[] = restrictionSeverity.filter((option: {restriction: number[]; value: string}) => (
-      option.value === filterVal))[0].restriction;
-    if (filterValueSeverity !== filterVal && clearSelection !== filterValueSeverity) {
-      setFilterValueSeverity(filterVal);
-    }
+    (filterVal: string, data: IFindingAttr[]): IFindingAttr[] => {
+      const restrictions: number[] = restrictionSeverity.filter((option: { restriction: number[]; value: string }) => (
+        option.value === filterVal))[0].restriction;
+      if (filterValueSeverity !== filterVal && clearSelection !== filterValueSeverity) {
+        setFilterValueSeverity(filterVal);
+      }
 
-    return data.filter((row: IFindingAttr) => (
-      row.severityScore >= restrictions[0] && row.severityScore <= restrictions[1]));
-  };
+      return data.filter((row: IFindingAttr) => (
+        row.severityScore >= restrictions[0] && row.severityScore <= restrictions[1]));
+    };
 
   const clearFilterSeverity: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
-  (eventInput: React.FormEvent<HTMLInputElement>): void => {
-    const inputValue: string = eventInput.currentTarget.value;
-    if (inputValue.length === 0 && filterValueSeverity !== "") {
-      setFilterValueSeverity(clearSelection);
-    }
-  };
+    (eventInput: React.FormEvent<HTMLInputElement>): void => {
+      const inputValue: string = eventInput.currentTarget.value;
+      if (inputValue.length === 0 && filterValueSeverity !== "") {
+        setFilterValueSeverity(clearSelection);
+      }
+    };
 
   const tableHeaders: IHeader[] = [
     {
@@ -327,97 +327,95 @@ const projectFindingsView: React.FC<IProjectFindingsProps> = (props: IProjectFin
 
   return (
     <Query query={GET_FINDINGS} variables={{ projectName }} onCompleted={handleQryResult}>
-      {
-        ({ error, data }: QueryResult<IProjectFindingsAttr>): JSX.Element => {
-          if (_.isUndefined(data) || _.isEmpty(data)) {
+      {({ error, data }: QueryResult<IProjectFindingsAttr>): JSX.Element => {
+        if (_.isUndefined(data) || _.isEmpty(data)) {
 
-            return <React.Fragment/>;
+          return <React.Fragment />;
+        }
+        if (!_.isUndefined(error)) {
+          handleGraphQLErrors("An error occurred getting project findings", error);
+
+          return <React.Fragment />;
+        }
+
+        data.project.findings = data.project.findings.map((finding: IFindingAttr) => {
+          if (finding.historicTreatment.length > 0) {
+            finding.treatment = finding.historicTreatment[finding.historicTreatment.length - 1].treatment;
+            const acceptationApproval: string | undefined =
+              _.get(finding.historicTreatment[finding.historicTreatment.length - 1], "acceptance_status");
+            if (acceptationApproval !== undefined && acceptationApproval === "SUBMITTED") {
+              finding.treatment += " pending";
+            }
           }
-          if (!_.isUndefined(error)) {
-            handleGraphQLErrors("An error occurred getting project findings", error);
 
-            return <React.Fragment/>;
-          }
-          if (!_.isUndefined(data)) {
-            data.project.findings = data.project.findings.map((finding: IFindingAttr) => {
-              if (finding.historicTreatment.length > 0) {
-                finding.treatment = finding.historicTreatment[finding.historicTreatment.length - 1].treatment;
-                const acceptationApproval: string | undefined =
-                  _.get(finding.historicTreatment[finding.historicTreatment.length - 1], "acceptance_status");
-                if (acceptationApproval !== undefined && acceptationApproval === "SUBMITTED") {
-                  finding.treatment += " pending";
-                }
-              }
+          return finding;
+        });
 
-              return finding;
-            });
-
-            return (
-              <React.StrictMode>
-                <Row>
-                  <Col md={2} mdOffset={5}>
-                    <ButtonToolbar className={style.reportsBtn}>
-                      <Button onClick={openReportsModal}>{translate.t("project.findings.report.btn")}</Button>
-                    </ButtonToolbar>
-                  </Col>
-                </Row>
-                <p>{translate.t("project.findings.help_label")}</p>
-                <DataTableNext
-                  bordered={true}
-                  columnToggle={true}
-                  dataset={formatFindings(data.project.findings)}
-                  defaultSorted={sortValue}
-                  exportCsv={true}
-                  headers={tableHeaders}
-                  id="tblFindings"
-                  isFilterEnabled={isFilterEnabled}
-                  pageSize={15}
-                  onColumnToggle={handleChange}
-                  onUpdateEnableFilter={handleUpdateFilter}
-                  remote={false}
-                  rowEvents={{onClick: goToFinding}}
-                  search={true}
-                  striped={true}
-                />
-                <Modal
-                  open={isReportsModalOpen}
-                  footer={<div />}
-                  headerTitle={translate.t("project.findings.report.modal_title")}
-                >
-                  <Row className={style.modalContainer}>
-                    <Col md={12} id="techReport">
-                      <h3>{translate.t("project.findings.report.tech_title")}</h3>
-                      <Trans>
-                        <p>{translate.t("project.findings.report.tech_description")}</p>
-                      </Trans>
-                      <br />
-                      <Trans>
-                        <p className={style.techExample}>{translate.t("project.findings.report.tech_example")}</p>
-                      </Trans>
-                      <Row>
-                        <Col md={12} className={style.downloadButtonsContainer}>
-                          <ButtonToolbar>
-                            <Button onClick={handleTechPdfClick}>
-                              <FontAwesome name="file-pdf-o" />&nbsp;PDF
+        return (
+          <React.StrictMode>
+            <Row>
+              <Col md={2} mdOffset={5}>
+                <ButtonToolbar className={style.reportsBtn}>
+                  <Button onClick={openReportsModal}>{translate.t("project.findings.report.btn")}</Button>
+                </ButtonToolbar>
+              </Col>
+            </Row>
+            <p>{translate.t("project.findings.help_label")}</p>
+            <DataTableNext
+              bordered={true}
+              columnToggle={true}
+              dataset={formatFindings(data.project.findings)}
+              defaultSorted={sortValue}
+              exportCsv={true}
+              headers={tableHeaders}
+              id="tblFindings"
+              isFilterEnabled={isFilterEnabled}
+              pageSize={15}
+              onColumnToggle={handleChange}
+              onUpdateEnableFilter={handleUpdateFilter}
+              remote={false}
+              rowEvents={{ onClick: goToFinding }}
+              search={true}
+              striped={true}
+            />
+            <Modal
+              open={isReportsModalOpen}
+              footer={<div />}
+              headerTitle={translate.t("project.findings.report.modal_title")}
+            >
+              <Row className={style.modalContainer}>
+                <Col md={12} id="techReport">
+                  <h3>{translate.t("project.findings.report.tech_title")}</h3>
+                  <Trans>
+                    <p>{translate.t("project.findings.report.tech_description")}</p>
+                  </Trans>
+                  <br />
+                  <Trans>
+                    <p className={style.techExample}>{translate.t("project.findings.report.tech_example")}</p>
+                  </Trans>
+                  <Row>
+                    <Col md={12} className={style.downloadButtonsContainer}>
+                      <ButtonToolbar>
+                        <Button onClick={handleTechPdfClick}>
+                          <FontAwesome name="file-pdf-o" />&nbsp;PDF
                             </Button>
-                            <Button onClick={handleTechXlsClick}>
-                              <FontAwesome name="file-excel-o" />&nbsp;XLS
+                        <Button onClick={handleTechXlsClick}>
+                          <FontAwesome name="file-excel-o" />&nbsp;XLS
                             </Button>
-                          </ButtonToolbar>
-                        </Col>
-                      </Row>
+                      </ButtonToolbar>
                     </Col>
                   </Row>
-                  <ButtonToolbar className="pull-right">
-                    <Button onClick={closeReportsModal}>
-                      {translate.t("project.findings.report.modal_close")}
-                    </Button>
-                  </ButtonToolbar>
-                </Modal>
-              </React.StrictMode>
-            );
-          } else { return <React.Fragment />; }
-        }}
+                </Col>
+              </Row>
+              <ButtonToolbar className="pull-right">
+                <Button onClick={closeReportsModal}>
+                  {translate.t("project.findings.report.modal_close")}
+                </Button>
+              </ButtonToolbar>
+            </Modal>
+          </React.StrictMode>
+        );
+      }}
     </Query>
   );
 };
