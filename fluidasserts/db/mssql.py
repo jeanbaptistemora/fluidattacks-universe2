@@ -4,6 +4,7 @@
 """``Dynamic Application Security Testing`` Suite of Microsoft SQL Server."""
 
 # standard imports
+from collections import namedtuple
 from contextlib import contextmanager
 from typing import Any, Dict, Iterable, List, NamedTuple, Optional, Tuple
 
@@ -16,13 +17,13 @@ from fluidasserts import DAST, HIGH, LOW, MEDIUM
 from fluidasserts.db import _get_result_as_tuple
 from fluidasserts.utils.decorators import api, unknown_if
 
-ConnectionString = NamedTuple('ConnectionString', [
-    ('dbname', str),
-    ('user', str),
-    ('password', str),
-    ('host', str),
-    ('port', int),
-])
+ConnectionString: NamedTuple = namedtuple('ConnectionString', [
+    'dbname',
+    'user',
+    'password',
+    'host',
+    'port',
+], defaults=('master', None, None, None, None))
 
 
 def _is_auth_error(exception: pyodbc.InterfaceError) -> bool:
@@ -68,6 +69,12 @@ def _execute(connection_string: ConnectionString,
             yield cursor
         finally:
             pass
+
+
+def _get_databases(connection_string: ConnectionString) -> List[str]:
+    query = 'SELECT name FROM master.dbo.sysdatabases'
+    with _execute(connection_string, query) as cursor:
+        return list(map(lambda x: x[0], cursor.fetchall()))
 
 
 @contextmanager
@@ -149,12 +156,13 @@ def _check_configuration(connection_string: ConnectionString,
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
-def have_access(dbname: str, user: str, password: str, host: str,
+def have_access(user: str,
+                password: str,
+                host: str,
                 port: int) -> Tuple:
     """
     Check if the given connection parameters allow to connect to the database.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -164,8 +172,8 @@ def have_access(dbname: str, user: str, password: str, host: str,
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
     success: bool = False
     msg_open: str = 'SQL Server is accessible with given credentials'
     msg_closed: str = 'SQL Server is not accessible with given credentials'
@@ -195,12 +203,13 @@ def have_access(dbname: str, user: str, password: str, host: str,
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
-def can_execute_commands(dbname: str, user: str, password: str, host: str,
+def can_execute_commands(user: str,
+                         password: str,
+                         host: str,
                          port: int) -> Tuple:
     """
     Check if the user can execute OS commands.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -210,8 +219,9 @@ def can_execute_commands(dbname: str, user: str, password: str, host: str,
               - ``CLOSED`` otherwise.
     :rtype: :class:`fluidasserts.Result`
     """
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
+
     msg_open: str = 'The user can execute OS commands'
     msg_closed: str = 'The user can\'t execute OS commands'
 
@@ -284,8 +294,7 @@ def has_text(dbname: str, user: str, password: str, host: str, port: int,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
-def has_login_password_expiration_disabled(dbname: str,
-                                           user: str,
+def has_login_password_expiration_disabled(user: str,
                                            password: str,
                                            host: str,
                                            port: int) -> Tuple:
@@ -295,7 +304,6 @@ def has_login_password_expiration_disabled(dbname: str,
     Unchanged passwords provide a means for compromised passwords to be used
     for unauthorized access to DBMS accounts over a long period of time.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -311,8 +319,8 @@ def has_login_password_expiration_disabled(dbname: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
 
     msg_open: str = 'Loggings have password expiration policy disabled.'
     msg_closed: str = 'Loggings have password expiration policy enabled.'
@@ -347,8 +355,7 @@ def has_login_password_expiration_disabled(dbname: str,
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
-def has_enabled_ad_hoc_queries(dbname: str,
-                               user: str,
+def has_enabled_ad_hoc_queries(user: str,
                                password: str,
                                host: str,
                                port: int) -> Tuple:
@@ -360,7 +367,6 @@ def has_enabled_ad_hoc_queries(dbname: str,
     applications and/or a compromise of local data confidentiality and
     integrity.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -375,8 +381,8 @@ def has_enabled_ad_hoc_queries(dbname: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
 
     msg_open: str = 'Ad Hoc distributed queries option is enabled.'
     msg_closed: str = 'Ad Hoc distributed queries option is disabled.'
@@ -397,8 +403,7 @@ def has_enabled_ad_hoc_queries(dbname: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
-def can_alter_any_database(dbname: str,
-                           user: str,
+def can_alter_any_database(user: str,
                            password: str,
                            host: str,
                            port: int) -> Tuple:
@@ -409,7 +414,6 @@ def can_alter_any_database(dbname: str,
     privilege that must only be granted to individual administration accounts
     through roles.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -425,8 +429,8 @@ def can_alter_any_database(dbname: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
 
     msg_open: str = 'User accounts have access to ALTER ANY DATABASE.'
     msg_closed: str = 'User accounts do not have access to ALTER ANY DATABASE.'
@@ -444,8 +448,7 @@ def can_alter_any_database(dbname: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
-def has_password_policy_check_disabled(dbname: str,
-                                       user: str,
+def has_password_policy_check_disabled(user: str,
                                        password: str,
                                        host: str,
                                        port: int) -> Tuple:
@@ -458,7 +461,6 @@ def has_password_policy_check_disabled(dbname: str,
     strong passwords can help prevent simple and more sophisticated methods
     for guessing.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -474,8 +476,8 @@ def has_password_policy_check_disabled(dbname: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
 
     msg_open: str = \
         'Passwords are not verified to meet complexity requirements.'
@@ -505,7 +507,9 @@ def has_password_policy_check_disabled(dbname: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
-def has_xps_option_enabled(dbname: str, user: str, password: str, host: str,
+def has_xps_option_enabled(user: str,
+                           password: str,
+                           host: str,
                            port: int) -> Tuple:
     """
     Check if agent XPs option is enabled.
@@ -517,7 +521,6 @@ def has_xps_option_enabled(dbname: str, user: str, password: str, host: str,
     Server instance could result in a compromise of the host system and
     external SQL Server resources.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -532,8 +535,8 @@ def has_xps_option_enabled(dbname: str, user: str, password: str, host: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
 
     msg_open: str = 'Agent XPs Option is Enabled'
     msg_closed: str = 'Agent XPs Option is Disabled'
@@ -554,8 +557,7 @@ def has_xps_option_enabled(dbname: str, user: str, password: str, host: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
-def has_asymmetric_keys_with_unencrypted_private_keys(dbname: str,
-                                                      user: str,
+def has_asymmetric_keys_with_unencrypted_private_keys(user: str,
                                                       password: str,
                                                       host: str,
                                                       port: int) -> Tuple:
@@ -566,7 +568,6 @@ def has_asymmetric_keys_with_unencrypted_private_keys(dbname: str,
     keys used to provide the encryption are not easily discovered. Without
     effective encryption, sensitive data is vulnerable to unauthorized access.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -582,24 +583,33 @@ def has_asymmetric_keys_with_unencrypted_private_keys(dbname: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
+    databases = _get_databases(connection_string)
 
     msg_open: str = 'Asymmetric keys have unencrypted private keys.'
     msg_closed: str = 'Asymmetric keys have encrypted private keys.'
 
-    try:
-        with database(connection_string) as (_, cursor):
-            keys = cursor.execute("""SELECT name, pvt_key_encryption_type
-                                     FROM sys.asymmetric_keys""").fetchall()
-        for key in keys:
-            (vulns if key.pvt_key_encryption_type == 'NA' else safes).append(
-                (f'{dbname}.asymmetric_keys.{key.name}',
-                 'must encrypt the private key'))
+    for database_ in databases:
+        try:
+            connection_string_ = ConnectionString(
+                dbname=database_,
+                user=user,
+                password=password,
+                host=host,
+                port=port)
+            with database(connection_string_) as (_, cursor):
+                query = ('SELECT name, pvt_key_encryption_type'
+                         ' FROM sys.asymmetric_keys')
+                keys = cursor.execute(query).fetchall()
+            for key in keys:
+                (vulns if key.pvt_key_encryption_type == 'NA' else
+                 safes).append((f'{database_}.asymmetric_keys.{key.name}',
+                                'must encrypt the private key'))
 
-    except (pyodbc.OperationalError, pyodbc.InterfaceError) as exc:
-        if not _is_auth_permission_error(exc):
-            raise exc
+        except (pyodbc.OperationalError, pyodbc.InterfaceError) as exc:
+            if not _is_auth_permission_error(exc):
+                raise exc
     return _get_result_as_tuple(
         host=host,
         port=port,
@@ -611,8 +621,7 @@ def has_asymmetric_keys_with_unencrypted_private_keys(dbname: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
-def has_smo_and_dmo_xps_option_enabled(dbname: str,
-                                       user: str,
+def has_smo_and_dmo_xps_option_enabled(user: str,
                                        password: str,
                                        host: str,
                                        port: int) -> Tuple:
@@ -626,7 +635,6 @@ def has_smo_and_dmo_xps_option_enabled(dbname: str,
     instance could result in a compromise of the host system and external SQL
     Server resources.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -641,8 +649,8 @@ def has_smo_and_dmo_xps_option_enabled(dbname: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
 
     msg_open: str = 'SMO and DMO XPs options are enabled.'
     msg_closed: str = 'SMO and DMO XPs options are disablede.'
@@ -663,8 +671,7 @@ def has_smo_and_dmo_xps_option_enabled(dbname: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
-def has_contained_dbs_with_auto_close_enabled(dbname: str,
-                                              user: str,
+def has_contained_dbs_with_auto_close_enabled(user: str,
                                               password: str,
                                               host: str,
                                               port: int) -> Tuple:
@@ -674,7 +681,6 @@ def has_contained_dbs_with_auto_close_enabled(dbname: str,
     Opening contained databases to authenticate a user consumes additional
     server resources and may contribute to a denial of service.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -690,8 +696,8 @@ def has_contained_dbs_with_auto_close_enabled(dbname: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
 
     msg_open: str = 'Contained databases are set to AUTO_CLOSE ON.'
     msg_closed: str = 'Contained databases are set to AUTO_CLOSE OFF.'
@@ -721,7 +727,9 @@ def has_contained_dbs_with_auto_close_enabled(dbname: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
-def can_alter_any_login(dbname: str, user: str, password: str, host: str,
+def can_alter_any_login(user: str,
+                        password: str,
+                        host: str,
                         port: int) -> Tuple:
     """
     Check if there are accounts that have permission to ``Alter any login``.
@@ -731,7 +739,6 @@ def can_alter_any_login(dbname: str, user: str, password: str, host: str,
     roles. If any user accounts have direct access to administrative
     privileges, this access must be removed.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -744,8 +751,8 @@ def can_alter_any_login(dbname: str, user: str, password: str, host: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
 
     msg_open: str = 'Accounts have permission to Alter any login.'
     msg_closed: str = 'Accounts do not have permission to Alter any login.'
@@ -763,8 +770,7 @@ def can_alter_any_login(dbname: str, user: str, password: str, host: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
-def can_control_server(dbname: str,
-                       user: str,
+def can_control_server(user: str,
                        password: str,
                        host: str,
                        port: int) -> Tuple:
@@ -776,7 +782,6 @@ def can_control_server(dbname: str,
     roles. If any user accounts have direct access to administrative
     privileges, this access must be removed.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -789,8 +794,8 @@ def can_control_server(dbname: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
 
     msg_open: str = 'Accounts have permission to Control Server.'
     msg_closed: str = 'Accounts do not have permission to Control Server.'
@@ -808,8 +813,7 @@ def can_control_server(dbname: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.InternalError)
-def can_alter_any_credential(dbname: str,
-                             user: str,
+def can_alter_any_credential(user: str,
                              password: str,
                              host: str,
                              port: int) -> Tuple:
@@ -821,7 +825,6 @@ def can_alter_any_credential(dbname: str,
     through roles. If any user accounts have direct access to administrative
     privileges, this access must be removed.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -834,8 +837,8 @@ def can_alter_any_credential(dbname: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
 
     msg_open: str = 'Accounts have permission to Alter any credential.'
     msg_closed: str = \
@@ -854,15 +857,16 @@ def can_alter_any_credential(dbname: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
-def has_sa_account_login_enabled(dbname: str, user: str, password: str,
-                                 host: str, port: int) -> Tuple:
+def has_sa_account_login_enabled(user: str,
+                                 password: str,
+                                 host: str,
+                                 port: int) -> Tuple:
     """
     Check if the sa login account is enabled.
 
     Enforcing the sa login to be disabled reduces the probability of an
     attacker executing brute force attacks against a well-known principal.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -877,8 +881,8 @@ def has_sa_account_login_enabled(dbname: str, user: str, password: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
 
     msg_open: str = 'SA login account is enabled.'
     msg_closed: str = 'SA login account is disabled.'
@@ -910,8 +914,7 @@ def has_sa_account_login_enabled(dbname: str, user: str, password: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
-def has_remote_access_option_enabled(dbname: str,
-                                     user: str,
+def has_remote_access_option_enabled(user: str,
                                      password: str,
                                      host: str,
                                      port: int) -> Tuple:
@@ -924,7 +927,6 @@ def has_remote_access_option_enabled(dbname: str,
     and between remote database hosts. Remote servers and logins that are not
     properly secured can be used to compromise the server.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -939,8 +941,8 @@ def has_remote_access_option_enabled(dbname: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
 
     msg_open: str = 'Remote access is enabled.'
     msg_closed: str = 'Remote access is disabled.'
@@ -959,8 +961,7 @@ def has_remote_access_option_enabled(dbname: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
-def has_unencrypted_storage_procedures(dbname: str,
-                                       user: str,
+def has_unencrypted_storage_procedures(user: str,
                                        password: str,
                                        host: str,
                                        port: int) -> Tuple:
@@ -969,7 +970,6 @@ def has_unencrypted_storage_procedures(dbname: str,
 
     Protect sensitive code and data used in stored procedures code.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -984,8 +984,9 @@ def has_unencrypted_storage_procedures(dbname: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
+    databases = _get_databases(connection_string)
 
     msg_open: str = 'Stored Procedures are Kept in non Encrypted Format.'
     msg_closed: str = 'Stored Procedures are Kept in Encrypted Format.'
@@ -997,16 +998,24 @@ def has_unencrypted_storage_procedures(dbname: str,
                WHERE sysobj.type = 'P'
                  AND sysobj.is_ms_shipped = 0
                """
-    try:
-        with database(connection_string) as (_, cursor):
-            for procedure in cursor.execute(query).fetchall():
-                (vulns if procedure.definition else
-                 safes).append((f'sys.objects.{procedure.name}',
-                                'must use WITH ENCRYPT option'))
+    for database_ in databases:
+        try:
+            connection_string_ = ConnectionString(
+                dbname=database_,
+                user=user,
+                password=password,
+                host=host,
+                port=port)
+            with database(connection_string_) as (_, cursor):
+                for procedure in cursor.execute(query).fetchall():
+                    (vulns if procedure.definition else
+                     safes).append((f'sys.objects.{procedure.name}',
+                                    'must use WITH ENCRYPT option'))
 
-    except (pyodbc.OperationalError, pyodbc.InterfaceError) as exc:
-        if not _is_auth_permission_error(exc):
-            raise exc
+        except (pyodbc.OperationalError, pyodbc.InterfaceError) as exc:
+            if not _is_auth_permission_error(exc):
+                raise exc
+
     return _get_result_as_tuple(
         host=host,
         port=port,
@@ -1018,8 +1027,7 @@ def has_unencrypted_storage_procedures(dbname: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.InterfaceError)
-def can_shutdown_server(dbname: str,
-                        user: str,
+def can_shutdown_server(user: str,
                         password: str,
                         host: str,
                         port: int) -> Tuple:
@@ -1031,7 +1039,6 @@ def can_shutdown_server(dbname: str,
     through roles. If any user accounts have direct access to administrative
     privileges, this access must be removed.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -1044,8 +1051,8 @@ def can_shutdown_server(dbname: str,
 
     :rtype: :class:`fluidasserts.Result`
     """
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
 
     msg_open: str = 'Accounts have permission to Shutdown the server.'
     msg_closed: str = 'Accounts do not have permission to Shutdown the server.'
@@ -1063,8 +1070,7 @@ def can_shutdown_server(dbname: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
-def sa_account_has_not_been_renamed(dbname: str,
-                                    user: str,
+def sa_account_has_not_been_renamed(user: str,
                                     password: str,
                                     host: str,
                                     port: int) -> Tuple:
@@ -1074,7 +1080,6 @@ def sa_account_has_not_been_renamed(dbname: str,
     Enforcing the sa login to be disabled or rename reduces the probability of
     an attacker executing brute force attacks against a well-known principal.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -1089,8 +1094,8 @@ def sa_account_has_not_been_renamed(dbname: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
 
     msg_open: str = 'SA login account has not been renamed.'
     msg_closed: str = 'SA login account has been renamed.'
@@ -1116,8 +1121,7 @@ def sa_account_has_not_been_renamed(dbname: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
-def has_clr_option_enabled(dbname: str,
-                           user: str,
+def has_clr_option_enabled(user: str,
                            password: str,
                            host: str,
                            port: int) -> Tuple:
@@ -1129,7 +1133,6 @@ def has_clr_option_enabled(dbname: str,
     integrates with the .NET Framework. This is a more secure method than
     external stored procedures, although it still contains some risk.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -1144,8 +1147,8 @@ def has_clr_option_enabled(dbname: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
 
     msg_open: str = 'CLR option is enabled.'
     msg_closed: str = 'CLR option is disabled.'
@@ -1165,8 +1168,7 @@ def has_clr_option_enabled(dbname: str,
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(pyodbc.OperationalError, pyodbc.ProgrammingError)
-def has_trustworthy_status_on(dbname: str,
-                              user: str,
+def has_trustworthy_status_on(user: str,
                               password: str,
                               host: str,
                               port: int) -> Tuple:
@@ -1178,7 +1180,6 @@ def has_trustworthy_status_on(dbname: str,
     permission settings and modules that use impersonation of accounts assigned
     elevated privileges.
 
-    :param dbname: database name.
     :param user: username with access permissions to the database.
     :param password: database password.
     :param host: database ip.
@@ -1194,8 +1195,8 @@ def has_trustworthy_status_on(dbname: str,
     vulns: List[str] = []
     safes: List[str] = []
 
-    connection_string: ConnectionString = ConnectionString(
-        dbname, user, password, host, port)
+    connection_string = ConnectionString(
+        user=user, password=password, host=host, port=port)
 
     msg_open: str = 'TRUSTWORTHY status on.'
     msg_closed: str = 'TRUSTWORTHY status off.'
