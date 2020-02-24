@@ -11,9 +11,8 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, ControlLabel, FormGroup, Glyphicon, Row } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { Dispatch } from "redux";
 import { Field, FormSection, formValueSelector, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { statusFormatter } from "../../../../components/DataTableNext/formatters";
@@ -32,20 +31,15 @@ import {
   dateTimeBeforeToday, numeric, required, someRequired, validDatetime, validEventFile, validEvidenceImage,
 } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
-import { IDashboardState } from "../../reducer";
-import { changeFilterValues, changeSortValues, changeTypeOptionValues } from "./actions";
 import { CREATE_EVENT_MUTATION, GET_EVENTS } from "./queries";
 
 type EventsViewProps = RouteComponentProps<{ projectName: string }>;
 
 const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: EventsViewProps): JSX.Element => {
-  interface IState { dashboard: IDashboardState; }
-  const events: IDashboardState["events"] = useSelector(
-    (state: IState): IDashboardState["events"] => state.dashboard.events);
-  const [sortValue, setSortValue] = React.useState(events.defaultSort);
-  const [filterValueStatus, setFilterValueStatus] = React.useState(events.filters.status);
-  const [filterValueType, setFilterValueType] = React.useState(events.filters.type);
-  const dispatch: Dispatch = useDispatch();
+  const [sortValue, setSortValue] = React.useState<Sorted>({ dataField: "eventDate", order: "desc" });
+  const [filterValueStatus, setFilterValueStatus] = React.useState("");
+  const [filterValueType, setFilterValueType] = React.useState("");
+
   const clearSelection: string = "_CLEAR_";
   const selectOptionsStatus: optionSelectFilterProps[] = [
     {value: "Solved", label: "Solved"},
@@ -85,21 +79,18 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
       value: translate.t(castEventType("OTHER")),
     },
   ];
-  const [optionType, setOptionType] = React.useState(!_.isEmpty(events.typeOptions) ?
-    events.typeOptions : selectOptionType);
+  const [optionType, setOptionType] = React.useState(selectOptionType);
 
   const onSortState: ((dataField: string, order: SortOrder) => void) =
   (dataField: string, order: SortOrder): void => {
-    const newSorted: Sorted = {dataField,  order};
+    const newSorted: Sorted = { dataField, order};
     if (!_.isEqual(newSorted, sortValue)) {
       setSortValue(newSorted);
-      dispatch(changeSortValues(newSorted));
     }
   };
   const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
     if (filterValueStatus !== filterVal && clearSelection !== filterValueStatus) {
       setFilterValueStatus(filterVal);
-      dispatch(changeFilterValues({...events.filters, status: filterVal}));
     }
   };
   const clearFilterStatus: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
@@ -107,13 +98,11 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
     const inputValue: string = eventInput.currentTarget.value;
     if (inputValue.length === 0 && filterValueStatus !== "") {
       setFilterValueStatus(clearSelection);
-      dispatch(changeFilterValues({...events.filters, status: ""}));
     }
   };
   const onFilterType: ((filterVal: string) => void) = (filterVal: string): void => {
     if (filterValueType !== filterVal && clearSelection !== filterValueType) {
       setFilterValueType(filterVal);
-      dispatch(changeFilterValues({...events.filters, type: filterVal}));
     }
   };
   const clearFilterType: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
@@ -121,7 +110,6 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
     const inputValue: string = eventInput.currentTarget.value;
     if (inputValue.length === 0 && filterValueType !== "") {
       setFilterValueType(clearSelection);
-      dispatch(changeFilterValues({...events.filters, type: ""}));
     }
   };
 
@@ -173,7 +161,6 @@ const projectEventsView: React.FunctionComponent<EventsViewProps> = (props: Even
     const filterOptions: optionSelectFilterProps[] = selectOptionType.filter(
       (option: optionSelectFilterProps) => (_.includes(eventOptions, option.value)));
     setOptionType(filterOptions);
-    dispatch(changeTypeOptionValues(filterOptions));
     mixpanel.track("ProjectEvents", {
       Organization: (window as typeof window & { userOrganization: string }).userOrganization,
       User: (window as typeof window & { userName: string }).userName,

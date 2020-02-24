@@ -10,8 +10,6 @@ import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
-import { useDispatch, useSelector } from "react-redux";
-import { Dispatch } from "redux";
 import { Field, InjectedFormProps } from "redux-form";
 import { Button } from "../../../../components/Button";
 import { statusFormatter } from "../../../../components/DataTableNext/formatters";
@@ -24,8 +22,6 @@ import { msgSuccess } from "../../../../utils/notifications";
 import translate from "../../../../utils/translations/translate";
 import { required, validDraftTitle } from "../../../../utils/validations";
 import { GenericForm } from "../../components/GenericForm";
-import { IDashboardState } from "../../reducer";
-import { changeFilterValues, changeSortValues } from "./actions";
 import { CREATE_DRAFT_MUTATION, GET_DRAFTS } from "./queries";
 import { IProjectDraftsAttr, IProjectDraftsBaseProps } from "./types";
 
@@ -47,12 +43,10 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
       User: (window as typeof window & { userName: string }).userName,
     });
   };
-  const drafts: IDashboardState["drafts"] = useSelector(
-    (state: { dashboard: IDashboardState }): IDashboardState["drafts"] => state.dashboard.drafts);
+
   const [isDraftModalOpen, setDraftModalOpen] = React.useState(false);
-  const [filterValueStatus, setFilterValueStatus] = React.useState(drafts.filters.status);
-  const [sortValue, setSortValue] = React.useState(drafts.defaultSort);
-  const dispatch: Dispatch = useDispatch();
+  const [filterValueStatus, setFilterValueStatus] = React.useState("");
+  const [sortValue, setSortValue] = React.useState({});
   const clearSelection: string = "_CLEAR_";
 
   const openNewDraftModal: (() => void) = (): void => {
@@ -67,7 +61,6 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
     const newSorted: Sorted = {dataField,  order};
     if (!_.isEqual(newSorted, sortValue)) {
       setSortValue(newSorted);
-      dispatch(changeSortValues(newSorted));
     }
   };
   const selectOptionsStatus: optionSelectFilterProps[] = [
@@ -78,7 +71,6 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
   const onFilterStatus: ((filterVal: string) => void) = (filterVal: string): void => {
     if (filterValueStatus !== filterVal && clearSelection !== filterValueStatus) {
       setFilterValueStatus(filterVal);
-      dispatch(changeFilterValues({...drafts.filters, status: filterVal}));
     }
   };
   const clearFilterStatus: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
@@ -86,7 +78,6 @@ const projectDraftsView: React.FC<IProjectDraftsBaseProps> = (props: IProjectDra
     const inputValue: string = eventInput.currentTarget.value;
     if (inputValue.length === 0 && filterValueStatus !== "") {
       setFilterValueStatus(clearSelection);
-      dispatch(changeFilterValues({...drafts.filters, status: ""}));
     }
   };
 

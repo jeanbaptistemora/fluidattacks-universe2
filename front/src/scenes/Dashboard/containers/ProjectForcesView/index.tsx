@@ -9,13 +9,11 @@ import { Query } from "@apollo/react-components";
 import _ from "lodash";
 import React, { ReactElement } from "react";
 import { ButtonToolbar, Col, Row } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router";
 // tslint:disable-next-line no-submodule-imports
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/light";
 // tslint:disable-next-line no-submodule-imports
 import { default as monokaiSublime } from "react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime";
-import { Dispatch } from "redux";
 
 // Local imports
 import { Button } from "../../../../components/Button";
@@ -25,8 +23,6 @@ import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
-import { IDashboardState } from "../../reducer";
-import { changeSortValues } from "./actions";
 import { GET_FORCES_EXECUTIONS } from "./queries";
 
 type ForcesViewProps = RouteComponentProps<{ projectName: string }>;
@@ -67,23 +63,16 @@ export interface IExecution {
 
 const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: ForcesViewProps): JSX.Element => {
 
-  interface IState { dashboard: IDashboardState; }
-  const forces: IDashboardState["forces"] = useSelector(
-    (state: IState): IDashboardState["forces"] => state.dashboard.forces);
-
   // States
   const [currentRowIndex, updateRowIndex] = React.useState(0);
-  const [sortValue, setSortValue] = React.useState(forces.defaultSort);
+  const [sortValue, setSortValue] = React.useState<Sorted>({ dataField: "date", order: "desc" });
   const [isExecutionDetailsModalOpen, setExecutionDetailsModalOpen] = React.useState(false);
-
-  const dispatch: Dispatch = useDispatch();
 
   const onSortState: ((dataField: string, order: SortOrder) => void) =
   (dataField: string, order: SortOrder): void => {
-    const newSorted: Sorted = {dataField,  order};
+    const newSorted: Sorted = { dataField, order };
     if (!_.isEqual(newSorted, sortValue)) {
       setSortValue(newSorted);
-      dispatch(changeSortValues(newSorted));
     }
   };
 
@@ -155,7 +144,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
       variables={{ projectName }}
     >
       {
-        ({ data, error, refetch }: QueryResult): JSX.Element => {
+        ({ data, error }: QueryResult): JSX.Element => {
           if (_.isUndefined(data) || _.isEmpty(data)) {
             return <React.Fragment />;
           }

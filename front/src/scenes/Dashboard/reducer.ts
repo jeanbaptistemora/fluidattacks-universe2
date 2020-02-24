@@ -4,8 +4,6 @@ import * as vulnerabilitiesActions from "./components/Vulnerabilities/actionType
 import { IDescriptionViewProps } from "./containers/DescriptionView";
 import * as descriptionActions from "./containers/DescriptionView/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
-import * as draftsActions from "./containers/ProjectDraftsView/actions";
-import * as eventsActions from "./containers/ProjectEventsView/actions";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 import * as resourcesActions from "./containers/ResourcesView/actionTypes";
 
@@ -283,51 +281,6 @@ actionMap[resourcesActions.CHANGE_SORTED] =
     ...state,
     resources: {
       ...state.resources,
-      defaultSort: action.payload.defaultSort,
-    },
-  });
-
-actionMap[eventsActions.CHANGE_FILTER] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
-    ...state,
-    events: {
-      ...state.events,
-      filters: action.payload.filters,
-    },
-  });
-
-actionMap[eventsActions.CHANGE_SORTS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
-    ...state,
-    events: {
-      ...state.events,
-      defaultSort: action.payload.defaultSort,
-    },
-  });
-
-actionMap[eventsActions.CHANGE_TYPE_OPTION] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
-    ...state,
-    events: {
-      ...state.events,
-      typeOptions: action.payload.typeOptions,
-    },
-  });
-
-actionMap[draftsActions.CHANGE_FILTER] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
-    ...state,
-    drafts: {
-      ...state.drafts,
-      filters: action.payload.filters,
-    },
-  });
-
-actionMap[draftsActions.CHANGE_SORTS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
-    ...state,
-    drafts: {
-      ...state.drafts,
       defaultSort: action.payload.defaultSort,
     },
   });
