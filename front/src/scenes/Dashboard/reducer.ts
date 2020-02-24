@@ -6,7 +6,6 @@ import * as descriptionActions from "./containers/DescriptionView/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
 import * as draftsActions from "./containers/ProjectDraftsView/actions";
 import * as eventsActions from "./containers/ProjectEventsView/actions";
-import * as findingsActions from "./containers/ProjectFindingsView/actionTypes";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
 import * as resourcesActions from "./containers/ResourcesView/actionTypes";
 
@@ -586,53 +585,6 @@ actionMap[projectActions.CLEAR_PROJECT_STATE] = (state: IDashboardState): IDashb
     },
   },
   users: initialState.users,
-});
-
-actionMap[findingsActions.OPEN_REPORTS_MODAL] = (state: IDashboardState): IDashboardState => ({
-  ...state,
-  findings: {
-    ...state.findings,
-    reportsModal: {
-      isOpen: true,
-    },
-  },
-});
-
-actionMap[findingsActions.CHANGE_FILTER] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
-    ...state,
-    findings: {
-      ...state.findings,
-      filters: action.payload.filters,
-    },
-  });
-
-actionMap[findingsActions.CHANGE_IS_FILTER] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
-    ...state,
-    findings: {
-      ...state.findings,
-      isFilterEnabled: action.payload.isFilterEnabled,
-    },
-  });
-
-actionMap[findingsActions.CHANGE_SORTED] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState => ({
-      ...state,
-      findings: {
-        ...state.findings,
-        defaultSort: action.payload.defaultSort,
-      },
-    });
-
-actionMap[findingsActions.CLOSE_REPORTS_MODAL] = (state: IDashboardState): IDashboardState => ({
-  ...state,
-  findings: {
-    ...state.findings,
-    reportsModal: {
-      isOpen: false,
-    },
-  },
 });
 
 type DashboardReducer = ((
