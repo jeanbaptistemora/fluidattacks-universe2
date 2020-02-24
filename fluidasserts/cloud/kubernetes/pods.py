@@ -5,7 +5,7 @@
 from urllib3.exceptions import MaxRetryError
 
 # local imports
-from fluidasserts import DAST, MEDIUM
+from fluidasserts import DAST, MEDIUM, LOW
 from fluidasserts.utils.decorators import api, unknown_if
 from fluidasserts.cloud.kubernetes import _get_result_as_tuple, \
     _get_api_instance, run_function
@@ -251,6 +251,54 @@ def run_containers_as_root_user(*,
         (vulns if vulnerable else safes).append(
             (policy.metadata.self_link,
              'allow containers to run as root.'))
+
+    return _get_result_as_tuple(
+        host=host,
+        objects='Pods',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(ApiException, MaxRetryError)
+def has_no_memory_usage_limits(*,
+                               host: str = None,
+                               api_key: str = None,
+                               username: str = None,
+                               password: str = None,
+                               **kwargs):
+    """
+    Check if the pod containers do not have a memory usage limit.
+
+    Enforcing memory limits prevents DOS via resource exhaustion.
+
+    :param host: URL of the API server.
+    :param api_key: API Key to make requests.
+    :param username: Username of account.
+    :param password: Password of account.
+
+    :returns: - ``OPEN`` if there are pods that do not have a memory usage
+                 limits.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Pods do not set memory usage limits.'
+    msg_closed: str = 'Pods set a memory usage limit.'
+    vulns, safes = [], []
+
+    api_instance = _get_api_instance('CoreV1Api', host, api_key, username,
+                                     password, **kwargs)
+    pods = run_function(api_instance, 'list_pod_for_all_namespaces').items
+    for pod in filter(lambda x: x.metadata.namespace != 'kube-system', pods):
+        for container in pod.spec.containers:
+            limits = container.resources.limits
+            (vulns if not limits or not limits.get('memory', None) else
+             safes).append((f'{pod.metadata.self_link}',
+                            'Must set memory usage limits'))
 
     return _get_result_as_tuple(
         host=host,

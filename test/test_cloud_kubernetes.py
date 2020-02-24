@@ -56,6 +56,13 @@ def test_run_containers_as_root_user_open():
         api_key=KUBERNETES_API_TOKEN).is_open()
 
 
+def test_has_no_memory_usage_limits_open():
+    """Search containers that do not have memory usage limits."""
+    assert pods.has_no_memory_usage_limits(
+        host=KUBERNETES_API_SERVER,
+        api_key=KUBERNETES_API_TOKEN).is_open()
+
+
 #
 # Closing tests
 #
@@ -96,3 +103,10 @@ def test_undefined_pod_security_policies_closed():
     assert pods.undefined_pod_security_policies(
         host=BAD_KUBERNETES_API_SERVER,
         api_key=BAD_KUBERNETES_API_TOKEN).is_unknown()
+
+
+def test_has_no_memory_usage_limits_close():
+    """Search containers that do not have memory usage limits."""
+    assert pods.has_no_memory_usage_limits(
+        host=BAD_KUBERNETES_API_SERVER,
+        api_key=BAD_KUBERNETES_API_SERVER).is_unknown()
