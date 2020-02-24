@@ -110,7 +110,7 @@ class BreakBuildExecutionsTests(TestCase):
         assert executions[0]['projectName'] == project_name
         assert executions[0]['identifier'] == '33e5d863252940edbfb144ede56d56cf'
         assert executions[0]['date'] == '2020-02-19T19:31:18+00:00'
-        assert executions[0]['exitCode'] == '0'
+        assert executions[0]['exitCode'] == '1'
         assert executions[0]['gitBranch'] == 'master'
         assert executions[0]['gitCommit'] == '6e7b34c1358db2ff4123c3c76e7fe3bf9f2838f6'
         assert executions[0]['gitOrigin'] == 'http://test.com'

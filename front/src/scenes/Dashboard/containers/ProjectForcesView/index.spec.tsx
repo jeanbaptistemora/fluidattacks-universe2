@@ -56,6 +56,7 @@ describe("ForcesView", () => {
             executions: [
               {
                 date: "2020-02-19T19:31:18+00:00",
+                exitCode: "1",
                 gitRepo: "Repository",
                 identifier: "33e5d863252940edbfb144ede56d56cf",
                 kind: "dynamic",
@@ -64,6 +65,7 @@ describe("ForcesView", () => {
               },
               {
                 date: "2020-02-19T19:04:33+00:00",
+                exitCode: "0",
                 gitRepo: "Repository",
                 identifier: "a125217504d447ada2b81da3e4bdab0e",
                 kind: "static",
@@ -154,6 +156,6 @@ describe("ForcesView", () => {
     row.simulate("click");
     expect(wrapper
       .find("span"))
-      .toHaveLength(25);
+      .toHaveLength(33);
   });
 });

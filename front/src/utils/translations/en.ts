@@ -239,6 +239,7 @@ const enTranslations: Dictionary = {
       git_repo: "Git Repository",
       identifier: "Identifier",
       kind: "Kind",
+      status: "Status",
       strictness: "Strictness",
       table_advice: "Click on an execution to see more details",
     },

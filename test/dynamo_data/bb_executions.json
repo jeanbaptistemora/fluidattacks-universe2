@@ -74,7 +74,7 @@
                         }
                     },
                     "exit_code": {
-                        "S": "0"
+                        "S": "1"
                     },
                     "git_repo": {
                         "S": "Repository"

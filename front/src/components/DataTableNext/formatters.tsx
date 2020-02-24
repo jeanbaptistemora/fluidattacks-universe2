@@ -11,29 +11,28 @@ export const statusFormatter: ((value: string) => ReactElement<Label>) =
     let bgColor: string;
     let status: string; status = "";
     switch (value) {
+      // Green
+      case "Active":
       case "Closed":
       case "Solved":
-      case "Active":
-        bgColor = "#31c0be";
-        break;
-      case "Open":
-      case "Unsolved":
-      case "Inactive":
-        bgColor = "#f22";
-        break;
-      case "Partially closed":
-        bgColor = "#ffbf00";
-        break;
       case "Submitted":
-          bgColor = "#31c0be";
+      case "Success":
+          bgColor = "#00D444";
           status = value;
           break;
-      case "Rejected":
-          bgColor = "#f22";
-          status = value;
-          break;
+      // Orange
       case "Created":
-          bgColor = "#ffbf00";
+      case "Partially closed":
+          bgColor = "#FFBF00";
+          status = value;
+          break;
+      // Red
+      case "Failed":
+      case "Inactive":
+      case "Open":
+      case "Rejected":
+      case "Unsolved":
+          bgColor = "#FF2222";
           status = value;
           break;
       default:

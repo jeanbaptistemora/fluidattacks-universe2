@@ -129,7 +129,7 @@ describe("EventsView", () => {
     expect(wrapper
       .find("td")
       .filterWhere((td: ReactWrapper) =>
-        td.containsMatchingElement(<span style={{ backgroundColor: "#31c0be" }}>Solved</span>)))
+        td.containsMatchingElement(<span style={{ backgroundColor: "#00D444" }}>Solved</span>)))
       .toHaveLength(1);
   });
 

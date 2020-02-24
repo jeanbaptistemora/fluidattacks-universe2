@@ -5,9 +5,10 @@ export const GET_FORCES_EXECUTIONS: DocumentNode = gql`
   query GetBreakBuildExecutions($projectName: String!) {
     breakBuildExecutions(projectName: $projectName) {
       executions {
-        identifier
         date
+        exitCode
         gitRepo
+        identifier
         kind
         log
         strictness
