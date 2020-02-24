@@ -68,6 +68,14 @@ function job_lint_back {
   &&  prospector -F -s veryhigh lambda
 }
 
+function job_lint_front {
+      pushd front \
+    &&  npm install \
+    &&  npm run audit \
+    &&  npm run lint \
+  &&  popd
+}
+
 function job_test_back {
       echo '[INFO] Remember to restart the DynamoDB database on each execution' \
   &&  helper_set_dev_secrets \
@@ -86,4 +94,11 @@ function job_test_back {
         --cov-report annotate:build/coverage/annotate \
         --disable-warnings \
         test/
+}
+
+function job_test_front {
+      pushd front \
+    &&  npm install \
+    &&  npm test \
+  &&  popd
 }
