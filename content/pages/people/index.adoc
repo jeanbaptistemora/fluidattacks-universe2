@@ -44,11 +44,6 @@ image::fgomez.png[alt="Felipe Gómez", width=100 ]
 Sales Team +
 link:https://www.linkedin.com/in/felipegomezarango[LinkedIn]
 
-a|=== Eliana Cudriz
-image::ecudriz.png[alt="Eliana Cudriz", width=100 ]
-Finance Team +
-link:https://www.linkedin.com/in/eliana-cudriz-53b82210b/[LinkedIn]
-
 a|=== Vladimir Villa
 image::vvilla.png[alt="Vladimir Villa", width=100]
 Management Team +
