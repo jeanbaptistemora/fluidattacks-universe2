@@ -4,9 +4,10 @@
 
 from decimal import Decimal
 import math
+from typing import Dict
 
 
-def _calc_cvss2_temporal(severity, basescore):
+def _calc_cvss2_temporal(severity: Dict[str, float], basescore: float) -> Decimal:
     """Calculate cvss v2 temporal attribute."""
     temporal = Decimal(float(basescore) * severity['exploitability'] *
                        severity['resolutionLevel'] *
