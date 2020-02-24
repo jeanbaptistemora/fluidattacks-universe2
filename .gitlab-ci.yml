@@ -538,3 +538,24 @@ backup-terraform-test:
     - . ci-scripts/jobs/backup.sh
     - backup_terraform_test
   interruptible: true
+
+django-db-terraform-apply:
+  stage: deploy-infra
+  tags: [autoscaling]
+  needs: [django-db-terraform-test]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - . ci-scripts/jobs/django-db.sh
+    - django_db_apply
+  only:
+    - master
+
+django-db-terraform-test:
+  stage: test
+  tags: [autoscaling]
+  needs: [deps-development]
+  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
+  script:
+    - . ci-scripts/jobs/django-db.sh
+    - django_db_test
+  interruptible: true
