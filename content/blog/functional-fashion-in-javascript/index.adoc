@@ -16,31 +16,21 @@
 
 = Functional Fashion in JavaScript
 
-It's funny how fashion works, most people (if not all)
-want to be fashionable but just a bit
-understand where the fashion comes from.
+It's funny how fashion works,
+most people want to be fashionable
+but just a bit understand where the fashion comes from.
 Fashion pieces are not understood
 but still people like to use them.
-For example, if you have ever seen a fashion show
-or any event like that, you may have noticed
-that they are very extravagant: feathers,
-flowers, colors, plastic and bright things.
-Nobody wears those suits in their daily lives.
-So, why do people meet in Milan, New York, Paris and London?
-Basically, it is for setting the new trends.
-First mistake trying to understand the fashion shows
-is to see the clothes as a whole,
-what really should be done is to look
-at the details separately:
-what color are they using?, what textures?, what materials?, etc.
-In technology same things happens, everyone wants to be fashionable.
+
+In technology same things happen, everyone wants to be fashionable.
 There are 2 users of technology fashion: the final consumer,
 who usually has little technical knowledge
-and who does not care about the components of their product
-as long as it is the 'latest in the market'.
+and who doesn't care about the components of their product
+as long as it's the 'latest in the market'.
 Second one is behind creating the product,
 a person with technical knowledge who incorporate
 new technological trends in his products.
+
 One of the latest fashion trends is functional JavaScript.
 JavaScript is a very popular language
 because of the ubiquity of web browsers.
@@ -53,9 +43,8 @@ then you have a JavaScript console at your disposal.
 image::functional-js-meme.png["Two people taking in a theater"]
 
 We already know that JavaScript is a famous language
-and its functional version is a fashionable subject,
-big and small ones are talking about that.
-But it is a controversial issue,
+and its functional version is a fashionable subject.
+But it's a controversial issue,
 which has well-defined extremes:
 the reluctants and the totalitarians.
 The first ones say that JavaScript is a language
@@ -65,19 +54,19 @@ Reluctants add that there are functions like +foreach+
 that are necessary for an optimal code.
 On the other side, totalitarians think in a functional world,
 all JavaScript without a single trace of objects.
-They are based on the fact that JavaScript is a multi-paradigm language
-and therefore it is self-sufficient in a functional way.
+They're based on the fact that JavaScript is a multi-paradigm language
+and therefore it's self-sufficient in a functional way.
 
 == Our opinion
 
 In +Fluid Attacks+ we believe that use of functional JavaScript
-does not have to be white or black,
+doesn't have to be white or black,
 but a scale of grays that we can adapt to make it more light or dark.
 JavaScript has its well-defined bases
-and we can not go completely against its nature,
+and we cannot go completely against its nature,
 many libraries have evolved over time to be more efficient.
 Nor can we stay behind, so we must improve.
-We can not use (for now) a fully functional JavaScript
+We cannot use a fully functional JavaScript
 but we can code with a functional style.
 This is why our way is to implement functional
 approaches step by step.
@@ -85,21 +74,19 @@ There are issues that are difficult to implement
 but this may be different in the future.
 Let's change something here
 and then change something there but
-do not try to change everything in one shot
+don't try to change everything in one shot
 or less start from scratch.
-
-
 
 == How to be fashionable?
 
 To know what we must change to be functional,
-it is enough to read what is functional programming
+it's enough to read what is functional programming
 and what are its cornerstones (we recommend you to read
 [button]#link:../why-we-go-functional/[Why we go functional?]#).
 This paradigm is against classes
 because this structures stimulate
 the use of states and its mutations.
-For example the following class:
+For example:
 
 .[[cilinder-example]]Cilinder class example.
 [source, javascript]
@@ -160,7 +147,7 @@ const result = elements.map(element => element + 1);
 ----
 
 Code is not only more compact
-but it is also easier to understand.
+but it's also easier to understand.
 Like Python, JavaScript is multi-paradigm,
 which means that there are a number of built-in functions
 that allow your code to be functional
@@ -175,8 +162,8 @@ a small introduction to high-order functions in JavaScript,
 something very characteristic in the functional paradigm,
 there are functions that can receive functions as a parameter
 and can even return other functions.
-I know, it is something difficult to understand the first time
-but I will explain it with an example.
+I know, it's something difficult to understand the first time
+but I'll explain it with an example.
 
 .Multiply function is JavaScript.
 [source, javascript]
@@ -189,7 +176,7 @@ multiply(2,3); // 6
 ----
 
 The above is a classic function to multiply 2 integers.
-Now let express this in a high-order function.
+Now let's express this in a high-order function.
 
 .Multiplication in high-order function.
 [source, javascript]
@@ -209,10 +196,10 @@ As you can see our multiplyByInteger function returns another function.
 The new function only requires an argument to perform multiplication,
 this is known as +partial evaluation+.
 
-With this article we do not expect you to become
+With this article we don't expect you to become
 an eminence in functional JavaScript,
 but we want you to understand what everyone is talking about.
-We will try to convince you
+We'll try to convince you
 to follow the recommendations we made in this article.
 
 ==  Poorly dressed guests
@@ -232,12 +219,11 @@ its essence is still object-oriented.
 
 Thanks to the programming gods,
 there are tools that allow us to check
-if our code is really functional, that is,
-it allows us to discover the wolves amongst sheeps.
+if our code is really functional.
 As the queen in this dance is JavaScript,
-we will introduce an extension to a well-known linter
+we'll introduce an extension to a well-known linter
 of this language, which will allow us to enable rules
-that ensure that we were programming in functional style.
+that ensure that we're programming in functional style.
 We will use
 link:https://github.com/jfmengels/eslint-plugin-fp[eslint-plugin-fp].
 
@@ -254,7 +240,7 @@ npm install --save eslint-plugin-fp
 Now we must enable the plugin
 and add the rules we want to check, therefore,
 we must modify the eslint configuration file
-(it is usually a +JSON+ type file)
+(usually a +JSON+ type file)
 adding the new library to the plugin list
 and the new rules to the list of rules.
 
@@ -285,16 +271,14 @@ and the new rules to the list of rules.
 }
 ----
 
-As you can see the rules are too many
-to talk about all of them, so I invite you to understand
-what each one is for
-link:https://github.com/jfmengels/eslint-plugin-fp#rules[here].
-But as an appetizer we will talk about some rules
-and we will set an example so you can see how this plugin works.
+As you can see the rules are too many,
+so I invite you to understand what each one is for link:https://github.com/jfmengels/eslint-plugin-fp#rules[here].
+But as an appetizer we'll talk about some rules
+and we'll set an example so you can see how this plugin works.
 
 The no-class rule avoids the use of classes,
 if you have been reading carefully,
-you know why the classes should not go in a functional approach
+you know why the classes shouldn't go in a functional approach
 but if you are a clueless I remind you that
 the classes are full of states.
 
@@ -318,8 +302,8 @@ $ eslint example.js
 An error is displayed saying
 which is the rule that is being violated,
 in which line and in which file.
-Remember that, it is best to run this linter
-in your CI to ensure that the code will not be deployed
+Remember that, it's best to run this linter
+in your +CI+ to ensure that the code will not be deployed
 to production without first passing all the tests.
 
 == Conclusions
@@ -327,19 +311,19 @@ to production without first passing all the tests.
 We remind you that if you already have a lot of code
 written in JavaScript with some paradigm that is not functional
 and you want to start migrating,
-the best way to start is by converting small
-fragments of code into functional ones.
-At the beginning it may take a while
-but you will earn a lot of expertise.
+the best way to start
+is by converting small fragments of code into functional ones.
+
 Speculating about the future is very difficult,
 in general the functional paradigm has taken
 place in all programming languages ​​in recent years,
 but some experts consider that everything is a fashion subject
 and at some point, functional boom will end.
 Nobody really knows what to say about this.
-But in technology it is better to be fashionable
-because we do not know at what time old
+But in technology it's better to be fashionable
+because we don't know at what time old
 things will stop working, falling into oblivion.
 JavaScript still has a lot to give,
 there are already +JavaScript-based frameworks+ that are functional.
+
 What a good time to be fashionable!
