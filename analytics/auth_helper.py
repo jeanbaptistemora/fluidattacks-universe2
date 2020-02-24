@@ -82,7 +82,9 @@ def timedoctor_refresh_url(
 
 def timedoctor_start() -> bool:
     """Scrip to refresh the timedoctor token."""
+    project_id = os.environ['CI_PROJECT_ID']
     timedoctor = json.loads(os.environ['analytics_auth_timedoctor'])
+    analytics_gitlab_token = os.environ['analytics_gitlab_token']
 
     print(timedoctor_initial_url_1(
         client_id=timedoctor['client_id'],
@@ -103,36 +105,28 @@ def timedoctor_start() -> bool:
 
     # Put it on vault, tokens are issued with 2 hours of duration
     new_values = json.dumps(
-        {**timedoctor, **new_timedoctor}).replace('"', '\\"')
-    run_command((f"source './infrastructure/vault-wrapper.sh';"
-                 f"vault_update_variables"
-                 f"  serves"
-                 f"  'analytics_auth_timedoctor={new_values}'"),
+        {**timedoctor, **new_timedoctor})
+    url = "https://gitlab.com/fluidattacks/public"
+    url += "/raw/master/shared-scripts/gitlab-variables.sh"
+    run_command((f"    source <(curl -s {url})"
+                 f"&&  set_project_variable"
+                 f"      '{analytics_gitlab_token}'"
+                 f"      '{project_id}'"
+                 f"      'analytics_auth_timedoctor'"
+                 f"      '{new_values}'"
+                 f"      'false'"
+                 f"      'false'"),
                 raise_on_errors=True,
-                raise_msg=f'unable to update using vault-wrapper')
-    return True
-
-
-def timedoctor_update(json_str: str) -> bool:
-    """Just put in vault this values."""
-    timedoctor = json.loads(os.environ['analytics_auth_timedoctor'])
-
-    # Put it on vault, tokens are issued with 2 hours of duration
-    new_values = json.dumps(
-        {**timedoctor, **json.loads(json_str)}).replace('"', '\\"')
-    run_command((f"source './infrastructure/vault-wrapper.sh';"
-                 f"vault_update_variables"
-                 f"  serves"
-                 f"  'analytics_auth_timedoctor={new_values}'"),
-                raise_on_errors=True,
-                raise_msg=f'unable to update using vault-wrapper')
+                raise_msg=f'unable to update using {url}')
     return True
 
 
 def timedoctor_refresh() -> bool:
     """Scrip to refresh the timedoctor token."""
     # Get the current values
+    project_id = os.environ['CI_PROJECT_ID']
     timedoctor = json.loads(os.environ['analytics_auth_timedoctor'])
+    analytics_gitlab_token = os.environ['analytics_gitlab_token']
 
     # Get the new token
     new_timedoctor = json.loads(get_from_url(
@@ -145,13 +139,19 @@ def timedoctor_refresh() -> bool:
 
     # Put it on vault, tokens are issued with 2 hours of duration
     new_values = json.dumps(
-        {**timedoctor, **new_timedoctor}).replace('"', '\\"')
-    run_command((f"source './infrastructure/vault-wrapper.sh';"
-                 f"vault_update_variables"
-                 f"  serves"
-                 f"  'analytics_auth_timedoctor={new_values}'"),
+        {**timedoctor, **new_timedoctor})
+    url = "https://gitlab.com/fluidattacks/public"
+    url += "/raw/master/shared-scripts/gitlab-variables.sh"
+    run_command((f"    source <(curl -s {url})"
+                 f"&&  set_project_variable"
+                 f"      '{analytics_gitlab_token}'"
+                 f"      '{project_id}'"
+                 f"      'analytics_auth_timedoctor'"
+                 f"      '{new_values}'"
+                 f"      'false'"
+                 f"      'false'"),
                 raise_on_errors=True,
-                raise_msg=f'unable to update using vault-wrapper')
+                raise_msg=f'unable to update using {url}')
 
     return True
 
@@ -173,8 +173,6 @@ def main():
 
     if args.timedoctor_start:
         timedoctor_start()
-    elif args.timedoctor_update:
-        timedoctor_update(args.timedoctor_update)
     elif args.timedoctor_refresh:
         timedoctor_refresh()
     else:

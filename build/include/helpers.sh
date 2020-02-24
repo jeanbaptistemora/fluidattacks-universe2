@@ -4,6 +4,18 @@ source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 source "${srcDotDotToolboxOthers}"
 
+function helper_get_gitlab_var {
+  local gitlab_var_name="${1}"
+  local gitlab_api_token="${2}"
+
+      echo "[INFO] Retrieving var from GitLab: ${gitlab_var_name}" 1>&2 \
+  &&  curl \
+        --silent \
+        --header "private-token: ${gitlab_api_token}" \
+        "${GITLAB_API_URL}/${gitlab_var_name}" \
+      | jq -r '.value'
+}
+
 function helper_indent_2 {
   sed 's/^/  /g'
 }

@@ -257,6 +257,31 @@ function job_analytics_gitlab {
         < .singer
 }
 
+function job_analytics_timedoctor_manually_create_token {
+      aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_auth_timedoctor \
+        analytics_gitlab_token \
+  &&  echo '[INFO] Executing creator, follow the steps' \
+  &&  ./analytics/auth_helper.py --timedoctor-start \
+  &&  echo '[INFO] Done! Token created at GitLab/serves env vars'
+}
+
+function job_analytics_timedoctor_refresh_token {
+  export analytics_auth_timedoctor
+
+      aws_login \
+  &&  sops_env secrets-prod.yaml default \
+        analytics_gitlab_token \
+  &&  analytics_auth_timedoctor=$( \
+        helper_get_gitlab_var \
+          'analytics_auth_timedoctor' \
+          "${analytics_gitlab_token}") \
+  &&  echo '[INFO] Updating token...' \
+  &&  ./analytics/auth_helper.py --timedoctor-refresh \
+  &&  echo '[INFO] Done! Token created at GitLab/serves env vars'
+}
+
 function job_analytics_zoho {
   local analytics_zoho_tables=(
     Candidates

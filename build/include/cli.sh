@@ -9,7 +9,9 @@ function cli {
 
   function_to_call="${1:-}"
 
-  if test -z "${function_to_call}"
+  if test -z "${function_to_call}" \
+      || test "${function_to_call}" = '-h' \
+      || test "${function_to_call}" = '--help'
   then
     echo
     echo "Use: ./build.sh [job-name]"
