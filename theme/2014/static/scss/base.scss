@@ -84,6 +84,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   &:hover { background-color: $button-hover;} }
 .bt-pd { padding: .625rem 2.5rem; }
 .bt-trans { transition: all .3s ease;}
+.menu-txt-trans { transition: color .2s; }
 .ptdemo { padding-top: 6rem; }
 .rep-bd { border: .063rem solid $fluid-light-gray; }
 .rep-shadow { box-shadow: -.188rem -.125rem .3rem $fluid-light-gray; }
@@ -101,7 +102,14 @@ $codeyellow: rgba(230, 219, 116, 1);
 .banner-title { background-image: url('../../images/pentest.svg'); }
 .b-max { font-weight: 999; }
 .nb-6 { margin-bottom: -6rem;}
-
+.lower-img { &:hover { transform: scaleY(1.2);
+    transition: transform .25s ease-in-out; } }
+.pointer {cursor: pointer; }
+.z-100 { z-index: 100; }
+.menu-txt { &:hover {color: $fluid-black; }
+  &:focus { color: $fluid-black; } }
+.menu-trans { transform: translateY(-25%) rotateX(35deg);
+  transition: transform .5s, opacity .5s; }
 
 // Tachyons custom responsive classes
 
@@ -496,4 +504,45 @@ $codeyellow: rgba(230, 219, 116, 1);
       }
     }
   }
+}
+
+.overlay nav {
+  height: 60%;
+  position: relative;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.overlay ul {
+  display: inline-block;
+  height: 100%;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  position: relative;
+}
+
+.lower~.overlay-hugeinc {
+  opacity: 0;
+  transition: opacity .5s, visibility 0s .5s;
+  visibility: hidden;
+}
+
+//scss-lint:disable IdSelector
+#op:checked~.overlay-hugeinc {
+  opacity: 1;
+  transition: opacity .5s;
+  visibility: visible;
+}
+
+//scss-lint:disable IdSelector MergeableSelector
+#op:checked~.overlay-hugeinc nav ul {
+  opacity: 1;
+  transform: rotateX(0deg);
+}
+
+//scss-lint:disable IdSelector MergeableSelector
+#op:not(:checked)~.overlay-hugeinc nav ul {
+  transform: translateY(25%) rotateX(-35deg);
 }
