@@ -129,3 +129,22 @@ export const limitFormatter: ((value: string) => JSX.Element) = (value: string):
     </Row>
   );
 };
+export const changeVulnStateFormatter: ((value: string, row: { [key: string]: string }, rowIndex: number, key: IHeader)
+  => JSX.Element) = (value: string, row: { [key: string]: string }, rowIndex: number, key: IHeader): JSX.Element => {
+    const handleOnChange: (() => void) = (): void => {
+      if (key.changeFunction !== undefined) {
+        key.changeFunction(row);
+      }
+    };
+
+    return (
+      <BootstrapSwitchButton
+        onChange={handleOnChange}
+        checked={!("currentState" in row) || row.currentState !== "closed"}
+        onstyle="danger"
+        onlabel="open"
+        offlabel="closed"
+        style="btn-block"
+      />
+    );
+  };

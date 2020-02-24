@@ -92,3 +92,18 @@ mutation DeleteTagsVuln ($findingId: String!, $vulnerabilities: [String]!){
     success
   }
 }`;
+
+export const REQUEST_VERIFICATION_VULN: DocumentNode = gql`
+  mutation RequestVerificationVuln ($findingId: String!, $justification: String!, $vulnerabilities: [String]!){
+    requestVerificationVuln(findingId: $findingId, justification: $justification, vulnerabilities: $vulnerabilities) {
+      success
+    }
+  }`;
+export const VERIFY_VULNERABILITIES: DocumentNode = gql`
+  mutation RequestVerificationVuln (
+    $findingId: String!, $justification: String!, $openVulns: [String]!, $closedVulns: [String]!) {
+    verifyRequestVuln(
+      findingId: $findingId, justification: $justification, openVulns: $openVulns,closedVulns: $closedVulns) {
+      success
+    }
+  }`;

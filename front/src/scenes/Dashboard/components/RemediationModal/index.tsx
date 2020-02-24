@@ -26,6 +26,7 @@ export interface IAddRemediationProps {
   isOpen: boolean;
   message: string;
   title: string;
+  children?(): JSX.Element;
   onClose(): void;
   onSubmit(values: {}): void;
 }
@@ -47,7 +48,14 @@ const renderFooter: ((props: formProps) => JSX.Element) =
   );
 
 const minJustificationLength: ConfigurableValidator = minLength(50);
-const renderFields: ((props: formProps) => JSX.Element) = (props: formProps): JSX.Element => (
+const renderFields: ((props: formProps) => JSX.Element) = (props: formProps): JSX.Element => {
+  const renderChildren: (() => JSX.Element | undefined) = (): JSX.Element | undefined => {
+    if (props.children !== undefined) {
+      return props.children();
+    }
+  };
+
+  return (
   <React.Fragment>
     <form onSubmit={props.handleSubmit}>
       <FormGroup>
@@ -67,11 +75,13 @@ const renderFields: ((props: formProps) => JSX.Element) = (props: formProps): JS
         />
       </FormGroup>
       {props.additionalInfo}
+      {renderChildren()}
       <br />
       {renderFooter(props)}
     </form>
   </React.Fragment>
 );
+};
 
 type remediationForm =
   DecoratedComponentClass<{}, IAddRemediationProps & Partial<ConfigProps<{}, IAddRemediationProps>>, string>;

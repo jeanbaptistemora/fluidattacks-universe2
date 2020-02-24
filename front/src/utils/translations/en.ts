@@ -367,6 +367,7 @@ const enTranslations: Dictionary = {
       recommendation: "Recommendation",
       remediation_modal: {
         justification: "Which was the applied solution?",
+        message: "Verification will be requested for {{vulns}} vulnerabilities",
         observations: "What observations do you have?",
         title_observations: "Observations",
         title_request: "Justification",

@@ -66,5 +66,12 @@ export interface IVulnerabilitiesViewProps {
   vulnerabilities?: IDashboardState["vulnerabilities"];
 }
 
+export interface IRequestVerificationVulnResult {
+  requestVerificationVuln: { success: boolean };
+}
+export interface IVerifyRequestVulnResult {
+  verifyRequestVuln: { success: boolean };
+}
+
 export type IVulnType = (IVulnsAttr["finding"]["pendingVulns"] | IVulnsAttr["finding"]["inputsVulns"] |
 IVulnsAttr["finding"]["linesVulns"] | IVulnsAttr["finding"]["portsVulns"]);
