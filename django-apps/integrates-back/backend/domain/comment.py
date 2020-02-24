@@ -48,7 +48,7 @@ def fill_comment_data(user_role, data):
         'content': data['content'],
         'created': util.format_comment_date(data['created']),
         'email': data['email'],
-        'fullname': fullname,
+        'fullname': fullname if fullname else data['email'],
         'id': int(data['user_id']),
         'modified': util.format_comment_date(data['modified']),
         'parent': int(data['parent'])}
