@@ -217,7 +217,7 @@ resource "aws_dynamodb_table" "findings" {
     name               = "project_findings"
     hash_key           = "project_name"
     projection_type    = "INCLUDE"
-    non_key_attributes = ["releaseDate", "historic_verification"]
+    non_key_attributes = ["releaseDate", "historic_verification", "historic_treatment", "finding", "cvss_temporal"]
   }
 
   point_in_time_recovery {
