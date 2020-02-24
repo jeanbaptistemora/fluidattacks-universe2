@@ -110,6 +110,8 @@ $codeyellow: rgba(230, 219, 116, 1);
   &:focus { color: $fluid-black; } }
 .menu-trans { transform: translateY(-25%) rotateX(35deg);
   transition: transform .5s, opacity .5s; }
+.t-50 { top: 50%; }
+.ty-50 { transform: translateY(-50%); }
 
 // Tachyons custom responsive classes
 
@@ -506,22 +508,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   }
 }
 
-.overlay nav {
-  height: 60%;
-  position: relative;
-  text-align: center;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.overlay ul {
-  display: inline-block;
-  height: 100%;
-  list-style: none;
-  margin: 0 auto;
-  padding: 0;
-  position: relative;
-}
+// New menu component
 
 .lower~.overlay-hugeinc {
   opacity: 0;
