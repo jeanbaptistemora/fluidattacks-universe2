@@ -9,14 +9,14 @@
 # None
 
 # local imports
-from fluidasserts import HIGH, SAST
+from fluidasserts import HIGH, SCA
 from fluidasserts.helper import sca
 from fluidasserts.utils.decorators import api
 
 PKG_MNGR = 'rpm'
 
 
-@api(risk=HIGH, kind=SAST)
+@api(risk=HIGH, kind=SCA)
 def package_has_vulnerabilities(
         package: str, version: str = None, retry: bool = True) -> tuple:
     """

@@ -54,6 +54,7 @@ MEDIUM: str = 'medium'
 HIGH: str = 'high'
 
 SAST: str = 'SAST'
+SCA: str = 'SCA'
 DAST: str = 'DAST'
 
 PARAM_OR_RETURNS_REGEX = re.compile(r":(?:param|returns)")
