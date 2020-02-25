@@ -17,7 +17,7 @@ export const statusFormatter: ((value: string) => ReactElement<Label>) =
       case "Solved":
       case "Submitted":
       case "Success":
-          bgColor = "#00D444";
+          bgColor = "#259800";
           status = value;
           break;
       // Orange
