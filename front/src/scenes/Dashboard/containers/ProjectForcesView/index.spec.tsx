@@ -62,15 +62,32 @@ describe("ForcesView", () => {
                 kind: "dynamic",
                 log: "...",
                 strictness: "strict",
-              },
-              {
-                date: "2020-02-19T19:04:33+00:00",
-                exitCode: "0",
-                gitRepo: "Repository",
-                identifier: "a125217504d447ada2b81da3e4bdab0e",
-                kind: "static",
-                log: "...",
-                strictness: "strict",
+                vulnerabilities: {
+                  acceptedExploits: [
+                    {
+                      kind: "DAST",
+                      where: "HTTP/Implementation",
+                      who: "https://test.com/test",
+                    },
+                  ],
+                  exploits: [
+                    {
+                      kind: "DAST",
+                      where: "HTTP/Implementation",
+                      who: "https://test.com/test",
+                    },
+                  ],
+                  mockedExploits: [
+                    {
+                      kind: "DAST",
+                      where: "HTTP/Implementation",
+                      who: "https://test.com/test",
+                    },
+                  ],
+                  numOfVulnerabilitiesInAcceptedExploits: 1,
+                  numOfVulnerabilitiesInExploits: 1,
+                  numOfVulnerabilitiesInMockedExploits: 1,
+                },
               },
             ],
           },
@@ -150,12 +167,12 @@ describe("ForcesView", () => {
     await act(async () => { await wait(0); wrapper.update(); });
     const row: ReactWrapper = wrapper
       .find("td")
-      .filterWhere((td: ReactWrapper) => _.includes(td.text(), "a125217504d447ada2b81da3e4bdab0e"));
+      .filterWhere((td: ReactWrapper) => _.includes(td.text(), "33e5d863252940edbfb144ede56d56cf"));
     expect(row)
       .toHaveLength(1);
     row.simulate("click");
     expect(wrapper
       .find("span"))
-      .toHaveLength(33);
+      .toHaveLength(32);
   });
 });

@@ -12,6 +12,26 @@ export const GET_FORCES_EXECUTIONS: DocumentNode = gql`
         kind
         log
         strictness
+        vulnerabilities {
+          acceptedExploits {
+            kind
+            who
+            where
+          }
+          exploits {
+            kind
+            who
+            where
+          }
+          mockedExploits {
+            kind
+            who
+            where
+          }
+          numOfVulnerabilitiesInAcceptedExploits
+          numOfVulnerabilitiesInExploits
+          numOfVulnerabilitiesInMockedExploits
+        }
       }
     }
   }

@@ -120,23 +120,30 @@ class BreakBuildExecutionsTests(TestCase):
         assert isinstance(executions[0]['log'], str)
         assert executions[0]['strictness'] == 'strict'
         assert executions[0]['vulnerabilities'] == {
-            "exploits": [],
-            "mockedExploits": [],
-            "acceptedExploits": [
-                {
-                    "kind": "DAST",
-                    "who": "https://test.com/test",
-                    "where": "HTTP/Implementation"
-                },
+            "exploits": [
                 {
                     "kind": "DAST",
                     "who": "https://test.com/test",
                     "where": "HTTP/Implementation"
                 }
             ],
-            "numOfVulnerabilitiesInExploits": 0,
-            "numOfVulnerabilitiesInMockedExploits": 0,
-            "numOfVulnerabilitiesInAcceptedExploits": 2
+            "mockedExploits": [
+                {
+                    "kind": "DAST",
+                    "who": "https://test.com/test",
+                    "where": "HTTP/Implementation"
+                }
+            ],
+            "acceptedExploits": [
+                {
+                    "kind": "DAST",
+                    "who": "https://test.com/test",
+                    "where": "HTTP/Implementation"
+                }
+            ],
+            "numOfVulnerabilitiesInExploits": 1,
+            "numOfVulnerabilitiesInMockedExploits": 1,
+            "numOfVulnerabilitiesInAcceptedExploits": 1
         }
 
         assert executions[1]['projectName'] == project_name

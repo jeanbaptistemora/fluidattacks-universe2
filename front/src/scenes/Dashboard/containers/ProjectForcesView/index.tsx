@@ -31,14 +31,38 @@ import { GET_FORCES_EXECUTIONS } from "./queries";
 
 type ForcesViewProps = RouteComponentProps<{ projectName: string }>;
 
+export interface IExploitResult {
+  kind: string;
+  where: string;
+  who: string;
+}
+
+export interface IFoundVulnerabilities {
+  accepted: number;
+  others: number;
+  total: number;
+}
+
+export interface IVulnerabilities {
+  acceptedExploits: IExploitResult[];
+  exploits: IExploitResult[];
+  mockedExploits: IExploitResult[];
+  numOfVulnerabilitiesInAcceptedExploits: number;
+  numOfVulnerabilitiesInExploits: number;
+  numOfVulnerabilitiesInMockedExploits: number;
+}
+
 export interface IExecution {
   date: string;
   exitCode: string;
+  foundVulnerabilities: IFoundVulnerabilities;
   gitRepo: string;
   identifier: string;
   kind: string;
+  log: string;
   status: string;
   strictness: string;
+  vulnerabilities: IVulnerabilities;
 }
 
 const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: ForcesViewProps): JSX.Element => {
@@ -139,13 +163,20 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
             return <React.Fragment />;
           }
           if (!_.isUndefined(data)) {
-            const executions: Dictionary[] = data.breakBuildExecutions.executions.map((execution: IExecution) => {
+            const executions: IExecution[] = data.breakBuildExecutions.executions.map((execution: IExecution) => {
               const date: string = formatDate(execution.date);
               const kind: string = toTitleCase(execution.kind);
               const status: ReactElement = statusFormatter(execution.exitCode === "0" ? "Success" : "Failed");
               const strictness: string = toTitleCase(execution.strictness);
+              const foundVulnerabilities: IFoundVulnerabilities = {
+                accepted: execution.vulnerabilities.numOfVulnerabilitiesInAcceptedExploits,
+                others: execution.vulnerabilities.numOfVulnerabilitiesInMockedExploits,
+                total: execution.vulnerabilities.numOfVulnerabilitiesInExploits
+                  + execution.vulnerabilities.numOfVulnerabilitiesInMockedExploits
+                  + execution.vulnerabilities.numOfVulnerabilitiesInAcceptedExploits,
+              };
 
-              return {...execution, date, kind, status, strictness};
+              return {...execution, date, foundVulnerabilities, kind, status, strictness};
             });
 
             return (
@@ -169,7 +200,8 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   headerTitle={translate.t("project.forces.execution_details_modal.title")}
                   open={isExecutionDetailsModalOpen}
               >
-                <hr />
+              {currentRowIndex >= 0 && currentRowIndex < executions.length
+                ? <div>
                 <Row>
                   <Col md={4}><p><b>{translate.t("project.forces.date")}</b></p></Col>
                   <Col md={8}><p>{executions[currentRowIndex].date}</p></Col>
@@ -194,17 +226,55 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   <Col md={4}><p><b>{translate.t("project.forces.identifier")}</b></p></Col>
                   <Col md={8}><p>{executions[currentRowIndex].identifier}</p></Col>
                 </Row>
+                <Row>
+                  <Col md={4}><p><b>{translate.t("project.forces.found_vulnerabilities.total")}</b></p></Col>
+                  <Col md={8}><p>{executions[currentRowIndex].foundVulnerabilities.total}</p></Col>
+                </Row>
+                <Row>
+                  <Col md={12}><p><b>{translate.t("project.forces.found_vulnerabilities.title")}</b></p></Col>
+                </Row>
+                <ul>
+                  <li>
+                    <p>
+                      [{translate.t("project.forces.found_vulnerabilities.total")}]
+                      &nbsp;{executions[currentRowIndex].foundVulnerabilities.total}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      [{translate.t("project.forces.found_vulnerabilities.accepted")}]
+                      &nbsp;{executions[currentRowIndex].foundVulnerabilities.accepted}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      [{translate.t("project.forces.found_vulnerabilities.others")}]
+                      &nbsp;{executions[currentRowIndex].foundVulnerabilities.others}
+                    </p>
+                  </li>
+                </ul>
+                <Row>
+                  <Col md={12}><p><b>{translate.t("project.forces.tainted_toe.title")}</b></p></Col>
+                </Row>
+                <ul>
+                  {executions[currentRowIndex].vulnerabilities.exploits.map(
+                    (result: IExploitResult) => <li key={result.who}><p>[Security] {result.who}</p></li>)}
+                  {executions[currentRowIndex].vulnerabilities.acceptedExploits.map(
+                    (result: IExploitResult) => <li key={result.who}><p>[Accepted] {result.who}</p></li>)}
+                  {executions[currentRowIndex].vulnerabilities.mockedExploits.map(
+                    (result: IExploitResult) => <li key={result.who}><p>[Others] {result.who}</p></li>)}
+                </ul>
                 <hr />
                 <SyntaxHighlighter style={monokaiSublime} language="yaml" wrapLines={true}>
-                  {currentRowIndex >= 0 && currentRowIndex < executions.length
-                    ? executions[currentRowIndex].log
-                    : "Unable to retrieve"}
+                  {executions[currentRowIndex].log}
                 </SyntaxHighlighter>
                 <ButtonToolbar className="pull-right">
                   <Button bsStyle="success" onClick={closeSeeExecutionDetailsModal}>
                     {translate.t("project.forces.execution_details_modal.close")}
                   </Button>
                 </ButtonToolbar>
+                </div>
+                : "No data to display"}
               </Modal>
               </React.StrictMode>
             );

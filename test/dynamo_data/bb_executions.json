@@ -40,7 +40,20 @@
                                                 "S": "https://test.com/test"
                                             }
                                         }
-                                    },
+                                    }
+                                ]
+                            },
+                            "vulnerability_count_mocked_exploits": {
+                                "N": "1"
+                            },
+                            "vulnerability_count_exploits": {
+                                "N": "1"
+                            },
+                            "vulnerability_count_accepted_exploits": {
+                                "N": "1"
+                            },
+                            "exploits": {
+                                "L": [
                                     {
                                         "M": {
                                             "kind": {
@@ -56,20 +69,22 @@
                                     }
                                 ]
                             },
-                            "vulnerability_count_mocked_exploits": {
-                                "N": "0"
-                            },
-                            "vulnerability_count_exploits": {
-                                "N": "0"
-                            },
-                            "vulnerability_count_accepted_exploits": {
-                                "N": "2"
-                            },
-                            "exploits": {
-                                "L": []
-                            },
                             "mocked_exploits": {
-                                "L": []
+                                "L": [
+                                  {
+                                      "M": {
+                                          "kind": {
+                                              "S": "DAST"
+                                          },
+                                          "where": {
+                                              "S": "HTTP/Implementation"
+                                          },
+                                          "who": {
+                                              "S": "https://test.com/test"
+                                          }
+                                      }
+                                  }
+                                ]
                             }
                         }
                     },

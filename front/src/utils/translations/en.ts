@@ -236,12 +236,21 @@ const enTranslations: Dictionary = {
         close: "Close",
         title: "Execution Details",
       },
+      found_vulnerabilities: {
+        accepted: "Accepted",
+        others: "Others",
+        title: "Vulnerabilities",
+        total: "Total",
+      },
       git_repo: "Git Repository",
       identifier: "Identifier",
       kind: "Kind",
       status: "Status",
       strictness: "Strictness",
       table_advice: "Click on an execution to see more details",
+      tainted_toe: {
+        title: "Tainted ToE",
+      },
     },
     tabs: {
       comments: "Comments",
