@@ -71,6 +71,10 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
   const projectName: string = props.match.params.projectName;
   const [openRejectRemoveModal, setOpenRejectRemoveModal] = React.useState(false);
 
+  const goToProjectFindings: (() => void) = (): void => {
+    location.hash = `#!/project/${projectName}/findings`;
+  };
+
   const handleQryResult: ((qrResult: IIndicatorsProps) => void) = (qrResult: IIndicatorsProps): void => {
     setOpenRejectRemoveModal(!_.isEmpty(qrResult.project.deletionDate));
     mixpanel.track(
@@ -137,6 +141,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                             quantity={data.project.totalFindings}
                             title=""
                             total=""
+                            onClick={goToProjectFindings}
                           />
                         </Col>
                         <Col md={6} sm={12} xs={12}>
@@ -146,6 +151,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                             quantity={totalVulnerabilities}
                             title=""
                             total=""
+                            onClick={goToProjectFindings}
                           />
                         </Col>
                         <Col md={6} sm={12} xs={12}>
@@ -155,6 +161,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                             quantity={data.project.pendingClosingCheck}
                             title=""
                             total=""
+                            onClick={goToProjectFindings}
                           />
                         </Col>
                         <Col md={6} sm={12} xs={12}>
@@ -173,6 +180,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                             quantity={undefinedTreatment}
                             title=""
                             total=""
+                            onClick={goToProjectFindings}
                           />
                         </Col>
                         <Col md={6} sm={12} xs={12}>
@@ -182,6 +190,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                             quantity={data.project.meanRemediate}
                             title=""
                             total={translate.t("search_findings.tab_indicators.days")}
+                            onClick={goToProjectFindings}
                           />
                         </Col>
                         <Col md={6} sm={12} xs={12}>
@@ -191,6 +200,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                             quantity={data.project.maxSeverity}
                             title=""
                             total="/10"
+                            onClick={goToProjectFindings}
                           />
                         </Col>
                         <Col md={6} sm={12} xs={12}>
@@ -200,6 +210,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                             quantity={data.project.maxOpenSeverity}
                             title=""
                             total="/10"
+                            onClick={goToProjectFindings}
                           />
                         </Col>
                       </Col>

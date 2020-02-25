@@ -16,45 +16,55 @@ interface IBoxProps {
   quantity: number;
   title: string;
   total?: string;
+  onClick?(): void;
 }
 /**
  * Project Indicator Box
  */
 const indicatorBox: React.FunctionComponent<IBoxProps> =
-  (props: IBoxProps): JSX.Element => (
-  <React.StrictMode>
-      <div
-        className={style.widgetbox}
-        data-toggle="tooltip"
-        data-placement="top"
-        title={props.title}
-      >
-        <Row>
-          <Col xs={2} md={2}>
-            <FluidIcon icon={props.icon} width="30px" height="30px" />
-          </Col>
-          <Col xs={10} md={10}>
-            <div className={style.widgetdesc}>
-              {props.name}
+  (props: IBoxProps): JSX.Element => {
+      const handleClick: (() => void) = (): void => {
+          if (props.onClick !== undefined) {
+              props.onClick();
+          }
+      };
+
+      return (
+        <React.StrictMode>
+            <div
+                className={style.widgetbox}
+                data-toggle="tooltip"
+                data-placement="top"
+                title={props.title}
+                onClick={handleClick}
+            >
+                <Row>
+                <Col xs={2} md={2}>
+                    <FluidIcon icon={props.icon} width="30px" height="30px"/>
+                </Col>
+                <Col xs={10} md={10}>
+                    <div className={style.widgetdesc} >
+                    {props.name}
+                    </div>
+                </Col>
+                </Row>
+                <hr />
+                <Row>
+                <div data-toggle="counter" className={style.widgetvalue}>
+                    { _.isUndefined(props.total)
+                    ? <React.Fragment>
+                        {props.quantity}
+                        </React.Fragment>
+                    : <React.Fragment>
+                        {props.quantity} <sup>{props.total}</sup>
+                        </React.Fragment>
+                    }
+                </div>
+                </Row>
             </div>
-          </Col>
-        </Row>
-        <hr />
-        <Row>
-          <div data-toggle="counter" className={style.widgetvalue}>
-            { _.isUndefined(props.total)
-              ? <React.Fragment>
-                  {props.quantity}
-                </React.Fragment>
-              : <React.Fragment>
-                  {props.quantity} <sup>{props.total}</sup>
-                </React.Fragment>
-            }
-          </div>
-        </Row>
-      </div>
-  </React.StrictMode>
-);
+        </React.StrictMode>
+      );
+};
 
 indicatorBox.defaultProps = {
   icon: "",
