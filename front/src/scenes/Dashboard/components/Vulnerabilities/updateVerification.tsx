@@ -2,12 +2,14 @@
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of readability of the code
  */
 import { useMutation } from "@apollo/react-hooks";
-import _ from "lodash";
+import { ApolloError } from "apollo-client";
+import { GraphQLError } from "graphql";
 import React from "react";
 import { DataTableNext } from "../../../../components/DataTableNext";
 import { changeVulnStateFormatter } from "../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../components/DataTableNext/types";
-import { msgSuccess } from "../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../utils/notifications";
+import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { remediationModal as RemediationModal } from "../RemediationModal/index";
 import { default as style } from "./index.css";
@@ -25,6 +27,7 @@ export interface IUpdateVerificationModal {
   remediationType: "request" | "verify";
   userRole: string;
   vulns: IVulnData[];
+  clearSelected(): void;
   handleCloseModal(): void;
 }
 
@@ -39,9 +42,29 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
           translate.t("proj_alerts.verified_success"),
           translate.t("proj_alerts.updated_title"),
         );
+        props.clearSelected();
       }
     },
+    onError: (error: ApolloError): void => {
+      error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        switch (message) {
+          case "Exception - Request verification already requested":
+            msgError(translate.t("proj_alerts.verification_already_requested"));
+            break;
+          case "Exception - The vulnerability has already been closed":
+            msgError(translate.t("proj_alerts."));
+            break;
+          case "Exception - Vulnerability not found":
+            msgError(translate.t("proj_alerts.no_found"));
+            break;
+          default:
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred requesting verification", error);
+        }
+      });
+    },
   });
+
   const [verifyRequest, {loading: submittingVerify}] = useMutation(VERIFY_VULNERABILITIES, {
     onCompleted: (data: IVerifyRequestVulnResult): void => {
       if (data.verifyRequestVuln.success) {
@@ -49,16 +72,35 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
           translate.t("proj_alerts.verified_success"),
           translate.t("proj_alerts.updated_title"),
         );
+        props.clearSelected();
       }
     },
+    onError: (error: ApolloError): void => {
+      error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        switch (message) {
+          case "Exception - Error verification not requested":
+            msgError(translate.t("proj_alerts.no_verification_requested"));
+            break;
+          case "Exception - Vulnerability not found":
+            msgError(translate.t("proj_alerts.no_found"));
+            break;
+          default:
+            msgError(translate.t("proj_alerts.error_textsad"));
+            rollbar.error("An error occurred verifying a request", error);
+        }
+      });
+    },
   });
+
   const handleSubmit: ((values: { treatmentJustification: string }) => void) =
     (values: { treatmentJustification: string }): void => {
       if (props.remediationType === "request") {
         const vulnerabilitiesId: string[] = props.vulns.map((vuln: IVulnData) => vuln.id);
         requestVerification({ variables: {
-          findingId: props.findingId, justification: values.treatmentJustification,
-          vulnerabilities: vulnerabilitiesId }})
+          findingId: props.findingId,
+          justification: values.treatmentJustification,
+          vulnerabilities: vulnerabilitiesId },
+        })
           .catch();
       } else {
         const openVulnsId: string[] = vulnerabilitiesList.reduce(
@@ -72,6 +114,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
       }
       closeRemediationModal();
     };
+
   const renderVulnsToVerify: (() => JSX.Element) = (): JSX.Element => {
     const handleUpdateRepo: ((vulnInfo: { [key: string]: string }) => void) =
     (vulnInfo: { [key: string]: string }): void => {

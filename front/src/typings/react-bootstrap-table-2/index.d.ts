@@ -180,8 +180,9 @@ interface SelectRowOptions {
     mode: 'checkbox' | 'radio',
     clickToSelect: boolean,
     hideSelectColumn?: boolean,
-    nonSelectable?: Number[],
-    onSelect?: (row: any, isSelect: boolean) => void,
+    nonSelectable?: number[],
+    selected?: number[],
+    onSelect?: (row: any, isSelect: boolean, index: number) => void,
     onSelectAll?: (isSelect: boolean, rows: any) => void,
 }
 

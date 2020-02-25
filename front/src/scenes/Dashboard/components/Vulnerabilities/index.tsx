@@ -42,6 +42,7 @@ import { UploadVulnerabilites } from "./uploadFile";
 type ISelectRowType = (Array<{[value: string]: string | undefined | null}>);
 interface ICategoryVulnType {
   acceptanceDate: string;
+  currentState: string;
   externalBts: string;
   id: string;
   severity: string;
@@ -53,6 +54,7 @@ interface ICategoryVulnType {
   where: string;
 }
 interface IVunlDataType {
+  currentState: string;
   id: string;
   treatments: {
     acceptanceDate: string;
@@ -62,8 +64,8 @@ interface IVunlDataType {
     treatment: string;
     treatmentJustification: string;
     treatmentManager: string;
-
   };
+  where: string;
 }
 
 export const getAttrVulnUpdate: (selectedQery: NodeListOf<Element>) => ISelectRowType =
@@ -211,6 +213,7 @@ const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnTyp
     selectedRow.forEach((row: {[value: string]: string | null | undefined }) => {
       categoryVuln.forEach((vuln: {
         acceptanceDate: string;
+        currentState: string;
         externalBts: string;
         id: string;
         severity: string;
@@ -223,6 +226,7 @@ const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnTyp
       }) => {
         if (row.where === vuln.where && row.specific === vuln.specific) {
         vulnData.push({
+          currentState: vuln.currentState,
           id: vuln.id,
           treatments: {
             acceptanceDate: vuln.acceptanceDate,
@@ -233,6 +237,7 @@ const getVulnByRow: (selectedRow: ISelectRowType, categoryVuln: ICategoryVulnTyp
             treatmentJustification: vuln.treatmentJustification,
             treatmentManager: vuln.treatmentManager,
           },
+          where: vuln.where,
         });
         }
       });
@@ -256,6 +261,12 @@ const getVulnInfo: (selectedRowArray: ISelectRowType [], arrayVulnCategory: ICat
   return arrayVulnInfo;
   };
 
+interface ICalculateRowsSelected {
+  oneRowSelected: boolean;
+  vulnerabilities: string [];
+  vulns: IVunlDataType[];
+}
+
 const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
   (props: IVulnerabilitiesViewProps): JSX.Element => {
     const [modalHidden, setModalHidden] = useState(false);
@@ -270,6 +281,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
     const [valueSortChanged, setValueSort] = useState(false);
     const emptyArray: string[] = [];
     const [arraySelectedRows, setArraySelectedRows] = useState(emptyArray);
+    const [selectRowsInputs, setSelectRowsInputs] = useState<number[]>([]);
+    const [selectRowsLines, setSelectRowsLines] = useState<number[]>([]);
+    const [selectRowsPorts, setSelectRowsPorts] = useState<number[]>([]);
     const [originalProps, setOriginalProps] = useState();
 
     const isAnalystorAdmin: boolean = _.includes(["analyst", "admin"], props.userRole);
@@ -720,14 +734,14 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
             );
             };
 
-            const calculateRowsSelected: () => {oneRowSelected: boolean; vulnerabilities: string []} =
-            (): {oneRowSelected: boolean; vulnerabilities: string []}  => {
+            const calculateRowsSelected: () => ICalculateRowsSelected =
+            (): ICalculateRowsSelected  => {
               const selectedRows: Array<NodeListOf<Element>> = getSelectQryTable().selectedQeryArray;
               const selectedRowArray: ISelectRowType[] = [];
               const arrayVulnCategory: ICategoryVulnType[][] = [data.finding.inputsVulns,
                                                                 data.finding.linesVulns,
                                                                 data.finding.portsVulns];
-              let result: {oneRowSelected: boolean; vulnerabilities: string []};
+              let result: ICalculateRowsSelected;
               const vulnsId: string[] = [];
               selectedRows.forEach((selectQry: NodeListOf<Element>) => {
                 selectedRowArray.push(getAttrVulnUpdate(selectQry));
@@ -739,11 +753,13 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               result = {
                 oneRowSelected: false,
                 vulnerabilities: vulnsId,
+                vulns,
               };
               if (vulns.length === 1) {
                 result = {
                   oneRowSelected: true,
                   vulnerabilities: vulnsId,
+                  vulns,
                 };
                 if (!_.isUndefined(props.descriptParam)) {
                   if (modalHidden) {
@@ -759,8 +775,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
               return result;
             };
 
-            const numberRowSelected: boolean = calculateRowsSelected().oneRowSelected;
-            const vulnsSelected: string [] = calculateRowsSelected().vulnerabilities;
+            const rowsSelected: ICalculateRowsSelected = calculateRowsSelected();
+            const numberRowSelected: boolean = rowsSelected.oneRowSelected;
+            const vulnsSelected: string [] = rowsSelected.vulnerabilities;
 
             return (
               <Mutation mutation={APPROVE_VULN_MUTATION} onCompleted={handleMtPendingVulnRes}>
@@ -858,34 +875,113 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     width: "12%",
                   });
                   }
-                const handleOnSelect: ((row: IVulnRow, isSelect: boolean) => void) =
-                (row: IVulnRow, isSelect: boolean): void => {
+                const handleOnSelectInputs: ((row: IVulnRow, isSelect: boolean, index: number) => void) =
+                (row: IVulnRow, isSelect: boolean, index: number): void => {
                   if (isSelect) {
                     const newSet: Set<string> = new Set([...arraySelectedRows, row.id]);
                     setArraySelectedRows(Array.from(newSet));
+                    setSelectRowsInputs([...selectRowsInputs, index]);
                   } else {
                     const newSet: Set<string> = new Set(arraySelectedRows.filter((rowId: string) => rowId !== row.id));
                     setArraySelectedRows(Array.from(newSet));
+                    setSelectRowsInputs([...selectRowsInputs.filter((indexFilter: number) => indexFilter !== index)]);
                   }
                 };
-                const handleOnSelectAll: ((isSelect: boolean, rows: IVulnRow[]) => void) =
+                const handleOnSelectAllInputs: ((isSelect: boolean, rows: IVulnRow[]) => void) =
                 (isSelect: boolean, rows: IVulnRow[]): void => {
                   const newIds: string[] = rows.map((row: IVulnRow) => row.id);
                   if (isSelect) {
                     const newSet: Set<string> = new Set([...arraySelectedRows, ...newIds]);
                     setArraySelectedRows(Array.from(newSet));
+                    const newArray: number[] = [...Array(dataInputs.length)
+                      .keys()];
+                    setSelectRowsInputs([...newArray]);
                   } else {
                     const newSet: Set<string> = new Set(arraySelectedRows);
                     newIds.forEach((deleteRowId: string) => newSet.delete(deleteRowId));
                     setArraySelectedRows(Array.from(newSet));
+                    setSelectRowsInputs([]);
                   }
                 };
-                const selectionMode: SelectRowOptions = {
+                const handleOnSelectLines: ((row: IVulnRow, isSelect: boolean, index: number) => void) =
+                (row: IVulnRow, isSelect: boolean, index: number): void => {
+                  if (isSelect) {
+                    const newSet: Set<string> = new Set([...arraySelectedRows, row.id]);
+                    setArraySelectedRows(Array.from(newSet));
+                    setSelectRowsLines([...selectRowsLines, index]);
+                  } else {
+                    const newSet: Set<string> = new Set(arraySelectedRows.filter((rowId: string) => rowId !== row.id));
+                    setArraySelectedRows(Array.from(newSet));
+                    setSelectRowsLines([...selectRowsLines.filter((indexFilter: number) => indexFilter !== index)]);
+                  }
+                };
+                const handleOnSelectAllLines: ((isSelect: boolean, rows: IVulnRow[]) => void) =
+                (isSelect: boolean, rows: IVulnRow[]): void => {
+                  const newIds: string[] = rows.map((row: IVulnRow) => row.id);
+                  if (isSelect) {
+                    const newSet: Set<string> = new Set([...arraySelectedRows, ...newIds]);
+                    setArraySelectedRows(Array.from(newSet));
+                    const newArray: number[] = [...Array(dataLines.length)
+                      .keys()];
+                    setSelectRowsLines([...newArray]);
+                  } else {
+                    const newSet: Set<string> = new Set(arraySelectedRows);
+                    newIds.forEach((deleteRowId: string) => newSet.delete(deleteRowId));
+                    setArraySelectedRows(Array.from(newSet));
+                    setSelectRowsLines([]);
+                  }
+                };
+                const handleOnSelectPorts: ((row: IVulnRow, isSelect: boolean, index: number) => void) =
+                (row: IVulnRow, isSelect: boolean, index: number): void => {
+                  if (isSelect) {
+                    const newSet: Set<string> = new Set([...arraySelectedRows, row.id]);
+                    setArraySelectedRows(Array.from(newSet));
+                    setSelectRowsPorts([...selectRowsPorts, index]);
+                  } else {
+                    const newSet: Set<string> = new Set(arraySelectedRows.filter((rowId: string) => rowId !== row.id));
+                    setArraySelectedRows(Array.from(newSet));
+                    setSelectRowsPorts([...selectRowsPorts.filter((indexFilter: number) => indexFilter !== index)]);
+                  }
+                };
+                const handleOnSelectAllPorts: ((isSelect: boolean, rows: IVulnRow[]) => void) =
+                (isSelect: boolean, rows: IVulnRow[]): void => {
+                  const newIds: string[] = rows.map((row: IVulnRow) => row.id);
+                  if (isSelect) {
+                    const newSet: Set<string> = new Set([...arraySelectedRows, ...newIds]);
+                    setArraySelectedRows(Array.from(newSet));
+                    const newArray: number[] = [...Array(dataPorts.length)
+                      .keys()];
+                    setSelectRowsPorts([...newArray]);
+                  } else {
+                    const newSet: Set<string> = new Set(arraySelectedRows);
+                    newIds.forEach((deleteRowId: string) => newSet.delete(deleteRowId));
+                    setArraySelectedRows(Array.from(newSet));
+                    setSelectRowsPorts([]);
+                  }
+                };
+                const selectionModeInputs: SelectRowOptions = {
                   clickToSelect: false,
                   hideSelectColumn: !isEditable,
                   mode: "checkbox",
-                  onSelect: handleOnSelect,
-                  onSelectAll: handleOnSelectAll,
+                  onSelect: handleOnSelectInputs,
+                  onSelectAll: handleOnSelectAllInputs,
+                  selected: selectRowsInputs,
+                };
+                const selectionModeLines: SelectRowOptions = {
+                  clickToSelect: false,
+                  hideSelectColumn: !isEditable,
+                  mode: "checkbox",
+                  onSelect: handleOnSelectLines,
+                  onSelectAll: handleOnSelectAllLines,
+                  selected: selectRowsLines,
+                };
+                const selectionModePorts: SelectRowOptions = {
+                  clickToSelect: false,
+                  hideSelectColumn: !isEditable,
+                  mode: "checkbox",
+                  onSelect: handleOnSelectPorts,
+                  onSelectAll: handleOnSelectAllPorts,
+                  selected: selectRowsPorts,
                 };
                 const remote: RemoteProps = {
                   cellEdit: false,
@@ -913,7 +1009,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               pageSize={10}
                               search={false}
                               title=""
-                              selectionMode={selectionMode}
+                              selectionMode={selectionModeInputs}
                               tableBody={style.tableBody}
                               tableHeader={style.tableHeader}
                             />
@@ -937,7 +1033,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               pageSize={10}
                               search={false}
                               title=""
-                              selectionMode={selectionMode}
+                              selectionMode={selectionModeLines}
                               tableBody={style.tableBody}
                               tableHeader={style.tableHeader}
                             />
@@ -961,7 +1057,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                               pageSize={10}
                               search={false}
                               title=""
-                              selectionMode={selectionMode}
+                              selectionMode={selectionModePorts}
                               tableBody={style.tableBody}
                               tableHeader={style.tableHeader}
                             />
