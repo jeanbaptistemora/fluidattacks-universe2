@@ -452,3 +452,55 @@ def has_no_cpu_requests_usage_limit(*,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(ApiException, MaxRetryError)
+def has_add_cap_with_sys_admin(*,
+                               host: str = None,
+                               api_key: str = None,
+                               username: str = None,
+                               password: str = None,
+                               **kwargs):
+    """
+    Check if there are pod containers with ``SYS_ADMIN`` in ADD capabilities.
+
+    Capabilities permit certain named root actions without giving full root
+    access. They are a more fine-grained permissions model, and all
+    capabilities should be dropped from a pod, with only those required added
+    back.
+
+    :param host: URL of the API server.
+    :param api_key: API Key to make requests.
+    :param username: Username of account.
+    :param password: Password of account.
+
+    :returns: - ``OPEN`` if there are pods containers that have
+                 ``SYS_ADMIN`` in ADD capabilities.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Pod containers have SYS_ADMIN in ADD capabilities.'
+    msg_closed: str = \
+        'Pod containers do not have SYS_ADMIN in ADD capabilities.'
+    vulns, safes = [], []
+
+    api_instance = _get_api_instance('CoreV1Api', host, api_key, username,
+                                     password, **kwargs)
+    pods = run_function(api_instance, 'list_pod_for_all_namespaces').items
+    for pod in filter(lambda x: x.metadata.namespace != 'kube-system', pods):
+        for container in pod.spec.containers:
+            context = container.security_context
+            if context and context.capabilities:
+                (vulns if 'SYS_ADMIN' in context.capabilities.add else
+                 safes).append((pod.metadata.self_link,
+                                'SYS_ADMIN it’s equivalent to root'))
+    return _get_result_as_tuple(
+        host=host,
+        objects='Pods',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
