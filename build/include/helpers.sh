@@ -189,18 +189,23 @@ function helper_user_provision_rotate_keys {
   local gitlab_secret_key_name="${7}"
   local gitlab_masked="${8}"
   local gitlab_protected="${9}"
+  local resource_to_taint_number
 
-      helper_terraform_taint \
+      resource_to_taint_number="$( \
+        helper_get_key_to_taint_number)" \
+  &&  helper_terraform_taint \
         "${terraform_dir}" \
-        "${resource_to_taint}" \
+        "${resource_to_taint}-${resource_to_taint_number}" \
   &&  helper_terraform_apply \
         "${terraform_dir}" \
   &&  output_key_id_value=$( \
         helper_terraform_output \
-          "${terraform_dir}" "${output_key_id_name}") \
+          "${terraform_dir}" \
+          "${output_key_id_name}-${resource_to_taint_number}") \
   &&  output_secret_key_value=$( \
         helper_terraform_output \
-          "${terraform_dir}" "${output_secret_key_name}")  \
+          "${terraform_dir}" \
+          "${output_secret_key_name}-${resource_to_taint_number}")  \
   &&  set_project_variable \
         "${GITLAB_API_TOKEN}" "${gitlab_repo_id}" \
         "${gitlab_key_id_name}" "${output_key_id_value}" \
@@ -224,4 +229,24 @@ function helper_deploy_integrates {
         -H "Content-Type: application/json" \
         -d '{"token":"'"${INTEGRATES_PIPELINE_TOKEN}"'", "ref":"master", "variables": {"TRIGGER_MASTER": "1"}}' \
         "https://gitlab.com/api/v4/projects/${integrates_id}/trigger/pipeline"
+}
+
+function helper_get_key_to_taint_number {
+
+  # Made specifically for nightly rotations.
+  # It prints 1 if day is even and 2 if day is odd.
+
+  local date
+  local timestamp
+  local days
+
+      date="$(date +%y-%m-%d)" \
+  &&  timestamp="$(date +%s --date="${date}")" \
+  &&  days=$((timestamp / 60 / 60 / 24)) \
+  &&  if [ $((days % 2)) == '0' ]
+      then
+        echo "1"
+      else
+        echo "2"
+      fi
 }
