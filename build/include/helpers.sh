@@ -192,7 +192,7 @@ function helper_user_provision_rotate_keys {
   local resource_to_taint_number
 
       resource_to_taint_number="$( \
-        helper_get_key_to_taint_number)" \
+        helper_get_resource_to_taint_number)" \
   &&  helper_terraform_taint \
         "${terraform_dir}" \
         "${resource_to_taint}-${resource_to_taint_number}" \
@@ -231,7 +231,7 @@ function helper_deploy_integrates {
         "https://gitlab.com/api/v4/projects/${integrates_id}/trigger/pipeline"
 }
 
-function helper_get_key_to_taint_number {
+function helper_get_resource_to_taint_number {
 
   # Made specifically for nightly rotations.
   # It prints 1 if day is even and 2 if day is odd.
