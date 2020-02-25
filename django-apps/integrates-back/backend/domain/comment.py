@@ -30,7 +30,7 @@ def get_event_comments(finding_id, user_role):
 
 def get_fullname(user_role, data):
     comment_user_name = 'Hacker'
-    if 'fullname' not in data:
+    if not data.get('fullname'):
         comment_user_name = data['email']
     elif (user_role in ['admin', 'analyst'] or
           user_domain.get_data(data['email'], 'role') in ['customer', 'customeradmin']):

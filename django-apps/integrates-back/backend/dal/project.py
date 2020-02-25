@@ -434,6 +434,11 @@ def get_comments(project_name):
             KeyConditionExpression=key_expression,
             ExclusiveStartKey=response['LastEvaluatedKey'])
         items += response['Items']
+    comment_fullnames = {
+        mail: list(get_user_attributes(mail, ['last_name', 'first_name']).values())
+        for mail in set(item['email'] for item in items)}
+    for item in items:
+        item['fullname'] = ' '.join(filter(None, comment_fullnames[item['email']][::-1]))
     return items
 
 
