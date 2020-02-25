@@ -16,7 +16,8 @@ def _calc_cvss2_temporal(severity: Dict[str, float], basescore: float) -> Decima
     return resp
 
 
-def _calc_cvss2_basescore(severity, parameters):
+def _calc_cvss2_basescore(
+        severity: Dict[str, float], parameters: Dict[str, float]) -> Decimal:
     """Calculate cvss v2 base score attribute."""
     impact = parameters['impact_factor'] * \
         (1 - ((1 - severity['confidentialityImpact']) *
@@ -32,7 +33,7 @@ def _calc_cvss2_basescore(severity, parameters):
     return resp
 
 
-def _calc_cvss2_environment(severity, parameters):
+def _calc_cvss2_environment(severity: Dict[str, float], parameters: Dict[str, float]) -> Decimal:
     """Calculate cvss v2 environment attribute."""
     exploitabilty = parameters['exploitability_factor'] * severity['accessComplexity'] * \
         severity['authentication'] * severity['accessVector']
@@ -58,7 +59,7 @@ def _calc_cvss2_environment(severity, parameters):
     return resp
 
 
-def _calc_cvss3_basescore(severity, parameters):
+def _calc_cvss3_basescore(severity: Dict[str, float], parameters: Dict[str, float]) -> Decimal:
     """Calculate cvss v3 base score attribute."""
     iss = 1 - ((1 - severity['confidentialityImpact']) *
                (1 - severity['integrityImpact']) *
@@ -86,7 +87,7 @@ def _calc_cvss3_basescore(severity, parameters):
     return resp
 
 
-def _calc_cvss3_temporal(severity, basescore):
+def _calc_cvss3_temporal(severity: Dict[str, float], basescore: float) -> Decimal:
     """Calculate cvss v3 temporal attribute."""
     temporal = Decimal(math.ceil(float(basescore) * severity['exploitability'] *
                                  severity['remediationLevel'] *
@@ -95,7 +96,7 @@ def _calc_cvss3_temporal(severity, basescore):
     return resp
 
 
-def _calc_cvss3_environment(severity, parameters):
+def _calc_cvss3_environment(severity: Dict[str, float], parameters: Dict[str, float]) -> Decimal:
     """Calculate cvss v3 environment attribute."""
     mi_conf = severity['modifiedConfidentialityImpact']
     mi_integ = severity['modifiedIntegrityImpact']
@@ -136,7 +137,7 @@ def _calc_cvss3_environment(severity, parameters):
     return resp
 
 
-def get_f_impact(impact):
+def get_f_impact(impact: float) -> float:
     if impact:
         f_impact_factor = 1.176
     else:
@@ -144,7 +145,8 @@ def get_f_impact(impact):
     return f_impact_factor
 
 
-def calculate_cvss_temporal(severity, basescore, version):
+def calculate_cvss_temporal(
+        severity: Dict[str, float], basescore: float, version: str) -> Decimal:
     """Calculate cvss temporal attribute."""
     if version == '3.1':
         cvss_temporal = _calc_cvss3_temporal(severity, basescore)
@@ -153,7 +155,8 @@ def calculate_cvss_temporal(severity, basescore, version):
     return cvss_temporal
 
 
-def calculate_cvss_basescore(severity, parameters, version):
+def calculate_cvss_basescore(
+        severity: Dict[str, float], parameters: Dict[str, float], version: str) -> Decimal:
     """Calculate cvss base score attribute."""
     if version == '3.1':
         cvss_basescore = _calc_cvss3_basescore(severity, parameters)
@@ -162,7 +165,8 @@ def calculate_cvss_basescore(severity, parameters, version):
     return cvss_basescore
 
 
-def calculate_cvss_environment(severity, parameters, version):
+def calculate_cvss_environment(
+        severity: Dict[str, float], parameters: Dict[str, float], version: str) -> Decimal:
     """Calculate cvss environment attribute."""
     if version == '3.1':
         cvss_environment = _calc_cvss3_environment(severity, parameters)
@@ -171,7 +175,7 @@ def calculate_cvss_environment(severity, parameters, version):
     return cvss_environment
 
 
-def calculate_privileges(privileges, scope):
+def calculate_privileges(privileges: float, scope: float) -> float:
     """Calculate privileges attribute."""
     if scope:
         if privileges == 0.62:
