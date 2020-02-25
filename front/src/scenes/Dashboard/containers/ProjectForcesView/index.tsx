@@ -35,7 +35,8 @@ export interface IExploitResult {
 
 export interface IFoundVulnerabilities {
   accepted: number;
-  others: number;
+  exploitable: number;
+  notExploitable: number;
   total: number;
 }
 
@@ -69,7 +70,8 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
     exitCode: "",
     foundVulnerabilities: {
       accepted: 0,
-      others: 0,
+      exploitable: 0,
+      notExploitable: 0,
       total: 0,
     },
     gitRepo: "",
@@ -104,6 +106,22 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
         .map((w: string): string => w[0].toUpperCase() + w.substr(1)
                                                           .toLowerCase())
         .join(" ");
+
+  const getVulnerabilitySummary:
+    ((exploitable: number, accepted: number, notExploitable: number, total: number) => string) =
+  (exploitable: number, accepted: number, notExploitable: number, total: number): string => {
+    const exploitableTrans: string = translate.t("project.forces.found_vulnerabilities.exploitable");
+    const acceptedTrans: string = translate.t("project.forces.found_vulnerabilities.accepted");
+    const notExploitableTrans: string = translate.t("project.forces.found_vulnerabilities.not_exploitable");
+    const totalTrans: string = translate.t("project.forces.found_vulnerabilities.total");
+
+    const exploitableStr: string = `${exploitable} ${exploitableTrans}`;
+    const acceptedStr: string = `${accepted} ${acceptedTrans}`;
+    const notExploitableStr: string = `${notExploitable} ${notExploitableTrans}`;
+    const totalStr: string = `${total} ${totalTrans}`;
+
+    return `${exploitableStr}, ${acceptedStr}, ${notExploitableStr}, ${totalStr}`;
+  };
 
   const formatDate: ((date: string) => string) = (date: string): string => {
     const dateObj: Date = new Date(date);
@@ -186,7 +204,8 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
               const strictness: string = toTitleCase(execution.strictness);
               const foundVulnerabilities: IFoundVulnerabilities = {
                 accepted: execution.vulnerabilities.numOfVulnerabilitiesInAcceptedExploits,
-                others: execution.vulnerabilities.numOfVulnerabilitiesInMockedExploits,
+                exploitable: execution.vulnerabilities.numOfVulnerabilitiesInExploits,
+                notExploitable: execution.vulnerabilities.numOfVulnerabilitiesInMockedExploits,
                 total: execution.vulnerabilities.numOfVulnerabilitiesInExploits
                   + execution.vulnerabilities.numOfVulnerabilitiesInMockedExploits
                   + execution.vulnerabilities.numOfVulnerabilitiesInAcceptedExploits,
@@ -243,39 +262,58 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                     <Col md={8}><p>{currentRow.identifier}</p></Col>
                   </Row>
                   <Row>
-                    <Col md={12}><p><b>{translate.t("project.forces.found_vulnerabilities.title")}</b></p></Col>
+                    <Col md={4}><p><b>{translate.t("project.forces.found_vulnerabilities.title")}</b></p></Col>
+                    <Col md={8}>
+                      <p>
+                        {getVulnerabilitySummary(
+                          currentRow.foundVulnerabilities.exploitable,
+                          currentRow.foundVulnerabilities.accepted,
+                          currentRow.foundVulnerabilities.notExploitable,
+                          currentRow.foundVulnerabilities.total)}
+                      </p>
+                    </Col>
                   </Row>
-                  <ul>
-                    <li>
-                      <p>
-                        [{translate.t("project.forces.found_vulnerabilities.total")}]
-                        &nbsp;{currentRow.foundVulnerabilities.total}
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        [{translate.t("project.forces.found_vulnerabilities.accepted")}]
-                        &nbsp;{currentRow.foundVulnerabilities.accepted}
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        [{translate.t("project.forces.found_vulnerabilities.others")}]
-                        &nbsp;{currentRow.foundVulnerabilities.others}
-                      </p>
-                    </li>
-                  </ul>
                   <Row>
-                    <Col md={12}><p><b>{translate.t("project.forces.tainted_toe.title")}</b></p></Col>
+                    <Col md={12}><p><b>{translate.t("project.forces.compromised_toe.title")}</b></p></Col>
                   </Row>
-                  <ul>
-                    {currentRow.vulnerabilities.exploits.map(
-                      (result: IExploitResult) => <li key={result.who}><p>[Security] {result.who}</p></li>)}
-                    {currentRow.vulnerabilities.acceptedExploits.map(
-                      (result: IExploitResult) => <li key={result.who}><p>[Accepted] {result.who}</p></li>)}
-                    {currentRow.vulnerabilities.mockedExploits.map(
-                      (result: IExploitResult) => <li key={result.who}><p>[Others] {result.who}</p></li>)}
-                  </ul>
+                  <Row>
+                    <Col md={1} />
+                    <Col md={2}><p><b>{translate.t("project.forces.compromised_toe.risk_state")}</b></p></Col>
+                    <Col md={1}><p><b>{translate.t("project.forces.compromised_toe.type")}</b></p></Col>
+                    <Col md={4}><p><b>Who</b></p></Col>
+                    <Col md={2}><p><b>Where</b></p></Col>
+                  </Row>
+                  {currentRow.vulnerabilities.exploits.map(
+                    (result: IExploitResult) => (
+                      <Row key={result.who}>
+                        <Col md={1} />
+                        <Col md={2}>Exploitable</Col>
+                        <Col md={1}>{result.kind}</Col>
+                        <Col md={4}>{result.who}</Col>
+                        <Col md={2}>{result.where}</Col>
+                      </Row>
+                    ))}
+                  {currentRow.vulnerabilities.acceptedExploits.map(
+                    (result: IExploitResult) => (
+                      <Row key={result.who}>
+                        <Col md={1} />
+                        <Col md={2}>Accepted</Col>
+                        <Col md={1}>{result.kind}</Col>
+                        <Col md={4}>{result.who}</Col>
+                        <Col md={2}>{result.where}</Col>
+                      </Row>
+                    ))}
+                  {currentRow.vulnerabilities.mockedExploits.map(
+                    (result: IExploitResult) => (
+                      <Row key={result.who}>
+                        <Col md={1} />
+                        <Col md={2}>Not exploitable</Col>
+                        <Col md={1}>{result.kind}</Col>
+                        <Col md={4}>{result.who}</Col>
+                        <Col md={2}>{result.where}</Col>
+                      </Row>
+                    ))}
+                  <br />
                   <hr />
                   <SyntaxHighlighter style={monokaiSublime} language="yaml" wrapLines={true}>
                     {currentRow.log}

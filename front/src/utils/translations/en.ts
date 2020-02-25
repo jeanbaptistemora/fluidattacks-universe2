@@ -233,6 +233,11 @@ const enTranslations: Dictionary = {
       },
     },
     forces: {
+      compromised_toe: {
+        risk_state: "Risk State",
+        title: "Compromised Surface",
+        type: "Type",
+      },
       date: "Date",
       execution_details_modal: {
         close: "Close",
@@ -240,7 +245,8 @@ const enTranslations: Dictionary = {
       },
       found_vulnerabilities: {
         accepted: "Accepted",
-        others: "Others",
+        exploitable: "Exploitable",
+        not_exploitable: "Not exploitable",
         title: "Vulnerabilities",
         total: "Total",
       },
@@ -258,9 +264,6 @@ const enTranslations: Dictionary = {
       },
       strictness: "Strictness",
       table_advice: "Click on an execution to see more details",
-      tainted_toe: {
-        title: "Tainted ToE",
-      },
     },
     tabs: {
       comments: "Comments",
