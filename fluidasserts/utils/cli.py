@@ -844,6 +844,59 @@ def exec_azure_package(credentials, enable_multiprocessing: bool):
         enable_multiprocessing=enable_multiprocessing)
 
 
+def exec_mssql_package(credentials, enable_multiprocessing: bool):
+    """Execute generic methods from the mssql package."""
+    template = textwrap.dedent("""
+        from fluidasserts.db import mssql
+        from fluidasserts.utils.generic import add_finding
+
+        add_finding('Fluid Asserts - DB - MSSQL Module')
+
+        {methods}
+        """)
+
+    source = [
+        'can_alter_any_credential',
+        'can_alter_any_database',
+        'can_alter_any_login',
+        'can_control_server',
+        'can_execute_commands',
+        'can_shutdown_server',
+        'has_asymmetric_keys_with_unencrypted_private_keys',
+        'has_clr_option_enabled',
+        'has_contained_dbs_with_auto_close_enabled',
+        'has_enabled_ad_hoc_queries',
+        'has_login_password_expiration_disabled',
+        'has_password_policy_check_disabled',
+        'has_remote_access_option_enabled',
+        'has_sa_account_login_enabled',
+        'has_smo_and_dmo_xps_option_enabled',
+        'has_trustworthy_status_on',
+        'has_unencrypted_storage_procedures',
+        'has_xps_option_enabled',
+        'have_access',
+        'sa_account_has_not_been_renamed',
+    ]
+    exploits = [
+        (
+            'MSSQL',
+            template.format(
+                methods='\n'.join([
+                    (
+                        f"mssql.{method}('{cred.split(' ')[2]}',"  # noqa
+                        f"'{' '.join(cred.split(' ')[3:])}',"
+                        f"'{cred.split(' ')[0]}',"
+                        f"'{cred.split(' ')[1]}')") for method in source
+                ]),
+                # module.method(user,password,host,port)
+            )) for cred in credentials
+    ]
+
+    return exec_exploits(
+        exploit_contents=exploits,
+        enable_multiprocessing=enable_multiprocessing)
+
+
 def exec_cloudformation_package(
         paths: List[str], enable_multiprocessing: bool):
     """Execute generic methods from the CloudFormation package."""
@@ -1183,6 +1236,8 @@ def get_content(args):  # noqa: MC0001
             args.terraform, args.multiprocessing)
     if args.azure:
         content += exec_azure_package(args.azure, args.multiprocessing)
+    if args.mssql:
+        content += exec_mssql_package(args.mssql, args.multiprocessing)
     if args.exploits:
         content += exec_exploits(exploit_paths=args.exploits,
                                  enable_multiprocessing=args.multiprocessing)
@@ -1265,6 +1320,10 @@ def get_argparser():
                            help=('perform AWS checks over Terraform '
                                  'templates starting recursively from '
                                  'FILE/DIR'))
+    argparser.add_argument('--mssql', nargs='+',
+                           metavar='host port user password',
+                           help=('perform MSSQL checks using the given '
+                                 'credentials.'))
 
     argparser.add_argument('exploits', nargs='*', help='exploits to execute')
 
@@ -1293,7 +1352,8 @@ def main():  # noqa: MC0001
                 args.http,
                 args.lang,
                 args.ssl,
-                args.azure)):
+                args.azure,
+                args.mssql)):
         argparser.print_help()
         exit_asserts('config-error')
 

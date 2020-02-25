@@ -194,6 +194,24 @@ def test_cli_aws_terraform():
             cli.RICH_EXIT_CODES[x] for x in ('open', 'closed', 'unknown'))
 
 
+def test_cli_mssql():
+    """Run CLI mssql subparser."""
+    os.environ['FA_STRICT'] = 'true'
+    os.environ['FA_NOTRACK'] = 'true'
+    host = '0.0.0.0'
+    port = 1432
+    user = 'sa'
+    password = 'fluidasserts123.'
+    testargs = ["asserts", "-eec", "-mp", "--mssql",
+                (f'{host} {port} '
+                 f'{user} {password}')]
+    with patch.object(sys, 'argv', testargs):
+        with pytest.raises(SystemExit) as exc:
+            cli.main()
+        assert exc.value.code in (
+            cli.RICH_EXIT_CODES[x] for x in ('open', 'closed', 'unknown'))
+
+
 def test_cli_dns():
     """Run CLI dns option."""
     os.environ['FA_STRICT'] = 'false'
