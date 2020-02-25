@@ -7,7 +7,7 @@ from botocore.exceptions import ClientError
 from backend.dal import project as project_dal
 from backend.dal.helpers import dynamodb
 
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
+DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_alerts_by_company')
 
 

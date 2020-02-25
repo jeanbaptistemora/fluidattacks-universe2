@@ -6,7 +6,7 @@ from backend.dal.helpers import dynamodb, s3
 
 from __init__ import FI_AWS_S3_BUCKET
 
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
+DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('fi_events')
 
 

@@ -13,7 +13,7 @@ from backend.dal.helpers import dynamodb
 from backend.dal.finding import get_finding, TABLE as FINDINGS_TABLE
 from backend.dal.helpers.analytics import query
 from backend.dal.user import get_attributes as get_user_attributes
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
+DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 TABLE_COMMENTS = DYNAMODB_RESOURCE.Table('fi_project_comments')
 TABLE_ACCESS = DYNAMODB_RESOURCE.Table('FI_project_access')

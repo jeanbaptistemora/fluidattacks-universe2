@@ -4,7 +4,7 @@ from backend.dal import project as project_dal
 from backend.dal.helpers import dynamodb
 
 TABLE = 'fi_project_names'
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
+DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 
 
 def exists(project_name):

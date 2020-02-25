@@ -4,7 +4,7 @@ import rollbar
 
 from backend.dal.helpers import dynamodb
 
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
+DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 
 
 def add_finding_comment_dynamo(finding_id, email, comment_data):

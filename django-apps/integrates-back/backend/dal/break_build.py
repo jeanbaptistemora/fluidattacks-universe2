@@ -10,7 +10,7 @@ from boto3.dynamodb.conditions import Key, Attr
 from backend.dal.helpers import dynamodb
 
 # Constants
-TABLE = dynamodb.DYNAMODB_RESOURCE.Table('bb_executions')
+TABLE = dynamodb.DYNAMODB_RESOURCE.Table('bb_executions')  # type: ignore
 
 
 def yield_executions(

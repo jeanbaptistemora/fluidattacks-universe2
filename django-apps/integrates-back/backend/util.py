@@ -32,7 +32,7 @@ from __init__ import (
     BREAK_BUILD_TRIGGER_TOKEN
 )
 
-logging.config.dictConfig(settings.LOGGING)
+logging.config.dictConfig(settings.LOGGING)  # type: ignore
 LOGGER = logging.getLogger(__name__)
 NUMBER_OF_BYTES = 32  # length of the key
 SCRYPT_N = 2**14  # cpu/memory cost

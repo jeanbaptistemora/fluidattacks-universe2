@@ -5,7 +5,7 @@ from backend.dal import project as project_dal
 
 from __init__ import FI_AWS_S3_RESOURCES_BUCKET
 
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
+DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 
 

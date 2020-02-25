@@ -7,7 +7,7 @@ from botocore.exceptions import ClientError
 from backend.dal.helpers import s3, dynamodb
 from __init__ import FI_AWS_S3_BUCKET
 
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
+DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 TABLE_VULNS = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
 

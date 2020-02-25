@@ -7,7 +7,8 @@ from backend.dal.helpers import dynamodb
 from __init__ import FI_TEST_PROJECTS
 
 TABLE = 'FI_users'
-DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE
+
+DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 ACCESS_TABLE = DYNAMODB_RESOURCE.Table('FI_project_access')
 
 
