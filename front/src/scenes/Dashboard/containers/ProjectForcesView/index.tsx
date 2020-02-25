@@ -168,7 +168,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
             const executions: IExecution[] = data.breakBuildExecutions.executions.map((execution: IExecution) => {
               const date: string = formatDate(execution.date);
               const kind: string = toTitleCase(execution.kind);
-              const status: ReactElement = statusFormatter(execution.exitCode === "0" ? "Success" : "Failed");
+              const status: ReactElement = statusFormatter(execution.exitCode === "0" ? "Secure" : "Vulnerable");
               const strictness: string = toTitleCase(execution.strictness);
               const foundVulnerabilities: IFoundVulnerabilities = {
                 accepted: execution.vulnerabilities.numOfVulnerabilitiesInAcceptedExploits,

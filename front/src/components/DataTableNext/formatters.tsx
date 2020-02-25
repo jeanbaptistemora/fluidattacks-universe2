@@ -14,6 +14,7 @@ export const statusFormatter: ((value: string) => ReactElement<Label>) =
       // Green
       case "Active":
       case "Closed":
+      case "Secure":
       case "Solved":
       case "Submitted":
       case "Success":
@@ -32,6 +33,7 @@ export const statusFormatter: ((value: string) => ReactElement<Label>) =
       case "Open":
       case "Rejected":
       case "Unsolved":
+      case "Vulnerable":
           bgColor = "#FF2222";
           status = value;
           break;
