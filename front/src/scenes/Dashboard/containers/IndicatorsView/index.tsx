@@ -75,6 +75,10 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
     location.hash = `#!/project/${projectName}/findings`;
   };
 
+  const goToProjectSettings: (() => void) = (): void => {
+    location.hash = `#!/project/${projectName}/resources`;
+  };
+
   const handleQryResult: ((qrResult: IIndicatorsProps) => void) = (qrResult: IIndicatorsProps): void => {
     setOpenRejectRemoveModal(!_.isEmpty(qrResult.project.deletionDate));
     mixpanel.track(
@@ -244,6 +248,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                         quantity={JSON.parse(data.resources.repositories).length}
                         title=""
                         total=""
+                        onClick={goToProjectSettings}
                       />
                     </Col>
                     <Col md={4} sm={12} xs={12}>
@@ -253,6 +258,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                         quantity={data.project.currentMonthAuthors}
                         title=""
                         total=""
+                        onClick={goToProjectSettings}
                       />
                     </Col>
                     <Col md={4} sm={12} xs={12}>
@@ -262,6 +268,7 @@ const indicatorsView: React.FC<IIndicatorsViewBaseProps> = (props: IIndicatorsVi
                         quantity={data.project.currentMonthCommits}
                         title=""
                         total=""
+                        onClick={goToProjectSettings}
                       />
                     </Col>
                   </Col>
