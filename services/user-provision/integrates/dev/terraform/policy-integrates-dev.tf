@@ -63,6 +63,15 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     ]
   }
 
+  # EC2
+  statement {
+    effect = "Allow"
+    actions = [
+      "ec2:DescribeSubnets",
+    ]
+    resources = ["*"]
+  }
+
   # Lambda
   statement {
     effect  = "Allow"

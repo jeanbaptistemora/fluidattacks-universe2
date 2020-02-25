@@ -155,14 +155,6 @@ resource "aws_route53_record" "track" {
   records = ["mandrillapp.com"]
 }
 
-resource "aws_route53_record" "vault" {
-  zone_id = aws_route53_zone.fs_maindomain.zone_id
-  name    = "vault.${aws_route53_zone.fs_maindomain.name}"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["fluidattacks.com"]
-}
-
 resource "aws_route53_record" "www" {
   zone_id = aws_route53_zone.fs_maindomain.zone_id
   name    = "www.${aws_route53_zone.fs_maindomain.name}"

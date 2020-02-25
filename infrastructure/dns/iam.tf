@@ -25,4 +25,3 @@ resource "aws_iam_policy" "fir53review-policy" {
   description = "Policy for Automatic SSL Certificate Generation"
   policy      = data.aws_iam_policy_document.fir53review-policy-doc.json
 }
-
