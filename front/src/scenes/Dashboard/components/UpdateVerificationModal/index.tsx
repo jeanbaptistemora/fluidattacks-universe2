@@ -12,7 +12,7 @@ import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { remediationModal as RemediationModal } from "../RemediationModal/index";
-import { default as style } from "./index.css";
+import { default as style } from "../Vulnerabilities/index.css";
 import { REQUEST_VERIFICATION_VULN, VERIFY_VULNERABILITIES } from "./queries";
 import { IRequestVerificationVulnResult, IVerifyRequestVulnResult } from "./types";
 
@@ -25,7 +25,6 @@ export interface IUpdateVerificationModal {
   findingId: string;
   isOpen: boolean;
   remediationType: "request" | "verify";
-  userRole: string;
   vulns: IVulnData[];
   clearSelected(): void;
   handleCloseModal(): void;
