@@ -246,8 +246,16 @@ const enTranslations: Dictionary = {
       },
       git_repo: "Git Repository",
       identifier: "Identifier",
-      kind: "Kind",
-      status: "Status",
+      kind: {
+        dynamic: "Deployed System",
+        static: "Source Code",
+        title: "Target of Evaluation",
+      },
+      status: {
+        secure: "Secure",
+        title: "Status",
+        vulnerable: "Vulnerable",
+      },
       strictness: "Strictness",
       table_advice: "Click on an execution to see more details",
       tainted_toe: {
