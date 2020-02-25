@@ -369,7 +369,7 @@ SESSION_REDIS = {
 # GraphQL API
 GRAPHQL = {
     'depth': {
-        'max': 3,
+        'max': 4,
         'whitelist': ['__schema', '__type']
     }
 }
