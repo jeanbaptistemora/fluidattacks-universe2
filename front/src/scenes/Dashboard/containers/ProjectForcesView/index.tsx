@@ -101,8 +101,10 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                                                        .padStart(positions, "0");
 
     const year: string = toStringAndPad(dateObj.getFullYear(), 4);
-    const month: string = toStringAndPad(dateObj.getMonth(), 2);
-    const day: string = toStringAndPad(dateObj.getDay(), 2);
+    // Warning: months are 0 indexed: January is 0, December is 11
+    const month: string = toStringAndPad(dateObj.getMonth() + 1, 2);
+    // Warning: Date.getDay() returns the day of the week: Monday is 1, Friday is 5
+    const day: string = toStringAndPad(dateObj.getDate(), 2);
     const hours: string = toStringAndPad(dateObj.getHours(), 2);
     const minutes: string = toStringAndPad(dateObj.getMinutes(), 2);
 
@@ -196,84 +198,81 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   title=""
                 />
               <Modal
+                  bsSize="large"
                   footer={<div />}
                   headerTitle={translate.t("project.forces.execution_details_modal.title")}
                   open={isExecutionDetailsModalOpen}
               >
               {currentRowIndex >= 0 && currentRowIndex < executions.length
                 ? <div>
-                <Row>
-                  <Col md={4}><p><b>{translate.t("project.forces.date")}</b></p></Col>
-                  <Col md={8}><p>{executions[currentRowIndex].date}</p></Col>
-                </Row>
-                <Row>
-                  <Col md={4}><p><b>{translate.t("project.forces.status")}</b></p></Col>
-                  <Col md={8}><p>{executions[currentRowIndex].status}</p></Col>
-                </Row>
-                <Row>
-                  <Col md={4}><p><b>{translate.t("project.forces.strictness")}</b></p></Col>
-                  <Col md={8}><p>{executions[currentRowIndex].strictness}</p></Col>
-                </Row>
-                <Row>
-                  <Col md={4}><p><b>{translate.t("project.forces.kind")}</b></p></Col>
-                  <Col md={8}><p>{executions[currentRowIndex].kind}</p></Col>
-                </Row>
-                <Row>
-                  <Col md={4}><p><b>{translate.t("project.forces.git_repo")}</b></p></Col>
-                  <Col md={8}><p>{executions[currentRowIndex].gitRepo}</p></Col>
-                </Row>
-                <Row>
-                  <Col md={4}><p><b>{translate.t("project.forces.identifier")}</b></p></Col>
-                  <Col md={8}><p>{executions[currentRowIndex].identifier}</p></Col>
-                </Row>
-                <Row>
-                  <Col md={4}><p><b>{translate.t("project.forces.found_vulnerabilities.total")}</b></p></Col>
-                  <Col md={8}><p>{executions[currentRowIndex].foundVulnerabilities.total}</p></Col>
-                </Row>
-                <Row>
-                  <Col md={12}><p><b>{translate.t("project.forces.found_vulnerabilities.title")}</b></p></Col>
-                </Row>
-                <ul>
-                  <li>
-                    <p>
-                      [{translate.t("project.forces.found_vulnerabilities.total")}]
-                      &nbsp;{executions[currentRowIndex].foundVulnerabilities.total}
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      [{translate.t("project.forces.found_vulnerabilities.accepted")}]
-                      &nbsp;{executions[currentRowIndex].foundVulnerabilities.accepted}
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      [{translate.t("project.forces.found_vulnerabilities.others")}]
-                      &nbsp;{executions[currentRowIndex].foundVulnerabilities.others}
-                    </p>
-                  </li>
-                </ul>
-                <Row>
-                  <Col md={12}><p><b>{translate.t("project.forces.tainted_toe.title")}</b></p></Col>
-                </Row>
-                <ul>
-                  {executions[currentRowIndex].vulnerabilities.exploits.map(
-                    (result: IExploitResult) => <li key={result.who}><p>[Security] {result.who}</p></li>)}
-                  {executions[currentRowIndex].vulnerabilities.acceptedExploits.map(
-                    (result: IExploitResult) => <li key={result.who}><p>[Accepted] {result.who}</p></li>)}
-                  {executions[currentRowIndex].vulnerabilities.mockedExploits.map(
-                    (result: IExploitResult) => <li key={result.who}><p>[Others] {result.who}</p></li>)}
-                </ul>
-                <hr />
-                <SyntaxHighlighter style={monokaiSublime} language="yaml" wrapLines={true}>
-                  {executions[currentRowIndex].log}
-                </SyntaxHighlighter>
-                <ButtonToolbar className="pull-right">
-                  <Button bsStyle="success" onClick={closeSeeExecutionDetailsModal}>
-                    {translate.t("project.forces.execution_details_modal.close")}
-                  </Button>
-                </ButtonToolbar>
-                </div>
+                    <Row>
+                      <Col md={4}><p><b>{translate.t("project.forces.date")}</b></p></Col>
+                      <Col md={8}><p>{executions[currentRowIndex].date}</p></Col>
+                    </Row>
+                    <Row>
+                      <Col md={4}><p><b>{translate.t("project.forces.status")}</b></p></Col>
+                      <Col md={8}><p>{executions[currentRowIndex].status}</p></Col>
+                    </Row>
+                    <Row>
+                      <Col md={4}><p><b>{translate.t("project.forces.strictness")}</b></p></Col>
+                      <Col md={8}><p>{executions[currentRowIndex].strictness}</p></Col>
+                    </Row>
+                    <Row>
+                      <Col md={4}><p><b>{translate.t("project.forces.kind")}</b></p></Col>
+                      <Col md={8}><p>{executions[currentRowIndex].kind}</p></Col>
+                    </Row>
+                    <Row>
+                      <Col md={4}><p><b>{translate.t("project.forces.git_repo")}</b></p></Col>
+                      <Col md={8}><p>{executions[currentRowIndex].gitRepo}</p></Col>
+                    </Row>
+                    <Row>
+                      <Col md={4}><p><b>{translate.t("project.forces.identifier")}</b></p></Col>
+                      <Col md={8}><p>{executions[currentRowIndex].identifier}</p></Col>
+                    </Row>
+                    <Row>
+                      <Col md={12}><p><b>{translate.t("project.forces.found_vulnerabilities.title")}</b></p></Col>
+                    </Row>
+                    <ul>
+                      <li>
+                        <p>
+                          [{translate.t("project.forces.found_vulnerabilities.total")}]
+                          &nbsp;{executions[currentRowIndex].foundVulnerabilities.total}
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          [{translate.t("project.forces.found_vulnerabilities.accepted")}]
+                          &nbsp;{executions[currentRowIndex].foundVulnerabilities.accepted}
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          [{translate.t("project.forces.found_vulnerabilities.others")}]
+                          &nbsp;{executions[currentRowIndex].foundVulnerabilities.others}
+                        </p>
+                      </li>
+                    </ul>
+                    <Row>
+                      <Col md={12}><p><b>{translate.t("project.forces.tainted_toe.title")}</b></p></Col>
+                    </Row>
+                    <ul>
+                      {executions[currentRowIndex].vulnerabilities.exploits.map(
+                        (result: IExploitResult) => <li key={result.who}><p>[Security] {result.who}</p></li>)}
+                      {executions[currentRowIndex].vulnerabilities.acceptedExploits.map(
+                        (result: IExploitResult) => <li key={result.who}><p>[Accepted] {result.who}</p></li>)}
+                      {executions[currentRowIndex].vulnerabilities.mockedExploits.map(
+                        (result: IExploitResult) => <li key={result.who}><p>[Others] {result.who}</p></li>)}
+                    </ul>
+                    <hr />
+                    <SyntaxHighlighter style={monokaiSublime} language="yaml" wrapLines={true}>
+                      {executions[currentRowIndex].log}
+                    </SyntaxHighlighter>
+                    <ButtonToolbar className="pull-right">
+                      <Button bsStyle="success" onClick={closeSeeExecutionDetailsModal}>
+                        {translate.t("project.forces.execution_details_modal.close")}
+                      </Button>
+                    </ButtonToolbar>
+                  </div>
                 : "No data to display"}
               </Modal>
               </React.StrictMode>
