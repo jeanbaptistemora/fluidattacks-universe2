@@ -4,8 +4,8 @@ import * as vulnerabilitiesActions from "./components/Vulnerabilities/actionType
 import { IDescriptionViewProps } from "./containers/DescriptionView";
 import * as descriptionActions from "./containers/DescriptionView/actionTypes";
 import * as projectActions from "./containers/ProjectContent/actionTypes";
+import * as resourcesActions from "./containers/ProjectSettingsView/actionTypes";
 import * as usersActions from "./containers/ProjectUsersView/actionTypes";
-import * as resourcesActions from "./containers/ResourcesView/actionTypes";
 
 export interface IDashboardState {
   addUserModal: { addUserOpen: boolean };

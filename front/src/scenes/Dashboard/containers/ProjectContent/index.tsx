@@ -12,8 +12,8 @@ import { ProjectDraftsView } from "../ProjectDraftsView";
 import { ProjectEventsView } from "../ProjectEventsView/index";
 import { ProjectFindingsView } from "../ProjectFindingsView/index";
 import { ProjectForcesView } from "../ProjectForcesView";
+import ProjectResourcesView from "../ProjectSettingsView/index";
 import ProjectUsersView from "../ProjectUsersView/index";
-import ProjectResourcesView from "../ResourcesView/index";
 import { clearProjectState, loadProjectData, ThunkDispatcher } from "./actions";
 import { default as style } from "./index.css";
 import {
