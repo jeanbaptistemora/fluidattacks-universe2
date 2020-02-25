@@ -2,36 +2,49 @@
 
 django_db_apply() {
 
-  # Apply deploy/django-db/terraform
-
   set -Eeuo pipefail
 
-  # Import functions
-  . ci-scripts/helpers/terraform.sh
+  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
+  . ci-scripts/helpers/sops.sh
 
-  run_terraform \
-    deploy/django-db/terraform \
-    fluidattacks-terraform-states-prod \
-    production \
-    apply
+  local folder='deploy/django-db/terraform'
+  local user='production'
+
+  aws_login "${user}"
+
+  sops_env "secrets-${user}.yaml" default \
+    TF_VAR_db_user \
+    TF_VAR_db_password
+
+  pushd "${folder}" || return 1
+
+  terraform init
+  terraform apply -auto-approve -refresh=true
+
+  popd || return 1
 }
 
 django_db_test() {
 
-  # Plan and lint deploy/django-db/terraform
-
   set -Eeuo pipefail
 
-  # Import functions
-  . ci-scripts/helpers/terraform.sh
+  . <(curl -s https://gitlab.com/fluidattacks/public/raw/master/shared-scripts/sops.sh)
+  . ci-scripts/helpers/sops.sh
 
-  run_terraform \
-    deploy/django-db/terraform \
-    fluidattacks-terraform-states-prod \
-    development \
-    plan
-  lint_terraform \
-    deploy/django-db/terraform \
-    fluidattacks-terraform-states-prod \
-    development
+  local folder='deploy/django-db/terraform'
+  local user='development'
+
+  aws_login "${user}"
+
+  sops_env "secrets-${user}.yaml" default \
+    TF_VAR_db_user \
+    TF_VAR_db_password
+
+  pushd "${folder}" || return 1
+
+  terraform init
+  terraform plan
+  tflint --deep --module
+
+  popd || return 1
 }

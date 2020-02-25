@@ -3,35 +3,38 @@
 backup_terraform_apply() {
 
   set -Eeuo pipefail
-  local ENV_NAME
-  
-  ENV_NAME='production'
-  
-  # Import functions
-  . ci-scripts/helpers/sops.sh
-  aws_login "$ENV_NAME"
 
-  pushd 'deploy/backup/terraform'
+  . ci-scripts/helpers/sops.sh
+
+  local folder='deploy/backup/terraform'
+  local user='production'
+
+  aws_login "${user}"
+
+  pushd "${folder}" || return 1
 
   terraform init
   terraform apply -auto-approve -refresh=true
+
+  popd || return 1
 }
 
 backup_terraform_test() {
-  
-  # Apply backup module
 
   set -Eeuo pipefail
-  local ENV_NAME
-  
-  ENV_NAME='development'
-  
-  # Import functions
+
   . ci-scripts/helpers/sops.sh
-  aws_login "$ENV_NAME"
-  
-  pushd 'deploy/backup/terraform'
+
+  local folder='deploy/backup/terraform'
+  local user='development'
+
+  aws_login "${user}"
+
+  pushd "${folder}" || return 1
+
   terraform init
-  tflint --deep --module
   terraform plan
+  tflint --deep --module
+
+  popd || return 1
 }

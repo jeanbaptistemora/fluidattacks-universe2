@@ -2,47 +2,39 @@
 
 secret_management_dev_terraform_apply() {
 
-  # Deploy secret-management/development module
-
   set -Eeuo pipefail
 
-  # Import functions
-  . ci-scripts/helpers/terraform.sh
+  . ci-scripts/helpers/sops.sh
 
-  run_terraform \
-    deploy/secret-management/dev/terraform \
-    fluidattacks-terraform-states-dev \
-    development \
-    apply
+  local folder='deploy/secret-management/dev/terraform'
+  local user='production'
+
+  aws_login "${user}"
+
+  pushd "${folder}" || return 1
+
+  terraform init
+  terraform apply -auto-approve -refresh=true
+
+  popd || return 1
 }
 
-secret_management_dev_terraform_lint() {
-
-  # Lint secret-management/development module
+secret_management_dev_terraform_test() {
 
   set -Eeuo pipefail
 
-  # Import functions
-  . ci-scripts/helpers/terraform.sh
+  . ci-scripts/helpers/sops.sh
 
-  lint_terraform \
-    deploy/secret-management/dev/terraform \
-    fluidattacks-terraform-states-dev \
-    development
-}
+  local folder='deploy/secret-management/dev/terraform'
+  local user='development'
 
-secret_management_dev_terraform_plan() {
+  aws_login "${user}"
 
-  # Plan secret-management/development module
+  pushd "${folder}" || return 1
 
-  set -Eeuo pipefail
+  terraform init
+  terraform plan
+  tflint --deep --module
 
-  # Import functions
-  . ci-scripts/helpers/terraform.sh
-
-  run_terraform \
-    deploy/secret-management/dev/terraform \
-    fluidattacks-terraform-states-dev \
-    development \
-    plan
+  popd || return 1
 }

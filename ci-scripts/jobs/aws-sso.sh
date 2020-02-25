@@ -2,47 +2,39 @@
 
 aws_sso_terraform_apply() {
 
-  # Deploy aws-sso terraform module
-
   set -Eeuo pipefail
 
-  # Import functions
-  . ci-scripts/helpers/terraform.sh
+  . ci-scripts/helpers/sops.sh
 
-  run_terraform \
-    deploy/aws-sso/terraform \
-    fluidattacks-terraform-states-prod \
-    production \
-    apply
+  local folder='deploy/aws-sso/terraform'
+  local user='production'
+
+  aws_login "${user}"
+
+  pushd "${folder}" || return 1
+
+  terraform init
+  terraform apply -auto-approve -refresh=true
+
+  popd || return 1
 }
 
-aws_sso_terraform_lint() {
-
-  # Lint aws-sso terraform module
+aws_sso_terraform_test() {
 
   set -Eeuo pipefail
 
-  # Import functions
-  . ci-scripts/helpers/terraform.sh
+  . ci-scripts/helpers/sops.sh
 
-  lint_terraform \
-    deploy/aws-sso/terraform \
-    fluidattacks-terraform-states-prod \
-    production
-}
+  local folder='deploy/aws-sso/terraform'
+  local user='development'
 
-aws_sso_terraform_plan() {
+  aws_login "${user}"
 
-  # Plan aws-sso terraform module
+  pushd "${folder}" || return 1
 
-  set -Eeuo pipefail
+  terraform init
+  terraform plan
+  tflint --deep --module
 
-  # Import functions
-  . ci-scripts/helpers/terraform.sh
-
-  run_terraform \
-    deploy/aws-sso/terraform \
-    fluidattacks-terraform-states-prod \
-    production \
-    plan
+  popd || return 1
 }

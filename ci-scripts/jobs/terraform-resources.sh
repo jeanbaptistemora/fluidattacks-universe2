@@ -2,48 +2,39 @@
 
 terraform_resources_apply() {
 
-  # Apply terraform-resources module
-
   set -Eeuo pipefail
 
-  # Import functions
-  . ci-scripts/helpers/terraform.sh
+  . ci-scripts/helpers/sops.sh
 
-  run_terraform \
-    deploy/terraform-resources \
-    "$FS_S3_BUCKET" \
-    production \
-    apply
+  local folder='deploy/terraform-resources'
+  local user='production'
+
+  aws_login "${user}"
+
+  pushd "${folder}" || return 1
+
+  terraform init
+  terraform apply -auto-approve -refresh=true
+
+  popd || return 1
 }
 
-terraform_resources_lint() {
-
-  # Lint terraform-resources module
+terraform_resources_test() {
 
   set -Eeuo pipefail
 
-  # Import functions
-  . ci-scripts/helpers/terraform.sh
+  . ci-scripts/helpers/sops.sh
 
-  lint_terraform \
-    deploy/terraform-resources \
-    "$FS_S3_BUCKET" \
-    development
+  local folder='deploy/terraform-resources'
+  local user='development'
 
-}
+  aws_login "${user}"
 
-terraform_resources_plan() {
+  pushd "${folder}" || return 1
 
-  # Plan terraform-resources module
+  terraform init
+  terraform plan
+  tflint --deep --module
 
-  set -Eeuo pipefail
-
-  # Import functions
-  . ci-scripts/helpers/terraform.sh
-
-  run_terraform \
-    deploy/terraform-resources \
-    "$FS_S3_BUCKET" \
-    development \
-    plan
+  popd || return 1
 }

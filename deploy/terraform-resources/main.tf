@@ -14,10 +14,12 @@ variable "sqs_id" {
 
 terraform {
   backend "s3" {
+    bucket  = "servestf"
     key     = "integrates.tfstate"
     region  = "us-east-1"
     encrypt = true
   }
+  required_version = ">= 0.12"
 }
 
 provider "aws" {
