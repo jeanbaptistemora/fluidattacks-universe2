@@ -70,6 +70,8 @@ $codeyellow: rgba(230, 219, 116, 1);
 .hv-fluid-dkred { &:hover { color: $fluid-dark-red;} }
 .hv-fluid-bk { &:hover { color: $fluid-black;} }
 .hv-fluid-lb { &:hover { color: $lightblue; }}
+.hv-bt-fluid-rd { &:hover { background-color: $button-hover; } }
+.hv-fluid-rd { &:hover { color: $button-hover; } }
 .hideme { visibility: hidden; }
 .fluid-bullet { list-style-image: url('../../images/bullet2.png');}
 .bullet-inside { list-style-position: inside; }
@@ -80,8 +82,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .w6 { width: 19em; }
 .w-maxcontent { width: max-content; }
 .mt8 { margin-top: 20rem; }
-.bannerbt { background-color: $button-red;
-  &:hover { background-color: $button-hover;} }
+.bannerbt { background-color: $button-red; }
 .bt-pd { padding: .625rem 2.5rem; }
 .bt-trans { transition: all .3s ease;}
 .menu-txt-trans { transition: color .2s; }
@@ -112,12 +113,18 @@ $codeyellow: rgba(230, 219, 116, 1);
   transition: transform .5s, opacity .5s; }
 .t-50 { top: 50%; }
 .ty-50 { transform: translateY(-50%); }
+.mt-menu { margin-top: 1.25rem; }
 
 // Tachyons custom responsive classes
 
+// Small screens
+@media screen and (max-width: 30em) {
+  .mr-5-s { margin-right: 4rem; }
+}
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {
   .two-columns-m { column-count: 2; }
+  .mr-5-m { margin-right: 4rem; }
 }
 
 //Large screens
@@ -127,6 +134,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .three-columns-l { column-count: 3; }
   .hover-white-l { &:hover { color: $white; }}
   .new-banner { width: 40em; }
+  .mr-13-l { margin-right: 13rem; }
 }
 
 //Very large screens
