@@ -6,6 +6,7 @@ import logging.config
 from collections import OrderedDict, defaultdict
 from datetime import datetime, timedelta
 
+from typing import Any, Dict, List, Tuple
 import rollbar
 from botocore.exceptions import ClientError
 from django.conf import settings
@@ -27,27 +28,27 @@ from __init__ import (
     FI_TEST_PROJECTS, FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS, FI_MAIL_REVIEWERS
 )
 
-logging.config.dictConfig(settings.LOGGING)
+logging.config.dictConfig(settings.LOGGING)  # type: ignore
 LOGGER = logging.getLogger(__name__)
 
 BASE_URL = 'https://fluidattacks.com/integrates'
 BASE_WEB_URL = 'https://fluidattacks.com/web'
 
 
-def is_not_a_fluidattacks_email(email):
+def is_not_a_fluidattacks_email(email: str) -> bool:
     return 'fluidattacks.com' not in email
 
 
-def remove_fluid_from_recipients(emails):
+def remove_fluid_from_recipients(emails: List[str]) -> List[str]:
     new_email_list = list(filter(is_not_a_fluidattacks_email, emails))
     return new_email_list
 
 
-def is_a_unsolved_event(event):
+def is_a_unsolved_event(event: Dict[Any, Any]) -> bool:
     return event.get('historic_state', [{}])[-1].get('state', '') == 'CREATED'
 
 
-def get_unsolved_events(project):
+def get_unsolved_events(project: str) -> List[str]:
     events = project_domain.list_events(project)
     event_list = []
     for event in events:
@@ -57,12 +58,12 @@ def get_unsolved_events(project):
     return unsolved_events
 
 
-def extract_info_from_event_dict(event_dict):
+def extract_info_from_event_dict(event_dict: Any) -> Dict[str, str]:
     event_dict = {'type': event_dict['event_type'], 'details': event_dict['detail']}
     return event_dict
 
 
-def send_unsolved_events_email(project):
+def send_unsolved_events_email(project: str):
     unsolved_events = get_unsolved_events(project)
     mail_to = get_external_recipients(project)
     project_info = project_domain.get_project_info(project)
@@ -83,12 +84,12 @@ def send_unsolved_events_email(project):
         send_mail_unsolved_events(mail_to, context_event)
 
 
-def get_external_recipients(project):
+def get_external_recipients(project: str) -> List[str]:
     recipients = project_domain.get_managers(project)
     return remove_fluid_from_recipients(recipients)
 
 
-def get_finding_url(finding):
+def get_finding_url(finding: Dict[str, str]) -> str:
     url = '{url!s}/dashboard#!/project/{project!s}/' '{finding!s}/description' \
         .format(url=BASE_URL,
                 project=finding['project_name'],
@@ -96,10 +97,10 @@ def get_finding_url(finding):
     return url
 
 
-def get_status_vulns_by_time_range(vulns, first_day, last_day,
-                                   findings_released):
+def get_status_vulns_by_time_range(vulns: List[Dict[str, Any]], first_day: str, last_day: str,
+                                   findings_released: List[Dict[str, str]]) -> Dict[str, Any]:
     """Get total closed and found vulnerabilities by time range"""
-    resp = defaultdict(int)
+    resp: Dict[str, Any] = defaultdict(int)
     for vuln in vulns:
         historic_states = vuln['historic_state']
         last_state = vuln_domain.get_last_approved_state(vuln)
@@ -114,7 +115,7 @@ def get_status_vulns_by_time_range(vulns, first_day, last_day,
     return resp
 
 
-def create_weekly_date(first_date):
+def create_weekly_date(first_date: Any) -> str:
     """Create format weekly date"""
     first_date = datetime.strptime(first_date, '%Y-%m-%d %H:%M:%S')
     begin = first_date - timedelta(days=(first_date.isoweekday() - 1) % 7)
@@ -128,7 +129,8 @@ def create_weekly_date(first_date):
     return date.format(begin, end)
 
 
-def get_accepted_vulns(findings_released, vulns, first_day, last_day):
+def get_accepted_vulns(findings_released: List[Dict[Any, Any]], vulns: List[Any],
+                       first_day: str, last_day: str) -> int:
     """Get all vulnerabilities accepted by time range"""
     accepted = 0
     for finding in findings_released:
@@ -139,7 +141,8 @@ def get_accepted_vulns(findings_released, vulns, first_day, last_day):
     return accepted
 
 
-def get_by_time_range(finding, vuln, first_day, last_day):
+def get_by_time_range(
+        finding: Dict[str, str], vuln: Dict[str, str], first_day: str, last_day: str) -> int:
     """Accepted vulnerability of finding."""
     count = 0
     if finding['finding_id'] == vuln['finding_id']:
@@ -157,7 +160,7 @@ def get_by_time_range(finding, vuln, first_day, last_day):
     return count
 
 
-def create_register_by_week(project):
+def create_register_by_week(project: str) -> List[List[Any]]:
     """Create weekly vulnerabilities registry by project"""
     accepted = 0
     closed = 0
@@ -190,9 +193,9 @@ def create_register_by_week(project):
     return create_data_format_chart(all_registers)
 
 
-def create_data_format_chart(all_registers):
+def create_data_format_chart(all_registers: Dict[Any, Any]) -> List[List[Any]]:
     result_data = []
-    plot_points = {
+    plot_points: Dict[str, List[Any]] = {
         'found': [],
         'closed': [],
         'accepted': [],
@@ -205,15 +208,15 @@ def create_data_format_chart(all_registers):
     return result_data
 
 
-def get_all_vulns_by_project(findings_released):
+def get_all_vulns_by_project(findings_released: List[Dict[Any, Any]]) -> List[Dict[Any, Any]]:
     """Get all vulnerabilities by project"""
-    vulns = []
+    vulns: List[Dict[Any, Any]] = []
     for finding in findings_released:
         vulns += finding_dal.get_vulnerabilities(finding['finding_id'])
     return vulns
 
 
-def get_first_week_dates(vulns):
+def get_first_week_dates(vulns: List[Dict[Any, Any]]) -> Tuple[str, str]:
     """Get first week vulnerabilities"""
     first_date = min([datetime.strptime(vuln['historic_state'][0]['date'],
                                         '%Y-%m-%d %H:%M:%S') for vuln in vulns])
@@ -226,7 +229,7 @@ def get_first_week_dates(vulns):
     return str(first_day), str(last_day)
 
 
-def get_date_last_vulns(vulns):
+def get_date_last_vulns(vulns: List[Dict[Any, Any]]) -> str:
     """Get date of the last vulnerabilities"""
     last_date = max([datetime.strptime(vuln['historic_state'][-1]['date'],
                                        '%Y-%m-%d %H:%M:%S') for vuln in vulns])
@@ -272,13 +275,13 @@ def get_new_vulnerabilities():
             send_mail_new_vulnerabilities(mail_to, context)
 
 
-def prepare_mail_recipients(project):
+def prepare_mail_recipients(project: str) -> List[Dict[Any, Any]]:
     mail_to = project_domain.get_users(project)
     mail_to.append(FI_MAIL_CONTINUOUS)
     return mail_to
 
 
-def calculate_vulnerabilities(act_finding):
+def calculate_vulnerabilities(act_finding: Dict[str, str]) -> int:
     vulns = finding_dal.get_vulnerabilities(act_finding['finding_id'])
     all_tracking = finding_domain.get_tracking_vulnerabilities(vulns)
     delta_total = 0
@@ -297,7 +300,7 @@ def calculate_vulnerabilities(act_finding):
     return delta_total
 
 
-def format_vulnerabilities(delta, act_finding):
+def format_vulnerabilities(delta: int, act_finding: Dict[str, str]) -> str:
     """Format vulnerabities changes in findings."""
     if delta > 0:
         finding_text = '{finding!s} (+{delta!s})'.format(
@@ -317,7 +320,7 @@ def format_vulnerabilities(delta, act_finding):
     return finding_text
 
 
-def create_msj_finding_pending(act_finding):
+def create_msj_finding_pending(act_finding: Dict[str, Any]) -> str:
     """Validate if a finding has treatment."""
     historic_treatment = act_finding.get('historic_treatment', [{}])
     open_vulns = [
@@ -388,7 +391,7 @@ def weekly_report():
     )
 
 
-def all_users_formatted(company):
+def all_users_formatted(company: str) -> Dict[str, int]:
     """Format total users by company."""
     total_users = user_domain.get_all_users(company)
     all_users_by_company = {company: total_users}
@@ -454,7 +457,7 @@ def get_new_releases():
                                'warning')
 
 
-def send_unsolved_to_all():
+def send_unsolved_to_all() -> List[bool]:
     """Send email with unsolved events to all projects """
     rollbar.report_message('Warning: Function to send email with unsolved events is running',
                            'warning')
@@ -462,7 +465,7 @@ def send_unsolved_to_all():
     return [send_unsolved_events_email(x) for x in projects]
 
 
-def get_project_indicators(project):
+def get_project_indicators(project: str) -> Dict[str, Any]:
     findings = project_domain.get_released_findings(
         project, 'finding_id, historic_treatment, cvss_temporal')
     indicators = {

@@ -2,6 +2,7 @@ from html import escape
 import json
 import threading
 
+from typing import Any, Dict, List
 import boto3
 import botocore
 import rollbar
@@ -22,7 +23,7 @@ GENERAL_TAG = ['general']
 QUEUE_URL = SQS_QUEUE_URL
 
 
-def _escape_context(context):
+def _escape_context(context: Dict[str, str]) -> Dict[str, str]:
     attr_to_esc = [
         'solution_description',
         'description',
@@ -45,7 +46,7 @@ def _escape_context(context):
     return context
 
 
-def _remove_test_projects(context, test_proj_list):
+def _remove_test_projects(context: Dict[str, str], test_proj_list: List[str]) -> Dict[str, str]:
     findings = context.get('findings')
     if findings and isinstance(findings, list):
         new_findings = list()
@@ -58,7 +59,7 @@ def _remove_test_projects(context, test_proj_list):
     return context
 
 
-def _get_recipient_first_name(email):
+def _get_recipient_first_name(email: str) -> str:
     first_name = user_domain.get_data(email, 'first_name')
     if not first_name:
         first_name = email.split('@')[0]
@@ -69,16 +70,16 @@ def _get_recipient_first_name(email):
 
 
 # pylint: disable=too-many-locals
-def _send_mail(template_name, email_to, context, tags):
+def _send_mail(template_name: str, email_to: str, context: Dict[str, str], tags: List[str]):
     project = context.get('project', '').lower()
     test_proj_list = FI_TEST_PROJECTS.split(',')
-    sqs = boto3.client('sqs', aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,
+    sqs = boto3.client('sqs', aws_access_key_id=FI_AWS_DYNAMODB_ACCESS_KEY,  # type: ignore
                        aws_secret_access_key=FI_AWS_DYNAMODB_SECRET_KEY,
                        region_name='us-east-1')
     no_test_context = _remove_test_projects(context, test_proj_list)
     new_context = _escape_context(no_test_context)
     if project not in test_proj_list:
-        message = {
+        message: Dict[str, List[Any]] = {
             'to': [],
             'global_merge_vars': [],
             'merge_vars': []
@@ -121,7 +122,8 @@ def _send_mail(template_name, email_to, context, tags):
         pass
 
 
-def send_comment_mail(comment_data, entity_name, user_mail, comment_type='', entity=''):
+def send_comment_mail(comment_data: Dict[str, str], entity_name: str,
+                      user_mail: str, comment_type: str = '', entity: Any = ''):
     parent = comment_data['parent']
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     email_context = {
@@ -185,9 +187,9 @@ def send_comment_mail(comment_data, entity_name, user_mail, comment_type='', ent
     email_send_thread.start()
 
 
-def get_email_recipients(project_name, comment_type):
+def get_email_recipients(project_name: str, comment_type: Any) -> List[str]:
     project_users = project_dal.get_users(project_name)
-    recipients = []
+    recipients: List[str] = []
 
     if comment_type == 'observation':
         approvers = FI_MAIL_REVIEWERS.split(',')
@@ -204,30 +206,30 @@ def get_email_recipients(project_name, comment_type):
     return recipients
 
 
-def send_mail_new_draft(email_to, context):
+def send_mail_new_draft(email_to: str, context: Dict[str, str]):
     _send_mail('new-draft', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_new_vulnerabilities(email_to, context):
+def send_mail_new_vulnerabilities(email_to: str, context: Dict[str, str]):
     _send_mail('newvulnerabilitiesintegrates', email_to, context=context, tags=VULNERABILITIES_TAG)
 
 
-def send_mail_new_user(email_to, context):
+def send_mail_new_user(email_to: str, context: Dict[str, str]):
     _send_mail('userfindingintegrates', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_delete_finding(email_to, context):
+def send_mail_delete_finding(email_to: str, context: Dict[str, str]):
     _send_mail('deletefindingintegrates', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_remediate_finding(email_to, context):
+def send_mail_remediate_finding(email_to: str, context: Dict[str, str]):
     _send_mail('remediate-finding',
                email_to,
                context=context,
                tags=VERIFY_TAG)
 
 
-def send_mail_comment(email_to, context):
+def send_mail_comment(email_to: str, context: List[Dict[str, str]]):
     _send_mail('new-comment',
                email_to[0],
                context=context[0],
@@ -238,52 +240,52 @@ def send_mail_comment(email_to, context):
                tags=COMMENTS_TAG)
 
 
-def send_mail_verified_finding(email_to, context):
+def send_mail_verified_finding(email_to: str, context: Dict[str, str]):
     _send_mail('verified-finding', email_to, context=context, tags=VERIFY_TAG)
 
 
-def send_mail_new_remediated(email_to, context):
+def send_mail_new_remediated(email_to: str, context: Dict[str, str]):
     _send_mail('newremediatefindingintegrates', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_reject_draft(email_to, context):
+def send_mail_reject_draft(email_to: str, context: Dict[str, str]):
     _send_mail('unsubmitted_draft', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_new_releases(email_to, context):
+def send_mail_new_releases(email_to: str, context: Dict[str, str]):
     _send_mail('newreleasesintegrates', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_access_granted(email_to, context):
+def send_mail_access_granted(email_to: str, context: Dict[str, str]):
     _send_mail('accessgrantedintegrates', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_new_version(email_to, context):
+def send_mail_new_version(email_to: str, context: Dict[str, str]):
     _send_mail('new_version', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_resources(email_to, context):
+def send_mail_resources(email_to: str, context: Dict[str, str]):
     _send_mail('resources-changes',
                email_to,
                context=context,
                tags=GENERAL_TAG)
 
 
-def send_mail_unsolved_events(email_to, context):
+def send_mail_unsolved_events(email_to: str, context: Dict[str, str]):
     _send_mail('unsolvedevents', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_accepted_finding(email_to, context):
+def send_mail_accepted_finding(email_to: str, context: Dict[str, str]):
     _send_mail('acceptedfinding', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_updated_vulns(email_to, context):
+def send_mail_updated_vulns(email_to: str, context: Dict[str, str]):
     _send_mail('updated-vulns', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_project_deletion(email_to, context):
+def send_mail_project_deletion(email_to: str, context: Dict[str, str]):
     _send_mail('projectdeletion', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_new_event(email_to, context):
+def send_mail_new_event(email_to: str, context: Dict[str, str]):
     _send_mail('new-event', email_to, context=context, tags=GENERAL_TAG)
