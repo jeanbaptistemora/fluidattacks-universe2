@@ -119,6 +119,7 @@ describe("Resources view", () => {
             __typename: "Resource",
             repositories: JSON.stringify([{
               branch: "test",
+              historic_state: [{ state: "ACTIVE" }],
               protocol: "HTTPS",
               urlRepo: "https://gitlab.com/fluidattacks/integrates",
             }]),
@@ -171,6 +172,7 @@ describe("Resources view", () => {
   });
 
   it("should render tags component", async () => {
+    (window as typeof window & Dictionary<string>).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocksTags} addTypename={true}>
@@ -184,6 +186,7 @@ describe("Resources view", () => {
   });
 
   it("should render repositories component", async () => {
+    (window as typeof window & Dictionary<string>).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocksRepositories} addTypename={true}>
@@ -222,6 +225,7 @@ describe("Resources view", () => {
   });
 
   it("should render environments component", async () => {
+    (window as typeof window & Dictionary<string>).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocksEnvironments} addTypename={true}>
@@ -264,6 +268,7 @@ describe("Resources view", () => {
   });
 
   it("should render files component", async () => {
+    (window as typeof window & Dictionary<string>).userRole = "customer";
     const wrapper: ReactWrapper = mount(
       <Provider store={store}>
         <MockedProvider mocks={mocksTags} addTypename={true}>

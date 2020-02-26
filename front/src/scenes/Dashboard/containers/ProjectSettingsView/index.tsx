@@ -36,6 +36,7 @@ import {
   ADD_RESOURCE_MUTATION, ADD_TAGS_MUTATION, GET_ENVIRONMENTS, GET_PROJECT_DATA, GET_REPOSITORIES, GET_TAGS,
   REMOVE_TAG_MUTATION, UPDATE_RESOURCE_MUTATION,
 } from "./queries";
+import { Repositories } from "./Repositories";
 import {
   IAddEnvAttr, IAddReposAttr, IAddTagsAttr, IEnvironmentsAttr, IGetProjectData, IProjectTagsAttr, IRemoveTagsAttr,
   IRepositoriesAttr, IResourcesAttr, IResourcesViewBaseProps, IResourcesViewDispatchProps, IResourcesViewProps,
@@ -170,10 +171,10 @@ const findSwitchButton: ((rowId: string, resType: string) => Element | undefined
   return undefined;
 };
 
-let currUserRole: string = "customer";
 const allowedRoles: string[] = ["customer"];
 
 const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IResourcesViewProps): JSX.Element => {
+  const { userRole: currUserRole } = (window as typeof window & Dictionary<string>);
   const [sortValueTags, setSortValueTags] = React.useState(props.defaultSort.tags);
   const handleOpenTagsModal: (() => void) = (): void => { props.onOpenTagsModal(); };
   const handleCloseTagsModal: (() => void) = (): void => { props.onCloseTagsModal(); };
@@ -394,6 +395,7 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
 
 const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
   (props: IResourcesViewProps): JSX.Element => {
+    const { userRole: currUserRole } = (window as typeof window & Dictionary<string>);
     const [filterValueRepositories, setFilterValueRepositories] = React.useState(props.filters.stateRepositories);
     const [sortValueRepositories, setSortValueRepositories] = React.useState(props.defaultSort.repositories);
     const handleAddRepoClick: (() => void) = (): void => { props.onOpenReposModal(); };
@@ -414,9 +416,6 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
             return <React.Fragment/>;
           }
           if (!_.isUndefined(data)) {
-            if (data.me !== undefined) {
-              currUserRole = data.me.role;
-            }
 
             let repos: IRepositoriesAttr[] = JSON.parse(data.resources.repositories);
             repos = repos.map((repo: IRepositoriesAttr) => {
@@ -673,6 +672,7 @@ const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
 
 const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
   (props: IResourcesViewProps): JSX.Element => {
+    const { userRole: currUserRole } = (window as typeof window & Dictionary<string>);
     const [filterValueEnvironments, setFilterValueEnvironments] = React.useState(props.filters.stateEnvironments);
     const [sortValueEnvironments, setSortValueEnvironments] = React.useState(props.defaultSort.environments);
     const handleAddEnvClick: (() => void) = (): void => { props.onOpenEnvsModal(); };
@@ -939,6 +939,7 @@ const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
 
 const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
   (props: IResourcesViewProps): JSX.Element => {
+    const { userRole: currUserRole } = (window as typeof window & Dictionary<string>);
     const [sortValueFiles, setSortValueFiles] = React.useState(props.defaultSort.files);
     const handleAddFileClick: (() => void) = (): void => { props.onOpenFilesModal(); };
     const handleCloseFilesModalClick: (() => void) = (): void => { props.onCloseFilesModal(); };
@@ -1115,7 +1116,8 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
   (
   <React.StrictMode>
     <div id="resources" className="tab-pane cont active">
-      {renderRepositories(props)}
+      {false ? renderRepositories(props) : undefined}
+      <Repositories projectName={props.match.params.projectName} />
       {renderEnvironments(props)}
       {renderFiles(props)}
       {renderTagsView(props)}

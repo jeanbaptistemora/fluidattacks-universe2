@@ -26,13 +26,13 @@ interface IRepositoriesProps {
 const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): JSX.Element => {
   const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
 
-  /// State management
+  // State management
   const [isAddModalOpen, setAddModalOpen] = React.useState(false);
   const openAddModal: (() => void) = (): void => { setAddModalOpen(true); };
   const closeAddModal: (() => void) = (): void => { setAddModalOpen(false); };
 
-  const [filterValueRepositories, setFilterValueRepositories] = React.useState("");
-  const [sortValueRepositories, setSortValueRepositories] = React.useState({});
+  const [filterValue, setFilterValue] = React.useState("");
+  const [sortValue, setSortValue] = React.useState({});
 
   // GraphQL operations
   const { data, refetch } = useQuery(GET_REPOSITORIES, { variables: { projectName: props.projectName } });
@@ -54,10 +54,14 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
   }
 
   const reposDataset: IRepositoriesAttr[] = JSON.parse(data.resources.repositories)
-    .map((repo: IRepositoriesAttr) => ({
-      ...repo,
-      state: _.capitalize((_.last(repo.historic_state) as IHistoricState).state),
-    }));
+    .map((repo: IRepositoriesAttr) => {
+      const historicState: IHistoricState[] = _.get(repo, "historic_state", [{ date: "", state: "ACTIVE", user: "" }]);
+
+      return {
+        ...repo,
+        state: _.capitalize((_.last(historicState) as IHistoricState).state),
+      };
+    });
 
   const isRepeated: ((newRepo: IRepositoriesAttr) => boolean) = (newRepo: IRepositoriesAttr): boolean => {
     const repeatedItems: IRepositoriesAttr[] = reposDataset.filter((repo: IRepositoriesAttr): boolean =>
@@ -125,13 +129,13 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
             dataField: string, order: SortOrder,
           ): void => {
             const newSorted: Sorted = { dataField, order };
-            setSortValueRepositories(newSorted);
+            setSortValue(newSorted);
           };
 
           const filterState: {} = selectFilter({
-            defaultValue: filterValueRepositories,
+            defaultValue: filterValue,
             onFilter: (filterVal: string): void => {
-              setFilterValueRepositories(filterVal);
+              setFilterValue(filterVal);
             },
             options: [
               { value: "Active", label: "Active" },
@@ -178,7 +182,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
             <DataTableNext
               bordered={true}
               dataset={reposDataset}
-              defaultSorted={sortValueRepositories}
+              defaultSorted={sortValue}
               exportCsv={true}
               search={true}
               headers={tableHeaders}
