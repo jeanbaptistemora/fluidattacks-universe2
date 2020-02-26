@@ -43,7 +43,8 @@ function job_serve_front {
       pushd front \
     &&  npm install \
     &&  npm start \
-  &&  popd
+  &&  popd \
+  ||  return 1
 }
 
 function job_serve_redis {
@@ -79,12 +80,26 @@ function job_lint_back {
   &&  prospector -F -s veryhigh lambda
 }
 
+function job_lint_build_system {
+  # SC1090: Can't follow non-constant source. Use a directive to specify location.
+  # SC2016: Expressions don't expand in single quotes, use double quotes for that.
+  # SC2153: Possible misspelling: TEMP_FILE2 may not be assigned, but TEMP_FILE1 is.
+  # SC2154: var is referenced but not assigned.
+
+      nix-linter --recursive . \
+  && echo '[OK] Nix code is compliant'
+      shellcheck --external-sources build.sh \
+  && find 'build' -name '*.sh' -exec \
+      shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154 {} +
+}
+
 function job_lint_front {
       pushd front \
     &&  npm install \
     &&  npm run audit \
     &&  npm run lint \
-  &&  popd
+  &&  popd \
+  ||  return 1
 }
 
 function job_test_back {
@@ -111,5 +126,6 @@ function job_test_front {
       pushd front \
     &&  npm install \
     &&  npm test \
-  &&  popd
+  &&  popd \
+  ||  return 1
 }

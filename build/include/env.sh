@@ -52,5 +52,6 @@ function prepare_dynamodb_local {
   &&  mkdir -p './.DynamoDB' \
   &&  pushd './.DynamoDB' \
     &&  unzip -u "${srcExternalDynamoDbLocal}" \
-  && popd
+  && popd \
+  ||  return 1
 }

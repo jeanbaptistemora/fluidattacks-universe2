@@ -15,9 +15,11 @@ in
     pkgs.git
     pkgs.hostname
     pkgs.jq
+    pkgs.nix-linter
     pkgs.nodejs
     pkgs.openjdk
     pkgs.redis
+    pkgs.shellcheck
     pkgs.sops
     pkgs.unzip
   ]
