@@ -42,6 +42,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .bg-code-bk { background-color: $codeblack; }
 .bg-code-dkred { background-color: $codedarkred; }
 .bc-fluid-gray { border-color: $fluid-gray; }
+.bg-dk-red { background-color: $button-red;}
 .minw-100 { min-width: 100%; }
 .ma-auto { margin: auto; }
 .w-32 { width: 32%; }
@@ -55,6 +56,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .c-fluid-bk { color: $fluid-black; }
 .c-fluid-red { color: $fluid-red; }
 .c-fluid-dkred { color: $fluid-dark-red; }
+.c-dkred { color: $button-red; }
 .c-fluid-gray { color: $fluid-gray; }
 .c-fluid-dkblue { color: $darkblue; }
 .c-codegray { color: $codegray; }
@@ -114,12 +116,15 @@ $codeyellow: rgba(230, 219, 116, 1);
 .t-50 { top: 50%; }
 .ty-50 { transform: translateY(-50%); }
 .mt-menu { margin-top: 1.25rem; }
+.f-small { font-size: .875rem; }
+.w2-5 { width: 2.5rem; }
 
 // Tachyons custom responsive classes
 
 // Small screens
 @media screen and (max-width: 30em) {
   .mr-5-s { margin-right: 4rem; }
+  .f-small-s { font-size: .6rem; }
 }
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {

@@ -161,7 +161,7 @@ msgstr "Expert intelligence + effective automation"
 
 #: templates/new-base.html:122
 msgid "New-Header-msg"
-msgstr "FOR YOUR SOFTWARE DEVELOPMENT PROCESS"
+msgstr "FOR YOUR SOFTWARE DEVELOPMENT CYCLE"
 
 #: templates/base.html:124
 msgid "Header-item-1"
@@ -566,6 +566,10 @@ msgstr "Immersion"
 #: templates/footer.html:88
 msgid "Footer-stat-msg-1"
 msgstr "Service status"
+
+#: templates/new-footer.html:88
+msgid "New-Footer-stat-msg-1"
+msgstr "Copyright © 2020 Fluid Attacks, We hack your software. All rights reserved."
 
 #: templates/footer.html:92
 msgid "Footer-status-link-1"
