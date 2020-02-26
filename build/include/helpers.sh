@@ -1,5 +1,29 @@
 # shellcheck shell=bash
 
+function helper_docker_build_and_push {
+  local tag="${1}"
+  local context="${2}"
+  local dockerfile="${3}"
+  local build_arg_1_key="${4:-build_arg_1_key}"
+  local build_arg_1_val="${5:-build_arg_1_val}"
+
+      echo "[INFO] Logging into: ${CI_REGISTRY}" \
+  &&  docker login \
+        --username "${CI_REGISTRY_USER}" \
+        --password "${CI_REGISTRY_PASSWORD}" \
+      "${CI_REGISTRY}" \
+  &&  echo "[INFO] Pulling: ${tag}" \
+  &&  { docker pull "${tag}" || true; } \
+  &&  echo "[INFO] Building: ${tag}" \
+  &&  docker build \
+          --tag "${tag}" \
+          --file "${dockerfile}" \
+          --build-arg "${build_arg_1_key}=${build_arg_1_val}" \
+        "${context}" \
+  &&  echo "[INFO] Pushing: ${tag}" \
+  &&  docker push "${tag}"
+}
+
 function helper_get_gitlab_var {
   local gitlab_var_name="${1}"
       echo "[INFO] Retrieving var from GitLab: ${gitlab_var_name}" 1>&2 \

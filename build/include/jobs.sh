@@ -6,6 +6,17 @@ source "${srcExternalSops}"
 source "${srcExternalSops}"
 source "${srcCiScriptsHelpersSops}"
 
+function job_deploy_cache_container {
+  local context='.'
+  local dockerfile='build/Dockerfile'
+  local tag="${CI_REGISTRY_IMAGE}:nix"
+
+  helper_docker_build_and_push \
+    "${tag}" \
+    "${context}" \
+    "${dockerfile}"
+}
+
 function job_serve_dynamodb_local {
   local port=8022
 

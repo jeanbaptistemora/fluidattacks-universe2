@@ -11,6 +11,7 @@ in
     pkgs.awscli
     pkgs.cacert
     pkgs.curl
+    pkgs.docker
     pkgs.git
     pkgs.hostname
     pkgs.jq

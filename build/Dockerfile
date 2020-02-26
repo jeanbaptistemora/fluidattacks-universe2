@@ -7,4 +7,5 @@ RUN apk add --no-cache \
 COPY . /code
 
 # Fetch all dependencies to the /nix/store
-RUN nix-shell --run ':' /code/build/shell.nix
+RUN     nix-shell --run ':' /code/build/shell.nix \
+    &&  nix-store --optimise
