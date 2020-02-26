@@ -162,10 +162,6 @@
         mixPanelDashboard.trackPageView ("Page View", document.title, window.location.pathname);
       </script>
     <!-- End Mixpanel Event -->
-      {% assets output="static/js/dynClasses.min.js", "js/tmp/dynClasses.min.js" %}
-        <script type="text/javascript"
-                src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
-      {% endassets %}
     <!-- Navigation -->
       {% include "new-menu.html" %}
       {% block header %}
