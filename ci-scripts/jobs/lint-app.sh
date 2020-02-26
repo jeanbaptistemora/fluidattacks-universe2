@@ -9,7 +9,11 @@ run_lint () {
     prospector -F -s high -u django -i node_modules django-apps/ || RETVAL=1
     prospector -F -s veryhigh -u django -i node_modules fluidintegrates/ || RETVAL=1
     prospector -F -s veryhigh lambda/ || RETVAL=1
-    mypy --ignore-missing-imports django-apps/integrates-back/backend/utils/* || RETVAL=1
+    mypy --ignore-missing-imports \
+        django-apps/integrates-back/backend/mailer.py \
+        django-apps/integrates-back/backend/scheduler.py \
+        django-apps/integrates-back/backend/services.py \
+        django-apps/integrates-back/backend/utils/* || RETVAL=1
     return $RETVAL
 }
 
