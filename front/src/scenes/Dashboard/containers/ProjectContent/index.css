@@ -20,9 +20,9 @@
     margin-bottom: 0;
   }
   .stickyContainer {
-    padding-top: 8px;
+    padding-top: 2px;
     position: sticky;
-    top: 0px;
+    top: 45px;
     z-index: 4;
   }
 }
