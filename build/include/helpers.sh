@@ -1,5 +1,27 @@
 # shellcheck shell=bash
 
+function helper_use_pristine_workdir {
+  export WORKDIR="${PWD}.ephemeral"
+  export STARTDIR="${PWD}"
+
+  function helper_teardown_workdir {
+        echo "[INFO] Deleting: ${WORKDIR}" \
+    &&  rm -rf "${WORKDIR}"
+  }
+
+      echo '[INFO] Creating a pristine workdir' \
+  &&  rm -rf "${WORKDIR}" \
+  &&  mkdir -p "${WORKDIR}" \
+  &&  echo '[INFO] Copying files to workdir' \
+  &&  cp -r "${STARTDIR}/." "${WORKDIR}" \
+  &&  echo '[INFO] Entering the workdir' \
+  &&  pushd "${WORKDIR}" \
+  &&  echo '[INFO] Running: git clean -xdf' \
+  &&  git clean -xdf \
+  &&  trap 'helper_teardown_workdir' 'EXIT' \
+  ||  return 1
+}
+
 function helper_docker_build_and_push {
   local tag="${1}"
   local context="${2}"
@@ -7,7 +29,8 @@ function helper_docker_build_and_push {
   local build_arg_1_key="${4:-build_arg_1_key}"
   local build_arg_1_val="${5:-build_arg_1_val}"
 
-      echo "[INFO] Logging into: ${CI_REGISTRY}" \
+      helper_use_pristine_workdir \
+  &&  echo "[INFO] Logging into: ${CI_REGISTRY}" \
   &&  docker login \
         --username "${CI_REGISTRY_USER}" \
         --password "${CI_REGISTRY_PASSWORD}" \

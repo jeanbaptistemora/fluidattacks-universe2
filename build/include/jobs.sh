@@ -6,7 +6,7 @@ source "${srcExternalSops}"
 source "${srcExternalSops}"
 source "${srcCiScriptsHelpersSops}"
 
-function job_deploy_cache_container {
+function job_deploy_container_nix_cache {
   local context='.'
   local dockerfile='build/Dockerfile'
   local tag="${CI_REGISTRY_IMAGE}:nix"
@@ -15,6 +15,54 @@ function job_deploy_cache_container {
     "${tag}" \
     "${context}" \
     "${dockerfile}"
+}
+
+function job_deploy_container_deps_base {
+  local context='.'
+  local dockerfile='deploy/containers/deps-base/Dockerfile'
+  local tag="${CI_REGISTRY_IMAGE}/deps-base:${CI_COMMIT_REF_NAME}"
+
+  helper_docker_build_and_push \
+    "${tag}" \
+    "${context}" \
+    "${dockerfile}"
+}
+
+function job_deploy_container_deps_mobile {
+  local context='.'
+  local dockerfile='deploy/containers/deps-mobile/Dockerfile'
+  local tag="${CI_REGISTRY_IMAGE}/deps-mobile:${CI_COMMIT_REF_NAME}"
+
+  helper_docker_build_and_push \
+    "${tag}" \
+    "${context}" \
+    "${dockerfile}"
+}
+
+function job_deploy_container_deps_development {
+  local context='.'
+  local dockerfile='deploy/containers/deps-development/Dockerfile'
+  local tag="${CI_REGISTRY_IMAGE}/deps-development:${CI_COMMIT_REF_NAME}"
+  local build_arg_1='CI_COMMIT_REF_NAME'
+
+  helper_docker_build_and_push \
+    "${tag}" \
+    "${context}" \
+    "${dockerfile}" \
+    "${build_arg_1}" "${!build_arg_1}"
+}
+
+function job_deploy_container_deps_production {
+  local context='.'
+  local dockerfile='deploy/containers/deps-production/Dockerfile'
+  local tag="${CI_REGISTRY_IMAGE}/deps-production:${CI_COMMIT_REF_NAME}"
+  local build_arg_1='CI_COMMIT_REF_NAME'
+
+  helper_docker_build_and_push \
+    "${tag}" \
+    "${context}" \
+    "${dockerfile}" \
+    "${build_arg_1}" "${!build_arg_1}"
 }
 
 function job_serve_dynamodb_local {

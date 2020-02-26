@@ -2,7 +2,7 @@
 
 source "${srcIncludeHelpers}"
 
-function prepare_environment_variables {
+function env_prepare_environment_variables {
   export IS_NIX='true'
   export IS_LOCAL_BUILD
 
@@ -18,7 +18,7 @@ function prepare_environment_variables {
       fi
 }
 
-function prepare_ephemeral_vars {
+function env_prepare_ephemeral_vars {
   export MYPY_CACHE_DIR
   export TEMP_FD
   export TEMP_FILE1
@@ -30,7 +30,7 @@ function prepare_ephemeral_vars {
   TEMP_FILE2=$(mktemp)
 }
 
-function prepare_python_packages {
+function env_prepare_python_packages {
   export PATH
   export PYTHONPATH
   local pkg
@@ -47,7 +47,7 @@ function prepare_python_packages {
   done < "${TEMP_FILE1}"
 }
 
-function prepare_dynamodb_local {
+function env_prepare_dynamodb_local {
       echo '[INFO] Unzipping DynamoDB local' \
   &&  mkdir -p './.DynamoDB' \
   &&  pushd './.DynamoDB' \

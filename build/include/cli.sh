@@ -22,10 +22,10 @@ function cli {
   fi
 
   echo '---'
-  prepare_environment_variables
-  prepare_ephemeral_vars
-  prepare_dynamodb_local
-  prepare_python_packages
+  env_prepare_environment_variables
+  env_prepare_ephemeral_vars
+  env_prepare_dynamodb_local
+  env_prepare_python_packages
 
   echo "[INFO] Executing function: job_${function_to_call}"
   if "job_${function_to_call}"
