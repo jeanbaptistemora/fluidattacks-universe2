@@ -1,6 +1,6 @@
-resource "aws_security_group" "autoscaling_ci_security_group" {
-  name        = "AutoscalingCISecurityGroup"
-  description = "Allow communication between GitLab, bastion and processing machines"
+resource "aws_security_group" "autoscaling_ci_security_group_2" {
+  name        = "AutoscalingCISG"
+  description = "Docker Machine"
   vpc_id      = var.autostaling_ci_vpc_id
 
   ingress {
