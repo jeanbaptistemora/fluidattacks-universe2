@@ -28,6 +28,27 @@ def _get_pod_security_policies(host: str = None,
     return run_function(api_instance, 'list_pod_security_policy')
 
 
+def _check_security_context_attribute(*,
+                                      host: str = None,
+                                      api_key: str = None,
+                                      username: str = None,
+                                      password: str = None,
+                                      attribute_check: dict = None):
+    """Separate containers that compliance the conditions."""
+    api_instance = _get_api_instance('CoreV1Api', host, api_key, username,
+                                     password)
+    vulns, safes = [], []
+    pods = run_function(api_instance, 'list_pod_for_all_namespaces').items
+    for pod in filter(lambda x: x.metadata.namespace != 'kube-system', pods):
+        for container in pod.spec.containers:
+            context = container.security_context
+            for attribute, check in attribute_check.items():
+                (vulns
+                 if check(getattr(context, attribute)) else safes).append(
+                     pod.metadata.self_link)
+    return (vulns, safes)
+
+
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(ApiException, MaxRetryError)
 def undefined_pod_security_policies(*,
@@ -497,6 +518,62 @@ def has_add_cap_with_sys_admin(*,
                 (vulns if 'SYS_ADMIN' in context.capabilities.add else
                  safes).append((pod.metadata.self_link,
                                 'SYS_ADMIN it’s equivalent to root'))
+    return _get_result_as_tuple(
+        host=host,
+        objects='Pods',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
+
+
+@api(risk=LOW, kind=DAST)
+@unknown_if(ApiException, MaxRetryError)
+def has_containers_that_can_write_root_file_system(*,
+                                                   host: str = None,
+                                                   api_key: str = None,
+                                                   username: str = None,
+                                                   password: str = None):
+    """
+    Check if there are pod containers that can write to the root file system.
+
+    An immutable root filesystem can prevent malicious binaries being added to
+    PATH and increase attack cost.
+
+    An immutable root filesystem prevents applications from writing to their
+    local disk. This is desirable in the event of an intrusion as the attacker
+    will not be able to tamper with the filesystem or write foreign executables
+    to disk.
+
+    :param host: URL of the API server.
+    :param api_key: API Key to make requests.
+    :param username: Username of account.
+    :param password: Password of account.
+
+    :returns: - ``OPEN`` if there are pod containers that can write to the root
+                 file system.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Pod containers can write to the root file system.'
+    msg_closed: str = 'Pod containers can not write to the root file system.'
+
+    attribute = {'read_only_root_filesystem': lambda x: x is False}
+    safes = []
+
+    vulns, safes = _check_security_context_attribute(
+        host=host,
+        api_key=api_key,
+        username=username,
+        password=password,
+        attribute_check=attribute)
+
+    message = 'must set read_only_root_filesystem to true'
+    vulns = map(lambda x: (x, message), vulns)
+    safes = map(lambda x: (x, message), safes)
+
     return _get_result_as_tuple(
         host=host,
         objects='Pods',

@@ -91,6 +91,13 @@ def test_has_add_cap_with_sys_admin_open():
         api_key=KUBERNETES_API_TOKEN).is_open()
 
 
+def test_has_containers_that_can_write_root_file_system_open():
+    """Search containers that can writhe in the root file system."""
+    assert pods.has_containers_that_can_write_root_file_system(
+        host=KUBERNETES_API_SERVER,
+        api_key=KUBERNETES_API_TOKEN).is_open()
+
+
 #
 # Closing tests
 #
@@ -164,5 +171,12 @@ def test_has_no_cpu_requests_usage_limit_close():
 def test_has_add_cap_with_sys_admin_close():
     """Search containers that have capabilities with sys_admin permissions."""
     assert pods.has_add_cap_with_sys_admin(
+        host=BAD_KUBERNETES_API_SERVER,
+        api_key=BAD_KUBERNETES_API_SERVER).is_unknown()
+
+
+def test_has_containers_that_can_write_root_file_system_close():
+    """Search containers that can writhe in the root file system."""
+    assert pods.has_containers_that_can_write_root_file_system(
         host=BAD_KUBERNETES_API_SERVER,
         api_key=BAD_KUBERNETES_API_SERVER).is_unknown()
