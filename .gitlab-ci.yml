@@ -37,6 +37,17 @@ stages:
     - ./build.sh "${CI_JOB_NAME}"
   interruptible: true
 
+build_lambdas:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch
+  stage: build-apps
+  needs: [deploy_container_deps_base]
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - lambda/packages/
+    when: on_success
+
 deploy_container_deps_mobile:
   <<: *with_nix
   <<: *in_dev_and_master_branch
@@ -87,20 +98,6 @@ django-apps:
     paths:
       - django-apps/packages/
     when: on_success
-
-build-lambdas:
-    stage: build-apps
-    needs: [deploy_container_deps_base]
-    tags: [autoscaling]
-    image: registry.gitlab.com/fluidattacks/integrates/deps-base:$CI_COMMIT_REF_NAME
-    script:
-        - ./ci-scripts/jobs/build-lambdas.sh
-    retry: 1
-    artifacts:
-        expire_in: 1 day
-        paths:
-        - lambda/packages/
-        when: on_success
 
 build-back:
   stage: build

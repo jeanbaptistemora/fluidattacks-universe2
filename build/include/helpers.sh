@@ -28,6 +28,11 @@ function helper_docker_build_and_push {
   local dockerfile="${3}"
   local build_arg_1_key="${4:-build_arg_1_key}"
   local build_arg_1_val="${5:-build_arg_1_val}"
+  local build_args=(
+    --tag "${tag}"
+    --file "${dockerfile}"
+    --build-arg "${build_arg_1_key}=${build_arg_1_val}"
+  )
 
       helper_use_pristine_workdir \
   &&  echo "[INFO] Logging into: ${CI_REGISTRY}" \
@@ -36,13 +41,12 @@ function helper_docker_build_and_push {
         --password "${CI_REGISTRY_PASSWORD}" \
       "${CI_REGISTRY}" \
   &&  echo "[INFO] Pulling: ${tag}" \
-  &&  { docker pull "${tag}" || true; } \
+  &&  if docker pull "${tag}"
+      then
+        build_args+=( --cache-from "${tag}" )
+      fi \
   &&  echo "[INFO] Building: ${tag}" \
-  &&  docker build \
-          --tag "${tag}" \
-          --file "${dockerfile}" \
-          --build-arg "${build_arg_1_key}=${build_arg_1_val}" \
-        "${context}" \
+  &&  docker build "${build_args[@]}" "${context}" \
   &&  echo "[INFO] Pushing: ${tag}" \
   &&  docker push "${tag}"
 }

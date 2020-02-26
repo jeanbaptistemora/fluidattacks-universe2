@@ -6,6 +6,45 @@ source "${srcExternalSops}"
 source "${srcExternalSops}"
 source "${srcCiScriptsHelpersSops}"
 
+function job_build_lambdas {
+
+  function _job_build_lambdas {
+    local lambda_name="${1}"
+    local lambda_zip_file
+    local current_path="${PWD}/lambda"
+    local path_to_lambda="${current_path}/${lambda_name}"
+    local path_to_lambda_venv="${current_path}/.venv.${lambda_name}"
+
+    # shellcheck disable=SC1091
+        lambda_zip_file="$(mktemp -d)/${lambda_name}.zip" \
+    &&  echo '[INFO] Creating virtual environment' \
+    &&  python3 -m venv "${path_to_lambda_venv}" \
+    &&  pushd "${path_to_lambda_venv}" \
+      &&  echo '[INFO] Entering virtual environment' \
+      &&  source './bin/activate' \
+        &&  echo '[INFO] Installing dependencies' \
+        &&  pip3 install -U setuptools==41.4.0 wheel==0.33.6 \
+        &&  if test -f "${path_to_lambda}/requirements.txt"
+            then
+              pip3 install -r "${path_to_lambda}/requirements.txt"
+            fi \
+      &&  deactivate \
+      &&  echo '[INFO] Exiting virtual environment' \
+      &&  pushd "${path_to_lambda_venv}/lib/python3.8/site-packages" \
+        &&  zip -r9 "${lambda_zip_file}" . \
+      &&  popd \
+      &&  pushd "${path_to_lambda}" \
+        &&  zip -r -g "${lambda_zip_file}" ./* \
+        &&  mv "${lambda_zip_file}" "${current_path}/packages" \
+      && popd \
+    &&  popd \
+    ||  return 1
+  }
+
+      _job_build_lambdas 'send_mail_new_vulnerabilities' \
+  &&  _job_build_lambdas 'project_to_pdf'
+}
+
 function job_deploy_container_nix_cache {
   local context='.'
   local dockerfile='build/Dockerfile'
@@ -138,7 +177,8 @@ function job_lint_build_system {
   && echo '[OK] Nix code is compliant'
       shellcheck --external-sources build.sh \
   && find 'build' -name '*.sh' -exec \
-      shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154 {} +
+      shellcheck --external-sources --exclude=SC1090,SC2016,SC2153,SC2154 {} + \
+  && echo '[OK] Shell code is compliant'
 }
 
 function job_lint_front {

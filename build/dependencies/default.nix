@@ -22,4 +22,5 @@ in
     pkgs.shellcheck
     pkgs.sops
     pkgs.unzip
+    pkgs.zip
   ]
