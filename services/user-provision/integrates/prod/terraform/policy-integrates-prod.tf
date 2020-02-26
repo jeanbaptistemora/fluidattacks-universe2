@@ -25,6 +25,18 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
     ]
   }
 
+  # RDS
+  statement {
+    effect  = "Allow"
+    actions = ["rds:*"]
+    resources = [
+      "arn:aws:rds:*:${data.aws_caller_identity.current.account_id}:db:django-db",
+      "arn:aws:rds:*:${data.aws_caller_identity.current.account_id}:og:django-db",
+      "arn:aws:rds:*:${data.aws_caller_identity.current.account_id}:pg:django-db",
+      "arn:aws:rds:*:${data.aws_caller_identity.current.account_id}:subgrp:django-db"
+    ]
+  }
+
   # IAM
   statement {
     effect = "Allow"
