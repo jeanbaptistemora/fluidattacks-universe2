@@ -9,7 +9,10 @@ from magic import Magic
 
 from backend import util
 from backend.dal import event as event_dal, project as project_dal
-from backend.domain import comment as comment_domain, resources as resources_domain
+from backend.domain import (
+    comment as comment_domain, resources as resources_domain,
+    user as user_domain
+)
 from backend.exceptions import (
     EventAlreadyClosed, EventNotFound, InvalidDate, InvalidFileSize,
     InvalidFileType
@@ -137,10 +140,22 @@ def _send_new_event_mail(analyst, event_id, project, subscription, event_type):
             f'project/{project}/events/{event_id}'),
         'project': project
     }
+
+    recipients_customers = [
+        recipient for recipient in recipients
+        if user_domain.get_data(recipient, 'role') == 'customeradmin']
+    recipients_not_customers = [
+        recipient for recipient in recipients
+        if user_domain.get_data(recipient, 'role') != 'customeradmin']
+    email_context_customers = email_context.copy()
+    email_context_customers['analyst_email'] = \
+        'Hacker at ' + user_domain.get_data(analyst, 'company').capitalize()
+
     email_send_thread = threading.Thread(
         name='New event email thread',
         target=send_mail_new_event,
-        args=(recipients, email_context))
+        args=([recipients_not_customers, recipients_customers],
+              [email_context, email_context_customers]))
     email_send_thread.start()
 
 

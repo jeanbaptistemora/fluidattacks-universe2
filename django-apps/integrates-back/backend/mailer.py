@@ -223,21 +223,12 @@ def send_mail_delete_finding(email_to: str, context: Dict[str, str]):
 
 
 def send_mail_remediate_finding(email_to: str, context: Dict[str, str]):
-    _send_mail('remediate-finding',
-               email_to,
-               context=context,
-               tags=VERIFY_TAG)
+    _send_mail('remediate-finding', email_to, context=context, tags=VERIFY_TAG)
 
 
 def send_mail_comment(email_to: str, context: List[Dict[str, str]]):
-    _send_mail('new-comment',
-               email_to[0],
-               context=context[0],
-               tags=COMMENTS_TAG)
-    _send_mail('new-comment',
-               email_to[1],
-               context=context[1],
-               tags=COMMENTS_TAG)
+    _send_mail('new-comment', email_to[0], context=context[0], tags=COMMENTS_TAG)
+    _send_mail('new-comment', email_to[1], context=context[1], tags=COMMENTS_TAG)
 
 
 def send_mail_verified_finding(email_to: str, context: Dict[str, str]):
@@ -265,10 +256,7 @@ def send_mail_new_version(email_to: str, context: Dict[str, str]):
 
 
 def send_mail_resources(email_to: str, context: Dict[str, str]):
-    _send_mail('resources-changes',
-               email_to,
-               context=context,
-               tags=GENERAL_TAG)
+    _send_mail('resources-changes', email_to, context=context, tags=GENERAL_TAG)
 
 
 def send_mail_unsolved_events(email_to: str, context: Dict[str, str]):
@@ -287,5 +275,6 @@ def send_mail_project_deletion(email_to: str, context: Dict[str, str]):
     _send_mail('projectdeletion', email_to, context=context, tags=GENERAL_TAG)
 
 
-def send_mail_new_event(email_to: str, context: Dict[str, str]):
-    _send_mail('new-event', email_to, context=context, tags=GENERAL_TAG)
+def send_mail_new_event(email_to: str, context: List[Dict[str, str]]):
+    _send_mail('new-event', email_to[0], context=context[0], tags=GENERAL_TAG)
+    _send_mail('new-event', email_to[1], context=context[1], tags=GENERAL_TAG)
