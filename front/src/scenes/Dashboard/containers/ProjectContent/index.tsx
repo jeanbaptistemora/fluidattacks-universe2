@@ -40,7 +40,7 @@ const projectContent: React.FC<IProjectContentProps> = (props: IProjectContentPr
         <Row>
           <Col md={12} sm={12}>
             <React.Fragment>
-              <div>
+              <div className={style.stickyContainer}>
                 <ul className={style.tabsContainer}>
                   <li id="indicatorsTab" className={style.tab}>
                     <NavLink activeClassName={style.active} to={`${props.match.url}/indicators`}>
