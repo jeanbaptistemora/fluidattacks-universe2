@@ -124,6 +124,21 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
     return `${exploitableStr}, ${acceptedStr}, ${notExploitableStr}, ${totalStr}`;
   };
 
+  const getDatasetFromVulnerabilities: ((vulnerabilities: IVulnerabilities) => Dictionary[]) =
+  (vulnerabilities: IVulnerabilities): Dictionary[] => {
+    const exploits: Dictionary[] = vulnerabilities.exploits.map((elem: IExploitResult) => ({
+      ...elem, riskState: translate.t("project.forces.found_vulnerabilities.exploitable"),
+    }));
+    const acceptedExploits: Dictionary[] = vulnerabilities.acceptedExploits.map((elem: IExploitResult) => ({
+      ...elem, riskState: translate.t("project.forces.found_vulnerabilities.accepted"),
+    }));
+    const mockedExploits: Dictionary[] = vulnerabilities.mockedExploits.map((elem: IExploitResult) => ({
+      ...elem, riskState: translate.t("project.forces.found_vulnerabilities.not_exploitable"),
+    }));
+
+    return exploits.concat(acceptedExploits.concat(mockedExploits));
+  };
+
   const formatDate: ((date: string) => string) = (date: string): string => {
     const dateObj: Date = new Date(date);
 
@@ -142,7 +157,10 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
     return `${year}-${month}-${day} ${hours}:${minutes}`;
   };
 
-  const tableHeaders: IHeader[] = [
+  const formatText: ((text: string) => ReactElement<Text>) = (text: string): ReactElement<Text> =>
+    <text className={styles.wrapped}>{text}</text>;
+
+  const headersExecutionTable: IHeader[] = [
     {
       align: "center", dataField: "date", header: translate.t("project.forces.date"),
       onSort: onSortState, width: "13%", wrapped: true,
@@ -166,6 +184,34 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
     {
       align: "center", dataField: "identifier", header: translate.t("project.forces.identifier"),
       onSort: onSortState, width: "13%", wrapped: true,
+    },
+  ];
+  const headersCompromisedToeTable: IHeader[] = [
+    {
+      dataField: "riskState",
+      formatter: formatText,
+      header: translate.t("project.forces.compromised_toe.risk_state"),
+      width: "15%",
+      wrapped: true,
+    },
+    {
+      dataField: "kind",
+      formatter: formatText,
+      header: translate.t("project.forces.compromised_toe.type"),
+      width: "10%",
+      wrapped: true,
+    },
+    {
+      dataField: "who",
+      formatter: formatText,
+      header: translate.t("project.forces.compromised_toe.who"),
+      wrapped: true,
+    },
+    {
+      dataField: "where",
+      formatter: formatText,
+      header: translate.t("project.forces.compromised_toe.where"),
+      wrapped: true,
     },
   ];
   const { projectName } = props.match.params;
@@ -224,7 +270,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   defaultSorted={sortValue}
                   exportCsv={true}
                   search={true}
-                  headers={tableHeaders}
+                  headers={headersExecutionTable}
                   id="tblForcesExecutions"
                   pageSize={100}
                   remote={false}
@@ -275,47 +321,18 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                       </text>
                     </Col>
                   </Row>
-                  <Row>
-                    <Col md={12}><p><b>{translate.t("project.forces.compromised_toe.title")}</b></p></Col>
-                  </Row>
-                  <Row>
-                    <Col md={1} />
-                    <Col md={2}><p><b>{translate.t("project.forces.compromised_toe.risk_state")}</b></p></Col>
-                    <Col md={1}><p><b>{translate.t("project.forces.compromised_toe.type")}</b></p></Col>
-                    <Col md={4}><p><b>{translate.t("project.forces.compromised_toe.who")}</b></p></Col>
-                    <Col md={4}><p><b>{translate.t("project.forces.compromised_toe.where")}</b></p></Col>
-                  </Row>
-                  {currentRow.vulnerabilities.exploits.map(
-                    (result: IExploitResult) => (
-                      <Row key={result.who}>
-                        <Col md={1} />
-                        <Col md={2}>{translate.t("project.forces.found_vulnerabilities.exploitable")}</Col>
-                        <Col md={1}>{result.kind}</Col>
-                        <Col md={4}><text className={styles.wrapped}>{result.who}</text></Col>
-                        <Col md={4}><text className={styles.wrapped}>{result.where}</text></Col>
-                      </Row>
-                    ))}
-                  {currentRow.vulnerabilities.acceptedExploits.map(
-                    (result: IExploitResult) => (
-                      <Row key={result.who}>
-                        <Col md={1} />
-                        <Col md={2}>{translate.t("project.forces.found_vulnerabilities.accepted")}</Col>
-                        <Col md={1}>{result.kind}</Col>
-                        <Col md={4}><text className={styles.wrapped}>{result.who}</text></Col>
-                        <Col md={4}><text className={styles.wrapped}>{result.where}</text></Col>
-                      </Row>
-                    ))}
-                  {currentRow.vulnerabilities.mockedExploits.map(
-                    (result: IExploitResult) => (
-                      <Row key={result.who}>
-                        <Col md={1} />
-                        <Col md={2}>{translate.t("project.forces.found_vulnerabilities.not_exploitable")}</Col>
-                        <Col md={1}>{result.kind}</Col>
-                        <Col md={4}><text className={styles.wrapped}>{result.who}</text></Col>
-                        <Col md={4}><text className={styles.wrapped}>{result.where}</text></Col>
-                      </Row>
-                    ))}
                   <br />
+                  <DataTableNext
+                    bordered={true}
+                    dataset={getDatasetFromVulnerabilities(currentRow.vulnerabilities)}
+                    defaultSorted={sortValue}
+                    exportCsv={false}
+                    search={false}
+                    headers={headersCompromisedToeTable}
+                    id="tblCompromisedToe"
+                    pageSize={100}
+                    remote={false}
+                  />
                   <hr />
                   <SyntaxHighlighter style={monokaiSublime} language="yaml" wrapLines={true}>
                     {currentRow.log}
