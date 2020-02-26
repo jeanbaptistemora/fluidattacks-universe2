@@ -13,7 +13,7 @@ from graphene import (
 from graphene.types.generic import GenericScalar
 
 from backend.decorators import (
-    get_entity_cache, require_login, require_project_access, new_require_role
+    get_entity_cache, require_login, require_project_access, enforce_authz
 )
 from backend.domain import (
     finding as finding_domain, project as project_domain,
@@ -263,7 +263,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
             self.user_deletion = historic_deletion[-1].get('user', '')
         return self.user_deletion
 
-    @new_require_role
+    @enforce_authz
     def resolve_comments(self, info):
         user_data = util.get_jwt_content(info.context)
         curr_user_role = get_user_role(user_data)
@@ -283,7 +283,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
         return self.tags
 
-    @new_require_role
+    @enforce_authz
     @get_entity_cache
     def resolve_users(self, info):
         """ Resolve project users """
@@ -296,7 +296,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
                       in ['customer', 'customeradmin']]
         return self.users
 
-    @new_require_role
+    @enforce_authz
     def resolve_drafts(self, info):
         """ Resolve drafts attribute """
         util.cloudwatch_log(info.context, 'Security: Access to {project} '
@@ -310,7 +310,7 @@ class Project(ObjectType):  # noqa pylint: disable=too-many-instance-attributes
 
         return self.drafts
 
-    @new_require_role
+    @enforce_authz
     def resolve_events(self, info):
         """ Resolve project events """
         util.cloudwatch_log(
@@ -341,7 +341,7 @@ class CreateProject(Mutation):
     success = Boolean()
 
     @require_login
-    @new_require_role
+    @enforce_authz
     def mutate(self, info, **kwargs):
         user_data = util.get_jwt_content(info.context)
         user_role = get_user_role(user_data)
@@ -367,7 +367,7 @@ class RemoveProject(Mutation):
     project_finished = Boolean()
 
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_project_access
     def mutate(self, info, project_name):
         user_info = util.get_jwt_content(info.context)
@@ -392,7 +392,7 @@ class RequestRemoveProject(Mutation):
     success = Boolean()
 
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_project_access
     def mutate(self, info, project_name):
         user_info = util.get_jwt_content(info.context)
@@ -414,7 +414,7 @@ class RejectRemoveProject(Mutation):
     success = Boolean()
 
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_project_access
     def mutate(self, info, project_name):
         user_info = util.get_jwt_content(info.context)
@@ -439,7 +439,7 @@ class AddProjectComment(Mutation):
     comment_id = String()
 
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_project_access
     def mutate(self, info, **parameters):
         project_name = parameters.get('project_name').lower()
@@ -479,7 +479,7 @@ class RemoveTag(Mutation):
     success = Boolean()
 
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_project_access
     def mutate(self, info, project_name, tag):
         success = False
@@ -516,7 +516,7 @@ class AddTags(Mutation):
     success = Boolean()
 
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_project_access
     def mutate(self, info, project_name, tags):
         success = False
@@ -555,7 +555,7 @@ class AddAllProjectAccess(Mutation):
     success = Boolean()
 
     @require_login
-    @new_require_role
+    @enforce_authz
     def mutate(self, info, project_name):
         success = project_domain.add_all_access_to_project(project_name)
         if success:
@@ -573,7 +573,7 @@ class RemoveAllProjectAccess(Mutation):
     success = Boolean()
 
     @require_login
-    @new_require_role
+    @enforce_authz
     def mutate(self, info, project_name):
         success = project_domain.remove_all_project_access(project_name)
         if success:

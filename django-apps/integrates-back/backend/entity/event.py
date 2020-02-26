@@ -8,7 +8,7 @@ from backend.domain import comment as comment_domain, event as event_domain
 from backend.entity.comment import Comment
 from backend.decorators import (
     get_entity_cache, require_login, require_event_access,
-    require_project_access, new_require_role
+    require_project_access, enforce_authz
 )
 from backend import util
 
@@ -148,7 +148,7 @@ class UpdateEvent(Mutation):
 
     @staticmethod
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_event_access
     def mutate(_, info, event_id, **kwargs):
         success = event_domain.update_event(event_id, **kwargs)
@@ -173,7 +173,7 @@ class SolveEvent(Mutation):
 
     @staticmethod
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_event_access
     def mutate(_, info, event_id, affectation, date):
         analyst_email = util.get_jwt_content(info.context)['user_email']
@@ -282,7 +282,7 @@ class CreateEvent(Mutation):
 
     @staticmethod
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_project_access
     def mutate(_, info, project_name, image=None, file=None, **kwargs):
         analyst_email = util.get_jwt_content(info.context)['user_email']
@@ -309,7 +309,7 @@ class AddEventComment(Mutation):
 
     @staticmethod
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_event_access
     def mutate(_, info, content, event_id, parent):
         user_info = util.get_jwt_content(info.context)
@@ -345,7 +345,7 @@ class UpdateEventEvidence(Mutation):
 
     @staticmethod
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_event_access
     def mutate(_, info, event_id, evidence_type, file):
         success = False
@@ -375,7 +375,7 @@ class DownloadEventFile(Mutation):
 
     @staticmethod
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_event_access
     def mutate(_, info, event_id, file_name):
         success = False
@@ -404,7 +404,7 @@ class RemoveEventEvidence(Mutation):
 
     @staticmethod
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_event_access
     def mutate(_, info, event_id, evidence_type):
         success = event_domain.remove_evidence(evidence_type, event_id)

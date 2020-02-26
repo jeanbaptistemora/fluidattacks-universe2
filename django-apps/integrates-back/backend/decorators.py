@@ -145,7 +145,7 @@ def resolve_project_data(project_name):
     return project_data
 
 
-def new_require_role(func):
+def enforce_authz(func):
     """
     Require_role decorator based on Casbin enforcer.
 

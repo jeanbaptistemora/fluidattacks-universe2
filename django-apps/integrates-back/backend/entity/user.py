@@ -10,7 +10,7 @@ import rollbar
 from graphene import ObjectType, Mutation, String, Boolean, Field, List
 
 from backend.decorators import (
-    require_login, require_project_access, new_require_role
+    require_login, require_project_access, enforce_authz
 )
 from backend.domain import project as project_domain, user as user_domain
 from backend.services import (
@@ -131,7 +131,7 @@ class User(ObjectType):
         del info
         return self.last_login
 
-    @new_require_role
+    @enforce_authz
     def resolve_list_projects(self, info):
         del info
         return self.list_projects
@@ -149,7 +149,7 @@ class AddUser(Mutation):
 
     @staticmethod
     @require_login
-    @new_require_role
+    @enforce_authz
     def mutate(_, info, **parameters):
         success = user_domain.create_without_project(parameters)
         if success:
@@ -181,7 +181,7 @@ class GrantUserAccess(Mutation):
     success = Boolean()
 
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_project_access
     def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')
@@ -296,7 +296,7 @@ class RemoveUserAccess(Mutation):
     success = Boolean()
 
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_project_access
     def mutate(self, info, project_name, user_email):
         success = False
@@ -331,7 +331,7 @@ class EditUser(Mutation):
     success = Boolean()
 
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_project_access
     def mutate(self, info, **query_args):
         project_name = query_args.get('project_name')

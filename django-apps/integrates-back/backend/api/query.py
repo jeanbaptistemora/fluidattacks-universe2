@@ -9,7 +9,7 @@ from graphene import Field, List, ObjectType, String, DateTime
 # Local libraries
 from backend.decorators import (
     get_cached, require_event_access, require_finding_access,
-    require_login, require_project_access, new_require_role
+    require_login, require_project_access, enforce_authz
 )
 from backend.domain import project as project_domain
 from backend.entity.me import Me
@@ -62,7 +62,7 @@ class Query(ObjectType):
     me = Field(Me)
 
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_project_access
     @get_cached
     def resolve_alert(self, info, project_name=None, organization=None):
@@ -71,7 +71,7 @@ class Query(ObjectType):
         return Alert(project_name, organization)
 
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_project_access
     def resolve_break_build_executions(
             self, info,
@@ -84,7 +84,7 @@ class Query(ObjectType):
         return BreakBuildExecutions(project_name, from_date, to_date)
 
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_event_access
     @get_cached
     def resolve_event(self, info, identifier=None):
@@ -97,7 +97,7 @@ class Query(ObjectType):
         return events_loader.load(identifier)
 
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_finding_access
     @get_cached
     def resolve_finding(self, info, identifier=None):
@@ -109,7 +109,7 @@ class Query(ObjectType):
         return findings_loader.load(identifier)
 
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_project_access
     def resolve_resources(self, info, project_name):
         """ Resolve for project resources """
@@ -118,7 +118,7 @@ class Query(ObjectType):
         return Resource(project_name)
 
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_project_access
     @get_cached
     def resolve_user(self, info, project_name, user_email):
@@ -127,13 +127,13 @@ class Query(ObjectType):
         return User(project_name, user_email, role=role)
 
     @require_login
-    @new_require_role
+    @enforce_authz
     def resolve_user_list_projects(self, info, user_email):
         del info
         return User(None, user_email).list_projects
 
     @require_login
-    @new_require_role
+    @enforce_authz
     @require_project_access
     def resolve_project(self, info, project_name):
         """Resolve for projects."""
@@ -148,14 +148,14 @@ class Query(ObjectType):
         raise InvalidProject()
 
     @require_login
-    @new_require_role
+    @enforce_authz
     def resolve_internal_project_names(self, info):
         """Resolve for internal project names"""
         del info
         return InternalProject()
 
     @require_login
-    @new_require_role
+    @enforce_authz
     def resolve_alive_projects(self, info):
         """Resolve for ACTIVE and SUSPENDED projects"""
         del info
