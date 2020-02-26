@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <style>
-    html, body {
+    html, body, #editor {
       height: 100%;
       margin: 0;
       overflow: hidden;
@@ -26,6 +26,7 @@
           crossorigin="anonymous"></script>
 </head>
 <body>
+  <div id="editor"></div>
   <script src="{% static 'graphene_django/graphiql.js' %}"></script>
 </body>
 </html>
