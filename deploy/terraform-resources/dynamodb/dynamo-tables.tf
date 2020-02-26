@@ -190,7 +190,11 @@ resource "aws_dynamodb_table" "project_access" {
     name               = "project_access_users"
     hash_key           = "project_name"
     projection_type    = "INCLUDE"
-    non_key_attributes = ["has_access", "project_name", "responsibility"]
+    non_key_attributes = [
+      "responsibility",
+      "has_access",
+      "project_name"
+    ]
   }
 
   point_in_time_recovery {
@@ -217,7 +221,13 @@ resource "aws_dynamodb_table" "findings" {
     name               = "project_findings"
     hash_key           = "project_name"
     projection_type    = "INCLUDE"
-    non_key_attributes = ["releaseDate", "historic_verification", "historic_treatment", "finding", "cvss_temporal"]
+    non_key_attributes = [
+      "historic_treatment",
+      "historic_verification",
+      "cvss_temporal",
+      "releaseDate",
+      "finding"
+    ]
   }
 
   point_in_time_recovery {
