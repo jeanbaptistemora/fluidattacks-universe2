@@ -8,6 +8,7 @@ import logging
 import logging.config
 import re
 import secrets
+from typing import Any, Dict, List
 import pytz
 import rollbar
 import requests
@@ -41,7 +42,7 @@ SCRYPT_P = 1  # parallelization
 MAX_API_AGE_WEEKS = 26  # max exp time of access token 6 months
 
 
-def response(data, message, error):
+def response(data: Any, message: str, error: bool) -> JsonResponse:
     """ Create an object to send generic answers """
     response_data = {}
     response_data['data'] = data
@@ -50,7 +51,7 @@ def response(data, message, error):
     return JsonResponse(response_data)
 
 
-def is_name(name):
+def is_name(name: str) -> bool:
     """ Verify that a parameter has the appropriate name format. """
     valid = True
     try:
@@ -61,7 +62,7 @@ def is_name(name):
     return valid
 
 
-def is_numeric(name):
+def is_numeric(name: str) -> bool:
     """ Verify that a parameter has the appropriate number format. """
     valid = True
     try:
@@ -72,7 +73,7 @@ def is_numeric(name):
     return valid
 
 
-def ord_asc_by_criticidad(data):
+def ord_asc_by_criticidad(data: Any) -> Any:
     """ Sort the findings by criticality """
     for i in range(0, len(data) - 1):
         for j in range(i + 1, len(data)):
@@ -85,7 +86,7 @@ def ord_asc_by_criticidad(data):
     return data
 
 
-def get_evidence_set(finding):
+def get_evidence_set(finding: Dict[str, Any]) -> List[Dict[str, str]]:
     evidence_set = []
     if "evidence_route_1" in finding and "evidence_description_1" in finding:
         evidence_set.append({
@@ -123,7 +124,7 @@ def get_current_time_minus_delta(*, weeks: int) -> datetime:
     return now_minus_delta
 
 
-def user_email_filter(emails, actual_user):
+def user_email_filter(emails: List[str], actual_user: str) -> List[str]:
     if "@fluidattacks.com" in actual_user:
         final_users = emails
     else:
@@ -132,13 +133,13 @@ def user_email_filter(emails, actual_user):
     return final_users
 
 
-def assert_file_mime(filename, allowed_mimes):
+def assert_file_mime(filename: str, allowed_mimes: List[str]) -> bool:
     mime = Magic(mime=True)
     mime_type = mime.from_file(filename)
     return mime_type in allowed_mimes
 
 
-def assert_uploaded_file_mime(file_instance, allowed_mimes):
+def assert_uploaded_file_mime(file_instance: str, allowed_mimes: List[str]) -> bool:
     mime = Magic(mime=True)
     if isinstance(file_instance, TemporaryUploadedFile):
         mime_type = mime.from_file(file_instance.temporary_file_path())
@@ -150,26 +151,26 @@ def assert_uploaded_file_mime(file_instance, allowed_mimes):
     return mime_type in allowed_mimes
 
 
-def has_release(finding):
+def has_release(finding: Dict[str, str]) -> bool:
     return "releaseDate" in finding
 
 
-def get_last_vuln(finding):
+def get_last_vuln(finding: Dict[str, str]) -> datetime:
     """Gets last release of a finding"""
-    tzn = pytz.timezone(settings.TIME_ZONE)
+    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     finding_last_vuln = datetime.strptime(
         finding["releaseDate"].split(" ")[0],
         '%Y-%m-%d'
     )
-    finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()
+    finding_last_vuln = finding_last_vuln.replace(tzinfo=tzn).date()  # type: ignore
     return finding_last_vuln
 
 
-def validate_release_date(finding):
+def validate_release_date(finding: Dict[str, str]) -> bool:
     """Validate if a finding has a valid relese date."""
     if has_release(finding):
         last_vuln = get_last_vuln(finding)
-        tzn = pytz.timezone(settings.TIME_ZONE)
+        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
         today_day = datetime.now(tz=tzn).date()
         result = last_vuln <= today_day
     else:
@@ -177,11 +178,11 @@ def validate_release_date(finding):
     return result
 
 
-def validate_future_releases(finding):
+def validate_future_releases(finding: Dict[str, str]) -> bool:
     """Validate if a finding has a future release."""
     if has_release(finding):
         last_vuln = get_last_vuln(finding)
-        tzn = pytz.timezone(settings.TIME_ZONE)
+        tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
         today_day = datetime.now(tz=tzn).date()
         result = last_vuln > today_day
     else:
@@ -189,7 +190,7 @@ def validate_future_releases(finding):
     return result
 
 
-def cloudwatch_log(request, msg):
+def cloudwatch_log(request: Any, msg: str):
     user_data = get_jwt_content(request)
     info = [user_data["user_email"], user_data["company"]]
     for parameter in ["project", "findingid"]:
@@ -202,19 +203,19 @@ def cloudwatch_log(request, msg):
     LOGGER.info(":".join(info))
 
 
-def get_jwt_content(context):
+def get_jwt_content(context: Any) -> Any:
     try:
-        cookie_token = context.COOKIES.get(settings.JWT_COOKIE_NAME)
+        cookie_token = context.COOKIES.get(settings.JWT_COOKIE_NAME)  # type: ignore
         header_token = context.META.get('HTTP_AUTHORIZATION')
         token = header_token.split()[1] if header_token else cookie_token
         payload = jwt.get_unverified_claims(token)
 
         if payload.get('jti'):
             content = jwt.decode(
-                token=token, key=settings.JWT_SECRET_API, algorithms='HS512')
+                token=token, key=settings.JWT_SECRET_API, algorithms='HS512')  # type: ignore
         else:
             content = jwt.decode(
-                token=token, key=settings.JWT_SECRET, algorithms='HS512')
+                token=token, key=settings.JWT_SECRET, algorithms='HS512')  # type: ignore
 
         return content
     except AttributeError:
@@ -228,7 +229,7 @@ def get_jwt_content(context):
         raise InvalidAuthorization()
 
 
-def list_s3_objects(client_s3, bucket_s3, key):
+def list_s3_objects(client_s3: Any, bucket_s3: Any, key: Any) -> List[str]:
     resp = client_s3.list_objects_v2(
         Bucket=bucket_s3,
         Prefix=key,
@@ -240,13 +241,13 @@ def list_s3_objects(client_s3, bucket_s3, key):
     return key_list
 
 
-def replace_all(text, dic):
+def replace_all(text: str, dic: Dict[Any, Any]) -> str:
     for i, j in list(dic.items()):
         text = text.replace(i, j)
     return text
 
 
-def list_to_dict(keys, values):
+def list_to_dict(keys: List[Any], values: List[Any]) -> Dict[Any, Any]:
     """ Merge two lists into a {key: value} dictionary """
 
     dct = collections.OrderedDict()
@@ -276,23 +277,23 @@ def list_to_dict(keys, values):
     return dct
 
 
-def camelcase_to_snakecase(str_value):
+def camelcase_to_snakecase(str_value: str) -> str:
     """Convert a camelcase string to snackecase."""
     my_str = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', str_value)
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', my_str).lower()
 
 
-def snakecase_to_camelcase(str_value):
+def snakecase_to_camelcase(str_value: str) -> str:
     """Convert a snackecase string to camelcase."""
     return re.sub('_.', lambda x: x.group()[1].upper(), str_value)
 
 
-def invalidate_cache(key_pattern):
+def invalidate_cache(key_pattern: str):
     """Remove keys from cache that matches a given pattern."""
     cache.delete_pattern('*' + str(key_pattern).lower() + '*')
 
 
-def is_valid_file_name(name):
+def is_valid_file_name(name: str) -> bool:
     """ Verify that filename has valid characters. """
     name = str(name)
     name_len = len(name.split('.'))
@@ -303,29 +304,29 @@ def is_valid_file_name(name):
     return is_valid
 
 
-def format_comment_date(date_string):
+def format_comment_date(date_string: str) -> str:
     date = datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S')
-    date = date.strftime('%Y/%m/%d %H:%M:%S')
+    formatted_date = date.strftime('%Y/%m/%d %H:%M:%S')
 
-    return date
+    return formatted_date
 
 
-def calculate_datediff_since(start_date):
-    tzn = pytz.timezone(settings.TIME_ZONE)
-    start_date = datetime.strptime(start_date.split(' ')[0], '%Y-%m-%d')
-    start_date = start_date.replace(tzinfo=tzn).date()
+def calculate_datediff_since(start_date: datetime) -> timedelta:
+    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
+    start_date = datetime.strptime(str(start_date).split(' ')[0], '%Y-%m-%d')
+    start_date = start_date.replace(tzinfo=tzn).date()  # type: ignore
     final_date = (datetime.now(tz=tzn).date() - start_date)
     return final_date
 
 
-def is_valid_expiration_time(expiration_time):
+def is_valid_expiration_time(expiration_time: float) -> bool:
     """Verify that expiration time is minor than six months"""
     exp = datetime.utcfromtimestamp(expiration_time)
     now = datetime.utcnow()
     return now < exp < (now + timedelta(weeks=MAX_API_AGE_WEEKS))
 
 
-def calculate_hash_token():
+def calculate_hash_token() -> Dict[str, str]:
     jti_token = secrets.token_bytes(NUMBER_OF_BYTES)
     salt = secrets.token_bytes(NUMBER_OF_BYTES)
     backend = default_backend()
@@ -345,7 +346,7 @@ def calculate_hash_token():
     }
 
 
-def verificate_hash_token(access_token, jti_token):
+def verificate_hash_token(access_token: Dict[str, Any], jti_token: str) -> bool:
     resp = False
     backend = default_backend()
     token_hashed = Scrypt(
@@ -367,13 +368,13 @@ def verificate_hash_token(access_token, jti_token):
     return resp
 
 
-def is_api_token(user_data):
+def is_api_token(user_data: Dict[str, Any]) -> bool:
     is_api = bool(user_data.get('jti'))
 
     return is_api
 
 
-def is_valid_format(date):
+def is_valid_format(date: str) -> bool:
     try:
         datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
         resp = True
@@ -383,7 +384,7 @@ def is_valid_format(date):
     return resp
 
 
-def break_build_trigger_deployment(project_name):
+def break_build_trigger_deployment(project_name: str) -> bool:
     success = False
 
     exceptions = (
@@ -422,7 +423,7 @@ def break_build_trigger_deployment(project_name):
     return success
 
 
-def update_treatment_values(updated_values):
+def update_treatment_values(updated_values: Any) -> Dict[str, Any]:
     updated_values['external_bts'] = updated_values.get('bts_url', '')
     date = datetime.now() + timedelta(days=180)
     if updated_values.get('bts_url'):

@@ -13,6 +13,9 @@ run_lint () {
         django-apps/integrates-back/backend/mailer.py \
         django-apps/integrates-back/backend/scheduler.py \
         django-apps/integrates-back/backend/services.py \
+        django-apps/integrates-back/backend/util.py \
+        django-apps/integrates-back/backend/exceptions.py \
+        django-apps/integrates-back/backend/decorators.py \
         django-apps/integrates-back/backend/utils/* || RETVAL=1
     return $RETVAL
 }
