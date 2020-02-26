@@ -98,6 +98,13 @@ def test_has_containers_that_can_write_root_file_system_open():
         api_key=KUBERNETES_API_TOKEN).is_open()
 
 
+def test_has_pod_containers_that_run_as_root_user_open():
+    """Search containers that that run as root user."""
+    assert pods.has_pod_containers_that_run_as_root_user(
+        host=KUBERNETES_API_SERVER,
+        api_key=KUBERNETES_API_TOKEN).is_open()
+
+
 #
 # Closing tests
 #
@@ -178,5 +185,12 @@ def test_has_add_cap_with_sys_admin_close():
 def test_has_containers_that_can_write_root_file_system_close():
     """Search containers that can writhe in the root file system."""
     assert pods.has_containers_that_can_write_root_file_system(
+        host=BAD_KUBERNETES_API_SERVER,
+        api_key=BAD_KUBERNETES_API_SERVER).is_unknown()
+
+
+def test_has_pod_containers_that_run_as_root_user_close():
+    """Search containers that that run as root user."""
+    assert pods.has_pod_containers_that_run_as_root_user(
         host=BAD_KUBERNETES_API_SERVER,
         api_key=BAD_KUBERNETES_API_SERVER).is_unknown()

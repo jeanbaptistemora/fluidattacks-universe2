@@ -581,3 +581,53 @@ def has_containers_that_can_write_root_file_system(*,
         msg_closed=msg_closed,
         vulns=vulns,
         safes=safes)
+
+
+@api(risk=MEDIUM, kind=DAST)
+@unknown_if(ApiException, MaxRetryError)
+def has_pod_containers_that_run_as_root_user(*,
+                                             host: str = None,
+                                             api_key: str = None,
+                                             username: str = None,
+                                             password: str = None):
+    """
+    Check if there are pod containers that run as root user.
+
+    Force the running image to run as a non-root user to ensure least
+    privilege.
+
+    :param host: URL of the API server.
+    :param api_key: API Key to make requests.
+    :param username: Username of account.
+    :param password: Password of account.
+
+    :returns: - ``OPEN`` if there are pod containers that run as root user.
+              - ``UNKNOWN`` on errors.
+              - ``CLOSED`` otherwise.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    msg_open: str = 'Pod containers run as root user.'
+    msg_closed: str = 'Pod containers run as non root user.'
+
+    attribute = {'run_as_non_root': lambda x: x is False}
+    safes = []
+
+    vulns, safes = _check_security_context_attribute(
+        host=host,
+        api_key=api_key,
+        username=username,
+        password=password,
+        attribute_check=attribute)
+
+    message = 'must set run_as_non_root to true'
+    vulns = map(lambda x: (x, message), vulns)
+    safes = map(lambda x: (x, message), safes)
+
+    return _get_result_as_tuple(
+        host=host,
+        objects='Pods',
+        msg_open=msg_open,
+        msg_closed=msg_closed,
+        vulns=vulns,
+        safes=safes)
