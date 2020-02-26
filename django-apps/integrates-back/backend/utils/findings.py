@@ -2,8 +2,9 @@ import io
 import itertools
 
 import threading
+from typing import Any, Dict, List
 import rollbar
-from backports import csv
+from backports import csv  # type: ignore
 from magic import Magic
 
 from backend import util
@@ -37,7 +38,7 @@ CVSS_PARAMETERS = {
 }
 
 
-def _get_evidence(name, items):
+def _get_evidence(name: str, items: List[Dict[str, str]]) -> Dict[str, str]:
     evidence = [
         {'url': item['file_url'], 'description': item.get('description', '')}
         for item in items
@@ -46,7 +47,7 @@ def _get_evidence(name, items):
     return evidence[0] if evidence else {'url': '', 'description': ''}
 
 
-def _download_evidence_file(project_name, finding_id, file_name):
+def _download_evidence_file(project_name: str, finding_id: str, file_name: str) -> str:
     file_id = '/'.join([project_name.lower(), finding_id, file_name])
     file_exists = finding_dal.search_evidence(file_id)
 
@@ -60,7 +61,8 @@ def _download_evidence_file(project_name, finding_id, file_name):
     raise Exception('Evidence not found')
 
 
-def get_records_from_file(project_name, finding_id, file_name):
+def get_records_from_file(
+        project_name: str, finding_id: str, file_name: str) -> List[Dict[str, str]]:
     file_path = _download_evidence_file(project_name, finding_id, file_name)
     file_content = []
     encoding = Magic(mime_encoding=True).from_file(file_path)
@@ -79,7 +81,7 @@ def get_records_from_file(project_name, finding_id, file_name):
     return file_content
 
 
-def get_exploit_from_file(project_name, finding_id, file_name):
+def get_exploit_from_file(project_name: str, finding_id: str, file_name: str) -> str:
     file_path = _download_evidence_file(project_name, finding_id, file_name)
     file_content = ''
 
@@ -90,7 +92,7 @@ def get_exploit_from_file(project_name, finding_id, file_name):
 
 
 # pylint: disable=simplifiable-if-expression
-def format_data(finding):
+def format_data(finding: Dict[Any, Any]) -> Dict[str, str]:
     finding = {
         util.snakecase_to_camelcase(attribute): finding.get(attribute)
         for attribute in finding
@@ -153,7 +155,7 @@ def format_data(finding):
     return finding
 
 
-def send_finding_verified_email(finding_id, finding_name, project_name):
+def send_finding_verified_email(finding_id: str, finding_name: str, project_name: str):
     recipients = project_dal.get_users(project_name)
 
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
@@ -172,8 +174,8 @@ def send_finding_verified_email(finding_id, finding_name, project_name):
     email_send_thread.start()
 
 
-def send_finding_delete_mail(finding_id, finding_name, project_name,
-                             discoverer_email, justification):
+def send_finding_delete_mail(finding_id: str, finding_name: str, project_name: str,
+                             discoverer_email: str, justification: str):
     recipients = [FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS]
     approvers = FI_MAIL_REVIEWERS.split(',')
     recipients.extend(approvers)
@@ -191,8 +193,8 @@ def send_finding_delete_mail(finding_id, finding_name, project_name,
     email_send_thread.start()
 
 
-def send_remediation_email(user_email, finding_id, finding_name,
-                           project_name, justification):
+def send_remediation_email(user_email: str, finding_id: str, finding_name: str,
+                           project_name: str, justification: str):
     recipients = project_dal.get_users(project_name)
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
     email_send_thread = threading.Thread(
@@ -212,7 +214,7 @@ def send_remediation_email(user_email, finding_id, finding_name,
     email_send_thread.start()
 
 
-def send_accepted_email(finding, justification):
+def send_accepted_email(finding: Any, justification: str):
     project_name = finding.get('projectName')
     finding_name = finding.get('finding')
     recipients = project_dal.get_users(project_name)
@@ -234,7 +236,8 @@ def send_accepted_email(finding, justification):
     email_send_thread.start()
 
 
-def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_name, reviewer_email):
+def send_draft_reject_mail(draft_id: str, project_name: str, discoverer_email: str,
+                           finding_name: str, reviewer_email: str):
     recipients = FI_MAIL_REVIEWERS.split(',')
     recipients.append(discoverer_email)
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'
@@ -255,7 +258,8 @@ def send_draft_reject_mail(draft_id, project_name, discoverer_email, finding_nam
     email_send_thread.start()
 
 
-def send_new_draft_mail(analyst_email, finding_id, finding_title, project_name):
+def send_new_draft_mail(
+        analyst_email: str, finding_id: str, finding_title: str, project_name: str):
     recipients = FI_MAIL_REVIEWERS.split(',')
     recipients += project_dal.list_internal_managers(project_name)
 

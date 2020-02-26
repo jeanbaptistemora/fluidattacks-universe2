@@ -7,7 +7,7 @@ import math
 from typing import Dict
 
 
-def _calc_cvss2_temporal(severity: Dict[str, float], basescore: float) -> Decimal:
+def _calc_cvss2_temporal(severity: Dict[str, float], basescore: Decimal) -> Decimal:
     """Calculate cvss v2 temporal attribute."""
     temporal = Decimal(float(basescore) * severity['exploitability'] *
                        severity['resolutionLevel'] *
@@ -87,7 +87,7 @@ def _calc_cvss3_basescore(severity: Dict[str, float], parameters: Dict[str, floa
     return resp
 
 
-def _calc_cvss3_temporal(severity: Dict[str, float], basescore: float) -> Decimal:
+def _calc_cvss3_temporal(severity: Dict[str, float], basescore: Decimal) -> Decimal:
     """Calculate cvss v3 temporal attribute."""
     temporal = Decimal(math.ceil(float(basescore) * severity['exploitability'] *
                                  severity['remediationLevel'] *
@@ -146,7 +146,7 @@ def get_f_impact(impact: float) -> float:
 
 
 def calculate_cvss_temporal(
-        severity: Dict[str, float], basescore: float, version: str) -> Decimal:
+        severity: Dict[str, float], basescore: Decimal, version: str) -> Decimal:
     """Calculate cvss temporal attribute."""
     if version == '3.1':
         cvss_temporal = _calc_cvss3_temporal(severity, basescore)

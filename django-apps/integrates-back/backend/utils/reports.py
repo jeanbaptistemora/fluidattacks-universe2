@@ -1,7 +1,7 @@
 import os
 
 
-def set_xlsx_password(filepath, password):
+def set_xlsx_password(filepath: str, password: str):
     cmd = 'cat {filepath} | secure-spreadsheet '
     cmd += '--password {password} '
     cmd += '--input-format xlsx '

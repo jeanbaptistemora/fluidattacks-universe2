@@ -2,6 +2,7 @@
 """ Auxiliar functions for forms handling """
 
 from datetime import datetime
+from typing import Any, Dict, List
 
 # pylint: disable=redefined-builtin
 try:
@@ -10,23 +11,23 @@ except NameError:
     from functools import reduce
 
 
-def dict_concatenation(dict_1, dict_2):
+def dict_concatenation(dict_1: Dict[Any, Any], dict_2: Dict[Any, Any]) -> Dict[Any, Any]:
     dict_1_copy = dict_1.copy()
     dict_1_copy.update(dict_2)
     return dict_1_copy
 
 
-def remove_standard_keys(dictionary):
+def remove_standard_keys(dictionary: Dict[Any, Any]) -> Dict[Any, Any]:
     return {dictionary['field']: dictionary['value']}
 
 
-def merge_dicts_list_into_dict(dicts_list):
+def merge_dicts_list_into_dict(dicts_list: List[Dict[Any, Any]]) -> Dict[Any, Any]:
     dicts_without_standard_keys = [remove_standard_keys(x)
                                    for x in dicts_list]
     return reduce(dict_concatenation, dicts_without_standard_keys)
 
 
-def is_exploitable(explotability, version):
+def is_exploitable(explotability: float, version: str) -> str:
     if version == '3.1':
         if explotability >= 0.97:
             exploitable = 'Si'
@@ -40,15 +41,5 @@ def is_exploitable(explotability, version):
     return exploitable
 
 
-def round_date(date):
-    seconds_in_hour = 3600
-    hours = round(date.seconds / seconds_in_hour)
-    if hours > 12:
-        rounded_date = date.days + 1
-    else:
-        rounded_date = date.days
-    return rounded_date
-
-
-def string_to_date(string):
+def string_to_date(string: str) -> datetime:
     return datetime.strptime(string, "%Y-%m-%d %H:%M:%S")
