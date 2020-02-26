@@ -7,7 +7,7 @@ secret_management_dev_terraform_apply() {
   . ci-scripts/helpers/sops.sh
 
   local folder='deploy/secret-management/dev/terraform'
-  local user='production'
+  local user='development'
 
   aws_login "${user}"
 
@@ -33,7 +33,7 @@ secret_management_dev_terraform_test() {
   pushd "${folder}" || return 1
 
   terraform init
-  terraform plan
+  terraform plan -refresh=true
   tflint --deep --module
 
   popd || return 1

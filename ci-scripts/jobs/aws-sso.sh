@@ -33,7 +33,7 @@ aws_sso_terraform_test() {
   pushd "${folder}" || return 1
 
   terraform init
-  terraform plan
+  terraform plan -refresh=true
   tflint --deep --module
 
   popd || return 1
