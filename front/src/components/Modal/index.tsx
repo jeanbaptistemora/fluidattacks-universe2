@@ -21,7 +21,13 @@ const modal: React.FC<IModalProps> = (props: IModalProps): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <Modal show={props.open} bsSize={bsSize} onHide={handleModalClose} dialogClassName={style.dialog}>
+      <Modal
+        backdrop={true}
+        bsSize={bsSize}
+        dialogClassName={style.dialog}
+        onHide={handleModalClose}
+        show={props.open}
+      >
         <Modal.Header className={style.header}>
           <Modal.Title className={style.title}>{props.headerTitle}</Modal.Title>
         </Modal.Header>

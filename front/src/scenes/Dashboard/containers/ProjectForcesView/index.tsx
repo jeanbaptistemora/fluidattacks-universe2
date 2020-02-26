@@ -236,6 +236,7 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   footer={<div />}
                   headerTitle={translate.t("project.forces.execution_details_modal.title")}
                   open={isExecutionDetailsModalOpen}
+                  onClose={closeSeeExecutionDetailsModal}
               >
                 <div>
                   <Row>
