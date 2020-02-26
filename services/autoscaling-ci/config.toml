@@ -1,14 +1,14 @@
 concurrent = 1000
-check_interval = 2
+check_interval = 20
 
 [session_server]
   session_timeout = 1800
 
 [[runners]]
   name = "autoscaling-ci"
-  limit = 100
+  limit = 1000
   url = "https://gitlab.com/"
-  token = "----REPLACE-ME----"
+  token = "__autoscaling_token_1__"
   executor = "docker+machine"
   [runners.custom_build_dir]
   [runners.docker]
@@ -29,45 +29,45 @@ check_interval = 2
     Shared = true
     [runners.cache.s3]
       ServerAddress = "s3.amazonaws.com"
-      AccessKey = "----REPLACE-ME----"
-      SecretKey = "----REPLACE-ME----"
+      AccessKey = "__autoscaling_access_key__"
+      SecretKey = "__autoscaling_secret_key__"
       BucketName = "autoscaling-ci-cache"
       BucketLocation = "us-east-1"
   [runners.machine]
-    IdleCount = 16
-    IdleTime = 0
-    MaxBuilds = 1
+    IdleCount = 40
+    IdleTime = 300
+    MaxBuilds = 2
     MachineDriver = "amazonec2"
     MachineName = "autoscaling-ci-%s"
     MachineOptions = [
-      "amazonec2-access-key=----REPLACE-ME----",
-      "amazonec2-secret-key=----REPLACE-ME----",
+      "amazonec2-access-key=__autoscaling_access_key__",
+      "amazonec2-secret-key=__autoscaling_secret_key__",
       "amazonec2-region=us-east-1",
-      "amazonec2-vpc-id=vpc-53ea4637",
-      "amazonec2-subnet-id=subnet-6a606433",
+      "amazonec2-tags=use,ci",
+      "amazonec2-vpc-id=vpc-0ea1c7bd6be683d2d",
+      "amazonec2-subnet-id=subnet-0bceb7aa2c900324a",
       "amazonec2-zone=a",
       "amazonec2-use-private-address=true",
       "amazonec2-use-ebs-optimized-instance=true",
-      "amazonec2-security-group=AutoscalingCISecurityGroup",
+      "amazonec2-security-group=AutoscalingCISG",
       "amazonec2-ami=ami-075b5fce6712726ed",
-      "amazonec2-instance-type=t3.nano",
+      "amazonec2-instance-type=t3a.medium",
       "amazonec2-volume-type=gp2",
-      "amazonec2-root-size=16"
+      "amazonec2-root-size=30"
     ]
     OffPeakPeriods = [
-      "* * 18-23 * * mon-fri *",
-      "* * 0-6 * * mon-fri *",
+      "* * 0-6,21-23 * * mon-fri *",
       "* * * * * sat,sun *"
     ]
     OffPeakTimezone = "America/Bogota"
     OffPeakIdleCount = 0
-    OffPeakIdleTime = 0
+    OffPeakIdleTime = 300
 
 [[runners]]
   name = "autoscaling-large-ci"
-  limit = 100
+  limit = 1000
   url = "https://gitlab.com/"
-  token = "----REPLACE-ME----"
+  token = "__autoscaling_token_2__"
   executor = "docker+machine"
   [runners.custom_build_dir]
   [runners.docker]
@@ -88,34 +88,94 @@ check_interval = 2
     Shared = true
     [runners.cache.s3]
       ServerAddress = "s3.amazonaws.com"
-      AccessKey = "----REPLACE-ME----"
-      SecretKey = "----REPLACE-ME----"
+      AccessKey = "__autoscaling_access_key__"
+      SecretKey = "__autoscaling_secret_key__"
       BucketName = "autoscaling-ci-cache"
       BucketLocation = "us-east-1"
   [runners.machine]
-    IdleCount = 8
+    IdleCount = 5
     IdleTime = 0
     MaxBuilds = 1
     MachineDriver = "amazonec2"
     MachineName = "autoscaling-large-ci-%s"
     MachineOptions = [
-      "amazonec2-access-key=----REPLACE-ME----",
-      "amazonec2-secret-key=----REPLACE-ME----",
+      "amazonec2-access-key=__autoscaling_access_key__",
+      "amazonec2-secret-key=__autoscaling_secret_key__",
       "amazonec2-region=us-east-1",
-      "amazonec2-vpc-id=vpc-53ea4637",
-      "amazonec2-subnet-id=subnet-6a606433",
+      "amazonec2-tags=use,ci",
+      "amazonec2-vpc-id=vpc-0ea1c7bd6be683d2d",
+      "amazonec2-subnet-id=subnet-0bceb7aa2c900324a",
       "amazonec2-zone=a",
       "amazonec2-use-private-address=true",
       "amazonec2-use-ebs-optimized-instance=true",
-      "amazonec2-security-group=AutoscalingCISecurityGroup",
+      "amazonec2-security-group=AutoscalingCISG",
       "amazonec2-ami=ami-075b5fce6712726ed",
-      "amazonec2-instance-type=t3.large",
+      "amazonec2-instance-type=t3a.large",
       "amazonec2-volume-type=gp2",
-      "amazonec2-root-size=64"
+      "amazonec2-root-size=50"
     ]
     OffPeakPeriods = [
-      "* * 18-23 * * mon-fri *",
-      "* * 0-6 * * mon-fri *",
+      "* * 0-6,21-23 * * mon-fri *",
+      "* * * * * sat,sun *"
+    ]
+    OffPeakTimezone = "America/Bogota"
+    OffPeakIdleCount = 0
+    OffPeakIdleTime = 0
+
+
+[[runners]]
+  name = "autonomic"
+  limit = 1000
+  url = "https://gitlab.com/"
+  token = "__autoscaling_token_3__"
+  executor = "docker+machine"
+  [runners.custom_build_dir]
+  [runners.docker]
+    tls_verify = false
+    image = "docker"
+    privileged = true
+    volumes = [
+      "/builds:/builds",
+      "/var/run/docker.sock:/var/run/docker.sock"
+    ]
+    disable_entrypoint_overwrite = false
+    oom_kill_disable = false
+    disable_cache = true
+    shm_size = 0
+  [runners.cache]
+    Type = "s3"
+    Path = "default"
+    Shared = true
+    [runners.cache.s3]
+      ServerAddress = "s3.amazonaws.com"
+      AccessKey = "__autoscaling_access_key__"
+      SecretKey = "__autoscaling_secret_key__"
+      BucketName = "autonomic-ci-cache"
+      BucketLocation = "us-east-1"
+  [runners.machine]
+    IdleCount = 6
+    IdleTime = 0
+    MaxBuilds = 1
+    MachineDriver = "amazonec2"
+    MachineName = "autonomic-ci-%s"
+    MachineOptions = [
+      "amazonec2-access-key=__autoscaling_access_key__",
+      "amazonec2-secret-key=__autoscaling_secret_key__",
+      "amazonec2-region=us-east-1",
+      "amazonec2-tags=use,ci",
+      "amazonec2-vpc-id=vpc-0ea1c7bd6be683d2d",
+      "amazonec2-subnet-id=subnet-0bceb7aa2c900324a",
+      "amazonec2-zone=a",
+      "amazonec2-use-private-address=true",
+      "amazonec2-use-ebs-optimized-instance=true",
+      "amazonec2-security-group=AutoscalingCISG",
+      "amazonec2-ami=ami-075b5fce6712726ed",
+      "amazonec2-instance-type=t3a.medium",
+      "amazonec2-volume-type=gp2",
+      "amazonec2-root-size=20"
+    ]
+    OffPeakPeriods = [
+      "* * 0-6,18-23 * * mon-fri *",
       "* * * * * sat,sun *"
     ]
     OffPeakTimezone = "America/Bogota"

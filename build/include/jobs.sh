@@ -487,6 +487,46 @@ function job_infra_autoscaling_ci_deploy {
         services/autoscaling-ci/terraform
 }
 
+function job_infra_autoscaling_ci_deploy_config {
+  local bastion_ip='54.164.133.221'
+  local bastion_user='ubuntu'
+  local secrets_to_replace=(
+    autoscaling_token_1
+    autoscaling_token_2
+    autoscaling_token_3
+    autoscaling_access_key
+    autoscaling_secret_key
+  )
+
+      echo '[INFO] Exporting bastion SSH key' \
+  &&  sops_env secrets-prod.yaml default \
+        "${secrets_to_replace[@]}" \
+        autoscaling_bastion_key_b64 \
+  &&  echo -n "${autoscaling_bastion_key_b64}" \
+        | base64 -d \
+        > "${TEMP_FILE1}" \
+  &&  echo '[INFO] Executing test: $ sudo whoami' \
+  &&  ssh -i "${TEMP_FILE1}" "${bastion_user}@${bastion_ip}" \
+        'sudo whoami' \
+  &&  echo '[INFO] Writing config with secrets' \
+  &&  cp './services/autoscaling-ci/config.toml' "${TEMP_FILE2}" \
+  &&  for secret in "${secrets_to_replace[@]}"
+      do
+        rpl "__${secret}__" "${!secret}" "${TEMP_FILE2}" \
+          |& grep 'Replacing' \
+          |& sed -E 's/with.*$//g' \
+          || return 1
+      done \
+  &&  echo '[INFO] Deploying config file to the bastion 1: /port/config.toml' \
+  &&  scp -i "${TEMP_FILE1}" "${TEMP_FILE2}" "${bastion_user}@${bastion_ip}:/port/config.toml" \
+  &&  echo '[INFO] Deploying config file to the bastion 2: /etc/gitlab-runner/config.toml' \
+  &&  ssh -i "${TEMP_FILE1}" "${bastion_user}@${bastion_ip}" \
+        'sudo mv /port/config.toml /etc/gitlab-runner/config.toml' \
+  &&  echo '[INFO] Reloading config in the bastion from: /etc/gitlab-runner/config.toml' \
+  &&  ssh -i "${TEMP_FILE1}" "${bastion_user}@${bastion_ip}" \
+        'sudo killall -SIGHUP gitlab-runner'
+}
+
 function job_infra_aws_sso_test {
       helper_terraform_init \
         services/aws-sso/terraform \

@@ -51,6 +51,7 @@ in rec {
       python.mandrill
       python.prospector
       python.urllib3
+      rpl
       shellcheck
       sops
       sudo

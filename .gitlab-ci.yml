@@ -177,6 +177,11 @@ infra_autoscaling_ci_deploy:
   <<: *in_master_branch
   stage: deploy
 
+infra_autoscaling_ci_deploy_config:
+  <<: *with_nix
+  <<: *in_master_branch
+  stage: deploy
+
 infra_aws_sso_test:
   <<: *with_nix
   <<: *in_dev_branch
