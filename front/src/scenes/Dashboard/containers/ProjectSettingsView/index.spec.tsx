@@ -202,7 +202,7 @@ describe("Resources view", () => {
                                                .find("RowPureContent")
                                                .find("Cell")
                                                .at(3)
-                                               .find("n")
+                                               .find("e")
                                                .prop("checked");
     const protocol: string = wrapper
                             .find("BootstrapTable")
@@ -240,7 +240,7 @@ describe("Resources view", () => {
                                                .find("RowPureContent")
                                                .find("Cell")
                                                .at(1)
-                                               .find("n")
+                                               .find("e")
                                                .prop("checked");
     expect(wrapper)
       .toHaveLength(1);

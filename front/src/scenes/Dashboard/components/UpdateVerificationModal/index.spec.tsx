@@ -133,7 +133,7 @@ describe("update verification component", () => {
     justification.simulate("change", { target:
       { value: "This is a commenting test of a verifying request verification in vulns" } });
     const switchButton: ReactWrapper = wrapper.find("BootstrapTable")
-      .find("n")
+      .find("e")
       .find("div")
       .first();
     switchButton.simulate("click");
