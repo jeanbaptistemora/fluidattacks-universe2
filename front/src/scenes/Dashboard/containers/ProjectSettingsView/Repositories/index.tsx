@@ -13,7 +13,7 @@ import { ConfirmDialog, ConfirmFn } from "../../../../../components/ConfirmDialo
 import { DataTableNext } from "../../../../../components/DataTableNext";
 import { changeFormatter, statusFormatter } from "../../../../../components/DataTableNext/formatters";
 import { IHeader } from "../../../../../components/DataTableNext/types";
-import { msgSuccess } from "../../../../../utils/notifications";
+import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
 import { addRepositoriesModal as AddRepositoriesModal } from "../../../components/AddRepositoriesModal/index";
 import { ADD_RESOURCE_MUTATION, GET_REPOSITORIES, UPDATE_RESOURCE_MUTATION } from "../queries";
@@ -59,9 +59,23 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
       state: _.capitalize((_.last(repo.historic_state) as IHistoricState).state),
     }));
 
+  const isRepeated: ((newRepo: IRepositoriesAttr) => boolean) = (newRepo: IRepositoriesAttr): boolean => {
+    const repeatedItems: IRepositoriesAttr[] = reposDataset.filter((repo: IRepositoriesAttr): boolean =>
+      repo.branch === newRepo.branch
+      && repo.urlRepo === newRepo.urlRepo
+      && repo.protocol === newRepo.protocol);
+
+    return repeatedItems.length > 0;
+  };
+
   const handleRepoAdd: ((values: { resources: IRepositoriesAttr[] }) => void) = (
     values: { resources: IRepositoriesAttr[] },
   ): void => {
+    const containsRepeated: boolean = values.resources.filter(isRepeated).length > 0;
+
+    if (containsRepeated) {
+      msgError(translate.t("search_findings.tab_resources.repeated_item"));
+    } else {
       closeAddModal();
       addRepositories({
         variables: {
@@ -71,6 +85,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
         },
       })
         .catch();
+    }
   };
 
   return (
