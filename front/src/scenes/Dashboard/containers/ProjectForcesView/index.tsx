@@ -23,6 +23,7 @@ import { IHeader } from "../../../../components/DataTableNext/types";
 import { Modal } from "../../../../components/Modal";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import translate from "../../../../utils/translations/translate";
+import styles from "./index.css";
 import { GET_FORCES_EXECUTIONS } from "./queries";
 
 type ForcesViewProps = RouteComponentProps<{ projectName: string }>;
@@ -264,13 +265,13 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                   <Row>
                     <Col md={4}><p><b>{translate.t("project.forces.found_vulnerabilities.title")}</b></p></Col>
                     <Col md={8}>
-                      <p>
+                      <text className={styles.wrapped}>
                         {getVulnerabilitySummary(
                           currentRow.foundVulnerabilities.exploitable,
                           currentRow.foundVulnerabilities.accepted,
                           currentRow.foundVulnerabilities.notExploitable,
                           currentRow.foundVulnerabilities.total)}
-                      </p>
+                      </text>
                     </Col>
                   </Row>
                   <Row>
@@ -280,37 +281,37 @@ const projectForcesView: React.FunctionComponent<ForcesViewProps> = (props: Forc
                     <Col md={1} />
                     <Col md={2}><p><b>{translate.t("project.forces.compromised_toe.risk_state")}</b></p></Col>
                     <Col md={1}><p><b>{translate.t("project.forces.compromised_toe.type")}</b></p></Col>
-                    <Col md={4}><p><b>Who</b></p></Col>
-                    <Col md={2}><p><b>Where</b></p></Col>
+                    <Col md={4}><p><b>{translate.t("project.forces.compromised_toe.who")}</b></p></Col>
+                    <Col md={4}><p><b>{translate.t("project.forces.compromised_toe.where")}</b></p></Col>
                   </Row>
                   {currentRow.vulnerabilities.exploits.map(
                     (result: IExploitResult) => (
                       <Row key={result.who}>
                         <Col md={1} />
-                        <Col md={2}>Exploitable</Col>
+                        <Col md={2}>{translate.t("project.forces.found_vulnerabilities.exploitable")}</Col>
                         <Col md={1}>{result.kind}</Col>
-                        <Col md={4}>{result.who}</Col>
-                        <Col md={2}>{result.where}</Col>
+                        <Col md={4}><text className={styles.wrapped}>{result.who}</text></Col>
+                        <Col md={4}><text className={styles.wrapped}>{result.where}</text></Col>
                       </Row>
                     ))}
                   {currentRow.vulnerabilities.acceptedExploits.map(
                     (result: IExploitResult) => (
                       <Row key={result.who}>
                         <Col md={1} />
-                        <Col md={2}>Accepted</Col>
+                        <Col md={2}>{translate.t("project.forces.found_vulnerabilities.accepted")}</Col>
                         <Col md={1}>{result.kind}</Col>
-                        <Col md={4}>{result.who}</Col>
-                        <Col md={2}>{result.where}</Col>
+                        <Col md={4}><text className={styles.wrapped}>{result.who}</text></Col>
+                        <Col md={4}><text className={styles.wrapped}>{result.where}</text></Col>
                       </Row>
                     ))}
                   {currentRow.vulnerabilities.mockedExploits.map(
                     (result: IExploitResult) => (
                       <Row key={result.who}>
                         <Col md={1} />
-                        <Col md={2}>Not exploitable</Col>
+                        <Col md={2}>{translate.t("project.forces.found_vulnerabilities.not_exploitable")}</Col>
                         <Col md={1}>{result.kind}</Col>
-                        <Col md={4}>{result.who}</Col>
-                        <Col md={2}>{result.where}</Col>
+                        <Col md={4}><text className={styles.wrapped}>{result.who}</text></Col>
+                        <Col md={4}><text className={styles.wrapped}>{result.where}</text></Col>
                       </Row>
                     ))}
                   <br />

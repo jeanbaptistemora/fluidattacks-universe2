@@ -137,8 +137,8 @@ class BreakBuildExecutionsTests(TestCase):
             "acceptedExploits": [
                 {
                     "kind": "DAST",
-                    "who": "https://test.com/test",
-                    "where": "HTTP/Implementation"
+                    "who": "https://test.com/test/looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong",
+                    "where": "HTTP/Implementatioooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooon"
                 }
             ],
             "numOfVulnerabilitiesInExploits": 1,

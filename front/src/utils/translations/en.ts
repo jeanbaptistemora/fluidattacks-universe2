@@ -237,6 +237,8 @@ const enTranslations: Dictionary = {
         risk_state: "Risk State",
         title: "Compromised Surface",
         type: "Type",
+        where: "Where",
+        who: "Who",
       },
       date: "Date",
       execution_details_modal: {
