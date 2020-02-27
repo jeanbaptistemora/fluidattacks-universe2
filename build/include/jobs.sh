@@ -262,6 +262,14 @@ function job_lint_front {
   ||  return 1
 }
 
+function job_lint_mobile {
+      pushd mobile \
+    &&  npm install \
+    &&  npm run lint \
+  &&  popd \
+  ||  return 1
+}
+
 function job_test_back {
   local processes_to_kill=()
   local port_dynamo='8022'
@@ -329,7 +337,16 @@ function job_test_back {
 
 function job_test_front {
       pushd front \
-    &&  npm install \
+    &&  npm install --unsafe-perm \
+    &&  npm test \
+    &&  mv coverage/lcov.info coverage.lcov \
+  &&  popd \
+  ||  return 1
+}
+
+function job_test_mobile {
+      pushd mobile \
+    &&  npm install --unsafe-perm \
     &&  npm test \
   &&  popd \
   ||  return 1
