@@ -114,7 +114,6 @@ export interface IResourcesViewDispatchProps {
   onCloseEnvsModal(): void;
   onCloseFilesModal(): void;
   onCloseOptionsModal(): void;
-  onCloseReposModal(): void;
   onCloseTagsModal(): void;
   onDeleteFile(fileName: string): void;
   onDownloadFile(fileName: string): void;
@@ -123,7 +122,6 @@ export interface IResourcesViewDispatchProps {
   onOpenEnvsModal(): void;
   onOpenFilesModal(): void;
   onOpenOptionsModal(row: string): void;
-  onOpenReposModal(): void;
   onOpenTagsModal(): void;
   onSaveFiles(files: IResourcesViewStateProps["files"]): void;
   onSort(newValues: {}): void;

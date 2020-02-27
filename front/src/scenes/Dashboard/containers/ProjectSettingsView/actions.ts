@@ -80,18 +80,6 @@ export const closeAddEnvModal: (() => IActionStructure) =
     type: actionTypes.CLOSE_ENVIRONMENTS_MODAL,
   });
 
-export const openAddRepoModal: (() => IActionStructure) =
-  (): IActionStructure => ({
-    payload: undefined,
-    type: actionTypes.OPEN_REPOSITORIES_MODAL,
-  });
-
-export const closeAddRepoModal: (() => IActionStructure) =
-  (): IActionStructure => ({
-    payload: undefined,
-    type: actionTypes.CLOSE_REPOSITORIES_MODAL,
-  });
-
 export const openAddFilesModal: (() => IActionStructure) =
   (): IActionStructure => ({
     payload: undefined,

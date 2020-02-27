@@ -22,7 +22,6 @@ describe("Resources view", () => {
     defaultSort: {
       environments: {},
       files: {},
-      repositories: {},
       tags: {},
     },
     envModal: {
@@ -38,7 +37,6 @@ describe("Resources view", () => {
     },
     filters: {
       stateEnvironments: "",
-      stateRepositories: "",
     },
     match: {
       isExact: true,
@@ -49,7 +47,6 @@ describe("Resources view", () => {
     onCloseEnvsModal: functionMock,
     onCloseFilesModal: functionMock,
     onCloseOptionsModal: functionMock,
-    onCloseReposModal: functionMock,
     onCloseTagsModal: functionMock,
     onDeleteFile: functionMock,
     onDownloadFile: functionMock,
@@ -58,16 +55,12 @@ describe("Resources view", () => {
     onOpenEnvsModal: functionMock,
     onOpenFilesModal: functionMock,
     onOpenOptionsModal: functionMock,
-    onOpenReposModal: functionMock,
     onOpenTagsModal: functionMock,
     onSaveFiles: functionMock,
     onSort: functionMock,
     optionsModal: {
       open: false,
       rowInfo: { fileName: "fileTest"},
-    },
-    reposModal: {
-      open: false,
     },
     showUploadProgress: false,
     tagsModal: {
