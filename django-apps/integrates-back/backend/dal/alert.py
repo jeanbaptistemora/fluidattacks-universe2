@@ -1,5 +1,6 @@
 """DAL functions for alerts."""
 
+from typing import Any, Dict, List
 import rollbar
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
@@ -11,7 +12,7 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_alerts_by_company')
 
 
-def get(company_name, project_name):
+def get(company_name: str, project_name: str) -> List[Dict[str, Any]]:
     """ Get alerts of a company. """
     company_name = company_name.lower()
     project_name = project_name.lower()
@@ -22,8 +23,8 @@ def get(company_name, project_name):
         response = TABLE.query(
             KeyConditionExpression=filtering_exp)
     else:
-        filtering_exp = Key(filter_key).eq(company_name) & \
-            Key(filter_sort).eq(project_name)
+        filtering_exp = (Key(filter_key).eq(company_name) &  # type: ignore
+                         Key(filter_sort).eq(project_name))
         response = TABLE.query(KeyConditionExpression=filtering_exp)
     items = response['Items']
     while response.get('LastEvaluatedKey'):
@@ -34,7 +35,7 @@ def get(company_name, project_name):
     return items
 
 
-def change_status(message, company_name, project_name):
+def change_status(message: str, company_name: str, project_name: str) -> bool:
     """ Activate or deactivate the alert of a company. """
     message = message.lower()
     company_name = company_name.lower()
@@ -62,7 +63,7 @@ def change_status(message, company_name, project_name):
     return True
 
 
-def put(message, company_name, project_name):
+def put(message: str, company_name: str, project_name: str) -> bool:
     """ Create, update or activate an alert for a company. """
     project_name = project_name.lower()
     company_name = company_name.lower()

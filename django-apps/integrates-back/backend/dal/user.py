@@ -1,4 +1,5 @@
 
+from typing import Any, Dict, List
 import rollbar
 from boto3.dynamodb.conditions import Attr, Key, Not
 from botocore.exceptions import ClientError
@@ -12,20 +13,20 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 ACCESS_TABLE = DYNAMODB_RESOURCE.Table('FI_project_access')
 
 
-def get_admins():
+def get_admins() -> List[Any]:
     filter_exp = Attr('role').exists() & Attr('role').eq('admin')
     admins = get_all(filter_exp)
     return [user.get('email') for user in admins]
 
 
-def get_all_companies():
+def get_all_companies() -> List[str]:
     filter_exp = Attr('company').exists()
     users = get_all(filter_exp)
-    companies = [user.get('company').strip().upper() for user in users]
+    companies = [user.get('company').strip().upper() for user in users]  # type: ignore
     return list(set(companies))
 
 
-def get_all_inactive_users(final_date):
+def get_all_inactive_users(final_date: str) -> List[Any]:
     filtering_exp = Attr('registered').exists() & \
         Attr('registered').eq(False) & \
         (Attr('last_login').not_exists() |
@@ -35,7 +36,7 @@ def get_all_inactive_users(final_date):
     return users_data
 
 
-def get_all_users(company_name):
+def get_all_users(company_name: str) -> int:
     filter_exp = Attr('company').exists() & \
         Attr('company').eq(company_name) & Attr('registered').exists() & \
         Attr('registered').eq(True)
@@ -43,7 +44,7 @@ def get_all_users(company_name):
     return len(users)
 
 
-def get_all_users_report(company_name, finish_date):
+def get_all_users_report(company_name: str, finish_date: str) -> int:
     filter_exp = Attr('has_access').exists() & Attr('has_access').eq(True)
     attribute = 'user_email'
     project_access = get_all(filter_exp, data_attr=attribute)
@@ -52,12 +53,12 @@ def get_all_users_report(company_name, finish_date):
         Attr('registered').eq(True) & Attr('company').ne(company_name)
     attribute = 'email'
     users = get_all(filter_exp, data_attr=attribute)
-    users = [user.get('email') for user in users]
+    users = [user.get('email') for user in users]  # type: ignore
     users_filtered = project_users.intersection(users)
     return len(users_filtered)
 
 
-def get_all(filter_exp, data_attr=''):
+def get_all(filter_exp: Any, data_attr: str = '') -> List[Dict[str, Any]]:
     table = DYNAMODB_RESOURCE.Table(TABLE)
     scan_attrs = {}
     scan_attrs['FilterExpression'] = filter_exp
@@ -73,7 +74,7 @@ def get_all(filter_exp, data_attr=''):
     return items
 
 
-def get_attributes(email, attributes):
+def get_attributes(email: str, attributes: List[str]) -> Dict[str, Any]:
     table = DYNAMODB_RESOURCE.Table(TABLE)
     items = {}
     try:
@@ -88,7 +89,7 @@ def get_attributes(email, attributes):
     return items
 
 
-def logging_users_report(company_name, init_date, finish_date):
+def logging_users_report(company_name: str, init_date: str, finish_date: str) -> int:
     filter_exp = Attr('last_login').exists() & \
         Attr('last_login').lte(finish_date) & \
         Attr('last_login').gte(init_date) & \
@@ -98,11 +99,11 @@ def logging_users_report(company_name, init_date, finish_date):
     return len(users)
 
 
-def remove_attribute(email, name_attribute):
+def remove_attribute(email: str, name_attribute: str) -> bool:
     return update(email.lower(), {name_attribute: None})
 
 
-def create(email, data):
+def create(email: str, data: Any) -> bool:
     resp = False
     table = DYNAMODB_RESOURCE.Table(TABLE)
     try:
@@ -114,7 +115,7 @@ def create(email, data):
     return resp
 
 
-def update(email, data):
+def update(email: str, data: Any) -> bool:
     success = False
     primary_key = {'email': email.lower()}
     table = DYNAMODB_RESOURCE.Table(TABLE)
@@ -151,7 +152,7 @@ def update(email, data):
     return success
 
 
-def delete(email):
+def delete(email: str) -> bool:
     table = DYNAMODB_RESOURCE.Table(TABLE)
     primary_keys = {'email': email.lower()}
     resp = False
@@ -166,7 +167,7 @@ def delete(email):
     return resp
 
 
-def get_projects(user_email, active):
+def get_projects(user_email: str, active: bool) -> List[str]:
     """ Get projects of a user """
     filtering_exp = Key('user_email').eq(user_email.lower())
     response = ACCESS_TABLE.query(KeyConditionExpression=filtering_exp)
@@ -187,7 +188,7 @@ def get_projects(user_email, active):
     return projects_filtered
 
 
-def get_platform_users():
+def get_platform_users() -> List[Dict[str, Any]]:
     filter_exp = Attr('has_access').eq(True) \
         & Not(Attr('user_email').contains('@fluidattacks.com')) \
         & Not(Attr('project_name').is_in(FI_TEST_PROJECTS.split(',')))

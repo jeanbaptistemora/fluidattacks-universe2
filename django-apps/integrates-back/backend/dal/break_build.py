@@ -1,5 +1,7 @@
 """Data Access Layer to the Break Build tables."""
 
+from typing import Generator
+
 # Standard library
 from datetime import datetime
 
@@ -16,7 +18,7 @@ TABLE = dynamodb.DYNAMODB_RESOURCE.Table('bb_executions')  # type: ignore
 def yield_executions(
         project_name: str,
         from_date: datetime,
-        to_date: datetime):
+        to_date: datetime) -> Generator:
     """ Lazy iterator over the executions of a project """
     key_condition_expresion = \
         Key('subscription').eq(project_name)

@@ -1,5 +1,6 @@
 """DAL functions for comments."""
 
+from typing import Any, Dict, List
 import rollbar
 from boto3.dynamodb.conditions import Attr, Key
 from botocore.exceptions import ClientError
@@ -10,7 +11,7 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_comments')
 
 
-def create(comment_id, comment_attributes):
+def create(comment_id: int, comment_attributes: Dict[str, Any]) -> bool:
     success = False
     try:
         comment_attributes.update({'user_id': comment_id})
@@ -22,7 +23,8 @@ def create(comment_id, comment_attributes):
     return success
 
 
-def delete(finding_id, user_id):
+def delete(finding_id, user_id) -> bool:
+    resp = False
     try:
         response = TABLE.delete_item(
             Key={
@@ -31,22 +33,21 @@ def delete(finding_id, user_id):
             }
         )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
     except ClientError:
         rollbar.report_exc_info()
-        return False
+    return resp
 
 
-def get_comments(comment_type, finding_id):
+def get_comments(comment_type: str, finding_id: int) -> List[Dict[str, Any]]:
     """Get comments of the given finding"""
     key_exp = Key('finding_id').eq(finding_id)
     if comment_type == 'comment':
         filter_exp = Attr('comment_type').eq('comment') \
             | Attr('comment_type').eq('verification')
     elif comment_type == 'observation':
-        filter_exp = Attr('comment_type').eq('observation')
+        filter_exp = Attr('comment_type').eq('observation')  # type: ignore
     elif comment_type == 'event':
-        filter_exp = Attr('comment_type').eq('event')
+        filter_exp = Attr('comment_type').eq('event')  # type: ignore
 
     response = TABLE.query(
         FilterExpression=filter_exp, KeyConditionExpression=key_exp)

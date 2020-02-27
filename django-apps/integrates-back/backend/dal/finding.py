@@ -1,5 +1,6 @@
 """DAL functions for findings."""
 
+from typing import Any, Dict, List
 import rollbar
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
@@ -12,12 +13,12 @@ TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 TABLE_VULNS = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
 
 
-def _escape_alnum(string):
+def _escape_alnum(string: str) -> str:
     """ Removes non-alphanumeric characters from a string """
     return ''.join([char for char in string if char.isalnum()])
 
 
-def create(finding_id, project_name, finding_attrs):
+def create(finding_id: str, project_name: str, finding_attrs: Any) -> bool:
     success = False
     try:
         finding_attrs.update({
@@ -32,7 +33,7 @@ def create(finding_id, project_name, finding_attrs):
     return success
 
 
-def update(finding_id, data):
+def update(finding_id: str, data: Dict[str, Any]) -> bool:
     success = False
     primary_keys = {'finding_id': finding_id}
     try:
@@ -62,7 +63,7 @@ def update(finding_id, data):
     return success
 
 
-def list_append(finding_id, attr, data):
+def list_append(finding_id: str, attr: str, data: Any) -> bool:
     """
     Adds elements to the end of a list attribute
 
@@ -85,7 +86,7 @@ def list_append(finding_id, attr, data):
     return success
 
 
-def delete(finding_id):
+def delete(finding_id: str) -> bool:
     success = False
     try:
         response = TABLE.delete_item(Key={'finding_id': finding_id})
@@ -97,7 +98,7 @@ def delete(finding_id):
     return success
 
 
-def get_vulnerabilities(finding_id):
+def get_vulnerabilities(finding_id: str) -> List[Dict[str, Any]]:
     """Get vulnerabilities of a finding."""
     filtering_exp = Key('finding_id').eq(finding_id)
     response = TABLE_VULNS.query(KeyConditionExpression=filtering_exp)
@@ -110,37 +111,35 @@ def get_vulnerabilities(finding_id):
     return items
 
 
-def get_attributes(finding_id, attributes):
+def get_attributes(finding_id: str, attributes: List[str]) -> Dict[str, Any]:
     """ Get a group of attributes of a finding. """
     item_attrs = {
         'Key': {'finding_id': finding_id},
     }
     if attributes:
-        item_attrs['AttributesToGet'] = attributes
+        item_attrs['AttributesToGet'] = attributes  # type: ignore
     response = TABLE.get_item(**item_attrs)
     return response.get('Item', {})
 
 
-def get_finding(finding_id):
+def get_finding(finding_id: str) -> Dict[str, Any]:
     """ Retrieve all attributes from a finding """
     response = TABLE.get_item(Key={'finding_id': finding_id})
 
     return response.get('Item', {})
 
 
-def save_evidence(file_object, file_name):
-    success = s3.upload_memory_file(FI_AWS_S3_BUCKET, file_object, file_name)
-
-    return success
+def save_evidence(file_object: Any, file_name: str) -> bool:
+    return s3.upload_memory_file(FI_AWS_S3_BUCKET, file_object, file_name)  # type: ignore
 
 
-def search_evidence(file_name):
-    return s3.list_files(FI_AWS_S3_BUCKET, file_name)
+def search_evidence(file_name: str) -> bool:
+    return s3.list_files(FI_AWS_S3_BUCKET, file_name)  # type: ignore
 
 
-def remove_evidence(file_name):
-    return s3.remove_file(FI_AWS_S3_BUCKET, file_name)
+def remove_evidence(file_name: str) -> bool:
+    return s3.remove_file(FI_AWS_S3_BUCKET, file_name)  # type: ignore
 
 
-def download_evidence(file_name, file_path):
-    s3.download_file(FI_AWS_S3_BUCKET, file_name, file_path)
+def download_evidence(file_name: str, file_path: str):
+    s3.download_file(FI_AWS_S3_BUCKET, file_name, file_path)  # type: ignore

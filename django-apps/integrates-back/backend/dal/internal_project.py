@@ -1,3 +1,4 @@
+from typing import List
 import rollbar
 from botocore.exceptions import ClientError
 from backend.dal import project as project_dal
@@ -7,11 +8,11 @@ TABLE = 'fi_project_names'
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 
 
-def exists(project_name):
+def exists(project_name: str) -> bool:
     return project_dal.exists(project_name.lower())
 
 
-def remove_project_name(project_name):
+def remove_project_name(project_name: str) -> bool:
     table = DYNAMODB_RESOURCE.Table(TABLE)
     primary_keys = {'project_name': project_name.lower()}
     resp = False
@@ -26,7 +27,7 @@ def remove_project_name(project_name):
     return resp
 
 
-def get_all_project_names():
+def get_all_project_names() -> List[str]:
     table = DYNAMODB_RESOURCE.Table(TABLE)
     response = table.scan({})
     projects = response['Items']
