@@ -1,0 +1,54 @@
+type Query {
+    alert(project_name: String!, organization: String!): Alert
+    event(identifier: String!): Event
+    events(project_name: String!): [Event]
+    finding(identifier: String!): Finding
+    internal_project_names: InternalProject
+    alive_projects: [Project]
+    resources(project_name: String!): Resource
+    user(project_name: String!, user_email: String!): User
+    user_list_projects(user_email: String!): [Project]
+    project(project_name: String!): Project
+    break_build_executions(project_name: String!, from_date: String, to_date: String): BreakBuildExecutions
+    me: Me
+}
+
+type Alert {
+    project_name: String!
+    organization: String!
+}
+
+type Event {
+    identifier: String!
+}
+
+type Finding {
+    identifier: String!
+}
+
+type InternalProject {
+    project_name: String!
+}
+
+type Resource {
+    project_name: String!
+}
+
+type User {
+    project_name: String!
+    user_email: String!
+}
+
+type Project {
+    project_name: String!
+}
+
+type BreakBuildExecutions {
+    project_name: String!
+    from_date: String
+    to_date: String
+}
+
+type Me {
+    user_email: String!
+}

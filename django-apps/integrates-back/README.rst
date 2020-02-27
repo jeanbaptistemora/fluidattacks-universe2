@@ -1,5 +1,5 @@
 =====
-API
+Backend
 =====
 
 Integrates API is a GraphQL API that allows programatic access
@@ -8,9 +8,9 @@ to Integrates data.
 Quick start
 -----------
 
-1. Add "api" to your INSTALLED_APPS setting like this::
+1. Add "backend" to your INSTALLED_APPS setting like this::
 
     INSTALLED_APPS = [
         ...
-        'api',
+        'backend',
     ]
