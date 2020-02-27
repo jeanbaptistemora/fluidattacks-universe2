@@ -6,7 +6,7 @@ from backend_async.api.entity.query import QUERY
 from backend_async.api.entity.alert import ALERT
 from backend_async.api.entity.event import EVENT
 from backend_async.api.entity.finding import FINDING
-from backend_async.api.entity.internal_project import INTERNAL_PROJECT_NAMES
+from backend_async.api.entity.internal_project import INTERNAL_PROJECT_NAME
 from backend_async.api.entity.resource import RESOURCE
 from backend_async.api.entity.user import USER
 from backend_async.api.entity.project import PROJECT
@@ -23,7 +23,7 @@ SCHEMA = make_executable_schema(
         ALERT,
         EVENT,
         FINDING,
-        INTERNAL_PROJECT_NAMES,
+        INTERNAL_PROJECT_NAME,
         RESOURCE,
         USER,
         PROJECT,

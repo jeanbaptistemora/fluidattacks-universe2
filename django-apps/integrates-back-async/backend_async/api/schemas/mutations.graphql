@@ -1,0 +1,133 @@
+scalar Upload
+scalar GenericScalar
+
+interface Payload {
+    success: Boolean!
+}
+
+type SimplePayload implements Payload {
+    success: Boolean!
+}
+
+type UpdateAccessTokenPayload implements Payload {
+    success: Boolean!
+    session_jwt: String
+}
+
+type ResourcesPayload implements Payload {
+    success: Boolean!
+    resources: Resource
+}
+
+type DownloadFilePayload implements Payload {
+    success: Boolean!
+    url: String
+}
+
+type GrantUserAccessPayload implements Payload {
+    success: Boolean!
+    granted_user: User
+}
+
+type RemoveUserAccessPayload implements Payload {
+    success: Boolean!
+    removed_email: String
+}
+
+type EditUserPayload implements Payload {
+    success: Boolean!
+    modified_user: User
+}
+
+type AddUserPayload implements Payload {
+    success: Boolean!
+    email: String
+}
+
+type SimpleFindingPayload implements Payload {
+    success: Boolean!
+    finding: Finding
+}
+
+type AddProjectCommentPayload implements Payload {
+    success: Boolean!
+    comnment_id: String
+}
+
+type RemoveProjectPayload implements Payload {
+    success: Boolean!
+    findings_masked: Boolean
+    users_removed: Boolean
+    project_finished: Boolean
+}
+
+enum DeleteVulnerabilityJustification {
+    DUPLICATED
+    FALSE_POSITIVE
+    REPORTING_ERROR
+}
+
+enum EvidenceType {
+    ANIMATION
+    EVIDENCE1
+    EVIDENCE2
+    EVIDENCE3
+    EVIDENCE4
+    EVIDENCE5
+    EXPLOIT
+    EXPLOITATION
+    RECORDS
+}
+
+enum EvidenceDescriptionType {
+    EVIDENCE1
+    EVIDENCE2
+    EVIDENCE3
+    EVIDENCE4
+    EVIDENCE5
+}
+
+enum Subscription {
+    Continuous
+    Oneshot
+}
+
+
+
+type Mutation {
+    acceptLegal(remember: Boolean): SimplePayload!
+
+    updateAccessToken(expiration_time: Int!): UpdateAccessTokenPayload!
+    invalidateAccessToken: SimplePayload!
+
+    addResources(resource_data: String!, project_name: String!, res_type: String!): ResourcesPayload!
+    updateResources(resource_data: String!, project_name: String!, res_type: String!): ResourcesPayload!
+    addFiles(file: Upload!, files_data: String!, project_name: String!): ResourcesPayload!
+    removeFiles(files_data: String!, project_name: String!): ResourcesPayload!
+    downloadFile(files_data: String!, project_name: String!): DownloadFilePayload!
+
+    uploadFile(file: Upload!, finding_id: String!, origin: String): SimplePayload!
+    approveVulnerability(uuid: String, finding_id: String!, approval_status: Boolean!): SimplePayload!
+    updateTreatmentVuln(acceptance_date: String, bts_url: String, finding_id: String!, treatment: String, treatment_manager: String, treatment_justification: String, vulnerabilities: [String!]!, severity: Int, tag: String): SimplePayload!
+    deleteVulnerability(id: String!, finding_id: String!, justification: DeleteVulnerabilityJustification!): SimplePayload!
+    deleteTags(finding_id: String!, vulnerabilities: [String!]!): SimplePayload!
+    requestVerificationVuln(finding_id: String!, justification: String!, vulnerabilities: [String!]!): SimplePayload!
+    verifyRequestVuln(finding_id: String!, justification: String!, open_vulns: [String!]!, closed_vulns: [String!]!): SimplePayload!
+
+    grantUserAccess(project_name: String, email: String!, organization: String!, responsability: String, role: String!, phone_number: String): GrantUserAccessPayload!
+    removeUserAccess(project_name: String!, user_email: String!): RemoveUserAccessPayload!
+    editUser(project_name: String!, email: String!, organization: String!, responsability: String!, role: String!, phone_number: String!): EditUserPayload!
+    addUser(email: String!, organization: String!, role: String!, phone_number: String): AddUserPayload!
+    updateEvidence(file: Upload!, finding_id: String!, evidence_id: EvidenceType!): SimplePayload!
+    removeEvidence(finding_id: String!, evidence_id: EvidenceType!): SimpleFindingPayload!
+    updateEvidenceDescription(description: String!, evidence_id: EvidenceDescriptionType!, finding_id: String!): SimplePayload!
+
+    updateSeverity(finding_id: String!, data: GenericScalar!): SimpleFindingPayload!
+
+    addAllProjectAccess(project_name: String!): SimplePayload!
+    removeAllProjectAccess(project_name: String!): SimplePayload!
+    addProjectComment(content: String!, parent: String!, project_name: String!): AddProjectCommentPayload!
+    createProject(companies: [String!]!, description: String!, project_name: String!, subscription: Subscription): SimplePayload!
+    removeProject(project_name: String!): RemoveProjectPayload!
+}
+
