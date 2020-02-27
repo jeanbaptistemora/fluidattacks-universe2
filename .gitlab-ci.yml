@@ -59,6 +59,7 @@ stages:
 .with_nix: &with_nix
   image: "${CI_REGISTRY_IMAGE}:nix"
   tags: [autoscaling]
+  needs: []
   script:
     - ./build.sh "${CI_JOB_NAME}"
   interruptible: true
