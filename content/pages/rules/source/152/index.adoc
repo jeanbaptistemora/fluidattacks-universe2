@@ -1,0 +1,11 @@
+:slug: rules/152/
+:category: source
+:description: This document details the security requirements related to the manipulation of code sentences, whose purpose is to make connections to system databases, focusing on their reuse and avoiding possible vulnerabilities or overloading the application with code.
+:keywords: Requirement, Security, Connection, Database, Reuse, Vulnerability
+:rules: yes
+
+= REQ.152 Reuse Database Connections
+
+== Requirement
+
+The system must reuse the database connections.
