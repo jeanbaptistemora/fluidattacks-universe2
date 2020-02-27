@@ -14,7 +14,7 @@ resource "aws_db_instance" "django-db" {
   password                  = var.db_password
   apply_immediately         = true
   skip_final_snapshot       = false
-  publicly_accessible       = false
+  publicly_accessible       = true
 }
 
 output "endpoint" {
