@@ -15,7 +15,7 @@ import { changeFormatter, statusFormatter } from "../../../../../components/Data
 import { IHeader } from "../../../../../components/DataTableNext/types";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
-import { addEnvironmentsModal as AddEnvironmentsModal } from "../../../components/AddEnvironmentsModal/index";
+import { AddEnvironmentsModal } from "../../../components/AddEnvironmentsModal/index";
 import { ADD_RESOURCE_MUTATION, GET_ENVIRONMENTS, UPDATE_RESOURCE_MUTATION } from "../queries";
 import { IEnvironmentsAttr, IHistoricState } from "../types";
 
