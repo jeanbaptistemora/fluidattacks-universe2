@@ -425,7 +425,7 @@ def get_released_findings(project_name: str, attrs: str = '') -> List[Dict[str, 
     return findings_released
 
 
-def get_comments(project_name: str) -> Dict[str, Any]:
+def get_comments(project_name: str) -> List[Dict[str, Any]]:
     """ Get comments of a project. """
     key_expression = Key('project_name').eq(project_name)
     response = TABLE_COMMENTS.query(KeyConditionExpression=key_expression)

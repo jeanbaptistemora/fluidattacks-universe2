@@ -54,7 +54,7 @@ def has_access_to_event(user: str, event_id: str, role: str) -> bool:
     else:
         finding = event_domain.get_event(event_id)
         has_access = has_access_to_project(
-            user, finding.get('project_name'), role)
+            user, finding.get('project_name'), role)  # type: ignore
 
     return has_access
 

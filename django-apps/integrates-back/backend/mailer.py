@@ -122,7 +122,7 @@ def _send_mail(template_name: str, email_to: List[str], context: Dict[str, str],
         pass
 
 
-def send_comment_mail(comment_data: Dict[str, str], entity_name: str,
+def send_comment_mail(comment_data: Dict[str, Any], entity_name: str,
                       user_mail: str, comment_type: str = '', entity: Any = ''):
     parent = comment_data['parent']
     base_url = 'https://fluidattacks.com/integrates/dashboard#!'

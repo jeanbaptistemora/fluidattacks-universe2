@@ -48,7 +48,7 @@ def is_a_unsolved_event(event: Dict[Any, Any]) -> bool:
     return event.get('historic_state', [{}])[-1].get('state', '') == 'CREATED'
 
 
-def get_unsolved_events(project: str) -> List[str]:
+def get_unsolved_events(project: str) -> List[Dict[str, Any]]:
     events = project_domain.list_events(project)
     event_list = []
     for event in events:
@@ -275,7 +275,7 @@ def get_new_vulnerabilities():
             send_mail_new_vulnerabilities(mail_to, context)
 
 
-def prepare_mail_recipients(project: str) -> List[Dict[Any, Any]]:
+def prepare_mail_recipients(project: str) -> List[str]:
     mail_to = project_domain.get_users(project)
     mail_to.append(FI_MAIL_CONTINUOUS)
     return mail_to
