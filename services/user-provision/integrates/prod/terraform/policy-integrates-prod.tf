@@ -72,6 +72,18 @@ data "aws_iam_policy_document" "integrates-prod-policy-data" {
       "ec2:ModifySubnetAttribute",
       "ec2:CreateSubnet",
       "ec2:DescribeSubnets",
+      "ec2:ApplySecurityGroupsToClientVpnTargetNetwork",
+      "ec2:AuthorizeSecurityGroupEgress",
+      "ec2:AuthorizeSecurityGroupIngress",
+      "ec2:CreateSecurityGroup",
+      "ec2:DeleteSecurityGroup",
+      "ec2:DescribeSecurityGroupReferences",
+      "ec2:DescribeSecurityGroups",
+      "ec2:DescribeStaleSecurityGroups",
+      "ec2:RevokeSecurityGroupEgress",
+      "ec2:RevokeSecurityGroupIngress",
+      "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
+      "ec2:UpdateSecurityGroupRuleDescriptionsIngress"
     ]
     resources = ["*"]
   }

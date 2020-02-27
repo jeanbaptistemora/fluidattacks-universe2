@@ -68,6 +68,9 @@ data "aws_iam_policy_document" "integrates-dev-policy-data" {
     effect = "Allow"
     actions = [
       "ec2:DescribeSubnets",
+      "ec2:DescribeSecurityGroupReferences",
+      "ec2:DescribeSecurityGroups",
+      "ec2:DescribeStaleSecurityGroups",
     ]
     resources = ["*"]
   }

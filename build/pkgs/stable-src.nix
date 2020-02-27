@@ -1,7 +1,7 @@
 import ./fetch-src.nix {
   repo = "https://github.com/NixOS/nixpkgs";
-  commit = "b78092a5511bfedb9b344543d30acb176d2b840d";
-  digest = "0prv61cf37rpixmc62jln1xdzbw5vqnq944110smkgbhdrgvi512";
+  commit = "ca3531850844e185d483fb878fcd00c6b44069e5";
+  digest = "1s1zhzdbmdd7l936g7ydzsjqdi5k5ch6vpjilil0jiwjhrpkw3m4";
 }
 
 # This is the nixpkgs set where https://github.com/NixOS/nixpkgs/issues/80086 was solved
