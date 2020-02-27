@@ -3,7 +3,7 @@ import java.security.NoSuchAlgorithmException;
 import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 
 class GenericExceptionsOpen{
-    public static void main(String args[]){
+    public static void main(String args[]) throws SQLException, Exception, IOException {
       try{
           int a[]=new int[7];
           a[4]=30/0;
@@ -66,7 +66,7 @@ class GenericExceptionsOpen{
                /* A comment */
                TheProviderAsAVar /* A comment */
                );
-
+      throw lang.Exception("Run Time Error")
       Cipher rsa = Cipher // a comment
                   /*another comment*/          .getInstance(
                "RSA/CBC/PkCS1Padding" // a comment
@@ -115,6 +115,9 @@ class GenericExceptionsOpen{
 
       catch(NullException e){
          System.exit(1);
+                  // throw Exception( // a comment
+            "Error" // a comment
+         ) /* A comment */)
       }
       catch(ArithmeticException e){
          System.out.println("Warning: ArithmeticException");
@@ -128,12 +131,15 @@ class GenericExceptionsOpen{
 
             Exception e){
          System.out.println("Warning: Some Other exception");
+         throw Exception("
+         Error")
       }
       catch(Exception e      ){
          log.info("The error was" + e);
       }
       catch(lang.Throwable   e      ){
          log.info("The error was" + e);
+         throw Exception("Error")
       }
       catch   (NullPointerException|Exception e)   {
          log.info("The error was" + e);

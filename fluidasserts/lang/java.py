@@ -68,6 +68,36 @@ def _declares_catch_for_exceptions(
         excl=exclude)
 
 
+def _declares_throws_for_exceptions(
+        java_dest: str,
+        exceptions_list: list,
+        msgs: Dict[str, str],
+        exclude: list = None) -> tuple:
+    """Search for the declaration of throws for the given exceptions."""
+    any_exception = L_VAR_CHAIN_NAME
+    provided_exception = MatchFirst(
+        [Keyword(exception) for exception in exceptions_list])
+
+    exception_group = delimitedList(expr=any_exception)
+    exception_group.addCondition(
+        # Ensure that at least one exception in the group is the provided one
+        lambda tokens: any(provided_exception.matches(tok) for tok in tokens))
+
+    grammar = Suppress(Keyword('throws') | Keyword('throw')) + \
+        exception_group + Suppress(Optional(L_VAR_NAME))
+    grammar.ignore(javaStyleComment)
+    grammar.ignore(L_STRING)
+    grammar.ignore(L_CHAR)
+
+    return lang.generic_method(
+        path=java_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs=msgs,
+        spec=LANGUAGE_SPECS,
+        excl=exclude)
+
+
 @api(risk=LOW, kind=SAST)
 def has_generic_exceptions(java_dest: str, exclude: list = None) -> tuple:
     """
@@ -91,6 +121,34 @@ def has_generic_exceptions(java_dest: str, exclude: list = None) -> tuple:
         msgs={
             OPEN: 'Code declares a "catch" for generic exceptions',
             CLOSED: 'Code does not declare "catch" for generic exceptions',
+        },
+        exclude=exclude)
+
+
+@api(risk=LOW, kind=SAST, standars={'CWE': '397'})
+def throws_generic_exceptions(java_dest: str, exclude: list = None):
+    """
+    Check if the code throws generic exceptions.
+
+    Throwing overly broad exceptions promotes complex error handling code that
+    is more likely to contain security vulnerabilities.
+
+    :param java_dest: Path to a Java source file or package.
+    :param exclude: Paths that contains any string from this list are ignored.
+    :rtype: :class:`fluidasserts.Result`
+    """
+    return _declares_throws_for_exceptions(
+        java_dest=java_dest,
+        exceptions_list=[
+            'Exception',
+            'Throwable',
+            'lang.Exception',
+            'lang.Throwable',
+            'java.lang.Exception',
+            'java.lang.Throwable'],
+        msgs={
+            OPEN: 'Code throws generic exceptions',
+            CLOSED: 'Code does not throw generic exceptions',
         },
         exclude=exclude)
 

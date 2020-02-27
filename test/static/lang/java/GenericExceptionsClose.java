@@ -3,7 +3,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 class GenericExceptionsClose{
-   public static void main(String args[]){
+   public static void main(String args[]) throws IOExceptions, SQLException{
      try{
          int a[]=new int[7];
          SecureRandom random = new SecureRandom();
@@ -80,11 +80,15 @@ class GenericExceptionsClose{
      }
      catch(ArithmeticException e){
         System.out.println("Warning: ArithmeticException");
+        throw SQLException(
+           "invalid credentials"
+           )
      }
      catch(ArrayIndexOutOfBoundsException e){
         System.out.println("Warning: ArrayIndexOutOfBoundsException");
      }
      catch (NoSuchAlgorithmException exception) {
+        throw InvocationTargetException("Invalid Object")
         System.out.println("Warning: NoSuchAlgorithmException");
      }
 /*

@@ -219,15 +219,28 @@ def test_uses_insecure_key_pair_length_open():
     assert java.uses_insecure_key_pair_length(INSECURE_CODE).is_open()
 
 
+def test_throws_generic_exceptions_open():
+    """Search throws for generic exceptions."""
+    result = java.throws_generic_exceptions(INSECURE_CODE)
+    assert result.is_open()
+    assert result.get_vulns_number() == 2 * 2
+
+
 #
 # Closing tests
 #
+
+def test_throws_generic_exceptions_closed():
+    """Search throws for generic exceptions."""
+    assert java.throws_generic_exceptions(SECURE_CODE).is_closed()
+    assert java.throws_generic_exceptions(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_uses_insecure_key_pair_length_closed():
     """Search insecure length in generated key pairs."""
     assert java.uses_insecure_key_pair_length(INSECURE_CODE).is_open()
-    assert java.uses_insecure_key_pair_length(CODE_DIR, exclude=['test']).is_closed()
+    assert java.uses_insecure_key_pair_length(
+        CODE_DIR, exclude=['test']).is_closed()
     assert java.uses_insecure_key_pair_length(NON_EXISTANT_CODE).is_unknown()
 
 
@@ -243,14 +256,16 @@ def test_uses_various_verbs_in_request_mapping_closed():
 def test_uses_insecure_ssl_context_closed():
     """Search insecure SSL context."""
     assert java.uses_insecure_ssl_context(SECURE_CODE).is_closed()
-    assert java.uses_insecure_ssl_context(CODE_DIR, exclude=['test']).is_closed()
+    assert java.uses_insecure_ssl_context(
+        CODE_DIR, exclude=['test']).is_closed()
     assert java.uses_insecure_ssl_context(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_uses_broken_password_encryptio_closed():
     """Search insecure encryption methods."""
     assert java.uses_broken_password_encryption(SECURE_CODE).is_closed()
-    assert java.uses_broken_password_encryption(CODE_DIR, exclude=['test']).is_closed()
+    assert java.uses_broken_password_encryption(
+        CODE_DIR, exclude=['test']).is_closed()
     assert java.uses_broken_password_encryption(NON_EXISTANT_CODE).is_unknown()
 
 
