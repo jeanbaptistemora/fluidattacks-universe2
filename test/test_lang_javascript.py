@@ -19,6 +19,8 @@ CODE_DIR = 'test/static/lang/javascript/'
 SECURE_CODE = CODE_DIR + 'ConsoleLogClose.js'
 INSECURE_CODE = CODE_DIR + 'ConsoleLogOpen.js'
 NOT_EXISTANT_CODE = CODE_DIR + 'NotExists.js'
+NPM_INSECURE_PACKAGE = 'test/static/sca/npm/open/1/package.json'
+NPM_SECURE_PACKAGE = 'test/static/sca/npm/close/package.json'
 
 
 #
@@ -96,9 +98,33 @@ def test_uses_eval_in_dir_open():
     """Search eval function calls."""
     assert javascript.uses_eval(CODE_DIR)
 
+
+def test_has_vulnerable_dependencies_open():
+    """Search eval function calls."""
+    dependencies = {
+        'lodash': ['4.14.116'],
+        'jquery': ['3.3.29']
+    }
+    result = javascript.has_vulnerable_dependencies(
+        NPM_INSECURE_PACKAGE, dependencies)
+    assert result.is_open()
+    assert result.get_vulns_number() == 1 + 1
+
+
 #
 # Closing tests
 #
+
+
+def test_has_vulnerable_dependencies_close():
+    """Search eval function calls."""
+    dependencies = {
+        'react-i18next': ['8.3.9'],
+    }
+    assert javascript.has_vulnerable_dependencies(
+        NPM_SECURE_PACKAGE, dependencies).is_closed()
+    assert javascript.has_vulnerable_dependencies(
+        NOT_EXISTANT_CODE, dependencies).is_unknown()
 
 
 def test_uses_console_log_close():

@@ -202,3 +202,36 @@ def has_if_without_else(
     """
     return core.generic_c_has_if_without_else(
         js_dest, conditions, use_regex, LANGUAGE_SPECS, exclude)
+
+
+@api(risk=LOW, kind=SAST)
+def has_vulnerable_dependencies(js_dest: str,
+                                dependencies: dict,
+                                exclude: list = None):
+    """
+    Check if there are vulnerable dependencies.
+
+    :param js_dest: Path to a JavaScript source file or package.
+    :param dependencies: Dict whit dependencies and vulnerable versions.
+    :param exclude: Paths that contains any string from this list are ignored.
+
+    :rtype: :class:`fluidasserts.Result`
+    """
+    expressions = []
+    for dependency, versions in dependencies.items():
+        expressions.extend(
+            [(Keyword(dependency) + Suppress(':') + Keyword(ver)).ignore('"')
+             for ver in versions])
+    grammar = MatchFirst(expressions)
+    specs = LANGUAGE_SPECS.copy()
+    specs['extensions'] = ('json')
+    return lang.generic_method(
+        path=js_dest,
+        gmmr=grammar,
+        func=lang.parse,
+        msgs={
+            OPEN: 'Vulnerable dependencies are present.',
+            CLOSED: 'There are no vulnerable dependencies.',
+        },
+        spec=specs,
+        excl=exclude)

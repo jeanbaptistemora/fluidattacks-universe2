@@ -1149,6 +1149,7 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             java.uses_insecure_rsa('__path__')
             java.uses_insecure_ssl_context('__path__')
             java.uses_various_verbs_in_request_mapping('__path__')
+            java.throws_generic_exceptions('__path__')
             """,
         ('javascript', 'Javascript'): """
             javascript.has_insecure_randoms('__path__')
