@@ -1,0 +1,11 @@
+:slug: rules/051/
+:category: architecture
+:description: This document details the security guidelines and requirements related to the management of the source code that makes up any system. Therefore, it is recommended to the organization or company that the source code always be stored in a central repository.
+:keywords: Store, Source Code, System, Repository, Requirement, Security
+:rules: yes
+
+= REQ.051 Store Source Code in Repository
+
+== Requirement
+
+The organization must store the source code in a central repository.

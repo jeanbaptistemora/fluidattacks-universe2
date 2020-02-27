@@ -1,0 +1,12 @@
+:slug: rules/040/
+:category: files
+:description: This document details the security guidelines and requirements related to files management within the organization or company. Therefore, in this requirement it is recommended that the formats of the files correspond to the extension specified by them.
+:keywords: System, Size, File, MB, Security, User
+:rules: yes
+
+= REQ.040 Contrast File Format and Extension
+
+== Requirement
+
+The system must validate that
+the format (structure) of the files corresponds to their extension.

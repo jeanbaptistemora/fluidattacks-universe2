@@ -1,0 +1,12 @@
+:slug: rules/042/
+:category: files
+:description: This document details the security guidelines and requirements related to files management within the organization or company. Therefore, in this requirement it is recommended that every system validates the format of the files established by the business operation.
+:keywords: System, Validate, File, Format, Security, Business
+:rules: yes
+
+= REQ.042 Validate File Format
+
+== Requirement
+
+The system must only accept files
+whose format (structure) is required by the business operation.

@@ -1,0 +1,12 @@
+:slug: rules/089/
+:category: certificates
+:description: This document details the security guidelines and requirements related to the management of digital certificates obtained by a given entity or organization, including a general description and the importance of renewing them (considering periods of validity).
+:keywords: Digital certificate, Abuse case, Man-in-the-middle, Certification authority, Expiry, Renewal
+:rules: yes
+
+= REQ.089 Limit Validity of Certificates
+
+== Requirement
+
+The organization must not use digital certificates
+with a validity of more than two years.

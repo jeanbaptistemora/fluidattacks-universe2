@@ -1,0 +1,12 @@
+:slug: rules/116/
+:category: emails
+:description: This document details the security guidelines and requirements related to the administration of emails in the companies or organizations. This requirement establishes the importance of filtering outgoing and incoming emails against the possible presence of spam.
+:keywords: Images, Email, Display, Security, Requirement, Client
+:rules: yes
+
+= REQ.116 Disable Images of Unknown Origin
+
+== Requirement
+
+The corporate email client must not display, by default,
+images whose origin is unknown.

@@ -1,0 +1,11 @@
+:slug: rules/118/
+:category: emails
+:description: This document details the security guidelines and requirements related to the administration of emails in the companies or organizations. This requirement strongly recommends that email attachments should be inspected employing anti-malware software.
+:keywords: Files, Email, Attachment, Malware, Analyze, Tool
+:rules: yes
+
+= REQ.118 Inspect Attachments
+
+== Requirement
+
+An anti-malware tool must scan files that are attached to an email.

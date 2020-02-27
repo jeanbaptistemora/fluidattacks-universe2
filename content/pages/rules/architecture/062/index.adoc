@@ -1,0 +1,13 @@
+:slug: rules/062/
+:category: architecture
+:description: This document details the security guidelines and requirements related to the management of the documentation that supports all the systems of an organization. Therefore, it is recommended that at least one chapter be devoted to system security issues.
+:keywords: Configuration, Vulnerability, Standard, Industry, Organization, Security
+:rules: yes
+
+= REQ.062 Define Standard Configurations
+
+== Requirement
+
+The organization must define standard configurations
+that correct all known vulnerabilities
+and that are consistent with industry standards (e.g., baselines).

@@ -1,0 +1,12 @@
+:slug: rules/072/
+:category: architecture
+:description: This document details the security guidelines and requirements related to logical architecture management within the organization. This requirement establishes the importance of defining an adequate maximum response time with the maximum expected concurrence.
+:keywords: Time, Response, Concurrency, Seconds, Requirement, Security
+:rules: yes
+
+= REQ.072 Set Maximum Response Time
+
+== Requirement
+
+The response time with the maximum expected concurrence
+must be no more than 5 seconds.

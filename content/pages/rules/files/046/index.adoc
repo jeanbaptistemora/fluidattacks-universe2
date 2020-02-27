@@ -1,0 +1,12 @@
+:slug: rules/046/
+:category: files
+:description: This document details the security guidelines and requirements related to files management within the organization or company. Therefore, in this requirement it is strongly recommended that the system manages through logs the integrity of critical files.
+:keywords: System, Log, File, Integrity, Security, Requirement
+:rules: yes
+
+= REQ.046 Manage Integrity of Critical Files
+
+== Requirement
+
+The system must verify
+and log changes in the integrity of critical system files.

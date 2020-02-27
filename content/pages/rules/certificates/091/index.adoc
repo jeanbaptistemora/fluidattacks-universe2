@@ -1,0 +1,13 @@
+:slug: rules/091/
+:category: certificates
+:description: This document details the security guidelines and requirements related to the use of certificates (within the organizations), which, it is highly recommended, must be signed by valid internal certification bodies when they are for internal applications.
+:keywords: Certificate, Certification Bodies, Applications, Signature, Requirement, Security
+:rules: yes
+
+= REQ.091 Use Internally Signed Certificates
+
+== Requirement
+
+The organization must use certificates
+signed by valid internal certification authorities
+when these are for internal applications.

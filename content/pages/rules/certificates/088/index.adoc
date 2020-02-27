@@ -1,0 +1,12 @@
+:slug: rules/088/
+:category: certificates
+:description: This document details the security guidelines and requirements related to the handling of digital certificates, on the customer side, in the authentication process when the system handles information that is relevant to the organization's business model.
+:keywords: Digital certificate, Abuse case, Client certificate, Authentication, Expiration, Relevant information.
+:rules: yes
+
+= REQ.088 Request Client Certificates
+
+== Requirement
+
+A system with business-critical information must require digital certificates
+from the client in the authentication process.

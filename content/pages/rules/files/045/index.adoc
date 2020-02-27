@@ -1,0 +1,12 @@
+:slug: rules/045/
+:category: files
+:description: This document details the security guidelines and requirements related to files management within the organization or company. Therefore, in this requirement it is strongly recommended that the metadata be removed from any file before sharing it with others.
+:keywords: System, Metadata, File, Remove, Security, Sharing
+:rules: yes
+
+= REQ.045 Remove Metadata When Sharing Files
+
+== Requirement
+
+The organization must remove file metadata
+before being shared with others or making it public.

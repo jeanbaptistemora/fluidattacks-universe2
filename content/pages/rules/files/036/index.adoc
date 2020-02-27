@@ -1,0 +1,11 @@
+:slug: rules/036/
+:category: files
+:description: This document contains the details of the security requirements related to the definition and management of files in the organization. Therefore, for this requirement it is recommended that every system does not deploy temporary files when it is in production.
+:keywords: Environment, System, Archive, Deployment, Production, Temporary
+:rules: yes
+
+= REQ.036 Do Not Deploy Temporary Files
+
+== Requirement
+
+The system must not deploy temporary files in production environments.

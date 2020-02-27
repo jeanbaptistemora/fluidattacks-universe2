@@ -1,0 +1,12 @@
+:slug: rules/122/
+:category: emails
+:description: This document details the security guidelines and requirements related to the administration of emails in the companies or organizations. This requirement strongly recommends validating that the declared email actually belongs to the person in question.
+:keywords: Person, Email, Guarantee, Owner, Security, Electronic
+:rules: yes
+
+= REQ.122 Validate Email Owner
+
+== Requirement
+
+The system must guarantee that
+the declared email actually belongs to the person in question.

@@ -1,0 +1,13 @@
+:slug: rules/016/
+:category: information-assets
+:description: This document details the security guidelines and requirements related to the company's information assets. The objective of this security requirement is to deepen in the importance of correcting the vulnerabilities detected in the information assets.
+:keywords: Requirement, Security, Assets, Information, Correction, Vulnerabilities
+:rules: yes
+
+= REQ.016 Ensure Correction of Vulnerabilities
+
+== Requirement
+
+The organization must ensure that each of the identified vulnerabilities
+in the information assets is corrected,
+and the correction of each one checked.
