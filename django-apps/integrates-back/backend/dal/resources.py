@@ -1,3 +1,5 @@
+
+from typing import Any
 from botocore.exceptions import ClientError
 import rollbar
 from backend.dal.helpers import dynamodb, s3
@@ -9,28 +11,29 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 
 
-def search_file(file_name):
-    return s3.list_files(FI_AWS_S3_RESOURCES_BUCKET, file_name)
+def search_file(file_name: str) -> bool:
+    return s3.list_files(FI_AWS_S3_RESOURCES_BUCKET, file_name)  # type: ignore
 
 
-def save_file(file_object, file_name):
-    success = s3.upload_memory_file(
+def save_file(file_object: Any, file_name: str) -> bool:
+    success = s3.upload_memory_file(  # type: ignore
         FI_AWS_S3_RESOURCES_BUCKET, file_object, file_name)
 
     return success
 
 
-def remove_file(file_name):
-    return s3.remove_file(FI_AWS_S3_RESOURCES_BUCKET, file_name)
+def remove_file(file_name: str) -> bool:
+    return s3.remove_file(FI_AWS_S3_RESOURCES_BUCKET, file_name)  # type: ignore
 
 
-def create(res_data, project_name, res_type):
+def create(res_data: str, project_name: str, res_type: str) -> bool:
     table = TABLE
     primary_name_key = 'project_name'
     primary_key = project_name
     attr_name = res_type
     item = project_dal.get(project_name)
     primary_key = primary_key.lower()
+    resp = False
     try:
         if not item:
             response = table.put_item(
@@ -69,17 +72,17 @@ def create(res_data, project_name, res_type):
             resp = update_response['ResponseMetadata']['HTTPStatusCode'] == 200
     except ClientError:
         rollbar.report_exc_info()
-        resp = False
     return resp
 
 
-def remove(project_name, res_type, index):
+def remove(project_name: str, res_type: str, index: int) -> bool:
     table = TABLE
     table_name = 'FI_projects'
     primary_name_key = 'project_name'
     primary_key = project_name
     attr_name = res_type
     table = DYNAMODB_RESOURCE.Table(table_name)
+    resp = False
     try:
         response = table.update_item(
             Key={
@@ -91,17 +94,17 @@ def remove(project_name, res_type, index):
             }
         )
         resp = response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
     except ClientError:
         rollbar.report_exc_info()
-        return False
+    return resp
 
 
-def update(res_data, project_name, res_type):
+def update(res_data: str, project_name: str, res_type: str) -> bool:
     table = TABLE
     primary_keys = ['project_name', project_name]
     attr_name = res_type
     item = project_dal.get(project_name)
+    resp = False
     try:
         if attr_name not in item[0]:
             table.update_item(
@@ -129,7 +132,6 @@ def update(res_data, project_name, res_type):
             }
         )
         resp = update_response['ResponseMetadata']['HTTPStatusCode'] == 200
-        return resp
     except ClientError:
         rollbar.report_exc_info()
-        return False
+    return resp

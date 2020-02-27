@@ -1,6 +1,7 @@
 """DAL functions for projects."""
 
 from datetime import datetime
+from typing import Any, Dict, List
 import rollbar
 from botocore.exceptions import ClientError
 import pytz
@@ -19,7 +20,7 @@ TABLE_COMMENTS = DYNAMODB_RESOURCE.Table('fi_project_comments')
 TABLE_ACCESS = DYNAMODB_RESOURCE.Table('FI_project_access')
 
 
-def get_current_month_information(project_name, query_db):
+def get_current_month_information(project_name: str, query_db: str) -> Any:
     """Get information of the current month."""
     project = project_name.lower()
     init_date = datetime.today().replace(
@@ -37,7 +38,7 @@ def get_current_month_information(project_name, query_db):
         return response
 
 
-def get_current_month_authors(project_name):
+def get_current_month_authors(project_name: str) -> Any:
     """Get the authors of the current month."""
     query_authors = '''SELECT COUNT(DISTINCT(
             Commits.author_name || '_' || Commits.author_email))
@@ -47,7 +48,7 @@ def get_current_month_authors(project_name):
     return get_current_month_information(project_name, query_authors)
 
 
-def get_current_month_commits(project_name):
+def get_current_month_commits(project_name: str) -> Any:
     """Get the commits of the current month."""
     query_commits = '''SELECT COUNT(Commits.sha1)
         FROM git.commits AS "Commits"
@@ -57,23 +58,23 @@ def get_current_month_commits(project_name):
     return get_current_month_information(project_name, query_commits)
 
 
-def get_active_projects():
+def get_active_projects() -> List[str]:
     """Get active project in DynamoDB"""
     filtering_exp = Attr('project_status').eq('ACTIVE') & Attr('project_status').exists()
     projects = get_all(filtering_exp, 'project_name')
     return [prj['project_name'] for prj in projects]
 
 
-def get_alive_projects():
+def get_alive_projects() -> List[str]:
     """Get active and suspended projects in DynamoDB"""
     filtering_exp = Attr('project_status').eq('ACTIVE') | Attr('project_status').eq('SUSPENDED')
     projects = get_all(filtering_exp, 'project_name')
     return [prj['project_name'] for prj in projects]
 
 
-def list_drafts(project_name):
+def list_drafts(project_name: str) -> List[str]:
     key_exp = Key('project_name').eq(project_name)
-    tzn = pytz.timezone(settings.TIME_ZONE)
+    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     filter_exp = Attr('releaseDate').not_exists() \
         | Attr('releaseDate').gt(today)
@@ -96,9 +97,9 @@ def list_drafts(project_name):
     return [draft['finding_id'] for draft in drafts]
 
 
-def list_findings(project_name):
+def list_findings(project_name: str) -> List[str]:
     key_exp = Key('project_name').eq(project_name)
-    tzn = pytz.timezone(settings.TIME_ZONE)
+    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     filter_exp = Attr('releaseDate').exists() & Attr('releaseDate').lte(today)
     response = FINDINGS_TABLE.query(
@@ -120,7 +121,7 @@ def list_findings(project_name):
     return [finding['finding_id'] for finding in findings]
 
 
-def list_events(project_name):
+def list_events(project_name: str) -> List[str]:
     key_exp = Key('project_name').eq(project_name)
     response = EVENTS_TABLE.query(
         IndexName='project_events',
@@ -139,32 +140,32 @@ def list_events(project_name):
     return [event['event_id'] for event in events]
 
 
-def list_internal_managers(project_name):
+def list_internal_managers(project_name: str) -> List[str]:
     all_managers = list_project_managers(project_name)
     internal_managers = \
         [user for user in all_managers if user.endswith('@fluidattacks.com')]
     return internal_managers
 
 
-def get_all_projects():
+def get_all_projects() -> List[str]:
     """Get all projects in DynamoDB"""
     projects = get_all(data_attr='')
     return [prj['project_name'] for prj in projects]
 
 
-def get_description(project):
+def get_description(project: str) -> str:
     """ Get the description of a project. """
     description = get_attributes(project, ['description'])
     project_description = ''
     if description:
-        project_description = description.get('description')
+        project_description = description.get('description')  # type: ignore
     else:
         # project without description
         pass
     return project_description
 
 
-def get_users(project, active=True):
+def get_users(project: str, active: bool = True) -> List[str]:
     """Get users of a project."""
     project_name = project.lower()
     key_condition = Key('project_name').eq(project_name)
@@ -192,7 +193,7 @@ def get_users(project, active=True):
     return users_filtered
 
 
-def add_all_access_to_project(project):
+def add_all_access_to_project(project: str) -> bool:
     project_exists = exists(project)
     resp = False
     if project_exists:
@@ -209,7 +210,7 @@ def add_all_access_to_project(project):
     return resp
 
 
-def remove_all_project_access(project):
+def remove_all_project_access(project: str) -> bool:
     project_exists = exists(project)
     resp = False
     if project_exists:
@@ -225,12 +226,12 @@ def remove_all_project_access(project):
     return resp
 
 
-def exists(project_name):
+def exists(project_name: str) -> bool:
     project = project_name.lower()
     return bool(get_attributes(project, ['project_name']))
 
 
-def list_project_managers(project_name):
+def list_project_managers(project_name: str) -> List[str]:
     users_active = get_users(project_name, True)
     users_inactive = get_users(project_name, False)
     all_users = users_active + users_inactive
@@ -240,17 +241,17 @@ def list_project_managers(project_name):
     return managers
 
 
-def get_attributes(project_name, attributes=None):
+def get_attributes(project_name: str, attributes: Any = None) -> Dict[str, Any]:
     item_attrs = {
         'Key': {'project_name': project_name},
     }
     if attributes:
-        item_attrs['AttributesToGet'] = attributes
+        item_attrs['AttributesToGet'] = attributes  # type: ignore
     response = TABLE.get_item(**item_attrs)
     return response.get('Item', {})
 
 
-def get_filtered_list(attributes='', filter_expresion=None):
+def get_filtered_list(attributes: str = '', filter_expresion: Any = None) -> List[Dict[str, Any]]:
     scan_attrs = {}
     if filter_expresion:
         scan_attrs['FilterExpression'] = filter_expresion
@@ -265,7 +266,7 @@ def get_filtered_list(attributes='', filter_expresion=None):
     return projects
 
 
-def is_alive(project):
+def is_alive(project: str) -> bool:
     """Validate if a project exist and is not deleted."""
     project_name = project.lower()
     is_valid_project = True
@@ -282,7 +283,7 @@ def is_alive(project):
     return is_valid_project
 
 
-def is_request_deletion_user(project, user_email):
+def is_request_deletion_user(project: str, user_email: str) -> bool:
     is_user_allowed = False
     if not is_alive(project):
         project_data = get_attributes(
@@ -297,7 +298,7 @@ def is_request_deletion_user(project, user_email):
     return is_user_allowed
 
 
-def update(project_name, data):
+def update(project_name: str, data: Dict[str, Any]) -> bool:
     success = False
     primary_keys = {'project_name': project_name}
     try:
@@ -325,7 +326,7 @@ def update(project_name, data):
     return success
 
 
-def create(project):
+def create(project: str) -> bool:
     """Add project to dynamo."""
     resp = False
     try:
@@ -336,7 +337,7 @@ def create(project):
     return resp
 
 
-def remove_user_role(project_name, user_email, role):
+def remove_user_role(project_name: str, user_email: str, role: str) -> bool:
     """Remove user role in a project."""
     resp = False
     try:
@@ -358,7 +359,7 @@ def remove_user_role(project_name, user_email, role):
     return resp
 
 
-def add_comment(project_name, email, comment_data):
+def add_comment(project_name: str, email: str, comment_data: Any) -> bool:
     """ Add a comment in a project. """
     resp = False
     try:
@@ -376,7 +377,7 @@ def add_comment(project_name, email, comment_data):
     return resp
 
 
-def get_pending_verification_findings(project_name):
+def get_pending_verification_findings(project_name: str) -> List[Dict[str, Any]]:
     """Gets findings pending for verification"""
     key_expression = Key('project_name').eq(project_name.lower())
     query_attrs = {
@@ -399,7 +400,7 @@ def get_pending_verification_findings(project_name):
     return pending_to_verify
 
 
-def get_released_findings(project_name, attrs=''):
+def get_released_findings(project_name: str, attrs: str = '') -> List[Dict[str, Any]]:
     """Get all the findings that has been released."""
     key_expression = Key('project_name').eq(project_name.lower())
     filtering_exp = Attr('releaseDate').exists()
@@ -424,7 +425,7 @@ def get_released_findings(project_name, attrs=''):
     return findings_released
 
 
-def get_comments(project_name):
+def get_comments(project_name: str) -> Dict[str, Any]:
     """ Get comments of a project. """
     key_expression = Key('project_name').eq(project_name)
     response = TABLE_COMMENTS.query(KeyConditionExpression=key_expression)
@@ -442,7 +443,7 @@ def get_comments(project_name):
     return items
 
 
-def add_user(project_name, user_email, role):
+def add_user(project_name: str, user_email: str, role: str) -> bool:
     """Adding user role in a project."""
     resp = False
     item = get(project_name)
@@ -477,7 +478,7 @@ def add_user(project_name, user_email, role):
     return resp
 
 
-def get(project):
+def get(project: str) -> List[Dict[str, Any]]:
     """Get a project info."""
     filter_value = project.lower()
     filter_key = 'project_name'
@@ -492,7 +493,7 @@ def get(project):
     return items
 
 
-def get_all(filtering_exp='', data_attr=''):
+def get_all(filtering_exp: Any = '', data_attr: str = '') -> List[Dict[str, Any]]:
     """Get all projects"""
     scan_attrs = {}
     if filtering_exp:
@@ -509,12 +510,12 @@ def get_all(filtering_exp='', data_attr=''):
     return items
 
 
-def get_pending_to_delete():
+def get_pending_to_delete() -> List[Dict[str, Any]]:
     filtering_exp = Attr('project_status').eq('PENDING_DELETION')
     return get_filtered_list('project_name, historic_deletion', filtering_exp)
 
 
-def get_user_access(user_email, project_name):
+def get_user_access(user_email: str, project_name: str) -> List[Dict[str, Any]]:
     """Get user access of a project."""
     user_email = user_email.lower()
     project_name = project_name.lower()
@@ -535,7 +536,7 @@ def get_user_access(user_email, project_name):
     return items
 
 
-def add_access(user_email, project_name, project_attr, attr_value):
+def add_access(user_email: str, project_name: str, project_attr: str, attr_value: Any) -> bool:
     """Add project access attribute."""
     item = get_user_access(user_email, project_name)
     if item == []:
@@ -561,7 +562,7 @@ def add_access(user_email, project_name, project_attr, attr_value):
         )
 
 
-def remove_access(user_email, project_name):
+def remove_access(user_email: str, project_name: str) -> bool:
     """Remove project access in dynamo."""
     try:
         response = TABLE_ACCESS.delete_item(
@@ -577,7 +578,7 @@ def remove_access(user_email, project_name):
         return False
 
 
-def update_access(user_email, project_name, project_attr, attr_value):
+def update_access(user_email: str, project_name: str, project_attr: str, attr_value: Any) -> bool:
     """Update project access attribute."""
     try:
         response = TABLE_ACCESS.update_item(

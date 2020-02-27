@@ -1,5 +1,6 @@
 """DAL functions for events."""
 
+from typing import Any, Dict
 import rollbar
 from botocore.exceptions import ClientError
 from backend.dal.helpers import dynamodb, s3
@@ -10,7 +11,7 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('fi_events')
 
 
-def create(event_id, project_name, event_attributes):
+def create(event_id: str, project_name: str, event_attributes: Any) -> bool:
     success = False
     try:
         event_attributes.update({
@@ -25,7 +26,7 @@ def create(event_id, project_name, event_attributes):
     return success
 
 
-def update(event_id, data):
+def update(event_id: str, data: Dict[str, Any]) -> bool:
     success = False
     try:
         attrs_to_remove = [attr for attr in data if data[attr] is None]
@@ -54,18 +55,16 @@ def update(event_id, data):
     return success
 
 
-def get_event(event_id):
+def get_event(event_id: str) -> Dict[str, Any]:
     """ Retrieve all attributes from an event """
     response = TABLE.get_item(Key={'event_id': event_id})
 
     return response.get('Item', {})
 
 
-def save_evidence(file_object, file_name):
-    success = s3.upload_memory_file(FI_AWS_S3_BUCKET, file_object, file_name)
-
-    return success
+def save_evidence(file_object: Any, file_name: str) -> bool:
+    return s3.upload_memory_file(FI_AWS_S3_BUCKET, file_object, file_name)  # type: ignore
 
 
-def remove_evidence(file_name):
-    return s3.remove_file(FI_AWS_S3_BUCKET, file_name)
+def remove_evidence(file_name: str) -> bool:
+    return s3.remove_file(FI_AWS_S3_BUCKET, file_name)  # type: ignore
