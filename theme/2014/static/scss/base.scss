@@ -42,6 +42,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .bg-code-bk { background-color: $codeblack; }
 .bg-code-dkred { background-color: $codedarkred; }
 .bc-fluid-gray { border-color: $fluid-gray; }
+.bc-fluid-red { border-color: $button-hover; }
 .bg-dk-red { background-color: $button-red;}
 .minw-100 { min-width: 100%; }
 .ma-auto { margin: auto; }
@@ -86,6 +87,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .mt8 { margin-top: 20rem; }
 .bannerbt { background-color: $button-red; }
 .bt-pd { padding: .625rem 2.5rem; }
+.contact-pd { padding: .75rem 5rem; }
 .bt-trans { transition: all .3s ease;}
 .menu-txt-trans { transition: color .2s; }
 .ptdemo { padding-top: 6rem; }
@@ -119,6 +121,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .f-small { font-size: .8rem; }
 .w2-5 { width: 2.25rem; }
 .f-footer { font-size: 1.65rem; }
+.lh-2 { line-height: 2; }
 
 // Tachyons custom responsive classes
 
@@ -126,11 +129,13 @@ $codeyellow: rgba(230, 219, 116, 1);
 @media screen and (max-width: 30em) {
   .mr-5-s { margin-right: 4rem; }
   .f-small-s { font-size: .6rem; }
+  .f4-s { font-size: 1.25rem; }
 }
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {
   .two-columns-m { column-count: 2; }
   .mr-5-m { margin-right: 4rem; }
+  .f-title-m { font-size: 2rem; }
 }
 
 //Large screens
@@ -141,6 +146,7 @@ $codeyellow: rgba(230, 219, 116, 1);
   .hover-white-l { &:hover { color: $white; }}
   .new-banner { width: 40em; }
   .mr-13-l { margin-right: 13rem; }
+  .f-title-l { font-size: 2rem; }
 }
 
 //Very large screens
