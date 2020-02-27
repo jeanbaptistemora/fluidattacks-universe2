@@ -20,6 +20,7 @@ $middleblack: rgba(85, 85, 85, 1);
 $greenyellow: rgba(173, 255, 47, 1);
 $button-hover: rgba(255, 52, 53, 1);
 $button-red: rgba(191, 38, 38, 1);
+$shadowblack: rgba(0, 0, 0, .2);
 //Monokai theme colors
 $codeblack: rgba(39, 40, 43, 1);
 $codebrown: rgba(117, 113, 94, 1);
@@ -122,6 +123,7 @@ $codeyellow: rgba(230, 219, 116, 1);
 .w2-5 { width: 2.25rem; }
 .f-footer { font-size: 1.65rem; }
 .lh-2 { line-height: 2; }
+.shadow-menu { box-shadow: 0 8px 6px -6px $shadowblack; }
 
 // Tachyons custom responsive classes
 
@@ -130,12 +132,15 @@ $codeyellow: rgba(230, 219, 116, 1);
   .mr-5-s { margin-right: 4rem; }
   .f-small-s { font-size: .6rem; }
   .f4-s { font-size: 1.25rem; }
+  .h40-s { height: 40rem; }
+  .w100-s { width: 100%; }
 }
 //medium resolutions
 @media screen and (min-width: 30em) and (max-width: 60em) {
   .two-columns-m { column-count: 2; }
   .mr-5-m { margin-right: 4rem; }
   .f-title-m { font-size: 2rem; }
+  .w100-m { width: 100%; }
 }
 
 //Large screens
@@ -147,6 +152,9 @@ $codeyellow: rgba(230, 219, 116, 1);
   .new-banner { width: 40em; }
   .mr-13-l { margin-right: 13rem; }
   .f-title-l { font-size: 2rem; }
+  .turbine-sz { width: 31rem; }
+  .h50-l { height: 50rem; }
+  .w-45-l { width: 45%; }
 }
 
 //Very large screens

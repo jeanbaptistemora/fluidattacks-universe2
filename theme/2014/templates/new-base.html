@@ -165,17 +165,17 @@
     <!-- Navigation -->
       {% include "new-menu.html" %}
       {% block header %}
-      <div class="flex-ns flex-wrap-ns justify-between-m banner-bg vh-100">
-        <div class="ba1 mb3 relative dt-ns mt0-ns pr3-ns pl3-ns pt3 ma-auto pt6">
+      <div class="flex-ns flex-wrap-ns justify-between-m banner-bg cover h50-l h6-m h40-s">
+        <div class="ba1 mb3 relative dt-ns mt0-ns pr3-ns pl3-ns pt3 ma-auto pt6-l pt4 mw9 ml-auto mr-auto">
           <!-- Banner Image-->
-          <div class="relative db-ns mt0-ns new-banner w-75-m pr3-ns pl3-ns pt3 ma-auto fr nb-6">
-            <img class="top-2 new-banner"
+          <div class="fr-l fl turbine-sz w100-m w100-s">
+            <img class="new-banner"
             src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/turbine-main.png"
             alt="{{ gettext('Header-img-alt') }}">
           </div>
           <!-- Banner title and text -->
-          <div class="mb3 relative db-ns mt0-ns new-banner w-75-m pr3-ns pl3-ns pt3 ma-auto fl">
-            <img class="top-2 new-banner pt6"
+          <div class="fl-l fr w-45-l w100-m w100-s mt5-l">
+            <img class="new-banner"
             src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/pentest.svg"
             alt="{{ gettext('Header-title-2') }}">
             <p class="c-fluid-bk roboto b f3-ns mt2">{{ gettext('New-Header-msg') }}</p>
