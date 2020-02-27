@@ -7,7 +7,7 @@ from django.conf import settings
 from backend.domain import user as user_domain
 
 from backend import util
-from backend.dal import comment as comment_dal
+from backend.dal import comment as comment_dal, finding as finding_dal, vulnerability as vuln_dal
 
 
 def _get_comments(comment_type, finding_id, user_role):
@@ -18,6 +18,17 @@ def _get_comments(comment_type, finding_id, user_role):
 
 def get_comments(finding_id, user_role):
     comments = _get_comments('comment', finding_id, user_role)
+    historic_verification = finding_dal.get_attributes(
+        finding_id, ['historic_verification']).get('historic_verification', [])
+    verified = [verification for verification in historic_verification
+                if verification.get('status') == 'VERIFIED'
+                and verification.get('vulns', [])]
+    if verified:
+        vulns = vuln_dal.get_vulnerabilities(finding_id)
+        comments = [fill_vuln_info(comment, verification.get('vulns', []), vulns)
+                    if comment.get('id') == verification.get('comment') else comment
+                    for comment in comments
+                    for verification in verified]
 
     return comments
 
@@ -40,6 +51,14 @@ def get_fullname(user_role, data):
         if user_company:
             comment_user_name = 'Hacker at ' + user_company.capitalize()
     return comment_user_name
+
+
+def fill_vuln_info(comment, vulns_ids, vulns):
+    selected_vulns = [vuln.get('where') for vuln in vulns if vuln.get('UUID') in vulns_ids]
+    wheres = ', '.join(selected_vulns)
+    comment['content'] = f'Regarding vulnerabilities {wheres}: ' + comment.get('content', '')
+
+    return comment
 
 
 def fill_comment_data(user_role, data):
