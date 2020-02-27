@@ -1,0 +1,11 @@
+:slug: rules/164/
+:category: source
+:description: This document details the security guidelines and requirements related to the source code that composes the applications of the company or the organization. This requirement establishes the importance of using optimized data containers or structures.
+:keywords: Requirement, Security, Source Code, Structures, Containers, Optimization
+:rules: yes
+
+= REQ.164 Use Optimized Structures
+
+== Requirement
+
+The code must use optimized data containers or structures.
