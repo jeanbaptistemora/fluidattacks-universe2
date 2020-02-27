@@ -111,15 +111,12 @@ export type IResourcesViewBaseProps = Pick<RouteComponentProps<{ projectName: st
 export type IResourcesViewStateProps = IDashboardState["resources"] & IDashboardState["tags"];
 
 export interface IResourcesViewDispatchProps {
-  onCloseEnvsModal(): void;
   onCloseFilesModal(): void;
   onCloseOptionsModal(): void;
   onCloseTagsModal(): void;
   onDeleteFile(fileName: string): void;
   onDownloadFile(fileName: string): void;
-  onFilter(newValues: {}): void;
   onLoad(): void;
-  onOpenEnvsModal(): void;
   onOpenFilesModal(): void;
   onOpenOptionsModal(row: string): void;
   onOpenTagsModal(): void;

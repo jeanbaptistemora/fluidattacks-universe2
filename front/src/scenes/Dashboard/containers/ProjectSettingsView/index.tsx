@@ -1,8 +1,7 @@
-/* tslint:disable:jsx-no-multiline-js max-file-line-count
+/* tslint:disable:jsx-no-multiline-js
  *
  * NO-MULTILINE-JS: Disabling this rule is necessary for the sake of
   * readability of the code that defines the headers of the table
- * MAX-FILE-LINE-COUNT: this file exceeds by 22 the maximum of 1000 lines
  */
 import { MutationFunction, MutationResult, QueryResult } from "@apollo/react-common";
 import { Mutation, Query } from "@apollo/react-components";
@@ -515,10 +514,8 @@ interface IState { dashboard: IDashboardState; }
 const mapStateToProps: MapStateToProps<IResourcesViewStateProps, IResourcesViewBaseProps, IState> =
   (state: IState): IResourcesViewStateProps => ({
     defaultSort: state.dashboard.resources.defaultSort,
-    envModal: state.dashboard.resources.envModal,
     files: state.dashboard.resources.files,
     filesModal: state.dashboard.resources.filesModal,
-    filters: state.dashboard.resources.filters,
     optionsModal: state.dashboard.resources.optionsModal,
     showUploadProgress: state.dashboard.resources.showUploadProgress,
     tagsModal: state.dashboard.tags.tagsModal,
@@ -530,17 +527,14 @@ const mapDispatchToProps: MapDispatchToProps<IResourcesViewDispatchProps, IResou
     const { projectName } = ownProps.match.params;
 
     return ({
-      onCloseEnvsModal: (): void => { dispatch(actions.closeAddEnvModal()); },
       onCloseFilesModal: (): void => { dispatch(actions.closeAddFilesModal()); },
       onCloseOptionsModal: (): void => { dispatch(actions.closeOptionsModal()); },
       onCloseTagsModal: (): void => { dispatch(actions.closeTagsModal()); },
       onDeleteFile: (fileName: string): void => { dispatch(actions.deleteFile(projectName, fileName)); },
       onDownloadFile: (fileName: string): void => { dispatch(actions.downloadFile(projectName, fileName)); },
-      onFilter: (newValues: {}): void => {dispatch(actions.changeFilterValues(newValues)); },
       onLoad: (): void => {
         dispatch(actions.loadResources(projectName));
       },
-      onOpenEnvsModal: (): void => { dispatch(actions.openAddEnvModal()); },
       onOpenFilesModal: (): void => { dispatch(actions.openAddFilesModal()); },
       onOpenOptionsModal: (row: string): void => { dispatch(actions.openOptionsModal(row)); },
       onOpenTagsModal: (): void => { dispatch(actions.openTagsModal()); },

@@ -12,19 +12,12 @@ export interface IDashboardState {
   description: Pick<IDescriptionViewProps, "dataset" | "isEditing" | "isRemediationOpen">;
   resources: {
     defaultSort: {
-      environments: {};
       files: {};
       tags: {};
-    };
-    envModal: {
-      open: boolean;
     };
     files: Array<{ description: string; fileName: string; uploadDate: string}>;
     filesModal: {
       open: boolean;
-    };
-    filters: {
-      stateEnvironments: string;
     };
     optionsModal: {
       open: boolean;
@@ -105,19 +98,12 @@ const initialState: IDashboardState = {
   },
   resources: {
     defaultSort: {
-      environments: {},
       files: {},
       tags: {},
-    },
-    envModal: {
-      open: false,
     },
     files: [],
     filesModal: {
       open: false,
-    },
-    filters: {
-      stateEnvironments: "",
     },
     optionsModal: {
       open: false,
@@ -181,16 +167,6 @@ actionMap[vulnerabilitiesActions.CHANGE_SORTS] =
     },
   });
 
-actionMap[resourcesActions.CHANGE_FILTERS] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      filters: action.payload.filters,
-    },
-  });
-
 actionMap[resourcesActions.CHANGE_SORTED] =
   (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
   ({
@@ -208,31 +184,6 @@ actionMap[resourcesActions.LOAD_RESOURCES] =
     resources: {
       ...state.resources,
       files: action.payload.files,
-    },
-  });
-
-actionMap[resourcesActions.OPEN_ENVIRONMENTS_MODAL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      envModal: {
-        ...state.resources.envModal,
-        open: true,
-      },
-    },
-  });
-
-actionMap[resourcesActions.CLOSE_ENVIRONMENTS_MODAL] =
-  (state: IDashboardState, action: actions.IActionStructure): IDashboardState =>
-  ({
-    ...state,
-    resources: {
-      ...state.resources,
-      envModal: {
-        ...initialState.resources.envModal,
-      },
     },
   });
 
@@ -415,9 +366,6 @@ actionMap[projectActions.CLEAR_PROJECT_STATE] = (state: IDashboardState): IDashb
     ...initialState.resources,
     defaultSort: {
       ...state.resources.defaultSort,
-    },
-    filters: {
-      ...state.resources.filters,
     },
   },
   users: initialState.users,

@@ -51,14 +51,6 @@ export const loadResources: ((projectName: string) => ThunkResult<void>) =
         });
     };
 
-export const changeFilterValues: ((newValues: {}) => IActionStructure) = (newValues: {}): IActionStructure => ({
-    payload: {
-      filters: {
-        ...newValues,
-      },
-    },
-    type: actionTypes.CHANGE_FILTERS,
-  });
 export const changeSortedValues: ((newValues: {}) => IActionStructure) = (newValues: {}): IActionStructure => ({
     payload: {
       defaultSort: {
@@ -66,18 +58,6 @@ export const changeSortedValues: ((newValues: {}) => IActionStructure) = (newVal
       },
     },
     type: actionTypes.CHANGE_SORTED,
-  });
-
-export const openAddEnvModal: (() => IActionStructure) =
-  (): IActionStructure => ({
-    payload: undefined,
-    type: actionTypes.OPEN_ENVIRONMENTS_MODAL,
-  });
-
-export const closeAddEnvModal: (() => IActionStructure) =
-  (): IActionStructure => ({
-    payload: undefined,
-    type: actionTypes.CLOSE_ENVIRONMENTS_MODAL,
   });
 
 export const openAddFilesModal: (() => IActionStructure) =

@@ -20,12 +20,8 @@ describe("Resources view", () => {
 
   const mockProps: IResourcesViewProps = {
     defaultSort: {
-      environments: {},
       files: {},
       tags: {},
-    },
-    envModal: {
-      open: false,
     },
     files: [{
       description: "test",
@@ -35,24 +31,18 @@ describe("Resources view", () => {
     filesModal: {
       open: false,
     },
-    filters: {
-      stateEnvironments: "",
-    },
     match: {
       isExact: true,
       params: {projectName: "TEST"},
       path: "/",
       url: "",
     },
-    onCloseEnvsModal: functionMock,
     onCloseFilesModal: functionMock,
     onCloseOptionsModal: functionMock,
     onCloseTagsModal: functionMock,
     onDeleteFile: functionMock,
     onDownloadFile: functionMock,
-    onFilter: functionMock,
     onLoad: functionMock,
-    onOpenEnvsModal: functionMock,
     onOpenFilesModal: functionMock,
     onOpenOptionsModal: functionMock,
     onOpenTagsModal: functionMock,
