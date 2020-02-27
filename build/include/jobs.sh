@@ -488,7 +488,7 @@ function job_infra_autoscaling_ci_deploy {
 }
 
 function job_infra_autoscaling_ci_deploy_config {
-  local bastion_ip='54.164.133.221'
+  local bastion_ip='192.168.3.11'
   local bastion_user='ubuntu'
   local secrets_to_replace=(
     autoscaling_token_1
