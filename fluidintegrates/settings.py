@@ -46,9 +46,14 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", "fluid.la",
 
 if DEBUG:
     # Needed for mobile development so it can connect through LAN
-    LOCAL_IPS = subprocess.check_output(
-        ['/bin/hostname', '--all-ip-addresses'], encoding='UTF-8')
-    ALLOWED_HOSTS += LOCAL_IPS.strip().split()
+    try:
+        LOCAL_IPS = subprocess.check_output(
+            ['/bin/hostname', '--all-ip-addresses'], encoding='UTF-8')
+        ALLOWED_HOSTS += LOCAL_IPS.strip().split()
+    except subprocess.CalledProcessError as exc:
+        print(f'Failed to run /bin/hostname --all-ip-addresses')
+        print(f'The following error was raised: {exc}')
+        print(f'Unless you are developing mobile, you can omit the error')
 
 # Application definition
 

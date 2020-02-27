@@ -224,7 +224,19 @@ function job_lint_back {
       prospector -F -s high -u django -i node_modules app \
   &&  prospector -F -s high -u django -i node_modules django-apps \
   &&  prospector -F -s veryhigh -u django -i node_modules fluidintegrates \
-  &&  prospector -F -s veryhigh lambda
+  &&  prospector -F -s veryhigh lambda \
+  &&  mypy --ignore-missing-imports \
+        django-apps/integrates-back/backend/mailer.py \
+        django-apps/integrates-back/backend/scheduler.py \
+        django-apps/integrates-back/backend/services.py \
+        django-apps/integrates-back/backend/util.py \
+        django-apps/integrates-back/backend/exceptions.py \
+        django-apps/integrates-back/backend/decorators.py \
+        django-apps/integrates-back/backend/entity/resource.py \
+        django-apps/integrates-back/backend/entity/user.py \
+        django-apps/integrates-back/backend/entity/vulnerability.py \
+        django-apps/integrates-back/backend/dal/* \
+        django-apps/integrates-back/backend/utils/*
 }
 
 function job_lint_build_system {
@@ -251,23 +263,68 @@ function job_lint_front {
 }
 
 function job_test_back {
-      echo '[INFO] Remember to restart the DynamoDB database on each execution' \
-  &&  helper_set_dev_secrets \
+  local processes_to_kill=()
+  local port_dynamo='8022'
+  local port_redis='6379'
+
+  function kill_processes {
+    for process in "${processes_to_kill[@]}"
+    do
+          echo "[INFO] Killing PID: ${process}" \
+      &&  (
+            set +o errexit
+            kill -9 "${process}"
+          )
+    done
+  }
+
+  # shellcheck disable=SC2015
+      helper_set_dev_secrets \
+  &&  echo '[INFO] Launching Redis' \
+  &&  {
+        redis-server --port "${port_redis}" \
+          &
+        processes_to_kill+=( "$!" )
+      } \
+  &&  echo '[INFO] Launching DynamoDB local' \
+  &&  {
+        java \
+          -Djava.library.path=./.DynamoDB/DynamoDBLocal_lib \
+          -jar ./.DynamoDB/DynamoDBLocal.jar \
+          -inMemory \
+          -port "${port_dynamo}" \
+          -sharedDb \
+          &
+        processes_to_kill+=( "$!" )
+      } \
+  &&  echo '[INFO] Waiting 5 seconds to leave DynamoDB start' \
+  &&  sleep 5 \
+  &&  echo '[INFO] Populating DynamoDB local' \
+  &&  bash ./deploy/containers/common/vars/provision_local_db.sh \
   &&  pytest \
         -n auto \
-        --ds=fluidintegrates.settings \
-        --dist=loadscope \
+        --ds='fluidintegrates.settings' \
+        --dist='loadscope' \
         --verbose \
-        --maxfail=20 \
-        --cov=fluidintegrates \
-        --cov=app \
+        --maxfail='20' \
+        --cov='fluidintegrates' \
+        --cov='app' \
         --cov="${pyPkgIntegratesBack}/site-packages/back-end" \
-        --cov-report term \
-        --cov-report html:build/coverage/html \
-        --cov-report xml:build/coverage/results.xml \
-        --cov-report annotate:build/coverage/annotate \
+        --cov-report='term' \
+        --cov-report='html:build/coverage/html' \
+        --cov-report='xml:build/coverage/results.xml' \
+        --cov-report='annotate:build/coverage/annotate' \
         --disable-warnings \
-        test/
+        'test' \
+  &&  cp -a 'build/coverage/results.xml' "coverage.xml" \
+  &&  {
+        kill_processes
+        return 0
+      } \
+  ||  {
+        kill_processes
+        return 1
+      }
 }
 
 function job_test_front {

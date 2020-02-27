@@ -346,6 +346,10 @@ class FindingTests(TestCase):
         assert 'errors' in result
         assert result['errors'][0]['message'] == str(AlreadyRequested())
 
+    # Defective test which depends on the ordering of the test suite
+    #   See the issue for further info
+    @pytest.mark.skip(
+        msg='https://gitlab.com/fluidattacks/integrates/issues/1784')
     def test_verify_finding(self):
         query = '''
           mutation {
