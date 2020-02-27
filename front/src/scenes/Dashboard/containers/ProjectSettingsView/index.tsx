@@ -31,6 +31,7 @@ import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptio
 import { RemoveProjectModal } from "../../components/RemoveProjectModal";
 import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
+import { Environments } from "./Environments";
 import {
   ADD_RESOURCE_MUTATION, ADD_TAGS_MUTATION, GET_ENVIRONMENTS, GET_PROJECT_DATA, GET_TAGS,
   REMOVE_TAG_MUTATION, UPDATE_RESOURCE_MUTATION,
@@ -826,7 +827,8 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
   <React.StrictMode>
     <div id="resources" className="tab-pane cont active">
       <Repositories projectName={props.match.params.projectName} />
-      {renderEnvironments(props)}
+      {false ? renderEnvironments(props) : undefined}
+      <Environments projectName={props.match.params.projectName} />
       {renderFiles(props)}
       {renderTagsView(props)}
       {_.includes(["admin"], (window as typeof window & { userRole: string }).userRole) ? renderDeleteBtn(props)

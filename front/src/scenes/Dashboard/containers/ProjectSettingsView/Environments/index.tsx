@@ -15,15 +15,15 @@ import { changeFormatter, statusFormatter } from "../../../../../components/Data
 import { IHeader } from "../../../../../components/DataTableNext/types";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
-import { addRepositoriesModal as AddRepositoriesModal } from "../../../components/AddRepositoriesModal/index";
-import { ADD_RESOURCE_MUTATION, GET_REPOSITORIES, UPDATE_RESOURCE_MUTATION } from "../queries";
-import { IHistoricState, IRepositoriesAttr } from "../types";
+import { addEnvironmentsModal as AddEnvironmentsModal } from "../../../components/AddEnvironmentsModal/index";
+import { ADD_RESOURCE_MUTATION, GET_ENVIRONMENTS, UPDATE_RESOURCE_MUTATION } from "../queries";
+import { IEnvironmentsAttr, IHistoricState } from "../types";
 
-interface IRepositoriesProps {
+interface IEnvironmentsProps {
   projectName: string;
 }
 
-const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): JSX.Element => {
+const environments: React.FC<IEnvironmentsProps> = (props: IEnvironmentsProps): JSX.Element => {
   const { userName, userOrganization, userRole } = window as typeof window & Dictionary<string>;
 
   // State management
@@ -35,13 +35,13 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
   const [sortValue, setSortValue] = React.useState({});
 
   // GraphQL operations
-  const { data, refetch } = useQuery(GET_REPOSITORIES, { variables: { projectName: props.projectName } });
-  const [addRepositories] = useMutation(ADD_RESOURCE_MUTATION, { onCompleted: refetch });
-  const [updateRepositories] = useMutation(UPDATE_RESOURCE_MUTATION, {
+  const { data, refetch } = useQuery(GET_ENVIRONMENTS, { variables: { projectName: props.projectName } });
+  const [addEnvironments] = useMutation(ADD_RESOURCE_MUTATION, { onCompleted: refetch });
+  const [updateEnvironments] = useMutation(UPDATE_RESOURCE_MUTATION, {
     onCompleted: (): void => {
       refetch()
         .catch();
-      mixpanel.track("RemoveProjectRepo", { Organization: userOrganization, User: userName });
+      mixpanel.track("RemoveProjectEnv", { Organization: userOrganization, User: userName });
       msgSuccess(
         translate.t("search_findings.tab_resources.success_change"),
         translate.t("search_findings.tab_users.title_success"),
@@ -53,27 +53,25 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
     return <React.Fragment />;
   }
 
-  const reposDataset: IRepositoriesAttr[] = JSON.parse(data.resources.repositories)
-    .map((repo: IRepositoriesAttr) => {
-      const historicState: IHistoricState[] = _.get(repo, "historic_state", [{ date: "", state: "ACTIVE", user: "" }]);
+  const envsDataset: IEnvironmentsAttr[] = JSON.parse(data.resources.environments)
+    .map((env: IEnvironmentsAttr) => {
+      const historicState: IHistoricState[] = _.get(env, "historic_state", [{ date: "", state: "ACTIVE", user: "" }]);
 
       return {
-        ...repo,
+        ...env,
         state: _.capitalize((_.last(historicState) as IHistoricState).state),
       };
     });
 
-  const isRepeated: ((newRepo: IRepositoriesAttr) => boolean) = (newRepo: IRepositoriesAttr): boolean => {
-    const repeatedItems: IRepositoriesAttr[] = reposDataset.filter((repo: IRepositoriesAttr): boolean =>
-      repo.branch === newRepo.branch
-      && repo.urlRepo === newRepo.urlRepo
-      && repo.protocol === newRepo.protocol);
+  const isRepeated: ((newEnv: IEnvironmentsAttr) => boolean) = (newEnv: IEnvironmentsAttr): boolean => {
+    const repeatedItems: IEnvironmentsAttr[] = envsDataset.filter((env: IEnvironmentsAttr): boolean =>
+      env.urlEnv === newEnv.urlEnv);
 
     return repeatedItems.length > 0;
   };
 
-  const handleRepoAdd: ((values: { resources: IRepositoriesAttr[] }) => void) = (
-    values: { resources: IRepositoriesAttr[] },
+  const handleEnvAdd: ((values: { resources: IEnvironmentsAttr[] }) => void) = (
+    values: { resources: IEnvironmentsAttr[] },
   ): void => {
     const containsRepeated: boolean = values.resources.filter(isRepeated).length > 0;
 
@@ -81,11 +79,11 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
       msgError(translate.t("search_findings.tab_resources.repeated_item"));
     } else {
       closeAddModal();
-      addRepositories({
+      addEnvironments({
         variables: {
           projectName: props.projectName,
           resData: JSON.stringify(values.resources),
-          resType: "repository",
+          resType: "environment",
         },
       })
         .catch();
@@ -96,7 +94,7 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
     <React.StrictMode>
       <Row>
         <Col md={11}>
-          <h3>{translate.t("search_findings.tab_resources.repositories_title")}</h3>
+          <h3>{translate.t("search_findings.tab_resources.environments_title")}</h3>
         </Col>
         {_.includes(["admin", "customer"], userRole) ? (
           <Col md={1}>
@@ -107,18 +105,18 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
           </Col>
         ) : undefined}
       </Row>
-      <ConfirmDialog title="Change repository state">
+      <ConfirmDialog title="Change environment state">
         {(confirm: ConfirmFn): React.ReactNode => {
-          const handleStateUpdate: ((repo: Dictionary<string>) => void) = (repo: Dictionary<string>): void => {
+          const handleStateUpdate: ((env: Dictionary<string>) => void) = (env: Dictionary<string>): void => {
             confirm(() => {
-              updateRepositories({
+              updateEnvironments({
                 variables: {
                   projectName: props.projectName,
                   resData: JSON.stringify({
-                    ...repo,
-                    state: repo.state === "Active" ? "INACTIVE" : "ACTIVE",
+                    ...env,
+                    state: env.state === "Active" ? "INACTIVE" : "ACTIVE",
                   }),
-                  resType: "repository",
+                  resType: "environment",
                 },
               })
                 .catch();
@@ -145,24 +143,9 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
 
           const tableHeaders: IHeader[] = [
             {
-              dataField: "protocol",
-              header: translate.t("search_findings.repositories_table.protocol"),
+              dataField: "urlEnv",
+              header: translate.t("search_findings.environment_table.environment"),
               onSort: sortState,
-              width: "14%",
-              wrapped: true,
-            },
-            {
-              dataField: "urlRepo",
-              header: translate.t("search_findings.repositories_table.repository"),
-              onSort: sortState,
-              width: "56%",
-              wrapped: true,
-            },
-            {
-              dataField: "branch",
-              header: translate.t("search_findings.repositories_table.branch"),
-              onSort: sortState,
-              width: "18%",
               wrapped: true,
             },
             {
@@ -181,12 +164,12 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
           return (
             <DataTableNext
               bordered={true}
-              dataset={reposDataset}
+              dataset={envsDataset}
               defaultSorted={sortValue}
               exportCsv={true}
               search={true}
               headers={tableHeaders}
-              id="tblRepositories"
+              id="tblEnvironments"
               pageSize={15}
               remote={false}
               striped={true}
@@ -195,11 +178,11 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
         }}
       </ConfirmDialog>
       <label>
-        <b>{translate.t("search_findings.tab_resources.total_repos")}</b>{reposDataset.length}
+        <b>{translate.t("search_findings.tab_resources.total_envs")}</b>{envsDataset.length}
       </label>
-      <AddRepositoriesModal isOpen={isAddModalOpen} onClose={closeAddModal} onSubmit={handleRepoAdd} />
+      <AddEnvironmentsModal isOpen={isAddModalOpen} onClose={closeAddModal} onSubmit={handleEnvAdd} />
     </React.StrictMode>
   );
 };
 
-export { repositories as Repositories };
+export { environments as Environments };
