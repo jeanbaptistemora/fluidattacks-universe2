@@ -10,21 +10,17 @@ import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
 import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
-import { selectFilter } from "react-bootstrap-table2-filter";
 import { Trans } from "react-i18next";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { InferableComponentEnhancer, lifecycle } from "recompose";
 import { Button } from "../../../../components/Button/index";
-import { ConfirmDialog, ConfirmFn } from "../../../../components/ConfirmDialog/index";
 import { DataTableNext } from "../../../../components/DataTableNext";
-import { changeFormatter, statusFormatter } from "../../../../components/DataTableNext/formatters";
 import { default as globalStyle } from "../../../../styles/global.css";
 import { handleGraphQLErrors } from "../../../../utils/formatHelpers";
 import { msgError, msgSuccess } from "../../../../utils/notifications";
 import rollbar from "../../../../utils/rollbar";
 import translate from "../../../../utils/translations/translate";
 import { isValidFileName, isValidFileSize } from "../../../../utils/validations";
-import { addEnvironmentsModal as AddEnvironmentsModal } from "../../components/AddEnvironmentsModal/index";
 import { AddFilesModal } from "../../components/AddFilesModal/index";
 import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/index";
 import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptionsModal/index";
@@ -33,14 +29,13 @@ import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
 import { Environments } from "./Environments";
 import {
-  ADD_RESOURCE_MUTATION, ADD_TAGS_MUTATION, GET_ENVIRONMENTS, GET_PROJECT_DATA, GET_TAGS,
-  REMOVE_TAG_MUTATION, UPDATE_RESOURCE_MUTATION,
+  ADD_TAGS_MUTATION, GET_PROJECT_DATA, GET_TAGS, REMOVE_TAG_MUTATION,
 } from "./queries";
 import { Repositories } from "./Repositories";
 import {
-  IAddEnvAttr, IAddTagsAttr, IEnvironmentsAttr, IGetProjectData, IProjectTagsAttr, IRemoveTagsAttr,
-  IResourcesAttr, IResourcesViewBaseProps, IResourcesViewDispatchProps, IResourcesViewProps,
-  IResourcesViewStateProps, IUpdateEnvAttr,
+  IAddTagsAttr, IGetProjectData, IProjectTagsAttr, IRemoveTagsAttr,
+  IResourcesViewBaseProps, IResourcesViewDispatchProps, IResourcesViewProps,
+  IResourcesViewStateProps,
 } from "./types";
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IResourcesViewProps, {}>({
@@ -104,59 +99,6 @@ const containsRepeatedTags: (
 
     return containsRepeated;
   };
-
-const selectOptions: optionSelectFilterProps[] = [
-  {value: "Active", label: "Active"},
-  {value: "Inactive", label: "Inactive"},
-];
-const clearSelection: string = "_CLEAR_";
-
-const containsRepeatedEnvs: ((currEnv: IEnvironmentsAttr[], environments: IEnvironmentsAttr[]) => boolean) =
-  (currEnv: IEnvironmentsAttr[], environments: IEnvironmentsAttr[]): boolean => {
-    let containsRepeated: boolean;
-    containsRepeated = currEnv.filter(
-      (newItem: IEnvironmentsAttr[][0]) => _.findIndex(
-        environments,
-        (currentItem: IEnvironmentsAttr[][0]) =>
-          currentItem.urlEnv === newItem.urlEnv,
-      ) > -1).length > 0;
-
-    return containsRepeated;
-  };
-
-const getSwitchButtonState: ((button: Element) => boolean) = (button: Element): boolean =>
-  button.classList.contains("on");
-
-const changeSwitchButtonState: ((button: Element) => void) = (button: Element): void => {
-  if (!getSwitchButtonState(button)) {
-    button.classList.replace("off", "on");
-    button.classList.replace("btn-light", "btn-danger");
-  } else {
-    button.classList.replace("on", "off");
-    button.classList.replace("btn-danger", "btn-light");
-  }
-};
-
-const findSwitchButton: ((rowId: string, resType: string) => Element | undefined) =
-  (rowId: string, resType: string): Element | undefined => {
-  const resTypeInt: number = resType === "repository" ? 2 : 1;
-  const statesHTMLCol: HTMLCollectionOf<Element> = document.getElementsByClassName("switch");
-  const states: Element[] = Array.prototype.slice.call(statesHTMLCol);
-  for (const state of states) {
-    const button: Element = state;
-    let id: HTMLElement | null = button.parentElement;
-    for (let c: number = 0; c < resTypeInt; c++) {
-      if (id !== null) {
-        id = id.previousSibling as HTMLElement;
-      }
-    }
-    if (id !== null && id.innerHTML === rowId) {
-      return button;
-    }
-  }
-
-  return undefined;
-};
 
 const allowedRoles: string[] = ["customer"];
 
@@ -380,273 +322,6 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
   );
 };
 
-const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
-  (props: IResourcesViewProps): JSX.Element => {
-    const { userRole: currUserRole } = (window as typeof window & Dictionary<string>);
-    const [filterValueEnvironments, setFilterValueEnvironments] = React.useState(props.filters.stateEnvironments);
-    const [sortValueEnvironments, setSortValueEnvironments] = React.useState(props.defaultSort.environments);
-    const handleAddEnvClick: (() => void) = (): void => { props.onOpenEnvsModal(); };
-    const handleCloseEnvModalClick: (() => void) = (): void => { props.onCloseEnvsModal(); };
-    const projectName: string = props.match.params.projectName;
-
-    return (
-      <Query query={GET_ENVIRONMENTS} variables={{ projectName }}>
-      {
-        ({ error, data, refetch }: QueryResult<IResourcesAttr>): JSX.Element => {
-          if (_.isUndefined(data) || _.isEmpty(data)) {
-
-            return <React.Fragment/>;
-          }
-          if (!_.isUndefined(error)) {
-            handleGraphQLErrors("An error occurred getting environments", error);
-
-            return <React.Fragment/>;
-          }
-          if (!_.isUndefined(data)) {
-            let envs: IEnvironmentsAttr[] = JSON.parse(data.resources.environments);
-            envs = envs.map((env: IEnvironmentsAttr) => {
-              env.state = "ACTIVE";
-              if ("historic_state" in env) {
-                env.state = env.historic_state[env.historic_state.length - 1].state;
-              }
-              env.state = env.state.charAt(0) + env.state.slice(1)
-                                                         .toLowerCase();
-
-              return env;
-            });
-            const envDataset: IEnvironmentsAttr[] = envs;
-
-            const handleMtUpdateEnvRes: ((mtResult: IUpdateEnvAttr) => void) = (mtResult: IUpdateEnvAttr): void => {
-              if (!_.isUndefined(mtResult)) {
-                if (mtResult.updateResources.success) {
-                  refetch()
-                    .catch();
-                  mixpanel.track(
-                    "RemoveProjectEnv",
-                    {
-                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
-                      User: (window as typeof window & { userName: string }).userName,
-                    });
-                  msgSuccess(
-                    translate.t("search_findings.tab_resources.success_change"),
-                    translate.t("search_findings.tab_users.title_success"),
-                  );
-                }
-              }
-            };
-
-            const handleMtAddEnvsRes: ((mtResult: IAddEnvAttr) => void) = (mtResult: IAddEnvAttr): void => {
-              if (!_.isUndefined(mtResult)) {
-                if (mtResult.addResources.success) {
-                  refetch()
-                    .catch();
-                  handleCloseEnvModalClick();
-                  mixpanel.track(
-                    "AddProjectEnv",
-                    {
-                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
-                      User: (window as typeof window & { userName: string }).userName,
-                    });
-                  msgSuccess(
-                    translate.t("search_findings.tab_resources.success"),
-                    translate.t("search_findings.tab_users.title_success"),
-                  );
-                }
-              }
-            };
-            let auxEnv: {[value: string]: string | null} | undefined;
-
-            return (
-              <React.Fragment>
-                <ConfirmDialog title="Environment change state">
-                  {(confirmStateChange: ConfirmFn): React.ReactNode => (
-                <Mutation mutation={UPDATE_RESOURCE_MUTATION} onCompleted={handleMtUpdateEnvRes}>
-                  { (updateResources: MutationFunction<IUpdateEnvAttr,
-                    {projectName: string; resData: string; resType: string}>,
-                     mutationRes: MutationResult): JSX.Element => {
-                      if (!_.isUndefined(mutationRes.error)) {
-                        handleGraphQLErrors("An error occurred removing environments", mutationRes.error);
-
-                        return <React.Fragment/>;
-                      }
-
-                      const changeSwitchButtonStatus: (() => void) = (): void => {
-                        if (auxEnv !== undefined && auxEnv.urlEnv !== null) {
-                          const button: Element | undefined = findSwitchButton(auxEnv.urlEnv, "environment");
-                          if (button !== undefined &&
-                            ((auxEnv.state === "INACTIVE" && button.classList.contains("on")) ||
-                              (auxEnv.state === "ACTIVE" && button.classList.contains("off")))) {
-                            changeSwitchButtonState(button);
-                          }
-                        }
-                      };
-
-                      const handleUpdateEnv: ((envInfo: { [key: string]: string } | undefined) => void) =
-                      (envInfo: { [key: string]: string } | undefined): void => {
-                        if (envInfo !== undefined) {
-                          let envLastState: string = envInfo.state;
-                          const button: Element | undefined = findSwitchButton(envInfo.urlEnv, "environment");
-                          if (button !== undefined) {
-                            envLastState = getSwitchButtonState(button) ? "ACTIVE" : "INACTIVE";
-                          }
-                          const envUpdated: {[value: string]: string | null} = {
-                            ...envInfo,
-                            state: envLastState,
-                          };
-                          auxEnv = envUpdated;
-
-                          confirmStateChange(
-                            () => {
-                              updateResources({
-                                variables: {
-                                  projectName,
-                                  resData: JSON.stringify(auxEnv),
-                                  resType: "environment",
-                                },
-                              })
-                                .catch();
-                            },
-                            changeSwitchButtonStatus,
-                          );
-                        }
-                      };
-                      const onSortStateEnviroments: ((dataField: string, order: SortOrder) => void) =
-                      (dataField: string, order: SortOrder): void => {
-                        const newSorted: Sorted = {dataField,  order};
-                        setSortValueEnvironments(newSorted);
-                        const newValues: {} = {...props.defaultSort, environments: newSorted};
-                        props.onSort(newValues);
-                      };
-                      const onFilterInputs: ((filterVal: string) => void) = (filterVal: string): void => {
-                        if (filterValueEnvironments !== filterVal && clearSelection !== filterValueEnvironments) {
-                          setFilterValueEnvironments(filterVal);
-                          const newValues: {} = {...props.filters, stateEnvironments: filterVal};
-                          props.onFilter(newValues);
-                        }
-                      };
-
-                      const clearFilterInputs: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
-                      (eventInput: React.FormEvent<HTMLInputElement>): void => {
-                        const inputValue: string = eventInput.currentTarget.value;
-                        if (inputValue.length === 0) {
-                          if (filterValueEnvironments !== "") {
-                            setFilterValueEnvironments(clearSelection);
-                            const newValues: {} = {...props.filters, stateEnvironments: ""};
-                            props.onFilter(newValues);
-                          }
-                        }
-                      };
-
-                      return (
-                        <React.Fragment>
-                        <Row>
-                          <Col md={12} sm={12}>
-                            <DataTableNext
-                              bordered={true}
-                              dataset={envDataset}
-                              defaultSorted={sortValueEnvironments}
-                              exportCsv={true}
-                              search={true}
-                              headers={[
-                                {
-                                  dataField: "urlEnv",
-                                  header: translate.t("search_findings.environment_table.environment"),
-                                  onSort: onSortStateEnviroments,
-                                  wrapped: true,
-                                },
-                                {
-                                  align: "center",
-                                  changeFunction: allowedRoles.includes(currUserRole) ? handleUpdateEnv : undefined,
-                                  dataField: "state",
-                                  filter: selectFilter({
-                                    defaultValue: filterValueEnvironments,
-                                    onFilter: onFilterInputs,
-                                    onInput: clearFilterInputs,
-                                    options: selectOptions,
-                                  }),
-                                  formatter: allowedRoles.includes(currUserRole) ? changeFormatter : statusFormatter,
-                                  header: translate.t("search_findings.repositories_table.state"),
-                                  onSort: onSortStateEnviroments,
-                                  width: "12%",
-                                  wrapped: true,
-                                },
-                              ]}
-                              id="tblRepositories"
-                              pageSize={15}
-                              remote={false}
-                              striped={true}
-                              title={translate.t("search_findings.tab_resources.environments_title")}
-                            />
-                          </Col>
-                          <Col md={12}>
-                          <br />
-                          <Col mdOffset={4} md={2} sm={6}>
-                            {allowedRoles.includes(currUserRole) ?
-                            <Button
-                              id="addEnvironment"
-                              block={true}
-                              bsStyle="primary"
-                              onClick={handleAddEnvClick}
-                            >
-                              <Glyphicon glyph="plus"/>&nbsp;
-                              {translate.t("search_findings.tab_resources.add_repository")}
-                            </Button> : undefined}
-                          </Col>
-                          </Col>
-                          <Col md={12}>
-                            <br />
-                            <label style={{fontSize: "15px"}}>
-                              <b>{translate.t("search_findings.tab_resources.total_envs")}</b>
-                              {envDataset.length}
-                            </label>
-                          </Col>
-                        </Row>
-                        </React.Fragment>
-                      );
-                    }}
-                </Mutation>
-                )}
-                </ConfirmDialog>
-                <Mutation mutation={ADD_RESOURCE_MUTATION} onCompleted={handleMtAddEnvsRes}>
-                  {(addResources: MutationFunction, mutationRes: MutationResult): JSX.Element => {
-                      if (!_.isUndefined(mutationRes.error)) {
-                        handleGraphQLErrors("An error occurred adding environments", mutationRes.error);
-
-                        return <React.Fragment/>;
-                      }
-
-                      const handleAddEnv: ((values: { resources: IEnvironmentsAttr[] }) => void) =
-                        (values: { resources: IEnvironmentsAttr[] }): void => {
-                          if (containsRepeatedEnvs(values.resources, envDataset)) {
-                            msgError(translate.t("search_findings.tab_resources.repeated_item"));
-                          } else {
-                            addResources({
-                              variables: { projectName,
-                                           resData: JSON.stringify(values.resources),
-                                           resType: "environment"},
-                              },
-                            )
-                              .catch();
-                          }
-                        };
-
-                      return (
-                        <AddEnvironmentsModal
-                          isOpen={props.envModal.open}
-                          onClose={handleCloseEnvModalClick}
-                          onSubmit={handleAddEnv}
-                        />
-                      );
-                    }}
-                </Mutation>
-              </React.Fragment>
-            );
-          } else { return <React.Fragment />; }
-        }}
-      </Query>
-    );
-  };
-
 const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
   (props: IResourcesViewProps): JSX.Element => {
     const { userRole: currUserRole } = (window as typeof window & Dictionary<string>);
@@ -827,7 +502,6 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
   <React.StrictMode>
     <div id="resources" className="tab-pane cont active">
       <Repositories projectName={props.match.params.projectName} />
-      {false ? renderEnvironments(props) : undefined}
       <Environments projectName={props.match.params.projectName} />
       {renderFiles(props)}
       {renderTagsView(props)}
