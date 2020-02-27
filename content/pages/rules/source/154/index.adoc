@@ -1,0 +1,12 @@
+:slug: rules/154/
+:category: source
+:description: This document details the security requirements related to the source code that makes up the company's applications. This requirement establishes the importance of eliminating back doors when reviewing the functional requirements established in the source code.
+:keywords: Requirement, Security, Source Code, Functional Requirements, Different, Back Doors
+:rules: yes
+
+= REQ.154 Eliminate Back Doors
+
+== Requirement
+
+The source code of a system must not perform functions
+other than those specified in the functional requirements (back doors).
