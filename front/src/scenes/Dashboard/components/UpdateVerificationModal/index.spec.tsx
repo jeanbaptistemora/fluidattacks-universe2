@@ -18,6 +18,7 @@ configure({ adapter: new ReactSixteenAdapter() });
 describe("update verification component", () => {
   it("should handle request verification", async () => {
     const handleOnClose: jest.Mock = jest.fn();
+    const handleRequestState: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [{
       request: {
         query: REQUEST_VERIFICATION_VULN,
@@ -39,6 +40,8 @@ describe("update verification component", () => {
             vulns={[{currentState: "open", id: "test", where: ""}]}
             clearSelected={jest.fn()}
             handleCloseModal={handleOnClose}
+            setRequestState={handleRequestState}
+            setVerifyState={jest.fn()}
           />
         </MockedProvider>
       </Provider>,
@@ -53,10 +56,13 @@ describe("update verification component", () => {
       .toHaveLength(1);
     expect(handleOnClose)
       .toHaveBeenCalled();
+    expect(handleRequestState)
+      .toHaveBeenCalled();
   });
 
   it("should handle request verification error", async () => {
     const handleOnClose: jest.Mock = jest.fn();
+    const handleRequestState: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [
     {
       request: {
@@ -85,6 +91,8 @@ describe("update verification component", () => {
             vulns={[{currentState: "open", id: "test_error", where: ""}]}
             clearSelected={jest.fn()}
             handleCloseModal={handleOnClose}
+            setRequestState={handleRequestState}
+            setVerifyState={jest.fn()}
           />
         </MockedProvider>
       </Provider>,
@@ -99,10 +107,14 @@ describe("update verification component", () => {
       .toHaveLength(1);
     expect(handleOnClose)
       .toHaveBeenCalled();
+    expect(handleRequestState)
+      .not
+      .toHaveBeenCalled();
   });
 
   it("should handle verify a request", async () => {
     const handleOnClose: jest.Mock = jest.fn();
+    const handleVerifyState: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [{
       request: {
         query: VERIFY_VULNERABILITIES,
@@ -125,6 +137,8 @@ describe("update verification component", () => {
             vulns={[{currentState: "open", id: "test", where: ""}]}
             clearSelected={jest.fn()}
             handleCloseModal={handleOnClose}
+            setRequestState={jest.fn()}
+            setVerifyState={handleVerifyState}
           />
         </MockedProvider>
       </Provider>,
@@ -144,10 +158,13 @@ describe("update verification component", () => {
       .toHaveLength(1);
     expect(handleOnClose)
       .toHaveBeenCalled();
+    expect(handleVerifyState)
+      .toHaveBeenCalled();
   });
 
   it("should handle verify a request error", async () => {
     const handleOnClose: jest.Mock = jest.fn();
+    const handleVerifyState: jest.Mock = jest.fn();
     const mocksMutation: MockedResponse[] = [{
       request: {
         query: VERIFY_VULNERABILITIES,
@@ -176,6 +193,8 @@ describe("update verification component", () => {
             vulns={[{currentState: "open", id: "test_error", where: ""}]}
             clearSelected={jest.fn()}
             handleCloseModal={handleOnClose}
+            setRequestState={jest.fn()}
+            setVerifyState={handleVerifyState}
           />
         </MockedProvider>
       </Provider>,
@@ -189,6 +208,9 @@ describe("update verification component", () => {
     expect(wrapper)
       .toHaveLength(1);
     expect(handleOnClose)
+      .toHaveBeenCalled();
+    expect(handleVerifyState)
+      .not
       .toHaveBeenCalled();
   });
 });

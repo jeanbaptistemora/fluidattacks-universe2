@@ -51,6 +51,7 @@ const minJustificationLength: ConfigurableValidator = minLength(50);
 const renderFields: ((props: formProps) => JSX.Element) = (props: formProps): JSX.Element => (
   <React.Fragment>
     <form onSubmit={props.handleSubmit}>
+      {props.children === undefined ? undefined : props.children()}
       <FormGroup>
         <ControlLabel>
           <label style={{ color: "#f22" }}>* </label>
@@ -68,7 +69,6 @@ const renderFields: ((props: formProps) => JSX.Element) = (props: formProps): JS
         />
       </FormGroup>
       {props.additionalInfo}
-      {props.children === undefined ? undefined : props.children()}
       <br />
       {renderFooter(props)}
     </form>

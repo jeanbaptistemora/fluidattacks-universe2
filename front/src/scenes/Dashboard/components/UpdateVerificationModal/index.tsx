@@ -28,6 +28,8 @@ export interface IUpdateVerificationModal {
   vulns: IVulnData[];
   clearSelected(): void;
   handleCloseModal(): void;
+  setRequestState(): void;
+  setVerifyState(): void;
 }
 
 const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpdateVerificationModal): JSX.Element => {
@@ -42,6 +44,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
           translate.t("proj_alerts.updated_title"),
         );
         props.clearSelected();
+        props.setRequestState();
       }
     },
     onError: (error: ApolloError): void => {
@@ -72,6 +75,7 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
           translate.t("proj_alerts.updated_title"),
         );
         props.clearSelected();
+        props.setVerifyState();
       }
     },
     onError: (error: ApolloError): void => {
@@ -175,4 +179,5 @@ const updateVerificationModal: React.FC<IUpdateVerificationModal> = (props: IUpd
     </React.StrictMode>
   );
 };
+
 export { updateVerificationModal as UpdateVerificationModal };
