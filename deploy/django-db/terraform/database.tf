@@ -10,6 +10,7 @@ resource "aws_db_instance" "django-db" {
   instance_class            = "db.t2.micro"
   ca_cert_identifier        = "rds-ca-2019"
   db_subnet_group_name      = aws_db_subnet_group.django-db.id
+  name                      = "django"
   username                  = var.db_user
   password                  = var.db_password
   vpc_security_group_ids    = [aws_security_group.django-db.id]
