@@ -8,6 +8,4 @@ COPY . /code
 
 # Fetch all dependencies to the /nix/store
 RUN     nix-shell --run ':' /code/build/shell.nix \
-    &&  nix-shell --run 'pushd front && npm install' /code/build/shell.nix \
-    &&  nix-shell --run 'pushd mobile && npm install' /code/build/shell.nix \
     &&  nix-store --optimise

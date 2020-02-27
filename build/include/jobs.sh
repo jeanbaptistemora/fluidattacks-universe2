@@ -271,6 +271,72 @@ function job_lint_mobile {
   ||  return 1
 }
 
+function job_infra_backup_deploy {
+  export TF_VAR_db_user
+  export TF_VAR_db_password
+
+      echo '[INFO] Logging in to AWS production' \
+  &&  CI_COMMIT_REF_NAME=master aws_login production \
+  &&  sops_env 'secrets-production.yaml' 'default' \
+        DB_USER \
+        DB_PASSWD \
+  &&  TF_VAR_db_user="${DB_USER}" \
+  &&  TF_VAR_db_password="${DB_PASSWD}" \
+  &&  pushd deploy/backup/terraform \
+    &&  terraform init \
+    &&  terraform apply -auto-approve -refresh=true \
+  &&  popd \
+  || return 1
+}
+
+function job_infra_backup_test {
+      echo '[INFO] Logging in to AWS development' \
+  &&  aws_login development \
+  &&  pushd deploy/backup/terraform \
+    &&  terraform init \
+    &&  tflint --deep --module \
+    &&  terraform plan -refresh=true \
+  &&  popd \
+  || return 1
+}
+
+function job_infra_django_db_deploy {
+  export TF_VAR_db_user
+  export TF_VAR_db_password
+
+      echo '[INFO] Logging in to AWS production' \
+  &&  CI_COMMIT_REF_NAME=master aws_login production \
+  &&  sops_env 'secrets-production.yaml' 'default' \
+        DB_USER \
+        DB_PASSWD \
+  &&  TF_VAR_db_user="${DB_USER}" \
+  &&  TF_VAR_db_password="${DB_PASSWD}" \
+  &&  pushd deploy/django-db/terraform \
+    &&  terraform init \
+    &&  terraform apply -auto-approve -refresh=true \
+  &&  popd \
+  || return 1
+}
+
+function job_infra_django_db_test {
+  export TF_VAR_db_user
+  export TF_VAR_db_password
+
+      echo '[INFO] Logging in to AWS development' \
+  &&  aws_login development \
+  &&  sops_env 'secrets-development.yaml' 'default' \
+        DB_USER \
+        DB_PASSWD \
+  &&  TF_VAR_db_user="${DB_USER}" \
+  &&  TF_VAR_db_password="${DB_PASSWD}" \
+  &&  pushd deploy/django-db/terraform \
+    &&  terraform init \
+    &&  tflint --deep --module \
+    &&  terraform plan -refresh=true \
+  &&  popd \
+  || return 1
+}
+
 function job_infra_resources_deploy {
       echo '[INFO] Logging in to AWS production' \
   &&  CI_COMMIT_REF_NAME=master aws_login production \
