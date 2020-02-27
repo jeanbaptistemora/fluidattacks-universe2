@@ -50,12 +50,6 @@ export const GET_REPOSITORIES: DocumentNode = gql`
     resources (projectName: $projectName) {
       repositories
     }
-    me {
-      role
-    }
-    project(projectName: $projectName){
-      deletionDate
-    }
   }
   `;
 

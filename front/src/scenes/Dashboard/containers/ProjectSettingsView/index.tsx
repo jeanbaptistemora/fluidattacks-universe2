@@ -26,21 +26,20 @@ import translate from "../../../../utils/translations/translate";
 import { isValidFileName, isValidFileSize } from "../../../../utils/validations";
 import { addEnvironmentsModal as AddEnvironmentsModal } from "../../components/AddEnvironmentsModal/index";
 import { AddFilesModal } from "../../components/AddFilesModal/index";
-import { addRepositoriesModal as AddRepositoriesModal } from "../../components/AddRepositoriesModal/index";
 import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/index";
 import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptionsModal/index";
 import { RemoveProjectModal } from "../../components/RemoveProjectModal";
 import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
 import {
-  ADD_RESOURCE_MUTATION, ADD_TAGS_MUTATION, GET_ENVIRONMENTS, GET_PROJECT_DATA, GET_REPOSITORIES, GET_TAGS,
+  ADD_RESOURCE_MUTATION, ADD_TAGS_MUTATION, GET_ENVIRONMENTS, GET_PROJECT_DATA, GET_TAGS,
   REMOVE_TAG_MUTATION, UPDATE_RESOURCE_MUTATION,
 } from "./queries";
 import { Repositories } from "./Repositories";
 import {
-  IAddEnvAttr, IAddReposAttr, IAddTagsAttr, IEnvironmentsAttr, IGetProjectData, IProjectTagsAttr, IRemoveTagsAttr,
-  IRepositoriesAttr, IResourcesAttr, IResourcesViewBaseProps, IResourcesViewDispatchProps, IResourcesViewProps,
-  IResourcesViewStateProps, IUpdateEnvAttr, IUpdateRepoAttr,
+  IAddEnvAttr, IAddTagsAttr, IEnvironmentsAttr, IGetProjectData, IProjectTagsAttr, IRemoveTagsAttr,
+  IResourcesAttr, IResourcesViewBaseProps, IResourcesViewDispatchProps, IResourcesViewProps,
+  IResourcesViewStateProps, IUpdateEnvAttr,
 } from "./types";
 
 const enhance: InferableComponentEnhancer<{}> = lifecycle<IResourcesViewProps, {}>({
@@ -100,19 +99,6 @@ const containsRepeatedTags: (
         tags,
         (currentItem: IProjectTagsAttr["project"]["tags"][0]) =>
           currentItem === newItem,
-      ) > -1).length > 0;
-
-    return containsRepeated;
-  };
-
-const containsRepeatedRepos: ((currRepo: IRepositoriesAttr[], repos: IRepositoriesAttr[]) => boolean) =
-  (currRepo: IRepositoriesAttr[], repos: IRepositoriesAttr[]): boolean => {
-    let containsRepeated: boolean;
-    containsRepeated = currRepo.filter(
-      (newItem: IRepositoriesAttr[][0]) => _.findIndex(
-        repos,
-        (currentItem: IRepositoriesAttr[][0]) =>
-          currentItem.urlRepo === newItem.urlRepo && currentItem.branch === newItem.branch,
       ) > -1).length > 0;
 
     return containsRepeated;
@@ -392,283 +378,6 @@ const renderTagsView: ((props: IResourcesViewProps) => JSX.Element) = (props: IR
     </Query>
   );
 };
-
-const renderRepositories: ((props: IResourcesViewProps) => JSX.Element) =
-  (props: IResourcesViewProps): JSX.Element => {
-    const { userRole: currUserRole } = (window as typeof window & Dictionary<string>);
-    const [filterValueRepositories, setFilterValueRepositories] = React.useState(props.filters.stateRepositories);
-    const [sortValueRepositories, setSortValueRepositories] = React.useState(props.defaultSort.repositories);
-    const handleAddRepoClick: (() => void) = (): void => { props.onOpenReposModal(); };
-    const handleCloseReposModalClick: (() => void) = (): void => { props.onCloseReposModal(); };
-    const projectName: string = props.match.params.projectName;
-
-    return (
-      <Query query={GET_REPOSITORIES} variables={{ projectName }}>
-      {
-        ({ error, data, refetch }: QueryResult<IResourcesAttr>): JSX.Element => {
-          if (_.isUndefined(data) || _.isEmpty(data)) {
-
-            return <React.Fragment/>;
-          }
-          if (!_.isUndefined(error)) {
-            handleGraphQLErrors("An error occurred getting repositories", error);
-
-            return <React.Fragment/>;
-          }
-          if (!_.isUndefined(data)) {
-
-            let repos: IRepositoriesAttr[] = JSON.parse(data.resources.repositories);
-            repos = repos.map((repo: IRepositoriesAttr) => {
-              repo.state = "ACTIVE";
-              if ("historic_state" in repo) {
-                repo.state = repo.historic_state[repo.historic_state.length - 1].state;
-              }
-              repo.state = repo.state.charAt(0) + repo.state.slice(1)
-                                                            .toLowerCase();
-
-              return repo;
-            });
-            const repoDataset: IRepositoriesAttr[] = repos;
-            const handleMtUpdateRepoRes: ((mtResult: IUpdateRepoAttr) => void) = (mtResult: IUpdateRepoAttr): void => {
-              if (!_.isUndefined(mtResult)) {
-                if (mtResult.updateResources.success) {
-                  refetch()
-                    .catch();
-                  mixpanel.track(
-                    "RemoveProjectRepo",
-                    {
-                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
-                      User: (window as typeof window & { userName: string }).userName,
-                    });
-                  msgSuccess(
-                    translate.t("search_findings.tab_resources.success_change"),
-                    translate.t("search_findings.tab_users.title_success"),
-                  );
-                }
-              }
-            };
-
-            const handleMtAddReposRes: ((mtResult: IAddReposAttr) => void) = (mtResult: IAddReposAttr): void => {
-              if (!_.isUndefined(mtResult)) {
-                if (mtResult.addResources.success) {
-                  refetch()
-                    .catch();
-                  handleCloseReposModalClick();
-                  mixpanel.track(
-                    "AddProjectRepo",
-                    {
-                      Organization: (window as typeof window & { userOrganization: string }).userOrganization,
-                      User: (window as typeof window & { userName: string }).userName,
-                    });
-                  msgSuccess(
-                    translate.t("search_findings.tab_resources.success"),
-                    translate.t("search_findings.tab_users.title_success"),
-                  );
-                }
-              }
-            };
-            let auxRepo: {[value: string]: string | null} | undefined;
-
-            return (
-              <React.Fragment>
-                <ConfirmDialog title="Repository change state">
-                  {(confirmStateChange: ConfirmFn): React.ReactNode => (
-              <Mutation mutation={UPDATE_RESOURCE_MUTATION} onCompleted={handleMtUpdateRepoRes}>
-                  { (updateRepositories: MutationFunction<IUpdateRepoAttr,
-                    {projectName: string; resData: string; resType: string}>,
-                     mutationRes: MutationResult): JSX.Element => {
-                      if (!_.isUndefined(mutationRes.error)) {
-                        handleGraphQLErrors("An error occurred removing repositories", mutationRes.error);
-
-                        return <React.Fragment/>;
-                      }
-
-                      const changeSwitchButtonStatus: (() => void) = (): void => {
-                        if (auxRepo !== undefined && auxRepo.urlRepo !== null) {
-                          const button: Element | undefined = findSwitchButton(auxRepo.urlRepo, "repository");
-                          if (button !== undefined &&
-                            ((auxRepo.state === "INACTIVE" && button.classList.contains("on")) ||
-                             (auxRepo.state === "ACTIVE" && button.classList.contains("off")))) {
-                            changeSwitchButtonState(button);
-                          }
-                        }
-                      };
-
-                      const handleUpdateRepo: ((repoInfo: { [key: string]: string } | undefined) => void) =
-                      (repoInfo: { [key: string]: string } | undefined): void => {
-                        if (repoInfo !== undefined) {
-                          let repoLastState: string = repoInfo.state;
-                          const button: Element | undefined = findSwitchButton(repoInfo.urlRepo, "repository");
-                          if (button !== undefined) {
-                            repoLastState = getSwitchButtonState(button) ? "ACTIVE" : "INACTIVE";
-                          }
-                          const repoUpdated: {[value: string]: string | null} = {
-                            ...repoInfo,
-                            state: repoLastState,
-                          };
-                          auxRepo = repoUpdated;
-
-                          confirmStateChange(
-                            () => {
-                              updateRepositories({
-                                variables: { projectName, resData: JSON.stringify(auxRepo), resType: "repository" },
-                              })
-                              .catch();
-                            },
-                            changeSwitchButtonStatus,
-                          );
-                        }
-                      };
-
-                      const onSortStateRepositories: ((dataField: string, order: SortOrder) => void) =
-                      (dataField: string, order: SortOrder): void => {
-                        const newSorted: Sorted = {dataField,  order};
-                        setSortValueRepositories(newSorted);
-                        const newValues: {} = {...props.defaultSort, repositories: newSorted};
-                        props.onSort(newValues);
-                      };
-
-                      const onFilterInputs: ((filterVal: string) => void) = (filterVal: string): void => {
-                        if (filterValueRepositories !== filterVal && clearSelection !== filterValueRepositories) {
-                          setFilterValueRepositories(filterVal);
-                          const newValues: {} = {...props.filters, stateRepositories: filterVal};
-                          props.onFilter(newValues);
-                        }
-                      };
-
-                      const clearFilterInputs: ((eventInput: React.FormEvent<HTMLInputElement>) => void) =
-                      (eventInput: React.FormEvent<HTMLInputElement>): void => {
-                        const inputValue: string = eventInput.currentTarget.value;
-                        if (inputValue.length === 0) {
-                          if (filterValueRepositories !== "") {
-                            setFilterValueRepositories(clearSelection);
-                            const newValues: {} = {...props.filters, stateRepositories: ""};
-                            props.onFilter(newValues);
-                          }
-                        }
-                      };
-
-                      return(
-                        <React.Fragment>
-                        <Row>
-                          <Col md={12} sm={12}>
-                            <DataTableNext
-                              bordered={true}
-                              dataset={repoDataset}
-                              defaultSorted={sortValueRepositories}
-                              exportCsv={true}
-                              search={true}
-                              headers={[
-                                {
-                                  dataField: "protocol",
-                                  header: translate.t("search_findings.repositories_table.protocol"),
-                                  onSort: onSortStateRepositories,
-                                  width: "14%",
-                                  wrapped: true,
-                                },
-                                {
-                                  dataField: "urlRepo",
-                                  header: translate.t("search_findings.repositories_table.repository"),
-                                  onSort: onSortStateRepositories,
-                                  width: "56%",
-                                  wrapped: true,
-                                },
-                                {
-                                  dataField: "branch",
-                                  header: translate.t("search_findings.repositories_table.branch"),
-                                  onSort: onSortStateRepositories,
-                                  width: "18%",
-                                  wrapped: true,
-                                },
-                                {
-                                  align: "center",
-                                  changeFunction: allowedRoles.includes(currUserRole) ? handleUpdateRepo : undefined,
-                                  dataField: "state",
-                                  filter: selectFilter({
-                                    defaultValue: filterValueRepositories,
-                                    onFilter: onFilterInputs,
-                                    onInput: clearFilterInputs,
-                                    options: selectOptions,
-                                  }),
-                                  formatter: allowedRoles.includes(currUserRole) ? changeFormatter : statusFormatter,
-                                  header: translate.t("search_findings.repositories_table.state"),
-                                  onSort: onSortStateRepositories,
-                                  width: "12%",
-                                  wrapped: true,
-                                },
-                              ]}
-                              id="tblRepositories"
-                              pageSize={15}
-                              remote={false}
-                              striped={true}
-                              title={translate.t("search_findings.tab_resources.repositories_title")}
-                            />
-                          </Col>
-                          <Col md={12}>
-                            <br />
-                            <Col mdOffset={4} md={2} sm={6}>
-                              {allowedRoles.includes(currUserRole) ?
-                              <Button
-                                id="addRepository"
-                                block={true}
-                                bsStyle="primary"
-                                onClick={handleAddRepoClick}
-                              >
-                                <Glyphicon glyph="plus"/>&nbsp;
-                                {translate.t("search_findings.tab_resources.add_repository")}
-                              </Button> : undefined}
-                              </Col>
-                          </Col>
-                          <Col md={12}>
-                            <br />
-                            <label style={{fontSize: "15px"}}>
-                              <b>{translate.t("search_findings.tab_resources.total_repos")}</b>
-                              {repoDataset.length}
-                            </label>
-                          </Col>
-                        </Row>
-                      </React.Fragment>);
-                    }}
-                </Mutation>
-                )}
-                </ConfirmDialog>
-                <Mutation mutation={ADD_RESOURCE_MUTATION} onCompleted={handleMtAddReposRes}>
-                  {(addRepositories: MutationFunction, mutationRes: MutationResult): JSX.Element => {
-                    if (!_.isUndefined(mutationRes.error)) {
-                      handleGraphQLErrors("An error occurred adding repositories", mutationRes.error);
-
-                      return <React.Fragment/>;
-                    }
-
-                    const handleAddRepo: ((values: { resources: IRepositoriesAttr[] }) => void) =
-                      (values: { resources: IRepositoriesAttr[] }): void => {
-                        if (containsRepeatedRepos(values.resources, repoDataset)) {
-                          msgError(translate.t("search_findings.tab_resources.repeated_item"));
-                        } else {
-                          addRepositories({variables: {
-                            projectName,
-                            resData: JSON.stringify(values.resources),
-                            resType: "repository"}},
-                          )
-                            .catch();
-                        }
-                      };
-
-                    return (
-                      <AddRepositoriesModal
-                        isOpen={props.reposModal.open}
-                        onClose={handleCloseReposModalClick}
-                        onSubmit={handleAddRepo}
-                      />
-                    );
-                }}
-              </Mutation>
-              </React.Fragment>);
-          } else { return <React.Fragment />; }
-        }}
-      </Query>
-    );
-  };
 
 const renderEnvironments: ((props: IResourcesViewProps) => JSX.Element) =
   (props: IResourcesViewProps): JSX.Element => {
@@ -1116,7 +825,6 @@ const projectResourcesView: React.FunctionComponent<IResourcesViewProps> =
   (
   <React.StrictMode>
     <div id="resources" className="tab-pane cont active">
-      {false ? renderRepositories(props) : undefined}
       <Repositories projectName={props.match.params.projectName} />
       {renderEnvironments(props)}
       {renderFiles(props)}
