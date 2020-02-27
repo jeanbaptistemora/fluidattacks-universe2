@@ -18,6 +18,7 @@ in
     pyPkgUvicorn =
       builders.pythonPackage "uvicorn==0.11.3";
 
+    srcCiScriptsHelpersOthers = ../ci-scripts/helpers/others.sh;
     srcCiScriptsHelpersSops = ../ci-scripts/helpers/sops.sh;
     srcEnv = ./include/env.sh;
     srcIncludeCli = ./include/cli.sh;

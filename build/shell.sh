@@ -6,7 +6,11 @@
 #!   nix-shell --keep CI_PROJECT_DIR
 #!   nix-shell --keep CI_REGISTRY_USER
 #!   nix-shell --keep CI_REGISTRY_PASSWORD
+#!   nix-shell --keep DEV_AWS_ACCESS_KEY_ID
+#!   nix-shell --keep DEV_AWS_SECRET_ACCESS_KEY
 #!   nix-shell --keep GITLAB_TOKEN
+#!   nix-shell --keep PROD_AWS_ACCESS_KEY_ID
+#!   nix-shell --keep PROD_AWS_SECRET_ACCESS_KEY
 #!   nix-shell --max-jobs auto
 #!   nix-shell --option restrict-eval false
 #!   nix-shell --option sandbox false

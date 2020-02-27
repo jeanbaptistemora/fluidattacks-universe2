@@ -4,7 +4,20 @@ source "${srcIncludeHelpers}"
 source "${srcExternalGitlabVariables}"
 source "${srcExternalSops}"
 source "${srcExternalSops}"
+source "${srcCiScriptsHelpersOthers}"
 source "${srcCiScriptsHelpersSops}"
+
+function job_build_django_apps {
+  local app
+
+  for app in 'django-apps/integrates-'*; do
+        echo "[INFO] Building: ${app}" \
+    &&  pushd "${app}" \
+      &&  python3 setup.py sdist -d ../packages/ \
+    &&  popd
+  done \
+  ||  return 1
+}
 
 function job_build_lambdas {
 
@@ -17,6 +30,8 @@ function job_build_lambdas {
 
     # shellcheck disable=SC1091
         lambda_zip_file="$(mktemp -d)/${lambda_name}.zip" \
+    &&  echo '[INFO] Deleting previous virtual environment if exists' \
+    &&  rm -rf "${path_to_lambda_venv}" \
     &&  echo '[INFO] Creating virtual environment' \
     &&  python3 -m venv "${path_to_lambda_venv}" \
     &&  pushd "${path_to_lambda_venv}" \
@@ -50,10 +65,11 @@ function job_deploy_container_nix_cache {
   local dockerfile='build/Dockerfile'
   local tag="${CI_REGISTRY_IMAGE}:nix"
 
-  helper_docker_build_and_push \
-    "${tag}" \
-    "${context}" \
-    "${dockerfile}"
+      helper_use_pristine_workdir \
+  &&  helper_docker_build_and_push \
+        "${tag}" \
+        "${context}" \
+        "${dockerfile}"
 }
 
 function job_deploy_container_deps_base {
@@ -61,10 +77,11 @@ function job_deploy_container_deps_base {
   local dockerfile='deploy/containers/deps-base/Dockerfile'
   local tag="${CI_REGISTRY_IMAGE}/deps-base:${CI_COMMIT_REF_NAME}"
 
-  helper_docker_build_and_push \
-    "${tag}" \
-    "${context}" \
-    "${dockerfile}"
+      helper_use_pristine_workdir \
+  &&  helper_docker_build_and_push \
+        "${tag}" \
+        "${context}" \
+        "${dockerfile}"
 }
 
 function job_deploy_container_deps_mobile {
@@ -72,10 +89,11 @@ function job_deploy_container_deps_mobile {
   local dockerfile='deploy/containers/deps-mobile/Dockerfile'
   local tag="${CI_REGISTRY_IMAGE}/deps-mobile:${CI_COMMIT_REF_NAME}"
 
-  helper_docker_build_and_push \
-    "${tag}" \
-    "${context}" \
-    "${dockerfile}"
+      helper_use_pristine_workdir \
+  &&  helper_docker_build_and_push \
+        "${tag}" \
+        "${context}" \
+        "${dockerfile}"
 }
 
 function job_deploy_container_deps_development {
@@ -84,11 +102,12 @@ function job_deploy_container_deps_development {
   local tag="${CI_REGISTRY_IMAGE}/deps-development:${CI_COMMIT_REF_NAME}"
   local build_arg_1='CI_COMMIT_REF_NAME'
 
-  helper_docker_build_and_push \
-    "${tag}" \
-    "${context}" \
-    "${dockerfile}" \
-    "${build_arg_1}" "${!build_arg_1}"
+      helper_use_pristine_workdir \
+  &&  helper_docker_build_and_push \
+        "${tag}" \
+        "${context}" \
+        "${dockerfile}" \
+        "${build_arg_1}" "${!build_arg_1}"
 }
 
 function job_deploy_container_deps_production {
@@ -97,11 +116,52 @@ function job_deploy_container_deps_production {
   local tag="${CI_REGISTRY_IMAGE}/deps-production:${CI_COMMIT_REF_NAME}"
   local build_arg_1='CI_COMMIT_REF_NAME'
 
-  helper_docker_build_and_push \
-    "${tag}" \
-    "${context}" \
-    "${dockerfile}" \
-    "${build_arg_1}" "${!build_arg_1}"
+      helper_use_pristine_workdir \
+  &&  helper_docker_build_and_push \
+        "${tag}" \
+        "${context}" \
+        "${dockerfile}" \
+        "${build_arg_1}" "${!build_arg_1}"
+}
+
+function job_deploy_container_app {
+  local environment_name
+  local fi_version
+  local context='.'
+  local dockerfile='deploy/containers/app/Dockerfile'
+  local tag="${CI_REGISTRY_IMAGE}/app:${CI_COMMIT_REF_NAME}"
+
+      echo '[INFO] Remember that this job needs: build_lambdas' \
+  &&  echo '[INFO] Remember that this job needs: build_django_apps' \
+  &&  echo '[INFO] Computing Fluid Integrates version' \
+  &&  fi_version=$(app_version) \
+  &&  echo -n "${fi_version}" > 'version.txt' \
+  &&  echo "[INFO] Version: ${fi_version}" \
+  &&  if test "${CI_COMMIT_REF_NAME}" = 'master'
+      then
+        environment_name="production"
+      else
+        environment_name="development"
+      fi \
+  &&  echo '[INFO] Logging in to AWS' \
+  &&  aws_login "${environment_name}" \
+  &&  sops_env "secrets-${environment_name}.yaml" 'default' \
+        SSL_KEY \
+        SSL_CERT \
+        DRIVE_AUTHORIZATION \
+        DRIVE_AUTHORIZATION_CLIENT \
+  &&  helper_docker_build_and_push \
+        "${tag}" \
+        "${context}" \
+        "${dockerfile}" \
+        'CI_API_V4_URL' "${CI_API_V4_URL}" \
+        'CI_COMMIT_REF_NAME' "${CI_COMMIT_REF_NAME}" \
+        'CI_PROJECT_ID' "${CI_PROJECT_ID}" \
+        'CI_REPOSITORY_URL' "${CI_REPOSITORY_URL}" \
+        'ENV_NAME' "${environment_name}" \
+        'SSL_CERT' "${SSL_CERT}" \
+        'SSL_KEY' "${SSL_KEY}" \
+        'VERSION' "${fi_version}"
 }
 
 function job_serve_dynamodb_local {

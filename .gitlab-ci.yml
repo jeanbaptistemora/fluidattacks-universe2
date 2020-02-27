@@ -1,6 +1,5 @@
 stages:
   - deps-base
-  - build-apps
   - deps
   - rotation
   - build
@@ -70,7 +69,7 @@ stages:
     refs:
       - schedules
     variables:
-      - $NIGHTLY_BUILD
+      - $SCHEDULE_NIGHTLY_BUILD
 
 .with_nix: &with_nix
   tags: [autoscaling]
@@ -87,6 +86,16 @@ build_lambdas:
     expire_in: 1 day
     paths:
       - lambda/packages/
+    when: on_success
+
+build_django_apps:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch
+  stage: deps-base
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - django-apps/packages/
     when: on_success
 
 deploy_container_deps_mobile:
@@ -112,6 +121,20 @@ deploy_container_deps_production:
   stage: deps
   needs: [deploy_container_deps_base]
 
+deploy_container_app:
+  <<: *with_nix
+  <<: *in_dev_and_master_branch
+  stage: build
+  needs:
+    - build_django_apps
+    - deploy_container_deps_development
+  retry: 1
+  artifacts:
+    expire_in: 1 day
+    paths:
+    - version.txt
+    when: on_success
+
 deploy_container_nix_cache:
   <<: *with_nix
   <<: *in_schedule_nightly_build
@@ -126,39 +149,9 @@ lint_build_system:
   <<: *in_dev_branch
   stage: test
 
-django-apps:
-  stage: build-apps
-  needs: [deploy_container_deps_base]
-  tags: [autoscaling]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-base:$CI_COMMIT_REF_NAME
-  script:
-    - ./ci-scripts/jobs/build-django-apps.sh
-  interruptible: true
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - django-apps/packages/
-    when: on_success
-  <<: *in_dev_and_master_branch
-
-build-back:
-  stage: build
-  needs: [deploy_container_deps_development,django-apps]
-  tags: [autoscaling]
-  image: fluidattacks/docker-bash:latest
-  script:
-    - ./ci-scripts/jobs/build-app.sh
-  retry: 1
-  artifacts:
-    expire_in: 1 day
-    paths:
-    - version.txt
-    when: on_success
-  <<: *in_dev_and_master_branch
-
 build-front:
   stage: build
-  needs: [deploy_container_deps_development,django-apps]
+  needs: [deploy_container_deps_development]
   tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
@@ -212,7 +205,7 @@ test-back:
 lint-back:
   stage: test
   tags: [autoscaling]
-  needs: [build-back]
+  needs: [deploy_container_app]
   image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
   script:
     - ./ci-scripts/jobs/lint-app.sh
@@ -272,7 +265,7 @@ coverage-report:
 deploy-back-ephemeral:
   stage: deploy-app
   tags: [autoscaling]
-  needs: [build-back]
+  needs: [deploy_container_app]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
     - ./review-apps/cluster-config.sh
@@ -383,7 +376,7 @@ new-version-mail:
   tags: [autoscaling]
   image: registry.gitlab.com/fluidattacks/integrates/app:$CI_COMMIT_REF_NAME
   dependencies:
-    - build-back
+    - deploy_container_app
   script:
     - pip3 install -U gitpython wheel mandrill-really-maintained
     - ./ci-scripts/jobs/new-version-mail.sh
