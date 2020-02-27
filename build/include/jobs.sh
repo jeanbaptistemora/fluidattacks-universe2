@@ -499,6 +499,8 @@ function job_infra_autoscaling_ci_deploy_config {
   )
 
       echo '[INFO] Adding bastion to known hosts' \
+  &&  mkdir -p ~/.ssh \
+  &&  touch ~/.ssh/known_hosts \
   &&  ssh-keyscan \
         -H "${bastion_ip}" \
         >> ~/.ssh/known_hosts \
