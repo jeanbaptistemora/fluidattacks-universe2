@@ -6,7 +6,7 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 import _ from "lodash";
 import mixpanel from "mixpanel-browser";
 import React from "react";
-import { Col, Glyphicon, Row } from "react-bootstrap";
+import { ButtonToolbar, Col, Glyphicon, Row } from "react-bootstrap";
 import { selectFilter } from "react-bootstrap-table2-filter";
 import { Button } from "../../../../../components/Button";
 import { ConfirmDialog, ConfirmFn } from "../../../../../components/ConfirmDialog";
@@ -95,15 +95,17 @@ const repositories: React.FC<IRepositoriesProps> = (props: IRepositoriesProps): 
   return (
     <React.StrictMode>
       <Row>
-        <Col md={11}>
+        <Col lg={8} md={10} xs={7}>
           <h3>{translate.t("search_findings.tab_resources.repositories_title")}</h3>
         </Col>
         {_.includes(["admin", "customer"], userRole) ? (
-          <Col md={1}>
-            <Button block={true} onClick={openAddModal}>
-              <Glyphicon glyph="plus" />&nbsp;
+          <Col lg={4} md={2} xs={5}>
+            <ButtonToolbar className="pull-right">
+              <Button block={true} onClick={openAddModal}>
+                <Glyphicon glyph="plus" />&nbsp;
               {translate.t("search_findings.tab_resources.add_repository")}
-            </Button>
+              </Button>
+            </ButtonToolbar>
           </Col>
         ) : undefined}
       </Row>
