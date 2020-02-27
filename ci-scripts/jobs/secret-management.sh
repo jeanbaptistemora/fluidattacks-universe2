@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-aws_sso_terraform_apply() {
+secret_management_terraform_apply() {
 
   set -Eeuo pipefail
 
   . ci-scripts/helpers/sops.sh
 
-  local folder='deploy/aws-sso/terraform'
+  local folder='deploy/secret-management/terraform'
   local user='production'
 
   aws_login "${user}"
@@ -19,13 +19,13 @@ aws_sso_terraform_apply() {
   popd || return 1
 }
 
-aws_sso_terraform_test() {
+secret_management_terraform_test() {
 
   set -Eeuo pipefail
 
   . ci-scripts/helpers/sops.sh
 
-  local folder='deploy/aws-sso/terraform'
+  local folder='deploy/secret-management/terraform'
   local user='development'
 
   aws_login "${user}"

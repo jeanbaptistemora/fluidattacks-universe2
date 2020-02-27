@@ -437,67 +437,25 @@ terraform-resources-test:
   interruptible: true
   <<: *in_dev_and_master_branch
 
-secret-management-dev-terraform-apply:
+secret-management-terraform-apply:
   stage: deploy-infra
   tags: [autoscaling]
-  needs: [secret-management-dev-terraform-test]
+  needs: [secret-management-terraform-test]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
-    - . ci-scripts/jobs/secret-management-dev.sh
-    - secret_management_dev_terraform_apply
-  <<: *in_master_branch
+    - . ci-scripts/jobs/secret-management.sh
+    - secret_management_terraform_apply
+  only:
+    - master
 
-secret-management-dev-terraform-test:
+secret-management-terraform-test:
   stage: test
   tags: [autoscaling]
   needs: [deploy_container_deps_development]
   image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
   script:
-    - . ci-scripts/jobs/secret-management-dev.sh
-    - secret_management_dev_terraform_test
-  interruptible: true
-  <<: *in_dev_and_master_branch
-
-secret-management-prod-terraform-apply:
-  stage: deploy-infra
-  tags: [autoscaling]
-  needs: [secret-management-prod-terraform-test]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - . ci-scripts/jobs/secret-management-prod.sh
-    - secret_management_prod_terraform_apply
-  <<: *in_master_branch
-
-secret-management-prod-terraform-test:
-  stage: test
-  tags: [autoscaling]
-  needs: [deploy_container_deps_development]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - . ci-scripts/jobs/secret-management-prod.sh
-    - secret_management_prod_terraform_test
-  <<: *in_master_branch
-  interruptible: true
-
-aws-sso-terraform-apply:
-  stage: deploy-infra
-  tags: [autoscaling]
-  needs: [aws-sso-terraform-test]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - . ci-scripts/jobs/aws-sso.sh
-    - aws_sso_terraform_apply
-  <<: *in_master_branch
-
-aws-sso-terraform-test:
-  stage: test
-  tags: [autoscaling]
-  needs: [deploy_container_deps_development]
-  image: registry.gitlab.com/fluidattacks/integrates/deps-development:$CI_COMMIT_REF_NAME
-  script:
-    - . ci-scripts/jobs/aws-sso.sh
-    - aws_sso_terraform_test
-  <<: *in_dev_and_master_branch
+    - . ci-scripts/jobs/secret-management.sh
+    - secret_management_terraform_test
   interruptible: true
 
 backup-terraform-apply:

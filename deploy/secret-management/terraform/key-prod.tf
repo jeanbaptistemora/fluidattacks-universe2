@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "integrates-dev-key" {
+data "aws_iam_policy_document" "integrates-prod-key" {
 
   statement {
     sid    = "Enable IAM User Permissions"
@@ -21,8 +21,9 @@ data "aws_iam_policy_document" "integrates-dev-key" {
     principals {
       type        = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-dev"
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/serves-admin",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-prod",
       ]
     }
     actions = [
@@ -52,8 +53,9 @@ data "aws_iam_policy_document" "integrates-dev-key" {
     principals {
       type        = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-dev"
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/serves-admin",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-prod"
       ]
     }
     actions = [
@@ -74,8 +76,9 @@ data "aws_iam_policy_document" "integrates-dev-key" {
     principals {
       type        = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-dev",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates-dev"
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/FLUIDServes_TF",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/serves-admin",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/user-provision/integrates-prod"
       ]
     }
     actions = [
@@ -96,14 +99,14 @@ data "aws_iam_policy_document" "integrates-dev-key" {
   }
 }
 
-resource "aws_kms_key" "integrates-dev-key" {
-  description             = "kms key for integrates dev."
-  policy                  = data.aws_iam_policy_document.integrates-dev-key.json
+resource "aws_kms_key" "integrates-prod-key" {
+  description             = "production kms key for integrates prod."
+  policy                  = data.aws_iam_policy_document.integrates-prod-key.json
   deletion_window_in_days = 30
   is_enabled              = true
 }
 
-resource "aws_kms_alias" "integrates-dev-key" {
-  name          = "alias/integrates-dev-kms"
-  target_key_id = aws_kms_key.integrates-dev-key.key_id
+resource "aws_kms_alias" "integrates-prod-key" {
+  name          = "alias/integrates-prod-kms"
+  target_key_id = aws_kms_key.integrates-prod-key.key_id
 }
