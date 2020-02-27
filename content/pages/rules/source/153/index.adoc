@@ -1,0 +1,12 @@
+:slug: rules/153/
+:category: source
+:description: This document, attached to the source code security, details guidelines and security requirements related to the handling or management of transactions which should be performed out-of-band. Some examples of this type of transactions are e-mails, +SMS+, among others.
+:keywords: Requirement, Security, Transaction, Band, Email, SMS.
+:rules: yes
+
+= REQ.153 Out-Of-Band Transactions
+
+== Requirement
+
+The system must include an out-of-band mechanism
+(+SMS+, mailing, among others) for transaction confirmation.
