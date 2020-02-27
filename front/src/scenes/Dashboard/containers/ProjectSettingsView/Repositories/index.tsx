@@ -15,7 +15,7 @@ import { changeFormatter, statusFormatter } from "../../../../../components/Data
 import { IHeader } from "../../../../../components/DataTableNext/types";
 import { msgError, msgSuccess } from "../../../../../utils/notifications";
 import translate from "../../../../../utils/translations/translate";
-import { addRepositoriesModal as AddRepositoriesModal } from "../../../components/AddRepositoriesModal/index";
+import { AddRepositoriesModal } from "../../../components/AddRepositoriesModal/index";
 import { ADD_RESOURCE_MUTATION, GET_REPOSITORIES, UPDATE_RESOURCE_MUTATION } from "../queries";
 import { IHistoricState, IRepositoriesAttr } from "../types";
 
