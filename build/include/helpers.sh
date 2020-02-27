@@ -109,3 +109,20 @@ function helper_set_dev_secrets {
   &&  echo '[INFO] Exporting development secrets' \
   &&  sops_vars development
 }
+
+function helper_set_prod_secrets {
+  export JWT_TOKEN
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
+  export AWS_DEFAULT_REGION
+
+      JWT_TOKEN=$(helper_get_gitlab_var JWT_TOKEN) \
+  &&  AWS_ACCESS_KEY_ID=$(helper_get_gitlab_var PROD_AWS_ACCESS_KEY_ID) \
+  &&  AWS_SECRET_ACCESS_KEY=$(helper_get_gitlab_var PROD_AWS_SECRET_ACCESS_KEY) \
+  &&  AWS_DEFAULT_REGION='us-east-1' \
+  &&  aws configure set aws_access_key_id "${AWS_ACCESS_KEY_ID}" \
+  &&  aws configure set aws_secret_access_key "${AWS_SECRET_ACCESS_KEY}" \
+  &&  aws configure set region 'us-east-1' \
+  &&  echo '[INFO] Exporting production secrets' \
+  &&  sops_vars production
+}

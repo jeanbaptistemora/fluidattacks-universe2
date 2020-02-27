@@ -21,6 +21,8 @@ in
     pkgs.redis
     pkgs.shellcheck
     pkgs.sops
+    pkgs.terraform
+    pkgs.tflint
     pkgs.unzip
     pkgs.zip
   ]

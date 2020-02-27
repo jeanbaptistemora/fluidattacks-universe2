@@ -1,3 +1,9 @@
+variable "aws_access_key" {}
+variable "aws_secret_key" {}
+variable "region" {
+  default = "us-east-1"
+}
+
 variable "aws_s3_evidences_bucket" {
   type    = string
   default = "fluidintegrates.evidences"
@@ -6,10 +12,6 @@ variable "aws_s3_evidences_bucket" {
 variable "aws_s3_resources_bucket" {
   type    = string
   default = "fluidintegrates.resources"
-}
-
-variable "sqs_id" {
-  type = string
 }
 
 terraform {
@@ -22,6 +24,10 @@ terraform {
 }
 
 provider "aws" {
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
+  version    = ">= 2.11"
+  region     = var.region
 }
 
 module "dynamodb" {

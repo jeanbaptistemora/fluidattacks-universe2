@@ -270,6 +270,48 @@ function job_lint_mobile {
   ||  return 1
 }
 
+function job_infra_resources_deploy {
+      echo '[INFO] Logging in to AWS production' \
+  &&  CI_COMMIT_REF_NAME=master aws_login production \
+  &&  pushd deploy/terraform-resources \
+    &&  terraform init \
+    &&  terraform apply -auto-approve -refresh=true \
+  &&  popd \
+  || return 1
+}
+
+function job_infra_resources_test {
+      echo '[INFO] Logging in to AWS development' \
+  &&  aws_login development \
+  &&  pushd deploy/terraform-resources \
+    &&  terraform init \
+    &&  tflint --deep --module \
+    &&  terraform plan -refresh=true \
+  &&  popd \
+  || return 1
+}
+
+function job_infra_secret_management_deploy {
+      echo '[INFO] Logging in to AWS production' \
+  &&  CI_COMMIT_REF_NAME=master aws_login production \
+  &&  pushd deploy/secret-management/terraform \
+    &&  terraform init \
+    &&  terraform apply -auto-approve -refresh=true \
+  &&  popd \
+  || return 1
+}
+
+function job_infra_secret_management_test {
+      echo '[INFO] Logging in to AWS development' \
+  &&  aws_login development \
+  &&  pushd deploy/secret-management/terraform \
+    &&  terraform init \
+    &&  tflint --deep --module \
+    &&  terraform plan -refresh=true \
+  &&  popd \
+  || return 1
+}
+
 function job_test_back {
   local processes_to_kill=()
   local port_dynamo='8022'
