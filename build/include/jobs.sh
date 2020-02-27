@@ -498,7 +498,11 @@ function job_infra_autoscaling_ci_deploy_config {
     autoscaling_secret_key
   )
 
-      echo '[INFO] Exporting bastion SSH key' \
+      echo '[INFO] Adding bastion to known hosts' \
+  &&  ssh-keyscan \
+        -H "${bastion_ip}" \
+        >> ~/.ssh/known_hosts \
+  &&  echo '[INFO] Exporting bastion SSH key' \
   &&  sops_env secrets-prod.yaml default \
         "${secrets_to_replace[@]}" \
         autoscaling_bastion_key_b64 \
