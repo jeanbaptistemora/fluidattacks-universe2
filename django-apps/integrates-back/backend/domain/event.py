@@ -1,4 +1,5 @@
 """Domain functions for events."""
+from typing import Any, Dict, List, Tuple
 import random
 import threading
 from datetime import datetime
@@ -26,12 +27,12 @@ from __init__ import (
 )
 
 
-def update_event(event_id, **kwargs):
+def update_event(event_id: str, **kwargs) -> bool:
     """Update an event associated to a project."""
     event = get_event(event_id)
     success = False
 
-    if event.get('historic_state')[-1].get('state') == 'SOLVED':
+    if event.get('historic_state')[-1].get('state') == 'SOLVED':  # type: ignore
         raise EventAlreadyClosed()
 
     success = event_dal.update(event_id, kwargs)
@@ -39,17 +40,17 @@ def update_event(event_id, **kwargs):
     return success
 
 
-def solve_event(event_id, affectation, analyst_email, date):
+def solve_event(event_id: str, affectation: str, analyst_email: str, date: datetime) -> bool:
     event = get_event(event_id)
     success = False
 
-    if event.get('historic_state')[-1].get('state') == 'SOLVED':
+    if event.get('historic_state')[-1].get('state') == 'SOLVED':  # type: ignore
         raise EventAlreadyClosed()
 
-    tzn = pytz.timezone(settings.TIME_ZONE)
+    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today()
     history = event.get('historic_state')
-    history += [
+    history += [  # type: ignore
         {
             'analyst': analyst_email,
             'date': date.strftime('%Y-%m-%d %H:%M:%S'),
@@ -68,11 +69,11 @@ def solve_event(event_id, affectation, analyst_email, date):
     return success
 
 
-def update_evidence(event_id, evidence_type, file):
+def update_evidence(event_id: str, evidence_type: str, file: Any) -> bool:
     event = get_event(event_id)
     success = False
 
-    if event.get('historic_state')[-1].get('state') == 'SOLVED':
+    if event.get('historic_state')[-1].get('state') == 'SOLVED':  # type: ignore
         raise EventAlreadyClosed()
 
     project_name = event.get('project_name')
@@ -97,7 +98,7 @@ def update_evidence(event_id, evidence_type, file):
     return success
 
 
-def validate_evidence(evidence_type, file):
+def validate_evidence(evidence_type: str, file: Any) -> bool:
     success = False
 
     if evidence_type == 'evidence':
@@ -119,7 +120,8 @@ def validate_evidence(evidence_type, file):
     return success
 
 
-def _send_new_event_mail(analyst, event_id, project, subscription, event_type):
+def _send_new_event_mail(
+        analyst: str, event_id: str, project: str, subscription: str, event_type: str):
     recipients = project_dal.list_project_managers(project)
     recipients.append(analyst)
     if subscription == 'oneshot':
@@ -159,10 +161,11 @@ def _send_new_event_mail(analyst, event_id, project, subscription, event_type):
     email_send_thread.start()
 
 
-def create_event(analyst_email, project_name, file=None, image=None, **kwargs):
+def create_event(analyst_email: str, project_name: str, file: Any = None,
+                 image: Any = None, **kwargs) -> bool:
     event_id = str(random.randint(10000000, 170000000))
 
-    tzn = pytz.timezone(settings.TIME_ZONE)
+    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today()
 
     project = project_dal.get_attributes(project_name, ['companies', 'type'])
@@ -225,7 +228,7 @@ def create_event(analyst_email, project_name, file=None, image=None, **kwargs):
     return success
 
 
-def get_event(event_id):
+def get_event(event_id: str) -> Dict[str, Any]:
     event = event_dal.get_event(event_id)
     if not event:
         raise EventNotFound()
@@ -233,13 +236,14 @@ def get_event(event_id):
     return event
 
 
-def get_events(event_ids):
+def get_events(event_ids: List[str]) -> List[Dict[str, Any]]:
     events = [event_utils.format_data(get_event(event_id)) for event_id in event_ids]
 
     return events
 
 
-def add_comment(content, event_id, parent, user_info):
+def add_comment(
+        content: str, event_id: str, parent: str, user_info: Dict[str, Any]) -> Tuple[Any, bool]:
     success = comment_domain.create(
         'event', content, event_id, parent, user_info)
     comment_data = {'parent': int(parent), 'content': content}
@@ -250,7 +254,7 @@ def add_comment(content, event_id, parent, user_info):
     return success
 
 
-def get_evidence_link(event_id, file_name):
+def get_evidence_link(event_id: str, file_name: str) -> bool:
     project_name = get_event(event_id).get('project_name')
     file_url = f'{project_name}/{event_id}/{file_name}'
     minutes_until_expire = 1.0 / 6
@@ -259,7 +263,7 @@ def get_evidence_link(event_id, file_name):
         FI_CLOUDFRONT_RESOURCES_DOMAIN, file_url, minutes_until_expire)
 
 
-def remove_evidence(evidence_type, event_id):
+def remove_evidence(evidence_type: str, event_id: str) -> bool:
     finding = get_event(event_id)
     project_name = finding['project_name']
     success = False

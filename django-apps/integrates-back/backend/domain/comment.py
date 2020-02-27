@@ -1,3 +1,5 @@
+
+from typing import Any, Dict, List, Tuple
 from datetime import datetime
 from time import time
 
@@ -10,13 +12,13 @@ from backend import util
 from backend.dal import comment as comment_dal, finding as finding_dal, vulnerability as vuln_dal
 
 
-def _get_comments(comment_type, finding_id, user_role):
+def _get_comments(comment_type: str, finding_id: str, user_role: str) -> List[Dict[str, str]]:
     comments = [fill_comment_data(user_role, comment)
                 for comment in comment_dal.get_comments(comment_type, int(finding_id))]
     return comments
 
 
-def get_comments(finding_id, user_role):
+def get_comments(finding_id: str, user_role: str) -> List[Dict[str, str]]:
     comments = _get_comments('comment', finding_id, user_role)
     historic_verification = finding_dal.get_attributes(
         finding_id, ['historic_verification']).get('historic_verification', [])
@@ -33,13 +35,13 @@ def get_comments(finding_id, user_role):
     return comments
 
 
-def get_event_comments(finding_id, user_role):
+def get_event_comments(finding_id: str, user_role: str) -> List[Dict[str, str]]:
     comments = _get_comments('event', finding_id, user_role)
 
     return comments
 
 
-def get_fullname(user_role, data):
+def get_fullname(user_role: str, data: Dict[str, str]) -> str:
     comment_user_name = 'Hacker'
     if not data.get('fullname'):
         comment_user_name = data['email']
@@ -53,15 +55,16 @@ def get_fullname(user_role, data):
     return comment_user_name
 
 
-def fill_vuln_info(comment, vulns_ids, vulns):
+def fill_vuln_info(comment: Dict[str, str], vulns_ids: List[str],
+                   vulns: List[Dict[str, Any]]) -> Dict[str, str]:
     selected_vulns = [vuln.get('where') for vuln in vulns if vuln.get('UUID') in vulns_ids]
-    wheres = ', '.join(selected_vulns)
+    wheres = ', '.join(selected_vulns)  # type: ignore
     comment['content'] = f'Regarding vulnerabilities {wheres}: ' + comment.get('content', '')
 
     return comment
 
 
-def fill_comment_data(user_role, data):
+def fill_comment_data(user_role: str, data: Dict[str, str]) -> Dict[str, Any]:
     fullname = get_fullname(user_role, data)
     return {
         'content': data['content'],
@@ -73,14 +76,15 @@ def fill_comment_data(user_role, data):
         'parent': int(data['parent'])}
 
 
-def get_observations(finding_id, user_role):
+def get_observations(finding_id: str, user_role: str) -> List[Dict[str, str]]:
     observations = _get_comments('observation', finding_id, user_role)
 
     return observations
 
 
-def create(comment_type, content, element_id, parent, user_info):
-    tzn = pytz.timezone(settings.TIME_ZONE)
+def create(comment_type: str, content: str, element_id: str,
+           parent: str, user_info: Dict[str, str]) -> Tuple[Any, bool]:
+    tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
     today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
     comment_id = int(round(time() * 1000))
     comment_attributes = {

@@ -25,7 +25,7 @@ from __init__ import (FI_CLOUDFRONT_ACCESS_KEY, FI_CLOUDFRONT_PRIVATE_KEY,
                       FI_CLOUDFRONT_RESOURCES_DOMAIN, FI_MAIL_RESOURCERS)
 
 
-def rsa_signer(message):
+def rsa_signer(message) -> bool:
     private_key = serialization.load_pem_private_key(
         base64.b64decode(FI_CLOUDFRONT_PRIVATE_KEY),
         password=None,

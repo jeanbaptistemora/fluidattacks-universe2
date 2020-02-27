@@ -14,6 +14,7 @@ run_lint () {
             django-apps/integrates-back/backend/entity/user.py \
             django-apps/integrates-back/backend/entity/vulnerability.py \
             django-apps/integrates-back/backend/dal/* \
+            django-apps/integrates-back/backend/domain/* \
             django-apps/integrates-back/backend/utils/*"
     RETVAL=0
     prospector -F -s high -u django -i node_modules app/ || RETVAL=1
