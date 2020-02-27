@@ -12,6 +12,7 @@ resource "aws_db_instance" "django-db" {
   db_subnet_group_name      = aws_db_subnet_group.django-db.id
   username                  = var.db_user
   password                  = var.db_password
+  vpc_security_group_ids    = [aws_security_group.django-db.id]
   apply_immediately         = true
   skip_final_snapshot       = false
   publicly_accessible       = true
