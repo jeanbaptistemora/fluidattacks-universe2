@@ -1,11 +1,15 @@
+# disable MyPy due to error alert for outer __init__ attributes,
+# which are all required by Graphene ObjectType
+#  type: ignore
+
 # pylint: disable=no-self-use
 # pylint: disable=super-init-not-called
+from typing import Any, Dict, List as _List
 import rollbar
 from mixpanel import Mixpanel
 from graphene import ObjectType, JSONString, Mutation, String, Boolean, Field
 from graphene_file_upload.scalars import Upload
 from django.conf import settings
-
 
 from backend.decorators import (
     require_login, require_project_access, get_entity_cache, enforce_authz
@@ -20,16 +24,16 @@ INTEGRATES_URL = 'https://fluidattacks.com/integrates/dashboard'
 # pylint: disable=too-many-locals
 class Resource(ObjectType):
     """ GraphQL Entity for Project Resources """
-    project_name = ''
+    project_name = String()
     repositories = JSONString()
     environments = JSONString()
     files = JSONString()
 
-    def __init__(self, project_name):
-        self.project_name = project_name
-        self.repositories = []
-        self.environments = []
-        self.files = []
+    def __init__(self, project_name: str):
+        self.project_name: str = project_name
+        self.repositories: _List[Dict[str, Any]] = []
+        self.environments: _List[Dict[str, Any]] = []
+        self.files: _List[Dict[str, Any]] = []
         project_exist = project_domain.get_attributes(project_name.lower(), ['project_name'])
         if project_exist:
             project_info = project_domain.get_attributes(
@@ -44,23 +48,23 @@ class Resource(ObjectType):
         else:
             raise InvalidProject
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.project_name + '_resources'
 
     @get_entity_cache
-    def resolve_repositories(self, info):
+    def resolve_repositories(self, info: Any) -> JSONString:
         """ Resolve repositories of the given project """
         del info
         return self.repositories
 
     @get_entity_cache
-    def resolve_environments(self, info):
+    def resolve_environments(self, info: Any) -> JSONString:
         """ Resolve environments of the given project """
         del info
         return self.environments
 
     @get_entity_cache
-    def resolve_files(self, info):
+    def resolve_files(self, info: Any) -> JSONString:
         """ Resolve files of the given project """
         del info
         return self.files
@@ -79,7 +83,8 @@ class AddResources(Mutation):
     @require_login
     @enforce_authz
     @require_project_access
-    def mutate(self, info, resource_data, project_name, res_type):
+    def mutate(self,
+               info, resource_data: Dict[str, Any], project_name: str, res_type: str) -> object:
         success = False
         user_email = util.get_jwt_content(info.context)['user_email']
         add_res = resources.create_resource(resource_data, project_name, res_type, user_email)
@@ -118,7 +123,8 @@ class UpdateResources(Mutation):
     @require_login
     @enforce_authz
     @require_project_access
-    def mutate(self, info, resource_data, project_name, res_type):
+    def mutate(self,
+               info, resource_data: Dict[str, Any], project_name: str, res_type: str) -> object:
         success = False
         user_email = util.get_jwt_content(info.context)['user_email']
         update_res = resources.update_resource(resource_data, project_name, res_type, user_email)
@@ -202,7 +208,7 @@ class RemoveFiles(Mutation):
     @require_login
     @enforce_authz
     @require_project_access
-    def mutate(self, info, files_data, project_name):
+    def mutate(self, info, files_data: Dict[str, Any], project_name: str) -> object:
         success = False
         file_name = files_data.get('fileName')
         user_email = util.get_jwt_content(info.context)['user_email']

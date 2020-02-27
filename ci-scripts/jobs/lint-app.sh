@@ -16,6 +16,9 @@ run_lint () {
         django-apps/integrates-back/backend/util.py \
         django-apps/integrates-back/backend/exceptions.py \
         django-apps/integrates-back/backend/decorators.py \
+        django-apps/integrates-back/backend/entity/resource.py \
+        django-apps/integrates-back/backend/entity/user.py \
+        django-apps/integrates-back/backend/entity/vulnerability.py \
         django-apps/integrates-back/backend/utils/* || RETVAL=1
     return $RETVAL
 }

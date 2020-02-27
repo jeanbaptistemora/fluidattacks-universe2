@@ -1,3 +1,7 @@
+# disable MyPy due to error alert for outer __init__ attributes,
+# which are all required by Graphene ObjectType
+#  type: ignore
+
 # pylint: disable=no-self-use
 # pylint: disable=super-init-not-called
 # pylint: disable=too-many-instance-attributes
@@ -5,6 +9,7 @@
 
 import threading
 from datetime import datetime
+from typing import Any, Dict, List as _List
 
 import rollbar
 from graphene import ObjectType, Mutation, String, Boolean, Field, List
@@ -35,14 +40,15 @@ class User(ObjectType):
     last_login = String()
     list_projects = List(String)
 
-    def __init__(self, project_name, user_email, role=None):
-        self.email = user_email
-        self.role = ''
-        self.responsibility = ''
-        self.phone_number = ''
-        self.organization = ''
-        self.first_login = '-'
-        self.last_login = [-1, -1]
+    def __init__(self, project_name: str, user_email: str, role: str = None):
+        self.email: str = user_email
+        self.role: str = ''
+        self.responsibility: str = ''
+        self.phone_number: str = ''
+        self.organization: str = ''
+        self.first_login: str = '-'
+        self.last_login: _List[int] = [-1, -1]
+        self.list_projects: _List[int] = []
         if not project_name:
             projs_active = \
                 ['{proj}: {description} - Active'.format(
@@ -56,8 +62,6 @@ class User(ObjectType):
                     for proj in user_domain.get_projects(
                         self.email, active=False)]
             self.list_projects = projs_active + projs_suspended
-        else:
-            self.list_projects = []
 
         last_login = user_domain.get_data(user_email, 'last_login')
 
@@ -96,43 +100,43 @@ class User(ObjectType):
                not has_access:
                 raise UserNotFound()
 
-    def resolve_email(self, info):
+    def resolve_email(self, info: Any) -> String:
         """ Resolve user email """
         del info
-        return self.email.lower()
+        return self.email.lower()  # type: ignore
 
-    def resolve_role(self, info):
+    def resolve_role(self, info: Any) -> String:
         """ Resolve user role """
         del info
         return self.role
 
-    def resolve_responsibility(self, info):
+    def resolve_responsibility(self, info: Any) -> String:
         """ Resolve user responsibility in the given project """
         del info
         return self.responsibility
 
-    def resolve_phone_number(self, info):
+    def resolve_phone_number(self, info: Any) -> String:
         """ Resolve user phone number """
         del info
         return self.phone_number
 
-    def resolve_organization(self, info):
+    def resolve_organization(self, info: Any) -> String:
         """ Resolve user organization """
         del info
         return self.organization
 
-    def resolve_first_login(self, info):
+    def resolve_first_login(self, info: Any) -> String:
         """ Resolve user's first login date """
         del info
         return self.first_login
 
-    def resolve_last_login(self, info):
+    def resolve_last_login(self, info: Any) -> String:
         """ Resolve user's last login date """
         del info
         return self.last_login
 
     @enforce_authz
-    def resolve_list_projects(self, info):
+    def resolve_list_projects(self, info: Any) -> List:
         del info
         return self.list_projects
 
@@ -224,7 +228,8 @@ class GrantUserAccess(Mutation):
         return ret
 
 
-def create_new_user(context, new_user_data, project_name):
+def create_new_user(
+        context: Dict[str, Any], new_user_data: Dict[str, Any], project_name: str) -> bool:
     analizable_list = list(new_user_data.values())[1:-1]
     if (
         all(validate_field(field) for field in analizable_list) and
@@ -298,7 +303,7 @@ class RemoveUserAccess(Mutation):
     @require_login
     @enforce_authz
     @require_project_access
-    def mutate(self, info, project_name, user_email):
+    def mutate(self, info, project_name: str, user_email: str) -> object:
         success = False
 
         project_domain.remove_user_access(project_name, user_email, 'customeradmin')
@@ -381,7 +386,8 @@ class EditUser(Mutation):
         return ret
 
 
-def modify_user_information(context, modified_user_data, project_name):
+def modify_user_information(
+        context: Dict[str, Any], modified_user_data: Dict[str, Any], project_name: str):
     role = modified_user_data['role']
     email = modified_user_data['email']
     responsibility = modified_user_data['responsibility']
