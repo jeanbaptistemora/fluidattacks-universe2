@@ -173,7 +173,7 @@ def verify_finding(finding_id, user_email, justification, user_fullname):
         }
         comment_data = {
             'user_id': comment_id,
-            'comment_type': 'comment',
+            'comment_type': 'verification',
             'content': justification,
             'fullname': user_fullname,
             'parent': historic_verification[-1].get('comment', 0),
