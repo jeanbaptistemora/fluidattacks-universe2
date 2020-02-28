@@ -1,5 +1,5 @@
 
-from typing import Any
+from typing import Any, Dict, List, Union
 from botocore.exceptions import ClientError
 import rollbar
 from backend.dal.helpers import dynamodb, s3
@@ -11,7 +11,7 @@ DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_projects')
 
 
-def search_file(file_name: str) -> bool:
+def search_file(file_name: str) -> List[Any]:
     return s3.list_files(FI_AWS_S3_RESOURCES_BUCKET, file_name)  # type: ignore
 
 
@@ -26,7 +26,7 @@ def remove_file(file_name: str) -> bool:
     return s3.remove_file(FI_AWS_S3_RESOURCES_BUCKET, file_name)  # type: ignore
 
 
-def create(res_data: str, project_name: str, res_type: str) -> bool:
+def create(res_data: Any, project_name: str, res_type: str) -> bool:
     table = TABLE
     primary_name_key = 'project_name'
     primary_key = project_name
@@ -99,7 +99,8 @@ def remove(project_name: str, res_type: str, index: int) -> bool:
     return resp
 
 
-def update(res_data: str, project_name: str, res_type: str) -> bool:
+def update(res_data: List[Dict[str, Union[str, List[str], object]]],
+           project_name: str, res_type: str) -> bool:
     table = TABLE
     primary_keys = ['project_name', project_name]
     attr_name = res_type

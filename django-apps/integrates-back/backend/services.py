@@ -1,6 +1,6 @@
 """ FluidIntegrates services definition """
 
-from typing import Any, Dict
+from typing import Any, Dict, cast
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from backend.domain import (
@@ -63,7 +63,8 @@ def is_customeradmin(project: str, email: str) -> bool:
     """Verify if a user is a customeradmin."""
     project_data = project_dal.get(project)
     for data in project_data:
-        if data.get('customeradmin') and email.lower() in data['customeradmin']:
+        customeradmin = cast(str, data.get('customeradmin'))
+        if customeradmin and email.lower() in customeradmin:
             return True
     return False
 
@@ -86,7 +87,7 @@ def has_responsibility(project: str, email: str) -> str:
     user_resp = "-"
     for data in project_data:
         if 'responsibility' in data:
-            user_resp = data["responsibility"]
+            user_resp = cast(str, data["responsibility"])
             break
         user_resp = "-"
     return user_resp

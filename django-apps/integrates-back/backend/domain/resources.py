@@ -2,7 +2,7 @@
 
 
 from collections import namedtuple
-from typing import Any, Dict, List
+from typing import Any, Dict, List, cast
 import base64
 import datetime
 import threading
@@ -48,7 +48,7 @@ def sign_url(domain: str, file_name: str, expire_mins: float) -> str:
 
 
 def format_resource(
-        resource_list: List[Dict[str, Any]], resource_type: str) -> List[Dict[str, Any]]:
+        resource_list: List[Dict[str, str]], resource_type: str) -> List[Dict[str, str]]:
     resource_description = []
     for resource_item in resource_list:
         if resource_type == 'repository':
@@ -57,9 +57,9 @@ def format_resource(
             resource_text = 'Repository: {repository!s} Branch: {branch!s}'\
                             .format(repository=repo_url, branch=repo_branch)
         elif resource_type == 'environment':
-            resource_text = resource_item.get('urlEnv')  # type: ignore
+            resource_text = resource_item.get('urlEnv', '')
         elif resource_type == 'file':
-            resource_text = resource_item.get('fileName')  # type: ignore
+            resource_text = resource_item.get('fileName', '')
         resource_description.append({'resource_description': resource_text})
     return resource_description
 
@@ -122,7 +122,7 @@ def create_file(files_data: List[Dict[str, Any]], uploaded_file: Any,
         rollbar.report_message('Error: \
 File exceeds size limit', 'error')
     files = project_dal.get_attributes(project_name, ['files'])
-    project_files = files.get('files')
+    project_files = cast(List[Dict[str, str]], files.get('files'))
     if project_files:
         contains_repeated = [f.get('fileName')
                              for f in project_files
@@ -142,7 +142,7 @@ File already exists', 'error')
 
 def remove_file(file_name: str, project_name: str) -> bool:
     project_name = project_name.lower()
-    file_list = project_dal.get(project_name)[0]['files']
+    file_list = cast(List[Dict[str, str]], project_dal.get(project_name)[0]['files'])
     index = -1
     cont = 0
     while index < 0 and len(file_list) > cont:
@@ -212,16 +212,17 @@ An error occurred adding repository', 'error')
 def update_resource(
         res_data: Dict[str, Any], project_name: str, res_type: str, user_email: str) -> bool:
     project_name = project_name.lower()
+    res_list: List[project_dal.ProjectType] = []
     if res_type == 'repository':
         resource_url = res_data.get('urlRepo')
         res_list = \
-            project_dal.get(project_name)[0]['repositories']
+            cast(List[project_dal.ProjectType], project_dal.get(project_name)[0]['repositories'])
         res_id = 'urlRepo'
         res_name = 'repositories'
     elif res_type == 'environment':
         resource_url = res_data.get('urlEnv')
         res_list = \
-            project_dal.get(project_name)[0]['environments']
+            cast(List[project_dal.ProjectType], project_dal.get(project_name)[0]['environments'])
         res_id = 'urlEnv'
         res_name = 'environments'
     cont = 0
@@ -234,12 +235,13 @@ def update_resource(
                 'state': 'INACTIVE'
             }
             if 'historic_state' in res_list[cont]:
-                if not res_list[cont]['historic_state'][-1]['state'] == 'ACTIVE':
+                historic_state = cast(List[Dict[str, str]], res_list[cont]['historic_state'])
+                if not historic_state[-1]['state'] == 'ACTIVE':
                     new_state['state'] = 'ACTIVE'
-                res_list[cont]['historic_state'].append(new_state)
+                historic_state.append(new_state)
             else:
-                res_list[cont]['historic_state'] = [new_state]
-
+                historic_state = [new_state]
+            res_list[cont]['historic_state'] = historic_state
             break
         cont += 1
     return resources_dal.update(res_list, project_name, res_name)

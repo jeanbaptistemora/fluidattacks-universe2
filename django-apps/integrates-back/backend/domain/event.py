@@ -169,7 +169,7 @@ def create_event(analyst_email: str, project_name: str, file: Any = None,
     today = datetime.now(tz=tzn).today()
 
     project = project_dal.get_attributes(project_name, ['companies', 'type'])
-    subscription = project.get('type', '')
+    subscription = str(project.get('type'))
 
     event_attrs = kwargs.copy()
     event_date = event_attrs['event_date'].astimezone(

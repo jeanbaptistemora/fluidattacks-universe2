@@ -1,6 +1,6 @@
 """DAL functions for findings."""
 
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Union
 import rollbar
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
@@ -11,6 +11,8 @@ from __init__ import FI_AWS_S3_BUCKET
 DYNAMODB_RESOURCE = dynamodb.DYNAMODB_RESOURCE  # type: ignore
 TABLE = DYNAMODB_RESOURCE.Table('FI_findings')
 TABLE_VULNS = DYNAMODB_RESOURCE.Table('FI_vulnerabilities')
+
+FindingType = Union[List[Dict[str, str]], str]
 
 
 def _escape_alnum(string: str) -> str:

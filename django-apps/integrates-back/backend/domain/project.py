@@ -1,6 +1,6 @@
 """Domain functions for projects."""
 
-from typing import Any, List, Dict
+from typing import Any, Dict, List, Union, cast
 from collections import namedtuple
 import re
 from datetime import datetime, timedelta
@@ -38,24 +38,24 @@ def add_comment(project_name: str, email: str, comment_data: Any) -> bool:
     return project_dal.add_comment(project_name, email, comment_data)
 
 
-def create_project(user_email: str, user_role: str, **kwargs: Any) -> bool:
+def create_project(user_email: str, user_role: str, **kwargs: str) -> bool:
     is_user_admin = user_role == 'admin'
     if is_user_admin:
-        companies = [company.lower() for company in kwargs.get('companies')]  # type: ignore
+        companies = [company.lower() for company in kwargs.get('companies', [])]
     else:
         companies = [user_domain.get_data(user_email, 'company')]
-    description = kwargs.get('description')
-    project_name = kwargs.get('project_name').lower()  # type: ignore
+    description = kwargs.get('description', '')
+    project_name = kwargs.get('project_name', '').lower()
     if kwargs.get('subscription'):
         subscription = kwargs.get('subscription')
     else:
         subscription = 'continuous'
     resp = False
-    if not (not description.strip() or not project_name.strip() or  # type: ignore
+    if not (not description.strip() or not project_name.strip() or
        not all([company.strip() for company in companies]) or
        not companies):
         if not project_dal.exists(project_name):
-            project = {
+            project: project_dal.ProjectType = {
                 'project_name': project_name,
                 'description': description,
                 'companies': companies,
@@ -89,11 +89,11 @@ def remove_access(user_email: str, project_name: str) -> bool:
     return project_dal.remove_access(user_email, project_name)
 
 
-def get_pending_to_delete() -> List[Dict[str, Any]]:
+def get_pending_to_delete() -> List[Dict[str, project_dal.ProjectType]]:
     return project_dal.get_pending_to_delete()
 
 
-def get_historic_deletion(project_name: str) -> List[Any]:
+def get_historic_deletion(project_name: str) -> Union[str, List[str]]:
     historic_deletion = project_dal.get_attributes(
         project_name.lower(), ['historic_deletion'])
     return historic_deletion.get('historic_deletion', [])
@@ -104,7 +104,7 @@ def request_deletion(project_name: str, user_email: str) -> bool:
     response = False
     if user_domain.get_project_access(user_email, project) and project_name == project:
         data = project_dal.get_attributes(project, ['project_status', 'historic_deletion'])
-        historic_deletion = data.get('historic_deletion', [])
+        historic_deletion = cast(List[Dict[str, str]], data.get('historic_deletion', []))
         if data.get('project_status') not in ['DELETED', 'PENDING_DELETION']:
             tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
             today = datetime.now(tz=tzn).today()
@@ -115,7 +115,7 @@ def request_deletion(project_name: str, user_email: str) -> bool:
                 'user': user_email.lower(),
             }
             historic_deletion.append(new_state)
-            new_data = {
+            new_data: project_dal.ProjectType = {
                 'historic_deletion': historic_deletion,
                 'project_status': 'PENDING_DELETION'
             }
@@ -132,7 +132,7 @@ def reject_deletion(project_name: str, user_email: str) -> bool:
     project = project_name.lower()
     if is_request_deletion_user(project, user_email) and project_name == project:
         data = project_dal.get_attributes(project, ['project_status', 'historic_deletion'])
-        historic_deletion = data.get('historic_deletion', [])
+        historic_deletion = cast(List[Dict[str, str]], data.get('historic_deletion', []))
         if data.get('project_status') == 'PENDING_DELETION':
             tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
             today = datetime.now(tz=tzn).today()
@@ -154,7 +154,7 @@ def reject_deletion(project_name: str, user_email: str) -> bool:
     return response
 
 
-def remove_project(project_name: str, user_email: str) -> Any:
+def remove_project(project_name: str, user_email: str) -> object:
     """Delete project information."""
     project = project_name.lower()
     Status = namedtuple(
@@ -170,16 +170,16 @@ def remove_project(project_name: str, user_email: str) -> Any:
         tzn = pytz.timezone(settings.TIME_ZONE)  # type: ignore
         today = datetime.now(tz=tzn).today().strftime('%Y-%m-%d %H:%M:%S')
         are_users_removed = remove_all_users_access(project)
-        are_findings_masked = [
+        are_findings_masked: Union[bool, List[bool]] = [
             finding_domain.mask_finding(finding_id)
             for finding_id in list_findings(project) + list_drafts(project)]
         if are_findings_masked == []:
-            are_findings_masked = True  # type: ignore
-        data = {
+            are_findings_masked = True
+        update_data: Dict[str, Union[str, List[str], object]] = {
             'project_status': 'FINISHED',
             'deletion_date': today
         }
-        is_project_finished = project_dal.update(project, data)
+        is_project_finished = project_dal.update(project, update_data)
         are_resources_removed = all(list(resources_domain.mask(project)))
         util.invalidate_cache(project)
         response = Status(
@@ -332,11 +332,11 @@ def get_max_severity(findings: List[Dict[str, Any]]) -> Any:
 def get_max_open_severity(findings: List[Dict[str, Any]]) -> Decimal:
     """Get maximum severity of project with open vulnerabilities."""
     total_severity = \
-        [fin.get('cvss_temporal') for fin in findings
-         if total_vulnerabilities(fin['finding_id'])  # type: ignore
-         .get('openVulnerabilities') > 0]  # type: ignore
+        [fin.get('cvss_temporal', '') for fin in findings
+         if total_vulnerabilities(fin.get('finding_id', ''))
+         .get('openVulnerabilities', '') > 0]
     if total_severity:
-        max_severity = Decimal(max(total_severity)).quantize(Decimal('0.1'))  # type: ignore
+        max_severity = Decimal(max(total_severity)).quantize(Decimal('0.1'))
     else:
         max_severity = Decimal(0).quantize(Decimal('0.1'))
     return max_severity
@@ -344,13 +344,13 @@ def get_max_open_severity(findings: List[Dict[str, Any]]) -> Decimal:
 
 def get_open_vulnerability_date(vulnerability: Dict[str, Any]) -> Any:
     """Get open vulnerability date of a vulnerability."""
-    all_states = vulnerability.get('historic_state')
-    current_state = all_states[0]  # type: ignore
+    all_states = vulnerability.get('historic_state', {})
+    current_state: Dict[str, str] = all_states[0]
     open_date: Any = None
     if current_state.get('state') == 'open' and \
        not current_state.get('approval_status'):
         open_date = datetime.strptime(
-            current_state.get('date').split(' ')[0],
+            current_state.get('date', '').split(' ')[0],
             '%Y-%m-%d'
         )
         tzn = pytz.timezone('America/Bogota')
@@ -394,19 +394,19 @@ def get_mean_remediate(findings: List[Dict[str, Any]]) -> Decimal:
 def get_total_treatment(findings: List[Dict[str, Any]]) -> Dict[str, int]:
     """Get the total treatment of all the vulnerabilities"""
     accepted_vuln = 0
-    in_progress_vuln = 0
-    undefined_treatment = 0
+    in_progress_vuln: int = 0
+    undefined_treatment: int = 0
     for finding in findings:
         fin_treatment = finding.get('historic_treatment', [{}])[-1].get('treatment')
         if finding_domain.validate_finding(finding['finding_id']):
             open_vulns = total_vulnerabilities(
-                finding['finding_id']).get('openVulnerabilities')
+                finding['finding_id']).get('openVulnerabilities', '')
             if fin_treatment == 'ACCEPTED':
-                accepted_vuln += open_vulns  # type: ignore
+                accepted_vuln += open_vulns
             elif fin_treatment == 'IN PROGRESS':
-                in_progress_vuln += open_vulns  # type: ignore
+                in_progress_vuln += open_vulns
             else:
-                undefined_treatment += open_vulns  # type: ignore
+                undefined_treatment += open_vulns
     treatment = {
         'accepted': accepted_vuln,
         'inProgress': in_progress_vuln,
