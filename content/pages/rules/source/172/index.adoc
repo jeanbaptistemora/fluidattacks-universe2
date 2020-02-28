@@ -1,0 +1,12 @@
+:slug: rules/172/
+:category: source
+:description: This document details the security guidelines and requirements related to the secure encryption of database connection strings. Such encryption must be performed in configuration files, which must be separated from the source code that composes the application.
+:keywords: Requirement, Security, Source Code, Databases, Connection, Encryption
+:rules: yes
+
+= REQ.172 Encrypt Connection Strings
+
+== Requirement
+
+The developers must encrypt the database connection strings
+in a configuration file separate from the source code.
