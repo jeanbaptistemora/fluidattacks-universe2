@@ -4,6 +4,18 @@ from backend.mailer import send_mail_new_user
 from __init__ import FI_MAIL_CONTINUOUS, FI_MAIL_PROJECTS
 
 
+def get_upn(strategy, details, backend, user, *args, **kwargs):
+    # When using a personal Microsoft account,
+    # upn does not exist in response
+    del strategy
+    del details
+    del user
+    del args
+    if (getattr(backend, 'name', None) == 'azuread-oauth2' and
+            not kwargs['response'].get('upn')):
+        kwargs['response']['upn'] = kwargs.get('response')['email']
+
+
 # pylint: disable=keyword-arg-before-vararg
 def create_user(strategy, details, backend, user=None, *args, **kwargs):
     del args
