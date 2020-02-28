@@ -1,0 +1,11 @@
+:slug: rules/180/
+:category: data
+:description: This document details the security guidelines and requirements related to the importance of masking data from any system in an organization. This requirement refers to the relevance of masking all data belonging to environments other than production.
+:keywords: Requirement, Security, Masking, Production, Data, Environment
+:rules: yes
+
+= REQ.180 Masking Data
+
+== Requirement
+
+The organization must mask data from environments other than production.
