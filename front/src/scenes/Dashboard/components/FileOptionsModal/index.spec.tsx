@@ -3,7 +3,7 @@ import ReactSixteenAdapter from "enzyme-adapter-react-16";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { Action, createStore, Store } from "redux";
-import { fileOptionsModal as FileOptionsModal } from "./index";
+import { FileOptionsModal } from "./index";
 
 configure({ adapter: new ReactSixteenAdapter() });
 
@@ -19,7 +19,6 @@ describe("Add resources modal", () => {
         fileName=""
         isOpen={true}
         onClose={functionMock}
-        onSubmit={functionMock}
         onDelete={functionMock}
         onDownload={functionMock}
       />

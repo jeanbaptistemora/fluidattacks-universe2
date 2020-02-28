@@ -22,7 +22,7 @@ import translate from "../../../../utils/translations/translate";
 import { isValidFileName, isValidFileSize } from "../../../../utils/validations";
 import { AddFilesModal } from "../../components/AddFilesModal/index";
 import { addTagsModal as AddTagsModal } from "../../components/AddTagsModal/index";
-import { fileOptionsModal as FileOptionsModal } from "../../components/FileOptionsModal/index";
+import { FileOptionsModal } from "../../components/FileOptionsModal/index";
 import { RemoveProjectModal } from "../../components/RemoveProjectModal";
 import { IDashboardState } from "../../reducer";
 import * as actions from "./actions";
@@ -432,7 +432,6 @@ const renderFiles: ((props: IResourcesViewProps) => JSX.Element) =
           fileName={props.optionsModal.rowInfo.fileName}
           isOpen={props.optionsModal.open}
           onClose={handleCloseOptionsModalClick}
-          onSubmit={handleAddFile}
           onDelete={handleDeleteFileClick}
           onDownload={handleDownloadFileClick}
         />
