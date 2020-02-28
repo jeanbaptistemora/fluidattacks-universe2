@@ -15,9 +15,9 @@ export interface IVulnsAttr {
 
 export interface IVulnRow {
   acceptanceDate: string; analyst: string; currentApprovalStatus: string; currentState: string; externalBts: string;
-  id: string; isNew: string; lastAnalyst: string; lastApprovedStatus: string; severity: string; specific: string;
-  tag: string; treatment: string; treatmentJustification: string; treatmentManager: string; vulnType: string;
-  where: string;
+  id: string; isNew: string; lastAnalyst: string; lastApprovedStatus: string; remediated: boolean; severity: string;
+  specific: string; tag: string; treatment: string; treatmentJustification: string; treatmentManager: string;
+  vulnType: string; where: string;
 }
 
 export interface IApproveVulnAttr {
@@ -59,6 +59,8 @@ export interface IVulnerabilitiesViewProps {
   editMode: boolean;
   editModePending?: boolean;
   findingId: string;
+  isRequestVerification?: boolean;
+  isVerifyRequest?: boolean;
   renderAsEditable?: boolean;
   separatedRow?: boolean;
   state: string;

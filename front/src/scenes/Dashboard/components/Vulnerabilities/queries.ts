@@ -44,6 +44,7 @@ export const GET_VULNERABILITIES: DocumentNode = gql`
     externalBts
     currentApprovalStatus
     lastApprovedStatus
+    remediated
   }
   `;
 

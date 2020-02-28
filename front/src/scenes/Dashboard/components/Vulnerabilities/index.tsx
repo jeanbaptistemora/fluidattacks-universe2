@@ -163,6 +163,7 @@ const groupSpecific: ((lines: IVulnType) => IVulnType) = (lines: IVulnType): IVu
         isNew: line[0].isNew,
         lastAnalyst: "",
         lastApprovedStatus: line[0].lastApprovedStatus,
+        remediated: line.every((row: IVulnRow) => row.remediated),
         severity: line.map(getSeverity)
           .filter(Boolean)
           .join(", "),
@@ -197,6 +198,7 @@ const newVulnerabilities: ((lines: IVulnType) => IVulnType) = (lines: IVulnType)
         translate.t("search_findings.tab_description.old"),
         lastAnalyst: line.lastAnalyst,
         lastApprovedStatus: line.lastApprovedStatus,
+        remediated: line.remediated,
         severity: getSeverity(line),
         specific: line.specific,
         tag: line.tag,
@@ -311,10 +313,15 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
       return result;
     };
     const isEditable: boolean = props.editMode && _.includes(["customer", "customeradmin"], props.userRole);
+    const canRequestVerification: boolean =  props.isRequestVerification === true
+      && _.includes(["customer", "customeradmin"], props.userRole);
+    const canVerifyRequest: boolean =  props.isVerifyRequest === true
+      && _.includes(["admin", "analyst"], props.userRole);
+    const hideSelectionColumn: boolean = !(isEditable || canRequestVerification || canVerifyRequest);
     const separatedRow: boolean = !_.isUndefined(props.separatedRow) ? props.separatedRow
     : false;
     const getAnalyst: boolean = !_.isUndefined(props.analyst) ? props.analyst : false;
-    const shouldGroup: boolean = !(props.editMode && separatedRow);
+    const shouldGroup: boolean = !(props.editMode && separatedRow) && !(canRequestVerification || canVerifyRequest);
 
     const handleOpenVulnSetClick: () => void = (): void => {
       setModalHidden(true);
@@ -733,6 +740,40 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 </React.Fragment>
             );
             };
+            const renderRequestVerification: (() => JSX.Element) = (): JSX.Element => (
+              <React.Fragment>
+                {canRequestVerification ?
+                  <Row>
+                    <Col mdOffset={5} md={4}>
+                      <Button
+                        bsStyle="success"
+                        onClick={undefined}
+                        disabled={!(arraySelectedRows.length > 0)}
+                      >
+                        <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.request_verify")}
+                      </Button>
+                    </Col><br/>
+                  </Row>
+                : undefined}
+              </React.Fragment>
+            );
+            const renderVerifyRequest: (() => JSX.Element) = (): JSX.Element => (
+              <React.Fragment>
+                {canVerifyRequest ?
+                  <Row>
+                    <Col mdOffset={5} md={4}>
+                      <Button
+                        bsStyle="success"
+                        onClick={undefined}
+                        disabled={!(arraySelectedRows.length > 0)}
+                      >
+                        <FluidIcon icon="verified" /> {translate.t("search_findings.tab_description.mark_verified")}
+                      </Button>
+                    </Col><br/>
+                  </Row>
+                : undefined}
+              </React.Fragment>
+            );
 
             const calculateRowsSelected: () => ICalculateRowsSelected =
             (): ICalculateRowsSelected  => {
@@ -875,8 +916,13 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     width: "12%",
                   });
                   }
-                const handleOnSelectInputs: ((row: IVulnRow, isSelect: boolean, index: number) => void) =
-                (row: IVulnRow, isSelect: boolean, index: number): void => {
+                const calculateIndex: ((row: IVulnRow, vulns: IVulnRow[]) => number) =
+                  (row: IVulnRow, vulns: IVulnRow[]): number => (
+                    vulns.reduce(
+                      (acc: number, vuln: IVulnRow, indexR: number) => (vuln.id === row.id ? indexR : acc), 0));
+                const handleOnSelectInputs: ((row: IVulnRow, isSelect: boolean) => void) =
+                (row: IVulnRow, isSelect: boolean): void => {
+                  const index: number = calculateIndex(row, dataInputs);
                   if (isSelect) {
                     const newSet: Set<string> = new Set([...arraySelectedRows, row.id]);
                     setArraySelectedRows(Array.from(newSet));
@@ -903,8 +949,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     setSelectRowsInputs([]);
                   }
                 };
-                const handleOnSelectLines: ((row: IVulnRow, isSelect: boolean, index: number) => void) =
-                (row: IVulnRow, isSelect: boolean, index: number): void => {
+                const handleOnSelectLines: ((row: IVulnRow, isSelect: boolean) => void) =
+                (row: IVulnRow, isSelect: boolean): void => {
+                  const index: number = calculateIndex(row, dataLines);
                   if (isSelect) {
                     const newSet: Set<string> = new Set([...arraySelectedRows, row.id]);
                     setArraySelectedRows(Array.from(newSet));
@@ -931,8 +978,9 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                     setSelectRowsLines([]);
                   }
                 };
-                const handleOnSelectPorts: ((row: IVulnRow, isSelect: boolean, index: number) => void) =
-                (row: IVulnRow, isSelect: boolean, index: number): void => {
+                const handleOnSelectPorts: ((row: IVulnRow, isSelect: boolean) => void) =
+                (row: IVulnRow, isSelect: boolean): void => {
+                  const index: number = calculateIndex(row, dataPorts);
                   if (isSelect) {
                     const newSet: Set<string> = new Set([...arraySelectedRows, row.id]);
                     setArraySelectedRows(Array.from(newSet));
@@ -961,7 +1009,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 };
                 const selectionModeInputs: SelectRowOptions = {
                   clickToSelect: false,
-                  hideSelectColumn: !isEditable,
+                  hideSelectColumn: hideSelectionColumn,
                   mode: "checkbox",
                   onSelect: handleOnSelectInputs,
                   onSelectAll: handleOnSelectAllInputs,
@@ -969,7 +1017,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 };
                 const selectionModeLines: SelectRowOptions = {
                   clickToSelect: false,
-                  hideSelectColumn: !isEditable,
+                  hideSelectColumn: hideSelectionColumn,
                   mode: "checkbox",
                   onSelect: handleOnSelectLines,
                   onSelectAll: handleOnSelectAllLines,
@@ -977,7 +1025,7 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                 };
                 const selectionModePorts: SelectRowOptions = {
                   clickToSelect: false,
-                  hideSelectColumn: !isEditable,
+                  hideSelectColumn: hideSelectionColumn,
                   mode: "checkbox",
                   onSelect: handleOnSelectPorts,
                   onSelectAll: handleOnSelectAllPorts,
@@ -1131,6 +1179,8 @@ const vulnsViewComponent: React.FC<IVulnerabilitiesViewProps> =
                         handleCloseModal={handleCloseTableSetClick}
                       />
                       {isEditable ? renderButtonUpdateVuln() : undefined}
+                      {renderRequestVerification()}
+                      {renderVerifyRequest()}
                       {props.editMode && _.includes(["admin", "analyst"], props.userRole)
                         ? <UploadVulnerabilites {...props} />
                         : undefined
