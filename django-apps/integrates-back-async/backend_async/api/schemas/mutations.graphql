@@ -1,5 +1,6 @@
 scalar Upload
 scalar GenericScalar
+scalar DateTime
 
 interface Payload {
     success: Boolean!
@@ -49,9 +50,9 @@ type SimpleFindingPayload implements Payload {
     finding: Finding
 }
 
-type AddProjectCommentPayload implements Payload {
+type AddCommentPayload implements Payload {
     success: Boolean!
-    comnment_id: String
+    comment_id: String
 }
 
 type RemoveProjectPayload implements Payload {
@@ -59,6 +60,22 @@ type RemoveProjectPayload implements Payload {
     findings_masked: Boolean
     users_removed: Boolean
     project_finished: Boolean
+}
+
+type ApproveDraftPayload implements Payload {
+    success: Boolean!
+    release_date: String
+}
+
+type SimpleProjectPayload implements Payload {
+    success: Boolean!
+    project: Project
+}
+
+type SignInPayload implements Payload {
+    success: Boolean!
+    authorized: Boolean
+    session_jwt: String
 }
 
 enum DeleteVulnerabilityJustification {
@@ -87,12 +104,93 @@ enum EvidenceDescriptionType {
     EVIDENCE5
 }
 
-enum Subscription {
+enum SubscriptionType {
     Continuous
     Oneshot
 }
 
+enum UpdateClientDescriptionTreatment {
+    IN_PROGRESS
+    ACCEPTED
+    ACCEPTED_UNDEFINED
+}
 
+enum FindingType {
+    SECURITY
+    HYGIENE
+}
+
+enum DeleteFindingJustification {
+    DUPLICATED
+    FALSE_POSITIVE
+    NOT_REQUIRED
+}
+
+enum ActionsAfterBlocking {
+    EXECUTE_OTHER_PROJECT_SAME_CLIENT
+    EXECUTE_OTHER_PROJECT_OTHER_CLIENT
+    NONE
+    OTHER
+    TRAINING
+}
+
+enum ActionsBeforeBlocking {
+    DOCUMENT_PROJECT
+    NONE
+    OTHER
+    TEST_OTHER_PART_TOE
+}
+
+enum EventAccessibility {
+    ENVIRONMENT
+    REPOSITORY
+}
+
+enum AffectedComponents {
+    FLUID_STATION
+    CLIENT_STATION
+    TOE_EXCLUSSION
+    DOCUMENTATION
+    LOCAL_CONNECTION
+    INTERNET_CONNECTION
+    VPN_CONNECTION
+    TOE_LOCATION
+    TOE_CREDENTIALS
+    TOE_PRIVILEGES
+    TEST_DATA
+    TOE_UNSTABLE
+    TOE_UNACCESSIBLE
+    TOE_UNAVAILABLE
+    TOE_ALTERATION
+    SOURCE_CODE
+    COMPILE_ERROR
+    OTHER
+}
+
+enum EventContext {
+    CLIENT
+    FLUID
+    OTHER
+    PLANNING
+    TELECOMMUTING
+}
+
+enum EventType {
+    AUTHORIZATION_SPECIAL_ATTACK
+    CLIENT_APPROVES_CHANGE_TOE
+    CLIENT_CANCELS_PROJECT_MILESTONE
+    CLIENT_DETECTS_ATTACK
+    CLIENT_EXPLICITLY_SUSPENDS_PROJECT
+    HIGH_AVAILABILITY_APPROVAL
+    INCORRECT_MISSING_SUPPLIES
+    OTHER
+    TOE_DIFFERS_APPROVED
+}
+
+enum EventEvidenceType {
+    IMAGE
+    FILE
+}
 
 type Mutation {
     acceptLegal(remember: Boolean): SimplePayload!
@@ -126,8 +224,65 @@ type Mutation {
 
     addAllProjectAccess(project_name: String!): SimplePayload!
     removeAllProjectAccess(project_name: String!): SimplePayload!
-    addProjectComment(content: String!, parent: String!, project_name: String!): AddProjectCommentPayload!
-    createProject(companies: [String!]!, description: String!, project_name: String!, subscription: Subscription): SimplePayload!
+    addProjectComment(content: String!,
+        parent: String!,
+        project_name: String!): AddCommentPayload!
+    createProject(companies: [String!]!,
+        description: String!,
+        project_name: String!,
+        subscription: SubscriptionType): SimplePayload!
     removeProject(project_name: String!): RemoveProjectPayload!
+    addFindingComment(content: String!,
+        finding_id: String!,
+        parent: String!,
+        type: String!): AddCommentPayload!
+    requestRemoveProject(project_name: String!): SimplePayload!
+    rejectRemoveProject(project_name: String!): SimplePayload!
+
+    verifyFinding(finding_id: String!, justification: String!): SimplePayload!
+    handleAcceptation(finding_id: String!,
+        observations: String!,
+        project_name: String!,
+        response: String!): SimplePayload!
+    requestVerification(finding_id: String!, justification: String!): SimplePayload!
+    updateDescription(actor: String!,
+        affected_systems: String!,
+        attack_vector_desc: String!,
+        cwe: String!,
+        description: String!,
+        finding_id: String!,
+        recommendation: String!,
+        records: String,
+        records_number: Int!,
+        requirements: String!,
+        risk: String,
+        scenario: String!,
+        threat: String!,
+        title: String!,
+        finding_type: String): SimpleFindingPayload!
+    updateClientDescription(acceptance_date: String, bts_url: String, finding_id: String!, treatment: UpdateClientDescriptionTreatment!, justification: String!, acceptance_status: String!): SimpleFindingPayload!
+
+    approveDraft(draft_id: String!): ApproveDraftPayload!
+    create_draft(cwe: String, description: String, origin: String, project_name: String!, recommendation: String, requirements: String, risk: String, threat: String, title: String!, type: FindingType): SimplePayload!
+    rejectDraft(finding_id: String!): SimplePayload!
+    deleteFinding(finding_id: String!, justification: DeleteFindingJustification!): SimplePayload!
+    submit_draft(finding_id: String!): SimplePayload!
+
+    add_event_comment(content: String!, event_id: String!, parent: String!): AddCommentPayload!
+    create_event(action_after_blocking: ActionsAfterBlocking!, action_before_blocking: ActionsBeforeBlocking!, accessibility: EventAccessibility!, affected_components: AffectedComponents, blocking_hours: Int, context: EventContext!, detail: String!, event_date: DateTime!, event_type: EventType!, file: Upload, image: Upload, project_name: String!): SimplePayload!
+    download_event_file(event_id: String!, file_name: String!): DownloadFilePayload!
+    update_event(event_id: String!): SimplePayload!
+    update_event_evidence(event_id: String!, evidence_type: EventEvidenceType!, file: Upload!): SimplePayload!
+    remove_event_evidence(event_id: String!, evidence_type: EventEvidenceType!): SimplePayload!
+    solve_event(event_id: String!, affectation: Int!, date: DateTime!): SimplePayload!
+
+    removeTag(project_name: String!,
+              tag: String!): SimpleProjectPayload!
+    addTags(project_name: String!, tags: String): SimpleProjectPayload!
+
+    setAlert(company: String!, message: String!, project_name: String!): SimplePayload!
+    sign_in(auth_token: String!, provider: String!, push_token: String): SignInPayload!
+
+    invalidateCache(pattern: String!): SimplePayload!
 }
 
